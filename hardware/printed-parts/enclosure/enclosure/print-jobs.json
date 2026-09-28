@@ -1809,6 +1809,149 @@
       "startup_spacing_trial": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-shared-circuit-stagger/observation.json",
       "postlaunch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-27-display-cover-reach-h2c-v1/restart-1/startup-reading.json",
       "completion_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-shared-circuit-stagger/completion-reading.json"
+    },
+    {
+      "date": "2026-09-28",
+      "printer": "H2C",
+      "parts": [
+        "hardware/printed-parts/enclosure/display-cover/retention-trial/display-receiver-retention-v2.stl"
+      ],
+      "job_name": "display-receiver-retention-black-z018-h2c-v2.gcode.3mf",
+      "printer_task_id": "1289537122",
+      "status": "printing",
+      "started_by": "Codex at Derek's request",
+      "observed_state": "RUNNING",
+      "observed_at_utc": "2026-09-28T07:11:33.425748+00:00",
+      "observed_print_error": 0,
+      "hms": [
+        {
+          "attr": 50333952,
+          "code": 131073
+        }
+      ],
+      "sliced_file": ".cache/prints/2026-09-28-display-retention-h2c/ready/display-receiver-retention-black-z018-h2c-v2.gcode.3mf",
+      "sliced_file_sha256": "086b993791984f98ef17e5ba6b3cef63ed859460fba1421978fd61b124d3fc94",
+      "gcode_sha256": "9c5cd3b229e0b6162dcaa8f3b8ec142915d2490b7f45f2b2841f88ad21ad0024",
+      "native_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-receiver-retention-h2c-v2/manifest.json",
+      "launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-receiver-retention-h2c-v2/launch.json",
+      "z_offset_mm": 0.18,
+      "effective_textured_plate_trim_mm": 0.16,
+      "nozzle": "left 0.4 mm Standard",
+      "filament": "Black Polymaker PET-GF; PET-CF mapping on left external spool 254.",
+      "estimated_seconds": 10386.498046875,
+      "filament_grams": 72.38487243652344,
+      "layer_count": 252,
+      "layer_height_mm": 0.24,
+      "first_layer_height_mm": 0.2,
+      "normal_wall_loops": 2,
+      "wall_sequence": "inner wall/outer wall, then infill",
+      "infill_wall_overlap": "15%",
+      "speed_settings": "Saved profile values.",
+      "support_policy": "Flat retaining bearings supported, with exposed removal lanes; all paths reviewed.",
+      "geometry": {
+        "hook_projection_mm": 3.6,
+        "leaf_span_mm": 75.0,
+        "skirt_inset_each_mm": 0.9,
+        "additional_hook_reach_mm": 0.5,
+        "bearing_clearance_mm": 0.9800000000000004,
+        "root_fillet_mm": 0.8,
+        "nose_depth_mm": 3.200000000000001,
+        "tip_depth_mm": 15.4,
+        "nominal_overlap_mm": 3.1000000000000085,
+        "minimum_overlap_at_lateral_float_mm": 2.8000000000000087,
+        "nominal_bearing_area_each_mm2": 232.50000000000063,
+        "minimum_bezel_stock_outside_leaf_root_mm": 0.5
+      },
+      "source_geometry_sha256": {
+        "hardware/printed-parts/enclosure/display-cover/retention-trial/display-receiver-retention-v2.stl": "e5c348b0058b9f5cc8b9ea2b9abebf393ec398b5120f946ccdf6af24fc3ab754"
+      },
+      "observed_layer": 0,
+      "observed_total_layers": 252,
+      "observed_remaining_minutes": 173,
+      "print_options": {
+        "timelapse": "On",
+        "auto_bed_leveling": "On",
+        "flow_dynamic_calibration": "Auto",
+        "nozzle_offset_calibration": "Auto"
+      },
+      "bed_clear_confirmed_by": "Derek: Both printers are free.",
+      "physical_result": "Pending physical fit and shake-retention test.",
+      "startup_spacing_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-receiver-retention-h2c-v2/startup-spacing.json",
+      "startup_error_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-receiver-retention-h2c-v2/startup-error.json",
+      "resume_attempted": false,
+      "postlaunch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-receiver-retention-h2c-v2/postlaunch-reading-2.json",
+      "startup_advisory": "Returned to RUNNING without an agent resume command; print_error is 0 but the overload HMS remains listed. Layer 0 startup is still in progress.",
+      "resume_observation": {
+        "last_observed_paused_at_utc": "2026-09-28T07:07:46.872408+00:00",
+        "first_observed_running_again_at_utc": "2026-09-28T07:10:21.800093+00:00",
+        "resume_source": "Not observed; no resume command issued by this agent.",
+        "exact_resume_time_known": false,
+        "resume_spacing_verified": false
+      }
+    },
+    {
+      "date": "2026-09-28",
+      "printer": "Mark2",
+      "parts": [
+        "hardware/printed-parts/enclosure/display-cover/retention-trial/display-cover-retention-v2.stl"
+      ],
+      "job_name": "display-cover-retention-black-z004-mark2-v12.gcode.3mf",
+      "printer_task_id": "1289548468",
+      "status": "printing",
+      "started_by": "Codex at Derek's request",
+      "observed_state": "RUNNING",
+      "observed_at_utc": "2026-09-28T07:11:32.486499+00:00",
+      "observed_print_error": 0,
+      "hms": [],
+      "sliced_file": ".cache/prints/2026-09-28-display-retention-mark2/ready/display-cover-retention-black-z004-mark2-v12.gcode.3mf",
+      "sliced_file_sha256": "1216e7ec7502bdc50ca3117e9d239eb158e8a245d9abd7c57543acd9cb8d687e",
+      "gcode_sha256": "e5886686470a27ee6d7940e4bb13743261eb8028af665e3186138a224b331001",
+      "native_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-cover-retention-mark2-v12/manifest.json",
+      "launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-cover-retention-mark2-v12/launch.json",
+      "z_offset_mm": 0.04,
+      "effective_textured_plate_trim_mm": 0.02,
+      "nozzle": "left 0.4 mm Standard",
+      "filament": "Black Polymaker PET-GF; PET-CF mapping on left external spool 254.",
+      "estimated_seconds": 2091.452880859375,
+      "filament_grams": 13.76988697052002,
+      "layer_count": 64,
+      "layer_height_mm": 0.24,
+      "first_layer_height_mm": 0.2,
+      "normal_wall_loops": 2,
+      "wall_sequence": "inner wall/outer wall, then infill",
+      "infill_wall_overlap": "15%",
+      "speed_settings": "Saved profile values.",
+      "support_policy": "Flat retaining bearings supported, with exposed removal lanes; all paths reviewed.",
+      "geometry": {
+        "hook_projection_mm": 3.6,
+        "leaf_span_mm": 75.0,
+        "skirt_inset_each_mm": 0.9,
+        "additional_hook_reach_mm": 0.5,
+        "bearing_clearance_mm": 0.9800000000000004,
+        "root_fillet_mm": 0.8,
+        "nose_depth_mm": 3.200000000000001,
+        "tip_depth_mm": 15.4,
+        "nominal_overlap_mm": 3.1000000000000085,
+        "minimum_overlap_at_lateral_float_mm": 2.8000000000000087,
+        "nominal_bearing_area_each_mm2": 232.50000000000063,
+        "minimum_bezel_stock_outside_leaf_root_mm": 0.5
+      },
+      "source_geometry_sha256": {
+        "hardware/printed-parts/enclosure/display-cover/retention-trial/display-cover-retention-v2.stl": "aca36dc0b4cc292253bbb0f16fa5c0a95263bf5eb523bb5154b783832ab11577"
+      },
+      "observed_layer": 0,
+      "observed_total_layers": 64,
+      "observed_remaining_minutes": 34,
+      "print_options": {
+        "timelapse": "On",
+        "auto_bed_leveling": "On",
+        "flow_dynamic_calibration": "Auto",
+        "nozzle_offset_calibration": "Auto"
+      },
+      "bed_clear_confirmed_by": "Derek: Both printers are free.",
+      "physical_result": "Pending physical fit and shake-retention test.",
+      "startup_spacing_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-cover-retention-mark2-v12/startup-spacing.json",
+      "postlaunch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-cover-retention-mark2-v12/postlaunch-reading-2.json"
     }
   ]
 }

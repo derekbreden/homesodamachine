@@ -1,0 +1,19 @@
+{
+  "minimum_seconds": 180,
+  "first_printer": "H2C",
+  "first_task_id": "1289537122",
+  "first_accepted_at_utc": "2026-09-28T07:00:01.535314+00:00",
+  "second_printer": "Mark2",
+  "earliest_second_send_utc": "2026-09-28T07:03:01.535314+00:00",
+  "second_started": true,
+  "second_start_method": "Bambu Connect UI through cua_repl; exact reviewed archive imported as a separate copy.",
+  "second_start_preparation_at_utc": "2026-09-28T07:05:13.626925+00:00",
+  "second_send_invoked_at_utc": "2026-09-28T07:07:48.011171+00:00",
+  "elapsed_at_second_send_seconds": 466.475857,
+  "second_task_id": "1289548468",
+  "second_accepted_at_utc": "2026-09-28T07:08:13.474860+00:00",
+  "accepted_job_interval_seconds": 491.939546,
+  "minimum_observed": true,
+  "h2c_state_at_mark2_start": "PAUSE; extrusion motor overload before layer 1.",
+  "earliest_h2c_resume_after_mark2_utc": "2026-09-28T07:11:13.474860+00:00"
+}

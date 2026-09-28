@@ -1,0 +1,35 @@
+[
+  {
+    "printer": "Mark2",
+    "observed_at_utc": "2026-09-28T07:10:21.283250+00:00",
+    "gcode_state": "RUNNING",
+    "job_id": "1289548468",
+    "subtask_name": "display-cover-retention-black-z004-mark2-v12.gcode.3mf",
+    "layer_num": 0,
+    "total_layer_num": 64,
+    "mc_remaining_time": 34,
+    "print_error": 0,
+    "hms": [],
+    "bed_temper": 30.0,
+    "bed_target_temper": 30.0
+  },
+  {
+    "printer": "H2C",
+    "observed_at_utc": "2026-09-28T07:10:21.800093+00:00",
+    "gcode_state": "RUNNING",
+    "job_id": "1289537122",
+    "subtask_name": "display-receiver-retention-black-z018-h2c-v2.gcode.3mf",
+    "layer_num": 0,
+    "total_layer_num": 252,
+    "mc_remaining_time": 173,
+    "print_error": 0,
+    "hms": [
+      {
+        "attr": 50333952,
+        "code": 131073
+      }
+    ],
+    "bed_temper": 33.0,
+    "bed_target_temper": 33.0
+  }
+]

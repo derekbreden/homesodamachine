@@ -1,0 +1,264 @@
+{
+  "pass": true,
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/display-cover/retention-trial/check_geometry.py": "a6b11d540be6ac5519badc2c1bda45120cba836d278b0b95796d4a2bf6013588",
+    "hardware/printed-parts/enclosure/display-cover/retention-trial/retention_trial.py": "fd5d1a754b5970f2fa7a5569b554f0329ec0af6f6e064202cbd281985273133c",
+    "hardware/printed-parts/enclosure/display-cover/display_cover.py": "968e20c88930aa2654254849cafecc38c48afd35b62a0e854dbf7da253c4a6c8",
+    "hardware/printed-parts/enclosure/display-cover/display-cover.step": "f98b9b5d69ada8585ae111687714db1a0fff641355ca416a5883cd5e868da930",
+    "hardware/printed-parts/enclosure/enclosure/_display_retention.py": "e0b32a1909d78e3b64641020e9c938df127ee7ad8bd9df244bf681ec8a4c03e8",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "4ca85222a43997e09289a133a820b726c431d9e95a319d308f89b3a01f803b00",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py": "fb290e6f377fc5f33790b7e6532c59ff0fdab0472b2f519d808b17106e8629fc",
+    "hardware/printed-parts/enclosure/display-cover/retention-trial/display-cover-retention-v2.step": "bf7641e3166fcf41df12c690fd3287c90c5246d84ccddc23c1ce668804915812",
+    "hardware/printed-parts/enclosure/display-cover/retention-trial/display-cover-retention-v2.stl": "aca36dc0b4cc292253bbb0f16fa5c0a95263bf5eb523bb5154b783832ab11577",
+    "hardware/printed-parts/enclosure/display-cover/retention-trial/display-receiver-retention-v2.step": "a55df6ec84c77d220d93b5fa8e9c036d14b500a3a742a95842a2ad871ce85084",
+    "hardware/printed-parts/enclosure/display-cover/retention-trial/display-receiver-retention-v2.stl": "e5c348b0058b9f5cc8b9ea2b9abebf393ec398b5120f946ccdf6af24fc3ab754"
+  },
+  "hook_projection_mm": 3.6,
+  "leaf_span_mm": 75.0,
+  "span_limit_for_root_edge_stock_mm": 75.30813184570759,
+  "minimum_bezel_stock_outside_leaf_root_mm": 0.5,
+  "root_fillet_mm": 0.8,
+  "skirt_inset_each_mm": 0.9,
+  "additional_hook_reach_mm": 0.5,
+  "bearing_clearance_mm": 0.9800000000000004,
+  "nose_depth_mm": 3.200000000000001,
+  "tip_depth_mm": 15.4,
+  "receiver_flex_edge_x_mm": 56.74999999999999,
+  "slot_end_clearance_each_mm": 0.5,
+  "nominal_overlap_mm": 3.1000000000000085,
+  "minimum_overlap_at_lateral_float_mm": 2.8000000000000087,
+  "nominal_bearing_area_each_mm2": 232.50000000000063,
+  "cover_symmetry_difference_mm3": {
+    "YZ": 0.0,
+    "XZ": 0.0
+  },
+  "visible_bezel_difference_mm3": 0.0,
+  "seating_and_retention": [
+    {
+      "lateral_mm": -0.21213203435596423,
+      "along_mm": -0.21213203435596423,
+      "seated_intersection_mm3": 0.0,
+      "hooks": [
+        {
+          "side": -1,
+          "overlap_mm": 3.312132034355973,
+          "bearing_area_mm2": 248.40990257669256,
+          "insertion_translation_mm": 3.412132034355973,
+          "insertion_envelope_intersection_mm3": 0.0
+        },
+        {
+          "side": 1,
+          "overlap_mm": 2.8878679656440442,
+          "bearing_area_mm2": 216.59009742329883,
+          "insertion_translation_mm": 2.9878679656440443,
+          "insertion_envelope_intersection_mm3": 0.0
+        }
+      ]
+    },
+    {
+      "lateral_mm": -0.3,
+      "along_mm": 0,
+      "seated_intersection_mm3": 0.0,
+      "hooks": [
+        {
+          "side": -1,
+          "overlap_mm": 3.4000000000000083,
+          "bearing_area_mm2": 254.999999999995,
+          "insertion_translation_mm": 3.5000000000000084,
+          "insertion_envelope_intersection_mm3": 0.0
+        },
+        {
+          "side": 1,
+          "overlap_mm": 2.8000000000000087,
+          "bearing_area_mm2": 209.99999999999636,
+          "insertion_translation_mm": 2.900000000000009,
+          "insertion_envelope_intersection_mm3": 0.0
+        }
+      ]
+    },
+    {
+      "lateral_mm": -0.21213203435596423,
+      "along_mm": 0.21213203435596423,
+      "seated_intersection_mm3": 0.0,
+      "hooks": [
+        {
+          "side": -1,
+          "overlap_mm": 3.312132034355973,
+          "bearing_area_mm2": 248.40990257669256,
+          "insertion_translation_mm": 3.412132034355973,
+          "insertion_envelope_intersection_mm3": 0.0
+        },
+        {
+          "side": 1,
+          "overlap_mm": 2.8878679656440442,
+          "bearing_area_mm2": 216.59009742329883,
+          "insertion_translation_mm": 2.9878679656440443,
+          "insertion_envelope_intersection_mm3": 0.0
+        }
+      ]
+    },
+    {
+      "lateral_mm": 0,
+      "along_mm": -0.3,
+      "seated_intersection_mm3": 0.0,
+      "hooks": [
+        {
+          "side": -1,
+          "overlap_mm": 3.1000000000000085,
+          "bearing_area_mm2": 232.49999999999565,
+          "insertion_translation_mm": 3.2000000000000086,
+          "insertion_envelope_intersection_mm3": 0.0
+        },
+        {
+          "side": 1,
+          "overlap_mm": 3.1000000000000085,
+          "bearing_area_mm2": 232.49999999999565,
+          "insertion_translation_mm": 3.2000000000000086,
+          "insertion_envelope_intersection_mm3": 0.0
+        }
+      ]
+    },
+    {
+      "lateral_mm": 0,
+      "along_mm": 0,
+      "seated_intersection_mm3": 0.0,
+      "hooks": [
+        {
+          "side": -1,
+          "overlap_mm": 3.1000000000000085,
+          "bearing_area_mm2": 232.49999999999565,
+          "insertion_translation_mm": 3.2000000000000086,
+          "insertion_envelope_intersection_mm3": 0.0
+        },
+        {
+          "side": 1,
+          "overlap_mm": 3.1000000000000085,
+          "bearing_area_mm2": 232.49999999999565,
+          "insertion_translation_mm": 3.2000000000000086,
+          "insertion_envelope_intersection_mm3": 0.0
+        }
+      ]
+    },
+    {
+      "lateral_mm": 0,
+      "along_mm": 0.3,
+      "seated_intersection_mm3": 0.0,
+      "hooks": [
+        {
+          "side": -1,
+          "overlap_mm": 3.1000000000000085,
+          "bearing_area_mm2": 232.49999999999565,
+          "insertion_translation_mm": 3.2000000000000086,
+          "insertion_envelope_intersection_mm3": 0.0
+        },
+        {
+          "side": 1,
+          "overlap_mm": 3.1000000000000085,
+          "bearing_area_mm2": 232.49999999999565,
+          "insertion_translation_mm": 3.2000000000000086,
+          "insertion_envelope_intersection_mm3": 0.0
+        }
+      ]
+    },
+    {
+      "lateral_mm": 0.21213203435596423,
+      "along_mm": -0.21213203435596423,
+      "seated_intersection_mm3": 0.0,
+      "hooks": [
+        {
+          "side": -1,
+          "overlap_mm": 2.8878679656440442,
+          "bearing_area_mm2": 216.590097423299,
+          "insertion_translation_mm": 2.9878679656440443,
+          "insertion_envelope_intersection_mm3": 0.0
+        },
+        {
+          "side": 1,
+          "overlap_mm": 3.312132034355973,
+          "bearing_area_mm2": 248.40990257669256,
+          "insertion_translation_mm": 3.412132034355973,
+          "insertion_envelope_intersection_mm3": 0.0
+        }
+      ]
+    },
+    {
+      "lateral_mm": 0.3,
+      "along_mm": 0,
+      "seated_intersection_mm3": 0.0,
+      "hooks": [
+        {
+          "side": -1,
+          "overlap_mm": 2.8000000000000087,
+          "bearing_area_mm2": 209.99999999999636,
+          "insertion_translation_mm": 2.900000000000009,
+          "insertion_envelope_intersection_mm3": 0.0
+        },
+        {
+          "side": 1,
+          "overlap_mm": 3.4000000000000083,
+          "bearing_area_mm2": 254.999999999995,
+          "insertion_translation_mm": 3.5000000000000084,
+          "insertion_envelope_intersection_mm3": 0.0
+        }
+      ]
+    },
+    {
+      "lateral_mm": 0.21213203435596423,
+      "along_mm": 0.21213203435596423,
+      "seated_intersection_mm3": 0.0,
+      "hooks": [
+        {
+          "side": -1,
+          "overlap_mm": 2.8878679656440442,
+          "bearing_area_mm2": 216.590097423299,
+          "insertion_translation_mm": 2.9878679656440443,
+          "insertion_envelope_intersection_mm3": 0.0
+        },
+        {
+          "side": 1,
+          "overlap_mm": 3.312132034355973,
+          "bearing_area_mm2": 248.40990257669256,
+          "insertion_translation_mm": 3.412132034355973,
+          "insertion_envelope_intersection_mm3": 0.0
+        }
+      ]
+    }
+  ],
+  "meshes": {
+    "display-cover-retention-v2": {
+      "watertight": true,
+      "one_body": true,
+      "bounds_mm": [
+        [
+          -65.44999694824219,
+          -41.5,
+          -15.399999618530273
+        ],
+        [
+          65.44999694824219,
+          41.5,
+          0.0
+        ]
+      ],
+      "triangles": 2608
+    },
+    "display-receiver-retention-v2": {
+      "watertight": true,
+      "one_body": true,
+      "bounds_mm": [
+        [
+          -71.0,
+          -43.435245513916016,
+          0.0
+        ],
+        [
+          71.0,
+          46.185245513916016,
+          60.702816009521484
+        ]
+      ],
+      "triangles": 1796
+    }
+  },
+  "scope": "Nominal geometry and rigid insertion envelopes; physical force, bending strain and printed-surface effects remain unmeasured."
+}

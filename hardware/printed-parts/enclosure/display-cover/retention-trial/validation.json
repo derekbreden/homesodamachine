@@ -1,0 +1,24 @@
+{
+  "geometry_check": "geometry-check.json",
+  "native_slice_verification": "Both native slices pass settings, archive integrity, material/nozzle mapping, source hashes, build-plate margins and emitted wall-layer checks.",
+  "support_contacts": "Actual emitted support roads span both bearings on each part, including unlabelled receiver paths.",
+  "post_publish_geometry_lint": {
+    "display-cover-retention-v2": {
+      "open": 0,
+      "answered": 6
+    },
+    "display-receiver-retention-v2": {
+      "open": 0,
+      "answered": 4
+    }
+  },
+  "bazel_build": "//:retention-trial passes; all seven outputs match the working tree.",
+  "repository_path_check": {
+    "passed": false,
+    "pre_existing_only": true,
+    "finding": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/final-route-review/README.md:50 references missing readiness-update-plan.md.",
+    "baseline_commit": "bc8de6dbd",
+    "new_trial_references_flagged": false
+  },
+  "physical_fit_and_retention": "Pending physical testing."
+}

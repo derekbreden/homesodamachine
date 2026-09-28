@@ -1,0 +1,14 @@
+{
+  "method": "Bambu Connect UI through cua_repl; one Send click; project_file SUCCESS; exact archive checked before import and exact G-code checked after import.",
+  "command_reply": {
+    "command": "project_file",
+    "result": "SUCCESS",
+    "reason": "SUCCESS",
+    "err_code": 0
+  },
+  "material_mapping_verified": true,
+  "print_options_verified": "Timelapse On; bed leveling On; flow calibration Auto; nozzle offset Auto.",
+  "original_archive_sha256": "1216e7ec7502bdc50ca3117e9d239eb158e8a245d9abd7c57543acd9cb8d687e",
+  "imported_copy_gcode_sha256": "e5886686470a27ee6d7940e4bb13743261eb8028af665e3186138a224b331001",
+  "accepted_task_id": "1289548468"
+}

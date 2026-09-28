@@ -1,0 +1,14 @@
+[sliver] Each 1.2 mm lip land is the full-projection face of the square hook, joined to the complete leaf over its 75 mm run.
+file: hardware/printed-parts/enclosure/display-cover/retention-trial/display-cover-retention-v2.step
+click: x=-65.450 y=0.000 z=-11.600
+click: x=65.450 y=0.000 z=-11.600
+
+[sliver] Each leaf ends in its full 1.3 mm wall section.
+file: hardware/printed-parts/enclosure/display-cover/retention-trial/display-cover-retention-v2.step
+click: x=-61.200 y=0.000 z=-15.400
+click: x=61.200 y=0.000 z=-15.400
+
+[ceiling] The exposed square hook bearing faces retain the cover. Bed-rooted supports span both bearings and peel outward beside the bezel before assembly.
+file: hardware/printed-parts/enclosure/display-cover/retention-trial/display-cover-retention-v2.step
+click: x=-63.650 y=0.000 z=-11.000
+click: x=63.650 y=0.000 z=-11.000

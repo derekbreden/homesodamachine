@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "piece": "display-receiver-retention-v2",
+  "inputs": {
+    "gcode": "support-labels-display-receiver-retention-v2.gcode",
+    "gcode_sha256": "eb74a723d4800a636aa58c162e872cf91a3d8c5415d405e0d5850d941843ab5c",
+    "model": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/display-cover/retention-trial/display-receiver-retention-v2.stl",
+    "model_sha256": "e5c348b0058b9f5cc8b9ea2b9abebf393ec398b5120f946ccdf6af24fc3ab754",
+    "profile": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-28-display-retention-h2c/display-receiver-retention-black-z018-h2c-v2-input.3mf",
+    "profile_sha256": "99d3a307f4efd9c96005e9feed9cc19752a237b079ec570b900ab50278fc28d7"
+  },
+  "slicer": "BambuStudio 02.08.02.61",
+  "first_layer_z_mm": 0.2,
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -162.5,
+      -158.625,
+      -0.0
+    ],
+    "plate_to_cad_translation_mm": [
+      -162.5,
+      -158.625,
+      -0.0
+    ]
+  },
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.24",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "support_bodies": 1,
+    "interface_islands": null,
+    "bed_rooted_bodies": 1,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "bodies_without_interface_labels": 1,
+    "explicit_interface_islands": 0,
+    "shortest_labelled_build_up_mm": null
+  },
+  "trees": [
+    {
+      "id": "tree-1",
+      "root": "bed",
+      "base_z_mm": 0.2,
+      "first_interface_z_mm": null,
+      "shortest_build_up_mm": null,
+      "top_z_mm": 55.16,
+      "bbox_xy_mm": [
+        96.0,
+        118.4,
+        229.2,
+        207.2
+      ],
+      "interfaces": [],
+      "interface_reading": "unlabelled",
+      "bbox_cad_xyz_mm": [
+        -66.5,
+        -40.225,
+        0.2,
+        66.7,
+        48.575,
+        55.16
+      ]
+    }
+  ],
+  "interfaces": [],
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up."
+}

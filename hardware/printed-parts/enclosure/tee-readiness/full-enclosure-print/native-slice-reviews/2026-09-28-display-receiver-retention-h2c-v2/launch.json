@@ -1,0 +1,26 @@
+{
+  "printer": "H2C",
+  "observed_at": "2026-09-28T07:00:01.535314+00:00",
+  "archive": {
+    "name": "display-receiver-retention-black-z018-h2c-v2.gcode.3mf",
+    "sha256": "086b993791984f98ef17e5ba6b3cef63ed859460fba1421978fd61b124d3fc94",
+    "gcode_sha256": "9c5cd3b229e0b6162dcaa8f3b8ec142915d2490b7f45f2b2841f88ad21ad0024",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "000000"
+      }
+    },
+    "objects": [
+      "display-receiver-retention-v2"
+    ]
+  },
+  "printer_task_id": "1289537122",
+  "gcode_state": "RUNNING",
+  "subtask_name": "display-receiver-retention-black-z018-h2c-v2.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 252,
+  "mc_remaining_time": 173
+}

@@ -1,0 +1,94 @@
+{
+  "pass": true,
+  "native_archive": ".cache/prints/2026-09-28-display-retention-h2c/ready/display-receiver-retention-black-z018-h2c-v2.gcode.3mf",
+  "native_archive_sha256": "086b993791984f98ef17e5ba6b3cef63ed859460fba1421978fd61b124d3fc94",
+  "gcode_sha256": "9c5cd3b229e0b6162dcaa8f3b8ec142915d2490b7f45f2b2841f88ad21ad0024",
+  "staged_input_sha256": "99d3a307f4efd9c96005e9feed9cc19752a237b079ec570b900ab50278fc28d7",
+  "source_hashes_current": true,
+  "native_export_settings_normalizations": {
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ],
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ]
+  },
+  "all_other_native_settings_match_staged": true,
+  "model_layers": {
+    "display-receiver-retention-v2": {
+      "wall_layer_count": 251,
+      "first": [
+        0.2,
+        0.2
+      ],
+      "last": [
+        60.2,
+        0.240002
+      ],
+      "layer_height_mm": 0.24,
+      "first_layer_height_mm": 0.2
+    }
+  },
+  "layer_count": 252,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "slicer_return_code": 0,
+  "slicer_warning_message": "",
+  "object_count": 1,
+  "triangles": 1796,
+  "estimated_seconds": 10386.498046875,
+  "estimated_grams_saved_profile_density": 72.38487243652344,
+  "path_bounds": {
+    "display-receiver-retention-v2": {
+      "bounds_xy_mm": [
+        [
+          91.39999999999999,
+          115.09
+        ],
+        [
+          233.6,
+          207.72
+        ]
+      ],
+      "minimum_plate_clearance_mm": 91.39999999999999,
+      "feature_segment_counts": {
+        "Support": 434476,
+        "Inner wall": 7374,
+        "Outer wall": 22375,
+        "Bottom surface": 962,
+        "Internal solid infill": 490,
+        "Sparse infill": 26333,
+        "Overhang wall": 998,
+        "Gap infill": 180,
+        "Floating vertical shell": 15717,
+        "Top surface": 720,
+        "Bridge": 676
+      }
+    }
+  },
+  "path_gaps": [],
+  "support_summaries": {
+    "display-receiver-retention-v2": {
+      "support_bodies": 1,
+      "interface_islands": null,
+      "bed_rooted_bodies": 1,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "bodies_without_interface_labels": 1,
+      "explicit_interface_islands": 0,
+      "shortest_labelled_build_up_mm": null
+    }
+  },
+  "support_only_on_declared_object": true,
+  "submitted": false
+}

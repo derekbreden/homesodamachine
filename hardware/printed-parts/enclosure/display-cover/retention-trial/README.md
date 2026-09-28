@@ -27,6 +27,8 @@ force, shake retention and printed contact finish are unmeasured for this pair.
 `retention_trial.py` writes both STEP/STL/viewer triplets. `prepare_print.py` prepares
 one part per printer. The printer starts use the shared-circuit three-minute minimum.
 
+Print records: [cover on Mark2](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-cover-retention-mark2-v12/README.md), [receiver on H2C](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-receiver-retention-h2c-v2/README.md).
+
 ## Sources
 [value](NAME) texts are updated by:
 - `/hardware/printed-parts/enclosure/display-cover/retention-trial/retention_trial.py`
