@@ -20,6 +20,9 @@ The selected diaphragm pump is the received [G Ganen sample](/hardware/reference
 
 Carbonator fabrication, the hydro-test, the passivation, and the working pressure are in [`/hardware/assembly/pressure-vessel.md`](/hardware/assembly/pressure-vessel.md), with the end-cap cut parts in [`/hardware/cut-parts/carbonation/`](/hardware/cut-parts/carbonation/) and the bench fixture that turns the tube under the welder in [`/hardware/assembly/weld-rotation-rig.md`](/hardware/assembly/weld-rotation-rig.md). The full water and CO2 plumbing — every fitting, the check valves, the beverage backflow preventer, the two-stage CO2 regulation and its setpoint — is in [`/hardware/assembly/cold-core.md`](/hardware/assembly/cold-core.md) and the valve-and-fluid topology in [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md). The parts themselves, and their order status, are in [`/hardware/ledger/`](/hardware/ledger/).
 
+The [gun orientation scene](/hardware/assembly/weld-position.md) shows the tube,
+recessed endcap and gun, with roll about the tangent at the joint.
+
 ### Refrigeration
 
 The cold comes from a refrigeration loop harvested from a countertop ice maker — its compressor, condenser, fan, capillary tube, and drier kept in service, with a copper coil wound around the carbonator doing the evaporator's work. Firmware cycles the compressor against temperatures read at the carbonator wall and the coil, with a freeze cutout. The refrigerant is a natural hydrocarbon, vented and recharged through a permanent service valve.
