@@ -1,6 +1,4 @@
-# Prompt: explore repeatable welding arrangements
-
-Run one coordinated exploratory swarm using Claude Opus 5.5 in this session while I sleep. I want substantial thought applied across a broad problem space: develop possibilities, challenge them, repair them, combine them, and bring back ideas that have become more useful through that work. I want the breadth of my examples and perspectives I have not thought of, together in this one run.
+Run one coordinated exploratory swarm. I want substantial thought applied across a broad problem space: develop possibilities, challenge them, repair them, combine them, and bring back ideas that have become more useful through that work. I want the breadth of my examples and perspectives I have not thought of, together in this one run.
 
 The assignment is exploration. The output is a collection of developed possibilities that I can understand and think with. Do not turn the run into a competition, a selection of a winning design, or a complete implementation plan. A polished proposal does not deserve preference over a rough one. A rough proposal does not deserve preference for being unusual, either. Huge unresolved problems are compatible with an idea being worth bringing back.
 
@@ -28,7 +26,7 @@ Welding arm 3 shows the level of substantive work I value. Its agents developed 
 
 Read the relevant current repository context, particularly `hardware/assembly/weld-position.md` and the physical sources it points to. The orientation scene is useful for understanding the gun, wire approach, laser dot, and three rotations. Its proxy geometry, opening pose, slider limits, and illustrative optical model are not measured hardware specifications or mandatory travel requirements.
 
-Separate my statements, physical facts, manufacturer documentation, and agent assumptions. Old agent-proposed tolerances, loads, material limits, budgets, and geometry must not silently become requirements that eliminate new ideas. When an unknown matters, work through plausible alternatives and label them. Do not wait for me to provide measurements overnight.
+Separate my statements, physical facts, manufacturer documentation, and agent assumptions. Old agent-proposed tolerances, loads, material limits, budgets, and geometry must not silently become requirements that eliminate new ideas. When an unknown matters, work through plausible alternatives and label them.
 
 Have the coordinator assemble a concise shared context from those sources. Give every explorer the relevant physical relationships and preserve the goals quoted above verbatim in each brief, including the initial briefs that omit solution examples. Avoid paying for every agent to independently reconstruct the same history.
 
@@ -111,7 +109,7 @@ Use analysis to reveal behavior and develop variants. Avoid spending the run fin
 
 Do not create scoreboards, numerical rankings, winners, runners-up, or a merged final design. Specific tradeoffs are useful. Development maturity, confidence, completeness, and the number of closed issues do not decide which ideas deserve my attention. Present a rough concept with a large unresolved obstacle clearly enough that it can receive the same serious consideration as a more developed one.
 
-Work autonomously while I sleep. Keep research, calculations, diagrams, and notes within the study. Do not change the current hardware design or welding procedure, operate equipment, order anything, or contact vendors. Save questions requiring my observations for the result, without using them as a reason to stop all other exploration.
+Work autonomously. Keep research, calculations, diagrams, and notes within the study. Do not change the current hardware design or welding procedure, operate equipment, order anything, or contact vendors. Save questions requiring my observations for the result, without using them as a reason to stop all other exploration.
 
 ## What to bring back
 
