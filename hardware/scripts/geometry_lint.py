@@ -92,7 +92,9 @@ PRINT_UP = {"enclosure-back-top": -1.0, "enclosure-pump-cap": -1.0, "funnel-mold
             "display-cover": -1.0,
             "display-cover-reach-05": -1.0,
             "display-cover-reach-10": -1.0,
-            "display-cover-retention-v2": -1.0}
+            "display-cover-retention-v2": -1.0,
+            "display-cover-retention-reach-060": -1.0,
+            "display-cover-retention-reach-075": -1.0}
 
 
 def print_up_of(stl):

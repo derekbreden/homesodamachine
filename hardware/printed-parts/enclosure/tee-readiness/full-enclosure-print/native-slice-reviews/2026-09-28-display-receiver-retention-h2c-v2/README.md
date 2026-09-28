@@ -1,10 +1,8 @@
 # Machine display retention receiver · H2C
 
-H2C task **1289537122** reports RUNNING at layer 0/252 at 2026-09-28T07:13:16.919764+00:00.
-Derek confirms clearing the extrusion overload and pressing Resume using the
-[cut–unload–remove–reload sequence](startup-recovery.json). The print-error field
-is 0; the overload HMS remains listed. The exact resume time is unknown, so its
-shared-circuit spacing cannot be verified. The agent issued no resume command.
+Completed as H2C task **1289537122**; FINISH at 252/252, with no errors or HMS reported.
+The [physical test](physical-acceptance.json) passes shaking and records a very small bow
+with the snaps fully engaged.
 
 One receiver in black PET-GF on the left 0.4 mm Standard nozzle.
 Native estimate: 173.1 minutes, 72.4 g using the saved profile density, 252 layers.
@@ -22,8 +20,7 @@ span both functional bearings. Removal effort and printed contact finish remain 
 
 The geometry reading covers symmetry, root stock, clear seating and rigid insertion
 envelopes. It does not measure bending strain, insertion force or shake retention.
-The physical test is for both leaves to return outward, both hooks to catch fully,
-the bezel to relax flat, and the cover to stay engaged when shaken.
+The remaining fit trial varies only cover arm reach against this same receiver.
 
 [Manifest](manifest.json), [geometry](geometry-check.json), [native verification](verification.json),
 [support review](support-removal-review.json) and [slice preview](preview.png).

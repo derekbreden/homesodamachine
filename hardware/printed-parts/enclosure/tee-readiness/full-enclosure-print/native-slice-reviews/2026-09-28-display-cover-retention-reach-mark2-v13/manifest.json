@@ -1,0 +1,74 @@
+{
+  "status": "printing",
+  "printer": "Mark2",
+  "submitted": true,
+  "plate_contents": [
+    "display-cover-retention-reach-060"
+  ],
+  "extra_arm_reach_mm": 0.6,
+  "increase_from_shake_tested_cover_mm": 0.1,
+  "same_receiver": "display-receiver-retention-v2",
+  "hook_projection_mm": 3.6,
+  "leaf_span_mm": 75,
+  "leaf_inset_each_mm": 0.9,
+  "root_fillet_mm": 0.8,
+  "native_archive": ".cache/prints/2026-09-28-display-retention-reach-mark2/ready/display-cover-reach060-black-z004-mark2-v13.gcode.3mf",
+  "native_archive_sha256": "d12cd3ff4b0e933730fd26734476281923cb6a3fffe2d6d2a1e6529779b1f30a",
+  "gcode_sha256": "f1f27ffc00f4c501f30843bc894c721b14f87244b6392b424c6fc114baa967ff",
+  "estimated_seconds": 1908.4998779296875,
+  "estimated_grams_saved_profile_density": 15.714247703552246,
+  "first_hook_layer_print_z_mm": 11.34,
+  "emitted_hook_bearing_bottom_z_mm": 11.1,
+  "precision_shaft_layer_ranges_mm": [
+    [
+      5.0,
+      5.1,
+      0.1
+    ]
+  ],
+  "other_layers_mm": 0.24,
+  "first_layer_mm": 0.2,
+  "settings": "Black PET-GF, PET-CF mapping; left 0.4 mm nozzle, two walls, saved speeds, wall order, temperatures and fans, 15% overlap; 0.24 mm support top gap.",
+  "z_trim_requested_mm": 0.04,
+  "z_trim_emitted_mm": [
+    0.0,
+    0.02
+  ],
+  "geometry_check": "geometry-check.json",
+  "native_check": "verification.json",
+  "support_review": "support-removal-review.json",
+  "geometry_lint": {
+    "open_findings": 0,
+    "answered_intentional_features": 6
+  },
+  "bazel_build": "//:retention-reach-trial; all six outputs match the working tree.",
+  "source_geometry_and_settings_sha256": {
+    "hardware/printed-parts/enclosure/display-cover/retention-reach-trial/display-cover-retention-reach-060.stl": "e8a7080951f152b62336f9973fc5829203a05caf2158db5e9b911cff88fd17f4",
+    "hardware/printed-parts/enclosure/display-cover/retention-reach-trial/display-cover-retention-reach-060.step": "468bcdd1a6b6682f0b5d1a459df8d0e289b787c73b657d492d95b878b8e2773c",
+    "hardware/printed-parts/enclosure/display-cover/retention-reach-trial/retention_reach_trial.py": "cc3349656e03bc590fb605ac1490286e0c0aaa63d77c85eeb2b1fdaf2c4cb2d9",
+    "hardware/printed-parts/enclosure/display-cover/retention-trial/retention_trial.py": "fd5d1a754b5970f2fa7a5569b554f0329ec0af6f6e064202cbd281985273133c",
+    "hardware/printed-parts/enclosure/display-cover/retention-reach-trial/geometry-check.json": "8c43530793801264fe7af1e9eaad0d0c186b9d824cca2e5fa80a18970f34e355",
+    "hardware/printed-parts/enclosure/display-cover/retention-reach-trial/prepare_print.py": "d332d7e3bc69954611593fb9c1d26e66d2efd99db0bb3b7964f77035734eebdb",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
+  },
+  "physical_fit": "Pending; assess bow, hook engagement, free play and shake retention in the existing receiver.",
+  "printer_task_id": "1291037500",
+  "accepted_at_utc": "2026-09-28T18:30:53.386440+00:00",
+  "launch_record": "launch.json",
+  "review_sha256": {
+    "prelaunch.json": "8429a0f811dbd3b35e9f038ff9e89455037f1a2ffd2e28ab24ca50a24fdfc482",
+    "preparation.json": "2ed3a7d0a6c128c70c027d840c02ceb0add61dd5bffd4d48e22451bc30bb357d",
+    "preview.png": "d69ed1ac3e36f0677559553450a97524049e208b70c57011e26a0825610bfd6a",
+    "support-audit-display-cover-retention-reach-060.json": "2fd299bbc72b56e8fe984d39a6db13d7659fbb5e6a6e4b395451031d566f8254",
+    "slice-command.json": "c49dc536e4e2abc2cf4ece80cc8789f6c9cd8bb7fe3265c9e0d6d4f69d9adf13",
+    "send.json": "e55897c739d1689e4481c2b31f773cf07aef6c75153a715c652900b1bc4e5d4f",
+    "README.md": "1676257ff52988c6fc16fc5555818078f718b29c445785eeee6a808e5847227e",
+    "postlaunch.json": "a518312a8af7e44610e4bdb4c0d723de78c92b255eb36ec435a39a9b4e9c3673",
+    "support-removal-review.json": "ab3af0e9e30b19e6a5b310b773f1738d34e488b9ee1b32ef426ff27c6f1d00f9",
+    "verification.json": "99bc71390c668eb978ebbf0c35f03cbbb2835fa8f09a6369fad49882289a3679",
+    "launch.json": "df18c031537e624673dc8ee0db2bae25605efcabe235111e0af2c3d1dbe1a5b5",
+    "slice-result.json": "3cd68b279d0ebf66ad5098a7c4151518fe0c5394224f3a1bad2203fe6d3a245c",
+    "prelaunch-status.json": "876bfd78f77e83b330e3c5af9aede50a635febeb1c9eb5b702404461f3c22108",
+    "geometry-check.json": "8c43530793801264fe7af1e9eaad0d0c186b9d824cca2e5fa80a18970f34e355"
+  }
+}

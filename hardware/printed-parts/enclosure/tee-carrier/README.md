@@ -4,6 +4,14 @@ One PET-GF plate, `enclosure-tee-carrier-plate`, carries Y-C, Y-D, Y-F and Y-G a
 column. It is [215 mm](LENGTH) long, flank face to flank face, so neither end stands past the
 enclosure. Two window covers close the flank openings aft of it.
 
+## Low-force sliding clearance
+
+The sliding fit requires **low-force clearance for rough overhang surfaces involved**.
+After Derek selects a [display-cover arm-reach trial](../display-cover/retention-reach-trial/README.md),
+the next fit task is to evaluate this clearance at the carrier’s sliding contact surfaces.
+Support-removal roughness and the available actuation force are part of that fit; the
+usual nominal clearance alone does not establish low-force motion.
+
 ## Plate
 
 The plate is [11.5 mm](PLATE_T) thick and [39.2 mm](PLATE_H) tall, the tee's

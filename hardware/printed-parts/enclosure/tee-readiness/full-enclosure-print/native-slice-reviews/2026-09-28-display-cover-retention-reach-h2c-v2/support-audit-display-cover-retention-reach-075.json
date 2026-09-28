@@ -1,0 +1,152 @@
+{
+  "schema": 1,
+  "piece": "display-cover-retention-reach-075",
+  "inputs": {
+    "gcode": "support-labels-display-cover-retention-reach-075.gcode",
+    "gcode_sha256": "0db8703687284af59dff61c9e526a0e20d8840bc51f6ed13a4e443e478c65dd6",
+    "model": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/display-cover/retention-reach-trial/display-cover-retention-reach-075.stl",
+    "model_sha256": "f5c91dedaaa1a543106f26a71483a42ab2a1da0e25b5f8a5f8d462acc13b1a13",
+    "profile": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-28-display-retention-reach-h2c/display-cover-reach075-black-z018-h2c-v2-input.3mf",
+    "profile_sha256": "4913566bef4d6736572fef77261f2b21be92fc5b1108c417f4cd86e496ef4285"
+  },
+  "slicer": "BambuStudio 02.08.02.61",
+  "first_layer_z_mm": 0.2,
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      -1.0,
+      0.0,
+      0.0,
+      0.0,
+      -1.0,
+      -162.5,
+      160.0,
+      -0.0
+    ]
+  },
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.24",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "support_bodies": 2,
+    "interface_islands": 2,
+    "bed_rooted_bodies": 2,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 10.533,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 2,
+    "shortest_labelled_build_up_mm": 10.533
+  },
+  "trees": [
+    {
+      "id": "tree-1",
+      "root": "bed",
+      "base_z_mm": 0.2,
+      "first_interface_z_mm": 10.733,
+      "shortest_build_up_mm": 10.533,
+      "top_z_mm": 11.01,
+      "bbox_xy_mm": [
+        92.0,
+        116.4,
+        101.2,
+        203.6
+      ],
+      "interfaces": [
+        "interface-1"
+      ],
+      "interface_reading": "explicit_feature",
+      "bbox_cad_xyz_mm": [
+        -70.5,
+        -43.6,
+        -11.01,
+        -61.3,
+        43.6,
+        -0.2
+      ]
+    },
+    {
+      "id": "tree-2",
+      "root": "bed",
+      "base_z_mm": 0.2,
+      "first_interface_z_mm": 10.733,
+      "shortest_build_up_mm": 10.533,
+      "top_z_mm": 11.01,
+      "bbox_xy_mm": [
+        224.4,
+        120.8,
+        230.0,
+        199.2
+      ],
+      "interfaces": [
+        "interface-2"
+      ],
+      "interface_reading": "explicit_feature",
+      "bbox_cad_xyz_mm": [
+        61.9,
+        -39.2,
+        -11.01,
+        67.5,
+        39.2,
+        -0.2
+      ]
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "interface-1",
+      "first_z_mm": 10.733,
+      "last_z_mm": 11.01,
+      "bbox_xy_mm": [
+        96.8,
+        122.0,
+        100.0,
+        198.0
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 10.533,
+      "bbox_cad_xyz_mm": [
+        -65.7,
+        -38.0,
+        -11.01,
+        -62.5,
+        38.0,
+        -10.733
+      ]
+    },
+    {
+      "id": "interface-2",
+      "first_z_mm": 10.733,
+      "last_z_mm": 11.01,
+      "bbox_xy_mm": [
+        225.2,
+        122.4,
+        228.0,
+        198.0
+      ],
+      "tree": "tree-2",
+      "build_up_mm": 10.533,
+      "bbox_cad_xyz_mm": [
+        62.7,
+        -38.0,
+        -11.01,
+        65.5,
+        37.6,
+        -10.733
+      ]
+    }
+  ],
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up."
+}

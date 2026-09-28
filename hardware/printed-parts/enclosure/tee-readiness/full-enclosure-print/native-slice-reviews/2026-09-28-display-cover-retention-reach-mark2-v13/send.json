@@ -1,0 +1,13 @@
+{
+  "printer": "Mark2",
+  "part": "display-cover-retention-reach-060",
+  "ui_observed": "Bambu Connect Send to print: Mark2; left Ext PET-CF; right nozzle unused; Send enabled.",
+  "options": {
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "send_clicks_planned": 1,
+  "bed_clear_confirmed": "Derek: both printers are free."
+}

@@ -1,0 +1,73 @@
+{
+  "pass": true,
+  "variants": {
+    "display-cover-retention-reach-060": {
+      "extra_arm_reach_mm": 0.6,
+      "increase_from_tested_cover_mm": 0.09999999999999998,
+      "shoulder_depth_mm": 11.1,
+      "tip_depth_mm": 15.5,
+      "nominal_bearing_clearance_mm": 1.08,
+      "symmetry_difference_mm3": {
+        "YZ": 0.0,
+        "XZ": 0.0
+      },
+      "bezel_and_root_difference_mm3": 0.0,
+      "translated_hook_difference_mm3": 0.0,
+      "seated_receiver_intersection_mm3": 0.0,
+      "hook_bearings": [
+        {
+          "side": -1,
+          "engaged_area_mm2": 232.49999999999565
+        },
+        {
+          "side": 1,
+          "engaged_area_mm2": 232.49999999999565
+        }
+      ],
+      "watertight": true,
+      "one_body": true,
+      "triangles": 2608
+    },
+    "display-cover-retention-reach-075": {
+      "extra_arm_reach_mm": 0.75,
+      "increase_from_tested_cover_mm": 0.25,
+      "shoulder_depth_mm": 11.25,
+      "tip_depth_mm": 15.65,
+      "nominal_bearing_clearance_mm": 1.2300000000000004,
+      "symmetry_difference_mm3": {
+        "YZ": 0.0,
+        "XZ": 0.0
+      },
+      "bezel_and_root_difference_mm3": 0.0,
+      "translated_hook_difference_mm3": 0.0,
+      "seated_receiver_intersection_mm3": 0.0,
+      "hook_bearings": [
+        {
+          "side": -1,
+          "engaged_area_mm2": 232.49999999999565
+        },
+        {
+          "side": 1,
+          "engaged_area_mm2": 232.49999999999565
+        }
+      ],
+      "watertight": true,
+      "one_body": true,
+      "triangles": 2608
+    }
+  },
+  "fixed_receiver": "display-receiver-retention-v2",
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/display-cover/retention-reach-trial/check_geometry.py": "b22bee71461fe04f2ecab8db299f1684a67a0d494c1a81cde09f7a199b496aa1",
+    "hardware/printed-parts/enclosure/display-cover/retention-reach-trial/retention_reach_trial.py": "cc3349656e03bc590fb605ac1490286e0c0aaa63d77c85eeb2b1fdaf2c4cb2d9",
+    "hardware/printed-parts/enclosure/display-cover/retention-trial/retention_trial.py": "fd5d1a754b5970f2fa7a5569b554f0329ec0af6f6e064202cbd281985273133c",
+    "hardware/printed-parts/enclosure/display-cover/retention-trial/display-cover-retention-v2.step": "bf7641e3166fcf41df12c690fd3287c90c5246d84ccddc23c1ce668804915812",
+    "hardware/printed-parts/enclosure/display-cover/retention-trial/display-receiver-retention-v2.step": "a55df6ec84c77d220d93b5fa8e9c036d14b500a3a742a95842a2ad871ce85084",
+    "hardware/printed-parts/enclosure/display-cover/retention-trial/display-receiver-retention-v2.stl": "e5c348b0058b9f5cc8b9ea2b9abebf393ec398b5120f946ccdf6af24fc3ab754",
+    "hardware/printed-parts/enclosure/display-cover/retention-reach-trial/display-cover-retention-reach-060.step": "468bcdd1a6b6682f0b5d1a459df8d0e289b787c73b657d492d95b878b8e2773c",
+    "hardware/printed-parts/enclosure/display-cover/retention-reach-trial/display-cover-retention-reach-060.stl": "e8a7080951f152b62336f9973fc5829203a05caf2158db5e9b911cff88fd17f4",
+    "hardware/printed-parts/enclosure/display-cover/retention-reach-trial/display-cover-retention-reach-075.step": "b7ae4725f519b04cf498ea189e53499e8864955824674527288794f4b0c22b21",
+    "hardware/printed-parts/enclosure/display-cover/retention-reach-trial/display-cover-retention-reach-075.stl": "f5c91dedaaa1a543106f26a71483a42ab2a1da0e25b5f8a5f8d462acc13b1a13"
+  },
+  "scope": "Exact arm extension, preserved hook/bezel/root geometry, symmetry and nominal seating/engagement. Printed force and surface roughness require the physical trial."
+}

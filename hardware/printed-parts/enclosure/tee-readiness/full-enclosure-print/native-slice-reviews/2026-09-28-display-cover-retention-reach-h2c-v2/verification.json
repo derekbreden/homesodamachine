@@ -1,0 +1,110 @@
+{
+  "pass": true,
+  "native_archive": ".cache/prints/2026-09-28-display-retention-reach-h2c/ready/display-cover-reach075-black-z018-h2c-v2.gcode.3mf",
+  "native_archive_sha256": "2e9abe38a5a388a217e8f8a3abfef5cc5e3945eeba13bda7402c7e39208808e1",
+  "gcode_sha256": "481a40bdc746a518619d0813b757957334cf214f3d88bcef8b5e052cf80197cf",
+  "staged_input_sha256": "4913566bef4d6736572fef77261f2b21be92fc5b1108c417f4cd86e496ef4285",
+  "source_hashes_current": true,
+  "native_export_settings_normalizations": {
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ],
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ]
+  },
+  "all_other_native_settings_match_staged": true,
+  "model_layers": {
+    "display-cover-retention-reach-075": {
+      "wall_layer_count": 66,
+      "first": [
+        0.2,
+        0.2
+      ],
+      "last": [
+        15.57,
+        0.24
+      ],
+      "layer_height_mm": 0.24,
+      "first_layer_height_mm": 0.2,
+      "precision_layers_mm": [
+        [
+          5.12,
+          0.12
+        ],
+        [
+          5.25,
+          0.13
+        ]
+      ]
+    }
+  },
+  "layer_count": 104,
+  "first_hook_layer_print_z_mm": 11.49,
+  "emitted_hook_bearing_bottom_z_mm": 11.25,
+  "nominal_hook_bearing_bottom_z_mm": 11.25,
+  "actual_reach_increase_from_tested_cover_mm": 0.25,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "slicer_return_code": 0,
+  "slicer_warning_message": "",
+  "object_count": 1,
+  "triangles": 2608,
+  "estimated_seconds": 1911.690673828125,
+  "estimated_grams_saved_profile_density": 15.813725471496582,
+  "path_bounds": {
+    "display-cover-retention-reach-075": {
+      "bounds_xy_mm": [
+        [
+          91.727,
+          116.153
+        ],
+        [
+          230.17,
+          203.87199999999999
+        ]
+      ],
+      "minimum_plate_clearance_mm": 91.727,
+      "feature_segment_counts": {
+        "Support": 10163,
+        "Inner wall": 1140,
+        "Outer wall": 1578,
+        "Bottom surface": 1178,
+        "Internal solid infill": 7503,
+        "Sparse infill": 1069,
+        "Bridge": 1264,
+        "Top surface": 932,
+        "Gap infill": 112,
+        "Support transition": 334,
+        "Support interface": 318,
+        "Overhang wall": 12,
+        "Floating vertical shell": 84
+      }
+    }
+  },
+  "path_gaps": [],
+  "support_summaries": {
+    "display-cover-retention-reach-075": {
+      "support_bodies": 2,
+      "interface_islands": 2,
+      "bed_rooted_bodies": 2,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 10.533,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 2,
+      "shortest_labelled_build_up_mm": 10.533
+    }
+  },
+  "support_only_on_declared_object": true,
+  "submitted": false
+}
