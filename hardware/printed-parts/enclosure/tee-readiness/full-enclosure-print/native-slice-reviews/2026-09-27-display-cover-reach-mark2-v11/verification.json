@@ -1,0 +1,95 @@
+{
+  "pass": true,
+  "native_archive": ".cache/prints/2026-09-27-display-cover-reach-mark2/ready/display-cover-reach05-inset09-black-z004-mark2-v11.gcode.3mf",
+  "native_archive_sha256": "d772b498c6eb9525fc0e1e9af1ffd157bd680d426356dbc955d8c206b519602f",
+  "gcode_sha256": "d58c95f64f110d5e28aa3c73811bf429515394fab010cf6abb27e1579eb1ed34",
+  "staged_input_sha256": "7c407db128857ba777a1e05413ddd27707a015558cb8995ad29a1b41e86409dd",
+  "source_hashes_current": true,
+  "native_export_settings_normalizations": {
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ],
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ]
+  },
+  "all_other_native_settings_match_staged": true,
+  "model_layers": {
+    "display-cover-reach-05": {
+      "wall_layer_count": 58,
+      "first": [
+        0.2,
+        0.2
+      ],
+      "last": [
+        13.88,
+        0.24
+      ],
+      "layer_height_mm": 0.24,
+      "first_layer_height_mm": 0.2
+    }
+  },
+  "layer_count": 58,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "slicer_return_code": 0,
+  "slicer_warning_message": "",
+  "object_count": 1,
+  "triangles": 2104,
+  "estimated_seconds": 1439.080810546875,
+  "estimated_grams_saved_profile_density": 8.645023345947266,
+  "path_bounds": {
+    "display-cover-reach-05": {
+      "bounds_xy_mm": [
+        [
+          90.06400000000001,
+          118.39999999999999
+        ],
+        [
+          234.946,
+          201.6
+        ]
+      ],
+      "minimum_plate_clearance_mm": 90.054,
+      "feature_segment_counts": {
+        "Support": 10894,
+        "Inner wall": 1076,
+        "Outer wall": 1501,
+        "Bottom surface": 1178,
+        "Internal solid infill": 7461,
+        "Sparse infill": 278,
+        "Bridge": 1226,
+        "Top surface": 668,
+        "Gap infill": 112,
+        "Support interface": 126,
+        "Overhang wall": 12,
+        "Floating vertical shell": 18
+      }
+    }
+  },
+  "path_gaps": [],
+  "support_summaries": {
+    "display-cover-reach-05": {
+      "support_bodies": 2,
+      "interface_islands": 2,
+      "bed_rooted_bodies": 2,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 10.32,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 2,
+      "shortest_labelled_build_up_mm": 10.32
+    }
+  },
+  "support_only_on_display_cover": true,
+  "submitted": false
+}

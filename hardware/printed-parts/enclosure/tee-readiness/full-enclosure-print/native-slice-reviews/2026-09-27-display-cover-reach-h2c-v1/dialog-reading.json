@@ -1,0 +1,17 @@
+{
+  "printer": "H2C",
+  "send_enabled": true,
+  "dialog_verified": true,
+  "slice_nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "mapped_filament": "Left Nozzle / Ext PET-CF",
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "dry_run": "Dialog cancelled without sending."
+}

@@ -1,0 +1,141 @@
+{
+  "project": "display-cover-reach10-inset09-black-z018-h2c-v1-input.3mf",
+  "settings_source": "hardware/printed-parts/petgf.3mf",
+  "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "settings_sha256": "2d4948a41dae85dd44346942fb621ae262ac82142255fc259c230fa253b58221",
+  "source_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "409b1516f0401361a02b18a34420c10ca83bc33615e8896cade2fea42edee871",
+      "requested_z_trim_mm": 0.18
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.18 Z trim"
+    }
+  },
+  "printer": "H2C",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 15.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "display-cover-reach-10",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-10.stl",
+      "stl_sha256": "f4fc128fec11e948c44161284470909c6e8b3efb53875a8f696a81bb282ca535",
+      "triangles": 2104,
+      "rotation_x_degrees": 180.0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        -7.150000095367432
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        -1.0,
+        1.2246467991473532e-16,
+        0.0,
+        -1.2246467991473532e-16,
+        -1.0,
+        162.5,
+        160.0,
+        7.150000095367437
+      ],
+      "plate_translation_mm": [
+        162.5,
+        160.0,
+        7.150000095367437
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          98.8499984741211,
+          118.5,
+          0.0
+        ],
+        [
+          226.1500015258789,
+          201.5,
+          14.30000019073487
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.980478252036846e-10
+    }
+  ],
+  "project_sha256": "b6c21ff33395ede473bdecd32c00ab81784e31dc9c17b56f269f71d42c263087",
+  "settings_preserved_byte_for_byte": false,
+  "source_geometry_and_settings_sha256": {
+    "hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-10.stl": "f4fc128fec11e948c44161284470909c6e8b3efb53875a8f696a81bb282ca535",
+    "hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-10.step": "f53eb76a2643937f31327a09da01cd0d75092ba869b1bdb9418ed599e20d2b85",
+    "hardware/printed-parts/enclosure/display-cover/reach-trial/cover_reach_trial.py": "b6ed3c009bc46836403863a404744c91e97e3da27892ce6e3eeb3322dc92f2a4",
+    "hardware/printed-parts/enclosure/display-cover/reach-trial/geometry-check.json": "66d5a79e4beb36bb7f6e3c8b8584994e8ff498b32629b12819c3031165d289a5",
+    "hardware/printed-parts/enclosure/display-cover/reach-trial/prepare_print.py": "fc1b76e7f69b4c97745f4565b6d769676a5c121623ccd8f1e5bc9636cbe16bca",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
+  },
+  "intentional_process_and_mapping_overrides": {
+    "extruder_ams_count": [
+      "1#0|4#0",
+      "1#0|4#0"
+    ],
+    "support_remove_small_overhang": "0",
+    "support_top_z_distance": "0.24"
+  },
+  "requested_z_trim_mm": 0.18,
+  "expected_textured_plate_trim_mm": 0.16,
+  "orientation": "X180: visible face on plate, skirts up.",
+  "skirt_inset_each_mm": 0.9,
+  "additional_hook_reach_mm": 1.0,
+  "support_policy": "Two removable bed-rooted supports under exposed square hook bearing faces.",
+  "layer_policy": "0.24 mm with 0.20 mm first layer. Bezel rounds are in XY only."
+}

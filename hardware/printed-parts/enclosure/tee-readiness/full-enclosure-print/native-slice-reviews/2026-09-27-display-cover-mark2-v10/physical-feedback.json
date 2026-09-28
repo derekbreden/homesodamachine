@@ -1,0 +1,19 @@
+{
+  "reported_by": "Derek in this conversation",
+  "date_local": "2026-09-27",
+  "cover_printer_task_id": "1289195332",
+  "receiver_printer_task_id": "1282488338",
+  "observations": [
+    "The cover bows during insertion while the leaves are deflected.",
+    "The hooks do not pass fully into engagement beneath the receiver ledges. The leaves remain angled and transmit the insertion bow to the bezel.",
+    "Only a tiny outward movement and a click occur; the hook does not move across the ledge.",
+    "The rough, low-hanging surface left after support removal requires more sliding force than the leaves provide.",
+    "The pump cartridge can slide past comparable roughness under hand force; its weight makes the extra sliding resistance relatively small."
+  ],
+  "physical_fit": "Hooks do not fully engage; insertion deflection remains.",
+  "cause_attribution": "Derek identifies supported-surface interference as the obstruction to spring-back.",
+  "measured_force": false,
+  "support_residue_height_measured": false,
+  "requested_trial": "Increase hook reach by approximately 0.5 to 1 mm and restore outward leaf travel.",
+  "comparison": "Both reach trials use 0.9 mm skirt inset; Mark2 has 0.5 mm extra reach and H2C has 1.0 mm extra reach."
+}
