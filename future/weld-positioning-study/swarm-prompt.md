@@ -8,9 +8,15 @@ The assignment is exploration. The output is a collection of developed possibili
 
 I am developing a home soda machine and need to learn how to reliably weld its carbonator. Repeatability makes each physical experiment informative: reproduce a baseline, deliberately change a parameter, and interpret the result. I want the knowledge to accumulate in equipment and a reproducible process, so success can eventually be transferred to someone besides me. Positioning and aiming the X1 Pro gun relative to the tube and recessed endcap are central to this study. Measurement, support, cable handling, workpiece positioning, and how an arrangement is used can change that problem substantially.
 
-I like building things. I like printing things. This is fun for me, and I would like to build something. I also want things that really function, and function very well. Scanning a gun and printing a shell that fits it are established strengths here. Treat those capabilities as useful design freedom.
+My goals, in my original words from the request for this swarm:
 
-Low prices, short lead times, and high sales volume materially affect what is feasible for me. Please investigate the world of ordinary, widely available products and components. Industrial practice built around quotations and six-to-eight-week lead times is a poor default for this shop. Cheap parts can support an ambitious, capable machine. There is no project budget for this exploration. Do not inherit spending caps from earlier conversations or use estimated cost to stop developing an idea. Bring back useful price and availability information for later decisions, and let affordable components suggest additional possibilities.
+> I do need agents to consider low lead times and low prices and high sales volume, as this dramatically impacts the feasibility of any option, and is something agents training corpus has made them woefully inept on, because "real" manufacturers, real engineers, are so often working in places where "quotes and 6 to 8 week lead times" are SOP, and so we have this unique aspect of our situation that must be considered. And there are others, like that I like building things, and I like printing things. And this is fun for me, and I'd like to build something. But I also like making things that work, that really function, and function very well.
+
+My correction about introducing a budget:
+
+> No, no budget for any of this please. That's a much later reason to cut an idea, not a reason to stop it early.
+
+These all remain part of the goals as defined in my original words. Do not inherit spending caps from earlier conversations. Scanning a gun and printing a shell that fits it are established capabilities here.
 
 In **Explore automated tube laser setup** (Codex task `01a0e698-77cb-7853-98b5-6a55064b3e5e`), I described motorized positioning and software-controlled observation, with an AI able to conduct repeated laser-dot dry-run experiments across tubes. Manual setup and partial arrangements remain useful contributions to that broader goal.
 
@@ -90,7 +96,7 @@ Use any vendor that supports the practical case: currently available, short lead
 
 One or a few representative sources may be enough to establish that an idea has a practical route. We do not need every bolt sourced, every link independently reopened, a final order list, vendor quotations, or a procurement audit. Share useful findings across the swarm to avoid redundant searching. If a critical availability claim cannot be checked, leave it explicitly unresolved and continue the conceptual work.
 
-I value low prices and ready availability because they expand what I can build and try. Do not infer that I want only the cheapest rig, that printing is a concession, or that a more expensive industrial component is automatically better. Describe the contribution of the bought and printed parts to an arrangement that could function well.
+Carry the goals quoted above into the development of each idea. Describe the contribution of the bought and printed parts to an arrangement that could function well.
 
 ## Keep the work at the requested depth
 
