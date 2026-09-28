@@ -41,7 +41,7 @@ The scene's dimension check holds those values against the fabrication sources.
 The gun is a geometric proxy based on the X1 Pro manual's section 3.4 drawing
 (253 × 143 × 34 mm overall). Its housing sections, grip, wire guide, 60° initial
 pitch and 16 mm nozzle clearance are illustrative. The opening grip-axis roll
-is 45°, hole-axis roll is 35°, and vertical-axis rotation is 0°.
+is 45°, hole-axis roll is 30°, and vertical-axis rotation is −15°.
 The straight 2 mm laser sweep intersects the modeled surfaces at their first
 hit; it illustrates orientation, without calculating wall/cap energy percentages
 or establishing a welding setup. Gun scanning and measured optical geometry
