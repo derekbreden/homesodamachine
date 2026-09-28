@@ -1,0 +1,48 @@
+{
+  "pass": true,
+  "native_archive_sha256": "2e9abe38a5a388a217e8f8a3abfef5cc5e3945eeba13bda7402c7e39208808e1",
+  "gcode_sha256": "481a40bdc746a518619d0813b757957334cf214f3d88bcef8b5e052cf80197cf",
+  "part": "display-cover-retention-reach-075",
+  "support_road_segments_examined": 10815,
+  "include_unlabelled_support": true,
+  "contacts_below_both_bearings": [
+    {
+      "side": -1,
+      "road_samples_below_bearing": 441,
+      "local_along_leaf_span_mm": [
+        -37.41999999999999,
+        37.251999999999995
+      ],
+      "vertical_distance_to_nominal_bearing_plane_mm": [
+        0.24000000000000554,
+        0.5170000000000048
+      ]
+    },
+    {
+      "side": 1,
+      "road_samples_below_bearing": 441,
+      "local_along_leaf_span_mm": [
+        -37.47999999999999,
+        37.262
+      ],
+      "vertical_distance_to_nominal_bearing_plane_mm": [
+        0.24000000000000554,
+        0.5170000000000048
+      ]
+    }
+  ],
+  "summary": {
+    "support_bodies": 2,
+    "interface_islands": 2,
+    "bed_rooted_bodies": 2,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 10.533,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 2,
+    "shortest_labelled_build_up_mm": 10.533
+  },
+  "removal_lane": "Two fully exposed outside lanes; peel supports outward beside the bezel.",
+  "physical_support_removal_tested": false,
+  "visible_round_policy": "Bezel rounds are in XY; the small inner leaf-root fillets are hidden structural faces.",
+  "reading_scope": "Support roads span both square bearings. This does not measure printed finish, removal effort, insertion force or retention."
+}

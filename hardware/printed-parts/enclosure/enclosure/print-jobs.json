@@ -1818,17 +1818,12 @@
       ],
       "job_name": "display-receiver-retention-black-z018-h2c-v2.gcode.3mf",
       "printer_task_id": "1289537122",
-      "status": "printing",
+      "status": "completed",
       "started_by": "Codex at Derek's request",
-      "observed_state": "RUNNING",
-      "observed_at_utc": "2026-09-28T07:13:16.919764+00:00",
+      "observed_state": "FINISH",
+      "observed_at_utc": "2026-09-28T18:35:38.478209+00:00",
       "observed_print_error": 0,
-      "hms": [
-        {
-          "attr": 50333952,
-          "code": 131073
-        }
-      ],
+      "hms": [],
       "sliced_file": ".cache/prints/2026-09-28-display-retention-h2c/ready/display-receiver-retention-black-z018-h2c-v2.gcode.3mf",
       "sliced_file_sha256": "086b993791984f98ef17e5ba6b3cef63ed859460fba1421978fd61b124d3fc94",
       "gcode_sha256": "9c5cd3b229e0b6162dcaa8f3b8ec142915d2490b7f45f2b2841f88ad21ad0024",
@@ -1865,9 +1860,9 @@
       "source_geometry_sha256": {
         "hardware/printed-parts/enclosure/display-cover/retention-trial/display-receiver-retention-v2.stl": "e5c348b0058b9f5cc8b9ea2b9abebf393ec398b5120f946ccdf6af24fc3ab754"
       },
-      "observed_layer": 0,
+      "observed_layer": 252,
       "observed_total_layers": 252,
-      "observed_remaining_minutes": 173,
+      "observed_remaining_minutes": 0,
       "print_options": {
         "timelapse": "On",
         "auto_bed_leveling": "On",
@@ -1875,7 +1870,7 @@
         "nozzle_offset_calibration": "Auto"
       },
       "bed_clear_confirmed_by": "Derek: Both printers are free.",
-      "physical_result": "Pending physical fit and shake-retention test.",
+      "physical_result": "Derek reports shake retention passes with the broad 75 mm leaves and 3.6 mm hooks; very small bow remains when fully engaged.",
       "startup_spacing_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-receiver-retention-h2c-v2/startup-spacing.json",
       "startup_error_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-receiver-retention-h2c-v2/startup-error.json",
       "resume_attempted": false,
@@ -1888,7 +1883,8 @@
         "exact_resume_time_known": false,
         "resume_spacing_verified": false
       },
-      "startup_recovery_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-receiver-retention-h2c-v2/startup-recovery.json"
+      "startup_recovery_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-receiver-retention-h2c-v2/startup-recovery.json",
+      "completion_observed_date": "2026-09-28"
     },
     {
       "date": "2026-09-28",
@@ -1898,10 +1894,10 @@
       ],
       "job_name": "display-cover-retention-black-z004-mark2-v12.gcode.3mf",
       "printer_task_id": "1289548468",
-      "status": "printing",
+      "status": "completed",
       "started_by": "Codex at Derek's request",
-      "observed_state": "RUNNING",
-      "observed_at_utc": "2026-09-28T07:13:16.593924+00:00",
+      "observed_state": "FINISH",
+      "observed_at_utc": "2026-09-28T18:30:35.315006+00:00",
       "observed_print_error": 0,
       "hms": [],
       "sliced_file": ".cache/prints/2026-09-28-display-retention-mark2/ready/display-cover-retention-black-z004-mark2-v12.gcode.3mf",
@@ -1940,9 +1936,9 @@
       "source_geometry_sha256": {
         "hardware/printed-parts/enclosure/display-cover/retention-trial/display-cover-retention-v2.stl": "aca36dc0b4cc292253bbb0f16fa5c0a95263bf5eb523bb5154b783832ab11577"
       },
-      "observed_layer": 0,
+      "observed_layer": 64,
       "observed_total_layers": 64,
-      "observed_remaining_minutes": 34,
+      "observed_remaining_minutes": 0,
       "print_options": {
         "timelapse": "On",
         "auto_bed_leveling": "On",
@@ -1950,9 +1946,35 @@
         "nozzle_offset_calibration": "Auto"
       },
       "bed_clear_confirmed_by": "Derek: Both printers are free.",
-      "physical_result": "Pending physical fit and shake-retention test.",
+      "physical_result": "Derek reports shake retention passes with the broad 75 mm leaves and 3.6 mm hooks; very small bow remains when fully engaged.",
       "startup_spacing_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-cover-retention-mark2-v12/startup-spacing.json",
-      "postlaunch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-cover-retention-mark2-v12/postlaunch-reading-3.json"
+      "postlaunch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-cover-retention-mark2-v12/postlaunch-reading-3.json",
+      "completion_observed_date": "2026-09-28"
+    },
+    {
+      "date": "2026-09-28",
+      "printer": "Mark2",
+      "parts": [
+        "hardware/printed-parts/enclosure/display-cover/retention-reach-trial/display-cover-retention-reach-060.stl"
+      ],
+      "job_name": "display-cover-reach060-black-z004-mark2-v13.gcode.3mf",
+      "printer_task_id": "1291037500",
+      "status": "printing",
+      "started_by": "Codex at Derek's request",
+      "observed_state": "RUNNING",
+      "observed_at_utc": "2026-09-28T18:30:53.386440+00:00",
+      "observed_print_error": 0,
+      "hms": [],
+      "sliced_file": ".cache/prints/2026-09-28-display-retention-reach-mark2/ready/display-cover-reach060-black-z004-mark2-v13.gcode.3mf",
+      "sliced_file_sha256": "d12cd3ff4b0e933730fd26734476281923cb6a3fffe2d6d2a1e6529779b1f30a",
+      "gcode_sha256": "f1f27ffc00f4c501f30843bc894c721b14f87244b6392b424c6fc114baa967ff",
+      "native_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-cover-retention-reach-mark2-v13/manifest.json",
+      "launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-cover-retention-reach-mark2-v13/launch.json",
+      "estimated_seconds": 1908.4998779296875,
+      "layer_count": 103,
+      "extra_arm_reach_mm": 0.6,
+      "printed_hook_bearing_bottom_z_mm": 11.1,
+      "physical_result": "Pending."
     }
   ]
 }

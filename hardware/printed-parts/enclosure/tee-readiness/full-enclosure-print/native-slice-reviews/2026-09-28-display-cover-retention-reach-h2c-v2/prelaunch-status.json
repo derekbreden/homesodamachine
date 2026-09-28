@@ -1,0 +1,12 @@
+{
+  "job_id": "1289537122",
+  "subtask_name": "display-receiver-retention-black-z018-h2c-v2.gcode.3mf",
+  "gcode_state": "FINISH",
+  "layer_num": 252,
+  "total_layer_num": 252,
+  "print_error": 0,
+  "hms": [],
+  "stg_cur": -1,
+  "nozzle_temper": 25.0,
+  "bed_temper": 24.0
+}

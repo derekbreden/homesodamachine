@@ -1,0 +1,15 @@
+{
+  "observed_at_utc": "2026-09-28T18:35:37.154180+00:00",
+  "printer": "Mark2",
+  "reading": {
+    "job_id": "1291037500",
+    "subtask_name": "display-cover-reach060-black-z004-mark2-v13.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 0,
+    "total_layer_num": 103,
+    "mc_remaining_time": 31,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": 54
+  }
+}

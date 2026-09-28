@@ -1,0 +1,31 @@
+{
+  "observed_at_utc": "2026-09-28T18:30:35.315006+00:00",
+  "printer": "Mark2",
+  "archive": {
+    "name": "display-cover-reach060-black-z004-mark2-v13.gcode.3mf",
+    "sha256": "d12cd3ff4b0e933730fd26734476281923cb6a3fffe2d6d2a1e6529779b1f30a",
+    "gcode_sha256": "f1f27ffc00f4c501f30843bc894c721b14f87244b6392b424c6fc114baa967ff",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "000000"
+      }
+    },
+    "objects": [
+      "display-cover-retention-reach-060"
+    ]
+  },
+  "reading": {
+    "job_id": "1289548468",
+    "subtask_name": "display-cover-retention-black-z004-mark2-v12.gcode.3mf",
+    "gcode_state": "FINISH",
+    "layer_num": 64,
+    "total_layer_num": 64,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": -1,
+    "nozzle_temper": 26.0,
+    "bed_temper": 24.0
+  }
+}

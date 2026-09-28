@@ -1,5 +1,5 @@
 {
-  "status": "printing",
+  "status": "completed",
   "submitted": true,
   "print_started": true,
   "printer": "H2C",
@@ -62,10 +62,12 @@
     "support_remove_small_overhang": false
   },
   "physical_trial": {
-    "status": "pending",
-    "retention_force_measured": false,
-    "insertion_force_measured": false,
-    "shake_retention_tested": false
+    "status": "shake_pass_with_minor_bow",
+    "shake_retention_tested": true,
+    "shake_retention_passed": true,
+    "remaining_bow": "Very small with snaps fully engaged.",
+    "force_measured": false,
+    "record": "physical-acceptance.json"
   },
   "bed_clear_confirmed_by": "Derek: Both printers are free.",
   "standing_print_options": {
@@ -102,7 +104,7 @@
     "postlaunch-reading-1.json": "e983379f71808fd8eead20e838d764aa395b5ec83c730f76dcca1c0679ba46e7",
     "geometry-lint.log": "0be74ff9c9425b74355fa45522ac8a046cf9fac65fc0aee379f0579ef4fbdcda",
     "support-audit-display-receiver-retention-v2.json": "500555e646ab5c6a5eef2fab54a13e0ec4415bd0eb9f13f5fb2bdaa6d18ab593",
-    "README.md": "b7bdf57039aaa21646216f656415b885d3e5b870b8f2e000fb6dd62719d42e0e",
+    "README.md": "a11a7c6e56e5fe5d1afe9535b06eddbf687cfb77aaec10594affd418da738bbc",
     "startup-recovery.json": "c3294a8387b124b78ef7426706dc8d63f44e125aba38bd51d6fbae74a98d03ce",
     "postlaunch-reading-2.json": "3fae8a79baae44398555fb6894a4d012904ed8c80fe278a957f342858ccd3530",
     "support-removal-review.json": "55736ee58a78c0a649b2ae843aab3364c9aebfc8b4a02474dde47c8657d5fbf6",
@@ -112,21 +114,18 @@
     "launch.json": "be8e288854a2966e1264040817bdbbf74b22015dd8757a2d3db30d284c74ad56",
     "slice-result.json": "c33c7722f7137eee0318c9f91f8758e3282be0237deaf929a97927680e15e552",
     "startup-error.json": "d00e17c57e15ceba8c7af01c91baac08393529a4f92cb9506c09f2fe9d787bf2",
-    "geometry-check.json": "d2a5c77e61cc3e076837d9cc163456e8b8e7fe84f45d6627be77f21b0c7c98d9"
+    "geometry-check.json": "d2a5c77e61cc3e076837d9cc163456e8b8e7fe84f45d6627be77f21b0c7c98d9",
+    "completion.json": "b586a539f1f427fb4b207196a0ca34cebbd6837deadb78da2730de9e36f78edf",
+    "physical-acceptance.json": "5feac9044a024c64d6719eeeb5810d95ab867b6e58a76b2b3104f9458ccf48e8"
   },
   "printer_task_id": "1289537122",
-  "observed_at_utc": "2026-09-28T07:13:16.919764+00:00",
-  "observed_state": "RUNNING",
-  "observed_layer": 0,
+  "observed_at_utc": "2026-09-28T18:35:38.478209+00:00",
+  "observed_state": "FINISH",
+  "observed_layer": 252,
   "observed_total_layers": 252,
-  "observed_remaining_minutes": 173,
+  "observed_remaining_minutes": 0,
   "print_error": 0,
-  "hms": [
-    {
-      "attr": 50333952,
-      "code": 131073
-    }
-  ],
+  "hms": [],
   "launch_record": "launch.json",
   "prelaunch_record": "prelaunch.json",
   "send_method": "tools/bambu_print.py through Bambu Connect; one Send click; project_file SUCCESS.",
@@ -142,5 +141,6 @@
     "exact_resume_time_known": false,
     "resume_spacing_verified": false
   },
-  "startup_recovery_record": "startup-recovery.json"
+  "startup_recovery_record": "startup-recovery.json",
+  "completion_record": "completion.json"
 }
