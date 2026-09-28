@@ -1,5 +1,5 @@
 {
-  "status": "printing",
+  "status": "completed",
   "printer": "H2C",
   "submitted": true,
   "plate_contents": [
@@ -56,12 +56,14 @@
     "hardware/printed-parts/enclosure/display-cover/retention-reach-trial/prepare_print.py": "d332d7e3bc69954611593fb9c1d26e66d2efd99db0bb3b7964f77035734eebdb",
     "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
   },
-  "physical_fit": "Pending; assess bow, hook engagement, free play and shake retention in the existing receiver.",
+  "physical_fit": "Accepted by Derek: clean snap, no noticeable bow and passing shake test with display-receiver-retention-v2.",
   "review_sha256": {
-    "README.md": "0fa09a3cd432f5f110657691faa6652641b7a6534273e76729d3d90569c9a812",
+    "README.md": "905b7d0d04d23529c6c94f46aa635bb6d861ac7b4b99507407f36fcadeea954e",
+    "completion.json": "98ef1f0242db1bd2c0f55681656829cfeb645a1492149f09ed220f995d1ca65c",
     "geometry-check.json": "8c43530793801264fe7af1e9eaad0d0c186b9d824cca2e5fa80a18970f34e355",
     "launch.json": "faaf6bed8eeb686db4e6bc31874a6422c94ef9d09edd0478a26a8229fca0b042",
     "nozzle-readiness.json": "3d9cde6a60ebd0a60b98f57fadb25a484bad336f1dd9dfe163b64622c3b81ce5",
+    "physical-acceptance.json": "f8bc4b6095e7786a6b3d240d94d8e28a5a8ad4fed2c16f0be51f4feb9bf05cfb",
     "postlaunch.json": "9498bc7b1897128abbc421c766c12a1dac3f18da5a91e03b6d1035e8bf97fd5c",
     "prelaunch-status.json": "993e834b27b490f3a54c86bac0e058feaadaa33e07be563f3ae1603103e89b07",
     "prelaunch.json": "f4e98b8745252deacb1bd4e9a16c05aa233a13c0f65fe7581bf2d86b3e4f290f",
@@ -79,5 +81,9 @@
   "accepted_at_utc": "2026-09-28T18:47:16.656923+00:00",
   "launch_record": "launch.json",
   "postlaunch_record": "postlaunch.json",
-  "startup_spacing_record": "startup-spacing.json"
+  "startup_spacing_record": "startup-spacing.json",
+  "completion_record": "completion.json",
+  "completion_observed_at_utc": "2026-09-28T19:41:39.338967+00:00",
+  "physical_acceptance_record": "physical-acceptance.json",
+  "selected_cover": true
 }

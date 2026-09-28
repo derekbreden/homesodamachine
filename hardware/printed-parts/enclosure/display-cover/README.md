@@ -1,10 +1,14 @@
 # Machine display cover
 
-The [reach-trial cover](reach-trial/README.md) pops out intact when shaken in its receiver.
-The active [retention trial](retention-trial/README.md) uses 3.6 mm hooks and centered
-75 mm leaves with a matching receiver. It passes Derek’s shake test, with a very small
-bow when fully engaged. The [arm-reach trials](retention-reach-trial/README.md) test
-0.60 mm and 0.75 mm extra arm length with that receiver.
+The selected fit is the [0.75 mm extra-arm-reach cover](retention-reach-trial/README.md)
+with the [broad-leaf receiver](retention-trial/README.md): clean snap, no noticeable bow,
+and a passing shake test. It uses 75 mm leaves, 3.6 mm hooks, 0.9 mm inward leaf positions,
+R0.8 roots and a 1.23 mm nominal hook-to-catch gap. The
+[physical acceptance record](physical-acceptance.json) binds this result to the exact
+printed cover and receiver.
+
+Integration of that pair into the main display-cover generator and enclosure front-top
+is pending. The dimensions below describe the current main-model files.
 
 A PET-GF bezel with a smooth, rounded face, let into the enclosure's 30° display plane.
 The cover measures [125.5 mm](COVER_X) across by [83 mm](COVER_SLOPE) up the slope,

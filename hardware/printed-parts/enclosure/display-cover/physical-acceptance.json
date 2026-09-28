@@ -1,0 +1,42 @@
+{
+  "status": "accepted",
+  "reported_by": "Derek",
+  "reported_date": "2026-09-28",
+  "cover": "display-cover-retention-reach-075",
+  "receiver": "display-receiver-retention-v2",
+  "cover_extra_arm_reach_mm": 0.75,
+  "nominal_hook_to_catch_clearance_mm": 1.23,
+  "hook_shoulder_below_face_mm": 11.25,
+  "leaf_tip_below_face_mm": 15.65,
+  "hook_projection_mm": 3.6,
+  "leaf_span_mm": 75.0,
+  "leaf_inset_each_mm": 0.9,
+  "root_fillet_mm": 0.8,
+  "physical_result": {
+    "snap": "Clean engagement.",
+    "bow": "No noticeable bow.",
+    "shake_test": "pass"
+  },
+  "force_and_cycle_testing": "Not measured.",
+  "printer_jobs": {
+    "cover_H2C": "1291079562",
+    "receiver_H2C": "1289537122"
+  },
+  "geometry_sha256": {
+    "hardware/printed-parts/enclosure/display-cover/retention-reach-trial/display-cover-retention-reach-075.step": "b7ae4725f519b04cf498ea189e53499e8864955824674527288794f4b0c22b21",
+    "hardware/printed-parts/enclosure/display-cover/retention-reach-trial/display-cover-retention-reach-075.stl": "f5c91dedaaa1a543106f26a71483a42ab2a1da0e25b5f8a5f8d462acc13b1a13",
+    "hardware/printed-parts/enclosure/display-cover/retention-trial/display-receiver-retention-v2.step": "a55df6ec84c77d220d93b5fa8e9c036d14b500a3a742a95842a2ad871ce85084",
+    "hardware/printed-parts/enclosure/display-cover/retention-trial/display-receiver-retention-v2.stl": "e5c348b0058b9f5cc8b9ea2b9abebf393ec398b5120f946ccdf6af24fc3ab754"
+  },
+  "native_cover_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-cover-retention-reach-h2c-v2/manifest.json",
+  "main_model_integration": {
+    "status": "pending",
+    "scope": "Carry the accepted cover and matching receiver geometry into display_cover.py and enclosure front-top; the main-model narrow skirts and receivers do not represent this accepted pair."
+  },
+  "next_clearance_task": {
+    "requirement": "low-force clearance for rough overhang surfaces involved",
+    "application": "tee carrier sliding motion",
+    "status": "next",
+    "interpretation": "Evaluate supported contact finish, print orientation, actuation force, sliding freedom and retention. The cover result supports this requirement; its 1.23 mm nominal gap is not an automatically universal clearance."
+  }
+}

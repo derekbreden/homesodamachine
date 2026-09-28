@@ -1,5 +1,9 @@
 # Machine display retention trial
 
+This receiver is paired with the selected [0.75 mm extra-arm-reach cover](../retention-reach-trial/README.md),
+which snaps cleanly, has no noticeable bow and passes shaking. The dimensions below
+describe this folder's 0.50 mm cover and the fixed receiver.
+
 One complete cover and a matching receiver surround. The cover is symmetric across
 both screen axes. Its two [1.3 mm](WALL) leaves each run [75 mm](SPAN), centered along
 the screen, with [3.6 mm](LIP) square hooks. Each root has at least

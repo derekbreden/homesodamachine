@@ -116,7 +116,7 @@
     "startup-error.json": "d00e17c57e15ceba8c7af01c91baac08393529a4f92cb9506c09f2fe9d787bf2",
     "geometry-check.json": "d2a5c77e61cc3e076837d9cc163456e8b8e7fe84f45d6627be77f21b0c7c98d9",
     "completion.json": "b586a539f1f427fb4b207196a0ca34cebbd6837deadb78da2730de9e36f78edf",
-    "physical-acceptance.json": "5feac9044a024c64d6719eeeb5810d95ab867b6e58a76b2b3104f9458ccf48e8"
+    "physical-acceptance.json": "2416aae34f5e5d028b40a889f18c254c56e15ce3c68f2bf8fb1da929aed9d716"
   },
   "printer_task_id": "1289537122",
   "observed_at_utc": "2026-09-28T18:35:38.478209+00:00",

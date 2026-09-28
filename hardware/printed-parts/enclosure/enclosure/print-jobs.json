@@ -1959,10 +1959,10 @@
       ],
       "job_name": "display-cover-reach060-black-z004-mark2-v13.gcode.3mf",
       "printer_task_id": "1291037500",
-      "status": "printing",
+      "status": "completed",
       "started_by": "Codex at Derek's request",
-      "observed_state": "RUNNING",
-      "observed_at_utc": "2026-09-28T18:30:53.386440+00:00",
+      "observed_state": "FINISH",
+      "observed_at_utc": "2026-09-28T19:41:38.072115+00:00",
       "observed_print_error": 0,
       "hms": [],
       "sliced_file": ".cache/prints/2026-09-28-display-retention-reach-mark2/ready/display-cover-reach060-black-z004-mark2-v13.gcode.3mf",
@@ -1974,7 +1974,11 @@
       "layer_count": 103,
       "extra_arm_reach_mm": 0.6,
       "printed_hook_bearing_bottom_z_mm": 11.1,
-      "physical_result": "Pending."
+      "physical_result": "No physical fit result reported for this cover; Derek selected the 0.75 mm cover.",
+      "observed_layer": 103,
+      "observed_total_layers": 103,
+      "observed_remaining_minutes": 0,
+      "completion_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-cover-retention-reach-mark2-v13/completion.json"
     },
     {
       "date": "2026-09-28",
@@ -1984,16 +1988,16 @@
       ],
       "job_name": "display-cover-reach075-black-z018-h2c-v2.gcode.3mf",
       "printer_task_id": "1291079562",
-      "status": "printing",
+      "status": "completed",
       "started_by": "Codex at Derek's request",
       "accepted_at_utc": "2026-09-28T18:47:16.656923+00:00",
-      "observed_state": "RUNNING",
-      "observed_at_utc": "2026-09-28T18:50:57.599153+00:00",
+      "observed_state": "FINISH",
+      "observed_at_utc": "2026-09-28T19:41:39.338967+00:00",
       "observed_print_error": 0,
       "hms": [],
-      "observed_layer": 0,
+      "observed_layer": 104,
       "observed_total_layers": 104,
-      "observed_remaining_minutes": 31,
+      "observed_remaining_minutes": 0,
       "sliced_file": ".cache/prints/2026-09-28-display-retention-reach-h2c/ready/display-cover-reach075-black-z018-h2c-v2.gcode.3mf",
       "sliced_file_sha256": "2e9abe38a5a388a217e8f8a3abfef5cc5e3945eeba13bda7402c7e39208808e1",
       "gcode_sha256": "481a40bdc746a518619d0813b757957334cf214f3d88bcef8b5e052cf80197cf",
@@ -2007,7 +2011,10 @@
       "printed_hook_bearing_bottom_z_mm": 11.25,
       "nozzle": "Left Standard Hardened 0.4 mm",
       "filament": "Black Polymaker PET-GF; Ext PET-CF mapping on left external spool 254.",
-      "physical_result": "Pending."
+      "physical_result": "Accepted by Derek: clean snap, no noticeable bow and passing shake test with display-receiver-retention-v2.",
+      "completion_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-cover-retention-reach-h2c-v2/completion.json",
+      "physical_acceptance_record": "hardware/printed-parts/enclosure/display-cover/physical-acceptance.json",
+      "selected_cover": true
     }
   ]
 }
