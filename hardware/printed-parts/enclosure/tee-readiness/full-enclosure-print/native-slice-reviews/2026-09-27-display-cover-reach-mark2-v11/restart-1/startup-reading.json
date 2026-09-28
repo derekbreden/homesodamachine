@@ -1,0 +1,15 @@
+{
+  "printer": "Mark2",
+  "observed_at": "2026-09-28T05:39:17.889359+00:00",
+  "gcode_state": "RUNNING",
+  "job_id": "1289413482",
+  "layer_num": 1,
+  "total_layer_num": 58,
+  "mc_percent": 26,
+  "mc_remaining_time": 17,
+  "print_error": 0,
+  "hms": [],
+  "stg_cur": 0,
+  "bed_temper": 80.0,
+  "bed_target_temper": 80.0
+}

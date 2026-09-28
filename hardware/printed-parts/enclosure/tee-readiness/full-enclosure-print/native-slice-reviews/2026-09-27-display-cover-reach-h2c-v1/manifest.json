@@ -3,7 +3,7 @@
   "submitted": true,
   "print_started": true,
   "printer": "H2C",
-  "printer_task_id": "1289349395",
+  "printer_task_id": "1289418578",
   "plate_contents": [
     "display-cover-reach-10"
   ],
@@ -75,13 +75,13 @@
     "retention_force_measured": false,
     "comparison_scope": "Qualitative fit on two printers with their standing Z trims."
   },
-  "launch_record": "launch.json",
-  "prelaunch_record": "prelaunch.json",
-  "observed_at_utc": "2026-09-28T04:39:28.617668+00:00",
+  "launch_record": "restart-1/launch.json",
+  "prelaunch_record": "restart-1/prelaunch.json",
+  "observed_at_utc": "2026-09-28T05:39:17.395802+00:00",
   "observed_state": "RUNNING",
   "observed_layer": 0,
   "observed_total_layers": 60,
-  "observed_remaining_minutes": 24,
+  "observed_remaining_minutes": 19,
   "print_error": 0,
   "hms": [],
   "standing_print_options": {
@@ -112,7 +112,7 @@
     "source": "Installed Bambu Studio hms_en_094.json"
   },
   "review_sha256": {
-    "README.md": "38fd1538b3664655a2726b509327302b586330e9e74439f4e9a097f5c4947458",
+    "README.md": "dc6e568b6454114153303f79c1bcc9262598543b4c767800a75555ab0f470bbd",
     "dialog-reading.json": "3e06340b8ade7a5a545d56e8911d63f6f4188fb4dff1dc4f99ce5e61df520973",
     "geometry-check.json": "66d5a79e4beb36bb7f6e3c8b8584994e8ff498b32629b12819c3031165d289a5",
     "geometry-lint.log": "52e17f7b6d976eaf512158f2b972b77376f3875737b6bc1a97a9f2c74c113f7d",
@@ -125,6 +125,24 @@
     "slice-result.json": "0212f0b77a5beee2c7237b661ea7ceac59c0214a6d46fcd9c6676a10fdf14a7f",
     "support-audit-display-cover-reach-10.json": "ef2851266f6725ae78cdccc3ec31a0f0d3189459f9211a75e434a84c1efaf78e",
     "support-removal-review.json": "ed32c6367b85fcf45687f09573d77623464f033bc3fc87542c140f1510c00c62",
-    "verification.json": "e0d3472b13ab0d64bc5711bb5e00abd4c6a68b59ec26f863b44207c8c501f0a0"
-  }
+    "verification.json": "e0d3472b13ab0d64bc5711bb5e00abd4c6a68b59ec26f863b44207c8c501f0a0",
+    "restart-1/launch.json": "e18f51e4f47023d4234fc2acaad9e389018bcee260f0d1bc77b5d0f4fe427638",
+    "restart-1/prelaunch.json": "d96815e4cb2ff46584328699f574deed3e4479656b65f78c8904d71328ccb991",
+    "restart-1/reason.json": "8176f7b996fc8a03298cc916cc6cc2f0d7789fdc2b87e57d7a97e609132cc60e",
+    "restart-1/send.log": "034a9c45d2f859ff6deb6ff7867e17e0e883e9bc74562c5a5b163f84990bc71b",
+    "restart-1/startup-reading.json": "ff6427411ba0c2ab907658b273cc8746f23af5e940729c047d42f34f28f56cb1"
+  },
+  "prior_attempts": [
+    {
+      "printer_task_id": "1289349395",
+      "status": "failed",
+      "launch_record": "launch.json",
+      "post_restoration_record": "restart-1/prelaunch.json",
+      "failure_record": "restart-1/reason.json",
+      "observed_state": "FAILED",
+      "observed_layer": 0
+    }
+  ],
+  "startup_spacing_trial": "../2026-09-28-shared-circuit-stagger/observation.json",
+  "postlaunch_record": "restart-1/startup-reading.json"
 }

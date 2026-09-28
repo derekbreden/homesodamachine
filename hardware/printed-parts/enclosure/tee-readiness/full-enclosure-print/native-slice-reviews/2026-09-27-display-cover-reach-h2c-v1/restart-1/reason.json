@@ -1,0 +1,13 @@
+{
+  "prior_printer_task_id": "1289349395",
+  "prior_launch_record": "../launch.json",
+  "reported_by": "Derek in this conversation",
+  "reported_problem": "Shared-circuit breaker trip during closely spaced printer starts; breaker restored.",
+  "observed_state": "FAILED",
+  "observed_at_utc": "2026-09-28T05:28:17.351266+00:00",
+  "observed_layer": 0,
+  "print_error": 0,
+  "hms": [],
+  "geometry_and_settings_changed": false,
+  "startup_spacing_trial": "../../2026-09-28-shared-circuit-stagger/observation.json"
+}
