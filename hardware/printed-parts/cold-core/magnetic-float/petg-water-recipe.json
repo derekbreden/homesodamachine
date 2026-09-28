@@ -1,0 +1,105 @@
+{
+  "source_commit": "f25975cd045cc835eccf1a207cb12fe48dc63ada",
+  "source_path": "hardware/printed-parts/cold-core/reservoir/reservoir.3mf",
+  "source_project_sha256": "498f70012f0c83ea7200c1d4c31c85be4daeb6cb8a7be9ab3228a765eb9c74c1",
+  "physical_evidence": "reservoir/print-log.md attempt 3, 2026-05-30: holding water for hours, with gaskets installed. No numeric pressure hold recorded.",
+  "material": "Bambu PETG Basic, GFG00; custom preset Bambu PETG Water",
+  "active_extruder": "left",
+  "nozzle_mm": 0.6,
+  "filament": {
+    "nozzle_temperature": [
+      "260"
+    ],
+    "nozzle_temperature_initial_layer": [
+      "255"
+    ],
+    "filament_flow_ratio": [
+      "1.02"
+    ],
+    "filament_density": [
+      "1.25"
+    ],
+    "filament_max_volumetric_speed": [
+      "21"
+    ],
+    "fan_min_speed": [
+      "10"
+    ],
+    "fan_max_speed": [
+      "20"
+    ],
+    "overhang_fan_speed": [
+      "90"
+    ],
+    "close_fan_the_first_x_layers": [
+      "3"
+    ],
+    "additional_cooling_fan_speed": [
+      "0"
+    ],
+    "chamber_temperatures": [
+      "0"
+    ],
+    "textured_plate_temp": [
+      "70"
+    ],
+    "textured_plate_temp_initial_layer": [
+      "70"
+    ],
+    "slow_down_for_layer_cooling": [
+      "1"
+    ],
+    "slow_down_layer_time": [
+      "12"
+    ],
+    "slow_down_min_speed": [
+      "10"
+    ],
+    "fan_cooling_layer_time": [
+      "30"
+    ],
+    "filament_retraction_length": [
+      "0.4"
+    ],
+    "filament_wipe_distance": [
+      "2"
+    ],
+    "filament_z_hop": [
+      "0.2"
+    ]
+  },
+  "process": {
+    "layer_height": "0.18",
+    "initial_layer_print_height": "0.3",
+    "wall_generator": "arachne",
+    "wall_loops": "6",
+    "line_width": "0.6",
+    "initial_layer_line_width": "0.6",
+    "outer_wall_line_width": "0.6",
+    "inner_wall_line_width": "0.6",
+    "top_surface_line_width": "0.6",
+    "sparse_infill_line_width": "0.6",
+    "internal_solid_infill_line_width": "0.6",
+    "seam_position": "random",
+    "seam_gap": "15%",
+    "seam_slope_type": "all",
+    "seam_slope_conditional": "1",
+    "seam_slope_inner_walls": "1",
+    "seam_slope_start_height": "10%",
+    "seam_slope_steps": "10",
+    "seam_slope_entire_loop": "0",
+    "seam_slope_min_length": "10",
+    "seam_slope_gap": "0",
+    "override_filament_scarf_seam_setting": "1",
+    "ironing_type": "top",
+    "ironing_flow": "10%",
+    "ironing_spacing": "0.15",
+    "ironing_speed": "30",
+    "infill_wall_overlap": "15%",
+    "wall_sequence": "inner wall/outer wall",
+    "sparse_infill_density": "100%",
+    "sparse_infill_pattern": "zig-zag",
+    "top_surface_pattern": "zig-zag",
+    "bottom_surface_pattern": "zig-zag"
+  }
+}

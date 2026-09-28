@@ -1,9 +1,11 @@
-"""Prepare the H2C magnetic-float project from its meshes and installed presets."""
+"""Prepare and slice separate ASA Aero cores and PETG envelopes for the H2C."""
 
 import argparse
 import hashlib
 import json
 import plistlib
+import shutil
+import subprocess
 import sys
 import uuid
 import zipfile
@@ -13,14 +15,30 @@ import xml.etree.ElementTree as ET
 import numpy as np
 import trimesh
 
+import magnetic_float as m
+
 HERE = Path(__file__).resolve().parent
 ROOT = next(p for p in HERE.parents if (p / 'tools/funnel-mold-print/profiles.py').is_file())
-sys.path.insert(0, str(ROOT / 'tools/funnel-mold-print'))
-from profiles import CORE, PROD, REL, qn, metadata, mesh_object, system_preset
+sys.path.append(str(ROOT / 'tools/funnel-mold-print'))
+from profiles import PROD, REL, qn, metadata, mesh_object, system_preset
 
 PRESETS = Path('/Applications/BambuStudio.app/Contents/Resources/profiles/BBL')
-NAMES = ('Float PETG Translucent 250C', 'Float PLA Aero 250C 0.38 flow')
-PAUSE_MESSAGE = 'Seat one RC62 magnet. Press the Aero insert flush with the rim. Use the snugger spare if loose. Resume with the insert staying seated.'
+STUDIO = PRESETS.parents[2] / 'MacOS/BambuStudio'
+PAUSE_MESSAGE = ('Seat the cooled ASA Aero core on the floor. Seat one RC62 in its pocket. '
+                 'Press the ASA Aero insert flush with the PETG rim. Clear loose strings '
+                 'and resume with both Aero pieces fully seated.')
+JOBS = {
+    'aero': {'filename': 'magnetic-float-aero.3mf', 'nozzle': 0.4, 'side': 2,
+             'filament': 'Bambu ASA-Aero @BBL H2C 0.4 nozzle',
+             'bed': 'Engineering Plate', 'parts': ['body-aero', 'insert-aero']},
+    'petg': {'filename': 'magnetic-float.3mf', 'nozzle': 0.6, 'side': 1,
+             'filament': 'Bambu PETG Basic @BBL H2C',
+             'bed': 'Textured PEI Plate', 'parts': ['body-petg']},
+}
+
+
+def sha(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def uid(name):
@@ -32,192 +50,175 @@ def set_value(settings, key, value):
     settings[key] = [str(value)] * len(previous) if isinstance(previous, list) else str(value)
 
 
-def recipe(destination, nozzle):
-    layer = nozzle / 2
+def recipe(key):
+    job = JOBS[key]
+    aero = key == 'aero'
+    nozzle = job['nozzle']
+    layer = 0.2 if aero else m.petg_layer
     machine_name = f'Bambu Lab H2C {nozzle:g} nozzle'
     process_name = ('0.20mm Standard @BBL H2C' if nozzle == 0.4
-                    else '0.10mm Standard @BBL H2C 0.2 nozzle')
-    # Aero has no installed 0.2 mm preset. Its 0.4 mm recipe is the explicit experimental
-    # starting point; the foam expansion at this smaller nozzle has no measured result.
-    filament_names = (f'Bambu PETG Translucent @BBL H2C {nozzle:g} nozzle',
-                      'Bambu PLA Aero @BBL H2C 0.4 nozzle')
-    suffix = ' - experimental 0.2 nozzle' if nozzle == 0.2 else ''
-    material_names = tuple(name + suffix for name in NAMES)
+                    else '0.18mm Balanced Quality @BBL H2C 0.6 nozzle')
     files = {}
-    version = plistlib.loads((PRESETS.parents[2] / 'Info.plist').read_bytes())['CFBundleShortVersionString']
     machine, _, _ = system_preset(PRESETS, 'machine', machine_name, files)
     process, _, _ = system_preset(PRESETS, 'process', process_name, files)
-    process_changes = {
-        'layer_height': layer, 'initial_layer_print_height': layer,
-        'wall_generator': 'arachne', 'wall_loops': 3 if nozzle == 0.4 else 5,
+    filament, _, ids = system_preset(PRESETS, 'filament', job['filament'], files)
+    changes = {
+        'layer_height': layer, 'initial_layer_print_height': layer if aero else m.petg_first_layer,
+        'wall_generator': 'arachne', 'wall_loops': 3 if aero else 6,
         'sparse_infill_density': '100%', 'sparse_infill_pattern': 'zig-zag',
-        'top_shell_layers': round(1 / layer), 'bottom_shell_layers': round(1 / layer),
-        'top_shell_thickness': 1, 'bottom_shell_thickness': 1,
-        'outer_wall_speed': 40, 'inner_wall_speed': 60,
-        'internal_solid_infill_speed': 80, 'top_surface_speed': 30,
-        'initial_layer_speed': 20, 'initial_layer_infill_speed': 30,
-        'bridge_speed': 20, 'bridge_flow': 1, 'internal_bridge_flow': 1,
-        'enable_support': 0, 'enable_prime_tower': 1,
-        'prime_tower_width': 35, 'seam_gap': '0%', 'seam_position': 'back',
-        'brim_type': 'outer_only', 'brim_width': 4, 'brim_object_gap': 0.15,
-        'skirt_loops': 0, 'enable_arc_fitting': 0, 'print_sequence': 'by layer',
+        'top_shell_layers': 5 if aero else round(m.roof / layer),
+        'bottom_shell_layers': 5 if aero else 1 + round((m.floor - m.petg_first_layer) / layer),
+        'top_shell_thickness': 1 if aero else m.roof, 'bottom_shell_thickness': 1 if aero else m.floor,
+        'enable_support': 0, 'enable_prime_tower': 0,
+        'seam_gap': '0%', 'seam_position': 'back',
+        'brim_type': 'outer_only', 'brim_width': 3 if aero else 4,
+        'brim_object_gap': 0.2 if aero else 0.15,
+        'skirt_loops': 0, 'enable_arc_fitting': 0,
+        'print_sequence': 'by layer', 'reduce_crossing_wall': 1,
         'flush_into_infill': 0, 'flush_into_objects': 0, 'flush_into_support': 0,
-        'detect_thin_wall': 0, 'reduce_crossing_wall': 1,
     }
-    for key, value in process_changes.items():
-        set_value(process, key, value)
-    machine.update({'printer_settings_id': machine_name, 'name': machine_name,
-                    'nozzle_volume_type': ['Standard', 'Standard'],
-                    'default_nozzle_volume_type': ['Standard', 'Standard']})
-    process.update({'print_settings_id': 'Magnetic float 1mm PETG 50mm' + suffix,
-                    'name': 'Magnetic float 1mm PETG 50mm' + suffix,
-                    'compatible_printers': [machine_name]})
-    filaments = []
-    for index, name in enumerate(filament_names):
-        values, _, ids = system_preset(PRESETS, 'filament', name, files)
-        changes = {'nozzle_temperature': 250, 'nozzle_temperature_initial_layer': 250,
-                   'textured_plate_temp': 65, 'textured_plate_temp_initial_layer': 65,
-                   'filament_max_volumetric_speed': 6 if nozzle == 0.4 else 1,
-                   'additional_cooling_fan_speed': 0}
-        if index == 1:
-            changes['filament_flow_ratio'] = 0.38
-        else:
-            changes.update({'overhang_fan_speed': 40, 'overhang_fan_threshold': '25%'})
-        for key, value in changes.items():
-            set_value(values, key, value)
-        values.update({'name': material_names[index], 'filament_settings_id': [material_names[index]],
-                       'filament_id': ids['filament_id'], 'compatible_printers': [machine_name],
-                       'filament_colour': ['#45A9CA' if index == 0 else '#EBC777']})
-        filaments.append(values)
+    if aero:
+        changes.update({name: 0.48 for name in (
+            'line_width', 'initial_layer_line_width', 'outer_wall_line_width',
+            'inner_wall_line_width', 'top_surface_line_width', 'sparse_infill_line_width',
+            'internal_solid_infill_line_width')})
+        changes.update({name: 80 for name in (
+            'outer_wall_speed', 'inner_wall_speed', 'sparse_infill_speed',
+            'internal_solid_infill_speed', 'top_surface_speed', 'gap_infill_speed')})
+        changes.update({'default_acceleration': 5000, 'outer_wall_acceleration': 3000,
+                        'slice_closing_radius': 0.02, 'bridge_flow': 0.7})
+    else:
+        water = json.loads((HERE / 'petg-water-recipe.json').read_text())
+        changes.update(water['process'])
+        changes.update({'outer_wall_speed': 40, 'inner_wall_speed': 60,
+                        'internal_solid_infill_speed': 60, 'sparse_infill_speed': 60,
+                        'top_surface_speed': 30, 'bridge_speed': 20, 'internal_bridge_speed': '100%',
+                        'bridge_flow': 1, 'internal_bridge_flow': 1,
+                        'seam_gap': '0%', 'seam_slope_conditional': 0})
+    for name, value in changes.items():
+        set_value(process, name, value)
+    machine_changes = {'nozzle_volume_type': ['Standard', 'Standard'],
+                       'default_nozzle_volume_type': ['Standard', 'Standard'],
+                       'nozzle_diameter': ['0.6', '0.4'],
+                       'max_layer_height': ['0.42', '0.28'],
+                       'min_layer_height': ['0.12', '0.08']}
+    machine.update(machine_changes)
+    filament_changes = {} if aero else {**water['filament'], 'overhang_fan_speed': ['20']}
+    filament.update(filament_changes)
     settings = {**machine, **process}
-    for key in set(filaments[0]) | set(filaments[1]):
-        if key in ('name', 'compatible_printers', 'filament_id'):
-            continue
-        values = [f.get(key) for f in filaments]
-        if all(isinstance(v, list) for v in values):
-            settings[key] = [v[0] for v in values]
-        elif values[0] is not None:
-            settings[key] = values[0]
+    for name, value in filament.items():
+        settings[name] = [value[0]] if isinstance(value, list) else value
     settings.update({
-        'filament_settings_id': list(material_names), 'filament_ids': ['GFG01', 'GFA11'],
-        'inherits_group': [process_name, *filament_names, machine_name],
-        'different_settings_to_system': [';'.join(process_changes), '', '', ''],
-        'filament_map_mode': 'Manual', 'filament_map': ['1', '2'],
-        'filament_map_2': ['1', '2'], 'filament_nozzle_map': ['0', '1'],
-        'filament_volume_map': ['0', '0'], 'filament_self_index': ['1', '2'],
+        'printer_settings_id': machine_name, 'name': f'Magnetic float {key}',
+        'print_settings_id': f'Magnetic float {key}',
+        'filament_settings_id': [job['filament']], 'filament_ids': [ids['filament_id']],
+        'filament_colour': ['#F5F1DD' if aero else '#000000'],
+        'inherits_group': [process_name, job['filament'], machine_name],
+        'different_settings_to_system': [';'.join(changes), ';'.join(filament_changes), ';'.join(machine_changes)],
+        'filament_map_mode': 'Manual', 'filament_map': [str(job['side'])],
+        'filament_map_2': [str(job['side'])], 'filament_nozzle_map': [str(job['side'] - 1)],
+        'filament_self_index': ['1'], 'filament_volume_map': ['0'],
         'nozzle_volume_type': ['Standard', 'Standard'],
         'extruder_nozzle_stats': ['Standard#1', 'Standard#1'],
         'extruder_nozzle_stats_new': ['Standard#1', 'Standard#1'],
-        'curr_bed_type': 'Textured PEI Plate',
-        'wipe_tower_x': ['220', '220'], 'wipe_tower_y': ['200', '200'],
-        'print_compatible_printers': [machine_name],
+        'curr_bed_type': job['bed'], 'print_compatible_printers': [machine_name],
     })
-    for name, values in [('machine', machine), ('process', process),
-                         ('petg', filaments[0]), ('aero', filaments[1])]:
-        values.update({'type': name if name in ('machine', 'process') else 'filament',
-                       'from': 'User', 'version': version, 'instantiation': 'true'})
-        (destination / f'{name}.json').write_text(json.dumps(values, indent=2) + '\n')
-    return settings, filaments, {'system_presets_sha256': files,
-        'process_changes': process_changes, 'aero_source':
-        'https://bambulab-eu.myshopify.com/nl-nl/products/pla-aero',
-        'aero_reference': {'temperature_c': 250, 'flow_ratio': 0.38,
-            'manufacturer_specimen_minimum_density_g_cc': 0.45,
-            'specimen_nozzle_mm': 0.4, 'specimen_speed_mm_s': 80},
-        'prepared_materials': material_names, 'bed_c': 65, 'nozzle_mm': nozzle,
-        'layer_height_mm': layer,
-        'nozzle_status': ('Recommended Aero nozzle size' if nozzle == 0.4 else
-            'Experimental: Aero product page advises against 0.2 mm; H2C manual includes Aero '
-            'under all nozzle sizes. Aero foam expansion and PETG sealing are unmeasured at 0.2 mm.'),
-        'mapping': {'left': 'PETG Translucent Clear', 'right': 'PLA Aero'}}
-
-
-def project(destination, nozzle=0.4):
-    destination.mkdir(parents=True, exist_ok=True)
-    settings, filaments, provenance = recipe(destination, nozzle)
-    info = json.loads((HERE / 'design.json').read_text())
     version = plistlib.loads((PRESETS.parents[2] / 'Info.plist').read_bytes())['CFBundleShortVersionString']
+    return settings, filament, {
+        'slicer_version': version, 'system_presets_sha256': files,
+        'process_changes': changes, 'machine_changes': machine_changes,
+        'filament_changes': filament_changes, 'filament_preset': job['filament'],
+        'petg_recipe_sha256': None if aero else sha(HERE / 'petg-water-recipe.json'),
+        'filament_id': ids['filament_id'], 'active_nozzle_mm': nozzle,
+        'active_side': 'left' if job['side'] == 1 else 'right',
+        'bed': job['bed'], 'layer_height_mm': layer,
+        'first_layer_height_mm': layer if aero else m.petg_first_layer,
+        'pause_before_z_mm': None if aero else m.roof_bottom + layer,
+        'geometry_sha256': sha(HERE / 'design.json'),
+    }
+
+
+def project(destination, key):
+    job = JOBS[key]
+    aero = key == 'aero'
+    destination.mkdir(parents=True, exist_ok=True)
+    settings, filament, provenance = recipe(key)
     model = ET.Element(qn('model'), unit='millimeter', requiredextensions='p',
                        **{'xmlns:BambuStudio': 'http://schemas.bambulab.com/package/2021'})
-    ET.SubElement(model, qn('metadata'), name='Application').text = f'BambuStudio-{version}'
+    ET.SubElement(model, qn('metadata'), name='Application').text = 'BambuStudio-' + provenance['slicer_version']
     ET.SubElement(model, qn('metadata'), name='BambuStudio:3mfVersion').text = '1'
-    ET.SubElement(model, qn('metadata'), name='Title').text = 'RC62 magnetic float 28 x 50 - 1mm PETG'
-    if nozzle == 0.2:
-        model.find(qn('metadata') + "[@name='Title']").text += ' - EXPERIMENTAL 0.2 nozzle'
-        ET.SubElement(model, qn('metadata'), name='Description').text = provenance['nozzle_status']
+    ET.SubElement(model, qn('metadata'), name='Title').text = f'RC62 magnetic float - {key}'
     resources = ET.SubElement(model, qn('resources'))
-    build = ET.SubElement(model, qn('build'), **{f'{{{PROD}}}UUID': uid('build')})
+    build = ET.SubElement(model, qn('build'), **{f'{{{PROD}}}UUID': uid(key + '/build')})
     config = ET.Element('config')
     rels = ET.Element(f'{{{REL}}}Relationships')
     package_rels = ET.Element(f'{{{REL}}}Relationships')
     ET.SubElement(package_rels, f'{{{REL}}}Relationship', Target='/3D/3dmodel.model', Id='rel-1',
                   Type='http://schemas.microsoft.com/3dmanufacturing/2013/01/3dmodel')
-    data = {'Metadata/project_settings.config': json.dumps(settings, indent=2).encode()}
-    for i, filament in enumerate(filaments, 1):
-        data[f'Metadata/filament_settings_{i}.config'] = json.dumps(filament, indent=2).encode()
-    plates = []
-    for number, title in ((1, '1 - Aero inserts'), (2, '2 - Float - insert magnet at pause')):
-        plate = ET.SubElement(config, 'plate')
-        for key, value in {'plater_id': number, 'plater_name': title, 'locked': 'false',
-                           'bed_type': 'Textured PEI Plate', 'filament_map_mode': 'Manual',
-                           'filament_maps': '1 2', 'filament_volume_maps': '0 0'}.items():
-            metadata(plate, key, value)
-        plates.append(plate)
-    objects = [
-        ('Insert', ['insert-aero'], 0, 115, 145),
-        ('Spare insert - snugger fit', ['insert-aero'], 0, 155, 145),
-        ('Float body', ['body-petg', 'body-aero'], 1, 150, 145),
-    ]
+    data = {'Metadata/project_settings.config': json.dumps(settings, indent=2).encode(),
+            'Metadata/filament_settings_1.config': json.dumps({**filament,
+                'name': job['filament'], 'filament_id': provenance['filament_id']}, indent=2).encode()}
     provenance['meshes_sha256'] = {}
-    for index, (label, names, plate_index, x, y) in enumerate(objects, 1):
-        meshes = {name: trimesh.load(HERE / f'{name}.stl', force='mesh', process=True) for name in names}
-        h = max(mesh.bounds[1, 2] for mesh in meshes.values())
-        parent_id = index * 10
-        path = f'/3D/Objects/object_{index}.model'
+    provenance['objects'] = []
+    for number, name in enumerate(job['parts'], 1):
+        label = {'body-aero': 'ASA Aero core', 'insert-aero': 'ASA Aero insert',
+                 'body-petg': 'PETG envelope - insert core and magnet at pause'}[name]
+        plate = ET.SubElement(config, 'plate')
+        for attr, value in {'plater_id': number, 'plater_name': label,
+                           'locked': 'false', 'bed_type': job['bed'], 'filament_map_mode': 'Manual',
+                           'filament_maps': str(job['side']), 'filament_volume_maps': '0'}.items():
+            metadata(plate, attr, value)
+        path = f'/3D/Objects/object_{number}.model'
+        mesh_path = HERE / f'{name}.stl'
+        mesh = trimesh.load(mesh_path, force='mesh', process=True)
+        mesh.apply_translation((0, 0, -mesh.bounds[0, 2]))
+        height = float(mesh.bounds[1, 2])
+        parent_id, part_id = number * 10, number * 10 + 1
         sub = ET.Element(qn('model'), unit='millimeter')
         subresources = ET.SubElement(sub, qn('resources'))
+        mesh_object(subresources, part_id, mesh, np.array([0, 0, height / 2]))
         parent = ET.SubElement(resources, qn('object'), id=str(parent_id), type='model',
-                               **{f'{{{PROD}}}UUID': uid(label)})
+                               **{f'{{{PROD}}}UUID': uid(key + '/' + name)})
         components = ET.SubElement(parent, qn('components'))
+        ET.SubElement(components, qn('component'), objectid=str(part_id),
+                      transform='1 0 0 0 1 0 0 0 1 0 0 0',
+                      **{f'{{{PROD}}}path': path, f'{{{PROD}}}UUID': uid(name)})
         record = ET.SubElement(config, 'object', id=str(parent_id))
         metadata(record, 'name', label)
-        metadata(record, 'extruder', 2 if plate_index == 0 else 1)
-        if plate_index == 0:
-            allowance = info['insert_print_fit_allowances_radial_mm'][index - 1]
+        metadata(record, 'extruder', 1)
+        allowance = None
+        if aero:
+            allowance = m.core_fit_allowance if name == 'body-aero' else m.insert_fit_allowance
             metadata(record, 'xy_contour_compensation', allowance)
             metadata(record, 'xy_hole_compensation', -allowance)
-        center = np.array([0, 0, h / 2])
-        for ordinal, name in enumerate(names, 1):
-            part_id = parent_id + ordinal
-            mesh_path = HERE / f'{name}.stl'
-            mesh = meshes[name]
-            mesh_object(subresources, part_id, mesh, center)
-            ET.SubElement(components, qn('component'), objectid=str(part_id),
-                transform='1 0 0 0 1 0 0 0 1 0 0 0',
-                **{f'{{{PROD}}}path': path, f'{{{PROD}}}UUID': uid(name)})
-            part = ET.SubElement(record, 'part', id=str(part_id), subtype='normal_part')
-            for key, value in {'name': name, 'extruder': 2 if name.endswith('aero') else 1,
-                'matrix': '1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1', 'source_file': mesh_path.name,
-                'source_object_id': 0, 'source_volume_id': ordinal - 1,
-                'source_offset_x': 0, 'source_offset_y': 0, 'source_offset_z': h / 2}.items():
-                metadata(part, key, value)
-            ET.SubElement(part, 'mesh_stat', face_count=str(len(mesh.faces)), edges_fixed='0',
-                degenerate_facets='0', facets_removed='0', facets_reversed='0', backwards_edges='0')
-            provenance['meshes_sha256'][name] = hashlib.sha256(mesh_path.read_bytes()).hexdigest()
-        data[path.lstrip('/')] = ET.tostring(sub, xml_declaration=True, encoding='UTF-8')
+        part = ET.SubElement(record, 'part', id=str(part_id), subtype='normal_part')
+        for attr, value in {'name': name, 'extruder': 1,
+                           'matrix': '1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1',
+                           'source_file': mesh_path.name, 'source_object_id': 0,
+                           'source_volume_id': 0, 'source_offset_x': 0,
+                           'source_offset_y': 0, 'source_offset_z': height / 2}.items():
+            metadata(part, attr, value)
+        ET.SubElement(part, 'mesh_stat', face_count=str(len(mesh.faces)), edges_fixed='0',
+                      degenerate_facets='0', facets_removed='0', facets_reversed='0', backwards_edges='0')
         ET.SubElement(build, qn('item'), objectid=str(parent_id), printable='1',
-                      transform=f'1 0 0 0 1 0 0 0 1 {x + plate_index * 396} {y} {h / 2}')
-        instance = ET.SubElement(plates[plate_index], 'model_instance')
-        for key, value in {'object_id': parent_id, 'instance_id': 0, 'identify_id': 4600 + index}.items():
-            metadata(instance, key, value)
-        ET.SubElement(rels, f'{{{REL}}}Relationship', Target=path, Id=f'rel-{index}',
+                      transform=f'1 0 0 0 1 0 0 0 1 {150 + (number - 1) * 396} 145 {height / 2}')
+        instance = ET.SubElement(plate, 'model_instance')
+        for attr, value in {'object_id': parent_id, 'instance_id': 0,
+                           'identify_id': 4600 + number}.items():
+            metadata(instance, attr, value)
+        ET.SubElement(rels, f'{{{REL}}}Relationship', Target=path, Id=f'rel-{number}',
                       Type='http://schemas.microsoft.com/3dmanufacturing/2013/01/3dmodel')
+        data[path.lstrip('/')] = ET.tostring(sub, xml_declaration=True, encoding='UTF-8')
+        provenance['meshes_sha256'][name] = sha(mesh_path)
+        provenance['objects'].append({'part': name, 'plate': number, 'print_height_mm': height,
+                                      'fit_allowance_radial_mm': allowance})
     pauses = ET.Element('custom_gcodes_per_layer')
-    plate = ET.SubElement(pauses, 'plate')
-    ET.SubElement(plate, 'plate_info', id='2')
-    pause_z = info['dimensions_mm']['roof_bottom'] + nozzle / 2
-    ET.SubElement(plate, 'layer', top_z=str(pause_z), type='1', extruder='1',
-                  color='', extra=PAUSE_MESSAGE, gcode='M400 U1')
-    ET.SubElement(plate, 'mode', value='MultiExtruder')
+    if not aero:
+        plate = ET.SubElement(pauses, 'plate')
+        ET.SubElement(plate, 'plate_info', id='1')
+        ET.SubElement(plate, 'layer', top_z=str(provenance['pause_before_z_mm']), type='1', extruder='1',
+                      color='', extra=PAUSE_MESSAGE, gcode='M400 U1')
+        ET.SubElement(plate, 'mode', value='SingleExtruder')
     for path, xml in [('3D/3dmodel.model', model), ('Metadata/model_settings.config', config),
                      ('Metadata/custom_gcode_per_layer.xml', pauses),
                      ('3D/_rels/3dmodel.model.rels', rels), ('_rels/.rels', package_rels)]:
@@ -231,22 +232,42 @@ def project(destination, nozzle=0.4):
 <Default Extension="model" ContentType="application/vnd.ms-package.3dmanufacturing-3dmodel+xml"/>
 <Default Extension="png" ContentType="image/png"/>
 <Default Extension="gcode" ContentType="text/x.gcode"/></Types>'''
-    output = destination / 'magnetic-float-input.3mf'
+    output = destination / f'{key}-input.3mf'
     with zipfile.ZipFile(output, 'w', zipfile.ZIP_DEFLATED) as archive:
         for name, payload in data.items():
             entry = zipfile.ZipInfo(name, date_time=(2026, 1, 1, 0, 0, 0))
             entry.compress_type = zipfile.ZIP_DEFLATED
             archive.writestr(entry, payload)
-    provenance.update({'slicer_version': version, 'pause_before_z_mm': pause_z,
-                       'geometry_sha256': hashlib.sha256((HERE / 'design.json').read_bytes()).hexdigest()})
-    (destination / 'provenance.json').write_text(json.dumps(provenance, indent=2) + '\n')
-    print(output)
+    (destination / f'{key}-provenance.json').write_text(json.dumps(provenance, indent=2) + '\n')
+    return output
+
+
+def slice_projects(destination):
+    for key, job in JOBS.items():
+        output = destination / key
+        output.mkdir(parents=True, exist_ok=True)
+        with (destination / f'{key}-slice.log').open('w') as log:
+            subprocess.run([str(STUDIO), '--arrange', '0', '--orient', '0', '--slice', '0',
+                            '--export-3mf', job['filename'], '--outputdir', str(output),
+                            str(destination / f'{key}-input.3mf')],
+                           cwd=output, stdout=log, stderr=subprocess.STDOUT, check=True)
+        print(f'Sliced {job["filename"]}', flush=True)
+    import verify
+    report, profile = verify.verify_directory(destination)
+    for key, job in JOBS.items():
+        shutil.copy2(destination / key / job['filename'], HERE / job['filename'])
+    (HERE / 'verification.json').write_text(json.dumps(report, indent=2) + '\n')
+    (HERE / 'print-profile.json').write_text(json.dumps(profile, indent=2) + '\n')
+    print(json.dumps(report, indent=2), flush=True)
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--nozzle', type=float, choices=(0.4, 0.2), default=0.4)
-    parser.add_argument('--output', type=Path)
+    parser.add_argument('--output', type=Path, default=ROOT / '.cache/magnetic-float-print')
+    parser.add_argument('--slice', action='store_true', help='Slice, verify and save both print projects.')
     args = parser.parse_args()
-    destination = args.output or ROOT / ('.cache/magnetic-float-print' + ('-0.2' if args.nozzle == 0.2 else ''))
-    project(destination, args.nozzle)
+    destination = args.output.resolve()
+    for key in JOBS:
+        print(project(destination, key), flush=True)
+    if args.slice:
+        slice_projects(destination)

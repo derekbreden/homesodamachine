@@ -1,0 +1,166 @@
+{
+  "geometry": {
+    "diameter": 36.0,
+    "height": 60.06,
+    "bore": 4.8,
+    "petg_outer_wall": 3.0,
+    "petg_bore_wall": 1.8,
+    "petg_floor": 3.0,
+    "petg_roof": 3.06,
+    "insert_height": 10.0,
+    "insert_top": 57.0,
+    "insert_bottom": 47.0,
+    "magnet_seat": 43.825,
+    "roof_bottom": 57.0,
+    "magnet_pocket_od": 19.05,
+    "magnet_pocket_id": 9.525,
+    "magnet_pocket_height": 3.175,
+    "insert_od": 30.0,
+    "insert_id": 8.4
+  },
+  "load_basis": "Ambient-pressure sealed interior; full exterior gauge pressure, no load credit for foam.",
+  "stress_model": "Lame thick-cylinder hoop stresses away from ends; axial stress averaged over both PETG tubes.",
+  "loads": [
+    {
+      "external_pressure_psi": 90,
+      "differential_MPa": 0.62052815638512,
+      "annular_end_load_N": 620.3919169949323,
+      "outer_wall_maximum_hoop_compression_MPa": 4.061638841793513,
+      "bore_wall_maximum_hoop_tension_MPa": 1.222252429243418,
+      "axial_average_compression_MPa": 1.7809963968975524,
+      "foam_contact_pressure_MPa_if_it_takes_full_load": 0.62052815638512
+    },
+    {
+      "external_pressure_psi": 125,
+      "differential_MPa": 0.861844661646,
+      "annular_end_load_N": 861.6554402707393,
+      "outer_wall_maximum_hoop_compression_MPa": 5.641165058046545,
+      "bore_wall_maximum_hoop_tension_MPa": 1.6975728183936363,
+      "axial_average_compression_MPa": 2.473606106802156,
+      "foam_contact_pressure_MPa_if_it_takes_full_load": 0.861844661646
+    },
+    {
+      "external_pressure_psi": 180,
+      "differential_MPa": 1.24105631277024,
+      "annular_end_load_N": 1240.7838339898647,
+      "outer_wall_maximum_hoop_compression_MPa": 8.123277683587027,
+      "bore_wall_maximum_hoop_tension_MPa": 2.444504858486836,
+      "axial_average_compression_MPa": 3.561992793795105,
+      "foam_contact_pressure_MPa_if_it_takes_full_load": 1.24105631277024
+    }
+  ],
+  "ovalization_model": "p = E/(4*(1-nu^2)) * (t/mean_radius)^3, NASA SP-8007 Rev 2 equation 27 at gamma=1.",
+  "model_limits": "Screen only: short, relatively thick, anisotropic printed shell with flat ends and foam. The formula does not validate its buckling pressure, creep life, end caps, layer bonds or sealing. The 50% column is a sensitivity assumption, not a qualified knockdown factor.",
+  "sources": {
+    "shell_formula": "https://ntrs.nasa.gov/citations/20205011530",
+    "petg_basic_XY_flexural_modulus_1670_MPa": "https://bambu-lab-global.myshopify.com/en-cn/products/petg-basic",
+    "successful_water_recipe": "petg-water-recipe.json",
+    "sphere_thread_leak_commit": "b7dc4d576e9dc38794d190f31473f31d71aa4aa1"
+  },
+  "stiffness_basis": "1670 MPa is the published PETG Basic XY flexural modulus; 1000 MPa is an assumed reduced-stiffness scenario, not measured creep data.",
+  "thickness_sensitivity": [
+    {
+      "outer_diameter_mm": 36.0,
+      "wall_mm": 1.0,
+      "assumed_modulus_MPa": 1000,
+      "assumed_Poisson_ratio": 0.38,
+      "ideal_ovalization_pressure_psi": 7.907443615117649,
+      "at_50_percent_of_ideal_psi": 3.9537218075588245
+    },
+    {
+      "outer_diameter_mm": 36.0,
+      "wall_mm": 1.0,
+      "assumed_modulus_MPa": 1670,
+      "assumed_Poisson_ratio": 0.38,
+      "ideal_ovalization_pressure_psi": 13.205430837246476,
+      "at_50_percent_of_ideal_psi": 6.602715418623238
+    },
+    {
+      "outer_diameter_mm": 36.0,
+      "wall_mm": 1.8,
+      "assumed_modulus_MPa": 1000,
+      "assumed_Poisson_ratio": 0.38,
+      "ideal_ovalization_pressure_psi": 49.428727948413645,
+      "at_50_percent_of_ideal_psi": 24.714363974206822
+    },
+    {
+      "outer_diameter_mm": 36.0,
+      "wall_mm": 1.8,
+      "assumed_modulus_MPa": 1670,
+      "assumed_Poisson_ratio": 0.38,
+      "ideal_ovalization_pressure_psi": 82.54597567385079,
+      "at_50_percent_of_ideal_psi": 41.272987836925395
+    },
+    {
+      "outer_diameter_mm": 36.0,
+      "wall_mm": 2.4,
+      "assumed_modulus_MPa": 1000,
+      "assumed_Poisson_ratio": 0.38,
+      "ideal_ovalization_pressure_psi": 123.55380648621326,
+      "at_50_percent_of_ideal_psi": 61.77690324310663
+    },
+    {
+      "outer_diameter_mm": 36.0,
+      "wall_mm": 2.4,
+      "assumed_modulus_MPa": 1670,
+      "assumed_Poisson_ratio": 0.38,
+      "ideal_ovalization_pressure_psi": 206.33485683197617,
+      "at_50_percent_of_ideal_psi": 103.16742841598808
+    },
+    {
+      "outer_diameter_mm": 36.0,
+      "wall_mm": 3.0,
+      "assumed_modulus_MPa": 1000,
+      "assumed_Poisson_ratio": 0.38,
+      "ideal_ovalization_pressure_psi": 254.71949286113394,
+      "at_50_percent_of_ideal_psi": 127.35974643056697
+    },
+    {
+      "outer_diameter_mm": 36.0,
+      "wall_mm": 3.0,
+      "assumed_modulus_MPa": 1670,
+      "assumed_Poisson_ratio": 0.38,
+      "ideal_ovalization_pressure_psi": 425.38155307809376,
+      "at_50_percent_of_ideal_psi": 212.69077653904688
+    }
+  ],
+  "buoyancy_geometry_comparison": [
+    {
+      "diameter_mm": 28,
+      "height_mm": 50,
+      "outer_wall_mm": 1,
+      "bore_wall_mm": 1,
+      "floor_mm": 1,
+      "roof_mm": 1,
+      "bore_mm": 6,
+      "aero_density_g_cc": 0.55,
+      "assembled_mass_g": 25.283773621270395,
+      "reserve_lift_g": 4.090117689794173
+    },
+    {
+      "diameter_mm": 28,
+      "height_mm": 50,
+      "outer_wall_mm": 3,
+      "bore_wall_mm": 1.8,
+      "floor_mm": 3,
+      "roof_mm": 3,
+      "bore_mm": 4.8,
+      "aero_density_g_cc": 0.55,
+      "assembled_mass_g": 32.06902313360547,
+      "reserve_lift_g": -2.1861938126593543
+    },
+    {
+      "diameter_mm": 36.0,
+      "height_mm": 60.06,
+      "outer_wall_mm": 3.0,
+      "bore_wall_mm": 1.8,
+      "floor_mm": 3.0,
+      "roof_mm": 3.06,
+      "bore_mm": 4.8,
+      "aero_density_g_cc": 0.55,
+      "assembled_mass_g": 55.15076931524243,
+      "reserve_lift_g": 4.896044276227229
+    }
+  ],
+  "pressure_rating": "No float pressure test recorded."
+}
