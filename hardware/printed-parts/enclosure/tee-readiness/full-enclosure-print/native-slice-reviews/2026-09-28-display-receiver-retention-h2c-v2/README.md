@@ -1,10 +1,11 @@
 # Machine display retention receiver · H2C
 
-H2C task **1289537122** reports RUNNING at startup, layer 0, at 07:11:33 UTC.
-Its print-error field is 0, but the **0300-801E extrusion-motor overload** HMS is still
-listed. No agent resume command was issued. The exact cause and time of return to
-RUNNING are unobserved, so spacing of that resume cannot be verified.
-The reviewed job was accepted at 2026-09-28 07:00:01 UTC.
+H2C task **1289537122** reports RUNNING at layer 0/252 at 2026-09-28T07:13:16.919764+00:00.
+Derek confirms clearing the extrusion overload and pressing Resume using the
+[cut–unload–remove–reload sequence](startup-recovery.json). The print-error field
+is 0; the overload HMS remains listed. The exact resume time is unknown, so its
+shared-circuit spacing cannot be verified. The agent issued no resume command.
+
 One receiver in black PET-GF on the left 0.4 mm Standard nozzle.
 Native estimate: 173.1 minutes, 72.4 g using the saved profile density, 252 layers.
 
