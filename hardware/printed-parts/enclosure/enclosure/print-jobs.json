@@ -1748,7 +1748,7 @@
         "nozzle_offset_calibration": "Auto"
       },
       "bed_clear_confirmed_by": "Derek: Both beds are clear.",
-      "physical_result": "Derek accepts the +0.5 mm hook-reach cover with 0.9 mm leaf inset as workable and good enough for now; further tuning deferred.",
+      "physical_result": "Shake retention failed: cover popped out intact; no broken plastic reported.",
       "restarted_from_task": "1289348260",
       "identical_archive_and_gcode_to_task": "1289348260",
       "startup_spacing_trial": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-shared-circuit-stagger/observation.json",

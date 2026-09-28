@@ -1,0 +1,17 @@
+{
+  "/hardware/printed-parts/enclosure/display-cover/retention-trial/retention_trial.py": {
+    "ANGLE": "30\u00b0",
+    "BEARING_CLEARANCE": "0.98 mm",
+    "END_SLIP": "0.5 mm",
+    "INSET": "0.9 mm",
+    "LIP": "3.6 mm",
+    "MIN_OVERLAP": "2.8 mm",
+    "NOSE_DEPTH": "3.2 mm",
+    "OVERLAP": "3.1 mm",
+    "ROOT_EDGE_STOCK": "0.5 mm",
+    "ROOT_FILLET": "0.8 mm",
+    "SPAN": "75 mm",
+    "TIP_DEPTH": "15.4 mm",
+    "WALL": "1.3 mm"
+  }
+}
