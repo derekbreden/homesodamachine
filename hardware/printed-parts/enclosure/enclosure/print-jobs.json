@@ -1821,7 +1821,7 @@
       "status": "printing",
       "started_by": "Codex at Derek's request",
       "observed_state": "RUNNING",
-      "observed_at_utc": "2026-09-28T07:11:33.425748+00:00",
+      "observed_at_utc": "2026-09-28T07:13:16.919764+00:00",
       "observed_print_error": 0,
       "hms": [
         {
@@ -1879,15 +1879,16 @@
       "startup_spacing_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-receiver-retention-h2c-v2/startup-spacing.json",
       "startup_error_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-receiver-retention-h2c-v2/startup-error.json",
       "resume_attempted": false,
-      "postlaunch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-receiver-retention-h2c-v2/postlaunch-reading-2.json",
-      "startup_advisory": "Returned to RUNNING without an agent resume command; print_error is 0 but the overload HMS remains listed. Layer 0 startup is still in progress.",
+      "postlaunch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-receiver-retention-h2c-v2/postlaunch-reading-3.json",
+      "startup_advisory": "Derek confirms physical filament recovery and resume. Printer reports RUNNING with print_error 0; overload HMS remains listed in the latest reading.",
       "resume_observation": {
         "last_observed_paused_at_utc": "2026-09-28T07:07:46.872408+00:00",
         "first_observed_running_again_at_utc": "2026-09-28T07:10:21.800093+00:00",
-        "resume_source": "Not observed; no resume command issued by this agent.",
+        "resume_source": "Derek confirms clearing the feed and pressing Resume after cutting, unloading, removing the cut segment and reloading fresh filament.",
         "exact_resume_time_known": false,
         "resume_spacing_verified": false
-      }
+      },
+      "startup_recovery_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-receiver-retention-h2c-v2/startup-recovery.json"
     },
     {
       "date": "2026-09-28",
@@ -1900,7 +1901,7 @@
       "status": "printing",
       "started_by": "Codex at Derek's request",
       "observed_state": "RUNNING",
-      "observed_at_utc": "2026-09-28T07:11:32.486499+00:00",
+      "observed_at_utc": "2026-09-28T07:13:16.593924+00:00",
       "observed_print_error": 0,
       "hms": [],
       "sliced_file": ".cache/prints/2026-09-28-display-retention-mark2/ready/display-cover-retention-black-z004-mark2-v12.gcode.3mf",
@@ -1951,7 +1952,7 @@
       "bed_clear_confirmed_by": "Derek: Both printers are free.",
       "physical_result": "Pending physical fit and shake-retention test.",
       "startup_spacing_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-cover-retention-mark2-v12/startup-spacing.json",
-      "postlaunch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-cover-retention-mark2-v12/postlaunch-reading-2.json"
+      "postlaunch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-cover-retention-mark2-v12/postlaunch-reading-3.json"
     }
   ]
 }

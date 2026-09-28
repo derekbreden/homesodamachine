@@ -102,9 +102,11 @@
     "postlaunch-reading-1.json": "e983379f71808fd8eead20e838d764aa395b5ec83c730f76dcca1c0679ba46e7",
     "geometry-lint.log": "0be74ff9c9425b74355fa45522ac8a046cf9fac65fc0aee379f0579ef4fbdcda",
     "support-audit-display-receiver-retention-v2.json": "500555e646ab5c6a5eef2fab54a13e0ec4415bd0eb9f13f5fb2bdaa6d18ab593",
-    "README.md": "19950a359d2a9fe6de24a6c1ae4ee36732c460414da25c8aab6059666a974335",
+    "README.md": "b7bdf57039aaa21646216f656415b885d3e5b870b8f2e000fb6dd62719d42e0e",
+    "startup-recovery.json": "c3294a8387b124b78ef7426706dc8d63f44e125aba38bd51d6fbae74a98d03ce",
     "postlaunch-reading-2.json": "3fae8a79baae44398555fb6894a4d012904ed8c80fe278a957f342858ccd3530",
     "support-removal-review.json": "55736ee58a78c0a649b2ae843aab3364c9aebfc8b4a02474dde47c8657d5fbf6",
+    "postlaunch-reading-3.json": "771c58420670b2437badc2c78b8b13f86bd5d259da4cf47f764c76f3d9d21058",
     "verification.json": "4990d07e5d46aaa764f823899ff018c6b19f2060b7bc7d8a21e943063ca63b85",
     "geometry.png": "72d3d34f3ab69ced5b0eb2eaa0bbf04934515a83590e2f56ff1126453337151c",
     "launch.json": "be8e288854a2966e1264040817bdbbf74b22015dd8757a2d3db30d284c74ad56",
@@ -113,7 +115,7 @@
     "geometry-check.json": "d2a5c77e61cc3e076837d9cc163456e8b8e7fe84f45d6627be77f21b0c7c98d9"
   },
   "printer_task_id": "1289537122",
-  "observed_at_utc": "2026-09-28T07:11:33.425748+00:00",
+  "observed_at_utc": "2026-09-28T07:13:16.919764+00:00",
   "observed_state": "RUNNING",
   "observed_layer": 0,
   "observed_total_layers": 252,
@@ -131,13 +133,14 @@
   "startup_error_record": "startup-error.json",
   "resume_attempted": false,
   "startup_spacing_record": "startup-spacing.json",
-  "postlaunch_record": "postlaunch-reading-2.json",
-  "startup_advisory": "Returned to RUNNING without an agent resume command; print_error is 0 but the overload HMS remains listed. Layer 0 startup is still in progress.",
+  "postlaunch_record": "postlaunch-reading-3.json",
+  "startup_advisory": "Derek confirms physical filament recovery and resume. Printer reports RUNNING with print_error 0; overload HMS remains listed in the latest reading.",
   "resume_observation": {
     "last_observed_paused_at_utc": "2026-09-28T07:07:46.872408+00:00",
     "first_observed_running_again_at_utc": "2026-09-28T07:10:21.800093+00:00",
-    "resume_source": "Not observed; no resume command issued by this agent.",
+    "resume_source": "Derek confirms clearing the feed and pressing Resume after cutting, unloading, removing the cut segment and reloading fresh filament.",
     "exact_resume_time_known": false,
     "resume_spacing_verified": false
-  }
+  },
+  "startup_recovery_record": "startup-recovery.json"
 }

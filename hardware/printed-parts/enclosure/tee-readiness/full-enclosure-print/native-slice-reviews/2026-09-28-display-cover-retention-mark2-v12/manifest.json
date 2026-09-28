@@ -105,6 +105,7 @@
     "README.md": "2d2e06d2631aa11a15a7c99e156b7c21ff827d48f769f22c69690560226e9f84",
     "postlaunch-reading-2.json": "3fae8a79baae44398555fb6894a4d012904ed8c80fe278a957f342858ccd3530",
     "support-removal-review.json": "81b2a61d3c319b1a8c0ddedad7ab3ca275572e908416be940f98e42f7fcf9964",
+    "postlaunch-reading-3.json": "771c58420670b2437badc2c78b8b13f86bd5d259da4cf47f764c76f3d9d21058",
     "verification.json": "4bf85396c037ca956e944146e0b3cce4f2852d5f58941af80e4db14ca6830165",
     "geometry.png": "b1262dd4b6ed1961cc0e5c136a10b77e5ca209287b2e1415040939c827e90a60",
     "launch.json": "9a27f90566257e405a998b61acefcfec66166f3ab839ec4881a8bd242a7b8e99",
@@ -112,7 +113,7 @@
     "geometry-check.json": "d2a5c77e61cc3e076837d9cc163456e8b8e7fe84f45d6627be77f21b0c7c98d9"
   },
   "printer_task_id": "1289548468",
-  "observed_at_utc": "2026-09-28T07:11:32.486499+00:00",
+  "observed_at_utc": "2026-09-28T07:13:16.593924+00:00",
   "observed_state": "RUNNING",
   "observed_layer": 0,
   "observed_total_layers": 64,
@@ -123,5 +124,5 @@
   "prelaunch_record": "prelaunch.json",
   "send_method": "Bambu Connect UI through cua_repl; one Send click; project_file SUCCESS; exact archive checked before import and exact G-code checked after import.",
   "startup_spacing_record": "startup-spacing.json",
-  "postlaunch_record": "postlaunch-reading-2.json"
+  "postlaunch_record": "postlaunch-reading-3.json"
 }

@@ -1,0 +1,23 @@
+{
+  "reported_by": "Derek in this conversation",
+  "recorded_at_utc": "2026-09-28T07:14:17.383084+00:00",
+  "printer": "H2C",
+  "printer_task_id": "1289537122",
+  "error": "0300-801E: extrusion motor overloaded",
+  "statement": "I cleared and hit resume. For the record, the way I've been dealing with this (which has happened a few times now after the printers have been idle and loaded for a bit, which is perhaps expected for moisture sensitive filament) the way I've been dealing with this is cutting the filament at the spool side, unloading it through the touch screen, and then pulling that entire piece out, and then loading it again it again with that fresh cut from the spool.",
+  "recurrence": "Derek reports this has happened a few times after the printers sat loaded and idle.",
+  "recovery_steps": [
+    "Cut filament at the spool side.",
+    "Unload using the printer touchscreen.",
+    "Pull the entire cut piece out.",
+    "Reload from the freshly cut spool end.",
+    "Resume the print."
+  ],
+  "performed_by": "Derek",
+  "agent_resume_attempted": false,
+  "suspected_cause": "Moisture, suggested by Derek; unconfirmed.",
+  "exact_resume_time_known": false,
+  "resume_spacing_verified": false,
+  "first_observed_running_again_at_utc": "2026-09-28T07:10:21.800093+00:00",
+  "observation_record": "postlaunch-reading-1.json"
+}
