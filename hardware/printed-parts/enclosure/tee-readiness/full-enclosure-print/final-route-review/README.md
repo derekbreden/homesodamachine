@@ -46,7 +46,3 @@ loaded at execution, and production source already includes +1.5 mm. They also
 read live canonical STEP/facts and retained temporary valve inputs. A reproduction
 must restore the matching probe source/input state or use a new absolute-pose
 checker. The result files do not record a complete imported-source closure.
-
-The [readiness update plan](readiness-update-plan.md) applies after the final
-combined gates and exact receipt are available. This package does not mark any
-queued plate ready or modify the immutable launch/cancellation records.

@@ -190,6 +190,5 @@
     "selected_offset_expression": "SPLIT_FLANK_CLEAR = BODY_ANCHOR_SLIP + 1.5",
     "selected_roll_degrees": 30.0
   },
-  "manifest": "artifact-manifest.json",
-  "readiness_update_plan": "readiness-update-plan.md"
+  "manifest": "artifact-manifest.json"
 }
