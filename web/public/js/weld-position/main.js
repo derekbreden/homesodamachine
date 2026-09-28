@@ -320,14 +320,14 @@ try {
     root.querySelectorAll("[data-view]").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.view === view)));
   }
 
-  let roll = 45, holeRoll = 35, vertical = 0;
+  let roll = 45, holeRoll = 30, vertical = -15;
   function applyState(saved) {
     const value = saved?.modelContent ?? saved;
     roll = Number.isFinite(value?.roll) ? Math.max(0, Math.min(80, value.roll)) : 45;
     // Keep the physical pose when restoring a saved angle from the original scale.
     const savedHoleRoll = value?.holeRoll + (value?.angleVersion === 2 ? 0 : HOLE_AXIS_OFFSET);
-    holeRoll = Number.isFinite(value?.holeRoll) ? Math.max(-25, Math.min(95, savedHoleRoll)) : 35;
-    vertical = Number.isFinite(value?.vertical) ? Math.max(-90, Math.min(90, value.vertical)) : 0;
+    holeRoll = Number.isFinite(value?.holeRoll) ? Math.max(-25, Math.min(95, savedHoleRoll)) : 30;
+    vertical = Number.isFinite(value?.vertical) ? Math.max(-90, Math.min(90, value.vertical)) : -15;
     updatePose(roll, holeRoll, vertical);
     setView(["overall", "top", "joint"].includes(value?.view) ? value.view : "overall");
   }
