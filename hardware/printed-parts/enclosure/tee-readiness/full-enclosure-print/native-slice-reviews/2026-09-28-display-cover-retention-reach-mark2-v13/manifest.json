@@ -1,5 +1,5 @@
 {
-  "status": "printing",
+  "status": "completed",
   "printer": "Mark2",
   "submitted": true,
   "plate_contents": [
@@ -51,24 +51,27 @@
     "hardware/printed-parts/enclosure/display-cover/retention-reach-trial/prepare_print.py": "d332d7e3bc69954611593fb9c1d26e66d2efd99db0bb3b7964f77035734eebdb",
     "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
   },
-  "physical_fit": "Pending; assess bow, hook engagement, free play and shake retention in the existing receiver.",
+  "physical_fit": "No physical fit result reported for this cover; Derek selected the 0.75 mm cover.",
   "printer_task_id": "1291037500",
   "accepted_at_utc": "2026-09-28T18:30:53.386440+00:00",
   "launch_record": "launch.json",
   "review_sha256": {
+    "README.md": "06d6818bd676c2e03da6764c544df8a78f9ca7fa9d4def65c0a73b996ffbd1c3",
+    "completion.json": "e46fdb8bc1bb5eff108cd9575a631856c9855f41c07f6f324c87f2470e480c8c",
+    "geometry-check.json": "8c43530793801264fe7af1e9eaad0d0c186b9d824cca2e5fa80a18970f34e355",
+    "launch.json": "df18c031537e624673dc8ee0db2bae25605efcabe235111e0af2c3d1dbe1a5b5",
+    "postlaunch.json": "a518312a8af7e44610e4bdb4c0d723de78c92b255eb36ec435a39a9b4e9c3673",
+    "prelaunch-status.json": "876bfd78f77e83b330e3c5af9aede50a635febeb1c9eb5b702404461f3c22108",
     "prelaunch.json": "8429a0f811dbd3b35e9f038ff9e89455037f1a2ffd2e28ab24ca50a24fdfc482",
     "preparation.json": "2ed3a7d0a6c128c70c027d840c02ceb0add61dd5bffd4d48e22451bc30bb357d",
     "preview.png": "d69ed1ac3e36f0677559553450a97524049e208b70c57011e26a0825610bfd6a",
-    "support-audit-display-cover-retention-reach-060.json": "2fd299bbc72b56e8fe984d39a6db13d7659fbb5e6a6e4b395451031d566f8254",
-    "slice-command.json": "c49dc536e4e2abc2cf4ece80cc8789f6c9cd8bb7fe3265c9e0d6d4f69d9adf13",
     "send.json": "e55897c739d1689e4481c2b31f773cf07aef6c75153a715c652900b1bc4e5d4f",
-    "README.md": "1676257ff52988c6fc16fc5555818078f718b29c445785eeee6a808e5847227e",
-    "postlaunch.json": "a518312a8af7e44610e4bdb4c0d723de78c92b255eb36ec435a39a9b4e9c3673",
-    "support-removal-review.json": "ab3af0e9e30b19e6a5b310b773f1738d34e488b9ee1b32ef426ff27c6f1d00f9",
-    "verification.json": "99bc71390c668eb978ebbf0c35f03cbbb2835fa8f09a6369fad49882289a3679",
-    "launch.json": "df18c031537e624673dc8ee0db2bae25605efcabe235111e0af2c3d1dbe1a5b5",
+    "slice-command.json": "c49dc536e4e2abc2cf4ece80cc8789f6c9cd8bb7fe3265c9e0d6d4f69d9adf13",
     "slice-result.json": "3cd68b279d0ebf66ad5098a7c4151518fe0c5394224f3a1bad2203fe6d3a245c",
-    "prelaunch-status.json": "876bfd78f77e83b330e3c5af9aede50a635febeb1c9eb5b702404461f3c22108",
-    "geometry-check.json": "8c43530793801264fe7af1e9eaad0d0c186b9d824cca2e5fa80a18970f34e355"
-  }
+    "support-audit-display-cover-retention-reach-060.json": "2fd299bbc72b56e8fe984d39a6db13d7659fbb5e6a6e4b395451031d566f8254",
+    "support-removal-review.json": "ab3af0e9e30b19e6a5b310b773f1738d34e488b9ee1b32ef426ff27c6f1d00f9",
+    "verification.json": "99bc71390c668eb978ebbf0c35f03cbbb2835fa8f09a6369fad49882289a3679"
+  },
+  "completion_record": "completion.json",
+  "completion_observed_at_utc": "2026-09-28T19:41:38.072115+00:00"
 }

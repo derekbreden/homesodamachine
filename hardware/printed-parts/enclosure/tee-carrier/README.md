@@ -7,10 +7,14 @@ enclosure. Two window covers close the flank openings aft of it.
 ## Low-force sliding clearance
 
 The sliding fit requires **low-force clearance for rough overhang surfaces involved**.
-After Derek selects a [display-cover arm-reach trial](../display-cover/retention-reach-trial/README.md),
-the next fit task is to evaluate this clearance at the carrier’s sliding contact surfaces.
+The selected [0.75 mm extra-arm-reach display cover](../display-cover/physical-acceptance.json)
+snaps cleanly, has no noticeable bow and passes shaking with its matching receiver.
+The next fit task is to evaluate this clearance at the carrier’s sliding contact surfaces.
 Support-removal roughness and the available actuation force are part of that fit; the
 usual nominal clearance alone does not establish low-force motion.
+The cover's 1.23 mm nominal hook-to-catch gap is evidence for this evaluation, not a
+universal clearance to copy onto the sliding joint. Check the carrier's motion and
+retention with its own contact geometry and print orientation.
 
 ## Plate
 
