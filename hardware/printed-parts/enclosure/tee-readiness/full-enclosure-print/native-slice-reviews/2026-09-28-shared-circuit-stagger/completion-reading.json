@@ -1,0 +1,24 @@
+[
+  {
+    "printer": "Mark2",
+    "observed_at_utc": "2026-09-28T06:28:57.613828+00:00",
+    "gcode_state": "FINISH",
+    "job_id": "1289413482",
+    "layer_num": 58,
+    "total_layer_num": 58,
+    "mc_percent": 100,
+    "print_error": 0,
+    "hms": []
+  },
+  {
+    "printer": "H2C",
+    "observed_at_utc": "2026-09-28T06:28:57.425850+00:00",
+    "gcode_state": "FINISH",
+    "job_id": "1289418578",
+    "layer_num": 60,
+    "total_layer_num": 60,
+    "mc_percent": 100,
+    "print_error": 0,
+    "hms": []
+  }
+]

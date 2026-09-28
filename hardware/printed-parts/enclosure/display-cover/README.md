@@ -1,5 +1,9 @@
 # Machine display cover
 
+The accepted physical fit reference is the [reach-trial cover and receiver](reach-trial/README.md):
++0.5 mm hook reach and 0.9 mm skirt inset per side. Derek considers that separately
+modeled pair workable and good enough for now, with further tuning deferred.
+
 A PET-GF bezel with a smooth, rounded face, let into the enclosure's 30° display plane.
 The cover measures [125.5 mm](COVER_X) across by [83 mm](COVER_SLOPE) up the slope,
 with [6 mm](COVER_CORNER_R) outside corner radii and a [2 mm](COVER_T) face.
