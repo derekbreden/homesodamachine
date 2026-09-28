@@ -1,0 +1,127 @@
+{
+  "status": "printing",
+  "submitted": true,
+  "print_started": true,
+  "printer": "Mark2",
+  "plate_contents": [
+    "display-cover-retention-v2"
+  ],
+  "native_archive": ".cache/prints/2026-09-28-display-retention-mark2/ready/display-cover-retention-black-z004-mark2-v12.gcode.3mf",
+  "native_archive_sha256": "1216e7ec7502bdc50ca3117e9d239eb158e8a245d9abd7c57543acd9cb8d687e",
+  "gcode_sha256": "e5886686470a27ee6d7940e4bb13743261eb8028af665e3186138a224b331001",
+  "staged_input_sha256": "9bfd34eeff81a3d540274a20e4277122b5051abd5bd2f59062c79b3abb743b97",
+  "estimated_seconds": 2091.452880859375,
+  "estimated_grams_saved_profile_density": 13.76988697052002,
+  "geometry": {
+    "hook_projection_mm": 3.6,
+    "leaf_span_mm": 75.0,
+    "skirt_inset_each_mm": 0.9,
+    "additional_hook_reach_mm": 0.5,
+    "bearing_clearance_mm": 0.9800000000000004,
+    "root_fillet_mm": 0.8,
+    "nose_depth_mm": 3.200000000000001,
+    "tip_depth_mm": 15.4,
+    "nominal_overlap_mm": 3.1000000000000085,
+    "minimum_overlap_at_lateral_float_mm": 2.8000000000000087,
+    "nominal_bearing_area_each_mm2": 232.50000000000063,
+    "minimum_bezel_stock_outside_leaf_root_mm": 0.5
+  },
+  "geometry_review": "geometry-check.json",
+  "native_review": "verification.json",
+  "support_review": "support-removal-review.json",
+  "checks": {
+    "geometry_pass": true,
+    "native_slice_pass": true,
+    "source_hashes_current": true,
+    "bazel_target_build": "//:retention-trial passed; all seven outputs match the working tree.",
+    "support_review_includes_unlabelled_paths": true,
+    "post_publish_geometry_lint": {
+      "open_findings": 0,
+      "intentional_features_answered": 6
+    }
+  },
+  "settings": {
+    "profile": "hardware/printed-parts/petgf.3mf",
+    "profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "material": "Black Polymaker PET-GF; PET-CF mapping on left external spool 254.",
+    "nozzle": "left 0.4 mm Standard",
+    "orientation": "Visible face on plate, leaves up.",
+    "layer_height_mm": 0.24,
+    "first_layer_height_mm": 0.2,
+    "layer_count": 64,
+    "wall_loops": 2,
+    "wall_sequence": "inner wall/outer wall, then infill",
+    "infill_wall_overlap": "15%",
+    "speed_temperature_and_fan_settings": "Saved profile values.",
+    "requested_z_trim_mm": 0.04,
+    "emitted_z_trim_commands_mm": [
+      0.0,
+      0.02
+    ],
+    "support_top_z_distance_mm": 0.24,
+    "support_remove_small_overhang": false
+  },
+  "physical_trial": {
+    "status": "pending",
+    "retention_force_measured": false,
+    "insertion_force_measured": false,
+    "shake_retention_tested": false
+  },
+  "bed_clear_confirmed_by": "Derek: Both printers are free.",
+  "standing_print_options": {
+    "timelapse": "On",
+    "auto_bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "source_geometry_and_settings_sha256": {
+    "hardware/printed-parts/enclosure/display-cover/retention-trial/display-cover-retention-v2.stl": "aca36dc0b4cc292253bbb0f16fa5c0a95263bf5eb523bb5154b783832ab11577",
+    "hardware/printed-parts/enclosure/display-cover/retention-trial/display-cover-retention-v2.step": "bf7641e3166fcf41df12c690fd3287c90c5246d84ccddc23c1ce668804915812",
+    "hardware/printed-parts/enclosure/display-cover/retention-trial/retention_trial.py": "fd5d1a754b5970f2fa7a5569b554f0329ec0af6f6e064202cbd281985273133c",
+    "hardware/printed-parts/enclosure/display-cover/retention-trial/geometry-check.json": "d2a5c77e61cc3e076837d9cc163456e8b8e7fe84f45d6627be77f21b0c7c98d9",
+    "hardware/printed-parts/enclosure/display-cover/retention-trial/prepare_print.py": "9e1690746a8c349ea1063d6f7d1aae5b3d25539dee9f0d4648946dadfd16fca4",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
+  },
+  "validation_scripts_sha256": {
+    "hardware/printed-parts/enclosure/display-cover/retention-trial/check_geometry.py": "a6b11d540be6ac5519badc2c1bda45120cba836d278b0b95796d4a2bf6013588",
+    "hardware/printed-parts/enclosure/display-cover/retention-trial/verify_print.py": "5ea2072dc6da537adbe0748389a4254eb314ae18bb5511a0bdec98b2ecdc20a8",
+    "hardware/printed-parts/enclosure/display-cover/retention-trial/check_support_contacts.py": "95e7dcc5f4b10f0fb55acdf553c9e2ceb94f36ccfb6ed82f7bd8a7d846c4fd15"
+  },
+  "published_geometry_sha256": {
+    "hardware/printed-parts/enclosure/display-cover/retention-trial/display-cover-retention-v2.step": "bf7641e3166fcf41df12c690fd3287c90c5246d84ccddc23c1ce668804915812",
+    "hardware/printed-parts/enclosure/display-cover/retention-trial/display-cover-retention-v2.stl": "aca36dc0b4cc292253bbb0f16fa5c0a95263bf5eb523bb5154b783832ab11577",
+    "hardware/printed-parts/enclosure/display-cover/retention-trial/display-cover-retention-v2.step.mesh": "4e7904b1501d0f5e9be94ec0c013b431163fb99ad279a8f23580101adee74caf"
+  },
+  "review_sha256": {
+    "prelaunch.json": "1b6e6562ec077230ff487c0a1e84244968f636cac948a155661369362a897ad4",
+    "preparation.json": "1bc2cc240cafa2ab1bebc0cddf75fb55a7fc5cdfab7db1b4e098de91f97c200a",
+    "startup-spacing.json": "0d3b2f975a46625c6184a4f4e953b280640f2f41f53fb1b29e881946e0fcb6ed",
+    "preview.png": "7da32b17d7fd2e8147cc7a5a16173795dc88f101f30f75341bb2f79d5ceefe35",
+    "slice-command.json": "e25a6a431b7aaef453a9f11a16fc36f8d983d26f110b2f6842d0da49cee7672e",
+    "support-audit-display-cover-retention-v2.json": "3404fecf4417b76c47c309312a9c9b15802a68d50f3f97b11b011e13805a151d",
+    "postlaunch-reading-1.json": "e983379f71808fd8eead20e838d764aa395b5ec83c730f76dcca1c0679ba46e7",
+    "geometry-lint.log": "48f4db56f8ec345fbdce1d5424c3631aa3e24b7140034c8d8429a7a382e277b5",
+    "send.json": "c18c9f0b5f20d89bd9536befe267f64e39683313004eb9236b17e46364858ae1",
+    "README.md": "2d2e06d2631aa11a15a7c99e156b7c21ff827d48f769f22c69690560226e9f84",
+    "postlaunch-reading-2.json": "3fae8a79baae44398555fb6894a4d012904ed8c80fe278a957f342858ccd3530",
+    "support-removal-review.json": "81b2a61d3c319b1a8c0ddedad7ab3ca275572e908416be940f98e42f7fcf9964",
+    "verification.json": "4bf85396c037ca956e944146e0b3cce4f2852d5f58941af80e4db14ca6830165",
+    "geometry.png": "b1262dd4b6ed1961cc0e5c136a10b77e5ca209287b2e1415040939c827e90a60",
+    "launch.json": "9a27f90566257e405a998b61acefcfec66166f3ab839ec4881a8bd242a7b8e99",
+    "slice-result.json": "522488c15010434c331541e8cfd1817c65d1ca94e24b9c39a3edd6b1ed3619fa",
+    "geometry-check.json": "d2a5c77e61cc3e076837d9cc163456e8b8e7fe84f45d6627be77f21b0c7c98d9"
+  },
+  "printer_task_id": "1289548468",
+  "observed_at_utc": "2026-09-28T07:11:32.486499+00:00",
+  "observed_state": "RUNNING",
+  "observed_layer": 0,
+  "observed_total_layers": 64,
+  "observed_remaining_minutes": 34,
+  "print_error": 0,
+  "hms": [],
+  "launch_record": "launch.json",
+  "prelaunch_record": "prelaunch.json",
+  "send_method": "Bambu Connect UI through cua_repl; one Send click; project_file SUCCESS; exact archive checked before import and exact G-code checked after import.",
+  "startup_spacing_record": "startup-spacing.json",
+  "postlaunch_record": "postlaunch-reading-2.json"
+}

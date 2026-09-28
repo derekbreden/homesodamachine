@@ -1,0 +1,139 @@
+{
+  "project": "display-receiver-retention-black-z018-h2c-v2-input.3mf",
+  "settings_source": "hardware/printed-parts/petgf.3mf",
+  "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "settings_sha256": "2d4948a41dae85dd44346942fb621ae262ac82142255fc259c230fa253b58221",
+  "source_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "409b1516f0401361a02b18a34420c10ca83bc33615e8896cade2fea42edee871",
+      "requested_z_trim_mm": 0.18
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.18 Z trim"
+    }
+  },
+  "printer": "H2C",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 15.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "display-receiver-retention-v2",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/enclosure/display-cover/retention-trial/display-receiver-retention-v2.stl",
+      "stl_sha256": "e5c348b0058b9f5cc8b9ea2b9abebf393ec398b5120f946ccdf6af24fc3ab754",
+      "triangles": 1796,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        1.375,
+        30.351408004760742
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        162.5,
+        160.0,
+        30.351408004760742
+      ],
+      "plate_translation_mm": [
+        162.5,
+        160.0,
+        30.351408004760742
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          91.5,
+          115.18975448608398,
+          0.0
+        ],
+        [
+          233.5,
+          204.81024551391602,
+          60.702816009521484
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.980478252036846e-10
+    }
+  ],
+  "project_sha256": "99d3a307f4efd9c96005e9feed9cc19752a237b079ec570b900ab50278fc28d7",
+  "settings_preserved_byte_for_byte": false,
+  "source_geometry_and_settings_sha256": {
+    "hardware/printed-parts/enclosure/display-cover/retention-trial/display-receiver-retention-v2.stl": "e5c348b0058b9f5cc8b9ea2b9abebf393ec398b5120f946ccdf6af24fc3ab754",
+    "hardware/printed-parts/enclosure/display-cover/retention-trial/display-receiver-retention-v2.step": "a55df6ec84c77d220d93b5fa8e9c036d14b500a3a742a95842a2ad871ce85084",
+    "hardware/printed-parts/enclosure/display-cover/retention-trial/retention_trial.py": "fd5d1a754b5970f2fa7a5569b554f0329ec0af6f6e064202cbd281985273133c",
+    "hardware/printed-parts/enclosure/display-cover/retention-trial/geometry-check.json": "d2a5c77e61cc3e076837d9cc163456e8b8e7fe84f45d6627be77f21b0c7c98d9",
+    "hardware/printed-parts/enclosure/display-cover/retention-trial/prepare_print.py": "9e1690746a8c349ea1063d6f7d1aae5b3d25539dee9f0d4648946dadfd16fca4",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
+  },
+  "intentional_process_and_mapping_overrides": {
+    "extruder_ams_count": [
+      "1#0|4#0",
+      "1#0|4#0"
+    ],
+    "support_remove_small_overhang": "0",
+    "support_top_z_distance": "0.24"
+  },
+  "requested_z_trim_mm": 0.18,
+  "expected_textured_plate_trim_mm": 0.16,
+  "orientation": "Display plane at 30 degrees, matching front-top.",
+  "support_policy": "Functional square bearing faces supported with open removal lanes.",
+  "layer_policy": "0.24 mm with 0.20 mm first layer; cosmetic bezel rounds are in XY."
+}

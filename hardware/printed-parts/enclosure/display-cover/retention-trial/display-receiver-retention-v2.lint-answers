@@ -1,0 +1,9 @@
+[step] Each 2 mm thick square retaining ledge projects 0.70 mm inward from the upper slot wall. It carries the flat hook bearing and has an open underside for support removal.
+file: hardware/printed-parts/enclosure/display-cover/retention-trial/display-receiver-retention-v2.step
+click: x=62.350 y=4.010 z=29.257
+click: x=-62.350 y=4.010 z=29.257
+
+[sliver] The rear end of each 4 mm side cheek has a 1 mm horizontal cap adjoining the inclined frame underside. It is continuous with the full-height cheek.
+file: hardware/printed-parts/enclosure/display-cover/retention-trial/display-receiver-retention-v2.step
+click: x=69.000 y=45.685 z=55.940
+click: x=-69.000 y=45.685 z=55.940
