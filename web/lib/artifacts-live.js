@@ -27,7 +27,7 @@
 // carries it forward from there.
 //
 // IT REPORTS AND HOLDS NOTHING. Every failure here leaves the container serving the solids it
-// already has, which is the previous cut. CLAUDE.md, "Nothing withholds".
+// already has.
 
 import { execFile } from "node:child_process";
 import { createHash } from "node:crypto";

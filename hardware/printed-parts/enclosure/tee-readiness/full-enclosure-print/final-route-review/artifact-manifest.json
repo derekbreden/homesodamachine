@@ -83,9 +83,8 @@
     }
   ],
   "derived_files": {
-    "README.md": "9f33f1b0bda0aa51d7c9d9e2ab0f0739324f8fa86d572cd8c0945135c22ac2df",
-    "report.json": "5278adaa73a1b55afe6b71d6106d7d0a0cd5d9caeaa76a534242e244b20f53c4",
-    "readiness-update-plan.md": "836bf46a596cecb871f897f3db0407047a87bef601e2f97d869b76bea6d65191"
+    "README.md": "b7c7464c32821da35217fe84d477e5fa1d751ea0669f3f1e9e1f0c34a25e9878",
+    "report.json": "c532f524bd81d65df769bcee754f5f6907d791bacfe92817571e03d981bd3a52"
   },
   "freeze_rule": "Preserved raw/script bytes are immutable evidence. A new probe run belongs in a new versioned directory."
 }
