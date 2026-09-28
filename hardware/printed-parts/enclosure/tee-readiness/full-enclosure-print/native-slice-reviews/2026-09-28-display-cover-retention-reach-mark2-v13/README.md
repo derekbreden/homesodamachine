@@ -1,6 +1,8 @@
 # Display-cover reach 0.60 mm · Mark2
 
-Accepted as task **1291037500** at 2026-09-28T18:30:53.386440+00:00. Native estimate: 31.8 minutes.
+Completed as task **1291037500**, 103/103 layers with no reported errors.
+No physical fit result is reported for this cover; the selected fit is the 0.75 mm cover.
+Native estimate: 31.8 minutes.
 One complete cover for the existing broad-leaf receiver, with 0.60 mm extra arm
 reach: 0.10 mm beyond the shake-tested cover. The 75 mm leaves, 3.6 mm hooks,
 0.9 mm inset, R0.8 roots, bezel and window are unchanged.
@@ -13,3 +15,5 @@ the square hook bearings with a verified 0.24 mm top gap and peel outward beside
 
 [Manifest](manifest.json), [geometry](geometry-check.json), [native slice](verification.json),
 [support contacts](support-removal-review.json) and [preview](preview.png).
+
+[Printer completion](completion.json).

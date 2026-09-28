@@ -1,7 +1,9 @@
 # Display-cover reach 0.75 mm · H2C
 
 Accepted by H2C as task **1291079562** at 18:47:16 UTC on 2026-09-28.
-The printer reports RUNNING with no errors during startup. Native estimate: 31.9 minutes.
+Completed at 104/104 layers with no reported errors. Derek selects this cover:
+clean snap, no noticeable bow and passing shake test with the existing receiver.
+Native estimate: 31.9 minutes.
 The left Standard Hardened 0.4 mm hotend uses the black Ext PET-CF mapping;
 the right 0.2 mm hotend is unused. Startup spacing from Mark2 is 983 seconds.
 
@@ -19,3 +21,5 @@ the square hook bearings with a verified 0.24 mm top gap and peel outward beside
 [support contacts](support-removal-review.json), [preview](preview.png),
 [launch receipt](launch.json), [startup reading](postlaunch.json),
 [nozzle mapping](nozzle-readiness.json) and [startup spacing](startup-spacing.json).
+
+[Physical acceptance](physical-acceptance.json) and [printer completion](completion.json).

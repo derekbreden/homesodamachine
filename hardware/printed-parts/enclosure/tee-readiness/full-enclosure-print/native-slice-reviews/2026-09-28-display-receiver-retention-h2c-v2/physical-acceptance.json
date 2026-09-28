@@ -16,16 +16,5 @@
     "hardware/printed-parts/enclosure/display-cover/retention-trial/display-cover-retention-v2.stl": "aca36dc0b4cc292253bbb0f16fa5c0a95263bf5eb523bb5154b783832ab11577",
     "hardware/printed-parts/enclosure/display-cover/retention-trial/display-receiver-retention-v2.stl": "e5c348b0058b9f5cc8b9ea2b9abebf393ec398b5120f946ccdf6af24fc3ab754"
   },
-  "next_fit_trials": {
-    "extra_arm_reach_mm": [
-      0.6,
-      0.75
-    ],
-    "receiver": "Same existing receiver"
-  },
-  "next_after_selection": {
-    "requirement": "low-force clearance for rough overhang surfaces involved",
-    "application": "tee carrier sliding motion",
-    "numeric_clearance": "Pending cover selection and evaluation of the carrier contact surfaces."
-  }
+  "selected_pair_record": "hardware/printed-parts/enclosure/display-cover/physical-acceptance.json"
 }
