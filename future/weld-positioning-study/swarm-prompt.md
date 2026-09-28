@@ -30,7 +30,7 @@ Read the relevant current repository context, particularly `hardware/assembly/we
 
 Separate my statements, physical facts, manufacturer documentation, and agent assumptions. Old agent-proposed tolerances, loads, material limits, budgets, and geometry must not silently become requirements that eliminate new ideas. When an unknown matters, work through plausible alternatives and label them. Do not wait for me to provide measurements overnight.
 
-Have the coordinator assemble a concise shared context from those sources. Give every explorer the relevant physical relationships and my actual goals. Avoid paying for every agent to independently reconstruct the same history.
+Have the coordinator assemble a concise shared context from those sources. Give every explorer the relevant physical relationships and preserve the goals quoted above verbatim in each brief, including the initial briefs that omit solution examples. Avoid paying for every agent to independently reconstruct the same history.
 
 ## The physical relationships to keep in view
 
