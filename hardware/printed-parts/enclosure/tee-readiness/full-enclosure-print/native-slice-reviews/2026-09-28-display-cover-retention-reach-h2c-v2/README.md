@@ -1,6 +1,10 @@
 # Display-cover reach 0.75 mm · H2C
 
-Prepared; not submitted. H2C currently offers no selectable 0.4 mm nozzle; awaiting a matching recognized hotend. Native estimate: 31.9 minutes.
+Accepted by H2C as task **1291079562** at 18:47:16 UTC on 2026-09-28.
+The printer reports RUNNING with no errors during startup. Native estimate: 31.9 minutes.
+The left Standard Hardened 0.4 mm hotend uses the black Ext PET-CF mapping;
+the right 0.2 mm hotend is unused. Startup spacing from Mark2 is 983 seconds.
+
 One complete cover for the existing broad-leaf receiver, with 0.75 mm extra arm
 reach: 0.25 mm beyond the shake-tested cover. The 75 mm leaves, 3.6 mm hooks,
 0.9 mm inset, R0.8 roots, bezel and window are unchanged.
@@ -12,4 +16,6 @@ wall order and 15% overlap retain the saved profile values. Two exposed supports
 the square hook bearings with a verified 0.24 mm top gap and peel outward beside the bezel.
 
 [Manifest](manifest.json), [geometry](geometry-check.json), [native slice](verification.json),
-[support contacts](support-removal-review.json) and [preview](preview.png).
+[support contacts](support-removal-review.json), [preview](preview.png),
+[launch receipt](launch.json), [startup reading](postlaunch.json),
+[nozzle mapping](nozzle-readiness.json) and [startup spacing](startup-spacing.json).

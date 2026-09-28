@@ -38,6 +38,14 @@ nozzle it knows.
   one of them, not the printing head. The send dialog checks the sliced diameter against
   the head and shows a mismatch on the filament tile.
 
+For H2C, a `? ?` tile under **Left Nozzle** is an unresolved filament mapping. Select
+the black **Ext PET-CF** tile in its popover. The numbered hotends and **R** tiles are
+separate choices; their displayed diameters do not establish the left external
+hotend's diameter. Check the left hotend on the printer display and the resolved
+external-spool mapping. Derek's display confirms a Standard Hardened 0.4 mm left
+hotend and a Standard Stainless 0.2 mm right hotend; selecting Ext PET-CF enables
+the reviewed 0.4 mm cover job without a nozzle mismatch.
+
 ## Power-loss recovery
 
 On 2026-09-25 Derek reported accidentally unplugging both printers by tripping on

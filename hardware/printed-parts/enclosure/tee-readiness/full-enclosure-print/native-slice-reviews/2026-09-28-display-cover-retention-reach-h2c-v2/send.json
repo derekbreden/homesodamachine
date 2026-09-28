@@ -1,0 +1,15 @@
+{
+  "observed_at_utc": "2026-09-28T18:47:04.986766+00:00",
+  "printer": "H2C",
+  "part": "display-cover-retention-reach-075",
+  "ui_observed": "Bambu Connect Send to print: H2C; left Ext PET-CF black; right nozzle unused; Send enabled; no nozzle-mismatch warning.",
+  "physical_nozzle_confirmation": "Derek photograph shows Left: Standard Hardened 0.4 mm; Right: Standard Stainless 0.2 mm.",
+  "options": {
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "send_clicks_planned": 1,
+  "bed_clear_confirmed": "Derek: both printers are free."
+}
