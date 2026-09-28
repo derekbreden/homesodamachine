@@ -1,105 +1,478 @@
 {
   "geometry": {
     "valid_solids": 4,
-    "closed_print_meshes": 3,
-    "continuous_petg_skin_mm": 1.0,
+    "meshes": {
+      "body-petg": {
+        "volume_relative_error": 0.0001491279717639489,
+        "bottom_z_mm": 0.0
+      },
+      "body-aero": {
+        "volume_relative_error": 0.0001491903908965786,
+        "bottom_z_mm": 0.0
+      },
+      "insert-aero": {
+        "volume_relative_error": 0.000149196207221414,
+        "bottom_z_mm": 0.0
+      }
+    },
+    "petg_thickness_mm": {
+      "outer_wall": 3.0,
+      "bore_wall": 1.8,
+      "floor": 3.0,
+      "roof": 3.06
+    },
     "nominal_unfilled_volume_cc": 0.0,
     "nominal_material_overlap_cc": 0.0,
-    "nominal_insertion_clear": true,
-    "maximum_tolerance_magnet_clear_of_petg": true,
+    "separate_core_insertion_clear": true,
+    "magnet_tolerance_clear_of_petg": true,
     "insert_top_meets_roof_underside": true,
-    "retention": "Aero press fit; holding force and surface contact require the first assembly result."
+    "fit_allowances_radial_mm": {
+      "body-aero": 0.05,
+      "insert-aero": 0.05
+    }
   },
-  "print": {
-    "project_sha256": "f398b35cad43836205cb335bcdf8b3de7152c1aecd457e2c3779db9b0c3f21e6",
-    "verified_settings": {
-      "filament_flow_ratio": [
-        "0.97",
-        "0.38"
-      ],
-      "filament_map": [
-        "1",
-        "2"
-      ],
-      "nozzle_temperature": [
-        "250",
-        "250"
-      ],
-      "textured_plate_temp": [
-        "65",
-        "65"
-      ],
-      "layer_height": "0.2",
-      "sparse_infill_density": "100%",
-      "enable_support": "0",
-      "nozzle_diameter": [
-        "0.4",
-        "0.4"
+  "jobs": {
+    "aero": {
+      "filename": "magnetic-float-aero.3mf",
+      "project_sha256": "9eeec9f3b62ad08dee958015d8456c4ed39d6347fd3171b738ded95cccd04c9a",
+      "material": "Bambu ASA-Aero @BBL H2C 0.4 nozzle",
+      "material_settings_match_recipe": true,
+      "material_settings_match_stock": true,
+      "effective_material_settings": {
+        "nozzle_temperature": [
+          "270"
+        ],
+        "nozzle_temperature_initial_layer": [
+          "270"
+        ],
+        "filament_flow_ratio": [
+          "0.52"
+        ],
+        "filament_density": [
+          "0.99"
+        ],
+        "filament_max_volumetric_speed": [
+          "12"
+        ],
+        "chamber_temperatures": [
+          "60"
+        ],
+        "eng_plate_temp": [
+          "90"
+        ],
+        "eng_plate_temp_initial_layer": [
+          "90"
+        ],
+        "textured_plate_temp": [
+          "90"
+        ],
+        "textured_plate_temp_initial_layer": [
+          "90"
+        ],
+        "fan_min_speed": [
+          "30"
+        ],
+        "fan_max_speed": [
+          "50"
+        ],
+        "additional_cooling_fan_speed": [
+          "0"
+        ],
+        "overhang_fan_speed": [
+          "50"
+        ],
+        "close_fan_the_first_x_layers": [
+          "3"
+        ],
+        "filament_retraction_length": [
+          "1.5"
+        ],
+        "filament_wipe_distance": [
+          "5"
+        ],
+        "filament_z_hop": [
+          "0"
+        ]
+      },
+      "plates": [
+        {
+          "plate": 1,
+          "estimated_seconds": 5843,
+          "total_material_g": 14.72,
+          "part": "body-aero",
+          "object_extrusion_mass_g": 14.672453820495814,
+          "material_tools": [
+            0
+          ],
+          "mapped_extruder": 2,
+          "layers": 220,
+          "print_height_mm": 44.0,
+          "insertion_pauses": [],
+          "roof_layers_mm": [],
+          "aero_perimeter_centerline_radii_mm": [
+            4.350723700320484,
+            14.810534966705283
+          ],
+          "minimum_guide_bore_centerline_radius_mm": null,
+          "wall_coverage": null,
+          "thermal_commands": [
+            "M104 O-80 A",
+            "M104 S0",
+            "M104 S0 T0",
+            "M104 S0 T1",
+            "M104 S270",
+            "M104 S270 T0",
+            "M109 S140 A",
+            "M109 S270",
+            "M140 D90",
+            "M140 S0",
+            "M140 S90",
+            "M141 S0",
+            "M141 S60",
+            "M190 D90",
+            "M190 S90",
+            "M191 S60"
+          ]
+        },
+        {
+          "plate": 2,
+          "estimated_seconds": 2183,
+          "total_material_g": 3.46,
+          "part": "insert-aero",
+          "object_extrusion_mass_g": 3.4128585410287764,
+          "material_tools": [
+            0
+          ],
+          "mapped_extruder": 2,
+          "layers": 50,
+          "print_height_mm": 10.0,
+          "insertion_pauses": [],
+          "roof_layers_mm": [],
+          "aero_perimeter_centerline_radii_mm": [
+            4.352418265575984,
+            14.810577031297598
+          ],
+          "minimum_guide_bore_centerline_radius_mm": null,
+          "wall_coverage": null,
+          "thermal_commands": [
+            "M104 O-80 A",
+            "M104 S0",
+            "M104 S0 T0",
+            "M104 S0 T1",
+            "M104 S270",
+            "M104 S270 T0",
+            "M109 S140 A",
+            "M109 S270",
+            "M140 D90",
+            "M140 S0",
+            "M140 S90",
+            "M141 S0",
+            "M141 S60",
+            "M190 D90",
+            "M190 S90",
+            "M191 S60"
+          ]
+        }
       ]
     },
-    "material_parts": [
-      "insert-aero",
-      "insert-aero",
-      "body-petg",
-      "body-aero"
-    ],
-    "insert_fit_allowances_radial_mm": [
-      0.05,
-      0.1
-    ],
-    "plates": [
-      {
-        "object_material_mass_g": {
-          "insert-snug": [
-            0.0,
-            2.2634655297568487
-          ],
-          "insert": [
-            0.0,
-            2.2461001866757613
-          ]
-        },
-        "insertion_pauses": [],
-        "insert_perimeter_radii_mm": {
-          "insert-snug": [
-            4.07615824030422,
-            12.890590832075942
-          ],
-          "insert": [
-            4.128290808555023,
-            12.840548664290015
-          ]
-        },
-        "roof_layers_mm": [],
-        "body_petg_layers": 0
+    "petg": {
+      "filename": "magnetic-float.3mf",
+      "project_sha256": "d4987dd48b6cf5ec4ece0d7db7dada29e45430136a850efd01826aedd6a78292",
+      "material": "Bambu PETG Basic @BBL H2C",
+      "material_settings_match_recipe": true,
+      "material_settings_match_stock": false,
+      "effective_material_settings": {
+        "nozzle_temperature": [
+          "260"
+        ],
+        "nozzle_temperature_initial_layer": [
+          "255"
+        ],
+        "filament_flow_ratio": [
+          "1.02"
+        ],
+        "filament_density": [
+          "1.25"
+        ],
+        "filament_max_volumetric_speed": [
+          "21"
+        ],
+        "chamber_temperatures": [
+          "0"
+        ],
+        "eng_plate_temp": [
+          "70"
+        ],
+        "eng_plate_temp_initial_layer": [
+          "70"
+        ],
+        "textured_plate_temp": [
+          "70"
+        ],
+        "textured_plate_temp_initial_layer": [
+          "70"
+        ],
+        "fan_min_speed": [
+          "10"
+        ],
+        "fan_max_speed": [
+          "20"
+        ],
+        "additional_cooling_fan_speed": [
+          "0"
+        ],
+        "overhang_fan_speed": [
+          "20"
+        ],
+        "close_fan_the_first_x_layers": [
+          "3"
+        ],
+        "filament_retraction_length": [
+          "0.4"
+        ],
+        "filament_wipe_distance": [
+          "2"
+        ],
+        "filament_z_hop": [
+          "0.2"
+        ]
       },
-      {
-        "object_material_mass_g": {
-          "body": [
-            7.399247557431322,
-            8.028270079527637
+      "plates": [
+        {
+          "plate": 1,
+          "estimated_seconds": 7321,
+          "total_material_g": 31.68,
+          "part": "body-petg",
+          "object_extrusion_mass_g": 31.501461991849492,
+          "material_tools": [
+            0
+          ],
+          "mapped_extruder": 1,
+          "layers": 333,
+          "print_height_mm": 60.06,
+          "insertion_pauses": [
+            {
+              "before_layer_z_mm": 57.18,
+              "last_deposited_layer_z_mm": 57.0
+            }
+          ],
+          "roof_layers_mm": [
+            57.18,
+            57.36,
+            57.54,
+            57.72,
+            57.9,
+            58.08,
+            58.26,
+            58.44,
+            58.62,
+            58.8,
+            58.98,
+            59.16,
+            59.34,
+            59.52,
+            59.7,
+            59.88,
+            60.06
+          ],
+          "aero_perimeter_centerline_radii_mm": null,
+          "minimum_guide_bore_centerline_radius_mm": 2.659093654913138,
+          "wall_coverage": {
+            "layer_z_mm": 30.0,
+            "samples": [
+              {
+                "azimuth_deg": 0,
+                "radial_intervals_mm": [
+                  [
+                    2.3855060411544238,
+                    4.17752680843204
+                  ],
+                  [
+                    14.999688222686446,
+                    17.991999000000007
+                  ]
+                ]
+              },
+              {
+                "azimuth_deg": 30,
+                "radial_intervals_mm": [
+                  [
+                    2.3870633535373664,
+                    4.196122258716974
+                  ],
+                  [
+                    14.99805074372986,
+                    17.994172892985052
+                  ]
+                ]
+              },
+              {
+                "azimuth_deg": 60,
+                "radial_intervals_mm": [
+                  [
+                    2.3704744218315725,
+                    4.1851531986399175
+                  ],
+                  [
+                    14.99513405102315,
+                    17.99870831445784
+                  ]
+                ]
+              },
+              {
+                "azimuth_deg": 90,
+                "radial_intervals_mm": [
+                  [
+                    2.3815619766242277,
+                    4.186117651125968
+                  ],
+                  [
+                    14.99090113113194,
+                    17.994014166519904
+                  ]
+                ]
+              },
+              {
+                "azimuth_deg": 120,
+                "radial_intervals_mm": [
+                  [
+                    2.3898804880605775,
+                    4.180520050851945
+                  ],
+                  [
+                    14.99944098629404,
+                    17.998709624596717
+                  ]
+                ]
+              },
+              {
+                "azimuth_deg": 150,
+                "radial_intervals_mm": [
+                  [
+                    2.36982562433374,
+                    4.184498487778137
+                  ],
+                  [
+                    14.987761473950076,
+                    17.994246222805256
+                  ]
+                ]
+              },
+              {
+                "azimuth_deg": 180,
+                "radial_intervals_mm": [
+                  [
+                    2.386550218898406,
+                    4.189081071033884
+                  ],
+                  [
+                    14.987489622410306,
+                    17.991999000000007
+                  ]
+                ]
+              },
+              {
+                "azimuth_deg": 210,
+                "radial_intervals_mm": [
+                  [
+                    2.388987524905616,
+                    4.179840429633214
+                  ],
+                  [
+                    14.994749712835363,
+                    17.994122144817588
+                  ]
+                ]
+              },
+              {
+                "azimuth_deg": 240,
+                "radial_intervals_mm": [
+                  [
+                    2.3871797889091266,
+                    4.189225150986866
+                  ],
+                  [
+                    14.99513405102315,
+                    17.99870831445784
+                  ]
+                ]
+              },
+              {
+                "azimuth_deg": 270,
+                "radial_intervals_mm": [
+                  [
+                    2.3947933374239834,
+                    4.193389186401069
+                  ],
+                  [
+                    14.994605820350124,
+                    17.995350961637456
+                  ]
+                ]
+              },
+              {
+                "azimuth_deg": 300,
+                "radial_intervals_mm": [
+                  [
+                    2.3931132247536717,
+                    4.183395655689015
+                  ],
+                  [
+                    14.999527312761613,
+                    17.99870831445784
+                  ]
+                ]
+              },
+              {
+                "azimuth_deg": 330,
+                "radial_intervals_mm": [
+                  [
+                    2.3962354038638463,
+                    4.172620194284762
+                  ],
+                  [
+                    14.996069784309949,
+                    17.99360861709118
+                  ]
+                ]
+              }
+            ],
+            "basis": "Nominal bead footprints from emitted LINE_WIDTH, not measured printed porosity."
+          },
+          "thermal_commands": [
+            "M104 O-80 A",
+            "M104 S0",
+            "M104 S0 T0",
+            "M104 S0 T1",
+            "M104 S255",
+            "M104 S255 T1",
+            "M104 S260",
+            "M109 S140 A",
+            "M109 S255",
+            "M109 S260",
+            "M140 D70",
+            "M140 S0",
+            "M140 S70",
+            "M141 S0",
+            "M190 D70",
+            "M190 S70",
+            "M191 S0"
           ]
-        },
-        "insertion_pauses": [
-          {
-            "before_layer_z_mm": 49.2,
-            "commanded_z_before_pause_mm": 49.0
-          }
-        ],
-        "insert_perimeter_radii_mm": {},
-        "roof_layers_mm": [
-          49.2,
-          49.4,
-          49.6,
-          49.8,
-          50.0
-        ],
-        "body_petg_layers": 250
-      }
-    ],
-    "assembled_mass_from_model_extrusion_g": 22.76361782363472,
-    "reserve_from_model_extrusion_g": 6.610273487429847,
-    "mass_scope": "Positive extrusion on object toolpaths; excludes purge, brim and spare insert. Nominal filament diameter/density."
+        }
+      ]
+    }
   },
-  "physical_prints": "No physical float print recorded."
+  "assemblies": {
+    "petg": {
+      "aero_g": 18.08531236152459,
+      "petg_g": 31.501461991849492,
+      "magnet_g": 5.09,
+      "assembled_mass_g": 54.676774353374086,
+      "reserve_lift_g": 5.370039238095572,
+      "upright_freeboard_mm": 5.371218510183168
+    }
+  },
+  "mass_scope": "Object extrusion only, nominal filament diameter/density; excludes brim and startup purge.",
+  "physical_prints": "No physical float print recorded.",
+  "pressure_rating": "No hydrostatic endurance result recorded."
 }
