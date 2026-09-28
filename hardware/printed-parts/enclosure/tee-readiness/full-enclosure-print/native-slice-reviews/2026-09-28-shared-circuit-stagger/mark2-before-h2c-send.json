@@ -1,0 +1,26 @@
+{
+  "printer": "Mark2",
+  "observed_at": "2026-09-28T05:32:23.218040+00:00",
+  "gcode_state": "RUNNING",
+  "subtask_name": "display-cover-reach05-inset09-black-z004-mark2-v11.gcode.3mf",
+  "mc_percent": 0,
+  "layer_num": 0,
+  "total_layer_num": 58,
+  "mc_remaining_time": 23,
+  "print_error": 0,
+  "hms": [],
+  "nozzle_temper": 37.0,
+  "nozzle_target_temper": 0.0,
+  "bed_temper": 34.0,
+  "bed_target_temper": 34.0,
+  "external_spools": {
+    "254": {
+      "type": "PET-CF",
+      "colour": "000000FF"
+    },
+    "255": {
+      "type": "PET-CF",
+      "colour": "FFFFFFFF"
+    }
+  }
+}

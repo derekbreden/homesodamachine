@@ -1,0 +1,10 @@
+{
+  "first_printer": "Mark2",
+  "first_accepted_at_utc": "2026-09-28T05:28:54.123406+00:00",
+  "second_printer": "H2C",
+  "second_sender_invoked_at_utc": "2026-09-28T05:32:23.219358+00:00",
+  "elapsed_seconds_before_second_sender": 209.095952,
+  "required_seconds": 180,
+  "first_printer_reading": "mark2-before-h2c-send.json",
+  "interval_pass": true
+}

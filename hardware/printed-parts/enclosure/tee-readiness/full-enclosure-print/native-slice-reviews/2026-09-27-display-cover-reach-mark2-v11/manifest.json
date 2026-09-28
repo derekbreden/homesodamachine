@@ -3,7 +3,7 @@
   "submitted": true,
   "print_started": true,
   "printer": "Mark2",
-  "printer_task_id": "1289348260",
+  "printer_task_id": "1289413482",
   "plate_contents": [
     "display-cover-reach-05"
   ],
@@ -75,13 +75,13 @@
     "retention_force_measured": false,
     "comparison_scope": "Qualitative fit on two printers with their standing Z trims."
   },
-  "launch_record": "launch.json",
-  "prelaunch_record": "prelaunch.json",
-  "observed_at_utc": "2026-09-28T04:38:34.195922+00:00",
+  "launch_record": "restart-1/launch.json",
+  "prelaunch_record": "restart-1/prelaunch.json",
+  "observed_at_utc": "2026-09-28T05:39:17.889359+00:00",
   "observed_state": "RUNNING",
-  "observed_layer": 0,
+  "observed_layer": 1,
   "observed_total_layers": 58,
-  "observed_remaining_minutes": 23,
+  "observed_remaining_minutes": 17,
   "print_error": 0,
   "hms": [],
   "standing_print_options": {
@@ -106,7 +106,7 @@
     "hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-05.step.mesh": "c54be94372195f7dede08a9280f448133d4aa4248d0450a53a8c0e8160460480"
   },
   "review_sha256": {
-    "README.md": "27fe2c382a7d4f2b9d17451ede2372296cdcfe13dcb66ffa9334a7a97d24c06e",
+    "README.md": "7492a75eedf0370552470c829b171abe56247218173ef5e4d054befae454d503",
     "geometry-check.json": "66d5a79e4beb36bb7f6e3c8b8584994e8ff498b32629b12819c3031165d289a5",
     "geometry-lint.log": "9154fe5f018692cf7cb4a6dd3b063138497d7306702ca4fc6ff9dbe298e374e9",
     "launch.json": "9dfbfda73845ac832528df4fe503e3613f3f12587a94d8ba333a295752106c3c",
@@ -118,6 +118,24 @@
     "slice-result.json": "96d186032a6255e33adf2cf70015f91a4edff505adc9ccae47eecc989c4af3eb",
     "support-audit-display-cover-reach-05.json": "b1d86a20863895726de7c5bfef3ce48cd26a753186ed39d0a1532c0c28bfe101",
     "support-removal-review.json": "a575b4bd287a94721208bf972a0fbd5e0e840a4e59000f7959555afcd665bf14",
-    "verification.json": "dc10a4fee8e8e305eb710ca9288a1432d788c6a91b550c0141328197b57a79ae"
-  }
+    "verification.json": "dc10a4fee8e8e305eb710ca9288a1432d788c6a91b550c0141328197b57a79ae",
+    "restart-1/launch.json": "52ec105b32a37f67aad16cc99f5eb50df9430993ccd18c293984dbf9a5862eaf",
+    "restart-1/prelaunch.json": "8062163e9912206cde08cd6e0b63d246603d90fad920ae4c8c423c96c4662a93",
+    "restart-1/reason.json": "6c26b503d8f7e8418a4602c038ddbf54a877f7217d5257de76e54cc2cbb3308c",
+    "restart-1/send.log": "05e3bc818afcaf0ea8239ceac69413f482bc212f799cf5a88623e6759e7574e8",
+    "restart-1/startup-reading.json": "b159249984aed2dd2901c7edf04b4dbce292f0455ce32b5157f8c2b09c5d1049"
+  },
+  "prior_attempts": [
+    {
+      "printer_task_id": "1289348260",
+      "status": "failed",
+      "launch_record": "launch.json",
+      "post_restoration_record": "restart-1/prelaunch.json",
+      "failure_record": "restart-1/reason.json",
+      "observed_state": "FAILED",
+      "observed_layer": 0
+    }
+  ],
+  "startup_spacing_trial": "../2026-09-28-shared-circuit-stagger/observation.json",
+  "postlaunch_record": "restart-1/startup-reading.json"
 }

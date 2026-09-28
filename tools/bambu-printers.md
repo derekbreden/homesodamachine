@@ -46,6 +46,23 @@ visible defect at the interruption point. The active job was
 [front-bottom, task 1279923918](../hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-enclosure-front-bottom-h2c-v7/README.md).
 This is Derek's visual observation of that recovery.
 
+## Shared-circuit startup spacing
+
+H2C and Mark2 share a circuit. Leave **at least 180 seconds between print starts**:
+after the first machine accepts its job, wait three minutes before sending or resuming
+the other machine. Read both machines after a power interruption; a job already running
+does not need another send. Apply the spacing to recovery starts as well.
+
+The interval is Derek's proposed trial based on his previous experience. The sender's
+foreground lock serializes app access but does not enforce this interval; the operator
+must wait and record both launch times.
+
+The [2026-09-28 startup trial](../hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-shared-circuit-stagger/README.md)
+records Derek's report of repeated breaker trips when both machines start close together,
+including during his own manual starts. The two cover-job launch receipts are
+54.421746 seconds apart; both machines subsequently report FAILED at layer 0 after
+power restoration. Electrical load and the exact trip time were not measured.
+
 ## Print submission
 
 Bambu Connect is installed at `/Applications/Bambu Connect.app`, signed in to the account

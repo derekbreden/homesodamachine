@@ -1,0 +1,32 @@
+H2C: FAILED, job 1289349395
+Imported display-cover-reach10-inset09-black-z018-h2c-v1.gcode.3mf: display-cover-reach-10
+Dialog: H2C; external spools mapped; Timelapse On, Auto bed leveling On, Flow dynamic calibration Auto, Nozzle Offset Calibration Auto
+Sending attempt 1: one foreground mouse click
+Printer reply: {"command": "project_file", "result": "SUCCESS", "reason": "SUCCESS", "err_code": 0}
+{
+  "printer": "H2C",
+  "observed_at": "2026-09-28T05:32:50.207250+00:00",
+  "archive": {
+    "name": "display-cover-reach10-inset09-black-z018-h2c-v1.gcode.3mf",
+    "sha256": "706dd537ec4a8281d7fa06d9cbf704010324f71ed6c63c8820e5b1b63514a3c7",
+    "gcode_sha256": "6605b57921de837ff789e302508e11b7d11695ecbb3daad5b10a4bd793783e26",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "000000"
+      }
+    },
+    "objects": [
+      "display-cover-reach-10"
+    ]
+  },
+  "printer_task_id": "1289418578",
+  "gcode_state": "RUNNING",
+  "subtask_name": "display-cover-reach10-inset09-black-z018-h2c-v1.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 60,
+  "mc_remaining_time": 24
+}
+Launch record: /Users/derekbredensteiner/Developer/homesodamachine/.cache/printer-control/H2C-1289418578-launch.json

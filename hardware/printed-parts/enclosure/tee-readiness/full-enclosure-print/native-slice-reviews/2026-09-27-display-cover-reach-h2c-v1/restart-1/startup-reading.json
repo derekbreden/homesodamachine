@@ -1,0 +1,15 @@
+{
+  "printer": "H2C",
+  "observed_at": "2026-09-28T05:39:17.395802+00:00",
+  "gcode_state": "RUNNING",
+  "job_id": "1289418578",
+  "layer_num": 0,
+  "total_layer_num": 60,
+  "mc_percent": 20,
+  "mc_remaining_time": 19,
+  "print_error": 0,
+  "hms": [],
+  "stg_cur": 1,
+  "bed_temper": 80.0,
+  "bed_target_temper": 80.0
+}
