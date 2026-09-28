@@ -33,7 +33,7 @@ export const LOCAL_ROLL_AXIS = Object.freeze([0, GRIP_BASE[1] / axisLength, (GRI
 // straight wire approach on that line. Bracket placement is schematic.
 export const WIRE_GUIDE_END = Object.freeze([0, GRIP_BASE[1] * (28 + CLEARANCE) / (GRIP_BASE[2] + CLEARANCE), 28]);
 
-export function posePoint(point, rollDegrees = 0) {
+export function posePoint(point, rollDegrees = 0, holeRollDegrees = 0) {
   const [x, y, z] = point;
   const s = Math.sin(PITCH), c = Math.cos(PITCH);
   const along = z + CLEARANCE;
@@ -47,9 +47,14 @@ export function posePoint(point, rollDegrees = 0) {
   const az = s * LOCAL_ROLL_AXIS[2] + c * LOCAL_ROLL_AXIS[1];
   const dot = ay * py + az * pz;
   const cr = Math.cos(roll), sr = Math.sin(roll);
-  return [
-    JOINT[0] + x * cr + (ay * pz - az * py) * sr,
-    py * cr + az * x * sr + ay * dot * (1 - cr),
-    JOINT[2] + pz * cr - ay * x * sr + az * dot * (1 - cr),
-  ];
+  const rx = x * cr + (ay * pz - az * py) * sr;
+  const ry = py * cr + az * x * sr + ay * dot * (1 - cr);
+  const rz = pz * cr - ay * x * sr + az * dot * (1 - cr);
+
+  // The second axis runs through the dot and both port centers: the cap's
+  // X diameter at CAP_TOP. Positive rotation about -X raises the grip.
+  // Apply it to the whole pose, carrying the dot-to-grip axis with the gun.
+  const holeRoll = holeRollDegrees * Math.PI / 180;
+  const ch = Math.cos(holeRoll), sh = Math.sin(holeRoll);
+  return [JOINT[0] + rx, ry * ch + rz * sh, JOINT[2] - ry * sh + rz * ch];
 }
