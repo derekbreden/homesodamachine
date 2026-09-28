@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { DIM, INNER_RADIUS, CAP_TOP, JOINT, CLEARANCE, WIRE_GUIDE_END, WIRE_TIP, GRIP_BASE, LOCAL_ROLL_AXIS, posePoint } from "./pose.js";
+import { DIM, INNER_RADIUS, CAP_TOP, JOINT, CLEARANCE, WIRE_GUIDE_END, WIRE_GUIDE_BACK, WIRE_BRACE_MOUNT, WIRE_TIP, GRIP_BASE, LOCAL_ROLL_AXIS, wireFeedPath, posePoint } from "./pose.js";
 
 const root = document.getElementById("weld-position");
 const stage = root.querySelector(".weld-stage");
@@ -161,19 +161,18 @@ try {
 
   const guideEnd = WIRE_GUIDE_END;
   const wireTarget = WIRE_TIP;
-  const guideBack = vector(guideEnd).sub(vector(wireTarget)).normalize().multiplyScalar(40).add(vector(guideEnd)).toArray();
+  const guideBack = WIRE_GUIDE_BACK;
   cylinderBetween(gun, guideBack, guideEnd, 2.5, materials.grip);
-  cylinderBetween(gun, [0, -12, 110], guideBack, 2, materials.gun);
+  cylinderBetween(gun, WIRE_BRACE_MOUNT, guideBack, 2, materials.gun);
   cylinderBetween(gun, guideEnd, wireTarget, 0.48, materials.wire);
-  const side = new THREE.Vector3(23, 0, 0);
-  const feedCurve = new THREE.CatmullRomCurve3([
-    cableEnd.clone().add(side),
-    base.clone().add(side),
-    base.clone().addScaledVector(localAxis, -35).add(side),
-    vector(guideBack).addScaledVector(localAxis, 40).addScaledVector(side, 0.3),
-    vector(guideBack).addScaledVector(localAxis, 14),
-    vector(guideBack),
-  ]);
+  const feed = wireFeedPath();
+  const feedCurve = new THREE.CurvePath();
+  feedCurve.add(new THREE.LineCurve3(vector(feed.tailEnd), vector(feed.bendStart)));
+  // Both Bezier endpoint tangents follow their adjacent straight runs: the
+  // curve carries the change in direction in the unsupported span.
+  feedCurve.add(new THREE.CubicBezierCurve3(
+    vector(feed.bendStart), vector(feed.control1), vector(feed.control2), vector(feed.guideBack),
+  ));
   gun.add(new THREE.Mesh(new THREE.TubeGeometry(feedCurve, 64, 1.8, 10, false), materials.wire));
 
   const sweep = new THREE.Group();
