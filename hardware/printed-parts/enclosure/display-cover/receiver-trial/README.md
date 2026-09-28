@@ -1,7 +1,13 @@
 # Machine display receiver trial
 
-One rigid, full-width surround for the machine display cover with its skirts inset
-1.2 mm per side. The coupon holds the 126.1 × 83.6 mm bezel pocket, glass seat and
+The accepted physical pairing is this receiver with the [+0.5 mm reach cover](../reach-trial/README.md),
+whose skirts sit 0.9 mm inward per side. Derek considers the fit workable and good enough
+for now; further tuning is deferred.
+
+One rigid, full-width surround for the machine display cover. The receiver datums
+and clearances below use the 1.2 mm skirt-inset reference cover; the accepted pairing's
+clearances are in the [reach-trial geometry reading](../reach-trial/geometry-check.json).
+The coupon holds the 126.1 × 83.6 mm bezel pocket, glass seat and
 both receivers on the enclosure's 30° display plane. Two side cheeks and a front
 foot carry the surround in front-top's print orientation. The underside and back
 are open for support removal.

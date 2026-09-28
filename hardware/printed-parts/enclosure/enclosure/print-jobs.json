@@ -1709,10 +1709,10 @@
       ],
       "job_name": "display-cover-reach05-inset09-black-z004-mark2-v11.gcode.3mf",
       "printer_task_id": "1289413482",
-      "status": "started",
+      "status": "completed",
       "started_by": "Codex at Derek's request",
-      "observed_state": "RUNNING",
-      "observed_at_utc": "2026-09-28T05:39:17.889359+00:00",
+      "observed_state": "FINISH",
+      "observed_at_utc": "2026-09-28T06:28:57.613828+00:00",
       "observed_print_error": 0,
       "hms": [],
       "sliced_file": ".cache/prints/2026-09-27-display-cover-reach-mark2/ready/display-cover-reach05-inset09-black-z004-mark2-v11.gcode.3mf",
@@ -1738,9 +1738,9 @@
       "source_geometry_sha256": {
         "hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-05.stl": "dc16bc26045a22521181dcb3c1df5e2c9e85a4f36e12639c3e46bf6c4a8eb0aa"
       },
-      "observed_layer": 1,
+      "observed_layer": 58,
       "observed_total_layers": 58,
-      "observed_remaining_minutes": 17,
+      "observed_remaining_minutes": 0,
       "print_options": {
         "timelapse": "On",
         "auto_bed_leveling": "On",
@@ -1748,11 +1748,13 @@
         "nozzle_offset_calibration": "Auto"
       },
       "bed_clear_confirmed_by": "Derek: Both beds are clear.",
-      "physical_result": "Pending: complete hook engagement, leaf return and a flat relaxed bezel.",
+      "physical_result": "Derek accepts the +0.5 mm hook-reach cover with 0.9 mm leaf inset as workable and good enough for now; further tuning deferred.",
       "restarted_from_task": "1289348260",
       "identical_archive_and_gcode_to_task": "1289348260",
       "startup_spacing_trial": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-shared-circuit-stagger/observation.json",
-      "postlaunch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-27-display-cover-reach-mark2-v11/restart-1/startup-reading.json"
+      "postlaunch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-27-display-cover-reach-mark2-v11/restart-1/startup-reading.json",
+      "completion_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-shared-circuit-stagger/completion-reading.json",
+      "physical_acceptance": "hardware/printed-parts/enclosure/display-cover/reach-trial/physical-acceptance.json"
     },
     {
       "date": "2026-09-28",
@@ -1762,10 +1764,10 @@
       ],
       "job_name": "display-cover-reach10-inset09-black-z018-h2c-v1.gcode.3mf",
       "printer_task_id": "1289418578",
-      "status": "started",
+      "status": "completed",
       "started_by": "Codex at Derek's request",
-      "observed_state": "RUNNING",
-      "observed_at_utc": "2026-09-28T05:39:17.395802+00:00",
+      "observed_state": "FINISH",
+      "observed_at_utc": "2026-09-28T06:28:57.425850+00:00",
       "observed_print_error": 0,
       "hms": [],
       "sliced_file": ".cache/prints/2026-09-27-display-cover-reach-h2c/ready/display-cover-reach10-inset09-black-z018-h2c-v1.gcode.3mf",
@@ -1791,9 +1793,9 @@
       "source_geometry_sha256": {
         "hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-10.stl": "f4fc128fec11e948c44161284470909c6e8b3efb53875a8f696a81bb282ca535"
       },
-      "observed_layer": 0,
+      "observed_layer": 60,
       "observed_total_layers": 60,
-      "observed_remaining_minutes": 19,
+      "observed_remaining_minutes": 0,
       "print_options": {
         "timelapse": "On",
         "auto_bed_leveling": "On",
@@ -1805,7 +1807,8 @@
       "restarted_from_task": "1289349395",
       "identical_archive_and_gcode_to_task": "1289349395",
       "startup_spacing_trial": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-shared-circuit-stagger/observation.json",
-      "postlaunch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-27-display-cover-reach-h2c-v1/restart-1/startup-reading.json"
+      "postlaunch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-27-display-cover-reach-h2c-v1/restart-1/startup-reading.json",
+      "completion_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-shared-circuit-stagger/completion-reading.json"
     }
   ]
 }
