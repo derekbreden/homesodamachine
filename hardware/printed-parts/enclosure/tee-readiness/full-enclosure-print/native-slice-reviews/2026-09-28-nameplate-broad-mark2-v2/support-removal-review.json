@@ -1,0 +1,5 @@
+{
+  "policy": "Functional flat bearings supported. Two exposed outward-removing nameplate hook trees and one receiver support body accessible from front, back and ends; remove before assembly. All 3 bodies and 6 interface islands reviewed, including short and unlabelled paths.",
+  "native_audit": "support-audit.json",
+  "physical_support_removal": "Pending physical print inspection."
+}

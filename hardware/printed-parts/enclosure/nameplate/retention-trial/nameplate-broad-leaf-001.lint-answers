@@ -1,0 +1,11 @@
+[sliver] Each 1.2 mm land retains the full 3.6 mm hook projection across the 32 mm leaf span. The native slice preserves the bearing at Z 11.65 mm and the full land above it, with accessible support beneath the bearing. Printed edge finish and retention remain physical coupon readings.
+click: x=-45.250 y=-9.850 z=0.000
+click: x=45.250 y=-9.850 z=0.000
+
+[sliver] These ends belong to the integral 1.3 mm PET-GF leaves. Each is 32 mm wide, extends 13.65 mm behind the plate and has an inward R1 root. The native slice retains both stems. These are intentional flexures; physical insertion force and retention are tested with the receiver coupon.
+click: x=-41.000 y=-13.650 z=0.000
+click: x=41.000 y=-13.650 z=0.000
+
+[ceiling] The STL uses the installed frame. The prepared nameplate rotates -90 degrees about X, so these leaf end faces become vertical in print orientation. The separate horizontal hook bearing faces receive accessible supports across their full span.
+click: x=-42.300 y=-6.825 z=-16.000
+click: x=42.300 y=-6.825 z=-16.000
