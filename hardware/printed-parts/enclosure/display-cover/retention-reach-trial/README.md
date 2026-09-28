@@ -13,6 +13,14 @@ Physical evaluation checks full hook engagement, remaining bow, free play and sh
 retention in the existing receiver. The printed contact finish contributes to the fit;
 the nominal CAD clearance alone does not measure it.
 
+The native slices preserve the requested increments at the actual hook-bearing bottom:
+11.10 mm on Mark2 and 11.25 mm on H2C. A straight-arm layer at Z 5.00–5.10 mm uses
+0.10 mm on Mark2; H2C uses 0.12 mm at Z 5.00–5.12 and 0.13 mm at Z 5.12–5.25.
+All other model layers use 0.24 mm with a 0.20 mm first layer. Both use two walls,
+the saved speeds, temperatures, fans and wall order, and 15% overlap. Exposed supports
+carry the square hook bearings with a verified 0.24 mm top gap. Each slice estimates
+about 32 minutes.
+
 ## Next after cover selection
 
 The requirement is **low-force clearance for rough overhang surfaces involved**.

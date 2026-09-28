@@ -1,0 +1,74 @@
+{
+    "error_string": "Success.",
+    "export_time": 2146,
+    "layer_height": 0.23999999463558197,
+    "plate_index": 0,
+    "prepare_time": 46,
+    "return_code": 0,
+    "sliced_plates": [
+        {
+            "feature_type_times": {
+                "Bottom surface": 141.8350830078125,
+                "Bridge": 249.12646484375,
+                "Custom": 304.9914245605469,
+                "Flush": 15.0,
+                "Gap infill": 45.06645202636719,
+                "Inner wall": 76.78087615966797,
+                "Internal solid infill": 321.4127197265625,
+                "Outer wall": 151.04998779296875,
+                "Overhang wall": 31.719961166381836,
+                "Sparse infill": 32.025367736816406,
+                "Support": 275.4250183105469,
+                "Support interface": 19.728580474853516,
+                "Support transition": 55.24085235595703,
+                "Top surface": 65.04721069335938,
+                "Travel": 136.56057739257813,
+                "Undefined": 127.37312316894531
+            },
+            "filament_change_times": 0,
+            "filaments": [
+                {
+                    "filament_id": "GFT01",
+                    "id": 1,
+                    "main_used_g": 15.813725471496582,
+                    "total_used_g": 15.813725471496582
+                }
+            ],
+            "generate_support_material_time": 70,
+            "id": 1,
+            "infill_time": 43,
+            "layer_filament_change": 0,
+            "main_predication": 1585.88671875,
+            "make_perimeters_time": 20,
+            "obj_cached_cnt": 0,
+            "objects": [
+                {
+                    "bbox": {
+                        "depth": 83.0,
+                        "height": 15.649999618530273,
+                        "width": 130.89999389648438,
+                        "x": 97.05000305175781,
+                        "y": 118.5,
+                        "z": -2.651363573136223e-10
+                    },
+                    "id": 5,
+                    "name": "display-cover-retention-reach-075",
+                    "triangle_count": 2608
+                }
+            ],
+            "sliced_time": 347,
+            "sliced_time_with_cache": 163,
+            "total_predication": 1911.690673828125,
+            "triangle_count": 2608,
+            "warning_message": ""
+        }
+    ],
+    "sparse_infill_density": 15.0,
+    "upward_compatible_machine": [
+        "Bambu Lab H2S 0.4 nozzle",
+        "Bambu Lab H2D 0.4 nozzle",
+        "Bambu Lab H2D Pro 0.4 nozzle",
+        "Bambu Lab A2L 0.4 nozzle"
+    ],
+    "wall_loops": 2
+}

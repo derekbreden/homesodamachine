@@ -1,6 +1,9 @@
 # Machine display retention cover · Mark2
 
-Started as Mark2 task **1289548468** at 2026-09-28 07:08:13 UTC, with no printer errors.
+Completed as Mark2 task **1289548468**; FINISH at 64/64, with no errors or HMS reported.
+The [physical test](physical-acceptance.json) passes shaking and records a very small bow
+with the snaps fully engaged.
+
 One cover in black PET-GF on the left 0.4 mm Standard nozzle.
 Native estimate: 34.9 minutes, 13.8 g using the saved profile density, 64 layers.
 
@@ -17,8 +20,7 @@ span both functional bearings. Removal effort and printed contact finish remain 
 
 The geometry reading covers symmetry, root stock, clear seating and rigid insertion
 envelopes. It does not measure bending strain, insertion force or shake retention.
-The physical test is for both leaves to return outward, both hooks to catch fully,
-the bezel to relax flat, and the cover to stay engaged when shaken.
+The remaining fit trial varies only cover arm reach against this same receiver.
 
 [Manifest](manifest.json), [geometry](geometry-check.json), [native verification](verification.json),
 [support review](support-removal-review.json) and [slice preview](preview.png).

@@ -1,5 +1,5 @@
 {
-  "status": "printing",
+  "status": "completed",
   "submitted": true,
   "print_started": true,
   "printer": "Mark2",
@@ -62,10 +62,12 @@
     "support_remove_small_overhang": false
   },
   "physical_trial": {
-    "status": "pending",
-    "retention_force_measured": false,
-    "insertion_force_measured": false,
-    "shake_retention_tested": false
+    "status": "shake_pass_with_minor_bow",
+    "shake_retention_tested": true,
+    "shake_retention_passed": true,
+    "remaining_bow": "Very small with snaps fully engaged.",
+    "force_measured": false,
+    "record": "physical-acceptance.json"
   },
   "bed_clear_confirmed_by": "Derek: Both printers are free.",
   "standing_print_options": {
@@ -102,7 +104,7 @@
     "postlaunch-reading-1.json": "e983379f71808fd8eead20e838d764aa395b5ec83c730f76dcca1c0679ba46e7",
     "geometry-lint.log": "48f4db56f8ec345fbdce1d5424c3631aa3e24b7140034c8d8429a7a382e277b5",
     "send.json": "c18c9f0b5f20d89bd9536befe267f64e39683313004eb9236b17e46364858ae1",
-    "README.md": "2d2e06d2631aa11a15a7c99e156b7c21ff827d48f769f22c69690560226e9f84",
+    "README.md": "4d3bbf5a5e871fb83f590e050418d71c50d2f78bc4f4cb6a31cd5aed0003cc10",
     "postlaunch-reading-2.json": "3fae8a79baae44398555fb6894a4d012904ed8c80fe278a957f342858ccd3530",
     "support-removal-review.json": "81b2a61d3c319b1a8c0ddedad7ab3ca275572e908416be940f98e42f7fcf9964",
     "postlaunch-reading-3.json": "771c58420670b2437badc2c78b8b13f86bd5d259da4cf47f764c76f3d9d21058",
@@ -110,19 +112,22 @@
     "geometry.png": "b1262dd4b6ed1961cc0e5c136a10b77e5ca209287b2e1415040939c827e90a60",
     "launch.json": "9a27f90566257e405a998b61acefcfec66166f3ab839ec4881a8bd242a7b8e99",
     "slice-result.json": "522488c15010434c331541e8cfd1817c65d1ca94e24b9c39a3edd6b1ed3619fa",
-    "geometry-check.json": "d2a5c77e61cc3e076837d9cc163456e8b8e7fe84f45d6627be77f21b0c7c98d9"
+    "geometry-check.json": "d2a5c77e61cc3e076837d9cc163456e8b8e7fe84f45d6627be77f21b0c7c98d9",
+    "completion.json": "b2177541792bf46e11eb0a3d810354c2d0f21279b123e42a5d2319b7169419f7",
+    "physical-acceptance.json": "5feac9044a024c64d6719eeeb5810d95ab867b6e58a76b2b3104f9458ccf48e8"
   },
   "printer_task_id": "1289548468",
-  "observed_at_utc": "2026-09-28T07:13:16.593924+00:00",
-  "observed_state": "RUNNING",
-  "observed_layer": 0,
+  "observed_at_utc": "2026-09-28T18:30:35.315006+00:00",
+  "observed_state": "FINISH",
+  "observed_layer": 64,
   "observed_total_layers": 64,
-  "observed_remaining_minutes": 34,
+  "observed_remaining_minutes": 0,
   "print_error": 0,
   "hms": [],
   "launch_record": "launch.json",
   "prelaunch_record": "prelaunch.json",
   "send_method": "Bambu Connect UI through cua_repl; one Send click; project_file SUCCESS; exact archive checked before import and exact G-code checked after import.",
   "startup_spacing_record": "startup-spacing.json",
-  "postlaunch_record": "postlaunch-reading-3.json"
+  "postlaunch_record": "postlaunch-reading-3.json",
+  "completion_record": "completion.json"
 }
