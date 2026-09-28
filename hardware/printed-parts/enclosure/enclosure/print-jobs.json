@@ -1207,7 +1207,7 @@
       ],
       "job_name": "enclosure-front-bottom-black-z018-h2c-v7-six-wall-handhold-rounds.gcode.3mf",
       "printer_task_id": "1279923918",
-      "status": "started",
+      "status": "completed",
       "started_by": "Codex at Derek's request",
       "observed_state": "RUNNING",
       "observed_at_utc": "2026-09-24T22:33:20.195446+00:00",
@@ -1254,7 +1254,9 @@
       "observed_layer": 0,
       "observed_total_layers": 1502,
       "observed_remaining_minutes": 1318,
-      "physical_result": "2026-09-25: Derek reports that both printers lost power when their power cord was accidentally unplugged. H2C was mid-print, mid-extrusion, and recovered with no visible defect at the interruption point. Completed part, fit and support removal remain unassessed."
+      "physical_result": "2026-09-25: Derek reports that both printers lost power when their power cord was accidentally unplugged. H2C was mid-print, mid-extrusion, and recovered with no visible defect at the interruption point. Completed part, fit and support removal remain unassessed.",
+      "completion_state": "FINISH",
+      "completion_observed_at_utc": "2026-09-28T04:37:59.795775+00:00"
     },
     {
       "date": "2026-09-25",
@@ -1541,7 +1543,7 @@
         "nozzle_offset_calibration": "Auto"
       },
       "bed_clear_confirmed_by": "Derek in this conversation",
-      "physical_result": "Derek has the receiver trial. Cover fit and retention are pending a replacement cover.",
+      "physical_result": "Derek evaluated the receiver with the 1.2 mm-inset replacement cover. Hooks do not fully engage and leaves retain insertion deflection; rough supported faces obstruct return.",
       "completion_state": "FINISH",
       "completion_observed_at_utc": "2026-09-28T02:48:04.544642+00:00"
     },
@@ -1553,7 +1555,7 @@
       ],
       "job_name": "display-cover-replacement-mark2-v10.gcode.3mf",
       "printer_task_id": "1289195332",
-      "status": "started",
+      "status": "completed",
       "started_by": "Codex at Derek's request",
       "observed_state": "RUNNING",
       "observed_at_utc": "2026-09-28T02:48:33.725489+00:00",
@@ -1594,7 +1596,106 @@
       "bed_clear_confirmed_by": "Derek: both printers are clear; print a new cover or covers for the receiver trial.",
       "identical_archive_and_gcode_to_task": "1282199028",
       "receiver_printer_task_id": "1282488338",
-      "physical_result": "Pending: flat seating and retention in the receiver trial."
+      "physical_result": "Derek reports incomplete hook engagement: the leaves remain in their insertion deflection and transmit that bow to the bezel; rough supported surfaces obstruct outward return.",
+      "physical_feedback": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-27-display-cover-mark2-v10/physical-feedback.json"
+    },
+    {
+      "date": "2026-09-27",
+      "printer": "Mark2",
+      "parts": [
+        "hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-05.stl"
+      ],
+      "job_name": "display-cover-reach05-inset09-black-z004-mark2-v11.gcode.3mf",
+      "printer_task_id": "1289348260",
+      "status": "started",
+      "started_by": "Codex at Derek's request",
+      "observed_state": "RUNNING",
+      "observed_at_utc": "2026-09-28T04:38:34.195922+00:00",
+      "observed_print_error": 0,
+      "hms": [],
+      "sliced_file": ".cache/prints/2026-09-27-display-cover-reach-mark2/ready/display-cover-reach05-inset09-black-z004-mark2-v11.gcode.3mf",
+      "sliced_file_sha256": "d772b498c6eb9525fc0e1e9af1ffd157bd680d426356dbc955d8c206b519602f",
+      "gcode_sha256": "d58c95f64f110d5e28aa3c73811bf429515394fab010cf6abb27e1579eb1ed34",
+      "native_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-27-display-cover-reach-mark2-v11/manifest.json",
+      "launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-27-display-cover-reach-mark2-v11/launch.json",
+      "z_offset_mm": 0.04,
+      "effective_textured_plate_trim_mm": 0.02,
+      "nozzle": "left 0.4 mm Standard",
+      "filament": "Black Polymaker PET-GF; PET-CF mapping on left external spool 254",
+      "estimated_seconds": 1439.080810546875,
+      "filament_grams": 8.645023345947266,
+      "layer_count": 58,
+      "layer_height_mm": 0.24,
+      "first_layer_height_mm": 0.2,
+      "normal_wall_loops": 2,
+      "wall_sequence": "inner wall/outer wall, then infill",
+      "infill_wall_overlap": "15%",
+      "speed_settings": "Saved profile values.",
+      "support_policy": "Two exposed bed-rooted supports beneath the square hook bearing faces; all support paths reviewed.",
+      "geometry": "Cover with 0.5 mm extra hook reach, 0.9 mm inset leaves, 0.98 mm nominal bearing clearance in receiver trial 1282488338.",
+      "source_geometry_sha256": {
+        "hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-05.stl": "dc16bc26045a22521181dcb3c1df5e2c9e85a4f36e12639c3e46bf6c4a8eb0aa"
+      },
+      "observed_layer": 0,
+      "observed_total_layers": 58,
+      "observed_remaining_minutes": 23,
+      "print_options": {
+        "timelapse": "On",
+        "auto_bed_leveling": "On",
+        "flow_dynamic_calibration": "Auto",
+        "nozzle_offset_calibration": "Auto"
+      },
+      "bed_clear_confirmed_by": "Derek: Both beds are clear.",
+      "physical_result": "Pending: complete hook engagement, leaf return and a flat relaxed bezel."
+    },
+    {
+      "date": "2026-09-27",
+      "printer": "H2C",
+      "parts": [
+        "hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-10.stl"
+      ],
+      "job_name": "display-cover-reach10-inset09-black-z018-h2c-v1.gcode.3mf",
+      "printer_task_id": "1289349395",
+      "status": "started",
+      "started_by": "Codex at Derek's request",
+      "observed_state": "RUNNING",
+      "observed_at_utc": "2026-09-28T04:39:28.617668+00:00",
+      "observed_print_error": 0,
+      "hms": [],
+      "sliced_file": ".cache/prints/2026-09-27-display-cover-reach-h2c/ready/display-cover-reach10-inset09-black-z018-h2c-v1.gcode.3mf",
+      "sliced_file_sha256": "706dd537ec4a8281d7fa06d9cbf704010324f71ed6c63c8820e5b1b63514a3c7",
+      "gcode_sha256": "6605b57921de837ff789e302508e11b7d11695ecbb3daad5b10a4bd793783e26",
+      "native_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-27-display-cover-reach-h2c-v1/manifest.json",
+      "launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-27-display-cover-reach-h2c-v1/launch.json",
+      "z_offset_mm": 0.18,
+      "effective_textured_plate_trim_mm": 0.16,
+      "nozzle": "left 0.4 mm Standard",
+      "filament": "Black Polymaker PET-GF; PET-CF mapping on left external spool 254",
+      "estimated_seconds": 1447.978515625,
+      "filament_grams": 8.732061386108398,
+      "layer_count": 60,
+      "layer_height_mm": 0.24,
+      "first_layer_height_mm": 0.2,
+      "normal_wall_loops": 2,
+      "wall_sequence": "inner wall/outer wall, then infill",
+      "infill_wall_overlap": "15%",
+      "speed_settings": "Saved profile values.",
+      "support_policy": "Two exposed bed-rooted supports beneath the square hook bearing faces; all support paths reviewed.",
+      "geometry": "Cover with 1 mm extra hook reach, 0.9 mm inset leaves, 1.48 mm nominal bearing clearance in receiver trial 1282488338.",
+      "source_geometry_sha256": {
+        "hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-10.stl": "f4fc128fec11e948c44161284470909c6e8b3efb53875a8f696a81bb282ca535"
+      },
+      "observed_layer": 0,
+      "observed_total_layers": 60,
+      "observed_remaining_minutes": 24,
+      "print_options": {
+        "timelapse": "On",
+        "auto_bed_leveling": "On",
+        "flow_dynamic_calibration": "Auto",
+        "nozzle_offset_calibration": "Auto"
+      },
+      "bed_clear_confirmed_by": "Derek: Both beds are clear.",
+      "physical_result": "Pending: complete hook engagement, leaf return and a flat relaxed bezel."
     }
   ]
 }

@@ -1,0 +1,35 @@
+display-cover-reach-10.stl · 2104 printed facets · 0 findings · 6 answered
+
+  [sliver · answered] Each 1.2 mm lip land is the full-projection face of the square retaining hook, joined to the complete 1.3 mm leaf over its 24 mm run.
+    1.200 mm strip, 24.0 mm long
+    face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-63.650 y=0.000 z=-12.100
+    edge: x=-63.650 y=-12.000 z=-12.100 → x=-63.650 y=12.000 z=-12.100 · len 24.000 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-63.650 y=0.000 z=-12.100
+
+  [sliver · answered] Each leaf ends in its full 1.3 mm wall section.
+    1.300 mm strip, 24.0 mm long
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-61.200 y=0.000 z=-14.300
+    edge: x=-61.200 y=12.000 z=-14.300 → x=-61.200 y=-12.000 z=-14.300 · len 24.000 · straight · dir x=0.000 y=-1.000 z=0.000
+    click: x=-61.200 y=0.000 z=-14.300
+
+  [sliver · answered] Each leaf ends in its full 1.3 mm wall section.
+    1.300 mm strip, 24.0 mm long
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=61.200 y=0.000 z=-14.300
+    edge: x=61.200 y=12.000 z=-14.300 → x=61.200 y=-12.000 z=-14.300 · len 24.000 · straight · dir x=0.000 y=-1.000 z=0.000
+    click: x=61.200 y=0.000 z=-14.300
+
+  [sliver · answered] Each 1.2 mm lip land is the full-projection face of the square retaining hook, joined to the complete 1.3 mm leaf over its 24 mm run.
+    1.200 mm strip, 24.0 mm long
+    face: plane · n x=1.000 y=0.000 z=0.000 · thru x=63.650 y=0.000 z=-12.100
+    edge: x=63.650 y=12.000 z=-12.100 → x=63.650 y=-12.000 z=-12.100 · len 24.000 · straight · dir x=0.000 y=-1.000 z=0.000
+    click: x=63.650 y=0.000 z=-12.100
+
+  [ceiling · answered] The face-down cover has two exposed square hook bearing faces. Each takes a bed-rooted support that peels outward beside the bezel before assembly.
+    43 mm² flat print-down face at z=-11.500 · 24.0 × 1.8 mm · drop 9.5–9.5 mm to material below
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-62.750 y=0.000 z=-11.500
+    click: x=-62.750 y=0.000 z=-11.500
+
+  [ceiling · answered] The face-down cover has two exposed square hook bearing faces. Each takes a bed-rooted support that peels outward beside the bezel before assembly.
+    43 mm² flat print-down face at z=-11.500 · 24.0 × 1.8 mm · drop 9.5–9.5 mm to material below
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=62.750 y=0.000 z=-11.500
+    click: x=62.750 y=0.000 z=-11.500

@@ -1,0 +1,65 @@
+{
+  "pass": true,
+  "native_archive_sha256": "706dd537ec4a8281d7fa06d9cbf704010324f71ed6c63c8820e5b1b63514a3c7",
+  "gcode_sha256": "6605b57921de837ff789e302508e11b7d11695ecbb3daad5b10a4bd793783e26",
+  "summary": {
+    "support_bodies": 2,
+    "interface_islands": 2,
+    "bed_rooted_bodies": 2,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 10.8,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 2,
+    "shortest_labelled_build_up_mm": 10.8
+  },
+  "contacts": [
+    {
+      "id": "interface-1",
+      "first_z_mm": 11.0,
+      "last_z_mm": 11.24,
+      "bbox_xy_mm": [
+        98.8,
+        148.4,
+        100.0,
+        172.0
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 10.8,
+      "bbox_cad_xyz_mm": [
+        -63.7,
+        -12.0,
+        -11.24,
+        -62.5,
+        11.6,
+        -11.0
+      ]
+    },
+    {
+      "id": "interface-2",
+      "first_z_mm": 11.0,
+      "last_z_mm": 11.24,
+      "bbox_xy_mm": [
+        224.8,
+        148.4,
+        226.0,
+        172.0
+      ],
+      "tree": "tree-2",
+      "build_up_mm": 10.8,
+      "bbox_cad_xyz_mm": [
+        62.3,
+        -12.0,
+        -11.24,
+        63.5,
+        11.6,
+        -11.0
+      ]
+    }
+  ],
+  "contact_faces": "Two exposed square hook bearing faces.",
+  "nominal_hook_shoulder_depth_mm": 11.5,
+  "removal": "Peel each bed-rooted support outward beside the bezel before inserting the cover.",
+  "visible_round_policy": "Bezel corners are rounded in XY only; no show curve through print Z.",
+  "include_unlabelled_support": true,
+  "physical_removal_tested": false
+}

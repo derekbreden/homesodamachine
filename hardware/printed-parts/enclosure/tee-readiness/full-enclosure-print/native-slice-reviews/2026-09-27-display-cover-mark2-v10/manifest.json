@@ -1,5 +1,5 @@
 {
-  "status": "started",
+  "status": "completed",
   "submitted": true,
   "print_started": true,
   "printer": "Mark2",
@@ -41,14 +41,15 @@
     "native_settings_identical_to_previous_printed_trial": true
   },
   "physical_trial": {
-    "status": "pending",
+    "status": "tested_no_engagement",
     "cover": "Replacement for the unavailable 1.2 mm-inset cover.",
     "receiver": "Derek has the completed receiver trial.",
     "fit_checks": [
       "Cover rim lies flat.",
       "Both hooks resist lifting, including with the cover shifted sideways."
     ],
-    "retention_force_measured": false
+    "retention_force_measured": false,
+    "physical_feedback": "physical-feedback.json"
   },
   "verification": "verification.json",
   "launch_record": "launch.json",
@@ -82,10 +83,12 @@
     "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step.mesh": "a51bfbb2fd852595bbda776e15873c52bcbc0ecefda04babb28b33e3b0042b80"
   },
   "review_sha256": {
-    "README.md": "2c589ac3f593c3469c417ed8860c0971ab9bc94f05d1b77b50fd704fb6724c52",
+    "README.md": "983a93eef75d512e22195adfbea8084fabc4efb14e7bfb79ab28fbcb40d34f73",
     "launch.json": "3010e9b0084d95949235b825768436e1a3cf22115e3fa09bab72f30b94694555",
     "prelaunch.json": "1ee9c324c4ea49469e2107157959d46add5ffca53f95202a4c2a17e50204440e",
     "send.log": "8cdd512f1be63594f483575143d0abd7f98c2d542f9bfadb48c5f9aba11aa44e",
-    "verification.json": "298074a754f8c0d32da34ab45df96b6b421ce2bfb6f22d6ca6b411a645511198"
-  }
+    "verification.json": "298074a754f8c0d32da34ab45df96b6b421ce2bfb6f22d6ca6b411a645511198",
+    "physical-feedback.json": "b2029190e2018d8ed96b39be13576a74dfc743042a484f8185267c023107a641"
+  },
+  "completion_reported_by": "Derek evaluated the printed cover in the receiver trial; both beds are clear."
 }

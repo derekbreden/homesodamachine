@@ -23,3 +23,5 @@ ledge, each leaf returns outward, and the bezel relaxes flat.
 [The geometry reading](geometry-check.json) checks the unchanged bezel, seated
 clearance and both catches against the printed receiver. Physical fit and
 retention remain unmeasured.
+
+Print records: [Mark2](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-27-display-cover-reach-mark2-v11/README.md), [H2C](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-27-display-cover-reach-h2c-v1/README.md).

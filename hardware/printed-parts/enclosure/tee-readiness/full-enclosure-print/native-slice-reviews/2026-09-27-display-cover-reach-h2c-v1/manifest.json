@@ -1,0 +1,130 @@
+{
+  "status": "started",
+  "submitted": true,
+  "print_started": true,
+  "printer": "H2C",
+  "printer_task_id": "1289349395",
+  "plate_contents": [
+    "display-cover-reach-10"
+  ],
+  "native_archive": ".cache/prints/2026-09-27-display-cover-reach-h2c/ready/display-cover-reach10-inset09-black-z018-h2c-v1.gcode.3mf",
+  "native_archive_sha256": "706dd537ec4a8281d7fa06d9cbf704010324f71ed6c63c8820e5b1b63514a3c7",
+  "gcode_sha256": "6605b57921de837ff789e302508e11b7d11695ecbb3daad5b10a4bd793783e26",
+  "staged_input_sha256": "b6c21ff33395ede473bdecd32c00ab81784e31dc9c17b56f269f71d42c263087",
+  "estimated_seconds": 1447.978515625,
+  "estimated_grams_saved_profile_density": 8.732061386108398,
+  "geometry": {
+    "additional_hook_reach_mm": 1.0,
+    "skirt_inset_each_mm": 0.9,
+    "outward_restoration_each_mm": 0.3,
+    "bearing_clearance_mm": 1.48,
+    "centered_hook_overlap_mm": 1.3,
+    "minimum_hook_overlap_at_full_lateral_float_mm": 1.0,
+    "outside_leaf_clearance_at_ledge_centered_mm": 0.5,
+    "outside_leaf_clearance_at_full_lateral_float_mm": 0.2,
+    "bezel_window_and_hook_profile_dimensions_preserved": true
+  },
+  "receiver_trial": "../2026-09-25-display-receiver-trial-mark2-v1/manifest.json",
+  "receiver_printer_task_id": "1282488338",
+  "prior_physical_feedback": "../2026-09-27-display-cover-mark2-v10/physical-feedback.json",
+  "geometry_review": "geometry-check.json",
+  "native_review": "verification.json",
+  "support_review": "support-removal-review.json",
+  "checks": {
+    "geometry_pass": true,
+    "native_slice_pass": true,
+    "source_hashes_current": true,
+    "bazel_target_build": "//:cover-reach-trial passed; bytes match local sources.",
+    "bed_rooted_support_bodies": 2,
+    "support_review_includes_unlabelled_paths": true,
+    "post_publish_geometry_lint": {
+      "open_findings": 0,
+      "intentional_features_answered": 6
+    }
+  },
+  "settings": {
+    "profile": "hardware/printed-parts/petgf.3mf",
+    "profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "material": "Black Polymaker PET-GF; PET-CF mapping on left external spool 254.",
+    "nozzle": "left 0.4 mm Standard",
+    "orientation": "X180: visible face on plate, skirts up.",
+    "layer_height_mm": 0.24,
+    "first_layer_height_mm": 0.2,
+    "layer_count": 60,
+    "wall_loops": 2,
+    "wall_sequence": "inner wall/outer wall, then infill",
+    "infill_wall_overlap": "15%",
+    "speed_temperature_and_fan_settings": "Saved profile values.",
+    "brim": "auto_brim",
+    "requested_z_trim_mm": 0.18,
+    "emitted_z_trim_commands_mm": [
+      0.0,
+      0.16
+    ],
+    "support_top_z_distance_mm": 0.24,
+    "support_remove_small_overhang": false
+  },
+  "physical_trial": {
+    "status": "pending",
+    "readings": [
+      "Hook clears the ledge.",
+      "Leaf returns outward into engagement.",
+      "Bezel relaxes flat after insertion."
+    ],
+    "nominal_lift_before_hook_bearing_mm": 1.48,
+    "retention_force_measured": false,
+    "comparison_scope": "Qualitative fit on two printers with their standing Z trims."
+  },
+  "launch_record": "launch.json",
+  "prelaunch_record": "prelaunch.json",
+  "observed_at_utc": "2026-09-28T04:39:28.617668+00:00",
+  "observed_state": "RUNNING",
+  "observed_layer": 0,
+  "observed_total_layers": 60,
+  "observed_remaining_minutes": 24,
+  "print_error": 0,
+  "hms": [],
+  "standing_print_options": {
+    "timelapse": "On",
+    "auto_bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "bed_clear_confirmed_by": "Derek: Both beds are clear.",
+  "send_method": "tools/bambu_print.py through Bambu Connect; one Send click; project_file SUCCESS.",
+  "source_geometry_and_settings_sha256": {
+    "hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-10.stl": "f4fc128fec11e948c44161284470909c6e8b3efb53875a8f696a81bb282ca535",
+    "hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-10.step": "f53eb76a2643937f31327a09da01cd0d75092ba869b1bdb9418ed599e20d2b85",
+    "hardware/printed-parts/enclosure/display-cover/reach-trial/cover_reach_trial.py": "b6ed3c009bc46836403863a404744c91e97e3da27892ce6e3eeb3322dc92f2a4",
+    "hardware/printed-parts/enclosure/display-cover/reach-trial/geometry-check.json": "66d5a79e4beb36bb7f6e3c8b8584994e8ff498b32629b12819c3031165d289a5",
+    "hardware/printed-parts/enclosure/display-cover/reach-trial/prepare_print.py": "fc1b76e7f69b4c97745f4565b6d769676a5c121623ccd8f1e5bc9636cbe16bca",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
+  },
+  "published_geometry_sha256": {
+    "hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-10.step": "f53eb76a2643937f31327a09da01cd0d75092ba869b1bdb9418ed599e20d2b85",
+    "hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-10.stl": "f4fc128fec11e948c44161284470909c6e8b3efb53875a8f696a81bb282ca535",
+    "hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-10.step.mesh": "b864d198e5ef4016152b6d015c56b0e53a54cbb87de0e7d0b5d1653b2121f9d2"
+  },
+  "prelaunch_notice": {
+    "code": "0C00010000020017",
+    "description": "Nozzle camera lens dirty; may affect AI monitoring.",
+    "present_at_launch": false,
+    "source": "Installed Bambu Studio hms_en_094.json"
+  },
+  "review_sha256": {
+    "README.md": "38fd1538b3664655a2726b509327302b586330e9e74439f4e9a097f5c4947458",
+    "dialog-reading.json": "3e06340b8ade7a5a545d56e8911d63f6f4188fb4dff1dc4f99ce5e61df520973",
+    "geometry-check.json": "66d5a79e4beb36bb7f6e3c8b8584994e8ff498b32629b12819c3031165d289a5",
+    "geometry-lint.log": "52e17f7b6d976eaf512158f2b972b77376f3875737b6bc1a97a9f2c74c113f7d",
+    "launch.json": "f07b681d7ff2ce8adefbb70137955179557b8e0522ca87624bee5baa41a12e1d",
+    "prelaunch.json": "c08a2ee7a2ab28cb18132d82d21e064558c98658a4093b1d2a8c64ef959d0125",
+    "preparation.json": "6112930d2e98c817077b1f0a89b54fe2cc565a42ce96e7668ed82a3b0b9fafd7",
+    "preview.png": "d628a294358ed721502644a01e1021d4e63ba8d374392ac51d7b9f7012bdd2ff",
+    "send.log": "538291fd516de6f0dcf152527e0088510f7f9348535b2de57c876c32fccbe901",
+    "slice-command.json": "613c4e94bad6782d98c0bf9ac71bd365b4a3c92fd3a967c959dd2dfb122e7930",
+    "slice-result.json": "0212f0b77a5beee2c7237b661ea7ceac59c0214a6d46fcd9c6676a10fdf14a7f",
+    "support-audit-display-cover-reach-10.json": "ef2851266f6725ae78cdccc3ec31a0f0d3189459f9211a75e434a84c1efaf78e",
+    "support-removal-review.json": "ed32c6367b85fcf45687f09573d77623464f033bc3fc87542c140f1510c00c62",
+    "verification.json": "e0d3472b13ab0d64bc5711bb5e00abd4c6a68b59ec26f863b44207c8c501f0a0"
+  }
+}
