@@ -2,7 +2,9 @@
 
 The [reach-trial cover](reach-trial/README.md) pops out intact when shaken in its receiver.
 The active [retention trial](retention-trial/README.md) uses 3.6 mm hooks and centered
-75 mm leaves with a matching receiver. Physical retention is pending that test.
+75 mm leaves with a matching receiver. It passes Derek’s shake test, with a very small
+bow when fully engaged. The [arm-reach trials](retention-reach-trial/README.md) test
+0.60 mm and 0.75 mm extra arm length with that receiver.
 
 A PET-GF bezel with a smooth, rounded face, let into the enclosure's 30° display plane.
 The cover measures [125.5 mm](COVER_X) across by [83 mm](COVER_SLOPE) up the slope,
