@@ -4,7 +4,7 @@
 
 A home soda machine — a kitchen appliance that dispenses flavored carbonated water from a faucet. In the prototype, refrigerated carbonated water is provided by an external carbonator (Lillium, Brio). When flow is detected, peristaltic pumps inject flavoring through a parallel line. Two flavors, each primed and valve-locked for instant dispensing. The mixing happens in the user's glass, not before.
 
-The prototype under the counter dispenses from a Lillium-class external carbonator. The integrated appliance under development consolidates the carbonator into the same enclosure.
+The prototype under the counter dispenses from a Lillium-class external carbonator. The integrated soda machine under development consolidates the carbonator into the same enclosure.
 
 See `future/README.md` for where this is going and what done looks like, and `hardware/README.md` for the machine as it stands, subsystem by subsystem.
 
@@ -18,52 +18,10 @@ There is no machine on the market that gives a home user this experience — tur
 
 See `marketing/target-market.md` for details.
 
-## CadQuery
-
-Run scripts with the project's CadQuery venv: `tools/cad-venv/bin/python`.
-
-See `hardware/printed-parts/faucet/faucet-shell/faucet_shell.py` for patterns to follow, and its companion `faucet_shell.md` for the idioms those patterns embody.
-
-## Firmware
-
-The appliance's controller is `firmware/src_appliance/`, on the main board's own WROOM. The machine display is `firmware/src_front/`, and the two talk over J9. Five trees: `firmware/README.md` says which runs where.
-
-## tscircuit forks
-
-The pcba board (`hardware/pcb/pcba`) consumes forked `@tscircuit/*` packages (and `circuit-json-to-gerber`) via git-dependency `overrides` in its `package.json`. The local working trees are at `~/Developer/tscircuit-forks/<pkg>` — branch `homesodamachine/through-hole-vias`, with an `upstream` remote for syncing. See `hardware/pcb/pcba/FORKS.md`.
-
 ## Amazon Prime
 
 You have access to my Chrome which is signed in to my amazon through your MCP. I only care about Amazon Prime listings. Non-Prime listings are non-existent as far as I am concerned. Do not read them. Do not mention them. They do not exist.
 
-## Running in the cloud
-
-A session on Anthropic's machines starts from a shallow clone with none of the toolchain;
-`tools/cloud_session.sh` installs it and fetches what the pointer file and the checks read, and
-`--check` says what is missing. The harness starts such a session on a branch it names; the
-bootstrap puts the checkout on main, where everyone is, and that branch is never pushed. What
-it cuts matches the runner's kernel, not the Mac's. It builds, checks, derives and publishes
-what it cut like any machine: a commit lands on main by itself, and the members it cut go to
-the site's own store by hash, since the GitHub release refuses a cloud session's writes
-(`tools/cloud_session.sh` has the measurement).
-
-A session on Anthropic's machines cannot `SendMessage` a session on Derek's Mac. `.claude/skills/relay-poke/SKILL.md` is the way back: a `<relay to="name">` mark in the message that ends your turn, delivered by a watcher there; `/relay <title>` pulls a local session's transcript in the same way.
-
-## What else an agent should have read
-
-- `NAMES.md` — one thing, one name. The words this tree uses, and what each points at.
-- `calibration/Principle.md` — how Derek and the agents here work, distilled from the first
-  two rooms in `calibration/principle/`; the third, `Provenance.md`, is the geometry read as
-  a record of who decided what, and Derek's word first. Any rule is better encoded as an example.
-- `hardware/design-pressures.md` — what the appliance is optimised for and what it is not.
-  Placement decisions answer to it: volume and assemblability yes, field service no.
-- `hardware/printed-parts/AGENTS.md` and `hardware/printed-parts/enclosure/AGENTS.md` — the
-  publish loop, and the support-removal policy to read before moving any down-facing geometry.
-- `tools/checks.py --list` names every check this tree runs against itself; `web/public/checks.json`
-  is the last reading, and the settings gear on the site carries it.
-
 ## History
 
 Git keeps history. Code and docs in this repo describe current state. Don't write "was X, now Y" or decision narratives in current files. Don't defend the current choice against alternatives the reader hasn't asked about. The repo describes only what is.
-
-Always commit and push to main. Don't ask. Just do it. The author of everything here is always me (via an instance of you), and you can trust it's worth committing and building on top of. It's all the same work. I really could care less about who commits what or what the history says or if a particular commit was "broken" - I just care it all gets implemented and committed and its all working when all is said and done.
