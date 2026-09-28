@@ -25,8 +25,11 @@ The sphere pressure test is recorded in
 [commit b7dc4d576](https://github.com/derekbreden/homesodamachine/commit/b7dc4d576e9dc38794d190f31473f31d71aa4aa1):
 its printed NPT port wept at **5 psi or less**. The
 [archived sphere generator](https://github.com/derekbreden/homesodamachine/blob/archive-plan-b/hardware/printed-parts/plan-b/carbonator-tank-sphere/generate_step_cadquery.py)
-has 5 mm walls. This is a port-leak result; the available record establishes
-neither a successful high-pressure hold nor failure of the unpierced wall.
+has 5 mm walls. The recovered sphere test history is incomplete. This commit
+records one threaded-port leak; it does not describe the outcomes of the other
+sphere trials. Their pressures, hold times and leak locations remain missing
+from the recovered evidence. This fragment establishes no pressure limit for
+the unpierced PETG wall.
 The [commit map](/tools/git-history/README.md) resolves older transcript SHAs.
 
 ## Printing recipe
