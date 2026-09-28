@@ -1,5 +1,11 @@
 # Magnetic float
 
+The [purchased Aero filament](../../../ledger/purchases.md#15-3d-printing-equipment-and-filaments-bambu-lab-direct)
+is **Bambu ASA Aero White 46100**. Both projects linked below specify **PLA Aero**;
+their material assignments and thermal settings do not match that stock.
+[ASA Aero research](asa-aero-research.md) contains the manufacturer settings,
+buoyancy calculation and fabrication recommendation for the purchased material.
+
 An RC62 ring magnet inside a continuous PETG Translucent Clear envelope, backed
 by PLA Aero. A plain Aero ring is pressed into the body before the roof prints.
 This is a bench float and reed test article.
