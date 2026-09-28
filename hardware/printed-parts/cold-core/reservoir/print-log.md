@@ -2,7 +2,7 @@
 
 Format: facts only. Direct quotes from Derek where applicable. Settings observed in committed `.3mf` snapshots. No interpretation, no hypothesis.
 
-Standing, filament-agnostic print guidance lives in [`watertight-petg.md`](/hardware/printed-parts/cold-core/reservoir/watertight-petg.md); this file is the per-attempt record.
+The proven PETG Basic baseline and process guidance live in [`watertight-petg.md`](/hardware/printed-parts/cold-core/reservoir/watertight-petg.md); this file is the per-attempt record.
 
 Geometry: the left flavor reservoir — `reservoir-left.step` (body) + `reservoir-cap-left.step` (cap). Plate composition and settings are recorded per attempt below.
 

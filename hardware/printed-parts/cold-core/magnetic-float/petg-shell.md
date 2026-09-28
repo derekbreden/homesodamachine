@@ -32,6 +32,17 @@ from the recovered evidence. This fragment establishes no pressure limit for
 the unpierced PETG wall.
 The [commit map](/tools/git-history/README.md) resolves older transcript SHAs.
 
+## Published pressure evidence
+
+The [pressure-printing review](pressure-printing-research.md), checked through
+September 2026, documents uncoated PETG fittings holding substantial internal
+water pressure, a heat-treated PETG system's 24-hour operating result, and
+controlled studies of flow, layer height and pause bonding. It includes an
+audit of the fitting authors' actual projects and G-code, including discrepancies
+with their paper. Those findings establish pressure-sealing feasibility and
+support the process choices here; they do not assign this float an external
+collapse pressure or a service life.
+
 ## Printing recipe
 
 | Parameter | Float setting | Basis |
@@ -53,16 +64,25 @@ The [commit map](/tools/git-history/README.md) resolves older transcript SHAs.
 | Bridge speed / overhang fan | 20 mm/s / 20% | Roof rests on the Aero insert |
 | Floor / roof layers | 16 / 17 | 3.00 / 3.06 mm solid thickness |
 
-The final six rows contain float-specific adaptations. These settings have no
+Unconditional scarf, zero seam gap, the slower speeds, bridge controls and
+floor/roof layer counts are float-specific adaptations. These settings have no
 separate physical float result yet. Six requested walls is a slicer limit;
 actual thickness is the CAD dimension, covered by variable-width bead paths.
 The [verification](verification.json) checks the emitted paths, including
 nominal wall coverage along twelve radial samples at mid-height.
 
+The 1.02 flow is 5.15% above the source material's 0.97 stock baseline.
+Published extrusion multipliers depend on material, printer and slicer.
+The [mass sensitivities](pressure-printing-research.md#flow-thickness-and-buoyancy-together)
+show why copying a higher multiplier indiscriminately consumes useful lift.
+
 The Aero parts print separately on the right 0.4 mm nozzle at their own
 270 °C / 90 °C bed / 60 °C chamber recipe. The PETG shell contains no
 PETG-to-ASA material changes. Its pause is after Z57.00; its first roof layer
 is Z57.18. A fully seated foam insert backs that layer across the annulus.
+Set out all inserts and tools before the shell print. Keep the bed at 70 °C,
+complete insertion promptly, close the enclosure and resume; record the pause
+duration. The resumed interface has no measured PETG bond-strength result.
 
 ## Thickness and pressure loads
 
@@ -85,6 +105,12 @@ and foam at 0.55 g/cm³:
 | --- | --- |
 | 28 × 50 mm, 3 mm outer/end walls and 1.8 mm bore lining | −2.19 g |
 | 36 × 60.06 mm, specified shell | +4.90 g |
+
+At the same 36 × 60.06 mm envelope, increasing only the outer wall to 3.6 mm
+reduces this estimate to 2.80 g; 4 mm reduces it to 1.45 g. Additional PETG
+replaces Aero within the fixed exterior volume. The specified 3 mm wall
+preserves useful lift while providing material depth and ovalization resistance.
+The [research calculation](pressure-printing-sources.json) records this tradeoff.
 
 [pressure_analysis.py](pressure_analysis.py) produces the independent annulus
 calculation and the pressure/stiffness sensitivity in

@@ -1,0 +1,311 @@
+{
+  "checked_date": "2026-09-28",
+  "scope": "FDM pressure sealing and external-pressure applicability to the PETG Basic / ASA Aero bench float",
+  "sources": [
+    {
+      "id": "fittings-2025",
+      "title": "Parametric Design of Easy-Connect Pipe Fitting Components Using Open-Source CAD and Fabrication Using 3D Printing",
+      "year": 2025,
+      "url": "https://www.mdpi.com/2504-4494/9/2/65",
+      "full_text_url": "https://mdpi-res.com/d_attachment/jmmp/jmmp-09-00065/article_deploy/jmmp-09-00065.pdf",
+      "local_cache_path": ".cache/pressure-printing-research/fittings2025.pdf",
+      "sha256": "a4f878ac942ae4067ad83edaad1de9afa783d1969db7e232b816c0d909008679",
+      "relevant_sections": "Table 3; sections 2.3, 3.1, 3.2; Figures 6-7",
+      "access": "full text"
+    },
+    {
+      "id": "filtration-2025",
+      "title": "A Low-Cost Pressure-Driven Filtration System for Nanofiltration Membrane Evaluation",
+      "year": 2025,
+      "url": "https://www.mdpi.com/2813-6640/3/4/14",
+      "full_text_url": "https://mdpi-res.com/d_attachment/hardware/hardware-03-00014/article_deploy/hardware-03-00014.pdf",
+      "local_cache_path": ".cache/pressure-printing-research/filtration2025.pdf",
+      "sha256": "de3adde08bc8f32587b396e30a3def6be44b4bee138f5426dc92af2fff6a4ffb",
+      "relevant_sections": "Sections 3.1 and 5",
+      "access": "full text"
+    },
+    {
+      "id": "vacuum-2020",
+      "title": "3D printing of vacuum and pressure tight polymer vessels for thermally driven chillers and heat pumps",
+      "year": 2020,
+      "url": "https://doi.org/10.1016/j.vacuum.2019.109017",
+      "full_text_url": "https://www.pure.ed.ac.uk/ws/portalfiles/portal/115875507/3D_printing_of_vacuum_and_pressure_tight_polymer_vessels_for_thermally_driven_chillers_and_heat_pumps.pdf",
+      "local_cache_path": ".cache/pressure-printing-research/edinburgh2020.pdf",
+      "sha256": "4d783f00ff890ea205f49541ad6d869a385bb5f391a6ff0da7527b5a32a89864",
+      "relevant_sections": "Table 3; PDF page 8 / manuscript page 7",
+      "access": "full text"
+    },
+    {
+      "id": "leakage-2024",
+      "title": "The Influence of Printing Parameters on Leakage and Strength of Fused Deposition Modelling 3D Printed Parts",
+      "year": 2024,
+      "url": "https://doi.org/10.12913/22998624/178330",
+      "full_text_url": "https://www.astrj.com/pdf-178330-103493?filename=The+Influence+of+Printing.pdf",
+      "local_cache_path": ".cache/pressure-printing-research/leakage2024.pdf",
+      "sha256": "fb80eb76f803b3f8d9230c7b52a550d49089f118b3ff3febce5b803d40d4baaa",
+      "relevant_sections": "Methods, Figures 4-5; PDF page 4 / article page 198",
+      "access": "full text",
+      "limitation": "Text and plot labels differ on absolute leakage units; report uses only direction of layer-height effect."
+    },
+    {
+      "id": "hydraulic-2026",
+      "title": "Feasibility Study of Manufacturing Hydraulic Fittings Using Additive Manufacturing Technologies: Comparative Analysis of FDM and SLA Methods",
+      "year": 2026,
+      "url": "https://www.mdpi.com/1996-1944/19/4/799",
+      "full_text_url": "https://mdpi-res.com/d_attachment/materials/materials-19-00799/article_deploy/materials-19-00799.pdf",
+      "local_cache_path": ".cache/pressure-printing-research/hydraulic2026.pdf",
+      "sha256": "08f167b49e5638fc80aa2a3a2d34ad04f5bd4dbe1e0efa988dffdb1b85f6bc51",
+      "relevant_sections": "PETG printing parameters and pneumatic test results",
+      "access": "full text"
+    },
+    {
+      "id": "porosity-2018",
+      "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0198370",
+      "access": "full text"
+    },
+    {
+      "id": "prusa-open",
+      "url": "https://blog.prusa3d.com/watertight-3d-printing-pt1-vases-cups-and-other-open-models_48949/",
+      "access": "full text"
+    },
+    {
+      "id": "prusa-closed",
+      "url": "https://blog.prusa3d.com/watertight-3d-printing-part-2_53638/",
+      "access": "full text"
+    },
+    {
+      "id": "pause-2026",
+      "url": "https://link.springer.com/article/10.1007/s40964-026-01693-w",
+      "access": "full text"
+    },
+    {
+      "id": "prusa-forum",
+      "url": "https://forum.prusa3d.com/forum/english-forum-general-discussion-announcements-and-releases/watertight-prints-for-high-pressure-environments/",
+      "access": "firsthand informal reports"
+    },
+    {
+      "id": "formlabs-uri",
+      "url": "https://formlabs.com/eu/white-papers/3d-printing-watertight-enclosures-and-pressure-testing-results/",
+      "access": "full text"
+    },
+    {
+      "id": "hs-fdm-2025",
+      "url": "https://doi.org/10.21203/rs.3.rs-6674568/v1",
+      "access": "preprint full text via author ResearchGate copy"
+    },
+    {
+      "id": "subsea-2022",
+      "url": "https://doi.org/10.1115/OMAE2022-79026",
+      "access": "abstract only; no numeric result used"
+    },
+    {
+      "id": "aero-compression-2026",
+      "url": "https://doi.org/10.4050/F-0082-2026-0265",
+      "access": "abstract only; no numeric result used"
+    }
+  ],
+  "author_archive": {
+    "url": "https://osf.io/fqjxe/",
+    "cad_branch": "https://github.com/uwo-fast/pipe-fitting-SCAD/tree/jmmp",
+    "projects": [
+      {
+        "file": "fitting10-petg.3mf",
+        "url": "https://osf.io/download/u7xzy/",
+        "sha256": "68d9db17dbe70381f21afe2870445e2929a07e15766c2769494fd5542e7e391d",
+        "parameters": {
+          "bed_temperature": "80",
+          "bottom_solid_layers": "5",
+          "bridge_flow_ratio": "1",
+          "external_perimeter_extrusion_width": "0.5",
+          "external_perimeter_speed": "40",
+          "extrusion_multiplier": "1.15",
+          "extrusion_width": "0.5",
+          "filament_settings_id": "\"Generic PETG @XL\"",
+          "filament_type": "PETG",
+          "fill_density": "100%",
+          "fill_pattern": "concentric",
+          "first_layer_bed_temperature": "80",
+          "first_layer_height": "0.2",
+          "first_layer_temperature": "230",
+          "gcode_flavor": "marlin2",
+          "infill_overlap": "20%",
+          "infill_speed": "120",
+          "layer_height": "0.15",
+          "max_fan_speed": "50",
+          "min_fan_speed": "30",
+          "nozzle_diameter": "0.4",
+          "perimeter_extrusion_width": "0.5",
+          "perimeter_generator": "arachne",
+          "perimeter_speed": "65",
+          "perimeters": "6",
+          "seam_position": "aligned",
+          "solid_infill_extrusion_width": "0.5",
+          "solid_infill_speed": "110",
+          "temperature": "240",
+          "top_solid_layers": "6"
+        },
+        "role": "authors' published Prusa project, not a Bambu print project"
+      },
+      {
+        "file": "fitting20-petg.3mf",
+        "url": "https://osf.io/download/6279h/",
+        "sha256": "a58e70d7172935769bf2d0695eb7121d1bb50b5a573aaefa0b5c9f444d3526af",
+        "parameters": {
+          "bed_temperature": "80",
+          "bottom_solid_layers": "5",
+          "bridge_flow_ratio": "1",
+          "external_perimeter_extrusion_width": "0.5",
+          "external_perimeter_speed": "40",
+          "extrusion_multiplier": "1.1",
+          "extrusion_width": "0.5",
+          "filament_settings_id": "\"Generic PETG @XL\"",
+          "filament_type": "PETG",
+          "fill_density": "100%",
+          "fill_pattern": "concentric",
+          "first_layer_bed_temperature": "80",
+          "first_layer_height": "0.2",
+          "first_layer_temperature": "230",
+          "gcode_flavor": "marlin2",
+          "infill_overlap": "20%",
+          "infill_speed": "120",
+          "layer_height": "0.15",
+          "max_fan_speed": "50",
+          "min_fan_speed": "30",
+          "nozzle_diameter": "0.4",
+          "perimeter_extrusion_width": "0.5",
+          "perimeter_generator": "arachne",
+          "perimeter_speed": "65",
+          "perimeters": "6",
+          "seam_position": "aligned",
+          "solid_infill_extrusion_width": "0.5",
+          "solid_infill_speed": "110",
+          "temperature": "240",
+          "top_solid_layers": "6"
+        },
+        "role": "authors' published Prusa project, not a Bambu print project"
+      },
+      {
+        "file": "nut10-petg.3mf",
+        "url": "https://osf.io/download/6706b525c1f6efa6ee21167a/",
+        "sha256": "e4bb846eaac7a4960b07087be52eb8a00d8acdc5de711bcd2c290e9d10377d49",
+        "parameters": {
+          "bed_temperature": "80",
+          "bottom_solid_layers": "5",
+          "bridge_flow_ratio": "1",
+          "external_perimeter_extrusion_width": "0.5",
+          "external_perimeter_speed": "40",
+          "extrusion_multiplier": "1.05",
+          "extrusion_width": "0.5",
+          "filament_settings_id": "\"Generic PETG @XL\"",
+          "filament_type": "PETG",
+          "fill_density": "100%",
+          "fill_pattern": "concentric",
+          "first_layer_bed_temperature": "80",
+          "first_layer_height": "0.2",
+          "first_layer_temperature": "230",
+          "gcode_flavor": "marlin2",
+          "infill_overlap": "20%",
+          "infill_speed": "120",
+          "layer_height": "0.15",
+          "max_fan_speed": "50",
+          "min_fan_speed": "30",
+          "nozzle_diameter": "0.4",
+          "perimeter_extrusion_width": "0.5",
+          "perimeter_generator": "arachne",
+          "perimeter_speed": "65",
+          "perimeters": "6",
+          "seam_position": "aligned",
+          "solid_infill_extrusion_width": "0.5",
+          "solid_infill_speed": "110",
+          "temperature": "240",
+          "top_solid_layers": "6"
+        },
+        "role": "authors' published Prusa project, not a Bambu print project"
+      }
+    ],
+    "gcode": {
+      "url": "https://osf.io/download/6706b549e2234af056a5e612/",
+      "local_cache_path": ".cache/pressure-printing-research/fitting10-petg.gcode",
+      "sha256": "f30616b90d09518c8deb0dee1d89bcb84d7e7b03193dc9c6db565ba679920041",
+      "extrusion_multiplier": 1.15,
+      "fill_pattern": "concentric",
+      "seam_position": "aligned",
+      "runtime_flow_command": "M221 S100 ; reset flow percentage"
+    },
+    "discrepancies": [
+      "Paper Table 3 says rectilinear fill; inspected projects and fitting G-code specify concentric.",
+      "Paper Table 3 says 1.10 flow for 10 mm PETG nut; archived project specifies 1.05."
+    ],
+    "object_overrides": "Inspected Slic3r_PE_model.config files contain no flow or infill overrides."
+  },
+  "analysis_inputs": {
+    "source": "asa-aero-research.json",
+    "source_sha256": "0b2441344d2dba3ef16aea3395188f33c8cc0d5929c2ef2460505312ccb7609a",
+    "displacement_cm3": 60.04681359146966,
+    "petg_density_g_cm3": 1.25,
+    "aero_density_g_cm3": 0.55,
+    "baseline_native_petg_g": 31.501461991849492,
+    "baseline_native_reserve_g": 5.370039238095572,
+    "baseline_cad_reserve_g": 4.896044276227229,
+    "outer_radius_mm": 18,
+    "core_outer_radius_mm": 15,
+    "interior_height_mm": 54,
+    "baseline_flow": 1.02,
+    "stock_flow": 0.97
+  },
+  "flow_sensitivity": {
+    "formula": "extra_petg_g = baseline_native_petg_g * (flow / 1.02 - 1)",
+    "limits": "Fixed paths and displaced volume; extrusion-only mass sensitivity, not resliced or dimensionally validated.",
+    "values": [
+      {
+        "flow_ratio": 1.02,
+        "extra_petg_g": 0.0,
+        "reserve_lift_g": 5.370039238095572
+      },
+      {
+        "flow_ratio": 1.05,
+        "extra_petg_g": 0.926513587995577,
+        "reserve_lift_g": 4.4435256500999945
+      },
+      {
+        "flow_ratio": 1.08,
+        "extra_petg_g": 1.853027175991147,
+        "reserve_lift_g": 3.517012062104425
+      },
+      {
+        "flow_ratio": 1.15,
+        "extra_petg_g": 4.014892214647484,
+        "reserve_lift_g": 1.3551470234480876
+      }
+    ]
+  },
+  "outer_wall_sensitivity": {
+    "formula": "extra_mass_g = pi * (15^2 - (18-wall_mm)^2) * 54 / 1000 * (1.25-0.55)",
+    "limits": "Only outer wall changes; same outside envelope, bore and caps. Extra PETG replaces Aero. CAD/density mass model, not native extrusion.",
+    "values": [
+      {
+        "outer_wall_mm": 3,
+        "extra_mass_g": 0.0,
+        "reserve_lift_g": 4.896044276227229
+      },
+      {
+        "outer_wall_mm": 3.6,
+        "extra_mass_g": 2.0947888486724437,
+        "reserve_lift_g": 2.8012554275547856
+      },
+      {
+        "outer_wall_mm": 4,
+        "extra_mass_g": 3.443813866865131,
+        "reserve_lift_g": 1.4522304093620986
+      }
+    ]
+  },
+  "selected_first_article": {
+    "flow_ratio": 1.02,
+    "outer_wall_mm": 3,
+    "bore_wall_mm": 1.8,
+    "floor_mm": 3,
+    "roof_mm": 3.06,
+    "pressure_endurance": "Unknown; no physical float pressure result recorded."
+  }
+}
