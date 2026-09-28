@@ -10,44 +10,51 @@
     "h2c_preset": "https://github.com/bambulab/BambuStudio/blob/master/resources/profiles/BBL/filament/Bambu%20ASA-Aero%20%40BBL%20H2C%200.4%20nozzle.json"
   },
   "inputs_sha256": {
-    "hardware/printed-parts/cold-core/magnetic-float/design.json": "1edf0dffa85f0d9e1c269bf8c8941450de42a58aafb37960876f425b1d8f61db",
-    "hardware/printed-parts/cold-core/magnetic-float/body-petg.stl": "fd647fe65aa566a4e3bfc0ee25ee73993e0dfc9c3b8dc05bb1803f4887412f5b",
-    "hardware/printed-parts/cold-core/magnetic-float/body-aero.stl": "a540b9ce9e4f37f9600105ffb8106e9d26d5654bd903c4837029b5e7d7810092",
-    "hardware/printed-parts/cold-core/magnetic-float/insert-aero.stl": "2f86b9eed4fbaea282f00bf4380caaf12b429bba9c104694d3288cd8bd327c3e",
-    "hardware/printed-parts/cold-core/magnetic-float/magnetic-float.3mf": "f398b35cad43836205cb335bcdf8b3de7152c1aecd457e2c3779db9b0c3f21e6"
+    "hardware/printed-parts/cold-core/magnetic-float/design.json": "f7a4f113a936608a93d38192dec2e938a1e92158a25e65a6c8d58837c6899fbc",
+    "hardware/printed-parts/cold-core/magnetic-float/body-petg.stl": "a5e3616e921769666c8c1314f57736e3b8d08b74bd4e2f93fc9a2a51c1f86095",
+    "hardware/printed-parts/cold-core/magnetic-float/body-aero.stl": "2c02ca291c7fa6c548858b8f1c4bd2aa33698d23aeb68893e62d30a411f11c20",
+    "hardware/printed-parts/cold-core/magnetic-float/insert-aero.stl": "aeb493faa61f500e5109a45d481660975844c5d5d6376841e5faf2365ff07ec4",
+    "hardware/printed-parts/cold-core/magnetic-float/magnetic-float.3mf": "d4987dd48b6cf5ec4ece0d7db7dada29e45430136a850efd01826aedd6a78292",
+    "hardware/printed-parts/cold-core/magnetic-float/magnetic-float-aero.3mf": "9eeec9f3b62ad08dee958015d8456c4ed39d6347fd3171b738ded95cccd04c9a",
+    "hardware/printed-parts/cold-core/magnetic-float/petg-water-recipe.json": "91abd1755f1755fbcd6afbee4416e99d1f27b9675aedbb51417075a4b8a84c0c",
+    "hardware/printed-parts/cold-core/magnetic-float/pressure-analysis.json": "b7afcd197a382ae45a2237fa0cec5c9ad6213e5edb6a6d62a112d99e8adb2bdf",
+    "hardware/printed-parts/cold-core/magnetic-float/verification.json": "f457bd389c29eca0206a3c0e9b69cbe0c9205188c859304efea18c0c5990a743",
+    "hardware/printed-parts/cold-core/magnetic-float/print-profile.json": "3410df5d797ac98ec6b9e934e82a85bbd9d560c3bfe14e61ac0d55fc6778abae"
   },
-  "installed_preset_files_sha256": {
+  "installed_asa_preset_files_sha256": {
+    "machine/Bambu Lab H2C 0.4 nozzle.json": "54236b5f3eedf6c8468a9c3b921ecaabc04e1e3404f3d0239829fb81c3488491",
+    "machine/fdm_bbl_3dp_002_common.json": "f7ce729c4f2d7ba7dd9b2328b8172ada496a8a4e7e41f5f0139e2692b0a106af",
+    "machine/fdm_machine_common.json": "26ef8ee697849323e67d8e1a9026c175cebe3397e38c5091dddb5cd3fc52e94c",
+    "machine/Bambu Lab H2C 0.4 nozzle template machine_start_gcode.json": "b473d17fe7af0f2e431f8003782d0ab1f74b7a1e2ce73e265b3d7716e9ec8ce5",
+    "machine/Bambu Lab H2C 0.4 nozzle template machine_end_gcode.json": "2adc660220d954417396f6252ae989b74be13b563b5894ba3eea16ad14914d45",
+    "machine/Bambu Lab H2C 0.4 nozzle template time_lapse_gcode.json": "6ec28b73bf076dc25146d327130dad4332319d69a1d752516f5f343a67b44c61",
+    "machine/Bambu Lab H2C 0.4 nozzle template wrapping_detection_gcode.json": "ba7dfb833eedba7e9b73086a52e24f3261c95c449d9cbe5ef266378584e1a5b3",
+    "machine/Bambu Lab H2C 0.4 nozzle template change_filament_gcode.json": "e4bd43dfb6717d9502c61981b95c89b24ae5aac6ade75799570f705f72f83625",
+    "machine/Bambu Lab H2C 0.4 nozzle template layer_change_gcode.json": "6a56c2b1bd15d945d68bd0b406ac44c36afd9008785c04f9b9ca73c9f2e95889",
+    "process/0.20mm Standard @BBL H2C.json": "2391af6836f479fe2a3dae348abd9156f510b6f8fed787b18317740e55ea7e51",
+    "process/fdm_process_dual_0.20_nozzle_0.4.json": "8015670b40629f69ec2a2bff47d549d778e95ee545350e5fa9f60f8d8cbf2adc",
+    "process/fdm_process_dual_common.json": "743303a5c3c1962f8c8d178d21e23fc409027ea48574017db51230eac72bd063",
+    "process/fdm_process_common.json": "d7981c4b92854f251b8697e1bb621c63fe393f263fb8024ab63c401525d543d7",
     "filament/Bambu ASA-Aero @BBL H2C 0.4 nozzle.json": "6c5e32a28467467210bfcbbf11d9989688729694a46c4251132ac234d5f3d719",
     "filament/Bambu ASA-Aero @base.json": "55fe7f606372f72234468f9a653f00a85dc22ce199e160d0665331cd1152290c",
     "filament/fdm_filament_asa.json": "f6afac86caf40a28530fe3594e733c92bd0fa9e5027ca8eb001fef03b3400e06",
     "filament/fdm_filament_common.json": "8c7105b7d59a28f600c43a946f067b8b4d707b9711c0bf6b88e9166e48878548",
-    "filament/fdm_filament_template_direct_dual_e3d.json": "308498826d6206f611be063e9ed7e6afe50b48e5410bb9e132f00eda483eab19",
-    "filament/Bambu PETG Translucent @BBL H2C 0.4 nozzle.json": "70decbfe4ff4105bdf29e97313399720331c11aa3e44ed99280dd77afd672941",
-    "filament/Bambu PETG Translucent @base.json": "574cd9a7e48cc13219acd45e92cc58f4d1df4577d949fc130b5eafc88200a0cc",
-    "filament/fdm_filament_pet.json": "3ed1b36367fe6df800103a9deaaa036f9d79c7afda3f3a17514dff23aa96c7d8"
+    "filament/fdm_filament_template_direct_dual_e3d.json": "308498826d6206f611be063e9ed7e6afe50b48e5410bb9e132f00eda483eab19"
   },
-  "installed_asa_preset": {
+  "installed_asa_material_settings": {
     "nozzle_temperature": [
-      "270",
-      "270",
       "270"
     ],
     "nozzle_temperature_initial_layer": [
-      "270",
-      "270",
       "270"
     ],
     "filament_flow_ratio": [
-      "0.52",
-      "0.52",
       "0.52"
     ],
     "filament_density": [
       "0.99"
     ],
     "filament_max_volumetric_speed": [
-      "12",
-      "12",
       "12"
     ],
     "chamber_temperatures": [
@@ -56,10 +63,13 @@
     "eng_plate_temp": [
       "90"
     ],
-    "hot_plate_temp": [
+    "eng_plate_temp_initial_layer": [
       "90"
     ],
     "textured_plate_temp": [
+      "90"
+    ],
+    "textured_plate_temp_initial_layer": [
       "90"
     ],
     "fan_min_speed": [
@@ -71,179 +81,83 @@
     "additional_cooling_fan_speed": [
       "0"
     ],
+    "overhang_fan_speed": [
+      "50"
+    ],
     "close_fan_the_first_x_layers": [
       "3"
     ],
     "filament_retraction_length": [
-      "1.5",
-      "1.5",
       "1.5"
     ],
     "filament_wipe_distance": [
-      "5",
-      "5",
       "5"
     ],
     "filament_z_hop": [
-      "0",
-      "0",
       "0"
     ]
   },
-  "installed_petg_preset": {
-    "nozzle_temperature": [
-      "245",
-      "245",
-      "245"
-    ],
-    "nozzle_temperature_initial_layer": [
-      "250",
-      "250",
-      "250"
-    ],
-    "filament_flow_ratio": [
-      "0.97",
-      "0.97",
-      "0.97"
-    ],
-    "filament_density": [
-      "1.25"
-    ],
-    "filament_max_volumetric_speed": [
-      "6",
-      "6",
-      "6"
-    ],
-    "chamber_temperatures": [
-      "0"
-    ],
-    "eng_plate_temp": [
-      "70"
-    ],
-    "hot_plate_temp": [
-      "70"
-    ],
-    "textured_plate_temp": [
-      "70"
-    ],
-    "fan_min_speed": [
-      "10"
-    ],
-    "fan_max_speed": [
-      "30"
-    ],
-    "additional_cooling_fan_speed": [
-      "0"
-    ],
-    "close_fan_the_first_x_layers": [
-      "3"
-    ],
-    "filament_retraction_length": [
-      "0.4",
-      "0.4",
-      "0.4"
-    ],
-    "filament_wipe_distance": [
-      "1",
-      "1",
-      "1"
-    ],
-    "filament_z_hop": [
-      "nil",
-      "nil",
-      "nil"
-    ]
-  },
+  "petg_recipe": "petg-water-recipe.json",
   "analytic_geometry": {
-    "displacement_cm3": 29.37389131106457,
-    "petg_cm3": 6.302034863101127,
-    "aero_cm3": 22.393145531625425,
-    "magnet_cm3": 0.6787109163380154,
-    "fixed_petg_and_magnet_mass_g": 12.967543578876409,
-    "neutral_core_density_g_cm3": 0.7326504313124647
-  },
-  "mesh_volume_cross_check": {
-    "body-petg": {
-      "mesh_volume_cm3": 6.301094805452604,
-      "cad_volume_cm3": 6.302034863101127,
-      "relative_error": 0.00014916731959503036,
-      "watertight_mesh": true
-    },
-    "body-aero": {
-      "mesh_volume_cm3": 17.583885039183563,
-      "cad_volume_cm3": 17.586508771633042,
-      "relative_error": 0.0001491900685661235,
-      "watertight_mesh": true
-    },
-    "insert-aero": {
-      "mesh_volume_cm3": 4.805919613594494,
-      "cad_volume_cm3": 4.806636759992383,
-      "relative_error": 0.00014919920803217922,
-      "watertight_mesh": true
-    }
+    "displacement_cm3": 60.04681359146966,
+    "petg_cm3": 24.869018348457168,
+    "aero_cm3": 34.49908432667448,
+    "magnet_cm3": 0.678710916338015,
+    "fixed_petg_and_magnet_mass_g": 36.17627293557146,
+    "neutral_core_density_g_cm3": 0.6919180935315911
   },
   "density_estimates": {
     "nominal_feed_mass_per_commanded_cm3": 0.5148,
     "manufacturer_minimum_density_scaled_to_stock_flow": 0.5315555555555556,
-    "basis": "Estimates at maintained external dimensions, not measured densities or a newly sliced ASA project.",
-    "working_density_g_cm3": 0.55
+    "working_density_g_cm3": 0.55,
+    "basis": "Engineering estimates at maintained external dimensions, not measured density tolerances."
   },
-  "buoyancy_water_density_g_cm3": 1.0,
   "buoyancy_sweep": [
     {
-      "aero_bulk_density_g_cm3": 0.46,
-      "assembled_mass_g": 23.268390523424102,
-      "reserve_lift_g": 6.105500787640466,
-      "upright_freeboard_mm": 10.392734015020753
+      "aero_density_g_cc": 0.46,
+      "assembled_mass_g": 52.045851725841715,
+      "reserve_lift_g": 8.000961865627943,
+      "upright_freeboard_mm": 8.002718893944444
     },
     {
-      "aero_bulk_density_g_cm3": 0.53,
-      "assembled_mass_g": 24.835910710637883,
-      "reserve_lift_g": 4.537980600426685,
-      "upright_freeboard_mm": 7.724513841850633
+      "aero_density_g_cc": 0.53,
+      "assembled_mass_g": 54.46078762870893,
+      "reserve_lift_g": 5.586025962760729,
+      "upright_freeboard_mm": 5.58725266599443
     },
     {
-      "aero_bulk_density_g_cm3": 0.55,
-      "assembled_mass_g": 25.28377362127039,
-      "reserve_lift_g": 4.090117689794177,
-      "upright_freeboard_mm": 6.9621652209448825
+      "aero_density_g_cc": 0.55,
+      "assembled_mass_g": 55.15076931524243,
+      "reserve_lift_g": 4.896044276227229,
+      "upright_freeboard_mm": 4.897119458008701
     },
     {
-      "aero_bulk_density_g_cm3": 0.6,
-      "assembled_mass_g": 26.403430897851663,
-      "reserve_lift_g": 2.970460413212905,
-      "upright_freeboard_mm": 5.056293668680511
+      "aero_density_g_cc": 0.6,
+      "assembled_mass_g": 56.87572353157614,
+      "reserve_lift_g": 3.1710900598935154,
+      "upright_freeboard_mm": 3.171786438044416
     },
     {
-      "aero_bulk_density_g_cm3": 0.65,
-      "assembled_mass_g": 27.523088174432935,
-      "reserve_lift_g": 1.850803136631633,
-      "upright_freeboard_mm": 3.1504221164161383
+      "aero_density_g_cc": 0.65,
+      "assembled_mass_g": 58.60067774790987,
+      "reserve_lift_g": 1.4461358435597873,
+      "upright_freeboard_mm": 1.4464534180801156
     },
     {
-      "aero_bulk_density_g_cm3": 0.7,
-      "assembled_mass_g": 28.642745451014207,
-      "reserve_lift_g": 0.7311458600503613,
-      "upright_freeboard_mm": 1.244550564151766
-    },
-    {
-      "aero_bulk_density_g_cm3": 0.7326504313124647,
-      "assembled_mass_g": 29.37389131106457,
-      "reserve_lift_g": 0.0,
-      "upright_freeboard_mm": 0.0
+      "aero_density_g_cc": 0.7,
+      "assembled_mass_g": 60.3256319642436,
+      "reserve_lift_g": -0.27881837277394084,
+      "upright_freeboard_mm": -0.2788796018841843
     }
   ],
-  "pressure_loads": [
-    {
-      "external_gauge_pressure_psi": 90,
-      "differential_MPa_at_initial_ambient_internal_pressure": 0.62052815638512,
-      "annular_end_load_N": 364.5465324222358
-    },
-    {
-      "external_gauge_pressure_psi": 180,
-      "differential_MPa_at_initial_ambient_internal_pressure": 1.24105631277024,
-      "annular_end_load_N": 729.0930648444717
-    }
-  ],
-  "pressure_basis": "Loads only. No hydrostatic strength or endurance allowable inferred."
+  "native_slice": {
+    "aero_g": 18.08531236152459,
+    "petg_g": 31.501461991849492,
+    "magnet_g": 5.09,
+    "assembled_mass_g": 54.676774353374086,
+    "reserve_lift_g": 5.370039238095572,
+    "upright_freeboard_mm": 5.371218510183168
+  },
+  "pressure_evidence": "pressure-analysis.json",
+  "pressure_rating": "No physical float pressure test recorded."
 }

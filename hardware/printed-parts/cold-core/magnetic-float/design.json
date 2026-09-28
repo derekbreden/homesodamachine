@@ -1,19 +1,22 @@
 {
   "dimensions_mm": {
-    "diameter": 28.0,
-    "height": 50.0,
-    "bore": 6.0,
-    "petg_skin": 1.0,
+    "diameter": 36.0,
+    "height": 60.06,
+    "bore": 4.8,
+    "petg_outer_wall": 3.0,
+    "petg_bore_wall": 1.8,
+    "petg_floor": 3.0,
+    "petg_roof": 3.06,
     "insert_height": 10.0,
-    "insert_top": 49.0,
-    "insert_bottom": 39.0,
-    "magnet_seat": 35.825,
-    "roof_bottom": 49.0,
+    "insert_top": 57.0,
+    "insert_bottom": 47.0,
+    "magnet_seat": 43.825,
+    "roof_bottom": 57.0,
     "magnet_pocket_od": 19.05,
     "magnet_pocket_id": 9.525,
     "magnet_pocket_height": 3.175,
-    "insert_od": 26.0,
-    "insert_id": 8.0
+    "insert_od": 30.0,
+    "insert_id": 8.4
   },
   "magnet": {
     "model": "K&J RC62",
@@ -25,58 +28,57 @@
     "source": "https://www.kjmagnetics.com/rc62-neodymium-ring-magnet"
   },
   "volume_cc": {
-    "body-petg": 6.302034863101127,
-    "body-aero": 17.586508771633042,
-    "insert-aero": 4.806636759992383,
-    "magnet": 0.6787109163380148
+    "body-petg": 24.869018348457168,
+    "body-aero": 27.984677800190685,
+    "insert-aero": 6.514406526483795,
+    "magnet": 0.678710916338015
   },
-  "water_displacement_g": 29.37389131106457,
+  "water_displacement_g": 60.04681359146966,
   "petg_density_g_cc": 1.25,
   "buoyancy": [
     {
-      "aero_density_g_cc": 0.42,
-      "assembled_mass_g": 22.37266470215909,
-      "reserve_lift_g": 7.00122660890548,
-      "upright_freeboard_mm": 11.917431256832245
+      "aero_density_g_cc": 0.46,
+      "assembled_mass_g": 52.045851725841715,
+      "reserve_lift_g": 8.000961865627943,
+      "upright_freeboard_mm": 8.002718893944444
     },
     {
-      "aero_density_g_cc": 0.45,
-      "assembled_mass_g": 23.04445906810785,
-      "reserve_lift_g": 6.329432242956717,
-      "upright_freeboard_mm": 10.773908325473622
+      "aero_density_g_cc": 0.53,
+      "assembled_mass_g": 54.46078762870893,
+      "reserve_lift_g": 5.586025962760729,
+      "upright_freeboard_mm": 5.58725266599443
     },
     {
       "aero_density_g_cc": 0.55,
-      "assembled_mass_g": 25.283773621270395,
-      "reserve_lift_g": 4.090117689794173,
-      "upright_freeboard_mm": 6.962165220944877
+      "assembled_mass_g": 55.15076931524243,
+      "reserve_lift_g": 4.896044276227229,
+      "upright_freeboard_mm": 4.897119458008701
     },
     {
       "aero_density_g_cc": 0.6,
-      "assembled_mass_g": 26.403430897851663,
-      "reserve_lift_g": 2.970460413212905,
-      "upright_freeboard_mm": 5.056293668680511
+      "assembled_mass_g": 56.87572353157614,
+      "reserve_lift_g": 3.1710900598935154,
+      "upright_freeboard_mm": 3.171786438044416
     },
     {
       "aero_density_g_cc": 0.65,
-      "assembled_mass_g": 27.523088174432935,
-      "reserve_lift_g": 1.850803136631633,
-      "upright_freeboard_mm": 3.1504221164161383
+      "assembled_mass_g": 58.60067774790987,
+      "reserve_lift_g": 1.4461358435597873,
+      "upright_freeboard_mm": 1.4464534180801156
     },
     {
       "aero_density_g_cc": 0.7,
-      "assembled_mass_g": 28.642745451014203,
-      "reserve_lift_g": 0.7311458600503649,
-      "upright_freeboard_mm": 1.244550564151772
+      "assembled_mass_g": 60.3256319642436,
+      "reserve_lift_g": -0.27881837277394084,
+      "upright_freeboard_mm": -0.2788796018841843
     }
   ],
-  "neutral_aero_density_g_cc": 0.7326504313124647,
+  "neutral_aero_density_g_cc": 0.6919180935315911,
   "nominal_unfilled_volume_cc": 0.0,
-  "insert_print_fit_allowances_radial_mm": [
-    0.05,
-    0.1
-  ],
+  "aero_material": "Bambu ASA Aero White 46100",
+  "core_print_fit_allowance_radial_mm": 0.05,
+  "insert_print_fit_allowance_radial_mm": 0.05,
   "minimum_seated_magnet_top_to_roof_bottom_mm": 9.9,
-  "fit": "Nominal mating faces touch. The slicer enlarges the Aero insert outer contour and reduces its bore by the radial fit allowance. Magnet tolerance is taken in the Aero pocket.",
+  "fit": "Nominal seated faces touch. Each separately printed Aero piece has 0.05 mm radial contour expansion and bore reduction. Magnet tolerance is taken in the Aero pocket.",
   "pressure_rating": "Unqualified prototype; no hydrostatic test recorded."
 }
