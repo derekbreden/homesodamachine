@@ -1,0 +1,15 @@
+{
+  "observed_at_utc": "2026-09-28T20:09:22.370920+00:00",
+  "printer": "Mark2",
+  "reading": {
+    "job_id": "1291278087",
+    "subtask_name": "nameplate-broad-leaf-black-white-z004-mark2-v2.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 0,
+    "total_layer_num": 203,
+    "mc_remaining_time": 107,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": 74
+  }
+}

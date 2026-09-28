@@ -1,0 +1,53 @@
+{
+  "status": "started",
+  "submitted": true,
+  "printer": "Mark2",
+  "printer_task_id": "1291278087",
+  "plate_contents": [
+    "nameplate-broad-leaf-001.stl",
+    "nameplate-broad-leaf-receiver.stl"
+  ],
+  "native_archive": ".cache/prints/2026-09-28-nameplate-broad-mark2-v2/ready/nameplate-broad-leaf-black-white-z004-mark2-v2.gcode.3mf",
+  "native_archive_sha256": "4eaa529724e1f3f44003c7cbb3f903155495e17ded66e66179064aa3c0c9bcf8",
+  "gcode_sha256": "20f54860c714847fe1b0f91352afb86f5f3718d787e33cb575d7734b7fe3c6a9",
+  "estimated_seconds": 6444.9853515625,
+  "estimated_grams_saved_profile_density": 45.56842362880707,
+  "layer_count": 203,
+  "geometry_check": "geometry-check.json",
+  "native_check": "verification.json",
+  "source_geometry_and_settings_sha256": {
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf": "84c5011c0be15dd9aab41a516abe85bf99b08e2c80d91375b5f2608a96bc0e72",
+    "hardware/printed-parts/enclosure/nameplate/retention-trial/nameplate-broad-leaf-001.step": "80bcb9dad4fba54a2c93f51b5300b16a6548b44b90a6d88c3cc112cc9ae5e441",
+    "hardware/printed-parts/enclosure/nameplate/retention-trial/nameplate-broad-leaf-001.stl": "0defbaa1b34b467de70a47dedab2eec45f4e3dbf783a69134f2c488e208a8f30",
+    "hardware/printed-parts/enclosure/nameplate/retention-trial/nameplate-broad-leaf-receiver.step": "e621d9c87e06214e4ceec7d37137c6ca1761cccbb304aabf9b8ef6e51c4cda56",
+    "hardware/printed-parts/enclosure/nameplate/retention-trial/nameplate-broad-leaf-receiver.stl": "ae4bf1e5e27f015df96b165e563d2442cda575d57434ecdc845d137c5efc8756",
+    "hardware/printed-parts/enclosure/nameplate/retention-trial/nameplate_retention_trial.py": "a0fd82b5e73ddda5131cadf12e5face330db47bfdc1d4e85a05ab030346bb343",
+    "hardware/printed-parts/enclosure/nameplate/retention-trial/geometry-check.json": "2ec44083881ed88e04abe5949fdbade45ae36145bd703204835cd287e1a34210",
+    "hardware/printed-parts/enclosure/nameplate/retention-trial/prepare_print.py": "d4ed9b928d5859a925b51418eddc56aebe012ce0fc0cd8ad53f9e872add70455"
+  },
+  "geometry_lint": {
+    "open_findings": 0,
+    "answered_intentional_features": 11
+  },
+  "launch_record": "launch.json",
+  "postlaunch_record": "postlaunch.json",
+  "support_review": "support-removal-review.json",
+  "description": "Black-and-white nameplate with 32 mm leaves, 3.6 mm hooks and 1.23 mm bearing clearance, plus its matching receiver. Artwork-down, white on right external spool; black body and receiver on left. Receiver integration into the main enclosure remains pending.",
+  "physical_fit": "Pending.",
+  "review_sha256": {
+    "README.md": "0408338d2cde1bd72185970410564de1660d568d653671cb0adbf9e69a2d5462",
+    "first-layer.png": "5ca4168d332986ec15ad6e2d3014853a68f6597ff4e668f8d447dd2ef538a640",
+    "geometry-check.json": "2ec44083881ed88e04abe5949fdbade45ae36145bd703204835cd287e1a34210",
+    "launch.json": "16ff179dc3bb3e27cfa031787027b77bb5b4bd160d5b33f6c5d1714ffbf237a5",
+    "postlaunch.json": "3a4613d204fc68f6b0a0c2833043fd6543d4817711e738914c55382a466fbe15",
+    "prelaunch.json": "67f8c7d871be32ae679f7d9c76c7c9bf58d1d7ed15ba27a78af254ded50d2ff1",
+    "preparation.json": "42cf46eeb67ae65ab75c5ef92ff4a3494ae072c7d2b8910817d13f5a0bb6c2fd",
+    "preview.png": "679b551518826066b31d29b130afbf29d45daa336b98676397235751c0dfa44c",
+    "slice-command.json": "76349ce0322248d915b2f8195d6d004cce020deb9d22c182a61e75da96bdc462",
+    "slice-result.json": "8da020715ee312d9c9094b65e6d6edf0d2717ab1c6fd84b897b4410937681421",
+    "startup-spacing.json": "a103cc866959db32eabac2c2251f9048852e9871ba948980e78dc37e9a74219a",
+    "support-audit.json": "b3c93c76716da46c45b5ff35ba66ef849edf86268e56cb6535b489744b8ce468",
+    "support-removal-review.json": "4458286e2432c9988008524ff19f3ed0c915e3c149d7ff2868531fe7c188fe73",
+    "verification.json": "bcf0eb9048a63a4b7047e2890d1b80f28cd112026b90659d786c2a269c45e523"
+  }
+}

@@ -1,0 +1,184 @@
+{
+  "schema": 1,
+  "piece": "nameplate-broad-leaf-and-receiver",
+  "inputs": {
+    "gcode": "plate_1.gcode",
+    "gcode_sha256": "20f54860c714847fe1b0f91352afb86f5f3718d787e33cb575d7734b7fe3c6a9",
+    "model": null,
+    "model_sha256": null,
+    "profile": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-28-nameplate-broad-mark2-v2/nameplate-broad-leaf-black-white-z004-mark2-v2-input.3mf",
+    "profile_sha256": "707b5c2f6039c50b5306cb1676c9f059b7f6412af1de488e8bf895713844341f"
+  },
+  "slicer": "BambuStudio 02.08.02.61",
+  "first_layer_z_mm": 0.2,
+  "coordinate_frame": null,
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.24",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "support_bodies": 3,
+    "interface_islands": 6,
+    "bed_rooted_bodies": 3,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 1.92,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 6,
+    "shortest_labelled_build_up_mm": 1.92
+  },
+  "trees": [
+    {
+      "id": "tree-1",
+      "root": "bed",
+      "base_z_mm": 0.2,
+      "first_interface_z_mm": 11.17,
+      "shortest_build_up_mm": 10.97,
+      "top_z_mm": 11.41,
+      "bbox_xy_mm": [
+        104.8,
+        98.4,
+        126.4,
+        150.0
+      ],
+      "interfaces": [
+        "interface-2"
+      ],
+      "interface_reading": "explicit_feature",
+      "part": "Nameplate",
+      "removal_lane": "Outward from the fully exposed hook face."
+    },
+    {
+      "id": "tree-2",
+      "root": "bed",
+      "base_z_mm": 0.2,
+      "first_interface_z_mm": 2.12,
+      "shortest_build_up_mm": 1.92,
+      "top_z_mm": 44.77,
+      "bbox_xy_mm": [
+        106.4,
+        188.8,
+        223.6,
+        228.0
+      ],
+      "interfaces": [
+        "interface-1",
+        "interface-4",
+        "interface-5",
+        "interface-6"
+      ],
+      "interface_reading": "explicit_feature",
+      "part": "Receiver",
+      "removal_lane": "Open receiver face, back and outer ends before inserting the nameplate."
+    },
+    {
+      "id": "tree-3",
+      "root": "bed",
+      "base_z_mm": 0.2,
+      "first_interface_z_mm": 11.17,
+      "shortest_build_up_mm": 10.97,
+      "top_z_mm": 11.41,
+      "bbox_xy_mm": [
+        204.0,
+        98.0,
+        223.2,
+        152.0
+      ],
+      "interfaces": [
+        "interface-3"
+      ],
+      "interface_reading": "explicit_feature",
+      "part": "Nameplate",
+      "removal_lane": "Outward from the fully exposed hook face."
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "interface-1",
+      "first_z_mm": 2.12,
+      "last_z_mm": 2.36,
+      "bbox_xy_mm": [
+        108.8,
+        202.4,
+        221.2,
+        205.6
+      ],
+      "tree": "tree-2",
+      "build_up_mm": 1.92
+    },
+    {
+      "id": "interface-2",
+      "first_z_mm": 11.17,
+      "last_z_mm": 11.41,
+      "bbox_xy_mm": [
+        119.6,
+        108.8,
+        122.8,
+        141.2
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 10.97
+    },
+    {
+      "id": "interface-3",
+      "first_z_mm": 11.17,
+      "last_z_mm": 11.41,
+      "bbox_xy_mm": [
+        207.2,
+        108.8,
+        210.4,
+        141.2
+      ],
+      "tree": "tree-3",
+      "build_up_mm": 10.97
+    },
+    {
+      "id": "interface-4",
+      "first_z_mm": 41.89,
+      "last_z_mm": 42.13,
+      "bbox_xy_mm": [
+        119.6,
+        204.8,
+        129.2,
+        215.2
+      ],
+      "tree": "tree-2",
+      "build_up_mm": 41.69
+    },
+    {
+      "id": "interface-5",
+      "first_z_mm": 41.89,
+      "last_z_mm": 42.13,
+      "bbox_xy_mm": [
+        200.8,
+        204.8,
+        210.4,
+        215.2
+      ],
+      "tree": "tree-2",
+      "build_up_mm": 41.69
+    },
+    {
+      "id": "interface-6",
+      "first_z_mm": 44.53,
+      "last_z_mm": 44.77,
+      "bbox_xy_mm": [
+        114.8,
+        202.4,
+        215.2,
+        204.4
+      ],
+      "tree": "tree-2",
+      "build_up_mm": 44.33
+    }
+  ],
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up."
+}

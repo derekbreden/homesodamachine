@@ -1,0 +1,133 @@
+{
+  "project": "tee-carrier-low-force-black-z018-h2c-v1-input.3mf",
+  "settings_source": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v15/tee-carrier-plate-black-z004-mark2-v15-six-wall-band-original-order-input.3mf",
+  "settings_source_sha256": "d72b9433d3a69da2377509ea2dd4ac51f7e4cd6d17331bc0975f15b85996f657",
+  "settings_sha256": "a7fbe0751769272638811aeb9713b13e719460351b740a88d97420b054a3a54b",
+  "source_settings_sha256": "e8b66abcb5ab01af4c5495175cd4ae24c4f5a1c924862d86363b7382845573da",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "to_sha256": "409b1516f0401361a02b18a34420c10ca83bc33615e8896cade2fea42edee871",
+      "requested_z_trim_mm": 0.18
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 Standard +0.04 Z trim",
+      "to": "Bambu Lab H2C 0.4 Standard +0.18 Z trim"
+    }
+  },
+  "printer": "H2C",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 15.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "tee-carrier-low-force",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/tee-carrier-low-force.stl",
+      "stl_sha256": "375a78bb936185cb64fe64ca1da0d3d2421b36c044c4317b817471a2106efc54",
+      "triangles": 43560,
+      "rotation_x_degrees": -90.0,
+      "source_center_mm": [
+        0.0,
+        106.51300048828125,
+        194.23500061035156
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        6.123233995736766e-17,
+        -1.0,
+        0.0,
+        1.0,
+        6.123233995736766e-17,
+        162.5,
+        160.0,
+        10.527000427246096
+      ],
+      "plate_translation_mm": [
+        162.5,
+        160.0,
+        10.527000427246096
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          55.0,
+          130.68899536132812,
+          0.0
+        ],
+        [
+          270.0,
+          189.31100463867188,
+          21.05400085449219
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.999947122996673e-10
+    }
+  ],
+  "project_sha256": "63d9ee68823b25b86462b06886f8268c022a1eed6f92a3e37380644120d5593a",
+  "settings_preserved_byte_for_byte": false,
+  "source_geometry_and_settings_sha256": {
+    "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/tee-carrier-low-force.stl": "375a78bb936185cb64fe64ca1da0d3d2421b36c044c4317b817471a2106efc54",
+    "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/tee-carrier-low-force.step": "e008227eaacc8ac1f6f35a33d17bf91dc577dfddd16aeea3b89bad8fe41e423f",
+    "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/low_force_trial.py": "d8f848ab53d23e16f23d40d81c7a4e26478d21afa24732e5644d2dc29469e63f",
+    "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/geometry-check.json": "d81bc2721f8d8674ffa39dcc8b76be562740e3a5301087cad0082b0a9f842aaf",
+    "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/prepare_print.py": "5f9b901c4ad07695c519712502f8a05632c9e099f7ca3a60295a55465fffd793",
+    ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v15/tee-carrier-plate-black-z004-mark2-v15-six-wall-band-original-order-input.3mf": "d72b9433d3a69da2377509ea2dd4ac51f7e4cd6d17331bc0975f15b85996f657"
+  },
+  "requested_z_trim_mm": 0.18,
+  "expected_textured_plate_trim_mm": 0.16,
+  "roof_relief_mm": 0.75,
+  "roof_clearance_mm": 1.25,
+  "floor_clearance_mm": 0.25,
+  "support_policy": "No supports. Complete visible R6 rounds use 0.08 mm; six walls in print Z 0\u20136.1 mm only.",
+  "speeds_and_order": "Saved speeds, inner/outer then infill, 15% overlap."
+}

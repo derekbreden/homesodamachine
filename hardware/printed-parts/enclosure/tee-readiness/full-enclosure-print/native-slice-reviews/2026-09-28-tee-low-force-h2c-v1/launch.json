@@ -1,0 +1,24 @@
+{
+  "accepted_at_utc": null,
+  "acceptance_observed_at_utc": "2026-09-28T20:03:58.881450+00:00",
+  "exact_acceptance_time_known": false,
+  "spacing_reference_utc": "2026-09-28T20:03:58.881450+00:00",
+  "printer": "H2C",
+  "archive": ".cache/prints/2026-09-28-tee-low-force-h2c-v1/ready/tee-carrier-low-force-black-z018-h2c-v1.gcode.3mf",
+  "archive_sha256": "9dd9a3b75cba68127ca295e9f1652d3f14dfe5d1b0a60e1033cd690f9b5ff7f7",
+  "gcode_sha256": "3b8d1a12848754a6be27b224f57c094220d0b309d413856eb89701f7f93b9b43",
+  "reading": {
+    "job_id": "1291267275",
+    "subtask_name": "tee-carrier-low-force-black-z018-h2c-v1.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 0,
+    "total_layer_num": 189,
+    "mc_remaining_time": 160,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": 13
+  },
+  "reply": null,
+  "send_method": "Bambu Connect via cua_repl; one Send click.",
+  "observation_note": "Pre-send observer expired before the UI Send click. A new read-only observation confirms the new exact job running without error; spacing is measured conservatively from this later observation."
+}
