@@ -27,6 +27,10 @@ rear enclosure.
 
 ## Retention
 
+The [broad-leaf retention trial](retention-trial/README.md) tests 32 mm-wide leaves,
+3.6 mm hooks and 1.23 mm nominal bearing clearance with a matching receiver coupon.
+The dimensions below describe the main-model interface.
+
 Two straight PET-GF tabs are integral to the plate. Each is 8 mm wide, **1.3 mm thick and
 11.3 mm long**, with a 1 mm inner-root radius. A **1.8 mm outward lip** starts 8.5 mm from the
 root. The hook has a 1.2 mm tall full-depth land followed by a 1.6 mm lead-in;
