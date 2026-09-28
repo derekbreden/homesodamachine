@@ -1,5 +1,5 @@
 {
-  "status": "started",
+  "status": "completed",
   "submitted": true,
   "print_started": true,
   "printer": "Mark2",
@@ -81,7 +81,7 @@
   },
   "physical_trial": {
     "status": "pending",
-    "existing_cover": "Display-cover v9, skirts inset 1.2 mm per side.",
+    "existing_cover": "A replacement 1.2 mm-inset cover is printing as Mark2 task 1289195332.",
     "procedure": [
       "Remove supports through the open underside and back.",
       "Seat the existing cover normal to the display plane and inspect rim flatness.",
@@ -123,7 +123,7 @@
     "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step.mesh": "a51bfbb2fd852595bbda776e15873c52bcbc0ecefda04babb28b33e3b0042b80"
   },
   "review_sha256": {
-    "README.md": "db0de7de29ae6be3ad17661b404f906cd0ad9dcba6df233c5fed950e058c3e62",
+    "README.md": "30858d515944f87acd8f8bad1601f47d8ed32975116b43e5da75bd56fb846288",
     "geometry-check.json": "555b434967d8379cedfb071dbf2d19dc8621359c44972ad5d18faf71ca78349d",
     "geometry-lint.log": "66405af5523d9e35879c47c301bb3a87581b2cee1e52eb04b24897bfb8ac1def",
     "launch.json": "9bf26b36c2f59863a8b76a46428589ca33f1eecd1fc9cd55688732ddd8b5b43d",
@@ -136,6 +136,12 @@
     "slice-result.json": "edfa03f7fbbdd9f4b684353d03f2f8e230d9809a6079b27f84ecf195eae13bb1",
     "support-audit-display-receiver-trial-v1.json": "d6efc10b5b36a802b488cca658f3328cb36b715f134e9f3b5e695033ee4123c9",
     "support-removal-review.json": "688ebd572beccc6140fe3778936601a5e7596b0c3b744d8ab833d4825efeeb91",
-    "verification.json": "e774a08595a7e1b4ba8200bfe5469d15b2737ba4934028b0d31c39ca0762ab0b"
-  }
+    "verification.json": "e774a08595a7e1b4ba8200bfe5469d15b2737ba4934028b0d31c39ca0762ab0b",
+    "completion.json": "1ee9c324c4ea49469e2107157959d46add5ffca53f95202a4c2a17e50204440e"
+  },
+  "completion_record": "completion.json",
+  "completion_observed_at_utc": "2026-09-28T02:48:04.544642+00:00",
+  "completion_state": "FINISH",
+  "completion_reported_by": "Derek has the printed receiver trial.",
+  "replacement_cover_review": "../2026-09-27-display-cover-mark2-v10/manifest.json"
 }

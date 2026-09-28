@@ -1,0 +1,47 @@
+{
+  "pass": true,
+  "native_archive": ".cache/prints/2026-09-27-display-cover-mark2-v10/display-cover-replacement-mark2-v10.gcode.3mf",
+  "archive": {
+    "name": "display-cover-replacement-mark2-v10.gcode.3mf",
+    "sha256": "647df9d220f388e05e23a9ec274b6c2c6240e0cff33151039de03b482d92a509",
+    "gcode_sha256": "d4f34722ed90851659be349d9b2f848a2157fdadea1b8fa74a853f5dafa12502",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "000000"
+      }
+    },
+    "objects": [
+      "display-cover"
+    ]
+  },
+  "reuses_print_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-25-display-cover-mark2-v9/manifest.json",
+  "exact_archive_and_gcode_reused": true,
+  "replacement_for": "Existing display cover unavailable for this trial at Derek's direction.",
+  "receiver_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-25-display-receiver-trial-mark2-v1/manifest.json",
+  "receiver_printer_task_id": "1282488338",
+  "all_cover_and_receiver_source_hashes_match_reviews": true,
+  "prior_native_and_support_review_digests_match": true,
+  "source_geometry_and_settings_sha256": {
+    "hardware/printed-parts/enclosure/display-cover/display-cover.stl": "37fe26d959acbdf102a353944de3d3ec62f8b4a8275c84acb83578ccfb6d40b5",
+    "hardware/printed-parts/enclosure/display-cover/display-cover.step": "f98b9b5d69ada8585ae111687714db1a0fff641355ca416a5883cd5e868da930",
+    "hardware/printed-parts/enclosure/display-cover/display_cover.py": "968e20c88930aa2654254849cafecc38c48afd35b62a0e854dbf7da253c4a6c8",
+    "hardware/printed-parts/enclosure/enclosure/_display_retention.py": "e0b32a1909d78e3b64641020e9c938df127ee7ad8bd9df244bf681ec8a4c03e8",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "4ca85222a43997e09289a133a820b726c431d9e95a319d308f89b3a01f803b00",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py": "fb290e6f377fc5f33790b7e6532c59ff0fdab0472b2f519d808b17106e8629fc"
+  },
+  "receiver_geometry_sha256": {
+    "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step": "b90ebd1c64dc77a0c39355d8c92b42e9eb57fe3311d4d38aef6f3d744a8fc841",
+    "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.stl": "a51a506ff2cd152bdba7dffb222f9f2e7b8bc9d343b7de3c543b52490790491b",
+    "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step.mesh": "a51bfbb2fd852595bbda776e15873c52bcbc0ecefda04babb28b33e3b0042b80"
+  },
+  "settings_unchanged": true,
+  "skirt_inset_each_mm": 1.2,
+  "receiver_catch_overlap_centered_mm": 1.0,
+  "receiver_catch_overlap_min_mm": 0.7,
+  "receiver_inward_flex_clearance_mm": 1.6,
+  "estimated_seconds": 1447.849609375,
+  "estimated_grams_saved_profile_density": 8.690042495727539,
+  "physical_fit_with_receiver_trial": "pending",
+  "bed_clear_confirmed_by": "Derek: both printers are clear; print a new cover or covers for the receiver trial."
+}
