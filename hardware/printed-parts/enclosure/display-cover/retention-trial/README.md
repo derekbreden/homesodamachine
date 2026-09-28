@@ -21,8 +21,9 @@ the flat hook bearings and receiver seats. The cover's support lanes are exposed
 the leaves; the receiver opens underneath and at the back for support removal.
 
 The [geometry reading](geometry-check.json) measures both axes of cover symmetry,
-root stock, the unchanged bezel, seated clearance and engagement. Physical insertion
-force, shake retention and printed contact finish are unmeasured for this pair.
+root stock, the unchanged bezel, seated clearance and engagement. The [physical fit report](physical-acceptance.json) passes shaking and records a very small
+bow with the snaps fully engaged. Insertion force and repeated-use performance are
+unmeasured. The [arm-reach trials](../retention-reach-trial/README.md) use this same receiver.
 
 `retention_trial.py` writes both STEP/STL/viewer triplets. `prepare_print.py` prepares
 one part per printer. The printer starts use the shared-circuit three-minute minimum.
