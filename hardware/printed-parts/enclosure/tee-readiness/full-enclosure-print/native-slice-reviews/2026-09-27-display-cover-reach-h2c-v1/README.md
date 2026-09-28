@@ -1,6 +1,6 @@
 # Machine display cover reach trial · H2C
 
-Started on 2026-09-28 local time as task **1289418578**, with the three-minute minimum spacing from the [shared-circuit startup trial](../2026-09-28-shared-circuit-stagger/README.md). Native estimate: **24 min 8 sec**, **8.73 g**, 60 layers. The printer reports RUNNING with no print error at launch.
+Completed as task **1289418578**, confirmed FINISH at 60/60 layers with no printer errors on 2026-09-28. The launch used the [shared-circuit startup stagger](../2026-09-28-shared-circuit-stagger/README.md).
 
 One cover with **1 mm extra hook reach** and both straight leaves inset **0.9 mm per side**. Nominal clearance beneath the receiver ledges is **1.48 mm**. Each hook overlaps 1.3 mm when centered and at least 1.0 mm at full lateral float. The bezel and window retain their shape. The [existing receiver](../2026-09-25-display-receiver-trial-mark2-v1/README.md) is the mating test piece.
 

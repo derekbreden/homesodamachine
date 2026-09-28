@@ -37,7 +37,7 @@
   ],
   "geometry_and_settings_changed": false,
   "staggered_restart": {
-    "status": "both_running_after_bed_warmup",
+    "status": "both_completed",
     "printers": {
       "Mark2": {
         "printer_task_id": "1289413482",
@@ -62,7 +62,7 @@
     "accepted_launch_spacing_seconds": 236.083844,
     "minimum_interval_pass": true
   },
-  "physical_fit_result": "Pending user observation.",
+  "physical_fit_result": "Derek provisionally accepts the +0.5 mm cover as workable and good enough for now; +1.0 mm cover not assessed.",
   "startup_monitoring": {
     "status": "both_beds_at_80_c",
     "readings": [
@@ -110,11 +110,42 @@
     "bed_heating_sequence": "Mark2 already held 80 C while H2C still reported 29 C target; H2C subsequently heated to 80 C."
   },
   "evidence_sha256": {
-    "README.md": "cf3fc56eda54316d1fe9037a5de2efc8f3af10f49e9bc6e8c30fd59f468adc87",
+    "README.md": "5e366d7e385e4f68336169b11fd2853b3fad9c2e39776242b4baa9460836ca0b",
+    "completion-reading.json": "604597bed8a07516de55278fd25daf5db3e5ad6bc943d5843c2dd4ae77f2b77b",
     "interval-check.json": "b611fd54bb1a7d264a13096c001a68a63b6058dca3a5af896b2c55130c512b45",
     "mark2-before-h2c-send.json": "70edc5422d09f7ab7ba22d3d2f70545eac049d7485581239ae795029e2d9fefe",
     "mark2-during-stagger.json": "c29b7cad5fd7c1a9d6be7578ab147570c0334f70e7a79e8bb15d61bbecf7d7f8",
     "startup-reading.json": "2c831f45f05030855ece64e00264d15994c696261d9b0d8fdfdf3ac9f33981a2",
     "warmup-readings.json": "500a7979973b1f14a1c37c91760deb587cca4be93a0fe545193d0bbf7574dea1"
-  }
+  },
+  "print_completion": {
+    "record": "completion-reading.json",
+    "both_finished": true,
+    "print_errors": false,
+    "readings": [
+      {
+        "printer": "Mark2",
+        "observed_at_utc": "2026-09-28T06:28:57.613828+00:00",
+        "gcode_state": "FINISH",
+        "job_id": "1289413482",
+        "layer_num": 58,
+        "total_layer_num": 58,
+        "mc_percent": 100,
+        "print_error": 0,
+        "hms": []
+      },
+      {
+        "printer": "H2C",
+        "observed_at_utc": "2026-09-28T06:28:57.425850+00:00",
+        "gcode_state": "FINISH",
+        "job_id": "1289418578",
+        "layer_num": 60,
+        "total_layer_num": 60,
+        "mc_percent": 100,
+        "print_error": 0,
+        "hms": []
+      }
+    ]
+  },
+  "physical_acceptance_record": "../../../../display-cover/reach-trial/physical-acceptance.json"
 }

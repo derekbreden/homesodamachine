@@ -1,5 +1,5 @@
 {
-  "status": "started",
+  "status": "completed",
   "submitted": true,
   "print_started": true,
   "printer": "Mark2",
@@ -65,23 +65,27 @@
     "support_remove_small_overhang": false
   },
   "physical_trial": {
-    "status": "pending",
-    "readings": [
+    "status": "provisionally_accepted_good_enough",
+    "nominal_lift_before_hook_bearing_mm": 0.98,
+    "retention_force_measured": false,
+    "comparison_scope": "Qualitative fit on two printers with their standing Z trims.",
+    "assessment_targets": [
       "Hook clears the ledge.",
       "Leaf returns outward into engagement.",
       "Bezel relaxes flat after insertion."
     ],
-    "nominal_lift_before_hook_bearing_mm": 0.98,
-    "retention_force_measured": false,
-    "comparison_scope": "Qualitative fit on two printers with their standing Z trims."
+    "result": "Derek: workable and good enough for now; room for further tuning.",
+    "further_tuning": "deferred",
+    "acceptance_record": "../../../../display-cover/reach-trial/physical-acceptance.json",
+    "acceptance_sha256": "7ae96304c8e862f81b2b73cb3b5d6c183a7ba3f3378af9821feddfd5fe4376d1"
   },
   "launch_record": "restart-1/launch.json",
   "prelaunch_record": "restart-1/prelaunch.json",
-  "observed_at_utc": "2026-09-28T05:39:17.889359+00:00",
-  "observed_state": "RUNNING",
-  "observed_layer": 1,
+  "observed_at_utc": "2026-09-28T06:28:57.613828+00:00",
+  "observed_state": "FINISH",
+  "observed_layer": 58,
   "observed_total_layers": 58,
-  "observed_remaining_minutes": 17,
+  "observed_remaining_minutes": 0,
   "print_error": 0,
   "hms": [],
   "standing_print_options": {
@@ -106,7 +110,7 @@
     "hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-05.step.mesh": "c54be94372195f7dede08a9280f448133d4aa4248d0450a53a8c0e8160460480"
   },
   "review_sha256": {
-    "README.md": "7492a75eedf0370552470c829b171abe56247218173ef5e4d054befae454d503",
+    "README.md": "f2086d6faf020ea84471d2c31155d87a2ad5b52f91da3db0895544bad28629c6",
     "geometry-check.json": "66d5a79e4beb36bb7f6e3c8b8584994e8ff498b32629b12819c3031165d289a5",
     "geometry-lint.log": "9154fe5f018692cf7cb4a6dd3b063138497d7306702ca4fc6ff9dbe298e374e9",
     "launch.json": "9dfbfda73845ac832528df4fe503e3613f3f12587a94d8ba333a295752106c3c",
@@ -123,7 +127,8 @@
     "restart-1/prelaunch.json": "8062163e9912206cde08cd6e0b63d246603d90fad920ae4c8c423c96c4662a93",
     "restart-1/reason.json": "6c26b503d8f7e8418a4602c038ddbf54a877f7217d5257de76e54cc2cbb3308c",
     "restart-1/send.log": "05e3bc818afcaf0ea8239ceac69413f482bc212f799cf5a88623e6759e7574e8",
-    "restart-1/startup-reading.json": "b159249984aed2dd2901c7edf04b4dbce292f0455ce32b5157f8c2b09c5d1049"
+    "restart-1/startup-reading.json": "b159249984aed2dd2901c7edf04b4dbce292f0455ce32b5157f8c2b09c5d1049",
+    "../2026-09-28-shared-circuit-stagger/completion-reading.json": "604597bed8a07516de55278fd25daf5db3e5ad6bc943d5843c2dd4ae77f2b77b"
   },
   "prior_attempts": [
     {
@@ -137,5 +142,6 @@
     }
   ],
   "startup_spacing_trial": "../2026-09-28-shared-circuit-stagger/observation.json",
-  "postlaunch_record": "restart-1/startup-reading.json"
+  "postlaunch_record": "restart-1/startup-reading.json",
+  "completion_record": "../2026-09-28-shared-circuit-stagger/completion-reading.json"
 }

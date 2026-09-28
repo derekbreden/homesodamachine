@@ -1,5 +1,5 @@
 {
-  "status": "started",
+  "status": "completed",
   "submitted": true,
   "print_started": true,
   "printer": "H2C",
@@ -77,11 +77,11 @@
   },
   "launch_record": "restart-1/launch.json",
   "prelaunch_record": "restart-1/prelaunch.json",
-  "observed_at_utc": "2026-09-28T05:39:17.395802+00:00",
-  "observed_state": "RUNNING",
-  "observed_layer": 0,
+  "observed_at_utc": "2026-09-28T06:28:57.425850+00:00",
+  "observed_state": "FINISH",
+  "observed_layer": 60,
   "observed_total_layers": 60,
-  "observed_remaining_minutes": 19,
+  "observed_remaining_minutes": 0,
   "print_error": 0,
   "hms": [],
   "standing_print_options": {
@@ -112,7 +112,7 @@
     "source": "Installed Bambu Studio hms_en_094.json"
   },
   "review_sha256": {
-    "README.md": "dc6e568b6454114153303f79c1bcc9262598543b4c767800a75555ab0f470bbd",
+    "README.md": "09359fc2d8d4e6f9e18dd8f113c079ba7f933683ff731fc2c0f13f0937f75d93",
     "dialog-reading.json": "3e06340b8ade7a5a545d56e8911d63f6f4188fb4dff1dc4f99ce5e61df520973",
     "geometry-check.json": "66d5a79e4beb36bb7f6e3c8b8584994e8ff498b32629b12819c3031165d289a5",
     "geometry-lint.log": "52e17f7b6d976eaf512158f2b972b77376f3875737b6bc1a97a9f2c74c113f7d",
@@ -130,7 +130,8 @@
     "restart-1/prelaunch.json": "d96815e4cb2ff46584328699f574deed3e4479656b65f78c8904d71328ccb991",
     "restart-1/reason.json": "8176f7b996fc8a03298cc916cc6cc2f0d7789fdc2b87e57d7a97e609132cc60e",
     "restart-1/send.log": "034a9c45d2f859ff6deb6ff7867e17e0e883e9bc74562c5a5b163f84990bc71b",
-    "restart-1/startup-reading.json": "ff6427411ba0c2ab907658b273cc8746f23af5e940729c047d42f34f28f56cb1"
+    "restart-1/startup-reading.json": "ff6427411ba0c2ab907658b273cc8746f23af5e940729c047d42f34f28f56cb1",
+    "../2026-09-28-shared-circuit-stagger/completion-reading.json": "604597bed8a07516de55278fd25daf5db3e5ad6bc943d5843c2dd4ae77f2b77b"
   },
   "prior_attempts": [
     {
@@ -144,5 +145,6 @@
     }
   ],
   "startup_spacing_trial": "../2026-09-28-shared-circuit-stagger/observation.json",
-  "postlaunch_record": "restart-1/startup-reading.json"
+  "postlaunch_record": "restart-1/startup-reading.json",
+  "completion_record": "../2026-09-28-shared-circuit-stagger/completion-reading.json"
 }
