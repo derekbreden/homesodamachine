@@ -51,22 +51,47 @@ test("the hole-axis rotation fixes the dot and raises the tangent approach", () 
   }
 });
 
-test("grip-axis roll keeps the selected base and dot fixed at every hole-axis tilt", () => {
-  for (const holeRoll of [-60, 0, 30, 60]) {
+test("vertical rotation fixes the dot and height while turning away from the tangent", () => {
+  const points = [[0, 0, 0], GRIP_BASE, WIRE_GUIDE_END, WIRE_TIP];
+  for (const roll of [0, 45, 80]) for (const holeRoll of [-60, -35, 0, 60]) {
+    for (const vertical of [-90, -30, 0, 35, 90]) {
+      posePoint(WIRE_TIP, roll, holeRoll, vertical).forEach((v, i) => near(v, JOINT[i]));
+      for (const p of points) {
+        const reference = posePoint(p, roll, holeRoll);
+        const actual = posePoint(p, roll, holeRoll, vertical);
+        near(actual[2], reference[2]);
+        near(Math.hypot(actual[0] - JOINT[0], actual[1] - JOINT[1]), Math.hypot(reference[0] - JOINT[0], reference[1] - JOINT[1]));
+      }
+    }
+  }
+  // With both displayed rolls at zero, a quarter-turn swings the tangent
+  // approach outward/inward along the radius, around the dot at the rim.
+  const tangentBase = posePoint(GRIP_BASE, 0, -35);
+  near(tangentBase[0], JOINT[0]);
+  assert.ok(tangentBase[1] < JOINT[1]);
+  const outward = posePoint(GRIP_BASE, 0, -35, 90);
+  const inward = posePoint(GRIP_BASE, 0, -35, -90);
+  near(outward[1], JOINT[1]);
+  near(inward[1], JOINT[1]);
+  assert.ok(outward[0] > JOINT[0]);
+  assert.ok(inward[0] < JOINT[0]);
+});
+
+test("grip-axis roll keeps the selected base and dot fixed at every tilt and heading", () => {
+  for (const holeRoll of [-60, 0, 30, 60]) for (const vertical of [-90, -30, 0, 45, 90]) {
     for (const roll of [0, 35, 80]) {
       for (const p of [GRIP_BASE, WIRE_TIP]) {
-        const actual = posePoint(p, roll, holeRoll), reference = posePoint(p, 0, holeRoll);
+        const actual = posePoint(p, roll, holeRoll, vertical), reference = posePoint(p, 0, holeRoll, vertical);
         actual.forEach((v, i) => near(v, reference[i]));
-        near(actual[0], JOINT[0]);
       }
     }
   }
 });
 
-test("the straight tip guide stays aimed at the dot under both rotations", () => {
-  for (const roll of [0, 35, 80]) for (const holeRoll of [-60, 0, 60]) {
-    const back = posePoint(WIRE_GUIDE_BACK, roll, holeRoll);
-    const end = posePoint(WIRE_GUIDE_END, roll, holeRoll);
+test("the straight tip guide stays aimed at the dot under all three rotations", () => {
+  for (const roll of [0, 35, 80]) for (const holeRoll of [-60, 0, 60]) for (const vertical of [-90, -30, 0, 45, 90]) {
+    const back = posePoint(WIRE_GUIDE_BACK, roll, holeRoll, vertical);
+    const end = posePoint(WIRE_GUIDE_END, roll, holeRoll, vertical);
     sameDirection(direction(back, end), direction(end, JOINT));
   }
 });
@@ -84,10 +109,10 @@ test("the unsupported feed bends while joining both straight runs without a kink
 
 test("gun, guide and wire undergo one rigid rotation without a reflection", () => {
   const points = [[0, 0, 0], GRIP_BASE, WIRE_GUIDE_END, WIRE_TIP];
-  for (const roll of [0, 35, 80]) for (const holeRoll of [-60, 0, 60]) {
-    for (const a of points) for (const b of points) near(distance(a, b), distance(posePoint(a, roll, holeRoll), posePoint(b, roll, holeRoll)));
-    const origin = posePoint([0, 0, 0], roll, holeRoll);
-    const [a, b, c] = [[1, 0, 0], [0, 1, 0], [0, 0, 1]].map(p => posePoint(p, roll, holeRoll).map((v, i) => v - origin[i]));
+  for (const roll of [0, 35, 80]) for (const holeRoll of [-60, 0, 60]) for (const vertical of [-90, -30, 0, 45, 90]) {
+    for (const a of points) for (const b of points) near(distance(a, b), distance(posePoint(a, roll, holeRoll, vertical), posePoint(b, roll, holeRoll, vertical)));
+    const origin = posePoint([0, 0, 0], roll, holeRoll, vertical);
+    const [a, b, c] = [[1, 0, 0], [0, 1, 0], [0, 0, 1]].map(p => posePoint(p, roll, holeRoll, vertical).map((v, i) => v - origin[i]));
     near(a[0] * (b[1] * c[2] - b[2] * c[1]) - a[1] * (b[0] * c[2] - b[2] * c[0]) + a[2] * (b[0] * c[1] - b[1] * c[0]), 1);
   }
 });
