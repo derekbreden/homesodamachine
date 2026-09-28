@@ -1,0 +1,120 @@
+{
+  "reported_by": "Derek in this conversation",
+  "recorded_at_utc": "2026-09-28T05:30:12.133908+00:00",
+  "user_report": {
+    "printers_share_circuit": true,
+    "near_simultaneous_starts_repeatedly_trip_breaker": true,
+    "also_observed_during_prior_manual_starts": true,
+    "breaker_restored": true
+  },
+  "requested_trial": {
+    "minimum_start_interval_seconds": 180,
+    "basis": "Derek's previous experience; proposed interval to test.",
+    "measure_from": "First accepted launch receipt to invocation of the second sender.",
+    "electrical_load_measured": false,
+    "trip_time_measured": false
+  },
+  "original_launch_spacing_seconds": 54.421746,
+  "original_jobs": [
+    {
+      "printer": "Mark2",
+      "printer_task_id": "1289348260",
+      "launch_record": "../2026-09-27-display-cover-reach-mark2-v11/launch.json",
+      "accepted_at_utc": "2026-09-28T04:38:34.195922+00:00",
+      "post_restoration_reading": "../2026-09-27-display-cover-reach-mark2-v11/restart-1/prelaunch.json",
+      "post_restoration_state": "FAILED",
+      "observed_layer": 0
+    },
+    {
+      "printer": "H2C",
+      "printer_task_id": "1289349395",
+      "launch_record": "../2026-09-27-display-cover-reach-h2c-v1/launch.json",
+      "accepted_at_utc": "2026-09-28T04:39:28.617668+00:00",
+      "post_restoration_reading": "../2026-09-27-display-cover-reach-h2c-v1/restart-1/prelaunch.json",
+      "post_restoration_state": "FAILED",
+      "observed_layer": 0
+    }
+  ],
+  "geometry_and_settings_changed": false,
+  "staggered_restart": {
+    "status": "both_running_after_bed_warmup",
+    "printers": {
+      "Mark2": {
+        "printer_task_id": "1289413482",
+        "accepted_at_utc": "2026-09-28T05:28:54.123406+00:00",
+        "launch_record": "../2026-09-27-display-cover-reach-mark2-v11/restart-1/launch.json",
+        "gcode_state": "RUNNING",
+        "print_error": 0,
+        "hms": []
+      },
+      "H2C": {
+        "printer_task_id": "1289418578",
+        "accepted_at_utc": "2026-09-28T05:32:50.207250+00:00",
+        "launch_record": "../2026-09-27-display-cover-reach-h2c-v1/restart-1/launch.json",
+        "gcode_state": "RUNNING",
+        "print_error": 0,
+        "hms": []
+      }
+    },
+    "second_sender_not_before_utc": "2026-09-28T05:31:54.123406+00:00",
+    "interval_check": "interval-check.json",
+    "elapsed_seconds_before_second_sender": 209.095952,
+    "accepted_launch_spacing_seconds": 236.083844,
+    "minimum_interval_pass": true
+  },
+  "physical_fit_result": "Pending user observation.",
+  "startup_monitoring": {
+    "status": "both_beds_at_80_c",
+    "readings": [
+      "mark2-during-stagger.json",
+      "mark2-before-h2c-send.json",
+      "startup-reading.json",
+      "warmup-readings.json"
+    ],
+    "printer_power_loss_observed_after_stagger": false,
+    "startup_completion_confirmed": false,
+    "last_observed_at_utc": "2026-09-28T05:39:17.889359+00:00",
+    "last_readings": {
+      "Mark2": {
+        "printer": "Mark2",
+        "observed_at": "2026-09-28T05:39:17.889359+00:00",
+        "gcode_state": "RUNNING",
+        "job_id": "1289413482",
+        "layer_num": 1,
+        "total_layer_num": 58,
+        "mc_percent": 26,
+        "mc_remaining_time": 17,
+        "print_error": 0,
+        "hms": [],
+        "stg_cur": 0,
+        "bed_temper": 80.0,
+        "bed_target_temper": 80.0
+      },
+      "H2C": {
+        "printer": "H2C",
+        "observed_at": "2026-09-28T05:39:17.395802+00:00",
+        "gcode_state": "RUNNING",
+        "job_id": "1289418578",
+        "layer_num": 0,
+        "total_layer_num": 60,
+        "mc_percent": 20,
+        "mc_remaining_time": 19,
+        "print_error": 0,
+        "hms": [],
+        "stg_cur": 1,
+        "bed_temper": 80.0,
+        "bed_target_temper": 80.0
+      }
+    },
+    "scope": "Printer telemetry through both bed warm-ups; no electrical load measurement.",
+    "bed_heating_sequence": "Mark2 already held 80 C while H2C still reported 29 C target; H2C subsequently heated to 80 C."
+  },
+  "evidence_sha256": {
+    "README.md": "cf3fc56eda54316d1fe9037a5de2efc8f3af10f49e9bc6e8c30fd59f468adc87",
+    "interval-check.json": "b611fd54bb1a7d264a13096c001a68a63b6058dca3a5af896b2c55130c512b45",
+    "mark2-before-h2c-send.json": "70edc5422d09f7ab7ba22d3d2f70545eac049d7485581239ae795029e2d9fefe",
+    "mark2-during-stagger.json": "c29b7cad5fd7c1a9d6be7578ab147570c0334f70e7a79e8bb15d61bbecf7d7f8",
+    "startup-reading.json": "2c831f45f05030855ece64e00264d15994c696261d9b0d8fdfdf3ac9f33981a2",
+    "warmup-readings.json": "500a7979973b1f14a1c37c91760deb587cca4be93a0fe545193d0bbf7574dea1"
+  }
+}

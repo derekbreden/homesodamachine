@@ -58,3 +58,12 @@ Derek wants every spool used fully, with reloading during a print as needed. Rem
 spool quantity is not a launch condition: do not ask for its weight or an estimate, or
 hold a ready print for a quantity confirmation. Use the correct material mapping and
 ask for reloading only when an actual runout requires it.
+
+## Printer startup spacing
+
+H2C and Mark2 share a circuit. Wait at least **three minutes after one printer accepts
+a job before starting or resuming a job on the other**. Apply this to power-loss
+recovery too, checking for an already-running job before sending anything. This is
+Derek's trial interval for the reported startup breaker trips. The sender serializes
+app access but does not enforce the interval. Record both launch times; see
+[`tools/bambu-printers.md`](../../tools/bambu-printers.md#shared-circuit-startup-spacing).
