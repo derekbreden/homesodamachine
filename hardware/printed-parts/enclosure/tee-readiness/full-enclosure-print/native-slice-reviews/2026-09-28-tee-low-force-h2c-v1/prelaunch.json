@@ -1,0 +1,29 @@
+{
+  "observed_at_utc": "2026-09-28T19:59:48.135316+00:00",
+  "printer": "H2C",
+  "archive": {
+    "name": "tee-carrier-low-force-black-z018-h2c-v1.gcode.3mf",
+    "sha256": "9dd9a3b75cba68127ca295e9f1652d3f14dfe5d1b0a60e1033cd690f9b5ff7f7",
+    "gcode_sha256": "3b8d1a12848754a6be27b224f57c094220d0b309d413856eb89701f7f93b9b43",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "000000"
+      }
+    },
+    "objects": [
+      "tee-carrier-low-force"
+    ]
+  },
+  "reading": {
+    "job_id": "1291079562",
+    "subtask_name": "display-cover-reach075-black-z018-h2c-v2.gcode.3mf",
+    "gcode_state": "FINISH",
+    "layer_num": 104,
+    "total_layer_num": 104,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": -1
+  }
+}

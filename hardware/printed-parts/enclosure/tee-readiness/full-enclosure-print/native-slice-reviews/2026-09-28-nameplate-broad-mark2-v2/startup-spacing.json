@@ -1,0 +1,14 @@
+{
+  "previous_printer": "H2C",
+  "previous_job_id": "1291267275",
+  "previous_acceptance_observed_at_utc": "2026-09-28T20:03:58.881450+00:00",
+  "next_printer": "Mark2",
+  "pre_send_check_at_utc": "2026-09-28T20:07:31.194260+00:00",
+  "minimum_elapsed_seconds_before_send": 212.31281,
+  "required_seconds": 180,
+  "previous_running_without_error": true,
+  "pass": true,
+  "next_accepted_at_utc": "2026-09-28T20:07:44.946494+00:00",
+  "next_job_id": "1291278087",
+  "minimum_accepted_spacing_seconds": 226.065044
+}

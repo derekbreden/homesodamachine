@@ -1,0 +1,106 @@
+{
+  "pass": true,
+  "native_archive": ".cache/prints/2026-09-28-tee-low-force-h2c-v1/ready/tee-carrier-low-force-black-z018-h2c-v1.gcode.3mf",
+  "native_archive_sha256": "9dd9a3b75cba68127ca295e9f1652d3f14dfe5d1b0a60e1033cd690f9b5ff7f7",
+  "gcode_sha256": "3b8d1a12848754a6be27b224f57c094220d0b309d413856eb89701f7f93b9b43",
+  "source_hashes_current": true,
+  "native_export_normalizations": {
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ],
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ]
+  },
+  "other_settings_match_input": true,
+  "rounds": [
+    {
+      "name": "aft-R6",
+      "print_z_mm": [
+        0,
+        6
+      ],
+      "wall_layer_count": 75,
+      "first_wall_layer": [
+        0.08,
+        0.08
+      ],
+      "last_wall_layer": [
+        6.0,
+        0.08
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    },
+    {
+      "name": "fore-R6",
+      "print_z_mm": [
+        15.054,
+        21.054
+      ],
+      "wall_layer_count": 75,
+      "first_wall_layer": [
+        15.12,
+        0.08
+      ],
+      "last_wall_layer": [
+        21.04,
+        0.08
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    }
+  ],
+  "model_layer_runs": [
+    {
+      "height": 0.08,
+      "bottom": 0.0,
+      "last_z": 6.08,
+      "count": 76
+    },
+    {
+      "height": 0.24,
+      "bottom": 6.08,
+      "last_z": 14.96,
+      "count": 37
+    },
+    {
+      "height": 0.08,
+      "bottom": 14.959999999999999,
+      "last_z": 21.04,
+      "count": 76
+    }
+  ],
+  "lower_wall_count": 6,
+  "global_wall_count": 2,
+  "supports": {
+    "support_bodies": 0,
+    "interface_islands": 0,
+    "bed_rooted_bodies": 0,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 0,
+    "shortest_labelled_build_up_mm": null
+  },
+  "emitted_z_trim_mm": [
+    0.0,
+    0.16
+  ],
+  "layer_count": 189,
+  "estimated_seconds": 9614.7890625,
+  "estimated_grams_saved_profile_density": 54.42261505126953,
+  "printer": "H2C",
+  "left_external_black_petgf": true,
+  "submitted": false
+}
