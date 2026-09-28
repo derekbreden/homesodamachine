@@ -6,6 +6,7 @@
   --weld-ink: var(--text);
   --weld-muted: var(--text-3);
   --weld-hole-axis: var(--warn);
+  --weld-vertical-axis: var(--text);
   width: 100%;
   max-width: 1150px;
   margin: 0 auto;
@@ -15,14 +16,15 @@
 #weld-position .weld-controls,
 #weld-position .weld-key { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
 #weld-position h1 { margin: 0; font-size: 1.1rem; font-weight: 500; }
-#weld-position .weld-controls { margin: 14px 0 4px; gap: 6px; }
+#weld-position .weld-controls { margin: 14px 0 4px; gap: 6px; align-items: flex-start; }
 #weld-position button {
   background: var(--surface); color: var(--text); border: 1px solid var(--border);
   border-radius: 5px; padding: 7px 14px; font: inherit; cursor: pointer;
 }
 #weld-position button[aria-pressed="true"] { background: var(--text); color: var(--bg); }
-#weld-position .weld-roll { display: flex; align-items: center; gap: 9px; margin-left: auto; flex-wrap: wrap; }
-#weld-position output { min-width: 3ch; font-variant-numeric: tabular-nums; }
+#weld-position .weld-rotations { display: grid; gap: 8px; margin-left: auto; }
+#weld-position .weld-roll { display: flex; align-items: center; justify-content: flex-end; gap: 9px; flex-wrap: wrap; }
+#weld-position output { min-width: 4ch; font-variant-numeric: tabular-nums; }
 #weld-position input { width: 140px; accent-color: var(--action); }
 #weld-position .weld-stage { width: 100%; height: 560px; position: relative; }
 #weld-position canvas { display: block; width: 100%; height: 100%; touch-action: none; }
@@ -35,12 +37,13 @@
 #weld-position .laser-key { background: var(--weld-laser); }
 #weld-position .tangent-key { border-top: 1px dashed var(--weld-muted); }
 #weld-position .hole-axis-key { border-top: 1px dotted var(--weld-hole-axis); }
+#weld-position .vertical-axis-key { border-top: 1px dashed var(--weld-vertical-axis); }
 #weld-position .weld-note { color: var(--text-2); font-size: 0.8rem; margin: 10px 0 0; }
 #weld-position .weld-heading .weld-note { margin: 0; }
 @media (max-width: 600px) {
   #weld-position { padding: 12px; }
   #weld-position .weld-stage { height: 430px; }
-  #weld-position .weld-roll { flex-basis: 100%; margin: 6px 0 0; }
+  #weld-position .weld-rotations { flex-basis: 100%; margin: 6px 0 0; }
   #weld-position input { flex: 1; min-width: 0; }
   #weld-position button { min-height: 44px; }
 }

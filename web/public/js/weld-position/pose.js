@@ -51,7 +51,7 @@ export function wireFeedPath() {
   };
 }
 
-export function posePoint(point, rollDegrees = 0, holeRollDegrees = 0) {
+export function posePoint(point, rollDegrees = 0, holeRollDegrees = 0, verticalDegrees = 0) {
   const [x, y, z] = point;
   const s = Math.sin(PITCH), c = Math.cos(PITCH);
   const along = z + CLEARANCE;
@@ -70,10 +70,17 @@ export function posePoint(point, rollDegrees = 0, holeRollDegrees = 0) {
   const ry = py * cr + az * x * sr + ay * dot * (1 - cr);
   const rz = pz * cr - ay * x * sr + az * dot * (1 - cr);
 
-  // The second axis runs through the dot and both port centers: the cap's
-  // X diameter at CAP_TOP. Positive rotation about -X raises the grip.
-  // Apply it to the whole pose, carrying the dot-to-grip axis with the gun.
+  // At zero vertical rotation, the second axis runs through the dot and both
+  // port centers. Positive rotation about -X raises the grip and carries
+  // the dot-to-grip axis with the gun.
   const holeRoll = holeRollDegrees * Math.PI / 180;
   const ch = Math.cos(holeRoll), sh = Math.sin(holeRoll);
-  return [JOINT[0] + rx, ry * ch + rz * sh, JOINT[2] - ry * sh + rz * ch];
+  const hy = ry * ch + rz * sh;
+  const hz = -ry * sh + rz * ch;
+
+  // The outer rotation stays vertical in the tube frame and passes through
+  // the laser dot. It changes approach in plan without changing elevation.
+  const vertical = verticalDegrees * Math.PI / 180;
+  const cv = Math.cos(vertical), sv = Math.sin(vertical);
+  return [JOINT[0] + rx * cv - hy * sv, JOINT[1] + rx * sv + hy * cv, JOINT[2] + hz];
 }

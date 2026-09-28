@@ -34,6 +34,7 @@ try {
     fan: new THREE.MeshBasicMaterial({ transparent: true, opacity: 0.12, side: THREE.DoubleSide, depthWrite: false }),
     tangent: new THREE.LineDashedMaterial({ dashSize: 4, gapSize: 3, transparent: true, opacity: 0.7, depthTest: false }),
     holeAxis: new THREE.LineDashedMaterial({ dashSize: 2, gapSize: 2, transparent: true, opacity: 0.85, depthTest: false }),
+    verticalAxis: new THREE.LineDashedMaterial({ dashSize: 7, gapSize: 3, transparent: true, opacity: 0.7, depthTest: false }),
     edge: new THREE.LineBasicMaterial({ transparent: true, opacity: 0.45 }),
   };
 
@@ -54,6 +55,7 @@ try {
     materials.fan.color.copy(color("--weld-laser"));
     materials.tangent.color.copy(color("--weld-muted"));
     materials.holeAxis.color.copy(color("--weld-hole-axis"));
+    materials.verticalAxis.color.copy(color("--weld-vertical-axis"));
     materials.edge.color.copy(color("--weld-muted"));
     swatch.remove();
   }
@@ -117,6 +119,13 @@ try {
   holeAxis.computeLineDistances();
   holeAxis.renderOrder = 5;
   scene.add(holeAxis);
+  const verticalAxis = new THREE.Line(new THREE.BufferGeometry().setFromPoints([
+    joint.clone().add(new THREE.Vector3(0, 0, -24)),
+    joint.clone().add(new THREE.Vector3(0, 0, 100)),
+  ]), materials.verticalAxis);
+  verticalAxis.computeLineDistances();
+  verticalAxis.renderOrder = 5;
+  scene.add(verticalAxis);
   const labels = [];
   for (const [point, name] of [[joint, "Laser dot"], [gripBase, "Grip base"]]) {
     const marker = new THREE.Mesh(new THREE.SphereGeometry(1.3, 16, 12), materials.laser);
@@ -185,16 +194,16 @@ try {
       sweep.remove(child);
     }
   }
-  function updatePose(degrees, holeDegrees) {
+  function updatePose(degrees, holeDegrees, verticalDegrees) {
     const holeRotation = holeDegrees - HOLE_AXIS_OFFSET;
-    const origin = vector(posePoint([0, 0, 0], degrees, holeRotation));
+    const origin = vector(posePoint([0, 0, 0], degrees, holeRotation, verticalDegrees));
     const basis = [0, 1, 2].map(axis => {
       const p = [0, 0, 0]; p[axis] = 1;
-      return vector(posePoint(p, degrees, holeRotation)).sub(origin);
+      return vector(posePoint(p, degrees, holeRotation, verticalDegrees)).sub(origin);
     });
     gun.position.copy(origin);
     gun.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(...basis));
-    gripBase.copy(vector(posePoint(GRIP_BASE, degrees, holeRotation)));
+    gripBase.copy(vector(posePoint(GRIP_BASE, degrees, holeRotation, verticalDegrees)));
     rollDirection.copy(gripBase).sub(joint).normalize();
     tangent.geometry.setFromPoints([
       joint.clone().addScaledVector(rollDirection, -18),
@@ -202,6 +211,14 @@ try {
     ]);
     tangent.geometry.computeBoundingSphere();
     tangent.computeLineDistances();
+    const verticalRadians = verticalDegrees * Math.PI / 180;
+    const holeDirection = new THREE.Vector3(Math.cos(verticalRadians), Math.sin(verticalRadians), 0);
+    holeAxis.geometry.setFromPoints([
+      joint.clone().addScaledVector(holeDirection, -2 * INNER_RADIUS - 16),
+      joint.clone().addScaledVector(holeDirection, 18),
+    ]);
+    holeAxis.geometry.computeBoundingSphere();
+    holeAxis.computeLineDistances();
     for (const { point, marker } of labels) marker.position.copy(point);
     scene.updateMatrixWorld(true);
     clearSweep();
@@ -211,7 +228,7 @@ try {
     // scan pattern or a prediction of energy delivered to either surface.
     const hits = [];
     for (let i = 0; i <= 40; i++) {
-      const focalPoint = vector(posePoint([-1 + i / 20, 0, -CLEARANCE], degrees, holeRotation));
+      const focalPoint = vector(posePoint([-1 + i / 20, 0, -CLEARANCE], degrees, holeRotation, verticalDegrees));
       hitTester.set(origin, focalPoint.clone().sub(origin).normalize());
       const hit = hitTester.intersectObjects([tube, cap], false)[0];
       if (hit) hits.push(hit.point);
@@ -234,6 +251,9 @@ try {
     root.querySelector("[data-hole-roll-value]").textContent = `${holeDegrees}°`;
     root.querySelector("[data-hole-roll]").value = holeDegrees;
     root.dataset.holeRollDegrees = holeDegrees;
+    root.querySelector("[data-vertical-value]").textContent = `${verticalDegrees}°`;
+    root.querySelector("[data-vertical]").value = verticalDegrees;
+    root.dataset.verticalDegrees = verticalDegrees;
     render();
   }
 
@@ -268,7 +288,9 @@ try {
     const { width, height } = stage.getBoundingClientRect();
     if (!width || !height) return;
     renderer.setSize(width, height, false);
-    const visibleHeight = Math.max(frameHeight, frameHeight * 0.92 / (width / height));
+    // Top view covers the gun's full sideways travel about the dot.
+    const frameWidth = view === "top" ? 760 : frameHeight * 0.92;
+    const visibleHeight = Math.max(frameHeight, frameWidth / (width / height));
     camera.top = visibleHeight / 2; camera.bottom = -visibleHeight / 2;
     camera.left = -visibleHeight * width / height / 2;
     camera.right = -camera.left;
@@ -280,8 +302,8 @@ try {
     camera.zoom = 1;
     camera.up.set(0, 0, 1);
     if (view === "top") {
-      controls.target.set(15, -95, CAP_TOP);
-      camera.position.set(15, -95, CAP_TOP + 600);
+      controls.target.set(JOINT[0], -95, CAP_TOP);
+      camera.position.set(JOINT[0], -95, CAP_TOP + 600);
       camera.up.set(0, 1, 0);
       frameHeight = 560;
     } else if (view === "joint") {
@@ -298,24 +320,28 @@ try {
     root.querySelectorAll("[data-view]").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.view === view)));
   }
 
-  let roll = 45, holeRoll = 35;
+  let roll = 45, holeRoll = 35, vertical = 0;
   function applyState(saved) {
     const value = saved?.modelContent ?? saved;
     roll = Number.isFinite(value?.roll) ? Math.max(0, Math.min(80, value.roll)) : 45;
     // Keep the physical pose when restoring a saved angle from the original scale.
     const savedHoleRoll = value?.holeRoll + (value?.angleVersion === 2 ? 0 : HOLE_AXIS_OFFSET);
     holeRoll = Number.isFinite(value?.holeRoll) ? Math.max(-25, Math.min(95, savedHoleRoll)) : 35;
-    updatePose(roll, holeRoll);
+    vertical = Number.isFinite(value?.vertical) ? Math.max(-90, Math.min(90, value.vertical)) : 0;
+    updatePose(roll, holeRoll, vertical);
     setView(["overall", "top", "joint"].includes(value?.view) ? value.view : "overall");
   }
   function saveState() {
-    window.openai?.setWidgetState?.({ modelContent: { roll, holeRoll, view, angleVersion: 2 }, privateContent: null }).catch(() => {});
+    window.openai?.setWidgetState?.({ modelContent: { roll, holeRoll, vertical, view, angleVersion: 2 }, privateContent: null }).catch(() => {});
   }
   root.querySelector("[data-roll]").addEventListener("input", event => {
-    roll = Number(event.target.value); updatePose(roll, holeRoll); saveState();
+    roll = Number(event.target.value); updatePose(roll, holeRoll, vertical); saveState();
   });
   root.querySelector("[data-hole-roll]").addEventListener("input", event => {
-    holeRoll = Number(event.target.value); updatePose(roll, holeRoll); saveState();
+    holeRoll = Number(event.target.value); updatePose(roll, holeRoll, vertical); saveState();
+  });
+  root.querySelector("[data-vertical]").addEventListener("input", event => {
+    vertical = Number(event.target.value); updatePose(roll, holeRoll, vertical); saveState();
   });
   root.querySelectorAll("[data-view]").forEach(button => button.addEventListener("click", () => {
     setView(button.dataset.view); saveState();
