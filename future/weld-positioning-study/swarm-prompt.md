@@ -10,9 +10,9 @@ I am developing a home soda machine and need to learn how to reliably weld its c
 
 I like building things. I like printing things. This is fun for me, and I would like to build something. I also want things that really function, and function very well. Scanning a gun and printing a shell that fits it are established strengths here. Treat those capabilities as useful design freedom.
 
-Low prices, short lead times, and high sales volume materially affect what is feasible for me. Please investigate the world of ordinary, widely available products and components. Industrial practice built around quotations and six-to-eight-week lead times is a poor default for this shop. Cheap parts can support an ambitious, capable machine. Retain any applicable budget I actually stated, with its source; do not invent a budget or a minimum-capability goal from my interest in affordability.
+Low prices, short lead times, and high sales volume materially affect what is feasible for me. Please investigate the world of ordinary, widely available products and components. Industrial practice built around quotations and six-to-eight-week lead times is a poor default for this shop. Cheap parts can support an ambitious, capable machine. There is no project budget for this exploration. Do not inherit spending caps from earlier conversations or use estimated cost to stop developing an idea. Bring back useful price and availability information for later decisions, and let affordable components suggest additional possibilities.
 
-In **Explore automated tube laser setup** (Codex task `01a0e698-77cb-7853-98b5-6a55064b3e5e`), I said, "Let's say the budget is $4000. How do I get from here to there?" That referred to the whole station for motorized positioning and software-controlled observation, with an AI able to conduct repeated laser-dot dry-run experiments across tubes. Keep that total-station budget visible when discussing costs; it is not $4,000 for each mechanism and is not a swarm-token budget. An idea above that figure can still contribute useful mechanisms or branches: identify the cost gap and investigate accessible alternatives. Manual setup and partial arrangements remain useful contributions to the broader goal.
+In **Explore automated tube laser setup** (Codex task `01a0e698-77cb-7853-98b5-6a55064b3e5e`), I described motorized positioning and software-controlled observation, with an AI able to conduct repeated laser-dot dry-run experiments across tubes. Manual setup and partial arrangements remain useful contributions to that broader goal.
 
 ## Read the context without inheriting an old design
 
@@ -54,7 +54,7 @@ These examples earn real exploration, and there must also be substantial explora
 
 ## One swarm that develops ideas together
 
-Use one coordinator and an initial cohort of eight continuing explorers. Reuse those agents through exploration, exchange, and revision; schedule them in waves if the runtime requires it. Do not launch three separate studies for my three requests. Use the run budget available in this session and report actual usage if the runtime exposes it. Do not invent a dollar estimate or multiply the effort through an automatic checker/judge/finalizer pipeline.
+Use one coordinator and an initial cohort of eight continuing explorers. Reuse those agents through exploration, exchange, and revision; schedule them in waves if the runtime requires it. Do not launch three separate studies for my three requests. Report actual usage if the runtime exposes it. Do not invent a dollar estimate or multiply the effort through an automatic checker/judge/finalizer pipeline.
 
 Give agents different ways of seeing the whole problem. Dividing them into "the forces agent," "the purchasing agent," and "the measurement agent" would leave integration until the end. Each explorer should be able to develop an arrangement that connects its viewpoint to the actual gun, workpiece, supports, and operation, while researching whatever components it needs.
 
@@ -74,7 +74,7 @@ For the rings-and-bungees example, "it will sway and lack precision" is a starti
 
 Likewise, "a monitor arm is too flexible" needs an actual arrangement behind it. What is it carrying, what is it locating, where is the reference, and what else is supporting or driving the gun? Investigate its useful role and nearby variants. Do not require an ordinary monitor arm by itself to perform every function of the whole machine before the idea can stay in the study.
 
-Show enough mechanism and geometry that I can mentally run an arrangement: what is attached to what, what moves relative to what, where the gun and wire are, and what happens when a setting changes. Use sketches, simple motion diagrams, rough dimensions, or a small calculation when they advance that understanding. Label proxies and assumptions. Elaborate CAD is optional and should not consume the exploration budget merely to make one proposal look finished.
+Show enough mechanism and geometry that I can mentally run an arrangement: what is attached to what, what moves relative to what, where the gun and wire are, and what happens when a setting changes. Use sketches, simple motion diagrams, rough dimensions, or a small calculation when they advance that understanding. Label proxies and assumptions. Elaborate CAD is optional and should not consume the exploration effort merely to make one proposal look finished.
 
 Be honest about failures and physical limitations. Point to a specific conflict in a specific variant. Explain what a proposed repair changes and what it leaves uncertain. If you cannot repair it, keep the useful idea and the unresolved issue visible. Your inability to find a solution is not proof that an entire family is impossible.
 
