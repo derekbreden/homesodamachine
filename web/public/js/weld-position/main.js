@@ -7,6 +7,7 @@ const stage = root.querySelector(".weld-stage");
 const loading = root.querySelector(".weld-loading");
 const vector = p => new THREE.Vector3(...p);
 const joint = vector(JOINT);
+const HOLE_AXIS_OFFSET = 35;
 
 try {
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -185,14 +186,15 @@ try {
     }
   }
   function updatePose(degrees, holeDegrees) {
-    const origin = vector(posePoint([0, 0, 0], degrees, holeDegrees));
+    const holeRotation = holeDegrees - HOLE_AXIS_OFFSET;
+    const origin = vector(posePoint([0, 0, 0], degrees, holeRotation));
     const basis = [0, 1, 2].map(axis => {
       const p = [0, 0, 0]; p[axis] = 1;
-      return vector(posePoint(p, degrees, holeDegrees)).sub(origin);
+      return vector(posePoint(p, degrees, holeRotation)).sub(origin);
     });
     gun.position.copy(origin);
     gun.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(...basis));
-    gripBase.copy(vector(posePoint(GRIP_BASE, degrees, holeDegrees)));
+    gripBase.copy(vector(posePoint(GRIP_BASE, degrees, holeRotation)));
     rollDirection.copy(gripBase).sub(joint).normalize();
     tangent.geometry.setFromPoints([
       joint.clone().addScaledVector(rollDirection, -18),
@@ -209,7 +211,7 @@ try {
     // scan pattern or a prediction of energy delivered to either surface.
     const hits = [];
     for (let i = 0; i <= 40; i++) {
-      const focalPoint = vector(posePoint([-1 + i / 20, 0, -CLEARANCE], degrees, holeDegrees));
+      const focalPoint = vector(posePoint([-1 + i / 20, 0, -CLEARANCE], degrees, holeRotation));
       hitTester.set(origin, focalPoint.clone().sub(origin).normalize());
       const hit = hitTester.intersectObjects([tube, cap], false)[0];
       if (hit) hits.push(hit.point);
@@ -296,16 +298,18 @@ try {
     root.querySelectorAll("[data-view]").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.view === view)));
   }
 
-  let roll = 35, holeRoll = 0;
+  let roll = 45, holeRoll = 35;
   function applyState(saved) {
     const value = saved?.modelContent ?? saved;
-    roll = Number.isFinite(value?.roll) ? Math.max(0, Math.min(80, value.roll)) : 35;
-    holeRoll = Number.isFinite(value?.holeRoll) ? Math.max(-60, Math.min(60, value.holeRoll)) : 0;
+    roll = Number.isFinite(value?.roll) ? Math.max(0, Math.min(80, value.roll)) : 45;
+    // Keep the physical pose when restoring a saved angle from the original scale.
+    const savedHoleRoll = value?.holeRoll + (value?.angleVersion === 2 ? 0 : HOLE_AXIS_OFFSET);
+    holeRoll = Number.isFinite(value?.holeRoll) ? Math.max(-25, Math.min(95, savedHoleRoll)) : 35;
     updatePose(roll, holeRoll);
     setView(["overall", "top", "joint"].includes(value?.view) ? value.view : "overall");
   }
   function saveState() {
-    window.openai?.setWidgetState?.({ modelContent: { roll, holeRoll, view }, privateContent: null }).catch(() => {});
+    window.openai?.setWidgetState?.({ modelContent: { roll, holeRoll, view, angleVersion: 2 }, privateContent: null }).catch(() => {});
   }
   root.querySelector("[data-roll]").addEventListener("input", event => {
     roll = Number(event.target.value); updatePose(roll, holeRoll); saveState();
