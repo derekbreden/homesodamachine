@@ -7,7 +7,7 @@ Its predicted assembled mass is **55.15 g** at 0.55 g/cm³ Aero density, against
 
 [PETG shell project](magnetic-float.3mf) · [ASA Aero parts project](magnetic-float-aero.3mf) ·
 [CadQuery source](magnetic_float.py) · [Material research](asa-aero-research.md) ·
-[PETG and pressure evidence](petg-shell.md)
+[PETG shell recipe](petg-shell.md) · [Pressure-printing research](pressure-printing-research.md)
 
 [Assembly](/3d?file=printed-parts/cold-core/magnetic-float/magnetic-float.step) ·
 [Section](/3d?file=printed-parts/cold-core/magnetic-float/section.step) ·
@@ -76,20 +76,26 @@ both walls, zero seam gap, and top-surface ironing.
 2. Open `magnetic-float-aero.3mf`. Print **plate 1 — ASA Aero core**, then
    **plate 2 — ASA Aero insert**. Use the Engineering plate with glue; let the
    pieces cool and remove brim and loose strings. Both are solid foam prints.
-3. Let the chamber cool for PETG, fit the textured plate, and open
+3. Set out the cooled core, insert, RC62 and insertion tools before starting the
+   shell, so its assembly pause can be brief. Let the chamber cool for PETG,
+   fit the textured plate, and open
    `magnetic-float.3mf`. Load **Bambu PETG Basic** on the left. Print its single
    plate. The shell pauses before **[57.18 mm](PAUSE_LAYER)**, after its walls
    reach [57 mm](ROOF_BOTTOM).
-4. Seat the cooled Aero core fully on the floor. Seat one RC62 in its pocket.
+4. Keep the bed at 70 °C during the pause. Seat the cooled Aero core fully on
+   the floor. Seat one RC62 in its pocket.
    Press the Aero insert down evenly until flush with the PETG rim. Clear
    loose strings; both pieces and the magnet must stay seated below the roof
    path without being held.
-5. Resume. **[17 layers](ROOF_LAYERS)** close the roof, joining the outer wall
+5. Close the enclosure and resume promptly; record the elapsed pause time.
+   **[17 layers](ROOF_LAYERS)** close the roof, joining the outer wall
    to the bore lining across the insert. Remove the shell's brim after cooling.
 
 The seated magnet's top remains at least [9.9 mm](MAGNET_ROOF_GAP) below the
 roof underside, including thickness tolerance. The pause's retention fit has
-no measured holding-force result.
+no measured holding-force result. [Pause-bond research](pressure-printing-research.md)
+supports minimizing cooling at this interface; its published PLA results are
+not a measured strength reduction for this PETG assembly.
 
 ## Buoyancy and verification
 
@@ -135,7 +141,9 @@ The carbonator's reference points are 90 psi nominal CO₂ feed, a 125 psi PRV,
 and a 180 psi, 30-minute hydrostatic fabrication test. The float sees external
 pressure on its shell and water pressure inside its open bore. It has **no
 recorded pressure-test result**. [petg-shell.md](petg-shell.md) gives the shell
-thickness calculation and the limits of the available evidence.
+thickness calculation. [Pressure-printing research](pressure-printing-research.md)
+records published successes, failures, exact source-project settings and the
+limits on transferring them to this external-pressure float.
 
 For the first float pressure test, record dry mass and dimensions, verify
 upright float motion on its guide, and use a water-filled metal hydrostatic
