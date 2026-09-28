@@ -46,6 +46,22 @@ visible defect at the interruption point. The active job was
 [front-bottom, task 1279923918](../hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-enclosure-front-bottom-h2c-v7/README.md).
 This is Derek's visual observation of that recovery.
 
+## Extrusion overload after sitting loaded
+
+Derek reports recurring extrusion overloads after the printers sit loaded and idle.
+His working recovery sequence for this condition is:
+
+1. Cut the filament at the spool side.
+2. Unload through the printer's touchscreen.
+3. Pull out the entire cut segment.
+4. Reload from the freshly cut spool end, then resume.
+
+The [H2C receiver trial](../hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-receiver-retention-h2c-v2/startup-recovery.json)
+records this recovery from extrusion-motor overload 0300-801E. Moisture is Derek's
+suspected cause of the recurring idle-time pattern; no moisture measurement or
+controlled comparison establishes the cause. A resume is a printer start for the
+shared-circuit spacing rule below.
+
 ## Shared-circuit startup spacing
 
 H2C and Mark2 share a circuit. Leave **at least 180 seconds between print starts**:
