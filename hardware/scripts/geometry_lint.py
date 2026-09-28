@@ -89,7 +89,9 @@ _CLASSES = ("step", "sliver", "ceiling", "slope")
 #: stays in the box's own frame; the sign only says which faces look print-down and where the
 #: bed is: +1 for a piece bedded on its Z- face, -1 for one bedded on its Z+ face.
 PRINT_UP = {"enclosure-back-top": -1.0, "enclosure-pump-cap": -1.0, "funnel-mold/core": -1.0,
-            "display-cover": -1.0}
+            "display-cover": -1.0,
+            "display-cover-reach-05": -1.0,
+            "display-cover-reach-10": -1.0}
 
 
 def print_up_of(stl):
