@@ -7,17 +7,21 @@
     <button type="button" data-view="overall" aria-pressed="true">3D</button>
     <button type="button" data-view="top" aria-pressed="false">Top</button>
     <button type="button" data-view="joint" aria-pressed="false">Joint</button>
-    <label class="weld-roll">Roll <output data-roll-value>35°</output>
+    <label class="weld-roll">Grip axis <output data-roll-value>35°</output>
       <input type="range" data-roll min="0" max="80" step="1" value="35" aria-label="Roll about the line from laser dot to grip base">
     </label>
+    <label class="weld-roll">Hole axis <output data-hole-roll-value>0°</output>
+      <input type="range" data-hole-roll min="-60" max="60" step="1" value="0" aria-label="Roll about the line through laser dot and both endcap holes">
+    </label>
   </div>
-  <div class="weld-stage" role="img" aria-label="Interactive 3D view of a carbonator tube, recessed endcap and welding gun. The wire and laser are shown separately.">
+  <div class="weld-stage" role="img" aria-label="Interactive 3D view of a carbonator tube, recessed endcap and welding gun. Two rotation controls pivot the gun about the laser dot: the grip axis and the fixed axis through both endcap holes.">
     <span class="weld-loading" role="status">Loading 3D…</span>
   </div>
   <div class="weld-key">
     <span><i class="wire-key"></i>External wire feed</span>
     <span><i class="laser-key"></i>Laser / schematic sweep</span>
-    <span><i class="tangent-key"></i>Roll axis: dot to grip base</span>
+    <span><i class="tangent-key"></i>Grip axis: dot to base</span>
+    <span><i class="hole-axis-key"></i>Hole axis: dot through holes</span>
   </div>
   <p class="weld-note">Drag to orbit · Scroll to zoom · Gun and sweep are schematic</p>
 </main>
