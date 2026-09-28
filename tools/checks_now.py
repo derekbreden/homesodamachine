@@ -14,7 +14,7 @@ committing it deploys. `web/lib/shell.js` puts it on the settings gear's corner 
 every check passes, red when one does not — and /settings names the rows.
 
 IT REPORTS AND HOLDS NOTHING. The commit is made and pushed before this starts, and a red rides
-to the site with it. CLAUDE.md, "Nothing withholds".
+to the site with it.
 
 ONE AT A TIME, AND THE LAST REQUEST WINS — `publish_now.py`'s arrangement, for its reason.
 Several sessions commit at once, so a second invocation marks the running one to read again
