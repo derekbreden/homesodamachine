@@ -29,9 +29,27 @@ export const WIRE_TIP = Object.freeze([0, 0, -CLEARANCE]);
 export const GRIP_BASE = Object.freeze([0, -118, 237]);
 const axisLength = Math.hypot(GRIP_BASE[1], GRIP_BASE[2] + CLEARANCE);
 export const LOCAL_ROLL_AXIS = Object.freeze([0, GRIP_BASE[1] / axisLength, (GRIP_BASE[2] + CLEARANCE) / axisLength]);
-// The final guide lies on the dot-to-base line; rolling the gun keeps its
-// straight wire approach on that line. Bracket placement is schematic.
-export const WIRE_GUIDE_END = Object.freeze([0, GRIP_BASE[1] * (28 + CLEARANCE) / (GRIP_BASE[2] + CLEARANCE), 28]);
+// A short support leg holds the straight guide close to the barrel. The guide
+// aims at the dot; its approach differs from the straight run at the grip.
+// Holder dimensions are schematic pending the gun scan.
+export const WIRE_BRACE_MOUNT = Object.freeze([0, -12, 110]);
+export const WIRE_GUIDE_BACK = Object.freeze([0, -24.7, 87.1]);
+export const WIRE_GUIDE_LENGTH = 40;
+const guideVector = WIRE_GUIDE_BACK.map((v, i) => v - WIRE_TIP[i]);
+export const WIRE_GUIDE_DIRECTION = Object.freeze(guideVector.map(v => v / Math.hypot(...guideVector)));
+export const WIRE_GUIDE_END = Object.freeze(WIRE_GUIDE_BACK.map((v, i) => v - WIRE_GUIDE_LENGTH * WIRE_GUIDE_DIRECTION[i]));
+
+export function wireFeedPath() {
+  const atGrip = GRIP_BASE.map((v, i) => v + [23, 0, 0][i]);
+  const tailEnd = atGrip.map((v, i) => v + 70 * LOCAL_ROLL_AXIS[i]);
+  const bendStart = atGrip.map((v, i) => v - 35 * LOCAL_ROLL_AXIS[i]);
+  return {
+    atGrip, tailEnd, bendStart,
+    control1: bendStart.map((v, i) => v - 50 * LOCAL_ROLL_AXIS[i]),
+    control2: WIRE_GUIDE_BACK.map((v, i) => v + 45 * WIRE_GUIDE_DIRECTION[i]),
+    guideBack: [...WIRE_GUIDE_BACK],
+  };
+}
 
 export function posePoint(point, rollDegrees = 0, holeRollDegrees = 0) {
   const [x, y, z] = point;
@@ -42,7 +60,8 @@ export function posePoint(point, rollDegrees = 0, holeRollDegrees = 0) {
   const roll = rollDegrees * Math.PI / 180;
   // The axis passes through the dot AND the grip's cable exit. Its plan
   // projection follows the tangent; its elevation follows those two points.
-  // Rodrigues rotation preserves both endpoints and the final wire approach.
+  // Rodrigues rotation fixes the dot and grip base. The guide rolls with the
+  // gun while its straight wire continues to aim at the dot.
   const ay = -c * LOCAL_ROLL_AXIS[2] + s * LOCAL_ROLL_AXIS[1];
   const az = s * LOCAL_ROLL_AXIS[2] + c * LOCAL_ROLL_AXIS[1];
   const dot = ay * py + az * pz;
