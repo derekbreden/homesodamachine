@@ -1,27 +1,34 @@
 {
   "reported_by": "Derek in this conversation",
   "reported_date_local": "2026-09-28",
-  "recorded_at_utc": "2026-09-28T06:30:49.433224+00:00",
-  "status": "provisionally_accepted_good_enough",
+  "recorded_at_utc": "2026-09-28T06:53:54.055825+00:00",
+  "status": "rejected_shake_retention",
   "part": "display-cover-reach-05",
   "printer": "Mark2",
   "printer_task_id": "1289413482",
   "receiver_part": "display-receiver-trial-v1",
   "receiver_printer_task_id": "1282488338",
-  "statement": "Okay, the 0.5 mm is workable. There is still room for improvement in several ways, with further tuning, but let us call that good enough for now.",
-  "accepted_geometry": {
-    "additional_hook_reach_mm": 0.5,
-    "skirt_inset_each_mm": 0.9,
-    "nominal_bearing_clearance_mm": 0.98
-  },
-  "scope": "Qualitative physical fit of this cover with the printed receiver trial.",
-  "disposition": "Use this pair as the accepted fit reference; further tuning is deferred.",
-  "remaining_improvements": "Derek reports room for further tuning in several ways; no specific measurements are supplied with this acceptance.",
+  "statement": "Okay, changed my mind, I shook it a bit and it fell apart.",
+  "scope": "Physical shake retention of the +0.5 mm hook-reach cover in the printed receiver.",
+  "disposition": "Retune hook projection and leaf span with a matching receiver trial.",
+  "remaining_improvements": "Secure hook engagement under shaking; both hooks and leaves remained intact.",
   "retention_force_measured": false,
   "repeated_use_performance_measured": false,
   "print_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-27-display-cover-reach-mark2-v11/manifest.json",
   "native_archive_sha256": "d772b498c6eb9525fc0e1e9af1ffd157bd680d426356dbc955d8c206b519602f",
   "gcode_sha256": "d58c95f64f110d5e28aa3c73811bf429515394fab010cf6abb27e1579eb1ed34",
   "source_stl_sha256": "dc16bc26045a22521181dcb3c1df5e2c9e85a4f36e12639c3e46bf6c4a8eb0aa",
-  "receiver_print_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-25-display-receiver-trial-mark2-v1/manifest.json"
+  "receiver_print_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-25-display-receiver-trial-mark2-v1/manifest.json",
+  "initial_fit_observation": {
+    "recorded_at_utc": "2026-09-28T06:30:49.433224+00:00",
+    "status": "provisionally_accepted_good_enough",
+    "statement": "Okay, the 0.5 mm is workable. There is still room for improvement in several ways, with further tuning, but let us call that good enough for now.",
+    "disposition": "Use this pair as the accepted fit reference; further tuning is deferred."
+  },
+  "failure_detail": "Popped out intact",
+  "tested_geometry": {
+    "additional_hook_reach_mm": 0.5,
+    "skirt_inset_each_mm": 0.9,
+    "nominal_bearing_clearance_mm": 0.98
+  }
 }

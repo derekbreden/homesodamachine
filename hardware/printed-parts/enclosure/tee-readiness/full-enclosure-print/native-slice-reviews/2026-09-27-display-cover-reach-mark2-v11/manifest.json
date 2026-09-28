@@ -65,7 +65,7 @@
     "support_remove_small_overhang": false
   },
   "physical_trial": {
-    "status": "provisionally_accepted_good_enough",
+    "status": "rejected_shake_retention",
     "nominal_lift_before_hook_bearing_mm": 0.98,
     "retention_force_measured": false,
     "comparison_scope": "Qualitative fit on two printers with their standing Z trims.",
@@ -74,10 +74,10 @@
       "Leaf returns outward into engagement.",
       "Bezel relaxes flat after insertion."
     ],
-    "result": "Derek: workable and good enough for now; room for further tuning.",
-    "further_tuning": "deferred",
+    "result": "Derek: shook it a bit and it fell apart; popped out intact.",
+    "further_tuning": "Active retention trial with 3.6 mm hooks and 75 mm leaves.",
     "acceptance_record": "../../../../display-cover/reach-trial/physical-acceptance.json",
-    "acceptance_sha256": "7ae96304c8e862f81b2b73cb3b5d6c183a7ba3f3378af9821feddfd5fe4376d1"
+    "acceptance_sha256": "6ffb71ad81863150e1de94f28171cc8e2dbf7ddc3ca2da15879a936f6101824b"
   },
   "launch_record": "restart-1/launch.json",
   "prelaunch_record": "restart-1/prelaunch.json",
@@ -110,7 +110,7 @@
     "hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-05.step.mesh": "c54be94372195f7dede08a9280f448133d4aa4248d0450a53a8c0e8160460480"
   },
   "review_sha256": {
-    "README.md": "f2086d6faf020ea84471d2c31155d87a2ad5b52f91da3db0895544bad28629c6",
+    "README.md": "54fef16bc8ff142ba2538d76b9e441de1e51756d8e36cb15c1510505dc669832",
     "geometry-check.json": "66d5a79e4beb36bb7f6e3c8b8584994e8ff498b32629b12819c3031165d289a5",
     "geometry-lint.log": "9154fe5f018692cf7cb4a6dd3b063138497d7306702ca4fc6ff9dbe298e374e9",
     "launch.json": "9dfbfda73845ac832528df4fe503e3613f3f12587a94d8ba333a295752106c3c",

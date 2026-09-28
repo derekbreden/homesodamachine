@@ -62,7 +62,7 @@
     "accepted_launch_spacing_seconds": 236.083844,
     "minimum_interval_pass": true
   },
-  "physical_fit_result": "Derek provisionally accepts the +0.5 mm cover as workable and good enough for now; +1.0 mm cover not assessed.",
+  "physical_fit_result": "The +0.5 mm cover pops out intact when shaken; +1.0 mm cover not assessed.",
   "startup_monitoring": {
     "status": "both_beds_at_80_c",
     "readings": [

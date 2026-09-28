@@ -1,9 +1,9 @@
 # Machine display cover reach trials
 
-**Accepted fit reference:** the +0.5 mm hook-reach cover with 0.9 mm skirt inset per
-side, paired with the printed receiver trial. Derek calls it workable and good enough
-for now; further tuning is deferred. The [physical acceptance](physical-acceptance.json)
+**Shake retention failed:** the +0.5 mm hook-reach cover with 0.9 mm skirt inset per
+side pops out intact from the printed receiver. The [physical reading](physical-acceptance.json)
 binds this observation to Mark2 task 1289413482 and the exact printed geometry.
+The active pair is the [retention trial](../retention-trial/README.md).
 
 Two full covers fit the printed [receiver trial](../receiver-trial/README.md).
 Both have straight skirts inset 0.9 mm per side. Their hooks overlap the catches
@@ -26,8 +26,8 @@ ledge, each leaf returns outward, and the bezel relaxes flat.
 
 `cover_reach_trial.py` writes both STEP/STL/viewer triplets.
 [The geometry reading](geometry-check.json) checks the unchanged bezel, seated
-clearance and both catches against the printed receiver. The +0.5 mm cover has
-qualitative physical acceptance. Retention force and repeated-use performance remain
-unmeasured; no physical assessment is recorded for the +1.0 mm cover.
+clearance and both catches against the printed receiver. The +0.5 mm cover fails
+the physical shake test without broken plastic. Retention force remains unmeasured;
+no physical assessment is recorded for the +1.0 mm cover.
 
 Print records: [Mark2](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-27-display-cover-reach-mark2-v11/README.md), [H2C](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-27-display-cover-reach-h2c-v1/README.md).
