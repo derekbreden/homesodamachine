@@ -1,6 +1,6 @@
 # Machine display receiver trial · Mark2
 
-Started on 2026-09-25 as task **1282488338**. Native estimate: **2 h 42 min 8 sec**, **66.99 g**, 233 layers. The launch and subsequent status reading report RUNNING with no errors.
+Started on 2026-09-25 as task **1282488338**. Native estimate: **2 h 42 min 8 sec**, **66.99 g**, 233 layers. Mark2 reports FINISH at 233/233 layers, and Derek has the printed trial. A [replacement cover](../2026-09-27-display-cover-mark2-v10/README.md) is printing for its fit check.
 
 The full-width coupon accepts the existing cover with its skirts inset 1.2 mm per side. Each receiver has a short 2 mm retaining ledge, 1.0 mm centered hook overlap and at least 0.7 mm at full lateral float. The upper slot leaves the skirt root clear; the inner lane has 1.6 mm flex clearance. The production cover and front-top are unchanged by this trial.
 
