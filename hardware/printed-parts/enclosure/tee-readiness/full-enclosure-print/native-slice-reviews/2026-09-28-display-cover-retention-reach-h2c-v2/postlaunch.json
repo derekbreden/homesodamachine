@@ -1,0 +1,17 @@
+{
+  "observed_at_utc": "2026-09-28T18:50:57.599153+00:00",
+  "printer": "H2C",
+  "reading": {
+    "job_id": "1291079562",
+    "subtask_name": "display-cover-reach075-black-z018-h2c-v2.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 0,
+    "total_layer_num": 104,
+    "mc_remaining_time": 31,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": 4,
+    "nozzle_temper": 34.0,
+    "bed_temper": 25.0
+  }
+}

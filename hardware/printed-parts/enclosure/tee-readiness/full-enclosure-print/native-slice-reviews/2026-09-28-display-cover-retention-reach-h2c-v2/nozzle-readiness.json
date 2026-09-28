@@ -1,47 +1,19 @@
 {
-  "observed_at_utc": "2026-09-28T18:35:38.478209+00:00",
+  "observed_at_utc": "2026-09-28T18:47:04.986766+00:00",
   "printer": "H2C",
-  "reading": {
-    "job_id": "1289537122",
-    "subtask_name": "display-receiver-retention-black-z018-h2c-v2.gcode.3mf",
-    "gcode_state": "FINISH",
-    "layer_num": 252,
-    "total_layer_num": 252,
-    "mc_remaining_time": 0,
-    "print_error": 0,
-    "hms": [],
-    "stg_cur": -1
+  "left_hotend": {
+    "diameter_mm": 0.4,
+    "type": "Standard Hardened",
+    "source": "Derek photograph of the printer Extruder display, Left selected."
   },
-  "nozzle_inventory": [
-    {
-      "id": 16,
-      "diameter": 0.6,
-      "type": "HS01",
-      "sn": "20D06A610715877"
-    },
-    {
-      "id": 1,
-      "diameter": 0.4,
-      "type": "HS01",
-      "sn": "N/A"
-    },
-    {
-      "id": 17,
-      "diameter": 0.2,
-      "type": "HS00",
-      "sn": "20D06A5C1907799"
-    },
-    {
-      "id": 0,
-      "diameter": 0.2,
-      "type": "HS00",
-      "sn": "20D06A5C1907737"
-    }
-  ],
-  "connect_selectable_nozzles": [
-    "1: 0.6 mm Standard",
-    "2: 0.2 mm Standard",
-    "R: 0.2 mm Standard"
-  ],
-  "status": "Not sent: no recognized/selectable 0.4 mm nozzle. Asked Derek to check/install 0.4 mm."
+  "right_hotend": {
+    "diameter_mm": 0.2,
+    "type": "Standard Stainless",
+    "used_by_this_job": false
+  },
+  "connect_left_filament_mapping": "Black Ext PET-CF",
+  "connect_send_enabled": true,
+  "nozzle_mismatch_warning": false,
+  "status": "Ready: left external-spool mapping selected, with the left 0.4 mm hotend confirmed.",
+  "interpretation": "The unresolved Left Nozzle ? ? tile requires filament mapping. Numbered rack and R nozzle choices do not describe the left external hotend."
 }

@@ -1,0 +1,27 @@
+{
+  "accepted_at_utc": "2026-09-28T18:47:16.656923+00:00",
+  "printer": "H2C",
+  "archive": ".cache/prints/2026-09-28-display-retention-reach-h2c/ready/display-cover-reach075-black-z018-h2c-v2.gcode.3mf",
+  "archive_sha256": "2e9abe38a5a388a217e8f8a3abfef5cc5e3945eeba13bda7402c7e39208808e1",
+  "gcode_sha256": "481a40bdc746a518619d0813b757957334cf214f3d88bcef8b5e052cf80197cf",
+  "reply": {
+    "command": "project_file",
+    "result": "SUCCESS",
+    "reason": "SUCCESS",
+    "err_code": 0
+  },
+  "reading": {
+    "job_id": "1291079562",
+    "subtask_name": "display-cover-reach075-black-z018-h2c-v2.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 0,
+    "total_layer_num": 104,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": -1,
+    "nozzle_temper": 25.0,
+    "bed_temper": 24.0
+  },
+  "send_method": "Bambu Connect via cua_repl; one Send click."
+}

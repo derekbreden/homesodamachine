@@ -1975,6 +1975,39 @@
       "extra_arm_reach_mm": 0.6,
       "printed_hook_bearing_bottom_z_mm": 11.1,
       "physical_result": "Pending."
+    },
+    {
+      "date": "2026-09-28",
+      "printer": "H2C",
+      "parts": [
+        "hardware/printed-parts/enclosure/display-cover/retention-reach-trial/display-cover-retention-reach-075.stl"
+      ],
+      "job_name": "display-cover-reach075-black-z018-h2c-v2.gcode.3mf",
+      "printer_task_id": "1291079562",
+      "status": "printing",
+      "started_by": "Codex at Derek's request",
+      "accepted_at_utc": "2026-09-28T18:47:16.656923+00:00",
+      "observed_state": "RUNNING",
+      "observed_at_utc": "2026-09-28T18:50:57.599153+00:00",
+      "observed_print_error": 0,
+      "hms": [],
+      "observed_layer": 0,
+      "observed_total_layers": 104,
+      "observed_remaining_minutes": 31,
+      "sliced_file": ".cache/prints/2026-09-28-display-retention-reach-h2c/ready/display-cover-reach075-black-z018-h2c-v2.gcode.3mf",
+      "sliced_file_sha256": "2e9abe38a5a388a217e8f8a3abfef5cc5e3945eeba13bda7402c7e39208808e1",
+      "gcode_sha256": "481a40bdc746a518619d0813b757957334cf214f3d88bcef8b5e052cf80197cf",
+      "native_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-cover-retention-reach-h2c-v2/manifest.json",
+      "launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-cover-retention-reach-h2c-v2/launch.json",
+      "postlaunch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-cover-retention-reach-h2c-v2/postlaunch.json",
+      "startup_spacing_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-cover-retention-reach-h2c-v2/startup-spacing.json",
+      "estimated_seconds": 1911.690673828125,
+      "layer_count": 104,
+      "extra_arm_reach_mm": 0.75,
+      "printed_hook_bearing_bottom_z_mm": 11.25,
+      "nozzle": "Left Standard Hardened 0.4 mm",
+      "filament": "Black Polymaker PET-GF; Ext PET-CF mapping on left external spool 254.",
+      "physical_result": "Pending."
     }
   ]
 }

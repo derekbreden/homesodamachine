@@ -1,7 +1,7 @@
 {
-  "status": "awaiting_0.4_mm_nozzle",
+  "status": "printing",
   "printer": "H2C",
-  "submitted": false,
+  "submitted": true,
   "plate_contents": [
     "display-cover-retention-reach-075"
   ],
@@ -58,16 +58,26 @@
   },
   "physical_fit": "Pending; assess bow, hook engagement, free play and shake retention in the existing receiver.",
   "review_sha256": {
+    "README.md": "0fa09a3cd432f5f110657691faa6652641b7a6534273e76729d3d90569c9a812",
+    "geometry-check.json": "8c43530793801264fe7af1e9eaad0d0c186b9d824cca2e5fa80a18970f34e355",
+    "launch.json": "faaf6bed8eeb686db4e6bc31874a6422c94ef9d09edd0478a26a8229fca0b042",
+    "nozzle-readiness.json": "3d9cde6a60ebd0a60b98f57fadb25a484bad336f1dd9dfe163b64622c3b81ce5",
+    "postlaunch.json": "9498bc7b1897128abbc421c766c12a1dac3f18da5a91e03b6d1035e8bf97fd5c",
+    "prelaunch-status.json": "993e834b27b490f3a54c86bac0e058feaadaa33e07be563f3ae1603103e89b07",
+    "prelaunch.json": "f4e98b8745252deacb1bd4e9a16c05aa233a13c0f65fe7581bf2d86b3e4f290f",
     "preparation.json": "cef85e846ae2c4f9c7dab18e8056c707ae47fc3220943ace3dd1df8316636d79",
     "preview.png": "11cf96d7cea5e2f1a0fe3226be95156370b99c6fa2e956b2c3d086a9a2630f9c",
+    "send.json": "135c0f22ad7054d40fa117d68c151275d83508d1938f6633ed6dfae9c67669f3",
     "slice-command.json": "2e15ad0293074584856ff0a24b06f86e874cf488da4df3c91696981e4038885d",
-    "nozzle-readiness.json": "dc3aa1fa7ad2c8e8767657c8d25f8d7c4522841947164d7bdbebcc282d029a78",
-    "README.md": "9dffe7b5b4e97c780dd1f481c53800b9f0cacda12be0e055de1aca9e748e6e49",
-    "support-removal-review.json": "304b9c702e4a9001c1424b47870779e98f66455e7c9b2d82be2a804baf2f1697",
-    "verification.json": "aaee208b55444856250be2bd83b43a194ed9bf713b48ca8d3d23874d9f752c5a",
     "slice-result.json": "e4998d85191c10d571928d01941dea9c727a1a50d4b61d07e16ebe73d5ff5723",
+    "startup-spacing.json": "e9312dbb3e17114d6136bcc8540006c71c4d014162abb286fcac839354fb1dfb",
     "support-audit-display-cover-retention-reach-075.json": "53794b95b83d6167dc24d8c501e821a5231cd0f658a43199ec01a0294b455729",
-    "prelaunch-status.json": "993e834b27b490f3a54c86bac0e058feaadaa33e07be563f3ae1603103e89b07",
-    "geometry-check.json": "8c43530793801264fe7af1e9eaad0d0c186b9d824cca2e5fa80a18970f34e355"
-  }
+    "support-removal-review.json": "304b9c702e4a9001c1424b47870779e98f66455e7c9b2d82be2a804baf2f1697",
+    "verification.json": "aaee208b55444856250be2bd83b43a194ed9bf713b48ca8d3d23874d9f752c5a"
+  },
+  "printer_task_id": "1291079562",
+  "accepted_at_utc": "2026-09-28T18:47:16.656923+00:00",
+  "launch_record": "launch.json",
+  "postlaunch_record": "postlaunch.json",
+  "startup_spacing_record": "startup-spacing.json"
 }

@@ -1,0 +1,22 @@
+{
+  "checked_at_utc": "2026-09-28T18:46:47.094889+00:00",
+  "first_printer": "Mark2",
+  "first_accepted_at_utc": "2026-09-28T18:30:53.386440+00:00",
+  "first_task_id": "1291037500",
+  "elapsed_before_second_send_seconds": 953.708449,
+  "minimum_seconds": 180,
+  "pass": true,
+  "first_printer_reading": {
+    "gcode_state": "RUNNING",
+    "layer_num": 6,
+    "total_layer_num": 103,
+    "mc_remaining_time": 20,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": 0
+  },
+  "second_printer": "H2C",
+  "second_accepted_at_utc": "2026-09-28T18:47:16.656923+00:00",
+  "second_task_id": "1291079562",
+  "accepted_start_spacing_seconds": 983.270483
+}
