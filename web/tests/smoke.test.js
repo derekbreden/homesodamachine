@@ -62,6 +62,7 @@ const routes = [
   { path: "/drawings", expect: 200, ct: "text/html" },
   { path: "/cost",     expect: 200, ct: "text/html" },
   { path: "/spin",     expect: 200, ct: "text/html" },
+  { path: "/weld-position", expect: 200, ct: "text/html" },
   { path: "/settings", expect: 200, ct: "text/html" },
 
   // Legacy redirects (301). Don't pin Content-Type — express renders a
@@ -98,6 +99,8 @@ const routes = [
   { path: "/landing.js",          expect: 200, ct: "text/javascript" },
   { path: "/settings.js",         expect: 200, ct: "text/javascript" },
   { path: "/pan-zoom.js",         expect: 200, ct: "text/javascript" },
+  { path: "/js/weld-position/main.js", expect: 200, ct: "text/javascript" },
+  { path: "/js/weld-position/pose.js", expect: 200, ct: "text/javascript" },
   { path: "/content-viewer.js",   expect: 200, ct: "text/javascript" },
 
   // Contract definitions served to the browser: web/contracts/ mounted at
