@@ -32,6 +32,7 @@ try {
     laser: new THREE.MeshBasicMaterial(),
     fan: new THREE.MeshBasicMaterial({ transparent: true, opacity: 0.12, side: THREE.DoubleSide, depthWrite: false }),
     tangent: new THREE.LineDashedMaterial({ dashSize: 4, gapSize: 3, transparent: true, opacity: 0.7, depthTest: false }),
+    holeAxis: new THREE.LineDashedMaterial({ dashSize: 2, gapSize: 2, transparent: true, opacity: 0.85, depthTest: false }),
     edge: new THREE.LineBasicMaterial({ transparent: true, opacity: 0.45 }),
   };
 
@@ -51,6 +52,7 @@ try {
     materials.laser.color.copy(color("--weld-laser"));
     materials.fan.color.copy(color("--weld-laser"));
     materials.tangent.color.copy(color("--weld-muted"));
+    materials.holeAxis.color.copy(color("--weld-hole-axis"));
     materials.edge.color.copy(color("--weld-muted"));
     swatch.remove();
   }
@@ -107,6 +109,13 @@ try {
   tangent.computeLineDistances();
   tangent.renderOrder = 5;
   scene.add(tangent);
+  const holeAxis = new THREE.Line(new THREE.BufferGeometry().setFromPoints([
+    new THREE.Vector3(-INNER_RADIUS - 16, 0, CAP_TOP),
+    joint.clone().add(new THREE.Vector3(18, 0, 0)),
+  ]), materials.holeAxis);
+  holeAxis.computeLineDistances();
+  holeAxis.renderOrder = 5;
+  scene.add(holeAxis);
   const labels = [];
   for (const [point, name] of [[joint, "Laser dot"], [gripBase, "Grip base"]]) {
     const marker = new THREE.Mesh(new THREE.SphereGeometry(1.3, 16, 12), materials.laser);
@@ -116,7 +125,7 @@ try {
     label.className = "weld-point-label text-small";
     label.textContent = name;
     stage.append(label);
-    labels.push({ point, label });
+    labels.push({ point, label, marker });
   }
 
   // Local +Z goes from nozzle to back of gun; -Y is the grip/wire-guide side.
@@ -176,14 +185,23 @@ try {
       sweep.remove(child);
     }
   }
-  function updatePose(degrees) {
-    const origin = vector(posePoint([0, 0, 0], degrees));
+  function updatePose(degrees, holeDegrees) {
+    const origin = vector(posePoint([0, 0, 0], degrees, holeDegrees));
     const basis = [0, 1, 2].map(axis => {
       const p = [0, 0, 0]; p[axis] = 1;
-      return vector(posePoint(p, degrees)).sub(origin);
+      return vector(posePoint(p, degrees, holeDegrees)).sub(origin);
     });
     gun.position.copy(origin);
     gun.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(...basis));
+    gripBase.copy(vector(posePoint(GRIP_BASE, degrees, holeDegrees)));
+    rollDirection.copy(gripBase).sub(joint).normalize();
+    tangent.geometry.setFromPoints([
+      joint.clone().addScaledVector(rollDirection, -18),
+      gripBase.clone().addScaledVector(rollDirection, 85),
+    ]);
+    tangent.geometry.computeBoundingSphere();
+    tangent.computeLineDistances();
+    for (const { point, marker } of labels) marker.position.copy(point);
     scene.updateMatrixWorld(true);
     clearSweep();
 
@@ -192,7 +210,7 @@ try {
     // scan pattern or a prediction of energy delivered to either surface.
     const hits = [];
     for (let i = 0; i <= 40; i++) {
-      const focalPoint = vector(posePoint([-1 + i / 20, 0, -CLEARANCE], degrees));
+      const focalPoint = vector(posePoint([-1 + i / 20, 0, -CLEARANCE], degrees, holeDegrees));
       hitTester.set(origin, focalPoint.clone().sub(origin).normalize());
       const hit = hitTester.intersectObjects([tube, cap], false)[0];
       if (hit) hits.push(hit.point);
@@ -212,6 +230,9 @@ try {
     root.querySelector("[data-roll-value]").textContent = `${degrees}°`;
     root.querySelector("[data-roll]").value = degrees;
     root.dataset.rollDegrees = degrees;
+    root.querySelector("[data-hole-roll-value]").textContent = `${holeDegrees}°`;
+    root.querySelector("[data-hole-roll]").value = holeDegrees;
+    root.dataset.holeRollDegrees = holeDegrees;
     render();
   }
 
@@ -234,6 +255,13 @@ try {
       label.style.left = `${Math.min(width - label.offsetWidth - 6, Math.max(6, x + 9))}px`;
       label.style.top = `${Math.max(4, y - 22)}px`;
     }
+    const [dotLabel, baseLabel] = labels.map(entry => entry.label);
+    if (!dotLabel.hidden && !baseLabel.hidden) {
+      const a = dotLabel.getBoundingClientRect(), b = baseLabel.getBoundingClientRect();
+      if (a.left < b.right + 4 && b.left < a.right + 4 && a.top < b.bottom + 4 && b.top < a.bottom + 4) {
+        baseLabel.style.top = `${Math.max(4, dotLabel.offsetTop - baseLabel.offsetHeight - 6)}px`;
+      }
+    }
   }
   function resize() {
     const { width, height } = stage.getBoundingClientRect();
@@ -251,36 +279,40 @@ try {
     camera.zoom = 1;
     camera.up.set(0, 0, 1);
     if (view === "top") {
-      controls.target.set(15, -135, CAP_TOP);
-      camera.position.set(15, -135, CAP_TOP + 600);
+      controls.target.set(15, -95, CAP_TOP);
+      camera.position.set(15, -95, CAP_TOP + 600);
       camera.up.set(0, 1, 0);
-      frameHeight = 440;
+      frameHeight = 560;
     } else if (view === "joint") {
       controls.target.copy(joint).add(new THREE.Vector3(-5, -6, 12));
       camera.position.copy(controls.target).add(new THREE.Vector3(-150, 40, 100));
       frameHeight = 92;
     } else {
-      controls.target.set(15, -100, 180);
+      controls.target.set(15, -80, 225);
       camera.position.set(-480, 100, 440);
-      frameHeight = 480;
+      frameHeight = 640;
     }
     controls.update();
     resize();
     root.querySelectorAll("[data-view]").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.view === view)));
   }
 
-  let roll = 35;
+  let roll = 35, holeRoll = 0;
   function applyState(saved) {
     const value = saved?.modelContent ?? saved;
-    if (Number.isFinite(value?.roll)) roll = Math.max(0, Math.min(80, value.roll));
-    updatePose(roll);
+    roll = Number.isFinite(value?.roll) ? Math.max(0, Math.min(80, value.roll)) : 35;
+    holeRoll = Number.isFinite(value?.holeRoll) ? Math.max(-60, Math.min(60, value.holeRoll)) : 0;
+    updatePose(roll, holeRoll);
     setView(["overall", "top", "joint"].includes(value?.view) ? value.view : "overall");
   }
   function saveState() {
-    window.openai?.setWidgetState?.({ modelContent: { roll, view }, privateContent: null }).catch(() => {});
+    window.openai?.setWidgetState?.({ modelContent: { roll, holeRoll, view }, privateContent: null }).catch(() => {});
   }
   root.querySelector("[data-roll]").addEventListener("input", event => {
-    roll = Number(event.target.value); updatePose(roll); saveState();
+    roll = Number(event.target.value); updatePose(roll, holeRoll); saveState();
+  });
+  root.querySelector("[data-hole-roll]").addEventListener("input", event => {
+    holeRoll = Number(event.target.value); updatePose(roll, holeRoll); saveState();
   });
   root.querySelectorAll("[data-view]").forEach(button => button.addEventListener("click", () => {
     setView(button.dataset.view); saveState();

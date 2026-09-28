@@ -29,12 +29,44 @@ test("roll fixes the laser dot, grip base and straight wire approach", () => {
   }
 });
 
+test("the hole-axis rotation fixes the dot and raises the tangent approach", () => {
+  for (const roll of [0, 35, 80]) {
+    const reference = posePoint(GRIP_BASE, roll);
+    for (const holeRoll of [-60, -25, 0, 25, 60]) {
+      posePoint(WIRE_TIP, roll, holeRoll).forEach((v, i) => near(v, JOINT[i]));
+      const base = posePoint(GRIP_BASE, roll, holeRoll);
+      near(base[0], JOINT[0]);
+      near(distance(base, JOINT), distance(reference, JOINT));
+      if (holeRoll > 0) assert.ok(base[2] > reference[2]);
+      if (holeRoll < 0) assert.ok(base[2] < reference[2]);
+    }
+    // A quarter-turn around the cap diameter exchanges height and tangent
+    // distance, with the dot's elevation as the origin and no radial travel.
+    const quarterTurn = posePoint(GRIP_BASE, roll, 90);
+    near(quarterTurn[0], reference[0]);
+    near(quarterTurn[1], reference[2] - CAP_TOP);
+    near(quarterTurn[2], CAP_TOP - reference[1]);
+  }
+});
+
+test("grip-axis roll keeps the selected base and wire line fixed at every hole-axis tilt", () => {
+  for (const holeRoll of [-60, 0, 30, 60]) {
+    for (const roll of [0, 35, 80]) {
+      for (const p of [GRIP_BASE, WIRE_GUIDE_END, WIRE_TIP]) {
+        const actual = posePoint(p, roll, holeRoll), reference = posePoint(p, 0, holeRoll);
+        actual.forEach((v, i) => near(v, reference[i]));
+        near(actual[0], JOINT[0]);
+      }
+    }
+  }
+});
+
 test("gun, guide and wire undergo one rigid rotation without a reflection", () => {
   const points = [[0, 0, 0], GRIP_BASE, WIRE_GUIDE_END, WIRE_TIP];
-  for (const roll of [0, 35, 80]) {
-    for (const a of points) for (const b of points) near(distance(a, b), distance(posePoint(a, roll), posePoint(b, roll)));
-    const origin = posePoint([0, 0, 0], roll);
-    const [a, b, c] = [[1, 0, 0], [0, 1, 0], [0, 0, 1]].map(p => posePoint(p, roll).map((v, i) => v - origin[i]));
+  for (const roll of [0, 35, 80]) for (const holeRoll of [-60, 0, 60]) {
+    for (const a of points) for (const b of points) near(distance(a, b), distance(posePoint(a, roll, holeRoll), posePoint(b, roll, holeRoll)));
+    const origin = posePoint([0, 0, 0], roll, holeRoll);
+    const [a, b, c] = [[1, 0, 0], [0, 1, 0], [0, 0, 1]].map(p => posePoint(p, roll, holeRoll).map((v, i) => v - origin[i]));
     near(a[0] * (b[1] * c[2] - b[2] * c[1]) - a[1] * (b[0] * c[2] - b[2] * c[0]) + a[2] * (b[0] * c[1] - b[1] * c[0]), 1);
   }
 });
