@@ -9,8 +9,8 @@ At zero roll, the gun's barrel and wire approach follow the tangent in plan
 view. The grip axis is the line through the precise laser dot and the cable
 exit at the bottom of the grip. Its plan projection follows the tangent.
 Both endpoints stay fixed as the gun rolls and tips the laser between the
-endcap and tube wall. The final wire guide lies on this axis, pointing at the
-dot, so its straight approach remains fixed too.
+endcap and tube wall. The straight wire guide rolls with the gun and remains
+aimed at the dot.
 
 The hole axis runs through the laser dot and both endcap hole centers, along
 the diameter at the cap's outer face. Its control tilts the entire gun and
@@ -18,10 +18,12 @@ grip axis around that fixed line. The dot, tube and cap stay fixed. Positive
 angles raise the grip; zero preserves the reference inclination. At each
 hole-axis setting, grip-axis roll still fixes both the dot and grip base.
 
-The umbilical exits the grip. The wire feed is external and runs beside it
-before reaching the guide. Keeping them together and the base on the tangent
-limits the bend demanded of the wire feed. Their short modeled paths show
-their arrangement; cable routing, guide mounting and clearances are schematic.
+The umbilical exits the grip. The external wire feed runs straight beside it
+and through the grip-base region. A short support leg holds the straight tip
+guide close to the barrel. The unsupported span bends smoothly between the
+straight run at the grip and the straight guide aimed at the dot. The modeled
+paths show their arrangement; cable routing, guide mounting and clearances
+are schematic.
 
 The tube dimensions come from
 [`_rotator_interface.py`](../printed-parts/fixtures/weld-rotator/_rotator_interface.py).

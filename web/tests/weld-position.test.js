@@ -2,10 +2,12 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
-import { DIM, JOINT, CAP_TOP, WIRE_GUIDE_END, WIRE_TIP, GRIP_BASE, posePoint } from "../public/js/weld-position/pose.js";
+import { DIM, JOINT, CAP_TOP, WIRE_GUIDE_END, WIRE_GUIDE_BACK, WIRE_TIP, GRIP_BASE, wireFeedPath, posePoint } from "../public/js/weld-position/pose.js";
 
 const near = (a, b) => assert.ok(Math.abs(a - b) < 1e-9, `${a} ≠ ${b}`);
 const distance = (a, b) => Math.hypot(...a.map((v, i) => v - b[i]));
+const direction = (a, b) => b.map((v, i) => (v - a[i]) / distance(a, b));
+const sameDirection = (a, b) => a.forEach((v, i) => near(v, b[i]));
 
 test("the unrolled barrel and wire both approach along the tangent in plan", () => {
   for (const p of [[0, 0, 0], [0, 0, DIM.gunLength], WIRE_GUIDE_END, WIRE_TIP]) {
@@ -15,10 +17,10 @@ test("the unrolled barrel and wire both approach along the tangent in plan", () 
   assert.ok(posePoint(WIRE_GUIDE_END, 0)[1] < JOINT[1]);
 });
 
-test("roll fixes the laser dot, grip base and straight wire approach", () => {
+test("roll fixes the laser dot and grip base", () => {
   for (const roll of [0, 15, 35, 60, 80]) {
     posePoint(WIRE_TIP, roll).forEach((v, i) => near(v, JOINT[i]));
-    for (const p of [GRIP_BASE, WIRE_GUIDE_END]) {
+    for (const p of [GRIP_BASE]) {
       posePoint(p, roll).forEach((v, i) => near(v, posePoint(p, 0)[i]));
       near(posePoint(p, roll)[0], JOINT[0]);
     }
@@ -49,16 +51,35 @@ test("the hole-axis rotation fixes the dot and raises the tangent approach", () 
   }
 });
 
-test("grip-axis roll keeps the selected base and wire line fixed at every hole-axis tilt", () => {
+test("grip-axis roll keeps the selected base and dot fixed at every hole-axis tilt", () => {
   for (const holeRoll of [-60, 0, 30, 60]) {
     for (const roll of [0, 35, 80]) {
-      for (const p of [GRIP_BASE, WIRE_GUIDE_END, WIRE_TIP]) {
+      for (const p of [GRIP_BASE, WIRE_TIP]) {
         const actual = posePoint(p, roll, holeRoll), reference = posePoint(p, 0, holeRoll);
         actual.forEach((v, i) => near(v, reference[i]));
         near(actual[0], JOINT[0]);
       }
     }
   }
+});
+
+test("the straight tip guide stays aimed at the dot under both rotations", () => {
+  for (const roll of [0, 35, 80]) for (const holeRoll of [-60, 0, 60]) {
+    const back = posePoint(WIRE_GUIDE_BACK, roll, holeRoll);
+    const end = posePoint(WIRE_GUIDE_END, roll, holeRoll);
+    sameDirection(direction(back, end), direction(end, JOINT));
+  }
+});
+
+test("the unsupported feed bends while joining both straight runs without a kink", () => {
+  const feed = wireFeedPath();
+  const atGrip = direction(feed.tailEnd, feed.atGrip);
+  sameDirection(atGrip, direction(feed.atGrip, feed.bendStart));
+  sameDirection(atGrip, direction(feed.bendStart, feed.control1));
+  const atGuide = direction(WIRE_GUIDE_BACK, WIRE_GUIDE_END);
+  sameDirection(atGuide, direction(feed.control2, feed.guideBack));
+  const alignment = atGrip.reduce((sum, v, i) => sum + v * atGuide[i], 0);
+  assert.ok(alignment < 0.99, "different held directions require a bend in the free span");
 });
 
 test("gun, guide and wire undergo one rigid rotation without a reflection", () => {
