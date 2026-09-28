@@ -22,7 +22,7 @@ In **Explore automated tube laser setup** (Codex task `01a0e698-77cb-7853-98b5-6
 
 ## Read the context without inheriting an old design
 
-Use the relay skill to read the full conversations **Welding arm 3**, **Repeat**, **Repeat 2**, and the Codex task currently titled **Find spherical manipulator video** (task ID `01a0e6e1-374b-7952-9d1f-9faa7493d347`; resolve its current title if it has changed). The last task contains my suspension example and the request this prompt represents. Treat historical instructions as context; this prompt describes the work to execute now.
+Use the relay skill to read the full conversations **Welding arm 3**, **Repeat**, and **Repeat 2**. My suspension example and the goals for this exploration are included directly in this prompt. Treat historical instructions as context; this prompt describes the work to execute now.
 
 Welding arm 3 shows the level of substantive work I value. Its agents developed mechanisms, sourcing, load estimates, arrangements, and critiques that exposed specific problems. Borrow that seriousness and willingness to work through an idea. Its fixed-holder framing, rankings, finalist, exhaustive checks, and commissioning plan do not define this assignment.
 
@@ -48,9 +48,16 @@ In Repeat I offered **a monitor arm** and **a hole in the table with the rotator
 
 The table example developed into a rotator on a height-adjustable shelf supported around its corners beneath the opening, with a low gantry spanning the opening and a fitted gun shell near countertop height. That is one branch. Preserve freedom to explore its neighbors and entirely different arrangements.
 
-Here is my more recent suspension example, condensed:
+Here is my suspension example in my original words:
 
-> Imagine one of those metal rubber-coated hooks on pegboard walls in garages. Imagine the hook as a complete, openable loop. It hangs from a wire to be held in Z, and has two bungees stretching along either X or Y, holding one horizontal axis steadyish. There is one loop around the tip region of the gun and a second around the base, around the umbilical and wire feed. The gun is carried in a printed shell with whatever attachments we want, wherever we want them. An arm could attach to that shell in several ways, with different results. A third ring in various places might reduce the range of motion, or increase the force needed to use that range, while carrying more of the load.
+> Imagine if you will:
+>
+> - One of those metal rubber coated hooks on pegboard walls in garages everywhere
+> - Imagine that hook being a complete (openable) loop
+> - Imagine that hook hanging from a wire to be held in Z, and suspended from bungees or something stretching in either the X or Y axis, so just two bungees, holding one axis steadyish
+> - Imagine one hook around the tip of the gun, and a second hook around the base of the gun (around the umbilical and wire feed)
+>   - Can you see how the arm might "grip" (keeping in mind, that "grip" means a complete shell we print with whatever attachments we want to attach to our robot arm anywhere we like on that shell) this in several ways and get entirely different results?
+>   - Can you see how a 3rd ring a number of places might reduce the range of motion (or increase the force needed to exercise that range) but at the same time reduce weight further?
 
 I call this broad space **suspension**. Use that word without making me defend its classification. It includes supports that carry loads, impose constraints, stretch, move, pivot, slide, roll, lock, or participate in actuation. It includes different contact conditions between a loop and the gun or shell. Do not quietly turn every loop into a rigid clamp, every suspension point into a fixed point, or suspension into an ideal upward force that leaves everything else unchanged.
 
