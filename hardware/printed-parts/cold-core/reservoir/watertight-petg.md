@@ -1,81 +1,135 @@
 # Printing the reservoir watertight in PETG
 
-Standing, filament-agnostic guidance for printing the reservoir body + cap leak-free in PETG. This is generic PETG technique applied to this part's geometry. Per-attempt records live in [`print-log.md`](/hardware/printed-parts/cold-core/reservoir/print-log.md).
+The starting point is the **physically successful Bambu PETG Basic recipe**.
+[Print attempt 3](print-log.md) records hours of water retention with the
+gaskets installed. Its archived project and extracted active-nozzle settings
+are identified in [petg-water-recipe.json](../magnetic-float/petg-water-recipe.json).
+This result establishes water holding at reservoir head; it supplies no measured
+pressure rating. Later PETG Translucent projects have a different material and
+recipe and no success result recorded in that log.
 
-## The part, for sealing purposes
+## Proven printing basis
 
-- Open-top `[` cup: floor + four walls, 3 mm uniform PETG, closed by a separately-printed cap clamped through a TPU gasket (6× M3 into heat-set inserts).
-- **Vented, non-pressurized.** A PTFE membrane in the cap equalizes the air space, so the only load on the wall is the hydrostatic head of syrup — a tall but low-pressure column (~210 mm ≈ **~0.3 psi** at the floor).
-- Floor is a Y-symmetric V trough with a vertical bulkhead penetration; a purchased silicone flat washer in a wet-side counterbore is the primary seal on the barrel-to-floor joint (a printed TPU face washer under the elbow flange backs it up on the dry side), locknut from below.
-- 6 mm fillets at the internal corners.
-- Cold service (8–15 °C). Food contact (mildly acidic concentrate). The wetted surface is the bare print — its food-contact + taint acceptance is [`wetted-surface-test.md`](/hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md) (leak-tightness, below, is a separate gate).
+| Parameter | Successful PETG Basic reservoir |
+| --- | --- |
+| Printer / active nozzle | H2C / left 0.6 mm standard flow |
+| Nozzle temperature, first / subsequent | 255 / 260 °C |
+| Flow ratio / maximum volumetric speed | 1.02 / 21 mm³/s |
+| Textured bed | 70 °C |
+| Layer height, first / subsequent | 0.30 / 0.18 mm |
+| Requested line width / wall loops | 0.60 mm / six, Arachne |
+| Wall / floor material depth | 3 mm |
+| Fill / wall overlap | 100% zig-zag / 15% |
+| Top / bottom pattern | Zig-zag |
+| Top ironing | 10% flow, 0.15 mm spacing, 30 mm/s |
+| Wall order | Inner then outer |
+| Seam | Random; conditional scarf on all walls, 10% start height; 15% seam gap |
+| Ordinary cooling | Part fan 10–20%, first three layers off; auxiliary off |
 
-The consequence of *vented + low head*: **a leak here is a defect, not a strength failure.** The wall trivially survives 0.3 psi. What weeps is a continuous capillary path — between adjacent perimeter beads, up the Z-seam, or through the floor / first layer. Every lever below closes one of those paths. PETG itself is a good choice for this (water-resistant, strong layer adhesion); watertightness is a *process* property, not a material guarantee.
+The source recipe also permits 90% overhang cooling for the supported reservoir
+floor. These are observed settings, not a universal PETG preset. The
+[magnetic float](../magnetic-float/petg-shell.md) specifies its own slower paths,
+zero seam gap, unconditional scarf and lower overhang cooling for a roof backed
+by an insert. Its adaptations are separate from the physical reservoir result.
 
-## Levers, highest-leverage first
+## The part and its seal
 
-### 1. Inspect the deposited paths across the wall
-Wall thickness need not be an integer multiple of the requested line width. Bead spacing
-includes overlap, and **Arachne** varies individual widths through walls, fillets and
-transitions. A requested wall-loop count is a limit; the available thickness determines
-which paths fit. Gap fill is not itself evidence of a leak.
+The reservoir is a vented, non-pressurized cup with 3 mm walls/floor and 6 mm
+internal corner fillets. A separately printed cap clamps a TPU gasket through
+six M3 fasteners. The PTFE vent equalizes headspace pressure. A 210 mm water
+column produces about 0.3 psi at the floor; syrup head scales with its density.
 
-The [0.8 mm seal trial](seal-trial.md) has four paths across a straight 3 mm wall:
-approximately **0.80 / 0.76 / 0.76 / 0.80 mm**, with overlapping nominal bead footprints.
-Inspect the curved corners, seam closures, floor-to-wall junction and bulkhead seat as well
-as a straight section. Toolpaths describe planned deposition; the physical water test
-establishes sealing.
+The V-trough floor has a bulkhead penetration. A purchased silicone flat washer
+in its wet-side counterbore is the primary seal, with a printed TPU washer on
+the dry side and a locknut below. Use the sealing faces and controlled washer
+compression; printed threads/barrel contact do not establish a liquid seal.
 
-### 2. Get squish from line width, not flow ratio
-Closing the inter-bead valley needs adjacent beads to over-squish and merge. Get that from **line width ~110–120 % of nozzle** plus **wall/infill overlap ~30–40 %**, which re-spaces the toolpaths so they are *planned* to overlap — clean, no surface bulge. Raising the global flow ratio achieves the same physically but bulges the surface; reserve it as a small inner-wall trim only (+0–2 %) and keep the outer wall at its clean value.
+Cold service is 8–15 °C. Bare-print food-contact and taint acceptance is addressed
+by [wetted-surface-test.md](wetted-surface-test.md), separately from leakage.
 
-### 3. Temperature and melt-rate, together
-Bead-to-bead and layer-to-layer welding is polymer diffusion across a hot interface — it needs both heat and dwell:
+## What controls leakage
 
-- Nozzle **~250–255 °C** for the wall. PETG layer adhesion peaks around 245–250 and falls off past ~260 — hotter is not always better.
-- Slow the **walls to ~30–40 mm/s** and let max-volumetric-speed fall out of that. A large nozzle pushed fast under-melts: the bead lands before it can fuse.
-- A **glossy** wall is fused; a **matte / grainy** wall is under-melted and will weep. Use sheen as a free, per-print fusion gauge.
-- PETG brands/grades differ — dial flow and temperature per spool rather than carrying a profile across filaments.
+### Deposited paths and extrusion amount
 
-### 4. Layer height and the floor (the real risk on a low-head part)
-- Lower layer height re-presses each prior layer; for the wetted regions favor **≤ ~40 % of nozzle diameter**.
-- The floor and first layer are the most common leak site. Set the solid bottom shell by **thickness (≥ ~1.5–2 mm)**, not a fixed layer count, so it stays robust if layer height changes. **Iron** the interior V-floor (it prints as a top surface). Use a **monotonic** bottom pattern (concentric spirals converge to a center void). Strong first-layer squish; a wide, slow first layer.
+Inspect the wall, corners, seam closures, floor/wall junction and bulkhead seat.
+Arachne changes widths to fit the actual geometry; requested wall count is a
+limit. Wall thickness need not be a whole multiple of requested line width.
+The [0.8 mm seal trial](seal-trial.md), for example, has four nominally
+overlapping paths across a straight 3 mm wall. That path description is not
+a physical seal result.
 
-### 5. Cooling
-PETG welds better warm. Part fan **~20–30 %**, **auxiliary fan OFF**; keep the enclosure closed for passive warmth but do not actively heat the chamber on a tall thin-wall part. This geometry is overhang-free, so a low fan costs essentially nothing in quality.
+**Flow is a principal sealing variable.** The successful 1.02 ratio is 5.15%
+above its 0.97 stock baseline. Published experiments show large leakage changes
+with extrusion amount; multiplier values do not transfer directly between
+printers/materials. Use the successful local value for this PETG Basic recipe.
+There is no evidence-based universal limit of a 2% adjustment.
 
-### 6. The Z-seam
-On a walled (non-vase) part the seam is a top leak path: every perimeter loop starts and stops at one point, and those voids stack into a vertical channel. Vase mode is not available here (the part has a cap and a floor penetration), so engineer the seam out:
+Line width, infill overlap and flow are distinct. The slicer generally changes
+path spacing with line width; widening the requested line is not equivalent
+to adding material into an unchanged volume. Infill overlap acts at the
+infill/perimeter junction. Excess flow can close pores but also change
+dimensions, surface finish and assembly fit. Nominal 100% fill can retain voids.
 
-- **Staggered inner seams ON** — de-stacks the per-loop seams across the wall thickness.
-- **Seam gap → 0** — fills the closure notch locally instead of via a global flow bump.
-- **Scarf joint** seam — ramps the start/stop so there is no butt-joint column. Verify in slice preview that it actually deposits on the *inner* wall; if it misbehaves on the concave inner loop, fall back to **Random** (the part is hidden, so speckle is a non-issue).
-- Wall order **inner / outer / inner**, so the wet outer-adjacent bead lands on solid backing.
-- Calibrate **pressure advance** (flow dynamics) so the loop closure neither oozes nor starves at the seam restart.
+### Layer height, temperature, speed and cooling
 
-### 7. Dry the filament — verify by weight, not the dryer's RH
-Wet PETG flashes to steam in the melt and leaves micro-voids that become leak paths. A dryer's chamber-RH readout is the *air*, which equilibrates in minutes; the 1.75 mm core diffuses out over hours. **Weigh the spool, dry, reweigh hourly until the weight stops dropping.** For a long, tall print, feed from the heated dry-box so the upper wall does not print from re-wetted filament.
+The successful 0.18 mm layer is 30% of the 0.6 mm nozzle diameter. Both Prusa's
+water-holding work and independent leakage experiments support low layers.
+Preserve solid floor thickness when changing layer height; a fixed layer count
+does not preserve the amount of sealing material.
 
-### 8. Geometry that helps the seal
-- The 6 mm internal fillets are correct — keep them, and ensure the floor-to-wall transition is filleted too, not just the vertical corners.
-- A flat-walled box is the weakest watertight form: walls bow under head, opening the layer interface in tension. 3 mm is a sensible wall; the cheapest added robustness is reinforcing the lower third (an external rib or a thicker low wall), since head is highest at the bottom.
-- **Penetrations and sealing faces:** seal on a flat, ironed, upward-facing top surface, never on a layer-line wall. Keep heat-set inserts and bolt bores ≥ ~2 mm of solid PETG away from the wetted volume. Let the washers do the sealing (face seal at a controlled squeeze — the wet-side primary is a purchased silicone flat washer, the dry-side secondary a printed TPU washer) — do not rely on printed-plastic tightness against the bulkhead barrel.
+For **Bambu PETG Basic here, use 255/260 °C**. No retrieved evidence establishes
+a universal PETG adhesion peak at 245–250 °C or a universal decline above
+260 °C. Welding depends on material, actual melt temperature, extrusion rate,
+cooling and the temperature of the receiving layer. Gloss is a surface
+observation, not proof that the wall is fused or sealed.
 
-## Leak test (so each iteration gets a real pass/fail)
+Preserve the low ordinary cooling in the proven recipe and distinguish supported
+overhang requirements from sealing-wall requirements. A nominal maximum speed
+does not establish the speed actually reached: volumetric limits and layer-time
+slowdowns also matter. The small float uses explicitly slower wall speeds.
 
-Service load is only ~0.3 psi, so test well above it but never near a pressure-vessel regime:
+### Seams, floor and moisture
 
-- **Air-bubble test (primary — it localizes the leak):** cap the mouth, plumb a barb + 0–15 psi gauge + bleed valve, submerge in clear water, step to **1 psi then 3 psi** (~9× service), 60 s each. A continuous bubble stream is a fail; the bubble column marks the exact leak path. **Never exceed ~5 psi** — this is not a pressure vessel.
-- **Assembled confirmation:** dyed water column at **2–3× head** (a clear tube taped to the mouth), held **cold (8–15 °C) for 24 h**, exterior pre- and post-weighed on a 0.01 g scale. Pass = no dye bleed anywhere and < ~0.1 g/24 h mass gain.
+Loop starts/stops and floor-to-wall junctions deserve particular inspection.
+Random seam placement distributes starts between layers; it does not establish
+that all adjacent loops have staggered starts. Scarf and seam-gap settings
+change deposition at the closure. Inspect the emitted paths before treating
+either setting as an airtightness guarantee.
 
-## If the bare print cannot seal: the food-safe coating fallback
+Preserve the solid zig-zag floor and top ironing in the proven recipe. In a
+new geometry, inspect both the perimeter/fill junction and the region above
+supports. Neither an all-perimeter wall nor a particular fill pattern is
+universally leak-proof; successful published prints use several arrangements.
 
-Bare-print watertight at 0.3 psi is well within reach — slicer settings alone have matched epoxy-coated parts at multi-bar pressures — so treat coating as a true last resort. If used, it must be a named **direct**-food-contact, acid-tolerant epoxy, fully cured plus a forced post-cure, flood-coated (not brushed), over scuffed + IPA-degreased plastic (IPA does not attack PETG). The standing risk is that epoxy adhesion to cold, slightly-flexing PETG is poor. Do **not** use XTC-3D or solvent (acetone) smoothing on the wetted surface — neither is food-safe on PETG.
+Dry PETG Basic using the [shop drying table](/hardware/ledger/tools.md) and keep
+it dry during printing. A dry-box humidity reading measures its air rather
+than residual moisture inside the filament. Popping, bubbles or rough extrusion
+merit investigation; visual quality alone cannot qualify a seal.
 
-## References
+## Water-holding acceptance
 
-- Prusa — Watertight 3D printing, Part 1 (open models): https://blog.prusa3d.com/watertight-3d-printing-pt1-vases-cups-and-other-open-models_48949/
-- Prusa — Watertight 3D printing, Part 2 (airtight *closable* models — closest analog to a capped reservoir): https://blog.prusa3d.com/watertight-3d-printing-part-2_53638/
-- Prusa Knowledge Base — Watertight prints: https://help.prusa3d.com/article/watertight-prints_112324
-- Gordeev et al., *PLOS One* 2018 — FDM porosity vs extrusion multiplier; the quantitative basis for "squish to seal": https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0198370
-- Brick Layers (CNC Kitchen) — staggered perimeters + internal-perimeter flow for watertightness: https://www.cnckitchen.com/blog/brick-layers-make-3d-prints-stronger
+Assemble the intended washers/gaskets and fill to the maximum service level.
+Use a dry exterior and an absorbent witness beneath the seams and bulkhead to
+localize any seepage. Record water level, temperature, duration and leak
+location. A full, cold 24-hour hold is a useful acceptance observation; the
+existing success record states **hours**, not a documented 24-hour hold.
+
+The reservoir is vented and has no assigned pneumatic proof pressure. Pressure
+vessel results belong to the [separate float pressure investigation](../magnetic-float/pressure-printing-research.md).
+The reservoir's gasket/body water-holding result does not qualify a float
+under external pressure.
+
+## Coatings
+
+The demonstrated reservoir recipe uses bare PETG. Published coated-print results
+establish the performance of a particular coating/process/specimen. They do not
+establish food-contact suitability of an arbitrary epoxy or a universal cure
+schedule. Any proposed wetted coating needs a named product, manufacturer
+instructions and acceptance against the intended concentrate and cold service.
+
+## Research basis
+
+- [Prusa: open water-holding models](https://blog.prusa3d.com/watertight-3d-printing-pt1-vases-cups-and-other-open-models_48949/).
+- [Prusa: closed models under external pressure](https://blog.prusa3d.com/watertight-3d-printing-part-2_53638/).
+- [Gordeev et al.: extrusion amount, wall structure and connected pores](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0198370).
+- [Pressure-printing research and source-file audit](../magnetic-float/pressure-printing-research.md): positive and negative pressure results, test durations, post-processing and limits on transferring published recipes.
