@@ -1,0 +1,61 @@
+[step] All white artwork projects 0.48 mm above the black show face. The native slice retains two full 0.24 mm layers of lettering, faucet/drop and QR above the existing 0.72 mm embedded inlay. This is the intended common relief.
+click: x=41.410 y=2.880 z=2.296
+
+[sliver] These are raised letter strokes and their 0.48 mm sidewalls. They preserve the wordmark contours and are bonded to the embedded white inlay. Native extrusion paths retain the lettering on both raised layers.
+click: x=13.541 y=2.640 z=8.419
+click: x=12.588 y=2.640 z=-8.435
+click: x=0.300 y=2.640 z=8.419
+click: x=-5.145 y=2.640 z=-8.435
+click: x=-7.452 y=2.640 z=-8.435
+click: x=-13.373 y=2.640 z=-8.435
+click: x=-6.839 y=2.880 z=-8.435
+click: x=-14.558 y=2.640 z=-8.435
+click: x=-8.581 y=2.640 z=-8.435
+click: x=-6.226 y=2.640 z=-8.435
+click: x=-0.881 y=2.640 z=8.419
+click: x=-0.393 y=2.640 z=-8.435
+click: x=6.006 y=2.640 z=8.419
+click: x=18.294 y=2.640 z=8.419
+click: x=18.294 y=2.640 z=-8.435
+click: x=6.162 y=2.640 z=-0.042
+click: x=-3.117 y=2.640 z=5.468
+click: x=-16.795 y=2.640 z=-11.386
+click: x=-3.045 y=2.640 z=11.370
+click: x=-16.723 y=2.640 z=-5.484
+click: x=-9.730 y=2.640 z=-9.290
+click: x=-12.224 y=2.640 z=-7.544
+
+[sliver] These 0.48 mm vertical relief walls belong to the faucet logo and drop, with the original planar contours. Both raised layers have white logo/drop extrusion bonded to the 0.72 mm embedded inlay.
+click: x=42.434 y=2.640 z=-12.500
+click: x=26.591 y=2.640 z=-0.291
+click: x=37.638 y=2.640 z=-10.465
+click: x=47.231 y=2.640 z=-10.465
+
+[sliver] These 0.48 mm vertical relief walls follow the original QR module outlines and finder rings. The 1.1 mm module pitch and quiet zone are unchanged. Both raised layers retain white QR extrusion ; decoding and physical scanning remain to be checked.
+click: x=-43.381 y=2.640 z=3.848
+click: x=-27.981 y=2.640 z=3.848
+click: x=-27.981 y=2.640 z=-11.550
+click: x=-27.981 y=2.640 z=-3.847
+click: x=-43.381 y=2.640 z=11.550
+click: x=-27.981 y=2.640 z=11.550
+click: x=-31.831 y=2.640 z=7.700
+click: x=-31.831 y=2.640 z=-7.700
+click: x=-47.231 y=2.640 z=7.700
+click: x=-39.529 y=2.640 z=7.700
+click: x=-24.131 y=2.640 z=7.700
+click: x=-24.131 y=2.640 z=-7.700
+click: x=-25.233 y=2.640 z=7.700
+click: x=-25.233 y=2.640 z=-7.700
+click: x=-40.635 y=2.640 z=7.700
+click: x=-43.381 y=2.640 z=10.450
+click: x=-27.981 y=2.640 z=10.450
+click: x=-29.081 y=2.640 z=-2.754
+click: x=-27.981 y=2.640 z=-4.954
+click: x=-27.981 y=2.640 z=-10.444
+click: x=-44.481 y=2.640 z=1.655
+click: x=-43.381 y=2.640 z=4.952
+click: x=-27.981 y=2.640 z=4.952
+click: x=-46.128 y=2.640 z=7.700
+click: x=-30.731 y=2.640 z=7.700
+click: x=-30.731 y=2.640 z=-7.700
+click: x=-42.836 y=2.640 z=-3.855

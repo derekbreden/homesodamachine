@@ -4,6 +4,6 @@ One low-force tee carrier with an additive print-bottom chamfer tangent to the r
 
 H2C job 1292379739 is started. Native estimate: 1 hour 46 minutes, 140 layers. Black PET-GF uses the left 0.4 mm nozzle. Requested bed trim +0.18 mm; emitted textured-plate trim +0.16 mm.
 
-Geometry is one watertight solid. The added material stays inside the receiver crossing through the full release/insertion range. Native extrusion checks cover every bottom-band transition, the first-to-second-layer overlap, the complete fine top band and emitted wall counts. No sampled outer-wall centreline falls outside the preceding layer in the bottom band. Physical surface finish and sliding fit remain pending.
+Geometry is one watertight solid. The added material stays inside the receiver crossing through the full release/insertion range. Native extrusion checks cover every bottom-band transition, the first-to-second-layer overlap, the complete fine top band and emitted wall counts. No sampled outer-wall centreline falls outside the preceding layer in the bottom band. The print-bottom surface is physically accepted. Sliding fit and spring return remain unreported.
 
 ![Added material in the print-bottom section](bottom-profile.png)

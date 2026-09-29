@@ -1,0 +1,19 @@
+/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/geometry_lint.py:110: RuntimeWarning: invalid value encountered in divide
+  u /= np.linalg.norm(u)
+enclosure-front-bottom.stl · 365282 printed facets · 3 findings · 5 answered
+
+  [sliver] nan mm strip, nan mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
+    face: plane · n x=0.000 y=0.000 z=0.000 · thru x=105.050 y=179.450 z=29.233
+    edge: x=nan y=nan z=nan → x=nan y=nan z=nan · len nan · straight · dir x=nan y=nan z=nan
+    click: x=105.050 y=179.450 z=29.233
+
+  [ceiling] 348 mm² flat print-down face at z=29.250 · 32.6 × 17.0 mm · open to the bed (35.2 mm up)
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-99.000 y=196.275 z=29.250
+    click: x=-99.000 y=196.275 z=29.250
+
+  [ceiling] 299 mm² flat print-down face at z=29.250 · 32.6 × 14.5 mm · open to the bed (35.2 mm up)
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=97.763 y=196.260 z=29.250
+    click: x=97.763 y=196.260 z=29.250

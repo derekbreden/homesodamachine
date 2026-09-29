@@ -1,0 +1,105 @@
+{
+  "pass": true,
+  "printer": "Mark2",
+  "native_archive": ".cache/prints/2026-09-29-nameplate-flat-wings-mark2-v1/ready/nameplate-flat-wings-z004-mark2-v1.gcode.3mf",
+  "native_archive_sha256": "bee0b8c02dffb7efe8df62bb3179eb3b9038b167788e874c9cc730700a26a119",
+  "gcode_sha256": "13484ef0023af75ae8b963bc726a73ec11f015da8bf00cd416dda4f51f685a0e",
+  "source_hashes_current": true,
+  "layers": [
+    [
+      0.2,
+      0.2
+    ],
+    [
+      0.48,
+      0.28
+    ],
+    [
+      0.72,
+      0.24
+    ],
+    [
+      0.96,
+      0.24
+    ],
+    [
+      1.2,
+      0.24
+    ],
+    [
+      1.44,
+      0.24
+    ],
+    [
+      1.68,
+      0.24
+    ],
+    [
+      1.92,
+      0.24
+    ],
+    [
+      2.16,
+      0.24
+    ],
+    [
+      2.4,
+      0.24
+    ],
+    [
+      2.64,
+      0.24
+    ],
+    [
+      2.88,
+      0.24
+    ]
+  ],
+  "support_paths": 0,
+  "wing_checks": [
+    {
+      "print_z_mm": 0.2,
+      "both_wing_midpoints_covered": [
+        true,
+        true
+      ]
+    },
+    {
+      "print_z_mm": 1.2,
+      "both_wing_midpoints_covered": [
+        true,
+        true
+      ]
+    },
+    {
+      "print_z_mm": 1.44,
+      "both_wing_midpoints_covered": [
+        false,
+        false
+      ]
+    }
+  ],
+  "raised_artwork_checks": [
+    {
+      "print_z_mm": 2.64,
+      "white_paths_by_region": {
+        "logo_and_drop": 820,
+        "lettering": 892,
+        "qr": 524
+      }
+    },
+    {
+      "print_z_mm": 2.88,
+      "white_paths_by_region": {
+        "logo_and_drop": 290,
+        "lettering": 906,
+        "qr": 513
+      }
+    }
+  ],
+  "artwork_rise_mm": 0.48,
+  "estimated_seconds": 1808.37646484375,
+  "submitted": false,
+  "launch_hold": "Await the Mark2 registration coupon result; this uncorrected slice is a geometry review.",
+  "physical_qualification": "Insertion, shake retention, flatness, colour registration and QR scanning pending."
+}

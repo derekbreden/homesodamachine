@@ -1,0 +1,38 @@
+{
+  "pass": true,
+  "printer": "H2C",
+  "native_archive": ".cache/prints/2026-09-29-nameplate-flat-wing-receiver-h2c-v1/ready/nameplate-flat-wing-receiver-z018-h2c-v1.gcode.3mf",
+  "native_archive_sha256": "833a9c7d485951946d116e0fabde575c96c5f7edca3d02b82e117df46640f00c",
+  "gcode_sha256": "8090f62787241ca3998b3938eb7ecef55d2de406061a93fd5077f8c3c4086326",
+  "source_hashes_current": true,
+  "model_layers": 192,
+  "independent_support_layers": true,
+  "emitted_z_trim_mm": [
+    0.0,
+    0.16
+  ],
+  "slot_support_clearance_checks": [
+    {
+      "side": "left",
+      "sum_of_support_bead_intersection_areas_mm2": 0.0
+    },
+    {
+      "side": "right",
+      "sum_of_support_bead_intersection_areas_mm2": 0.0
+    }
+  ],
+  "support_summary": {
+    "support_bodies": 3,
+    "interface_islands": null,
+    "bed_rooted_bodies": 2,
+    "model_rooted_bodies": 1,
+    "shortest_build_up_mm": null,
+    "bodies_without_interface_labels": 2,
+    "explicit_interface_islands": 4,
+    "shortest_labelled_build_up_mm": 0.0
+  },
+  "support_removal": "Physical trial pending; front-access lane verified.",
+  "estimated_seconds": 2081.707763671875,
+  "estimated_grams_saved_profile_density": 20.98014259338379,
+  "submitted": false
+}

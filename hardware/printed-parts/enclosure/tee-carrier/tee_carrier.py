@@ -261,7 +261,7 @@ def _column(c: Carrier, side):
     return column.fillet(c.show_edge_r, edges)
 
 
-def _plate_body(c: Carrier):
+def _plate_body(c: Carrier, *, filled_bottom=True):
     """The plate between the columns, with a trough at each tee and a tie slot at each of its
     edges for each tie band, and a column at each end."""
     (y0, y1), (z0, z1) = c.plate_y, c.plate_z
@@ -276,6 +276,11 @@ def _plate_body(c: Carrier):
                 body = body.cut(_box(cx - sx / 2.0, cx + sx / 2.0, y0 - 1.0, y1 + 1.0,
                                      tz - sz / 2.0, tz + sz / 2.0))
     body = body.fuse(_column(c, -1.0), _column(c, 1.0))
+    if filled_bottom:
+        from overhang_round import three_side_fill
+        plane=cq.Plane(origin=(0,c.column_y[1],0),xDir=(1,0,0),normal=(0,-1,0))
+        fill=three_side_fill(*c.column_x,*c.column_z,c.show_edge_r,plane)
+        body=body.fuse(fill,fill.mirror('YZ'))
     by0, by1 = c.spring_bore_y
     for side in (-1.0, 1.0):
         for z in c.spring_zs:
@@ -285,8 +290,8 @@ def _plate_body(c: Carrier):
     return body.clean()
 
 
-def build_plate(c: Carrier):
-    return cq.Workplane(obj=_plate_body(c))
+def build_plate(c: Carrier, *, filled_bottom=True):
+    return cq.Workplane(obj=_plate_body(c,filled_bottom=filled_bottom))
 
 
 def _post(c: Carrier):

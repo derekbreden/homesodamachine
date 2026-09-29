@@ -1,0 +1,28 @@
+{
+  "job_id": "1294244805",
+  "subtask_name": "nameplate-flat-wing-receiver-z018-h2c-v1.gcode.3mf",
+  "gcode_state": "RUNNING",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 327,
+  "mc_remaining_time": 34,
+  "bed_target_temper": 24.0,
+  "observed_at": "2026-09-29T20:19:04.781772+00:00",
+  "printer": "H2C",
+  "submitted": true,
+  "native_archive_sha256": "833a9c7d485951946d116e0fabde575c96c5f7edca3d02b82e117df46640f00c",
+  "gcode_sha256": "8090f62787241ca3998b3938eb7ecef55d2de406061a93fd5077f8c3c4086326",
+  "launch_options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "physical_spools": {
+    "left": "Black PET-GF external 254"
+  },
+  "bed_clear_confirmation": "Derek confirmed both beds clear in this turn",
+  "send_click_after_utc": "2026-09-29T20:18:10Z",
+  "minimum_spacing_from_Mark2_acceptance_observation_seconds": 248.9
+}

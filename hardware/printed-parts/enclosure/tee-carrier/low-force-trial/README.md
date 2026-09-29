@@ -7,8 +7,11 @@ travel retain their positions. Overall dimensions are unchanged.
 
 The carrier opening reference is the retained front-top STL for H2C job 1277245499
 (`2026-09-23-enclosure-front-top-h2c-v13`). This trial does not change that opening.
-[Geometry checks](geometry-check.json) bind the trial to that mesh and verify the
-opening, spring stations, release travel and valid print solid.
+[Geometry checks](geometry-check.json) record the printed trial and its reference
+mesh. The generator separately compares the current opening cutter to frozen
+opening coordinates from that reference; it does not require the entire current
+front-top mesh to match. Spring stations, release travel and the print solid are
+checked independently.
 
 This tests **low-force clearance for rough overhang surfaces involved** at the carrier's
 upper sliding contact. The supported front-top roof's physical finish determines the
@@ -31,8 +34,8 @@ overlap, the complete bottom transition, and emitted wall count. No other parts
 share the plate.
 
 `low_force_trial.py` generates the geometry; `prepare_print.py` prepares and natively
-slices the H2C job. Physical fit is pending.
+slices the H2C job. The print-bottom surface is physically accepted; sliding fit is pending.
 
-Native H2C job 1292379739 is started: 140 layers, approximately 1 hour
-46 minutes. The [slice review](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-tee-chamfer-h2c-v6/README.md) retains the geometry,
+The accepted surface comes from H2C job 1292379739: 140 layers, estimated at
+1 hour 46 minutes. The [slice review](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-tee-chamfer-h2c-v6/README.md) retains the geometry,
 layer-overlap checks, wall counts and launch receipt.

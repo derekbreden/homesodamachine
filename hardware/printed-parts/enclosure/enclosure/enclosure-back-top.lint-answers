@@ -112,3 +112,8 @@ click: x=0.000 y=232.625 z=349.000
 [ceiling] The ASSE anchor's web between its tie cavity and the V ends in a flat top over the tie channel's span. The loop needs that span open above it, so no column carries it. Its support stands on the ceiling slab inside the tie channel and leaves into the chain's own pocket.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-91.207 y=378.510 z=345.211
+
+[sliver] These collinear STL triangles have exactly zero area and zero normal. Their strip dimensions are undefined; they do not represent a thin wall. The unmodified print mesh is watertight and consistently wound. The native STEP has no face below 0.00001 square mm. See overhang-treatment/geometry-check.json for facet measurements.
+click: x=-106.867 y=331.567 z=351.683
+click: x=107.455 y=200.004 z=349.730
+click: x=106.867 y=331.567 z=351.683

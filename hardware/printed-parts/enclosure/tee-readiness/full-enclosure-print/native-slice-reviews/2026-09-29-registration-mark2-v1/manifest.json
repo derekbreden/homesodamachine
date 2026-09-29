@@ -1,0 +1,40 @@
+{
+  "printer": "Mark2",
+  "title": "Two-nozzle XY alignment coupon",
+  "status": "startup_failed_before_layer_1",
+  "submitted": true,
+  "printer_task_id": "1294234201",
+  "native_archive": ".cache/prints/2026-09-29-registration-mark2-v1/ready/registration-z004-mark2-v1.gcode.3mf",
+  "native_archive_sha256": "ed6d574e7bbe483c007e66354ec7c041d8690aca81843eb971ac3a6d0e40ad35",
+  "gcode_sha256": "b85fea9c621e152246041a36f44adc5b0fe1fa47ef659716a7e66c57d4ddd82c",
+  "estimated_seconds": 820.6586303710938,
+  "estimated_grams_saved_profile_density": 5.5699944868683815,
+  "source_geometry_and_settings_sha256": {
+    "hardware/printed-parts/calibration/dual-nozzle-registration/registration.py": "0e6932ed32eab5cc4179567c41a389604ea4b825557ee453bb77389eed50c83e",
+    "hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.step": "60975cf85bfb648a2ecac0d2e6c2b8d72927ff16e79de9aa0c0940008d22f3eb",
+    "hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.stl": "986c7b7b7291e820afe037e4d4e3e664c62f10680da3a3230613d881f5d30895",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf": "84c5011c0be15dd9aab41a516abe85bf99b08e2c80d91375b5f2608a96bc0e72",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "hardware/printed-parts/calibration/dual-nozzle-registration/geometry-check.json": "15e80688e5550c3d05dbf1dafb4bd034161f047042915664717ef38d0741c7f3",
+    "hardware/printed-parts/calibration/dual-nozzle-registration/prepare_print.py": "ce68b72e8bb57fbaaf6e871b45f398284a353827f4e2f5618f531060f3ecb8b8"
+  },
+  "physical_qualification": "Pending",
+  "verification": "verification.json",
+  "geometry_check": "geometry-check.json",
+  "launch_record": "launch.json",
+  "review_sha256": {
+    "README.md": "5f6068208eb0fe2ae9d47d75222cf4fafd6154e604e9ff69fafe2cd067c35d8d",
+    "coplanar-paths.png": "a9831ffc39b3efb5589e46d3c62a1179e48eb9504ecad50a3ce60ac54fff7fe8",
+    "effective-settings.json": "ad3efb4e0e21e8c3867061ce8f3c58a149bd2116796283b419595d14b66a1031",
+    "geometry-check.json": "15e80688e5550c3d05dbf1dafb4bd034161f047042915664717ef38d0741c7f3",
+    "last-status.json": "a2a235c1960fabc89415522249fbe17eaecfed6eeef07de5ea79a91018ad4793",
+    "launch.json": "b390fb221085a91a77151c32ba1472ff34f8df8e2c1de10179c50a2ef464afd1",
+    "postlaunch.json": "09274b69fa9e3e6531c762402a82bf0496cff75e11eefbdd5155cf1760de2413",
+    "preparation.json": "86693a168fefd662f219aa1b81d3c633a3d904b8c890c774ab18938194be2beb",
+    "preview.png": "5d9d8b5d3ebbb64a9197f172e6c64dbf14a61604a8c56713ecb94f73917db991",
+    "slice-command.json": "7e02331b78075d3cbc9784dc35fb353d9b3faf5241627e1e834874ccf4edbb33",
+    "slice-result.json": "933c21298604e0ec9b6f2dafa863c14b71a6580ac6cfbd7ae2d52532d422362c",
+    "startup-fault.json": "b2b169c592653d1e71f1a9aa6021ad69aea8e8f2f4f7eae27e4eeaa7dfbc7284",
+    "verification.json": "b2b1e12efb37b8815efdb9ce5a0fa98e34a31a5dc003a4e1f7d31ea894d760ce"
+  }
+}

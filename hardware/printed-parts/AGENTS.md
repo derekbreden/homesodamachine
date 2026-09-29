@@ -45,18 +45,20 @@ settles whether what somebody saw in the viewer was there.
 Every printable piece in the enclosure assembly follows **Support-removal strategy** in
 [`enclosure/enclosure/README.md`](enclosure/enclosure/README.md#support-removal-strategy).
 
-Use a 0.20 mm first bed layer. Above that layer, user-visible top/bottom rounds print
-at 0.08 mm through the entire remaining curve, without supports contacting those rounded
-surfaces. Derek's tee-carrier print is the physical example:
+Use a 0.20 mm first bed layer and normal 0.24 mm layers above it. Expanding
+print-down show rounds use an additive chamfer tangent to their retained taper,
+following `cadlib/overhang_round.py`: 0.5 mm outward per millimetre of build rise.
+Use six walls locally through that transition band, saved speeds and wall-first order,
+15% infill/wall overlap, and no supports on that exterior transition. Derek's accepted
+tee-carrier surface is recorded in
 [`enclosure/tee-carrier/physical-acceptance.json`](enclosure/tee-carrier/physical-acceptance.json).
-Apply this to other parts, including back-top's roof edges. Use face-specific support blockers
-where other features still need supports, and inspect emitted support paths, including short
-bodies without interface labels. A fine layer band alone does not exclude supports.
 
-The tee-carrier low-force trial has an explicit print-bottom exception: a filled
-chamfer/taper uses normal 0.24 mm layers above the 0.20 mm first layer, six walls
-through the lower band, and no supports. Its top rounds retain 0.08 mm layers.
-See `enclosure/tee-carrier/low-force-trial/README.md` for the geometry and checks.
+Retain 0.08 mm for inward/top show rounds. Functional flat lifting ceilings, sliding
+seats and retention bearings keep their required shape and receive accessible supports
+where needed. Check emitted first/second-layer bead overlap and support contacts;
+small bodies without interface labels count. A fine layer band alone excludes no support.
+Other parts using the shared geometry still require their own native slice and physical
+surface check before claiming the tee result transfers to them.
 
 ## Filament use
 

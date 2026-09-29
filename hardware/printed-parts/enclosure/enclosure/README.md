@@ -706,19 +706,23 @@ different places to start. On back-top the cavity opens away from the bed: the c
 interior face is the root every interior support has, a hidden flat the piece lays down in its
 own first layers. The audit records that root as model material.
 
-**Visible rounds at 0.08 mm print without support contacts.** This includes the tee carrier's
-end rounds, back-top's roof side edges and the corresponding visible top/bottom rounds on
-other parts. Use a 0.20 mm first bed layer, then 0.08 mm through the remaining curve
-and 0.24 mm elsewhere. Exclude supports on those faces with
-painted blockers when the part has other supported features. Verify the emitted support
-paths; small bodies without a `Support interface` label count too. The
-[tee-carrier physical record](../tee-carrier/physical-acceptance.json) documents bottom-edge
-retreat and residual concavity. Retain the original wall-first order, speeds and 15% overlap.
-The [low-force carrier trial](../tee-carrier/low-force-trial/README.md) has an explicit
-bottom exception: an additive chamfer tangent to the retained taper uses 0.24 mm layers
-above the 0.20 mm first layer, with six walls through print Z 6.1 mm and no supports.
-Its complete top R6 uses 0.08 mm. The new bottom geometry's physical surface and fit
-are pending validation; the fan-off carrier configuration is rejected.
+**Expanding print-down show rounds use an additive chamfer/taper at 0.24 mm.**
+The shared construction in `../../cadlib/overhang_round.py` fills the lower corner
+inside its unrounded envelope, with a 0.5 outward/build-rise slope tangent to the
+retained circular taper. R6 has a 3.317 mm straight transition and a 2.292 mm initial
+inset; each 0.24 mm layer advances at most 0.12 mm on that section. It applies to
+the tee carrier, enclosure hand-pocket upper rims, pump-cartridge hand-pocket
+upper rims, roof side edges and the ASSE drip-pan pull's lower exterior rim.
+Flat lifting ceilings and mating planes keep their required dimensions.
+
+Use a 0.20 mm first bed layer, six walls locally through the expanding band,
+and the saved wall-first order, speeds and 15% overlap. Keep support contacts off
+those transitions. **Inward/top show rounds retain 0.08 mm**, including the carrier's
+complete top R6. The [carrier physical record](../tee-carrier/physical-acceptance.json)
+qualifies the chamfer/taper's surface; sliding fit and the other parts' physical
+surfaces remain separate checks. Each fresh slice must verify first/second-layer
+bead overlap and absence of support contacts on the show transitions, including
+short support bodies without an interface label.
 
 The face a feature works through keeps the shape its work requires, and support carries it.
 The C14 inlet's flange pocket keeps its floor, because that floor is what the receptacle lands

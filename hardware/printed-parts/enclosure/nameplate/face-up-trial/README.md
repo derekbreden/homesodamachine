@@ -9,11 +9,7 @@ receiver coupon.
 Mark2 uses black PET-GF on its left 0.4 mm hotend and white PET-GF on its right
 0.4 mm hotend. The hook tips sit on the bed. Black normal supports with the Snug
 style carry the plate back. The angled insertion noses build upward from the hook
-tips. Support contacts are accessible
-from the plate's open edges: separate the connected support mat, withdraw its
-central region along the 38 mm plate axis between the leaves, and peel the outer
-strips toward the short ends. Remove
-all supports before fitting; preserve the leaf roots and the square catches.
+tips. Physical support removal is rejected: material between the catches and the plate back is trapped and does not withdraw as one mat. The plate visibly warps before removal. The raised relief of the lettering, logo/drop and QR is accepted. Relative colour alignment is not accepted; the white print is visibly displaced from its black cavities. The [horizontal-wing trial](../horizontal-wing-trial/README.md) carries the face-up design forward without plate supports.
 
 The first layer is 0.20 mm, with 0.24 mm model layers except two short alignment
 layers: 0.12 mm at Z 3.08–3.20 mm and 0.13 mm at Z 8.00–8.13 mm.
@@ -26,7 +22,7 @@ layers, 0.50 mm interface spacing and a 0.45 mm top Z gap. This orientation uses
 normal Snug supports, 0.80 mm nominal XY separation, 0.45 mm bottom Z separation
 above the catches, and a separate 0.50 mm first-layer gap. Both support material
 assignments select black and flushing into supports is disabled. Requested Mark2
-bed trim is +0.04 mm. Support removal and physical surface quality require testing.
+bed trim is +0.04 mm. Support removal and plate flatness are rejected; raised-artwork relief is accepted, with colour registration pending.
 
 The verified native slice has 70 layers and estimates 61 minutes. Its final rear
 interface is at Z 13.17 mm, providing 0.48 mm separation below the plate back.

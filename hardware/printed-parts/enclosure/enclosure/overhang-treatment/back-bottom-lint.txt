@@ -1,0 +1,26 @@
+[build] a manual build is already running (pid 85142, verify_geometry.py, 36s in) — waiting up to 900s for it rather than stopping it. HSM_BUILD_SUPERSEDE=1 stops it instead (0/no/false queue).
+/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/geometry_lint.py:110: RuntimeWarning: invalid value encountered in divide
+  u /= np.linalg.norm(u)
+enclosure-back-bottom.stl · 1430392 printed facets · 4 findings · 153 answered
+
+  [sliver] nan mm strip, nan mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
+    face: plane · n x=0.000 y=0.000 z=0.000 · thru x=105.115 y=248.252 z=29.248
+    edge: x=nan y=nan z=nan → x=nan y=nan z=nan · len nan · straight · dir x=nan y=nan z=nan
+    click: x=105.115 y=248.252 z=29.248
+
+  [sliver] nan mm strip, nan mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
+    face: plane · n x=0.000 y=0.000 z=0.000 · thru x=104.988 y=248.546 z=29.232
+    edge: x=nan y=nan z=nan → x=nan y=nan z=nan · len nan · straight · dir x=nan y=nan z=nan
+    click: x=104.988 y=248.546 z=29.232
+
+  [ceiling] 608 mm² flat print-down face at z=29.251 · 48.0 × 14.0 mm · open to the bed (35.3 mm up)
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-100.500 y=224.000 z=29.251
+    click: x=-100.500 y=224.000 z=29.251
+
+  [ceiling] 489 mm² flat print-down face at z=29.251 · 48.0 × 11.5 mm · open to the bed (35.3 mm up)
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=99.263 y=224.009 z=29.251
+    click: x=99.263 y=224.009 z=29.251

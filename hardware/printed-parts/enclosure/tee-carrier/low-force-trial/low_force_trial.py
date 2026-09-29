@@ -62,20 +62,25 @@ def aft_section(c, height, inset):
 
 
 def build_print_body(c):
-    original = carrier.build_plate(c).val()
-    height, inset = bottom_transition(c)
-    fill = cq.Solid.makeLoft([aft_section(c,0,inset),
-                             aft_section(c,height,inset-BOTTOM_OUTWARD_PER_HEIGHT*height)],ruled=True)
-    return original.fuse(fill,fill.mirror('YZ')).clean()
+    return carrier.build_plate(c).val()
 
 
 def main():
     base, trial = specifications()
     front = ROOT/'hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl'
-    assert hashlib.sha256(front.read_bytes()).hexdigest() == PRINTED_FRONT_TOP_SHA256
+    # Compatibility is with the printed carrier opening, not every surface of
+    # the enclosure. Its roof/show geometry can change independently.
+    reference = carrier._box(-108.5,108.5,93.836,129.186,164.674,207.674).fuse(
+        carrier._box(-108.5,108.5,106.632,128.186,164.674,224.796),
+        carrier._box(-108.5,-98.5,93.836,129.186,164.674,224.796),
+        carrier._box(98.5,108.5,93.836,129.186,164.674,224.796)).clean()
+    actual_opening = carrier.opening(base)
+    reference_delta = (abs(reference.cut(actual_opening).Volume())
+                       + abs(actual_opening.cut(reference).Volume()))
+    assert reference_delta < 1e-6, reference_delta
     enclosure, _ = carrier._enclosure_box()
     body = build_print_body(trial)
-    original = carrier.build_plate(trial).val()
+    original = carrier.build_plate(trial,filled_bottom=False).val()
     assert body.isValid() and len(body.Solids()) == 1
     opening_delta = carrier.opening(trial).cut(carrier.opening(base)).Volume() + carrier.opening(base).cut(carrier.opening(trial)).Volume()
     assert abs(opening_delta) < 1e-6
@@ -119,6 +124,8 @@ def main():
               'unchanged_overall_bounds':True,'top_print_round_unchanged':True,
               'preserved_dimensions':{k:getattr(trial,k) for k in retained},
               'front_top_stl_sha256':PRINTED_FRONT_TOP_SHA256,
+              'printed_opening_reference_delta_mm3':reference_delta,
+              'current_front_top_stl_sha256':hashlib.sha256(front.read_bytes()).hexdigest(),
               'front_top_print':'2026-09-23-enclosure-front-top-h2c-v13, task 1277245499',
               'one_valid_solid':True,'watertight_print_mesh':True,
               'release_travel_mm':carrier.release_travel(),

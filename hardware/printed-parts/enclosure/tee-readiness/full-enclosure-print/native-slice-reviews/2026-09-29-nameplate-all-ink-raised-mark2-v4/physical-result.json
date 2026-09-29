@@ -1,0 +1,12 @@
+{
+  "date": "2026-09-29",
+  "source": "User physical inspection in this thread",
+  "result": {
+    "raised_artwork": "Accepted: lettering, logo and QR appearance turned out great.",
+    "flatness": "Rejected: visible warping before support removal.",
+    "support_removal": "Rejected: support material trapped between hooks and plate back; difficult to remove in one piece.",
+    "physical_qr_scan": "Not reported.",
+    "direction": "Face-up plate with flat coplanar side wings and matching receiver slots.",
+    "xy_registration": "Not accepted: user reports white displaced down/right in the photograph relative to black cavities. Magnitude and printer-axis direction are unmeasured; coplanar alignment coupon pending."
+  }
+}

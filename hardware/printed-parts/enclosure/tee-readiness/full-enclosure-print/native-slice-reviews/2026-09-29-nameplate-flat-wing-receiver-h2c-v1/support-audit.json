@@ -1,0 +1,221 @@
+{
+  "schema": 1,
+  "piece": "nameplate-flat-wing-receiver",
+  "inputs": {
+    "gcode": "plate_1.gcode",
+    "gcode_sha256": "8090f62787241ca3998b3938eb7ecef55d2de406061a93fd5077f8c3c4086326",
+    "model": null,
+    "model_sha256": null,
+    "profile": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-29-nameplate-flat-wing-receiver-h2c-v1/nameplate-flat-wing-receiver-z018-h2c-v1-input.3mf",
+    "profile_sha256": "fcfec2f4066f9554a58a93bcce53cadce3ae5a2b70600a902168fe151198fbc7"
+  },
+  "slicer": "BambuStudio 02.08.02.61",
+  "first_layer_z_mm": 0.2,
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      -1.0,
+      0.0,
+      0.0,
+      0.0,
+      -1.0,
+      -162.5,
+      159.400000095,
+      23.0
+    ]
+  },
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.45",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.8",
+    "support_on_build_plate_only": "0",
+    "support_style": "snug",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.45",
+    "support_type": "normal(auto)"
+  },
+  "summary": {
+    "support_bodies": 3,
+    "interface_islands": null,
+    "bed_rooted_bodies": 2,
+    "model_rooted_bodies": 1,
+    "shortest_build_up_mm": null,
+    "bodies_without_interface_labels": 2,
+    "explicit_interface_islands": 4,
+    "shortest_labelled_build_up_mm": 0.0
+  },
+  "trees": [
+    {
+      "id": "tree-1",
+      "root": "bed",
+      "base_z_mm": 0.2,
+      "first_interface_z_mm": null,
+      "shortest_build_up_mm": null,
+      "top_z_mm": 0.2,
+      "bbox_xy_mm": [
+        104.8,
+        160.8,
+        109.6,
+        162.8
+      ],
+      "interfaces": [],
+      "interface_reading": "unlabelled",
+      "bbox_cad_xyz_mm": [
+        -57.7,
+        -3.4,
+        22.8,
+        -52.9,
+        -1.4,
+        22.8
+      ]
+    },
+    {
+      "id": "tree-2",
+      "root": "model",
+      "base_z_mm": 4.49,
+      "first_interface_z_mm": 4.49,
+      "shortest_build_up_mm": 0.0,
+      "top_z_mm": 41.75,
+      "bbox_xy_mm": [
+        111.2,
+        156.8,
+        214.0,
+        158.4
+      ],
+      "interfaces": [
+        "interface-1",
+        "interface-2",
+        "interface-3",
+        "interface-4"
+      ],
+      "interface_reading": "explicit_feature",
+      "bbox_cad_xyz_mm": [
+        -51.3,
+        1.0,
+        -18.75,
+        51.5,
+        2.6,
+        18.51
+      ]
+    },
+    {
+      "id": "tree-3",
+      "root": "bed",
+      "base_z_mm": 0.2,
+      "first_interface_z_mm": null,
+      "shortest_build_up_mm": null,
+      "top_z_mm": 0.2,
+      "bbox_xy_mm": [
+        215.2,
+        160.8,
+        220.4,
+        162.8
+      ],
+      "interfaces": [],
+      "interface_reading": "unlabelled",
+      "bbox_cad_xyz_mm": [
+        52.7,
+        -3.4,
+        22.8,
+        57.9,
+        -1.4,
+        22.8
+      ]
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "interface-1",
+      "first_z_mm": 4.49,
+      "last_z_mm": 6.17,
+      "bbox_xy_mm": [
+        111.2,
+        156.8,
+        213.6,
+        158.4
+      ],
+      "tree": "tree-2",
+      "build_up_mm": 0.0,
+      "bbox_cad_xyz_mm": [
+        -51.3,
+        1.0,
+        16.83,
+        51.1,
+        2.6,
+        18.51
+      ]
+    },
+    {
+      "id": "interface-2",
+      "first_z_mm": 7.648,
+      "last_z_mm": 7.927,
+      "bbox_xy_mm": [
+        111.2,
+        157.6,
+        111.6,
+        158.4
+      ],
+      "tree": "tree-2",
+      "build_up_mm": 3.158,
+      "bbox_cad_xyz_mm": [
+        -51.3,
+        1.0,
+        15.073,
+        -50.9,
+        1.8,
+        15.352
+      ]
+    },
+    {
+      "id": "interface-3",
+      "first_z_mm": 7.648,
+      "last_z_mm": 7.927,
+      "bbox_xy_mm": [
+        213.2,
+        157.6,
+        214.0,
+        158.4
+      ],
+      "tree": "tree-2",
+      "build_up_mm": 3.158,
+      "bbox_cad_xyz_mm": [
+        50.7,
+        1.0,
+        15.073,
+        51.5,
+        1.8,
+        15.352
+      ]
+    },
+    {
+      "id": "interface-4",
+      "first_z_mm": 41.0,
+      "last_z_mm": 41.75,
+      "bbox_xy_mm": [
+        111.6,
+        157.2,
+        213.6,
+        158.4
+      ],
+      "tree": "tree-2",
+      "build_up_mm": 36.51,
+      "bbox_cad_xyz_mm": [
+        -50.9,
+        1.0,
+        -18.75,
+        51.1,
+        2.2,
+        -18.0
+      ]
+    }
+  ],
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+  "removal_access": "Central support exits outward through the open front before the plate is installed. No support bead enters either sideways wing slot. Two small bed-rooted bodies are exposed at the bottom corners.",
+  "physical_removal_tested": false
+}

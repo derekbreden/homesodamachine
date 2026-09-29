@@ -59,7 +59,14 @@ def silhouette(outer, rounded_box, vertical_radius):
                       or edge.BoundingBox().xmax <= x0 + vertical_radius + 1e-5)
                   and edge.BoundingBox().zmin >= p["foot"][1] - 1e-5
                   and edge.BoundingBox().ymin < y1 - 1.0]
-    return body.fillet(SIDE_RADIUS, side_edges).intersect(rounded_box).clean()
+    rounded = body.fillet(SIDE_RADIUS, side_edges).intersect(rounded_box).clean()
+    # Back-top beds on the exterior roof. Fill the steep beginning of that
+    # side-edge roll, preserving the standing corner envelope and the display
+    # sweep. The common silhouette keeps both halves coincident at their seam.
+    from overhang_round import rectangular_edge_fill
+    cap = rectangular_edge_fill(x0,x1,y0,y1,z1,SIDE_RADIUS)
+    cap = cap.intersect(body).intersect(rounded_box)
+    return rounded.fuse(cap).clean()
 
 
 def rounded_prism(width, depth, radius, z0, z1, cx=0.0, cy=0.0):

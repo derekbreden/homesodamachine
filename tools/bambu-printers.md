@@ -46,6 +46,22 @@ external-spool mapping. Derek's display confirms a Standard Hardened 0.4 mm left
 hotend and a Standard Stainless 0.2 mm right hotend; selecting Ext PET-CF enables
 the reviewed 0.4 mm cover job without a nozzle mismatch.
 
+## Recorded two-nozzle alignment
+
+Mark2's black/white PET-GF pair uses the
+[coplanar registration coupon](../hardware/printed-parts/calibration/dual-nozzle-registration/README.md)
+to measure residual XY alignment. Both hotends are 0.4 mm. Record the exact job,
+native archive, launch settings, selected X/Y indices, coordinate correction and
+validation result. The correction is printer/nozzle-pair specific; keep the CAD
+artwork aligned. The measurement state is in `mark2-registration.json` beside
+the coupon source and is currently unmeasured.
+
+The coupon's normal Nozzle Offset Calibration option is explicitly **On** in
+Bambu Connect. A failure requires resolving the reported cause before a retry;
+changing this setting changes the measurement reference. The procedure does not
+depend on touchscreen-managed high-precision calibration. A replacement hotend
+or changed calibration condition requires a new alignment check.
+
 ## Power-loss recovery
 
 On 2026-09-25 Derek reported accidentally unplugging both printers by tripping on

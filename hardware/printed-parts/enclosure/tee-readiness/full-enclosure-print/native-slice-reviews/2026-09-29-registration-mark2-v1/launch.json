@@ -1,0 +1,29 @@
+{
+  "job_id": "1294234201",
+  "subtask_name": "registration-z004-mark2-v1.gcode.3mf",
+  "gcode_state": "RUNNING",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 6,
+  "mc_remaining_time": 13,
+  "bed_target_temper": 24.0,
+  "observed_at": "2026-09-29T20:14:01.069689+00:00",
+  "printer": "Mark2",
+  "submitted": true,
+  "native_archive_sha256": "ed6d574e7bbe483c007e66354ec7c041d8690aca81843eb971ac3a6d0e40ad35",
+  "gcode_sha256": "b85fea9c621e152246041a36f44adc5b0fe1fa47ef659716a7e66c57d4ddd82c",
+  "launch_options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "On"
+  },
+  "physical_spools": {
+    "left": "Black PET-GF external 254",
+    "right": "White PET-GF external 255"
+  },
+  "bed_clear_confirmation": "Derek confirmed both beds clear in this turn",
+  "send_click_after_utc": "2026-09-29T20:13:39Z",
+  "startup_spacing_reference_utc": "2026-09-29T20:14:01.069689+00:00"
+}

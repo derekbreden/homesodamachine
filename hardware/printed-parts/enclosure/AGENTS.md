@@ -5,13 +5,15 @@ geometry, read **Support-removal strategy** in
 [`enclosure/README.md`](enclosure/README.md#support-removal-strategy). Feature comments
 describe their exact geometry; the README carries the policy.
 
-Use a 0.20 mm first bed layer, followed by 0.08 mm across visible top/bottom rounds.
-Those rounds print unsupported, including back-top's roof edges.
-The tee-carrier low-force trial explicitly uses an additive print-bottom
-chamfer/taper at 0.24 mm above the 0.20 mm first layer; its top rounds remain
-0.08 mm. Follow `tee-carrier/low-force-trial/README.md` for that trial.
-Check emitted first-to-second-layer perimeter overlap on expanding bottom rounds;
-the 0.20-to-0.08 mm transition can require an attached first-layer brim. Verify the
-brim's actual connection and coverage, and remove it before evaluating fit.
-Retain supports for separate functional faces such as flat lifting ceilings and mounting
-seats. Check the actual slice for contacts on the rounded show faces before sending it.
+Use a 0.20 mm first bed layer, 0.24 mm on expanding print-down chamfer/tapers,
+and 0.08 mm on inward/top show rounds. The additive transition in
+`../cadlib/overhang_round.py` follows the accepted tee-carrier profile: 0.12 mm
+outward per 0.24 mm layer. Use six walls only in the relevant transition band,
+normal speeds, saved wall order and 15% overlap. See
+`tee-carrier/low-force-trial/README.md` for the physical reference.
+
+Check emitted first-to-second-layer bead overlap and keep supports off the exterior
+chamfer/taper and fine show rounds. Retain supports for separate functional faces
+such as flat lifting ceilings and mounting seats. Inspect short support bodies too.
+Each new part needs its own native slice review; one accepted carrier is not physical
+qualification of every grip or roof edge.

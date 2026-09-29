@@ -1,0 +1,3 @@
+/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/geometry_lint.py:110: RuntimeWarning: invalid value encountered in divide
+  u /= np.linalg.norm(u)
+enclosure-pump-cartridge.stl · 372480 printed facets · 0 findings · 4 answered

@@ -26,5 +26,8 @@ click: x=0.000 y=132.656 z=54.724
 
 [ceiling] The bottom handholds' flat lifting ceilings stand 35.25 mm above the standing underside, including the 0.25 mm supported-face allowance, with 12 mm of roof section above them. Fingers enter upward through the removed floor and bear against these faces. Each roof joins the opening's end walls, its blind inner wall and the seam jamb above it; slicer support reaches the ceiling directly from the bed through the open bottom.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
-click: x=-96.000 y=196.275 z=29.250
-click: x=96.000 y=196.275 z=29.250
+click: x=-99.000 y=196.275 z=29.250
+click: x=97.763 y=196.260 z=29.250
+
+[sliver] These STL triangles are collinear and have exactly zero area and zero normal. They add no surface or material thickness. The complete print mesh is watertight and consistently wound, and the native CAD solid has no face below 0.00001 mm2. The current facet measurements are recorded in overhang-treatment/geometry-check.json.
+click: x=105.050 y=179.450 z=29.233

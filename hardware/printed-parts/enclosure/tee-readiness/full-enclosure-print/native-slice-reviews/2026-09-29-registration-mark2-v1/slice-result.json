@@ -1,0 +1,75 @@
+{
+    "error_string": "Success.",
+    "export_time": 1807,
+    "layer_height": 0.23999999463558197,
+    "plate_index": 0,
+    "prepare_time": 300,
+    "return_code": 0,
+    "sliced_plates": [
+        {
+            "feature_type_times": {
+                "Bottom surface": 129.5325927734375,
+                "Custom": 305.86767578125,
+                "Flush": 40.0,
+                "Gap infill": 11.171701431274414,
+                "Inner wall": 9.577956199645996,
+                "Internal solid infill": 136.3352508544922,
+                "Outer wall": 25.386884689331055,
+                "Prime tower": 51.9338493347168,
+                "Top surface": 65.74031066894531,
+                "Travel": 54.998016357421875,
+                "Undefined": 45.10404968261719
+            },
+            "filament_change_times": 0,
+            "filaments": [
+                {
+                    "filament_id": "GFT01",
+                    "id": 1,
+                    "main_used_g": 5.143202781677246,
+                    "total_used_g": 5.447502136230469
+                },
+                {
+                    "filament_id": "GFT01",
+                    "id": 2,
+                    "main_used_g": 0.04339759424328804,
+                    "total_used_g": 0.12249235063791275
+                }
+            ],
+            "generate_support_material_time": 29,
+            "id": 1,
+            "infill_time": 160,
+            "layer_filament_change": 0,
+            "main_predication": 417.7510986328125,
+            "make_perimeters_time": 131,
+            "obj_cached_cnt": 0,
+            "objects": [
+                {
+                    "bbox": {
+                        "depth": 39.0,
+                        "height": 1.440000057220459,
+                        "width": 110.0,
+                        "x": 110.0,
+                        "y": 106.0,
+                        "z": 0.0
+                    },
+                    "id": 5,
+                    "name": "dual-nozzle-registration",
+                    "triangle_count": 243002
+                }
+            ],
+            "sliced_time": 555,
+            "sliced_time_with_cache": 203,
+            "total_predication": 820.6586303710938,
+            "triangle_count": 243002,
+            "warning_message": ""
+        }
+    ],
+    "sparse_infill_density": 15.0,
+    "upward_compatible_machine": [
+        "Bambu Lab H2S 0.4 nozzle",
+        "Bambu Lab H2D 0.4 nozzle",
+        "Bambu Lab H2D Pro 0.4 nozzle",
+        "Bambu Lab A2L 0.4 nozzle"
+    ],
+    "wall_loops": 2
+}
