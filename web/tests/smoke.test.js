@@ -97,6 +97,8 @@ const routes = [
   // real regression. Content-Type comes from express's mime db.
   { path: "/boot.js",             expect: 200, ct: "text/javascript" },
   { path: "/landing.js",          expect: 200, ct: "text/javascript" },
+  { path: "/cost.js",             expect: 200, ct: "text/javascript" },
+  { path: "/cost-recovery.js",    expect: 200, ct: "text/javascript" },
   { path: "/settings.js",         expect: 200, ct: "text/javascript" },
   { path: "/pan-zoom.js",         expect: 200, ct: "text/javascript" },
   { path: "/js/weld-position/main.js", expect: 200, ct: "text/javascript" },
