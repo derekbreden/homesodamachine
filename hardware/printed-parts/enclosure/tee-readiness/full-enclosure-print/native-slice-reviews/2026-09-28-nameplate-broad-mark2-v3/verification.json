@@ -1,0 +1,101 @@
+{
+  "pass": true,
+  "native_archive": ".cache/prints/2026-09-28-nameplate-broad-mark2-v3/ready/nameplate-broad-leaf-black-supports-z004-mark2-v3.gcode.3mf",
+  "native_archive_sha256": "05f192eaccc7e3b012da712b9762f1f10f0af79a3181b1a8a7861f76000721c2",
+  "gcode_sha256": "b983a0d6fabebb9e33ec7811e9a933b1e1b35b4a366e5d9f8617aed7eb492128",
+  "source_hashes_current": true,
+  "native_export_metadata_normalizations": {
+    "inherits_group": [
+      [
+        "0.24mm Standard @BBL H2C",
+        "Bambu PET-CF @BBL H2C",
+        "Bambu Lab H2C 0.4 nozzle",
+        "0.24mm Standard @BBL H2C",
+        "Bambu PET-CF @BBL H2C",
+        "Bambu Lab H2C 0.4 nozzle"
+      ],
+      [
+        "0.24mm Standard @BBL H2C",
+        "Bambu PET-CF @BBL H2C",
+        "Bambu Lab H2C 0.4 nozzle",
+        "0.24mm Standard @BBL H2C"
+      ]
+    ],
+    "different_settings_to_system": [
+      [
+        "enable_arc_fitting;enable_support;support_bottom_z_distance;support_line_width;support_object_xy_distance;support_top_z_distance",
+        "chamber_temperatures;compatible_printers;eng_plate_temp;eng_plate_temp_initial_layer;fan_max_speed;fan_min_speed;filament_cost;filament_max_volumetric_speed;hot_plate_temp;hot_plate_temp_initial_layer;nozzle_temperature;nozzle_temperature_initial_layer;nozzle_temperature_range_high;overhang_fan_speed;slow_down_min_speed;supertack_plate_temp;supertack_plate_temp_initial_layer;textured_plate_temp;textured_plate_temp_initial_layer",
+        "machine_start_gcode",
+        "enable_arc_fitting;enable_support;support_bottom_z_distance;support_line_width;support_object_xy_distance;support_top_z_distance",
+        "chamber_temperatures;compatible_printers;eng_plate_temp;eng_plate_temp_initial_layer;fan_max_speed;fan_min_speed;filament_cost;filament_max_volumetric_speed;hot_plate_temp;hot_plate_temp_initial_layer;nozzle_temperature;nozzle_temperature_initial_layer;nozzle_temperature_range_high;overhang_fan_speed;slow_down_min_speed;supertack_plate_temp;supertack_plate_temp_initial_layer;textured_plate_temp;textured_plate_temp_initial_layer",
+        "machine_start_gcode"
+      ],
+      [
+        "enable_arc_fitting;enable_support;support_bottom_z_distance;support_line_width;support_object_xy_distance;support_top_z_distance",
+        "chamber_temperatures;compatible_printers;eng_plate_temp;eng_plate_temp_initial_layer;fan_max_speed;fan_min_speed;filament_cost;filament_max_volumetric_speed;hot_plate_temp;hot_plate_temp_initial_layer;nozzle_temperature;nozzle_temperature_initial_layer;nozzle_temperature_range_high;overhang_fan_speed;slow_down_min_speed;supertack_plate_temp;supertack_plate_temp_initial_layer;textured_plate_temp;textured_plate_temp_initial_layer",
+        "machine_start_gcode",
+        "enable_arc_fitting;enable_support;support_bottom_z_distance;support_line_width;support_object_xy_distance;support_top_z_distance"
+      ]
+    ]
+  },
+  "other_settings_match_input": true,
+  "first_hook_layer_print_z_mm": 11.89,
+  "emitted_hook_bearing_bottom_z_mm": 11.65,
+  "white_artwork_layers_mm": [
+    0.2,
+    0.44,
+    0.68
+  ],
+  "all_supports_black_left": true,
+  "support_first_layer_emitted_gap_mm": 0.4720004392258801,
+  "receiver_reused": true,
+  "hook_support_contacts": [
+    {
+      "side": -1,
+      "span_mm": [
+        -15.802999999999997,
+        15.802999999999997
+      ],
+      "support_top_gap_mm": 0.2400000000000002
+    },
+    {
+      "side": 1,
+      "span_mm": [
+        -15.802999999999997,
+        15.802999999999997
+      ],
+      "support_top_gap_mm": 0.2400000000000002
+    }
+  ],
+  "support_summary": {
+    "support_bodies": 2,
+    "interface_islands": 2,
+    "bed_rooted_bodies": 2,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 10.97,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 2,
+    "shortest_labelled_build_up_mm": 10.97
+  },
+  "model_and_support_bounds_xy_mm": {
+    "2303": [
+      [
+        104.385,
+        97.384
+      ],
+      [
+        223.736,
+        276.274
+      ]
+    ]
+  },
+  "emitted_z_trim_mm": [
+    0.0,
+    0.02
+  ],
+  "estimated_seconds": 2321.2099609375,
+  "estimated_grams_saved_profile_density": 13.655569851398468,
+  "layer_count": 67,
+  "printer": "Mark2",
+  "submitted": false
+}

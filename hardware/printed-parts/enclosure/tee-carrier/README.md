@@ -50,8 +50,9 @@ face is smooth within its rounded edges.
 The plate prints lying on its back, troughs open upward; the columns stand out in the plane of
 the bed, and their aft shoulders rise off it.
 
-The plate prints without supports. Its visible end rounds use 0.08 mm layers through their
-full height, including the first layer, and the remaining height uses 0.24 mm.
+The plate prints without supports. Its first bed layer is 0.20 mm. Above that layer,
+the visible end rounds use 0.08 mm layers through the remaining curve, and other heights
+use 0.24 mm.
 
 Derek's [v14 observation](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v14/physical-result.json)
 reports no spaghetti failure and a slightly concave lower surface instead of the intended

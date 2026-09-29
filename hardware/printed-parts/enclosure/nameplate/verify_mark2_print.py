@@ -26,8 +26,11 @@ def segments(path):
         m=re.match(r'; start printing object, unique label id: (\d+)',line)
         if m:obj=int(m[1])
         elif line.startswith('; stop printing object'):obj=None
+        elif line.startswith('; OBJECT_ID:'):
+            obj=int(line.split(':',1)[1]);feature=''
         elif line.startswith('; FEATURE:'):feature=line.split(':',1)[1].strip()
-        elif line.startswith('; Z_HEIGHT:'):layer=float(line.split(':',1)[1])
+        elif line.startswith('; Z_HEIGHT:'):
+            layer=float(line.split(':',1)[1]);obj=None;feature=''
         elif line.startswith('; LINE_WIDTH:'):width=float(line.split(':',1)[1])
         code=line.split(';',1)[0].strip()
         if not code:continue

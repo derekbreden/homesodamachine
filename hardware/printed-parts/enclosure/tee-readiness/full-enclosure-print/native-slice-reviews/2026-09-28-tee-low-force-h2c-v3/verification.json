@@ -1,0 +1,163 @@
+{
+  "pass": true,
+  "native_archive": ".cache/prints/2026-09-28-tee-low-force-h2c-v3/ready/tee-carrier-low-force-first020-black-z018-h2c-v3.gcode.3mf",
+  "native_archive_sha256": "db3fcfbdb2125aa746a3e95532edc6dc33c4935b761cffd6df0c666838ee3b56",
+  "gcode_sha256": "74a5ae8f4cd3044bee583276997fc3d4c9b4d45fb94fdf6d1b53660f20254dd2",
+  "source_hashes_current": true,
+  "native_export_normalizations": {
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ],
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ]
+  },
+  "other_settings_match_input": true,
+  "rounds": [
+    {
+      "name": "aft-R6-above-bed-layer",
+      "print_z_mm": [
+        0.2,
+        6
+      ],
+      "wall_layer_count": 73,
+      "first_wall_layer": [
+        0.28,
+        0.08
+      ],
+      "last_wall_layer": [
+        6.04,
+        0.08
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    },
+    {
+      "name": "fore-R6",
+      "print_z_mm": [
+        15.054,
+        21.054
+      ],
+      "wall_layer_count": 76,
+      "first_wall_layer": [
+        15.08,
+        0.08
+      ],
+      "last_wall_layer": [
+        21.08,
+        0.08
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    }
+  ],
+  "model_layer_runs": [
+    {
+      "height": 0.2,
+      "bottom": 0.0,
+      "last_z": 0.2,
+      "count": 1
+    },
+    {
+      "height": 0.08,
+      "bottom": 0.2,
+      "last_z": 6.12,
+      "count": 74
+    },
+    {
+      "height": 0.24,
+      "bottom": 6.12,
+      "last_z": 15.0,
+      "count": 37
+    },
+    {
+      "height": 0.08,
+      "bottom": 15.0,
+      "last_z": 21.08,
+      "count": 76
+    }
+  ],
+  "lower_wall_count": 6,
+  "global_wall_count": 2,
+  "supports": {
+    "support_bodies": 0,
+    "interface_islands": 0,
+    "bed_rooted_bodies": 0,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 0,
+    "shortest_labelled_build_up_mm": null
+  },
+  "emitted_z_trim_mm": [
+    0.0,
+    0.16
+  ],
+  "initial_layer_height_mm": 0.2,
+  "first_layer_overlap": {
+    "model_bounds": {
+      "0.2": [
+        59.911,
+        132.339,
+        265.089,
+        184.4
+      ],
+      "0.28": [
+        59.306999999999995,
+        132.339,
+        265.69300000000004,
+        185.004
+      ],
+      "0.36": [
+        59.067,
+        132.339,
+        265.9329999999517,
+        185.244
+      ]
+    },
+    "brim_bounds": [
+      58.976,
+      131.403,
+      266.024,
+      185.335
+    ],
+    "first_layer_with_brim_bounds": [
+      58.976,
+      131.403,
+      266.024,
+      185.335
+    ],
+    "brim_to_model_gap_mm": 0.0,
+    "transitions": [
+      {
+        "from_z": 0.2,
+        "to_z": 0.28,
+        "max_sampled_outer_centerline_unsupported_mm": 0.0,
+        "outer_wall_area_fraction_supported": 0.9998217610934196
+      },
+      {
+        "from_z": 0.28,
+        "to_z": 0.36,
+        "max_sampled_outer_centerline_unsupported_mm": 0.038522424519147176,
+        "outer_wall_area_fraction_supported": 0.8860917665634741
+      }
+    ],
+    "pass": true
+  },
+  "layer_count": 188,
+  "estimated_seconds": 9563.4326171875,
+  "estimated_grams_saved_profile_density": 55.1065673828125,
+  "printer": "H2C",
+  "left_external_black_petgf": true,
+  "submitted": false
+}

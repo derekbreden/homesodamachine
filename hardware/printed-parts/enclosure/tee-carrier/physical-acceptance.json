@@ -16,11 +16,13 @@
   "supports_enabled": false,
   "scope": "In-progress lower-curve observation. The subsequent printer reading is RUNNING at 47/189 layers; the exact layer Derek viewed is not established.",
   "standing_application": {
-    "visible_008_top_bottom_rounds": "Print without support contacts, across their complete curves.",
+    "visible_008_top_bottom_rounds": "Print the remaining curve above the 0.20 mm bed layer at 0.08 mm, without support contacts.",
     "explicit_example": "enclosure-back-top roof side edges",
     "other_functional_faces": "Retain appropriate supports for separate flat lifting ceilings, seats and other functional features.",
     "slice_verification": "Inspect all emitted support paths at the visible rounds, including short bodies without interface labels; use face-specific blockers where needed.",
-    "qualification": "The six-wall/infill-first carrier has no observed spaghetti failure and retains a slightly concave lower surface. Derek considers the observed result probably good enough for now; this is provisional lower-curve acceptance."
+    "qualification": "The six-wall/infill-first carrier has no observed spaghetti failure and retains a slightly concave lower surface. Derek considers the observed result probably good enough for now; this is provisional lower-curve acceptance.",
+    "first_bed_layer_mm": 0.2,
+    "first_transition": "Verify emitted overlap from the bed layer to the second layer on expanding rounds; the carrier reprint uses a connected 1 mm brim. Physical validation of the reprint is pending."
   },
   "previous_print_trials": [
     {

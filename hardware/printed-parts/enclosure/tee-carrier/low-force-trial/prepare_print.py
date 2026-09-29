@@ -11,8 +11,8 @@ ROOT,HERE = trial.ROOT,trial.HERE
 sys.path.insert(0,str(ROOT/'hardware/printed-parts/faucet'))
 import refresh_print_project as writer
 BASE=ROOT/'.cache/prints/2026-09-24-tee-carrier-plate-mark2-v15/tee-carrier-plate-black-z004-mark2-v15-six-wall-band-original-order-input.3mf'
-JOB=ROOT/'.cache/prints/2026-09-28-tee-low-force-h2c-v1'
-STEM='tee-carrier-low-force-black-z018-h2c-v1'
+JOB=ROOT/'.cache/prints/2026-09-28-tee-low-force-h2c-v3'
+STEM='tee-carrier-low-force-first020-black-z018-h2c-v3'
 
 
 def main():
@@ -26,13 +26,17 @@ def main():
         ranges=z.read('Metadata/layer_config_ranges.xml')
     with zipfile.ZipFile(target) as z:members={n:z.read(n) for n in z.namelist()}
     members['Metadata/layer_config_ranges.xml']=ranges
+    settings=json.loads(members['Metadata/project_settings.config'])
+    settings.update(initial_layer_print_height='0.2',brim_type='outer_only',brim_width='1',brim_object_gap='0',elefant_foot_compensation='0')
+    members['Metadata/project_settings.config']=json.dumps(settings,indent=2).encode()
     writer.archive_write(target,members)
     sources=[source,source.with_suffix('.step'),HERE/'low_force_trial.py',HERE/'geometry-check.json',Path(__file__),BASE]
     report.update(project_sha256=hashlib.sha256(target.read_bytes()).hexdigest(),
                   source_geometry_and_settings_sha256={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sources},
                   printer='H2C',requested_z_trim_mm=.18,expected_textured_plate_trim_mm=.16,
                   roof_relief_mm=.75,roof_clearance_mm=1.25,floor_clearance_mm=.25,
-                  support_policy='No supports. Complete visible R6 rounds use 0.08 mm; six walls in print Z 0–6.1 mm only.',
+                  initial_layer_height_mm=.20,
+                  support_policy='No supports. The bed layer is 0.20 mm; visible R6 rounds above it use 0.08 mm; six walls in print Z 0–6.1 mm only.',
                   speeds_and_order='Saved speeds, inner/outer then infill, 15% overlap.')
     (JOB/'preparation.json').write_text(json.dumps(report,indent=2)+'\n')
     ready=JOB/'ready';ready.mkdir()

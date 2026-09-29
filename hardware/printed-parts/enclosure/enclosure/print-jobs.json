@@ -2095,6 +2095,86 @@
       "support_policy": "Functional flat bearings supported. Two exposed outward-removing nameplate hook trees and one receiver support body accessible from front, back and ends; remove before assembly. All 3 bodies and 6 interface islands reviewed, including short and unlabelled paths.",
       "physical_fit": "Pending.",
       "startup_spacing_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-nameplate-broad-mark2-v2/startup-spacing.json"
+    },
+    {
+      "date": "2026-09-28",
+      "printer": "H2C",
+      "parts": [
+        "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/tee-carrier-low-force.stl"
+      ],
+      "job_name": "tee-carrier-low-force-first020-black-z018-h2c-v3.gcode.3mf",
+      "printer_task_id": "1292030988",
+      "status": "started",
+      "started_by": "Codex at Derek's request",
+      "observed_state": "RUNNING",
+      "observed_at_utc": "2026-09-29T02:01:47.440277+00:00",
+      "observed_print_error": 0,
+      "hms": [],
+      "sliced_file": ".cache/prints/2026-09-28-tee-low-force-h2c-v3/ready/tee-carrier-low-force-first020-black-z018-h2c-v3.gcode.3mf",
+      "sliced_file_sha256": "db3fcfbdb2125aa746a3e95532edc6dc33c4935b761cffd6df0c666838ee3b56",
+      "gcode_sha256": "74a5ae8f4cd3044bee583276997fc3d4c9b4d45fb94fdf6d1b53660f20254dd2",
+      "native_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-tee-low-force-h2c-v3/manifest.json",
+      "launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-tee-low-force-h2c-v3/launch.json",
+      "postlaunch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-tee-low-force-h2c-v3/postlaunch.json",
+      "estimated_seconds": 9563.4326171875,
+      "filament_grams": 55.1065673828125,
+      "layer_count": 188,
+      "observed_layer": 0,
+      "observed_total_layers": 188,
+      "z_offset_mm": 0.18,
+      "effective_textured_plate_trim_mm": 0.16,
+      "geometry": "Carrier roof clearance trial for the existing front-top. Roof gap 1.25 mm, floor gap 0.25 mm; 0.20 mm bed layer with attached 1 mm brim, then R6 bands at 0.08 mm; six walls in the lower band only; no supports. Full front-top display-receiver integration remains pending.",
+      "bed_clear_confirmed_by": "Derek: Both plates are clear. Mark2 right nozzle white PET-GF.",
+      "print_options": {
+        "timelapse": "On",
+        "auto_bed_leveling": "On",
+        "flow_dynamic_calibration": "Auto",
+        "nozzle_offset_calibration": "Auto"
+      },
+      "filament": "Black PET-GF on left external spool 254.",
+      "support_policy": "No carrier supports.",
+      "physical_fit": "Pending.",
+      "startup_spacing_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-tee-low-force-h2c-v3/startup-spacing.json"
+    },
+    {
+      "date": "2026-09-28",
+      "printer": "Mark2",
+      "parts": [
+        "hardware/printed-parts/enclosure/nameplate/retention-trial/nameplate-broad-leaf-001.stl"
+      ],
+      "job_name": "nameplate-broad-leaf-black-supports-z004-mark2-v3.gcode.3mf",
+      "printer_task_id": "1292024381",
+      "status": "started",
+      "started_by": "Codex at Derek's request",
+      "observed_state": "RUNNING",
+      "observed_at_utc": "2026-09-29T02:01:47.854371+00:00",
+      "observed_print_error": 0,
+      "hms": [],
+      "sliced_file": ".cache/prints/2026-09-28-nameplate-broad-mark2-v3/ready/nameplate-broad-leaf-black-supports-z004-mark2-v3.gcode.3mf",
+      "sliced_file_sha256": "05f192eaccc7e3b012da712b9762f1f10f0af79a3181b1a8a7861f76000721c2",
+      "gcode_sha256": "b983a0d6fabebb9e33ec7811e9a933b1e1b35b4a366e5d9f8617aed7eb492128",
+      "native_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-nameplate-broad-mark2-v3/manifest.json",
+      "launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-nameplate-broad-mark2-v3/launch.json",
+      "postlaunch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-nameplate-broad-mark2-v3/postlaunch.json",
+      "estimated_seconds": 2321.2099609375,
+      "filament_grams": 13.655569851398468,
+      "layer_count": 67,
+      "observed_layer": 0,
+      "observed_total_layers": 67,
+      "z_offset_mm": 0.04,
+      "effective_textured_plate_trim_mm": 0.02,
+      "geometry": "Black-and-white nameplate with 32 mm leaves, 3.6 mm hooks and 1.23 mm bearing clearance, for the existing matching receiver. Artwork-down, white on right external spool; black body and all supports on left. First-layer support gap 0.50 mm; support flushing disabled. Receiver integration into the main enclosure remains pending.",
+      "bed_clear_confirmed_by": "Derek: Both plates are clear. Mark2 right nozzle white PET-GF.",
+      "print_options": {
+        "timelapse": "On",
+        "auto_bed_leveling": "On",
+        "flow_dynamic_calibration": "Auto",
+        "nozzle_offset_calibration": "Auto"
+      },
+      "filament": "Black PET-GF on left external spool 254; white PET-GF on right external spool 255.",
+      "support_policy": "Functional flat bearings supported. Two exposed outward-removing black nameplate hook trees; remove before assembly. All support paths reviewed, including short and unlabelled paths.",
+      "physical_fit": "Pending.",
+      "startup_spacing_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-nameplate-broad-mark2-v3/startup-spacing.json"
     }
   ]
 }

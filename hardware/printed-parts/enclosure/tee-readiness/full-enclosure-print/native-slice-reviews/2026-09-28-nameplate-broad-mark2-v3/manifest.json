@@ -1,0 +1,55 @@
+{
+  "status": "started",
+  "submitted": true,
+  "printer": "Mark2",
+  "printer_task_id": "1292024381",
+  "plate_contents": [
+    "nameplate-broad-leaf-001.stl"
+  ],
+  "native_archive": ".cache/prints/2026-09-28-nameplate-broad-mark2-v3/ready/nameplate-broad-leaf-black-supports-z004-mark2-v3.gcode.3mf",
+  "native_archive_sha256": "05f192eaccc7e3b012da712b9762f1f10f0af79a3181b1a8a7861f76000721c2",
+  "gcode_sha256": "b983a0d6fabebb9e33ec7811e9a933b1e1b35b4a366e5d9f8617aed7eb492128",
+  "estimated_seconds": 2321.2099609375,
+  "estimated_grams_saved_profile_density": 13.655569851398468,
+  "layer_count": 67,
+  "geometry_check": "geometry-check.json",
+  "native_check": "verification.json",
+  "source_geometry_and_settings_sha256": {
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf": "84c5011c0be15dd9aab41a516abe85bf99b08e2c80d91375b5f2608a96bc0e72",
+    "hardware/printed-parts/enclosure/nameplate/retention-trial/nameplate-broad-leaf-001.step": "80bcb9dad4fba54a2c93f51b5300b16a6548b44b90a6d88c3cc112cc9ae5e441",
+    "hardware/printed-parts/enclosure/nameplate/retention-trial/nameplate-broad-leaf-001.stl": "0defbaa1b34b467de70a47dedab2eec45f4e3dbf783a69134f2c488e208a8f30",
+    "hardware/printed-parts/enclosure/nameplate/retention-trial/nameplate-broad-leaf-receiver.step": "e621d9c87e06214e4ceec7d37137c6ca1761cccbb304aabf9b8ef6e51c4cda56",
+    "hardware/printed-parts/enclosure/nameplate/retention-trial/nameplate-broad-leaf-receiver.stl": "ae4bf1e5e27f015df96b165e563d2442cda575d57434ecdc845d137c5efc8756",
+    "hardware/printed-parts/enclosure/nameplate/retention-trial/nameplate_retention_trial.py": "a0fd82b5e73ddda5131cadf12e5face330db47bfdc1d4e85a05ab030346bb343",
+    "hardware/printed-parts/enclosure/nameplate/retention-trial/geometry-check.json": "2ec44083881ed88e04abe5949fdbade45ae36145bd703204835cd287e1a34210",
+    "hardware/printed-parts/enclosure/nameplate/retention-trial/prepare_print.py": "36939387bcc47837bd71c9f85615d283212644bf27a088a5c9fde090487e9768"
+  },
+  "geometry_lint": {
+    "open_findings": 0,
+    "answered_intentional_features": 11
+  },
+  "launch_record": "launch.json",
+  "postlaunch_record": "postlaunch.json",
+  "support_review": "support-removal-review.json",
+  "description": "Black-and-white nameplate with 32 mm leaves, 3.6 mm hooks and 1.23 mm bearing clearance, for the existing matching receiver. Artwork-down, white on right external spool; black body and all supports on left. First-layer support gap 0.50 mm; support flushing disabled. Receiver integration into the main enclosure remains pending.",
+  "physical_fit": "Pending.",
+  "review_sha256": {
+    "README.md": "f99f7e71599f821c4c9928642639da9f8537835334243db79437fcfff2d7bec2",
+    "effective-settings.json": "6a0ede19147f290e1b7c6c556680c1558a814690c35d9a1109c87ead081720a2",
+    "first-layer.png": "5ca4168d332986ec15ad6e2d3014853a68f6597ff4e668f8d447dd2ef538a640",
+    "geometry-check.json": "2ec44083881ed88e04abe5949fdbade45ae36145bd703204835cd287e1a34210",
+    "launch.json": "76d53a546df5741502ee623c9a71f1e82a57213e840428043d326a81c5b2c7b4",
+    "physical-feedback.json": "6adb14c4cf6955163700f4ef09bae36609ce8dbb8c1aae1bd63faa526c1431b9",
+    "postlaunch.json": "5483535681e0f887553da63fcee445a93125217a792991ec25e0409ae4d76982",
+    "prelaunch.json": "c4a4d26755d3d9db7092883b1624ff501eb65fe0151861600705abfd23dd7d55",
+    "preparation.json": "7e6c1b5ee37fb25b8c8da9e8ee7d456d0fb83d6c6cd1af3b62c0ec956fbe591d",
+    "preview.png": "8cacf2f08cd978882481d1f179d2fce2f66349abc291e072c9fd82ff3e1d9981",
+    "slice-command.json": "a1516bcf6ac08c25418c2e26f96eea3c784cf04b7c9e71903732359ff68edcaa",
+    "slice-result.json": "c1514958b51e5843d71823fda81e10f92aa51de9c27a154068b122d601a5b91e",
+    "startup-spacing.json": "96f31273be48136939ad12524b553be2989c371910b3f4701ad60866d15d5609",
+    "support-audit.json": "47e1a0989ae3677f0ffed6608ee46dcb33fd6e642b24a5633e7d7e162900bbb8",
+    "support-removal-review.json": "54a4284e25216dfe4b684a808370465c139d54227dffeb5db1ec94f1eae609b7",
+    "verification.json": "f6dd3f0413c44d80f45279a8ecf29a4cc3c4aac1445cd2125747e90cefd30ec3"
+  },
+  "effective_settings": "effective-settings.json"
+}

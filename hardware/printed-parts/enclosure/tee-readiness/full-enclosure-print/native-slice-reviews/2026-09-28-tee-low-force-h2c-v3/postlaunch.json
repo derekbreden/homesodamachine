@@ -1,0 +1,15 @@
+{
+  "observed_at_utc": "2026-09-29T02:01:47.440277+00:00",
+  "printer": "H2C",
+  "reading": {
+    "job_id": "1292030988",
+    "subtask_name": "tee-carrier-low-force-first020-black-z018-h2c-v3.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 0,
+    "total_layer_num": 188,
+    "mc_remaining_time": 159,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": 13
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "previous_job": "1291278087",
+  "observed": "White material remains at the black perimeter in user photograph IMG_7868.jpeg.",
+  "gcode_findings": "Previous supports used white on early layers. First-layer support XY gap was 0.20 mm, separate from the general 0.40 mm gap.",
+  "current_trial": "Black support base and interface, no flushing into supports, first-layer support gap 0.50 mm, general gap 0.40 mm. Existing receiver reused.",
+  "physical_validation": "Pending."
+}
