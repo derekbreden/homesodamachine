@@ -1,0 +1,1225 @@
+{
+  "pass": true,
+  "native_archive": ".cache/prints/2026-09-29-nameplate-all-ink-raised-mark2-v4/ready/nameplate-all-ink-raised-clearance-z004-mark2-v4.gcode.3mf",
+  "native_archive_sha256": "6ac3dc4720e3b7edb8342724c8c3f2bcc93489104efa2b55e4b72f3af62a6cb8",
+  "gcode_sha256": "62c374faafae114fc60aefad6c26aa581ae8fdeef6a22ae708ff83d4c33686ec",
+  "source_hashes_current": true,
+  "native_export_metadata_normalizations": {
+    "inherits_group": [
+      [
+        "0.24mm Standard @BBL H2C",
+        "Bambu PET-CF @BBL H2C",
+        "Bambu Lab H2C 0.4 nozzle",
+        "0.24mm Standard @BBL H2C",
+        "Bambu PET-CF @BBL H2C",
+        "Bambu Lab H2C 0.4 nozzle"
+      ],
+      [
+        "0.24mm Standard @BBL H2C",
+        "Bambu PET-CF @BBL H2C",
+        "Bambu Lab H2C 0.4 nozzle",
+        "0.24mm Standard @BBL H2C"
+      ]
+    ],
+    "different_settings_to_system": [
+      [
+        "enable_arc_fitting;enable_support;support_bottom_z_distance;support_line_width;support_object_xy_distance;support_top_z_distance",
+        "chamber_temperatures;compatible_printers;eng_plate_temp;eng_plate_temp_initial_layer;fan_max_speed;fan_min_speed;filament_cost;filament_max_volumetric_speed;hot_plate_temp;hot_plate_temp_initial_layer;nozzle_temperature;nozzle_temperature_initial_layer;nozzle_temperature_range_high;overhang_fan_speed;slow_down_min_speed;supertack_plate_temp;supertack_plate_temp_initial_layer;textured_plate_temp;textured_plate_temp_initial_layer",
+        "machine_start_gcode",
+        "enable_arc_fitting;enable_support;support_bottom_z_distance;support_line_width;support_object_xy_distance;support_top_z_distance",
+        "chamber_temperatures;compatible_printers;eng_plate_temp;eng_plate_temp_initial_layer;fan_max_speed;fan_min_speed;filament_cost;filament_max_volumetric_speed;hot_plate_temp;hot_plate_temp_initial_layer;nozzle_temperature;nozzle_temperature_initial_layer;nozzle_temperature_range_high;overhang_fan_speed;slow_down_min_speed;supertack_plate_temp;supertack_plate_temp_initial_layer;textured_plate_temp;textured_plate_temp_initial_layer",
+        "machine_start_gcode"
+      ],
+      [
+        "enable_arc_fitting;enable_support;support_bottom_z_distance;support_line_width;support_object_xy_distance;support_top_z_distance",
+        "chamber_temperatures;compatible_printers;eng_plate_temp;eng_plate_temp_initial_layer;fan_max_speed;fan_min_speed;filament_cost;filament_max_volumetric_speed;hot_plate_temp;hot_plate_temp_initial_layer;nozzle_temperature;nozzle_temperature_initial_layer;nozzle_temperature_range_high;overhang_fan_speed;slow_down_min_speed;supertack_plate_temp;supertack_plate_temp_initial_layer;textured_plate_temp;textured_plate_temp_initial_layer",
+        "machine_start_gcode",
+        "enable_arc_fitting;enable_support;support_bottom_z_distance;support_line_width;support_object_xy_distance;support_top_z_distance"
+      ]
+    ]
+  },
+  "other_settings_match_input": true,
+  "receiver_reused": true,
+  "white_artwork_layers_mm": [
+    15.57,
+    15.81,
+    16.05,
+    16.29,
+    16.53
+  ],
+  "raised_artwork_layers_mm": [
+    16.29,
+    16.53
+  ],
+  "raised_artwork_checks": [
+    {
+      "print_z_mm": 16.29,
+      "height_mm": 0.24,
+      "white_paths_by_region": {
+        "logo_and_drop": 829,
+        "lettering": 887,
+        "qr": 524
+      }
+    },
+    {
+      "print_z_mm": 16.53,
+      "height_mm": 0.24,
+      "white_paths_by_region": {
+        "logo_and_drop": 294,
+        "lettering": 908,
+        "qr": 513
+      }
+    }
+  ],
+  "show_face_print_z_mm": 16.05,
+  "artwork_rise_mm": 0.48,
+  "emitted_model_layers_z_height_mm": [
+    [
+      0.2,
+      0.2
+    ],
+    [
+      0.44,
+      0.24
+    ],
+    [
+      0.68,
+      0.24
+    ],
+    [
+      0.92,
+      0.24
+    ],
+    [
+      1.16,
+      0.24
+    ],
+    [
+      1.4,
+      0.24
+    ],
+    [
+      1.64,
+      0.24
+    ],
+    [
+      1.88,
+      0.24
+    ],
+    [
+      2.12,
+      0.24
+    ],
+    [
+      2.36,
+      0.24
+    ],
+    [
+      2.6,
+      0.24
+    ],
+    [
+      2.84,
+      0.24
+    ],
+    [
+      3.08,
+      0.24
+    ],
+    [
+      3.2,
+      0.12
+    ],
+    [
+      3.44,
+      0.24
+    ],
+    [
+      3.68,
+      0.24
+    ],
+    [
+      3.92,
+      0.24
+    ],
+    [
+      4.16,
+      0.24
+    ],
+    [
+      4.4,
+      0.24
+    ],
+    [
+      4.64,
+      0.24
+    ],
+    [
+      4.88,
+      0.24
+    ],
+    [
+      5.12,
+      0.24
+    ],
+    [
+      5.36,
+      0.24
+    ],
+    [
+      5.6,
+      0.24
+    ],
+    [
+      5.84,
+      0.24
+    ],
+    [
+      6.08,
+      0.24
+    ],
+    [
+      6.32,
+      0.24
+    ],
+    [
+      6.56,
+      0.24
+    ],
+    [
+      6.8,
+      0.24
+    ],
+    [
+      7.04,
+      0.24
+    ],
+    [
+      7.28,
+      0.24
+    ],
+    [
+      7.52,
+      0.24
+    ],
+    [
+      7.76,
+      0.24
+    ],
+    [
+      8.0,
+      0.24
+    ],
+    [
+      8.13,
+      0.13
+    ],
+    [
+      8.37,
+      0.24
+    ],
+    [
+      8.61,
+      0.24
+    ],
+    [
+      8.85,
+      0.24
+    ],
+    [
+      9.09,
+      0.24
+    ],
+    [
+      9.33,
+      0.24
+    ],
+    [
+      9.57,
+      0.24
+    ],
+    [
+      9.81,
+      0.24
+    ],
+    [
+      10.05,
+      0.24
+    ],
+    [
+      10.29,
+      0.24
+    ],
+    [
+      10.53,
+      0.24
+    ],
+    [
+      10.77,
+      0.24
+    ],
+    [
+      11.01,
+      0.24
+    ],
+    [
+      11.25,
+      0.24
+    ],
+    [
+      11.49,
+      0.24
+    ],
+    [
+      11.73,
+      0.24
+    ],
+    [
+      11.97,
+      0.24
+    ],
+    [
+      12.21,
+      0.24
+    ],
+    [
+      12.45,
+      0.24
+    ],
+    [
+      12.69,
+      0.24
+    ],
+    [
+      12.93,
+      0.24
+    ],
+    [
+      13.17,
+      0.24
+    ],
+    [
+      13.41,
+      0.24
+    ],
+    [
+      13.65,
+      0.24
+    ],
+    [
+      13.89,
+      0.24
+    ],
+    [
+      14.13,
+      0.24
+    ],
+    [
+      14.37,
+      0.24
+    ],
+    [
+      14.61,
+      0.24
+    ],
+    [
+      14.85,
+      0.24
+    ],
+    [
+      15.09,
+      0.24
+    ],
+    [
+      15.33,
+      0.24
+    ],
+    [
+      15.57,
+      0.24
+    ],
+    [
+      15.81,
+      0.24
+    ],
+    [
+      16.05,
+      0.24
+    ],
+    [
+      16.29,
+      0.24
+    ],
+    [
+      16.53,
+      0.24
+    ]
+  ],
+  "hook_sections": [
+    {
+      "side": -1,
+      "print_z_mm": 3.44,
+      "section_width_mm": 4.8999999999999915
+    },
+    {
+      "side": 1,
+      "print_z_mm": 3.44,
+      "section_width_mm": 4.900000000000006
+    },
+    {
+      "side": -1,
+      "print_z_mm": 4.4,
+      "section_width_mm": 4.8999999999999915
+    },
+    {
+      "side": 1,
+      "print_z_mm": 4.4,
+      "section_width_mm": 4.900000000000006
+    },
+    {
+      "side": -1,
+      "print_z_mm": 4.64,
+      "section_width_mm": 1.299999999999983
+    },
+    {
+      "side": 1,
+      "print_z_mm": 4.64,
+      "section_width_mm": 1.3000000000000114
+    }
+  ],
+  "all_supports_black_left": true,
+  "support_first_layer_emitted_gap_mm": 0.6490000000000009,
+  "plate_back_print_z_mm": 13.65,
+  "leaf_support_xy_clearances": [
+    {
+      "print_z_mm": 0.2,
+      "bead_edge_gap_mm": 0.6490000000000009,
+      "closest_points_xy_mm": [
+        [
+          206.613,
+          140.6
+        ],
+        [
+          207.262,
+          140.6
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 0.44,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          124.64999999999999,
+          109.658
+        ],
+        [
+          125.42399999999999,
+          109.658
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 0.68,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          124.64999999999999,
+          109.658
+        ],
+        [
+          125.42399999999999,
+          109.658
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 0.92,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          122.66,
+          141.0
+        ],
+        [
+          122.66,
+          141.774
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 1.16,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          124.44,
+          109.0
+        ],
+        [
+          124.44,
+          108.226
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 1.4,
+      "bead_edge_gap_mm": 0.7740000000000009,
+      "closest_points_xy_mm": [
+        [
+          124.64999999999999,
+          140.79
+        ],
+        [
+          125.42399999999999,
+          140.79
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 1.64,
+      "bead_edge_gap_mm": 0.7740000000000009,
+      "closest_points_xy_mm": [
+        [
+          122.879,
+          109.0
+        ],
+        [
+          122.879,
+          108.226
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 1.88,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          121.37,
+          140.766
+        ],
+        [
+          120.596,
+          140.766
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 2.12,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          122.739,
+          109.0
+        ],
+        [
+          122.739,
+          108.226
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 2.36,
+      "bead_edge_gap_mm": 0.7739999999999724,
+      "closest_points_xy_mm": [
+        [
+          209.17000000000002,
+          140.79
+        ],
+        [
+          209.944,
+          140.79
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 2.6,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          120.56,
+          140.342
+        ],
+        [
+          119.786,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 2.84,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          120.29,
+          140.342
+        ],
+        [
+          119.516,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 3.08,
+      "bead_edge_gap_mm": 0.7739999999999724,
+      "closest_points_xy_mm": [
+        [
+          209.98000000000002,
+          140.79
+        ],
+        [
+          210.754,
+          140.79
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 3.2,
+      "bead_edge_gap_mm": 0.7739999999999724,
+      "closest_points_xy_mm": [
+        [
+          210.18300000000002,
+          140.79
+        ],
+        [
+          210.957,
+          140.79
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 3.44,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          119.75,
+          140.342
+        ],
+        [
+          118.976,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 3.68,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          119.75,
+          140.342
+        ],
+        [
+          118.976,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 3.92,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          119.75,
+          140.342
+        ],
+        [
+          118.976,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 4.16,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          119.75,
+          140.342
+        ],
+        [
+          118.976,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 4.4,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          119.75,
+          140.342
+        ],
+        [
+          118.976,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 4.64,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          124.64999999999999,
+          140.342
+        ],
+        [
+          125.42399999999999,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 4.88,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          124.64999999999999,
+          140.342
+        ],
+        [
+          125.42399999999999,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 5.12,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          123.35000000000001,
+          109.21
+        ],
+        [
+          122.57600000000001,
+          109.21
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 5.36,
+      "bead_edge_gap_mm": 0.5180000000000007,
+      "closest_points_xy_mm": [
+        [
+          123.35000000000001,
+          139.942
+        ],
+        [
+          122.83200000000001,
+          139.942
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 5.6,
+      "bead_edge_gap_mm": 0.6833996726927839,
+      "closest_points_xy_mm": [
+        [
+          206.58849242404918,
+          140.93849242404917
+        ],
+        [
+          207.0717768144415,
+          141.42168111456223
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 5.84,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          123.35000000000001,
+          140.342
+        ],
+        [
+          122.57600000000001,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 6.08,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          123.35000000000001,
+          140.342
+        ],
+        [
+          122.57600000000001,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 6.32,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          123.35000000000001,
+          140.342
+        ],
+        [
+          122.57600000000001,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 6.56,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          123.35000000000001,
+          140.342
+        ],
+        [
+          122.57600000000001,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 6.8,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          123.35000000000001,
+          140.342
+        ],
+        [
+          122.57600000000001,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 7.04,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          123.35000000000001,
+          140.342
+        ],
+        [
+          122.57600000000001,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 7.28,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          123.35000000000001,
+          140.342
+        ],
+        [
+          122.57600000000001,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 7.52,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          123.35000000000001,
+          140.342
+        ],
+        [
+          122.57600000000001,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 7.76,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          123.35000000000001,
+          140.342
+        ],
+        [
+          122.57600000000001,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 8.0,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          123.35000000000001,
+          140.342
+        ],
+        [
+          122.57600000000001,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 8.13,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          123.35000000000001,
+          140.342
+        ],
+        [
+          122.57600000000001,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 8.37,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          123.35000000000001,
+          140.342
+        ],
+        [
+          122.57600000000001,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 8.61,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          123.35000000000001,
+          140.342
+        ],
+        [
+          122.57600000000001,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 8.85,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          123.35000000000001,
+          140.342
+        ],
+        [
+          122.57600000000001,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 9.09,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          123.35000000000001,
+          140.342
+        ],
+        [
+          122.57600000000001,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 9.33,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          123.35000000000001,
+          140.342
+        ],
+        [
+          122.57600000000001,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 9.57,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          123.35000000000001,
+          140.342
+        ],
+        [
+          122.57600000000001,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 9.81,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          123.35000000000001,
+          140.342
+        ],
+        [
+          122.57600000000001,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 10.05,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          123.35000000000001,
+          140.342
+        ],
+        [
+          122.57600000000001,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 10.29,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          123.35000000000001,
+          140.342
+        ],
+        [
+          122.57600000000001,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 10.53,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          123.35000000000001,
+          140.342
+        ],
+        [
+          122.57600000000001,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 10.77,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          123.35000000000001,
+          140.342
+        ],
+        [
+          122.57600000000001,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 11.01,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          123.35000000000001,
+          140.342
+        ],
+        [
+          122.57600000000001,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 11.25,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          123.35000000000001,
+          140.342
+        ],
+        [
+          122.57600000000001,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 11.49,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          123.35000000000001,
+          140.342
+        ],
+        [
+          122.57600000000001,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 11.73,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          123.35000000000001,
+          140.342
+        ],
+        [
+          122.57600000000001,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 11.97,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          123.35000000000001,
+          140.342
+        ],
+        [
+          122.57600000000001,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 12.21,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          123.35000000000001,
+          140.342
+        ],
+        [
+          122.57600000000001,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 12.45,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          123.35000000000001,
+          140.342
+        ],
+        [
+          122.57600000000001,
+          140.342
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 12.69,
+      "bead_edge_gap_mm": 0.7740000000000008,
+      "closest_points_xy_mm": [
+        [
+          123.35000000000001,
+          139.687
+        ],
+        [
+          122.57600000000001,
+          139.687
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 12.93,
+      "bead_edge_gap_mm": 0.5180000004555866,
+      "closest_points_xy_mm": [
+        [
+          123.35000000000001,
+          139.94198319327734
+        ],
+        [
+          122.83199999954442,
+          139.94198319327734
+        ]
+      ]
+    },
+    {
+      "print_z_mm": 13.17,
+      "bead_edge_gap_mm": 0.5180000004555866,
+      "closest_points_xy_mm": [
+        [
+          123.35000000000001,
+          110.05801680672268
+        ],
+        [
+          122.83199999954442,
+          110.05801680672268
+        ]
+      ]
+    }
+  ],
+  "minimum_leaf_support_xy_gap_mm": 0.5180000000000007,
+  "support_above_hook_gaps": [
+    {
+      "side": -1,
+      "bearing_z_mm": 4.4,
+      "support_bottom_z_mm": 4.88,
+      "vertical_gap_mm": 0.47999999999999954
+    },
+    {
+      "side": 1,
+      "bearing_z_mm": 4.4,
+      "support_bottom_z_mm": 4.88,
+      "vertical_gap_mm": 0.47999999999999954
+    }
+  ],
+  "support_top_print_z_mm": 13.17,
+  "emitted_plate_back_support_gap_mm": 0.4800000000000004,
+  "support_summary": {
+    "support_bodies": 1,
+    "interface_islands": 3,
+    "bed_rooted_bodies": 1,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 4.92,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 3,
+    "shortest_labelled_build_up_mm": 4.92
+  },
+  "model_and_support_bounds_xy_mm": [
+    [
+      110.665,
+      103.82400000000001
+    ],
+    [
+      219.487,
+      146.07
+    ]
+  ],
+  "emitted_z_trim_mm": [
+    0.0,
+    0.02
+  ],
+  "estimated_seconds": 3684.53857421875,
+  "estimated_grams_saved_profile_density": 29.367003798484802,
+  "layer_count": 70,
+  "printer": "Mark2",
+  "submitted": false
+}

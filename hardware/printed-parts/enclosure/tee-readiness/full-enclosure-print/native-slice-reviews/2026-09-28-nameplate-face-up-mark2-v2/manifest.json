@@ -31,13 +31,15 @@
     "open_findings": 0,
     "answered_intentional_features": 29
   },
-  "physical_fit": "Pending.",
+  "physical_fit": "Raised lettering appearance accepted. Flush logo and QR appearance rejected. Supports rejected as not removable around leaves. Retention, bowing and physical QR scanning not assessed.",
   "description": "Face-up black-and-white nameplate with 0.48 mm raised HOME / SODA / MACHINE lettering, flush logo and QR, 32 mm leaves, 3.6 mm hooks and 1.23 mm bearing clearance. Reuses the existing broad-leaf receiver. Normal Snug supports entirely black; actual rear support gap 0.24 mm.",
   "review_sha256": {
     "README.md": "537ed0e6f49bcde7ab58298c91d162d069e417c6315c7e5ecf1a1b7a43e6ba5c",
     "effective-settings.json": "d8a83b60051b5369841cb561eadbf78b7f456f3e4002ddb4716440784f9f43ec",
     "geometry-check.json": "2e44e52598a3e17e91d9e7e809e9dccc84e65d6345fcff309c9275e9b2105a88",
     "launch.json": "c3145e033401ba2ec4db184c435deb3c3f671429f10928ecd85e7f917cf9d365",
+    "physical-feedback.json": "de6b59657dc093e7c13353d57a5281a5194f117779f07dbc827c9b2085473e24",
+    "physical-result.jpg": "f7e70418f06ec41b056bf4203ed483b3787138b3b75aa33c10ca2dd9bed66fcf",
     "postlaunch.json": "68af97391d613253038ee9ae8f55f38a7b22b9b22a9f9e3f97efd4191f0856c8",
     "prelaunch.json": "d7ae136e1b8401e974ce5741a7aa11986794e87928738a808d9ed5a98354dd07",
     "preparation.json": "e7424bf24d1be5793a4bd77e455ec60bddfb0bd066145417756362d6b90c97a9",
@@ -55,5 +57,6 @@
   "printer_task_id": "1292208393",
   "launch_record": "launch.json",
   "postlaunch_record": "postlaunch.json",
-  "startup_spacing_record": "startup-spacing.json"
+  "startup_spacing_record": "startup-spacing.json",
+  "physical_feedback": "physical-feedback.json"
 }
