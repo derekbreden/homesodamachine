@@ -1,0 +1,73 @@
+{
+    "error_string": "Success.",
+    "export_time": 1690,
+    "layer_height": 0.23999999463558197,
+    "plate_index": 0,
+    "prepare_time": 21,
+    "return_code": 0,
+    "sliced_plates": [
+        {
+            "feature_type_times": {
+                "Bottom surface": 16.66788101196289,
+                "Bridge": 46.23359298706055,
+                "Custom": 303.4611511230469,
+                "Flush": 15.0,
+                "Gap infill": 36.58873748779297,
+                "Inner wall": 293.67822265625,
+                "Internal solid infill": 135.58477783203125,
+                "Outer wall": 382.4839782714844,
+                "Overhang wall": 19.827959060668945,
+                "Sparse infill": 331.86224365234375,
+                "Support": 534.0187377929688,
+                "Support interface": 13.900984764099121,
+                "Top surface": 38.25651550292969,
+                "Travel": 435.5339050292969,
+                "Undefined": 427.8699035644531
+            },
+            "filament_change_times": 0,
+            "filaments": [
+                {
+                    "filament_id": "GFT01",
+                    "id": 1,
+                    "main_used_g": 20.041709899902344,
+                    "total_used_g": 20.041709899902344
+                }
+            ],
+            "generate_support_material_time": 305,
+            "id": 1,
+            "infill_time": 32,
+            "layer_filament_change": 0,
+            "main_predication": 2269.75,
+            "make_perimeters_time": 29,
+            "obj_cached_cnt": 0,
+            "objects": [
+                {
+                    "bbox": {
+                        "depth": 6.959995746612549,
+                        "height": 46.0,
+                        "width": 115.33000183105469,
+                        "x": 104.83499908447266,
+                        "y": 156.52000427246094,
+                        "z": 0.0
+                    },
+                    "id": 5,
+                    "name": "nameplate-horizontal-wings-receiver",
+                    "triangle_count": 1158
+                }
+            ],
+            "sliced_time": 742,
+            "sliced_time_with_cache": 349,
+            "total_predication": 2595.547119140625,
+            "triangle_count": 1158,
+            "warning_message": ""
+        }
+    ],
+    "sparse_infill_density": 15.0,
+    "upward_compatible_machine": [
+        "Bambu Lab H2S 0.4 nozzle",
+        "Bambu Lab H2D 0.4 nozzle",
+        "Bambu Lab H2D Pro 0.4 nozzle",
+        "Bambu Lab A2L 0.4 nozzle"
+    ],
+    "wall_loops": 2
+}

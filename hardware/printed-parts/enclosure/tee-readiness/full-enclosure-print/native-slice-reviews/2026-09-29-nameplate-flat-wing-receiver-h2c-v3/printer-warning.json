@@ -1,0 +1,9 @@
+{
+  "observed_at_utc": "2026-09-29T21:39:12.874571+00:00",
+  "hms": {
+    "attr": 201326848,
+    "code": 131095
+  },
+  "ui_message": "Nozzle camera lens is dirty, which may affect the AI monitoring functionality. Please clean the surface of the nozzle camera lens as soon as possible.",
+  "state": "Printing; no pause or stop issued."
+}

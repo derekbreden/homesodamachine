@@ -1,7 +1,10 @@
-[sliver] These are the closed outer ends of the 1.50 mm thick sideways wing slots, backed by the coupon's full side stock. The slots receive 1.20 mm wings with 0.30 mm thickness air. They are cavities, not thin freestanding rails. Native support paths do not enter either slot.
-click: x=55.565 y=0.750 z=-0.125
-click: x=-55.565 y=0.750 z=-0.125
+[sliver] This 0.36 mm face is the edge of the rear pad's run-out, joined continuously to the receiver wall. It is not the thickness of the retaining lip or a freestanding strip. The functional retaining lip is 1.20 mm thick; native paths retain a single receiver body.
+click: x=0.000 y=0.180 z=21.200
 
-[ceiling] This coupon prints with installed -Z as build-up. The named -Z faces therefore point upward during this print; the default lint frame is +Z. The native receiver review separately audits actual support contacts and the open front removal lane before nameplate insertion.
-click: x=0.000 y=1.200 z=19.150
-click: x=0.000 y=-2.100 z=-21.150
+[ceiling] The coupon prints with installed -Z as build-up, matching back-top. These -Z faces therefore point upward during this print. The native slice separately audits the real print-down contacts with the shared tree support profile.
+click: x=0.000 y=1.680 z=19.200
+click: x=0.000 y=-1.620 z=-21.200
+
+[slope] The two halves of the diamond opening are finger/tool access through the backing, not a bearing or a rail. Their 10 mm rise over 9 mm run carries the opening in the enclosure's build direction. The seated plate's backing remains around the opening.
+click: x=4.500 y=-1.800 z=5.000
+click: x=-4.500 y=-1.800 z=5.000

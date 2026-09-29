@@ -1,0 +1,25 @@
+{
+  "printer": "Mark2",
+  "title": "Ordinary coplanar alignment print; usual launch options.",
+  "status": "printing",
+  "submitted": true,
+  "printer_task_id": "1294385772",
+  "native_archive": ".cache/prints/2026-09-29-registration-mark2-v2/ready/registration-saved-alignment-z004-mark2-v2.gcode.3mf",
+  "native_archive_sha256": "cc9c41d86877de2ac6057226f9ef6d451f3fd474659732b8f892c87ef0526bb8",
+  "gcode_sha256": "a079049c0994d5cf594b52351af6c47f683f5409411a677a32ea4d6b7d157222",
+  "estimated_seconds": 820.6586303710938,
+  "source_geometry_and_settings_sha256": {
+    "hardware/printed-parts/calibration/dual-nozzle-registration/registration.py": "ff498c5a92885cc8c142f26dd8ea0e961f517925feef75bca20693f7d8f1c6d5",
+    "hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.step": "60975cf85bfb648a2ecac0d2e6c2b8d72927ff16e79de9aa0c0940008d22f3eb",
+    "hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.stl": "986c7b7b7291e820afe037e4d4e3e664c62f10680da3a3230613d881f5d30895",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf": "84c5011c0be15dd9aab41a516abe85bf99b08e2c80d91375b5f2608a96bc0e72",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "hardware/printed-parts/calibration/dual-nozzle-registration/geometry-check.json": "c8d1fdf0b714611e53189951d9bcdd4776ab69945cccac10bf1bcbc9399c3303",
+    "hardware/printed-parts/calibration/dual-nozzle-registration/prepare_print.py": "6107fb8a04ac79bec9d3bb4cd7d5796d19a4e30b1eeb08f594056ee845d6b875"
+  },
+  "physical_qualification": "Pending",
+  "verification": "verification.json",
+  "geometry_check": "geometry-check.json",
+  "launch_record": "launch.json",
+  "postlaunch_status": "postlaunch-status.json"
+}

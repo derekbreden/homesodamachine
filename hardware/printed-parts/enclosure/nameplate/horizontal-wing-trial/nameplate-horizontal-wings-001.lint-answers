@@ -59,3 +59,10 @@ click: x=-46.128 y=2.640 z=7.700
 click: x=-30.731 y=2.640 z=7.700
 click: x=-30.731 y=2.640 z=-7.700
 click: x=-42.836 y=2.640 z=-3.855
+
+[sliver] These are the vertical 0.96 mm risers between the 2.40 mm artwork field and the 3.36 mm perimeter frame. The frame is 3 mm wide and fully connected to the bed-built web; the riser height is not a thin wall thickness.
+click: x=0.000 y=2.880 z=16.000
+click: x=0.000 y=2.880 z=-16.000
+
+[ceiling] The nameplate prints +Y up, with the entire back and both wings on the bed. This installed -Z face is a vertical frame riser in print pose. The native slice has no supports and no floating wing.
+click: x=0.000 y=2.880 z=16.000

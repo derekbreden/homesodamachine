@@ -93,10 +93,10 @@
     0,
     0
   ],
-  "normal_nozzle_offset_calibration": "On for this test and validation; retain the same launch setting. No high-precision touchscreen calibration is required.",
+  "normal_nozzle_offset_calibration": "Usual Auto launch option; no touchscreen-managed calibration is required.",
   "qualification": "A measured correction requires a second zero-residual validation print before use on product parts. The coupon only identifies relative error; it does not identify which physical nozzle is wrong.",
   "source_sha256": {
-    "hardware/printed-parts/calibration/dual-nozzle-registration/registration.py": "0e6932ed32eab5cc4179567c41a389604ea4b825557ee453bb77389eed50c83e",
+    "hardware/printed-parts/calibration/dual-nozzle-registration/registration.py": "ff498c5a92885cc8c142f26dd8ea0e961f517925feef75bca20693f7d8f1c6d5",
     "hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.step": "60975cf85bfb648a2ecac0d2e6c2b8d72927ff16e79de9aa0c0940008d22f3eb",
     "hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.stl": "986c7b7b7291e820afe037e4d4e3e664c62f10680da3a3230613d881f5d30895"
   }
