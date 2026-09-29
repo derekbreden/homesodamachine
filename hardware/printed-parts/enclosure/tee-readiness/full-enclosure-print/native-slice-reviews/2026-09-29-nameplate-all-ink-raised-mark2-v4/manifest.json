@@ -1,0 +1,58 @@
+{
+  "native_archive": ".cache/prints/2026-09-29-nameplate-all-ink-raised-mark2-v4/ready/nameplate-all-ink-raised-clearance-z004-mark2-v4.gcode.3mf",
+  "native_archive_sha256": "6ac3dc4720e3b7edb8342724c8c3f2bcc93489104efa2b55e4b72f3af62a6cb8",
+  "gcode_sha256": "62c374faafae114fc60aefad6c26aa581ae8fdeef6a22ae708ff83d4c33686ec",
+  "estimated_seconds": 3684.53857421875,
+  "estimated_grams_saved_profile_density": 29.367003798484802,
+  "layer_count": 70,
+  "status": "started",
+  "submitted": true,
+  "printer": "Mark2",
+  "printer_task_id": "1292355760",
+  "plate_contents": [
+    "nameplate-face-up-raised-001.stl"
+  ],
+  "geometry_check": "geometry-check.json",
+  "native_check": "verification.json",
+  "source_geometry_and_settings_sha256": {
+    "hardware/printed-parts/enclosure/nameplate/face-up-trial/face_up_trial.py": "57b1d1d1059180daa302ab513e0c8b7422b9910d4b7d8c9d78c3615950d74bc0",
+    "hardware/printed-parts/enclosure/nameplate/retention-trial/nameplate_retention_trial.py": "a0fd82b5e73ddda5131cadf12e5face330db47bfdc1d4e85a05ab030346bb343",
+    "hardware/printed-parts/enclosure/nameplate/nameplate.py": "34c3026fe89e4afa0d6c6084376e278fda6b00ebdd226edb6200864b8ccd81cd",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py": "fb290e6f377fc5f33790b7e6532c59ff0fdab0472b2f519d808b17106e8629fc",
+    "hardware/printed-parts/enclosure/nameplate/wordmark.svg": "ac3f8c076308092908edfc2d74ada5b6ccaafdeababfe2aaa3ce56058ae9321f",
+    "brand/mark.svg": "c9c2dcacab2961f30d813832b820599acb1ebcd81c6429177be9c0e83e1efeb6",
+    "hardware/printed-parts/enclosure/nameplate/retention-trial/nameplate-broad-leaf-receiver.step": "e621d9c87e06214e4ceec7d37137c6ca1761cccbb304aabf9b8ef6e51c4cda56",
+    "hardware/printed-parts/enclosure/nameplate/face-up-trial/nameplate-face-up-raised-001.step": "9925c63128d9369962f37e28bc792c7f9a594d3eeaf528637d32ccc2bbb5f8d6",
+    "hardware/printed-parts/enclosure/nameplate/face-up-trial/nameplate-face-up-raised-001.stl": "b9bd256e52f6b875e5d58e3fc89125a81f416c876f22d4596d840db131197fbe",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf": "84c5011c0be15dd9aab41a516abe85bf99b08e2c80d91375b5f2608a96bc0e72",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "hardware/printed-parts/enclosure/nameplate/face-up-trial/geometry-check.json": "11f8ff590ad29bece3e0b31241e7887cf69ba308f9b68a743e2ab8324524dd25",
+    "hardware/printed-parts/enclosure/nameplate/face-up-trial/prepare_print.py": "0fb89639464c5a9cc9300dedbdb79c41a06a2a1db13992f731fd5be519deb329"
+  },
+  "geometry_lint": {
+    "open_findings": 0,
+    "answered_intentional_features": 60
+  },
+  "physical_fit": "Pending.",
+  "description": "Face-up nameplate with all white lettering, logo/drop and QR raised 0.48 mm. The existing broad-leaf receiver accepts the unchanged 32 mm leaves, 3.6 mm hooks and 1.23 mm bearing clearance. Black normal Snug supports use shared PET-GF contact settings with 0.80 mm nominal XY and 0.45 mm top/bottom Z gaps. Emitted gaps: minimum 0.518 mm lateral, 0.48 mm below the plate and above both catches.",
+  "launch_record": "launch.json",
+  "postlaunch_record": "postlaunch.json",
+  "review_sha256": {
+    "README.md": "ab25a76211ed9f194d7f2bd7a672c5b6486ebf831b7c3105d6a5beee06f05408",
+    "effective-settings.json": "25e752fc8bd4c89363a9117cef9338ed068d07f7d45ae1d0c2b86322bb147915",
+    "geometry-check.json": "11f8ff590ad29bece3e0b31241e7887cf69ba308f9b68a743e2ab8324524dd25",
+    "launch.json": "331493c7eab58059bbc23997d5590217f8630d42765b6530bcacb0f9c1ec2532",
+    "leaf-clearance.json": "32a4dbad1a0e3a493b0868ef2be0b9eb837392bcf55062b5fc2a7cb76d168b8e",
+    "postlaunch.json": "c403c6cbdcff57149f4e5d0476ef8cb3f6bfe56cf1f30ac361c5a2a93e94d85c",
+    "prelaunch.json": "6897a00bc988b4afd18c2a28021847e14b0beb168eae2458761e95c870b150ae",
+    "preparation.json": "b52834335024a73728e07c8ded4bd61d0ebf455c29b7c7a8a778f33b705df125",
+    "preview.png": "463617d06f6ee676ea6979a7a654fbfd67c088f60388f49af4b938677ce0b312",
+    "qr-check.json": "f39d80cfe5ebda2b22afa97fb83c8ee8bdf43792d936b060100cf169aa131a93",
+    "show-face-paths.png": "0aa463f44a41a5015c5c30a6f165b19f46755513ef1632d10420afbb8b99bdb3",
+    "slice-command.json": "08fa688872b7751d729953438c5486ff71b04fe8f17a3a641ace2116060b4add",
+    "slice-result.json": "8106782592a59cd29b4f204aa2d6695a51ede63ced9d5c1faebb130f60ea90fa",
+    "startup-spacing.json": "e5be283e95dc2bfb5b0b14c340b2f0669bacef5c7c69e2c8e327f640d16b927d",
+    "support-audit.json": "f9008c5f750191540452761a5df7eb412900b2dd71858b0adcd1fa558925c499",
+    "verification.json": "f0da6e6a1d2426e3b36153eb974777a6c95e92af8442a7630f2edf01b25d5539"
+  }
+}

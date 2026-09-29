@@ -9,7 +9,7 @@ import zipfile
 import numpy as np
 from PIL import Image, ImageDraw, ImageOps
 from shapely.geometry import LineString, box
-from shapely.ops import unary_union
+from shapely.ops import unary_union, nearest_points
 
 import prepare_print as prep
 
@@ -48,9 +48,10 @@ def main():
             'filament_printable': ['3', '3'], 'nozzle_diameter': ['0.4', '0.4'],
             'layer_height': '0.24', 'initial_layer_print_height': '0.2',
             'enable_arc_fitting': '0', 'support_type': 'normal(auto)', 'support_style': 'snug',
-            'support_base_pattern': 'rectilinear', 'support_interface_top_layers': '3',
-            'support_interface_spacing': '0.2', 'support_top_z_distance': '0.24',
-            'support_object_xy_distance': '0.4', 'support_object_first_layer_gap': '0.5',
+            'support_base_pattern': 'rectilinear', 'support_interface_top_layers': '2',
+            'support_interface_spacing': '0.5', 'support_top_z_distance': '0.45',
+            'support_bottom_z_distance': '0.45',
+            'support_object_xy_distance': '0.8', 'support_object_first_layer_gap': '0.5',
             'support_filament': '1', 'support_interface_filament': '1', 'flush_into_support': '0',
         }
         for key, value in settings.items():
@@ -78,13 +79,43 @@ def main():
     white = sorted({r['layer'] for r in model if r['tool'] == 1})
     assert white == [15.57, 15.81, 16.05, 16.29, 16.53]
     assert max(r['layer'] for r in model if r['tool'] == 0) == 16.05
+    raised_checks = []
     for z in (16.29, 16.53):
         raised = [r for r in model if r['layer'] == z]
         assert raised and {r['tool'] for r in raised} == {1}
-        assert all(140 < p[0] < 187 for r in raised for p in (r['a'], r['b'])), 'Raised paths outside lettering'
+        # Installed artwork bounds transformed to the checked print placement,
+        # expanded into the clear gaps between the three groups.
+        regions = {'logo_and_drop': (117, 143), 'lettering': (145, 187), 'qr': (188, 214)}
+        counts = {name: sum(all(low < p[0] < high for p in (r['a'], r['b'])) for r in raised)
+                  for name, (low, high) in regions.items()}
+        assert all(count > 10 for count in counts.values()), (z, counts)
+        assert sum(counts.values()) == len(raised), 'Raised paths outside artwork regions'
+        raised_checks.append({'print_z_mm': z, 'height_mm': dict(layers)[z], 'white_paths_by_region': counts})
     first_gap = road_shape([r for r in supports if r['layer'] == .2]).distance(
         road_shape([r for r in model if r['layer'] == .2]))
     assert first_gap >= .45, first_gap
+    # Inspect emitted bead edges on every shared leaf/support layer. A nominal
+    # XY setting alone does not establish the narrowest removable clearance.
+    leaf_clearances = []
+    for z in sorted({r['layer'] for r in model} & {r['layer'] for r in supports}):
+        if z >= 13.65:
+            continue
+        leaf = road_shape([r for r in model if r['layer'] == z])
+        scaffold = road_shape([r for r in supports if r['layer'] == z])
+        gap = leaf.distance(scaffold)
+        assert gap >= .50, (z, gap)
+        leaf_clearances.append({'print_z_mm': z, 'bead_edge_gap_mm': gap,
+                                'closest_points_xy_mm': [list(p.coords[0]) for p in nearest_points(leaf, scaffold)]})
+    hook_support_gaps = []
+    for side in (-1, 1):
+        x0, x1 = sorted((165+side*42.1, 165+side*44.8))
+        bearing = box(x0, 109.5, x1, 140.5)
+        above = [r for r in supports if r['layer'] > 4.4
+                 and LineString((r['a'], r['b'])).buffer(r['width']/2).intersects(bearing)]
+        bottom = min(r['layer']-dict(layers)[r['layer']] for r in above)
+        assert bottom-4.4 >= .45, (side, bottom)
+        hook_support_gaps.append({'side': side, 'bearing_z_mm': 4.4,
+                                  'support_bottom_z_mm': bottom, 'vertical_gap_mm': bottom-4.4})
     # Both catches retain their full width and exact bearing height, then become stems.
     hook_bands = []
     for z in (3.44, 4.4, 4.64):
@@ -103,8 +134,8 @@ def main():
                            if LineString((r['a'], r['b'])).intersects(centre))
     plate_bottom = first_back_layer-dict(layers)[first_back_layer]
     support_gap = plate_bottom-support_top
-    assert abs(plate_bottom-13.65) < .001 and abs(support_gap-.24) < .001
-    assert sorted({r['layer'] for r in central}) == [12.93, 13.17, 13.41]
+    assert abs(plate_bottom-13.65) < .001 and abs(support_gap-.48) < .001
+    assert sorted({r['layer'] for r in central}) == [12.93, 13.17]
     support = audit(JOB/'ready/plate_1.gcode', 'nameplate-face-up-raised', profile=staged,
                     include_unlabelled_support=True)
     assert support['summary']['model_rooted_bodies'] == 0
@@ -141,10 +172,14 @@ def main():
         'pass': True, 'native_archive': str(native.relative_to(ROOT)), 'native_archive_sha256': sha(native),
         'gcode_sha256': hashlib.sha256(gc).hexdigest(), 'source_hashes_current': True,
         'native_export_metadata_normalizations': differences, 'other_settings_match_input': True,
-        'receiver_reused': True, 'white_artwork_layers_mm': white, 'raised_letter_layers_mm': [16.29, 16.53],
-        'show_face_print_z_mm': 16.05, 'letter_rise_mm': .48, 'emitted_model_layers_z_height_mm': layers,
+        'receiver_reused': True, 'white_artwork_layers_mm': white, 'raised_artwork_layers_mm': [16.29, 16.53],
+        'raised_artwork_checks': raised_checks,
+        'show_face_print_z_mm': 16.05, 'artwork_rise_mm': .48, 'emitted_model_layers_z_height_mm': layers,
         'hook_sections': hook_bands, 'all_supports_black_left': True,
         'support_first_layer_emitted_gap_mm': first_gap, 'plate_back_print_z_mm': plate_bottom,
+        'leaf_support_xy_clearances': leaf_clearances,
+        'minimum_leaf_support_xy_gap_mm': min(row['bead_edge_gap_mm'] for row in leaf_clearances),
+        'support_above_hook_gaps': hook_support_gaps,
         'support_top_print_z_mm': support_top, 'emitted_plate_back_support_gap_mm': support_gap,
         'support_summary': support['summary'], 'model_and_support_bounds_xy_mm': [low.tolist(), high.tolist()],
         'emitted_z_trim_mm': trims, 'estimated_seconds': sliced['total_predication'],
@@ -153,7 +188,7 @@ def main():
         'printer': 'Mark2', 'submitted': False,
     }
     (JOB/'verification.json').write_text(json.dumps(proof, indent=2)+'\n')
-    print(json.dumps({k: proof[k] for k in ('pass', 'letter_rise_mm', 'emitted_plate_back_support_gap_mm',
+    print(json.dumps({k: proof[k] for k in ('pass', 'artwork_rise_mm', 'raised_artwork_checks', 'emitted_plate_back_support_gap_mm',
                                          'estimated_seconds', 'layer_count')}, indent=2))
 
 

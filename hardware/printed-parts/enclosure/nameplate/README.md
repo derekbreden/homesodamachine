@@ -65,10 +65,10 @@ plate-and-receiver print.
 
 ## Printing and assembly
 
-The [face-up raised-letter trial](face-up-trial/README.md) prints the broad-leaf
-plate with its show face upward, 0.48 mm raised white lettering and black normal
-Snug supports behind the plate. Its logo and QR stay flush, and it uses the same
-broad-leaf receiver coupon.
+The [face-up raised-artwork trial](face-up-trial/README.md) prints the broad-leaf
+plate with its show face upward, all white artwork raised 0.48 mm and black normal
+Snug supports behind the plate. The lettering, logo/drop and QR share the same
+raised height, and the plate uses the same broad-leaf receiver coupon.
 
 Print **artwork down**, with the complete black-and-white face on the bed and both tabs
 pointing up. Use black and white PET-GF, a hardened 0.4 mm nozzle, a 0.20 mm first layer,

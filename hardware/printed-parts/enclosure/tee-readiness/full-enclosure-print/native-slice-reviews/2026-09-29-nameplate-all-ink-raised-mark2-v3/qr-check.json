@@ -1,0 +1,8 @@
+{
+  "decoder": "Apple Vision VNDetectBarcodesRequest",
+  "source": "show-face-paths.png",
+  "decoded": [
+    "HTTPS://HOSM.US/0001"
+  ],
+  "physical_scan_verified": false
+}

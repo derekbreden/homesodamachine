@@ -1,0 +1,25 @@
+{
+  "accepted_at_utc": "2026-09-29T05:38:56.592029+00:00",
+  "printer": "Mark2",
+  "archive": ".cache/prints/2026-09-29-nameplate-all-ink-raised-mark2-v4/ready/nameplate-all-ink-raised-clearance-z004-mark2-v4.gcode.3mf",
+  "archive_sha256": "6ac3dc4720e3b7edb8342724c8c3f2bcc93489104efa2b55e4b72f3af62a6cb8",
+  "gcode_sha256": "62c374faafae114fc60aefad6c26aa581ae8fdeef6a22ae708ff83d4c33686ec",
+  "reply": {
+    "command": "project_file",
+    "result": "SUCCESS",
+    "reason": "SUCCESS",
+    "err_code": 0
+  },
+  "reading": {
+    "job_id": "1292355760",
+    "subtask_name": "nameplate-all-ink-raised-clearance-z004-mark2-v4.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 0,
+    "total_layer_num": 70,
+    "mc_remaining_time": 61,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": 79
+  },
+  "send_method": "Bambu Connect via cua_repl; one Send click."
+}
