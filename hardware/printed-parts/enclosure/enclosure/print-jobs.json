@@ -2214,8 +2214,49 @@
       },
       "filament": "Black PET-GF on left external spool 254; white PET-GF on right external spool 255.",
       "support_policy": "Black normal Snug supports carry the plate back with an emitted 0.24 mm top gap, three interface layers and 0.20 mm interface spacing. Separate the support mat and remove through the exposed plate edges before inserting the nameplate.",
+      "physical_fit": "Raised lettering appearance accepted. Flush logo and QR appearance rejected. Supports rejected as not removable around leaves. Retention, bowing and physical QR scanning not assessed.",
+      "startup_spacing_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-nameplate-face-up-mark2-v2/startup-spacing.json",
+      "physical_feedback": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-nameplate-face-up-mark2-v2/physical-feedback.json"
+    },
+    {
+      "date": "2026-09-29",
+      "printer": "Mark2",
+      "parts": [
+        "hardware/printed-parts/enclosure/nameplate/face-up-trial/nameplate-face-up-raised-001.stl"
+      ],
+      "job_name": "nameplate-all-ink-raised-clearance-z004-mark2-v4.gcode.3mf",
+      "printer_task_id": "1292355760",
+      "status": "started",
+      "started_by": "Codex at Derek's request",
+      "observed_state": "RUNNING",
+      "observed_at_utc": "2026-09-29T05:41:13.875816+00:00",
+      "observed_print_error": 0,
+      "hms": [],
+      "sliced_file": ".cache/prints/2026-09-29-nameplate-all-ink-raised-mark2-v4/ready/nameplate-all-ink-raised-clearance-z004-mark2-v4.gcode.3mf",
+      "sliced_file_sha256": "6ac3dc4720e3b7edb8342724c8c3f2bcc93489104efa2b55e4b72f3af62a6cb8",
+      "gcode_sha256": "62c374faafae114fc60aefad6c26aa581ae8fdeef6a22ae708ff83d4c33686ec",
+      "native_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-all-ink-raised-mark2-v4/manifest.json",
+      "launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-all-ink-raised-mark2-v4/launch.json",
+      "postlaunch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-all-ink-raised-mark2-v4/postlaunch.json",
+      "estimated_seconds": 3684.53857421875,
+      "filament_grams": 29.367003798484802,
+      "layer_count": 70,
+      "observed_layer": 0,
+      "observed_total_layers": 70,
+      "z_offset_mm": 0.04,
+      "effective_textured_plate_trim_mm": 0.02,
+      "geometry": "Face-up nameplate with all white lettering, logo/drop and QR raised 0.48 mm. The existing broad-leaf receiver accepts the unchanged 32 mm leaves, 3.6 mm hooks and 1.23 mm bearing clearance. Black normal Snug supports use shared PET-GF contact settings with 0.80 mm nominal XY and 0.45 mm top/bottom Z gaps. Emitted gaps: minimum 0.518 mm lateral, 0.48 mm below the plate and above both catches.",
+      "bed_clear_confirmed_by": "Derek: fix all that, and then sure, start the print, bed is clear on mark2.",
+      "print_options": {
+        "timelapse": "On",
+        "auto_bed_leveling": "On",
+        "flow_dynamic_calibration": "Auto",
+        "nozzle_offset_calibration": "Auto"
+      },
+      "filament": "Black PET-GF on left external spool 254; white PET-GF on right external spool 255.",
+      "support_policy": "Face-up nameplate with all white lettering, logo/drop and QR raised 0.48 mm. The existing broad-leaf receiver accepts the unchanged 32 mm leaves, 3.6 mm hooks and 1.23 mm bearing clearance. Black normal Snug supports use shared PET-GF contact settings with 0.80 mm nominal XY and 0.45 mm top/bottom Z gaps. Emitted gaps: minimum 0.518 mm lateral, 0.48 mm below the plate and above both catches.",
       "physical_fit": "Pending.",
-      "startup_spacing_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-nameplate-face-up-mark2-v2/startup-spacing.json"
+      "startup_spacing_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-all-ink-raised-mark2-v4/startup-spacing.json"
     }
   ]
 }

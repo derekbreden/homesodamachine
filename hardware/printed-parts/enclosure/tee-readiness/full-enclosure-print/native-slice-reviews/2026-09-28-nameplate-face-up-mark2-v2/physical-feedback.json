@@ -1,0 +1,31 @@
+{
+  "reported_by": "Derek",
+  "recorded_at_utc": "2026-09-29T05:22:58.879094+00:00",
+  "printer_task_id": "1292208393",
+  "user_statement": "The lettering looks great and the logo and QR look like ass.",
+  "appearance": {
+    "raised_lettering_accepted": true,
+    "flush_logo_accepted": false,
+    "flush_qr_accepted": false
+  },
+  "printed_geometry": {
+    "letter_rise_mm": 0.48,
+    "logo_rise_mm": 0,
+    "qr_rise_mm": 0
+  },
+  "photo": {
+    "file": "physical-result.jpg",
+    "sha256": "f7e70418f06ec41b056bf4203ed483b3787138b3b75aa33c10ca2dd9bed66fcf",
+    "modified": false
+  },
+  "support_removal": {
+    "accepted": false,
+    "user_report": "Supports entirely not removable; perceived zero XY clearance at leaves/fins and insufficient Z separation.",
+    "native_minimum_leaf_xy_gap_mm": 0.118,
+    "native_plate_back_z_gap_mm": 0.24,
+    "nominal_xy_mm": 0.4,
+    "top_interface_layers": 3,
+    "top_interface_spacing_mm": 0.2
+  },
+  "retention_bow_and_qr_scanning": "Not assessed in this report."
+}

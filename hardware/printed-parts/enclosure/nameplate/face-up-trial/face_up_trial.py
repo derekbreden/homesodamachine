@@ -1,4 +1,4 @@
-"""Broad-leaf nameplate with 0.48 mm raised white lettering, printed face up."""
+"""Broad-leaf nameplate with all white artwork raised 0.48 mm, printed face up."""
 import hashlib
 import json
 from pathlib import Path
@@ -13,7 +13,7 @@ import nameplate_retention_trial as retention
 
 plate = retention.plate
 NAME = 'nameplate-face-up-raised-001'
-LETTER_RISE = .48
+ARTWORK_RISE = .48
 
 
 def print_pose(shape):
@@ -27,10 +27,9 @@ def main():
     blank = retention.blank()
     original_ink = plate.build_ink(1)
     black = blank.cut(original_ink).clean()
-    names = plate.build_name().Solids()
-    raised = [s.fuse(s.translate((0,LETTER_RISE,0))).clean() for s in names]
-    logo = plate._place(plate._upright(plate.build_logo()),plate.WIDTH/2-plate.LOGO_LEFT,0)
-    ink = cq.Compound.makeCompound([logo,*raised,plate.build_qr(1)])
+    original_solids = original_ink.Solids()
+    raised = [s.fuse(s.translate((0,ARTWORK_RISE,0))).clean() for s in original_solids]
+    ink = cq.Compound.makeCompound(raised)
     exterior = blank.fuse(*raised).clean()
     assert exterior.isValid() and len(exterior.Solids()) == 1
     assert black.isValid() and len(black.Solids()) == 1
@@ -48,8 +47,12 @@ def main():
     face_z = retention.interface.TAB_LENGTH+plate.THICK
     posed = print_pose(exterior)
     assert abs(posed.BoundingBox().zmin) < 1e-6
-    assert abs(posed.BoundingBox().zmax-(face_z+LETTER_RISE)) < 1e-6
-    assert all(abs(s.BoundingBox().ymax-(plate.THICK+LETTER_RISE))<1e-6 for s in raised)
+    assert abs(posed.BoundingBox().zmax-(face_z+ARTWORK_RISE)) < 1e-6
+    assert len(ink.Solids()) == len(original_solids)
+    assert all(abs(s.BoundingBox().ymax-(plate.THICK+ARTWORK_RISE))<1e-6 for s in raised)
+    for original, extended in zip(original_solids, raised):
+        a, b = original.BoundingBox(), extended.BoundingBox()
+        assert all(abs(getattr(a,k)-getattr(b,k))<1e-6 for k in ('xmin','xmax','zmin','zmax','ymin'))
     assembly = cq.Assembly()
     assembly.add(black,name=NAME,color=plate._filament(plate.BLACK))
     assembly.add(ink,name=NAME+'-ink',color=plate._filament(plate.WHITE))
@@ -60,19 +63,21 @@ def main():
     inputs=[Path(__file__),Path(retention.__file__),Path(plate.__file__),Path(plate.interface.__file__),
             Path(plate.__file__).with_name('wordmark.svg'),ROOT/'brand/mark.svg',
             retention.HERE/(retention.RECEIVER+'.step'),path,path.with_suffix('.stl')]
-    report={'pass':True,'letter_rise_mm':LETTER_RISE,'raised_letter_solids':len(raised),
-            'flush_artwork':'Faucet logo and unit-0001 QR.','below_show_face_geometry_difference_mm3':delta,
+    report={'pass':True,'artwork_rise_mm':ARTWORK_RISE,'raised_white_solids':len(raised),
+            'raised_artwork':['HOME / SODA / MACHINE lettering','Faucet logo and drop','Unit-0001 QR'],
+            'all_white_solids_reach_common_top':True,'artwork_planform_preserved':True,
+            'below_show_face_geometry_difference_mm3':delta,
             'receiver_overlap_mm3':exterior.intersect(fixture).Volume(),
             'leaf_span_mm':retention.interface.TAB_WIDTH,'hook_projection_mm':retention.interface.LIP,
             'bearing_clearance_mm':retention.interface.BEARING_SLIP,'receiver_reused':True,
             'print_planes_z_mm':{'hook_tip':0,'hook_nose_end':retention.interface.TAB_LENGTH-retention.interface.LIP_START-retention.interface.LIP_LAND,
                 'hook_bearing':retention.interface.TAB_LENGTH-retention.interface.LIP_START,
                 'plate_back':retention.interface.TAB_LENGTH,'white_inlay_base':face_z-plate.INK_DEPTH,
-                'show_face':face_z,'letter_top':face_z+LETTER_RISE},
+                'show_face':face_z,'white_artwork_top':face_z+ARTWORK_RISE},
             'source_sha256':{str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in inputs},
             'physical_fit':'Pending: support removal, engagement, bow, shake retention and QR scan.'}
     (HERE/'geometry-check.json').write_text(json.dumps(report,indent=2)+'\n')
-    print(json.dumps({k:report[k] for k in ('pass','letter_rise_mm','below_show_face_geometry_difference_mm3','print_planes_z_mm')},indent=2))
+    print(json.dumps({k:report[k] for k in ('pass','artwork_rise_mm','raised_white_solids','below_show_face_geometry_difference_mm3','print_planes_z_mm')},indent=2))
 
 
 if __name__=='__main__':main()

@@ -1,0 +1,9 @@
+{
+  "previous_printer": "H2C",
+  "previous_task_id": "1292030988",
+  "previous_accepted_at_utc": "2026-09-29T02:01:19.607020+00:00",
+  "current_accepted_at_utc": "2026-09-29T05:38:56.592029+00:00",
+  "elapsed_seconds": 13056.985009,
+  "required_seconds": 180,
+  "previous_job_confirmed_finished_before_send": true
+}
