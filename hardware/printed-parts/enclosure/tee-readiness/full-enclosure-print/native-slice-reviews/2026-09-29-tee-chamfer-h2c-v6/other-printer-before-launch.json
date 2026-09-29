@@ -1,0 +1,12 @@
+{
+  "observed_at_utc": "2026-09-29T05:52:47.189286+00:00",
+  "reading": {
+    "job_id": "1292355760",
+    "subtask_name": "nameplate-all-ink-raised-clearance-z004-mark2-v4.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 0,
+    "total_layer_num": 70,
+    "print_error": 0
+  },
+  "seconds_since_acceptance": 830.597152
+}

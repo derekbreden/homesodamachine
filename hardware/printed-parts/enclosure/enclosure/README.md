@@ -711,12 +711,14 @@ end rounds, back-top's roof side edges and the corresponding visible top/bottom 
 other parts. Use a 0.20 mm first bed layer, then 0.08 mm through the remaining curve
 and 0.24 mm elsewhere. Exclude supports on those faces with
 painted blockers when the part has other supported features. Verify the emitted support
-paths; small bodies without a `Support interface` label count too. Derek's
-[tee-carrier observation](../tee-carrier/physical-acceptance.json) provisionally accepts a
-lower surface that holds together with a slight concavity. That print combines six walls
-and infill first. His preferred next recipe uses six walls only through the complete
-print-bottom 0.08 mm rounded band, with the original wall-first order, speeds and 15% overlap.
-Six walls alone remains physically untested; the fan-off carrier configuration is rejected.
+paths; small bodies without a `Support interface` label count too. The
+[tee-carrier physical record](../tee-carrier/physical-acceptance.json) documents bottom-edge
+retreat and residual concavity. Retain the original wall-first order, speeds and 15% overlap.
+The [low-force carrier trial](../tee-carrier/low-force-trial/README.md) has an explicit
+bottom exception: an additive chamfer tangent to the retained taper uses 0.24 mm layers
+above the 0.20 mm first layer, with six walls through print Z 6.1 mm and no supports.
+Its complete top R6 uses 0.08 mm. The new bottom geometry's physical surface and fit
+are pending validation; the fan-off carrier configuration is rejected.
 
 The face a feature works through keeps the shape its work requires, and support carries it.
 The C14 inlet's flange pocket keeps its floor, because that floor is what the receptacle lands

@@ -1,0 +1,15 @@
+{
+  "observed_at_utc": "2026-09-29T05:58:17.399406+00:00",
+  "printer": "H2C",
+  "reading": {
+    "job_id": "1292379739",
+    "subtask_name": "tee-carrier-filled-bottom-024-black-z018-h2c-v6.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 0,
+    "total_layer_num": 140,
+    "mc_remaining_time": 105,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": 74
+  }
+}

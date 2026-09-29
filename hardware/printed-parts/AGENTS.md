@@ -53,6 +53,11 @@ Apply this to other parts, including back-top's roof edges. Use face-specific su
 where other features still need supports, and inspect emitted support paths, including short
 bodies without interface labels. A fine layer band alone does not exclude supports.
 
+The tee-carrier low-force trial has an explicit print-bottom exception: a filled
+chamfer/taper uses normal 0.24 mm layers above the 0.20 mm first layer, six walls
+through the lower band, and no supports. Its top rounds retain 0.08 mm layers.
+See `enclosure/tee-carrier/low-force-trial/README.md` for the geometry and checks.
+
 ## Filament use
 
 Derek wants every spool used fully, with reloading during a print as needed. Remaining
