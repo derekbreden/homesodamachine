@@ -1,0 +1,33 @@
+{
+  "pass": true,
+  "letter_rise_mm": 0.48,
+  "raised_letter_solids": 15,
+  "flush_artwork": "Faucet logo and unit-0001 QR.",
+  "below_show_face_geometry_difference_mm3": 0.0,
+  "receiver_overlap_mm3": 0.0,
+  "leaf_span_mm": 32.0,
+  "hook_projection_mm": 3.6,
+  "bearing_clearance_mm": 1.23,
+  "receiver_reused": true,
+  "print_planes_z_mm": {
+    "hook_tip": 0,
+    "hook_nose_end": 3.2,
+    "hook_bearing": 4.4,
+    "plate_back": 13.65,
+    "white_inlay_base": 15.33,
+    "show_face": 16.05,
+    "letter_top": 16.53
+  },
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/nameplate/face-up-trial/face_up_trial.py": "524657ae6eaa94de57073f1a36ae8cc70202d74ed5083a7f856be67fe55704e0",
+    "hardware/printed-parts/enclosure/nameplate/retention-trial/nameplate_retention_trial.py": "a0fd82b5e73ddda5131cadf12e5face330db47bfdc1d4e85a05ab030346bb343",
+    "hardware/printed-parts/enclosure/nameplate/nameplate.py": "34c3026fe89e4afa0d6c6084376e278fda6b00ebdd226edb6200864b8ccd81cd",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py": "fb290e6f377fc5f33790b7e6532c59ff0fdab0472b2f519d808b17106e8629fc",
+    "hardware/printed-parts/enclosure/nameplate/wordmark.svg": "ac3f8c076308092908edfc2d74ada5b6ccaafdeababfe2aaa3ce56058ae9321f",
+    "brand/mark.svg": "c9c2dcacab2961f30d813832b820599acb1ebcd81c6429177be9c0e83e1efeb6",
+    "hardware/printed-parts/enclosure/nameplate/retention-trial/nameplate-broad-leaf-receiver.step": "e621d9c87e06214e4ceec7d37137c6ca1761cccbb304aabf9b8ef6e51c4cda56",
+    "hardware/printed-parts/enclosure/nameplate/face-up-trial/nameplate-face-up-raised-001.step": "b4e51251179b58fffa63b1c14e2f96a6f594aa9ed4aee57f0dbcd90b4bb9042b",
+    "hardware/printed-parts/enclosure/nameplate/face-up-trial/nameplate-face-up-raised-001.stl": "c2e31dc3f051d0de942774fe31db4dd33d7d93ad31f40d9834c1e27fba3e1085"
+  },
+  "physical_fit": "Pending: support removal, engagement, bow, shake retention and QR scan."
+}
