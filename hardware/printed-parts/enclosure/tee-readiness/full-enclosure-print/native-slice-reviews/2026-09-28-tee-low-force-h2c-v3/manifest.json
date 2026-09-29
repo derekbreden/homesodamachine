@@ -1,0 +1,53 @@
+{
+  "status": "started",
+  "submitted": true,
+  "printer": "H2C",
+  "printer_task_id": "1292030988",
+  "plate_contents": [
+    "tee-carrier-low-force.stl"
+  ],
+  "native_archive": ".cache/prints/2026-09-28-tee-low-force-h2c-v3/ready/tee-carrier-low-force-first020-black-z018-h2c-v3.gcode.3mf",
+  "native_archive_sha256": "db3fcfbdb2125aa746a3e95532edc6dc33c4935b761cffd6df0c666838ee3b56",
+  "gcode_sha256": "74a5ae8f4cd3044bee583276997fc3d4c9b4d45fb94fdf6d1b53660f20254dd2",
+  "estimated_seconds": 9563.4326171875,
+  "estimated_grams_saved_profile_density": 55.1065673828125,
+  "layer_count": 188,
+  "geometry_check": "geometry-check.json",
+  "native_check": "verification.json",
+  "source_geometry_and_settings_sha256": {
+    "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/tee-carrier-low-force.stl": "375a78bb936185cb64fe64ca1da0d3d2421b36c044c4317b817471a2106efc54",
+    "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/tee-carrier-low-force.step": "e008227eaacc8ac1f6f35a33d17bf91dc577dfddd16aeea3b89bad8fe41e423f",
+    "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/low_force_trial.py": "d8f848ab53d23e16f23d40d81c7a4e26478d21afa24732e5644d2dc29469e63f",
+    "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/geometry-check.json": "d81bc2721f8d8674ffa39dcc8b76be562740e3a5301087cad0082b0a9f842aaf",
+    "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/prepare_print.py": "200d8a577cfac0dd6acb5530e37dc759796e41008f0b2c1824204cabcc4e9350",
+    ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v15/tee-carrier-plate-black-z004-mark2-v15-six-wall-band-original-order-input.3mf": "d72b9433d3a69da2377509ea2dd4ac51f7e4cd6d17331bc0975f15b85996f657"
+  },
+  "geometry_lint": {
+    "open_findings": 0,
+    "answered_intentional_features": 1
+  },
+  "launch_record": "launch.json",
+  "postlaunch_record": "postlaunch.json",
+  "support_review": "support-removal-review.json",
+  "description": "Carrier roof clearance trial for the existing front-top. Roof gap 1.25 mm, floor gap 0.25 mm; 0.20 mm bed layer with attached 1 mm brim, then R6 bands at 0.08 mm; six walls in the lower band only; no supports. Full front-top display-receiver integration remains pending.",
+  "physical_fit": "Pending.",
+  "review_sha256": {
+    "README.md": "0f5a26d88ca6646146020c13a6d81d24cddeab7371c34c34575386cac00c9020",
+    "effective-settings.json": "b26161835cd5045814093ec05bb5713cd8c089fd41ffecff94fd7b89b9ad5645",
+    "first-layer-overlap.json": "939358924f6ef66c252d68873a95ebe650722e86392bdd2f002e74e0ff154b02",
+    "geometry-check.json": "d81bc2721f8d8674ffa39dcc8b76be562740e3a5301087cad0082b0a9f842aaf",
+    "launch.json": "aff26ae8d341357da5e822cc3e789d0e691f19381bdcf6cd52aaae1df5766666",
+    "physical-feedback.json": "50303879bcb02c8ecc96c8005afae762fd28b318f0ec4adf92e3f66a850171bc",
+    "postlaunch.json": "b2c238d0bfbaaea31558a348acb97c65ad456549ba98becd226f7d259a229d78",
+    "prelaunch.json": "eccb5133051698756e90663057b618e46e3b9af01f0f5d6166e26712f9bf693c",
+    "preparation.json": "a714862de56c51f992a5f8116927e1b119635edf4a7b6a97a5230110c4a4a254",
+    "preview.png": "8fcf16ebf7036e634c3cc695c52c3d5ebe5bcb49e15653de622d111da7dd6eab",
+    "slice-command.json": "4c969e98c245f43c7896cd02330f4c60f6c821fb1e69be48bbbcd3f111162bbf",
+    "slice-result.json": "7e883baca19e8cf529507c783ff1aea53c6bad41891bb5600abd25e27f464dae",
+    "startup-spacing.json": "96f31273be48136939ad12524b553be2989c371910b3f4701ad60866d15d5609",
+    "support-audit.json": "b0a529f3df1eb89e8aba0467323d9b2816754718c5e45830269c18c0ef7903ba",
+    "support-removal-review.json": "fa0abedca3e32ce3cb4af5c9a3135fa174de412082218cbfdcf7dbd0a843e976",
+    "verification.json": "e92a4e786b25c8ea1a5a672c7203c71184995c7826c2f4810e987fc5877697bb"
+  },
+  "effective_settings": "effective-settings.json"
+}

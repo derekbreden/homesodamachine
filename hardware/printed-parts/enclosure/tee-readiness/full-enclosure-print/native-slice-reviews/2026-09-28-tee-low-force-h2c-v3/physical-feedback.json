@@ -1,0 +1,7 @@
+{
+  "previous_job": "1291267275",
+  "observed": "Peeling and lifting of early layers in user photograph IMG_7867.jpeg.",
+  "gcode_findings": "Previous first layer was 0.08 mm. A 0.20 mm first layer alone gives a 0.754 mm outward perimeter step to layer 2 versus 0.240 mm to layer 3.",
+  "current_trial": "0.20 mm first layer, 1 mm attached outer brim, zero elephant-foot compensation, established H2C +0.18 mm requested trim. See first-layer-overlap.json for emitted-path measurements.",
+  "physical_validation": "Pending."
+}

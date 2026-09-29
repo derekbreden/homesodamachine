@@ -708,8 +708,8 @@ own first layers. The audit records that root as model material.
 
 **Visible rounds at 0.08 mm print without support contacts.** This includes the tee carrier's
 end rounds, back-top's roof side edges and the corresponding visible top/bottom rounds on
-other parts. Keep 0.08 mm layers through each complete curve, including the first layer when
-the curve begins at the bed, and 0.24 mm elsewhere. Exclude supports on those faces with
+other parts. Use a 0.20 mm first bed layer, then 0.08 mm through the remaining curve
+and 0.24 mm elsewhere. Exclude supports on those faces with
 painted blockers when the part has other supported features. Verify the emitted support
 paths; small bodies without a `Support interface` label count too. Derek's
 [tee-carrier observation](../tee-carrier/physical-acceptance.json) provisionally accepts a

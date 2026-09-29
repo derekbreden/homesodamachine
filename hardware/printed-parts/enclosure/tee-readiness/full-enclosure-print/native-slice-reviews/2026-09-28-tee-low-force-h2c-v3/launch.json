@@ -1,0 +1,25 @@
+{
+  "accepted_at_utc": "2026-09-29T02:01:19.607020+00:00",
+  "printer": "H2C",
+  "archive": ".cache/prints/2026-09-28-tee-low-force-h2c-v3/ready/tee-carrier-low-force-first020-black-z018-h2c-v3.gcode.3mf",
+  "archive_sha256": "db3fcfbdb2125aa746a3e95532edc6dc33c4935b761cffd6df0c666838ee3b56",
+  "gcode_sha256": "74a5ae8f4cd3044bee583276997fc3d4c9b4d45fb94fdf6d1b53660f20254dd2",
+  "reply": {
+    "command": "project_file",
+    "result": "SUCCESS",
+    "reason": "SUCCESS",
+    "err_code": 0
+  },
+  "reading": {
+    "job_id": "1292030988",
+    "subtask_name": "tee-carrier-low-force-first020-black-z018-h2c-v3.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 0,
+    "total_layer_num": 188,
+    "mc_remaining_time": 159,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": -1
+  },
+  "send_method": "Bambu Connect via cua_repl; one Send click."
+}

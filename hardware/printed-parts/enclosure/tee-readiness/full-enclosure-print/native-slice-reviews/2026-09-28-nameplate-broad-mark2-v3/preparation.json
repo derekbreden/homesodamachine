@@ -1,0 +1,73 @@
+{
+  "project": ".cache/prints/2026-09-28-nameplate-broad-mark2-v3/nameplate-broad-leaf-black-supports-z004-mark2-v3-input.3mf",
+  "project_sha256": "cce1ba2fe86fe6cab6494ac7420e71250f6a65943ac63990736ed8649e666198",
+  "source_geometry_and_settings_sha256": {
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf": "84c5011c0be15dd9aab41a516abe85bf99b08e2c80d91375b5f2608a96bc0e72",
+    "hardware/printed-parts/enclosure/nameplate/retention-trial/nameplate-broad-leaf-001.step": "80bcb9dad4fba54a2c93f51b5300b16a6548b44b90a6d88c3cc112cc9ae5e441",
+    "hardware/printed-parts/enclosure/nameplate/retention-trial/nameplate-broad-leaf-001.stl": "0defbaa1b34b467de70a47dedab2eec45f4e3dbf783a69134f2c488e208a8f30",
+    "hardware/printed-parts/enclosure/nameplate/retention-trial/nameplate-broad-leaf-receiver.step": "e621d9c87e06214e4ceec7d37137c6ca1761cccbb304aabf9b8ef6e51c4cda56",
+    "hardware/printed-parts/enclosure/nameplate/retention-trial/nameplate-broad-leaf-receiver.stl": "ae4bf1e5e27f015df96b165e563d2442cda575d57434ecdc845d137c5efc8756",
+    "hardware/printed-parts/enclosure/nameplate/retention-trial/nameplate_retention_trial.py": "a0fd82b5e73ddda5131cadf12e5face330db47bfdc1d4e85a05ab030346bb343",
+    "hardware/printed-parts/enclosure/nameplate/retention-trial/geometry-check.json": "2ec44083881ed88e04abe5949fdbade45ae36145bd703204835cd287e1a34210",
+    "hardware/printed-parts/enclosure/nameplate/retention-trial/prepare_print.py": "36939387bcc47837bd71c9f85615d283212644bf27a088a5c9fde090487e9768"
+  },
+  "printer": "Mark2",
+  "nozzle_mapping": {
+    "left": "Black PET-GF, external 254",
+    "right": "White PET-GF, external 255"
+  },
+  "requested_z_trim_mm": 0.04,
+  "expected_textured_plate_trim_mm": 0.02,
+  "meshes": [
+    {
+      "name": "Black body",
+      "id": "1",
+      "triangles": 32218,
+      "bounds": [
+        [
+          -52.265,
+          -19.0,
+          -4.440892098500626e-15
+        ],
+        [
+          52.265,
+          19.0,
+          16.050000000000004
+        ]
+      ],
+      "watertight": true
+    },
+    {
+      "name": "White artwork",
+      "id": "2",
+      "triangles": 29974,
+      "bounds": [
+        [
+          -47.23081168241,
+          -12.5,
+          -2.7005037416649096e-15
+        ],
+        [
+          47.230811682413,
+          12.5,
+          0.7200000000000029
+        ]
+      ],
+      "watertight": true
+    }
+  ],
+  "identify_ids": {
+    "2303": "nameplate-broad-leaf-001"
+  },
+  "nominal_hook_bottom_print_z_mm": 11.65,
+  "precision_shaft_layer_ranges_mm": [
+    [
+      5.0,
+      5.17,
+      0.17
+    ]
+  ],
+  "settings": "Saved nameplate two-colour profile; black support base and interface, no flushing into supports, 0.5 mm support first-layer gap; other settings retained.",
+  "support_policy": "Square hook bearings supported in black with exposed removal lanes; general XY gap 0.4 mm and top Z gap 0.24 mm.",
+  "orientation": "Nameplate artwork down; existing receiver reused."
+}

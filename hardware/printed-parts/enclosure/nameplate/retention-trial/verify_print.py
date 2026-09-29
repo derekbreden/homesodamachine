@@ -4,6 +4,8 @@ from pathlib import Path
 import xml.etree.ElementTree as ET
 import numpy as np
 from PIL import Image,ImageDraw,ImageOps
+from shapely.geometry import LineString
+from shapely.ops import unary_union
 import prepare_print as prep
 
 ROOT,JOB,HERE=prep.ROOT,prep.JOB,prep.HERE
@@ -27,7 +29,7 @@ def main():
         assert all(actual[k]==expected[k][:4] for k in differences)
         for k,v in {'filament_nozzle_map':['0','1'],'filament_colour':['#000000','#FFFFFF'],'filament_printable':['3','3'],
                     'nozzle_diameter':['0.4','0.4'],'layer_height':'0.24','initial_layer_print_height':'0.2',
-                    'support_top_z_distance':'0.24','enable_arc_fitting':'0'}.items():assert actual[k]==v,(k,actual[k])
+                    'support_top_z_distance':'0.24','enable_arc_fitting':'0','support_filament':'1','support_interface_filament':'1','flush_into_support':'0','support_object_first_layer_gap':'0.5'}.items():assert actual[k]==v,(k,actual[k])
         gc=b.read('Metadata/plate_1.gcode');assert hashlib.md5(gc).hexdigest()==b.read('Metadata/plate_1.gcode.md5').decode().strip().lower()
         (JOB/'ready/plate_1.gcode').write_bytes(gc);(JOB/'preview.png').write_bytes(b.read('Metadata/plate_1.png'))
         plate=ET.fromstring(b.read('Metadata/slice_info.config')).find('plate')
@@ -40,13 +42,17 @@ def main():
     model=[s for s in roads if not s['feature'].startswith('Support') and s['feature'] not in ('Brim','Custom','Prime tower')]
     nameplate=[s for s in model if s['object']==2303];receiver=[s for s in model if s['object']==2305]
     white=sorted({s['layer'] for s in nameplate if s['tool']==1});assert white==[.2,.44,.68]
-    assert {s['tool'] for s in receiver}=={0}
+    assert not receiver
     walls=wall_layers(native,2303)
     fine=[(z,h) for z,h in walls if abs(h-.24)>.001];assert fine==[(.2,.2),(5.17,.17)]
     hooks=[s['layer'] for s in nameplate if s['layer']>5 and s['feature'] in ('Inner wall','Outer wall','Overhang wall')
            and max(abs(p[0]-165) for p in (s['a'],s['b']))>43]
     first=min(hooks);bearing=first-dict(walls)[first];assert abs(bearing-11.65)<.001
     supports=[s for s in roads if s['feature'].startswith('Support')]
+    assert supports and {s['tool'] for s in supports}=={0}
+    first_support=unary_union([LineString((r['a'],r['b'])).buffer(r['width']/2) for r in supports if r['layer']==.2])
+    first_model=unary_union([LineString((r['a'],r['b'])).buffer(r['width']/2) for r in nameplate if r['layer']==.2])
+    first_gap=first_support.distance(first_model);assert first_gap>=.45,first_gap
     contacts=[]
     for side in (-1,1):
         points=[]
@@ -69,13 +75,12 @@ def main():
     assert sum(t['part']=='Nameplate' for t in support['trees'])==2
     (JOB/'support-audit.json').write_text(json.dumps(support,indent=2)+'\n')
     bounds={}
-    for oid in (2303,2305):
+    for oid in (2303,):
         pts=np.array([p for r in roads if r['object']==oid for p in (r['a'],r['b'])])
         low=pts.min(axis=0)-.6;high=pts.max(axis=0)+.6
         margin=float(min(*(low-[25,0]),*([325,320]-high)));assert margin>=15
         bounds[str(oid)]=[low.tolist(),high.tolist()]
-    a,b=[np.array(bounds[str(oid)]) for oid in (2303,2305)]
-    gap=float(np.linalg.norm(np.maximum(0,np.maximum(a[0]-b[1],b[0]-a[1]))));assert gap>10
+    assert {s['object'] for s in roads}=={2303}
     # Read the first layer from the visible, plate-facing side.
     scale=20;lo=np.array([110.,103.]);hi=np.array([220.,147.])
     im=Image.new('RGB',tuple(((hi-lo)*scale).astype(int)),'#777777');draw=ImageDraw.Draw(im)
@@ -92,8 +97,8 @@ def main():
            'gcode_sha256':hashlib.sha256(gc).hexdigest(),'source_hashes_current':True,
            'native_export_metadata_normalizations':differences,'other_settings_match_input':True,
            'first_hook_layer_print_z_mm':first,'emitted_hook_bearing_bottom_z_mm':bearing,
-           'white_artwork_layers_mm':white,'receiver_uses_black_left':True,'hook_support_contacts':contacts,
-           'support_summary':support['summary'],'model_and_support_bounds_xy_mm':bounds,'object_gap_mm':gap,
+           'white_artwork_layers_mm':white,'all_supports_black_left':True,'support_first_layer_emitted_gap_mm':first_gap,'receiver_reused':True,'hook_support_contacts':contacts,
+           'support_summary':support['summary'],'model_and_support_bounds_xy_mm':bounds,
            'emitted_z_trim_mm':trims,'estimated_seconds':sliced['total_predication'],
            'estimated_grams_saved_profile_density':sum(f['total_used_g'] for f in sliced['filaments']),
            'layer_count':int(re.search(rb'; total layer number: (\d+)',gc)[1]),'printer':'Mark2','submitted':False}

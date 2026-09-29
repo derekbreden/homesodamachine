@@ -1,0 +1,25 @@
+{
+  "accepted_at_utc": "2026-09-29T01:57:46.181894+00:00",
+  "printer": "Mark2",
+  "archive": ".cache/prints/2026-09-28-nameplate-broad-mark2-v3/ready/nameplate-broad-leaf-black-supports-z004-mark2-v3.gcode.3mf",
+  "archive_sha256": "05f192eaccc7e3b012da712b9762f1f10f0af79a3181b1a8a7861f76000721c2",
+  "gcode_sha256": "b983a0d6fabebb9e33ec7811e9a933b1e1b35b4a366e5d9f8617aed7eb492128",
+  "reply": {
+    "command": "project_file",
+    "result": "SUCCESS",
+    "reason": "SUCCESS",
+    "err_code": 0
+  },
+  "reading": {
+    "job_id": "1292024381",
+    "subtask_name": "nameplate-broad-leaf-black-supports-z004-mark2-v3.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 0,
+    "total_layer_num": 67,
+    "mc_remaining_time": 38,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": -1
+  },
+  "send_method": "Bambu Connect via cua_repl; one Send click."
+}

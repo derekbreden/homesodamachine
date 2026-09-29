@@ -5,6 +5,10 @@ geometry, read **Support-removal strategy** in
 [`enclosure/README.md`](enclosure/README.md#support-removal-strategy). Feature comments
 describe their exact geometry; the README carries the policy.
 
-The visible 0.08 mm top/bottom rounds print unsupported, including back-top's roof edges.
+Use a 0.20 mm first bed layer, followed by 0.08 mm across visible top/bottom rounds.
+Those rounds print unsupported, including back-top's roof edges.
+Check emitted first-to-second-layer perimeter overlap on expanding bottom rounds;
+the 0.20-to-0.08 mm transition can require an attached first-layer brim. Verify the
+brim's actual connection and coverage, and remove it before evaluating fit.
 Retain supports for separate functional faces such as flat lifting ceilings and mounting
 seats. Check the actual slice for contacts on the rounded show faces before sending it.
