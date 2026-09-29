@@ -25,3 +25,11 @@ You have access to my Chrome which is signed in to my amazon through your MCP. I
 ## History
 
 Git keeps history. Code and docs in this repo describe current state. Don't write "was X, now Y" or decision narratives in current files. Don't defend the current choice against alternatives the reader hasn't asked about. The repo describes only what is.
+
+## Privacy
+
+This repository is public. Do not include the founder's family relationships or private details about relatives in repository content, including examples and transcripts. Refer to participants generically, such as "nearby beta household."
+
+## Publishing
+
+Complete requested repository changes by committing and pushing to `main` without asking for separate confirmation. For website changes, verify that the live site serves the update before reporting completion.
