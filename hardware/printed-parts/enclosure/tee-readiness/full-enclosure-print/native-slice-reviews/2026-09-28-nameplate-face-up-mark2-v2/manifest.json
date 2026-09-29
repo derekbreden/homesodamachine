@@ -1,6 +1,6 @@
 {
-  "status": "prepared",
-  "submitted": false,
+  "status": "started",
+  "submitted": true,
   "printer": "Mark2",
   "plate_contents": [
     "nameplate-face-up-raised-001.stl"
@@ -34,17 +34,26 @@
   "physical_fit": "Pending.",
   "description": "Face-up black-and-white nameplate with 0.48 mm raised HOME / SODA / MACHINE lettering, flush logo and QR, 32 mm leaves, 3.6 mm hooks and 1.23 mm bearing clearance. Reuses the existing broad-leaf receiver. Normal Snug supports entirely black; actual rear support gap 0.24 mm.",
   "review_sha256": {
-    "README.md": "23bf2d5e9c43e09f9564c3abf0deda5320186455e398797146fc9f82f789f2f7",
+    "README.md": "537ed0e6f49bcde7ab58298c91d162d069e417c6315c7e5ecf1a1b7a43e6ba5c",
     "effective-settings.json": "d8a83b60051b5369841cb561eadbf78b7f456f3e4002ddb4716440784f9f43ec",
     "geometry-check.json": "2e44e52598a3e17e91d9e7e809e9dccc84e65d6345fcff309c9275e9b2105a88",
+    "launch.json": "c3145e033401ba2ec4db184c435deb3c3f671429f10928ecd85e7f917cf9d365",
+    "postlaunch.json": "68af97391d613253038ee9ae8f55f38a7b22b9b22a9f9e3f97efd4191f0856c8",
+    "prelaunch.json": "d7ae136e1b8401e974ce5741a7aa11986794e87928738a808d9ed5a98354dd07",
     "preparation.json": "e7424bf24d1be5793a4bd77e455ec60bddfb0bd066145417756362d6b90c97a9",
     "preview.png": "84229228939ffc1513bf0bbb03a9e2e3197b1f9f4fb540e3923dc5c966ac9b50",
     "qr-check.json": "b99122c694905855bdef89f3a942e65a007e1e6d794ec2091ce522f7d7e0297e",
+    "ready-to-start.json": "e1befa362e5e56417205c53c0edd2737a16ed16602b10fcfb202b7ec4777c517",
     "show-face-paths.png": "47e93a1ed9b9d4c4ba6a7fa2f9c0bd83203edc87bb97c927571671bcd2f0366c",
     "slice-command.json": "6d8789a964e82f3efd94a6e4de5cd28bda0b01be91c14c31adb5222a4d9eff6a",
     "slice-result.json": "aa9d92f1d27a450418266a0522e868ca82f93a3975b4fa705c6cef50de643dba",
+    "startup-spacing.json": "16109a28e673deedea7cb6c0f439f7da5305861158af5d4e07a0a4cf89a7e3f5",
     "support-audit.json": "04f4b0fe976af3f46bfc371b5f58faa38b2fbb13a03c80c938d57aef530f9f74",
     "support-section.png": "82dd5c2953512aa1f9e48ca22c8a6fd3cb3b932790088600fc3303b9842470d1",
     "verification.json": "fb60f612fd7b213d2aaa35b532fab7df75d935be0facbc884cafc43a506497e2"
-  }
+  },
+  "printer_task_id": "1292208393",
+  "launch_record": "launch.json",
+  "postlaunch_record": "postlaunch.json",
+  "startup_spacing_record": "startup-spacing.json"
 }
