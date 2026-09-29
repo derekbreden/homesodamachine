@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 860" width="1000" height="860" font-family="Helvetica, Arial, sans-serif">
+<title>v7 the run: control stack</title>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f2328"/></marker><marker id="arrv" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0969da"/></marker><marker id="arrf" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#bc4c00"/></marker></defs>
+<rect x="0" y="0" width="1000" height="860" fill="#ffffff"/>
+<text x="20" y="28" font-size="17" fill="#1f2328" text-anchor="start" font-weight="bold">v7  The run: what drives what, where each loop closes, and where Claude sits</text>
+<text x="20" y="47" font-size="12" fill="#57606a" text-anchor="start" font-weight="normal" font-style="italic">Schematic. Arrows are the wires and messages; the time bars below are estimates [calc wave2 s3].</text>
+<text x="20" y="80" font-size="13" fill="#8250df" text-anchor="start" font-weight="bold">On the bench</text>
+<text x="355" y="80" font-size="13" fill="#0969da" text-anchor="start" font-weight="bold">On the Mac</text>
+<text x="700" y="80" font-size="13" fill="#bf3989" text-anchor="start" font-weight="bold">Claude and Derek</text>
+<rect x="20" y="92" width="300" height="96" rx="7" fill="#f6f0ff" stroke="#8250df" stroke-width="1.5" opacity="1"/>
+<text x="30" y="111" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="bold">Stage controller</text>
+<text x="30" y="129.0" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">Ender board as bought (Marlin G-code),</text>
+<text x="30" y="142.5" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">or FluidNC on an ESP32, or Klipper MCU.</text>
+<text x="30" y="156.0" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">Moves only; M400 = moves finished;</text>
+<text x="30" y="169.5" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">never releases the steppers (M84 S0).</text>
+<rect x="20" y="200" width="300" height="176" rx="7" fill="#f6f0ff" stroke="#8250df" stroke-width="1.5" opacity="1"/>
+<text x="30" y="219" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="bold">Station MCU (ESP32, PlatformIO)</text>
+<text x="30" y="237.0" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">press axis: stepper + driver, taught crawl height,</text>
+<text x="30" y="250.5" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">  force envelope checked every sample (HX711/717),</text>
+<text x="30" y="264.0" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">  stops on a fault (cranks: profiled crawl), completes</text>
+<text x="30" y="277.5" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">  a stroke in compaction if the Mac goes silent;</text>
+<text x="30" y="291.0" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">servos: keys, tack former, drop-shear;</text>
+<text x="30" y="304.5" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">lights: LED ring one at a time + sync LED;</text>
+<text x="30" y="318.0" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">far-end port: continuity per conductor;</text>
+<text x="30" y="331.5" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">e-stop, lid, force-ceiling switch cut enable;</text>
+<text x="30" y="345.0" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">heartbeat, JSON lines over USB serial.</text>
+<rect x="20" y="388" width="300" height="80" rx="7" fill="#f6f0ff" stroke="#8250df" stroke-width="1.5" opacity="1"/>
+<text x="30" y="407" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="bold">Cameras</text>
+<text x="30" y="425.0" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">ELP 16MP (oblique / top), MJPG only;</text>
+<text x="30" y="438.5" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">close camera for the side silhouette;</text>
+<text x="30" y="452.0" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">named by device, never by index.</text>
+<rect x="355" y="92" width="310" height="80" rx="7" fill="#ddf4ff" stroke="#0969da" stroke-width="1.5" opacity="1"/>
+<text x="365" y="111" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="bold">capture app</text>
+<text x="365" y="129.0" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">holds the macOS camera grant; opens each</text>
+<text x="365" y="142.5" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">stream once per run; walks focus upward once;</text>
+<text x="365" y="156.0" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">hands out frames tagged with the light state.</text>
+<rect x="355" y="184" width="310" height="136" rx="7" fill="#ddf4ff" stroke="#0969da" stroke-width="1.5" opacity="1"/>
+<text x="365" y="203" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="bold">runner (Python, launchd)</text>
+<text x="365" y="221.0" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">recipe per loom: pins, skips, crossings;</text>
+<text x="365" y="234.5" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">per conductor: waiting &gt; laid &gt; gated &gt; crimped</text>
+<text x="365" y="248.0" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">  &gt; inspected &gt; pulled &gt; parked | asked | backed out;</text>
+<text x="365" y="261.5" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">station = look, act, look, decide;</text>
+<text x="365" y="275.0" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">write-ahead journal: intent before each act,</text>
+<text x="365" y="288.5" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">  result after; a restart re-looks, never re-acts.</text>
+<rect x="355" y="332" width="310" height="96" rx="7" fill="#ddf4ff" stroke="#0969da" stroke-width="1.5" opacity="1"/>
+<text x="365" y="351" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="bold">judge</text>
+<text x="365" y="369.0" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">numbers from OpenCV only;</text>
+<text x="365" y="382.5" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">pass band / borderline band / hard fail;</text>
+<text x="365" y="396.0" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">borderline -&gt; claude -p --json-schema;</text>
+<text x="365" y="409.5" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">Claude never passes a hard fail.</text>
+<rect x="355" y="440" width="310" height="80" rx="7" fill="#ddf4ff" stroke="#0969da" stroke-width="1.5" opacity="1"/>
+<text x="365" y="459" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="bold">log and queue</text>
+<text x="365" y="477.0" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">one folder per crimp: crops, trace, record;</text>
+<text x="365" y="490.5" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">SQLite index; thresholds file versioned;</text>
+<text x="365" y="504.0" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">asks: photo, numbers, proposal, 4 answers.</text>
+<rect x="700" y="92" width="280" height="176" rx="7" fill="#fff0f6" stroke="#bf3989" stroke-width="1.5" opacity="1"/>
+<text x="710" y="111" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="bold">supervisor session (Claude Code)</text>
+<text x="710" y="129.0" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">wakes on an ask, an alarm, or the end;</text>
+<text x="710" y="142.5" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">drafts each ask's proposal from the</text>
+<text x="710" y="156.0" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">  labelled examples; groups like asks;</text>
+<text x="710" y="169.5" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">watches trends: force peaks, heights,</text>
+<text x="710" y="183.0" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">  retries by pallet slot, lot changes;</text>
+<text x="710" y="196.5" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">may pause the runner; cannot resume it</text>
+<text x="710" y="210.0" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">  or move a motor in production;</text>
+<text x="710" y="223.5" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">writes the unit report; proposes new</text>
+<text x="710" y="237.0" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">  thresholds with their evidence.</text>
+<rect x="700" y="280" width="280" height="96" rx="7" fill="#fff0f6" stroke="#bf3989" stroke-width="1.5" opacity="1"/>
+<text x="710" y="299" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="bold">Derek's phone</text>
+<text x="710" y="317.0" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">push with the photo and three buttons;</text>
+<text x="710" y="330.5" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">the answer goes back on a second topic</text>
+<text x="710" y="344.0" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">  the runner listens to (no port opened</text>
+<text x="710" y="357.5" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">  on the Mac); or the session, followed remotely.</text>
+<rect x="700" y="388" width="280" height="80" rx="7" fill="#fff0f6" stroke="#bf3989" stroke-width="1.5" opacity="1"/>
+<text x="710" y="407" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="bold">Derek at the bench</text>
+<text x="710" y="425.0" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">loads pallets, contacts, housings;</text>
+<text x="710" y="438.5" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">answers; e-stop; approves thresholds;</text>
+<text x="710" y="452.0" font-size="10.3" fill="#57606a" text-anchor="start" font-weight="normal">commissioning and campaigns with Claude.</text>
+<line x1="320" y1="140" x2="355" y2="215" stroke="#8250df" stroke-width="1.5" marker-end="url(#arr)"/>
+<text x="326" y="196" font-size="9.5" fill="#8250df" text-anchor="start" font-weight="normal">G-code</text>
+<line x1="320" y1="280" x2="355" y2="270" stroke="#8250df" stroke-width="1.5" marker-end="url(#arr)"/>
+<text x="326" y="290" font-size="9.5" fill="#8250df" text-anchor="start" font-weight="normal">JSON</text>
+<line x1="320" y1="420" x2="355" y2="140" stroke="#8250df" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr)"/>
+<text x="326" y="400" font-size="9.5" fill="#8250df" text-anchor="start" font-weight="normal">UVC</text>
+<line x1="510" y1="172" x2="510" y2="184" stroke="#1f2328" stroke-width="1.5" marker-end="url(#arr)"/>
+<line x1="510" y1="320" x2="510" y2="332" stroke="#1f2328" stroke-width="1.5" marker-end="url(#arr)"/>
+<line x1="510" y1="428" x2="510" y2="440" stroke="#1f2328" stroke-width="1.5" marker-end="url(#arr)"/>
+<line x1="665" y1="465" x2="700" y2="170" stroke="#bf3989" stroke-width="1.5" marker-end="url(#arr)"/>
+<text x="672" y="132" font-size="9.5" fill="#bf3989" text-anchor="start" font-weight="normal">reads</text>
+<line x1="700" y1="330" x2="665" y2="490" stroke="#bf3989" stroke-width="1.5" marker-end="url(#arr)"/>
+<text x="668" y="506" font-size="9.5" fill="#bf3989" text-anchor="start" font-weight="normal">answers</text>
+<line x1="665" y1="360" x2="700" y2="240" stroke="#bf3989" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr)"/>
+<text x="630" y="300" font-size="9.5" fill="#bf3989" text-anchor="start" font-weight="normal">claude -p</text>
+<text x="20" y="550" font-size="13" fill="#1f2328" text-anchor="start" font-weight="bold">Where each loop closes (log time axis)</text>
+<line x1="250.0" y1="560" x2="250.0" y2="810" stroke="#eaeef2" stroke-width="1.5"/>
+<text x="250.0" y="826" font-size="10" fill="#57606a" text-anchor="middle" font-weight="normal">1 ms</text>
+<line x1="405.09417992459737" y1="560" x2="405.09417992459737" y2="810" stroke="#eaeef2" stroke-width="1.5"/>
+<text x="405.09417992459737" y="826" font-size="10" fill="#57606a" text-anchor="middle" font-weight="normal">0.1 s</text>
+<line x1="482.6412698868961" y1="560" x2="482.6412698868961" y2="810" stroke="#eaeef2" stroke-width="1.5"/>
+<text x="482.6412698868961" y="826" font-size="10" fill="#57606a" text-anchor="middle" font-weight="normal">1 s</text>
+<line x1="620.5317248669705" y1="560" x2="620.5317248669705" y2="810" stroke="#eaeef2" stroke-width="1.5"/>
+<text x="620.5317248669705" y="826" font-size="10" fill="#57606a" text-anchor="middle" font-weight="normal">1 min</text>
+<line x1="758.4221798470448" y1="560" x2="758.4221798470448" y2="810" stroke="#eaeef2" stroke-width="1.5"/>
+<text x="758.4221798470448" y="826" font-size="10" fill="#57606a" text-anchor="middle" font-weight="normal">1 h</text>
+<line x1="865.4535451750307" y1="560" x2="865.4535451750307" y2="810" stroke="#eaeef2" stroke-width="1.5"/>
+<text x="865.4535451750307" y="826" font-size="10" fill="#57606a" text-anchor="middle" font-weight="normal">1 d</text>
+<line x1="980.0" y1="560" x2="980.0" y2="810" stroke="#eaeef2" stroke-width="1.5"/>
+<text x="980.0" y="826" font-size="10" fill="#57606a" text-anchor="middle" font-weight="normal">30 d</text>
+<text x="20" y="581" font-size="11" fill="#1f2328" text-anchor="start" font-weight="normal">force limit, stroke envelope</text>
+<rect x="286.9993648626705" y="568" width="48.062814596611474" height="16" rx="0" fill="#8250df" stroke="#8250df" stroke-width="1.5" opacity="0.8"/>
+<text x="20" y="608" font-size="11" fill="#1f2328" text-anchor="start" font-weight="normal">drop to crawl at taught height</text>
+<rect x="335.062179459282" y="595" width="46.68800031021027" height="16" rx="0" fill="#8250df" stroke="#8250df" stroke-width="1.5" opacity="0.8"/>
+<text x="20" y="635" font-size="11" fill="#1f2328" text-anchor="start" font-weight="normal">heartbeat hold</text>
+<rect x="482.6412698868961" y="622" width="23.344000155105164" height="16" rx="0" fill="#8250df" stroke="#8250df" stroke-width="1.5" opacity="0.8"/>
+<text x="20" y="662" font-size="11" fill="#1f2328" text-anchor="start" font-weight="normal">visual servo round</text>
+<rect x="482.6412698868961" y="649" width="36.99936486267052" height="16" rx="0" fill="#0969da" stroke="#0969da" stroke-width="1.5" opacity="0.8"/>
+<text x="20" y="689" font-size="11" fill="#1f2328" text-anchor="start" font-weight="normal">gate by thresholds</text>
+<rect x="428.43818007970253" y="676" width="54.20308980719358" height="16" rx="0" fill="#0969da" stroke="#0969da" stroke-width="1.5" opacity="0.8"/>
+<text x="20" y="716" font-size="11" fill="#1f2328" text-anchor="start" font-weight="normal">borderline judged by Claude</text>
+<rect x="536.8443596940897" y="703" width="60.34336501777557" height="16" rx="0" fill="#bf3989" stroke="#bf3989" stroke-width="1.5" opacity="0.8"/>
+<text x="20" y="743" font-size="11" fill="#1f2328" text-anchor="start" font-weight="normal">ask answered by Derek</text>
+<rect x="620.5317248669705" y="730" width="207.9224554453897" height="16" rx="0" fill="#bf3989" stroke="#bf3989" stroke-width="1.5" opacity="0.8"/>
+<text x="20" y="770" font-size="11" fill="#1f2328" text-anchor="start" font-weight="normal">trend across an end / unit</text>
+<rect x="698.0788148292693" y="757" width="120.68673003555114" height="16" rx="0" fill="#bf3989" stroke="#bf3989" stroke-width="1.5" opacity="0.8"/>
+<text x="20" y="797" font-size="11" fill="#1f2328" text-anchor="start" font-weight="normal">destructive re-check (v3)</text>
+<rect x="919.6566349822243" y="784" width="60.34336501777568" height="16" rx="0" fill="#bf3989" stroke="#bf3989" stroke-width="1.5" opacity="0.8"/>
+<text x="20" y="850" font-size="10.5" fill="#57606a" text-anchor="start" font-weight="normal">purple: MCU   blue: runner on the Mac   pink: Claude or Derek. At a 0.05 mm/s crawl a USB hiccup of 0.5 s is 25 um and 375-750 N into a steel stop, so the MCU owns the stroke.</text>
+</svg>

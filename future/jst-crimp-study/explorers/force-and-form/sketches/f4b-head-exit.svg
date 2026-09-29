@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" width="880" height="560" role="img" aria-labelledby="t d">
+<title id="t">f4 head leaving toward the box, schematic</title>
+<desc id="d">Side section of the travelling crimp head: steel C with its spine ahead of the box and its mouth toward the comb; knee-driven crimper above, anvil on a dropping wedge below.</desc>
+<style>
+.bg{fill:#fcfcfb}
+text{font-family:system-ui,-apple-system,Segoe UI,Helvetica,Arial,sans-serif;fill:#0b0b0b;font-size:12px}
+.t2{fill:#52514e;font-size:11px}.h{font-size:15px;font-weight:600}.sm{font-size:10px;fill:#52514e}
+.steel{fill:#c9c8c2;stroke:#52514e;stroke-width:1.2}
+.dark{fill:#8f8e88;stroke:#3d3c39;stroke-width:1.2}
+.bought{fill:#dcdad2;stroke:#52514e;stroke-width:1.2;stroke-dasharray:4 2}
+.print{fill:#cde2fb;stroke:#2a78d6;stroke-width:1.2}
+.contact{fill:#eda100;stroke:#7a5300;stroke-width:1}
+.wire{stroke:#eb6834;stroke-width:4;fill:none;stroke-linecap:round}
+.wirefill{fill:#eb6834;stroke:#8c3a17;stroke-width:1}
+.strand{stroke:#8c3a17;stroke-width:1;fill:none}
+.force{stroke:#e34948;stroke-width:2.5;fill:none}
+.forcefill{fill:#e34948}
+.move{stroke:#2a78d6;stroke-width:1.8;fill:none;stroke-dasharray:5 3}
+.movefill{fill:#2a78d6}
+.ln{stroke:#52514e;stroke-width:1.2;fill:none}
+.thin{stroke:#8a8984;stroke-width:1;fill:none;stroke-dasharray:3 3}
+.box{fill:none;stroke:#8a8984;stroke-width:1}
+@media (prefers-color-scheme: dark){
+.bg{fill:#1a1a19} text{fill:#ffffff} .t2,.sm{fill:#c3c2b7}
+.steel{fill:#4a4a47;stroke:#c3c2b7}.dark{fill:#6b6a66;stroke:#d8d7d0}
+.bought{fill:#33332f;stroke:#c3c2b7}.print{fill:#1c3a5e;stroke:#3987e5}
+.contact{fill:#c98500;stroke:#f3c56a}.wire{stroke:#d95926}.wirefill{fill:#d95926;stroke:#f0a07e}
+.strand{stroke:#f0a07e}.force{stroke:#e66767}.forcefill{fill:#e66767}
+.move{stroke:#3987e5}.movefill{fill:#3987e5}.ln{stroke:#c3c2b7}.thin{stroke:#8a8984}.box{stroke:#6b6a66}}
+</style>
+<defs><marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="forcefill" d="M0,0 L10,5 L0,10 z"/></marker><marker id="am" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="movefill" d="M0,0 L10,5 L0,10 z"/></marker></defs>
+<rect class="bg" width="880" height="560"/>
+<text class="h" x="20" y="28" text-anchor="start">f4  The head goes to the wire, and leaves toward the box</text>
+<text class="t2" x="20" y="46" text-anchor="start">schematic side section along the conductor, not to scale</text>
+<rect class="box" x="20" y="60" width="840" height="330" rx="0"/>
+<rect class="print" x="40" y="230" width="110" height="40" rx="4"/>
+<text class="sm" x="44" y="290" text-anchor="start">comb grips the jacket</text>
+<text class="sm" x="44" y="303" text-anchor="start">4-5 mm behind the tip</text>
+<line class="wire" x1="40" y1="250" x2="330" y2="250"/>
+<line class="strand" x1="330" y1="247" x2="395" y2="247"/>
+<line class="strand" x1="330" y1="250" x2="395" y2="250"/>
+<line class="strand" x1="330" y1="253" x2="395" y2="253"/>
+<rect class="contact" x="300" y="206.2" width="26.4" height="43.8" rx="0"/>
+<rect class="contact" x="344" y="223.9" width="30.799999999999997" height="26.1" rx="0"/>
+<rect class="contact" x="390" y="205.4" width="44.0" height="50.599999999999994" rx="0"/>
+<line class="ln" x1="392" y1="256" x2="384" y2="272"/>
+<text class="sm" x="384" y="290" text-anchor="start">lance</text>
+<rect class="steel" x="560" y="90" width="60" height="280" rx="0"/>
+<rect class="steel" x="270" y="90" width="290" height="40" rx="0"/>
+<rect class="steel" x="270" y="330" width="290" height="40" rx="0"/>
+<text class="sm" x="566" y="385" text-anchor="start">spine</text>
+<rect class="bought" x="640" y="150" width="90" height="60" rx="3"/>
+<text class="sm" x="645" y="170" text-anchor="start">NEMA 17</text>
+<text class="sm" x="645" y="182" text-anchor="start">lead screw</text>
+<polyline class="ln" points="640,180 560,180"/>
+<polyline class="ln" points="470,130 440,160 410,130"/>
+<circle class="dark" cx="440" cy="160" r="4"/>
+<text class="sm" x="476" y="150" text-anchor="start">knee</text>
+<rect class="steel" x="405" y="160" width="70" height="40" rx="0"/>
+<rect class="dark" x="395" y="200" width="80" height="18" rx="0"/>
+<text class="sm" x="420" y="196" text-anchor="start">crimper</text>
+<rect class="dark" x="300" y="276" width="190" height="18" rx="0"/>
+<text class="sm" x="310" y="290" text-anchor="start">anvil (relief behind the lance)</text>
+<polygon class="steel" points="300,294 500,294 500,318 300,306"/>
+<rect class="bought" x="505" y="300" width="40" height="22" rx="3"/>
+<text class="sm" x="505" y="338" text-anchor="start">wedge servo</text>
+<line class="move" x1="470" y1="300" x2="470" y2="326" marker-end="url(#am)"/>
+<text class="sm" x="440" y="345" text-anchor="start">drops 1.5 mm</text>
+<line class="move" x1="640" y1="132" x2="760" y2="132" marker-end="url(#am)"/>
+<text class="sm" x="636" y="94" text-anchor="start">leave: crimper up 5 mm, anvil down</text>
+<text class="sm" x="636" y="106" text-anchor="start">1.5 mm, head moves toward the box</text>
+<line class="move" x1="380" y1="70" x2="300" y2="70" marker-end="url(#am)"/>
+<text class="sm" x="385" y="74" text-anchor="start">thread: head moves toward the comb; the barrel's flared rear is the funnel</text>
+<text class="t2" x="30" y="410" text-anchor="start">1 Pick: box first into the mouth at the dispenser; anvil up, crimper to capture; the dispenser's drop-shear cuts the tab outside the mouth.</text>
+<text class="t2" x="30" y="426" text-anchor="start">2 Find the tip (camera).  3 Thread: the head slides the captured contact onto the still conductor.  4 Crimp: knee straight.</text>
+<text class="t2" x="30" y="442" text-anchor="start">5 Leave: down is closed (crimper), sideways is closed (neighbours at 5 mm), back along the wire is closed (anything behind the barrel);</text>
+<text class="t2" x="30" y="458" text-anchor="start">  forward is open: box and lance (2.8-3.25 mm) pass a 6.5 mm gap.</text>
+<rect class="steel" x="30" y="490" width="14" height="12" rx="0"/>
+<text class="sm" x="50" y="500" text-anchor="start">steel (force path, dies)</text>
+<rect class="print" x="205" y="490" width="14" height="12" rx="0"/>
+<text class="sm" x="225" y="500" text-anchor="start">printed</text>
+<rect class="bought" x="380" y="490" width="14" height="12" rx="0"/>
+<text class="sm" x="400" y="500" text-anchor="start">bought motion / sensing</text>
+<rect class="contact" x="555" y="490" width="14" height="12" rx="0"/>
+<text class="sm" x="575" y="500" text-anchor="start">XH contact</text>
+<line class="wire" x1="730" y1="496" x2="752" y2="496"/>
+<text class="sm" x="758" y="500" text-anchor="start">conductor</text>
+<text class="t2" x="30" y="530" text-anchor="start">The force closes inside the C; the gantry that carries the head only positions it.</text>
+</svg>

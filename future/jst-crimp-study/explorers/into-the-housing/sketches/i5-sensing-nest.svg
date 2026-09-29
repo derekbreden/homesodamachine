@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 560" font-family="Helvetica, Arial, sans-serif" font-size="13">
+  <rect width="940" height="560" fill="#ffffff"/>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#c0392b"/>
+    </marker>
+  </defs>
+  <text x="20" y="28" font-size="17" font-weight="bold" fill="#111">i5 — the person starts each contact; the nest seats, identifies and tests it (schematic, side view)</text>
+  <text x="20" y="48" fill="#444">Y left to right toward the mating face. The housing is plugged onto a real XH header; every post is an input.</text>
+
+  <!-- base and load cell -->
+  <rect x="40" y="440" width="860" height="24" fill="#dcdcdc" stroke="#777"/>
+  <rect x="560" y="400" width="220" height="16" fill="#9aa4b0" stroke="#334"/>
+  <rect x="740" y="416" width="40" height="24" fill="#9aa4b0" stroke="#334"/>
+  <text x="600" y="432" fill="#223">5 kg bar load cell</text>
+  <!-- header PCB -->
+  <rect x="560" y="360" width="200" height="10" fill="#2e7d32" stroke="#1b4d1e"/>
+  <text x="770" y="358" fill="#2e7d32">PCB: five XH headers</text>
+  <rect x="690" y="370" width="40" height="30" fill="#556" />
+  <text x="780" y="392" fill="#333">stand-off onto the load cell</text>
+  <!-- header shroud (rotated: mating axis along Y) -->
+  <rect x="640" y="230" width="100" height="130" fill="#f0e6c8" stroke="#8a6d1d"/>
+  <text x="750" y="250" fill="#8a6d1d">header shroud</text>
+  <line x1="660" y1="300" x2="740" y2="300" stroke="#555" stroke-width="5"/>
+  <text x="750" y="304" fill="#333">post n (pulled-up input)</text>
+  <!-- housing plugged on -->
+  <rect x="560" y="268" width="120" height="64" fill="#f4f1ea" stroke="#333"/>
+  <text x="566" y="262" fill="#222">XHP housing</text>
+  <!-- contact started by hand -->
+  <rect x="540" y="288" width="44" height="24" fill="#e6c35c" stroke="#6b4f00"/>
+  <rect x="500" y="294" width="40" height="14" fill="#d4a017" stroke="#6b4f00"/>
+  <line x1="120" y1="301" x2="500" y2="301" stroke="#111" stroke-width="12"/>
+  <text x="300" y="330" fill="#111">crimped conductor, started ~2 mm by hand</text>
+  <!-- blade and lever -->
+  <rect x="486" y="250" width="8" height="70" fill="#8c96a4" stroke="#334"/>
+  <text x="380" y="240" fill="#334">slotted stencil-steel blade,</text>
+  <text x="380" y="256" fill="#334">spring-limited</text>
+  <path d="M490,250 L490,170 L300,120" fill="none" stroke="#555" stroke-width="6"/>
+  <circle cx="490" cy="170" r="8" fill="#fff" stroke="#333" stroke-width="2"/>
+  <text x="505" y="170" fill="#333">pivot with magnetic angle sensor</text>
+  <rect x="270" y="105" width="40" height="30" fill="#9fd19f" stroke="#2e7d32"/>
+  <text x="200" y="98" fill="#2e7d32">handle, through a spring (trips ~20 N)</text>
+  <line x1="494" y1="320" x2="540" y2="320" stroke="#c0392b" stroke-width="2" marker-end="url(#ar)"/>
+  <!-- carriage -->
+  <rect x="380" y="410" width="160" height="20" fill="#dcdcdc" stroke="#777"/>
+  <text x="300" y="480" fill="#555">lever carriage on an X rail, detents at 2.5 mm; LED over the next cavity</text>
+  <!-- ESP32 and screen -->
+  <rect x="60" y="370" width="140" height="50" fill="#333"/>
+  <text x="70" y="400" fill="#fff">ESP32 + screen</text>
+  <text x="60" y="510" fill="#444">Far end in a terminal block: the ESP32 drives conductor k, and the post that sees it names the cavity. Tug to 5 N (load cell), re-touch: same place = latched.</text>
+  <text x="60" y="530" fill="#444">J2: cavity 3 must never close. Beside the nest (K4): a 20 N proof-pull fork and a 0.001 mm crimp-height pocket log every crimp first.</text>
+</svg>

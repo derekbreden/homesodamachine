@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 600" width="880" height="600" role="img" aria-labelledby="t d">
+<title id="t">f6 two blades two drives, schematic</title>
+<desc id="d">Conductor crimper on the knee and a separate insulation crimper with its own small drive, with force curves for each blade and the insulation-height window between cut and cavity.</desc>
+<style>
+.bg{fill:#fcfcfb}
+text{font-family:system-ui,-apple-system,Segoe UI,Helvetica,Arial,sans-serif;fill:#0b0b0b;font-size:12px}
+.t2{fill:#52514e;font-size:11px}.h{font-size:15px;font-weight:600}.sm{font-size:10px;fill:#52514e}
+.steel{fill:#c9c8c2;stroke:#52514e;stroke-width:1.2}
+.dark{fill:#8f8e88;stroke:#3d3c39;stroke-width:1.2}
+.bought{fill:#dcdad2;stroke:#52514e;stroke-width:1.2;stroke-dasharray:4 2}
+.print{fill:#cde2fb;stroke:#2a78d6;stroke-width:1.2}
+.contact{fill:#eda100;stroke:#7a5300;stroke-width:1}
+.wire{stroke:#eb6834;stroke-width:4;fill:none;stroke-linecap:round}
+.wirefill{fill:#eb6834;stroke:#8c3a17;stroke-width:1}
+.strand{stroke:#8c3a17;stroke-width:1;fill:none}
+.force{stroke:#e34948;stroke-width:2.5;fill:none}
+.forcefill{fill:#e34948}
+.move{stroke:#2a78d6;stroke-width:1.8;fill:none;stroke-dasharray:5 3}
+.movefill{fill:#2a78d6}
+.ln{stroke:#52514e;stroke-width:1.2;fill:none}
+.thin{stroke:#8a8984;stroke-width:1;fill:none;stroke-dasharray:3 3}
+.box{fill:none;stroke:#8a8984;stroke-width:1}
+@media (prefers-color-scheme: dark){
+.bg{fill:#1a1a19} text{fill:#ffffff} .t2,.sm{fill:#c3c2b7}
+.steel{fill:#4a4a47;stroke:#c3c2b7}.dark{fill:#6b6a66;stroke:#d8d7d0}
+.bought{fill:#33332f;stroke:#c3c2b7}.print{fill:#1c3a5e;stroke:#3987e5}
+.contact{fill:#c98500;stroke:#f3c56a}.wire{stroke:#d95926}.wirefill{fill:#d95926;stroke:#f0a07e}
+.strand{stroke:#f0a07e}.force{stroke:#e66767}.forcefill{fill:#e66767}
+.move{stroke:#3987e5}.movefill{fill:#3987e5}.ln{stroke:#c3c2b7}.thin{stroke:#8a8984}.box{stroke:#6b6a66}}
+</style>
+<defs><marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="forcefill" d="M0,0 L10,5 L0,10 z"/></marker><marker id="am" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="movefill" d="M0,0 L10,5 L0,10 z"/></marker></defs>
+<rect class="bg" width="880" height="600"/>
+<text class="h" x="20" y="28" text-anchor="start">f6  Two blades, two drives: the copper to its stop, the jacket to its own height</text>
+<text class="t2" x="20" y="46" text-anchor="start">schematic, not to scale</text>
+<rect class="box" x="20" y="60" width="400" height="330" rx="0"/>
+<text class="t2" x="30" y="78" text-anchor="start">Side view along the wire: two blades in one slot</text>
+<rect class="steel" x="80" y="90" width="80" height="30" rx="0"/>
+<text class="sm" x="86" y="108" text-anchor="start">knee</text>
+<rect class="steel" x="95" y="120" width="50" height="110" rx="0"/>
+<text class="sm" x="40" y="180" text-anchor="start">conductor</text>
+<text class="sm" x="40" y="193" text-anchor="start">crimper</text>
+<rect class="steel" x="145" y="140" width="40" height="110" rx="0"/>
+<text class="sm" x="190" y="180" text-anchor="start">insulation crimper</text>
+<text class="sm" x="190" y="193" text-anchor="start">slides on the conductor</text>
+<text class="sm" x="190" y="206" text-anchor="start">blade's face</text>
+<rect class="bought" x="260" y="110" width="90" height="40" rx="3"/>
+<text class="sm" x="266" y="126" text-anchor="start">NEMA 17 + lever</text>
+<text class="sm" x="266" y="138" text-anchor="start">up to 150 N, load cell</text>
+<polyline class="ln" points="260,135 185,145"/>
+<rect class="steel" x="210" y="225" width="40" height="20" rx="0"/>
+<text class="sm" x="254" y="240" text-anchor="start">motor-set wedge = insulation height</text>
+<rect class="contact" x="95" y="262" width="50" height="18" rx="0"/>
+<rect class="contact" x="145" y="250" width="40" height="30" rx="0"/>
+<line class="wire" x1="40" y1="272" x2="300" y2="272"/>
+<rect class="dark" x="95" y="282" width="50" height="28" rx="0"/>
+<rect class="dark" x="145" y="282" width="40" height="28" rx="0"/>
+<text class="sm" x="96" y="325" text-anchor="start">anvils</text>
+<text class="sm" x="30" y="350" text-anchor="start">Order: capture both; thread; conductor crimp (knee);</text>
+<text class="sm" x="30" y="363" text-anchor="start">then insulation blade alone; silhouette; tab cut;</text>
+<text class="sm" x="30" y="376" text-anchor="start">a track section drops ~3 mm; bend DOWN and look.</text>
+<rect class="box" x="440" y="60" width="420" height="190" rx="0"/>
+<text class="t2" x="450" y="78" text-anchor="start">What each blade's load cell sees (shape only)</text>
+<line class="ln" x1="480" y1="230" x2="840" y2="230"/>
+<line class="ln" x1="480" y1="230" x2="480" y2="90"/>
+<text class="sm" x="840" y="245" text-anchor="end">stroke</text>
+<polyline class="force" points="480,228 590,215 690,205 740,190 770,140 785,95"/>
+<text class="sm" x="640" y="104" text-anchor="start">conductor: kN at its bottom</text>
+<polyline class="move" points="480,229 560,222 660,220 720,214 740,211"/>
+<polyline class="force" points="740,211 750,170"/>
+<text class="sm" x="500" y="150" text-anchor="start">insulation (own load cell):</text>
+<text class="sm" x="500" y="162" text-anchor="start">wings, tens of N; silicone slope,</text>
+<text class="sm" x="500" y="174" text-anchor="start">1-13 N; tips on copper:</text>
+<text class="sm" x="500" y="186" text-anchor="start">20-500x steeper</text>
+<rect class="box" x="440" y="262" width="420" height="128" rx="0"/>
+<text class="t2" x="450" y="280" text-anchor="start">Insulation crimp height window on 1.7 mm silicone [estimate]</text>
+<line class="ln" x1="480" y1="330" x2="840" y2="330"/>
+<line class="ln" x1="480.0" y1="326" x2="480.0" y2="334"/>
+<text class="sm" x="480.0" y="348" text-anchor="middle">1.7</text>
+<line class="ln" x1="525.0" y1="326" x2="525.0" y2="334"/>
+<text class="sm" x="525.0" y="348" text-anchor="middle">1.8</text>
+<line class="ln" x1="570.0" y1="326" x2="570.0" y2="334"/>
+<text class="sm" x="570.0" y="348" text-anchor="middle">1.9</text>
+<line class="ln" x1="615.0" y1="326" x2="615.0" y2="334"/>
+<text class="sm" x="615.0" y="348" text-anchor="middle">2.0</text>
+<line class="ln" x1="660.0" y1="326" x2="660.0" y2="334"/>
+<text class="sm" x="660.0" y="348" text-anchor="middle">2.1</text>
+<line class="ln" x1="705.0" y1="326" x2="705.0" y2="334"/>
+<text class="sm" x="705.0" y="348" text-anchor="middle">2.2</text>
+<line class="ln" x1="750.0" y1="326" x2="750.0" y2="334"/>
+<text class="sm" x="750.0" y="348" text-anchor="middle">2.3</text>
+<line class="ln" x1="795.0" y1="326" x2="795.0" y2="334"/>
+<text class="sm" x="795.0" y="348" text-anchor="middle">2.4</text>
+<line class="ln" x1="840.0" y1="326" x2="840.0" y2="334"/>
+<text class="sm" x="840.0" y="348" text-anchor="middle">2.5</text>
+<rect class="force" x="480" y="300" width="135.0" height="22" rx="0"/>
+<text class="sm" x="484" y="296" text-anchor="start">tips cut the jacket</text>
+<rect class="print" x="615.0" y="300" width="90.0" height="22" rx="0"/>
+<text class="sm" x="619.0" y="296" text-anchor="start">window</text>
+<rect class="bought" x="795.0" y="300" width="45.0" height="22" rx="0"/>
+<text class="sm" x="775.0" y="296" text-anchor="start">over 2.4 envelope</text>
+<text class="sm" x="525.0" y="368" text-anchor="start">1.80 = clone spec (PVC-class wire)</text>
+<text class="sm" x="484" y="382" text-anchor="start">height in mm, at 1.8-1.9 mm wide; bounds modelled, not measured</text>
+<text class="t2" x="30" y="420" text-anchor="start">On this wire the insulation crimp is not a pull-out grip (strands slip in the jacket at 0.4-9 N).</text>
+<text class="t2" x="30" y="436" text-anchor="start">Silicone pushes back 1-13 N against 30-130 N of wing forming, so the jacket must be set by position, not force.</text>
+<text class="t2" x="30" y="452" text-anchor="start">Checks: silhouette height and width; bend 60-90 deg DOWN over a 2 mm (diameter) pin, so the wing tips on top are on the</text>
+<text class="t2" x="30" y="468" text-anchor="start">outside (strain 0.46; a cut gapes 0.23-0.56 mm), and look for tin on black; jacket tug with the camera on the insulation</text>
+<text class="t2" x="30" y="484" text-anchor="start">edge. Continuity cannot see a cut at the insulation barrel. Bending up would close the cut while the camera looks.</text>
+<rect class="steel" x="30" y="520" width="14" height="12" rx="0"/>
+<text class="sm" x="50" y="530" text-anchor="start">steel (force path, dies)</text>
+<rect class="print" x="205" y="520" width="14" height="12" rx="0"/>
+<text class="sm" x="225" y="530" text-anchor="start">printed</text>
+<rect class="bought" x="380" y="520" width="14" height="12" rx="0"/>
+<text class="sm" x="400" y="530" text-anchor="start">bought motion / sensing</text>
+<rect class="contact" x="555" y="520" width="14" height="12" rx="0"/>
+<text class="sm" x="575" y="530" text-anchor="start">XH contact</text>
+<line class="wire" x1="730" y1="526" x2="752" y2="526"/>
+<text class="sm" x="758" y="530" text-anchor="start">conductor</text>
+<text class="t2" x="30" y="560" text-anchor="start">Blades: an OTP knife set already has separate conductor and insulation crimpers, or EDM (f7).</text>
+</svg>

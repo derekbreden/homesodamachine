@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 820" width="1100" height="820" font-family="Helvetica, Arial, sans-serif">
+<title>a4c bare contacts crimped on a post bed, one push</title>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1d2430"/></marker><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#8b96a5" stroke-width="1"/></pattern></defs>
+<rect x="0" y="0" width="1100" height="820" fill="#ffffff"/>
+<text x="20.0" y="30.0" font-size="17" fill="#1d2430" text-anchor="start" font-weight="bold">a4c  Every cavity's post at once: bare contacts crimped on a post bed through the housing, one push</text>
+<text x="20.0" y="50.0" font-size="11" fill="#5b6675" text-anchor="start" font-weight="normal" font-style="italic">schematic - section along one cavity; housing and contact proportions from JST/clone dims</text>
+<text x="20.0" y="90.0" font-size="12" fill="#1d2430" text-anchor="start" font-weight="bold">1  CRIMP: housing threaded on the bed near its root; each bare contact on its post tip, 9 mm out; odd posts first</text>
+<rect x="70.0" y="180.0" width="22.0" height="120.0" stroke="#2f7d6d" fill="#cfe8e1" stroke-width="1.2"/>
+<text x="68.0" y="316.0" font-size="10" fill="#2f7d6d" text-anchor="start" font-weight="normal">bed: pins at 2.50 mm, each wired to the controller</text>
+<rect x="102.0" y="199.0" width="155.0" height="82.0" stroke="#1d2430" fill="#f4f1e8" stroke-width="1.2"/>
+<rect x="120.0" y="214.0" width="137.0" height="52.0" stroke="#1d2430" fill="#ffffff" stroke-width="1.2"/>
+<rect x="102.0" y="231.0" width="18.0" height="18.0" stroke="#1d2430" fill="#ffffff" stroke-width="1.2"/>
+<rect x="92.0" y="233.6" width="345.0" height="12.8" stroke="#6f7c8c" fill="#6f7c8c" stroke-width="1"/>
+<rect x="491.0" y="229.0" width="102.0" height="34.0" stroke="#222222" fill="#3a3a3a" stroke-width="1"/>
+<rect x="443.0" y="238.8" width="48.0" height="14.4" stroke="#c26a2e" fill="#c26a2e" stroke-width="0.6"/>
+<line x1="523.0" y1="263.0" x2="407.0" y2="263.0" stroke="#8a6d2f" stroke-width="2.4"/>
+<rect x="495.0" y="225.0" width="28.0" height="38.0" stroke="#8a6d2f" fill="none" stroke-width="1.6"/>
+<rect x="459.0" y="244.0" width="28.0" height="19.0" stroke="#8a6d2f" fill="none" stroke-width="1.6"/>
+<rect x="407.0" y="217.0" width="40.0" height="46.0" stroke="#8a6d2f" fill="#f0e2b8" stroke-width="1.2"/>
+<line x1="439.0" y1="263.0" x2="457.0" y2="279.0" stroke="#8a6d2f" stroke-width="1.4"/>
+<text x="180.0" y="189.0" font-size="10" fill="#5b6675" text-anchor="middle" font-weight="normal">XHP housing (section through cavity k)</text>
+<rect x="455.0" y="265.0" width="64.0" height="44.0" stroke="#6f7c8c" fill="#d7dde5" stroke-width="1.2"/>
+<rect x="455.0" y="151.0" width="64.0" height="36.0" stroke="#6f7c8c" fill="#d7dde5" stroke-width="1.2"/>
+<text x="487.0" y="299.0" font-size="10" fill="#6f7c8c" text-anchor="middle" font-weight="normal">anvil</text>
+<text x="487.0" y="145.0" font-size="10" fill="#6f7c8c" text-anchor="middle" font-weight="normal">punch</text>
+<line x1="437.0" y1="176.0" x2="437.0" y2="308.0" stroke="#b3342b" stroke-width="1" stroke-dasharray="3,3"/>
+<text x="431.0" y="180.0" font-size="9" fill="#b3342b" text-anchor="end" font-weight="normal">post tips (all posts end here);</text>
+<text x="431.0" y="192.0" font-size="9" fill="#b3342b" text-anchor="end" font-weight="normal">the dies work 1.0-4.5 mm beyond</text>
+<text x="700.0" y="120.0" font-size="10" fill="#1d2430" text-anchor="start" font-weight="normal">Odd pass: even posts stand bare; their tips end</text>
+<text x="700.0" y="133.0" font-size="10" fill="#1d2430" text-anchor="start" font-weight="normal">before the barrels, so they never meet the dies.</text>
+<text x="700.0" y="146.0" font-size="10" fill="#1d2430" text-anchor="start" font-weight="normal">Even conductors wait lifted, so ordinary dies fit.</text>
+<text x="700.0" y="159.0" font-size="10" fill="#1d2430" text-anchor="start" font-weight="normal">Even pass: a tongue nest (&lt;= 2.75 wide, lance</text>
+<text x="700.0" y="172.0" font-size="10" fill="#1d2430" text-anchor="start" font-weight="normal">groove, no side walls) slides each even contact</text>
+<text x="700.0" y="185.0" font-size="10" fill="#1d2430" text-anchor="start" font-weight="normal">onto its post between crimped neighbours; the</text>
+<text x="700.0" y="198.0" font-size="10" fill="#1d2430" text-anchor="start" font-weight="normal">finger lays its conductor in; narrow stepped</text>
+<text x="700.0" y="211.0" font-size="10" fill="#1d2430" text-anchor="start" font-weight="normal">dies crimp it (+0.17-0.28 mm).</text>
+<text x="700.0" y="224.0" font-size="10" fill="#1d2430" text-anchor="start" font-weight="normal">Before each crimp, continuity from the loom's</text>
+<text x="700.0" y="237.0" font-size="10" fill="#1d2430" text-anchor="start" font-weight="normal">far end to post k says the right conductor is</text>
+<text x="700.0" y="250.0" font-size="10" fill="#1d2430" text-anchor="start" font-weight="normal">in the right contact.</text>
+<text x="20.0" y="430.0" font-size="12" fill="#1d2430" text-anchor="start" font-weight="bold">2  ONE PUSH: the housing slides ~14 mm along every post at once and seats every contact</text>
+<rect x="70.0" y="520.0" width="22.0" height="120.0" stroke="#2f7d6d" fill="#cfe8e1" stroke-width="1.2"/>
+<text x="68.0" y="656.0" font-size="10" fill="#2f7d6d" text-anchor="start" font-weight="normal">bed: pins at 2.50 mm, each wired to the controller</text>
+<rect x="386.0" y="539.0" width="155.0" height="82.0" stroke="#1d2430" fill="#f4f1e8" stroke-width="1.2"/>
+<rect x="404.0" y="554.0" width="137.0" height="52.0" stroke="#1d2430" fill="#ffffff" stroke-width="1.2"/>
+<rect x="386.0" y="571.0" width="18.0" height="18.0" stroke="#1d2430" fill="#ffffff" stroke-width="1.2"/>
+<rect x="92.0" y="573.6" width="345.0" height="12.8" stroke="#6f7c8c" fill="#6f7c8c" stroke-width="1"/>
+<rect x="491.0" y="569.0" width="102.0" height="34.0" stroke="#222222" fill="#3a3a3a" stroke-width="1"/>
+<rect x="443.0" y="578.8" width="48.0" height="14.4" stroke="#c26a2e" fill="#c26a2e" stroke-width="0.6"/>
+<line x1="523.0" y1="603.0" x2="407.0" y2="603.0" stroke="#8a6d2f" stroke-width="2.4"/>
+<rect x="495.0" y="565.0" width="28.0" height="38.0" stroke="#8a6d2f" fill="none" stroke-width="1.6"/>
+<rect x="459.0" y="584.0" width="28.0" height="19.0" stroke="#8a6d2f" fill="none" stroke-width="1.6"/>
+<rect x="407.0" y="557.0" width="40.0" height="46.0" stroke="#8a6d2f" fill="#f0e2b8" stroke-width="1.2"/>
+<line x1="439.0" y1="603.0" x2="457.0" y2="619.0" stroke="#8a6d2f" stroke-width="1.4"/>
+<text x="464.0" y="516.0" font-size="10" fill="#5b6675" text-anchor="middle" font-weight="normal">housing after ~14 mm of travel</text>
+<line x1="180.0" y1="528.0" x2="444.0" y2="528.0" stroke="#1d2430" stroke-width="1.2" marker-end="url(#arr)"/>
+<text x="700.0" y="460.0" font-size="10" fill="#1d2430" text-anchor="start" font-weight="normal">Every contact is seated by the same move:</text>
+<text x="700.0" y="473.0" font-size="10" fill="#1d2430" text-anchor="start" font-weight="normal">13.95-14.45 mm for all of them, nothing stored</text>
+<text x="700.0" y="486.0" font-size="10" fill="#1d2430" text-anchor="start" font-weight="normal">in any conductor. The cell logs the lance</text>
+<text x="700.0" y="499.0" font-size="10" fill="#1d2430" text-anchor="start" font-weight="normal">events; the posts are now inside the boxes as</text>
+<text x="700.0" y="512.0" font-size="10" fill="#1d2430" text-anchor="start" font-weight="normal">the board's header posts will be, so continuity</text>
+<text x="700.0" y="525.0" font-size="10" fill="#1d2430" text-anchor="start" font-weight="normal">per post and adjacent shorts are read here.</text>
+<text x="700.0" y="538.0" font-size="10" fill="#1d2430" text-anchor="start" font-weight="normal">Then a 5 N pull-back per wire, and the housing</text>
+<text x="700.0" y="551.0" font-size="10" fill="#1d2430" text-anchor="start" font-weight="normal">comes off the posts straight (within 15 deg).</text>
+<text x="40.0" y="760.0" font-size="10" fill="#5b6675" text-anchor="start" font-weight="normal">From a4b: the post through the cavity. From into-the-housing i6b: the bed of posts and one housing move. From i2b: odd, then even.</text>
+<text x="40.0" y="774.0" font-size="10" fill="#5b6675" text-anchor="start" font-weight="normal">Open: narrow dies for the even pass; the post's path through the cavity (one flashlight photo); posts 17-19 mm free are soft (1.2-1.7 N/mm).</text>
+</svg>

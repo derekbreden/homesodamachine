@@ -1,0 +1,53 @@
+==============================================================================
+1. Cut-back for one whole-end redo
+==============================================================================
+contact rear sits 3.5-4.7 mm behind the conductor tip
+cut-back per redo = 4.5 to 6.7 mm; design figure 6 mm [calc]
+the web split behind the housing must also be extended by the same amount
+
+==============================================================================
+2. Chance a ribbon end has at least one bad crimp, per-crimp failure rate p
+   (independent failures; every bad crimp is caught before the end is released)
+==============================================================================
+      p | n=3: P(end)  E[mm] | n=4: P(end)  E[mm] | n=5: P(end)  E[mm]
+   0.5% |       1.5%   0.09   |       2.0%   0.12   |       2.5%   0.15  
+   2.0% |       5.9%   0.37   |       7.8%   0.50   |       9.6%   0.64  
+   5.0% |      14.3%   1.00   |      18.5%   1.37   |      22.6%   1.75  
+  10.0% |      27.1%   2.23   |      34.4%   3.14   |      41.0%   4.16  
+(3P, 4P, 5P ribbon ends; a two-ribbon housing redoes only the failed ribbon if crimps are
+ checked before insertion, and both if the fault is found after)
+
+==============================================================================
+3. Cut-first orders: a loom carries a redo reserve; past it the loom is scrap
+==============================================================================
+reserve = how much shorter than its cut length a loom may end up (a Derek question)
+reserve    0 mm -> 0 redo(s) allowed; p= 2.0%: expected scrapped looms per unit 1.067 (per 61-unit program 65.1)
+reserve    0 mm -> 0 redo(s) allowed; p=10.0%: expected scrapped looms per unit 4.720 (per 61-unit program 287.9)
+reserve    6 mm -> 1 redo(s) allowed; p= 2.0%: expected scrapped looms per unit 0.084 (per 61-unit program 5.1)
+reserve    6 mm -> 1 redo(s) allowed; p=10.0%: expected scrapped looms per unit 1.625 (per 61-unit program 99.1)
+reserve   12 mm -> 2 redo(s) allowed; p= 2.0%: expected scrapped looms per unit 0.007 (per 61-unit program 0.4)
+reserve   12 mm -> 2 redo(s) allowed; p=10.0%: expected scrapped looms per unit 0.570 (per 61-unit program 34.8)
+reserve   20 mm -> 3 redo(s) allowed; p= 2.0%: expected scrapped looms per unit 0.001 (per 61-unit program 0.0)
+reserve   20 mm -> 3 redo(s) allowed; p=10.0%: expected scrapped looms per unit 0.204 (per 61-unit program 12.4)
+A scrapped loom loses its ribbon (100-600 mm) and, if the far end was made first, its
+Fastons/ferrules/IDC too. Doing the XH end first puts the risk before the hand work.
+
+==============================================================================
+4. Cut-last order (terminate at the spool): a redo costs spool, never a loom
+==============================================================================
+p= 0.5%: expected spool consumed by redos    1.7 mm per unit (0.03% of ~6.0 m of ribbon per unit)
+p= 2.0%: expected spool consumed by redos    6.9 mm per unit (0.12% of ~6.0 m of ribbon per unit)
+p= 5.0%: expected spool consumed by redos   18.8 mm per unit (0.31% of ~6.0 m of ribbon per unit)
+p=10.0%: expected spool consumed by redos   43.4 mm per unit (0.72% of ~6.0 m of ribbon per unit)
+No reserve is carried on any loom, no loom length depends on how many redos it took,
+and a pair's two ribbons stay equal length because each is cut after it passes.
+
+==============================================================================
+5. Crimps wasted by a fault, by when it is found (p = 5%, 5P end)
+==============================================================================
+checked after every crimp:   0.66 crimps made then cut off, per end attempt
+checked after the whole end: 1.13 crimps made then cut off, per end attempt
+Contacts cost ~$0.01-0.05 [mfr/source, xh-facts §6]; the waste that matters is machine
+time and, in cut-first orders, the loom's length reserve, which is the same either way.
+Checking after every crimp matters most when a fault means the machine is out of
+adjustment, so the next crimps would fail too.

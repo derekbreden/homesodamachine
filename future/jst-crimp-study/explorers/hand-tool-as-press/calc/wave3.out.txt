@@ -1,0 +1,147 @@
+
+==============================================================================
+1. a4 / a4b / a4c / a4d: where to set die contact when the frame is not rigid
+==============================================================================
+Model [calc]: eccentric e, angle phi before BDC, ram travel still to go d = e(1 - cos phi).
+Nominal die contact (zero load) is set y_c above BDC; s = y_c - d is travel past it.
+Crimp: force rises linearly over the last 0.2 mm of die gap to Fc at die contact [xh-facts §4].
+Frame loop k_f (shaft, bushings, holders, button cell) 15-30 kN/mm [estimate, sl w3 §6];
+disc stack preload P = 3.5 kN, rate k_s = 3 kN/mm [estimate]. Past P the loop is k_f in series with k_s.
+
+  e   Fc   k_f | y_c 0.15 (rigid-frame setting)          | y_c = P/k_f + 0.05 (stack engages)
+  2.0 1.5   15 | F_BDC 2.25 kN, dies meet       , stack idle    | y_c 0.283: F_BDC 3.62 kN, peak 1.72 N*m at 17.5 deg
+  2.0 1.5   20 | F_BDC 3.00 kN, dies meet       , stack idle    | y_c 0.225: F_BDC 3.63 kN, peak 1.63 N*m at 15.6 deg
+  2.0 1.5   30 | F_BDC 3.59 kN, dies meet       , stack engages | y_c 0.167: F_BDC 3.64 kN, peak 1.56 N*m at 13.5 deg
+  2.0 2.6   15 | F_BDC 2.44 kN, dies DO NOT meet, stack idle    | y_c 0.283: F_BDC 3.62 kN, peak 1.77 N*m at 22.8 deg
+  2.0 2.6   20 | F_BDC 3.00 kN, dies meet       , stack idle    | y_c 0.225: F_BDC 3.63 kN, peak 1.65 N*m at 21.4 deg
+  2.0 2.6   30 | F_BDC 3.59 kN, dies meet       , stack engages | y_c 0.167: F_BDC 3.64 kN, peak 1.56 N*m at 13.5 deg
+  2.5 1.5   15 | F_BDC 2.25 kN, dies meet       , stack idle    | y_c 0.283: F_BDC 3.62 kN, peak 1.93 N*m at 15.7 deg
+  2.5 1.5   20 | F_BDC 3.00 kN, dies meet       , stack idle    | y_c 0.225: F_BDC 3.63 kN, peak 1.82 N*m at 14.0 deg
+  2.5 1.5   30 | F_BDC 3.59 kN, dies meet       , stack engages | y_c 0.167: F_BDC 3.64 kN, peak 1.75 N*m at 12.1 deg
+  2.5 2.6   15 | F_BDC 2.44 kN, dies DO NOT meet, stack idle    | y_c 0.283: F_BDC 3.62 kN, peak 1.98 N*m at 20.4 deg
+  2.5 2.6   20 | F_BDC 3.00 kN, dies meet       , stack idle    | y_c 0.225: F_BDC 3.63 kN, peak 1.85 N*m at 19.2 deg
+  2.5 2.6   30 | F_BDC 3.59 kN, dies meet       , stack engages | y_c 0.167: F_BDC 3.64 kN, peak 1.75 N*m at 12.1 deg
+  add 30-50 % for eccentric and ram-guide friction [assumption, calc §5]
+-> agrees with [sl w3 §6] in every row that matters: at 0.15 mm a 15-20 kN/mm loop keeps a
+   2.6 kN crimp's dies apart or leaves the stack idle, so height follows frame stiffness.
+   Set die contact 0.17-0.28 mm above BDC (P/k_f + 0.05); the BDC force is ~3.6 kN, the
+   peak shaft torque ~1.6-2.0 N*m before friction, ~2.0-3.0 N*m with 30-50 % friction.
+
+  Drives against 2.0-3.0 N*m (with friction):
+    NEMA 23 on hand (~1.0 N*m running) + 3:1 belt                           2.8 N*m  at the edge
+    NEMA 23 + 10:1 planetary (Prime, 10 N*m permissible, 96 %)              9.6 N*m  carries it
+    5840-31ZY worm gearmotor, working                                       2.3 N*m  at the edge
+    Greartisan 40 kg*cm worm gearmotor (Prime), if 40 kg*cm is working torque  3.9 N*m  carries it
+    hand lever 150 mm on the shaft, 20 N at the grip                        3.0 N*m  carries it
+    hand lever 200 mm on the shaft, 20 N at the grip                        4.0 N*m  carries it
+-> a hand lever on the eccentric shaft is a motorless first build of the die set: ~15-20 N at
+   a 150-200 mm lever, over ~40 deg of the last part of the turn [calc].
+
+==============================================================================
+2. Side-entry stand-out with crimped neighbours (a2, a2b, a3)
+==============================================================================
+h = a + 1.05 (floor to axis) + 1.35 (crimped box above its axis) + 0.3 clearance = a + 2.7
+root radius R = L^2 / (3h), tip pull-back 0.6 h^2 / L  [ith ex §6 method]
+  a  6: h  8.7 mm | L20: R  15.3, pull-back 2.27 | L25: R  23.9, pull-back 1.82 | L35: R  46.9, pull-back 1.30
+  a  9: h 11.7 mm | L20: R  11.4, pull-back 4.11 | L25: R  17.8, pull-back 3.29 | L35: R  34.9, pull-back 2.35
+  a 12: h 14.7 mm | L20: R   9.1, pull-back 6.48 | L25: R  14.2, pull-back 5.19 | L35: R  27.8, pull-back 3.70
+-> 8.7-14.7 mm of stand-out; R 9-47 mm, below the 67-78 mm at which the strands yield;
+   pull-back 1.3-6.5 mm. Matches [sl w3 §3].
+
+==============================================================================
+3. The pull plate: what has to fit in the neck and what does not
+==============================================================================
+Crimped contact, end view, box 1.85-1.95 wide, walls 0.2 [xh-facts §1]; crimped conductor
+barrel ~1.5 wide and ~0.9 tall (crimp width 1.5 [mfr S14 analog], height ~0.88 [xh-facts §1]).
+  box 1.85, crimped barrel 1.40: the box's rear side-wall edges stand +0.23 mm outside the barrel each side
+  box 1.85, crimped barrel 1.60: the box's rear side-wall edges stand +0.12 mm outside the barrel each side
+  box 1.95, crimped barrel 1.40: the box's rear side-wall edges stand +0.28 mm outside the barrel each side
+  box 1.95, crimped barrel 1.60: the box's rear side-wall edges stand +0.17 mm outside the barrel each side
+  above the crimped barrel (z > ~1.1 mm) the box's rear edges (top wall, upper side walls)
+  face free space: a plate there can be any thickness and can be backed from behind.
+
+Three plates, 20 N pull, two tines [calc; stress = 6 M / (b t^2)]:
+  (b) backer to 1 mm above floor: tine t 0.15, width 0.6:  2.8 N each,    630 MPa
+  (b) backer to 1 mm above floor: tine t 0.15, width 1.0:  2.8 N each,    378 MPa
+  (b) backer to 1 mm above floor: tine t 0.20, width 0.6:  2.8 N each,    354 MPa
+  (b) backer to 1 mm above floor: tine t 0.20, width 1.0:  2.8 N each,    213 MPa
+  (b) backer to 1 mm above floor: tine t 0.30, width 0.6:  2.8 N each,    157 MPa
+  (b) backer to 1 mm above floor: tine t 0.30, width 1.0:  2.8 N each,     94 MPa
+  (c) stepped plate: thick (0.5-1.0) and backed wherever it bears on the box outside the
+      barrel's width or above its height; thin only where it faces the barrel's front edge,
+      where it bears nothing. The neck then limits only the thin tongue, not the load path.
+      barrel inside the box by 0.05 a side -> backer clearance to the barrel side 0.05 mm (tight)
+      barrel inside the box by 0.10 a side -> backer clearance to the barrel side 0.10 mm 
+      barrel inside the box by 0.25 a side -> backer clearance to the barrel side 0.25 mm 
+-> [sl w3 §2 a6] holds for a flat plate: it needs a transition of ~0.35-0.5 mm.
+   A stepped plate needs only that the crimped barrel be narrower than the box by ~0.1 mm a
+   side and the box's rear edges be a clean step, not a sloped transition. The same neck
+   photo settles both [estimate]. In a crimp jig the contact is alone, so the space outside
+   the box is free.
+
+==============================================================================
+4. a4c: the one-nest die set at C behind a tack station (checks of [sl w3 §7])
+==============================================================================
+  free width for the punch between the two neighbours of k (bare neighbour (jacket r 0.85)), clearance 0.0: 8.30 mm
+  free width for the punch between the two neighbours of k (bare neighbour (jacket r 0.85)), clearance 0.3: 7.70 mm
+  free width for the punch between the two neighbours of k (crimped neighbour's box (half 0.975)), clearance 0.0: 8.05 mm
+  free width for the punch between the two neighbours of k (crimped neighbour's box (half 0.975)), clearance 0.3: 7.45 mm
+  neighbours' crimped boxes reach 5.0 + 1.35 = 6.35 above the working floor; their lance tips
+  hang to 5.0 - 1.05 - 0.9 = 3.05 above it [sl w3 §7]
+  punch crimping edge at BDC 0.73: narrow section reaches 5.92 mm above the edge
+  punch crimping edge at BDC 0.90: narrow section reaches 5.75 mm above the edge
+
+Passage of a tacked contact carried level under the open punch (floor lifted 1.0-1.7 mm):
+  e 1.5: punch open at 3.73; tallest carried point 4.20: clearance -0.47 mm
+  e 1.5: punch open at 3.90; tallest carried point 4.20: clearance -0.30 mm
+  e 2.0: punch open at 4.73; tallest carried point 4.20: clearance +0.53 mm
+  e 2.0: punch open at 4.90; tallest carried point 4.20: clearance +0.70 mm
+  e 2.5: punch open at 5.73; tallest carried point 4.20: clearance +1.53 mm
+  e 2.5: punch open at 5.90; tallest carried point 4.20: clearance +1.70 mm
+-> e 2.0-2.5 passes a tacked contact (+0.5 to +1.7 mm); agrees with [sl w3 §7].
+
+Other order, 'C tacks for itself': lay-in under the open punch, part stroke to tack, look,
+finish. The waiting conductor's top is axis 5.0 + 0.85 = 5.85, plus 0-0.55 of curl [sl w3 §7]:
+  e 2.5, BDC 0.73: open at 5.73 -> clearance -0.67 to -0.12 mm; torque x1.00 of e 2.5
+  e 2.5, BDC 0.90: open at 5.90 -> clearance -0.50 to +0.05 mm; torque x1.00 of e 2.5
+  e 3.0, BDC 0.73: open at 6.73 -> clearance +0.33 to +0.88 mm; torque x1.10 of e 2.5
+  e 3.0, BDC 0.90: open at 6.90 -> clearance +0.50 to +1.05 mm; torque x1.10 of e 2.5
+  e 3.5, BDC 0.73: open at 7.73 -> clearance +1.33 to +1.88 mm; torque x1.18 of e 2.5
+  e 3.5, BDC 0.90: open at 7.90 -> clearance +1.50 to +2.05 mm; torque x1.18 of e 2.5
+-> e 3.5 opens room for the lay-in under the punch (+1.3 to +2.1 mm) at ~1.18x the torque of
+   e 2.5 (peak torque ~ F sqrt(2 y e) near BDC). The look is then oblique, under the punch.
+
+==============================================================================
+5. The flag seat on the SN-2549 (a6b, a6c): jaw opening at the nest
+==============================================================================
+Flag carried level with its floor at h above the anvil; h >= lance 0.6-0.9 + 0.2 on entry,
+and the crimp needs a 1.0-1.7 mm lift before drawing back [ith ex §2]. Opening = h + the
+flag's tallest part above its floor + 0.2 margin [calc, as htq §4].
+  h 1.1: tool-made pre-form (a6b) 3.6-4.3 | v8 tack (a6c) 3.6-3.8 | open contact, for comparison 4.0-4.5
+  h 1.4: tool-made pre-form (a6b) 3.9-4.6 | v8 tack (a6c) 3.9-4.1 | open contact, for comparison 4.4-4.8
+  h 1.7: tool-made pre-form (a6b) 4.2-4.9 | v8 tack (a6c) 4.2-4.4 | open contact, for comparison 4.7-5.1
+  springs under the ledge and rear guide 1-3 N; the wings start to curl at tens of N [xh-facts §4],
+  so the punch seats the flag on the anvil before it forms anything [estimate].
+-> a flag needs ~3.6-4.9 mm of opening at the nest; the SN-2549's full opening is unmeasured.
+
+What holds the flag on its wire against the person's push to the stop:
+  tool-made pre-form: 0.08-3.8 N [htq §2 model]; v8 tack: 0.2-1.5 N wanted, 0.4-9 N estimated
+  lance fold force 1-5 N [ith ex §3]: a flag dragged on the anvil loses its place on the wire
+-> green (box on the wired stop) means stop pushing; the seat carries the flag clear of the anvil.
+
+==============================================================================
+6. a4d: one SN nest as a tongue under change-the-question c1c's pallet (checks of [htq §5])
+==============================================================================
+  tongue allowed at 3.4 mm pitch beside a c6 round keyhole 2.14 wide, 0.1 clearance each side: 4.46 mm
+  tongue allowed at 3.4 mm pitch beside a tool-made pre-form 2.05 wide, 0.1 clearance each side: 4.55 mm
+  tongue allowed at 3.4 mm pitch beside a crimped insulation 2.00 wide, 0.1 clearance each side: 4.60 mm
+  walls either side of a 1.5-1.6 mm conductor arch in a 4.45 mm tongue: 1.43-1.48 mm
+-> <= ~4.45 mm; a4's 6-8 mm one-nest cut does not fit here; its anvil becomes a <= 1.90 mm
+   HSS blade and crimp height comes from the stop alone.
+
+==============================================================================
+7. Strip length follows the contact (a6's end jig, a2b, a1)
+==============================================================================
+  clone drawings: S = E + A/2 + b = 1.60-2.10 mm (KONNRA clone spec 1.6-2.1 [digest])
+  JST 2.4 mm [mfr S6] implies a genuine conductor barrel of ~1.8-2.05 mm [sl w3 §4]
+-> the Klein stop is set from one measured contact of the lot in use, not from a figure.

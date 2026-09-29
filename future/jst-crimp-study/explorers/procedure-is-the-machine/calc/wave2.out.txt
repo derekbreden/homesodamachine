@@ -1,0 +1,224 @@
+
+==========================================================================================
+1. Set left in a conductor by one lift, against a presser that pushes the waiting ones down
+==========================================================================================
+EI strands 14.1 N*mm^2; silicone jacket I = 0.397 mm^4, EI 0.8-2.4 N*mm^2 at E 2-6 MPa [assumption]
+strand yield 60-120 MPa [assumption, annealed tinned copper]; small-deflection theory, so
+figures at short free lengths are rough. 'free' = comb root (fixed) to the lift point; the tip
+sticks out 5 mm past it.
+
+(a) Presser: every waiting conductor pushed 7 mm down near its tip, released (sanity check
+    against hand-tool-as-press calc H §1: 10 mm 4.3-5.7, 15 mm 2.7-4.7, 20 mm 1.0-3.4, 30 mm 0-0.7)
+ free mm  sy MPa  Esil   residual drop at press pt   at tip  tip pull-back
+      10      60     2                  5.71 mm     9.09        2.95 mm
+      10      60     6                  5.11 mm     8.36        2.55 mm
+      10     120     2                  4.92 mm     7.71        2.09 mm
+      10     120     6                  4.34 mm     6.95        1.73 mm
+      15      60     2                  4.73 mm     6.51        1.12 mm
+      15      60     6                  4.16 mm     5.81        0.91 mm
+      15     120     2                  3.17 mm     4.32        0.49 mm
+      15     120     6                  2.71 mm     3.73        0.37 mm
+      20      60     2                  3.50 mm     4.46        0.42 mm
+      20      60     6                  3.01 mm     3.87        0.32 mm
+      20     120     2                  1.20 mm     1.53        0.05 mm
+      20     120     6                  1.02 mm     1.29        0.04 mm
+      30      60     2                  0.80 mm     0.94        0.01 mm
+      30      60     6                  0.68 mm     0.80        0.01 mm
+      30     120     2                  0.00 mm     0.00        0.00 mm
+      30     120     6                  0.00 mm     0.00        0.00 mm
+
+(b) Lift once: conductor k lifted h at the station, worked in that pose, laid back once.
+    h = t + 1.85 mm for a tip-down SN jaw whose usable nest is t from the jaw tip [calc P
+    selector_and_bow §1 inverted; hand-tool-as-press exchange]; t = 2-6 mm -> h = 3.9-7.9 mm
+ free mm  h mm    residual rise at tip (sy 60..120, Esil 2..6)  loaded pull-back
+      15     4                                0.83 - 2.76 mm        0.90-1.00 mm
+      15     6                                2.69 - 5.24 mm        1.96-2.15 mm
+      15     8                                4.81 - 7.79 mm        3.46-3.74 mm
+      20     4                                0.01 - 1.23 mm        0.66-0.71 mm
+      20     6                                0.64 - 3.34 mm        1.41-1.56 mm
+      20     8                                2.08 - 5.59 mm        2.44-2.69 mm
+      25     4                                0.00 - 0.19 mm        0.53-0.54 mm
+      25     6                                0.00 - 1.61 mm        1.13-1.20 mm
+      25     8                                0.33 - 3.56 mm        1.92-2.12 mm
+      30     4                                0.00 - 0.00 mm        0.43-0.43 mm
+      30     6                                0.00 - 0.37 mm        0.94-0.96 mm
+      30     8                                0.00 - 1.70 mm        1.62-1.70 mm
+-> With a presser, every conductor still waiting carries the first press's set into its own
+   turn: keys 2..N arrive low by the residual drop, and their tips short by the pull-back.
+   With a lifter, only k is bent, and all of k's work (trim, strip, measure, crimp, pull) is
+   done in the same bent pose, so k's own set never enters its own crimp. What remains is
+   k's set after it is laid back: the crimped contact sits high by the residual rise until a
+   squaring comb presses it into the row (copper that yielded re-yields; over-press by the
+   springback). The waiting conductors are never touched.
+
+==========================================================================================
+2. Spool curl: what winding leaves in the ribbon, and a rewind reel that adds none
+==========================================================================================
+Each conductor bends about its own centre when the flat ribbon is wound (all centres lie in
+the midplane), so the single-conductor model above applies. Ribbon thickness 1.7 mm per layer
+[repo]; 15.24 m per spool [repo]; the BNTECHGO hub radius is unrecorded [assumption: 25-60 mm].
+  strand yield 60 MPa -> first yield at bend radius 78 mm; springback carries up to ~1.7x that curvature
+  strand yield 120 MPa -> first yield at bend radius 39 mm; springback carries up to ~1.7x that curvature
+
+ wound R mm    residual R (sy 60/120, Esil 2..6) mm    free end 20 mm rises     40 mm
+         25                                55 - 242           0.83-3.66 mm   3.3-14.6
+         35                              118 - 6685           0.03-1.69 mm   0.1-6.8
+         50                          437 - straight           0.00-0.46 mm   0.0-1.8
+         70                        12084 - straight           0.00-0.02 mm   0.0-0.1
+         90                          inf - straight           0.00-0.00 mm   0.0-0.0
+
+Where on the spool the ribbon was wound tight enough to take a set (15.24 m, 1.7 mm/layer):
+  hub r  25 mm:  40.7 turns, outer r    94 mm (OD  188); length wound below first-yield radius:   11% (yield 120 MPa) to   66% (60 MPa)
+  hub r  40 mm:  34.8 turns, outer r    99 mm (OD  198); length wound below first-yield radius:    0% (yield 120 MPa) to   54% (60 MPa)
+  hub r  60 mm:  28.7 turns, outer r   109 mm (OD  218); length wound below first-yield radius:    0% (yield 120 MPa) to   30% (60 MPa)
+  hub r  80 mm:  24.1 turns, outer r   121 mm (OD  242); length wound below first-yield radius:    0% (yield 120 MPa) to    0% (60 MPa)
+-> A rewind reel with an 80 mm hub radius (OD ~240 mm full, 15.24 m of any width) adds no set
+   and brings the inner end out through the hub. It does not remove curl already in the
+   ribbon; a roller straightener (reverse bends through 3-5 rollers) between spool and reel,
+   or at the machine's feed, does. A clamp holds the ribbon flat up to its face, so curl
+   matters only in the free length past the clamp: 20-40 mm of split conductors.
+
+==========================================================================================
+3. Axial chain at a lift-once station: where the insulation edge lands in the window
+==========================================================================================
+Window: insulation edge between the barrels, brush visible, ~+/-0.3 mm usable [estimate, wave 1];
+contact in the die ~+/-0.1 mm for the bellmouth [hand-tool-as-press calc H1 §7].
+  wave 1 p1, strip elsewhere, no wire stop                               worst +/-0.65  RSS +/-0.35
+  lift once, strip in pose, contact by box front                         worst +/-0.47  RSS +/-0.32
+  lift once, strip in pose, contact by neck blade                        worst +/-0.29  RSS +/-0.21
+  lift once, camera measures bare length, Y corrects; neck blade         worst +/-0.14  RSS +/-0.09
+  lift once, camera; contact on a post, offset measured on the post (x1) worst +/-0.12  RSS +/-0.07
+  touch-off on the strand tips (no camera), neck blade                   worst +/-0.35  RSS +/-0.22
+-> Doing trim, strip and crimp to conductor k in one pose removes the split-point term. The
+   strip-length tear is then the largest term left, and only a measurement of where the edge
+   actually is (camera on a backlit tip, or a scored edge) takes it out. Touch-off finds the
+   strand tips, which is the wrong end for the insulation edge.
+
+==========================================================================================
+4. Two heads, one person (p4b): the person's minutes against machine cycle time
+==========================================================================================
+today by hand, same task library as wave 1: 46 min (cut 20 s, peel 40 s per end;
+strip 8 s, crimp 15 s, insert 8 s per conductor; test and label 30 s per housing) [estimate]
+
+ machine cycle  present  insert  1 head min  2 heads min   person waits/cond (2 heads)
+          20 s       4 s     6 s          37           28                      0.0 s
+          20 s       6 s    10 s          37           33                      0.0 s
+          26 s       4 s     6 s          42           30                      3.0 s
+          26 s       6 s    10 s          42           33                      0.0 s
+          35 s       4 s     6 s          50           34                      7.5 s
+          35 s       6 s    10 s          50           34                      1.5 s
+          45 s       4 s     6 s          59           39                     12.5 s
+          45 s       6 s    10 s          59           39                      6.5 s
+-> One head saves minutes only if its cycle beats the ~31 s of a hand strip-crimp-insert;
+   two heads make the person's own present-and-insert pace the rhythm at any cycle up to
+   ~2x that pace (20-32 s). Machine cycle includes strip, contact drop, hold, feed to
+   touch-off, crimp with a slow last 8 mm of grip, blade proof pull, release [estimate].
+
+==========================================================================================
+5. The camshaft squeezes the hand tool (p5b): torque per lobe, follower stress
+==========================================================================================
+Handle need 90-220 N at the grip [hand-tool-as-press calc H1 §1, source class]; approach
+~45 mm of grip travel at ~20 N (return spring) [estimate]; the last ~8 mm of grip carries the
+compaction [calc H1 §4].
+  approach, 45 mm over 120 deg at 20 N                 shaft torque 0.43 N*m
+  hold click, 3 mm over 20 deg at 40 N                 shaft torque 0.34 N*m
+  squeeze, 8 mm over 40 deg at 220 N                   shaft torque 2.52 N*m
+  squeeze through a spring link preloaded 275 N        shaft torque 3.15 N*m
+  squeeze, 8 mm over 60 deg at 275 N                   shaft torque 2.10 N*m
+  drives at the shaft [calc P cam_drive §1; force-and-form source]: NEMA17 + 30:1 worm ~3.1 N*m,
+  + 50:1 ~4.5 N*m, the bench NEMA23 + 30:1 ~12.6 N*m; StepperOnline NEMA23 + NMRV30 30:1 rated 20 N*m.
+
+Follower on a printed lobe (steel roller on PET-CF, E ~5-8 GPa printed [assumption]; line contact):
+  F 220 N, roller 16 mm dia x 8 mm on a R60 lobe, E 5 GPa: peak contact   84 MPa
+  F 220 N, roller 16 mm dia x 8 mm on a R60 lobe, E 8 GPa: peak contact  106 MPa
+  F 220 N, roller 16 mm dia x 16 mm on a R60 lobe, E 5 GPa: peak contact   59 MPa
+  F 220 N, roller 16 mm dia x 16 mm on a R60 lobe, E 8 GPa: peak contact   75 MPa
+  F 275 N, roller 16 mm dia x 8 mm on a R60 lobe, E 5 GPa: peak contact   94 MPa
+  F 275 N, roller 16 mm dia x 8 mm on a R60 lobe, E 8 GPa: peak contact  119 MPa
+  F 275 N, roller 16 mm dia x 16 mm on a R60 lobe, E 5 GPa: peak contact   66 MPa
+  F 275 N, roller 16 mm dia x 16 mm on a R60 lobe, E 8 GPa: peak contact   84 MPa
+-> The squeeze lobe sets the motor (2.5-3.3 N*m through a 40 deg lobe; stretch it to 60 deg
+   and it falls to ~2.1 N*m). A printed lobe under a narrow roller is near a printed
+   part's compressive limit; a steel wear strip on the squeeze lobe, or a 16 mm wide
+   roller, carries it.
+
+==========================================================================================
+6. The spool-end bench that grows (p6): minutes, unattended stretch and cost by stage
+==========================================================================================
+today by hand, same library: 46 min per unit [estimate; compare rows, not the ledger]
+stage                                        person min/unit  longest alone  added cost
+0 hand work at the spool                                  51              -      $25-45
+1 + powered crimp at the clamp                            61              -   +$100-170
+2 + motors on the same screws, post revolver              40         11 min    +$90-140
+3 + strip at the clamp                                    33         16 min     +$20-60
+4 + draw-off, guillotine, gang insert                     24         18 min   +$120-200
+5 + split at the clamp                                    15          5.1 h     +$20-60
+Notes:
+ - Stage 0 and 1 add the per-end test through the spool (15 s) and change nothing else; they buy
+   recovery at the spool, identity and pin order before the cut, pair lengths equal by the peg,
+   and (stage 1) a force curve and identity for every crimp. They do not save minutes.
+ - Stage 2's 'longest alone' is one 9-conductor end (J1); the person strips and loads a column
+   per end, so the machine calls ~14 times a unit, as p2 did.
+ - Stage 4 counts the 25 crimps of the six single-ribbon housings as gang-inserted; the four
+   pairs (28 contacts) are inserted by hand at the partner nest.
+ - Stage 5's 'longest alone' is the 4P spool: five units of 4P ends (J3, J5, J9, J11, J13 plus
+   the 4P halves of J1 and J4), made while the printers run.
+ - The per-end test through the spool replaces today's pin test; stage rows count 10 s of labelling
+   per housing where today's row counts 30 s of test and label.
+ - Costs are rough [estimate]: parts beyond what the bench already has (SN-2549, NEMA 23 set,
+   ELP camera, printers). Stage 1 builds its slides as lead-screw slides turned by knobs, so
+   stage 2 adds only motors, a board, a servo and a post revolver to the same screws. A $199
+   Ender-3 V3 SE [source: machine-that-sees-and-learns, Creality store 2026-09-28] is the
+   alternative if the gantry is bought instead of grown.
+
+Stage 0 details:
+ - The hub lead is plugged only while the spool stands still (termination and test), so it never
+   twists: 0 turns, no slip ring until stage 4 powers the draw-off.
+ - Draw to a peg: the housing is clipped to a peg at the loom's length from the clamp face; hand
+   pull of a few newtons on silicone ribbon stretches it well under 1 mm on 600 mm
+   pull  2 N on one conductor's copper (0.30 mm^2): 34.0 um on 600 mm (copper carries it; silicone stretches with it)
+   pull  5 N on one conductor's copper (0.30 mm^2): 85.0 um on 600 mm (copper carries it; silicone stretches with it)
+   pull 10 N on one conductor's copper (0.30 mm^2): 170.0 um on 600 mm (copper carries it; silicone stretches with it)
+   Peg placement +/-1 mm and ribbon lying straight on the rail set the length: ~+/-1-2 mm [estimate].
+
+==========================================================================================
+7. Strip before split (p7): two straight blades across the whole webbed end
+==========================================================================================
+Blades close from above and below across the full ribbon width and stop at +/-zs from the
+conductor centre plane. Each crown is cut to a chord; what is left to tear is the band |z|<zs
+of every jacket, plus the web in the valley (web neck thickness unmeasured). Strand bundle
+radius 0.36 mm, jacket OD 1.7 mm (wall 0.49 mm) [digest].
+ ligament over strands     zs  band area/cond   tension bound 8-11 MPa        3P        4P        5P      5P+4P
+                0.15 mm   0.51         1.22 mm2            9.7-13.4 N/cond    29-40      39-54      49-67      88-120 N
+                0.20 mm   0.56         1.35 mm2           10.8-14.8 N/cond    32-44      43-59      54-74      97-133 N
+                0.30 mm   0.66         1.58 mm2           12.7-17.4 N/cond    38-52      51-70      63-87     114-157 N
+  Tearing from the two score lines takes less than the tension bound: the digest gives 3-15 N per
+  conductor for a 0.15-0.3 mm ligament cut all round, and borrowed-machines 4-11 N scored top and
+  bottom to 80 % [calc geometry §3]. A 5P end is ~20-75 N of pull: a lead screw or a hand lever.
+
+Margins that set the ligament (straight blades):
+   strand bundle off-centre in its jacket [assumption]          +/-0.05-0.10 mm
+   blade stop to channel floor (steel stop, printed floor)      +/-0.02-0.03 mm
+   jacket OD tolerance / 2 (1.7 +/- 0.1 -> centre height)       +/-0.05-0.05 mm
+   channel floor flatness under the clamp                       +/-0.02-0.03 mm
+   RSS +/-0.08-0.12 mm  -> a 0.15 mm ligament is inside the scatter at the high end; 0.20-0.30 mm keeps the blade off the strands
+
+Pitch error: straight blades cut every crown at the same height whatever the conductor's x,
+so the ribbon's +/-0.1 mm per conductor (0.43 mm worst from a centred datum on 9 [ribbon-as-
+pallet calc §1]) does not matter. Scalloped cutters (US 4,046,045) cut closer at the flanks but
+their notches must sit on each conductor: an offset d moves the flank cut d toward the strands.
+   scallop ligament 0.15 mm, notch offset 0.10 mm -> flank ligament +0.05 mm
+   scallop ligament 0.15 mm, notch offset 0.20 mm -> flank ligament -0.05 mm  (cuts strands)
+   scallop ligament 0.15 mm, notch offset 0.43 mm -> flank ligament -0.28 mm  (cuts strands)
+   scallop ligament 0.25 mm, notch offset 0.10 mm -> flank ligament +0.15 mm
+   scallop ligament 0.25 mm, notch offset 0.20 mm -> flank ligament +0.05 mm
+   scallop ligament 0.25 mm, notch offset 0.43 mm -> flank ligament -0.18 mm  (cuts strands)
+   scallop ligament 0.35 mm, notch offset 0.10 mm -> flank ligament +0.25 mm
+   scallop ligament 0.35 mm, notch offset 0.20 mm -> flank ligament +0.15 mm
+   scallop ligament 0.35 mm, notch offset 0.43 mm -> flank ligament -0.08 mm  (cuts strands)
+
+Strip line after the fan: the strip line is straight across the webbed ribbon; fanning 1.7 ->
+2.5 mm afterwards pulls the outer conductors' fronts back [calc P exchange_borrowed §7]:
+  split 8 mm: 4P 0.09, 5P 0.16, J1 9 0.67 mm; split 15 mm: 4P 0.05, 5P 0.09, J1 9 0.35 mm.
+  The insulation edge stays where it is on each conductor, so the crimp's own axial chain is
+  unaffected; only the fronts for gang insertion move, and single ribbons stay inside +/-0.3 mm.

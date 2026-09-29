@@ -1,0 +1,159 @@
+
+==============================================================================
+1. a1 lay-in: where the finger acts, and how much free conductor a 5 mm drop needs
+==============================================================================
+tip to rear of insulation barrel: 2.55-3.80 mm
+tip to finger: 5.55-7.80 mm
+free conductor between fan block face and finger at a 9 mm overhang: 1.20-3.45 mm
+
+free length an S-bend needs to drop 5.0 mm and come back level:
+  R = 2 mm | 30 deg:   9.7 | 45 deg:   6.7 | 60 deg:   5.2 | 90 deg:   4.0 mm
+  R = 3 mm | 30 deg:  10.3 | 45 deg:   7.5 | 60 deg:   6.4 | 90 deg:   5.9 mm
+  R = 5 mm | 30 deg:  11.3 | 45 deg:   9.1 | 60 deg:   8.7 | 90 deg:   8.7 mm
+  R 5 mm, 30 deg (a1's own fan rule): overhang needed 16.9-19.1 mm -> parted length grows by 7.9-10.1 mm over a1's 20-35 mm
+  R 2 mm, 60 deg (harsh): overhang needed 10.7-13.0 mm -> parted length grows by 1.7-4.0 mm over a1's 20-35 mm
+-> at a 9 mm overhang the finger acts 1-3.5 mm from the block face and cannot drop the
+   conductor 5 mm there. The block has to stand ~5-10 mm further back at the crimp station.
+
+Slope of the conductor at a single-point finger (no moment applied there):
+  free length  3.0 mm: slope at finger 59.0 (hinge) to 68.2 deg (elastic); the tip would sit 9.2-13.9 mm below the finger (it meets the anvil first)
+  free length  6.0 mm: slope at finger 39.8 (hinge) to 51.3 deg (elastic); the tip would sit 4.6-6.9 mm below the finger (it meets the anvil first)
+  free length 11.3 mm: slope at finger 23.9 (hinge) to 33.6 deg (elastic); the tip would sit 2.5-3.7 mm below the finger (it meets the anvil first)
+  free length 15.0 mm: slope at finger 18.4 (hinge) to 26.6 deg (elastic); the tip would sit 1.9-2.8 mm below the finger (it meets the anvil first)
+-> a point finger leaves the stripped tip pointing down into the box, not lying in the barrels.
+   Levelling needs a moment at the contact: a flat sole >= ~3 mm long along the conductor,
+   pressing it onto the carrier/shear-blade line, which lies in the contact's floor plane.
+
+==============================================================================
+2. a1 neighbours at crimp pitch 5 mm over the applicator's upstream side
+==============================================================================
+Neighbour conductor spans (x +/- 0.85) against waiting contacts on the strip (k*p_s +/- 1.23..1.50),
+both on the upstream side of the anvil, crimp pitch 5.0 mm:
+  strip pitch 6.8 mm: neighbours 1..8 upstream  X . X X X . X X   (X = over a waiting contact)
+  strip pitch 7.1 mm: neighbours 1..8 upstream  X . X X . X X .   (X = over a waiting contact)
+  strip pitch 8.0 mm: neighbours 1..8 upstream  . X X . X X . X   (X = over a waiting contact)
+  strip pitch 9.5 mm: neighbours 1..8 upstream  . X . X . X . X   (X = over a waiting contact)
+-> with neighbours in the anvil plane, some fall into waiting contacts at every plausible strip pitch,
+   so a1's h is needed on the upstream side.
+h to clear bare waiting contacts' wings (2.75-3.2 mm) with 0.5 mm margin: 4.10-4.55 mm
+h to clear a guide/pressure plate whose top is 3 mm above the strip [estimate]: 4.3 mm
+h to clear a guide/pressure plate whose top is 5 mm above the strip [estimate]: 6.3 mm
+h to clear a guide/pressure plate whose top is 8 mm above the strip [estimate]: 9.3 mm
+Free length the active conductor's S-bend needs as h rises (then add the 5.6-7.8 mm tip-to-finger):
+  h 4.3 mm: R 5 / 30 deg  10.1 mm; R 2 / 60 deg   4.8 mm
+  h 6.3 mm: R 5 / 30 deg  13.6 mm; R 2 / 60 deg   5.9 mm
+  h 9.3 mm: R 5 / 30 deg  18.8 mm; R 2 / 60 deg   7.7 mm
+Upstream neighbours per loom when every other conductor is on the upstream side (worst end of the row):
+  4P: up to 3 neighbours spread over X = 5..15 mm upstream
+  5P: up to 4 neighbours spread over X = 5..20 mm upstream
+  J1 5P+4P fanned as one: up to 8 neighbours spread over X = 5..40 mm upstream
+   The MKS-L's pressure plate, guide plates and feed finger sit on this side of the anvil
+   [mfr MKS-L manual pp. 9, 16-19; extent ~10-60 mm read from a photo, estimate].
+
+==============================================================================
+3. Feed timing: the next contact arriving while the crimped one is still on the anvil
+==============================================================================
+  strip pitch 6.8, lever 6 mm from block to contact: yields at 60 mN; pushed one pitch sideways -> 49 deg permanent bend
+  strip pitch 6.8, lever 9 mm from block to contact: yields at 40 mN; pushed one pitch sideways -> 37 deg permanent bend
+  strip pitch 7.1, lever 6 mm from block to contact: yields at 60 mN; pushed one pitch sideways -> 50 deg permanent bend
+  strip pitch 7.1, lever 9 mm from block to contact: yields at 40 mN; pushed one pitch sideways -> 38 deg permanent bend
+  strip pitch 9.5, lever 6 mm from block to contact: yields at 60 mN; pushed one pitch sideways -> 58 deg permanent bend
+  strip pitch 9.5, lever 9 mm from block to contact: yields at 40 mN; pushed one pitch sideways -> 47 deg permanent bend
+-> any feed finger (newtons [estimate]) wins. If the feed moves before the pallet has backed
+   the crimped contact off the anvil, the conductor is bent sideways 35-55 deg for good, or the
+   incoming contact's wings snag the crimped barrels and the feed jams. A hand-held wire yields
+   harmlessly; a pallet 6-9 mm back does not.
+
+==============================================================================
+4. What an applicator's own geometry guarantees about neighbours
+==============================================================================
+Upstream on the strip, one pitch from the anvil, a waiting contact stands open with 2.75-3.2 mm wings.
+So the tooling's lowest ~3 mm must fit inside (p_s - open half-width - clearance) on that side:
+  strip pitch 6.8: tooling half-width at the wings <= 5.10-5.37 mm (plates <= 10.2-10.7 mm)
+  strip pitch 7.1: tooling half-width at the wings <= 5.40-5.67 mm (plates <= 10.8-11.3 mm)
+  strip pitch 8.0: tooling half-width at the wings <= 6.30-6.57 mm (plates <= 12.6-13.1 mm)
+  strip pitch 9.5: tooling half-width at the wings <= 7.80-8.07 mm (plates <= 15.6-16.1 mm)
+Neighbour in the anvil plane at a1's 5.0 mm crimp pitch needs:
+  bare conductor: half-width <= 3.95 mm; crimped contact (1.03 half): <= 3.77 mm
+-> an applicator's tooling is narrow enough, by its function, for neighbours at ONE STRIP PITCH
+   on the upstream side (a2's docked row). Nothing about its function guarantees 5 mm (a1).
+
+==============================================================================
+5. a2: the 0.2 mm tab as the contact's only support, and the gang shear
+==============================================================================
+  sy 450 MPa, tab 0.8 x 0.20: first yield 2.40 N*mm (full plastic 3.60); vertical force to yield at the barrels (2.5 mm) 0.96 N, at the box (5 mm) 0.48 N; elastic lift at 3 mm before yield 98 um
+  sy 450 MPa, tab 1.0 x 0.20: first yield 3.00 N*mm (full plastic 4.50); vertical force to yield at the barrels (2.5 mm) 1.20 N, at the box (5 mm) 0.60 N; elastic lift at 3 mm before yield 98 um
+  sy 650 MPa, tab 0.8 x 0.20: first yield 3.47 N*mm (full plastic 5.20); vertical force to yield at the barrels (2.5 mm) 1.39 N, at the box (5 mm) 0.69 N; elastic lift at 3 mm before yield 142 um
+  sy 650 MPa, tab 1.0 x 0.20: first yield 4.33 N*mm (full plastic 6.50); vertical force to yield at the barrels (2.5 mm) 1.73 N, at the box (5 mm) 0.87 N; elastic lift at 3 mm before yield 142 um
+-> the head's lower jaw has ~0.05-0.1 mm of Z window before it bends a tab for good.
+   Its Z must come from the strip pallet (a rail flush with the contact floor), not the carriage.
+  shearing 3 tabs at once: 150-480 N; each contact must be clamped on a die
+    edge at its rear, because 50-160 N at 1-3 mm is 20-200x the tab's own yield moment
+  shearing 4 tabs at once: 200-640 N; each contact must be clamped on a die
+    edge at its rear, because 50-160 N at 1-3 mm is 20-200x the tab's own yield moment
+  shearing 5 tabs at once: 250-800 N; each contact must be clamped on a die
+    edge at its rear, because 50-160 N at 1-3 mm is 20-200x the tab's own yield moment
+
+==============================================================================
+6. a2 / a2d: a scissor or ratchet tool's jaw runs along the row
+==============================================================================
+The die axis is normal to the jaw plane, so with contacts along Y and crimping in Z the jaw lies
+along X, the row direction. Neighbours at strip pitch inside the jaw's reach toward its pivot:
+  pitch  7.1 mm, nest-to-pivot jaw extent 10 mm: 1 neighbour(s) under or over the jaw
+  pitch  7.1 mm, nest-to-pivot jaw extent 15 mm: 2 neighbour(s) under or over the jaw
+  pitch  7.1 mm, nest-to-pivot jaw extent 20 mm: 3 neighbour(s) under or over the jaw
+  pitch  7.1 mm, nest-to-pivot jaw extent 30 mm: 4 neighbour(s) under or over the jaw
+  pitch 14.2 mm, nest-to-pivot jaw extent 10 mm: 0 neighbour(s) under or over the jaw
+  pitch 14.2 mm, nest-to-pivot jaw extent 15 mm: 1 neighbour(s) under or over the jaw
+  pitch 14.2 mm, nest-to-pivot jaw extent 20 mm: 1 neighbour(s) under or over the jaw
+  pitch 14.2 mm, nest-to-pivot jaw extent 30 mm: 2 neighbour(s) under or over the jaw
+-> cutting the jaw down to its XH nest removes the far side, not the pivot side. A cut-down
+   SN-2549 reaches every contact of a row only if the neighbours on its pivot side are gone.
+
+==============================================================================
+7. a3: height above the board with the backshell at the split root
+==============================================================================
+  fold-back parking (b1)            : parted 8-15 mm -> top of backshell 30-37 mm above the board
+  housing fan only                  : parted 14-18 mm -> top of backshell 36-40 mm above the board
+  a2, 7 mm strip pitch, per ribbon  : parted 21-30 mm -> top of backshell 43-52 mm above the board
+  a1, 5 mm crimp pitch              : parted 20-35 mm -> top of backshell 42-57 mm above the board
+
+==============================================================================
+8. a3: grip by a 180 deg wrap (the IDC strain-relief fold) instead of ridges
+==============================================================================
+  mu 0.3: capstan gain e^(mu*pi) =   2.6; a clip holding 3 N on the tail resists     8 N
+  mu 0.5: capstan gain e^(mu*pi) =   4.8; a clip holding 3 N on the tail resists    14 N
+  mu 0.8: capstan gain e^(mu*pi) =  12.3; a clip holding 3 N on the tail resists    37 N
+  mu 1.0: capstan gain e^(mu*pi) =  23.1; a clip holding 3 N on the tail resists    69 N
+silicone per conductor ~2.1 mm^2 x 8-11 MPa = 17-23 N; the 22 AWG copper breaks at ~85-100 N [source]
+-> a fold over a bar with a snap cover reaches tens of newtons at low clamp pressure; bite ridges
+   need high local pressure on a material that tears at 15-25 N/mm.
+
+==============================================================================
+9. In-line crimp height: frame stretch read from the force peak
+==============================================================================
+  frame   13 kN/mm: +/-15 % force -> +/-23.1 um of crimp height; 30 N resolution -> 2.3 um
+  frame   23 kN/mm: +/-15 % force -> +/-13.0 um of crimp height; 30 N resolution -> 1.3 um
+  frame   39 kN/mm: +/-15 % force -> +/- 7.7 um of crimp height; 30 N resolution -> 0.8 um
+-> geometry fixes where the ram would stop; stretch under the actual peak moves it. Peak force
+   over frame stiffness gives each crimp's height deviation, once a micrometer sets the baseline.
+
+==============================================================================
+10. Force samples in the last 0.2 mm: lever press, bought press, crank
+==============================================================================
+  bought press, linear approx :   3.3 ms in the last 0.2 mm ->  0.3 HX711 samples at 80 Hz
+  hand lever, linear          :  10.0 ms in the last 0.2 mm ->  0.8 HX711 samples at 80 Hz
+  linear drive, 10 s          :  66.7 ms in the last 0.2 mm ->  5.3 HX711 samples at 80 Hz
+  crank, 10 s per turn (presses.py §1b): 243 ms -> 19.4 samples; 20 s -> 38.8
+-> a1's stroke trace and a1b's lever press see a force curve only if the bottom of the stroke
+   is slow; a crank's dwell at BDC gives ~3.6x the time of a linear stroke of the same period.
+
+==============================================================================
+11. a2b: what a single load reading sees in a gang stroke
+==============================================================================
+  3 contacts: missing conductor drops the total 21-33 %; missing contact 33 %; one strand of 60 0.57 %
+  4 contacts: missing conductor drops the total 16-25 %; missing contact 25 %; one strand of 60 0.42 %
+  5 contacts: missing conductor drops the total 12-20 %; missing contact 20 %; one strand of 60 0.34 %
+  9 contacts: missing conductor drops the total 7-11 %; missing contact 11 %; one strand of 60 0.19 %
+-> a load cell under the die set sees a missing wire or contact against a +/-4 % band;
+   the camera says which; strands stay invisible to force.

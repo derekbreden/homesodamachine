@@ -1,0 +1,111 @@
+
+==============================================================================
+1. Kinematic seats: contact stress at the balls, and which seat parts must be hardened
+==============================================================================
+Preload P = the magnets' total pull on the pallet, 10-40 N [est: 3-4 N52 10x3 discs
+across a small gap]. Three balls share it; each ball bears on two faces.
+  P   10 N, ball on two 6 mm 304 pins (Prime row: precision ground, NOT hardened):  2.4 N per contact, p0  1071 MPa
+  P   10 N, ball on two touching 6 mm balls (all 52100):  1.9 N per contact, p0  1301 MPa
+  P   10 N, ball on two 8 mm case-hardened chrome rods:  2.4 N per contact, p0  1057 MPa
+  P   40 N, ball on two 6 mm 304 pins (Prime row: precision ground, NOT hardened):  9.4 N per contact, p0  1701 MPa
+  P   40 N, ball on two touching 6 mm balls (all 52100):  7.7 N per contact, p0  2066 MPa
+  P   40 N, ball on two 8 mm case-hardened chrome rods:  9.4 N per contact, p0  1678 MPa
+  first yield under a point contact at p0 ~ 1.6 x yield strength:
+    304 stainless 215-310 MPa annealed, ~500-700 cold-drawn [asm] -> yields at p0 ~350-1100 MPa
+    hardened 52100 / case-hardened rod ~60 HRC: static contact to ~4000 MPa (bearing static rating)
+-> the Prime stainless dowels dent under the balls at any useful preload (~1100-1700 MPa);
+   a seat of balls on ball pairs, or on cut lengths of case-hardened rod, stays elastic.
+
+==============================================================================
+2. Backshell (a3): top above the board for each arrangement's parted length
+==============================================================================
+top = parted length + XHP mated height 9.8 + backshell 12 = parted + ~21.8 mm [X s7]
+  fold-back parking (a3 with borrowed-machines b1/b4)     parted  8-15 mm -> top   30-  37 mm
+  housing-pitch fan only                                  parted 14-18 mm -> top   36-  40 mm
+  a1c or a2c at 5 mm crimp pitch, per ribbon              parted 17-23 mm -> top   39-  45 mm
+  a2, a2e, a10 at ~7 mm strip pitch, per ribbon           parted 21-30 mm -> top   43-  52 mm
+  a9: ~7.1 mm with the equal-path recession allowance     parted 22-33 mm -> top   44-  55 mm
+  a1 with the tongue (5 mm pitch + 10-12 mm)              parted 30-47 mm -> top   52-  69 mm
+
+==============================================================================
+3. Proof pull: two load paths that keep the carrier and the tab out of it
+==============================================================================
+(a) blade in the neck bearing on the box's rear face from 1.2 mm up:
+    wall edges in contact ~0.81 mm^2 -> 25 MPa at 20 N (phosphor bronze yields ~450-650)
+    it needs the neck between box and conductor barrel, t, to take a ~0.3 mm blade [w3 s5]
+(b) pad down, tab 0.8x0.2 mm, 0.7 mm long, in compression: 125 MPa; fixed-fixed buckling 4727 N
+(b) pad down, tab 0.8x0.2 mm, 1.15 mm long, in compression: 125 MPa; fixed-fixed buckling 1751 N
+    the pad (3.8-6.3 N [w3 s4]) stops the contact pitching about its tab; slot pins at
+    +/-3.55 mm hold the carrier to ~1 um [P3 s3]. End grips alone let a 2.5-3 mm carrier
+    bow 0.2-2.7 mm [P3 s3].
+
+==============================================================================
+4. Docking when the open insulation barrel is narrower than the jacket
+==============================================================================
+Capture read from the clone drawings [P3 s2]: +0.51 mm a side if the drawn widths are inside
+widths; +0.01 mm worst if they are outside widths; -0.08 mm if JST's 1.95 mm envelope is the
+open wing. Placement error ~0.16 RSS, 0.32 worst [P3 s2].
+  interference 0.05 mm a side: wing 12.0 N/mm, silicone 3-7 N/mm; push to seat ~0.5-0.9 N per conductor
+  interference 0.08 mm a side: wing 12.0 N/mm, silicone 3-7 N/mm; push to seat ~0.8-1.4 N per conductor
+  interference 0.15 mm a side: wing 12.0 N/mm, silicone 3-7 N/mm; push to seat ~1.4-2.6 N per conductor
+-> if docking has to press, a comb of fingers on the ribbon pallet pushes each jacket past
+   the wing tips with ~0.5-2 N (5-10 N for a 5P), taken by the shelf or rail under the
+   barrels, never by the tabs (which yield at 0.5-0.9 N at the box [X s5]).
+
+==============================================================================
+5. Two consistent orders, and the length each leaves in the finished loom
+==============================================================================
+Order A: flush-cut and strip at the fan block face after the fan (a1, a2, a2e, a10).
+  Tips and insulation edges lie on one line in the crimp pose. The outer conductors are
+  longer than the centre one by their fan recession. Closed to 2.5 mm, and latched at one
+  depth, that excess stays in the loom: e = r(p) - r(2.5) for the outer conductor.
+   3P fanned to 5.0 mm: outer excess 0.65 mm; over a 20 mm split a shallow arc stands 2.2 mm
+   3P fanned to 5.0 mm: outer excess 0.65 mm; over a 30 mm split a shallow arc stands 2.7 mm
+   3P fanned to 7.1 mm: outer excess 1.21 mm; over a 20 mm split a shallow arc stands 3.0 mm
+   3P fanned to 7.1 mm: outer excess 1.21 mm; over a 30 mm split a shallow arc stands 3.7 mm
+   4P fanned to 5.0 mm: outer excess 1.00 mm; over a 20 mm split a shallow arc stands 2.7 mm
+   4P fanned to 5.0 mm: outer excess 1.00 mm; over a 30 mm split a shallow arc stands 3.4 mm
+   4P fanned to 7.1 mm: outer excess 1.85 mm; over a 20 mm split a shallow arc stands 3.7 mm
+   4P fanned to 7.1 mm: outer excess 1.85 mm; over a 30 mm split a shallow arc stands 4.6 mm
+   5P fanned to 5.0 mm: outer excess 1.34 mm; over a 20 mm split a shallow arc stands 3.2 mm
+   5P fanned to 5.0 mm: outer excess 1.34 mm; over a 30 mm split a shallow arc stands 3.9 mm
+   5P fanned to 7.1 mm: outer excess 2.46 mm; over a 20 mm split a shallow arc stands 4.3 mm
+   5P fanned to 7.1 mm: outer excess 2.46 mm; over a 30 mm split a shallow arc stands 5.3 mm
+Order B: flush-cut and strip before the split (procedure-is-the-machine p7), then an
+  equal-path fan (humps in the inner grooves [P3 s1]) (a9). Every conductor is one length
+  from the root, so the finished loom carries no excess; the humps' set is pulled straight
+  by the insertion clamp's forward push.
+   hump 2.6 mm: straightening tension ~M_p/h = 0.12-0.23 N
+   hump 3.3 mm: straightening tension ~M_p/h = 0.09-0.18 N
+   hump 5.1 mm: straightening tension ~M_p/h = 0.06-0.12 N
+Order C: one conductor at a time, each tip found by touch (a4 with a8, or a8b with a snout).
+  Any fan; each conductor's own Y is read and used. Excess as in order A if the fan is
+  closed afterwards.
+Housing pitch only (2.5 mm): recession 0.11-0.31 mm, and either order is the same.
+
+==============================================================================
+6. Insertion from a fan closed to 2.5 mm: the natural staircase and what the load cell sees
+==============================================================================
+Fronts left free after closing (order A, or order B with the humps not pressed flat)
+[P3 s10]: 4P from 7.1: outer pair +1.85, inner pair 0; 5P from 7.1: outer +2.47, next +1.22,
+centre 0; from 5.0: 4P +1.00/0; 5P +1.34/+0.65/0.
+  3P: latch events in order: outer pair, then centre  (2 events for 3 contacts)
+  4P: latch events in order: outer pair, then inner pair  (2 events for 4 contacts)
+  5P: latch events in order: outer pair, then next pair, then centre  (3 events for 5 contacts)
+-> the load cell counts events, not contacts; a pair is two lances in one event.
+   The spring-limited pull-back and the camera confirm each contact.
+
+==============================================================================
+7. Contacts per unit by arrangement (14 ribbon ends, 53 crimps, 55 conductors reaching housings)
+==============================================================================
+  grips in spare contacts' pilot holes: N+4                                   111 contacts; 8,000 reel ~  72 units; $2.61 at $0.0235
+  a2 / a10: N+2, trimmed positions snipped out                                 81 contacts; 8,000 reel ~  99 units; $1.90 at $0.0235
+  a2e: grips in the carrier's end slots, segments cut in sequence (N+1)        67 contacts; 8,000 reel ~ 119 units; $1.57 at $0.0235
+  a9: from the reel, N per end (trimmed positions docked empty, not stroked)   55 contacts; 8,000 reel ~ 145 units; $1.29 at $0.0235
+
+==============================================================================
+8. a9's parted length: strip pitch plus the equal-path recession allowance
+==============================================================================
+  3P: fan to ~7 mm 21 mm [pg s2] + 1.32 mm recession [W2 s3] -> 22 mm
+  4P: fan to ~7 mm 25 mm [pg s2] + 2.05 mm recession [W2 s3] -> 27 mm
+  5P: fan to ~7 mm 30 mm [pg s2] + 2.77 mm recession [W2 s3] -> 33 mm

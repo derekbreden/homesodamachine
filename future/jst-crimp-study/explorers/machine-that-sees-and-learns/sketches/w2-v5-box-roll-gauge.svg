@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 420" width="980" height="420" font-family="Helvetica, Arial, sans-serif">
+<title>v5 box as roll gauge</title>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f2328"/></marker><marker id="arrv" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0969da"/></marker><marker id="arrf" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#bc4c00"/></marker></defs>
+<rect x="0" y="0" width="980" height="420" fill="#ffffff"/>
+<text x="20" y="28" font-size="17" fill="#1f2328" text-anchor="start" font-weight="bold">v5 / v1  The box is its own roll gauge: one silhouette carries both</text>
+<text x="20" y="47" font-size="12" fill="#57606a" text-anchor="start" font-weight="normal" font-style="italic">Silhouette seen across the wire; box 1.9 x 2.35 mm and crimp 1.6 x 0.8 mm rolled 3 deg (exaggerated x3 in the drawing). Schematic.</text>
+<polygon points="208.50286150712898,193.37194019068716 311.71629309932086,209.71934178739127 291.49713849287104,337.37805980931284 188.28370690067914,321.0306582126087" fill="#c9d1d9" stroke="#1f2328" stroke-width="1.5"/>
+<line x1="140" y1="193.37194019068716" x2="360" y2="193.37194019068716" stroke="#0969da" stroke-width="1.5" stroke-dasharray="4 3"/>
+<line x1="140" y1="337.37805980931284" x2="360" y2="337.37805980931284" stroke="#0969da" stroke-width="1.5" stroke-dasharray="4 3"/>
+<text x="250" y="359.37805980931284" font-size="11" fill="#1f2328" text-anchor="middle" font-weight="normal">box (front 1 mm, ahead of the lance)</text>
+<polygon points="479.98327124469904,279.3877400451368 566.8998452170712,293.1539729686771 560.016728755301,336.6122599548632 473.1001547829289,322.8460270313229" fill="#c9d1d9" stroke="#1f2328" stroke-width="1.5"/>
+<line x1="410" y1="279.3877400451368" x2="630" y2="279.3877400451368" stroke="#0969da" stroke-width="1.5" stroke-dasharray="4 3"/>
+<line x1="410" y1="336.6122599548632" x2="630" y2="336.6122599548632" stroke="#0969da" stroke-width="1.5" stroke-dasharray="4 3"/>
+<text x="520" y="358.6122599548632" font-size="11" fill="#1f2328" text-anchor="middle" font-weight="normal">conductor crimp</text>
+<text x="660" y="110.0" font-size="11.5" fill="#57606a" text-anchor="start" font-weight="normal">extent = H cos r + W sin r</text>
+<text x="660" y="124.5" font-size="11.5" fill="#57606a" text-anchor="start" font-weight="normal"></text>
+<text x="660" y="139.0" font-size="11.5" fill="#57606a" text-anchor="start" font-weight="normal">box grows 32-34 um per degree:</text>
+<text x="660" y="153.5" font-size="11.5" fill="#57606a" text-anchor="start" font-weight="normal">0.05-0.3 deg of roll read from it</text>
+<text x="660" y="168.0" font-size="11.5" fill="#57606a" text-anchor="start" font-weight="normal">(45-122 px/mm) [calc wave2 s1].</text>
+<text x="660" y="182.5" font-size="11.5" fill="#57606a" text-anchor="start" font-weight="normal"></text>
+<text x="660" y="197.0" font-size="11.5" fill="#57606a" text-anchor="start" font-weight="normal">crimp corrected by W_c sin r;</text>
+<text x="660" y="211.5" font-size="11.5" fill="#57606a" text-anchor="start" font-weight="normal">rolled &gt; 2 deg: re-seat, not correct.</text>
+<text x="660" y="226.0" font-size="11.5" fill="#57606a" text-anchor="start" font-weight="normal"></text>
+<text x="660" y="240.5" font-size="11.5" fill="#57606a" text-anchor="start" font-weight="normal">box's true height: the lot's minimum</text>
+<text x="660" y="255.0" font-size="11.5" fill="#57606a" text-anchor="start" font-weight="normal">in a +/-4 deg sweep of five contacts.</text>
+</svg>

@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" width="900" height="560" role="img" aria-labelledby="t d">
+<title id="t">f5 die cassette in the shop press, schematic</title>
+<desc id="d">A steel die cassette with one station per conductor, spring-open on two guide posts with stop blocks; loaded and inspected under a camera, then pushed to its stops by the idle 12-ton shop press.</desc>
+<style>
+.bg{fill:#fcfcfb}
+text{font-family:system-ui,-apple-system,Segoe UI,Helvetica,Arial,sans-serif;fill:#0b0b0b;font-size:12px}
+.t2{fill:#52514e;font-size:11px}.h{font-size:15px;font-weight:600}.sm{font-size:10px;fill:#52514e}
+.steel{fill:#c9c8c2;stroke:#52514e;stroke-width:1.2}
+.dark{fill:#8f8e88;stroke:#3d3c39;stroke-width:1.2}
+.bought{fill:#dcdad2;stroke:#52514e;stroke-width:1.2;stroke-dasharray:4 2}
+.print{fill:#cde2fb;stroke:#2a78d6;stroke-width:1.2}
+.contact{fill:#eda100;stroke:#7a5300;stroke-width:1}
+.wire{stroke:#eb6834;stroke-width:4;fill:none;stroke-linecap:round}
+.wirefill{fill:#eb6834;stroke:#8c3a17;stroke-width:1}
+.strand{stroke:#8c3a17;stroke-width:1;fill:none}
+.force{stroke:#e34948;stroke-width:2.5;fill:none}
+.forcefill{fill:#e34948}
+.move{stroke:#2a78d6;stroke-width:1.8;fill:none;stroke-dasharray:5 3}
+.movefill{fill:#2a78d6}
+.ln{stroke:#52514e;stroke-width:1.2;fill:none}
+.thin{stroke:#8a8984;stroke-width:1;fill:none;stroke-dasharray:3 3}
+.box{fill:none;stroke:#8a8984;stroke-width:1}
+@media (prefers-color-scheme: dark){
+.bg{fill:#1a1a19} text{fill:#ffffff} .t2,.sm{fill:#c3c2b7}
+.steel{fill:#4a4a47;stroke:#c3c2b7}.dark{fill:#6b6a66;stroke:#d8d7d0}
+.bought{fill:#33332f;stroke:#c3c2b7}.print{fill:#1c3a5e;stroke:#3987e5}
+.contact{fill:#c98500;stroke:#f3c56a}.wire{stroke:#d95926}.wirefill{fill:#d95926;stroke:#f0a07e}
+.strand{stroke:#f0a07e}.force{stroke:#e66767}.forcefill{fill:#e66767}
+.move{stroke:#3987e5}.movefill{fill:#3987e5}.ln{stroke:#c3c2b7}.thin{stroke:#8a8984}.box{stroke:#6b6a66}}
+</style>
+<defs><marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="forcefill" d="M0,0 L10,5 L0,10 z"/></marker><marker id="am" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="movefill" d="M0,0 L10,5 L0,10 z"/></marker></defs>
+<rect class="bg" width="900" height="560"/>
+<text class="h" x="20" y="28" text-anchor="start">f5  Die cassette: load and look at leisure, then one push per ribbon end</text>
+<text class="t2" x="20" y="46" text-anchor="start">schematic, not to scale; front view (wire axis into the page)</text>
+<text class="t2" x="40" y="80" text-anchor="start">Loading station (bench, camera above)</text>
+<rect class="bought" x="160" y="92" width="40" height="26" rx="3"/>
+<text class="sm" x="206" y="106" text-anchor="start">ELP camera: every conductor in its U?</text>
+<line class="thin" x1="180" y1="118" x2="180" y2="150"/>
+<rect class="steel" x="40" y="230" width="300" height="30" rx="0"/>
+<rect class="steel" x="50" y="140" width="14" height="120" rx="0"/>
+<rect class="steel" x="316" y="140" width="14" height="120" rx="0"/>
+<rect class="steel" x="40" y="134" width="300" height="30" rx="0"/>
+<rect class="dark" x="74" y="210" width="18" height="20" rx="0"/>
+<rect class="dark" x="288" y="210" width="18" height="20" rx="0"/>
+<rect class="steel" x="113" y="216" width="14" height="14" rx="0"/>
+<rect class="steel" x="112" y="164" width="16" height="14" rx="0"/>
+<path class="ln" d="M111,200 L113,216 L127,216 L129,200"/>
+<polygon class="contact" points="111,200 113,216 127,216 129,200 126,200 125,213 115,213 114,200"/>
+<circle class="wirefill" cx="120" cy="209" r="3.5"/>
+<rect class="steel" x="149" y="216" width="14" height="14" rx="0"/>
+<rect class="steel" x="148" y="164" width="16" height="14" rx="0"/>
+<path class="ln" d="M147,200 L149,216 L163,216 L165,200"/>
+<polygon class="contact" points="147,200 149,216 163,216 165,200 162,200 161,213 151,213 150,200"/>
+<circle class="wirefill" cx="156" cy="209" r="3.5"/>
+<rect class="steel" x="185" y="216" width="14" height="14" rx="0"/>
+<rect class="steel" x="184" y="164" width="16" height="14" rx="0"/>
+<path class="ln" d="M183,200 L185,216 L199,216 L201,200"/>
+<polygon class="contact" points="183,200 185,216 199,216 201,200 198,200 197,213 187,213 186,200"/>
+<circle class="wirefill" cx="192" cy="209" r="3.5"/>
+<rect class="steel" x="221" y="216" width="14" height="14" rx="0"/>
+<rect class="steel" x="220" y="164" width="16" height="14" rx="0"/>
+<path class="ln" d="M219,200 L221,216 L235,216 L237,200"/>
+<polygon class="contact" points="219,200 221,216 235,216 237,200 234,200 233,213 223,213 222,200"/>
+<circle class="wirefill" cx="228" cy="209" r="3.5"/>
+<rect class="steel" x="257" y="216" width="14" height="14" rx="0"/>
+<rect class="steel" x="256" y="164" width="16" height="14" rx="0"/>
+<path class="ln" d="M255,200 L257,216 L271,216 L273,200"/>
+<polygon class="contact" points="255,200 257,216 271,216 273,200 270,200 269,213 259,213 258,200"/>
+<circle class="wirefill" cx="264" cy="209" r="3.5"/>
+<path class="ln" d="M51,192 l12,6 l-12,6 l12,6 l-12,6"/>
+<path class="ln" d="M317,192 l12,6 l-12,6 l12,6 l-12,6"/>
+<text class="sm" x="40" y="290" text-anchor="start">strip segment of N contacts on steel pilot pins</text>
+<text class="sm" x="40" y="303" text-anchor="start">(station pitch = the strip's pitch)</text>
+<text class="sm" x="40" y="316" text-anchor="start">ribbon fanned into a printed comb, then flush-cut</text>
+<text class="sm" x="40" y="329" text-anchor="start">and stripped at the comb face (edges on one line)</text>
+<text class="sm" x="40" y="342" text-anchor="start">each anvil insulated: the far end names its conductor</text>
+<text class="sm" x="40" y="355" text-anchor="start">springs hold the upper shoe open</text>
+<text class="t2" x="470" y="80" text-anchor="start">In the idle 12-ton shop press</text>
+<rect class="steel" x="470" y="90" width="26" height="330" rx="0"/>
+<rect class="steel" x="824" y="90" width="26" height="330" rx="0"/>
+<rect class="steel" x="470" y="90" width="380" height="24" rx="0"/>
+<rect class="steel" x="470" y="396" width="380" height="24" rx="0"/>
+<rect class="bought" x="630" y="114" width="60" height="70" rx="3"/>
+<text class="sm" x="696" y="150" text-anchor="start">bottle-jack ram</text>
+<line class="force" x1="660" y1="186" x2="660" y2="200" marker-end="url(#af)"/>
+<rect class="steel" x="510" y="290" width="300" height="30" rx="0"/>
+<rect class="steel" x="520" y="200" width="14" height="120" rx="0"/>
+<rect class="steel" x="786" y="200" width="14" height="120" rx="0"/>
+<rect class="steel" x="510" y="220" width="300" height="30" rx="0"/>
+<rect class="dark" x="544" y="270" width="18" height="20" rx="0"/>
+<rect class="dark" x="758" y="270" width="18" height="20" rx="0"/>
+<rect class="steel" x="583" y="276" width="14" height="14" rx="0"/>
+<rect class="steel" x="582" y="250" width="16" height="14" rx="0"/>
+<rect class="contact" x="584" y="266" width="12" height="10" rx="0"/>
+<circle class="wirefill" cx="590" cy="271" r="3"/>
+<rect class="steel" x="619" y="276" width="14" height="14" rx="0"/>
+<rect class="steel" x="618" y="250" width="16" height="14" rx="0"/>
+<rect class="contact" x="620" y="266" width="12" height="10" rx="0"/>
+<circle class="wirefill" cx="626" cy="271" r="3"/>
+<rect class="steel" x="655" y="276" width="14" height="14" rx="0"/>
+<rect class="steel" x="654" y="250" width="16" height="14" rx="0"/>
+<rect class="contact" x="656" y="266" width="12" height="10" rx="0"/>
+<circle class="wirefill" cx="662" cy="271" r="3"/>
+<rect class="steel" x="691" y="276" width="14" height="14" rx="0"/>
+<rect class="steel" x="690" y="250" width="16" height="14" rx="0"/>
+<rect class="contact" x="692" y="266" width="12" height="10" rx="0"/>
+<circle class="wirefill" cx="698" cy="271" r="3"/>
+<rect class="steel" x="727" y="276" width="14" height="14" rx="0"/>
+<rect class="steel" x="726" y="250" width="16" height="14" rx="0"/>
+<rect class="contact" x="728" y="266" width="12" height="10" rx="0"/>
+<circle class="wirefill" cx="734" cy="271" r="3"/>
+<rect class="bought" x="560" y="322" width="200" height="12" rx="2"/>
+<rect class="steel" x="540" y="334" width="240" height="62" rx="0"/>
+<text class="sm" x="548" y="356" text-anchor="start">press bed plates; the 5 t load cell above</text>
+<text class="sm" x="548" y="368" text-anchor="start">(or the jack's gauge) reads summed force</text>
+<text class="sm" x="504" y="130" text-anchor="start">pump until the shoes</text>
+<text class="sm" x="504" y="142" text-anchor="start">meet the stop blocks:</text>
+<text class="sm" x="504" y="154" text-anchor="start">the stops set crimp</text>
+<text class="sm" x="504" y="166" text-anchor="start">height; the press</text>
+<text class="sm" x="504" y="178" text-anchor="start">only pushes</text>
+<text class="t2" x="40" y="450" text-anchor="start">One stroke crimps a whole ribbon end (3-5 conductors, 5-12 kN; the press has ~118 kN).</text>
+<text class="t2" x="40" y="465" text-anchor="start">A floating shear under the carrier cuts the tabs in the same stroke (or a second); each conductor proof-pulled at the comb face.</text>
+<text class="t2" x="40" y="480" text-anchor="start">Hands back: loading strip and ribbon into the cassette, pumping (or a motorised screw), insertion.</text>
+<rect class="steel" x="40" y="530" width="14" height="12" rx="0"/>
+<text class="sm" x="60" y="540" text-anchor="start">steel (force path, dies)</text>
+<rect class="print" x="215" y="530" width="14" height="12" rx="0"/>
+<text class="sm" x="235" y="540" text-anchor="start">printed</text>
+<rect class="bought" x="390" y="530" width="14" height="12" rx="0"/>
+<text class="sm" x="410" y="540" text-anchor="start">bought motion / sensing</text>
+<rect class="contact" x="565" y="530" width="14" height="12" rx="0"/>
+<text class="sm" x="585" y="540" text-anchor="start">XH contact</text>
+<line class="wire" x1="740" y1="536" x2="762" y2="536"/>
+<text class="sm" x="768" y="540" text-anchor="start">conductor</text>
+</svg>

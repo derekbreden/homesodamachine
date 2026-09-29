@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="720" viewBox="0 0 1000 720" font-family="Helvetica, Arial, sans-serif" font-size="12">
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#222222"/></marker><marker id="arrb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2a5d9f"/></marker><marker id="arrr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#b03030"/></marker></defs>
+<rect width="1000" height="720" fill="#ffffff"/>
+<text x="20" y="28" font-size="16" font-weight="bold" fill="#222222">p5c The camshaft turns a knee: one motor, one turn per conductor (schematic)</text>
+<text x="20.0" y="47.0" font-size="11" fill="#555" text-anchor="start" font-weight="normal">Timing (top) and the station the cams drive (bottom). The knee lobe carries the joint through straight, so crimp height is the links' geometry.</text>
+<line x1="330.0" y1="80.0" x2="950.0" y2="80.0" stroke="#222222" stroke-width="1.2"/>
+<line x1="330.0" y1="76.0" x2="330.0" y2="84.0" stroke="#222222" stroke-width="1.2"/>
+<text x="322.0" y="72.0" font-size="9" fill="#222222" text-anchor="start" font-weight="normal">0</text>
+<line x1="381.7" y1="76.0" x2="381.7" y2="84.0" stroke="#222222" stroke-width="1.2"/>
+<text x="373.7" y="72.0" font-size="9" fill="#222222" text-anchor="start" font-weight="normal">30</text>
+<line x1="433.3" y1="76.0" x2="433.3" y2="84.0" stroke="#222222" stroke-width="1.2"/>
+<text x="425.3" y="72.0" font-size="9" fill="#222222" text-anchor="start" font-weight="normal">60</text>
+<line x1="485.0" y1="76.0" x2="485.0" y2="84.0" stroke="#222222" stroke-width="1.2"/>
+<text x="477.0" y="72.0" font-size="9" fill="#222222" text-anchor="start" font-weight="normal">90</text>
+<line x1="536.7" y1="76.0" x2="536.7" y2="84.0" stroke="#222222" stroke-width="1.2"/>
+<text x="528.7" y="72.0" font-size="9" fill="#222222" text-anchor="start" font-weight="normal">120</text>
+<line x1="588.3" y1="76.0" x2="588.3" y2="84.0" stroke="#222222" stroke-width="1.2"/>
+<text x="580.3" y="72.0" font-size="9" fill="#222222" text-anchor="start" font-weight="normal">150</text>
+<line x1="640.0" y1="76.0" x2="640.0" y2="84.0" stroke="#222222" stroke-width="1.2"/>
+<text x="632.0" y="72.0" font-size="9" fill="#222222" text-anchor="start" font-weight="normal">180</text>
+<line x1="691.7" y1="76.0" x2="691.7" y2="84.0" stroke="#222222" stroke-width="1.2"/>
+<text x="683.7" y="72.0" font-size="9" fill="#222222" text-anchor="start" font-weight="normal">210</text>
+<line x1="743.3" y1="76.0" x2="743.3" y2="84.0" stroke="#222222" stroke-width="1.2"/>
+<text x="735.3" y="72.0" font-size="9" fill="#222222" text-anchor="start" font-weight="normal">240</text>
+<line x1="795.0" y1="76.0" x2="795.0" y2="84.0" stroke="#222222" stroke-width="1.2"/>
+<text x="787.0" y="72.0" font-size="9" fill="#222222" text-anchor="start" font-weight="normal">270</text>
+<line x1="846.7" y1="76.0" x2="846.7" y2="84.0" stroke="#222222" stroke-width="1.2"/>
+<text x="838.7" y="72.0" font-size="9" fill="#222222" text-anchor="start" font-weight="normal">300</text>
+<line x1="898.3" y1="76.0" x2="898.3" y2="84.0" stroke="#222222" stroke-width="1.2"/>
+<text x="890.3" y="72.0" font-size="9" fill="#222222" text-anchor="start" font-weight="normal">330</text>
+<line x1="950.0" y1="76.0" x2="950.0" y2="84.0" stroke="#222222" stroke-width="1.2"/>
+<text x="942.0" y="72.0" font-size="9" fill="#222222" text-anchor="start" font-weight="normal">360</text>
+<text x="20.0" y="116.0" font-size="10" fill="#222222" text-anchor="start" font-weight="normal">index cassette</text>
+<rect x="330.0" y="104.0" width="43.1" height="16.0" rx="0" fill="#888888" stroke="#888888" stroke-width="1.2" fill-opacity="0.35"/>
+<text x="20.0" y="144.0" font-size="10" fill="#222222" text-anchor="start" font-weight="normal">lift k 3.5 mm</text>
+<rect x="373.1" y="132.0" width="43.1" height="16.0" rx="0" fill="#2f7d4f" stroke="#2f7d4f" stroke-width="1.2" fill-opacity="0.35"/>
+<text x="20.0" y="172.0" font-size="10" fill="#222222" text-anchor="start" font-weight="normal">camera: bare length, brush</text>
+<rect x="416.1" y="160.0" width="17.2" height="16.0" rx="0" fill="#888888" stroke="#888888" stroke-width="1.2" fill-opacity="0.35"/>
+<text x="20.0" y="200.0" font-size="10" fill="#222222" text-anchor="start" font-weight="normal">post bar -Y: open contact onto k</text>
+<rect x="433.3" y="188.0" width="86.1" height="16.0" rx="0" fill="#c77d10" stroke="#c77d10" stroke-width="1.2" fill-opacity="0.35"/>
+<text x="20.0" y="228.0" font-size="10" fill="#222222" text-anchor="start" font-weight="normal">fin up through k's slot; gate wedge in</text>
+<rect x="519.4" y="216.0" width="34.4" height="16.0" rx="0" fill="#2a5d9f" stroke="#2a5d9f" stroke-width="1.2" fill-opacity="0.35"/>
+<text x="20.0" y="256.0" font-size="10" fill="#222222" text-anchor="start" font-weight="normal">knee lobe: curl; STOP at 150, identity via the C</text>
+<rect x="553.9" y="244.0" width="34.4" height="16.0" rx="0" fill="#b03030" stroke="#b03030" stroke-width="1.2" fill-opacity="0.35"/>
+<text x="20.0" y="284.0" font-size="10" fill="#222222" text-anchor="start" font-weight="normal">knee lobe: through straight onto its stop</text>
+<rect x="588.3" y="272.0" width="86.1" height="16.0" rx="0" fill="#b03030" stroke="#b03030" stroke-width="1.2" fill-opacity="0.35"/>
+<text x="20.0" y="312.0" font-size="10" fill="#222222" text-anchor="start" font-weight="normal">back off, re-touch ~10 N; indicator</text>
+<rect x="674.4" y="300.0" width="25.8" height="16.0" rx="0" fill="#2a5d9f" stroke="#2a5d9f" stroke-width="1.2" fill-opacity="0.35"/>
+<text x="20.0" y="340.0" font-size="10" fill="#222222" text-anchor="start" font-weight="normal">knee open, gate out, fin down, post bar back</text>
+<rect x="700.3" y="328.0" width="43.1" height="16.0" rx="0" fill="#c77d10" stroke="#c77d10" stroke-width="1.2" fill-opacity="0.35"/>
+<text x="20.0" y="368.0" font-size="10" fill="#222222" text-anchor="start" font-weight="normal">hook: 20 N through the box; switch</text>
+<rect x="743.3" y="356.0" width="60.3" height="16.0" rx="0" fill="#2f7d4f" stroke="#2f7d4f" stroke-width="1.2" fill-opacity="0.35"/>
+<text x="20.0" y="396.0" font-size="10" fill="#222222" text-anchor="start" font-weight="normal">lift lowers k; squaring tidies</text>
+<rect x="803.6" y="384.0" width="77.5" height="16.0" rx="0" fill="#2f7d4f" stroke="#2f7d4f" stroke-width="1.2" fill-opacity="0.35"/>
+<text x="20.0" y="424.0" font-size="10" fill="#222222" text-anchor="start" font-weight="normal">switch cam: go, or stop before the index</text>
+<rect x="881.1" y="412.0" width="68.9" height="16.0" rx="0" fill="#888888" stroke="#888888" stroke-width="1.2" fill-opacity="0.35"/>
+<line x1="80.0" y1="620.0" x2="900.0" y2="620.0" stroke="#222222" stroke-width="6"/>
+<rect x="30.0" y="595.0" width="50.0" height="50.0" rx="0" fill="#ccc" stroke="#222222" stroke-width="1.2"/>
+<text x="20.0" y="665.0" font-size="9" fill="#222222" text-anchor="start" font-weight="normal">12 V worm gearmotor</text>
+<text x="20.0" y="677.0" font-size="9" fill="#222222" text-anchor="start" font-weight="normal">+ ~5:1 belt, AS5600</text>
+<circle cx="140.0" cy="620.0" r="18.0" fill="#fff" stroke="#888888" stroke-width="2"/>
+<text x="122.0" y="660.0" font-size="9" fill="#888888" text-anchor="start" font-weight="normal">index</text>
+<circle cx="220.0" cy="620.0" r="18.0" fill="#fff" stroke="#2f7d4f" stroke-width="2"/>
+<text x="202.0" y="660.0" font-size="9" fill="#2f7d4f" text-anchor="start" font-weight="normal">lift</text>
+<circle cx="300.0" cy="620.0" r="18.0" fill="#fff" stroke="#c77d10" stroke-width="2"/>
+<text x="282.0" y="660.0" font-size="9" fill="#c77d10" text-anchor="start" font-weight="normal">post Y</text>
+<circle cx="380.0" cy="620.0" r="18.0" fill="#fff" stroke="#2a5d9f" stroke-width="2"/>
+<text x="362.0" y="660.0" font-size="9" fill="#2a5d9f" text-anchor="start" font-weight="normal">fin/gate</text>
+<circle cx="460.0" cy="620.0" r="18.0" fill="#fff" stroke="#2f7d4f" stroke-width="2"/>
+<text x="442.0" y="660.0" font-size="9" fill="#2f7d4f" text-anchor="start" font-weight="normal">pull</text>
+<circle cx="540.0" cy="620.0" r="18.0" fill="#fff" stroke="#2f7d4f" stroke-width="2"/>
+<text x="522.0" y="660.0" font-size="9" fill="#2f7d4f" text-anchor="start" font-weight="normal">square</text>
+<circle cx="700.0" cy="620.0" r="26.0" fill="#fff" stroke="#b03030" stroke-width="2"/>
+<text x="674.0" y="665.0" font-size="9" fill="#b03030" text-anchor="start" font-weight="normal">knee lobe</text>
+<line x1="700.0" y1="594.0" x2="700.0" y2="540.0" stroke="#b03030" stroke-width="2"/>
+<path d="M 700 540 L 760 510 L 820 540" fill="none" stroke="#b03030" stroke-width="3"/>
+<text x="660.0" y="530.0" font-size="9" fill="#b03030" text-anchor="start" font-weight="normal">pushes the knee joint (60-160 N)</text>
+<rect x="850.0" y="490.0" width="16.0" height="150.0" rx="0" fill="#c9ccd1" stroke="#222222" stroke-width="1.2"/>
+<rect x="780.0" y="490.0" width="86.0" height="14.0" rx="0" fill="#c9ccd1" stroke="#222222" stroke-width="1.2"/>
+<rect x="780.0" y="626.0" width="86.0" height="14.0" rx="0" fill="#c9ccd1" stroke="#222222" stroke-width="1.2"/>
+<text x="872.0" y="560.0" font-size="9" fill="#222222" text-anchor="start" font-weight="normal">steel C:</text>
+<text x="872.0" y="572.0" font-size="9" fill="#222222" text-anchor="start" font-weight="normal">the crimp's</text>
+<text x="872.0" y="584.0" font-size="9" fill="#222222" text-anchor="start" font-weight="normal">force loop</text>
+<text x="40.0" y="700.0" font-size="10" fill="#222222" text-anchor="start" font-weight="normal">Shaft torque 0.25-1.9 N*m peak plus 0.1-0.3 for knee friction [force-and-form calc exchange_procedure_w3 §8]; the printed cam frame carries only the knee's input.</text>
+<text x="40.0" y="713.0" font-size="10" fill="#222222" text-anchor="start" font-weight="normal">J1 6-9 minutes, a unit 35-53 minutes of shaft time [calc wave3 §6]. Tooling as p1d.</text>
+</svg>

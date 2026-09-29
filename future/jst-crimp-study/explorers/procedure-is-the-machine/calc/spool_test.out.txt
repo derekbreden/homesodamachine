@@ -1,0 +1,58 @@
+
+==============================================================================
+1. Continuity through the spool
+==============================================================================
+  15.24 m of one conductor: 0.89 ohm
+   8.00 m of one conductor: 0.47 ohm
+   2.00 m of one conductor: 0.12 ohm
+  slip ring contact: tens to hundreds of milliohm [assumption; Adafruit does not state]
+  -> open (infinite) vs good (<~1.5 ohm) is trivially separated by a GPIO + resistor
+     divider or an ADC; adjacent short (a stray strand bridging two contacts) shows as
+     a low resistance between two conductors that should read open.
+  -> a crimp's own resistance (1-10 milliohm, 10-20 max per JST rating [mfr S1]) is
+     invisible in series with ~0.9 ohm of spool; this test sees opens, shorts and
+     which conductor went to which contact, not crimp quality.
+
+==============================================================================
+2. Spool turns per unit, and over a spool's life
+==============================================================================
+  hub 60 mm, full 140 mm (mean 100 mm) [assumption]:
+    3P:  5.9 turns per unit,   49 turns per spool
+    4P:  8.9 turns per unit,   49 turns per spool
+    5P:  4.3 turns per unit,   49 turns per spool
+  hub 100 mm, full 160 mm (mean 130 mm) [assumption]:
+    3P:  4.5 turns per unit,   37 turns per spool
+    4P:  6.9 turns per unit,   37 turns per spool
+    5P:  3.3 turns per unit,   37 turns per spool
+  -> a lead from the spool's inner end would wind up 30-80 turns over a spool: a slip
+     ring on the spool axle carries the test circuits (5 conductors on a 6-circuit ring).
+
+==============================================================================
+3. Guillotine force, cutting the loom free after feed-out
+==============================================================================
+  tau 120 MPa, 3 conductors: straight blade ~  115 N
+  tau 120 MPa, 4 conductors: straight blade ~  153 N
+  tau 120 MPa, 5 conductors: straight blade ~  191 N
+  tau 120 MPa, 9 conductors: straight blade ~  344 N
+  tau 200 MPa, 3 conductors: straight blade ~  187 N
+  tau 200 MPa, 4 conductors: straight blade ~  250 N
+  tau 200 MPa, 5 conductors: straight blade ~  312 N
+  tau 200 MPa, 9 conductors: straight blade ~  562 N
+  A scissor (angled) blade cuts one conductor at a time: ~40-65 N peak [calc, per conductor].
+  NEMA 17 at 0.3 N*m on a Tr8 lead 8 mm (eta 0.3): 71 N
+  NEMA 17 at 0.3 N*m on a Tr8 lead 2 mm (eta 0.3): 283 N
+  -> a Tr8x2 lead screw or a lever does a straight cut; an angled blade needs almost nothing.
+
+==============================================================================
+4. Length by encoder wheel on silicone
+==============================================================================
+  slip 0.0%: 100 mm loom reads within 0.0 mm
+  slip 0.0%: 600 mm loom reads within 0.0 mm
+  slip 0.5%: 100 mm loom reads within 0.5 mm
+  slip 0.5%: 600 mm loom reads within 3.0 mm
+  slip 1.0%: 100 mm loom reads within 1.0 mm
+  slip 1.0%: 600 mm loom reads within 6.0 mm
+  slip 2.0%: 100 mm loom reads within 2.0 mm
+  slip 2.0%: 600 mm loom reads within 12.0 mm
+  plus wheel diameter error: a 20 mm wheel off by 0.1 mm is 0.5% [calc]
+  -> +/-3-6 mm on the longest loom; compare with the service loop (Derek question).

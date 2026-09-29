@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 860" font-family="Helvetica, Arial, sans-serif" font-size="13">
+<rect width="1000" height="860" fill="#ffffff"/>
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c0392b"/></marker><marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2e7d32"/></marker><marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f5fa8"/></marker><pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#aaa" stroke-width="2"/></pattern><pattern id="rhatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#e6a19a" stroke-width="2"/></pattern></defs>
+<text x="20.0" y="28.0" fill="#111" font-size="17" font-weight="bold">The insulation step's mouth at 2.5 mm pitch (schematic end views, looking +Y)</text>
+<text x="20.0" y="48.0" fill="#444">~55 px per mm. Z up from the barrel floor; X across the row. Numbers: calc/wave3.out.txt sections A and J; change-the-question on_into_the_housing_w3 section 1.</text>
+<text x="20.0" y="66.0" fill="#444">The insulation wings (2.75-3.20 mm tall open) meet the insulation step before the conductor flare centres anything, so the step's mouth must swallow them.</text>
+<text x="30.0" y="160.0" fill="#111" font-size="14" font-weight="bold">i2 / K1, i1b: beside a seated neighbour's jacket</text>
+<rect x="172.0" y="520.0" width="176.0" height="49.5" fill="#b0b8c4" stroke="#334"/>
+<text x="287.5" y="553.0" fill="#223" font-size="12">anvil</text>
+<circle cx="122.5" cy="462.2" r="46.8" fill="#222"/>
+<circle cx="122.5" cy="462.2" r="19.8" fill="#b87333"/>
+<text x="45.5" y="542.0" fill="#222" font-size="12">seated neighbour's</text>
+<text x="45.5" y="557.0" fill="#222" font-size="12">jacket (can give way)</text>
+<text x="370.0" y="542.0" fill="#555" font-size="12">other side: empty</text>
+<text x="370.0" y="557.0" fill="#555" font-size="12">(n+1 waits high)</text>
+<line x1="169.2" y1="531.0" x2="169.2" y2="223.0" stroke="#1f5fa8" stroke-dasharray="5 4"/>
+<text x="165.2" y="217.5" fill="#1f5fa8" font-size="12" text-anchor="end">1.65 mm from the axis</text>
+<polyline points="183.0,357.8 216.0,506.2 216.0,514.5 304.0,514.5 304.0,506.2 337.0,357.8" fill="none" stroke="#d4a017" stroke-width="11.0" stroke-linejoin="round"/>
+<circle cx="260.0" cy="462.2" r="46.8" fill="#222"/>
+<path d="M169.2,245.0 L400.2,245.0 L400.2,357.8 L345.2,357.8 Q260.0,264.2 174.8,357.8 L175.2,357.8 L169.2,351.1 L169.2,245.0 z" fill="#b0b8c4" stroke="#334" opacity="0.92"/>
+<line x1="169.2" y1="357.8" x2="169.2" y2="503.5" stroke="#334" stroke-dasharray="4 3"/>
+<rect x="163.8" y="415.5" width="5.5" height="93.5" fill="url(#rhatch)" stroke="#c0392b"/>
+<line x1="260.0" y1="212.0" x2="260.0" y2="242.2" stroke="#c0392b" stroke-width="2" marker-end="url(#ar)"/>
+<text x="30.0" y="610.0" fill="#222" font-size="12">Clone wings open 2.80 mm (typical): the step's outer face</text>
+<text x="30.0" y="626.0" fill="#222" font-size="12">needs 1.75 mm of half-width, has 1.65 (red: the shortfall).</text>
+<text x="30.0" y="642.0" fill="#c0392b" font-size="12">Chamfered, polished outer face pushes the jacket aside:</text>
+<text x="30.0" y="658.0" fill="#c0392b" font-size="12">0.10-0.33 mm costs 0.05-1.9 N; every clone spread fits.</text>
+<text x="30.0" y="674.0" fill="#555" font-size="12">Dashed: the outer face at the bottom of the stroke.</text>
+<text x="510.0" y="160.0" fill="#111" font-size="14" font-weight="bold">i2b pass 2, k6 at 2.5 mm, k7 pass 2: between crimped barrels</text>
+<rect x="652.0" y="520.0" width="176.0" height="49.5" fill="#b0b8c4" stroke="#334"/>
+<text x="767.5" y="553.0" fill="#223" font-size="12">anvil</text>
+<rect x="547.5" y="415.5" width="110.0" height="104.5" rx="27.5" fill="#d4a017" stroke="#6b4f00"/>
+<circle cx="602.5" cy="467.8" r="38.5" fill="#222"/>
+<rect x="822.5" y="415.5" width="110.0" height="104.5" rx="27.5" fill="#d4a017" stroke="#6b4f00"/>
+<circle cx="877.5" cy="467.8" r="38.5" fill="#222"/>
+<text x="525.5" y="542.0" fill="#222" font-size="12">crimped neighbours'</text>
+<text x="525.5" y="557.0" fill="#222" font-size="12">barrels (cannot give way)</text>
+<line x1="657.5" y1="531.0" x2="657.5" y2="223.0" stroke="#1f5fa8" stroke-dasharray="5 4"/>
+<line x1="822.5" y1="531.0" x2="822.5" y2="223.0" stroke="#1f5fa8" stroke-dasharray="5 4"/>
+<text x="653.5" y="217.5" fill="#1f5fa8" font-size="12" text-anchor="end">1.50 mm from the axis</text>
+<polyline points="704.2,427.1 699.9,431.6 696.2,436.6 693.2,442.0 690.8,447.7 689.1,453.7 688.1,459.9 687.8,466.1 688.3,472.3 689.6,478.4 691.5,484.3 694.1,489.9 697.4,495.2 701.3,500.0 705.8,504.4 710.7,508.2 716.0,511.3 721.7,513.9 727.7,515.7 733.8,516.8 740.0,517.2 746.2,516.8 752.3,515.7 758.3,513.9 764.0,511.3 769.3,508.2 774.2,504.4 778.7,500.0 782.6,495.2 785.9,489.9 788.5,484.3 790.4,478.4 791.7,472.3 792.2,466.1 791.9,459.9 790.9,453.7 789.2,447.7 786.8,442.0 783.8,436.6 780.1,431.6 775.8,427.1" fill="none" stroke="#d4a017" stroke-width="11.0" stroke-linecap="round"/>
+<circle cx="740.0" cy="465.0" r="44.0" fill="#222"/>
+<path d="M669.9,245.0 L810.1,245.0 L810.1,407.2 L804.6,407.2 Q740.0,313.8 675.4,407.2 L675.9,407.2 L669.9,400.6 L669.9,245.0 z" fill="#b0b8c4" stroke="#334" opacity="0.92"/>
+<line x1="669.9" y1="407.2" x2="669.9" y2="503.5" stroke="#334" stroke-dasharray="4 3"/>
+<line x1="810.1" y1="407.2" x2="810.1" y2="503.5" stroke="#334" stroke-dasharray="4 3"/>
+<line x1="740.0" y1="212.0" x2="740.0" y2="242.2" stroke="#c0392b" stroke-width="2" marker-end="url(#ar)"/>
+<text x="510.0" y="610.0" fill="#222" font-size="12">Pre-formed keyhole (c6, 1.96-2.14 mm outside): the step</text>
+<text x="510.0" y="626.0" fill="#2e7d32" font-size="12">needs 1.33-1.42 mm, has 1.50: +0.08 to +0.37 mm to spare.</text>
+<text x="510.0" y="642.0" fill="#222" font-size="12">Open clone wings need 1.58-1.98 mm here and nothing can</text>
+<text x="510.0" y="658.0" fill="#c0392b" font-size="12">give way: -0.08 to -0.48 mm (generous margins).</text>
+<text x="20.0" y="720.0" fill="#111" font-size="13" font-weight="bold">Margin = available half-width - (s/2 + capture 0.05-0.15 + land 0.05-0.10 + clearance 0.05-0.10)</text>
+<text x="40.0" y="742.0" fill="#111" font-size="12" font-weight="bold">wing spread s</text>
+<text x="330.0" y="742.0" fill="#111" font-size="12" font-weight="bold">beside a jacket (1.65)</text>
+<text x="560.0" y="742.0" fill="#111" font-size="12" font-weight="bold">beside a crimped barrel (1.50)</text>
+<text x="40.0" y="760.0" fill="#333" font-size="12">pre-formed keyhole 1.96-2.14</text>
+<text x="330.0" y="760.0" fill="#333" font-size="12">+0.23 to +0.52</text>
+<text x="560.0" y="760.0" fill="#333" font-size="12">+0.08 to +0.37</text>
+<text x="40.0" y="778.0" fill="#333" font-size="12">clone open 2.46 (drawing min)</text>
+<text x="330.0" y="778.0" fill="#333" font-size="12">+0.07 to +0.27</text>
+<text x="560.0" y="778.0" fill="#333" font-size="12">-0.08 to +0.12</text>
+<text x="40.0" y="796.0" fill="#333" font-size="12">clone open 2.80 (typical)</text>
+<text x="330.0" y="796.0" fill="#333" font-size="12">-0.10 to +0.10</text>
+<text x="560.0" y="796.0" fill="#333" font-size="12">-0.25 to -0.05</text>
+<text x="40.0" y="814.0" fill="#333" font-size="12">clone open 3.00 (drawing max)</text>
+<text x="330.0" y="814.0" fill="#333" font-size="12">-0.20 to 0.00</text>
+<text x="560.0" y="814.0" fill="#333" font-size="12">-0.35 to -0.15</text>
+<text x="40.0" y="832.0" fill="#333" font-size="12">clone open 3.25 (max + tol)</text>
+<text x="330.0" y="832.0" fill="#333" font-size="12">-0.33 to -0.13</text>
+<text x="560.0" y="832.0" fill="#333" font-size="12">-0.48 to -0.28</text>
+</svg>

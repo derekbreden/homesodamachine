@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1340" height="960" viewBox="0 0 1340 960">
+<defs><marker id="ar" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#1b1b1b"/></marker><marker id="arr" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#c0392b"/></marker><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#8a8a8a" stroke-width="1"/></pattern></defs>
+<rect width="100%" height="100%" fill="#fcfcf8"/>
+<text x="16.0" y="28.0" font-family="Helvetica,Arial,sans-serif" font-size="18" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">A4c  Tack at T, crimp in a one-nest SN die set at C (schematic side views; end view at C to scale)</text>
+<text x="16.0" y="48.0" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">Left: the two stations the printer's stage carries each conductor to. Right: looking along the conductor at C, 1 mm = 20 px, from cited dimensions.</text>
+<rect x="16.0" y="64.0" width="14.0" height="10.0" rx="0" fill="#f2c14e" fill-opacity="1.0" stroke="#b98a12" stroke-width="1.2"/>
+<text x="36.0" y="73.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">printed</text>
+<rect x="166.0" y="64.0" width="14.0" height="10.0" rx="0" fill="#7fb3d5" fill-opacity="1.0" stroke="#2e6f99" stroke-width="1.2"/>
+<text x="186.0" y="73.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">bought / on hand</text>
+<rect x="316.0" y="64.0" width="14.0" height="10.0" rx="0" fill="#9aa5ad" fill-opacity="1.0" stroke="#5e6a72" stroke-width="1.2"/>
+<text x="336.0" y="73.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">tool steel (hand tool)</text>
+<rect x="466.0" y="64.0" width="14.0" height="10.0" rx="0" fill="#d9b64a" fill-opacity="1.0" stroke="#8a6d12" stroke-width="1.2"/>
+<text x="486.0" y="73.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">XH contact</text>
+<rect x="20.0" y="90.0" width="700.0" height="370.0" rx="0" fill="none" fill-opacity="1.0" stroke="#ccc" stroke-width="1.2"/>
+<text x="32.0" y="110.0" font-family="Helvetica,Arial,sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">At T: lay-in, tack, then the straight-down look (nothing over the conductor barrel)</text>
+<rect x="60.0" y="420.0" width="620.0" height="26.0" rx="0" fill="#f2c14e" fill-opacity="1.0" stroke="#b98a12" stroke-width="1.2"/>
+<text x="70.0" y="438.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">T's printed frame</text>
+<rect x="310.0" y="402.0" width="140.0" height="18.0" rx="0" fill="#7fb3d5" fill-opacity="1.0" stroke="#2e6f99" stroke-width="1.2"/>
+<text x="460.0" y="416.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">20 kg bar cell under the nest</text>
+<rect x="310.0" y="370.0" width="140.0" height="32.0" rx="0" fill="#9aa5ad" fill-opacity="1.0" stroke="#5e6a72" stroke-width="1.2"/>
+<text x="380.0" y="392.0" font-family="Helvetica,Arial,sans-serif" font-size="9.5" fill="#fff" text-anchor="middle" font-weight="normal" font-style="normal">steel insert</text>
+<rect x="320.0" y="320.0" width="34.0" height="50.0" rx="0" fill="#d9b64a" fill-opacity="0.9" stroke="#8a6d12" stroke-width="1.2"/>
+<rect x="376.0" y="334.0" width="52.0" height="36.0" rx="0" fill="#d9b64a" fill-opacity="0.6" stroke="#8a6d12" stroke-width="1.2"/>
+<rect x="450.0" y="314.0" width="50.0" height="56.0" rx="0" fill="#d9b64a" fill-opacity="1.0" stroke="#8a6d12" stroke-width="1.2"/>
+<rect x="450.0" y="364.0" width="60.0" height="6.0" rx="0" fill="#f2c14e" fill-opacity="1.0" stroke="#b98a12" stroke-width="1.2"/>
+<text x="475.0" y="344.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">box</text>
+<polygon points="490.0,370.0 508.0,384.0 510.0,380.0 498.0,370.0" fill="#d9b64a" fill-opacity="1.0" stroke="#8a6d12" stroke-width="1.2"/>
+<text x="514.0" y="392.0" font-family="Helvetica,Arial,sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">lance in a relief</text>
+<rect x="80.0" y="326.0" width="240.0" height="36.0" rx="0" fill="#333" fill-opacity="1.0" stroke="#000" stroke-width="1.2"/>
+<line x1="320.0" y1="336.0" x2="436.0" y2="336.0" stroke="#c47a2c" stroke-width="1.4"/>
+<line x1="320.0" y1="342.0" x2="436.0" y2="342.0" stroke="#c47a2c" stroke-width="1.4"/>
+<line x1="320.0" y1="348.0" x2="436.0" y2="348.0" stroke="#c47a2c" stroke-width="1.4"/>
+<line x1="320.0" y1="354.0" x2="436.0" y2="354.0" stroke="#c47a2c" stroke-width="1.4"/>
+<line x1="320.0" y1="360.0" x2="436.0" y2="360.0" stroke="#c47a2c" stroke-width="1.4"/>
+<rect x="80.0" y="310.0" width="170.0" height="16.0" rx="0" fill="#f2c14e" fill-opacity="1.0" stroke="#b98a12" stroke-width="1.2"/>
+<text x="84.0" y="382.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">key k pressed down (pallet on the stage)</text>
+<rect x="318.0" y="240.0" width="38.0" height="76.0" rx="0" fill="#5e6a72" fill-opacity="1.0" stroke="#1b1b1b" stroke-width="1.2"/>
+<rect x="308.0" y="210.0" width="58.0" height="26.0" rx="0" fill="#f2c14e" fill-opacity="1.0" stroke="#b98a12" stroke-width="1.2"/>
+<line x1="308.0" y1="223.0" x2="190.0" y2="223.0" stroke="#b98a12" stroke-width="5"/>
+<rect x="140.0" y="200.0" width="50.0" height="40.0" rx="0" fill="#7fb3d5" fill-opacity="1.0" stroke="#2e6f99" stroke-width="1.2"/>
+<text x="80.0" y="174.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">35 kg*cm servo, lever,</text>
+<text x="80.0" y="187.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">loose screw stop</text>
+<line x1="338.0" y1="270.0" x2="190.0" y2="270.0" stroke="#8a8a8a" stroke-width="0.8"/>
+<circle cx="338.0" cy="270.0" r="2.0" fill="#1b1b1b" stroke="#1b1b1b" stroke-width="1.2"/>
+<text x="186.0" y="254.8" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="end" font-weight="normal" font-style="normal">former cut from a spare</text>
+<text x="186.0" y="267.2" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="end" font-weight="normal" font-style="normal">SN jaw's insulation</text>
+<text x="186.0" y="279.8" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="end" font-weight="normal" font-style="normal">section: the tack is the</text>
+<text x="186.0" y="292.2" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="end" font-weight="normal" font-style="normal">SN's own stroke, paused</text>
+<rect x="380.0" y="130.0" width="60.0" height="30.0" rx="0" fill="#7fb3d5" fill-opacity="1.0" stroke="#2e6f99" stroke-width="1.2"/>
+<text x="446.0" y="150.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">top camera, straight down, 4-8 lighting states</text>
+<line x1="410.0" y1="160.0" x2="405.0" y2="330.0" stroke="#2a6f97" stroke-width="1.2" stroke-dasharray="4,3"/>
+<line x1="410.0" y1="160.0" x2="420.0" y2="330.0" stroke="#2a6f97" stroke-width="1.2" stroke-dasharray="4,3"/>
+<rect x="620.0" y="320.0" width="60.0" height="28.0" rx="0" fill="#7fb3d5" fill-opacity="1.0" stroke="#2e6f99" stroke-width="1.2"/>
+<text x="650.0" y="312.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">side camera</text>
+<line x1="620.0" y1="334.0" x2="510.0" y2="334.0" stroke="#2a6f97" stroke-width="1.2" stroke-dasharray="4,3"/>
+<text x="490.0" y="174.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="normal" font-style="normal">pass: go on to C</text>
+<text x="490.0" y="187.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="normal" font-style="normal">fail: the conductor backs out;</text>
+<text x="490.0" y="200.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="normal" font-style="normal">it costs a contact, not an end</text>
+<rect x="20.0" y="480.0" width="700.0" height="450.0" rx="0" fill="none" fill-opacity="1.0" stroke="#ccc" stroke-width="1.2"/>
+<text x="32.0" y="500.0" font-family="Helvetica,Arial,sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">At C: carried in 1.0-1.7 mm high, set down on the seat, crimped by the eccentric</text>
+<rect x="310.0" y="780.0" width="150.0" height="40.0" rx="0" fill="#9aa5ad" fill-opacity="1.0" stroke="#5e6a72" stroke-width="1.2"/>
+<text x="385.0" y="805.0" font-family="Helvetica,Arial,sans-serif" font-size="9.5" fill="#fff" text-anchor="middle" font-weight="normal" font-style="normal">anvil (one nest)</text>
+<rect x="310.0" y="820.0" width="150.0" height="16.0" rx="0" fill="#7fb3d5" fill-opacity="1.0" stroke="#2e6f99" stroke-width="1.2"/>
+<text x="470.0" y="832.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">500 kg button cell</text>
+<polyline points="320.0,846.0 385.0,838.0 450.0,846.0" fill="none" fill-opacity="1.0" stroke="#222" stroke-width="3"/>
+<polyline points="320.0,850.0 385.0,858.0 450.0,850.0" fill="none" fill-opacity="1.0" stroke="#222" stroke-width="3"/>
+<polyline points="320.0,870.0 385.0,862.0 450.0,870.0" fill="none" fill-opacity="1.0" stroke="#222" stroke-width="3"/>
+<text x="470.0" y="860.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">disc stack ~3.5 kN; die contact 0.17-0.28 above BDC</text>
+<rect x="290.0" y="872.0" width="190.0" height="16.0" rx="0" fill="#9aa5ad" fill-opacity="1.0" stroke="#5e6a72" stroke-width="1.2"/>
+<rect x="460.0" y="780.0" width="56.0" height="10.0" rx="0" fill="#5e6a72" fill-opacity="1.0" stroke="#1b1b1b" stroke-width="1.2"/>
+<rect x="524.0" y="730.0" width="8.0" height="60.0" rx="0" fill="#f2c14e" fill-opacity="1.0" stroke="#b98a12" stroke-width="1.2"/>
+<line x1="490.0" y1="785.0" x2="580.0" y2="810.0" stroke="#8a8a8a" stroke-width="0.8"/>
+<circle cx="490.0" cy="785.0" r="2.0" fill="#1b1b1b" stroke="#1b1b1b" stroke-width="1.2"/>
+<text x="584.0" y="801.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">seat: floor ledge for the box's</text>
+<text x="584.0" y="813.5" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">front mm, no side walls;</text>
+<text x="584.0" y="826.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">retractable front stop</text>
+<rect x="320.0" y="730.0" width="34.0" height="50.0" rx="0" fill="#d9b64a" fill-opacity="0.9" stroke="#8a6d12" stroke-width="1.2"/>
+<rect x="376.0" y="744.0" width="52.0" height="36.0" rx="0" fill="#d9b64a" fill-opacity="0.6" stroke="#8a6d12" stroke-width="1.2"/>
+<rect x="460.0" y="724.0" width="50.0" height="56.0" rx="0" fill="#d9b64a" fill-opacity="1.0" stroke="#8a6d12" stroke-width="1.2"/>
+<rect x="280.0" y="702.0" width="34.0" height="50.0" rx="0" fill="none" fill-opacity="1.0" stroke="#8a6d12" stroke-width="1.2" stroke-dasharray="4,3"/>
+<rect x="336.0" y="716.0" width="52.0" height="36.0" rx="0" fill="none" fill-opacity="1.0" stroke="#8a6d12" stroke-width="1.2" stroke-dasharray="4,3"/>
+<rect x="420.0" y="696.0" width="50.0" height="56.0" rx="0" fill="none" fill-opacity="1.0" stroke="#8a6d12" stroke-width="1.2" stroke-dasharray="4,3"/>
+<line x1="540.0" y1="690.0" x2="580.0" y2="690.0" stroke="#c0392b" stroke-width="1.2"/>
+<text x="584.0" y="680.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="normal" font-style="normal">carry in high (+Y),</text>
+<text x="584.0" y="693.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="normal" font-style="normal">then set down 1.0-1.7:</text>
+<text x="584.0" y="706.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="normal" font-style="normal">the lance never meets</text>
+<text x="584.0" y="719.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="normal" font-style="normal">the anvil face</text>
+<rect x="80.0" y="736.0" width="240.0" height="36.0" rx="0" fill="#333" fill-opacity="1.0" stroke="#000" stroke-width="1.2"/>
+<rect x="80.0" y="720.0" width="170.0" height="16.0" rx="0" fill="#f2c14e" fill-opacity="1.0" stroke="#b98a12" stroke-width="1.2"/>
+<text x="84.0" y="714.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">key k (neighbours ride 5 mm up)</text>
+<rect x="320.0" y="630.0" width="110.0" height="70.0" rx="0" fill="#9aa5ad" fill-opacity="1.0" stroke="#5e6a72" stroke-width="1.2"/>
+<text x="375.0" y="670.0" font-family="Helvetica,Arial,sans-serif" font-size="9.5" fill="#fff" text-anchor="middle" font-weight="normal" font-style="normal">one-nest punch</text>
+<rect x="290.0" y="580.0" width="170.0" height="50.0" rx="0" fill="#9aa5ad" fill-opacity="1.0" stroke="#5e6a72" stroke-width="1.2"/>
+<text x="375.0" y="610.0" font-family="Helvetica,Arial,sans-serif" font-size="9.5" fill="#fff" text-anchor="middle" font-weight="normal" font-style="normal">holder (widens above the neighbours)</text>
+<circle cx="375.0" cy="545.0" r="26.0" fill="#9aa5ad" stroke="#5e6a72" stroke-width="1.2"/>
+<circle cx="375.0" cy="539.0" r="4.0" fill="#1b1b1b" stroke="#1b1b1b" stroke-width="1.2"/>
+<text x="80.0" y="530.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">eccentric e 2.0-2.5 mm,</text>
+<text x="80.0" y="543.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">NEMA 23 + 10:1 planetary;</text>
+<text x="80.0" y="556.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">ESP32 runs the stroke</text>
+<rect x="270.0" y="630.0" width="10.0" height="190.0" rx="0" fill="#7fb3d5" fill-opacity="1.0" stroke="#2e6f99" stroke-width="1.2"/>
+<text x="80.0" y="840.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">0.001 mm indicator across</text>
+<text x="80.0" y="853.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">the holders: re-touch at ~10 N</text>
+<text x="80.0" y="866.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">= crimp height #1</text>
+<line x1="270.0" y1="820.0" x2="230.0" y2="836.0" stroke="#8a8a8a" stroke-width="0.8"/>
+<text x="580.0" y="890.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">beside C: silhouette window</text>
+<text x="580.0" y="903.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">(crimp height #2) and a</text>
+<text x="580.0" y="916.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">backed pull plate</text>
+<rect x="740.0" y="90.0" width="580.0" height="840.0" rx="0" fill="none" fill-opacity="1.0" stroke="#ccc" stroke-width="1.2"/>
+<text x="752.0" y="110.0" font-family="Helvetica,Arial,sans-serif" font-size="11.5" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">End view at C, punch at BDC (1 mm = 20 px; clone dimensions)</text>
+<rect x="965.0" y="610.0" width="130.0" height="60.0" rx="0" fill="#9aa5ad" fill-opacity="1.0" stroke="#5e6a72" stroke-width="1.2"/>
+<text x="1030.0" y="646.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#fff" text-anchor="middle" font-weight="normal" font-style="normal">anvil, one nest</text>
+<rect x="1010.5" y="562.0" width="39.0" height="48.0" rx="0" fill="none" fill-opacity="1.0" stroke="#8a6d12" stroke-width="1.6"/>
+<polygon points="1025.0,610.0 1030.0,610.0 1035.0,610.0" fill="#d9b64a" fill-opacity="1.0" stroke="#8a6d12" stroke-width="1.2"/>
+<text x="1052.0" y="558.0" font-family="Helvetica,Arial,sans-serif" font-size="9" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal"></text>
+<circle cx="1030.0" cy="589.0" r="17.0" fill="#333" stroke="#000" stroke-width="1.2"/>
+<circle cx="1030.0" cy="589.0" r="7.2" fill="#c47a2c" stroke="#c47a2c" stroke-width="1.2"/>
+<rect x="910.5" y="483.0" width="39.0" height="48.0" rx="0" fill="none" fill-opacity="1.0" stroke="#8a6d12" stroke-width="1.6"/>
+<polygon points="925.0,531.0 930.0,546.0 935.0,531.0" fill="#d9b64a" fill-opacity="1.0" stroke="#8a6d12" stroke-width="1.2"/>
+<circle cx="930.0" cy="510.0" r="17.0" fill="#333" stroke="#000" stroke-width="1.2"/>
+<circle cx="930.0" cy="510.0" r="7.2" fill="#c47a2c" stroke="#c47a2c" stroke-width="1.2"/>
+<rect x="1110.5" y="483.0" width="39.0" height="48.0" rx="0" fill="none" fill-opacity="1.0" stroke="#8a6d12" stroke-width="1.6"/>
+<polygon points="1125.0,531.0 1130.0,546.0 1135.0,531.0" fill="#d9b64a" fill-opacity="1.0" stroke="#8a6d12" stroke-width="1.2"/>
+<circle cx="1130.0" cy="510.0" r="17.0" fill="#333" stroke="#000" stroke-width="1.2"/>
+<circle cx="1130.0" cy="510.0" r="7.2" fill="#c47a2c" stroke="#c47a2c" stroke-width="1.2"/>
+<rect x="960.0" y="477.0" width="140.0" height="117.0" rx="0" fill="#9aa5ad" fill-opacity="0.55" stroke="#5e6a72" stroke-width="1.2"/>
+<rect x="880.0" y="427.0" width="300.0" height="50.0" rx="0" fill="#9aa5ad" fill-opacity="0.8" stroke="#5e6a72" stroke-width="1.2"/>
+<text x="1030.0" y="457.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#fff" text-anchor="middle" font-weight="normal" font-style="normal">holder widens above the neighbours (T-section)</text>
+<text x="1030.0" y="501.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">punch + holder neck</text>
+<text x="1030.0" y="515.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">&lt;= 7.45 mm wide</text>
+<line x1="949.5" y1="506.0" x2="1110.5" y2="506.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="949.5" y1="500.0" x2="949.5" y2="512.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="1110.5" y1="500.0" x2="1110.5" y2="512.0" stroke="#c0392b" stroke-width="1.2"/>
+<text x="754.0" y="150.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#c0392b" text-anchor="start" font-weight="normal" font-style="normal">8.05 mm between the neighbours' crimped boxes; with 0.3 mm</text>
+<text x="754.0" y="163.7" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#c0392b" text-anchor="start" font-weight="normal" font-style="normal">clearance each side the punch and its holder neck stay</text>
+<text x="754.0" y="177.3" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#c0392b" text-anchor="start" font-weight="normal" font-style="normal">&lt;= 7.45 mm wide up to ~5.9 mm above the crimping edge,</text>
+<text x="754.0" y="190.9" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#c0392b" text-anchor="start" font-weight="normal" font-style="normal">then widen [sl w3 §7; calc w3 §4].</text>
+<line x1="1250.0" y1="594.0" x2="1250.0" y2="477.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="1244.0" y1="594.0" x2="1256.0" y2="594.0" stroke="#c0392b" stroke-width="1.2"/>
+<line x1="1244.0" y1="477.0" x2="1256.0" y2="477.0" stroke="#c0392b" stroke-width="1.2"/>
+<text x="1258.0" y="535.5" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="normal" font-style="normal">~5.9 mm</text>
+<text x="1258.0" y="548.5" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="normal" font-style="normal">narrow</text>
+<line x1="874.0" y1="549.0" x2="874.0" y2="483.0" stroke="#8a6d12" stroke-width="1.2"/>
+<text x="754.0" y="498.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#8a6d12" text-anchor="start" font-weight="normal" font-style="normal">neighbours k-1, k+1:</text>
+<text x="754.0" y="511.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#8a6d12" text-anchor="start" font-weight="normal" font-style="normal">crimped, axes 5 mm up;</text>
+<text x="754.0" y="524.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#8a6d12" text-anchor="start" font-weight="normal" font-style="normal">occupy Z 3.05-6.35</text>
+<rect x="760.0" y="553.0" width="198.0" height="57.0" rx="0" fill="#7fb3d5" fill-opacity="0.25" stroke="none" stroke-width="1.2"/>
+<text x="764.0" y="572.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#2e6f99" text-anchor="start" font-weight="normal" font-style="normal">side camera sees</text>
+<text x="764.0" y="585.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#2e6f99" text-anchor="start" font-weight="normal" font-style="normal">Z 0-2.85 under</text>
+<text x="764.0" y="598.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#2e6f99" text-anchor="start" font-weight="normal" font-style="normal">the neighbours</text>
+<line x1="760.0" y1="610.0" x2="1300.0" y2="610.0" stroke="#8a8a8a" stroke-width="0.8" stroke-dasharray="3,3"/>
+<text x="1296.0" y="606.0" font-family="Helvetica,Arial,sans-serif" font-size="9.5" fill="#8a8a8a" text-anchor="end" font-weight="normal" font-style="normal">working floor = anvil top</text>
+<text x="754.0" y="700.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">The working contact is tacked (insulation barrel ~2.3-2.5 mm tall, drawn as its box).</text>
+<text x="754.0" y="713.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">Neighbour boxes 1.95 x 2.4 with the lance 0.6-0.9 mm below the floor [xh-facts §1].</text>
+<text x="754.0" y="726.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">A tacked contact carried in level passes an e = 2.0-2.5 mm eccentric's open punch</text>
+<text x="754.0" y="739.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">with 0.5-1.7 mm to spare [calc w3 §4].</text>
+</svg>

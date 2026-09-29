@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1340 780" width="1340" height="780" font-family="Helvetica, Arial, sans-serif">
+<title>W1 station C: tacked contact under a one-nest SN die between lifted neighbours</title>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f2328"/></marker><marker id="arrv" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0969da"/></marker><marker id="arrf" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#bc4c00"/></marker></defs>
+<rect x="0" y="0" width="1340" height="780" fill="#ffffff"/>
+<text x="20" y="28" font-size="17" fill="#1f2328" text-anchor="start" font-weight="bold">W1  Station C: a tacked contact, a one-nest SN die set, and neighbours waiting 5 mm up</text>
+<text x="20" y="47" font-size="12" fill="#57606a" text-anchor="start" font-weight="normal" font-style="italic">Left: end view looking back along the wire, 1 mm = 22 px, positions from cited dimensions (calc w3 s7). Right: side elevation, schematic.</text>
+<rect x="368.5" y="520.0" width="143.0" height="77.0" rx="0" fill="#afb8c1" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<text x="440.0" y="561.8" font-size="10.5" fill="#1f2328" text-anchor="middle" font-weight="normal">anvil piece, one nest,</text>
+<text x="440.0" y="574.8" font-size="10.5" fill="#1f2328" text-anchor="middle" font-weight="normal">6-7 mm wide</text>
+<rect x="242.0" y="597.0" width="396.0" height="48.400000000000006" rx="0" fill="#eaeef2" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<text x="440.0" y="616.8" font-size="10.5" fill="#57606a" text-anchor="middle" font-weight="normal">lower holder, button cell, disc springs below</text>
+<rect x="419.1" y="469.4" width="41.8" height="50.599999999999994" rx="0" fill="#c9d1d9" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<polygon points="433.4,520.0 446.6,520.0 443.3,536.5 436.7,536.5" fill="#c9d1d9" stroke="#1f2328" stroke-width="1.5"/>
+<circle cx="440.0" cy="492.5" r="18.7" fill="none" stroke="#8c959f" stroke-width="1.5"/>
+<text x="468.6" y="484.8" font-size="10.5" fill="#1f2328" text-anchor="start" font-weight="normal">tacked contact on the anvil</text>
+<text x="468.6" y="497.8" font-size="10.5" fill="#57606a" text-anchor="start" font-weight="normal">(box 1.9 x 2.3, lance in a relief)</text>
+<rect x="368.5" y="264.14" width="143.0" height="129.8" rx="0" fill="#afb8c1" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<text x="440.0" y="323.54" font-size="10.5" fill="#1f2328" text-anchor="middle" font-weight="normal">punch piece</text>
+<text x="440.0" y="336.54" font-size="10.5" fill="#1f2328" text-anchor="middle" font-weight="normal">open, e 2.5</text>
+<line x1="368.5" y1="503.94" x2="511.5" y2="503.94" stroke="#bc4c00" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="517.0" y="507.94" font-size="10" fill="#bc4c00" text-anchor="start" font-weight="normal">punch at BDC</text>
+<rect x="242.0" y="228.94" width="396.0" height="35.2" rx="0" fill="#eaeef2" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<text x="440.0" y="222.94" font-size="10.5" fill="#57606a" text-anchor="middle" font-weight="normal">upper holder widens only above ~5.9 mm from the crimping edge</text>
+<rect x="308.55" y="380.3" width="42.9" height="52.8" rx="0" fill="#c9d1d9" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<polygon points="323.4,433.1 336.6,433.1 333.3,452.9 326.7,452.9" fill="#c9d1d9" stroke="#1f2328" stroke-width="1.5"/>
+<rect x="528.55" y="380.3" width="42.9" height="52.8" rx="0" fill="#c9d1d9" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<polygon points="543.4,433.1 556.6,433.1 553.3,452.9 546.7,452.9" fill="#c9d1d9" stroke="#1f2328" stroke-width="1.5"/>
+<circle cx="220.0" cy="410.0" r="18.7" fill="#24292f" stroke="#1f2328" stroke-width="1.5"/>
+<circle cx="220.0" cy="410.0" r="7.92" fill="#9aa4ae" stroke="#9aa4ae" stroke-width="1.5"/>
+<circle cx="660.0" cy="410.0" r="18.7" fill="#24292f" stroke="#1f2328" stroke-width="1.5"/>
+<circle cx="660.0" cy="410.0" r="7.92" fill="#9aa4ae" stroke="#9aa4ae" stroke-width="1.5"/>
+<text x="550.0" y="374.3" font-size="10.5" fill="#1f2328" text-anchor="middle" font-weight="normal">crimped neighbour</text>
+<text x="660.0" y="380.0" font-size="10.5" fill="#1f2328" text-anchor="middle" font-weight="normal">bare neighbour</text>
+<line x1="351.45" y1="418.8" x2="528.55" y2="418.8" stroke="#1a7f37" stroke-width="1.5" marker-end="url(#arr)"/>
+<line x1="528.55" y1="418.8" x2="351.45" y2="418.8" stroke="#1a7f37" stroke-width="1.5" marker-end="url(#arr)"/>
+<text x="440.0" y="412.8" font-size="10.5" fill="#1a7f37" text-anchor="middle" font-weight="normal">8.05 free, 7.45 with 0.3 clearance</text>
+<line x1="686.4" y1="452.9" x2="699.6" y2="452.9" stroke="#57606a" stroke-width="1.5"/>
+<text x="704.0" y="456.9" font-size="10" fill="#57606a" text-anchor="start" font-weight="normal">3.05 lowest neighbour (lance)</text>
+<line x1="686.4" y1="380.3" x2="699.6" y2="380.3" stroke="#57606a" stroke-width="1.5"/>
+<text x="704.0" y="384.3" font-size="10" fill="#57606a" text-anchor="start" font-weight="normal">6.35 neighbour box top</text>
+<line x1="686.4" y1="393.94" x2="699.6" y2="393.94" stroke="#57606a" stroke-width="1.5"/>
+<text x="704.0" y="397.94" font-size="10" fill="#57606a" text-anchor="start" font-weight="normal">5.73 open punch</text>
+<g transform="rotate(0 99.0 487.0)"><rect x="83.0" y="476.0" width="26" height="22" rx="3" fill="#57606a" stroke="#1f2328"/><rect x="109.0" y="481.0" width="9" height="12" fill="#8c959f" stroke="#1f2328"/></g>
+<line x1="114.39999999999998" y1="487.0" x2="668.8" y2="487.0" stroke="#0969da" stroke-width="1.5" stroke-dasharray="5 4"/>
+<rect x="671.0" y="457.3" width="13.2" height="62.7" rx="0" fill="#fff8c5" stroke="#9a6700" stroke-width="1.5" opacity="1"/>
+<text x="83.60000000000002" y="513.0" font-size="10.5" fill="#0969da" text-anchor="start" font-weight="normal">cam 2: Z 0-2.85 runs under</text>
+<text x="83.60000000000002" y="526.0" font-size="10.5" fill="#0969da" text-anchor="start" font-weight="normal">every neighbour</text>
+<text x="820" y="105" font-size="12" fill="#1f2328" text-anchor="start" font-weight="bold">Side elevation at C (schematic, +Y toward the box nose):</text>
+<text x="820" y="121" font-size="12" fill="#1f2328" text-anchor="start" font-weight="bold">carry in high, set down, crimp, lift, draw back</text>
+<rect x="1014.4" y="520.0" width="77.0" height="66.0" rx="0" fill="#afb8c1" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<text x="1052.9" y="555.2" font-size="10.5" fill="#1f2328" text-anchor="middle" font-weight="normal">anvil</text>
+<rect x="1014.4" y="305.94" width="77.0" height="88.0" rx="0" fill="#afb8c1" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<text x="1052.9" y="349.94" font-size="10.5" fill="#1f2328" text-anchor="middle" font-weight="normal">punch</text>
+<rect x="1095.8" y="520.0" width="57.2" height="7.699999999999999" rx="0" fill="#eaeef2" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<rect x="1143.1" y="498.0" width="8.8" height="22.0" rx="0" fill="#eaeef2" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<text x="1124.4" y="539.8" font-size="10" fill="#1f2328" text-anchor="middle" font-weight="normal">seat: floor ledge,</text>
+<text x="1124.4" y="551.8" font-size="10" fill="#1f2328" text-anchor="middle" font-weight="normal">front stop set per lot</text>
+<rect x="1018.8" y="427.6" width="26.4" height="55.0" rx="0" fill="none" stroke="#57606a" stroke-width="1.5" stroke-dasharray="5 4" opacity="1"/>
+<rect x="1058.4" y="447.4" width="33.0" height="35.2" rx="0" fill="none" stroke="#57606a" stroke-width="1.5" stroke-dasharray="5 4" opacity="1"/>
+<rect x="1098.0" y="432.0" width="44.0" height="50.599999999999994" rx="0" fill="none" stroke="#57606a" stroke-width="1.5" stroke-dasharray="5 4" opacity="1"/>
+<line x1="856.0" y1="455.1" x2="1032.0" y2="455.1" stroke="#57606a" stroke-width="3" stroke-dasharray="5 4"/>
+<rect x="1018.8" y="465.0" width="26.4" height="55.0" rx="0" fill="none" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<rect x="1058.4" y="484.8" width="33.0" height="35.2" rx="0" fill="none" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<rect x="1098.0" y="469.4" width="44.0" height="50.599999999999994" rx="0" fill="none" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<line x1="856.0" y1="492.5" x2="1032.0" y2="492.5" stroke="#1f2328" stroke-width="3"/>
+<line x1="1161.8" y1="447.4" x2="1161.8" y2="495.8" stroke="#1f2328" stroke-width="1.5" marker-end="url(#arr)"/>
+<text x="1166.2" y="471.6" font-size="10.5" fill="#1f2328" text-anchor="start" font-weight="normal">set down</text>
+<text x="856.0" y="447.1" font-size="10.5" fill="#57606a" text-anchor="start" font-weight="normal">carried in with the floor 1.0-1.7 up</text>
+<line x1="856.0" y1="550.8" x2="966.0" y2="550.8" stroke="#1f2328" stroke-width="1.5" marker-end="url(#arr)"/>
+<text x="856.0" y="566.8" font-size="10.5" fill="#1f2328" text-anchor="start" font-weight="normal">+Y: key k and the stage carry it</text>
+<text x="820" y="175.0" font-size="10.5" fill="#57606a" text-anchor="start" font-weight="normal">Nothing stands over the barrel at T; at C the</text>
+<text x="820" y="188.5" font-size="10.5" fill="#57606a" text-anchor="start" font-weight="normal">punch only has to open 4-5 mm (e 2.0-2.5)</text>
+<text x="820" y="202.0" font-size="10.5" fill="#57606a" text-anchor="start" font-weight="normal">to pass a tacked contact with 0.5-1.7 mm to spare.</text>
+<text x="30" y="680" font-size="11" fill="#1f2328" text-anchor="start" font-weight="normal">Sequence per conductor: T (nest, key k down, tack to a loose stop, top-down look) -&gt; key up, contact rides on its wire -&gt; C: carry in high, set down on the seat,</text>
+<text x="30" y="697" font-size="11" fill="#1f2328" text-anchor="start" font-weight="normal">seat look under the neighbours -&gt; MCU turns the eccentric, dies bottom on the disc stack, button cell trace -&gt; re-touch at 10 N, indicator reads crimp height -&gt;</text>
+<text x="30" y="714" font-size="11" fill="#1f2328" text-anchor="start" font-weight="normal">ram up, lift 1.0-1.7, draw back -&gt; silhouette on a blade beside C, box as roll gauge (second crimp height) -&gt; proof pull on a backed plate -&gt; key back up, next conductor.</text>
+</svg>

@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="760" viewBox="0 0 1320 760">
+<defs><marker id="ar" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#1b1b1b"/></marker><marker id="arr" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#c0392b"/></marker><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#8a8a8a" stroke-width="1"/></pattern></defs>
+<rect width="100%" height="100%" fill="#fcfcf8"/>
+<text x="16.0" y="28.0" font-family="Helvetica,Arial,sans-serif" font-size="18" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">A1  The squeezer: SN-2549 in a printed cradle, closed by a slow pusher (schematic)</text>
+<text x="16.0" y="48.0" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">Left: the cradle seen from the side (tool on its side, nest axes pointing out of the page). Right: section along one nest's axis.</text>
+<rect x="16.0" y="62.0" width="14.0" height="10.0" rx="0" fill="#f2c14e" fill-opacity="1.0" stroke="#b98a12" stroke-width="1.2"/>
+<text x="36.0" y="71.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">printed</text>
+<rect x="166.0" y="62.0" width="14.0" height="10.0" rx="0" fill="#7fb3d5" fill-opacity="1.0" stroke="#2e6f99" stroke-width="1.2"/>
+<text x="186.0" y="71.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">bought / on hand</text>
+<rect x="316.0" y="62.0" width="14.0" height="10.0" rx="0" fill="#9aa5ad" fill-opacity="1.0" stroke="#5e6a72" stroke-width="1.2"/>
+<text x="336.0" y="71.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">tool steel (hand tool)</text>
+<rect x="466.0" y="62.0" width="14.0" height="10.0" rx="0" fill="#d9b64a" fill-opacity="1.0" stroke="#8a6d12" stroke-width="1.2"/>
+<text x="486.0" y="71.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">XH contact</text>
+<rect x="30.0" y="80.0" width="640.0" height="640.0" rx="0" fill="none" fill-opacity="1.0" stroke="#ccc" stroke-width="1.2"/>
+<rect x="50.0" y="640.0" width="600.0" height="20.0" rx="0" fill="url(#hatch)" fill-opacity="1.0" stroke="#8a8a8a" stroke-width="1.2"/>
+<text x="60.0" y="676.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">bench / baseplate</text>
+<rect x="270.0" y="590.0" width="380.0" height="50.0" rx="0" fill="#f2c14e" fill-opacity="1.0" stroke="#b98a12" stroke-width="1.2"/>
+<text x="460.0" y="620.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">printed cradle: saddle + strap</text>
+<rect x="140.0" y="600.0" width="130.0" height="40.0" rx="0" fill="#f2c14e" fill-opacity="1.0" stroke="#b98a12" stroke-width="1.2"/>
+<rect x="430.0" y="570.0" width="20.0" height="70.0" rx="0" fill="none" fill-opacity="1.0" stroke="#b98a12" stroke-width="2"/>
+<rect x="260.0" y="576.0" width="370.0" height="14.0" rx="0" fill="#9aa5ad" fill-opacity="1.0" stroke="#5e6a72" stroke-width="1.2"/>
+<text x="620.0" y="568.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#5e6a72" text-anchor="end" font-weight="normal" font-style="normal">lower handle (fixed)</text>
+<rect x="140.0" y="500.0" width="130.0" height="100.0" rx="10" fill="#9aa5ad" fill-opacity="1.0" stroke="#5e6a72" stroke-width="1.2"/>
+<circle cx="240.0" cy="550.0" r="5.0" fill="#fcfcf8" stroke="#5e6a72" stroke-width="1.2"/>
+<rect x="70.0" y="514.0" width="76.0" height="30.0" rx="0" fill="#9aa5ad" fill-opacity="1.0" stroke="#5e6a72" stroke-width="1.2"/>
+<rect x="70.0" y="550.0" width="76.0" height="30.0" rx="0" fill="#9aa5ad" fill-opacity="1.0" stroke="#5e6a72" stroke-width="1.2"/>
+<circle cx="82.0" cy="547.0" r="3.2" fill="#fcfcf8" stroke="#5e6a72" stroke-width="1.2"/>
+<circle cx="100.0" cy="547.0" r="3.2" fill="#fcfcf8" stroke="#5e6a72" stroke-width="1.2"/>
+<circle cx="118.0" cy="547.0" r="3.2" fill="#fcfcf8" stroke="#5e6a72" stroke-width="1.2"/>
+<circle cx="136.0" cy="547.0" r="3.2" fill="#fcfcf8" stroke="#5e6a72" stroke-width="1.2"/>
+<text x="60.0" y="492.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#5e6a72" text-anchor="start" font-weight="normal" font-style="normal">jaws: 4 nests along them</text>
+<polygon points="260.0,522.0 600.0,372.0 606.0,388.0 260.0,538.0" fill="#9aa5ad" fill-opacity="1.0" stroke="#5e6a72" stroke-width="1.2"/>
+<text x="450.0" y="489.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#5e6a72" text-anchor="middle" font-weight="normal" font-style="normal">upper handle (driven)</text>
+<rect x="64.0" y="582.0" width="88.0" height="14.0" rx="0" fill="#f2c14e" fill-opacity="1.0" stroke="#b98a12" stroke-width="1.2"/>
+<line x1="108.0" y1="590.0" x2="90.0" y2="700.0" stroke="#8a8a8a" stroke-width="0.8"/>
+<circle cx="108.0" cy="590.0" r="2.0" fill="#1b1b1b" stroke="#1b1b1b" stroke-width="1.2"/>
+<text x="94.0" y="697.1" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">locator plate on the lower-jaw M4 screw (20 mm + thumb nut):</text>
+<text x="94.0" y="710.2" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">front stop, insulated flap blade, flap servo, lift ramp</text>
+<rect x="634.0" y="130.0" width="14.0" height="460.0" rx="0" fill="#f2c14e" fill-opacity="1.0" stroke="#b98a12" stroke-width="1.2"/>
+<rect x="500.0" y="130.0" width="148.0" height="14.0" rx="0" fill="#f2c14e" fill-opacity="1.0" stroke="#b98a12" stroke-width="1.2"/>
+<rect x="520.0" y="144.0" width="60.0" height="56.0" rx="0" fill="#7fb3d5" fill-opacity="1.0" stroke="#2e6f99" stroke-width="1.2"/>
+<text x="550.0" y="176.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">NEMA 17</text>
+<line x1="550.0" y1="200.0" x2="550.0" y2="362.1" stroke="#5e6a72" stroke-width="3"/>
+<rect x="536.0" y="322.1" width="28.0" height="14.0" rx="0" fill="#7fb3d5" fill-opacity="1.0" stroke="#2e6f99" stroke-width="1.2"/>
+<rect x="540.0" y="340.1" width="20.0" height="20.0" rx="0" fill="#fff" fill-opacity="1.0" stroke="#2e6f99" stroke-width="1.2"/>
+<text x="534.0" y="354.1" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="end" font-weight="normal" font-style="normal">load cell</text>
+<circle cx="550.0" cy="384.1" r="9.0" fill="#f2c14e" stroke="#b98a12" stroke-width="1.2"/>
+<text x="534.0" y="388.1" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="end" font-weight="normal" font-style="normal">roller foot</text>
+<line x1="590.0" y1="230.0" x2="590.0" y2="382.1" stroke="#c0392b" stroke-width="2" marker-end="url(#arr)"/>
+<text x="360.0" y="252.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="normal" font-style="normal">Tr8x2 screw: ~280 N</text>
+<text x="360.0" y="265.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="normal" font-style="normal">a hand gives 90-220 N</text>
+<text x="360.0" y="278.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#c0392b" text-anchor="start" font-weight="normal" font-style="normal">[calc 1-2]</text>
+<rect x="70.0" y="120.0" width="60.0" height="36.0" rx="0" fill="#7fb3d5" fill-opacity="1.0" stroke="#2e6f99" stroke-width="1.2"/>
+<text x="140.0" y="142.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">ELP camera</text>
+<line x1="100.0" y1="156.0" x2="108.0" y2="514.0" stroke="#2a6f97" stroke-width="1.2" stroke-dasharray="4,3"/>
+<rect x="230.0" y="190.0" width="80.0" height="40.0" rx="0" fill="#7fb3d5" fill-opacity="1.0" stroke="#2e6f99" stroke-width="1.2"/>
+<text x="234.0" y="206.0" font-family="Helvetica,Arial,sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">far-end</text>
+<text x="234.0" y="218.3" font-family="Helvetica,Arial,sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">terminal block</text>
+<rect x="330.0" y="190.0" width="80.0" height="40.0" rx="0" fill="#7fb3d5" fill-opacity="1.0" stroke="#2e6f99" stroke-width="1.2"/>
+<text x="334.0" y="206.0" font-family="Helvetica,Arial,sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">ESP32 runs each</text>
+<text x="334.0" y="218.3" font-family="Helvetica,Arial,sans-serif" font-size="9.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">squeeze; HX711</text>
+<path d="M270,230 C270,310 50,500 50,547 L70,547" fill="none" stroke="#222" stroke-width="2.5"/>
+<text x="330.0" y="330.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#2e8b57" text-anchor="start" font-weight="normal" font-style="normal">the ribbon: its far end in the block,</text>
+<text x="330.0" y="344.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#2e8b57" text-anchor="start" font-weight="normal" font-style="normal">every conductor an electrode</text>
+<rect x="700.0" y="80.0" width="590.0" height="640.0" rx="0" fill="none" fill-opacity="1.0" stroke="#ccc" stroke-width="1.2"/>
+<text x="714.0" y="102.0" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#1b1b1b" text-anchor="start" font-weight="bold" font-style="normal">Section along one nest's axis (contact at hold, ~one ratchet click)</text>
+<rect x="840.0" y="410.0" width="330.0" height="11.0" rx="0" fill="#d9b64a" fill-opacity="1.0" stroke="#8a6d12" stroke-width="0.8"/>
+<rect x="1060.0" y="278.0" width="110.0" height="132.0" rx="0" fill="#d9b64a" fill-opacity="1.0" stroke="#8a6d12" stroke-width="1.2"/>
+<rect x="950.0" y="324.8" width="77.0" height="85.2" rx="0" fill="#d9b64a" fill-opacity="0.8" stroke="#8a6d12" stroke-width="1.2"/>
+<rect x="840.0" y="245.0" width="66.0" height="165.0" rx="0" fill="#d9b64a" fill-opacity="0.8" stroke="#8a6d12" stroke-width="1.2"/>
+<rect x="831.8" y="421.0" width="198.0" height="90.0" rx="0" fill="#9aa5ad" fill-opacity="1.0" stroke="#5e6a72" stroke-width="1.2"/>
+<rect x="831.8" y="133.0" width="198.0" height="90.0" rx="0" fill="#9aa5ad" fill-opacity="1.0" stroke="#5e6a72" stroke-width="1.2"/>
+<text x="930.8" y="471.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">lower die (anvil), one stepped piece</text>
+<text x="930.8" y="183.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="middle" font-weight="normal" font-style="normal">upper die (punch), one stepped piece</text>
+<text x="825.8" y="123.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#5e6a72" text-anchor="end" font-weight="normal" font-style="normal">rear face</text>
+<text x="1035.8" y="123.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#5e6a72" text-anchor="start" font-weight="normal" font-style="normal">front face</text>
+<line x1="831.8" y1="127.0" x2="831.8" y2="517.0" stroke="#5e6a72" stroke-width="0.8" stroke-dasharray="3,3"/>
+<line x1="1029.8" y1="127.0" x2="1029.8" y2="517.0" stroke="#5e6a72" stroke-width="0.8" stroke-dasharray="3,3"/>
+<rect x="720.0" y="314.5" width="164.0" height="93.5" rx="0" fill="#333" fill-opacity="0.85" stroke="#000" stroke-width="1.2"/>
+<rect x="884.0" y="346.8" width="156.8" height="39.6" rx="0" fill="#c47a2c" fill-opacity="1.0" stroke="#7a4a14" stroke-width="1.2"/>
+<text x="720.0" y="436.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">22 AWG silicone,</text>
+<text x="720.0" y="449.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">1.7 mm OD; strip</text>
+<text x="720.0" y="462.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">length set from</text>
+<text x="720.0" y="475.0" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">the lot's contact</text>
+<rect x="1040.8" y="212.0" width="1.6" height="203.5" rx="0" fill="#6b3fa0" fill-opacity="1.0" stroke="#6b3fa0" stroke-width="1.2"/>
+<rect x="1042.4" y="212.0" width="5.5" height="203.5" rx="0" fill="#5e6a72" fill-opacity="1.0" stroke="#222" stroke-width="1.2"/>
+<polygon points="1042.4,212.0 1047.9,212.0 1102.4,142.0 1087.4,134.0" fill="#f2c14e" fill-opacity="1.0" stroke="#b98a12" stroke-width="1.2"/>
+<line x1="1050.4" y1="250.5" x2="1110.0" y2="150.0" stroke="#8a8a8a" stroke-width="0.8"/>
+<circle cx="1050.4" cy="250.5" r="2.0" fill="#1b1b1b" stroke="#1b1b1b" stroke-width="1.2"/>
+<text x="1114.0" y="107.7" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">flap blade: 0.10 mm steel;</text>
+<text x="1114.0" y="120.9" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">polyimide front face (purple),</text>
+<text x="1114.0" y="134.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">insulated from the box;</text>
+<text x="1114.0" y="147.1" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">slot straddles the neck strip,</text>
+<text x="1114.0" y="160.2" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">lance hangs below the tines;</text>
+<text x="1114.0" y="173.4" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">bare rear face = strand stop</text>
+<text x="1114.0" y="186.5" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">and electrode: amber = strands</text>
+<text x="1114.0" y="199.6" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">on contact/tool, green = blade</text>
+<rect x="1172.0" y="245.0" width="16.0" height="181.5" rx="0" fill="#f2c14e" fill-opacity="1.0" stroke="#b98a12" stroke-width="1.2"/>
+<line x1="1188.0" y1="327.5" x2="1200.0" y2="560.0" stroke="#8a8a8a" stroke-width="0.8"/>
+<circle cx="1188.0" cy="327.5" r="2.0" fill="#1b1b1b" stroke="#1b1b1b" stroke-width="1.2"/>
+<text x="1204.0" y="544.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">front stop on the</text>
+<text x="1204.0" y="557.1" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">locator plate</text>
+<text x="1204.0" y="570.2" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">(or a pilot pin in</text>
+<text x="1204.0" y="583.4" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#1b1b1b" text-anchor="start" font-weight="normal" font-style="normal">a strip stub's hole)</text>
+<text x="1115.0" y="531.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#8a6d12" text-anchor="middle" font-weight="normal" font-style="normal">box</text>
+<text x="988.5" y="531.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#8a6d12" text-anchor="middle" font-weight="normal" font-style="normal">conductor barrel</text>
+<text x="873.0" y="547.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#8a6d12" text-anchor="middle" font-weight="normal" font-style="normal">insulation barrel</text>
+<text x="928.0" y="563.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#8a6d12" text-anchor="middle" font-weight="normal" font-style="normal">window</text>
+<text x="720.0" y="640.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">Reference chain: lower jaw -&gt; M4 jaw screw -&gt; printed plate -&gt; flap blade + front stop -&gt; contact.</text>
+<text x="720.0" y="653.6" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">Barrel rear edge 0.1-0.2 mm proud of the die for a bellmouth: ~+/-0.1 mm axial window [calc 7].</text>
+<text x="720.0" y="667.3" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">Neck on a real contact unmeasured: blade 0.13-0.15 + brush 0.1-0.2 need &gt;= ~0.3 mm (calc w2 1).</text>
+<text x="720.0" y="681.0" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">Lift the crimp 1-1.7 mm before drawing it back (ramp on the plate); the pull is taken at a6's jig.</text>
+<text x="720.0" y="694.6" font-family="Helvetica,Arial,sans-serif" font-size="10.5" fill="#8a8a8a" text-anchor="start" font-weight="normal" font-style="normal">Contact lengths/heights here are schematic (clone drawings, not measured).</text>
+</svg>

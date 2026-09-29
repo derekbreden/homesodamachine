@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 560" width="1100" height="560" font-family="Helvetica, Arial, sans-serif">
+<title>v1b four ways to give the pallet its axes</title>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f2328"/></marker><marker id="arrv" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0969da"/></marker><marker id="arrf" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#bc4c00"/></marker></defs>
+<rect x="0" y="0" width="1100" height="560" fill="#ffffff"/>
+<text x="20" y="28" font-size="17" fill="#1f2328" text-anchor="start" font-weight="bold">v1b  Four ways to give the pallet its three axes, by what the crimp host weighs</text>
+<text x="20" y="47" font-size="12" fill="#57606a" text-anchor="start" font-weight="normal" font-style="italic">Schematic side views. Arrows: along = along the wire; across = key to key (into the page); up = height, set once.</text>
+<rect x="20" y="70" width="250" height="400" rx="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.5" opacity="1"/>
+<text x="30" y="92" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="bold">A  press rides the bed</text>
+<text x="30" y="108" font-size="9.8" fill="#57606a" text-anchor="start" font-weight="normal">light host: a tack station, a small die set</text>
+<rect x="35" y="420" width="220" height="14" rx="0" fill="#d0d7de" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<rect x="290" y="70" width="250" height="400" rx="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.5" opacity="1"/>
+<text x="300" y="92" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="bold">B  the Ender on its back</text>
+<text x="300" y="108" font-size="9.8" fill="#57606a" text-anchor="start" font-weight="normal">any bench-fixed press (12 t frame, crank, mute press)</text>
+<rect x="305" y="420" width="220" height="14" rx="0" fill="#d0d7de" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<rect x="560" y="70" width="250" height="400" rx="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.5" opacity="1"/>
+<text x="570" y="92" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="bold">C  two rails in front</text>
+<text x="570" y="108" font-size="9.8" fill="#57606a" text-anchor="start" font-weight="normal">the same presses, built (b1's shuttle)</text>
+<rect x="575" y="420" width="220" height="14" rx="0" fill="#d0d7de" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<rect x="830" y="70" width="250" height="400" rx="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.5" opacity="1"/>
+<text x="840" y="92" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="bold">D  head on the carriage</text>
+<text x="840" y="108" font-size="9.8" fill="#57606a" text-anchor="start" font-weight="normal">b3's self-contained head; ribbon on the bed</text>
+<rect x="845" y="420" width="220" height="14" rx="0" fill="#d0d7de" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<rect x="50" y="170" width="10" height="250" rx="0" fill="#8c959f" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<rect x="50" y="170" width="190" height="10" rx="0" fill="#8c959f" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<rect x="80" y="360" width="150" height="10" rx="0" fill="#afb8c1" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<rect x="150" y="300" width="50" height="60" rx="0" fill="#f6f8fa" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<text x="175" y="334" font-size="10" fill="#1f2328" text-anchor="middle" font-weight="normal">press</text>
+<rect x="90" y="190" width="50" height="60" rx="0" fill="#ddf4ff" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<text x="115" y="224" font-size="10" fill="#1f2328" text-anchor="middle" font-weight="normal">fan</text>
+<text x="115" y="262" font-size="9.5" fill="#57606a" text-anchor="middle" font-weight="normal">on carriage</text>
+<line x1="100" y1="390" x2="220" y2="390" stroke="#1f2328" stroke-width="1.5" marker-end="url(#arr)"/>
+<text x="110" y="405" font-size="10" fill="#1f2328" text-anchor="start" font-weight="normal">along: the bed</text>
+<line x1="170" y1="250" x2="170" y2="200" stroke="#1f2328" stroke-width="1.5" marker-end="url(#arr)"/>
+<text x="175" y="215" font-size="10" fill="#1f2328" text-anchor="start" font-weight="normal">up: gantry</text>
+<rect x="310" y="390" width="150" height="12" rx="0" fill="#8c959f" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<rect x="310" y="300" width="12" height="90" rx="0" fill="#8c959f" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<line x1="330" y1="330" x2="450" y2="330" stroke="#afb8c1" stroke-width="4"/>
+<text x="330" y="322" font-size="9.5" fill="#57606a" text-anchor="start" font-weight="normal">Z lead screws, lying down</text>
+<rect x="390" y="336" width="50" height="30" rx="0" fill="#ddf4ff" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<text x="415" y="356" font-size="10" fill="#1f2328" text-anchor="middle" font-weight="normal">fan</text>
+<rect x="470" y="300" width="55" height="120" rx="0" fill="#f6f8fa" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<text x="497" y="360" font-size="10" fill="#1f2328" text-anchor="middle" font-weight="normal">press</text>
+<text x="497" y="374" font-size="9.5" fill="#57606a" text-anchor="middle" font-weight="normal">fixed</text>
+<line x1="350" y1="378" x2="460" y2="378" stroke="#1f2328" stroke-width="1.5" marker-end="url(#arr)"/>
+<text x="345" y="250" font-size="10" fill="#1f2328" text-anchor="start" font-weight="normal">along: the Z screws</text>
+<text x="345" y="264" font-size="9.5" fill="#57606a" text-anchor="start" font-weight="normal">(0.02-0.09 N.m for a 20 N pull)</text>
+<text x="345" y="278" font-size="10" fill="#1f2328" text-anchor="start" font-weight="normal">across: the carriage belt</text>
+<rect x="580" y="380" width="140" height="10" rx="0" fill="#afb8c1" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<text x="570" y="342" font-size="9.5" fill="#57606a" text-anchor="start" font-weight="normal">MGN12 rails, Tr8 steppers</text>
+<rect x="620" y="350" width="70" height="30" rx="0" fill="#ddf4ff" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<text x="655" y="370" font-size="10" fill="#1f2328" text-anchor="middle" font-weight="normal">cassette</text>
+<rect x="735" y="250" width="60" height="170" rx="0" fill="#f6f8fa" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<text x="765" y="330" font-size="10" fill="#1f2328" text-anchor="middle" font-weight="normal">press</text>
+<line x1="600" y1="400" x2="720" y2="400" stroke="#1f2328" stroke-width="1.5" marker-end="url(#arr)"/>
+<text x="600" y="250" font-size="10" fill="#1f2328" text-anchor="start" font-weight="normal">along and across:</text>
+<text x="600" y="264" font-size="10" fill="#1f2328" text-anchor="start" font-weight="normal">two rails; height fixed</text>
+<rect x="860" y="170" width="10" height="250" rx="0" fill="#8c959f" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<rect x="860" y="170" width="190" height="10" rx="0" fill="#8c959f" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<rect x="890" y="380" width="150" height="10" rx="0" fill="#afb8c1" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<rect x="910" y="356" width="90" height="24" rx="0" fill="#ddf4ff" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<text x="955" y="373" font-size="10" fill="#1f2328" text-anchor="middle" font-weight="normal">fan, keys</text>
+<rect x="950" y="200" width="60" height="90" rx="0" fill="#f6f8fa" stroke="#bc4c00" stroke-width="1.5" opacity="1"/>
+<text x="980" y="240" font-size="10" fill="#1f2328" text-anchor="middle" font-weight="normal">head:</text>
+<text x="980" y="254" font-size="10" fill="#1f2328" text-anchor="middle" font-weight="normal">C-frame</text>
+<text x="980" y="268" font-size="9.5" fill="#1f2328" text-anchor="middle" font-weight="normal">closes force</text>
+<line x1="910" y1="405" x2="1030" y2="405" stroke="#1f2328" stroke-width="1.5" marker-end="url(#arr)"/>
+<text x="900" y="150" font-size="10" fill="#1f2328" text-anchor="start" font-weight="normal">along: the bed carries the ribbon</text>
+<text x="890" y="305" font-size="9.5" fill="#57606a" text-anchor="start" font-weight="normal">punch &lt;= 7.45 mm at the</text>
+<text x="890" y="317" font-size="9.5" fill="#57606a" text-anchor="start" font-weight="normal">neighbours' height; throat</text>
+<text x="890" y="329" font-size="9.5" fill="#57606a" text-anchor="start" font-weight="normal">past a 5P fan</text>
+<text x="20" y="500" font-size="11" fill="#57606a" text-anchor="start" font-weight="normal">In every case the picture closes the loop, so the stage only has to be monotonic and repeatable over a few tenths, approached from one side.</text>
+<text x="20" y="516" font-size="11" fill="#57606a" text-anchor="start" font-weight="normal">The only real load on a stage axis is the ~20 N proof pull along the wire: 0.13 N.m on the bed's GT2 belt, 0.02-0.09 N.m on a Tr8 screw [bm W s7].</text>
+</svg>

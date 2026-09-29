@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="860" viewBox="0 0 1500 860">
+<defs><marker id="arr" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#333"/></marker><marker id="arrs" markerWidth="10" markerHeight="8" refX="1" refY="4" orient="auto"><path d="M10,0 L0,4 L10,8 z" fill="#333"/></marker></defs>
+<rect width="100%" height="100%" fill="#fcfcf8"/>
+<text x="14.0" y="28.0" font-family="Helvetica,Arial,sans-serif" font-size="18" font-weight="bold" fill="#222" text-anchor="start">b8  The spool-fed borrowed line, making T4 ends (elevation, schematic, not to scale)</text>
+<circle cx="120.0" cy="340.0" r="90.0" fill="#d9d9d9" fill-opacity="1.0" stroke="#222" stroke-width="1.2"/>
+<circle cx="120.0" cy="340.0" r="20.0" fill="#9aa5ad" fill-opacity="1.0" stroke="#222" stroke-width="1.2"/>
+<text x="40.0" y="460.0" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">4P spool; inner end on a</text>
+<text x="40.0" y="475.0" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">6-circuit slip ring = test lead</text>
+<path d="M210,340 C260,440 300,440 340,380" fill="none" fill-opacity="1.0" stroke="#3a3a3a" stroke-width="6"/>
+<text x="250.0" y="450.0" font-family="Helvetica,Arial,sans-serif" font-size="10" font-weight="normal" fill="#222" text-anchor="start">slack loop</text>
+<rect x="330.0" y="420.0" width="520.0" height="30.0" rx="0" fill="#d9d9d9" fill-opacity="1.0" stroke="#222" stroke-width="1.2"/>
+<text x="340.0" y="440.0" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">X/Y stage (MGN12, NEMA 17): the feed head moves; the applicator stays</text>
+<rect x="345.0" y="350.0" width="80.0" height="20.0" rx="0" fill="#d9d9d9" fill-opacity="1.0" stroke="#222" stroke-width="1.2"/>
+<rect x="345.0" y="390.0" width="80.0" height="20.0" rx="0" fill="#d9d9d9" fill-opacity="1.0" stroke="#222" stroke-width="1.2"/>
+<text x="345.0" y="342.0" font-family="Helvetica,Arial,sans-serif" font-size="10" font-weight="normal" fill="#222" text-anchor="start">belt feed + encoder</text>
+<rect x="450.0" y="335.0" width="14.0" height="80.0" rx="0" fill="#9aa5ad" fill-opacity="1.0" stroke="#222" stroke-width="1.2"/>
+<text x="430.0" y="328.0" font-family="Helvetica,Arial,sans-serif" font-size="10" font-weight="normal" fill="#222" text-anchor="start">guillotine</text>
+<rect x="490.0" y="350.0" width="110.0" height="22.0" rx="0" fill="#8fb8de" fill-opacity="1.0" stroke="#222" stroke-width="1.2"/>
+<rect x="490.0" y="388.0" width="110.0" height="22.0" rx="0" fill="#8fb8de" fill-opacity="1.0" stroke="#222" stroke-width="1.2"/>
+<text x="495.0" y="342.0" font-family="Helvetica,Arial,sans-serif" font-size="10" font-weight="normal" fill="#222" text-anchor="start">work clamp</text>
+<line x1="600.0" y1="260.0" x2="600.0" y2="500.0" stroke="#d62828" stroke-width="1.2" stroke-dasharray="5,4"/>
+<text x="560.0" y="255.0" font-family="Helvetica,Arial,sans-serif" font-size="10" font-weight="normal" fill="#d62828" text-anchor="start">clamp face = root</text>
+<rect x="340.0" y="372.0" width="400.0" height="16.0" rx="0" fill="#3a3a3a" fill-opacity="1.0" stroke="#3a3a3a" stroke-width="1.2"/>
+<rect x="680.0" y="270.0" width="10.0" height="150.0" rx="0" fill="#9aa5ad" fill-opacity="1.0" stroke="#222" stroke-width="1.2"/>
+<text x="695.0" y="280.0" font-family="Helvetica,Arial,sans-serif" font-size="10" font-weight="normal" fill="#222" text-anchor="start">needle bar, 12 mm ahead of the clamp face</text>
+<rect x="640.0" y="394.0" width="90.0" height="10.0" rx="0" fill="#9aa5ad" fill-opacity="1.0" stroke="#222" stroke-width="1.2"/>
+<line x1="740.0" y1="480.0" x2="640.0" y2="480.0" stroke="#222" stroke-width="1.4" marker-end="url(#arr)"/>
+<text x="600.0" y="498.0" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">belts retract 12 mm: the needles rip root -&gt; strip line</text>
+<rect x="730.0" y="320.0" width="8.0" height="45.0" rx="0" fill="#9aa5ad" fill-opacity="1.0" stroke="#222" stroke-width="1.2"/>
+<rect x="730.0" y="395.0" width="8.0" height="45.0" rx="0" fill="#9aa5ad" fill-opacity="1.0" stroke="#222" stroke-width="1.2"/>
+<text x="700.0" y="310.0" font-family="Helvetica,Arial,sans-serif" font-size="10" font-weight="normal" fill="#222" text-anchor="start">crown blades + pinch pads</text>
+<rect x="960.0" y="170.0" width="260.0" height="200.0" rx="0" fill="#d9d9d9" fill-opacity="0.6" stroke="#222" stroke-width="1.2"/>
+<text x="970.0" y="190.0" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">OTP applicator in b1b's slow crank</text>
+<text x="970.0" y="205.0" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">(shop press; pre-feed; gate; dwell)</text>
+<rect x="1000.0" y="370.0" width="180.0" height="40.0" rx="0" fill="#9aa5ad" fill-opacity="1.0" stroke="#222" stroke-width="1.2"/>
+<text x="1010.0" y="395.0" font-family="Helvetica,Arial,sans-serif" font-size="10" font-weight="normal" fill="#222" text-anchor="start">anvil</text>
+<rect x="900.0" y="330.0" width="16.0" height="60.0" rx="0" fill="#8fb8de" fill-opacity="1.0" stroke="#222" stroke-width="1.2"/>
+<text x="860.0" y="320.0" font-family="Helvetica,Arial,sans-serif" font-size="10" font-weight="normal" fill="#222" text-anchor="start">valley-tine fork</text>
+<rect x="1240.0" y="340.0" width="100.0" height="60.0" rx="0" fill="#2a9d4b" fill-opacity="0.35" stroke="#222" stroke-width="1.2"/>
+<text x="1240.0" y="330.0" font-family="Helvetica,Arial,sans-serif" font-size="10" font-weight="normal" fill="#222" text-anchor="start">converging comb + XHP-4 nest</text>
+<rect x="1360.0" y="420.0" width="40.0" height="300.0" rx="0" fill="none" fill-opacity="1.0" stroke="#666" stroke-width="1.2" stroke-dasharray="5,4"/>
+<text x="1300.0" y="740.0" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">drop tube (~0.7 m)</text>
+<text x="40.0" y="560.0" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="normal" fill="#222" text-anchor="start">1 feed out 12 mm + Ls past the needles (Ls = the reel's strip length)  |  2 pierce every web  |  3 belts retract 12 mm: rip to the strip line; root lands on the clamp face</text>
+<text x="40.0" y="575.6" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="normal" fill="#222" text-anchor="start">4 clamp  |  5 score crowns to 50-60 % (or a shoe), pinch the still-webbed tip, back off 3 mm: one comb-shaped slug  |  6 fold the four conductors back as one band</text>
+<text x="40.0" y="591.2" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="normal" fill="#222" text-anchor="start">7 per conductor: look at the waiting contact alone; fork lays conductor k in; gate = picture + continuity through the spool; crank; dwell: withdraw, neck fork, 20 N pull</text>
+<text x="40.0" y="606.8" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="normal" fill="#222" text-anchor="start">8 comb runs root to tip twice (takes out the fold's set), then converges to 2.5 mm; housing pushed onto all four  |  9 test through the spool  |  10 feed out, cut</text>
+<text x="40.0" y="622.4" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="normal" fill="#222" text-anchor="start"></text>
+<text x="40.0" y="638.0" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="normal" fill="#222" text-anchor="start">Rip 9-45 N for a 4P against 32-180 N of belt traction [calc wave2 s4]; strip pull 19-52 N for four [calc wave3 s8]. ~6-7 min per T4 end; ~300 ends over the program [c5].</text>
+<text x="40.0" y="653.6" font-family="Helvetica,Arial,sans-serif" font-size="12" font-weight="normal" fill="#222" text-anchor="start">Sources: p3 / a4 (spool, cut last, test through spool), c5 (T4 first), b1b (applicator), b6 (pierce and pull), b1 (band, fork), i3/a6 (gang insert). Flat branch: b8b.</text>
+</svg>

@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 780" width="1000" height="780" font-family="Helvetica, Arial, sans-serif" font-size="12">
+  <rect width="1000" height="780" fill="#ffffff"/>
+  <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#333"/></marker></defs>
+  <text x="20.0" y="26.0" font-size="16" fill="#222" font-weight="bold" text-anchor="start">a9 The reel end docks: terminate at the reel clamp, dock on reel strip, crimp through a feedless applicator, cut last</text>
+  <text x="20.0" y="44.0" font-size="12" fill="#a33" font-weight="normal" text-anchor="start">schematic plan, not to scale; a combination with procedure-is-the-machine p6, p7 and p3; 4P reel shown</text>
+  <text x="20.0" y="74.0" font-size="12" fill="#222" font-weight="bold" text-anchor="start">A. Plan of the bench: the clamp rides one X axis past four lanes</text>
+  <rect x="110.0" y="330.0" width="860.0" height="10.0" rx="0" fill="#b8c0c8" stroke="#556" stroke-width="1"/>
+  <text x="200.0" y="322.0" font-size="10" fill="#222" font-weight="normal" text-anchor="start">X carriage: MGN12 rail, NEMA 17 on Tr8x2 [Prime rows]</text>
+  <line x1="170.0" y1="344.0" x2="170.0" y2="362.0" stroke="#555" stroke-width="1"/>
+  <text x="140.0" y="376.0" font-size="10" fill="#222" font-weight="bold" text-anchor="start">draw + cut</text>
+  <line x1="300.0" y1="344.0" x2="300.0" y2="362.0" stroke="#555" stroke-width="1"/>
+  <text x="270.0" y="376.0" font-size="10" fill="#222" font-weight="bold" text-anchor="start">insert + test</text>
+  <line x1="470.0" y1="344.0" x2="470.0" y2="362.0" stroke="#555" stroke-width="1"/>
+  <text x="440.0" y="376.0" font-size="10" fill="#222" font-weight="bold" text-anchor="start">anvil</text>
+  <line x1="650.0" y1="344.0" x2="650.0" y2="362.0" stroke="#555" stroke-width="1"/>
+  <text x="620.0" y="376.0" font-size="10" fill="#222" font-weight="bold" text-anchor="start">dock</text>
+  <rect x="600.0" y="270.0" width="100.0" height="56.0" rx="0" fill="#dbe9f6" stroke="#2a5a8a" stroke-width="1.5"/>
+  <text x="706.0" y="300.0" font-size="10" fill="#2a5a8a" font-weight="normal" text-anchor="start">channel clamp + fan block</text>
+  <line x1="580.0" y1="270.0" x2="720.0" y2="270.0" stroke="#a33" stroke-width="1" stroke-dasharray="3 2"/>
+  <text x="724.0" y="274.0" font-size="10" fill="#a33" font-weight="normal" text-anchor="start">clamp face = cut line = split root</text>
+  <path d="M650,326 L650,420" fill="none" stroke="#3a3a3a" stroke-width="12"/>
+  <text x="660.0" y="410.0" font-size="10" fill="#222" font-weight="normal" text-anchor="start">from the reel (belt feed + encoder)</text>
+  <circle cx="500.0" cy="450.0" r="34.0" fill="#f2f2f2" stroke="#555" stroke-width="1"/>
+  <circle cx="500.0" cy="450.0" r="14.0" fill="#ddd" stroke="#555" stroke-width="1"/>
+  <path d="M534,450 C590,450 650,440 650,420" fill="none" stroke="#3a3a3a" stroke-width="6" stroke-dasharray="4 3"/>
+  <text x="320.0" y="420.0" font-size="10" fill="#222" font-weight="normal" text-anchor="start">4P reel, 80 mm hub radius;</text>
+  <text x="320.0" y="434.0" font-size="10" fill="#222" font-weight="normal" text-anchor="start">hub socket + flying lead;</text>
+  <text x="320.0" y="448.0" font-size="10" fill="#222" font-weight="normal" text-anchor="start">no slip ring: the reel</text>
+  <text x="320.0" y="462.0" font-size="10" fill="#222" font-weight="normal" text-anchor="start">stands still while it works</text>
+  <rect x="380.0" y="196.0" width="560.0" height="8.0" rx="0" fill="#e6c36a" stroke="#8a6500" stroke-width="1"/>
+  <text x="730.0" y="226.0" font-size="10" fill="#222" font-weight="normal" text-anchor="start">SXH strip on a fixed track from +X;</text>
+  <text x="730.0" y="240.0" font-size="10" fill="#222" font-weight="normal" text-anchor="start">sprocket feeder (borrowed-machines b2)</text>
+  <rect x="401.0" y="136.0" width="14.0" height="60.0" rx="0" fill="#e6c36a" stroke="#8a6500" stroke-width="1"/>
+  <rect x="445.0" y="136.0" width="14.0" height="60.0" rx="0" fill="#e6c36a" stroke="#8a6500" stroke-width="1"/>
+  <rect x="489.0" y="136.0" width="14.0" height="60.0" rx="0" fill="#e6c36a" stroke="#8a6500" stroke-width="1"/>
+  <rect x="533.0" y="136.0" width="14.0" height="60.0" rx="0" fill="#e6c36a" stroke="#8a6500" stroke-width="1"/>
+  <rect x="577.0" y="136.0" width="14.0" height="60.0" rx="0" fill="#e6c36a" stroke="#8a6500" stroke-width="1"/>
+  <rect x="621.0" y="136.0" width="14.0" height="60.0" rx="0" fill="#e6c36a" stroke="#8a6500" stroke-width="1"/>
+  <rect x="665.0" y="136.0" width="14.0" height="60.0" rx="0" fill="#e6c36a" stroke="#8a6500" stroke-width="1"/>
+  <rect x="709.0" y="136.0" width="14.0" height="60.0" rx="0" fill="#e6c36a" stroke="#8a6500" stroke-width="1"/>
+  <rect x="753.0" y="136.0" width="14.0" height="60.0" rx="0" fill="#e6c36a" stroke="#8a6500" stroke-width="1"/>
+  <rect x="797.0" y="136.0" width="14.0" height="60.0" rx="0" fill="#e6c36a" stroke="#8a6500" stroke-width="1"/>
+  <rect x="841.0" y="136.0" width="14.0" height="60.0" rx="0" fill="#e6c36a" stroke="#8a6500" stroke-width="1"/>
+  <rect x="885.0" y="136.0" width="14.0" height="60.0" rx="0" fill="#e6c36a" stroke="#8a6500" stroke-width="1"/>
+  <path d="M632,270 C632,240 584,235 584,205 L584,176" fill="none" stroke="#3a3a3a" stroke-width="8"/>
+  <line x1="584.0" y1="176.0" x2="584.0" y2="150.0" stroke="#c98a3b" stroke-width="3"/>
+  <path d="M644,270 C644,240 628,235 628,205 L628,176" fill="none" stroke="#3a3a3a" stroke-width="8"/>
+  <line x1="628.0" y1="176.0" x2="628.0" y2="150.0" stroke="#c98a3b" stroke-width="3"/>
+  <path d="M656,270 C656,240 672,235 672,205 L672,176" fill="none" stroke="#3a3a3a" stroke-width="8"/>
+  <line x1="672.0" y1="176.0" x2="672.0" y2="150.0" stroke="#c98a3b" stroke-width="3"/>
+  <path d="M668,270 C668,240 716,235 716,205 L716,176" fill="none" stroke="#3a3a3a" stroke-width="8"/>
+  <line x1="716.0" y1="176.0" x2="716.0" y2="150.0" stroke="#c98a3b" stroke-width="3"/>
+  <rect x="420.0" y="112.0" width="100.0" height="76.0" rx="0" fill="none" stroke="#555" stroke-width="1" stroke-dasharray="5 3"/>
+  <text x="380.0" y="90.0" font-size="10" fill="#222" font-weight="normal" text-anchor="start">OTP applicator, feed and shear punch removed; 3-4 mm eccentric,</text>
+  <text x="380.0" y="104.0" font-size="10" fill="#222" font-weight="normal" text-anchor="start">NEMA 17 + 26.85:1 [Prime]; pilot enters the carrier slot</text>
+  <line x1="590.0" y1="300.0" x2="470.0" y2="300.0" stroke="#333" stroke-width="1" marker-end="url(#ar)"/>
+  <text x="350.0" y="290.0" font-size="10" fill="#222" font-weight="normal" text-anchor="start">docked row indexes -X, one pitch per turn</text>
+  <rect x="270.0" y="150.0" width="60.0" height="50.0" rx="0" fill="#eee" stroke="#555" stroke-width="1"/>
+  <text x="250.0" y="120.0" font-size="10" fill="#222" font-weight="normal" text-anchor="start">XHP on a B4B-XH wafer</text>
+  <text x="250.0" y="134.0" font-size="10" fill="#222" font-weight="normal" text-anchor="start">on a load cell</text>
+  <line x1="170.0" y1="320.0" x2="170.0" y2="96.0" stroke="#999" stroke-width="4"/>
+  <text x="40.0" y="110.0" font-size="10" fill="#222" font-weight="normal" text-anchor="start">puller: belt carriage</text>
+  <text x="40.0" y="124.0" font-size="10" fill="#222" font-weight="normal" text-anchor="start">along +Y; grips the</text>
+  <text x="40.0" y="138.0" font-size="10" fill="#222" font-weight="normal" text-anchor="start">ribbon behind the</text>
+  <text x="40.0" y="152.0" font-size="10" fill="#222" font-weight="normal" text-anchor="start">housing (fold on a bar);</text>
+  <text x="40.0" y="166.0" font-size="10" fill="#222" font-weight="normal" text-anchor="start">razor cuts at the</text>
+  <text x="40.0" y="180.0" font-size="10" fill="#222" font-weight="normal" text-anchor="start">clamp face</text>
+  <text x="20.0" y="520.0" font-size="12" fill="#222" font-weight="bold" text-anchor="start">B. Side view of the equal-path fan (4P to 7.1 mm): the inner grooves carry humps</text>
+  <path d="M60,620 L400,620" fill="none" stroke="#6b6b6b" stroke-width="8"/>
+  <path d="M60,620 C140,620 150,570 230,570 C310,570 320,620 400,620" fill="none" stroke="#3a3a3a" stroke-width="8"/>
+  <text x="60.0" y="645.0" font-size="10" fill="#222" font-weight="normal" text-anchor="start">outer groove (flat, grey) and inner groove (humped), same path length</text>
+  <text x="430.0" y="560.0" font-size="11" fill="#222" font-weight="normal" text-anchor="start">inner pair: hump 3.3 mm over the fan's 16.7 mm, bend R ~4.3 mm;</text>
+  <text x="430.0" y="574.0" font-size="11" fill="#222" font-weight="normal" text-anchor="start">5P centre: 5.1 mm over 21.4 mm, R ~4.5 [P3 s1]. Every tip recedes</text>
+  <text x="430.0" y="588.0" font-size="11" fill="#222" font-weight="normal" text-anchor="start">the same 2.05 mm (4P) or 2.77 mm (5P), so the strip line made before</text>
+  <text x="430.0" y="602.0" font-size="11" fill="#222" font-weight="normal" text-anchor="start">the split stays straight. The humps take a set (the strands yield</text>
+  <text x="430.0" y="616.0" font-size="11" fill="#222" font-weight="normal" text-anchor="start">below R 39-78 mm); the insertion clamp pulls them straight at</text>
+  <text x="430.0" y="630.0" font-size="11" fill="#222" font-weight="normal" text-anchor="start">0.06-0.23 N [calc F s5], and the loom leaves with every conductor</text>
+  <text x="430.0" y="644.0" font-size="11" fill="#222" font-weight="normal" text-anchor="start">one length from the root.</text>
+  <text x="20.0" y="680.0" font-size="12" fill="#222" font-weight="bold" text-anchor="start">C. One end, in order</text>
+  <text x="20.0" y="700.0" font-size="10" fill="#222" font-weight="normal" text-anchor="start">1 feed out to a grounded tip stop (touch-off through the hub socket); 2 strip webbed: two razors on steel stops, slide the slug off (p7);</text>
+  <text x="20.0" y="714.0" font-size="10" fill="#222" font-weight="normal" text-anchor="start">3 zip from the slug's gaps back to 1 mm short of the clamp face (a7's tines); 4 equal-path fan; 5 dock; continuity to the carrier;</text>
+  <text x="20.0" y="728.0" font-size="10" fill="#222" font-weight="normal" text-anchor="start">6 crimp, one per turn; 7 back at the dock: pad or neck blades, 20 N pull each, shear comb; 8 insert; 9 test on the wafer through the hub;</text>
+  <text x="20.0" y="742.0" font-size="10" fill="#222" font-weight="normal" text-anchor="start">10 draw the loom's length and cut at the clamp face, which leaves the next end square.</text>
+</svg>

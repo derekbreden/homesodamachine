@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 640" width="880" height="640" role="img" aria-labelledby="t d">
+<title id="t">f1 motorised ratchet crimper, schematic</title>
+<desc id="d">A stock ratchet crimper lies flat in a printed cradle; a linear actuator with a load cell closes its handle. A swinging keyed flap loads a contact outside the jaws and lifts it into the nest; the jaws close short of the first ratchet tooth; the camera measures the tip; the carriage lowers the conductor; after the crimp a neck blade reacts a 20 N pull.</desc>
+<style>
+.bg{fill:#fcfcfb}
+text{font-family:system-ui,-apple-system,Segoe UI,Helvetica,Arial,sans-serif;fill:#0b0b0b;font-size:12px}
+.t2{fill:#52514e;font-size:11px}.h{font-size:15px;font-weight:600}.sm{font-size:10px;fill:#52514e}
+.steel{fill:#c9c8c2;stroke:#52514e;stroke-width:1.2}
+.dark{fill:#8f8e88;stroke:#3d3c39;stroke-width:1.2}
+.bought{fill:#dcdad2;stroke:#52514e;stroke-width:1.2;stroke-dasharray:4 2}
+.print{fill:#cde2fb;stroke:#2a78d6;stroke-width:1.2}
+.contact{fill:#eda100;stroke:#7a5300;stroke-width:1}
+.wire{stroke:#eb6834;stroke-width:4;fill:none;stroke-linecap:round}
+.wirefill{fill:#eb6834;stroke:#8c3a17;stroke-width:1}
+.strand{stroke:#8c3a17;stroke-width:1;fill:none}
+.force{stroke:#e34948;stroke-width:2.5;fill:none}
+.forcefill{fill:#e34948}
+.move{stroke:#2a78d6;stroke-width:1.8;fill:none;stroke-dasharray:5 3}
+.movefill{fill:#2a78d6}
+.ln{stroke:#52514e;stroke-width:1.2;fill:none}
+.thin{stroke:#8a8984;stroke-width:1;fill:none;stroke-dasharray:3 3}
+.box{fill:none;stroke:#8a8984;stroke-width:1}
+@media (prefers-color-scheme: dark){
+.bg{fill:#1a1a19} text{fill:#ffffff} .t2,.sm{fill:#c3c2b7}
+.steel{fill:#4a4a47;stroke:#c3c2b7}.dark{fill:#6b6a66;stroke:#d8d7d0}
+.bought{fill:#33332f;stroke:#c3c2b7}.print{fill:#1c3a5e;stroke:#3987e5}
+.contact{fill:#c98500;stroke:#f3c56a}.wire{stroke:#d95926}.wirefill{fill:#d95926;stroke:#f0a07e}
+.strand{stroke:#f0a07e}.force{stroke:#e66767}.forcefill{fill:#e66767}
+.move{stroke:#3987e5}.movefill{fill:#3987e5}.ln{stroke:#c3c2b7}.thin{stroke:#8a8984}.box{stroke:#6b6a66}}
+</style>
+<defs><marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="forcefill" d="M0,0 L10,5 L0,10 z"/></marker><marker id="am" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="movefill" d="M0,0 L10,5 L0,10 z"/></marker></defs>
+<rect class="bg" width="880" height="640"/>
+<text class="h" x="20" y="28" text-anchor="start">f1  The hand tool is the press: a ratchet crimper closed by a slow actuator</text>
+<text class="t2" x="20" y="46" text-anchor="start">schematic, not to scale</text>
+<text class="t2" x="30" y="76" text-anchor="start">Top view (tool lies flat on a steel plate)</text>
+<rect class="box" x="30" y="86" width="420" height="330" rx="0"/>
+<rect class="steel" x="60" y="180" width="90" height="90" rx="8"/>
+<rect class="dark" x="62" y="218" width="86" height="14" rx="0"/>
+<rect class="contact" x="96" y="219" width="10" height="12" rx="0"/>
+<text class="sm" x="60" y="172" text-anchor="start">SN-2549 jaws (XH nest)</text>
+<polygon class="steel" points="150,250 420,318 420,336 150,268"/>
+<polygon class="steel" points="150,196 410,150 410,168 150,214"/>
+<rect class="print" x="250" y="262" width="150" height="90" rx="6"/>
+<text class="sm" x="260" y="370" text-anchor="start">printed cradle clamps</text>
+<text class="sm" x="260" y="383" text-anchor="start">the fixed handle</text>
+<rect class="bought" x="370" y="96" width="44" height="36" rx="3"/>
+<rect class="dark" x="386" y="132" width="12" height="10" rx="0"/>
+<line class="ln" x1="392" y1="142" x2="392" y2="158"/>
+<line class="force" x1="392" y1="146" x2="392" y2="162" marker-end="url(#af)"/>
+<text class="sm" x="222" y="100" text-anchor="start">linear actuator (Justech 1,500 N,</text>
+<text class="sm" x="222" y="112" text-anchor="start">PA-01-POT ~750 N) or</text>
+<text class="sm" x="222" y="124" text-anchor="start">NEMA 17 Tr8x2 pusher</text>
+<text class="sm" x="300" y="142" text-anchor="start">S-beam load cell</text>
+<line class="move" x1="430" y1="180" x2="430" y2="300" marker-end="url(#am)"/>
+<text class="sm" x="434" y="200" text-anchor="start">handle</text>
+<text class="sm" x="434" y="212" text-anchor="start">closes</text>
+<circle class="dark" cx="60" cy="300" r="5"/>
+<rect class="print" x="60" y="296" width="50" height="8" rx="2"/>
+<path class="move" d="M 110 300 Q 110 255 101 238"/>
+<text class="sm" x="40" y="322" text-anchor="start">swinging flap, hinged outside</text>
+<text class="sm" x="40" y="334" text-anchor="start">the tool: loads a contact out</text>
+<text class="sm" x="40" y="346" text-anchor="start">here, swings under the nest,</text>
+<text class="sm" x="40" y="358" text-anchor="start">lifts it in from below</text>
+<text class="sm" x="40" y="390" text-anchor="start">The tool's toggle and ratchet make the force;</text>
+<text class="sm" x="40" y="402" text-anchor="start">crimp height is the tool's.</text>
+<text class="t2" x="480" y="76" text-anchor="start">Section through the XH nest (wire vertical)</text>
+<rect class="box" x="480" y="86" width="380" height="330" rx="0"/>
+<rect class="bought" x="620" y="96" width="100" height="24" rx="3"/>
+<text class="sm" x="670" y="112" text-anchor="middle">ribbon clamp</text>
+<text class="sm" x="726" y="102" text-anchor="start">X/Z carriage</text>
+<line class="move" x1="730" y1="114" x2="778" y2="114" marker-end="url(#am)" marker-start="url(#am)"/>
+<line class="wire" x1="670" y1="120" x2="670" y2="262"/>
+<polyline class="wire" points="673.0,120 674.2,146 716.4,186"/>
+<polyline class="wire" points="676.0,120 678.4,146 742.8,186"/>
+<polyline class="wire" points="679.0,120 682.6,146 769.2,186"/>
+<polyline class="wire" points="682.0,120 686.8,146 795.6,186"/>
+<rect class="print" x="676" y="144" width="70" height="10" rx="3"/>
+<text class="sm" x="750" y="146" text-anchor="start">fork: every other</text>
+<text class="sm" x="750" y="157" text-anchor="start">conductor bent to</text>
+<text class="sm" x="750" y="168" text-anchor="start">one side (a set)</text>
+<rect class="bought" x="500" y="190" width="34" height="22" rx="3"/>
+<rect class="bought" x="704" y="192" width="8" height="34" rx="1"/>
+<line class="thin" x1="534" y1="201" x2="704" y2="206"/>
+<text class="sm" x="488" y="170" text-anchor="start">camera + light pad:</text>
+<text class="sm" x="488" y="181" text-anchor="start">bare length before threading</text>
+<polygon class="print" points="648,226 692,226 677,250 663,250"/>
+<text class="sm" x="644" y="244" text-anchor="end">funnel</text>
+<rect class="steel" x="484" y="252" width="174" height="44" rx="0"/>
+<rect class="steel" x="682" y="252" width="174" height="44" rx="0"/>
+<line class="force" x1="840" y1="274" x2="690" y2="274" marker-end="url(#af)"/>
+<text class="sm" x="490" y="290" text-anchor="start">fixed jaw</text>
+<text class="sm" x="850" y="290" text-anchor="end">moving jaw</text>
+<text class="sm" x="730" y="240" text-anchor="start">held just short of</text>
+<text class="sm" x="730" y="251" text-anchor="start">the first tooth</text>
+<rect class="contact" x="664" y="256" width="12" height="36" rx="0"/>
+<rect class="contact" x="663" y="296" width="14" height="26" rx="0"/>
+<rect class="dark" x="680" y="293" width="40" height="4" rx="0"/>
+<rect class="bought" x="720" y="286" width="24" height="18" rx="2"/>
+<text class="sm" x="730" y="344" text-anchor="start">neck blade: in only after</text>
+<text class="sm" x="730" y="355" text-anchor="start">the crimp, for the 20 N pull</text>
+<rect class="print" x="620" y="322" width="100" height="10" rx="2"/>
+<rect class="bg" x="662" y="322" width="16" height="10" rx="0"/>
+<circle class="dark" cx="614" cy="327" r="4"/>
+<text class="sm" x="488" y="350" text-anchor="start">swinging flap: keyed slot (box + lance notch),</text>
+<text class="sm" x="488" y="362" text-anchor="start">steel floor sets the axial position</text>
+<text class="sm" x="488" y="392" text-anchor="start">contact box-down, barrels up in the nest</text>
+<text class="t2" x="30" y="444" text-anchor="start">1 flap takes a contact outside the jaws (magazine, strip shear or tacked), swings in, lifts it into the nest</text>
+<text class="t2" x="30" y="460" text-anchor="start">2 jaws close to just short of the first ratchet tooth: located, not pinched, ratchet not yet engaged</text>
+<text class="t2" x="30" y="476" text-anchor="start">3 camera measures the hanging tip's bare length   4 carriage lowers the conductor to the Z that puts the insulation edge mid-window</text>
+<text class="t2" x="30" y="492" text-anchor="start">5 actuator completes the stroke; the ratchet releases at full closure; force vs travel logged</text>
+<text class="t2" x="30" y="508" text-anchor="start">6 jaws open, neck blade drops onto the box's rear face, carriage pulls ~20 N   7 blade out, flap out, lift</text>
+<rect class="steel" x="30" y="538" width="14" height="12" rx="0"/>
+<text class="sm" x="50" y="548" text-anchor="start">steel (force path, dies)</text>
+<rect class="print" x="205" y="538" width="14" height="12" rx="0"/>
+<text class="sm" x="225" y="548" text-anchor="start">printed</text>
+<rect class="bought" x="380" y="538" width="14" height="12" rx="0"/>
+<text class="sm" x="400" y="548" text-anchor="start">bought motion / sensing</text>
+<rect class="contact" x="555" y="538" width="14" height="12" rx="0"/>
+<text class="sm" x="575" y="548" text-anchor="start">XH contact</text>
+<line class="wire" x1="730" y1="544" x2="752" y2="544"/>
+<text class="sm" x="758" y="548" text-anchor="start">conductor</text>
+<text class="t2" x="30" y="578" text-anchor="start">Hands back: magazine or strip loading, a split and stripped ribbon end, insertion. The neighbours leave with</text>
+<text class="t2" x="30" y="593" text-anchor="start">one uniform set at the fork line (26-46 deg by split length). Branch f1b puts JST's WC-110 in the same cradle.</text>
+</svg>

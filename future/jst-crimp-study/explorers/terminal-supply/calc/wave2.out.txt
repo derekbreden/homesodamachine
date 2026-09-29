@@ -1,0 +1,213 @@
+
+==============================================================================
+1. Skip-pitch strip: where a ribbon's other conductors may lie in the strip's plane
+==============================================================================
+Fresh contacts stand upstream of the station every s mm (s = 7.1 normal; 14.2 with every
+other contact removed; 21.3 with two of three removed). A waiting conductor (OD 1.7) lying
+in the plane collides if it lands within 2.35 mm of a fresh contact's centre
+[critique calc 2]; a done conductor carrying its crimped contact within 2.50 mm.
+Worst case: all N-1 other conductors on the upstream side, at fan pitch p, at -p ... -(N-1)p.
+
+  fresh contacts every 7.1 mm
+    3P (N-1=2 upstream): clear for fan pitch 1.70-2.30 mm (1.70-8.00 scanned)
+    4P (N-1=3 upstream): clear for fan pitch none mm (1.70-8.00 scanned)
+    5P (N-1=4 upstream): clear for fan pitch none mm (1.70-8.00 scanned)
+
+  fresh contacts every 14.2 mm
+    3P (N-1=2 upstream): clear for fan pitch 1.70-5.85 mm (1.70-8.00 scanned)
+    4P (N-1=3 upstream): clear for fan pitch 1.70-3.90, 5.60-5.85 mm (1.70-8.00 scanned)
+    5P (N-1=4 upstream): clear for fan pitch 1.70-2.90, 5.60-5.85 mm (1.70-8.00 scanned)
+
+  fresh contacts every 21.3 mm
+    3P (N-1=2 upstream): clear for fan pitch 1.70-8.00 mm (1.70-8.00 scanned)
+    4P (N-1=3 upstream): clear for fan pitch 1.70-6.25, 7.95-8.00 mm (1.70-8.00 scanned)
+    5P (N-1=4 upstream): clear for fan pitch 1.70-4.70, 6.00-6.25, 7.95-8.00 mm (1.70-8.00 scanned)
+
+  -> with every contact on the strip (7.1 mm) no 4P or 5P fan is clear [agrees with critique];
+     with every other contact removed (14.2 mm) any fan up to ~2.9 mm is clear for 5P, ~3.9 for 4P.
+     The punch holder still needs the nearest neighbour outside its footprint (section 2 note).
+
+==============================================================================
+2. Crowned anvil: fresh contacts fall below the plane the conductors lie in
+==============================================================================
+The strip runs over a crown (a cylinder whose axis is along the contacts). The station
+contact sits on a flat land at the crest; a contact at arc distance s lies rotated by s/R
+and its open wing tips (height h above its floor) sit at (R+h)cos(s/R) - R relative to the crest.
+Carrier bending strain = t/(2R); yield strain = Sy/E = 0.41-0.59 %.
+  smallest elastic crown radius: 16.9-24.4 mm
+
+    R mm  strain %  elastic? | wing tip vs crest (mm), h=3.2:  s=7.1   s=14.2   s=21.3
+       8      1.25        no |                                    -0.93   below   below
+      10      1.00        no |                                    +0.01   -8.02   below
+      12      0.83        no |                                    +0.62   -6.26   below
+      15      0.67        no |                                    +1.20   -4.36  -12.27
+      20      0.50      edge |                                    +1.75   -2.41   -8.76
+      25      0.40       yes |                                    +2.07   -1.23   -6.43
+      30      0.33       yes |                                    +2.27   -0.45   -4.82
+      40      0.25       yes |                                    +2.52   +0.51   -2.78
+
+  -> an elastic crown (R >= ~25 mm) drops the 14.2 mm neighbour's wing tips 1.2 mm below the
+     crest plane: every other conductor can lie flat in the station plane at any fan pitch.
+     With every contact on the strip, the 7.1 mm neighbour clears only at R <= ~8 mm, which
+     bends the carrier plastically at every contact that passes.
+  R 25: the crown surface at x = 2.5 mm lies 0.12 mm below the crest plane
+  R 25: the crown surface at x = 3.0 mm lies 0.18 mm below the crest plane
+  R 25: the crown surface at x = 4.0 mm lies 0.32 mm below the crest plane
+  R 25: the crown surface at x = 5.0 mm lies 0.50 mm below the crest plane
+  R 25: the crown surface at x = 7.1 mm lies 1.00 mm below the crest plane
+  -> pins in the removed contacts' holes at +/-7.1 mm sit ~1.0 mm below the plane: a flush or
+     recessed pin tip never touches a conductor lying over it.
+
+==============================================================================
+3. The gap a skip-pitch strip opens beside the station
+==============================================================================
+  neighbour at  7.1 mm: clear gap between open wings  4.1 mm
+     neighbour taller by 0.00 mm -> grazing view needs >= 0.16 deg; near wing tip hidden by   5 um
+     neighbour taller by 0.10 mm -> grazing view needs >= 0.97 deg; near wing tip hidden by  32 um
+     neighbour taller by 0.15 mm -> grazing view needs >= 1.37 deg; near wing tip hidden by  45 um
+     neighbour taller by 0.25 mm -> grazing view needs >= 2.18 deg; near wing tip hidden by  72 um
+  neighbour at 14.2 mm: clear gap between open wings 11.2 mm
+     neighbour taller by 0.00 mm -> grazing view needs >= 0.08 deg; near wing tip hidden by   3 um
+     neighbour taller by 0.10 mm -> grazing view needs >= 0.48 deg; near wing tip hidden by  16 um
+     neighbour taller by 0.15 mm -> grazing view needs >= 0.69 deg; near wing tip hidden by  23 um
+     neighbour taller by 0.25 mm -> grazing view needs >= 1.09 deg; near wing tip hidden by  36 um
+  -> at 14.2 mm the grazing view needs half the tilt, and an 11 mm gap takes a backlight tile
+     (a 3-5 mm wide diffuser with one white LED) dropped in from above between look and stroke.
+  -> on a crown (section 2) the neighbour lies below the station plane, so the view along the
+     strip at wing height is unobstructed and needs no tilt at all.
+
+==============================================================================
+4. The set a lifted conductor keeps (the lifter repair)
+==============================================================================
+A conductor clamped at the web and lifted delta at distance a (a bar or comb) bends most at the
+clamp. Strands slide on one another, so each 0.08 mm strand bends about its own axis.
+  strand yield curvature 0.0150 /mm (radius 67 mm) [calc, agrees with digest ~67 mm]
+  EI strands 14.1 N mm^2, silicone ~1.6 N mm^2
+
+   a mm  lift mm  push N  max curv /mm  x yield  set kept mm
+     10      3.5    0.06        0.1672     11.2         2.18
+     15      3.5    0.03        0.0775      5.2         1.23
+     20      3.5    0.02        0.0330      2.2         0.31
+     25      3.5    0.01        0.0169      1.1         0.00
+     30      3.5    0.01        0.0117      0.8         0.00
+  -> lifted 3.5 mm at 10-15 mm from the web, a conductor keeps ~1.3-2.2 mm of lift when
+     released; at 25-30 mm it keeps only a few tenths. The set is harmless during crimping
+     and is undone by whatever combs the conductors to 2.5 mm for insertion.
+
+==============================================================================
+5. The post as a gripper (a6)
+==============================================================================
+  weight 0.42 mN; post grip 0.2-2.0 N [estimate]: 474-4741 x weight
+  vacuum nozzle 1.0 mm at 80 kPa: 63 mN normal [critique calc 7]: a nozzle
+  places into an open pocket; it cannot push a box onto a post. A post pushed into a box
+  whose rear rests on a pocket wall needs only that wall to react 0.2-2 N.
+
+  Capture of a chamfered post tip by the box mouth [source S19-S21, clone box]:
+    box inside ~1.45 x 1.80 mm; post 0.64 mm square
+    lateral capture +/-0.41 mm, vertical +/-0.58 mm before the
+    spring leaves' own lead-in centre the post; the pocket holds the box to ~+/-0.1 mm.
+
+  Post stiffness, square 0.64 mm, k = 3EI/L^3:
+    brass free length 2 mm:    524 N/mm
+    brass free length 3 mm:    155 N/mm
+    brass free length 4 mm:     66 N/mm
+    steel free length 2 mm:   1049 N/mm
+    steel free length 3 mm:    311 N/mm
+    steel free length 4 mm:    131 N/mm
+  -> a 2-4 mm post is rigid against every placement load; it must float in its holder so
+     the punch's lead-in can centre the barrels (as a4). Float +/-0.2 mm on springs of
+     1-2 N/mm resists with 0.2-0.4 N, against punch lead-in forces of tens of N.
+
+  Axial chain, box front (the post holder face) to the conductor barrel's rear edge:
+    clone drawings: box 2.0 + transition 0.4-0.6 + conductor barrel 1.25-1.5 -> 3.65-4.1 mm
+    within one lot +/-0.05 mm [estimate, progressive die]; between brands up to +/-0.25 [source]
+    bellmouth window +/-0.1 mm [xh-facts]: dead reckoning holds within a lot, not across lots.
+    backlit silhouette on the post at 45 px/mm: 0.1 mm = 4.5 px; an edge fit to 0.2 px = 4.4 um
+    backlit silhouette on the post at 86 px/mm: 0.1 mm = 8.6 px; an edge fit to 0.2 px = 2.3 um
+  -> the camera measures each contact on the post; the post carriage moves by the error.
+     Carriage resolution (NEMA 17 on Tr8x2, 1/16 step) 0.6 um; repeatability of a printer-class
+     axis +/-0.02-0.05 mm, inside the window, and the look is repeated after the move.
+
+==============================================================================
+6. Cutting the tab before the wire exists (strip on the post)
+==============================================================================
+  With the post in the leading contact's box and pins in the carrier, nothing lies over the tab:
+  a flush punch from above, or a drop-shear, cuts it. Shear force 48-158 N [xh-facts C1].
+    metal-gear servo 45 N at a 20-25 mm arm x 3:1 lever = 135 N
+    metal-gear servo 45 N at a 20-25 mm arm x 4:1 lever = 180 N
+  Stub target ~1 stock thickness (0.2-0.3 mm) [xh-facts S5, S23]. The shear line is set from
+  the contact's own rear edge as seen (per contact), not from the carrier, so tab variation
+  between brands (0.8 +/- 0.2 vs 1.00 +/- 0.15) drops out.
+
+==============================================================================
+7. Supply when every other contact is removed from the strip
+==============================================================================
+  every contact used    :   3556 contacts from strip for 3556 crimps; 0.44 reels of 8,000; strip  25.2 m; a unit 0.38 m
+  every other removed   :   7113 contacts from strip for 3556 crimps; 0.89 reels of 8,000; strip  50.5 m; a unit 0.75 m
+  two of three removed  :  10669 contacts from strip for 3556 crimps; 1.33 reels of 8,000; strip  75.7 m; a unit 1.13 m
+  prices [xh-facts 6]: Digi-Key reel $0.0235, LCSC @1k $0.0100, clone CJT reel $0.0079
+    Digi-Key SXH reel : program at skip 2 $   167; at skip 1 $    84
+    LCSC SXH @1k      : program at skip 2 $    71; at skip 1 $    36
+    LCSC CJT clone    : program at skip 2 $    56; at skip 1 $    28
+  -> one 8,000-piece reel covers the whole program even with every other contact removed.
+  -> the removed contacts (3556) are loose stock for hand repair or any loose route.
+
+==============================================================================
+8. A self-locking wedge that sets the anvil's height per cavity (a5)
+==============================================================================
+  mu 0.10 (friction angle  5.7 deg), wedge 2 deg: self-locking; height per mm of wedge travel    35 um
+  mu 0.10 (friction angle  5.7 deg), wedge 3 deg: self-locking; height per mm of wedge travel    52 um
+  mu 0.10 (friction angle  5.7 deg), wedge 5 deg: self-locking; height per mm of wedge travel    87 um
+  mu 0.15 (friction angle  8.5 deg), wedge 2 deg: self-locking; height per mm of wedge travel    35 um
+  mu 0.15 (friction angle  8.5 deg), wedge 3 deg: self-locking; height per mm of wedge travel    52 um
+  mu 0.15 (friction angle  8.5 deg), wedge 5 deg: self-locking; height per mm of wedge travel    87 um
+  a Tr8x2 lead screw at 1/16 step moves the wedge 0.6 um -> anvil height steps of 0.02-0.05 um.
+  -> a 2-3 deg steel wedge under the anvil holds 3 kN on its own, needs only a push against its
+     return spring to set, and gives the camera a per-cavity height to set it to.
+
+==============================================================================
+9. Where the drop-shear's kink goes after the next index (a2 Break 3 repair)
+==============================================================================
+  Upstream carrier clamped flat to an edge at x_c (between the upstream contact's tab and the
+  station tab); everything downstream of x_c drops 0.3-0.5 mm; the carrier yields at x_c
+  [critique calc 6: yields at 0.16 mm of drop, 0.14-0.34 mm set, 1.7-4.2 deg].
+    index  7.1 mm, clamp edge at -2.0 mm: the kink moves to +5.1 mm, downstream of the new station tab (0): scrap side
+    index  7.1 mm, clamp edge at -3.0 mm: the kink moves to +4.1 mm, downstream of the new station tab (0): scrap side
+    index 14.2 mm, clamp edge at -2.0 mm: the kink moves to +12.2 mm, downstream of the new station tab (0): scrap side
+    index 14.2 mm, clamp edge at -3.0 mm: the kink moves to +11.2 mm, downstream of the new station tab (0): scrap side
+  -> the next contact's own tab and the carrier upstream of it are never bent.
+
+==============================================================================
+10. Open-wing width by supply form, and the geometry it sets for other explorers
+==============================================================================
+  supply                                 wings mm | gap to an open neighbour at 2.5 / 3.4 / 5.0 mm pitch
+  JST SXH/BXH, catalog envelope        1.95-1.95 | +0.55..+0.55 +1.45..+1.45 +3.05..+3.05
+  Wurth 646 x01 137 22 (analog)        2.30-2.30 | +0.20..+0.20 +1.10..+1.10 +2.70..+2.70
+  clone drawings (HDGC/DLL/CJT/JXT)    2.46-3.00 | -0.50..+0.04 +0.40..+0.94 +2.00..+2.54
+  (clone tolerance +/-0.25 on open wings widens the clone row further)
+
+  v4b pocket plate, floor channel 2.05 mm (critique's corrected width):
+    barrels-down JST SXH/BXH, catalog envelope       : wing tips 1.95-1.95 apart -> may fall in (tips < 2.05)
+    barrels-down Wurth 646 x01 137 22 (analog)       : wing tips 2.30-2.30 apart -> rest on top (tips >= 2.05)
+    barrels-down clone drawings (HDGC/DLL/CJT/JXT)   : wing tips 2.46-3.00 apart -> rest on top (tips >= 2.05)
+  a3 hanging rail, 2.4 mm upper slot: hangs only if the open wings exceed 2.4 mm:
+    JST SXH/BXH, catalog envelope       : falls through
+    Wurth 646 x01 137 22 (analog)       : falls through
+    clone drawings (HDGC/DLL/CJT/JXT)   : hangs
+  -> the two orienters that use the wings as a head (a3 rail, v4b plate) depend on clone-width
+     wings; genuine JST, if inside its envelope, needs the lance or the box to orient it.
+
+==============================================================================
+11. Time per crimp [estimate]
+==============================================================================
+  a6 pick from the pocket plate (approach, spear, lift)    10 s
+  a6 travel to the die                                      5 s
+  a6 silhouette on the post, correct, look again           10 s
+  a6 conductor presented and steered                       30 s
+  a6 slow stroke                                           30 s
+  a6 release by pulling the wire off the post               5 s
+  a6 after-crimp look                                      10 s
+  a6 return; plate re-tapped while the stroke runs          0 s
+  a6 retries, average                                      15 s
+  a6 per crimp ~115 s -> 53 crimps in 102 min
+  a2d per crimp ~106 s -> 53 crimps in 94 min

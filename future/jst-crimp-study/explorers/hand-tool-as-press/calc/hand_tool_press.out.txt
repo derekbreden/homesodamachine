@@ -1,0 +1,143 @@
+
+============================================================================
+1. Handle force needed to close a ratchet hand tool on an XH crimp
+============================================================================
+die force (kN) -> handle force at the grip end (N), by end-of-stroke gain
+  gain:          15      23      30      40      50
+   0.8 kN        53      35      27      20      16
+   1.5 kN       100      65      50      38      30
+   2.6 kN       173     113      87      65      52
+hand force people apply: 89-222 N  [source]
+-> the grip-end force the SN-2549 needs on XH is at most what a hand gives,
+   ~90-220 N, whatever the tool's real gain; the table above spans 16-173 N.
+
+============================================================================
+2. Slow actuators at the grip end (stall or rated figures, [calc] with assumed parts)
+============================================================================
+  NEMA17 48mm, Tr8x2 external nut (0.3 N*m running)                  283 N  >= hand max
+  NEMA17 48mm, Tr8x8 external nut (0.3 N*m running)                  106 N  < 0.6x hand max
+  NEMA23 on hand (1.0 N*m running), Tr8x2                            942 N  >= hand max
+  5840-31ZY worm winch, 2.3 N*m working, drum r=6 mm                 383 N  >= hand max
+  5840-31ZY worm winch, 2.3 N*m working, drum r=8 mm                 288 N  >= hand max
+  5840-31ZY worm winch, 2.3 N*m working, drum r=12 mm                192 N  0.6-1x hand max
+  35 kg*cm hobby servo, half stall, 25 mm horn                        68 N  < 0.6x hand max
+  air cylinder 20 mm bore at 6 bar                                   188 N  0.6-1x hand max
+  air cylinder 25 mm bore at 6 bar                                   295 N  >= hand max
+  air cylinder 32 mm bore at 6 bar                                   483 N  >= hand max
+
+============================================================================
+3. Stroke and closing time at the grip end
+============================================================================
+  open 76 mm -> closed 20 mm: grip travel 56 mm
+  open 76 mm -> closed 25 mm: grip travel 51 mm
+  at  1 mm/s the full squeeze takes    54 s
+  at  2 mm/s the full squeeze takes    27 s
+  at  5 mm/s the full squeeze takes    11 s
+  at 10 mm/s the full squeeze takes     5 s
+
+============================================================================
+4. The handle as a magnifier of die position
+============================================================================
+  gain 15: last 0.10 mm at the die =  1.5 mm at the grip
+  gain 15: last 0.20 mm at the die =  3.0 mm at the grip
+  gain 30: last 0.10 mm at the die =  3.0 mm at the grip
+  gain 30: last 0.20 mm at the die =  6.0 mm at the grip
+  gain 40: last 0.10 mm at the die =  4.0 mm at the grip
+  gain 40: last 0.20 mm at the die =  8.0 mm at the grip
+  Tr8x2 pusher resolution: 0.62 um per microstep at the grip
+  -> 0.021 um at the die through a gain of 30, before compliance
+  Compliance (handles bending, pin play, pusher mount) adds grip travel that
+  is not die travel. It is measured by closing the empty tool and by closing
+  on a contact without wire; the difference curve is what the crimp did.
+
+============================================================================
+5. Eccentric drive for dies lifted into a die set (idea a4)
+============================================================================
+  e=1.5 mm (stroke 3.0): 1.5 kN starting 0.15 mm above BDC -> 25.8 deg, peak shaft torque 0.98 N*m
+  e=1.5 mm (stroke 3.0): 3.0 kN starting 0.15 mm above BDC -> 25.8 deg, peak shaft torque 1.96 N*m
+  e=1.5 mm (stroke 3.0): 3.0 kN starting 0.25 mm above BDC -> 33.6 deg, peak shaft torque 2.49 N*m
+  e=2.5 mm (stroke 5.0): 1.5 kN starting 0.15 mm above BDC -> 19.9 deg, peak shaft torque 1.28 N*m
+  e=2.5 mm (stroke 5.0): 3.0 kN starting 0.15 mm above BDC -> 19.9 deg, peak shaft torque 2.56 N*m
+  e=2.5 mm (stroke 5.0): 3.0 kN starting 0.25 mm above BDC -> 25.8 deg, peak shaft torque 3.27 N*m
+  e=4.0 mm (stroke 8.0): 1.5 kN starting 0.15 mm above BDC -> 15.7 deg, peak shaft torque 1.63 N*m
+  e=4.0 mm (stroke 8.0): 3.0 kN starting 0.15 mm above BDC -> 15.7 deg, peak shaft torque 3.26 N*m
+  e=4.0 mm (stroke 8.0): 3.0 kN starting 0.25 mm above BDC -> 20.4 deg, peak shaft torque 4.18 N*m
+  Add ~30-50 % for friction in the eccentric and ram guides [assumption].
+  5840-31ZY working ~2.3 N*m (stall 6.9): enough for e<=2.5 mm at 1.5 kN, and
+  near its limit at 3 kN; NEMA 23 (~1.0 N*m running) with a 3:1 belt gives ~3 N*m.
+
+============================================================================
+6. Overtravel spring: force-limited full closure (the ratchet's job, done by a spring)
+============================================================================
+  preload 3.0 kN: crimp up to 3.0 kN happens rigid; any extra eccentric travel compresses the stack instead of the frame
+  preload 3.5 kN: crimp up to 3.5 kN happens rigid; any extra eccentric travel compresses the stack instead of the frame
+  preload 4.0 kN: crimp up to 4.0 kN happens rigid; any extra eccentric travel compresses the stack instead of the frame
+  Series stack of 3-4 discs (20-25 mm OD, 1-1.25 mm) gives ~0.3-0.6 mm of travel
+  over ~1-2 kN rise [estimate, disc-spring catalogues]. With ~0.15 mm of eccentric
+  overtravel past die contact, the dies meet every stroke and the peak is ~4-5 kN.
+
+============================================================================
+7. Where the contact must sit along its axis, and what can reference it
+============================================================================
+  allowable axial error at the conductor die: about +/-0.10 mm [estimate]
+  box front against a stop (contact length +/-0.25 on clone drawings)            +/-0.250  outside
+  box rear shoulder against a flap (box length 2.0; tolerance assumed +/-0.05)   +/-0.080  fits
+  pilot hole on a pin (pin 1.45 in hole 1.50; hole-to-barrel assumed +/-0.05)    +/-0.075  fits
+  0.64 mm post in the box, box front on the post shoulder                        +/-0.250  outside
+  camera measures, carriage corrects (0.02 mm/px at ~20 mm field)                +/-0.030  fits
+  Where the +/-0.25 on overall length sits (tab, box front, or between box and
+  barrels) is not on the drawings; a caliper on kit contacts measures it.
+
+============================================================================
+8. Getting neighbours out of the jaw: lift one conductor out of the ribbon plane
+============================================================================
+  stand  8 mm clear at a 20 deg bend -> split length >=   22 mm (plus ~8 mm straight lead held in the fork)
+  stand  8 mm clear at a 30 deg bend -> split length >=   14 mm (plus ~8 mm straight lead held in the fork)
+  stand  8 mm clear at a 45 deg bend -> split length >=    8 mm (plus ~8 mm straight lead held in the fork)
+  stand 12 mm clear at a 20 deg bend -> split length >=   33 mm (plus ~8 mm straight lead held in the fork)
+  stand 12 mm clear at a 30 deg bend -> split length >=   21 mm (plus ~8 mm straight lead held in the fork)
+  stand 12 mm clear at a 45 deg bend -> split length >=   12 mm (plus ~8 mm straight lead held in the fork)
+  stand 16 mm clear at a 20 deg bend -> split length >=   44 mm (plus ~8 mm straight lead held in the fork)
+  stand 16 mm clear at a 30 deg bend -> split length >=   28 mm (plus ~8 mm straight lead held in the fork)
+  stand 16 mm clear at a 45 deg bend -> split length >=   16 mm (plus ~8 mm straight lead held in the fork)
+  Splay to XH pitch alone moves a 5P's outer conductor 1.6 mm [xh-facts §7];
+  the jaw needs far more room than the housing does.
+
+============================================================================
+9. Tab shear and pull proof
+============================================================================
+  tab 0.8 x 0.20 mm, shear 250 MPa ->    40 N
+  tab 0.8 x 0.20 mm, shear 400 MPa ->    64 N
+  tab 1.0 x 0.20 mm, shear 250 MPa ->    50 N
+  tab 1.0 x 0.20 mm, shear 400 MPa ->    80 N
+  tab 1.2 x 0.20 mm, shear 250 MPa ->    60 N
+  tab 1.2 x 0.20 mm, shear 400 MPa ->    96 N
+  proof pull at 50% of JST's 39.2 N minimum = 19.6 N
+  proof pull at 60% of JST's 39.2 N minimum = 23.5 N
+  A carriage pulling through a spring to ~20-25 N screens gross failures without
+  destroying a good crimp [assumption; proof loads are not a JST procedure].
+
+============================================================================
+10. Time per unit
+============================================================================
+  index to next conductor / lift it                          8 s
+  load contact (stub, post or chute) and hold one click     15 s
+  feed conductor to depth, continuity check                 12 s
+  squeeze full stroke at ~2 mm/s                            25 s
+  open, camera frame                                         8 s
+  proof pull                                                10 s
+  unload (and tab cut if stub-fed)                          15 s
+  per crimp ~93 s -> 53 crimps ~82 min machine time per unit
+  at 3x slower (retries, dwell) ~246 min
+  Person: 14 ribbon ends to clamp, contacts to stage.
+
+============================================================================
+11. Two-squeeze plier (idea a5): force per squeeze and moves between squeezes
+============================================================================
+  gain 5: conductor barrel alone at 0.75 kN needs  150 N at the grip
+  gain 5: conductor barrel alone at 1.50 kN needs  300 N at the grip
+  gain 5: conductor barrel alone at 2.30 kN needs  460 N at the grip
+  gain 8: conductor barrel alone at 0.75 kN needs   94 N at the grip
+  gain 8: conductor barrel alone at 1.50 kN needs  188 N at the grip
+  gain 8: conductor barrel alone at 2.30 kN needs  288 N at the grip
+  axial move from conductor-die to insulation-die position: 1.5-2.5 mm plus the lateral nest spacing (measure on the tool)

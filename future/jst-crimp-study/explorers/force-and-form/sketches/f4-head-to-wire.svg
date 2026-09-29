@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 600" width="880" height="600" role="img" aria-labelledby="t d">
+<title id="t">f4 crimp head goes to the wire, schematic top view</title>
+<desc id="d">The ribbon end lies still in a printed comb board after a split into planes; a steel C-frame crimp head on a gantry picks a contact box-first from a strip dispenser whose drop-shear cuts the tab, probes the tip, threads the contact onto the still conductor, crimps, and leaves toward the box.</desc>
+<style>
+.bg{fill:#fcfcfb}
+text{font-family:system-ui,-apple-system,Segoe UI,Helvetica,Arial,sans-serif;fill:#0b0b0b;font-size:12px}
+.t2{fill:#52514e;font-size:11px}.h{font-size:15px;font-weight:600}.sm{font-size:10px;fill:#52514e}
+.steel{fill:#c9c8c2;stroke:#52514e;stroke-width:1.2}
+.dark{fill:#8f8e88;stroke:#3d3c39;stroke-width:1.2}
+.bought{fill:#dcdad2;stroke:#52514e;stroke-width:1.2;stroke-dasharray:4 2}
+.print{fill:#cde2fb;stroke:#2a78d6;stroke-width:1.2}
+.contact{fill:#eda100;stroke:#7a5300;stroke-width:1}
+.wire{stroke:#eb6834;stroke-width:4;fill:none;stroke-linecap:round}
+.wirefill{fill:#eb6834;stroke:#8c3a17;stroke-width:1}
+.strand{stroke:#8c3a17;stroke-width:1;fill:none}
+.force{stroke:#e34948;stroke-width:2.5;fill:none}
+.forcefill{fill:#e34948}
+.move{stroke:#2a78d6;stroke-width:1.8;fill:none;stroke-dasharray:5 3}
+.movefill{fill:#2a78d6}
+.ln{stroke:#52514e;stroke-width:1.2;fill:none}
+.thin{stroke:#8a8984;stroke-width:1;fill:none;stroke-dasharray:3 3}
+.box{fill:none;stroke:#8a8984;stroke-width:1}
+@media (prefers-color-scheme: dark){
+.bg{fill:#1a1a19} text{fill:#ffffff} .t2,.sm{fill:#c3c2b7}
+.steel{fill:#4a4a47;stroke:#c3c2b7}.dark{fill:#6b6a66;stroke:#d8d7d0}
+.bought{fill:#33332f;stroke:#c3c2b7}.print{fill:#1c3a5e;stroke:#3987e5}
+.contact{fill:#c98500;stroke:#f3c56a}.wire{stroke:#d95926}.wirefill{fill:#d95926;stroke:#f0a07e}
+.strand{stroke:#f0a07e}.force{stroke:#e66767}.forcefill{fill:#e66767}
+.move{stroke:#3987e5}.movefill{fill:#3987e5}.ln{stroke:#c3c2b7}.thin{stroke:#8a8984}.box{stroke:#6b6a66}}
+</style>
+<defs><marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="forcefill" d="M0,0 L10,5 L0,10 z"/></marker><marker id="am" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="movefill" d="M0,0 L10,5 L0,10 z"/></marker></defs>
+<rect class="bg" width="880" height="600"/>
+<text class="h" x="20" y="28" text-anchor="start">f4  The head goes to the wire: the ribbon never moves</text>
+<text class="t2" x="20" y="46" text-anchor="start">schematic, not to scale; top view (side section of the head: f4b)</text>
+<rect class="print" x="40" y="110" width="300" height="290" rx="6"/>
+<text class="sm" x="50" y="128" text-anchor="start">ribbon board (printed): clamp + comb</text>
+<rect class="bought" x="40" y="210" width="110" height="80" rx="0"/>
+<text class="sm" x="48" y="305" text-anchor="start">web clamp = split root</text>
+<polyline class="wire" points="150,238.75 230,175 330,175"/>
+<line class="strand" x1="330" y1="175" x2="350" y2="175"/>
+<polyline class="wire" points="150,246.25 230,225 330,225"/>
+<line class="strand" x1="330" y1="225" x2="350" y2="225"/>
+<polyline class="wire" points="150,253.75 230,275 330,275"/>
+<line class="strand" x1="330" y1="275" x2="350" y2="275"/>
+<polyline class="wire" points="150,261.25 230,325 330,325"/>
+<line class="strand" x1="330" y1="325" x2="350" y2="325"/>
+<rect class="print" x="290" y="160" width="18" height="180" rx="0"/>
+<text class="sm" x="170" y="356" text-anchor="start">plane A in a 5 mm comb, stripped</text>
+<text class="sm" x="170" y="368" text-anchor="start">after the spread; plane B</text>
+<text class="sm" x="170" y="380" text-anchor="start">folded back under the clamp</text>
+<rect class="print" x="470" y="76" width="300" height="26" rx="3"/>
+<rect class="contact" x="480" y="82" width="14" height="14" rx="0"/>
+<rect class="contact" x="514" y="82" width="14" height="14" rx="0"/>
+<rect class="contact" x="548" y="82" width="14" height="14" rx="0"/>
+<rect class="contact" x="582" y="82" width="14" height="14" rx="0"/>
+<rect class="contact" x="616" y="82" width="14" height="14" rx="0"/>
+<rect class="contact" x="650" y="82" width="14" height="14" rx="0"/>
+<rect class="contact" x="684" y="82" width="14" height="14" rx="0"/>
+<rect class="contact" x="718" y="82" width="14" height="14" rx="0"/>
+<text class="sm" x="470" y="70" text-anchor="start">strip dispenser: flush pilot pin, servo drop-shear outside the head's mouth</text>
+<line class="thin" x1="360" y1="140" x2="840" y2="140"/>
+<text class="sm" x="640" y="134" text-anchor="start">gantry (printer-class or 3018)</text>
+<rect class="steel" x="356" y="262" width="80" height="26" rx="4"/>
+<rect class="steel" x="436" y="250" width="16" height="50" rx="2"/>
+<rect class="contact" x="348" y="269" width="14" height="12" rx="0"/>
+<text class="sm" x="360" y="256" text-anchor="start">head: mouth toward the comb</text>
+<text class="sm" x="440" y="314" text-anchor="start">spine</text>
+<line class="move" x1="620" y1="106" x2="470" y2="240" marker-end="url(#am)"/>
+<text class="sm" x="560" y="180" text-anchor="start">1 pick box-first into the mouth;</text>
+<text class="sm" x="560" y="192" text-anchor="start">anvil up, capture, tab sheared outside</text>
+<line class="move" x1="470" y1="300" x2="452" y2="300" marker-end="url(#am)"/>
+<text class="sm" x="470" y="318" text-anchor="start">2 camera + tip probe (captured barrel's rim touches the tip;</text>
+<text class="sm" x="470" y="331" text-anchor="start">   the far end reads it): X, Z, Y and identity</text>
+<text class="sm" x="470" y="344" text-anchor="start">3 slide the contact onto the still conductor, camera-set depth</text>
+<text class="sm" x="470" y="357" text-anchor="start">4 knee to straight; force closes inside the head</text>
+<text class="sm" x="470" y="370" text-anchor="start">5 open 5 mm, drop the anvil 1.5 mm, leave toward the box</text>
+<line class="move" x1="460" y1="275" x2="520" y2="275" marker-end="url(#am)"/>
+<text class="t2" x="40" y="428" text-anchor="start">Then: lift crimped plane A out of the comb and park it at the split root; crimp plane B in the same comb;</text>
+<text class="t2" x="40" y="444" text-anchor="start">unpark both into a 2.5 mm comb (the half-rows interleave exactly) and move a housing onto the whole row.</text>
+<text class="t2" x="40" y="460" text-anchor="start">Or no planes at all: f10 keeps the ribbon flat at 2.5 mm, lifts one conductor 3.5 mm, and the same C crimps at a fixed station.</text>
+<text class="t2" x="40" y="476" text-anchor="start">Hands back: splitting, laying the comb board (J4/J7 crossings on raised routes), strip loading, the housing move.</text>
+<text class="t2" x="40" y="492" text-anchor="start">Gantry sees positioning loads only (a few N).</text>
+<rect class="steel" x="40" y="555" width="14" height="12" rx="0"/>
+<text class="sm" x="60" y="565" text-anchor="start">steel (force path, dies)</text>
+<rect class="print" x="215" y="555" width="14" height="12" rx="0"/>
+<text class="sm" x="235" y="565" text-anchor="start">printed</text>
+<rect class="bought" x="390" y="555" width="14" height="12" rx="0"/>
+<text class="sm" x="410" y="565" text-anchor="start">bought motion / sensing</text>
+<rect class="contact" x="565" y="555" width="14" height="12" rx="0"/>
+<text class="sm" x="585" y="565" text-anchor="start">XH contact</text>
+<line class="wire" x1="740" y1="561" x2="762" y2="561"/>
+<text class="sm" x="768" y="565" text-anchor="start">conductor</text>
+</svg>

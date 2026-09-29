@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" font-family="Helvetica, Arial, sans-serif" font-size="12">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#333"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="1000" height="400" fill="#ffffff"/>
+  <text x="20" y="24" font-size="16" font-weight="bold" fill="#111">c5 Ends as stock: the machine makes XH-ended ribbon in runs; the build cuts it to length</text>
+  <text x="20" y="42" fill="#555">schematic flow</text>
+
+  <!-- spool -->
+  <circle cx="80" cy="140" r="50" fill="#eee" stroke="#333"/>
+  <circle cx="80" cy="140" r="14" fill="#fff" stroke="#333"/>
+  <text x="40" y="215" fill="#111">4P spool, 15.2 m</text>
+  <text x="40" y="231" fill="#555">(5P / 3P for later runs)</text>
+  <path d="M120,110 C160,100 180,130 210,130" fill="none" stroke="#111" stroke-width="6"/>
+  <!-- belt feed -->
+  <rect x="210" y="115" width="60" height="30" rx="8" fill="#9ab" stroke="#345"/>
+  <text x="206" y="165" fill="#234">belt feed +</text>
+  <text x="206" y="179" fill="#234">encoder wheel</text>
+  <line x1="270" y1="130" x2="310" y2="130" stroke="#111" stroke-width="6"/>
+  <!-- termination -->
+  <rect x="310" y="95" width="170" height="70" fill="#f3e2b0" stroke="#8a6d1f"/>
+  <text x="320" y="118" font-weight="bold" fill="#111">terminate the leading end</text>
+  <text x="320" y="134" fill="#111">c1 half-rows, c1b + crimp,</text>
+  <text x="320" y="150" fill="#111">or any explorer's station</text>
+  <line x1="480" y1="130" x2="520" y2="130" stroke="#333" stroke-width="2" marker-end="url(#arr)"/>
+  <!-- tester -->
+  <rect x="520" y="105" width="118" height="50" fill="#dfe8f5" stroke="#345"/>
+  <text x="528" y="122" fill="#111">real-wafer test:</text>
+  <text x="528" y="137" fill="#111">order, opens,</text><text x="528" y="151" fill="#111">shorts</text><text x="528" y="152" fill="#111"></text>
+  <line x1="638" y1="130" x2="670" y2="130" stroke="#333" stroke-width="2" marker-end="url(#arr)"/>
+  <!-- feed out + cut -->
+  <rect x="670" y="105" width="120" height="50" fill="#eee" stroke="#333"/>
+  <text x="678" y="126" fill="#111">feed out 400 or</text>
+  <text x="678" y="142" fill="#111">700 mm, guillotine</text>
+  <line x1="730" y1="155" x2="730" y2="200" stroke="#333" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="742" y="185" fill="#555">the cut is also the next end's flush cut</text>
+  <!-- bins -->
+  <g fill="#f7f7f7" stroke="#333">
+    <rect x="640" y="205" width="80" height="60"/><rect x="730" y="205" width="80" height="60"/><rect x="820" y="205" width="80" height="60"/>
+  </g>
+  <text x="648" y="240" fill="#111">T4 short</text><text x="738" y="240" fill="#111">T4 long</text><text x="828" y="240" fill="#111">T5, T9 ...</text>
+
+  <!-- build time -->
+  <line x1="20" y1="290" x2="980" y2="290" stroke="#ccc"/>
+  <text x="25" y="312" font-weight="bold" fill="#111">At unit build (person):</text>
+  <text x="25" y="332" fill="#111">take an end of the right type -> cut to the loom's length at the free end -> peel branches -> make the far end</text>
+  <text x="25" y="348" fill="#111">(Fastons, ferrules, 110 IDC, screw terminals). J4 and J7 ends are tagged when made: same XHP-7 housing, a swap is a wiring fault.</text>
+  <text x="25" y="376" fill="#111">T4 (4P into XHP-4: J3, J5, J9, J11, J13) = 5 of 10 housings and 20 of 53 crimps per unit; a first machine can make only T4.</text>
+</svg>
