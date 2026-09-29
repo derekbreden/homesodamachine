@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1450" height="900" viewBox="0 0 1450 900">
+<defs><marker id="arr" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 z" fill="#333"/></marker><marker id="arrs" markerWidth="10" markerHeight="8" refX="1" refY="4" orient="auto"><path d="M10,0 L0,4 L10,8 z" fill="#333"/></marker></defs>
+<rect width="100%" height="100%" fill="#fcfcf8"/>
+<text x="14.0" y="28.0" font-family="Helvetica,Arial,sans-serif" font-size="18" font-weight="bold" fill="#222" text-anchor="start">b3  A cheap printer gantry carries a narrow crimp head to a fanned ribbon (the head goes to the wire)</text>
+<rect x="10.0" y="44.0" width="820.0" height="810.0" rx="0" fill="none" fill-opacity="1.0" stroke="#bbb" stroke-width="1"/>
+<text x="18.0" y="62.0" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="bold" fill="#333" text-anchor="start">Plan on the printer bed (schematic)</text>
+<rect x="840.0" y="44.0" width="600.0" height="810.0" rx="0" fill="none" fill-opacity="1.0" stroke="#bbb" stroke-width="1"/>
+<text x="848.0" y="62.0" font-family="Helvetica,Arial,sans-serif" font-size="13" font-weight="bold" fill="#333" text-anchor="start">Elevation through the head (schematic)</text>
+<rect x="100.0" y="220.0" width="360.0" height="380.0" rx="0" fill="#8fb8de" fill-opacity="0.8" stroke="#222" stroke-width="1.2"/>
+<text x="110.0" y="240.0" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">fan fixture (printed): grooves + clamp bar, no trim steps</text>
+<rect x="20.0" y="380.0" width="230.0" height="70.0" rx="0" fill="#3a3a3a" fill-opacity="1.0" stroke="#3a3a3a" stroke-width="1.2"/>
+<path d="M250,386 C330,386 360,339 440,339 L 506,339" fill="none" fill-opacity="1.0" stroke="#3a3a3a" stroke-width="11"/>
+<line x1="506.0" y1="339.0" x2="532.0" y2="339.0" stroke="#c87533" stroke-width="5"/>
+<path d="M250,400 C330,400 360,377 440,377 L 516,377" fill="none" fill-opacity="1.0" stroke="#3a3a3a" stroke-width="11"/>
+<line x1="515.5" y1="377.0" x2="541.5" y2="377.0" stroke="#c87533" stroke-width="5"/>
+<path d="M250,414 C330,414 360,415 440,415 L 525,415" fill="none" fill-opacity="1.0" stroke="#3a3a3a" stroke-width="11"/>
+<line x1="525.0" y1="415.0" x2="551.0" y2="415.0" stroke="#c87533" stroke-width="5"/>
+<path d="M250,428 C330,428 360,453 440,453 L 516,453" fill="none" fill-opacity="1.0" stroke="#3a3a3a" stroke-width="11"/>
+<line x1="515.5" y1="453.0" x2="541.5" y2="453.0" stroke="#c87533" stroke-width="5"/>
+<path d="M250,442 C330,442 360,491 440,491 L 506,491" fill="none" fill-opacity="1.0" stroke="#3a3a3a" stroke-width="11"/>
+<line x1="506.0" y1="491.0" x2="532.0" y2="491.0" stroke="#c87533" stroke-width="5"/>
+<path d="M 506,339 Q 540,415 506,491" fill="none" fill-opacity="1.0" stroke="#d62828" stroke-width="1.2" stroke-dasharray="4,3"/>
+<text x="520.0" y="520.0" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#d62828" text-anchor="start">tips at equal along-conductor distance</text>
+<text x="520.0" y="534.3" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#d62828" text-anchor="start">from the root: strip line cut while flat</text>
+<text x="520.0" y="548.6" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#d62828" text-anchor="start">(b6 rip + slug, b4 scores, or p7)</text>
+<line x1="460.0" y1="230.0" x2="460.0" y2="600.0" stroke="#666" stroke-width="1.2" stroke-dasharray="4,3"/>
+<text x="300.0" y="660.0" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">fan pitch 3.6-6.4 mm for die sets 4.5-10 mm wide [calc geometry s2]</text>
+<rect x="540.0" y="391.0" width="42.0" height="48.0" rx="0" fill="#9aa5ad" fill-opacity="0.85" stroke="#222" stroke-width="1.2"/>
+<rect x="582.0" y="355.0" width="130.0" height="120.0" rx="0" fill="#d9d9d9" fill-opacity="0.7" stroke="#222" stroke-width="1.2"/>
+<text x="590.0" y="395.0" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">head body:</text>
+<text x="590.0" y="409.3" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">motor + crank</text>
+<text x="590.0" y="423.6" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">inside</text>
+<line x1="561.0" y1="395.0" x2="560.0" y2="332.0" stroke="#666" stroke-width="0.8"/>
+<circle cx="561.0" cy="395.0" r="1.8" fill="#666" fill-opacity="1.0" stroke="#666" stroke-width="1.2"/>
+<text x="560.0" y="330.0" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="middle">narrow dies + V-fork</text>
+<rect x="560.0" y="110.0" width="240.0" height="26.0" rx="0" fill="#8fb8de" fill-opacity="1.0" stroke="#222" stroke-width="1.2"/>
+<rect x="575.0" y="136.0" width="14.0" height="42.0" rx="0" fill="#c9a45c" fill-opacity="0.6" stroke="#222" stroke-width="0.6"/>
+<rect x="615.0" y="136.0" width="14.0" height="42.0" rx="0" fill="#c9a45c" fill-opacity="0.6" stroke="#222" stroke-width="0.6"/>
+<rect x="655.0" y="136.0" width="14.0" height="42.0" rx="0" fill="#c9a45c" fill-opacity="0.6" stroke="#222" stroke-width="0.6"/>
+<rect x="695.0" y="136.0" width="14.0" height="42.0" rx="0" fill="#c9a45c" fill-opacity="0.6" stroke="#222" stroke-width="0.6"/>
+<rect x="735.0" y="136.0" width="14.0" height="42.0" rx="0" fill="#c9a45c" fill-opacity="0.6" stroke="#222" stroke-width="0.6"/>
+<rect x="775.0" y="136.0" width="14.0" height="42.0" rx="0" fill="#c9a45c" fill-opacity="0.6" stroke="#222" stroke-width="0.6"/>
+<text x="560.0" y="104.0" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">strip feeder at the frame side: pawl on a flat run + tapered pin</text>
+<rect x="640.0" y="700.0" width="150.0" height="40.0" rx="0" fill="#8fb8de" fill-opacity="1.0" stroke="#222" stroke-width="1.2"/>
+<rect x="660.0" y="708.0" width="110.0" height="24.0" rx="0" fill="#eee" fill-opacity="1.0" stroke="#222" stroke-width="1.2"/>
+<text x="640.0" y="760.0" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">housing nest + converging comb</text>
+<line x1="800.0" y1="600.0" x2="800.0" y2="680.0" stroke="#222" stroke-width="1.2" marker-end="url(#arr)" marker-start="url(#arrs)"/>
+<text x="700.0" y="630.0" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">carriage: across</text>
+<line x1="300.0" y1="740.0" x2="440.0" y2="740.0" stroke="#222" stroke-width="1.2" marker-end="url(#arr)" marker-start="url(#arrs)"/>
+<text x="300.0" y="760.0" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">bed: along the wire (slides the conductor into the contact)</text>
+<text x="20.0" y="800.0" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">Fronts in the housing land short only by the housing fan: 4P 0.04, 5P 0.06, J4 0.14, J1 0.25 mm</text>
+<text x="20.0" y="814.3" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">at 20 mm free length [calc wave3 s7]. The printer carries positions only; crimp force stays in the head.</text>
+<rect x="870.0" y="429.0" width="180.0" height="20.0" rx="0" fill="#8fb8de" fill-opacity="1.0" stroke="#222" stroke-width="1.2"/>
+<rect x="870.0" y="463.0" width="180.0" height="60.0" rx="0" fill="#8fb8de" fill-opacity="1.0" stroke="#222" stroke-width="1.2"/>
+<text x="875.0" y="500.0" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">fixture + clamp bar</text>
+<rect x="870.0" y="449.0" width="250.0" height="12.0" rx="0" fill="#3a3a3a" fill-opacity="1.0" stroke="#3a3a3a" stroke-width="1.2"/>
+<rect x="1120.0" y="452.0" width="40.0" height="6.0" rx="0" fill="#c87533" fill-opacity="1.0" stroke="#c87533" stroke-width="1.2"/>
+<rect x="1300.0" y="220.0" width="40.0" height="330.0" rx="0" fill="#9aa5ad" fill-opacity="0.8" stroke="#222" stroke-width="1.2"/>
+<rect x="1100.0" y="500.0" width="240.0" height="30.0" rx="0" fill="#9aa5ad" fill-opacity="0.8" stroke="#222" stroke-width="1.2"/>
+<text x="1170.0" y="522.0" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">fixed lower arm</text>
+<rect x="1120.0" y="463.0" width="100.0" height="37.0" rx="0" fill="#9aa5ad" fill-opacity="1.0" stroke="#222" stroke-width="1.2"/>
+<text x="1130.0" y="487.0" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">anvil</text>
+<rect x="1108.0" y="475.0" width="10.0" height="40.0" rx="0" fill="#d62828" fill-opacity="0.7" stroke="#222" stroke-width="1.2"/>
+<line x1="1112.0" y1="510.0" x2="900.0" y2="606.0" stroke="#666" stroke-width="0.8"/>
+<circle cx="1112.0" cy="510.0" r="1.8" fill="#666" fill-opacity="1.0" stroke="#666" stroke-width="1.2"/>
+<text x="900.0" y="610.0" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">drop blade at the anvil's rear edge: cuts the tab at its root, beside the pinch</text>
+<rect x="1110.0" y="360.0" width="190.0" height="30.0" rx="0" fill="#9aa5ad" fill-opacity="0.8" stroke="#222" stroke-width="1.2"/>
+<text x="1150.0" y="380.0" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">sliding punch holder</text>
+<rect x="1130.0" y="390.0" width="90.0" height="50.0" rx="0" fill="#9aa5ad" fill-opacity="1.0" stroke="#222" stroke-width="1.2"/>
+<text x="1140.0" y="420.0" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">punches</text>
+<rect x="1225.0" y="395.0" width="5.0" height="55.0" rx="0" fill="#d62828" fill-opacity="1.0" stroke="#222" stroke-width="1.2"/>
+<line x1="1227.0" y1="420.0" x2="1346.0" y2="426.0" stroke="#666" stroke-width="0.8"/>
+<circle cx="1227.0" cy="420.0" r="1.8" fill="#666" fill-opacity="1.0" stroke="#666" stroke-width="1.2"/>
+<text x="1346.0" y="430.0" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">neck blade</text>
+<polygon points="1075.0,431.0 1100.0,447.0 1100.0,463.0 1075.0,479.0" fill="#8fb8de" fill-opacity="1.0" stroke="#222" stroke-width="1.2"/>
+<line x1="1080.0" y1="435.0" x2="900.0" y2="302.0" stroke="#666" stroke-width="0.8"/>
+<circle cx="1080.0" cy="435.0" r="1.8" fill="#666" fill-opacity="1.0" stroke="#666" stroke-width="1.2"/>
+<text x="900.0" y="300.0" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">V-fork on the head's rear face</text>
+<line x1="1255.0" y1="320.0" x2="1255.0" y2="358.0" stroke="#222" stroke-width="1.2" marker-end="url(#arr)"/>
+<circle cx="1255.0" cy="290.0" r="26.0" fill="#9aa5ad" fill-opacity="0.6" stroke="#222" stroke-width="1.2"/>
+<rect x="1180.0" y="240.0" width="60.0" height="50.0" rx="0" fill="#d9d9d9" fill-opacity="1.0" stroke="#222" stroke-width="1.2"/>
+<text x="1060.0" y="200.0" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">NEMA 17 + planetary + 3 mm crank:</text>
+<text x="1060.0" y="214.3" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">the crimp force closes inside the C</text>
+<rect x="1150.0" y="110.0" width="200.0" height="40.0" rx="0" fill="#d9d9d9" fill-opacity="1.0" stroke="#222" stroke-width="1.2"/>
+<text x="1160.0" y="135.0" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">printer X carriage</text>
+<line x1="1320.0" y1="150.0" x2="1320.0" y2="220.0" stroke="#222" stroke-width="3"/>
+<text x="860.0" y="690.0" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">The head picks the lead contact, closes to captive and cuts the tab on the anvil's rear edge;</text>
+<text x="860.0" y="704.3" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">the neck blade drops in; the bed slides the conductor into the open barrels until the strands</text>
+<text x="860.0" y="718.6" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">touch the blade; then the crank crimps.</text>
+<rect x="20.0" y="880.0" width="14.0" height="12.0" rx="0" fill="#8fb8de" fill-opacity="1.0" stroke="#222" stroke-width="0.8"/>
+<text x="40.0" y="890.0" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">printed</text>
+<rect x="170.0" y="880.0" width="14.0" height="12.0" rx="0" fill="#d9d9d9" fill-opacity="1.0" stroke="#222" stroke-width="0.8"/>
+<text x="190.0" y="890.0" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">bought / borrowed</text>
+<rect x="320.0" y="880.0" width="14.0" height="12.0" rx="0" fill="#9aa5ad" fill-opacity="1.0" stroke="#222" stroke-width="0.8"/>
+<text x="340.0" y="890.0" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">steel</text>
+<rect x="470.0" y="880.0" width="14.0" height="12.0" rx="0" fill="#3a3a3a" fill-opacity="1.0" stroke="#222" stroke-width="0.8"/>
+<text x="490.0" y="890.0" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">ribbon / conductor</text>
+<rect x="620.0" y="880.0" width="14.0" height="12.0" rx="0" fill="#c87533" fill-opacity="1.0" stroke="#222" stroke-width="0.8"/>
+<text x="640.0" y="890.0" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">stripped strands</text>
+<rect x="770.0" y="880.0" width="14.0" height="12.0" rx="0" fill="#c9a45c" fill-opacity="1.0" stroke="#222" stroke-width="0.8"/>
+<text x="790.0" y="890.0" font-family="Helvetica,Arial,sans-serif" font-size="11" font-weight="normal" fill="#222" text-anchor="start">XH contact</text>
+</svg>

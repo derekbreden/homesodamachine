@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="580" viewBox="0 0 1000 580" font-family="Helvetica, Arial, sans-serif" font-size="12">
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#222222"/></marker><marker id="arrb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2a5d9f"/></marker><marker id="arrr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#b03030"/></marker></defs>
+<rect width="1000" height="580" fill="#ffffff"/>
+<text x="20" y="28" font-size="16" font-weight="bold" fill="#222222">p2 Still ribbon, tools come to it (schematic, side view)</text>
+<text x="20.0" y="47.0" font-size="11" fill="#555" text-anchor="start" font-weight="normal">The ribbon end is clamped once and never re-gripped. The y carriage selects conductor, post or cavity; a drum turret (rotate + x) brings each tool.</text>
+<rect x="40.0" y="300.0" width="420.0" height="20.0" rx="0" fill="#ddd" stroke="#888888" stroke-width="1.2"/>
+<text x="50.0" y="335.0" font-size="10" fill="#222222" text-anchor="start" font-weight="normal">y carriage (into the page): conductor k, a contact post, or a housing cavity to the work line</text>
+<rect x="60.0" y="230.0" width="150.0" height="70.0" rx="0" fill="#e8eef7" stroke="#2a5d9f" stroke-width="1.2"/>
+<text x="70.0" y="255.0" font-size="10" fill="#2a5d9f" text-anchor="start" font-weight="normal">work clamp + comb;</text>
+<text x="70.0" y="268.0" font-size="10" fill="#2a5d9f" text-anchor="start" font-weight="normal">far end in a pogo</text>
+<text x="70.0" y="281.0" font-size="10" fill="#2a5d9f" text-anchor="start" font-weight="normal">block on the carriage</text>
+<line x1="210.0" y1="250.0" x2="380.0" y2="250.0" stroke="#111" stroke-width="7"/>
+<line x1="380.0" y1="250.0" x2="410.0" y2="250.0" stroke="#c77d10" stroke-width="3"/>
+<text x="250.0" y="238.0" font-size="10" fill="#222222" text-anchor="start" font-weight="normal">conductor k, lifted once by the selector</text>
+<rect x="290.0" y="262.0" width="12.0" height="38.0" rx="0" fill="#999" stroke="#222222" stroke-width="1.2"/>
+<text x="240.0" y="290.0" font-size="10" fill="#222222" text-anchor="start" font-weight="normal">selector</text>
+<rect x="230.0" y="360.0" width="120.0" height="34.0" rx="0" fill="#fbeaea" stroke="#b03030" stroke-width="1.2"/>
+<text x="238.0" y="381.0" font-size="10" fill="#b03030" text-anchor="start" font-weight="normal">contact posts (on y)</text>
+<rect x="370.0" y="360.0" width="80.0" height="34.0" rx="0" fill="#e8eef7" stroke="#2a5d9f" stroke-width="1.2"/>
+<text x="376.0" y="381.0" font-size="10" fill="#2a5d9f" text-anchor="start" font-weight="normal">housing nest</text>
+<circle cx="690.0" cy="250.0" r="150.0" fill="#f7f7f7" stroke="#888888" stroke-width="1.2"/>
+<rect x="542.0" y="232.0" width="76.0" height="36.0" rx="4" fill="#fff" stroke="#2a5d9f" stroke-width="1.6"/>
+<text x="546.0" y="248.0" font-size="9" fill="#2a5d9f" text-anchor="start" font-weight="normal">strip jaws</text>
+<rect x="597.0" y="136.7" width="76.0" height="36.0" rx="4" fill="#fff" stroke="#b03030" stroke-width="1.6"/>
+<text x="601.0" y="152.7" font-size="9" fill="#b03030" text-anchor="start" font-weight="normal">crimp head</text>
+<text x="601.0" y="164.7" font-size="9" fill="#b03030" text-anchor="start" font-weight="normal">C, T or F</text>
+<rect x="707.0" y="136.7" width="76.0" height="36.0" rx="4" fill="#fff" stroke="#2f7d4f" stroke-width="1.6"/>
+<text x="711.0" y="152.7" font-size="9" fill="#2f7d4f" text-anchor="start" font-weight="normal">camera +</text>
+<text x="711.0" y="164.7" font-size="9" fill="#2f7d4f" text-anchor="start" font-weight="normal">ring light</text>
+<rect x="762.0" y="232.0" width="76.0" height="36.0" rx="4" fill="#fff" stroke="#2a5d9f" stroke-width="1.6"/>
+<text x="766.0" y="248.0" font-size="9" fill="#2a5d9f" text-anchor="start" font-weight="normal">insertion</text>
+<text x="766.0" y="260.0" font-size="9" fill="#2a5d9f" text-anchor="start" font-weight="normal">gripper</text>
+<rect x="707.0" y="327.3" width="76.0" height="36.0" rx="4" fill="#fff" stroke="#c77d10" stroke-width="1.6"/>
+<text x="711.0" y="343.3" font-size="9" fill="#c77d10" text-anchor="start" font-weight="normal">trim blade</text>
+<rect x="597.0" y="327.3" width="76.0" height="36.0" rx="4" fill="#fff" stroke="#c77d10" stroke-width="1.6"/>
+<text x="601.0" y="343.3" font-size="9" fill="#c77d10" text-anchor="start" font-weight="normal">web splitter</text>
+<line x1="575.0" y1="250.0" x2="460.0" y2="250.0" stroke="#b03030" stroke-width="2" marker-end="url(#arrr)"/>
+<text x="470.0" y="215.0" font-size="10" fill="#b03030" text-anchor="start" font-weight="normal">x: the tool at 9 o'clock</text>
+<text x="470.0" y="228.0" font-size="10" fill="#b03030" text-anchor="start" font-weight="normal">approaches along the wire</text>
+<text x="40.0" y="450.0" font-size="10" fill="#222222" text-anchor="start" font-weight="normal">Crimp heads, each upright and each closing its force inside itself:</text>
+<text x="40.0" y="463.0" font-size="10" fill="#222222" text-anchor="start" font-weight="normal">  C  strip-fed C-frame: conductor enters the open contact axially over the carrier; lead-in halves part after the stroke so the crimp can leave.</text>
+<text x="40.0" y="476.0" font-size="10" fill="#222222" text-anchor="start" font-weight="normal">  T  SN-2549 on its side (p1c): picks a cut-free contact, closes only to wing touch; lift 8.7-14.7 mm.</text>
+<text x="40.0" y="489.0" font-size="10" fill="#222222" text-anchor="start" font-weight="normal">  F  steel C with a fin from below (p1d): the lower arm slides under the cantilevered tips; lift 3.5 mm.</text>
+<text x="40.0" y="502.0" font-size="10" fill="#222222" text-anchor="start" font-weight="normal">Per conductor: y to k, lift, strip, crimp (identity at the end of the curl), look, then the gripper bows the conductor ~10 mm and pushes the</text>
+<text x="40.0" y="515.0" font-size="10" fill="#222222" text-anchor="start" font-weight="normal">contact into its cavity; or, in branch p2', the housing slides onto every contact at once.</text>
+</svg>

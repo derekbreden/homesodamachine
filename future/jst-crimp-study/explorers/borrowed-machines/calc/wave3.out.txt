@@ -1,0 +1,191 @@
+
+==============================================================================
+0. Which way the rod's obliquity term goes, for a crank ABOVE the ram (b1b, b1c)
+==============================================================================
+    40 deg from BDC: vector geometry  3.975 mm; '+' formula  3.975; '-' formula  3.043
+    46 deg from BDC: vector geometry  5.164 mm; '+' formula  5.164; '-' formula  3.996
+    90 deg from BDC: vector geometry 16.131 mm; '+' formula 16.131; '-' formula 13.869
+  -> with the crank above the ram (b1b's crank unit under the press's top beam), the ram's lowest
+     point is the rod's straight-in-line position and the obliquity term ADDS: 4 mm up at 40 deg from
+     BDC (220 deg from TDC). The '-' form (226 deg, 274-293 deg in terminal-supply's s6) is the
+     geometry of a crank below a ram it pulls down. This file uses the '+' form throughout.
+
+==============================================================================
+1. Slider-crank angles for ram heights (0 deg = TDC, 180 = BDC)
+==============================================================================
+  OTP mini-applicators for the Chinese 1.5-2 t presses: 30 mm stroke [source: Sanao, in b1];
+  JST CDS SXH001-06/CMKS-L: 40 mm stroke [facts s2]. Rod 100 mm [estimate].
+
+  stroke 30 mm (crank 15 mm, rod 100 mm)
+    ram  4.0 mm above BDC: downstroke  139.9 deg, upstroke  220.1 deg   crimpers clear the box (box 2.2-2.4 tall + margin) [TS s6]
+    ram  6.0 mm above BDC: downstroke  130.1 deg, upstroke  229.9 deg   
+    ram 15.0 mm above BDC: downstroke   94.3 deg, upstroke  265.7 deg   feed finger band, low end [b1b assumption, jack test measures it]
+    ram 20.0 mm above BDC: downstroke   74.7 deg, upstroke  285.3 deg   feed finger band, high end
+    ram 12.0 mm above BDC: downstroke  105.7 deg, upstroke  254.3 deg   ram 12 mm up: fork swing must be done above this [estimate]
+
+  stroke 40 mm (crank 20 mm, rod 100 mm)
+    ram  4.0 mm above BDC: downstroke  146.2 deg, upstroke  213.8 deg   crimpers clear the box (box 2.2-2.4 tall + margin) [TS s6]
+    ram  6.0 mm above BDC: downstroke  138.1 deg, upstroke  221.9 deg   
+    ram 15.0 mm above BDC: downstroke  109.8 deg, upstroke  250.2 deg   feed finger band, low end [b1b assumption, jack test measures it]
+    ram 20.0 mm above BDC: downstroke   95.7 deg, upstroke  264.3 deg   feed finger band, high end
+    ram 12.0 mm above BDC: downstroke  118.5 deg, upstroke  241.5 deg   ram 12 mm up: fork swing must be done above this [estimate]
+    (a 40 mm-stroke applicator's feed band is unmeasured; if it scales with stroke, 20-27 mm up)
+
+==============================================================================
+2. b1c: gate before the feed-finger band, and the squeezed fork swing
+==============================================================================
+  A cam-driven feed lever follows ram height [assumption, WERI-pattern]: on the downstroke the finger
+  retracts to the next hole between 74.7 and 94.3 deg (ram 20 -> 15 mm up).
+  Reversing the shaft through that band re-advances the strip [TS s6].
+    gate at 55 deg: ram 24.4 mm above BDC; margin to the band 19.7 deg
+    gate at 60 deg: ram 23.3 mm above BDC; margin to the band 14.7 deg
+    gate at 62 deg: ram 22.9 mm above BDC; margin to the band 12.7 deg
+
+  Squeezed schedule: tines down 0-10, fork lays in 10-50, foot seats 50-58, gate 60.
+    at   10 deg the ram is  29.8 mm above BDC (crimper faces 29.8 mm over the barrel floor, wing tips at 3.2-3.45 mm)
+    at   50 deg the ram is  25.3 mm above BDC (crimper faces 25.3 mm over the barrel floor, wing tips at 3.2-3.45 mm)
+    at   58 deg the ram is  23.8 mm above BDC (crimper faces 23.8 mm over the barrel floor, wing tips at 3.2-3.45 mm)
+    at   60 deg the ram is  23.3 mm above BDC (crimper faces 23.3 mm over the barrel floor, wing tips at 3.2-3.45 mm)
+
+  Face-cam pressure angle for the fork lever: lever throw 60 deg (3:1 sector -> 180 deg at the fork)
+  over 40 deg of shaft [estimate geometry]; follower arm length a; cam track radius R.
+    arm   15 mm, track R   30 mm, sector 3:1 (lever 60 deg): rise  15.7 mm over  20.9 mm, peak pressure angle 52.9 deg  too steep
+    arm   15 mm, track R   30 mm, sector 4:1 (lever 45 deg): rise  11.8 mm over  20.9 mm, peak pressure angle 44.7 deg  too steep
+    arm   15 mm, track R   45 mm, sector 3:1 (lever 60 deg): rise  15.7 mm over  31.4 mm, peak pressure angle 41.3 deg  too steep
+    arm   15 mm, track R   45 mm, sector 4:1 (lever 45 deg): rise  11.8 mm over  31.4 mm, peak pressure angle 33.4 deg  tight (30-40)
+    arm   15 mm, track R   60 mm, sector 3:1 (lever 60 deg): rise  15.7 mm over  41.9 mm, peak pressure angle 33.4 deg  tight (30-40)
+    arm   15 mm, track R   60 mm, sector 4:1 (lever 45 deg): rise  11.8 mm over  41.9 mm, peak pressure angle 26.3 deg  ok (<= 30 deg)
+    arm   20 mm, track R   30 mm, sector 3:1 (lever 60 deg): rise  20.9 mm over  20.9 mm, peak pressure angle 60.4 deg  too steep
+    arm   20 mm, track R   30 mm, sector 4:1 (lever 45 deg): rise  15.7 mm over  20.9 mm, peak pressure angle 52.9 deg  too steep
+    arm   20 mm, track R   45 mm, sector 3:1 (lever 60 deg): rise  20.9 mm over  31.4 mm, peak pressure angle 49.6 deg  too steep
+    arm   20 mm, track R   45 mm, sector 4:1 (lever 45 deg): rise  15.7 mm over  31.4 mm, peak pressure angle 41.3 deg  too steep
+    arm   20 mm, track R   60 mm, sector 3:1 (lever 60 deg): rise  20.9 mm over  41.9 mm, peak pressure angle 41.3 deg  too steep
+    arm   20 mm, track R   60 mm, sector 4:1 (lever 45 deg): rise  15.7 mm over  41.9 mm, peak pressure angle 33.4 deg  tight (30-40)
+  -> squeezing the 180 deg fork swing into 40 deg of shaft needs a cam track of ~60 mm radius
+     with a 4:1 sector, or the swing driven by its own servo gated by a shaft switch (the fork
+     is light; only the ram and the feed must be tied to the shaft).
+
+==============================================================================
+3. HX711 samples through compaction (last 0.2 mm), 80 Hz
+==============================================================================
+  stroke 30 mm,   10 s per turn: last 0.2 mm spans  8.74 deg =  0.24 s ->    19 samples
+  stroke 30 mm,   20 s per turn: last 0.2 mm spans  8.74 deg =  0.49 s ->    39 samples
+  stroke 30 mm,   40 s per turn: last 0.2 mm spans  8.74 deg =  0.97 s ->    78 samples
+  stroke 40 mm,   10 s per turn: last 0.2 mm spans  7.40 deg =  0.21 s ->    16 samples
+  stroke 40 mm,   20 s per turn: last 0.2 mm spans  7.40 deg =  0.41 s ->    33 samples
+  stroke 40 mm,   40 s per turn: last 0.2 mm spans  7.40 deg =  0.82 s ->    66 samples
+  (p5's eccentric spans 22 deg of compaction [procedure cam_drive s4]; a 15 mm crank spans 8.7 deg)
+
+==============================================================================
+4. Drive limits at the crank
+==============================================================================
+  StepperOnline 10:1 NEMA 23 planetary [Prime]: 10 N*m permissible, 20 N*m momentary.
+  10:1 held to its 10 N*m permissible rating (DM542T current set so): 10.0 N*m at the crank
+     ram force at 0.20 mm above BDC:  3.25 kN
+     ram force at 0.10 mm above BDC:  4.59 kN
+     ram force at 0.05 mm above BDC:  6.48 kN
+     a 4 kN obstruction met above 0.132 mm over BDC stalls the drive; below it the crank pushes through, so the rod stack needs ~0.13 mm of travel past its preload
+  10:1 at the 1.2 N*m motor torque this explorer assumed: 10.8 N*m at the crank
+     ram force at 0.20 mm above BDC:  3.51 kN
+     ram force at 0.10 mm above BDC:  4.95 kN
+     ram force at 0.05 mm above BDC:  7.00 kN
+     a 4 kN obstruction met above 0.154 mm over BDC stalls the drive; below it the crank pushes through, so the rod stack needs ~0.15 mm of travel past its preload
+  10:1 at its 20 N*m momentary rating: 20.0 N*m at the crank
+     ram force at 0.20 mm above BDC:  6.50 kN
+     ram force at 0.10 mm above BDC:  9.17 kN
+     ram force at 0.05 mm above BDC: 12.96 kN
+     a 4 kN obstruction met above 0.535 mm over BDC stalls the drive; below it the crank pushes through, so the rod stack needs ~0.53 mm of travel past its preload
+  Crimp need: 3.8 N*m through a 3 kN design crimp; 5.4 N*m at mid-stroke for 300 N of
+  applicator springs [calc presses s1]. The permissible 10 N*m covers both.
+  Rod stack: two DIN 2093 A35.5 discs in series, ~4 kN preload, ~0.30 mm to ~5.2 kN [TS s7].
+
+==============================================================================
+5. The reject turn: blow-off window between 'crimpers clear' and 'feed moves'
+==============================================================================
+  10 s per turn: crimpers clear at 220 deg, feed starts at ~266 deg: 1.27 s, or any length if the shaft stops there
+  40 s per turn: crimpers clear at 220 deg, feed starts at ~266 deg: 5.06 s, or any length if the shaft stops there
+  A crimped-empty contact weighs 0.42 mN [facts: 0.043 g]. An air jet from a 1 mm nozzle at
+    1 bar gives ~39 mN at the nozzle [estimate: ~p*A/2]: 93 x its weight
+    3 bar gives ~118 mN at the nozzle [estimate: ~p*A/2]: 279 x its weight
+  -> the jet has force to spare; what can stop it is a contact still gripped by the stripper plate or
+     wedged in the anvil nest [assumption]; the after-picture shows the anvil empty or not.
+
+==============================================================================
+6. b2 / b2b closing drives from Prime rows
+==============================================================================
+  Justech 1,500 N, 7 mm/s loaded, limit switches, no feedback [Prime]:
+     close or open 5.7 s over 40 mm; thrust ~1500 N; position: AS5600 on the handle pivot [Prime] for 'captive'
+  Progressive Automations PA-01-POT 750 N, pot feedback [Prime]; speed not on the page:
+     thrust 750 N; position: built-in pot
+  NEMA 17 + integrated Tr8x2 (Iverntech 42HD6039-05) [Prime], ~150-300 rpm under load [estimate]:
+     close or open 5.3 s over 40 mm; thrust ~330 N; position: step count
+  Handle need 40-325 N for a 0.8-2.6 kN crimp at a handle-to-die ratio of 8-20 [calc presses s4].
+  Spring link preload ~1.25 x the handle need: ~160 N at ratio 20, ~410 N at ratio 8 [b2].
+    drive   330 N, ratio    8: need   325 N, link preload   406 N -> short of the link preload
+    drive   330 N, ratio   20: need   130 N, link preload   162 N -> carries the link
+    drive   750 N, ratio    8: need   325 N, link preload   406 N -> carries the link
+    drive   750 N, ratio   20: need   130 N, link preload   162 N -> carries the link
+    drive  1500 N, ratio    8: need   325 N, link preload   406 N -> carries the link
+    drive  1500 N, ratio   20: need   130 N, link preload   162 N -> carries the link
+  b2b cycle with the Justech: ~22 s (close 5.7, open 5.7, feed + shear + place + captive 8.0, clamp, pull, flap 3.0) [estimates]; Derek's share ~17 s [b2b]
+
+==============================================================================
+7. b8b, the flat spool line over a crown (b8 x terminal-supply a2d)
+==============================================================================
+  Along the wire, from the strip line back toward the root [facts s1 clone drawings; estimates]:
+    rest of the window behind the insulation edge: 0.30-0.50 mm
+    insulation barrel: 0.80-1.50 mm
+    tab: 0.70-1.15 mm
+    carrier width [estimate: unmeasured; pilot holes 1.5 mm plus land]: 2.50-4.00 mm
+    clearance to the crown block's rear edge [estimate]: 1.00-2.00 mm
+  -> the carrier and crown occupy 5.3-9.2 mm behind the strip line.
+     With a 4 mm spreading comb behind that, the split is at least 9.3-13.2 mm.
+     With a 6 mm spreading comb behind that, the split is at least 11.3-15.2 mm.
+
+  Fronts in the housing when every contact sits the same along-conductor distance from the root
+  (strip line cut while the ribbon is flat) [straight-conductor model, as TS s2]:
+    free length 12.0 mm: outermost front short by 4P 0.06, 5P 0.11, J4 (4P+3P) 0.24, J1 (5P+4P) 0.42 mm
+    free length 15.0 mm: outermost front short by 4P 0.05, 5P 0.09, J4 (4P+3P) 0.19, J1 (5P+4P) 0.34 mm
+    free length 20.0 mm: outermost front short by 4P 0.04, 5P 0.06, J4 (4P+3P) 0.14, J1 (5P+4P) 0.25 mm
+  (against a gang window of ~+/-0.3 mm [digest]; J1 needs ~20 mm of free length)
+
+  Spreading comb entered from the tip side after the strip (tines pass between the stripped
+  bundles, 1.7 - 0.72 = ~1.0 mm apart, then wedge between the split, touching jackets):
+    4P-wide end, p 2.5 mm: outermost moves 1.20 mm over a 2.5 mm fan section: slot angle 25.6 deg
+    4P-wide end, p 2.5 mm: outermost moves 1.20 mm over a 4.0 mm fan section: slot angle 16.7 deg
+    4P-wide end, p 2.8 mm: outermost moves 1.65 mm over a 2.5 mm fan section: slot angle 33.4 deg
+    4P-wide end, p 2.8 mm: outermost moves 1.65 mm over a 4.0 mm fan section: slot angle 22.4 deg
+    5P-wide end, p 2.5 mm: outermost moves 1.60 mm over a 2.5 mm fan section: slot angle 32.6 deg
+    5P-wide end, p 2.5 mm: outermost moves 1.60 mm over a 4.0 mm fan section: slot angle 21.8 deg
+    5P-wide end, p 2.8 mm: outermost moves 2.20 mm over a 2.5 mm fan section: slot angle 41.3 deg
+    5P-wide end, p 2.8 mm: outermost moves 2.20 mm over a 4.0 mm fan section: slot angle 28.8 deg
+    9P-wide end, p 2.5 mm: outermost moves 3.20 mm over a 2.5 mm fan section: slot angle 52.0 deg
+    9P-wide end, p 2.5 mm: outermost moves 3.20 mm over a 4.0 mm fan section: slot angle 38.7 deg
+    9P-wide end, p 2.8 mm: outermost moves 4.40 mm over a 2.5 mm fan section: slot angle 60.4 deg
+    9P-wide end, p 2.8 mm: outermost moves 4.40 mm over a 4.0 mm fan section: slot angle 47.7 deg
+  -> a fan section of 4 mm keeps a 4P or 5P under ~20 deg; J1 at 9 wide needs ~6 mm of fan or
+     two passes. The comb's parallel section at pitch p holds the conductors straight past it.
+
+  Parting pair (alternative for the crimp only): two 0.25 mm blades drop into the valleys either
+  side of conductor k and move apart, each pushing its whole side out by D = p - 1.7:
+    p 2.35: D 0.65 mm; pushed at 6 mm from the root, each conductor needs ~85 mN to set at the root (plus silicone) [calc wave2 s1]
+    p 2.35: D 0.65 mm; pushed at 10 mm from the root, each conductor needs ~51 mN to set at the root (plus silicone) [calc wave2 s1]
+    p 2.50: D 0.80 mm; pushed at 6 mm from the root, each conductor needs ~85 mN to set at the root (plus silicone) [calc wave2 s1]
+    p 2.50: D 0.80 mm; pushed at 10 mm from the root, each conductor needs ~51 mN to set at the root (plus silicone) [calc wave2 s1]
+    p 2.80: D 1.10 mm; pushed at 6 mm from the root, each conductor needs ~85 mN to set at the root (plus silicone) [calc wave2 s1]
+    p 2.80: D 1.10 mm; pushed at 10 mm from the root, each conductor needs ~51 mN to set at the root (plus silicone) [calc wave2 s1]
+  -> trivial forces; but the crimped contacts then lie at ~1.7-2.0 mm pitch, boxes 1.85-1.95 mm wide
+     [facts], so they crowd; the row needs spreading before a housing goes on. The comb avoids that.
+
+  Supply at skip-2 for T4 (1,200 crimps over ~60 units): 2,400 strip contacts, 0.30 of an 8,000 reel;
+  1,200 loose contacts drop into the thinning cup, 61 % of the other looms' 1,980 crimps [TS s5].
+
+==============================================================================
+8. Whole-tip strip pull per conductor at the depth a fixed-stop blade can hold
+==============================================================================
+  Ligament area after crown scores at 60 % of the wall: 1.18 mm^2 of 1.86 unscored [calc geometry s3].
+    this explorer's 4-11 MPa (general silicone rubber): 4.7-13.0 N per conductor; 4P 19-52 N; 5P 24-65 N
+    the digest's 8-11 MPa (wire grade): 9.4-13.0 N per conductor; 4P 38-52 N; 5P 47-65 N
+  Break of one 22 AWG conductor 85-100 N [facts]; the clamp carries the pull on the insulation.
+  Flat blades to a fixed stop at 70-80 % reach the strands in the worst case; 50-60 % keeps
+  +0.08 mm or more of ligament [TS s8].

@@ -1,0 +1,166 @@
+
+====================================================================================
+1. Seeing a strip-fed contact in silhouette, across the strip, before the stroke
+====================================================================================
+  gap to the upstream neighbour at the conductor barrel: 5.20-5.42 mm (pitch 7.1 minus open width 1.68-1.9)
+  gap to the upstream neighbour at the insulation barrel: 4.10-4.64 mm (pitch 7.1 minus open width 2.46-3.0)
+
+  A grazing view from upstream, tilted down by theta, passes over the upstream neighbour.
+  The silhouette's top edge is the ray that grazes OUR FAR wing tip; that ray meets the
+  neighbour's nearer wing one full pitch later, so it clears it (excess height dh within one
+  strip, 0.02 mm to spare) when
+      tan(theta) >= (dh + 0.02) / pitch
+  Our near wing tip sits w*tan(theta) below that edge, so a 0.08 mm strand lying on the near
+  tip sticks up by only  0.08 - w*tan(theta)
+    neighbour 0.00 mm taller -> theta >= 0.16 deg; strand bump   75 um =  3.4 px @45   6.4 px @86   9.1 px @122
+    neighbour 0.05 mm taller -> theta >= 0.56 deg; strand bump   61 um =  2.8 px @45   5.3 px @86   7.5 px @122
+    neighbour 0.10 mm taller -> theta >= 0.97 deg; strand bump   48 um =  2.2 px @45   4.1 px @86   5.8 px @122
+    neighbour 0.15 mm taller -> theta >= 1.37 deg; strand bump   35 um =  1.6 px @45   3.0 px @86   4.2 px @122
+    neighbour 0.25 mm taller -> theta >= 2.18 deg; strand bump    8 um =  0.3 px @45   0.7 px @86   0.9 px @122
+  -> with neighbours within ~0.15 mm of our wing height the grazing view works, and a strand on
+     the near wing tip shows as a 2-7 px bump. Much above that the neighbour forces a tilt that
+     hides a strand (a bent-up neighbour wing does exactly that).
+     A white vane slid into the 4.1-5.4 mm gap from the box side, lit from above, puts the
+     backlight between the two contacts and removes the squeeze.
+  Downstream the carrier is empty, so the camera can also sit downstream at theta ~0 if the
+  backlight is that vane (the light cannot come from beyond the upstream neighbour).
+
+====================================================================================
+2. The ribbon's other conductors against fresh contacts waiting on the strip
+====================================================================================
+  collision if |j*f - m*7.1| < 2.35 mm (open insulation wings 3.0, conductor 1.7)
+  3P, all 2 others on the upstream side: collision-free fan pitch (1.7-15 mm): 1.7-2.3
+  4P, all 3 others on the upstream side: collision-free fan pitch (1.7-15 mm): none
+  5P, all 4 others on the upstream side: collision-free fan pitch (1.7-15 mm): none
+    fan pitch 1.7: upstream conductors j = [3, 4] sit on a fresh contact
+    fan pitch 2.5: upstream conductors j = [2, 3] sit on a fresh contact
+    fan pitch 3.5: upstream conductors j = [2, 4] sit on a fresh contact
+    fan pitch 5.5: upstream conductors j = [1, 3, 4] sit on a fresh contact
+  -> a flat fan cannot keep 4P/5P conductors off the fresh contacts; only the conductors on
+     the empty-carrier (downstream) side are free. The rest must be lifted out of plane, or
+     crimping must run so that every waiting conductor is downstream (then each crimped one
+     is upstream and must stay lifted). Either way it is a per-conductor lift, and a look at
+     'no other tip below the fresh wing tips' belongs in the gate.
+
+====================================================================================
+3. Axial shortfall that a fan puts into each conductor (why one taught Y is not enough)
+====================================================================================
+  5P into XH 2.5 mm pitch, outer               d =  1.6 mm -> shortfall  10 deg: 0.14  20 deg: 0.28  30 deg: 0.43 mm
+  J1 5P+4P into XHP-9, outermost               d =  3.2 mm -> shortfall  10 deg: 0.28  20 deg: 0.56  30 deg: 0.86 mm
+  5P fanned to 5.5 mm (v1 fan-comb), outer     d =  7.6 mm -> shortfall  10 deg: 0.66  20 deg: 1.34  30 deg: 2.04 mm
+  5P to 7.1 mm strip pitch (a2b comb), outer   d = 10.8 mm -> shortfall  10 deg: 0.94  20 deg: 1.90  30 deg: 2.89 mm
+  Compare: insulation edge must land in the window, ~0.5-1.0 mm long (+/-0.25 to +/-0.5 mm)
+  [vision_budget s4]; strip length itself is 2.4 (JST) or 1.6-2.1 (clone spec) and silicone
+  tears. If the ribbon end is cut square before it is fanned, the outer conductors' insulation
+  edges stand 0.3-1.9 mm behind the centre one. A per-slot taught Y absorbs the repeatable
+  part; the insulation edge as seen, per conductor, absorbs the rest. Cutting and stripping
+  after fanning, against one datum line on the pallet, removes most of it at the source.
+
+====================================================================================
+4. a2b: a proof pull reacted through the carrier tag
+====================================================================================
+  neck 0.6 mm, Mp 3.0 N*mm -> tab yields at a pull of  e=0.35:  8.6 N  e=0.55:  5.5 N  e=0.85:  3.5 N  e=1.20:  2.5 N
+  neck 0.8 mm, Mp 4.0 N*mm -> tab yields at a pull of  e=0.35: 11.4 N  e=0.55:  7.3 N  e=0.85:  4.7 N  e=1.20:  3.3 N
+  neck 1.0 mm, Mp 5.0 N*mm -> tab yields at a pull of  e=0.35: 14.3 N  e=0.55:  9.1 N  e=0.85:  5.9 N  e=1.20:  4.2 N
+  e: 0.35 mm is the conductor axis after a ~0.88 mm crimp less half the stock; 0.85 the
+  insulated wire's axis; 1.2 adds the 30 deg lift a2b uses to clear the pad.
+  -> any proof pull above ~2-16 N bends the tab; a 20 N pull always does. The tab carries
+     66-110 N only if the load lies in its own plane, and a pull on the wire never does.
+
+  The tag hole as the datum for the box tip (5.0-6.5 mm ahead of the hole):
+    1 deg of bend-up/down or neck set -> box tip off by 0.09-0.11 mm (cavity entry window ~+/-0.2 mm [vision_budget/arm_and_feeder s1])
+    2 deg of bend-up/down or neck set -> box tip off by 0.17-0.23 mm (cavity entry window ~+/-0.2 mm [vision_budget/arm_and_feeder s1])
+    3 deg of bend-up/down or neck set -> box tip off by 0.26-0.34 mm (cavity entry window ~+/-0.2 mm [vision_budget/arm_and_feeder s1])
+    5 deg of bend-up/down or neck set -> box tip off by 0.44-0.57 mm (cavity entry window ~+/-0.2 mm [vision_budget/arm_and_feeder s1])
+
+====================================================================================
+5. a2c: bending the strip +/-90 deg about the tab twists the carrier
+====================================================================================
+  90 deg twist spread over   7.1 mm of carrier: shear strain 0.0442, stress   1814 MPa (shear yield ~289)
+  90 deg twist spread over  14.2 mm of carrier: shear strain 0.0221, stress    907 MPa (shear yield ~289)
+  90 deg twist spread over  30.0 mm of carrier: shear strain 0.0105, stress    429 MPa (shear yield ~289)
+  90 deg twist spread over  50.0 mm of carrier: shear strain 0.0063, stress    258 MPa (shear yield ~289)
+  90 deg twist spread over 100.0 mm of carrier: shear strain 0.0031, stress    129 MPa (shear yield ~289)
+  -> the next contact is one pitch (7.1 mm) upstream: a +/-90 deg swing of the strip yields
+     the carrier there and rolls that contact. Only a carrier already cut free can swing.
+
+====================================================================================
+6. a2: dropping the carrier 0.3-0.5 mm between two pinned neighbours
+====================================================================================
+  S-bend span 4.6 mm each side; first yield at 0.16 mm of drop, whatever the carrier's
+  width (the slots only decide where the hinge forms)
+    a 0.3 mm drop leaves ~0.14 mm of set, a kink of ~1.7 deg at the next pilot hole
+    a 0.4 mm drop leaves ~0.24 mm of set, a kink of ~3.0 deg at the next pilot hole
+    a 0.5 mm drop leaves ~0.34 mm of set, a kink of ~4.2 deg at the next pilot hole
+  -> the next contact can arrive rolled by ~1.5-4 deg. Inside the 5-11 deg roll window
+     [digest], but it eats half of it; the waiting-contact picture measures roll directly.
+     Dropping only the downstream (scrap) side keeps the upstream carrier flat.
+
+====================================================================================
+7. What a vacuum nozzle can push
+====================================================================================
+  50 kPa, nozzle bore 0.5 mm: holds   9.8 mN normal, ~ 2.9 mN sideways (mu 0.3)
+  50 kPa, nozzle bore 0.8 mm: holds  25.1 mN normal, ~ 7.5 mN sideways (mu 0.3)
+  50 kPa, nozzle bore 1.0 mm: holds  39.3 mN normal, ~11.8 mN sideways (mu 0.3)
+  80 kPa, nozzle bore 0.5 mm: holds  15.7 mN normal, ~ 4.7 mN sideways (mu 0.3)
+  80 kPa, nozzle bore 0.8 mm: holds  40.2 mN normal, ~12.1 mN sideways (mu 0.3)
+  80 kPa, nozzle bore 1.0 mm: holds  62.8 mN normal, ~18.8 mN sideways (mu 0.3)
+  contact weight 0.42 mN [xh-facts s1, 0.043 g]; post grip 200-2000 mN [terminal-supply calc s7]
+  -> a nozzle can place a contact into an open nest; it cannot push one onto a post or into a
+     cavity against any friction. A post must come to a contact that is backed by a stop.
+
+====================================================================================
+8. a5: a bare contact staged 1.0-2.0 mm into the cavity mouth can pivot
+====================================================================================
+  clearance 0.03/side, 1.0 mm engaged: +/- 3.4 deg; conductor barrel centre 2.3 mm out moves +/-0.14 mm
+  clearance 0.03/side, 1.5 mm engaged: +/- 2.3 deg; conductor barrel centre 1.8 mm out moves +/-0.07 mm
+  clearance 0.03/side, 2.0 mm engaged: +/- 1.7 deg; conductor barrel centre 1.3 mm out moves +/-0.04 mm
+  clearance 0.05/side, 1.0 mm engaged: +/- 5.7 deg; conductor barrel centre 2.3 mm out moves +/-0.23 mm
+  clearance 0.05/side, 1.5 mm engaged: +/- 3.8 deg; conductor barrel centre 1.8 mm out moves +/-0.12 mm
+  clearance 0.05/side, 2.0 mm engaged: +/- 2.9 deg; conductor barrel centre 1.3 mm out moves +/-0.07 mm
+  clearance 0.10/side, 1.0 mm engaged: +/-11.3 deg; conductor barrel centre 2.3 mm out moves +/-0.46 mm
+  clearance 0.10/side, 1.5 mm engaged: +/- 7.6 deg; conductor barrel centre 1.8 mm out moves +/-0.24 mm
+  clearance 0.10/side, 2.0 mm engaged: +/- 5.7 deg; conductor barrel centre 1.3 mm out moves +/-0.13 mm
+  -> at 1.5 mm engagement the barrel can sit 0.07-0.25 mm off the anvil unless something
+     pushes it down; an anvil rising to a fixed height then bends the transition instead.
+
+====================================================================================
+9. Measuring each waiting contact's axial position instead of re-teaching per reel
+====================================================================================
+  ELP stock @100 mm : +/-0.1 mm bellmouth window = +/- 4.5 px; edge fit 0.05-0.3 px = 1.1-6.7 um
+  ELP + 20 D @50 mm : +/-0.1 mm bellmouth window = +/- 8.6 px; edge fit 0.05-0.3 px = 0.6-3.5 um
+  M12 12 mm @100 mm : +/-0.1 mm bellmouth window = +/-12.2 px; edge fit 0.05-0.3 px = 0.4-2.5 um
+  -> each contact's barrel edge against the anvil's fiducial is read to a few um; a fence on a
+     small stepper can move the strip in Y by the error every cycle.
+
+====================================================================================
+10. a4: what continuity through the post can tell
+====================================================================================
+  22 AWG ribbon conductor: 58 mohm per metre
+      0.1 m ->     5.8 mohm
+      0.6 m ->    34.9 mohm
+     15.2 m ->   883.0 mohm
+  a crimp itself: ~0.2-1 mohm; post-to-box contact on a 0.2-2 N grip: ~5-30 mohm and variable
+  [estimates]. -> the path reads 'joined' or 'open'; it cannot grade the crimp. It also needs
+  the far end bared (a pogo pin on the cut face, or the spool's slip ring).
+
+====================================================================================
+11. a3: the U's direction read in silhouette from below the slot
+====================================================================================
+  ELP stock @100 mm : notch between wing tips, 0.40-1.00 mm deep =   18-  45 px
+  ELP + 20 D @50 mm : notch between wing tips, 0.40-1.00 mm deep =   34-  86 px
+  M12 12 mm @100 mm : notch between wing tips, 0.40-1.00 mm deep =   49- 122 px
+  Backlit from below, the hanging contact's outline is the box's rectangle inside the
+  insulation U; light passes between the wing tips on the open side only.
+
+====================================================================================
+12. a2b: how far the box tip moves on the tab neck under a small side load
+====================================================================================
+  neck 0.8 x 0.2 x 1.0 mm: rotation stiffness ~59 N*mm/rad; first yield at 2.7 N*mm
+    side load 0.05 N at the box (5.0-6.5 mm out): tip moves 0.021-0.036 mm
+    side load 0.10 N at the box (5.0-6.5 mm out): tip moves 0.043-0.072 mm
+    side load 0.20 N at the box (5.0-6.5 mm out): tip moves 0.085-0.144 mm
+    side load 0.50 N at the box (5.0-6.5 mm out): tip moves 0.213-0.360 mm
+  -> a conductor's drape (~0.05-0.1 N) moves the box tip 0.02-0.07 mm; a firmer tug moves it
+     by the whole cavity window. An offset measured at inspection holds only if the load is the
+     same at insertion; a look at the box tip just before the mouth does not depend on that.

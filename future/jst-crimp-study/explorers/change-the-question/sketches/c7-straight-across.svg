@@ -1,0 +1,214 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 745" font-family="Helvetica, Arial, sans-serif" font-size="12">
+<defs><marker id="arr" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#333"/></marker></defs>
+<rect x="0" y="0" width="1000" height="745" fill="#ffffff"/>
+<text x="20" y="24" font-size="16" font-weight="bold" fill="#111">c7 Straight across: the pin map is the only reason two looms cross</text>
+<text x="20" y="42" fill="#555">schematic: ribbon conductors (top) to housing cavities (bottom); red lines cross, green lines run straight; board pin orders from pcba.tsx</text>
+<rect x="15.0" y="55.0" width="970.0" height="265.0" rx="0" fill="none" stroke="#bbb" stroke-width="1"/>
+<text x="25.0" y="74.0" font-size="12" font-weight="bold" fill="#111" text-anchor="start">J4 SENSORS: 4P (1-wire and flow pairs) + 3P (GND and the moisture pair)</text>
+<text x="30.0" y="100.0" font-size="12" font-weight="bold" fill="#111" text-anchor="start">today: pins 1-7 = 3V3, GND, V5, IO25, IO26, IO27, IO23</text>
+<circle cx="50.0" cy="140.0" r="8.0" fill="#333" stroke="#333" stroke-width="1.5"/>
+<text x="50.0" y="126.0" font-size="10" fill="#111" text-anchor="middle">3V3</text>
+<circle cx="100.0" cy="140.0" r="8.0" fill="#333" stroke="#333" stroke-width="1.5"/>
+<text x="100.0" y="126.0" font-size="10" fill="#111" text-anchor="middle">IO26</text>
+<circle cx="150.0" cy="140.0" r="8.0" fill="#333" stroke="#333" stroke-width="1.5"/>
+<text x="150.0" y="126.0" font-size="10" fill="#111" text-anchor="middle">V5</text>
+<circle cx="200.0" cy="140.0" r="8.0" fill="#333" stroke="#333" stroke-width="1.5"/>
+<text x="200.0" y="126.0" font-size="10" fill="#111" text-anchor="middle">IO25</text>
+<circle cx="250.0" cy="140.0" r="8.0" fill="#333" stroke="#333" stroke-width="1.5"/>
+<text x="250.0" y="126.0" font-size="10" fill="#111" text-anchor="middle">GND</text>
+<circle cx="300.0" cy="140.0" r="8.0" fill="#333" stroke="#333" stroke-width="1.5"/>
+<text x="300.0" y="126.0" font-size="10" fill="#111" text-anchor="middle">IO27</text>
+<circle cx="350.0" cy="140.0" r="8.0" fill="#333" stroke="#333" stroke-width="1.5"/>
+<text x="350.0" y="126.0" font-size="10" fill="#111" text-anchor="middle">IO23</text>
+<line x1="42.0" y1="154.0" x2="208.0" y2="154.0" stroke="#555" stroke-width="1"/>
+<text x="125.0" y="168.0" font-size="10" fill="#555" text-anchor="middle">4P</text>
+<line x1="242.0" y1="154.0" x2="358.0" y2="154.0" stroke="#555" stroke-width="1"/>
+<text x="300.0" y="168.0" font-size="10" fill="#555" text-anchor="middle">3P</text>
+<rect x="34.0" y="250.0" width="32.0" height="26.0" rx="0" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text x="50.0" y="266.0" font-size="11" fill="#111" text-anchor="middle">1</text>
+<text x="50.0" y="292.0" font-size="10" fill="#111" text-anchor="middle">3V3</text>
+<rect x="84.0" y="250.0" width="32.0" height="26.0" rx="0" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text x="100.0" y="266.0" font-size="11" fill="#111" text-anchor="middle">2</text>
+<text x="100.0" y="292.0" font-size="10" fill="#111" text-anchor="middle">GND</text>
+<rect x="134.0" y="250.0" width="32.0" height="26.0" rx="0" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text x="150.0" y="266.0" font-size="11" fill="#111" text-anchor="middle">3</text>
+<text x="150.0" y="292.0" font-size="10" fill="#111" text-anchor="middle">V5</text>
+<rect x="184.0" y="250.0" width="32.0" height="26.0" rx="0" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text x="200.0" y="266.0" font-size="11" fill="#111" text-anchor="middle">4</text>
+<text x="200.0" y="292.0" font-size="10" fill="#111" text-anchor="middle">IO25</text>
+<rect x="234.0" y="250.0" width="32.0" height="26.0" rx="0" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text x="250.0" y="266.0" font-size="11" fill="#111" text-anchor="middle">5</text>
+<text x="250.0" y="292.0" font-size="10" fill="#111" text-anchor="middle">IO26</text>
+<rect x="284.0" y="250.0" width="32.0" height="26.0" rx="0" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text x="300.0" y="266.0" font-size="11" fill="#111" text-anchor="middle">6</text>
+<text x="300.0" y="292.0" font-size="10" fill="#111" text-anchor="middle">IO27</text>
+<rect x="334.0" y="250.0" width="32.0" height="26.0" rx="0" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text x="350.0" y="266.0" font-size="11" fill="#111" text-anchor="middle">7</text>
+<text x="350.0" y="292.0" font-size="10" fill="#111" text-anchor="middle">IO23</text>
+<line x1="50.0" y1="176.0" x2="50.0" y2="248.0" stroke="#2a7a2a" stroke-width="2"/>
+<line x1="100.0" y1="176.0" x2="250.0" y2="248.0" stroke="#a33" stroke-width="2"/>
+<line x1="150.0" y1="176.0" x2="150.0" y2="248.0" stroke="#2a7a2a" stroke-width="2"/>
+<line x1="200.0" y1="176.0" x2="200.0" y2="248.0" stroke="#2a7a2a" stroke-width="2"/>
+<line x1="250.0" y1="176.0" x2="100.0" y2="248.0" stroke="#a33" stroke-width="2"/>
+<line x1="300.0" y1="176.0" x2="300.0" y2="248.0" stroke="#2a7a2a" stroke-width="2"/>
+<line x1="350.0" y1="176.0" x2="350.0" y2="248.0" stroke="#2a7a2a" stroke-width="2"/>
+<text x="30.0" y="312.0" font-size="11" fill="#555" text-anchor="start">3 layers, 5 crossings in one plane [w3b s6]</text>
+<text x="520.0" y="100.0" font-size="12" font-weight="bold" fill="#111" text-anchor="start">(a) swap pins 2 and 5</text>
+<circle cx="540.0" cy="140.0" r="8.0" fill="#333" stroke="#333" stroke-width="1.5"/>
+<text x="540.0" y="126.0" font-size="10" fill="#111" text-anchor="middle">3V3</text>
+<circle cx="590.0" cy="140.0" r="8.0" fill="#333" stroke="#333" stroke-width="1.5"/>
+<text x="590.0" y="126.0" font-size="10" fill="#111" text-anchor="middle">IO26</text>
+<circle cx="640.0" cy="140.0" r="8.0" fill="#333" stroke="#333" stroke-width="1.5"/>
+<text x="640.0" y="126.0" font-size="10" fill="#111" text-anchor="middle">V5</text>
+<circle cx="690.0" cy="140.0" r="8.0" fill="#333" stroke="#333" stroke-width="1.5"/>
+<text x="690.0" y="126.0" font-size="10" fill="#111" text-anchor="middle">IO25</text>
+<circle cx="740.0" cy="140.0" r="8.0" fill="#333" stroke="#333" stroke-width="1.5"/>
+<text x="740.0" y="126.0" font-size="10" fill="#111" text-anchor="middle">GND</text>
+<circle cx="790.0" cy="140.0" r="8.0" fill="#333" stroke="#333" stroke-width="1.5"/>
+<text x="790.0" y="126.0" font-size="10" fill="#111" text-anchor="middle">IO27</text>
+<circle cx="840.0" cy="140.0" r="8.0" fill="#333" stroke="#333" stroke-width="1.5"/>
+<text x="840.0" y="126.0" font-size="10" fill="#111" text-anchor="middle">IO23</text>
+<line x1="532.0" y1="154.0" x2="698.0" y2="154.0" stroke="#555" stroke-width="1"/>
+<text x="615.0" y="168.0" font-size="10" fill="#555" text-anchor="middle">4P</text>
+<line x1="732.0" y1="154.0" x2="848.0" y2="154.0" stroke="#555" stroke-width="1"/>
+<text x="790.0" y="168.0" font-size="10" fill="#555" text-anchor="middle">3P</text>
+<rect x="524.0" y="250.0" width="32.0" height="26.0" rx="0" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text x="540.0" y="266.0" font-size="11" fill="#111" text-anchor="middle">1</text>
+<text x="540.0" y="292.0" font-size="10" fill="#111" text-anchor="middle">3V3</text>
+<rect x="574.0" y="250.0" width="32.0" height="26.0" rx="0" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text x="590.0" y="266.0" font-size="11" fill="#111" text-anchor="middle">2</text>
+<text x="590.0" y="292.0" font-size="10" fill="#111" text-anchor="middle">IO26</text>
+<rect x="624.0" y="250.0" width="32.0" height="26.0" rx="0" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text x="640.0" y="266.0" font-size="11" fill="#111" text-anchor="middle">3</text>
+<text x="640.0" y="292.0" font-size="10" fill="#111" text-anchor="middle">V5</text>
+<rect x="674.0" y="250.0" width="32.0" height="26.0" rx="0" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text x="690.0" y="266.0" font-size="11" fill="#111" text-anchor="middle">4</text>
+<text x="690.0" y="292.0" font-size="10" fill="#111" text-anchor="middle">IO25</text>
+<rect x="724.0" y="250.0" width="32.0" height="26.0" rx="0" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text x="740.0" y="266.0" font-size="11" fill="#111" text-anchor="middle">5</text>
+<text x="740.0" y="292.0" font-size="10" fill="#111" text-anchor="middle">GND</text>
+<rect x="774.0" y="250.0" width="32.0" height="26.0" rx="0" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text x="790.0" y="266.0" font-size="11" fill="#111" text-anchor="middle">6</text>
+<text x="790.0" y="292.0" font-size="10" fill="#111" text-anchor="middle">IO27</text>
+<rect x="824.0" y="250.0" width="32.0" height="26.0" rx="0" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text x="840.0" y="266.0" font-size="11" fill="#111" text-anchor="middle">7</text>
+<text x="840.0" y="292.0" font-size="10" fill="#111" text-anchor="middle">IO23</text>
+<line x1="540.0" y1="176.0" x2="540.0" y2="248.0" stroke="#2a7a2a" stroke-width="2"/>
+<line x1="590.0" y1="176.0" x2="590.0" y2="248.0" stroke="#2a7a2a" stroke-width="2"/>
+<line x1="640.0" y1="176.0" x2="640.0" y2="248.0" stroke="#2a7a2a" stroke-width="2"/>
+<line x1="690.0" y1="176.0" x2="690.0" y2="248.0" stroke="#2a7a2a" stroke-width="2"/>
+<line x1="740.0" y1="176.0" x2="740.0" y2="248.0" stroke="#2a7a2a" stroke-width="2"/>
+<line x1="790.0" y1="176.0" x2="790.0" y2="248.0" stroke="#2a7a2a" stroke-width="2"/>
+<line x1="840.0" y1="176.0" x2="840.0" y2="248.0" stroke="#2a7a2a" stroke-width="2"/>
+<text x="520.0" y="312.0" font-size="11" fill="#555" text-anchor="start">1 layer, no crossing; half-rows (0, 0)</text>
+<rect x="15.0" y="330.0" width="970.0" height="265.0" rx="0" fill="none" stroke="#bbb" stroke-width="1"/>
+<text x="25.0" y="349.0" font-size="12" font-weight="bold" fill="#111" text-anchor="start">J7 REEDS B: 5P (reservoir B column and GND) + 3P (CLO, CHI, one trimmed)</text>
+<text x="30.0" y="375.0" font-size="12" font-weight="bold" fill="#111" text-anchor="start">today: pins 1-7 = RB1, RB2, RB3, RB4, CLO, CHI, GND</text>
+<circle cx="50.0" cy="415.0" r="8.0" fill="#333" stroke="#333" stroke-width="1.5"/>
+<text x="50.0" y="401.0" font-size="10" fill="#111" text-anchor="middle">RB1</text>
+<circle cx="100.0" cy="415.0" r="8.0" fill="#333" stroke="#333" stroke-width="1.5"/>
+<text x="100.0" y="401.0" font-size="10" fill="#111" text-anchor="middle">RB2</text>
+<circle cx="150.0" cy="415.0" r="8.0" fill="#333" stroke="#333" stroke-width="1.5"/>
+<text x="150.0" y="401.0" font-size="10" fill="#111" text-anchor="middle">RB3</text>
+<circle cx="200.0" cy="415.0" r="8.0" fill="#333" stroke="#333" stroke-width="1.5"/>
+<text x="200.0" y="401.0" font-size="10" fill="#111" text-anchor="middle">RB4</text>
+<circle cx="250.0" cy="415.0" r="8.0" fill="#333" stroke="#333" stroke-width="1.5"/>
+<text x="250.0" y="401.0" font-size="10" fill="#111" text-anchor="middle">GND</text>
+<circle cx="300.0" cy="415.0" r="8.0" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text x="300.0" y="401.0" font-size="10" fill="#111" text-anchor="middle">trim</text>
+<circle cx="350.0" cy="415.0" r="8.0" fill="#333" stroke="#333" stroke-width="1.5"/>
+<text x="350.0" y="401.0" font-size="10" fill="#111" text-anchor="middle">CLO</text>
+<circle cx="400.0" cy="415.0" r="8.0" fill="#333" stroke="#333" stroke-width="1.5"/>
+<text x="400.0" y="401.0" font-size="10" fill="#111" text-anchor="middle">CHI</text>
+<line x1="42.0" y1="429.0" x2="258.0" y2="429.0" stroke="#555" stroke-width="1"/>
+<text x="150.0" y="443.0" font-size="10" fill="#555" text-anchor="middle">5P</text>
+<line x1="292.0" y1="429.0" x2="408.0" y2="429.0" stroke="#555" stroke-width="1"/>
+<text x="350.0" y="443.0" font-size="10" fill="#555" text-anchor="middle">3P</text>
+<rect x="34.0" y="525.0" width="32.0" height="26.0" rx="0" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text x="50.0" y="541.0" font-size="11" fill="#111" text-anchor="middle">1</text>
+<text x="50.0" y="567.0" font-size="10" fill="#111" text-anchor="middle">RB1</text>
+<rect x="84.0" y="525.0" width="32.0" height="26.0" rx="0" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text x="100.0" y="541.0" font-size="11" fill="#111" text-anchor="middle">2</text>
+<text x="100.0" y="567.0" font-size="10" fill="#111" text-anchor="middle">RB2</text>
+<rect x="134.0" y="525.0" width="32.0" height="26.0" rx="0" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text x="150.0" y="541.0" font-size="11" fill="#111" text-anchor="middle">3</text>
+<text x="150.0" y="567.0" font-size="10" fill="#111" text-anchor="middle">RB3</text>
+<rect x="184.0" y="525.0" width="32.0" height="26.0" rx="0" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text x="200.0" y="541.0" font-size="11" fill="#111" text-anchor="middle">4</text>
+<text x="200.0" y="567.0" font-size="10" fill="#111" text-anchor="middle">RB4</text>
+<rect x="234.0" y="525.0" width="32.0" height="26.0" rx="0" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text x="250.0" y="541.0" font-size="11" fill="#111" text-anchor="middle">5</text>
+<text x="250.0" y="567.0" font-size="10" fill="#111" text-anchor="middle">CLO</text>
+<rect x="284.0" y="525.0" width="32.0" height="26.0" rx="0" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text x="300.0" y="541.0" font-size="11" fill="#111" text-anchor="middle">6</text>
+<text x="300.0" y="567.0" font-size="10" fill="#111" text-anchor="middle">CHI</text>
+<rect x="334.0" y="525.0" width="32.0" height="26.0" rx="0" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text x="350.0" y="541.0" font-size="11" fill="#111" text-anchor="middle">7</text>
+<text x="350.0" y="567.0" font-size="10" fill="#111" text-anchor="middle">GND</text>
+<text x="300.0" y="465.0" font-size="14" fill="#a33" text-anchor="middle">x</text>
+<line x1="50.0" y1="451.0" x2="50.0" y2="523.0" stroke="#2a7a2a" stroke-width="2"/>
+<line x1="100.0" y1="451.0" x2="100.0" y2="523.0" stroke="#2a7a2a" stroke-width="2"/>
+<line x1="150.0" y1="451.0" x2="150.0" y2="523.0" stroke="#2a7a2a" stroke-width="2"/>
+<line x1="200.0" y1="451.0" x2="200.0" y2="523.0" stroke="#2a7a2a" stroke-width="2"/>
+<line x1="250.0" y1="451.0" x2="350.0" y2="523.0" stroke="#a33" stroke-width="2"/>
+<line x1="350.0" y1="451.0" x2="250.0" y2="523.0" stroke="#a33" stroke-width="2"/>
+<line x1="400.0" y1="451.0" x2="300.0" y2="523.0" stroke="#a33" stroke-width="2"/>
+<text x="30.0" y="587.0" font-size="11" fill="#555" text-anchor="start">2 crossings in one plane; 1 in half-rows</text>
+<text x="520.0" y="375.0" font-size="12" font-weight="bold" fill="#111" text-anchor="start">(a) GND to pin 5; 3P laid CLO, CHI, trim</text>
+<circle cx="540.0" cy="415.0" r="8.0" fill="#333" stroke="#333" stroke-width="1.5"/>
+<text x="540.0" y="401.0" font-size="10" fill="#111" text-anchor="middle">RB1</text>
+<circle cx="590.0" cy="415.0" r="8.0" fill="#333" stroke="#333" stroke-width="1.5"/>
+<text x="590.0" y="401.0" font-size="10" fill="#111" text-anchor="middle">RB2</text>
+<circle cx="640.0" cy="415.0" r="8.0" fill="#333" stroke="#333" stroke-width="1.5"/>
+<text x="640.0" y="401.0" font-size="10" fill="#111" text-anchor="middle">RB3</text>
+<circle cx="690.0" cy="415.0" r="8.0" fill="#333" stroke="#333" stroke-width="1.5"/>
+<text x="690.0" y="401.0" font-size="10" fill="#111" text-anchor="middle">RB4</text>
+<circle cx="740.0" cy="415.0" r="8.0" fill="#333" stroke="#333" stroke-width="1.5"/>
+<text x="740.0" y="401.0" font-size="10" fill="#111" text-anchor="middle">GND</text>
+<circle cx="790.0" cy="415.0" r="8.0" fill="#333" stroke="#333" stroke-width="1.5"/>
+<text x="790.0" y="401.0" font-size="10" fill="#111" text-anchor="middle">CLO</text>
+<circle cx="840.0" cy="415.0" r="8.0" fill="#333" stroke="#333" stroke-width="1.5"/>
+<text x="840.0" y="401.0" font-size="10" fill="#111" text-anchor="middle">CHI</text>
+<circle cx="890.0" cy="415.0" r="8.0" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text x="890.0" y="401.0" font-size="10" fill="#111" text-anchor="middle">trim</text>
+<line x1="532.0" y1="429.0" x2="748.0" y2="429.0" stroke="#555" stroke-width="1"/>
+<text x="640.0" y="443.0" font-size="10" fill="#555" text-anchor="middle">5P</text>
+<line x1="782.0" y1="429.0" x2="898.0" y2="429.0" stroke="#555" stroke-width="1"/>
+<text x="840.0" y="443.0" font-size="10" fill="#555" text-anchor="middle">3P</text>
+<rect x="524.0" y="525.0" width="32.0" height="26.0" rx="0" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text x="540.0" y="541.0" font-size="11" fill="#111" text-anchor="middle">1</text>
+<text x="540.0" y="567.0" font-size="10" fill="#111" text-anchor="middle">RB1</text>
+<rect x="574.0" y="525.0" width="32.0" height="26.0" rx="0" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text x="590.0" y="541.0" font-size="11" fill="#111" text-anchor="middle">2</text>
+<text x="590.0" y="567.0" font-size="10" fill="#111" text-anchor="middle">RB2</text>
+<rect x="624.0" y="525.0" width="32.0" height="26.0" rx="0" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text x="640.0" y="541.0" font-size="11" fill="#111" text-anchor="middle">3</text>
+<text x="640.0" y="567.0" font-size="10" fill="#111" text-anchor="middle">RB3</text>
+<rect x="674.0" y="525.0" width="32.0" height="26.0" rx="0" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text x="690.0" y="541.0" font-size="11" fill="#111" text-anchor="middle">4</text>
+<text x="690.0" y="567.0" font-size="10" fill="#111" text-anchor="middle">RB4</text>
+<rect x="724.0" y="525.0" width="32.0" height="26.0" rx="0" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text x="740.0" y="541.0" font-size="11" fill="#111" text-anchor="middle">5</text>
+<text x="740.0" y="567.0" font-size="10" fill="#111" text-anchor="middle">GND</text>
+<rect x="774.0" y="525.0" width="32.0" height="26.0" rx="0" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text x="790.0" y="541.0" font-size="11" fill="#111" text-anchor="middle">6</text>
+<text x="790.0" y="567.0" font-size="10" fill="#111" text-anchor="middle">CLO</text>
+<rect x="824.0" y="525.0" width="32.0" height="26.0" rx="0" fill="#fff" stroke="#333" stroke-width="1.5"/>
+<text x="840.0" y="541.0" font-size="11" fill="#111" text-anchor="middle">7</text>
+<text x="840.0" y="567.0" font-size="10" fill="#111" text-anchor="middle">CHI</text>
+<text x="890.0" y="465.0" font-size="14" fill="#a33" text-anchor="middle">x</text>
+<line x1="540.0" y1="451.0" x2="540.0" y2="523.0" stroke="#2a7a2a" stroke-width="2"/>
+<line x1="590.0" y1="451.0" x2="590.0" y2="523.0" stroke="#2a7a2a" stroke-width="2"/>
+<line x1="640.0" y1="451.0" x2="640.0" y2="523.0" stroke="#2a7a2a" stroke-width="2"/>
+<line x1="690.0" y1="451.0" x2="690.0" y2="523.0" stroke="#2a7a2a" stroke-width="2"/>
+<line x1="740.0" y1="451.0" x2="740.0" y2="523.0" stroke="#2a7a2a" stroke-width="2"/>
+<line x1="790.0" y1="451.0" x2="790.0" y2="523.0" stroke="#2a7a2a" stroke-width="2"/>
+<line x1="840.0" y1="451.0" x2="840.0" y2="523.0" stroke="#2a7a2a" stroke-width="2"/>
+<text x="520.0" y="587.0" font-size="11" fill="#555" text-anchor="start">straight in both counts</text>
+<rect x="15.0" y="605.0" width="970.0" height="125.0" rx="0" fill="none" stroke="#bbb" stroke-width="1"/>
+<text x="25.0" y="624.0" font-size="12" font-weight="bold" fill="#111" text-anchor="start">Other ways to the same end</text>
+<text x="30.0" y="646.0" font-size="11" fill="#111" text-anchor="start">(a') no board change: J4 by pin block (4P = pins 1-4, 3P = pins 5-7); J7 with GND on the 3P. Straight; the far end peels at more places.</text>
+<text x="30.0" y="661.0" font-size="11" fill="#111" text-anchor="start">(b) one ribbon, one housing: J1 -&gt; XHP-5 + XHP-4, J2 -&gt; XHP-2 + XHP-3, J4 -&gt; XHP-4 + XHP-3, J7 -&gt; XHP-5 + XHP-2; ~9-11 mm more board edge;</text>
+<text x="51.0" y="676.0" font-size="11" fill="#111" text-anchor="start">4P into XHP-4 becomes 7 of 14 ends; no pair is ever fed edge to edge.</text>
+<text x="30.0" y="691.0" font-size="11" fill="#111" text-anchor="start">(c) one loom, one ribbon: 6P, 7P, 9P ribbon in pin order; the crossing moves to the hand-made far end (ribbon availability unchecked).</text>
+</svg>

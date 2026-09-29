@@ -1,0 +1,185 @@
+
+============================================================================
+1. Ribbon pitch tolerance vs comb capture
+============================================================================
+capture limit for a comb slot with a lead-in: half a ribbon pitch = 0.85 mm before a conductor can fall into the wrong slot
+3 conductors: far conductor error from EDGE datum worst 0.25 / RSS 0.09 mm;  from CENTRE datum worst 0.12 / RSS 0.06 mm
+4 conductors: far conductor error from EDGE datum worst 0.35 / RSS 0.10 mm;  from CENTRE datum worst 0.18 / RSS 0.07 mm
+5 conductors: far conductor error from EDGE datum worst 0.45 / RSS 0.12 mm;  from CENTRE datum worst 0.23 / RSS 0.08 mm
+7 conductors: far conductor error from EDGE datum worst 0.65 / RSS 0.14 mm;  from CENTRE datum worst 0.33 / RSS 0.10 mm
+8 conductors: far conductor error from EDGE datum worst 0.75 / RSS 0.16 mm;  from CENTRE datum worst 0.38 / RSS 0.11 mm
+9 conductors: far conductor error from EDGE datum worst 0.85 / RSS 0.17 mm;  from CENTRE datum worst 0.43 / RSS 0.12 mm
+-> even the worst-case 9-conductor stack from one edge (0.85 mm) sits at the capture
+   limit; from a centred datum, or with a channel slightly narrower than nominal
+   (the AMP US 4,230,008 trick), every conductor is inside a comb slot's lead-in.
+   The ribbon's own pitch is good enough to be the reference at the clamp; the comb
+   takes over at the tip.
+
+============================================================================
+2. Fan geometry: lateral move per conductor and the parted length it needs
+============================================================================
+S-bend with R = 5.0 mm, steepest angle 30.0 deg; tip overhang ahead of the comb 9.0 mm
+pitch cases: 2.5 = XH housing; 4.0 and 5.0 = crimp pitch wide enough for a slim tool;
+7.0 = carrier-strip pitch [estimate: HDGC2501-T drawing scaled by its own 1.5 mm pilot hole
+and 1.85 mm box, 6.8-7.5 mm; JST's number is licence-gated]
+
+  target pitch 2.5 mm
+    J1 MANIFOLD A  5P+4P  max move   3.2 mm, fan  8.2 mm at 30.0 deg -> part the web back ~ 17 mm | each ribbon fanned alone: max move 1.6, split 14 mm
+    J2 MANIFOLD B  3P+3P  max move   2.0 mm, fan  6.1 mm at 30.0 deg -> part the web back ~ 15 mm | each ribbon fanned alone: max move 0.8, split 13 mm
+    J3 FAUCET      4P     max move   1.2 mm, fan  4.7 mm at 28.4 deg -> part the web back ~ 14 mm
+    J4 SENSORS     4P+3P  max move   2.4 mm, fan  6.8 mm at 30.0 deg -> part the web back ~ 16 mm | each ribbon fanned alone: max move 1.2, split 14 mm
+    J5 RELAYS      4P     max move   1.2 mm, fan  4.7 mm at 28.4 deg -> part the web back ~ 14 mm
+    J6 REEDS A     5P     max move   1.6 mm, fan  5.5 mm at 30.0 deg -> part the web back ~ 14 mm
+    J7 REEDS B     5P+3P  max move   2.8 mm, fan  7.5 mm at 30.0 deg -> part the web back ~ 17 mm | each ribbon fanned alone: max move 1.6, split 14 mm
+    J9 DISPLAY     4P     max move   1.2 mm, fan  4.7 mm at 28.4 deg -> part the web back ~ 14 mm
+    J11 GAS        4P     max move   1.2 mm, fan  4.7 mm at 28.4 deg -> part the web back ~ 14 mm
+    J13 PUMPS      4P     max move   1.2 mm, fan  4.7 mm at 28.4 deg -> part the web back ~ 14 mm
+
+  target pitch 4.0 mm
+    J1 MANIFOLD A  5P+4P  max move   9.2 mm, fan 18.6 mm at 30.0 deg -> part the web back ~ 28 mm | each ribbon fanned alone: max move 4.6, split 20 mm
+    J2 MANIFOLD B  3P+3P  max move   5.8 mm, fan 12.6 mm at 30.0 deg -> part the web back ~ 22 mm | each ribbon fanned alone: max move 2.3, split 16 mm
+    J3 FAUCET      4P     max move   3.5 mm, fan  8.7 mm at 30.0 deg -> part the web back ~ 18 mm
+    J4 SENSORS     4P+3P  max move   6.9 mm, fan 14.6 mm at 30.0 deg -> part the web back ~ 24 mm | each ribbon fanned alone: max move 3.5, split 18 mm
+    J5 RELAYS      4P     max move   3.5 mm, fan  8.7 mm at 30.0 deg -> part the web back ~ 18 mm
+    J6 REEDS A     5P     max move   4.6 mm, fan 10.6 mm at 30.0 deg -> part the web back ~ 20 mm
+    J7 REEDS B     5P+3P  max move   8.1 mm, fan 16.6 mm at 30.0 deg -> part the web back ~ 26 mm | each ribbon fanned alone: max move 4.6, split 20 mm
+    J9 DISPLAY     4P     max move   3.5 mm, fan  8.7 mm at 30.0 deg -> part the web back ~ 18 mm
+    J11 GAS        4P     max move   3.5 mm, fan  8.7 mm at 30.0 deg -> part the web back ~ 18 mm
+    J13 PUMPS      4P     max move   3.5 mm, fan  8.7 mm at 30.0 deg -> part the web back ~ 18 mm
+
+  target pitch 5.0 mm
+    J1 MANIFOLD A  5P+4P  max move  13.2 mm, fan 25.5 mm at 30.0 deg -> part the web back ~ 35 mm | each ribbon fanned alone: max move 6.6, split 23 mm
+    J2 MANIFOLD B  3P+3P  max move   8.2 mm, fan 17.0 mm at 30.0 deg -> part the web back ~ 26 mm | each ribbon fanned alone: max move 3.3, split 17 mm
+    J3 FAUCET      4P     max move   5.0 mm, fan 11.3 mm at 30.0 deg -> part the web back ~ 20 mm
+    J4 SENSORS     4P+3P  max move   9.9 mm, fan 19.8 mm at 30.0 deg -> part the web back ~ 29 mm | each ribbon fanned alone: max move 5.0, split 20 mm
+    J5 RELAYS      4P     max move   5.0 mm, fan 11.3 mm at 30.0 deg -> part the web back ~ 20 mm
+    J6 REEDS A     5P     max move   6.6 mm, fan 14.1 mm at 30.0 deg -> part the web back ~ 23 mm
+    J7 REEDS B     5P+3P  max move  11.6 mm, fan 22.7 mm at 30.0 deg -> part the web back ~ 32 mm | each ribbon fanned alone: max move 6.6, split 23 mm
+    J9 DISPLAY     4P     max move   5.0 mm, fan 11.3 mm at 30.0 deg -> part the web back ~ 20 mm
+    J11 GAS        4P     max move   5.0 mm, fan 11.3 mm at 30.0 deg -> part the web back ~ 20 mm
+    J13 PUMPS      4P     max move   5.0 mm, fan 11.3 mm at 30.0 deg -> part the web back ~ 20 mm
+
+  target pitch 7.0 mm
+    J1 MANIFOLD A  5P+4P  max move  21.2 mm, fan 39.4 mm at 30.0 deg -> part the web back ~ 48 mm | each ribbon fanned alone: max move 10.6, split 30 mm
+    J2 MANIFOLD B  3P+3P  max move  13.2 mm, fan 25.6 mm at 30.0 deg -> part the web back ~ 35 mm | each ribbon fanned alone: max move 5.3, split 21 mm
+    J3 FAUCET      4P     max move   8.0 mm, fan 16.4 mm at 30.0 deg -> part the web back ~ 25 mm
+    J4 SENSORS     4P+3P  max move  15.9 mm, fan 30.2 mm at 30.0 deg -> part the web back ~ 39 mm | each ribbon fanned alone: max move 8.0, split 25 mm
+    J5 RELAYS      4P     max move   8.0 mm, fan 16.4 mm at 30.0 deg -> part the web back ~ 25 mm
+    J6 REEDS A     5P     max move  10.6 mm, fan 21.0 mm at 30.0 deg -> part the web back ~ 30 mm
+    J7 REEDS B     5P+3P  max move  18.6 mm, fan 34.8 mm at 30.0 deg -> part the web back ~ 44 mm | each ribbon fanned alone: max move 10.6, split 30 mm
+    J9 DISPLAY     4P     max move   8.0 mm, fan 16.4 mm at 30.0 deg -> part the web back ~ 25 mm
+    J11 GAS        4P     max move   8.0 mm, fan 16.4 mm at 30.0 deg -> part the web back ~ 25 mm
+    J13 PUMPS      4P     max move   8.0 mm, fan 16.4 mm at 30.0 deg -> part the web back ~ 25 mm
+
+-> Housing pitch alone needs only ~12-18 mm parted. A 5 mm crimp pitch needs ~20-40 mm.
+   Carrier pitch (~7 mm) needs ~30-60 mm unless each ribbon of a pair is fanned alone.
+
+============================================================================
+3. How wide the crimp pitch must be: tool nose vs neighbours
+============================================================================
+Neighbour half-widths: bare conductor 0.85; crimped contact (ins. barrel) 1.03;
+open contact (ins. barrel) 1.23-1.50
+(a) Open contacts side by side at 2.5 mm pitch: gap between open insulation wings -0.50 to +0.04 mm -> they collide or nearly so:
+    contacts cannot be pre-loaded in a row at housing pitch; one at a time only.
+(b) tool nose  3.0 mm wide, neighbours in plane: crimp pitch >= 2.8 mm
+(b) tool nose  4.0 mm wide, neighbours in plane: crimp pitch >= 3.3 mm
+(b) tool nose  6.0 mm wide, neighbours in plane: crimp pitch >= 4.3 mm
+(b) tool nose 10.0 mm wide, neighbours in plane: crimp pitch >= 6.3 mm
+(c) neighbours lifted 4-5 mm above the active contact: they only have to clear the
+    part of the tooling that reaches below their level at the bottom of the stroke -
+    the forming noses of punch and hold-down, typically 3-4 mm wide [estimate] ->
+    crimp pitch >= 2.9-3.3 mm. 5.0 mm is a round choice with margin.
+
+============================================================================
+4. The conductor as a beam: sag, lay-in force, and why nobody pushes on a bare wire
+============================================================================
+insulation I = 0.397 mm^4 -> EI 0.79-2.38 N mm^2; strands (free to slip) 14.115 N mm^2
+total EI ~14.91-16.50 N mm^2: the copper strands carry most of the elastic stiffness
+annealed strands take a permanent set below a bend radius of ~67 mm; plastic moment of the bundle ~0.36 N mm
+-> the conductor keeps whatever shape the comb gives it (a fan stays fanned), and
+   handling leaves set in it; the silicone jacket springs back only part of the way
+weight 0.048 N/m (4.8 g/m)
+  cantilever  5 mm from a comb: gravity sag 0.000-0.000 mm
+  cantilever 10 mm from a comb: gravity sag 0.004-0.004 mm
+  cantilever 15 mm from a comb: gravity sag 0.018-0.020 mm
+  cantilever 20 mm from a comb: gravity sag 0.058-0.064 mm
+  -> within ~10 mm of a comb the conductor points where the comb points; residual set
+     from the spool, not gravity, is the error source [assumption: <0.3 mm at 10 mm].
+  pushing a 10 mm free length down 4 mm into a waiting contact: 197.9 mN
+  pushing a 15 mm free length down 5 mm into a waiting contact: 73.3 mN
+  (elastic figures; the strands yield once the root moment passes 0.36 N mm, i.e. a
+   tip force of ~36 mN on a 10 mm length, so the real force is lower still)
+  -> a lay-in finger needs a fraction of a newton.
+Euler buckling of the free conductor under an axial push (pinned-pinned):
+  L =  1 mm: 147.14-162.80 N
+  L =  2 mm: 36.78-40.70 N
+  L =  5 mm: 5.89-6.51 N
+  L = 10 mm: 1.47-1.63 N
+-> insertion wants up to 9.8 N per contact [source, clone spec]. Elastic Euler already
+   limits a free length to ~3-4 mm, and yielding strands lower that further. The push
+   must come from a clamp gripping the insulation within ~2 mm of the insulation barrel,
+   or through a closed channel. Clamp grip needed:
+   mu 0.5: normal force >= 20 N per conductor (two jaws: 10 N each face)
+   mu 1.0: normal force >= 10 N per conductor (two jaws: 5 N each face)
+
+============================================================================
+5. Parting the web: tear and cut forces
+============================================================================
+web 0.2 mm thick: tear force to run a split 2-5 N per web
+web 0.4 mm thick: tear force to run a split 4-10 N per web
+web 0.6 mm thick: tear force to run a split 6-15 N per web
+-> a few newtons to ~15 N per web. A wedge comb opening all webs of a 5P at once
+   (4 webs) pulls ~10-60 N on the clamp. A hand or a hobby servo does this.
+   A sharp blade drawn along a valley cuts at well under the tear force [assumption].
+
+============================================================================
+6. Pulling the strip slug
+============================================================================
+friction of a 2.4 mm slug if the ring is fully cut: ~0.22 N
+uncut ligament 0.05 mm left by a depth-limited blade: tear 1.0-2.5 N per conductor
+uncut ligament 0.15 mm left by a depth-limited blade: tear 3.0-7.5 N per conductor
+uncut ligament 0.30 mm left by a depth-limited blade: tear 6.0-15.0 N per conductor
+-> leaving 0.1-0.2 mm of silicone uncut costs only a few newtons per conductor to tear,
+   so the blade can stop well short of the 0.08 mm strands.
+   Whole-end strip of a 9-conductor pair: ~9 x (3-15) = 30-135 N through the clamp.
+
+============================================================================
+7. Gang strokes: all crimps of a ribbon at once
+============================================================================
+3 contacts in one stroke: 2.4-7.8 kN (VEVOR 12 t shop press ~118 kN; margin 15x at the high end)
+4 contacts in one stroke: 3.2-10.4 kN (VEVOR 12 t shop press ~118 kN; margin 11x at the high end)
+5 contacts in one stroke: 4.0-12.9 kN (VEVOR 12 t shop press ~118 kN; margin 9x at the high end)
+9 contacts in one stroke: 7.1-23.3 kN (VEVOR 12 t shop press ~118 kN; margin 5x at the high end)
+-> force is not the obstacle; die making and height control are. A die set that
+   bottoms on hardened stop blocks makes crimp height a property of the die set,
+   not of the press.
+  stop blocks 100 mm^2 total at 20 kN overdrive: 200 MPa (hardened steel ok < ~1000)
+  stop blocks 200 mm^2 total at 20 kN overdrive: 100 MPa (hardened steel ok < ~1000)
+  stop blocks 400 mm^2 total at 20 kN overdrive: 50 MPa (hardened steel ok < ~1000)
+
+============================================================================
+8. Insertion: all at once vs one after another
+============================================================================
+4 contacts straight in together: up to 39 N through the clamp [source max per contact]; tilted 'lean and slide' (Sogang) keeps ~1-2 in the lead-in at any moment: ~10-20 N
+5 contacts straight in together: up to 49 N through the clamp [source max per contact]; tilted 'lean and slide' (Sogang) keeps ~1-2 in the lead-in at any moment: ~10-20 N
+7 contacts straight in together: up to 69 N through the clamp [source max per contact]; tilted 'lean and slide' (Sogang) keeps ~1-2 in the lead-in at any moment: ~10-20 N
+9 contacts straight in together: up to 88 N through the clamp [source max per contact]; tilted 'lean and slide' (Sogang) keeps ~1-2 in the lead-in at any moment: ~10-20 N
+Sogang #26 ribbon into 2.5 mm housings [source arXiv 2608.06996]: straight parallel approach
+3/20 success (pitch and yaw errors); lean-and-slide 18/20; with weaving and a guide clamp,
+insertion 49/50.
+
+============================================================================
+9. Electrical access through the far end (pogo on the cut face)
+============================================================================
+conductor resistance 57 mOhm/m; a 100-600 mm loom 6-34 mOhm
+crimp resistance ~1-2 mOhm [mfr: 10 mOhm initial max for the XH contact interface]
+-> two-wire through the loom sees continuity, opens and shorts, and blade-to-copper
+   touches; it cannot grade a crimp. Four-wire at the crimp needs two probes on the
+   contact and two on the conductor's far end.
+
+============================================================================
+10. Time budget for one unit, one conductor at a time [estimate]
+============================================================================
+10 housings, 55 conductors, 53 crimps, 45 webs to part
+machine time ~156 min per unit (2.6 h); person's hands ~15 min (load/unload)
+-> an afternoon per unit even at 2 minutes per crimp, against ~100 printer-hours per unit.

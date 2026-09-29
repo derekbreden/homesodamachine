@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 600" width="980" height="600" font-family="Helvetica, Arial, sans-serif">
+<title>v6 the patient cell</title>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f2328"/></marker><marker id="arrv" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0969da"/></marker><marker id="arrf" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#bc4c00"/></marker></defs>
+<rect x="0" y="0" width="980" height="600" fill="#ffffff"/>
+<text x="20" y="28" font-size="17" fill="#1f2328" text-anchor="start" font-weight="bold">v6  The patient cell: every act is bracketed by a look, and a doubt goes to a queue</text>
+<text x="20" y="47" font-size="12" fill="#57606a" text-anchor="start" font-weight="normal" font-style="italic">Schematic flow for one conductor. Each station is a function with a picture before and after.</text>
+<rect x="20" y="95" width="145" height="70" rx="8" fill="#fff8c5" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<text x="92.5" y="117" font-size="13" fill="#1f2328" text-anchor="middle" font-weight="bold">load</text>
+<text x="92.5" y="137" font-size="10.5" fill="#57606a" text-anchor="middle" font-weight="normal">person: ribbon in pallet,</text>
+<text x="92.5" y="151" font-size="10.5" fill="#57606a" text-anchor="middle" font-weight="normal">flush cut; tail coiled</text>
+<line x1="165" y1="130.0" x2="177" y2="130.0" stroke="#1f2328" stroke-width="1.5" marker-end="url(#arr)"/>
+<rect x="177" y="95" width="145" height="70" rx="8" fill="#ddf4ff" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<text x="249.5" y="117" font-size="13" fill="#1f2328" text-anchor="middle" font-weight="bold">split</text>
+<text x="249.5" y="137" font-size="10.5" fill="#57606a" text-anchor="middle" font-weight="normal">blade plunged at the root,</text>
+<text x="249.5" y="151" font-size="10.5" fill="#57606a" text-anchor="middle" font-weight="normal">drawn out to the tip</text>
+<line x1="322" y1="130.0" x2="334" y2="130.0" stroke="#1f2328" stroke-width="1.5" marker-end="url(#arr)"/>
+<rect x="334" y="95" width="145" height="70" rx="8" fill="#ddf4ff" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<text x="406.5" y="117" font-size="13" fill="#1f2328" text-anchor="middle" font-weight="bold">twist + strip</text>
+<text x="406.5" y="137" font-size="10.5" fill="#57606a" text-anchor="middle" font-weight="normal">die-hole blades at the</text>
+<text x="406.5" y="151" font-size="10.5" fill="#57606a" text-anchor="middle" font-weight="normal">contact's length; twist-pull</text>
+<line x1="479" y1="130.0" x2="491" y2="130.0" stroke="#1f2328" stroke-width="1.5" marker-end="url(#arr)"/>
+<rect x="491" y="95" width="145" height="70" rx="8" fill="#ddf4ff" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<text x="563.5" y="117" font-size="13" fill="#1f2328" text-anchor="middle" font-weight="bold">place + crimp</text>
+<text x="563.5" y="137" font-size="10.5" fill="#57606a" text-anchor="middle" font-weight="normal">v1, v8 tack + crimp,</text>
+<text x="563.5" y="151" font-size="10.5" fill="#57606a" text-anchor="middle" font-weight="normal">or v9 at an applicator</text>
+<line x1="636" y1="130.0" x2="648" y2="130.0" stroke="#1f2328" stroke-width="1.5" marker-end="url(#arr)"/>
+<rect x="648" y="95" width="145" height="70" rx="8" fill="#ddf4ff" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<text x="720.5" y="117" font-size="13" fill="#1f2328" text-anchor="middle" font-weight="bold">inspect + pull</text>
+<text x="720.5" y="137" font-size="10.5" fill="#57606a" text-anchor="middle" font-weight="normal">v5 in line</text>
+<text x="720.5" y="151" font-size="10.5" fill="#57606a" text-anchor="middle" font-weight="normal">log the crimp</text>
+<line x1="793" y1="130.0" x2="805" y2="130.0" stroke="#1f2328" stroke-width="1.5" marker-end="url(#arr)"/>
+<rect x="805" y="95" width="145" height="70" rx="8" fill="#ddf4ff" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<text x="877.5" y="117" font-size="13" fill="#1f2328" text-anchor="middle" font-weight="bold">insert</text>
+<text x="877.5" y="137" font-size="10.5" fill="#57606a" text-anchor="middle" font-weight="normal">housing on the wire axis;</text>
+<text x="877.5" y="151" font-size="10.5" fill="#57606a" text-anchor="middle" font-weight="normal">push, latch seen in window</text>
+<text x="20" y="238" font-size="13" fill="#1f2328" text-anchor="start" font-weight="bold">Inside every station:</text>
+<rect x="150" y="250" width="160" height="56" rx="6" fill="#f6f8fa" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<text x="230" y="272" font-size="13" fill="#1f2328" text-anchor="middle" font-weight="bold">look</text>
+<text x="230" y="290" font-size="10.5" fill="#57606a" text-anchor="middle" font-weight="normal">is the precondition true?</text>
+<line x1="310" y1="278" x2="340" y2="278" stroke="#1f2328" stroke-width="1.5" marker-end="url(#arr)"/>
+<rect x="340" y="250" width="160" height="56" rx="6" fill="#f6f8fa" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<text x="420" y="272" font-size="13" fill="#1f2328" text-anchor="middle" font-weight="bold">act</text>
+<text x="420" y="290" font-size="10.5" fill="#57606a" text-anchor="middle" font-weight="normal">one motion or one stroke</text>
+<line x1="500" y1="278" x2="530" y2="278" stroke="#1f2328" stroke-width="1.5" marker-end="url(#arr)"/>
+<rect x="530" y="250" width="160" height="56" rx="6" fill="#f6f8fa" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<text x="610" y="272" font-size="13" fill="#1f2328" text-anchor="middle" font-weight="bold">look</text>
+<text x="610" y="290" font-size="10.5" fill="#57606a" text-anchor="middle" font-weight="normal">did it do what it should?</text>
+<line x1="690" y1="278" x2="720" y2="278" stroke="#1f2328" stroke-width="1.5" marker-end="url(#arr)"/>
+<rect x="720" y="250" width="160" height="56" rx="6" fill="#f6f8fa" stroke="#1f2328" stroke-width="1.5" opacity="1"/>
+<text x="800" y="272" font-size="13" fill="#1f2328" text-anchor="middle" font-weight="bold">decide</text>
+<text x="800" y="290" font-size="10.5" fill="#57606a" text-anchor="middle" font-weight="normal">accept / retry / back out / ask</text>
+<line x1="800" y1="306" x2="800" y2="328" stroke="#8c959f" stroke-width="1.5" stroke-dasharray="3 3"/>
+<line x1="560" y1="328" x2="800" y2="328" stroke="#8c959f" stroke-width="1.5" stroke-dasharray="3 3"/>
+<text x="560" y="350" font-size="12" fill="#1a7f37" text-anchor="start" font-weight="bold">accept</text>
+<text x="640" y="350" font-size="11" fill="#57606a" text-anchor="start" font-weight="normal">next station</text>
+<text x="560" y="382" font-size="12" fill="#9a6700" text-anchor="start" font-weight="bold">retry</text>
+<text x="640" y="382" font-size="11" fill="#57606a" text-anchor="start" font-weight="normal">same act, new attempt (max 2-3)</text>
+<text x="560" y="414" font-size="12" fill="#57606a" text-anchor="start" font-weight="bold">back out</text>
+<text x="640" y="414" font-size="11" fill="#57606a" text-anchor="start" font-weight="normal">undo: lift, re-strip, re-seat</text>
+<text x="560" y="446" font-size="12" fill="#cf222e" text-anchor="start" font-weight="bold">ask</text>
+<text x="640" y="446" font-size="11" fill="#57606a" text-anchor="start" font-weight="normal">park it, photo to the queue, next conductor</text>
+<rect x="20" y="360" width="470" height="120" rx="6" fill="#ffffff" stroke="#8c959f" stroke-width="1.5" opacity="1"/>
+<text x="34" y="384.0" font-size="11.5" fill="#1f2328" text-anchor="start" font-weight="normal">Per conductor ~3-7.5 min; per unit ~3-6.6 h unattended [calc].</text>
+<text x="34" y="398.5" font-size="11.5" fill="#1f2328" text-anchor="start" font-weight="normal">Person: cut and load 14 ribbon ends (~15-30 min), load contacts</text>
+<text x="34" y="413.0" font-size="11.5" fill="#1f2328" text-anchor="start" font-weight="normal">and housings, answer the queue.</text>
+<text x="34" y="427.5" font-size="11.5" fill="#1f2328" text-anchor="start" font-weight="normal">The queue holds a photo, the station, what was measured and</text>
+<text x="34" y="442.0" font-size="11.5" fill="#1f2328" text-anchor="start" font-weight="normal">what the machine proposes; Derek answers from the phone or</text>
+<text x="34" y="456.5" font-size="11.5" fill="#1f2328" text-anchor="start" font-weight="normal">the bench, and the answer becomes a labelled example.</text>
+<text x="20" y="560" font-size="11" fill="#57606a" text-anchor="start" font-weight="normal">Irreversible acts (the crimp, the lance catching in the housing) get the strictest look before them;</text>
+<text x="20" y="576" font-size="11" fill="#57606a" text-anchor="start" font-weight="normal">everything before the crimp can be undone; a bad crimp costs a ~6-10 mm cut-back of the whole ribbon end.</text>
+</svg>

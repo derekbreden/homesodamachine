@@ -1,0 +1,147 @@
+
+==============================================================================
+1. Threading a 1.7 mm silicone conductor through a captured insulation barrel (f1, f3, f4)
+==============================================================================
+At capture the insulation wings sit inside the insulation crimper's channel, whose width
+is ~1.8-2.0 mm [mfr analog SXA-01T, f&f f3]. Inner clear width = channel - 2 x stock.
+Silicone must squeeze through it. Friction estimate: per-side normal force =
+E_si x (radial strain) x (barrel length x ~1.0 mm contact height); push = mu x 2 x N.
+E_si 2-5 MPa [estimate, Shore ~40-60A silicone]; mu 0.5-1.0 [estimate, silicone on tin];
+insulation barrel length 0.8-1.5 mm [estimate, xh-facts §1].
+  channel 1.8 -> clear 1.40 mm; OD 1.6: interference 0.20 mm, wall strain  20%, push ~ 0.3- 3.1 N
+  channel 1.8 -> clear 1.40 mm; OD 1.7: interference 0.30 mm, wall strain  31%, push ~ 0.5- 4.6 N
+  channel 1.8 -> clear 1.40 mm; OD 1.8: interference 0.40 mm, wall strain  41%, push ~ 0.7- 6.1 N
+  channel 1.9 -> clear 1.50 mm; OD 1.6: interference 0.10 mm, wall strain  10%, push ~ 0.2- 1.5 N
+  channel 1.9 -> clear 1.50 mm; OD 1.7: interference 0.20 mm, wall strain  20%, push ~ 0.3- 3.1 N
+  channel 1.9 -> clear 1.50 mm; OD 1.8: interference 0.30 mm, wall strain  31%, push ~ 0.5- 4.6 N
+  channel 2.0 -> clear 1.60 mm; OD 1.6: interference 0.00 mm, wall strain   0%, push ~ 0.0- 0.0 N
+  channel 2.0 -> clear 1.60 mm; OD 1.7: interference 0.10 mm, wall strain  10%, push ~ 0.2- 1.5 N
+  channel 2.0 -> clear 1.60 mm; OD 1.8: interference 0.20 mm, wall strain  20%, push ~ 0.3- 3.1 N
+Buckling of the conductor under that push (strand-sum EI 14.1 N*mm^2 + silicone), pinned-pinned:
+  2 mm 37-41 N, 5 mm 5.9-6.5 N, 10 mm 1.5-1.6 N [source: sibling calc ribbon-as-pallet
+  pallet_geometry §4 and into-the-housing insertion_geometry §1]
+-> worst case (1.8 mm conductor into a 1.4 mm clearance) is ~6 N, the buckling load of a
+   5 mm free length. A guide within ~3 mm of the barrel mouth carries it with ~2x margin.
+   The repo's hand procedure already threads into a one-click-captured SN-2549 contact
+   [repo cable-assemblies.md], so some capture height exists where this works by hand.
+   The number to take from the bench is that capture gap (feeler or pin gauge at click 1).
+
+==============================================================================
+2. f3: where the lead contact's pilot hole sits relative to the threading path
+==============================================================================
+  tab 0.70 mm, carrier 3.0 mm: pilot-hole centre 2.20 mm behind the insulation barrel, on the contact centreline; hole spans +/-0.75 mm across it
+  tab 1.15 mm, carrier 3.0 mm: pilot-hole centre 2.65 mm behind the insulation barrel, on the contact centreline; hole spans +/-0.75 mm across it
+  the insulated conductor (1.7 mm OD) slides on the carrier's top face, spanning +/-0.85 mm
+-> any pin standing above the carrier top in the lead contact's own hole is in the conductor's
+   path. Riding over a 0.3-0.5 mm pin tilts the conductor up by:
+     pin 0.3 mm proud at 2.20 mm behind the barrel:  7.8 deg
+     pin 0.3 mm proud at 2.65 mm behind the barrel:  6.5 deg
+     pin 0.5 mm proud at 2.20 mm behind the barrel: 12.8 deg
+     pin 0.5 mm proud at 2.65 mm behind the barrel: 10.7 deg
+
+==============================================================================
+3. f4: can the head leave a crimped contact, and can it pick one off the strip?
+==============================================================================
+  crimped contact end view 1.95 x 2.4 mm, diagonal 3.09 mm; funnel exit 2.0 mm
+  -> a closed funnel round the conductor cannot pass back over the crimped contact, and a
+     downward move would take the funnel through the wire.
+  crimp height 0.73: opened crimper roof 5.73 mm above the floor; the crimper is above the
+     contact, so a downward head move closes on it after 3.33 mm and never frees it.
+     An axial retreat (dies slide off past the box) needs an opening of only 1.97 mm.
+  crimp height 0.88: opened crimper roof 5.88 mm above the floor; the crimper is above the
+     contact, so a downward head move closes on it after 3.48 mm and never frees it.
+     An axial retreat (dies slide off past the box) needs an opening of only 1.82 mm.
+  At the pick, the carrier (3.0 mm wide, 0.7-1.15 mm tab) lies directly behind the insulation
+  barrel, where the head's rear funnel has to be. A funnel fixed to the head collides with it.
+
+==============================================================================
+4. f5 x c1: a half-row cassette at 5.0 mm (twice the housing pitch)
+==============================================================================
+Half-rows (c1): odd cavities in one pass, even in the other. Each row's conductors lie at
+3.4 mm in their own plane (2 x ribbon pitch) and are spread to 5.0 mm (2 x housing pitch).
+A straight-descending V-tooth comb puts a conductor in the right slot if it moves < 2.5 mm
+(half the slot pitch); +/-0.2 mm lay uncertainty [estimate] is taken off the margin.
+  row of 2 cavities: outer conductor moves 0.8 mm, comb margin +1.5 mm; gang force kN: low  1.6  central  3.4  high  4.9; 1 t arbor press: covers
+  row of 3 cavities: outer conductor moves 1.6 mm, comb margin +0.7 mm; gang force kN: low  2.3  central  5.0  high  7.3; 1 t arbor press: covers
+  row of 4 cavities: outer conductor moves 2.4 mm, comb margin -0.1 mm; gang force kN: low  3.1  central  6.7  high  9.7; 1 t arbor press: central only
+  row of 5 cavities: outer conductor moves 3.2 mm, comb margin -0.9 mm; gang force kN: low  3.9  central  8.4  high 12.2; 1 t arbor press: central only
+  crimper outer width 3.5 mm [f&f calc: gang §1] at 5.0 mm pitch: 1.5 mm of steel between stations
+  crimper outer width 4.4 mm [f&f calc: gang §1] at 5.0 mm pitch: 0.6 mm of steel between stations
+  per unit: 20 row strokes, 53 crimps; in rows of <=3 cavities 36 (68%), rows of 4 12 (J1 B, J4 A, J7 A), row of 5 5 (J1 A)
+  -> a straight comb lays every T4, J2 and J6 row and the 3-rows of J4 and J7; the 4-rows
+     have ~0 margin and J1's 5-row fails, so those want a tilted or rolling comb.
+  Compare f5 at strip pitch: a 5P fans 30-38 mm, outer conductors move 12-15 mm [f&f calc: gang §1].
+
+==============================================================================
+5. f5 branch: take every k-th conductor, which already sits near the strip pitch
+==============================================================================
+k x 1.7 mm against the carrier pitch (unmeasured for SXH; Wurth 7.10 [mfr]; clones 7-9.5 est.)
+  strip pitch 7.1: every 4th conductor (6.8 mm), mismatch -0.3 mm per pitch; row of 3 outer moves 0.3 mm
+  strip pitch 7.5: every 4th conductor (6.8 mm), mismatch -0.7 mm per pitch; row of 3 outer moves 0.7 mm
+  strip pitch 8.0: every 5th conductor (8.5 mm), mismatch +0.5 mm per pitch; row of 3 outer moves 0.5 mm
+  strip pitch 8.5: every 5th conductor (8.5 mm), mismatch +0.0 mm per pitch; row of 3 outer moves 0.0 mm
+  strip pitch 9.0: every 5th conductor (8.5 mm), mismatch -0.5 mm per pitch; row of 3 outer moves 0.5 mm
+  strip pitch 9.5: every 6th conductor (10.2 mm), mismatch +0.7 mm per pitch; row of 3 outer moves 0.7 mm
+  rows available per ribbon end at k = 4: 3P -> 1+1+1; 4P -> 1+1+1+1; 5P -> 2+1+1+1;
+  J1 laid as 9 -> 3+2+2+2. The gang is small; what it buys is the strip kept as the pallet
+  with a fan of <= 1 mm instead of 12-15 mm, at the price of k strokes per ribbon end.
+
+==============================================================================
+6. Reference crimp (c2): correcting a genuine JST lead's crimp height to the ribbon's copper
+==============================================================================
+  ribbon conductor: 60 x 0.08 mm = 0.302 mm^2 [source S29]
+  consistency: wings 0.82 + copper 0.30 mm^2 in a 1.5 mm wide B at fill 0.80 -> H = 0.93 mm (the C1 estimate is 0.88)
+  consistency: wings 0.82 + copper 0.30 mm^2 in a 1.5 mm wide B at fill 0.90 -> H = 0.83 mm (the C1 estimate is 0.88)
+  reference lead 22 AWG nominal           0.324 mm^2: same profile and compaction crimps the ribbon 0.017-0.019 mm lower
+  reference lead 17/0.16 (JIS-style 22)   0.342 mm^2: same profile and compaction crimps the ribbon 0.030-0.034 mm lower
+  reference lead 7/30 AWG (7 x 0.254)     0.355 mm^2: same profile and compaction crimps the ribbon 0.039-0.044 mm lower
+  reference lead 19/34 AWG (19 x 0.160)   0.382 mm^2: same profile and compaction crimps the ribbon 0.060-0.067 mm lower
+-> H_ribbon ~= H_ref - (A_ref - 0.302) / (1.5 x 0.8-0.9). Count the reference lead's strands
+   under the ELP camera and caliper one strand to get A_ref. The correction is 0.02-0.07 mm,
+   the same size as JST's +/-0.05 mm tolerance, so it cannot be ignored.
+
+==============================================================================
+7. How often each arrangement calls the person back, per unit
+==============================================================================
+  f1 as written (contact dropped per crimp)             67 calls   (every 1-2 min through the run [f&f f3 cycle estimate])
+  f1 + keyed stick magazine loaded at leisure           15 calls   (53 contacts still handled, in one sitting)
+  f1 + strip dispenser and shear over the flap          14 calls   (reel every ~150 units)
+  f1 fed tacked ribbon ends from a c1b tack station     34 calls   (pallets loaded per half-row at the tack station)
+  f2, f3, f4 as written (strip fed)                     14 calls   (plus a reel)
+  f5 as written, shop press pumped by hand              28 calls   (load, then pump)
+  f5 x c1 half-row cassette, loose contacts             30 calls   (housing and ribbon, then pockets per row)
+-> loose-contact arrangements call the person once per row or per crimp; strip-fed ones once
+   per ribbon end. The contact's form sets the call count more than any mechanism does.
+
+==============================================================================
+8. What a fork or pusher behind the crimped contact can bear on (f3 proof pull; c1 pusher)
+==============================================================================
+End view from behind. The wire behind the contact is uncrimped silicone, 1.7 +/-0.1 mm OD,
+its underside level with the barrel floor's inner face (0.2 mm up).
+  insulation crimp 1.80 wide x 1.80 tall, wire 1.6: side rim beyond a 1.65 mm slot +0.075 mm per side; crimp top vs wire top +0.00 mm
+  insulation crimp 1.80 wide x 1.80 tall, wire 1.7: side rim beyond a 1.75 mm slot +0.025 mm per side; crimp top vs wire top -0.10 mm
+  insulation crimp 1.80 wide x 1.80 tall, wire 1.8: side rim beyond a 1.85 mm slot -0.025 mm per side; crimp top vs wire top -0.20 mm
+  insulation crimp 2.00 wide x 1.80 tall, wire 1.6: side rim beyond a 1.65 mm slot +0.175 mm per side; crimp top vs wire top +0.00 mm
+  insulation crimp 2.00 wide x 1.80 tall, wire 1.7: side rim beyond a 1.75 mm slot +0.125 mm per side; crimp top vs wire top -0.10 mm
+  insulation crimp 2.00 wide x 1.80 tall, wire 1.8: side rim beyond a 1.85 mm slot +0.075 mm per side; crimp top vs wire top -0.20 mm
+  floor's rear edge below the wire: 0.20 mm (and the tab stub, if cut)
+  box rear face (2.2 tall, 1.9 wide) exposed above a 0.73 mm conductor crimp: 1.47 mm; above the 1.80 mm insulation crimp: 0.40 mm
+  box rear face (2.4 tall, 1.9 wide) exposed above a 0.73 mm conductor crimp: 1.67 mm; above the 1.80 mm insulation crimp: 0.60 mm
+  box rear face (2.2 tall, 1.9 wide) exposed above a 0.88 mm conductor crimp: 1.32 mm; above the 1.80 mm insulation crimp: 0.40 mm
+  box rear face (2.4 tall, 1.9 wide) exposed above a 0.88 mm conductor crimp: 1.52 mm; above the 1.80 mm insulation crimp: 0.60 mm
+-> behind the insulation barrel there is at most 0.03-0.18 mm of metal per side, none for a
+   1.8 mm wire in a 1.8 mm crimp, plus 0.2 mm of floor edge. A fork there bears mostly on
+   silicone. The box's rear face, reached from above in the space over the conductor crimp,
+   offers 1.3-1.7 x 1.9 mm of steel-to-bronze
+   bearing for a proof pull; its top 0.4-0.6 mm clears the insulation crimp for a pusher that
+   must withdraw straight back.
+
+==============================================================================
+9. Delivery in cavity order (output pallet after a single-conductor crimper): J4 and J7 moves
+==============================================================================
+  J4 (housing offset -2.00 mm): pos 1->cav 1: 2.0, pos 2->cav 5: 6.3, pos 3->cav 3: 0.4, pos 4->cav 4: 0.4, pos 5->cav 2: 6.3, pos 6->cav 6: 2.0, pos 7->cav 7: 2.8
+     largest move 6.3 mm over a 15 mm split: 23 deg
+     largest move 6.3 mm over a 20 mm split: 17 deg
+  J7 (housing offset -4.00 mm): pos 1->cav 1: 4.0, pos 2->cav 2: 3.2, pos 3->cav 3: 2.4, pos 4->cav 4: 1.6, pos 5->cav 7: 4.2, pos 7->cav 5: 4.2, pos 8->cav 6: 3.4
+     largest move 4.2 mm over a 15 mm split: 16 deg
+     largest move 4.2 mm over a 20 mm split: 12 deg

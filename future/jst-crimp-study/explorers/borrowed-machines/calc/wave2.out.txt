@@ -1,0 +1,141 @@
+
+==============================================================================
+1. b1 on a fast bought press: the pre-feed arrives while the conductor is still held
+==============================================================================
+Plastic bending moment of 60 strands that slide on each other (each strand bends alone):
+  yield 70 MPa: Mp = 0.36 N*mm; side force at the contact that sets the conductor: L=   6 mm ->   60 mN, L=   8 mm ->   45 mN, L=  10 mm ->   36 mN, L=  15 mm ->   24 mN
+  yield 100 MPa: Mp = 0.51 N*mm; side force at the contact that sets the conductor: L=   6 mm ->   85 mN, L=   8 mm ->   64 mN, L=  10 mm ->   51 mN, L=  15 mm ->   34 mN
+  (L = lever from the fork/foot hold to the contact; silicone adds EI ~1-2 N*mm^2 elastically only)
+
+Side loads the fork must resist during lay-in (elastic, conductor offset e at the barrel):
+  offset 0.1 mm over 4 mm:    66 mN;  offset 0.1 mm over 8 mm:     8 mN;
+  offset 0.3 mm over 4 mm:   197 mN;  offset 0.3 mm over 8 mm:    25 mN;
+  offset 0.5 mm over 4 mm:   328 mN;  offset 0.5 mm over 8 mm:    41 mN;
+  plus friction under a presser foot at 0.5-2 N down, mu 0.5-1 on silicone: 250-2000 mN [estimate]
+-> a sprung or detented 'compliant fork' would need a breakaway above the lay-in loads (tens of mN,
+   hundreds with the foot down) and below the load that sets the conductor (24-85 mN). The window is
+   empty. The parts that hold the conductor must be OFF it before the feed moves, which on a fast
+   press means mounted on the ram (they lift with it) or a dwell (b1b).
+
+Post-feed with a ram-borne finger (b1 repair):
+  conductor waits with its centre 4.60 mm above the barrel floor (wings 3.45 + 0.3 + OD/2)
+  split  8.0 mm: tip raised 3.75 mm -> 25.1 deg at the root (sets the copper; the finger bends it back)
+  split 10.0 mm: tip raised 3.75 mm -> 20.6 deg at the root (sets the copper; the finger bends it back)
+  split 12.0 mm: tip raised 3.75 mm -> 17.4 deg at the root (sets the copper; the finger bends it back)
+  split 15.0 mm: tip raised 3.75 mm -> 14.0 deg at the root (sets the copper; the finger bends it back)
+  finger must protrude >= 1.75 mm below the insulation crimper's forming face, so the conductor
+  is seated (top at 1.7 mm) before the crimper meets the wing tips (3.45 mm);
+  it first touches the waiting conductor when the forming face is ~7.2 mm above the floor,
+  so the post-feed must have finished by then [assumption: post-feed completes early in the downstroke].
+
+Pneumatic snatch inside the pre-feed window (alternative on the fast press):
+  piston 0.3 m/s: 7 mm in ~  28 ms + valve 10-20 ms = 38-48 ms against a 50-90 ms window
+  piston 0.6 m/s: 7 mm in ~  17 ms + valve 10-20 ms = 27-37 ms against a 50-90 ms window
+  piston 1.0 m/s: 7 mm in ~  12 ms + valve 10-20 ms = 22-32 ms against a 50-90 ms window
+  trigger: a proximity switch on the ram at 4-6 mm up the upstroke. Tight; and the fork/foot must
+  already be off the conductor, so the snatch only helps if they ride the ram anyway.
+
+==============================================================================
+2. b6: pierce at the root, pull to the tip; the harp branch; the noose
+==============================================================================
+Seam position error from a centred datum (conductor pitch 1.7 +/-0.1 each, worst case) [facts]:
+  3P: outer seam 0.85 mm from centre, error up to +/-0.05 mm; a V-valley captures a point within +/-0.85 mm
+  4P: outer seam 1.70 mm from centre, error up to +/-0.10 mm; a V-valley captures a point within +/-0.85 mm
+  5P: outer seam 2.55 mm from centre, error up to +/-0.15 mm; a V-valley captures a point within +/-0.85 mm
+
+Rip force per seam (neck height h unmeasured; repo Open item 5):
+  neck 0.2 mm: round pin tears it  3.0- 5.0 N; pin with a trailing edge (seam-ripper crotch) cuts it 0.2-1.0 N
+  neck 0.4 mm: round pin tears it  6.0-10.0 N; pin with a trailing edge (seam-ripper crotch) cuts it 0.4-2.0 N
+  neck 0.6 mm: round pin tears it  9.0-15.0 N; pin with a trailing edge (seam-ripper crotch) cuts it 0.6-3.0 N
+  pierce, conical 0.4-0.6 mm pin through the neck: 0.5-3 N [estimate]
+
+Pull on the ribbon to rip every seam of one end at once, round pins, neck 0.2-0.6 mm:
+  3P                         2 seams:   6.0- 30.0 N  (conductors break at 85-100 N each)
+  4P                         3 seams:   9.0- 45.0 N  (conductors break at 85-100 N each)
+  5P                         4 seams:  12.0- 60.0 N  (conductors break at 85-100 N each)
+  5P+4P laid together (J1)   7 seams:  21.0-105.0 N  (conductors break at 85-100 N each)
+  the tear runs only toward the tip, ahead of a pin that moves toward the tip, so the root is where
+  the pin went in: pin placement +/-0.05 mm plus ribbon slip in the clamp [estimate].
+
+Harp branch: taut music wire at each seam, the square-cut end pushed through it:
+  d 0.20 mm, T  20 N: stress   637 MPa ( 28 % of ~2300); bows 0.75 mm under 5 N; side stiffness 6.7 N/mm
+  d 0.20 mm, T  40 N: stress  1273 MPa ( 55 % of ~2300); bows 0.38 mm under 5 N; side stiffness 13.3 N/mm
+  d 0.25 mm, T  20 N: stress   407 MPa ( 18 % of ~2300); bows 0.75 mm under 5 N; side stiffness 6.7 N/mm
+  d 0.25 mm, T  40 N: stress   815 MPa ( 35 % of ~2300); bows 0.38 mm under 5 N; side stiffness 13.3 N/mm
+  d 0.30 mm, T  20 N: stress   283 MPa ( 12 % of ~2300); bows 0.75 mm under 5 N; side stiffness 6.7 N/mm
+  d 0.30 mm, T  40 N: stress   566 MPa ( 25 % of ~2300); bows 0.38 mm under 5 N; side stiffness 13.3 N/mm
+  the harp pushes the end INTO the wires, so the ribbon is in compression between clamp and harp:
+    5P free  5.0 mm (fixed-pinned): buckles at ~   56 N against 12-60 N of cutting
+    5P free 10.0 mm (fixed-pinned): buckles at ~   14 N against 12-60 N of cutting
+    5P free 15.0 mm (fixed-pinned): buckles at ~    6 N against 12-60 N of cutting
+  -> the harp needs guide combs over the free length; the pin-and-pull keeps the ribbon in tension.
+
+How far a wedge opens the neck ahead of itself (double cantilever, both conductors EI 14 N*mm^2):
+  opening 0.2 mm, G*h 0.4 N: tear runs ~1.3 mm ahead of the wedge;   opening 0.2 mm, G*h 1.0 N: tear runs ~1.1 mm ahead of the wedge;   opening 0.2 mm, G*h 4.0 N: tear runs ~0.7 mm ahead of the wedge; 
+  opening 0.5 mm, G*h 0.4 N: tear runs ~2.1 mm ahead of the wedge;   opening 0.5 mm, G*h 1.0 N: tear runs ~1.7 mm ahead of the wedge;   opening 0.5 mm, G*h 4.0 N: tear runs ~1.2 mm ahead of the wedge; 
+  -> a harp fed from the tip leaves the root ~0.6-2 mm beyond where the wires stop; stop short and let
+     the clamp be the tear stop. Pins pulled toward the tip never tear backward past where they went in.
+
+Why a tightened wire noose is not a self-limiting stripper:
+  loop tension 2 N:  2.4 N/mm at the jacket surface; at the strands  5.4 N/mm, 0.43 N per strand, Hertz peak ~ 5274 MPa against copper yield ~70-100
+  loop tension 5 N:  5.9 N/mm at the jacket surface; at the strands 13.5 N/mm, 1.08 N per strand, Hertz peak ~ 7159 MPa against copper yield ~70-100
+  -> the loop dents strands long before it stops by itself; it needs a stop like any blade.
+
+==============================================================================
+3. b7: stripping 1.7 mm silicone on 60 x 0.08 mm strands with borrowed blade geometries
+==============================================================================
+Bundle radius 0.345-0.37 mm, jacket radius 0.85 +/-0.05, bundle off-centre up to 0.06 mm [facts, estimate]
+
+(a) Two opposed 90 deg V-blades closed to an inscribed radius ri: they cut deepest at four points
+    (ri) and shallowest at the V bottoms and crossings (ri*sqrt2):
+  ri 0.42: ligament -0.01 mm (worst, deepest point) to 0.31 mm (corners); ring left 0.28 mm^2 -> tear-off 1.1-3.0 N
+  ri 0.45: ligament +0.02 mm (worst, deepest point) to 0.35 mm (corners); ring left 0.38 mm^2 -> tear-off 1.5-4.2 N
+  ri 0.50: ligament +0.07 mm (worst, deepest point) to 0.42 mm (corners); ring left 0.57 mm^2 -> tear-off 2.3-6.3 N
+  a negative ligament is a nick. The corners leave up to ~0.3 mm of wall: the tear wanders there.
+
+(b) Die-hole (two semicircle) blades of radius rd, centred by the jacket itself:
+  rd 0.44 (hole 0.88 mm): ligament +0.01 to 0.16 mm all round; ring 0.18 mm^2 -> tear-off 0.7-2.0 N
+  rd 0.47 (hole 0.94 mm): ligament +0.04 to 0.19 mm all round; ring 0.26 mm^2 -> tear-off 1.1-2.9 N
+  rd 0.50 (hole 1.00 mm): ligament +0.07 to 0.22 mm all round; ring 0.36 mm^2 -> tear-off 1.4-3.9 N
+
+(c) One blade orbiting at radius rb about a guide bushing axis (RotaryStrip principle):
+  centring +/-0.05, blade radius 0.47: worst ligament -0.01 mm;   centring +/-0.05, blade radius 0.50: worst ligament +0.02 mm; 
+  centring +/-0.10, blade radius 0.47: worst ligament -0.06 mm;   centring +/-0.10, blade radius 0.50: worst ligament -0.03 mm; 
+  the RotaryStrip sets 'incision diameter' in 0.01 mm steps [mfr datasheet]; its radius centralizers
+  are the fix for centring. On a 0.49 mm wall the whole budget is ~0.12 mm of ligament.
+
+(d) Twist while pulling: torque to shear a uniform ring ligament vs torque a blade grip can give:
+  ligament 0.05, silicone  4.0 MPa: shear torque  0.11 N*mm;   ligament 0.05, silicone 11.0 MPa: shear torque  0.31 N*mm; 
+  ligament 0.10, silicone  4.0 MPa: shear torque  0.26 N*mm;   ligament 0.10, silicone 11.0 MPa: shear torque  0.70 N*mm; 
+  ligament 0.15, silicone  4.0 MPa: shear torque  0.43 N*mm;   ligament 0.15, silicone 11.0 MPa: shear torque  1.19 N*mm; 
+  blades gripping the slug with 10 N at mu 0.5-1.0, radius ~0.5 mm: 2.5-5.0 N*mm available
+  blades gripping the slug with 30 N at mu 0.5-1.0, radius ~0.5 mm: 7.5-15.0 N*mm available
+  -> twisting tears the ligament around the ring at the cut instead of stretching the slug; the
+     conductor behind the cut must be held against turning (a V-clamp on the insulation).
+
+(e) Far-end electrode as a blade-touch detector (Schleuniger SmartDetect idea, on DC):
+  loom 0.1 m: conductor 6 mOhm; a strand touching an isolated blade reads ohms to tens of
+  loom 0.6 m: conductor 34 mOhm; a strand touching an isolated blade reads ohms to tens of
+  ohms [estimate]; a 3.3 V input with a 10 k pull-up sees it in microseconds. Every nick attempt is logged.
+
+==============================================================================
+4. b8: the spool feed rips the seams by backing up
+==============================================================================
+  nip  20 N, mu 0.8: traction    32 N (two belts);   nip  20 N, mu 1.5: traction    60 N (two belts); 
+  nip  40 N, mu 0.8: traction    64 N (two belts);   nip  40 N, mu 1.5: traction   120 N (two belts); 
+  nip  60 N, mu 0.8: traction    96 N (two belts);   nip  60 N, mu 1.5: traction   180 N (two belts); 
+  against 6-36 N to rip a 4P (3 seams, neck 0.2-0.6 mm) and 12-60 N for a 5P: the feed can pull it;
+  the encoder sees slip as a length error, and the pins' load cell sees the rip force.
+  T4 (4P into XHP-4) over the program: 300 ends, 1200 crimps [change-the-question c5]
+
+==============================================================================
+5. Person minutes per unit, procedure-is-the-machine's task library (compare rows, not absolutes)
+==============================================================================
+  today, by hand                                           46.4 min  procedure's row, reproduced
+  b1/b1b + b6 rip + whole-end strip + lid, hand insert     27.2 min  20+20+5 s per end [estimate]
+    ... + b1's insertion extension (housing drop 10 s)     21.8 min  
+  b2b pedal-less hand station, strip nozzle inline         36.7 min  20 s machine cycle, person 9+8 s
+    ... with a b6 pin-rip board by hand (25 s/end)         33.2 min  
+  b8 spool line making T4 ends; other ends by hand         32.9 min  T4 = 20 crimps, 5 ends, 5 housings
+  The b8 row is the unit's hand work for the other 33 crimps plus ~1 min for the line: it removes the
+  T4 share only. A b8 that also takes J6 (5P) and the pairs is where the rest of the minutes go.

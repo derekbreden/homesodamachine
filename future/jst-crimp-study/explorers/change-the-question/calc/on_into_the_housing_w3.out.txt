@@ -1,0 +1,182 @@
+
+==============================================================================
+1. The stepped crimper's insulation step has to swallow the open wings (i2/K1, i1b, i2b)
+==============================================================================
+The stepped crimper's mouth is its lower edge. Wing tips must land inside it at first touch;
+a tip that lands on the wall's end face is folded outward, not curled in. The insulation
+wings stand taller (2.75-3.20 open [source S19-S22]) than the conductor wings (1.50-1.60), so
+the insulation step touches first, before the conductor step's flare has centred anything.
+Needed outer width at the mouth = wing spread s + 2 x capture margin m + 2 x wall land l.
+That outer width passes down beside the neighbour to the barrel floor.
+
+  i2/K1: beside a seated neighbour wire (one side): free half-width 1.65 mm
+    wing spread                         need (m 0.05, l 0.05, c 0.05)  need (m 0.15, l 0.10, c 0.10)
+    pre-formed keyhole (c6), low  1.96     1.13 -> margin +0.52          1.33 -> margin +0.32
+    pre-formed keyhole (c6), high  2.14     1.22 -> margin +0.43          1.42 -> margin +0.23
+    clone open, drawing min   2.46     1.38 -> margin +0.27          1.58 -> margin +0.07
+    clone open, typical       2.80     1.55 -> margin +0.10          1.75 -> margin -0.10
+    clone open, drawing max   3.00     1.65 -> margin -0.00          1.85 -> margin -0.20
+    clone open, max + tol     3.25     1.78 -> margin -0.13          1.98 -> margin -0.33
+
+  i2b pass 2: between crimped insulation barrels 2.0 wide: free half-width 1.50 mm
+    wing spread                         need (m 0.05, l 0.05, c 0.05)  need (m 0.15, l 0.10, c 0.10)
+    pre-formed keyhole (c6), low  1.96     1.13 -> margin +0.37          1.33 -> margin +0.17
+    pre-formed keyhole (c6), high  2.14     1.22 -> margin +0.28          1.42 -> margin +0.08
+    clone open, drawing min   2.46     1.38 -> margin +0.12          1.58 -> margin -0.08
+    clone open, typical       2.80     1.55 -> margin -0.05          1.75 -> margin -0.25
+    clone open, drawing max   3.00     1.65 -> margin -0.15          1.85 -> margin -0.35
+    clone open, max + tol     3.25     1.78 -> margin -0.28          1.98 -> margin -0.48
+
+  The step's outer width 2.5-2.7 mm [ff; i2] leaves a mouth of at most 2.3-2.6 mm with a
+  0.05-0.10 mm land: it swallows a pre-formed keyhole (1.96-2.14) and the narrowest clone
+  wings (2.46) only. Widening the step to swallow 3.0-3.25 mm wings needs a half-width of
+  1.70-1.95 mm, over the 1.65 mm to the neighbour's jacket (i2) and 1.50 mm between crimped
+  neighbours (i2b pass 2).
+  The conductor step (3.1 mm, 0.8 mm walls) has no such problem: open conductor wings are
+  1.43-2.15 mm [source S19-S22], its mouth can flare to ~2.7-2.9 mm.
+
+  Loading the evens of i2b between crimped odds (gap = 2.5 - s/2 - 1.0):
+    pre-formed keyhole (c6), low       gap +0.52 mm
+    pre-formed keyhole (c6), high      gap +0.43 mm
+    clone open, drawing min            gap +0.27 mm
+    clone open, typical                gap +0.10 mm
+    clone open, drawing max            gap +0.00 mm
+    clone open, max + tol              gap -0.12 mm
+
+==============================================================================
+2. Does a snapped conductor stay in the barrels when the presser foot lifts? (c6 in i2)
+==============================================================================
+A humped conductor over a saddle springs up at the barrels by its elastic share of the hump.
+   free length   10 mm, elastic lift 0.2 mm -> lift force    8.7 mN
+   free length   10 mm, elastic lift 0.5 mm -> lift force   21.8 mN
+   free length   10 mm, elastic lift 1.0 mm -> lift force   43.5 mN
+   free length   15 mm, elastic lift 0.2 mm -> lift force    2.6 mN
+   free length   15 mm, elastic lift 0.5 mm -> lift force    6.4 mN
+   free length   15 mm, elastic lift 1.0 mm -> lift force   12.9 mN
+   free length   20 mm, elastic lift 0.2 mm -> lift force    1.1 mN
+   free length   20 mm, elastic lift 0.5 mm -> lift force    2.7 mN
+   free length   20 mm, elastic lift 1.0 mm -> lift force    5.4 mN
+   throat retention of a 1.3-1.4 mm keyhole: ~0.3-10 N [w2 section 4, assumption 0.5-1x push-in]
+-> a keyhole holds the conductor down by 1-3 orders of magnitude; an open U holds it by nothing.
+
+==============================================================================
+3. Conductor-barrel growth against a rigid stop at the box nose (i2d, i2d'', c1c, c6b)
+==============================================================================
+Coining after full fill lengthens the conductor barrel; the forward half pushes the
+transition and box toward +Y. A stop at the box nose blocks it; a stop behind (tab stub,
+box rear shoulder) does not.
+   forward growth of the barrel front: 0.03-0.11 mm [estimate]
+   axial force the flow can push with, bounded by friction on the dies: 80-520 N [estimate]
+   transition yield (floor strip only, 0.2 x 1.0-1.4): 90-182 N (450-650 MPa [estimate])
+   transition yield (U-section with 0.5 mm side walls): 180-312 N (450-650 MPa [estimate])
+   box nose end face ~1.7 mm^2: at 90-290 N it bears 54-173 MPa
+   on the stop: a PA6 stub face (yield ~50-90 MPa [estimate]) dents; a steel stop does not,
+   so with steel the transition takes the growth.
+   growth 0.03 mm taken as a buckle in a 0.34 mm transition: lateral amplitude ~0.07 mm
+   growth 0.03 mm taken as a buckle in a 0.80 mm transition: lateral amplitude ~0.10 mm
+   growth 0.11 mm taken as a buckle in a 0.34 mm transition: lateral amplitude ~0.12 mm
+   growth 0.11 mm taken as a buckle in a 0.80 mm transition: lateral amplitude ~0.19 mm
+-> Overlapping ranges: a rigid nose stop may bow the transition by ~0.05-0.2 mm (JST's
+   bend fault); a PA6 stop dents instead and walks forward. A stop that holds only until
+   capture, or a sprung stop (10-30 N), or a rear reference avoids it. Unmeasured.
+
+==============================================================================
+4. Roll play of a box in a stub or cavity: clone boxes, lever = box height
+==============================================================================
+Small-angle roll of a W x H box in a channel of width C: theta ~ (C - W) / H.
+   JST envelope 1.95 x 2.4 [mfr S1]       in a 2.00-2.10 cavity [ith estimate]: roll +/-1.2-3.6 deg
+   clone 1.90 x 2.35 [source S19-S22]     in a 2.00-2.10 cavity [ith estimate]: roll +/-2.4-4.9 deg
+   clone 1.85 x 2.2 [source S19-S22]      in a 2.00-2.10 cavity [ith estimate]: roll +/-3.9-6.5 deg
+   into-the-housing's calc H (box 1.95, lever 1.95): +/-1.5-4.4 deg; the window is 5-11 deg [digest].
+
+==============================================================================
+5. i6b post bed: 2.54 against 2.50 mm across a housing
+==============================================================================
+   XHP-4: first to last post 0.12 mm off end to end, +/-0.06 mm if centred
+   XHP-5: first to last post 0.16 mm off end to end, +/-0.08 mm if centred
+   XHP-6: first to last post 0.20 mm off end to end, +/-0.10 mm if centred
+   XHP-7: first to last post 0.24 mm off end to end, +/-0.12 mm if centred
+   XHP-9: first to last post 0.32 mm off end to end, +/-0.16 mm if centred
+   capture of a post tip in a box mouth: +/-0.2 mm [ith section E]
+
+==============================================================================
+6. Silicone modulus: into-the-housing's slot grip and jacket share at the Shore-derived range
+==============================================================================
+E 2.5-5.5 MPa from Shore 50-70A by Gent [w2 section 4; Shore via ribbon-as-pallet, source Primasil].
+   slot grip [ith D model]: E 2.5, slot 1.50, length  6.0: axial hold   2.8-  5.5 N
+   slot grip [ith D model]: E 2.5, slot 1.50, length 10.0: axial hold   4.6-  9.2 N
+   slot grip [ith D model]: E 2.5, slot 1.60, length  6.0: axial hold   1.4-  2.8 N
+   slot grip [ith D model]: E 2.5, slot 1.60, length 10.0: axial hold   2.3-  4.6 N
+   slot grip [ith D model]: E 3.6, slot 1.50, length  6.0: axial hold   4.0-  7.9 N
+   slot grip [ith D model]: E 3.6, slot 1.50, length 10.0: axial hold   6.6- 13.2 N
+   slot grip [ith D model]: E 3.6, slot 1.60, length  6.0: axial hold   2.0-  4.0 N
+   slot grip [ith D model]: E 3.6, slot 1.60, length 10.0: axial hold   3.3-  6.6 N
+   slot grip [ith D model]: E 5.5, slot 1.50, length  6.0: axial hold   6.1- 12.1 N
+   slot grip [ith D model]: E 5.5, slot 1.50, length 10.0: axial hold  10.1- 20.2 N
+   slot grip [ith D model]: E 5.5, slot 1.60, length  6.0: axial hold   3.0-  6.1 N
+   slot grip [ith D model]: E 5.5, slot 1.60, length 10.0: axial hold   5.1- 10.1 N
+   jacket share [ith F model]: free 2 mm, E 2.5:  52 % of a grip mismatch
+   jacket share [ith F model]: free 2 mm, E 3.6:  43 % of a grip mismatch
+   jacket share [ith F model]: free 2 mm, E 5.5:  33 % of a grip mismatch
+   jacket share [ith F model]: free 3 mm, E 2.5:  24 % of a grip mismatch
+   jacket share [ith F model]: free 3 mm, E 3.6:  18 % of a grip mismatch
+   jacket share [ith F model]: free 3 mm, E 5.5:  13 % of a grip mismatch
+
+==============================================================================
+7. The feed-length rule applied to c1/c1c's two row pushes with housing and web still
+==============================================================================
+Each row is pushed ~7 mm from its pallet into the cavities [c1 step 8]. With the web clamp
+and housing still, every conductor of a pushed row must carry 7 mm of extra length, as a
+bow over its split. Circular-arc bow of arc length c + s over chord c:
+   split chord    6 mm, stored 5 mm: bow height  3.7 mm, radius  3.1 mm
+   split chord    6 mm, stored 7 mm: bow height  4.6 mm, radius  3.3 mm
+   split chord   12 mm, stored 5 mm: bow height  5.0 mm, radius  6.1 mm
+   split chord   12 mm, stored 7 mm: bow height  6.1 mm, radius  6.0 mm
+   split chord   20 mm, stored 5 mm: bow height  6.3 mm, radius 11.1 mm
+   split chord   20 mm, stored 7 mm: bow height  7.6 mm, radius 10.4 mm
+   split chord   26 mm, stored 5 mm: bow height  7.2 mm, radius 15.4 mm
+   split chord   26 mm, stored 7 mm: bow height  8.6 mm, radius 14.1 mm
+-> A 4-9 mm bow per conductor between the web root and the pallet, where c1c's presser comb,
+   pallets and row B's carriers work. The alternative is a gang push with the housing moving
+   onto one merged row (i3, i6), which stores nothing.
+
+==============================================================================
+8. Length spread in a rigid-blade gang push (i6)
+==============================================================================
+   clone drawings: overall length 5.8 / 6.2 / 6.73 / 5.9, each +/-0.25 [source S19-S22];
+   JST 6.1 or 6.5 [mfr S1-S3]. Within one lot the spread is unknown [assumption: tight].
+   With rears held on one line by a rigid blade, the longest contact bottoms first; the rest
+   stop short by the length difference until the drive crushes the longest or stops.
+   spread 0.05 mm: shortest contact stops 0.05 mm short of the longest when the first bottoms
+   spread 0.10 mm: shortest contact stops 0.10 mm short of the longest when the first bottoms
+   spread 0.25 mm: shortest contact stops 0.25 mm short of the longest when the first bottoms
+   spread 0.50 mm: shortest contact stops 0.50 mm short of the longest when the first bottoms
+   A tine on a constant-force spring (i3b's preload, 1.25 x single insertion) rides back instead.
+   Seated rear inside the rear face: 7.75 - front wall 0.4-0.8 - length (HDGC 5.8-0.25 to CJT 6.73) ->
+   0.22-1.80 mm (into-the-housing's handover: 0.2-1.25 mm, using 6.1-6.73)
+
+==============================================================================
+9. J4 and J7 orders under both metrics: layers (one plane, i6) and half-row planes (c1/c1c)
+==============================================================================
+   loom web order                                      layers crossings  half-rows (off-parity, crossings)
+   J4   V5 IO25 3V3 IO26 GND IO27 IO23                      2         5                             (2, 2)   into-the-housing's two-layer order
+   J4   3V3 IO26 V5 IO25 GND IO27 IO23                      3         5                             (2, 2)   change-the-question's c1 order
+   J4   3V3 V5 IO25 IO26 GND IO27 IO23                      2         3                             (4, 1)   pairs split (1-wire around flow)
+   J7   RB1 RB2 RB3 RB4 GND X CLO CHI                       2         2                             (0, 1)   3P laid X, CLO, CHI (first trimmed)
+   J7   RB1 RB2 RB3 RB4 GND CLO CHI X                       2         2                             (2, 1)   3P laid CLO, CHI, X (last trimmed)
+   Board pin orders that make each ribbon one layer (a PCB change, Derek's choice):
+   J4 pins 1-7 = 3V3, IO26, V5, IO25, GND, IO27, IO23 (or V5, IO25, 3V3, IO26, ...): 0 crossings;
+   J7 pins 1-7 = RB1, RB2, RB3, RB4, GND, CLO, CHI: 0 crossings.
+
+==============================================================================
+10. i6b posts as sourced: pulled header pins (brass or bronze) or round music wire
+==============================================================================
+into-the-housing sources its 0.64 mm posts from extra-long male headers [ith sourcing-requests];
+the Prime row is uxcell 25 mm-pin headers [sourcing/amazon-prime.md]. Header pins are usually
+brass or phosphor bronze [assumption; the listing's material was not recorded].
+   square 0.64 steel                              free  8.0 mm:  16.4 N/mm, 0.061 mm per N
+   square 0.64 steel                              free 10.0 mm:   8.4 N/mm, 0.119 mm per N
+   square 0.64 brass/bronze                       free  8.0 mm:   8.2 N/mm, 0.122 mm per N
+   square 0.64 brass/bronze                       free 10.0 mm:   4.2 N/mm, 0.238 mm per N
+   round 0.635 music wire (K&S 5005, Prime row)   free  8.0 mm:   9.4 N/mm, 0.107 mm per N
+   round 0.635 music wire (K&S 5005, Prime row)   free 10.0 mm:   4.8 N/mm, 0.209 mm per N

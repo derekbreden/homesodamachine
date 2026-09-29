@@ -1,0 +1,193 @@
+
+==============================================================================
+1. Post capture at the box entry
+==============================================================================
+The pin passes the box's formed entry (0.60-0.70 mm on clone drawings), not the box inside.
+[w2 5] used the inside (~1.45 x 1.80) and gave +/-0.41 / +/-0.58; that figure is withdrawn.
+  entry 0.60, pin tip chamfer 0.10/side (flat 0.44): capture +/-0.08 mm
+  entry 0.60, pin tip chamfer 0.20/side (flat 0.24): capture +/-0.18 mm
+  entry 0.60, pin tip chamfer 0.28/side (flat 0.08): capture +/-0.26 mm
+  entry 0.70, pin tip chamfer 0.10/side (flat 0.44): capture +/-0.13 mm
+  entry 0.70, pin tip chamfer 0.20/side (flat 0.24): capture +/-0.23 mm
+  entry 0.70, pin tip chamfer 0.28/side (flat 0.08): capture +/-0.31 mm
+Where the pin must arrive, for a head steered by the backlit outline of the contact:
+  axis +/-0.02, outline fit +/-0.02, entry-to-outline +/-0.03 -> +/-0.04 mm (rss)
+  axis +/-0.05, outline fit +/-0.03, entry-to-outline +/-0.03 -> +/-0.07 mm (rss)
+-> +/-0.04-0.07 mm needed against +/-0.08-0.31 captured: a 0.20-0.28 mm chamfer (near-pointed
+   tip) keeps a margin of ~3x. What breaks the margin is height, not aim (section 2).
+
+==============================================================================
+2. A bare contact lying barrels-up: rest on the lance, and the lance groove
+==============================================================================
+The lance hangs 0.6-0.9 mm below the floor side, its tip 2.24-2.64 mm behind the front; the
+centre of mass is ~2.75 mm behind the front [ith-w3 E], so on a flat floor the contact rocks:
+  nose-up 8-16 deg (box-front floor 0.9-1.7 mm high) or nose-down 13-22 deg [ith-w3 E].
+  0.9-1.7 mm is 4-20x the capture of section 1: the pin meets the box face, not the entry.
+A groove along the whole channel floor, under the lance:
+  groove 0.8 wide, box 1.85: box floor rests on ledges 0.53 mm each side; lance 0.5-0.8 clears by 0.00-0.15/side
+  groove 0.8 wide, box 1.90: box floor rests on ledges 0.55 mm each side; lance 0.5-0.8 clears by 0.00-0.15/side
+  groove 1.0 wide, box 1.85: box floor rests on ledges 0.43 mm each side; lance 0.5-0.8 clears by 0.10-0.25/side
+  groove 1.0 wide, box 1.90: box floor rests on ledges 0.45 mm each side; lance 0.5-0.8 clears by 0.10-0.25/side
+  depth >= 1.0 mm clears a 0.9 mm lance by >= 0.1 mm.
+  With the floor down flat, the entry centre stands at floor + box height / 2:
+    box 2.20 tall: entry centre 1.10 mm above the floor (lot spread +/-0.05 [estimate])
+    box 2.35 tall: entry centre 1.18 mm above the floor (lot spread +/-0.05 [estimate])
+-> the pin's height is set from the channel floor to ~+/-0.05 mm, inside the capture.
+   The same groove belongs in every bare-contact pocket: a6's pocket plate, x1's spear
+   block, a4's loading nest, the shuttle nests of a4b, a5, x3 and a4c.
+
+==============================================================================
+3. The push after a crimp at or outside the housing, and where it is stored
+==============================================================================
+Seated box front 6.75-6.95 mm inside the rear face (housing 7.75 [mfr] - front wall (0.8, 1.0) [assumption]); same as [ith-w3 A]
+  a5 staged 1.0 mm: push after the crimp 5.75-5.95 mm
+  a5 staged 1.5 mm: push after the crimp 5.25-5.45 mm
+  a5 staged 2.0 mm: push after the crimp 4.75-4.95 mm
+  a4b post 9.0 proud, box on 1.5: box front 7.5 outside -> push 14.25-14.45 mm
+  a4b post 9.0 proud, box on 1.8: box front 7.2 outside -> push 13.95-14.15 mm
+One web clamp, square-cut ends, each contact seated taut: a contact crimped T short of its
+seat needs its conductor T longer at the crimp. As a shallow arch over span L, sag ~sqrt(3LT/8):
+  a5, 1.5 staged   T  5.35: sag L 20:  6.3, L 25:  7.1, L 30:  7.8, L 40:  9.0 mm
+  a4b, 9 mm post   T 14.20: sag L 20: 10.3, L 25: 11.5, L 30: 12.6, L 40: 14.6 mm
+  [ith-w3 B] gives the clamped hump: 7-8 mm (a5) and 12-13 mm (a4b), tightest radius 2.6-5.7 mm,
+  past the strands' ~67 mm yield radius, so the hump keeps its shape and the push draws it
+  straight with a few hundredths of a newton.
+If the housing steps in X under a fixed web after the first latch, seated conductors drag:
+  XHP-4: up to 7.5 mm sideways -> the web clamp rides the housing's stage
+  XHP-5: up to 10.0 mm sideways -> the web clamp rides the housing's stage
+  XHP-7: up to 15.0 mm sideways -> the web clamp rides the housing's stage
+  XHP-9: up to 20.0 mm sideways -> the web clamp rides the housing's stage
+Or the web follows each push: the web clamp's Y advances T with the fork, so conductor k is
+straight at its crimp; every seated conductor bows by T while the web is forward, and straightens
+when it returns. Strand strain in that bow, and bending cycles to failure (Coffin-Manson,
+eps_f' 0.3-0.6, c -0.6 [estimate]):
+  tightest radius 2.6 mm: strand strain 1.5 % -> ~224-712 bows (a housing asks at most 8)
+  tightest radius 5.7 mm: strand strain 0.7 % -> ~830-2634 bows (a housing asks at most 8)
+  -> fatigue is not what limits it; the waiting conductors are: they advance T too, and must wait
+     lifted above the housing's top so they do not reach its rear face.
+A single push after every crimp stores nothing: every conductor gets its T at once (x3, a4c).
+Any Y stagger between neighbours at the crimp is stored in the finished loom by that push
+(the housing seats the nearer contacts first and then carries them on), so all contacts of
+one housing are crimped at one Y when one move seats them.
+
+==============================================================================
+4. The lance and a flat anvil's front edge
+==============================================================================
+Flat anvil: front edge >= lance tip + 0.1 behind the box front, and <= conductor barrel front
+(box 2.0 + transition t). Margin = (2.0 + t) - (tip + 0.1).
+  lance tip xh-facts table 2.4-2.6:
+    t 0.4: tip 2.40: -0.10, tip 2.60: -0.30 mm
+    t 0.6: tip 2.40: +0.10, tip 2.60: -0.10 mm
+  lance tip into-the-housing 2.24-2.64:
+    t 0.4: tip 2.24: +0.06, tip 2.64: -0.34 mm
+    t 0.6: tip 2.24: +0.26, tip 2.64: -0.14 mm
+-> on either range a flat anvil fits in about half the cases. The other half needs a lance
+   slot in the anvil's front (0.8-1.0 mm wide), with the conductor barrel's first 0.1-0.3 mm
+   carried on the slot's shoulders. Settled by one side photo of a kit contact.
+   The SN-2549 crimps kit contacts today, so its XH anvil already satisfies this for them.
+
+==============================================================================
+5. a2d: the punch holder against a crimped neighbour; the flat skip-2 strip; split
+==============================================================================
+Crimped conductors keep their contacts at the station's Y, at +/-p. The widest part there is
+the box, 1.85-1.95 wide (half 0.98), not the conductor (half 0.85).
+  blade 2.5: p >= 2.52 mm (against a crimped box) vs 2.40 (against a wire)
+  blade 2.7: p >= 2.62 mm (against a crimped box) vs 2.50 (against a wire)
+  blade 3.0: p >= 2.77 mm (against a crimped box) vs 2.65 (against a wire)
+Height: the holder must stay above the neighbour's box top (2.2-2.4 above the floor) at the
+bottom of the stroke:
+  conductor crimper, crimp height 0.75-0.9: blade stands >= 1.8-1.9 mm out of its holder
+  insulation crimper, crimp height 1.8-2.0: blade stands >= 0.7-0.9 mm out of its holder
+A flat skip-2 strip (no crown) keeps a 5P clear to p 2.9 mm and a 4P to 3.9 mm [w2 1]:
+  blade 2.5 -> p 2.52: 5P flat clear, 4P flat clear
+  blade 2.7 -> p 2.62: 5P flat clear, 4P flat clear
+  blade 3.0 -> p 2.77: 5P flat clear, 4P flat clear
+-> with a narrow knife-set blade a flat skip-2 strip already lets a 4P or 5P lie flat; the
+   crown adds the level view, the wrap hold-down, and any width (J1's nine as one ribbon).
+Split to fan a ribbon end to p at a 20 deg fan, + ~6 mm straight [ith-w3 H]:
+  3P                 p 2.8:  9.0, p 3.0:  9.6, p 3.5: 10.9 mm
+  4P                 p 2.8: 10.5, p 3.0: 11.4, p 3.5: 13.4 mm
+  5P                 p 2.8: 12.0, p 3.0: 13.1, p 3.5: 15.9 mm
+  J4/J7 pair (7-8)   p 2.8: 16.6, p 3.0: 18.5, p 3.5: 23.3 mm
+  J1 (9)             p 2.8: 18.1, p 3.0: 20.3, p 3.5: 25.8 mm
+
+==============================================================================
+6. x2: crown station, then sort and push
+==============================================================================
+At the pick (staging plane, fan pitch p): the post head's fork straddles the wire behind the
+insulation barrel; tines 0.4 mm; holder <= 2.0 mm wide at the box.
+  p 2.8: gap between insulation surfaces 1.10; after a tine +0.60; holder to neighbour box +0.82 mm
+  p 3.0: gap between insulation surfaces 1.30; after a tine +0.80; holder to neighbour box +1.02 mm
+  p 3.5: gap between insulation surfaces 1.80; after a tine +1.30; holder to neighbour box +1.52 mm
+At the target row (2.5 mm, placed neighbours):
+  tine outer edge 1.35 from the wire axis vs neighbour wire surface 1.65: +0.30 mm
+  holder half 1.00 vs neighbour box edge 1.525: +0.52 mm
+Spear on a staged crimp: the conductor alone buckles at P ~ 150-160/L^2 N [ith-w3 H]:
+  free 20 mm: ~0.39 N, against a 0.2-2 N spear -> the fork reacts it
+  free 25 mm: ~0.25 N, against a 0.2-2 N spear -> the fork reacts it
+  free 30 mm: ~0.17 N, against a 0.2-2 N spear -> the fork reacts it
+Proof pull at station A: 20 N from the carriage's Y through its cell, against a pull fork on
+the crown land behind conductor k's insulation barrel:
+  two tines 0.4 wide bearing 0.6 mm high: 42 MPa on the fork
+  crimped insulation barrel rear edge, 2 x 0.2 x ~0.9 mm: 56 MPa, below bronze's 450-650
+Machine time per unit [estimate]:
+  strip at A (a2d 94 min): + sort, pull, push 60-87 min + carriage moves 7 min = 2.7-3.1 h
+  loose at A (a6 100 min): + sort, pull, push 60-87 min + carriage moves 7 min = 2.8-3.2 h
+
+==============================================================================
+7. x3: stage every other cavity, crimp, leave, one push
+==============================================================================
+Clearance per side at 2.5 mm pitch [ith-w3 C, J], narrow stepped dies (3.1 conductor step,
+0.8 walls; 2.5-2.7 insulation step):
+  odd pass: waiting even conductor 1.7 OD vs 3.1 conductor step  +0.10 mm
+  odd pass: waiting even conductor 1.7 OD vs 2.7 insulation step +0.30 mm
+  odd pass: waiting even conductor, 3.5 ordinary punch           -0.10 mm
+  even pass: crimped conductor barrel 1.5 vs 3.1 step            +0.20 mm
+  even pass: crimped insulation barrel 1.95 vs 2.5 step          +0.28 mm
+  even pass: crimped insulation barrel 1.95 vs 2.7 step          +0.17 mm
+  even staging: open wings 2.46 vs crimped ins. barrel 1.95      +0.30 mm
+  even staging: open wings 3.00 vs crimped ins. barrel 1.95      +0.03 mm
+  -> the waiting side needs a lift (a loft or finger) for an ordinary punch; the even pass
+     admits only the narrow stepped dies.
+Push: 5.25-5.45 mm for every contact at once (section 3). Gang force:
+  XHP-4: 4x9.8 = 39 N (KONNRA clone insertion) to 4x25 = 100 N margin
+  XHP-5: 5x9.8 = 49 N (KONNRA clone insertion) to 5x25 = 125 N margin
+  XHP-7: 7x9.8 = 69 N (KONNRA clone insertion) to 7x25 = 175 N margin
+  XHP-9: 9x9.8 = 88 N (KONNRA clone insertion) to 9x25 = 225 N margin
+Stagings per housing (odd, then even; J2's cavity 3 empty):
+  XHP-4    : odd [1, 3] then even [2, 4]
+  XHP-5    : odd [1, 3, 5] then even [2, 4]
+  J2 XHP-6 : odd [1, 5] then even [2, 4, 6]
+  XHP-7    : odd [1, 3, 5, 7] then even [2, 4, 6]
+  XHP-9    : odd [1, 3, 5, 7, 9] then even [2, 4, 6, 8]
+Time [estimate]: ~140 s per contact + ~90 s per housing for the push and pull-backs -> 2.3 h per unit
+
+==============================================================================
+8. a4c: bare contacts crimped on a post bed through the housing, one push
+==============================================================================
+Posts 0.64 mm square steel, cantilevered from a bed behind the mating face, through the
+housing (front opening loose, cavity larger than the post), standing ~9 mm out of the rear face:
+  free length 17 mm: 1.71 N/mm sideways; tip-loaded Euler buckling 24 N (push-on 0.2-2 N)
+  free length 19 mm: 1.22 N/mm sideways; tip-loaded Euler buckling 19 N (push-on 0.2-2 N)
+  -> soft: the die centres the barrels for 0.2-0.3 N of post bending; the push-on is safe.
+Where the dies work, relative to the post tips (Y from the tip, + away from the housing):
+  box -1.5 to +0.5; lance tip +0.9 to +1.1; conductor barrel +0.9 to +2.6; insulation barrel ~+3.0 to +4.5 mm
+  empty neighbour posts end at 0.0, so an anvil whose front edge stands behind the lance
+  (>= +1.0) never meets them: in the odd pass the dies' width is limited only by the waiting
+  conductors, which wait lifted.
+Loading nest for the even pass, between crimped neighbours whose boxes stand at +/-2.5:
+  neighbour box edge 1.525 mm from the station axis -> a tongue nest <= 2.75 mm wide
+  (odd pass: bare neighbour posts at 2.5 - 0.32 = 2.18 -> a walled nest <= 4.06 wide)
+Housing travel: 13.95-14.45 mm, once, for every contact (section 3; [ith-w3 A]).
+Post pitch: the bed must be 2.50 mm. A 2.54 mm header is off at the ends by:
+  4 posts: +/-0.06 mm
+  5 posts: +/-0.08 mm
+  7 posts: +/-0.12 mm
+  9 posts: +/-0.16 mm
+
+==============================================================================
+9. Force ladder [ith-w3 K]
+==============================================================================
+  seat pull  5.0 N:  34 % of 14.7 N (Molex analog retention),  26 % of 19.6 N (KONNRA)
+  seat pull 10.0 N:  68 % of 14.7 N (Molex analog retention),  51 % of 19.6 N (KONNRA)
+  -> 5 N latch test < 14.7-19.6 N retention < ~20 N proof pull (before insertion) < 39.2 N pull-out

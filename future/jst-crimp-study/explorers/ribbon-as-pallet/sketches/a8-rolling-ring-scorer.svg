@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 720" width="1000" height="720" font-family="Helvetica, Arial, sans-serif" font-size="12">
+  <rect width="1000" height="720" fill="#ffffff"/>
+  <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#333"/></marker></defs>
+  <text x="20.0" y="26.0" font-size="16" fill="#222" font-weight="bold" text-anchor="start">a8 Rolling ring scorer: the row spins in place under two fixed blades</text>
+  <text x="20.0" y="44.0" font-size="12" fill="#a33" font-weight="normal" text-anchor="start">schematic; panel A at 1 mm = 20 px vertically, lengths compressed; score radius 0.58-0.63 mm</text>
+  <text x="20.0" y="74.0" font-size="12" fill="#222" font-weight="bold" text-anchor="start">A. Section along one conductor</text>
+  <rect x="30.0" y="250.0" width="760.0" height="16.0" rx="0" fill="#b8c0c8" stroke="#556" stroke-width="1"/>
+  <text x="36.0" y="280.0" font-size="11" fill="#222" font-weight="normal" text-anchor="start">steel bed: the radial reference (conductor axis = bed + OD/2)</text>
+  <rect x="30.0" y="150.0" width="120.0" height="100.0" rx="0" fill="#dbe9f6" stroke="#2a5a8a" stroke-width="1"/>
+  <text x="38.0" y="170.0" font-size="11" fill="#2a5a8a" font-weight="normal" text-anchor="start">fan block</text>
+  <text x="38.0" y="184.0" font-size="11" fill="#2a5a8a" font-weight="normal" text-anchor="start">(pallet)</text>
+  <rect x="150.0" y="216.0" width="470.0" height="34.0" rx="0" fill="#3a3a3a" stroke="#111" stroke-width="1"/>
+  <rect x="150.0" y="226.0" width="540.0" height="14.0" rx="0" fill="#c98a3b" stroke="#7a4a10" stroke-width="1"/>
+  <rect x="620.0" y="216.0" width="70.0" height="34.0" rx="0" fill="#ffffff" stroke="none" stroke-width="1"/>
+  <rect x="620.0" y="226.0" width="70.0" height="14.0" rx="0" fill="#c98a3b" stroke="#7a4a10" stroke-width="1"/>
+  <rect x="690.0" y="150.0" width="22.0" height="100.0" rx="0" fill="#b8c0c8" stroke="#556" stroke-width="1"/>
+  <text x="718.0" y="160.0" font-size="11" fill="#222" font-weight="normal" text-anchor="start">stop bar (grounded):</text>
+  <text x="718.0" y="174.0" font-size="11" fill="#222" font-weight="normal" text-anchor="start">every tip touches it;</text>
+  <text x="718.0" y="188.0" font-size="11" fill="#222" font-weight="normal" text-anchor="start">the far-end port reads</text>
+  <text x="718.0" y="202.0" font-size="11" fill="#222" font-weight="normal" text-anchor="start">each conductor's touch</text>
+  <polygon points="612.0,120.0 628.0,120.0 620.0,221.0" fill="#dde" stroke="#334" stroke-width="1"/>
+  <polygon points="612.0,266.0 628.0,266.0 620.0,245.0" fill="#dde" stroke="#334" stroke-width="1"/>
+  <text x="560.0" y="112.0" font-size="11" fill="#222" font-weight="normal" text-anchor="start">top blade to a depth stop</text>
+  <text x="380.0" y="300.0" font-size="11" fill="#222" font-weight="normal" text-anchor="start">bottom blade up through a bed slot</text>
+  <rect x="470.0" y="198.0" width="120.0" height="18.0" rx="0" fill="#9fd39a" stroke="#3a7a35" stroke-width="1"/>
+  <rect x="470.0" y="248.0" width="120.0" height="4.0" rx="0" fill="#9fd39a" stroke="#3a7a35" stroke-width="1"/>
+  <text x="470.0" y="192.0" font-size="11" fill="#3a7a35" font-weight="normal" text-anchor="start">TPU pads on racks, moving in opposite X</text>
+  <line x1="620.0" y1="300.0" x2="690.0" y2="300.0" stroke="#333" stroke-width="1" marker-start="url(#ar)" marker-end="url(#ar)"/>
+  <text x="700.0" y="304.0" font-size="11" fill="#222" font-weight="normal" text-anchor="start">strip length: one steel part (stop bar to blades), 2.4 mm</text>
+  <rect x="630.0" y="250.0" width="58.0" height="16.0" rx="0" fill="#e8f4ff" stroke="#88a" stroke-width="1"/>
+  <text x="160.0" y="340.0" font-size="11" fill="#222" font-weight="normal" text-anchor="start">clear window + LED under the stubs: one backlit frame of the row after the pull</text>
+  <text x="20.0" y="370.0" font-size="12" fill="#222" font-weight="bold" text-anchor="start">B. End view across the row: two pads moving equal and opposite spin every conductor about its own axis</text>
+  <rect x="60.0" y="520.0" width="420.0" height="12.0" rx="0" fill="#9fd39a" stroke="#3a7a35" stroke-width="1"/>
+  <rect x="60.0" y="448.0" width="420.0" height="12.0" rx="0" fill="#9fd39a" stroke="#3a7a35" stroke-width="1"/>
+  <circle cx="110.0" cy="490.0" r="30.0" fill="#3a3a3a" stroke="#111" stroke-width="1"/>
+  <circle cx="110.0" cy="490.0" r="12.0" fill="#c98a3b" stroke="#7a4a10" stroke-width="1"/>
+  <path d="M92,466 A30,30 0 0 1 128,466" fill="none" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="190.0" cy="490.0" r="30.0" fill="#3a3a3a" stroke="#111" stroke-width="1"/>
+  <circle cx="190.0" cy="490.0" r="12.0" fill="#c98a3b" stroke="#7a4a10" stroke-width="1"/>
+  <path d="M172,466 A30,30 0 0 1 208,466" fill="none" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="270.0" cy="490.0" r="30.0" fill="#3a3a3a" stroke="#111" stroke-width="1"/>
+  <circle cx="270.0" cy="490.0" r="12.0" fill="#c98a3b" stroke="#7a4a10" stroke-width="1"/>
+  <path d="M252,466 A30,30 0 0 1 288,466" fill="none" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="350.0" cy="490.0" r="30.0" fill="#3a3a3a" stroke="#111" stroke-width="1"/>
+  <circle cx="350.0" cy="490.0" r="12.0" fill="#c98a3b" stroke="#7a4a10" stroke-width="1"/>
+  <path d="M332,466 A30,30 0 0 1 368,466" fill="none" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="430.0" cy="490.0" r="30.0" fill="#3a3a3a" stroke="#111" stroke-width="1"/>
+  <circle cx="430.0" cy="490.0" r="12.0" fill="#c98a3b" stroke="#7a4a10" stroke-width="1"/>
+  <path d="M412,466 A30,30 0 0 1 448,466" fill="none" stroke="#ffffff" stroke-width="1.5"/>
+  <line x1="300.0" y1="430.0" x2="420.0" y2="430.0" stroke="#333" stroke-width="1" marker-end="url(#ar)"/>
+  <line x1="300.0" y1="546.0" x2="180.0" y2="546.0" stroke="#333" stroke-width="1" marker-end="url(#ar)"/>
+  <text x="430.0" y="434.0" font-size="11" fill="#222" font-weight="normal" text-anchor="start">top pad +X</text>
+  <text x="90.0" y="550.0" font-size="11" fill="#222" font-weight="normal" text-anchor="start">bottom pad -X</text>
+  <circle cx="560.0" cy="490.0" r="22.0" fill="#fff" stroke="#333" stroke-width="1"/>
+  <line x1="520.0" y1="468.0" x2="620.0" y2="468.0" stroke="#333" stroke-width="3"/>
+  <line x1="520.0" y1="512.0" x2="620.0" y2="512.0" stroke="#333" stroke-width="3"/>
+  <text x="630.0" y="460.0" font-size="11" fill="#222" font-weight="normal" text-anchor="start">one pinion between two racks:</text>
+  <text x="630.0" y="474.0" font-size="11" fill="#222" font-weight="normal" text-anchor="start">equal and opposite by construction</text>
+  <text x="630.0" y="488.0" font-size="11" fill="#222" font-weight="normal" text-anchor="start">0.6 turn of each conductor</text>
+  <text x="630.0" y="502.0" font-size="11" fill="#222" font-weight="normal" text-anchor="start">= +/-1.6 mm of pad travel,</text>
+  <text x="630.0" y="516.0" font-size="11" fill="#222" font-weight="normal" text-anchor="start">then back</text>
+  <text x="60.0" y="580.0" font-size="11" fill="#222" font-weight="normal" text-anchor="start">at housing pitch there is 0.8 mm between jackets, so neighbours never rub</text>
+  <text x="20.0" y="610.0" font-size="12" fill="#222" font-weight="bold" text-anchor="start">C. The ring the blades leave</text>
+  <circle cx="110.0" cy="665.0" r="42.0" fill="#3a3a3a" stroke="#111" stroke-width="1"/>
+  <circle cx="110.0" cy="665.0" r="30.0" fill="none" stroke="#ffcc33" stroke-width="2" stroke-dasharray="4 2"/>
+  <circle cx="110.0" cy="665.0" r="18.0" fill="#c98a3b" stroke="#7a4a10" stroke-width="1"/>
+  <text x="170.0" y="640.0" font-size="11" fill="#222" font-weight="normal" text-anchor="start">score to radius 0.58-0.63 mm (yellow): 0.22-0.27 mm deep in a 0.49 mm wall</text>
+  <text x="170.0" y="654.0" font-size="11" fill="#222" font-weight="normal" text-anchor="start">ligament 0.22-0.27 mm left to tear: 2.6-9.2 N per conductor on the pull [calc W2 s4]</text>
+  <text x="170.0" y="668.0" font-size="11" fill="#222" font-weight="normal" text-anchor="start">budget: bundle 0.37 + loose strand 0.04 + eccentricity 0.05-0.10 + axis height 0.05</text>
+  <text x="170.0" y="682.0" font-size="11" fill="#222" font-weight="normal" text-anchor="start">        + setting 0.02 + 0.05 clear</text>
+  <text x="170.0" y="696.0" font-size="11" fill="#222" font-weight="normal" text-anchor="start">blades isolated: a touch on copper stops the pinion and names the conductor</text>
+</svg>
