@@ -1,0 +1,79 @@
+{
+  "pass": true,
+  "roof_relief_mm": 0.75,
+  "roof_clearance_mm": 1.25,
+  "floor_clearance_mm": 0.25,
+  "column_height_mm": 58.621999999999986,
+  "opening_changed_volume_mm3": 0.0,
+  "added_volume_mm3": 365.31290085917607,
+  "removed_volume_mm3": 0.0,
+  "bottom_chamfer": {
+    "outward_per_height": 0.5,
+    "tangent_print_height_mm": 3.3167184270002523,
+    "bed_perimeter_inset_mm": 2.2917960675006306,
+    "bed_edge_growth_mm": 3.7082039324993694,
+    "max_offset_per_0_24_layer_mm": 0.12
+  },
+  "unchanged_overall_bounds": true,
+  "top_print_round_unchanged": true,
+  "preserved_dimensions": {
+    "tee_xs": [
+      -82.1,
+      -22.35,
+      22.35,
+      82.1
+    ],
+    "axis_y": 105.53999999999999,
+    "axis_z": 186.174,
+    "plate_y": [
+      105.53999999999999,
+      117.03999999999999
+    ],
+    "plate_z": [
+      166.574,
+      205.774
+    ],
+    "column_x": [
+      90.6,
+      107.5
+    ],
+    "column_y": [
+      95.986,
+      117.03999999999999
+    ],
+    "spring_x": 96.85,
+    "spring_zs": [
+      175.574,
+      196.774
+    ],
+    "spring_bore_r": 3.25,
+    "spring_bore_y": [
+      95.986,
+      110.18999999999998
+    ],
+    "spring_pocket_y": [
+      89.98999999999998,
+      93.836
+    ],
+    "opening_y": [
+      93.836,
+      129.186
+    ],
+    "floor_z": 164.674,
+    "roof_z": 224.796,
+    "staged_dy": 10.896000000000015
+  },
+  "front_top_stl_sha256": "80f07049b4fe6a83f1ecc5bc02383d421e6676b9f8c2e0275f72659f3bd50252",
+  "front_top_print": "2026-09-23-enclosure-front-top-h2c-v13, task 1277245499",
+  "one_valid_solid": true,
+  "watertight_print_mesh": true,
+  "release_travel_mm": 2.0,
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/low_force_trial.py": "bc7e1006e2aa4e9fde9cf10649b1b0fad46eb77a5f5d9af8c5eaee8b39e7f4c8",
+    "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py": "089323e615b02d889c7249c0959c8faf3e77db23c967a300dd73b71b23de10df",
+    "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/tee-carrier-low-force.step": "23e1104f315c08503f19ecb53924d6c17fac095f64991f6a90e9e167a943e10e",
+    "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/tee-carrier-low-force.stl": "0a307eee1e614d681b096092687a91253d690f48785338f06b49e390bcc7192a",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "80f07049b4fe6a83f1ecc5bc02383d421e6676b9f8c2e0275f72659f3bd50252"
+  },
+  "physical_fit": "Pending: free sliding and spring return in the existing front-top."
+}

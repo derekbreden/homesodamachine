@@ -1,0 +1,22 @@
+{
+  "pass": true,
+  "scope": "Conservative bounding envelope of every added point through fore release, seated position and staged insertion; receiver crossing is a rectangular cutter across the full X span.",
+  "added_swept_y_mm": [
+    111.72328157299974,
+    127.936
+  ],
+  "receiver_crossing_y_mm": [
+    106.63200000000002,
+    128.186
+  ],
+  "added_z_mm": [
+    164.924,
+    223.546
+  ],
+  "receiver_z_mm": [
+    164.674,
+    224.796
+  ],
+  "opening_changed_volume_mm3": 0.0,
+  "physical_slide_tested": false
+}

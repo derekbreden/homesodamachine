@@ -1,0 +1,54 @@
+{
+  "native_archive": ".cache/prints/2026-09-29-tee-chamfer-h2c-v6/ready/tee-carrier-filled-bottom-024-black-z018-h2c-v6.gcode.3mf",
+  "native_archive_sha256": "de6bce2db994c4fd125f02f5688fac4ae4f90a5fef4cef095d30bd47a427ad76",
+  "gcode_sha256": "7fa4de256b3cb2e295a7ce42daffd737ba14197014b6a9f33d1368b405145e83",
+  "estimated_seconds": 6342.72216796875,
+  "estimated_grams_saved_profile_density": 55.76033401489258,
+  "layer_count": 140,
+  "status": "started",
+  "submitted": true,
+  "printer": "H2C",
+  "printer_task_id": "1292379739",
+  "plate_contents": [
+    "tee-carrier-low-force.stl"
+  ],
+  "geometry_check": "geometry-check.json",
+  "native_check": "verification.json",
+  "source_geometry_and_settings_sha256": {
+    "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/tee-carrier-low-force.stl": "0a307eee1e614d681b096092687a91253d690f48785338f06b49e390bcc7192a",
+    "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/tee-carrier-low-force.step": "23e1104f315c08503f19ecb53924d6c17fac095f64991f6a90e9e167a943e10e",
+    "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/low_force_trial.py": "bc7e1006e2aa4e9fde9cf10649b1b0fad46eb77a5f5d9af8c5eaee8b39e7f4c8",
+    "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/geometry-check.json": "e2e42c70aec2cac0292524bbf94491b6489874761480e5f5397472ef82da3b9d",
+    "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/prepare_print.py": "b04a20e79e6f56d050f7d4af3b9068ce4a45306b3d6517d225d1b57e9871afde",
+    ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v15/tee-carrier-plate-black-z004-mark2-v15-six-wall-band-original-order-input.3mf": "d72b9433d3a69da2377509ea2dd4ac51f7e4cd6d17331bc0975f15b85996f657",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
+  },
+  "geometry_lint": {
+    "open_findings": 0,
+    "answered_intentional_features": 1
+  },
+  "physical_fit": "Pending.",
+  "description": "One low-force tee carrier with an additive print-bottom chamfer tangent to the retained taper. Bed edges extend 3.708 mm, adding 365.3 cubic mm inside the existing envelope. First layer 0.20 mm; bottom and body 0.24 mm; complete top R6 0.08 mm. Six walls through print Z 6.1 mm; two above. No supports or brim. Standard wall-first order, speeds and 15% overlap. The unchanged carrier opening in the existing front-top is the fit reference; roof gap 1.25 mm, floor gap 0.25 mm.",
+  "launch_record": "launch.json",
+  "postlaunch_record": "postlaunch.json",
+  "review_sha256": {
+    "README.md": "1a608fd3f3cd90261ff3e7d6599660b10872ad31ec818e5243c58ffde89357d0",
+    "bottom-profile.png": "879c5c5fa251787373d4b714cda774b8697ecc2f272b266844fe1e76a85f5842",
+    "effective-settings.json": "4e12d7709d62d333cd55a4c5ab0f293a7f0fd2ebbcc26e2d81c2d901e9ee23a4",
+    "first-layer-overlap.json": "675d38eed98135801aa70dcdd4a9f224433d3030f2728fcbcbccaf001da1b64a",
+    "geometry-check.json": "e2e42c70aec2cac0292524bbf94491b6489874761480e5f5397472ef82da3b9d",
+    "launch.json": "027d03799bbc7980c4fef274ca2e4f1d358913e5c14d1fafc3845d8c8eb93e7b",
+    "motion-envelope.json": "6cf0475981ff86ae5593838a64b935031f21a947f6b6665d01db8ef057153a87",
+    "other-printer-before-launch.json": "6155f9fcda869e3b730ce04e678049b19999870171f304d6fff6d5ba63f6cdb8",
+    "postlaunch.json": "49f616abd464dbafb589f5b90065eecb812428165b3250559c6f52214274d2c6",
+    "prelaunch.json": "4143c4c41c155ef1a78b8af204d98088539a358099f71e712eb4c7b0e2aa008e",
+    "preparation.json": "cd53f26a0f9048c5a794135ce238522b05ac246e7f20820952c9f4094b57baa8",
+    "preview.png": "431ba2db75cb78c949b4897a71fe172531c5ac316968abae56e80fed8a033428",
+    "slice-command.json": "b81753f4a9a5a22b537618890a846830b032dd82c15ccd1af3999854792de460",
+    "slice-result.json": "74afce6b9ec35f3ed1e96cee907a83078da0d14ae568ae6c9572221bfc246196",
+    "startup-spacing.json": "3219085909db1a8555757ca10321cb3a2d576b77489c1718a4bc873481533596",
+    "support-audit.json": "c0207a25d2441d4aae0c254996c4a62b9faa0ab749335fbafe4f9a24aa0ec6cf",
+    "verification.json": "1f98bc20d7ae6ceeff0694b8de9b67b35d3dbad1a75812e936cba0036b39e0fc",
+    "wall-review.json": "f0dd6eb2bcf1076c88d8d1396c1aa4cfc333fa59c44aa9e96216e95d6146728c"
+  }
+}

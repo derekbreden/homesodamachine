@@ -1,2 +1,2 @@
-[ceiling] The carrier prints on its back, troughs up. This installed-frame underside becomes a vertical wall in print orientation. The native slice has no supports and retains the complete 0.08 mm rounded bands.
+[ceiling] The carrier prints on its back, troughs up. This installed-frame underside becomes a vertical wall in print orientation. Supports are disabled; the filled print-bottom chamfer/taper uses 0.24 mm layers and the complete print-top round uses 0.08 mm.
 click: x=0.000 y=111.290 z=166.574

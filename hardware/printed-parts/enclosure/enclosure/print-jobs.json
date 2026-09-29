@@ -2257,6 +2257,46 @@
       "support_policy": "Face-up nameplate with all white lettering, logo/drop and QR raised 0.48 mm. The existing broad-leaf receiver accepts the unchanged 32 mm leaves, 3.6 mm hooks and 1.23 mm bearing clearance. Black normal Snug supports use shared PET-GF contact settings with 0.80 mm nominal XY and 0.45 mm top/bottom Z gaps. Emitted gaps: minimum 0.518 mm lateral, 0.48 mm below the plate and above both catches.",
       "physical_fit": "Pending.",
       "startup_spacing_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-all-ink-raised-mark2-v4/startup-spacing.json"
+    },
+    {
+      "date": "2026-09-29",
+      "printer": "H2C",
+      "parts": [
+        "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/tee-carrier-low-force.stl"
+      ],
+      "job_name": "tee-carrier-filled-bottom-024-black-z018-h2c-v6.gcode.3mf",
+      "printer_task_id": "1292379739",
+      "status": "started",
+      "started_by": "Codex at Derek's request",
+      "observed_state": "RUNNING",
+      "observed_at_utc": "2026-09-29T05:58:17.399406+00:00",
+      "observed_print_error": 0,
+      "hms": [],
+      "sliced_file": ".cache/prints/2026-09-29-tee-chamfer-h2c-v6/ready/tee-carrier-filled-bottom-024-black-z018-h2c-v6.gcode.3mf",
+      "sliced_file_sha256": "de6bce2db994c4fd125f02f5688fac4ae4f90a5fef4cef095d30bd47a427ad76",
+      "gcode_sha256": "7fa4de256b3cb2e295a7ce42daffd737ba14197014b6a9f33d1368b405145e83",
+      "native_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-tee-chamfer-h2c-v6/manifest.json",
+      "launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-tee-chamfer-h2c-v6/launch.json",
+      "postlaunch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-tee-chamfer-h2c-v6/postlaunch.json",
+      "estimated_seconds": 6342.72216796875,
+      "filament_grams": 55.76033401489258,
+      "layer_count": 140,
+      "observed_layer": 0,
+      "observed_total_layers": 140,
+      "z_offset_mm": 0.18,
+      "effective_textured_plate_trim_mm": 0.16,
+      "geometry": "One low-force tee carrier with an additive print-bottom chamfer tangent to the retained taper. Bed edges extend 3.708 mm, adding 365.3 cubic mm inside the existing envelope. First layer 0.20 mm; bottom and body 0.24 mm; complete top R6 0.08 mm. Six walls through print Z 6.1 mm; two above. No supports or brim. Standard wall-first order, speeds and 15% overlap. The unchanged carrier opening in the existing front-top is the fit reference; roof gap 1.25 mm, floor gap 0.25 mm.",
+      "bed_clear_confirmed_by": "Derek: Yes, H2C is clear.",
+      "print_options": {
+        "timelapse": "On",
+        "auto_bed_leveling": "On",
+        "flow_dynamic_calibration": "Auto",
+        "nozzle_offset_calibration": "Auto"
+      },
+      "filament": "Black PET-GF on left external spool 254.",
+      "support_policy": "No supports or brim. Filled bottom chamfer/taper uses 0.24 mm; top R6 0.08 mm.",
+      "physical_fit": "Pending.",
+      "startup_spacing_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-tee-chamfer-h2c-v6/startup-spacing.json"
     }
   ]
 }

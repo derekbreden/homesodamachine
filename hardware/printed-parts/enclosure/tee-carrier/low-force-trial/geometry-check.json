@@ -5,7 +5,17 @@
   "floor_clearance_mm": 0.25,
   "column_height_mm": 58.621999999999986,
   "opening_changed_volume_mm3": 0.0,
-  "added_volume_mm3": 0.0,
+  "added_volume_mm3": 365.31290085917607,
+  "removed_volume_mm3": 0.0,
+  "bottom_chamfer": {
+    "outward_per_height": 0.5,
+    "tangent_print_height_mm": 3.3167184270002523,
+    "bed_perimeter_inset_mm": 2.2917960675006306,
+    "bed_edge_growth_mm": 3.7082039324993694,
+    "max_offset_per_0_24_layer_mm": 0.12
+  },
+  "unchanged_overall_bounds": true,
+  "top_print_round_unchanged": true,
   "preserved_dimensions": {
     "tee_xs": [
       -82.1,
@@ -59,10 +69,10 @@
   "watertight_print_mesh": true,
   "release_travel_mm": 2.0,
   "source_sha256": {
-    "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/low_force_trial.py": "d8f848ab53d23e16f23d40d81c7a4e26478d21afa24732e5644d2dc29469e63f",
+    "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/low_force_trial.py": "bc7e1006e2aa4e9fde9cf10649b1b0fad46eb77a5f5d9af8c5eaee8b39e7f4c8",
     "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py": "089323e615b02d889c7249c0959c8faf3e77db23c967a300dd73b71b23de10df",
-    "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/tee-carrier-low-force.step": "e008227eaacc8ac1f6f35a33d17bf91dc577dfddd16aeea3b89bad8fe41e423f",
-    "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/tee-carrier-low-force.stl": "375a78bb936185cb64fe64ca1da0d3d2421b36c044c4317b817471a2106efc54",
+    "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/tee-carrier-low-force.step": "23e1104f315c08503f19ecb53924d6c17fac095f64991f6a90e9e167a943e10e",
+    "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/tee-carrier-low-force.stl": "0a307eee1e614d681b096092687a91253d690f48785338f06b49e390bcc7192a",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "80f07049b4fe6a83f1ecc5bc02383d421e6676b9f8c2e0275f72659f3bd50252"
   },
   "physical_fit": "Pending: free sliding and spring return in the existing front-top."

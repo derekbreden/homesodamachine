@@ -50,22 +50,17 @@ face is smooth within its rounded edges.
 The plate prints lying on its back, troughs open upward; the columns stand out in the plane of
 the bed, and their aft shoulders rise off it.
 
-The plate prints without supports. Its first bed layer is 0.20 mm. Above that layer,
-the visible end rounds use 0.08 mm layers through the remaining curve, and other heights
-use 0.24 mm.
+The [low-force trial](low-force-trial/README.md) prints without supports. Its wider
+print-bottom foot has an additive chamfer tangent to the near-vertical taper, entirely
+inside the carrier's overall dimensions. The first layer is 0.20 mm; the bottom
+transition and body use normal 0.24 mm PET-GF layers. The complete print-top round
+uses 0.08 mm layers.
 
-Derek's [v14 observation](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v14/physical-result.json)
-reports no spaghetti failure and a slightly concave lower surface instead of the intended
-outward round. His assessment is “probably good enough for now.” This is an in-progress
-observation of the six-wall, infill-first print, with whole-print completion and assembled
-fit unassessed.
-
-The [preferred next recipe](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v15/README.md)
-uses six walls only in print Z 0–6.1 mm, with the two-wall base setting above it and the
-original order: inner walls, outer wall, then infill. Infill/wall overlap is 15%; speeds and
-accelerations retain the saved profile values. The archive is prepared, not sent; six walls
-alone remains physically untested. The [physical record](physical-acceptance.json) identifies
-the specimens, settings, surface observations and preferred next recipe.
+Six walls apply only in print Z 0–6.1 mm, with two walls above and the original
+order: inner walls, outer wall, then infill. Infill/wall overlap is 15%; speeds and
+accelerations retain the saved profile values. Physical surface and sliding fit
+validation are pending. The [physical record](physical-acceptance.json) identifies
+the specimens and reported surface observations.
 
 ## Openings and travel
 
