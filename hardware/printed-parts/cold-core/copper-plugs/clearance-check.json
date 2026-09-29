@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "reading_utc": "2026-09-28T16:48:44.948357+00:00",
+  "reading_utc": "2026-09-29T14:54:33.989837+00:00",
   "scope": "Both finished copper-plug STEPs against the finished front-top and foam assembly, using production placement transforms. Other cold-core bodies, routed tubing, print meshes and physical prints are outside this reading.",
   "nominal_cad_only": true,
   "minimum_front_top_clearance_mm": 0.15,
