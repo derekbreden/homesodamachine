@@ -4189,7 +4189,11 @@ def _handholds(solid, inner, y_joint, y_side):
                 rim.append(edge)
         if not rim:
             raise ValueError(f"{y_side} handhold at X{x_ext:g} has no exterior lifting edge")
+        from overhang_round import roof_rim
+        before = solid
         solid = solid.fillet(handhold_edge_r, rim)
+        solid = roof_rim(before, solid, x_ext, sx, y0, y1, roof,
+                         handhold_corner_r, handhold_edge_r)
     return solid
 
 
@@ -5554,7 +5558,11 @@ def _round_cradle_pull_rims(solid, box):
                 rim.append(candidate)
         if not rim:
             raise ValueError(f"cradle pull at X{x:g} has no exterior hand-contact edge")
+        from overhang_round import roof_rim
+        before = solid
         solid = solid.fillet(pull_edge_r, rim)
+        solid = roof_rim(before, solid, x, -1 if x > 0 else 1,
+                         y0, y1, z1, pull_corner_r, pull_edge_r)
     return solid
 
 

@@ -2256,7 +2256,9 @@
       "filament": "Black PET-GF on left external spool 254; white PET-GF on right external spool 255.",
       "support_policy": "Face-up nameplate with all white lettering, logo/drop and QR raised 0.48 mm. The existing broad-leaf receiver accepts the unchanged 32 mm leaves, 3.6 mm hooks and 1.23 mm bearing clearance. Black normal Snug supports use shared PET-GF contact settings with 0.80 mm nominal XY and 0.45 mm top/bottom Z gaps. Emitted gaps: minimum 0.518 mm lateral, 0.48 mm below the plate and above both catches.",
       "physical_fit": "Pending.",
-      "startup_spacing_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-all-ink-raised-mark2-v4/startup-spacing.json"
+      "startup_spacing_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-all-ink-raised-mark2-v4/startup-spacing.json",
+      "physical_result_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-all-ink-raised-mark2-v4/physical-result.json",
+      "physical_result": "Artwork accepted; warping and trapped supports rejected."
     },
     {
       "date": "2026-09-29",
@@ -2296,7 +2298,51 @@
       "filament": "Black PET-GF on left external spool 254.",
       "support_policy": "No supports or brim. Filled bottom chamfer/taper uses 0.24 mm; top R6 0.08 mm.",
       "physical_fit": "Pending.",
-      "startup_spacing_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-tee-chamfer-h2c-v6/startup-spacing.json"
+      "startup_spacing_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-tee-chamfer-h2c-v6/startup-spacing.json",
+      "physical_result_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-tee-chamfer-h2c-v6/physical-result.json",
+      "physical_result": "Bottom surface accepted; sliding fit unreported."
+    },
+    {
+      "date": "2026-09-29",
+      "printer": "Mark2",
+      "job_name": "registration-z004-mark2-v1.gcode.3mf",
+      "printer_task_id": "1294234201",
+      "status": "startup_failed_before_layer_1",
+      "observed_at_utc": "2026-09-29T20:14:01.069689+00:00",
+      "observed_state_at_acceptance": "RUNNING",
+      "sliced_file": ".cache/prints/2026-09-29-registration-mark2-v1/ready/registration-z004-mark2-v1.gcode.3mf",
+      "sliced_file_sha256": "ed6d574e7bbe483c007e66354ec7c041d8690aca81843eb971ac3a6d0e40ad35",
+      "gcode_sha256": "b85fea9c621e152246041a36f44adc5b0fe1fa47ef659716a7e66c57d4ddd82c",
+      "estimated_seconds": 820.6586303710938,
+      "print_options": {
+        "Timelapse": "On",
+        "Auto bed leveling": "On",
+        "Flow dynamic calibration": "Auto",
+        "Nozzle Offset Calibration": "On"
+      },
+      "review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-registration-mark2-v1",
+      "physical_result": "Pending"
+    },
+    {
+      "date": "2026-09-29",
+      "printer": "H2C",
+      "job_name": "nameplate-flat-wing-receiver-z018-h2c-v1.gcode.3mf",
+      "printer_task_id": "1294244805",
+      "status": "started",
+      "observed_at_utc": "2026-09-29T20:19:04.781772+00:00",
+      "observed_state_at_acceptance": "RUNNING",
+      "sliced_file": ".cache/prints/2026-09-29-nameplate-flat-wing-receiver-h2c-v1/ready/nameplate-flat-wing-receiver-z018-h2c-v1.gcode.3mf",
+      "sliced_file_sha256": "833a9c7d485951946d116e0fabde575c96c5f7edca3d02b82e117df46640f00c",
+      "gcode_sha256": "8090f62787241ca3998b3938eb7ecef55d2de406061a93fd5077f8c3c4086326",
+      "estimated_seconds": 2081.707763671875,
+      "print_options": {
+        "Timelapse": "On",
+        "Auto bed leveling": "On",
+        "Flow dynamic calibration": "Auto",
+        "Nozzle Offset Calibration": "Auto"
+      },
+      "review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-flat-wing-receiver-h2c-v1",
+      "physical_result": "Pending"
     }
   ]
 }

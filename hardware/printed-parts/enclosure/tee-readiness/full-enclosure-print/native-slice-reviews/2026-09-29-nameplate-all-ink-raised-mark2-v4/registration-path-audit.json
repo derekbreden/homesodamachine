@@ -1,0 +1,52 @@
+{
+  "native_sha256": "6ac3dc4720e3b7edb8342724c8c3f2bcc93489104efa2b55e4b72f3af62a6cb8",
+  "gcode_sha256": "62c374faafae114fc60aefad6c26aa581ae8fdeef6a22ae708ff83d4c33686ec",
+  "audit_script_sha256": "bf63858c2792a1b0ab8891f39c23e0d239cc4b085dcf66bb50856fc4ce6566dc",
+  "print_z_mm": 16.05,
+  "method": "Extrusion-road envelopes, 0.025 mm closure of black skin gaps, connected voids selected by white overlap; translation search [-0.2,0.2] on a 0.025 mm grid.",
+  "scope": "Programmed-path comparison; physical nozzle error is unmeasured.",
+  "regions": [
+    {
+      "region": "logo",
+      "road_shape_white_area_mm2": 266.89277244767163,
+      "road_void_area_mm2": 267.084542501581,
+      "centroid_white_minus_void_mm": [
+        0.000679192283030261,
+        0.005200284704699243
+      ],
+      "best_grid_translation_mm": [
+        -0.0,
+        -0.0
+      ],
+      "symmetric_difference_area_mm2": 0.36851032300332714
+    },
+    {
+      "region": "text",
+      "road_shape_white_area_mm2": 255.45751520620536,
+      "road_void_area_mm2": 258.7819835512856,
+      "centroid_white_minus_void_mm": [
+        0.011280287370681208,
+        0.0005473483270890256
+      ],
+      "best_grid_translation_mm": [
+        -0.0,
+        -0.0
+      ],
+      "symmetric_difference_area_mm2": 3.641225647959553
+    },
+    {
+      "region": "qr",
+      "road_shape_white_area_mm2": 255.05186243466883,
+      "road_void_area_mm2": 260.719940802254,
+      "centroid_white_minus_void_mm": [
+        -0.03490462968562724,
+        0.048366088518932315
+      ],
+      "best_grid_translation_mm": [
+        -0.0,
+        -0.0
+      ],
+      "symmetric_difference_area_mm2": 5.798780033045569
+    }
+  ]
+}

@@ -152,6 +152,7 @@ def barren(root: Path, solid_hashes: dict) -> list:
 # same field (`cold-core/_show_skin.py`) and leave the same way, and so does the faucet's base
 # (`faucet_shell.write_bed_file`) — the one piece of this machine that stands on a counter.
 BUNDLED_MESH_DIRS = (
+    "hardware/printed-parts/calibration/dual-nozzle-registration",
     "hardware/printed-parts/enclosure/asse-drip-pan",
     "hardware/printed-parts/enclosure/display-cover",
     "hardware/printed-parts/enclosure/nameplate",
@@ -224,6 +225,9 @@ BUNDLED_PAYLOAD_DIRS = (
 # The fit-trial assembly has a viewer payload. Its two separately printable
 # pieces are served from their STEP and STL without requiring duplicate payloads.
 BUNDLED_PAYLOAD_FILES = (
+    "hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.step.mesh",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-001.step.mesh",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.step.mesh",
     "hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.step.mesh",
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh",
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh",

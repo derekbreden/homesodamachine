@@ -1,0 +1,148 @@
+{
+  "project": "nameplate-flat-wing-receiver-z018-h2c-v1-input.3mf",
+  "settings_source": "hardware/printed-parts/petgf.3mf",
+  "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "settings_sha256": "07f46991b6e7f746ddf9ab80ed91b3ea5967d8fa0402015cd939c20d41c73d1f",
+  "source_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "409b1516f0401361a02b18a34420c10ca83bc33615e8896cade2fea42edee871",
+      "requested_z_trim_mm": 0.18
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.18 Z trim"
+    }
+  },
+  "printer": "H2C",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 15.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "nameplate-horizontal-wings-receiver",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.stl",
+      "stl_sha256": "60744eda6eb0da24593c77d7fec263fd94784fd4d75811c42c8cd597ede24c4d",
+      "triangles": 1018,
+      "rotation_x_degrees": 180.0,
+      "source_center_mm": [
+        0.0,
+        -0.5999999046325684,
+        0.0
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        -1.0,
+        1.2246467991473532e-16,
+        0.0,
+        -1.2246467991473532e-16,
+        -1.0,
+        162.5,
+        160.0,
+        23.0
+      ],
+      "plate_translation_mm": [
+        162.5,
+        160.0,
+        23.0
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          104.23500061035156,
+          157.0,
+          0.0
+        ],
+        [
+          220.76499938964844,
+          163.0,
+          46.0
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.980478252036846e-10
+    }
+  ],
+  "project_sha256": "fcfec2f4066f9554a58a93bcce53cadce3ae5a2b70600a902168fe151198fbc7",
+  "settings_preserved_byte_for_byte": false,
+  "source_geometry_and_settings_sha256": {
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.stl": "60744eda6eb0da24593c77d7fec263fd94784fd4d75811c42c8cd597ede24c4d",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.step": "aebe30def3d4285e8f1a505d376130460db31eeca670594b787840007462415f",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/geometry-check.json": "8e28471151ba464aff12a331b00b6fbb73987db6c06026d619c926a474cd21ff",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/wing_interface.py": "52d2bf27a461c142367199dbefe209fb1257979aa6065035d60a316ac6456629",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/prepare_receiver.py": "2a2d93d95d4415d19495f98d1c1cc54e0266bea37c2fd22a3f9beec4cff017e2",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
+  },
+  "intentional_overrides": {
+    "extruder_ams_count": [
+      "1#0|4#0",
+      "1#0|4#0"
+    ],
+    "enable_support": "1",
+    "support_type": "normal(auto)",
+    "support_style": "snug",
+    "support_remove_small_overhang": "0",
+    "support_object_xy_distance": "0.8",
+    "support_top_z_distance": "0.45",
+    "support_bottom_z_distance": "0.45",
+    "support_object_first_layer_gap": "0.5",
+    "support_filament": "1",
+    "support_interface_filament": "1",
+    "flush_into_support": "0"
+  },
+  "requested_z_trim_mm": 0.18,
+  "expected_textured_plate_trim_mm": 0.16,
+  "orientation": "CAD -Z up, matching front-top wall orientation; slots open to the face.",
+  "support_policy": "Black normal Snug supports, 0.8 mm nominal XY and 0.45 mm Z gaps. Verify emitted slot access.",
+  "qualification": "Insertion flex, retention and removal remain physical tests."
+}

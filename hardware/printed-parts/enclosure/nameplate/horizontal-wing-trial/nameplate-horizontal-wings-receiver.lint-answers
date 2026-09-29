@@ -1,0 +1,7 @@
+[sliver] These are the closed outer ends of the 1.50 mm thick sideways wing slots, backed by the coupon's full side stock. The slots receive 1.20 mm wings with 0.30 mm thickness air. They are cavities, not thin freestanding rails. Native support paths do not enter either slot.
+click: x=55.565 y=0.750 z=-0.125
+click: x=-55.565 y=0.750 z=-0.125
+
+[ceiling] This coupon prints with installed -Z as build-up. The named -Z faces therefore point upward during this print; the default lint frame is +Z. The native receiver review separately audits actual support contacts and the open front removal lane before nameplate insertion.
+click: x=0.000 y=1.200 z=19.150
+click: x=0.000 y=-2.100 z=-21.150

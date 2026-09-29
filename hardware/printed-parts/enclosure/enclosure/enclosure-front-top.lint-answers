@@ -35,7 +35,7 @@ click: x=99.175 y=134.211 z=235.811
 
 [sliver] The yoke-entry pocket roof meets the underside corbel of the left front Wago well here. Its 0.838643 mm exposed edge is below the well floor, not a separate ligament. The complete 3 mm floor occupies Z272.85..275.85 and remains present across the full tower. The pocket edge ends at Z271.388643, 1.461357 mm below that floor; the remaining corbel joins the tower to the full flank.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-97.500 y=122.795 z=270.969
+click: x=-97.500 y=121.945 z=270.969
 
 [sliver] These collinear STL triangles have zero area and a zero normal; their strip dimensions are undefined. They add no surface area or volume and do not describe a physical thin section. The complete unmodified mesh is one watertight, consistently wound body. Removing these triangles alone would break indexed edge adjacency and is not a geometry correction.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
