@@ -1,5 +1,5 @@
 [step] Both black references and white candidates rise 0.48 mm above the base and terminate in the same plane. The two 0.24 mm raised layers are intentional measuring features, checked individually in the emitted G-code.
-click: x=-42.300 y=8.100 z=1.440
+click: x=-50.050 y=8.100 z=1.440
 
 [sliver] These are the four perimeter faces of a 0.96 mm thick, bed-supported calibration coupon. The base spans the complete 110 by 39 mm footprint through four printed layers; these perimeter faces are not separate flexures or retention parts.
 click: x=0.000 y=-19.000 z=0.480

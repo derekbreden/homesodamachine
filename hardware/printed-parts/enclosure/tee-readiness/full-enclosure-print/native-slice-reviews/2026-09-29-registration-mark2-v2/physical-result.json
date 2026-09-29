@@ -1,0 +1,41 @@
+{
+  "printer": "Mark2",
+  "printer_task_id": "1294385772",
+  "reported_date": "2026-09-29",
+  "status": "range_insufficient",
+  "observation": "Top row furthest left is best, but not far enough. Bottom row furthest right is best, but not far enough.",
+  "tested_candidates_mm": [
+    -0.35,
+    -0.3,
+    -0.25,
+    -0.2,
+    -0.15,
+    -0.1,
+    -0.05,
+    0.0,
+    0.05,
+    0.1,
+    0.15,
+    0.2,
+    0.25,
+    0.3,
+    0.35
+  ],
+  "best_endpoint_indices": {
+    "X": 0,
+    "Y": 14
+  },
+  "inferred_white_correction_bounds_mm": {
+    "X": {
+      "less_than": -0.35
+    },
+    "Y": {
+      "greater_than": 0.35
+    }
+  },
+  "selected_correction_mm": {
+    "X": null,
+    "Y": null
+  },
+  "qualification": "Endpoint observations constrain the correction direction but do not measure the correction. Product correction remains unapplied."
+}

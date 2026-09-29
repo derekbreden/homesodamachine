@@ -14,8 +14,8 @@ import registration as trial
 HERE,ROOT=trial.HERE,trial.ROOT
 sys.path.insert(0,str(ROOT/'hardware/printed-parts/faucet'))
 import refresh_print_project as writer
-JOB=ROOT/'.cache/prints/2026-09-29-registration-mark2-v2'
-STEM='registration-saved-alignment-z004-mark2-v2'
+JOB=ROOT/'.cache/prints/2026-09-29-registration-mark2-v3'
+STEM='registration-shifted-ranges-z004-mark2-v3'
 BASE=ROOT/'hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf'
 PETGF=ROOT/'hardware/printed-parts/petgf.3mf'
 NS='http://schemas.microsoft.com/3dmanufacturing/core/2015/02'
