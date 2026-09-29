@@ -1,0 +1,98 @@
+
+============================================================================
+1. Slider-crank press for a 30 mm-stroke mini-applicator
+============================================================================
+crank radius 15.0 mm, rod 100.0 mm, efficiency 0.85
+  s above BDC (mm)  crank angle (deg)   ds/dtheta (mm/rad)  F needed (N)  torque needed (N*m)
+             0.920              18.83                5.529           300                 1.95
+             0.500              13.84                4.112           300                 1.45
+             0.300              10.71                3.198           300                 1.13
+             0.200               8.74                2.616           300                 0.92
+             0.150               7.56                2.268           975                 2.60
+             0.100               6.17                1.854          1650                 3.60
+             0.050               4.36                1.312          2325                 3.59
+             0.020               2.76                0.830          2730                 2.67
+             0.005               1.38                0.415          2932                 1.43
+-> max torque needed through the crimp (design 3 kN peak): 3.76 N*m at s = 0.074 mm above BDC
+   (the crank's mechanical advantage rises toward BDC as fast as the crimp force does)
+
+Applicator springs over the whole stroke (ram return + feed + hold-down), unmeasured [estimate 100-300 N]:
+  100 N spring load -> peak 1.78 N*m near mid-stroke (ds/dtheta max 15.2 mm/rad)
+  300 N spring load -> peak 5.35 N*m near mid-stroke (ds/dtheta max 15.2 mm/rad)
+-> size the drive for ~5.4 N*m: mid-stroke spring work, not the crimp, sets the torque
+
+============================================================================
+1b. What borrowed drives give at the crank
+============================================================================
+- 12 V wiper motor, small car class (stall 12 N*m, use 1/2): 6.0 N*m (enough vs 5.4 needed) [source] stall 12.3 N*m; half used [estimate]
+    ram force available at 0.20 / 0.10 / 0.05 mm above BDC: 1.9 kN / 2.8 kN / 3.9 kN
+    50 rpm -> 1.2 s per stroke; time in last 0.20 mm before BDC 29 ms; HX711 samples there at 80 Hz: 2.3, at 10 Hz: 0.3
+- 12/24 V industrial wiper gearmotor (AM Equipment 240, stall 40 N*m, use 1/2): 20.0 N*m (enough vs 5.4 needed) [source] stall 40 N*m, 20-100 rpm
+    ram force available at 0.20 / 0.10 / 0.05 mm above BDC: 6.5 kN / 9.2 kN / 13.0 kN
+    40 rpm -> 1.5 s per stroke; time in last 0.20 mm before BDC 36 ms; HX711 samples there at 80 Hz: 2.9, at 10 Hz: 0.4
+- 12 V worm gearmotor, '70 kg*cm' class: 6.9 N*m (enough vs 5.4 needed) [estimate] common hobby worm motor rating
+    ram force available at 0.20 / 0.10 / 0.05 mm above BDC: 2.2 kN / 3.2 kN / 4.5 kN
+    10 rpm -> 6.0 s per stroke; time in last 0.20 mm before BDC 146 ms; HX711 samples there at 80 Hz: 11.6, at 10 Hz: 1.5
+- NEMA 23 (1.2 N*m usable) + 10:1 planetary (eta 0.9): 10.8 N*m (enough vs 5.4 needed) [estimate] Derek's NEMA23 + DM542T [repo]
+    ram force available at 0.20 / 0.10 / 0.05 mm above BDC: 3.5 kN / 5.0 kN / 7.0 kN
+    6 rpm -> 10.0 s per stroke; time in last 0.20 mm before BDC 243 ms; HX711 samples there at 80 Hz: 19.4, at 10 Hz: 2.4
+- NEMA 23 (1.2 N*m usable) + 20:1 planetary (eta 0.9): 21.6 N*m (enough vs 5.4 needed) [estimate]
+    ram force available at 0.20 / 0.10 / 0.05 mm above BDC: 7.0 kN / 9.9 kN / 14.0 kN
+    3 rpm -> 20.0 s per stroke; time in last 0.20 mm before BDC 485 ms; HX711 samples there at 80 Hz: 38.8, at 10 Hz: 4.9
+
+Slow-down needed for a real force curve from a $3 HX711 at 80 Hz (>= 20 samples in the last 0.2 mm):
+  crank angle for last 0.2 mm = 8.74 deg -> stroke period >= 10 s (5.82 rpm), or dwell the stepper through that arc
+
+============================================================================
+2. Frame stretch at crimp force (O-frame: two steel plates, four tie rods)
+============================================================================
+plates 12.7 mm x 100 wide over 170 span, 4 rods d16: k_total ~13 kN/mm; stretch at 3 kN 235 um; crimp-to-crimp scatter from +/-15% force: +/-23.5 um
+plates 25.4 mm x 100 wide over 170 span, 4 rods d16: k_total ~39 kN/mm; stretch at 3 kN 77 um; crimp-to-crimp scatter from +/-15% force: +/-7.7 um
+plates 12.7 mm x 100 wide over 110 span, 4 rods d16: k_total ~29 kN/mm; stretch at 3 kN 103 um; crimp-to-crimp scatter from +/-15% force: +/-10.3 um
+plates 15 mm x 100 wide over 150 span, 4 rods d16: k_total ~23 kN/mm; stretch at 3 kN 130 um; crimp-to-crimp scatter from +/-15% force: +/-13.0 um
+plates 20 mm x 120 wide over 150 span, 4 rods d20: k_total ~38 kN/mm; stretch at 3 kN 79 um; crimp-to-crimp scatter from +/-15% force: +/-7.9 um
+-> mean stretch is dialled out once on the applicator's crimp-height dial; the scatter sits inside
+   the +/-0.05 mm J.S.T. UK tolerance [facts], comfortably so from 15 mm plates up.
+   12.7 mm (0.500 in) is the thickest mild steel a quick laser-cut service offers [source SendCutSend];
+   shortening the span between rods is the cheap way to stiffen it (stiffness ~ 1/span^3), but the
+   rods must clear the applicator (a WERI mini-applicator is 155 x 150 x 110 mm [prior-art s3]), so
+   ~170 mm is the realistic span one way; the 25.4 mm row is two 12.7 mm plates bolted/bonded as one [estimate].
+   A printed frame would not hold it: PETG-CF E ~ 4-8 GPa [estimate], and it creeps under load
+  printed 30 mm-thick plate, E=4 GPa: k ~12.8 kN/mm -> 234 um at 3 kN, creeps
+  printed 30 mm-thick plate, E=8 GPa: k ~25.6 kN/mm -> 117 um at 3 kN, creeps
+
+============================================================================
+3. Alternatives: ball screw with an over-travel spring; air cylinders
+============================================================================
+NEMA23 1.2 N*m, SFU1605 direct: 1.4 kN thrust at stall
+NEMA23 1.2 N*m, SFU1605 via 3:1 belt: 3.8 kN thrust at stall
+NEMA23 1.2 N*m, SFU1204 via 5:1 belt: 8.0 kN thrust at stall
+Over-travel spring: the nut drives the ram through a disc-spring stack preloaded above the crimp peak
+(>3 kN). The ram lands on a hard stop at shut height; the nut runs on ~0.3-0.5 mm into the stack and
+stops by step count. BDC is set by the stop, not by the screw [estimate, standard press practice].
+
+air cylinder 50 mm bore at 6 bar: 1.18 kN direct; 3.5 kN through a 3:1 lever  (DeWalt 200 PSI compressor on hand [repo]; regulated to 6 bar)
+air cylinder 63 mm bore at 7 bar: 2.18 kN direct; 6.5 kN through a 3:1 lever  (DeWalt 200 PSI compressor on hand [repo]; regulated to 7 bar)
+air cylinder 80 mm bore at 7 bar: 3.52 kN direct; 10.6 kN through a 3:1 lever  (DeWalt 200 PSI compressor on hand [repo]; regulated to 7 bar)
+-> a hard stop sets BDC; the cylinder only has to exceed the crimp peak plus the stop's share
+
+============================================================================
+4. Ratchet hand crimper closed by a linear actuator (idea b2)
+============================================================================
+MA  8: handle force 100-325 N for a 0.8-2.6 kN crimp
+MA 12: handle force 67-217 N for a 0.8-2.6 kN crimp
+MA 20: handle force 40-130 N for a 0.8-2.6 kN crimp
+12 V linear actuator rated 1500 N, 50 mm stroke, 5.7 mm/s [source listing]: 6-19x margin over the
+handle force above; closing ~40 mm of handle travel takes ~7 s, opening ~7 s [estimate]
+NEMA17 (0.4 N*m) on a T8x2 lead screw, eta 0.3: 377 N -> enough only if MA >= 7
+
+============================================================================
+5. Small crank inside a travelling crimp head (idea b3)
+============================================================================
+NEMA17 0.4 N*m + 10:1 planetary (eta 0.9): 3.6 N*m -> force at 0.20 / 0.10 / 0.05 mm above BDC: 2.7 kN / 3.8 kN / 5.4 kN
+NEMA17 0.4 N*m + 50:1 planetary (eta 0.8): 16.0 N*m -> force at 0.20 / 0.10 / 0.05 mm above BDC: 12.1 kN / 16.9 kN / 23.8 kN
+Head mass ~1 kg (NEMA17 0.3 + gearbox 0.2 + steel C-frame 0.3-0.6) [estimate]; the crimp force
+closes inside the C-frame, so the printer gantry carries only the head's weight.
+C-frame stiffness 10 kN/mm: opens 300 um at 3 kN; +/-15% force scatter -> +/-30 um
+C-frame stiffness 20 kN/mm: opens 150 um at 3 kN; +/-15% force scatter -> +/-15 um
+C-frame stiffness 40 kN/mm: opens 75 um at 3 kN; +/-15% force scatter -> +/-8 um

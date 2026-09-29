@@ -1,0 +1,47 @@
+============================================================================
+1. Per unit, by loom
+============================================================================
+loom            housing   ribbons crimps  leg mm  order
+J1 MANIFOLD A     XHP-9     5P+4P      9     350  straight (split assumed 5 | 4)
+J2 MANIFOLD B     XHP-6     3P+3P      5     450  straight, cavity 3 empty, conductor trimmed
+J3 FAUCET         XHP-4        4P      4     300  straight
+J4 SENSORS        XHP-7     4P+3P      7     350  CROSSING: 3P GND to pin 2
+J5 RELAYS         XHP-4        4P      4     100  straight
+J6 REEDS A        XHP-5        5P      5     450  straight
+J7 REEDS B        XHP-7     5P+3P      7     400  CROSSING: 5P GND to pin 7 past CLO/CHI; one 3P trimmed
+J9 DISPLAY        XHP-4        4P      4     400  straight
+J11 GAS           XHP-4        4P      4     600  straight
+J13 PUMPS         XHP-4        4P      4     350  straight
+
+ribbon ends 14, crimps 53, housings 10
+
+============================================================================
+2. By ribbon type: ends, conductors reaching the housing, ribbon used
+============================================================================
+3P: 4 ends (J2, J2, J4, J7), 12 conductors, 10 crimps, 1.85 m/unit (+48 mm redo reserve) -> 8.0 units per 15.24 m spool
+4P: 7 ends (J1, J3, J4, J5, J9, J11, J13), 28 conductors, 28 crimps, 2.80 m/unit (+84 mm redo reserve) -> 5.3 units per 15.24 m spool
+5P: 3 ends (J1, J6, J7), 15 conductors, 15 crimps, 1.35 m/unit (+36 mm redo reserve) -> 11.0 units per 15.24 m spool
+total 22 AWG ribbon per unit ~6.00 m (J3 assumed)
+
+============================================================================
+3. Housings by type, and what a single-ribbon machine can finish alone
+============================================================================
+single-ribbon housings: 6 (J3, J5, J6, J9, J11, J13), 25 crimps
+two-ribbon housings:    4 (J1, J2, J4, J7), 28 crimps
+4P -> XHP-4 ends: 5 (J3, J5, J9, J11, J13), 20 crimps = 38% of the unit
+ribbon order = cavity order: 8 of 10 housings; J4 and J7 need a crossing
+
+============================================================================
+4. Batching by spool (cut-last order, p3): one spool's life in units
+============================================================================
+3P: 1.85 m/unit -> one spool makes 8.2 units' worth of 3P ends (32 ends, 80 crimps) in one run
+4P: 2.80 m/unit -> one spool makes 5.4 units' worth of 4P ends (35 ends, 140 crimps) in one run
+5P: 1.35 m/unit -> one spool makes 11.3 units' worth of 5P ends (33 ends, 165 crimps) in one run
+
+============================================================================
+5. Program
+============================================================================
+61 units x 53 = 3233 crimps, 854 ribbon ends, 610 housings
+  3P: 7.6 spools
+  4P: 11.5 spools
+  5P: 5.5 spools

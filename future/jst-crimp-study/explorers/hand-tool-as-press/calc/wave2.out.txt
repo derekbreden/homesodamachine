@@ -1,0 +1,157 @@
+
+==============================================================================
+1. The neck: what fits between the box's rear face and the conductor barrel
+==============================================================================
+room left for the brush = transition - blade stack (negative = the blade does not fit)
+  blade stack                          t=0.2  t=0.3  t=0.4  t=0.5
+  0.30 steel (wave 1)                 -0.10  +0.00  +0.10  +0.20
+  0.20 steel                          +0.00  +0.10  +0.20  +0.30
+  0.15 steel                          +0.05  +0.15  +0.25  +0.35
+  0.10 steel + 0.025 polyimide        +0.08  +0.17  +0.28  +0.38
+  0.10 steel + 0.05 polyimide         +0.05  +0.15  +0.25  +0.35
+-> a brush of 0.1-0.2 mm plus a blade needs a transition of >= 0.25-0.35 mm even
+   with a 0.1 mm blade. A 0.2 mm transition leaves no room for any blade with a
+   brush: the contact is then located some other way (pilot pin, camera, box front).
+
+==============================================================================
+2. Can the blade itself carry a proof pull?
+==============================================================================
+unbacked tine bending stress at a 20 N pull (two tines share it)
+  t 0.10  tine 1.5 wide, arm 2.0  ->    8000 MPa  yields
+  t 0.10  tine 1.5 wide, arm 4.0  ->   16000 MPa  yields
+  t 0.10  tine 2.5 wide, arm 2.0  ->    4800 MPa  yields
+  t 0.10  tine 2.5 wide, arm 4.0  ->    9600 MPa  yields
+  t 0.15  tine 1.5 wide, arm 2.0  ->    3556 MPa  yields
+  t 0.15  tine 1.5 wide, arm 4.0  ->    7111 MPa  yields
+  t 0.15  tine 2.5 wide, arm 2.0  ->    2133 MPa  yields
+  t 0.15  tine 2.5 wide, arm 4.0  ->    4267 MPa  yields
+  t 0.20  tine 1.5 wide, arm 2.0  ->    2000 MPa  yields
+  t 0.20  tine 1.5 wide, arm 4.0  ->    4000 MPa  yields
+  t 0.20  tine 2.5 wide, arm 2.0  ->    1200 MPa  marginal
+  t 0.20  tine 2.5 wide, arm 4.0  ->    2400 MPa  yields
+  t 0.30  tine 1.5 wide, arm 2.0  ->     889 MPa  ok
+  t 0.30  tine 1.5 wide, arm 4.0  ->    1778 MPa  yields
+  t 0.30  tine 2.5 wide, arm 2.0  ->     533 MPa  ok
+  t 0.30  tine 2.5 wide, arm 4.0  ->    1067 MPa  marginal
+-> an unbacked thin blade cannot carry a proof pull. Either a rigid face backs it
+   (the die's front face, only at hold), or the pull is taken elsewhere: with the
+   dies re-closed on the crimp (a1b), or in a separate backed pull slot (a2, a6).
+  box rear walls above the floor: 1.27 mm^2 -> 20.0 N gives 16 MPa (phosphor bronze yields at ~400-600 MPa)
+  box rear walls above the floor: 1.27 mm^2 -> 39.2 N gives 31 MPa (phosphor bronze yields at ~400-600 MPa)
+
+==============================================================================
+3. The side-entry jaw law: crimp orientation against how far the conductor stands out
+==============================================================================
+stand-out h needed, and what it does to a split conductor of free length L
+(cantilever root radius L^2/(3h), tip pull-back 0.6 h^2/L [ith ex §6]; annealed strands yield
+ below ~67-78 mm radius [digest])
+  rolled 90 deg: nest-to-tip 3 mm + 1.5    h   4.5 | L25: R  46.3 mm, pull-back 0.49 mm | L35: R  90.7 mm, pull-back 0.35 mm
+  rolled 90 deg: nest-to-tip 6 mm + 1.5    h   7.5 | L25: R  27.8 mm, pull-back 1.35 mm | L35: R  54.4 mm, pull-back 0.96 mm
+  upright: jaw half a = 6 mm + 1.9         h   7.9 | L25: R  26.4 mm, pull-back 1.50 mm | L35: R  51.7 mm, pull-back 1.07 mm
+  upright: jaw half a = 9 mm + 1.9         h  10.9 | L25: R  19.1 mm, pull-back 2.85 mm | L35: R  37.5 mm, pull-back 2.04 mm
+  upright: jaw half a = 12 mm + 1.9        h  13.9 | L25: R  15.0 mm, pull-back 4.64 mm | L35: R  29.4 mm, pull-back 3.31 mm
+  C-frame arm (sec 4), low                 h   6.5 | L25: R  32.1 mm, pull-back 1.01 mm | L35: R  62.8 mm, pull-back 0.72 mm
+  C-frame arm (sec 4), high                h   9.5 | L25: R  21.9 mm, pull-back 2.17 mm | L35: R  43.0 mm, pull-back 1.55 mm
+-> no side-entry hand tool gives both the insertion orientation and a small lift.
+   Upright crimps cost ~8-14 mm of stand-out (jaw half depth unmeasured), which sets
+   the copper; the fronts must be squared afterwards (front plate, late rear clamp).
+
+==============================================================================
+4. C-frame one-nest die head (a4b): lower arm reaching over the row from the front
+==============================================================================
+arm thickness t = sqrt(6 F L / (b sigma)), sigma 1000 MPa; lift = 1.65 + t + 1.0 + 1.05
+  1.5 kN, arm  6 mm long, 6 wide: t 3.00 mm, lift  6.7 mm, arm deflection   40 um
+  1.5 kN, arm  6 mm long, 8 wide: t 2.60 mm, lift  6.3 mm, arm deflection   46 um
+  1.5 kN, arm  8 mm long, 6 wide: t 3.46 mm, lift  7.2 mm, arm deflection   62 um
+  1.5 kN, arm  8 mm long, 8 wide: t 3.00 mm, lift  6.7 mm, arm deflection   71 um
+  1.5 kN, arm 10 mm long, 6 wide: t 3.87 mm, lift  7.6 mm, arm deflection   86 um
+  1.5 kN, arm 10 mm long, 8 wide: t 3.35 mm, lift  7.1 mm, arm deflection   99 um
+  1.5 kN, arm 13 mm long, 6 wide: t 4.42 mm, lift  8.1 mm, arm deflection  128 um
+  1.5 kN, arm 13 mm long, 8 wide: t 3.82 mm, lift  7.5 mm, arm deflection  147 um
+  3.0 kN, arm  6 mm long, 6 wide: t 4.24 mm, lift  7.9 mm, arm deflection   28 um
+  3.0 kN, arm  6 mm long, 8 wide: t 3.67 mm, lift  7.4 mm, arm deflection   33 um
+  3.0 kN, arm  8 mm long, 6 wide: t 4.90 mm, lift  8.6 mm, arm deflection   44 um
+  3.0 kN, arm  8 mm long, 8 wide: t 4.24 mm, lift  7.9 mm, arm deflection   50 um
+  3.0 kN, arm 10 mm long, 6 wide: t 5.48 mm, lift  9.2 mm, arm deflection   61 um
+  3.0 kN, arm 10 mm long, 8 wide: t 4.74 mm, lift  8.4 mm, arm deflection   70 um
+  3.0 kN, arm 13 mm long, 6 wide: t 6.24 mm, lift  9.9 mm, arm deflection   90 um
+  3.0 kN, arm 13 mm long, 8 wide: t 5.41 mm, lift  9.1 mm, arm deflection  104 um
+-> ~6-9 mm of lift with the barrels upright, whatever the SN jaw's shape. The arm
+   length is set by the working contact's box (it sticks out ~2.5 mm ahead of the
+   barrels) and the neighbours' crimped noses on the same line.
+
+==============================================================================
+5. The treadle (a6): a foot closes the hand tool through a cord
+==============================================================================
+foot force and foot travel for a heel-hinged treadle of ratio r (toe arm / cord arm)
+  grip 100 N, r 1.5: foot    74 N
+  grip 100 N, r 2.0: foot    55 N
+  grip 100 N, r 3.0: foot    37 N
+  grip 175 N, r 1.5: foot   129 N
+  grip 175 N, r 2.0: foot    97 N
+  grip 175 N, r 3.0: foot    65 N
+  grip 220 N, r 1.5: foot   163 N
+  grip 220 N, r 2.0: foot   122 N
+  grip 220 N, r 3.0: foot    81 N
+  cord travel = grip travel: 51-56 mm with the tool's full opening [wave-1 calc §3];
+  ~25-35 mm with a printed opening limiter [estimate: the jaw needs ~5 mm of gap
+  (3.35-4.10 mm passage [ith ex §2] + ~1 mm lift before drawing back), and the
+  open-end gain is assumed 3-6]
+  cord travel 30 mm -> foot travel 45 / 60 / 90 mm at r 1.5 / 2 / 3
+  cord travel 55 mm -> foot travel 82 / 110 / 165 mm at r 1.5 / 2 / 3
+-> r = 2 with an opening limiter: <= ~120 N at the toe over ~60 mm. Presses per unit
+   ~106 (a half-press to hold and a full press to crimp, 53 crimps) [calc].
+   Seated ankle pedals are comfortable to tens of newtons for frequent use and leg-
+   driven pedals take several hundred [estimate]; this is occasional work.
+  two-stage treadle: stage 1 stop at the first ratchet tooth (half-press = hold),
+  stage 2 through a stronger spring (full press = crimp) [design, unmeasured tooth position]
+
+==============================================================================
+6. Sensing a foot-closed crimp: load cell in the cord, angle sensor on the pulley
+==============================================================================
+  AS5600 on a 22 mm pulley: 16.9 um of cord per count
+  through a gain of 15: 1.12 um of die per count, before compliance
+  through a gain of 30: 0.56 um of die per count, before compliance
+  S-type 50 kg cell: 490 N capacity; HX711 at 10-80 SPS; a 3 s full press at 80 SPS
+  gives ~240 samples over the stroke and ~15-40 in compaction (last 1.5-8 mm of grip).
+-> the same force-against-travel curve a1 logs, with a foot as the motor.
+
+==============================================================================
+7. The pull jig (a6): capstan and a readable spring
+==============================================================================
+capstan: hold force = pull x exp(-mu*theta)
+  mu 0.3, 1 turn(s): 20 N needs   3.04 N of hold at the tail
+  mu 0.3, 2 turn(s): 20 N needs   0.46 N of hold at the tail
+  mu 0.3, 3 turn(s): 20 N needs   0.07 N of hold at the tail
+  mu 0.6, 1 turn(s): 20 N needs   0.46 N of hold at the tail
+  mu 0.6, 2 turn(s): 20 N needs   0.01 N of hold at the tail
+  mu 0.6, 3 turn(s): 20 N needs   0.00 N of hold at the tail
+spring-steel leaf as the gauge, cantilever L, width b, thickness t, load 20 N at the tip
+  leaf 40x10x0.8: k  4.00 N/mm, 20 N ->  5.00 mm, stress  750 MPa
+  leaf 40x10x1.0: k  7.81 N/mm, 20 N ->  2.56 mm, stress  480 MPa
+  leaf 30x10x1.0: k 18.52 N/mm, 20 N ->  1.08 mm, stress  360 MPa
+  leaf 40x12x1.2: k 16.20 N/mm, 20 N ->  1.23 mm, stress  278 MPa
+-> a 40 x 10 x 1.0 mm leaf reads 20 N as ~2.6 mm of tip travel at ~480 MPa; a printed
+   pointer or the camera reads it. A digital luggage scale on the hook does the same job.
+
+==============================================================================
+8. A keyhole fit gauge (a6, a1b)
+==============================================================================
+  closed insulation barrel 1.95 wide x 2.26 tall: passes a 1.95 x 2.4 opening
+  closed insulation barrel 1.90 wide x 2.33 tall: passes a 1.95 x 2.4 opening
+  closed insulation barrel 1.80 wide x 2.46 tall: stops at a 1.95 x 2.4 opening
+  side slot 1.3 mm: the 1.7 mm silicone wire squeezes out sideways (24 % diametral squeeze) [estimate]; a 1.9-2.0 mm crimp cannot
+  side slot 1.5 mm: the 1.7 mm silicone wire squeezes out sideways (12 % diametral squeeze) [estimate]; a 1.9-2.0 mm crimp cannot
+-> a stencil-steel keyhole (cavity section, lance notch, side slot) passes a good crimp
+   nose first and lets the wire out sideways. It stops flared wings, strands outside,
+   a spike of tab and a half-crimp. It says nothing about crimp height. The opening is
+   copied from a sliced kit housing measured under the ELP, not from the catalog.
+
+==============================================================================
+9. Person time: the jig bench against today's hand procedure (all estimates)
+==============================================================================
+  today   ~25 s a crimp -> 22 min for 53
+  bench   ~35 s a crimp -> 31 min for 53, pull and gauge included
+  bench without pull and gauge ~19 s -> 17 min
+-> the bench does not save minutes; it buys repeatable placement, a light for depth,
+   a pull and a gauge on every crimp, and (with the cord cell) a force log.

@@ -1,0 +1,166 @@
+
+==============================================================================
+1. v1: where the neighbours sit relative to the side silhouette
+==============================================================================
+fan pitch 5.0 mm, neighbours in plane: neighbour axis on the sight line at X = +/-5.0 mm, Y = the active conductor's Y, Z = the active conductor's Z
+   -> both the camera-side and the backlight-side neighbour cross the line of sight for every inner conductor;
+      the end conductors have one neighbour, which blocks the camera or the backlight.
+fan pitch 6.0 mm, neighbours in plane: neighbour axis on the sight line at X = +/-6.0 mm, Y = the active conductor's Y, Z = the active conductor's Z
+   -> both the camera-side and the backlight-side neighbour cross the line of sight for every inner conductor;
+      the end conductors have one neighbour, which blocks the camera or the backlight.
+insulation wing tips 2.75 mm above the barrel floor: neighbour axis must sit >= 4.10 mm above the floor (0.5 mm margin), i.e. 3.25 mm above the laid-in conductor's axis
+insulation wing tips 3.20 mm above the barrel floor: neighbour axis must sit >= 4.55 mm above the floor (0.5 mm margin), i.e. 3.70 mm above the laid-in conductor's axis
+   -> a1's fan block holds neighbours at h ~5 mm above the anvil plane: it clears.
+A tilted sight line (camera raised by angle t in the X-Z plane) passes above one neighbour
+and below the other. Clearing a neighbour's jacket by 0.2 mm needs:
+  p = 5.0 mm: t >= 11.9 deg
+  p = 6.0 mm: t >= 9.9 deg
+  at 11 deg a crimp H 0.73 x W 1.60 shows a silhouette 1.022 mm tall: +0.292 mm of it is width, and width varies +/-0.15 mm -> +/-0.029 mm
+  at 11 deg a crimp H 0.90 x W 1.90 shows a silhouette 1.246 mm tall: +0.346 mm of it is width, and width varies +/-0.15 mm -> +/-0.029 mm
+   -> the tilt mixes crimp width into crimp height at 0.2 mm/mm; not a crimp-height view.
+Camera 1 (oblique, a deg from vertical, from the side) with neighbours lifted to axis height h:
+  lowest point z0 in the U it can still see past the camera-side neighbour (jacket r 0.85):
+  pitch 5.0, h 4.55: 30 deg: z0 >= 0.00; 35 deg: z0 >= 0.00; 40 deg: z0 >= 0.00; 45 deg: z0 >= 0.75 mm above the floor
+  pitch 5.0, h 5.00: 30 deg: z0 >= 0.00; 35 deg: z0 >= 0.00; 40 deg: z0 >= 0.36; 45 deg: z0 >= 1.20 mm above the floor
+  pitch 5.5, h 4.55: 30 deg: z0 >= 0.00; 35 deg: z0 >= 0.00; 40 deg: z0 >= 0.00; 45 deg: z0 >= 0.25 mm above the floor
+  pitch 5.5, h 5.00: 30 deg: z0 >= 0.00; 35 deg: z0 >= 0.00; 40 deg: z0 >= 0.00; 45 deg: z0 >= 0.70 mm above the floor
+  pitch 6.0, h 4.55: 30 deg: z0 >= 0.00; 35 deg: z0 >= 0.00; 40 deg: z0 >= 0.00; 45 deg: z0 >= 0.00 mm above the floor
+  pitch 6.0, h 5.00: 30 deg: z0 >= 0.00; 35 deg: z0 >= 0.00; 40 deg: z0 >= 0.00; 45 deg: z0 >= 0.20 mm above the floor
+
+==============================================================================
+2. v1: the oblique camera sees X and Z on one image axis
+==============================================================================
+hover: insulation bottom 0.2 mm above a 3.20 mm wing -> axis 4.25 mm; laid in: 0.85 mm; drop dz = 3.40 mm
+  camera 30 deg from vertical: dz shows as 1.96 mm of apparent X; X is recoverable only if dz is known to 0.85 mm (half the +/-0.49 mm lateral room)
+  camera 45 deg from vertical: dz shows as 3.40 mm of apparent X; X is recoverable only if dz is known to 0.49 mm (half the +/-0.49 mm lateral room)
+   -> with camera 2 blocked, X comes from the commanded Z, not from the picture.
+   Lateral capture that needs no picture:
+   strands 0.72 mm into a 1.68-1.90 mm open conductor barrel: +/-0.48..0.59 mm
+   jacket 1.7 mm into a 2.46-3.00 mm open insulation barrel: +/-0.38..0.65 mm
+   pallet delivery [calc R s1]: +/-0.1 mm at the comb face, +/-0.2-0.3 mm tip wander
+
+==============================================================================
+3. The proof pull: what is behind the box, and where a pull can react
+==============================================================================
+neck (box rear to conductor-barrel front) from clone lengths: -0.20 .. +2.18 mm
+brush reaches into it by 0.2-0.5 mm -> free gap -0.70 .. +1.98 mm  (undetermined; one kit contact under a caliper settles it)
+lance tip 0.4-0.6 mm behind the box rear, 0.6-0.9 mm below the floor: it crosses the plane of any plate set against the box rear
+   a plate with a slot open upward (v5: crimp dropped in from above) has material under the floor strip -> it meets the lance unless the slot runs >= 0.9 mm below the floor
+   loaded at its tip, the lance carries the retention load; clone retention min 19.6 N = the 20 N proof; v3's pull to failure goes to 100 N
+   plate that works: thickness <= free gap - 0.2 mm placement; slot wider than the floor strip and the lance, narrower than the box less its 0.2 mm walls (~1.4 mm); slot depth past the lance; bearing on the side walls (and top wall if the slot opens downward)
+     side-wall bearing 0.88 mm^2 at 20 N: 23 MPa (bronze yields ~450+)
+     side-wall bearing 0.88 mm^2 at 100 N: 114 MPa (bronze yields ~450+)
+Push sleeve on the rear of the insulation crimp (to avoid the box altogether):
+   insulation crimp 1.7-1.9 x <= 2.05 mm against a 1.7 mm jacket: radial step 0.00-0.17 mm -> nothing to bear on
+carrier tab 0.8 x 0.2 mm, bronze yield 450 MPa [assumption]: axial yield 72 N; plastic moment 3.6 N mm
+   pull line 0.40 mm above the tab plane, no hold-down: tab bends at 9.0 N of pull
+   pull line 0.85 mm above the tab plane, no hold-down: tab bends at 4.2 N of pull
+carrier tab 0.8 x 0.2 mm, bronze yield 600 MPa [assumption]: axial yield 96 N; plastic moment 4.8 N mm
+   pull line 0.40 mm above the tab plane, no hold-down: tab bends at 12.0 N of pull
+   pull line 0.85 mm above the tab plane, no hold-down: tab bends at 5.6 N of pull
+   pull line 0.40 mm up, hold-down 3 mm ahead of the tab, support under it: hold-down = 0.13 x pull -> 2.7 N at 20 N, 13.3 N at 100 N; tab in compression only
+   pull line 0.40 mm up, hold-down 5 mm ahead of the tab, support under it: hold-down = 0.08 x pull -> 1.6 N at 20 N, 8.0 N at 100 N; tab in compression only
+   pull line 0.85 mm up, hold-down 3 mm ahead of the tab, support under it: hold-down = 0.28 x pull -> 5.7 N at 20 N, 28.3 N at 100 N; tab in compression only
+   pull line 0.85 mm up, hold-down 5 mm ahead of the tab, support under it: hold-down = 0.17 x pull -> 3.4 N at 20 N, 17.0 N at 100 N; tab in compression only
+   -> the tab, held against pitch, reacts a proof pull and pull-outs up to ~70-100 N; a crimp that survives to tab yield is already 1.8x the 39.2 N minimum
+
+==============================================================================
+4. v3: coupon length for a capstan grip, and the jacket at the capstan entry
+==============================================================================
+drum 10 mm: 37 mm per turn; coupon ~149 mm; 153 coupons = 22.7 m of conductor = 4.5 m of 5P  (v3 counts 40 mm and 1.2 m of 5P)
+drum 15 mm: 52 mm per turn; coupon ~196 mm; 153 coupons = 30.0 m of conductor = 6.0 m of 5P  (v3 counts 40 mm and 1.2 m of 5P)
+drum 25 mm: 84 mm per turn; coupon ~290 mm; 153 coupons = 44.4 m of conductor = 8.9 m of 5P  (v3 counts 40 mm and 1.2 m of 5P)
+Friction transferred per mm of wire at the first contact with the drum, q = mu T / R:
+  drum 10 mm, mu 0.5: T = 100 N -> 8.5 N/mm; over a 0.5-1.0 mm wide contact strip of jacket 9-17 MPa of shear  (silicone tensile 8-11 MPa)
+  drum 10 mm, mu 1.0: T = 100 N -> 17.1 N/mm; over a 0.5-1.0 mm wide contact strip of jacket 17-34 MPa of shear  (silicone tensile 8-11 MPa)
+  drum 15 mm, mu 0.5: T = 100 N -> 6.0 N/mm; over a 0.5-1.0 mm wide contact strip of jacket 6-12 MPa of shear  (silicone tensile 8-11 MPa)
+  drum 15 mm, mu 1.0: T = 100 N -> 12.0 N/mm; over a 0.5-1.0 mm wide contact strip of jacket 12-24 MPa of shear  (silicone tensile 8-11 MPa)
+  drum 25 mm, mu 0.5: T = 100 N -> 3.7 N/mm; over a 0.5-1.0 mm wide contact strip of jacket 4-7 MPa of shear  (silicone tensile 8-11 MPa)
+  drum 25 mm, mu 1.0: T = 100 N -> 7.5 N/mm; over a 0.5-1.0 mm wide contact strip of jacket 7-15 MPa of shear  (silicone tensile 8-11 MPa)
+Jacket-only alternative, a long pad clamp: pressure needed to pass 100 N from jacket to strands
+  jacket-to-strand mu 0.3, clamp 25 mm: 4.7 MPa on a Shore 60A jacket
+  jacket-to-strand mu 0.3, clamp 40 mm: 2.9 MPa on a Shore 60A jacket
+  jacket-to-strand mu 0.6, clamp 25 mm: 2.4 MPa on a Shore 60A jacket
+  jacket-to-strand mu 0.6, clamp 40 mm: 1.5 MPa on a Shore 60A jacket
+Soldered far-end lug: 10 mm of tinned bundle, perimeter ~2.5 mm, solder shear 20-30 MPa -> 500-750 N, above wire break; coupon ~60 mm
+
+==============================================================================
+5. v5 / v1: roll of the crimp on a knife-edge support and silhouette crimp height
+==============================================================================
+Silhouette along X of a crimp rolled by r about the wire axis. Rectangle bound:
+  apparent = H cos r + W sin r.  Rounded-bottom bound: about half the width term.
+  H 0.73 W 1.60: 0.5 deg +0.014/+0.007   1.0 deg +0.028/+0.014   2.0 deg +0.055/+0.028   3.0 deg +0.083/+0.041  mm (rect/rounded)
+  H 0.90 W 1.90: 0.5 deg +0.017/+0.008   1.0 deg +0.033/+0.017   2.0 deg +0.066/+0.033   3.0 deg +0.098/+0.049  mm (rect/rounded)
+  -> against +/-0.05 mm, roll must be held to ~1-2 deg (rect) or ~2-4 deg (rounded).
+  parted conductor GJ ~11.4 N mm^2 (jacket 0.8 + strands 10.6), 20 mm long: 0.57 N mm/rad; touch-down 0.3 mm off the knife line: 10 mN -> 0.30 deg, 20 mN -> 0.60 deg, 50 mN -> 1.51 deg
+  parted conductor GJ ~11.4 N mm^2 (jacket 0.8 + strands 10.6), 35 mm long: 0.33 N mm/rad; touch-down 0.3 mm off the knife line: 10 mN -> 0.53 deg, 20 mN -> 1.06 deg, 50 mN -> 2.64 deg
+  parted conductor GJ ~11.6 N mm^2 (jacket 1.0 + strands 10.6), 20 mm long: 0.58 N mm/rad; touch-down 0.3 mm off the knife line: 10 mN -> 0.30 deg, 20 mN -> 0.59 deg, 50 mN -> 1.48 deg
+  parted conductor GJ ~11.6 N mm^2 (jacket 1.0 + strands 10.6), 35 mm long: 0.33 N mm/rad; touch-down 0.3 mm off the knife line: 10 mN -> 0.52 deg, 20 mN -> 1.03 deg, 50 mN -> 2.59 deg
+  -> a crimp still held by its ribbon keeps the roll the nest gave it if it is set down
+     on the blade at ~10-20 mN (stop at first silhouette contact, not at a force);
+     a crimp dropped loose onto a knife edge with round soft jaws has no roll reference.
+
+==============================================================================
+6. Curl from the spool, springback, and what pressing flat can and cannot do
+==============================================================================
+strand yield 50 MPa: yield radius 94 mm; a reverse bend stays elastic over 2 x kappa_y, i.e. flattening removes no curl gentler than R 47 mm
+   wound at R 25 mm -> residual curl R 44 mm -> tip 7 mm proud is off by 0.55 mm; flattening it: yields, partly removed
+   wound at R 35 mm -> residual curl R 86 mm -> tip 7 mm proud is off by 0.29 mm; flattening it: elastic, springs back
+   wound at R 50 mm -> residual curl R 231 mm -> tip 7 mm proud is off by 0.11 mm; flattening it: elastic, springs back
+strand yield 70 MPa: yield radius 67 mm; a reverse bend stays elastic over 2 x kappa_y, i.e. flattening removes no curl gentler than R 33 mm
+   wound at R 25 mm -> residual curl R 61 mm -> tip 7 mm proud is off by 0.40 mm; flattening it: elastic, springs back
+   wound at R 35 mm -> residual curl R 154 mm -> tip 7 mm proud is off by 0.16 mm; flattening it: elastic, springs back
+   wound at R 50 mm -> residual curl R 941 mm -> tip 7 mm proud is off by 0.03 mm; flattening it: elastic, springs back
+strand yield 100 MPa: yield radius 47 mm; a reverse bend stays elastic over 2 x kappa_y, i.e. flattening removes no curl gentler than R 23 mm
+   wound at R 25 mm -> residual curl R 115 mm -> tip 7 mm proud is off by 0.21 mm; flattening it: elastic, springs back
+   wound at R 35 mm -> residual curl R 659 mm -> tip 7 mm proud is off by 0.04 mm; flattening it: elastic, springs back
+   wound at R 50 mm -> residual curl R inf mm -> tip 7 mm proud is off by -0.00 mm; flattening it: elastic, springs back
+  (silicone jacket's own springback toward straight ignored: it lowers these figures)
+  -> spool set leaves up to a few tenths of a mm of Z curl at 7 mm; inside the barrels'
+     lateral capture, and comparable to v1's ~0.3 mm spare in Z. A flat press does not
+     remove it; an over-bend or a roller straightener would.
+  a1's kink (R 2 mm, plastic over 1 mm) pressed straight on a ramp, yield 50 MPa: springs back 55 mm radius over the kink = 1.0 deg toward the kink; 0.09 mm at a box tip 5 mm ahead, unless over-bent
+  a1's kink (R 2 mm, plastic over 3 mm) pressed straight on a ramp, yield 50 MPa: springs back 55 mm radius over the kink = 3.1 deg toward the kink; 0.27 mm at a box tip 5 mm ahead, unless over-bent
+  a1's kink (R 2 mm, plastic over 1 mm) pressed straight on a ramp, yield 70 MPa: springs back 39 mm radius over the kink = 1.5 deg toward the kink; 0.13 mm at a box tip 5 mm ahead, unless over-bent
+  a1's kink (R 2 mm, plastic over 3 mm) pressed straight on a ramp, yield 70 MPa: springs back 39 mm radius over the kink = 4.4 deg toward the kink; 0.38 mm at a box tip 5 mm ahead, unless over-bent
+
+==============================================================================
+7. Kinematic docks: a steel ball on a printed seat versus steel on steel
+==============================================================================
+  magnet preload 10 N, 6 mm ball, 2.4 N per flank: on PETG 67 MPa (PETG yields ~50); on a steel dowel 877 MPa (sphere-on-flat bound; hardened pin fine)
+  magnet preload 10 N, 4 mm ball, 2.4 N per flank: on PETG 88 MPa (PETG yields ~50); on a steel dowel 1149 MPa (sphere-on-flat bound; hardened pin fine)
+  magnet preload 30 N, 6 mm ball, 7.1 N per flank: on PETG 96 MPa (PETG yields ~50); on a steel dowel 1265 MPa (sphere-on-flat bound; hardened pin fine)
+  magnet preload 30 N, 4 mm ball, 7.1 N per flank: on PETG 126 MPa (PETG yields ~50); on a steel dowel 1658 MPa (sphere-on-flat bound; hardened pin fine)
+  -> printed flanks bed in and creep under the preload; steel balls on dowel-pin pairs,
+     pressed into printed bodies, keep printed parts out of the contact.
+
+==============================================================================
+8. v6: insertion into a rear-face-up housing from a horizontal pallet
+==============================================================================
+  90 deg turn made in a 25 mm parted length: R <= 16 mm, below the ~67 mm yield radius -> each conductor keeps a quarter-bend
+  90 deg turn made in a 35 mm parted length: R <= 22 mm, below the ~67 mm yield radius -> each conductor keeps a quarter-bend
+  gap beside an inserted neighbour at 2.5 mm pitch: 0.8 mm for a jaw
+  v6 split: 5P ribbon free 40 mm ahead of the clamp, EI ~71 N mm^2 about its thin axis -> tip stiffness 0.0033 N/mm; a 0.1 N blade preload asks for 30 mm of deflection (it bends away instead)
+
+==============================================================================
+9. Piano-key fan block: where the lay-in bend goes
+==============================================================================
+  key 20 mm long from hinge to tip, 5 mm drop: 14.5 deg; bent over 6 mm of free conductor at the key root -> R ~24 mm, 20+ mm behind the contact
+  key 20 mm long from hinge to tip, 5 mm drop: 14.5 deg; bent over 10 mm of free conductor at the key root -> R ~40 mm, 20+ mm behind the contact
+  key 30 mm long from hinge to tip, 5 mm drop: 9.6 deg; bent over 6 mm of free conductor at the key root -> R ~36 mm, 30+ mm behind the contact
+  key 30 mm long from hinge to tip, 5 mm drop: 9.6 deg; bent over 10 mm of free conductor at the key root -> R ~60 mm, 30+ mm behind the contact
+  compare a1's finger: 5 mm drop in 1.2-3.5 mm of free conductor [borrowed-machines exchange, Break a1-1]
+  key width at the hinge: a 1.7 mm conductor plus two 0.4 mm walls needs >= 2.5 mm pitch, so the hinge line sits where the fan has opened to ~2.5 mm
+
+==============================================================================
+10. v6 twist pads: twist the stub or spin the bundle in its jacket?
+==============================================================================
+  jacket-to-strand friction 0.09 N/mm at r 0.36 mm over 7 mm: spin resistance 0.23 N mm
+  jacket-to-strand friction 0.09 N/mm at r 0.36 mm over 35 mm: spin resistance 1.16 N mm
+  jacket-to-strand friction 0.09 N/mm at r 0.45 mm over 7 mm: spin resistance 0.29 N mm
+  jacket-to-strand friction 0.09 N/mm at r 0.45 mm over 35 mm: spin resistance 1.44 N mm
+  bending 60 strands into a half-turn helix over 2.4 mm (yield 50 MPa): of order 0.13 N mm [estimate]
+  bending 60 strands into a half-turn helix over 2.4 mm (yield 70 MPa): of order 0.18 N mm [estimate]
+  -> spinning the bundle through the whole parted length resists ~7x the twist; through
+     only the 7 mm to the comb, ~1.5x. The stub should twist [estimate]; a pinch on the
+     jacket at the strip line makes it certain.

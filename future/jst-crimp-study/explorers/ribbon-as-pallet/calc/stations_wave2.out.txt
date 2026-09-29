@@ -1,0 +1,202 @@
+
+==============================================================================
+1. The web line: how much silicone lies between two bundles, and what a blade leaves
+==============================================================================
+pitch = OD = 1.7 mm, so neighbouring jackets meet at the valley plane (tangent circles,
+fused over some neck thickness t_n that BNTECHGO does not state).
+silicone along the mid-plane between two bundle surfaces: 0.98 mm (0.49 mm each side of the valley plane)
+
+A slitting blade of thickness t_b centred delta off the valley plane leaves, on the
+near conductor's flank at the equator, wall = 0.49 - (|delta| + t_b/2); it reaches the
+outermost strand when that wall falls below the loose-strand allowance (0.04 mm).
+  double-edge razor, 0.10 mm:
+    offset 0.00 mm -> near flank wall 0.44 mm  
+    offset 0.05 mm -> near flank wall 0.39 mm  
+    offset 0.10 mm -> near flank wall 0.34 mm  
+    offset 0.15 mm -> near flank wall 0.29 mm  
+    offset 0.20 mm -> near flank wall 0.24 mm  jacket thin
+    offset 0.25 mm -> near flank wall 0.19 mm  jacket thin
+    offset 0.30 mm -> near flank wall 0.14 mm  jacket thin
+    offset at which the blade reaches strands: 0.40 mm; keeps >=0.25 mm wall up to 0.19 mm
+  single-edge razor, 0.23 mm:
+    offset 0.00 mm -> near flank wall 0.38 mm  
+    offset 0.05 mm -> near flank wall 0.32 mm  
+    offset 0.10 mm -> near flank wall 0.27 mm  
+    offset 0.15 mm -> near flank wall 0.22 mm  jacket thin
+    offset 0.20 mm -> near flank wall 0.17 mm  jacket thin
+    offset 0.25 mm -> near flank wall 0.12 mm  jacket thin
+    offset 0.30 mm -> near flank wall 0.08 mm  jacket thin
+    offset at which the blade reaches strands: 0.34 mm; keeps >=0.25 mm wall up to 0.12 mm
+
+Lateral error budget for a FIXED gang slitter on a 5P (centred datum):
+  ribbon pitch stack worst 0.23 / RSS 0.08; blade-stack spacers +/-0.04; channel +/-0.05
+  -> worst 0.32 mm, RSS 0.09 mm
+Lateral error for a FLOATING plough (each blade on a flexure, V-nose riding its own
+valley) [estimate]: valley-finding +/-0.05, nose-to-blade +/-0.02 -> +/-0.07 mm,
+independent of the ribbon's pitch stack.
+-> a 0.10 mm blade floating on its valley keeps >=0.25 mm of flank wall; a fixed 0.23 mm
+   gang on a 5P can reach within 0.1 mm of the strands at worst case.
+
+==============================================================================
+2. Tearing the web: force, which path the tear takes, the wedge tines
+==============================================================================
+Peel of one web (trouser-type tear): F ~ T x t_n, T = tear strength
+[source: Primasil, wire grades 15-25 N/mm; general grades ~10 N/mm]
+  neck t_n 0.15 mm:  1.5- 3.8 N per web; 4 webs of a 5P at once   6.0- 15.0 N
+  neck t_n 0.25 mm:  2.5- 6.2 N per web; 4 webs of a 5P at once  10.0- 25.0 N
+  neck t_n 0.35 mm:  3.5- 8.8 N per web; 4 webs of a 5P at once  14.0- 35.0 N
+  neck t_n 0.50 mm:  5.0-12.5 N per web; 4 webs of a 5P at once  20.0- 50.0 N
+  neck t_n 0.70 mm:  7.0-17.5 N per web; 4 webs of a 5P at once  28.0- 70.0 N
+
+Which path the tear takes [estimate, energy argument]: a tear running along the neck
+cuts t_n of silicone per mm of advance. A tear that leaves the neck and runs along a
+jacket must cut the jacket wall (~0.49 mm) instead, and a tear that reaches the
+strands then runs along the silicone-copper interface, which has almost no bond.
+The neck is the cheaper path while t_n is well under the wall:
+  t_n 0.15 mm: t_n / wall = 0.31  -> zips (neck much cheaper)
+  t_n 0.25 mm: t_n / wall = 0.51  -> zips (neck much cheaper)
+  t_n 0.35 mm: t_n / wall = 0.71  -> marginal: the tear may wander
+  t_n 0.49 mm: t_n / wall = 1.00  -> wanders into a jacket: cut, don't tear
+  t_n 0.70 mm: t_n / wall = 1.43  -> wanders into a jacket: cut, don't tear
+-> one cross-section photograph of the ribbon (fresh blade cut, ELP camera) that shows
+   t_n decides between tearing (a7) and cutting (a7b).
+
+tine 0.2 x 1.5 mm, 10 mm long: buckles at 4.9 N unsupported; 40-69 N when the silicone on both sides supports it
+tine 0.3 x 1.5 mm, 10 mm long: buckles at 16.7 N unsupported; 73-127 N when the silicone on both sides supports it
+tine 0.2 x 1.5 mm, 5 mm long: buckles at 19.7 N unsupported; 40-69 N when the silicone on both sides supports it
+-> a 0.2 mm tine pushed into a web tear (2-15 N) needs the conductors' support,
+   which it has while it is inside the split; the free length ahead of the ribbon
+   must stay short (<5 mm) or the tine is thicker there.
+
+Tines that part and fan to housing pitch: tine noses at 1.7 mm pitch, roots at 2.5 mm,
+so tine j (counted from the centre valley) diverges j x 0.8 mm over its length:
+  tine length 15 mm, tine 0.5 pitches out: 0.4 mm over 15 mm = 1.5 deg
+  tine length 15 mm, tine 1.5 pitches out: 1.2 mm over 15 mm = 4.6 deg
+  tine length 15 mm, tine 2.5 pitches out: 2.0 mm over 15 mm = 7.6 deg
+  tine length 20 mm, tine 0.5 pitches out: 0.4 mm over 20 mm = 1.1 deg
+  tine length 20 mm, tine 1.5 pitches out: 1.2 mm over 20 mm = 3.4 deg
+  tine length 20 mm, tine 2.5 pitches out: 2.0 mm over 20 mm = 5.7 deg
+-> for single ribbons (<=5 conductors) the tines splay <=8 deg; the comb that parts is
+   also a housing-pitch fan.
+
+==============================================================================
+3. The fan shortens the outer conductors: flush cut and strip AFTER fanning
+==============================================================================
+A conductor anchored at the split root follows its groove; the groove's path is
+longer than its axial span, so the tip recedes by (path - axial). Centred datum,
+R 5 mm, 30 deg, each ribbon fanned alone:
+ pitch | 3P outer recedes | 4P outer recedes | 5P outer recedes
+   2.5 |           0.11 mm |           0.20 mm |           0.31 mm
+   4.0 |           0.49 mm |           0.80 mm |           1.11 mm
+   5.0 |           0.76 mm |           1.20 mm |           1.65 mm
+   7.1 |           1.32 mm |           2.05 mm |           2.77 mm
+-> at 5 mm crimp pitch a 5P's outer tips sit ~1.6 mm behind the centre tip; at 7.1 mm
+   strip pitch ~2.7 mm. A flush cut before the fan with the strip after it gives unequal
+   stripped lengths; cutting and stripping both before the fan gives equal stubs whose
+   insulation edges are staggered by the same amount. Order: part, fan, then flush-cut
+   at the fan block face and strip, all referenced to the fan block.
+
+Closing from crimp pitch back to 2.5 mm reverses it: the outer contacts advance
+relative to the inner ones by the difference in recession:
+  3P from 5.0 mm to 2.5 mm: outer contact leads by ~0.65 mm (taken up as bow if the insertion clamp sets the fronts)
+  4P from 5.0 mm to 2.5 mm: outer contact leads by ~1.00 mm (taken up as bow if the insertion clamp sets the fronts)
+  5P from 5.0 mm to 2.5 mm: outer contact leads by ~1.34 mm (taken up as bow if the insertion clamp sets the fronts)
+  3P from 7.1 mm to 2.5 mm: outer contact leads by ~1.22 mm (taken up as bow if the insertion clamp sets the fronts)
+  4P from 7.1 mm to 2.5 mm: outer contact leads by ~1.85 mm (taken up as bow if the insertion clamp sets the fronts)
+  5P from 7.1 mm to 2.5 mm: outer contact leads by ~2.47 mm (taken up as bow if the insertion clamp sets the fronts)
+
+==============================================================================
+4. Ring score: blade radius budget, score depth, ligament, tear-off force
+==============================================================================
+Blade tip radius r_s must clear the outermost strand with margin:
+  r_s >= r_bundle + loose strand + eccentricity + centring error + setting error + margin
+  (centring error: 0.02 for two blades closing together, 0.05 for the axis height of a
+   conductor rolled on a flat bed with OD 1.7 +/-0.1, 0.125 for one blade in a 1.85 bore)
+  twin blades, self-centring, e 0.05  : r_s 0.55 mm, score depth 0.30 of 0.49 wall (61 %), ligament 0.19 mm, tear-off 2.2-6.0 N
+  twin blades, self-centring, e 0.10  : r_s 0.60 mm, score depth 0.25 of 0.49 wall (51 %), ligament 0.24 mm, tear-off 2.9-8.0 N
+  rolled under fixed blades, e 0.05   : r_s 0.58 mm, score depth 0.27 of 0.49 wall (55 %), ligament 0.22 mm, tear-off 2.6-7.1 N
+  rolled under fixed blades, e 0.10   : r_s 0.63 mm, score depth 0.22 of 0.49 wall (45 %), ligament 0.27 mm, tear-off 3.4-9.2 N
+  one blade in a 1.85 bore, e 0.05    : r_s 0.66 mm, score depth 0.19 of 0.49 wall (40 %), ligament 0.30 mm, tear-off 3.8-10.3 N
+  one blade in a 1.85 bore, e 0.10    : r_s 0.71 mm, score depth 0.14 of 0.49 wall (30 %), ligament 0.35 mm, tear-off 4.6-12.7 N
+  (tear-off = ligament ring area x 8-11 MPa, lower bound halved for the notch)
+-> two opposed blades that close together centre the conductor and roughly double the
+   usable score depth over a single blade in a bore. Tear-off stays at 3-15 N per
+   conductor, a few tens of N for a whole 5P pulled one after another.
+
+  cutting energy 0.1 N/mm, depth 0.2 mm: 0.04 N at the blades, 0.02 N*mm at the spindle
+  cutting energy 0.1 N/mm, depth 0.3 mm: 0.06 N at the blades, 0.04 N*mm at the spindle
+  cutting energy 1.0 N/mm, depth 0.2 mm: 0.40 N at the blades, 0.24 N*mm at the spindle
+  cutting energy 1.0 N/mm, depth 0.3 mm: 0.60 N at the blades, 0.36 N*mm at the spindle
+-> an N20 gearmotor (tens of N*mm) turns it with room; the conductor, held 10-20 mm
+   back, twists a few degrees at most.
+
+Twist after a partial pull (RotaryStrip's 'controlled twisting'):
+  0.25 turn over the 2.4 mm stub: lay length 9.6 mm; outer strand angle 13 deg
+  0.5 turn over the 2.4 mm stub: lay length 4.8 mm; outer strand angle 25 deg
+
+==============================================================================
+5. Whole-end crown score while webbed (flat blades top and bottom)
+==============================================================================
+  each blade 0.20 mm deep: cuts +/-40 deg of each crown; 200 deg of 360 left for the flanks to tear; strand margin 0.15-0.25 mm (e 0.10-0)
+  each blade 0.25 mm deep: cuts +/-45 deg of each crown; 180 deg of 360 left for the flanks to tear; strand margin 0.10-0.20 mm (e 0.10-0)
+  each blade 0.30 mm deep: cuts +/-50 deg of each crown; 161 deg of 360 left for the flanks to tear; strand margin 0.05-0.15 mm (e 0.10-0)
+  each blade 0.35 mm deep: cuts +/-54 deg of each crown; 144 deg of 360 left for the flanks to tear; strand margin 0.00-0.10 mm (e 0.10-0)
+-> flat blades need no pitch match, but leave ~45 % of each circumference (the flanks
+   and the web) to tear. The flank tear quality is the unknown this branch rests on.
+
+==============================================================================
+6. Touch-off: the flush-cut copper face as a switch
+==============================================================================
+  free conductor 5 mm: buckles (fixed-free) at 1.47 N
+  free conductor 9 mm: buckles (fixed-free) at 0.45 N
+  free conductor 15 mm: buckles (fixed-free) at 0.16 N
+  (a floor: inside the scorer's bore the tip is guided laterally, so it cannot take
+   the free buckling shape; the bore raises the limit several-fold)
+  touch force needed to read continuity through tinned strand ends on steel:
+  ~0.05-0.2 N [assumption]; the stage stops at the first reading.
+  stage resolution: Tr8x2 lead screw, 200 steps x 16 microsteps: 0.62 um per microstep; repeatability ~0.01 mm [estimate]
+-> each conductor's tip is located to ~0.01-0.05 mm (cut-face squareness dominates),
+   so the score lands 2.4 mm (or the clone's 1.6-2.1) behind every tip individually.
+
+==============================================================================
+7. a1: the lay-in drop, done by a pallet-borne tongue
+==============================================================================
+  drop 5.0 mm with a tongue 10 mm long: tongue angle 30 deg; overhang ahead of the fixed block 19 mm (tongue + 9 mm tip)
+  drop 5.0 mm with a tongue 12 mm long: tongue angle 25 deg; overhang ahead of the fixed block 21 mm (tongue + 9 mm tip)
+  drop 5.0 mm with a tongue 15 mm long: tongue angle 19 deg; overhang ahead of the fixed block 24 mm (tongue + 9 mm tip)
+  drop 6.3 mm with a tongue 10 mm long: tongue angle 39 deg; overhang ahead of the fixed block 19 mm (tongue + 9 mm tip)
+  drop 6.3 mm with a tongue 12 mm long: tongue angle 32 deg; overhang ahead of the fixed block 21 mm (tongue + 9 mm tip)
+  drop 6.3 mm with a tongue 15 mm long: tongue angle 25 deg; overhang ahead of the fixed block 24 mm (tongue + 9 mm tip)
+-> any 5-6 mm drop costs ~10-15 mm of extra parted length whether a tongue, a moved-back
+   block (borrowed-machines' Repair A) or a ram sole makes it. The tongue applies the
+   levelling moment at its front lip and lifts the crimped conductor back as it springs
+   up, so no separate ramp is needed.
+
+==============================================================================
+8. a2e: docked strip through a feedless applicator, time and travel
+==============================================================================
+  3P at strip pitch 6.8: 13.6 mm of X travel downstream; ~1.6 min per ribbon end [estimate]
+  3P at strip pitch 7.1: 14.2 mm of X travel downstream; ~1.6 min per ribbon end [estimate]
+  4P at strip pitch 6.8: 20.4 mm of X travel downstream; ~1.8 min per ribbon end [estimate]
+  4P at strip pitch 7.1: 21.3 mm of X travel downstream; ~1.8 min per ribbon end [estimate]
+  5P at strip pitch 6.8: 27.2 mm of X travel downstream; ~2.1 min per ribbon end [estimate]
+  5P at strip pitch 7.1: 28.4 mm of X travel downstream; ~2.1 min per ribbon end [estimate]
+  a unit's 14 ribbon ends: ~20-28 min of machine time; person time is strip snipping (~20 s) plus pallet loading per end
+
+==============================================================================
+9. The insulation barrel on 1.7 mm silicone (clone crimp figures)
+==============================================================================
+  crimp 1.70 x 1.90 (inside ~1.53 mm2), OD 1.6: silicone 1.60 -> 1.12 mm2 (70 %)
+  crimp 1.70 x 1.90 (inside ~1.53 mm2), OD 1.7: silicone 1.86 -> 1.12 mm2 (60 %)
+  crimp 1.70 x 1.90 (inside ~1.53 mm2), OD 1.8: silicone 2.14 -> 1.12 mm2 (53 %)
+  crimp 1.80 x 2.05 (inside ~1.81 mm2), OD 1.6: silicone 1.60 -> 1.41 mm2 (88 %)
+  crimp 1.80 x 2.05 (inside ~1.81 mm2), OD 1.7: silicone 1.86 -> 1.41 mm2 (76 %)
+  crimp 1.80 x 2.05 (inside ~1.81 mm2), OD 1.8: silicone 2.14 -> 1.41 mm2 (66 %)
+  crimp 1.90 x 2.05 (inside ~1.94 mm2), OD 1.6: silicone 1.60 -> 1.54 mm2 (96 %)
+  crimp 1.90 x 2.05 (inside ~1.94 mm2), OD 1.7: silicone 1.86 -> 1.54 mm2 (83 %)
+  crimp 1.90 x 2.05 (inside ~1.94 mm2), OD 1.8: silicone 2.14 -> 1.54 mm2 (72 %)
+-> KONNRA's 1.80 x 2.05 insulation crimp [source, clone spec] squeezes this ribbon's
+   jacket to ~70-80 % of its area. Silicone is nearly incompressible, so the rest flows
+   out of both ends of the barrel as a bulge, and the wing tips bite into it. A bulge at
+   the barrel's front edge is the thing to look for in the camera frame: it can push
+   silicone into the window between the barrels.

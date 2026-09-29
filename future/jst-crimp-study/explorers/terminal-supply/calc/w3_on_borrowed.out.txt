@@ -1,0 +1,162 @@
+
+==============================================================================
+1. b2: drop-shear of the tab while a printed tweezer grips the box
+==============================================================================
+  lever gripper -> tab root 4.8-5.7 mm; moment at the grip 230-905 N*mm
+  neck floor 1.0 mm wide, walls 0.0 mm: plastic moment   4.5-  6.5 N*mm  -> shear moment is    35-  201 x that
+  neck floor 1.0 mm wide, walls 0.3 mm: plastic moment  16.4- 23.7 N*mm  -> shear moment is    10-   55 x that
+  neck floor 1.0 mm wide, walls 0.6 mm: plastic moment  41.0- 59.2 N*mm  -> shear moment is     4-   22 x that
+  neck floor 1.5 mm wide, walls 0.0 mm: plastic moment   6.8-  9.8 N*mm  -> shear moment is    24-  134 x that
+  neck floor 1.5 mm wide, walls 0.3 mm: plastic moment  19.2- 27.7 N*mm  -> shear moment is     8-   47 x that
+  neck floor 1.5 mm wide, walls 0.6 mm: plastic moment  45.6- 65.9 N*mm  -> shear moment is     3-   20 x that
+  [neck width and wall height estimates; C5191 yield 450-650 MPa, as wave2 §2]
+  tweezer squeeze 1 N, mu 0.3: moment it resists by friction ~0.3 N*mm
+  tweezer squeeze 1 N, mu 0.5: moment it resists by friction ~0.5 N*mm
+  tweezer squeeze 5 N, mu 0.3: moment it resists by friction ~1.6 N*mm
+  tweezer squeeze 5 N, mu 0.5: moment it resists by friction ~2.7 N*mm
+  -> the neck yields, or the contact turns in the tweezers, long before the tab shears.
+     The shear must be reacted at the tab root: a steel edge under the insulation barrel's
+     rear (lever ~0), with a guided steel drop blade beside it.
+
+==============================================================================
+2. b3: the stepped trim is taken off conductors that are already stripped
+==============================================================================
+  fan pitch 3.60 mm:
+    4P     : trimmed 0.26 -> bare  2.14 mm; with the tip on b3's neck blade the insulation edge moves 0.26 mm forward: insulation edge still in the window
+    5P     : trimmed 0.53 -> bare  1.87 mm; with the tip on b3's neck blade the insulation edge moves 0.53 mm forward: insulation edge at or past the conductor barrel's rear edge
+    J4 (7) : trimmed 1.15 -> bare  1.25 mm; with the tip on b3's neck blade the insulation edge moves 1.15 mm forward: insulation under the conductor barrel
+    J1 (9) : trimmed 1.97 -> bare  0.43 mm; with the tip on b3's neck blade the insulation edge moves 1.97 mm forward: insulation under the conductor barrel
+  fan pitch 4.35 mm:
+    4P     : trimmed 0.54 -> bare  1.86 mm; with the tip on b3's neck blade the insulation edge moves 0.54 mm forward: insulation edge at or past the conductor barrel's rear edge
+    5P     : trimmed 1.06 -> bare  1.34 mm; with the tip on b3's neck blade the insulation edge moves 1.06 mm forward: insulation under the conductor barrel
+    J4 (7) : trimmed 2.27 -> bare  0.13 mm; with the tip on b3's neck blade the insulation edge moves 2.27 mm forward: insulation under the conductor barrel
+    J1 (9) : trimmed 3.80 -> bare -1.40 mm; with the tip on b3's neck blade the insulation edge moves 3.80 mm forward: trim reaches the insulation: no bare strands
+  Trimmed and stripped flat (before splitting), each contact placed on its own conductor:
+  the front's along-conductor distance from the root is the same for every conductor, and the
+  fan pitch at the crimp drops out. In the housing the outermost front lands short by
+    free length 12.0 mm: 4P 0.06, 5P 0.11, J4 0.24, J1 0.43 mm (the same at any fan pitch)
+    free length 20.0 mm: 4P 0.04, 5P 0.06, J4 0.14, J1 0.26 mm (the same at any fan pitch)
+  [straight-conductor model; agrees with procedure calc §7 for 12 mm]
+
+==============================================================================
+3. Strip length follows the contact: 2.4 mm on a clone barrel
+==============================================================================
+  strip 2.40: edge-steered brush +0.40 to +0.85 mm; tip on a blade at 0.25 brush puts the insulation edge 0.65-0.90 mm behind the conductor barrel (window 0.6-1.0); brush reaches the box when it exceeds the 0.4-0.6 mm neck
+  strip 2.10: edge-steered brush +0.10 to +0.55 mm; tip on a blade at 0.25 brush puts the insulation edge 0.35-0.60 mm behind the conductor barrel (window 0.6-1.0); brush reaches the box when it exceeds the 0.4-0.6 mm neck
+  strip 1.85: edge-steered brush -0.15 to +0.30 mm; tip on a blade at 0.25 brush puts the insulation edge 0.10-0.35 mm behind the conductor barrel (window 0.6-1.0); strands can stop short of the barrel front (no brush)
+  strip 1.60: edge-steered brush -0.40 to +0.05 mm; tip on a blade at 0.25 brush puts the insulation edge -0.15-0.10 mm behind the conductor barrel (window 0.6-1.0); strands can stop short of the barrel front (no brush)
+  -> with clone barrels, 2.4 mm gives a long brush (edge-steered) or buries the insulation edge in
+     the insulation barrel (tip-stopped); the clone spec's 1.6-2.1 mm fits. JST's 2.4 mm belongs to
+     JST's own barrel lengths, which are unpublished.
+
+==============================================================================
+4. b1: lateral capture of the insulation between open insulation wings, by supply
+==============================================================================
+  JST catalog envelope, if it is the open width: clearance per side +0.075 to +0.175 mm
+  Wurth analog                                 : clearance per side +0.250 to +0.350 mm
+  clone drawings +/-0.25                       : clearance per side +0.205 to +0.825 mm
+  b1's table uses +/-0.4 mm; that holds for clone wings only.
+
+==============================================================================
+5. K1, the flat spool line (b8 x a2d): pitch, crown, fronts, supply, time
+==============================================================================
+  punch 2.4 wide, neighbour half-width 0.85: fan pitch p >= 2.35 mm; crown surface at p lies below the crest by R25: 0.11, R30: 0.09 mm
+  punch 2.4 wide, neighbour half-width 1.00: fan pitch p >= 2.50 mm; crown surface at p lies below the crest by R25: 0.12, R30: 0.10 mm
+  punch 2.7 wide, neighbour half-width 0.85: fan pitch p >= 2.50 mm; crown surface at p lies below the crest by R25: 0.12, R30: 0.10 mm
+  punch 2.7 wide, neighbour half-width 1.00: fan pitch p >= 2.65 mm; crown surface at p lies below the crest by R25: 0.14, R30: 0.12 mm
+  punch 3.0 wide, neighbour half-width 0.85: fan pitch p >= 2.65 mm; crown surface at p lies below the crest by R25: 0.14, R30: 0.12 mm
+  punch 3.0 wide, neighbour half-width 1.00: fan pitch p >= 2.80 mm; crown surface at p lies below the crest by R25: 0.16, R30: 0.13 mm
+  outermost conductor's lateral move at the tips, ribbon pitch 1.7 -> p, and in the housing (2.5):
+    4P      p 2.5: at the crimp 1.20 mm, in the housing 1.20 mm; comb then moves it +0.00 mm; root curvature 0.025/mm = 1.7x strand yield (sets toward the housing fan)
+    4P      p 2.8: at the crimp 1.65 mm, in the housing 1.20 mm; comb then moves it +0.45 mm; root curvature 0.034/mm = 2.3x strand yield (sets toward the housing fan)
+    5P      p 2.5: at the crimp 1.60 mm, in the housing 1.60 mm; comb then moves it +0.00 mm; root curvature 0.033/mm = 2.2x strand yield (sets toward the housing fan)
+    5P      p 2.8: at the crimp 2.20 mm, in the housing 1.60 mm; comb then moves it +0.60 mm; root curvature 0.046/mm = 3.1x strand yield (sets toward the housing fan)
+    J1 (9)  p 2.5: at the crimp 3.20 mm, in the housing 3.20 mm; comb then moves it +0.00 mm; root curvature 0.067/mm = 4.4x strand yield (sets toward the housing fan)
+    J1 (9)  p 2.8: at the crimp 4.40 mm, in the housing 3.20 mm; comb then moves it +1.20 mm; root curvature 0.092/mm = 6.1x strand yield (sets toward the housing fan)
+  fronts in the housing: as section 2 (4P 0.06, 5P 0.11, J1 0.43 mm short at 12 mm), independent of p
+  supply: T4 1200 crimps over ~60 units; skip-2 uses 2400 strip contacts (0.30 of an 8,000 reel) and drops 1200 loose ones into the thinning cup;
+          the other looms need 1980 crimps, so the cup covers 61 % of them with the same contact
+  time: ~10.6 min per T4 end, ~53 min per unit's five T4 ends [estimates]
+
+==============================================================================
+6. b1c: where the pre-feed finger moves on the downstroke, and backing out
+==============================================================================
+  ram  4 mm above BDC: upstroke 226.0 deg, the same height on the downstroke at 134.0 deg
+  ram  6 mm above BDC: upstroke 236.8 deg, the same height on the downstroke at 123.2 deg
+  ram 15 mm above BDC: upstroke 274.3 deg, the same height on the downstroke at  85.7 deg
+  ram 20 mm above BDC: upstroke 293.4 deg, the same height on the downstroke at  66.6 deg
+  pre-feed advance at 15-20 mm up on the upstroke [b1b assumption] -> 274-293 deg (b1c's table: ~266-285);
+  a cam-driven feed lever is a function of ram height [assumption], so the finger retracts to the next
+  hole on the downstroke at ~67-86 deg: inside b1c's fork lay-in (20-80) and at the start of the
+  foot (80-110), before the gate at 115. Reversing the shaft from 115 to 0 passes that band again and
+  re-advances the strip one pitch under a laid-in, footed conductor: b1's Break 1, re-created by the back-out.
+  10 s per turn: last 0.2 mm lasts 0.24 s -> 19 HX711 samples at 80 Hz
+  20 s per turn: last 0.2 mm lasts 0.49 s -> 39 HX711 samples at 80 Hz
+  40 s per turn: last 0.2 mm lasts 0.97 s -> 78 HX711 samples at 80 Hz
+  (b1c quotes ~190 from p5's eccentric, whose compaction spans 22 deg; b1b's 15 mm crank gives ~78.)
+
+==============================================================================
+7. The rod stack of b1b/b1c (and a1's stack) from DIN 2093 series A discs
+==============================================================================
+  DIN 2093 A25  : F at 0.75 h0 = 2.93 kN; cannot reach a 4 kN preload
+  DIN 2093 A28  : F at 0.75 h0 = 2.84 kN; cannot reach a 4 kN preload
+  DIN 2093 A31.5: F at 0.75 h0 = 3.87 kN; cannot reach a 4 kN preload
+  DIN 2093 A35.5: F at 0.75 h0 = 5.19 kN; 4 kN at s=0.452 mm; to 5.19 kN by s=0.600: 0.148 mm per disc, ~8.0 kN/mm; two in series 0.297 mm
+  DIN 2093 A40  : F at 0.75 h0 = 6.50 kN; 4 kN at s=0.398 mm; to 5.40 kN by s=0.551: 0.153 mm per disc, ~9.2 kN/mm; two in series 0.306 mm
+  NEMA 23 + 10:1 = 10.8 N*m at the crank stalls at 4 kN wherever ds/dtheta > 2.29 mm/rad,
+  i.e. for obstructions met above ~0.15-0.16 mm over BDC (b1b calc §1 table). Below that the crank
+  passes BDC, so the stack needs ~0.16 mm of travel beyond its preload, less the loop's own
+  0.04-0.1 mm at 4 kN in a 40-100 kN/mm loop: two A35.5 in series do it (b1b's '4 kN, ~4 kN/mm').
+  Prime shows only a light stainless M3-M12 Belleville assortment [sourcing/amazon-prime.md];
+  DIN 2093 discs of this size come from industrial suppliers.
+
+==============================================================================
+8. b8 (and b6): flat crown-scoring blades closed to a fixed stop
+==============================================================================
+  score 50 % of nominal wall at the crown: blade 0.605 mm from the conductor centre; ligament over the strands +0.125 to +0.310 mm
+  score 60 % of nominal wall at the crown: blade 0.556 mm from the conductor centre; ligament over the strands +0.076 to +0.261 mm
+  score 70 % of nominal wall at the crown: blade 0.507 mm from the conductor centre; ligament over the strands +0.027 to +0.212 mm
+  score 80 % of nominal wall at the crown: blade 0.458 mm from the conductor centre; ligament over the strands -0.022 to +0.163 mm
+  -> at 70-80 % the worst case reaches the strands; a fixed stop holds ~50-60 %, or the blade rides
+     a shoe on the jacket's own top so centre-height error drops out.
+
+==============================================================================
+9. A sprocket for the contact carrier ('SMT-style' feeders in b2, b3)
+==============================================================================
+  EIA-481 8 mm tape: sprocket hole 1.5 mm at 4.0 mm pitch [assumption, standard]; XH carrier: 1.5 mm
+  holes [xh-facts §1] at ~7.1 mm (Wurth analog; 7.0-8.5 scaled from clone drawings) -> the hole
+  matches, the pitch does not.
+  pitch 7.1 mm,  8 teeth: pitch radius   9.0 mm, carrier strain 1.11 % (plastic; yield 0.41-0.59 %)
+  pitch 7.1 mm, 12 teeth: pitch radius  13.6 mm, carrier strain 0.74 % (plastic; yield 0.41-0.59 %)
+  pitch 7.1 mm, 16 teeth: pitch radius  18.1 mm, carrier strain 0.55 % (at yield; yield 0.41-0.59 %)
+  pitch 7.1 mm, 22 teeth: pitch radius  24.9 mm, carrier strain 0.40 % (elastic; yield 0.41-0.59 %)
+  pitch 8.5 mm,  8 teeth: pitch radius  10.8 mm, carrier strain 0.92 % (plastic; yield 0.41-0.59 %)
+  pitch 8.5 mm, 12 teeth: pitch radius  16.2 mm, carrier strain 0.62 % (plastic; yield 0.41-0.59 %)
+  pitch 8.5 mm, 16 teeth: pitch radius  21.6 mm, carrier strain 0.46 % (at yield; yield 0.41-0.59 %)
+  pitch 8.5 mm, 22 teeth: pitch radius  29.8 mm, carrier strain 0.34 % (elastic; yield 0.41-0.59 %)
+  -> a sprocket the carrier wraps must be ~25 mm radius or larger (22 teeth at 7.1 mm), or the drive
+     is a pawl on a flat run (the applicator's own feed finger principle).
+
+==============================================================================
+10. b8: a residual fold kink at the root, and the fronts at the gang push
+==============================================================================
+  Each conductor in b8 goes forward, back over the clamp face (R 1.5-2.5 mm), forward, back, forward
+  [b1: ~4 reversals]. Copper sets below a ~67 mm radius [digest], so a kink angle remains at the root.
+  If the comb holds the tips in the plane, the kink becomes a bow that uses length:
+    free length 12 mm:  5 deg -> 0.05 mm short, 10 deg -> 0.18 mm short, 15 deg -> 0.41 mm short
+    free length 15 mm:  5 deg -> 0.06 mm short, 10 deg -> 0.23 mm short, 15 deg -> 0.51 mm short
+  against a gang window of ~+/-0.3 mm [digest] that the housing fan already uses 0.06 mm of (4P).
+  The angle differs conductor to conductor (each is picked, parked and laid out separately).
+
+==============================================================================
+11. b1's catch plate: is the box wider than the crimped barrels?
+==============================================================================
+  width : box 1.85-1.95 vs crimped insulation barrel 1.8-2.0 mm -> margin -0.15 to +0.15 mm
+  height: box 2.2-2.4 vs crimped insulation barrel ~1.8 mm -> margin +0.40 to +0.60 mm
+  neck  : crimped conductor barrel 1.5 wide x 0.69-1.12 tall behind the box: margin +0.35 mm a side-pair in width, +1.08 mm or more in height
+  lance : stands 0.6-0.9 mm below the floor with its tip over the neck, pointing rearward
+  -> a slot 'narrower than the box and wider than the crimped barrels' has no width window;
+     a catch works on height (plate edge ~2.0 mm above the floor, bearing on the box roof's rear
+     edge, 0.4-0.6 mm band) or as a fork in the neck, and in both cases clear of the lance. A plate
+     reaching below the floor meets the lance tip end-on, as a housing shoulder does in a retention
+     pull; 20 N there is an unrated retention test on the part that must later latch [xh-facts §3].

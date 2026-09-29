@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="470" viewBox="0 0 1000 470" font-family="Helvetica, Arial, sans-serif" font-size="12">
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#222222"/></marker><marker id="arrb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2a5d9f"/></marker><marker id="arrr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#b03030"/></marker></defs>
+<rect width="1000" height="470" fill="#ffffff"/>
+<text x="20" y="28" font-size="16" font-weight="bold" fill="#222222">p5 camshaft: one revolution per conductor (schematic timing, ~40 s a turn)</text>
+<text x="20.0" y="47.0" font-size="11" fill="#555" text-anchor="start" font-weight="normal">Angles illustrate the sequence. The eccentric reaches the stops at 236-240 deg.</text>
+<line x1="330.0" y1="80.0" x2="950.0" y2="80.0" stroke="#222222" stroke-width="1.2"/>
+<line x1="330.0" y1="76.0" x2="330.0" y2="84.0" stroke="#222222" stroke-width="1.2"/>
+<text x="322.0" y="72.0" font-size="9" fill="#222222" text-anchor="start" font-weight="normal">0</text>
+<line x1="381.7" y1="76.0" x2="381.7" y2="84.0" stroke="#222222" stroke-width="1.2"/>
+<text x="373.7" y="72.0" font-size="9" fill="#222222" text-anchor="start" font-weight="normal">30</text>
+<line x1="433.3" y1="76.0" x2="433.3" y2="84.0" stroke="#222222" stroke-width="1.2"/>
+<text x="425.3" y="72.0" font-size="9" fill="#222222" text-anchor="start" font-weight="normal">60</text>
+<line x1="485.0" y1="76.0" x2="485.0" y2="84.0" stroke="#222222" stroke-width="1.2"/>
+<text x="477.0" y="72.0" font-size="9" fill="#222222" text-anchor="start" font-weight="normal">90</text>
+<line x1="536.7" y1="76.0" x2="536.7" y2="84.0" stroke="#222222" stroke-width="1.2"/>
+<text x="528.7" y="72.0" font-size="9" fill="#222222" text-anchor="start" font-weight="normal">120</text>
+<line x1="588.3" y1="76.0" x2="588.3" y2="84.0" stroke="#222222" stroke-width="1.2"/>
+<text x="580.3" y="72.0" font-size="9" fill="#222222" text-anchor="start" font-weight="normal">150</text>
+<line x1="640.0" y1="76.0" x2="640.0" y2="84.0" stroke="#222222" stroke-width="1.2"/>
+<text x="632.0" y="72.0" font-size="9" fill="#222222" text-anchor="start" font-weight="normal">180</text>
+<line x1="691.7" y1="76.0" x2="691.7" y2="84.0" stroke="#222222" stroke-width="1.2"/>
+<text x="683.7" y="72.0" font-size="9" fill="#222222" text-anchor="start" font-weight="normal">210</text>
+<line x1="743.3" y1="76.0" x2="743.3" y2="84.0" stroke="#222222" stroke-width="1.2"/>
+<text x="735.3" y="72.0" font-size="9" fill="#222222" text-anchor="start" font-weight="normal">240</text>
+<line x1="795.0" y1="76.0" x2="795.0" y2="84.0" stroke="#222222" stroke-width="1.2"/>
+<text x="787.0" y="72.0" font-size="9" fill="#222222" text-anchor="start" font-weight="normal">270</text>
+<line x1="846.7" y1="76.0" x2="846.7" y2="84.0" stroke="#222222" stroke-width="1.2"/>
+<text x="838.7" y="72.0" font-size="9" fill="#222222" text-anchor="start" font-weight="normal">300</text>
+<line x1="898.3" y1="76.0" x2="898.3" y2="84.0" stroke="#222222" stroke-width="1.2"/>
+<text x="890.3" y="72.0" font-size="9" fill="#222222" text-anchor="start" font-weight="normal">330</text>
+<line x1="950.0" y1="76.0" x2="950.0" y2="84.0" stroke="#222222" stroke-width="1.2"/>
+<text x="942.0" y="72.0" font-size="9" fill="#222222" text-anchor="start" font-weight="normal">360</text>
+<text x="20.0" y="116.0" font-size="10" fill="#222222" text-anchor="start" font-weight="normal">index cassette (pawl in its rack)</text>
+<rect x="330.0" y="104.0" width="51.7" height="16.0" rx="0" fill="#888888" stroke="#888888" stroke-width="1.2" fill-opacity="0.35"/>
+<text x="20.0" y="144.0" font-size="10" fill="#222222" text-anchor="start" font-weight="normal">presser drops neighbours; V-fork rises</text>
+<rect x="381.7" y="132.0" width="68.9" height="16.0" rx="0" fill="#2a5d9f" stroke="#2a5d9f" stroke-width="1.2" fill-opacity="0.35"/>
+<text x="20.0" y="172.0" font-size="10" fill="#222222" text-anchor="start" font-weight="normal">strip jaws close, pull 3 mm, open</text>
+<rect x="450.6" y="160.0" width="103.3" height="16.0" rx="0" fill="#c77d10" stroke="#c77d10" stroke-width="1.2" fill-opacity="0.35"/>
+<text x="20.0" y="200.0" font-size="10" fill="#222222" text-anchor="start" font-weight="normal">lay-in finger: k into the open contact</text>
+<rect x="553.9" y="188.0" width="34.4" height="16.0" rx="0" fill="#2a5d9f" stroke="#2a5d9f" stroke-width="1.2" fill-opacity="0.35"/>
+<text x="20.0" y="228.0" font-size="10" fill="#222222" text-anchor="start" font-weight="normal">identity through the fin</text>
+<rect x="571.1" y="216.0" width="17.2" height="16.0" rx="0" fill="#2f7d4f" stroke="#2f7d4f" stroke-width="1.2" fill-opacity="0.35"/>
+<text x="20.0" y="256.0" font-size="10" fill="#222222" text-anchor="start" font-weight="normal">V-fork drops; wire-hold leaf takes over</text>
+<rect x="588.3" y="244.0" width="34.4" height="16.0" rx="0" fill="#2f7d4f" stroke="#2f7d4f" stroke-width="1.2" fill-opacity="0.35"/>
+<text x="20.0" y="284.0" font-size="10" fill="#222222" text-anchor="start" font-weight="normal">punch down: curl, then compaction to the stops</text>
+<rect x="622.8" y="272.0" width="120.6" height="16.0" rx="0" fill="#b03030" stroke="#b03030" stroke-width="1.2" fill-opacity="0.35"/>
+<text x="20.0" y="312.0" font-size="10" fill="#222222" text-anchor="start" font-weight="normal">punch up</text>
+<rect x="743.3" y="300.0" width="86.1" height="16.0" rx="0" fill="#b03030" stroke="#b03030" stroke-width="1.2" fill-opacity="0.35"/>
+<text x="20.0" y="340.0" font-size="10" fill="#222222" text-anchor="start" font-weight="normal">camera; hook pulls 15-20 N, punch up</text>
+<rect x="829.4" y="328.0" width="68.9" height="16.0" rx="0" fill="#2f7d4f" stroke="#2f7d4f" stroke-width="1.2" fill-opacity="0.35"/>
+<text x="20.0" y="368.0" font-size="10" fill="#222222" text-anchor="start" font-weight="normal">presser lifts; next cut-free contact onto the fin</text>
+<rect x="898.3" y="356.0" width="51.7" height="16.0" rx="0" fill="#c77d10" stroke="#c77d10" stroke-width="1.2" fill-opacity="0.35"/>
+<text x="20.0" y="404.0" font-size="10" fill="#555" text-anchor="start" font-weight="normal">No strip reaches the fin: contacts arrive cut free (a blade in the neck, or a one-pitch stub on a pilot pin). On a fail the switch cam stops the shaft at 330 deg.</text>
+</svg>

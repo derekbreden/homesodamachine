@@ -1,0 +1,185 @@
+
+============================================================================
+1. How much supply, and how often it is refilled
+============================================================================
+crimps per unit 53; program 61 units -> 3233 crimps, 3556 with 10% spare
+  strip at pitch 7.10 mm: one unit = 0.38 m of strip; program = 25.2 m
+  strip at pitch 7.00 mm: one unit = 0.37 m of strip; program = 24.9 m
+  strip at pitch 9.50 mm: one unit = 0.50 m of strip; program = 33.8 m
+supply forms, units covered per refill:
+  cut strip 100 pc (Digi-Key 455-1135-100-ND / LCSC min 100)        1.9 units
+  cut strip 500 pc (Digi-Key 455-1135-500-ND)                       9.4 units
+  small reel 1,000 pc (Wurth-size, 200 mm reel)                    18.9 units
+  JST reel 8,000 pc (SXH-001T-P0.6)                               150.9 units
+  clone reel 9,000 pc (HDGC)                                      169.8 units
+reel geometry check: 1,000 pc at 7.10 mm = 7.1 m on a 200 mm reel with a 100 mm hub [mfr-an]
+  8,000 pc = 57 m of strip; if wound like the Wurth reel (7.1 m per ~50 mm of radial build) it needs roughly a 330-400 mm reel [estimate]
+contact cost per unit (53):
+  SXH-001T-P0.6 LCSC @100              $ 0.67 per unit, $    45 per program
+  SXH-001T-P0.6 Digi-Key 100 lot       $ 2.50 per unit, $   168 per program
+  BXH-001T-P0.6 Digi-Key loose         $ 2.35 per unit, $   158 per program
+  CJT A2501-TP clone reel, LCSC        $ 0.42 per unit, $    28 per program
+  loose, bulk packing 0.10: ~2 contacts per cc -> 200 cc hopper holds ~359 = 7 units
+  loose, bulk packing 0.20: ~4 contacts per cc -> 200 cc hopper holds ~718 = 14 units
+  mass: 53 contacts = 2.28 g; the program's 3556 = 153 g
+
+============================================================================
+2. Locating a contact by its carrier strip
+============================================================================
+Pilot hole on the contact centreline, one per contact [source S19; mfr-an Wurth].
+  hole 1.50 (+/-0.02 stamped [estimate]) with pin 1.45: float +0.015 to +0.035 mm radial
+  hole 1.50 (+/-0.02 stamped [estimate]) with pin 1.48: float +0.000 to +0.020 mm radial
+  a tapered pin driven home takes the float out entirely: it centres, then the hold-down clamps
+hole-to-contact-centreline within one reel: +/-0.02-0.05 mm [estimate, progressive-die stamping]
+between reels / brands: tab length 0.8+/-0.2 (HDGC), 1.00+/-0.15 (DLL) [source] ->
+  axial barrel position relative to the carrier edge can differ ~0.2-0.4 mm between lots:
+  re-teach the axial offset once per reel (camera finds the barrel's rear edge vs the hole)
+What the die needs [xh-facts; MKS-L manual 6-10]:
+  bellmouth ~1-2 x stock = 0.20-0.40 mm -> axial placement window ~+/-0.1 mm
+  lateral: the punch lead-in centres an open barrel offset by ~0.1 mm; 'twisting' and 'rolling'
+  come from a contact not square on the anvil [MKS-L 7-8, 7-9] -> hold the carrier flat
+Indexing error does not accumulate if the station locates on holes each cycle:
+  sprocket counting   1 pitches: +/-0.02 mm (rss of 0.02/pitch) ; pin at station: +/-0.03
+  sprocket counting  10 pitches: +/-0.06 mm (rss of 0.02/pitch) ; pin at station: +/-0.03
+  sprocket counting  53 pitches: +/-0.15 mm (rss of 0.02/pitch) ; pin at station: +/-0.03
+
+============================================================================
+3. Carrier scrap
+============================================================================
+carrier per contact ~16.5 mm^2 x 0.2 mm = 3.31 mm^3 = 29 mg
+per unit: 1.5 g of bronze, 376 mm of empty carrier; program ~103 g, 25 m
+  continuous: a take-up spool of ~60 mm hub holds a unit's 0.38 m in 2 turns [calc]
+
+============================================================================
+4. The carrier as a handle after the crimp
+============================================================================
+  tab neck 0.6 wide: in-plane push to yield   66 N; out-of-plane plastic moment 3.3 N*mm
+  tab neck 0.8 wide: in-plane push to yield   88 N; out-of-plane plastic moment 4.4 N*mm
+  tab neck 1.0 wide: in-plane push to yield  110 N; out-of-plane plastic moment 5.5 N*mm
+    unguided push with the resistance 0.8 mm above the floor plane: tab yields at 5.5 N (0.8 mm neck)
+    unguided push with the resistance 1.2 mm above the floor plane: tab yields at 3.7 N (0.8 mm neck)
+  insertion force of an XH contact into XHP is not public: bracket 3-20 N [estimate]
+  -> the tab can steer the contact and push it while the cavity guides it (moment reacted);
+     it cannot push it home unguided. A fork behind the insulation barrel finishes the seat.
+Trimmed handle so neighbours fit the 2.5 mm pitch:
+  handle 2.3 mm wide centred on the 1.5 hole leaves ligaments 0.40 mm each side; both carry 88 N
+  gap to the neighbour's handle at 2.5 mm pitch: 0.2 mm
+Does the carrier edge hit the housing's rear face before the contact seats?
+  front wall 0.8, contact 6.1: rear +0.85 inside face; tab 0.8: carrier edge -0.05 INSIDE -> blocks seat
+  front wall 0.8, contact 6.1: rear +0.85 inside face; tab 1.15: carrier edge +0.30 outside (clears)
+  front wall 0.8, contact 6.5: rear +0.45 inside face; tab 0.8: carrier edge +0.35 outside (clears)
+  front wall 0.8, contact 6.5: rear +0.45 inside face; tab 1.15: carrier edge +0.70 outside (clears)
+  front wall 1.0, contact 6.1: rear +0.65 inside face; tab 0.8: carrier edge +0.15 outside (clears)
+  front wall 1.0, contact 6.1: rear +0.65 inside face; tab 1.15: carrier edge +0.50 outside (clears)
+  front wall 1.0, contact 6.5: rear +0.25 inside face; tab 0.8: carrier edge +0.55 outside (clears)
+  front wall 1.0, contact 6.5: rear +0.25 inside face; tab 1.15: carrier edge +0.90 outside (clears)
+
+============================================================================
+5. Comb: all of a ribbon's conductors crimped to consecutive strip contacts
+============================================================================
+  3P at strip pitch 7.1: outer conductor moves   5.4 mm; at a 20 deg fan it needs   15 mm of split web (+ ~6 mm straight)
+  3P at strip pitch 9.5: outer conductor moves   7.8 mm; at a 20 deg fan it needs   21 mm of split web (+ ~6 mm straight)
+  4P at strip pitch 7.1: outer conductor moves   8.1 mm; at a 20 deg fan it needs   22 mm of split web (+ ~6 mm straight)
+  4P at strip pitch 9.5: outer conductor moves  11.7 mm; at a 20 deg fan it needs   32 mm of split web (+ ~6 mm straight)
+  5P at strip pitch 7.1: outer conductor moves  10.8 mm; at a 20 deg fan it needs   30 mm of split web (+ ~6 mm straight)
+  5P at strip pitch 9.5: outer conductor moves  15.6 mm; at a 20 deg fan it needs   43 mm of split web (+ ~6 mm straight)
+  compare 3P into XHP at 2.5 mm: outer moves 0.8 mm -> 2 mm
+  compare 4P into XHP at 2.5 mm: outer moves 1.2 mm -> 3 mm
+  compare 5P into XHP at 2.5 mm: outer moves 1.6 mm -> 4 mm
+
+============================================================================
+6. Hanging rail: what a slot can tell apart
+============================================================================
+A contact hangs box-down from its insulation wings; everything else is below the rail
+tolerances: box +/-0.10, open barrels +/-0.25 [source]
+ slot 2.00: box W MAYBE (1.75-2.00 vs 2.00)    box H never passes                 cond barrel MAYBE (1.55-2.15 vs 2.00)    ins wings W never passes
+ slot 2.05: box W always passes                box H never passes                 cond barrel MAYBE (1.55-2.15 vs 2.05)    ins wings W never passes
+ slot 2.10: box W always passes                box H MAYBE (2.10-2.45 vs 2.10)    cond barrel MAYBE (1.55-2.15 vs 2.10)    ins wings W never passes
+ slot 2.30: box W always passes                box H MAYBE (2.10-2.45 vs 2.30)    cond barrel always passes                ins wings W never passes
+ slot 2.40: box W always passes                box H MAYBE (2.10-2.45 vs 2.40)    cond barrel always passes                ins wings W never passes
+-> a single slot of ~2.4 lets the box and conductor barrel through and hangs on the wings,
+   but lets the box hang either way round (box H also < 2.4): 4 roll states.
+-> a stepped rail, 2.4 at the barrels and 2.05 at the box, accepts the box only W-across:
+   2 roll states left (U open fore or aft along the rail); a contact that arrives box H-across
+   rides ~2 mm high on the step and a height wiper knocks it back into the hopper.
+   The last 2 states are told apart by camera (U opening seen from above) or by the lance side.
+
+============================================================================
+7. Holding a contact by mating it onto a 0.64 mm square post
+============================================================================
+  total normal force 1 N, friction 0.2: axial hold 0.2 N (474 x the contact's weight)
+  total normal force 2 N, friction 0.3: axial hold 0.6 N (1,422 x the contact's weight)
+  total normal force 4 N, friction 0.4: axial hold 1.6 N (3,793 x the contact's weight)
+  loads it must resist: weight 0.0004 N; conductor sliding into an open U ~0.01-0.1 N [estimate];
+  during the crimp the die clamps the barrels and the post only locates the box
+  release: pull the crimped wire back, 0.2-2 N; a 22 AWG conductor breaks at ~85-100 N [xh-facts]
+Post stiffness, square 0.64 mm, cantilever k = 3EI/L^3:
+  brass L  3 mm:   155.34 N/mm
+  brass L  6 mm:    19.42 N/mm
+  brass L 10 mm:     4.19 N/mm
+  brass L 17 mm:     0.85 N/mm
+  steel L  3 mm:   310.69 N/mm
+  steel L  6 mm:    38.84 N/mm
+  steel L 10 mm:     8.39 N/mm
+  steel L 17 mm:     1.71 N/mm
+  -> a 3 mm post is stiff (locates); a 17 mm post through a housing is soft (the die and the
+     cavity steer it; it only needs to carry the contact, not to fight the die)
+
+============================================================================
+8. Crimping at the housing's rear face next to a seated neighbour
+============================================================================
+ staged 1.0 mm deep: lance tip +1.44 mm outside the face; conductor barrel 1.6-3.0 mm behind the face; insulation barrel 3.5-5.0
+ staged 1.5 mm deep: lance tip +0.94 mm outside the face; conductor barrel 1.1-2.5 mm behind the face; insulation barrel 3.0-4.5
+ staged 2.0 mm deep: lance tip +0.44 mm outside the face; conductor barrel 0.6-2.0 mm behind the face; insulation barrel 2.5-4.0
+Neighbour's wire (1.7 OD) leaves the face at 2.5 mm pitch; the punch straddles the barrel.
+  conductor punch 2.7 wide: neighbour must move 0.00 mm sideways where the punch is
+      at 0.5 mm behind the face -> neighbour bent  0.0 deg from the face
+      at 1.0 mm behind the face -> neighbour bent  0.0 deg from the face
+      at 2.0 mm behind the face -> neighbour bent  0.0 deg from the face
+      at 3.0 mm behind the face -> neighbour bent  0.0 deg from the face
+  conductor punch 3.5 wide: neighbour must move 0.30 mm sideways where the punch is
+      at 0.5 mm behind the face -> neighbour bent 31.0 deg from the face
+      at 1.0 mm behind the face -> neighbour bent 16.7 deg from the face
+      at 2.0 mm behind the face -> neighbour bent  8.5 deg from the face
+      at 3.0 mm behind the face -> neighbour bent  5.7 deg from the face
+  insulation punch 3.5 wide: neighbour must move 0.30 mm sideways where the punch is
+      at 0.5 mm behind the face -> neighbour bent 31.0 deg from the face
+      at 1.0 mm behind the face -> neighbour bent 16.7 deg from the face
+      at 2.0 mm behind the face -> neighbour bent  8.5 deg from the face
+      at 3.0 mm behind the face -> neighbour bent  5.7 deg from the face
+  insulation punch 4.0 wide: neighbour must move 0.55 mm sideways where the punch is
+      at 0.5 mm behind the face -> neighbour bent 47.7 deg from the face
+      at 1.0 mm behind the face -> neighbour bent 28.8 deg from the face
+      at 2.0 mm behind the face -> neighbour bent 15.4 deg from the face
+      at 3.0 mm behind the face -> neighbour bent 10.4 deg from the face
+Why not thin die walls instead: a punch wall 0.5 mm thick x 1.5 mm long carrying a side load
+  side load 100 N at 1.5 mm: bending stress ~2,400 MPa (tool steel ~2,000-2,500 yield)
+  side load 300 N at 1.5 mm: bending stress ~7,200 MPa (tool steel ~2,000-2,500 yield)
+-> bending the seated neighbour ~20-30 deg at the face clears the dies from ~1 mm back;
+   staging 1.5 mm deep puts the conductor barrel 1.1-2.5 mm back, the insulation 3.0-4.5.
+
+============================================================================
+9. Separating a crimped contact from its carrier
+============================================================================
+shear the tab: 48-158 N at the edge [xh-facts calc C1]
+  flush cutter with jaw leverage 4: 12-40 N at the handle
+  flush cutter with jaw leverage 6: 8-26 N at the handle
+  servo 0.9 N*m on a 20 mm arm: 45 N
+  servo 1.1 N*m on a 25 mm arm: 44 N
+  bend the tab around R 0.2 mm: strain amplitude 0.33; eps_f' 0.3: ~0.5 full cycles to break [estimate]
+  bend the tab around R 0.2 mm: strain amplitude 0.33; eps_f' 0.6: ~1.3 full cycles to break [estimate]
+  bend the tab around R 0.4 mm: strain amplitude 0.20; eps_f' 0.3: ~1.0 full cycles to break [estimate]
+  bend the tab around R 0.4 mm: strain amplitude 0.20; eps_f' 0.6: ~3.1 full cycles to break [estimate]
+  -> a sharp +/-90 deg bend breaks the tab in 1-5 cycles; the break lands at the neck, not flush
+
+============================================================================
+10. Time, to show slowness costs nothing here [estimate]
+============================================================================
+  strip index + pilot pin                        5 s
+  present conductor to the waiting contact      30 s
+  slow crimp stroke                             30 s
+  sever / release                               10 s
+  camera look                                   10 s
+  retries, average                              15 s
+  per crimp ~100 s -> a unit's 53 in 88 min; a loose-part rail feeder adds nothing to
+  that (it fills its escapement while the crimp runs)

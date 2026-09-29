@@ -1,0 +1,203 @@
+
+============================================================================================
+1. Lift needed for an upright crimp from a flat row, and the set each lift leaves in k
+============================================================================================
+Only k is lifted; the neighbours stay in the row. Heights from the row axis.
+(a) Fin anvil from below (p1d, p5c): only the fin passes through the row plane, in k's own
+    empty slot. The crimper is <= 3.1-4 mm wide [force-and-form f8], so it never overlaps a
+    neighbour laterally; the lift has to clear the posted contacts' lances over their own
+    unlifted conductors and the crimped neighbours' tops (+0.95..+1.25):
+    h >= 2.8-3.1 mm [force-and-form calc exchange_procedure_w3 §1a]; h = 3.5 mm used here.
+(b) SN-2549 closing normal to the row (tool on its side over a flat row, or tip-down over a
+    row stood on edge): the jaw half facing the row must pass outside the row plane.
+    h = a + 2.7 mm, a = nest floor to the back face of that jaw half, 6-12 mm [assumption,
+    hand-tool-as-press a3, calc w3 §2] -> h = 8.7-14.7 mm.
+(c) SN-2549 hung tip-down, closing along the row: h = nest-to-tip + 1.85 = 3.9-7.9 mm, but
+    the jaw closing direction is the contact's floor normal, so every crimp is rolled 90 deg
+    (hand-tool-as-press a3; into-the-housing calc ex §8). Not used.
+
+Residual rise at the tip after one lift and release (sy 60..120 MPa, E_sil 2..6 MPa
+[assumption, wave2 §1]; tip 5 mm past the lift point; free = comb root to lift point):
+ free mm           h 3.0           h 3.5           h 8.7          h 11.7          h 14.7
+      15     0.18-1.57       0.46-2.16       5.58-8.69       8.96-12.58     12.45-16.53 
+      20     0.00-0.37       0.00-0.77       2.67-6.40       5.46-9.90       8.45-13.46 
+      25     0.00-0.00       0.00-0.05       0.61-4.28       2.49-7.49       4.93-10.79 
+      30     0.00-0.00       0.00-0.00       0.01-2.30       0.53-5.15       2.02-8.21  
+      35     0.00-0.00       0.00-0.00       0.00-0.76       0.01-2.94       0.35-5.68  
+
+Loaded tip pull-back while lifted (what the trim in the pose absorbs):
+ free mm           h 3.0           h 3.5           h 8.7          h 11.7          h 14.7
+      20     0.39-0.40       0.52-0.55       2.87-3.15       5.13-5.54       8.07-8.63  
+      25     0.30-0.30       0.41-0.41       2.25-2.49       3.97-4.36       6.19-6.72  
+      30     0.24-0.24       0.33-0.33       1.89-2.02       3.29-3.60       5.07-5.57  
+-> The fin from below leaves 0-0.8 mm of rise at 20 mm free and essentially none from 25 mm:
+   squaring only tidies. The SN closing normal to the row needs 8.7-14.7 mm of lift, which
+   leaves 0-8.2 mm of rise at 30 mm free and 0-5.7 mm at 35 mm: a 30-35 mm split and a
+   squaring pass on every conductor. (Small-deflection model; rough at short lengths.)
+
+============================================================================================
+2. The fin anvil (p1d, p5c; p1 B-drop and p5 use it free-standing)
+============================================================================================
+k lifted 3.5 mm: barrel floor underside at +2.94 mm; fin at rest -1.85 mm;
+fin travel to the floor 4.79 mm [calc]. The lift finger and the fin meet the
+contact at the same height, so the finger sets it and the fin only has to arrive under it.
+
+Width: the anvil sits inside the crimper's channel. JST's analog SXA-01T-P0.6 at 22 AWG
+crimps 1.50 wide x 0.80 high [mfr S14], xh-facts estimates ~1.5 for SXH-001T-P0.6. So the
+fin is stepped: ~1.45 mm under the conductor barrel, 1.8-1.9 mm under the insulation
+barrel [force-and-form calc exchange_procedure_w3 §2].
+
+Clearance, fin side to the neighbour's surface, neighbours at 2.5 mm centres:
+  conductor step 1.45 vs uncrimped bare strands                       1.42 mm a side
+  conductor step 1.45 vs uncrimped jacket (strip in pose)             0.92 mm a side
+  conductor step 1.45 vs crimped conductor barrel (1.5 wide)          1.02 mm a side
+  insulation step 1.88 vs uncrimped jacket                            0.71 mm a side
+  insulation step 1.88 vs crimped insulation barrel (1.8-2.0 wide)    0.56 mm a side
+
+Where the tip comb can stand. The contact spans, from k's tip (Y=0, +Y toward the box):
+  box front ~+2.7, box rear ~+0.7; conductor barrel to ~-1.5..-2.4;
+  insulation barrel rear at -3.5 to -4.2 mm.
+  Tip-comb pins (0.64 mm) sit between conductors: the clear half-gap between k's two pins is
+  0.93 mm, against the insulation step's half-width 0.94 mm, so the fin's rear end
+  must stop ahead of the pins: the tip comb stands >= ~4.7 mm behind the tip line
+  (5-7 mm), not 4 mm.
+
+Column (fixed base, free top, K = 2; E 205 GPa):
+  p1d/p5c fin, narrow only through the row band      1.45 x 4.0 x  5.0 mm: Euler  20.6 kN, stress at 3 kN  517 MPa
+  p1/p5 B-drop fin at the JST width, 9 mm tall       1.45 x 4.0 x  9.0 mm: Euler   6.3 kN, stress at 3 kN  517 MPa
+  p1/p5 B-drop fin at the JST width, 10 mm tall      1.45 x 4.0 x 10.0 mm: Euler   5.1 kN, stress at 3 kN  517 MPa
+  (the crimper's legs guide the top at compaction, so the real load is higher)
+
+Laminated 1095 blue-tempered shim [Prime: spring steel shim 0.005-0.032 in]:
+  conductor step: 0.032 + 0.025 in = 1.448 mm
+  insulation step: 0.032 + 0.032 + 0.01 in = 1.880 mm
+  Spring temper (~Rc 45-50 [assumption]) against 400-900 MPa mean die pressure [xh-facts §4] is
+  the open question; ground O1 or gauge plate stood on edge is the harder route.
+
+============================================================================================
+3. A knee near straight: the bottom is geometry
+============================================================================================
+Two links of length L; the joint sits x off the straight line. Height short of straight
+= 2(L - sqrt(L^2 - x^2)) ~ x^2 / L:
+  L 15 mm: x 0.1 mm ->   0.7 um, x 0.2 mm ->   2.7 um, x 0.5 mm ->  16.7 um, x 1.0 mm ->  66.7 um
+  L 20 mm: x 0.1 mm ->   0.5 um, x 0.2 mm ->   2.0 um, x 0.5 mm ->  12.5 um, x 1.0 mm ->  50.0 um
+  L 30 mm: x 0.1 mm ->   0.3 um, x 0.2 mm ->   1.3 um, x 0.5 mm ->   8.3 um, x 1.0 mm ->  33.3 um
+-> A cam or screw that puts the joint within 0.2-0.5 mm of straight sets the bottom to a few
+   microns. What moves the crimp height is the loop's stretch under force scatter:
+   loop  40 kN/mm, +/-300-600 N of scatter -> +/-7.5-15.0 um
+   loop 100 kN/mm, +/-300-600 N of scatter -> +/-3.0-6.0 um
+   loop 200 kN/mm, +/-300-600 N of scatter -> +/-1.5-3.0 um
+
+============================================================================================
+4. Stops under an eccentric (p5): what a margin costs, and a compliant loop
+============================================================================================
+The eccentric must be able to push past the stops by a margin m (frame creep, bearing play,
+shim error: 0.02-0.10 mm [assumption]). Once the stops touch, the loop is squeezed by the
+rest of the travel, so the frame carries F + k m at bottom dead centre (k = loop stiffness
+outside the stops). A doubled contact (a rigid 0.2 mm) meets F + k (m + 0.2).
+crimp force 2.43 kN ('high' case)
+ k kN/mm    m 0.02    m 0.05    m 0.10   doubled, m 0.10
+      40     3.23      4.43      6.43           14.43 kN
+      20     2.83      3.43      4.43            8.43 kN
+      10     2.63      2.93      3.43            5.43 kN
+       5     2.53      2.68      2.93            3.93 kN
+       2     2.47      2.53      2.63            3.03 kN
+-> A stiff loop pays 1.3-2.6x the crimp every stroke for the margin and puts 14 kN into a
+   doubled contact; a loop of 5-10 kN/mm pays 1.05-1.4x and caps the doubled contact at
+   3.9-5.4 kN with no preloaded stack. Height stays on the stops, in a short steel loop at the
+   dies (~670 kN/mm [hand-tool-as-press calc H §4]). Peak shaft torque with the frame's
+   wind-up counted is 1.0-2.3 N*m for loops of 2-40 kN/mm [force-and-form calc
+   exchange_procedure_w3 §3].
+
+A rod spring that sets k when the frame is stiffer than wanted [assumption: DIN 2093 series A
+table values, not fetched]: one A25 disc (25 x 12.2 x 1.5 mm, h0 0.55) carries ~2.9 kN at 75 %
+of its travel (~0.41 mm): ~7 kN/mm, nearly linear; two stacked in series ~3.5 kN/mm.
+  frame 20 kN/mm + rod spring 3.5 kN/mm -> loop  3.0 kN/mm, surplus at m 0.10 0.30 kN
+  frame 20 kN/mm + rod spring 7.0 kN/mm -> loop  5.2 kN/mm, surplus at m 0.10 0.52 kN
+  frame 40 kN/mm + rod spring 3.5 kN/mm -> loop  3.2 kN/mm, surplus at m 0.10 0.32 kN
+  frame 40 kN/mm + rod spring 7.0 kN/mm -> loop  6.0 kN/mm, surplus at m 0.10 0.60 kN
+
+Load cell placement: a 500 kg button cell deflects ~0.05-0.1 mm at full scale (~50-100 kN/mm
+[estimate]). Inside the stop loop (between fin and fin holder) it moves height by:
+  50 kN/mm: +/-6-12 um for +/-300-600 N of scatter
+  100 kN/mm: +/-3-6 um for +/-300-600 N of scatter
+  Under the whole lower die (fin holder and stops together) it is outside the stop loop and
+  sees the stop contact as a sharp rise in stiffness. Foil gauges on a steel member add no
+  compliance at all [Prime: foil strain gauges BF350].
+
+============================================================================================
+5. p7: pushing the slug through pads, and what the pads' squeeze costs
+============================================================================================
+The blades' front faces bear only on the cut caps' end faces: 0.28-0.65 mm2 per conductor,
+which crush at 2-5x silicone's 8-11 MPa before the flanks tear [force-and-form calc
+exchange_procedure_w3 §6]. A pad pair on the slug's top and bottom, travelling with the
+blades, carries the push by friction. The same squeeze presses the jacket onto the strands,
+so the slug's own friction on the strands rises too:
+  net drive per conductor = 2 N (mu_pad - mu_js) + F_cap,  need >= T_tear + S0
+  N = pad force per side per conductor; mu_pad pad on silicone; mu_js silicone on tinned
+  strands; F_cap what the cap faces carry before they crush (8-11 MPa x 0.28-0.65 mm2);
+  T_tear 3-15 N per conductor [digest; wave2 §7]; S0 the unsqueezed slug's friction on its
+  strands, 0.5-3 N [assumption].
+  smooth TPU pad: mu_pad 0.8, mu_js 0.5
+    T  3 N/cond: pad force   6.3 N per side per conductor,    32 N per side for a 5P; pad pressure on ~2.6-3.3 mm2 of crown  1.9- 2.4 MPa
+    T 15 N/cond: pad force  26.3 N per side per conductor,   132 N per side for a 5P; pad pressure on ~2.6-3.3 mm2 of crown  8.0-10.1 MPa
+  grippy TPU pad: mu_pad 1.2, mu_js 0.3
+    T  3 N/cond: pad force   2.1 N per side per conductor,    11 N per side for a 5P; pad pressure on ~2.6-3.3 mm2 of crown  0.6- 0.8 MPa
+    T 15 N/cond: pad force   8.8 N per side per conductor,    44 N per side for a 5P; pad pressure on ~2.6-3.3 mm2 of crown  2.7- 3.4 MPa
+  fine-toothed pad (teeth bite the jacket) [assumption]: mu_pad 2.0, mu_js 0.4
+    T  3 N/cond: pad force   1.2 N per side per conductor,     6 N per side for a 5P; pad pressure on ~2.6-3.3 mm2 of crown  0.4- 0.5 MPa
+    T 15 N/cond: pad force   4.9 N per side per conductor,    25 N per side for a 5P; pad pressure on ~2.6-3.3 mm2 of crown  1.5- 1.9 MPa
+-> Smooth pads need 30-130 N per side on a 5P, and their squeeze presses the jacket onto the
+   strands hard enough to cancel most of what they deliver. Grippy TPU needs 11-44 N per side;
+   pads that bite (fine teeth, or a knurled steel face) 6-25 N. The teeth mark only the slug,
+   which is thrown away.
+
+Slice while pressing: each blade drawn 2-4 mm along its own edge as it closes (an inclined
+slot in the carrier). A sharp edge pressed straight in indents silicone ~0.03-0.25 mm before it
+cuts [force-and-form estimate], comparable to the 0.2-0.3 mm ligament, so a pressed kerf can
+stop short of the steel stop; a sliced one reaches it.
+Lower blade slot: the lower blade rides the carriage +Y 3-4 mm, so either the slot is 3.3-4.3 mm
+long or the floor ahead of the strip line is part of the carriage (a split floor) and the
+lower blade rises through the joint.
+
+============================================================================================
+6. Cycle and person minutes: p1d (fin from below at bench B) and p5c (camshaft turns a knee)
+============================================================================================
+p1d per key [estimate]:
+  index                                                        3 s
+  lift                                                         2 s
+  trim in pose (grounded blade: identity)                      6 s
+  strip in pose                                               15 s
+  look (backlit silhouette)                                    3 s
+  place: post bar -Y                                           5 s
+  fin up, gate in                                              4 s
+  knee to end of curl, pause, identity                         8 s
+  knee to straight (compaction)                                8 s
+  re-touch, read height                                        5 s
+  clear: knee open, gate out, fin down, post bar back          6 s
+  proof pull 20 N                                              5 s
+  lay back, square                                             6 s
+  total 76 s with trim and strip in pose; 55 s when p7 has stripped the end
+  with strip in pose: J1 (9) 11.4 min; unit (53)   67 min
+  after p7: J1 (9)  8.2 min; unit (53)   49 min
+
+Person minutes per unit, wave-2 task library plus cassette tasks [estimate; compare rows]:
+  p1d, hand insertion: 44 min; with bench C gang insertion: 40 min
+  (today by the same library ~46 min; p1 at stage 3 ~36 min [calc person_timeline])
+  The machine calls once a unit if a magazine holds the unit's ten cassettes.
+
+p5c: one shaft turn per key, 40-60 s [estimate]: J1 6-9 min, unit 35-53 min of shaft time.
+  Shaft torque: the knee lobe needs 0.25-1.9 N*m peak plus 0.1-0.3 N*m of knee friction and
+  return spring [force-and-form calc exchange_procedure_w3 §8]; the other cams ~50 N at their
+  followers, ~0.1-0.4 N*m. A 12 V self-locking worm gearmotor, 40 kg*cm (3.9 N*m), 10 rpm
+  [Prime: Greartisan], or a NEMA 17 with a 26.85:1 planetary, 3 N*m permissible, not
+  self-locking [Prime: STEPPERONLINE 17HS19-1684S-PG27], each covers it.
+
+============================================================================================
+7. Consistency: p5b's squeeze lobe against the crimp's work
+============================================================================================
+  lobe 220 N over the last 8 mm of grip: 1.76 J at the handle
+  lobe 275 N over the last 8 mm of grip: 2.20 J at the handle
+  crimp work 0.13-0.48 J [digest; force-and-form stroke_model]
+-> Either the tool's linkage loses 75-90 % or the constant-force assumption overstates the
+   lobe by 2-4x. Either way the motor sizing (2.1-3.2 N*m) errs on the safe side.

@@ -1,0 +1,49 @@
+============================================================================
+1. Force at chosen heights above BDC (N), each case in the family
+============================================================================
+s (mm)          low   central      high  high+cut     steep
+  1.40            5        12        20        20        20
+  1.00           21        52        86        86        86
+  0.80           68       137       219       219       214
+  0.60           94       186       299       299       286
+  0.40          118       228       365       523       344
+  0.30          130       249       399       399       373
+  0.20          141       270       432       432       403
+  0.15          147       280       463       463       417
+  0.10          153       370       682       682       432
+  0.05          310       788      1276      1276       557
+  0.02          556      1259      1890      1890      1251
+  0.00          783      1680      2432      2432      2432
+
+============================================================================
+2. Work per crimp and where it is spent
+============================================================================
+low      : 0.129 J total, 0.051 J (40 %) in the last 0.2 mm
+central  : 0.272 J total, 0.116 J (43 %) in the last 0.2 mm
+high     : 0.437 J total, 0.186 J (43 %) in the last 0.2 mm
+high+cut : 0.477 J total, 0.186 J (39 %) in the last 0.2 mm
+steep    : 0.365 J total, 0.125 J (34 %) in the last 0.2 mm
+
+============================================================================
+3. What a slow stroke changes (bounded, each with its label)
+============================================================================
+flow stress at press speed is ~5 % above quasi-static -> a slow stroke needs ~4.8 % less peak force for the same geometry
+flow stress at press speed is ~7.7 % above quasi-static -> a slow stroke needs ~7.1 % less peak force for the same geometry
+elastic springback scales with flow stress/E: a few % smaller when slow (a thousandth of a mm on ~0.01-0.03 mm) [estimate]
+central: adiabatic upper bound on temperature rise 16 K (at production speed); a stroke of seconds conducts it away [calc]
+high: adiabatic upper bound on temperature rise 26 K (at production speed); a stroke of seconds conducts it away [calc]
+forming travel 0.92 mm in   0.1 s ->    9.200 mm/s (production press ~ 500 mm/s peak)
+forming travel 0.92 mm in   1.0 s ->    0.920 mm/s (production press ~ 500 mm/s peak)
+forming travel 0.92 mm in  10.0 s ->    0.092 mm/s (production press ~ 500 mm/s peak)
+forming travel 0.92 mm in  60.0 s ->    0.015 mm/s (production press ~ 500 mm/s peak)
+inertia: a crank press reaches BDC with ram and flywheel momentum; a slow drive reaches it quasi-statically, so BDC is set only by geometry and stiffness [estimate]
+
+============================================================================
+4. Force/position sensitivity near BDC (matters for stopping rules)
+============================================================================
+low      : F(0)=  783 N  F(0.01)=  663 N  F(0.05)=  310 N  slope near BDC ~ 12.0 kN/mm
+central  : F(0)= 1680 N  F(0.01)= 1458 N  F(0.05)=  788 N  slope near BDC ~ 22.2 kN/mm
+high     : F(0)= 2432 N  F(0.01)= 2147 N  F(0.05)= 1276 N  slope near BDC ~ 28.5 kN/mm
+high+cut : F(0)= 2432 N  F(0.01)= 2147 N  F(0.05)= 1276 N  slope near BDC ~ 28.5 kN/mm
+steep    : F(0)= 2432 N  F(0.01)= 1744 N  F(0.05)=  557 N  slope near BDC ~ 68.8 kN/mm
+-> a stop-at-force rule and a stop-at-position rule differ; see metrology.py

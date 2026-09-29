@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="492" viewBox="0 0 900 492" font-family="Helvetica, Arial, sans-serif" font-size="12">
+<rect width="900" height="492" fill="#ffffff"/>
+<text x="20" y="26" font-size="16" font-weight="bold">Person minutes per unit, and how long the machine runs alone (schematic, [estimate])</text>
+<text x="20" y="44" fill="#555">Blue: attended minutes for the 53 XH crimps and 10 housings. Grey: longest unattended stretch (40 px per hour).</text>
+<text x="20" y="84">today, by hand</text>
+<text x="20" y="98" fill="#777" font-size="10">all of it</text>
+<rect x="330" y="70" width="324.7" height="14" fill="#2a5d9f"/>
+<text x="660.7" y="82">46 min</text>
+<text x="20" y="128">p4 person presents, machine takes</text>
+<text x="20" y="142" fill="#777" font-size="10">present, insert, splay; busy 30 of 54 min</text>
+<rect x="330" y="114" width="380.3" height="14" fill="#2a5d9f"/>
+<text x="716.3" y="126">54 min</text>
+<text x="20" y="172">p1 cassettes + crimp bench</text>
+<text x="20" y="186" fill="#777" font-size="10">cut, peel, lay in, insert</text>
+<rect x="330" y="158" width="249.0" height="14" fill="#2a5d9f"/>
+<text x="585.0" y="170">36 min</text>
+<rect x="330" y="176" width="60.1" height="10" fill="#aaaaaa"/>
+<text x="396.1" y="186" fill="#555" font-size="10">1.5 h alone, 2 call(s)</text>
+<text x="20" y="216">p1b carousel, all benches</text>
+<text x="20" y="230" fill="#777" font-size="10">cut, lay in, label</text>
+<rect x="330" y="202" width="134.2" height="14" fill="#2a5d9f"/>
+<text x="470.2" y="214">19 min</text>
+<rect x="330" y="220" width="87.7" height="10" fill="#aaaaaa"/>
+<text x="423.7" y="230" fill="#555" font-size="10">2.2 h alone, 2 call(s)</text>
+<text x="20" y="260">p2 still ribbon, turret</text>
+<text x="20" y="274" fill="#777" font-size="10">load each end; calls every ~14 min</text>
+<rect x="330" y="246" width="143.5" height="14" fill="#2a5d9f"/>
+<text x="479.5" y="258">20 min</text>
+<rect x="330" y="264" width="9.5" height="10" fill="#aaaaaa"/>
+<text x="345.5" y="274" fill="#555" font-size="10">0.2 h alone, 10 call(s)</text>
+<text x="20" y="304">p3 spool, cut last (per-spool batches)</text>
+<text x="20" y="318" fill="#777" font-size="10">spools, pair 4 housings, label</text>
+<rect x="330" y="290" width="108.7" height="14" fill="#2a5d9f"/>
+<text x="444.7" y="302">16 min</text>
+<rect x="330" y="308" width="223.9" height="10" fill="#aaaaaa"/>
+<text x="559.9" y="318" fill="#555" font-size="10">5.6 h alone, 3 call(s)</text>
+<text x="20" y="348">p3b ribbon AMS, whole unit</text>
+<text x="20" y="362" fill="#777" font-size="10">J4 + J7 crossings, label</text>
+<rect x="330" y="334" width="97.1" height="14" fill="#2a5d9f"/>
+<text x="433.1" y="346">14 min</text>
+<rect x="330" y="352" width="91.1" height="10" fill="#aaaaaa"/>
+<text x="427.1" y="362" fill="#555" font-size="10">2.3 h alone, 2 call(s)</text>
+<text x="20" y="392">p5 camshaft + cassettes</text>
+<text x="20" y="406" fill="#777" font-size="10">as p1</text>
+<rect x="330" y="378" width="249.0" height="14" fill="#2a5d9f"/>
+<text x="585.0" y="390">36 min</text>
+<rect x="330" y="396" width="33.6" height="10" fill="#aaaaaa"/>
+<text x="369.6" y="406" fill="#555" font-size="10">0.8 h alone, 2 call(s)</text>
+<text x="20" y="472" fill="#555" font-size="11">Scale: blue 7 px per attended minute; grey 40 px per unattended hour. Durations are estimates (calc/person_timeline.py).</text>
+</svg>

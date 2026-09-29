@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 900" font-family="Helvetica, Arial, sans-serif" font-size="13">
+  <rect width="1000" height="900" fill="#ffffff"/>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#c0392b"/>
+    </marker>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2e7d32"/>
+    </marker>
+    <pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="7" stroke="#aaa" stroke-width="2"/>
+    </pattern>
+  </defs>
+  <text x="20" y="28" font-size="17" font-weight="bold" fill="#111">i2 (K1) — crimp the contact in its own cavity, then push it home (schematic)</text>
+  <text x="20" y="48" fill="#444">Side section through cavity n at ~25 px per mm, drawn with the box 1.4 mm in the entry, transition t = 0.7 mm and a 0.9 mm lance (both unmeasured).</text>
+  <text x="20" y="66" fill="#444">Y runs left to right toward the mating face; Z up; barrels open up, lance and windows down.</text>
+  <text x="20" y="84" fill="#444">Numbers: calc/wave2.out.txt section G; calc/wave3.out.txt sections A, B, H; force-and-form calc/on_into_the_housing.out.txt.</text>
+
+  <!-- Housing section: rear face x=560, mating face x=754; cavity floor y=300, ceiling y=239 -->
+  <rect x="560" y="224" width="194" height="15" fill="url(#hatch)" stroke="#333"/>
+  <rect x="560" y="300" width="194" height="20" fill="url(#hatch)" stroke="#333"/>
+  <rect x="739" y="239" width="15" height="61" fill="url(#hatch)" stroke="#333"/>
+  <rect x="739" y="262" width="15" height="16" fill="#ffffff" stroke="#333"/>
+  <path d="M655,300 L668,320 L700,320 L700,300 z" fill="#ffffff" stroke="#333"/>
+  <text x="600" y="214" fill="#222">XHP housing (7.75 mm along Y)</text>
+  <text x="760" y="274" fill="#222">post opening</text>
+  <text x="762" y="314" fill="#333">window, lance</text>
+  <text x="762" y="330" fill="#333">shoulder (assumed)</text>
+  <line x1="560" y1="190" x2="560" y2="430" stroke="#1f5fa8" stroke-dasharray="5 4"/>
+  <text x="566" y="402" fill="#1f5fa8">rear face</text>
+  <!-- floating nest springs -->
+  <path d="M600,320 l0,6 l-6,4 l12,6 l-12,6 l12,6 l-6,4 l0,6" fill="none" stroke="#1f5fa8" stroke-width="1.5"/>
+  <path d="M700,320 l0,6 l-6,4 l12,6 l-12,6 l12,6 l-6,4 l0,6" fill="none" stroke="#1f5fa8" stroke-width="1.5"/>
+  <rect x="580" y="358" width="150" height="8" fill="#cfd8e6" stroke="#1f5fa8"/>
+  <text x="742" y="366" fill="#1f5fa8">nest floats in X and Z on light springs,</text>
+  <text x="742" y="382" fill="#1f5fa8">located in Y only: steel is the master</text>
+
+  <!-- Wire: insulated OD 1.7 mm = 42 px, centre y=274; conductor bundle 0.72 mm = 18 px, centre y=286 -->
+  <path d="M90,274 C170,274 190,190 250,190 C310,190 330,274 400,274 L485,274" fill="none" stroke="#111" stroke-width="42"/>
+  <line x1="485" y1="286" x2="532" y2="286" stroke="#b87333" stroke-width="18"/>
+  <path d="M175,300 L250,214 L325,300 z" fill="#e9d8a6" stroke="#9a7d2e"/>
+  <text x="150" y="325" fill="#7a5c10">saddle: its hump stores the ~5 mm push</text>
+  <rect x="40" y="240" width="50" height="68" fill="#8a8a8a" stroke="#222"/>
+  <text x="30" y="330" fill="#222">web clamp</text>
+  <!-- hump lever -->
+  <rect x="232" y="150" width="36" height="18" fill="#9fd19f" stroke="#2e7d32"/>
+  <line x1="250" y1="140" x2="250" y2="149" stroke="#2e7d32" stroke-width="2" marker-end="url(#ag)"/>
+  <text x="30" y="104" fill="#2e7d32">hump presser: 1 mm down on the hump moves</text>
+  <text x="30" y="120" fill="#2e7d32">the stripped tip ~2 mm +Y. Pressed by what the</text>
+  <text x="30" y="136" fill="#2e7d32">camera measured; stays down until the crimp is done</text>
+
+  <!-- Contact, open. front x=595, box 545-595, transition 527.5-545, cond barrel 490-527.5, window 480-490, ins barrel 447.5-480, tab 443-447.5 -->
+  <rect x="545" y="240" width="50" height="60" fill="#e6c35c" stroke="#6b4f00"/>
+  <text x="554" y="275" fill="#6b4f00">box</text>
+  <rect x="527.5" y="295" width="17.5" height="5" fill="#d4a017" stroke="#6b4f00"/>
+  <path d="M490,300 L490,261 L494,261 L494,295 L523.5,295 L523.5,261 L527.5,261 L527.5,300 z" fill="#d4a017" stroke="#6b4f00"/>
+  <rect x="480" y="295" width="10" height="5" fill="#d4a017" stroke="#6b4f00"/>
+  <path d="M447.5,300 L447.5,227 L451.5,227 L451.5,295 L476,295 L476,227 L480,227 L480,300 z" fill="#d4a017" stroke="#6b4f00"/>
+  <rect x="443" y="295" width="4.5" height="5" fill="#d4a017" stroke="#6b4f00"/>
+  <!-- lance: root 556.5 (outside the rear face), tip 534, 0.68 mm below -->
+  <line x1="556.5" y1="300" x2="534" y2="317" stroke="#6b4f00" stroke-width="3"/>
+  <text x="566" y="440" fill="#6b4f00">lance hangs free ahead of the anvil's front edge;</text>
+  <text x="566" y="456" fill="#6b4f00">its root is still outside the entry</text>
+  <line x1="536" y1="318" x2="562" y2="436" stroke="#6b4f00" stroke-width="1"/>
+
+  <!-- Anvil: front edge 531.5 (behind the lance tip by 0.1 mm, ahead of the barrel front) -->
+  <rect x="440" y="300" width="91.5" height="92" fill="#b0b8c4" stroke="#334"/>
+  <rect x="518" y="300" width="13.5" height="30" fill="none" stroke="#334" stroke-dasharray="3 2"/>
+  <text x="238" y="352" fill="#223">anvil (rises through a slot</text>
+  <text x="238" y="368" fill="#223">in the lance-grooved feed plate)</text>
+  <text x="120" y="412" fill="#555">dashed: a lance slot, if t is shorter than ~0.5 mm</text>
+
+  <!-- Backstop / proof fork, bearing on the tab stub from below the wire -->
+  <rect x="436" y="296" width="6" height="40" fill="#555"/>
+  <text x="20" y="486" fill="#333">backstop under the wire bears on the tab stub: it keeps the contact from backing out, and after the crimp the</text>
+  <text x="20" y="502" fill="#333">pads grip conductor n and pull −Y to ~20 N against it (proof pull), before the push. After the push, a 5 N tug tests the latch.</text>
+  <line x1="438" y1="338" x2="470" y2="472" stroke="#333" stroke-width="1"/>
+
+  <!-- Crimper, stepped, coming down: insulation step over 447.5-480, conductor step over 490-527.5 -->
+  <path d="M442,86 L536,86 L536,176 L528,176 L528,232 L490,232 L490,196 L481,196 L481,200 L447,200 L447,176 L442,176 z" fill="#b0b8c4" stroke="#334"/>
+  
+  <line x1="509" y1="140" x2="509" y2="224" stroke="#c0392b" stroke-width="2" marker-end="url(#ar)"/>
+  <text x="600" y="110" fill="#223">crimper: conductor step 3.1 mm wide (0.8 mm walls),</text>
+  <text x="600" y="126" fill="#223">insulation step 2.5-2.7 mm; closed by a knee inside a</text>
+  <text x="600" y="142" fill="#223">steel C beside the row (throat ~30 mm): knee straight =</text>
+  <text x="600" y="158" fill="#223">dies touching. Frame stretch costs only travel.</text>
+  <text x="600" y="176" fill="#2e7d32">sprung hold-down pad in the insulation step's channel</text>
+  <text x="600" y="192" fill="#2e7d32">holds the conductor down once the presser foot lifts</text>
+  <rect x="456" y="200" width="18" height="7" fill="#9fd19f" stroke="#2e7d32"/>
+  <path d="M465,178 l-4,3 l8,4 l-8,4 l8,4 l-8,4 l4,3" fill="none" stroke="#2e7d32" stroke-width="1.2"/>
+
+  <text x="20" y="530" fill="#c0392b">Insulation step mouth ~2.3-2.6 mm: clone open wings (2.46-3.25 mm) need the seated neighbour's jacket pushed aside (up to 0.33 mm,</text>
+  <text x="20" y="546" fill="#c0392b">chamfered outer face) or a pre-formed keyhole (k7). See insulation-mouth.svg and calc/wave3.out.txt section A.</text>
+  <!-- End view at the conductor crimp, 40 px per mm; centre x=700, floor y=720 -->
+  <text x="20" y="572" font-weight="bold" fill="#111">End view at the conductor crimp, bottom of stroke (~40 px per mm), looking +Y</text>
+  <!-- anvil block with shoulders 0.3 mm below the floor -->
+  <path d="M620,820 L620,732 L670,732 L670,720 L730,720 L730,732 L780,732 L780,820 z" fill="#b0b8c4" stroke="#334"/>
+  <!-- crimper walls landing on the shoulders -->
+  <path d="M638,600 L638,732 L670,732 L670,690 Q685,676 700,690 Q715,676 730,690 L730,732 L762,732 L762,600 z" fill="#8c96a4" stroke="#223"/>
+  <rect x="620" y="578" width="160" height="24" fill="#8c96a4" stroke="#223"/>
+  <!-- crimped conductor barrel -->
+  <path d="M670,720 L670,692 Q685,680 700,692 Q715,680 730,692 L730,720 z" fill="#d4a017" stroke="#6b4f00"/>
+  <!-- seated neighbour wire, centre 2.5 mm to the left, 1.05 mm up -->
+  <circle cx="600" cy="678" r="34" fill="#222"/>
+  <circle cx="600" cy="678" r="14" fill="#b87333"/>
+  <text x="400" y="640" fill="#222">seated neighbour n−1's wire:</text>
+  <text x="400" y="656" fill="#222">0.1 mm from the crimper wall</text>
+  <text x="400" y="672" fill="#222">at its equator (3.30 mm free)</text>
+  <text x="800" y="640" fill="#555">conductor n+1 waits high on its</text>
+  <text x="800" y="656" fill="#555">saddle; this side is free</text>
+  <text x="800" y="740" fill="#223">anvil shoulders below the floor</text>
+  <text x="800" y="756" fill="#223">carry the crimper walls: the dies</text>
+  <text x="800" y="772" fill="#223">bottom on each other, so crimp</text>
+  <text x="800" y="788" fill="#223">height is die geometry. Surplus</text>
+  <text x="800" y="804" fill="#223">force capped near 1 kN.</text>
+  <line x1="638" y1="848" x2="762" y2="848" stroke="#1f5fa8" stroke-width="2"/>
+  <line x1="638" y1="840" x2="638" y2="856" stroke="#1f5fa8" stroke-width="2"/>
+  <line x1="762" y1="840" x2="762" y2="856" stroke="#1f5fa8" stroke-width="2"/>
+  <text x="662" y="874" fill="#1f5fa8">3.1 mm</text>
+  <text x="20" y="892" fill="#444">Decisive and unmeasured: the transition t and the lance tip, on one kit contact photographed side-on. The same inequality governs the SN-2549 (calc wave2 G).</text>
+</svg>

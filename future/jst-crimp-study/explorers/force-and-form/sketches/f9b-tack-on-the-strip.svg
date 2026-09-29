@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 640" width="880" height="640" role="img" aria-labelledby="t d">
+<title id="t">f9b tack on the strip, schematic</title>
+<desc id="d">Left: a strip segment on slot pins with a hardened rail under the insulation barrels; the ribbon pallet docks on balls so every conductor drops into its contact; a tack comb closes the insulation barrels loosely and a shear under the carrier cuts the tabs. Right: the heavy station, a fixed steel C with a keyed nest on a narrow post; a stage lowers each tacked contact into the nest.</desc>
+<style>
+.bg{fill:#fcfcfb}
+text{font-family:system-ui,-apple-system,Segoe UI,Helvetica,Arial,sans-serif;fill:#0b0b0b;font-size:12px}
+.t2{fill:#52514e;font-size:11px}.h{font-size:15px;font-weight:600}.sm{font-size:10px;fill:#52514e}
+.steel{fill:#c9c8c2;stroke:#52514e;stroke-width:1.2}
+.dark{fill:#8f8e88;stroke:#3d3c39;stroke-width:1.2}
+.bought{fill:#dcdad2;stroke:#52514e;stroke-width:1.2;stroke-dasharray:4 2}
+.print{fill:#cde2fb;stroke:#2a78d6;stroke-width:1.2}
+.contact{fill:#eda100;stroke:#7a5300;stroke-width:1}
+.wire{stroke:#eb6834;stroke-width:4;fill:none;stroke-linecap:round}
+.wirefill{fill:#eb6834;stroke:#8c3a17;stroke-width:1}
+.strand{stroke:#8c3a17;stroke-width:1;fill:none}
+.force{stroke:#e34948;stroke-width:2.5;fill:none}
+.forcefill{fill:#e34948}
+.move{stroke:#2a78d6;stroke-width:1.8;fill:none;stroke-dasharray:5 3}
+.movefill{fill:#2a78d6}
+.ln{stroke:#52514e;stroke-width:1.2;fill:none}
+.thin{stroke:#8a8984;stroke-width:1;fill:none;stroke-dasharray:3 3}
+.box{fill:none;stroke:#8a8984;stroke-width:1}
+@media (prefers-color-scheme: dark){
+.bg{fill:#1a1a19} text{fill:#ffffff} .t2,.sm{fill:#c3c2b7}
+.steel{fill:#4a4a47;stroke:#c3c2b7}.dark{fill:#6b6a66;stroke:#d8d7d0}
+.bought{fill:#33332f;stroke:#c3c2b7}.print{fill:#1c3a5e;stroke:#3987e5}
+.contact{fill:#c98500;stroke:#f3c56a}.wire{stroke:#d95926}.wirefill{fill:#d95926;stroke:#f0a07e}
+.strand{stroke:#f0a07e}.force{stroke:#e66767}.forcefill{fill:#e66767}
+.move{stroke:#3987e5}.movefill{fill:#3987e5}.ln{stroke:#c3c2b7}.thin{stroke:#8a8984}.box{stroke:#6b6a66}}
+</style>
+<defs><marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="forcefill" d="M0,0 L10,5 L0,10 z"/></marker><marker id="am" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="movefill" d="M0,0 L10,5 L0,10 z"/></marker></defs>
+<rect class="bg" width="880" height="640"/>
+<text class="h" x="20" y="28" text-anchor="start">f9b  Tack on the strip: dock, tack, cut the tabs, then crimp one at a time in a keyed nest</text>
+<text class="t2" x="20" y="46" text-anchor="start">schematic, not to scale</text>
+<rect class="box" x="20" y="60" width="420" height="360" rx="0"/>
+<text class="t2" x="30" y="78" text-anchor="start">Tack-and-shear block, side section at one contact</text>
+<rect class="steel" x="40" y="300" width="380" height="30" rx="0"/>
+<text class="sm" x="46" y="344" text-anchor="start">strip pallet (steel plate, slot pins in the carrier)</text>
+<rect class="contact" x="290" y="284" width="110" height="6" rx="0"/>
+<text class="sm" x="318" y="278" text-anchor="start">carrier on slot pins</text>
+<rect class="contact" x="268" y="286" width="22" height="4" rx="0"/>
+<rect class="dark" x="236" y="290" width="32" height="10" rx="0"/>
+<text class="sm" x="40" y="364" text-anchor="start">rail under the insulation barrels only (3 x 3 HSS);</text>
+<text class="sm" x="40" y="376" text-anchor="start">its rear edge is the shear edge</text>
+<line class="thin" x1="250" y1="354" x2="252" y2="300"/>
+<rect class="contact" x="236" y="262" width="32" height="24" rx="0"/>
+<rect class="contact" x="190" y="272" width="34" height="14" rx="0"/>
+<rect class="contact" x="140" y="262" width="44" height="24" rx="0"/>
+<polyline class="ln" points="178,286 170,300"/>
+<text class="sm" x="120" y="312" text-anchor="start">lance hangs free</text>
+<line class="strand" x1="190" y1="276" x2="236" y2="276"/>
+<line class="wire" x1="236" y1="272" x2="300" y2="272"/>
+<polyline class="wire" points="300,272 330,240 420,240"/>
+<rect class="print" x="330" y="206" width="90" height="30" rx="3"/>
+<text class="sm" x="334" y="198" text-anchor="start">ribbon pallet (fan block)</text>
+<circle class="dark" cx="360" cy="244" r="5"/>
+<circle class="dark" cx="400" cy="244" r="5"/>
+<text class="sm" x="344" y="260" text-anchor="start">balls in V-grooves</text>
+<rect class="steel" x="234" y="150" width="36" height="104" rx="0"/>
+<text class="sm" x="40" y="150" text-anchor="start">tack comb: loose insulation profile</text>
+<text class="sm" x="40" y="162" text-anchor="start">per contact, to a steel stop;</text>
+<text class="sm" x="40" y="174" text-anchor="start">stays down as the pad while</text>
+<text class="sm" x="40" y="186" text-anchor="start">the shear cuts</text>
+<line class="force" x1="252" y1="120" x2="252" y2="146" marker-end="url(#af)"/>
+<text class="sm" x="262" y="134" text-anchor="start">toggle lever</text>
+<rect class="bought" x="276" y="300" width="30" height="26" rx="2"/>
+<line class="force" x1="292" y1="336" x2="292" y2="318" marker-end="url(#af)"/>
+<text class="sm" x="40" y="396" text-anchor="start">shear drives the carrier down past the rail edge: each tab 53-104 N; the contact</text>
+<text class="sm" x="40" y="408" text-anchor="start">sees at most the tab's plastic moment, held by the comb at its stop (2-8 N)</text>
+<rect class="box" x="460" y="60" width="400" height="360" rx="0"/>
+<text class="t2" x="470" y="78" text-anchor="start">Heavy station, side section (throat toward the wire)</text>
+<rect class="steel" x="760" y="100" width="30" height="260" rx="0"/>
+<rect class="steel" x="610" y="100" width="150" height="24" rx="0"/>
+<rect class="steel" x="610" y="336" width="150" height="24" rx="0"/>
+<text class="sm" x="760" y="94" text-anchor="start">spine</text>
+<polyline class="ln" points="720,124 704,150 688,124"/>
+<circle class="dark" cx="704" cy="150" r="4"/>
+<text class="sm" x="716" y="150" text-anchor="start">knee</text>
+<rect class="dark" x="660" y="150" width="40" height="70" rx="0"/>
+<rect class="dark" x="620" y="160" width="38" height="60" rx="0"/>
+<text class="sm" x="472" y="100" text-anchor="start">conductor crimper (knee);</text>
+<text class="sm" x="472" y="112" text-anchor="start">insulation blade on its</text>
+<text class="sm" x="472" y="124" text-anchor="start">own drive and wedge (f6)</text>
+<rect class="steel" x="646" y="262" width="90" height="74" rx="0"/>
+<rect class="bg" x="690" y="244" width="44" height="18" rx="0"/>
+<rect class="contact" x="694" y="244" width="36" height="18" rx="0"/>
+<rect class="contact" x="662" y="250" width="26" height="12" rx="0"/>
+<rect class="contact" x="622" y="240" width="36" height="22" rx="0"/>
+<line class="strand" x1="662" y1="254" x2="690" y2="254"/>
+<line class="wire" x1="520" y1="250" x2="662" y2="250"/>
+<rect class="dark" x="688" y="226" width="4" height="22" rx="0"/>
+<text class="sm" x="472" y="156" text-anchor="start">neck blade: after the crimp,</text>
+<text class="sm" x="472" y="168" text-anchor="start">for the 20 N pull</text>
+<polyline class="thin" points="610,162 688,230"/>
+<text class="sm" x="610" y="378" text-anchor="start">keyed nest on a narrow post: box slot, front</text>
+<text class="sm" x="610" y="390" text-anchor="start">stop, lance relief; load cell under the anvils</text>
+<rect class="print" x="480" y="234" width="40" height="30" rx="3"/>
+<text class="sm" x="472" y="284" text-anchor="start">ribbon pallet on an XYZ stage</text>
+<line class="move" x1="570" y1="206" x2="570" y2="240" marker-end="url(#am)"/>
+<text class="sm" x="500" y="200" text-anchor="start">lowered straight down</text>
+<text class="sm" x="472" y="310" text-anchor="start">neighbours hang one strip</text>
+<text class="sm" x="472" y="322" text-anchor="start">pitch (~7 mm) away,</text>
+<text class="sm" x="472" y="334" text-anchor="start">beside the post</text>
+<text class="t2" x="30" y="450" text-anchor="start">1 lay N + 2 contacts of strip on the slot pins   2 dock the ribbon pallet: every conductor drops into its open contact;</text>
+<text class="t2" x="30" y="466" text-anchor="start">   the far end reads each conductor to the grounded carrier   3 tack lever to its stop   4 shear lever   5 lift: contacts hang by their tacks</text>
+<text class="t2" x="30" y="482" text-anchor="start">6 at the heavy station: into the nest vertically (tack loaded across the jacket), capture, look, identity (only k reads)</text>
+<text class="t2" x="30" y="498" text-anchor="start">7 knee to straight, re-touch height   8 insulation blade to this wire's window   9 neck blade, pull 20 N against the web clamp</text>
+<text class="t2" x="30" y="514" text-anchor="start">10 bend down over the anvil's radiused rear edge, look   11 eject, index one strip pitch.   ~14 calls per unit.</text>
+<rect class="steel" x="30" y="550" width="14" height="12" rx="0"/>
+<text class="sm" x="50" y="560" text-anchor="start">steel (force path, dies)</text>
+<rect class="print" x="205" y="550" width="14" height="12" rx="0"/>
+<text class="sm" x="225" y="560" text-anchor="start">printed</text>
+<rect class="bought" x="380" y="550" width="14" height="12" rx="0"/>
+<text class="sm" x="400" y="560" text-anchor="start">bought motion / sensing</text>
+<rect class="contact" x="555" y="550" width="14" height="12" rx="0"/>
+<text class="sm" x="575" y="560" text-anchor="start">XH contact</text>
+<line class="wire" x1="730" y1="556" x2="752" y2="556"/>
+<text class="sm" x="758" y="560" text-anchor="start">conductor</text>
+<text class="t2" x="30" y="590" text-anchor="start">ribbon-as-pallet a2 (docking on strip) x change-the-question c1b (tack) x force-and-form f3/f6 (knee, second blade) and f9.</text>
+</svg>

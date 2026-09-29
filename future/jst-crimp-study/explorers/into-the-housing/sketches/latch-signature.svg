@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" font-family="Helvetica, Arial, sans-serif" font-size="13">
+  <rect width="900" height="520" fill="#ffffff"/>
+  <text x="20" y="28" font-size="17" font-weight="bold" fill="#111">What a latch should look like to a slow pusher (schematic: expected shape, not measured)</text>
+  <text x="20" y="48" fill="#444">Force on the pusher against its travel, one contact, pushed at ~0.2 mm/s with a 5 kg bar cell at 80 SPS (~400 samples per mm).</text>
+  <!-- axes: x 100..800 for 0..7 mm (100 px/mm); y zero at 330, 10 px per N -->
+  <line x1="100" y1="330" x2="820" y2="330" stroke="#333"/>
+  <line x1="100" y1="90" x2="100" y2="395" stroke="#333"/>
+  <text x="780" y="352" fill="#333">travel, mm</text>
+  <text x="30" y="100" fill="#333">push</text>
+  <text x="30" y="116" fill="#333">force</text>
+  <text x="40" y="398" fill="#333">pull</text>
+  <g font-size="11" fill="#555">
+    <text x="96" y="346">0</text><text x="196" y="346">1</text><text x="296" y="346">2</text><text x="396" y="346">3</text>
+    <text x="496" y="346">4</text><text x="596" y="346">5</text><text x="696" y="346">6</text>
+    <text x="66" y="334">0</text><text x="60" y="284">5 N</text><text x="54" y="234">10 N</text><text x="54" y="184">15 N</text><text x="54" y="384">-5 N</text>
+  </g>
+  <g stroke="#eee"><line x1="100" y1="280" x2="820" y2="280"/><line x1="100" y1="230" x2="820" y2="230"/><line x1="100" y1="180" x2="820" y2="180"/><line x1="100" y1="380" x2="820" y2="380"/></g>
+  <!-- curve -->
+  <path d="M100,328 L230,326 C260,322 280,262 330,258 L520,262 C528,262 530,300 540,312 L612,314 C625,300 632,220 640,183" fill="none" stroke="#1f5fa8" stroke-width="3"/>
+  <line x1="100" y1="183" x2="820" y2="183" stroke="#c0392b" stroke-dasharray="6 4"/>
+  <text x="560" y="176" fill="#c0392b">force limit ~15 N: stop (spring trip or software)</text>
+  <text x="120" y="310" fill="#1f5fa8">box slides in</text>
+  <text x="250" y="244" fill="#1f5fa8">lance folds and drags</text>
+  <text x="440" y="296" fill="#1f5fa8">snap:</text>
+  <text x="440" y="312" fill="#1f5fa8">force drops</text>
+  <text x="652" y="240" fill="#1f5fa8">box bottoms: a wall</text>
+  <!-- pull back -->
+  <path d="M640,330 L640,380" stroke="#2e7d32" stroke-width="3"/>
+  <text x="650" y="372" fill="#2e7d32">pull back 5 N: latched, &lt; 0.2 mm</text>
+  <path d="M640,330 C620,340 560,346 470,348" fill="none" stroke="#999" stroke-width="3" stroke-dasharray="6 4"/>
+  <text x="300" y="366" fill="#777">not latched: slides back at ~1 N</text>
+  <text x="20" y="430" fill="#444">Sizes on this trace are placeholders: the 14.7 N limit echoes Molex Mini-SPOX's insertion maximum; XH's own figures are licence-gated.</text>
+  <text x="20" y="448" fill="#444">What the machine looks for is the order and the shape: a rise, a drop, a wall, and a pull that does not move.</text>
+  <text x="20" y="466" fill="#444">Other ways to hear the same snap: a $0.95 piezo disc on the nest (structure-borne click), or post continuity on a real header.</text>
+  <text x="20" y="484" fill="#444">Numbers: calc/insertion_geometry.out.txt sections 6 and 1.</text>
+</svg>

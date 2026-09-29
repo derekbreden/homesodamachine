@@ -1,0 +1,158 @@
+
+==============================================================================
+1. Copper set: a conductor pressed down (p1/p5 presser) or lifted (p2 selector, a3 lifter)
+==============================================================================
+strand yield 60 MPa: yield radius  76.7 mm, bundle plastic moment 0.31 N*mm
+strand yield 120 MPa: yield radius  38.3 mm, bundle plastic moment 0.61 N*mm
+EI copper (strands free to slip) 13.9 N*mm^2; silicone 2-6 MPa adds 0.8-2.4
+
+Cantilever from the comb face (free length L), tip pushed a distance delta, released.
+Small-deflection theory, so figures at delta/L > 0.4 are rough [estimate].
+ L mm  delta  sy MPa  E_sil   F mN  resid mm  kept %  pull-back mm
+   10    4.0      60      2     48      2.90      73          0.46
+   10    4.0      60      6     70      2.57      64          0.37
+   10    4.0     120      2     81      2.17      54          0.25
+   10    4.0     120      6    104      1.87      47          0.19
+   10    7.0      60      2     58      5.69      81          1.78
+   10    7.0      60      6     93      5.08      73          1.47
+   10    7.0     120      2     93      4.89      70          1.28
+   10    7.0     120      6    131      4.30      61          1.03
+   15    4.0      60      2     26      1.99      50          0.14
+   15    4.0      60      6     33      1.71      43          0.11
+   15    4.0     120      2     43      0.68      17          0.02
+   15    4.0     120      6     50      0.57      14          0.01
+   15    7.0      60      2     30      4.70      67          0.79
+   15    7.0      60      6     42      4.12      59          0.62
+   15    7.0     120      2     51      3.11      44          0.34
+   15    7.0     120      6     63      2.65      38          0.25
+   20    4.0      60      2     17      0.93      23          0.02
+   20    4.0      60      6     20      0.78      19          0.02
+   20    4.0     120      2     22      0.00       0          0.00
+   20    4.0     120      6     24      0.00       0          0.00
+   20    7.0      60      2     20      3.44      49          0.31
+   20    7.0      60      6     25      2.96      42          0.24
+   20    7.0     120      2     32      1.14      16          0.03
+   20    7.0     120      6     37      0.96      14          0.02
+   30    4.0      60      2      7      0.00       0          0.00
+   30    4.0      60      6      7      0.00       0          0.00
+   30    4.0     120      2      7      0.00       0          0.00
+   30    4.0     120      6      7      0.00       0          0.00
+   30    7.0      60      2     10      0.74      11          0.01
+   30    7.0      60      6     12      0.63       9          0.01
+   30    7.0     120      2     11      0.00       0          0.00
+   30    7.0     120      6     13      0.00       0          0.00
+-> below ~30 mm of free length a 4-7 mm press or lift keeps most of itself: the
+   conductor comes back down (or up) by several millimetres and its tip sits short by
+   a few tenths to over a millimetre. In p1/p5 every conductor is pressed down N-1
+   times before its own turn (8 times on J1's ninth key); in p2/a3 each is lifted
+   once, just before its own crimp.
+
+==============================================================================
+2. What lies behind the strip line on a side-feed contact (p1/p5 fork at 3 mm)
+==============================================================================
+clone dimensions [xh-facts §1]: window 0.5-0.8, insulation barrel 0.8-1.5, tab 0.7-1.15
+  window 0.50, ins. barrel 0.80, tab 0.70: insulation barrel 0.25-1.05 mm behind the strip line; tab 1.05-1.75; carrier edge (shear line) at 1.75
+  window 0.65, ins. barrel 1.15, tab 0.90: insulation barrel 0.33-1.47 mm behind the strip line; tab 1.47-2.38; carrier edge (shear line) at 2.38
+  window 0.80, ins. barrel 1.50, tab 1.15: insulation barrel 0.40-1.90 mm behind the strip line; tab 1.90-3.05; carrier edge (shear line) at 3.05
+-> a fork 3 mm behind the strip line sits over the tab or the carrier edge, the line
+   where the applicator's floating shear and its punch act [study: exchange
+   borrowed-machines--on--ribbon-as-pallet, MKS-L manual]. p5 keeps the fork closed
+   from 30 to 330 deg, through the punch stroke at 170-240 deg.
+Free length from fork to strand tip, and the tip wander under a light 0.02 N brush
+(EI 14.1-18.1 N*mm^2 [study: procedure-is-the-machine calc/selector_and_bow §4]):
+  fork 3 mm behind the strip line -> 5.4 mm free -> wander 0.06-0.07 mm
+  fork 5 mm behind the strip line -> 7.4 mm free -> wander 0.15-0.19 mm
+  fork 6 mm behind the strip line -> 8.4 mm free -> wander 0.22-0.28 mm
+  lateral window: insulation into the narrowest clone insulation barrel +/-0.33 mm
+
+==============================================================================
+3. p4 proof pull while the punch holds the crimp at bottom dead centre
+==============================================================================
+If the dies still clamp the barrels, the pull meets die friction before it meets the
+crimp's own grip. Friction on the barrels = mu x residual die force.
+  die force held N   mu 0.15    mu 0.3    mu 0.5   vs proof 15-20 N
+                50         8        15        25
+               200        30        60       100
+               800       120       240       400
+              2000       300       600      1000
+-> above ~100 N of held die force, a crimp with no grip of its own passes a 20 N pull.
+   Holding at the hard stop leaves most of the 0.8-2.6 kN in the loop. The pull has to
+   go through the box (hook or blade in the neck, dies open), as p1 and p5 do.
+
+==============================================================================
+4. p5 with a die stop plus a preloaded disc-spring stack in the rod
+==============================================================================
+Without a stop (p5 as written): crimp height moves by force scatter / loop stiffness.
+  loop  5 kN/mm: +/-300 N -> +/-  60 um; +/-600 N -> +/- 120 um
+  loop 10 kN/mm: +/-300 N -> +/-  30 um; +/-600 N -> +/-  60 um
+  loop 15 kN/mm: +/-300 N -> +/-  20 um; +/-600 N -> +/-  40 um
+  loop 30 kN/mm: +/-300 N -> +/-  10 um; +/-600 N -> +/-  20 um
+With a stop: steel stop blocks beside the punch (10 x 10 mm, 30 mm long loop through
+  the punch holder and anvil holder) are ~667 kN/mm; +/-600 N -> +/-0.9 um.
+  The frame then only has to deliver the dies to the stop, through the crimp force.
+  Die contact must happen early enough in the crank that the frame's deflection at
+  crimp force (plus 0.1 mm margin into the stack) is used up before BDC:
+  e = 2.5 mm, crimp force at die closure 2.6 kN, NEMA17+30:1 = 3.1 N*m, +50:1 = 4.5 N*m
+ frame kN/mm  overtravel mm  crank deg  torque N*m
+           2           1.40         64        5.84
+           5           0.62         41        4.28
+          10           0.36         31        3.36
+          20           0.23         25        2.72
+          40           0.17         21        2.32
+-> with a stop, crimp height no longer depends on loop stiffness. The frame still has
+   to be ~10 kN/mm or stiffer for a NEMA 17 through a 50:1 worm to finish the stroke,
+   because a soft frame moves the crimp force away from bottom dead centre where the
+   eccentric has little advantage. The stack caps an obstruction at preload + travel.
+
+==============================================================================
+5. Combination p5 x a1: the camshaft squeezes a hand tool's handle
+==============================================================================
+Handle need <= 220 N, rising only over the last ~8 mm of grip travel (die compaction
+magnified 15-40x); approach ~45 mm at a light return-spring load (~20 N) [estimate].
+                        lobe  lift mm   deg  dr/dtheta mm/rad  force N  torque N*m
+                    approach       45   120              21.5       20        0.43
+                     squeeze        8    40              11.5      220        2.52
+  squeeze, spring link 275 N        8    40              11.5      275        3.15
+            squeeze, gentler        8    60               7.6      220        1.68
+  cam radius: base 30 mm + 53 mm lift -> ~83 mm, a ~170 mm plate cam, or a 4:1 lever
+  (cam lift 13 mm at 4x the force, same torque).
+  follower 16 mm dia x 8 mm on PET-CF (E ~5 GPa), 275 N: Hertz line contact ~83 MPa
+  follower 16 mm dia x 16 mm on PET-CF (E ~5 GPa), 275 N: Hertz line contact ~58 MPa
+-> a NEMA 17 through p5's 30:1 worm (3.1 N*m) turns a squeeze lobe spread over ~40 deg;
+   a PET-CF lobe is near its compressive limit under a narrow roller, so the squeeze
+   lobe wants a wide roller or a steel insert. The spring link caps die force at
+   ~1.25x the handle need if the tool jams (procedure-is-the-machine exchange calc §4).
+
+==============================================================================
+6. Axial chain: insulation edge in the window, with the contact's own reference added
+==============================================================================
+p1 chain without lift scatter (k is never lifted in p1): RSS +/-0.21 mm
+  + contact located by pilot hole on a pin (strip)              +/-0.075 -> RSS +/-0.23
+  + contact located by box rear shoulder on a blade             +/-0.080 -> RSS +/-0.23
+  + contact located by box front on a stop (loose kit contact)  +/-0.250 -> RSS +/-0.33
+with the bare length measured by the ELP camera (0.02 mm/px) and the cassette or the
+tool moved in Y to put the insulation edge mid-window (strip term -> +/-0.03):
+  contact by pilot hole on a pin (strip)              -> RSS +/-0.11
+  contact by box rear shoulder on a blade             -> RSS +/-0.11
+  contact by box front on a stop (loose kit contact)  -> RSS +/-0.26
+  usable window about +/-0.3 mm [study: procedure-is-the-machine calc/transfer_capture §3]
+-> a loose kit contact referenced by its box front uses most of the window by itself;
+   the box's rear shoulder (a blade in the neck) or the pilot hole keeps it small.
+   Measuring the bare length and correcting in Y removes the dominant strip term.
+
+==============================================================================
+7. p4 with a hand-tool head: cycle and the person's wait
+==============================================================================
+  clamp, strip pull                    6 s
+  feed to touch-off                    4 s
+  tool approach 45 mm at 15 mm/s       3 s
+  squeeze last 8 mm at 2 mm/s          4 s
+  open                                 3 s
+  proof pull via blade                 3 s
+  release, camera                      3 s
+  machine cycle ~26 s [estimate]
+  person per conductor: present 5 s + insert 8 s = 13 s [p4's estimates]
+  1 head(s): conductor every 26 s, person waits 13 s per conductor; 53 conductors -> 23 min
+  2 head(s): conductor every 13 s, person waits 0 s per conductor; 53 conductors -> 11 min
+-> one squeezer at ~26 s keeps the person waiting ~13 s a conductor; two squeezers
+   ($18-21 tools, one pusher each) alternating bring the person's own pace back.
