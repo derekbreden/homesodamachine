@@ -4,8 +4,8 @@
     "left": "0.4 mm; black PET-GF; external 254",
     "right": "0.4 mm; white PET-GF; external 255"
   },
-  "status": "unmeasured",
-  "measurement_job": "1294385772",
+  "status": "awaiting_shifted_coupon_reading",
+  "measurement_job": "1294488907",
   "normal_nozzle_offset_calibration": "Auto",
   "selected_indices": {
     "X": null,
@@ -15,12 +15,16 @@
     "X": null,
     "Y": null
   },
-  "candidate_formula": "-0.35 + 0.05 * selected_index",
   "candidate_index_range": [
     0,
     14
   ],
   "correction_implementation": "Pending measurement and emitted-coordinate verification; no correction applied to product geometry or job.",
   "physical_validation": "Pending",
-  "touchscreen_managed_calibration_required": false
+  "touchscreen_managed_calibration_required": false,
+  "candidate_formulas": {
+    "X": "-1.05 + 0.05 * selected_index",
+    "Y": "+0.35 + 0.05 * selected_index"
+  },
+  "range_basis": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-registration-mark2-v2/physical-result.json"
 }

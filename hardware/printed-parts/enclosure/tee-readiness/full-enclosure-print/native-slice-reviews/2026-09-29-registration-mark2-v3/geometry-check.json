@@ -1,0 +1,148 @@
+{
+  "pass": true,
+  "purpose": "Measure the residual relative displacement of the two nozzles using coplanar black/white line pairs.",
+  "printer": "Mark2",
+  "material": "Black and white PET-GF",
+  "nozzle_pair_mm": [
+    0.4,
+    0.4
+  ],
+  "base_mm": 0.96,
+  "top_mm": 1.44,
+  "pair_top_surfaces_coplanar": true,
+  "candidate_spacing_mm": 0.05,
+  "candidates": [
+    {
+      "index": 0,
+      "candidate_white_correction_mm": {
+        "X": -1.05,
+        "Y": 0.35
+      },
+      "x_station_mm": -49.0
+    },
+    {
+      "index": 1,
+      "candidate_white_correction_mm": {
+        "X": -1.0,
+        "Y": 0.4
+      },
+      "x_station_mm": -42.0
+    },
+    {
+      "index": 2,
+      "candidate_white_correction_mm": {
+        "X": -0.95,
+        "Y": 0.45
+      },
+      "x_station_mm": -35.0
+    },
+    {
+      "index": 3,
+      "candidate_white_correction_mm": {
+        "X": -0.9,
+        "Y": 0.5
+      },
+      "x_station_mm": -28.0
+    },
+    {
+      "index": 4,
+      "candidate_white_correction_mm": {
+        "X": -0.85,
+        "Y": 0.55
+      },
+      "x_station_mm": -21.0
+    },
+    {
+      "index": 5,
+      "candidate_white_correction_mm": {
+        "X": -0.8,
+        "Y": 0.6
+      },
+      "x_station_mm": -14.0
+    },
+    {
+      "index": 6,
+      "candidate_white_correction_mm": {
+        "X": -0.75,
+        "Y": 0.65
+      },
+      "x_station_mm": -7.0
+    },
+    {
+      "index": 7,
+      "candidate_white_correction_mm": {
+        "X": -0.7,
+        "Y": 0.7
+      },
+      "x_station_mm": 0.0
+    },
+    {
+      "index": 8,
+      "candidate_white_correction_mm": {
+        "X": -0.65,
+        "Y": 0.75
+      },
+      "x_station_mm": 7.0
+    },
+    {
+      "index": 9,
+      "candidate_white_correction_mm": {
+        "X": -0.6,
+        "Y": 0.8
+      },
+      "x_station_mm": 14.0
+    },
+    {
+      "index": 10,
+      "candidate_white_correction_mm": {
+        "X": -0.55,
+        "Y": 0.85
+      },
+      "x_station_mm": 21.0
+    },
+    {
+      "index": 11,
+      "candidate_white_correction_mm": {
+        "X": -0.5,
+        "Y": 0.9
+      },
+      "x_station_mm": 28.0
+    },
+    {
+      "index": 12,
+      "candidate_white_correction_mm": {
+        "X": -0.45,
+        "Y": 0.95
+      },
+      "x_station_mm": 35.0
+    },
+    {
+      "index": 13,
+      "candidate_white_correction_mm": {
+        "X": -0.4,
+        "Y": 1.0
+      },
+      "x_station_mm": 42.0
+    },
+    {
+      "index": 14,
+      "candidate_white_correction_mm": {
+        "X": -0.35,
+        "Y": 1.05
+      },
+      "x_station_mm": 49.0
+    }
+  ],
+  "reading": "Choose the index whose black and white lines align in each row. X row corrects printer X; Y row corrects printer Y. Selected candidate is the correction to apply to white, not the measured error. Adjacent indices tie: report both.",
+  "applied_job_correction_mm": [
+    0,
+    0
+  ],
+  "normal_nozzle_offset_calibration": "Usual Auto launch option; no touchscreen-managed calibration is required.",
+  "qualification": "A measured correction requires a second zero-residual validation print before use on product parts. The coupon only identifies relative error; it does not identify which physical nozzle is wrong.",
+  "source_sha256": {
+    "hardware/printed-parts/calibration/dual-nozzle-registration/registration.py": "c02df4abc6349785e9a041afda349892800b05fc7314b6633607cc6831fbcbd5",
+    "hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.step": "70ea1bb64fffc023ca458f8a2089de35c63a596b0d298f8c3768a45000e249d9",
+    "hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.stl": "67c1821a9941be34c9fe6d8fac7fe7ff0c79f2774c63d7eb75f10aeaf13e7da2"
+  }
+}
