@@ -1,0 +1,135 @@
+{
+  "pass": true,
+  "native_archive": ".cache/prints/2026-09-29-display-flat-wings-h2c-v1/ready/display-face-up-cover-receiver-z018-h2c-v1.gcode.3mf",
+  "native_archive_sha256": "975d93e03effb86c002b9b71587ee979bd9fe23a2612917ed139b7335a96b50c",
+  "gcode_sha256": "87da3cc1386f2b73342bf3a858f291b232a9bcc8286428557522abf476ccdebb",
+  "source_hashes_current": true,
+  "cover_support_paths": 0,
+  "cover_layers": [
+    [
+      0.2,
+      0.2
+    ],
+    [
+      0.48,
+      0.28
+    ],
+    [
+      0.72,
+      0.24
+    ],
+    [
+      0.96,
+      0.24
+    ],
+    [
+      1.2,
+      0.24
+    ],
+    [
+      1.44,
+      0.24
+    ],
+    [
+      1.68,
+      0.24
+    ],
+    [
+      1.92,
+      0.24
+    ],
+    [
+      2.16,
+      0.24
+    ],
+    [
+      2.4,
+      0.24
+    ],
+    [
+      2.64,
+      0.24
+    ],
+    [
+      2.88,
+      0.24
+    ],
+    [
+      3.12,
+      0.24
+    ],
+    [
+      3.36,
+      0.24
+    ],
+    [
+      3.6,
+      0.24
+    ],
+    [
+      3.84,
+      0.24
+    ]
+  ],
+  "wing_checks": [
+    {
+      "z_mm": 0.2,
+      "both_wing_midpoints_covered": [
+        true,
+        true
+      ]
+    },
+    {
+      "z_mm": 0.48,
+      "both_wing_midpoints_covered": [
+        true,
+        true
+      ]
+    },
+    {
+      "z_mm": 1.44,
+      "both_wing_midpoints_covered": [
+        true,
+        true
+      ]
+    },
+    {
+      "z_mm": 1.68,
+      "both_wing_midpoints_covered": [
+        false,
+        false
+      ]
+    }
+  ],
+  "receiver_layers": 241,
+  "receiver_support_profile_differences": {
+    "support_filament": {
+      "profile": "0",
+      "job": "1"
+    },
+    "support_interface_filament": {
+      "profile": "0",
+      "job": "1"
+    }
+  },
+  "support_summary": {
+    "support_bodies": 3,
+    "interface_islands": null,
+    "bed_rooted_bodies": 1,
+    "model_rooted_bodies": 2,
+    "shortest_build_up_mm": null,
+    "bodies_without_interface_labels": 3,
+    "explicit_interface_islands": 0,
+    "shortest_labelled_build_up_mm": null
+  },
+  "emitted_z_trim_mm": [
+    0.0,
+    0.16
+  ],
+  "estimated_seconds": 11395.7607421875,
+  "estimated_grams_saved_profile_density": 80.68135833740234,
+  "submitted": true,
+  "physical_fit_and_support_removal": "Pending physical trial.",
+  "job_id": "1294550319",
+  "launch_record": "launch.json"
+}

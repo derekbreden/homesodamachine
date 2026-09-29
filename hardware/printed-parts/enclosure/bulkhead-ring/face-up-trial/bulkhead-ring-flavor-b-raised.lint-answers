@@ -1,0 +1,7 @@
+[step] The lettering stands 0.48 mm above the 2.0 mm fitting seat: two normal 0.24 mm layers.
+click: x=-7.652 y=2.480 z=15.092
+
+[sliver] These are intentional 0.48 mm vertical sides of raised letters, continuous with their embedded colour bodies.
+click: x=-9.072 y=2.240 z=15.103
+click: x=9.006 y=2.240 z=15.103
+click: x=12.976 y=2.240 z=15.100
