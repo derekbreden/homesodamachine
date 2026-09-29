@@ -1,0 +1,50 @@
+{
+  "status": "prepared",
+  "submitted": false,
+  "printer": "Mark2",
+  "plate_contents": [
+    "nameplate-face-up-raised-001.stl"
+  ],
+  "native_archive": ".cache/prints/2026-09-28-nameplate-face-up-mark2-v2/ready/nameplate-face-up-raised-snug-z004-mark2-v2.gcode.3mf",
+  "native_archive_sha256": "cff4051b3af1dd7ad86989019bbb565ea2bf6052f4a5d0f3932bd48f52b52dbc",
+  "gcode_sha256": "d2a75ff3f6ddbf7993411baa590fd376f99b8e6e4a9b4a11428fcdb5150a6cad",
+  "estimated_seconds": 3780.437744140625,
+  "estimated_grams_saved_profile_density": 30.79855102300644,
+  "layer_count": 70,
+  "geometry_check": "geometry-check.json",
+  "native_check": "verification.json",
+  "source_geometry_and_settings_sha256": {
+    "hardware/printed-parts/enclosure/nameplate/face-up-trial/face_up_trial.py": "524657ae6eaa94de57073f1a36ae8cc70202d74ed5083a7f856be67fe55704e0",
+    "hardware/printed-parts/enclosure/nameplate/retention-trial/nameplate_retention_trial.py": "a0fd82b5e73ddda5131cadf12e5face330db47bfdc1d4e85a05ab030346bb343",
+    "hardware/printed-parts/enclosure/nameplate/nameplate.py": "34c3026fe89e4afa0d6c6084376e278fda6b00ebdd226edb6200864b8ccd81cd",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py": "fb290e6f377fc5f33790b7e6532c59ff0fdab0472b2f519d808b17106e8629fc",
+    "hardware/printed-parts/enclosure/nameplate/wordmark.svg": "ac3f8c076308092908edfc2d74ada5b6ccaafdeababfe2aaa3ce56058ae9321f",
+    "brand/mark.svg": "c9c2dcacab2961f30d813832b820599acb1ebcd81c6429177be9c0e83e1efeb6",
+    "hardware/printed-parts/enclosure/nameplate/retention-trial/nameplate-broad-leaf-receiver.step": "e621d9c87e06214e4ceec7d37137c6ca1761cccbb304aabf9b8ef6e51c4cda56",
+    "hardware/printed-parts/enclosure/nameplate/face-up-trial/nameplate-face-up-raised-001.step": "b4e51251179b58fffa63b1c14e2f96a6f594aa9ed4aee57f0dbcd90b4bb9042b",
+    "hardware/printed-parts/enclosure/nameplate/face-up-trial/nameplate-face-up-raised-001.stl": "c2e31dc3f051d0de942774fe31db4dd33d7d93ad31f40d9834c1e27fba3e1085",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf": "84c5011c0be15dd9aab41a516abe85bf99b08e2c80d91375b5f2608a96bc0e72",
+    "hardware/printed-parts/enclosure/nameplate/face-up-trial/geometry-check.json": "2e44e52598a3e17e91d9e7e809e9dccc84e65d6345fcff309c9275e9b2105a88",
+    "hardware/printed-parts/enclosure/nameplate/face-up-trial/prepare_print.py": "b7fb6b5c746de18abae2ee90f265931eacf45f4b255e47c04447d97bbc187a6f"
+  },
+  "geometry_lint": {
+    "open_findings": 0,
+    "answered_intentional_features": 29
+  },
+  "physical_fit": "Pending.",
+  "description": "Face-up black-and-white nameplate with 0.48 mm raised HOME / SODA / MACHINE lettering, flush logo and QR, 32 mm leaves, 3.6 mm hooks and 1.23 mm bearing clearance. Reuses the existing broad-leaf receiver. Normal Snug supports entirely black; actual rear support gap 0.24 mm.",
+  "review_sha256": {
+    "README.md": "23bf2d5e9c43e09f9564c3abf0deda5320186455e398797146fc9f82f789f2f7",
+    "effective-settings.json": "d8a83b60051b5369841cb561eadbf78b7f456f3e4002ddb4716440784f9f43ec",
+    "geometry-check.json": "2e44e52598a3e17e91d9e7e809e9dccc84e65d6345fcff309c9275e9b2105a88",
+    "preparation.json": "e7424bf24d1be5793a4bd77e455ec60bddfb0bd066145417756362d6b90c97a9",
+    "preview.png": "84229228939ffc1513bf0bbb03a9e2e3197b1f9f4fb540e3923dc5c966ac9b50",
+    "qr-check.json": "b99122c694905855bdef89f3a942e65a007e1e6d794ec2091ce522f7d7e0297e",
+    "show-face-paths.png": "47e93a1ed9b9d4c4ba6a7fa2f9c0bd83203edc87bb97c927571671bcd2f0366c",
+    "slice-command.json": "6d8789a964e82f3efd94a6e4de5cd28bda0b01be91c14c31adb5222a4d9eff6a",
+    "slice-result.json": "aa9d92f1d27a450418266a0522e868ca82f93a3975b4fa705c6cef50de643dba",
+    "support-audit.json": "04f4b0fe976af3f46bfc371b5f58faa38b2fbb13a03c80c938d57aef530f9f74",
+    "support-section.png": "82dd5c2953512aa1f9e48ca22c8a6fd3cb3b932790088600fc3303b9842470d1",
+    "verification.json": "fb60f612fd7b213d2aaa35b532fab7df75d935be0facbc884cafc43a506497e2"
+  }
+}

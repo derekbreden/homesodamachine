@@ -65,6 +65,11 @@ plate-and-receiver print.
 
 ## Printing and assembly
 
+The [face-up raised-letter trial](face-up-trial/README.md) prints the broad-leaf
+plate with its show face upward, 0.48 mm raised white lettering and black normal
+Snug supports behind the plate. Its logo and QR stay flush, and it uses the same
+broad-leaf receiver coupon.
+
 Print **artwork down**, with the complete black-and-white face on the bed and both tabs
 pointing up. Use black and white PET-GF, a hardened 0.4 mm nozzle, a 0.20 mm first layer,
 0.24 mm subsequent layers and the faucet's PET-GF material profile. The inlay occupies the first three layers. Each colour is a

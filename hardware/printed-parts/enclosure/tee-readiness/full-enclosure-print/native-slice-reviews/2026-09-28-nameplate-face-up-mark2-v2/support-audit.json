@@ -1,0 +1,104 @@
+{
+  "schema": 1,
+  "piece": "nameplate-face-up-raised",
+  "inputs": {
+    "gcode": "plate_1.gcode",
+    "gcode_sha256": "d2a75ff3f6ddbf7993411baa590fd376f99b8e6e4a9b4a11428fcdb5150a6cad",
+    "model": null,
+    "model_sha256": null,
+    "profile": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-28-nameplate-face-up-mark2-v2/nameplate-face-up-raised-snug-z004-mark2-v2-input.3mf",
+    "profile_sha256": "3da16be7e3ee4db64c3315d256011af08f8aa52c34296037003953d7eef3ab25"
+  },
+  "slicer": "BambuStudio 02.08.02.61",
+  "first_layer_z_mm": 0.2,
+  "coordinate_frame": null,
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.2",
+    "support_interface_top_layers": "3",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "snug",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.24",
+    "support_type": "normal(auto)"
+  },
+  "summary": {
+    "support_bodies": 1,
+    "interface_islands": 3,
+    "bed_rooted_bodies": 1,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 4.68,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 3,
+    "shortest_labelled_build_up_mm": 4.68
+  },
+  "trees": [
+    {
+      "id": "tree-1",
+      "root": "bed",
+      "base_z_mm": 0.2,
+      "first_interface_z_mm": 4.88,
+      "shortest_build_up_mm": 4.68,
+      "top_z_mm": 13.41,
+      "bbox_xy_mm": [
+        111.2,
+        104.4,
+        218.8,
+        145.6
+      ],
+      "interfaces": [
+        "interface-1",
+        "interface-2",
+        "interface-3"
+      ],
+      "interface_reading": "explicit_feature"
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "interface-1",
+      "first_z_mm": 4.88,
+      "last_z_mm": 5.36,
+      "bbox_xy_mm": [
+        118.4,
+        107.6,
+        124.0,
+        142.4
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 4.68
+    },
+    {
+      "id": "interface-2",
+      "first_z_mm": 4.88,
+      "last_z_mm": 5.36,
+      "bbox_xy_mm": [
+        205.6,
+        107.6,
+        211.6,
+        142.4
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 4.68
+    },
+    {
+      "id": "interface-3",
+      "first_z_mm": 12.93,
+      "last_z_mm": 13.41,
+      "bbox_xy_mm": [
+        113.2,
+        106.4,
+        216.8,
+        143.6
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 12.73
+    }
+  ],
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+  "removal_access": "Rear-face support is exposed around all plate edges. Separate the connected support mat; the central region exits along the 38 mm plate axis between the two leaves, and each outer strip exits toward its nearest short end. No receiver is installed during removal.",
+  "physical_removal_tested": false
+}
