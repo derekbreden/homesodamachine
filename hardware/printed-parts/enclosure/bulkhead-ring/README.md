@@ -101,6 +101,21 @@ The pocket it drops into is struck by [`enclosure.py`](../enclosure/enclosure.py
 of the same shape one rim larger standing that far inboard behind it, so the wall keeps its whole
 thickness under every chip.
 
+## Pending raised-lettering print
+
+After the face-up nameplate is printed and physically accepted, apply its accepted
+raised-lettering treatment and validated two-nozzle alignment to **TAP and both
+FLAVOR bulkhead rings**. Use the accepted nameplate's lettering rise and print
+approach, checking the rings' letter paths and fitting-flange clearance in their
+own native slice. The nameplate result is a prerequisite for this trial.
+
+Keep TAP's white body with black lettering and FLAVOR's black body with white
+lettering. The alignment correction belongs to the validated printer/nozzle pair
+and follows the white nozzle's paths, including the white body on TAP. Its value
+comes from [`mark2-registration.json`](../../calibration/dual-nozzle-registration/mark2-registration.json)
+and the accepted nameplate print. The rings await that result; their current
+geometry and print files do not yet implement the raised-lettering trial.
+
 ## Files
 
 - `bulkhead_ring.py` — the part, and the figures the wall and the drawings read
