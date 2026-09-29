@@ -1,0 +1,25 @@
+{
+  "accepted_at_utc": "2026-09-29T03:51:13.117873+00:00",
+  "printer": "Mark2",
+  "archive": ".cache/prints/2026-09-28-nameplate-face-up-mark2-v2/ready/nameplate-face-up-raised-snug-z004-mark2-v2.gcode.3mf",
+  "archive_sha256": "cff4051b3af1dd7ad86989019bbb565ea2bf6052f4a5d0f3932bd48f52b52dbc",
+  "gcode_sha256": "d2a75ff3f6ddbf7993411baa590fd376f99b8e6e4a9b4a11428fcdb5150a6cad",
+  "reply": {
+    "command": "project_file",
+    "result": "SUCCESS",
+    "reason": "SUCCESS",
+    "err_code": 0
+  },
+  "reading": {
+    "job_id": "1292208393",
+    "subtask_name": "nameplate-face-up-raised-snug-z004-mark2-v2.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 0,
+    "total_layer_num": 70,
+    "mc_remaining_time": 63,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": -1
+  },
+  "send_method": "Bambu Connect via cua_repl; one Send click."
+}

@@ -2173,8 +2173,49 @@
       },
       "filament": "Black PET-GF on left external spool 254; white PET-GF on right external spool 255.",
       "support_policy": "Functional flat bearings supported. Two exposed outward-removing black nameplate hook trees; remove before assembly. All support paths reviewed, including short and unlabelled paths.",
+      "physical_fit": "Support clearance and removal accepted: no strings remained and supports broke clean everywhere. Retention and bowing not assessed in this report.",
+      "startup_spacing_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-nameplate-broad-mark2-v3/startup-spacing.json",
+      "physical_feedback": "hardware/printed-parts/enclosure/nameplate/retention-trial/support-acceptance.json"
+    },
+    {
+      "date": "2026-09-28",
+      "printer": "Mark2",
+      "parts": [
+        "hardware/printed-parts/enclosure/nameplate/face-up-trial/nameplate-face-up-raised-001.stl"
+      ],
+      "job_name": "nameplate-face-up-raised-snug-z004-mark2-v2.gcode.3mf",
+      "printer_task_id": "1292208393",
+      "status": "started",
+      "started_by": "Codex at Derek's request",
+      "observed_state": "RUNNING",
+      "observed_at_utc": "2026-09-29T03:51:42.284109+00:00",
+      "observed_print_error": 0,
+      "hms": [],
+      "sliced_file": ".cache/prints/2026-09-28-nameplate-face-up-mark2-v2/ready/nameplate-face-up-raised-snug-z004-mark2-v2.gcode.3mf",
+      "sliced_file_sha256": "cff4051b3af1dd7ad86989019bbb565ea2bf6052f4a5d0f3932bd48f52b52dbc",
+      "gcode_sha256": "d2a75ff3f6ddbf7993411baa590fd376f99b8e6e4a9b4a11428fcdb5150a6cad",
+      "native_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-nameplate-face-up-mark2-v2/manifest.json",
+      "launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-nameplate-face-up-mark2-v2/launch.json",
+      "postlaunch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-nameplate-face-up-mark2-v2/postlaunch.json",
+      "estimated_seconds": 3780.437744140625,
+      "filament_grams": 30.79855102300644,
+      "layer_count": 70,
+      "observed_layer": 0,
+      "observed_total_layers": 70,
+      "z_offset_mm": 0.04,
+      "effective_textured_plate_trim_mm": 0.02,
+      "geometry": "Face-up black-and-white nameplate with 0.48 mm raised HOME / SODA / MACHINE lettering, flush logo and QR, 32 mm leaves, 3.6 mm hooks and 1.23 mm bearing clearance. Reuses the existing broad-leaf receiver. Normal Snug supports entirely black; actual rear support gap 0.24 mm.",
+      "bed_clear_confirmed_by": "Derek: Mark2 bed is clear.",
+      "print_options": {
+        "timelapse": "On",
+        "auto_bed_leveling": "On",
+        "flow_dynamic_calibration": "Auto",
+        "nozzle_offset_calibration": "Auto"
+      },
+      "filament": "Black PET-GF on left external spool 254; white PET-GF on right external spool 255.",
+      "support_policy": "Black normal Snug supports carry the plate back with an emitted 0.24 mm top gap, three interface layers and 0.20 mm interface spacing. Separate the support mat and remove through the exposed plate edges before inserting the nameplate.",
       "physical_fit": "Pending.",
-      "startup_spacing_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-nameplate-broad-mark2-v3/startup-spacing.json"
+      "startup_spacing_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-nameplate-face-up-mark2-v2/startup-spacing.json"
     }
   ]
 }

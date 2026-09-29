@@ -3,5 +3,14 @@
   "observed": "White material remains at the black perimeter in user photograph IMG_7868.jpeg.",
   "gcode_findings": "Previous supports used white on early layers. First-layer support XY gap was 0.20 mm, separate from the general 0.40 mm gap.",
   "current_trial": "Black support base and interface, no flushing into supports, first-layer support gap 0.50 mm, general gap 0.40 mm. Existing receiver reused.",
-  "physical_validation": "Pending."
+  "physical_validation": {
+    "reported_by": "Derek",
+    "recorded_at_utc": "2026-09-29T03:50:01.157078+00:00",
+    "printer_task_id": "1292024381",
+    "user_statement": "Support clearance worked well, no strings attached, supports broke clean everywhere.",
+    "support_clearance_accepted": true,
+    "residual_strings_reported": false,
+    "supports_broke_clean_everywhere": true,
+    "scope": "Support separation and edge cleanliness of the face-down black-support nameplate; face-up trial not yet printed."
+  }
 }

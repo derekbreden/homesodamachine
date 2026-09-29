@@ -17,5 +17,6 @@ Separate the connected support mat before withdrawing its central region along
 the plate's 38 mm axis and peeling the outer strips toward the short ends.
 Physical removal quality, surface finish, retention and QR scanning are pending.
 
-Status: prepared; awaiting confirmation that Mark2's completed print has been
-removed. No submission is recorded for this archive.
+Status: started on Mark2 as task 1292208393; the printer reports RUNNING with
+no error. The launch receipt and three-minute spacing check are retained beside
+this review. Physical results are pending.
