@@ -1,0 +1,97 @@
+{
+  "project": ".cache/prints/2026-09-28-nameplate-face-up-mark2-v2/nameplate-face-up-raised-snug-z004-mark2-v2-input.3mf",
+  "project_sha256": "3da16be7e3ee4db64c3315d256011af08f8aa52c34296037003953d7eef3ab25",
+  "source_geometry_and_settings_sha256": {
+    "hardware/printed-parts/enclosure/nameplate/face-up-trial/face_up_trial.py": "524657ae6eaa94de57073f1a36ae8cc70202d74ed5083a7f856be67fe55704e0",
+    "hardware/printed-parts/enclosure/nameplate/retention-trial/nameplate_retention_trial.py": "a0fd82b5e73ddda5131cadf12e5face330db47bfdc1d4e85a05ab030346bb343",
+    "hardware/printed-parts/enclosure/nameplate/nameplate.py": "34c3026fe89e4afa0d6c6084376e278fda6b00ebdd226edb6200864b8ccd81cd",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py": "fb290e6f377fc5f33790b7e6532c59ff0fdab0472b2f519d808b17106e8629fc",
+    "hardware/printed-parts/enclosure/nameplate/wordmark.svg": "ac3f8c076308092908edfc2d74ada5b6ccaafdeababfe2aaa3ce56058ae9321f",
+    "brand/mark.svg": "c9c2dcacab2961f30d813832b820599acb1ebcd81c6429177be9c0e83e1efeb6",
+    "hardware/printed-parts/enclosure/nameplate/retention-trial/nameplate-broad-leaf-receiver.step": "e621d9c87e06214e4ceec7d37137c6ca1761cccbb304aabf9b8ef6e51c4cda56",
+    "hardware/printed-parts/enclosure/nameplate/face-up-trial/nameplate-face-up-raised-001.step": "b4e51251179b58fffa63b1c14e2f96a6f594aa9ed4aee57f0dbcd90b4bb9042b",
+    "hardware/printed-parts/enclosure/nameplate/face-up-trial/nameplate-face-up-raised-001.stl": "c2e31dc3f051d0de942774fe31db4dd33d7d93ad31f40d9834c1e27fba3e1085",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf": "84c5011c0be15dd9aab41a516abe85bf99b08e2c80d91375b5f2608a96bc0e72",
+    "hardware/printed-parts/enclosure/nameplate/face-up-trial/geometry-check.json": "2e44e52598a3e17e91d9e7e809e9dccc84e65d6345fcff309c9275e9b2105a88",
+    "hardware/printed-parts/enclosure/nameplate/face-up-trial/prepare_print.py": "b7fb6b5c746de18abae2ee90f265931eacf45f4b255e47c04447d97bbc187a6f"
+  },
+  "printer": "Mark2",
+  "nozzle_mapping": {
+    "left": "Black PET-GF, external 254",
+    "right": "White PET-GF, external 255"
+  },
+  "requested_z_trim_mm": 0.04,
+  "expected_textured_plate_trim_mm": 0.02,
+  "meshes": [
+    {
+      "name": "Black body",
+      "id": "1",
+      "triangles": 31904,
+      "bounds": [
+        [
+          -52.265,
+          -19.000000000000007,
+          -1.7763568394002505e-15
+        ],
+        [
+          52.265,
+          19.000000000000007,
+          16.050000000000004
+        ]
+      ],
+      "watertight": true
+    },
+    {
+      "name": "White artwork",
+      "id": "2",
+      "triangles": 42166,
+      "bounds": [
+        [
+          -47.230811682413,
+          -12.499999999999995,
+          15.329999999999998
+        ],
+        [
+          47.23081168241,
+          12.500000000000004,
+          16.53
+        ]
+      ],
+      "watertight": true
+    }
+  ],
+  "identify_ids": {
+    "2303": "nameplate-face-up-raised-001"
+  },
+  "nominal_hook_bearing_print_z_mm": 4.4,
+  "print_planes_z_mm": {
+    "hook_tip": 0,
+    "hook_nose_end": 3.2,
+    "hook_bearing": 4.4,
+    "plate_back": 13.65,
+    "white_inlay_base": 15.33,
+    "show_face": 16.05,
+    "letter_top": 16.53
+  },
+  "letter_rise_mm": 0.48,
+  "precision_layer_ranges_mm": [
+    [
+      3.08,
+      3.2,
+      0.12
+    ],
+    [
+      8.0,
+      8.13,
+      0.13
+    ]
+  ],
+  "settings": "Two-colour PET-GF. Normal auto supports, Snug style, three interface layers, 0.20 mm interface spacing; black support base and interface; no flushing into supports; 0.50 mm first-layer support gap.",
+  "support_policy": "Black normal snug supports carry the plate back. The angled insertion noses print from the hook tips upward. Open withdrawal lanes between the leaves and toward the short ends. General XY gap 0.40 mm and top Z gap 0.24 mm.",
+  "orientation": "Nameplate face +Z; hook tips on bed. Existing receiver reused.",
+  "description_only_correction": {
+    "script_sha256_before": "473565db82ed2317bea9e411f4a64278edf1bbd184af2ab9ee501030bf04dd20",
+    "script_sha256_after": "b7fb6b5c746de18abae2ee90f265931eacf45f4b255e47c04447d97bbc187a6f",
+    "change": "Correct support-policy prose after native cross-section review; geometry, settings, input archive and native G-code unchanged."
+  }
+}
