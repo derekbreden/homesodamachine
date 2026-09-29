@@ -1,0 +1,19 @@
+{
+  "gcode_state": "FINISH",
+  "subtask_name": "nameplate-framed-wing-receiver-tree-z018-h2c-v3.gcode.3mf",
+  "subtask_id": "1294406296",
+  "job_id": "1294406296",
+  "mc_percent": 100,
+  "layer_num": 192,
+  "total_layer_num": 192,
+  "mc_remaining_time": 0,
+  "print_error": 0,
+  "hms": [
+    {
+      "attr": 201326848,
+      "code": 131095
+    }
+  ],
+  "observed_at": "2026-09-29T22:35:31.710004+00:00",
+  "printer": "H2C"
+}

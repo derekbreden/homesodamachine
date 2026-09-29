@@ -1,0 +1,9 @@
+{
+  "minimum_seconds": 180,
+  "other_printer": "Mark2",
+  "other_job_id": "1294488907",
+  "other_job_accepted_at": "2026-09-29T22:06:59.407612Z",
+  "h2c_send_not_before": "2026-09-29T22:35:31.710004+00:00",
+  "h2c_acknowledged_at": "2026-09-29T22:36:15.262001+00:00",
+  "minimum_observed_spacing_seconds": 1712.302392
+}

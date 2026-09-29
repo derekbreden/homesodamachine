@@ -1,0 +1,202 @@
+{
+  "project": "display-face-up-cover-receiver-z018-h2c-v1-input.3mf",
+  "settings_source": "hardware/printed-parts/petgf.3mf",
+  "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "settings_sha256": "07f46991b6e7f746ddf9ab80ed91b3ea5967d8fa0402015cd939c20d41c73d1f",
+  "source_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "409b1516f0401361a02b18a34420c10ca83bc33615e8896cade2fea42edee871",
+      "requested_z_trim_mm": 0.18
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.18 Z trim"
+    }
+  },
+  "printer": "H2C",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 15.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "display-cover-flat-wings",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.stl",
+      "stl_sha256": "bd0545aa076fed3d7adc895df205b098f11a08b6fc37c883893115aec83dd5f2",
+      "triangles": 3088,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        -1.9199999570846544
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        162.5,
+        230.0,
+        1.919999957084657
+      ],
+      "plate_translation_mm": [
+        162.5,
+        230.0,
+        1.919999957084657
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          96.1500015258789,
+          188.5,
+          0.0
+        ],
+        [
+          228.8499984741211,
+          271.5,
+          3.839999914169314
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    },
+    {
+      "name": "display-receiver-flat-wings",
+      "plate": 1,
+      "object_id": "4",
+      "part_id": "3",
+      "member": "3D/Objects/object_2.model",
+      "identify_id": 1902,
+      "source": "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.stl",
+      "stl_sha256": "f651c51df6a1157b0b374d13cae1ff0fd34af0557319e885d57b252ba5f3e693",
+      "triangles": 2180,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        1.875,
+        29.0
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        162.5,
+        105.0,
+        29.0
+      ],
+      "plate_translation_mm": [
+        162.5,
+        105.0,
+        29.0
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          91.5,
+          59.689754486083984,
+          0.0
+        ],
+        [
+          233.5,
+          150.31024551391602,
+          58.0
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    }
+  ],
+  "project_sha256": "7a84b6bc933c149a54f3de085c4717e0213467cbcb99f14094893022a6f26e47",
+  "settings_preserved_byte_for_byte": false,
+  "source_geometry_and_settings_sha256": {
+    "hardware/printed-parts/enclosure/display-cover/face-up-trial/face_up_trial.py": "dd407f0ad86ef759fc06b8961601cbea4a0aefaf2a964ac7ecaa724a32f16f9d",
+    "hardware/printed-parts/enclosure/display-cover/display_cover.py": "968e20c88930aa2654254849cafecc38c48afd35b62a0e854dbf7da253c4a6c8",
+    "hardware/printed-parts/enclosure/display-cover/retention-trial/retention_trial.py": "fd5d1a754b5970f2fa7a5569b554f0329ec0af6f6e064202cbd281985273133c",
+    "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.step": "2ef12c8034de1b401fa10fe9f3157b797da236a9d55be915435f129082226d52",
+    "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.stl": "bd0545aa076fed3d7adc895df205b098f11a08b6fc37c883893115aec83dd5f2",
+    "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.step": "d1e027cedf019b7f739be327648c07553550ea33b4b1f92f4e2798bbf4a249bf",
+    "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.stl": "f651c51df6a1157b0b374d13cae1ff0fd34af0557319e885d57b252ba5f3e693",
+    "hardware/printed-parts/enclosure/display-cover/face-up-trial/geometry-check.json": "8162d9a2b9f13370264a3a67430a6ec35600a613bb5d644cf6ed7844cc0089b8",
+    "hardware/printed-parts/enclosure/display-cover/face-up-trial/prepare_print.py": "b1fb704b839502d228d6337db7805cd71af0c0957a7f262bd65e3666701cb66a",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
+  },
+  "requested_z_trim_mm": 0.18,
+  "expected_textured_plate_trim_mm": 0.16,
+  "identify_ids": {
+    "1901": "display-cover-flat-wings",
+    "1902": "display-receiver-flat-wings"
+  },
+  "support_policy": "Cover: no supports, back and wings on the bed. Receiver: saved PET-GF tree supports, 30 degree enclosure display plane.",
+  "support_clearance_mm": {
+    "XY": 0.4,
+    "top_Z": 0.45,
+    "bottom_Z": 0.3,
+    "first_layer_XY": 0.2
+  },
+  "cover_layer_policy": "0.20 first, 0.28 second to align wings, then 0.24. No show rounds in build Z.",
+  "physical_qualification": "Fit trial only: insertion flex, full engagement, relaxed flatness and shake retention pending.",
+  "submitted": false
+}

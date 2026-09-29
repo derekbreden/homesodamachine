@@ -1,0 +1,14 @@
+{
+  "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/bulkhead-ring-water-raised.stl": {
+    "pass": true,
+    "result": "bulkhead-ring-water-raised.stl \u00b7 4314 printed facets \u00b7 0 findings \u00b7 2 answered"
+  },
+  "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/bulkhead-ring-flavor-a-raised.stl": {
+    "pass": true,
+    "result": "bulkhead-ring-flavor-a-raised.stl \u00b7 10048 printed facets \u00b7 0 findings \u00b7 4 answered"
+  },
+  "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/bulkhead-ring-flavor-b-raised.stl": {
+    "pass": true,
+    "result": "bulkhead-ring-flavor-b-raised.stl \u00b7 10048 printed facets \u00b7 0 findings \u00b7 4 answered"
+  }
+}

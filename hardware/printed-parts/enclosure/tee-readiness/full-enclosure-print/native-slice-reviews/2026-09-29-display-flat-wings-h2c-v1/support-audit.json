@@ -1,0 +1,136 @@
+{
+  "schema": 1,
+  "piece": "display-face-up-receiver",
+  "inputs": {
+    "gcode": "plate_1.gcode",
+    "gcode_sha256": "87da3cc1386f2b73342bf3a858f291b232a9bcc8286428557522abf476ccdebb",
+    "model": null,
+    "model_sha256": null,
+    "profile": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-29-display-flat-wings-h2c-v1/display-face-up-cover-receiver-z018-h2c-v1-input.3mf",
+    "profile_sha256": "7a84b6bc933c149a54f3de085c4717e0213467cbcb99f14094893022a6f26e47"
+  },
+  "slicer": "BambuStudio 02.08.02.61",
+  "first_layer_z_mm": 0.2,
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -162.5,
+      -228.125,
+      27.080000043
+    ],
+    "plate_to_cad_translation_mm": [
+      -162.5,
+      -228.125,
+      27.08
+    ]
+  },
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.45",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "support_bodies": 3,
+    "interface_islands": null,
+    "bed_rooted_bodies": 1,
+    "model_rooted_bodies": 2,
+    "shortest_build_up_mm": null,
+    "bodies_without_interface_labels": 3,
+    "explicit_interface_islands": 0,
+    "shortest_labelled_build_up_mm": null
+  },
+  "trees": [
+    {
+      "id": "tree-1",
+      "root": "bed",
+      "base_z_mm": 0.2,
+      "first_interface_z_mm": null,
+      "shortest_build_up_mm": null,
+      "top_z_mm": 50.36,
+      "bbox_xy_mm": [
+        96.0,
+        64.0,
+        229.2,
+        149.6
+      ],
+      "interfaces": [],
+      "interface_reading": "unlabelled",
+      "bbox_cad_xyz_mm": [
+        -66.5,
+        -164.125,
+        27.28,
+        66.7,
+        -78.525,
+        77.44
+      ]
+    },
+    {
+      "id": "tree-2",
+      "root": "model",
+      "base_z_mm": 11.24,
+      "first_interface_z_mm": null,
+      "shortest_build_up_mm": null,
+      "top_z_mm": 49.4,
+      "bbox_xy_mm": [
+        96.0,
+        70.4,
+        102.0,
+        134.4
+      ],
+      "interfaces": [],
+      "interface_reading": "unlabelled",
+      "bbox_cad_xyz_mm": [
+        -66.5,
+        -157.725,
+        38.32,
+        -60.5,
+        -93.725,
+        76.48
+      ]
+    },
+    {
+      "id": "tree-3",
+      "root": "model",
+      "base_z_mm": 11.24,
+      "first_interface_z_mm": null,
+      "shortest_build_up_mm": null,
+      "top_z_mm": 49.4,
+      "bbox_xy_mm": [
+        222.8,
+        70.4,
+        228.8,
+        134.4
+      ],
+      "interfaces": [],
+      "interface_reading": "unlabelled",
+      "bbox_cad_xyz_mm": [
+        60.3,
+        -157.725,
+        38.32,
+        66.3,
+        -93.725,
+        76.48
+      ]
+    }
+  ],
+  "interfaces": [],
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+  "physical_removal_tested": false,
+  "removal_access": "Remove trees through the open front and rear before installing glass or cover. The straight wing pockets open inward into the empty display mouth; their 2.64 mm opening has no cover hook obstructing the removal lane."
+}

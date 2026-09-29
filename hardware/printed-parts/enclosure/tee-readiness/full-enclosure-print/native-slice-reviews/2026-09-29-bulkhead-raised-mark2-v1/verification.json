@@ -1,0 +1,55 @@
+{
+  "pass": true,
+  "native_archive": ".cache/prints/2026-09-29-bulkhead-raised-mark2-v1/ready/tap-flavor-raised-face-up-z004-mark2-v1.gcode.3mf",
+  "native_archive_sha256": "5b470601cf03bc04cd39bec8b601c2e492c491dc877cfa26930c727da43b3c8d",
+  "gcode_sha256": "2161b35fc4019b28d7ba05d7c1f477bd8c0d0c5349510541de821fc00e3aee35",
+  "source_hashes_current": true,
+  "support_paths": 0,
+  "raised_letter_checks": [
+    {
+      "station": "water",
+      "print_z_mm": 2.24,
+      "letter_nozzle": 0,
+      "extrusion_paths": 80
+    },
+    {
+      "station": "water",
+      "print_z_mm": 2.48,
+      "letter_nozzle": 0,
+      "extrusion_paths": 79
+    },
+    {
+      "station": "flavor-a",
+      "print_z_mm": 2.24,
+      "letter_nozzle": 1,
+      "extrusion_paths": 215
+    },
+    {
+      "station": "flavor-a",
+      "print_z_mm": 2.48,
+      "letter_nozzle": 1,
+      "extrusion_paths": 218
+    },
+    {
+      "station": "flavor-b",
+      "print_z_mm": 2.24,
+      "letter_nozzle": 1,
+      "extrusion_paths": 215
+    },
+    {
+      "station": "flavor-b",
+      "print_z_mm": 2.48,
+      "letter_nozzle": 1,
+      "extrusion_paths": 218
+    }
+  ],
+  "emitted_z_trim_mm": [
+    0.0,
+    0.02
+  ],
+  "estimated_seconds": 1596.9786376953125,
+  "estimated_grams_saved_profile_density": 8.24829912185669,
+  "submitted": false,
+  "calibration_applied": false,
+  "hold": "Await accepted nameplate and measured Mark2 correction. Correction follows the white nozzle, including the TAP body."
+}

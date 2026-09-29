@@ -113,8 +113,10 @@ Keep TAP's white body with black lettering and FLAVOR's black body with white
 lettering. The alignment correction belongs to the validated printer/nozzle pair
 and follows the white nozzle's paths, including the white body on TAP. Its value
 comes from [`mark2-registration.json`](../../calibration/dual-nozzle-registration/mark2-registration.json)
-and the accepted nameplate print. The rings await that result; their current
-geometry and print files do not yet implement the raised-lettering trial.
+and the accepted nameplate print. The
+[face-up trial](face-up-trial/README.md) contains raised CAD and a verified,
+uncorrected native review slice. That slice remains held for the nameplate and
+alignment result; the production ring files remain separate.
 
 ## Files
 

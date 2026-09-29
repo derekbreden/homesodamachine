@@ -1,0 +1,85 @@
+{
+    "error_string": "Success.",
+    "export_time": 2103,
+    "layer_height": 0.23999999463558197,
+    "plate_index": 0,
+    "prepare_time": 30,
+    "return_code": 0,
+    "sliced_plates": [
+        {
+            "feature_type_times": {
+                "Bottom surface": 227.71078491210938,
+                "Bridge": 330.34326171875,
+                "Custom": 302.9776611328125,
+                "Flush": 15.0,
+                "Gap infill": 11.49757194519043,
+                "Inner wall": 676.5429077148438,
+                "Internal solid infill": 1168.1859130859375,
+                "Outer wall": 886.2198486328125,
+                "Overhang wall": 785.0563354492188,
+                "Sparse infill": 838.8784790039063,
+                "Support": 4017.02197265625,
+                "Top surface": 111.00373077392578,
+                "Travel": 2030.635986328125,
+                "Undefined": 2023.56005859375
+            },
+            "filament_change_times": 0,
+            "filaments": [
+                {
+                    "filament_id": "GFT01",
+                    "id": 1,
+                    "main_used_g": 80.68135833740234,
+                    "total_used_g": 80.68135833740234
+                }
+            ],
+            "generate_support_material_time": 3747,
+            "id": 1,
+            "infill_time": 135,
+            "layer_filament_change": 0,
+            "main_predication": 11069.859375,
+            "make_perimeters_time": 45,
+            "obj_cached_cnt": 0,
+            "objects": [
+                {
+                    "bbox": {
+                        "depth": 83.0,
+                        "height": 3.8399999141693115,
+                        "width": 132.6999969482422,
+                        "x": 96.1500015258789,
+                        "y": 188.5,
+                        "z": -8.465583789529774e-11
+                    },
+                    "id": 5,
+                    "name": "display-cover-flat-wings",
+                    "triangle_count": 3088
+                },
+                {
+                    "bbox": {
+                        "depth": 90.62049102783203,
+                        "height": 58.0,
+                        "width": 142.0,
+                        "x": 91.5,
+                        "y": 59.689754486083984,
+                        "z": 0.0
+                    },
+                    "id": 9,
+                    "name": "display-receiver-flat-wings",
+                    "triangle_count": 2180
+                }
+            ],
+            "sliced_time": 5710,
+            "sliced_time_with_cache": 1632,
+            "total_predication": 11395.7607421875,
+            "triangle_count": 5268,
+            "warning_message": ""
+        }
+    ],
+    "sparse_infill_density": 15.0,
+    "upward_compatible_machine": [
+        "Bambu Lab H2S 0.4 nozzle",
+        "Bambu Lab H2D 0.4 nozzle",
+        "Bambu Lab H2D Pro 0.4 nozzle",
+        "Bambu Lab A2L 0.4 nozzle"
+    ],
+    "wall_loops": 2
+}

@@ -1,0 +1,15 @@
+{
+  "printer": "H2C",
+  "user_plate_clear": true,
+  "print_options": {
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "filament": "Black PET-GF; left external 254; printer label PET-CF",
+  "other_printer_latest_job": "1294488907",
+  "other_printer_accepted_at": "2026-09-29T22:06:59.407612Z",
+  "send_not_before": "2026-09-29T22:35:31.710004+00:00",
+  "minimum_start_spacing_seconds": 180
+}

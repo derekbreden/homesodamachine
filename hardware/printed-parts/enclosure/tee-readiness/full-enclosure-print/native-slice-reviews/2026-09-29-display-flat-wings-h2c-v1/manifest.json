@@ -1,0 +1,10 @@
+{
+  "status": "started",
+  "native_archive": ".cache/prints/2026-09-29-display-flat-wings-h2c-v1/ready/display-face-up-cover-receiver-z018-h2c-v1.gcode.3mf",
+  "native_archive_sha256": "975d93e03effb86c002b9b71587ee979bd9fe23a2612917ed139b7335a96b50c",
+  "source": "hardware/printed-parts/enclosure/display-cover/face-up-trial",
+  "estimated_seconds": 11395.7607421875,
+  "physical_acceptance": "Pending",
+  "job_id": "1294550319",
+  "acknowledged_at": "2026-09-29T22:36:15.262001+00:00"
+}

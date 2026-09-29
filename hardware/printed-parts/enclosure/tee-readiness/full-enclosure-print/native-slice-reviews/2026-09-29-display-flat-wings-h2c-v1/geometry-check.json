@@ -1,0 +1,45 @@
+{
+  "pass": true,
+  "cover_thickness_mm": 3.84,
+  "wing_thickness_mm": 1.44,
+  "wing_projection_mm": 3.6,
+  "wing_span_mm": 70.0,
+  "normal_clearance_mm": 1.2,
+  "receiver_lip_mm": 1.2,
+  "tip_air_mm": 0.6,
+  "end_air_mm": 0.3,
+  "print_down_end_extra_air_mm": 0.75,
+  "nominal_capture_mm": 3.3000000000000003,
+  "minimum_capture_at_full_lateral_float_mm": 3.0,
+  "lateral_fit_checks": [
+    {
+      "lateral_mm": -0.3,
+      "seated_intersection_mm3": 0.0
+    },
+    {
+      "lateral_mm": 0.0,
+      "seated_intersection_mm3": 0.0
+    },
+    {
+      "lateral_mm": 0.3,
+      "seated_intersection_mm3": 0.0
+    }
+  ],
+  "glass_gasket_intersection_mm3": 0.0,
+  "cover_back_plane_mm": -3.84,
+  "glass_seat_plane_mm": -5.84,
+  "display_recess_increase_mm": 1.8399999999999999,
+  "gasket_thickness_mm": 1.0,
+  "receiver_orientation_degrees": 30.0,
+  "main_enclosure_integration": "Pending fit acceptance and complete display-module/back-housing clearance check at the 1.84 mm deeper seat.",
+  "physical_qualification": "Pending insertion flex, complete wing capture, relaxed flatness and shake retention. This trial does not inherit physical acceptance from the vertical-leaf cover.",
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/display-cover/face-up-trial/face_up_trial.py": "dd407f0ad86ef759fc06b8961601cbea4a0aefaf2a964ac7ecaa724a32f16f9d",
+    "hardware/printed-parts/enclosure/display-cover/display_cover.py": "968e20c88930aa2654254849cafecc38c48afd35b62a0e854dbf7da253c4a6c8",
+    "hardware/printed-parts/enclosure/display-cover/retention-trial/retention_trial.py": "fd5d1a754b5970f2fa7a5569b554f0329ec0af6f6e064202cbd281985273133c",
+    "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.step": "2ef12c8034de1b401fa10fe9f3157b797da236a9d55be915435f129082226d52",
+    "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.stl": "bd0545aa076fed3d7adc895df205b098f11a08b6fc37c883893115aec83dd5f2",
+    "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.step": "d1e027cedf019b7f739be327648c07553550ea33b4b1f92f4e2798bbf4a249bf",
+    "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.stl": "f651c51df6a1157b0b374d13cae1ff0fd34af0557319e885d57b252ba5f3e693"
+  }
+}

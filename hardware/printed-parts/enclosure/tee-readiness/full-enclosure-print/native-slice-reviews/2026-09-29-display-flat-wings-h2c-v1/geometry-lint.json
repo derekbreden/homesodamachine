@@ -1,0 +1,10 @@
+{
+  "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.stl": {
+    "pass": true,
+    "result": "display-cover-flat-wings.stl \u00b7 3088 printed facets \u00b7 0 findings"
+  },
+  "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.stl": {
+    "pass": true,
+    "result": "display-receiver-flat-wings.stl \u00b7 2180 printed facets \u00b7 0 findings \u00b7 4 answered"
+  }
+}

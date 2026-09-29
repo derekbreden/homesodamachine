@@ -1,0 +1,52 @@
+{
+  "pass": true,
+  "stations": {
+    "water": {
+      "word": "TAP",
+      "mounting_thickness_mm": 2.0,
+      "letter_rise_mm": 0.48,
+      "letter_solids": 3,
+      "flange_to_word_band_gap_mm": 1.3403885718750015,
+      "flange_intersection_mm3": 0.0,
+      "first_plane_mm": -2.0516921495072893e-15,
+      "top_plane_mm": 2.4800002000000023,
+      "body_colour": "white",
+      "word_colour": "black"
+    },
+    "flavor-a": {
+      "word": "FLAVOR",
+      "mounting_thickness_mm": 2.0,
+      "letter_rise_mm": 0.48,
+      "letter_solids": 6,
+      "flange_to_word_band_gap_mm": 1.2039139625000015,
+      "flange_intersection_mm3": 0.0,
+      "first_plane_mm": -2.0516921495072893e-15,
+      "top_plane_mm": 2.480000200000003,
+      "body_colour": "black",
+      "word_colour": "white"
+    },
+    "flavor-b": {
+      "word": "FLAVOR",
+      "mounting_thickness_mm": 2.0,
+      "letter_rise_mm": 0.48,
+      "letter_solids": 6,
+      "flange_to_word_band_gap_mm": 1.2039139625000015,
+      "flange_intersection_mm3": 0.0,
+      "first_plane_mm": -2.0516921495072893e-15,
+      "top_plane_mm": 2.480000200000003,
+      "body_colour": "black",
+      "word_colour": "white"
+    }
+  },
+  "scope": "Geometry preparation. Physical nameplate acceptance and measured Mark2 alignment remain prerequisites for printing these rings.",
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/raised_rings.py": "ef5f4a412425e55b400d8f09f81e6fa83e5942fdd61e9c6c737164ac6352fa5d",
+    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py": "490207b4fa6b1a6ad69897386ca661ae7ecd4eaf1d21f4d54280d01a539bf2b7",
+    "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/bulkhead-ring-water-raised.step": "6d1d2bb0cfa38e480f79d567f4edac834ea376955ac8b8f493851722c7fd9fee",
+    "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/bulkhead-ring-water-raised.stl": "f2fb58152dbcd184b7602ee77434bd02cca65e33e5170348723807003430852b",
+    "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/bulkhead-ring-flavor-a-raised.step": "efaa44a307a13f6ef79d57b8deb606b94a257f68051f50802a38ba09240e3b28",
+    "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/bulkhead-ring-flavor-a-raised.stl": "71da1bef6b58179af087bd7cad61d2261b6af5a8204bcb7a3d4ad1e3b6902360",
+    "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/bulkhead-ring-flavor-b-raised.step": "a7782a38db70145c2f13fe2b6039e4c1403edfa0c39aae4915d365447691ffd1",
+    "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/bulkhead-ring-flavor-b-raised.stl": "71da1bef6b58179af087bd7cad61d2261b6af5a8204bcb7a3d4ad1e3b6902360"
+  }
+}
