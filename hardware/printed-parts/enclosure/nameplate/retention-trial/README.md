@@ -27,6 +27,10 @@ the 0.24 mm support top gap. Both support filament assignments explicitly select
 flushing into supports is off. General support XY distance is 0.40 mm and the separate
 first-layer support gap is 0.50 mm. Requested bed trim is +0.04 mm.
 
+[The physical support result](support-acceptance.json) accepts this clearance:
+supports broke cleanly everywhere and left no strings. This observation applies
+to the artwork-down nameplate; the face-up trial has its own support contacts.
+
 `nameplate_retention_trial.py` generates the cover and receiver with a private interface
 instance; it does not alter the production interface. `prepare_print.py` replaces only
 the meshes and names in the accepted two-colour project and adds the precision layer.

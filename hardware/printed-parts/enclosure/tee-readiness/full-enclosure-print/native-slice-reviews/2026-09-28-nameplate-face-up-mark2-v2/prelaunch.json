@@ -1,0 +1,33 @@
+{
+  "observed_at_utc": "2026-09-29T03:50:53.019987+00:00",
+  "printer": "Mark2",
+  "archive": {
+    "name": "nameplate-face-up-raised-snug-z004-mark2-v2.gcode.3mf",
+    "sha256": "cff4051b3af1dd7ad86989019bbb565ea2bf6052f4a5d0f3932bd48f52b52dbc",
+    "gcode_sha256": "d2a75ff3f6ddbf7993411baa590fd376f99b8e6e4a9b4a11428fcdb5150a6cad",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "000000"
+      },
+      "2": {
+        "type": "PET-CF",
+        "colour": "FFFFFF"
+      }
+    },
+    "objects": [
+      "nameplate-face-up-raised-001"
+    ]
+  },
+  "reading": {
+    "job_id": "1292024381",
+    "subtask_name": "nameplate-broad-leaf-black-supports-z004-mark2-v3.gcode.3mf",
+    "gcode_state": "FINISH",
+    "layer_num": 67,
+    "total_layer_num": 67,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": -1
+  }
+}

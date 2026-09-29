@@ -1,0 +1,19 @@
+{
+  "status": "support_clearance_and_removal_accepted",
+  "printer": "Mark2",
+  "printer_task_id": "1292024381",
+  "reported_by": "Derek",
+  "user_statement": "Support clearance worked well, no strings attached, supports broke clean everywhere.",
+  "print_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-nameplate-broad-mark2-v3/manifest.json",
+  "native_archive_sha256": "05f192eaccc7e3b012da712b9762f1f10f0af79a3181b1a8a7861f76000721c2",
+  "gcode_sha256": "b983a0d6fabebb9e33ec7811e9a933b1e1b35b4a366e5d9f8617aed7eb492128",
+  "settings": {
+    "support_filament": "black, left",
+    "support_interface_filament": "black, left",
+    "flush_into_support": false,
+    "support_object_first_layer_gap_mm": 0.5,
+    "support_object_xy_distance_mm": 0.4,
+    "support_top_z_distance_mm": 0.24
+  },
+  "scope": "Face-down broad-leaf nameplate support removal and edge cleanliness; does not validate the face-up orientation."
+}
