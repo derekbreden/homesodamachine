@@ -1,0 +1,44 @@
+{
+  "printer": "Mark2",
+  "title": "Face-up nameplate with flat wings, raised artwork and measured white-nozzle XY correction",
+  "status": "running",
+  "submitted": true,
+  "printer_task_id": "1294611267",
+  "native_archive": ".cache/prints/2026-09-29-nameplate-flat-wings-mark2-v3/ready/nameplate-framed-wings-aligned-z004-mark2-v3.gcode.3mf",
+  "native_archive_sha256": "76abf0303135485ea16757317b96d7ab1e40e4b333ad671ed2b17cf042ccc74b",
+  "gcode_sha256": "234774ab5843b3365f946e13063eb0ebd7f4ebd242db68bf41c4d3aefe75d2c2",
+  "estimated_seconds": 1967.864013671875,
+  "white_correction_mm": {
+    "X": -0.5,
+    "Y": 0.7
+  },
+  "native_extruder_offset": [
+    "0x0",
+    "0.5x-0.7"
+  ],
+  "registration_measurement": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-registration-mark2-v3/physical-result.json",
+  "source_geometry_and_settings_sha256": {
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/horizontal_wing_trial.py": "2985025a4dd0b1bfc464dc9869de47584df8585b59f509e8e9ea46569bda6512",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/wing_interface.py": "0d88bccfa6e9ad01e0c42f955c761eb53e93337faa8aed081896a6d80163ea61",
+    "hardware/printed-parts/enclosure/nameplate/nameplate.py": "34c3026fe89e4afa0d6c6084376e278fda6b00ebdd226edb6200864b8ccd81cd",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py": "fb290e6f377fc5f33790b7e6532c59ff0fdab0472b2f519d808b17106e8629fc",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-001.step": "bbb75004ff26a7a886a07fcabacf8e91f90663c603087f32f35d318a936da8c3",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-001.stl": "0ff08ab0f1d80d7b65ebb427a6285f077ce755ba3182630b12c3f0415fac500e",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.step": "8892352c953941657588608b1246d84b7275dbb2aa8610b87804b3169d666255",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.stl": "66fa373a1731355116e0e556ed9d5ddab7f0aff597b26e1dadecfe65e9ed7bbf",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf": "84c5011c0be15dd9aab41a516abe85bf99b08e2c80d91375b5f2608a96bc0e72",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/geometry-check.json": "37bd092d10504fbf18d1dbb718f55a8b1186da88298123e41cdf2f910aa4a540",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-registration-mark2-v3/physical-result.json": "d6295546669961a91b17ca9c8df4652ac528fe91f3376e5850254ecfc0374a59",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/prepare_print.py": "8e6bc45288f3a42562bbefe16a5a8dfe2aa511a07f7ac888d18b608e8f3d1b71"
+  },
+  "verification_sources_sha256": {
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/verify_print.py": "951d4ea9a1fa5bbec281e2747341b2f471aee13f5d4b3e2188c340673425f173",
+    "hardware/printed-parts/calibration/dual-nozzle-registration/verify_correction.py": "6c07fc1d5e5ffac3ae3273609233837bd910192ebc2ca3c39243a42e9079129a"
+  },
+  "physical_qualification": "Colour alignment, QR scanning, insertion, flatness and retention pending; Y selection tentative.",
+  "geometry_change": false,
+  "verification": "verification.json",
+  "coordinate_verification": "registration-verification.json",
+  "launch": "launch.json"
+}

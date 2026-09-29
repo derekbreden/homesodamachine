@@ -22,4 +22,8 @@ H2C's receiver acceptance observation.
 [`manifest.json`](manifest.json) identifies the exact archive and source hashes;
 [`verification.json`](verification.json) contains the emitted-coordinate checks;
 [`launch.json`](launch.json) records the accepted job and normal launch options.
-The physical alignment reading remains pending.
+[`physical-result.json`](physical-result.json) records the user's selected twelfth
+top-row position and eighth bottom-row position: zero-based indices 11 and 7,
+giving white X −0.50 mm and Y +0.70 mm. “Fourth from the right” confirms the
+top-row ordinal. The bottom-row choice is tentative because of slight oozing.
+The corrected raised-artwork nameplate provides the pending physical validation.

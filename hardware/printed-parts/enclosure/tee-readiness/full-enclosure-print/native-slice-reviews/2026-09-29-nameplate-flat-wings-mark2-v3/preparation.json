@@ -1,0 +1,100 @@
+{
+  "project": ".cache/prints/2026-09-29-nameplate-flat-wings-mark2-v3/nameplate-framed-wings-aligned-z004-mark2-v3-input.3mf",
+  "project_sha256": "1c7d4d7e1550c43841a701fb6ec5d65f6a4d6a49cf65e6c587999bfb02ed3e5f",
+  "source_geometry_and_settings_sha256": {
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/horizontal_wing_trial.py": "2985025a4dd0b1bfc464dc9869de47584df8585b59f509e8e9ea46569bda6512",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/wing_interface.py": "0d88bccfa6e9ad01e0c42f955c761eb53e93337faa8aed081896a6d80163ea61",
+    "hardware/printed-parts/enclosure/nameplate/nameplate.py": "34c3026fe89e4afa0d6c6084376e278fda6b00ebdd226edb6200864b8ccd81cd",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py": "fb290e6f377fc5f33790b7e6532c59ff0fdab0472b2f519d808b17106e8629fc",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-001.step": "bbb75004ff26a7a886a07fcabacf8e91f90663c603087f32f35d318a936da8c3",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-001.stl": "0ff08ab0f1d80d7b65ebb427a6285f077ce755ba3182630b12c3f0415fac500e",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.step": "8892352c953941657588608b1246d84b7275dbb2aa8610b87804b3169d666255",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.stl": "66fa373a1731355116e0e556ed9d5ddab7f0aff597b26e1dadecfe65e9ed7bbf",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf": "84c5011c0be15dd9aab41a516abe85bf99b08e2c80d91375b5f2608a96bc0e72",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/geometry-check.json": "37bd092d10504fbf18d1dbb718f55a8b1186da88298123e41cdf2f910aa4a540",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-registration-mark2-v3/physical-result.json": "d6295546669961a91b17ca9c8df4652ac528fe91f3376e5850254ecfc0374a59",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/prepare_print.py": "8e6bc45288f3a42562bbefe16a5a8dfe2aa511a07f7ac888d18b608e8f3d1b71"
+  },
+  "printer": "Mark2",
+  "nozzle_mapping": {
+    "left": "Black PET-GF, external 254",
+    "right": "White PET-GF, external 255"
+  },
+  "requested_z_trim_mm": 0.04,
+  "expected_textured_plate_trim_mm": 0.02,
+  "meshes": [
+    {
+      "name": "Black body",
+      "id": "1",
+      "triangles": 32576,
+      "bounds": [
+        [
+          -54.665,
+          -19.000000000000007,
+          -2.9741061657534674e-28
+        ],
+        [
+          54.665,
+          19.000000000000007,
+          3.360000000000002
+        ]
+      ],
+      "watertight": true
+    },
+    {
+      "name": "White artwork",
+      "id": "2",
+      "triangles": 41946,
+      "bounds": [
+        [
+          -47.230811682413,
+          -12.499999999999995,
+          1.6799999999999986
+        ],
+        [
+          47.23081168241,
+          12.500000000000004,
+          2.8800000000000017
+        ]
+      ],
+      "watertight": true
+    }
+  ],
+  "identify_ids": {
+    "2303": "nameplate-horizontal-wings-001"
+  },
+  "print_planes_z_mm": {
+    "back_and_wings": 0,
+    "wing_top": 1.68,
+    "inlay_bottom": 1.68,
+    "black_face": 2.4,
+    "white_top": 2.88,
+    "frame_top": 3.36
+  },
+  "artwork_rise_mm": 0.48,
+  "white_correction_mm": {
+    "X": -0.5,
+    "Y": 0.7
+  },
+  "native_extruder_offset": [
+    "0x0",
+    "0.5x-0.7"
+  ],
+  "registration_measurement": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-registration-mark2-v3/physical-result.json",
+  "raised_artwork": [
+    "lettering",
+    "logo and drop",
+    "QR"
+  ],
+  "precision_layer_ranges_mm": [
+    [
+      0.2,
+      0.48,
+      0.28
+    ]
+  ],
+  "settings": "Two-colour PET-GF; 0.20 mm first, 0.28 mm second, then 0.24 mm. Saved speeds and wall/infill order. No supports.",
+  "support_policy": "Plate and both wings lie directly on the bed. No supported faces on the nameplate.",
+  "orientation": "Nameplate face +Z, back and both wings at Z=0. Matching horizontal-wing receiver required."
+}

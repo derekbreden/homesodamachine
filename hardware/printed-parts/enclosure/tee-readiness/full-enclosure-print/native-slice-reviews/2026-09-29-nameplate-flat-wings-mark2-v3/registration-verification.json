@@ -1,0 +1,371 @@
+{
+  "pass": true,
+  "baseline_archive": ".cache/prints/2026-09-29-nameplate-flat-wings-mark2-v2/ready/nameplate-framed-wings-z004-mark2-v2.gcode.3mf",
+  "baseline_archive_sha256": "72988bc9c10ca2f0fc3a1c547b48d7615047856cd5752121578aad010100352a",
+  "corrected_archive_sha256": "76abf0303135485ea16757317b96d7ab1e40e4b333ad671ed2b17cf042ccc74b",
+  "nominal_mesh_members_unchanged": [
+    "3D/3dmodel.model",
+    "3D/_rels/3dmodel.model.rels",
+    "3D/Objects/object_1.model"
+  ],
+  "effective_setting_changes": {
+    "extruder_offset": [
+      [
+        "0x0",
+        "0x0"
+      ],
+      [
+        "0x0",
+        "0.5x-0.7"
+      ]
+    ]
+  },
+  "native_purge_tower_endpoints_unchanged": true,
+  "native_purge_tower_white_entries": [
+    {
+      "print_z_mm": 1.92,
+      "entry_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "native_first_road_start_xy": [
+        166.925,
+        271.384
+      ],
+      "native_first_road_end_xy": [
+        170.425,
+        270.684
+      ]
+    },
+    {
+      "print_z_mm": 2.16,
+      "entry_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "native_first_road_start_xy": [
+        167.175,
+        253.634
+      ],
+      "native_first_road_end_xy": [
+        188.175,
+        252.934
+      ]
+    },
+    {
+      "print_z_mm": 2.4,
+      "entry_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "native_first_road_start_xy": [
+        187.925,
+        271.384
+      ],
+      "native_first_road_end_xy": [
+        185.425,
+        270.684
+      ]
+    },
+    {
+      "print_z_mm": 2.64,
+      "entry_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "native_first_road_start_xy": [
+        167.175,
+        253.634
+      ],
+      "native_first_road_end_xy": [
+        188.175,
+        252.934
+      ]
+    },
+    {
+      "print_z_mm": 2.88,
+      "entry_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "native_first_road_start_xy": [
+        166.925,
+        271.384
+      ],
+      "native_first_road_end_xy": [
+        170.425,
+        270.684
+      ]
+    }
+  ],
+  "model_path_checks": [
+    {
+      "object": 2303,
+      "tool": 0,
+      "print_z_mm": 0.2,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 568,
+      "corrected_segments": 568,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2303,
+      "tool": 0,
+      "print_z_mm": 0.48,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 694,
+      "corrected_segments": 694,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2303,
+      "tool": 0,
+      "print_z_mm": 0.72,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 690,
+      "corrected_segments": 690,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2303,
+      "tool": 0,
+      "print_z_mm": 0.96,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 255,
+      "corrected_segments": 255,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2303,
+      "tool": 0,
+      "print_z_mm": 1.2,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 310,
+      "corrected_segments": 310,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2303,
+      "tool": 0,
+      "print_z_mm": 1.44,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 990,
+      "corrected_segments": 990,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2303,
+      "tool": 0,
+      "print_z_mm": 1.68,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 1206,
+      "corrected_segments": 1206,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2303,
+      "tool": 0,
+      "print_z_mm": 1.92,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 3795,
+      "corrected_segments": 3794,
+      "normalized_path_hausdorff_mm": 0.0005170304325737645,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0004109708061150741
+    },
+    {
+      "object": 2303,
+      "tool": 0,
+      "print_z_mm": 2.16,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 3796,
+      "corrected_segments": 3796,
+      "normalized_path_hausdorff_mm": 0.0005170304325737645,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.001182802663606708
+    },
+    {
+      "object": 2303,
+      "tool": 0,
+      "print_z_mm": 2.4,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 2146,
+      "corrected_segments": 2142,
+      "normalized_path_hausdorff_mm": 0.000690989530974674,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 3.696188286994584e-06
+    },
+    {
+      "object": 2303,
+      "tool": 0,
+      "print_z_mm": 2.64,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 317,
+      "corrected_segments": 317,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2303,
+      "tool": 0,
+      "print_z_mm": 2.88,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 323,
+      "corrected_segments": 323,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2303,
+      "tool": 0,
+      "print_z_mm": 3.12,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 322,
+      "corrected_segments": 322,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2303,
+      "tool": 0,
+      "print_z_mm": 3.36,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 573,
+      "corrected_segments": 573,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2303,
+      "tool": 1,
+      "print_z_mm": 1.92,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 1899,
+      "corrected_segments": 1899,
+      "normalized_path_hausdorff_mm": 4.0194366942304644e-14,
+      "normalized_bounds_error_mm": 2.842170943040401e-14,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2303,
+      "tool": 1,
+      "print_z_mm": 2.16,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 2235,
+      "corrected_segments": 2236,
+      "normalized_path_hausdorff_mm": 0.000570065719694904,
+      "normalized_bounds_error_mm": 2.842170943040401e-14,
+      "total_path_length_difference_mm": 0.00015061361500556814
+    },
+    {
+      "object": 2303,
+      "tool": 1,
+      "print_z_mm": 2.4,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 2242,
+      "corrected_segments": 2242,
+      "normalized_path_hausdorff_mm": 0.00013154821636477646,
+      "normalized_bounds_error_mm": 2.842170943040401e-14,
+      "total_path_length_difference_mm": 6.753848992957501e-06
+    },
+    {
+      "object": 2303,
+      "tool": 1,
+      "print_z_mm": 2.64,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 2234,
+      "corrected_segments": 2234,
+      "normalized_path_hausdorff_mm": 4.0194366942304644e-14,
+      "normalized_bounds_error_mm": 2.842170943040401e-14,
+      "total_path_length_difference_mm": 1.3642420526593924e-12
+    },
+    {
+      "object": 2303,
+      "tool": 1,
+      "print_z_mm": 2.88,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 1673,
+      "corrected_segments": 1673,
+      "normalized_path_hausdorff_mm": 4.0194366942304644e-14,
+      "normalized_bounds_error_mm": 2.842170943040401e-14,
+      "total_path_length_difference_mm": 1.1368683772161603e-12
+    }
+  ],
+  "maximum_normalized_path_error_mm": 0.000690989530974674,
+  "physical_alignment": "Pending inspection of the printed nameplate; Y selection is tentative."
+}

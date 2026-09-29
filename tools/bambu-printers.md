@@ -54,7 +54,9 @@ to measure residual XY alignment. Both hotends are 0.4 mm. Record the exact job,
 native archive, launch settings, selected X/Y indices, coordinate correction and
 validation result. The correction is printer/nozzle-pair specific; keep the CAD
 artwork aligned. The measurement state is in `mark2-registration.json` beside
-the coupon source and is currently unmeasured.
+the coupon source: white X −0.50 mm and Y +0.70 mm, with physical validation on
+the raised-artwork nameplate pending. The Y choice is tentative. Use the native
+slice's verified tool-coordinate correction; keep the part geometry nominal.
 
 The coupon uses the usual **Auto** Nozzle Offset Calibration option in Bambu
 Connect, as do validation and product prints. The procedure does not depend on

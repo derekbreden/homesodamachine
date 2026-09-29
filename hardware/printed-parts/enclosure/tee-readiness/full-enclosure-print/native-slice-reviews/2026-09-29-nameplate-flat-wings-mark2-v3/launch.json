@@ -1,0 +1,37 @@
+{
+  "printer": "Mark2",
+  "job_id": "1294611267",
+  "job_name": "nameplate-framed-wings-aligned-z004-mark2-v3.gcode.3mf",
+  "native_archive_sha256": "76abf0303135485ea16757317b96d7ab1e40e4b333ad671ed2b17cf042ccc74b",
+  "acknowledged_at": "2026-09-29T23:05:34.266818+00:00",
+  "acknowledgement": {
+    "printer": "Mark2",
+    "observed_at": "2026-09-29T23:05:34.266818+00:00",
+    "gcode_state": "RUNNING",
+    "subtask_name": "nameplate-framed-wings-aligned-z004-mark2-v3.gcode.3mf",
+    "subtask_id": "1294611267",
+    "job_id": "1294611267",
+    "mc_percent": 0,
+    "layer_num": 0,
+    "total_layer_num": 14,
+    "mc_remaining_time": 32,
+    "print_error": 0,
+    "hms": []
+  },
+  "print_options": {
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "filament_mapping": {
+    "left": "Black PET-GF, external 254, 0.4 mm",
+    "right": "White PET-GF, external 255, 0.4 mm"
+  },
+  "user_plate_clear": true,
+  "method": "Bambu Connect native UI through CUA",
+  "other_printer_acknowledged_at": "2026-09-29T22:36:15.262001+00:00",
+  "minimum_start_spacing_seconds": 1725.128976,
+  "required_spacing_seconds": 180,
+  "imported_copy_sha256_after_send": "76abf0303135485ea16757317b96d7ab1e40e4b333ad671ed2b17cf042ccc74b"
+}

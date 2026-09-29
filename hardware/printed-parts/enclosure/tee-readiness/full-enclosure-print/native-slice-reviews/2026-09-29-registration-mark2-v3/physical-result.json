@@ -1,0 +1,18 @@
+{
+  "printer": "Mark2",
+  "printer_task_id": "1294488907",
+  "native_archive_sha256": "8d78f49fc395453c9ad84b046449ef10031439650811d13e75a1c5951e37269c",
+  "nozzle_pair": {"left": "0.4 mm black PET-GF, external 254", "right": "0.4 mm white PET-GF, external 255"},
+  "candidate_count_per_row": 15,
+  "user_reading": {
+    "X": "Top row (vertical lines): 12, fourth from the right, best bet.",
+    "Y": "Bottom row (horizontal lines): 8 counting left to right; difficult to distinguish because of slight oozing/fudging."
+  },
+  "selected_columns_one_based": {"X": 12, "Y": 8},
+  "selected_indices_zero_based": {"X": 11, "Y": 7},
+  "indexing_basis": "Fourth from the right of 15 is the twelfth position from the left. Both user selections are interpreted as ordinal positions, not the printed zero-based indices.",
+  "white_correction_mm": {"X": -0.5, "Y": 0.7},
+  "selection_confidence": {"X": "User best bet", "Y": "Tentative: slight oozing makes adjacent choices difficult to distinguish"},
+  "normal_nozzle_offset_calibration": "Auto",
+  "physical_validation": "Selected correction is to be evaluated on the raised-artwork nameplate; residual alignment and QR scanning remain unverified."
+}

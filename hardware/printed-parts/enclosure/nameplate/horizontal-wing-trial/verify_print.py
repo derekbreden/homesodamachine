@@ -10,6 +10,8 @@ ROOT,JOB,HERE=prep.ROOT,prep.JOB,prep.HERE
 sys.path[:0]=[str(HERE.parent),str(ROOT/'hardware/scripts')]
 from verify_mark2_print import segments
 from verify_round_layer_band import wall_layers
+sys.path.insert(0,str(ROOT/'hardware/printed-parts/calibration/dual-nozzle-registration'))
+from verify_correction import verify as verify_correction
 
 def main():
     sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
@@ -24,10 +26,14 @@ def main():
         (JOB/'preview.png').write_bytes(z.read('Metadata/plate_1.png'))
     for k,v in {'enable_support':'0','brim_type':'no_brim','initial_layer_print_height':'0.2',
                 'layer_height':'0.24','filament_nozzle_map':['0','1'],'nozzle_diameter':['0.4','0.4'],
-                'wall_sequence':'inner wall/outer wall','is_infill_first':'0','infill_wall_overlap':'15%'}.items():
+                'wall_sequence':'inner wall/outer wall','is_infill_first':'0','infill_wall_overlap':'15%',
+                'extruder_offset':prepared['native_extruder_offset']}.items():
         assert settings[k]==v,(k,settings[k])
     path=JOB/'ready/plate_1.gcode';path.write_bytes(gc)
     roads=list(segments(path));assert {r['object'] for r in roads}=={2303}
+    baseline=ROOT/'.cache/prints/2026-09-29-nameplate-flat-wings-mark2-v2/ready/nameplate-framed-wings-z004-mark2-v2.gcode.3mf'
+    registration=verify_correction(baseline,native,prepared['white_correction_mm'])
+    (JOB/'registration-verification.json').write_text(json.dumps(registration,indent=2)+'\n')
     assert not any(r['feature'].startswith('Support') for r in roads)
     layers=wall_layers(native,2303)
     assert len(layers)==14 and np.allclose([z for z,h in layers],[.2,.48,.72,.96,1.2,1.44,1.68,1.92,2.16,2.4,2.64,2.88,3.12,3.36])
@@ -62,7 +68,9 @@ def main():
             'source_hashes_current':True,'layers':layers,'support_paths':0,'wing_checks':wing_checks,
             'raised_artwork_checks':checks,'artwork_rise_mm':.48,
             'estimated_seconds':sliced['total_predication'],'submitted':False,
-            'launch_hold':'Await the Mark2 registration coupon result; this uncorrected slice is a geometry review.',
+            'white_correction_mm':prepared['white_correction_mm'],
+            'registration_verification':'registration-verification.json',
+            'launch_hold':None,
             'physical_qualification':'Insertion, shake retention, flatness, colour registration and QR scanning pending.'}
     (JOB/'verification.json').write_text(json.dumps(record,indent=2)+'\n')
     print(json.dumps({k:record[k] for k in ('pass','support_paths','estimated_seconds','raised_artwork_checks')}))
