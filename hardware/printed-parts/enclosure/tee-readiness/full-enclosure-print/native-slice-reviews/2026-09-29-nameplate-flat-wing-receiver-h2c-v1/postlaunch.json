@@ -1,12 +1,12 @@
 {
   "printer": "H2C",
-  "observed_at": "2026-09-29T20:46:41.668156+00:00",
+  "observed_at": "2026-09-29T20:52:49.115819+00:00",
   "gcode_state": "RUNNING",
   "subtask_name": "nameplate-flat-wing-receiver-z018-h2c-v1.gcode.3mf",
-  "mc_percent": 67,
-  "layer_num": 218,
+  "mc_percent": 84,
+  "layer_num": 298,
   "total_layer_num": 327,
-  "mc_remaining_time": 11,
+  "mc_remaining_time": 5,
   "print_error": 0,
   "hms": [
     {
@@ -27,5 +27,11 @@
       "type": "TPU",
       "colour": "161616FF"
     }
+  },
+  "hms_interpretation": {
+    "source": "Bambu Connect device error panel via native accessibility UI",
+    "message": "Nozzle camera lens is dirty, which may affect the AI monitoring functionality. Please clean the surface of the nozzle camera lens as soon as possible.",
+    "printing_continued": true,
+    "action": "Report lens-cleaning maintenance after the print; no print setting changed."
   }
 }
