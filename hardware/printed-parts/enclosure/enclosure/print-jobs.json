@@ -2350,7 +2350,7 @@
       "printer": "Mark2",
       "job_name": "registration-saved-alignment-z004-mark2-v2.gcode.3mf",
       "printer_task_id": "1294385772",
-      "status": "started",
+      "status": "completed_range_insufficient",
       "observed_at_utc": "2026-09-29T21:19:52.868390+00:00",
       "observed_state_at_acceptance": "RUNNING",
       "sliced_file": ".cache/prints/2026-09-29-registration-mark2-v2/ready/registration-saved-alignment-z004-mark2-v2.gcode.3mf",
@@ -2364,7 +2364,8 @@
         "Nozzle Offset Calibration": "Auto"
       },
       "review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-registration-mark2-v2",
-      "physical_result": "Pending"
+      "physical_result": "Top row furthest left is best, but not far enough. Bottom row furthest right is best, but not far enough.",
+      "physical_result_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-registration-mark2-v2/physical-result.json"
     },
     {
       "date": "2026-09-29",
@@ -2385,6 +2386,27 @@
         "Nozzle Offset Calibration": "Auto"
       },
       "review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-flat-wing-receiver-h2c-v3",
+      "physical_result": "Pending"
+    },
+    {
+      "date": "2026-09-29",
+      "printer": "Mark2",
+      "job_name": "registration-shifted-ranges-z004-mark2-v3.gcode.3mf",
+      "printer_task_id": "1294488907",
+      "status": "started",
+      "observed_at_utc": "2026-09-29T22:06:59.407612+00:00",
+      "observed_state_at_acceptance": "RUNNING",
+      "sliced_file": ".cache/prints/2026-09-29-registration-mark2-v3/ready/registration-shifted-ranges-z004-mark2-v3.gcode.3mf",
+      "sliced_file_sha256": "8d78f49fc395453c9ad84b046449ef10031439650811d13e75a1c5951e37269c",
+      "gcode_sha256": "10b4a3a4050f696a57e97496694b92d6e91acd0db72fa959c36f82140efe3015",
+      "estimated_seconds": 821.0983276367188,
+      "print_options": {
+        "Timelapse": "On",
+        "Auto bed leveling": "On",
+        "Flow dynamic calibration": "Auto",
+        "Nozzle Offset Calibration": "Auto"
+      },
+      "review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-registration-mark2-v3",
       "physical_result": "Pending"
     }
   ]

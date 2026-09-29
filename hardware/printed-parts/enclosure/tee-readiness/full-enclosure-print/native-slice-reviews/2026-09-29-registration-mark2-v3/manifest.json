@@ -1,0 +1,36 @@
+{
+  "printer": "Mark2",
+  "title": "Coplanar registration coupon with shifted X and Y candidate ranges.",
+  "status": "started",
+  "submitted": true,
+  "printer_task_id": "1294488907",
+  "native_archive": ".cache/prints/2026-09-29-registration-mark2-v3/ready/registration-shifted-ranges-z004-mark2-v3.gcode.3mf",
+  "native_archive_sha256": "8d78f49fc395453c9ad84b046449ef10031439650811d13e75a1c5951e37269c",
+  "gcode_sha256": "10b4a3a4050f696a57e97496694b92d6e91acd0db72fa959c36f82140efe3015",
+  "estimated_seconds": 821.0983276367188,
+  "source_geometry_and_settings_sha256": {
+    "hardware/printed-parts/calibration/dual-nozzle-registration/registration.py": "c02df4abc6349785e9a041afda349892800b05fc7314b6633607cc6831fbcbd5",
+    "hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.step": "70ea1bb64fffc023ca458f8a2089de35c63a596b0d298f8c3768a45000e249d9",
+    "hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.stl": "67c1821a9941be34c9fe6d8fac7fe7ff0c79f2774c63d7eb75f10aeaf13e7da2",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf": "84c5011c0be15dd9aab41a516abe85bf99b08e2c80d91375b5f2608a96bc0e72",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "hardware/printed-parts/calibration/dual-nozzle-registration/geometry-check.json": "475e87d381f9309c3fc59b755d58e24c12efd2e672a180f658168b99f4f264cf",
+    "hardware/printed-parts/calibration/dual-nozzle-registration/prepare_print.py": "72d103bbd972ebfd4c8b3c8b83fe575a654e27ec2e8fac31d67962f8c2791d40"
+  },
+  "candidate_correction_ranges_mm": {
+    "X": [
+      -1.05,
+      -0.35
+    ],
+    "Y": [
+      0.35,
+      1.05
+    ]
+  },
+  "candidate_spacing_mm": 0.05,
+  "slicer_settings_identical_to_v2": true,
+  "physical_qualification": "Pending",
+  "verification": "verification.json",
+  "geometry_check": "geometry-check.json",
+  "launch_record": "launch.json"
+}

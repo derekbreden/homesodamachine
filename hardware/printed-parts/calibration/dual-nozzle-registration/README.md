@@ -9,9 +9,12 @@ Each row has indices 0–14. Choose the index where the black line and its white
 continuation line up. Read **X and Y independently**; report both indices if
 adjacent candidates tie. Each step is 0.05 mm:
 
-    white correction (mm) = -0.35 + 0.05 × selected index
+    X white correction (mm) = -1.05 + 0.05 × selected index
+    Y white correction (mm) = +0.35 + 0.05 × selected index
 
-Index 7 is zero. The selected displacement is the correction to apply to white;
+With X above Y and the indices increasing left to right, the top row tests
+−1.05 through −0.35 mm in X and the bottom row +0.35 through +1.05 mm in Y.
+The selected displacement is the correction to apply to white;
 the measured relative error has the opposite sign. Do not extrapolate beyond
 the coupon. A photograph perpendicular to the surface can document the reading.
 
@@ -35,4 +38,4 @@ use on a nameplate. Numerical zero in the uncorrected coupon is not evidence of
 calibration. Recheck after changing a hotend or calibration condition.
 
 The current native review and launch receipt are retained in
-[`2026-09-29-registration-mark2-v2`](../../enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-registration-mark2-v2/README.md).
+[`2026-09-29-registration-mark2-v3`](../../enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-registration-mark2-v3/README.md).

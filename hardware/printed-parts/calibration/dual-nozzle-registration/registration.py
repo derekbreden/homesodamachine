@@ -8,7 +8,8 @@ sys.path[:0]=[str(ROOT/'hardware/scripts')]
 from _cadq_export import export_assembly,export_step,_write_mesh_payload,_per_solid_color
 NAME='dual-nozzle-registration'
 BASE=.96;TOP=1.44
-OFFSETS=[round(-.35+.05*i,2) for i in range(15)]
+OFFSETS={'X':[round(-1.05+.05*i,2) for i in range(15)],
+         'Y':[round(.35+.05*i,2) for i in range(15)]}
 PITCH=7.0
 
 def block(x0,x1,y0,y1,z0,z1):
@@ -16,16 +17,16 @@ def block(x0,x1,y0,y1,z0,z1):
 
 def build():
  black=block(-55,55,-19,20,0,BASE);white=[];rows=[]
- for i,d in enumerate(OFFSETS):
+ for i,(dx,dy) in enumerate(zip(OFFSETS['X'],OFFSETS['Y'])):
   x=(i-7)*PITCH
   black=black.fuse(block(x-.45,x+.45,10.8,14.2,BASE,TOP),
                    block(x-3,x-.4,-5.45,-4.55,BASE,TOP))
-  white.extend((block(x+d-.45,x+d+.45,6.4,9.8,BASE,TOP),
-                block(x+.4,x+3,-5+d-.45,-5+d+.45,BASE,TOP)))
+  white.extend((block(x+dx-.45,x+dx+.45,6.4,9.8,BASE,TOP),
+                block(x+.4,x+3,-5+dy-.45,-5+dy+.45,BASE,TOP)))
   for y in (17,-10):
    label=(cq.Workplane('XY',origin=(x,y,BASE)).text(str(i),2.6,TOP-BASE,font='Helvetica',halign='center',valign='center',combine=False).val())
    black=black.fuse(label)
-  rows.append({'index':i,'candidate_white_correction_mm':d,'x_station_mm':x})
+  rows.append({'index':i,'candidate_white_correction_mm':{'X':dx,'Y':dy},'x_station_mm':x})
  for text,x,y in [('X',-51,2),('Y',-51,-15)]:
   label=cq.Workplane('XY',origin=(x,y,BASE)).text(text,3,TOP-BASE,font='Helvetica',combine=False).val()
   black=black.fuse(label)

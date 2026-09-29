@@ -1,7 +1,7 @@
 {
   "printer": "Mark2",
   "title": "Ordinary coplanar alignment print; usual launch options.",
-  "status": "printing",
+  "status": "completed_range_insufficient",
   "submitted": true,
   "printer_task_id": "1294385772",
   "native_archive": ".cache/prints/2026-09-29-registration-mark2-v2/ready/registration-saved-alignment-z004-mark2-v2.gcode.3mf",
@@ -17,9 +17,10 @@
     "hardware/printed-parts/calibration/dual-nozzle-registration/geometry-check.json": "c8d1fdf0b714611e53189951d9bcdd4776ab69945cccac10bf1bcbc9399c3303",
     "hardware/printed-parts/calibration/dual-nozzle-registration/prepare_print.py": "6107fb8a04ac79bec9d3bb4cd7d5796d19a4e30b1eeb08f594056ee845d6b875"
   },
-  "physical_qualification": "Pending",
+  "physical_qualification": "Both best candidates are beyond the tested range.",
   "verification": "verification.json",
   "geometry_check": "geometry-check.json",
   "launch_record": "launch.json",
-  "postlaunch_status": "postlaunch-status.json"
+  "postlaunch_status": "postlaunch-status.json",
+  "physical_result": "physical-result.json"
 }

@@ -41,10 +41,12 @@ def main():
     assert sorted({r['layer'] for r in roads if r['tool']==1})==[1.2,1.44]
     checks=[]
     for z in (1.2,1.44):
-        for i,d in enumerate(prep.trial.OFFSETS):
+        for i in range(15):
             x=165+(i-7)*7
-            for axis,regions in [('X',((x-1,135.8,x+1,139.2),(x-1,131.4,x+1,134.8))),
-                                 ('Y',((x-3,119,x-.4,121),(x+.4,119,x+3,121)))]:
+            dx,dy=(prep.trial.OFFSETS[a][i] for a in ('X','Y'))
+            for axis,regions in [('X',((x-.7,135.8,x+.7,139.2),(x+dx-.7,131.4,x+dx+.7,134.8))),
+                                 ('Y',((x-3,119.3,x-.4,120.7),(x+.4,120+dy-.7,x+3,120+dy+.7)))]:
+                d=prep.trial.OFFSETS[axis][i]
                 shapes=[]
                 for tool,region in enumerate(regions):
                     shape=roads_shape([r for r in roads if r['layer']==z and r['tool']==tool
