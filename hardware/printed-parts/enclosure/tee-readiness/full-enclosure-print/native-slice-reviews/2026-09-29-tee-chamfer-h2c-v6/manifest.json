@@ -32,7 +32,7 @@
   "launch_record": "launch.json",
   "postlaunch_record": "postlaunch.json",
   "review_sha256": {
-    "README.md": "1a608fd3f3cd90261ff3e7d6599660b10872ad31ec818e5243c58ffde89357d0",
+    "README.md": "5fece857246a7878d3de6996cc63853b4317a3a3f7765131c599cc47cd4106eb",
     "bottom-profile.png": "879c5c5fa251787373d4b714cda774b8697ecc2f272b266844fe1e76a85f5842",
     "effective-settings.json": "4e12d7709d62d333cd55a4c5ab0f293a7f0fd2ebbcc26e2d81c2d901e9ee23a4",
     "first-layer-overlap.json": "675d38eed98135801aa70dcdd4a9f224433d3030f2728fcbcbccaf001da1b64a",
@@ -40,6 +40,7 @@
     "launch.json": "027d03799bbc7980c4fef274ca2e4f1d358913e5c14d1fafc3845d8c8eb93e7b",
     "motion-envelope.json": "6cf0475981ff86ae5593838a64b935031f21a947f6b6665d01db8ef057153a87",
     "other-printer-before-launch.json": "6155f9fcda869e3b730ce04e678049b19999870171f304d6fff6d5ba63f6cdb8",
+    "physical-result.json": "d8699e61176c9c102b0aa7eac48ccd037b2bb5cf21433503e56c0683c5e3987a",
     "postlaunch.json": "49f616abd464dbafb589f5b90065eecb812428165b3250559c6f52214274d2c6",
     "prelaunch.json": "4143c4c41c155ef1a78b8af204d98088539a358099f71e712eb4c7b0e2aa008e",
     "preparation.json": "cd53f26a0f9048c5a794135ce238522b05ac246e7f20820952c9f4094b57baa8",
@@ -50,5 +51,14 @@
     "support-audit.json": "c0207a25d2441d4aae0c254996c4a62b9faa0ab749335fbafe4f9a24aa0ec6cf",
     "verification.json": "1f98bc20d7ae6ceeff0694b8de9b67b35d3dbad1a75812e936cba0036b39e0fc",
     "wall-review.json": "f0dd6eb2bcf1076c88d8d1396c1aa4cfc333fa59c44aa9e96216e95d6146728c"
+  },
+  "physical_result": {
+    "date": "2026-09-29",
+    "source": "User physical inspection in this thread",
+    "result": {
+      "bottom_surface": "Accepted: turned out great.",
+      "sliding_fit": "Not reported.",
+      "direction": "Apply the filled chamfer/taper and normal bottom layers to other expanding print-down curves."
+    }
   }
 }

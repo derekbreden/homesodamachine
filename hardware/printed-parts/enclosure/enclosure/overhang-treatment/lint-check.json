@@ -1,0 +1,38 @@
+{
+  "back-bottom": {
+    "remaining_unanswered_findings": 0,
+    "newly_anchored_answers": 4,
+    "already_answered": 153,
+    "record": "Raw report followed by same-class exact-anchor check against current lint answers."
+  },
+  "back-top": {
+    "remaining_unanswered_findings": 0,
+    "newly_anchored_answers": 0,
+    "already_answered": 42,
+    "record": "Raw report followed by same-class exact-anchor check against current lint answers."
+  },
+  "front-bottom": {
+    "remaining_unanswered_findings": 0,
+    "newly_anchored_answers": 3,
+    "already_answered": 5,
+    "record": "Raw report followed by same-class exact-anchor check against current lint answers."
+  },
+  "front-top": {
+    "remaining_unanswered_findings": 0,
+    "newly_anchored_answers": 0,
+    "already_answered": 17,
+    "record": "Raw report followed by same-class exact-anchor check against current lint answers."
+  },
+  "pump-cap": {
+    "remaining_unanswered_findings": 0,
+    "newly_anchored_answers": 2,
+    "already_answered": 0,
+    "record": "Raw report followed by same-class exact-anchor check against current lint answers."
+  },
+  "pump-cartridge": {
+    "remaining_unanswered_findings": 0,
+    "newly_anchored_answers": 0,
+    "already_answered": 4,
+    "record": "Raw report followed by same-class exact-anchor check against current lint answers."
+  }
+}

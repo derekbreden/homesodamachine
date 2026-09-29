@@ -1,0 +1,11 @@
+enclosure-pump-cap.stl · 8284 printed facets · 2 findings
+
+  [ceiling] 515 mm² flat print-down face at z=278.925 · 45.0 × 45.0 mm · open to the bed (5.2 mm up)
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-52.225 y=44.859 z=278.925
+    click: x=-52.225 y=44.859 z=278.925
+
+  [ceiling] 515 mm² flat print-down face at z=278.925 · 45.0 × 45.0 mm · open to the bed (5.2 mm up)
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=52.225 y=44.859 z=278.925
+    click: x=52.225 y=44.859 z=278.925

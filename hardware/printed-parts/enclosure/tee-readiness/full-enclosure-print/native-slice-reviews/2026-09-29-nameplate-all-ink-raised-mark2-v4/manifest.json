@@ -43,16 +43,30 @@
     "geometry-check.json": "11f8ff590ad29bece3e0b31241e7887cf69ba308f9b68a743e2ab8324524dd25",
     "launch.json": "331493c7eab58059bbc23997d5590217f8630d42765b6530bcacb0f9c1ec2532",
     "leaf-clearance.json": "32a4dbad1a0e3a493b0868ef2be0b9eb837392bcf55062b5fc2a7cb76d168b8e",
+    "physical-result.json": "7c3fa805904ee7164798b10f061fbe53d399a1408c82a076cd9e069b97c66482",
     "postlaunch.json": "c403c6cbdcff57149f4e5d0476ef8cb3f6bfe56cf1f30ac361c5a2a93e94d85c",
     "prelaunch.json": "6897a00bc988b4afd18c2a28021847e14b0beb168eae2458761e95c870b150ae",
     "preparation.json": "b52834335024a73728e07c8ded4bd61d0ebf455c29b7c7a8a778f33b705df125",
     "preview.png": "463617d06f6ee676ea6979a7a654fbfd67c088f60388f49af4b938677ce0b312",
     "qr-check.json": "f39d80cfe5ebda2b22afa97fb83c8ee8bdf43792d936b060100cf169aa131a93",
+    "registration-path-audit.json": "fc9b98502c5baa5266a19fac6fa18d8dc9a0d855361a388fa3cb5b17ecef6d3e",
     "show-face-paths.png": "0aa463f44a41a5015c5c30a6f165b19f46755513ef1632d10420afbb8b99bdb3",
     "slice-command.json": "08fa688872b7751d729953438c5486ff71b04fe8f17a3a641ace2116060b4add",
     "slice-result.json": "8106782592a59cd29b4f204aa2d6695a51ede63ced9d5c1faebb130f60ea90fa",
     "startup-spacing.json": "e5be283e95dc2bfb5b0b14c340b2f0669bacef5c7c69e2c8e327f640d16b927d",
     "support-audit.json": "f9008c5f750191540452761a5df7eb412900b2dd71858b0adcd1fa558925c499",
     "verification.json": "f0da6e6a1d2426e3b36153eb974777a6c95e92af8442a7630f2edf01b25d5539"
+  },
+  "physical_result": {
+    "date": "2026-09-29",
+    "source": "User physical inspection in this thread",
+    "result": {
+      "raised_artwork": "Accepted: lettering, logo and QR appearance turned out great.",
+      "flatness": "Rejected: visible warping before support removal.",
+      "support_removal": "Rejected: support material trapped between hooks and plate back; difficult to remove in one piece.",
+      "physical_qr_scan": "Not reported.",
+      "direction": "Face-up plate with flat coplanar side wings and matching receiver slots.",
+      "xy_registration": "Not accepted: user reports white displaced down/right in the photograph relative to black cavities. Magnitude and printer-axis direction are unmeasured; coplanar alignment coupon pending."
+    }
   }
 }

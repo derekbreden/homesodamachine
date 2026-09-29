@@ -1,0 +1,16 @@
+{
+  "observed_at_utc": "2026-09-29T20:26:00.198259+00:00",
+  "printer_task_id": "1294234201",
+  "state": "FAILED",
+  "layer": 0,
+  "print_error_decimal": 50348048,
+  "print_error_hex": "03004010",
+  "hms": [
+    {
+      "attr": 50341120,
+      "code": 65546
+    }
+  ],
+  "bambu_connect_text": "Nozzle offset calibration failed. Filament sticks to the nozzle, which may affect print quality. Please clean the nozzle and try again.",
+  "action": "Physical nozzle cleaning requested; no automatic retry and no change to calibration launch condition."
+}

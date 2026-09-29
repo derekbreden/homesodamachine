@@ -5228,6 +5228,7 @@
   "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py": {
     "reads": [
       "hardware/printed-parts/cadlib/fits.py",
+      "hardware/printed-parts/cadlib/overhang_round.py",
       "hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
       "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
       "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
@@ -6016,6 +6017,7 @@
       "hardware/printed-parts/cadlib/cable_clip.py",
       "hardware/printed-parts/cadlib/fits.py",
       "hardware/printed-parts/cadlib/flute_skin.py",
+      "hardware/printed-parts/cadlib/overhang_round.py",
       "hardware/printed-parts/cadlib/reeding.py",
       "hardware/printed-parts/cadlib/snap.py",
       "hardware/printed-parts/cadlib/world_workplane.py",
@@ -6043,6 +6045,7 @@
       "hardware/printed-parts/zone-c/funnel/funnel.py",
       "hardware/reference/beduan-solenoid/beduan_solenoid.py",
       "hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
+      "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json",
       "hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
       "hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
       "hardware/reference/riteav-keystone/riteav_keystone.py",
@@ -6065,7 +6068,6 @@
       "hardware/scripts/_routing.py",
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_stated_bounds.py",
-      "hardware/scripts/_world_sdf.py",
       "hardware/scripts/pick_text.py",
       "tools/docgen/__init__.py"
     ],
@@ -6300,6 +6302,7 @@
       "hardware/printed-parts/cadlib/cable_clip.py",
       "hardware/printed-parts/cadlib/fits.py",
       "hardware/printed-parts/cadlib/flute_skin.py",
+      "hardware/printed-parts/cadlib/overhang_round.py",
       "hardware/printed-parts/cadlib/reeding.py",
       "hardware/printed-parts/cadlib/snap.py",
       "hardware/printed-parts/cadlib/world_workplane.py",

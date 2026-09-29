@@ -6,8 +6,8 @@ click: x=-100.875 y=268.175 z=169.450
 
 [ceiling] The handholds' lifting ceilings stand 35.25 mm above the standing underside, including the 0.25 mm supported-face allowance. The roof grows with the opening to retain its full 12 mm section. Each roof joins the end walls, blind inner wall and seam jamb. Fingers and removable support enter through the open bottom.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=-97.500 y=224.000 z=29.250
-click: x=97.500 y=224.000 z=29.250
+click: x=-100.500 y=224.000 z=29.251
+click: x=99.263 y=224.009 z=29.251
 
 [sliver] The floor recess's 0.25 mm running-clearance returns end beside the handhold inner walls at Y212.8. Each 0.25 by 6 mm face closes a clearance slot and is backed by the continuous floor slab aft of it. The clearance keeps the front floor tongue free of the back piece as their floor and inner-wall scarfs telescope together; the narrow face is not a load-bearing strip.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
@@ -169,3 +169,7 @@ click: x=34.888 y=471.600 z=31.170
 click: x=-40.005 y=471.598 z=12.412
 click: x=-62.330 y=471.600 z=49.929
 click: x=50.604 y=471.600 z=30.189
+
+[sliver] These STL triangles are collinear and have exactly zero area and zero normal. They add no surface or material thickness. The complete print mesh is watertight and consistently wound, and the native CAD solid has no face below 0.00001 mm2. The current facet measurements are recorded in overhang-treatment/geometry-check.json.
+click: x=105.115 y=248.252 z=29.248
+click: x=104.988 y=248.546 z=29.232

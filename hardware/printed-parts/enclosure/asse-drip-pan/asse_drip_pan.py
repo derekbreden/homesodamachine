@@ -80,6 +80,9 @@ def build():
              if not (abs(edge.startPoint().x - PULL_FACE_DEPTH) < 1e-6
                      and abs(edge.endPoint().x - PULL_FACE_DEPTH) < 1e-6)]
     pull = pull.fillet(PULL_FACE_EDGE_R, edges)
+    from overhang_round import three_side_fill
+    plane=cq.Plane(origin=(0,y1,0),xDir=(-1,0,0),normal=(0,0,1))
+    pull=pull.fuse(three_side_fill(-PULL_FACE_DEPTH,0,0,y1,PULL_FACE_EDGE_R,plane)).clean()
     return outer.union(pull).cut(cavity).clean()
 
 
