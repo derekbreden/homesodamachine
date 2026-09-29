@@ -30,12 +30,25 @@ The coupon uses the usual **Auto** nozzle-offset startup option. Its line pairs
 are inspected afterward. Validation and product prints use the same usual launch
 options; no touchscreen-managed high-precision calibration is part of this procedure.
 
-`mark2-registration.json` holds the measurement state. No software correction is
-qualified yet. A measured correction belongs to this printer and nozzle pair,
-must preserve the CAD artwork and black cavity geometry, and requires an audit
-of the emitted white coordinates plus a second physical alignment check before
-use on a nameplate. Numerical zero in the uncorrected coupon is not evidence of
-calibration. Recheck after changing a hotend or calibration condition.
+`mark2-registration.json` holds the selected correction: **white X −0.50 mm,
+Y +0.70 mm**. The user's choices are the twelfth and eighth positions from the
+left (zero-based indices 11 and 7). “Fourth from the right” of 15 confirms the
+top-row numbering. The Y choice is tentative because slight oozing makes its
+neighbouring candidates difficult to distinguish.
+
+The correction belongs to Mark2's current nozzle pair. The nominal CAD artwork
+and black cavity meshes remain aligned. Bambu Studio's native `extruder_offset`
+is `0x0` for left/black and `0.5x-0.7` for right/white. Its
+[`point_to_gcode` implementation](https://github.com/bambulab/BambuStudio/blob/master/src/libslic3r/GCode.cpp)
+subtracts that configured offset from model coordinates. `verify_correction.py`
+checks the actual emitted model paths against the uncorrected native slice;
+the maximum normalized path difference is 0.000691 mm, within export rounding.
+The native purge-tower entry movements are checked separately.
+
+The [raised-artwork nameplate](../../enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-flat-wings-mark2-v3/README.md)
+is the physical validation print. Its colour alignment and QR scanning remain
+pending before applying the correction to TAP and FLAVOR rings. Recheck after
+changing a hotend or calibration condition.
 
 The current native review and launch receipt are retained in
 [`2026-09-29-registration-mark2-v3`](../../enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-registration-mark2-v3/README.md).

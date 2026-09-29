@@ -14,8 +14,9 @@ import horizontal_wing_trial as trial
 HERE,ROOT,plate=trial.HERE,trial.ROOT,trial.plate
 sys.path.insert(0,str(ROOT/'hardware/printed-parts/faucet'))
 import refresh_print_project as writer
-JOB=ROOT/'.cache/prints/2026-09-29-nameplate-flat-wings-mark2-v2'
-STEM='nameplate-framed-wings-z004-mark2-v2'
+JOB=ROOT/'.cache/prints/2026-09-29-nameplate-flat-wings-mark2-v3'
+STEM='nameplate-framed-wings-aligned-z004-mark2-v3'
+MEASUREMENT=ROOT/'hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-registration-mark2-v3/physical-result.json'
 BASE=HERE.parent/'nameplate-001-petgf.3mf'
 PETGF=ROOT/'hardware/printed-parts/petgf.3mf'
 NS='http://schemas.microsoft.com/3dmanufacturing/core/2015/02'
@@ -36,6 +37,12 @@ def main():
     settings.update(enable_support='0',support_filament='1',support_interface_filament='1',
                     flush_into_support='0',brim_type='no_brim',brim_width='0',
                     layer_height=shared['layer_height'],initial_layer_print_height='0.2')
+    measurement=json.loads(MEASUREMENT.read_text())
+    assert measurement['printer']=='Mark2'
+    correction=measurement['white_correction_mm']
+    # Bambu's point_to_gcode subtracts the extruder offset from nominal XY.
+    # Keep the meshes aligned; compensate the right/white tool's emitted paths.
+    settings['extruder_offset']=['0x0',f"{-correction['X']:g}x{-correction['Y']:g}"]
     members['Metadata/project_settings.config']=json.dumps(settings,indent=2).encode()
     model=ET.fromstring(members['3D/3dmodel.model'])
     body,ink=plate.split(cq.importers.importStep(str(HERE/(trial.NAME+'.step'))).val())
@@ -75,7 +82,7 @@ def main():
     members['Metadata/layer_config_ranges.xml']=ET.tostring(ranges,encoding='UTF-8',xml_declaration=True)
     writer.archive_write(target,members)
     geometry=json.loads((HERE/'geometry-check.json').read_text())
-    sources=[ROOT/p for p in geometry['source_sha256']]+[BASE,PETGF,HERE/'geometry-check.json',Path(__file__)]
+    sources=[ROOT/p for p in geometry['source_sha256']]+[BASE,PETGF,HERE/'geometry-check.json',MEASUREMENT,Path(__file__)]
     report={'project':str(target.relative_to(ROOT)),'project_sha256':hashlib.sha256(target.read_bytes()).hexdigest(),
             'source_geometry_and_settings_sha256':{str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sources},
             'printer':'Mark2','nozzle_mapping':{'left':'Black PET-GF, external 254','right':'White PET-GF, external 255'},
@@ -83,6 +90,9 @@ def main():
             'meshes':mesh_info,'identify_ids':{'2303':trial.NAME},
             'print_planes_z_mm':geometry['print_planes_z_mm'],
             'artwork_rise_mm':trial.ARTWORK_RISE,
+            'white_correction_mm':correction,
+            'native_extruder_offset':settings['extruder_offset'],
+            'registration_measurement':str(MEASUREMENT.relative_to(ROOT)),
             'raised_artwork':['lettering','logo and drop','QR'],
             'precision_layer_ranges_mm':[[.2,.48,.28]],
             'settings':'Two-colour PET-GF; 0.20 mm first, 0.28 mm second, then 0.24 mm. Saved speeds and wall/infill order. No supports.',

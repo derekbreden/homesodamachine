@@ -34,7 +34,11 @@ scanning still require inspection.
 `prepare_print.py` and `verify_print.py` prepare and inspect the Mark2 plate.
 The native slice contains the wings from the first layer, no support roads, and
 white paths for every artwork region on both raised layers. Its estimate is
-32 minutes 50 seconds. **The nameplate is held for Mark2's alignment result.**
+32 minutes 48 seconds. The current Mark2 trial applies **white X −0.50 mm,
+Y +0.70 mm** through the native extruder-offset setting, preserving the nominal
+CAD artwork and cavity meshes. The [slice review](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-flat-wings-mark2-v3/README.md)
+records the coordinate comparison and launch. Physical colour alignment, QR
+scanning and wing fit remain pending; the Y selection is tentative.
 
 `prepare_receiver.py` and `verify_receiver.py` prepare the H2C coupon with CAD
 −Z as build-up, matching the back-top enclosure's roof-down orientation. Its

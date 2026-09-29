@@ -4,27 +4,41 @@
     "left": "0.4 mm; black PET-GF; external 254",
     "right": "0.4 mm; white PET-GF; external 255"
   },
-  "status": "awaiting_shifted_coupon_reading",
+  "status": "measured_nameplate_validation_pending",
   "measurement_job": "1294488907",
   "normal_nozzle_offset_calibration": "Auto",
   "selected_indices": {
-    "X": null,
-    "Y": null
+    "X": 11,
+    "Y": 7
   },
   "white_correction_mm": {
-    "X": null,
-    "Y": null
+    "X": -0.5,
+    "Y": 0.7
   },
   "candidate_index_range": [
     0,
     14
   ],
-  "correction_implementation": "Pending measurement and emitted-coordinate verification; no correction applied to product geometry or job.",
-  "physical_validation": "Pending",
+  "correction_implementation": "Bambu Studio native extruder_offset subtracts the configured offset from nominal model coordinates: right offset +0.50,-0.70 emits white correction -0.50,+0.70 mm. Nominal CAD and black cavity meshes are unchanged. Emitted paths are verified against the uncorrected native slice.",
+  "physical_validation": "Pending the face-up raised-artwork nameplate; Y choice remains tentative.",
   "touchscreen_managed_calibration_required": false,
   "candidate_formulas": {
     "X": "-1.05 + 0.05 * selected_index",
     "Y": "+0.35 + 0.05 * selected_index"
   },
-  "range_basis": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-registration-mark2-v2/physical-result.json"
+  "range_basis": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-registration-mark2-v2/physical-result.json",
+  "selected_columns_one_based": {
+    "X": 12,
+    "Y": 8
+  },
+  "measurement_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-registration-mark2-v3/physical-result.json",
+  "selection_confidence": {
+    "X": "User best bet",
+    "Y": "Tentative: slight oozing makes adjacent choices difficult to distinguish"
+  },
+  "native_extruder_offset": [
+    "0x0",
+    "0.5x-0.7"
+  ],
+  "validation_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-flat-wings-mark2-v3"
 }

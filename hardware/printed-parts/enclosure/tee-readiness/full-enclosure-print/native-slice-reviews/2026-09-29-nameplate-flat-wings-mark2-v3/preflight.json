@@ -1,0 +1,47 @@
+{
+  "printers": [
+    {
+      "printer": "Mark2",
+      "observed_at": "2026-09-29T23:04:58.990344+00:00",
+      "gcode_state": "FINISH",
+      "subtask_name": "registration-shifted-ranges-z004-mark2-v3.gcode.3mf",
+      "subtask_id": "1294488907",
+      "job_id": "1294488907",
+      "mc_percent": 100,
+      "layer_num": 6,
+      "total_layer_num": 6,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": []
+    },
+    {
+      "printer": "H2C",
+      "observed_at": "2026-09-29T23:05:00.389546+00:00",
+      "gcode_state": "RUNNING",
+      "subtask_name": "display-face-up-cover-receiver-z018-h2c-v1.gcode.3mf",
+      "subtask_id": "1294550319",
+      "job_id": "1294550319",
+      "mc_percent": 11,
+      "layer_num": 14,
+      "total_layer_num": 256,
+      "mc_remaining_time": 167,
+      "print_error": 0,
+      "hms": []
+    }
+  ],
+  "send_not_before": "2026-09-29T23:05:00.390977+00:00",
+  "other_printer_acknowledged_at": "2026-09-29T22:36:15.262001+00:00",
+  "minimum_start_spacing_seconds": 1725.128976,
+  "required_spacing_seconds": 180,
+  "user_plate_clear": true,
+  "normal_launch_options": {
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "filament_mapping": {
+    "left": "Black PET-GF, external 254, 0.4 mm",
+    "right": "White PET-GF, external 255, 0.4 mm"
+  }
+}
