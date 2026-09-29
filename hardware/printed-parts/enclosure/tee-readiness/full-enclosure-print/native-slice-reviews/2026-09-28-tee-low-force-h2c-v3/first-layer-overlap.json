@@ -1,0 +1,50 @@
+{
+  "model_bounds": {
+    "0.2": [
+      59.911,
+      132.339,
+      265.089,
+      184.4
+    ],
+    "0.28": [
+      59.306999999999995,
+      132.339,
+      265.69300000000004,
+      185.004
+    ],
+    "0.36": [
+      59.067,
+      132.339,
+      265.9329999999517,
+      185.244
+    ]
+  },
+  "brim_bounds": [
+    58.976,
+    131.403,
+    266.024,
+    185.335
+  ],
+  "first_layer_with_brim_bounds": [
+    58.976,
+    131.403,
+    266.024,
+    185.335
+  ],
+  "brim_to_model_gap_mm": 0.0,
+  "transitions": [
+    {
+      "from_z": 0.2,
+      "to_z": 0.28,
+      "max_sampled_outer_centerline_unsupported_mm": 0.0,
+      "outer_wall_area_fraction_supported": 0.9998217610934196
+    },
+    {
+      "from_z": 0.28,
+      "to_z": 0.36,
+      "max_sampled_outer_centerline_unsupported_mm": 0.038522424519147176,
+      "outer_wall_area_fraction_supported": 0.8860917665634741
+    }
+  ],
+  "pass": true
+}

@@ -1,0 +1,9 @@
+{
+  "required_seconds": 180,
+  "actual_seconds": 213.425126,
+  "first_printer": "Mark2",
+  "first_accepted_at_utc": "2026-09-29T01:57:46.181894+00:00",
+  "second_printer": "H2C",
+  "second_accepted_at_utc": "2026-09-29T02:01:19.607020+00:00",
+  "pass": true
+}

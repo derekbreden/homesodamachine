@@ -16,8 +16,12 @@ usable space. Check free sliding and spring return with the existing front-top, 
 the tees and springs installed, and assess unwanted play.
 
 H2C prints black PET-GF on the left 0.4 mm hotend, with requested +0.18 mm bed trim.
-The carrier lies on its back. Both complete R6 bands use 0.08 mm layers; the bottom
-band alone uses six walls. Other layers use 0.24 mm and two walls. Supports are off;
+The carrier lies on its back. The first bed layer is 0.20 mm. Both R6 bands above
+that bed layer use 0.08 mm layers; the bottom band alone uses six walls. Other layers
+use 0.24 mm and two walls. A 1 mm attached outer brim broadens the first layer
+enough to carry the second perimeter; elephant-foot compensation is zero for this
+trial. Remove the brim before assessing sliding fit. Native toolpath verification
+checks the first three layers and the brim's connection to the model. Supports are off;
 saved speeds, wall-first order and 15% overlap are retained. No window covers or
 other parts share the plate.
 

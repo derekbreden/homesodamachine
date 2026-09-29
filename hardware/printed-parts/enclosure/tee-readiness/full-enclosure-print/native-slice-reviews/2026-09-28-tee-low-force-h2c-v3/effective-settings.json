@@ -1,0 +1,22 @@
+{
+  "initial_layer_print_height": "0.2",
+  "layer_height": "0.24",
+  "brim_type": "outer_only",
+  "brim_width": "1",
+  "brim_object_gap": "0",
+  "elefant_foot_compensation": "0",
+  "enable_support": "0",
+  "support_filament": "0",
+  "support_interface_filament": "0",
+  "flush_into_support": "1",
+  "support_object_first_layer_gap": "0.2",
+  "support_object_xy_distance": "0.4",
+  "support_top_z_distance": "0.45",
+  "wall_loops": "2",
+  "wall_sequence": "inner wall/outer wall",
+  "is_infill_first": "0",
+  "infill_wall_overlap": "15%",
+  "filament_nozzle_map": [
+    "0"
+  ]
+}

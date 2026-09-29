@@ -1,0 +1,81 @@
+{
+    "error_string": "Success.",
+    "export_time": 1147,
+    "layer_height": 0.23999999463558197,
+    "plate_index": 0,
+    "prepare_time": 163,
+    "return_code": 0,
+    "sliced_plates": [
+        {
+            "feature_type_times": {
+                "Bottom surface": 150.2524871826172,
+                "Bridge": 356.73065185546875,
+                "Custom": 304.9953308105469,
+                "Flush": 45.0,
+                "Gap infill": 96.75652313232422,
+                "Inner wall": 87.35801696777344,
+                "Internal solid infill": 324.63629150390625,
+                "Outer wall": 250.44540405273438,
+                "Overhang wall": 14.5199613571167,
+                "Prime tower": 49.85641098022461,
+                "Sparse infill": 26.46312713623047,
+                "Support": 222.88577270507813,
+                "Support interface": 7.9386372566223145,
+                "Support transition": 21.38823890686035,
+                "Top surface": 64.50389862060547,
+                "Travel": 306.59918212890625,
+                "Undefined": 297.43170166015625
+            },
+            "filament_change_times": 0,
+            "filaments": [
+                {
+                    "filament_id": "GFT01",
+                    "id": 1,
+                    "main_used_g": 12.697507858276367,
+                    "total_used_g": 12.902817726135254
+                },
+                {
+                    "filament_id": "GFT01",
+                    "id": 2,
+                    "main_used_g": 0.6602616310119629,
+                    "total_used_g": 0.7527521252632141
+                }
+            ],
+            "generate_support_material_time": 66,
+            "id": 1,
+            "infill_time": 59,
+            "layer_filament_change": 0,
+            "main_predication": 1915.525634765625,
+            "make_perimeters_time": 137,
+            "obj_cached_cnt": 0,
+            "objects": [
+                {
+                    "bbox": {
+                        "depth": 38.0,
+                        "height": 16.049999237060547,
+                        "width": 104.52999877929688,
+                        "x": 112.73500061035156,
+                        "y": 106.0,
+                        "z": 0.0
+                    },
+                    "id": 5,
+                    "name": "nameplate-broad-leaf-001",
+                    "triangle_count": 62192
+                }
+            ],
+            "sliced_time": 653,
+            "sliced_time_with_cache": 320,
+            "total_predication": 2321.2099609375,
+            "triangle_count": 62192,
+            "warning_message": ""
+        }
+    ],
+    "sparse_infill_density": 15.0,
+    "upward_compatible_machine": [
+        "Bambu Lab H2S 0.4 nozzle",
+        "Bambu Lab H2D 0.4 nozzle",
+        "Bambu Lab H2D Pro 0.4 nozzle",
+        "Bambu Lab A2L 0.4 nozzle"
+    ],
+    "wall_loops": 2
+}
