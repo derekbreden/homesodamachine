@@ -1,0 +1,17 @@
+{
+  "printer": "H2C",
+  "observed_at": "2026-09-29T21:39:12.874571+00:00",
+  "gcode_state": "RUNNING",
+  "subtask_name": "nameplate-framed-wing-receiver-tree-z018-h2c-v3.gcode.3mf",
+  "layer_num": 1,
+  "total_layer_num": 192,
+  "mc_percent": 12,
+  "mc_remaining_time": 37,
+  "print_error": 0,
+  "hms": [
+    {
+      "attr": 201326848,
+      "code": 131095
+    }
+  ]
+}

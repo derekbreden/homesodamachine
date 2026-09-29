@@ -1,0 +1,113 @@
+{
+  "pass": true,
+  "printer": "Mark2",
+  "native_archive": ".cache/prints/2026-09-29-nameplate-flat-wings-mark2-v2/ready/nameplate-framed-wings-z004-mark2-v2.gcode.3mf",
+  "native_archive_sha256": "72988bc9c10ca2f0fc3a1c547b48d7615047856cd5752121578aad010100352a",
+  "gcode_sha256": "c1a459f16151ce3945343bdda68aff2db2a236a31c0a19d50d500bdbe51c8a5e",
+  "source_hashes_current": true,
+  "layers": [
+    [
+      0.2,
+      0.2
+    ],
+    [
+      0.48,
+      0.28
+    ],
+    [
+      0.72,
+      0.24
+    ],
+    [
+      0.96,
+      0.24
+    ],
+    [
+      1.2,
+      0.24
+    ],
+    [
+      1.44,
+      0.24
+    ],
+    [
+      1.68,
+      0.24
+    ],
+    [
+      1.92,
+      0.24
+    ],
+    [
+      2.16,
+      0.24
+    ],
+    [
+      2.4,
+      0.24
+    ],
+    [
+      2.64,
+      0.24
+    ],
+    [
+      2.88,
+      0.24
+    ],
+    [
+      3.12,
+      0.24
+    ],
+    [
+      3.36,
+      0.24
+    ]
+  ],
+  "support_paths": 0,
+  "wing_checks": [
+    {
+      "print_z_mm": 0.2,
+      "both_wing_midpoints_covered": [
+        true,
+        true
+      ]
+    },
+    {
+      "print_z_mm": 1.68,
+      "both_wing_midpoints_covered": [
+        true,
+        true
+      ]
+    },
+    {
+      "print_z_mm": 1.92,
+      "both_wing_midpoints_covered": [
+        false,
+        false
+      ]
+    }
+  ],
+  "raised_artwork_checks": [
+    {
+      "print_z_mm": 2.64,
+      "white_paths_by_region": {
+        "logo_and_drop": 820,
+        "lettering": 891,
+        "qr": 523
+      }
+    },
+    {
+      "print_z_mm": 2.88,
+      "white_paths_by_region": {
+        "logo_and_drop": 290,
+        "lettering": 876,
+        "qr": 507
+      }
+    }
+  ],
+  "artwork_rise_mm": 0.48,
+  "estimated_seconds": 1969.615966796875,
+  "submitted": false,
+  "launch_hold": "Await the Mark2 registration coupon result; this uncorrected slice is a geometry review.",
+  "physical_qualification": "Insertion, shake retention, flatness, colour registration and QR scanning pending."
+}

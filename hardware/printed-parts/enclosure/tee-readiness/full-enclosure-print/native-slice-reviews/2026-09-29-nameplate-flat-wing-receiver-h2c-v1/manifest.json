@@ -1,7 +1,7 @@
 {
   "printer": "H2C",
   "title": "Receiver for flat-wing nameplate",
-  "status": "started",
+  "status": "completed_rejected_support_removal",
   "submitted": true,
   "printer_task_id": "1294244805",
   "native_archive": ".cache/prints/2026-09-29-nameplate-flat-wing-receiver-h2c-v1/ready/nameplate-flat-wing-receiver-z018-h2c-v1.gcode.3mf",
@@ -17,22 +17,9 @@
     "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/prepare_receiver.py": "2a2d93d95d4415d19495f98d1c1cc54e0266bea37c2fd22a3f9beec4cff017e2",
     "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
   },
-  "physical_qualification": "Pending",
+  "physical_qualification": "Rejected: support impossible to remove.",
   "verification": "verification.json",
   "geometry_check": "geometry-check.json",
   "launch_record": "launch.json",
-  "review_sha256": {
-    "README.md": "44875e84f9a06691cad6bd0f68dc7deb7f63637c5a2a60e377fca3f258b4f90f",
-    "effective-settings.json": "66353b3573c07b060f8cb6b70d9dbc170172dbfa7c8c7b2c14dde1e9bca5bbf0",
-    "geometry-check.json": "8e28471151ba464aff12a331b00b6fbb73987db6c06026d619c926a474cd21ff",
-    "last-status.json": "c27ccb86bf1142934ff168edc44430272c15beb517ec65b80db08ac6a1fd3639",
-    "launch.json": "afb1e319dcf34a3b2205bd3979e87183c0a91a882fb03f47a994bee63bbab77b",
-    "postlaunch.json": "9a07ab614b52c20555a7f81976c3af3603e8dacf79919bdc89ce8e299a851516",
-    "preparation.json": "7fe42010f301b818706962ca976795b0affe7231a29d26938f786aeea31f7413",
-    "preview.png": "f05bbbbdbaade6ff2e20d0576f2addff34568b9755a75e6ffc177e33a57a8ae9",
-    "slice-command.json": "db1558f9a0ad1af22e2977d0bc9df411c8f576189c928754821a44a4d68a2741",
-    "slice-result.json": "72d66c747903ed2011214fe6c880eab2f796edc96c5262d8c8b861cfdbc5e478",
-    "support-audit.json": "ab1066a9c0cfd128efa729a631c5da394a92f2da983925b0ba3e75e99c719119",
-    "verification.json": "add9cce1b7580e0b89c1e4e3247e4f17f98f956e2f0f66e047ad742b81b458e2"
-  }
+  "physical_result_record": "physical-result.json"
 }

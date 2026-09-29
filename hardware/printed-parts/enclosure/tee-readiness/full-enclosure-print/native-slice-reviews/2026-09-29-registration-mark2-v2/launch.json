@@ -1,0 +1,28 @@
+{
+  "job_id": "1294385772",
+  "subtask_name": "registration-saved-alignment-z004-mark2-v2.gcode.3mf",
+  "gcode_state": "RUNNING",
+  "print_error": 0,
+  "hms": [
+    {
+      "attr": 50341120,
+      "code": 65546
+    }
+  ],
+  "layer_num": 0,
+  "total_layer_num": 6,
+  "mc_remaining_time": 13,
+  "observed_at": "2026-09-29T21:19:52.868390+00:00",
+  "printer": "Mark2",
+  "submitted": true,
+  "native_archive_sha256": "cc9c41d86877de2ac6057226f9ef6d451f3fd474659732b8f892c87ef0526bb8",
+  "gcode_sha256": "a079049c0994d5cf594b52351af6c47f683f5409411a677a32ea4d6b7d157222",
+  "launch_options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "send_click_after_utc": "2026-09-29T21:19:33+00:00",
+  "bed_clear_basis": "Prior alignment job failed before layer 1; same cleared plate."
+}

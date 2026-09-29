@@ -5,6 +5,11 @@ geometry, read **Support-removal strategy** in
 [`enclosure/README.md`](enclosure/README.md#support-removal-strategy). Feature comments
 describe their exact geometry; the README carries the policy.
 
+Enclosure parts and their receiver coupons use the shared `../petgf.3mf` tree
+supports and their production print orientation. Do not generalize a part-specific
+support trial to other parts. The flat-wing nameplate prints without supports,
+with its back and both horizontal wings directly on the bed.
+
 Use a 0.20 mm first bed layer, 0.24 mm on expanding print-down chamfer/tapers,
 and 0.08 mm on inward/top show rounds. The additive transition in
 `../cadlib/overhang_round.py` follows the accepted tee-carrier profile: 0.12 mm

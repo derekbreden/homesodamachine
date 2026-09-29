@@ -679,6 +679,11 @@ individual prepared plates record their brim setting in their
 
 ## Support-removal strategy
 
+Enclosure parts and receiver test coupons use the tree support settings from
+`../../petgf.3mf` in each part's production print orientation. The flat-wing
+nameplate itself has no supports: its back and both horizontal wings print
+directly on the bed.
+
 A production-profile slice reports the connected support bodies which reach the model and their
 separate interface islands. One body can reach several distinct contact regions. Two further
 readings are recorded per body: its build-up, the vertical distance from its own base to its

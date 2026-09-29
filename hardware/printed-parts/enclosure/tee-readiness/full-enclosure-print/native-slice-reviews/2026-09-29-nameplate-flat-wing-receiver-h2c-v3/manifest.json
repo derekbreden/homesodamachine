@@ -1,0 +1,26 @@
+{
+  "printer": "H2C",
+  "title": "Framed-wing receiver; back-top orientation and shared PET-GF tree supports.",
+  "status": "printing",
+  "submitted": true,
+  "printer_task_id": "1294406296",
+  "native_archive": ".cache/prints/2026-09-29-nameplate-flat-wing-receiver-h2c-v3/ready/nameplate-framed-wing-receiver-tree-z018-h2c-v3.gcode.3mf",
+  "native_archive_sha256": "776b856b0baddc6c848113425b9b23b2dc77c73cdd51f3602912f9f864f5a843",
+  "gcode_sha256": "6a08bcb83f3482e6644df9250bdb063afedf52a786bd674e322d2e260742a9a8",
+  "estimated_seconds": 2595.547119140625,
+  "source_geometry_and_settings_sha256": {
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.stl": "66fa373a1731355116e0e556ed9d5ddab7f0aff597b26e1dadecfe65e9ed7bbf",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.step": "8892352c953941657588608b1246d84b7275dbb2aa8610b87804b3169d666255",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/geometry-check.json": "37bd092d10504fbf18d1dbb718f55a8b1186da88298123e41cdf2f910aa4a540",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/wing_interface.py": "0d88bccfa6e9ad01e0c42f955c761eb53e93337faa8aed081896a6d80163ea61",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/prepare_receiver.py": "d623550703daae07fff9a2773e9139d54cc59dc2c70f4cba24f8686479716316",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "945d069e3d9133e13b542190de419def348f4d9d1a0eed25720e4e0a7260d6d0"
+  },
+  "physical_qualification": "Pending",
+  "verification": "verification.json",
+  "geometry_check": "geometry-check.json",
+  "launch_record": "launch.json",
+  "postlaunch_status": "postlaunch-status.json",
+  "printer_warning": "printer-warning.json"
+}

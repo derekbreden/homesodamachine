@@ -37,6 +37,12 @@ def main():
     assert abs(print_pose(exterior).BoundingBox().zmin)<1e-6
     assert len(white.Solids())==len(original.Solids())==29
     assert all(abs(s.BoundingBox().ymax-(plate.THICK+ARTWORK_RISE))<1e-6 for s in white.Solids())
+    assert abs(plate.THICK-interface.FIELD_THICK)<1e-6
+    assert interface.THICK-interface.WING_THICK-interface.THICKNESS_AIR>=1.2-1e-6
+    # All artwork remains within the flexible field, clear of the raised frame.
+    ib=white.BoundingBox()
+    assert max(abs(ib.xmin),abs(ib.xmax))<plate.WIDTH/2-interface.FRAME_WIDTH
+    assert max(abs(ib.zmin),abs(ib.zmax))<plate.HEIGHT/2-interface.FRAME_WIDTH
     # Both wing bearing planes share the first-layer plane with the complete plate back.
     posed = print_pose(exterior)
     bed_area = sum(f.Area() for f in posed.Faces() if abs(f.Center().z)<1e-6
@@ -61,13 +67,17 @@ def main():
             'slot_thickness_air_mm':interface.THICKNESS_AIR,
             'slot_tip_air_mm':interface.TIP_AIR,
             'minimum_engagement_at_lateral_float_mm':interface.PROJECTION-2*interface.FACE_SLIP,
-            'receiver_lip_thickness_mm':plate.THICK-interface.WING_THICK-interface.THICKNESS_AIR,
+            'field_thickness_mm':interface.FIELD_THICK,'frame_thickness_mm':interface.THICK,
+            'frame_width_mm':interface.FRAME_WIDTH,
+            'supported_end_extra_clearance_mm':interface.SUPPORTED_END_AIR,
+            'receiver_lip_thickness_mm':interface.THICK-interface.WING_THICK-interface.THICKNESS_AIR,
             'body_receiver_overlap_mm3':exterior.intersect(fixture).Volume(),
             'bed_contact_mm2':bed_area,'first_layer_includes_plate_and_both_wings':True,
             'artwork_rise_mm':ARTWORK_RISE,'raised_white_solids':len(white.Solids()),
             'print_planes_z_mm':{'back_and_wings':0,'wing_top':interface.WING_THICK,
                                  'inlay_bottom':plate.THICK-plate.INK_DEPTH,
-                                 'black_face':plate.THICK,'white_top':plate.THICK+ARTWORK_RISE},
+                                 'black_face':plate.THICK,'white_top':plate.THICK+ARTWORK_RISE,
+                                 'frame_top':interface.THICK},
             'support_policy':'Nameplate requires no supports. Receiver prints in enclosure wall orientation.',
             'physical_qualification':'Pending insertion flex, relaxed flatness, shake retention and QR scan. CAD capture is not a force or strain qualification.',
             'receiver_integration':'Coupon uses the reusable wall cutter in wing_interface.py; full enclosure receiver awaits this mechanism fit trial.',

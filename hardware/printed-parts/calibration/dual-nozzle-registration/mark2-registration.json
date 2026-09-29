@@ -1,13 +1,25 @@
 {
   "printer": "Mark2",
-  "nozzle_pair": {"left": "0.4 mm; black PET-GF; external 254", "right": "0.4 mm; white PET-GF; external 255"},
+  "nozzle_pair": {
+    "left": "0.4 mm; black PET-GF; external 254",
+    "right": "0.4 mm; white PET-GF; external 255"
+  },
   "status": "unmeasured",
-  "measurement_job": "1294234201",
-  "normal_nozzle_offset_calibration": "On",
-  "selected_indices": {"X": null, "Y": null},
-  "white_correction_mm": {"X": null, "Y": null},
+  "measurement_job": "1294385772",
+  "normal_nozzle_offset_calibration": "Auto",
+  "selected_indices": {
+    "X": null,
+    "Y": null
+  },
+  "white_correction_mm": {
+    "X": null,
+    "Y": null
+  },
   "candidate_formula": "-0.35 + 0.05 * selected_index",
-  "candidate_index_range": [0, 14],
+  "candidate_index_range": [
+    0,
+    14
+  ],
   "correction_implementation": "Pending measurement and emitted-coordinate verification; no correction applied to product geometry or job.",
   "physical_validation": "Pending",
   "touchscreen_managed_calibration_required": false
