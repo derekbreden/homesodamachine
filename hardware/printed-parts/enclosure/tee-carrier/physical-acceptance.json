@@ -22,7 +22,8 @@
     "slice_verification": "Inspect all emitted support paths at the visible rounds, including short bodies without interface labels; use face-specific blockers where needed.",
     "qualification": "The six-wall/infill-first carrier has no observed spaghetti failure and retains a slightly concave lower surface. Derek considers the observed result probably good enough for now; this is provisional lower-curve acceptance.",
     "first_bed_layer_mm": 0.2,
-    "first_transition": "Verify emitted overlap from the bed layer to the second layer on expanding rounds; the carrier reprint uses a connected 1 mm brim. Physical validation of the reprint is pending."
+    "first_transition": "Verify actual bed-to-second-layer overlap on expanding edges. The filled-bottom carrier trial uses its wider model footprint without a brim.",
+    "tee_carrier_bottom_exception": "The low-force carrier trial uses an additive bottom chamfer tangent to the retained taper. First layer 0.20 mm; bottom and body 0.24 mm; top R6 0.08 mm. No supports. Six walls in print Z 0\u20136.1 mm, then two. Geometry is filled outward inside its original envelope."
   },
   "previous_print_trials": [
     {
@@ -193,9 +194,9 @@
   "user_qualification": "probably good enough for now",
   "preferred_next_recipe": {
     "requested_by": "Derek",
-    "requested_date": "2026-09-24",
+    "requested_date": "2026-09-29",
     "wall_loops": 6,
-    "scope": "Complete print-bottom rounded bands printed at 0.08 mm; local height-range overrides only.",
+    "scope": "Filled print-bottom chamfer/taper at 0.24 mm above a 0.20 mm first layer; six walls only through print Z 6.1 mm. Complete top R6 at 0.08 mm.",
     "carrier_print_z_example_mm": [
       0,
       6.1
@@ -204,7 +205,21 @@
     "wall_infill_order": "Retain the original order: inner walls, outer wall, then infill.",
     "infill_wall_overlap": "Retain the original 15%.",
     "speed_and_acceleration": "Retain the original profile settings.",
-    "prepared_carrier_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v15/manifest.json",
-    "physical_validation": "Six walls alone is untested; the provisionally usable v14 print combines six walls and infill first."
+    "prepared_carrier_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-tee-chamfer-h2c-v6/manifest.json",
+    "physical_validation": "Filled-bottom trial is started; physical surface and sliding fit remain pending."
+  },
+  "current_carrier_bottom_requirement": {
+    "requested_date": "2026-09-29",
+    "reported_by": "Derek",
+    "observation": "Thin bottom layers are not turning out well; thin top curves work beautifully.",
+    "geometry": "Add material to create a wider bed footprint, chamfer and tangent taper within the existing dimensions.",
+    "first_layer_mm": 0.2,
+    "bottom_and_body_layer_mm": 0.24,
+    "top_curve_layer_mm": 0.08,
+    "support_contacts": false,
+    "physical_validation": "Pending.",
+    "trial_readme": "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/README.md",
+    "print_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-tee-chamfer-h2c-v6/manifest.json",
+    "printer_task_id": "1292379739"
   }
 }

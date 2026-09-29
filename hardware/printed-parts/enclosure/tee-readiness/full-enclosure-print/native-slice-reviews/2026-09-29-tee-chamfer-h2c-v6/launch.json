@@ -1,0 +1,25 @@
+{
+  "accepted_at_utc": "2026-09-29T05:56:33.148899+00:00",
+  "printer": "H2C",
+  "archive": ".cache/prints/2026-09-29-tee-chamfer-h2c-v6/ready/tee-carrier-filled-bottom-024-black-z018-h2c-v6.gcode.3mf",
+  "archive_sha256": "de6bce2db994c4fd125f02f5688fac4ae4f90a5fef4cef095d30bd47a427ad76",
+  "gcode_sha256": "7fa4de256b3cb2e295a7ce42daffd737ba14197014b6a9f33d1368b405145e83",
+  "reply": {
+    "command": "project_file",
+    "result": "SUCCESS",
+    "reason": "SUCCESS",
+    "err_code": 0
+  },
+  "reading": {
+    "job_id": "1292379739",
+    "subtask_name": "tee-carrier-filled-bottom-024-black-z018-h2c-v6.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 0,
+    "total_layer_num": 140,
+    "mc_remaining_time": 105,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": -1
+  },
+  "send_method": "Bambu Connect via cua_repl; one Send click."
+}

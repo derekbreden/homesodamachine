@@ -29,7 +29,7 @@ def main():
         for k,v in {'enable_support':'0','wall_loops':'2','is_infill_first':'0','infill_wall_overlap':'15%',
                     'wall_sequence':'inner wall/outer wall','filament_nozzle_map':['0'],'filament_colour':['#000000'],
                     'initial_layer_print_height':'0.2','layer_height':'0.24',
-                    'brim_type':'outer_only','brim_width':'1','brim_object_gap':'0',
+                    'brim_type':'no_brim','brim_width':'0','brim_object_gap':'0',
                     'elefant_foot_compensation':'0'}.items():assert actual[k]==v,(k,actual[k])
         gc=b.read('Metadata/plate_1.gcode');assert hashlib.md5(gc).hexdigest()==b.read('Metadata/plate_1.gcode.md5').decode().strip().lower()
         (JOB/'ready/plate_1.gcode').write_bytes(gc);(JOB/'preview.png').write_bytes(b.read('Metadata/plate_1.png'))
@@ -58,23 +58,23 @@ def main():
     layers=sorted(by_z.items())
     assert len(layers)==int(re.search(r'; total layer number: (\d+)',text)[1])
     assert layers[0]==(.2,.2),layers[:2]
-    rounds=[check_span(layers,'aft-R6-above-bed-layer',.2,6,.08,.001),check_span(layers,'fore-R6',15.054,21.054,.08,.001)]
+    rounds=[check_span(layers,'aft-filled-chamfer-and-taper',.2,6,.24,.001),check_span(layers,'fore-R6',15.054,21.054,.08,.001)]
     assert all(r['pass'] for r in rounds)
     runs=[]
     for z,h in layers:
         if not runs or abs(h-runs[-1]['height'])>.001:runs.append({'height':h,'bottom':z-h,'last_z':z,'count':1})
         else:runs[-1].update(last_z=z,count=runs[-1]['count']+1)
-    assert [round(r['height'],2) for r in runs]==[.2,.08,.24,.08]
-    roads=[r for r in segments(JOB/'ready/plate_1.gcode') if r['layer']<.4]
+    assert [round(r['height'],2) for r in runs]==[.2,.24,.08]
+    all_roads=list(segments(JOB/'ready/plate_1.gcode'))
+    assert not any(r['feature']=='Brim' for r in all_roads)
+    roads=[r for r in all_roads if r['layer']<=6.2]
     shape=lambda rr:unary_union([LineString((r['a'],r['b'])).buffer(r['width']/2) for r in rr])
-    zs=[.2,.28,.36]
+    zs=sorted({r['layer'] for r in roads})
     model={z:[r for r in roads if r['layer']==z and r['feature']!='Brim'] for z in zs}
     shapes={z:shape(model[z]) for z in zs}
-    brim=shape([r for r in roads if r['feature']=='Brim'])
     base=shape([r for r in roads if r['layer']==.2])
     overlap={'model_bounds':{str(z):list(s.bounds) for z,s in shapes.items()},
-             'brim_bounds':list(brim.bounds),'first_layer_with_brim_bounds':list(base.bounds),
-             'brim_to_model_gap_mm':brim.distance(shapes[.2]),'transitions':[]}
+             'brim_used':False,'transitions':[]}
     for previous,z in zip(zs,zs[1:]):
         under=base if previous==.2 else shapes[previous]
         rr=[r for r in model[z] if r['feature'] in ('Outer wall','Overhang wall')]
@@ -83,12 +83,33 @@ def main():
         overlap['transitions'].append({'from_z':previous,'to_z':z,
             'max_sampled_outer_centerline_unsupported_mm':max(p.distance(under) for p in points),
             'outer_wall_area_fraction_supported':footprint.intersection(under).area/footprint.area})
-    a,b=overlap['transitions']
-    assert overlap['brim_to_model_gap_mm']<.02
+    a,b=overlap['transitions'][:2]
     assert a['max_sampled_outer_centerline_unsupported_mm']<=b['max_sampled_outer_centerline_unsupported_mm']+.005
-    assert a['outer_wall_area_fraction_supported']>.999
+    assert all(row['max_sampled_outer_centerline_unsupported_mm']<.02 for row in overlap['transitions']),overlap
+    assert a['outer_wall_area_fraction_supported']>=b['outer_wall_area_fraction_supported'],(a,b)
+    assert min(row['outer_wall_area_fraction_supported'] for row in overlap['transitions'])>.65
     overlap['pass']=True
     (JOB/'first-layer-overlap.json').write_text(json.dumps(overlap,indent=2)+'\n')
+    # A clear section of the outboard wall crosses each commanded perimeter once.
+    wall_checks=[]
+    for z,h in layers:
+        if z>14.8:
+            continue
+        layer_roads=[r for r in all_roads if r['layer']==z]
+        crossings=[]
+        for r in layer_roads:
+            if r['feature'] not in ('Inner wall','Outer wall','Overhang wall'):
+                continue
+            (x1,y1),(x2,y2)=r['a'],r['b']
+            if min(y1,y2)<=176<max(y1,y2):
+                x=x1+(176-y1)*(x2-x1)/(y2-y1)
+                if x<65:
+                    crossings.append(x)
+        count=len(crossings)
+        assert count==(6 if z-h/2<6.1 else 2),(z,count,crossings)
+        assert layer_roads[0]['feature'] in ('Inner wall','Outer wall','Overhang wall')
+        wall_checks.append({'print_z_mm':z,'wall_count':count,'first_feature':layer_roads[0]['feature']})
+    (JOB/'wall-review.json').write_text(json.dumps(wall_checks,indent=2)+'\n')
     support=audit(JOB/'ready/plate_1.gcode',prep.trial.NAME,profile=staged,include_unlabelled_support=True)
     assert support['summary']['support_bodies']==0
     (JOB/'support-audit.json').write_text(json.dumps(support,indent=2)+'\n')
