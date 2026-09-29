@@ -23,11 +23,9 @@ The plate uses 0.20 mm first, 0.28 mm second, then 0.24 mm layers, with the norm
 saved speeds and wall order. Mark2's requested +0.04 mm trim emits +0.02 mm for
 the textured plate.
 
-The launch condition is normal **Nozzle Offset Calibration On** in Bambu Connect.
-It is recorded with every job and must match the validation print. No
-touchscreen-managed high-precision calibration is part of this procedure.
-A calibration failure is recorded and resolved before taking a measurement;
-turning that option off would change the reference condition.
+The coupon uses the usual **Auto** nozzle-offset startup option. Its line pairs
+are inspected afterward. Validation and product prints use the same usual launch
+options; no touchscreen-managed high-precision calibration is part of this procedure.
 
 `mark2-registration.json` holds the measurement state. No software correction is
 qualified yet. A measured correction belongs to this printer and nozzle pair,
@@ -36,5 +34,5 @@ of the emitted white coordinates plus a second physical alignment check before
 use on a nameplate. Numerical zero in the uncorrected coupon is not evidence of
 calibration. Recheck after changing a hotend or calibration condition.
 
-The native review, launch receipt and startup fault are retained in
-[`2026-09-29-registration-mark2-v1`](../../enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-registration-mark2-v1/README.md).
+The current native review and launch receipt are retained in
+[`2026-09-29-registration-mark2-v2`](../../enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-registration-mark2-v2/README.md).

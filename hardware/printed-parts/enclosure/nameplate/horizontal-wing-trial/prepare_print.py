@@ -14,8 +14,8 @@ import horizontal_wing_trial as trial
 HERE,ROOT,plate=trial.HERE,trial.ROOT,trial.plate
 sys.path.insert(0,str(ROOT/'hardware/printed-parts/faucet'))
 import refresh_print_project as writer
-JOB=ROOT/'.cache/prints/2026-09-29-nameplate-flat-wings-mark2-v1'
-STEM='nameplate-flat-wings-z004-mark2-v1'
+JOB=ROOT/'.cache/prints/2026-09-29-nameplate-flat-wings-mark2-v2'
+STEM='nameplate-framed-wings-z004-mark2-v2'
 BASE=HERE.parent/'nameplate-001-petgf.3mf'
 PETGF=ROOT/'hardware/printed-parts/petgf.3mf'
 NS='http://schemas.microsoft.com/3dmanufacturing/core/2015/02'
@@ -66,7 +66,7 @@ def main():
         obj.find("metadata[@key='name']").set('value',names[obj.get('id')])
     cfg.find("plate/metadata[@key='plater_name']").set('value','Flat wings on bed; face-up raised artwork; no supports')
     members['Metadata/model_settings.config']=ET.tostring(cfg,encoding='UTF-8',xml_declaration=True)
-    # A 0.28 mm second layer aligns the 1.20 mm wing, 2.40 mm face and 2.88 mm ink.
+    # The 0.28 mm second layer aligns wings, artwork and frame to 0.24 mm planes.
     ranges=ET.Element('objects')
     obj=ET.SubElement(ranges,'object',id='1')
     for low,high,height in ((.2,.48,.28),):

@@ -1,0 +1,24 @@
+{
+  "job_id": "1294406296",
+  "subtask_name": "nameplate-framed-wing-receiver-tree-z018-h2c-v3.gcode.3mf",
+  "gcode_state": "RUNNING",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 192,
+  "mc_remaining_time": 43,
+  "observed_at": "2026-09-29T21:29:10.600877+00:00",
+  "printer": "H2C",
+  "submitted": true,
+  "native_archive_sha256": "776b856b0baddc6c848113425b9b23b2dc77c73cdd51f3602912f9f864f5a843",
+  "gcode_sha256": "6a08bcb83f3482e6644df9250bdb063afedf52a786bd674e322d2e260742a9a8",
+  "launch_options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "send_click_after_utc": "2026-09-29T21:28:53+00:00",
+  "minimum_spacing_from_Mark2_acceptance_observation_seconds": 540.13,
+  "bed_clear_basis": "Replacement requested after the user removed the completed receiver to try support removal."
+}

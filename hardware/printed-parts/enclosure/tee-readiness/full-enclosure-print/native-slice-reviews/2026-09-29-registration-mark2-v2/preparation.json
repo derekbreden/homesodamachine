@@ -1,0 +1,99 @@
+{
+  "project": ".cache/prints/2026-09-29-registration-mark2-v2/registration-saved-alignment-z004-mark2-v2-input.3mf",
+  "project_sha256": "75d7e529075591d57a673431ea768c7191a247eaf0cac0cce3092de0e9fd13e6",
+  "source_geometry_and_settings_sha256": {
+    "hardware/printed-parts/calibration/dual-nozzle-registration/registration.py": "ff498c5a92885cc8c142f26dd8ea0e961f517925feef75bca20693f7d8f1c6d5",
+    "hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.step": "60975cf85bfb648a2ecac0d2e6c2b8d72927ff16e79de9aa0c0940008d22f3eb",
+    "hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.stl": "986c7b7b7291e820afe037e4d4e3e664c62f10680da3a3230613d881f5d30895",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf": "84c5011c0be15dd9aab41a516abe85bf99b08e2c80d91375b5f2608a96bc0e72",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "hardware/printed-parts/calibration/dual-nozzle-registration/geometry-check.json": "c8d1fdf0b714611e53189951d9bcdd4776ab69945cccac10bf1bcbc9399c3303",
+    "hardware/printed-parts/calibration/dual-nozzle-registration/prepare_print.py": "6107fb8a04ac79bec9d3bb4cd7d5796d19a4e30b1eeb08f594056ee845d6b875"
+  },
+  "printer": "Mark2",
+  "nozzle_mapping": {
+    "left": "Black PET-GF, external 254",
+    "right": "White PET-GF, external 255"
+  },
+  "requested_z_trim_mm": 0.04,
+  "expected_textured_plate_trim_mm": 0.02,
+  "meshes": [
+    {
+      "name": "Black reference",
+      "id": "1",
+      "triangles": 242642,
+      "bounds": [
+        [
+          -55.0,
+          -19.0,
+          0.0
+        ],
+        [
+          55.0,
+          20.0,
+          1.44
+        ]
+      ],
+      "watertight": true
+    },
+    {
+      "name": "White candidate",
+      "id": "2",
+      "triangles": 360,
+      "bounds": [
+        [
+          -49.8,
+          -5.8,
+          0.96
+        ],
+        [
+          52.0,
+          9.8,
+          1.44
+        ]
+      ],
+      "watertight": true
+    }
+  ],
+  "identify_ids": {
+    "2303": "dual-nozzle-registration"
+  },
+  "print_planes_z_mm": {
+    "base": 0.96,
+    "reference_tops": 1.44
+  },
+  "candidate_offsets_mm": [
+    -0.35,
+    -0.3,
+    -0.25,
+    -0.2,
+    -0.15,
+    -0.1,
+    -0.05,
+    0.0,
+    0.05,
+    0.1,
+    0.15,
+    0.2,
+    0.25,
+    0.3,
+    0.35
+  ],
+  "launch_options": {
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "product_correction_mm": [
+    0,
+    0
+  ],
+  "precision_layer_ranges_mm": [
+    [
+      0.2,
+      0.48,
+      0.28
+    ]
+  ],
+  "settings": "Two-colour PET-GF; 0.20 mm first, 0.28 mm second, then 0.24 mm. Saved speeds and wall/infill order. No supports.",
+  "support_policy": "Solid base on bed; no supports.",
+  "orientation": "Native printer X/Y, coplanar black and white markers."
+}

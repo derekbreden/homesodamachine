@@ -2328,7 +2328,7 @@
       "printer": "H2C",
       "job_name": "nameplate-flat-wing-receiver-z018-h2c-v1.gcode.3mf",
       "printer_task_id": "1294244805",
-      "status": "started",
+      "status": "completed_rejected_support_removal",
       "observed_at_utc": "2026-09-29T20:19:04.781772+00:00",
       "observed_state_at_acceptance": "RUNNING",
       "sliced_file": ".cache/prints/2026-09-29-nameplate-flat-wing-receiver-h2c-v1/ready/nameplate-flat-wing-receiver-z018-h2c-v1.gcode.3mf",
@@ -2342,6 +2342,49 @@
         "Nozzle Offset Calibration": "Auto"
       },
       "review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-flat-wing-receiver-h2c-v1",
+      "physical_result": "Support impossible to remove; normal Snug rejected for this receiver.",
+      "physical_result_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-flat-wing-receiver-h2c-v1/physical-result.json"
+    },
+    {
+      "date": "2026-09-29",
+      "printer": "Mark2",
+      "job_name": "registration-saved-alignment-z004-mark2-v2.gcode.3mf",
+      "printer_task_id": "1294385772",
+      "status": "started",
+      "observed_at_utc": "2026-09-29T21:19:52.868390+00:00",
+      "observed_state_at_acceptance": "RUNNING",
+      "sliced_file": ".cache/prints/2026-09-29-registration-mark2-v2/ready/registration-saved-alignment-z004-mark2-v2.gcode.3mf",
+      "sliced_file_sha256": "cc9c41d86877de2ac6057226f9ef6d451f3fd474659732b8f892c87ef0526bb8",
+      "gcode_sha256": "a079049c0994d5cf594b52351af6c47f683f5409411a677a32ea4d6b7d157222",
+      "estimated_seconds": 820.6586303710938,
+      "print_options": {
+        "Timelapse": "On",
+        "Auto bed leveling": "On",
+        "Flow dynamic calibration": "Auto",
+        "Nozzle Offset Calibration": "Auto"
+      },
+      "review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-registration-mark2-v2",
+      "physical_result": "Pending"
+    },
+    {
+      "date": "2026-09-29",
+      "printer": "H2C",
+      "job_name": "nameplate-framed-wing-receiver-tree-z018-h2c-v3.gcode.3mf",
+      "printer_task_id": "1294406296",
+      "status": "started",
+      "observed_at_utc": "2026-09-29T21:29:10.600877+00:00",
+      "observed_state_at_acceptance": "RUNNING",
+      "sliced_file": ".cache/prints/2026-09-29-nameplate-flat-wing-receiver-h2c-v3/ready/nameplate-framed-wing-receiver-tree-z018-h2c-v3.gcode.3mf",
+      "sliced_file_sha256": "776b856b0baddc6c848113425b9b23b2dc77c73cdd51f3602912f9f864f5a843",
+      "gcode_sha256": "6a08bcb83f3482e6644df9250bdb063afedf52a786bd674e322d2e260742a9a8",
+      "estimated_seconds": 2595.547119140625,
+      "print_options": {
+        "Timelapse": "On",
+        "Auto bed leveling": "On",
+        "Flow dynamic calibration": "Auto",
+        "Nozzle Offset Calibration": "Auto"
+      },
+      "review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-flat-wing-receiver-h2c-v3",
       "physical_result": "Pending"
     }
   ]

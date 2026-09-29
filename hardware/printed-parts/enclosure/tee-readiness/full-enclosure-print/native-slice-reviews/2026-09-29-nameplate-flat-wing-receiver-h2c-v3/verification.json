@@ -1,0 +1,49 @@
+{
+  "pass": true,
+  "printer": "H2C",
+  "native_archive": ".cache/prints/2026-09-29-nameplate-flat-wing-receiver-h2c-v3/ready/nameplate-framed-wing-receiver-tree-z018-h2c-v3.gcode.3mf",
+  "native_archive_sha256": "776b856b0baddc6c848113425b9b23b2dc77c73cdd51f3602912f9f864f5a843",
+  "gcode_sha256": "6a08bcb83f3482e6644df9250bdb063afedf52a786bd674e322d2e260742a9a8",
+  "source_hashes_current": true,
+  "model_layers": 192,
+  "independent_support_layers": true,
+  "enclosure_build_direction": -1.0,
+  "support_profile_differences": {
+    "support_filament": {
+      "profile": "0",
+      "receiver": "1"
+    },
+    "support_interface_filament": {
+      "profile": "0",
+      "receiver": "1"
+    }
+  },
+  "emitted_z_trim_mm": [
+    0.0,
+    0.16
+  ],
+  "slot_support_clearance_checks": [
+    {
+      "side": "left",
+      "sum_of_support_bead_intersection_areas_mm2": 0.0
+    },
+    {
+      "side": "right",
+      "sum_of_support_bead_intersection_areas_mm2": 0.0
+    }
+  ],
+  "support_summary": {
+    "support_bodies": 1,
+    "interface_islands": 1,
+    "bed_rooted_bodies": 1,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 41.76,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 1,
+    "shortest_labelled_build_up_mm": 41.76
+  },
+  "support_removal": "Physical trial pending; front-access lane verified.",
+  "estimated_seconds": 2595.547119140625,
+  "estimated_grams_saved_profile_density": 20.041709899902344,
+  "submitted": false
+}

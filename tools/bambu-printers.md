@@ -56,11 +56,10 @@ validation result. The correction is printer/nozzle-pair specific; keep the CAD
 artwork aligned. The measurement state is in `mark2-registration.json` beside
 the coupon source and is currently unmeasured.
 
-The coupon's normal Nozzle Offset Calibration option is explicitly **On** in
-Bambu Connect. A failure requires resolving the reported cause before a retry;
-changing this setting changes the measurement reference. The procedure does not
-depend on touchscreen-managed high-precision calibration. A replacement hotend
-or changed calibration condition requires a new alignment check.
+The coupon uses the usual **Auto** Nozzle Offset Calibration option in Bambu
+Connect, as do validation and product prints. The procedure does not depend on
+touchscreen-managed high-precision calibration. A replacement hotend or changed
+calibration condition requires a new alignment check.
 
 ## Power-loss recovery
 

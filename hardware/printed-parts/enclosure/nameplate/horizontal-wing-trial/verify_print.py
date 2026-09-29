@@ -30,25 +30,26 @@ def main():
     roads=list(segments(path));assert {r['object'] for r in roads}=={2303}
     assert not any(r['feature'].startswith('Support') for r in roads)
     layers=wall_layers(native,2303)
-    assert len(layers)==12 and np.allclose([z for z,h in layers],[.2,.48,.72,.96,1.2,1.44,1.68,1.92,2.16,2.4,2.64,2.88])
+    assert len(layers)==14 and np.allclose([z for z,h in layers],[.2,.48,.72,.96,1.2,1.44,1.68,1.92,2.16,2.4,2.64,2.88,3.12,3.36])
     assert sorted({r['layer'] for r in roads if r['tool']==1})==[1.92,2.16,2.4,2.64,2.88]
-    assert max(r['layer'] for r in roads if r['tool']==0)==2.4
+    assert max(r['layer'] for r in roads if r['tool']==0)==3.36
     wing_checks=[]
-    for z in (.2,1.2,1.44):
+    for z in (.2,1.68,1.92):
         shape=unary_union([LineString((r['a'],r['b'])).buffer(r['width']/2) for r in roads if r['layer']==z])
-        covered=[shape.covers(Point(x,125)) for x in (111.235,218.765)]
-        assert covered==([True,True] if z<=1.2 else [False,False]),(z,covered)
+        span=prep.trial.interface.WIDTH/2+prep.trial.interface.PROJECTION/2
+        covered=[shape.covers(Point(x,125)) for x in (165-span,165+span)]
+        assert covered==([True,True] if z<=1.68 else [False,False]),(z,covered)
         wing_checks.append({'print_z_mm':z,'both_wing_midpoints_covered':covered})
     checks=[]
     for z in (2.64,2.88):
-        raised=[r for r in roads if r['layer']==z];assert {r['tool'] for r in raised}=={1}
+        raised=[r for r in roads if r['layer']==z and r['tool']==1 and r['feature']!='Prime tower']
         counts={name:sum(all(lo<p[0]<hi for p in (r['a'],r['b'])) for r in raised)
                 for name,(lo,hi) in {'logo_and_drop':(117,143),'lettering':(145,187),'qr':(188,214)}.items()}
         assert all(n>10 for n in counts.values()) and sum(counts.values())==len(raised)
         checks.append({'print_z_mm':z,'white_paths_by_region':counts})
     scale=20;lo=np.array([109.,103.]);hi=np.array([221.,147.])
     im=Image.new('RGB',tuple(((hi-lo)*scale).astype(int)),'#777777');draw=ImageDraw.Draw(im)
-    for layer in (2.4,2.64,2.88):
+    for layer in (2.4,2.64,2.88,3.36):
         for r in roads:
             if r['layer']!=layer:continue
             pts=[tuple(((np.array(p)-lo)*scale).round().astype(int)) for p in (r['a'],r['b'])]

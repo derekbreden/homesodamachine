@@ -14,8 +14,8 @@ import registration as trial
 HERE,ROOT=trial.HERE,trial.ROOT
 sys.path.insert(0,str(ROOT/'hardware/printed-parts/faucet'))
 import refresh_print_project as writer
-JOB=ROOT/'.cache/prints/2026-09-29-registration-mark2-v1'
-STEM='registration-z004-mark2-v1'
+JOB=ROOT/'.cache/prints/2026-09-29-registration-mark2-v2'
+STEM='registration-saved-alignment-z004-mark2-v2'
 BASE=ROOT/'hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf'
 PETGF=ROOT/'hardware/printed-parts/petgf.3mf'
 NS='http://schemas.microsoft.com/3dmanufacturing/core/2015/02'
@@ -86,7 +86,7 @@ def main():
             'meshes':mesh_info,'identify_ids':{'2303':trial.NAME},
             'print_planes_z_mm':{'base':.96,'reference_tops':1.44},
             'candidate_offsets_mm':trial.OFFSETS,
-            'launch_options':{'Nozzle Offset Calibration':'On'},
+            'launch_options':{'Nozzle Offset Calibration':'Auto'},
             'product_correction_mm':[0,0],
             'precision_layer_ranges_mm':[[.2,.48,.28]],
             'settings':'Two-colour PET-GF; 0.20 mm first, 0.28 mm second, then 0.24 mm. Saved speeds and wall/infill order. No supports.',
