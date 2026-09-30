@@ -34,5 +34,6 @@ These checks do not qualify physical flatness, force or retention. The
 [launch receipt](launch.json) records printer acceptance, spool mapping and
 more than three minutes of spacing after H2C's start.
 
-[Physical result](physical-result.json): the user accepts this nameplate fit for
-now. Residual bow and insertion force are not quantified.
+[Physical result](physical-result.json): the fit has provisional acceptance, with
+remaining bowing reported. A body-X clearance trial is requested. Residual bow
+and insertion force are not quantified.

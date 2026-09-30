@@ -1,0 +1,49 @@
+{
+  "pass": true,
+  "archive": ".cache/prints/2026-09-30-nameplate-body-x035-receiver-mark2-v8/ready/nameplate-body-x035-receiver-tree-z004-mark2-v8.gcode.3mf",
+  "archive_details": {
+    "name": "nameplate-body-x035-receiver-tree-z004-mark2-v8.gcode.3mf",
+    "sha256": "356adb84142f623e468949898f4a1b53de5312e7bcb9ea2c52c57eba757d80ff",
+    "gcode_sha256": "c49e9fc6fa166fa5342c87b5d89dab709de0ca2feb19e44d01eaf2743dedc642",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "000000"
+      }
+    },
+    "objects": [
+      "nameplate-horizontal-wings-receiver"
+    ]
+  },
+  "readings": {
+    "Mark2": {
+      "job_id": "1295298484",
+      "subtask_name": "tap-flavor-raised-face-up-z004-mark2-v2.gcode.3mf",
+      "gcode_state": "FINISH",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 11,
+      "total_layer_num": 11,
+      "mc_remaining_time": 0,
+      "mc_percent": 100,
+      "observed_at": "2026-09-30T15:00:22.149191+00:00"
+    },
+    "H2C": {
+      "job_id": "1296307760",
+      "subtask_name": "display-body-x050-receiver-z018-h2c-v4.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 13,
+      "total_layer_num": 241,
+      "mc_remaining_time": 151,
+      "mc_percent": 10,
+      "observed_at": "2026-09-30T15:00:21.605688+00:00"
+    }
+  },
+  "bed_clear_basis": "User: both beds are free; requested nameplate X-clearance trial on Mark2. H2C alone has since started its receiver.",
+  "startup_spacing_minimum_seconds": 180,
+  "other_printer_previous_accepted_at_utc": "2026-09-30T14:37:28.426282+00:00",
+  "spacing_at_preflight_seconds": 1373.723436,
+  "send_copy": ".cache/prints/2026-09-30-nameplate-body-x035-receiver-mark2-v8/send/nameplate-body-x035-receiver-tree-z004-mark2-v8.gcode.3mf"
+}

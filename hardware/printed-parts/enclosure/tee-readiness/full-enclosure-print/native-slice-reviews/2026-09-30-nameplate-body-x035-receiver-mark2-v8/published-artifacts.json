@@ -1,0 +1,22 @@
+{
+  "pass": true,
+  "observed_at_utc": "2026-09-30T15:00:01.526211+00:00",
+  "artifacts": [
+    {
+      "url": "https://homesodamachine.com/steps/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.step?v=c553271a0625d76a",
+      "local_path": "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.step",
+      "expected_sha256": "c553271a0625d76a24d4269e0f2fd021155d34599d0b1dade700e19f236f86b1",
+      "served_sha256": "c553271a0625d76a24d4269e0f2fd021155d34599d0b1dade700e19f236f86b1",
+      "bytes": 138220,
+      "pass": true
+    },
+    {
+      "url": "https://homesodamachine.com/meshes/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.step.mesh?v=9a49ca90b404b9cf",
+      "local_path": "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.step.mesh",
+      "expected_sha256": "9a49ca90b404b9cffd12d8133d02d8600638e6a1118b8f3fa74f442952428bde",
+      "served_sha256": "9a49ca90b404b9cffd12d8133d02d8600638e6a1118b8f3fa74f442952428bde",
+      "bytes": 15020,
+      "pass": true
+    }
+  ]
+}

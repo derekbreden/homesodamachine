@@ -65,6 +65,11 @@ plate-and-receiver print.
 
 ## Printing and assembly
 
+The [horizontal-wing fit trial](horizontal-wing-trial/README.md) prints a flat,
+support-free nameplate face up with all artwork raised 0.48 mm. Its matching
+receiver has a full-depth body-X relief trial for the existing printed plate;
+the fit observations and native print records are linked there.
+
 The [face-up raised-artwork trial](face-up-trial/README.md) prints the broad-leaf
 plate with its show face upward, all white artwork raised 0.48 mm and black normal
 Snug supports behind the plate. The lettering, logo/drop and QR share the same

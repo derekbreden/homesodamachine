@@ -1,0 +1,71 @@
+{
+  "pass": true,
+  "comparison": "v7 receiver to v8 body-X receiver",
+  "removed_volume_mm3": 47.36756363601535,
+  "added_volume_mm3": 0.0,
+  "changes_outside_body_X_opening_and_wing_X_ends_mm3": 0.0,
+  "body_X_clearance_per_side_mm": {
+    "baseline": 0.15,
+    "trial": 0.35
+  },
+  "wing_tip_X_clearance_centered_mm": {
+    "baseline": 0.25,
+    "trial": 0.45
+  },
+  "minimum_tip_gap_at_full_body_X_float_mm": 0.1,
+  "Y_slot_thickness_mm": 1.98,
+  "Y_clearance_total_mm": 0.3,
+  "same_seating_floor_Y_mm": 0.0,
+  "Z_end_clearances_mm": [
+    0.4,
+    0.15
+  ],
+  "flat_retaining_lip_thickness_mm": 1.38,
+  "minimum_retention_overlap_at_full_body_X_float_mm": 1.7,
+  "minimum_flat_bearing_width_at_full_body_X_float_mm": 0.8,
+  "unchanged_entry_bevel_planes": true,
+  "unchanged_nameplate_stl_sha256": "a40a37c889f993742b1f4cc9f8e5e3b4f18f831bee2fe8e686a67b209611c434",
+  "pure_axis_clash_checks": [
+    {
+      "axis": "X",
+      "boundary_mm": -0.35,
+      "overlap_at_boundary_mm3": 0.0,
+      "overlap_0.05_mm_past_boundary_mm3": 2.1814178140096963
+    },
+    {
+      "axis": "X",
+      "boundary_mm": 0.35,
+      "overlap_at_boundary_mm3": 0.0,
+      "overlap_0.05_mm_past_boundary_mm3": 2.181417814009679
+    },
+    {
+      "axis": "Y",
+      "boundary_mm": 0.0,
+      "overlap_at_boundary_mm3": 0.0,
+      "overlap_0.05_mm_past_boundary_mm3": 196.40526536188133
+    },
+    {
+      "axis": "Y",
+      "boundary_mm": 0.3,
+      "overlap_at_boundary_mm3": 0.0,
+      "overlap_0.05_mm_past_boundary_mm3": 3.640798667764928
+    },
+    {
+      "axis": "Z",
+      "boundary_mm": -0.4,
+      "overlap_at_boundary_mm3": 0.0,
+      "overlap_0.05_mm_past_boundary_mm3": 16.976550766599814
+    },
+    {
+      "axis": "Z",
+      "boundary_mm": 0.15,
+      "overlap_at_boundary_mm3": 0.0,
+      "overlap_0.05_mm_past_boundary_mm3": 16.976550766600795
+    }
+  ],
+  "receiver_step_sha256": {
+    "baseline": "804f7fe62eaa0a9367f1946450de38567f438783c15d15d7057ad3a6120ff7da",
+    "trial": "c553271a0625d76a24d4269e0f2fd021155d34599d0b1dade700e19f236f86b1"
+  },
+  "scope": "Only the full-depth body X pocket and wing-slot X ends are relieved. Y and Z gaps, seating datum, external stock, entry bevel planes and existing nameplate are fixed. Printed bow and retention require the physical comparison."
+}

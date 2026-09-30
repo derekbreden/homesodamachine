@@ -21,7 +21,7 @@ def print_pose(shape):
     return shape.rotate((0,0,0),(1,0,0),90).rotate((0,0,0),(0,0,1),180)
 
 
-def main():
+def main(*, receiver_only=False):
     blank,fixture = interface.blank(),interface.receiver()
     original = plate.build_ink(1).translate((0,interface.THICK-plate.THICK,0))
     black = blank.cut(original).clean()
@@ -53,6 +53,8 @@ def main():
     assembly.add(white,name=NAME+'-ink',color=plate._filament(plate.WHITE))
     coupon=plate.one_body(fixture,RECEIVER,plate.M_PETGF_BLACK)
     for name,part,body in ((NAME,assembly,exterior),(RECEIVER,coupon,fixture)):
+        if receiver_only and name!=RECEIVER:
+            continue
         path=HERE/(name+'.step')
         plate.export_assembly(part,str(path))
         plate.export_step(body,str(path.with_suffix('.stl')))
@@ -66,16 +68,17 @@ def main():
             'slot_thickness_mm':interface.WING_THICK+interface.THICKNESS_AIR,
             'slot_thickness_air_mm':interface.THICKNESS_AIR,
             'slot_tip_air_mm':interface.TIP_AIR,
-            'minimum_engagement_at_lateral_float_mm':interface.PROJECTION-2*interface.FACE_SLIP,
-            'minimum_flat_bearing_at_lateral_float_mm':interface.PROJECTION-2*interface.FACE_SLIP-interface.ENTRY_BEVEL_WIDTH,
+            'minimum_engagement_at_lateral_float_mm':interface.PROJECTION-2*interface.FACE_X_AIR,
+            'minimum_flat_bearing_at_lateral_float_mm':interface.PROJECTION-interface.FACE_X_AIR-interface.FACE_SLIP-interface.ENTRY_BEVEL_WIDTH,
+            'minimum_tip_gap_at_lateral_float_mm':interface.TIP_AIR-interface.FACE_X_AIR,
             'field_thickness_mm':interface.FIELD_THICK,'plate_thickness_mm':interface.THICK,
             'raised_perimeter':False,
-            'face_perimeter_air_mm':interface.FACE_SLIP,
+            'face_perimeter_air_mm':{'X':interface.FACE_X_AIR,'Z':interface.FACE_SLIP},
             'slot_end_air_mm':interface.END_AIR,
-            'seated_pure_axis_travel_mm':{'X':2*interface.FACE_SLIP,
+            'seated_pure_axis_travel_mm':{'X':2*interface.FACE_X_AIR,
                                          'Y':interface.THICKNESS_AIR,
                                          'Z':2*interface.FACE_SLIP+interface.SUPPORTED_END_AIR},
-            'clearance_policy':'Shared static fits.slip at locating gaps; nonlocating wing tips have 0.25 mm X clearance and the Y slot has 0.30 mm clearance above the seated wing as a local thickness-fit trial. fits.supported_surface once at print-down mouth and slot ends. Zero at the back seating datum. No sliding or low-force additions.',
+            'clearance_policy':'Body X has 0.35 mm per side and wing tips have 0.45 mm centered X clearance, retaining 0.10 mm at maximum body travel. Y slot clearance is 0.30 mm above the seated wing. Z uses shared static fits.slip plus fits.supported_surface once at print-down mouth and slot ends. Seating floor and entry bevels are fixed. These are local fit trials, with no sliding or low-force additions.',
             'entry_bevel_mm':{'width':interface.ENTRY_BEVEL_WIDTH,'depth':interface.ENTRY_BEVEL_DEPTH},
             'supported_end_extra_clearance_mm':interface.SUPPORTED_END_AIR,
             'receiver_lip_thickness_mm':interface.THICK-interface.WING_THICK-interface.THICKNESS_AIR,
@@ -93,4 +96,8 @@ def main():
     print(json.dumps(report,indent=2))
 
 
-if __name__=='__main__':main()
+if __name__=='__main__':
+    import argparse
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--receiver-only',action='store_true')
+    main(receiver_only=parser.parse_args().receiver_only)

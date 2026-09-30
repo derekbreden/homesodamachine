@@ -2532,7 +2532,7 @@
         "Nozzle Offset Calibration": "Auto"
       },
       "review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-y030-receiver-mark2-v7",
-      "physical_result": "Nameplate fit accepted for now by user on 2026-09-30.",
+      "physical_result": "Provisionally accepted; remaining bowing reported and a body-X clearance trial requested.",
       "Y_slot_gap_total_mm": 0.3,
       "Y_slot_thickness_mm": 1.98,
       "wing_thickness_mm": 1.68,
@@ -2652,6 +2652,44 @@
       "existing_cover_sha256": "bd0545aa076fed3d7adc895df205b098f11a08b6fc37c883893115aec83dd5f2",
       "geometry_scope": "Only full-depth main-body X pocket; wing pockets and seating datums held.",
       "startup_spacing_seconds": 32134.731609
+    },
+    {
+      "date": "2026-09-30",
+      "printer": "Mark2",
+      "parts": [
+        "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.stl"
+      ],
+      "job_name": "nameplate-body-x035-receiver-tree-z004-mark2-v8.gcode.3mf",
+      "printer_task_id": "1296373726",
+      "status": "started",
+      "observed_at_utc": "2026-09-30T15:01:53.496691+00:00",
+      "observed_state_at_acceptance": "RUNNING",
+      "sliced_file": ".cache/prints/2026-09-30-nameplate-body-x035-receiver-mark2-v8/ready/nameplate-body-x035-receiver-tree-z004-mark2-v8.gcode.3mf",
+      "sliced_file_sha256": "356adb84142f623e468949898f4a1b53de5312e7bcb9ea2c52c57eba757d80ff",
+      "gcode_sha256": "c49e9fc6fa166fa5342c87b5d89dab709de0ca2feb19e44d01eaf2743dedc642",
+      "estimated_seconds": 2586.031005859375,
+      "filament_grams": 20.097013473510742,
+      "print_options": {
+        "Timelapse": "On",
+        "Auto bed leveling": "On",
+        "Flow dynamic calibration": "Auto",
+        "Nozzle Offset Calibration": "Auto"
+      },
+      "review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-nameplate-body-x035-receiver-mark2-v8",
+      "physical_result": "Pending same-nameplate bow, insertion and retention comparison.",
+      "body_X_clearance_per_side_mm": 0.35,
+      "wing_tip_X_clearance_centered_mm": 0.45,
+      "wing_tip_X_clearance_at_body_limit_mm": 0.1,
+      "wing_thickness_clearance_mm": 0.3,
+      "Z_end_clearances_mm": [
+        0.4,
+        0.15
+      ],
+      "minimum_wing_capture_mm": 1.7,
+      "minimum_flat_bearing_mm": 0.8,
+      "existing_nameplate_sha256": "a40a37c889f993742b1f4cc9f8e5e3b4f18f831bee2fe8e686a67b209611c434",
+      "geometry_scope": "Only body X opening and wing-slot X ends; Y and Z gaps, seating datum and bevel planes fixed.",
+      "startup_spacing_seconds": 1465.070409
     }
   ]
 }

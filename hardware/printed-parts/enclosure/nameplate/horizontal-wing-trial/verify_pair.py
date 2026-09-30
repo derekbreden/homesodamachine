@@ -80,7 +80,7 @@ def main():
     # Check actual exported solids at each pure-axis travel limit, and just beyond.
     part=cq.importers.importStep(str(HERE/(prep.trial.NAME+'.step'))).val()
     receiver=cq.importers.importStep(str(HERE/(prep.trial.RECEIVER+'.step'))).val()
-    bounds={0:(-fit.FACE_SLIP,fit.FACE_SLIP),1:(0.,fit.THICKNESS_AIR),
+    bounds={0:(-fit.FACE_X_AIR,fit.FACE_X_AIR),1:(0.,fit.THICKNESS_AIR),
             2:(-fit.FACE_SLIP-fit.SUPPORTED_END_AIR,fit.FACE_SLIP)}
     fit_checks=[]
     for axis,(low,high) in bounds.items():

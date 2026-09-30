@@ -1,0 +1,12 @@
+{
+  "job_id": "1296373726",
+  "subtask_name": "nameplate-body-x035-receiver-tree-z004-mark2-v8.gcode.3mf",
+  "gcode_state": "RUNNING",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 192,
+  "mc_remaining_time": 43,
+  "mc_percent": 0,
+  "observed_at_utc": "2026-09-30T15:03:41.254807+00:00"
+}
