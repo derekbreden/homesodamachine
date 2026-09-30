@@ -24,7 +24,12 @@ tip **0.25 mm of X clearance** at the centered position. This is a local
 narrow-slot relief of 0.10 mm beyond the ordinary static gap. The body locates X
 at 0.15 mm per side; the wing tips retain 0.10 mm at the extreme of body travel.
 These tips need capture, not a second X locating fit. This trial allowance does
-not change slot thickness gaps, add to every face, or establish a low-force rule.
+not add to every face or establish a low-force rule.
+
+The [nameplate receiver Y trial](nameplate/horizontal-wing-trial/README.md) uses
+a separate 0.30 mm total thickness gap above its 1.68 mm seated wing. This local
+pinching test keeps the seating floor, X gaps and Z gaps fixed. It is not a
+change to the shared static clearance or the display-cover normal gap.
 
 **Low-force clearance for rough overhang surfaces involved** uses a working addition
 of **0.50 mm on the identified moving gap**, after its ordinary sliding and rough-face

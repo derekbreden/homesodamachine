@@ -16,7 +16,8 @@ are unmeasured.
 ## Static fit
 
 The locating gaps use `../../../cadlib/fits.py`. Each nonlocating wing tip has
-0.25 mm of X clearance as a narrow-slot fit trial. This plate is inserted by
+0.25 mm of X clearance, and the wing thickness gap is 0.30 mm as a local fit
+trial. This plate is inserted by
 hand and has no sliding-fit or low-force additions.
 
 | Surface | Nominal clearance |
@@ -28,27 +29,30 @@ hand and has no sliding-fit or low-force additions.
 | Wing tip to slot end in X | 0.25 mm each at center; 0.10 mm minimum at full body X float |
 | Wing ordinary Z end | 0.15 mm |
 | Wing print-down Z end | 0.15 + 0.25 mm for the rough receiver face |
-| Wing top to flat retaining bearing | 0.15 mm; 1.83 mm slot for a 1.68 mm wing |
+| Wing top to flat retaining bearing | 0.30 mm total; 1.98 mm slot for a 1.68 mm wing |
 | Plate back and wing undersides at the seating datum | 0 mm |
 
 The body and wing limits constrain the same motion; their gaps do not add to
 each other. The dimensions above are pure-axis limits. Rounded corners constrain
 combined translations. The receiver prints with assembled −Z as build-up, so its
 negative-Z pocket ends receive the directional rough-face allowance. Y slot walls
-print vertically and receive the ordinary static gap.
+print vertically. The 0.30 mm Y gap is a local pinching test, not a
+rough-overhang or low-force allowance.
 
 The body establishes X location. Its wing tips have another 0.10 mm of relief
 beyond the 0.15 mm static gap to avoid redundant location in narrow slots. The
-slot's thickness gap and Z ends retain their standard allowances. The
-[physical observation](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-flat-standard-mark2-v5/physical-result.json)
-records bowing with apparent body clearance; interference from printed corner
-rounding remains a hypothesis for this receiver test.
+Z ends retain their standard allowances. The
+[physical observation](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-tip025-receiver-mark2-v6/physical-result.json)
+records bowing when engaged and flatness when removed or placed inverted with
+the wings disengaged. The receiver tests Y pinching by giving the seated wing
+0.30 mm clearance above it. The Y=0 seating floor stays fixed; X and Z gaps are
+held for this comparison. The specific printed contact remains unmeasured.
 
 The entry bevel is 1.10 mm wide and 0.40 mm deep at each slot mouth. It clears the
 wing's rotation during hand-bent insertion. The outer flat bearing keeps the
-0.15 mm seated gap. At full lateral float, each wing retains at least 2.10 mm of
-geometric overlap and 1.00 mm of flat bearing width. The retaining lip is 1.53 mm
-thick over the flat bearing and 1.13 mm at the bevel entrance.
+0.30 mm seated gap. At full lateral float, each wing retains at least 2.10 mm of
+geometric overlap and 1.00 mm of flat bearing width. The retaining lip is 1.38 mm
+thick over the flat bearing and 0.98 mm at the bevel entrance.
 
 `wing_interface.py` supplies the reusable wall cutter. The full enclosure awaits
 the corrected coupon's physical fit result. Use the matching receiver for this
@@ -75,7 +79,7 @@ layers at 3.60 and 3.84 mm. Saved speeds, wall order and 15% infill overlap appl
 `prepare_receiver.py` and `verify_receiver.py` create and check the receiver-only
 comparison on Mark2. It uses 0.20 mm followed by 0.24 mm layers, shared tree
 supports and the existing flat nameplate. Its
-[slice review](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-tip025-receiver-mark2-v6/README.md)
-records a 42 min 37 sec estimate and a geometric comparison proving that only
-the two slot-tip strips changed. Physical bow, insertion and retention remain
-to be evaluated with this receiver.
+[slice review](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-y030-receiver-mark2-v7/README.md)
+records a 43 min 6 sec estimate and an exact geometry comparison confined to
+the two Y slot roofs and their entry bevels. Use the existing flat nameplate
+for physical bow, insertion and retention assessment.

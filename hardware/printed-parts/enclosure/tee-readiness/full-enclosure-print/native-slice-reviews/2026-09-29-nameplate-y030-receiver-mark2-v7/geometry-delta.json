@@ -1,0 +1,63 @@
+{
+  "pass": true,
+  "comparison": "v6 receiver to v7 Y-clearance-only receiver",
+  "removed_volume_mm3": 22.91249999999959,
+  "added_volume_mm3": 0.0,
+  "changes_outside_two_Y_slot_roof_and_bevel_bands_mm3": 0.0,
+  "same_seating_floor_Y_mm": 0.0,
+  "wing_thickness_mm": 1.68,
+  "Y_slot_thickness_mm": 1.98,
+  "Y_clearance_total_mm": 0.3,
+  "flat_retaining_lip_thickness_mm": 1.38,
+  "entry_lip_thickness_mm": 0.98,
+  "X_tip_clearance_centered_mm": 0.25,
+  "Z_end_clearances_mm": [
+    0.4,
+    0.15
+  ],
+  "unchanged_nameplate_stl_sha256": "a40a37c889f993742b1f4cc9f8e5e3b4f18f831bee2fe8e686a67b209611c434",
+  "minimum_retention_overlap_mm": 2.1,
+  "pure_axis_clash_checks": [
+    {
+      "axis": "X",
+      "boundary_mm": -0.15,
+      "overlap_at_boundary_mm3": 0.0,
+      "overlap_0.05_mm_past_boundary_mm3": 2.070326904919956
+    },
+    {
+      "axis": "X",
+      "boundary_mm": 0.15,
+      "overlap_at_boundary_mm3": 0.0,
+      "overlap_0.05_mm_past_boundary_mm3": 2.0703269049198507
+    },
+    {
+      "axis": "Y",
+      "boundary_mm": 0.0,
+      "overlap_at_boundary_mm3": 0.0,
+      "overlap_0.05_mm_past_boundary_mm3": 196.40526536187954
+    },
+    {
+      "axis": "Y",
+      "boundary_mm": 0.3,
+      "overlap_at_boundary_mm3": 0.0,
+      "overlap_0.05_mm_past_boundary_mm3": 3.640798667764762
+    },
+    {
+      "axis": "Z",
+      "boundary_mm": -0.4,
+      "overlap_at_boundary_mm3": 0.0,
+      "overlap_0.05_mm_past_boundary_mm3": 17.350521097125107
+    },
+    {
+      "axis": "Z",
+      "boundary_mm": 0.15,
+      "overlap_at_boundary_mm3": 0.0,
+      "overlap_0.05_mm_past_boundary_mm3": 17.350521097125412
+    }
+  ],
+  "receiver_step_sha256": {
+    "baseline": "ecb156b8e2f63e9335ca8f635b1fb47fb59ae40810d94887a208159299f8234b",
+    "trial": "804f7fe62eaa0a9367f1946450de38567f438783c15d15d7057ad3a6120ff7da"
+  },
+  "scope": "Exact CAD differences and seated travel only; printed contact, insertion force and bowing require physical comparison with the same nameplate."
+}
