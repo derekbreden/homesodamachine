@@ -1,0 +1,72 @@
+{
+  "pass": true,
+  "comparison": "v8 receiver to v9 wing-Y receiver",
+  "removed_volume_mm3": 22.912499999999483,
+  "added_volume_mm3": 0.0,
+  "changes_outside_wing_slot_roofs_and_entry_bevels_mm3": 0.0,
+  "body_X_clearance_per_side_mm": 0.35,
+  "wing_tip_X_clearance_centered_mm": 0.45,
+  "minimum_tip_gap_at_full_body_X_float_mm": 0.1,
+  "Y_slot_thickness_mm": {
+    "baseline": 1.98,
+    "trial": 2.13
+  },
+  "Y_clearance_total_mm": {
+    "baseline": 0.3,
+    "trial": 0.45
+  },
+  "same_seating_floor_Y_mm": 0.0,
+  "Z_end_clearances_mm": [
+    0.4,
+    0.15
+  ],
+  "flat_retaining_lip_thickness_mm": 1.23,
+  "minimum_retention_overlap_at_full_body_X_float_mm": 1.7,
+  "minimum_flat_bearing_width_at_full_body_X_float_mm": 0.8,
+  "entry_bevel_Y_shift_mm": 0.15,
+  "unchanged_entry_bevel_width_and_slope": true,
+  "unchanged_nameplate_stl_sha256": "a40a37c889f993742b1f4cc9f8e5e3b4f18f831bee2fe8e686a67b209611c434",
+  "pure_axis_clash_checks": [
+    {
+      "axis": "X",
+      "boundary_mm": -0.35,
+      "overlap_at_boundary_mm3": 0.0,
+      "overlap_0.05_mm_past_boundary_mm3": 1.9522928140097682
+    },
+    {
+      "axis": "X",
+      "boundary_mm": 0.35,
+      "overlap_at_boundary_mm3": 0.0,
+      "overlap_0.05_mm_past_boundary_mm3": 1.9522928140097502
+    },
+    {
+      "axis": "Y",
+      "boundary_mm": 0.0,
+      "overlap_at_boundary_mm3": 0.0,
+      "overlap_0.05_mm_past_boundary_mm3": 196.40526536188133
+    },
+    {
+      "axis": "Y",
+      "boundary_mm": 0.45,
+      "overlap_at_boundary_mm3": 0.0,
+      "overlap_0.05_mm_past_boundary_mm3": 3.6407986677650497
+    },
+    {
+      "axis": "Z",
+      "boundary_mm": -0.4,
+      "overlap_at_boundary_mm3": 0.0,
+      "overlap_0.05_mm_past_boundary_mm3": 16.976550766599814
+    },
+    {
+      "axis": "Z",
+      "boundary_mm": 0.15,
+      "overlap_at_boundary_mm3": 0.0,
+      "overlap_0.05_mm_past_boundary_mm3": 16.97655076660074
+    }
+  ],
+  "receiver_step_sha256": {
+    "baseline": "c553271a0625d76a24d4269e0f2fd021155d34599d0b1dade700e19f236f86b1",
+    "trial": "eb2dabc28762c416ce44d9c1932c0552b133ae7e6297098117de33431d394a9a"
+  },
+  "scope": "Only the wing-slot Y retaining faces and their entry bevels are relieved. X and Z gaps, seating datum, external stock and existing nameplate are fixed. Printed bow and retention require the physical comparison."
+}

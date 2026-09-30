@@ -13,8 +13,8 @@ sys.path.insert(0,str(ROOT/'hardware/printed-parts/faucet'))
 import refresh_print_project as writer
 import wing_interface as interface
 
-JOB=ROOT/'.cache/prints/2026-09-30-nameplate-body-x035-receiver-mark2-v8'
-STEM='nameplate-body-x035-receiver-tree-z004-mark2-v8'
+JOB=ROOT/'.cache/prints/2026-09-30-nameplate-y045-receiver-mark2-v9'
+STEM='nameplate-y045-receiver-tree-z004-mark2-v9'
 NAME='nameplate-horizontal-wings-receiver'
 PROFILE=ROOT/'hardware/printed-parts/petgf.3mf'
 ENCLOSURE=HERE.parent.parent/'enclosure/enclosure.py'
@@ -35,7 +35,7 @@ def main():
                t.id=='PIECE_PRINT_UP' for t in n.targets))
     assert up==-1.,'Receiver build direction must follow its back-top enclosure wall.'
     report=writer.refresh(PROFILE,staged,parts=((NAME,source,180.),),
-                          offsets=((0.,0.),),title='Nameplate receiver, 0.35 mm body X clearance; Mark2',
+                          offsets=((0.,0.),),title='Nameplate receiver, 0.45 mm wing Y clearance; Mark2',
                           z_trim=.04,plate_border=15.)
     with zipfile.ZipFile(staged) as z:members={n:z.read(n) for n in z.namelist()}
     settings=json.loads(members[writer.SETTINGS_MEMBER])

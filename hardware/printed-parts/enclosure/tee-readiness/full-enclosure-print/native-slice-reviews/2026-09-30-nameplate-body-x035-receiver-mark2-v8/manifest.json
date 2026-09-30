@@ -39,8 +39,8 @@
     "slice-command.json": "2251d57c73a1d351d6e8f38b6b0a3e40cf00611cd427c578246603d39914310e",
     "support-audit.json": "b91d38df2a357282b5536648d5ca5d8e5a2a2c23158550a570ef27852507d7d6",
     "verification.json": "3d9758e2f889b21f8842b2a8b2f9ffa06b82de5d530a5832c7daefab8900d833",
-    "physical-result.json": "3c2c3320b358fde2c27f85d15c6b411be182b8b1931531c7d86d3a6561288854",
+    "physical-result.json": "914f7f839e9b60a1627d4b7a946ecc5d3a00290b28d27c04a453ac1d0cf0980a",
     "slot-envelope-check.json": "0d2b8a85c811658b4f145f070769ad3454526a9d8c96463f416514609f88d4bf"
   },
-  "physical_result": "Completed; lateral X movement is present, but bowing persists throughout it. Wing contact source remains unmeasured."
+  "physical_result": "Completed; lateral X movement is present, bowing persists throughout it, and wings feel tight in Y."
 }

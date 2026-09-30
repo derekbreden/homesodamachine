@@ -2676,7 +2676,7 @@
         "Nozzle Offset Calibration": "Auto"
       },
       "review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-nameplate-body-x035-receiver-mark2-v8",
-      "physical_result": "Lateral X movement is present, but bowing persists throughout it. User describes wings held down; specific contact surface is unmeasured.",
+      "physical_result": "Lateral X movement is present, bowing persists throughout it, and wings feel tight in Y. Specific printed contact surface remains unmeasured.",
       "body_X_clearance_per_side_mm": 0.35,
       "wing_tip_X_clearance_centered_mm": 0.45,
       "wing_tip_X_clearance_at_body_limit_mm": 0.1,
@@ -2691,6 +2691,46 @@
       "geometry_scope": "Only body X opening and wing-slot X ends; Y and Z gaps, seating datum and bevel planes fixed.",
       "startup_spacing_seconds": 1465.070409,
       "physical_result_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-nameplate-body-x035-receiver-mark2-v8/physical-result.json"
+    },
+    {
+      "date": "2026-09-30",
+      "printer": "Mark2",
+      "parts": [
+        "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.stl"
+      ],
+      "job_name": "nameplate-y045-receiver-tree-z004-mark2-v9.gcode.3mf",
+      "printer_task_id": "1296653642",
+      "status": "started",
+      "observed_at_utc": "2026-09-30T16:45:40.747148+00:00",
+      "observed_state_at_acceptance": "RUNNING",
+      "sliced_file": ".cache/prints/2026-09-30-nameplate-y045-receiver-mark2-v9/ready/nameplate-y045-receiver-tree-z004-mark2-v9.gcode.3mf",
+      "sliced_file_sha256": "e75ae15b93b64071f4c2a68adea7cad0f989a993832f7676b2316cd22619e0f4",
+      "gcode_sha256": "07a83f8ae725f9f791eb68471c1f1f929d57a06839a0ed0137ccee6a60e01140",
+      "estimated_seconds": 2583.60302734375,
+      "filament_grams": 20.06842803955078,
+      "print_options": {
+        "Timelapse": "On",
+        "Auto bed leveling": "On",
+        "Flow dynamic calibration": "Auto",
+        "Nozzle Offset Calibration": "Auto"
+      },
+      "review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-nameplate-y045-receiver-mark2-v9",
+      "physical_result": "Pending same-nameplate Y play, relaxed flatness, insertion and shake-retention assessment.",
+      "body_X_clearance_per_side_mm": 0.35,
+      "wing_tip_X_clearance_centered_mm": 0.45,
+      "wing_tip_X_clearance_at_body_limit_mm": 0.1,
+      "wing_thickness_clearance_mm": 0.45,
+      "slot_Y_opening_mm": 2.13,
+      "flat_retaining_lip_thickness_mm": 1.23,
+      "Z_end_clearances_mm": [
+        0.4,
+        0.15
+      ],
+      "minimum_wing_capture_mm": 1.7,
+      "minimum_flat_bearing_mm": 0.8,
+      "existing_nameplate_sha256": "a40a37c889f993742b1f4cc9f8e5e3b4f18f831bee2fe8e686a67b209611c434",
+      "geometry_scope": "Only wing-slot Y retaining faces and their entry bevels; X/Z gaps, seating datum and existing nameplate held.",
+      "startup_spacing_seconds": 7692.320866
     }
   ]
 }

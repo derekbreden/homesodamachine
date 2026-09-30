@@ -12,7 +12,8 @@ their own physical checks.
 
 | Job | Printer | State | Evidence |
 | --- | --- | --- | --- |
-| Nameplate receiver, 0.35 mm body X clearance per side | Mark2 | completed, task 1296373726; lateral X movement present; bow persists throughout movement | [2026-09-30-nameplate-body-x035-receiver-mark2-v8](2026-09-30-nameplate-body-x035-receiver-mark2-v8/README.md) |
+| Nameplate receiver, 0.45 mm wing Y clearance | Mark2 | started, task 1296653642; existing nameplate; 2.13 mm slot; about 43 min | [2026-09-30-nameplate-y045-receiver-mark2-v9](2026-09-30-nameplate-y045-receiver-mark2-v9/README.md) |
+| Nameplate receiver, 0.35 mm body X clearance per side | Mark2 | completed, task 1296373726; lateral X movement present; bow persists throughout movement; wings feel tight in Y | [2026-09-30-nameplate-body-x035-receiver-mark2-v8](2026-09-30-nameplate-body-x035-receiver-mark2-v8/README.md) |
 | Display receiver, 0.50 mm body X clearance per side | H2C | started, task 1296307760; 1.00 mm total X travel; wing pockets held; existing cover; about 2 h 49 min | [2026-09-30-display-body-x050-receiver-h2c-v4](2026-09-30-display-body-x050-receiver-h2c-v4/README.md) |
 | Display receiver, wing-thickness and full-depth body relief | H2C | completed, task 1295323504; still bowing; further main-body X clearance requested | [2026-09-30-display-relief-receiver-h2c-v3](2026-09-30-display-relief-receiver-h2c-v3/README.md) |
 | Face-up raised TAP and two FLAVOR collars | Mark2 | completed, task 1295298484; finish and excellent, clear lettering accepted | [2026-09-30-bulkhead-raised-mark2-v2](2026-09-30-bulkhead-raised-mark2-v2/README.md) |

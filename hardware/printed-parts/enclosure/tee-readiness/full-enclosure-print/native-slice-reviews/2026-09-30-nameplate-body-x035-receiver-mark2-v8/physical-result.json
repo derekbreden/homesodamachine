@@ -20,7 +20,9 @@
     "wing_Z_ordinary_end": 0.15,
     "wing_Z_supported_end": 0.4
   },
-  "assessment": "The body-X relief trial permits lateral movement but leaves the bow unresolved. Wing thickness/angle constraint, Z-end contact and seating-plane distortion remain unseparated. User describes a holding-down effect at the wings; this is not a measured contact location.",
+  "assessment": "The body-X relief trial permits lateral movement but leaves the bow unresolved. The user reports tight wing fit in Y. The next local fit test enlarges the slot above the wing; the specific printed contact and forces remain unmeasured.",
   "retention_result": null,
-  "scope": "Physical feedback for this receiver with the existing nameplate; no new global clearance rule or dimension accepted."
+  "scope": "Physical feedback for this receiver with the existing nameplate; no new global clearance rule or dimension accepted.",
+  "latest_user_report": "Mark2 plate is clear. Wings feel tight in Y.",
+  "wing_Y_play_user_assessment": "Wings feel tight in Y"
 }
