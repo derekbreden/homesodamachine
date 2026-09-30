@@ -54,9 +54,9 @@ wing's rotation during hand-bent insertion. The outer flat bearing keeps the
 geometric overlap and 1.00 mm of flat bearing width. The retaining lip is 1.38 mm
 thick over the flat bearing and 0.98 mm at the bevel entrance.
 
-`wing_interface.py` supplies the reusable wall cutter. The full enclosure awaits
-the corrected coupon's physical fit result. Use the matching receiver for this
-trial; its mouth and slots establish the locating clearances.
+`wing_interface.py` supplies the reusable wall cutter. The [coupon fit](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-y030-receiver-mark2-v7/physical-result.json)
+is accepted for now. Full-enclosure integration remains separate. Use the
+matching receiver; its mouth and slots establish the locating clearances.
 
 ## Verification and printing
 

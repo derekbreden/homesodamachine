@@ -101,22 +101,21 @@ The pocket it drops into is struck by [`enclosure.py`](../enclosure/enclosure.py
 of the same shape one rim larger standing that far inboard behind it, so the wall keeps its whole
 thickness under every chip.
 
-## Pending raised-lettering print
+## Face-up raised-lettering trial
 
-After the face-up nameplate is printed and physically accepted, apply its accepted
-raised-lettering treatment and validated two-nozzle alignment to **TAP and both
-FLAVOR bulkhead rings**. Use the accepted nameplate's lettering rise and print
-approach, checking the rings' letter paths and fitting-flange clearance in their
-own native slice. The nameplate result is a prerequisite for this trial.
+The [TAP and FLAVOR trial](face-up-trial/README.md) uses face-up printing and
+0.48 mm raised lettering, following the accepted nameplate appearance. Its
+2.0 mm fitting seat, bore and outline retain the existing mounting interface.
+TAP has a white body and black letters; both FLAVOR rings have black bodies
+and white letters.
 
-Keep TAP's white body with black lettering and FLAVOR's black body with white
-lettering. The alignment correction belongs to the validated printer/nozzle pair
-and follows the white nozzle's paths, including the white body on TAP. Its value
-comes from [`mark2-registration.json`](../../calibration/dual-nozzle-registration/mark2-registration.json)
-and the accepted nameplate print. The
-[face-up trial](face-up-trial/README.md) contains raised CAD and a verified,
-uncorrected native review slice. That slice remains held for the nameplate and
-alignment result; the production ring files remain separate.
+Mark2's accepted white-nozzle correction is X −0.50 mm, Y +0.70 mm, including
+TAP's white body. Nominal geometry stays aligned. The native slice comparison
+checks every model layer against the uncorrected paths; the usual Auto nozzle
+offset startup setting applies. The
+[registration record](../../calibration/dual-nozzle-registration/mark2-registration.json)
+links the appearance evidence. Ring finish and fitting checks remain separate
+physical assessments; production ring geometry is separate from this trial.
 
 ## Files
 
