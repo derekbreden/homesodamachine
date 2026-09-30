@@ -1,0 +1,49 @@
+{
+  "pass": true,
+  "printer": "Mark2",
+  "native_archive": ".cache/prints/2026-09-29-nameplate-tip025-receiver-mark2-v6/ready/nameplate-tip025-receiver-tree-z004-mark2-v6.gcode.3mf",
+  "native_archive_sha256": "ae86fe1c6f646a190f67dba4c72541e9aaf7fc988c392b7400ae385176fa0554",
+  "gcode_sha256": "6536e3b194154406c233005dcbaa11756c56dbb38053cd4185058bba155b6612",
+  "source_hashes_current": true,
+  "model_layers": 192,
+  "independent_support_layers": true,
+  "enclosure_build_direction": -1.0,
+  "support_profile_differences": {
+    "support_filament": {
+      "profile": "0",
+      "receiver": "1"
+    },
+    "support_interface_filament": {
+      "profile": "0",
+      "receiver": "1"
+    }
+  },
+  "emitted_z_trim_mm": [
+    0.0,
+    0.02
+  ],
+  "slot_support_clearance_checks": [
+    {
+      "side": "left",
+      "sum_of_support_bead_intersection_areas_mm2": 0.0
+    },
+    {
+      "side": "right",
+      "sum_of_support_bead_intersection_areas_mm2": 0.0
+    }
+  ],
+  "support_summary": {
+    "support_bodies": 1,
+    "interface_islands": 1,
+    "bed_rooted_bodies": 1,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 41.28,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 1,
+    "shortest_labelled_build_up_mm": 41.28
+  },
+  "support_removal": "Physical trial pending; front-access lane verified.",
+  "estimated_seconds": 2556.7998046875,
+  "estimated_grams_saved_profile_density": 20.123493194580078,
+  "submitted": false
+}

@@ -1,0 +1,52 @@
+{
+  "pass": true,
+  "printer": "H2C",
+  "native_archive": ".cache/prints/2026-09-29-display-open-wing-receiver-h2c-v2/ready/display-open-wing-receiver-z018-h2c-v2.gcode.3mf",
+  "native_archive_sha256": "efbfc5c1b568984082c5b9194a7262e69384460a49b7d303d7399657f219940c",
+  "gcode_sha256": "36449451abba9cea3b550d80dcc702a41e2df55ce0143072bbb7505525ba83ed",
+  "source_hashes_current": true,
+  "model_layer_count": 241,
+  "emitted_z_trim_mm": [
+    0.0,
+    0.16
+  ],
+  "support_profile_differences": {
+    "support_filament": [
+      "0",
+      "1"
+    ],
+    "support_interface_filament": [
+      "0",
+      "1"
+    ]
+  },
+  "support_summary": {
+    "support_bodies": 1,
+    "interface_islands": null,
+    "bed_rooted_bodies": 1,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "bodies_without_interface_labels": 1,
+    "explicit_interface_islands": 0,
+    "shortest_labelled_build_up_mm": null
+  },
+  "geometry_exit_checks": [
+    {
+      "print_down_blocked_volume_mm3": 0.0
+    },
+    {
+      "print_down_blocked_volume_mm3": 0.0
+    }
+  ],
+  "pure_axis_travel_mm": {
+    "X": 0.3,
+    "Y": 0.3,
+    "Z": 0.4
+  },
+  "wing_tip_clearance_mm": 0.25,
+  "existing_cover_sha256": "bd0545aa076fed3d7adc895df205b098f11a08b6fc37c883893115aec83dd5f2",
+  "estimated_seconds": 10400.3935546875,
+  "estimated_grams_saved_profile_density": 69.97340393066406,
+  "submitted": false,
+  "physical_qualification": "Support removal, fit, bow and retention need this physical receiver."
+}

@@ -1,0 +1,13 @@
+{
+  "observed_date_local": "2026-09-29",
+  "printer": "Mark2",
+  "task_id": "1294806669",
+  "reporter": "user",
+  "bow_present": true,
+  "body_X_gap_appears_available": true,
+  "suspected_contact": "Wing tips in narrow slots",
+  "hypothesis": "Printed corner rounding at both sides of a narrow cavity may resist seating without enough local compliance.",
+  "hypothesis_measured": false,
+  "accepted_fit": false,
+  "requested_next_test": "0.25 mm X clearance at each wing tip; keep body location unchanged."
+}

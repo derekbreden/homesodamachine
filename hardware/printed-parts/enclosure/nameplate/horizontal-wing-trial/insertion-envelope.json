@@ -715,6 +715,6 @@
   "maximum_section_overlap_mm2": 0.0,
   "source_sha256": {
     "verify_insertion.py": "0abc6ff5c35afce8f25b8dbec9756bacfa08d626866a55a3c3b965078b799826",
-    "wing_interface.py": "23294ca479742f23fc6a9890b2c4d58b3043fc07ffc7cc0c65d14ce119ee58ee"
+    "wing_interface.py": "bcb5233815e5de0a5877ae01fe475ad5a53e7d03a40a2b452043aa5dac5d1c5f"
   }
 }
