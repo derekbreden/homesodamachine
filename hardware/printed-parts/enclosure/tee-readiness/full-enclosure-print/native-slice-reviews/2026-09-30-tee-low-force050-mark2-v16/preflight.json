@@ -1,0 +1,49 @@
+{
+  "pass": true,
+  "archive": ".cache/prints/2026-09-30-tee-low-force050-mark2-v16/ready/tee-carrier-low-force050-filled-bottom-024-black-z004-mark2-v16.gcode.3mf",
+  "archive_details": {
+    "name": "tee-carrier-low-force050-filled-bottom-024-black-z004-mark2-v16.gcode.3mf",
+    "sha256": "a9652de3687d7a1e15796ae8a3e91f01e616af0daef5c727000af6e0cdbf1cfc",
+    "gcode_sha256": "9493b92ed39bd8d51f4aeabfbfd129dff4fb4e22658386fc96db04a7f5845ac2",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "000000"
+      }
+    },
+    "objects": [
+      "tee-carrier-low-force"
+    ]
+  },
+  "readings": {
+    "Mark2": {
+      "job_id": "1297285813",
+      "subtask_name": "nameplate-x015-y045-receiver-tree-z004-mark2-v10.gcode.3mf",
+      "gcode_state": "FINISH",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 192,
+      "total_layer_num": 192,
+      "mc_remaining_time": 0,
+      "mc_percent": 100,
+      "observed_at": "2026-09-30T22:23:16.631783+00:00"
+    },
+    "H2C": {
+      "job_id": "1297296218",
+      "subtask_name": "display-x030-receiver-z018-h2c-v5.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 90,
+      "total_layer_num": 241,
+      "mc_remaining_time": 89,
+      "mc_percent": 47,
+      "observed_at": "2026-09-30T22:23:16.631802+00:00"
+    }
+  },
+  "bed_clear_basis": "User: Mark2 is free; please print the tee carrier on Mark2. The agreed carrier has 1.00 mm roof and 0.25 mm floor clearance.",
+  "startup_spacing_minimum_seconds": 180,
+  "other_printer_previous_accepted_at_utc": "2026-09-30T21:01:31.807503+00:00",
+  "spacing_at_preflight_seconds": 4904.820041,
+  "send_copy": ".cache/prints/2026-09-30-tee-low-force050-mark2-v16/send/tee-carrier-low-force050-filled-bottom-024-black-z004-mark2-v16.gcode.3mf"
+}

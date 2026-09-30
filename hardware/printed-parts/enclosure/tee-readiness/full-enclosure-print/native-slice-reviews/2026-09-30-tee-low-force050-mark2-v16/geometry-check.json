@@ -1,0 +1,88 @@
+{
+  "pass": true,
+  "roof_relief_mm": 0.5,
+  "clearance_basis": {
+    "roof_running_mm": 0.25,
+    "roof_supported_face_mm": 0.25,
+    "roof_low_force_extra_mm": 0.5,
+    "floor_running_mm": 0.25,
+    "total_vertical_play_mm": 1.25
+  },
+  "roof_clearance_mm": 1.0,
+  "floor_clearance_mm": 0.25,
+  "column_height_mm": 58.871999999999986,
+  "opening_changed_volume_mm3": 0.0,
+  "added_volume_mm3": 366.473174192866,
+  "removed_volume_mm3": 0.0,
+  "bottom_chamfer": {
+    "outward_per_height": 0.5,
+    "tangent_print_height_mm": 3.3167184270002523,
+    "bed_perimeter_inset_mm": 2.2917960675006306,
+    "bed_edge_growth_mm": 3.7082039324993694,
+    "max_offset_per_0_24_layer_mm": 0.12
+  },
+  "unchanged_overall_bounds": true,
+  "top_print_round_unchanged": true,
+  "preserved_dimensions": {
+    "tee_xs": [
+      -82.1,
+      -22.35,
+      22.35,
+      82.1
+    ],
+    "axis_y": 105.53999999999999,
+    "axis_z": 186.174,
+    "plate_y": [
+      105.53999999999999,
+      117.03999999999999
+    ],
+    "plate_z": [
+      166.574,
+      205.774
+    ],
+    "column_x": [
+      90.6,
+      107.5
+    ],
+    "column_y": [
+      95.986,
+      117.03999999999999
+    ],
+    "spring_x": 96.85,
+    "spring_zs": [
+      175.574,
+      196.774
+    ],
+    "spring_bore_r": 3.25,
+    "spring_bore_y": [
+      95.986,
+      110.18999999999998
+    ],
+    "spring_pocket_y": [
+      89.98999999999998,
+      93.836
+    ],
+    "opening_y": [
+      93.836,
+      129.186
+    ],
+    "floor_z": 164.674,
+    "roof_z": 224.796,
+    "staged_dy": 10.896000000000015
+  },
+  "front_top_stl_sha256": "80f07049b4fe6a83f1ecc5bc02383d421e6676b9f8c2e0275f72659f3bd50252",
+  "printed_opening_reference_delta_mm3": 0.0,
+  "current_front_top_stl_sha256": "6ddc245c9cf280b4521aacd2544af04e201f1cea9ed71e3a3fd890d2c326f449",
+  "front_top_print": "2026-09-23-enclosure-front-top-h2c-v13, task 1277245499",
+  "one_valid_solid": true,
+  "watertight_print_mesh": true,
+  "release_travel_mm": 2.0,
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/low_force_trial.py": "58e0412f1da55f67b3810c65e127358ab419064b995c73eb9b0d37db3802654b",
+    "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py": "f95e15933f29da47f44f2fdaee765954d29c184cad90945c3cb6ee2b87c8fcfc",
+    "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/tee-carrier-low-force.step": "0803c537eaf34d53395c089c78a5ac90c160ddfad3db7b769c33999b20ca1ff0",
+    "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/tee-carrier-low-force.stl": "cfd5be113cbfb21f9f6c368fa5901bdb06c03643eb3e6df87e40bcdd3f25a51c",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "6ddc245c9cf280b4521aacd2544af04e201f1cea9ed71e3a3fd890d2c326f449"
+  },
+  "physical_fit": "Pending: free sliding and spring return in the existing front-top."
+}

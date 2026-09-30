@@ -1,0 +1,14 @@
+[
+  "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+  "--slice",
+  "0",
+  "--arrange",
+  "0",
+  "--orient",
+  "0",
+  "--outputdir",
+  "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-30-tee-low-force050-mark2-v16/ready",
+  "--export-3mf",
+  "tee-carrier-low-force050-filled-bottom-024-black-z004-mark2-v16.gcode.3mf",
+  "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-30-tee-low-force050-mark2-v16/tee-carrier-low-force050-filled-bottom-024-black-z004-mark2-v16-input.3mf"
+]

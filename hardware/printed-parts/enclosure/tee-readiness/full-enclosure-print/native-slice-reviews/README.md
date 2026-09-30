@@ -12,6 +12,7 @@ their own physical checks.
 
 | Job | Printer | State | Evidence |
 | --- | --- | --- | --- |
+| Tee carrier, 1.00 mm upper / 0.25 mm lower clearance | Mark2 | started, task 1297480230; existing front-top; 1 h 45 min 40 sec | [2026-09-30-tee-low-force050-mark2-v16](2026-09-30-tee-low-force050-mark2-v16/README.md) |
 | Display receiver; 0.30 mm body X and 0.60 mm wing-thickness clearance | H2C | started, task 1297296218; existing mating part; 2 h 49 min 41 sec | [2026-09-30-display-x030-receiver-h2c-v5](2026-09-30-display-x030-receiver-h2c-v5/README.md) |
 | Nameplate receiver; 0.15 mm body X and 0.45 mm wing Y clearance | Mark2 | completed, task 1297285813; fit accepted with existing flat nameplate | [2026-09-30-nameplate-x015-y045-receiver-mark2-v10](2026-09-30-nameplate-x015-y045-receiver-mark2-v10/README.md) |
 | Nameplate receiver, 0.45 mm wing Y clearance | Mark2 | completed, task 1296653642; Y increase helps a bit; latest X increment rollback requested | [2026-09-30-nameplate-y045-receiver-mark2-v9](2026-09-30-nameplate-y045-receiver-mark2-v9/README.md) |
