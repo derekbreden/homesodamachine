@@ -75,7 +75,7 @@ def main():
             'seated_pure_axis_travel_mm':{'X':2*interface.FACE_SLIP,
                                          'Y':interface.THICKNESS_AIR,
                                          'Z':2*interface.FACE_SLIP+interface.SUPPORTED_END_AIR},
-            'clearance_policy':'Shared static fits.slip at locating gaps; nonlocating wing tips have 0.25 mm X clearance. fits.supported_surface once at print-down mouth and slot ends. Zero at the back seating datum. No sliding or low-force additions.',
+            'clearance_policy':'Shared static fits.slip at locating gaps; nonlocating wing tips have 0.25 mm X clearance and the Y slot has 0.30 mm clearance above the seated wing as a local thickness-fit trial. fits.supported_surface once at print-down mouth and slot ends. Zero at the back seating datum. No sliding or low-force additions.',
             'entry_bevel_mm':{'width':interface.ENTRY_BEVEL_WIDTH,'depth':interface.ENTRY_BEVEL_DEPTH},
             'supported_end_extra_clearance_mm':interface.SUPPORTED_END_AIR,
             'receiver_lip_thickness_mm':interface.THICK-interface.WING_THICK-interface.THICKNESS_AIR,

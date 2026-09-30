@@ -1,0 +1,16 @@
+{
+  "observed_date_local": "2026-09-29",
+  "printer": "Mark2",
+  "task_id": "1295032042",
+  "reporter": "user",
+  "bow_present": true,
+  "improvement_from_X_tip_relief": "Uncertain; no clear improvement reported.",
+  "flat_when_removed": true,
+  "flat_when_inverted_in_receiver_with_wings_disengaged": true,
+  "permanent_bend_observed": false,
+  "suspected_contact": "Engaged wings; exact interfering surfaces unresolved.",
+  "hypothesis_measured": false,
+  "accepted_fit": false,
+  "next_test": "Same nameplate and same X/Z gaps; Y slot clearance 0.30 mm total above seated wing, seating floor unchanged.",
+  "alternative_contact_to_check": "Wing ends in Z remain a possible source of loading."
+}

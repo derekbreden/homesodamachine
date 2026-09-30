@@ -2457,7 +2457,7 @@
       ],
       "job_name": "nameplate-tip025-receiver-tree-z004-mark2-v6.gcode.3mf",
       "printer_task_id": "1295032042",
-      "status": "started",
+      "status": "completed",
       "observed_at_utc": "2026-09-30T02:37:46.257148+00:00",
       "observed_state_at_acceptance": "RUNNING",
       "sliced_file": ".cache/prints/2026-09-29-nameplate-tip025-receiver-mark2-v6/ready/nameplate-tip025-receiver-tree-z004-mark2-v6.gcode.3mf",
@@ -2472,11 +2472,12 @@
         "Nozzle Offset Calibration": "Auto"
       },
       "review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-tip025-receiver-mark2-v6",
-      "physical_result": "Pending",
+      "physical_result": "Uncertain; no clear improvement reported. Residual bow with wings engaged; flat when disengaged.",
       "wing_tip_X_gap_centered_mm": 0.25,
       "wing_tip_X_gap_minimum_at_full_float_mm": 0.1,
       "body_X_gap_each_mm": 0.15,
-      "startup_spacing_seconds": 14490.995147
+      "startup_spacing_seconds": 14490.995147,
+      "physical_result_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-tip025-receiver-mark2-v6/physical-result.json"
     },
     {
       "date": "2026-09-29",
@@ -2506,6 +2507,43 @@
       "wing_tip_X_gap_minimum_at_full_float_mm": 0.1,
       "body_X_gap_each_mm": 0.15,
       "startup_spacing_seconds": 432.577732
+    },
+    {
+      "date": "2026-09-29",
+      "printer": "Mark2",
+      "parts": [
+        "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.stl"
+      ],
+      "job_name": "nameplate-y030-receiver-tree-z004-mark2-v7.gcode.3mf",
+      "printer_task_id": "1295207560",
+      "status": "started",
+      "observed_at_utc": "2026-09-30T04:36:07.816244+00:00",
+      "observed_state_at_acceptance": "RUNNING",
+      "sliced_file": ".cache/prints/2026-09-29-nameplate-y030-receiver-mark2-v7/ready/nameplate-y030-receiver-tree-z004-mark2-v7.gcode.3mf",
+      "sliced_file_sha256": "eee5c38b71b9559289709f2501843db2feb7177d0788510a678e01558dd16850",
+      "gcode_sha256": "8a43ff35b1a4385a62495626197df2263ac66545655beabfa810e11933de0443",
+      "estimated_seconds": 2586.48388671875,
+      "filament_grams": 20.09296226501465,
+      "print_options": {
+        "Timelapse": "On",
+        "Auto bed leveling": "On",
+        "Flow dynamic calibration": "Auto",
+        "Nozzle Offset Calibration": "Auto"
+      },
+      "review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-y030-receiver-mark2-v7",
+      "physical_result": "Pending same-nameplate fit comparison.",
+      "Y_slot_gap_total_mm": 0.3,
+      "Y_slot_thickness_mm": 1.98,
+      "wing_thickness_mm": 1.68,
+      "seating_datum_Y_mm": 0,
+      "wing_tip_X_gap_centered_mm": 0.25,
+      "wing_tip_X_gap_minimum_at_full_float_mm": 0.1,
+      "body_X_gap_each_mm": 0.15,
+      "Z_end_gaps_mm": {
+        "ordinary": 0.15,
+        "rough": 0.4
+      },
+      "startup_spacing_seconds": 6668.981364
     }
   ]
 }

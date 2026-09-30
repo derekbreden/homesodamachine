@@ -1,0 +1,35 @@
+{
+  "printer": "Mark2",
+  "submitted": true,
+  "task_id": "1295207560",
+  "accepted_at_utc": "2026-09-30T04:36:07.816244+00:00",
+  "native_archive": ".cache/prints/2026-09-29-nameplate-y030-receiver-mark2-v7/ready/nameplate-y030-receiver-tree-z004-mark2-v7.gcode.3mf",
+  "native_archive_sha256": "eee5c38b71b9559289709f2501843db2feb7177d0788510a678e01558dd16850",
+  "gcode_sha256": "8a43ff35b1a4385a62495626197df2263ac66545655beabfa810e11933de0443",
+  "estimated_seconds": 2586.48388671875,
+  "estimated_grams_saved_profile_density": 20.09296226501465,
+  "sources": {
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.stl": "ecd6a2102554249abddc7dac3f6529ac74372409049ec6e22660ec191906e1dc",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.step": "804f7fe62eaa0a9367f1946450de38567f438783c15d15d7057ad3a6120ff7da",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/geometry-check.json": "45e24e4ef07172317842660afd619c5887ed6f6fa2e72a8810338ad4c5be5244",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/wing_interface.py": "2519e46578e49bdc1e2d663c1211db8c2caf04c03390f58f7dc340da1618538f",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/prepare_receiver.py": "32205ef4da70427de6a6c49fbf5e7698015188f3dfbfdf719072e52fe69afe46",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "945d069e3d9133e13b542190de419def348f4d9d1a0eed25720e4e0a7260d6d0"
+  },
+  "evidence_sha256": {
+    "geometry-check.json": "45e24e4ef07172317842660afd619c5887ed6f6fa2e72a8810338ad4c5be5244",
+    "geometry-delta.json": "0fc1072941174ab87ee5e55cd49fdfeffbbce43693a5e8bfc662ac329f051d3e",
+    "geometry-lint.log": "4b422389b8aa8d25bfcffa3ca6dd658e31403041ccbd54c1138dbf7d551cf1d6",
+    "insertion-envelope.json": "76405a9bb41905558eeea89b27c5a52119d6e9ee5726b1afd3877f9d552fa6f1",
+    "launch.json": "ca9d82ff0dc2e89fa753a3a65b86b90a8056cd822bb96d55461aa52a0f9cf841",
+    "preflight.json": "91da45722f566fa4bb10d4bd79a17f04237f70d9268356b491b4abd921be468b",
+    "preparation.json": "4c6edc317497ef91285274762900a8d92cd5115c1e88f428cd70b27b4a3b6067",
+    "published-artifacts.json": "61e9422ba4668b530fdb0fdc066254d4f1028cadaf92f53dc47a3a1856f46841",
+    "slice-command.json": "2d3058e4ef96a708f082ad69f0b8db4973c9e5d3e3f168df364bdf5398933240",
+    "support-audit.json": "366ba3b40c11ef9275e60e13120c3fa7a4f1e2eed91bd6dbc02059df8474a9f9",
+    "verification.json": "322e65d31503bb4d3e87b12c3a0313286e79080bd2974d414af8e6d472f9c2b6",
+    "postlaunch.json": "1e0d52c67574632df84a24ffe2559c1c27ca3f6f0919792b59a326fdb41c3a9e"
+  },
+  "physical_result": "Pending same-nameplate fit comparison."
+}

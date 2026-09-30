@@ -18,7 +18,8 @@ WING_THICK = 1.68
 WING_SPAN = 30.0
 END_RADIUS = .6
 FACE_SLIP = fits.slip
-THICKNESS_AIR = fits.slip
+# Local Y fit trial: keep the seating floor fixed and relieve the retaining face.
+THICKNESS_AIR = .30
 # The body locates X. Keep nonlocating wing tips clear of rounded slot corners.
 TIP_AIR = .25
 END_AIR = fits.slip
@@ -53,8 +54,9 @@ def apply(solid, station, y_outer, *, supported=SUPPORTED_END_AIR, up=-1):
 
     Locating gaps use the shared static allowance; nonlocating wing tips have
     0.25 mm X clearance for the narrow slot's rounded corners. The plate back and wing
-    undersides share the zero-clearance seating datum. Y slot walls print
-    vertically, so only the print-down mouth and slot ends receive the extra
+    undersides share the zero-clearance seating datum. The Y slot has 0.30 mm
+    of local trial relief above the seated wing. Its walls print vertically,
+    so only the print-down mouth and slot ends receive the extra
     supported-surface allowance. This hand-inserted plate has no low-force fit.
     """
     floor = y_outer-THICK
@@ -82,7 +84,7 @@ def apply(solid, station, y_outer, *, supported=SUPPORTED_END_AIR, up=-1):
         xa,xb = sorted((side*(WIDTH/2-.1),side*(WIDTH/2+PROJECTION+TIP_AIR)))
         solid = solid.cut(box(xa,xb,0,WING_THICK+THICKNESS_AIR,z0,z1).translate(shift))
         # Entry bevel clears the rotating wing during hand-bent insertion.
-        # The outer flat bearing retains the shared static thickness gap.
+        # The outer flat bearing retains the trial thickness gap.
         mouth_x = WIDTH/2+FACE_SLIP
         roof_y = WING_THICK+THICKNESS_AIR
         lead = (cq.Workplane('XY').workplane(offset=z0)
