@@ -1,0 +1,59 @@
+{
+  "pass": true,
+  "native_archive": ".cache/prints/2026-09-30-bulkhead-raised-mark2-v2/ready/tap-flavor-raised-face-up-z004-mark2-v2.gcode.3mf",
+  "native_archive_sha256": "3df1d733ba01a9c11ca2331a6bc132bd72522eb23516d031f701b352b2aea667",
+  "gcode_sha256": "7d893db494bbcd623371e10fb97ef39e57854a67e5969a3dc99857470b37c316",
+  "source_hashes_current": true,
+  "support_paths": 0,
+  "raised_letter_checks": [
+    {
+      "station": "water",
+      "print_z_mm": 2.24,
+      "letter_nozzle": 0,
+      "extrusion_paths": 80
+    },
+    {
+      "station": "water",
+      "print_z_mm": 2.48,
+      "letter_nozzle": 0,
+      "extrusion_paths": 79
+    },
+    {
+      "station": "flavor-a",
+      "print_z_mm": 2.24,
+      "letter_nozzle": 1,
+      "extrusion_paths": 215
+    },
+    {
+      "station": "flavor-a",
+      "print_z_mm": 2.48,
+      "letter_nozzle": 1,
+      "extrusion_paths": 218
+    },
+    {
+      "station": "flavor-b",
+      "print_z_mm": 2.24,
+      "letter_nozzle": 1,
+      "extrusion_paths": 215
+    },
+    {
+      "station": "flavor-b",
+      "print_z_mm": 2.48,
+      "letter_nozzle": 1,
+      "extrusion_paths": 218
+    }
+  ],
+  "emitted_z_trim_mm": [
+    0.0,
+    0.02
+  ],
+  "estimated_seconds": 1597.11181640625,
+  "estimated_grams_saved_profile_density": 8.24829912185669,
+  "submitted": false,
+  "calibration_applied": true,
+  "white_correction_mm": {
+    "X": -0.5,
+    "Y": 0.7
+  },
+  "maximum_normalized_registration_path_error_mm": 4.0194366942304644e-14
+}

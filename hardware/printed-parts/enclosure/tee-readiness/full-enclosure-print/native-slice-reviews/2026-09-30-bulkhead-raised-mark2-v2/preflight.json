@@ -1,0 +1,55 @@
+{
+  "pass": true,
+  "archive": ".cache/prints/2026-09-30-bulkhead-raised-mark2-v2/ready/tap-flavor-raised-face-up-z004-mark2-v2.gcode.3mf",
+  "archive_details": {
+    "name": "tap-flavor-raised-face-up-z004-mark2-v2.gcode.3mf",
+    "sha256": "3df1d733ba01a9c11ca2331a6bc132bd72522eb23516d031f701b352b2aea667",
+    "gcode_sha256": "7d893db494bbcd623371e10fb97ef39e57854a67e5969a3dc99857470b37c316",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "000000"
+      },
+      "2": {
+        "type": "PET-CF",
+        "colour": "FFFFFF"
+      }
+    },
+    "objects": [
+      "bulkhead-ring-water-raised",
+      "bulkhead-ring-flavor-a-raised",
+      "bulkhead-ring-flavor-b-raised"
+    ]
+  },
+  "readings": {
+    "Mark2": {
+      "job_id": "1295207560",
+      "subtask_name": "nameplate-y030-receiver-tree-z004-mark2-v7.gcode.3mf",
+      "gcode_state": "FINISH",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 192,
+      "total_layer_num": 192,
+      "mc_remaining_time": 0,
+      "mc_percent": 100,
+      "observed_at": "2026-09-30T05:40:42.391342+00:00"
+    },
+    "H2C": {
+      "job_id": "1295044165",
+      "subtask_name": "display-open-wing-receiver-z018-h2c-v2.gcode.3mf",
+      "gcode_state": "FINISH",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 241,
+      "total_layer_num": 241,
+      "mc_remaining_time": 0,
+      "mc_percent": 100,
+      "observed_at": "2026-09-30T05:40:42.915589+00:00"
+    }
+  },
+  "bed_clear_basis": "User: print TAP/FLAVOR bulkhead collars; Mark2 is free.",
+  "startup_spacing_minimum_seconds": 180,
+  "other_printer_previous_accepted_at_utc": "2026-09-30T02:44:58.834880+00:00",
+  "spacing_at_preflight_seconds": 10544.084059,
+  "send_copy": ".cache/prints/2026-09-30-bulkhead-raised-mark2-v2/send/tap-flavor-raised-face-up-z004-mark2-v2.gcode.3mf"
+}

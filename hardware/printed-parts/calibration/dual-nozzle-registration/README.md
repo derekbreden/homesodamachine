@@ -46,9 +46,12 @@ the maximum normalized path difference is 0.000691 mm, within export rounding.
 The native purge-tower entry movements are checked separately.
 
 The [raised-artwork nameplate](../../enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-flat-wings-mark2-v3/README.md)
-is the physical validation print. Its colour alignment and QR scanning remain
-pending before applying the correction to TAP and FLAVOR rings. Recheck after
-changing a hotend or calibration condition.
+has user-accepted artwork appearance, recorded in its
+[physical result](../../enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-flat-wings-mark2-v3/physical-result.json).
+Residual XY error and QR scanning remain unmeasured. The
+[TAP and FLAVOR collar print](../../enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-bulkhead-raised-mark2-v2/README.md)
+uses the same correction and awaits its own finish and fitting check. Recheck
+after changing a hotend or calibration condition.
 
 The current native review and launch receipt are retained in
 [`2026-09-29-registration-mark2-v3`](../../enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-registration-mark2-v3/README.md).

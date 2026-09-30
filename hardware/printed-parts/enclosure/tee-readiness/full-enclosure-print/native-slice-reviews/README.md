@@ -12,7 +12,8 @@ their own physical checks.
 
 | Job | Printer | State | Evidence |
 | --- | --- | --- | --- |
-| Nameplate receiver, 0.30 mm Y gap | Mark2 | started, task 1295207560; receiver only; same plate, X and Z gaps; about 43 min | [2026-09-29-nameplate-y030-receiver-mark2-v7](2026-09-29-nameplate-y030-receiver-mark2-v7/README.md) |
+| Face-up raised TAP and two FLAVOR collars | Mark2 | started, task 1295298484; corrected black/white, no supports; about 27 min | [2026-09-30-bulkhead-raised-mark2-v2](2026-09-30-bulkhead-raised-mark2-v2/README.md) |
+| Nameplate receiver, 0.30 mm Y gap | Mark2 | completed, task 1295207560; nameplate fit accepted for now | [2026-09-29-nameplate-y030-receiver-mark2-v7](2026-09-29-nameplate-y030-receiver-mark2-v7/README.md) |
 | Tee carrier, +0.50 mm low-force roof addition | H2C | native verified, not sent; 1.00 mm above, 0.25 mm below; about 1 h 46 min | [2026-09-29-tee-low-force050-h2c-v7](2026-09-29-tee-low-force050-h2c-v7/README.md) |
 | Nameplate receiver, 0.25 mm wing-tip gaps | Mark2 | completed, task 1295032042; residual bow, no clear improvement; flat when wings disengaged | [2026-09-29-nameplate-tip025-receiver-mark2-v6](2026-09-29-nameplate-tip025-receiver-mark2-v6/README.md) |
 | Display receiver, open wing pockets | H2C | started, task 1295044165; receiver only for the existing face-up cover; 0.25 mm wing-tip gaps; about 2 h 53 min | [2026-09-29-display-open-wing-receiver-h2c-v2](2026-09-29-display-open-wing-receiver-h2c-v2/README.md) |

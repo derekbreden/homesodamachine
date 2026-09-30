@@ -1,0 +1,41 @@
+{
+  "submitted": true,
+  "printer": "Mark2",
+  "sent_through": "Bambu Connect via cua_repl",
+  "accepted_at_utc": "2026-09-30T05:41:53.694673+00:00",
+  "reading": {
+    "job_id": "1295298484",
+    "subtask_name": "tap-flavor-raised-face-up-z004-mark2-v2.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 0,
+    "total_layer_num": 11,
+    "mc_remaining_time": 26,
+    "mc_percent": 0,
+    "observed_at": "2026-09-30T05:41:53.694673+00:00"
+  },
+  "archive": ".cache/prints/2026-09-30-bulkhead-raised-mark2-v2/ready/tap-flavor-raised-face-up-z004-mark2-v2.gcode.3mf",
+  "archive_sha256": "3df1d733ba01a9c11ca2331a6bc132bd72522eb23516d031f701b352b2aea667",
+  "send_copy_same_sha256": true,
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "filament_mapping": {
+    "1": {
+      "type": "PET-CF",
+      "colour": "000000"
+    },
+    "2": {
+      "type": "PET-CF",
+      "colour": "FFFFFF"
+    }
+  },
+  "bed_clear_basis": "User: print TAP/FLAVOR bulkhead collars; Mark2 is free.",
+  "startup_spacing_minimum_seconds": 180,
+  "other_printer_previous_accepted_at_utc": "2026-09-30T02:44:58.834880+00:00",
+  "startup_spacing_seconds": 10614.859793
+}
