@@ -29,7 +29,9 @@
     "published-artifacts.json": "f4cfef5fbbff8f2f780fcf532b232a891429a5e9b35d63868d88a1c1efbafe18",
     "slice-command.json": "527d9c247e403b513b1f679999123f6a4f503cd228097b9ad302addfbda4f154",
     "support-audit.json": "c9d51f8b085afe8e5be7bce71caf6af7d0d46182bbe94f0975d541f73c296a9b",
-    "verification.json": "c4bf06c64f31b84604f354543bf71f731ddd27891a0fcca4c90d495990945536"
+    "verification.json": "c4bf06c64f31b84604f354543bf71f731ddd27891a0fcca4c90d495990945536",
+    "physical-result.json": "6905c6e823d19189684337d7efd8e0d3765b433c36147b7a07b023d894e42a78"
   },
-  "physical_result": "Pending"
+  "physical_result": "Residual bow; no clear improvement from X relief. Flat with wings disengaged.",
+  "physical_result_record": "physical-result.json"
 }

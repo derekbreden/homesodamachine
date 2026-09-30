@@ -24,4 +24,6 @@ above it, normal speeds and wall order. Nozzle Offset Calibration remains Auto.
 [Verification](verification.json) checks source hashes, native archive integrity,
 192 model layers, support settings and slot paths. Geometry lint has zero
 unanswered findings. [Launch](launch.json) records the accepted job and ordinary
-startup settings. Physical bow, insertion, looseness and retention await this test.
+startup settings. The [physical result](physical-result.json) records residual bowing with no clear
+improvement. The plate lies flat when removed and when inverted with its wings
+disengaged; the contact surface causing engagement load is unresolved.

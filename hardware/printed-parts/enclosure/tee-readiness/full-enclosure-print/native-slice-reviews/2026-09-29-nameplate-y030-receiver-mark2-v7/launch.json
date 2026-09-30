@@ -1,0 +1,37 @@
+{
+  "submitted": true,
+  "printer": "Mark2",
+  "sent_through": "Bambu Connect via cua_repl",
+  "accepted_at_utc": "2026-09-30T04:36:07.816244+00:00",
+  "reading": {
+    "job_id": "1295207560",
+    "subtask_name": "nameplate-y030-receiver-tree-z004-mark2-v7.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 0,
+    "total_layer_num": 192,
+    "mc_remaining_time": 43,
+    "mc_percent": 0,
+    "observed_at": "2026-09-30T04:36:07.816244+00:00"
+  },
+  "archive": ".cache/prints/2026-09-29-nameplate-y030-receiver-mark2-v7/ready/nameplate-y030-receiver-tree-z004-mark2-v7.gcode.3mf",
+  "archive_sha256": "eee5c38b71b9559289709f2501843db2feb7177d0788510a678e01558dd16850",
+  "send_copy_same_sha256": true,
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "filament_mapping": {
+    "1": {
+      "type": "PET-CF",
+      "colour": "000000"
+    }
+  },
+  "bed_clear_basis": "User: Mark2 bed is clear.",
+  "startup_spacing_minimum_seconds": 180,
+  "other_printer_previous_accepted_at_utc": "2026-09-30T02:44:58.834880+00:00",
+  "startup_spacing_seconds": 6668.981364
+}
