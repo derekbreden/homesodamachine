@@ -23,6 +23,6 @@ planes, archive checksums, source hashes and zero support paths.
 The [nameplate appearance record](../2026-09-29-nameplate-flat-wings-mark2-v3/physical-result.json)
 supports this process choice; the
 [nameplate fit record](../2026-09-29-nameplate-y030-receiver-mark2-v7/physical-result.json)
-is accepted for now. These collars require their own physical finish and
-fitting check. [Launch](launch.json) records the two external PET-GF spools,
+is accepted for now. The [physical result](physical-result.json) records accepted collar finish and
+excellent, clear lettering. Mounting fit was not separately reported. [Launch](launch.json) records the two external PET-GF spools,
 Auto nozzle-offset startup option and spacing after H2C's prior job.
