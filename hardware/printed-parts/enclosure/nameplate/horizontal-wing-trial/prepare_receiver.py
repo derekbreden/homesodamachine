@@ -11,9 +11,10 @@ HERE=Path(__file__).resolve().parent
 ROOT=next(p for p in HERE.parents if (p/'tools').is_dir())
 sys.path.insert(0,str(ROOT/'hardware/printed-parts/faucet'))
 import refresh_print_project as writer
+import wing_interface as interface
 
-JOB=ROOT/'.cache/prints/2026-09-29-nameplate-y030-receiver-mark2-v7'
-STEM='nameplate-y030-receiver-tree-z004-mark2-v7'
+JOB=ROOT/'.cache/prints/2026-09-30-nameplate-body-x035-receiver-mark2-v8'
+STEM='nameplate-body-x035-receiver-tree-z004-mark2-v8'
 NAME='nameplate-horizontal-wings-receiver'
 PROFILE=ROOT/'hardware/printed-parts/petgf.3mf'
 ENCLOSURE=HERE.parent.parent/'enclosure/enclosure.py'
@@ -34,7 +35,7 @@ def main():
                t.id=='PIECE_PRINT_UP' for t in n.targets))
     assert up==-1.,'Receiver build direction must follow its back-top enclosure wall.'
     report=writer.refresh(PROFILE,staged,parts=((NAME,source,180.),),
-                          offsets=((0.,0.),),title='Nameplate receiver, 0.30 mm Y slot clearance; Mark2',
+                          offsets=((0.,0.),),title='Nameplate receiver, 0.35 mm body X clearance; Mark2',
                           z_trim=.04,plate_border=15.)
     with zipfile.ZipFile(staged) as z:members={n:z.read(n) for n in z.namelist()}
     settings=json.loads(members[writer.SETTINGS_MEMBER])
@@ -52,11 +53,14 @@ def main():
     members[writer.SETTINGS_MEMBER]=json.dumps(settings,indent=2).encode()
     writer.archive_write(staged,members)
     sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
-    sources=[source,source.with_suffix('.step'),HERE/'geometry-check.json',HERE/'wing_interface.py',Path(__file__),PROFILE,ENCLOSURE]
+    sources=[source,source.with_suffix('.step'),HERE/'geometry-check.json',HERE/'wing_interface.py',
+             HERE/'horizontal_wing_trial.py',HERE/'insertion-envelope.json',HERE/'verify_insertion.py',
+             HERE/'nameplate-horizontal-wings-001.stl',Path(__file__),PROFILE,ENCLOSURE]
     report.update(project_sha256=sha(staged),printer='Mark2',
                   source_geometry_and_settings_sha256={str(p.relative_to(ROOT)):sha(p) for p in sources},
                   intentional_overrides=overrides,requested_z_trim_mm=.04,expected_textured_plate_trim_mm=.02,
-                  wing_tip_clearance_mm=.25,wing_thickness_clearance_mm=.30,
+                  body_X_clearance_per_side_mm=interface.FACE_X_AIR,
+                  wing_tip_clearance_mm=interface.TIP_AIR,wing_thickness_clearance_mm=interface.THICKNESS_AIR,
                   orientation='CAD -Z up (X180), matching back-top roof-down orientation; slots open to the face.',
                   enclosure_build_direction=up,
                   inherited_support_settings=support_settings(settings),

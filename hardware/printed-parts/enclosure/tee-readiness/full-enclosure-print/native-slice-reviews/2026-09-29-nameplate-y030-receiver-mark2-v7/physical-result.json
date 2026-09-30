@@ -14,5 +14,8 @@
   },
   "residual_bow_mm": null,
   "insertion_force_N": null,
-  "scope": "Provisional acceptance of this nameplate and receiver combination; no quantitative bow/force measurement or universal clearance rule."
+  "scope": "Provisional acceptance of this nameplate and receiver combination; no quantitative bow/force measurement or universal clearance rule.",
+  "residual_bow_present": true,
+  "latest_user_report": "Perhaps you can do a similar for the nameplate on Mark2, to attempt to fix its remaining bowing",
+  "requested_next_trial": "Further main-body X clearance with the same nameplate."
 }
