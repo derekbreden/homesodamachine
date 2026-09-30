@@ -1,0 +1,307 @@
+[
+  {
+    "print_z_mm": 0.2,
+    "wall_count": 6,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 0.44,
+    "wall_count": 6,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 0.68,
+    "wall_count": 6,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 0.92,
+    "wall_count": 6,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 1.16,
+    "wall_count": 6,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 1.4,
+    "wall_count": 6,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 1.64,
+    "wall_count": 6,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 1.88,
+    "wall_count": 6,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 2.12,
+    "wall_count": 6,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 2.36,
+    "wall_count": 6,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 2.6,
+    "wall_count": 6,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 2.84,
+    "wall_count": 6,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 3.08,
+    "wall_count": 6,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 3.32,
+    "wall_count": 6,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 3.56,
+    "wall_count": 6,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 3.8,
+    "wall_count": 6,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 4.04,
+    "wall_count": 6,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 4.28,
+    "wall_count": 6,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 4.52,
+    "wall_count": 6,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 4.76,
+    "wall_count": 6,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 5.0,
+    "wall_count": 6,
+    "first_feature": "Outer wall"
+  },
+  {
+    "print_z_mm": 5.24,
+    "wall_count": 6,
+    "first_feature": "Outer wall"
+  },
+  {
+    "print_z_mm": 5.48,
+    "wall_count": 6,
+    "first_feature": "Outer wall"
+  },
+  {
+    "print_z_mm": 5.72,
+    "wall_count": 6,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 5.96,
+    "wall_count": 6,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 6.2,
+    "wall_count": 6,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 6.44,
+    "wall_count": 2,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 6.68,
+    "wall_count": 2,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 6.92,
+    "wall_count": 2,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 7.16,
+    "wall_count": 2,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 7.4,
+    "wall_count": 2,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 7.64,
+    "wall_count": 2,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 7.88,
+    "wall_count": 2,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 8.12,
+    "wall_count": 2,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 8.36,
+    "wall_count": 2,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 8.6,
+    "wall_count": 2,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 8.84,
+    "wall_count": 2,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 9.08,
+    "wall_count": 2,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 9.32,
+    "wall_count": 2,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 9.56,
+    "wall_count": 2,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 9.8,
+    "wall_count": 2,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 10.04,
+    "wall_count": 2,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 10.28,
+    "wall_count": 2,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 10.52,
+    "wall_count": 2,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 10.76,
+    "wall_count": 2,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 11.0,
+    "wall_count": 2,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 11.24,
+    "wall_count": 2,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 11.48,
+    "wall_count": 2,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 11.72,
+    "wall_count": 2,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 11.96,
+    "wall_count": 2,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 12.2,
+    "wall_count": 2,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 12.44,
+    "wall_count": 2,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 12.68,
+    "wall_count": 2,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 12.92,
+    "wall_count": 2,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 13.16,
+    "wall_count": 2,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 13.4,
+    "wall_count": 2,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 13.64,
+    "wall_count": 2,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 13.88,
+    "wall_count": 2,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 14.12,
+    "wall_count": 2,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 14.36,
+    "wall_count": 2,
+    "first_feature": "Inner wall"
+  },
+  {
+    "print_z_mm": 14.6,
+    "wall_count": 2,
+    "first_feature": "Inner wall"
+  }
+]

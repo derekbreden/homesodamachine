@@ -1,0 +1,325 @@
+nameplate-horizontal-wings-001.stl · 10840 printed facets · 0 findings · 54 answered
+
+  [step · answered] All white artwork projects 0.48 mm above the black show face. The native slice retains two full 0.24 mm layers of lettering, faucet/drop and QR above the 0.72 mm embedded inlay. This is the intended common relief.
+    Δ0.480 mm between parallel planes · footprint met 25.0 × 23.3 mm
+    faceA: plane · n x=0.000 y=1.000 z=0.000 · thru x=0.000 y=3.360 z=0.000
+    faceB: plane · n x=0.000 y=1.000 z=0.000 · thru x=35.603 y=3.840 z=-0.002
+    click: x=41.410 y=3.840 z=2.296
+
+  [sliver · answered] These 0.48 mm vertical relief walls belong to the faucet logo and drop, with the original planar contours. Both raised layers have white logo/drop extrusion bonded to the 0.72 mm embedded inlay.
+    0.480 mm strip, 9.6 mm long
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=42.434 y=3.600 z=-12.500
+    edge: x=47.231 y=3.600 z=-12.500 → x=37.638 y=3.600 z=-12.500 · len 9.593 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=42.434 y=3.600 z=-12.500
+
+  [sliver · answered] These 0.48 mm vertical relief walls follow the original QR module outlines and finder rings. The 1.1 mm module pitch and quiet zone are unchanged. Both raised layers retain white QR extrusion ; decoding and physical scanning remain to be checked.
+    0.480 mm strip, 7.7 mm long
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-43.381 y=3.600 z=3.848
+    edge: x=-39.531 y=3.600 z=3.848 → x=-47.231 y=3.600 z=3.848 · len 7.700 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=-43.381 y=3.600 z=3.848
+
+  [sliver · answered] These 0.48 mm vertical relief walls follow the original QR module outlines and finder rings. The 1.1 mm module pitch and quiet zone are unchanged. Both raised layers retain white QR extrusion ; decoding and physical scanning remain to be checked.
+    0.480 mm strip, 7.7 mm long
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-27.981 y=3.600 z=3.848
+    edge: x=-24.131 y=3.600 z=3.848 → x=-31.831 y=3.600 z=3.848 · len 7.700 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=-27.981 y=3.600 z=3.848
+
+  [sliver · answered] These 0.48 mm vertical relief walls follow the original QR module outlines and finder rings. The 1.1 mm module pitch and quiet zone are unchanged. Both raised layers retain white QR extrusion ; decoding and physical scanning remain to be checked.
+    0.480 mm strip, 7.7 mm long
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-27.981 y=3.600 z=-11.550
+    edge: x=-24.131 y=3.600 z=-11.550 → x=-31.831 y=3.600 z=-11.550 · len 7.700 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=-27.981 y=3.600 z=-11.550
+
+  [sliver · answered] These 0.48 mm vertical relief walls follow the original QR module outlines and finder rings. The 1.1 mm module pitch and quiet zone are unchanged. Both raised layers retain white QR extrusion ; decoding and physical scanning remain to be checked.
+    0.480 mm strip, 7.7 mm long
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-27.981 y=3.600 z=-3.847
+    edge: x=-24.131 y=3.600 z=-3.847 → x=-31.831 y=3.600 z=-3.847 · len 7.700 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=-27.981 y=3.600 z=-3.847
+
+  [sliver · answered] These 0.48 mm vertical relief walls follow the original QR module outlines and finder rings. The 1.1 mm module pitch and quiet zone are unchanged. Both raised layers retain white QR extrusion ; decoding and physical scanning remain to be checked.
+    0.480 mm strip, 7.7 mm long
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-43.381 y=3.600 z=11.550
+    edge: x=-39.531 y=3.600 z=11.550 → x=-47.231 y=3.600 z=11.550 · len 7.700 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=-43.381 y=3.600 z=11.550
+
+  [sliver · answered] These 0.48 mm vertical relief walls follow the original QR module outlines and finder rings. The 1.1 mm module pitch and quiet zone are unchanged. Both raised layers retain white QR extrusion ; decoding and physical scanning remain to be checked.
+    0.480 mm strip, 7.7 mm long
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-27.981 y=3.600 z=11.550
+    edge: x=-24.131 y=3.600 z=11.550 → x=-31.831 y=3.600 z=11.550 · len 7.700 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=-27.981 y=3.600 z=11.550
+
+  [sliver · answered] These 0.48 mm vertical relief walls follow the original QR module outlines and finder rings. The 1.1 mm module pitch and quiet zone are unchanged. Both raised layers retain white QR extrusion ; decoding and physical scanning remain to be checked.
+    0.480 mm strip, 7.7 mm long
+    face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-31.831 y=3.600 z=7.700
+    edge: x=-31.831 y=3.600 z=11.550 → x=-31.831 y=3.600 z=3.850 · len 7.700 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-31.831 y=3.600 z=7.700
+
+  [sliver · answered] These 0.48 mm vertical relief walls follow the original QR module outlines and finder rings. The 1.1 mm module pitch and quiet zone are unchanged. Both raised layers retain white QR extrusion ; decoding and physical scanning remain to be checked.
+    0.480 mm strip, 7.7 mm long
+    face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-31.831 y=3.600 z=-7.700
+    edge: x=-31.831 y=3.600 z=-3.850 → x=-31.831 y=3.600 z=-11.550 · len 7.700 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-31.831 y=3.600 z=-7.700
+
+  [sliver · answered] These 0.48 mm vertical relief walls follow the original QR module outlines and finder rings. The 1.1 mm module pitch and quiet zone are unchanged. Both raised layers retain white QR extrusion ; decoding and physical scanning remain to be checked.
+    0.480 mm strip, 7.7 mm long
+    face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-47.231 y=3.600 z=7.700
+    edge: x=-47.231 y=3.600 z=11.550 → x=-47.231 y=3.600 z=3.850 · len 7.700 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-47.231 y=3.600 z=7.700
+
+  [sliver · answered] These 0.48 mm vertical relief walls follow the original QR module outlines and finder rings. The 1.1 mm module pitch and quiet zone are unchanged. Both raised layers retain white QR extrusion ; decoding and physical scanning remain to be checked.
+    0.480 mm strip, 7.7 mm long
+    face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-39.529 y=3.600 z=7.700
+    edge: x=-39.529 y=3.600 z=11.550 → x=-39.529 y=3.600 z=3.850 · len 7.700 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-39.529 y=3.600 z=7.700
+
+  [sliver · answered] These 0.48 mm vertical relief walls follow the original QR module outlines and finder rings. The 1.1 mm module pitch and quiet zone are unchanged. Both raised layers retain white QR extrusion ; decoding and physical scanning remain to be checked.
+    0.480 mm strip, 7.7 mm long
+    face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-24.131 y=3.600 z=7.700
+    edge: x=-24.131 y=3.600 z=11.550 → x=-24.131 y=3.600 z=3.850 · len 7.700 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-24.131 y=3.600 z=7.700
+
+  [sliver · answered] These 0.48 mm vertical relief walls follow the original QR module outlines and finder rings. The 1.1 mm module pitch and quiet zone are unchanged. Both raised layers retain white QR extrusion ; decoding and physical scanning remain to be checked.
+    0.480 mm strip, 7.7 mm long
+    face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-24.131 y=3.600 z=-7.700
+    edge: x=-24.131 y=3.600 z=-3.850 → x=-24.131 y=3.600 z=-11.550 · len 7.700 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-24.131 y=3.600 z=-7.700
+
+  [sliver · answered] These are raised letter strokes and their 0.48 mm sidewalls. They preserve the wordmark contours and are bonded to the embedded white inlay. Native extrusion paths retain the lettering on both raised layers.
+    0.480 mm strip, 5.9 mm long
+    face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=13.541 y=3.600 z=8.419
+    edge: x=13.541 y=3.600 z=11.370 → x=13.541 y=3.600 z=5.468 · len 5.902 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=13.541 y=3.600 z=8.419
+
+  [sliver · answered] These are raised letter strokes and their 0.48 mm sidewalls. They preserve the wordmark contours and are bonded to the embedded white inlay. Native extrusion paths retain the lettering on both raised layers.
+    0.480 mm strip, 5.9 mm long
+    face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=12.588 y=3.600 z=-8.435
+    edge: x=12.588 y=3.600 z=-5.484 → x=12.588 y=3.600 z=-11.386 · len 5.902 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=12.588 y=3.600 z=-8.435
+
+  [sliver · answered] These are raised letter strokes and their 0.48 mm sidewalls. They preserve the wordmark contours and are bonded to the embedded white inlay. Native extrusion paths retain the lettering on both raised layers.
+    0.480 mm strip, 5.9 mm long
+    face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=0.300 y=3.600 z=8.419
+    edge: x=0.300 y=3.600 z=11.370 → x=0.300 y=3.600 z=5.468 · len 5.902 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=0.300 y=3.600 z=8.419
+
+  [sliver · answered] These are raised letter strokes and their 0.48 mm sidewalls. They preserve the wordmark contours and are bonded to the embedded white inlay. Native extrusion paths retain the lettering on both raised layers.
+    0.480 mm strip, 5.9 mm long
+    face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-5.145 y=3.600 z=-8.435
+    edge: x=-5.145 y=3.600 z=-5.484 → x=-5.145 y=3.600 z=-11.386 · len 5.902 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-5.145 y=3.600 z=-8.435
+
+  [sliver · answered] These are raised letter strokes and their 0.48 mm sidewalls. They preserve the wordmark contours and are bonded to the embedded white inlay. Native extrusion paths retain the lettering on both raised layers.
+    0.480 mm strip, 5.9 mm long
+    face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-7.452 y=3.600 z=-8.435
+    edge: x=-7.452 y=3.600 z=-5.484 → x=-7.452 y=3.600 z=-11.386 · len 5.902 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-7.452 y=3.600 z=-8.435
+
+  [sliver · answered] These are raised letter strokes and their 0.48 mm sidewalls. They preserve the wordmark contours and are bonded to the embedded white inlay. Native extrusion paths retain the lettering on both raised layers.
+    0.480 mm strip, 5.9 mm long
+    face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-13.373 y=3.600 z=-8.435
+    edge: x=-13.373 y=3.600 z=-5.484 → x=-13.373 y=3.600 z=-11.386 · len 5.902 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-13.373 y=3.600 z=-8.435
+
+  [sliver · answered] These are raised letter strokes and their 0.48 mm sidewalls. They preserve the wordmark contours and are bonded to the embedded white inlay. Native extrusion paths retain the lettering on both raised layers.
+    1.225 mm strip, 5.9 mm long
+    face: plane · n x=0.000 y=1.000 z=0.000 · thru x=-6.839 y=3.840 z=-8.435
+    edge: x=-6.839 y=3.840 z=-5.484 → x=-6.839 y=3.840 z=-11.386 · len 5.902 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-6.839 y=3.840 z=-8.435
+
+  [sliver · answered] These are raised letter strokes and their 0.48 mm sidewalls. They preserve the wordmark contours and are bonded to the embedded white inlay. Native extrusion paths retain the lettering on both raised layers.
+    0.480 mm strip, 5.9 mm long
+    face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-14.558 y=3.600 z=-8.435
+    edge: x=-14.558 y=3.600 z=-5.484 → x=-14.558 y=3.600 z=-11.386 · len 5.902 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-14.558 y=3.600 z=-8.435
+
+  [sliver · answered] These are raised letter strokes and their 0.48 mm sidewalls. They preserve the wordmark contours and are bonded to the embedded white inlay. Native extrusion paths retain the lettering on both raised layers.
+    0.480 mm strip, 5.9 mm long
+    face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-8.581 y=3.600 z=-8.435
+    edge: x=-8.581 y=3.600 z=-5.484 → x=-8.581 y=3.600 z=-11.386 · len 5.902 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-8.581 y=3.600 z=-8.435
+
+  [sliver · answered] These are raised letter strokes and their 0.48 mm sidewalls. They preserve the wordmark contours and are bonded to the embedded white inlay. Native extrusion paths retain the lettering on both raised layers.
+    0.480 mm strip, 5.9 mm long
+    face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-6.226 y=3.600 z=-8.435
+    edge: x=-6.226 y=3.600 z=-5.484 → x=-6.226 y=3.600 z=-11.386 · len 5.902 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-6.226 y=3.600 z=-8.435
+
+  [sliver · answered] These are raised letter strokes and their 0.48 mm sidewalls. They preserve the wordmark contours and are bonded to the embedded white inlay. Native extrusion paths retain the lettering on both raised layers.
+    0.480 mm strip, 5.9 mm long
+    face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-0.881 y=3.600 z=8.419
+    edge: x=-0.881 y=3.600 z=11.370 → x=-0.881 y=3.600 z=5.468 · len 5.902 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-0.881 y=3.600 z=8.419
+
+  [sliver · answered] These are raised letter strokes and their 0.48 mm sidewalls. They preserve the wordmark contours and are bonded to the embedded white inlay. Native extrusion paths retain the lettering on both raised layers.
+    0.480 mm strip, 5.9 mm long
+    face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-0.393 y=3.600 z=-8.435
+    edge: x=-0.393 y=3.600 z=-5.484 → x=-0.393 y=3.600 z=-11.386 · len 5.902 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-0.393 y=3.600 z=-8.435
+
+  [sliver · answered] These are raised letter strokes and their 0.48 mm sidewalls. They preserve the wordmark contours and are bonded to the embedded white inlay. Native extrusion paths retain the lettering on both raised layers.
+    0.480 mm strip, 5.9 mm long
+    face: plane · n x=1.000 y=0.000 z=0.000 · thru x=6.006 y=3.600 z=8.419
+    edge: x=6.006 y=3.600 z=11.370 → x=6.006 y=3.600 z=5.468 · len 5.902 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=6.006 y=3.600 z=8.419
+
+  [sliver · answered] These are raised letter strokes and their 0.48 mm sidewalls. They preserve the wordmark contours and are bonded to the embedded white inlay. Native extrusion paths retain the lettering on both raised layers.
+    0.480 mm strip, 5.9 mm long
+    face: plane · n x=1.000 y=0.000 z=0.000 · thru x=18.294 y=3.600 z=8.419
+    edge: x=18.294 y=3.600 z=11.370 → x=18.294 y=3.600 z=5.468 · len 5.902 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=18.294 y=3.600 z=8.419
+
+  [sliver · answered] These are raised letter strokes and their 0.48 mm sidewalls. They preserve the wordmark contours and are bonded to the embedded white inlay. Native extrusion paths retain the lettering on both raised layers.
+    0.480 mm strip, 5.9 mm long
+    face: plane · n x=1.000 y=0.000 z=0.000 · thru x=18.294 y=3.600 z=-8.435
+    edge: x=18.294 y=3.600 z=-5.484 → x=18.294 y=3.600 z=-11.386 · len 5.902 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=18.294 y=3.600 z=-8.435
+
+  [sliver · answered] These are raised letter strokes and their 0.48 mm sidewalls. They preserve the wordmark contours and are bonded to the embedded white inlay. Native extrusion paths retain the lettering on both raised layers.
+    0.480 mm strip, 5.9 mm long
+    face: plane · n x=1.000 y=0.000 z=0.000 · thru x=6.162 y=3.600 z=-0.042
+    edge: x=6.162 y=3.600 z=2.909 → x=6.162 y=3.600 z=-2.993 · len 5.902 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=6.162 y=3.600 z=-0.042
+
+  [sliver · answered] These 0.48 mm vertical relief walls follow the original QR module outlines and finder rings. The 1.1 mm module pitch and quiet zone are unchanged. Both raised layers retain white QR extrusion ; decoding and physical scanning remain to be checked.
+    0.480 mm strip, 5.5 mm long
+    face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-25.233 y=3.600 z=7.700
+    edge: x=-25.233 y=3.600 z=10.450 → x=-25.233 y=3.600 z=4.950 · len 5.500 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-25.233 y=3.600 z=7.700
+
+  [sliver · answered] These 0.48 mm vertical relief walls follow the original QR module outlines and finder rings. The 1.1 mm module pitch and quiet zone are unchanged. Both raised layers retain white QR extrusion ; decoding and physical scanning remain to be checked.
+    0.480 mm strip, 5.5 mm long
+    face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-25.233 y=3.600 z=-7.700
+    edge: x=-25.233 y=3.600 z=-4.950 → x=-25.233 y=3.600 z=-10.450 · len 5.500 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-25.233 y=3.600 z=-7.700
+
+  [sliver · answered] These 0.48 mm vertical relief walls follow the original QR module outlines and finder rings. The 1.1 mm module pitch and quiet zone are unchanged. Both raised layers retain white QR extrusion ; decoding and physical scanning remain to be checked.
+    0.480 mm strip, 5.5 mm long
+    face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-40.635 y=3.600 z=7.700
+    edge: x=-40.635 y=3.600 z=10.450 → x=-40.635 y=3.600 z=4.950 · len 5.500 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-40.635 y=3.600 z=7.700
+
+  [sliver · answered] These 0.48 mm vertical relief walls follow the original QR module outlines and finder rings. The 1.1 mm module pitch and quiet zone are unchanged. Both raised layers retain white QR extrusion ; decoding and physical scanning remain to be checked.
+    0.480 mm strip, 5.5 mm long
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-43.381 y=3.600 z=10.450
+    edge: x=-40.631 y=3.600 z=10.450 → x=-46.131 y=3.600 z=10.450 · len 5.500 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=-43.381 y=3.600 z=10.450
+
+  [sliver · answered] These 0.48 mm vertical relief walls follow the original QR module outlines and finder rings. The 1.1 mm module pitch and quiet zone are unchanged. Both raised layers retain white QR extrusion ; decoding and physical scanning remain to be checked.
+    0.480 mm strip, 5.5 mm long
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-27.981 y=3.600 z=10.450
+    edge: x=-25.231 y=3.600 z=10.450 → x=-30.731 y=3.600 z=10.450 · len 5.500 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=-27.981 y=3.600 z=10.450
+
+  [sliver · answered] These 0.48 mm vertical relief walls follow the original QR module outlines and finder rings. The 1.1 mm module pitch and quiet zone are unchanged. Both raised layers retain white QR extrusion ; decoding and physical scanning remain to be checked.
+    0.480 mm strip, 5.5 mm long
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-29.081 y=3.600 z=-2.754
+    edge: x=-26.331 y=3.600 z=-2.754 → x=-31.831 y=3.600 z=-2.754 · len 5.500 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=-29.081 y=3.600 z=-2.754
+
+  [sliver · answered] These 0.48 mm vertical relief walls follow the original QR module outlines and finder rings. The 1.1 mm module pitch and quiet zone are unchanged. Both raised layers retain white QR extrusion ; decoding and physical scanning remain to be checked.
+    0.480 mm strip, 5.5 mm long
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-27.981 y=3.600 z=-4.954
+    edge: x=-25.231 y=3.600 z=-4.954 → x=-30.731 y=3.600 z=-4.954 · len 5.500 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=-27.981 y=3.600 z=-4.954
+
+  [sliver · answered] These 0.48 mm vertical relief walls follow the original QR module outlines and finder rings. The 1.1 mm module pitch and quiet zone are unchanged. Both raised layers retain white QR extrusion ; decoding and physical scanning remain to be checked.
+    0.480 mm strip, 5.5 mm long
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-27.981 y=3.600 z=-10.444
+    edge: x=-25.231 y=3.600 z=-10.444 → x=-30.731 y=3.600 z=-10.444 · len 5.500 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=-27.981 y=3.600 z=-10.444
+
+  [sliver · answered] These 0.48 mm vertical relief walls follow the original QR module outlines and finder rings. The 1.1 mm module pitch and quiet zone are unchanged. Both raised layers retain white QR extrusion ; decoding and physical scanning remain to be checked.
+    0.480 mm strip, 5.5 mm long
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-44.481 y=3.600 z=1.655
+    edge: x=-41.731 y=3.600 z=1.655 → x=-47.231 y=3.600 z=1.655 · len 5.500 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=-44.481 y=3.600 z=1.655
+
+  [sliver · answered] These 0.48 mm vertical relief walls follow the original QR module outlines and finder rings. The 1.1 mm module pitch and quiet zone are unchanged. Both raised layers retain white QR extrusion ; decoding and physical scanning remain to be checked.
+    0.480 mm strip, 5.5 mm long
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-43.381 y=3.600 z=4.952
+    edge: x=-40.631 y=3.600 z=4.952 → x=-46.131 y=3.600 z=4.952 · len 5.500 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=-43.381 y=3.600 z=4.952
+
+  [sliver · answered] These 0.48 mm vertical relief walls follow the original QR module outlines and finder rings. The 1.1 mm module pitch and quiet zone are unchanged. Both raised layers retain white QR extrusion ; decoding and physical scanning remain to be checked.
+    0.480 mm strip, 5.5 mm long
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-27.981 y=3.600 z=4.952
+    edge: x=-25.231 y=3.600 z=4.952 → x=-30.731 y=3.600 z=4.952 · len 5.500 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=-27.981 y=3.600 z=4.952
+
+  [sliver · answered] These 0.48 mm vertical relief walls follow the original QR module outlines and finder rings. The 1.1 mm module pitch and quiet zone are unchanged. Both raised layers retain white QR extrusion ; decoding and physical scanning remain to be checked.
+    0.480 mm strip, 5.5 mm long
+    face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-46.128 y=3.600 z=7.700
+    edge: x=-46.128 y=3.600 z=10.450 → x=-46.128 y=3.600 z=4.950 · len 5.500 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-46.128 y=3.600 z=7.700
+
+  [sliver · answered] These 0.48 mm vertical relief walls follow the original QR module outlines and finder rings. The 1.1 mm module pitch and quiet zone are unchanged. Both raised layers retain white QR extrusion ; decoding and physical scanning remain to be checked.
+    0.480 mm strip, 5.5 mm long
+    face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-30.731 y=3.600 z=7.700
+    edge: x=-30.731 y=3.600 z=10.450 → x=-30.731 y=3.600 z=4.950 · len 5.500 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-30.731 y=3.600 z=7.700
+
+  [sliver · answered] These 0.48 mm vertical relief walls follow the original QR module outlines and finder rings. The 1.1 mm module pitch and quiet zone are unchanged. Both raised layers retain white QR extrusion ; decoding and physical scanning remain to be checked.
+    0.480 mm strip, 5.5 mm long
+    face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-30.731 y=3.600 z=-7.700
+    edge: x=-30.731 y=3.600 z=-4.950 → x=-30.731 y=3.600 z=-10.450 · len 5.500 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-30.731 y=3.600 z=-7.700
+
+  [sliver · answered] These 0.48 mm vertical relief walls belong to the faucet logo and drop, with the original planar contours. Both raised layers have white logo/drop extrusion bonded to the 0.72 mm embedded inlay.
+    0.480 mm strip, 5.2 mm long
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=26.591 y=3.600 z=-0.291
+    edge: x=29.208 y=3.600 z=-0.291 → x=23.975 y=3.600 z=-0.291 · len 5.233 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=26.591 y=3.600 z=-0.291
+
+  [sliver · answered] These are raised letter strokes and their 0.48 mm sidewalls. They preserve the wordmark contours and are bonded to the embedded white inlay. Native extrusion paths retain the lettering on both raised layers.
+    0.480 mm strip, 4.5 mm long
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-3.117 y=3.600 z=5.468
+    edge: x=-0.881 y=3.600 z=5.468 → x=-5.353 y=3.600 z=5.468 · len 4.472 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=-3.117 y=3.600 z=5.468
+
+  [sliver · answered] These are raised letter strokes and their 0.48 mm sidewalls. They preserve the wordmark contours and are bonded to the embedded white inlay. Native extrusion paths retain the lettering on both raised layers.
+    0.480 mm strip, 4.5 mm long
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-16.795 y=3.600 z=-11.386
+    edge: x=-14.558 y=3.600 z=-11.386 → x=-19.031 y=3.600 z=-11.386 · len 4.472 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=-16.795 y=3.600 z=-11.386
+
+  [sliver · answered] These 0.48 mm vertical relief walls follow the original QR module outlines and finder rings. The 1.1 mm module pitch and quiet zone are unchanged. Both raised layers retain white QR extrusion ; decoding and physical scanning remain to be checked.
+    0.480 mm strip, 4.4 mm long
+    face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-42.836 y=3.600 z=-3.855
+    edge: x=-42.836 y=3.600 z=-1.660 → x=-42.836 y=3.600 z=-6.050 · len 4.390 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-42.836 y=3.600 z=-3.855
+
+  [sliver · answered] These are raised letter strokes and their 0.48 mm sidewalls. They preserve the wordmark contours and are bonded to the embedded white inlay. Native extrusion paths retain the lettering on both raised layers.
+    0.480 mm strip, 4.3 mm long
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-3.045 y=3.600 z=11.370
+    edge: x=-0.881 y=3.600 z=11.370 → x=-5.209 y=3.600 z=11.370 · len 4.328 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=-3.045 y=3.600 z=11.370
+
+  [sliver · answered] These are raised letter strokes and their 0.48 mm sidewalls. They preserve the wordmark contours and are bonded to the embedded white inlay. Native extrusion paths retain the lettering on both raised layers.
+    0.480 mm strip, 4.3 mm long
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-16.723 y=3.600 z=-5.484
+    edge: x=-14.558 y=3.600 z=-5.484 → x=-18.887 y=3.600 z=-5.484 · len 4.328 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=-16.723 y=3.600 z=-5.484
+
+  [sliver · answered] These are raised letter strokes and their 0.48 mm sidewalls. They preserve the wordmark contours and are bonded to the embedded white inlay. Native extrusion paths retain the lettering on both raised layers.
+    0.480 mm strip, 4.2 mm long
+    face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-9.730 y=3.600 z=-9.290
+    edge: x=-9.730 y=3.600 z=-7.194 → x=-9.730 y=3.600 z=-11.386 · len 4.192 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-9.730 y=3.600 z=-9.290
+
+  [sliver · answered] These are raised letter strokes and their 0.48 mm sidewalls. They preserve the wordmark contours and are bonded to the embedded white inlay. Native extrusion paths retain the lettering on both raised layers.
+    0.480 mm strip, 4.1 mm long
+    face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-12.224 y=3.600 z=-7.544
+    edge: x=-12.224 y=3.600 z=-5.484 → x=-12.224 y=3.600 z=-9.604 · len 4.120 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-12.224 y=3.600 z=-7.544
+
+  [sliver · answered] These 0.48 mm vertical relief walls belong to the faucet logo and drop, with the original planar contours. Both raised layers have white logo/drop extrusion bonded to the 0.72 mm embedded inlay.
+    0.480 mm strip, 4.1 mm long
+    face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=37.638 y=3.600 z=-10.465
+    edge: x=37.638 y=3.600 z=-8.430 → x=37.638 y=3.600 z=-12.500 · len 4.070 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=37.638 y=3.600 z=-10.465
+
+  [sliver · answered] These 0.48 mm vertical relief walls belong to the faucet logo and drop, with the original planar contours. Both raised layers have white logo/drop extrusion bonded to the 0.72 mm embedded inlay.
+    0.480 mm strip, 4.1 mm long
+    face: plane · n x=1.000 y=0.000 z=0.000 · thru x=47.231 y=3.600 z=-10.465
+    edge: x=47.231 y=3.600 z=-8.430 → x=47.231 y=3.600 z=-12.500 · len 4.070 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=47.231 y=3.600 z=-10.465

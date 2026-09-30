@@ -1,0 +1,2984 @@
+{
+  "pass": true,
+  "baseline_archive": ".cache/prints/2026-09-29-nameplate-flat-standard-mark2-v5/uncorrected/ready/nameplate-flat-standard-pair-z004-mark2-v5-uncorrected.gcode.3mf",
+  "baseline_archive_sha256": "4726db6bcae56e9eb1968a06335b8b99422cd491cb7a1edfda2c0b57a775923f",
+  "corrected_archive_sha256": "d1ab4ab5e91fad61348e3c3840e8230278f6320217090a82273c3a6186fe735f",
+  "nominal_mesh_members_unchanged": [
+    "3D/3dmodel.model",
+    "3D/_rels/3dmodel.model.rels",
+    "3D/Objects/object_2.model",
+    "3D/Objects/object_1.model"
+  ],
+  "effective_setting_changes": {
+    "extruder_offset": [
+      [
+        "0x0",
+        "-0x-0"
+      ],
+      [
+        "0x0",
+        "0.5x-0.7"
+      ]
+    ]
+  },
+  "native_purge_tower_endpoints_unchanged": true,
+  "native_purge_tower_white_entries": [],
+  "model_path_checks": [
+    {
+      "object": 2303,
+      "tool": 0,
+      "print_z_mm": 0.2,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 568,
+      "corrected_segments": 568,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2303,
+      "tool": 0,
+      "print_z_mm": 0.48,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 694,
+      "corrected_segments": 694,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2303,
+      "tool": 0,
+      "print_z_mm": 0.72,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 689,
+      "corrected_segments": 689,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2303,
+      "tool": 0,
+      "print_z_mm": 0.96,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 254,
+      "corrected_segments": 254,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2303,
+      "tool": 0,
+      "print_z_mm": 1.2,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 256,
+      "corrected_segments": 256,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2303,
+      "tool": 0,
+      "print_z_mm": 1.44,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 258,
+      "corrected_segments": 258,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2303,
+      "tool": 0,
+      "print_z_mm": 1.68,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 337,
+      "corrected_segments": 337,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2303,
+      "tool": 0,
+      "print_z_mm": 1.92,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 177,
+      "corrected_segments": 177,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2303,
+      "tool": 0,
+      "print_z_mm": 2.16,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 222,
+      "corrected_segments": 222,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2303,
+      "tool": 0,
+      "print_z_mm": 2.4,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 547,
+      "corrected_segments": 547,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2303,
+      "tool": 0,
+      "print_z_mm": 2.64,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 909,
+      "corrected_segments": 909,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2303,
+      "tool": 0,
+      "print_z_mm": 2.88,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 3655,
+      "corrected_segments": 3656,
+      "normalized_path_hausdorff_mm": 0.000570065719694904,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.00027717423108697403
+    },
+    {
+      "object": 2303,
+      "tool": 0,
+      "print_z_mm": 3.12,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 3665,
+      "corrected_segments": 3664,
+      "normalized_path_hausdorff_mm": 0.0005170304325737645,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0004109707751922542
+    },
+    {
+      "object": 2303,
+      "tool": 0,
+      "print_z_mm": 3.36,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 1922,
+      "corrected_segments": 1922,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2303,
+      "tool": 1,
+      "print_z_mm": 2.88,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 1903,
+      "corrected_segments": 1903,
+      "normalized_path_hausdorff_mm": 4.0194366942304644e-14,
+      "normalized_bounds_error_mm": 2.842170943040401e-14,
+      "total_path_length_difference_mm": 1.3642420526593924e-12
+    },
+    {
+      "object": 2303,
+      "tool": 1,
+      "print_z_mm": 3.12,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 2226,
+      "corrected_segments": 2227,
+      "normalized_path_hausdorff_mm": 0.000570065719694904,
+      "normalized_bounds_error_mm": 2.842170943040401e-14,
+      "total_path_length_difference_mm": 0.00015061361455082078
+    },
+    {
+      "object": 2303,
+      "tool": 1,
+      "print_z_mm": 3.36,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 2240,
+      "corrected_segments": 2240,
+      "normalized_path_hausdorff_mm": 0.000570065719694904,
+      "normalized_bounds_error_mm": 2.842170943040401e-14,
+      "total_path_length_difference_mm": 0.00015061361409607343
+    },
+    {
+      "object": 2303,
+      "tool": 1,
+      "print_z_mm": 3.6,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 2245,
+      "corrected_segments": 2245,
+      "normalized_path_hausdorff_mm": 2.842170943040401e-14,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 4.547473508864641e-13
+    },
+    {
+      "object": 2303,
+      "tool": 1,
+      "print_z_mm": 3.84,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 1706,
+      "corrected_segments": 1706,
+      "normalized_path_hausdorff_mm": 3.1776437161565096e-14,
+      "normalized_bounds_error_mm": 2.842170943040401e-14,
+      "total_path_length_difference_mm": 2.2737367544323206e-13
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 0.2,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 1074,
+      "corrected_segments": 1074,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 0.48,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 182,
+      "corrected_segments": 182,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 0.72,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 184,
+      "corrected_segments": 184,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 0.96,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 237,
+      "corrected_segments": 237,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 1.2,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 241,
+      "corrected_segments": 241,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 1.44,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 243,
+      "corrected_segments": 243,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 1.68,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 245,
+      "corrected_segments": 245,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 1.92,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 245,
+      "corrected_segments": 245,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 2.16,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 285,
+      "corrected_segments": 285,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 2.4,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 323,
+      "corrected_segments": 323,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 2.64,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 318,
+      "corrected_segments": 318,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 2.88,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 253,
+      "corrected_segments": 253,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 3.12,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 253,
+      "corrected_segments": 253,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 3.36,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 242,
+      "corrected_segments": 242,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 3.6,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 243,
+      "corrected_segments": 243,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 3.84,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 455,
+      "corrected_segments": 455,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 4.08,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 310,
+      "corrected_segments": 310,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 4.32,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 308,
+      "corrected_segments": 308,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 4.56,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 319,
+      "corrected_segments": 319,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 4.8,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 327,
+      "corrected_segments": 327,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 5.04,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 315,
+      "corrected_segments": 315,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 5.28,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 315,
+      "corrected_segments": 315,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 5.52,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 317,
+      "corrected_segments": 317,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 5.76,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 297,
+      "corrected_segments": 297,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 6.0,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 298,
+      "corrected_segments": 298,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 6.24,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 296,
+      "corrected_segments": 296,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 6.48,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 294,
+      "corrected_segments": 294,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 6.72,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 332,
+      "corrected_segments": 332,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 6.96,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 343,
+      "corrected_segments": 343,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 7.2,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 352,
+      "corrected_segments": 352,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 7.44,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 354,
+      "corrected_segments": 354,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 7.68,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 354,
+      "corrected_segments": 354,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 7.92,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 332,
+      "corrected_segments": 332,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 8.16,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 313,
+      "corrected_segments": 313,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 8.4,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 313,
+      "corrected_segments": 313,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 8.64,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 313,
+      "corrected_segments": 313,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 8.88,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 313,
+      "corrected_segments": 313,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 9.12,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 313,
+      "corrected_segments": 313,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 9.36,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 313,
+      "corrected_segments": 313,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 9.6,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 313,
+      "corrected_segments": 313,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 9.84,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 313,
+      "corrected_segments": 313,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 10.08,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 313,
+      "corrected_segments": 313,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 10.32,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 313,
+      "corrected_segments": 313,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 10.56,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 313,
+      "corrected_segments": 313,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 10.8,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 313,
+      "corrected_segments": 313,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 11.04,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 321,
+      "corrected_segments": 321,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 11.28,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 321,
+      "corrected_segments": 321,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 11.52,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 321,
+      "corrected_segments": 321,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 11.76,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 325,
+      "corrected_segments": 325,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 12.0,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 325,
+      "corrected_segments": 325,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 12.24,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 339,
+      "corrected_segments": 339,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 12.48,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 342,
+      "corrected_segments": 342,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 12.72,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 342,
+      "corrected_segments": 342,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 12.96,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 344,
+      "corrected_segments": 344,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 13.2,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 344,
+      "corrected_segments": 344,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 13.44,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 348,
+      "corrected_segments": 348,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 13.68,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 348,
+      "corrected_segments": 348,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 13.92,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 352,
+      "corrected_segments": 352,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 14.16,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 356,
+      "corrected_segments": 356,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 14.4,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 356,
+      "corrected_segments": 356,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 14.64,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 360,
+      "corrected_segments": 360,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 14.88,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 358,
+      "corrected_segments": 358,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 15.12,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 368,
+      "corrected_segments": 368,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 15.36,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 368,
+      "corrected_segments": 368,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 15.6,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 368,
+      "corrected_segments": 368,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 15.84,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 368,
+      "corrected_segments": 368,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 16.08,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 370,
+      "corrected_segments": 370,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 16.32,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 370,
+      "corrected_segments": 370,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 16.56,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 370,
+      "corrected_segments": 370,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 16.8,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 368,
+      "corrected_segments": 368,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 17.04,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 368,
+      "corrected_segments": 368,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 17.28,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 368,
+      "corrected_segments": 368,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 17.52,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 368,
+      "corrected_segments": 368,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 17.76,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 370,
+      "corrected_segments": 370,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 18.0,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 370,
+      "corrected_segments": 370,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 18.24,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 370,
+      "corrected_segments": 370,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 18.48,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 370,
+      "corrected_segments": 370,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 18.72,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 370,
+      "corrected_segments": 370,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 18.96,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 370,
+      "corrected_segments": 370,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 19.2,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 370,
+      "corrected_segments": 370,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 19.44,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 364,
+      "corrected_segments": 364,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 19.68,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 366,
+      "corrected_segments": 366,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 19.92,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 366,
+      "corrected_segments": 366,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 20.16,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 364,
+      "corrected_segments": 364,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 20.4,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 364,
+      "corrected_segments": 364,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 20.64,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 364,
+      "corrected_segments": 364,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 20.88,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 364,
+      "corrected_segments": 364,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 21.12,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 364,
+      "corrected_segments": 364,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 21.36,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 366,
+      "corrected_segments": 366,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 21.6,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 366,
+      "corrected_segments": 366,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 21.84,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 366,
+      "corrected_segments": 366,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 22.08,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 366,
+      "corrected_segments": 366,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 22.32,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 370,
+      "corrected_segments": 370,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 22.56,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 374,
+      "corrected_segments": 374,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 22.8,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 378,
+      "corrected_segments": 378,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 23.04,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 378,
+      "corrected_segments": 378,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 23.28,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 386,
+      "corrected_segments": 386,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 23.52,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 430,
+      "corrected_segments": 430,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 23.76,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 438,
+      "corrected_segments": 438,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 24.0,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 446,
+      "corrected_segments": 446,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 24.24,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 446,
+      "corrected_segments": 446,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 24.48,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 454,
+      "corrected_segments": 454,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 24.72,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 416,
+      "corrected_segments": 416,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 24.96,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 422,
+      "corrected_segments": 422,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 25.2,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 451,
+      "corrected_segments": 451,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 25.44,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 463,
+      "corrected_segments": 463,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 25.68,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 473,
+      "corrected_segments": 473,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 25.92,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 481,
+      "corrected_segments": 481,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 26.16,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 485,
+      "corrected_segments": 485,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 26.4,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 495,
+      "corrected_segments": 495,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 26.64,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 505,
+      "corrected_segments": 505,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 26.88,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 507,
+      "corrected_segments": 507,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 27.12,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 517,
+      "corrected_segments": 517,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 27.36,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 517,
+      "corrected_segments": 517,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 27.6,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 521,
+      "corrected_segments": 521,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 27.84,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 544,
+      "corrected_segments": 544,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 28.08,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 560,
+      "corrected_segments": 560,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 28.32,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 570,
+      "corrected_segments": 570,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 28.56,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 578,
+      "corrected_segments": 578,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 28.8,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 584,
+      "corrected_segments": 584,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 29.04,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 598,
+      "corrected_segments": 598,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 29.28,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 602,
+      "corrected_segments": 602,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 29.52,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 610,
+      "corrected_segments": 610,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 29.76,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 618,
+      "corrected_segments": 618,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 30.0,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 626,
+      "corrected_segments": 626,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 30.24,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 638,
+      "corrected_segments": 638,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 30.48,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 650,
+      "corrected_segments": 650,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 30.72,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 658,
+      "corrected_segments": 658,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 30.96,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 662,
+      "corrected_segments": 662,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 31.2,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 662,
+      "corrected_segments": 662,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 31.44,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 662,
+      "corrected_segments": 662,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 31.68,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 668,
+      "corrected_segments": 668,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 31.92,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 668,
+      "corrected_segments": 668,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 32.16,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 668,
+      "corrected_segments": 668,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 32.4,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 668,
+      "corrected_segments": 668,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 32.64,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 668,
+      "corrected_segments": 668,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 32.88,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 674,
+      "corrected_segments": 674,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 33.12,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 737,
+      "corrected_segments": 737,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 33.36,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 636,
+      "corrected_segments": 636,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 33.6,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 633,
+      "corrected_segments": 633,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 33.84,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 643,
+      "corrected_segments": 643,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 34.08,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 649,
+      "corrected_segments": 649,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 34.32,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 661,
+      "corrected_segments": 661,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 34.56,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 676,
+      "corrected_segments": 676,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 34.8,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 691,
+      "corrected_segments": 691,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 35.04,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 717,
+      "corrected_segments": 717,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 35.28,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 727,
+      "corrected_segments": 727,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 35.52,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 739,
+      "corrected_segments": 739,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 35.76,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 757,
+      "corrected_segments": 757,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 36.0,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 771,
+      "corrected_segments": 771,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 36.24,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 791,
+      "corrected_segments": 791,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 36.48,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 815,
+      "corrected_segments": 815,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 36.72,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 823,
+      "corrected_segments": 823,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 36.96,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 835,
+      "corrected_segments": 835,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 37.2,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 851,
+      "corrected_segments": 851,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 37.44,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 869,
+      "corrected_segments": 869,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 37.68,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 897,
+      "corrected_segments": 897,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 37.92,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 932,
+      "corrected_segments": 932,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 38.16,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 959,
+      "corrected_segments": 959,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 38.4,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 990,
+      "corrected_segments": 990,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 38.64,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 1108,
+      "corrected_segments": 1108,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 38.88,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 1005,
+      "corrected_segments": 1005,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 39.12,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 950,
+      "corrected_segments": 950,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 39.36,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 869,
+      "corrected_segments": 869,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 39.6,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 751,
+      "corrected_segments": 751,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 39.84,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 712,
+      "corrected_segments": 712,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 40.08,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 721,
+      "corrected_segments": 721,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 40.32,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 747,
+      "corrected_segments": 747,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 40.56,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 809,
+      "corrected_segments": 809,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 40.8,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 887,
+      "corrected_segments": 887,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 41.04,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 951,
+      "corrected_segments": 951,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 41.28,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 316,
+      "corrected_segments": 316,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 41.52,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 326,
+      "corrected_segments": 326,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 41.76,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 141,
+      "corrected_segments": 141,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 42.0,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 334,
+      "corrected_segments": 334,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 42.24,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 165,
+      "corrected_segments": 165,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 42.48,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 213,
+      "corrected_segments": 213,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 42.72,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 170,
+      "corrected_segments": 170,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 42.96,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 169,
+      "corrected_segments": 169,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 43.2,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 66,
+      "corrected_segments": 66,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 43.44,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 115,
+      "corrected_segments": 115,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 43.68,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 115,
+      "corrected_segments": 115,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 43.92,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 142,
+      "corrected_segments": 142,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 44.16,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 286,
+      "corrected_segments": 286,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 44.4,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 70,
+      "corrected_segments": 70,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 44.64,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 72,
+      "corrected_segments": 72,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 44.88,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 69,
+      "corrected_segments": 69,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 45.12,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 17,
+      "corrected_segments": 17,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 45.36,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 16,
+      "corrected_segments": 16,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 45.6,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 16,
+      "corrected_segments": 16,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 45.84,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 16,
+      "corrected_segments": 16,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2305,
+      "tool": 0,
+      "print_z_mm": 46.08,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 209,
+      "corrected_segments": 209,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    }
+  ],
+  "maximum_normalized_path_error_mm": 0.000570065719694904,
+  "physical_alignment": "Pending inspection of the printed nameplate; Y selection is tentative."
+}

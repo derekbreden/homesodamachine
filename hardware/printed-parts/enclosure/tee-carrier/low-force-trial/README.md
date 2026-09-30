@@ -1,13 +1,14 @@
 # Tee-carrier low-force sliding trial
 
 One complete carrier for the existing front-top enclosure. Each column's upper surface
-has 0.75 mm of additional roof relief. Nominal roof clearance is 1.25 mm; floor
-clearance is 0.25 mm. The spring bores, tee troughs, tie slots, main plate and release
-travel retain their positions. Overall dimensions are unchanged.
+has 0.50 mm of additional roof relief. Nominal roof clearance is 1.00 mm: 0.25 mm
+sliding, 0.25 mm for the rough roof and the 0.50 mm low-force addition. Floor clearance
+is 0.25 mm, giving 1.25 mm total vertical travel. The spring bores, tee troughs, tie
+slots, main plate and release travel retain their positions. The opening is unchanged.
 
 The carrier opening reference is the retained front-top STL for H2C job 1277245499
 (`2026-09-23-enclosure-front-top-h2c-v13`). This trial does not change that opening.
-[Geometry checks](geometry-check.json) record the printed trial and its reference
+[Geometry checks](geometry-check.json) record the current trial and its reference
 mesh. The generator separately compares the current opening cutter to frozen
 opening coordinates from that reference; it does not require the entire current
 front-top mesh to match. Spring stations, release travel and the print solid are
@@ -20,7 +21,7 @@ the tees and springs installed, and assess unwanted play.
 
 The print-bottom edge has an additive chamfer: 0.5 mm outward for each 1 mm of
 height, tangent to the existing R6 taper at print Z 3.317 mm. Each affected bed edge
-extends 3.708 mm farther out. The added 365.3 mm³ stays inside the carrier envelope
+extends 3.708 mm farther out. The added material stays inside the carrier envelope
 and behind the spring bores; no material is removed. The complete print-top round
 is unchanged. This gives a maximum nominal outward step of 0.12 mm per 0.24 mm layer.
 
@@ -34,8 +35,10 @@ overlap, the complete bottom transition, and emitted wall count. No other parts
 share the plate.
 
 `low_force_trial.py` generates the geometry; `prepare_print.py` prepares and natively
-slices the H2C job. The print-bottom surface is physically accepted; sliding fit is pending.
+slices the H2C job. The chamfer/taper profile has a physically accepted surface reference;
+the current 1.00 mm roof-gap geometry has a [verified native slice](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-tee-low-force050-h2c-v7/README.md),
+estimated at 1 hour 46 minutes. It has not been sent; its physical fit is pending.
 
-The accepted surface comes from H2C job 1292379739: 140 layers, estimated at
+The accepted surface reference comes from H2C job 1292379739: 140 layers, estimated at
 1 hour 46 minutes. The [slice review](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-tee-chamfer-h2c-v6/README.md) retains the geometry,
 layer-overlap checks, wall counts and launch receipt.

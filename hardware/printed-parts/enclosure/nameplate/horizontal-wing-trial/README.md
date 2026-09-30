@@ -1,52 +1,69 @@
 # Nameplate with flat side wings
 
-The plate prints face up with its back and both wings on the bed. Each wing
-projects 2.40 mm sideways, is 1.68 mm thick, and spans 30 mm of the plate height.
-Rounded wing ends stop short of the show corners. The 3 mm wide perimeter is
-3.36 mm thick; the recessed artwork field is 2.40 mm thick so insertion can flex
-the middle. The receiver's rear diamond opening gives access to push the centre
-outward for removal. This is a fit trial, including the required bending force.
+The nameplate has a flat 3.36 mm face, with no raised perimeter. Its back and both
+wings print directly on the bed, face up, without supports. Each wing projects
+2.40 mm sideways, is 1.68 mm thick, and spans 30 mm of the plate height. Rounded
+wing ends stop short of the show corners. The receiver's rear diamond opening
+provides access to bend the plate outward for removal.
 
-All 29 white artwork solids—including the logo, drop, lettering and QR—rise
-0.48 mm above the black face, with 0.72 mm embedded in it. The nameplate has
-**no supports**. Its 0.20 mm first and 0.28 mm second layers establish the
-following 0.24 mm planes: wing top and inlay bottom 1.68, field face 2.40,
-white top 2.88, and frame top 3.36 mm. Saved speeds, wall order and infill overlap apply.
+All 29 white artwork solids, including the logo, drop, lettering and QR, rise
+0.48 mm above the face and embed 0.72 mm into it. The Mark2 correction is white
+X −0.50 mm, Y +0.70 mm, implemented by the slicer's native extruder offset.
+The [appearance reference](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-flat-wings-mark2-v3/physical-result.json)
+records the accepted artwork finish. Its QR scan and residual alignment error
+are unmeasured.
 
-The receiver has 2.16 mm slots for the 1.68 mm wings: 0.48 mm total thickness
-air, 0.50 mm tip air, and 2.00 mm minimum lateral engagement at full sideways
-float. Its 1.20 mm front ledges capture the wings. The thickness gap lies between
-vertical printed faces. Slot ends have 0.30 mm air plus an additional 0.75 mm at
-the print-down end for rough overhang surfaces. The pocket mouth likewise has
-0.20 mm perimeter air plus 0.75 mm at its print-down edge. `wing_interface.py` provides
-the shared cutter; the full enclosure awaits this coupon's physical fit result.
-This clearance applies to these supported surfaces and low insertion force;
-it is not a universal fit allowance.
+## Static fit
 
-`geometry-check.json` verifies valid solids, zero seated clash, and capture in
-the outward direction. [`insertion-envelope.json`](insertion-envelope.json)
-checks 101 positions of an ideal circular bend in the central cross-section;
-the body and wing envelopes clear the receiver throughout that path. It does
-not establish insertion force, corner motion or fatigue. Physical insertion,
-relaxed flatness, retention under shaking, receiver support removal and QR
-scanning still require inspection.
+Every mating clearance comes from `../../../cadlib/fits.py`. This plate is
+inserted by hand. It has no sliding-fit or low-force additions.
 
-`prepare_print.py` and `verify_print.py` prepare and inspect the Mark2 plate.
-The native slice contains the wings from the first layer, no support roads, and
-white paths for every artwork region on both raised layers. Its estimate is
-32 minutes 48 seconds. The current Mark2 trial applies **white X −0.50 mm,
-Y +0.70 mm** through the native extruder-offset setting, preserving the nominal
-CAD artwork and cavity meshes. The [slice review](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-flat-wings-mark2-v3/README.md)
-records the coordinate comparison and launch. Physical colour alignment, QR
-scanning and wing fit remain pending; the Y selection is tentative.
+| Surface | Nominal clearance |
+|---|---:|
+| Body left and right | 0.15 mm each; 0.30 mm total X travel |
+| Body ordinary Z end | 0.15 mm |
+| Body print-down Z end | 0.15 + 0.25 mm for the rough receiver face |
+| Total Z travel | 0.55 mm |
+| Wing tip to slot end in X | 0.15 mm each |
+| Wing ordinary Z end | 0.15 mm |
+| Wing print-down Z end | 0.15 + 0.25 mm for the rough receiver face |
+| Wing top to flat retaining bearing | 0.15 mm; 1.83 mm slot for a 1.68 mm wing |
+| Plate back and wing undersides at the seating datum | 0 mm |
 
-`prepare_receiver.py` and `verify_receiver.py` prepare the H2C coupon with CAD
-−Z as build-up, matching the back-top enclosure's roof-down orientation. Its
-tree support shape, speed, interface and clearance settings come directly from
-`../../../petgf.3mf`: 0.40 mm XY, 0.45 mm upper Z, and 0.30 mm lower Z gaps.
-Support and interface material are explicitly black. Normal Snug is excluded.
-Check every emitted support bead against both wing slots and inspect the branches
-through the open front before assembly. Physical removability remains a bench test.
+The body and wing limits constrain the same motion; their gaps do not add to
+each other. The dimensions above are pure-axis limits. Rounded corners constrain
+combined translations. The receiver prints with assembled −Z as build-up, so its
+negative-Z pocket ends receive the directional rough-face allowance. Y slot walls
+print vertically and receive the ordinary static gap.
 
-The receiver's native review and launch receipt are retained in
-[`2026-09-29-nameplate-flat-wing-receiver-h2c-v3`](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-flat-wing-receiver-h2c-v3/README.md).
+The entry bevel is 1.10 mm wide and 0.40 mm deep at each slot mouth. It clears the
+wing's rotation during hand-bent insertion. The outer flat bearing keeps the
+0.15 mm seated gap. At full lateral float, each wing retains at least 2.10 mm of
+geometric overlap and 1.00 mm of flat bearing width. The retaining lip is 1.53 mm
+thick over the flat bearing and 1.13 mm at the bevel entrance.
+
+`wing_interface.py` supplies the reusable wall cutter. The full enclosure awaits
+the corrected coupon's physical fit result. Use the matching receiver for this
+trial; its mouth and slots establish the locating clearances.
+
+## Verification and printing
+
+`horizontal_wing_trial.py` generates the STEP/STL/viewer triplets and
+`geometry-check.json`. `verify_insertion.py` checks 101 positions of an ideal
+circular bend in the central cross-section. `verify_pair.py` checks exported
+solids at all six pure-axis travel limits and just beyond each, then verifies
+the emitted artwork, wing layers, supports and native coordinate correction.
+The bend model does not establish insertion force, fatigue or corner motion.
+
+`prepare_pair.py` slices the complete pair for Mark2. The nameplate has no supports
+or brim. The receiver uses the shared `petgf.3mf` tree supports and its enclosure
+orientation: 0.40 mm support XY, 0.45 mm upper Z and 0.30 mm lower Z gaps. Support
+and interface material are explicitly black. Every emitted support bead is checked
+against the wing slots and their entry bevels; support removal remains a bench test.
+
+Both objects use a 0.20 mm first layer, a 0.28 mm second layer, then 0.24 mm layers.
+Their shared schedule permits the prime tower and preserves complete raised-artwork
+layers at 3.60 and 3.84 mm. Saved speeds, wall order and 15% infill overlap apply.
+The [paired slice review](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-flat-standard-mark2-v5/README.md)
+records native verification, print estimate and launch status. Physical insertion,
+looseness, retention, support removal and QR scanning remain to be checked on this pair.

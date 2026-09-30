@@ -1,0 +1,182 @@
+{
+  "printer": "Mark2",
+  "project_sha256": "2a24e7f570b3ad504fe86d7040def33dbf7b9ae4153cbe9206c56a21bba9eff1",
+  "project": ".cache/prints/2026-09-29-nameplate-flat-standard-mark2-v5/nameplate-flat-standard-pair-z004-mark2-v5-input.3mf",
+  "source_geometry_and_settings_sha256": {
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/horizontal_wing_trial.py": "df20c21ab6544b4cb03f63d6af145079d552008401bf4dd6e86d66f16e2cd604",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/wing_interface.py": "23294ca479742f23fc6a9890b2c4d58b3043fc07ffc7cc0c65d14ce119ee58ee",
+    "hardware/printed-parts/cadlib/fits.py": "3821989044c5bc3ae99cc6912538b8a34bd75a6b0a081aefc8e4c5a0ce714191",
+    "hardware/printed-parts/enclosure/nameplate/nameplate.py": "34c3026fe89e4afa0d6c6084376e278fda6b00ebdd226edb6200864b8ccd81cd",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py": "fb290e6f377fc5f33790b7e6532c59ff0fdab0472b2f519d808b17106e8629fc",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-001.step": "e9f635dcf4ed04a199a20c3a2ef225d2d4d094a67f793e6b5b556951d12beb04",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-001.stl": "a40a37c889f993742b1f4cc9f8e5e3b4f18f831bee2fe8e686a67b209611c434",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.step": "aa51a3d0b916532b6359997f7b1304f3434c6d2734e96f078564f85a337f86cd",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.stl": "1a88fab307ed9718bde241e4c85c19648f8e7ff11fef47a748a25f4c1bb8065f",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf": "84c5011c0be15dd9aab41a516abe85bf99b08e2c80d91375b5f2608a96bc0e72",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-registration-mark2-v3/physical-result.json": "d6295546669961a91b17ca9c8df4652ac528fe91f3376e5850254ecfc0374a59",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/prepare_pair.py": "696764a176c21857353024428e6a7fcb5c661ad7dd60e5193a83d1c25228efc4",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/geometry-check.json": "a68aef46e6d5d78ee7d110a02f9a6f2600d00538d579abffe1e18c03711f96d2",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/insertion-envelope.json": "02db93d17aba58f80ed343e06de661b389c90e30de3481a75ce7a6ee6955ed5d"
+  },
+  "identify_ids": {
+    "2303": "nameplate-horizontal-wings-001",
+    "2305": "nameplate-horizontal-wings-receiver"
+  },
+  "meshes": [
+    {
+      "id": "1",
+      "name": "Black nameplate",
+      "triangles": 31596,
+      "bounds": [
+        [
+          -54.665,
+          -19.000000000000007,
+          -2.9741061657534674e-28
+        ],
+        [
+          54.665,
+          19.000000000000007,
+          3.360000000000002
+        ]
+      ]
+    },
+    {
+      "id": "2",
+      "name": "White artwork",
+      "triangles": 41954,
+      "bounds": [
+        [
+          -47.230811682413,
+          -12.499999999999995,
+          2.639999999999999
+        ],
+        [
+          47.23081168241,
+          12.500000000000004,
+          3.8400000000000016
+        ]
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Black receiver",
+      "triangles": 2184,
+      "bounds": [
+        [
+          -57.665,
+          -3.480000000000003,
+          0.0
+        ],
+        [
+          57.665,
+          3.480000000000002,
+          46.0
+        ]
+      ]
+    }
+  ],
+  "white_correction_mm": {
+    "X": -0.5,
+    "Y": 0.7
+  },
+  "native_extruder_offset": [
+    "0x0",
+    "0.5x-0.7"
+  ],
+  "nozzle_mapping": {
+    "left": "black PET-GF, external 254",
+    "right": "white PET-GF, external 255"
+  },
+  "requested_z_trim_mm": 0.04,
+  "expected_textured_plate_trim_mm": 0.02,
+  "print_planes_z_mm": {
+    "back_and_wings": 0,
+    "wing_top": 1.68,
+    "inlay_bottom": 2.6399999999999997,
+    "black_face": 3.36,
+    "white_top": 3.84
+  },
+  "raised_perimeter": false,
+  "artwork_rise_mm": 0.48,
+  "nameplate_supports": false,
+  "receiver_support_settings": {
+    "enable_support": "1",
+    "independent_support_layer_height": "1",
+    "support_air_filtration": "0",
+    "support_angle": "0",
+    "support_base_pattern": "default",
+    "support_base_pattern_spacing": "2.5",
+    "support_bottom_interface_spacing": "0.5",
+    "support_bottom_z_distance": "0.3",
+    "support_chamber_temp_control": "1",
+    "support_cooling_filter": "1",
+    "support_critical_regions_only": "0",
+    "support_expansion": "0",
+    "support_fast_purge_mode": "0",
+    "support_filament": "1",
+    "support_interface_bottom_layers": "2",
+    "support_interface_filament": "1",
+    "support_interface_loop_pattern": "0",
+    "support_interface_not_for_body": "1",
+    "support_interface_pattern": "auto",
+    "support_interface_spacing": "0.5",
+    "support_interface_speed": [
+      "80",
+      "80",
+      "80",
+      "80",
+      "80"
+    ],
+    "support_interface_top_layers": "2",
+    "support_ironing_direction": "0",
+    "support_ironing_flow": "10%",
+    "support_ironing_inset": "0",
+    "support_ironing_pattern": "zig-zag",
+    "support_ironing_spacing": "0.15",
+    "support_ironing_speed": "30",
+    "support_line_width": "0.62",
+    "support_object_first_layer_gap": "0.2",
+    "support_object_skip_flush": "0",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_remove_small_overhang": "1",
+    "support_speed": [
+      "150",
+      "150",
+      "150",
+      "150",
+      "150"
+    ],
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.45",
+    "support_type": "tree(auto)",
+    "tree_support_branch_angle": "45",
+    "tree_support_branch_diameter": "2",
+    "tree_support_branch_diameter_angle": "5",
+    "tree_support_branch_distance": "5",
+    "tree_support_wall_count": "-1"
+  },
+  "receiver_build_direction": "CAD -Z up, matching enclosure back-top",
+  "receiver_transform": {
+    "translation": [
+      165,
+      204.88,
+      23.0
+    ],
+    "rotation_X_degrees": 180
+  },
+  "nameplate_translation": [
+    165,
+    125,
+    0
+  ],
+  "clearance_policy": "Shared static fits.slip at every mating gap; fits.supported_surface once at print-down mouth and slot ends. Zero at the back seating datum. No sliding or low-force additions.",
+  "seated_pure_axis_travel_mm": {
+    "X": 0.3,
+    "Y": 0.15,
+    "Z": 0.55
+  },
+  "submitted": false
+}

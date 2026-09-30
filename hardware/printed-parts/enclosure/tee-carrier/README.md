@@ -11,7 +11,9 @@ The selected [0.75 mm extra-arm-reach display cover](../display-cover/physical-a
 snaps cleanly, has no noticeable bow and passes shaking with its matching receiver.
 The [low-force carrier trial](low-force-trial/README.md) evaluates this clearance at the
 carrier’s sliding contact surfaces against the unchanged front-top opening. It provides
-1.25 mm nominal roof clearance by lowering the columns' upper surfaces 0.75 mm.
+1.00 mm nominal roof clearance: 0.25 mm sliding, 0.25 mm for the supported roof and
+the [working 0.50 mm low-force addition](../clearance-audit.md). The floor has its
+separate 0.25 mm sliding gap, giving 1.25 mm total vertical travel.
 Support-removal roughness and the available actuation force are part of that fit; the
 usual nominal clearance alone does not establish low-force motion.
 The cover's 1.23 mm nominal hook-to-catch gap is evidence for this evaluation, not a

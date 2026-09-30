@@ -1,0 +1,14 @@
+{
+  "reported_by": "Derek",
+  "reported_date": "2026-09-29",
+  "printer": "Mark2",
+  "printer_task_id": "1294611267",
+  "native_archive_sha256": "76abf0303135485ea16757317b96d7ab1e40e4b333ad671ed2b17cf042ccc74b",
+  "artwork_appearance": "Accepted: lettering, logo and QR appearance described as the best ink seen in the 0.4 mm PET-GF prints so far.",
+  "white_correction_mm": {"X": -0.5, "Y": 0.7},
+  "residual_xy_error_mm": null,
+  "qr_scan_result": null,
+  "mechanical_fit": "Plate feels loose after insertion, with more play in assembled Z than X.",
+  "raised_perimeter": "A flat face without the raised perimeter is requested.",
+  "scope": "Artwork appearance reference. Mechanical fit and QR scanning are separate qualifications."
+}

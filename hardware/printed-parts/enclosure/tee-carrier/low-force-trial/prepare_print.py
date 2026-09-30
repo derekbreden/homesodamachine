@@ -13,8 +13,8 @@ sys.path.insert(0,str(ROOT/'hardware/printed-parts/faucet'))
 import refresh_print_project as writer
 BASE=ROOT/'.cache/prints/2026-09-24-tee-carrier-plate-mark2-v15/tee-carrier-plate-black-z004-mark2-v15-six-wall-band-original-order-input.3mf'
 PETGF=ROOT/'hardware/printed-parts/petgf.3mf'
-JOB=ROOT/'.cache/prints/2026-09-29-tee-chamfer-h2c-v6'
-STEM='tee-carrier-filled-bottom-024-black-z018-h2c-v6'
+JOB=ROOT/'.cache/prints/2026-09-29-tee-low-force050-h2c-v7'
+STEM='tee-carrier-low-force050-filled-bottom-024-black-z018-h2c-v7'
 
 
 def main():
@@ -43,10 +43,13 @@ def main():
     members['Metadata/project_settings.config']=json.dumps(settings,indent=2).encode()
     writer.archive_write(target,members)
     sources=[source,source.with_suffix('.step'),HERE/'low_force_trial.py',HERE/'geometry-check.json',Path(__file__),BASE,PETGF]
+    _, carrier = trial.specifications()
     report.update(project_sha256=hashlib.sha256(target.read_bytes()).hexdigest(),
                   source_geometry_and_settings_sha256={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sources},
                   printer='H2C',requested_z_trim_mm=.18,expected_textured_plate_trim_mm=.16,
-                  roof_relief_mm=.75,roof_clearance_mm=1.25,floor_clearance_mm=.25,
+                  roof_relief_mm=trial.ROOF_RELIEF,
+                  roof_clearance_mm=carrier.roof_z-carrier.column_z[1],
+                  floor_clearance_mm=carrier.column_z[0]-carrier.floor_z,
                   initial_layer_height_mm=.20,
                   support_policy='No supports or brim. Bed layer 0.20 mm; filled bottom chamfer/taper and body use normal PET-GF 0.24 mm layers; top R6 uses 0.08 mm. Six walls in print Z 0–6.1 mm only.',
                   bottom_geometry=json.loads((HERE/'geometry-check.json').read_text())['bottom_chamfer'],

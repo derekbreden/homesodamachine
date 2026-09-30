@@ -1,0 +1,52 @@
+{
+  "printer": "Mark2",
+  "title": "Flat face-up nameplate and standard-static-clearance receiver",
+  "status": "started",
+  "submitted": true,
+  "native_archive": ".cache/prints/2026-09-29-nameplate-flat-standard-mark2-v5/ready/nameplate-flat-standard-pair-z004-mark2-v5.gcode.3mf",
+  "native_archive_sha256": "d1ab4ab5e91fad61348e3c3840e8230278f6320217090a82273c3a6186fe735f",
+  "gcode_sha256": "c9504fc4812c46f54b23a47cd50a77c94a95dd457783835b37d63217082258d1",
+  "estimated_seconds": 4388.9951171875,
+  "estimated_grams_saved_profile_density": 33.63598370552063,
+  "source_geometry_and_settings_sha256": {
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/horizontal_wing_trial.py": "df20c21ab6544b4cb03f63d6af145079d552008401bf4dd6e86d66f16e2cd604",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/wing_interface.py": "23294ca479742f23fc6a9890b2c4d58b3043fc07ffc7cc0c65d14ce119ee58ee",
+    "hardware/printed-parts/cadlib/fits.py": "3821989044c5bc3ae99cc6912538b8a34bd75a6b0a081aefc8e4c5a0ce714191",
+    "hardware/printed-parts/enclosure/nameplate/nameplate.py": "34c3026fe89e4afa0d6c6084376e278fda6b00ebdd226edb6200864b8ccd81cd",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py": "fb290e6f377fc5f33790b7e6532c59ff0fdab0472b2f519d808b17106e8629fc",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-001.step": "e9f635dcf4ed04a199a20c3a2ef225d2d4d094a67f793e6b5b556951d12beb04",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-001.stl": "a40a37c889f993742b1f4cc9f8e5e3b4f18f831bee2fe8e686a67b209611c434",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.step": "aa51a3d0b916532b6359997f7b1304f3434c6d2734e96f078564f85a337f86cd",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.stl": "1a88fab307ed9718bde241e4c85c19648f8e7ff11fef47a748a25f4c1bb8065f",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf": "84c5011c0be15dd9aab41a516abe85bf99b08e2c80d91375b5f2608a96bc0e72",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-registration-mark2-v3/physical-result.json": "d6295546669961a91b17ca9c8df4652ac528fe91f3376e5850254ecfc0374a59",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/prepare_pair.py": "696764a176c21857353024428e6a7fcb5c661ad7dd60e5193a83d1c25228efc4",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/geometry-check.json": "a68aef46e6d5d78ee7d110a02f9a6f2600d00538d579abffe1e18c03711f96d2",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/insertion-envelope.json": "02db93d17aba58f80ed343e06de661b389c90e30de3481a75ce7a6ee6955ed5d"
+  },
+  "white_correction_mm": {
+    "X": -0.5,
+    "Y": 0.7
+  },
+  "native_extruder_offset": [
+    "0x0",
+    "0.5x-0.7"
+  ],
+  "pure_axis_play_mm": {
+    "X": 0.3,
+    "Y": 0.15,
+    "Z": 0.55
+  },
+  "raised_perimeter": false,
+  "nameplate_supports": false,
+  "receiver_supports": "Shared PET-GF tree settings; black body and interface; CAD -Z up.",
+  "verification_sources_sha256": {
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/verify_pair.py": "1a80fd86b2be228c6d4d38175485d2377890136dcee79c45558d4deea6e2cd9d",
+    "hardware/printed-parts/calibration/dual-nozzle-registration/verify_correction.py": "aeabbb8f437393d6946421a8e1735d72d1ad44d3b06ea747c78cc3b36a549ae6"
+  },
+  "physical_qualification": "Manual insertion force, looseness, retention, QR scan and support removal await this pair.",
+  "launch_receipt": "launch.json",
+  "job_id": "1294806669",
+  "accepted_at_utc": "2026-09-30T00:41:09.725979+00:00"
+}

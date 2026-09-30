@@ -2408,6 +2408,45 @@
       },
       "review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-registration-mark2-v3",
       "physical_result": "Pending"
+    },
+    {
+      "date": "2026-09-29",
+      "printer": "Mark2",
+      "parts": [
+        "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-001.stl",
+        "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.stl"
+      ],
+      "job_name": "nameplate-flat-standard-pair-z004-mark2-v5.gcode.3mf",
+      "printer_task_id": "1294806669",
+      "status": "started",
+      "observed_at_utc": "2026-09-30T00:41:09.725979+00:00",
+      "observed_state_at_acceptance": "RUNNING",
+      "sliced_file": ".cache/prints/2026-09-29-nameplate-flat-standard-mark2-v5/ready/nameplate-flat-standard-pair-z004-mark2-v5.gcode.3mf",
+      "sliced_file_sha256": "d1ab4ab5e91fad61348e3c3840e8230278f6320217090a82273c3a6186fe735f",
+      "gcode_sha256": "c9504fc4812c46f54b23a47cd50a77c94a95dd457783835b37d63217082258d1",
+      "estimated_seconds": 4388.9951171875,
+      "filament_grams": 33.63598370552063,
+      "print_options": {
+        "Timelapse": "On",
+        "Auto bed leveling": "On",
+        "Flow dynamic calibration": "Auto",
+        "Nozzle Offset Calibration": "Auto"
+      },
+      "review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-flat-standard-mark2-v5",
+      "physical_result": "Pending",
+      "nominal_pure_axis_play_mm": {
+        "X": 0.3,
+        "Y": 0.15,
+        "Z": 0.55
+      },
+      "white_correction_mm": {
+        "X": -0.5,
+        "Y": 0.7
+      },
+      "nameplate_supports": false,
+      "receiver_supports": "Shared PET-GF tree supports, black body and interface",
+      "z_offset_mm": 0.04,
+      "effective_textured_plate_trim_mm": 0.02
     }
   ]
 }

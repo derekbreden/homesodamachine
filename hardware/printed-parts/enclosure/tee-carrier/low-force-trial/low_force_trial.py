@@ -18,7 +18,9 @@ from _materials import M_PETGF_BLACK, one_body
 from flute_payload import cut
 
 NAME = 'tee-carrier-low-force'
-ROOF_RELIEF = .75
+# Low-force addition on this identified moving gap; ordinary running and rough
+# roof allowances remain in Carrier.column_z. See enclosure/clearance-audit.md.
+ROOF_RELIEF = .50
 # The carrier beds on its aft (+Y) face. A shallow chamfer tangent to the
 # retained R6 roll fills the print-bottom corner without changing its envelope.
 BOTTOM_OUTWARD_PER_HEIGHT = .5
@@ -84,6 +86,8 @@ def main():
     assert body.isValid() and len(body.Solids()) == 1
     opening_delta = carrier.opening(trial).cut(carrier.opening(base)).Volume() + carrier.opening(base).cut(carrier.opening(trial)).Volume()
     assert abs(opening_delta) < 1e-6
+    assert abs(trial.roof_z-trial.column_z[1]-1.00) < 1e-6
+    assert abs(trial.column_z[0]-trial.floor_z-.25) < 1e-6
     added = abs(body.cut(original).Volume())
     removed = abs(original.cut(body).Volume())
     assert removed < 1e-5 and added > 0, (removed,added)
@@ -111,6 +115,12 @@ def main():
     export_assembly(one_body(cq.Workplane(obj=body), NAME, M_PETGF_BLACK), str(step))
     cut(step, stl)
     report = {'pass':True, 'roof_relief_mm':ROOF_RELIEF,
+              'clearance_basis':{'roof_running_mm':trial.air,
+                                  'roof_supported_face_mm':carrier.fits.supported_surface,
+                                  'roof_low_force_extra_mm':ROOF_RELIEF,
+                                  'floor_running_mm':trial.air,
+                                  'total_vertical_play_mm':(trial.roof_z-trial.column_z[1]
+                                                           +trial.column_z[0]-trial.floor_z)},
               'roof_clearance_mm':trial.roof_z-trial.column_z[1],
               'floor_clearance_mm':trial.column_z[0]-trial.floor_z,
               'column_height_mm':trial.column_z[1]-trial.column_z[0],
