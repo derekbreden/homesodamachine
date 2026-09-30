@@ -35,7 +35,9 @@
     "uncorrected-preparation.json": "b38ca9ffe48708536b24e51abcc228d768bac0f43ea1f903dba20b54e94ea69b",
     "uncorrected-slice-command.json": "c5c204182a87e500730c0e261927b874e8ac30a4e2874b1d49800d520cd217fb",
     "verification.json": "c1e64c7aff6255a1527aca4ddecd1ad55b6199786f18bb3f175350dd7272bd64",
-    "postlaunch.json": "795e923548a108bbf561be1d02540dabca911ccad656efbecb9f85becad52292"
+    "postlaunch.json": "795e923548a108bbf561be1d02540dabca911ccad656efbecb9f85becad52292",
+    "physical-result.json": "12c6ca994eb2fda158de8955d47d340b0a5d198b138650efbf6eee5d76e42369"
   },
-  "physical_result": "Pending collar finish and fitting check."
+  "physical_result": "Printed appearance and lettering clarity accepted by user.",
+  "physical_result_record": "physical-result.json"
 }

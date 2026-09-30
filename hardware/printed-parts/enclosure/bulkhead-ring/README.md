@@ -114,8 +114,10 @@ TAP's white body. Nominal geometry stays aligned. The native slice comparison
 checks every model layer against the uncorrected paths; the usual Auto nozzle
 offset startup setting applies. The
 [registration record](../../calibration/dual-nozzle-registration/mark2-registration.json)
-links the appearance evidence. Ring finish and fitting checks remain separate
-physical assessments; production ring geometry is separate from this trial.
+links the appearance evidence. The
+[collar physical result](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-bulkhead-raised-mark2-v2/physical-result.json)
+records accepted finish and excellent, clear lettering. Mounting fit was not
+separately reported; production ring geometry is separate from this trial.
 
 ## Files
 

@@ -43,3 +43,6 @@ planes, filament and support checks. [Launch](launch.json) records the accepted
 job and more than three minutes after Mark2's collar start. [Published artifacts](published-artifacts.json)
 confirms the STEP and viewer payload match the live site. [Geometry lint](geometry-lint.log)
 has no unaddressed findings.
+
+The [physical result](physical-result.json) records continued bowing with the
+existing cover. Main-body X clearance is the requested next comparison.

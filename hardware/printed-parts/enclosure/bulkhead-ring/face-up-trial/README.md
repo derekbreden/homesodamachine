@@ -19,8 +19,9 @@ follow the saved PET-GF settings. The usual Auto nozzle-offset startup option
 applies; no touchscreen calibration is required.
 
 The [print review](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-bulkhead-raised-mark2-v2/README.md)
-records Mark2 task 1295298484 and its exact files. Ring finish and mounting fit
-remain physical checks. The
+records Mark2 task 1295298484 and its exact files. The user
+[accepted the finish and excellent, clear lettering](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-bulkhead-raised-mark2-v2/physical-result.json).
+Mounting fit was not separately reported. The
 [registration record](../../../calibration/dual-nozzle-registration/mark2-registration.json)
 links the accepted nameplate artwork appearance; residual XY error is unmeasured.
 

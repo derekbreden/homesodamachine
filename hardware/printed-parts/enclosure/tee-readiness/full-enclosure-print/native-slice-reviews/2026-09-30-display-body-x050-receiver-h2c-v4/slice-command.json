@@ -1,0 +1,14 @@
+[
+  "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+  "--slice",
+  "0",
+  "--arrange",
+  "0",
+  "--orient",
+  "0",
+  "--outputdir",
+  "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-30-display-body-x050-receiver-h2c-v4/ready",
+  "--export-3mf",
+  "display-body-x050-receiver-z018-h2c-v4.gcode.3mf",
+  "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-30-display-body-x050-receiver-h2c-v4/display-body-x050-receiver-z018-h2c-v4-input.3mf"
+]

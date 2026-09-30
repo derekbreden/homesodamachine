@@ -34,7 +34,9 @@
     "slice-command.json": "6b001444d257ea7d0477740e09fe450832fa0c862d98d1c1cfd53578af84e2f2",
     "support-audit.json": "0c83ac30cea37e0c96cb524400bcd5d7a64041e856e82d46eaf0c46ade840eed",
     "verification.json": "94700285edda98be4d318a628b175e69d8b130bf67408a4e225b27ab2cbdc537",
-    "postlaunch.json": "bf7c4c1e4123c342c550f63ca2b25299f47fc9fd0e10a03ffd158be4a446a330"
+    "postlaunch.json": "bf7c4c1e4123c342c550f63ca2b25299f47fc9fd0e10a03ffd158be4a446a330",
+    "physical-result.json": "7233ba5c466e230884cd71dba3519716ffc69048661d3a503f610b49051bf6ba"
   },
-  "physical_result": "Pending same-cover comparison for bow, insertion, capture and retention."
+  "physical_result": "Still bowing; further main-body X clearance requested.",
+  "physical_result_record": "physical-result.json"
 }

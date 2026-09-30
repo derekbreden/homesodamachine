@@ -1,0 +1,13 @@
+{
+  "observed_date_local": "2026-09-30",
+  "reporter": "user",
+  "printer": "H2C",
+  "receiver_task_id": "1295323504",
+  "cover_task_id": "1294550319",
+  "fit_accepted": false,
+  "user_report": "Still bowing. I had said let us try further main body X clearance.",
+  "body_X_clearance_per_side_mm": 0.3,
+  "wing_thickness_clearance_mm": 0.6,
+  "specific_contact_identified": false,
+  "requested_comparison": "Increase main-body X clearance further with the same cover."
+}
