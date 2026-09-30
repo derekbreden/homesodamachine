@@ -21,7 +21,7 @@ def main():
         points.extend((a[0]+(b[0]-a[0])*k/count,a[1]+(b[1]-a[1])*k/count)
                       for k in range(count))
     receiver=box(-h-p-3,-fit.FLOOR_STOCK,h+p+3,t)
-    receiver=receiver.difference(box(-h-fit.FACE_SLIP,0,h+fit.FACE_SLIP,t+30))
+    receiver=receiver.difference(box(-h-fit.FACE_X_AIR,0,h+fit.FACE_X_AIR,t+30))
     for side in (-1,1):
         x0,x1=sorted((side*(h-.1),side*(h+p+fit.TIP_AIR)))
         receiver=receiver.difference(box(x0,0,x1,w+fit.THICKNESS_AIR))
@@ -49,7 +49,7 @@ def main():
         checks.append({'end_angle_rad':angle,'tip_floor_clearance_mm':.01,
                        'lift_mm':lift,'intersection_area_mm2':overlap,
                        'x_span_mm':shape.bounds[2]-shape.bounds[0]})
-    assert checks[-1]['x_span_mm']<fit.WIDTH+2*fit.FACE_SLIP
+    assert checks[-1]['x_span_mm']<fit.WIDTH+2*fit.FACE_X_AIR
     # Once the bent outline fits the mouth, it can translate directly outward.
     record={'pass':True,'samples':len(checks),'checks':checks,
             'motion':'Bend the middle outward while the wing tips stay above the slot floors; release into the seated shape. Reverse for removal through the rear access opening.',

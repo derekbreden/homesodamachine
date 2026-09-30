@@ -714,7 +714,7 @@
   "scope": "Central X/Y cross-section, ideal circular bending of the plate with straight wings following the end tangent. Rounded wing ends are conservatively rectangular. Full seated CAD clash is checked separately. This is not a force, fatigue, corner-motion or printed-fit qualification.",
   "maximum_section_overlap_mm2": 0.0,
   "source_sha256": {
-    "verify_insertion.py": "0abc6ff5c35afce8f25b8dbec9756bacfa08d626866a55a3c3b965078b799826",
-    "wing_interface.py": "2519e46578e49bdc1e2d663c1211db8c2caf04c03390f58f7dc340da1618538f"
+    "verify_insertion.py": "ef3102b1d71aee662b5e07b8fa70b63ea9c11b4692667851220158ed82e0f82b",
+    "wing_interface.py": "c25c506be642055c6be34ad4a05f47222ba522b7be9a4da556f5b01c8ae05d68"
   }
 }

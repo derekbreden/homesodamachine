@@ -1,0 +1,37 @@
+{
+  "submitted": true,
+  "printer": "Mark2",
+  "sent_through": "Bambu Connect via cua_repl",
+  "accepted_at_utc": "2026-09-30T15:01:53.496691+00:00",
+  "reading": {
+    "job_id": "1296373726",
+    "subtask_name": "nameplate-body-x035-receiver-tree-z004-mark2-v8.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 0,
+    "total_layer_num": 192,
+    "mc_remaining_time": 43,
+    "mc_percent": 0,
+    "observed_at": "2026-09-30T15:01:53.496691+00:00"
+  },
+  "archive": ".cache/prints/2026-09-30-nameplate-body-x035-receiver-mark2-v8/ready/nameplate-body-x035-receiver-tree-z004-mark2-v8.gcode.3mf",
+  "archive_sha256": "356adb84142f623e468949898f4a1b53de5312e7bcb9ea2c52c57eba757d80ff",
+  "send_copy_same_sha256": true,
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "filament_mapping": {
+    "1": {
+      "type": "PET-CF",
+      "colour": "000000"
+    }
+  },
+  "bed_clear_basis": "User: both beds are free; requested nameplate X-clearance trial on Mark2. H2C alone has since started its receiver.",
+  "startup_spacing_minimum_seconds": 180,
+  "other_printer_previous_accepted_at_utc": "2026-09-30T14:37:28.426282+00:00",
+  "startup_spacing_seconds": 1465.070409
+}

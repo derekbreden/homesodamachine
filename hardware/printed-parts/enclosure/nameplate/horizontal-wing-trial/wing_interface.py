@@ -18,10 +18,12 @@ WING_THICK = 1.68
 WING_SPAN = 30.0
 END_RADIUS = .6
 FACE_SLIP = fits.slip
+# Full-depth body-width trial; retain the ordinary Z gaps and entry bevels.
+FACE_X_AIR = .35
 # Local Y fit trial: keep the seating floor fixed and relieve the retaining face.
 THICKNESS_AIR = .30
 # The body locates X. Keep nonlocating wing tips clear of rounded slot corners.
-TIP_AIR = .25
+TIP_AIR = .45
 END_AIR = fits.slip
 SUPPORTED_END_AIR = fits.supported_surface
 FLOOR_STOCK = 3.6
@@ -52,8 +54,9 @@ def blank():
 def apply(solid, station, y_outer, *, supported=SUPPORTED_END_AIR, up=-1):
     """Flush plate pocket and two sideways slots; no cantilevers behind the face.
 
-    Locating gaps use the shared static allowance; nonlocating wing tips have
-    0.25 mm X clearance for the narrow slot's rounded corners. The plate back and wing
+    Body X has 0.35 mm per side; Z uses the shared static allowance.
+    Nonlocating wing tips have 0.45 mm centered X clearance, retaining
+    0.10 mm at maximum body travel. The plate back and wing
     undersides share the zero-clearance seating datum. The Y slot has 0.30 mm
     of local trial relief above the seated wing. Its walls print vertically,
     so only the print-down mouth and slot ends receive the extra
@@ -71,7 +74,7 @@ def apply(solid, station, y_outer, *, supported=SUPPORTED_END_AIR, up=-1):
             .polyline([(-FLOOR_STOCK,zedge),(-FLOOR_STOCK,zedge+up*FLOOR_STOCK),(0,zedge)])
             .close().extrude(2*pw).val())
     solid = solid.fuse(pad.cut(ramp).translate(shift))
-    mouth = (cq.Workplane('XY').rect(pw,ph).extrude(THICK+1)
+    mouth = (cq.Workplane('XY').rect(WIDTH+2*FACE_X_AIR,ph).extrude(THICK+1)
              .edges('|Z').fillet(dimensions.CORNER_R+FACE_SLIP).val()
              .rotate((0,0,0),(1,0,0),-90))
     # The print-down mouth edge gets the same rough-surface allowance as the
@@ -85,6 +88,7 @@ def apply(solid, station, y_outer, *, supported=SUPPORTED_END_AIR, up=-1):
         solid = solid.cut(box(xa,xb,0,WING_THICK+THICKNESS_AIR,z0,z1).translate(shift))
         # Entry bevel clears the rotating wing during hand-bent insertion.
         # The outer flat bearing retains the trial thickness gap.
+        # Keep the existing bevel plane while widening the body's X mouth.
         mouth_x = WIDTH/2+FACE_SLIP
         roof_y = WING_THICK+THICKNESS_AIR
         lead = (cq.Workplane('XY').workplane(offset=z0)

@@ -73,7 +73,7 @@ def main():
     (JOB/'support-audit.json').write_text(json.dumps(a,indent=2)+'\n')
     result=json.loads((JOB/'ready/result.json').read_text());assert result['return_code']==0
     sliced,=result['sliced_plates'];assert not sliced['warning_message']
-    assert interface.TIP_AIR==.25 and interface.FACE_SLIP==.15
+    assert interface.TIP_AIR==.45 and interface.FACE_X_AIR==.35 and interface.FACE_SLIP==.15
     assert interface.THICKNESS_AIR==.30 and interface.WING_THICK==1.68
     record={'pass':True,'printer':'Mark2','native_archive':str(native.relative_to(ROOT)),
             'native_archive_sha256':sha(native),'gcode_sha256':hashlib.sha256(gc).hexdigest(),
