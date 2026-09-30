@@ -41,3 +41,6 @@ job; [postlaunch status](postlaunch.json) confirms RUNNING without errors.
 Mark2's preceding launch was more than three minutes earlier.
 [Published artifacts](published-artifacts.json) match the live STEP and viewer
 payload. [Geometry lint](geometry-lint.log) has no unaddressed findings.
+
+Physical result: User requests undoing the latest X increment while retaining the wing-thickness clearance. The shared report says Y helps a bit; no separate quantitative display assessment is provided.
+See [physical result](physical-result.json).
