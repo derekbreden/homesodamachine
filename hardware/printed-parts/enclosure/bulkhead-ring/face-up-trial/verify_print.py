@@ -9,6 +9,8 @@ import prepare_print as prep
 sys.path[:0] = [str(prep.ROOT/'hardware/scripts'), str(prep.HERE.parents[1]/'nameplate')]
 from verify_mark2_print import segments
 from verify_round_layer_band import wall_layers
+sys.path.insert(0,str(prep.ROOT/'hardware/printed-parts/calibration/dual-nozzle-registration'))
+from verify_correction import verify as verify_registration
 
 
 def main():
@@ -37,6 +39,12 @@ def main():
     roads = list(segments(path))
     assert {r['object'] for r in roads} == {2901, 2902, 2903}
     assert not any(r['feature'].startswith('Support') for r in roads)
+    assert prepared['calibration_applied'] and prepared['white_correction_mm']=={'X':-.5,'Y':.7}
+    assert settings['extruder_offset']==prepared['native_extruder_offset']
+    nominal=next((job/'uncorrected/ready').glob('*.gcode.3mf'))
+    registration=verify_registration(nominal,native,prepared['white_correction_mm'])
+    registration['physical_alignment']='Nameplate appearance accepted; these rings await their own physical finish check.'
+    (job/'registration-verification.json').write_text(json.dumps(registration,indent=2)+'\n')
     readings = []
     for oid, station, letter_tool in ((2901, 'water', 0), (2902, 'flavor-a', 1), (2903, 'flavor-b', 1)):
         layers = wall_layers(native, oid)
@@ -54,7 +62,9 @@ def main():
               'support_paths':0, 'raised_letter_checks':readings, 'emitted_z_trim_mm':trims,
               'estimated_seconds':sliced['total_predication'],
               'estimated_grams_saved_profile_density':sum(f['total_used_g'] for f in sliced['filaments']),
-              'submitted':False, 'calibration_applied':False, 'hold':prepared['hold']}
+              'submitted':False, 'calibration_applied':True,
+              'white_correction_mm':prepared['white_correction_mm'],
+              'maximum_normalized_registration_path_error_mm':registration['maximum_normalized_path_error_mm']}
     (job/'verification.json').write_text(json.dumps(report, indent=2)+'\n')
     print(json.dumps({k:report[k] for k in ('pass', 'support_paths', 'estimated_seconds')}))
 

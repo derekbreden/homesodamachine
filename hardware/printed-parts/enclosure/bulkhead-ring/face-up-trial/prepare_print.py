@@ -1,4 +1,5 @@
-"""Prepare an uncorrected native geometry review; calibration/acceptance gate the print."""
+"""Prepare face-up rings using Mark2's accepted nameplate appearance correction."""
+import argparse
 import hashlib
 import json
 from pathlib import Path
@@ -14,10 +15,12 @@ HERE, ROOT = trial.HERE, trial.ROOT
 sys.path.insert(0, str(ROOT/'hardware/printed-parts/faucet'))
 import refresh_print_project as writer
 
-JOB = ROOT/'.cache/prints/2026-09-29-bulkhead-raised-mark2-v1'
-STEM = 'tap-flavor-raised-face-up-z004-mark2-v1'
+JOB = ROOT/'.cache/prints/2026-09-30-bulkhead-raised-mark2-v2'
+STEM = 'tap-flavor-raised-face-up-z004-mark2-v2'
 BASE = HERE.parents[1]/'nameplate/nameplate-001-petgf.3mf'
 PETGF = ROOT/'hardware/printed-parts/petgf.3mf'
+REGISTRATION = ROOT/'hardware/printed-parts/calibration/dual-nozzle-registration/mark2-registration.json'
+ACCEPTANCE = ROOT/'hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-y030-receiver-mark2-v7/physical-result.json'
 NS = 'http://schemas.microsoft.com/3dmanufacturing/core/2015/02'
 ET.register_namespace('', NS)
 Q = lambda n: '{'+NS+'}'+n
@@ -25,15 +28,24 @@ meta = writer.metadata
 PLATE = (('water', 2, 1, (115., 125.)), ('flavor-a', 1, 2, (165., 125.)), ('flavor-b', 1, 2, (215., 125.)))
 
 
-def main():
-    JOB.mkdir(parents=True, exist_ok=True)
-    target = JOB/(STEM+'-input.3mf')
+def main(uncorrected=False):
+    job = JOB/'uncorrected' if uncorrected else JOB
+    stem = STEM+('-uncorrected' if uncorrected else '')
+    job.mkdir(parents=True, exist_ok=True)
+    target = job/(stem+'-input.3mf')
     assert not target.exists(), 'Keep trial archives immutable.'
     with zipfile.ZipFile(BASE) as z:
         settings = json.loads(z.read('Metadata/project_settings.config'))
         members = {n:z.read(n) for n in z.namelist() if n.startswith('Metadata/filament_settings_')}
     with zipfile.ZipFile(PETGF) as z:
         shared = json.loads(z.read('Metadata/project_settings.config'))
+    registration = json.loads(REGISTRATION.read_text())
+    assert registration['printer']=='Mark2' and registration['status']=='nameplate_appearance_accepted'
+    assert json.loads(ACCEPTANCE.read_text())['fit_accepted_for_now']
+    correction = {'X':0., 'Y':0.} if uncorrected else registration['white_correction_mm']
+    settings['extruder_offset'] = ['0x0',f"{-correction['X']:g}x{-correction['Y']:g}"]
+    settings.update({k:v for k,v in shared.items() if k.startswith(('support_', 'tree_support_'))
+                     or k=='independent_support_layer_height'})
     assert settings['filament_nozzle_map'] == ['0', '1']
     settings.update(enable_support='0', brim_type='no_brim', brim_width='0',
                     initial_layer_print_height='0.2', layer_height=shared['layer_height'],
@@ -44,7 +56,7 @@ def main():
     resources, build = ET.SubElement(model, Q('resources')), ET.SubElement(model, Q('build'))
     cfg, ranges = ET.Element('config'), ET.Element('objects')
     plate = ET.SubElement(cfg, 'plate')
-    for key, value in {'plater_id':1, 'plater_name':'TAP and FLAVOR raised lettering; uncorrected geometry review',
+    for key, value in {'plater_id':1, 'plater_name':'TAP and FLAVOR raised lettering; Mark2',
                        'locked':'false', 'bed_type':settings['curr_bed_type'], 'filament_map_mode':'Manual',
                        'filament_maps':'1 2', 'filament_volume_maps':'0 0'}.items():
         meta(plate, key, value)
@@ -99,20 +111,22 @@ def main():
     })
     writer.archive_write(target, members)
     geometry = json.loads((HERE/'geometry-check.json').read_text())
-    sources = [ROOT/p for p in geometry['source_sha256']] + [BASE, PETGF, HERE/'geometry-check.json', Path(__file__)]
+    sources = [ROOT/p for p in geometry['source_sha256']] + [BASE, PETGF, REGISTRATION, ACCEPTANCE,
+               ROOT/registration['appearance_record'], HERE/'geometry-check.json', Path(__file__)]
     report = {'project':str(target.relative_to(ROOT)), 'project_sha256':hashlib.sha256(target.read_bytes()).hexdigest(),
               'source_geometry_and_settings_sha256':{str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sources},
               'printer':'Mark2', 'parts':details, 'identify_ids':{'2901':'water', '2902':'flavor-a', '2903':'flavor-b'},
               'orientation':'Face up. Existing fitting seat on the bed, lettering above Z=2.0 mm.',
               'requested_z_trim_mm':.04, 'support_policy':'No supports.',
-              'calibration_applied':False, 'submitted':False,
-              'hold':'Await accepted nameplate and measured Mark2 correction. Correction follows the white nozzle, including the TAP body.'}
-    (JOB/'preparation.json').write_text(json.dumps(report, indent=2)+'\n')
-    ready = JOB/'ready'
+              'calibration_applied':not uncorrected, 'submitted':False,
+              'white_correction_mm':correction, 'native_extruder_offset':settings['extruder_offset'],
+              'correction_scope':'White nozzle paths, including the TAP body and both FLAVOR words. Nominal CAD unchanged.'}
+    (job/'preparation.json').write_text(json.dumps(report, indent=2)+'\n')
+    ready = job/'ready'
     ready.mkdir()
     command = ['/Applications/BambuStudio.app/Contents/MacOS/BambuStudio', '--slice', '0', '--arrange', '0', '--orient', '0',
-               '--outputdir', str(ready), '--export-3mf', STEM+'.gcode.3mf', str(target)]
-    (JOB/'slice-command.json').write_text(json.dumps(command, indent=2)+'\n')
+               '--outputdir', str(ready), '--export-3mf', stem+'.gcode.3mf', str(target)]
+    (job/'slice-command.json').write_text(json.dumps(command, indent=2)+'\n')
     with (ready/'bambu-cli.log').open('w') as log:
         rc = subprocess.run(command, cwd=ready, stdout=log, stderr=subprocess.STDOUT).returncode
     print('SLICE_EXIT', rc)
@@ -120,4 +134,5 @@ def main():
 
 
 if __name__ == '__main__':
-    raise SystemExit(main())
+    parser=argparse.ArgumentParser();parser.add_argument('--uncorrected',action='store_true')
+    raise SystemExit(main(parser.parse_args().uncorrected))

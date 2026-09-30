@@ -1,0 +1,703 @@
+{
+  "pass": true,
+  "baseline_archive": ".cache/prints/2026-09-30-bulkhead-raised-mark2-v2/uncorrected/ready/tap-flavor-raised-face-up-z004-mark2-v2-uncorrected.gcode.3mf",
+  "baseline_archive_sha256": "370b13e83d451997145407aa310164d751e80a00701ccc9b49d5e13cc5f2b4a6",
+  "corrected_archive_sha256": "3df1d733ba01a9c11ca2331a6bc132bd72522eb23516d031f701b352b2aea667",
+  "nominal_mesh_members_unchanged": [
+    "3D/3dmodel.model",
+    "3D/_rels/3dmodel.model.rels",
+    "3D/Objects/object_1.model",
+    "3D/Objects/object_2.model",
+    "3D/Objects/object_3.model"
+  ],
+  "effective_setting_changes": {
+    "extruder_offset": [
+      [
+        "0x0",
+        "-0x-0"
+      ],
+      [
+        "0x0",
+        "0.5x-0.7"
+      ]
+    ]
+  },
+  "native_purge_tower_endpoints_unchanged": true,
+  "native_purge_tower_white_entries": [],
+  "model_path_checks": [
+    {
+      "object": 2901,
+      "tool": 0,
+      "print_z_mm": 1.16,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 81,
+      "corrected_segments": 81,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2901,
+      "tool": 0,
+      "print_z_mm": 1.4,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 82,
+      "corrected_segments": 82,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2901,
+      "tool": 0,
+      "print_z_mm": 1.64,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 81,
+      "corrected_segments": 81,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2901,
+      "tool": 0,
+      "print_z_mm": 1.88,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 81,
+      "corrected_segments": 81,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2901,
+      "tool": 0,
+      "print_z_mm": 2.0,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 78,
+      "corrected_segments": 78,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2901,
+      "tool": 0,
+      "print_z_mm": 2.24,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 80,
+      "corrected_segments": 80,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2901,
+      "tool": 0,
+      "print_z_mm": 2.48,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 79,
+      "corrected_segments": 79,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2901,
+      "tool": 1,
+      "print_z_mm": 0.2,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 510,
+      "corrected_segments": 510,
+      "normalized_path_hausdorff_mm": 2.842170943040401e-14,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 9.094947017729282e-13
+    },
+    {
+      "object": 2901,
+      "tool": 1,
+      "print_z_mm": 0.44,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 580,
+      "corrected_segments": 580,
+      "normalized_path_hausdorff_mm": 3.1776437161565096e-14,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 4.547473508864641e-13
+    },
+    {
+      "object": 2901,
+      "tool": 1,
+      "print_z_mm": 0.68,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 575,
+      "corrected_segments": 575,
+      "normalized_path_hausdorff_mm": 3.1776437161565096e-14,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2901,
+      "tool": 1,
+      "print_z_mm": 0.92,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 459,
+      "corrected_segments": 459,
+      "normalized_path_hausdorff_mm": 3.1776437161565096e-14,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 2.2737367544323206e-13
+    },
+    {
+      "object": 2901,
+      "tool": 1,
+      "print_z_mm": 1.16,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 680,
+      "corrected_segments": 680,
+      "normalized_path_hausdorff_mm": 2.842170943040401e-14,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 9.094947017729282e-13
+    },
+    {
+      "object": 2901,
+      "tool": 1,
+      "print_z_mm": 1.4,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 742,
+      "corrected_segments": 742,
+      "normalized_path_hausdorff_mm": 3.1776437161565096e-14,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 9.094947017729282e-13
+    },
+    {
+      "object": 2901,
+      "tool": 1,
+      "print_z_mm": 1.64,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 741,
+      "corrected_segments": 741,
+      "normalized_path_hausdorff_mm": 3.1776437161565096e-14,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 1.3642420526593924e-12
+    },
+    {
+      "object": 2901,
+      "tool": 1,
+      "print_z_mm": 1.88,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 742,
+      "corrected_segments": 742,
+      "normalized_path_hausdorff_mm": 3.1776437161565096e-14,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 1.8189894035458565e-12
+    },
+    {
+      "object": 2901,
+      "tool": 1,
+      "print_z_mm": 2.0,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 403,
+      "corrected_segments": 403,
+      "normalized_path_hausdorff_mm": 4.0194366942304644e-14,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 1.3642420526593924e-12
+    },
+    {
+      "object": 2902,
+      "tool": 0,
+      "print_z_mm": 0.2,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 512,
+      "corrected_segments": 512,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2902,
+      "tool": 0,
+      "print_z_mm": 0.44,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 580,
+      "corrected_segments": 580,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2902,
+      "tool": 0,
+      "print_z_mm": 0.68,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 575,
+      "corrected_segments": 575,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2902,
+      "tool": 0,
+      "print_z_mm": 0.92,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 461,
+      "corrected_segments": 461,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2902,
+      "tool": 0,
+      "print_z_mm": 1.16,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 912,
+      "corrected_segments": 912,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2902,
+      "tool": 0,
+      "print_z_mm": 1.4,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 957,
+      "corrected_segments": 957,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2902,
+      "tool": 0,
+      "print_z_mm": 1.64,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 980,
+      "corrected_segments": 980,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2902,
+      "tool": 0,
+      "print_z_mm": 1.88,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 962,
+      "corrected_segments": 962,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2902,
+      "tool": 0,
+      "print_z_mm": 2.0,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 568,
+      "corrected_segments": 568,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2902,
+      "tool": 1,
+      "print_z_mm": 1.16,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 216,
+      "corrected_segments": 216,
+      "normalized_path_hausdorff_mm": 2.842170943040401e-14,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 3.126388037344441e-13
+    },
+    {
+      "object": 2902,
+      "tool": 1,
+      "print_z_mm": 1.4,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 219,
+      "corrected_segments": 219,
+      "normalized_path_hausdorff_mm": 2.842170943040401e-14,
+      "normalized_bounds_error_mm": 2.842170943040401e-14,
+      "total_path_length_difference_mm": 2.8421709430404007e-13
+    },
+    {
+      "object": 2902,
+      "tool": 1,
+      "print_z_mm": 1.64,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 219,
+      "corrected_segments": 219,
+      "normalized_path_hausdorff_mm": 2.842170943040401e-14,
+      "normalized_bounds_error_mm": 2.842170943040401e-14,
+      "total_path_length_difference_mm": 5.115907697472721e-13
+    },
+    {
+      "object": 2902,
+      "tool": 1,
+      "print_z_mm": 1.88,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 215,
+      "corrected_segments": 215,
+      "normalized_path_hausdorff_mm": 2.842170943040401e-14,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 3.410605131648481e-13
+    },
+    {
+      "object": 2902,
+      "tool": 1,
+      "print_z_mm": 2.0,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 210,
+      "corrected_segments": 210,
+      "normalized_path_hausdorff_mm": 2.842170943040401e-14,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 2.5579538487363607e-13
+    },
+    {
+      "object": 2902,
+      "tool": 1,
+      "print_z_mm": 2.24,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 215,
+      "corrected_segments": 215,
+      "normalized_path_hausdorff_mm": 2.842170943040401e-14,
+      "normalized_bounds_error_mm": 2.842170943040401e-14,
+      "total_path_length_difference_mm": 3.979039320256561e-13
+    },
+    {
+      "object": 2902,
+      "tool": 1,
+      "print_z_mm": 2.48,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 218,
+      "corrected_segments": 218,
+      "normalized_path_hausdorff_mm": 2.842170943040401e-14,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 3.126388037344441e-13
+    },
+    {
+      "object": 2903,
+      "tool": 0,
+      "print_z_mm": 0.2,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 512,
+      "corrected_segments": 512,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2903,
+      "tool": 0,
+      "print_z_mm": 0.44,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 580,
+      "corrected_segments": 580,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2903,
+      "tool": 0,
+      "print_z_mm": 0.68,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 575,
+      "corrected_segments": 575,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2903,
+      "tool": 0,
+      "print_z_mm": 0.92,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 461,
+      "corrected_segments": 461,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2903,
+      "tool": 0,
+      "print_z_mm": 1.16,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 912,
+      "corrected_segments": 912,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2903,
+      "tool": 0,
+      "print_z_mm": 1.4,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 957,
+      "corrected_segments": 957,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2903,
+      "tool": 0,
+      "print_z_mm": 1.64,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 980,
+      "corrected_segments": 980,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2903,
+      "tool": 0,
+      "print_z_mm": 1.88,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 962,
+      "corrected_segments": 962,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2903,
+      "tool": 0,
+      "print_z_mm": 2.0,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 568,
+      "corrected_segments": 568,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2903,
+      "tool": 1,
+      "print_z_mm": 1.16,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 216,
+      "corrected_segments": 216,
+      "normalized_path_hausdorff_mm": 2.842170943040401e-14,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 3.410605131648481e-13
+    },
+    {
+      "object": 2903,
+      "tool": 1,
+      "print_z_mm": 1.4,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 219,
+      "corrected_segments": 219,
+      "normalized_path_hausdorff_mm": 2.842170943040401e-14,
+      "normalized_bounds_error_mm": 2.842170943040401e-14,
+      "total_path_length_difference_mm": 2.8421709430404007e-13
+    },
+    {
+      "object": 2903,
+      "tool": 1,
+      "print_z_mm": 1.64,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 219,
+      "corrected_segments": 219,
+      "normalized_path_hausdorff_mm": 2.842170943040401e-14,
+      "normalized_bounds_error_mm": 2.842170943040401e-14,
+      "total_path_length_difference_mm": 5.115907697472721e-13
+    },
+    {
+      "object": 2903,
+      "tool": 1,
+      "print_z_mm": 1.88,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 215,
+      "corrected_segments": 215,
+      "normalized_path_hausdorff_mm": 2.842170943040401e-14,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 3.410605131648481e-13
+    },
+    {
+      "object": 2903,
+      "tool": 1,
+      "print_z_mm": 2.0,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 210,
+      "corrected_segments": 210,
+      "normalized_path_hausdorff_mm": 2.842170943040401e-14,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 2.5579538487363607e-13
+    },
+    {
+      "object": 2903,
+      "tool": 1,
+      "print_z_mm": 2.24,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 215,
+      "corrected_segments": 215,
+      "normalized_path_hausdorff_mm": 2.842170943040401e-14,
+      "normalized_bounds_error_mm": 2.842170943040401e-14,
+      "total_path_length_difference_mm": 3.979039320256561e-13
+    },
+    {
+      "object": 2903,
+      "tool": 1,
+      "print_z_mm": 2.48,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 218,
+      "corrected_segments": 218,
+      "normalized_path_hausdorff_mm": 2.842170943040401e-14,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 3.126388037344441e-13
+    }
+  ],
+  "maximum_normalized_path_error_mm": 4.0194366942304644e-14,
+  "physical_alignment": "Nameplate appearance accepted; these rings await their own physical finish check."
+}

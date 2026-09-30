@@ -4,7 +4,7 @@
     "left": "0.4 mm; black PET-GF; external 254",
     "right": "0.4 mm; white PET-GF; external 255"
   },
-  "status": "measured_nameplate_validation_pending",
+  "status": "nameplate_appearance_accepted",
   "measurement_job": "1294488907",
   "normal_nozzle_offset_calibration": "Auto",
   "selected_indices": {
@@ -20,7 +20,7 @@
     14
   ],
   "correction_implementation": "Bambu Studio native extruder_offset subtracts the configured offset from nominal model coordinates: right offset +0.50,-0.70 emits white correction -0.50,+0.70 mm. Nominal CAD and black cavity meshes are unchanged. Emitted paths are verified against the uncorrected native slice.",
-  "physical_validation": "Pending the face-up raised-artwork nameplate; Y choice remains tentative.",
+  "physical_validation": "Nameplate raised-artwork appearance accepted by the user; described as the best ink seen in the 0.4 mm PET-GF prints. Residual XY error and QR scanning remain unmeasured; the original Y selection was tentative.",
   "touchscreen_managed_calibration_required": false,
   "candidate_formulas": {
     "X": "-1.05 + 0.05 * selected_index",
@@ -40,5 +40,6 @@
     "0x0",
     "0.5x-0.7"
   ],
-  "validation_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-flat-wings-mark2-v3"
+  "validation_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-flat-wings-mark2-v3",
+  "appearance_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-flat-wings-mark2-v3/physical-result.json"
 }

@@ -1,0 +1,18 @@
+{
+  "observed_date_local": "2026-09-30",
+  "reporter": "user",
+  "printer": "Mark2",
+  "receiver_task_id": "1295207560",
+  "nameplate_task_id": "1294806669",
+  "fit_accepted_for_now": true,
+  "user_report": "Let's call that nameplate good enough for now.",
+  "slot_clearances_mm": {
+    "X_tip_at_center": 0.25,
+    "Y_above_seated_wing": 0.3,
+    "Z_ordinary_end": 0.15,
+    "Z_supported_end": 0.4
+  },
+  "residual_bow_mm": null,
+  "insertion_force_N": null,
+  "scope": "Provisional acceptance of this nameplate and receiver combination; no quantitative bow/force measurement or universal clearance rule."
+}

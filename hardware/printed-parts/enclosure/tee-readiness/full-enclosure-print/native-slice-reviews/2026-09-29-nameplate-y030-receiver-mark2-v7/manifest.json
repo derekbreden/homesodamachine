@@ -29,7 +29,9 @@
     "slice-command.json": "2d3058e4ef96a708f082ad69f0b8db4973c9e5d3e3f168df364bdf5398933240",
     "support-audit.json": "366ba3b40c11ef9275e60e13120c3fa7a4f1e2eed91bd6dbc02059df8474a9f9",
     "verification.json": "322e65d31503bb4d3e87b12c3a0313286e79080bd2974d414af8e6d472f9c2b6",
-    "postlaunch.json": "1e0d52c67574632df84a24ffe2559c1c27ca3f6f0919792b59a326fdb41c3a9e"
+    "postlaunch.json": "1e0d52c67574632df84a24ffe2559c1c27ca3f6f0919792b59a326fdb41c3a9e",
+    "physical-result.json": "60884c097a05201e3ecf69fcfee7dd9152ca52ad4f90134a12cc1c44ea42e640"
   },
-  "physical_result": "Pending same-nameplate fit comparison."
+  "physical_result": "Accepted for now by user on 2026-09-30.",
+  "physical_result_record": "physical-result.json"
 }

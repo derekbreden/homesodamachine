@@ -1,0 +1,145 @@
+{
+  "project": ".cache/prints/2026-09-30-bulkhead-raised-mark2-v2/tap-flavor-raised-face-up-z004-mark2-v2-input.3mf",
+  "project_sha256": "58195593877b97582e5ea84446bbc872d8c189ccf2a688fad946e6f05c90256a",
+  "source_geometry_and_settings_sha256": {
+    "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/raised_rings.py": "ef5f4a412425e55b400d8f09f81e6fa83e5942fdd61e9c6c737164ac6352fa5d",
+    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py": "490207b4fa6b1a6ad69897386ca661ae7ecd4eaf1d21f4d54280d01a539bf2b7",
+    "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/bulkhead-ring-water-raised.step": "6d1d2bb0cfa38e480f79d567f4edac834ea376955ac8b8f493851722c7fd9fee",
+    "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/bulkhead-ring-water-raised.stl": "f2fb58152dbcd184b7602ee77434bd02cca65e33e5170348723807003430852b",
+    "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/bulkhead-ring-flavor-a-raised.step": "efaa44a307a13f6ef79d57b8deb606b94a257f68051f50802a38ba09240e3b28",
+    "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/bulkhead-ring-flavor-a-raised.stl": "71da1bef6b58179af087bd7cad61d2261b6af5a8204bcb7a3d4ad1e3b6902360",
+    "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/bulkhead-ring-flavor-b-raised.step": "a7782a38db70145c2f13fe2b6039e4c1403edfa0c39aae4915d365447691ffd1",
+    "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/bulkhead-ring-flavor-b-raised.stl": "71da1bef6b58179af087bd7cad61d2261b6af5a8204bcb7a3d4ad1e3b6902360",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf": "84c5011c0be15dd9aab41a516abe85bf99b08e2c80d91375b5f2608a96bc0e72",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "hardware/printed-parts/calibration/dual-nozzle-registration/mark2-registration.json": "07ae8fcf4ea2fca75a5bcffd182d397475fc359bbae6cfed000482b5e7f3a4c9",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-y030-receiver-mark2-v7/physical-result.json": "60884c097a05201e3ecf69fcfee7dd9152ca52ad4f90134a12cc1c44ea42e640",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-flat-wings-mark2-v3/physical-result.json": "07812fb1d5ea843758efa5d8b9a0458d00872cea9c09237116628ba30dfaeb30",
+    "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/geometry-check.json": "65110c130781621d59350e5e0bc3dbc5233588870a6a0546759a9dd30cf4fca2",
+    "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/prepare_print.py": "3f9c97329b71a86563e5301e49569248bbd346b3d82d421bf7b135becc6f9c3a"
+  },
+  "printer": "Mark2",
+  "parts": [
+    {
+      "station": "water",
+      "part": "body",
+      "filament": 2,
+      "bounds": [
+        [
+          -18.48,
+          -18.634500050000003,
+          -2.0516921495072893e-15
+        ],
+        [
+          18.480000000000004,
+          18.634499950000002,
+          2.000000100000003
+        ]
+      ]
+    },
+    {
+      "station": "water",
+      "part": "lettering",
+      "filament": 1,
+      "bounds": [
+        [
+          -6.328613331249999,
+          12.615888621874998,
+          1.000000100000001
+        ],
+        [
+          6.328613231250001,
+          17.294111278124998,
+          2.480000100000003
+        ]
+      ]
+    },
+    {
+      "station": "flavor-a",
+      "part": "body",
+      "filament": 1,
+      "bounds": [
+        [
+          -18.48,
+          -18.634500050000003,
+          -2.0516921495072893e-15
+        ],
+        [
+          18.480000000000004,
+          18.634499950000002,
+          2.000000100000003
+        ]
+      ]
+    },
+    {
+      "station": "flavor-a",
+      "part": "lettering",
+      "filament": 2,
+      "bounds": [
+        [
+          -12.976196339062499,
+          12.479414012499998,
+          1.0000000999999996
+        ],
+        [
+          12.976196239062501,
+          17.430585887499998,
+          2.4800001000000034
+        ]
+      ]
+    },
+    {
+      "station": "flavor-b",
+      "part": "body",
+      "filament": 1,
+      "bounds": [
+        [
+          -18.48,
+          -18.634500050000003,
+          -2.0516921495072893e-15
+        ],
+        [
+          18.480000000000004,
+          18.634499950000002,
+          2.000000100000003
+        ]
+      ]
+    },
+    {
+      "station": "flavor-b",
+      "part": "lettering",
+      "filament": 2,
+      "bounds": [
+        [
+          -12.976196339062499,
+          12.479414012499998,
+          1.0000000999999996
+        ],
+        [
+          12.976196239062501,
+          17.430585887499998,
+          2.4800001000000034
+        ]
+      ]
+    }
+  ],
+  "identify_ids": {
+    "2901": "water",
+    "2902": "flavor-a",
+    "2903": "flavor-b"
+  },
+  "orientation": "Face up. Existing fitting seat on the bed, lettering above Z=2.0 mm.",
+  "requested_z_trim_mm": 0.04,
+  "support_policy": "No supports.",
+  "calibration_applied": true,
+  "submitted": false,
+  "white_correction_mm": {
+    "X": -0.5,
+    "Y": 0.7
+  },
+  "native_extruder_offset": [
+    "0x0",
+    "0.5x-0.7"
+  ],
+  "correction_scope": "White nozzle paths, including the TAP body and both FLAVOR words. Nominal CAD unchanged."
+}

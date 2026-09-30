@@ -2516,7 +2516,7 @@
       ],
       "job_name": "nameplate-y030-receiver-tree-z004-mark2-v7.gcode.3mf",
       "printer_task_id": "1295207560",
-      "status": "started",
+      "status": "completed",
       "observed_at_utc": "2026-09-30T04:36:07.816244+00:00",
       "observed_state_at_acceptance": "RUNNING",
       "sliced_file": ".cache/prints/2026-09-29-nameplate-y030-receiver-mark2-v7/ready/nameplate-y030-receiver-tree-z004-mark2-v7.gcode.3mf",
@@ -2531,7 +2531,7 @@
         "Nozzle Offset Calibration": "Auto"
       },
       "review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-y030-receiver-mark2-v7",
-      "physical_result": "Pending same-nameplate fit comparison.",
+      "physical_result": "Nameplate fit accepted for now by user on 2026-09-30.",
       "Y_slot_gap_total_mm": 0.3,
       "Y_slot_thickness_mm": 1.98,
       "wing_thickness_mm": 1.68,
@@ -2543,7 +2543,43 @@
         "ordinary": 0.15,
         "rough": 0.4
       },
-      "startup_spacing_seconds": 6668.981364
+      "startup_spacing_seconds": 6668.981364,
+      "physical_result_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-y030-receiver-mark2-v7/physical-result.json"
+    },
+    {
+      "date": "2026-09-30",
+      "printer": "Mark2",
+      "parts": [
+        "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/bulkhead-ring-water-raised.stl",
+        "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/bulkhead-ring-flavor-a-raised.stl",
+        "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/bulkhead-ring-flavor-b-raised.stl"
+      ],
+      "job_name": "tap-flavor-raised-face-up-z004-mark2-v2.gcode.3mf",
+      "printer_task_id": "1295298484",
+      "status": "started",
+      "observed_at_utc": "2026-09-30T05:41:53.694673+00:00",
+      "observed_state_at_acceptance": "RUNNING",
+      "sliced_file": ".cache/prints/2026-09-30-bulkhead-raised-mark2-v2/ready/tap-flavor-raised-face-up-z004-mark2-v2.gcode.3mf",
+      "sliced_file_sha256": "3df1d733ba01a9c11ca2331a6bc132bd72522eb23516d031f701b352b2aea667",
+      "gcode_sha256": "7d893db494bbcd623371e10fb97ef39e57854a67e5969a3dc99857470b37c316",
+      "estimated_seconds": 1597.11181640625,
+      "filament_grams": 8.24829912185669,
+      "print_options": {
+        "Timelapse": "On",
+        "Auto bed leveling": "On",
+        "Flow dynamic calibration": "Auto",
+        "Nozzle Offset Calibration": "Auto"
+      },
+      "white_correction_mm": {
+        "X": -0.5,
+        "Y": 0.7
+      },
+      "raised_letter_height_mm": 0.48,
+      "mounting_thickness_mm": 2.0,
+      "supports": false,
+      "review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-bulkhead-raised-mark2-v2",
+      "physical_result": "Pending collar finish and fitting check.",
+      "startup_spacing_seconds": 10614.859793
     }
   ]
 }
