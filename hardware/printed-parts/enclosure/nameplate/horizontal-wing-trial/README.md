@@ -16,7 +16,7 @@ are unmeasured.
 ## Static fit
 
 The body has 0.35 mm of X clearance per side, each nonlocating wing tip has
-0.45 mm centered X clearance, and the wing thickness gap is 0.30 mm. These
+0.45 mm centered X clearance, and the wing thickness gap is 0.45 mm. These
 are local fit trials. Z gaps use `../../../cadlib/fits.py`. This plate is inserted by
 hand and has no sliding-fit or low-force additions.
 
@@ -29,34 +29,31 @@ hand and has no sliding-fit or low-force additions.
 | Wing tip to slot end in X | 0.45 mm each at center; 0.10 mm minimum at full body X float |
 | Wing ordinary Z end | 0.15 mm |
 | Wing print-down Z end | 0.15 + 0.25 mm for the rough receiver face |
-| Wing top to flat retaining bearing | 0.30 mm total; 1.98 mm slot for a 1.68 mm wing |
+| Wing top to flat retaining bearing | 0.45 mm total; 2.13 mm slot for a 1.68 mm wing |
 | Plate back and wing undersides at the seating datum | 0 mm |
 
 The body and wing limits constrain the same motion; their gaps do not add to
 each other. The dimensions above are pure-axis limits. Rounded corners constrain
 combined translations. The receiver prints with assembled −Z as build-up, so its
 negative-Z pocket ends receive the directional rough-face allowance. Y slot walls
-print vertically. The 0.30 mm Y gap is a local pinching test, not a
+print vertically. The 0.45 mm Y gap is a local pinching test, not a
 rough-overhang or low-force allowance.
 
 The body establishes X location. Its wing tips have another 0.10 mm of relief
 beyond the body gap to avoid redundant location in narrow slots. The Z ends
-retain their standard allowances. The
-[physical observation](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-tip025-receiver-mark2-v6/physical-result.json)
-records bowing when engaged and flatness when removed or placed inverted with
-the wings disengaged. This receiver tests body-width pinching with the existing
-nameplate. The Y=0 seating floor, 0.30 mm wing-thickness gap, Z gaps and entry
-bevel planes are fixed. Only the full-depth body X pocket and wing-slot X ends
-are relieved. The [physical result](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-nameplate-body-x035-receiver-mark2-v8/physical-result.json)
-shows lateral X movement with bowing throughout that movement. The specific
-printed contact remains unmeasured.
+retain their standard allowances. The [physical result](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-nameplate-body-x035-receiver-mark2-v8/physical-result.json)
+records lateral X movement with bowing throughout that movement, and wings
+that feel tight in Y. The specific printed contact remains unmeasured. This
+receiver tests the wing-thickness fit with the existing nameplate. The seating
+floor stays at Y=0, with 0.45 mm above each wing. X and Z gaps remain fixed.
 
 The entry bevel is 1.10 mm wide and 0.40 mm deep at each slot mouth. It clears the
 wing's rotation during hand-bent insertion. The outer flat bearing keeps the
-0.30 mm seated gap. At full lateral float, each wing retains at least 1.70 mm of
+0.45 mm seated gap. At full lateral float, each wing retains at least 1.70 mm of
 geometric overlap and 0.80 mm of flat bearing width. The bevel's inboard datum
-is X=±(body half-width + 0.15 mm); its plane stays fixed as the body mouth opens.
-The retaining lip is 1.38 mm thick over the flat bearing.
+is X=±(body half-width + 0.15 mm); its Y position follows the slot roof while
+its width and slope stay fixed.
+The retaining lip is 1.23 mm thick over the flat bearing.
 
 `wing_interface.py` supplies the reusable wall cutter. The [physical observation](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-y030-receiver-mark2-v7/physical-result.json)
 records remaining bowing. Full-enclosure integration remains separate. Use the
@@ -83,7 +80,8 @@ layers at 3.60 and 3.84 mm. Saved speeds, wall order and 15% infill overlap appl
 `prepare_receiver.py` and `verify_receiver.py` create and check the receiver-only
 comparison on Mark2. It uses 0.20 mm followed by 0.24 mm layers, shared tree
 supports and the existing flat nameplate. Its
-[slice review](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-nameplate-body-x035-receiver-mark2-v8/README.md)
-records the native estimate and an exact geometry comparison confined to
-the full-depth body X pocket and wing-slot X ends. Use the existing flat nameplate
-for physical bow, insertion and retention assessment.
+[slice review](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-nameplate-y045-receiver-mark2-v9/README.md)
+records the native estimate and an exact geometry comparison confined to the
+wing-slot retaining faces and their entry bevels. The emitted slot opening and
+retaining-lip stock are measured across both flat bearing regions. Use the existing
+flat nameplate for physical bow, insertion and retention assessment.

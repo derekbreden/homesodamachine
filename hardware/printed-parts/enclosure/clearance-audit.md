@@ -27,10 +27,11 @@ These tips need capture, not a second X locating fit. This trial allowance does
 not add to every face or establish a low-force rule.
 
 The [nameplate receiver trial](nameplate/horizontal-wing-trial/README.md) uses
-a separate 0.30 mm total thickness gap above its 1.68 mm seated wing. This local
-body-X pinching test keeps the seating floor, thickness gap, Z gaps and entry
-bevel planes fixed. The wing-slot X ends allow the body's wider X motion.
-It is not a change to the shared static clearance.
+a separate 0.45 mm total thickness gap above its 1.68 mm seated wing. This local
+Y-fit test keeps the seating floor and X/Z gaps fixed. The retaining face and
+entry bevel define a 2.13 mm slot with 1.23 mm of stock over its flat bearing.
+The physical comparison uses the existing nameplate; the shared static rule
+remains unchanged.
 
 The [face-up display receiver](display-cover/face-up-trial/README.md) uses
 0.50 mm per side around the body's full-depth X seating pocket. The wing tips

@@ -1,0 +1,107 @@
+{
+  "schema": 1,
+  "piece": "nameplate-flat-wing-receiver",
+  "inputs": {
+    "gcode": "plate_1.gcode",
+    "gcode_sha256": "07a83f8ae725f9f791eb68471c1f1f929d57a06839a0ed0137ccee6a60e01140",
+    "model": null,
+    "model_sha256": null,
+    "profile": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-30-nameplate-y045-receiver-mark2-v9/nameplate-y045-receiver-tree-z004-mark2-v9-input.3mf",
+    "profile_sha256": "6aef728d7a6df355f7d450896145154c281f6db1ff1c16cc1c4764ec4e6560e1"
+  },
+  "slicer": "BambuStudio 02.08.02.61",
+  "first_layer_z_mm": 0.2,
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      -1.0,
+      0.0,
+      0.0,
+      0.0,
+      -1.0,
+      -162.5,
+      159.879999995,
+      23.0
+    ]
+  },
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.45",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "support_bodies": 1,
+    "interface_islands": 1,
+    "bed_rooted_bodies": 1,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 41.28,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 1,
+    "shortest_labelled_build_up_mm": 41.28
+  },
+  "trees": [
+    {
+      "id": "tree-1",
+      "root": "bed",
+      "base_z_mm": 0.2,
+      "first_interface_z_mm": 41.48,
+      "shortest_build_up_mm": 41.28,
+      "top_z_mm": 41.96,
+      "bbox_xy_mm": [
+        113.2,
+        144.4,
+        213.6,
+        159.2
+      ],
+      "interfaces": [
+        "interface-1"
+      ],
+      "interface_reading": "explicit_feature",
+      "bbox_cad_xyz_mm": [
+        -49.3,
+        0.68,
+        -18.96,
+        51.1,
+        15.48,
+        22.8
+      ]
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "interface-1",
+      "first_z_mm": 41.48,
+      "last_z_mm": 41.96,
+      "bbox_xy_mm": [
+        113.2,
+        156.4,
+        213.2,
+        159.2
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 41.28,
+      "bbox_cad_xyz_mm": [
+        -49.3,
+        0.68,
+        -18.96,
+        50.7,
+        3.48,
+        -18.48
+      ]
+    }
+  ],
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+  "removal_access": "Inspect tree branches through the open front before installing the plate. No support bead enters either sideways wing slot. Bead clearance does not establish physical removal effort.",
+  "physical_removal_tested": false
+}

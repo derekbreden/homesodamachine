@@ -1,4 +1,4 @@
-[sliver] This 0.36 mm face is the edge of the rear pad's run-out, joined continuously to the receiver wall. It is not the thickness of the retaining lip or a freestanding strip. The functional retaining lip is 1.38 mm thick over the flat bearing; native paths retain a single receiver body.
+[sliver] This 0.36 mm face is the edge of the rear pad's run-out, joined continuously to the receiver wall. It is not the thickness of the retaining lip or a freestanding strip. The functional retaining lip is 1.23 mm thick over the flat bearing; native paths retain a single receiver body.
 click: x=0.000 y=0.180 z=21.150
 
 [ceiling] The coupon prints with installed -Z as build-up, matching back-top. These -Z faces therefore point upward during this print. The native slice separately audits the real print-down contacts with the shared tree support profile.
