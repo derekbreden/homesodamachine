@@ -42,3 +42,14 @@ match the live STEP and viewer payload.
 [Launch](launch.json) records the accepted job and more than three minutes of
 spacing after H2C's display receiver. [Postlaunch](postlaunch.json) confirms the
 matching task is RUNNING without errors.
+
+[Physical result](physical-result.json): lateral X movement is present, but bowing
+persists throughout that movement. The user describes the wings as held down.
+The amount of X travel, bow and wing Y play are unmeasured; the specific contact
+surface is unresolved. This trial does not establish a successful fit.
+
+[Emitted slot check](slot-envelope-check.json) finds a nominal 1.98 mm opening
+between the floor and flat retaining bearing in 468 sections across both wing
+slots. The matching nominal wing is 1.68 mm thick. These bead envelopes preserve
+the intended 0.30 mm gap; they cannot measure printed distortion or contact at
+the slot ends, corners or seating plane.

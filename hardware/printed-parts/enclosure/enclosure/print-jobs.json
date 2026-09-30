@@ -2661,7 +2661,7 @@
       ],
       "job_name": "nameplate-body-x035-receiver-tree-z004-mark2-v8.gcode.3mf",
       "printer_task_id": "1296373726",
-      "status": "started",
+      "status": "completed",
       "observed_at_utc": "2026-09-30T15:01:53.496691+00:00",
       "observed_state_at_acceptance": "RUNNING",
       "sliced_file": ".cache/prints/2026-09-30-nameplate-body-x035-receiver-mark2-v8/ready/nameplate-body-x035-receiver-tree-z004-mark2-v8.gcode.3mf",
@@ -2676,7 +2676,7 @@
         "Nozzle Offset Calibration": "Auto"
       },
       "review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-nameplate-body-x035-receiver-mark2-v8",
-      "physical_result": "Pending same-nameplate bow, insertion and retention comparison.",
+      "physical_result": "Lateral X movement is present, but bowing persists throughout it. User describes wings held down; specific contact surface is unmeasured.",
       "body_X_clearance_per_side_mm": 0.35,
       "wing_tip_X_clearance_centered_mm": 0.45,
       "wing_tip_X_clearance_at_body_limit_mm": 0.1,
@@ -2689,7 +2689,8 @@
       "minimum_flat_bearing_mm": 0.8,
       "existing_nameplate_sha256": "a40a37c889f993742b1f4cc9f8e5e3b4f18f831bee2fe8e686a67b209611c434",
       "geometry_scope": "Only body X opening and wing-slot X ends; Y and Z gaps, seating datum and bevel planes fixed.",
-      "startup_spacing_seconds": 1465.070409
+      "startup_spacing_seconds": 1465.070409,
+      "physical_result_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-nameplate-body-x035-receiver-mark2-v8/physical-result.json"
     }
   ]
 }

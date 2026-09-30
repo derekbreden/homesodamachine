@@ -47,7 +47,9 @@ records bowing when engaged and flatness when removed or placed inverted with
 the wings disengaged. This receiver tests body-width pinching with the existing
 nameplate. The Y=0 seating floor, 0.30 mm wing-thickness gap, Z gaps and entry
 bevel planes are fixed. Only the full-depth body X pocket and wing-slot X ends
-are relieved. The specific printed contact remains unmeasured.
+are relieved. The [physical result](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-nameplate-body-x035-receiver-mark2-v8/physical-result.json)
+shows lateral X movement with bowing throughout that movement. The specific
+printed contact remains unmeasured.
 
 The entry bevel is 1.10 mm wide and 0.40 mm deep at each slot mouth. It clears the
 wing's rotation during hand-bent insertion. The outer flat bearing keeps the
