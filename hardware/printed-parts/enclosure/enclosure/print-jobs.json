@@ -2809,6 +2809,55 @@
       "startup_spacing_seconds": 288.243222,
       "wing_thickness_axis": "display local Z; corresponds to nameplate Y",
       "body_Y_clearance_per_side_mm": 0.15
+    },
+    {
+      "date": "2026-09-30",
+      "printer": "Mark2",
+      "parts": [
+        "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/tee-carrier-low-force.stl"
+      ],
+      "job_name": "tee-carrier-low-force050-filled-bottom-024-black-z004-mark2-v16.gcode.3mf",
+      "printer_task_id": "1297480230",
+      "status": "started",
+      "observed_at_utc": "2026-09-30T22:25:06.578180+00:00",
+      "observed_state_at_acceptance": "PREPARE",
+      "sliced_file": ".cache/prints/2026-09-30-tee-low-force050-mark2-v16/ready/tee-carrier-low-force050-filled-bottom-024-black-z004-mark2-v16.gcode.3mf",
+      "sliced_file_sha256": "a9652de3687d7a1e15796ae8a3e91f01e616af0daef5c727000af6e0cdbf1cfc",
+      "gcode_sha256": "9493b92ed39bd8d51f4aeabfbfd129dff4fb4e22658386fc96db04a7f5845ac2",
+      "estimated_seconds": 6340.25830078125,
+      "filament_grams": 55.81999588012695,
+      "print_options": {
+        "Timelapse": "On",
+        "Auto bed leveling": "On",
+        "Flow dynamic calibration": "Auto",
+        "Nozzle Offset Calibration": "Auto"
+      },
+      "review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-tee-low-force050-mark2-v16",
+      "z_offset_mm": 0.04,
+      "effective_textured_plate_trim_mm": 0.02,
+      "roof_clearance_mm": 1.0,
+      "floor_clearance_mm": 0.25,
+      "clearance_basis": {
+        "roof_running_mm": 0.25,
+        "roof_supported_face_mm": 0.25,
+        "roof_low_force_extra_mm": 0.5,
+        "floor_running_mm": 0.25,
+        "total_vertical_play_mm": 1.25
+      },
+      "supports": false,
+      "initial_layer_height_mm": 0.2,
+      "bottom_and_body_layer_height_mm": 0.24,
+      "top_round_layer_height_mm": 0.08,
+      "wall_loops": {
+        "transition_print_z_mm": [
+          0,
+          6.1
+        ],
+        "transition": 6,
+        "elsewhere": 2
+      },
+      "startup_spacing_seconds": 5014.770677,
+      "physical_result": "Pending free sliding, spring return and unwanted-play assessment with the existing front-top."
     }
   ]
 }

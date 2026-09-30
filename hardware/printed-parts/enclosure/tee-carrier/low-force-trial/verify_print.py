@@ -47,7 +47,10 @@ def main():
         metadata={e.get('key'):e.get('value') for e in plate.findall('metadata')}
         assert metadata['outside']=='false' and metadata['support_used']=='false'
     text=gc.decode();trims=[float(z) for z in re.findall(r'^\s*G29\.1 Z([-+.\d]+)',text,re.M)]
-    assert trims==[0.,.16]
+    assert report['printer']==prep.PRINTER=='Mark2'
+    assert report['requested_z_trim_mm']==prep.Z_TRIM==.04
+    assert report['expected_textured_plate_trim_mm']==.02
+    assert trims==[0.,report['expected_textured_plate_trim_mm']]
     assert not any('support' in f.lower() for f in re.findall(r'^; FEATURE: (.*)',text,re.M))
     # The slicer can repeat a Z with heights differing only in round-off digits.
     # Count physical Z levels once while still rejecting conflicting heights.
@@ -122,7 +125,7 @@ def main():
            'supports':support['summary'],'emitted_z_trim_mm':trims,'initial_layer_height_mm':.2,
            'first_layer_overlap':overlap,'layer_count':len(layers),'estimated_seconds':sliced['total_predication'],
            'estimated_grams_saved_profile_density':sum(f['total_used_g'] for f in sliced['filaments']),
-           'printer':'H2C','left_external_black_petgf':True,'submitted':False}
+           'printer':report['printer'],'left_external_black_petgf':True,'submitted':False}
     (JOB/'verification.json').write_text(json.dumps(proof,indent=2)+'\n')
     print(json.dumps({k:proof[k] for k in ('pass','layer_count','estimated_seconds','estimated_grams_saved_profile_density')},indent=2))
 

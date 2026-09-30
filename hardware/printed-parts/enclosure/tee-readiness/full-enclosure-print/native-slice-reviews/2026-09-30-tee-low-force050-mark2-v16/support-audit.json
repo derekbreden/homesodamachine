@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "piece": "tee-carrier-low-force",
+  "inputs": {
+    "gcode": "plate_1.gcode",
+    "gcode_sha256": "9493b92ed39bd8d51f4aeabfbfd129dff4fb4e22658386fc96db04a7f5845ac2",
+    "model": null,
+    "model_sha256": null,
+    "profile": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-30-tee-low-force050-mark2-v16/tee-carrier-low-force050-filled-bottom-024-black-z004-mark2-v16-input.3mf",
+    "profile_sha256": "e909c82590a46f20409a661264ad28668b844b9f86db29d40f36d7e9abee1c9e"
+  },
+  "slicer": "BambuStudio 02.08.02.61",
+  "first_layer_z_mm": 0.2,
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      -0.0,
+      -0.0,
+      0.0,
+      1.0,
+      0.0,
+      -1.0,
+      0.0,
+      -162.5,
+      117.040000915,
+      34.36000061
+    ]
+  },
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.45",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "support_bodies": 0,
+    "interface_islands": 0,
+    "bed_rooted_bodies": 0,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 0,
+    "shortest_labelled_build_up_mm": null
+  },
+  "trees": [],
+  "interfaces": [],
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up."
+}

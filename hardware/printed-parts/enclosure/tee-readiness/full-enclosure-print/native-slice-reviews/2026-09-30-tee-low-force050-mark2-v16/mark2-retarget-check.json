@@ -1,0 +1,14 @@
+{
+  "pass": true,
+  "reference_h2c_input": ".cache/prints/2026-09-29-tee-low-force050-h2c-v7/tee-carrier-low-force050-filled-bottom-024-black-z018-h2c-v7-input.3mf",
+  "mark2_input": ".cache/prints/2026-09-30-tee-low-force050-mark2-v16/tee-carrier-low-force050-filled-bottom-024-black-z004-mark2-v16-input.3mf",
+  "changed_setting_keys": [
+    "machine_start_gcode",
+    "printer_settings_id"
+  ],
+  "start_gcode_change": "Only G29.1 bed trim and its label, requested +0.18 to +0.04 mm; native verification confirms emitted +0.02 mm textured-plate trim",
+  "project_title_change": "H2C to Mark2",
+  "layer_config_ranges_identical": true,
+  "embedded_object_meshes_identical": true,
+  "placement_and_model_structure_identical": true
+}
