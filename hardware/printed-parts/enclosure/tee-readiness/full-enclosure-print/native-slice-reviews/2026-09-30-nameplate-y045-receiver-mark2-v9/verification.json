@@ -1,0 +1,69 @@
+{
+  "pass": true,
+  "printer": "Mark2",
+  "native_archive": ".cache/prints/2026-09-30-nameplate-y045-receiver-mark2-v9/ready/nameplate-y045-receiver-tree-z004-mark2-v9.gcode.3mf",
+  "native_archive_sha256": "e75ae15b93b64071f4c2a68adea7cad0f989a993832f7676b2316cd22619e0f4",
+  "gcode_sha256": "07a83f8ae725f9f791eb68471c1f1f929d57a06839a0ed0137ccee6a60e01140",
+  "source_hashes_current": true,
+  "model_layers": 192,
+  "independent_support_layers": true,
+  "enclosure_build_direction": -1.0,
+  "support_profile_differences": {
+    "support_filament": {
+      "profile": "0",
+      "receiver": "1"
+    },
+    "support_interface_filament": {
+      "profile": "0",
+      "receiver": "1"
+    }
+  },
+  "emitted_z_trim_mm": [
+    0.0,
+    0.02
+  ],
+  "slot_support_clearance_checks": [
+    {
+      "side": "left",
+      "sum_of_support_bead_intersection_areas_mm2": 0.0
+    },
+    {
+      "side": "right",
+      "sum_of_support_bead_intersection_areas_mm2": 0.0
+    }
+  ],
+  "slot_bearing_envelopes": {
+    "sections": 468,
+    "floor_Y_range_mm": [
+      -4.768367034557741e-09,
+      -4.768367034557741e-09
+    ],
+    "roof_Y_range_mm": [
+      2.1299999952316284,
+      2.1299999952316284
+    ],
+    "slot_Y_opening_range_mm": [
+      2.1299999999999955,
+      2.1299999999999955
+    ],
+    "flat_lip_Y_stock_range_mm": [
+      1.2300000000000182,
+      1.2300000000000182
+    ],
+    "scope": "Nominal outer-wall bead envelopes across flat bearings in the central 28 mm of both slots; physical distortion and end/corner contact are unmeasured."
+  },
+  "support_summary": {
+    "support_bodies": 1,
+    "interface_islands": 1,
+    "bed_rooted_bodies": 1,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 41.28,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 1,
+    "shortest_labelled_build_up_mm": 41.28
+  },
+  "support_removal": "Physical trial pending; front-access lane verified.",
+  "estimated_seconds": 2583.60302734375,
+  "estimated_grams_saved_profile_density": 20.06842803955078,
+  "submitted": false
+}

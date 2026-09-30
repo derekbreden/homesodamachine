@@ -46,6 +46,36 @@ def main():
     print_centre=np.array(prepared['shared_printable_area_mm']).mean(axis=0)
     tx,ty=print_centre[0]-centre[0],print_centre[1]+centre[1]
     zmax=mesh.bounds[1,2]
+    # Measure emitted bead envelopes across both flat slot bearings. The Y-fit
+    # trial must survive slicing; this does not measure physical bead distortion.
+    bearing_checks=[]
+    for layer in sorted({r['layer'] for r in roads if abs(zmax-r['layer'])<=14}):
+        walls=[r for r in roads if r['layer']==layer and r['feature']=='Outer wall']
+        for side in (-1,1):
+            for beyond in (1.55,2.0):
+                x=tx+side*(interface.WIDTH/2+beyond)
+                cut=LineString(((x,ty-interface.THICK-.5),(x,ty+1)))
+                beads=[]
+                for r in walls:
+                    if min(r['a'][0],r['b'][0])-r['width']/2<=x<=max(r['a'][0],r['b'][0])+r['width']/2:
+                        piece=LineString((r['a'],r['b'])).buffer(r['width']/2).intersection(cut)
+                        if not piece.is_empty:beads.append(piece)
+                section=unary_union(beads)
+                pieces=list(section.geoms) if hasattr(section,'geoms') else [section]
+                bands=sorted((ty-p.bounds[3],ty-p.bounds[1]) for p in pieces if not p.is_empty)
+                floor=max(b for a,b in bands if b<.8)
+                roof=min(a for a,b in bands if a>1.2)
+                outer=max(b for a,b in bands if a>1.2)
+                assert abs(floor)<.015 and abs(roof-(interface.WING_THICK+interface.THICKNESS_AIR))<.015
+                assert outer-roof>=1.2-.015,(layer,side,outer-roof)
+                bearing_checks.append((floor,roof,roof-floor,outer-roof))
+    assert bearing_checks
+    bearing_envelope={'sections':len(bearing_checks),
+        'floor_Y_range_mm':[min(c[0] for c in bearing_checks),max(c[0] for c in bearing_checks)],
+        'roof_Y_range_mm':[min(c[1] for c in bearing_checks),max(c[1] for c in bearing_checks)],
+        'slot_Y_opening_range_mm':[min(c[2] for c in bearing_checks),max(c[2] for c in bearing_checks)],
+        'flat_lip_Y_stock_range_mm':[min(c[3] for c in bearing_checks),max(c[3] for c in bearing_checks)],
+        'scope':'Nominal outer-wall bead envelopes across flat bearings in the central 28 mm of both slots; physical distortion and end/corner contact are unmeasured.'}
     # Check every support bead against both slots and their entry bevels.
     slots=[]
     for side in (-1,1):
@@ -74,13 +104,14 @@ def main():
     result=json.loads((JOB/'ready/result.json').read_text());assert result['return_code']==0
     sliced,=result['sliced_plates'];assert not sliced['warning_message']
     assert interface.TIP_AIR==.45 and interface.FACE_X_AIR==.35 and interface.FACE_SLIP==.15
-    assert interface.THICKNESS_AIR==.30 and interface.WING_THICK==1.68
+    assert interface.THICKNESS_AIR==.45 and interface.WING_THICK==1.68
     record={'pass':True,'printer':'Mark2','native_archive':str(native.relative_to(ROOT)),
             'native_archive_sha256':sha(native),'gcode_sha256':hashlib.sha256(gc).hexdigest(),
             'source_hashes_current':True,'model_layers':len(layers),'independent_support_layers':True,
             'enclosure_build_direction':prepared['enclosure_build_direction'],
             'support_profile_differences':prepared['support_profile_differences'],
             'emitted_z_trim_mm':trims,'slot_support_clearance_checks':slot_overlaps,
+            'slot_bearing_envelopes':bearing_envelope,
             'support_summary':a['summary'],'support_removal':'Physical trial pending; front-access lane verified.',
             'estimated_seconds':sliced['total_predication'],
             'estimated_grams_saved_profile_density':sum(f['total_used_g'] for f in sliced['filaments']),
