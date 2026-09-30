@@ -32,3 +32,7 @@ not a force, fatigue or corner-motion test. Geometry lint has zero unanswered
 findings. [Launch](launch.json) records printer acceptance and startup spacing.
 Support removal, bow and shake retention remain physical tests. Full enclosure
 integration also requires the deeper display-module and rear-housing check.
+
+The [physical result](physical-result.json) records engaged bowing. The inverted
+cover checks only partial depth because its wings rest above the opening. The
+responsible body or wing contact has not been isolated.

@@ -3,6 +3,7 @@
 X runs across the screen, Y up it and Z out of the visible face. The cover's
 back and both wings share one bed plane. The glass seat follows that back plane.
 """
+import argparse
 import hashlib
 import json
 import math
@@ -28,11 +29,13 @@ WING_REACH = 3.60
 WING_SPAN = 70.0
 WING_END_R = .60
 fits = cover.dims.fits
-FACE_AIR = fits.slip
+FACE_X_AIR = .30
+FACE_Y_AIR = fits.slip
 # The bedded wing has a smooth top; the receiver's retaining roof is supported.
-BEARING_AIR = fits.slip+fits.supported_surface
+BEARING_RELIEF = .20
+BEARING_AIR = fits.slip+fits.supported_surface+BEARING_RELIEF
 # The bezel locates X; these tips do not need to register against slot ends.
-TIP_AIR = .25
+TIP_AIR = FACE_X_AIR+.25
 END_AIR = fits.slip
 LIP_THICK = THICK-WING_THICK-BEARING_AIR
 BACK = -THICK
@@ -63,8 +66,8 @@ def build_cover():
 def receiver_surround():
     d = cover.dims
     body = box(-WIDTH/2, WIDTH/2, -HEIGHT/2, HEIGHT/2, -FRAME_THICK, 0)
-    inset = cover.rounded_prism(cover.cover_x+2*FACE_AIR, cover.cover_slope+2*FACE_AIR,
-                               cover.cover_corner_r+FACE_AIR, BACK, 1)
+    inset = cover.rounded_prism(cover.cover_x+2*FACE_X_AIR, cover.cover_slope+2*FACE_Y_AIR,
+                               cover.cover_corner_r+FACE_Y_AIR, BACK, 1)
     glass = cover.rounded_prism(d.display_bezel_x+2*d.fits.slip, d.display_bezel_slope+2*d.fits.slip,
                                d.display_corner_r+d.fits.slip, GLASS_SEAT, 1)
     pcb = box(accepted.PCB_OFFSET[0]-accepted.PCB_WIDTH/2, accepted.PCB_OFFSET[0]+accepted.PCB_WIDTH/2,
@@ -115,15 +118,15 @@ def build_receiver():
     return body.clean().translate((0, 0, -BASE_Z))
 
 
-def main():
+def main(receiver_only=False):
     bezel, fixture = build_cover(), receiver_surround()
     assert bezel.isValid() and len(bezel.Solids()) == 1
     assert abs(bezel.intersect(fixture).Volume()) < 1e-6
     assert bezel.translate((0, 0, BEARING_AIR+.05)).intersect(fixture).Volume() > 1
     assert bezel.translate((0, 0, -.05)).intersect(fixture).Volume() > 1
-    assert abs(LIP_THICK-2.0) < 1e-6
+    assert LIP_THICK >= 1.8-1e-6
     clearances = []
-    for lateral in (-FACE_AIR, 0., FACE_AIR):
+    for lateral in (-FACE_X_AIR, 0., FACE_X_AIR):
         placed = bezel.translate((lateral, 0, 0))
         assert abs(placed.intersect(fixture).Volume()) < 1e-6
         assert placed.translate((0, 0, BEARING_AIR+.05)).intersect(fixture).Volume() > 1
@@ -145,7 +148,7 @@ def main():
         assert blocked < 1e-6,blocked
         exits.append({'print_down_blocked_volume_mm3':blocked})
     travel = []
-    for axis,limits in ((0,(-FACE_AIR,FACE_AIR)),(1,(-FACE_AIR,FACE_AIR)),(2,(0.,BEARING_AIR))):
+    for axis,limits in ((0,(-FACE_X_AIR,FACE_X_AIR)),(1,(-FACE_Y_AIR,FACE_Y_AIR)),(2,(0.,BEARING_AIR))):
         for value,extra in ((limits[0],-.01),(limits[1],.01)):
             vector=[0.,0.,0.];vector[axis]=value
             overlap=abs(bezel.translate(vector).intersect(fixture).Volume())
@@ -155,7 +158,11 @@ def main():
             assert blocked>1e-6,(axis,value,blocked)
             travel.append({'axis':'XYZ'[axis],'limit_mm':value,'at_limit_overlap_mm3':overlap,
                            'past_limit_overlap_mm3':blocked})
-    for name, body in ((NAME, bezel), (RECEIVER, build_receiver())):
+    if receiver_only:
+        saved_cover = cq.importers.importStep(str(HERE/(NAME+'.step'))).val()
+        assert abs(saved_cover.cut(bezel).Volume())+abs(bezel.cut(saved_cover).Volume()) < 1e-6
+    exports = ((RECEIVER, printed_receiver),) if receiver_only else ((NAME, bezel), (RECEIVER, printed_receiver))
+    for name, body in exports:
         assert body.isValid() and len(body.Solids()) == 1
         path = HERE/(name+'.step')
         export_assembly(one_body(cq.Workplane(obj=body), name, M_PETGF_BLACK), str(path))
@@ -167,14 +174,17 @@ def main():
               'wing_thickness_mm': WING_THICK, 'wing_projection_mm': WING_REACH, 'wing_span_mm': WING_SPAN,
               'normal_clearance_mm': BEARING_AIR, 'receiver_lip_mm': LIP_THICK,
               'tip_air_mm': TIP_AIR, 'end_air_mm': END_AIR,
-              'face_perimeter_air_mm':FACE_AIR,
+              'face_perimeter_air_mm':{'X':FACE_X_AIR,'Y':FACE_Y_AIR},
               'clearance_basis':{'fit':'static','base_mm':fits.slip,'retaining_roof_supported_surface_mm':fits.supported_surface,
+                                 'normal_fit_trial_relief_mm':BEARING_RELIEF,
+                                 'body_X_fit_trial_relief_per_side_mm':FACE_X_AIR-fits.slip,
                                  'sliding_extra_mm':0.,'low_force_extra_mm':0.,'bezel_back_datum_mm':0.},
-              'pure_axis_travel_mm':{'X':2*FACE_AIR,'Y':2*FACE_AIR,'Z':BEARING_AIR},
+              'pure_axis_travel_mm':{'X':2*FACE_X_AIR,'Y':2*FACE_Y_AIR,'Z':BEARING_AIR},
               'pure_axis_fit_checks':travel,'support_exit_checks':exits,
               'support_exit_policy':'Each wing pocket opens through the underside along print-down; the pocket floor is absent. Trees can rise from the bed and leave downward.',
-              'nominal_capture_mm': WING_REACH-FACE_AIR,
-              'minimum_capture_at_full_lateral_float_mm': WING_REACH-2*FACE_AIR,
+              'nominal_capture_mm': WING_REACH-FACE_X_AIR,
+              'minimum_capture_at_full_lateral_float_mm': WING_REACH-2*FACE_X_AIR,
+              'minimum_tip_gap_at_full_lateral_float_mm': TIP_AIR-FACE_X_AIR,
               'lateral_fit_checks': clearances,
               'glass_gasket_intersection_mm3': abs(bezel.intersect(glass_shadow).Volume()),
               'cover_back_plane_mm': BACK, 'glass_seat_plane_mm': GLASS_SEAT,
@@ -188,4 +198,6 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--receiver-only', action='store_true')
+    main(parser.parse_args().receiver_only)

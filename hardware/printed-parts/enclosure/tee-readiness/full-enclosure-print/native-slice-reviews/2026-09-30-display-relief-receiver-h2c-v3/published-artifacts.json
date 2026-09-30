@@ -1,0 +1,18 @@
+{
+  "verified_at_utc": "2026-09-30T05:57:17.810431+00:00",
+  "pass": true,
+  "objects": [
+    {
+      "path": "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.step",
+      "url": "https://homesodamachine.com/steps/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.step",
+      "sha256": "7141a82043aebf5dd361d7709ec6c33b1f8dfc00acdc0347a811c8db25c69bf5",
+      "matches_live": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.step.mesh",
+      "url": "https://homesodamachine.com/meshes/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.step.mesh",
+      "sha256": "65643c732ef66e409e36dfab70bbcbd7222bced4481070c06dec782f687730e6",
+      "matches_live": true
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "pass": true,
+  "archive": ".cache/prints/2026-09-30-display-relief-receiver-h2c-v3/ready/display-relief-receiver-z018-h2c-v3.gcode.3mf",
+  "archive_details": {
+    "name": "display-relief-receiver-z018-h2c-v3.gcode.3mf",
+    "sha256": "a0c6cd495a7c4491c4f1ebe0d6542bbca2233c765bb6650fde782c224d196eff",
+    "gcode_sha256": "1e72ff8b40864d19f8a3c8d6227bfe63ac814dcfb09dec1bb06ff5e049340ae5",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "000000"
+      }
+    },
+    "objects": [
+      "display-receiver-flat-wings"
+    ]
+  },
+  "readings": {
+    "Mark2": {
+      "job_id": "1295298484",
+      "subtask_name": "tap-flavor-raised-face-up-z004-mark2-v2.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 11,
+      "mc_remaining_time": 21,
+      "mc_percent": 18,
+      "observed_at": "2026-09-30T05:57:43.753189+00:00"
+    },
+    "H2C": {
+      "job_id": "1295044165",
+      "subtask_name": "display-open-wing-receiver-z018-h2c-v2.gcode.3mf",
+      "gcode_state": "FINISH",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 241,
+      "total_layer_num": 241,
+      "mc_remaining_time": 0,
+      "mc_percent": 100,
+      "observed_at": "2026-09-30T05:57:44.582959+00:00"
+    }
+  },
+  "bed_clear_basis": "User: increase display cover wing and body clearance; H2C is clear.",
+  "startup_spacing_minimum_seconds": 180,
+  "other_printer_previous_accepted_at_utc": "2026-09-30T05:41:53.694673+00:00",
+  "spacing_at_preflight_seconds": 950.889514,
+  "send_copy": ".cache/prints/2026-09-30-display-relief-receiver-h2c-v3/send/display-relief-receiver-z018-h2c-v3.gcode.3mf"
+}
