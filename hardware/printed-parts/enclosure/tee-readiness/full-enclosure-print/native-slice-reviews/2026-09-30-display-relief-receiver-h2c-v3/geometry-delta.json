@@ -1,0 +1,26 @@
+{
+  "pass": true,
+  "baseline_sha256": "d45049033dd2db0ad097038d7f82591ead662615981bf65ef4cc03801293aa7f",
+  "receiver_sha256": "7141a82043aebf5dd361d7709ec6c33b1f8dfc00acdc0347a811c8db25c69bf5",
+  "added_material_mm3": 3.7948078493262014,
+  "removed_material_mm3": 424.3158908432962,
+  "added_material_max_local_Z_mm": -3.8399999999863454,
+  "added_material_scope": "The swept support-exit edge follows the raised slot roof; its small added strip lies entirely behind the cover back plane. No material is added in the seated cover/wing envelope.",
+  "existing_cover_sha256": "bd0545aa076fed3d7adc895df205b098f11a08b6fc37c883893115aec83dd5f2",
+  "body_X_clearance_per_side_mm": {
+    "baseline": 0.15,
+    "trial": 0.3
+  },
+  "wing_thickness_gap_mm": {
+    "baseline": 0.4,
+    "trial": 0.6000000000000001
+  },
+  "wing_tip_clearance_centered_mm": {
+    "baseline": 0.25,
+    "trial": 0.55
+  },
+  "wing_tip_clearance_at_body_X_limit_mm": 0.25000000000000006,
+  "minimum_wing_capture_mm": 3.0,
+  "seating_depth_mm": 3.84,
+  "retaining_lip_thickness_mm": 1.7999999999999998
+}

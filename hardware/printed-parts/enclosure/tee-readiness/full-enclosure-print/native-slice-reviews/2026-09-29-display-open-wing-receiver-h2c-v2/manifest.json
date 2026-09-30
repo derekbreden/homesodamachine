@@ -33,7 +33,9 @@
     "published-artifacts.json": "f4cfef5fbbff8f2f780fcf532b232a891429a5e9b35d63868d88a1c1efbafe18",
     "slice-command.json": "3dafc2c238a1e14f458c4f7252109089a85d8c458041b6a8e5c9a9e5dd73e455",
     "support-audit.json": "e9bffda00a499493266e784f6fe608bcb1a47da0fa38b724e8b47ca89e05b883",
-    "verification.json": "7cd529d29249fa73deae416e1c62f4b549c54b64cc36454006172e12b57b8231"
+    "verification.json": "7cd529d29249fa73deae416e1c62f4b549c54b64cc36454006172e12b57b8231",
+    "physical-result.json": "8802e211e21666022f8fc5c620513612ad550a9ea87cc6ca1b5ef685bca0a944"
   },
-  "physical_result": "Pending"
+  "physical_result": "Bowing when engaged; full-depth body and wing contact remain unresolved.",
+  "physical_result_record": "physical-result.json"
 }

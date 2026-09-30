@@ -13,7 +13,7 @@ def main():
         count = max(2, math.ceil(math.dist(a, b)/.1))
         points.extend((a[0]+(b[0]-a[0])*k/count, a[1]+(b[1]-a[1])*k/count) for k in range(count))
     receiver = box(-fit.WIDTH/2, -fit.FRAME_THICK+t, fit.WIDTH/2, t)
-    receiver = receiver.difference(box(-h-fit.FACE_AIR, 0, h+fit.FACE_AIR, t+50))
+    receiver = receiver.difference(box(-h-fit.FACE_X_AIR, 0, h+fit.FACE_X_AIR, t+50))
     for side in (-1, 1):
         x0, x1 = sorted((side*(h-.1), side*(h+p+fit.TIP_AIR)))
         receiver = receiver.difference(box(x0, -fit.FRAME_THICK+t-1, x1, w+fit.BEARING_AIR))
@@ -44,7 +44,7 @@ def main():
                          'interference_bounds_mm':list(intersection.bounds) if overlap>1e-6 else None,
                          'span_mm':polygon.bounds[2]-polygon.bounds[0]})
     assert max(r['intersection_area_mm2'] for r in readings)<1e-6,max(readings,key=lambda r:r['intersection_area_mm2'])
-    assert readings[-1]['span_mm'] < 2*(h+fit.FACE_AIR)
+    assert readings[-1]['span_mm'] < 2*(h+fit.FACE_X_AIR)
     report = {'pass':True, 'samples':len(readings), 'checks':readings,
               'motion':'Flex the bezel outward above its back seating land; wing tips swing through the open underside, then return flat beneath the retaining lips.',
               'scope':'Conservative filled X/Z outline under ideal circular bending. Rounded wing ends are treated as rectangular. Does not qualify force, strain tolerance, fatigue or three-dimensional corner motion; those need the physical trial.',
