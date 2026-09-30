@@ -14,8 +14,6 @@ def main():
     h=fit.WIDTH/2; p=fit.PROJECTION; t=fit.THICK; f=fit.FIELD_THICK
     w=fit.WING_THICK; n=f/2
     outline=[(-h-p,0),(h+p,0),(h+p,w),(h,w),(h,t),
-             (h-fit.FRAME_WIDTH,t),(h-fit.FRAME_WIDTH,f),
-             (-h+fit.FRAME_WIDTH,f),(-h+fit.FRAME_WIDTH,t),
              (-h,t),(-h,w),(-h-p,w)]
     points=[]
     for a,b in zip(outline,outline[1:]+outline[:1]):
@@ -27,6 +25,10 @@ def main():
     for side in (-1,1):
         x0,x1=sorted((side*(h-.1),side*(h+p+fit.TIP_AIR)))
         receiver=receiver.difference(box(x0,0,x1,w+fit.THICKNESS_AIR))
+        mouth=h+fit.FACE_SLIP;roof=w+fit.THICKNESS_AIR
+        receiver=receiver.difference(Polygon([
+            (side*mouth,roof),(side*(mouth+fit.ENTRY_BEVEL_WIDTH),roof),
+            (side*mouth,roof+fit.ENTRY_BEVEL_DEPTH)]))
     checks=[]
     for i in range(101):
         angle=.55*i/100

@@ -2,15 +2,18 @@
 
 Each manifest binds its own geometry receipt, exact native archive and support review. An archive whose receipt no longer matches the files it names is not the current geometry.
 
-Visible top/bottom rounds at 0.08 mm print without support contacts. Every pending archive
-needs that check on the actual support paths, including unlabelled slivers; a passed layer-band
-review does not establish support exclusion. Derek's
-[tee-carrier observations](../../../tee-carrier/physical-acceptance.json) provisionally accept
-the v14 lower surface with no observed spaghetti failure and a slight concavity. Six walls
-alone with the original wall-first order is the preferred next recipe and remains untested.
+Expanding print-down show rounds use the additive chamfer/taper at 0.24 mm with
+six local walls. Inward/top show rounds use 0.08 mm. Both exclude support contacts.
+Every pending archive needs that check on the actual support paths, including unlabelled
+slivers; a passed layer-band review does not establish support exclusion. The
+[tee-carrier physical record](../../../tee-carrier/physical-acceptance.json) qualifies
+the chamfer/taper surface on job 1292379739. Sliding fit and each other part require
+their own physical checks.
 
 | Job | Printer | State | Evidence |
 | --- | --- | --- | --- |
+| Tee carrier, +0.50 mm low-force roof addition | H2C | native verified, not sent; 1.00 mm above, 0.25 mm below; about 1 h 46 min | [2026-09-29-tee-low-force050-h2c-v7](2026-09-29-tee-low-force050-h2c-v7/README.md) |
+| Flat nameplate and standard receiver | Mark2 | started, task 1294806669; flat face, 0.48 mm raised artwork, standard static gaps, no plate supports; about 1 h 13 min | [2026-09-29-nameplate-flat-standard-mark2-v5](2026-09-29-nameplate-flat-standard-mark2-v5/README.md) |
 | back-bottom | Mark2 | reviewed, not sent; uniform 0.24 mm, no band at the handhold rounds; back-bottom changed after it | [2026-09-21-enclosure-back-bottom-mark2-v2](2026-09-21-enclosure-back-bottom-mark2-v2/manifest.json) |
 | back-top | H2C | printing on H2C since 09-22; sliced from the 09-21 inputs, uniform 0.24 mm; back-top changed after it | [2026-09-21-enclosure-back-top-h2c-v2](2026-09-21-enclosure-back-top-h2c-v2/manifest.json) |
 | front-bottom | Mark2 | printed 09-21; before the carrier windows notched the seam rail | [2026-09-21-enclosure-front-bottom-mark2-v2](2026-09-21-enclosure-front-bottom-mark2-v2/manifest.json) |

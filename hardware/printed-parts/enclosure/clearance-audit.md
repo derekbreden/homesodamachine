@@ -14,6 +14,33 @@ A gap with one supported face therefore has 0.40 mm for static assembly or 0.50 
 sliding. If both opposing printed faces require support, their two 0.25 mm allowances add
 to the same gap. Each supported face is counted once, on that face or its mate.
 
+Sliding describes a joint whose mating surfaces constrain movement and whose function
+requires an easy slide. It includes the pump cartridge, enclosure assembly slides and
+spring-driven hook engagement; travel length alone does not decide the category. The
+hand-flexed flat-wing nameplate uses static clearances.
+
+**Low-force clearance for rough overhang surfaces involved** uses a working addition
+of **0.50 mm on the identified moving gap**, after its ordinary sliding and rough-face
+allowances. Apply it only where the available force is small, such as spring return or
+leaf spring-back. It is not a blanket addition to every side of a part or every sliding
+fit. Each interface requires its own physical motion and retention check.
+
+| Low-force interface | Gap accounting | Nominal result |
+|---|---|---:|
+| Display hook, two rough mating faces | 0.25 sliding + 0.25 + 0.25 rough faces + 0.50 low-force | 1.25 mm working target |
+| Tee-carrier roof, one rough mating face | 0.25 sliding + 0.25 rough roof + 0.50 low-force | 1.00 mm |
+| Tee-carrier floor | 0.25 sliding | 0.25 mm |
+
+The selected display cover has a measured-in-CAD 1.23 mm hook-to-catch gap and a
+passing physical fit. Its 0.75 mm designation is an arm-length increment, not an
+extra clearance rule. The 1.25 mm working target approximates that accepted gap;
+the accepted cover remains at 1.23 mm. See its
+[physical record](display-cover/physical-acceptance.json).
+
+Opposite-side clearances do not collapse into one allowance: the tee carrier's
+1.00 mm roof gap plus 0.25 mm floor gap gives 1.25 mm total vertical travel.
+Two rough faces of the same gap are distinct from two gaps on opposite sides of a part.
+
 Ordinary clearance is measured normal to the mating surface. A circular fit adds twice its
 radial clearance to the diameter. A 45° sliding lap uses the corresponding axial projection.
 The bridge allowance follows the part's print direction: a supported cavity crown retreats

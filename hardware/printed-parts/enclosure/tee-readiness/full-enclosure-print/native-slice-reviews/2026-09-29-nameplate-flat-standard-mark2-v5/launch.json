@@ -1,0 +1,45 @@
+{
+  "submitted": true,
+  "printer": "Mark2",
+  "sent_through": "Bambu Connect via cua_repl",
+  "accepted_at_utc": "2026-09-30T00:41:09.725979+00:00",
+  "reading": {
+    "job_id": "1294806669",
+    "subtask_name": "nameplate-flat-standard-pair-z004-mark2-v5.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 0,
+    "total_layer_num": 192,
+    "mc_remaining_time": 73,
+    "mc_percent": 0,
+    "observed_at": "2026-09-30T00:41:09.725979+00:00"
+  },
+  "archive": ".cache/prints/2026-09-29-nameplate-flat-standard-mark2-v5/ready/nameplate-flat-standard-pair-z004-mark2-v5.gcode.3mf",
+  "archive_sha256": "d1ab4ab5e91fad61348e3c3840e8230278f6320217090a82273c3a6186fe735f",
+  "send_copy_same_sha256": true,
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "filament_mapping": {
+    "1": {
+      "type": "PET-CF",
+      "colour": "000000"
+    },
+    "2": {
+      "type": "PET-CF",
+      "colour": "FFFFFF"
+    }
+  },
+  "bed_clear_confirmed_by_user": true,
+  "other_printer": {
+    "printer": "H2C",
+    "job": "display-face-up-cover-receiver-z018-h2c-v1.gcode.3mf",
+    "accepted_at_utc": "2026-09-29T22:36:15.262001+00:00"
+  },
+  "startup_spacing_minimum_seconds": 180,
+  "startup_spacing_seconds": 7494.498761
+}

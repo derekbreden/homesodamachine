@@ -1,0 +1,421 @@
+{
+  "pass": true,
+  "native_archive": ".cache/prints/2026-09-29-tee-low-force050-h2c-v7/ready/tee-carrier-low-force050-filled-bottom-024-black-z018-h2c-v7.gcode.3mf",
+  "native_archive_sha256": "4f521a25669d116804e1b0595d4dc91968ade371ad4047baa28cca14160d187d",
+  "gcode_sha256": "3ecedced5db27d7b0e02e501fc40766a180800e1331a31785b8366c85870dab0",
+  "source_hashes_current": true,
+  "native_export_normalizations": {
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ],
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ]
+  },
+  "other_settings_match_input": true,
+  "rounds": [
+    {
+      "name": "aft-filled-chamfer-and-taper",
+      "print_z_mm": [
+        0.2,
+        6
+      ],
+      "wall_layer_count": 25,
+      "first_wall_layer": [
+        0.44,
+        0.24
+      ],
+      "last_wall_layer": [
+        6.2,
+        0.24
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    },
+    {
+      "name": "fore-R6",
+      "print_z_mm": [
+        15.054,
+        21.054
+      ],
+      "wall_layer_count": 76,
+      "first_wall_layer": [
+        15.08,
+        0.08
+      ],
+      "last_wall_layer": [
+        21.08,
+        0.08
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    }
+  ],
+  "model_layer_runs": [
+    {
+      "height": 0.2,
+      "bottom": 0.0,
+      "last_z": 0.2,
+      "count": 1
+    },
+    {
+      "height": 0.24,
+      "bottom": 0.2,
+      "last_z": 14.84,
+      "count": 61
+    },
+    {
+      "height": 0.08,
+      "bottom": 14.84,
+      "last_z": 21.08,
+      "count": 78
+    }
+  ],
+  "lower_wall_count": 6,
+  "global_wall_count": 2,
+  "supports": {
+    "support_bodies": 0,
+    "interface_islands": 0,
+    "bed_rooted_bodies": 0,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 0,
+    "shortest_labelled_build_up_mm": null
+  },
+  "emitted_z_trim_mm": [
+    0.0,
+    0.16
+  ],
+  "initial_layer_height_mm": 0.2,
+  "first_layer_overlap": {
+    "model_bounds": {
+      "0.2": [
+        57.24200000090384,
+        132.214,
+        267.7579999990962,
+        187.194
+      ],
+      "0.44": [
+        57.132000000778945,
+        132.214,
+        267.8679999992212,
+        187.304
+      ],
+      "0.68": [
+        57.012000001216684,
+        132.214,
+        267.9879999987834,
+        187.424
+      ],
+      "0.92": [
+        56.89200000121631,
+        132.214,
+        268.1079999987837,
+        187.544
+      ],
+      "1.16": [
+        56.77200000121595,
+        132.214,
+        268.22799999878407,
+        187.66400000000002
+      ],
+      "1.4": [
+        56.65200000121569,
+        132.21599999999998,
+        268.34799999878425,
+        187.78400000000002
+      ],
+      "1.64": [
+        56.53200000121542,
+        132.096,
+        268.46799999878453,
+        187.904
+      ],
+      "1.88": [
+        56.41200000121511,
+        131.976,
+        268.5879999987849,
+        188.024
+      ],
+      "2.12": [
+        56.292,
+        131.856,
+        268.70799999999997,
+        188.144
+      ],
+      "2.36": [
+        56.172,
+        131.736,
+        268.828,
+        188.264
+      ],
+      "2.6": [
+        56.052,
+        131.61599999999999,
+        268.948,
+        188.38400000000001
+      ],
+      "2.84": [
+        55.93200000174758,
+        131.49599999999998,
+        269.0679999982522,
+        188.50400000000002
+      ],
+      "3.08": [
+        55.812000003023286,
+        131.376,
+        269.18399999999997,
+        188.624
+      ],
+      "3.32": [
+        55.692,
+        131.256,
+        269.308,
+        188.744
+      ],
+      "3.56": [
+        55.574,
+        131.138,
+        269.426,
+        188.862
+      ],
+      "3.8": [
+        55.467,
+        131.031,
+        269.53299999999996,
+        188.969
+      ],
+      "4.04": [
+        55.373,
+        130.93699999999998,
+        269.62699999999995,
+        189.06300000000002
+      ],
+      "4.28": [
+        55.289,
+        130.85299999999998,
+        269.71099999999996,
+        189.14700000000002
+      ],
+      "4.52": [
+        55.217,
+        130.781,
+        269.78299999999996,
+        189.219
+      ],
+      "4.76": [
+        55.157,
+        130.721,
+        269.84299999999996,
+        189.279
+      ],
+      "5.0": [
+        55.106,
+        130.67,
+        269.894,
+        189.33
+      ],
+      "5.24": [
+        55.065,
+        130.629,
+        269.935,
+        189.371
+      ],
+      "5.48": [
+        55.035,
+        130.599,
+        269.965,
+        189.401
+      ],
+      "5.72": [
+        55.013999999999996,
+        130.578,
+        269.986,
+        189.422
+      ],
+      "5.96": [
+        55.002,
+        130.566,
+        269.998,
+        189.434
+      ],
+      "6.2": [
+        55.0,
+        130.564,
+        270.0,
+        189.436
+      ]
+    },
+    "brim_used": false,
+    "transitions": [
+      {
+        "from_z": 0.2,
+        "to_z": 0.44,
+        "max_sampled_outer_centerline_unsupported_mm": 0.0,
+        "outer_wall_area_fraction_supported": 0.9441771940202801
+      },
+      {
+        "from_z": 0.44,
+        "to_z": 0.68,
+        "max_sampled_outer_centerline_unsupported_mm": 0.0,
+        "outer_wall_area_fraction_supported": 0.9390613614978661
+      },
+      {
+        "from_z": 0.68,
+        "to_z": 0.92,
+        "max_sampled_outer_centerline_unsupported_mm": 0.0,
+        "outer_wall_area_fraction_supported": 0.9386800153158805
+      },
+      {
+        "from_z": 0.92,
+        "to_z": 1.16,
+        "max_sampled_outer_centerline_unsupported_mm": 0.0,
+        "outer_wall_area_fraction_supported": 0.938449317138575
+      },
+      {
+        "from_z": 1.16,
+        "to_z": 1.4,
+        "max_sampled_outer_centerline_unsupported_mm": 0.0,
+        "outer_wall_area_fraction_supported": 0.9383041077553791
+      },
+      {
+        "from_z": 1.4,
+        "to_z": 1.64,
+        "max_sampled_outer_centerline_unsupported_mm": 0.0,
+        "outer_wall_area_fraction_supported": 0.9354269234744963
+      },
+      {
+        "from_z": 1.64,
+        "to_z": 1.88,
+        "max_sampled_outer_centerline_unsupported_mm": 0.0,
+        "outer_wall_area_fraction_supported": 0.9379531123085415
+      },
+      {
+        "from_z": 1.88,
+        "to_z": 2.12,
+        "max_sampled_outer_centerline_unsupported_mm": 0.0,
+        "outer_wall_area_fraction_supported": 0.9376371471379434
+      },
+      {
+        "from_z": 2.12,
+        "to_z": 2.36,
+        "max_sampled_outer_centerline_unsupported_mm": 0.0,
+        "outer_wall_area_fraction_supported": 0.9376336928032151
+      },
+      {
+        "from_z": 2.36,
+        "to_z": 2.6,
+        "max_sampled_outer_centerline_unsupported_mm": 0.0,
+        "outer_wall_area_fraction_supported": 0.9373158789494018
+      },
+      {
+        "from_z": 2.6,
+        "to_z": 2.84,
+        "max_sampled_outer_centerline_unsupported_mm": 0.0,
+        "outer_wall_area_fraction_supported": 0.9368902715087466
+      },
+      {
+        "from_z": 2.84,
+        "to_z": 3.08,
+        "max_sampled_outer_centerline_unsupported_mm": 0.0,
+        "outer_wall_area_fraction_supported": 0.9379112533498568
+      },
+      {
+        "from_z": 3.08,
+        "to_z": 3.32,
+        "max_sampled_outer_centerline_unsupported_mm": 0.0,
+        "outer_wall_area_fraction_supported": 0.9521667784432805
+      },
+      {
+        "from_z": 3.32,
+        "to_z": 3.56,
+        "max_sampled_outer_centerline_unsupported_mm": 0.0,
+        "outer_wall_area_fraction_supported": 0.9536182423155602
+      },
+      {
+        "from_z": 3.56,
+        "to_z": 3.8,
+        "max_sampled_outer_centerline_unsupported_mm": 0.0,
+        "outer_wall_area_fraction_supported": 0.9572437787525635
+      },
+      {
+        "from_z": 3.8,
+        "to_z": 4.04,
+        "max_sampled_outer_centerline_unsupported_mm": 0.0,
+        "outer_wall_area_fraction_supported": 0.9620135971027354
+      },
+      {
+        "from_z": 4.04,
+        "to_z": 4.28,
+        "max_sampled_outer_centerline_unsupported_mm": 0.0,
+        "outer_wall_area_fraction_supported": 0.9659269117197751
+      },
+      {
+        "from_z": 4.28,
+        "to_z": 4.52,
+        "max_sampled_outer_centerline_unsupported_mm": 0.0,
+        "outer_wall_area_fraction_supported": 0.9704063380941511
+      },
+      {
+        "from_z": 4.52,
+        "to_z": 4.76,
+        "max_sampled_outer_centerline_unsupported_mm": 0.0,
+        "outer_wall_area_fraction_supported": 0.9750655678224098
+      },
+      {
+        "from_z": 4.76,
+        "to_z": 5.0,
+        "max_sampled_outer_centerline_unsupported_mm": 0.0,
+        "outer_wall_area_fraction_supported": 0.9788774652438683
+      },
+      {
+        "from_z": 5.0,
+        "to_z": 5.24,
+        "max_sampled_outer_centerline_unsupported_mm": 0.0,
+        "outer_wall_area_fraction_supported": 0.9828018919605486
+      },
+      {
+        "from_z": 5.24,
+        "to_z": 5.48,
+        "max_sampled_outer_centerline_unsupported_mm": 0.0,
+        "outer_wall_area_fraction_supported": 0.9868723562981183
+      },
+      {
+        "from_z": 5.48,
+        "to_z": 5.72,
+        "max_sampled_outer_centerline_unsupported_mm": 0.0,
+        "outer_wall_area_fraction_supported": 0.9897594160129015
+      },
+      {
+        "from_z": 5.72,
+        "to_z": 5.96,
+        "max_sampled_outer_centerline_unsupported_mm": 0.0,
+        "outer_wall_area_fraction_supported": 0.9940997763498942
+      },
+      {
+        "from_z": 5.96,
+        "to_z": 6.2,
+        "max_sampled_outer_centerline_unsupported_mm": 0.0,
+        "outer_wall_area_fraction_supported": 0.9988194175839786
+      }
+    ],
+    "pass": true
+  },
+  "layer_count": 140,
+  "estimated_seconds": 6340.33984375,
+  "estimated_grams_saved_profile_density": 55.81999588012695,
+  "printer": "H2C",
+  "left_external_black_petgf": true,
+  "submitted": false
+}

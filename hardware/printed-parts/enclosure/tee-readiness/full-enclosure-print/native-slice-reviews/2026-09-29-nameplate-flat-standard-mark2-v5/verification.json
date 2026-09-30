@@ -1,0 +1,193 @@
+{
+  "pass": true,
+  "printer": "Mark2",
+  "native_archive": ".cache/prints/2026-09-29-nameplate-flat-standard-mark2-v5/ready/nameplate-flat-standard-pair-z004-mark2-v5.gcode.3mf",
+  "native_archive_sha256": "d1ab4ab5e91fad61348e3c3840e8230278f6320217090a82273c3a6186fe735f",
+  "gcode_sha256": "c9504fc4812c46f54b23a47cd50a77c94a95dd457783835b37d63217082258d1",
+  "source_hashes_current": true,
+  "plate_layers": [
+    [
+      0.2,
+      0.2
+    ],
+    [
+      0.48,
+      0.28
+    ],
+    [
+      0.72,
+      0.24
+    ],
+    [
+      0.96,
+      0.24
+    ],
+    [
+      1.2,
+      0.24
+    ],
+    [
+      1.44,
+      0.24
+    ],
+    [
+      1.68,
+      0.24
+    ],
+    [
+      1.92,
+      0.24
+    ],
+    [
+      2.16,
+      0.24
+    ],
+    [
+      2.4,
+      0.24
+    ],
+    [
+      2.64,
+      0.24
+    ],
+    [
+      2.88,
+      0.24
+    ],
+    [
+      3.12,
+      0.24
+    ],
+    [
+      3.36,
+      0.24
+    ],
+    [
+      3.6,
+      0.24
+    ],
+    [
+      3.84,
+      0.24
+    ]
+  ],
+  "plate_support_paths": 0,
+  "wing_checks": [
+    {
+      "print_z_mm": 0.2,
+      "both_wings_covered": [
+        true,
+        true
+      ]
+    },
+    {
+      "print_z_mm": 1.68,
+      "both_wings_covered": [
+        true,
+        true
+      ]
+    },
+    {
+      "print_z_mm": 1.92,
+      "both_wings_covered": [
+        false,
+        false
+      ]
+    }
+  ],
+  "raised_artwork_checks": [
+    {
+      "print_z_mm": 3.6,
+      "white_paths_by_region": {
+        "logo_and_drop": 831,
+        "lettering": 891,
+        "qr": 523
+      }
+    },
+    {
+      "print_z_mm": 3.84,
+      "white_paths_by_region": {
+        "logo_and_drop": 290,
+        "lettering": 903,
+        "qr": 513
+      }
+    }
+  ],
+  "raised_perimeter": false,
+  "fit_checks": [
+    {
+      "axis": "X",
+      "limit_mm": -0.15,
+      "at_limit_overlap_mm3": 0.0,
+      "past_limit_overlap_mm3": 0.9106839968143543
+    },
+    {
+      "axis": "X",
+      "limit_mm": 0.15,
+      "at_limit_overlap_mm3": 0.0,
+      "past_limit_overlap_mm3": 0.9106839968144713
+    },
+    {
+      "axis": "Y",
+      "limit_mm": 0.0,
+      "at_limit_overlap_mm3": 0.0,
+      "past_limit_overlap_mm3": 39.28105307237629
+    },
+    {
+      "axis": "Y",
+      "limit_mm": 0.15,
+      "at_limit_overlap_mm3": 0.0,
+      "past_limit_overlap_mm3": 0.6951597335545542
+    },
+    {
+      "axis": "Z",
+      "limit_mm": -0.4,
+      "at_limit_overlap_mm3": 0.0,
+      "past_limit_overlap_mm3": 3.417339205565081
+    },
+    {
+      "axis": "Z",
+      "limit_mm": 0.15,
+      "at_limit_overlap_mm3": 0.0,
+      "past_limit_overlap_mm3": 3.4173392055654492
+    }
+  ],
+  "pure_axis_play_mm": {
+    "X": 0.3,
+    "Y": 0.15,
+    "Z": 0.55
+  },
+  "receiver_slot_support_checks": [
+    {
+      "side": "left",
+      "support_bead_overlap_mm2": 0.0
+    },
+    {
+      "side": "right",
+      "support_bead_overlap_mm2": 0.0
+    }
+  ],
+  "receiver_support_summary": {
+    "support_bodies": 1,
+    "interface_islands": 1,
+    "bed_rooted_bodies": 1,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 41.32,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 1,
+    "shortest_labelled_build_up_mm": 41.32
+  },
+  "white_correction_mm": {
+    "X": -0.5,
+    "Y": 0.7
+  },
+  "registration_verification": "registration-verification.json",
+  "emitted_z_trim_mm": [
+    0.0,
+    0.02
+  ],
+  "estimated_seconds": 4388.9951171875,
+  "estimated_grams_saved_profile_density": 33.63598370552063,
+  "submitted": false,
+  "physical_qualification": "Manual insertion force, looseness, retention, QR scan and support removal await this pair."
+}

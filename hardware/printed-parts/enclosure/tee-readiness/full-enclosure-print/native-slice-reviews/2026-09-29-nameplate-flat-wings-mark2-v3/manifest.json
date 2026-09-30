@@ -1,7 +1,7 @@
 {
   "printer": "Mark2",
   "title": "Face-up nameplate with flat wings, raised artwork and measured white-nozzle XY correction",
-  "status": "running",
+  "status": "completed_artwork_accepted_fit_revision_requested",
   "submitted": true,
   "printer_task_id": "1294611267",
   "native_archive": ".cache/prints/2026-09-29-nameplate-flat-wings-mark2-v3/ready/nameplate-framed-wings-aligned-z004-mark2-v3.gcode.3mf",
@@ -40,5 +40,6 @@
   "geometry_change": false,
   "verification": "verification.json",
   "coordinate_verification": "registration-verification.json",
-  "launch": "launch.json"
+  "launch": "launch.json",
+  "physical_result_record": "physical-result.json"
 }
