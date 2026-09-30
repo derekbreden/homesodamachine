@@ -35,3 +35,8 @@ The exact archive, source and verification hashes are in [manifest.json](manifes
 Geometry lint has no unanswered findings. An ideal bend check covers 101 insertion
 positions; insertion force, warping, looseness, support removal, retention and QR
 scanning require the physical pair.
+
+The [physical report](physical-result.json) records bowing with apparent X clearance
+around the main body. Wing-tip interference in the narrow slots is the suspected
+cause; printed corner rounding is unmeasured. The existing plate is retained for
+the 0.25 mm wing-tip-clearance receiver comparison.

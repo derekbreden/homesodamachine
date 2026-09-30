@@ -2418,7 +2418,7 @@
       ],
       "job_name": "nameplate-flat-standard-pair-z004-mark2-v5.gcode.3mf",
       "printer_task_id": "1294806669",
-      "status": "started",
+      "status": "completed",
       "observed_at_utc": "2026-09-30T00:41:09.725979+00:00",
       "observed_state_at_acceptance": "RUNNING",
       "sliced_file": ".cache/prints/2026-09-29-nameplate-flat-standard-mark2-v5/ready/nameplate-flat-standard-pair-z004-mark2-v5.gcode.3mf",
@@ -2433,7 +2433,7 @@
         "Nozzle Offset Calibration": "Auto"
       },
       "review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-flat-standard-mark2-v5",
-      "physical_result": "Pending",
+      "physical_result": "Bowing with apparent body X clearance; wing-slot fit under evaluation.",
       "nominal_pure_axis_play_mm": {
         "X": 0.3,
         "Y": 0.15,
@@ -2446,7 +2446,66 @@
       "nameplate_supports": false,
       "receiver_supports": "Shared PET-GF tree supports, black body and interface",
       "z_offset_mm": 0.04,
-      "effective_textured_plate_trim_mm": 0.02
+      "effective_textured_plate_trim_mm": 0.02,
+      "physical_result_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-flat-standard-mark2-v5/physical-result.json"
+    },
+    {
+      "date": "2026-09-29",
+      "printer": "Mark2",
+      "parts": [
+        "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.stl"
+      ],
+      "job_name": "nameplate-tip025-receiver-tree-z004-mark2-v6.gcode.3mf",
+      "printer_task_id": "1295032042",
+      "status": "started",
+      "observed_at_utc": "2026-09-30T02:37:46.257148+00:00",
+      "observed_state_at_acceptance": "RUNNING",
+      "sliced_file": ".cache/prints/2026-09-29-nameplate-tip025-receiver-mark2-v6/ready/nameplate-tip025-receiver-tree-z004-mark2-v6.gcode.3mf",
+      "sliced_file_sha256": "ae86fe1c6f646a190f67dba4c72541e9aaf7fc988c392b7400ae385176fa0554",
+      "gcode_sha256": "6536e3b194154406c233005dcbaa11756c56dbb38053cd4185058bba155b6612",
+      "estimated_seconds": 2556.7998046875,
+      "filament_grams": 20.123493194580078,
+      "print_options": {
+        "Timelapse": "On",
+        "Auto bed leveling": "On",
+        "Flow dynamic calibration": "Auto",
+        "Nozzle Offset Calibration": "Auto"
+      },
+      "review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-tip025-receiver-mark2-v6",
+      "physical_result": "Pending",
+      "wing_tip_X_gap_centered_mm": 0.25,
+      "wing_tip_X_gap_minimum_at_full_float_mm": 0.1,
+      "body_X_gap_each_mm": 0.15,
+      "startup_spacing_seconds": 14490.995147
+    },
+    {
+      "date": "2026-09-29",
+      "printer": "H2C",
+      "parts": [
+        "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.stl"
+      ],
+      "job_name": "display-open-wing-receiver-z018-h2c-v2.gcode.3mf",
+      "printer_task_id": "1295044165",
+      "status": "started",
+      "observed_at_utc": "2026-09-30T02:44:58.834880+00:00",
+      "observed_state_at_acceptance": "RUNNING",
+      "sliced_file": ".cache/prints/2026-09-29-display-open-wing-receiver-h2c-v2/ready/display-open-wing-receiver-z018-h2c-v2.gcode.3mf",
+      "sliced_file_sha256": "efbfc5c1b568984082c5b9194a7262e69384460a49b7d303d7399657f219940c",
+      "gcode_sha256": "36449451abba9cea3b550d80dcc702a41e2df55ce0143072bbb7505525ba83ed",
+      "estimated_seconds": 10400.3935546875,
+      "filament_grams": 69.97340393066406,
+      "print_options": {
+        "Timelapse": "On",
+        "Auto bed leveling": "On",
+        "Flow dynamic calibration": "Auto",
+        "Nozzle Offset Calibration": "Auto"
+      },
+      "review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-display-open-wing-receiver-h2c-v2",
+      "physical_result": "Pending",
+      "wing_tip_X_gap_centered_mm": 0.25,
+      "wing_tip_X_gap_minimum_at_full_float_mm": 0.1,
+      "body_X_gap_each_mm": 0.15,
+      "startup_spacing_seconds": 432.577732
     }
   ]
 }

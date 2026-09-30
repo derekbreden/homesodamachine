@@ -1,0 +1,35 @@
+{
+  "observed_at": "2026-09-30T02:38:39.595483+00:00",
+  "printer": "H2C",
+  "before": {
+    "job_id": "1294550319",
+    "subtask_name": "display-face-up-cover-receiver-z018-h2c-v1.gcode.3mf",
+    "gcode_state": "FINISH",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 256,
+    "total_layer_num": 256,
+    "mc_remaining_time": 0,
+    "mc_percent": 100
+  },
+  "archive": {
+    "name": "display-open-wing-receiver-z018-h2c-v2.gcode.3mf",
+    "sha256": "efbfc5c1b568984082c5b9194a7262e69384460a49b7d303d7399657f219940c",
+    "gcode_sha256": "36449451abba9cea3b550d80dcc702a41e2df55ce0143072bbb7505525ba83ed",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "000000"
+      }
+    },
+    "objects": [
+      "display-receiver-flat-wings"
+    ]
+  },
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  }
+}

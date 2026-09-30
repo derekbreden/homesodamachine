@@ -1,0 +1,37 @@
+{
+  "submitted": true,
+  "printer": "Mark2",
+  "sent_through": "Bambu Connect via cua_repl",
+  "accepted_at_utc": "2026-09-30T02:37:46.257148+00:00",
+  "reading": {
+    "job_id": "1295032042",
+    "subtask_name": "nameplate-tip025-receiver-tree-z004-mark2-v6.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 0,
+    "total_layer_num": 192,
+    "mc_remaining_time": 42,
+    "mc_percent": 0,
+    "observed_at": "2026-09-30T02:37:46.257148+00:00"
+  },
+  "archive": ".cache/prints/2026-09-29-nameplate-tip025-receiver-mark2-v6/ready/nameplate-tip025-receiver-tree-z004-mark2-v6.gcode.3mf",
+  "archive_sha256": "ae86fe1c6f646a190f67dba4c72541e9aaf7fc988c392b7400ae385176fa0554",
+  "send_copy_same_sha256": true,
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "filament_mapping": {
+    "1": {
+      "type": "PET-CF",
+      "colour": "000000"
+    }
+  },
+  "bed_clear_basis": "User has removed the preceding pair for fit assessment and requested this print.",
+  "startup_spacing_minimum_seconds": 180,
+  "other_printer_previous_accepted_at_utc": "2026-09-29T22:36:15.262001+00:00",
+  "startup_spacing_seconds": 14490.995147
+}

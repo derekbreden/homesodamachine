@@ -1,0 +1,14 @@
+{
+  "pass": true,
+  "wing_tip_clearance_mm": 0.25,
+  "increase_each_tip_mm": 0.1,
+  "body_X_clearance_each_side_mm": 0.15,
+  "body_total_X_travel_mm": 0.3,
+  "wing_thickness_gap_mm": 0.15,
+  "minimum_tip_gap_at_full_body_X_float_mm": 0.1,
+  "removed_volume_mm3": 11.181300000000078,
+  "added_volume_mm3": 0.0,
+  "changes_outside_two_tip_strips_mm3": 0.0,
+  "minimum_retention_overlap_mm": 2.1,
+  "unchanged_nameplate_stl_sha256": "a40a37c889f993742b1f4cc9f8e5e3b4f18f831bee2fe8e686a67b209611c434"
+}

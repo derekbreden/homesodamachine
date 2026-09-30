@@ -16,7 +16,7 @@ def main():
     receiver = receiver.difference(box(-h-fit.FACE_AIR, 0, h+fit.FACE_AIR, t+50))
     for side in (-1, 1):
         x0, x1 = sorted((side*(h-.1), side*(h+p+fit.TIP_AIR)))
-        receiver = receiver.difference(box(x0, 0, x1, w+fit.BEARING_AIR))
+        receiver = receiver.difference(box(x0, -fit.FRAME_THICK+t-1, x1, w+fit.BEARING_AIR))
     readings = []
     for i in range(101):
         angle = .55*i/100
@@ -32,15 +32,21 @@ def main():
                 zz -= (abs(x)-h)*math.sin(angle)
             return math.copysign(xx, x), zz
         curved = [bend(*point) for point in points]
-        lift = .01-min(z for x, z in curved)
+        # The wing tips can swing through the open underside. Only the bezel
+        # remains above its seating land, which ends at the pocket mouth.
+        over_land = Polygon(curved).intersection(box(-h+.1,-100,h-.1,100))
+        lift = max(0.,.01-over_land.bounds[1])
         polygon = Polygon([(x, z+lift) for x, z in curved])
-        overlap = polygon.intersection(receiver).area
-        assert polygon.is_valid and overlap < 1e-6, (angle, overlap)
+        intersection = polygon.intersection(receiver)
+        overlap = intersection.area
+        assert polygon.is_valid
         readings.append({'end_angle_rad':angle, 'lift_mm':lift, 'intersection_area_mm2':overlap,
+                         'interference_bounds_mm':list(intersection.bounds) if overlap>1e-6 else None,
                          'span_mm':polygon.bounds[2]-polygon.bounds[0]})
+    assert max(r['intersection_area_mm2'] for r in readings)<1e-6,max(readings,key=lambda r:r['intersection_area_mm2'])
     assert readings[-1]['span_mm'] < 2*(h+fit.FACE_AIR)
     report = {'pass':True, 'samples':len(readings), 'checks':readings,
-              'motion':'Flex the middle outward, keep both wing tips above the slot floor, then release flat into the pockets.',
+              'motion':'Flex the bezel outward above its back seating land; wing tips swing through the open underside, then return flat beneath the retaining lips.',
               'scope':'Conservative filled X/Z outline under ideal circular bending. Rounded wing ends are treated as rectangular. Does not qualify force, strain tolerance, fatigue or three-dimensional corner motion; those need the physical trial.',
               'ideal_outer_fibre_strain_at_max_bend':fit.THICK/2*.55/h,
               'maximum_section_overlap_mm2':max(r['intersection_area_mm2'] for r in readings)}
