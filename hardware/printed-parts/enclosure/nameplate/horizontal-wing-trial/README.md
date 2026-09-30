@@ -55,9 +55,9 @@ is X=±(body half-width + 0.15 mm); its Y position follows the slot roof while
 its width and slope stay fixed.
 The retaining lip is 1.23 mm thick over the flat bearing.
 
-`wing_interface.py` supplies the reusable wall cutter. The [physical observation](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-y030-receiver-mark2-v7/physical-result.json)
-records remaining bowing. Full-enclosure integration remains separate. Use the
-matching receiver; its mouth and slots establish the locating clearances.
+`wing_interface.py` supplies the reusable wall cutter. The [physical acceptance](physical-acceptance.json)
+qualifies this receiver with the existing flat nameplate. Full-enclosure integration
+remains pending. Its mouth and slots establish the locating clearances.
 
 ## Verification and printing
 
@@ -83,5 +83,6 @@ supports and the existing flat nameplate. Its
 [slice review](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-nameplate-x015-y045-receiver-mark2-v10/README.md)
 records the native estimate and an exact geometry comparison confined to the
 body-X opening and wing-slot X ends. The emitted slot opening and
-retaining-lip stock are measured across both flat bearing regions. Use the existing
-flat nameplate for physical bow, insertion and retention assessment.
+retaining-lip stock are measured across both flat bearing regions. Derek accepts
+the fit with the existing flat nameplate; detailed force and play measurements
+are not part of that report.
