@@ -1,0 +1,37 @@
+{
+  "submitted": true,
+  "printer": "H2C",
+  "sent_through": "Bambu Connect via cua_repl",
+  "accepted_at_utc": "2026-09-30T05:59:58.173292+00:00",
+  "reading": {
+    "job_id": "1295323504",
+    "subtask_name": "display-relief-receiver-z018-h2c-v3.gcode.3mf",
+    "gcode_state": "PREPARE",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 241,
+    "total_layer_num": 241,
+    "mc_remaining_time": 0,
+    "mc_percent": 0,
+    "observed_at": "2026-09-30T05:59:58.173292+00:00"
+  },
+  "archive": ".cache/prints/2026-09-30-display-relief-receiver-h2c-v3/ready/display-relief-receiver-z018-h2c-v3.gcode.3mf",
+  "archive_sha256": "a0c6cd495a7c4491c4f1ebe0d6542bbca2233c765bb6650fde782c224d196eff",
+  "send_copy_same_sha256": true,
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "filament_mapping": {
+    "1": {
+      "type": "PET-CF",
+      "colour": "000000"
+    }
+  },
+  "bed_clear_basis": "User: increase display cover wing and body clearance; H2C is clear.",
+  "startup_spacing_minimum_seconds": 180,
+  "other_printer_previous_accepted_at_utc": "2026-09-30T05:41:53.694673+00:00",
+  "startup_spacing_seconds": 1084.478619
+}

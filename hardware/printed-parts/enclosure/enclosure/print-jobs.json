@@ -2487,7 +2487,7 @@
       ],
       "job_name": "display-open-wing-receiver-z018-h2c-v2.gcode.3mf",
       "printer_task_id": "1295044165",
-      "status": "started",
+      "status": "completed",
       "observed_at_utc": "2026-09-30T02:44:58.834880+00:00",
       "observed_state_at_acceptance": "RUNNING",
       "sliced_file": ".cache/prints/2026-09-29-display-open-wing-receiver-h2c-v2/ready/display-open-wing-receiver-z018-h2c-v2.gcode.3mf",
@@ -2502,11 +2502,12 @@
         "Nozzle Offset Calibration": "Auto"
       },
       "review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-display-open-wing-receiver-h2c-v2",
-      "physical_result": "Pending",
+      "physical_result": "Bowing with cover engaged; inverted test checks only partial depth.",
       "wing_tip_X_gap_centered_mm": 0.25,
       "wing_tip_X_gap_minimum_at_full_float_mm": 0.1,
       "body_X_gap_each_mm": 0.15,
-      "startup_spacing_seconds": 432.577732
+      "startup_spacing_seconds": 432.577732,
+      "physical_result_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-display-open-wing-receiver-h2c-v2/physical-result.json"
     },
     {
       "date": "2026-09-29",
@@ -2580,6 +2581,40 @@
       "review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-bulkhead-raised-mark2-v2",
       "physical_result": "Pending collar finish and fitting check.",
       "startup_spacing_seconds": 10614.859793
+    },
+    {
+      "date": "2026-09-30",
+      "printer": "H2C",
+      "parts": [
+        "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.stl"
+      ],
+      "job_name": "display-relief-receiver-z018-h2c-v3.gcode.3mf",
+      "printer_task_id": "1295323504",
+      "status": "started",
+      "observed_at_utc": "2026-09-30T05:59:58.173292+00:00",
+      "observed_state_at_acceptance": "PREPARE",
+      "sliced_file": ".cache/prints/2026-09-30-display-relief-receiver-h2c-v3/ready/display-relief-receiver-z018-h2c-v3.gcode.3mf",
+      "sliced_file_sha256": "a0c6cd495a7c4491c4f1ebe0d6542bbca2233c765bb6650fde782c224d196eff",
+      "gcode_sha256": "1e72ff8b40864d19f8a3c8d6227bfe63ac814dcfb09dec1bb06ff5e049340ae5",
+      "estimated_seconds": 10181.1806640625,
+      "filament_grams": 68.85743713378906,
+      "print_options": {
+        "Timelapse": "On",
+        "Auto bed leveling": "On",
+        "Flow dynamic calibration": "Auto",
+        "Nozzle Offset Calibration": "Auto"
+      },
+      "review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-display-relief-receiver-h2c-v3",
+      "physical_result": "Pending same-cover bow and retention comparison.",
+      "body_X_clearance_per_side_mm": 0.3,
+      "body_Y_clearance_per_side_mm": 0.15,
+      "wing_thickness_clearance_mm": 0.6,
+      "wing_thickness_axis": "display local Z; corresponds to nameplate Y",
+      "wing_tip_X_clearance_centered_mm": 0.55,
+      "wing_tip_X_clearance_at_body_limit_mm": 0.25,
+      "minimum_wing_capture_mm": 3.0,
+      "existing_cover_sha256": "bd0545aa076fed3d7adc895df205b098f11a08b6fc37c883893115aec83dd5f2",
+      "startup_spacing_seconds": 1084.478619
     }
   ]
 }

@@ -1,0 +1,14 @@
+[
+  "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+  "--slice",
+  "0",
+  "--arrange",
+  "0",
+  "--orient",
+  "0",
+  "--outputdir",
+  "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-30-display-relief-receiver-h2c-v3/ready",
+  "--export-3mf",
+  "display-relief-receiver-z018-h2c-v3.gcode.3mf",
+  "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-30-display-relief-receiver-h2c-v3/display-relief-receiver-z018-h2c-v3-input.3mf"
+]

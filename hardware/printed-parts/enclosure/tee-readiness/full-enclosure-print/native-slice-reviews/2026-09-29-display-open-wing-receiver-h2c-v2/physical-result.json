@@ -1,0 +1,12 @@
+{
+  "observed_date_local": "2026-09-30",
+  "reporter": "user",
+  "printer": "H2C",
+  "receiver_task_id": "1295044165",
+  "cover_task_id": "1294550319",
+  "fit_accepted": false,
+  "observation": "Display cover bows when engaged. Inverted fit checks only partial seating depth because the wings rest above the receiver. User suspects contact deeper in the body opening and requests greater wing-thickness and body-X clearances.",
+  "specific_contact_identified": false,
+  "support_removal_result": null,
+  "requested_comparison": "Existing cover in a receiver with increased wing-thickness and full-depth body-X clearance."
+}

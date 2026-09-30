@@ -19,7 +19,7 @@ requires an easy slide. It includes the pump cartridge, enclosure assembly slide
 spring-driven hook engagement; travel length alone does not decide the category. The
 hand-flexed flat-wing nameplate uses static clearances.
 
-The horizontal-wing nameplate and face-up display-cover trials give each wing
+The horizontal-wing nameplate gives each wing
 tip **0.25 mm of X clearance** at the centered position. This is a local
 narrow-slot relief of 0.10 mm beyond the ordinary static gap. The body locates X
 at 0.15 mm per side; the wing tips retain 0.10 mm at the extreme of body travel.
@@ -29,7 +29,15 @@ not add to every face or establish a low-force rule.
 The [nameplate receiver Y trial](nameplate/horizontal-wing-trial/README.md) uses
 a separate 0.30 mm total thickness gap above its 1.68 mm seated wing. This local
 pinching test keeps the seating floor, X gaps and Z gaps fixed. It is not a
-change to the shared static clearance or the display-cover normal gap.
+change to the shared static clearance.
+
+The [face-up display receiver](display-cover/face-up-trial/README.md) uses
+0.30 mm per side around the body's full-depth X seating pocket. The wing tips
+have 0.55 mm centered clearance and retain 0.25 mm at maximum sideways travel.
+Its wing-thickness gap is 0.60 mm: 0.15 static, 0.25 for one supported roof,
+and 0.20 local pinching-test relief. That thickness direction is display-local
+Z, corresponding to nameplate Y. Body Y and wing end gaps remain 0.15 mm each.
+These are local fit trials with the cover's seating datum fixed.
 
 **Low-force clearance for rough overhang surfaces involved** uses a working addition
 of **0.50 mm on the identified moving gap**, after its ordinary sliding and rough-face

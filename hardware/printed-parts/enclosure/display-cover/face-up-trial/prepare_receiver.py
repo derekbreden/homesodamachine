@@ -12,8 +12,8 @@ ROOT,HERE=trial.ROOT,trial.HERE
 sys.path.insert(0,str(ROOT/'hardware/printed-parts/faucet'))
 import refresh_print_project as writer
 
-JOB=ROOT/'.cache/prints/2026-09-29-display-open-wing-receiver-h2c-v2'
-STEM='display-open-wing-receiver-z018-h2c-v2'
+JOB=ROOT/'.cache/prints/2026-09-30-display-relief-receiver-h2c-v3'
+STEM='display-relief-receiver-z018-h2c-v3'
 PROFILE=ROOT/'hardware/printed-parts/petgf.3mf'
 
 
@@ -21,7 +21,7 @@ def main():
     staged=JOB/(STEM+'-input.3mf')
     assert not staged.exists(),'Keep reviewed native slices immutable.'
     report=writer.refresh(PROFILE,staged,parts=((trial.RECEIVER,HERE/(trial.RECEIVER+'.stl'),0.),),
-                          offsets=((0.,0.),),title='Display receiver with open wing support exits; H2C',
+                          offsets=((0.,0.),),title='Display receiver with wing and full-depth body relief; H2C',
                           z_trim=.18,plate_border=15.)
     with zipfile.ZipFile(staged) as z:members={n:z.read(n) for n in z.namelist()}
     settings=json.loads(members[writer.SETTINGS_MEMBER])
@@ -40,6 +40,8 @@ def main():
                   existing_cover_sha256=sha(HERE/(trial.NAME+'.stl')),
                   support_policy='Shared PET-GF tree settings in the 30 degree enclosure pose. Wing pockets open down through the frame.',
                   clearance_basis=geometry['clearance_basis'],wing_tip_air_mm=trial.TIP_AIR,
+                  face_perimeter_air_mm=geometry['face_perimeter_air_mm'],
+                  wing_thickness_clearance_mm=trial.BEARING_AIR,
                   pure_axis_travel_mm=geometry['pure_axis_travel_mm'],submitted=False)
     (JOB/'preparation.json').write_text(json.dumps(report,indent=2)+'\n')
     ready=JOB/'ready';ready.mkdir()
