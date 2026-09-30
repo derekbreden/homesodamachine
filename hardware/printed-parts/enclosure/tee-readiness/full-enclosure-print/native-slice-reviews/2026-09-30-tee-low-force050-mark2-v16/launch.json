@@ -1,0 +1,37 @@
+{
+  "submitted": true,
+  "printer": "Mark2",
+  "sent_through": "Bambu Connect via cua_repl",
+  "accepted_at_utc": "2026-09-30T22:25:06.578180+00:00",
+  "reading": {
+    "job_id": "1297480230",
+    "subtask_name": "tee-carrier-low-force050-filled-bottom-024-black-z004-mark2-v16.gcode.3mf",
+    "gcode_state": "PREPARE",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 192,
+    "total_layer_num": 140,
+    "mc_remaining_time": 0,
+    "mc_percent": 0,
+    "observed_at": "2026-09-30T22:25:06.578180+00:00"
+  },
+  "archive": ".cache/prints/2026-09-30-tee-low-force050-mark2-v16/ready/tee-carrier-low-force050-filled-bottom-024-black-z004-mark2-v16.gcode.3mf",
+  "archive_sha256": "a9652de3687d7a1e15796ae8a3e91f01e616af0daef5c727000af6e0cdbf1cfc",
+  "send_copy_same_sha256": true,
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "filament_mapping": {
+    "1": {
+      "type": "PET-CF",
+      "colour": "000000"
+    }
+  },
+  "bed_clear_basis": "User: Mark2 is free; please print the tee carrier on Mark2. The agreed carrier has 1.00 mm roof and 0.25 mm floor clearance.",
+  "startup_spacing_minimum_seconds": 180,
+  "other_printer_previous_accepted_at_utc": "2026-09-30T21:01:31.807503+00:00",
+  "startup_spacing_seconds": 5014.770677
+}

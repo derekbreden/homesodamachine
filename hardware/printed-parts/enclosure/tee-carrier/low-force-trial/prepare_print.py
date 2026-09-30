@@ -1,4 +1,4 @@
-"""Prepare and natively slice the low-force carrier on H2C."""
+"""Prepare and natively slice the low-force carrier on Mark2."""
 import hashlib
 import json
 from pathlib import Path
@@ -13,8 +13,10 @@ sys.path.insert(0,str(ROOT/'hardware/printed-parts/faucet'))
 import refresh_print_project as writer
 BASE=ROOT/'.cache/prints/2026-09-24-tee-carrier-plate-mark2-v15/tee-carrier-plate-black-z004-mark2-v15-six-wall-band-original-order-input.3mf'
 PETGF=ROOT/'hardware/printed-parts/petgf.3mf'
-JOB=ROOT/'.cache/prints/2026-09-29-tee-low-force050-h2c-v7'
-STEM='tee-carrier-low-force050-filled-bottom-024-black-z018-h2c-v7'
+JOB=ROOT/'.cache/prints/2026-09-30-tee-low-force050-mark2-v16'
+STEM='tee-carrier-low-force050-filled-bottom-024-black-z004-mark2-v16'
+PRINTER='Mark2'
+Z_TRIM=.04
 
 
 def main():
@@ -23,7 +25,7 @@ def main():
     assert not target.exists(),'Keep sliced trials immutable.'
     source=HERE/(trial.NAME+'.stl')
     report=writer.refresh(BASE,target,parts=((trial.NAME,source,-90.),),offsets=((0.,0.),),
-                          title='Tee carrier low-force roof clearance; H2C',z_trim=.18,plate_border=15.)
+                          title=f'Tee carrier low-force roof clearance; {PRINTER}',z_trim=Z_TRIM,plate_border=15.)
     with zipfile.ZipFile(BASE) as z:
         ranges=ET.fromstring(z.read('Metadata/layer_config_ranges.xml'))
     lower=ranges.find('./object/range')
@@ -46,7 +48,7 @@ def main():
     _, carrier = trial.specifications()
     report.update(project_sha256=hashlib.sha256(target.read_bytes()).hexdigest(),
                   source_geometry_and_settings_sha256={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sources},
-                  printer='H2C',requested_z_trim_mm=.18,expected_textured_plate_trim_mm=.16,
+                  printer=PRINTER,requested_z_trim_mm=Z_TRIM,expected_textured_plate_trim_mm=.02,
                   roof_relief_mm=trial.ROOF_RELIEF,
                   roof_clearance_mm=carrier.roof_z-carrier.column_z[1],
                   floor_clearance_mm=carrier.column_z[0]-carrier.floor_z,

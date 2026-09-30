@@ -1,0 +1,49 @@
+{
+  "title": "Tee carrier with 1.00 mm upper and 0.25 mm lower clearance",
+  "printer": "Mark2",
+  "status": "started",
+  "submitted": true,
+  "task_id": "1297480230",
+  "accepted_at_utc": "2026-09-30T22:25:06.578180+00:00",
+  "native_archive": ".cache/prints/2026-09-30-tee-low-force050-mark2-v16/ready/tee-carrier-low-force050-filled-bottom-024-black-z004-mark2-v16.gcode.3mf",
+  "native_archive_sha256": "a9652de3687d7a1e15796ae8a3e91f01e616af0daef5c727000af6e0cdbf1cfc",
+  "gcode_sha256": "9493b92ed39bd8d51f4aeabfbfd129dff4fb4e22658386fc96db04a7f5845ac2",
+  "estimated_seconds": 6340.25830078125,
+  "estimated_grams_saved_profile_density": 55.81999588012695,
+  "source_geometry_and_settings_sha256": {
+    "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/low_force_trial.py": "58e0412f1da55f67b3810c65e127358ab419064b995c73eb9b0d37db3802654b",
+    "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py": "f95e15933f29da47f44f2fdaee765954d29c184cad90945c3cb6ee2b87c8fcfc",
+    "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/tee-carrier-low-force.step": "0803c537eaf34d53395c089c78a5ac90c160ddfad3db7b769c33999b20ca1ff0",
+    "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/tee-carrier-low-force.stl": "cfd5be113cbfb21f9f6c368fa5901bdb06c03643eb3e6df87e40bcdd3f25a51c",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "6ddc245c9cf280b4521aacd2544af04e201f1cea9ed71e3a3fd890d2c326f449",
+    "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/geometry-check.json": "9f35cfa04e8f9a236011bf52b99cc6ac845081e2a07d4e1488accab6cdea9e52",
+    "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/prepare_print.py": "1453a43f5cdcb86ee09e4d428531e9297f74ace0be6f9f67cfdc66969fbc161c",
+    ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v15/tee-carrier-plate-black-z004-mark2-v15-six-wall-band-original-order-input.3mf": "d72b9433d3a69da2377509ea2dd4ac51f7e4cd6d17331bc0975f15b85996f657",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/verify_print.py": "485dd9a576365f094a9b1d91ed9a6a37188bc20092015cb19b03234c3bf2efaf"
+  },
+  "evidence_sha256": {
+    "first-layer-overlap.json": "3da96ad994953ac0eab3fb242a9f8a971c7567eeeda108360ef211e2535eda6b",
+    "geometry-check.json": "9f35cfa04e8f9a236011bf52b99cc6ac845081e2a07d4e1488accab6cdea9e52",
+    "launch.json": "999c20b30522cb0be4dd5ff2e06a4fbae1fe3185c9260396c7974bb053e8edc9",
+    "mark2-retarget-check.json": "366a5f6004fe05b44288bd54451334b854e056c282491629802e90bddf96c296",
+    "postlaunch.json": "7d497ae2313ef514916c5dd9be55fb58c69ada9738cc385e535a74f4edf38c01",
+    "preflight.json": "51a878335180822cd78393687272924d2915a05bdeeaff77de791d6e885c67a0",
+    "preparation.json": "1bde8288342c0d3f9a2b1f441d3fb9126a77e396d76917aa684d0f47480fd6cf",
+    "preview.png": "6c90c59bfa7e6e6eaba57dbbc663246ef4ec77cdee7bee1eea13abd9b36a50cf",
+    "slice-command.json": "6f9ddbd2e6b1db779490a87cb529b228ce9268cd6517fcfb92ddf8ac4958ab8f",
+    "support-audit.json": "a699089312e8489c20e616734c4511049acfd38806bc710a4b7af531e0f882b3",
+    "verification.json": "40d6f871a95b3c8d5c3db02b548b2db02271c729b0b1c18cba7ee1024147b5ac",
+    "wall-review.json": "f0dd6eb2bcf1076c88d8d1396c1aa4cfc333fa59c44aa9e96216e95d6146728c"
+  },
+  "roof_clearance_mm": 1.0,
+  "floor_clearance_mm": 0.25,
+  "clearance_basis": {
+    "roof_running_mm": 0.25,
+    "roof_supported_face_mm": 0.25,
+    "roof_low_force_extra_mm": 0.5,
+    "floor_running_mm": 0.25,
+    "total_vertical_play_mm": 1.25
+  },
+  "physical_qualification": "Free sliding, spring return and unwanted play with the existing front-top are pending. Accepted chamfer/taper surface reference is H2C task 1292379739."
+}

@@ -25,7 +25,8 @@ extends 3.708 mm farther out. The added material stays inside the carrier envelo
 and behind the spring bores; no material is removed. The complete print-top round
 is unchanged. This gives a maximum nominal outward step of 0.12 mm per 0.24 mm layer.
 
-H2C prints black PET-GF on the left 0.4 mm hotend, with requested +0.18 mm bed trim.
+Mark2 prints black PET-GF on the left 0.4 mm hotend, with requested +0.04 mm bed trim
+(+0.02 mm emitted on Textured PEI).
 The carrier lies on its back. The first bed layer is 0.20 mm. The bottom chamfer,
 taper and main body use the shared PET-GF profile's 0.24 mm layer height; the top
 R6 band uses 0.08 mm. Six walls apply only through print Z 6.1 mm, with two walls
@@ -35,9 +36,10 @@ overlap, the complete bottom transition, and emitted wall count. No other parts
 share the plate.
 
 `low_force_trial.py` generates the geometry; `prepare_print.py` prepares and natively
-slices the H2C job. The chamfer/taper profile has a physically accepted surface reference;
-the current 1.00 mm roof-gap geometry has a [verified native slice](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-tee-low-force050-h2c-v7/README.md),
-estimated at 1 hour 46 minutes. It has not been sent; its physical fit is pending.
+slices the Mark2 job. The chamfer/taper profile has a physically accepted surface reference;
+the current 1.00 mm roof-gap geometry is printing as Mark2 task 1297480230. Its
+[verified native slice](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-tee-low-force050-mark2-v16/README.md)
+estimates 1 hour 45 minutes 40 seconds. Its physical sliding fit and return are pending.
 
 The accepted surface reference comes from H2C job 1292379739: 140 layers, estimated at
 1 hour 46 minutes. The [slice review](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-tee-chamfer-h2c-v6/README.md) retains the geometry,
