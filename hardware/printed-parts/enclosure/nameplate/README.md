@@ -67,8 +67,9 @@ plate-and-receiver print.
 
 The [horizontal-wing fit trial](horizontal-wing-trial/README.md) prints a flat,
 support-free nameplate face up with all artwork raised 0.48 mm. Its matching
-receiver combines standard body X clearance with local wing Y relief for the existing printed plate;
-the fit observations and native print records are linked there.
+receiver has accepted fit with the existing printed plate: 0.15 mm body X per
+side and 0.45 mm wing-thickness clearance. The [accepted pair](horizontal-wing-trial/physical-acceptance.json)
+remains separate from main-model integration.
 
 The [face-up raised-artwork trial](face-up-trial/README.md) prints the broad-leaf
 plate with its show face upward, all white artwork raised 0.48 mm and black normal

@@ -35,4 +35,5 @@ report. Startup was 22755.1 seconds after the other printer's
 preceding accepted start, exceeding the 180-second minimum.
 [Postlaunch](postlaunch.json) confirms the matching task RUNNING without errors.
 
-Physical result: Pending same-part fit, relaxed flatness, insertion and shake-retention assessment.
+Physical result: Fit accepted by Derek with the existing nameplate. See the
+[physical result](physical-result.json) for the exact accepted pair and scope.
