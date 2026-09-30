@@ -1,0 +1,22 @@
+{
+  "date": "2026-09-30",
+  "printer": "Mark2",
+  "task_id": "1296653642",
+  "status": "completed",
+  "printer_reading": {
+    "job_id": "1296653642",
+    "subtask_name": "nameplate-y045-receiver-tree-z004-mark2-v9.gcode.3mf",
+    "gcode_state": "FINISH",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 192,
+    "total_layer_num": 192,
+    "mc_remaining_time": 0,
+    "mc_percent": 100,
+    "observed_at_utc": "2026-09-30T20:48:20.586205+00:00"
+  },
+  "user_report": "I am seeing the increase in Y help a bit, and I think you left the increased X in place, and I'd like to undo that, whatever the most recent increment of X was. On both nameplate and display.",
+  "interpretation": "User reports the Y increase helps a bit; asks to undo the latest X increment while retaining Y. Remaining bow is not quantified.",
+  "quantified_fit_measurements": null,
+  "next_trial": "2026-09-30-nameplate-x015-y045-receiver-mark2-v10"
+}

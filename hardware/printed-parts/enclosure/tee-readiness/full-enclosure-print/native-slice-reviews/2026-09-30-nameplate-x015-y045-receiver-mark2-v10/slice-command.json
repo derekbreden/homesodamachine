@@ -1,0 +1,14 @@
+[
+  "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+  "--slice",
+  "0",
+  "--arrange",
+  "0",
+  "--orient",
+  "0",
+  "--outputdir",
+  "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-30-nameplate-x015-y045-receiver-mark2-v10/ready",
+  "--export-3mf",
+  "nameplate-x015-y045-receiver-tree-z004-mark2-v10.gcode.3mf",
+  "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-30-nameplate-x015-y045-receiver-mark2-v10/nameplate-x015-y045-receiver-tree-z004-mark2-v10-input.3mf"
+]

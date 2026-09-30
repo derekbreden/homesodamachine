@@ -78,7 +78,7 @@ def main(*, receiver_only=False):
             'seated_pure_axis_travel_mm':{'X':2*interface.FACE_X_AIR,
                                          'Y':interface.THICKNESS_AIR,
                                          'Z':2*interface.FACE_SLIP+interface.SUPPORTED_END_AIR},
-            'clearance_policy':'Body X has 0.35 mm per side and wing tips have 0.45 mm centered X clearance, retaining 0.10 mm at maximum body travel. Y slot clearance is 0.45 mm above the seated wing. Z uses shared static fits.slip plus fits.supported_surface once at print-down mouth and slot ends. The seating floor is fixed; the entry bevel follows the slot roof with its width and slope fixed. These are local fit trials, with no sliding or low-force additions.',
+            'clearance_policy':'Body X has 0.15 mm per side and wing tips have 0.25 mm centered X clearance, retaining 0.10 mm at maximum body travel. Y slot clearance is 0.45 mm above the seated wing. Z uses shared static fits.slip plus fits.supported_surface once at print-down mouth and slot ends. The seating floor is fixed; the entry bevel follows the slot roof with its width and slope fixed. The Y and wing-tip gaps are local fit trials, with no sliding or low-force additions.',
             'entry_bevel_mm':{'width':interface.ENTRY_BEVEL_WIDTH,'depth':interface.ENTRY_BEVEL_DEPTH},
             'supported_end_extra_clearance_mm':interface.SUPPORTED_END_AIR,
             'receiver_lip_thickness_mm':interface.THICK-interface.WING_THICK-interface.THICKNESS_AIR,

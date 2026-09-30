@@ -1,0 +1,64 @@
+{
+  "pass": true,
+  "added_volume_mm3": 47.36756363601489,
+  "removed_volume_mm3": 0.0,
+  "added_outside_reverted_X_openings_mm3": 0.0,
+  "existing_mate_stl_sha256": "a40a37c889f993742b1f4cc9f8e5e3b4f18f831bee2fe8e686a67b209611c434",
+  "receiver_step_sha256": {
+    "baseline": "eb2dabc28762c416ce44d9c1932c0552b133ae7e6297098117de33431d394a9a",
+    "trial": "0ae19c97cc7e526ed4d1405564dec24d280e8e2a2541f17875fb1809ab8581a8"
+  },
+  "pure_axis_clash_checks": [
+    {
+      "axis": "X",
+      "boundary_mm": -0.15,
+      "overlap_at_boundary_mm3": 0.0,
+      "overlap_0.05_mm_past_boundary_mm3": 1.8412019049202264
+    },
+    {
+      "axis": "X",
+      "boundary_mm": 0.15,
+      "overlap_at_boundary_mm3": 0.0,
+      "overlap_0.05_mm_past_boundary_mm3": 1.841201904920073
+    },
+    {
+      "axis": "Y",
+      "boundary_mm": 0.0,
+      "overlap_at_boundary_mm3": 0.0,
+      "overlap_0.05_mm_past_boundary_mm3": 196.40526536188133
+    },
+    {
+      "axis": "Y",
+      "boundary_mm": 0.45,
+      "overlap_at_boundary_mm3": 0.0,
+      "overlap_0.05_mm_past_boundary_mm3": 3.6407986677650497
+    },
+    {
+      "axis": "Z",
+      "boundary_mm": -0.4,
+      "overlap_at_boundary_mm3": 0.0,
+      "overlap_0.05_mm_past_boundary_mm3": 17.35052109712569
+    },
+    {
+      "axis": "Z",
+      "boundary_mm": 0.15,
+      "overlap_at_boundary_mm3": 0.0,
+      "overlap_0.05_mm_past_boundary_mm3": 17.35052109712552
+    }
+  ],
+  "body_X_clearance_per_side_mm": {
+    "baseline": 0.35,
+    "trial": 0.15
+  },
+  "wing_tip_X_clearance_centered_mm": {
+    "baseline": 0.45,
+    "trial": 0.25
+  },
+  "unchanged_wing_Y_clearance_mm": 0.45,
+  "unchanged_slot_Y_opening_mm": 2.13,
+  "unchanged_flat_lip_stock_mm": 1.23,
+  "wing_tip_gap_at_body_limit_mm": 0.1,
+  "minimum_capture_mm": 2.1,
+  "minimum_flat_bearing_mm": 1.0,
+  "scope": "Only the latest body-X and matching wing-tip-X increments are undone. Wing Y clearance, Z gaps, seating floor, bevel planes and existing nameplate are fixed."
+}

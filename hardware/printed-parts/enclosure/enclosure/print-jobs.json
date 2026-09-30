@@ -2626,7 +2626,7 @@
       ],
       "job_name": "display-body-x050-receiver-z018-h2c-v4.gcode.3mf",
       "printer_task_id": "1296307760",
-      "status": "started",
+      "status": "completed",
       "observed_at_utc": "2026-09-30T14:37:28.426282+00:00",
       "observed_state_at_acceptance": "PREPARE",
       "sliced_file": ".cache/prints/2026-09-30-display-body-x050-receiver-h2c-v4/ready/display-body-x050-receiver-z018-h2c-v4.gcode.3mf",
@@ -2641,7 +2641,7 @@
         "Nozzle Offset Calibration": "Auto"
       },
       "review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-display-body-x050-receiver-h2c-v4",
-      "physical_result": "Pending same-cover fit, bow and retention check.",
+      "physical_result": "User requests undoing the latest X increment while retaining the wing-thickness clearance. The shared report says Y helps a bit; no separate quantitative display assessment is provided.",
       "body_X_clearance_per_side_mm": 0.5,
       "body_Y_clearance_per_side_mm": 0.15,
       "wing_thickness_clearance_mm": 0.6,
@@ -2651,7 +2651,8 @@
       "minimum_wing_capture_mm": 2.6,
       "existing_cover_sha256": "bd0545aa076fed3d7adc895df205b098f11a08b6fc37c883893115aec83dd5f2",
       "geometry_scope": "Only full-depth main-body X pocket; wing pockets and seating datums held.",
-      "startup_spacing_seconds": 32134.731609
+      "startup_spacing_seconds": 32134.731609,
+      "physical_result_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-display-body-x050-receiver-h2c-v4/physical-result.json"
     },
     {
       "date": "2026-09-30",
@@ -2700,7 +2701,7 @@
       ],
       "job_name": "nameplate-y045-receiver-tree-z004-mark2-v9.gcode.3mf",
       "printer_task_id": "1296653642",
-      "status": "started",
+      "status": "completed",
       "observed_at_utc": "2026-09-30T16:45:40.747148+00:00",
       "observed_state_at_acceptance": "RUNNING",
       "sliced_file": ".cache/prints/2026-09-30-nameplate-y045-receiver-mark2-v9/ready/nameplate-y045-receiver-tree-z004-mark2-v9.gcode.3mf",
@@ -2715,7 +2716,7 @@
         "Nozzle Offset Calibration": "Auto"
       },
       "review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-nameplate-y045-receiver-mark2-v9",
-      "physical_result": "Pending same-nameplate Y play, relaxed flatness, insertion and shake-retention assessment.",
+      "physical_result": "User reports the Y increase helps a bit; asks to undo the latest X increment while retaining Y. Remaining bow is not quantified.",
       "body_X_clearance_per_side_mm": 0.35,
       "wing_tip_X_clearance_centered_mm": 0.45,
       "wing_tip_X_clearance_at_body_limit_mm": 0.1,
@@ -2730,7 +2731,83 @@
       "minimum_flat_bearing_mm": 0.8,
       "existing_nameplate_sha256": "a40a37c889f993742b1f4cc9f8e5e3b4f18f831bee2fe8e686a67b209611c434",
       "geometry_scope": "Only wing-slot Y retaining faces and their entry bevels; X/Z gaps, seating datum and existing nameplate held.",
-      "startup_spacing_seconds": 7692.320866
+      "startup_spacing_seconds": 7692.320866,
+      "physical_result_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-nameplate-y045-receiver-mark2-v9/physical-result.json"
+    },
+    {
+      "date": "2026-09-30",
+      "printer": "Mark2",
+      "parts": [
+        "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.stl"
+      ],
+      "job_name": "nameplate-x015-y045-receiver-tree-z004-mark2-v10.gcode.3mf",
+      "printer_task_id": "1297285813",
+      "status": "started",
+      "observed_at_utc": "2026-09-30T20:56:43.564281+00:00",
+      "observed_state_at_acceptance": "RUNNING",
+      "sliced_file": ".cache/prints/2026-09-30-nameplate-x015-y045-receiver-mark2-v10/ready/nameplate-x015-y045-receiver-tree-z004-mark2-v10.gcode.3mf",
+      "sliced_file_sha256": "aac59056bd2867d5d0a90efda6cd172e4ee10b3311ee1200bdc2e98adb84de90",
+      "gcode_sha256": "e108aaa64e31d958db5d99cef430554d0802c42898ebe846263dfd4b51d9f46b",
+      "estimated_seconds": 2584.3564453125,
+      "filament_grams": 20.064231872558594,
+      "print_options": {
+        "Timelapse": "On",
+        "Auto bed leveling": "On",
+        "Flow dynamic calibration": "Auto",
+        "Nozzle Offset Calibration": "Auto"
+      },
+      "review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-nameplate-x015-y045-receiver-mark2-v10",
+      "physical_result": "Pending same-part fit, relaxed flatness, insertion and shake-retention assessment.",
+      "body_X_clearance_per_side_mm": 0.15,
+      "wing_tip_X_clearance_centered_mm": 0.25,
+      "wing_tip_X_clearance_at_body_limit_mm": 0.1,
+      "wing_thickness_clearance_mm": 0.45,
+      "minimum_wing_capture_mm": 2.1,
+      "existing_mate_sha256": "a40a37c889f993742b1f4cc9f8e5e3b4f18f831bee2fe8e686a67b209611c434",
+      "geometry_scope": "Only the latest body-X and matching wing-tip-X increments are undone. Wing Y clearance, Z gaps, seating floor, bevel planes and existing nameplate are fixed.",
+      "startup_spacing_seconds": 22755.137999,
+      "slot_Y_opening_mm": 2.13,
+      "flat_retaining_lip_thickness_mm": 1.23,
+      "Z_end_clearances_mm": [
+        0.4,
+        0.15
+      ],
+      "minimum_flat_bearing_mm": 1.0
+    },
+    {
+      "date": "2026-09-30",
+      "printer": "H2C",
+      "parts": [
+        "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.stl"
+      ],
+      "job_name": "display-x030-receiver-z018-h2c-v5.gcode.3mf",
+      "printer_task_id": "1297296218",
+      "status": "started",
+      "observed_at_utc": "2026-09-30T21:01:31.807503+00:00",
+      "observed_state_at_acceptance": "RUNNING",
+      "sliced_file": ".cache/prints/2026-09-30-display-x030-receiver-h2c-v5/ready/display-x030-receiver-z018-h2c-v5.gcode.3mf",
+      "sliced_file_sha256": "6e965cfae91b155df1cb3af7a5c224fcf41ad75d8c857d579f1cdd782a069bb6",
+      "gcode_sha256": "2794eed43a6aefc5ec891012cb577526649395b2f1f85f2f97ad1b6f3f4d3465",
+      "estimated_seconds": 10180.9638671875,
+      "filament_grams": 68.85743713378906,
+      "print_options": {
+        "Timelapse": "On",
+        "Auto bed leveling": "On",
+        "Flow dynamic calibration": "Auto",
+        "Nozzle Offset Calibration": "Auto"
+      },
+      "review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-display-x030-receiver-h2c-v5",
+      "physical_result": "Pending same-part fit, relaxed flatness, insertion and shake-retention assessment.",
+      "body_X_clearance_per_side_mm": 0.3,
+      "wing_tip_X_clearance_centered_mm": 0.55,
+      "wing_tip_X_clearance_at_body_limit_mm": 0.25,
+      "wing_thickness_clearance_mm": 0.6,
+      "minimum_wing_capture_mm": 3.0,
+      "existing_mate_sha256": "bd0545aa076fed3d7adc895df205b098f11a08b6fc37c883893115aec83dd5f2",
+      "geometry_scope": "Only the latest main-body X increment is undone through full seating depth. Wing pockets, thickness gap, support exits, seating datums and existing cover are fixed.",
+      "startup_spacing_seconds": 288.243222,
+      "wing_thickness_axis": "display local Z; corresponds to nameplate Y",
+      "body_Y_clearance_per_side_mm": 0.15
     }
   ]
 }

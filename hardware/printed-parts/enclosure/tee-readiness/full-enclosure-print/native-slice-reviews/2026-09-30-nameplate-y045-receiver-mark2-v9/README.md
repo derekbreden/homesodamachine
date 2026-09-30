@@ -43,4 +43,5 @@ PEI), ordinary startup options including Auto nozzle offset, the user's clear
 bed report, and more than three minutes after H2C's start.
 [Postlaunch](postlaunch.json) confirms the matching task RUNNING without errors.
 
-Physical result: Pending same-nameplate Y play, relaxed flatness, insertion and shake-retention assessment.
+Physical result: User reports the Y increase helps a bit; asks to undo the latest X increment while retaining Y. Remaining bow is not quantified.
+See [physical result](physical-result.json).

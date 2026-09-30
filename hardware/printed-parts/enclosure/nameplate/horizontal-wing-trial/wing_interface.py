@@ -19,11 +19,11 @@ WING_SPAN = 30.0
 END_RADIUS = .6
 FACE_SLIP = fits.slip
 # Full-depth body-width clearance; retain the ordinary Z gaps.
-FACE_X_AIR = .35
+FACE_X_AIR = .15
 # Local Y fit trial: keep the seating floor fixed and relieve the retaining face.
 THICKNESS_AIR = .45
 # The body locates X. Keep nonlocating wing tips clear of rounded slot corners.
-TIP_AIR = .45
+TIP_AIR = .25
 END_AIR = fits.slip
 SUPPORTED_END_AIR = fits.supported_surface
 FLOOR_STOCK = 3.6
@@ -54,8 +54,8 @@ def blank():
 def apply(solid, station, y_outer, *, supported=SUPPORTED_END_AIR, up=-1):
     """Flush plate pocket and two sideways slots; no cantilevers behind the face.
 
-    Body X has 0.35 mm per side; Z uses the shared static allowance.
-    Nonlocating wing tips have 0.45 mm centered X clearance, retaining
+    Body X has 0.15 mm per side; Z uses the shared static allowance.
+    Nonlocating wing tips have 0.25 mm centered X clearance, retaining
     0.10 mm at maximum body travel. The plate back and wing
     undersides share the zero-clearance seating datum. The Y slot has 0.45 mm
     of local trial relief above the seated wing. Its walls print vertically,

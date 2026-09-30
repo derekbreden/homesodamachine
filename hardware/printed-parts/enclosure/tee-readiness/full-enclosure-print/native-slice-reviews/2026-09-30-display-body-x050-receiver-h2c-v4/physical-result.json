@@ -1,0 +1,22 @@
+{
+  "date": "2026-09-30",
+  "printer": "H2C",
+  "task_id": "1296307760",
+  "status": "completed",
+  "printer_reading": {
+    "job_id": "1296307760",
+    "subtask_name": "display-body-x050-receiver-z018-h2c-v4.gcode.3mf",
+    "gcode_state": "FINISH",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 241,
+    "total_layer_num": 241,
+    "mc_remaining_time": 0,
+    "mc_percent": 100,
+    "observed_at_utc": "2026-09-30T20:48:19.951870+00:00"
+  },
+  "user_report": "I am seeing the increase in Y help a bit, and I think you left the increased X in place, and I'd like to undo that, whatever the most recent increment of X was. On both nameplate and display.",
+  "interpretation": "User requests undoing the latest X increment while retaining the wing-thickness clearance. The shared report says Y helps a bit; no separate quantitative display assessment is provided.",
+  "quantified_fit_measurements": null,
+  "next_trial": "2026-09-30-display-x030-receiver-h2c-v5"
+}
