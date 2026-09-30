@@ -12,8 +12,8 @@ ROOT,HERE=trial.ROOT,trial.HERE
 sys.path.insert(0,str(ROOT/'hardware/printed-parts/faucet'))
 import refresh_print_project as writer
 
-JOB=ROOT/'.cache/prints/2026-09-30-display-relief-receiver-h2c-v3'
-STEM='display-relief-receiver-z018-h2c-v3'
+JOB=ROOT/'.cache/prints/2026-09-30-display-body-x050-receiver-h2c-v4'
+STEM='display-body-x050-receiver-z018-h2c-v4'
 PROFILE=ROOT/'hardware/printed-parts/petgf.3mf'
 
 
@@ -21,7 +21,7 @@ def main():
     staged=JOB/(STEM+'-input.3mf')
     assert not staged.exists(),'Keep reviewed native slices immutable.'
     report=writer.refresh(PROFILE,staged,parts=((trial.RECEIVER,HERE/(trial.RECEIVER+'.stl'),0.),),
-                          offsets=((0.,0.),),title='Display receiver with wing and full-depth body relief; H2C',
+                          offsets=((0.,0.),),title='Display receiver with 0.50 mm body X clearance; H2C',
                           z_trim=.18,plate_border=15.)
     with zipfile.ZipFile(staged) as z:members={n:z.read(n) for n in z.namelist()}
     settings=json.loads(members[writer.SETTINGS_MEMBER])

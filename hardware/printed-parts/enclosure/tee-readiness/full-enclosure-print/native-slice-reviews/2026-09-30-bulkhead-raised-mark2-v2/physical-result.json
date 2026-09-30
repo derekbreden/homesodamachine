@@ -1,0 +1,21 @@
+{
+  "observed_date_local": "2026-09-30",
+  "reporter": "user",
+  "printer": "Mark2",
+  "task_id": "1295298484",
+  "parts": [
+    "TAP",
+    "FLAVOR",
+    "FLAVOR"
+  ],
+  "appearance_accepted": true,
+  "user_report": "Tap/flavor bulkhead collars came out great, excellent and clear lettering.",
+  "lettering_raise_mm": 0.48,
+  "orientation": "face up",
+  "white_correction_mm": {
+    "X": -0.5,
+    "Y": 0.7
+  },
+  "mounting_fit_reported": false,
+  "scope": "User acceptance of printed finish and lettering clarity; no dimensional mounting measurement reported."
+}

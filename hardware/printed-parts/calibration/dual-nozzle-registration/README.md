@@ -50,8 +50,9 @@ has user-accepted artwork appearance, recorded in its
 [physical result](../../enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-flat-wings-mark2-v3/physical-result.json).
 Residual XY error and QR scanning remain unmeasured. The
 [TAP and FLAVOR collar print](../../enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-bulkhead-raised-mark2-v2/README.md)
-uses the same correction and awaits its own finish and fitting check. Recheck
-after changing a hotend or calibration condition.
+uses the same correction and has
+[user-accepted finish and clear lettering](../../enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-bulkhead-raised-mark2-v2/physical-result.json).
+Recheck after changing a hotend or calibration condition.
 
 The current native review and launch receipt are retained in
 [`2026-09-29-registration-mark2-v3`](../../enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-registration-mark2-v3/README.md).

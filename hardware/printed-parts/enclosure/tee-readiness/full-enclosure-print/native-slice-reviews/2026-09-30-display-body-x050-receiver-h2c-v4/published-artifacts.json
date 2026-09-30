@@ -1,0 +1,22 @@
+{
+  "pass": true,
+  "observed_at_utc": "2026-09-30T14:35:26.568857+00:00",
+  "artifacts": [
+    {
+      "url": "https://homesodamachine.com/steps/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.step",
+      "local_path": "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.step",
+      "expected_sha256": "58c6f2a7d1f989ed203c86b4a953eb67451dfa79f3860d8f02b38adb2d3c6c01",
+      "served_sha256": "58c6f2a7d1f989ed203c86b4a953eb67451dfa79f3860d8f02b38adb2d3c6c01",
+      "bytes": 208038,
+      "pass": true
+    },
+    {
+      "url": "https://homesodamachine.com/meshes/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.step.mesh",
+      "local_path": "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.step.mesh",
+      "expected_sha256": "034aa0f1a461d80751e85d30b94e573e390cd3663dc965eeb3bd1a8a562becae",
+      "served_sha256": "034aa0f1a461d80751e85d30b94e573e390cd3663dc965eeb3bd1a8a562becae",
+      "bytes": 80088,
+      "pass": true
+    }
+  ]
+}

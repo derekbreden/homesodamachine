@@ -17,20 +17,21 @@ These are the cover's local axes, before the receiver's print rotation.
 | Optical opening at the glass | 107.5 × 71 mm |
 | Wing thickness | 1.44 mm |
 | Wing projection × span, each side | 3.60 × 70 mm |
-| Body left/right clearance through full seating depth | 0.30 mm each; 0.60 mm total X travel |
+| Body left/right clearance through full seating depth | 0.50 mm each; 1.00 mm total X travel |
 | Body upper/lower clearance in local Y | 0.15 mm each; 0.30 mm total Y travel |
-| Wing tip to slot end in X | 0.55 mm centered; 0.25 mm minimum at full body X float |
+| Wing tip to slot end in X | 0.55 mm centered; 0.05 mm minimum at full body X float |
 | Wing end clearance in Y at the retaining roof | 0.15 mm each |
 | Wing top to retaining roof | 0.60 mm: 0.15 static + 0.25 supported roof + 0.20 local fit relief |
 | Cover back to seating datum | 0 mm |
 | Receiver lip thickness | 1.80 mm |
-| Capture beneath lip, centered | 3.30 mm per wing |
-| Minimum capture at full sideways float | 3.00 mm |
+| Capture beneath lip, centered | 3.10 mm per wing |
+| Minimum capture at full sideways float | 2.60 mm |
 | Glass perimeter clearance | 0.15 mm each side |
 
 The body locates X. Its local side relief extends through the full 3.84 mm
 seating depth, including the lower rounded corners. The wing tips retain
-0.25 mm of room even at the body's extreme sideways position. The hand-bent
+0.05 mm of room at the body's extreme sideways position and 0.55 mm when centered.
+The wing-pocket geometry is held to isolate the main-body X fit. The hand-bent
 horizontal wings have no spring-driven hook engagement. The 0.20 mm relief
 above each seated wing is a fit trial, independent of sliding or low-force
 allowances. The same physical thickness direction is Y on the nameplate and
@@ -42,8 +43,9 @@ The [physical observation](../../tee-readiness/full-enclosure-print/native-slice
 records bowing with the cover engaged. An inverted cover rests only partly
 inside the opening because its wings sit above the receiver, so that fit does
 not qualify clearance at the seated depth. The responsible printed contact
-has not been isolated. This receiver jointly tests body-side and wing-thickness
-relief with the existing cover.
+has not been isolated. The [0.30 mm body-side trial](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-display-relief-receiver-h2c-v3/physical-result.json)
+still bows. This receiver tests 0.50 mm body-side clearance with the existing
+cover and the same wing pockets, thickness gap and seating datums.
 
 The visible face is flush with this receiver. Its glass seat is 5.84 mm below
 the face: a 3.84 mm cover, 1 mm TPU gasket and 1 mm glass stack. The display sits
@@ -78,7 +80,7 @@ The receiver uses the established H2C +0.18 mm trim, black PET-GF on the left
 0.4 mm nozzle, a 0.20 mm first layer and 0.24 mm above it, normal speeds, wall
 order and 15% overlap. Shared tree-support gaps are 0.40 mm XY, 0.45 mm upper Z
 and 0.30 mm lower Z. Remove trees through the open underside before installing
-glass or cover. The native estimate is **2 h 49 min 41 sec**. The
-[slice review](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-display-relief-receiver-h2c-v3/README.md)
+glass or cover. The native estimate is **2 h 49 min 30 sec**. The
+[slice review](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-display-body-x050-receiver-h2c-v4/README.md)
 records the exact archive and launch. Support removal, relaxed flatness, complete
 capture and shake retention need this physical receiver.

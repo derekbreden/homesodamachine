@@ -1,0 +1,88 @@
+{
+  "schema": 1,
+  "piece": "display-open-wing-receiver",
+  "inputs": {
+    "gcode": "plate_1.gcode",
+    "gcode_sha256": "cc955d57a1a39e5534919d048a4587c298e0d386469488f597786aefb721d602",
+    "model": null,
+    "model_sha256": null,
+    "profile": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-30-display-body-x050-receiver-h2c-v4/display-body-x050-receiver-z018-h2c-v4-input.3mf",
+    "profile_sha256": "fda398cda15266d6a43aed67bdbccbfd2a1d1bcf8d679a11e80f3f3b6d0b12d1"
+  },
+  "slicer": "BambuStudio 02.08.02.61",
+  "first_layer_z_mm": 0.2,
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -162.5,
+      -158.125,
+      0.0
+    ],
+    "plate_to_cad_translation_mm": [
+      -162.5,
+      -158.125,
+      0.0
+    ]
+  },
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.45",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "support_bodies": 1,
+    "interface_islands": null,
+    "bed_rooted_bodies": 1,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "bodies_without_interface_labels": 1,
+    "explicit_interface_islands": 0,
+    "shortest_labelled_build_up_mm": null
+  },
+  "trees": [
+    {
+      "id": "tree-1",
+      "root": "bed",
+      "base_z_mm": 0.2,
+      "first_interface_z_mm": null,
+      "shortest_build_up_mm": null,
+      "top_z_mm": 50.36,
+      "bbox_xy_mm": [
+        96.0,
+        119.2,
+        229.2,
+        204.8
+      ],
+      "interfaces": [],
+      "interface_reading": "unlabelled",
+      "bbox_cad_xyz_mm": [
+        -66.5,
+        -38.925,
+        0.2,
+        66.7,
+        46.675,
+        50.36
+      ]
+    }
+  ],
+  "interfaces": [],
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+  "physical_removal_tested": false,
+  "removal_access": "Both wing-pocket roofs have continuous print-down exits through the frame. Verify tree breakup and removal on the physical coupon."
+}

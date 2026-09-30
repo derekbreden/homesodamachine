@@ -32,8 +32,9 @@ pinching test keeps the seating floor, X gaps and Z gaps fixed. It is not a
 change to the shared static clearance.
 
 The [face-up display receiver](display-cover/face-up-trial/README.md) uses
-0.30 mm per side around the body's full-depth X seating pocket. The wing tips
-have 0.55 mm centered clearance and retain 0.25 mm at maximum sideways travel.
+0.50 mm per side around the body's full-depth X seating pocket. The wing tips
+have 0.55 mm centered clearance and retain 0.05 mm at maximum sideways travel.
+Their pocket geometry is held to isolate the main-body X fit.
 Its wing-thickness gap is 0.60 mm: 0.15 static, 0.25 for one supported roof,
 and 0.20 local pinching-test relief. That thickness direction is display-local
 Z, corresponding to nameplate Y. Body Y and wing end gaps remain 0.15 mm each.
