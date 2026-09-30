@@ -35,7 +35,8 @@
     "published-artifacts.json": "14521635b2181ca45ed3b22e3d0eb9c1a878c1ee529e2cad1bcfeacfc4c44ee7",
     "slice-command.json": "1f5c9d4ac2372889a501c7736394e3e07adfcd1f2832290af21f96e9fccbd37b",
     "support-audit.json": "312189ea45fd90cd7d0a6d6c03f0534f5250774906d670b5e1f3dc04ce7558b4",
-    "verification.json": "08e036a03995e90dbd7649843412b6a36e290b87bd3db1667d522b1078293c7d"
+    "verification.json": "08e036a03995e90dbd7649843412b6a36e290b87bd3db1667d522b1078293c7d",
+    "physical-result.json": "5c9d0efbad33e990126619fd6cc19ee5300a49def6a2b71f8a9e4b25312e3a20"
   },
-  "physical_result": "Pending same-cover fit, bow and retention check."
+  "physical_result": "User requests undoing the latest X increment while retaining the wing-thickness clearance. The shared report says Y helps a bit; no separate quantitative display assessment is provided."
 }

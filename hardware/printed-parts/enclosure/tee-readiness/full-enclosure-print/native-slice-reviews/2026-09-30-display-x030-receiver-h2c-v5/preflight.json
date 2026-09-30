@@ -1,0 +1,49 @@
+{
+  "pass": true,
+  "archive": ".cache/prints/2026-09-30-display-x030-receiver-h2c-v5/ready/display-x030-receiver-z018-h2c-v5.gcode.3mf",
+  "archive_details": {
+    "name": "display-x030-receiver-z018-h2c-v5.gcode.3mf",
+    "sha256": "6e965cfae91b155df1cb3af7a5c224fcf41ad75d8c857d579f1cdd782a069bb6",
+    "gcode_sha256": "2794eed43a6aefc5ec891012cb577526649395b2f1f85f2f97ad1b6f3f4d3465",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "000000"
+      }
+    },
+    "objects": [
+      "display-receiver-flat-wings"
+    ]
+  },
+  "readings": {
+    "Mark2": {
+      "job_id": "1297285813",
+      "subtask_name": "nameplate-x015-y045-receiver-tree-z004-mark2-v10.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 192,
+      "mc_remaining_time": 43,
+      "mc_percent": 0,
+      "observed_at": "2026-09-30T20:59:59.287828+00:00"
+    },
+    "H2C": {
+      "job_id": "1296307760",
+      "subtask_name": "display-body-x050-receiver-z018-h2c-v4.gcode.3mf",
+      "gcode_state": "FINISH",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 241,
+      "total_layer_num": 241,
+      "mc_remaining_time": 0,
+      "mc_percent": 100,
+      "observed_at": "2026-09-30T20:59:59.287853+00:00"
+    }
+  },
+  "bed_clear_basis": "User: Both beds are available. Undo the latest X increment on both nameplate and display while retaining the current wing-thickness clearance.",
+  "startup_spacing_minimum_seconds": 180,
+  "other_printer_previous_accepted_at_utc": "2026-09-30T20:56:43.564281+00:00",
+  "spacing_at_preflight_seconds": 195.71483,
+  "send_copy": ".cache/prints/2026-09-30-display-x030-receiver-h2c-v5/send/display-x030-receiver-z018-h2c-v5.gcode.3mf"
+}

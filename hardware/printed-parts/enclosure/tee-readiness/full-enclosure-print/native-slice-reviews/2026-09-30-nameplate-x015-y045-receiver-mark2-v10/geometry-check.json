@@ -1,0 +1,59 @@
+{
+  "pass": true,
+  "wing_projection_mm": 2.4,
+  "wing_thickness_mm": 1.68,
+  "wing_span_mm": 30.0,
+  "wing_end_radius_mm": 0.6,
+  "slot_thickness_mm": 2.13,
+  "slot_thickness_air_mm": 0.45,
+  "slot_tip_air_mm": 0.25,
+  "minimum_engagement_at_lateral_float_mm": 2.1,
+  "minimum_flat_bearing_at_lateral_float_mm": 1.0,
+  "minimum_tip_gap_at_lateral_float_mm": 0.1,
+  "field_thickness_mm": 3.36,
+  "plate_thickness_mm": 3.36,
+  "raised_perimeter": false,
+  "face_perimeter_air_mm": {
+    "X": 0.15,
+    "Z": 0.15
+  },
+  "slot_end_air_mm": 0.15,
+  "seated_pure_axis_travel_mm": {
+    "X": 0.3,
+    "Y": 0.45,
+    "Z": 0.55
+  },
+  "clearance_policy": "Body X has 0.15 mm per side and wing tips have 0.25 mm centered X clearance, retaining 0.10 mm at maximum body travel. Y slot clearance is 0.45 mm above the seated wing. Z uses shared static fits.slip plus fits.supported_surface once at print-down mouth and slot ends. The seating floor is fixed; the entry bevel follows the slot roof with its width and slope fixed. The Y and wing-tip gaps are local fit trials, with no sliding or low-force additions.",
+  "entry_bevel_mm": {
+    "width": 1.1,
+    "depth": 0.4
+  },
+  "supported_end_extra_clearance_mm": 0.25,
+  "receiver_lip_thickness_mm": 1.23,
+  "body_receiver_overlap_mm3": 0.0,
+  "bed_contact_mm2": 4108.105307237601,
+  "first_layer_includes_plate_and_both_wings": true,
+  "artwork_rise_mm": 0.48,
+  "raised_white_solids": 29,
+  "print_planes_z_mm": {
+    "back_and_wings": 0,
+    "wing_top": 1.68,
+    "inlay_bottom": 2.6399999999999997,
+    "black_face": 3.36,
+    "white_top": 3.84
+  },
+  "support_policy": "Nameplate requires no supports. Receiver prints in enclosure wall orientation.",
+  "physical_qualification": "Pending insertion flex, relaxed flatness, shake retention and QR scan. CAD capture is not a force or strain qualification.",
+  "receiver_integration": "Coupon uses the reusable wall cutter in wing_interface.py; full enclosure receiver awaits this mechanism fit trial.",
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/horizontal_wing_trial.py": "35c8a5648ce389f79f085662898aa07deb05b26886445b0ce2005104cf7648f1",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/wing_interface.py": "687c23cfc3ea2f6bc395bcebf01be2a6930eae2fdd6a0c2b139f20e61f56577d",
+    "hardware/printed-parts/cadlib/fits.py": "3821989044c5bc3ae99cc6912538b8a34bd75a6b0a081aefc8e4c5a0ce714191",
+    "hardware/printed-parts/enclosure/nameplate/nameplate.py": "34c3026fe89e4afa0d6c6084376e278fda6b00ebdd226edb6200864b8ccd81cd",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py": "fb290e6f377fc5f33790b7e6532c59ff0fdab0472b2f519d808b17106e8629fc",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-001.step": "e9f635dcf4ed04a199a20c3a2ef225d2d4d094a67f793e6b5b556951d12beb04",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-001.stl": "a40a37c889f993742b1f4cc9f8e5e3b4f18f831bee2fe8e686a67b209611c434",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.step": "0ae19c97cc7e526ed4d1405564dec24d280e8e2a2541f17875fb1809ab8581a8",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.stl": "1bf777f5941dc3031fb1ea476686454c5aef39d2f28e3f0edac39380c7e69cc6"
+  }
+}

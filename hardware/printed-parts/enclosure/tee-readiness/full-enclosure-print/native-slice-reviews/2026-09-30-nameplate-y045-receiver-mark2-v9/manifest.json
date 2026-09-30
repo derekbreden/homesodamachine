@@ -40,7 +40,8 @@
     "published-artifacts.json": "ee3a41d90971993b91f81d7758ad7c9d6624ed2b89cc23c82ccbdd86a26f5ceb",
     "slice-command.json": "8618212c65752d906d3b3e2f91c362c5227a8b1fff8ffe14165e1b49e6817979",
     "support-audit.json": "0d2ad9ece892be48b95b48f4be693b28fab86a9ebb1844b33644fda6f6db7bb4",
-    "verification.json": "3aee2299bcf670622d331c762526a5a79036bda9ce258d6935a6a99ab95baace"
+    "verification.json": "3aee2299bcf670622d331c762526a5a79036bda9ce258d6935a6a99ab95baace",
+    "physical-result.json": "ee04e096c0cf2b86064804766be747bc13086472f3498431731c4855744feab2"
   },
-  "physical_result": "Pending same-nameplate Y play, relaxed flatness, insertion and shake-retention assessment."
+  "physical_result": "User reports the Y increase helps a bit; asks to undo the latest X increment while retaining Y. Remaining bow is not quantified."
 }

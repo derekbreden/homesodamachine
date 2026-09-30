@@ -1,0 +1,217 @@
+{
+  "project": "nameplate-x015-y045-receiver-tree-z004-mark2-v10-input.3mf",
+  "settings_source": "hardware/printed-parts/petgf.3mf",
+  "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "settings_sha256": "413f466b0f82b9f08163384565315535bbd116a22707f29815e28a4a7364d125",
+  "source_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    }
+  },
+  "printer": "Mark2",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 15.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "nameplate-horizontal-wings-receiver",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.stl",
+      "stl_sha256": "1bf777f5941dc3031fb1ea476686454c5aef39d2f28e3f0edac39380c7e69cc6",
+      "triangles": 1166,
+      "rotation_x_degrees": 180.0,
+      "source_center_mm": [
+        0.0,
+        -0.12000000476837158,
+        0.0
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        -1.0,
+        1.2246467991473532e-16,
+        0.0,
+        -1.2246467991473532e-16,
+        -1.0,
+        162.5,
+        160.0,
+        23.0
+      ],
+      "plate_translation_mm": [
+        162.5,
+        160.0,
+        23.0
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          104.83499908447266,
+          156.5200001001358,
+          0.0
+        ],
+        [
+          220.16500091552734,
+          163.4799998998642,
+          46.0
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    }
+  ],
+  "project_sha256": "b783d635ff5958c15039cf1b315f2940524e5d7cbd3146abbe0d013d5e4dede9",
+  "settings_preserved_byte_for_byte": false,
+  "source_geometry_and_settings_sha256": {
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.stl": "1bf777f5941dc3031fb1ea476686454c5aef39d2f28e3f0edac39380c7e69cc6",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.step": "0ae19c97cc7e526ed4d1405564dec24d280e8e2a2541f17875fb1809ab8581a8",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/geometry-check.json": "1bfc8f2e10c41f89dcbee484614760a379e9e6252bea7ff0517ac255619c721b",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/wing_interface.py": "687c23cfc3ea2f6bc395bcebf01be2a6930eae2fdd6a0c2b139f20e61f56577d",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/horizontal_wing_trial.py": "35c8a5648ce389f79f085662898aa07deb05b26886445b0ce2005104cf7648f1",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/insertion-envelope.json": "d03ffa3a28a8c9b84d135699e135ac2de24def07abfc5d510537ce2cf27c5db8",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/verify_insertion.py": "ef3102b1d71aee662b5e07b8fa70b63ea9c11b4692667851220158ed82e0f82b",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-001.stl": "a40a37c889f993742b1f4cc9f8e5e3b4f18f831bee2fe8e686a67b209611c434",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/prepare_receiver.py": "a1c36ff73a095d10e252defd075ba134808dfe2a9405a356c0d22c4927e345d6",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "945d069e3d9133e13b542190de419def348f4d9d1a0eed25720e4e0a7260d6d0"
+  },
+  "intentional_overrides": {
+    "extruder_ams_count": [
+      "1#0|4#0",
+      "1#0|4#0"
+    ],
+    "support_filament": "1",
+    "support_interface_filament": "1",
+    "flush_into_support": "0"
+  },
+  "requested_z_trim_mm": 0.04,
+  "expected_textured_plate_trim_mm": 0.02,
+  "body_X_clearance_per_side_mm": 0.15,
+  "wing_tip_clearance_mm": 0.25,
+  "wing_thickness_clearance_mm": 0.45,
+  "orientation": "CAD -Z up (X180), matching back-top roof-down orientation; slots open to the face.",
+  "enclosure_build_direction": -1.0,
+  "inherited_support_settings": {
+    "enable_support": "1",
+    "independent_support_layer_height": "1",
+    "support_air_filtration": "0",
+    "support_angle": "0",
+    "support_base_pattern": "default",
+    "support_base_pattern_spacing": "2.5",
+    "support_bottom_interface_spacing": "0.5",
+    "support_bottom_z_distance": "0.3",
+    "support_chamber_temp_control": "1",
+    "support_cooling_filter": "1",
+    "support_critical_regions_only": "0",
+    "support_expansion": "0",
+    "support_fast_purge_mode": "0",
+    "support_filament": "1",
+    "support_interface_bottom_layers": "2",
+    "support_interface_filament": "1",
+    "support_interface_loop_pattern": "0",
+    "support_interface_not_for_body": "1",
+    "support_interface_pattern": "auto",
+    "support_interface_spacing": "0.5",
+    "support_interface_speed": [
+      "80",
+      "80",
+      "80",
+      "80",
+      "80"
+    ],
+    "support_interface_top_layers": "2",
+    "support_ironing_direction": "0",
+    "support_ironing_flow": "10%",
+    "support_ironing_inset": "0",
+    "support_ironing_pattern": "zig-zag",
+    "support_ironing_spacing": "0.15",
+    "support_ironing_speed": "30",
+    "support_line_width": "0.62",
+    "support_object_first_layer_gap": "0.2",
+    "support_object_skip_flush": "0",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_remove_small_overhang": "1",
+    "support_speed": [
+      "150",
+      "150",
+      "150",
+      "150",
+      "150"
+    ],
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.45",
+    "support_type": "tree(auto)",
+    "tree_support_branch_angle": "45",
+    "tree_support_branch_diameter": "2",
+    "tree_support_branch_diameter_angle": "5",
+    "tree_support_branch_distance": "5",
+    "tree_support_wall_count": "-1"
+  },
+  "support_profile_differences": {
+    "support_filament": {
+      "profile": "0",
+      "receiver": "1"
+    },
+    "support_interface_filament": {
+      "profile": "0",
+      "receiver": "1"
+    }
+  },
+  "support_policy": "Shared petgf.3mf tree supports and clearances; support and interface explicitly black. Verify emitted slot access.",
+  "qualification": "Insertion flex, retention and removal remain physical tests."
+}

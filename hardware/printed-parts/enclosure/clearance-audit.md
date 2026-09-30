@@ -20,22 +20,22 @@ spring-driven hook engagement; travel length alone does not decide the category.
 hand-flexed flat-wing nameplate uses static clearances.
 
 The horizontal-wing nameplate gives each wing
-tip **0.45 mm of X clearance** at the centered position. This is a local
-narrow-slot relief of 0.10 mm beyond the body's local X fit gap. The body locates X
-at 0.35 mm per side; the wing tips retain 0.10 mm at the extreme of body travel.
+tip **0.25 mm of X clearance** at the centered position. This is a local
+narrow-slot relief of 0.10 mm beyond the body's shared static X fit gap. The body locates X
+at 0.15 mm per side; the wing tips retain 0.10 mm at the extreme of body travel.
 These tips need capture, not a second X locating fit. This trial allowance does
 not add to every face or establish a low-force rule.
 
 The [nameplate receiver trial](nameplate/horizontal-wing-trial/README.md) uses
 a separate 0.45 mm total thickness gap above its 1.68 mm seated wing. This local
-Y-fit test keeps the seating floor and X/Z gaps fixed. The retaining face and
+fit combines ordinary body X clearance with local wing Y relief and a fixed seating floor. The retaining face and
 entry bevel define a 2.13 mm slot with 1.23 mm of stock over its flat bearing.
 The physical comparison uses the existing nameplate; the shared static rule
 remains unchanged.
 
 The [face-up display receiver](display-cover/face-up-trial/README.md) uses
-0.50 mm per side around the body's full-depth X seating pocket. The wing tips
-have 0.55 mm centered clearance and retain 0.05 mm at maximum sideways travel.
+0.30 mm per side around the body's full-depth X seating pocket. The wing tips
+have 0.55 mm centered clearance and retain 0.25 mm at maximum sideways travel.
 Their pocket geometry is held to isolate the main-body X fit.
 Its wing-thickness gap is 0.60 mm: 0.15 static, 0.25 for one supported roof,
 and 0.20 local pinching-test relief. That thickness direction is display-local

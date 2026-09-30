@@ -1,0 +1,43 @@
+{
+  "printer": "H2C",
+  "submitted": true,
+  "task_id": "1297296218",
+  "accepted_at_utc": "2026-09-30T21:01:31.807503+00:00",
+  "native_archive": ".cache/prints/2026-09-30-display-x030-receiver-h2c-v5/ready/display-x030-receiver-z018-h2c-v5.gcode.3mf",
+  "native_archive_sha256": "6e965cfae91b155df1cb3af7a5c224fcf41ad75d8c857d579f1cdd782a069bb6",
+  "gcode_sha256": "2794eed43a6aefc5ec891012cb577526649395b2f1f85f2f97ad1b6f3f4d3465",
+  "estimated_seconds": 10180.9638671875,
+  "estimated_grams_saved_profile_density": 68.85743713378906,
+  "sources": {
+    "hardware/printed-parts/enclosure/display-cover/face-up-trial/face_up_trial.py": "406303e006b630c12d0486922cdc43cdd9b76ce3bdbe1315ea8c76dcc1ed190a",
+    "hardware/printed-parts/enclosure/display-cover/display_cover.py": "968e20c88930aa2654254849cafecc38c48afd35b62a0e854dbf7da253c4a6c8",
+    "hardware/printed-parts/enclosure/display-cover/retention-trial/retention_trial.py": "fd5d1a754b5970f2fa7a5569b554f0329ec0af6f6e064202cbd281985273133c",
+    "hardware/printed-parts/cadlib/fits.py": "3821989044c5bc3ae99cc6912538b8a34bd75a6b0a081aefc8e4c5a0ce714191",
+    "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.step": "2ef12c8034de1b401fa10fe9f3157b797da236a9d55be915435f129082226d52",
+    "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.stl": "bd0545aa076fed3d7adc895df205b098f11a08b6fc37c883893115aec83dd5f2",
+    "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.step": "7141a82043aebf5dd361d7709ec6c33b1f8dfc00acdc0347a811c8db25c69bf5",
+    "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.stl": "6bb5588a932e1e92bb488d8acd36ca900377277e35ad2af78131e67f80edbbdd",
+    "hardware/printed-parts/enclosure/display-cover/face-up-trial/geometry-check.json": "aaa46c26ea015610d8f5a2d708becb3561361d3f9aaeca7221cf7b03feba56f7",
+    "hardware/printed-parts/enclosure/display-cover/face-up-trial/insertion-envelope.json": "4de2cb39a908d38ee9d8ef57a8368b76651a3fe37e96dd009202e890c8b430d2",
+    "hardware/printed-parts/enclosure/display-cover/face-up-trial/prepare_receiver.py": "2b71d87a08964d353a5729c5774b78eb613e7f3a47f7520023e791ab582901c6",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "hardware/printed-parts/enclosure/display-cover/face-up-trial/verify_receiver.py": "f8ce63420bfb70f9f3acb4c2c73ff6fbee62d8b0fb41658661ff8fc82044ff9c"
+  },
+  "evidence_sha256": {
+    "check-geometry-delta.py": "8020527a4ff4b59e42f2476c39ed1124587c79dd914ca1d9e9acaba243a63747",
+    "geometry-check.json": "aaa46c26ea015610d8f5a2d708becb3561361d3f9aaeca7221cf7b03feba56f7",
+    "geometry-delta.json": "deebd13bff02eb34b015783ad548f2c485edc06276e17a938aa473c239d39918",
+    "geometry-lint.log": "8aae28017becc784d831fe1e13e2939212e858d1e48b187c754dc600f920fbfd",
+    "insertion-envelope.json": "4de2cb39a908d38ee9d8ef57a8368b76651a3fe37e96dd009202e890c8b430d2",
+    "launch.json": "23fd43e4c71f45918466a101246c2b8ad463cdb0aed681852949be66b119abb6",
+    "postlaunch.json": "783ddfeafe02e3148a5fbad912303fed4c9e2871a05a6cb3a8ea650e7b9e774c",
+    "preflight.json": "7b3ee8cbee9e1f2ad191b47a7aae5289b32de887a43832024c3ad53ba6d50983",
+    "preparation.json": "e75efc1e22c4d3e65ef3db09481e303fcb2957891af4beebbc2e14984deae5ac",
+    "preview.png": "7df60a84819ae7162c7a4e992f1706376574eae345881038fb4f6930577a4ed7",
+    "published-artifacts.json": "dc8c96dcc9eaab9d46acc1dad4b34447addf6d42dd53047eda2ae197442a4f3c",
+    "slice-command.json": "afeb899fcad4dbef55de1fe40e6f485dbc2c667cdc2782020dfab7a2b88b7387",
+    "support-audit.json": "cc0a6b58d55f5637f7d37a90855f2328a19d5032b67657858357d9e4b9feb0be",
+    "verification.json": "e3b2c5c36951c42c6eb99c932f190da44a17c218714d9a93d0c2c11101d5de84"
+  },
+  "physical_result": "Pending same-part fit, relaxed flatness, insertion and shake-retention assessment."
+}

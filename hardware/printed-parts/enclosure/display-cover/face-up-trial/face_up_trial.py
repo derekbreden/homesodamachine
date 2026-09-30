@@ -29,12 +29,12 @@ WING_REACH = 3.60
 WING_SPAN = 70.0
 WING_END_R = .60
 fits = cover.dims.fits
-FACE_X_AIR = .50
+FACE_X_AIR = .30
 FACE_Y_AIR = fits.slip
 # The bedded wing has a smooth top; the receiver's retaining roof is supported.
 BEARING_RELIEF = .20
 BEARING_AIR = fits.slip+fits.supported_surface+BEARING_RELIEF
-# Fixed wing pockets isolate the body-width trial; tips clear the body's X limits.
+# Wing tips retain 0.25 mm of room at the body's X travel limits.
 TIP_AIR = .55
 END_AIR = fits.slip
 LIP_THICK = THICK-WING_THICK-BEARING_AIR
