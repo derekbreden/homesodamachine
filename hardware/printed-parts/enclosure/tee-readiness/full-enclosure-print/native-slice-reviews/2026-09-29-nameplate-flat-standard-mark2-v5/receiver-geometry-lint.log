@@ -1,0 +1,29 @@
+nameplate-horizontal-wings-receiver.stl · 1166 printed facets · 0 findings · 5 answered
+
+  [sliver · answered] This 0.36 mm face is the edge of the rear pad's run-out, joined continuously to the receiver wall. It is not the thickness of the retaining lip or a freestanding strip. The functional retaining lip is 1.53 mm thick; native paths retain a single receiver body.
+    0.360 mm strip, 103.6 mm long
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=0.000 y=0.180 z=21.150
+    edge: x=51.815 y=0.180 z=21.150 → x=-51.815 y=0.180 z=21.150 · len 103.630 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=0.000 y=0.180 z=21.150
+
+  [ceiling · answered] The coupon prints with installed -Z as build-up, matching back-top. These -Z faces therefore point upward during this print. The native slice separately audits the real print-down contacts with the shared tree support profile.
+    331 mm² flat print-down face at z=19.150 · 98.5 × 3.4 mm · drop 38.5–38.5 mm to material below
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=0.000 y=1.680 z=19.150
+    click: x=0.000 y=1.680 z=19.150
+
+  [ceiling · answered] The coupon prints with installed -Z as build-up, matching back-top. These -Z faces therefore point upward during this print. The native slice separately audits the real print-down contacts with the shared tree support profile.
+    410 mm² flat print-down face at z=-21.150 · 103.6 × 4.0 mm · open to the bed (1.9 mm up)
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=0.000 y=-1.620 z=-21.150
+    click: x=0.000 y=-1.620 z=-21.150
+
+  [slope · answered] The two halves of the diamond opening are finger/tool access through the backing, not a bearing or a rail. Their 10 mm rise over 9 mm run carries the opening in the enclosure's build direction. The seated plate's backing remains around the opening.
+    45° underside runs along a wall with no level foot · slope dir -1.00,+0.00 vs wall n -0.00,+1.00 · along 13.5 mm · 48 mm²
+    faceA: plane · n x=-0.743 y=0.000 z=-0.669 · thru x=4.500 y=-1.800 z=5.000
+    faceB: plane · n x=0.000 y=1.000 z=0.000 · thru x=0.000 y=0.000 z=-0.125
+    click: x=4.500 y=-1.800 z=5.000
+
+  [slope · answered] The two halves of the diamond opening are finger/tool access through the backing, not a bearing or a rail. Their 10 mm rise over 9 mm run carries the opening in the enclosure's build direction. The seated plate's backing remains around the opening.
+    45° underside runs along a wall with no level foot · slope dir +1.00,+0.00 vs wall n -0.00,+1.00 · along 13.5 mm · 48 mm²
+    faceA: plane · n x=0.743 y=0.000 z=-0.669 · thru x=-4.500 y=-1.800 z=5.000
+    faceB: plane · n x=0.000 y=1.000 z=0.000 · thru x=0.000 y=0.000 z=-0.125
+    click: x=-4.500 y=-1.800 z=5.000

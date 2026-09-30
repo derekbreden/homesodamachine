@@ -29,7 +29,9 @@ def verify(baseline, corrected, correction):
     changed={k:[settings[0].get(k),settings[1].get(k)] for k in set(settings[0])|set(settings[1])
              if settings[0].get(k)!=settings[1].get(k)}
     expected_offset=['0x0',f"{-correction['X']:g}x{-correction['Y']:g}"]
-    assert changed=={'extruder_offset':[['0x0','0x0'],expected_offset]},changed
+    baseline_offset=settings[0]['extruder_offset']
+    assert len(baseline_offset)==2 and all(float(v)==0 for pair in baseline_offset for v in pair.split('x'))
+    assert changed=={'extruder_offset':[baseline_offset,expected_offset]},changed
     for config in settings:
         assert config['filament_map']==['1','2'] and config['filament_nozzle_map']==['0','1']
         assert config['nozzle_diameter']==['0.4','0.4'] and config['enable_arc_fitting']=='0'

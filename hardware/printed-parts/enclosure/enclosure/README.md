@@ -657,12 +657,17 @@ for the enclosure and its installed printed accessories:
 | Static | 0.15 mm |
 | Sliding | 0.25 mm |
 | Static with retained bridge strands | 0.40 mm |
+| Static with retained bridge strands on both mating faces | 0.65 mm |
 | Sliding with retained bridge strands on one face | 0.50 mm |
 | Sliding with retained bridge strands on both opposing faces | 0.75 mm |
 
 Each supported face contributes one bridge allowance in its print direction, applied to
 that face or its mate. The rear Z-seam has two opposing supported faces and uses 0.75 mm
 CAD play; the front seam has one and uses 0.50 mm.
+Sliding covers constrained motion that needs to move easily, including short
+spring-driven engagement. The [low-force rule](../clearance-audit.md) adds a working
+0.50 mm only to an identified gap requiring low actuation force. The tee-carrier
+trial uses 1.00 mm above and 0.25 mm below; the flat-wing nameplate uses static fits.
 A bore receives twice the base per-face allowance in its diameter; only its supported crown
 receives the extra 0.25 mm. Where a pocket's enclosing wall is 3 mm thick, its outer stock
 moves with the pocket or the mating part retreats. Bearing datums, gasket compression,

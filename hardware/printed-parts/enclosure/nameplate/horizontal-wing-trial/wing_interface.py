@@ -6,22 +6,25 @@ import cadquery as cq
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent.parent / 'enclosure'))
+sys.path.insert(0, str(HERE.parents[2] / 'cadlib'))
 import _nameplate_interface as dimensions
+import fits
 
 WIDTH, HEIGHT = dimensions.WIDTH, dimensions.HEIGHT
-FIELD_THICK = 2.40
 THICK = 3.36
-FRAME_WIDTH = 3.0
+FIELD_THICK = THICK
 PROJECTION = 2.40
 WING_THICK = 1.68
 WING_SPAN = 30.0
 END_RADIUS = .6
-FACE_SLIP = .20
-THICKNESS_AIR = .48
-TIP_AIR = .50
-END_AIR = .30
-SUPPORTED_END_AIR = .75
+FACE_SLIP = fits.slip
+THICKNESS_AIR = fits.slip
+TIP_AIR = fits.slip
+END_AIR = fits.slip
+SUPPORTED_END_AIR = fits.supported_surface
 FLOOR_STOCK = 3.6
+ENTRY_BEVEL_WIDTH = 1.10
+ENTRY_BEVEL_DEPTH = .40
 box = dimensions.box
 
 
@@ -41,20 +44,16 @@ def blank():
     plate = (cq.Workplane('XY').rect(WIDTH,HEIGHT).extrude(THICK)
              .edges('|Z').fillet(dimensions.CORNER_R).val()
              .rotate((0,0,0),(1,0,0),-90))
-    # A recessed field leaves a bendable 2.4 mm web. The 3.36 mm perimeter
-    # supplies stock for thick wings and a 1.2 mm receiver retaining ledge.
-    field = (cq.Workplane('XY').rect(WIDTH-2*FRAME_WIDTH,HEIGHT-2*FRAME_WIDTH)
-             .extrude(THICK-FIELD_THICK+1).edges('|Z').fillet(1.0).val()
-             .rotate((0,0,0),(1,0,0),-90).translate((0,FIELD_THICK,0)))
-    return plate.cut(field).fuse(*wings()).clean()
+    return plate.fuse(*wings()).clean()
 
 
 def apply(solid, station, y_outer, *, supported=SUPPORTED_END_AIR, up=-1):
     """Flush plate pocket and two sideways slots; no cantilevers behind the face.
 
-    Y slot walls print vertically in the enclosure. Their .48 mm total thickness
-    air is a smooth-wall trial, independent of the rough supported-face allowance.
-    The print-down slot end alone receives the latter allowance.
+    All mating gaps use the shared static allowance. The plate back and wing
+    undersides share the zero-clearance seating datum. Y slot walls print
+    vertically, so only the print-down mouth and slot ends receive the extra
+    supported-surface allowance. This hand-inserted plate has no low-force fit.
     """
     floor = y_outer-THICK
     shift = (station.x,floor,station.z)
@@ -80,6 +79,16 @@ def apply(solid, station, y_outer, *, supported=SUPPORTED_END_AIR, up=-1):
     for side in (-1,1):
         xa,xb = sorted((side*(WIDTH/2-.1),side*(WIDTH/2+PROJECTION+TIP_AIR)))
         solid = solid.cut(box(xa,xb,0,WING_THICK+THICKNESS_AIR,z0,z1).translate(shift))
+        # Entry bevel clears the rotating wing during hand-bent insertion.
+        # The outer flat bearing retains the shared static thickness gap.
+        mouth_x = WIDTH/2+FACE_SLIP
+        roof_y = WING_THICK+THICKNESS_AIR
+        lead = (cq.Workplane('XY').workplane(offset=z0)
+                .polyline([(side*mouth_x,roof_y),
+                           (side*(mouth_x+ENTRY_BEVEL_WIDTH),roof_y),
+                           (side*mouth_x,roof_y+ENTRY_BEVEL_DEPTH)])
+                .close().extrude(z1-z0).val())
+        solid = solid.cut(lead.translate(shift))
     # Back access permits pushing the centre outward to release the wings.
     # Its diamond ceiling is self-supporting in the enclosure wall orientation.
     access=(cq.Workplane('XY').polyline([(-9,0),(0,10),(9,0),(0,-10)])

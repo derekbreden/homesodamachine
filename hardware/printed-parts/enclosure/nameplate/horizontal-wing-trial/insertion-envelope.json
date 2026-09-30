@@ -12,709 +12,709 @@
     {
       "end_angle_rad": 0.0055000000000000005,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.023181783496343165,
+      "lift_mm": 0.023174523514476374,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 109.33468036894348
+      "x_span_mm": 109.32940039556344
     },
     {
       "end_angle_rad": 0.011000000000000001,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.03632686833534294,
+      "lift_mm": 0.036297828628373614,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 109.33816138105631
+      "x_span_mm": 109.32760159401502
     },
     {
       "end_angle_rad": 0.0165,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.04943485688037501,
+      "lift_mm": 0.049369518362650286,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 109.34044291190799
+      "x_span_mm": 109.32460363063821
     },
     {
       "end_angle_rad": 0.022000000000000002,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.06250535261554983,
+      "lift_mm": 0.062389197300541197,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 109.34152486059915
+      "x_span_mm": 109.32040656423793
     },
     {
       "end_angle_rad": 0.0275,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.07553796015965472,
+      "lift_mm": 0.07535647159765232,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 109.34140714976493
+      "x_span_mm": 109.31501047713911
     },
     {
       "end_angle_rad": 0.033,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.0885322852766388,
+      "lift_mm": 0.08827094899426478,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 109.34008972557791
+      "x_span_mm": 109.30841547518483
     },
     {
       "end_angle_rad": 0.038500000000000006,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.10148793488973433,
+      "lift_mm": 0.10113223882877402,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 109.33757255775053
+      "x_span_mm": 109.30062168773387
     },
     {
       "end_angle_rad": 0.044000000000000004,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.11440451709080149,
+      "lift_mm": 0.11393995204794408,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 109.3338556395369
+      "x_span_mm": 109.29162926765764
     },
     {
       "end_angle_rad": 0.0495,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.12728164115512794,
+      "lift_mm": 0.12669370121988818,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 109.32893898773403
+      "x_span_mm": 109.2814383913367
     },
     {
       "end_angle_rad": 0.055,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.1401189175500866,
+      "lift_mm": 0.13939310054409076,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 109.32282264268264
+      "x_span_mm": 109.27004925865664
     },
     {
       "end_angle_rad": 0.060500000000000005,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.15291595794936133,
+      "lift_mm": 0.1520377658651784,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 109.31550666826728
+      "x_span_mm": 109.25746209300348
     },
     {
       "end_angle_rad": 0.066,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.16567237524319015,
+      "lift_mm": 0.16462731468270822,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 109.30699115191598
+      "x_span_mm": 109.24367714125836
     },
     {
       "end_angle_rad": 0.07150000000000001,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.17838778355110602,
+      "lift_mm": 0.17716136616390882,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 109.29727620459937
+      "x_span_mm": 109.2286946737919
     },
     {
       "end_angle_rad": 0.07700000000000001,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.1910617982328545,
+      "lift_mm": 0.18963954115459777,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 109.28636196082921
+      "x_span_mm": 109.212514984458
     },
     {
       "end_angle_rad": 0.0825,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.20369403590044402,
+      "lift_mm": 0.20206146219100465,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 109.27424857865635
+      "x_span_mm": 109.19513839058678
     },
     {
       "end_angle_rad": 0.08800000000000001,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.21628411442985035,
+      "lift_mm": 0.21442675351090695,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 109.2609362396683
+      "x_span_mm": 109.17656523297752
     },
     {
       "end_angle_rad": 0.09350000000000001,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.2288316529720336,
+      "lift_mm": 0.2267350410652156,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 109.24642514898588
+      "x_span_mm": 109.15679587589042
     },
     {
       "end_angle_rad": 0.099,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.24133627196485954,
+      "lift_mm": 0.2389859525292142,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 109.23071553525995
+      "x_span_mm": 109.13583070703848
     },
     {
       "end_angle_rad": 0.10450000000000001,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.2537975931445603,
+      "lift_mm": 0.25117911731379217,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 109.21380765066682
+      "x_span_mm": 109.11367013757818
     },
     {
       "end_angle_rad": 0.11,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.2662152395572453,
+      "lift_mm": 0.2633141665764443,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 109.19570177090387
+      "x_span_mm": 109.09031460210016
     },
     {
       "end_angle_rad": 0.1155,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.2785888355699517,
+      "lift_mm": 0.27539073323306,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 109.17639819518394
+      "x_span_mm": 109.06576455861901
     },
     {
       "end_angle_rad": 0.12100000000000001,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.2909180068824258,
+      "lift_mm": 0.2874084519683407,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 109.1558972462298
+      "x_span_mm": 109.04002048856272
     },
     {
       "end_angle_rad": 0.1265,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.30320238053798854,
+      "lift_mm": 0.29936695924711965,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 109.13419927026753
+      "x_span_mm": 109.01308289676138
     },
     {
       "end_angle_rad": 0.132,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.31544158493553004,
+      "lift_mm": 0.311265893325618,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 109.11130463701977
+      "x_span_mm": 108.98495231143559
     },
     {
       "end_angle_rad": 0.1375,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.3276352498399041,
+      "lift_mm": 0.3231048942618958,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 109.08721373969814
+      "x_span_mm": 108.95562928418416
     },
     {
       "end_angle_rad": 0.14300000000000002,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.339783006393622,
+      "lift_mm": 0.33488360392709127,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 109.06192699499529
+      "x_span_mm": 108.92511438997126
     },
     {
       "end_angle_rad": 0.14850000000000002,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.3518844871281397,
+      "lift_mm": 0.34660166601619613,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 109.03544484307626
+      "x_span_mm": 108.89340822711306
     },
     {
       "end_angle_rad": 0.15400000000000003,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.3639393259744537,
+      "lift_mm": 0.35825872605870873,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 109.0077677475695
+      "x_span_mm": 108.86051141726391
     },
     {
       "end_angle_rad": 0.1595,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.375947158274711,
+      "lift_mm": 0.36985443142939084,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 108.97889619555714
+      "x_span_mm": 108.82642460540191
     },
     {
       "end_angle_rad": 0.165,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.387907620792785,
+      "lift_mm": 0.3813884313590146,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 108.9488306975647
+      "x_span_mm": 108.79114845981384
     },
     {
       "end_angle_rad": 0.1705,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.3998203517256384,
+      "lift_mm": 0.39286037694509973,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 108.91757178755057
+      "x_span_mm": 108.75468367207972
     },
     {
       "end_angle_rad": 0.17600000000000002,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.41168499071410625,
+      "lift_mm": 0.4042699211620715,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 108.88512002289455
+      "x_span_mm": 108.71703095705679
     },
     {
       "end_angle_rad": 0.18150000000000002,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.42350117885372474,
+      "lift_mm": 0.41561671887203266,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 108.85147598438604
+      "x_span_mm": 108.67819105286281
     },
     {
       "end_angle_rad": 0.18700000000000003,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.43526855870577713,
+      "lift_mm": 0.4269004268353546,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 108.81664027621174
+      "x_span_mm": 108.638164720859
     },
     {
       "end_angle_rad": 0.1925,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.4469867743078152,
+      "lift_mm": 0.4381207037206304,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 108.78061352594268
+      "x_span_mm": 108.59695274563235
     },
     {
       "end_angle_rad": 0.198,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.45865547118479505,
+      "lift_mm": 0.4492772101154126,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 108.74339638452074
+      "x_span_mm": 108.55455593497743
     },
     {
       "end_angle_rad": 0.20350000000000001,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.4702742963594325,
+      "lift_mm": 0.4603696085361425,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 108.7049895262447
+      "x_span_mm": 108.51097511987761
     },
     {
       "end_angle_rad": 0.20900000000000002,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.48184289836322797,
+      "lift_mm": 0.4713975634386916,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 108.66539364875557
+      "x_span_mm": 108.4662111544857
     },
     {
       "end_angle_rad": 0.21450000000000002,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.4933609272468533,
+      "lift_mm": 0.48236074122826555,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 108.62460947302172
+      "x_span_mm": 108.42026491610434
     },
     {
       "end_angle_rad": 0.22,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.5048280345908094,
+      "lift_mm": 0.49325881026952145,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 108.58263774332303
+      "x_span_mm": 108.3731373051654
     },
     {
       "end_angle_rad": 0.2255,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.5162438735159274,
+      "lift_mm": 0.5040914408967283,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 108.53947922723484
+      "x_span_mm": 108.32482924520923
     },
     {
       "end_angle_rad": 0.231,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.5276080986939985,
+      "lift_mm": 0.5148583054236292,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 108.4951347156111
+      "x_span_mm": 108.27534168286311
     },
     {
       "end_angle_rad": 0.23650000000000002,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.5389203663580477,
+      "lift_mm": 0.5255590781534025,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 108.44960502256734
+      "x_span_mm": 108.22467558781945
     },
     {
       "end_angle_rad": 0.24200000000000002,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.5501803343128776,
+      "lift_mm": 0.5361934353884666,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 108.40289098546265
+      "x_span_mm": 108.1728319528131
     },
     {
       "end_angle_rad": 0.24750000000000003,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.5613876619452833,
+      "lift_mm": 0.5467610554403826,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 108.35499346488143
+      "x_span_mm": 108.1198117935984
     },
     {
       "end_angle_rad": 0.253,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.5725420102344514,
+      "lift_mm": 0.5572616186393713,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 108.30591334461455
+      "x_span_mm": 108.06561614892568
     },
     {
       "end_angle_rad": 0.2585,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.5836430417622016,
+      "lift_mm": 0.5676948073442434,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 108.25565153163984
+      "x_span_mm": 108.01024608051698
     },
     {
       "end_angle_rad": 0.264,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.5946904207232101,
+      "lift_mm": 0.578060305951826,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 108.20420895610224
+      "x_span_mm": 107.95370267304156
     },
     {
       "end_angle_rad": 0.2695,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.6056838129350761,
+      "lift_mm": 0.5883578009066035,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 108.15158657129317
+      "x_span_mm": 107.89598703409065
     },
     {
       "end_angle_rad": 0.275,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.6166228858485414,
+      "lift_mm": 0.5985869807101409,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 108.09778535362967
+      "x_span_mm": 107.83710029415181
     },
     {
       "end_angle_rad": 0.2805,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.6275073085574929,
+      "lift_mm": 0.6087475359304615,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 108.0428063026327
+      "x_span_mm": 107.77704360658267
     },
     {
       "end_angle_rad": 0.28600000000000003,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.63833675180892,
+      "lift_mm": 0.6188391592115774,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 107.98665044090504
+      "x_span_mm": 107.71581814758413
     },
     {
       "end_angle_rad": 0.29150000000000004,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.6491108880130239,
+      "lift_mm": 0.6288615452826614,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 107.92931881410868
+      "x_span_mm": 107.65342511617311
     },
     {
       "end_angle_rad": 0.29700000000000004,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.6598293912530245,
+      "lift_mm": 0.6388143909673422,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 107.87081249094169
+      "x_span_mm": 107.58986573415478
     },
     {
       "end_angle_rad": 0.30250000000000005,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.670491937294977,
+      "lift_mm": 0.6486973951926963,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 107.81113256311438
+      "x_span_mm": 107.52514124609411
     },
     {
       "end_angle_rad": 0.30800000000000005,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.6810982035977402,
+      "lift_mm": 0.6585102589987339,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 107.75028014532522
+      "x_span_mm": 107.4592529192871
     },
     {
       "end_angle_rad": 0.3135,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.691647869322469,
+      "lift_mm": 0.6682526855469246,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 107.68825637523581
+      "x_span_mm": 107.39220204373126
     },
     {
       "end_angle_rad": 0.319,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.7021406153426591,
+      "lift_mm": 0.677924380129702,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 107.62506241344587
+      "x_span_mm": 107.32398993209583
     },
     {
       "end_angle_rad": 0.3245,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.7125761242535418,
+      "lift_mm": 0.6875250501790344,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 107.56069944346713
+      "x_span_mm": 107.2546179196912
     },
     {
       "end_angle_rad": 0.33,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.722954080381746,
+      "lift_mm": 0.6970544052753767,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 107.4951686716971
+      "x_span_mm": 107.18408736443804
     },
     {
       "end_angle_rad": 0.3355,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.7332741697948808,
+      "lift_mm": 0.7065121571564561,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 107.42847132739209
+      "x_span_mm": 107.11239964683571
     },
     {
       "end_angle_rad": 0.341,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.7435360803110126,
+      "lift_mm": 0.7158980197259831,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 107.36060866263975
+      "x_span_mm": 107.03955616993031
     },
     {
       "end_angle_rad": 0.34650000000000003,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.7537395015082047,
+      "lift_mm": 0.7252117090623944,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 107.2915819523312
+      "x_span_mm": 106.9655583592821
     },
     {
       "end_angle_rad": 0.35200000000000004,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.7638841247336673,
+      "lift_mm": 0.7344529434272359,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 107.22139249413243
+      "x_span_mm": 106.89040766293249
     },
     {
       "end_angle_rad": 0.3575,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.7739696431133378,
+      "lift_mm": 0.7436214432738333,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 107.15004160845521
+      "x_span_mm": 106.81410555137036
     },
     {
       "end_angle_rad": 0.36300000000000004,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.7839957515611006,
+      "lift_mm": 0.7527169312558867,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 107.07753063842775
+      "x_span_mm": 106.7366535174981
     },
     {
       "end_angle_rad": 0.3685,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.7939621467878942,
+      "lift_mm": 0.7617391322354979,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 107.00386094986435
+      "x_span_mm": 106.65805307659679
     },
     {
       "end_angle_rad": 0.37400000000000005,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.8038685273110282,
+      "lift_mm": 0.7706877732918049,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 106.92903393123497
+      "x_span_mm": 106.57830576629132
     },
     {
       "end_angle_rad": 0.3795,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.8137145934632427,
+      "lift_mm": 0.7795625837290611,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 106.853050993634
+      "x_span_mm": 106.4974131465145
     },
     {
       "end_angle_rad": 0.385,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.8235000474018221,
+      "lift_mm": 0.788363295084967,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 106.77591357074861
+      "x_span_mm": 106.41537679947102
     },
     {
       "end_angle_rad": 0.39050000000000007,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.833224593117493,
+      "lift_mm": 0.7970896411386451,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 106.6976231188266
+      "x_span_mm": 106.33219832960076
     },
     {
       "end_angle_rad": 0.396,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.8428879364435011,
+      "lift_mm": 0.8057413579188211,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 106.61818111664364
+      "x_span_mm": 106.24787936354153
     },
     {
       "end_angle_rad": 0.4015000000000001,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.8524897850644488,
+      "lift_mm": 0.8143181837116948,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 106.53758906547
+      "x_span_mm": 106.16242155009145
     },
     {
       "end_angle_rad": 0.40700000000000003,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.8620298485251764,
+      "lift_mm": 0.8228198590689554,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 106.45584848903684
+      "x_span_mm": 106.07582656017055
     },
     {
       "end_angle_rad": 0.4125,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.8715078382394513,
+      "lift_mm": 0.8312461268155887,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 106.372960933502
+      "x_span_mm": 105.98809608678235
     },
     {
       "end_angle_rad": 0.41800000000000004,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.880923467498798,
+      "lift_mm": 0.8395967320575992,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 106.28892796741498
+      "x_span_mm": 105.89923184497425
     },
     {
       "end_angle_rad": 0.4235,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.8902764514812037,
+      "lift_mm": 0.8478714221898486,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 106.2037511816819
+      "x_span_mm": 105.80923557179806
     },
     {
       "end_angle_rad": 0.42900000000000005,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.8995665072595567,
+      "lift_mm": 0.8560699469035562,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 106.11743218952945
+      "x_span_mm": 105.71810902626963
     },
     {
       "end_angle_rad": 0.43450000000000005,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.9087933538104107,
+      "lift_mm": 0.8641920581940121,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 106.02997262646858
+      "x_span_mm": 105.62585398932801
     },
     {
       "end_angle_rad": 0.44,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.9179567120223553,
+      "lift_mm": 0.8722375103679381,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 105.94137415025769
+      "x_span_mm": 105.53247226379432
     },
     {
       "end_angle_rad": 0.44550000000000006,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.9270563047045135,
+      "lift_mm": 0.8802060600510617,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 105.85163844086517
+      "x_span_mm": 105.4379656743299
     },
     {
       "end_angle_rad": 0.451,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.9360918565948813,
+      "lift_mm": 0.8880974661953049,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 105.76076720043153
+      "x_span_mm": 105.342336067394
     },
     {
       "end_angle_rad": 0.4565000000000001,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.9450630943687157,
+      "lift_mm": 0.8959114900862768,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 105.66876215323096
+      "x_span_mm": 105.24558531120103
     },
     {
       "end_angle_rad": 0.462,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.9539697466467598,
+      "lift_mm": 0.9036478953503329,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 105.57562504563242
+      "x_span_mm": 105.1477152956773
     },
     {
       "end_angle_rad": 0.4675000000000001,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.9628115440034579,
+      "lift_mm": 0.9113064479618245,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 105.48135764606018
+      "x_span_mm": 105.04872793241717
     },
     {
       "end_angle_rad": 0.47300000000000003,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.9715882189750955,
+      "lift_mm": 0.9188869162500874,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 105.38596174495382
+      "x_span_mm": 104.94862515463878
     },
     {
       "end_angle_rad": 0.47850000000000004,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.9802995060679551,
+      "lift_mm": 0.9263890709065605,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 105.28943915472789
+      "x_span_mm": 104.8474089171393
     },
     {
       "end_angle_rad": 0.48400000000000004,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.9889451417662545,
+      "lift_mm": 0.9338126849916151,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 105.1917917097308
+      "x_span_mm": 104.74508119624966
     },
     {
       "end_angle_rad": 0.48950000000000005,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 0.9975248645401569,
+      "lift_mm": 0.9411575339415139,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 105.09302126620338
+      "x_span_mm": 104.64164398978866
     },
     {
       "end_angle_rad": 0.49500000000000005,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 1.0060384148537198,
+      "lift_mm": 0.9484233955751094,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 104.9931297022369
+      "x_span_mm": 104.5370993170168
     },
     {
       "end_angle_rad": 0.5005000000000001,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 1.0144855351727153,
+      "lift_mm": 0.9556100501006688,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 104.89211891773058
+      "x_span_mm": 104.43144921858945
     },
     {
       "end_angle_rad": 0.506,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 1.022865969972361,
+      "lift_mm": 0.9627172801224262,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 104.7899908343486
+      "x_span_mm": 104.32469575650973
     },
     {
       "end_angle_rad": 0.5115000000000001,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 1.0311794657451487,
+      "lift_mm": 0.9697448706472171,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 104.68674739547649
+      "x_span_mm": 104.21684101408049
     },
     {
       "end_angle_rad": 0.517,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 1.0394257710084822,
+      "lift_mm": 0.9766926090909653,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 104.58239056617725
+      "x_span_mm": 104.10788709585634
     },
     {
       "end_angle_rad": 0.5225000000000001,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 1.047604636312244,
+      "lift_mm": 0.9835602852851126,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 104.47692233314676
+      "x_span_mm": 103.99783612759472
     },
     {
       "end_angle_rad": 0.528,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 1.055715814246397,
+      "lift_mm": 0.9903476914829843,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 104.37034470466882
+      "x_span_mm": 103.88669025620685
     },
     {
       "end_angle_rad": 0.5335,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 1.0637590594483997,
+      "lift_mm": 0.997054622366039,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 104.26265971056957
+      "x_span_mm": 103.77445164970784
     },
     {
       "end_angle_rad": 0.539,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 1.0717341286107294,
+      "lift_mm": 1.0036808750501698,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 104.15386940217154
+      "x_span_mm": 103.66112249716667
     },
     {
       "end_angle_rad": 0.5445,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 1.0796407804881285,
+      "lift_mm": 1.0102262490916856,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 104.0439758522471
+      "x_span_mm": 103.5467050086554
     },
     {
       "end_angle_rad": 0.55,
       "tip_floor_clearance_mm": 0.01,
-      "lift_mm": 1.0874787759049918,
+      "lift_mm": 1.0166905464935474,
       "intersection_area_mm2": 0.0,
-      "x_span_mm": 103.93298115497143
+      "x_span_mm": 103.43120141519799
     }
   ],
   "motion": "Bend the middle outward while the wing tips stay above the slot floors; release into the seated shape. Reverse for removal through the rear access opening.",
   "scope": "Central X/Y cross-section, ideal circular bending of the plate with straight wings following the end tangent. Rounded wing ends are conservatively rectangular. Full seated CAD clash is checked separately. This is not a force, fatigue, corner-motion or printed-fit qualification.",
   "maximum_section_overlap_mm2": 0.0,
   "source_sha256": {
-    "verify_insertion.py": "46a3dfb9c0c64f0e435101f69bcb4cad6e357a3052250f8eb3991d2425f5c508",
-    "wing_interface.py": "0d88bccfa6e9ad01e0c42f955c761eb53e93337faa8aed081896a6d80163ea61"
+    "verify_insertion.py": "0abc6ff5c35afce8f25b8dbec9756bacfa08d626866a55a3c3b965078b799826",
+    "wing_interface.py": "23294ca479742f23fc6a9890b2c4d58b3043fc07ffc7cc0c65d14ce119ee58ee"
   }
 }

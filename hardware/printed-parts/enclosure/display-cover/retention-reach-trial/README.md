@@ -31,7 +31,10 @@ about 32 minutes.
 The requirement is **low-force clearance for rough overhang surfaces involved**.
 Apply this requirement to the tee carrier's sliding fit.
 Use the selected cover's physical fit as evidence and check the carrier's own supported contact
-surfaces, motion and retention. A universal numeric clearance is not established.
+surfaces, motion and retention. The [working rule](../../clearance-audit.md) is an
+additional 0.50 mm on the identified low-force gap after counting its ordinary sliding
+clearance and each rough mating face. For two rough faces this gives 1.25 mm, close
+to this cover's accepted 1.23 mm gap. The accepted cover retains its exact dimensions.
 
 The accepted cover and matching receiver still require integration into the main
 display-cover generator and enclosure front-top. These trial artifacts define the
