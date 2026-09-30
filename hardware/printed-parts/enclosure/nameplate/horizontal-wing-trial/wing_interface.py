@@ -19,7 +19,8 @@ WING_SPAN = 30.0
 END_RADIUS = .6
 FACE_SLIP = fits.slip
 THICKNESS_AIR = fits.slip
-TIP_AIR = fits.slip
+# The body locates X. Keep nonlocating wing tips clear of rounded slot corners.
+TIP_AIR = .25
 END_AIR = fits.slip
 SUPPORTED_END_AIR = fits.supported_surface
 FLOOR_STOCK = 3.6
@@ -50,7 +51,8 @@ def blank():
 def apply(solid, station, y_outer, *, supported=SUPPORTED_END_AIR, up=-1):
     """Flush plate pocket and two sideways slots; no cantilevers behind the face.
 
-    All mating gaps use the shared static allowance. The plate back and wing
+    Locating gaps use the shared static allowance; nonlocating wing tips have
+    0.25 mm X clearance for the narrow slot's rounded corners. The plate back and wing
     undersides share the zero-clearance seating datum. Y slot walls print
     vertically, so only the print-down mouth and slot ends receive the extra
     supported-surface allowance. This hand-inserted plate has no low-force fit.

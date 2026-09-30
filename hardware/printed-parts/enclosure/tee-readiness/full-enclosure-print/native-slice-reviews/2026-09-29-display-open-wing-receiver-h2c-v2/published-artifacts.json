@@ -1,0 +1,42 @@
+{
+  "verified_at_utc": "2026-09-30T02:50:04.884648+00:00",
+  "pass": true,
+  "objects": [
+    {
+      "path": "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.step",
+      "url": "https://homesodamachine.com/objects/s-ecb156b8e2f63e9335ca8f635b1fb47fb59ae40810d94887a208159299f8234b.gz",
+      "sha256": "ecb156b8e2f63e9335ca8f635b1fb47fb59ae40810d94887a208159299f8234b",
+      "matches_local_and_published_pointer": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.stl",
+      "url": "https://homesodamachine.com/objects/s-45b8b0d466f0e27485fbacf354694b169c1189bebd09af348dc05f8190cd019e.gz",
+      "sha256": "45b8b0d466f0e27485fbacf354694b169c1189bebd09af348dc05f8190cd019e",
+      "matches_local_and_published_pointer": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.step.mesh",
+      "url": "https://homesodamachine.com/objects/s-3ede9f4dba59ee11e62f75355ee5f878e96dd9adcb9009adf3d4c01e555077b6.gz",
+      "sha256": "3ede9f4dba59ee11e62f75355ee5f878e96dd9adcb9009adf3d4c01e555077b6",
+      "matches_local_and_published_pointer": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.step",
+      "url": "https://homesodamachine.com/objects/s-d45049033dd2db0ad097038d7f82591ead662615981bf65ef4cc03801293aa7f.gz",
+      "sha256": "d45049033dd2db0ad097038d7f82591ead662615981bf65ef4cc03801293aa7f",
+      "matches_local_and_published_pointer": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.step.mesh",
+      "url": "https://homesodamachine.com/objects/s-884de587d6a88d756e39342ddbf7f614ae927db711d769b45ff242a82b5ddc70.gz",
+      "sha256": "884de587d6a88d756e39342ddbf7f614ae927db711d769b45ff242a82b5ddc70",
+      "matches_local_and_published_pointer": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.stl",
+      "url": "https://homesodamachine.com/objects/s-4b18b0cda45be92206454765155de70bc98023ef39802e8f74ac14c5d2f4c73a.gz",
+      "sha256": "4b18b0cda45be92206454765155de70bc98023ef39802e8f74ac14c5d2f4c73a",
+      "matches_local_and_published_pointer": true
+    }
+  ]
+}

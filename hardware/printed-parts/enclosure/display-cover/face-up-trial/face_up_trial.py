@@ -27,11 +27,13 @@ WING_THICK = 1.44
 WING_REACH = 3.60
 WING_SPAN = 70.0
 WING_END_R = .60
-FACE_AIR = .30
-BEARING_AIR = 1.20
-TIP_AIR = .60
-END_AIR = .30
-SUPPORTED_END_AIR = .75
+fits = cover.dims.fits
+FACE_AIR = fits.slip
+# The bedded wing has a smooth top; the receiver's retaining roof is supported.
+BEARING_AIR = fits.slip+fits.supported_surface
+# The bezel locates X; these tips do not need to register against slot ends.
+TIP_AIR = .25
+END_AIR = fits.slip
 LIP_THICK = THICK-WING_THICK-BEARING_AIR
 BACK = -THICK
 GLASS_SEAT = BACK-2.0
@@ -71,10 +73,30 @@ def receiver_surround():
     body = body.cut(inset.fuse(glass, pcb))
     for side in (-1, 1):
         slot = accepted.side_box(side, cover.cover_x/2-.1, cover.cover_x/2+WING_REACH+TIP_AIR,
-                                 -WING_SPAN/2-END_AIR-SUPPORTED_END_AIR, WING_SPAN/2+END_AIR,
+                                 -WING_SPAN/2-END_AIR, WING_SPAN/2+END_AIR,
                                  BACK, BACK+WING_THICK+BEARING_AIR)
         body = body.cut(slot)
+    # Open each pocket through the frame in the actual print-down direction.
+    # Its retaining lip remains, while no pocket floor traps support beneath it.
+    for opening in support_exits():
+        body = body.cut(opening)
     return body.clean()
+
+
+def support_exits(inset=0., roof_drop=0., depth=None):
+    """Swept pocket mouths; print-down is local (0, -sin(angle), -cos(angle))."""
+    roof = BACK+WING_THICK+BEARING_AIR-roof_drop
+    depth = roof+FRAME_THICK+2 if depth is None else depth
+    shift_y = -depth*math.tan(math.radians(ANGLE))
+    exits = []
+    for side in (-1,1):
+        xa,xb = sorted((side*(cover.cover_x/2-.1), side*(cover.cover_x/2+WING_REACH+TIP_AIR)))
+        xa,xb = xa+inset,xb-inset
+        y0,y1 = -WING_SPAN/2-END_AIR+inset,WING_SPAN/2+END_AIR-inset
+        wire = cq.Wire.makePolygon([cq.Vector(x,y,roof) for x,y in
+                                   ((xa,y0),(xb,y0),(xb,y1),(xa,y1),(xa,y0))])
+        exits.append(cq.Solid.extrudeLinear(wire,[],cq.Vector(0,shift_y,-depth)))
+    return exits
 
 
 def build_receiver():
@@ -99,7 +121,7 @@ def main():
     assert abs(bezel.intersect(fixture).Volume()) < 1e-6
     assert bezel.translate((0, 0, BEARING_AIR+.05)).intersect(fixture).Volume() > 1
     assert bezel.translate((0, 0, -.05)).intersect(fixture).Volume() > 1
-    assert abs(LIP_THICK-1.2) < 1e-6
+    assert abs(LIP_THICK-2.0) < 1e-6
     clearances = []
     for lateral in (-FACE_AIR, 0., FACE_AIR):
         placed = bezel.translate((lateral, 0, 0))
@@ -112,6 +134,27 @@ def main():
     assert abs(bezel.intersect(glass_shadow).Volume()) < 1e-6
     assert abs(bezel.mirror('YZ').cut(bezel).Volume()) < 1e-6
     assert abs(bezel.mirror('XZ').cut(bezel).Volume()) < 1e-6
+    # Verify a continuous vertical exit from each pocket through the whole fixture,
+    # including its bed-standing cheeks and crossbar. These are removal lanes, not
+    # extra mating clearances; the bezel's own back land supplies the seating datum.
+    printed_receiver = build_receiver()
+    exits = []
+    for void in support_exits(inset=.05,roof_drop=.02,depth=100):
+        posed = void.rotate((0,0,0),(1,0,0),ANGLE).translate((0,0,-BASE_Z))
+        blocked = abs(posed.intersect(printed_receiver).Volume())
+        assert blocked < 1e-6,blocked
+        exits.append({'print_down_blocked_volume_mm3':blocked})
+    travel = []
+    for axis,limits in ((0,(-FACE_AIR,FACE_AIR)),(1,(-FACE_AIR,FACE_AIR)),(2,(0.,BEARING_AIR))):
+        for value,extra in ((limits[0],-.01),(limits[1],.01)):
+            vector=[0.,0.,0.];vector[axis]=value
+            overlap=abs(bezel.translate(vector).intersect(fixture).Volume())
+            assert overlap<1e-6,(axis,value,overlap)
+            vector[axis]=value+extra
+            blocked=abs(bezel.translate(vector).intersect(fixture).Volume())
+            assert blocked>1e-6,(axis,value,blocked)
+            travel.append({'axis':'XYZ'[axis],'limit_mm':value,'at_limit_overlap_mm3':overlap,
+                           'past_limit_overlap_mm3':blocked})
     for name, body in ((NAME, bezel), (RECEIVER, build_receiver())):
         assert body.isValid() and len(body.Solids()) == 1
         path = HERE/(name+'.step')
@@ -119,11 +162,17 @@ def main():
         body.copy(mesh=False).exportStl(str(path.with_suffix('.stl')), tolerance=.005, angularTolerance=.05, relative=False)
         note_write(path.with_suffix('.stl'))
         cut(path, path.with_suffix('.stl'))
-    paths = [Path(__file__), Path(cover.__file__), Path(accepted.__file__)] + [HERE/(n+e) for n in (NAME, RECEIVER) for e in ('.step', '.stl')]
+    paths = [Path(__file__), Path(cover.__file__), Path(accepted.__file__), Path(fits.__file__)] + [HERE/(n+e) for n in (NAME, RECEIVER) for e in ('.step', '.stl')]
     report = {'pass': True, 'cover_thickness_mm': THICK,
               'wing_thickness_mm': WING_THICK, 'wing_projection_mm': WING_REACH, 'wing_span_mm': WING_SPAN,
               'normal_clearance_mm': BEARING_AIR, 'receiver_lip_mm': LIP_THICK,
-              'tip_air_mm': TIP_AIR, 'end_air_mm': END_AIR, 'print_down_end_extra_air_mm': SUPPORTED_END_AIR,
+              'tip_air_mm': TIP_AIR, 'end_air_mm': END_AIR,
+              'face_perimeter_air_mm':FACE_AIR,
+              'clearance_basis':{'fit':'static','base_mm':fits.slip,'retaining_roof_supported_surface_mm':fits.supported_surface,
+                                 'sliding_extra_mm':0.,'low_force_extra_mm':0.,'bezel_back_datum_mm':0.},
+              'pure_axis_travel_mm':{'X':2*FACE_AIR,'Y':2*FACE_AIR,'Z':BEARING_AIR},
+              'pure_axis_fit_checks':travel,'support_exit_checks':exits,
+              'support_exit_policy':'Each wing pocket opens through the underside along print-down; the pocket floor is absent. Trees can rise from the bed and leave downward.',
               'nominal_capture_mm': WING_REACH-FACE_AIR,
               'minimum_capture_at_full_lateral_float_mm': WING_REACH-2*FACE_AIR,
               'lateral_fit_checks': clearances,

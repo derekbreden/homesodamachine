@@ -2,7 +2,7 @@
 import hashlib,json,re,sys,zipfile
 import numpy as np
 import trimesh
-from shapely.geometry import LineString,box
+from shapely.geometry import LineString,Polygon,box
 from shapely.ops import unary_union
 import prepare_receiver as prep
 import wing_interface as interface
@@ -33,7 +33,7 @@ def main():
     for k,v in required.items():assert settings[k]==v,(k,settings[k])
     assert prep.support_settings(settings)==prepared['inherited_support_settings']
     assert prepared['enclosure_build_direction']==-1.
-    trims=[float(v) for v in re.findall(rb'^\s*G29\.1 Z([-+.\d]+)',gc,re.M)];assert trims==[0.,.16]
+    trims=[float(v) for v in re.findall(rb'^\s*G29\.1 Z([-+.\d]+)',gc,re.M)];assert trims==[0.,.02]
     path=JOB/'ready/plate_1.gcode';path.write_bytes(gc)
     roads=list(segments(path));assert {r['object'] for r in roads}=={1901} and {r['tool'] for r in roads}=={0}
     layers=wall_layers(native,1901)
@@ -46,11 +46,17 @@ def main():
     print_centre=np.array(prepared['shared_printable_area_mm']).mean(axis=0)
     tx,ty=print_centre[0]-centre[0],print_centre[1]+centre[1]
     zmax=mesh.bounds[1,2]
-    # Check every support bead against the open length of both 1.50 mm slots.
+    # Check every support bead against both slots and their entry bevels.
     slots=[]
     for side in (-1,1):
         x0,x1=sorted((side*(interface.WIDTH/2-.1),side*(interface.WIDTH/2+interface.PROJECTION+interface.TIP_AIR)))
-        slots.append(box(tx+x0,ty-interface.WING_THICK-interface.THICKNESS_AIR,tx+x1,ty))
+        roof=interface.WING_THICK+interface.THICKNESS_AIR
+        mouth=interface.WIDTH/2+interface.FACE_SLIP
+        slot=box(tx+x0,ty-roof,tx+x1,ty)
+        lead=Polygon([(tx+side*mouth,ty-roof),
+                      (tx+side*(mouth+interface.ENTRY_BEVEL_WIDTH),ty-roof),
+                      (tx+side*mouth,ty-roof-interface.ENTRY_BEVEL_DEPTH)])
+        slots.append(slot.union(lead))
     zlo=zmax-interface.WING_SPAN/2-interface.END_AIR
     zhi=zmax+interface.WING_SPAN/2+interface.END_AIR+interface.SUPPORTED_END_AIR
     slot_overlaps=[]
@@ -67,7 +73,8 @@ def main():
     (JOB/'support-audit.json').write_text(json.dumps(a,indent=2)+'\n')
     result=json.loads((JOB/'ready/result.json').read_text());assert result['return_code']==0
     sliced,=result['sliced_plates'];assert not sliced['warning_message']
-    record={'pass':True,'printer':'H2C','native_archive':str(native.relative_to(ROOT)),
+    assert interface.TIP_AIR==.25 and interface.FACE_SLIP==.15
+    record={'pass':True,'printer':'Mark2','native_archive':str(native.relative_to(ROOT)),
             'native_archive_sha256':sha(native),'gcode_sha256':hashlib.sha256(gc).hexdigest(),
             'source_hashes_current':True,'model_layers':len(layers),'independent_support_layers':True,
             'enclosure_build_direction':prepared['enclosure_build_direction'],

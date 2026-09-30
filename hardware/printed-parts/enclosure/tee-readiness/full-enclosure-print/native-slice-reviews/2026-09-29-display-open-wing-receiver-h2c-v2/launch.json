@@ -1,0 +1,41 @@
+{
+  "submitted": true,
+  "printer": "H2C",
+  "sent_through": "Bambu Connect via cua_repl",
+  "accepted_at_utc": "2026-09-30T02:44:58.834880+00:00",
+  "reading": {
+    "job_id": "1295044165",
+    "subtask_name": "display-open-wing-receiver-z018-h2c-v2.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 0,
+    "total_layer_num": 241,
+    "mc_remaining_time": 173,
+    "mc_percent": 0,
+    "observed_at": "2026-09-30T02:44:58.834880+00:00"
+  },
+  "archive": ".cache/prints/2026-09-29-display-open-wing-receiver-h2c-v2/ready/display-open-wing-receiver-z018-h2c-v2.gcode.3mf",
+  "archive_sha256": "efbfc5c1b568984082c5b9194a7262e69384460a49b7d303d7399657f219940c",
+  "send_copy_same_sha256": true,
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "filament_mapping": {
+    "1": {
+      "type": "PET-CF",
+      "colour": "000000"
+    }
+  },
+  "bed_clear_confirmed_by_user": true,
+  "startup_spacing_minimum_seconds": 180,
+  "other_printer": {
+    "printer": "Mark2",
+    "job": "nameplate-tip025-receiver-tree-z004-mark2-v6.gcode.3mf",
+    "accepted_at_utc": "2026-09-30T02:37:46.257148+00:00"
+  },
+  "startup_spacing_seconds": 432.577732
+}

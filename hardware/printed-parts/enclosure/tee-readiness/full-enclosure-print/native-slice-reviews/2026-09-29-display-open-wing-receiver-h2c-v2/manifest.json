@@ -1,0 +1,39 @@
+{
+  "printer": "H2C",
+  "submitted": true,
+  "task_id": "1295044165",
+  "accepted_at_utc": "2026-09-30T02:44:58.834880+00:00",
+  "native_archive": ".cache/prints/2026-09-29-display-open-wing-receiver-h2c-v2/ready/display-open-wing-receiver-z018-h2c-v2.gcode.3mf",
+  "native_archive_sha256": "efbfc5c1b568984082c5b9194a7262e69384460a49b7d303d7399657f219940c",
+  "gcode_sha256": "36449451abba9cea3b550d80dcc702a41e2df55ce0143072bbb7505525ba83ed",
+  "estimated_seconds": 10400.3935546875,
+  "estimated_grams_saved_profile_density": 69.97340393066406,
+  "sources": {
+    "hardware/printed-parts/enclosure/display-cover/face-up-trial/face_up_trial.py": "749ddae142e8ab4c0bb99cc17ba6c303a29bd0816ca017aa1ff509fd8f5557be",
+    "hardware/printed-parts/enclosure/display-cover/display_cover.py": "968e20c88930aa2654254849cafecc38c48afd35b62a0e854dbf7da253c4a6c8",
+    "hardware/printed-parts/enclosure/display-cover/retention-trial/retention_trial.py": "fd5d1a754b5970f2fa7a5569b554f0329ec0af6f6e064202cbd281985273133c",
+    "hardware/printed-parts/cadlib/fits.py": "3821989044c5bc3ae99cc6912538b8a34bd75a6b0a081aefc8e4c5a0ce714191",
+    "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.step": "2ef12c8034de1b401fa10fe9f3157b797da236a9d55be915435f129082226d52",
+    "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.stl": "bd0545aa076fed3d7adc895df205b098f11a08b6fc37c883893115aec83dd5f2",
+    "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.step": "d45049033dd2db0ad097038d7f82591ead662615981bf65ef4cc03801293aa7f",
+    "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.stl": "4b18b0cda45be92206454765155de70bc98023ef39802e8f74ac14c5d2f4c73a",
+    "hardware/printed-parts/enclosure/display-cover/face-up-trial/geometry-check.json": "ed51b3a1837fcc842a737a07f7761b1ccf628dfa279543b23c92239a86edb5d5",
+    "hardware/printed-parts/enclosure/display-cover/face-up-trial/insertion-envelope.json": "4de2cb39a908d38ee9d8ef57a8368b76651a3fe37e96dd009202e890c8b430d2",
+    "hardware/printed-parts/enclosure/display-cover/face-up-trial/prepare_receiver.py": "f94fdce044ee2e27d9e3fa68a6434bcfdaefd7af43b4ee55943eee9bf6768f04",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
+  },
+  "evidence_sha256": {
+    "geometry-check.json": "ed51b3a1837fcc842a737a07f7761b1ccf628dfa279543b23c92239a86edb5d5",
+    "geometry-lint.log": "03aa2a2900ff1d190b75d961371e76606869238041775ef63f80d991ca510d2f",
+    "insertion-envelope.json": "4de2cb39a908d38ee9d8ef57a8368b76651a3fe37e96dd009202e890c8b430d2",
+    "launch.json": "544516a486050049f3cce3769b87c294747fc221bef11dc05a082a65a192f0da",
+    "postlaunch.json": "e2760143888190e7f48b0a7259e828bd1ba07928b5f65d8e04ee89d42c5f7995",
+    "preflight.json": "c599bf0256d10192ba310a7a115e25c871a54c0015b592b1ba0cef296fce8ced",
+    "preparation.json": "a619c94e4f337a311a5d777acf7d5720f5817700e9086cb13916663ded558354",
+    "published-artifacts.json": "f4cfef5fbbff8f2f780fcf532b232a891429a5e9b35d63868d88a1c1efbafe18",
+    "slice-command.json": "3dafc2c238a1e14f458c4f7252109089a85d8c458041b6a8e5c9a9e5dd73e455",
+    "support-audit.json": "e9bffda00a499493266e784f6fe608bcb1a47da0fa38b724e8b47ca89e05b883",
+    "verification.json": "7cd529d29249fa73deae416e1c62f4b549c54b64cc36454006172e12b57b8231"
+  },
+  "physical_result": "Pending"
+}

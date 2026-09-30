@@ -1,6 +1,6 @@
-[step] The wing pocket end and the bed-standing cheek's inner face are separate surfaces at different depths. Their X coordinates differ by 0.05 mm; the pocket retains 4.05 mm to the outer wall and there is no 0.05 mm wall between them.
-click: x=-66.950 y=0.935 z=31.130
-click: x=66.950 y=0.935 z=31.130
+[step] The wing-slot end at X ±66.60 and the standing cheek's inner face at X ±67 are separate surfaces at different depths, not a 0.40 mm wall. The pocket retains 4.40 mm to the outer frame wall. Its full print-down exit is checked through the complete fixture in geometry-check.json.
+click: x=-66.600 y=1.460 z=28.304
+click: x=66.600 y=1.460 z=28.304
 
 [sliver] These are the 1 mm top lands at the rear ends of the coupon's 4 mm-wide standing cheeks, continuous with the fixture below.
 click: x=-69.000 y=46.685 z=51.505

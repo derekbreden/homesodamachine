@@ -19,6 +19,13 @@ requires an easy slide. It includes the pump cartridge, enclosure assembly slide
 spring-driven hook engagement; travel length alone does not decide the category. The
 hand-flexed flat-wing nameplate uses static clearances.
 
+The horizontal-wing nameplate and face-up display-cover trials give each wing
+tip **0.25 mm of X clearance** at the centered position. This is a local
+narrow-slot relief of 0.10 mm beyond the ordinary static gap. The body locates X
+at 0.15 mm per side; the wing tips retain 0.10 mm at the extreme of body travel.
+These tips need capture, not a second X locating fit. This trial allowance does
+not change slot thickness gaps, add to every face, or establish a low-force rule.
+
 **Low-force clearance for rough overhang surfaces involved** uses a working addition
 of **0.50 mm on the identified moving gap**, after its ordinary sliding and rough-face
 allowances. Apply it only where the available force is small, such as spring return or

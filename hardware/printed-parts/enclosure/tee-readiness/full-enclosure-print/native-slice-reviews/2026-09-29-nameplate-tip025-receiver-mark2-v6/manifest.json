@@ -1,0 +1,35 @@
+{
+  "printer": "Mark2",
+  "submitted": true,
+  "task_id": "1295032042",
+  "accepted_at_utc": "2026-09-30T02:37:46.257148+00:00",
+  "native_archive": ".cache/prints/2026-09-29-nameplate-tip025-receiver-mark2-v6/ready/nameplate-tip025-receiver-tree-z004-mark2-v6.gcode.3mf",
+  "native_archive_sha256": "ae86fe1c6f646a190f67dba4c72541e9aaf7fc988c392b7400ae385176fa0554",
+  "gcode_sha256": "6536e3b194154406c233005dcbaa11756c56dbb38053cd4185058bba155b6612",
+  "estimated_seconds": 2556.7998046875,
+  "estimated_grams_saved_profile_density": 20.123493194580078,
+  "sources": {
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.stl": "45b8b0d466f0e27485fbacf354694b169c1189bebd09af348dc05f8190cd019e",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.step": "ecb156b8e2f63e9335ca8f635b1fb47fb59ae40810d94887a208159299f8234b",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/geometry-check.json": "d9869f767ec81a032d869168e60bdf6cba8dc70948b1ae214a15e6faf6c62c01",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/wing_interface.py": "bcb5233815e5de0a5877ae01fe475ad5a53e7d03a40a2b452043aa5dac5d1c5f",
+    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/prepare_receiver.py": "d57bd2db860a8fe38c5964d7ed2c13f38f6860036df7ec69cd6e81af31e1687e",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "945d069e3d9133e13b542190de419def348f4d9d1a0eed25720e4e0a7260d6d0"
+  },
+  "evidence_sha256": {
+    "geometry-check.json": "d9869f767ec81a032d869168e60bdf6cba8dc70948b1ae214a15e6faf6c62c01",
+    "geometry-delta.json": "4ad01e6fed7842286b4539fd754461644ff27630d594ff3c8ccaf316affbc406",
+    "geometry-lint.log": "4b422389b8aa8d25bfcffa3ca6dd658e31403041ccbd54c1138dbf7d551cf1d6",
+    "insertion-envelope.json": "a17acc26fb8cf607f756518a465c531f19d6eef1931fc1afc454a09beab95c22",
+    "launch.json": "77f57a733ebc5c3f8a1e3e17fa095d9b3753ad35aa51ad8dd4742ddba6c32cb2",
+    "postlaunch.json": "2e0c4dcc4eac13989534f1407612388fe6822524e80ff9d69f09e1da8fb29361",
+    "preflight.json": "871cee58ec23b2a454f60fa94146ce00f44826bedcebbb51d692b2dd0892727b",
+    "preparation.json": "dc89fae64a41ba061306494f464689c263768773686c96c60858110334ddf6a0",
+    "published-artifacts.json": "f4cfef5fbbff8f2f780fcf532b232a891429a5e9b35d63868d88a1c1efbafe18",
+    "slice-command.json": "527d9c247e403b513b1f679999123f6a4f503cd228097b9ad302addfbda4f154",
+    "support-audit.json": "c9d51f8b085afe8e5be7bce71caf6af7d0d46182bbe94f0975d541f73c296a9b",
+    "verification.json": "c4bf06c64f31b84604f354543bf71f731ddd27891a0fcca4c90d495990945536"
+  },
+  "physical_result": "Pending"
+}

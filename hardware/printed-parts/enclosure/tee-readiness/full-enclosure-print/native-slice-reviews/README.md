@@ -13,7 +13,10 @@ their own physical checks.
 | Job | Printer | State | Evidence |
 | --- | --- | --- | --- |
 | Tee carrier, +0.50 mm low-force roof addition | H2C | native verified, not sent; 1.00 mm above, 0.25 mm below; about 1 h 46 min | [2026-09-29-tee-low-force050-h2c-v7](2026-09-29-tee-low-force050-h2c-v7/README.md) |
-| Flat nameplate and standard receiver | Mark2 | started, task 1294806669; flat face, 0.48 mm raised artwork, standard static gaps, no plate supports; about 1 h 13 min | [2026-09-29-nameplate-flat-standard-mark2-v5](2026-09-29-nameplate-flat-standard-mark2-v5/README.md) |
+| Nameplate receiver, 0.25 mm wing-tip gaps | Mark2 | started, task 1295032042; receiver only for the existing flat plate; about 43 min | [2026-09-29-nameplate-tip025-receiver-mark2-v6](2026-09-29-nameplate-tip025-receiver-mark2-v6/README.md) |
+| Display receiver, open wing pockets | H2C | started, task 1295044165; receiver only for the existing face-up cover; 0.25 mm wing-tip gaps; about 2 h 53 min | [2026-09-29-display-open-wing-receiver-h2c-v2](2026-09-29-display-open-wing-receiver-h2c-v2/README.md) |
+| Flat nameplate and standard receiver | Mark2 | completed, task 1294806669; bowing with apparent body X clearance; wing-slot fit under evaluation | [2026-09-29-nameplate-flat-standard-mark2-v5](2026-09-29-nameplate-flat-standard-mark2-v5/README.md) |
+| Face-up display cover and receiver | H2C | completed, task 1294550319; receiver supports trapped beneath wing pockets; cover retained for revised receiver | [2026-09-29-display-flat-wings-h2c-v1](2026-09-29-display-flat-wings-h2c-v1/README.md) |
 | back-bottom | Mark2 | reviewed, not sent; uniform 0.24 mm, no band at the handhold rounds; back-bottom changed after it | [2026-09-21-enclosure-back-bottom-mark2-v2](2026-09-21-enclosure-back-bottom-mark2-v2/manifest.json) |
 | back-top | H2C | printing on H2C since 09-22; sliced from the 09-21 inputs, uniform 0.24 mm; back-top changed after it | [2026-09-21-enclosure-back-top-h2c-v2](2026-09-21-enclosure-back-top-h2c-v2/manifest.json) |
 | front-bottom | Mark2 | printed 09-21; before the carrier windows notched the seam rail | [2026-09-21-enclosure-front-bottom-mark2-v2](2026-09-21-enclosure-front-bottom-mark2-v2/manifest.json) |

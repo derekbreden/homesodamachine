@@ -15,8 +15,9 @@ are unmeasured.
 
 ## Static fit
 
-Every mating clearance comes from `../../../cadlib/fits.py`. This plate is
-inserted by hand. It has no sliding-fit or low-force additions.
+The locating gaps use `../../../cadlib/fits.py`. Each nonlocating wing tip has
+0.25 mm of X clearance as a narrow-slot fit trial. This plate is inserted by
+hand and has no sliding-fit or low-force additions.
 
 | Surface | Nominal clearance |
 |---|---:|
@@ -24,7 +25,7 @@ inserted by hand. It has no sliding-fit or low-force additions.
 | Body ordinary Z end | 0.15 mm |
 | Body print-down Z end | 0.15 + 0.25 mm for the rough receiver face |
 | Total Z travel | 0.55 mm |
-| Wing tip to slot end in X | 0.15 mm each |
+| Wing tip to slot end in X | 0.25 mm each at center; 0.10 mm minimum at full body X float |
 | Wing ordinary Z end | 0.15 mm |
 | Wing print-down Z end | 0.15 + 0.25 mm for the rough receiver face |
 | Wing top to flat retaining bearing | 0.15 mm; 1.83 mm slot for a 1.68 mm wing |
@@ -35,6 +36,13 @@ each other. The dimensions above are pure-axis limits. Rounded corners constrain
 combined translations. The receiver prints with assembled −Z as build-up, so its
 negative-Z pocket ends receive the directional rough-face allowance. Y slot walls
 print vertically and receive the ordinary static gap.
+
+The body establishes X location. Its wing tips have another 0.10 mm of relief
+beyond the 0.15 mm static gap to avoid redundant location in narrow slots. The
+slot's thickness gap and Z ends retain their standard allowances. The
+[physical observation](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-flat-standard-mark2-v5/physical-result.json)
+records bowing with apparent body clearance; interference from printed corner
+rounding remains a hypothesis for this receiver test.
 
 The entry bevel is 1.10 mm wide and 0.40 mm deep at each slot mouth. It clears the
 wing's rotation during hand-bent insertion. The outer flat bearing keeps the
@@ -64,6 +72,10 @@ against the wing slots and their entry bevels; support removal remains a bench t
 Both objects use a 0.20 mm first layer, a 0.28 mm second layer, then 0.24 mm layers.
 Their shared schedule permits the prime tower and preserves complete raised-artwork
 layers at 3.60 and 3.84 mm. Saved speeds, wall order and 15% infill overlap apply.
-The [paired slice review](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-flat-standard-mark2-v5/README.md)
-records native verification, print estimate and launch status. Physical insertion,
-looseness, retention, support removal and QR scanning remain to be checked on this pair.
+`prepare_receiver.py` and `verify_receiver.py` create and check the receiver-only
+comparison on Mark2. It uses 0.20 mm followed by 0.24 mm layers, shared tree
+supports and the existing flat nameplate. Its
+[slice review](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-tip025-receiver-mark2-v6/README.md)
+records a 42 min 37 sec estimate and a geometric comparison proving that only
+the two slot-tip strips changed. Physical bow, insertion and retention remain
+to be evaluated with this receiver.
