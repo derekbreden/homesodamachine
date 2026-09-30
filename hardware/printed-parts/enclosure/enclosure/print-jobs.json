@@ -2742,7 +2742,7 @@
       ],
       "job_name": "nameplate-x015-y045-receiver-tree-z004-mark2-v10.gcode.3mf",
       "printer_task_id": "1297285813",
-      "status": "started",
+      "status": "completed",
       "observed_at_utc": "2026-09-30T20:56:43.564281+00:00",
       "observed_state_at_acceptance": "RUNNING",
       "sliced_file": ".cache/prints/2026-09-30-nameplate-x015-y045-receiver-mark2-v10/ready/nameplate-x015-y045-receiver-tree-z004-mark2-v10.gcode.3mf",
@@ -2757,7 +2757,7 @@
         "Nozzle Offset Calibration": "Auto"
       },
       "review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-nameplate-x015-y045-receiver-mark2-v10",
-      "physical_result": "Pending same-part fit, relaxed flatness, insertion and shake-retention assessment.",
+      "physical_result": "User accepts the existing flat-wing nameplate with this receiver. No separate quantified bow, play, insertion-force or shake-test result was supplied.",
       "body_X_clearance_per_side_mm": 0.15,
       "wing_tip_X_clearance_centered_mm": 0.25,
       "wing_tip_X_clearance_at_body_limit_mm": 0.1,
@@ -2772,7 +2772,8 @@
         0.4,
         0.15
       ],
-      "minimum_flat_bearing_mm": 1.0
+      "minimum_flat_bearing_mm": 1.0,
+      "physical_result_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-nameplate-x015-y045-receiver-mark2-v10/physical-result.json"
     },
     {
       "date": "2026-09-30",

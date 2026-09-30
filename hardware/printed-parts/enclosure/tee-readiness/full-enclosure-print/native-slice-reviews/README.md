@@ -13,7 +13,7 @@ their own physical checks.
 | Job | Printer | State | Evidence |
 | --- | --- | --- | --- |
 | Display receiver; 0.30 mm body X and 0.60 mm wing-thickness clearance | H2C | started, task 1297296218; existing mating part; 2 h 49 min 41 sec | [2026-09-30-display-x030-receiver-h2c-v5](2026-09-30-display-x030-receiver-h2c-v5/README.md) |
-| Nameplate receiver; 0.15 mm body X and 0.45 mm wing Y clearance | Mark2 | started, task 1297285813; existing mating part; 43 min 4 sec | [2026-09-30-nameplate-x015-y045-receiver-mark2-v10](2026-09-30-nameplate-x015-y045-receiver-mark2-v10/README.md) |
+| Nameplate receiver; 0.15 mm body X and 0.45 mm wing Y clearance | Mark2 | completed, task 1297285813; fit accepted with existing flat nameplate | [2026-09-30-nameplate-x015-y045-receiver-mark2-v10](2026-09-30-nameplate-x015-y045-receiver-mark2-v10/README.md) |
 | Nameplate receiver, 0.45 mm wing Y clearance | Mark2 | completed, task 1296653642; Y increase helps a bit; latest X increment rollback requested | [2026-09-30-nameplate-y045-receiver-mark2-v9](2026-09-30-nameplate-y045-receiver-mark2-v9/README.md) |
 | Nameplate receiver, 0.35 mm body X clearance per side | Mark2 | completed, task 1296373726; lateral X movement present; bow persists throughout movement; wings feel tight in Y | [2026-09-30-nameplate-body-x035-receiver-mark2-v8](2026-09-30-nameplate-body-x035-receiver-mark2-v8/README.md) |
 | Display receiver, 0.50 mm body X clearance per side | H2C | completed, task 1296307760; latest X increment rollback requested; wing-thickness clearance retained | [2026-09-30-display-body-x050-receiver-h2c-v4](2026-09-30-display-body-x050-receiver-h2c-v4/README.md) |

@@ -40,7 +40,8 @@
     "published-artifacts.json": "ea284edbdbe892474501b4a78db6b3fa9d177ef627ac837741f6f3adb9499b51",
     "slice-command.json": "361ca3be50341f1088f764da41653292ad1f8335b7c94ceabd1f9fedc6d984fe",
     "support-audit.json": "148a2b90756971f68a9ead8aacd49ee9130e366fd52141b0224c4aa240623b4a",
-    "verification.json": "1d87856b95846b07291189ec4bdd9796358da264cbfc7c1ff1952a46e0eeec57"
+    "verification.json": "1d87856b95846b07291189ec4bdd9796358da264cbfc7c1ff1952a46e0eeec57",
+    "physical-result.json": "ee9a89b6c610c694d4ec60af7c493575e072b121f4ed7473501cd026620e6a96"
   },
-  "physical_result": "Pending same-part fit, relaxed flatness, insertion and shake-retention assessment."
+  "physical_result": "User accepts the existing flat-wing nameplate with this receiver. No separate quantified bow, play, insertion-force or shake-test result was supplied."
 }

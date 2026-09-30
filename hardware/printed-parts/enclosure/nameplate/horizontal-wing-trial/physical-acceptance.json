@@ -1,0 +1,42 @@
+{
+  "reported_date": "2026-09-30",
+  "reported_by": "Derek",
+  "status": "fit_accepted",
+  "user_report": "Alright, nameplate is good. Mark2 is free - what shall we print next?",
+  "printer": "Mark2",
+  "receiver_task_id": "1297285813",
+  "nameplate_task_id": "1294806669",
+  "native_archive_sha256": "aac59056bd2867d5d0a90efda6cd172e4ee10b3311ee1200bdc2e98adb84de90",
+  "receiver_step_sha256": "0ae19c97cc7e526ed4d1405564dec24d280e8e2a2541f17875fb1809ab8581a8",
+  "receiver_stl_sha256": "1bf777f5941dc3031fb1ea476686454c5aef39d2f28e3f0edac39380c7e69cc6",
+  "nameplate_step_sha256": "e9f635dcf4ed04a199a20c3a2ef225d2d4d094a67f793e6b5b556951d12beb04",
+  "nameplate_stl_sha256": "a40a37c889f993742b1f4cc9f8e5e3b4f18f831bee2fe8e686a67b209611c434",
+  "nominal_clearances_mm": {
+    "body_X_per_side": 0.15,
+    "wing_tip_X_centered": 0.25,
+    "wing_tip_X_at_full_body_float": 0.1,
+    "wing_thickness_Y": 0.45,
+    "wing_slot_Y_opening": 2.13,
+    "ordinary_Z_end": 0.15,
+    "print_down_Z_end": 0.4
+  },
+  "minimum_capture_mm": 2.1,
+  "minimum_flat_bearing_mm": 1.0,
+  "flat_retaining_lip_stock_mm": 1.23,
+  "scope": "User accepts the existing flat-wing nameplate with this receiver. No separate quantified bow, play, insertion-force or shake-test result was supplied.",
+  "full_enclosure_integration": "Pending; acceptance is for the printed receiver coupon and existing flat nameplate.",
+  "printer_completion": {
+    "job_id": "1297285813",
+    "subtask_name": "nameplate-x015-y045-receiver-tree-z004-mark2-v10.gcode.3mf",
+    "gcode_state": "FINISH",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 192,
+    "total_layer_num": 192,
+    "mc_remaining_time": 0,
+    "mc_percent": 100
+  },
+  "observed_at_utc": "2026-09-30T22:10:12.674254+00:00",
+  "print_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-nameplate-x015-y045-receiver-mark2-v10/manifest.json",
+  "physical_result_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-nameplate-x015-y045-receiver-mark2-v10/physical-result.json"
+}
