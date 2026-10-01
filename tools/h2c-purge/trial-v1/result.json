@@ -27,7 +27,9 @@
     "chamber": 0
   },
   "bed_heating_target_ever_positive_in_current_job_samples": false,
-  "material_ejection_observation": "pending user observation",
+  "material_ejection_observation": "User confirmed successful filament-blob ejection and found the loose cold blob on the plate.",
+  "plate_printing_observation": "User confirmed nothing was printed on the plate.",
+  "operational_caveat": "The ejected blob may land on the plate; inspect and remove any loose cold blob before the next print. User accepts this caveat.",
   "tip_cleanliness_observation": "unobserved",
   "idle_overload_prevention": "untested",
   "notes": [
