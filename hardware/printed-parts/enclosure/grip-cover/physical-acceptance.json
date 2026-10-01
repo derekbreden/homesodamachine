@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "part": "bottom-grip-receiver",
-  "status": "receiver_printed_surface_accepted",
+  "status": "curved_surface_accepted_wing_support_removal_failed",
   "reported_by": "Derek",
   "reported_date": "2026-09-30",
   "observation": "The receiver as printed turned out amazingly beautiful despite my reservations.",
@@ -14,5 +14,7 @@
     "grip-receiver-front.stl": "2cb5a7498d12815ee93e4a2c6d1642d8561099251d4b921162fe0c5439fd45df",
     "grip-receiver-back.stl": "245a4ce5bc898f850af1905ac8ff2b44004f55e77b8ebfdc60a603cba8789cbf"
   },
-  "scope": "Receiver printed surface accepted. Support removal, cover insertion and recovery, retention, finger contact and lifting results are unreported."
+  "support_removal": "Supports inside the narrow end-wing slots cannot be removed. User requests an unsupported bridge trial confined to these slots.",
+  "seam_clearance": "The printed receiver shares the enclosure's zero vertical clearance at the backing-tab/roof crossing. A corrected coupon is required.",
+  "scope": "Curved receiver surface accepted; wing-slot support removal failed. Cover insertion and recovery, retention, finger contact and lifting results are unreported."
 }

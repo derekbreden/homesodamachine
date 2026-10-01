@@ -1,10 +1,10 @@
 {
   "status": "fit_candidate_receiver_surface_accepted",
   "source_sha256": {
-    "hardware/printed-parts/enclosure/grip-cover/grip_cover.py": "ae4cfb546eb11ec7d69940b4c6abd22c2e9f79ad709abc256a09c13584990473",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "388aac6ab7f6be13d328754df01e8dd830cfc8936caea5705273728b561ce334",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "79cde9fc48bfa2c0f592c6fb42876c4d94ed0d4cd9e44faf0509b3117f89c294",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "fea9e1deddaa1e6bff75f6669e732eb4b3c5761807de565b438fa6037ccca92a"
+    "hardware/printed-parts/enclosure/grip-cover/grip_cover.py": "dd08daf15e89dff82b4dc6b19368d06c1300a883c2e53b3828db4ff41859debe",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "80428e39684c7d7042ea1eb42684580a93112e66f8e93e29cceacf972753cf8c",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "16165989230ada4f0693e4019fbe478c81791008744c106e351fde4df40a46ba",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "921322590b8376cac220e5ca02c194e10d46b04908dffb5cbe731f29e68bb2a9"
   },
   "body_mm": [
     79.7,
@@ -44,5 +44,5 @@
   "assembly": "Join enclosure halves, tuck one wing, bow strip downward, seat second wing, release.",
   "service": "Pull the accessible outer long edge downward to release; remove both strips before separating bottom halves.",
   "physical_result_record": "physical-acceptance.json",
-  "physical_validation": "Receiver printed surface accepted on Mark2 v4. Support removal, insertion recovery, retention, finger contact and lifting results are unreported."
+  "physical_validation": "Curved receiver surface accepted on Mark2 v4; wing-slot supports are trapped. The slot bridge and corrected enclosure seam require a new physical trial. Insertion recovery, retention, finger contact and lifting results are unreported."
 }

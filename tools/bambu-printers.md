@@ -103,6 +103,12 @@ G-code command.
 
 ## Work allocation
 
+For one job that can run on either ready printer, prefer the one that has been
+idle with suitable filament loaded longer. This compares the period spent both
+idle and loaded, not idle time alone. Check material suitability first; PET-GF
+is not always loaded in both printers. Use known print/load history rather than
+inferring a loading time from current temperature or idle status alone.
+
 Use both printers when Derek has them loaded, cleared and ready and the authorized
 parts can be split between them with the correct materials and nozzles. Prepare
 separate plates with each machine's established settings and Z trim. Derek prefers
