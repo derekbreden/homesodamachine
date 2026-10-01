@@ -29,7 +29,7 @@ short face across the machine instead of its 283 mm long one. The pack is placed
     nothing shaved) into the back pieces — a proud tongue on the side walls and
     ceiling, and on the floor, where the cold core rides the cavity side and a
     proud tongue cannot, a full-thickness tongue with a 45° scarf nose
-    (`_floor_scarf`), so every seam laps and none butts — and SIX screw
+    (`_floor_scarf`). SIX screw
     bosses cross the seam, the box's six screws: one per ±X side wall at the
     floor, just below the Z seam and under the ceiling. The lower and middle
     pairs pin the bottom pieces. Each boss is on an X axis:
@@ -4082,8 +4082,8 @@ def _socket_floor_relief(x_ext, sx, inner, y_joint):
 
     The scarf continues between these two feet. Each foot closes on a rectangular
     recess with one running clearance at its inboard and aft faces. The inboard clearance runs
-    only as far as the foot's inboard face does, to where the handhold's backing lap rakes it
-    away."""
+    only as far as the foot's inboard face does, ending where the handhold's
+    full-thickness back wall begins."""
     _seat, x_tip, _heat, x_cap = _boss_x(x_ext, sx)
     z0, z1 = inner[4] - floor_t - 1.0, inner[4]
     xa, xb = sorted((x_tip, x_cap))
@@ -4121,25 +4121,26 @@ def _handhold_cutter(inner, x_ext, sx):
     return cutter.fillet(handhold_corner_r, corners)
 
 
-def _handhold_backing_lap(inner, y_joint, x_ext, sx, y_side):
-    """The inner wall's 45-degree plan scarf, through the height under the lifting ceiling.
+def _handhold_backing_end(y_joint, y_side):
+    """Square ends of the nominal-wall backing, separated by one running fit."""
+    if y_side not in ("front", "back"):
+        raise ValueError(y_side)
+    return y_joint + lip_len - handhold_wall - (fits.running if y_side == "front" else 0.0)
 
-    Front and back share the same three-millimetre wall. The front nose stops one running
-    fit short of the back's matching rake; both slide on the enclosure's Y closure motion.
+
+def _handhold_backing_joint(inner, y_joint, x_ext, sx, y_side):
+    """Full 3 mm wall ends below the roof, square to the Y closure motion.
+
+    The front ends one running fit before the back. The structural floor overlap
+    and the socket jamb above the handhold provide the enclosure's registration.
     Returns the front's trimming cut or the back's mating wall."""
     bed, roof, _crown = _handhold_levels(inner)
     _seat, _tip, _heat, cap = _boss_x(x_ext, sx)
     outer_face = cap - sx * handhold_wall
-    tip = y_joint + lip_len
-    short = scarf_axial if y_side == "front" else 0.0
-    points = [(cap, tip - handhold_wall - short),
-              (outer_face, tip - short),
-              (outer_face, tip + wall), (cap, tip + wall)]
-    vertices = [cq.Vector(x, y, bed - (1.0 if y_side == "front" else 0.0))
-                for x, y in points]
-    wire = cq.Wire.makePolygon(vertices + [vertices[0]])
-    return cq.Solid.extrudeLinear(
-        wire, [], cq.Vector(0, 0, roof - bed + (1.0 if y_side == "front" else 0.0)))
+    xa, xb = sorted((cap, outer_face))
+    return _ybox(xa, xb, _handhold_backing_end(y_joint, y_side),
+                 y_joint + lip_len + wall,
+                 bed - (1.0 if y_side == "front" else 0.0), roof)
 
 
 def _handhold_frame(inner, y_joint, x_ext, sx, y_side):
@@ -4156,7 +4157,7 @@ def _handhold_frame(inner, y_joint, x_ext, sx, y_side):
         xa, xb = sorted((tip, cap + sx * fits.running))
         frame = frame.cut(_ybox(xa, xb, y_joint,
                                 _y_boss(y_joint) + socket_r + fits.running, bed - 1.0, crown))
-        frame = frame.fuse(_handhold_backing_lap(inner, y_joint, x_ext, sx, y_side))
+        frame = frame.fuse(_handhold_backing_joint(inner, y_joint, x_ext, sx, y_side))
     return frame
 
 
@@ -4169,7 +4170,7 @@ def _handholds(solid, inner, y_joint, y_side):
         solid = solid.fuse(_handhold_frame(inner, y_joint, x_ext, sx, y_side))
         solid = solid.cut(_handhold_cutter(inner, x_ext, sx))
         if y_side == "front":
-            solid = solid.cut(_handhold_backing_lap(inner, y_joint, x_ext, sx, y_side))
+            solid = solid.cut(_handhold_backing_joint(inner, y_joint, x_ext, sx, y_side))
         solid = solid.clean()
         rim = []
         for edge in solid.Edges():
@@ -9445,8 +9446,8 @@ def _handhold_bound(pieces, box):
 
         xa, xb = sorted((cap, face))
         backing = _ybox(xa, xb, y0, y1, bed, roof)
-        seam_air = _handhold_backing_lap(inner, joint, xe, sx, "front").cut(
-            _handhold_backing_lap(inner, joint, xe, sx, "back"))
+        seam_air = _handhold_backing_joint(inner, joint, xe, sx, "front").cut(
+            _handhold_backing_joint(inner, joint, xe, sx, "back"))
         wall_missing = missing(backing).cut(seam_air).Volume()
 
         xa, xb = sorted((face, tangent))

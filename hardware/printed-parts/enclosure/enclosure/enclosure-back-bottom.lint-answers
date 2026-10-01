@@ -9,7 +9,7 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
 click: x=-100.500 y=224.000 z=29.251
 click: x=99.263 y=224.009 z=29.251
 
-[sliver] The floor recess's 0.25 mm running-clearance returns end beside the handhold inner walls at Y212.8. Each 0.25 by 6 mm face closes a clearance slot and is backed by the continuous floor slab aft of it. The clearance keeps the front floor tongue free of the back piece as their floor and inner-wall scarfs telescope together; the narrow face is not a load-bearing strip.
+[sliver] The floor recess's 0.25 mm running-clearance returns end beside the handhold inner walls at Y212.8. Each 0.25 by 6 mm face closes a clearance slot and is backed by the continuous floor slab aft of it. The clearance keeps the front floor tongue free of the back piece during assembly. The handhold walls close at their square, full 3 mm ends; this narrow return face bounds the floor clearance.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
 click: x=-90.375 y=212.800 z=-3.000
 click: x=90.375 y=212.800 z=-3.000
