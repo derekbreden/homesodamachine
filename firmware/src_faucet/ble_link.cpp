@@ -8,6 +8,13 @@
 #include "ble_image.h"
 #include "fw_version.h"
 
+// ESP's connection reattempt restarts advertising from a field set this code
+// never fills, and leaves an empty advertisement on air. platformio.ini
+// compiles it out; a build that has it back does not build.
+#if !defined(MYNEWT_VAL_BLE_ENABLE_CONN_REATTEMPT) || MYNEWT_VAL_BLE_ENABLE_CONN_REATTEMPT
+#error "esp32s3_faucet needs -DMYNEWT_VAL_BLE_ENABLE_CONN_REATTEMPT=0 (platformio.ini)"
+#endif
+
 // Nordic UART Service — the same three UUIDs the iOS app already knows.
 static const char *NUS_SERVICE = "6E400001-B5A3-F393-E0A9-E50E24DCCA9E";
 static const char *NUS_RX      = "6E400002-B5A3-F393-E0A9-E50E24DCCA9E";
@@ -23,7 +30,19 @@ static NimBLECharacteristic *txChar = nullptr;
 static volatile bool         connected = false;
 /// What `adv->start()` last said, which is not the same as the stack existing.
 static bool                  advertising = false;
-static uint32_t              advCheckedAtMs = 0;
+/// A radio-bench run has BLE off the air, and nothing here puts it back.
+static bool                  quiet = false;
+/// A phone let go. Set on the NimBLE task, acted on in loop().
+static volatile bool         restartOwed = false;
+/// When advertising was first found stopped with no phone on, or 0.
+static uint32_t              offAirSinceMs = 0;
+static uint32_t              offAirRestarts = 0;
+static const uint32_t        OFF_AIR_GRACE_MS = 1000;
+
+// How often the controller is told again what this board advertises.
+static const uint32_t PAYLOAD_REASSERT_MS = 10000;
+static uint32_t       payloadPushedAtMs = 0;
+static uint32_t       payloadRefusals = 0;
 
 static IdentityPayload identity{};
 static bool            haveIdentity = false;
@@ -146,13 +165,20 @@ static void advertisedName(char *out, size_t cap) {
 // 128-bit service UUID, 8 for the manufacturer block — 29 of the 31 there are.
 // The name is what the scan response carries, and nothing the phone needs to
 // find this machine depends on that report arriving.
-static void applyAdvertising() {
-  NimBLEAdvertising *adv = NimBLEDevice::getAdvertising();
-  adv->stop();
-
+//
+// THE CONTROLLER IS TOLD AGAIN, EVERY TEN SECONDS, WHAT TO SAY. It keeps its own
+// copy of both payloads and nothing on this side can read that copy back.
+// Anything in the stack that writes the advertisement behind this code — ESP's
+// connection reattempt is one, and platformio.ini compiles it out — leaves the
+// controller advertising whatever it wrote: connectable, on air,
+// ble_gap_adv_active() true. An empty one leaves the scan response alone on
+// air: a name, no flags, no service, no unit. A phone filtering on the service
+// never sees one of those packets, and every check on this board says
+// advertising. Writing both payloads again is one HCI command each, legal while
+// advertising runs, and it bounds that state to ten seconds whatever wrote it.
+static bool pushPayloads() {
   char name[32];
   advertisedName(name, sizeof(name));
-  NimBLEDevice::setDeviceName(name);
 
   uint8_t mfg[6];
   mfg[0] = (uint8_t)(MFG_ID & 0xFF);
@@ -168,14 +194,33 @@ static void applyAdvertising() {
   NimBLEAdvertisementData scan;
   scan.setName(name);
 
-  adv->setAdvertisementData(primary);
-  adv->setScanResponseData(scan);
-  // The scan response is off by default in NimBLE 2.x, and enabling it clears
-  // the flag that says the data is already loaded, so start() pushes both
-  // payloads itself, in its own order.
-  adv->enableScanResponse(true);
+  NimBLEAdvertising *adv = NimBLEDevice::getAdvertising();
+  const bool primaryTaken = adv->setAdvertisementData(primary);
+  const bool scanTaken = adv->setScanResponseData(scan);
+  payloadPushedAtMs = millis();
+  if (primaryTaken && scanTaken) return true;
 
-  advertising = adv->start();
+  ++payloadRefusals;
+  char line[80];
+  snprintf(line, sizeof(line), "BLE: the controller refused the %s (%lu so far)",
+           !primaryTaken ? "advertisement" : "scan response", (unsigned long)payloadRefusals);
+  Serial.println(line);
+  baseLinkSay(line);
+  return false;
+}
+
+// Stopped, both payloads written, started. A payload the controller would not
+// take is not advertised over: the start waits for the next service pass to
+// write it again.
+static void applyAdvertising() {
+  NimBLEAdvertising *adv = NimBLEDevice::getAdvertising();
+  adv->stop();
+
+  char name[32];
+  advertisedName(name, sizeof(name));
+  NimBLEDevice::setDeviceName(name);
+
+  advertising = pushPayloads() && adv->start();
   Serial.printf("BLE: %s as '%s'\n",
                 advertising ? "advertising" : "ADVERTISING REFUSED", name);
 }
@@ -225,7 +270,11 @@ class ServerCB : public NimBLEServerCallbacks {
     Serial.println("BLE: disconnected");
     bleOtaDisconnected();
     bleImageDisconnected();
-    NimBLEDevice::startAdvertising();
+    // ADVERTISING IS loop()'S ALONE. This runs on the NimBLE task, and a start
+    // from here races whatever loop() is doing to the same advertising object —
+    // so this only says it is owed, and the next service pass writes both
+    // payloads and starts.
+    restartOwed = true;
   }
   void onMTUChange(uint16_t mtu, NimBLEConnInfo &) override {
     linkMtu = mtu;
@@ -244,7 +293,11 @@ void bleLinkBegin() {
 
   server = NimBLEDevice::createServer();
   server->setCallbacks(new ServerCB());
-  server->advertiseOnDisconnect(true);
+  server->advertiseOnDisconnect(false);   // loop() restarts it: see onDisconnect
+
+  // On for good, so a start NimBLE makes on its own after a host reset writes
+  // the scan response back along with the advertisement.
+  NimBLEDevice::getAdvertising()->enableScanResponse(true);
 
   NimBLEService *svc = server->createService(NUS_SERVICE);
   txChar = svc->createCharacteristic(NUS_TX, NIMBLE_PROPERTY::NOTIFY);
@@ -344,11 +397,33 @@ void bleLinkService() {
   bleImageService();   // whatever a read-back still owes the phone
 
   // A RADIO THAT HAS STOPPED IS A MACHINE NO PHONE CAN FIND, and nothing else
-  // on this board reads it. Advertising goes back on the moment it is not
-  // running and no phone holds the link.
-  if (!connected && millis() - advCheckedAtMs >= 5000) {
-    advCheckedAtMs = millis();
-    if (!NimBLEDevice::getAdvertising()->isAdvertising()) applyAdvertising();
+  // on this board reads it. Advertising goes back on the moment a phone lets
+  // go, and a second after it is found stopped with none holding it — except
+  // through a bench run, whose whole point is BLE off the air.
+  //
+  // The second is what a phone whose connection broke while it was being set up
+  // leaves behind: the controller stopped advertising to take the connection,
+  // and the host told nobody about either the connection or its end.
+  if (!quiet) {
+    const bool onAir = connected || NimBLEDevice::getAdvertising()->isAdvertising();
+    if (onAir) offAirSinceMs = 0;
+    else if (!offAirSinceMs) offAirSinceMs = millis() | 1;
+
+    const bool stranded = offAirSinceMs && millis() - offAirSinceMs >= OFF_AIR_GRACE_MS;
+    if (restartOwed || stranded) {
+      restartOwed = false;
+      offAirSinceMs = 0;
+      if (!connected && !NimBLEDevice::getAdvertising()->isAdvertising()) {
+        applyAdvertising();
+        if (stranded) {
+          char line[64];
+          snprintf(line, sizeof(line), "BLE: found off air with no phone, advertising again (%lu)",
+                   (unsigned long)++offAirRestarts);
+          baseLinkSay(line);
+        }
+      }
+    }
+    if (millis() - payloadPushedAtMs >= PAYLOAD_REASSERT_MS) pushPayloads();
   }
 
   // Until the main board answers, this board is advertising its own MAC rather
@@ -373,8 +448,9 @@ void bleLinkService() {
   }
 }
 
-void bleLinkQuiet(bool quiet) {
-  if (quiet) {
+void bleLinkQuiet(bool off) {
+  quiet = off;
+  if (off) {
     NimBLEDevice::stopAdvertising();
     advertising = false;
   } else {
@@ -411,4 +487,7 @@ void bleLinkReport() {
                                                                            : "OFF AIR", name,
                 haveIdentity ? "known" : "unanswered",
                 bleOtaTarget(), bleOtaOwed(), (unsigned long)(bleOtaDropped() + stageDrops));
+  Serial.printf("     payloads written %lu ms ago, refused %lu times%s\n",
+                (unsigned long)(millis() - payloadPushedAtMs), (unsigned long)payloadRefusals,
+                quiet ? ", quiet for a bench run" : "");
 }
