@@ -89,9 +89,9 @@ tongue would drive straight into the core. The floor laps anyway, but as a
 the front floor runs one overlap aft on the print bed and tapers through the slab
 at its nose; the back keeps the matching bed-side wedge. The assembled top stays
 flat under the core, while both printed bearing faces remain support-free. The handholds remove the slab at both flanks; the scarf continues across the middle
-under the cold core. Each handhold's inner wall has its own 45° scarf in plan, on the same
-Y closure motion.
-**Every seam laps, none butts** — the form suited to the face.
+under the cold core. Each handhold's inner wall ends square at its full 3 mm
+section, with one running fit between the front and back faces. The floor overlap
+and socket jambs register the joined enclosure.
 
 That seam is pinned at **[3](Y_LEVELS) levels** per side wall — above the handhold,
 just below the Z seam and under the ceiling. The lower and middle pairs pin the two
@@ -198,13 +198,17 @@ runout follow the top's side shoulder and both cartridge hand pockets.
 
 The [3 mm](HANDHOLD_WALL) inner wall stands on the cold core's flank plane. Each opening
 is closed toward the interior and open outward and downward. Both bottom pieces form each
-handhold; its inner wall closes on a 45° plan scarf with one running fit between the faces.
+handhold; its inner wall closes on square, full-thickness ends with one running
+fit between the faces.
 The floor scarf continues across the middle of the enclosure. Six M3×10 screws pin the seam;
 the lower pair stands above the handholds.
 
 `handholds` reads the upward entry space, full lifting sections, end posts and inner walls
-on the finished pair, including the inner-wall scarf's running clearance. These are geometry
+on the finished pair, including the inner-wall joint's running clearance. These are geometry
 checks; no physical lifting-load test is recorded.
+The [wall-end check](handhold-joint/geometry-check.json) measures the complete
+3 mm section through the wall's full height and verifies the floor overlap,
+lifting roof, screw passages and assembled fit.
 
 ## The Z seams slide home
 

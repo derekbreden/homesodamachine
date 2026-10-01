@@ -22,3 +22,7 @@ chamfer/taper and fine show rounds. Retain supports for separate functional face
 such as flat lifting ceilings and mounting seats. Inspect short support bodies too.
 Each new part needs its own native slice review; one accepted carrier is not physical
 qualification of every grip or roof edge.
+
+Ordinary enclosure walls, webs and joint ends use the nominal 3 mm wall section.
+Remove cut remnants and tapered tips that leave thin fins. Apply thinner-section
+exceptions only to the specific flexure, cover or other feature that requires them.

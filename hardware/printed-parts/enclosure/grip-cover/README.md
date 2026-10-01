@@ -10,7 +10,10 @@ bottom halves. The full-size front and back grip coupons carry the actual
 enclosure joint and provide a small print for assessing the pair. The production
 enclosure generator and upper halves retain their own geometry.
 
-![Grip and cover in section](section.png)
+![Grip fully inserted in the connected receiver](seated.png)
+
+[Inserted 3D view](https://homesodamachine.com/3d?file=printed-parts%2Fenclosure%2Fgrip-cover%2Fgrip-seated.step#step:printed-parts%2Fenclosure%2Fgrip-cover%2Fgrip-seated.step)
+· [Section through the catches](section.png)
 
 ## Geometry
 
@@ -35,14 +38,17 @@ The short cover's bending recovery and these receivers' fit are unmeasured.
 The insert reaches the flat ceiling's outer edge at the foot of the additive
 exterior transition. Its inner edge and both ends have 0.15 mm clearance; the
 outer edge is free. Local reliefs clear the inside R6 shoulders beneath the roof
-at the two ends, within the cover's clearance envelope. The cover's R0.6 touch
+at the two ends and continue through the exterior. The cover's R0.6 touch
 rounds finish the finger face.
+
+The receiver samples end at the inboard face of the complete 3 mm handhold wall.
+The wall's square front/back ends retain that thickness through their full height.
 
 Upward finger force seats the broad cover back against the existing roof. The
 end wings retain the cover against falling out. Their slots begin on the existing
 end-wall planes, without ledges projecting into the finger opening. The slots
 pass through the end walls for access from either side. The complete 12 mm roof,
-inner wall, seam scarf and screw region remain intact.
+inner wall, square wall joint and screw region remain intact.
 
 ## Assembly and removal
 
@@ -70,14 +76,15 @@ each part is valid and connected, all printable meshes are closed, the complete
 roof and joint are retained, no receiver material is added, the cover reaches
 X105.195, all four slot mouths lie on Y174/254, the halves do not overlap, and
 both wings remain captured at the limits of the designed clearance. The seated
-cover clears both receivers throughout its play.
+cover clears both receivers throughout its play. All four outer corner reliefs
+are empty beneath the roof, through the exterior edge.
 
 The [native print check](print-check.json) records the exact archive, sources,
 cover layers, bed contact and first-to-second-layer bead overlap. The
 [support audit](support-audit.json) includes the coupons' short support bodies
-and maps their contacts to the CAD frame. No print has been submitted. Support
-removal, insertion recovery, retention, touch finish and lifting performance
-require the physical samples.
+and maps their contacts to the CAD frame. The [Mark2 trial](mark2-trial-v4/README.md)
+records the submitted three-piece plate. Support removal, insertion recovery,
+retention, touch finish and lifting performance require the physical samples.
 
 ```sh
 HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/enclosure/grip-cover/grip_cover.py

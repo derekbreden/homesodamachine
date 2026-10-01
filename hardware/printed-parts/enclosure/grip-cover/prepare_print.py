@@ -17,9 +17,9 @@ import grip_cover as g
 sys.path.insert(0,str(g.ROOT/"hardware/printed-parts/faucet"))
 import refresh_print_project as writer
 
-JOB=g.ROOT/".cache/prints/grip-cover-v3"
+JOB=g.ROOT/".cache/prints/grip-cover-v4"
 PROFILE=g.ROOT/"hardware/printed-parts/petgf.3mf"
-STEM="grip-cover-and-receiver-v3"
+STEM="grip-cover-and-receiver-v4"
 
 
 def main():
