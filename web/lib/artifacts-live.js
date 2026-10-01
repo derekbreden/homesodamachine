@@ -121,7 +121,9 @@ export async function retireSolids(root, have, pointers) {
   return retired;
 }
 
-async function lockOnMain() {
+// Also what the store's prune keeps by (objects.js `pruneUnnamed`): this disk's pointer file is
+// main's only once an adoption settles.
+export async function lockOnMain() {
   const res = await fetch(LOCK_URL, {
     headers: { accept: "application/vnd.github+json", "user-agent": "homesodamachine-site" },
   });

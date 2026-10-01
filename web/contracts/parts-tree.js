@@ -153,8 +153,9 @@ export const INSTALL_KIT = [
 ];
 
 // MADE IN ORDER TO MAKE THE MACHINE, OR A PICTURE OF IT — never part of it. The
-// fixtures and shop-storage namespaces are bench tooling by definition, so adding
-// another fixture or job kit does not demand a fictitious seat in the appliance.
+// fixtures, shop-storage and calibration namespaces are bench tooling by definition,
+// so adding another fixture, job kit or printer coupon does not demand a fictitious
+// seat in the appliance.
 // Moulds, mandrels and gauges that live beside their host remain named here because
 // their path alone does not distinguish them from product parts. Bench scenes are
 // pictures of groups of bodies rather than bodies. Claimed ahead of the sweep, so
@@ -164,6 +165,7 @@ export const TOOLING = [
   "assembly/scenes/glb",
   "printed-parts/fixtures",
   "printed-parts/shop-storage",
+  "printed-parts/calibration",
   "printed-parts/cold-core/coil-mandrel",
   "printed-parts/zone-c/funnel-mold",
 ];
