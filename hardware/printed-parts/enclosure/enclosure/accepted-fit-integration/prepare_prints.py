@@ -9,7 +9,7 @@ import refresh_print_project as writer
 PROFILE=ROOT/'hardware/printed-parts/petgf.3mf'
 JOBS={
  'front-top':('H2C',.18,0.,'2026-10-01-enclosure-front-top-flat-wings-h2c-v15','enclosure-front-top-flat-wings-black-z018-h2c-v15'),
- 'back-top':('Mark2',.04,180.,'2026-10-01-enclosure-back-top-flat-wings-mark2-v3','enclosure-back-top-flat-wings-black-z004-mark2-v3')}
+ 'back-top':('Mark2',.04,180.,'2026-10-01-enclosure-back-top-flat-wings-mark2-v4','enclosure-back-top-flat-wings-black-z004-mark2-v4')}
 sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
 
 def main(part):
@@ -19,7 +19,7 @@ def main(part):
  source=ENC/f'enclosure-{part}.stl'
  # Centre the roof-down part's complete tree-base footprint, retaining the
  # 15 mm model border and over 10 mm for every support extrusion.
- offset=(0.,7.8) if part=='back-top' else (0.,0.)
+ offset=(0.,9.3) if part=='back-top' else (0.,0.)
  report=writer.refresh(PROFILE,target,parts=((f'enclosure-{part}',source,angle),),offsets=(offset,),
                        title=f'Enclosure {part}, accepted flat-wing receiver; {printer}',z_trim=trim,plate_border=15.)
  with zipfile.ZipFile(target) as z:members={n:z.read(n) for n in z.namelist()}
