@@ -8670,7 +8670,7 @@ def _piece_bands(box, name):
     return y0, y1, z0, z1
 
 
-def build_piece(box, y_side, z_side, halves_cache=None, handhold_builder=None):
+def build_piece(box, y_side, z_side, halves_cache=None):
     """One of the four printable pieces: the full front/back column split at
     its seam (`box.splits` — the one stated plane, both columns), the bottom
     taking the Z lip, the hooked rails, the stop blocks and the corner fills, the
@@ -8960,7 +8960,7 @@ def build_piece(box, y_side, z_side, halves_cache=None, handhold_builder=None):
         # Last on the flank: the channel is air, and no later wall feature may fill it back in.
         piece = _pan_cable_clip(piece, box, up=up)
     if z_side == "bottom":
-        piece = (handhold_builder or _handholds)(piece, inner, y_joint, y_side)
+        piece = _handholds(piece, inner, y_joint, y_side)
     if y_side == "front" and plate:
         # The tee carrier's way in and its slide, through both flanks and the seam rail on them,
         # and the pockets its springs' fore ends stand in, teardropped for the mouth-down print.

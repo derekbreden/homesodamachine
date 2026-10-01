@@ -7,8 +7,9 @@ stand in the bottom enclosure's production orientation.
 
 The [launch receipt](launch.json) identifies task `1298005797` and the exact v4
 archive. Its native estimate is **1 h 7 min**, 216 layers, and 31.21 g of black
-PET-GF through Mark2's fixed left hardened 0.4 mm nozzle. The physical fit,
-support removal, bending recovery and retention result is pending.
+PET-GF through Mark2's fixed left hardened 0.4 mm nozzle. The receiver's printed
+surface is [accepted](../physical-acceptance.json). Physical fit, support removal,
+bending recovery, retention and lifting results are unreported.
 
 ![Three-part plate](plate.png)
 
