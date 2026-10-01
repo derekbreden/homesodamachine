@@ -1,10 +1,2 @@
-[step] The receiver coupon's inboard crop is X89.5, one millimetre inside the existing X90.5 inner-wall face. It retains the complete 3 mm inner wall and a margin of the adjoining enclosure material. This offset is on the sample boundary, outside the finger space and snap interface.
-click: x=89.500 y=184.623 z=26.667
-
-[sliver] End faces of existing enclosure material at the coupon's 1 mm inboard crop margin. These strips remain joined along their length to the complete inner wall; they are sample cut faces, not freestanding snap leaves.
-click: x=90.000 y=176.050 z=20.000
-click: x=90.000 y=200.553 z=0.000
-click: x=90.000 y=183.944 z=40.000
-
 [ceiling] Functional lifting ceiling and end-wall wing-slot roof. The native support mat ends at Z28.76 below the Z29.25 face. The ceiling mat has a straight removal lane toward the open Y-seam end before assembly, and the slot opens through the end wall. Physical removal is unmeasured.
-click: x=97.929 y=191.725 z=29.250
+click: x=98.458 y=191.725 z=29.250

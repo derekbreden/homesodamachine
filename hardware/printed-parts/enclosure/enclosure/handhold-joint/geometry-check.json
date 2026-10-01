@@ -1,0 +1,110 @@
+{
+  "status": "pass",
+  "checks": [
+    {
+      "check": "Both bottom halves are valid connected solids",
+      "pass": true
+    },
+    {
+      "check": "Assembled bottom halves do not overlap",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "front wall -1 ends at the full 3 mm section",
+      "pass": true,
+      "end_y_mm": 209.3,
+      "missing_stock_mm3": 0.0,
+      "end_face_areas_mm2": [
+        105.75
+      ]
+    },
+    {
+      "check": "back wall -1 ends at the full 3 mm section",
+      "pass": true,
+      "end_y_mm": 209.55,
+      "missing_stock_mm3": 0.0,
+      "end_face_areas_mm2": [
+        105.75
+      ]
+    },
+    {
+      "check": "Wall -1 has an open running gap",
+      "pass": true,
+      "gap_mm": 0.25,
+      "blocked_mm3": 0.0
+    },
+    {
+      "check": "front wall +1 ends at the full 3 mm section",
+      "pass": true,
+      "end_y_mm": 209.3,
+      "missing_stock_mm3": 0.0,
+      "end_face_areas_mm2": [
+        105.75
+      ]
+    },
+    {
+      "check": "back wall +1 ends at the full 3 mm section",
+      "pass": true,
+      "end_y_mm": 209.55,
+      "missing_stock_mm3": 0.0,
+      "end_face_areas_mm2": [
+        105.75
+      ]
+    },
+    {
+      "check": "Wall +1 has an open running gap",
+      "pass": true,
+      "gap_mm": 0.25,
+      "blocked_mm3": 0.0
+    },
+    {
+      "check": "Both handholds open through the floor and keep their lifting sections and inner walls",
+      "pass": true,
+      "reading": {
+        "id": "handholds",
+        "label": "Both handholds open through the floor and keep their lifting sections and inner walls",
+        "ok": true,
+        "value": "two 80 \u00d7 35 mm bottom openings at Y 214",
+        "target": "clear upward entry, 3 mm inner walls, 12 mm roofs and complete end posts",
+        "detail": [
+          "west: blocked entry 0.0000 mm\u00b3; missing inner wall 0.0000 mm\u00b3; missing roof 0.0000 mm\u00b3; missing end posts 0.0000 mm\u00b3",
+          "east: blocked entry 0.0000 mm\u00b3; missing inner wall 0.0000 mm\u00b3; missing roof 0.0000 mm\u00b3; missing end posts 0.0000 mm\u00b3"
+        ]
+      }
+    },
+    {
+      "check": "Both lower seam jambs join the handhold roofs and carry complete lower and middle fasteners",
+      "pass": true,
+      "reading": {
+        "id": "y-seam-lower",
+        "label": "Both lower seam jambs join the handhold roofs and carry complete lower and middle fasteners",
+        "ok": true,
+        "value": "four screw axes at Z 48.9 and 152.1 mm; middle collars end at Z 160",
+        "target": "two jambs above the handholds, four open screw pilots, passages open through the rim, and a registering floor lap",
+        "detail": [
+          "west: levels correct; missing jamb 0.0000 mm\u00b3; entry overlap 0.0000 mm\u00b3; blocked bores 0.0000 mm\u00b3",
+          "east: levels correct; missing jamb 0.0000 mm\u00b3; entry overlap 0.0000 mm\u00b3; blocked bores 0.0000 mm\u00b3",
+          "floor lap blocks a 0.5 mm upward shift: 145.5733 mm\u00b3 overlap"
+        ]
+      }
+    },
+    {
+      "check": "front-bottom changes only the handhold wall joint",
+      "pass": true,
+      "change_outside_joint_mm3": 0.0,
+      "baseline_sha256": "09593af6f0121ad1a6d5d36270bdf9cb38f22a7d75fc1e1fd79b8c7e25f2359e"
+    },
+    {
+      "check": "back-bottom changes only the handhold wall joint",
+      "pass": true,
+      "change_outside_joint_mm3": 0.0,
+      "baseline_sha256": "dfd47a6dc5bdbcbb38c564f7da2f5aac25624a9a4bf6f2db319ebebb248c91ab"
+    }
+  ],
+  "artifacts_sha256": {
+    "enclosure-front-bottom.step": "79cde9fc48bfa2c0f592c6fb42876c4d94ed0d4cd9e44faf0509b3117f89c294",
+    "enclosure-back-bottom.step": "fea9e1deddaa1e6bff75f6669e732eb4b3c5761807de565b438fa6037ccca92a"
+  },
+  "scope": "Geometric wall stock, seam fit and retained lifting structure; no physical load test."
+}

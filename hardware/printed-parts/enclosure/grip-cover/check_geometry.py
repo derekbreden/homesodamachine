@@ -39,6 +39,15 @@ def main():
         r["seam_change_mm3"]<.001 for r in readings.values())
     checks["halves_do_not_overlap"] = halves["front"].intersect(halves["back"]).Volume()<.001
 
+    corner_remnants=[]
+    for side in (-1,1):
+        xa,xb=sorted((side*g.OUTER_FLAT,side*(g.X_EXT+1)))
+        for n,y in zip(("front","back"),g.shell._handhold_y()):
+            y0,y1=(y,y+g.shell.handhold_corner_r) if n=="front" else (y-g.shell.handhold_corner_r,y)
+            corner=g.box(xa,xb,y0,y1,g.ROOF-g.shell.handhold_corner_r,g.ROOF)
+            corner_remnants.append(halves[n].intersect(corner).Volume())
+    checks["all_four_outer_corner_remnants_removed"] = max(corner_remnants)<.001
+
     # Use a local sample for the repeated fit reads; it is cut from the final
     # imported candidate solids, including the actual front/back seam.
     receiver=cq.Compound.makeCompound([g.sample(s) for s in halves.values()])
@@ -88,6 +97,7 @@ def main():
             "stock_and_joint":readings,"maximum_interference_mm3":worst,
             "east_cover_x_mm":[cover_box.xmin,cover_box.xmax],
             "slot_mouth_y_mm":list(g.shell._handhold_y()),
+            "maximum_outer_corner_remnant_mm3":max(corner_remnants),
             "minimum_wing_stop_probe_mm3":min(catches),"mesh":mesh_checks,
             "artifacts_sha256":{p.name:hashlib.sha256(p.read_bytes()).hexdigest()
                 for p in sorted(g.HERE.glob("*.stl"))},

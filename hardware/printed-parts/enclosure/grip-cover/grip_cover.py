@@ -79,22 +79,24 @@ def cover():
 
 
 def placed(shape, side=1, drop=0):
-    """East/west world placement; X→world Y, Y→world X, Z→world -Z."""
-    return (shape.rotate((0,0,0), (1,1,0), 180)
-            .translate((side*X_CENTER, shell.handhold_y, BACK-drop)))
+    """Local X→world Y and Z→world -Z; mirror the east placement for the west."""
+    east = (shape.rotate((0,0,0), (1,1,0), 180)
+            .translate((X_CENTER, shell.handhold_y, BACK-drop)))
+    return east if side == 1 else east.mirror("YZ")
 
 
 def receiver_reliefs():
     """Clear the two inside R6 shoulders up to the original roof datum.
 
     The mouth remains on the existing end-wall plane. Only stock below the
-    structural roof and within the cover's clearance envelope is removed.
+    structural roof is removed. The relief continues through the exterior so
+    the outer corner cannot leave a tapered remnant beside the cover.
     """
     reliefs = []
     mouth = shell.handhold_length/2
     for end in (-1, 1):
         x0,x1 = sorted((end*(mouth-shell.handhold_corner_r), end*mouth))
-        reliefs.append(box(x0,x1,-WIDTH/2-BODY_AIR,WIDTH/2+BODY_AIR,
+        reliefs.append(box(x0,x1,-WIDTH/2-BODY_AIR,X_EXT-X_CENTER+1,
                            -BACK_AIR,shell.handhold_corner_r-BACK_AIR+.01))
     return reliefs
 
@@ -143,7 +145,7 @@ def originals():
 
 def sample(shape):
     """Full-size east handhold crop, retaining the actual telescoping seam."""
-    return shape.intersect(box(INNER_FACE-shell.handhold_wall-1, X_EXT+1,
+    return shape.intersect(box(INNER_FACE-shell.handhold_wall, X_EXT+1,
                                shell.handhold_y-shell.handhold_length/2-5,
                                shell.handhold_y+shell.handhold_length/2+5,
                                -shell.floor_t, CROWN+3)).clean()
