@@ -120,6 +120,27 @@ the nominal hardware envelopes used to size the CAD pockets.
 
 ## Verification
 
+The [quadrant mating check](mating-clearance-check.json) reads opposing planar
+faces from all four exported enclosure STEPs. The measured local gaps include:
+
+| Intersection | Locations | Gap | Accounting |
+|---|---:|---:|---|
+| Handhold backing tab beneath the front roof | 2 | 0.50 mm in Z | 0.25 running + 0.25 rough roof |
+| Floor scarf beside the handhold backing wall | 2 | 0.25 mm in X | Running, vertical faces |
+| Front rail entrance behind the tee wall | 2 | 0.25 mm in Y | Running; closed-end rail stops locate Y |
+| Vent-chase split above the back-bottom rim | 1 | 0.25 mm in Z | Running; both faces print upward |
+
+The check permits nominal contact only on the identified screw-clamping faces,
+Y closure ends, main Z seating shoulders and closed-end rail stops. It rejects
+unclassified zero-clearance contact. Those locating faces settle against each
+other; surrounding passage surfaces need their own positive clearance.
+
+Run `tools/cad-venv/bin/python hardware/scripts/check_enclosure_mating_clearance.py`
+after materializing the quadrants. Its scope is parallel planar patches larger
+than 0.05 mm² within 0.751 mm of a mate, plus explicit surface probes at the seven
+intersections above. Curved and nonparallel contacts, full insertion sweeps,
+accessories and physical support finish need their separate checks.
+
 Feature checks read supported relief on the actual print-up side, ordinary clearance on the
 opposite and lateral faces, retained wall sections, and unchanged seating planes. Enclosure
 assembly checks also cover whole-part intersections, cap/cartridge withdrawal, hardware

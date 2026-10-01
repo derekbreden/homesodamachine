@@ -1,0 +1,110 @@
+{
+  "schema": 1,
+  "piece": "grip-receiver-back",
+  "inputs": {
+    "gcode": "plate_1.gcode",
+    "gcode_sha256": "2a7318dab931d35058687387f228b4f451d9509c684b581f693f446e896c20b0",
+    "model": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/grip-cover/grip-receiver-back.stl",
+    "model_sha256": "bad10111e1e2ef33014f2ed3c81c26dbc4c4bb5ea738cbc83ed895b99d90225b",
+    "profile": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/grip-back-bridge-mark2-v6/grip-back-bridge-mark2-v6-input.3mf",
+    "profile_sha256": "b39bb3849e6b88ea798d007e2b6210e5e22ee1f2c49877d278bb3fd38bb673aa"
+  },
+  "slicer": "BambuStudio 02.08.02.61",
+  "first_layer_z_mm": 0.2,
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -63.5,
+      69.5,
+      -6.0
+    ],
+    "plate_to_cad_translation_mm": [
+      -63.5,
+      69.5,
+      -6.0
+    ]
+  },
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.45",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "support_bodies": 1,
+    "interface_islands": 1,
+    "bed_rooted_bodies": 1,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 34.32,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 1,
+    "shortest_labelled_build_up_mm": 34.32
+  },
+  "trees": [
+    {
+      "id": "tree-1",
+      "root": "bed",
+      "base_z_mm": 0.2,
+      "first_interface_z_mm": 34.52,
+      "shortest_build_up_mm": 34.32,
+      "top_z_mm": 34.76,
+      "bbox_xy_mm": [
+        157.6,
+        130.8,
+        169.2,
+        184.0
+      ],
+      "interfaces": [
+        "interface-1"
+      ],
+      "interface_reading": "explicit_feature",
+      "bbox_cad_xyz_mm": [
+        94.1,
+        200.3,
+        -5.8,
+        105.7,
+        253.5,
+        28.76
+      ]
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "interface-1",
+      "first_z_mm": 34.52,
+      "last_z_mm": 34.76,
+      "bbox_xy_mm": [
+        157.6,
+        130.8,
+        169.2,
+        184.0
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 34.32,
+      "bbox_cad_xyz_mm": [
+        94.1,
+        200.3,
+        28.52,
+        105.7,
+        253.5,
+        28.76
+      ]
+    }
+  ],
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up."
+}

@@ -4,7 +4,8 @@ The cover's local X is its long direction, Y its short direction, and Z points
 out of the finger face. Back and wings share Z=0, the print bed. The receiver
 slots pass through the existing end walls; the cover seat clears their inside
 corners below the complete structural roof. The Mark2 receiver surface is
-accepted; the cover and receiver remain a fit candidate.
+accepted; the wing slots require an unsupported bridge trial. The cover and
+receiver remain a fit candidate.
 """
 from __future__ import annotations
 
@@ -220,7 +221,7 @@ def main():
               "assembly":"Join enclosure halves, tuck one wing, bow strip downward, seat second wing, release.",
               "service":"Pull the accessible outer long edge downward to release; remove both strips before separating bottom halves.",
               "physical_result_record":"physical-acceptance.json",
-              "physical_validation":"Receiver printed surface accepted on Mark2 v4. Support removal, insertion recovery, retention, finger contact and lifting results are unreported."}
+              "physical_validation":"Curved receiver surface accepted on Mark2 v4; wing-slot supports are trapped. The slot bridge and corrected enclosure seam require a new physical trial. Insertion recovery, retention, finger contact and lifting results are unreported."}
     (HERE/"design.json").write_text(json.dumps(manifest,indent=2)+"\n")
     print(json.dumps(manifest,indent=2))
 

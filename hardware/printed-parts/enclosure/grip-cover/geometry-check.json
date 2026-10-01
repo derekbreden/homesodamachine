@@ -59,7 +59,7 @@
   },
   "artifacts_sha256": {
     "grip-cover.stl": "acbb8f8cd3e50792a258670bf31c7574de6a435fbbce2629ede73c070378dc03",
-    "grip-receiver-back.stl": "245a4ce5bc898f850af1905ac8ff2b44004f55e77b8ebfdc60a603cba8789cbf",
+    "grip-receiver-back.stl": "bad10111e1e2ef33014f2ed3c81c26dbc4c4bb5ea738cbc83ed895b99d90225b",
     "grip-receiver-front.stl": "2cb5a7498d12815ee93e4a2c6d1642d8561099251d4b921162fe0c5439fd45df"
   },
   "scope": "Geometry only. Physical results are recorded separately in physical-acceptance.json."

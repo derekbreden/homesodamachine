@@ -10,8 +10,10 @@ bottom halves. The full-size front and back grip coupons carry the actual
 enclosure joint and provide a small print for assessing the pair. The production
 enclosure generator and upper halves retain their own geometry.
 
-The receiver's printed surface is [accepted](physical-acceptance.json) on the
-Mark2 v4 trial. The current receiver meshes match that print's recorded hashes.
+The receiver's curved printed surface is [accepted](physical-acceptance.json).
+Supports in its narrow end-wing slots cannot be removed. The
+[bridge trial](bridge-trial-v6/README.md) leaves those slots unsupported and
+includes the enclosure's corrected seam clearance.
 
 ![Grip fully inserted in the connected receiver](seated.png)
 
@@ -45,7 +47,10 @@ at the two ends and continue through the exterior. The cover's R0.6 touch
 rounds finish the finger face.
 
 The receiver samples end at the inboard face of the complete 3 mm handhold wall.
-The wall's square front/back ends retain that thickness through their full height.
+The wall's square front/back ends retain that thickness. The back's seam tab
+has 0.50 mm below the front's supported roof: 0.25 mm running clearance plus
+0.25 mm rough-surface allowance. The adjoining floor scarf has 0.25 mm lateral
+clearance from the back wall. These gaps come from the shared enclosure source.
 
 Upward finger force seats the broad cover back against the existing roof. The
 end wings retain the cover against falling out. Their slots begin on the existing
@@ -60,8 +65,8 @@ strip downward enough to engage the other wing, and release it into the seat.
 The accessible outer long edge provides a place to pull the centre downward for
 removal. Remove both covers before separating the bottom enclosure halves.
 Remove the receiver supports while the halves are separate. The ceiling mat
-withdraws toward the open seam end of each handhold; slot supports have a straight
-run through the end walls.
+withdraws toward the open seam end of each handhold. The narrow wing slots use
+an unsupported bridge trial; their printed finish remains to be tested.
 
 ## Print and checks
 
@@ -86,9 +91,10 @@ The [native print check](print-check.json) records the exact archive, sources,
 cover layers, bed contact and first-to-second-layer bead overlap. The
 [support audit](support-audit.json) includes the coupons' short support bodies
 and maps their contacts to the CAD frame. The [Mark2 trial](mark2-trial-v4/README.md)
-records the printed three-piece plate and accepted receiver surface. Support
-removal, insertion recovery, retention, finger contact and lifting results are
-unreported.
+records the printed three-piece plate and accepted receiver surface. Wing-slot
+support removal failed. The current coupon slices and their support exclusion
+checks are recorded in [bridge-trial-v6](bridge-trial-v6/README.md). Insertion
+recovery, retention, finger contact and lifting results are unreported.
 
 ```sh
 HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/enclosure/grip-cover/grip_cover.py

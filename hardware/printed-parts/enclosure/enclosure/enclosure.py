@@ -4133,14 +4133,30 @@ def _handhold_backing_joint(inner, y_joint, x_ext, sx, y_side):
 
     The front ends one running fit before the back. The structural floor overlap
     and the socket jamb above the handhold provide the enclosure's registration.
-    Returns the front's trimming cut or the back's mating wall."""
+    The back tab clears the front's print-down roof by one running fit and one
+    supported-surface allowance. Returns the front's trimming cut or the back's
+    mating wall."""
     bed, roof, _crown = _handhold_levels(inner)
     _seat, _tip, _heat, cap = _boss_x(x_ext, sx)
     outer_face = cap - sx * handhold_wall
     xa, xb = sorted((cap, outer_face))
+    if y_side == "back":
+        roof -= fits.running + fits.supported_surface
     return _ybox(xa, xb, _handhold_backing_end(y_joint, y_side),
                  y_joint + lip_len + wall,
                  bed - (1.0 if y_side == "front" else 0.0), roof)
+
+
+def _handhold_floor_side_relief(inner, y_joint, x_ext, sx):
+    """Running space beside the floor scarf where it passes the back's inner wall.
+
+    This vertical face needs no overhang allowance. Cut the tongue's edge so the
+    back's nominal 3 mm wall stays whole, beginning before that wall's leading end.
+    """
+    _seat, _tip, _heat, cap = _boss_x(x_ext, sx)
+    xa, xb = sorted((cap, cap + sx * fits.running))
+    return _ybox(xa, xb, _handhold_backing_end(y_joint, "front"),
+                 y_joint + lip_len + wall, inner[4] - floor_t - 1.0, inner[4])
 
 
 def _handhold_frame(inner, y_joint, x_ext, sx, y_side):
@@ -4171,6 +4187,7 @@ def _handholds(solid, inner, y_joint, y_side):
         solid = solid.cut(_handhold_cutter(inner, x_ext, sx))
         if y_side == "front":
             solid = solid.cut(_handhold_backing_joint(inner, y_joint, x_ext, sx, y_side))
+            solid = solid.cut(_handhold_floor_side_relief(inner, y_joint, x_ext, sx))
         solid = solid.clean()
         rim = []
         for edge in solid.Edges():
@@ -4344,6 +4361,10 @@ def _z_rail_heads(inner, y_joint, zj, col, plate, chase=()):
     out = None
     for x_in, sx, y0, y1, _lane in _z_rail_runs(inner, y_joint, col, plate, chase):
         sy = 1.0 if y1 > y0 else -1.0        # open end to closed: the way this column goes
+        if col == "front" and plate:
+            # The tee-wall rear face is not a second end stop. The rail's entrance
+            # clears it while the closed-end stop alone locates the top in Y.
+            y0 += slide_slip
         x_hk, x_f, x_a, x_h1 = _rail_x(x_in, sx, col)
         arm = _xz_prism(y0, y1, [(x_a, zj), (x_a, catch_z),
                                  (x_hk, catch_z), (x_hk, rim),
@@ -6941,7 +6962,10 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1, up=1.0):
         # rim there is no bottom piece at all, so the top carries its share and sweeps air.
         # NOTHING OF EITHER CROSSES INTO THE OTHER'S TRAVEL, so the top needs no berth cut
         # down its flank for a rib that was never in it.
-        band = ((outer[4] - 1.0, rim) if owns else (rim, outer[5] + 1.0))
+        # Both mating rim faces print upward in the production orientations.
+        # Their assembly slide therefore uses the running gap without an
+        # overhang addition; the main seam shoulder locates the top in Z.
+        band = ((outer[4] - 1.0, rim) if owns else (rim + slide_slip, outer[5] + 1.0))
         share = rib.intersect(
             _ybox(outer[0] - 1.0, outer[1] + 1.0,
                   sy - half - 1.0, sy + half + 1.0, band[0], band[1]))

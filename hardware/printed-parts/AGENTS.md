@@ -75,6 +75,11 @@ ready machines to leaving one loaded and idle while combining everything on a si
 plate. Preserve each printer's own profile, nozzle mapping and Z trim, and keep the
 startup spacing below.
 
+For a single job that either ready printer can handle, prefer the printer that
+has been idle with suitable filament loaded longer. Compare the idle-and-loaded
+period, not idle time alone. A printer without the required material loaded is
+not an equivalent candidate; both printers are not always loaded with PET-GF.
+
 ## Printer startup spacing
 
 H2C and Mark2 share a circuit. Wait at least **three minutes after one printer accepts
