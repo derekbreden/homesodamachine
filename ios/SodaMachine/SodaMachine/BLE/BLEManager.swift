@@ -330,6 +330,8 @@ class BLEManager {
     @ObservationIgnored fileprivate var unverified = false
     /// Which link's identity is being waited on.
     @ObservationIgnored fileprivate var identityAsk = 0
+    /// Which connection attempt watchConnecting is timing.
+    @ObservationIgnored fileprivate var connectingWatch = 0
     @ObservationIgnored fileprivate var reconnectTimer: Timer?
 
     init(directory: MachineDirectory) {
@@ -380,17 +382,13 @@ class BLEManager {
                     self.pendingStatsRequest = false
                 }
             }
-        } else if connectionState != .bluetoothOff, current != nil {
-            // iOS may have stopped our scan or stalled a connection attempt
-            // while backgrounded. Cancel any pending connection and look again.
-            // The peripheral is let go before it is cancelled, so what the
-            // cancel says back is not this link's any more.
-            if let peripheral = connectedPeripheral {
-                connectedPeripheral = nil
-                rxCharacteristic = nil
-                nusReady = false
-                centralManager.cancelPeripheralConnection(peripheral)
-            }
+        } else if connectionState == .searching || connectionState == .searchingLong, current != nil {
+            // Looking: iOS may have stopped the scan while the app was away, so
+            // it looks again. A connection on its way is left to land — it was
+            // asked for by peripheral id or by a sighting, and either one waits
+            // for the radio on its own. Cancelling it here aborted a link a
+            // second from up on every pull of Control Center or a notification.
+            // One that never lands is let go by watchConnecting.
             point()
         }
     }
@@ -1544,6 +1542,23 @@ class BLEManager {
         unverified = unit.isEmpty
         connectionState = .connecting
         centralManager.connect(peripheral, options: nil)
+        watchConnecting()
+    }
+
+    /// A CONNECTION THAT HAS NOT FINISHED IN FIFTEEN SECONDS IS NOT GOING TO.
+    /// A machine that walked away mid-connect, or a link that came up and then
+    /// never offered its service, would otherwise hold the page on
+    /// "Connecting…" for good. Let go, the phone looks again — by sighting and
+    /// by peripheral id — and the page says what it is doing.
+    fileprivate func watchConnecting() {
+        connectingWatch += 1
+        let watch = connectingWatch
+        DispatchQueue.main.asyncAfter(deadline: .now() + 15) { [weak self] in
+            guard let self, watch == self.connectingWatch, self.connectionState == .connecting else { return }
+            log.info("Connection did not finish in 15 s; looking again")
+            self.dropLink()
+            self.point()
+        }
     }
 
     /// The NUS link is open. A link a sighting opened carries the unit the scan
@@ -2106,6 +2121,7 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
             if m.connectionState == .searching || m.connectionState == .searchingLong {
                 m.connectionState = .connecting
             }
+            m.watchConnecting()   // up at the radio; the clock starts again for the rest
         }
     }
 
