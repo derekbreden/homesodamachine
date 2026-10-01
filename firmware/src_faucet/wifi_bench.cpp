@@ -39,8 +39,6 @@ static void pushLoop(void *) {
   WifiPushResultPayload r{};
   r.channel = WIFI_BENCH_CHANNEL;
 
-  if (quietBle) bleLinkQuiet(true);
-
   const uint32_t t0 = millis();
   WiFi.mode(WIFI_STA);
   WiFi.setSleep(false);   // power save adds beacon-interval latency to every write
@@ -181,11 +179,15 @@ bool wifiBenchPush(uint32_t bytes, uint8_t channel, uint8_t flags) {
   wantBytes = bytes;
   ready = false;
   running = true;
+  // BLE comes off the air here, on loop(), which is the only task that touches
+  // advertising. The run's own task never does.
+  if (quietBle) bleLinkQuiet(true);
   // Core 0: the touch path, LVGL and J3 keep core 1. A blocked socket write
   // must not be able to stop the glass or the link.
   // 12 KB, not 8: bringing the radio up costs several kilobytes of stack.
   if (xTaskCreatePinnedToCore(pushLoop, "benchpush", 12288, nullptr, 4, &pushTask, 0) != pdPASS) {
     running = false;
+    if (quietBle) { bleLinkQuiet(false); quietBle = false; }
     return false;
   }
   return true;
