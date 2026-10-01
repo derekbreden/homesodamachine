@@ -1,0 +1,32 @@
+{
+  "units": "mm",
+  "valid_step_solids": 3,
+  "component_overlap_volume_mm3": 0,
+  "bounding_box_mm": [
+    [
+      -8.1629,
+      -8.09,
+      -8.162899999999999
+    ],
+    [
+      8.1629,
+      20.56239000000002,
+      20.56239000000002
+    ]
+  ],
+  "stl_max_bound_difference_mm": 0.0025368026733385562,
+  "observed_mesh_vertices": 171036,
+  "observed_mesh_triangles": 340555,
+  "observed_mesh_watertight": false,
+  "sampled_mesh_vertex_to_source_cloud_p95_p99_max_mm": [
+    0.004060529461842949,
+    0.007274777631931684,
+    0.0208624245381639
+  ],
+  "files": {
+    "jg-pp0308e-elbow.step": "805f210ef6a669f08f9bebacdbf3dcec2a0d22691484dc72308425fdaf3d5daa",
+    "jg-pp0308e-elbow.stl": "35e38299310e8e100d629c99ef9b91c549dbf724c96f405151b3f49f9bab5f6e",
+    "observed-surface.ply.gz": "623ea3e37bd49347e5c7fffe83ebfcabd1a49d0bef99c03db424ad5d1064ce37",
+    "source-cloud.ply.gz": "ddc1f635dc10b6eefd0e98cfa83fdca3ba58ae01093f16396d0c3fc1ecd7b49e"
+  }
+}
