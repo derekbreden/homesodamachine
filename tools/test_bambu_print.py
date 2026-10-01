@@ -1,8 +1,10 @@
 """Acceptance and repeat-send checks; these tests never contact a printer."""
 import copy
 import unittest
+from unittest.mock import Mock
 
-from bambu_print import accepted, may_retry, selected_options, verify_spools, PrintError
+from bambu_print import (accepted, may_retry, observe_send, selected_options,
+                         verify_spools, PrintError)
 
 
 class PrintAcceptance(unittest.TestCase):
@@ -33,6 +35,18 @@ class PrintAcceptance(unittest.TestCase):
 
     def test_a_fleeting_upload_or_command_reply_prevents_retry(self):
         self.assertFalse(may_retry(self.before, self.before, True, "Finished"))
+
+    def test_fleeting_resource_error_stops_before_acceptance_timeout(self):
+        ui = Mock()
+        ui.nodes.side_effect = [[{"role": "AXStaticText",
+                                 "label": "400: Resource does not exist"}], []]
+        watch = Mock(reply=None, events=[])
+        watch.drain.return_value = self.before
+        with self.assertRaisesRegex(PrintError, "Resource does not exist; no repeat send"):
+            observe_send(ui, watch, self.before, {"name": "next.gcode.3mf"}, 90)
+        self.assertEqual(ui.nodes.call_count, 1)
+        watch.fresh.assert_not_called()
+        self.assertEqual(watch.events, [{"ui_error": "400: Resource does not exist"}])
 
     def test_ui_transfer_blocks_retry_before_printer_status_changes(self):
         for page in ("Downloading... 100%", "Sending", "Uploading"):
