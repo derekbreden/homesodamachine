@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "part": "bottom-grip-receiver",
+  "status": "receiver_printed_surface_accepted",
+  "reported_by": "Derek",
+  "reported_date": "2026-09-30",
+  "observation": "The receiver as printed turned out amazingly beautiful despite my reservations.",
+  "printer": "Mark2",
+  "printer_task_id": "1298005797",
+  "material": "black PET-GF",
+  "print_record": "hardware/printed-parts/enclosure/grip-cover/mark2-trial-v4/launch.json",
+  "native_archive_sha256": "62877ed1f42865bc482c2268aa6ea267bb38ab7cadeb17cb80a72e9f2dc09095",
+  "source_stl_sha256": {
+    "grip-receiver-front.stl": "2cb5a7498d12815ee93e4a2c6d1642d8561099251d4b921162fe0c5439fd45df",
+    "grip-receiver-back.stl": "245a4ce5bc898f850af1905ac8ff2b44004f55e77b8ebfdc60a603cba8789cbf"
+  },
+  "scope": "Receiver printed surface accepted. Support removal, cover insertion and recovery, retention, finger contact and lifting results are unreported."
+}

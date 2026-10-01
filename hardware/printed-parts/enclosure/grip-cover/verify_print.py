@@ -97,9 +97,9 @@ def main():
             "estimated_seconds":plate["total_predication"],
             "archive":str(archive.relative_to(g.ROOT)),"archive_sha256":sha(archive),
             "project_sha256":sha(project),"gcode_sha256":hashlib.sha256(gc).hexdigest(),
-            "submitted":False,
-            "status":"native_slice_reviewed_physical_trial_pending",
-            "physical_scope":"Support removal, bending recovery, fit, retention, touch finish and lifting are unmeasured."}
+            "launch_record":"mark2-trial-v4/launch.json",
+            "physical_result_record":"physical-acceptance.json",
+            "status":"native_slice_reviewed"}
     (g.HERE/"print-check.json").write_text(json.dumps(checks,indent=2)+"\n")
     print(json.dumps(checks,indent=2))
 
