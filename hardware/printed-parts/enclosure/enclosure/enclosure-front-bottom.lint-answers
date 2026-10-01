@@ -8,8 +8,8 @@ interrupts each head over its own depth, so each catch runs as two faces either 
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
 click: x=100.875 y=142.418 z=169.200
 click: x=-100.875 y=142.418 z=169.200
-click: x=100.875 y=160.093 z=169.200
-click: x=-100.875 y=160.093 z=169.200
+click: x=100.875 y=160.218 z=169.200
+click: x=-100.875 y=160.218 z=169.200
 
 [slope] The Y-seam floor tongue's full-width 45-degree scarf nose — this is the bed-side face of the six-millimetre floor overlap, not a corbel hanging from either X wall. The tongue's broad underside is on the print bed and this face rises one millimetre per millimetre from it, leaving the cold-core bearing surface flat while lapping the front and back floor slabs.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step

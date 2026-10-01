@@ -1,5 +1,5 @@
 {
-  "status": "running_startup",
+  "status": "printing",
   "printer": "Mark2",
   "task_id": "1298180036",
   "job_name": "grip-back-bridge-mark2-v6.gcode.3mf",
@@ -34,5 +34,14 @@
   "observed_acceptance_spacing_seconds": 208.900108,
   "startup_observed_utc": "2026-10-01T04:55:51.712306+00:00",
   "startup_layer": 0,
-  "printer_remaining_minutes": 35
+  "printer_remaining_minutes": 35,
+  "latest_observation": {
+    "observed_utc": "2026-10-01T05:02:08.831503+00:00",
+    "gcode_state": "RUNNING",
+    "layer_num": 1,
+    "total_layer_num": 210,
+    "mc_remaining_time": 30,
+    "print_error": 0,
+    "hms": []
+  }
 }
