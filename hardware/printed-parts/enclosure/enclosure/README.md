@@ -1511,10 +1511,11 @@ The catch is the ceiling of the storey cavity beside the display, and the lip ha
 that cavity. The cover prints face down with its skirts pointing up. Retention force and
 repeated-use performance remain unmeasured.
 
-The selected [display-cover and receiver fit](../display-cover/physical-acceptance.json)
-uses 75 mm leaves, 3.6 mm hooks and 0.75 mm extra arm reach. It snaps cleanly, has no
-noticeable bow and passes shaking in its receiver coupon. Integration of that pair
-into this main-model housing is pending.
+The selected [face-up display-cover and receiver fit](../display-cover/face-up-trial/physical-acceptance.json)
+uses horizontal wings with 0.60 mm clearance above them and 0.30 mm body-X clearance
+per side. It passes shaking and has acceptable appearance with a small residual bow.
+Integration into this main-model housing is pending, including the complete module
+and rear-housing clearance check for its 1.84 mm deeper glass seat.
 
 The 19 mm housing and its internal ridge join the side walls and the pump-bay
 bulkhead. Either side of the display's opening the storey beneath the housing is one

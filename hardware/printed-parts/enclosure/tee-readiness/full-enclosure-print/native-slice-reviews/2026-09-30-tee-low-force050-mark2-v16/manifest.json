@@ -1,7 +1,7 @@
 {
   "title": "Tee carrier with 1.00 mm upper and 0.25 mm lower clearance",
   "printer": "Mark2",
-  "status": "started",
+  "status": "completed",
   "submitted": true,
   "task_id": "1297480230",
   "accepted_at_utc": "2026-09-30T22:25:06.578180+00:00",
@@ -34,7 +34,8 @@
     "slice-command.json": "6f9ddbd2e6b1db779490a87cb529b228ce9268cd6517fcfb92ddf8ac4958ab8f",
     "support-audit.json": "a699089312e8489c20e616734c4511049acfd38806bc710a4b7af531e0f882b3",
     "verification.json": "40d6f871a95b3c8d5c3db02b548b2db02271c729b0b1c18cba7ee1024147b5ac",
-    "wall-review.json": "f0dd6eb2bcf1076c88d8d1396c1aa4cfc333fa59c44aa9e96216e95d6146728c"
+    "wall-review.json": "f0dd6eb2bcf1076c88d8d1396c1aa4cfc333fa59c44aa9e96216e95d6146728c",
+    "physical-result.json": "34c751f4d624427a2885ef0e73b488e7b1ea0bab949b4d75543a3e1556a4336d"
   },
   "roof_clearance_mm": 1.0,
   "floor_clearance_mm": 0.25,
@@ -45,5 +46,7 @@
     "floor_running_mm": 0.25,
     "total_vertical_play_mm": 1.25
   },
-  "physical_qualification": "Free sliding, spring return and unwanted play with the existing front-top are pending. Accepted chamfer/taper surface reference is H2C task 1292379739."
+  "physical_qualification": "User accepts sliding and observed tilt. Spring return, actuation force and simultaneous release of all four collets were not separately reported.",
+  "physical_result": "Carrier sliding is accepted with the existing front-top; user reports great sliding and less tilt.",
+  "physical_result_record": "physical-result.json"
 }

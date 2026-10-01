@@ -7,18 +7,15 @@ enclosure. Two window covers close the flank openings aft of it.
 ## Low-force sliding clearance
 
 The sliding fit requires **low-force clearance for rough overhang surfaces involved**.
-The selected [0.75 mm extra-arm-reach display cover](../display-cover/physical-acceptance.json)
-snaps cleanly, has no noticeable bow and passes shaking with its matching receiver.
-The [low-force carrier trial](low-force-trial/README.md) evaluates this clearance at the
-carrier’s sliding contact surfaces against the unchanged front-top opening. It provides
+The [accepted carrier](low-force-trial/physical-acceptance.json) slides well with less
+tilt against the existing front-top opening. The [low-force geometry](low-force-trial/README.md) provides
 1.00 mm nominal roof clearance: 0.25 mm sliding, 0.25 mm for the supported roof and
 the [working 0.50 mm low-force addition](../clearance-audit.md). The floor has its
 separate 0.25 mm sliding gap, giving 1.25 mm total vertical travel.
 Support-removal roughness and the available actuation force are part of that fit; the
 usual nominal clearance alone does not establish low-force motion.
-The cover's 1.23 mm nominal hook-to-catch gap is evidence for this evaluation, not a
-universal clearance to copy onto the sliding joint. Check the carrier's motion and
-retention with its own contact geometry and print orientation.
+This acceptance applies to the carrier’s own contact geometry and print orientation.
+Spring return and simultaneous four-collet release remain separate assembly observations.
 
 ## Plate
 
@@ -60,9 +57,9 @@ uses 0.08 mm layers.
 
 Six walls apply only in print Z 0–6.1 mm, with two walls above and the original
 order: inner walls, outer wall, then infill. Infill/wall overlap is 15%; speeds and
-accelerations retain the saved profile values. Physical surface and sliding fit
-validation are pending. The [physical record](physical-acceptance.json) identifies
-the specimens and reported surface observations.
+accelerations retain the saved profile values. The [surface record](physical-acceptance.json)
+accepts the bottom transition; the [sliding-fit record](low-force-trial/physical-acceptance.json)
+accepts the 1.00 mm roof-gap carrier with the existing front-top.
 
 ## Openings and travel
 

@@ -37,7 +37,10 @@
     "published-artifacts.json": "dc8c96dcc9eaab9d46acc1dad4b34447addf6d42dd53047eda2ae197442a4f3c",
     "slice-command.json": "afeb899fcad4dbef55de1fe40e6f485dbc2c667cdc2782020dfab7a2b88b7387",
     "support-audit.json": "cc0a6b58d55f5637f7d37a90855f2328a19d5032b67657858357d9e4b9feb0be",
-    "verification.json": "e3b2c5c36951c42c6eb99c932f190da44a17c218714d9a93d0c2c11101d5de84"
+    "verification.json": "e3b2c5c36951c42c6eb99c932f190da44a17c218714d9a93d0c2c11101d5de84",
+    "physical-result.json": "c04264de8898dd4900dee6629cb4f166aa3929ea1edf46d1aa9149bfc0f3526a"
   },
-  "physical_result": "Pending same-part fit, relaxed flatness, insertion and shake-retention assessment."
+  "physical_result": "Cover and receiver accepted as good enough. Shake test passes and appearance is accepted with a small residual bow.",
+  "status": "completed",
+  "physical_result_record": "physical-result.json"
 }

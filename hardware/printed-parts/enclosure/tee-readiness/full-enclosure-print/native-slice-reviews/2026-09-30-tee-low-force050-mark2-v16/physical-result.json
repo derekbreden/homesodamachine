@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "reported_date": "2026-09-30",
+  "reported_by": "Derek",
+  "reported_timezone": "America/Chicago",
+  "observed_at_utc": "2026-10-01T00:44:07.013484+00:00",
+  "status": "sliding_fit_accepted",
+  "user_report": "Tee carrier slides great and less tilt than the previous, so it is a good change.",
+  "printer": "Mark2",
+  "printer_task_id": "1297480230",
+  "mating_front_top_task_id": "1277245499",
+  "native_archive_sha256": "a9652de3687d7a1e15796ae8a3e91f01e616af0daef5c727000af6e0cdbf1cfc",
+  "source_step_sha256": "0803c537eaf34d53395c089c78a5ac90c160ddfad3db7b769c33999b20ca1ff0",
+  "source_stl_sha256": "cfd5be113cbfb21f9f6c368fa5901bdb06c03643eb3e6df87e40bcdd3f25a51c",
+  "nominal_clearances_mm": {
+    "roof_running_mm": 0.25,
+    "roof_supported_face_mm": 0.25,
+    "roof_low_force_extra_mm": 0.5,
+    "floor_running_mm": 0.25,
+    "total_vertical_play_mm": 1.25,
+    "roof": 1.0,
+    "floor": 0.25
+  },
+  "physical_result": "Carrier sliding is accepted with the existing front-top; user reports great sliding and less tilt.",
+  "scope": "User accepts sliding and observed tilt. Spring return, actuation force and simultaneous release of all four collets were not separately reported.",
+  "printer_completion": {
+    "job_id": "1297480230",
+    "subtask_name": "tee-carrier-low-force050-filled-bottom-024-black-z004-mark2-v16.gcode.3mf",
+    "gcode_state": "FINISH",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 140,
+    "total_layer_num": 140,
+    "mc_remaining_time": 0,
+    "mc_percent": 100
+  },
+  "print_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-tee-low-force050-mark2-v16/manifest.json",
+  "physical_result_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-tee-low-force050-mark2-v16/physical-result.json"
+}

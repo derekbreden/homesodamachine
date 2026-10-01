@@ -1,11 +1,11 @@
 # Machine display cover
 
-The selected fit is the [0.75 mm extra-arm-reach cover](retention-reach-trial/README.md)
-with the [broad-leaf receiver](retention-trial/README.md): clean snap, no noticeable bow,
-and a passing shake test. It uses 75 mm leaves, 3.6 mm hooks, 0.9 mm inward leaf positions,
-R0.8 roots and a 1.23 mm nominal hook-to-catch gap. The
-[physical acceptance record](physical-acceptance.json) binds this result to the exact
-printed cover and receiver.
+The selected fit is the [face-up flat-wing cover and receiver](face-up-trial/README.md).
+It passes the shake test and has acceptable appearance with a small residual bow.
+The receiver provides 0.30 mm body-X clearance per side and 0.60 mm above each
+1.44 mm wing. The [physical acceptance record](face-up-trial/physical-acceptance.json)
+binds the result to the exact printed cover and receiver. The suspected residual
+bend from insertion is unverified; further bow tuning is not requested.
 
 Integration of that pair into the main display-cover generator and enclosure front-top
 is pending. The dimensions below describe the current main-model files.
