@@ -1,4 +1,4 @@
-"""Read the candidate's solids, retention stops and preserved enclosure stock."""
+"""Read the production-derived grip solids, retention stops and clearances."""
 import hashlib
 import itertools
 import json
@@ -28,10 +28,13 @@ def main():
         removed=originals[n].cut(s)
         added=s.cut(originals[n])
         readings[n]={"removed_original_mm3":removed.Volume(),
-                     "removed_roof_stock_mm3":removed.intersect(section).Volume(),
+                     "removed_roof_stock_mm3":(removed.intersect(section).Volume()
+                                                if removed.Solids() else 0.),
                      "added_mm3":added.Volume(),
                      "seam_change_mm3":(added.intersect(seam).Volume() if added.Solids() else 0.)
-                                       +removed.intersect(seam).Volume()}
+                                       +(removed.intersect(seam).Volume() if removed.Solids() else 0.)}
+    checks["detail_models_match_production_solids"] = all(
+        r["removed_original_mm3"]<.001 and r["added_mm3"]<.001 for r in readings.values())
     checks["full_original_roof_stock_retained"] = all(
         r["removed_roof_stock_mm3"]<.001 for r in readings.values())
     checks["no_added_receiver_ledges"] = all(r["added_mm3"]<.001 for r in readings.values())

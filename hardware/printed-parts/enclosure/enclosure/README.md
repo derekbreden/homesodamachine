@@ -188,13 +188,21 @@ Hardware openings follow their mating parts. The rear top edge remains square.
 
 One handhold in each ±X flank opens through the standing floor. The recesses are
 [80 mm](HANDHOLD_LENGTH) long in Y, centered at **Y[214 mm](HANDHOLD_Y)**, and
-[35.25 mm](HANDHOLD_HEIGHT) high from the slab's underside to the flat lifting ceiling.
-The upper corners have [6 mm](HANDHOLD_CORNER_R) radii and the exterior lifting edges
-[6 mm](HANDHOLD_EDGE_R) radii. Each ceiling carries a full [12 mm](HANDHOLD_ROOF) section,
+[35.25 mm](HANDHOLD_HEIGHT) high from the slab's underside to the uncovered lifting ceiling.
+The liner seat clears the [6 mm](HANDHOLD_CORNER_R) corner shoulders beneath the roof.
+The exterior lifting edges retain their [6 mm](HANDHOLD_EDGE_R) rounds.
+Each ceiling carries a full [12 mm](HANDHOLD_ROOF) section,
 joined to the floor by the opening's end walls and to the seam jamb above it.
 The R6 roll joins the flat lifting ceiling, end walls and fluted exterior
 tangentially, including the two corner blends. Its full section and flute
 runout follow the top's side shoulder and both cartridge hand pockets.
+
+Each [snap cover](../grip-cover/README.md) spans the front/back seam and covers
+the supported lifting ceiling with a smooth finger face. Its flat wings fit
+through-slots in the existing end walls at Y174 and Y254. The production bottom
+solids include those slots and the cover-seat reliefs; both assembly models
+include the two removable covers. The narrow wing slots print as bridges, with
+support excluded there and retained beneath the broad lifting ceilings.
 
 The [3 mm](HANDHOLD_WALL) inner wall stands on the cold core's flank plane. Each opening
 is closed toward the interior and open outward and downward. Both bottom pieces form each
@@ -203,7 +211,8 @@ fit between the faces.
 The floor scarf continues across the middle of the enclosure. Six M3×10 screws pin the seam;
 the lower pair stands above the handholds.
 
-`handholds` reads the upward entry space, full lifting sections, end posts and inner walls
+`handholds` reads the upward entry space, full lifting sections, end posts around
+the wing slots and inner walls
 on the finished pair, including the inner-wall joint's running clearance. These are geometry
 checks; no physical lifting-load test is recorded.
 The [wall-end check](handhold-joint/geometry-check.json) measures the complete

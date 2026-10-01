@@ -1,0 +1,64 @@
+{
+  "status": "pass",
+  "parts": {
+    "front": {
+      "same_as_accepted_receiver_crops": true,
+      "crop_differences": [
+        {
+          "side": -1,
+          "removed_mm3": 0.0,
+          "added_mm3": 0.0
+        },
+        {
+          "side": 1,
+          "removed_mm3": 0.0,
+          "added_mm3": 0.0
+        }
+      ],
+      "valid_single_solid": true,
+      "production_step_sha256": "dccbf7df7bdbb4b40b5a869eaec2bf8f09fbc3cd1e79324b36d69117247b8247",
+      "production_stl_sha256": "3e905d5dc35b038c48af02919fdcf63f870abd630ff03d879fbd5eea09af0456",
+      "production_matches_tested_cuts": true,
+      "whole_solid_difference": {
+        "missing_mm3": 0.0,
+        "added_mm3": 0.0,
+        "differences_valid": true
+      },
+      "production_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+      "accepted_candidate_step_sha256": "957a11956c7bb5a41edb9d3868b8310196bb40878ab8686810bfdaff42e34d15"
+    },
+    "back": {
+      "same_as_accepted_receiver_crops": true,
+      "crop_differences": [
+        {
+          "side": -1,
+          "removed_mm3": 0.0,
+          "added_mm3": 0.0
+        },
+        {
+          "side": 1,
+          "removed_mm3": 0.0,
+          "added_mm3": 0.0
+        }
+      ],
+      "valid_single_solid": true,
+      "production_step_sha256": "4bf0c6161ef5750b844105a2530154f2a685a79d337703bb447e2a678db950fa",
+      "production_stl_sha256": "fe8b919f79ed14eb8f87fc9260ed7bfe7d68adcd48e12da6b313d48d094a6072",
+      "production_matches_tested_cuts": true,
+      "whole_solid_difference": {
+        "missing_mm3": 0.0,
+        "added_mm3": 0.0,
+        "differences_valid": true
+      },
+      "production_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+      "accepted_candidate_step_sha256": "891e54c9fb61ff9fc96676c3dd5eb13e109688be58a1016791d146e5e05b1a2b"
+    }
+  },
+  "reference": "Accepted curved receiver with v6 seam clearance; retained candidate STEP inputs in .cache/grip-production-integration.",
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "937a47992815c742b303cebeec5076dc3508d3d6094550c097877bdb58c4c395",
+    "hardware/printed-parts/enclosure/enclosure/_grip_interface.py": "0d23d8d966cdafb8e54fab031a7ba06724d1240d583d695dfe58418cc7676d0d",
+    "hardware/printed-parts/enclosure/grip-cover/grip_cover.py": "42a5c1c0952642d807b4d2ee6090193e2fac0e9d80bce835346bd5e305e3d543"
+  },
+  "insert_stl_sha256": "acbb8f8cd3e50792a258670bf31c7574de6a435fbbce2629ede73c070378dc03"
+}
