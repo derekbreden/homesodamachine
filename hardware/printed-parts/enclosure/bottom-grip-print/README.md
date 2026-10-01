@@ -39,6 +39,11 @@ and launch status. An accepted job has a `launch.json` receipt with the
 printer's task ID. The native projects and sliced archives live under
 `.cache/prints/`; their exact paths and hashes are retained in the reports.
 
+Mark2's submitted archive is a print-only copy for Bambu Studio. Its
+[`print-only-package.json`](mark2/print-only-package.json) records the container
+changes and byte-identical G-code verification. Editable model geometry is omitted
+from that copy; the reviewed project and source meshes remain the preparation inputs.
+
 Launch settings are Timelapse On, Bed Leveling On, Flow Calibration Auto, and
 Nozzle Offset Calibration Auto. The requested Z trims are +0.18 mm on H2C
 and +0.04 mm on Mark2; the textured-plate compensation produces +0.16 mm and
