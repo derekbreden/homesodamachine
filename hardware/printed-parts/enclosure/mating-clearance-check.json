@@ -1,0 +1,1843 @@
+{
+  "status": "pass",
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "16165989230ada4f0693e4019fbe478c81791008744c106e351fde4df40a46ba",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "921322590b8376cac220e5ca02c194e10d46b04908dffb5cbe731f29e68bb2a9",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "dfdf27c85665d67d4cca95ec3d4f6f1de273b382ae18c89667cee75a9bf95922",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "ebb7b8679e84ff64a826cf4ce19b60c4380d0ac5196cf23ab517cd18610595f8"
+  },
+  "scope": "Opposed parallel planar patches above 0.05 mm2, gaps up to 0.751 mm, on four finished quadrant STEP solids. Excludes curved/nonparallel contacts, insertion sweeps, accessories and physical support quality.",
+  "checked_patches": 49,
+  "failures": [],
+  "required_gaps": [
+    {
+      "feature": "west handhold roof/tab",
+      "parts": [
+        "front-bottom",
+        "back-bottom"
+      ],
+      "face_points_mm": [
+        [
+          -92.0,
+          211.05,
+          29.25
+        ],
+        [
+          -92.0,
+          211.05,
+          28.75
+        ]
+      ],
+      "gap_mm": 0.5,
+      "maximum_surface_error_mm": 0.0,
+      "gap_contains_air": true,
+      "pass": true
+    },
+    {
+      "feature": "west scarf/backing wall",
+      "parts": [
+        "front-bottom",
+        "back-bottom"
+      ],
+      "face_points_mm": [
+        [
+          -90.25,
+          210.05,
+          -0.5
+        ],
+        [
+          -90.5,
+          210.05,
+          -0.5
+        ]
+      ],
+      "gap_mm": 0.25,
+      "maximum_surface_error_mm": 0.0,
+      "gap_contains_air": true,
+      "pass": true
+    },
+    {
+      "feature": "west rail entrance/tee wall",
+      "parts": [
+        "front-bottom",
+        "front-top"
+      ],
+      "face_points_mm": [
+        [
+          -96.25,
+          94.086,
+          161.0
+        ],
+        [
+          -96.25,
+          93.836,
+          161.0
+        ]
+      ],
+      "gap_mm": 0.25,
+      "maximum_surface_error_mm": 0.0,
+      "gap_contains_air": true,
+      "pass": true
+    },
+    {
+      "feature": "east handhold roof/tab",
+      "parts": [
+        "front-bottom",
+        "back-bottom"
+      ],
+      "face_points_mm": [
+        [
+          92.0,
+          211.05,
+          29.25
+        ],
+        [
+          92.0,
+          211.05,
+          28.75
+        ]
+      ],
+      "gap_mm": 0.5,
+      "maximum_surface_error_mm": 0.0,
+      "gap_contains_air": true,
+      "pass": true
+    },
+    {
+      "feature": "east scarf/backing wall",
+      "parts": [
+        "front-bottom",
+        "back-bottom"
+      ],
+      "face_points_mm": [
+        [
+          90.25,
+          210.05,
+          -0.5
+        ],
+        [
+          90.5,
+          210.05,
+          -0.5
+        ]
+      ],
+      "gap_mm": 0.25,
+      "maximum_surface_error_mm": 0.0,
+      "gap_contains_air": true,
+      "pass": true
+    },
+    {
+      "feature": "east rail entrance/tee wall",
+      "parts": [
+        "front-bottom",
+        "front-top"
+      ],
+      "face_points_mm": [
+        [
+          96.25,
+          94.086,
+          161.0
+        ],
+        [
+          96.25,
+          93.836,
+          161.0
+        ]
+      ],
+      "gap_mm": 0.25,
+      "maximum_surface_error_mm": 0.0,
+      "gap_contains_air": true,
+      "pass": true
+    },
+    {
+      "feature": "vent chase seam",
+      "parts": [
+        "back-bottom",
+        "back-top"
+      ],
+      "face_points_mm": [
+        [
+          -92.0000001069748,
+          323.79999999999995,
+          174.8
+        ],
+        [
+          -92.0000001069748,
+          323.79999999999995,
+          175.05
+        ]
+      ],
+      "gap_mm": 0.25,
+      "maximum_surface_error_mm": 0.0,
+      "gap_contains_air": true,
+      "pass": true
+    }
+  ],
+  "patches": [
+    {
+      "parts": [
+        "front-bottom",
+        "back-bottom"
+      ],
+      "face_indices": [
+        550,
+        21
+      ],
+      "gap_mm": 0.5,
+      "minimum_mm": 0.5,
+      "pass": true,
+      "classification": "Assembly sliding clearance",
+      "rough_faces_counted": 1,
+      "area_mm2": 9.0,
+      "center_mm": [
+        92.0,
+        211.05,
+        29.25
+      ],
+      "normal_from_first": [
+        -0.0,
+        -0.0,
+        -1.0
+      ],
+      "bounds_mm": [
+        90.5,
+        209.55,
+        29.25,
+        93.5,
+        212.55,
+        29.25
+      ]
+    },
+    {
+      "parts": [
+        "front-bottom",
+        "back-bottom"
+      ],
+      "face_indices": [
+        555,
+        1538
+      ],
+      "gap_mm": 0.5,
+      "minimum_mm": 0.5,
+      "pass": true,
+      "classification": "Assembly sliding clearance",
+      "rough_faces_counted": 1,
+      "area_mm2": 9.0,
+      "center_mm": [
+        -92.0,
+        211.05,
+        29.25
+      ],
+      "normal_from_first": [
+        -0.0,
+        -0.0,
+        -1.0
+      ],
+      "bounds_mm": [
+        -93.5,
+        209.55,
+        29.25,
+        -90.5,
+        212.55,
+        29.25
+      ]
+    },
+    {
+      "parts": [
+        "front-bottom",
+        "back-bottom"
+      ],
+      "face_indices": [
+        14,
+        11
+      ],
+      "gap_mm": 0.25,
+      "minimum_mm": 0.25,
+      "pass": true,
+      "classification": "Assembly sliding clearance",
+      "rough_faces_counted": 0,
+      "area_mm2": 3.781250000000046,
+      "center_mm": [
+        -90.5,
+        208.38333333333333,
+        -5.083333333333328
+      ],
+      "normal_from_first": [
+        1.0,
+        0.0,
+        -0.0
+      ],
+      "bounds_mm": [
+        -90.5,
+        206.55,
+        -6.0,
+        -90.5,
+        209.3,
+        -3.249999999999983
+      ]
+    },
+    {
+      "parts": [
+        "front-bottom",
+        "back-bottom"
+      ],
+      "face_indices": [
+        551,
+        31
+      ],
+      "gap_mm": 0.25,
+      "minimum_mm": 0.25,
+      "pass": true,
+      "classification": "Assembly sliding clearance",
+      "rough_faces_counted": 0,
+      "area_mm2": 3.5018398282050045,
+      "center_mm": [
+        90.25,
+        210.43214886979933,
+        -0.8821488698003316
+      ],
+      "normal_from_first": [
+        1.0,
+        0.0,
+        -0.0
+      ],
+      "bounds_mm": [
+        90.25,
+        209.55,
+        -2.6464466094019974,
+        90.25,
+        212.196446609401,
+        0.0
+      ]
+    },
+    {
+      "parts": [
+        "front-bottom",
+        "back-bottom"
+      ],
+      "face_indices": [
+        1076,
+        1546
+      ],
+      "gap_mm": 0.0,
+      "minimum_mm": 0.0,
+      "pass": true,
+      "classification": "M3 screw-clamped socket/plug face",
+      "rough_faces_counted": 0,
+      "area_mm2": 1613.7810616186214,
+      "center_mm": [
+        98.5,
+        206.3023200550052,
+        94.52412595075005
+      ],
+      "normal_from_first": [
+        1.0,
+        0.0,
+        -0.0
+      ],
+      "bounds_mm": [
+        98.5,
+        200.0,
+        29.25,
+        98.5,
+        212.55,
+        160.0
+      ]
+    },
+    {
+      "parts": [
+        "front-bottom",
+        "back-bottom"
+      ],
+      "face_indices": [
+        8,
+        5
+      ],
+      "gap_mm": 0.2500000000000284,
+      "minimum_mm": 0.25,
+      "pass": true,
+      "classification": "Assembly sliding clearance",
+      "rough_faces_counted": 0,
+      "area_mm2": 104.25,
+      "center_mm": [
+        92.0,
+        209.3,
+        11.375
+      ],
+      "normal_from_first": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "bounds_mm": [
+        90.5,
+        209.29999999999998,
+        -6.0,
+        93.5,
+        209.3,
+        28.75
+      ]
+    },
+    {
+      "parts": [
+        "front-bottom",
+        "back-bottom"
+      ],
+      "face_indices": [
+        16,
+        13
+      ],
+      "gap_mm": 0.2500000000000284,
+      "minimum_mm": 0.25,
+      "pass": true,
+      "classification": "Assembly sliding clearance",
+      "rough_faces_counted": 0,
+      "area_mm2": 104.25,
+      "center_mm": [
+        -92.0,
+        209.3,
+        11.375
+      ],
+      "normal_from_first": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "bounds_mm": [
+        -93.5,
+        209.29999999999998,
+        -6.0,
+        -90.5,
+        209.3,
+        28.75
+      ]
+    },
+    {
+      "parts": [
+        "front-bottom",
+        "back-bottom"
+      ],
+      "face_indices": [
+        17,
+        23
+      ],
+      "gap_mm": 0.0,
+      "minimum_mm": 0.0,
+      "pass": true,
+      "classification": "Y seam closure end face",
+      "rough_faces_counted": 0,
+      "area_mm2": 1171.3464563645805,
+      "center_mm": [
+        102.98267906995119,
+        200.0,
+        94.91912785519074
+      ],
+      "normal_from_first": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "bounds_mm": [
+        98.4999999,
+        199.99999989999955,
+        29.2499999,
+        107.5000001,
+        200.00000010000045,
+        160.0000001
+      ]
+    },
+    {
+      "parts": [
+        "front-bottom",
+        "back-bottom"
+      ],
+      "face_indices": [
+        554,
+        1531
+      ],
+      "gap_mm": 0.0,
+      "minimum_mm": 0.0,
+      "pass": true,
+      "classification": "Y seam closure end face",
+      "rough_faces_counted": 0,
+      "area_mm2": 1176.75,
+      "center_mm": [
+        -103.0,
+        200.0,
+        94.625
+      ],
+      "normal_from_first": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "bounds_mm": [
+        -107.5,
+        200.0,
+        29.25,
+        -98.5,
+        200.0,
+        160.0
+      ]
+    },
+    {
+      "parts": [
+        "front-bottom",
+        "back-bottom"
+      ],
+      "face_indices": [
+        1092,
+        1539
+      ],
+      "gap_mm": 0.25,
+      "minimum_mm": 0.25,
+      "pass": true,
+      "classification": "Assembly sliding clearance",
+      "rough_faces_counted": 0,
+      "area_mm2": 96.0,
+      "center_mm": [
+        -94.5,
+        212.55000000000004,
+        35.25
+      ],
+      "normal_from_first": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "bounds_mm": [
+        -98.5,
+        212.55,
+        29.25,
+        -90.5,
+        212.55,
+        41.25
+      ]
+    },
+    {
+      "parts": [
+        "front-bottom",
+        "back-bottom"
+      ],
+      "face_indices": [
+        1094,
+        20
+      ],
+      "gap_mm": 0.25,
+      "minimum_mm": 0.25,
+      "pass": true,
+      "classification": "Assembly sliding clearance",
+      "rough_faces_counted": 0,
+      "area_mm2": 96.0,
+      "center_mm": [
+        94.5,
+        212.55000000000004,
+        35.25
+      ],
+      "normal_from_first": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "bounds_mm": [
+        90.5,
+        212.55,
+        29.25,
+        98.5,
+        212.55,
+        41.25
+      ]
+    },
+    {
+      "parts": [
+        "front-bottom",
+        "back-bottom"
+      ],
+      "face_indices": [
+        10,
+        7
+      ],
+      "gap_mm": 0.25,
+      "minimum_mm": 0.25,
+      "pass": true,
+      "classification": "Assembly sliding clearance",
+      "rough_faces_counted": 0,
+      "area_mm2": 3.781250000000046,
+      "center_mm": [
+        90.5,
+        208.38333333333333,
+        -5.083333333333328
+      ],
+      "normal_from_first": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "bounds_mm": [
+        90.5,
+        206.55,
+        -6.0,
+        90.5,
+        209.3,
+        -3.249999999999983
+      ]
+    },
+    {
+      "parts": [
+        "front-bottom",
+        "back-bottom"
+      ],
+      "face_indices": [
+        1068,
+        1522
+      ],
+      "gap_mm": 0.25,
+      "minimum_mm": 0.25,
+      "pass": true,
+      "classification": "Assembly sliding clearance",
+      "rough_faces_counted": 0,
+      "area_mm2": 3.5018398282050045,
+      "center_mm": [
+        -90.25,
+        210.43214886979933,
+        -0.8821488698003316
+      ],
+      "normal_from_first": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "bounds_mm": [
+        -90.25,
+        209.55,
+        -2.6464466094019974,
+        -90.25,
+        212.196446609401,
+        0.0
+      ]
+    },
+    {
+      "parts": [
+        "front-bottom",
+        "back-bottom"
+      ],
+      "face_indices": [
+        1093,
+        1692
+      ],
+      "gap_mm": 0.0,
+      "minimum_mm": 0.0,
+      "pass": true,
+      "classification": "M3 screw-clamped socket/plug face",
+      "rough_faces_counted": 0,
+      "area_mm2": 1613.7810616186146,
+      "center_mm": [
+        -98.5,
+        206.30232005500523,
+        94.52412595075015
+      ],
+      "normal_from_first": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "bounds_mm": [
+        -98.5,
+        200.0,
+        29.25,
+        -98.5,
+        212.55,
+        160.0
+      ]
+    },
+    {
+      "parts": [
+        "front-bottom",
+        "back-bottom"
+      ],
+      "face_indices": [
+        12,
+        9
+      ],
+      "gap_mm": 0.250000000004777,
+      "minimum_mm": 0.25,
+      "pass": true,
+      "classification": "Assembly sliding clearance",
+      "rough_faces_counted": 0,
+      "area_mm2": 1486.4682880492041,
+      "center_mm": [
+        -4.314016142685875e-16,
+        209.28483495705,
+        -2.911611652350001
+      ],
+      "normal_from_first": [
+        -0.0,
+        0.7071067811865476,
+        -0.7071067811865476
+      ],
+      "bounds_mm": [
+        -90.25,
+        206.3732233047,
+        -5.823223304699985,
+        90.25,
+        212.196446609401,
+        0.0
+      ]
+    },
+    {
+      "parts": [
+        "front-bottom",
+        "front-top"
+      ],
+      "face_indices": [
+        1182,
+        41
+      ],
+      "gap_mm": 0.5,
+      "minimum_mm": 0.5,
+      "pass": true,
+      "classification": "Assembly sliding clearance",
+      "rough_faces_counted": 1,
+      "area_mm2": 309.06999999999994,
+      "center_mm": [
+        -101.0,
+        160.09300000000002,
+        169.2
+      ],
+      "normal_from_first": [
+        -0.0,
+        -0.0,
+        -1.0
+      ],
+      "bounds_mm": [
+        -103.5,
+        129.186,
+        169.2,
+        -98.5,
+        191.0,
+        169.2
+      ]
+    },
+    {
+      "parts": [
+        "front-bottom",
+        "front-top"
+      ],
+      "face_indices": [
+        1197,
+        52
+      ],
+      "gap_mm": 0.5,
+      "minimum_mm": 0.5,
+      "pass": true,
+      "classification": "Assembly sliding clearance",
+      "rough_faces_counted": 1,
+      "area_mm2": 309.06999999999994,
+      "center_mm": [
+        101.0,
+        160.09300000000002,
+        169.2
+      ],
+      "normal_from_first": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "bounds_mm": [
+        98.5,
+        129.186,
+        169.2,
+        103.5,
+        191.0,
+        169.2
+      ]
+    },
+    {
+      "parts": [
+        "front-bottom",
+        "front-top"
+      ],
+      "face_indices": [
+        1100,
+        126
+      ],
+      "gap_mm": 0.2500000000000142,
+      "minimum_mm": 0.25,
+      "pass": true,
+      "classification": "Assembly sliding clearance",
+      "rough_faces_counted": 0,
+      "area_mm2": 701.8391999999994,
+      "center_mm": [
+        98.25,
+        148.76600454035622,
+        163.87945411684044
+      ],
+      "normal_from_first": [
+        1.0,
+        0.0,
+        -0.0
+      ],
+      "bounds_mm": [
+        98.24999999999999,
+        94.086,
+        160.0,
+        98.25,
+        191.0,
+        168.7
+      ]
+    },
+    {
+      "parts": [
+        "front-bottom",
+        "front-top"
+      ],
+      "face_indices": [
+        1086,
+        13
+      ],
+      "gap_mm": 0.25,
+      "minimum_mm": 0.25,
+      "pass": true,
+      "classification": "Assembly sliding clearance",
+      "rough_faces_counted": 0,
+      "area_mm2": 18.696000000000026,
+      "center_mm": [
+        -96.25,
+        94.086,
+        162.33700000000002
+      ],
+      "normal_from_first": [
+        -0.0,
+        -1.0,
+        -0.0
+      ],
+      "bounds_mm": [
+        -98.25,
+        94.086,
+        160.0,
+        -94.25,
+        94.086,
+        164.674
+      ]
+    },
+    {
+      "parts": [
+        "front-bottom",
+        "front-top"
+      ],
+      "face_indices": [
+        1088,
+        50
+      ],
+      "gap_mm": 2.842170943040401e-14,
+      "minimum_mm": 0.0,
+      "pass": true,
+      "classification": "Closed-end rail stop",
+      "rough_faces_counted": 0,
+      "area_mm2": 43.49999999999994,
+      "center_mm": [
+        -101.0,
+        191.0,
+        164.35
+      ],
+      "normal_from_first": [
+        -0.0,
+        -1.0,
+        -0.0
+      ],
+      "bounds_mm": [
+        -103.5,
+        191.0,
+        160.0,
+        -98.5,
+        191.00000000000003,
+        168.7
+      ]
+    },
+    {
+      "parts": [
+        "front-bottom",
+        "front-top"
+      ],
+      "face_indices": [
+        1099,
+        51
+      ],
+      "gap_mm": 2.842170943040401e-14,
+      "minimum_mm": 0.0,
+      "pass": true,
+      "classification": "Closed-end rail stop",
+      "rough_faces_counted": 0,
+      "area_mm2": 43.49999999999994,
+      "center_mm": [
+        101.0,
+        191.0,
+        164.35
+      ],
+      "normal_from_first": [
+        -0.0,
+        -1.0,
+        -0.0
+      ],
+      "bounds_mm": [
+        98.5,
+        191.0,
+        160.0,
+        103.5,
+        191.00000000000003,
+        168.7
+      ]
+    },
+    {
+      "parts": [
+        "front-bottom",
+        "front-top"
+      ],
+      "face_indices": [
+        1101,
+        13
+      ],
+      "gap_mm": 0.25,
+      "minimum_mm": 0.25,
+      "pass": true,
+      "classification": "Assembly sliding clearance",
+      "rough_faces_counted": 0,
+      "area_mm2": 18.696000000000026,
+      "center_mm": [
+        96.24999999999999,
+        94.086,
+        162.337
+      ],
+      "normal_from_first": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "bounds_mm": [
+        94.25,
+        94.086,
+        160.0,
+        98.25,
+        94.086,
+        164.674
+      ]
+    },
+    {
+      "parts": [
+        "front-bottom",
+        "front-top"
+      ],
+      "face_indices": [
+        1087,
+        40
+      ],
+      "gap_mm": 0.2500000000000142,
+      "minimum_mm": 0.25,
+      "pass": true,
+      "classification": "Assembly sliding clearance",
+      "rough_faces_counted": 0,
+      "area_mm2": 701.8391999999994,
+      "center_mm": [
+        -98.25,
+        148.76600454035622,
+        163.87945411684044
+      ],
+      "normal_from_first": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "bounds_mm": [
+        -98.25,
+        94.086,
+        160.0,
+        -98.24999999999999,
+        191.0,
+        168.7
+      ]
+    },
+    {
+      "parts": [
+        "front-bottom",
+        "front-top"
+      ],
+      "face_indices": [
+        20,
+        4
+      ],
+      "gap_mm": 0.0,
+      "minimum_mm": 0.0,
+      "pass": true,
+      "classification": "Z seam seating shoulder",
+      "rough_faces_counted": 0,
+      "area_mm2": 5746.216191713108,
+      "center_mm": [
+        -6.900883585704024e-14,
+        68.91404906862796,
+        160.0
+      ],
+      "normal_from_first": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "bounds_mm": [
+        -107.5,
+        5.0,
+        160.0,
+        107.5,
+        200.0,
+        160.0
+      ]
+    },
+    {
+      "parts": [
+        "back-bottom",
+        "back-top"
+      ],
+      "face_indices": [
+        1699,
+        42
+      ],
+      "gap_mm": 0.75,
+      "minimum_mm": 0.75,
+      "pass": true,
+      "classification": "Assembly sliding clearance",
+      "rough_faces_counted": 2,
+      "area_mm2": 496.2499999999999,
+      "center_mm": [
+        -101.0,
+        268.175,
+        169.45
+      ],
+      "normal_from_first": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "bounds_mm": [
+        -103.5,
+        218.55,
+        169.45,
+        -98.5,
+        317.8,
+        169.45
+      ]
+    },
+    {
+      "parts": [
+        "back-bottom",
+        "back-top"
+      ],
+      "face_indices": [
+        1701,
+        40
+      ],
+      "gap_mm": 0.75,
+      "minimum_mm": 0.75,
+      "pass": true,
+      "classification": "Assembly sliding clearance",
+      "rough_faces_counted": 2,
+      "area_mm2": 628.1000000000037,
+      "center_mm": [
+        -100.99469298943905,
+        392.61084912169014,
+        169.45
+      ],
+      "normal_from_first": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "bounds_mm": [
+        -103.5,
+        329.8,
+        169.45,
+        -98.5,
+        456.220000000001,
+        169.45
+      ]
+    },
+    {
+      "parts": [
+        "back-bottom",
+        "back-top"
+      ],
+      "face_indices": [
+        1715,
+        205
+      ],
+      "gap_mm": 0.75,
+      "minimum_mm": 0.75,
+      "pass": true,
+      "classification": "Assembly sliding clearance",
+      "rough_faces_counted": 2,
+      "area_mm2": 1184.3500000000035,
+      "center_mm": [
+        100.99718551666878,
+        336.9854503173334,
+        169.45
+      ],
+      "normal_from_first": [
+        -0.0,
+        -0.0,
+        -1.0
+      ],
+      "bounds_mm": [
+        98.5,
+        218.55,
+        169.45,
+        103.5,
+        456.220000000001,
+        169.45
+      ]
+    },
+    {
+      "parts": [
+        "back-bottom",
+        "back-top"
+      ],
+      "face_indices": [
+        1557,
+        32
+      ],
+      "gap_mm": 0.25,
+      "minimum_mm": 0.25,
+      "pass": true,
+      "classification": "Assembly sliding clearance",
+      "rough_faces_counted": 0,
+      "area_mm2": 2068.4249999999975,
+      "center_mm": [
+        98.25,
+        337.425,
+        164.35
+      ],
+      "normal_from_first": [
+        1.0,
+        -0.0,
+        -0.0
+      ],
+      "bounds_mm": [
+        98.25,
+        218.55,
+        160.0,
+        98.25,
+        456.3,
+        168.7
+      ]
+    },
+    {
+      "parts": [
+        "back-bottom",
+        "back-top"
+      ],
+      "face_indices": [
+        1559,
+        514
+      ],
+      "gap_mm": 0.2499999999999858,
+      "minimum_mm": 0.25,
+      "pass": true,
+      "classification": "Assembly sliding clearance",
+      "rough_faces_counted": 0,
+      "area_mm2": 1287.3745000000054,
+      "center_mm": [
+        103.49999999999999,
+        334.30994017863486,
+        172.11789251107584
+      ],
+      "normal_from_first": [
+        1.0,
+        0.0,
+        -0.0
+      ],
+      "bounds_mm": [
+        103.5,
+        214.55,
+        168.7,
+        103.50000000000001,
+        454.62,
+        174.8
+      ]
+    },
+    {
+      "parts": [
+        "back-bottom",
+        "back-top"
+      ],
+      "face_indices": [
+        1558,
+        33
+      ],
+      "gap_mm": 0.0,
+      "minimum_mm": 0.0,
+      "pass": true,
+      "classification": "Closed-end rail stop",
+      "rough_faces_counted": 0,
+      "area_mm2": 43.49999999999994,
+      "center_mm": [
+        101.0,
+        218.55,
+        164.35
+      ],
+      "normal_from_first": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "bounds_mm": [
+        98.5,
+        218.55,
+        160.0,
+        103.5,
+        218.55,
+        168.7
+      ]
+    },
+    {
+      "parts": [
+        "back-bottom",
+        "back-top"
+      ],
+      "face_indices": [
+        1695,
+        17
+      ],
+      "gap_mm": 0.0,
+      "minimum_mm": 0.0,
+      "pass": true,
+      "classification": "Closed-end rail stop",
+      "rough_faces_counted": 0,
+      "area_mm2": 43.49999999999994,
+      "center_mm": [
+        -101.0,
+        218.55,
+        164.35
+      ],
+      "normal_from_first": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "bounds_mm": [
+        -103.5,
+        218.55,
+        160.0,
+        -98.5,
+        218.55,
+        168.7
+      ]
+    },
+    {
+      "parts": [
+        "back-bottom",
+        "back-top"
+      ],
+      "face_indices": [
+        1551,
+        20
+      ],
+      "gap_mm": 0.25,
+      "minimum_mm": 0.25,
+      "pass": true,
+      "classification": "Assembly sliding clearance",
+      "rough_faces_counted": 0,
+      "area_mm2": 1100.5499999999986,
+      "center_mm": [
+        -98.25,
+        393.05,
+        164.35
+      ],
+      "normal_from_first": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "bounds_mm": [
+        -98.25,
+        329.8,
+        160.0,
+        -98.25,
+        456.3,
+        168.7
+      ]
+    },
+    {
+      "parts": [
+        "back-bottom",
+        "back-top"
+      ],
+      "face_indices": [
+        1694,
+        41
+      ],
+      "gap_mm": 0.25,
+      "minimum_mm": 0.25,
+      "pass": true,
+      "classification": "Assembly sliding clearance",
+      "rough_faces_counted": 0,
+      "area_mm2": 555.3875000000023,
+      "center_mm": [
+        -103.5,
+        265.9069439130337,
+        172.10852501631743
+      ],
+      "normal_from_first": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "bounds_mm": [
+        -103.5,
+        214.55,
+        168.7,
+        -103.5,
+        317.8,
+        174.8
+      ]
+    },
+    {
+      "parts": [
+        "back-bottom",
+        "back-top"
+      ],
+      "face_indices": [
+        1696,
+        18
+      ],
+      "gap_mm": 0.25,
+      "minimum_mm": 0.25,
+      "pass": true,
+      "classification": "Assembly sliding clearance",
+      "rough_faces_counted": 0,
+      "area_mm2": 863.4749999999989,
+      "center_mm": [
+        -98.25,
+        268.175,
+        164.35
+      ],
+      "normal_from_first": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "bounds_mm": [
+        -98.25,
+        218.55,
+        160.0,
+        -98.25,
+        317.8,
+        168.7
+      ]
+    },
+    {
+      "parts": [
+        "back-bottom",
+        "back-top"
+      ],
+      "face_indices": [
+        1700,
+        41
+      ],
+      "gap_mm": 0.25,
+      "minimum_mm": 0.25,
+      "pass": true,
+      "classification": "Assembly sliding clearance",
+      "rough_faces_counted": 0,
+      "area_mm2": 667.7870000000028,
+      "center_mm": [
+        -103.5,
+        392.21000000000004,
+        172.125
+      ],
+      "normal_from_first": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "bounds_mm": [
+        -103.5,
+        329.8,
+        169.45,
+        -103.5,
+        454.62,
+        174.8
+      ]
+    },
+    {
+      "parts": [
+        "back-bottom",
+        "back-top"
+      ],
+      "face_indices": [
+        24,
+        5
+      ],
+      "gap_mm": 0.0,
+      "minimum_mm": 0.0,
+      "pass": true,
+      "classification": "Z seam seating shoulder",
+      "rough_faces_counted": 0,
+      "area_mm2": 4777.294482503021,
+      "center_mm": [
+        22.822049258071992,
+        388.407687219013,
+        160.0
+      ],
+      "normal_from_first": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "bounds_mm": [
+        -107.5,
+        200.0,
+        160.0,
+        107.5,
+        471.3,
+        160.0
+      ]
+    },
+    {
+      "parts": [
+        "back-bottom",
+        "back-top"
+      ],
+      "face_indices": [
+        1524,
+        1
+      ],
+      "gap_mm": 0.0,
+      "minimum_mm": 0.0,
+      "pass": true,
+      "classification": "Z seam seating shoulder",
+      "rough_faces_counted": 0,
+      "area_mm2": 948.8999999999992,
+      "center_mm": [
+        -103.17594056275688,
+        264.72070028454,
+        160.00000000000003
+      ],
+      "normal_from_first": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "bounds_mm": [
+        -107.5,
+        200.0,
+        160.0,
+        -98.5,
+        317.8,
+        160.0
+      ]
+    },
+    {
+      "parts": [
+        "back-bottom",
+        "back-top"
+      ],
+      "face_indices": [
+        1697,
+        84
+      ],
+      "gap_mm": 0.25,
+      "minimum_mm": 0.25,
+      "pass": true,
+      "classification": "Assembly sliding clearance",
+      "rough_faces_counted": 0,
+      "area_mm2": 1228.3499993580747,
+      "center_mm": [
+        -100.47951860375511,
+        334.76689713058937,
+        174.8
+      ],
+      "normal_from_first": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "bounds_mm": [
+        -103.5,
+        214.55,
+        174.8,
+        -90.50000010697,
+        456.2199999999798,
+        174.8
+      ]
+    },
+    {
+      "parts": [
+        "back-bottom",
+        "back-top"
+      ],
+      "face_indices": [
+        1713,
+        259
+      ],
+      "gap_mm": 0.25,
+      "minimum_mm": 0.25,
+      "pass": true,
+      "classification": "Assembly sliding clearance",
+      "rough_faces_counted": 0,
+      "area_mm2": 1204.3499999999585,
+      "center_mm": [
+        100.99723225529677,
+        334.9854428391484,
+        174.8
+      ],
+      "normal_from_first": [
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "bounds_mm": [
+        98.5,
+        214.55,
+        174.8,
+        103.5,
+        456.2199999999926,
+        174.8
+      ]
+    },
+    {
+      "parts": [
+        "front-top",
+        "back-top"
+      ],
+      "face_indices": [
+        130,
+        16
+      ],
+      "gap_mm": 0.25,
+      "minimum_mm": 0.25,
+      "pass": true,
+      "classification": "Assembly sliding clearance",
+      "rough_faces_counted": 0,
+      "area_mm2": 1855.2037500000013,
+      "center_mm": [
+        -104.25,
+        206.18621117312136,
+        255.1931055865607
+      ],
+      "normal_from_first": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "bounds_mm": [
+        -104.2500001,
+        199.9999999,
+        175.04999990000002,
+        -104.2499999,
+        212.5500001,
+        329.1500001
+      ]
+    },
+    {
+      "parts": [
+        "front-top",
+        "back-top"
+      ],
+      "face_indices": [
+        249,
+        20
+      ],
+      "gap_mm": 0.0,
+      "minimum_mm": 0.0,
+      "pass": true,
+      "classification": "M3 screw-clamped socket/plug face",
+      "rough_faces_counted": 0,
+      "area_mm2": 153.97678080931053,
+      "center_mm": [
+        -98.5,
+        206.41816634994578,
+        336.2423945014751
+      ],
+      "normal_from_first": [
+        -1.0,
+        -0.0,
+        0.0
+      ],
+      "bounds_mm": [
+        -98.5,
+        200.0,
+        329.4,
+        -98.5,
+        212.55,
+        342.75
+      ]
+    },
+    {
+      "parts": [
+        "front-top",
+        "back-top"
+      ],
+      "face_indices": [
+        247,
+        207
+      ],
+      "gap_mm": 0.25,
+      "minimum_mm": 0.25,
+      "pass": true,
+      "classification": "Assembly sliding clearance",
+      "rough_faces_counted": 0,
+      "area_mm2": 72.16250000000007,
+      "center_mm": [
+        101.375,
+        206.275,
+        329.15
+      ],
+      "normal_from_first": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "bounds_mm": [
+        98.5,
+        200.0,
+        329.15,
+        104.25,
+        212.55,
+        329.15
+      ]
+    },
+    {
+      "parts": [
+        "front-top",
+        "back-top"
+      ],
+      "face_indices": [
+        248,
+        19
+      ],
+      "gap_mm": 0.25,
+      "minimum_mm": 0.25,
+      "pass": true,
+      "classification": "Assembly sliding clearance",
+      "rough_faces_counted": 0,
+      "area_mm2": 72.16250000000007,
+      "center_mm": [
+        -101.375,
+        206.275,
+        329.15
+      ],
+      "normal_from_first": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "bounds_mm": [
+        -104.25,
+        200.0,
+        329.15,
+        -98.5,
+        212.55,
+        329.15
+      ]
+    },
+    {
+      "parts": [
+        "front-top",
+        "back-top"
+      ],
+      "face_indices": [
+        332,
+        46
+      ],
+      "gap_mm": 0.25,
+      "minimum_mm": 0.25,
+      "pass": true,
+      "classification": "Assembly sliding clearance",
+      "rough_faces_counted": 0,
+      "area_mm2": 197.66250000000016,
+      "center_mm": [
+        90.625,
+        206.275,
+        342.75
+      ],
+      "normal_from_first": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "bounds_mm": [
+        82.75,
+        200.0,
+        342.75,
+        98.5,
+        212.55,
+        342.75
+      ]
+    },
+    {
+      "parts": [
+        "front-top",
+        "back-top"
+      ],
+      "face_indices": [
+        337,
+        46
+      ],
+      "gap_mm": 0.25,
+      "minimum_mm": 0.25,
+      "pass": true,
+      "classification": "Assembly sliding clearance",
+      "rough_faces_counted": 0,
+      "area_mm2": 197.66250000000016,
+      "center_mm": [
+        -90.625,
+        206.275,
+        342.75
+      ],
+      "normal_from_first": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "bounds_mm": [
+        -98.5,
+        200.0,
+        342.75,
+        -82.75,
+        212.55,
+        342.75
+      ]
+    },
+    {
+      "parts": [
+        "front-top",
+        "back-top"
+      ],
+      "face_indices": [
+        5,
+        2
+      ],
+      "gap_mm": 2.842170943040401e-14,
+      "minimum_mm": 0.0,
+      "pass": true,
+      "classification": "Y seam closure end face",
+      "rough_faces_counted": 0,
+      "area_mm2": 880.1948805414429,
+      "center_mm": [
+        -102.85109425021103,
+        199.99999999999997,
+        286.83003952873895
+      ],
+      "normal_from_first": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "bounds_mm": [
+        -107.5,
+        199.99999999999997,
+        160.0,
+        -82.75,
+        200.0,
+        355.0
+      ]
+    },
+    {
+      "parts": [
+        "front-top",
+        "back-top"
+      ],
+      "face_indices": [
+        21,
+        35
+      ],
+      "gap_mm": 0.0,
+      "minimum_mm": 0.0,
+      "pass": true,
+      "classification": "Y seam closure end face",
+      "rough_faces_counted": 0,
+      "area_mm2": 880.1948805555421,
+      "center_mm": [
+        102.85109425027507,
+        200.00000000000003,
+        286.8300395282757
+      ],
+      "normal_from_first": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "bounds_mm": [
+        82.75,
+        200.0,
+        160.0,
+        107.5,
+        200.0,
+        355.0
+      ]
+    },
+    {
+      "parts": [
+        "front-top",
+        "back-top"
+      ],
+      "face_indices": [
+        129,
+        34
+      ],
+      "gap_mm": 0.25,
+      "minimum_mm": 0.25,
+      "pass": true,
+      "classification": "Assembly sliding clearance",
+      "rough_faces_counted": 0,
+      "area_mm2": 1855.2037500000013,
+      "center_mm": [
+        104.25,
+        206.18621117312136,
+        255.1931055865607
+      ],
+      "normal_from_first": [
+        1.0,
+        0.0,
+        -0.0
+      ],
+      "bounds_mm": [
+        104.2499999,
+        199.9999999,
+        175.04999990000002,
+        104.2500001,
+        212.5500001,
+        329.1500001
+      ]
+    },
+    {
+      "parts": [
+        "front-top",
+        "back-top"
+      ],
+      "face_indices": [
+        246,
+        32
+      ],
+      "gap_mm": 0.0,
+      "minimum_mm": 0.0,
+      "pass": true,
+      "classification": "M3 screw-clamped socket/plug face",
+      "rough_faces_counted": 0,
+      "area_mm2": 153.9767808093111,
+      "center_mm": [
+        98.5,
+        206.41816634994578,
+        336.2423945014751
+      ],
+      "normal_from_first": [
+        1.0,
+        0.0,
+        -0.0
+      ],
+      "bounds_mm": [
+        98.5,
+        200.0,
+        329.4,
+        98.5,
+        212.55,
+        342.75
+      ]
+    }
+  ]
+}
