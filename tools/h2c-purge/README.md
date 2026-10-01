@@ -11,6 +11,15 @@ nozzle is unused. This is an idle-printer maintenance job, not a mid-print comma
 Use a clear bed because the retained homing and detection sequence moves the bed
 and toolhead. Keep the shared-circuit three-minute startup spacing.
 
+The ejected blob can land on the plate instead of in the waste chute. Check the
+plate after the cycle and remove any loose, cold blob before starting a print.
+This is an accepted operational caveat; it does not mean the job printed a part.
+
+Use this cycle when loaded PET-GF has been idle for a while and a purge would be
+useful before printing, or before another known idle period. There is no fixed
+maintenance interval. The intended benefit is to refresh the exposed filament;
+prevention of moisture-related problems has not been measured.
+
 ## Build and run
 
 From the repository root:
@@ -64,8 +73,9 @@ and no HMS. The observed stages include homing, surface/nozzle checks, material
 preparation and nozzle wiping. Connect confirms both nozzle heater targets, bed
 target and chamber target are zero at completion.
 
-[The trial record](trial-v1/result.json) separates command completion from physical
-observation. Filament ejection and tip cleanliness need the user's observation;
-the telemetry does not measure those outcomes. Prevention of the reported
-idle-time extrusion overload is untested. This trial does not establish a
-maintenance interval or compatibility with another nozzle/material combination.
+[The trial record](trial-v1/result.json) includes the user's confirmation of
+successful filament-blob ejection and no printing on the plate. The loose blob
+landed on the plate. Tip cleanliness was not separately inspected. Prevention of
+the reported idle-time extrusion overload is untested. This trial does not
+establish a maintenance interval or compatibility with another nozzle/material
+combination.

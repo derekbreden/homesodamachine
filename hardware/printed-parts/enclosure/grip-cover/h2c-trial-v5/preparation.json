@@ -1,0 +1,181 @@
+{
+  "project": "grip-receivers-h2c-v5-input.3mf",
+  "settings_source": "hardware/printed-parts/petgf.3mf",
+  "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "settings_sha256": "6811b785e18de2082ae96890c1e221cd49c555dfe5d9f9ef8e3a2f7b2002285b",
+  "source_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "409b1516f0401361a02b18a34420c10ca83bc33615e8896cade2fea42edee871",
+      "requested_z_trim_mm": 0.18
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.18 Z trim"
+    }
+  },
+  "printer": "Bambu Lab H2C 0.4 Standard +0.18 Z trim",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 15.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "grip-receiver-front",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/enclosure/grip-cover/grip-receiver-front.stl",
+      "stl_sha256": "66392f601787886e8c66d106905865db9cc5b90847dc478065a6194cb0592ad6",
+      "triangles": 132,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        99.0,
+        190.7750015258789,
+        19.125
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        117.5,
+        160.0,
+        25.125
+      ],
+      "plate_translation_mm": [
+        117.5,
+        160.0,
+        25.125
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          109.0,
+          138.2249984741211,
+          0.0
+        ],
+        [
+          126.0,
+          181.7750015258789,
+          50.25
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.999947122996673e-10
+    },
+    {
+      "name": "grip-receiver-back",
+      "plate": 1,
+      "object_id": "4",
+      "part_id": "3",
+      "member": "3D/Objects/object_2.model",
+      "identify_id": 1902,
+      "source": "hardware/printed-parts/enclosure/grip-cover/grip-receiver-back.stl",
+      "stl_sha256": "9cd9574cc54779cfd4fdc13259b32981e22ed51d51bb8045689d947e1d73f520",
+      "triangles": 126,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        99.0,
+        229.5,
+        19.125
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        207.5,
+        160.0,
+        25.125
+      ],
+      "plate_translation_mm": [
+        207.5,
+        160.0,
+        25.125
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          199.0,
+          130.5,
+          0.0
+        ],
+        [
+          216.0,
+          189.5,
+          50.25
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.999947122996673e-10
+    }
+  ],
+  "project_sha256": "ea6482dac3596f3fe0d53b889d141d26748f0b87a566e6bd9132e37a27bf0a7e",
+  "settings_preserved_byte_for_byte": false,
+  "submitted": false,
+  "source_sha256": {
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "hardware/printed-parts/enclosure/grip-cover/h2c-trial-v5/prepare.py": "e79dd159681d71c0f1c8addf9a260429f7d9105c4313721d7111bb974fab3962",
+    "hardware/printed-parts/enclosure/grip-cover/grip-receiver-front.stl": "66392f601787886e8c66d106905865db9cc5b90847dc478065a6194cb0592ad6",
+    "hardware/printed-parts/enclosure/grip-cover/grip-receiver-back.stl": "9cd9574cc54779cfd4fdc13259b32981e22ed51d51bb8045689d947e1d73f520"
+  }
+}

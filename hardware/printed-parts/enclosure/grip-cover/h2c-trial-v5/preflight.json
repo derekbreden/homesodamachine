@@ -1,0 +1,107 @@
+{
+  "verified_at_utc": "2026-10-01T03:59:17.336476+00:00",
+  "status": "pass",
+  "archive": ".cache/prints/grip-receivers-h2c-v5/ready/grip-receivers-h2c-v5.gcode.3mf",
+  "archive_sha256": "e2cedc04819a83a9d400e04e6af1a35ef347e07f98faba7a02652e39725053ad",
+  "gcode_sha256": "4659e5c49471fc364e927f83e4643d5c87317586ee803ca94cd98af0056a1d57",
+  "project_sha256": "ea6482dac3596f3fe0d53b889d141d26748f0b87a566e6bd9132e37a27bf0a7e",
+  "source_sha256": {
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "hardware/printed-parts/enclosure/grip-cover/h2c-trial-v5/prepare.py": "e79dd159681d71c0f1c8addf9a260429f7d9105c4313721d7111bb974fab3962",
+    "hardware/printed-parts/enclosure/grip-cover/grip-receiver-front.stl": "66392f601787886e8c66d106905865db9cc5b90847dc478065a6194cb0592ad6",
+    "hardware/printed-parts/enclosure/grip-cover/grip-receiver-back.stl": "9cd9574cc54779cfd4fdc13259b32981e22ed51d51bb8045689d947e1d73f520"
+  },
+  "geometry_check_sha256": "8273ba3da2d40b3442245cf9b72926baec88f459703932e72aef343c5d2c5a9b",
+  "support_audit_sha256": "7995fa3bcf3d68f96fc1f8b33d46e090fe6b6d0d1909ab3d8fa1bdc65db8997e",
+  "highest_support_contact_envelope_cad_z_mm": 29.21,
+  "exterior_transition_starts_cad_z_mm": 29.25,
+  "settings_verified": {
+    "initial_layer_print_height": "0.2",
+    "layer_height": "0.24",
+    "enable_support": "1",
+    "support_type": "tree(auto)",
+    "support_object_xy_distance": "0.4",
+    "support_top_z_distance": "0.45",
+    "support_bottom_z_distance": "0.3",
+    "support_filament": "1",
+    "support_interface_filament": "1",
+    "flush_into_support": "0",
+    "wall_sequence": "inner wall/outer wall",
+    "is_infill_first": "0",
+    "infill_wall_overlap": "15%",
+    "elefant_foot_compensation": "0",
+    "brim_type": "no_brim",
+    "brim_width": "0",
+    "filament_colour": [
+      "#000000"
+    ],
+    "filament_nozzle_map": [
+      "0"
+    ],
+    "nozzle_diameter": [
+      "0.4",
+      "0.4"
+    ],
+    "curr_bed_type": "Textured PEI Plate"
+  },
+  "shared_profile_speeds_preserved": true,
+  "scoped_six_wall_bands": [
+    {
+      "object": "1",
+      "min_z": "35.0",
+      "max_z": "41.5",
+      "layer_height": "0.24",
+      "wall_loops": "6"
+    },
+    {
+      "object": "2",
+      "min_z": "35.0",
+      "max_z": "41.5",
+      "layer_height": "0.24",
+      "wall_loops": "6"
+    }
+  ],
+  "first_layers": {
+    "grip-receiver-front": {
+      "first_z_mm": 0.2,
+      "second_z_mm": 0.44,
+      "minimum_second_layer_bead_overlap_fraction": 0.8397730454549974,
+      "minimum_second_layer_wall_bead_overlap_fraction": 0.9935311306484672,
+      "maximum_second_layer_outward_advance_mm": 0.016589355468749997,
+      "criterion": "Walls have at least half bead-area support and no second-layer path advances more than 0.12 mm outside the first-layer perimeter. Short internal infill crossings may bridge gaps between first-layer roads."
+    },
+    "grip-receiver-back": {
+      "first_z_mm": 0.2,
+      "second_z_mm": 0.44,
+      "minimum_second_layer_bead_overlap_fraction": 0.8471851040454067,
+      "minimum_second_layer_wall_bead_overlap_fraction": 0.9935311306483986,
+      "maximum_second_layer_outward_advance_mm": 0.016589355468749997,
+      "criterion": "Walls have at least half bead-area support and no second-layer path advances more than 0.12 mm outside the first-layer perimeter. Short internal infill crossings may bridge gaps between first-layer roads."
+    }
+  },
+  "requested_h2c_trim_mm": 0.18,
+  "emitted_g29_1_z_mm": [
+    0.0,
+    0.16
+  ],
+  "parts": [
+    "grip-receiver-front",
+    "grip-receiver-back"
+  ],
+  "estimate_seconds": 3666.260009765625,
+  "filaments": [
+    {
+      "filament_id": "GFT01",
+      "id": 1,
+      "main_used_g": 28.5891056060791,
+      "total_used_g": 28.5891056060791
+    }
+  ],
+  "launch_options": {
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "submitted": false
+}
