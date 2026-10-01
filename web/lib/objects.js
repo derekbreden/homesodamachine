@@ -11,7 +11,7 @@
 // this site, so a publisher and a fetcher talk to one address.
 //
 // NO TOKEN, BECAUSE THE POINTER FILE IS THE AUTHORITY. Anyone can put an object here, and only
-// an object main's pointer file names stays: `pruneObjects` runs on the hour and removes what
+// an object main's pointer file names stays: `pruneUnnamed` runs on the hour and removes what
 // no line names once it is an hour old. So an upload nobody pointed at is gone by then, and
 // whoever can push main is whoever can name bytes here, the trust the pointer file already
 // carries, and a cloud session publishes here holding no secret. The size cap and the hash
@@ -122,12 +122,31 @@ export async function pruneObjects({ store, named, now = Date.now(), maxAge = PR
   return stale;
 }
 
-/** The hourly prune, keyed to the pointer file on this disk, which the live adopt keeps at main's. */
-export function mountObjectPrune({ store, pointersPath, everyMs = PRUNE_EVERY_MS }) {
+/**
+ * One prune: what main's pointer file names stays, and so does what this disk's names.
+ *
+ * MAIN'S IS READ, BECAUSE THIS DISK'S CAN STAND BEHIND IT. The live adopt (artifacts-live.js)
+ * writes main's pointer file here only once every member it names is on this disk, and puts
+ * the previous one back when they are not. What main names is what must stay: an object gone
+ * from the store is a member no adoption and no deploy can fetch. `mainPointers` reads main's
+ * pointer file the way the adopt does.
+ *
+ * A LOOK THAT CANNOT READ MAIN'S REMOVES NOTHING. Skipping costs an hour of objects nobody
+ * names.
+ */
+export async function pruneUnnamed({ store, pointersPath, mainPointers, now = Date.now(), maxAge = PRUNE_AGE_MS }) {
+  const main = await mainPointers();
+  if (!Object.keys(main?.solids ?? {}).length) throw new Error("main's pointer file names nothing");
+  const here = JSON.parse(await readFile(pointersPath, "utf-8"));
+  const named = new Set([...namedBy(main), ...namedBy(here)]);
+  return pruneObjects({ store, named, now, maxAge });
+}
+
+/** The hourly prune (`pruneUnnamed`). */
+export function mountObjectPrune({ store, pointersPath, mainPointers, everyMs = PRUNE_EVERY_MS }) {
   const look = async () => {
     try {
-      const pointers = JSON.parse(await readFile(pointersPath, "utf-8"));
-      const removed = await pruneObjects({ store, named: namedBy(pointers) });
+      const removed = await pruneUnnamed({ store, pointersPath, mainPointers });
       if (removed.length) console.log(`[objects] pruned ${removed.length} object(s) no line names`);
     } catch (err) {
       console.error(`[objects] prune skipped: ${err.message}`);

@@ -13,7 +13,7 @@ import { gzipSync } from "node:zlib";
 import { Readable } from "node:stream";
 import express from "express";
 
-import { mountObjectRoutes, namedBy, pruneObjects, receiveObject } from "../lib/objects.js";
+import { mountObjectRoutes, namedBy, pruneObjects, pruneUnnamed, receiveObject } from "../lib/objects.js";
 import { DiskStore, R2Store, fillStore, storeFromEnv } from "../lib/store.js";
 import { mountViewerRoutes } from "../lib/viewer-routes.js";
 
@@ -76,6 +76,44 @@ test("disk: prune removes what no line names once it is old, and keeps the named
   const removed = await pruneObjects({ store: new DiskStore(dir), named: namedBy(pointers) });
   assert.deepEqual(removed, [oldStray]);
   assert.deepEqual((await readdir(dir)).sort(), [named, youngStray].sort());
+});
+
+// THIS DISK'S POINTER FILE CAN STAND BEHIND MAIN'S. An adoption that cannot settle puts the
+// previous pointer file back (artifacts-live.js), so what main names is read from main and kept
+// beside what this disk names; a look that cannot read main's removes nothing.
+async function staleStore() {
+  const dir = await mkdtemp(path.join(tmpdir(), "objects-"));
+  const old = (Date.now() - 2 * 60 * 60 * 1000) / 1000;
+  const hashes = { both: "1".repeat(64), mainOnly: "2".repeat(64), diskOnly: "3".repeat(64), neither: "4".repeat(64) };
+  for (const h of Object.values(hashes)) {
+    await writeFile(path.join(dir, `s-${h}.gz`), "x");
+    await utimes(path.join(dir, `s-${h}.gz`), old, old);
+  }
+  const pointersPath = path.join(dir, "cad-artifacts.json");
+  await writeFile(pointersPath, JSON.stringify({
+    solids: { "hardware/a.step": hashes.both, "hardware/b.step": hashes.diskOnly },
+  }));
+  const main = { solids: { "hardware/a.step": hashes.both, "hardware/b.step": hashes.mainOnly } };
+  return { dir, store: new DiskStore(dir), pointersPath, main, hashes };
+}
+
+test("prune keeps what main's pointer file names when this disk's stands behind it", async () => {
+  const { dir, store, pointersPath, main, hashes } = await staleStore();
+  const removed = await pruneUnnamed({ store, pointersPath, mainPointers: async () => main });
+  assert.deepEqual(removed, [`s-${hashes.neither}.gz`]);
+  assert.deepEqual((await readdir(dir)).filter((n) => n.endsWith(".gz")).sort(),
+    [hashes.both, hashes.mainOnly, hashes.diskOnly].map((h) => `s-${h}.gz`).sort());
+});
+
+test("a prune that cannot read main's pointer file removes nothing", async () => {
+  const { dir, store, pointersPath } = await staleStore();
+  const before = (await readdir(dir)).sort();
+  await assert.rejects(pruneUnnamed({ store, pointersPath,
+    mainPointers: async () => { throw new Error("GitHub says 403 rate limit exceeded"); } }), /403/);
+  await assert.rejects(pruneUnnamed({ store, pointersPath, mainPointers: async () => ({ solids: {} }) }),
+    /names nothing/);
+  await assert.rejects(pruneUnnamed({ store, pointersPath }), TypeError, "no reader for main, no prune");
+  assert.deepEqual((await readdir(dir)).sort(), before);
 });
 
 /** An S3 client that keeps objects in a Map and records what it was asked. */
