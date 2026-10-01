@@ -1,0 +1,32 @@
+{
+  "status": "pass",
+  "archive_sha256": "f64e85a9c71df200b929f634f0d61f50b4d3d739f0fd5cb900a707ec293ad8cb",
+  "actual_support_bodies": 3,
+  "bed_rooted_bodies": 3,
+  "model_rooted_bodies": 0,
+  "removal_lanes": [
+    {
+      "interfaces": [
+        "interface-1",
+        "interface-2"
+      ],
+      "feature": "flat lifting ceilings",
+      "exit": "outward through the open handhold apertures",
+      "wing_slot_support_intrusion_mm2": [
+        0,
+        0
+      ]
+    },
+    {
+      "interfaces": [
+        "interface-3",
+        "interface-4"
+      ],
+      "feature": "upper seam rail catches",
+      "exit": "open enclosure interior and split-side rail openings"
+    }
+  ],
+  "exterior_transition_contact_roads": 0,
+  "geometry_integration_commit": "c0be387fe",
+  "review_basis": "Actual labelled and unlabelled support toolpaths; production geometry and accepted receiver slot bridge prints."
+}
