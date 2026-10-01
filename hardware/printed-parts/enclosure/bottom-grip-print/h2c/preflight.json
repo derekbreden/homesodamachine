@@ -1,0 +1,351 @@
+{
+  "status": "pass",
+  "verified_at_utc": "2026-10-01T06:31:36.320352+00:00",
+  "printer": "H2C",
+  "archive": ".cache/prints/enclosure-front-bottom-grip-bridges-h2c-v3/ready/enclosure-front-bottom-grip-bridges-h2c-v3.gcode.3mf",
+  "archive_sha256": "f64e85a9c71df200b929f634f0d61f50b4d3d739f0fd5cb900a707ec293ad8cb",
+  "gcode_sha256": "eb7a73ed751f996566612318f6f4c7af24cab242f0d72ee0360222891ea358bc",
+  "preparation": {
+    "project": "enclosure-front-bottom-grip-bridges-h2c-v3-input.3mf",
+    "settings_source": "hardware/printed-parts/petgf.3mf",
+    "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "settings_sha256": "1017301458a31e05602896efcf3fd0171bdb9e8cb53175042006d824d3166f51",
+    "source_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+    "settings_changes": {
+      "machine_start_gcode": {
+        "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+        "to_sha256": "409b1516f0401361a02b18a34420c10ca83bc33615e8896cade2fea42edee871",
+        "requested_z_trim_mm": 0.18
+      },
+      "printer_settings_id": {
+        "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+        "to": "Bambu Lab H2C 0.4 Standard +0.18 Z trim"
+      }
+    },
+    "printer": "Bambu Lab H2C 0.4 Standard +0.18 Z trim",
+    "process": "0.24mm PET-GF faucet",
+    "filament": [
+      "Polymaker PET-GF @BBL H2C"
+    ],
+    "layer_height_mm": 0.24,
+    "nozzle_diameter_mm": [
+      0.4,
+      0.4
+    ],
+    "line_widths_mm": {
+      "outer_wall_line_width": 0.42,
+      "inner_wall_line_width": 0.45,
+      "sparse_infill_line_width": 0.45,
+      "internal_solid_infill_line_width": 0.42,
+      "top_surface_line_width": 0.45,
+      "support_line_width": 0.62
+    },
+    "wall_loops": 2,
+    "sparse_infill_percent": 15.0,
+    "sparse_infill_pattern": "grid",
+    "saved_profile_filament_density_g_cm3": [
+      1.29
+    ],
+    "bed_type": "Textured PEI Plate",
+    "shared_printable_area_mm": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        325.0,
+        320.0
+      ]
+    ],
+    "printable_area_extruders": [
+      0
+    ],
+    "plate_border_mm": 15.0,
+    "plate_count": 1,
+    "parts": [
+      {
+        "name": "enclosure-front-bottom",
+        "plate": 1,
+        "object_id": "2",
+        "part_id": "1",
+        "member": "3D/Objects/object_1.model",
+        "identify_id": 1901,
+        "source": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+        "stl_sha256": "3e905d5dc35b038c48af02919fdcf63f870abd630ff03d879fbd5eea09af0456",
+        "triangles": 331180,
+        "rotation_x_degrees": 0.0,
+        "source_center_mm": [
+          0.0,
+          108.7750015258789,
+          84.4000015258789
+        ],
+        "build_transform": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          -0.0,
+          1.0,
+          162.5,
+          160.0,
+          90.4000015258789
+        ],
+        "plate_translation_mm": [
+          162.5,
+          160.0,
+          90.4000015258789
+        ],
+        "plate_origin_mm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "plate_bounds_mm": [
+          [
+            55.0,
+            56.224998474121094,
+            0.0
+          ],
+          [
+            270.0,
+            263.7750015258789,
+            180.8000030517578
+          ]
+        ],
+        "watertight": true,
+        "body_count": 1,
+        "embedded_vertex_error_mm": 5.000018177270249e-10
+      }
+    ],
+    "project_sha256": "772b3c16f2320cc02133281b04de81315c21c2652a042b6bc4949502921a95b6",
+    "settings_preserved_byte_for_byte": false,
+    "printer_target": "H2C",
+    "piece": "front",
+    "revision": 3,
+    "stem": "enclosure-front-bottom-grip-bridges-h2c-v3",
+    "requested_trim_mm": 0.18,
+    "slot_bounds_cad_xy_mm": [
+      [
+        -102.0801019662497,
+        170.99,
+        -96.77810196624968,
+        174.01
+      ],
+      [
+        96.77810196624968,
+        170.99,
+        102.0801019662497,
+        174.01
+      ]
+    ],
+    "slot_roof_cad_z_mm": 29.25,
+    "slot_floor_cad_z_mm": 26.87,
+    "support_review_geometry_sha256": "80180211ff48bfef9ae3afa51fbb93ea12ec4cdb4c2092521d2fa3f7ba08e3fd",
+    "blocked_slot_area_mm2": 31.977640337657096,
+    "blocked_ceiling_edge_area_mm2": 173.60959596191321,
+    "painted_exterior_triangles": 55075,
+    "painted_flat_triangles": 799,
+    "six_wall_print_z_mm": [
+      35.0,
+      41.5
+    ],
+    "fine_flute_runout_print_z_mm": [
+      41.5,
+      44.3
+    ],
+    "flat_ceiling_support_inset_mm": 0.8,
+    "submitted": false,
+    "slot_support_halo_mm": 1.0,
+    "source_sha256": {
+      "hardware/printed-parts/enclosure/bottom-grip-print/prepare.py": "45e2efa89ff9f8e4064c8f2c632744d9a76e8cea0e6b7a493fa0b24006a20927",
+      "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "3e905d5dc35b038c48af02919fdcf63f870abd630ff03d879fbd5eea09af0456",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "dccbf7df7bdbb4b40b5a869eaec2bf8f09fbc3cd1e79324b36d69117247b8247",
+      "hardware/printed-parts/enclosure/enclosure/_grip_interface.py": "0d23d8d966cdafb8e54fab031a7ba06724d1240d583d695dfe58418cc7676d0d",
+      "hardware/printed-parts/enclosure/enclosure/enclosure.py": "937a47992815c742b303cebeec5076dc3508d3d6094550c097877bdb58c4c395"
+    }
+  },
+  "settings_verified": {
+    "layer_height": "0.24",
+    "initial_layer_print_height": "0.2",
+    "wall_loops": "2",
+    "enable_support": "1",
+    "support_type": "tree(auto)",
+    "support_object_xy_distance": "0.4",
+    "support_top_z_distance": "0.45",
+    "support_bottom_z_distance": "0.3",
+    "support_filament": "1",
+    "support_interface_filament": "1",
+    "flush_into_support": "0",
+    "wall_sequence": "inner wall/outer wall",
+    "is_infill_first": "0",
+    "infill_wall_overlap": "15%",
+    "brim_type": "auto_brim",
+    "elefant_foot_compensation": "0.15",
+    "enable_arc_fitting": "0",
+    "filament_colour": [
+      "#000000"
+    ],
+    "filament_nozzle_map": [
+      "0"
+    ],
+    "nozzle_diameter": [
+      "0.4",
+      "0.4"
+    ]
+  },
+  "saved_speeds_accelerations_temperatures_fans_preserved": true,
+  "requested_z_trim_mm": 0.18,
+  "emitted_g29_1_z_mm": [
+    0.0,
+    0.16
+  ],
+  "slot_support_intrusion_mm2": [
+    0.0,
+    0.0
+  ],
+  "slot_roof_checks": [
+    {
+      "bridge_roads": 21,
+      "roof_layer_mm": 35.48,
+      "coverage_fraction": 0.9792588560863357
+    },
+    {
+      "bridge_roads": 23,
+      "roof_layer_mm": 35.48,
+      "coverage_fraction": 0.999802461678287
+    }
+  ],
+  "first_two_layer_heights_mm": [
+    [
+      0.2,
+      0.2
+    ],
+    [
+      0.44,
+      0.24
+    ]
+  ],
+  "second_layer_minimum_wall_support_fraction": 0.12082893499645389,
+  "layer_spans": [
+    {
+      "name": "expanding-grip-transition",
+      "print_z_mm": [
+        35.25,
+        41.25
+      ],
+      "wall_layer_count": 26,
+      "first_wall_layer": [
+        35.48,
+        0.239998
+      ],
+      "last_wall_layer": [
+        41.48,
+        0.24
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    },
+    {
+      "name": "inward-flute-runout",
+      "print_z_mm": [
+        41.65,
+        44.25
+      ],
+      "wall_layer_count": 33,
+      "first_wall_layer": [
+        41.72,
+        0.08
+      ],
+      "last_wall_layer": [
+        44.28,
+        0.079998
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    }
+  ],
+  "wall_scope_checks": [
+    {
+      "print_z_band_mm": [
+        37,
+        40
+      ],
+      "wall_count": 6,
+      "layers_checked": 12
+    },
+    {
+      "print_z_band_mm": [
+        46,
+        47
+      ],
+      "wall_count": 2,
+      "layers_checked": 4
+    }
+  ],
+  "established_floor_scarf_reference": {
+    "gcode": ".cache/prints/2026-09-24-enclosure-front-bottom-h2c-v7/ready/plate_1.gcode",
+    "sha256": "55fffac067cb1df96931f5fd8af9e8483a314cf482372d726780c307268091a8",
+    "identical_low_overlap_second_layer_roads": 1
+  },
+  "support_roads_near_exterior_count": 9901,
+  "support_roads_touching_exterior_transition": 0,
+  "support_summary": {
+    "support_bodies": 3,
+    "interface_islands": 4,
+    "bed_rooted_bodies": 3,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 34.032,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 4,
+    "shortest_labelled_build_up_mm": 34.032
+  },
+  "path_bounds_xy_mm": [
+    [
+      27.703,
+      56.175000000000004
+    ],
+    [
+      293.177,
+      264.342
+    ]
+  ],
+  "minimum_plate_margin_mm": 27.703,
+  "features": {
+    "Support": 115844,
+    "Inner wall": 1038320,
+    "Outer wall": 992649,
+    "Bottom surface": 1269,
+    "Internal solid infill": 67642,
+    "Sparse infill": 370866,
+    "Floating vertical shell": 38121,
+    "Gap infill": 46853,
+    "Bridge": 17912,
+    "Top surface": 6482,
+    "Overhang wall": 388,
+    "Support transition": 602,
+    "Support interface": 883
+  },
+  "estimate_seconds": 67263.1953125,
+  "layers": 779,
+  "filaments": [
+    {
+      "filament_id": "GFT01",
+      "id": 1,
+      "main_used_g": 599.812744140625,
+      "total_used_g": 599.812744140625
+    }
+  ],
+  "launch_options": {
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "submitted": false
+}

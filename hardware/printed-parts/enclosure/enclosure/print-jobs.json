@@ -2860,6 +2860,45 @@
       "startup_spacing_seconds": 5014.770677,
       "physical_result": "Carrier sliding is accepted with the existing front-top; user reports great sliding and less tilt.",
       "physical_result_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-tee-low-force050-mark2-v16/physical-result.json"
+    },
+    {
+      "date": "2026-10-01",
+      "printer": "H2C",
+      "parts": [
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl"
+      ],
+      "job_name": "enclosure-front-bottom-grip-bridges-h2c-v3.gcode.3mf",
+      "printer_task_id": "1298322226",
+      "status": "printing",
+      "observed_at_utc": "2026-10-01T06:34:34.257786+00:00",
+      "observed_state_at_acceptance": "RUNNING",
+      "sliced_file": ".cache/prints/enclosure-front-bottom-grip-bridges-h2c-v3/ready/enclosure-front-bottom-grip-bridges-h2c-v3.gcode.3mf",
+      "sliced_file_sha256": "f64e85a9c71df200b929f634f0d61f50b4d3d739f0fd5cb900a707ec293ad8cb",
+      "gcode_sha256": "eb7a73ed751f996566612318f6f4c7af24cab242f0d72ee0360222891ea358bc",
+      "estimated_seconds": 67263.1953125,
+      "filament_grams": 599.812744140625,
+      "print_options": {
+        "Timelapse": "On",
+        "Auto bed leveling": "On",
+        "Flow dynamic calibration": "Auto",
+        "Nozzle Offset Calibration": "Auto"
+      },
+      "review": "hardware/printed-parts/enclosure/bottom-grip-print/h2c",
+      "source_stl_sha256": "3e905d5dc35b038c48af02919fdcf63f870abd630ff03d879fbd5eea09af0456",
+      "initial_layer_height_mm": 0.2,
+      "ordinary_layer_height_mm": 0.24,
+      "grip_transition_wall_loops": 6,
+      "grip_transition_print_z_mm": [
+        35,
+        41.5
+      ],
+      "slot_support_intrusion_mm2": [
+        0.0,
+        0.0
+      ],
+      "support_type": "tree(auto)",
+      "requested_z_trim_mm": 0.18,
+      "effective_textured_plate_trim_mm": 0.16
     }
   ]
 }

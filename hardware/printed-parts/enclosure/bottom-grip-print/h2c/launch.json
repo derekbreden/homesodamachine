@@ -1,0 +1,36 @@
+{
+  "printer": "H2C",
+  "accepted_observed_utc": "2026-10-01T06:34:34.257786+00:00",
+  "printer_task_id": "1298322226",
+  "job_name": "enclosure-front-bottom-grip-bridges-h2c-v3.gcode.3mf",
+  "state_at_observation": "RUNNING",
+  "print_error": 0,
+  "hms": [],
+  "archive": ".cache/prints/enclosure-front-bottom-grip-bridges-h2c-v3/ready/enclosure-front-bottom-grip-bridges-h2c-v3.gcode.3mf",
+  "archive_sha256": "f64e85a9c71df200b929f634f0d61f50b4d3d739f0fd5cb900a707ec293ad8cb",
+  "gcode_sha256": "eb7a73ed751f996566612318f6f4c7af24cab242f0d72ee0360222891ea358bc",
+  "estimated_seconds": 67263.1953125,
+  "filaments": [
+    {
+      "filament_id": "GFT01",
+      "id": 1,
+      "main_used_g": 599.812744140625,
+      "total_used_g": 599.812744140625
+    }
+  ],
+  "options": {
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "filament_mapping": {
+    "nozzle": "left",
+    "external_spool": 254,
+    "profile_label": "PET-CF",
+    "physical_material": "black PET-GF"
+  },
+  "shared_circuit_minimum_start_spacing_seconds": 180,
+  "source_stl_sha256": "3e905d5dc35b038c48af02919fdcf63f870abd630ff03d879fbd5eea09af0456",
+  "authorization": "User requested both production bottoms after Grips finished and confirmed both beds clear."
+}

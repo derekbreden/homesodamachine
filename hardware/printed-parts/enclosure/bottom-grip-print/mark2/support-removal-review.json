@@ -1,0 +1,36 @@
+{
+  "status": "pass",
+  "archive_sha256": "c8f0f2f759144e0bfa052238780a5de5590c6b058d26ac6c3e17c8f63c0a644d",
+  "actual_support_bodies": 3,
+  "bed_rooted_bodies": 3,
+  "model_rooted_bodies": 0,
+  "removal_lanes": [
+    {
+      "interfaces": [
+        "interface-1",
+        "interface-2"
+      ],
+      "feature": "flat lifting ceilings",
+      "exit": "outward through the open handhold apertures",
+      "wing_slot_support_intrusion_mm2": [
+        0,
+        0
+      ]
+    },
+    {
+      "interfaces": [
+        "interface-3",
+        "interface-4",
+        "interface-5"
+      ],
+      "feature": "upper seam rail catches",
+      "exit": "open enclosure interior and exposed split-side rail flanks"
+    }
+  ],
+  "exterior_transition_interface_or_terminating_tip_count": 0,
+  "passing_branch_proximity_candidates": 7,
+  "minimum_nominal_air_to_passing_branch_mm": 0.3080000000000034,
+  "passing_branch_note": "These are continuing tree branches, with positive air below the curve; they are not support interfaces. The minimum nominal bead-envelope separation is 0.308 mm.",
+  "geometry_integration_commit": "c0be387fe",
+  "review_basis": "Actual labelled and unlabelled support toolpaths; production geometry and accepted receiver slot bridge prints. Full-bottom physical removal remains to be checked after printing."
+}
