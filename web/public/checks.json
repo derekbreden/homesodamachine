@@ -47,7 +47,7 @@
     },
     {
       "check": "hardware/scripts/check_show_faces.py",
-      "note": "show faces: 5/5 bounds hold over 3 module(s)",
+      "note": "show faces: 4/4 bounds hold over 3 module(s)",
       "status": "ok"
     },
     {
@@ -62,12 +62,12 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 4495 tracked, 526 fetched solids, 55 tags, 39 site routes",
-      "status": "ok"
+      "note": "3 reference(s) name a path nothing holds.",
+      "status": "red"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 441 of 1000 free, the next cut wants 382, and the whole pointer file reads by name in 21.8 MB against 175.8 MB of bundle",
+      "note": "check_release_room: 440 of 1000 free, the next cut wants 381, and the whole pointer file reads by name in 21.8 MB against 175.8 MB of bundle",
       "status": "ok"
     },
     {
@@ -92,13 +92,13 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 3 of 2807 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 526 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 3 of 2849 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 545 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 34c139978f4b73e7a499874905362956 for the 161 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 1aebbe1c5ca95f6ebe71585693f2e247 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 34c139978f4b73e7a499874905362956 for the 161 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 33e8abe0f2fca1a378e8a218257550db here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
@@ -108,10 +108,19 @@
       "  ✗ procedure with no doc-sync driver — every number and part name in it is a bare literal: hardware/assembly/weld-position.md (expected hardware/assembly/_weld_position_sync.py)"
     ],
     "hardware/scripts/check_payloads.py": [
-      "6 solid(s) the bundle serves a payload for that no rule produces:",
+      "15 solid(s) the bundle serves a payload for that no rule produces:",
       "    hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.step.mesh — declared by nobody",
+      "    hardware/printed-parts/enclosure/grip-cover/grip-candidate-back-bottom.step.mesh — declared by nobody",
+      "    hardware/printed-parts/enclosure/grip-cover/grip-candidate-front-bottom.step.mesh — declared by nobody",
+      "    hardware/printed-parts/enclosure/grip-cover/grip-connected-bottoms.step.mesh — declared by nobody",
+      "    hardware/printed-parts/enclosure/grip-cover/grip-cover.step.mesh — declared by nobody",
+      "    hardware/printed-parts/enclosure/grip-cover/grip-exploded.step.mesh — declared by nobody",
+      "    hardware/printed-parts/enclosure/grip-cover/grip-receiver-back.step.mesh — declared by nobody",
+      "    hardware/printed-parts/enclosure/grip-cover/grip-receiver-front.step.mesh — declared by nobody",
+      "    hardware/printed-parts/enclosure/grip-cover/grip-seated.step.mesh — declared by nobody",
+      "    hardware/printed-parts/enclosure/grip-cover/grip-section.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-001.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/tee-carrier/low-force-trial/tee-carrier-low-force.step.mesh — declared by nobody"
@@ -121,6 +130,12 @@
       "  tools/viz/build.py answers to selftest and selftests.json does not name it",
       "      tools/cad-venv/bin/python tools/bazel/trace_inputs.py --selftests tools/viz/build.py",
       "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
+    ],
+    "tools/check_paths.py": [
+      "hardware/printed-parts/enclosure/display-cover/README.md:23 — hardware/printed-parts/enclosure/display-cover/../enclosure/accepted-fit-integration/geometry-check.json is held nowhere, and no tag is named for it",
+      "  hardware/printed-parts/enclosure/enclosure/README.md:1513 — hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/geometry-check.json is held nowhere, and no tag is named for it",
+      "  hardware/printed-parts/enclosure/nameplate/README.md:46 — hardware/printed-parts/enclosure/nameplate/../enclosure/accepted-fit-integration/geometry-check.json is held nowhere, and no tag is named for it",
+      "3 reference(s) name a path nothing holds."
     ],
     "tools/check_web_tests.py": [
       "2 test(s) in web/ fail:",
