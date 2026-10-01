@@ -14,10 +14,11 @@ opening coordinates from that reference; it does not require the entire current
 front-top mesh to match. Spring stations, release travel and the print solid are
 checked independently.
 
-This tests **low-force clearance for rough overhang surfaces involved** at the carrier's
-upper sliding contact. The supported front-top roof's physical finish determines the
-usable space. Check free sliding and spring return with the existing front-top, with
-the tees and springs installed, and assess unwanted play.
+This establishes an accepted **low-force clearance for rough overhang surfaces involved**
+at this carrier’s upper sliding contact. Derek reports great sliding and less tilt
+with the existing front-top. The supported roof’s physical finish determines the
+usable space; spring return and simultaneous four-collet release remain separate
+assembly observations.
 
 The print-bottom edge has an additive chamfer: 0.5 mm outward for each 1 mm of
 height, tangent to the existing R6 taper at print Z 3.317 mm. Each affected bed edge
@@ -37,9 +38,10 @@ share the plate.
 
 `low_force_trial.py` generates the geometry; `prepare_print.py` prepares and natively
 slices the Mark2 job. The chamfer/taper profile has a physically accepted surface reference;
-the current 1.00 mm roof-gap geometry is printing as Mark2 task 1297480230. Its
+the 1.00 mm roof-gap geometry is physically accepted as Mark2 task 1297480230. Its
 [verified native slice](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-tee-low-force050-mark2-v16/README.md)
-estimates 1 hour 45 minutes 40 seconds. Its physical sliding fit and return are pending.
+estimates 1 hour 45 minutes 40 seconds. The [acceptance record](physical-acceptance.json)
+binds the sliding and reduced-tilt report to this geometry and printed reference.
 
 The accepted surface reference comes from H2C job 1292379739: 140 layers, estimated at
 1 hour 46 minutes. The [slice review](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-tee-chamfer-h2c-v6/README.md) retains the geometry,

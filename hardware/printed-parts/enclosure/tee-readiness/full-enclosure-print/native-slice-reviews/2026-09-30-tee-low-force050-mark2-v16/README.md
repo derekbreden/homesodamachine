@@ -33,6 +33,6 @@ usual startup options including Auto nozzle offset, and
 5014.8 seconds after H2C's display-receiver start.
 [Postlaunch](postlaunch.json) confirms this task RUNNING without errors.
 
-Physical qualification: use the existing front-top with the actual tees and
-springs to check free sliding, spring return and unwanted play. The accepted
-chamfer/taper surface reference does not establish this gap's physical fit.
+The [physical result](physical-result.json) accepts this carrier with the existing
+front-top: Derek reports great sliding and less tilt. Spring return, actuation force
+and simultaneous four-collet release were not separately reported.
