@@ -171,7 +171,7 @@ import pump_tray as _tray
 import tee_carrier as _tee_carrier
 import _enclosure_interface as _interface
 import _swept_top
-import _display_retention
+import _display_wing_interface as _display_wings
 
 # Shell parameters.
 wall = _interface.wall      # PETG wall thickness
@@ -391,8 +391,8 @@ display_bezel_cut_slope = display_bezel_slope + 2.0 * fits.slip
 display_body_offset_x = 0.5      # PCB body offset from the centered glass, lateral (+X)
 display_body_offset_slope = -1.0 # PCB body offset, down-slope
 display_corner_r = _interface.display_corner_r         # corner rounding, matching the display bezel
-# The rounded cover sits flush in a 2 mm inset. A 1 mm TPU ring bears on the glass,
-# whose face lies 3 mm below the display plane. Broad side skirts retain the cover.
+# The face-up cover seats in a 3.84 mm inset. A 1 mm TPU ring separates it
+# from the glass; horizontal wings enter the accepted side pockets.
 display_inset_lap = _interface.display_inset_lap
 display_inset_reach = _interface.display_inset_reach
 display_inset_depth = _interface.display_inset_depth
@@ -412,8 +412,9 @@ display_housing_back = 96.0
 display_bezel_depth = _interface.display_bezel_depth   # bezel counterbore depth, user face
 display_pcb_x = 106.0 + 2.0 * fits.slip   # PCB body through-hole, lateral (X)
 display_pcb_slope = 69.0 + 2.0 * fits.slip  # PCB body through-hole, up the display slope
-display_pcb_cut_through = 3.0    # extra depth past the facet back, cutting a socket collar
-                                 # clean through (it overhangs the hole otherwise)
+display_pcb_cut_through = display_bezel_depth + 17.0 + 1.0 - display_facet_thickness
+# The 17 mm module starts at the glass back. Keep 1 mm behind its rear envelope.
+# _ridge_aft_start retains a full wall below the extended opening.
 # THAT HOLE LEAVES A RIDGE, AND THE RIDGE IS CARRIED. Where the hole's up-slope end wall breaks
 # out of the slab's back the two planes meet in a line `display_pcb_x` long, and BOTH face down
 # off it — the bottom vertex of a wedge, inside a closed cavity, which is the one line on this
@@ -1702,7 +1703,7 @@ pull_edge_r = handhold_edge_r
 # machine that produced it.
 PortField = namedtuple("PortField", "proud rim pockets")
 from _nameplate_interface import Nameplate
-import _nameplate_interface as _nameplate_fit
+import _nameplate_wing_interface as _nameplate_fit
 
 
 Box = namedtuple(
@@ -3166,7 +3167,9 @@ def flute_rails(box, berthed=()):
     outer = box.outer
     rails = [_flute_skin.Rail(at=lambda s: plan_at(s, outer),
                               length=plan_perimeter(outer),
-                              plain=(disposal_field(outer),))]
+                              plain=((disposal_field(outer),) +
+                                     (_nameplate_fit.plain_lips(box.pack.nameplate,outer[3])
+                                      if box.pack.nameplate else ())))]
     if box.pump_bay and box.pack.collet_plate:
         segments = _bay_storey_segments(box.inner, outer, box.pump_bay, box.pack.collet_plate)
         run = sum(length for _kind, length, _data in segments)
@@ -3264,7 +3267,7 @@ def display_storey_cavities(box):
     o, n = plane.origin, plane.zDir
 
     def below_catch(y, z):
-        return (y - o.y) * n.y + (z - o.z) * n.z + _display_retention.CATCH
+        return (y - o.y) * n.y + (z - o.z) * n.z + 10.02
 
     y0, y1 = inner[2], box.pack.collet_plate["fore_y"]
     z0, z1 = box.pump_bay[2], outer[5] + 1.0
@@ -3276,7 +3279,7 @@ def display_storey_cavities(box):
         if da * db < 0.0:
             t = da / (da - db)
             section.append((ya + t * (yb - ya), za + t * (zb - za)))
-    flex = _display_retention.FLEX_X
+    flex = 59.65
     side = flute_depth + display_storey_side_wall
     return [_yz_prism(outer[0] + side, o.x - flex, section),
             _yz_prism(o.x + flex, outer[1] - side, section)]
@@ -3318,25 +3321,20 @@ def display_plane(outer):
     return cq.Plane(origin=cq.Vector(*center), xDir=cq.Vector(1, 0, 0), normal=cq.Vector(*normal))
 
 
-def _display_cuts(outer):
-    """Cover reveal, glass seat, PCB clearance and the two skirt pockets."""
-    plane = display_plane(outer)
-    def local(shape):
-        return shape.moved(cq.Location(plane))
-    inset = _swept_top.rounded_prism(
-        display_inset_x, display_inset_slope, _interface.display_inset_corner_r,
-        -display_inset_depth, 1.0)
-    bezel = _swept_top.rounded_prism(
-        display_bezel_cut_x, display_bezel_cut_slope, display_corner_r + fits.slip,
-        -display_bezel_depth, 1.0)
-    pcb_depth = display_facet_thickness + display_pcb_cut_through
-    pcb = (cq.Workplane('XY').box(display_pcb_x, display_pcb_slope, pcb_depth + 1.0)
-           .translate((display_body_offset_x, display_body_offset_slope,
-                       (1.0 - pcb_depth) / 2.0)).val())
-    cut = inset.fuse(bezel).fuse(pcb)
-    for side in (-1, 1):
-        cut = cut.fuse(_display_retention.pocket(side))
-    return local(cut)
+def _display_cuts(outer, support_floor=None):
+    """Accepted cover pocket, deeper glass/PCB seat and open wing support lanes.
+
+    The long exits stop at the existing display-storey floor. They clear the
+    pocket underside without cutting the pump-bay lintel or tee mechanism.
+    """
+    place = cq.Location(display_plane(outer))
+    cut = _display_wings.cuts(display_facet_thickness+display_pcb_cut_through, 12).moved(place)
+    if support_floor is not None:
+        room = _ybox(outer[0]-1,outer[1]+1,outer[2]-1,outer[3]+1,
+                     support_floor,outer[5]+1)
+        for exit in _display_wings.support_exits(250):
+            cut = cut.fuse(exit.moved(place).intersect(room))
+    return cut.clean()
 
 
 # --- wall through-holes -----------------------------------------------------
@@ -3448,18 +3446,12 @@ def disposal_figures(outer):
 
 
 def _nameplate(solid, plate, outer, y_outer, zlo, zhi, up=1.0):
-    """Flush pocket and the one bar behind it that receives both snap tabs.
-
-    The compliant tabs belong to the face-down nameplate. The wall receives
-    them through straight slots into the bar, whose rigid shoulders keep flat
-    bearing faces. Each slot and catch pocket runs out through the bar's
-    print-up face, and a 45° corbel carries its print-down face back to the
-    wall, so back-top prints the receiver without support.
-    """
+    """Accepted flat-wing nameplate pocket at the fixed rear-panel station."""
     if plate is None or not (zlo <= plate.z <= zhi):
         return solid
-    return _nameplate_fit.apply(solid, plate, y_outer, wall=wall,
-                                supported=fits.supported_surface, up=up)
+    pocket = _nameplate_fit.apply(solid, plate, y_outer,
+                                  supported=fits.supported_surface, up=up)
+    return _nameplate_fit.production_backing(pocket, plate, y_outer)
 
 
 def _port_chip(px, pz, width, rise, y0, y1):
@@ -6229,7 +6221,7 @@ def build_front_half(box):
     front = front.cut(_facet_wedge(outer))
     # Let the display into the facet (bezel counterbore + PCB through-hole); this
     # also clears whatever rib/wall material sits behind the facet in its path.
-    front = front.cut(_display_cuts(outer))
+    front = front.cut(_display_cuts(outer, box.pump_bay[2] if box.pump_bay else None))
     for cavity in display_storey_cavities(box):
         front = front.cut(cavity)
     # Punch the funnel's throat through the top wall, behind the display.
@@ -8950,7 +8942,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
             piece = piece.cut(_y_lip_channel(inner, y_joint, box.y_bosses))
         piece = piece.cut(_funnel_cut(inner, outer, box.pack.funnel))
         if y_side == 'front':
-            piece = piece.cut(_display_cuts(outer))
+            piece = piece.cut(_display_cuts(outer, box.pump_bay[2] if box.pump_bay else None))
             for cavity in display_storey_cavities(box):
                 piece = piece.cut(cavity)
     if y_side == 'front' and z_side == 'top':

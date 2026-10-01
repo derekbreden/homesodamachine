@@ -1,0 +1,18 @@
+{
+  "native_archive": ".cache/prints/2026-10-01-enclosure-front-top-flat-wings-h2c-v15/ready/enclosure-front-top-flat-wings-black-z018-h2c-v15.gcode.3mf",
+  "native_archive_sha256": "15f2a3590424ca84c062697b2e35807efa76fe3899ae6dbb5331db1ce9101978",
+  "task_id": "1297866683",
+  "files": {
+    "preparation.json": "8f1b56d824f147eae33c6bf698e67400e7d479519ade2a2390f52c13ea33597f",
+    "preview.png": "a08c15f240512c2e26f7e308a7812588bb5b886a8513c49ffabea878581d6cb0",
+    "slice-command.json": "0e4bdc9301c944c305cd41ddc15bac0c8c0d8e2edcbca01dcae69c06133d13cd",
+    "support-audit.json": "012783c7f561785afc5a1f66a170f583db6d828be8e66d8aa23f8b64fa2bf5ac",
+    "support-removal-review.json": "6d3f66ee5c4bda0a6b7479b91f5658b5fafd685a687d2031fdbbd4b59b34c94f",
+    "native-result.json": "9279c1ab4ef75299d97359bbe4f3b7223f6c37e00d63df8ba93b78bacf81e537",
+    "first-layer-overlap.json": "3e3c3950400b14be3444ad33cc7722e9d9986ac435c75aec8a410f1e771585c7",
+    "verification.json": "54f600ec5e3d6df89042e8f7b6ab9843fe9d197d21faccaf9bb3bd06f52e3bdf",
+    "launch.json": "69e330ec6fa7f055ed6412c5d41084ceae4ead454f829dd0bb7add8db4f82941",
+    "printer-status.json": "fef79cc32ec84ccfe03cb41a868f684bec36504e9dcb4421198955b0175a4c8e",
+    "hold.json": "21c6510684a6977655a96ce7a57a5e83aa04502844b7b8fb115f73834255cc3c"
+  }
+}

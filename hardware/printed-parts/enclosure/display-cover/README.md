@@ -1,48 +1,31 @@
 # Machine display cover
 
-The selected fit is the [face-up flat-wing cover and receiver](face-up-trial/README.md).
-It passes the shake test and has acceptable appearance with a small residual bow.
-The receiver provides 0.30 mm body-X clearance per side and 0.60 mm above each
-1.44 mm wing. The [physical acceptance record](face-up-trial/physical-acceptance.json)
-binds the result to the exact printed cover and receiver. The suspected residual
-bend from insertion is unverified; further bow tuning is not requested.
+The accepted face-up PET-GF bezel uses two coplanar horizontal wings. It passes the
+shake test and has acceptable appearance with a small residual bow. The suspected
+residual bend from insertion is unverified. The
+[physical record](face-up-trial/physical-acceptance.json) identifies the exact tested pair.
 
-Integration of that pair into the main display-cover generator and enclosure front-top
-is pending. The dimensions below describe the current main-model files.
+The cover is 125.5 × 83 × 3.84 mm with R6 outer corners and a 107.5 × 71 mm window.
+Each wing is 1.44 mm thick, projects 3.60 mm and spans 70 mm, with R0.6 ends.
+The back and both wings lie directly on the bed; print face up without supports.
 
-A PET-GF bezel with a smooth, rounded face, let into the enclosure's 30° display plane.
-The cover measures [125.5 mm](COVER_X) across by [83 mm](COVER_SLOPE) up the slope,
-with [6 mm](COVER_CORNER_R) outside corner radii and a [2 mm](COVER_T) face.
-Its [107.5 mm](WINDOW_X) window laps the display glass on the TPU gasket.
-The reveal has [0.3 mm](COVER_SLIP) clearance per side.
+Front-top carries the matching pockets. Main-body clearance is 0.30 mm per side
+in X and 0.15 mm per side up the display. Each wing has 0.60 mm above its seated
+bearing face and 0.15 mm at either end. Wing-tip clearance is 0.55 mm centered,
+0.25 mm at full sideways float. Capture remains at least 3.00 mm. The retaining
+lip is 1.80 mm thick. Flex the middle outward to enter the wings, then let the
+bezel seat against its back datum.
 
-Two broad side skirts enter the housing. Each is the nameplate's snap tab run along
-the display: [1.3 mm](SKIRT_WALL) thick, [24 mm](SKIRT_LENGTH) long, reaching
-[13.3 mm](SKIRT_DEPTH) below the face. Its square [1.8 mm](LIP_ENGAGEMENT) lip starts
-[8.5 mm](LIP_START) below the cover plate, stands on a [1.2 mm](LIP_LAND) land above a tapered
-nose, and rests [0.48 mm](BEARING_SLIP) under the housing's catch. Under each catch the housing
-is open straight down into the pump bay.
-Each cover skirt sits [1.2 mm](SKIRT_INSET) inboard of its receiver datum; the housing's
-slots stay fixed. Each lip overlaps its catch by [0.3 mm](CATCH_OVERLAP) when centered.
-At the full 0.3 mm lateral float, one lip meets its catch's edge with zero overlap and the
-opposite lip overlaps by 0.6 mm. Derek's physical fit report records very slight remaining
-bowing, acceptable for the moment, and no retention. The nominal overlaps do not establish
-retention of the printed cover.
+The visible face is flush with the enclosure's 30° display plane. A 1 mm TPU ring
+and 1 mm glass lie beneath the cover. Glass back depth is 5.84 mm. The complete
+17 mm module behind the glass has 1 mm rear clearance; the supporting rib retains
+3 mm stock. The PCB opening, funnel clearance and pump-jack service path are
+checked in the [integrated geometry](../enclosure/accepted-fit-integration/geometry-check.json).
 
-Place the display and gasket in the housing, then press the cover normal to the screen.
-The cover carries no screws.
+The wing pockets open down through the display storey to its existing floor.
+Remove shared-profile tree supports through the empty bay before installing the
+screen. No short support strip is enclosed beneath a wing pocket.
 
-Print face down, with the visible face on the plate and both skirts pointing up, as the
-[nameplate](../nameplate/README.md) prints. Each lip's square catch face takes a support
-standing on the plate beside the cover's edge, with the nameplate's 0.24 mm top gap and its
-small-overhang filter off. Peel each support off whole and keep the catch faces flat.
-Retention force and repeated-use performance remain unmeasured for this geometry.
-The [fit trial](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-25-display-cover-mark2-v9/README.md)
-places the complete cover on one Mark2 plate.
-
-`tools/cad-venv/bin/python hardware/printed-parts/enclosure/display-cover/display_cover.py`
-exports the complete cover and checks its solid, glass clearance and seated skirt pockets.
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/printed-parts/enclosure/display-cover/display_cover.py`
+[`display_cover.py`](display_cover.py) and
+[`_display_wing_interface.py`](../enclosure/_display_wing_interface.py) generate the
+cover and production receiver. Their cover solid equals the accepted specimen.

@@ -1,7 +1,59 @@
-[sliver] The 1.2 mm lands retain the full 1.8 mm lip projection for five 0.24 mm layers before the insertion nose. Each is 8 mm wide and attached to the 1.3 mm stem. The native slice retains the full 3.10–3.115 mm stem-plus-lip section for those five layers and supplies a support interface beneath each square bearing face. Printed edge finish is a physical coupon reading.
-click: x=-47.450 y=-9.100 z=-2.500
-click: x=47.450 y=-9.100 z=-2.500
+[sliver] These strips are the 0.48 mm raised artwork sidewalls. In the accepted face-up print they span two ordinary 0.24 mm layers on the 0.72 mm embedded ink base; the print has physically accepted lettering, logo and QR. The strip height is not an isolated minimum wall thickness.
+click: x=42.434 y=3.600 z=-12.500
+click: x=-43.381 y=3.600 z=3.848
+click: x=-27.981 y=3.600 z=3.848
+click: x=-27.981 y=3.600 z=-11.550
+click: x=-27.981 y=3.600 z=-3.847
+click: x=-43.381 y=3.600 z=11.550
+click: x=-27.981 y=3.600 z=11.550
+click: x=-31.831 y=3.600 z=7.700
+click: x=-31.831 y=3.600 z=-7.700
+click: x=-47.231 y=3.600 z=7.700
+click: x=-39.529 y=3.600 z=7.700
+click: x=-24.131 y=3.600 z=7.700
+click: x=-24.131 y=3.600 z=-7.700
+click: x=13.541 y=3.600 z=8.419
+click: x=12.588 y=3.600 z=-8.435
+click: x=0.300 y=3.600 z=8.419
+click: x=-5.145 y=3.600 z=-8.435
+click: x=-7.452 y=3.600 z=-8.435
+click: x=-13.373 y=3.600 z=-8.435
+click: x=-14.558 y=3.600 z=-8.435
+click: x=-8.581 y=3.600 z=-8.435
+click: x=-6.226 y=3.600 z=-8.435
+click: x=-0.881 y=3.600 z=8.419
+click: x=-0.393 y=3.600 z=-8.435
+click: x=6.006 y=3.600 z=8.419
+click: x=18.294 y=3.600 z=8.419
+click: x=18.294 y=3.600 z=-8.435
+click: x=6.162 y=3.600 z=-0.042
+click: x=-25.233 y=3.600 z=7.700
+click: x=-25.233 y=3.600 z=-7.700
+click: x=-40.635 y=3.600 z=7.700
+click: x=-43.381 y=3.600 z=10.450
+click: x=-27.981 y=3.600 z=10.450
+click: x=-29.081 y=3.600 z=-2.754
+click: x=-27.981 y=3.600 z=-4.954
+click: x=-27.981 y=3.600 z=-10.444
+click: x=-44.481 y=3.600 z=1.655
+click: x=-43.381 y=3.600 z=4.952
+click: x=-27.981 y=3.600 z=4.952
+click: x=-46.128 y=3.600 z=7.700
+click: x=-30.731 y=3.600 z=7.700
+click: x=-30.731 y=3.600 z=-7.700
+click: x=26.591 y=3.600 z=-0.291
+click: x=-3.117 y=3.600 z=5.468
+click: x=-16.795 y=3.600 z=-11.386
+click: x=-42.836 y=3.600 z=-3.855
+click: x=-3.045 y=3.600 z=11.370
+click: x=-16.723 y=3.600 z=-5.484
+click: x=-9.730 y=3.600 z=-9.290
+click: x=-12.224 y=3.600 z=-7.544
+click: x=37.638 y=3.600 z=-10.465
+click: x=47.231 y=3.600 z=-10.465
 
-[sliver] These are the ends of the two integral 1.3 mm PET-GF stems. Each is 8 mm wide, 11.3 mm long and rooted to the plate with a 1 mm inner fillet. The native slice retains both complete 1.3 mm stem sections. They are intentional flexures; physical insertion force and retention are established with the receiver coupon.
-click: x=-45.000 y=-11.300 z=-2.500
-click: x=45.000 y=-11.300 z=-2.500
+[step] All artwork is intentionally 0.48 mm proud of the flat black face. This is the accepted raised logo, lettering and QR, with the shared embedded colour volume beneath it. The step is the visible relief, not mismatched mating surfaces.
+click: x=41.410 y=3.840 z=2.296
+
+[sliver] This 1.225 mm top-face strip is a letter stroke, printed on its complete embedded ink base and the surrounding plate. It is wider than two 0.4 mm nozzle paths and is part of the physically accepted face-up lettering.
+click: x=-6.839 y=3.840 z=-8.435

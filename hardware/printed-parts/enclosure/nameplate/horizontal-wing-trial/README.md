@@ -56,8 +56,8 @@ its width and slope stay fixed.
 The retaining lip is 1.23 mm thick over the flat bearing.
 
 `wing_interface.py` supplies the reusable wall cutter. The [physical acceptance](physical-acceptance.json)
-qualifies this receiver with the existing flat nameplate. Full-enclosure integration
-remains pending. Its mouth and slots establish the locating clearances.
+qualifies this receiver with the existing flat nameplate. The full back-top integration is prepared with a local PSU backing relief; its
+print is on hold in [accepted-fit-integration](../../enclosure/accepted-fit-integration/README.md). Its mouth and slots establish the locating clearances.
 
 ## Verification and printing
 

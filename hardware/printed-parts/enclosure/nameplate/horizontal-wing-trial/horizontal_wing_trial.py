@@ -23,7 +23,7 @@ def print_pose(shape):
 
 def main(*, receiver_only=False):
     blank,fixture = interface.blank(),interface.receiver()
-    original = plate.build_ink(1).translate((0,interface.THICK-plate.THICK,0))
+    original = plate.build_inlay(1).translate((0,interface.THICK-plate.THICK,0))
     black = blank.cut(original).clean()
     white = cq.Compound.makeCompound([s.fuse(s.translate((0,ARTWORK_RISE,0))).clean()
                                       for s in original.Solids()])

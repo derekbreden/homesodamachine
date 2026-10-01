@@ -1,0 +1,70 @@
+{
+  "pass": true,
+  "observed_at_utc": "2026-10-01T01:44:48.728413+00:00",
+  "artifacts": [
+    {
+      "url": "https://homesodamachine.com/steps/printed-parts/enclosure/enclosure/enclosure-front-top.step?v=dfdf27c85665d67d",
+      "local_path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+      "expected_sha256": "dfdf27c85665d67d4cca95ec3d4f6f1de273b382ae18c89667cee75a9bf95922",
+      "served_sha256": "dfdf27c85665d67d4cca95ec3d4f6f1de273b382ae18c89667cee75a9bf95922",
+      "bytes": 1905045,
+      "pass": true
+    },
+    {
+      "url": "https://homesodamachine.com/meshes/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh?v=3b673d8cdd035503",
+      "local_path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
+      "expected_sha256": "3b673d8cdd03550372f73494357a01c3f41ac36e2878a12b995664284e35fe78",
+      "served_sha256": "3b673d8cdd03550372f73494357a01c3f41ac36e2878a12b995664284e35fe78",
+      "bytes": 2454940,
+      "pass": true
+    },
+    {
+      "url": "https://homesodamachine.com/steps/printed-parts/enclosure/enclosure/enclosure-back-top.step?v=5b6a425fe40d0d6d",
+      "local_path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+      "expected_sha256": "5b6a425fe40d0d6d78dd6905d66154e144c4e3c645cf2534f6fe6006acc72158",
+      "served_sha256": "5b6a425fe40d0d6d78dd6905d66154e144c4e3c645cf2534f6fe6006acc72158",
+      "bytes": 2754476,
+      "pass": true
+    },
+    {
+      "url": "https://homesodamachine.com/meshes/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh?v=1e1997ec86eb469b",
+      "local_path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
+      "expected_sha256": "1e1997ec86eb469b36ec11a9fa7b69d52cf9c2797f641f0b9ca546563a5fb99a",
+      "served_sha256": "1e1997ec86eb469b36ec11a9fa7b69d52cf9c2797f641f0b9ca546563a5fb99a",
+      "bytes": 4560804,
+      "pass": true
+    },
+    {
+      "url": "https://homesodamachine.com/steps/printed-parts/enclosure/display-cover/display-cover.step?v=d7fcac751e931d6d",
+      "local_path": "hardware/printed-parts/enclosure/display-cover/display-cover.step",
+      "expected_sha256": "d7fcac751e931d6d364228ee19f03f8ce337a925b682d16411c09fe0f6c2762f",
+      "served_sha256": "d7fcac751e931d6d364228ee19f03f8ce337a925b682d16411c09fe0f6c2762f",
+      "bytes": 111056,
+      "pass": true
+    },
+    {
+      "url": "https://homesodamachine.com/meshes/printed-parts/enclosure/display-cover/display-cover.step.mesh?v=25f1bf07708b5f47",
+      "local_path": "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh",
+      "expected_sha256": "25f1bf07708b5f473097f90932ef7a98e7f92c59a6e21b264f70f88c594e96a9",
+      "served_sha256": "25f1bf07708b5f473097f90932ef7a98e7f92c59a6e21b264f70f88c594e96a9",
+      "bytes": 111720,
+      "pass": true
+    },
+    {
+      "url": "https://homesodamachine.com/steps/printed-parts/enclosure/nameplate/nameplate-001.step?v=57f3190210e89e9c",
+      "local_path": "hardware/printed-parts/enclosure/nameplate/nameplate-001.step",
+      "expected_sha256": "57f3190210e89e9c1bedf9139fc2c1f28377e6b2de6283956362a7cae64bb57c",
+      "served_sha256": "57f3190210e89e9c1bedf9139fc2c1f28377e6b2de6283956362a7cae64bb57c",
+      "bytes": 5281285,
+      "pass": true
+    },
+    {
+      "url": "https://homesodamachine.com/meshes/printed-parts/enclosure/nameplate/nameplate-001.step.mesh?v=35b53a55204df4a5",
+      "local_path": "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh",
+      "expected_sha256": "35b53a55204df4a5d2f3e01fb672d2a34988cfa06f1dffdb807bf2d14ed45845",
+      "served_sha256": "35b53a55204df4a5d2f3e01fb672d2a34988cfa06f1dffdb807bf2d14ed45845",
+      "bytes": 394320,
+      "pass": true
+    }
+  ]
+}

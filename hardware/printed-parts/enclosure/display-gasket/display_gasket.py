@@ -42,7 +42,7 @@ corner_r = display_corner_r
 # the display plane, less where the plate's underside sits. `glass_thickness` is the cover glass
 # standing proud of the display's own front face inside the bezel counterbore.
 glass_thickness = 1.0
-glass_face_depth = display_bezel_depth - glass_thickness      # [3 mm](GLASS_FACE_DEPTH)
+glass_face_depth = display_bezel_depth - glass_thickness      # [4.84 mm](GLASS_FACE_DEPTH)
 thickness = glass_face_depth - display_inset_depth            # [1 mm](THICKNESS)
 
 z_top = -display_inset_depth                                  # against the plate's underside

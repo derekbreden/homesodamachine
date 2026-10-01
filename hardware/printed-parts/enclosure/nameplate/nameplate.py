@@ -1,7 +1,7 @@
-"""104.53 × 38 mm horizontal nameplate, printed artwork-down in two-colour PET-GF.
+"""104.53 × 38 mm horizontal nameplate, printed face up in two-colour PET-GF.
 
-The body and flush white artwork share a flat show face. Two integral tabs
-project from the back into rigid shoulders in enclosure-back-top. The origin
+All white artwork rises 0.48 mm above the flat black face. Two horizontal
+wings share the flat back and enter side pockets in enclosure-back-top. The origin
 is the back of the plate; +Y points out of the enclosure, +Z up, and text reads
 along -X when viewed from outside.
 
@@ -36,11 +36,13 @@ from _cadq_export import export_assembly, export_step, _write_mesh_payload, _per
 from _materials import M_PETGF_BLACK, one_body, step_safe
 from docgen import substitute_md
 import _nameplate_interface as interface
+import _nameplate_wing_interface as wing_interface
 import _nameplate_dimensions as _plan
 
 WIDTH = interface.WIDTH
 HEIGHT = interface.HEIGHT
-THICK = interface.THICK
+THICK = wing_interface.THICK
+ARTWORK_RISE = .48
 CORNER_R = interface.CORNER_R
 BEVEL = interface.BEVEL
 SLIP = interface.SLIP
@@ -171,31 +173,26 @@ def build_qr(unit):
 
 
 @lru_cache(maxsize=4)
-def build_ink(unit):
+def build_inlay(unit):
     logo = _place(_upright(build_logo()), WIDTH/2-LOGO_LEFT, 0)
     return cq.Compound.makeCompound([logo, build_name(), build_qr(unit)])
 
 
+@lru_cache(maxsize=4)
+def build_ink(unit):
+    return cq.Compound.makeCompound([
+        s.fuse(s.translate((0,ARTWORK_RISE,0))).clean()
+        for s in build_inlay(unit).Solids()])
+
+
 @lru_cache(maxsize=1)
 def blank_plate():
-    body = (cq.Workplane("XY").rect(WIDTH, HEIGHT).extrude(THICK)
-            .edges("|Z").fillet(CORNER_R).faces("<Z").chamfer(BEVEL).val()
-            .rotate((0,0,0), (1,0,0), -90))
-    body = body.fuse(*interface.tabs()).clean()
-    # Round the two inner roots where flexure is highest. The outer roots
-    # retain their full section against the straight receiving slot.
-    roots = [e for e in body.Edges()
-             if abs(e.Center().y) < 1e-6
-             and abs(abs(e.Center().x)-(interface.TAB_X-interface.TAB_THICK/2)) < 1e-5
-             and abs(e.Length()-interface.TAB_WIDTH) < 1e-5]
-    if len(roots) != 2:
-        raise ValueError(f"Expected two tab roots, found {len(roots)}")
-    return body.fillet(interface.TAB_ROOT_R, roots).clean()
+    return wing_interface.blank()
 
 
 @lru_cache(maxsize=4)
 def build_plate(unit):
-    return blank_plate().cut(build_ink(unit)).clean()
+    return blank_plate().cut(build_inlay(unit)).clean()
 
 
 def _filament(rgb):
@@ -218,15 +215,12 @@ def split(shape):
 
 
 def print_pose(shape):
-    """Put the show face at bed Z=0 with the two tabs pointing upward."""
-    return shape.rotate((0,0,0), (1,0,0), 90).rotate((0,0,0), (1,0,0), 180).translate((0,0,THICK))
+    """The full plate back and both horizontal wings lie on the bed."""
+    return shape.rotate((0,0,0),(1,0,0),90).rotate((0,0,0),(0,0,1),180)
 
 
 def build_receiver():
-    """A pocket-and-shoulders fit coupon using the production enclosure cutter."""
-    shell = interface.box(-WIDTH/2-4, WIDTH/2+4, THICK-3, THICK,
-                          -HEIGHT/2-4, HEIGHT/2+4)
-    return interface.apply(shell, interface.station(0,0), THICK).clean()
+    return wing_interface.receiver()
 
 
 def step_path(unit):
@@ -234,50 +228,33 @@ def step_path(unit):
 
 
 def selftest():
-    body, ink = build_plate(1), build_ink(1)
-    receiver = build_receiver()
-    assert body.isValid() and len(body.Solids()) == 1
-    assert receiver.isValid() and len(receiver.Solids()) == 1
+    body,ink=build_plate(1),build_ink(1)
+    receiver=build_receiver()
+    assert body.isValid() and len(body.Solids())==1
+    assert receiver.isValid() and len(receiver.Solids())==1
     assert all(s.isValid() for s in ink.Solids())
-    assert body.intersect(ink).Volume() < 1e-6
-    assert body.intersect(receiver).Volume() < 1e-6
-    assert abs(body.Volume()+ink.Volume()-blank_plate().Volume()) < 1e-5
-    # The face seats at the pocket floor; it cannot travel farther inward.
-    assert body.translate((0,-.1,0)).intersect(receiver).Volume() > 1
-    # Outward travel stops at the lips, after their known bearing clearance.
-    assert body.translate((0,interface.BEARING_SLIP+.1,0)).intersect(receiver).Volume() > .1
-    # Deflected-tab clearance through the complete insertion stroke. This
-    # geometric sweep does not estimate force or qualify PET-GF strain.
-    for side,tab in zip((-1,1),interface.tabs()):
-        slope = side*(interface.LIP-interface.SIDE_SLIP+.01)/interface.LIP_START
-        bent = tab.transformGeometry(cq.Matrix([[1,slope,0,0],[0,1,0,0],
-                                                [0,0,1,0],[0,0,0,1]]))
-        for half_mm in range(math.ceil(interface.TAB_LENGTH*2)+2):
-            assert bent.translate((0,half_mm*.5,0)).intersect(receiver).Volume() < 1e-6
-    for unit in (1, 27, 9999):
-        assert len(qr_matrix(unit)) == 21
-        assert all(len(row) == 21 for row in qr_matrix(unit))
-    # Full quiet-zone margins, with no mark or letter reaching into that field.
-    quiet = interface.box(WIDTH/2-QR_LEFT-QR_ACTIVE-QR_QUIET,
-                          WIDTH/2-QR_LEFT+QR_QUIET, THICK-INK_DEPTH,THICK,
-                          -QR_ACTIVE/2-QR_QUIET, QR_ACTIVE/2+QR_QUIET)
-    assert build_name().intersect(quiet).Volume() < 1e-6
-    assert QR_LEFT+QR_ACTIVE+QR_QUIET <= WIDTH
-    assert QR_TOP >= QR_QUIET
-    posed = print_pose(cq.Compound.makeCompound([body, ink]))
-    assert abs(posed.BoundingBox().zmin) < 1e-6
-    bed = [f for f in posed.Faces() if abs(f.Center().z)<1e-6
-           and abs(abs(f.normalAt().z)-1)<1e-6]
-    area = WIDTH*HEIGHT-(4-math.pi)*CORNER_R**2
-    assert abs(sum(f.Area() for f in bed)-area) < 1e-4
-    print(json.dumps({"valid_body":True, "valid_receiver":True,
-                      "body_receiver_overlap_mm3":body.intersect(receiver).Volume(),
-                      "bed_contact_mm2":round(area,3),
-                      "lip_engagement_mm":interface.LIP-interface.SIDE_SLIP,
-                      "bearing_clearance_mm":interface.BEARING_SLIP,
-                      "insertion_sweep":f"{math.ceil(interface.TAB_LENGTH*2)+2} poses per tab; no interference",
-                      "qr":"version 1 / M / 21x21 / 1.1 mm modules",
-                      "payload":_plan.unit_url(1)}, indent=2))
+    assert body.intersect(ink).Volume()<1e-6
+    exterior=body.fuse(*ink.Solids()).clean()
+    assert exterior.intersect(receiver).Volume()<1e-6
+    assert exterior.translate((0,-.1,0)).intersect(receiver).Volume()>1
+    assert exterior.translate((0,wing_interface.THICKNESS_AIR+.1,0)).intersect(receiver).Volume()>1
+    for unit in (1,27,9999):
+        assert len(qr_matrix(unit))==21 and all(len(row)==21 for row in qr_matrix(unit))
+    quiet=interface.box(WIDTH/2-QR_LEFT-QR_ACTIVE-QR_QUIET,
+                        WIDTH/2-QR_LEFT+QR_QUIET,THICK-INK_DEPTH,THICK+ARTWORK_RISE,
+                        -QR_ACTIVE/2-QR_QUIET,QR_ACTIVE/2+QR_QUIET)
+    assert build_name().intersect(quiet).Volume()<1e-6
+    assert QR_LEFT+QR_ACTIVE+QR_QUIET<=WIDTH and QR_TOP>=QR_QUIET
+    posed=print_pose(exterior)
+    assert abs(posed.BoundingBox().zmin)<1e-6
+    assert len(ink.Solids())==29
+    assert all(abs(s.BoundingBox().ymax-THICK-ARTWORK_RISE)<1e-6 for s in ink.Solids())
+    bed_area=sum(f.Area() for f in posed.Faces() if abs(f.Center().z)<1e-6
+                 and f.geomType()=='PLANE' and abs(f.normalAt().z)>.999)
+    assert bed_area>WIDTH*HEIGHT
+    print(json.dumps({'valid_body':True,'valid_receiver':True,'bed_contact_mm2':bed_area,
+                      'wing_thickness_gap_mm':wing_interface.THICKNESS_AIR,
+                      'artwork_rise_mm':ARTWORK_RISE,'payload':_plan.unit_url(1)},indent=2))
     return 0
 
 
@@ -288,7 +265,8 @@ def main(unit):
     export_assembly(part, str(step_path(unit)))
     # A single-material STL records the physical exterior. The STEP/3MF retain
     # the two colour volumes; the viewer payload keeps those colours too.
-    export_step(blank_plate(), str(step_path(unit).with_suffix(".stl")))
+    export_step(build_plate(unit).fuse(*build_ink(unit).Solids()).clean(),
+                str(step_path(unit).with_suffix(".stl")))
     if not os.environ.get("HSM_SKIP_MESH_PAYLOAD"):
         _write_mesh_payload(step_path(unit), _per_solid_color(part))
     if unit == 1:
@@ -309,7 +287,7 @@ def main(unit):
                  "BAR_FRAME":f"{interface.BAR_FRAME:g} mm",
                  "POCKET_FLOOR":f"{WALL-THICK:g} mm"}
     substitute_md(_here.with_name("README.md"), variables=variables)
-    print(f"Nameplate {unit:04d}: {WIDTH:g} × {HEIGHT:g} × {THICK:g} mm; face-down PET-GF")
+    print(f"Nameplate {unit:04d}: {WIDTH:g} × {HEIGHT:g} × {THICK:g} mm; face-up PET-GF")
     print(f"QR: {_plan.unit_url(unit)}, version 1/M, 21×21 modules at {QR_MODULE:g} mm")
 
 def _icon_xy(p, scale):

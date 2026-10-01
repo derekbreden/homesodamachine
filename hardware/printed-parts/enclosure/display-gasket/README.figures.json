@@ -3,11 +3,11 @@
     "CORNER_R": "2.5 mm",
     "GASKET_OUTER_X": "113.5 mm",
     "GASKET_RING_W": "3 mm",
-    "GLASS_FACE_DEPTH": "3 mm",
+    "GLASS_FACE_DEPTH": "4.84 mm",
     "INNER_SLOPE": "71 mm",
     "INNER_X": "107.5 mm",
     "OUTER_SLOPE": "77 mm",
-    "PLATE_UNDERSIDE": "2 mm",
+    "PLATE_UNDERSIDE": "3.84 mm",
     "THICKNESS": "1 mm"
   }
 }

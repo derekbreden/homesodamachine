@@ -1,0 +1,16 @@
+{
+  "pass": true,
+  "source_stl_sha256": "1ea22056e0f623bca718392d41d3ea21ad215d2a9fe72e0a5da9aa7326e0b9cf",
+  "front_top_display_receiver": "Accepted dimensions and open downward support exits preserved.",
+  "show_round_supports": "All support bodies end at print Z185.72, below the first roof show curve at187.392. Includes eleven unlabelled bodies.",
+  "removal_access": "Bay trees and display-storey trees leave through their open storey mouths before components are installed. Wing-pocket support exits are cut down to the display-storey floor. Existing rail ribbons have exposed flanks.",
+  "changed_wing_supports": {
+    "trees": [
+      "tree-4",
+      "tree-16"
+    ],
+    "root_z_mm": 125.036,
+    "removal": "Remove from the empty display storey through the cut print-down exits. Mating pocket ceilings retain tree support."
+  },
+  "physical_removal_verified": false
+}
