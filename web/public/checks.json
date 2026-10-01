@@ -11,6 +11,11 @@
       "status": "ok"
     },
     {
+      "check": "hardware/scripts/check_enclosure_mating_clearance.py",
+      "note": "}",
+      "status": "ok"
+    },
+    {
       "check": "hardware/scripts/check_facts_current.py",
       "note": "tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py",
       "status": "red"
@@ -62,12 +67,12 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 4690 tracked, 546 fetched solids, 55 tags, 39 site routes",
+      "note": "paths: every reference lands — 4711 tracked, 546 fetched solids, 55 tags, 39 site routes",
       "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 440 of 1000 free, the next cut wants 401, and the whole pointer file reads by name in 21.8 MB against 175.8 MB of bundle",
+      "note": "check_release_room: 439 of 1000 free, the next cut wants 401, and the whole pointer file reads by name in 21.8 MB against 175.8 MB of bundle",
       "status": "ok"
     },
     {
