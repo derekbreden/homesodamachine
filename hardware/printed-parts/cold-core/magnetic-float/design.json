@@ -10,11 +10,12 @@
     "insert_height": 10.0,
     "insert_top": 57.0,
     "insert_bottom": 47.0,
-    "magnet_seat": 43.825,
+    "magnet_seat": 43.6,
     "roof_bottom": 57.0,
-    "magnet_pocket_od": 19.05,
-    "magnet_pocket_id": 9.525,
-    "magnet_pocket_height": 3.175,
+    "magnet_pocket_od": 19.35,
+    "magnet_pocket_id": 9.225,
+    "magnet_pocket_height": 3.4,
+    "aero_lower_lead_in": 0.5,
     "insert_od": 30.0,
     "insert_id": 8.4
   },
@@ -29,56 +30,59 @@
   },
   "volume_cc": {
     "body-petg": 24.869018348457168,
-    "body-aero": 27.984677800190685,
-    "insert-aero": 6.514406526483795,
+    "body-aero": 27.87571731632207,
+    "insert-aero": 6.499326881746564,
     "magnet": 0.6787109163380148
   },
   "water_displacement_g": 60.04681359146966,
+  "petg_material": "Bambu PETG Translucent Clear 32101",
   "petg_density_g_cc": 1.25,
   "buoyancy": [
     {
       "aero_density_g_cc": 0.46,
-      "assembled_mass_g": 52.045851725841715,
-      "reserve_lift_g": 8.000961865627943,
-      "upright_freeboard_mm": 8.002718893944444
+      "assembled_mass_g": 51.98879326668303,
+      "reserve_lift_g": 8.058020324786625,
+      "upright_freeboard_mm": 8.05978988326264
     },
     {
       "aero_density_g_cc": 0.53,
-      "assembled_mass_g": 54.46078762870893,
-      "reserve_lift_g": 5.586025962760729,
-      "upright_freeboard_mm": 5.58725266599443
+      "assembled_mass_g": 54.39504636054784,
+      "reserve_lift_g": 5.65176723092182,
+      "upright_freeboard_mm": 5.653008371078438
     },
     {
       "aero_density_g_cc": 0.55,
-      "assembled_mass_g": 55.15076931524243,
-      "reserve_lift_g": 4.896044276227229,
-      "upright_freeboard_mm": 4.897119458008701
+      "assembled_mass_g": 55.082547244509215,
+      "reserve_lift_g": 4.964266346960443,
+      "upright_freeboard_mm": 4.965356510454376
     },
     {
       "aero_density_g_cc": 0.6,
-      "assembled_mass_g": 56.87572353157614,
-      "reserve_lift_g": 3.1710900598935154,
-      "upright_freeboard_mm": 3.171786438044416
+      "assembled_mass_g": 56.80129945441264,
+      "reserve_lift_g": 3.2455141370570146,
+      "upright_freeboard_mm": 3.2462268588942367
     },
     {
       "aero_density_g_cc": 0.65,
-      "assembled_mass_g": 58.60067774790987,
-      "reserve_lift_g": 1.4461358435597873,
-      "upright_freeboard_mm": 1.4464534180801156
+      "assembled_mass_g": 58.52005166431607,
+      "reserve_lift_g": 1.5267619271535864,
+      "upright_freeboard_mm": 1.5270972073340967
     },
     {
       "aero_density_g_cc": 0.7,
-      "assembled_mass_g": 60.3256319642436,
-      "reserve_lift_g": -0.27881837277394084,
-      "upright_freeboard_mm": -0.2788796018841843
+      "assembled_mass_g": 60.2388038742195,
+      "reserve_lift_g": -0.19199028274984187,
+      "upright_freeboard_mm": -0.19203244422604307
     }
   ],
-  "neutral_aero_density_g_cc": 0.6919180935315911,
-  "nominal_unfilled_volume_cc": 0.0,
+  "neutral_aero_density_g_cc": 0.6944148353193788,
+  "nominal_unfilled_volume_cc": 0.12404012860584146,
   "aero_material": "Bambu ASA Aero White 46100",
   "core_print_fit_allowance_radial_mm": 0.05,
   "insert_print_fit_allowance_radial_mm": 0.05,
-  "minimum_seated_magnet_top_to_roof_bottom_mm": 9.9,
-  "fit": "Nominal seated faces touch. Each separately printed Aero piece has 0.05 mm radial contour expansion and bore reduction. Magnet tolerance is taken in the Aero pocket.",
+  "minimum_seated_magnet_top_to_roof_bottom_mm": 10.124999999999998,
+  "magnet_pocket_minimum_compensated_radial_clearance_mm": 0.05000000000000035,
+  "magnet_pocket_minimum_depth_clearance_mm": 0.12500000000000008,
+  "fit": "The Aero pieces have 0.5 mm lower outer/bore lead-ins and 0.05 mm radial contour expansion and bore reduction on their straight lands. The RC62 seats in a clearance pocket below the insert. The insert top supports the full roof. Intentional unfilled volume comprises lower lead-ins and magnet-pocket clearance.",
   "pressure_rating": "Unqualified prototype; no hydrostatic test recorded."
 }

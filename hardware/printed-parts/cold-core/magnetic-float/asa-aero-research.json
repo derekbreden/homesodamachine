@@ -10,16 +10,17 @@
     "h2c_preset": "https://github.com/bambulab/BambuStudio/blob/master/resources/profiles/BBL/filament/Bambu%20ASA-Aero%20%40BBL%20H2C%200.4%20nozzle.json"
   },
   "inputs_sha256": {
-    "hardware/printed-parts/cold-core/magnetic-float/design.json": "f7a4f113a936608a93d38192dec2e938a1e92158a25e65a6c8d58837c6899fbc",
+    "hardware/printed-parts/cold-core/magnetic-float/design.json": "3da591869317b109bcbbbe0b6b38500f7ded669255ef98cc67b44cceef946a4d",
     "hardware/printed-parts/cold-core/magnetic-float/body-petg.stl": "a5e3616e921769666c8c1314f57736e3b8d08b74bd4e2f93fc9a2a51c1f86095",
-    "hardware/printed-parts/cold-core/magnetic-float/body-aero.stl": "2c02ca291c7fa6c548858b8f1c4bd2aa33698d23aeb68893e62d30a411f11c20",
-    "hardware/printed-parts/cold-core/magnetic-float/insert-aero.stl": "aeb493faa61f500e5109a45d481660975844c5d5d6376841e5faf2365ff07ec4",
-    "hardware/printed-parts/cold-core/magnetic-float/magnetic-float.3mf": "d4987dd48b6cf5ec4ece0d7db7dada29e45430136a850efd01826aedd6a78292",
-    "hardware/printed-parts/cold-core/magnetic-float/magnetic-float-aero.3mf": "9eeec9f3b62ad08dee958015d8456c4ed39d6347fd3171b738ded95cccd04c9a",
+    "hardware/printed-parts/cold-core/magnetic-float/body-aero.stl": "63d12cbb501b629997a2462822df42a1f4f6bf20ee2806f2f6f310c1f7e72771",
+    "hardware/printed-parts/cold-core/magnetic-float/insert-aero.stl": "c69cdc552c1dec84dd0bd84972ed601667df8327b0388236eec63ea7d672b8c6",
+    "hardware/printed-parts/cold-core/magnetic-float/magnetic-float.3mf": "577346277dbda7ed878bec0564f1afa22b192db59cd54e7cfd208efd14d34729",
+    "hardware/printed-parts/cold-core/magnetic-float/magnetic-float-aero.3mf": "e96c4dd0efc977af36f902c1f8b1af1749f015dd9fb4ec91f26a1f341f003f9c",
     "hardware/printed-parts/cold-core/magnetic-float/petg-water-recipe.json": "91abd1755f1755fbcd6afbee4416e99d1f27b9675aedbb51417075a4b8a84c0c",
-    "hardware/printed-parts/cold-core/magnetic-float/pressure-analysis.json": "b7afcd197a382ae45a2237fa0cec5c9ad6213e5edb6a6d62a112d99e8adb2bdf",
-    "hardware/printed-parts/cold-core/magnetic-float/verification.json": "f457bd389c29eca0206a3c0e9b69cbe0c9205188c859304efea18c0c5990a743",
-    "hardware/printed-parts/cold-core/magnetic-float/print-profile.json": "3410df5d797ac98ec6b9e934e82a85bbd9d560c3bfe14e61ac0d55fc6778abae"
+    "hardware/printed-parts/cold-core/magnetic-float/pressure-analysis.json": "fe86dcb9015c7cfc3222b23f6d9d340db7058407c7f1c5d138e35b28cd156502",
+    "hardware/printed-parts/cold-core/magnetic-float/verification.json": "a6fbf14a1ef138664ca8dc6c23b348b480f3327368cc909ec0e1b1ba4eb00c9d",
+    "hardware/printed-parts/cold-core/magnetic-float/print-profile.json": "9f94e04b774a235aad06494e7087b6ab200e3a1a5a7786768eeedbe586618b4f",
+    "hardware/printed-parts/cold-core/magnetic-float/petg-translucent-recipe.json": "c041efc331583e689cf2c08398bbe8eb70d77f1936b3783a7deec82ac98f93d5"
   },
   "installed_asa_preset_files_sha256": {
     "machine/Bambu Lab H2C 0.4 nozzle.json": "54236b5f3eedf6c8468a9c3b921ecaabc04e1e3404f3d0239829fb81c3488491",
@@ -101,10 +102,11 @@
   "analytic_geometry": {
     "displacement_cm3": 60.04681359146966,
     "petg_cm3": 24.869018348457168,
-    "aero_cm3": 34.49908432667448,
-    "magnet_cm3": 0.678710916338015,
+    "aero_cm3": 34.375044198068636,
+    "magnet_cm3": 0.6787109163380148,
     "fixed_petg_and_magnet_mass_g": 36.17627293557146,
-    "neutral_core_density_g_cm3": 0.6919180935315911
+    "neutral_core_density_g_cm3": 0.6944148353193788,
+    "intentional_assembly_relief_cm3": 0.12404012860584146
   },
   "density_estimates": {
     "nominal_feed_mass_per_commanded_cm3": 0.5148,
@@ -115,49 +117,51 @@
   "buoyancy_sweep": [
     {
       "aero_density_g_cc": 0.46,
-      "assembled_mass_g": 52.045851725841715,
-      "reserve_lift_g": 8.000961865627943,
-      "upright_freeboard_mm": 8.002718893944444
+      "assembled_mass_g": 51.98879326668303,
+      "reserve_lift_g": 8.058020324786625,
+      "upright_freeboard_mm": 8.05978988326264
     },
     {
       "aero_density_g_cc": 0.53,
-      "assembled_mass_g": 54.46078762870893,
-      "reserve_lift_g": 5.586025962760729,
-      "upright_freeboard_mm": 5.58725266599443
+      "assembled_mass_g": 54.39504636054784,
+      "reserve_lift_g": 5.65176723092182,
+      "upright_freeboard_mm": 5.653008371078438
     },
     {
       "aero_density_g_cc": 0.55,
-      "assembled_mass_g": 55.15076931524243,
-      "reserve_lift_g": 4.896044276227229,
-      "upright_freeboard_mm": 4.897119458008701
+      "assembled_mass_g": 55.082547244509215,
+      "reserve_lift_g": 4.964266346960443,
+      "upright_freeboard_mm": 4.965356510454376
     },
     {
       "aero_density_g_cc": 0.6,
-      "assembled_mass_g": 56.87572353157614,
-      "reserve_lift_g": 3.1710900598935154,
-      "upright_freeboard_mm": 3.171786438044416
+      "assembled_mass_g": 56.80129945441264,
+      "reserve_lift_g": 3.2455141370570146,
+      "upright_freeboard_mm": 3.2462268588942367
     },
     {
       "aero_density_g_cc": 0.65,
-      "assembled_mass_g": 58.60067774790987,
-      "reserve_lift_g": 1.4461358435597873,
-      "upright_freeboard_mm": 1.4464534180801156
+      "assembled_mass_g": 58.52005166431607,
+      "reserve_lift_g": 1.5267619271535864,
+      "upright_freeboard_mm": 1.5270972073340967
     },
     {
       "aero_density_g_cc": 0.7,
-      "assembled_mass_g": 60.3256319642436,
-      "reserve_lift_g": -0.27881837277394084,
-      "upright_freeboard_mm": -0.2788796018841843
+      "assembled_mass_g": 60.2388038742195,
+      "reserve_lift_g": -0.19199028274984187,
+      "upright_freeboard_mm": -0.19203244422604307
     }
   ],
   "native_slice": {
-    "aero_g": 18.08531236152459,
+    "aero_g": 18.025937153178713,
     "petg_g": 31.501461991849492,
     "magnet_g": 5.09,
-    "assembled_mass_g": 54.676774353374086,
-    "reserve_lift_g": 5.370039238095572,
-    "upright_freeboard_mm": 5.371218510183168
+    "assembled_mass_g": 54.6173991450282,
+    "reserve_lift_g": 5.429414446441456,
+    "upright_freeboard_mm": 5.430606757451636
   },
   "pressure_evidence": "pressure-analysis.json",
-  "pressure_rating": "No physical float pressure test recorded."
+  "pressure_rating": "No physical float pressure test recorded.",
+  "petg_material": "Bambu PETG Translucent Clear 32101",
+  "petg_material_recipe": "petg-translucent-recipe.json"
 }
