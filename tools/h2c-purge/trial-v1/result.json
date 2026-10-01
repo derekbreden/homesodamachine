@@ -1,0 +1,38 @@
+{
+  "printer": "H2C",
+  "job_id": "1298050950",
+  "filename": "h2c-left-petgf-purge-v1.gcode.3mf",
+  "archive_sha256": "9d9f916f1027b62c4a7a101acf014322656e7cebcb762fe277fa0dcc171f6cc5",
+  "gcode_sha256": "e93131a07be97dd49e8f629911b8d67102039db93447caad236bb5ae74dae646",
+  "command_result": "FINISH",
+  "percent": 100,
+  "layers_printed": 0,
+  "print_error": 0,
+  "hms": [],
+  "finish_observed_utc": "2026-10-01T03:26:26.098428+00:00",
+  "stages_observed": [
+    74,
+    72,
+    4,
+    14
+  ],
+  "stages_observed_in_connect": [
+    "Homing toolhead",
+    "Finished"
+  ],
+  "connect_heater_targets_at_finish_c": {
+    "left_nozzle": 0,
+    "right_nozzle": 0,
+    "bed": 0,
+    "chamber": 0
+  },
+  "bed_heating_target_ever_positive_in_current_job_samples": false,
+  "material_ejection_observation": "pending user observation",
+  "tip_cleanliness_observation": "unobserved",
+  "idle_overload_prevention": "untested",
+  "notes": [
+    "Initial long-lived reader accumulated queued reports; published telemetry begins with the current job after draining that backlog.",
+    "Top-level nozzle_temper is not a reliable left-nozzle temperature on this dual-nozzle printer; final per-nozzle targets are verified through Connect.",
+    "Six minutes in archive metadata is an estimate, not measured slicer timing."
+  ]
+}
