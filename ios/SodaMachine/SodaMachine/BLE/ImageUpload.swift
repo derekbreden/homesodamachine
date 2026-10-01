@@ -215,6 +215,24 @@ extension BLEManager {
         while at + 4 <= payload.count { crcs.append(u32(at)); at += 4 }
         slots.crc = crcs
 
+        // A PICTURE ERASED OR REPLACED WHILE IT WAS BEING READ IS NOT COMING
+        // BACK. The board stops sending it; a read left waiting on it asks again
+        // forever, and every other missing face waits behind it. So the read is
+        // let go, here on the radio's queue where its state lives, before the
+        // reconcile below asks for whatever is missing now.
+        let now = slots
+        bleQueue.async { [weak self] in
+            guard let self, self.faceSlot >= 0 else { return }
+            let s = self.faceSlot
+            guard !now.isHeld(s) || (self.faceCrc != 0 && now.crc(of: s) != self.faceCrc) else { return }
+            self.say("faces: slot \(s) changed while it was read; letting it go")
+            self.faceSlot = -1
+            self.faceCrc = 0
+            self.facePixels = Data()
+            self.faceHave.removeAll()
+            self.faceReceived = 0
+        }
+
         onMain(linkGeneration) {
             self.imageSlots = slots
             self.current?.picturesReadAt = Date()
@@ -283,6 +301,7 @@ extension BLEManager {
                 self.say("faces: asking slot \(slot) crc \(String(crc, radix: 16))")
             }
             self.faceSlot = slot
+            if offset == 0 { self.faceCrc = crc }
             if offset == 0 {
                 self.facePixels = Data()
                 self.faceHave.removeAll()
@@ -386,13 +405,17 @@ extension BLEManager {
         guard faceReceived >= total else { return }
 
         let whole = facePixels
+        let asked = faceCrc
         facePixels = Data()
         faceHave.removeAll()
         faceReceived = 0
         faceSlot = -1
+        faceCrc = 0
         onMain(linkGeneration) {
             if let m = self.current, let face = ImageBundle.decode(whole, ImageBundle.sizes[0]) {
-                let crc = m.imageSlots.crc(of: slot)
+                // Filed under the picture that was asked for, not whatever the
+                // slot holds by the time the last frame lands.
+                let crc = asked != 0 ? asked : m.imageSlots.crc(of: slot)
                 m.saveFace(face, crc: crc)
                 m.faces[crc] = face         // observable: this is what redraws the tile
                 log.info("read back slot \(slot), \(total) bytes")

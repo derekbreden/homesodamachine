@@ -22,6 +22,8 @@ struct SodaMachineApp: App {
                 .onChange(of: scenePhase) { _, phase in
                     if phase == .active {
                         bleManager.handleReturnToForeground()
+                    } else if phase == .background {
+                        bleManager.handleEnterBackground()
                     }
                 }
         }
