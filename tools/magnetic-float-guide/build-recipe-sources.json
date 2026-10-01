@@ -1,0 +1,309 @@
+{
+  "schema_version": 1,
+  "title": "Magnetic float build recipe: preparation and thermal sources",
+  "checked_date": "2026-10-01",
+  "scope": "A direct build procedure for the PETG Translucent Clear 32101 envelope, ASA Aero core and insert, and preloaded RC62 magnet.",
+  "source_date_convention": "Material and drying entries carry their individual verification dates. Other entries retain the 2026-09-28 source check.",
+  "sources": [
+    {
+      "id": "bambu-drying",
+      "checked_date": "2026-10-01",
+      "title": "Bambu Lab: Filament Drying",
+      "url": "https://wiki.bambulab.com/en/filament-acc/filament/dry-filament",
+      "locator": "Appendix I, ASA Aero and PETG/PETG-CF rows; sections 1.2-1.4",
+      "retrieval": "Official HTML retrieved directly on 2026-10-01; local cache .cache/float-build-research/drying-20261001.html.",
+      "official_parameters": {
+        "asa_aero_ams_ht": {"temperature_c": 80, "duration_h": 8},
+        "petg_translucent_ams_2_pro": {"temperature_c": 65, "duration_h": 12, "basis": "PETG/PETG-CF family row"},
+        "asa_aero_ams_2_pro_drying": "Not compatible"
+      },
+      "source_statements": [
+        "Rotation drying requires withdrawing filament from the inlet; the listed static-mode exclusions do not include PETG or ASA Aero.",
+        "AMS HT drying uses its independent power cable.",
+        "Remove lower-temperature filament when drying hotter materials.",
+        "Print While Drying can reduce temperature; its PETG example uses 55 °C.",
+        "The 12-hour AMS cycle is distinct from the 8-hour forced-air-oven cycle on the PETG Translucent product page."
+      ]
+    },
+    {
+      "id": "bambu-petg-translucent-product",
+      "checked_date": "2026-10-01",
+      "title": "Bambu Lab: PETG Translucent",
+      "url": "https://bambulab-us.myshopify.com/products/petg-translucent",
+      "locator": "Clear (32101) variant; recommended printing settings; physical and mechanical properties",
+      "retrieval": "Official product JSON retrieved directly on 2026-10-01; local cache .cache/float-build-research/translucent-product-20261001.json.",
+      "official_parameters": {
+        "material": "Bambu PETG Translucent",
+        "color": "Clear",
+        "color_code": "32101",
+        "refill_sku": "G01-C0-1.75-1000-SPLFREE",
+        "ams_compatible": true,
+        "forced_air_drying_temperature_c": 65,
+        "forced_air_drying_duration_h": 8,
+        "printing_and_storage_rh_percent_max_exclusive": 20,
+        "nozzle_temperature_range_c": [230, 260],
+        "bed_temperature_range_c": [65, 75],
+        "density_g_cm3": 1.25,
+        "xy_bending_modulus_mpa": 1610,
+        "xy_bending_modulus_reported_variation_mpa": 130
+      }
+    },
+    {
+      "id": "bambu-petg-translucent-tds",
+      "checked_date": "2026-10-01",
+      "title": "Bambu Lab: PETG Translucent Technical Data Sheet V1.0",
+      "url": "https://cdn.shopify.com/s/files/1/0574/3116/2995/files/Bambu_PETG_Translucent_Technical_Data_Sheet.pdf?v=1704680051",
+      "locator": "Properties; Specimen Test",
+      "retrieval": "Manufacturer-linked PDF retrieved directly on 2026-10-01; local cache .cache/float-build-research/translucent-tds-20261001.pdf.",
+      "official_parameters": {
+        "density_g_cm3": 1.25,
+        "xy_youngs_modulus_mpa": 1420,
+        "xy_youngs_modulus_reported_variation_mpa": 160,
+        "xy_bending_modulus_mpa": 1610,
+        "xy_bending_modulus_reported_variation_mpa": 130,
+        "specimen_nozzle_temperature_c": 255,
+        "specimen_bed_temperature_c": 70,
+        "specimen_print_speed_mm_s": 150,
+        "specimen_infill_percent": 100,
+        "specimen_annealing_and_drying_temperature_c": 65,
+        "specimen_annealing_and_drying_duration_h": 8
+      },
+      "source_statements": [
+        "These are conditioned printed-specimen values, not measured properties of the float.",
+        "The manufacturer discourages annealing finished PETG Translucent prints because the property benefit is limited and distortion can occur."
+      ]
+    },
+    {
+      "id": "bambu-petg-translucent-guide",
+      "checked_date": "2026-10-01",
+      "title": "Bambu Lab: Printing tips for transparent PETG",
+      "url": "https://wiki.bambulab.com/en/knowledge-sharing/transparent-petg",
+      "locator": "Slicing and Printing Tips and Precautions",
+      "retrieval": "Official HTML retrieved directly on 2026-10-01; local cache .cache/float-build-research/translucent-guide-20261001.html.",
+      "source_statements": [
+        "Drying, increased temperature, moderate added flow and slower printing reduce bubbles and gaps.",
+        "Optical transparency also depends on model thickness and structure."
+      ],
+      "scope_note": "The float retains its sealing geometry and backed roof. The guide's optical-model changes to walls, skins and cooling are not the float recipe."
+    },
+    {
+      "id": "bambu-aero-guide",
+      "title": "Bambu Lab: ASA Aero Printing Guide",
+      "url": "https://wiki.bambulab.com/en/filament-acc/filament/asa-aero-printing-guide",
+      "locator": "Tips and Considerations for Slicing and Printing; default profiles",
+      "retrieval": "Official HTML cached at .cache/asa-aero-research/guide.html.",
+      "source_statements": [
+        "The guide recommends Engineering or Smooth PEI plates and glue; textured PEI can tear foamed parts during removal.",
+        "It recommends one object at a time to reduce travel-related stringing.",
+        "Use an enclosed printer in a well-ventilated area."
+      ]
+    },
+    {
+      "id": "bambu-aero-product",
+      "title": "Bambu Lab: ASA Aero product record",
+      "url": "https://bambulab-us.myshopify.com/products/asa-aero",
+      "locator": "Product 7967997853832, product.tags; White 46100 variant",
+      "retrieval": "Official product JSON cached at .cache/asa-aero-research/product.json.",
+      "exact_source_statement": "Compatible with AMS",
+      "source_statements": [
+        "The manufacturer product tag supports normal AMS feeding; it is separate from the drying-temperature compatibility table."
+      ]
+    },
+    {
+      "id": "bambu-aero-tds",
+      "title": "Bambu Lab: ASA Aero Technical Data Sheet",
+      "url": "https://wiki.bambulab.com/filament-acc/abs-asa-pc/bambu_asa_aero_technical_data_sheet.pdf",
+      "locator": "Specifications",
+      "official_parameters": {
+        "forced_air_drying_temperature_c": 80,
+        "forced_air_drying_duration_h": 8,
+        "printing_and_storage_rh_percent_max_exclusive": 20,
+        "original_spool_heat_resistance_c": 90
+      }
+    },
+    {
+      "id": "bambu-engineering-plate",
+      "title": "Bambu Lab: Engineering Plate troubleshooting guide",
+      "url": "https://wiki.bambulab.com/en/general/engineering-plate-not-working-as-expected",
+      "locator": "Introduction to engineering plate; Clean the printing surface",
+      "retrieval": "Official HTML retrieved directly on 2026-09-28; local cache .cache/float-build-research/engineering.html.",
+      "source_statements": [
+        "Bambu glue stick or liquid glue is recommended for the Engineering plate.",
+        "Clean with warm water, dish detergent and a basic sponge, then dry with a paper towel."
+      ]
+    },
+    {
+      "id": "bambu-pei-cleaning",
+      "title": "Bambu Lab: Textured PEI Plate Cleaning Guide",
+      "url": "https://wiki.bambulab.com/en/filament-acc/acc/pei-plate-clean-guide",
+      "locator": "Clean the printing surface",
+      "retrieval": "Official HTML retrieved directly on 2026-09-28; local cache .cache/float-build-research/pei.html.",
+      "source_statements": [
+        "Wash with dish detergent and a sponge or plastic brush, rinse and dry; handle the sheet by its edges.",
+        "Use detergent without oils or moisturizers."
+      ]
+    },
+    {
+      "id": "bambu-pei-release",
+      "title": "Bambu Lab: Textured PEI Plate",
+      "url": "https://us.store.bambulab.com/products/bambu-textured-pei-plate",
+      "locator": "Self-release when Cooled Down",
+      "retrieval": "Official product HTML retrieved directly on 2026-09-28; local cache .cache/float-build-research/textured-product.html.",
+      "exact_source_statement": "we always recommend waiting until it reaches 35℃ or lower",
+      "official_parameters": {"textured_pei_removal_temperature_c_max": 35},
+      "source_statements": [
+        "The spring sheet can be flexed to release a part after cooling."
+      ]
+    },
+    {
+      "id": "kj-rc62",
+      "title": "K&J Magnetics: RC62 N42 ring magnet",
+      "url": "https://www.kjmagnetics.com/rc62-neodymium-ring-magnet",
+      "locator": "RC62 Specifications",
+      "official_parameters": {
+        "magnetization": "Through thickness",
+        "maximum_operating_temperature_c": 80,
+        "outside_diameter_mm": 19.05,
+        "inside_diameter_nominal_in": 0.375,
+        "thickness_nominal_in": 0.125
+      }
+    },
+    {
+      "id": "littelfuse-mdsr7",
+      "title": "Littelfuse: MDSR-7 reed switch datasheet",
+      "url": "https://www.littelfuse.com/assetdocs/littelfuse_reed_switches_mdsr_7_datasheet.pdf?assetguid=8d0ebe17-0315-4316-87d3-e69a30fe1b54",
+      "locator": "Description; Switch Type",
+      "official_parameters": {"contact_form": "A (SPST-NO)"}
+    },
+    {
+      "id": "littelfuse-polarity",
+      "title": "Littelfuse: Measuring Reed Switch Sensitivity and Contact Resistance",
+      "url": "https://www.littelfuse.com/assetdocs/measuring-reed-switch-sensitivity-and-contact-resistance-application-note?assetguid=8f4108fc-20aa-4433-9413-59c331ae584b",
+      "locator": "Compensation for External Fields; Test Procedure",
+      "source_statements": [
+        "Littelfuse describes operating Form A reeds with both coil polarities and accounting for external magnetic-field bias."
+      ]
+    }
+  ],
+  "equipment_inventory": {
+    "references": [
+      "hardware/ledger/tools.md#3d-printing-equipment",
+      "hardware/ledger/purchases.md#13-printing-consumables",
+      "hardware/ledger/purchases.md#15-3d-printing-equipment-and-filaments-bambu-lab-direct",
+      "hardware/ledger/inventory.md"
+    ],
+    "available": [
+      "Bambu H2C printers: two acquired",
+      "AMS HT: two acquired, 85 °C ceiling",
+      "AMS 2 Pro: three recorded, 65 °C ceiling",
+      "H2C Engineering plate and Textured PEI plates acquired",
+      "Right 0.4 mm standard-flow hardened-steel induction hotends acquired",
+      "Left 0.6 mm standard-flow Bambu tungsten-carbide nozzle acquired",
+      "Bambu liquid glue acquired on 2026-03-23; purchases.md section 15",
+      "ASA Aero White 46100 and PETG Translucent Clear 32101 acquired; purchases.md section 15",
+      "K&J RC62 magnets acquired"
+    ],
+    "feed_mapping": {
+      "asa_aero": "AMS HT normal auto-feed path to the right extruder",
+      "petg_translucent_clear": "AMS 2 Pro normal auto-feed path to the left extruder",
+      "status": "Required setup for these projects; the inventory does not establish the currently connected hose assignments."
+    }
+  },
+  "material_and_recipe_evidence": {
+    "chosen_material": {
+      "name": "Bambu PETG Translucent Clear 32101",
+      "filament_id": "GFG01",
+      "studio_preset": "Bambu PETG Translucent @BBL H2C",
+      "studio_color": "#00000000",
+      "source_ids": ["bambu-petg-translucent-product", "bambu-petg-translucent-tds"],
+      "reservoir_reference": "hardware/printed-parts/cold-core/reservoir/reservoir.3mf",
+      "reservoir_project_parameters": {
+        "nozzle_initial_c": 250,
+        "nozzle_remaining_c": 245,
+        "flow_ratio": 0.97,
+        "maximum_volumetric_speed_mm3_s": 16
+      }
+    },
+    "historical_water_holding_evidence": {
+      "material": "Bambu PETG Basic, GFG00",
+      "custom_preset": "Bambu PETG Water",
+      "source_commit": "f25975cd045cc835eccf1a207cb12fe48dc63ada",
+      "source_project": "hardware/printed-parts/cold-core/reservoir/reservoir.3mf",
+      "extracted_recipe": "hardware/printed-parts/cold-core/magnetic-float/petg-water-recipe.json",
+      "result_reference": "hardware/printed-parts/cold-core/reservoir/print-log.md, attempt 3, 2026-05-30",
+      "evidence": "The recorded hours-long water hold belongs to the Basic material recipe. It is not a Translucent result."
+    },
+    "selected_float_process": "The float uses the reservoir's current Translucent Clear material, with sealing temperature, flow and low-cooling choices adapted from the recorded Basic recipe. Translucent's native 16 mm³/s volumetric ceiling is retained.",
+    "calculation_implications": "Use Translucent-specific material references. Its density remains 1.25 g/cm³. Its XY Young's modulus is 1420 MPa and its distinct XY flexural modulus is 1610 MPa; neither is a measured float allowable."
+  },
+  "decisions": [
+    {
+      "id": "drying-and-feed",
+      "classification": "manufacturer cycles with engineering workflow selection",
+      "source_ids": ["bambu-drying", "bambu-aero-product", "bambu-aero-tds", "bambu-petg-translucent-product"],
+      "selected": "Complete ASA Aero 80 °C × 8 h in AMS HT and PETG Translucent Clear 32101 65 °C × 12 h in AMS 2 Pro using static drying. Keep each spool in its sealed unit for normal feeding after drying.",
+      "engineering_reason": "Uses acquired equipment without a transfer or bypass path. Completing the cycle avoids depending on reduced-temperature drying during printing."
+    },
+    {
+      "id": "plate-preparation",
+      "classification": "manufacturer preparation with one owned adhesive selected",
+      "source_ids": ["bambu-engineering-plate", "bambu-pei-cleaning", "bambu-aero-guide"],
+      "selected": "Wash and dry both plates. Apply a thin even layer of the owned Bambu liquid glue to the Engineering plate for Aero. Print the PETG shell on clean Textured PEI using its supplied recipe.",
+      "engineering_reason": "Liquid glue is explicitly inventoried. The PETG plate choice follows the successful reservoir recipe."
+    },
+    {
+      "id": "aero-printing",
+      "classification": "manufacturer filament preset and guide process, with float-specific geometry settings",
+      "source_ids": ["bambu-aero-guide"],
+      "local_references": [
+        "hardware/printed-parts/cold-core/magnetic-float/magnetic-float-aero.3mf",
+        "hardware/printed-parts/cold-core/magnetic-float/print-profile.json"
+      ],
+      "selected": "Print core plate 1, then insert plate 2, at 270 °C nozzle, 90 °C Engineering bed, 60 °C chamber and 0.52 flow through the right 0.4 mm standard-flow nozzle. Keep the enclosure closed and run shop ventilation or extraction.",
+      "scope_note": "The supplied core uses solid foamed fill; that geometry setting is a project choice."
+    },
+    {
+      "id": "cooling-and-release",
+      "classification": "official PETG plate release temperature; conservative engineering threshold for Aero and changeover",
+      "source_ids": ["bambu-pei-release", "bambu-aero-guide"],
+      "selected": "Keep the enclosure closed for the initial Aero cooldown. Remove each finished part only at a bed temperature of 35 °C or lower, flexing the sheet gently. Before PETG, cool the chamber to 35 °C or lower.",
+      "scope_note": "Bambu explicitly specifies ≤35 °C for Textured PEI removal. Applying the same threshold to Aero on Engineering plate and to chamber changeover is our handling choice, not a manufacturer Aero specification. No fixed cooling duration is claimed."
+    },
+    {
+      "id": "magnet-preload-and-orientation",
+      "classification": "manufacturer component facts with engineering assembly inference",
+      "source_ids": ["kj-rc62", "littelfuse-mdsr7", "littelfuse-polarity"],
+      "selected": "Preload one room-temperature RC62 into the cooled core on the bench, with its flat faces horizontal and its hole coaxial with the core bore. Either flat face may face upward for the single-magnet, unbiased MDSR-7 arrangement.",
+      "scope_note": "Either-face-up follows the Form A reed's response to either field polarity. It does not imply identical thresholds in an externally biased field or specify an orientation for a different sensor."
+    },
+    {
+      "id": "petg-insertion-pause",
+      "classification": "local project parameters and engineering thermal handling",
+      "source_ids": ["kj-rc62", "bambu-petg-translucent-product", "bambu-petg-translucent-guide"],
+      "local_references": [
+        "hardware/printed-parts/cold-core/magnetic-float/magnetic-float.3mf",
+        "hardware/printed-parts/cold-core/magnetic-float/petg-water-recipe.json",
+        "hardware/printed-parts/cold-core/magnetic-float/print-profile.json"
+      ],
+      "selected": "Use left 0.6 mm standard-flow PETG Translucent Clear 32101 at 255/260 °C nozzle, 70 °C bed, 1.02 flow and a 16 mm³/s volumetric ceiling. Keep chamber heating off. At the programmed pause, leave the sheet mounted and the bed at 70 °C; insert the preloaded core and upper insert, remove the tool, close the enclosure and resume promptly.",
+      "scope_note": "The sealing overrides are an engineering adaptation from the historical Basic recipe, not a documented Translucent water-hold result. The project pauses with M400 U1; the printer manages nozzle temperature on resume. Room-temperature inserts and a ready tool shorten the pause."
+    },
+    {
+      "id": "finishing",
+      "classification": "engineering assembly choice",
+      "source_ids": ["kj-rc62", "bambu-pei-release", "bambu-petg-translucent-tds"],
+      "selected": "Trim brims and loose strings mechanically. Keep the foam dry. The finished assembly needs no glue joint, cure cycle, anneal or post-bake.",
+      "engineering_reason": "The printed closure and mechanical insert fit complete the assembly; the RC62 has an 80 °C service-temperature limit."
+    }
+  ],
+  "printable_steps": [
+    "Dry ASA Aero White in the AMS HT at 80 °C for 8 hours. Dry PETG Translucent Clear 32101 in the AMS 2 Pro at 65 °C for 12 hours. Run both overnight; leave the spools sealed in their units.",
+    "Fit the right 0.4 mm standard-flow induction nozzle and left 0.6 mm standard-flow nozzle. Connect ASA's AMS HT to the right feed and PETG's AMS 2 Pro to the left feed.",
+    "Wash and dry the Engineering plate. Apply a thin even layer of Bambu liquid glue. Open the Aero project and retain its supplied settings.",
+    "Print Aero plate 1, then plate 2: 270 °C nozzle, 90 °C bed, 60 °C chamber. Keep the enclosure closed and ventilation running. Cool each part to a bed temperature of 35 °C or below before release.",
+    "Trim the Aero brims and loose strings. Press one RC62 into the cooled core's magnet pocket on the bench. Lay out that core, the upper insert and the insertion tool.",
+    "Cool the chamber to 35 °C or below. Fit the clean dry Textured PEI plate. Open the PETG shell project, retain its supplied settings and start the shell.",
+    "At the programmed pause, keep the plate mounted and the bed at 70 °C. Seat the preloaded core and upper insert using the guide's tool sequence. Remove the tool, close the enclosure and resume promptly.",
+    "Let the closed float cool to a bed temperature of 35 °C or below. Flex the plate gently to release it, then remove its brim and loose strings."
+  ]
+}

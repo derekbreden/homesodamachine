@@ -1,0 +1,29 @@
+{
+  "title": "Magnetic float build guide",
+  "pages": [
+    "01-cover.html",
+    "02-the-whole-build.html",
+    "03-dry-the-filament.html",
+    "04-set-up-the-h2c.html",
+    "05-print-the-core.html",
+    "06-print-the-insert.html",
+    "07-prepare-the-foam.html",
+    "08-seat-the-magnet.html",
+    "09-prepare-for-petg.html",
+    "10-print-the-shell.html",
+    "11-lower-the-core.html",
+    "12-press-the-insert.html",
+    "13-print-the-roof.html",
+    "14-finish-the-float.html",
+    "15-bench-reference.html",
+    "16-files-and-sources.html"
+  ],
+  "recipe_sources": "../../tools/magnetic-float-guide/build-recipe-sources.json",
+  "inputs_sha256": {
+    "hardware/printed-parts/cold-core/magnetic-float/design.json": "3da591869317b109bcbbbe0b6b38500f7ded669255ef98cc67b44cceef946a4d",
+    "hardware/printed-parts/cold-core/magnetic-float/print-profile.json": "9f94e04b774a235aad06494e7087b6ab200e3a1a5a7786768eeedbe586618b4f",
+    "hardware/printed-parts/cold-core/magnetic-float/verification.json": "a6fbf14a1ef138664ca8dc6c23b348b480f3327368cc909ec0e1b1ba4eb00c9d",
+    "hardware/printed-parts/cold-core/magnetic-float/magnetic-float-aero.3mf": "e96c4dd0efc977af36f902c1f8b1af1749f015dd9fb4ec91f26a1f341f003f9c",
+    "hardware/printed-parts/cold-core/magnetic-float/magnetic-float.3mf": "577346277dbda7ed878bec0564f1afa22b192db59cd54e7cfd208efd14d34729"
+  }
+}

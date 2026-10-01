@@ -3,9 +3,9 @@
 Research checked 2026-09-28. [Calculation and preset evidence](asa-aero-research.json).
 
 **Bambu ASA Aero supports a buoyant float at the standard H2C filament settings.**
-The 36 × 60.06 mm float with its specified PETG shell has **4.90 g reserve lift**
+The 36 × 60.06 mm float with its specified PETG shell has **4.96 g reserve lift**
 at a working foam density of 0.55 g/cm³. The independently checked print paths
-predict **5.37 g reserve lift**. Both predictions assume an intact sealed shell
+predict **5.43 g reserve lift**. Both predictions assume an intact sealed shell
 at the intended external dimensions.
 
 ## Material and manufacturer recipe
@@ -73,29 +73,29 @@ The [CAD calculation](design.json) has:
 | Component | Volume | Mass basis |
 | --- | --- | --- |
 | Displaced water, open bore excluded | 60.0468 cm³ | 60.0468 g at 1.000 g/cm³ |
-| PETG shell | 24.8690 cm³ | 31.0863 g at 1.25 g/cm³ |
-| Aero core + insert | 34.4991 cm³ | Bulk foam density × volume |
+| PETG Translucent Clear shell | 24.8690 cm³ | 31.0863 g at 1.25 g/cm³ |
+| Aero core + insert | 34.3750 cm³ | Bulk foam density × volume |
 | RC62 magnet | 0.6787 cm³ | 5.09 g from [K&J](https://www.kjmagnetics.com/rc62-neodymium-ring-magnet) |
 
 ```text
-assembled mass = 36.1763 + 34.4991 × foam density       grams
+assembled mass = 36.1763 + 34.3750 × foam density       grams
 reserve lift   = 60.0468 − assembled mass              grams equivalent
 freeboard      = 60.06 × reserve lift / 60.0468         mm, upright
-neutral density = 0.691918 g/cm³
+neutral density = 0.694415 g/cm³
 ```
 
 | Foam density | Assembled mass | Reserve lift |
 | --- | --- | --- |
-| 0.46 g/cm³ | 52.05 g | 8.00 g |
-| 0.53 g/cm³ | 54.46 g | 5.59 g |
-| **0.55 g/cm³** | **55.15 g** | **4.90 g** |
-| 0.60 g/cm³ | 56.88 g | 3.17 g |
-| 0.65 g/cm³ | 58.60 g | 1.45 g |
-| 0.70 g/cm³ | 60.33 g | −0.28 g |
+| 0.46 g/cm³ | 51.99 g | 8.06 g |
+| 0.53 g/cm³ | 54.40 g | 5.65 g |
+| **0.55 g/cm³** | **55.08 g** | **4.96 g** |
+| 0.60 g/cm³ | 56.80 g | 3.25 g |
+| 0.65 g/cm³ | 58.52 g | 1.53 g |
+| 0.70 g/cm³ | 60.24 g | −0.19 g |
 
 The [native slice verification](verification.json) integrates object extrusion,
 including the press-fit compensation and ironing, while excluding brims/purge.
-It predicts 18.09 g Aero + 31.50 g PETG + 5.09 g magnet = **54.68 g**.
+It predicts 18.03 g Aero + 31.50 g PETG + 5.09 g magnet = **54.62 g**.
 The modeled PETG thickness, printing provenance and pressure loads are in
 [petg-shell.md](petg-shell.md).
 

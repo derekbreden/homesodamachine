@@ -61,6 +61,7 @@ services:
         # rather than in that pointer file, so a clone is what carries them and a deploy is what makes a
         # clone. It changes when a person redraws it, which is rarely.
         - hardware/weld-rotator-guide/**
+        - hardware/magnetic-float-guide/**
         # The owner quick start, frozen the same way: PDF, cover and
         # sidecar in git, so a clone carries them and a deploy is what makes a clone.
         - hardware/quickstart-codex/**

@@ -10,7 +10,7 @@ from pathlib import Path
 import xml.etree.ElementTree as ET
 
 import trimesh
-from shapely.geometry import LineString
+from shapely.geometry import LineString, Point
 from shapely.ops import unary_union
 import magnetic_float as m
 
@@ -48,7 +48,13 @@ def geometry():
     envelope = m.annulus(m.outer_radius, m.bore_radius, 0, m.height)
     interior = m.annulus(m.core_outer_radius, m.core_inner_radius, m.floor, m.roof_bottom)
     fill = parts['body-aero'].fuse(parts['insert-aero'], parts['magnet'])
-    assert interior.cut(fill).Volume() < 1e-6
+    allowed_voids = m.magnet_pocket().cut(parts['magnet'])
+    for bottom, top in ((m.floor, m.insert_bottom), (m.insert_bottom, m.insert_top)):
+        blank = m.annulus(m.core_outer_radius, m.core_inner_radius, bottom, top)
+        allowed_voids = allowed_voids.fuse(blank.cut(m.lead_in(blank)))
+    voids = interior.cut(fill)
+    assert voids.cut(allowed_voids).Volume() < 1e-6
+    assert allowed_voids.cut(voids).Volume() < 1e-6
     assert fill.cut(interior).Volume() < 1e-6
     assert envelope.cut(interior).cut(parts['body-petg']).Volume() < 1e-6
     for i, first in enumerate(parts.values()):
@@ -61,14 +67,29 @@ def geometry():
             assert parts[name].translate((0, 0, lift)).intersect(open_skin).Volume() < 1e-6, name
     maximum_magnet = m.annulus((m.magnet_od + m.magnet_tolerance) / 2,
                               (m.magnet_id - m.magnet_tolerance) / 2,
-                              m.magnet_seat, m.insert_bottom + m.magnet_tolerance)
+                              m.magnet_seat, m.magnet_seat + m.magnet_height + m.magnet_tolerance)
     assert maximum_magnet.intersect(open_skin).Volume() < 1e-6
+    assert maximum_magnet.intersect(parts['body-aero']).Volume() < 1e-6
+    assert maximum_magnet.intersect(parts['insert-aero']).Volume() < 1e-6
+    roof_support = m.annulus(m.core_outer_radius, m.core_inner_radius,
+                            m.roof_bottom - 0.02, m.roof_bottom)
+    assert roof_support.cut(parts['insert-aero']).Volume() < 1e-6
+    measurements = m.measurements(parts)
+    assert measurements['magnet_pocket_minimum_compensated_radial_clearance_mm'] >= 0.05 - 1e-6
+    assert measurements['magnet_pocket_minimum_depth_clearance_mm'] >= 0.125 - 1e-6
     return {'valid_solids': 4, 'meshes': meshes,
             'petg_thickness_mm': {'outer_wall': m.outer_wall, 'bore_wall': m.bore_wall,
                                   'floor': m.floor, 'roof': m.roof},
-            'nominal_unfilled_volume_cc': 0.0, 'nominal_material_overlap_cc': 0.0,
+            'nominal_unfilled_volume_cc': voids.Volume() / 1000,
+            'unfilled_volume_scope': 'Lower insertion chamfers and RC62 pocket clearance only.',
+            'nominal_material_overlap_cc': 0.0,
             'separate_core_insertion_clear': True, 'magnet_tolerance_clear_of_petg': True,
+            'magnet_tolerance_clear_of_aero': True,
+            'magnet_pocket_minimum_compensated_radial_clearance_mm': measurements['magnet_pocket_minimum_compensated_radial_clearance_mm'],
+            'magnet_pocket_minimum_depth_clearance_mm': measurements['magnet_pocket_minimum_depth_clearance_mm'],
             'insert_top_meets_roof_underside': m.insert_top == m.roof_bottom,
+            'insert_supports_full_roof_annulus': True,
+            'aero_lower_lead_in_mm': m.insertion_lead,
             'fit_allowances_radial_mm': {'body-aero': m.core_fit_allowance,
                                          'insert-aero': m.insert_fit_allowance}}
 
@@ -101,6 +122,19 @@ def wall_coverage(segments, layer_z):
             'basis': 'Nominal bead footprints from emitted LINE_WIDTH, not measured printed porosity.'}
 
 
+def pocket_clearance(segments, layer_z):
+    footprint = unary_union([LineString([a, b]).buffer(width / 2, resolution=8)
+                             for a, b, width in segments])
+    maximum_magnet = Point(0, 0).buffer((m.magnet_od + m.magnet_tolerance) / 2, resolution=180).difference(
+        Point(0, 0).buffer((m.magnet_id - m.magnet_tolerance) / 2, resolution=180))
+    assert segments and not footprint.intersects(maximum_magnet), 'Aero paths obstruct the RC62 pocket'
+    distance = footprint.distance(maximum_magnet)
+    assert distance > 0.02, ('RC62 nominal path clearance', distance)
+    return {'layer_z_mm': layer_z,
+            'minimum_maximum_size_magnet_clearance_mm': distance,
+            'basis': 'Nominal emitted LINE_WIDTH footprints and RC62 maximum dimensional tolerance; not measured printed fit.'}
+
+
 def read_paths(gcode, part, layer, first_layer, filament_density, side):
     x = y = z = layer_z = e_position = 0.0
     feature = ''
@@ -113,9 +147,12 @@ def read_paths(gcode, part, layer, first_layer, filament_density, side):
     min_bore_path = float('inf')
     object_started = False
     deposited_before_pause = None
+    remaining_minutes = None
     width = 0.0
     wall_segments = []
+    pocket_segments = []
     sample_z = round(first_layer + layer * round((m.height / 2 - first_layer) / layer), 4)
+    pocket_sample_z = round(layer * round(((m.magnet_seat + m.insert_bottom) / 2 - m.floor) / layer), 4)
     for raw in gcode.splitlines():
         if raw.startswith('; Z_HEIGHT:'):
             layer_z = round(float(raw.split(':')[1]), 4)
@@ -124,6 +161,10 @@ def read_paths(gcode, part, layer, first_layer, filament_density, side):
         if raw.startswith('; LINE_WIDTH:'):
             width = float(raw.split(':', 1)[1])
         command = raw.split(';', 1)[0].strip()
+        if command.startswith('M73 '):
+            remaining = re.search(r'\bR(\d+)\b', command)
+            if remaining:
+                remaining_minutes = int(remaining[1])
         if command == 'M83':
             relative_e = True
         if command == 'M82':
@@ -137,7 +178,8 @@ def read_paths(gcode, part, layer, first_layer, filament_density, side):
         if command == 'M400 U1':
             assert object_started
             deposited_before_pause = max(layers)
-            pauses.append({'before_layer_z_mm': layer_z, 'last_deposited_layer_z_mm': deposited_before_pause})
+            pauses.append({'before_layer_z_mm': layer_z, 'last_deposited_layer_z_mm': deposited_before_pause,
+                           'slicer_remaining_minutes_at_pause': remaining_minutes})
         if command.startswith('G92 '):
             found = re.search(r'\bE(-?[\d.]+)', command)
             if found:
@@ -161,6 +203,8 @@ def read_paths(gcode, part, layer, first_layer, filament_density, side):
         tools.add(material_tool)
         layers.add(layer_z)
         object_mass += extrusion * math.pi * (1.75 / 2) ** 2 / 1000 * filament_density
+        if part == 'body-aero' and layer_z == pocket_sample_z:
+            pocket_segments.append(((old_x - 150, old_y - 145), (x - 150, y - 145), width))
         if part == 'body-petg':
             if layer_z == sample_z and feature in ('Outer wall', 'Inner wall'):
                 wall_segments.append(((old_x - 150, old_y - 145), (x - 150, y - 145), width))
@@ -178,7 +222,7 @@ def read_paths(gcode, part, layer, first_layer, filament_density, side):
             if layer_z > m.roof_bottom + 1e-4:
                 assert len(pauses) == 1, 'Roof deposited before assembly pause'
                 roof_layers.add(layer_z)
-        elif feature == 'Outer wall' and 0.4 <= layer_z <= 5:
+        elif feature == 'Outer wall' and m.insertion_lead + 0.2 <= layer_z <= 5:
             bounds[0] = min(bounds[0], rmin)
             bounds[1] = max(bounds[1], rmax)
     expected_height = {'body-aero': m.insert_bottom - m.floor,
@@ -204,6 +248,7 @@ def read_paths(gcode, part, layer, first_layer, filament_density, side):
             'aero_perimeter_centerline_radii_mm': bounds if part != 'body-petg' else None,
             'minimum_guide_bore_centerline_radius_mm': min_bore_path if part == 'body-petg' else None,
             'wall_coverage': wall_coverage(wall_segments, sample_z) if part == 'body-petg' else None,
+            'magnet_pocket_clearance': pocket_clearance(pocket_segments, pocket_sample_z) if part == 'body-aero' else None,
             'thermal_commands': sorted(set(thermal))}
 
 
@@ -223,6 +268,7 @@ def print_project(path, key, provenance):
             assert settings[name] == expected, (key, name, settings[name], expected)
             effective[name] = settings[name]
         assert settings['filament_ids'] == [ids['filament_id']]
+        assert settings['filament_colour'] == [job['colour']]
         assert settings['filament_map'] == [str(job['side'])]
         assert settings['enable_support'] == '0'
         assert settings['enable_prime_tower'] == '0'
@@ -237,6 +283,9 @@ def print_project(path, key, provenance):
             assert all(float(v) == 5000 for v in settings['default_acceleration'])
             assert all(float(v) == 3000 for v in settings['outer_wall_acceleration'])
         else:
+            assert ids['filament_id'] == 'GFG01'
+            assert settings['filament_max_volumetric_speed'] == ['16']
+            assert float(settings['filament_density'][0]) == m.petg_density
             assert settings['filament_flow_ratio'] == ['1.02']
             assert settings['nozzle_temperature'] == ['260']
             assert settings['nozzle_temperature_initial_layer'] == ['255']
