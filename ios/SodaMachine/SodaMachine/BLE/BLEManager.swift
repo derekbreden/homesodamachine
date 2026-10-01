@@ -150,6 +150,8 @@ class BLEManager {
     @ObservationIgnored var faceReceived = 0
     @ObservationIgnored var facePixelStride = 0
     @ObservationIgnored var faceSlot = -1
+    /// The picture the read in flight is for, by its own crc32.
+    @ObservationIgnored var faceCrc: UInt32 = 0
     @ObservationIgnored var faceAskedAt = Date.distantPast
     @ObservationIgnored var faceResumes = 0
     @ObservationIgnored var faceTotal = 0
@@ -323,6 +325,11 @@ class BLEManager {
     @ObservationIgnored fileprivate var centralManager: CBCentralManager!
     @ObservationIgnored var connectedPeripheral: CBPeripheral?
     @ObservationIgnored fileprivate var scanTimer: Timer?
+    /// The link was reached by peripheral id, and the board has not yet said
+    /// which machine it is in.
+    @ObservationIgnored fileprivate var unverified = false
+    /// Which link's identity is being waited on.
+    @ObservationIgnored fileprivate var identityAsk = 0
     @ObservationIgnored fileprivate var reconnectTimer: Timer?
 
     init(directory: MachineDirectory) {
@@ -387,6 +394,32 @@ class BLEManager {
             point()
         }
     }
+
+    /// A PHONE IN A POCKET HOLDS NONE OF THE MACHINE'S LINKS. The faucet takes
+    /// three at once, and an app that kept its link in the background — and
+    /// asked for the machine again whenever it lost one — would hold a link for
+    /// as long as the phone was in the house. So the link is let go when the
+    /// app leaves the screen, unless something is crossing it, and taken up
+    /// again when the app returns.
+    func handleEnterBackground() {
+        guard !demoMode, centralManager != nil, current != nil, !transferInFlight else { return }
+        dropLink()
+    }
+
+    /// An update or a picture on its way across the link.
+    private var transferInFlight: Bool {
+        // A finished or failed update stays on screen until it is dismissed,
+        // and is not crossing the link.
+        if let p = otaProgress, !p.finished, p.failure == nil { return true }
+        if !otaQueue.isEmpty || otaSettlingSince != nil { return true }
+        if isUploading || !uploadQueue.isEmpty { return true }
+        switch imageUploadState {
+        case .preparing, .sending: return true
+        default: return false
+        }
+    }
+
+    fileprivate var inBackground: Bool { UIApplication.shared.applicationState == .background }
 
     // MARK: - Public API
 
@@ -794,6 +827,7 @@ class BLEManager {
     /// stays on its record.
     fileprivate func dropLink() {
         linkGeneration += 1
+        unverified = false
         centralManager?.stopScan()
         scanTimer?.invalidate()
         reconnectTimer?.invalidate()
@@ -1439,6 +1473,7 @@ class BLEManager {
         log.info("Scanning for machines...")
 
         guard idle else { return }
+        reachKnown()
         DispatchQueue.main.async {
             self.scanTimer?.invalidate()
             self.scanTimer = Timer.scheduledTimer(withTimeInterval: scanTimeout, repeats: false) { [weak self] _ in
@@ -1483,13 +1518,13 @@ class BLEManager {
         }
         if let m = current, m.id == known.id,
            connectionState == .searching || connectionState == .searchingLong {
-            connect(m, peripheralID: seen.id)
+            connect(m, peripheralID: seen.id, unit: seen.unit)
         }
     }
 
     /// Open the link to the machine this phone is pointed at, whose peripheral
     /// the radio has just heard.
-    fileprivate func connect(_ machine: KnownMachine, peripheralID: String) {
+    fileprivate func connect(_ machine: KnownMachine, peripheralID: String, unit: String) {
         guard let centralManager,
               let peripheral = centralManager.retrievePeripherals(withIdentifiers:
                   [UUID(uuidString: peripheralID)].compactMap { $0 }).first
@@ -1498,9 +1533,109 @@ class BLEManager {
         scanTimer?.invalidate()
         if !browsing { centralManager.stopScan() }
         machine.peripheralID = peripheralID
+        // A connection still waiting on the radio this machine had before —
+        // a board since replaced — is let go before it is cancelled, so what
+        // the cancel says back is not this link's.
+        let waiting = connectedPeripheral
         connectedPeripheral = peripheral
+        if let waiting, waiting !== peripheral { centralManager.cancelPeripheralConnection(waiting) }
+        // A sighting that carried a unit was matched on it; one that did not
+        // was matched on peripheral id, and is asked like any other.
+        unverified = unit.isEmpty
         connectionState = .connecting
         centralManager.connect(peripheral, options: nil)
+    }
+
+    /// The NUS link is open. A link a sighting opened carries the unit the scan
+    /// matched. One reached by peripheral id was reached by the board, and a
+    /// board can be moved into another machine — so it says which machine it
+    /// is in before anything is read off it or written to it.
+    fileprivate func nusOpened() {
+        if unverified, let machine = current, !machine.unit.isEmpty {
+            identityAsk += 1
+            send("IDENTITY")
+            askWhoItIs(tries: 3, on: connectedPeripheral, ask: identityAsk)
+            return
+        }
+        unverified = false
+        linkReady()
+    }
+
+    /// A board that has not answered is asked again; one that never answers is
+    /// taken at its peripheral id, which is all this phone ever had for it.
+    /// Each chain belongs to the link that opened it, and ends with that link.
+    private func askWhoItIs(tries: Int, on peripheral: CBPeripheral?, ask: Int) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+            guard let self, self.unverified, ask == self.identityAsk,
+                  let peripheral, peripheral === self.connectedPeripheral,
+                  peripheral.state == .connected, self.nusReady else { return }
+            if tries > 0 {
+                self.send("IDENTITY")
+                self.askWhoItIs(tries: tries - 1, on: peripheral, ask: ask)
+            } else {
+                log.info("No identity from \(self.current?.displayName ?? "?"); taking it at its id")
+                self.unverified = false
+                self.linkReady()
+            }
+        }
+    }
+
+    /// The machine this phone is pointed at is on the other end: say so, and
+    /// ask it for what its page shows.
+    fileprivate func linkReady() {
+        connectionState = .connected
+        if let machine = current {
+            machine.lastConnected = Date()
+            // A name given while the machine was out of earshot, now
+            // that it is in it.
+            if let name = machine.pendingName {
+                send("IDENTITY \(name)")
+                namePushed = true
+            } else {
+                // ASK A MACHINE WHO IT IS RATHER THAN WAIT TO BE TOLD.
+                // A record with no unit matches only on peripheral id,
+                // and those are per app install — one reinstall and it
+                // is orphaned against the machine it belongs to. The
+                // board answers this with its identity, and `introduce`
+                // folds the record into the unit's own.
+                send("IDENTITY")
+            }
+            directory.save()
+        }
+        // GET_CONFIG and LIST are the rotary display's vocabulary, on
+        // the machine under the counter. An appliance answers neither.
+        // What an appliance is asked instead is what pictures it
+        // holds, which is the screen someone opens the app for.
+        if current?.model == .prototype {
+            send("GET_CONFIG")
+            send("LIST")
+        } else {
+            saidStanding = ""   // a new session reports its own conditions
+            queryImageSlots()
+            startFacePump()
+        }
+    }
+
+    /// THE MACHINE THIS PHONE KNOWS IS ASKED FOR, NOT ONLY LISTENED FOR. A
+    /// connection to a peripheral iOS already knows needs no scan: it waits,
+    /// and completes the moment that radio is heard advertising connectably —
+    /// whatever its advertisement carries, and in the background too. A
+    /// machine whose advertisement has lost the service is a machine a
+    /// filtered scan never hears, and this one still reaches it. The scan runs
+    /// beside it: it is how a replaced board is found again by its unit, and
+    /// how a list says what is in range. The page keeps saying "looking" until
+    /// the radio answers.
+    fileprivate func reachKnown() {
+        guard !inBackground, let centralManager, centralManager.state == .poweredOn,
+              let machine = current, !machine.isDemo,
+              let id = machine.peripheralID.flatMap(UUID.init(uuidString:)),
+              let peripheral = centralManager.retrievePeripherals(withIdentifiers: [id]).first
+        else { return }
+        if let held = connectedPeripheral, held.state == .connecting || held.state == .connected { return }
+        connectedPeripheral = peripheral
+        unverified = true
+        centralManager.connect(peripheral, options: nil)
+        log.info("Waiting on \(machine.displayName) by its peripheral id")
     }
 
     // ── The image push ───────────────────────────────────────────────────
@@ -1696,6 +1831,32 @@ class BLEManager {
 
         onMain(linkGeneration) {
             guard let m = self.current else { return }
+            // THIS RADIO IS ANOTHER MACHINE'S NOW. A link reached by peripheral
+            // id is reached by the board, and a board can be moved into another
+            // machine. The unit is the machine, so a board that names a
+            // different one is let go and its id with it; the machine is looked
+            // for again by its unit.
+            let reported = unit == "000000" ? "" : unit
+            if !m.unit.isEmpty, !reported.isEmpty, reported != m.unit {
+                log.info("Peripheral \(m.peripheralID ?? "?") is unit \(reported), not \(m.unit)")
+                m.peripheralID = nil
+                self.directory.save()
+                self.dropLink()
+                self.point()
+                return
+            }
+            // 000000 is a board whose main board has not answered it yet, which
+            // says nothing about which machine it is in. The board says again
+            // the moment its main board does.
+            if self.unverified, reported.isEmpty { return }
+            // Filed first, then the session opens: what it pushes — a pending
+            // name — is answered by a reply of its own.
+            defer {
+                if self.unverified {
+                    self.unverified = false
+                    self.linkReady()
+                }
+            }
             // A name given while the machine was out of earshot stands until
             // the machine has answered the send — with that name, or with
             // whatever it made of it, which is then what the machine is called.
@@ -1760,7 +1921,10 @@ class BLEManager {
         DispatchQueue.main.async {
             self.reconnectTimer?.invalidate()
             self.reconnectTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { [weak self] _ in
-                self?.startScan()
+                // From the background the link waits for the app to return:
+                // see handleEnterBackground.
+                guard let self, !self.inBackground else { return }
+                self.startScan()
             }
         }
     }
@@ -1931,6 +2095,18 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
         log.info("Connected to \(peripheral.name ?? "device")")
         peripheral.delegate = self
         peripheral.discoverServices([nusServiceUUID])
+        // A connection that was waiting by peripheral id lands without a
+        // sighting ever having said so: the page moves on from "looking", and
+        // the scan that was looking stops unless a list wants it.
+        let m = ble
+        DispatchQueue.main.async {
+            guard peripheral === m.connectedPeripheral else { return }
+            m.scanTimer?.invalidate()
+            if !m.browsing { m.centralManager?.stopScan() }
+            if m.connectionState == .searching || m.connectionState == .searchingLong {
+                m.connectionState = .connecting
+            }
+        }
     }
 
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
@@ -2020,37 +2196,7 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
             let m = ble
             DispatchQueue.main.async {
                 guard peripheral === m.connectedPeripheral else { return }
-                m.connectionState = .connected
-                if let machine = m.current {
-                    machine.lastConnected = Date()
-                    // A name given while the machine was out of earshot, now
-                    // that it is in it.
-                    if let name = machine.pendingName {
-                        m.send("IDENTITY \(name)")
-                        m.namePushed = true
-                    } else if machine.unit.isEmpty {
-                        // ASK A MACHINE WHO IT IS RATHER THAN WAIT TO BE TOLD.
-                        // A record with no unit matches only on peripheral id,
-                        // and those are per app install — one reinstall and it
-                        // is orphaned against the machine it belongs to. The
-                        // board answers this with its identity, and `introduce`
-                        // folds the record into the unit's own.
-                        m.send("IDENTITY")
-                    }
-                    m.directory.save()
-                }
-                // GET_CONFIG and LIST are the rotary display's vocabulary, on
-                // the machine under the counter. An appliance answers neither.
-                // What an appliance is asked instead is what pictures it
-                // holds, which is the screen someone opens the app for.
-                if m.current?.model == .prototype {
-                    m.send("GET_CONFIG")
-                    m.send("LIST")
-                } else {
-                    m.saidStanding = ""   // a new session reports its own conditions
-                    m.queryImageSlots()
-                    m.startFacePump()
-                }
+                m.nusOpened()
             }
         }
     }
