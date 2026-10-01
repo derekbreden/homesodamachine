@@ -1,0 +1,43 @@
+{
+  "native_archive": ".cache/prints/2026-09-30-display-x030-receiver-h2c-v5/ready/display-x030-receiver-z018-h2c-v5.gcode.3mf",
+  "native_gcode_sha256": "2794eed43a6aefc5ec891012cb577526649395b2f1f85f2f97ad1b6f3f4d3465",
+  "studio_version": "02.08.02.61",
+  "startup_revision": "20260608",
+  "manufacturer_source": "https://github.com/bambulab/BambuStudio/blob/master/resources/profiles/BBL/machine/Bambu%20Lab%20H2C%200.4%20nozzle%20template%20machine_start_gcode.json",
+  "preserved": [
+    "startup reset and material mapping",
+    "clearance movements and homing",
+    "bed/nozzle/camera checks",
+    "material selection and preparation",
+    "45 mm chute extrusion, retraction, G150.2/G150.1 and G150 wiping"
+  ],
+  "omitted": [
+    "XY offset and dynamic-flow calibration blocks",
+    "bed leveling and vibration calibration",
+    "bed prime line and model deposition",
+    "print-end unloading/cutting"
+  ],
+  "modified": [
+    "bed preheat replaced with heater off",
+    "maintenance progress estimates",
+    "short cleanup parks, ends timelapse, turns heaters and commanded fans off, restores soft endstops, releases motors"
+  ],
+  "explicit_purge": {
+    "temperature_c": 280,
+    "filament_length_mm": 45,
+    "filament_feed_mm_min": 449.008,
+    "retraction_mm": 3
+  },
+  "material_preparation": {
+    "flush_temperature_c": 300,
+    "initial_temperature_c": 265,
+    "note": "These are the unchanged PET-GF profile parameters passed to the firmware material-selection routine; its additional consumption is not counted in the 45 mm explicit purge."
+  },
+  "bed_heating": false,
+  "chamber_heating": false,
+  "tested_printer": "H2C",
+  "nozzle": "fixed left hardened 0.4 mm",
+  "material": "black PET-GF (printer label PET-CF)",
+  "launch_options": "usual On/On/Auto/Auto; calibration blocks are absent from this maintenance file; do not change persistent print options",
+  "native_archive_sha256": "6e965cfae91b155df1cb3af7a5c224fcf41ad75d8c857d579f1cdd782a069bb6"
+}
