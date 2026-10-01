@@ -2,7 +2,8 @@
 
 Run after materializing the enclosure. This reads positive-area opposed faces,
 including exact contact that a whole-solid volume-intersection check misses.
-Only the stated clamp faces, seating shoulders and rail stops permit zero gap.
+Only the stated clamp faces and seam seating planes permit zero gap.
+Rail end faces require running clearance at the nominal assembly position.
 Curved contacts, insertion sweeps and physical support finish are separate checks.
 """
 from itertools import combinations
@@ -41,12 +42,6 @@ def datum(parts, normal, center, box):
             continue
         if abs(normal[2]) > .999 and abs(z - zj) < TOL:
             return "Z seam seating shoulder"
-        if abs(normal[1]) > .999:
-            for _xi, _sx, y0, y1, _lane in e._z_rail_runs(
-                    box.inner, box.y_joint, col, box.pack.collet_plate, box.pack.vent_chase):
-                sy = 1. if y1 > y0 else -1.
-                if abs(y - (y1 - sy * e.rail_stop_len)) < TOL:
-                    return "Closed-end rail stop"
     return None
 
 
@@ -139,6 +134,15 @@ def survey(directory=DIRECTORY):
     for x,y,_z in box.pack.vent_chase:
         measure("vent chase seam", "back-bottom", "back-top",
                 (x-e.vent_rib_wall/2, y, box.splits[1]+e.z_rise), (0.,0.,1.), e.slide_slip)
+    for col, zj in zip(("front", "back"), box.splits):
+        for xi, sx, y0, y1, _lane in e._z_rail_runs(
+                box.inner, box.y_joint, col, box.pack.collet_plate, box.pack.vent_chase):
+            sy = 1. if y1 > y0 else -1.
+            x_hook, x_foot, _arm, _back = e._rail_x(xi, sx, col)
+            side = "west" if sx > 0 else "east"
+            measure(f"{col} {side} rail end", f"{col}-top", f"{col}-bottom",
+                    ((x_hook+x_foot)/2, y1-sy*e.rail_stop_len, zj+e.hook_foot/2),
+                    (0.,sy,0.), e.slide_slip)
     failures = [r for r in readings if not r["pass"]] + [r for r in probes if not r["pass"]]
     return {"status": "fail" if failures else "pass", "source_sha256": sources,
             "scope": "Opposed parallel planar patches above 0.05 mm2, gaps up to 0.751 mm, on four finished quadrant STEP solids. Excludes curved/nonparallel contacts, insertion sweeps, accessories and physical support quality.",
