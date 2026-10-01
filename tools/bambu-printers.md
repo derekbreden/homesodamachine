@@ -88,6 +88,15 @@ suspected cause of the recurring idle-time pattern; no moisture measurement or
 controlled comparison establishes the cause. A resume is a printer start for the
 shared-circuit spacing rule below.
 
+## Work allocation
+
+Use both printers when Derek has them loaded, cleared and ready and the authorized
+parts can be split between them with the correct materials and nozzles. Prepare
+separate plates with each machine's established settings and Z trim. Derek prefers
+this distribution because leaving a loaded printer idle is associated with his
+reported cut-and-refeed recovery; it is not a measured diagnosis of the cause.
+Keep the three-minute spacing between starts.
+
 ## Shared-circuit startup spacing
 
 H2C and Mark2 share a circuit. Leave **at least 180 seconds between print starts**:
