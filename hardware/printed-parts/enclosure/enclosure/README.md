@@ -229,10 +229,11 @@ with [5.6 mm](HOOK_HEAD) of head over the front catch. The rear groove is
 seam's overlap, struck off its boss, and the two are independent figures. The two columns
 enter from opposite ends: **front-top enters fore of home and slides AFT**, over the front
 wall's own plane in open air ahead of the box; **back-top enters aft of home and slides FORE**,
-over the open Y-seam mouth before the halves telescope. Each mouth rides its shoulder the
-whole way until the foot's end face lands on the **stop block** closing that rail. That
-contact is the column's Y datum; the end walls and corner turns close head-on one
-`slide_slip` behind it — the same telescoping mate, arrived at along Y instead of dropped in.
+over the open Y-seam mouth before the halves telescope. Each mouth rides its shoulder.
+At the nominal assembled position, each foot's end face has **0.25 mm of running
+clearance** to its stop block, matching the end-wall and corner allowances. The blocks
+retain 3.75 mm of length and bound overtravel; the upper Y-seam screws join the two
+tops. Reaching the assembled position does not require compressing the rail ends.
 
 On both columns, the foot carries the flank's full 6 mm inward section from `interior_x` to
 the nominal 9 mm face on both sides: [6 mm](FRONT_RAIL_FOOT) in front and

@@ -1,2 +1,2 @@
-[ceiling] Functional lifting ceiling and end-wall wing-slot roof. The native support mat ends at Z28.76 below the Z29.25 face. The ceiling mat has a straight removal lane toward the open Y-seam end before assembly, and the slot opens through the end wall. Physical removal is unmeasured.
+[ceiling] Functional lifting ceiling and end-wall wing-slot roof. Tree supports beneath the broad lifting ceiling have a straight removal lane toward the open Y-seam end. The bridge-trial-v6 native package blocks supports only inside the narrow end-wing slot and spans its 5.30 mm width with bridge and wall roads. Toolpath coverage is verified; physical bridge finish and wing fit are pending.
 click: x=99.958 y=228.550 z=29.250

@@ -1509,9 +1509,10 @@ def back_flank_start(y_joint):
 # top lands the foot's flat top face on the head's flat underside along the whole of
 # both runs — horizontal printed face on horizontal printed face — so the seam is held
 # closed continuously down every millimetre both flanks carry.
-# The slide stops on a STOP BLOCK closing each rail's far end — the foot's end face on
-# the block's, the one nominal contact in the joint and the column's Y datum — with the
-# end walls and corner turns closing head-on one `slide_slip` behind it. THE TWO COLUMNS
+# A stop block bounds travel at each rail's far end. At the nominal assembled position,
+# the foot's end face has `slide_slip` of air to the block; end walls and corner turns
+# have the same running allowance. Printed end faces do not require compression to
+# reach that position. THE TWO COLUMNS
 # GO ON TOWARD EACH OTHER AND ESCAPE APART: front-top draws off the front of the box, into
 # open air, and back-top off the back. What holds front-top is the Y seam's upper pair of
 # screws — the plug back-top carries, in the socket front-top's lip carries. Six M3×10
@@ -1546,7 +1547,7 @@ z_rise = 14.8
 # ledge plane (`rim + wall` — the seam cap's top and the sill), so the roof leaves that
 # plane through a slot instead of meeting it edge-on in a zero-thickness line.
 hook_arm = 4.0
-rail_stop_len = 4.0          # the stop block closing each rail's far end, along Y
+rail_stop_len = 4.0          # closed-end zone along Y; block retains this less slide_slip
 rail_entry = 5.0             # approach past full disengagement, entry to first engagement
 rail_lead = 2.0              # 45° plan taper easing the head's open end over the foot
 # HOW FAR THE RAIL REACHES BELOW ITS SEAM, the way `z_rise` is how far it reaches above. The
@@ -4211,18 +4212,11 @@ def _handholds(solid, inner, y_joint, y_side):
 #
 # The BOTTOM piece carries the lip, the hooked arms on its straight flank runs, the
 # stop blocks at their closed ends and the corner fills; the TOP piece carries the
-# foot each head stands over and the notch that swallows it. BOTH TOPS ENTER FORE OF
-# HOME AND SLIDE AFT — front-top over the front wall's own plane, in open air ahead
-# of the box; back-top over the open Y-seam mouth — each foot's aft end face landing
-# on its stop block's, which is the column's Y datum. Everything else closes one
-# `slide_slip` behind that contact.
-#
-# A TOP COMES OFF THE WAY IT WENT ON, FORWARD. Back-top's escape is fore into
-# front-top, which stands in it. Front-top's escape is fore into open air, and what
-# holds it there is the Y seam's upper pair of screws — the plug back-top carries,
-# in the socket front-top's lip carries. Two screws out and front-top draws straight
-# off the front of the box, the back column and whatever the box is built under
-# never touched.
+# foot each head stands over and the notch that swallows it. Front-top enters from
+# the front and slides aft; back-top enters from the back and slides fore. Each
+# foot has `slide_slip` of end clearance at the assembled position, matching the
+# end-wall allowance. The blocks bound overtravel. The upper Y-seam screws join
+# the two top pieces and prevent them drawing off in opposite directions.
 
 
 def _z_rail_runs(inner, y_joint, col, plate, chase=()):
@@ -4350,10 +4344,10 @@ def _z_rail_heads(inner, y_joint, zj, col, plate, chase=()):
     to the lip's underwall on a 45° under-flare. The head's open end tapers `rail_lead` in
     plan, so the foot finds the head before the head finds it.
 
-    THE STOP BLOCK IS THE DATUM. It fills the arm's whole section plus the head's
-    lap over `rail_stop_len` at the closed end, and the foot's end face landing on
-    it is the slide's home: the one nominal contact in the joint, a flat printed
-    face on a flat printed face, once per rail."""
+    The stop block fills the arm's section and head lap at the closed end. Its
+    vertical front face retreats `slide_slip` from the nominal foot end, leaving
+    `rail_stop_len - slide_slip` of block length. This bounds overtravel while
+    reserving running clearance for the two printed end faces at assembly."""
     z_foot, rim = zj + hook_foot, zj + z_rise
     catch_z = z_foot + rail_catch_air(col)
     if rim - catch_z < wall:
@@ -4362,8 +4356,8 @@ def _z_rail_heads(inner, y_joint, zj, col, plate, chase=()):
     for x_in, sx, y0, y1, _lane in _z_rail_runs(inner, y_joint, col, plate, chase):
         sy = 1.0 if y1 > y0 else -1.0        # open end to closed: the way this column goes
         if col == "front" and plate:
-            # The tee-wall rear face is not a second end stop. The rail's entrance
-            # clears it while the closed-end stop alone locates the top in Y.
+            # Both rail ends have running room at the assembled position,
+            # including the entrance beside the tee-wall rear face.
             y0 += slide_slip
         x_hk, x_f, x_a, x_h1 = _rail_x(x_in, sx, col)
         arm = _xz_prism(y0, y1, [(x_a, zj), (x_a, catch_z),
@@ -4384,7 +4378,7 @@ def _z_rail_heads(inner, y_joint, zj, col, plate, chase=()):
             (x_a, y0), (x_hk - sx * 1.0, y0),
             (x_hk - sx * 1.0, y0 + sy * rail_lead)))
         arm = arm.cut(lead)
-        yb0, yb1 = sorted((y1 - sy * rail_stop_len, y1))
+        yb0, yb1 = sorted((y1 - sy * (rail_stop_len - slide_slip), y1))
         block = _ybox(min(x_hk, x_h1), max(x_hk, x_h1), yb0, yb1, zj, rim)
         piece = arm.fuse(block)
         out = piece if out is None else out.fuse(piece)
@@ -4398,8 +4392,8 @@ def _z_rail_feet(inner, y_joint, zj, col, plate, chase=()):
     channel cut at the END of the piece's work.
 
     Each is one box: the box interior face out to the foot's face, mouth to the
-    caught face, the run less the stop block — so its end face at the closed end IS
-    the face that lands home. It is rooted to the wall down its whole height. Front-top
+    caught face, the run less the closed-end zone. The block's front face is one
+    running clearance past this foot end. It is rooted to the wall down its whole height. Front-top
     prints that face up from its mouth; back-top prints it down from its ceiling and support
     carries it. On both columns the foot carries the full nominal flank section to the seam,
     and the hook lies over its inboard part. The collet plate's ends are derived from the

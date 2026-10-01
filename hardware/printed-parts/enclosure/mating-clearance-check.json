@@ -1,8 +1,8 @@
 {
   "status": "pass",
   "source_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "16165989230ada4f0693e4019fbe478c81791008744c106e351fde4df40a46ba",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "921322590b8376cac220e5ca02c194e10d46b04908dffb5cbe731f29e68bb2a9",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "0063875248442d4b7c6621685c3fc63f45f22082570189059fdd139a4f59c3ce",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "c131ef8bf8600207f55f8cb36c5c0adeddeeae34c0f0d6d4df576056e37e638d",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "dfdf27c85665d67d4cca95ec3d4f6f1de273b382ae18c89667cee75a9bf95922",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "ebb7b8679e84ff64a826cf4ce19b60c4380d0ac5196cf23ab517cd18610595f8"
   },
@@ -164,6 +164,98 @@
           -92.0000001069748,
           323.79999999999995,
           175.05
+        ]
+      ],
+      "gap_mm": 0.25,
+      "maximum_surface_error_mm": 0.0,
+      "gap_contains_air": true,
+      "pass": true
+    },
+    {
+      "feature": "front west rail end",
+      "parts": [
+        "front-top",
+        "front-bottom"
+      ],
+      "face_points_mm": [
+        [
+          -101.0,
+          191.0,
+          164.35
+        ],
+        [
+          -101.0,
+          191.25,
+          164.35
+        ]
+      ],
+      "gap_mm": 0.25,
+      "maximum_surface_error_mm": 0.0,
+      "gap_contains_air": true,
+      "pass": true
+    },
+    {
+      "feature": "front east rail end",
+      "parts": [
+        "front-top",
+        "front-bottom"
+      ],
+      "face_points_mm": [
+        [
+          101.0,
+          191.0,
+          164.35
+        ],
+        [
+          101.0,
+          191.25,
+          164.35
+        ]
+      ],
+      "gap_mm": 0.25,
+      "maximum_surface_error_mm": 0.0,
+      "gap_contains_air": true,
+      "pass": true
+    },
+    {
+      "feature": "back west rail end",
+      "parts": [
+        "back-top",
+        "back-bottom"
+      ],
+      "face_points_mm": [
+        [
+          -101.0,
+          218.55,
+          164.35
+        ],
+        [
+          -101.0,
+          218.3,
+          164.35
+        ]
+      ],
+      "gap_mm": 0.25,
+      "maximum_surface_error_mm": 0.0,
+      "gap_contains_air": true,
+      "pass": true
+    },
+    {
+      "feature": "back east rail end",
+      "parts": [
+        "back-top",
+        "back-bottom"
+      ],
+      "face_points_mm": [
+        [
+          101.0,
+          218.55,
+          164.35
+        ],
+        [
+          101.0,
+          218.3,
+          164.35
         ]
       ],
       "gap_mm": 0.25,
@@ -760,7 +852,7 @@
         1100,
         126
       ],
-      "gap_mm": 0.2500000000000142,
+      "gap_mm": 0.2500000000000284,
       "minimum_mm": 0.25,
       "pass": true,
       "classification": "Assembly sliding clearance",
@@ -777,7 +869,7 @@
         -0.0
       ],
       "bounds_mm": [
-        98.24999999999999,
+        98.24999999999997,
         94.086,
         160.0,
         98.25,
@@ -828,15 +920,15 @@
         1088,
         50
       ],
-      "gap_mm": 2.842170943040401e-14,
-      "minimum_mm": 0.0,
+      "gap_mm": 0.2500000000000284,
+      "minimum_mm": 0.25,
       "pass": true,
-      "classification": "Closed-end rail stop",
+      "classification": "Assembly sliding clearance",
       "rough_faces_counted": 0,
       "area_mm2": 43.49999999999994,
       "center_mm": [
         -101.0,
-        191.0,
+        191.25,
         164.35
       ],
       "normal_from_first": [
@@ -846,10 +938,10 @@
       ],
       "bounds_mm": [
         -103.5,
-        191.0,
+        191.25,
         160.0,
         -98.5,
-        191.00000000000003,
+        191.25000000000003,
         168.7
       ]
     },
@@ -862,15 +954,15 @@
         1099,
         51
       ],
-      "gap_mm": 2.842170943040401e-14,
-      "minimum_mm": 0.0,
+      "gap_mm": 0.2500000000000284,
+      "minimum_mm": 0.25,
       "pass": true,
-      "classification": "Closed-end rail stop",
+      "classification": "Assembly sliding clearance",
       "rough_faces_counted": 0,
       "area_mm2": 43.49999999999994,
       "center_mm": [
         101.0,
-        191.0,
+        191.25,
         164.35
       ],
       "normal_from_first": [
@@ -880,10 +972,10 @@
       ],
       "bounds_mm": [
         98.5,
-        191.0,
+        191.25,
         160.0,
         103.5,
-        191.00000000000003,
+        191.25000000000003,
         168.7
       ]
     },
@@ -930,7 +1022,7 @@
         1087,
         40
       ],
-      "gap_mm": 0.2500000000000142,
+      "gap_mm": 0.2500000000000284,
       "minimum_mm": 0.25,
       "pass": true,
       "classification": "Assembly sliding clearance",
@@ -950,7 +1042,7 @@
         -98.25,
         94.086,
         160.0,
-        -98.24999999999999,
+        -98.24999999999997,
         191.0,
         168.7
       ]
@@ -1134,16 +1226,16 @@
         1559,
         514
       ],
-      "gap_mm": 0.2499999999999858,
+      "gap_mm": 0.2500000000000142,
       "minimum_mm": 0.25,
       "pass": true,
       "classification": "Assembly sliding clearance",
       "rough_faces_counted": 0,
-      "area_mm2": 1287.3745000000054,
+      "area_mm2": 1287.1870000000054,
       "center_mm": [
         103.49999999999999,
-        334.30994017863486,
-        172.11789251107584
+        334.32682073001047,
+        172.11833575851838
       ],
       "normal_from_first": [
         1.0,
@@ -1151,10 +1243,10 @@
         -0.0
       ],
       "bounds_mm": [
-        103.5,
+        103.49999999999999,
         214.55,
         168.7,
-        103.50000000000001,
+        103.5,
         454.62,
         174.8
       ]
@@ -1168,15 +1260,15 @@
         1558,
         33
       ],
-      "gap_mm": 0.0,
-      "minimum_mm": 0.0,
+      "gap_mm": 0.24999999999997158,
+      "minimum_mm": 0.25,
       "pass": true,
-      "classification": "Closed-end rail stop",
+      "classification": "Assembly sliding clearance",
       "rough_faces_counted": 0,
       "area_mm2": 43.49999999999994,
       "center_mm": [
         101.0,
-        218.55,
+        218.3,
         164.35
       ],
       "normal_from_first": [
@@ -1186,10 +1278,10 @@
       ],
       "bounds_mm": [
         98.5,
-        218.55,
+        218.3,
         160.0,
         103.5,
-        218.55,
+        218.30000000000004,
         168.7
       ]
     },
@@ -1202,15 +1294,15 @@
         1695,
         17
       ],
-      "gap_mm": 0.0,
-      "minimum_mm": 0.0,
+      "gap_mm": 0.24999999999997158,
+      "minimum_mm": 0.25,
       "pass": true,
-      "classification": "Closed-end rail stop",
+      "classification": "Assembly sliding clearance",
       "rough_faces_counted": 0,
       "area_mm2": 43.49999999999994,
       "center_mm": [
         -101.0,
-        218.55,
+        218.3,
         164.35
       ],
       "normal_from_first": [
@@ -1220,10 +1312,10 @@
       ],
       "bounds_mm": [
         -103.5,
-        218.55,
+        218.3,
         160.0,
         -98.5,
-        218.55,
+        218.30000000000004,
         168.7
       ]
     },
@@ -1275,11 +1367,11 @@
       "pass": true,
       "classification": "Assembly sliding clearance",
       "rough_faces_counted": 0,
-      "area_mm2": 555.3875000000023,
+      "area_mm2": 555.2000000000023,
       "center_mm": [
         -103.5,
-        265.9069439130337,
-        172.10852501631743
+        265.92297933177235,
+        172.10954948667148
       ],
       "normal_from_first": [
         -1.0,
@@ -1379,8 +1471,8 @@
       "rough_faces_counted": 0,
       "area_mm2": 4777.294482503021,
       "center_mm": [
-        22.822049258071992,
-        388.407687219013,
+        22.82204925807197,
+        388.40768721901316,
         160.0
       ],
       "normal_from_first": [
