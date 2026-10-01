@@ -5,15 +5,15 @@ the enclosure's bottom handholds. Each strip crosses the connected front/back
 seam. Its two flat end wings fit through-slots in the bottom halves' existing
 end walls. The strip has a smooth finger face, R0.6 touch edges, and a flat back.
 
-This is a **geometry and fit candidate**. Its receiver cuts require matching
-bottom halves. The full-size front and back grip coupons carry the actual
+The coupon assembly has **accepted support removal and fit**. Its receiver cuts
+require matching bottom halves. The full-size front and back grip coupons carry the actual
 enclosure joint and provide a small print for assessing the pair. The production
 enclosure generator and upper halves retain their own geometry.
 
-The receiver's curved printed surface is [accepted](physical-acceptance.json).
-Supports in its narrow end-wing slots cannot be removed. The
-[bridge trial](bridge-trial-v6/README.md) leaves those slots unsupported and
-includes the enclosure's corrected seam clearance.
+The receiver's curved printed surface, support removal and assembled fit are
+[accepted](physical-acceptance.json). The [bridge trial](bridge-trial-v6/README.md)
+leaves the narrow end-wing slots unsupported and includes the enclosure's
+corrected seam clearance.
 
 ![Grip fully inserted in the connected receiver](seated.png)
 
@@ -39,7 +39,7 @@ includes the enclosure's corrected seam clearance.
 | Finger height with the cover against the roof | 31.89 mm |
 
 The flat-wing section and entry bevel follow the accepted nameplate pattern.
-The short cover's bending recovery and these receivers' fit are unmeasured.
+Assembled fit is accepted; repeated-flexing recovery and retention force are unmeasured.
 The insert reaches the flat ceiling's outer edge at the foot of the additive
 exterior transition. Its inner edge and both ends have 0.15 mm clearance; the
 outer edge is free. Local reliefs clear the inside R6 shoulders beneath the roof
@@ -66,7 +66,7 @@ The accessible outer long edge provides a place to pull the centre downward for
 removal. Remove both covers before separating the bottom enclosure halves.
 Remove the receiver supports while the halves are separate. The ceiling mat
 withdraws toward the open seam end of each handhold. The narrow wing slots use
-an unsupported bridge trial; their printed finish remains to be tested.
+unsupported bridges; support removal and assembled fit are physically accepted.
 
 ## Print and checks
 
@@ -91,10 +91,11 @@ The [native print check](print-check.json) records the exact archive, sources,
 cover layers, bed contact and first-to-second-layer bead overlap. The
 [support audit](support-audit.json) includes the coupons' short support bodies
 and maps their contacts to the CAD frame. The [Mark2 trial](mark2-trial-v4/README.md)
-records the printed three-piece plate and accepted receiver surface. Wing-slot
-support removal failed. The current coupon slices and their support exclusion
-checks are recorded in [bridge-trial-v6](bridge-trial-v6/README.md). Insertion
-recovery, retention, finger contact and lifting results are unreported.
+records the printed three-piece plate and accepted curved receiver surface. The
+current coupon slices and their support exclusion checks are recorded in
+[bridge-trial-v6](bridge-trial-v6/README.md). Support removal and assembled fit
+are physically accepted. Quantitative retention force, repeated-flexing recovery
+and lifting-load results are unreported.
 
 ```sh
 HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/enclosure/grip-cover/grip_cover.py

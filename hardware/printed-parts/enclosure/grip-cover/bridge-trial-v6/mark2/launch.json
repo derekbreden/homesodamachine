@@ -1,5 +1,5 @@
 {
-  "status": "printing",
+  "status": "completed_user_reported",
   "printer": "Mark2",
   "task_id": "1298180036",
   "job_name": "grip-back-bridge-mark2-v6.gcode.3mf",
@@ -25,7 +25,7 @@
   "requested_z_trim_mm": 0.04,
   "emitted_textured_plate_trim_mm": 0.02,
   "bed_clearance_confirmation": "User confirmed both plates clear, including the H2C purge blob.",
-  "physical_result": "pending",
+  "physical_result": "support_removal_and_assembled_fit_accepted",
   "full_enclosure_prints": "held",
   "print_error": 0,
   "hms": [],
@@ -43,5 +43,7 @@
     "mc_remaining_time": 30,
     "print_error": 0,
     "hms": []
-  }
+  },
+  "physical_result_reported_date": "2026-10-01",
+  "physical_result_observation": "Supports removed easily and the receiver/cover assembly fits together."
 }

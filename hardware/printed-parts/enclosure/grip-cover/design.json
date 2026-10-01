@@ -1,5 +1,5 @@
 {
-  "status": "fit_candidate_receiver_surface_accepted",
+  "status": "support_removal_and_assembled_fit_accepted",
   "source_sha256": {
     "hardware/printed-parts/enclosure/grip-cover/grip_cover.py": "dd08daf15e89dff82b4dc6b19368d06c1300a883c2e53b3828db4ff41859debe",
     "hardware/printed-parts/enclosure/enclosure/enclosure.py": "80428e39684c7d7042ea1eb42684580a93112e66f8e93e29cceacf972753cf8c",
@@ -44,5 +44,5 @@
   "assembly": "Join enclosure halves, tuck one wing, bow strip downward, seat second wing, release.",
   "service": "Pull the accessible outer long edge downward to release; remove both strips before separating bottom halves.",
   "physical_result_record": "physical-acceptance.json",
-  "physical_validation": "Curved receiver surface accepted on Mark2 v4; wing-slot supports are trapped. The slot bridge and corrected enclosure seam require a new physical trial. Insertion recovery, retention, finger contact and lifting results are unreported."
+  "physical_validation": "Curved receiver surface, wing-slot bridge support removal and assembled fit are accepted. Lifting-load, retention-force and repeated-flexing results are unreported."
 }

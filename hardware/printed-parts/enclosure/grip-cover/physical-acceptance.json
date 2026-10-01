@@ -1,20 +1,29 @@
 {
-  "schema": 1,
+  "schema": 2,
   "part": "bottom-grip-receiver",
-  "status": "curved_surface_accepted_wing_support_removal_failed",
+  "status": "support_removal_and_assembled_fit_accepted",
   "reported_by": "Derek",
-  "reported_date": "2026-09-30",
-  "observation": "The receiver as printed turned out amazingly beautiful despite my reservations.",
-  "printer": "Mark2",
-  "printer_task_id": "1298005797",
+  "reported_date": "2026-10-01",
+  "observation": "Supports removed easy and it all fits together afterwards.",
   "material": "black PET-GF",
-  "print_record": "hardware/printed-parts/enclosure/grip-cover/mark2-trial-v4/launch.json",
-  "native_archive_sha256": "62877ed1f42865bc482c2268aa6ea267bb38ab7cadeb17cb80a72e9f2dc09095",
-  "source_stl_sha256": {
-    "grip-receiver-front.stl": "2cb5a7498d12815ee93e4a2c6d1642d8561099251d4b921162fe0c5439fd45df",
-    "grip-receiver-back.stl": "245a4ce5bc898f850af1905ac8ff2b44004f55e77b8ebfdc60a603cba8789cbf"
-  },
-  "support_removal": "Supports inside the narrow end-wing slots cannot be removed. User requests an unsupported bridge trial confined to these slots.",
-  "seam_clearance": "The printed receiver shares the enclosure's zero vertical clearance at the backing-tab/roof crossing. A corrected coupon is required.",
-  "scope": "Curved receiver surface accepted; wing-slot support removal failed. Cover insertion and recovery, retention, finger contact and lifting results are unreported."
+  "test_prints": [
+    {
+      "printer": "H2C",
+      "task_id": "1298175360",
+      "print_record": "hardware/printed-parts/enclosure/grip-cover/bridge-trial-v6/h2c/launch.json",
+      "archive_sha256": "5101a026e839092aa4efa06cb99190312c94fe4a58434bc26656a92ba17b672a",
+      "source_stl_sha256": "2cb5a7498d12815ee93e4a2c6d1642d8561099251d4b921162fe0c5439fd45df"
+    },
+    {
+      "printer": "Mark2",
+      "task_id": "1298180036",
+      "print_record": "hardware/printed-parts/enclosure/grip-cover/bridge-trial-v6/mark2/launch.json",
+      "archive_sha256": "daab756afd8fb676f8c31ddb2adde5a9d1f2b822f6f2ee8dbeb8d0eb8d151b99",
+      "source_stl_sha256": "bad10111e1e2ef33014f2ed3c81c26dbc4c4bb5ea738cbc83ed895b99d90225b"
+    }
+  ],
+  "cover_stl_sha256": "acbb8f8cd3e50792a258670bf31c7574de6a435fbbce2629ede73c070378dc03",
+  "support_removal": "Accepted: tree supports beneath the broad lifting ceilings remove easily; the narrow end-wing slots print as unsupported bridges.",
+  "assembled_fit": "Accepted for the corrected front/back receiver coupons and grip cover.",
+  "scope": "Support removal and assembled fit accepted. No quantitative lifting-load, retention-force or repeated-flexing result is reported."
 }

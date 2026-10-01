@@ -3,9 +3,9 @@
 The cover's local X is its long direction, Y its short direction, and Z points
 out of the finger face. Back and wings share Z=0, the print bed. The receiver
 slots pass through the existing end walls; the cover seat clears their inside
-corners below the complete structural roof. The Mark2 receiver surface is
-accepted; the wing slots require an unsupported bridge trial. The cover and
-receiver remain a fit candidate.
+corners below the complete structural roof. The curved receiver surface,
+wing-slot bridge support removal and assembled fit are physically accepted. Lifting-load and repeated-flexing results are
+unreported.
 """
 from __future__ import annotations
 
@@ -203,7 +203,7 @@ def main():
     source_hashes={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest()
                    for p in (Path(__file__),ENCLOSURE/"enclosure.py",
                              *(ENCLOSURE/f"enclosure-{n}-bottom.step" for n in ("front","back")))}
-    manifest={"status":"fit_candidate_receiver_surface_accepted", "source_sha256":source_hashes,
+    manifest={"status":"support_removal_and_assembled_fit_accepted", "source_sha256":source_hashes,
               "body_mm":[LENGTH,WIDTH,THICK],"quantity":2,
               "east_cover_x_mm":[X_CENTER-WIDTH/2,X_CENTER+WIDTH/2],
               "slot_mouth_y_mm":list(shell._handhold_y()),
@@ -221,7 +221,7 @@ def main():
               "assembly":"Join enclosure halves, tuck one wing, bow strip downward, seat second wing, release.",
               "service":"Pull the accessible outer long edge downward to release; remove both strips before separating bottom halves.",
               "physical_result_record":"physical-acceptance.json",
-              "physical_validation":"Curved receiver surface accepted on Mark2 v4; wing-slot supports are trapped. The slot bridge and corrected enclosure seam require a new physical trial. Insertion recovery, retention, finger contact and lifting results are unreported."}
+              "physical_validation":"Curved receiver surface, wing-slot bridge support removal and assembled fit are accepted. Lifting-load, retention-force and repeated-flexing results are unreported."}
     (HERE/"design.json").write_text(json.dumps(manifest,indent=2)+"\n")
     print(json.dumps(manifest,indent=2))
 
