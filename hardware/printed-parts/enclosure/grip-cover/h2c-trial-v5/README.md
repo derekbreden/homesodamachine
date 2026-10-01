@@ -1,5 +1,9 @@
 # H2C grip receiver v5 trial
 
+**Cancelled before submission.** This receiver package is not approved for
+printing. The user accepts the curved receiver's printed result and is
+coordinating the production design with Grips.
+
 This plate contains the front and back receiver coupons for the constant roof
 profile and 3 mm square end walls. The unchanged grip insert from the Mark2 v4
 plate fits this receiver in CAD; physical fit and support removal remain to be
