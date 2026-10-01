@@ -1,0 +1,101 @@
+{
+  "native_archive_valid": true,
+  "source_hashes_current": true,
+  "cover_support_paths": 0,
+  "cover_layers_mm": [
+    [
+      0.2,
+      0.2
+    ],
+    [
+      0.44,
+      0.24
+    ],
+    [
+      0.68,
+      0.24
+    ],
+    [
+      0.92,
+      0.24
+    ],
+    [
+      1.16,
+      0.24
+    ],
+    [
+      1.4,
+      0.24
+    ],
+    [
+      1.64,
+      0.24
+    ],
+    [
+      1.88,
+      0.24
+    ],
+    [
+      2.12,
+      0.24
+    ],
+    [
+      2.36,
+      0.24
+    ],
+    [
+      2.6,
+      0.24
+    ],
+    [
+      2.68,
+      0.08
+    ],
+    [
+      2.76,
+      0.08
+    ],
+    [
+      2.84,
+      0.08
+    ],
+    [
+      2.92,
+      0.08
+    ],
+    [
+      3.0,
+      0.08
+    ],
+    [
+      3.08,
+      0.08
+    ],
+    [
+      3.16,
+      0.08
+    ],
+    [
+      3.24,
+      0.08
+    ],
+    [
+      3.32,
+      0.08
+    ]
+  ],
+  "both_wings_print_on_first_layer": true,
+  "minimum_second_layer_bead_area_overlap_fraction": 0.8317066117299547,
+  "maximum_second_layer_outward_advance_mm": 0.012052001953124999,
+  "allowed_outward_advance_mm": 0.12,
+  "highest_support_contact_envelope_z_mm": 29.21,
+  "show_transition_starts_at_z_mm": 29.25,
+  "estimated_seconds": 4027.99462890625,
+  "archive": ".cache/prints/grip-cover-v2/ready/grip-cover-and-receiver-v2.gcode.3mf",
+  "archive_sha256": "645a9d969dec874de54485473790f66325b702a813295f5542df52643f51d1b0",
+  "project_sha256": "f677bcde91908304717e763677dc7d22715bbb3d8aa41f62339be384751aef35",
+  "gcode_sha256": "4f4860a07d847604178e394bb86e7a5b1eb1ebe0364f209a91fea21fa773ba4d",
+  "submitted": false,
+  "status": "native_slice_reviewed_physical_trial_pending",
+  "physical_scope": "Support removal, bending recovery, fit, retention, touch finish and lifting are unmeasured."
+}
