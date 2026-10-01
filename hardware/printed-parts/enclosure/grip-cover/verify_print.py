@@ -37,7 +37,7 @@ def main():
     support=prep.writer.slice_review(project,report,prep.JOB/"ready")
     (g.HERE/"support-audit.json").write_text(json.dumps(support,indent=2)+"\n")
     # All bodies, including ones lacking interface labels, stay below the
-    # expanding exterior shoulder. Their two contacts serve the lip and ceiling.
+    # expanding exterior shoulder. Contacts serve the ceiling and end-wall slots.
     contact_envelope=max(tree["bbox_cad_xyz_mm"][5] for part in support["parts"][1:]
                          for tree in part["trees"])+float(settings["support_top_z_distance"])
     assert contact_envelope<g.ROOF

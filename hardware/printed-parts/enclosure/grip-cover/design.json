@@ -1,17 +1,26 @@
 {
   "status": "geometry_candidate_unprinted",
   "source_sha256": {
-    "hardware/printed-parts/enclosure/grip-cover/grip_cover.py": "0f74f7ef7f87af72473b7ba3fd8f00ceafa20585599d7ceb28a3dd3b7a3913c7",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "053b4002a03f99cc839e88bf845b0164ad5315fa26649b059c41343b8370d6a8",
+    "hardware/printed-parts/enclosure/grip-cover/grip_cover.py": "5eb7f0a63eed2306b3fc6da49c4ed6c4b3f017001835b95bceebdd3e462caa39",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "9e8133aaf7af36dc52c965565a92746e69527d7670a2af346e6131d950285716",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "09593af6f0121ad1a6d5d36270bdf9cb38f22a7d75fc1e1fd79b8c7e25f2359e",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "dfd47a6dc5bdbcbb38c564f7da2f5aac25624a9a4bf6f2db319ebebb248c91ab"
   },
   "body_mm": [
-    67.7,
-    7.7,
+    79.7,
+    11.558203932499373,
     3.36
   ],
   "quantity": 2,
+  "east_cover_x_mm": [
+    93.65,
+    105.20820393249937
+  ],
+  "slot_mouth_y_mm": [
+    174.0,
+    254.0
+  ],
+  "receiver": "Through-slots in the existing end walls; no projecting lips.",
   "roof_stock_mm": 12.0,
   "wing_mm": {
     "reach": 2.4,
@@ -20,7 +29,8 @@
   },
   "clearances_mm": {
     "body_end_each": 0.15,
-    "wing_tip": 0.25,
+    "body_inner_edge": 0.15,
+    "wing_tip": "open through end wall",
     "wing_side_each": 0.15,
     "retaining_face": 0.45,
     "supported_back": 0.25
@@ -33,5 +43,5 @@
   },
   "assembly": "Join enclosure halves, tuck one wing, bow strip downward, seat second wing, release.",
   "service": "Pull the accessible outer long edge downward to release; remove both strips before separating bottom halves.",
-  "physical_validation": "support removal, insertion recovery, shake retention, touch finish and lifting trial pending."
+  "physical_validation": "Support removal, insertion recovery, shake retention, touch finish and lifting trial pending."
 }
