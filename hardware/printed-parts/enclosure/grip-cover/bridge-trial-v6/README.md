@@ -6,8 +6,9 @@ supported roof. The complete 12 mm lifting roof remains intact.
 
 Native support paint excludes only the narrow end-wing slot roofs, approximately
 16 mm² per coupon. Those roofs span the 5.30 mm slot width as bridges. The broad
-lifting ceilings retain the shared PET-GF tree supports. Physical bridge finish,
-wing insertion and retention remain to be tested.
+lifting ceilings retain the shared PET-GF tree supports. Physical support removal
+and assembled fit are [accepted](../physical-acceptance.json). Lifting-load,
+retention-force and repeated-flexing results are unreported.
 
 | Printer | Coupon | Native estimate | Requested Z trim |
 |---|---|---:|---:|
