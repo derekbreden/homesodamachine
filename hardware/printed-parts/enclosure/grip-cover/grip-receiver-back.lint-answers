@@ -1,0 +1,8 @@
+[step] The receiver coupon retains a 1 mm crop margin inside the existing X90.5 inner-wall face. This floor edge is outside the finger space and snap interface and retains the complete inner wall on the sample.
+click: x=89.500 y=233.275 z=-1.500
+
+[ceiling] Functional lifting ceiling and wing-slot roof. The native support mat ends at Z28.76 below the Z29.25 face. The wing pocket opens toward the grip, with access toward the open Y-seam end while the sample halves are separate. Physical removal is unmeasured.
+click: x=99.263 y=225.250 z=29.250
+
+[ceiling] Flat lower face of the receiver lip. The native tree's last interface is Z25.16 below the Z25.64 face. This support is exposed through the open bottom before assembly; physical removal is unmeasured.
+click: x=97.500 y=249.850 z=25.640
