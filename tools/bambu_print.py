@@ -252,6 +252,14 @@ def page_text(nodes):
     return " | ".join(node["label"] for node in nodes if node["role"] == "AXStaticText")
 
 
+def visible_send_error(nodes):
+    markers = ("resource does not exist", "request failed", "upload failed",
+               "network error", "failed to send")
+    return " | ".join(dict.fromkeys(
+        node["label"] for node in nodes if node["role"] == "AXStaticText"
+        and any(marker in node["label"].lower() for marker in markers)))
+
+
 def has_dialog(nodes):
     return bool(matching(nodes, "Send to print", "AXGroup"))
 
@@ -375,7 +383,7 @@ def prepare_dialog(ui, path, printer, details):
 def observe_send(ui, watch, before, details, timeout):
     deadline = time.monotonic() + timeout
     while time.monotonic() < deadline:
-        reading = watch.drain(1)
+        reading = watch.drain(.5)
         if watch.reply and str(watch.reply.get("result", "")).lower() not in {"success", "ok"}:
             raise PrintError("Printer refused the job: " + json.dumps(watch.reply))
         if accepted(before, reading, details["name"]):
@@ -386,6 +394,12 @@ def observe_send(ui, watch, before, details, timeout):
                 return dict(reading)
         if (reading.get("print_error") or 0) != (before.get("print_error") or 0):
             raise PrintError(f"Printer error {reading.get('print_error')}; no repeat send")
+        # Connect's API-error toasts can disappear long before the acceptance
+        # timeout. Capture them while visible and never retry a rejected request.
+        error = visible_send_error(ui.nodes())
+        if error:
+            watch.events.append({"ui_error": error})
+            raise PrintError(f"Bambu Connect: {error}; no repeat send")
     reading = watch.fresh()
     text = page_text(ui.nodes())
     if may_retry(before, reading, watch.activity, text):
