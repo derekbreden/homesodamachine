@@ -171,6 +171,22 @@ Successful launches write `.cache/printer-control/<printer>-<job-id>-launch.json
 the original archive and G-code hashes. Bambu Connect's imported copy is separate because
 the application can rewrite the file it imports.
 
+### Bambu Studio send from an existing slice
+
+`bambu_print_archive.py source.gcode.3mf output.gcode.3mf` creates a separate
+print-only archive. It removes editable geometry and its model references while
+preserving every G-code byte, checksum, preview, slice metadata and print setting.
+The source stays intact. Open the output with Bambu Studio's **Open Project**;
+it opens in Preview with **Print plate** enabled. Do not reslice it.
+
+Choose the target printer and external-spool mapping, and explicitly verify
+Timelapse On, Bed Leveling On, Flow Calibration Auto and Nozzle Offset Calibration
+Auto in Studio's own send dialog. The accepted printer name can come from the
+plate name rather than the archive filename. Record that reported name, the new
+task ID, the submitted archive hash and the unchanged G-code hash. The
+[Mark2 back-bottom launch](../hardware/printed-parts/enclosure/bottom-grip-print/mark2/launch.json)
+records an accepted Studio send with LAN acceleration using this packaging.
+
 ### Background accessibility sender
 
 ```sh

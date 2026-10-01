@@ -2899,6 +2899,48 @@
       "support_type": "tree(auto)",
       "requested_z_trim_mm": 0.18,
       "effective_textured_plate_trim_mm": 0.16
+    },
+    {
+      "date": "2026-10-01",
+      "printer": "Mark2",
+      "parts": [
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl"
+      ],
+      "job_name": "Back_bottom;_accepted_grip_bridges;_Mark2",
+      "printer_task_id": "1300236834",
+      "status": "printing",
+      "observed_at_utc": "2026-10-01T20:55:18.231377+00:00",
+      "observed_state_at_acceptance": "PREPARE",
+      "sliced_file": ".cache/prints/enclosure-back-bottom-grip-bridges-mark2-v3/ready/enclosure-back-bottom-grip-bridges-mark2-v3-printonly.gcode.3mf",
+      "sliced_file_sha256": "5c2b9047b3195b8bcac3526d68bd7e487f6968e6e5d9458a8f1a2ea3a879e81b",
+      "gcode_sha256": "f5ffda8311dcdffb3e7dd1a789529bbb3dc10780059295e45d6d5c85e22f0137",
+      "estimated_seconds": 75140.5859375,
+      "filament_grams": 748.16064453125,
+      "print_options": {
+        "Timelapse": "On",
+        "Auto bed leveling": "On",
+        "Flow dynamic calibration": "Auto",
+        "Nozzle Offset Calibration": "Auto"
+      },
+      "review": "hardware/printed-parts/enclosure/bottom-grip-print/mark2",
+      "source_stl_sha256": "fe8b919f79ed14eb8f87fc9260ed7bfe7d68adcd48e12da6b313d48d094a6072",
+      "initial_layer_height_mm": 0.2,
+      "ordinary_layer_height_mm": 0.24,
+      "grip_transition_wall_loops": 6,
+      "grip_transition_print_z_mm": [
+        35,
+        41.5
+      ],
+      "slot_support_intrusion_mm2": [
+        0.0,
+        0.0
+      ],
+      "support_type": "tree(auto)",
+      "requested_z_trim_mm": 0.04,
+      "effective_textured_plate_trim_mm": 0.02,
+      "startup_spacing_seconds": 51643.973591,
+      "sender": "Bambu Studio, Print plate, LAN acceleration",
+      "gcode_byte_identical_to_reviewed_slice": true
     }
   ]
 }

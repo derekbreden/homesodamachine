@@ -36,6 +36,16 @@ class PrintAcceptance(unittest.TestCase):
     def test_a_fleeting_upload_or_command_reply_prevents_retry(self):
         self.assertFalse(may_retry(self.before, self.before, True, "Finished"))
 
+    def test_rebooted_idle_printer_can_receive_its_first_job(self):
+        idle = dict(self.before, job_id="", subtask_name="", gcode_state="IDLE")
+        self.assertTrue(may_retry(idle, idle, False, ""))
+        self.assertFalse(may_retry(idle, dict(idle, gcode_state="PREPARE"), False, ""))
+        self.assertFalse(may_retry(idle, dict(idle, gcode_state="FINISH"), False, ""))
+        self.assertFalse(may_retry(idle, dict(idle, subtask_name="unknown.gcode.3mf"), False, ""))
+        self.assertFalse(may_retry(idle, idle, True, ""))
+        unknown = dict(idle, gcode_state="FINISH")
+        self.assertFalse(may_retry(unknown, unknown, False, ""))
+
     def test_fleeting_resource_error_stops_before_acceptance_timeout(self):
         ui = Mock()
         ui.nodes.side_effect = [[{"role": "AXStaticText",
