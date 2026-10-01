@@ -4,10 +4,14 @@
     "all_solids_valid_and_connected": true,
     "cover_flat_back_and_wings_on_bed": true,
     "body_dimensions_match": true,
-    "full_original_roof_stock_retained": true,
-    "no_added_receiver_ledges": true,
-    "joint_and_fastener_region_unchanged": true,
-    "halves_do_not_overlap": true,
+    "changes_confined_to_handhold": true,
+    "structural_joint_and_fastener_region_unchanged": true,
+    "halves_do_not_overlap_at_handholds": true,
+    "full_12mm_roof_retained_outside_joint_clearance": true,
+    "opening_clear_to_square_end_walls": true,
+    "roof_profile_constant_for_full_grip_length": true,
+    "full_3mm_catch_end_walls": true,
+    "no_curved_returns_around_grip_ends": true,
     "all_four_outer_corner_remnants_removed": true,
     "cover_reaches_requested_x_105_195": true,
     "all_four_slot_mouths_on_existing_end_walls": true,
@@ -17,16 +21,16 @@
   },
   "stock_and_joint": {
     "front": {
-      "removed_original_mm3": 277.2990406828656,
-      "removed_roof_stock_mm3": 0.0,
-      "added_mm3": 0.0,
-      "seam_change_mm3": 0.0
+      "local_volume_change_mm3": 68.29855195702112,
+      "outside_faces_match": true,
+      "outside_face_count": 1223,
+      "structural_joint_faces_match": true
     },
     "back": {
-      "removed_original_mm3": 275.68044482530064,
-      "removed_roof_stock_mm3": 0.0,
-      "added_mm3": 0.0,
-      "seam_change_mm3": 0.0
+      "local_volume_change_mm3": -101.93094206094975,
+      "outside_faces_match": true,
+      "outside_face_count": 2068,
+      "structural_joint_faces_match": true
     }
   },
   "maximum_interference_mm3": 0,
@@ -39,6 +43,119 @@
     254.0
   ],
   "maximum_outer_corner_remnant_mm3": 0.0,
+  "maximum_missing_roof_mm3": 0.0,
+  "maximum_missing_end_wall_mm3": 0.0,
+  "roof_profile": [
+    {
+      "side": -1,
+      "excess_mm3": 0.0
+    },
+    {
+      "side": -1,
+      "y_mm": 174.02,
+      "missing_mm3": 0.0
+    },
+    {
+      "side": -1,
+      "y_mm": 175.0,
+      "missing_mm3": 0.0
+    },
+    {
+      "side": -1,
+      "y_mm": 177.0,
+      "missing_mm3": 0.0
+    },
+    {
+      "side": -1,
+      "y_mm": 180.0,
+      "missing_mm3": 0.0
+    },
+    {
+      "side": -1,
+      "y_mm": 190.0,
+      "missing_mm3": 0.0
+    },
+    {
+      "side": -1,
+      "y_mm": 238.0,
+      "missing_mm3": 0.0
+    },
+    {
+      "side": -1,
+      "y_mm": 248.0,
+      "missing_mm3": 0.0
+    },
+    {
+      "side": -1,
+      "y_mm": 251.0,
+      "missing_mm3": 0.0
+    },
+    {
+      "side": -1,
+      "y_mm": 253.0,
+      "missing_mm3": 0.0
+    },
+    {
+      "side": -1,
+      "y_mm": 253.98,
+      "missing_mm3": 0.0
+    },
+    {
+      "side": 1,
+      "excess_mm3": 0.0
+    },
+    {
+      "side": 1,
+      "y_mm": 174.02,
+      "missing_mm3": 0.0
+    },
+    {
+      "side": 1,
+      "y_mm": 175.0,
+      "missing_mm3": 0.0
+    },
+    {
+      "side": 1,
+      "y_mm": 177.0,
+      "missing_mm3": 0.0
+    },
+    {
+      "side": 1,
+      "y_mm": 180.0,
+      "missing_mm3": 0.0
+    },
+    {
+      "side": 1,
+      "y_mm": 190.0,
+      "missing_mm3": 0.0
+    },
+    {
+      "side": 1,
+      "y_mm": 238.0,
+      "missing_mm3": 0.0
+    },
+    {
+      "side": 1,
+      "y_mm": 248.0,
+      "missing_mm3": 0.0
+    },
+    {
+      "side": 1,
+      "y_mm": 251.0,
+      "missing_mm3": 0.0
+    },
+    {
+      "side": 1,
+      "y_mm": 253.0,
+      "missing_mm3": 0.0
+    },
+    {
+      "side": 1,
+      "y_mm": 253.98,
+      "missing_mm3": 0.0
+    }
+  ],
+  "curved_end_returns": [],
   "minimum_wing_stop_probe_mm3": 0.5532986677644891,
   "mesh": {
     "grip-cover": {
@@ -59,8 +176,8 @@
   },
   "artifacts_sha256": {
     "grip-cover.stl": "acbb8f8cd3e50792a258670bf31c7574de6a435fbbce2629ede73c070378dc03",
-    "grip-receiver-back.stl": "245a4ce5bc898f850af1905ac8ff2b44004f55e77b8ebfdc60a603cba8789cbf",
-    "grip-receiver-front.stl": "2cb5a7498d12815ee93e4a2c6d1642d8561099251d4b921162fe0c5439fd45df"
+    "grip-receiver-back.stl": "9cd9574cc54779cfd4fdc13259b32981e22ed51d51bb8045689d947e1d73f520",
+    "grip-receiver-front.stl": "66392f601787886e8c66d106905865db9cc5b90847dc478065a6194cb0592ad6"
   },
   "scope": "Geometry only. Cover bending, spring-back, retention force, surface finish and lifting performance are unmeasured."
 }

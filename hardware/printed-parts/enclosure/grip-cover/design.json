@@ -1,8 +1,9 @@
 {
   "status": "geometry_candidate_unprinted",
   "source_sha256": {
-    "hardware/printed-parts/enclosure/grip-cover/grip_cover.py": "76130ad85f4cc357281b9f39f20e171871e990e1f2eff906c77c286898317051",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "388aac6ab7f6be13d328754df01e8dd830cfc8936caea5705273728b561ce334",
+    "hardware/printed-parts/enclosure/grip-cover/grip_cover.py": "12b7a77168c7de9072749e1a91f361f98d2900a9faf9135dafaa7d38e93d0169",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "b4bff076a7ffdbdba0ce71a4cfa0c2e2a4280123c1f67805a111b02958840f94",
+    "hardware/manifold-layout/enclosure-box.json": "7325b7129e73f97d4e609c429a6be85d4e5ced2dfc2f4d59b16557cef389d351",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "79cde9fc48bfa2c0f592c6fb42876c4d94ed0d4cd9e44faf0509b3117f89c294",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "fea9e1deddaa1e6bff75f6669e732eb4b3c5761807de565b438fa6037ccca92a"
   },
@@ -20,7 +21,11 @@
     174.0,
     254.0
   ],
-  "receiver": "Through-slots in the existing end walls; no projecting lips.",
+  "receiver": "Square 3 mm end walls with through-slots and one constant XZ roof profile along Y174\u2013254.",
+  "roof_profile_y_mm": [
+    174.0,
+    254.0
+  ],
   "roof_stock_mm": 12.0,
   "wing_mm": {
     "reach": 2.4,

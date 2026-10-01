@@ -42,6 +42,18 @@ def main():
                          for tree in part["trees"])+float(settings["support_top_z_distance"])
     assert contact_envelope<g.ROOF
     roads=list(segments(path));part=report["parts"][0]
+    perimeter_support={}
+    for printed_part in report["parts"]:
+        model_roads=[r for r in roads if r["object"]==printed_part["identify_id"]
+                     and not r["feature"].startswith("Support")]
+        first_z,second_z=sorted({r["layer"] for r in model_roads})[:2]
+        bed_roads=unary_union([LineString((r["a"],r["b"])).buffer(r["width"]/2)
+                              for r in model_roads if r["layer"]==first_z])
+        walls=[r for r in model_roads if r["layer"]==second_z and "wall" in r["feature"].lower()]
+        contact=min(LineString((r["a"],r["b"])).buffer(r["width"]/2).intersection(bed_roads).area /
+                    LineString((r["a"],r["b"])).buffer(r["width"]/2).area for r in walls)
+        assert contact>.50,(printed_part["name"],contact)
+        perimeter_support[printed_part["name"]]=contact
     cover=[r for r in roads if r["object"]==part["identify_id"]]
     assert cover and not any(r["feature"].startswith("Support") for r in cover)
     layers=wall_layers(archive,part["identify_id"])
@@ -77,6 +89,7 @@ def main():
             "cover_support_paths":0,"cover_layers_mm":layers,
             "both_wings_print_on_first_layer":True,
             "minimum_second_layer_bead_area_overlap_fraction":overlap,
+            "minimum_second_layer_perimeter_overlap_by_part":perimeter_support,
             "maximum_second_layer_outward_advance_mm":high,
             "allowed_outward_advance_mm":allowed,
             "highest_support_contact_envelope_z_mm":contact_envelope,
