@@ -1,0 +1,19 @@
+{
+  "observed_utc": "2026-10-01T01:39:01.560133+00:00",
+  "gcode_state": "PAUSE",
+  "subtask_name": "enclosure-front-top-flat-wings-black-z018-h2c-v15.gcode.3mf",
+  "task_id": "1297866683",
+  "print_error": 50364446,
+  "hms": [
+    {
+      "attr": 50333952,
+      "code": 131073
+    }
+  ],
+  "layer_num": 0,
+  "total_layer_num": 1348,
+  "mc_percent": 0,
+  "mc_remaining_time": 1312,
+  "visible_error": "The extrusion motor is overloaded, please check the Assistant for details. [0300-801E 302043]",
+  "next_action": "User asked to clear filament feed; no resume command sent."
+}

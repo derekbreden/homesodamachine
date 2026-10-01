@@ -1,0 +1,1707 @@
+{
+ "bounds": [
+  {
+   "detail": {
+    "__hsm_list__": []
+   },
+   "id": "z-seam-bed",
+   "label": "The Z seam leaves every piece on the H2C's bed",
+   "ok": true,
+   "target": "inside the H2C's 320 mm Z",
+   "value": "seam at 160.00, band 35.00..299.20"
+  },
+  {
+   "detail": {
+    "__hsm_list__": []
+   },
+   "id": "z-seam-two-pieces",
+   "label": "A column splits into two pieces the H2C can print",
+   "ok": true,
+   "target": "a band inside the H2C's 320 mm Z",
+   "value": "361.00 mm column, band 35.00..299.20"
+  },
+  {
+   "detail": {
+    "__hsm_list__": []
+   },
+   "id": "z-seam-front-lane",
+   "label": "The front column's lip ring is clear at the seam height",
+   "ok": true,
+   "target": "a lane containing it",
+   "value": "seam at 160.00, lane 150.75..220.72"
+  },
+  {
+   "detail": {
+    "__hsm_list__": []
+   },
+   "id": "z-seam-back-lane",
+   "label": "The back column's lip ring is clear at the seam height",
+   "ok": true,
+   "target": "a lane containing it",
+   "value": "seam at 160.00, lane 35.00..299.20"
+  },
+  {
+   "detail": {
+    "__hsm_list__": []
+   },
+   "id": "z-seam-under-deck",
+   "label": "The Z-seam rim stays under the flavour deck's lowest plate",
+   "ok": true,
+   "target": "air between them",
+   "value": "rim at 174.80, lowest wall root at 177.90"
+  },
+  {
+   "detail": {
+    "__hsm_list__": []
+   },
+   "id": "plate-foot-condenser-envelope",
+   "label": "The collet-plate feet stay outside the condenser+fan envelope",
+   "ok": true,
+   "target": "positive air outside the complete condenser+fan bounding box",
+   "value": "2.00 mm air over the complete bounding box"
+  },
+  {
+   "detail": {
+    "__hsm_list__": []
+   },
+   "id": "box-width",
+   "label": "The pack stands inside the appliance's stated width",
+   "ok": true,
+   "target": "inside a 215 mm appliance",
+   "value": "pack reaches x \u00b1104.50 at foam-assembly, wall at \u00b1104.50"
+  },
+  {
+   "detail": {
+    "__hsm_list__": []
+   },
+   "id": "back-top-flank-clear",
+   "label": "The pack stands clear of back-top's own flank face",
+   "ok": true,
+   "target": "outside x \u00b198.50, a 9 mm flank",
+   "value": "least air 0.15 mm, at flow-regulator"
+  },
+  {
+   "detail": {
+    "__hsm_list__": []
+   },
+   "id": "box-front",
+   "label": "The pack stands behind the front wall's relieved surface",
+   "ok": true,
+   "target": "on or behind the wall's own surface, plane 14 and its reliefs",
+   "value": "least air 0.00 mm, at compressor"
+  },
+  {
+   "detail": {
+    "__hsm_list__": []
+   },
+   "id": "box-depth",
+   "label": "The pack stands inside the appliance's stated depth",
+   "ok": true,
+   "target": "ahead of `rear_plane_y` 468.3",
+   "value": "pack reaches y 468.30 at foam-assembly, +Y wall at 468.30"
+  },
+  {
+   "detail": {
+    "__hsm_list__": []
+   },
+   "id": "box-height",
+   "label": "The pack stands under the appliance's stated ceiling",
+   "ok": true,
+   "target": "under a 361 mm appliance",
+   "value": "pack reaches z 351.00, ceiling at 352.00"
+  },
+  {
+   "detail": {
+    "__hsm_list__": []
+   },
+   "id": "pump-cartridge-flush",
+   "label": "The pump cartridge is flush with the fixed front face",
+   "ok": true,
+   "target": "the same plane",
+   "value": "cartridge y 5.000, fixed face y 5.000"
+  },
+  {
+   "detail": {
+    "__hsm_list__": []
+   },
+   "id": "flute-backed",
+   "label": "Every fluted face keeps a whole wall behind its grooves",
+   "ok": true,
+   "target": "at least 3 mm",
+   "value": "thinnest of 12 stated sections is 3.0000 mm"
+  },
+  {
+   "detail": {
+    "__hsm_list__": []
+   },
+   "id": "flute-closes",
+   "label": "The reeded field closes on the box at the coupon's own pitch",
+   "ok": true,
+   "target": "within 0.15 mm of the coupon's 5",
+   "value": "262 grooves round 1342.00 mm, 5.1221 mm centres"
+  },
+  {
+   "detail": {
+    "__hsm_list__": []
+   },
+   "id": "flute-hides-seam",
+   "label": "The Y seam runs down a groove, not across a land",
+   "ok": true,
+   "target": "within 0.5 mm of a centre",
+   "value": "0.2660 mm off a groove centre, in a groove 4 mm wide"
+  },
+  {
+   "detail": {
+    "__hsm_list__": []
+   },
+   "id": "pump-bay-cavity-throat",
+   "label": "The pump bay throat reaches both cavity side planes",
+   "ok": true,
+   "target": "the same two planes",
+   "value": "bay x -104.500..104.500, cavity x -104.500..104.500"
+  },
+  {
+   "detail": {
+    "__hsm_list__": []
+   },
+   "id": "y-seam-clears-facet",
+   "label": "The Y seam stands behind the display housing",
+   "ok": true,
+   "target": "aft of 103.00",
+   "value": "seam at 200.00, housing back plane at 101.00"
+  },
+  {
+   "detail": {
+    "__hsm_list__": []
+   },
+   "id": "display-housing-seats",
+   "label": "The housing's back cut keeps a wall behind the display's seats",
+   "ok": true,
+   "target": "a 3 mm wall behind them, so aft of 83.87",
+   "value": "cut at 96.00 aft of the front face, seats reach 80.87"
+  },
+  {
+   "detail": {
+    "__hsm_list__": []
+   },
+   "id": "wall-under-lip",
+   "label": "The pack stands clear of the wall under each Z-seam lip",
+   "ok": true,
+   "target": "one `wall` (3 mm) off the \u00b1Y walls and the \u00b1X ones below each seam",
+   "value": "clear on all three sides of both pieces"
+  },
+  {
+   "detail": {
+    "__hsm_list__": []
+   },
+   "id": "pump-bay-vertical-datums",
+   "label": "The pump bay keeps its fixed floor and roof datums around the lowered pumps",
+   "ok": true,
+   "target": "0.33 mm head-to-floor and 7.20 mm motor-to-lintel",
+   "value": "head floor air 0.33 mm, motor-to-lintel air 7.20 mm"
+  },
+  {
+   "detail": {
+    "__hsm_list__": []
+   },
+   "id": "funnel-collar-frame",
+   "label": "The funnel collar stands in the frame the top wall has left",
+   "ok": true,
+   "target": "frame x -89.50..89.50, y 101.00..465.30",
+   "value": "collar x -82.50..82.50, y 107.00..258.00"
+  },
+  {
+   "detail": {
+    "__hsm_list__": []
+   },
+   "id": "funnel-brim-overhang",
+   "label": "The funnel's brim overhang fits its top-wall margin",
+   "ok": true,
+   "target": "within brim_margin 7.00 mm",
+   "value": "overhang 7.00 mm"
+  },
+  {
+   "detail": {
+    "__hsm_list__": []
+   },
+   "id": "funnel-brim-margin",
+   "label": "The funnel collar keeps a brim margin at each free edge",
+   "ok": true,
+   "target": "each at least brim_margin 7.00 mm",
+   "value": "\u2212X 7.00, +X 7.00, +Y 207.30 mm"
+  },
+  {
+   "detail": {
+    "__hsm_list__": []
+   },
+   "id": "funnel-brim-lands",
+   "label": "The funnel's brim lands on top wall ahead of the throat",
+   "ok": true,
+   "target": "a 3 mm landing, so at or aft of 98.34",
+   "value": "brim front at y 100.00, facet arris at 95.34"
+  }
+ ],
+ "box": {
+  "column_reliefs": [
+   [
+    1,
+    -1,
+    "condenser+fan",
+    [
+     88.5,
+     97.5,
+     14.0,
+     28.2664991614216,
+     8.0,
+     10.4
+    ]
+   ],
+   [
+    1,
+    -1,
+    "condenser+fan",
+    [
+     88.5,
+     97.5,
+     14.0,
+     28.2664991614216,
+     144.6,
+     147.0
+    ]
+   ],
+   [
+    1,
+    1,
+    "psu",
+    [
+     92.02175961675101,
+     98.25000010000002,
+     457.056099275726,
+     464.80000010000003,
+     252.39999989999998,
+     306.4000001
+    ]
+   ]
+  ],
+  "inner": [
+   -104.5,
+   104.5,
+   14.0,
+   468.3,
+   0.0,
+   352.0
+  ],
+  "outer": [
+   -107.5,
+   107.5,
+   5.0,
+   471.3,
+   -6.0,
+   355.0
+  ],
+  "pack": {
+   "__hsm_namedtuple__": "Pack",
+   "fields": [
+    "placed",
+    "front_ports",
+    "back_ports",
+    "east_ports",
+    "west_ports",
+    "funnel",
+    "c14",
+    "east_bosses",
+    "east_mount_fills",
+    "side_wells",
+    "floor_bosses",
+    "west_cradle",
+    "cond_cradle",
+    "cond_mount",
+    "cond_airway",
+    "asse_cradle",
+    "flow_meter_anchors",
+    "tube_anchors",
+    "ceiling_reliefs",
+    "flank_reliefs",
+    "port_field",
+    "nameplate",
+    "keystone",
+    "valve_trays",
+    "pump_trays",
+    "core_stops",
+    "core_holds",
+    "vent_chase",
+    "collet_plate",
+    "front_flank_reliefs"
+   ],
+   "values": [
+    {
+     "__hsm_dict__": []
+    },
+    [],
+    {
+     "__hsm_list__": [
+      [
+       "round",
+       -78.07,
+       336.2105808375568,
+       17.44
+      ],
+      [
+       "round",
+       -78.07,
+       269.02400009999997,
+       17.44
+      ],
+      [
+       "round",
+       -37.809999999999995,
+       269.02400009999997,
+       17.44
+      ],
+      [
+       "round",
+       -37.809999999999995,
+       336.2105808375568,
+       17.44
+      ],
+      [
+       "rect",
+       66.9,
+       336.2105808375568,
+       24.3,
+       18.3,
+       1.5
+      ],
+      [
+       "round",
+       2.450000000000003,
+       335.9605808375568,
+       17.3
+      ],
+      [
+       "rect",
+       -37.809999999999995,
+       301.5472904687784,
+       14.8,
+       16.3,
+       0.4
+      ]
+     ]
+    },
+    [],
+    {
+     "__hsm_list__": [
+      [
+       "rect",
+       404.7500272506336,
+       295.7105808375568,
+       76.5,
+       15.5,
+       0.0
+      ]
+     ]
+    },
+    [
+     0.0,
+     182.5
+    ],
+    [
+     [
+      46.900000000000006,
+      336.2105808375568
+     ],
+     [
+      86.9,
+      336.2105808375568
+     ]
+    ],
+    [
+     [
+      361.3,
+      262.9,
+      98.25
+     ],
+     [
+      459.3,
+      262.9,
+      98.25
+     ],
+     [
+      361.3,
+      295.9,
+      98.25
+     ],
+     [
+      459.3,
+      295.9,
+      98.25
+     ],
+     [
+      245.3,
+      256.90000000000003,
+      96.25
+     ],
+     [
+      323.3,
+      256.90000000000003,
+      96.25,
+      99.25,
+      []
+     ],
+     [
+      323.3,
+      323.2,
+      96.25
+     ],
+     [
+      245.3,
+      323.2,
+      96.25
+     ],
+     [
+      347.8,
+      321.4,
+      96.25,
+      96.25,
+      [],
+      [
+       331.3,
+       351.3
+      ]
+     ],
+     [
+      334.8,
+      321.4,
+      96.25,
+      96.25,
+      [],
+      [
+       331.3,
+       351.3
+      ]
+     ],
+     [
+      347.8,
+      255.39999999999998,
+      96.25,
+      99.25,
+      [
+       [
+        331.3,
+        333.8
+       ],
+       [
+        348.8,
+        351.3
+       ]
+      ],
+      [
+       331.3,
+       351.3
+      ]
+     ],
+     [
+      334.8,
+      255.39999999999998,
+      96.25,
+      99.25,
+      [
+       [
+        331.3,
+        333.8
+       ],
+       [
+        348.8,
+        351.3
+       ]
+      ],
+      [
+       331.3,
+       351.3
+      ]
+     ],
+     [
+      324.8,
+      330.70000000000005,
+      96.25
+     ],
+     [
+      324.8,
+      343.70000000000005,
+      96.25
+     ],
+     [
+      258.8,
+      330.70000000000005,
+      96.25
+     ],
+     [
+      258.8,
+      343.70000000000005,
+      96.25
+     ],
+     [
+      338.30000010000003,
+      337.5442287340604,
+      92.25
+     ]
+    ],
+    [
+     [
+      "ground-stack ceiling column",
+      [
+       92.25,
+       98.5,
+       334.80000010000003,
+       341.80000010000003,
+       341.0442287340604,
+       348.5
+      ],
+      [
+       [
+        338.30000010000003,
+        337.5442287340604
+       ]
+      ]
+     ],
+     [
+      "pcba/relay-2 upper pad union",
+      [
+       96.25,
+       98.5,
+       319.8,
+       351.3,
+       317.9,
+       327.20000000000005
+      ],
+      [
+       [
+        323.3,
+        323.2
+       ],
+       [
+        347.8,
+        321.4
+       ],
+       [
+        334.8,
+        321.4
+       ]
+      ]
+     ],
+     [
+      "relay-1 y=258.8 ceiling column",
+      [
+       96.25,
+       98.5,
+       255.3,
+       262.3,
+       327.20000000000005,
+       348.5
+      ],
+      [
+       [
+        258.8,
+        330.70000000000005
+       ],
+       [
+        258.8,
+        343.70000000000005
+       ]
+      ]
+     ],
+     [
+      "relay-1 y=324.8 ceiling column",
+      [
+       96.25,
+       98.5,
+       321.3,
+       328.3,
+       327.20000000000005,
+       348.5
+      ],
+      [
+       [
+        324.8,
+        330.70000000000005
+       ],
+       [
+        324.8,
+        343.70000000000005
+       ]
+      ]
+     ]
+    ],
+    [
+     [
+      1,
+      361.01,
+      322.25,
+      "413",
+      343.0,
+      true,
+      true
+     ],
+     [
+      1,
+      377.26,
+      322.25,
+      "413",
+      343.0,
+      true,
+      true
+     ],
+     [
+      1,
+      393.51,
+      322.25,
+      "413",
+      343.0,
+      true,
+      true
+     ],
+     [
+      1,
+      409.76,
+      322.25,
+      "413",
+      343.0,
+      true,
+      true
+     ],
+     [
+      1,
+      426.01,
+      322.25,
+      "413",
+      343.0,
+      true,
+      true
+     ],
+     [
+      1,
+      121.0,
+      300.0,
+      "420",
+      null,
+      true
+     ],
+     [
+      -1,
+      119.0,
+      291.0,
+      "415",
+      null,
+      true
+     ],
+     [
+      -1,
+      302.5,
+      270.0,
+      "420",
+      343.0,
+      true,
+      true
+     ],
+     [
+      -1,
+      318.75,
+      270.0,
+      "415",
+      343.0,
+      true,
+      true
+     ],
+     [
+      -1,
+      335.0,
+      270.0,
+      "415",
+      343.0,
+      true,
+      true
+     ]
+    ],
+    [
+     [
+      -54.6,
+      25.5,
+      14.6,
+      12.0
+     ],
+     [
+      -54.6,
+      156.5,
+      14.6,
+      12.0
+     ],
+     [
+      12.400000000000002,
+      25.5,
+      14.6,
+      12.0
+     ],
+     [
+      12.399999999999995,
+      156.5,
+      14.6,
+      12.0
+     ]
+    ],
+    [
+     [
+      -86.7,
+      54.3,
+      13.0
+     ]
+    ],
+    [
+     [
+      14.0,
+      41.5,
+      97.5,
+      8.999999999999998,
+      9.399999999999999,
+      0.0
+     ],
+     [
+      14.0,
+      41.5,
+      97.5,
+      145.59999999999994,
+      145.99999999999994,
+      142.34999999999994
+     ]
+    ],
+    [
+     98.5,
+     149.0,
+     164.0,
+     [
+      [
+       70.49999999999999,
+       153.0,
+       8.999999999999998
+      ],
+      [
+       70.49999999999999,
+       153.0,
+       145.59999999999994
+      ]
+     ]
+    ],
+    [
+     34.00000000000001,
+     148.0,
+     9.0,
+     146.0
+    ],
+    [
+     336.2105808375568,
+     [
+      [
+       345.51,
+       359.01,
+       -89.22,
+       11.15,
+       -78.07
+      ],
+      [
+       359.01,
+       398.01,
+       -94.74320508075688,
+       null,
+       -78.07
+      ],
+      [
+       398.01,
+       411.51,
+       -91.05499999999999,
+       12.985000000000001,
+       -78.07
+      ]
+     ],
+     [
+      365.6275,
+      391.3925
+     ],
+     14.289419162443238
+    ],
+    [
+     -40.809999999999995,
+     332.1,
+     9.3,
+     [
+      [
+       367.21,
+       374.40999999999997
+      ],
+      [
+       413.61,
+       420.81
+      ]
+     ]
+    ],
+    [
+     [
+      [
+       18.345000003487417,
+       270.59999999999997,
+       332.1
+      ],
+      [
+       -1.0,
+       0.0,
+       0.0
+      ],
+      [
+       0.0,
+       0.0,
+       1.0
+      ],
+      3.3249999999999997,
+      [
+       null,
+       null
+      ]
+     ],
+     [
+      [
+       57.97500000348741,
+       406.6526,
+       335.9605808375568
+      ],
+      [
+       1.0,
+       0.0,
+       0.0
+      ],
+      [
+       0.0,
+       0.0,
+       1.0
+      ],
+      3.3249999999999997,
+      [
+       null,
+       null
+      ]
+     ],
+     [
+      [
+       -78.07,
+       282.0,
+       270.5740001
+      ],
+      [
+       0.0,
+       1.0,
+       0.0
+      ],
+      [
+       -1.0,
+       0.0,
+       0.0
+      ],
+      3.3249999999999997,
+      [
+       null,
+       null
+      ]
+     ],
+     [
+      [
+       2.449999999999999,
+       363.6526,
+       335.9605808375568
+      ],
+      [
+       -1.2246467991473532e-16,
+       -1.0,
+       0.0
+      ],
+      [
+       0.0,
+       0.0,
+       1.0
+      ],
+      9.585,
+      [
+       null,
+       null
+      ]
+     ],
+     [
+      [
+       38.449999999999996,
+       329.1526,
+       335.9605808375568
+      ],
+      [
+       0.0,
+       1.0,
+       0.0
+      ],
+      [
+       0.0,
+       0.0,
+       1.0
+      ],
+      7.9,
+      [
+       null,
+       null
+      ]
+     ],
+     [
+      [
+       -89.85,
+       256.81,
+       294.0105808375568
+      ],
+      [
+       0.0,
+       1.0,
+       0.0
+      ],
+      [
+       -1.0,
+       0.0,
+       0.0
+      ],
+      8.4,
+      [
+       null,
+       null
+      ]
+     ],
+     [
+      [
+       -89.85,
+       228.26,
+       322.0105808375568
+      ],
+      [
+       3.061616997868382e-17,
+       -1.0,
+       5.3028761936245346e-17
+      ],
+      [
+       -1.0,
+       0.0,
+       0.0
+      ],
+      7.0,
+      [
+       [
+        343.0,
+        null
+       ],
+       [
+        343.0,
+        null
+       ]
+      ]
+     ]
+    ],
+    [
+     [
+      "c14-inlet",
+      48.414240696541654,
+      85.38575930345843,
+      434.21000000000004,
+      465.05,
+      347.4455808375568
+     ],
+     [
+      "asse1022-assembly",
+      -84.33185102677876,
+      -71.80814897322122,
+      415.01,
+      448.51,
+      352.0
+     ],
+     [
+      "asse1022-assembly",
+      -89.56247728811185,
+      -66.57752271188815,
+      395.51,
+      430.01,
+      352.0
+     ],
+     [
+      "asse1022-assembly",
+      -93.22747728811181,
+      -62.912522711888144,
+      343.51,
+      412.51,
+      352.0
+     ],
+     [
+      "asse1022-assembly",
+      -86.63087842910804,
+      -69.50912157089192,
+      304.51,
+      347.51,
+      352.0
+     ],
+     [
+      "asse1022-assembly",
+      -87.72747728811186,
+      -68.41252271188814,
+      343.51,
+      361.51,
+      352.0
+     ],
+     [
+      "co2-inlet",
+      -10.06696854581378,
+      14.966968545813783,
+      452.00260000000003,
+      467.3,
+      349.0882851220998
+     ],
+     [
+      "bulkhead-water",
+      -89.92532981495471,
+      -66.21467018504528,
+      449.01,
+      467.3,
+      348.6405808375568
+     ],
+     [
+      "bulkhead-carb",
+      -49.66532981495471,
+      -25.95467018504528,
+      449.01,
+      467.3,
+      348.6405808375568
+     ],
+     [
+      "digiten-flow",
+      -51.41,
+      -12.409999999999997,
+      374.51,
+      413.51,
+      352.0
+     ],
+     [
+      "digiten-flow",
+      -51.36,
+      -12.459999999999997,
+      374.56,
+      413.46,
+      352.0
+     ],
+     [
+      "digiten-flow",
+      -51.41,
+      -12.409999999999997,
+      374.51,
+      413.51,
+      352.0
+     ],
+     [
+      "digiten-flow",
+      -17.81,
+      -12.309999999999995,
+      389.01,
+      399.01,
+      352.0
+     ],
+     [
+      "digiten-flow",
+      -50.559999999999995,
+      -41.26,
+      376.86,
+      386.15999999999997,
+      352.0
+     ],
+     [
+      "digiten-flow",
+      -22.56,
+      -13.259999999999998,
+      376.86,
+      386.15999999999997,
+      352.0
+     ],
+     [
+      "digiten-flow",
+      -50.559999999999995,
+      -41.26,
+      401.86,
+      411.15999999999997,
+      352.0
+     ],
+     [
+      "digiten-flow",
+      -22.56,
+      -13.259999999999998,
+      401.86,
+      411.15999999999997,
+      352.0
+     ],
+     [
+      "relay-1",
+      77.25,
+      100.25,
+      254.79999999999995,
+      328.8,
+      347.38845746812086
+     ],
+     [
+      "ground-stack",
+      84.45,
+      93.45,
+      329.98134675205296,
+      346.6186534479471,
+      347.38845746812086
+     ],
+     [
+      "wr1110",
+      -7.893585431277882,
+      13.41222427240227,
+      331.4891333794732,
+      398.00260010000005,
+      347.83968144393305
+     ],
+     [
+      "gasher-co2",
+      31.43686027918733,
+      45.46313972081499,
+      321.6526,
+      365.6526,
+      346.0
+     ],
+     [
+      "co2-adapter-regulator-in",
+      -3.378838324886523,
+      8.278838324886529,
+      394.00260000000003,
+      416.50260000000003,
+      347.83968144393305
+     ],
+     [
+      "co2-adapter-regulator-out",
+      -3.996955832961895,
+      8.896955832961886,
+      313.5326,
+      343.5326,
+      347.83968144393305
+     ],
+     [
+      "co2-adapter-check-in",
+      32.62116167511347,
+      44.27883832488658,
+      303.1526,
+      325.6526,
+      346.0
+     ],
+     [
+      "co2-adapter-check-out",
+      32.0030441670381,
+      44.896955832961886,
+      350.6526,
+      380.6526,
+      346.0
+     ],
+     [
+      "relay-1/ground-stack connector",
+      84.45,
+      93.45,
+      328.3,
+      330.48134675205296,
+      347.38845746812086
+     ],
+     [
+      "asse1022-assembly/bulkhead-water connector",
+      -84.33185102677876,
+      -71.80814897322122,
+      448.01,
+      449.51,
+      348.6405808375568
+     ]
+    ],
+    [
+     [
+      "flow-regulator",
+      -99.56217782649107,
+      -98.5,
+      236.10999999999999,
+      250.41,
+      318.6851543570139,
+      321.43814897322136
+     ]
+    ],
+    {
+     "__hsm_namedtuple__": "PortField",
+     "fields": [
+      "proud",
+      "rim",
+      "pockets"
+     ],
+     "values": [
+      2.0,
+      3.0,
+      [
+       [
+        -78.07,
+        336.2105808375568,
+        37.26,
+        18.939
+       ],
+       [
+        -37.809999999999995,
+        336.2105808375568,
+        37.26,
+        18.939
+       ],
+       [
+        -37.809999999999995,
+        269.02400009999997,
+        37.26,
+        18.939
+       ],
+       [
+        -78.07,
+        269.02400009999997,
+        37.26,
+        18.939
+       ],
+       [
+        2.450000000000003,
+        335.9605808375568,
+        36.33838646877507,
+        19.189
+       ]
+      ]
+     ]
+    },
+    {
+     "__hsm_namedtuple__": "Nameplate",
+     "fields": [
+      "x",
+      "z",
+      "width",
+      "height",
+      "corner",
+      "bevel",
+      "slip",
+      "thick",
+      "wall"
+     ],
+     "values": [
+      38.160000000000004,
+      269.17850009999995,
+      104.53,
+      38.0,
+      3.0,
+      0.4,
+      0.15,
+      3.36,
+      6.0
+     ]
+    },
+    [
+     -37.809999999999995,
+     301.5472904687784
+    ],
+    [
+     [
+      177.29,
+      -1.0,
+      [
+       [
+        22.35,
+        190.425
+       ],
+       [
+        -22.35,
+        190.425
+       ],
+       [
+        73.82,
+        199.925
+       ],
+       [
+        -73.82,
+        199.925
+       ]
+      ]
+     ],
+     [
+      94.24,
+      1.0,
+      [
+       [
+        22.35,
+        252.425
+       ],
+       [
+        82.1,
+        252.425
+       ],
+       [
+        -22.35,
+        252.425
+       ],
+       [
+        -82.1,
+        252.425
+       ]
+      ]
+     ]
+    ],
+    [
+     [
+      52.225,
+      45.859,
+      214.925
+     ],
+     [
+      -52.225,
+      45.859,
+      214.925
+     ]
+    ],
+    [
+     [
+      -78.50000000697483,
+      194.29999999999993,
+      12.0
+     ],
+     [
+      78.50000000697483,
+      194.29999999999993,
+      12.0
+     ]
+    ],
+    [
+     [
+      -65.6,
+      -56.6,
+      465.3,
+      253.4
+     ],
+     [
+      56.6,
+      65.6,
+      465.3,
+      253.4
+     ]
+    ],
+    [
+     [
+      -90.5000001069748,
+      323.79999999999995,
+      191.85000009999996
+     ]
+    ],
+    {
+     "__hsm_dict__": [
+      [
+       "holes",
+       [
+        [
+         -82.1,
+         186.174
+        ],
+        [
+         -22.35,
+         186.174
+        ],
+        [
+         22.35,
+         186.174
+        ],
+        [
+         82.1,
+         186.174
+        ]
+       ]
+      ],
+      [
+       "aft_y",
+       82.69
+      ],
+      [
+       "fore_y",
+       79.515
+      ],
+      [
+       "z0",
+       160.0
+      ],
+      [
+       "z1",
+       218.85
+      ],
+      [
+       "x0",
+       -104.5
+      ],
+      [
+       "x1",
+       104.5
+      ],
+      [
+       "hole_d",
+       8.5
+      ],
+      [
+       "seat_z",
+       165.195
+      ],
+      [
+       "wall_aft_y",
+       93.836
+      ],
+      [
+       "bore_r",
+       8.5
+      ],
+      [
+       "rest_gap",
+       0.5
+      ],
+      [
+       "stroke",
+       2.0
+      ],
+      [
+       "tube_bottom_y",
+       92.69
+      ],
+      [
+       "seated_tube_bottom_y",
+       94.69
+      ],
+      [
+       "carrier_states",
+       {
+        "__hsm_dict__": [
+         [
+          "release",
+          {
+           "__hsm_dict__": [
+            [
+             "offset_y",
+             0.0
+            ],
+            [
+             "tube_depth",
+             10.0
+            ],
+            [
+             "cartridge_offset_y",
+             -2.0
+            ],
+            [
+             "tube_bottom_y",
+             92.69
+            ],
+            [
+             "collet_depression",
+             1.5
+            ],
+            [
+             "plate_gap",
+             0.0
+            ]
+           ]
+          }
+         ],
+         [
+          "squeeze",
+          {
+           "__hsm_dict__": [
+            [
+             "offset_y",
+             0.0
+            ],
+            [
+             "tube_depth",
+             10.0
+            ],
+            [
+             "cartridge_offset_y",
+             -2.0
+            ],
+            [
+             "tube_bottom_y",
+             92.69
+            ],
+            [
+             "collet_depression",
+             1.5
+            ],
+            [
+             "plate_gap",
+             0.0
+            ]
+           ]
+          }
+         ],
+         [
+          "connected",
+          {
+           "__hsm_dict__": [
+            [
+             "offset_y",
+             2.0
+            ],
+            [
+             "tube_depth",
+             11.5
+            ],
+            [
+             "cartridge_offset_y",
+             0.0
+            ],
+            [
+             "tube_bottom_y",
+             94.69
+            ],
+            [
+             "collet_depression",
+             0.0
+            ],
+            [
+             "plate_gap",
+             0.5
+            ]
+           ]
+          }
+         ],
+         [
+          "park",
+          {
+           "__hsm_dict__": [
+            [
+             "offset_y",
+             2.0
+            ],
+            [
+             "tube_depth",
+             null
+            ],
+            [
+             "cartridge_offset_y",
+             null
+            ],
+            [
+             "tube_bottom_y",
+             94.69
+            ],
+            [
+             "collet_depression",
+             0.0
+            ],
+            [
+             "plate_gap",
+             0.5
+            ]
+           ]
+          }
+         ]
+        ]
+       }
+      ],
+      [
+       "connected_release_travel",
+       2.0
+      ],
+      [
+       "assembly_state",
+       "connected"
+      ]
+     ]
+    },
+    [
+     [
+      "coil-v-f",
+      98.5,
+      99.85000010000002,
+      117.53999990000001,
+      150.88240677056572,
+      235.8113573071557,
+      269.03864289284434
+     ],
+     [
+      "coil-v-i",
+      -99.85000009999996,
+      -98.5,
+      117.53999990000001,
+      151.15245914989052,
+      235.81135730715576,
+      269.0386428928443
+     ]
+    ]
+   ]
+  },
+  "pump_bay": [
+   -104.5,
+   104.5,
+   284.4240001
+  ],
+  "splits": [
+   160.0,
+   160.0
+  ],
+  "y_bosses": [
+   [
+    -104.5,
+    -107.5,
+    1.0,
+    48.9
+   ],
+   [
+    -104.5,
+    -107.5,
+    1.0,
+    152.1
+   ],
+   [
+    -104.5,
+    -107.5,
+    1.0,
+    334.05
+   ],
+   [
+    104.5,
+    107.5,
+    -1.0,
+    48.9
+   ],
+   [
+    104.5,
+    107.5,
+    -1.0,
+    152.1
+   ],
+   [
+    104.5,
+    107.5,
+    -1.0,
+    334.05
+   ]
+  ],
+  "y_joint": 200.0,
+  "z_seam_passes": [
+   true,
+   true
+  ]
+ },
+ "box_fields": [
+  "pack",
+  "inner",
+  "outer",
+  "y_joint",
+  "splits",
+  "y_bosses",
+  "z_seam_passes",
+  "column_reliefs",
+  "pump_bay"
+ ],
+ "schema": 5
+}

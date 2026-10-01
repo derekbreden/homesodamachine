@@ -1,0 +1,23 @@
+{
+  "status": "printing_held_by_user",
+  "recorded_utc": "2026-10-01T01:52:37.142076+00:00",
+  "user_instruction": "Continue preparation; hold off on printing. User stopped the first print before it started. Await Funnel work on front-top/back-top and Grips work on front-bottom/back-bottom.",
+  "front_top_task_id": "1297866683",
+  "user_reported_front_top_stopped_before_start": true,
+  "latest_printer_observation": {
+    "observed_utc": "2026-10-01T01:50:06.929722+00:00",
+    "gcode_state": "FAILED",
+    "task_id": "1297866683",
+    "subtask_name": "enclosure-front-top-flat-wings-black-z018-h2c-v15.gcode.3mf",
+    "layer_num": 0,
+    "print_error": 0
+  },
+  "back_top_sent": false,
+  "resume_authorized": false,
+  "further_print_authorized": false,
+  "dependencies": {
+    "top_halves": "Funnel",
+    "bottom_halves": "Grips"
+  },
+  "future_action": "Integrate additions, regenerate affected geometry, publish and verify, reslice and review, then obtain fresh print direction."
+}

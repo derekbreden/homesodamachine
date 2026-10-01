@@ -295,7 +295,12 @@ def object_toolpaths(gcode: Path, output: Path, identify_id: int) -> dict:
         for raw in source:
             line = raw.strip()
             start = re.match(r"; start printing object, unique label id: (\d+)", line)
-            if start:
+            object_id = re.match(r"; OBJECT_ID:\s*(-?\d+)", line)
+            if object_id:
+                current = int(object_id.group(1))
+                selected_seen |= current == identify_id
+                target.write("; FEATURE: Other object\n")
+            elif start:
                 current = int(start.group(1))
                 selected_seen |= current == identify_id
                 target.write("; FEATURE: Other object\n")

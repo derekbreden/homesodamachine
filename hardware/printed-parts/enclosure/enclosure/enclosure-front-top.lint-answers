@@ -51,3 +51,10 @@ click: x=103.000 y=111.511 z=224.796
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-72.625 y=116.875 z=343.000
 click: x=72.625 y=116.875 z=343.000
+
+[step] The print-down display-wing exits meet the existing storey floor and bay wall at this offset. This is an open support-removal lane through otherwise continuous housing stock; the two parallel planes do not form a separate thin wall.
+click: x=-64.775 y=80.013 z=310.750
+
+[sliver] These are narrow patches on the existing thick lintel floor at the mouths of the vertical wing-support exits. The 0.498 mm measurement is the exposed surface width, not wall thickness; the full lintel remains below and the tee/bay geometry is unchanged.
+click: x=-64.775 y=79.764 z=284.424
+click: x=64.775 y=79.764 z=284.424
