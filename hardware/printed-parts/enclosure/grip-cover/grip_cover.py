@@ -26,118 +26,39 @@ import enclosure as shell
 from _cadq_export import export_assembly
 from _materials import M_PETGF_BLACK, one_body
 from flute_payload import cut
-from overhang_round import transition
 
-# The supported flat reaches the additive exterior transition's foot. Its free
-# outer edge needs no mating clearance; the inner wall and ends keep the slip fit.
-BODY_AIR = shell.fits.slip
-LENGTH = shell.handhold_length - 2 * BODY_AIR
-X_EXT = shell.appliance_width / 2
-_seat, _tip, _heat, _cap = shell._boss_x(X_EXT, -1)
-INNER_FACE = _cap + shell.handhold_wall
-OUTER_FLAT = X_EXT - transition(shell.handhold_edge_r)[1]
-WIDTH = OUTER_FLAT - INNER_FACE - BODY_AIR
-X_CENTER = (OUTER_FLAT + INNER_FACE + BODY_AIR) / 2
-ROOF = -shell.floor_t + shell.handhold_height + shell.fits.supported_surface
-CROWN = ROOF + shell.handhold_roof
+_geometry = shell.grip_interface()
+BODY_AIR = _geometry.BODY_AIR
+LENGTH = _geometry.LENGTH
+X_EXT = _geometry.X_EXT
+INNER_FACE = _geometry.INNER_FACE
+OUTER_FLAT = _geometry.OUTER_FLAT
+WIDTH = _geometry.WIDTH
+X_CENTER = _geometry.X_CENTER
+ROOF = _geometry.ROOF
+CROWN = _geometry.CROWN
+THICK = _geometry.THICK
+WING_THICK = _geometry.WING_THICK
+WING_REACH = _geometry.WING_REACH
+WING_SPAN = _geometry.WING_SPAN
+WING_END_R = _geometry.WING_END_R
+CORNER_R = _geometry.CORNER_R
+TOUCH_R = _geometry.TOUCH_R
+WING_END_AIR = _geometry.WING_END_AIR
+BEARING_AIR = _geometry.BEARING_AIR
+BACK_AIR = _geometry.BACK_AIR
+ENTRY_WIDTH = _geometry.ENTRY_WIDTH
+ENTRY_DEPTH = _geometry.ENTRY_DEPTH
+BACK = _geometry.BACK
 
-# The accepted nameplate's flat-wing section. Flexibility of this narrower,
-# shorter strip and retention in this orientation require their own fit trial.
-THICK = 3.36
-WING_THICK = 1.68
-WING_REACH = 2.40
-WING_SPAN = 5.0
-WING_END_R = .60
-CORNER_R = .60
-TOUCH_R = .60
-WING_END_AIR = shell.fits.slip
-BEARING_AIR = .45
-BACK_AIR = shell.fits.supported_surface
-ENTRY_WIDTH = 1.10
-ENTRY_DEPTH = .40
-BACK = ROOF - BACK_AIR
-
-
-def box(x0, x1, y0, y1, z0, z1):
-    return cq.Solid.makeBox(x1-x0, y1-y0, z1-z0, cq.Vector(x0, y0, z0))
-
-
-def rounded(width, height, z0, z1, radius):
-    return (cq.Workplane("XY").workplane(offset=z0).rect(width, height)
-            .extrude(z1-z0).edges("|Z").fillet(radius).val())
-
-
-def wing(end):
-    return rounded(WING_REACH+1, WING_SPAN, 0, WING_THICK, WING_END_R).translate(
-        (end*(LENGTH/2+(WING_REACH-1)/2), 0, 0))
-
-
-def cover():
-    """One interchangeable strip; the finger face prints upward without supports."""
-    body = rounded(LENGTH, WIDTH, 0, THICK, CORNER_R)
-    edges = [e for e in body.Edges() if abs(e.BoundingBox().zmin-THICK) < 1e-6]
-    body = body.fillet(TOUCH_R, edges)
-    return body.fuse(wing(-1), wing(1)).clean()
-
-
-def placed(shape, side=1, drop=0):
-    """Local X→world Y and Z→world -Z; mirror the east placement for the west."""
-    east = (shape.rotate((0,0,0), (1,1,0), 180)
-            .translate((X_CENTER, shell.handhold_y, BACK-drop)))
-    return east if side == 1 else east.mirror("YZ")
-
-
-def receiver_reliefs():
-    """Clear the two inside R6 shoulders up to the original roof datum.
-
-    The mouth remains on the existing end-wall plane. Only stock below the
-    structural roof is removed. The relief continues through the exterior so
-    the outer corner cannot leave a tapered remnant beside the cover.
-    """
-    reliefs = []
-    mouth = shell.handhold_length/2
-    for end in (-1, 1):
-        x0,x1 = sorted((end*(mouth-shell.handhold_corner_r), end*mouth))
-        reliefs.append(box(x0,x1,-WIDTH/2-BODY_AIR,X_EXT-X_CENTER+1,
-                           -BACK_AIR,shell.handhold_corner_r-BACK_AIR+.01))
-    return reliefs
-
-
-def receiver_slots():
-    """Straight through-slots in the existing 3 mm end walls.
-
-    Their mouths are at Y174/254, with no receiver stock projecting into the
-    handhold. The open rear exits avoid thin pocket backs and give support access.
-    """
-    slots = []
-    for end in (-1, 1):
-        mouth = shell.handhold_length/2
-        x0,x1 = sorted((end*(LENGTH/2-.10), end*(mouth+shell.handhold_wall+.10)))
-        y0,y1 = -WING_SPAN/2-WING_END_AIR, WING_SPAN/2+WING_END_AIR
-        roof = WING_THICK+BEARING_AIR
-        slot = box(x0,x1,y0,y1,-BACK_AIR,roof)
-        lead = (cq.Workplane("XZ", origin=(0,y1,0))
-                .polyline([(end*mouth,roof), (end*(mouth+ENTRY_WIDTH),roof),
-                           (end*mouth,roof+ENTRY_DEPTH)])
-                .close().extrude(y1-y0).val())
-        slots.append(slot.fuse(lead))
-    return slots
-
-
-def apply_receiver(solid, piece):
-    """Apply to either connected bottom half, retaining the existing Y joint.
-
-    Each slot belongs to the end wall in its own half. The reliefs and slots are
-    remote from the seam, cross-pins, socket jamb and inner-wall scarf.
-    """
-    if piece not in ("front", "back"):
-        raise ValueError(piece)
-    end_index = 0 if piece == "front" else 1
-    relief = receiver_reliefs()[end_index]
-    slot = receiver_slots()[end_index]
-    for side in (-1,1):
-        solid = solid.cut(placed(relief,side)).cut(placed(slot,side)).clean()
-    return solid
+box = _geometry.box
+rounded = _geometry.rounded
+wing = _geometry.wing
+cover = _geometry.cover
+placed = _geometry.placed
+receiver_reliefs = _geometry.receiver_reliefs
+receiver_slots = _geometry.receiver_slots
+apply_receiver = _geometry.apply_receiver
 
 
 def originals():
@@ -180,13 +101,12 @@ def assembly(name, shapes):
 
 
 def main():
-    base=originals()
-    modified={name:apply_receiver(shape,name) for name,shape in base.items()}
+    modified=originals()
     strip=cover()
     export_part("grip-cover",strip)
     for name,shape in modified.items():
         export_part(f"grip-receiver-{name}",sample(shape))
-        # Separate candidate outputs keep the active upper-shell preparation isolated.
+        # These established detail-view names carry the production bottom solids.
         assembly(f"grip-candidate-{name}-bottom",{f"enclosure-{name}-bottom":shape})
     for state,drop in (("seated",0),("exploded",12)):
         detail={f"receiver-{name}":sample(shape) for name,shape in modified.items()}
@@ -201,7 +121,7 @@ def main():
     section["grip-cover"]=placed(strip).intersect(section_box).clean()
     assembly("grip-section",section)
     source_hashes={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest()
-                   for p in (Path(__file__),ENCLOSURE/"enclosure.py",
+                   for p in (Path(__file__),ENCLOSURE/"enclosure.py",ENCLOSURE/"_grip_interface.py",
                              *(ENCLOSURE/f"enclosure-{n}-bottom.step" for n in ("front","back")))}
     manifest={"status":"support_removal_and_assembled_fit_accepted", "source_sha256":source_hashes,
               "body_mm":[LENGTH,WIDTH,THICK],"quantity":2,

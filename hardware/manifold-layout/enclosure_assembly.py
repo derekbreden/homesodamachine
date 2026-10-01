@@ -5767,6 +5767,8 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     _enc._handhold_bound(pieces, box)
     for name, piece in pieces.items():
         a.add(piece, name=f"enclosure-{name}", color=WALL_COLORS[name])
+    for name, cover in _enc.grip_covers(box).items():
+        a.add(cover, name=name, color=M_PETGF_BLACK)
     # The tee carrier seated through both front flanks, its troughs on the four tees, and its
     # four return springs from their pockets in the tee wall to their bores in its columns.
     if box.pack.collet_plate:

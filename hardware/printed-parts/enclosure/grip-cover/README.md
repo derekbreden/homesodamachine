@@ -5,10 +5,10 @@ the enclosure's bottom handholds. Each strip crosses the connected front/back
 seam. Its two flat end wings fit through-slots in the bottom halves' existing
 end walls. The strip has a smooth finger face, R0.6 touch edges, and a flat back.
 
-The coupon assembly has **accepted support removal and fit**. Its receiver cuts
-require matching bottom halves. The full-size front and back grip coupons carry the actual
-enclosure joint and provide a small print for assessing the pair. The production
-enclosure generator and upper halves retain their own geometry.
+The coupon assembly has **accepted support removal and fit**. The production
+bottom halves include the matching receiver slots and corner reliefs. Their
+full-size front and back coupons are cropped from those production solids.
+The enclosure and complete machine assemblies include both seated covers.
 
 The receiver's curved printed surface, support removal and assembled fit are
 [accepted](physical-acceptance.json). The [bridge trial](bridge-trial-v6/README.md)
@@ -18,6 +18,7 @@ corrected seam clearance.
 ![Grip fully inserted in the connected receiver](seated.png)
 
 [Inserted 3D view](https://homesodamachine.com/3d?file=printed-parts%2Fenclosure%2Fgrip-cover%2Fgrip-seated.step#step:printed-parts%2Fenclosure%2Fgrip-cover%2Fgrip-seated.step)
+· [Full enclosure assembly](https://homesodamachine.com/3d?file=manifold-layout%2Fenclosure-assembly.step#step:manifold-layout%2Fenclosure-assembly.step)
 · [Section through the catches](section.png)
 
 ## Geometry
@@ -87,6 +88,12 @@ both wings remain captured at the limits of the designed clearance. The seated
 cover clears both receivers throughout its play. All four outer corner reliefs
 are empty beneath the roof, through the exterior edge.
 
+The [production integration check](production-integration.json) compares both
+handholds on each production bottom with the accepted receiver geometry and
+records the production STL hashes. The [assembly check](assembly-integration.json)
+records both covers, the current bottom surfaces, and the unchanged surfaces of
+the other machine components.
+
 The [native print check](print-check.json) records the exact archive, sources,
 cover layers, bed contact and first-to-second-layer bead overlap. The
 [support audit](support-audit.json) includes the coupons' short support bodies
@@ -104,8 +111,18 @@ HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/enclosure/g
 HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/enclosure/grip-cover/verify_print.py
 ```
 
+After materializing the production bottoms, refresh the full machine's named
+bottom solids and covers with:
+
+```sh
+HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/scripts/materialize_grip_assembly.py
+tools/cad-venv/bin/python tools/publish_now.py
+```
+
 `grip-cover.stl` is the interchangeable strip. `grip-receiver-front.stl` and
 `grip-receiver-back.stl` are the full-size receiver samples. The STEP views show
-the seated grip, exploded grip, section, connected bottom halves, and separate
-candidate bottom halves. Candidate models are separate from the production
-enclosure files.
+the seated grip, exploded grip, section and connected production bottom halves.
+The `grip-candidate-*-bottom` view names hold copies of the corresponding
+production solids. `_grip_interface.py` supplies the shared receiver cuts,
+cover shape and placement. The assembly names are `grip-cover-east` and
+`grip-cover-west`, so each insert can be selected or hidden independently.
