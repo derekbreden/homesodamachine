@@ -62,8 +62,8 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "1 reference(s) name a path nothing holds.",
-      "status": "red"
+      "note": "paths: every reference lands — 4651 tracked, 546 fetched solids, 55 tags, 39 site routes",
+      "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
@@ -87,18 +87,18 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 241 source(s) the graph names",
+      "note": "check_declared_imports: every step holds what it imports, over 243 source(s) the graph names",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 3 of 2857 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 546 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 3 of 2808 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 546 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 34c139978f4b73e7a499874905362956 for the 161 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 33e8abe0f2fca1a378e8a218257550db here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 34c139978f4b73e7a499874905362956 for the 161 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at c557a8a2c051ea6fd222b1e9fd48614a here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
@@ -139,10 +139,6 @@
       "  tools/viz/build.py answers to selftest and selftests.json does not name it",
       "      tools/cad-venv/bin/python tools/bazel/trace_inputs.py --selftests tools/viz/build.py",
       "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
-    ],
-    "tools/check_paths.py": [
-      "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/README.md:60 — hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/../../enclosure/accepted-fit-integration/README.md is held nowhere, and no tag is named for it",
-      "1 reference(s) name a path nothing holds."
     ],
     "tools/check_web_tests.py": [
       "2 test(s) in web/ fail:",
