@@ -2,10 +2,10 @@
 
 Two identical black PET-GF strips cover the flat, supported lifting ceilings of
 the enclosure's bottom handholds. Each strip crosses the connected front/back
-seam. Its two flat end wings fit short slots in receiver lips on the bottom
-halves. The strip has a smooth finger face, R0.6 touch edges, and a flat back.
+seam. Its two flat end wings fit through-slots in the bottom halves' existing
+end walls. The strip has a smooth finger face, R0.6 touch edges, and a flat back.
 
-This is a **geometry and fit candidate**. Its receiver additions require matching
+This is a **geometry and fit candidate**. Its receiver cuts require matching
 bottom halves. The full-size front and back grip coupons carry the actual
 enclosure joint and provide a small print for assessing the pair. The production
 enclosure generator and upper halves retain their own geometry.
@@ -16,29 +16,33 @@ enclosure generator and upper halves retain their own geometry.
 
 | Feature | Dimension |
 |---|---:|
-| Cover body | 67.7 × 7.7 × 3.36 mm |
-| Overall length including wings | 72.5 mm |
+| Cover body | 79.7 × 11.558 × 3.36 mm |
+| Overall length including wings | 84.5 mm |
+| East cover's X extent | 93.650–105.208 mm |
+| Slot mouth planes | Y174.000 and Y254.000 mm |
 | Each end wing | 2.40 mm reach × 5.00 mm span × 1.68 mm thick |
 | Body end clearance | 0.15 mm each |
 | Wing side clearance | 0.15 mm each |
-| Wing tip clearance | 0.25 mm each |
+| Wing tip exit | Open through the 3 mm end wall |
 | Wing retaining-face clearance | 0.45 mm |
 | Nominal back clearance at the supported ceiling | 0.25 mm |
-| Flat receiver lip section | 1.23 mm |
 | Structural roof above the liner | 12.00 mm |
 | Finger height at the lower retention stop | 31.19 mm |
 | Finger height with the cover against the roof | 31.89 mm |
 
 The flat-wing section and entry bevel follow the accepted nameplate pattern.
 The short cover's bending recovery and these receivers' fit are unmeasured.
-The insert covers the 68 × 8 mm flat roof between the R6 corner and exterior
-transitions, leaving the ordinary perimeter clearance. The outer R6 roll remains
-part of the enclosure.
+The insert reaches the flat ceiling's outer edge at the foot of the additive
+exterior transition. Its inner edge and both ends have 0.15 mm clearance; the
+outer edge is free. Local reliefs clear the inside R6 shoulders beneath the roof
+at the two ends, within the cover's clearance envelope. The cover's R0.6 touch
+rounds finish the finger face.
 
 Upward finger force seats the broad cover back against the existing roof. The
-end wings retain the cover against falling out. The receiver lips stand below
-the roof at the ends; the full roof section, inner wall, seam scarf and screw
-region remain intact.
+end wings retain the cover against falling out. Their slots begin on the existing
+end-wall planes, without ledges projecting into the finger opening. The slots
+pass through the end walls for access from either side. The complete 12 mm roof,
+inner wall, seam scarf and screw region remain intact.
 
 ## Assembly and removal
 
@@ -47,8 +51,8 @@ strip downward enough to engage the other wing, and release it into the seat.
 The accessible outer long edge provides a place to pull the centre downward for
 removal. Remove both covers before separating the bottom enclosure halves.
 Remove the receiver supports while the halves are separate. The ceiling mat
-withdraws toward the open seam end of each handhold; the lip's lower support
-leaves through the open bottom.
+withdraws toward the open seam end of each handhold; slot supports have a straight
+run through the end walls.
 
 ## Print and checks
 
@@ -63,9 +67,10 @@ under the flat wings and second-layer perimeter.
 
 [Geometry checks](geometry-check.json) read the exported solids and meshes:
 each part is valid and connected, all printable meshes are closed, the complete
-roof and joint are retained, the halves do not overlap, and both wings remain
-captured at the limits of the designed clearance. The seated cover clears both
-receivers throughout its play.
+roof and joint are retained, no receiver material is added, the cover reaches
+X105.195, all four slot mouths lie on Y174/254, the halves do not overlap, and
+both wings remain captured at the limits of the designed clearance. The seated
+cover clears both receivers throughout its play.
 
 The [native print check](print-check.json) records the exact archive, sources,
 cover layers, bed contact and first-to-second-layer bead overlap. The
