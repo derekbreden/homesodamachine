@@ -1,0 +1,43 @@
+{
+  "schema": 1,
+  "reported_date": "2026-09-30",
+  "reported_by": "Derek",
+  "reported_timezone": "America/Chicago",
+  "observed_at_utc": "2026-10-01T00:44:07.013484+00:00",
+  "status": "fit_accepted_with_residual_bow",
+  "user_report": "Display cover still has a bow, but I think it is mostly from the bend action leaving a bit of bend behind, so not sure there is much we can do there, or much I\u2019m willing to iterate on right now at least. I think it is good enough. It survives the shake test and it looks good, and the only reason it doesn\u2019t look great is because I already know about the bend and notice it immediately.",
+  "printer": "H2C",
+  "receiver_task_id": "1297296218",
+  "cover_task_id": "1294550319",
+  "native_archive_sha256": "6e965cfae91b155df1cb3af7a5c224fcf41ad75d8c857d579f1cdd782a069bb6",
+  "receiver_step_sha256": "7141a82043aebf5dd361d7709ec6c33b1f8dfc00acdc0347a811c8db25c69bf5",
+  "receiver_stl_sha256": "6bb5588a932e1e92bb488d8acd36ca900377277e35ad2af78131e67f80edbbdd",
+  "cover_step_sha256": "2ef12c8034de1b401fa10fe9f3157b797da236a9d55be915435f129082226d52",
+  "cover_stl_sha256": "bd0545aa076fed3d7adc895df205b098f11a08b6fc37c883893115aec83dd5f2",
+  "nominal_clearances_mm": {
+    "body_X_per_side": 0.3,
+    "body_Y_per_side": 0.15,
+    "wing_tip_X_centered": 0.55,
+    "wing_tip_X_at_full_body_float": 0.25,
+    "wing_thickness_local_Z": 0.6,
+    "wing_Y_end_each": 0.15
+  },
+  "minimum_wing_capture_mm": 3.0,
+  "physical_result": "Cover and receiver accepted as good enough. Shake test passes and appearance is accepted with a small residual bow.",
+  "bow_cause": "User suspects residual bending from insertion; cause is unverified.",
+  "scope": "Acceptance is for the existing face-up cover in this receiver coupon. No further bow-tuning trial requested.",
+  "full_enclosure_integration": "Pending; preserve the accepted interface and check the complete display module and rear housing at the 1.84 mm deeper glass seat.",
+  "printer_completion": {
+    "job_id": "1297296218",
+    "subtask_name": "display-x030-receiver-z018-h2c-v5.gcode.3mf",
+    "gcode_state": "FINISH",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 241,
+    "total_layer_num": 241,
+    "mc_remaining_time": 0,
+    "mc_percent": 100
+  },
+  "print_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-display-x030-receiver-h2c-v5/manifest.json",
+  "physical_result_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-display-x030-receiver-h2c-v5/physical-result.json"
+}

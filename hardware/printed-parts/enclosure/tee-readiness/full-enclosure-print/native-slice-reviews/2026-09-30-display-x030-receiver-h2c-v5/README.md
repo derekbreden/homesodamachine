@@ -35,4 +35,7 @@ report. Startup was 288.2 seconds after the other printer's
 preceding accepted start, exceeding the 180-second minimum.
 [Postlaunch](postlaunch.json) confirms the matching task RUNNING without errors.
 
-Physical result: Pending same-part fit, relaxed flatness, insertion and shake-retention assessment.
+The [physical result](physical-result.json) accepts the existing face-up cover in
+this receiver. The shake test passes and the appearance is acceptable with a small
+residual bow. Derek suspects insertion bending leaves some set; that cause is
+unverified. Further bow tuning is not requested.

@@ -82,5 +82,8 @@ order and 15% overlap. Shared tree-support gaps are 0.40 mm XY, 0.45 mm upper Z
 and 0.30 mm lower Z. Remove trees through the open underside before installing
 glass or cover. The native estimate is **2 h 49 min 41 sec**. The
 [slice review](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-display-x030-receiver-h2c-v5/README.md)
-records the exact archive and launch. Support removal, relaxed flatness, complete
-capture and shake retention need this physical receiver.
+records the exact archive and launch. The [physical acceptance](physical-acceptance.json)
+records a passing shake test and acceptable appearance with a small residual bow.
+Derek suspects insertion bending leaves some set; the cause is unverified. This
+cover and receiver are accepted without another bow-tuning print. Full front-top
+integration and its display-module clearance check remain pending.

@@ -2783,7 +2783,7 @@
       ],
       "job_name": "display-x030-receiver-z018-h2c-v5.gcode.3mf",
       "printer_task_id": "1297296218",
-      "status": "started",
+      "status": "completed",
       "observed_at_utc": "2026-09-30T21:01:31.807503+00:00",
       "observed_state_at_acceptance": "RUNNING",
       "sliced_file": ".cache/prints/2026-09-30-display-x030-receiver-h2c-v5/ready/display-x030-receiver-z018-h2c-v5.gcode.3mf",
@@ -2798,7 +2798,7 @@
         "Nozzle Offset Calibration": "Auto"
       },
       "review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-display-x030-receiver-h2c-v5",
-      "physical_result": "Pending same-part fit, relaxed flatness, insertion and shake-retention assessment.",
+      "physical_result": "Cover and receiver accepted as good enough. Shake test passes and appearance is accepted with a small residual bow.",
       "body_X_clearance_per_side_mm": 0.3,
       "wing_tip_X_clearance_centered_mm": 0.55,
       "wing_tip_X_clearance_at_body_limit_mm": 0.25,
@@ -2808,7 +2808,8 @@
       "geometry_scope": "Only the latest main-body X increment is undone through full seating depth. Wing pockets, thickness gap, support exits, seating datums and existing cover are fixed.",
       "startup_spacing_seconds": 288.243222,
       "wing_thickness_axis": "display local Z; corresponds to nameplate Y",
-      "body_Y_clearance_per_side_mm": 0.15
+      "body_Y_clearance_per_side_mm": 0.15,
+      "physical_result_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-display-x030-receiver-h2c-v5/physical-result.json"
     },
     {
       "date": "2026-09-30",
@@ -2818,7 +2819,7 @@
       ],
       "job_name": "tee-carrier-low-force050-filled-bottom-024-black-z004-mark2-v16.gcode.3mf",
       "printer_task_id": "1297480230",
-      "status": "started",
+      "status": "completed",
       "observed_at_utc": "2026-09-30T22:25:06.578180+00:00",
       "observed_state_at_acceptance": "PREPARE",
       "sliced_file": ".cache/prints/2026-09-30-tee-low-force050-mark2-v16/ready/tee-carrier-low-force050-filled-bottom-024-black-z004-mark2-v16.gcode.3mf",
@@ -2857,7 +2858,8 @@
         "elsewhere": 2
       },
       "startup_spacing_seconds": 5014.770677,
-      "physical_result": "Pending free sliding, spring return and unwanted-play assessment with the existing front-top."
+      "physical_result": "Carrier sliding is accepted with the existing front-top; user reports great sliding and less tilt.",
+      "physical_result_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-tee-low-force050-mark2-v16/physical-result.json"
     }
   ]
 }
