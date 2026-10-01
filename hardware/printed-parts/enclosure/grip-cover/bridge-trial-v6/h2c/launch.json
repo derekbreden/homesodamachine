@@ -1,0 +1,35 @@
+{
+  "status": "running_startup",
+  "printer": "H2C",
+  "task_id": "1298175360",
+  "job_name": "grip-front-bridge-h2c-v6.gcode.3mf",
+  "first_acceptance_observed_utc": "2026-10-01T04:48:48.634318+00:00",
+  "earliest_other_printer_start_or_resume_utc": "2026-10-01T04:51:48.634318+00:00",
+  "shared_circuit_spacing_seconds": 180,
+  "archive": ".cache/prints/grip-front-bridge-h2c-v6/ready/grip-front-bridge-h2c-v6.gcode.3mf",
+  "archive_sha256": "5101a026e839092aa4efa06cb99190312c94fe4a58434bc26656a92ba17b672a",
+  "gcode_sha256": "d1db271717cca971f4835ee682a61dd169f5e93388d3ba7f6191e3c39aa7d803",
+  "estimated_seconds": 1785.584716796875,
+  "layers": 210,
+  "parts": [
+    "grip-receiver-front"
+  ],
+  "material": "black PET-GF",
+  "filament_mapping": "fixed left hardened 0.4 mm nozzle; black external spool 254; saved printer label PET-CF",
+  "startup_options": {
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "requested_z_trim_mm": 0.18,
+  "emitted_textured_plate_trim_mm": 0.16,
+  "bed_clearance_confirmation": "User confirmed both plates clear, including the H2C purge blob.",
+  "physical_result": "pending",
+  "full_enclosure_prints": "held",
+  "print_error": 0,
+  "hms": [],
+  "startup_observed_utc": "2026-10-01T04:55:51.712306+00:00",
+  "startup_layer": 0,
+  "printer_remaining_minutes": 24
+}
