@@ -67,6 +67,14 @@ spool quantity is not a launch condition: do not ask for its weight or an estima
 hold a ready print for a quantity confirmation. Use the correct material mapping and
 ask for reloading only when an actual runout requires it.
 
+## Printer allocation
+
+When both printers are loaded with suitable material, have clear beds and are ready,
+distribute the authorized test parts across both printers. Derek prefers using both
+ready machines to leaving one loaded and idle while combining everything on a single
+plate. Preserve each printer's own profile, nozzle mapping and Z trim, and keep the
+startup spacing below.
+
 ## Printer startup spacing
 
 H2C and Mark2 share a circuit. Wait at least **three minutes after one printer accepts
