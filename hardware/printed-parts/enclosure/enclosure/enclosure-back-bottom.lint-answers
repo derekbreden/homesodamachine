@@ -1,8 +1,8 @@
 [ceiling] The rear Z-slide heads' square catches stand at Z160.00 + 8.70 + 0.25 running fit + two 0.25 supported-face allowances = 169.45. Both this head underside and the mating back-top foot print down, so the complete 0.75 mm gap is allocated here while the foot remains on its nominal plane. The head retains 5.35 mm of stock up to Z174.8. Its flat bearing resists lift without camming the seam open; the arm returns to the wall on its 45-degree under-flare. The west run is interrupted by the PRV passage, and support is removed through the open slide channels.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=100.875 y=337.425 z=169.450
+click: x=100.875 y=337.300 z=169.450
 click: x=-100.875 y=393.050 z=169.450
-click: x=-100.875 y=268.175 z=169.450
+click: x=-100.875 y=268.050 z=169.450
 
 [ceiling] The handholds' lifting ceilings stand 35.25 mm above the standing underside, including the 0.25 mm supported-face allowance. The roof grows with the opening to retain its full 12 mm section. Each roof joins the end walls, blind inner wall and seam jamb. Fingers and removable support enter through the open bottom.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
