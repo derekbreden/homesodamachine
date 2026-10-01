@@ -88,6 +88,16 @@ suspected cause of the recurring idle-time pattern; no moisture measurement or
 controlled comparison establishes the cause. A resume is a printer start for the
 shared-circuit spacing rule below.
 
+## Purge and wipe
+
+The [H2C purge maintenance job](h2c-purge/README.md) provides a repeatable Connect
+archive for the loaded fixed left hardened 0.4 mm nozzle with black PET-GF. It
+retains the native homing/material preparation and chute purge/wipe sequence,
+contains no part, and ends with heater targets off. The trial record distinguishes
+printer-reported completion from observed filament ejection and any effect on
+idle-time overload. Use it only with the documented idle-printer configuration;
+the package is not a general mid-print G-code command.
+
 ## Work allocation
 
 Use both printers when Derek has them loaded, cleared and ready and the authorized

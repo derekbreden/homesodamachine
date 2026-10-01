@@ -1,0 +1,20 @@
+{
+  "prepared_utc": "2026-10-01T03:20:14.094734+00:00",
+  "printer": "H2C",
+  "archive_name": "h2c-left-petgf-purge-v1.gcode.3mf",
+  "source_archive_sha256": "9d9f916f1027b62c4a7a101acf014322656e7cebcb762fe277fa0dcc171f6cc5",
+  "import_copy_sha256": "9d9f916f1027b62c4a7a101acf014322656e7cebcb762fe277fa0dcc171f6cc5",
+  "gcode_sha256": "e93131a07be97dd49e8f629911b8d67102039db93447caad236bb5ae74dae646",
+  "left_nozzle": "Ext PET-CF black PET-GF, fixed hardened 0.4 mm",
+  "right_nozzle": "unused",
+  "options": {
+    "timelapse": "On",
+    "auto_bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "mark2_previous_acceptance_utc": "2026-10-01T02:51:58.022300+00:00",
+  "job_id": "1298050950",
+  "first_fresh_mqtt_running_observation_utc": "2026-10-01T03:21:37.854557+00:00",
+  "minimum_observed_start_spacing_seconds": 1696
+}
