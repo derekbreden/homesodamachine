@@ -97,7 +97,10 @@ def accepted(before, reading, name):
 
 
 def may_retry(before, reading, observed_activity, page):
-    return (not observed_activity and bool(job_id(before)) and job_id(reading) == job_id(before)
+    known_idle = bool(job_id(before)) or (
+        before.get("gcode_state") == reading.get("gcode_state") == "IDLE"
+        and not before.get("subtask_name") and not reading.get("subtask_name"))
+    return (not observed_activity and known_idle and job_id(reading) == job_id(before)
             and reading.get("gcode_state") in {"IDLE", "FINISH", "FAILED"}
             and (reading.get("upload") or {}).get("status") in (None, "idle")
             and (reading.get("print_error") or 0) == (before.get("print_error") or 0)

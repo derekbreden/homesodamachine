@@ -1,37 +1,12 @@
 {
   "printer": "Mark2",
-  "launch_status": "not_started",
-  "observed_utc": "2026-10-01T20:18:48.464880+00:00",
-  "job_name": "enclosure-back-bottom-grip-bridges-mark2-v3.gcode.3mf",
-  "archive": ".cache/prints/enclosure-back-bottom-grip-bridges-mark2-v3/ready/enclosure-back-bottom-grip-bridges-mark2-v3.gcode.3mf",
-  "archive_sha256": "c8f0f2f759144e0bfa052238780a5de5590c6b058d26ac6c3e17c8f63c0a644d",
-  "gcode_sha256": "f5ffda8311dcdffb3e7dd1a789529bbb3dc10780059295e45d6d5c85e22f0137",
-  "source_stl_sha256": "fe8b919f79ed14eb8f87fc9260ed7bfe7d68adcd48e12da6b313d48d094a6072",
-  "preflight": "PASS",
-  "estimated_seconds": 75140.5859375,
-  "filament_grams": 748.16064453125,
-  "options": {
-    "timelapse": "On",
-    "bed_leveling": "On",
-    "flow_calibration": "Auto",
-    "nozzle_offset_calibration": "Auto"
-  },
-  "filament_mapping": {
-    "nozzle": "left",
-    "external_spool": 254,
-    "profile_label": "PET-CF",
-    "physical_material": "black PET-GF"
-  },
-  "shared_circuit_minimum_start_spacing_seconds": 180,
-  "blocker": "Bambu Connect rejects the send with a brief 400 resource-does-not-exist message reported by Derek. The bounded foreground send received no printer job; the missing resource is not yet identified.",
-  "printer_observation": {
-    "gcode_state": "FINISH",
-    "subtask_name": "grip-back-bridge-mark2-v6.gcode.3mf",
-    "task_id": "1298180036",
-    "print_error": 0,
-    "hms": [],
-    "nozzle_target_temper": 0.0,
-    "bed_target_temper": 0.0
-  },
-  "next_step": "User restart of Mark2 is pending. Retry once after it is back online, capture any Connect error, and require a new matching printer task ID before recording acceptance."
+  "launch_status": "accepted",
+  "observed_utc": "2026-10-01T20:55:36.667161+00:00",
+  "job_name": "Back_bottom;_accepted_grip_bridges;_Mark2",
+  "printer_task_id": "1300236834",
+  "gcode_state": "RUNNING",
+  "print_error": 0,
+  "hms": [],
+  "launch_record": "launch.json",
+  "print_only_package": "print-only-package.json"
 }
