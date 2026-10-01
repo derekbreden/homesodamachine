@@ -181,6 +181,10 @@ void bleImageDisconnected();
 
 bool bleImageBusy();
 
+// Counts every read-back the board took on, so a caller can tell a read it
+// asked for from one this board refused.
+uint32_t bleImageReadsBegun();
+
 // Publish the pair whenever the main board revises it, so a phone watching the
 // machine sees a change made on the glass as fast as one it made itself.
 void bleImagePublishArt();

@@ -789,6 +789,7 @@ constexpr uint8_t OTA_ERR_WRITE     = 3;
 constexpr uint8_t OTA_ERR_CRC       = 4;  // whole-image CRC32 did not match BEGIN
 constexpr uint8_t OTA_ERR_VERIFY    = 5;  // esp_ota_end / set_boot_partition refused
 constexpr uint8_t OTA_ERR_SEQUENCE  = 6;  // bytes arrived for the wrong offset
+constexpr uint8_t OTA_ERR_BUSY      = 7;  // another phone's transfer is in flight
 
 // Which board an image is for. The relay reaches every one of these; a source
 // upstream of it names one here rather than knowing which link it lives on.

@@ -20,6 +20,7 @@ uint32_t nextAckAt = 0;
 // will take another. Nothing is staged in RAM: what is sent is a pointer into
 // the picture itself.
 bool     reading = false;
+uint32_t readsBegun = 0;   // so the link can tell an accepted read from a refused one
 uint8_t  readSlot = 0;
 uint8_t  readRend = 0;
 uint32_t readAt = 0;
@@ -170,6 +171,8 @@ void bleImagePublishArt() {
 
 bool bleImageBusy() { return state == BLE_IMG_TAKING; }
 
+uint32_t bleImageReadsBegun() { return readsBegun; }
+
 void bleImageDisconnected() {
   if (state != BLE_IMG_TAKING) return;
   // The slot was erased when the transfer opened and never got its header, so
@@ -212,6 +215,7 @@ bool bleImageHandleFrame(uint8_t type, const uint8_t *payload, uint16_t plen) {
       readSentThisBurst = 0;
       readBudget = READ_BURST;
       reading = true;   // bleImageService carries it from here
+      ++readsBegun;
       return true;
     }
 
