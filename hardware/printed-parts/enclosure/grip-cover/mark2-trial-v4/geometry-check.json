@@ -1,0 +1,66 @@
+{
+  "status": "pass",
+  "checks": {
+    "all_solids_valid_and_connected": true,
+    "cover_flat_back_and_wings_on_bed": true,
+    "body_dimensions_match": true,
+    "full_original_roof_stock_retained": true,
+    "no_added_receiver_ledges": true,
+    "joint_and_fastener_region_unchanged": true,
+    "halves_do_not_overlap": true,
+    "all_four_outer_corner_remnants_removed": true,
+    "cover_reaches_requested_x_105_195": true,
+    "all_four_slot_mouths_on_existing_end_walls": true,
+    "no_interference_at_all_clearance_extremes": true,
+    "both_wings_caught_at_all_in_plane_extremes": true,
+    "print_meshes_closed_single_bodies": true
+  },
+  "stock_and_joint": {
+    "front": {
+      "removed_original_mm3": 277.2990406828656,
+      "removed_roof_stock_mm3": 0.0,
+      "added_mm3": 0.0,
+      "seam_change_mm3": 0.0
+    },
+    "back": {
+      "removed_original_mm3": 275.68044482530064,
+      "removed_roof_stock_mm3": 0.0,
+      "added_mm3": 0.0,
+      "seam_change_mm3": 0.0
+    }
+  },
+  "maximum_interference_mm3": 0,
+  "east_cover_x_mm": [
+    93.64999999999968,
+    105.2082039324997
+  ],
+  "slot_mouth_y_mm": [
+    174.0,
+    254.0
+  ],
+  "maximum_outer_corner_remnant_mm3": 0.0,
+  "minimum_wing_stop_probe_mm3": 0.5532986677644891,
+  "mesh": {
+    "grip-cover": {
+      "watertight": true,
+      "positive_volume": true,
+      "bodies": 1
+    },
+    "grip-receiver-front": {
+      "watertight": true,
+      "positive_volume": true,
+      "bodies": 1
+    },
+    "grip-receiver-back": {
+      "watertight": true,
+      "positive_volume": true,
+      "bodies": 1
+    }
+  },
+  "artifacts_sha256": {
+    "grip-cover.stl": "acbb8f8cd3e50792a258670bf31c7574de6a435fbbce2629ede73c070378dc03",
+    "grip-receiver-back.stl": "245a4ce5bc898f850af1905ac8ff2b44004f55e77b8ebfdc60a603cba8789cbf",
+    "grip-receiver-front.stl": "2cb5a7498d12815ee93e4a2c6d1642d8561099251d4b921162fe0c5439fd45df"
+  },
+  "scope": "Geometry only. Cover bending, spring-back, retention force, surface finish and lifting performance are unmeasured."
+}

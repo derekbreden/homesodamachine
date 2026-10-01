@@ -1,0 +1,111 @@
+{
+  "observed_utc": "2026-10-01T02:53:36.131574+00:00",
+  "printers": {
+    "H2C": {
+      "gcode_state": "FAILED",
+      "subtask_name": "enclosure-front-top-flat-wings-black-z018-h2c-v15.gcode.3mf",
+      "task_id": "1297866683",
+      "job_id": "1297866683",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 1348,
+      "mc_percent": 0,
+      "mc_remaining_time": 0,
+      "nozzle_temper": 28.0,
+      "nozzle_target_temper": 0.0,
+      "bed_temper": 26.0,
+      "bed_target_temper": 0.0,
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "000000FF"
+        },
+        "255": {
+          "type": "TPU",
+          "colour": "161616FF"
+        }
+      },
+      "nozzles": [
+        {
+          "id": 16,
+          "type": "HS01",
+          "diameter": 0.6
+        },
+        {
+          "id": 1,
+          "type": "HS01",
+          "diameter": 0.4
+        },
+        {
+          "id": 17,
+          "type": "HS00",
+          "diameter": 0.2
+        },
+        {
+          "id": 0,
+          "type": "HS00",
+          "diameter": 0.2
+        }
+      ]
+    },
+    "Mark2": {
+      "gcode_state": "RUNNING",
+      "subtask_name": "grip-cover-and-receiver-v4.gcode.3mf",
+      "task_id": "1298005797",
+      "job_id": "1298005797",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 216,
+      "mc_percent": 0,
+      "mc_remaining_time": 67,
+      "nozzle_temper": 200.0,
+      "nozzle_target_temper": 200.0,
+      "bed_temper": 26.0,
+      "bed_target_temper": 26.0,
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "000000FF"
+        },
+        "255": {
+          "type": "PET-CF",
+          "colour": "FFFFFFFF"
+        }
+      },
+      "nozzles": [
+        {
+          "id": 0,
+          "type": "HS01",
+          "diameter": 0.4
+        },
+        {
+          "id": 1,
+          "type": "HS01",
+          "diameter": 0.4
+        },
+        {
+          "id": 16,
+          "type": "HS01",
+          "diameter": 0.6
+        },
+        {
+          "id": 18,
+          "type": "HS00",
+          "diameter": 0.2
+        },
+        {
+          "id": 20,
+          "type": "HH01",
+          "diameter": 0.8
+        },
+        {
+          "id": 21,
+          "type": "HS01",
+          "diameter": 0.8
+        }
+      ]
+    }
+  }
+}

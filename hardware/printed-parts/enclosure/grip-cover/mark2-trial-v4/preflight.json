@@ -1,0 +1,116 @@
+{
+  "verified_at_utc": "2026-10-01T02:49:49.854926+00:00",
+  "status": "pass",
+  "archive": ".cache/prints/grip-cover-v4/ready/grip-cover-and-receiver-v4.gcode.3mf",
+  "archive_sha256": "62877ed1f42865bc482c2268aa6ea267bb38ab7cadeb17cb80a72e9f2dc09095",
+  "gcode_sha256": "e942d550cf22dfbad55cac4cd8c1a535d0166d6832fb6c7271c55764449ae146",
+  "project_sha256": "101d47fd6233621609c872a80f37734212a13aa7e4b89010aed1c8d648bc8345",
+  "source_sha256": {
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "hardware/printed-parts/enclosure/grip-cover/prepare_print.py": "71c651c45a0de89088897381d1820d0620e6c7d4e7d1e2e2b5e868731e6a4c2d",
+    "hardware/printed-parts/enclosure/grip-cover/grip-cover.stl": "acbb8f8cd3e50792a258670bf31c7574de6a435fbbce2629ede73c070378dc03",
+    "hardware/printed-parts/enclosure/grip-cover/grip-receiver-front.stl": "2cb5a7498d12815ee93e4a2c6d1642d8561099251d4b921162fe0c5439fd45df",
+    "hardware/printed-parts/enclosure/grip-cover/grip-receiver-back.stl": "245a4ce5bc898f850af1905ac8ff2b44004f55e77b8ebfdc60a603cba8789cbf"
+  },
+  "geometry_check_sha256": "ee09afe47dc0455f9182471e62f4950446d65608f99f9533cfa153e1e4adfa12",
+  "print_check_sha256": "d6c3f839a6bb8188fbc969ea3fa7130fb874b0cbb40a557846fc0175517d7650",
+  "support_audit_sha256": "13c4d724e638c1d52efa6cd71f0147d32a0b869fed49a7d0b67e25004b20fb7a",
+  "settings_verified": {
+    "initial_layer_print_height": "0.2",
+    "layer_height": "0.24",
+    "enable_support": "1",
+    "support_type": "tree(auto)",
+    "support_object_xy_distance": "0.4",
+    "support_top_z_distance": "0.45",
+    "support_bottom_z_distance": "0.3",
+    "support_filament": "1",
+    "support_interface_filament": "1",
+    "flush_into_support": "0",
+    "wall_sequence": "inner wall/outer wall",
+    "is_infill_first": "0",
+    "infill_wall_overlap": "15%",
+    "elefant_foot_compensation": "0",
+    "brim_type": "no_brim",
+    "brim_width": "0",
+    "filament_colour": [
+      "#000000"
+    ],
+    "filament_nozzle_map": [
+      "0"
+    ],
+    "nozzle_diameter": [
+      "0.4",
+      "0.4"
+    ],
+    "curr_bed_type": "Textured PEI Plate"
+  },
+  "shared_profile_speeds_preserved": true,
+  "scoped_six_wall_bands": [
+    {
+      "object": "2",
+      "min_z": "35.0",
+      "max_z": "41.5",
+      "layer_height": "0.24",
+      "wall_loops": "6"
+    },
+    {
+      "object": "3",
+      "min_z": "35.0",
+      "max_z": "41.5",
+      "layer_height": "0.24",
+      "wall_loops": "6"
+    }
+  ],
+  "first_layers": {
+    "grip-cover": {
+      "first_z_mm": 0.2,
+      "second_z_mm": 0.44,
+      "minimum_second_layer_bead_overlap_fraction": 0.7920658210571233,
+      "minimum_second_layer_wall_bead_overlap_fraction": 0.987689853276341,
+      "maximum_second_layer_outward_advance_mm": 0.012249755859375,
+      "criterion": "Walls have at least half bead-area support and no second-layer path advances more than 0.12 mm outside the first-layer perimeter. Short internal infill crossings may bridge gaps between first-layer roads."
+    },
+    "grip-receiver-front": {
+      "first_z_mm": 0.2,
+      "second_z_mm": 0.44,
+      "minimum_second_layer_bead_overlap_fraction": 0.8242347045786296,
+      "minimum_second_layer_wall_bead_overlap_fraction": 0.9561403653720272,
+      "maximum_second_layer_outward_advance_mm": 0.02414794921875,
+      "criterion": "Walls have at least half bead-area support and no second-layer path advances more than 0.12 mm outside the first-layer perimeter. Short internal infill crossings may bridge gaps between first-layer roads."
+    },
+    "grip-receiver-back": {
+      "first_z_mm": 0.2,
+      "second_z_mm": 0.44,
+      "minimum_second_layer_bead_overlap_fraction": 0.46565696023190317,
+      "minimum_second_layer_wall_bead_overlap_fraction": 0.9764080394054497,
+      "maximum_second_layer_outward_advance_mm": 0.029086303710937497,
+      "criterion": "Walls have at least half bead-area support and no second-layer path advances more than 0.12 mm outside the first-layer perimeter. Short internal infill crossings may bridge gaps between first-layer roads."
+    }
+  },
+  "requested_mark2_trim_mm": 0.04,
+  "emitted_g29_1_z_mm": [
+    0.0,
+    0.02
+  ],
+  "parts": [
+    "grip-cover",
+    "grip-receiver-front",
+    "grip-receiver-back"
+  ],
+  "estimate_seconds": 4037.93115234375,
+  "filaments": [
+    {
+      "filament_id": "GFT01",
+      "id": 1,
+      "main_used_g": 31.207805633544922,
+      "total_used_g": 31.207801818847656
+    }
+  ],
+  "launch_options": {
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "submitted": false
+}
