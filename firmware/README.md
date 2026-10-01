@@ -264,6 +264,21 @@ board console sets a name; so does BLE text `IDENTITY <name>` from the phone, wh
 with the radio carries to the main board as `MSG_IDENTITY_SET` and answers with the identity
 frame once the main board has it. `ble` reports the radio the main board cannot see.
 
+**Every phone in the house can reach it.** The faucet advertises whenever it has room for
+another connection, at the stack's 30–60 ms with no phone on and every 400–500 ms beside one,
+so a phone holding the link from a pocket does not hide the machine from the next. The frame
+protocol has one phone in it at a time. The session is the link that last spoke with nothing in
+flight: frames are sized to its MTU, and only its leaving ends a transfer. A reply goes back down
+the link that asked, and anything else goes to every link that can carry it. The controller is
+written both payloads again every ten seconds and restarted a second after it is found off air
+with room, because nothing can read back what it holds. ESP's connection reattempt is compiled
+out (`platformio.ini`): it restarts advertising from a field set NimBLE-Arduino never fills,
+which leaves a connectable, empty advertisement that a phone filtering on the service never
+sees. While its page is open, the app asks for the machine it knows by peripheral id as well
+as listening for it, and lets the link go if the board answers with a different unit; it lets
+the link go when it leaves the screen, unless an update or a picture is crossing it. While
+another phone's transfer is in flight, a second phone's BEGIN is answered busy.
+
 **What an update is, per board.** Firmware goes into the OTA slot that is not running and the
 boot partition moves only after the whole image is in and its CRC32 matches; a transfer that
 stalls leaves the board running what it booted. The machine display also carries `art` — a data
