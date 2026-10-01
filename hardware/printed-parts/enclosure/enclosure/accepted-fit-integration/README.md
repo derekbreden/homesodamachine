@@ -45,9 +45,10 @@ flow dynamics and nozzle offset, with leveling and timelapse enabled.
 - Front-top: H2C, mouth down, +0.18 mm requested trim, 0.08 mm through the complete
   inward roof-round band at print Z187–195 mm. Native estimate: 21 h 52 min.
 - Back-top: Mark2, roof down, +0.04 mm requested trim, six walls through the
-  expanding chamfer/taper at print Z0–9.4 mm, two walls above. The model retains
-  a 15 mm plate border; the complete sacrificial support footprint is checked
-  separately for at least 10 mm. Its native review is linked below when complete.
+  expanding chamfer/taper at print Z0–9.4 mm, two walls above. Native estimate:
+  26 h 4 min. Model margin is 15.05 mm. The complete sacrificial support footprint
+  has 10.063 mm of margin, including each emitted bead's half-width and a further
+  0.10 mm allowance.
 
 The exterior roof transitions exclude supports. Internal functional seats and
 retaining bearings use accessible trees. Printed support removal and complete
@@ -61,6 +62,8 @@ assembly dimensions. Publish generated artifacts using `tools/publish_now.py`
 before running geometry lint. `verify_geometry.py` checks the accepted mating
 parts and neighboring hardware. `generation.json` and `source-bindings.json`
 identify the source snapshot; `published-artifacts.json` verifies the live bytes.
+The [build dependency check](build-dependencies.json) covers the shared cover
+interface imports and the generated build graph.
 
 `prepare_prints.py` creates an immutable native Bambu Studio project for either
 half. `verify_prints.py` checks its emitted settings, layer bands, bounds and all
@@ -68,5 +71,9 @@ support bodies, including unlabeled contacts. `verify_early_layers.py` checks
 first/second-layer bead overlap and the actual scoped wall count.
 
 The [front-top native review](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-01-enclosure-front-top-flat-wings-h2c-v15/manifest.json)
-records the sent archive and its stopped job. The hold status is recorded in
+records the sent archive and its stopped job. The
+[back-top native review](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-01-enclosure-back-top-flat-wings-mark2-v4/manifest.json)
+records an unsent archive, its 14 support bodies and 33 interface islands, and the
+first-layer and scoped-wall checks. Both are references for the current geometry;
+the Funnel additions require fresh preparation. The hold status is recorded in
 [`print-hold.json`](print-hold.json).

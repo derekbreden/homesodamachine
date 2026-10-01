@@ -1,0 +1,17 @@
+{
+  "native_archive": ".cache/prints/2026-10-01-enclosure-back-top-flat-wings-mark2-v4/ready/enclosure-back-top-flat-wings-black-z004-mark2-v4.gcode.3mf",
+  "native_archive_sha256": "f6ab79c96627afed268b4955a70031370f60ddaf5915f3c99226091958907d02",
+  "submitted": false,
+  "status": "Prepared reference only; printing held for Funnel integration and backing review.",
+  "files": {
+    "preparation.json": "2f3141400ddf3f48731b1c6297f7bef559597fda57e6e607e884892fb99b2e9d",
+    "preview.png": "3cfc034f7559f43d327b8d11908211c1577785e3b5af3e97382f2147269096f5",
+    "slice-command.json": "0fc8d6446e2da0fb8ea0b4350f35d938885486b1c9f7cbb33807b6685a46cacd",
+    "support-audit.json": "2dd1e5dda071085b0cc4727f275561d7939266e141757502e3d9e5193df5bd46",
+    "support-removal-review.json": "54fefad39c4a458154d4c8db601e2dbcf8cbaa6249a4ff7096cd9308f215a3d6",
+    "native-result.json": "5e5a73e23e0e5dfa746edc914d3b4d6377fca41d9fa1291c82a433703e97dad1",
+    "first-layer-overlap.json": "6e927082f14940d1821d96aaf1233aaea3a96937c577ca37a866a606b0dc9ace",
+    "hold.json": "21c6510684a6977655a96ce7a57a5e83aa04502844b7b8fb115f73834255cc3c",
+    "verification.json": "7a50adac14a2c3d8e5c2b2e437aa446c733fab82759e1c075b5f33e7e22e6619"
+  }
+}
