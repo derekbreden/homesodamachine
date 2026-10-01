@@ -52,8 +52,8 @@
     },
     {
       "check": "hardware/scripts/check_step_colours.py",
-      "note": "step colours: 227/227 carry the colour of what they are made of",
-      "status": "ok"
+      "note": "A generator hands its solid to `_materials.one_body` and exports the assembly.",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_tracked.py",
@@ -62,12 +62,12 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "3 reference(s) name a path nothing holds.",
+      "note": "1 reference(s) name a path nothing holds.",
       "status": "red"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 440 of 1000 free, the next cut wants 381, and the whole pointer file reads by name in 21.8 MB against 175.8 MB of bundle",
+      "note": "check_release_room: 440 of 1000 free, the next cut wants 401, and the whole pointer file reads by name in 21.8 MB against 175.8 MB of bundle",
       "status": "ok"
     },
     {
@@ -92,7 +92,7 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 3 of 2849 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 545 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 3 of 2857 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 546 member(s) keep their provenance",
       "status": "ok"
     }
   ],
@@ -108,10 +108,12 @@
       "  ✗ procedure with no doc-sync driver — every number and part name in it is a bare literal: hardware/assembly/weld-position.md (expected hardware/assembly/_weld_position_sync.py)"
     ],
     "hardware/scripts/check_payloads.py": [
-      "15 solid(s) the bundle serves a payload for that no rule produces:",
+      "17 solid(s) the bundle serves a payload for that no rule produces:",
       "    hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.step.mesh — declared by nobody",
+      "    hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/back-top-backing-proposal.step.mesh — declared by nobody",
+      "    hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/placed-psu.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/grip-cover/grip-candidate-back-bottom.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/grip-cover/grip-candidate-front-bottom.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/grip-cover/grip-connected-bottoms.step.mesh — declared by nobody",
@@ -125,6 +127,13 @@
       "    hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/tee-carrier/low-force-trial/tee-carrier-low-force.step.mesh — declared by nobody"
     ],
+    "hardware/scripts/check_step_colours.py": [
+      "step colours: 236/238 carry the colour of what they are made of",
+      "  2 STEP(s) name no colour, so /3d and their own cards draw them at the viewer's blue-grey:",
+      "    hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/back-top-backing-proposal.step",
+      "    hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/placed-psu.step",
+      "  A generator hands its solid to `_materials.one_body` and exports the assembly."
+    ],
     "tools/bazel/check_build_file.py": [
       "BUILD.bazel is not what the graph would write now:",
       "  tools/viz/build.py answers to selftest and selftests.json does not name it",
@@ -132,10 +141,8 @@
       "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
     ],
     "tools/check_paths.py": [
-      "hardware/printed-parts/enclosure/display-cover/README.md:23 — hardware/printed-parts/enclosure/display-cover/../enclosure/accepted-fit-integration/geometry-check.json is held nowhere, and no tag is named for it",
-      "  hardware/printed-parts/enclosure/enclosure/README.md:1513 — hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/geometry-check.json is held nowhere, and no tag is named for it",
-      "  hardware/printed-parts/enclosure/nameplate/README.md:46 — hardware/printed-parts/enclosure/nameplate/../enclosure/accepted-fit-integration/geometry-check.json is held nowhere, and no tag is named for it",
-      "3 reference(s) name a path nothing holds."
+      "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/README.md:60 — hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/../../enclosure/accepted-fit-integration/README.md is held nowhere, and no tag is named for it",
+      "1 reference(s) name a path nothing holds."
     ],
     "tools/check_web_tests.py": [
       "2 test(s) in web/ fail:",
