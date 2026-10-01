@@ -28,7 +28,7 @@ import {
   notifyFilesChanged,
 } from "./lib/push.js";
 import { mountNotificationsRoutes } from "./lib/notifications.js";
-import { mountArtifactsLive } from "./lib/artifacts-live.js";
+import { lockOnMain, mountArtifactsLive } from "./lib/artifacts-live.js";
 import { mountObjectRoutes, mountObjectPrune } from "./lib/objects.js";
 import { fillStore, storeFromEnv } from "./lib/store.js";
 import { WS } from "./contracts/ws-frames.js";
@@ -263,7 +263,7 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   if (store) {
     console.log(`[objects] store: ${store.kind}`);
     mountObjectRoutes(app, { store });
-    mountObjectPrune({ store, pointersPath });
+    mountObjectPrune({ store, pointersPath, mainPointers: lockOnMain });
   }
 
   const { broadcast, setRecent } = mountEvents(server, { commit });
