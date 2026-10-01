@@ -1,0 +1,53 @@
+{
+  "status": "pass",
+  "checks": {
+    "all_solids_valid_and_connected": true,
+    "cover_flat_back_and_wings_on_bed": true,
+    "body_dimensions_match": true,
+    "full_original_roof_stock_retained": true,
+    "joint_and_fastener_region_unchanged": true,
+    "halves_do_not_overlap": true,
+    "no_interference_at_all_clearance_extremes": true,
+    "both_wings_caught_at_all_in_plane_extremes": true,
+    "print_meshes_closed_single_bodies": true
+  },
+  "stock_and_joint": {
+    "front": {
+      "removed_original_mm3": 4.72862994763412,
+      "removed_roof_stock_mm3": 0.0,
+      "added_mm3": 127.15930952028383,
+      "seam_change_mm3": 0.0
+    },
+    "back": {
+      "removed_original_mm3": 4.728629947633512,
+      "removed_roof_stock_mm3": 0.0,
+      "added_mm3": 127.15930910632116,
+      "seam_change_mm3": 0.0
+    }
+  },
+  "maximum_interference_mm3": 0,
+  "minimum_wing_stop_probe_mm3": 0.5532986677645018,
+  "mesh": {
+    "grip-cover": {
+      "watertight": true,
+      "positive_volume": true,
+      "bodies": 1
+    },
+    "grip-receiver-front": {
+      "watertight": true,
+      "positive_volume": true,
+      "bodies": 1
+    },
+    "grip-receiver-back": {
+      "watertight": true,
+      "positive_volume": true,
+      "bodies": 1
+    }
+  },
+  "artifacts_sha256": {
+    "grip-cover.stl": "dac696da3c03b9e8a1c8ff93f9278d49eaec845e4c4c11a2c1c53785daacb10a",
+    "grip-receiver-back.stl": "61f0eb60a04f76a834a0289a4224d7693ecbc2d3846e1453fd75e574727bf61d",
+    "grip-receiver-front.stl": "d649e908d75239ee54c4cb1ed8015fee3f78f00e56101ff585d1088c3d804f60"
+  },
+  "scope": "Geometry only. Cover bending, spring-back, retention force, surface finish and lifting performance are unmeasured."
+}

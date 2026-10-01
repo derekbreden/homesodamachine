@@ -1,0 +1,432 @@
+{
+  "project": ".cache/prints/grip-cover-v2/grip-cover-and-receiver-v2-input.3mf",
+  "project_sha256": "f677bcde91908304717e763677dc7d22715bbb3d8aa41f62339be384751aef35",
+  "settings_sha256": "6e71cc60a93c99c53939dfb1e8d012a552371f36c8aba3408faa1c4e04d30b14",
+  "slicer": "BambuStudio 02.08.02.61",
+  "layer_height_mm": 0.23999999463558197,
+  "wall_loops": 2,
+  "sparse_infill_density_percent": 15.0,
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "mass_estimate_note": "Slicer grams use the saved profile density, not a measured PET-GF part mass.",
+  "plates": [
+    {
+      "plate": 1,
+      "estimated_total_seconds": 4027.99462890625,
+      "saved_profile_filament_estimate_g": 30.627172470092773,
+      "slicer_warning": ""
+    }
+  ],
+  "parts": [
+    {
+      "schema": 1,
+      "piece": "grip-cover",
+      "inputs": {
+        "gcode": "support-labels-grip-cover.gcode",
+        "gcode_sha256": "44ae35c8923771b25c631d75741462f2dfd3d426170ec810eb49852cb86ef13a",
+        "model": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/grip-cover/grip-cover.stl",
+        "model_sha256": "dac696da3c03b9e8a1c8ff93f9278d49eaec845e4c4c11a2c1c53785daacb10a",
+        "profile": ".cache/prints/grip-cover-v2/grip-cover-and-receiver-v2-input.3mf",
+        "profile_sha256": "f677bcde91908304717e763677dc7d22715bbb3d8aa41f62339be384751aef35",
+        "plate_gcode_sha256": "4f4860a07d847604178e394bb86e7a5b1eb1ebe0364f209a91fea21fa773ba4d",
+        "object_label": 1901,
+        "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained."
+      },
+      "slicer": "BambuStudio 02.08.02.61",
+      "first_layer_z_mm": 0.2,
+      "coordinate_frame": {
+        "plate_to_cad_transform": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          -162.5,
+          -95.0,
+          -0.0
+        ],
+        "plate_to_cad_translation_mm": [
+          -162.5,
+          -95.0,
+          -0.0
+        ]
+      },
+      "slicer_settings": {
+        "layer_height": "0.24",
+        "support_bottom_z_distance": "0.3",
+        "support_interface_bottom_layers": "2",
+        "support_interface_spacing": "0.5",
+        "support_interface_top_layers": "2",
+        "support_object_xy_distance": "0.4",
+        "support_on_build_plate_only": "0",
+        "support_style": "default",
+        "support_threshold_angle": "35",
+        "support_top_z_distance": "0.45",
+        "support_type": "tree(auto)"
+      },
+      "summary": {
+        "support_bodies": 0,
+        "interface_islands": 0,
+        "bed_rooted_bodies": 0,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": null,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 0,
+        "shortest_labelled_build_up_mm": null
+      },
+      "trees": [],
+      "interfaces": [],
+      "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+      "plate": 1,
+      "rotation_x_degrees": 0.0,
+      "toolpaths": {
+        "extrusion_bounds_xy_mm": [
+          [
+            126.05999999999999,
+            90.96
+          ],
+          [
+            198.94,
+            99.04
+          ]
+        ],
+        "maximum_line_width_mm": 0.546709,
+        "bounds_padding_mm": 0.4
+      }
+    },
+    {
+      "schema": 1,
+      "piece": "grip-receiver-front",
+      "inputs": {
+        "gcode": "support-labels-grip-receiver-front.gcode",
+        "gcode_sha256": "5631ff835e823335bd79df0f0b157cc4db80220036547acc95b153081b0d54f0",
+        "model": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/grip-cover/grip-receiver-front.stl",
+        "model_sha256": "d649e908d75239ee54c4cb1ed8015fee3f78f00e56101ff585d1088c3d804f60",
+        "profile": ".cache/prints/grip-cover-v2/grip-cover-and-receiver-v2-input.3mf",
+        "profile_sha256": "f677bcde91908304717e763677dc7d22715bbb3d8aa41f62339be384751aef35",
+        "plate_gcode_sha256": "4f4860a07d847604178e394bb86e7a5b1eb1ebe0364f209a91fea21fa773ba4d",
+        "object_label": 1902,
+        "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained."
+      },
+      "slicer": "BambuStudio 02.08.02.61",
+      "first_layer_z_mm": 0.2,
+      "coordinate_frame": {
+        "plate_to_cad_transform": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          -19.0,
+          30.775001526,
+          -6.0
+        ],
+        "plate_to_cad_translation_mm": [
+          -19.0,
+          30.775002,
+          -6.0
+        ]
+      },
+      "slicer_settings": {
+        "layer_height": "0.24",
+        "support_bottom_z_distance": "0.3",
+        "support_interface_bottom_layers": "2",
+        "support_interface_spacing": "0.5",
+        "support_interface_top_layers": "2",
+        "support_object_xy_distance": "0.4",
+        "support_on_build_plate_only": "0",
+        "support_style": "default",
+        "support_threshold_angle": "35",
+        "support_top_z_distance": "0.45",
+        "support_type": "tree(auto)"
+      },
+      "summary": {
+        "support_bodies": 1,
+        "interface_islands": 2,
+        "bed_rooted_bodies": 1,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": 30.48,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 2,
+        "shortest_labelled_build_up_mm": 30.48
+      },
+      "trees": [
+        {
+          "id": "tree-1",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "first_interface_z_mm": 30.68,
+          "shortest_build_up_mm": 30.48,
+          "top_z_mm": 34.76,
+          "bbox_xy_mm": [
+            112.8,
+            144.8,
+            125.2,
+            182.8
+          ],
+          "interfaces": [
+            "interface-1",
+            "interface-2"
+          ],
+          "interface_reading": "explicit_feature",
+          "bbox_cad_xyz_mm": [
+            93.8,
+            175.575,
+            -5.8,
+            106.2,
+            213.575,
+            28.76
+          ]
+        }
+      ],
+      "interfaces": [
+        {
+          "id": "interface-1",
+          "first_z_mm": 30.68,
+          "last_z_mm": 31.16,
+          "bbox_xy_mm": [
+            113.2,
+            145.6,
+            120.8,
+            150.4
+          ],
+          "tree": "tree-1",
+          "build_up_mm": 30.48,
+          "bbox_cad_xyz_mm": [
+            94.2,
+            176.375,
+            24.68,
+            101.8,
+            181.175,
+            25.16
+          ]
+        },
+        {
+          "id": "interface-2",
+          "first_z_mm": 34.28,
+          "last_z_mm": 34.76,
+          "bbox_xy_mm": [
+            112.8,
+            147.2,
+            124.4,
+            182.8
+          ],
+          "tree": "tree-1",
+          "build_up_mm": 34.08,
+          "bbox_cad_xyz_mm": [
+            93.8,
+            177.975,
+            28.28,
+            105.4,
+            213.575,
+            28.76
+          ]
+        }
+      ],
+      "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+      "plate": 1,
+      "rotation_x_degrees": 0.0,
+      "toolpaths": {
+        "extrusion_bounds_xy_mm": [
+          [
+            108.27546799999999,
+            138.000468
+          ],
+          [
+            126.72453200000001,
+            183.40353199999998
+          ]
+        ],
+        "maximum_line_width_mm": 0.669064,
+        "bounds_padding_mm": 0.43453200000000003
+      }
+    },
+    {
+      "schema": 1,
+      "piece": "grip-receiver-back",
+      "inputs": {
+        "gcode": "support-labels-grip-receiver-back.gcode",
+        "gcode_sha256": "a9bfd0016d9976cb723b99aaab7ea511e54748fefa11ad8525ffd9a4659758ca",
+        "model": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/grip-cover/grip-receiver-back.stl",
+        "model_sha256": "61f0eb60a04f76a834a0289a4224d7693ecbc2d3846e1453fd75e574727bf61d",
+        "profile": ".cache/prints/grip-cover-v2/grip-cover-and-receiver-v2-input.3mf",
+        "profile_sha256": "f677bcde91908304717e763677dc7d22715bbb3d8aa41f62339be384751aef35",
+        "plate_gcode_sha256": "4f4860a07d847604178e394bb86e7a5b1eb1ebe0364f209a91fea21fa773ba4d",
+        "object_label": 1903,
+        "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained."
+      },
+      "slicer": "BambuStudio 02.08.02.61",
+      "first_layer_z_mm": 0.2,
+      "coordinate_frame": {
+        "plate_to_cad_transform": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          -109.0,
+          69.5,
+          -6.0
+        ],
+        "plate_to_cad_translation_mm": [
+          -109.0,
+          69.5,
+          -6.0
+        ]
+      },
+      "slicer_settings": {
+        "layer_height": "0.24",
+        "support_bottom_z_distance": "0.3",
+        "support_interface_bottom_layers": "2",
+        "support_interface_spacing": "0.5",
+        "support_interface_top_layers": "2",
+        "support_object_xy_distance": "0.4",
+        "support_on_build_plate_only": "0",
+        "support_style": "default",
+        "support_threshold_angle": "35",
+        "support_top_z_distance": "0.45",
+        "support_type": "tree(auto)"
+      },
+      "summary": {
+        "support_bodies": 1,
+        "interface_islands": 2,
+        "bed_rooted_bodies": 1,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": 30.48,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 2,
+        "shortest_labelled_build_up_mm": 30.48
+      },
+      "trees": [
+        {
+          "id": "tree-1",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "first_interface_z_mm": 30.68,
+          "shortest_build_up_mm": 30.48,
+          "top_z_mm": 34.76,
+          "bbox_xy_mm": [
+            202.8,
+            130.4,
+            214.4,
+            182.4
+          ],
+          "interfaces": [
+            "interface-1",
+            "interface-2"
+          ],
+          "interface_reading": "explicit_feature",
+          "bbox_cad_xyz_mm": [
+            93.8,
+            199.9,
+            -5.8,
+            105.4,
+            251.9,
+            28.76
+          ]
+        }
+      ],
+      "interfaces": [
+        {
+          "id": "interface-1",
+          "first_z_mm": 30.68,
+          "last_z_mm": 31.16,
+          "bbox_xy_mm": [
+            203.2,
+            178.4,
+            210.4,
+            182.0
+          ],
+          "tree": "tree-1",
+          "build_up_mm": 30.48,
+          "bbox_cad_xyz_mm": [
+            94.2,
+            247.9,
+            24.68,
+            101.4,
+            251.5,
+            25.16
+          ]
+        },
+        {
+          "id": "interface-2",
+          "first_z_mm": 34.28,
+          "last_z_mm": 34.76,
+          "bbox_xy_mm": [
+            203.2,
+            130.4,
+            214.4,
+            180.8
+          ],
+          "tree": "tree-1",
+          "build_up_mm": 34.08,
+          "bbox_cad_xyz_mm": [
+            94.2,
+            199.9,
+            28.28,
+            105.4,
+            250.3,
+            28.76
+          ]
+        }
+      ],
+      "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+      "plate": 1,
+      "rotation_x_degrees": 0.0,
+      "toolpaths": {
+        "extrusion_bounds_xy_mm": [
+          [
+            198.27546800000002,
+            130.093468
+          ],
+          [
+            216.72453199999998,
+            189.72453199999998
+          ]
+        ],
+        "maximum_line_width_mm": 0.669064,
+        "bounds_padding_mm": 0.43453200000000003
+      }
+    }
+  ],
+  "fit": {
+    "minimum_shared_bed_margin_mm": 90.96,
+    "minimum_toolpath_separation_mm": 31.053467999999995,
+    "pairwise_toolpath_separations": [
+      {
+        "parts": [
+          "grip-cover",
+          "grip-receiver-front"
+        ],
+        "separation_mm": 38.960468000000006
+      },
+      {
+        "parts": [
+          "grip-cover",
+          "grip-receiver-back"
+        ],
+        "separation_mm": 31.053467999999995
+      },
+      {
+        "parts": [
+          "grip-receiver-front",
+          "grip-receiver-back"
+        ],
+        "separation_mm": 71.55093600000001
+      }
+    ]
+  }
+}
