@@ -6,8 +6,5 @@ click: x=90.000 y=176.050 z=20.000
 click: x=90.000 y=200.553 z=0.000
 click: x=90.000 y=183.944 z=40.000
 
-[ceiling] Flat lower face of the receiver lip. The native tree supports this face, with its last interface at Z25.16 below the Z25.64 face. It is exposed through the open bottom before assembly; physical removal is unmeasured.
-click: x=97.500 y=178.150 z=25.640
-
-[ceiling] Functional lifting ceiling and wing-slot roof. The native support mat ends at Z28.76 below the Z29.25 face. The wing pocket opens toward the grip, and its mat can be accessed toward the open Y-seam end while the sample halves are separate. Physical removal is unmeasured.
-click: x=97.763 y=195.025 z=29.250
+[ceiling] Functional lifting ceiling and end-wall wing-slot roof. The native support mat ends at Z28.76 below the Z29.25 face. The ceiling mat has a straight removal lane toward the open Y-seam end before assembly, and the slot opens through the end wall. Physical removal is unmeasured.
+click: x=97.929 y=191.725 z=29.250

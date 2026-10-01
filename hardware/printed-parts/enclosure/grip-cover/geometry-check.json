@@ -5,28 +5,39 @@
     "cover_flat_back_and_wings_on_bed": true,
     "body_dimensions_match": true,
     "full_original_roof_stock_retained": true,
+    "no_added_receiver_ledges": true,
     "joint_and_fastener_region_unchanged": true,
     "halves_do_not_overlap": true,
+    "cover_reaches_requested_x_105_195": true,
+    "all_four_slot_mouths_on_existing_end_walls": true,
     "no_interference_at_all_clearance_extremes": true,
     "both_wings_caught_at_all_in_plane_extremes": true,
     "print_meshes_closed_single_bodies": true
   },
   "stock_and_joint": {
     "front": {
-      "removed_original_mm3": 4.72862994763412,
+      "removed_original_mm3": 258.2525757790058,
       "removed_roof_stock_mm3": 0.0,
-      "added_mm3": 127.15930952028383,
+      "added_mm3": 0.0,
       "seam_change_mm3": 0.0
     },
     "back": {
-      "removed_original_mm3": 4.728629947633512,
+      "removed_original_mm3": 257.98267672238774,
       "removed_roof_stock_mm3": 0.0,
-      "added_mm3": 127.15930910632116,
+      "added_mm3": 0.0,
       "seam_change_mm3": 0.0
     }
   },
   "maximum_interference_mm3": 0,
-  "minimum_wing_stop_probe_mm3": 0.5532986677645018,
+  "east_cover_x_mm": [
+    93.64999999999968,
+    105.2082039324997
+  ],
+  "slot_mouth_y_mm": [
+    174.0,
+    254.0
+  ],
+  "minimum_wing_stop_probe_mm3": 0.5532986677644891,
   "mesh": {
     "grip-cover": {
       "watertight": true,
@@ -45,9 +56,9 @@
     }
   },
   "artifacts_sha256": {
-    "grip-cover.stl": "dac696da3c03b9e8a1c8ff93f9278d49eaec845e4c4c11a2c1c53785daacb10a",
-    "grip-receiver-back.stl": "61f0eb60a04f76a834a0289a4224d7693ecbc2d3846e1453fd75e574727bf61d",
-    "grip-receiver-front.stl": "d649e908d75239ee54c4cb1ed8015fee3f78f00e56101ff585d1088c3d804f60"
+    "grip-cover.stl": "acbb8f8cd3e50792a258670bf31c7574de6a435fbbce2629ede73c070378dc03",
+    "grip-receiver-back.stl": "031bc1a3835f8551015ed47aead4f8b85f94d27ae2a4a991c64f3a6968c16d99",
+    "grip-receiver-front.stl": "16afa50ef65127df333aebcd14863d5ebb94b93f0309f1cd358294a09dfd5aae"
   },
   "scope": "Geometry only. Cover bending, spring-back, retention force, surface finish and lifting performance are unmeasured."
 }
