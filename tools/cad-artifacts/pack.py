@@ -77,6 +77,7 @@ NOT_BUNDLED_DIRS = (
     # a hand-run guide's page renders and its art pass's staged STEPs; the walk above reaches
     # every `.step` under `hardware/` (hardware/weld-rotator-guide/README.md)
     "hardware/weld-rotator-guide/out",
+    "hardware/magnetic-float-guide/out",
     # the two hand-drawn quick start sheets' page renders, held out the same way
     "hardware/quickstart-claude/out",
     "hardware/quickstart-codex/out",

@@ -1,7 +1,7 @@
 # Pressure printing: evidence and first-article choices
 
 Research checked **2026-09-28**, including publications through 2026. The task is
-an uncoated PETG Basic envelope around an ASA Aero core, under **external** water
+an uncoated PETG Translucent Clear envelope around an ASA Aero core, under **external** water
 pressure: 90 psi operating reference, 125 psi relief reference, and a 180 psi,
 30-minute first-article hydrostatic proof target.
 
@@ -13,14 +13,16 @@ exposure duration determine which conclusions transfer to this float.
 ## First article
 
 Use the [specified shell and recipe](petg-shell.md): **3 mm outer wall, 1.8 mm
-bore lining, 3 mm floor, 3.06 mm roof**; Bambu PETG Basic on the 0.6 mm nozzle,
+bore lining, 3 mm floor, 3.06 mm roof**; Bambu PETG Translucent Clear on the 0.6 mm nozzle,
 255/260 °C, 0.30/0.18 mm layers, 0.60 mm lines, flow **1.02**, six requested
 walls, 100% solid fill and 10–20% part cooling. Use the float's slow wall speeds,
 zero seam gap, unconditional scarf seams and fully backed roof. ASA Aero keeps
 the [manufacturer-based printing recipe](asa-aero-research.md).
 
-This selection combines the repository's actual water-holding result with the
-process variables supported by the studies below. Its pressure endurance is
+The sealing process draws on the repository's PETG Basic water-holding result
+and the process variables supported by the studies below. The selected material
+is the reservoirs' PETG Translucent Clear; it retains the native Translucent
+density and 16 mm³/s volumetric ceiling. Its pressure endurance is
 unknown. The incomplete sphere record establishes no limit for an unpierced
 wall; the recovered event concerns a printed threaded port.
 
@@ -157,16 +159,16 @@ stock baseline it is already **5.15% more extrusion**. Multiplier values depend
 on the slicer, material and printer; a published 1.15 is not a portable target.
 Keeping the proven local value is the strongest available starting point.
 
-The [native slice](verification.json) predicts 31.50 g of PETG and 5.37 g of
+The [native slice](verification.json) predicts 31.50 g of PETG and 5.43 g of
 spare lift. With identical paths and external dimensions, an extrusion-only
 estimate gives:
 
 | PETG flow scenario | Added PETG mass | Remaining spare lift |
 | --- | --- | --- |
-| 1.02, specified | 0.00 g | 5.37 g |
-| 1.05 | 0.93 g | 4.44 g |
-| 1.08 | 1.85 g | 3.52 g |
-| 1.15 | 4.01 g | 1.36 g |
+| 1.02, specified | 0.00 g | 5.43 g |
+| 1.05 | 0.93 g | 4.50 g |
+| 1.08 | 1.85 g | 3.58 g |
+| 1.15 | 4.01 g | 1.41 g |
 
 These are mass sensitivities, not freshly sliced alternatives or predictions
 that extra extrusion remains dimensionally contained. Flow changes can also
@@ -177,12 +179,13 @@ keeping OD 36 mm, height 60.06 mm, caps and bore unchanged, gives:
 
 | Outer wall scenario | Reserve lift |
 | --- | --- |
-| 3.0 mm, specified | 4.90 g |
-| 3.6 mm | 2.80 g |
-| 4.0 mm | 1.45 g |
+| 3.0 mm, specified | 4.96 g |
+| 3.6 mm | 2.87 g |
+| 4.0 mm | 1.52 g |
 
 The thicker wall replaces foam with PETG over the 54 mm interior height.
-Added mass is `π × [15² − (18 − t)²] × 54 / 1000 × (1.25 − 0.55)` grams.
+Its main mass term is `π × [15² − (18 − t)²] × 54 / 1000 × (1.25 − 0.55)` grams;
+the calculation also includes the small change in the Aero lower-edge lead-ins.
 These CAD/density estimates and the native-extrusion estimates above are
 separate mass models. [Source data and calculations](pressure-printing-sources.json)
 preserve their inputs.

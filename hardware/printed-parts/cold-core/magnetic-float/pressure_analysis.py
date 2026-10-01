@@ -30,7 +30,7 @@ def calculate():
     sensitivity = []
     for thickness in (1.0, 1.8, 2.4, 3.0):
         radius = m.outer_radius - thickness / 2
-        for modulus in (1000, 1670):
+        for modulus in (1000, 1420):
             ideal = modulus / (4 * (1 - 0.38 ** 2)) * (thickness / radius) ** 3
             sensitivity.append({
                 'outer_diameter_mm': m.diameter, 'wall_mm': thickness,
@@ -47,10 +47,14 @@ def calculate():
         displaced = math.pi * ((diameter / 2) ** 2 - (bore / 2) ** 2) * height / 1000
         interior = math.pi * ((diameter / 2 - outer) ** 2 - (bore / 2 + bore_wall) ** 2) * (height - floor - roof) / 1000
         magnet = math.pi * ((m.magnet_od / 2) ** 2 - (m.magnet_id / 2) ** 2) * m.magnet_height / 1000
-        mass = (displaced - interior) * m.petg_density + (interior - magnet) * 0.55 + m.magnet_mass
+        pocket = math.pi * ((m.magnet_pocket_od / 2) ** 2 - (m.magnet_pocket_id / 2) ** 2) * m.magnet_pocket_depth / 1000
+        lead_relief = 2 * math.pi * m.insertion_lead ** 2 * (diameter / 2 - outer + bore / 2 + bore_wall) / 1000
+        relief = pocket - magnet + lead_relief
+        mass = (displaced - interior) * m.petg_density + (interior - magnet - relief) * 0.55 + m.magnet_mass
         comparisons.append({'diameter_mm': diameter, 'height_mm': height, 'outer_wall_mm': outer,
                             'bore_wall_mm': bore_wall, 'floor_mm': floor, 'roof_mm': roof,
                             'bore_mm': bore, 'aero_density_g_cc': 0.55,
+                            'assembly_relief_cc': relief,
                             'assembled_mass_g': mass, 'reserve_lift_g': displaced - mass})
     return {
         'geometry': m.measurements(m.build())['dimensions_mm'],
@@ -61,11 +65,11 @@ def calculate():
         'model_limits': 'Screen only: short, relatively thick, anisotropic printed shell with flat ends and foam. The formula does not validate its buckling pressure, creep life, end caps, layer bonds or sealing. The 50% column is a sensitivity assumption, not a qualified knockdown factor.',
         'sources': {
             'shell_formula': 'https://ntrs.nasa.gov/citations/20205011530',
-            'petg_basic_XY_flexural_modulus_1670_MPa': 'https://bambu-lab-global.myshopify.com/en-cn/products/petg-basic',
+            'petg_translucent_XY_Youngs_modulus_1420_MPa': 'https://cdn.shopify.com/s/files/1/0574/3116/2995/files/Bambu_PETG_Translucent_Technical_Data_Sheet.pdf?v=1704680051',
             'successful_water_recipe': 'petg-water-recipe.json',
             'sphere_thread_leak_commit': 'b7dc4d576e9dc38794d190f31473f31d71aa4aa1',
         },
-        'stiffness_basis': '1670 MPa is the published PETG Basic XY flexural modulus; 1000 MPa is an assumed reduced-stiffness scenario, not measured creep data.',
+        'stiffness_basis': '1420 MPa is the published PETG Translucent mean XY Young\'s modulus (reported spread ±160 MPa) for specimens conditioned at 65 C for 8 h. This is a material screen input, not the printed shell\'s measured modulus. 1000 MPa is an assumed reduced-stiffness scenario, not measured creep data.',
         'thickness_sensitivity': sensitivity, 'buoyancy_geometry_comparison': comparisons,
         'pressure_rating': 'No float pressure test recorded.',
     }

@@ -7,12 +7,12 @@
         "bottom_z_mm": 0.0
       },
       "body-aero": {
-        "volume_relative_error": 0.0001491903908965786,
-        "bottom_z_mm": 0.0
+        "volume_relative_error": 0.00014893104946111667,
+        "bottom_z_mm": -4.440892098500626e-16
       },
       "insert-aero": {
-        "volume_relative_error": 0.000149196207221414,
-        "bottom_z_mm": 0.0
+        "volume_relative_error": 0.00014800602980539465,
+        "bottom_z_mm": -7.105427357601002e-15
       }
     },
     "petg_thickness_mm": {
@@ -21,11 +21,17 @@
       "floor": 3.0,
       "roof": 3.06
     },
-    "nominal_unfilled_volume_cc": 0.0,
+    "nominal_unfilled_volume_cc": 0.12404012860584794,
+    "unfilled_volume_scope": "Lower insertion chamfers and RC62 pocket clearance only.",
     "nominal_material_overlap_cc": 0.0,
     "separate_core_insertion_clear": true,
     "magnet_tolerance_clear_of_petg": true,
+    "magnet_tolerance_clear_of_aero": true,
+    "magnet_pocket_minimum_compensated_radial_clearance_mm": 0.05000000000000035,
+    "magnet_pocket_minimum_depth_clearance_mm": 0.12500000000000008,
     "insert_top_meets_roof_underside": true,
+    "insert_supports_full_roof_annulus": true,
+    "aero_lower_lead_in_mm": 0.5,
     "fit_allowances_radial_mm": {
       "body-aero": 0.05,
       "insert-aero": 0.05
@@ -34,7 +40,7 @@
   "jobs": {
     "aero": {
       "filename": "magnetic-float-aero.3mf",
-      "project_sha256": "9eeec9f3b62ad08dee958015d8456c4ed39d6347fd3171b738ded95cccd04c9a",
+      "project_sha256": "e96c4dd0efc977af36f902c1f8b1af1749f015dd9fb4ec91f26a1f341f003f9c",
       "material": "Bambu ASA-Aero @BBL H2C 0.4 nozzle",
       "material_settings_match_recipe": true,
       "material_settings_match_stock": true,
@@ -97,10 +103,10 @@
       "plates": [
         {
           "plate": 1,
-          "estimated_seconds": 5843,
-          "total_material_g": 14.72,
+          "estimated_seconds": 5842,
+          "total_material_g": 14.67,
           "part": "body-aero",
-          "object_extrusion_mass_g": 14.672453820495814,
+          "object_extrusion_mass_g": 14.620758980724657,
           "material_tools": [
             0
           ],
@@ -110,11 +116,16 @@
           "insertion_pauses": [],
           "roof_layers_mm": [],
           "aero_perimeter_centerline_radii_mm": [
-            4.350723700320484,
-            14.810534966705283
+            4.3531685845784835,
+            14.810545229666616
           ],
           "minimum_guide_bore_centerline_radius_mm": null,
           "wall_coverage": null,
+          "magnet_pocket_clearance": {
+            "layer_z_mm": 42.2,
+            "minimum_maximum_size_magnet_clearance_mm": 0.029153001354301177,
+            "basis": "Nominal emitted LINE_WIDTH footprints and RC62 maximum dimensional tolerance; not measured printed fit."
+          },
           "thermal_commands": [
             "M104 O-80 A",
             "M104 S0",
@@ -136,10 +147,10 @@
         },
         {
           "plate": 2,
-          "estimated_seconds": 2183,
+          "estimated_seconds": 2191,
           "total_material_g": 3.46,
           "part": "insert-aero",
-          "object_extrusion_mass_g": 3.4128585410287764,
+          "object_extrusion_mass_g": 3.405178172454057,
           "material_tools": [
             0
           ],
@@ -149,11 +160,12 @@
           "insertion_pauses": [],
           "roof_layers_mm": [],
           "aero_perimeter_centerline_radii_mm": [
-            4.352418265575984,
-            14.810577031297598
+            4.35295780743611,
+            14.810486352581407
           ],
           "minimum_guide_bore_centerline_radius_mm": null,
           "wall_coverage": null,
+          "magnet_pocket_clearance": null,
           "thermal_commands": [
             "M104 O-80 A",
             "M104 S0",
@@ -177,8 +189,8 @@
     },
     "petg": {
       "filename": "magnetic-float.3mf",
-      "project_sha256": "d4987dd48b6cf5ec4ece0d7db7dada29e45430136a850efd01826aedd6a78292",
-      "material": "Bambu PETG Basic @BBL H2C",
+      "project_sha256": "577346277dbda7ed878bec0564f1afa22b192db59cd54e7cfd208efd14d34729",
+      "material": "Bambu PETG Translucent @BBL H2C",
       "material_settings_match_recipe": true,
       "material_settings_match_stock": false,
       "effective_material_settings": {
@@ -195,7 +207,7 @@
           "1.25"
         ],
         "filament_max_volumetric_speed": [
-          "21"
+          "16"
         ],
         "chamber_temperatures": [
           "0"
@@ -240,7 +252,7 @@
       "plates": [
         {
           "plate": 1,
-          "estimated_seconds": 7321,
+          "estimated_seconds": 7324,
           "total_material_g": 31.68,
           "part": "body-petg",
           "object_extrusion_mass_g": 31.501461991849492,
@@ -253,7 +265,8 @@
           "insertion_pauses": [
             {
               "before_layer_z_mm": 57.18,
-              "last_deposited_layer_z_mm": 57.0
+              "last_deposited_layer_z_mm": 57.0,
+              "slicer_remaining_minutes_at_pause": 15
             }
           ],
           "roof_layers_mm": [
@@ -439,6 +452,7 @@
             ],
             "basis": "Nominal bead footprints from emitted LINE_WIDTH, not measured printed porosity."
           },
+          "magnet_pocket_clearance": null,
           "thermal_commands": [
             "M104 O-80 A",
             "M104 S0",
@@ -464,12 +478,12 @@
   },
   "assemblies": {
     "petg": {
-      "aero_g": 18.08531236152459,
+      "aero_g": 18.025937153178713,
       "petg_g": 31.501461991849492,
       "magnet_g": 5.09,
-      "assembled_mass_g": 54.676774353374086,
-      "reserve_lift_g": 5.370039238095572,
-      "upright_freeboard_mm": 5.371218510183168
+      "assembled_mass_g": 54.6173991450282,
+      "reserve_lift_g": 5.429414446441456,
+      "upright_freeboard_mm": 5.430606757451636
     }
   },
   "mass_scope": "Object extrusion only, nominal filament diameter/density; excludes brim and startup purge.",

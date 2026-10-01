@@ -1,4 +1,4 @@
-"""RC62 magnetic float: continuous PETG envelope and a fitted ASA Aero core.
+"""RC62 magnetic float: PETG Translucent Clear envelope and fitted ASA Aero core.
 
 Frame: guide bore on Z, finished bottom at Z=0, roof at positive Z.
 The separate Aero insert seats from Z=47 to the roof underside at Z=57.
@@ -36,10 +36,15 @@ magnet_id = 9.525
 magnet_height = 3.175
 magnet_tolerance = 0.1
 magnet_mass = 5.09
+magnet_pocket_od = magnet_od + 0.30
+magnet_pocket_id = magnet_id - 0.30
+magnet_pocket_depth = 3.40
 insert_height = 10.0
 core_fit_allowance = 0.05
 insert_fit_allowance = 0.05
+insertion_lead = 0.5
 petg_density = 1.25
+petg_material = 'Bambu PETG Translucent Clear 32101'
 water_density = 1.0
 mesh_tolerance = 0.01
 mesh_angle = 0.06
@@ -51,7 +56,7 @@ core_inner_radius = bore_radius + bore_wall
 roof_bottom = round(height - roof, 6)
 insert_top = roof_bottom
 insert_bottom = insert_top - insert_height
-magnet_seat = insert_bottom - magnet_height
+magnet_seat = insert_bottom - magnet_pocket_depth
 
 
 def annulus(outer, inner, bottom, top):
@@ -64,12 +69,22 @@ def box(width, depth, bottom, top, x=0.0, y=0.0):
             centered=(True, True, False)).translate((x, y, bottom)).val())
 
 
+def lead_in(shape):
+    """Start both simultaneous Aero press fits on 45-degree lower lead-ins."""
+    return cq.Workplane(obj=shape).faces('<Z').edges().chamfer(insertion_lead).val()
+
+
+def magnet_pocket():
+    return annulus(magnet_pocket_od / 2, magnet_pocket_id / 2,
+                   magnet_seat, insert_bottom)
+
+
 def build():
     envelope = annulus(outer_radius, bore_radius, 0, height)
     interior = annulus(core_outer_radius, core_inner_radius, floor, roof_bottom)
-    magnet = annulus(magnet_od / 2, magnet_id / 2, magnet_seat, insert_bottom)
-    core = annulus(core_outer_radius, core_inner_radius, floor, insert_bottom).cut(magnet)
-    insert = annulus(core_outer_radius, core_inner_radius, insert_bottom, insert_top)
+    magnet = annulus(magnet_od / 2, magnet_id / 2, magnet_seat, magnet_seat + magnet_height)
+    core = lead_in(annulus(core_outer_radius, core_inner_radius, floor, insert_bottom)).cut(magnet_pocket())
+    insert = lead_in(annulus(core_outer_radius, core_inner_radius, insert_bottom, insert_top))
     return {'body-petg': envelope.cut(interior).clean(), 'body-aero': core.clean(),
             'insert-aero': insert, 'magnet': magnet}
 
@@ -90,28 +105,33 @@ def measurements(parts):
                 'petg_floor': floor, 'petg_roof': roof, 'insert_height': insert_height,
                 'insert_top': insert_top, 'insert_bottom': insert_bottom,
                 'magnet_seat': magnet_seat, 'roof_bottom': roof_bottom,
-                'magnet_pocket_od': magnet_od, 'magnet_pocket_id': magnet_id,
-                'magnet_pocket_height': magnet_height,
+                'magnet_pocket_od': magnet_pocket_od, 'magnet_pocket_id': magnet_pocket_id,
+                'magnet_pocket_height': magnet_pocket_depth,
+                'aero_lower_lead_in': insertion_lead,
                 'insert_od': 2 * core_outer_radius, 'insert_id': 2 * core_inner_radius},
             'magnet': {'model': 'K&J RC62', 'mass_g': magnet_mass,
                 'od_mm': magnet_od, 'id_mm': magnet_id, 'height_mm': magnet_height,
                 'maximum_dimensional_tolerance_mm': magnet_tolerance,
                 'source': 'https://www.kjmagnetics.com/rc62-neodymium-ring-magnet'},
             'volume_cc': volumes, 'water_displacement_g': displaced * water_density,
-            'petg_density_g_cc': petg_density, 'buoyancy': table,
+            'petg_material': petg_material, 'petg_density_g_cc': petg_density, 'buoyancy': table,
             'neutral_aero_density_g_cc': (displaced * water_density - petg * petg_density - magnet_mass) / aero,
             'nominal_unfilled_volume_cc': max(0.0, displaced - sum(volumes.values())),
             'aero_material': 'Bambu ASA Aero White 46100',
             'core_print_fit_allowance_radial_mm': core_fit_allowance,
             'insert_print_fit_allowance_radial_mm': insert_fit_allowance,
-            'minimum_seated_magnet_top_to_roof_bottom_mm': insert_height - magnet_tolerance,
-            'fit': 'Nominal seated faces touch. Each separately printed Aero piece has 0.05 mm radial contour expansion and bore reduction. Magnet tolerance is taken in the Aero pocket.',
+            'minimum_seated_magnet_top_to_roof_bottom_mm': roof_bottom - magnet_seat - magnet_height - magnet_tolerance,
+            'magnet_pocket_minimum_compensated_radial_clearance_mm': min(
+                (magnet_pocket_od - magnet_od - magnet_tolerance) / 2 - core_fit_allowance,
+                (magnet_id - magnet_tolerance - magnet_pocket_id) / 2 - core_fit_allowance),
+            'magnet_pocket_minimum_depth_clearance_mm': magnet_pocket_depth - magnet_height - magnet_tolerance,
+            'fit': 'The Aero pieces have 0.5 mm lower outer/bore lead-ins and 0.05 mm radial contour expansion and bore reduction on their straight lands. The RC62 seats in a clearance pocket below the insert. The insert top supports the full roof. Intentional unfilled volume comprises lower lead-ins and magnet-pocket clearance.',
             'pressure_rating': 'Unqualified prototype; no hydrostatic test recorded.'}
 
 
 def write(parts, output):
     output.mkdir(parents=True, exist_ok=True)
-    colors = {'petg': cq.Color('#3DA5C8'), 'aero': cq.Color('#EBC777'),
+    colors = {'petg': cq.Color('#D9EBF2'), 'aero': cq.Color('#EBC777'),
               'magnet': cq.Color('#707985')}
     assembly = cq.Assembly(name='magnetic-float')
     section = cq.Assembly(name='magnetic-float-section')
@@ -156,7 +176,7 @@ def write(parts, output):
             'FIT_ALLOWANCE': f'{insert_fit_allowance:g} mm',
             'PAUSE_LAYER': f'{roof_bottom + petg_layer:g} mm',
             'ROOF_LAYERS': f'{round(roof / petg_layer)} layers',
-            'MAGNET_ROOF_GAP': f'{insert_height - magnet_tolerance:g} mm',
+            'MAGNET_ROOF_GAP': f'{info["minimum_seated_magnet_top_to_roof_bottom_mm"]:g} mm',
         }
         for row in info['buoyancy']:
             code = f'{round(row["aero_density_g_cc"] * 100):03d}'

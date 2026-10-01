@@ -1,6 +1,6 @@
 {
   "checked_date": "2026-09-28",
-  "scope": "FDM pressure sealing and external-pressure applicability to the PETG Basic / ASA Aero bench float",
+  "scope": "FDM pressure sealing and external-pressure applicability to the PETG Translucent Clear / ASA Aero bench float",
   "sources": [
     {
       "id": "fittings-2025",
@@ -240,18 +240,21 @@
   },
   "analysis_inputs": {
     "source": "asa-aero-research.json",
-    "source_sha256": "0b2441344d2dba3ef16aea3395188f33c8cc0d5929c2ef2460505312ccb7609a",
+    "source_sha256": "752cd50531e77a744e62151291ec4b5e244cf8d2b61c8dd98a1e12b184737b62",
     "displacement_cm3": 60.04681359146966,
     "petg_density_g_cm3": 1.25,
     "aero_density_g_cm3": 0.55,
     "baseline_native_petg_g": 31.501461991849492,
-    "baseline_native_reserve_g": 5.370039238095572,
-    "baseline_cad_reserve_g": 4.896044276227229,
+    "baseline_native_reserve_g": 5.429414446441456,
+    "baseline_cad_reserve_g": 4.964266346960443,
     "outer_radius_mm": 18,
     "core_outer_radius_mm": 15,
     "interior_height_mm": 54,
     "baseline_flow": 1.02,
-    "stock_flow": 0.97
+    "stock_flow": 0.97,
+    "intentional_assembly_relief_cm3": 0.12404012860584146,
+    "aero_lower_lead_in_mm": 0.5,
+    "petg_material": "Bambu PETG Translucent Clear 32101"
   },
   "flow_sensitivity": {
     "formula": "extra_petg_g = baseline_native_petg_g * (flow / 1.02 - 1)",
@@ -260,43 +263,43 @@
       {
         "flow_ratio": 1.02,
         "extra_petg_g": 0.0,
-        "reserve_lift_g": 5.370039238095572
+        "reserve_lift_g": 5.429414446441456
       },
       {
         "flow_ratio": 1.05,
         "extra_petg_g": 0.926513587995577,
-        "reserve_lift_g": 4.4435256500999945
+        "reserve_lift_g": 4.502900858445878
       },
       {
         "flow_ratio": 1.08,
         "extra_petg_g": 1.853027175991147,
-        "reserve_lift_g": 3.517012062104425
+        "reserve_lift_g": 3.576387270450309
       },
       {
         "flow_ratio": 1.15,
         "extra_petg_g": 4.014892214647484,
-        "reserve_lift_g": 1.3551470234480876
+        "reserve_lift_g": 1.4145222317939714
       }
     ]
   },
   "outer_wall_sensitivity": {
-    "formula": "extra_mass_g = pi * (15^2 - (18-wall_mm)^2) * 54 / 1000 * (1.25-0.55)",
-    "limits": "Only outer wall changes; same outside envelope, bore and caps. Extra PETG replaces Aero. CAD/density mass model, not native extrusion.",
+    "formula": "extra_mass_g = pi * (15^2 - (18-wall_mm)^2) * 54 / 1000 * (1.25-0.55) + 2*pi*0.5^2*(wall_mm-3)/1000*0.55",
+    "limits": "Only outer wall changes; same outside envelope, bore and caps. Extra PETG replaces Aero; includes the corresponding change in lower Aero chamfer relief. CAD/density mass model, not native extrusion.",
     "values": [
       {
         "outer_wall_mm": 3,
         "extra_mass_g": 0.0,
-        "reserve_lift_g": 4.896044276227229
+        "reserve_lift_g": 4.964266346960443
       },
       {
         "outer_wall_mm": 3.6,
-        "extra_mass_g": 2.0947888486724437,
-        "reserve_lift_g": 2.8012554275547856
+        "extra_mass_g": 2.095307211460286,
+        "reserve_lift_g": 2.8689591355001567
       },
       {
         "outer_wall_mm": 4,
-        "extra_mass_g": 3.443813866865131,
-        "reserve_lift_g": 1.4522304093620986
+        "extra_mass_g": 3.444677804844868,
+        "reserve_lift_g": 1.5195885421155748
       }
     ]
   },

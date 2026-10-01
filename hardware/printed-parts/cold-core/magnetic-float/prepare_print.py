@@ -24,15 +24,18 @@ from profiles import PROD, REL, qn, metadata, mesh_object, system_preset
 
 PRESETS = Path('/Applications/BambuStudio.app/Contents/Resources/profiles/BBL')
 STUDIO = PRESETS.parents[2] / 'MacOS/BambuStudio'
-PAUSE_MESSAGE = ('Seat the cooled ASA Aero core on the floor. Seat one RC62 in its pocket. '
-                 'Press the ASA Aero insert flush with the PETG rim. Clear loose strings '
+PAUSE_MESSAGE = ('Lower the cooled ASA Aero core with its RC62 already seated into the shell, '
+                 'chamfered end first. Use the ASA Aero insert, chamfered end down, to press '
+                 'the core onto the floor and its own top flush with the PETG rim. Clear loose strings '
                  'and resume with both Aero pieces fully seated.')
 JOBS = {
     'aero': {'filename': 'magnetic-float-aero.3mf', 'nozzle': 0.4, 'side': 2,
              'filament': 'Bambu ASA-Aero @BBL H2C 0.4 nozzle',
+             'colour': '#F5F1DD', 'material': 'Bambu ASA Aero White 46100',
              'bed': 'Engineering Plate', 'parts': ['body-aero', 'insert-aero']},
     'petg': {'filename': 'magnetic-float.3mf', 'nozzle': 0.6, 'side': 1,
-             'filament': 'Bambu PETG Basic @BBL H2C',
+             'filament': 'Bambu PETG Translucent @BBL H2C',
+             'colour': '#00000000', 'material': m.petg_material,
              'bed': 'Textured PEI Plate', 'parts': ['body-petg']},
 }
 
@@ -103,7 +106,13 @@ def recipe(key):
                        'max_layer_height': ['0.42', '0.28'],
                        'min_layer_height': ['0.12', '0.08']}
     machine.update(machine_changes)
-    filament_changes = {} if aero else {**water['filament'], 'overhang_fan_speed': ['20']}
+    # Carry the sealing controls from the measured water recipe, while keeping
+    # the selected material's density and maximum volumetric speed.
+    filament_changes = {} if aero else {
+        **{name: value for name, value in water['filament'].items()
+           if name not in ('filament_density', 'filament_max_volumetric_speed')},
+        'overhang_fan_speed': ['20'],
+    }
     filament.update(filament_changes)
     settings = {**machine, **process}
     for name, value in filament.items():
@@ -112,7 +121,8 @@ def recipe(key):
         'printer_settings_id': machine_name, 'name': f'Magnetic float {key}',
         'print_settings_id': f'Magnetic float {key}',
         'filament_settings_id': [job['filament']], 'filament_ids': [ids['filament_id']],
-        'filament_colour': ['#F5F1DD' if aero else '#000000'],
+        'filament_colour': [job['colour']],
+        'filament_multi_colour': [job['colour']], 'filament_colour_type': ['0'],
         'inherits_group': [process_name, job['filament'], machine_name],
         'different_settings_to_system': [';'.join(changes), ';'.join(filament_changes), ';'.join(machine_changes)],
         'filament_map_mode': 'Manual', 'filament_map': [str(job['side'])],
@@ -130,6 +140,7 @@ def recipe(key):
         'filament_changes': filament_changes, 'filament_preset': job['filament'],
         'petg_recipe_sha256': None if aero else sha(HERE / 'petg-water-recipe.json'),
         'filament_id': ids['filament_id'], 'active_nozzle_mm': nozzle,
+        'material_identity': job['material'], 'filament_colour': job['colour'],
         'active_side': 'left' if job['side'] == 1 else 'right',
         'bed': job['bed'], 'layer_height_mm': layer,
         'first_layer_height_mm': layer if aero else m.petg_first_layer,

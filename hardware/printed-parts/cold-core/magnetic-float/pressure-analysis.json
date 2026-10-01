@@ -10,11 +10,12 @@
     "insert_height": 10.0,
     "insert_top": 57.0,
     "insert_bottom": 47.0,
-    "magnet_seat": 43.825,
+    "magnet_seat": 43.6,
     "roof_bottom": 57.0,
-    "magnet_pocket_od": 19.05,
-    "magnet_pocket_id": 9.525,
-    "magnet_pocket_height": 3.175,
+    "magnet_pocket_od": 19.35,
+    "magnet_pocket_id": 9.225,
+    "magnet_pocket_height": 3.4,
+    "aero_lower_lead_in": 0.5,
     "insert_od": 30.0,
     "insert_id": 8.4
   },
@@ -53,11 +54,11 @@
   "model_limits": "Screen only: short, relatively thick, anisotropic printed shell with flat ends and foam. The formula does not validate its buckling pressure, creep life, end caps, layer bonds or sealing. The 50% column is a sensitivity assumption, not a qualified knockdown factor.",
   "sources": {
     "shell_formula": "https://ntrs.nasa.gov/citations/20205011530",
-    "petg_basic_XY_flexural_modulus_1670_MPa": "https://bambu-lab-global.myshopify.com/en-cn/products/petg-basic",
+    "petg_translucent_XY_Youngs_modulus_1420_MPa": "https://cdn.shopify.com/s/files/1/0574/3116/2995/files/Bambu_PETG_Translucent_Technical_Data_Sheet.pdf?v=1704680051",
     "successful_water_recipe": "petg-water-recipe.json",
     "sphere_thread_leak_commit": "b7dc4d576e9dc38794d190f31473f31d71aa4aa1"
   },
-  "stiffness_basis": "1670 MPa is the published PETG Basic XY flexural modulus; 1000 MPa is an assumed reduced-stiffness scenario, not measured creep data.",
+  "stiffness_basis": "1420 MPa is the published PETG Translucent mean XY Young's modulus (reported spread \u00b1160 MPa) for specimens conditioned at 65 C for 8 h. This is a material screen input, not the printed shell's measured modulus. 1000 MPa is an assumed reduced-stiffness scenario, not measured creep data.",
   "thickness_sensitivity": [
     {
       "outer_diameter_mm": 36.0,
@@ -70,10 +71,10 @@
     {
       "outer_diameter_mm": 36.0,
       "wall_mm": 1.0,
-      "assumed_modulus_MPa": 1670,
+      "assumed_modulus_MPa": 1420,
       "assumed_Poisson_ratio": 0.38,
-      "ideal_ovalization_pressure_psi": 13.205430837246476,
-      "at_50_percent_of_ideal_psi": 6.602715418623238
+      "ideal_ovalization_pressure_psi": 11.228569933467064,
+      "at_50_percent_of_ideal_psi": 5.614284966733532
     },
     {
       "outer_diameter_mm": 36.0,
@@ -86,10 +87,10 @@
     {
       "outer_diameter_mm": 36.0,
       "wall_mm": 1.8,
-      "assumed_modulus_MPa": 1670,
+      "assumed_modulus_MPa": 1420,
       "assumed_Poisson_ratio": 0.38,
-      "ideal_ovalization_pressure_psi": 82.54597567385079,
-      "at_50_percent_of_ideal_psi": 41.272987836925395
+      "ideal_ovalization_pressure_psi": 70.18879368674737,
+      "at_50_percent_of_ideal_psi": 35.09439684337369
     },
     {
       "outer_diameter_mm": 36.0,
@@ -102,10 +103,10 @@
     {
       "outer_diameter_mm": 36.0,
       "wall_mm": 2.4,
-      "assumed_modulus_MPa": 1670,
+      "assumed_modulus_MPa": 1420,
       "assumed_Poisson_ratio": 0.38,
-      "ideal_ovalization_pressure_psi": 206.33485683197617,
-      "at_50_percent_of_ideal_psi": 103.16742841598808
+      "ideal_ovalization_pressure_psi": 175.44640521042285,
+      "at_50_percent_of_ideal_psi": 87.72320260521143
     },
     {
       "outer_diameter_mm": 36.0,
@@ -118,10 +119,10 @@
     {
       "outer_diameter_mm": 36.0,
       "wall_mm": 3.0,
-      "assumed_modulus_MPa": 1670,
+      "assumed_modulus_MPa": 1420,
       "assumed_Poisson_ratio": 0.38,
-      "ideal_ovalization_pressure_psi": 425.38155307809376,
-      "at_50_percent_of_ideal_psi": 212.69077653904688
+      "ideal_ovalization_pressure_psi": 361.7016798628102,
+      "at_50_percent_of_ideal_psi": 180.8508399314051
     }
   ],
   "buoyancy_geometry_comparison": [
@@ -134,8 +135,9 @@
       "roof_mm": 1,
       "bore_mm": 6,
       "aero_density_g_cc": 0.55,
-      "assembled_mass_g": 25.283773621270395,
-      "reserve_lift_g": 4.090117689794173
+      "assembly_relief_cc": 0.12058437668689892,
+      "assembled_mass_g": 25.2174522140926,
+      "reserve_lift_g": 4.156439096971969
     },
     {
       "diameter_mm": 28,
@@ -146,8 +148,9 @@
       "roof_mm": 3,
       "bore_mm": 4.8,
       "aero_density_g_cc": 0.55,
-      "assembled_mass_g": 32.06902313360547,
-      "reserve_lift_g": -2.1861938126593543
+      "assembly_relief_cc": 0.1177569432986681,
+      "assembled_mass_g": 32.004256814791205,
+      "reserve_lift_g": -2.12142749384509
     },
     {
       "diameter_mm": 36.0,
@@ -158,8 +161,9 @@
       "roof_mm": 3.06,
       "bore_mm": 4.8,
       "aero_density_g_cc": 0.55,
-      "assembled_mass_g": 55.15076931524243,
-      "reserve_lift_g": 4.896044276227229
+      "assembly_relief_cc": 0.12404012860584769,
+      "assembled_mass_g": 55.0825472445092,
+      "reserve_lift_g": 4.964266346960457
     }
   ],
   "pressure_rating": "No float pressure test recorded."
