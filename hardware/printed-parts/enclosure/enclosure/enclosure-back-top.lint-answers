@@ -49,14 +49,9 @@ click: x=-103.000 y=404.750 z=287.711
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-88.285 y=282.000 z=276.899
 
-[ceiling] Each nameplate catch pocket's floor is the receiving bar's 3 mm under the snap, framing the slot and catch as the 3 mm crown does above it. The bed-rooted body that reaches the pocket's lower rim reaches these floors; it leaves through the catch pocket's open inboard face and the bar's end before the plate is installed.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=80.060 y=463.890 z=264.629
-click: x=-3.740 y=463.890 z=264.629
-
 [ceiling] The lower ledge inside the flush nameplate opening is the pocket bearing face. It is backed by the rear wall and surrounding pad. On the ceiling-down print, supports reach the ledge through the open mouth and are removed before seating the nameplate.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=38.160 y=470.269 z=249.779
+click: x=38.160 y=469.620 z=249.779
 
 [ceiling] Relay 2's lower end bar bridges the 15 mm span between its two blocker-profiled wings over the relay's pin field. The flat first printed face projects only 2.25 mm from the east wall and is carried by those wings; the bar remains a full mounting feature, not a thin detached shelf.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
@@ -117,3 +112,20 @@ click: x=-91.207 y=378.510 z=345.211
 click: x=-106.867 y=331.567 z=351.683
 click: x=107.455 y=200.004 z=349.730
 click: x=106.867 y=331.567 z=351.683
+
+[step] The nameplate's east backing ends at Y465.8, leaving 1.00 mm to the installed PSU terminal corner. Its 0.50 mm offset from the adjacent inner wall is a clearance relief. The accepted pocket floor remains at Y467.94, retaining 2.14 mm backing and the full 1.23 mm outer retaining lip. See accepted-fit-integration/geometry-check.json and fluted-receiver-stock.json.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=91.716 y=465.800 z=269.178
+
+[sliver] This vertical face is the 1.46 mm depth change from the nameplate's 3.60 mm backing to its local 2.14 mm backing beside the PSU. It bounds solid material toward the exterior, not a separate 1.46 mm ligament. The slot and its retaining face keep the accepted fit.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=90.550 y=465.070 z=269.178
+
+[sliver] The short horizontal face closes the PSU relief at Z293.178. The measured strip is the relief's depth at the end of the surrounding ramp, not wall thickness. It faces print-up in the roof-down orientation and joins the complete 2.14 mm backing.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=93.688 y=465.300 z=293.178
+
+[slope] These two sloping edges form the diamond opening used to press the nameplate outward for removal. Their 9 mm horizontal run and 10 mm rise form a self-supporting access ceiling in the roof-down print orientation. The surrounding floor retains its 3.60 mm thickness.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=42.660 y=466.140 z=264.178
+click: x=33.660 y=466.140 z=264.178

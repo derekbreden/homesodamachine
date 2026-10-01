@@ -1,0 +1,19 @@
+{
+  "full_shell_overlap_mm3": 0.0,
+  "receiver_psu_gap_mm": 1.0,
+  "minimum_local_backing_mm": 2.14,
+  "normal_backing_mm": 3.6,
+  "local_backing_reduction_mm": 1.46,
+  "receiver_mating_geometry_unchanged": true,
+  "cut_local_bounds_mm": [
+    52.39,
+    -4.6,
+    -24.0,
+    58.665,
+    -2.14,
+    24.0
+  ],
+  "full_shell_removed_mm3": 409.9852324961117,
+  "print_authorization": "On user hold; local backing relief remains a proposal to review before printing.",
+  "source_stl_sha256": "3fbeee64a54b06dfc067cb9da897893529d03ec019a8419299c1a2b8c92ddb16"
+}

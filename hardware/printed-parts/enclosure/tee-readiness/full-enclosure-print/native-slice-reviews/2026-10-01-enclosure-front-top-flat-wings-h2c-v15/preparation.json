@@ -1,0 +1,156 @@
+{
+  "project": "enclosure-front-top-flat-wings-black-z018-h2c-v15-input.3mf",
+  "settings_source": "hardware/printed-parts/petgf.3mf",
+  "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "settings_sha256": "07f46991b6e7f746ddf9ab80ed91b3ea5967d8fa0402015cd939c20d41c73d1f",
+  "source_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "409b1516f0401361a02b18a34420c10ca83bc33615e8896cade2fea42edee871",
+      "requested_z_trim_mm": 0.18
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.18 Z trim"
+    }
+  },
+  "printer": "H2C",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 15.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "enclosure-front-top",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+      "stl_sha256": "1ea22056e0f623bca718392d41d3ea21ad215d2a9fe72e0a5da9aa7326e0b9cf",
+      "triangles": 531474,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        108.7750015258789,
+        257.5
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        162.5,
+        160.0,
+        97.5
+      ],
+      "plate_translation_mm": [
+        162.5,
+        160.0,
+        97.5
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          55.0,
+          56.224998474121094,
+          0.0
+        ],
+        [
+          270.0,
+          263.7750015258789,
+          195.0
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    }
+  ],
+  "project_sha256": "2b702773f9f1473faa766f7e8ac3f07c1b49ead4e02fe1ffc3549708fa5f754b",
+  "settings_preserved_byte_for_byte": false,
+  "intentional_overrides": {
+    "extruder_ams_count": [
+      "1#0|4#0",
+      "1#0|4#0"
+    ],
+    "support_filament": "1",
+    "support_interface_filament": "1",
+    "flush_into_support": "0"
+  },
+  "layer_ranges_mm": [
+    {
+      "min_z": 187.0,
+      "max_z": 195.0,
+      "layer_height": 0.08,
+      "reason": "Complete visible roof/corner rounds; measured on STEP."
+    }
+  ],
+  "normal_layer_height_mm": 0.24,
+  "first_layer_height_mm": 0.2,
+  "normal_wall_loops": 2,
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "1ea22056e0f623bca718392d41d3ea21ad215d2a9fe72e0a5da9aa7326e0b9cf",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "328003f5d578b046037760d58c18d1a36e16c7c13d9718ef5ed9d3b5843b08cb",
+    "hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/prepare_prints.py": "2f7526799a5a53be60a4a0aea7ec0ddc697645195856fb81d14fbca099b42823",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "7ae41ba03a8f385bcf01c5701010ecbacdfe355e5902deb88f4b79d30b8c3e5f",
+    "hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py": "e3e5f0251ab9f0f82324c82e94e45667cac0e5d9c505cf06fd6f525c6bf3ce82",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py": "d8e8ba7f8367f12441efa9b5cdccc1b37a57b527bf6e5fe5b5c00fe79c6bc999"
+  },
+  "paint": {
+    "west": 12348,
+    "east": 12116,
+    "cad_z_min": 345.69,
+    "abs_x_min": 100
+  },
+  "support_policy": "Shared tree supports; black base and interface; exterior roof-side transitions blocked; internal functional contacts retained.",
+  "requested_z_trim_mm": 0.18,
+  "expected_textured_trim_mm": 0.16
+}

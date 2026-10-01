@@ -85,5 +85,7 @@ glass or cover. The native estimate is **2 h 49 min 41 sec**. The
 records the exact archive and launch. The [physical acceptance](physical-acceptance.json)
 records a passing shake test and acceptable appearance with a small residual bow.
 Derek suspects insertion bending leaves some set; the cause is unverified. This
-cover and receiver are accepted without another bow-tuning print. Full front-top
-integration and its display-module clearance check remain pending.
+cover and receiver are accepted without another bow-tuning print. The full
+front-top contains this interface, with verified display-module and pump-plug
+clearance. Its full-size print is recorded in
+[accepted-fit-integration](../../enclosure/accepted-fit-integration/README.md).

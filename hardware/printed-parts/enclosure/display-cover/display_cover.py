@@ -1,126 +1,71 @@
-"""Machine display cover with a rounded bezel and two broad retaining skirts.
+"""Accepted face-up display bezel with coplanar horizontal retaining wings.
 
-The visible face lies at local Z=0. The cover prints face down with its skirts pointing up,
-and the assembly seats it as modelled: each skirt's lip rests under its catch with the skirt
-unbent. The TPU ring separates bezel and glass.
+The visible face is local Z=0. The back and both wings share one flat bed plane.
+The TPU ring separates the bezel from the glass.
 """
-
 import sys
 from pathlib import Path
 import cadquery as cq
 
-_here = Path(__file__).resolve()
-_hw = next(p for p in _here.parents if p.name == "hardware")
-for directory in (_hw / "scripts", _hw / "printed-parts" / "enclosure" / "enclosure"):
-    sys.path.insert(0, str(directory))
-_tools = next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"
-sys.path.insert(0, str(_tools))
+_here=Path(__file__).resolve()
+_hw=next(p for p in _here.parents if p.name=='hardware')
+for directory in (_hw/'scripts',_hw/'printed-parts/enclosure/enclosure',_hw.parent/'tools'):
+    sys.path.insert(0,str(directory))
 from _cadq_export import export_assembly
-from _materials import M_PETGF_BLACK, one_body
+from _materials import M_PETGF_BLACK,one_body
 from docgen import substitute_md
 import _enclosure_interface as dims
+import _display_wing_interface as wings
+# Retained for the separately archived vertical-leaf trial generators.
 import _display_retention as retention
-import _stated_bounds as bounds
 from _swept_top import rounded_prism
 
-skirt_inset = 1.2
-cover_slip = dims.display_cover_slip
-cover_x = dims.display_inset_x - 2.0 * cover_slip
-cover_slope = dims.display_inset_slope - 2.0 * cover_slip
-cover_corner_r = dims.display_cover_corner_r
-skirt_outer_x = retention.OUTER_X - skirt_inset
-catch_overlap = skirt_outer_x + retention.LIP - retention.NECK_X
-minimum_catch_overlap = catch_overlap - cover_slip
-window_x = dims.display_bezel_x - 2.0 * dims.display_inset_lap
-window_slope = dims.display_bezel_slope - 2.0 * dims.display_inset_lap
-window_corner_r = dims.display_corner_r
-
-bounds.state('display-cover-reveal', 'The display bezel is a smooth reveal in the curved top',
-             'a 2 mm visible edge; optical and gasket surfaces remain smooth',
-             dims.flute_reach(dims.display_cover_thickness) < dims.flute_depth,
-             f'{dims.display_cover_thickness:g} mm bezel; the retention skirts sit inside the housing')
-
-
-def build_cover_skirt(side):
-    """The cover-owned skirt, inset from the housing's fixed receiver datum."""
-    return retention.skirt(side).translate((-side * skirt_inset, 0, 0))
-
-
-def build_cover_outer():
-    body = rounded_prism(cover_x, cover_slope, cover_corner_r,
-                         -dims.display_cover_thickness, 0.0)
-    for side in (-1, 1):
-        body = body.fuse(build_cover_skirt(side))
-    return cq.Workplane(obj=body.clean())
-
-
-def build_cover_inner_cut():
-    return cq.Workplane(obj=rounded_prism(window_x, window_slope, window_corner_r,
-                                          -retention.DEPTH - 1.0, 1.0))
+cover_x,cover_slope,cover_corner_r=wings.COVER_X,wings.COVER_Y,wings.CORNER_R
+cover_slip=wings.BODY_X_AIR
+window_x,window_slope,window_corner_r=wings.WINDOW_X,wings.WINDOW_Y,wings.WINDOW_R
 
 
 def build_display_cover():
-    return build_cover_outer().cut(build_cover_inner_cut())
+    return cq.Workplane(obj=wings.cover())
 
 
 def glass_shadow():
-    probe = rounded_prism(dims.display_bezel_x, dims.display_bezel_slope,
-                          dims.display_corner_r, -retention.DEPTH-1.0,
-                          -dims.display_cover_thickness - 0.0001)
-    return abs(build_display_cover().val().intersect(probe).Volume())
+    glass=rounded_prism(dims.display_bezel_x,dims.display_bezel_slope,dims.display_corner_r,
+                        wings.GLASS_SEAT,wings.BACK-.0001)
+    return abs(build_display_cover().val().intersect(glass).Volume())
 
 
 def selftest():
-    body = build_display_cover().val()
-    assert body.isValid() and len(body.Solids()) == 1
-    assert glass_shadow() < 0.0001
-    assert catch_overlap > 0.0001
-    assert minimum_catch_overlap >= -0.0001
-    for side in (-1, 1):
-        skirt = build_cover_skirt(side)
-        missing = skirt.cut(retention.pocket(side)).Volume()
-        assert abs(missing) < 0.0001, (side, missing)
-        for lateral in (-cover_slip, 0.0, cover_slip):
-            seated = skirt.translate((lateral, 0, 0))
-            assert abs(seated.cut(retention.pocket(side)).Volume()) < 0.0001
-            pulled = seated.translate((0, 0, retention.BEARING_SLIP + 0.01))
-            caught = abs(pulled.cut(retention.pocket(side)).Volume())
-            # At full lateral float one lip just meets its catch's edge; both engage
-            # when centered. The bench trial measures the resulting retention.
-            if catch_overlap + side * lateral > 0.0001:
-                assert caught > 0.0001
-            else:
-                assert caught < 0.0001
-    print(f"Display cover: one valid solid; glass clear; skirts inside their pockets, "
-          f"{cover_slip:g} mm perimeter clearance; {catch_overlap:g} mm centered catch overlap, "
-          f"{max(0.0, minimum_catch_overlap):g} mm minimum at full lateral float; "
-          f"{retention.BEARING_SLIP:g} mm below catches")
+    body=build_display_cover().val()
+    receiver=wings.box(-71,71,-49,49,-8,0).cut(wings.cuts(9,8.2))
+    assert body.isValid() and len(body.Solids())==1
+    assert glass_shadow()<1e-6
+    assert body.intersect(receiver).Volume()<1e-6
+    for x in (-wings.BODY_X_AIR,0,wings.BODY_X_AIR):
+        seated=body.translate((x,0,0))
+        assert seated.intersect(receiver).Volume()<1e-6
+        assert seated.translate((0,0,wings.BEARING_AIR+.05)).intersect(receiver).Volume()>1
+    assert wings.LIP_THICK>=1.8-1e-6
+    print('Display cover: one valid solid; glass clear; accepted horizontal-wing fit.')
     return 0
 
 
 def main():
     selftest()
-    cover = build_display_cover()
-    out = _here.parent / "display-cover.step"
-    export_assembly(one_body(cover, "display-cover", M_PETGF_BLACK), str(out))
-    cover.val().copy(mesh=False).exportStl(str(out.with_suffix('.stl')),
-        tolerance=0.005, angularTolerance=0.05, relative=False)
+    out=_here.parent/'display-cover.step'
+    body=build_display_cover()
+    export_assembly(one_body(body,'display-cover',M_PETGF_BLACK),str(out))
+    body.val().copy(mesh=False).exportStl(str(out.with_suffix('.stl')),
+        tolerance=.005,angularTolerance=.05,relative=False)
     from flute_payload import cut
-    cut(out, out.with_suffix('.stl'))
-    variables = {
-        "COVER_X": f"{cover_x:g} mm", "COVER_SLOPE": f"{cover_slope:g} mm",
-        "COVER_CORNER_R": f"{cover_corner_r:g} mm", "COVER_T": f"{dims.display_cover_thickness:g} mm",
-        "COVER_SLIP": f"{cover_slip:g} mm", "WINDOW_X": f"{window_x:g} mm",
-        "WINDOW_SLOPE": f"{window_slope:g} mm", "WINDOW_CORNER_R": f"{window_corner_r:g} mm",
-        "SKIRT_WALL": f"{retention.WALL:g} mm", "SKIRT_LENGTH": f"{retention.LENGTH:g} mm",
-        "SKIRT_DEPTH": f"{retention.DEPTH:g} mm", "LIP_START": f"{retention.LIP_START:g} mm",
-        "LIP_LAND": f"{retention.LIP_LAND:g} mm", "LIP_ENGAGEMENT": f"{retention.LIP:g} mm",
-        "BEARING_SLIP": f"{retention.BEARING_SLIP:g} mm",
-        "SKIRT_INSET": f"{skirt_inset:g} mm", "CATCH_OVERLAP": f"{catch_overlap:g} mm",
-    }
-    substitute_md(_here.parent / "README.md", variables=variables)
+    cut(out,out.with_suffix('.stl'))
+    substitute_md(_here.parent/'README.md',variables={
+        'COVER_X':f'{cover_x:g} mm','COVER_SLOPE':f'{cover_slope:g} mm',
+        'COVER_CORNER_R':f'{cover_corner_r:g} mm','COVER_T':f'{wings.THICK:g} mm',
+        'WINDOW_X':f'{window_x:g} mm','WINDOW_SLOPE':f'{window_slope:g} mm',
+        'WINDOW_CORNER_R':f'{window_corner_r:g} mm'})
     print('-> display-cover.step, display-cover.stl, README.md')
 
 
-if __name__ == '__main__':
-    sys.exit(selftest() if len(sys.argv) > 1 and sys.argv[1] == 'selftest' else main())
+if __name__=='__main__':
+    sys.exit(selftest() if len(sys.argv)>1 and sys.argv[1]=='selftest' else main())

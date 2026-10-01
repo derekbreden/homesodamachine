@@ -1947,17 +1947,16 @@ def nameplate_station(stations) -> tuple:
 
 def nameplate_cut(station) -> _enc.Nameplate:
     """The production snap-fit pocket at the plate's station."""
-    return _np.interface.station(*station)
+    return _np.interface.station(*station)._replace(thick=_np.THICK)
 
 
 def nameplate_receiver(station):
-    """The receiving bar and its corbel where back-top carries them, uncut — the envelope the
-    tabs' slots and catch pockets are taken out of."""
-    x, z = station
-    floor = _enc.rear_plane_y + _enc.wall - _np.THICK
-    return cq.Compound.makeCompound(
-        [s.translate(cq.Vector(x, floor, z)) for s in _np.interface.receiver_additions(
-            fits.supported_surface, _enc.BACK_TOP_UP)])
+    """The accepted flat-wing receiver's inboard stock at its enclosure station."""
+    x,z=station
+    floor=_enc.rear_plane_y+_enc.wall-_np.THICK
+    fixture=_np.wing_interface.production_backing(
+        _np.wing_interface.receiver(),_np.interface.station(0,0),_np.THICK)
+    return fixture.translate((x,floor,z))
 
 
 def build_nameplate(station, unit: int = 1):

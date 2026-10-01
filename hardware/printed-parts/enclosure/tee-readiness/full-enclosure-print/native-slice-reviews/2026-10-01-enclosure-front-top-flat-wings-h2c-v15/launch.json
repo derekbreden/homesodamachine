@@ -1,0 +1,34 @@
+{
+  "printer": "H2C",
+  "native_archive": ".cache/prints/2026-10-01-enclosure-front-top-flat-wings-h2c-v15/ready/enclosure-front-top-flat-wings-black-z018-h2c-v15.gcode.3mf",
+  "file_sha256": "15f2a3590424ca84c062697b2e35807efa76fe3899ae6dbb5331db1ce9101978",
+  "accepted_observed_utc": "2026-10-01T01:35:25.269583+00:00",
+  "task_id": "1297866683",
+  "subtask_name": "enclosure-front-top-flat-wings-black-z018-h2c-v15.gcode.3mf",
+  "gcode_state": "PREPARE",
+  "print_error": 0,
+  "hms": [],
+  "channel": "Bambu Connect via cua_repl",
+  "filament_mapping": {
+    "1": {
+      "physical": "black PET-GF",
+      "device_label": "PET-CF",
+      "source": "left external",
+      "fixed_left_hardened_nozzle_mm": 0.4
+    }
+  },
+  "startup_options": {
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_dynamic": "Auto",
+    "nozzle_offset": "Auto"
+  },
+  "shared_circuit": {
+    "other_printer": "Mark2",
+    "other_state_at_send": "FINISH",
+    "other_job_id": "1297480230",
+    "minimum_seconds_before_other_start": 180
+  },
+  "user_authorization": "Both beds clear; start prepared prints if accepted fits require no substantive compromise. Front-top preserves the accepted display fit and tee region.",
+  "physical_result": "Not yet available."
+}

@@ -1,0 +1,35 @@
+{
+  "pass": true,
+  "checked_utc": "2026-10-01T01:58:46.599871+00:00",
+  "published_before_lint": true,
+  "parts": [
+    {
+      "part": "front-top",
+      "summary": "enclosure-front-top.stl \u00b7 531474 printed facets \u00b7 0 findings \u00b7 20 answered",
+      "stl_sha256": "1ea22056e0f623bca718392d41d3ea21ad215d2a9fe72e0a5da9aa7326e0b9cf",
+      "answers": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.lint-answers",
+      "answers_sha256": "3fff3d92841e12dd26ea5cd630f49dede4ae45c56832edf010c5861e03c78481"
+    },
+    {
+      "part": "back-top",
+      "summary": "enclosure-back-top.stl \u00b7 998906 printed facets \u00b7 0 findings \u00b7 44 answered",
+      "stl_sha256": "3fbeee64a54b06dfc067cb9da897893529d03ec019a8419299c1a2b8c92ddb16",
+      "answers": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.lint-answers",
+      "answers_sha256": "ad0985460f1bd5d560268cbd4944f7a0076989268f4bb62f34a2769cab6677d5"
+    },
+    {
+      "part": "display-cover",
+      "summary": "display-cover.stl \u00b7 3088 printed facets \u00b7 0 findings \u00b7 2 answered",
+      "stl_sha256": "bd0545aa076fed3d7adc895df205b098f11a08b6fc37c883893115aec83dd5f2",
+      "answers": "hardware/printed-parts/enclosure/display-cover/display-cover.lint-answers",
+      "answers_sha256": "195270720b9847c52ad87d0244db8cabdbce9586ef4a9da2d3b235085a6657b3"
+    },
+    {
+      "part": "nameplate",
+      "summary": "nameplate-001.stl \u00b7 10840 printed facets \u00b7 0 findings \u00b7 54 answered",
+      "stl_sha256": "0f2b1fee6c96cfed9a1371797fe6773fb891ba415067fed9b6d8e69cb2745826",
+      "answers": "hardware/printed-parts/enclosure/nameplate/nameplate-001.lint-answers",
+      "answers_sha256": "b8bbfb36e87ebd8adf85190bf1dc0721a329abf472741973f86406090967557b"
+    }
+  ]
+}

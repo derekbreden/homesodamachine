@@ -1,0 +1,119 @@
+{
+  "pass": true,
+  "printer": "H2C",
+  "native_archive": ".cache/prints/2026-10-01-enclosure-front-top-flat-wings-h2c-v15/ready/enclosure-front-top-flat-wings-black-z018-h2c-v15.gcode.3mf",
+  "native_archive_sha256": "15f2a3590424ca84c062697b2e35807efa76fe3899ae6dbb5331db1ce9101978",
+  "gcode_sha256": "8b48dcf239c78ded463445414eb18f4620c93b49f91047df299f66f8dd938f6f",
+  "project_sha256": "2b702773f9f1473faa766f7e8ac3f07c1b49ead4e02fe1ffc3549708fa5f754b",
+  "source_step_sha256": "328003f5d578b046037760d58c18d1a36e16c7c13d9718ef5ed9d3b5843b08cb",
+  "native_export_normalizations": {
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ],
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ]
+  },
+  "settings": {
+    "enable_support": "1",
+    "support_type": "tree(auto)",
+    "support_object_xy_distance": "0.4",
+    "support_top_z_distance": "0.45",
+    "support_bottom_z_distance": "0.3",
+    "support_filament": "1",
+    "support_interface_filament": "1",
+    "initial_layer_print_height": "0.2",
+    "layer_height": "0.24",
+    "wall_loops": "2",
+    "is_infill_first": "0",
+    "wall_sequence": "inner wall/outer wall",
+    "infill_wall_overlap": "15%",
+    "filament_colour": [
+      "#000000"
+    ],
+    "filament_nozzle_map": [
+      "0"
+    ],
+    "nozzle_diameter": [
+      "0.4",
+      "0.4"
+    ]
+  },
+  "emitted_z_trim_mm": [
+    0.0,
+    0.16
+  ],
+  "rounds": [
+    {
+      "name": "complete roof show rounds",
+      "print_z_mm": [
+        187.392,
+        195
+      ],
+      "wall_layer_count": 96,
+      "first_wall_layer": [
+        187.4,
+        0.08
+      ],
+      "last_wall_layer": [
+        195.0,
+        0.08
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    }
+  ],
+  "layer_count": 878,
+  "layer_runs": [
+    {
+      "height": 0.2,
+      "bottom": 0.0,
+      "last_z": 0.2,
+      "count": 1
+    },
+    {
+      "height": 0.24,
+      "bottom": 0.2,
+      "last_z": 187.16,
+      "count": 779
+    },
+    {
+      "height": 0.08,
+      "bottom": 187.16,
+      "last_z": 195.0,
+      "count": 98
+    }
+  ],
+  "toolpath_bounds": {
+    "extrusion_bounds_xy_mm": [
+      [
+        24.064033000000002,
+        25.352033000000002
+      ],
+      [
+        300.54296700000003,
+        263.995967
+      ]
+    ],
+    "maximum_line_width_mm": 0.661934,
+    "bounds_padding_mm": 0.430967
+  },
+  "minimum_shared_bed_margin_mm": 24.064033000000002,
+  "estimated_seconds": 78726.3203125,
+  "estimated_grams_saved_profile_density": 748.8695678710938,
+  "support_removal_review_pending": false,
+  "physical_full_enclosure_fit_tested": false,
+  "submitted": true,
+  "support_removal_review": "support-removal-review.json",
+  "first_layer_overlap": "first-layer-overlap.json",
+  "task_id": "1297866683"
+}

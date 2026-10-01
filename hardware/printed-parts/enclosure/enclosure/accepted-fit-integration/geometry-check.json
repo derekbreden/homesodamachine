@@ -1,0 +1,231 @@
+{
+  "pass": true,
+  "checks": [
+    {
+      "check": "display cover equals accepted physical cover",
+      "pass": true,
+      "delta_mm3": 0.0
+    },
+    {
+      "check": "nameplate equals accepted physical part including artwork",
+      "pass": true,
+      "delta_mm3": 0.0
+    },
+    {
+      "check": "nameplate receiver cutter equals accepted receiver",
+      "pass": true,
+      "delta_mm3": 0.0
+    },
+    {
+      "check": "display cover seated in full front-top",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "display cover axis 0 at -0.3",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "display cover axis 0 at 0.3",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "display cover axis 1 at -0.15",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "display cover axis 1 at 0.15",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "display cover axis 2 at 0",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "display cover axis 2 at 0.6",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "display capture at X -0.3",
+      "pass": true,
+      "overlap_mm3": 23.084548656531307
+    },
+    {
+      "check": "display capture at X 0",
+      "pass": true,
+      "overlap_mm3": 23.084548656467835
+    },
+    {
+      "check": "display capture at X 0.3",
+      "pass": true,
+      "overlap_mm3": 23.08454865640684
+    },
+    {
+      "check": "nameplate seated in full back-top",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "nameplate axis 0 at -0.15",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "nameplate axis 0 at 0.15",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "nameplate axis 1 at 0",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "nameplate axis 1 at 0.45",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "nameplate axis 2 at -0.4",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "nameplate axis 2 at 0.15",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "wing 0 support exit through display storey",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "wing 1 support exit through display storey",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "complete deeper display module clears front-top",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "complete deeper display module clears funnel",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "pump-jack service path",
+      "pass": true,
+      "reading": {
+        "id": "pump-jack-service",
+        "label": "Pump plug's clip faces the empty bay and its full unplug, clear-the-bulkhead and lower path clears front-top and the display",
+        "ok": true,
+        "value": "17.000 mm pull; 0.000000/0.000000 mm\u00b3 path overlap; 0.000000/0.000000 mm\u00b3 finger overlap; 0.000/2.991 mm path air; 5.825 mm past the bulkhead",
+        "target": "0 mm\u00b3 overlap; clip down; 15 mm finger room; pulled plug fore of the bay bulkhead",
+        "detail": [],
+        "kind": "gate"
+      }
+    },
+    {
+      "check": "front-top below display storey unchanged",
+      "pass": true,
+      "delta_mm3": 0.0
+    },
+    {
+      "check": "back-top outside nameplate receiver unchanged",
+      "pass": true,
+      "delta_mm3": 0.0
+    },
+    {
+      "check": "production enclosure datums retained",
+      "pass": true,
+      "outer": [
+        -107.5,
+        107.5,
+        5.0,
+        471.3,
+        -6.0,
+        355.0
+      ],
+      "splits": [
+        160.0,
+        160.0
+      ]
+    },
+    {
+      "check": "nameplate receiver clears PSU",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "full back-top clears PSU",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "nameplate receiver retains required PSU clearance",
+      "pass": true,
+      "measured_mm": 1.0,
+      "required_mm": 1.0,
+      "local_backing_mm": 2.14
+    },
+    {
+      "check": "front-top solid and mesh",
+      "pass": true,
+      "facets": 531474,
+      "bounds": [
+        [
+          -107.5,
+          5.0,
+          160.0
+        ],
+        [
+          107.5,
+          212.5500030517578,
+          355.0
+        ]
+      ]
+    },
+    {
+      "check": "back-top solid and mesh",
+      "pass": true,
+      "facets": 998906,
+      "bounds": [
+        [
+          -107.5,
+          200.0,
+          160.0
+        ],
+        [
+          107.5,
+          471.29998779296875,
+          355.0
+        ]
+      ]
+    }
+  ],
+  "front_roof_blend_faces": [],
+  "accepted_clearances_preserved": true,
+  "pcb_opening_depth_mm": 23.84,
+  "module_rear_clearance_mm": 1.0,
+  "minimum_ridge_stock_mm": 3.0,
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/verify_geometry.py": "a180e022e7c1742c3f15aee70f866bb8ffbe746c1f1ad029c94edf2304342c90",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "9e8133aaf7af36dc52c965565a92746e69527d7670a2af346e6131d950285716",
+    "hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py": "e3e5f0251ab9f0f82324c82e94e45667cac0e5d9c505cf06fd6f525c6bf3ce82",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py": "301e9a2a291e5c43c6e885d869e74d2f600204ba0041e70979a1c7d5c6203bbc",
+    "hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/enclosure-box.json": "c5f93c19401a7a956494bd07a7c6e01c9c69719e7b793ecbb2d35b122f0399df",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "dfdf27c85665d67d4cca95ec3d4f6f1de273b382ae18c89667cee75a9bf95922",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "1ea22056e0f623bca718392d41d3ea21ad215d2a9fe72e0a5da9aa7326e0b9cf",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "5b6a425fe40d0d6d78dd6905d66154e144c4e3c645cf2534f6fe6006acc72158",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "3fbeee64a54b06dfc067cb9da897893529d03ec019a8419299c1a2b8c92ddb16"
+  }
+}
