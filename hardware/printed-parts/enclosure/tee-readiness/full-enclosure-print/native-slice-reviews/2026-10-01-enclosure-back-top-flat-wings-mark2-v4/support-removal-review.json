@@ -1,0 +1,38 @@
+{
+  "pass": true,
+  "source_stl_sha256": "3fbeee64a54b06dfc067cb9da897893529d03ec019a8419299c1a2b8c92ddb16",
+  "support_audit_gcode_sha256": "4b3081e5db9e8c4cc8396e4d4a06408e674fc058227ce08a790ba33f0d1dc82e",
+  "show_round_supports": "Every interface in the first 9.4 mm lies inboard of the exterior roof-side transition; no unlabelled support bodies are present.",
+  "early_internal_contact_ids": [
+    "interface-1",
+    "interface-2",
+    "interface-3",
+    "interface-4"
+  ],
+  "early_functional_contacts": "Funnel seat, tie-anchor underside bearings and internal mounting land. Exterior roof-side chamfer/tapers remain support-free.",
+  "nameplate_mouth_contact": {
+    "id": "interface-29",
+    "first_z_mm": 104.36,
+    "last_z_mm": 104.84,
+    "bbox_xy_mm": [
+      151.6,
+      33.6,
+      250.8,
+      36.8
+    ],
+    "tree": "tree-10",
+    "build_up_mm": 104.16,
+    "bbox_cad_xyz_mm": [
+      -10.9,
+      468.15,
+      250.16,
+      88.3,
+      471.35,
+      250.64
+    ]
+  },
+  "nameplate_removal_lane": "Outward through the open receiver mouth before insertion of the plate. The narrow lateral wing-slot ends have no separate explicit interface islands; they remain small bridges.",
+  "other_removal_access": "Internal trees leave through the empty upward-open shell before installing hardware. Existing seam-rail ribbons have exposed sliding faces. Rear ports open outward.",
+  "physical_removal_verified": false,
+  "local_backing_proposal_approved": false
+}

@@ -1,0 +1,12 @@
+{
+  "import_closure_pass": true,
+  "generated_build_matches_graph": true,
+  "generated_step_count": 135,
+  "new_import_reads": 44,
+  "files_sha256": {
+    "tools/bazel/graph.json": "b1b20aa94550d6befe5759521a3cf0f0be623e5d9b1e70355bad60032c6adc5b",
+    "BUILD.bazel": "a97a80a68833533cac616526cc7dfe084c71f0749190bcec969efb77598d0901"
+  },
+  "scope": "Dependency closure for the shared display-cover and nameplate wing interfaces. No full repository build is claimed.",
+  "unrelated_full_check_finding": "tools/viz/build.py answers to selftest but is not named in tools/bazel/selftests.json; outside this enclosure change."
+}

@@ -1,5 +1,8 @@
 {
   "pass": true,
+  "gcode_sha256": "8b48dcf239c78ded463445414eb18f4620c93b49f91047df299f66f8dd938f6f",
+  "first_layer_height_mm": 0.2,
+  "next_layer_height_mm": 0.24,
   "transitions": [
     {
       "from_z": 0.2,
@@ -14,7 +17,8 @@
       "max_sampled_outer_centerline_unsupported_mm": 0.0
     }
   ],
-  "first_layer_height_mm": 0.2,
-  "next_layer_height_mm": 0.24,
-  "surface": "Front-top mouth-down datum and rails; no expanding bottom round."
+  "surface": "Front-top mouth-down datum and rails; no expanding bottom round.",
+  "wall_count_samples": [],
+  "wall_crossing_y_mm": null,
+  "wall_crossings": {}
 }
