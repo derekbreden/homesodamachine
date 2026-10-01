@@ -163,6 +163,9 @@ print error. The MQTT connection stays open throughout the transaction. A fresh-
 retry is allowed only when no command reply, upload or new job was observed, the printer
 is still idle on its original job, and the app shows no transfer. Errors and ambiguous
 results stop the sender. Up to three attempts are made; `--attempts 1` selects one.
+The acceptance wait samples Connect's visible text for short-lived request and upload
+errors, including “Resource does not exist,” and stops without a repeat send when one
+appears.
 
 Successful launches write `.cache/printer-control/<printer>-<job-id>-launch.json`, including
 the original archive and G-code hashes. Bambu Connect's imported copy is separate because

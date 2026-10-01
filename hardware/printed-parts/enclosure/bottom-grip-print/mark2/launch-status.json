@@ -1,7 +1,7 @@
 {
   "printer": "Mark2",
   "launch_status": "not_started",
-  "observed_utc": "2026-10-01T07:17:02.840566+00:00",
+  "observed_utc": "2026-10-01T20:18:48.464880+00:00",
   "job_name": "enclosure-back-bottom-grip-bridges-mark2-v3.gcode.3mf",
   "archive": ".cache/prints/enclosure-back-bottom-grip-bridges-mark2-v3/ready/enclosure-back-bottom-grip-bridges-mark2-v3.gcode.3mf",
   "archive_sha256": "c8f0f2f759144e0bfa052238780a5de5590c6b058d26ac6c3e17c8f63c0a644d",
@@ -23,7 +23,7 @@
     "physical_material": "black PET-GF"
   },
   "shared_circuit_minimum_start_spacing_seconds": 180,
-  "blocker": "Bambu Connect keeps the Send dialog open without showing an error. No upload or new printer task has been observed.",
+  "blocker": "Bambu Connect rejects the send with a brief 400 resource-does-not-exist message reported by Derek. The bounded foreground send received no printer job; the missing resource is not yet identified.",
   "printer_observation": {
     "gcode_state": "FINISH",
     "subtask_name": "grip-back-bridge-mark2-v6.gcode.3mf",
@@ -33,5 +33,5 @@
     "nozzle_target_temper": 0.0,
     "bed_target_temper": 0.0
   },
-  "next_step": "User click test on the prepared Send dialog is pending. Verify a new matching task ID before recording an accepted launch."
+  "next_step": "User restart of Mark2 is pending. Retry once after it is back online, capture any Connect error, and require a new matching printer task ID before recording acceptance."
 }
