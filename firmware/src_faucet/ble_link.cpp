@@ -27,7 +27,8 @@ static const uint8_t BLE_TEXT = 0x01;
 
 static NimBLEServer         *server = nullptr;
 static NimBLECharacteristic *txChar = nullptr;
-static volatile bool         connected = false;
+/// Any phone on. loop()'s, from the links below.
+static bool                  connected = false;
 /// What `adv->start()` last said, which is not the same as the stack existing.
 static bool                  advertising = false;
 /// A radio-bench run has BLE off the air, and nothing here puts it back.
@@ -66,6 +67,7 @@ static const uint16_t RX_FRAME = 560;   // one full MTU's worth, and room over
 static const uint8_t  RX_RING  = 12;
 struct RxFrame {
   uint16_t len;
+  uint16_t conn;   // the link it arrived on
   uint8_t  data[RX_FRAME];
 };
 static RxFrame ring[RX_RING];
@@ -73,10 +75,170 @@ static volatile uint8_t rxHead = 0;   // the radio task writes here
 static volatile uint8_t rxTail = 0;   // loop() reads from here
 static uint32_t stageDrops = 0;
 
-// What this link has actually negotiated. A notification larger than that is
-// truncated by the host stack rather than split — the phone gets a frame header
-// promising more bytes than arrived, and nothing later can put that right.
+// ── The links, and the one that is the session ───────────────────────────
+//
+// NimBLE takes three at once, and this board advertises while there is room
+// for another, so a second phone — or a laptop — can be on while the first is
+// mid-transfer. The frame protocol has one phone in it at a time: one OTA
+// session, one picture in flight. So one link is the session: a transfer's
+// frames are sized to its MTU and go to it alone, and only its leaving ends
+// what was in flight. A frame from another link makes that link the session
+// when nothing is in flight. A reply goes back down the link that asked, a
+// picture read back to the phone reading it, and what the machine holds to
+// every link that can carry it — see notify.
+//
+// The NimBLE task only writes down which links exist and what each negotiated.
+// loop() decides the session and tells the OTA and picture paths, which reach
+// flash, J3 and the glass.
+struct Link {
+  uint16_t handle;   // BLE_HS_CONN_HANDLE_NONE when the row is empty
+  uint16_t mtu;
+  uint32_t gen;      // which connection, since a handle is used again
+};
+static portMUX_TYPE linksMux = portMUX_INITIALIZER_UNLOCKED;
+static Link         links[CONFIG_BT_NIMBLE_MAX_CONNECTIONS];
+static uint32_t     linkGen = 0;
+
+static uint8_t  linkCount = 0;   // loop()'s, from settleLinks
+static uint16_t session = BLE_HS_CONN_HANDLE_NONE;
+static uint32_t sessionGen = 0;
+/// The link whose frame is being handled, while dispatchFrame runs.
+static uint16_t replyTo = BLE_HS_CONN_HANDLE_NONE;
+
+// What the session's link has actually negotiated. A notification larger than
+// that is truncated by the host stack rather than split — the phone gets a frame
+// header promising more bytes than arrived, and nothing later can put that right.
 static uint16_t linkMtu = 23;
+
+static void linkUp(uint16_t handle) {
+  portENTER_CRITICAL(&linksMux);
+  for (Link &l : links) {
+    if (l.handle != BLE_HS_CONN_HANDLE_NONE) continue;
+    l = {handle, 23, ++linkGen};
+    break;
+  }
+  portEXIT_CRITICAL(&linksMux);
+}
+
+static void linkMtuIs(uint16_t handle, uint16_t mtu) {
+  portENTER_CRITICAL(&linksMux);
+  for (Link &l : links)
+    if (l.handle == handle) l.mtu = mtu;
+  portEXIT_CRITICAL(&linksMux);
+}
+
+static void linkDown(uint16_t handle) {
+  portENTER_CRITICAL(&linksMux);
+  for (Link &l : links)
+    if (l.handle == handle) l.handle = BLE_HS_CONN_HANDLE_NONE;
+  portEXIT_CRITICAL(&linksMux);
+}
+
+static bool linkFind(uint16_t handle, Link &out) {
+  bool found = false;
+  portENTER_CRITICAL(&linksMux);
+  for (const Link &l : links) {
+    if (l.handle == BLE_HS_CONN_HANDLE_NONE || l.handle != handle) continue;
+    out = l;
+    found = true;
+  }
+  portEXIT_CRITICAL(&linksMux);
+  return found;
+}
+
+static void useMtu(uint16_t mtu) {
+  if (mtu == linkMtu) return;
+  linkMtu = mtu;
+  bleOtaSetMtu(mtu);
+  Serial.printf("BLE: MTU %u\n", mtu);
+}
+
+static void adopt(const Link &l) {
+  session = l.handle;
+  sessionGen = l.gen;
+  useMtu(l.mtu);
+}
+
+// Once a pass, before anything is sent: which links are up, whether the
+// session is still one of them, and the MTU frames are sized to.
+static void settleLinks() {
+  Link now[CONFIG_BT_NIMBLE_MAX_CONNECTIONS];
+  portENTER_CRITICAL(&linksMux);
+  memcpy(now, links, sizeof(now));
+  portEXIT_CRITICAL(&linksMux);
+
+  const Link *first = nullptr;
+  const Link *held = nullptr;
+  linkCount = 0;
+  for (const Link &l : now) {
+    if (l.handle == BLE_HS_CONN_HANDLE_NONE) continue;
+    ++linkCount;
+    if (!first) first = &l;
+    if (l.handle == session && l.gen == sessionGen) held = &l;
+  }
+  connected = first != nullptr;
+
+  if (session != BLE_HS_CONN_HANDLE_NONE && !held) {
+    // What was in flight was the phone's that left, and no one else's.
+    session = BLE_HS_CONN_HANDLE_NONE;
+    bleOtaDisconnected();
+    bleImageDisconnected();
+  }
+  if (held) useMtu(held->mtu);
+  else if (first) adopt(*first);
+  else useMtu(23);   // the next phone negotiates its own
+}
+
+// A frame from a link that is not the session makes it the session, unless the
+// session has something in flight. Whether the link is the session once heard.
+static bool heardFrom(uint16_t handle) {
+  if (handle == session) return true;
+  if (bleOtaTarget() != OTA_TGT_NONE || bleImageBusy()) return false;
+  Link l;
+  if (!linkFind(handle, l)) return false;
+  adopt(l);
+  return true;
+}
+
+// A TRANSFER BELONGS TO THE SESSION. The OTA and picture paths each hold one
+// transfer's state, so a second phone's frames would write into the first
+// one's: its picture into the middle of another slot, its BEGIN ending an
+// update it never started. While the session has one in flight, another
+// link's BEGIN is told the board is busy and the rest of what it sends toward
+// a transfer is not heard.
+static bool transferFrame(uint8_t type) {
+  return type == BLE_FRAME_OTA_BEGIN || type == BLE_FRAME_OTA_DATA ||
+         type == BLE_FRAME_IMG_BEGIN || type == BLE_FRAME_IMG_DATA ||
+         type == BLE_FRAME_IMG_END || type == BLE_FRAME_IMG_ABORT ||
+         type == BLE_FRAME_IMG_ERASE;
+}
+
+// What the transfer in flight says, which only the phone running it is asking
+// for: the OTA's asks and its end, a picture's acks and its read-back.
+static bool sessionFrame(uint8_t type) {
+  return type == BLE_FRAME_OTA_NEED || type == BLE_FRAME_OTA_END || type == BLE_FRAME_IMG_ACK;
+}
+
+// What the machine holds is every phone's news, whoever's frame changed it: a
+// phone that did not hear a slot fill would offer it as free.
+static bool everyoneFrame(uint8_t type) {
+  return type == BLE_FRAME_IMG_STATE || type == BLE_FRAME_ART_STATE ||
+         type == BLE_FRAME_VERSIONS;
+}
+
+// A PICTURE READ BACK GOES TO THE PHONE THAT ASKED FOR IT, at that link's own
+// MTU. Reading is no transfer in flight — any phone may ask while another
+// updates — so it is not the session's.
+static uint16_t reader = BLE_HS_CONN_HANDLE_NONE;
+static uint32_t readerGen = 0;
+
+static void readAskedOn(uint16_t handle) {
+  Link l;
+  if (!linkFind(handle, l)) return;
+  reader = l.handle;
+  readerGen = l.gen;
+  bleImageSetMtu(l.mtu);
+}
 
 // A picture read back out of flash is the largest thing sent this way now, and
 // it is sent a full MTU at a time — so this carries one, and says whether the
@@ -86,17 +248,51 @@ static uint16_t linkMtu = 23;
 // A FRAME THE LINK CANNOT CARRY IS NOT SENT AT ALL. Refusing it here is the
 // difference between a caller that knows to ask again and a phone handed a
 // header for bytes that were cut off in the radio.
+//
+// A reply goes down the link that asked, and what that link took is the
+// answer. What a transfer says goes to the session alone, and a picture read
+// back to the phone reading it. What the machine holds, and anything else,
+// goes to every link that can carry it, and what the session took is the answer.
+static bool fits(uint16_t len, uint16_t mtu) { return (uint32_t)len + 3 <= (uint32_t)mtu - 3; }
+
 static bool notify(uint8_t type, const void *data, uint16_t len) {
-  if (!txChar || !connected) return false;
+  if (!txChar) return false;
   uint8_t frame[3 + 560];
   if (len > sizeof(frame) - 3) return false;
-  if ((uint32_t)len + 3 > (uint32_t)linkMtu - 3) return false;
   frame[0] = type;
   frame[1] = (uint8_t)(len & 0xFF);
   frame[2] = (uint8_t)(len >> 8);
   if (len) memcpy(frame + 3, data, len);
   txChar->setValue(frame, 3 + len);
-  return txChar->notify();
+
+  if (replyTo != BLE_HS_CONN_HANDLE_NONE && !everyoneFrame(type)) {
+    Link l;
+    if (!linkFind(replyTo, l) || !fits(len, l.mtu)) return false;
+    return txChar->notify(replyTo);
+  }
+
+  if (type == BLE_FRAME_IMG_PIX) {
+    Link l;
+    if (!linkFind(reader, l) || l.gen != readerGen || !fits(len, l.mtu)) return false;
+    return txChar->notify(reader);
+  }
+
+  if (sessionFrame(type)) {
+    if (session == BLE_HS_CONN_HANDLE_NONE || !fits(len, linkMtu)) return false;
+    return txChar->notify(session);
+  }
+
+  Link now[CONFIG_BT_NIMBLE_MAX_CONNECTIONS];
+  portENTER_CRITICAL(&linksMux);
+  memcpy(now, links, sizeof(now));
+  portEXIT_CRITICAL(&linksMux);
+  bool took = false;
+  for (const Link &l : now) {
+    if (l.handle == BLE_HS_CONN_HANDLE_NONE || !fits(len, l.mtu)) continue;
+    const bool sent = txChar->notify(l.handle);
+    if (l.handle == session) took = sent;
+  }
+  return took;
 }
 
 // One line to the phone, in the text vocabulary it already reads.
@@ -212,9 +408,15 @@ static bool pushPayloads() {
 // Stopped, both payloads written, started. A payload the controller would not
 // take is not advertised over: the start waits for the next service pass to
 // write it again.
+//
+// At the stack's own pace with no phone on — 30 to 60 ms — and every 400 to
+// 500 ms beside one, so a phone arriving still finds the machine in a second or
+// so and the one already on keeps the air for its transfer.
 static void applyAdvertising() {
   NimBLEAdvertising *adv = NimBLEDevice::getAdvertising();
   adv->stop();
+  adv->setMinInterval(connected ? 640 : 0);   // 0.625 ms units; 0 is the stack's default
+  adv->setMaxInterval(connected ? 800 : 0);
 
   char name[32];
   advertisedName(name, sizeof(name));
@@ -245,46 +447,46 @@ void bleLinkOnSrcEnd(const OtaStatePayload &state)   { bleOtaOnSrcEnd(state); }
 
 // ── NimBLE callbacks ──────────────────────────────────────────────────────
 class RxCB : public NimBLECharacteristicCallbacks {
-  void onWrite(NimBLECharacteristic *chr, NimBLEConnInfo &) override {
+  void onWrite(NimBLECharacteristic *chr, NimBLEConnInfo &info) override {
     NimBLEAttValue raw = chr->getValue();
     const uint8_t next = (uint8_t)((rxHead + 1) % RX_RING);
     if (raw.length() > RX_FRAME || next == rxTail) { ++stageDrops; return; }
     memcpy(ring[rxHead].data, raw.data(), raw.length());
     ring[rxHead].len = (uint16_t)raw.length();
+    ring[rxHead].conn = info.getConnHandle();
     rxHead = next;   // last, so a reader never sees a frame before its bytes
   }
 };
 
+// Everything here runs on the NimBLE task. It writes down what happened to
+// which link and leaves the rest to loop(): see settleLinks.
 class ServerCB : public NimBLEServerCallbacks {
   void onConnect(NimBLEServer *, NimBLEConnInfo &info) override {
-    connected = true;
+    linkUp(info.getConnHandle());
     Serial.println("BLE: connected");
     versionsAskedAtMs = 0;
+    restartOwed = true;   // taking the connection stopped advertising
     // The pull costs one round trip per frame, so the connection interval is
     // the transfer rate. Ask for the shortest iOS grants.
     server->updateConnParams(info.getConnHandle(), 12, 24, 0, 200);
   }
-  void onDisconnect(NimBLEServer *, NimBLEConnInfo &, int) override {
-    connected = false;
-    linkMtu = 23;   // the next phone negotiates its own
-    Serial.println("BLE: disconnected");
-    bleOtaDisconnected();
-    bleImageDisconnected();
+  void onDisconnect(NimBLEServer *, NimBLEConnInfo &info, int reason) override {
+    linkDown(info.getConnHandle());
+    Serial.printf("BLE: disconnected, reason 0x%x\n", reason);
     // ADVERTISING IS loop()'S ALONE. This runs on the NimBLE task, and a start
     // from here races whatever loop() is doing to the same advertising object —
     // so this only says it is owed, and the next service pass writes both
     // payloads and starts.
     restartOwed = true;
   }
-  void onMTUChange(uint16_t mtu, NimBLEConnInfo &) override {
-    linkMtu = mtu;
-    bleOtaSetMtu(mtu);
-    bleImageSetMtu(mtu);
-    Serial.printf("BLE: MTU %u\n", mtu);
+  void onMTUChange(uint16_t mtu, NimBLEConnInfo &info) override {
+    linkMtuIs(info.getConnHandle(), mtu);
   }
 };
 
 void bleLinkBegin() {
+  for (Link &l : links) l.handle = BLE_HS_CONN_HANDLE_NONE;
+
   char name[32];
   advertisedName(name, sizeof(name));
   NimBLEDevice::init(name);
@@ -393,19 +595,23 @@ static void dispatchFrame(const uint8_t *work, uint16_t len) {
 }
 
 void bleLinkService() {
+  settleLinks();
   bleOtaService();
   bleImageService();   // whatever a read-back still owes the phone
 
   // A RADIO THAT HAS STOPPED IS A MACHINE NO PHONE CAN FIND, and nothing else
-  // on this board reads it. Advertising goes back on the moment a phone lets
-  // go, and a second after it is found stopped with none holding it — except
-  // through a bench run, whose whole point is BLE off the air.
+  // on this board reads it. It advertises whenever there is room for another
+  // phone: one already on — mid-update, or just open — does not hide the
+  // machine from the next. Advertising goes back on the moment
+  // a phone arrives or leaves, and a second after it is found stopped with room
+  // — except through a bench run, whose whole point is BLE off the air.
   //
   // The second is what a phone whose connection broke while it was being set up
   // leaves behind: the controller stopped advertising to take the connection,
   // and the host told nobody about either the connection or its end.
   if (!quiet) {
-    const bool onAir = connected || NimBLEDevice::getAdvertising()->isAdvertising();
+    const bool room = linkCount < CONFIG_BT_NIMBLE_MAX_CONNECTIONS;
+    const bool onAir = !room || NimBLEDevice::getAdvertising()->isAdvertising();
     if (onAir) offAirSinceMs = 0;
     else if (!offAirSinceMs) offAirSinceMs = millis() | 1;
 
@@ -413,14 +619,14 @@ void bleLinkService() {
     if (restartOwed || stranded) {
       restartOwed = false;
       offAirSinceMs = 0;
-      if (!connected && !NimBLEDevice::getAdvertising()->isAdvertising()) {
-        applyAdvertising();
-        if (stranded) {
-          char line[64];
-          snprintf(line, sizeof(line), "BLE: found off air with no phone, advertising again (%lu)",
-                   (unsigned long)++offAirRestarts);
-          baseLinkSay(line);
-        }
+      // Through applyAdvertising even when already on air: a phone arriving or
+      // leaving changes the pace it advertises at.
+      if (room) applyAdvertising();
+      if (room && stranded && !connected) {
+        char line[64];
+        snprintf(line, sizeof(line), "BLE: found off air with no phone, advertising again (%lu)",
+                 (unsigned long)++offAirRestarts);
+        baseLinkSay(line);
       }
     }
     if (millis() - payloadPushedAtMs >= PAYLOAD_REASSERT_MS) pushPayloads();
@@ -443,7 +649,22 @@ void bleLinkService() {
   // made this board's own loop the ceiling on how fast a picture could arrive.
   while (rxTail != rxHead) {
     const RxFrame &f = ring[rxTail];
-    dispatchFrame(f.data, f.len);
+    const bool owns = heardFrom(f.conn);
+    replyTo = f.conn;
+    if (owns || f.len < 3 || !transferFrame(f.data[0])) {
+      // A read the board refused leaves the one already running where it was.
+      const uint32_t readsBefore = bleImageReadsBegun();
+      dispatchFrame(f.data, f.len);
+      if (bleImageReadsBegun() != readsBefore) readAskedOn(f.conn);
+    } else if (f.data[0] == BLE_FRAME_IMG_BEGIN && f.len >= 4) {
+      // FAILED rather than TAKING: the phone reads TAKING as "send from here".
+      BleImgAck ack{f.data[3], BLE_IMG_FAILED, BLE_IMG_ERR_BUSY, 0};
+      notify(BLE_FRAME_IMG_ACK, &ack, sizeof(ack));
+    } else if (f.data[0] == BLE_FRAME_OTA_BEGIN) {
+      OtaStatePayload st{OTA_STATE_FAILED, OTA_ERR_BUSY, 0};
+      notify(BLE_FRAME_OTA_END, &st, sizeof(st));
+    }
+    replyTo = BLE_HS_CONN_HANDLE_NONE;
     rxTail = (uint8_t)((rxTail + 1) % RX_RING);
   }
 }
