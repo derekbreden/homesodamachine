@@ -169,6 +169,7 @@ click: x=34.888 y=471.600 z=31.170
 click: x=-40.005 y=471.598 z=12.412
 click: x=-62.330 y=471.600 z=49.929
 click: x=50.604 y=471.600 z=30.189
+click: x=-58.158 y=471.900 z=20.810
 
 [sliver] These STL triangles are collinear and have exactly zero area and zero normal. They add no surface or material thickness. The complete print mesh is watertight and consistently wound, and the native CAD solid has no face below 0.00001 mm2. The current facet measurements are recorded in overhang-treatment/geometry-check.json.
 click: x=105.115 y=248.252 z=29.248
