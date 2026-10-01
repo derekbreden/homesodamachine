@@ -1,10 +1,11 @@
 {
   "status": "support_removal_and_assembled_fit_accepted",
   "source_sha256": {
-    "hardware/printed-parts/enclosure/grip-cover/grip_cover.py": "dd08daf15e89dff82b4dc6b19368d06c1300a883c2e53b3828db4ff41859debe",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "80428e39684c7d7042ea1eb42684580a93112e66f8e93e29cceacf972753cf8c",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "16165989230ada4f0693e4019fbe478c81791008744c106e351fde4df40a46ba",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "921322590b8376cac220e5ca02c194e10d46b04908dffb5cbe731f29e68bb2a9"
+    "hardware/printed-parts/enclosure/grip-cover/grip_cover.py": "42a5c1c0952642d807b4d2ee6090193e2fac0e9d80bce835346bd5e305e3d543",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "937a47992815c742b303cebeec5076dc3508d3d6094550c097877bdb58c4c395",
+    "hardware/printed-parts/enclosure/enclosure/_grip_interface.py": "0d23d8d966cdafb8e54fab031a7ba06724d1240d583d695dfe58418cc7676d0d",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "dccbf7df7bdbb4b40b5a869eaec2bf8f09fbc3cd1e79324b36d69117247b8247",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "4bf0c6161ef5750b844105a2530154f2a685a79d337703bb447e2a678db950fa"
   },
   "body_mm": [
     79.7,

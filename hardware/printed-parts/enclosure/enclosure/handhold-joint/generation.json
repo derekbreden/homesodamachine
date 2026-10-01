@@ -1,14 +1,14 @@
 {
   "outputs": {
     "front-bottom": {
-      "enclosure-front-bottom.step": "79cde9fc48bfa2c0f592c6fb42876c4d94ed0d4cd9e44faf0509b3117f89c294",
-      "enclosure-front-bottom.stl": "8fd4bbb443e9767cc44cc7b004a4fd85feb966c9a1fbbfe4005db69e9e637efb",
-      "enclosure-front-bottom.step.mesh": "c53071edef3110dfe33d40d7002e8fd97a849efcffa3dd0fdac220ebb95145e5"
+      "enclosure-front-bottom.step": "dccbf7df7bdbb4b40b5a869eaec2bf8f09fbc3cd1e79324b36d69117247b8247",
+      "enclosure-front-bottom.stl": "3e905d5dc35b038c48af02919fdcf63f870abd630ff03d879fbd5eea09af0456",
+      "enclosure-front-bottom.step.mesh": "70eb057a57e6d820d28b86eb9269e67315a314f979bf10f878caba8359705fdf"
     },
     "back-bottom": {
-      "enclosure-back-bottom.step": "fea9e1deddaa1e6bff75f6669e732eb4b3c5761807de565b438fa6037ccca92a",
-      "enclosure-back-bottom.stl": "741d74b268aba9d2e0c812126c7f11c833c0b44d544527ef30f63530454aa618",
-      "enclosure-back-bottom.step.mesh": "92bd89397deaaa010007812b1d819a020af455489b38c31b66c13a2cca6fdae3"
+      "enclosure-back-bottom.step": "4bf0c6161ef5750b844105a2530154f2a685a79d337703bb447e2a678db950fa",
+      "enclosure-back-bottom.stl": "fe8b919f79ed14eb8f87fc9260ed7bfe7d68adcd48e12da6b313d48d094a6072",
+      "enclosure-back-bottom.step.mesh": "ae7d33497b11bd764afe0f8fc31d1ea811c603a3f4221ea4f2e59d23c86d2340"
     }
   },
   "box": "hardware/manifold-layout/enclosure-box.json",
@@ -23,10 +23,11 @@
     "hardware/printed-parts/cadlib/world_workplane.py": "6fc15b2371091f653390c5ebb7390d2eb3b94b21f4194f07a188ef562dcd4226",
     "hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py": "e3e5f0251ab9f0f82324c82e94e45667cac0e5d9c505cf06fd6f525c6bf3ce82",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "3ad0d648f0e09dae39a2bc2d732bd2356e311eb87771c111e90a358a0bdd48f4",
+    "hardware/printed-parts/enclosure/enclosure/_grip_interface.py": "0d23d8d966cdafb8e54fab031a7ba06724d1240d583d695dfe58418cc7676d0d",
     "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py": "fb290e6f377fc5f33790b7e6532c59ff0fdab0472b2f519d808b17106e8629fc",
     "hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py": "301e9a2a291e5c43c6e885d869e74d2f600204ba0041e70979a1c7d5c6203bbc",
     "hardware/printed-parts/enclosure/enclosure/_swept_top.py": "50c2666be693987de894b38774f6b7a7a480d0efa2ec8ed8abbe6571bff6e32a",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "388aac6ab7f6be13d328754df01e8dd830cfc8936caea5705273728b561ce334",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "937a47992815c742b303cebeec5076dc3508d3d6094550c097877bdb58c4c395",
     "hardware/printed-parts/enclosure/enclosure/handhold-joint/prepare_geometry.py": "6d44ecb93371382c8ff392309da825a5ab863b5c66dd87a9d3b8d572c1367071",
     "hardware/printed-parts/enclosure/pump-tray/pump_case.py": "833b311abdc3e7187940bb7bbe3461a4a5245f30d1e54c703429cc78d16c1358",
     "hardware/printed-parts/enclosure/pump-tray/pump_tray.py": "30cc79f35ca0553b5014fb1c4eba51a4396325c5d76882e7c1df9f75533ee3bf",

@@ -4,6 +4,7 @@
     "all_solids_valid_and_connected": true,
     "cover_flat_back_and_wings_on_bed": true,
     "body_dimensions_match": true,
+    "detail_models_match_production_solids": true,
     "full_original_roof_stock_retained": true,
     "no_added_receiver_ledges": true,
     "joint_and_fastener_region_unchanged": true,
@@ -17,13 +18,13 @@
   },
   "stock_and_joint": {
     "front": {
-      "removed_original_mm3": 277.2990406828656,
+      "removed_original_mm3": 0.0,
       "removed_roof_stock_mm3": 0.0,
       "added_mm3": 0.0,
       "seam_change_mm3": 0.0
     },
     "back": {
-      "removed_original_mm3": 275.68044482530064,
+      "removed_original_mm3": 0.0,
       "removed_roof_stock_mm3": 0.0,
       "added_mm3": 0.0,
       "seam_change_mm3": 0.0
@@ -59,8 +60,8 @@
   },
   "artifacts_sha256": {
     "grip-cover.stl": "acbb8f8cd3e50792a258670bf31c7574de6a435fbbce2629ede73c070378dc03",
-    "grip-receiver-back.stl": "bad10111e1e2ef33014f2ed3c81c26dbc4c4bb5ea738cbc83ed895b99d90225b",
-    "grip-receiver-front.stl": "2cb5a7498d12815ee93e4a2c6d1642d8561099251d4b921162fe0c5439fd45df"
+    "grip-receiver-back.stl": "d79f4395a757fd3064c443b04e3caee795e61c866145a395bdf8d862101e5d41",
+    "grip-receiver-front.stl": "170a2bca1d15c612a68c27aa74d4375648bb26ed88835f4ec3ca66033239a119"
   },
   "scope": "Geometry only. Physical results are recorded separately in physical-acceptance.json."
 }
