@@ -1,0 +1,40 @@
+{
+  "status": "running_startup",
+  "printer": "Mark2",
+  "task_id": "1298005797",
+  "job_name": "grip-cover-and-receiver-v4.gcode.3mf",
+  "first_acceptance_observed_utc": "2026-10-01T02:51:58.022300+00:00",
+  "earliest_other_printer_start_or_resume_utc": "2026-10-01T02:54:58.022300+00:00",
+  "shared_circuit_spacing_seconds": 180,
+  "other_printer_state_at_acceptance": "H2C idle; canceled front-top task remains stopped",
+  "archive": ".cache/prints/grip-cover-v4/ready/grip-cover-and-receiver-v4.gcode.3mf",
+  "archive_sha256": "62877ed1f42865bc482c2268aa6ea267bb38ab7cadeb17cb80a72e9f2dc09095",
+  "gcode_sha256": "e942d550cf22dfbad55cac4cd8c1a535d0166d6832fb6c7271c55764449ae146",
+  "estimated_seconds": 4037.93115234375,
+  "layers": 216,
+  "parts": [
+    "grip-cover",
+    "grip-receiver-front",
+    "grip-receiver-back"
+  ],
+  "material": "black PET-GF",
+  "filament_mapping": "fixed left 0.4 mm hardened nozzle; black external spool, slot 254; PET-CF is the saved printer label",
+  "bed": "Textured PEI Plate",
+  "startup_options": {
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "requested_z_trim_mm": 0.04,
+  "emitted_textured_plate_trim_mm": 0.02,
+  "model_geometry_changes_by_sender": false,
+  "physical_result": "pending",
+  "full_enclosure_prints": "held",
+  "delivery_condition": "Grips reported revised production geometry and inserted view live, with all four corner remnants removed and current coupon checks passing, before this send.",
+  "startup_observed_utc": "2026-10-01T02:53:36.131574+00:00",
+  "startup_layer": 0,
+  "printer_remaining_minutes": 67,
+  "print_error": 0,
+  "hms": []
+}
