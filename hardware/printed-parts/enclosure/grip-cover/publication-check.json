@@ -1,0 +1,81 @@
+{
+  "status": "pass",
+  "source_commit": "5a148e8a1aed1b49907c9ef40af2076c89aef9fe",
+  "live_viewer_parts": [
+    "grip-cover-east",
+    "grip-cover-west"
+  ],
+  "live_payloads": [
+    {
+      "path": "manifold-layout/enclosure-assembly.step.mesh",
+      "local_sha256": "aa6708ec4c95893294851a5c04c3df77ca9473e160fe936bcced1cc7e40b06cf",
+      "live_sha256": "aa6708ec4c95893294851a5c04c3df77ca9473e160fe936bcced1cc7e40b06cf",
+      "match": true,
+      "url": "https://homesodamachine.com/meshes/manifold-layout/enclosure-assembly.step.mesh"
+    },
+    {
+      "path": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+      "local_sha256": "d04115d6e0320b42b1dadd1f7c7c21b77ebdd9416c12ba0865e7d88633c1e054",
+      "live_sha256": "d04115d6e0320b42b1dadd1f7c7c21b77ebdd9416c12ba0865e7d88633c1e054",
+      "match": true,
+      "url": "https://homesodamachine.com/meshes/printed-parts/enclosure/enclosure/enclosure.step.mesh"
+    },
+    {
+      "path": "printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
+      "local_sha256": "70eb057a57e6d820d28b86eb9269e67315a314f979bf10f878caba8359705fdf",
+      "live_sha256": "70eb057a57e6d820d28b86eb9269e67315a314f979bf10f878caba8359705fdf",
+      "match": true,
+      "url": "https://homesodamachine.com/meshes/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh"
+    },
+    {
+      "path": "printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
+      "local_sha256": "ae7d33497b11bd764afe0f8fc31d1ea811c603a3f4221ea4f2e59d23c86d2340",
+      "live_sha256": "ae7d33497b11bd764afe0f8fc31d1ea811c603a3f4221ea4f2e59d23c86d2340",
+      "match": true,
+      "url": "https://homesodamachine.com/meshes/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh"
+    }
+  ],
+  "geometry_lint": {
+    "classes": [
+      "step",
+      "sliver",
+      "ceiling",
+      "slope"
+    ],
+    "reading": "Full STL lint, with the emitted findings matched to the current exact answer anchors.",
+    "parts": [
+      {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+        "sha256": "3e905d5dc35b038c48af02919fdcf63f870abd630ff03d879fbd5eea09af0456",
+        "printed_facets": 331180,
+        "unanswered_findings": 0,
+        "answered_findings": 6,
+        "answers_sha256": "ed9384f0bcdf6e997a8907a4719daa39194d38ccca3805790e3dc426a7c624d8"
+      },
+      {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+        "sha256": "fe8b919f79ed14eb8f87fc9260ed7bfe7d68adcd48e12da6b313d48d094a6072",
+        "printed_facets": 1405264,
+        "unanswered_findings": 0,
+        "answered_findings": 153,
+        "answers_sha256": "97c01352c2844d874a62ad92ce6da4928282ed502a125bc11b575749daba922b"
+      },
+      {
+        "path": "hardware/printed-parts/enclosure/grip-cover/grip-receiver-front.stl",
+        "sha256": "170a2bca1d15c612a68c27aa74d4375648bb26ed88835f4ec3ca66033239a119",
+        "printed_facets": 6384,
+        "unanswered_findings": 0,
+        "answered_findings": 1,
+        "answers_sha256": "fcba77c7dc5e26e4c92e8b75d8206879e4378e328c401d7aeb9221039eb76d8a"
+      },
+      {
+        "path": "hardware/printed-parts/enclosure/grip-cover/grip-receiver-back.stl",
+        "sha256": "d79f4395a757fd3064c443b04e3caee795e61c866145a395bdf8d862101e5d41",
+        "printed_facets": 8498,
+        "unanswered_findings": 0,
+        "answered_findings": 1,
+        "answers_sha256": "6d27216d18ce0108b492fcd3de1112caf88be0d0449f0f1bb04d884ac89449b9"
+      }
+    ]
+  }
+}

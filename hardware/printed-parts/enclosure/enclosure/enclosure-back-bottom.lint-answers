@@ -4,10 +4,10 @@ click: x=100.875 y=337.300 z=169.450
 click: x=-100.875 y=393.050 z=169.450
 click: x=-100.875 y=268.050 z=169.450
 
-[ceiling] The handholds' lifting ceilings stand 35.25 mm above the standing underside, including the 0.25 mm supported-face allowance. The roof grows with the opening to retain its full 12 mm section. Each roof joins the end walls, blind inner wall and seam jamb. Fingers and removable support enter through the open bottom.
+[ceiling] The handholds' lifting ceilings stand 35.25 mm above the standing underside, including the 0.25 mm supported-face allowance, with a full 12 mm roof section. Each roof joins the end walls, blind inner wall and seam jamb. The snap cover bears against this roof. Tree supports beneath the broad ceiling have a straight removal lane toward the open seam end; the narrow 5.30 mm end-wing slot is an unsupported bridge. The matching grip receiver coupons have accepted support removal and assembled fit; see ../grip-cover/physical-acceptance.json. Production slices require the matching slot support exclusions.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=-100.500 y=224.000 z=29.251
-click: x=99.263 y=224.009 z=29.251
+click: x=-100.500 y=228.550 z=29.250
+click: x=99.958 y=228.550 z=29.250
 
 [sliver] The floor recess's 0.25 mm running-clearance returns end beside the handhold inner walls at Y212.8. Each 0.25 by 6 mm face closes a clearance slot and is backed by the continuous floor slab aft of it. The clearance keeps the front floor tongue free of the back piece during assembly. The handhold walls close at their square, full 3 mm ends; this narrow return face bounds the floor clearance.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step

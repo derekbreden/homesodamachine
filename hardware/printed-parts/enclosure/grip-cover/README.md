@@ -92,7 +92,8 @@ The [production integration check](production-integration.json) compares both
 handholds on each production bottom with the accepted receiver geometry and
 records the production STL hashes. The [assembly check](assembly-integration.json)
 records both covers, the current bottom surfaces, and the unchanged surfaces of
-the other machine components.
+the other machine components. The [publication check](publication-check.json)
+records the matching live payloads and the production and coupon mesh lint.
 
 The [native print check](print-check.json) records the exact archive, sources,
 cover layers, bed contact and first-to-second-layer bead overlap. The
