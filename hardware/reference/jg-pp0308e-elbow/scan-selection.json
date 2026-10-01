@@ -1,0 +1,59 @@
+{
+  "units": "mm",
+  "initial_native_to_reference": [
+    [
+      0.14604355716925335,
+      -0.7987072614720365,
+      0.5837276675652705,
+      -116.96639509078331
+    ],
+    [
+      0.7757914197977019,
+      -0.27366861572653406,
+      -0.568553569801992,
+      75.82666140726089
+    ],
+    [
+      0.6138558074805656,
+      0.5358845017708225,
+      0.5796627022538371,
+      -127.69069091840133
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "table_origin_native": [
+    30.904605059619247,
+    9.37139244368412,
+    215.16440447036348
+  ],
+  "table_basis_rows": [
+    [
+      0.0,
+      -0.733507847377481,
+      0.679680982399577
+    ],
+    [
+      -0.9997187325805292,
+      -0.01611941551109899,
+      -0.017395981465873005
+    ],
+    [
+      0.023716149088341805,
+      -0.6794898102835941,
+      -0.7333015355180875
+    ]
+  ],
+  "fit_region_table_height_min_mm": 15.0,
+  "fixture_exclusion_table_height_mm": 17.2,
+  "fit_region_table_xy_center_mm": [
+    -10,
+    -12
+  ],
+  "fit_region_table_xy_radius_mm": 20.0,
+  "description": "Inspected physical feature selections. Initial frame from independent root/collar cylinders. Table plane used only for fixture exclusion, never for scale."
+}
