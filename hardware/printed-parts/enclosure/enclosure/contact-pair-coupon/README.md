@@ -29,8 +29,12 @@ either seat or lead passage is the case being tested, so record any support the 
    [0.754 mm](COUPON_PRESS) of its [1.1 mm](COUPON_STROKE) travel, both halves off by the full
    tolerance in either direction still press it [0.554–0.954 mm](COUPON_PRESS_RANGE), and the two
    faces keep at least [0.046 mm](COUPON_KISS_MIN) between them.
-2. **The roof did not sag onto the body.** The connector slides out again freely; no witness
-   marks on its top or bottom face.
+2. **The roof did not sag onto the body.** The seat stands [4.55 mm](COUPON_SEAT_HEIGHT) tall
+   as drawn, and its roof bridges [23.7 mm](COUPON_ROOF_SPAN) along X between the mouth's round
+   ends; the seat's depth is the bridge's width, not its span. At mid-span the seat must still
+   measure at least [4.08 mm](COUPON_BODY_MAX), the largest body the drawing's tolerance allows, so
+   the roof may sag at most [0.47 mm](COUPON_SAG_LIMIT). The connector slides out again freely,
+   with no witness marks on its top or bottom face.
 3. **The insert bores take the inserts.** Each M1.4 × 4 × Ø2.3 heat-set presses flush with the
    step, square to the face, and an M1.4 × 5 socket-head screw draws the ear down without lifting
    the connector's face or spinning the insert.
