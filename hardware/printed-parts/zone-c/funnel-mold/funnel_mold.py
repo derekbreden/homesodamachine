@@ -27,6 +27,8 @@ from _materials import one_body
 from flute_payload import cut as write_print_payload
 
 finish_allowance = 0.30
+# Match build_solids' normal-envelope margin at the rounded ramp joins.
+forming_join_allowance = 0.005
 shell_thickness = 5.0
 dry_ramp_lift = 6.0
 flange_thickness = 5.0
@@ -206,7 +208,8 @@ def build():
     forming_void = one(fuse_shapes(
         funnel.build_solids(outer_air=finish_allowance)[0],
         expanded(tip, finish_allowance), tol=tolerance), 'forming void')
-    backing_allowance = finish_allowance+shell_thickness
+    # Carry the forming ramp's rounded-join margin into its dry backing.
+    backing_allowance = finish_allowance+shell_thickness+forming_join_allowance
     ramp = funnel._loft_rc(m['bore_w'], m['bore_d'], 0, 0, m['ramp_top_z'],
         m['spout_id']/2, x, y, neck, funnel.mouth_corner_r)
     cavity_outer = expanded(ramp, funnel.collar_wall + backing_allowance)
@@ -214,6 +217,8 @@ def build():
         funnel._rounded_box(m['w'], m['d'], funnel.collar_corner_r, m['ramp_top_z'], 0),
         funnel._rounded_box(m['out_w'], m['out_d'], funnel.brim_corner_r, 0, top),
         cylinder(m['spout_or'], tip_bottom, neck, x, y),
+        funnel.elbow_cradle.plug_outline(funnel.plug_diameter/2, 0.0, 0.0,
+                                         funnel.plug_height).translate((x, y, end)),
     )
     # Explicit spline surfaces allow OCCT to trim the coincident offset joins
     # around the collar. Fuse the complete backing in one operation.
@@ -327,8 +332,10 @@ def build():
                     flange_width/2-pry_depth/2+0.5)
         cavity = cavity.cut(notch.rotate((0, 0, 0), (0, 0, 1), angle))
     cavity = one(cavity, 'cavity opening notches')
-    cast = one(exterior.cut(bore.toNURBS()).fuse(tip.cut(rod).toNURBS()),
+    # The upper core forms the bowl; the straight dowel forms the plug blank.
+    cast = one(nominal_exterior.cut(nominal_plug.toNURBS(), rod.toNURBS()),
                'silicone casting')
+    assert rod.intersect(cast).Volume() < tolerance
 
     print('Checking closure, release, passages and wall backing', flush=True)
     containment = liquid_containment(cavity, core, rod, cast, seal, floor, top, back,
@@ -389,9 +396,14 @@ def build():
         'volume_ml': {n: s.Volume()/1000 for n, s in parts.items()},
         'shell_thickness_mm': shell_thickness, 'flange_thickness_mm': flange_thickness,
         'minimum_cavity_backing_mm': minimum_backing,
+        'backing_join_allowance_mm': forming_join_allowance,
         'minimum_core_backing_mm': minimum_core_backing,
         'liquid_containment': containment,
         'parting_z_mm': top-floor, 'finish_allowance_mm': finish_allowance,
+        'casting_scope': 'rounded plug blank with a straight dowel bore; hook pockets and the staged sealing bore require separate forming features',
+        'plug_blank_mm': [funnel.plug_diameter,
+                          2*funnel.elbow_cradle.plug_half_length(funnel.plug_diameter/2),
+                          funnel.plug_height],
         'rod_support': {'engagement_mm': rod_engagement, 'guide_diameter_mm': 2*guide_radius,
             'guide_diametral_clearance_mm': rod_clearance, 'guide_length_mm': rod_guide_length,
             'cradle': 'open 90-degree V, two zip ties, visible axial stop on dry back',
@@ -460,10 +472,9 @@ def write_parts(parts, info, output):
         assembly.add(shape, name=name, color=colors[name])
         if name != 'seal':
             single = one_body(cq.Workplane(obj=shape), name, colors[name])
-            # The casting's joined spline faces need a fixed STEP uncertainty;
-            # the averaged default can leave an untriangulated face on import.
-            export_assembly(single, str(output/f'{name}.step'),
-                            **({'precision_mode': 1} if name == 'funnel' else {}))
+            # Fixed STEP uncertainty keeps the joined spline-face trims stable
+            # for the print meshes and casting view.
+            export_assembly(single, str(output/f'{name}.step'), precision_mode=1)
             if name == 'funnel':
                 saved = import_step(str(output/f'{name}.step')).val()
                 vertices, faces = saved.tessellate(0.005, 0.05)

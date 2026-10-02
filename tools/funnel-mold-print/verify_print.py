@@ -149,6 +149,9 @@ def geometry_figures(info):
         'ROD_MIN_END': f"{info['rod_tolerance_screen']['minimum_end_clearance_mm']:.2f} mm",
         'ROD_MIN_WALL': f"{info['rod_tolerance_screen']['minimum_silicone_clearance_mm']:.2f} mm",
         'FINISH': f"{info['finish_allowance_mm']:.2f} mm",
+        **({'PLUG_BLANK': ' × '.join(f'{v:.1f}'.removesuffix('.0')
+                                   for v in info['plug_blank_mm'])+' mm'}
+           if 'plug_blank_mm' in info else {}),
         'FILL_D': f"{info['ports']['fill_diameter_mm']:g} mm",
         'VENT_D': f"{info['ports']['vent_diameter_mm']:g} mm",
         'CAST_VOLUME': f"{info['volume_ml']['funnel']:.0f} mL",
