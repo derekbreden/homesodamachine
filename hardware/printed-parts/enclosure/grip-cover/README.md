@@ -105,6 +105,9 @@ current coupon slices and their support exclusion checks are recorded in
 are physically accepted. Quantitative retention force, repeated-flexing recovery
 and lifting-load results are unreported.
 
+The [single-insert H2C print](h2c-second-insert/README.md) records the second
+production cover, its accepted layer schedule, +0.18 mm Z trim, and submitted job.
+
 ```sh
 HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/enclosure/grip-cover/grip_cover.py
 HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/enclosure/grip-cover/check_geometry.py

@@ -1,0 +1,20 @@
+{
+  "source_archive": ".cache/prints/grip-cover-only-h2c-v2/ready/grip-cover-only-h2c-v2.gcode.3mf",
+  "source_archive_sha256": "f21fb083c817c8b9bc9620eb1b647a2254c1c3213b15be594e5f457700301792",
+  "print_only_archive": ".cache/prints/grip-cover-only-h2c-v2/ready/grip-cover-only-h2c-v2-printonly.gcode.3mf",
+  "print_only_archive_sha256": "3bc4aefcd18af0bb7378a6874b844fd31e2ee98678987eee40c8c6727297b2f9",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "79045c855e320449a991401484514c6e4cda962c8ec9e7a9363be060bb494a75"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml",
+    "Metadata/layer_config_ranges.xml"
+  ]
+}
