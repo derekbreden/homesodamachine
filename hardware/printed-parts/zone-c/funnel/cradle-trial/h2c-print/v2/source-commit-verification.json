@@ -1,0 +1,22 @@
+{
+  "geometry_export_revision": "3498db7dd53a13a7b964adc1674b9331ba8f26e4",
+  "source_snapshot_matches_export_revision": true,
+  "verified_source_count": 8,
+  "source_snapshot": {
+    "hardware/printed-parts/zone-c/funnel/cradle-trial/cradle_trial.py": "20f3b22a14ef4297b85378fe7bd7b63853bda1cda58e61a2c2ff5dd673920c3a",
+    "hardware/printed-parts/zone-c/funnel/cradle-trial/geometry-check.json": "7447a519ab416b17d9dcc7291cd88cece7f030f23135dda23cb582da1bc3478d",
+    "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": "3dcf729726a94f01e87f4d833f02f0fe2ce7a5d90391a059367264102645d948",
+    "hardware/printed-parts/zone-c/funnel/funnel.py": "5b36f155df999a31613bdb585d5aac4db1187b328b1e4082b7644d3bf619e2f4",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "aa92879c1e46d2da42d2166890c473481fd72d671cd608cace6e59361b03100f",
+    "hardware/printed-parts/cadlib/fits.py": "3821989044c5bc3ae99cc6912538b8a34bd75a6b0a081aefc8e4c5a0ce714191",
+    "hardware/reference/jg-pp0308e-elbow/elbow.py": "f4bbf9e1db98c82da4a96076e16a0333d2976b67f965a9d09d147fec510518d1",
+    "hardware/reference/jg-pp0308e-elbow/scan-measurements.json": "d977e38f2966b4d3839e7161f5d6fb9b0b276faf7ec2e4ed2b942b5f4b22dd1a"
+  },
+  "source_stl_sha256": {
+    "test-receiver": "cd25b650c948d38fbe8880bfb51b223620adec2f44bfc56b13316797c308bd4e",
+    "test-cradle": "a12fccaa8557b81198caacc6b7913a0361806beb46d79df29ea62f7aa0fc622f"
+  },
+  "mesh_hashes_match_exporting_session_receipt": true,
+  "verification_observed_utc": "2026-10-02T22:09:38.279962+00:00",
+  "native_archive_and_gcode_hashes_match_launch_records": true
+}

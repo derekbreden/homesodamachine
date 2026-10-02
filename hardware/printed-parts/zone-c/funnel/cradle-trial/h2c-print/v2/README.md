@@ -32,7 +32,9 @@ clearance for this pair.
 [cradle preflight](cradle-h2c-preflight.json) bind the frozen STL, native input
 project, archive and G-code hashes. [Receiver preparation](receiver-mark2-preparation.json)
 and [cradle preparation](cradle-h2c-preparation.json) save the geometry source
-snapshot. The source commit binding is pending Funnel 2's export commit.
+snapshot. Every saved geometry source hash matches export commit `3498db7dd`,
+verified in [source-commit-verification.json](source-commit-verification.json).
+The frozen STL, archive and G-code hashes match their launch records.
 
 The [receiver support audit](receiver-mark2-support-audit.json) finds no supports.
 The [cradle support audit](cradle-h2c-support-audit.json) includes all support paths,

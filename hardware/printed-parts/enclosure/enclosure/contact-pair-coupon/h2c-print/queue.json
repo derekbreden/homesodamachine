@@ -115,7 +115,9 @@
           "accepted_observed_utc": "2026-10-02T21:59:32.035882+00:00",
           "launch_record": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v2/cradle-h2c-launch.json"
         }
-      ]
+      ],
+      "geometry_export_revision": "3498db7dd53a13a7b964adc1674b9331ba8f26e4",
+      "source_commit_verification_record": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v2/source-commit-verification.json"
     }
   ],
   "followup_automation": "continue-h2c-trial-queue"

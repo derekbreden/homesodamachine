@@ -15,8 +15,8 @@
   "requested_z_trim_mm": 0.04,
   "support_mode": "shared_automatic_tree",
   "submitted": true,
-  "geometry_export_revision": null,
-  "geometry_export_status": "awaiting_source_commit_from_Funnel_2",
+  "geometry_export_revision": "3498db7dd53a13a7b964adc1674b9331ba8f26e4",
+  "geometry_export_status": "source_snapshot_verified",
   "source_snapshot": {
     "hardware/printed-parts/zone-c/funnel/cradle-trial/cradle_trial.py": "20f3b22a14ef4297b85378fe7bd7b63853bda1cda58e61a2c2ff5dd673920c3a",
     "hardware/printed-parts/zone-c/funnel/cradle-trial/geometry-check.json": "7447a519ab416b17d9dcc7291cd88cece7f030f23135dda23cb582da1bc3478d",
@@ -27,7 +27,7 @@
     "hardware/reference/jg-pp0308e-elbow/elbow.py": "f4bbf9e1db98c82da4a96076e16a0333d2976b67f965a9d09d147fec510518d1",
     "hardware/reference/jg-pp0308e-elbow/scan-measurements.json": "d977e38f2966b4d3839e7161f5d6fb9b0b276faf7ec2e4ed2b942b5f4b22dd1a"
   },
-  "source_snapshot_matches_export_revision": false,
+  "source_snapshot_matches_export_revision": true,
   "status": "submitted_and_printer_accepted",
   "emitted_z_trim_commands_mm": [
     0.0,
@@ -117,5 +117,6 @@
     "external_spool": 254,
     "nozzle": "fixed left hardened 0.4 mm"
   },
-  "launch_record": "receiver-mark2-launch.json"
+  "launch_record": "receiver-mark2-launch.json",
+  "source_commit_verification_record": "source-commit-verification.json"
 }

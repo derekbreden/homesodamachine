@@ -14,8 +14,8 @@
   "source_stl_sha256": {
     "test-cradle": "a12fccaa8557b81198caacc6b7913a0361806beb46d79df29ea62f7aa0fc622f"
   },
-  "geometry_export_revision": null,
-  "geometry_export_status": "awaiting_source_commit_from_Funnel_2",
+  "geometry_export_revision": "3498db7dd53a13a7b964adc1674b9331ba8f26e4",
+  "geometry_export_status": "source_snapshot_verified",
   "source_snapshot": {
     "hardware/printed-parts/zone-c/funnel/cradle-trial/cradle_trial.py": "20f3b22a14ef4297b85378fe7bd7b63853bda1cda58e61a2c2ff5dd673920c3a",
     "hardware/printed-parts/zone-c/funnel/cradle-trial/geometry-check.json": "7447a519ab416b17d9dcc7291cd88cece7f030f23135dda23cb582da1bc3478d",
@@ -93,5 +93,7 @@
     "stg_cur": 13,
     "observed_at": "2026-10-02T22:00:10.804181+00:00"
   },
-  "physical_fit_and_retention_tested": false
+  "physical_fit_and_retention_tested": false,
+  "source_snapshot_matches_export_revision": true,
+  "source_commit_verification_record": "source-commit-verification.json"
 }
