@@ -17,8 +17,8 @@
     },
     {
       "check": "hardware/scripts/check_facts_current.py",
-      "note": "tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py",
-      "status": "red"
+      "note": "and the 243 sources behind them stand where they stood when it was written",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_faucet_geometry.py",
@@ -67,12 +67,12 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 4918 tracked, 571 fetched solids, 56 tags, 39 site routes",
+      "note": "paths: every reference lands — 4920 tracked, 572 fetched solids, 56 tags, 39 site routes",
       "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 430 of 1000 free, the next cut wants 425, and the whole pointer file reads by name in 21.8 MB against 175.8 MB of bundle",
+      "note": "check_release_room: 430 of 1000 free, the next cut wants 426, and the whole pointer file reads by name in 21.8 MB against 175.8 MB of bundle",
       "status": "ok"
     },
     {
@@ -97,16 +97,11 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 2749 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 571 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 1 of 2753 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 572 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
-    "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 9ef22365aa6fb74ffa1f0602aee22ec9 for the 243 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 3535ba1c45074ce6a9b83a3792a2aaa0 here. The three artifacts agree with each other and describe a machine that has since moved.",
-      "  the three come off one run:",
-      "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
-    ],
     "hardware/scripts/check_ledger.py": [
       "instructions: 121 files (16 procedures + 104 cards + cover) | ledger brands: 585 | waived: 1 ASIN + 4 brand",
       "DRIFT: 1 instruction(s) out of step with the ledger:",
@@ -135,7 +130,7 @@
       "    hardware/printed-parts/enclosure/tee-carrier/low-force-trial/tee-carrier-low-force.step.mesh — declared by nobody"
     ],
     "hardware/scripts/check_step_colours.py": [
-      "step colours: 247/250 carry the colour of what they are made of",
+      "step colours: 248/251 carry the colour of what they are made of",
       "  3 STEP(s) name no colour, so /3d and their own cards draw them at the viewer's blue-grey:",
       "    hardware/.look-pump-contacts/contact-look.step",
       "    hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/back-top-backing-proposal.step",
@@ -143,10 +138,9 @@
       "  A generator hands its solid to `_materials.one_body` and exports the assembly."
     ],
     "tools/check_web_tests.py": [
-      "3 test(s) in web/ fail:",
+      "2 test(s) in web/ fail:",
       "    every alias names a component an assembly carries",
       "    EXCLUDED_DIRS is every out/ .gitignore holds under hardware",
-      "    the artifact pointer file points at every committed viewer scorecard",
       "  cd web && npm test"
     ]
   },
