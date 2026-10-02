@@ -1,0 +1,97 @@
+{
+  "printer": "H2C",
+  "part": "test-cradle",
+  "geometry_revision": 2,
+  "quantity": 1,
+  "printer_task_id": "1303335008",
+  "job_name": "funnel-test-cradle-h2c-v2.gcode.3mf",
+  "accepted_observed_utc": "2026-10-02T21:59:32.035882+00:00",
+  "task_id_confirmed_utc": "2026-10-02T22:00:10.804181+00:00",
+  "status": "printing_startup_accepted",
+  "archive": ".cache/prints/funnel-test-cradle-h2c-v2/ready/funnel-test-cradle-h2c-v2.gcode.3mf",
+  "archive_sha256": "0b25f035a7eaebfdd1b6a99c6916ceb57e4f33f1a22689c2492b274cab6a3ef8",
+  "gcode_sha256": "59621b648eeb4a051ce5d233c7dbfbaf21445c4aaededad7d27430e7e1375b27",
+  "source_stl_sha256": {
+    "test-cradle": "a12fccaa8557b81198caacc6b7913a0361806beb46d79df29ea62f7aa0fc622f"
+  },
+  "geometry_export_revision": null,
+  "geometry_export_status": "awaiting_source_commit_from_Funnel_2",
+  "source_snapshot": {
+    "hardware/printed-parts/zone-c/funnel/cradle-trial/cradle_trial.py": "20f3b22a14ef4297b85378fe7bd7b63853bda1cda58e61a2c2ff5dd673920c3a",
+    "hardware/printed-parts/zone-c/funnel/cradle-trial/geometry-check.json": "7447a519ab416b17d9dcc7291cd88cece7f030f23135dda23cb582da1bc3478d",
+    "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": "3dcf729726a94f01e87f4d833f02f0fe2ce7a5d90391a059367264102645d948",
+    "hardware/printed-parts/zone-c/funnel/funnel.py": "5b36f155df999a31613bdb585d5aac4db1187b328b1e4082b7644d3bf619e2f4",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "aa92879c1e46d2da42d2166890c473481fd72d671cd608cace6e59361b03100f",
+    "hardware/printed-parts/cadlib/fits.py": "3821989044c5bc3ae99cc6912538b8a34bd75a6b0a081aefc8e4c5a0ce714191",
+    "hardware/reference/jg-pp0308e-elbow/elbow.py": "f4bbf9e1db98c82da4a96076e16a0333d2976b67f965a9d09d147fec510518d1",
+    "hardware/reference/jg-pp0308e-elbow/scan-measurements.json": "d977e38f2966b4d3839e7161f5d6fb9b0b276faf7ec2e4ed2b942b5f4b22dd1a"
+  },
+  "imported_copy_byte_identical_to_reviewed_archive": true,
+  "imported_copy_archive_sha256": "0b25f035a7eaebfdd1b6a99c6916ceb57e4f33f1a22689c2492b274cab6a3ef8",
+  "imported_copy_gcode_sha256": "59621b648eeb4a051ce5d233c7dbfbaf21445c4aaededad7d27430e7e1375b27",
+  "requested_z_trim_mm": 0.18,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "support_summary": {
+    "support_bodies": 2,
+    "interface_islands": 2,
+    "bed_rooted_bodies": 2,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 32.64,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 2,
+    "shortest_labelled_build_up_mm": 32.64
+  },
+  "filament_mapping": {
+    "physical_material": "black PET-GF",
+    "profile_label": "PET-CF",
+    "external_spool": 254,
+    "nozzle": "fixed left hardened 0.4 mm"
+  },
+  "sender": "Bambu Connect through background tools/bambu_send.py",
+  "send_attempts": 1,
+  "automatic_resends": 0,
+  "settled_dialog_seconds": 20,
+  "printer_reply": {
+    "command": "project_file",
+    "err_code": 0,
+    "reason": "SUCCESS",
+    "result": "SUCCESS"
+  },
+  "printer_acceptance_verified": true,
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "bed_clear_confirmation": {
+    "confirmed": true,
+    "source": "User request in Funnel 2: Make those changes and give me new prints, use Printer 2 agent as needed."
+  },
+  "shared_circuit_minimum_start_spacing_seconds": 180,
+  "seconds_since_other_printer_acceptance_at_send_gate": 3390.256475,
+  "other_printer_acceptance_reference_utc": "2026-10-02T21:02:45.508698+00:00",
+  "send_gate_observed_utc": "2026-10-02T21:59:15.765173+00:00",
+  "previous_printer_task_id": "1303138499",
+  "startup_observation": {
+    "job_id": "1303335008",
+    "gcode_state": "RUNNING",
+    "subtask_name": "funnel-test-cradle-h2c-v2.gcode.3mf",
+    "layer_num": 0,
+    "total_layer_num": 148,
+    "mc_percent": 0,
+    "mc_remaining_time": 30,
+    "print_error": 0,
+    "hms": [],
+    "nozzle_temper": 201.0,
+    "nozzle_target_temper": 200.0,
+    "bed_temper": 35.0,
+    "bed_target_temper": 35.0,
+    "stg_cur": 13,
+    "observed_at": "2026-10-02T22:00:10.804181+00:00"
+  },
+  "physical_fit_and_retention_tested": false
+}

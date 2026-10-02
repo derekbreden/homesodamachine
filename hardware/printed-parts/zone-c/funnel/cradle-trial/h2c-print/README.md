@@ -1,4 +1,6 @@
-# Funnel elbow-cradle trial
+# Funnel elbow-cradle v1 print
+
+The [v2 print records](v2/README.md) describe the shorter wings and wider cradle.
 
 One frozen Funnel 2 test receiver and one test cradle, retaining their production
 print poses and the [trial geometry and bench procedure](../README.md). Both use
@@ -23,8 +25,10 @@ new task. Automatic resends are disabled.
 The [receiver completion](receiver-mark2-completion.json) reports all 50 layers
 finished, and the [cradle completion](cradle-h2c-completion.json) reports all 148.
 Both printers report 100%, no printer error and no HMS notice. The pair is ready
-for removal after cooling and the bench procedure below. Physical print quality,
-support removal and fit remain unverified.
+for removal after cooling and the bench procedure below. The
+[physical record](../physical-acceptance.json) reports easy v1 insertion.
+Retention and cycle testing are not reported; the insertion result applies to
+these frozen v1 meshes.
 
 The shared PET-GF automatic tree profile puts exactly two supports under the
 flat outward hooks. Both start on the bed and stand in open air outside the

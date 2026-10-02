@@ -1,0 +1,120 @@
+{
+  "revision": 2,
+  "printer": "Mark2",
+  "part": "test-receiver",
+  "quantity": 1,
+  "archive": ".cache/prints/funnel-test-receiver-mark2-v2/ready/funnel-test-receiver-mark2-v2.gcode.3mf",
+  "archive_sha256": "d3d014ded9e0a714d2a24a561f584173fd30363c9fc9d98e9a075f999d988e95",
+  "project": ".cache/prints/funnel-test-receiver-mark2-v2/funnel-test-receiver-mark2-v2-input.3mf",
+  "project_sha256": "a00d4aaa4abd5294bc065eecd7184bcfcd32fc37decb29af3ec2340b7ee52c28",
+  "gcode_sha256": "aadf639a0552bf66712fa97af0afd86cad34dfd804b16dd87b0e0c580e5cb0c5",
+  "estimated_seconds": 1380.048095703125,
+  "source_stl_sha256": {
+    "test-receiver": "cd25b650c948d38fbe8880bfb51b223620adec2f44bfc56b13316797c308bd4e"
+  },
+  "requested_z_trim_mm": 0.04,
+  "support_mode": "shared_automatic_tree",
+  "submitted": false,
+  "geometry_export_revision": null,
+  "geometry_export_status": "awaiting_source_commit_from_Funnel_2",
+  "source_snapshot": {
+    "hardware/printed-parts/zone-c/funnel/cradle-trial/cradle_trial.py": "20f3b22a14ef4297b85378fe7bd7b63853bda1cda58e61a2c2ff5dd673920c3a",
+    "hardware/printed-parts/zone-c/funnel/cradle-trial/geometry-check.json": "7447a519ab416b17d9dcc7291cd88cece7f030f23135dda23cb582da1bc3478d",
+    "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": "3dcf729726a94f01e87f4d833f02f0fe2ce7a5d90391a059367264102645d948",
+    "hardware/printed-parts/zone-c/funnel/funnel.py": "5b36f155df999a31613bdb585d5aac4db1187b328b1e4082b7644d3bf619e2f4",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "aa92879c1e46d2da42d2166890c473481fd72d671cd608cace6e59361b03100f",
+    "hardware/printed-parts/cadlib/fits.py": "3821989044c5bc3ae99cc6912538b8a34bd75a6b0a081aefc8e4c5a0ce714191",
+    "hardware/reference/jg-pp0308e-elbow/elbow.py": "f4bbf9e1db98c82da4a96076e16a0333d2976b67f965a9d09d147fec510518d1",
+    "hardware/reference/jg-pp0308e-elbow/scan-measurements.json": "d977e38f2966b4d3839e7161f5d6fb9b0b276faf7ec2e4ed2b942b5f4b22dd1a"
+  },
+  "source_snapshot_matches_export_revision": false,
+  "status": "reviewed_for_elbow_cradle_snap_trial",
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "parts": [
+    {
+      "name": "test-receiver",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.stl",
+      "stl_sha256": "cd25b650c948d38fbe8880bfb51b223620adec2f44bfc56b13316797c308bd4e",
+      "triangles": 840,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        5.999999999999972
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        162.5,
+        160.0,
+        6.000000000000028
+      ],
+      "plate_translation_mm": [
+        162.5,
+        160.0,
+        6.000000000000028
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          138.20000076293945,
+          133.0,
+          0.0
+        ],
+        [
+          186.79999923706055,
+          187.0,
+          12.000000000000057
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.970708289420145e-10
+    }
+  ],
+  "model_layer_count": 50,
+  "first_two_layer_heights_mm": [
+    0.2,
+    0.44
+  ],
+  "minimum_second_layer_bead_area_overlap_fraction": 0.7973503884124142,
+  "minimum_second_layer_outer_wall_bead_area_overlap_fraction": 0.9971417788377787,
+  "support_summary": {
+    "support_bodies": 0,
+    "interface_islands": 0,
+    "bed_rooted_bodies": 0,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 0,
+    "shortest_labelled_build_up_mm": null
+  },
+  "support_contacts": "none",
+  "physical_fit_and_retention_tested": false,
+  "production_print_pose_retained": true,
+  "filament_mapping": {
+    "physical_material": "black PET-GF",
+    "profile_label": "PET-CF",
+    "external_spool": 254,
+    "nozzle": "fixed left hardened 0.4 mm"
+  }
+}
