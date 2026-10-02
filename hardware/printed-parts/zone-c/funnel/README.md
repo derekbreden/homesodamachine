@@ -61,6 +61,7 @@ records sampled insertion of the exported frame through both actual upper shells
 their closing motion, and capture against 2 mm translations on all three axes.
 Run `integration-review/check_fit.py` from the CAD environment to refresh it.
 
+The current frame requires its own native slice and physical support-removal and fit review.
 The stored native slice uses a 0.20 mm first layer, 0.24 mm subsequent layers,
 and six walls through the 44.499 mm corbel band. Its four support bodies reach
 only the four rail bearing regions; none start on the model. The
