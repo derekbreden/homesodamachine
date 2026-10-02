@@ -1,0 +1,88 @@
+{
+  "checked_at_utc": "2026-10-02T00:34:31.376010+00:00",
+  "source_commit": "7e1c3a8d6cd06421fb5c013bff1fe8bd1bca9477",
+  "all_match": true,
+  "files": [
+    {
+      "file": "hardware/printed-parts/zone-c/funnel/funnel-frame.step",
+      "url": "https://objects.homesodamachine.com/s-2bdf719b4f9c1f584ffd4024b6fad423ef4171e3f7ef41feffb227f2dc0f8871.gz",
+      "status": 200,
+      "local_sha256": "2bdf719b4f9c1f584ffd4024b6fad423ef4171e3f7ef41feffb227f2dc0f8871",
+      "live_sha256": "2bdf719b4f9c1f584ffd4024b6fad423ef4171e3f7ef41feffb227f2dc0f8871",
+      "matches": true,
+      "bytes": 487622
+    },
+    {
+      "file": "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-d7929fe89d96a8843cad1f76ecb0741f2fb682a5492586b71b40a1cc8b18236a.gz",
+      "status": 200,
+      "local_sha256": "d7929fe89d96a8843cad1f76ecb0741f2fb682a5492586b71b40a1cc8b18236a",
+      "live_sha256": "d7929fe89d96a8843cad1f76ecb0741f2fb682a5492586b71b40a1cc8b18236a",
+      "matches": true,
+      "bytes": 178548
+    },
+    {
+      "file": "hardware/printed-parts/zone-c/funnel/funnel.step",
+      "url": "https://objects.homesodamachine.com/s-be81338531f7f8bd9d3d97b92107dccaddc9c46f6afe151e08ee6fdc73dd04b2.gz",
+      "status": 200,
+      "local_sha256": "be81338531f7f8bd9d3d97b92107dccaddc9c46f6afe151e08ee6fdc73dd04b2",
+      "live_sha256": "be81338531f7f8bd9d3d97b92107dccaddc9c46f6afe151e08ee6fdc73dd04b2",
+      "matches": true,
+      "bytes": 479013
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-1f55c26f7e00f1f9785bf31977f7286b77adb953bfc758dc127542e48191456b.gz",
+      "status": 200,
+      "local_sha256": "1f55c26f7e00f1f9785bf31977f7286b77adb953bfc758dc127542e48191456b",
+      "live_sha256": "1f55c26f7e00f1f9785bf31977f7286b77adb953bfc758dc127542e48191456b",
+      "matches": true,
+      "bytes": 2732300
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-504c6ebf704c54fc1501d0ecf9b1ab2fb3b7a596ba79cac45be2f35aebce121c.gz",
+      "status": 200,
+      "local_sha256": "504c6ebf704c54fc1501d0ecf9b1ab2fb3b7a596ba79cac45be2f35aebce121c",
+      "live_sha256": "504c6ebf704c54fc1501d0ecf9b1ab2fb3b7a596ba79cac45be2f35aebce121c",
+      "matches": true,
+      "bytes": 4576884
+    },
+    {
+      "file": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+      "url": "https://objects.homesodamachine.com/s-a9581b2a2873a5d839cad41521fa35bbe9946e1c2a8b6caa836cc4c49638cc31.gz",
+      "status": 200,
+      "local_sha256": "a9581b2a2873a5d839cad41521fa35bbe9946e1c2a8b6caa836cc4c49638cc31",
+      "live_sha256": "a9581b2a2873a5d839cad41521fa35bbe9946e1c2a8b6caa836cc4c49638cc31",
+      "matches": true,
+      "bytes": 679610
+    },
+    {
+      "file": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-eb269385f545e9ea2735260c9dd4ede7bdf7b23b08342bd5ad55c1f7d63974dd.gz",
+      "status": 200,
+      "local_sha256": "eb269385f545e9ea2735260c9dd4ede7bdf7b23b08342bd5ad55c1f7d63974dd",
+      "live_sha256": "eb269385f545e9ea2735260c9dd4ede7bdf7b23b08342bd5ad55c1f7d63974dd",
+      "matches": true,
+      "bytes": 33421872
+    },
+    {
+      "file": "hardware/manifold-layout/enclosure-assembly.scorecard.json",
+      "url": "https://homesodamachine.com/api/step-scorecard/manifold-layout/enclosure-assembly.scorecard.json",
+      "status": 200,
+      "local_sha256": "c48a5a8ddd0c573716e7abad438a7b387c05964bf17d7d6f64e0f1826dade418",
+      "live_sha256": "c48a5a8ddd0c573716e7abad438a7b387c05964bf17d7d6f64e0f1826dade418",
+      "matches": true,
+      "bytes": 45229
+    },
+    {
+      "file": "hardware/assembly/scenes/glb/funnel-drain.glb",
+      "url": "https://objects.homesodamachine.com/s-d75e79d91fdeaaf670c2d5cd8033dd2bcdc8b5caed52499df7c70eddcbb1e83c.gz",
+      "status": 200,
+      "local_sha256": "d75e79d91fdeaaf670c2d5cd8033dd2bcdc8b5caed52499df7c70eddcbb1e83c",
+      "live_sha256": "d75e79d91fdeaaf670c2d5cd8033dd2bcdc8b5caed52499df7c70eddcbb1e83c",
+      "matches": true,
+      "bytes": 138436
+    }
+  ]
+}
