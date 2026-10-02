@@ -71,6 +71,47 @@
       },
       "pair_completed_observed_utc": "2026-10-02T21:32:31.384689+00:00",
       "physical_fit_and_retention_tested": false
+    },
+    {
+      "order": 3,
+      "trial": "funnel elbow-cradle receiver and cradle v2",
+      "geometry_revision": 2,
+      "review": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v2/README.md",
+      "status": "cradle_printing_receiver_ready_after_start_spacing",
+      "submitted": true,
+      "bed_clear_confirmation": {
+        "confirmed": true,
+        "source": "User request in Funnel 2: Make those changes and give me new prints, use Printer 2 agent as needed."
+      },
+      "allocation_reason": "Both printers are idle with suitable black PET-GF on their fixed left nozzles.",
+      "allocations": [
+        {
+          "printer": "Mark2",
+          "part": "test-receiver",
+          "archive": ".cache/prints/funnel-test-receiver-mark2-v2/ready/funnel-test-receiver-mark2-v2.gcode.3mf",
+          "archive_sha256": "d3d014ded9e0a714d2a24a561f584173fd30363c9fc9d98e9a075f999d988e95",
+          "gcode_sha256": "aadf639a0552bf66712fa97af0afd86cad34dfd804b16dd87b0e0c580e5cb0c5",
+          "requested_z_trim_mm": 0.04,
+          "review": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v2/receiver-mark2-preflight.json",
+          "status": "ready_after_h2c_start_spacing",
+          "submitted": false
+        },
+        {
+          "printer": "H2C",
+          "part": "test-cradle",
+          "archive": ".cache/prints/funnel-test-cradle-h2c-v2/ready/funnel-test-cradle-h2c-v2.gcode.3mf",
+          "archive_sha256": "0b25f035a7eaebfdd1b6a99c6916ceb57e4f33f1a22689c2492b274cab6a3ef8",
+          "gcode_sha256": "59621b648eeb4a051ce5d233c7dbfbaf21445c4aaededad7d27430e7e1375b27",
+          "requested_z_trim_mm": 0.18,
+          "review": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v2/cradle-h2c-preflight.json",
+          "status": "printing",
+          "submitted": true,
+          "printer_task_id": "1303335008",
+          "job_name": "funnel-test-cradle-h2c-v2.gcode.3mf",
+          "accepted_observed_utc": "2026-10-02T21:59:32.035882+00:00",
+          "launch_record": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v2/cradle-h2c-launch.json"
+        }
+      ]
     }
   ],
   "followup_automation": "continue-h2c-trial-queue"

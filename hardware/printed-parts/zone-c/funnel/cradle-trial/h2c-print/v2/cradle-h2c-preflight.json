@@ -1,0 +1,127 @@
+{
+  "revision": 2,
+  "printer": "H2C",
+  "part": "test-cradle",
+  "quantity": 1,
+  "archive": ".cache/prints/funnel-test-cradle-h2c-v2/ready/funnel-test-cradle-h2c-v2.gcode.3mf",
+  "archive_sha256": "0b25f035a7eaebfdd1b6a99c6916ceb57e4f33f1a22689c2492b274cab6a3ef8",
+  "project": ".cache/prints/funnel-test-cradle-h2c-v2/funnel-test-cradle-h2c-v2-input.3mf",
+  "project_sha256": "e8afd41fc0c3407d2d67e12af575c65941dce251e0e89a05fbd49acec4048f82",
+  "gcode_sha256": "59621b648eeb4a051ce5d233c7dbfbaf21445c4aaededad7d27430e7e1375b27",
+  "estimated_seconds": 1829.043701171875,
+  "source_stl_sha256": {
+    "test-cradle": "a12fccaa8557b81198caacc6b7913a0361806beb46d79df29ea62f7aa0fc622f"
+  },
+  "requested_z_trim_mm": 0.18,
+  "support_mode": "shared_automatic_tree",
+  "submitted": true,
+  "geometry_export_revision": null,
+  "geometry_export_status": "awaiting_source_commit_from_Funnel_2",
+  "source_snapshot": {
+    "hardware/printed-parts/zone-c/funnel/cradle-trial/cradle_trial.py": "20f3b22a14ef4297b85378fe7bd7b63853bda1cda58e61a2c2ff5dd673920c3a",
+    "hardware/printed-parts/zone-c/funnel/cradle-trial/geometry-check.json": "7447a519ab416b17d9dcc7291cd88cece7f030f23135dda23cb582da1bc3478d",
+    "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": "3dcf729726a94f01e87f4d833f02f0fe2ce7a5d90391a059367264102645d948",
+    "hardware/printed-parts/zone-c/funnel/funnel.py": "5b36f155df999a31613bdb585d5aac4db1187b328b1e4082b7644d3bf619e2f4",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "aa92879c1e46d2da42d2166890c473481fd72d671cd608cace6e59361b03100f",
+    "hardware/printed-parts/cadlib/fits.py": "3821989044c5bc3ae99cc6912538b8a34bd75a6b0a081aefc8e4c5a0ce714191",
+    "hardware/reference/jg-pp0308e-elbow/elbow.py": "f4bbf9e1db98c82da4a96076e16a0333d2976b67f965a9d09d147fec510518d1",
+    "hardware/reference/jg-pp0308e-elbow/scan-measurements.json": "d977e38f2966b4d3839e7161f5d6fb9b0b276faf7ec2e4ed2b942b5f4b22dd1a"
+  },
+  "source_snapshot_matches_export_revision": false,
+  "hook_underside_geometry_z_mm": 33.552898407,
+  "support_interface_last_z_mm": 33.08,
+  "first_hook_model_layer_z_mm": 33.8,
+  "nominal_first_hook_layer_bottom_z_mm": 33.56,
+  "printed_support_gap_mm": 0.48,
+  "pocket_support_paths": 0,
+  "status": "submitted_and_printer_accepted",
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "parts": [
+    {
+      "name": "test-cradle",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.stl",
+      "stl_sha256": "a12fccaa8557b81198caacc6b7913a0361806beb46d79df29ea62f7aa0fc622f",
+      "triangles": 13412,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        4.661194801330566,
+        17.77644920349121
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        162.5,
+        160.0,
+        17.77644920349121
+      ],
+      "plate_translation_mm": [
+        162.5,
+        160.0,
+        17.77644920349121
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          144.35000038146973,
+          144.09880542755127,
+          0.0
+        ],
+        [
+          180.64999961853027,
+          175.90119457244873,
+          35.55289840698242
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    }
+  ],
+  "model_layer_count": 148,
+  "first_two_layer_heights_mm": [
+    0.2,
+    0.44
+  ],
+  "minimum_second_layer_bead_area_overlap_fraction": 0.7569612704325224,
+  "minimum_second_layer_outer_wall_bead_area_overlap_fraction": 0.9993728577073199,
+  "support_summary": {
+    "support_bodies": 2,
+    "interface_islands": 2,
+    "bed_rooted_bodies": 2,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 32.64,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 2,
+    "shortest_labelled_build_up_mm": 32.64
+  },
+  "support_contacts": "two_external_hook_undersides_only",
+  "physical_fit_and_retention_tested": false,
+  "production_print_pose_retained": true,
+  "filament_mapping": {
+    "physical_material": "black PET-GF",
+    "profile_label": "PET-CF",
+    "external_spool": 254,
+    "nozzle": "fixed left hardened 0.4 mm"
+  },
+  "launch_record": "cradle-h2c-launch.json"
+}
