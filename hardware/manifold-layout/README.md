@@ -96,10 +96,14 @@ axis runs along X, so the pair shares one transform and still faces itself acros
 
 ### The source valves' step
 
+The flavour flow regulator sits aft of tube-water-2. Fluid-1 feeds it below the
+funnel frame. Fluid-2 turns ahead of the drip pan, rises west of the water pump,
+and crosses directly to V-A's vertical inlet approach. Both routes keep R14 bends.
+
 Y-A/B and V-C/D sit 9.5 mm below the outer limbs in the enclosure. Both source
 bends move with that group. V-A and V-B have mounting planes 1.4 mm below the cap
 lid's outer face, with 3 mm beneath their blind socket floors, aft of the centered
-300 mL funnel frame.
+600 mL funnel frame.
 
 Once they are round, V-A and V-B go [46.72](STEP_TRAVEL) mm further along their run and
 [13.625](STEP_JOG) mm across it, toward the foam shell's crown, without changing direction. Two arcs

@@ -2386,28 +2386,22 @@ BODY_ANCHOR_SITES = (
     ("wr1110", _wr1110.barrel, (0.0, 0.0, 1.0), "enclosure-back-top"),
     # The downstream check's inlet boss; the bowed connecting tubes do not locate its body.
     ("gasher-co2", _gas_chain.check_socket, (0.0, 0.0, 1.0), "enclosure-back-top"),
-    # THE FLAVOUR TAP'S OWN TWO, one over the other on one column off the −X wall. The split and
-    # the regulator stand on one vertical with a hairpin joining them, and each takes a rib on the
-    # run between its hub and the collet the tap arrives by — the one round section on either body
-    # that is neither a box, a branch, nor the adjuster a hand has to reach.
-    #   ONE FACE TAKES BOTH AND ONE PIECE BUILDS THEM. The pair's axes are parallel and level in
-    # X, so a rib off this face stands across each run the same way, and a piece builds only the
-    # ribs whose whole length it owns. Both bodies stand aft of the Y seam, so both seats print on
-    # `enclosure-back-top` and the two are one column of material in one piece.
+    # Both flavour-tap bodies hang from the west wall. The regulator sits aft of
+    # water-2; its feed passes below the funnel frame. Each seat closes on its
+    # reference module's round run section, clear of the hub, collet and adjuster.
     ("water-split", lambda: _split.clearance_seat(_enc.tube_anchor_len, _enc.tie_w),
      (-1.0, 0.0, 0.0), "enclosure-back-top"),
     ("flow-regulator", _flowreg.run_barrel, (-1.0, 0.0, 0.0), "enclosure-back-top"),
 )
 
 # The same statement for the body anchors' end webs, read the same way (`ANCHOR_END_FORMS`).
-# The regulator's two webs stand as columns to the slab: that rib sits under 14 mm of open
-# ceiling and the pair reads as one bracket carried to the piece's own ground. The split's
-# webs keep their corbels — `tube-water-2` crosses the air a column would take.
+# Both west-wall bodies use end corbels. The split's columns would cross
+# tube-water-2; the regulator's would cross the ASSE outlet above its inlet.
 BODY_ANCHOR_END_FORMS = {
     "wr1110": ("corbel", "corbel"),
     "gasher-co2": ("corbel", "corbel"),
     "water-split": ("corbel", "corbel"),
-    "flow-regulator": ("column", "column"),
+    "flow-regulator": ("corbel", "corbel"),
 }
 
 
@@ -4091,34 +4085,25 @@ def build_split(asse_carry):
 
 # --- the flow regulator, inline on the flavour tap -------------------------
 #
-# The regulator runs fore–aft on the split's column. Its adjuster points inboard
-# and 30 degrees down beneath the funnel. The two ports stay on their shared axis;
-# the square hub has a shallow clearance pocket in back-top's thick west flank.
+# The regulator runs fore–aft behind water-2. Its adjuster points inboard and
+# 30 degrees down. The west-wall barrel seat rides the body's placement.
 FLOWREG_TURN = (((0.0, 0.0, 1.0), -90.0), ((0.0, 1.0, 0.0), 90.0),
                 ((1.0, 0.0, 0.0), 180.0), ((0.0, 1.0, 0.0), 30.0))
-# `fluid-1` IS A HAIRPIN. The regulator stands OVER the split on the split's own column with its
-# inlet facing the way the split's flavour collet faces, so the run leaves one mouth, turns 180°
-# and comes back into the other — two stock quarter-turns, no straight between them or at either
-# end. WHAT THAT COSTS IS TWO RADII OF Z and nothing else, so this is not a figure to pick: a
-# semicircle's ends are one diameter apart across the turn.
-FLUID_1_RISE = 2.0 * _lines.TUBE_BEND
+FLOWREG_AFT = 82.0
+FLOWREG_INBOARD = 7.0
+FLOWREG_RISE = 11.0
 
 
 def build_flowreg(split_carry):
-    """The regulator seated on its INLET, one `FLUID_1_RISE` OVER the split and on the split's own
-    centre across — so the two bodies stand on ONE VERTICAL, both flows lie fore and aft along it,
-    and `fluid-1` is the hairpin between the two mouths.
+    """Seat the regulator aft of water-2, below the ASSE chain and ahead of its pan.
 
-    SEATED OFF THE SPLIT'S CENTRE AND NOT OFF ITS COLLET. What the stack is is two bodies on one
-    column, so the thing that has to land on that column is the body — and a fitting's centre is
-    the only point of it that stands on its own axes. Seating off the collet instead puts the two
-    centres one reach apart in Y and leans the hairpin.
-
-    THE PAIR IS A STACK AND THE SPLIT IS ITS DATUM. Everything about where this body goes is read
-    off the split, so the regulator rides it wherever the chain carries it and the hairpin between
-    them never changes shape."""
+    The split supplies the placement datum. The inward offset leaves room for
+    fluid-1's R14 inlet bend beside water-2; the outlet crosses ahead of the pan.
+    """
     hub, _axis = split_carry(((0.0, 0.0, 0.0), (0.0, 1.0, 0.0)))
-    target = (hub[0], hub[1] - _flowreg.REACH, hub[2] + FLUID_1_RISE)
+    target = (hub[0] + FLOWREG_INBOARD,
+              hub[1] - _flowreg.REACH + FLOWREG_AFT,
+              hub[2] + FLOWREG_RISE)
     return seat_body(_flowreg.build(), FLOWREG_TURN, seat="flow-regulator",
                      station=(_flowreg.inlet(), target))
 

@@ -272,7 +272,7 @@ def build_runs(placed, carries):
         runs.append(_co2_1(F))
     if {"gasher-co2", "foam-assembly"} <= set(F):
         runs.append(_co2_2(F))
-    if ({"flow-regulator", "valve-v-a", "bulkhead-flavor-a"} <= set(F)
+    if ({"flow-regulator", "valve-v-a", "water-split"} <= set(F)
             and {"coil-v-a", "g-ganen-pump"} <= set(placed)):
         runs.append(_fluid_2(F, placed))
     if {"foam-assembly", "digiten-flow"} <= set(F):
@@ -487,30 +487,27 @@ def _water_3(F):
              "column into the mouth")
 
 
+FLUID_1_INBOARD = 29.85
+FLUID_1_APPROACH = 8.0
+FLUID_1_DIAGONAL = 20.0
+
+
 def _fluid_1(F):
-    """fluid-1 — the flavour tap off the split, into the regulator that throttles it.
-
-    A HAIRPIN. The regulator stands over the split on one column with its inlet facing the way
-    the split's flavour collet faces, so the run leaves one mouth going forward, turns through
-    180° in the open room ahead of the pair, and comes back into the other.
-
-    THE TWO WAYPOINTS ARE THE TURN'S OWN CORNERS, one radius forward of the FURTHER mouth and one
-    over the other. A square U is what the router is given and two quarter-arcs are what it
-    returns: the rise is `enclosure_assembly.FLUID_1_RISE`, each arc spends a radius of it, and
-    nothing is left over. Both mouths are on one X, so the turn lies in the lane's own vertical
-    plane; the two stand one reach apart along it, because the pair is stacked on its BODIES'
-    centres and their two collets look the same way off that column. So the apex is struck on
-    whichever mouth reaches further forward, and the other's leg is the reach longer."""
+    """Feed the aft regulator below the frame, rising beside water-2 at its inlet."""
     split, reg = F["water-split"], F["flow-regulator"]
     src, dst = split.at("to-flavor"), reg.at("inlet")
-    apex = min(src[1], dst[1]) - TUBE_BEND
+    fore = src[1] - TUBE_BEND
+    lane_x = src[0] + FLUID_1_INBOARD
+    join = dst[1] - FLUID_1_APPROACH
     return R.bent(
         "fluid-1", "water-split.to-flavor",
-        (src[0], apex, src[2]),             # forward off the split's collet, and turn up
-        (src[0], apex, dst[2]),             # up the turn's own column, and turn back aft
+        (src[0], fore, src[2]),
+        (lane_x, fore, src[2]),
+        (lane_x, join - FLUID_1_DIAGONAL, src[2]),
+        (dst[0], join, dst[2]),
         "flow-regulator.inlet",
         kind="fluid", bend=TUBE_BEND,
-        note="flavor tap: split run -> flow regulator, a 180 degree hairpin forward of the pair")
+        note="flavor tap: split run -> regulator, below the frame and rising inboard of water-2")
 
 
 # What each collet on the step gets straight off its own axis before `water-2` starts to lean.
@@ -518,10 +515,7 @@ def _fluid_1(F):
 # that face. What this holds is the TANGENT its own corner seats on, R·tan(θ/2) for the lean the
 # step takes, so it is priced against the corner rather than against the push-fit. Taken out of
 # the reach `enclosure_assembly.WATER_2` gives.
-#   IT ALSO CARRIES THE LEAN OUT OF THE TAP'S OWN STOREY. The split's supply mouth faces aft and
-# this straight runs aft on its axis, level, a storey under the regulator — so every millimetre
-# here is a millimetre the climb does not spend in the band `fluid-2` leaves the regulator
-# through. The lean starts where this ends.
+# The split's supply mouth faces aft. Its level lead ends where the climb begins.
 #   AND IT IS SELF-OPPOSING, which is what keeps it honest: the lead is taken out of the step's Y
 # and the fall is not, so a longer straight leaves the lean less run for the same drop and steepens
 # it. The corner's own demand rises with it — slower than the lead does, which is why there is a
@@ -532,11 +526,9 @@ WATER_2_LEAD = 12.0
 # that same straight, so what stands off the tee is the lead less that tangent. A waypoint is a
 # place the run passes through: the leg is the length, and the corner takes its tangent out of the
 # LEAN instead. What the eye reads standing off the collet is this figure less `R·tan(θ/2)`.
-#   IT IS FENCED AT BOTH ENDS. Aft, `wago-reeds-b`'s well opens at y 294.60 on that wall, and this
-# leg's far end has to stop short of it. Forward, the lean it hands the run to crosses the lane
-# `fluid-2` leaves the regulator on, and a leg that ends too early puts that crossing in the same
-# band. Between them, `WATER_2_LEAD` and this share one leg — the lean — and each of the two
-# corners backs its tangent down it, so neither figure may be read alone. `bend-radius` reads the
+# Aft, `wago-reeds-b`'s well opens at y 294.60 on that wall, and this leg's far end
+# stops short of it. `WATER_2_LEAD` and this share the lean; both corners spend
+# their tangents along it, so neither figure may be read alone. `bend-radius` reads the
 # pair back and `clearance-floor` reads the crossing.
 WATER_2_RUN = 21.25
 
@@ -627,41 +619,37 @@ def _co2_2(F):
         note="CO2: downstream check outlet → east lane → the core's CO2 cap conduit")
 
 
-# The straight `fluid-2` runs aft off the regulator's outlet before it turns. It is longer than
-# the arc's own tangent so a length of tube still leaves the collet straight, and no longer:
-# `water-2` comes down this same lane from the chain overhead, and the further aft this run turns
-# the nearer it turns to that descent.
-FLUID_2_LEAD = 15.0
-# The inlet quarter holds the tube above its port on the valve's own X column.
-# The crossing stays at the regulator outlet height before that vertical descent.
-# The first crossing station stays west of the flavor-A union's own column.
-# Both lines are 1/4 inch; the spacing is measured between their axes.
-FLUID_2_LANE_CLEAR = 10.35
+# The outlet turns east ahead of the pan, then climbs in the lane west of the
+# pump. The high crossing approaches V-A on its existing vertical column.
+FLUID_2_LEAD = TUBE_BEND
+FLUID_2_RISER_X = -42.0
+FLUID_2_RISE_FORE = 5.0
 
 
 def _fluid_2(F, solids):
-    """The regulator outlet crossing to V-A, followed by an axial inlet quarter.
+    """Cross ahead of the drip pan, rise west of the pump, then descend into V-A.
 
-    The high crossing stays on the regulator's outlet plane. Its final descent
-    holds V-A's X column, outside the pump's front casting, and rounds R14 from
-    above into the aft-facing inlet. The source valve and its printed sockets
-    share the same lower mounting plane.
+    The high crossing is one bend radius above the regulator outlet. The final
+    R14 inlet quarter holds V-A's X column outside the pump's front casting.
     """
     reg, vk_a = F["flow-regulator"], F["valve-v-a"]
     out, inlet = reg.at("outlet"), vk_a.at("inlet")
     lane = out[1] + FLUID_2_LEAD
-    lane_x = F["bulkhead-flavor-a"].at("tube-in")[0] - FLUID_2_LANE_CLEAR
+    tap = F["water-split"].at("to-flavor")
+    lane_x = tap[0] + FLUID_1_INBOARD
+    cross_z = out[2] + TUBE_BEND
     inlet_turn = inlet[1] + TUBE_BEND
     pump_fore = solids["g-ganen-pump"].BoundingBox().ymin
     run = R.bent(
         "fluid-2", "flow-regulator.outlet",
         (lane_x, lane, out[2]),
-        (inlet[0], inlet_turn, out[2]),
+        (FLUID_2_RISER_X, lane - FLUID_2_RISE_FORE, cross_z),
+        (inlet[0], inlet_turn, cross_z),
         (inlet[0], inlet_turn, inlet[2]),
         "valve-v-a.inlet",
         kind="fluid", lead=(FLUID_2_LEAD, _ml.STUB),
-        note="tap water: regulator outlet crossing on its own plane, then down V-A's "
-             "column and round the axial inlet quarter above the port")
+        note="tap water: regulator outlet ahead of the drip pan, rising west of the pump, "
+             "then down V-A's column into the axial inlet quarter")
     radius = min(run.radii.values(), default=run.bend)
     if radius < TUBE_BEND - 1e-6:
         raise ValueError(f"fluid-2's inlet approach seats R{radius:.3f}, below its R{TUBE_BEND:g} stock")
