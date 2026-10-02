@@ -6,8 +6,8 @@ nose face on that underside, and its +Y leg aft toward V-B.
 
 The cradle is the block under the elbow less the elbow's upward shadow grown by `fits.slip`. The
 elbow drops straight in, and every pocket face opens upward, so the body prints bottom-down. The
-block's top is the underside of the vertical leg's collar: the pocket wraps the root band about 78%
-of the way round, and the collar, rung and nose stand free above it.
+block's top stands 1 mm under the top of the vertical leg's root band: the pocket wraps the band
+about 78% of the way round, and the collar, rung and nose stand free above it.
 
 Each X side of the block carries on up as a wing, the body's full length, through a straight slot
 in the frame's bottom web. A flat hook at the wing's top reaches outward over the web to within
@@ -43,7 +43,7 @@ SLIP = fits.slip       # pocket off the scanned elbow
 WALL = 3.0             # block wall and floor beyond the elbow's widest section
 HOLE_D = 11.25         # the 10.64 mm collet passes 0.3 mm a side; the 12.12 mm nose bears round it
 ELBOW_Z = -_elbow.FIXED_FACE   # the elbow's axis intersection, under the frame's underside
-COLLAR_UNDERSIDE = 13.0   # vertical-leg station where the collar starts, above the root band's taper
+BODY_TOP_STATION = 10.0   # vertical-leg station of the block's top, 1 mm under the root band's top
 SOCKET_HALF = 18.3     # the counterbore's half-width, `funnel_frame.socket_width / 2`
 TIP_GAP = fits.slip    # hook tip off the counterbore's X wall
 
@@ -81,7 +81,7 @@ def block():
     assert half >= max(rz, ry), (half, rz, ry)
     # the hooks' ends stand on the counterbore's straight X walls, clear of its corners
     assert PLUG_CORNER < END_SLIP + PLUG_WALL
-    return (half, -rz, _elbow.COLLET_FACE, ELBOW_Z - ry, ELBOW_Z + COLLAR_UNDERSIDE)
+    return (half, -rz, _elbow.COLLET_FACE, ELBOW_Z - ry, ELBOW_Z + BODY_TOP_STATION)
 
 
 def elbow_parts():
