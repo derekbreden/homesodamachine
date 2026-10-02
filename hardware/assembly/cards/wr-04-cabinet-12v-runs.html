@@ -22,9 +22,9 @@
     <ol class="steps">
       <li><b>DC-3</b> — the staged relay #2 pigtail to the G Ganen pump;
         female disconnects. Budgeted at <span class="dim" data-gen="DIAPHRAGM_A">5 A</span>.</li>
-      <li><b>DC-5</b> — seat J13; snap the pump jack into the ridge wall, dress the
-        22 AWG ribbon through the <b>+X clip</b> and punch it down, then click the
-        cartridge's plug in. Fastons stay on the pump tabs (GT-03).</li>
+      <li><b>DC-5</b> — seat J13; dress the 22 AWG ribbon through the <b>+X clips</b>,
+        along the bulkhead's crown and down through its lead bore to the contact
+        pair's male half. Fastons stay on the pump tabs (GT-03).</li>
       <li><b>DC-6 + DC-7</b> — the J1 trunk (8 OUT + COM) to valve disconnects,
         COM into the 221-420; the J2 trunk <b>5 of 6 ways live</b>, OUT4 spare.</li>
       <li><b>DC-8</b> — fan + ties to the manifold COM fan-out; FAN sinks
@@ -64,16 +64,16 @@
         <rect class="blk" x="480" y="86" width="250" height="72" rx="10"/>
         <text class="lbl" x="605" y="118" text-anchor="middle">G GANEN PUMP</text>
         <text class="sub" x="605" y="146" text-anchor="middle">female disconnects</text>
-        <!-- DC-5: the fixed half to the jack, the cartridge's own cord on to the pumps -->
+        <!-- DC-5: the fixed half to the contact pair, the cartridge's own leads on to the pumps -->
         <line class="wire" x1="210" y1="232" x2="340" y2="232"/>
         <rect class="blk" x="340" y="213" width="72" height="38" rx="7"/>
-        <text class="sub" x="376" y="240" text-anchor="middle">CLICK</text>
+        <text class="sub" x="376" y="240" text-anchor="middle">POGO</text>
         <line class="wire" x1="412" y1="232" x2="480" y2="232"/>
         <text class="runid" x="240" y="205">DC-5 &#183; <tspan data-gen="LEN_PUMP_FIXED">~350 mm</tspan></text>
         <rect class="blk" x="480" y="196" width="250" height="100" rx="10"/>
         <text class="lbl" x="605" y="228" text-anchor="middle">KAMOER A + B</text>
-        <text class="sub" x="605" y="256" text-anchor="middle">RJ11 jack &#183; 4 Fastons</text>
-        <text class="sub" x="605" y="284" text-anchor="middle"><tspan data-gen="LEN_CARTRIDGE">~400 mm</tspan> cartridge cord</text>
+        <text class="sub" x="605" y="256" text-anchor="middle">contact pair &#183; 4 Fastons</text>
+        <text class="sub" x="605" y="284" text-anchor="middle"><tspan data-gen="LEN_CARTRIDGE">~100 mm</tspan> cartridge leads</text>
         <!-- DC-6 -->
         <line class="wire" x1="210" y1="382" x2="480" y2="382"/>
         <text class="runid" x="240" y="366">DC-6 &#183; <tspan data-gen="LEN_MAN_A">~350 mm</tspan></text>
@@ -110,7 +110,7 @@
 </main>
 
 <footer>
-  <div class="done"><span class="lbl">Done when</span>Six runs landed — DC-5 plugged in, its fixed half retained in the +X ridge clip, and 12 V contiguous to every load.</div>
+  <div class="done"><span class="lbl">Done when</span>Six runs landed — DC-5 soldered to the contact pair's male half, its fixed half retained in the +X ridge clip, and 12 V contiguous to every load.</div>
   <div class="src">wiring.md &#167;4 &#183; ac-wiring-schedule.md "12 V distribution"<br>_cards_sync.py &#183; rev 2026-09-27</div>
 </footer>
 
