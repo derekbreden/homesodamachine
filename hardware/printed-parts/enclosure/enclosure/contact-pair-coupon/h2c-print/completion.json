@@ -15,10 +15,11 @@
     "print_error": 0,
     "hms": []
   },
-  "bed_cleared_for_next_print": false,
+  "bed_cleared_for_next_print": true,
   "physical_print_quality_verified": false,
   "physical_fit_tested": false,
   "physical_check_document": "README.md#bench-check",
   "next_trial": "funnel elbow-cradle receiver and cradle",
-  "next_trial_status": "ready_awaiting_start_request_or_clear_bed_report_after_coupon_removal"
+  "next_trial_status": "cradle_completed_on_h2c_receiver_printing_on_mark2",
+  "bed_clear_source": "User: Both beds are clear; start Funnel 2 test receiver and cradle"
 }
