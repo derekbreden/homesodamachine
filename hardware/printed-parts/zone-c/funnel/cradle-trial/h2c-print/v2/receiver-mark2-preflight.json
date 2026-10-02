@@ -14,7 +14,7 @@
   },
   "requested_z_trim_mm": 0.04,
   "support_mode": "shared_automatic_tree",
-  "submitted": false,
+  "submitted": true,
   "geometry_export_revision": null,
   "geometry_export_status": "awaiting_source_commit_from_Funnel_2",
   "source_snapshot": {
@@ -28,7 +28,7 @@
     "hardware/reference/jg-pp0308e-elbow/scan-measurements.json": "d977e38f2966b4d3839e7161f5d6fb9b0b276faf7ec2e4ed2b942b5f4b22dd1a"
   },
   "source_snapshot_matches_export_revision": false,
-  "status": "reviewed_for_elbow_cradle_snap_trial",
+  "status": "submitted_and_printer_accepted",
   "emitted_z_trim_commands_mm": [
     0.0,
     0.02
@@ -116,5 +116,6 @@
     "profile_label": "PET-CF",
     "external_spool": 254,
     "nozzle": "fixed left hardened 0.4 mm"
-  }
+  },
+  "launch_record": "receiver-mark2-launch.json"
 }
