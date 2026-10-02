@@ -1,23 +1,5 @@
 {
   "frame": "cap local coordinates",
-  "intersections": [
-    {
-      "valve": "valve-v-a",
-      "anchor": "fluid-14",
-      "volume_mm3": 232.46460589227866,
-      "bounds_cap_mm": [
-        [
-          60.599999999999966,
-          38.425,
-          5.4
-        ],
-        [
-          69.4,
-          43.57,
-          12.825000000000001
-        ]
-      ]
-    }
-  ],
-  "clear": false
+  "intersections": [],
+  "clear": true
 }

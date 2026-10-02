@@ -811,18 +811,18 @@ for _name in deck_mounts:
 # on the plinth beside its open port channel. The sockets retain the valve without
 # screws or inserts. `valve_seat` builds the plinth; `foam_cap` places it on the lid.
 # Each station gives the centre, port-axis yaw from cap +X, and mounting-plane
-# height above the lid. The flavour valves carry the manifold rise; V-K meets the
-# suction chain at its existing port plane.
+# height relative to the lid. The flavour valves' sockets extend
+# into its plate with 3 mm blind floors; V-K meets the suction chain's port plane.
 Cradle = namedtuple("Cradle", "centre yaw seat")
 # The cap installs with its +X opposite world +Y. The fixed flavour valves' mounting
-# centres stay on world Y244.710 while the core follows the rear enclosure plane.
+# centres stay on world Y256.710 while the core follows the rear enclosure plane.
 cap_manifold_cradle_x = (rear_plane_y - rear_seam_clear - outer_shell_x_length / 2.0
-                         - 244.710)
+                         - 256.710)
 cap_cradles = {
     #                      centre           yaw    seat
     "vk-solenoid": Cradle(( 94.270,  65.050), 0.0, 3.6500),
-    "valve-v-a":   Cradle((cap_manifold_cradle_x,  24.770), 0.0, 2.2250),
-    "valve-v-b":   Cradle((cap_manifold_cradle_x, -22.350), 0.0, 2.2250),
+    "valve-v-a":   Cradle((cap_manifold_cradle_x,  24.770), 0.0, -1.4000),
+    "valve-v-b":   Cradle((cap_manifold_cradle_x, -22.350), 0.0, -1.4000),
 }
 
 # Where a boss stands off the valve's centre, and how wide it is: a socket with a wall around it.
@@ -1355,7 +1355,7 @@ cap_anchors = {
     # Its column and height define the low lane between the actual V-A and V-K bodies.
     # `_lines._fluid_14` reads both from this row; `check_run_seated` reads the native
     # tube and seat back together. The 3 mm tie-channel floor and full bearing web remain.
-    "fluid-14":        CapAnchor(( 65.000,  44.750), 6.35 / 2.0 + fits.slip, 15.894),
+    "fluid-14":        CapAnchor(( 41.000,  44.750), 6.35 / 2.0 + fits.slip, 15.894),
 }
 
 # What a zip tie is, wherever one is cut for on this cap. `enclosure.tie_w` is the same
@@ -1541,7 +1541,7 @@ cap_side_anchors = {
     # (`enclosure_assembly.TUBE_ANCHOR_SITES`).
     # The block runs aft alongside the pump, leaving room before its head block to thread
     # the 6-inch tie this post's loop takes.
-    "fluid-18": SideAnchor((51.675, 34.000), 45.800, 6.35 / 2.0 + fits.slip, 1.000, 30.000),
+    "fluid-18": SideAnchor((36.000, 34.000), 45.800, 6.35 / 2.0 + fits.slip, 1.000, 30.000),
 }
 
 

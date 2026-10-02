@@ -76,14 +76,13 @@
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
    "status": "fail",
-   "value": "5 clash, 0 unanswered",
+   "value": "4 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
    "detail": [
-    "valve-v-a \u2229 foam-assembly   124.8 mm\u00b3, x[   15.34,   40.77] y[  238.35,  274.46] z[  255.62,  271.39]",
     "flow-regulator \u2229 funnel-frame   380.1 mm\u00b3, x[  -96.70,  -83.00] y[  220.26,  226.72] z[  317.67,  328.86]",
     "funnel-frame \u2229 tube-fluid-1   959.2 mm\u00b3, x[  -93.02,  -86.68] y[  203.09,  220.26] z[  299.90,  325.19]",
     "funnel-frame \u2229 tube-fluid-18   450.8 mm\u00b3, x[   75.95,   89.57] y[  170.12,  211.43] z[  299.90,  302.37]",
-    "foam-assembly \u2229 enclosure-back-top   512.1 mm\u00b3, x[  -78.50,   83.20] y[  464.34,  465.30] z[  160.00,  253.40]"
+    "foam-assembly \u2229 enclosure-back-top   512.1 mm\u00b3, x[  -90.50,   83.20] y[  314.80,  465.30] z[  160.00,  253.40]"
    ],
    "active": true
   },
@@ -119,7 +118,7 @@
    "label": "Two things the machine does not seat together stand a millimetre apart",
    "kind": "gate",
    "status": "fail",
-   "value": "8 under, tightest 0.000 mm",
+   "value": "7 under, tightest 0.000 mm",
    "target": "\u2265 1 mm",
    "detail": [
     "every body pair, and every drawn run against what its own line does not join it to \u2014 the exact solid distance, with boxes only as a prefilter",
@@ -129,7 +128,6 @@
     "fluid-18 \u2014 funnel-frame: 0.000 mm \u2014 \u2717 under the floor, and nothing seats them together",
     "fluid-24 \u2014 funnel-frame: 0.551 mm \u2014 \u2717 under the floor, and nothing seats them together",
     "fluid-26 \u2014 funnel-frame: 0.551 mm \u2014 \u2717 under the floor, and nothing seats them together",
-    "fluid-2 \u2014 g-ganen-pump: 0.713 mm \u2014 \u2717 under the floor, and nothing seats them together",
     "fluid-14 \u2014 valve-v-a: 0.805 mm \u2014 \u2717 under the floor, and nothing seats them together",
     "compressor \u2014 thermal-fuse: 0.000 mm \u2014 seated against it",
     "compressor \u2014 fuse-clamp: 0.000 mm \u2014 seated against it",
@@ -173,8 +171,6 @@
     "carb-1 \u2014 suction-chain: 1.114 mm",
     "fluid-14 \u2014 vk-solenoid: 1.125 mm",
     "fluid-24 \u2014 wago-manb: 1.193 mm",
-    "fluid-24 \u2014 valve-v-b: 1.225 mm",
-    "fluid-24 \u2014 coil-v-b: 1.225 mm",
     "g-ganen-pump \u2014 bulkhead-flavor-a: 1.275 mm",
     "water-3 \u2014 enclosure-front-top: 1.325 mm",
     "water-3 \u2014 enclosure-back-top: 1.325 mm",
@@ -183,6 +179,7 @@
     "bulkhead-flavor-a \u2014 bulkhead-ring-flavor-a-word: 1.366 mm",
     "water-7 \u2014 fluid-14: 1.370 mm",
     "bulkhead-water \u2014 bulkhead-ring-water-word: 1.387 mm",
+    "fluid-2 \u2014 g-ganen-pump: 1.421 mm",
     "carb-1 \u2014 pcba: 1.453 mm",
     "co2-inlet \u2014 bulkhead-ring-co2-word: 1.571 mm",
     "wago-reeds-a \u2014 foam-assembly: 1.600 mm",
@@ -191,8 +188,8 @@
     "wago-reeds-b \u2014 foam-assembly: 1.700 mm",
     "water-7 \u2014 co2-2: 1.745 mm",
     "water-3 \u2014 fluid-26: 1.751 mm",
-    "fluid-18 \u2014 vk-solenoid: 1.866 mm",
     "co2-2 \u2014 pcba: 1.875 mm",
+    "fluid-18 \u2014 vk-solenoid: 1.900 mm",
     "fluid-18 \u2014 pcba: 1.908 mm",
     "fluid-24 \u2014 fluid-26: 1.950 mm",
     "fluid-28 \u2014 water-split: 1.965 mm"
@@ -241,12 +238,10 @@
    "id": "cap-cradle-anchor-separation",
    "label": "Valve plinths clear the existing tube anchors",
    "kind": "goal",
-   "status": "fail",
-   "value": "1 shared-material region(s)",
+   "status": "pass",
+   "value": "0 shared-material region(s)",
    "target": "0 intersections",
-   "detail": [
-    "valve-v-a plinth / fluid-14 anchor: 232.465 mm3"
-   ],
+   "detail": [],
    "active": false
   },
   {
@@ -455,12 +450,10 @@
    "id": "cradle-room",
    "label": "Every plinth clears the other openings on the lid",
    "kind": "gate",
-   "status": "fail",
-   "value": "110/111 hold",
+   "status": "pass",
+   "value": "111/111 hold",
    "target": "1 mm off the nearest",
-   "detail": [
-    "valve plinth valve-v-b: conduit passage preserves each socket wall"
-   ],
+   "detail": [],
    "active": true
   },
   {
@@ -487,12 +480,10 @@
    "id": "anchor-room",
    "label": "Every chain anchor stands its room off everything else the face opens",
    "kind": "gate",
-   "status": "fail",
-   "value": "2/3 hold",
+   "status": "pass",
+   "value": "3/3 hold",
    "target": "1 mm off the nearest",
-   "detail": [
-    "chain anchor fluid-14: the rib stands -3.000 mm off the valve-v-a plinth, inside the 1 mm this face keeps between two things it opens"
-   ],
+   "detail": [],
    "active": true
   },
   {
@@ -839,12 +830,10 @@
    "id": "fluid-2-pump-clearance",
    "label": "The V-A inlet tube clears the water pump",
    "kind": "gate",
-   "status": "fail",
-   "value": "open",
+   "status": "pass",
+   "value": "holds",
    "target": "at least 1 mm",
-   "detail": [
-    "fluid-2 clears the pump by 0.712 mm"
-   ],
+   "detail": [],
    "active": true
   },
   {
@@ -896,11 +885,11 @@
    "label": "Every print-down slope on a ceiling-down piece has its stated carry",
    "kind": "goal",
    "status": "fail",
-   "value": "43 print-down slope(s): 26 under a body, 6 within 1 mm of one, 9 in a kept room, 2 could be columns",
+   "value": "42 print-down slope(s): 25 under a body, 6 within 1 mm of one, 9 in a kept room, 2 could be columns",
    "target": "no unaccounted slope a column could replace, and every named room standing",
    "detail": [
     "enclosure-back-top: a 45\u00b0 face at x 65.60..90.55 y 464.34..465.30 z 286.73..287.69: a column of 371 mm\u00b3 rising 33.1 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=-0.707 z=0.707 \u00b7 thru x=78.075 y=464.820 z=287.209\nclick: x=78.075 y=464.820 z=287.209",
-    "enclosure-back-top: a 60\u00b0 face at x -98.50..-89.85 y 223.51..228.83 z 322.80..332.01: a column of 822 mm\u00b3 rising 23.0 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=-0.866 z=0.500 \u00b7 thru x=-95.193 y=226.981 z=328.812\nclick: x=-95.193 y=226.981 z=328.812"
+    "enclosure-back-top: a 69\u00b0 face at x -65.60..-56.60 y 453.30..465.30 z 261.40..293.40: a column of 35 mm\u00b3 rising 49.6 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=-0.936 z=0.351 \u00b7 thru x=-61.100 y=459.300 z=277.400\nclick: x=-61.100 y=459.300 z=277.400"
    ],
    "active": false
   },
@@ -1145,6 +1134,36 @@
    "active": true
   },
   {
+   "id": "connected-pieces",
+   "label": "Each printed enclosure piece is one valid connected solid",
+   "kind": "gate",
+   "status": "pass",
+   "value": "6 connected pieces",
+   "target": "one valid solid per printed piece",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "ceiling-show-cap",
+   "label": "The ceiling slab keeps a complete exterior wall over its whole field",
+   "kind": "gate",
+   "status": "pass",
+   "value": "3 mm cap; missing 0.0000 mm\u00b3",
+   "target": "a complete wall over the field, the funnel's own plan excepted",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "pieces-in-silhouette",
+   "label": "Every quadrant wall lies inside the machine's exterior; only the disposal letters stand proud",
+   "kind": "gate",
+   "status": "pass",
+   "value": "walls inside `outer`; disposal letters raised 0.6 mm",
+   "target": "only the disposal letters extend past the box's exterior",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "y-seam-upper",
    "label": "Both upper seam blocks join the ceiling and pass their complete entry lanes",
    "kind": "gate",
@@ -1199,7 +1218,7 @@
    "label": "Every routed tube turns at or above its stock's minimum radius",
    "kind": "gate",
    "status": "pass",
-   "value": "B \u2014 67/67 corners at spec",
+   "value": "B \u2014 66/66 corners at spec",
    "target": "every corner \u2265 its stock's minimum (B)",
    "detail": [
     "grade = radius \u00f7 the stock's minimum \u2014 1/4\" LLDPE R14; 1/4\" soft ACR copper R12.7; 3/8\" braided PVC R15.9",
@@ -1282,14 +1301,15 @@
    "id": "tube-anchored",
    "label": "No run goes further than one span with nothing holding it",
    "kind": "goal",
-   "status": "pass",
-   "value": "20/20 within span, 1 left loose",
+   "status": "fail",
+   "value": "19/20 within span, 1 left loose",
    "target": "200 mm between held points",
    "detail": [
+    "fluid-14: 205.2 mm unheld, 5.2 over",
     "carb-1: 146.1 mm, held at its anchor",
     "co2-2: 174.4 mm, held at its anchor",
     "fluid-28: 164.6 mm, held at its anchor",
-    "fluid-18: 253.8 mm unheld \u2014 left loose; Flavor A's line to its rear union. The cold core's side post grips its crossing fore of the pump (`_cold_core_interface.cap_side_anchors`), and what runs loose past it is the fall and the union column's own straight \u2014 a column whose overhead is the ASSE chain, flow meter and meter down-line, and whose flanks are the pump's casting and the moisture plate's lane: nothing printed stands within a rib's reach of it. Its unretained shape and clearance to the neighbouring lines require a tube-shape review; the authored centreline does not establish them."
+    "fluid-18: 244.2 mm unheld \u2014 left loose; Flavor A's line to its rear union. The cold core's side post grips its crossing fore of the pump (`_cold_core_interface.cap_side_anchors`), and what runs loose past it is the fall and the union column's own straight \u2014 a column whose overhead is the ASSE chain, flow meter and meter down-line, and whose flanks are the pump's casting and the moisture plate's lane: nothing printed stands within a rib's reach of it. Its unretained shape and clearance to the neighbouring lines require a tube-shape review; the authored centreline does not establish them."
    ],
    "active": false
   },

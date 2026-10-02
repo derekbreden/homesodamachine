@@ -632,89 +632,36 @@ def _co2_2(F):
 # `water-2` comes down this same lane from the chain overhead, and the further aft this run turns
 # the nearer it turns to that descent.
 FLUID_2_LEAD = 15.0
-# THE STOREY THE CROSSING RUNS ON, and it runs LEVEL on it. `fluid-4` climbs and comes about west
-# of V-B and leans down onto the collet from out there, so what this run passes over is that lean,
-# and it passes over it with the whole of its own height in hand rather than threading a window.
-# The fall onto V-A's port plane is spent afterwards, down the valve's own column, where nothing
-# is over it.
-#
-# WHAT IT HAS OVER IT is `fluid-18`, which crosses this band on its cap side-anchor plane, and the
-# daylight between the two is this run's whole clearance to it.
-FLUID_2_CROSS_Z = 289.0
-# WHERE THE CROSSING STOPS BEING LEVEL. Only the stretch over the drain's lean has to hold the
-# storey; east of the lean's own column the run is free to spend its height, and it spends it in
-# the SAME leg that carries it the rest of the way east. Taken as a column instead, the fall
-# would stand square to the crossing above it and square to the collet's axis below, and two
-# square corners want two whole radii of the leg between them — where this lean turns a third of
-# that at the top and seats the collet's own straight at the bottom. The figure is what the run
-# holds past the lean's column before it starts down.
-FLUID_2_LEVEL_CLEAR = 6.0
-# The level crossing stays forward of the pressure switch; the final turn is lower, beneath
-# that casting, and reaches aft onto V-A's inlet column. These are separate Y planes so the
-# descent can clear the switch while the inlet corner keeps its full stock radius.
-FLUID_2_CROSS_FORWARD = 4.0   # additional room ahead of the casting's clearance plane
-FLUID_2_INLET_SET = 5.0      # reach beyond the pack's mouth stub for the oblique inlet corner
-# The column the run goes forward and down in: the strip WEST of the flavour-A line's own aft
-# lane. `fluid-18` holds that lane over the whole depth this run crosses it in, so the strip is
-# struck off the union that line falls onto and rides it wherever the union goes. Both are 1/4",
-# and the figure is axis to axis — one tube's diameter of it is the two skins.
+# The inlet quarter holds the tube above its port on the valve's own X column.
+# The crossing stays at the regulator outlet height before that vertical descent.
+# The first crossing station stays west of the flavor-A union's own column.
+# Both lines are 1/4 inch; the spacing is measured between their axes.
 FLUID_2_LANE_CLEAR = 10.35
 
 
 def _fluid_2(F, solids):
-    """fluid-2 — the flow regulator's outlet to V-A's inlet, and the tap water's last leg
-    before the flavour manifold.
+    """The regulator outlet crossing to V-A, followed by an axial inlet quarter.
 
-    THE TWO MOUTHS FACE THE SAME WAY AND THE VALVE IS BEHIND THE REGULATOR. The regulator stands
-    over the split with its flow running aft, so its outlet fires AFT; V-A stands coil-up on the
-    deck with its inlet on the AFT end, so the run has to come at that collet from behind. It goes
-    aft off the regulator, turns east across the lane, comes forward and down the strip in one
-    leg, and leans east behind both coils onto V-A's column.
-
-    IT CROSSES THE LANE LEVEL, ON THE OUTLET'S OWN STOREY, AND SPENDS NO HEIGHT DOING IT. `water-2`
-    comes down this same lane from the chain overhead and passes under this run on its way to the
-    split, so what the two have between them is whatever this one has not yet given away — and the
-    crossing stands where the descent has barely begun.
-
-    THE STRIP'S DESCENT AND ITS RUN FORWARD ARE ONE LEG. Taken as two they are two SQUARE corners
-    sharing the strip's own depth, and a square corner spends its whole radius as tangent in each
-    leg it touches — so the pair would want two stock radii of a strip that has 22. Leaning the
-    descent forward instead makes both corners shallower than square AND lengthens the leg they
-    share, and the two spend under two thirds of what they then stand in.
-
-    THE CROSSING RUNS OVER THE DRAIN AND NOT THROUGH IT. `fluid-4` climbs west of V-B and leans
-    down onto that valve's collet from out there, so this run holds `FLUID_2_CROSS_Z` level for
-    the whole width of that lean and clears it by the height between them. Past the lean's own
-    column it stops holding: the fall onto V-A's port plane is spent in the same leg that carries
-    the run the rest of the way east, which is what keeps both of that leg's corners off square.
-
-    The last leg reaches `manifold_layout.STUB + FLUID_2_INLET_SET` off the inlet. Its rounded
-    turn stands under the pressure switch while the level crossing stays forward of the switch
-    face. The descent joins those two planes in one oblique leg. Drawing this run makes the
-    pack's mouth stub a real line, so `enclosure_assembly.build_pack` omits its placeholder.
-    The finished sweep must retain the stock radius and clear the actual pump solid by
-    `clearance-floor`; its square construction corners are not the tube's occupied envelope."""
+    The high crossing stays on the regulator's outlet plane. Its final descent
+    holds V-A's X column, outside the pump's front casting, and rounds R14 from
+    above into the aft-facing inlet. The source valve and its printed sockets
+    share the same lower mounting plane.
+    """
     reg, vk_a = F["flow-regulator"], F["valve-v-a"]
     out, inlet = reg.at("outlet"), vk_a.at("inlet")
     lane = out[1] + FLUID_2_LEAD
     lane_x = F["bulkhead-flavor-a"].at("tube-in")[0] - FLUID_2_LANE_CLEAR
-    inlet_turn = inlet[1] + _ml.STUB + FLUID_2_INLET_SET
+    inlet_turn = inlet[1] + TUBE_BEND
     pump_fore = solids["g-ganen-pump"].BoundingBox().ymin
-    cross = min(inlet_turn,
-                pump_fore - _card.CLEARANCE_FLOOR - _split.TUBE_D / 2.0
-                - FLUID_2_CROSS_FORWARD)
-    level_end = F["valve-v-b"].at("inlet")[0] + FLUID_2_LEVEL_CLEAR
     run = R.bent(
         "fluid-2", "flow-regulator.outlet",
-        (lane_x, lane, out[2]),                       # east across the lane, level on its own storey
-        (lane_x, cross, FLUID_2_CROSS_Z),             # forward down that strip onto the crossing storey
-        (level_end, cross, FLUID_2_CROSS_Z),          # east over the drain's lean, level for all of it
-        (inlet[0], inlet_turn, inlet[2]),             # east and down beneath the switch onto V-A's column
+        (lane_x, lane, out[2]),
+        (inlet[0], inlet_turn, out[2]),
+        (inlet[0], inlet_turn, inlet[2]),
         "valve-v-a.inlet",
         kind="fluid", lead=(FLUID_2_LEAD, _ml.STUB),
-        note="tap water: flow regulator outlet → V-A inlet, aft off the regulator, level east "
-             "across the lane into the strip west of the flavor-A line, forward and down that "
-             "strip, and east through the window the drain leaves")
+        note="tap water: regulator outlet crossing on its own plane, then down V-A's "
+             "column and round the axial inlet quarter above the port")
     radius = min(run.radii.values(), default=run.bend)
     if radius < TUBE_BEND - 1e-6:
         raise ValueError(f"fluid-2's inlet approach seats R{radius:.3f}, below its R{TUBE_BEND:g} stock")
@@ -1001,6 +948,7 @@ def _fluid_18(F, solids):
               + GATE_A_POST_STRAIGHT_AIR)
     low_z = (F["g-ganen-pump"].at("discharge")[2]
              - (_suct.HOSE_OD + _split.TUBE_D) / 2.0 - LANE_CLEAR)
+    fall_start_y = max(GATE_A_FALL_START_Y, deck_y + 2.0 * TUBE_BEND)
     run = R.bent(
         "fluid-18", "valve-v-g.outlet",
         (gate[0], gate[1], cross_z),
@@ -1008,7 +956,7 @@ def _fluid_18(F, solids):
         (lane_x, GATE_A_CROSS_TURN_Y, cross_z),
         (join_x, deck_y, cross_z),
         (tin[0], deck_y, cross_z),
-        (tin[0], GATE_A_FALL_START_Y, cross_z),
+        (tin[0], fall_start_y, cross_z),
         (tin[0], GATE_A_FALL_Y, low_z),
         (tin[0], GATE_A_RISE_Y, low_z),
         (tin[0], GATE_A_RISE_Y + GATE_A_RISE_RUN, tin[2]),

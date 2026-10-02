@@ -215,9 +215,18 @@ def cradle_shape(name, face_z):
     """One socketed valve plinth, with the lid conduits open along its edge."""
     station = cap_cradles[name]
     cx, cy = station.centre
-    plinth = (seat.build_seat(station.seat)
+    plinth = (seat.build_seat(max(station.seat, -seat.socket_floor_z))
               .rotate((0.0, 0.0, 0.0), (0.0, 0.0, 1.0), station.yaw + 90.0)
               .translate((cx, cy, face_z + station.seat)))
+    if station.seat < -seat.socket_floor_z:
+        # The plate carries the recessed socket floors. This part is only the
+        # material above its outer face; add_cradles cuts the complete sockets.
+        depth = -seat.socket_floor_z - station.seat
+        below = (cq.Workplane("XY").workplane(offset=face_z-depth-1.0)
+                 .center(cx, cy).rect(2.0*cap_cradle_half_y+2.0,
+                                     2.0*cap_cradle_half_x+2.0)
+                 .extrude(depth+1.0))
+        plinth = plinth.cut(below)
     for x, y in cap_conduits.values():
         passage = (WorldWorkplane(xy_plane_z_up).workplane(offset=face_z)
                    .center(x, y)
@@ -229,8 +238,16 @@ def cradle_shape(name, face_z):
 
 def add_cradles(lid, face_z):
     """Three plinths joined to the lid, with port channels on each valve's axis."""
-    for name in cap_cradles:
+    for name, station in cap_cradles.items():
         lid = lid.union(cradle_shape(name, face_z))
+        if station.seat < -seat.socket_floor_z:
+            floor = face_z + station.seat + seat.socket_floor_z
+            assert floor >= cap_cradle_wall - 1e-9, (
+                f"cradle {name} leaves only {floor:g} mm under its sockets")
+            sockets = (seat.build_sockets()
+                       .rotate((0,0,0), (0,0,1), station.yaw+90.0)
+                       .translate((*station.centre, face_z+station.seat)))
+            lid = lid.cut(sockets)
     return lid
 
 
@@ -290,7 +307,7 @@ def add_chain_anchors(lid, face_z, names=None):
 
 
 def cradle_anchor_intersections(face_z):
-    """Actual shared material between valve seats and the unmoved tube anchors."""
+    """Actual shared material between valve seats and the lid's tube anchors."""
     rows = []
     for valve in cap_cradles:
         plinth = cradle_shape(valve, face_z).val()
@@ -304,10 +321,20 @@ def cradle_anchor_intersections(face_z):
             rows.append({'valve': valve, 'anchor': anchor, 'volume_mm3': volume,
                          'bounds_cap_mm': [[b.xmin, b.ymin, b.zmin],
                                            [b.xmax, b.ymax, b.zmax]]})
+        for anchor in cap_side_anchors:
+            rib = add_side_anchors(cq.Workplane('XY'), face_z, (anchor,)).val()
+            shared = plinth.intersect(rib)
+            volume = shared.Volume()
+            if volume <= 0.001:
+                continue
+            b = shared.BoundingBox()
+            rows.append({'valve': valve, 'anchor': anchor, 'volume_mm3': volume,
+                         'bounds_cap_mm': [[b.xmin, b.ymin, b.zmin],
+                                           [b.xmax, b.ymax, b.zmax]]})
     return rows
 
 
-def add_side_anchors(lid, face_z):
+def add_side_anchors(lid, face_z, names=None):
     """Every SIDEWAYS anchor, standing on the lid's outer face at `face_z`.
 
     A post ACROSS the run rather than along it: its forward face is the run's own axis plane, a
@@ -323,6 +350,8 @@ def add_side_anchors(lid, face_z):
     The post is unified before it joins the lid, for the reason the up-opening ribs are: a fuse
     imprints the seam of every solid that went into it."""
     for name, station in cap_side_anchors.items():
+        if names is not None and name not in names:
+            continue
         cap_side_anchor_holds(name)
         (cx, cy) = station.centre
         seat_r = station.seat_r
@@ -474,6 +503,9 @@ def main():
         - math.pi * cap_conduit_bore_radius ** 2 * wall_and_floor_thickness)
     cradle_volume = sum(cradle_shape(name, lid_total_height).val().Volume()
                         for name in cap_cradles)
+    cradle_volume -= sum(4.0 * math.pi * cap_cradle_socket_radius**2
+                         * max(0.0, -seat.socket_floor_z-station.seat)
+                         for station in cap_cradles.values())
     # An anchor is priced the way it is laid down: one box the rib's length carrying a HALF bore
     # (the cylinder's own axis is the box's top face, so exactly half of it lies in the material),
     # and two end bands from the face up to that box. The bands stand a `cap_anchor_wall` clear of
@@ -564,10 +596,11 @@ def main():
     # Each valve lands at its stated bearing plane, and every lid opening remains clear.
     for name, station in cap_cradles.items():
         plinth = cradle_shape(name, lid_total_height).val()
+        valve_yaw = station.yaw + (-90.0 if name in ("valve-v-a", "valve-v-b") else 90.0)
         native_valve = (seat.valve.build_beduan_solenoid()
-                        .rotate((0.0, 0.0, 0.0), (0.0, 0.0, 1.0), station.yaw + 90.0)
+                        .rotate((0.0, 0.0, 0.0), (0.0, 0.0, 1.0), valve_yaw)
                         .translate((*station.centre, lid_total_height + station.seat)).val())
-        assert plinth.intersect(native_valve).Volume() <= 1e-6, (
+        assert lid_top.intersect(native_valve).val().Volume() <= 1e-6, (
             f"cradle {name} intersects its seated valve")
         openings = [
             ("pour", cq.Vector(*foam_cap_lid_pour_xy(), lid_total_height),
