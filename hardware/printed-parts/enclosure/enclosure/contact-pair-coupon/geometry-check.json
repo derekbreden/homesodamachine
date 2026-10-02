@@ -1,5 +1,6 @@
 {
   "box": "hardware/manifold-layout/enclosure-box.json",
+  "layer": 0.24,
   "coupons": {
     "male": {
       "piece": "enclosure-front-top",
@@ -9,21 +10,149 @@
         17.85,
         78.515,
         95.836,
-        266.926,
+        266.8,
         285.424
       ],
+      "machine_to_bed": {
+        "turn": null,
+        "then_shift": [
+          -0.0,
+          -87.6755,
+          -266.8
+        ]
+      },
       "print_size_mm": [
         35.7,
-        16.32,
-        18.5
+        16.321,
+        18.624
       ],
-      "volume_mm3": 8109.57,
-      "stl_facets": 5424,
+      "volume_mm3": 8178.88,
+      "stl_facets": 5440,
       "outputs": {
-        "contact-pair-male-coupon.step": "463c5737263851691ec17003125bb2441b1695da27701724716fdc1a67afbf24",
-        "contact-pair-male-coupon.stl": "4a7bf11c0ec4afe6b450801679acbbec83abe9b38ac06bba12582d2d490dad6f",
-        "contact-pair-male-coupon.step.mesh": "c95cff16f4901666b4a2531c94df058adcb8bd7865a3bd1ceeab363cb19df400"
-      }
+        "contact-pair-male-coupon.step": "415369e79a8b858711b602d7b1e7571ba45f984dbb46eec0264e4c8ee4bf7a0c",
+        "contact-pair-male-coupon.stl": "89b15219143a475dc3e25650c95f2d0eb5364a3b2bd1a508c4e440beb172794d",
+        "contact-pair-male-coupon.step.mesh": "106f4111ca03fe8b06bcec40211742d6bb8cd09926e59608b6fc0f35eaf55046"
+      },
+      "landmarks": [
+        {
+          "feature": "seat face",
+          "machine": [
+            0.0,
+            79.515,
+            278.524
+          ],
+          "bed": [
+            0.0,
+            -8.1605,
+            11.724
+          ]
+        },
+        {
+          "feature": "seat datum, the ear plate's bearing step",
+          "machine": [
+            0.0,
+            82.515,
+            278.524
+          ],
+          "bed": [
+            0.0,
+            -5.1605,
+            11.724
+          ]
+        },
+        {
+          "feature": "seat roof, the bridge",
+          "machine": [
+            0.0,
+            81.015,
+            280.924
+          ],
+          "bed": [
+            0.0,
+            -6.6605,
+            14.124
+          ]
+        },
+        {
+          "feature": "seat floor",
+          "machine": [
+            0.0,
+            81.015,
+            276.374
+          ],
+          "bed": [
+            0.0,
+            -6.6605,
+            9.574
+          ]
+        },
+        {
+          "feature": "+X insert bore axis at the datum",
+          "machine": [
+            10.22,
+            82.515,
+            278.524
+          ],
+          "bed": [
+            10.22,
+            -5.1605,
+            11.724
+          ]
+        },
+        {
+          "feature": "lead bore axis at the body's back",
+          "machine": [
+            0.0,
+            83.515,
+            276.4256
+          ],
+          "bed": [
+            0.0,
+            -4.1605,
+            9.6256
+          ]
+        },
+        {
+          "feature": "lead bore apex",
+          "machine": [
+            0.0,
+            83.515,
+            283.224
+          ],
+          "bed": [
+            0.0,
+            -4.1605,
+            16.424
+          ]
+        },
+        {
+          "feature": "lead bore exit floor, the tray's crown",
+          "machine": [
+            0.0,
+            93.836,
+            274.45
+          ],
+          "bed": [
+            0.0,
+            6.1605,
+            7.65
+          ]
+        },
+        {
+          "feature": "bulkhead crown",
+          "machine": [
+            0.0,
+            83.515,
+            284.424
+          ],
+          "bed": [
+            0.0,
+            -4.1605,
+            17.624
+          ]
+        }
+      ],
+      "bed_layers_above_front_top_bed": 445
     },
     "female": {
       "piece": "enclosure-pump-cap",
@@ -36,6 +165,21 @@
         272.124,
         285.174
       ],
+      "machine_to_bed": {
+        "turn": {
+          "axis": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "degrees": 180.0
+        },
+        "then_shift": [
+          -0.0,
+          73.269,
+          284.174
+        ]
+      },
       "print_size_mm": [
         35.7,
         12.0,
@@ -44,14 +188,94 @@
       "volume_mm3": 4055.97,
       "stl_facets": 4376,
       "outputs": {
-        "contact-pair-female-coupon.step": "78de2f579c754ea9b3218d43aeb9f7fe8df9cc853ed1ff666657f0a01920403a",
-        "contact-pair-female-coupon.stl": "f9454fcb871c430abed36025821d1711c682f7c5b47582fd4c86a11fd70f4d8b",
-        "contact-pair-female-coupon.step.mesh": "a9e34a4b5f3f24cbc2a64b05b55769d45207aa821f1e0fe061cda7991e4fe23d"
-      }
+        "contact-pair-female-coupon.step": "f2f46bea1686294aada16a20ffc82ac5c1a20bd2f067a531f1396fd0e2f28b21",
+        "contact-pair-female-coupon.stl": "48106ec308cd970ec96a1609106a3a1ee8495105931eccbeb12af3b504017514",
+        "contact-pair-female-coupon.step.mesh": "dca680baf24d3f4c3fcaebf6f7a3b8eadea6fc42f5ae8150b0a5abbee3c3cc55"
+      },
+      "landmarks": [
+        {
+          "feature": "seat face",
+          "machine": [
+            0.0,
+            79.269,
+            278.524
+          ],
+          "bed": [
+            0.0,
+            -6.0,
+            5.65
+          ]
+        },
+        {
+          "feature": "seat datum, the ear plate's bearing step",
+          "machine": [
+            0.0,
+            76.269,
+            278.524
+          ],
+          "bed": [
+            0.0,
+            -3.0,
+            5.65
+          ]
+        },
+        {
+          "feature": "seat roof in the print, the bridge",
+          "machine": [
+            0.0,
+            77.769,
+            276.124
+          ],
+          "bed": [
+            0.0,
+            -4.5,
+            8.05
+          ]
+        },
+        {
+          "feature": "+X insert bore axis at the datum",
+          "machine": [
+            10.22,
+            76.269,
+            278.524
+          ],
+          "bed": [
+            10.22,
+            -3.0,
+            5.65
+          ]
+        },
+        {
+          "feature": "+X crown groove floor, past the slot",
+          "machine": [
+            11.7798,
+            67.6112,
+            280.674
+          ],
+          "bed": [
+            11.7798,
+            5.6578,
+            3.5
+          ]
+        },
+        {
+          "feature": "crown, the bed",
+          "machine": [
+            0.0,
+            76.269,
+            284.174
+          ],
+          "bed": [
+            0.0,
+            -3.0,
+            0.0
+          ]
+        }
+      ]
     }
   },
   "source_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py": "7a8b3ec013fc4b951eb8caaf5cf935b75fc634a4c7ab01a6fbd3beb7bbbe8fb3",
+    "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py": "84e217aea5a52ec328cd96beed45dcf5f1decbd6346886b2bc897a764b5eb068",
     "hardware/manifold-layout/enclosure-box.json": "590cfed407b4150ca25926daad1182f0698f7fc3a7f88348db8b3cbbcdc58683",
     "hardware/printed-parts/enclosure/enclosure/enclosure.py": "01f9674f9a5938321079c3007c49afc5e4d2ef0931232a3c58d3290810ec9c0f",
     "hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py": "7a2cc5efd8b6de98cb596c4b5d5ed94028a7c7c869f6763d6dc9e1bf310a3f44"

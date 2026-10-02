@@ -1,0 +1,15 @@
+{
+  "/hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py": {
+    "COUPON_BED_LAYERS": "445",
+    "COUPON_FEMALE_SIZE": "35.7 \u00d7 12.0 \u00d7 12.1 mm",
+    "COUPON_FLUSH_TOL": "\u00b10.1 mm",
+    "COUPON_FULL_PRESS": "1 mm",
+    "COUPON_KISS": "0.246 mm",
+    "COUPON_KISS_MIN": "0.046 mm",
+    "COUPON_LAYER": "0.24 mm",
+    "COUPON_MALE_SIZE": "35.7 \u00d7 16.3 \u00d7 18.6 mm",
+    "COUPON_PRESS": "0.754 mm",
+    "COUPON_PRESS_RANGE": "0.554\u20130.954 mm",
+    "COUPON_STROKE": "1.1 mm"
+  }
+}
