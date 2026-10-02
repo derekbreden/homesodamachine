@@ -67,7 +67,7 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 4904 tracked, 569 fetched solids, 56 tags, 39 site routes",
+      "note": "paths: every reference lands — 4905 tracked, 569 fetched solids, 56 tags, 39 site routes",
       "status": "ok"
     },
     {
@@ -97,14 +97,13 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 2757 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 568 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 2743 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 568 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was measured off a different enclosure-assembly.step — it holds 29ec86cf2af411edac9b935c70e428ad, enclosure-assembly.step here is d407214816e5cca86c70d79e34310988",
-      "  enclosure-assembly.facts.json was taken from a different tree — it holds dda8948c2296efe411e082765fd37736 for the 243 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at ea45e30bf3d4dc7d4cf8d97a19be9d20 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 9ef22365aa6fb74ffa1f0602aee22ec9 for the 243 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 3535ba1c45074ce6a9b83a3792a2aaa0 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
@@ -144,10 +143,9 @@
       "  A generator hands its solid to `_materials.one_body` and exports the assembly."
     ],
     "tools/check_web_tests.py": [
-      "3 test(s) in web/ fail:",
+      "2 test(s) in web/ fail:",
       "    every alias names a component an assembly carries",
       "    EXCLUDED_DIRS is every out/ .gitignore holds under hardware",
-      "    the artifact pointer file points at every committed viewer scorecard",
       "  cd web && npm test"
     ]
   },
