@@ -8,7 +8,7 @@
   "job_name": "contact-pair-coupons-h2c-v2.gcode.3mf",
   "accepted_observed_utc": "2026-10-02T16:29:37.033095+00:00",
   "state_at_acceptance": "RUNNING",
-  "status": "accepted_in_startup",
+  "status": "printing_first_layer_confirmed",
   "archive": ".cache/prints/contact-pair-coupons-h2c-v2/ready/contact-pair-coupons-h2c-v2.gcode.3mf",
   "archive_sha256": "e512a754050c30892f3919c29eea1db0a10a64b16909e0282f92cea9b52a2c49",
   "gcode_sha256": "a69fdbe7fe802a5a88a83d0decac4394a1a0b067ce4945a39b4594b0c7e6242c",
@@ -106,5 +106,22 @@
   },
   "previous_printer_task_id": "1300913879",
   "physical_fit_tested": false,
-  "queue_followup_automation": "continue-h2c-trial-queue"
+  "queue_followup_automation": "continue-h2c-trial-queue",
+  "first_layer_observation": {
+    "observed_at": "2026-10-02T16:39:58.313897+00:00",
+    "gcode_state": "RUNNING",
+    "job_id": "1302534665",
+    "subtask_name": "contact-pair-coupons-h2c-v2.gcode.3mf",
+    "layer_num": 1,
+    "total_layer_num": 78,
+    "mc_percent": 24,
+    "mc_remaining_time": 16,
+    "print_error": 0,
+    "hms": [],
+    "nozzle_temper": 264.0,
+    "nozzle_target_temper": 265.0,
+    "bed_temper": 80.0,
+    "bed_target_temper": 80.0,
+    "stg_cur": 0
+  }
 }

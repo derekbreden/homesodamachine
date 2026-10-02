@@ -6,9 +6,10 @@ paths**, uses the left hardened 0.4 mm nozzle and black PET-GF, and estimates
 22 minutes 14 seconds. The requested H2C Z trim is **+0.18 mm**; textured-plate
 compensation emits `G29.1 Z0.16`.
 
-H2C accepted this pair as task **1302534665** through Bambu Connect, with no
-reported print error. [launch.json](launch.json) records the printer receipt,
-archive and imported-copy hashes, settings, startup state and spacing evidence.
+H2C is printing this pair as task **1302534665** through Bambu Connect. The
+printer reports its first layer underway, with no print error or HMS alert.
+[launch.json](launch.json) records the printer receipt, archive and imported-copy
+hashes, settings, first-layer observation and spacing evidence.
 
 The coupons retain their production print poses. The male's cropped bed matches
 front-top's layer phase; the female prints on the clamp's real crown. The first
