@@ -135,7 +135,7 @@
   ],
   "compressor_post_section": {
     "gcode": ".cache/prints/enclosure-front-bottom-grip-bridges-h2c-v3/ready/plate_1.gcode",
-    "source_scope": "Saved front-bottom grip-bridge trial; its compressor posts use the same 12 mm OD / 6.8 mm bore as current CAD. Not a current full-mesh qualification.",
+    "source_scope": "Saved front-bottom grip-bridge trial with 12 mm OD / 6.8 mm bore posts. This archived bore is not the current 6.4 mm M5 specification. Not a current full-mesh qualification.",
     "gcode_sha256": "eb7a73ed751f996566612318f6f4c7af24cab242f0d72ee0360222891ea358bc",
     "plate_z_mm": 14.12,
     "cad_z_mm": 8.12,

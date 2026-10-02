@@ -572,8 +572,9 @@ mount_bore_relief = _interface.mount_bore_relief
 # The section is the donor's: each station carries its own diameter, struck off that bore in
 # `enclosure_assembly.floor_mounts`. What the post holds is a ruthex M5, and `_floor_bosses`
 # reads the two against each other every build.
-floor_heatset_dia = 6.8      # ruthex M5, Ø7.0 knurl
+floor_heatset_dia = 6.4      # ruthex RX-M5x9.5: Ø7.1 knurl, Ø6.4 recommended bore
 floor_heatset_depth = 9.5
+floor_heatset_min_wall = 2.6  # ruthex RX-series minimum, measured from the bore
 
 # --- the side walls' Wago wells ---------------------------------------------
 #
@@ -6391,12 +6392,12 @@ def _floor_bosses(solid, inner, stations, y0, y1, z0, z1):
     for sx, sy, tip, dia in stations:
         if not (y0 <= sy <= y1):
             continue
-        if (dia - floor_heatset_dia) / 2.0 < boss_ligament:
+        if (dia - floor_heatset_dia) / 2.0 < floor_heatset_min_wall:
             raise ValueError(
                 f"the floor post at ({sx:g}, {sy:g}) is Ø{dia:g}, which leaves "
                 f"{(dia - floor_heatset_dia) / 2.0:g} of material round a Ø{floor_heatset_dia:g} "
-                f"insert bore — under the {boss_ligament:g} a ±X wall boss keeps round its own. "
-                f"This station's donor bore takes a smaller insert than the M5.")
+                f"insert bore — under ruthex's {floor_heatset_min_wall:g} mm minimum "
+                f"surrounding wall for RX-M5x9.5.")
         solid = solid.fuse(_zcyl(dia / 2.0, sx, sy, inner[4], tip))
         solid = solid.cut(_zcyl(floor_heatset_dia / 2.0, sx, sy,
                                 tip - floor_heatset_depth - mount_bore_relief, tip))
