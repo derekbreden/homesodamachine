@@ -1,0 +1,181 @@
+{
+  "schema": 1,
+  "review_date": "2026-10-01",
+  "purpose": "Native print-time and material comparison only. No physical performance qualification.",
+  "source_part": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+  "source_stl_sha256": "8b4d34f872e9e1e84de3fffab06702a9ebecd37a8646af52f38f18ee9e5fba6c",
+  "source_profile": "hardware/printed-parts/petgf.3mf",
+  "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "printer": "Bambu Lab H2C",
+  "nozzle_diameter_mm": 0.4,
+  "comparison_controls": {
+    "baseline_input_project_sha256": "2bb1e354005cee374e391baa684daaa3f3140e75528de59553a824e90676add9",
+    "changed_archive_members": [
+      "Metadata/project_settings.config"
+    ],
+    "all_other_archive_payloads_verified_identical": true,
+    "orientation_supports_object_settings_and_layer_bands_preserved": true,
+    "normal_layer_height_mm": 0.24,
+    "first_layer_height_mm": 0.2,
+    "upper_round_layer_height_mm": 0.08
+  },
+  "mass_correction": {
+    "source_density_g_cm3": 1.29,
+    "petgf15_density_g_cm3": 1.43,
+    "source": "https://fiberon.polymaker.com/wp-content/uploads/TDS_FIBERON-PET-GF15_V1.0_EN.pdf",
+    "formula": "slicer weight * 1.43 / 1.29",
+    "scope": "Predicted mass including support; not weighed filament consumption."
+  },
+  "variants": [
+    {
+      "gcode": ".cache/prints/2026-10-01-enclosure-front-top-funnel-frame-review-v1/ready/plate_1.gcode",
+      "gcode_sha256": "d84e7d980b5c3eeccdafbc025780fa16ed4256330042bcf3f73ec4c5c3ac188d",
+      "slicer": "BambuStudio 02.08.02.61",
+      "estimated_total_seconds": 106735,
+      "estimated_model_seconds": 106424,
+      "estimated_weight_at_profile_density_g": 1080.69,
+      "profile_density_g_cm3": 1.29,
+      "layers": 1356,
+      "id": "grid15-walls2",
+      "input_project": ".cache/prints/2026-10-01-enclosure-front-top-funnel-frame-review-v1/enclosure-front-top-funnel-frame-review-v1-input.3mf",
+      "input_project_sha256": "2bb1e354005cee374e391baa684daaa3f3140e75528de59553a824e90676add9",
+      "settings_delta": {},
+      "wall_loops": 2,
+      "sparse_infill_percent": 15,
+      "sparse_infill_pattern": "grid",
+      "native_return_code": 0,
+      "estimated_weight_at_petgf15_density_g": 1197.9741860465117,
+      "time_delta_seconds": 0,
+      "weight_delta_g": 0.0,
+      "native_output_status": "Success.",
+      "native_result": ".cache/prints/2026-10-01-enclosure-front-top-funnel-frame-review-v1/ready/result.json",
+      "native_result_sha256": "58458399ef92b6eedeecd57600c32a1f328708674de62d57ceb811d27ecd9871",
+      "native_estimated_total_seconds": 106735.515625,
+      "native_estimated_weight_at_profile_density_g": 1080.6859130859375,
+      "native_plate_warning_message": "",
+      "archive": ".cache/prints/2026-10-01-enclosure-front-top-funnel-frame-review-v1/ready/enclosure-front-top-funnel-frame-review-v1.gcode.3mf",
+      "archive_sha256": "d3aaf5bc3388ec8292b2b6116bd1819411307b8374c18063c64e4a1e168378d7"
+    },
+    {
+      "gcode": ".cache/engineering-review/slices/gyroid15-walls2/ready/plate_1.gcode",
+      "gcode_sha256": "ed304d1390f74aec5645ab21ed72a3c84bbd800f9bcf48f122308cedff16d914",
+      "slicer": "BambuStudio 02.08.02.61",
+      "estimated_total_seconds": 123942,
+      "estimated_model_seconds": 123631,
+      "estimated_weight_at_profile_density_g": 1086.68,
+      "profile_density_g_cm3": 1.29,
+      "layers": 1356,
+      "id": "gyroid15-walls2",
+      "input_project": ".cache/engineering-review/slices/gyroid15-walls2/gyroid15-walls2-input.3mf",
+      "input_project_sha256": "f5cfada4f7705dec2615ca8896854b8d4bdae02e71ef103682aa1ee429067944",
+      "settings_delta": {
+        "sparse_infill_pattern": {
+          "from": "grid",
+          "to": "gyroid"
+        }
+      },
+      "wall_loops": 2,
+      "sparse_infill_percent": 15.0,
+      "sparse_infill_pattern": "gyroid",
+      "native_return_code": 0,
+      "native_output_status": "Success.",
+      "estimated_weight_at_petgf15_density_g": 1204.6142635658916,
+      "time_delta_seconds": 17207,
+      "weight_delta_g": 6.640077519379929,
+      "native_result": ".cache/engineering-review/slices/gyroid15-walls2/ready/result.json",
+      "native_result_sha256": "9a197a7fdfb0c38c10fa1294541fdbd1c899a805912430b14347569278b2dc9d",
+      "native_estimated_total_seconds": 123942.6953125,
+      "native_estimated_weight_at_profile_density_g": 1086.682861328125,
+      "native_plate_warning_message": "",
+      "archive": ".cache/engineering-review/slices/gyroid15-walls2/ready/gyroid15-walls2.gcode.3mf",
+      "archive_sha256": "53fc388e936b78227546d38320750cd3c8b37c7dd4282386e52a141d084dba86"
+    },
+    {
+      "gcode": ".cache/engineering-review/slices/gyroid25-walls4/ready/plate_1.gcode",
+      "gcode_sha256": "9bf4ad7c095fab84e8b7be356944ebd76e8cdc22aeed2e9506fea198b0f9cb8a",
+      "slicer": "BambuStudio 02.08.02.61",
+      "estimated_total_seconds": 166435,
+      "estimated_model_seconds": 166124,
+      "estimated_weight_at_profile_density_g": 1378.91,
+      "profile_density_g_cm3": 1.29,
+      "layers": 1356,
+      "id": "gyroid25-walls4",
+      "input_project": ".cache/engineering-review/slices/gyroid25-walls4/gyroid25-walls4-input.3mf",
+      "input_project_sha256": "6482e64132d47739eaefecbc02032294829f266300914a1212372032f89fbe77",
+      "settings_delta": {
+        "sparse_infill_density": {
+          "from": "15%",
+          "to": "25%"
+        },
+        "sparse_infill_pattern": {
+          "from": "grid",
+          "to": "gyroid"
+        },
+        "wall_loops": {
+          "from": "2",
+          "to": "4"
+        }
+      },
+      "wall_loops": 4,
+      "sparse_infill_percent": 25.0,
+      "sparse_infill_pattern": "gyroid",
+      "native_return_code": 0,
+      "native_output_status": "Success.",
+      "estimated_weight_at_petgf15_density_g": 1528.5591472868216,
+      "time_delta_seconds": 59700,
+      "weight_delta_g": 330.5849612403099,
+      "native_result": ".cache/engineering-review/slices/gyroid25-walls4/ready/result.json",
+      "native_result_sha256": "52dc45ece842b32517056c4721f8e65965cc119d01f476061d646fd7e47052a2",
+      "native_estimated_total_seconds": 166435.5,
+      "native_estimated_weight_at_profile_density_g": 1378.9097900390625,
+      "native_plate_warning_message": "",
+      "archive": ".cache/engineering-review/slices/gyroid25-walls4/ready/gyroid25-walls4.gcode.3mf",
+      "archive_sha256": "bbf4cbdf8a123f2e4d66753cb7c0629839057e0fc36f55551b5daa3d7f97d074"
+    }
+  ],
+  "compressor_post_section": {
+    "gcode": ".cache/prints/enclosure-front-bottom-grip-bridges-h2c-v3/ready/plate_1.gcode",
+    "source_scope": "Saved front-bottom grip-bridge trial; its compressor posts use the same 12 mm OD / 6.8 mm bore as current CAD. Not a current full-mesh qualification.",
+    "gcode_sha256": "eb7a73ed751f996566612318f6f4c7af24cab242f0d72ee0360222891ea358bc",
+    "plate_z_mm": 14.12,
+    "cad_z_mm": 8.12,
+    "center_on_plate_mm": [
+      107.9,
+      207.7250015258789
+    ],
+    "nominal_post_od_mm": 12,
+    "nominal_insert_bore_mm": 6.8,
+    "feature_segment_counts": {
+      "Inner wall": 128,
+      "Outer wall": 129,
+      "Sparse infill": 58
+    },
+    "nominal_annulus_area_mm2": 76.77859729996679,
+    "nominal_path_coverage_area_mm2": 59.14625294000087,
+    "nominal_empty_fraction": 0.22965181678271618,
+    "method": "Buffer extruding G1/G2/G3 XY paths by half the annotated line width and intersect with the nominal annulus. A nominal footprint audit, not deposited-polymer simulation or mechanical test.",
+    "source_stl_sha256": "3e905d5dc35b038c48af02919fdcf63f870abd630ff03d879fbd5eea09af0456",
+    "nominal_post_center_cad_mm": [
+      -54.6,
+      156.5
+    ],
+    "cad_to_plate_translation_mm": [
+      162.5,
+      51.2250015258789,
+      6.0
+    ],
+    "source_requested_wall_loops": 2,
+    "source_sparse_infill_percent": 15,
+    "source_sparse_infill_pattern": "grid",
+    "arc_sampling_max_segment_length_mm": 0.1,
+    "circular_annulus_quadrant_segments": 128,
+    "path_buffer_quadrant_segments": 8,
+    "scope_limits": [
+      "One nominal section only; not measured porosity or a material deposition simulation.",
+      "No strength, stiffness, installation or life test.",
+      "The complete source trial mesh differs from the current enclosure mesh."
+    ],
+    "analysis_script_sha256": "7a070820090630a4eb9caf7936d1d253335ce80d83ddb76d568e8389c42f6539",
+    "analysis_script": ".cache/engineering-review/check_post_paths.py"
+  }
+}
