@@ -1,0 +1,24 @@
+{
+  "result_observed_at_utc": "2026-10-02T15:26:03Z",
+  "archive": ".cache/prints/contact-pair-coupons-h2c-v2/ready/contact-pair-coupons-h2c-v2.gcode.3mf",
+  "archive_sha256": "e512a754050c30892f3919c29eea1db0a10a64b16909e0282f92cea9b52a2c49",
+  "printer": "H2C",
+  "bed_type": "Textured PEI Plate",
+  "filament_mapping": "Ext PET-CF",
+  "loaded_material": "black PET-GF",
+  "nozzle": "fixed left hardened 0.4 mm",
+  "options": {
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "mapping_attempts": 1,
+  "send_button_enabled": true,
+  "dry_run": true,
+  "dialog_cancelled": true,
+  "submitted": false,
+  "launch_hold": "Awaiting physical confirmation that the finished grip insert has been removed and H2C's bed is clear.",
+  "sender": "tools/bambu_send.py",
+  "transport": "background Bambu Connect accessibility controls"
+}
