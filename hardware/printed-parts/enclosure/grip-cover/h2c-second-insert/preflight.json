@@ -1,0 +1,140 @@
+{
+  "status": "native_slice_reviewed",
+  "printer": "H2C",
+  "quantity": 1,
+  "part": "grip-cover",
+  "source_stl_sha256": "acbb8f8cd3e50792a258670bf31c7574de6a435fbbce2629ede73c070378dc03",
+  "source_matches_accepted_insert": true,
+  "native_archive_valid": true,
+  "settings_differences_from_accepted_project": [
+    "machine_start_gcode",
+    "printer_settings_id"
+  ],
+  "native_settings_normalization": {
+    "filament_map_2": {
+      "input": null,
+      "emitted": [
+        "1"
+      ]
+    },
+    "filament_prime_volume": {
+      "input": [
+        "30"
+      ],
+      "emitted": [
+        "45"
+      ]
+    }
+  },
+  "model_layers_identical_to_accepted_insert": true,
+  "layers_mm": [
+    [
+      0.2,
+      0.2
+    ],
+    [
+      0.44,
+      0.24
+    ],
+    [
+      0.68,
+      0.24
+    ],
+    [
+      0.92,
+      0.24
+    ],
+    [
+      1.16,
+      0.24
+    ],
+    [
+      1.4,
+      0.24
+    ],
+    [
+      1.64,
+      0.24
+    ],
+    [
+      1.88,
+      0.24
+    ],
+    [
+      2.12,
+      0.24
+    ],
+    [
+      2.36,
+      0.24
+    ],
+    [
+      2.6,
+      0.24
+    ],
+    [
+      2.68,
+      0.08
+    ],
+    [
+      2.76,
+      0.08
+    ],
+    [
+      2.84,
+      0.08
+    ],
+    [
+      2.92,
+      0.08
+    ],
+    [
+      3.0,
+      0.08
+    ],
+    [
+      3.08,
+      0.08
+    ],
+    [
+      3.16,
+      0.08
+    ],
+    [
+      3.24,
+      0.08
+    ],
+    [
+      3.32,
+      0.08
+    ]
+  ],
+  "support_paths": 0,
+  "both_wings_print_on_first_layer": true,
+  "minimum_second_layer_bead_area_overlap_fraction": 0.7920658210571231,
+  "requested_z_trim_mm": 0.18,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "estimated_seconds": 706.7216186523438,
+  "estimated_grams_saved_profile_density": 2.7527568340301514,
+  "archive": ".cache/prints/grip-cover-only-h2c-v2/ready/grip-cover-only-h2c-v2.gcode.3mf",
+  "archive_sha256": "f21fb083c817c8b9bc9620eb1b647a2254c1c3213b15be594e5f457700301792",
+  "project": ".cache/prints/grip-cover-only-h2c-v2/grip-cover-only-h2c-v2-input.3mf",
+  "project_sha256": "26b82c5cf297bd4d6b97fb53638e7d0f530bb5d7e76122a732b6ae1a14df8f10",
+  "gcode_sha256": "79045c855e320449a991401484514c6e4cda962c8ec9e7a9363be060bb494a75",
+  "plate_bounds_mm": [
+    [
+      120.25,
+      154.2208981513977,
+      0.0
+    ],
+    [
+      204.75,
+      165.7791018486023,
+      3.359999895095825
+    ]
+  ],
+  "physical_reference": "hardware/printed-parts/enclosure/grip-cover/physical-acceptance.json"
+}
