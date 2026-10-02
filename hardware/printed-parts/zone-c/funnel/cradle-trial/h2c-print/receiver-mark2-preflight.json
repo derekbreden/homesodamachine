@@ -1,0 +1,110 @@
+{
+  "revision": 1,
+  "printer": "Mark2",
+  "part": "test-receiver",
+  "quantity": 1,
+  "archive": ".cache/prints/funnel-test-receiver-mark2-v1/ready/funnel-test-receiver-mark2-v1.gcode.3mf",
+  "archive_sha256": "bf0c29db0750198fc199e4a1ec44e1ea924cf23171ea2eabc2e464a16a1e433f",
+  "project": ".cache/prints/funnel-test-receiver-mark2-v1/funnel-test-receiver-mark2-v1-input.3mf",
+  "project_sha256": "a03bfa041abc981b9b940131e11b6c918c8ab99845c18402b749f8f65449e2d4",
+  "gcode_sha256": "ec2a209da7e898b4c2284c0c33b8f8cc51495153f72d5e3abab4d4204b9a0584",
+  "estimated_seconds": 1375.81396484375,
+  "source_stl_sha256": {
+    "test-receiver": "fba0609890e494df9be162c66ba1df90cab2d613f1921ec92a1dad4b5b84973b"
+  },
+  "requested_z_trim_mm": 0.04,
+  "support_mode": "shared_automatic_tree",
+  "submitted": true,
+  "geometry_export_revision": "f8f59be7e",
+  "status": "submitted_and_printer_accepted",
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "parts": [
+    {
+      "name": "test-receiver",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.stl",
+      "stl_sha256": "fba0609890e494df9be162c66ba1df90cab2d613f1921ec92a1dad4b5b84973b",
+      "triangles": 848,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        5.999999999999972
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        162.5,
+        160.0,
+        6.000000000000028
+      ],
+      "plate_translation_mm": [
+        162.5,
+        160.0,
+        6.000000000000028
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          138.20000076293945,
+          133.0,
+          0.0
+        ],
+        [
+          186.79999923706055,
+          187.0,
+          12.000000000000057
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.990248214653548e-10
+    }
+  ],
+  "model_layer_count": 50,
+  "first_two_layer_heights_mm": [
+    0.2,
+    0.44
+  ],
+  "minimum_second_layer_bead_area_overlap_fraction": 0.6642678381838077,
+  "minimum_second_layer_outer_wall_bead_area_overlap_fraction": 0.9971417788377787,
+  "support_summary": {
+    "support_bodies": 0,
+    "interface_islands": 0,
+    "bed_rooted_bodies": 0,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 0,
+    "shortest_labelled_build_up_mm": null
+  },
+  "support_contacts": "none",
+  "physical_fit_and_retention_tested": false,
+  "production_print_pose_retained": true,
+  "filament_mapping": {
+    "physical_material": "black PET-GF",
+    "profile_label": "PET-CF",
+    "external_spool": 254,
+    "nozzle": "fixed left hardened 0.4 mm"
+  },
+  "rejected_send_record": "receiver-mark2-rejected-send.json",
+  "launch_record": "receiver-mark2-launch.json"
+}

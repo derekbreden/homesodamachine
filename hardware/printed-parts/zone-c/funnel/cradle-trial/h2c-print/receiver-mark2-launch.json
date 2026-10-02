@@ -1,0 +1,86 @@
+{
+  "printer": "Mark2",
+  "part": "test-receiver",
+  "quantity": 1,
+  "printer_task_id": "1303210057",
+  "job_name": "funnel-test-receiver-mark2-v1-settled.gcode.3mf",
+  "accepted_observed_utc": "2026-10-02T21:02:45.508698+00:00",
+  "task_id_confirmed_utc": "2026-10-02T21:02:54.850713+00:00",
+  "status": "printing_startup_accepted",
+  "archive": ".cache/prints/funnel-test-receiver-mark2-v1/ready/funnel-test-receiver-mark2-v1.gcode.3mf",
+  "archive_sha256": "bf0c29db0750198fc199e4a1ec44e1ea924cf23171ea2eabc2e464a16a1e433f",
+  "gcode_sha256": "ec2a209da7e898b4c2284c0c33b8f8cc51495153f72d5e3abab4d4204b9a0584",
+  "source_stl_sha256": {
+    "test-receiver": "fba0609890e494df9be162c66ba1df90cab2d613f1921ec92a1dad4b5b84973b"
+  },
+  "imported_copy_archive_sha256": "bf0c29db0750198fc199e4a1ec44e1ea924cf23171ea2eabc2e464a16a1e433f",
+  "imported_copy_gcode_sha256": "ec2a209da7e898b4c2284c0c33b8f8cc51495153f72d5e3abab4d4204b9a0584",
+  "imported_copy_byte_identical_to_reviewed_archive": true,
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "support_summary": {
+    "support_bodies": 0,
+    "interface_islands": 0,
+    "bed_rooted_bodies": 0,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 0,
+    "shortest_labelled_build_up_mm": null
+  },
+  "filament_mapping": {
+    "physical_material": "black PET-GF",
+    "profile_label": "PET-CF",
+    "external_spool": 254,
+    "nozzle": "fixed left hardened 0.4 mm"
+  },
+  "sender": "Bambu Connect through background tools/bambu_send.py",
+  "accepted_send_attempts": 1,
+  "prior_explicit_rejection_record": "receiver-mark2-rejected-send.json",
+  "total_send_attempts": 2,
+  "automatic_resends": 0,
+  "settled_dialog_seconds": 20,
+  "printer_reply": {
+    "command": "project_file",
+    "err_code": 0,
+    "reason": "SUCCESS",
+    "result": "SUCCESS"
+  },
+  "printer_acceptance_verified": true,
+  "options": {
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "bed_clear_confirmation": {
+    "confirmed": true,
+    "source": "User: Both beds are clear; start Funnel 2 test receiver and cradle"
+  },
+  "shared_circuit_minimum_start_spacing_seconds": 180,
+  "seconds_since_h2c_task_confirmation_at_send_gate": 1760.474176,
+  "send_gate_observed_utc": "2026-10-02T21:02:30.946802+00:00",
+  "previous_printer_task_id": "1300236834",
+  "startup_observation": {
+    "job_id": "1303210057",
+    "gcode_state": "RUNNING",
+    "subtask_name": "funnel-test-receiver-mark2-v1-settled.gcode.3mf",
+    "layer_num": 0,
+    "total_layer_num": 50,
+    "mc_percent": 0,
+    "mc_remaining_time": 22,
+    "print_error": 0,
+    "hms": [],
+    "nozzle_temper": 33.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 26.0,
+    "bed_target_temper": 26.0,
+    "stg_cur": 13,
+    "observed_at": "2026-10-02T21:02:54.850713+00:00",
+    "upload_status": "idle"
+  },
+  "physical_fit_and_retention_tested": false
+}
