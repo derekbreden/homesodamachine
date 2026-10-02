@@ -37,7 +37,7 @@
     },
     {
       "check": "hardware/scripts/check_payloads.py",
-      "note": "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/tee-carrier-low-force.step.mesh — declared by nobody",
+      "note": "re-run tools/bazel/trace_inputs.py hardware/printed-parts/zone-c/funnel/funnel.py, then gen_build.py",
       "status": "red"
     },
     {
@@ -67,12 +67,12 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 4802 tracked, 547 fetched solids, 55 tags, 39 site routes",
+      "note": "paths: every reference lands — 4822 tracked, 551 fetched solids, 56 tags, 39 site routes",
       "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 430 of 1000 free, the next cut wants 402, and the whole pointer file reads by name in 21.8 MB against 175.8 MB of bundle",
+      "note": "check_release_room: 430 of 1000 free, the next cut wants 406, and the whole pointer file reads by name in 21.8 MB against 175.8 MB of bundle",
       "status": "ok"
     },
     {
@@ -92,19 +92,18 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 244 source(s) the graph names",
+      "note": "check_declared_imports: every step holds what it imports, over 260 source(s) the graph names",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 2742 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 547 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 2742 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 551 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was measured off a different enclosure-assembly.step — it holds bc7b5be4fe2f66d82ad5e3cc26889b80, enclosure-assembly.step here is d411486ff54d9c38741e654f95dd4365",
-      "  enclosure-assembly.facts.json was taken from a different tree — it holds 34c139978f4b73e7a499874905362956 for the 165 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 1c5dfb09f430df02cfdd29e1ca1a3f07 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 7efecb9e854f9d10b77cb8007fb198e8 for the 229 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at f658ddda559b5da0d78889ccd5e1d524 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
@@ -114,7 +113,7 @@
       "  ✗ procedure with no doc-sync driver — every number and part name in it is a bare literal: hardware/assembly/weld-position.md (expected hardware/assembly/_weld_position_sync.py)"
     ],
     "hardware/scripts/check_payloads.py": [
-      "17 solid(s) the bundle serves a payload for that no rule produces:",
+      "18 solid(s) the bundle serves a payload for that no rule produces:",
       "    hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.step.mesh — declared by nobody",
@@ -131,10 +130,13 @@
       "    hardware/printed-parts/enclosure/grip-cover/grip-section.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-001.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.step.mesh — declared by nobody",
-      "    hardware/printed-parts/enclosure/tee-carrier/low-force-trial/tee-carrier-low-force.step.mesh — declared by nobody"
+      "    hardware/printed-parts/enclosure/tee-carrier/low-force-trial/tee-carrier-low-force.step.mesh — declared by nobody",
+      "    hardware/printed-parts/zone-c/funnel/funnel.step.mesh — declared by nobody",
+      "      name it in tools/bazel/inventory.py IMPLICIT_SOLIDS under hardware/printed-parts/zone-c/funnel/funnel.py,",
+      "      re-run tools/bazel/trace_inputs.py hardware/printed-parts/zone-c/funnel/funnel.py, then gen_build.py"
     ],
     "hardware/scripts/check_step_colours.py": [
-      "step colours: 237/239 carry the colour of what they are made of",
+      "step colours: 238/240 carry the colour of what they are made of",
       "  2 STEP(s) name no colour, so /3d and their own cards draw them at the viewer's blue-grey:",
       "    hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/back-top-backing-proposal.step",
       "    hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/placed-psu.step",
@@ -148,8 +150,8 @@
     ],
     "tools/check_web_tests.py": [
       "2 test(s) in web/ fail:",
+      "    every alias names a component an assembly carries",
       "    EXCLUDED_DIRS is every out/ .gitignore holds under hardware",
-      "    a nested assembly is a node its parent's model actually holds",
       "  cd web && npm test"
     ]
   },
