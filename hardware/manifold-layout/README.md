@@ -105,6 +105,12 @@ bends move with that group. V-A and V-B have mounting planes 1.4 mm below the ca
 lid's outer face, with 3 mm beneath their blind socket floors, aft of the centered
 600 mL funnel frame.
 
+Fluid-4 drains the funnel into V-B. It leaves the PP0308E elbow under the funnel
+frame aft and level through the gap between V-A and V-B, turns west behind V-B's
+coil and short of the G Ganen pump's head, runs aft down V-B's west flank, and
+makes one U east and down into V-B's aft-facing inlet. All four corners are R14,
+and the line only falls.
+
 Once they are round, V-A and V-B go [46.72](STEP_TRAVEL) mm further along their run and
 [13.625](STEP_JOG) mm across it, toward the foam shell's crown, without changing direction. Two arcs
 of one radius with a straight between them do that, and the two distances fix the pair:

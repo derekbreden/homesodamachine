@@ -2,16 +2,11 @@
 
 The production fitting is the **John Guest PP0308E** 1/4" union elbow, black PP.
 
-**Where one stands in the machine:** under the funnel's spout, as the
-drain's disconnect. Its **+Z** leg takes the 1/4" LLDPE stub the funnel carries
-(`hardware/reference/funnel-drain-stub/`) with the spout's exit face on its
-collet, and its **+Y** leg hands `fluid-4` aft to V-B. Turning the fall inside
-its own envelope is what the fitting is there for: it stands one leg under the
-spout where a straight union hangs its whole length, which keeps the joint out of
-the folded deck's own storey. `elbow_connector.py` beside this file states the
-figures the machine spaces it by and holds them to the STEP;
+**Where the PP0308E stands in the machine:** under the funnel frame's drain
+hole, as the drain's disconnect. The assembly places the scanned
+[PP0308E reference](/hardware/reference/jg-pp0308e-elbow/README.md) there through
 [`manifold-layout/enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py)
-`build_drain_joint` places it.
+`build_drain_joint`; this McMaster STEP is not placed.
 
 `elbow-connector.step` is **McMaster 51055K136**, a 1/4" push-to-connect
 drinking-water elbow — simply a STEP that happened to be available, used as a

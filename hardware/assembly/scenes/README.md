@@ -19,7 +19,7 @@ digest; its subject is a file rather than a set of bodies, and it costs no appli
 | `cold-core-open` | The core closed underneath and open at the top, every line standing out of the mouth, ready for its body pour |
 | `cold-core` | The whole core, its crown populated and a tube standing in each of its seven cap conduits |
 | `back-half` | The two back quadrants mated, through the Y-seam mouth they hand the front half |
-| `funnel-drain` | The silicone funnel and sliding frame inverted, exposing the flat underside and plain drain hole |
+| `funnel-drain` | The silicone funnel and sliding frame inverted, exposing the flat underside and the elbow cradle snapped under the drain hole |
 
 ## Which bodies
 

@@ -256,6 +256,13 @@ MOUNTS = (
     ("g-ganen-pump", "foam-assembly", "deck-mount"),
     ("funnel", None, "wall-capture"),
     ("funnel-frame", ("enclosure-front-top", "enclosure-back-top"), "wall-capture"),
+    # THE FUNNEL'S DRAIN JOINT HANGS UNDER THE FRAME. The cradle's two wings rise through slots
+    # in the frame's bottom web and hook over it (`zone-c/funnel/elbow_cradle.py`); the elbow
+    # stands in the cradle's pocket with its nose on the web; the stub stands in the elbow's
+    # upper collet.
+    ("elbow-cradle", "funnel-frame", "snap-capture"),
+    ("funnel-drain-union", "elbow-cradle", "cradle"),
+    ("funnel-drain-stub", None, "tube-hung"),
     # The glass is captured between its housing seat and the rounded snap bezel.
     ("display", ("enclosure-front-top", "display-cover"), "plate-capture"),
     ("display-cover", "enclosure-front-top", "snap-capture"),
@@ -487,8 +494,13 @@ def fastened_by(name: str):
 # it null. These rows come out of the axis's denominator, and their text goes out on the card.
 NEVER = {
     "funnel":
-        "The silicone brim rests in the sliding PET-GF frame. The funnel lifts out by hand; "
-        "its drain tube retention and connection remain unresolved.",
+        "The silicone brim rests in the sliding PET-GF frame and its plug in the frame's socket, "
+        "its sealing land on the drain stub. The funnel lifts out by hand for the dishwasher, the "
+        "land sliding off the stub.",
+    "funnel-drain-stub":
+        "The elbow's upper collet grips it and the elbow stands in its printed cradle under the "
+        "frame, so the stub is held through that seat. The plug's land closes on its top end and "
+        "slides off it whenever the funnel is lifted out.",
     "fuse-clamp":
         "Both faces of the slot the clamp presses into are the compressor's own — the air its "
         "power box hangs over its mounting plate — so the clamp rides the can. The plate's "
@@ -602,6 +614,16 @@ MADE_UP = (
     # brings the two faces together. The tube is cut to the two grips and swallowed whole by them,
     # which is why there is no `water-4` either.
     ("vk-solenoid.outlet", "suction-chain.tube-port"),
+    # The drain stub and the elbow's +Z collet. The stub IS the tube in that grip — it runs
+    # `funnel_drain_stub.UNION_INSERTION` down inside the fitting — so the collet's lead is
+    # filled by the thing it is a grip on.
+    ("funnel-drain-stub.spout", "funnel-drain-union.stub"),
+    # And the same stub up the plug's bore to the top of its land. The funnel drains THROUGH the
+    # stub, so the drain's lead is the stub's own bore.
+    ("funnel.drain", "funnel-drain-stub.funnel"),
+    # The plug's bottom face and the elbow's release face, which stand the frame's web less the
+    # collet's projection apart with the stub filling the hole between them.
+    ("funnel.drain", "funnel-drain-union.stub"),
 )
 
 # Ports that open to ATMOSPHERE rather than onto a line. Nothing is ever bent onto one, so a bend
@@ -690,8 +712,16 @@ TOUCHING_OK = {frozenset(p) for p in (
     # And the nameplate's lettering against the plate it is lettered into, the same print in the
     # same two filaments at another size.
     ("nameplate", "nameplate-ink"),
-    # The silicone plug's lower annulus bears on the frame's 3 mm web.
+    # The silicone plug's lower face bears on the frame's 3 mm web.
     ("funnel", "funnel-frame"),
+    # THE DRAIN JOINT'S SEATS. The elbow's nose bears on the frame's underside round the hole and
+    # its body on the cradle's pocket; the cradle's wings stand in the web's slots with their
+    # hooks over it, inside the plug's pockets; the plug's land closes on the stub.
+    ("funnel-frame", "funnel-drain-union"),
+    ("elbow-cradle", "funnel-drain-union"),
+    ("elbow-cradle", "funnel-frame"),
+    ("elbow-cradle", "funnel"),
+    ("funnel", "funnel-drain-stub"),
     # V-K'S OUTLET AND THE SUCTION CHAIN'S COLLET, which `water-4` butts. `enclosure_assembly
     # .build_vk` seats the valve on that collet's own column and plane and the source row's
     # depth brings the two faces together, so what the run carries is the tube inside each
@@ -1006,6 +1036,31 @@ def pump_cap_contact(a, bodies) -> dict:
             "pass": max(rigid_volume, excess) <= _clearing.HIT_VOL}
 
 
+def drain_seal_contact(a, bodies) -> dict:
+    """Read the drain stub's common material with the silicone plug against the plug's land.
+
+    The land's bore is drawn at its moulded size, smaller than the stub, so the two share the
+    interference ring the push-on seal closes. Anything they share outside that ring is still an
+    interference.
+    """
+    import cadquery as cq
+    import funnel as _funnel
+
+    stub, plug = bodies["funnel-drain-stub"], bodies["funnel"]
+    common = stub.intersect(plug)
+    (cx, cy, top), _axis = a.carries["funnel"](
+        ((_funnel.neck_dx, _funnel.neck_dy, _funnel.spout_land_z), (0.0, 0.0, 1.0)))
+    od = stub.BoundingBox().xlen
+    ring = (cq.Solid.makeCylinder(od / 2 + 0.01, _funnel.sealing_land,
+                                  cq.Vector(cx, cy, top - _funnel.sealing_land))
+            .cut(cq.Solid.makeCylinder(_funnel.sealing_id / 2 - 0.01, _funnel.sealing_land,
+                                       cq.Vector(cx, cy, top - _funnel.sealing_land))))
+    total = common.Volume()
+    excess = common.cut(ring).Volume() if total > 0 else 0.0
+    return {"land_contact_mm3": total, "outside_land_mm3": excess,
+            "pass": excess <= _clearing.HIT_VOL}
+
+
 def pack_clashes(a) -> tuple:
     """The one exact pairwise-clash reading for an assembled machine.
 
@@ -1032,6 +1087,16 @@ def pack_clashes(a) -> tuple:
         except Exception as exc:
             unanswered.append(("g-ganen-pump", "foam-assembly",
                                "rubber foot contact: " + str(exc).splitlines()[0]))
+    seal_pair = frozenset(("funnel-drain-stub", "funnel"))
+    if any(frozenset((hit.a, hit.b)) == seal_pair for hit in bad):
+        try:
+            reading = drain_seal_contact(a, bodies)
+            a.drain_seal_contact_reading = reading
+            if reading["pass"]:
+                bad = [hit for hit in bad if frozenset((hit.a, hit.b)) != seal_pair]
+        except Exception as exc:
+            unanswered.append(("funnel-drain-stub", "funnel",
+                               "sealing land contact: " + str(exc).splitlines()[0]))
     result = bad, unanswered
     _clash_cache[id(a)] = (a, result)
     return result
@@ -1047,6 +1112,10 @@ def _pack_closes(a) -> Check:
             f"{reading['free_foot_contact_mm3']:.3f} mm³ contact, "
             f"{reading['rigid_overlap_mm3']:.6f} mm³ rigid interference, "
             f"{reading['outside_contact_masks_mm3']:.6f} mm³ outside the contact masks")
+    if seal := getattr(a, "drain_seal_contact_reading", None):
+        detail.append(
+            f"Drain stub in the plug's land: {seal['land_contact_mm3']:.2f} mm³ in the push-on "
+            f"seal's ring, {seal['outside_land_mm3']:.6f} mm³ outside it")
     return Check("pack-closes", "No two solids overlap (pack closes)", "gate",
                  verdict(not bad and not unanswered), f"{len(bad)} clash, {len(unanswered)} unanswered",
                  "0 clash, 0 unanswered", detail)

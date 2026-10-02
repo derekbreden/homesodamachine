@@ -76,6 +76,16 @@ accuracy, part tolerances, coating thickness, or repeatability. Fusion spacing i
 not a dimensional accuracy claim. The unfilled scan remains the detailed surface
 reference where a smoothed CAD profile does not capture a small feature.
 
+## Where it stands in the machine
+
+The elbow is the funnel drain's disconnect. It stands in the
+[elbow cradle](/hardware/printed-parts/zone-c/funnel/README.md#elbow-cradle) under the
+funnel frame, its +Z leg up the frame's drain hole with the fixed nose face on the frame's
+underside, and its +Y leg aft. The +Z collet holds the
+[drain stub](/hardware/reference/funnel-drain-stub/funnel_drain_stub.py) the silicone plug
+pushes onto; the +Y collet starts `fluid-4` to V-B. The cradle's pocket is the elbow's upward
+shadow grown by the printed slip, read off this reference's profiles.
+
 ## Scope for mating parts
 
 This reference establishes the exterior, collar seats, and captured release-face

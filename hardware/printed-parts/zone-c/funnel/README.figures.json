@@ -1,6 +1,25 @@
 {
+  "/hardware/printed-parts/zone-c/funnel/elbow_cradle.py": {
+    "CRADLE_BEND": "2.49 mm",
+    "CRADLE_CATCH": "0.4 mm",
+    "CRADLE_HOOK": "3.1 mm",
+    "CRADLE_LANE": "3.36 mm",
+    "CRADLE_LENGTH": "31.8 mm",
+    "CRADLE_OVERLAP": "2.6 mm",
+    "CRADLE_SLIP": "0.15 mm",
+    "CRADLE_STRAIN": "3.8%",
+    "CRADLE_WING_H": "13.24 mm",
+    "CRADLE_WING_T": "1.3 mm"
+  },
   "/hardware/printed-parts/zone-c/funnel/funnel.py": {
     "FUNNEL_CAP": "600 mL",
-    "FUNNEL_SPOUT_OD": "36 mm"
+    "FUNNEL_PLUG": "36 \u00d7 44.1 mm",
+    "FUNNEL_PLUG_CORNER": "R3",
+    "FUNNEL_PLUG_WALL": "1 mm"
+  },
+  "/hardware/printed-parts/zone-c/funnel/funnel_frame.py": {
+    "FRAME_HOLE": "11.25 mm",
+    "FRAME_SLOTS": "5.16 \u00d7 32.8 mm",
+    "FRAME_SOCKET": "36.6 \u00d7 44.7 mm"
   }
 }

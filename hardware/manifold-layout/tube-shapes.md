@@ -69,8 +69,7 @@ the unloaded model cannot determine where an installed tube settles against thos
 Several visibly different shapes have no new sampled contacts in the straight-stock case:
 fluid-24 shifts 32.6 mm, fluid-26 13.2 mm and fluid-16 9.7 mm. Displacement alone is not an
 anchor requirement. Carb-2 remains straight with zero displacement; its sleeve has contacts
-already present in the CAD envelope. Fluid-4 is the deliberately loose, hand-positioned
-drain run; its large free excursion does not represent its placed operating shape.
+already present in the CAD envelope.
 
 ## Data and numerical checks
 

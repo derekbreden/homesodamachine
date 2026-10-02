@@ -142,6 +142,16 @@ IMPLICIT_SOLIDS = {
         "hardware/printed-parts/zone-c/funnel/funnel-frame.stl",
         "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh",
     ),
+    "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": (
+        "hardware/printed-parts/zone-c/funnel/elbow-cradle.stl",
+        "hardware/printed-parts/zone-c/funnel/elbow-cradle.step.mesh",
+    ),
+    "hardware/printed-parts/zone-c/funnel/cradle-trial/cradle_trial.py": (
+        "hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.stl",
+        "hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.stl",
+        "hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.step.mesh",
+        "hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step.mesh",
+    ),
     "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py": (
         "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.stl",
     ),
