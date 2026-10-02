@@ -3,11 +3,11 @@
 One grip-cover insert for the pair of production enclosure grips. The mesh matches
 the insert in the [accepted v4 grip trial](../physical-acceptance.json).
 
-H2C accepted the Bambu Connect submission and paused during startup at layer 0
-with extrusion motor overload `0300-801E`. Its physical recovery follows the
-[documented unload and reload sequence](../../../../../tools/bambu-printers.md#extrusion-overload-after-sitting-loaded).
-Mark2's back-bottom job is running at layer 185 with no reported errors. The
-alerts and printer states are in [launch.json](launch.json).
+H2C reports task **1300913879** complete at 20/20 layers with no print error or
+HMS alert. [completion.json](completion.json) records that reading and the user's
+clear-bed confirmation for the next print. Print quality and the second insert's
+physical fit are not recorded here. [launch.json](launch.json) retains the launch
+receipt and startup observations.
 
 The H2C native slice uses the accepted trial's PET-CF profile for black PET-GF,
 the left 0.4 mm nozzle, and the left external spool. The first layer is 0.20 mm,

@@ -22,6 +22,10 @@ Chamber illumination supports the printer's camera-based detection during a prin
 
 ## What ready looks like from software
 
+Derek's request to start a print on a printer confirms that its bed is clear.
+Proceed without a separate bed-clear question. Check the printer's current job,
+material and nozzle mapping, print errors, and shared-circuit startup spacing.
+
 `status` reports the job state and, for each machine, its two external spools and every
 nozzle it knows.
 
