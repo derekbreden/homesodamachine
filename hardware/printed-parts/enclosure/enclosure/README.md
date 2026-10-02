@@ -1515,7 +1515,8 @@ each half that will stand at −X, and seat both halves with that mark at −X.
 **Each half bears on its ear plate.** The seat's mouth is the plate's outline,
 [23.7 × 4.3 mm](POGO_MOUTH), cut from the face to the plate's back. That plane,
 [3 mm](POGO_DATUM_DEPTH) in, is the datum the plate lands on, so the face lands flush. The
-body's stadium and the tails' room continue behind it. Two M1.4 × 5 socket-head screws pass the
+body's stadium continues behind it, and the tails and their solder joints stand in the lead
+passage behind that. Two M1.4 × 5 socket-head screws pass the
 ears' Ø1.5 mm holes into M1.4 × 4 × Ø2.3 brass heat-set inserts, each in a
 [Ø2 × 5 mm](POGO_INSERT_HOLE) bore opening from the datum. Each head stands
 [0.6 mm](POGO_HEAD_RECESS) under the face. Press each insert flush with the datum before the
@@ -1526,9 +1527,12 @@ crown, so each roof is one short bridge between the mouth's round ends, with the
 supported-surface allowance on the face that looks print-up. The insert bores are round and
 carry the same allowance.
 
-**The leads leave by the routes each print allows.** Behind the male, a
-[Ø7 mm](POGO_LEAD_BORE) teardrop bore runs from the tails' room through the bulkhead to its aft
-face, apex up, under [1.574 mm](POGO_LEAD_BORE_ROOF) of bulkhead. Behind the female, a lead slot
+**The leads leave by the routes each print allows.** Behind the male, one
+[Ø11 mm](POGO_LEAD_BORE) teardrop bore starts at the body's back and runs through the bulkhead to
+its aft face, apex up, wide enough at the contact row for both outer tails and their solder
+joints. Its apex keeps [1.2 mm](POGO_LEAD_BORE_ROOF) of bulkhead under the crown, so its axis
+stands [2.098 mm](POGO_LEAD_DROP) below the pair's. It opens through the aft face above the fore
+valve tray's crown at z [274.45 mm](POGO_LEAD_EXIT_FLOOR) and ends on that face below it. Behind the female, a lead slot
 opens through the clamp's crown, which is the clamp's bed face, and one
 [4 × 3.5 mm](POGO_GROOVE) groove per pump carries that pump's pair along the crown into its
 terminal well. The crown keeps [3.5 mm](POGO_CROWN_SKIN) of clamp over the seat's mouth.

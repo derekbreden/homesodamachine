@@ -64,9 +64,9 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=101.125 y=166.500 z=306.900
 click: x=-101.125 y=173.335 z=306.900
 
-[ceiling] The contact pair's male seat roof, one plane over the mouth, the body and the tails' room, 0.25 mm above the seat for the supported-face allowance. It bridges between the mouth's round ends, at most 23.7 mm, anchored on its back wall, and carries no load: the half bears on its ear-plate datum and is held by its two screws. Support placed here stands 4.6 mm in the open seat and leaves through the mouth on the bay face before the half goes in.
+[ceiling] The contact pair's male seat roof, one plane over the mouth and the body, 0.25 mm above the seat for the supported-face allowance. It bridges between the mouth's round ends, at most 23.7 mm, and carries no load: the half bears on its ear-plate datum and is held by its two screws. Behind the body the lead bore's teardrop roof takes over. Support placed here stands 4.6 mm in the open seat and leaves through the mouth on the bay face before the half goes in.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=0.000 y=83.015 z=280.924
+click: x=0.000 y=81.590 z=280.924
 
 [step] These parallel top planes bound the frame-entry clearance beside the east mounting stock. The printed section at Y188 retains X90.70..93.70 across Z299.00..299.60, a complete 3 mm wall. At X93.50 its vertical backing spans Z293.15..299.65. The adjoining X99.20 section continues down from Z298.95 through Z180.10.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step

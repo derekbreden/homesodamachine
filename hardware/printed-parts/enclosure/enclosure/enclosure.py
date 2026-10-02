@@ -1669,21 +1669,30 @@ cap_lift_clearance = 0.25      # extra sampled travel below the nominal cap posi
 #
 # EACH HALF BEARS ON ITS EAR PLATE. The mouth is the plate's whole outline, one `slip` round,
 # from the face to the plate's back, and that back is the datum: the plate lands on it and the
-# face lands flush. Behind it stand the body's own stadium and the tails' room. Two M1.4 × 5
-# SHCS pass the ears' Ø1.5 holes into M1.4 × 4 × Ø2.3 brass heat-sets opening from the datum,
-# each head on its ear inside the mouth. The roof is one bridge between the mouth's round ends
-# and takes the supported-surface allowance on the face that looks print-up.
+# face lands flush. Behind it stands the body's own stadium, and behind that the lead passage
+# takes the tails and their solder joints: the clamp's slot, and front-top's teardrop bore. Two
+# M1.4 × 5 SHCS pass the ears' Ø1.5 holes into M1.4 × 4 × Ø2.3 brass heat-sets opening from the
+# datum, each head on its ear inside the mouth. The roof is one bridge between the mouth's round
+# ends and takes the supported-surface allowance on the face that looks print-up.
+#
+# FRONT-TOP'S LEAD BORE IS ONE TEARDROP FROM THE BODY'S BACK. It is struck wide enough at the
+# contact row to take both outer tails and their joints, and its apex keeps `pogo_lead_skin`
+# under the bulkhead's crown, which behind the ridge wall is open air, so its axis stands below
+# the pair's. The fore valve tray stands on the bulkhead's aft face below the bore's axis: the
+# bore opens through that face above the tray's crown and ends on it below.
 pogo_crown_skin = 3.5        # clamp stock between the crown and the seat's mouth
 pogo_heatset_dia = 2.0       # the M1.4 × 4 × Ø2.3 insert's hole
 pogo_heatset_len = 4.0
 pogo_heatset_relief = 1.0    # pilot past the insert's blind end
 pogo_screw_len = 5.0         # M1.4 SHCS under-head length: the ear plate and the whole insert
 pogo_head = (2.6, 1.4)       # DIN 912 M1.4 head, (diameter, height)
-pogo_lead_half = 5.5         # the tails' room either side of the axis: the outer tails' joints
-pogo_tail_room = 3.0         # the tails' room behind the body: tails, joints and the leads' turn
+pogo_lead_half = 5.5         # the clamp's lead slot either side of the axis: the outer joints
 pogo_lead_run = 5.0          # the clamp's lead slot behind the body, where the leads turn up
 pogo_groove = (4.0, 3.5)     # a crown groove, (width, depth): two 22 AWG leads side by side
-pogo_lead_r = 3.5            # the bulkhead's lead bore, teardropped for front-top's print
+pogo_joint = 0.5             # a solder joint's growth round its Ø0.7 tail
+pogo_lead_air = 0.2          # the lead bore's air round the outer joints
+pogo_lead_skin = 1.2         # bulkhead kept over the lead bore's apex, under its crown
+pogo_lead_r = 5.5            # the bulkhead's lead bore, teardropped for front-top's print
 
 # --- THE HAND PULLS ONLY THE LOWER CRADLE -----------------------------------
 #
@@ -5749,8 +5758,10 @@ def pump_contact_figures(box):
     press = _pogo.PIN_PROUD - kiss
     w = _pogo.BODY_W + 2.0 * fits.slip
     groove_w, groove_d = pogo_groove
+    axis = pump_contact_lead_axis_z(box)
     # What the bulkhead keeps over the lead bore's teardrop apex, to its crown.
-    roof = box.pump_bay[2] - (z + pogo_lead_r / math.cos(math.radians(teardrop_roof_angle)))
+    roof = box.pump_bay[2] - (axis + pogo_lead_r / math.cos(math.radians(teardrop_roof_angle)))
+    floor = _lead_bore_floor(box)
     return {
         "POGO_AXIS_Z": f"{z:.6g} mm",
         "POGO_CROWN_SKIN": f"{pogo_crown_skin:.4g} mm",
@@ -5761,7 +5772,9 @@ def pump_contact_figures(box):
         "POGO_INSERT_HOLE": f"Ø{pogo_heatset_dia:g} × {pogo_heatset_len + pogo_heatset_relief:g} mm",
         "POGO_HEAD_RECESS": f"{_pogo.EAR_FACE - pogo_head[1]:.4g} mm",
         "POGO_LEAD_BORE": f"Ø{2.0 * pogo_lead_r:g} mm",
+        "POGO_LEAD_DROP": f"{z - axis:.4g} mm",
         "POGO_LEAD_BORE_ROOF": f"{roof:.4g} mm",
+        "POGO_LEAD_EXIT_FLOOR": (f"{floor:.6g} mm" if floor is not None else "no tray"),
         "POGO_GROOVE": f"{groove_w:g} × {groove_d:g} mm",
     }
 
@@ -6224,9 +6237,9 @@ def _pogo_seat(face_y, into, x, z, up):
     cutter, then the two insert bores.
 
     The mouth is the ear plate's outline from the face to the plate's back, the datum the plate
-    bears on; behind it the body's stadium to its back plus one `slip`, then the tails' room. The
-    bores open from the datum on the ears' own pitch and run the insert and its relief. `up` is
-    the piece's print-up, the side the roof's supported-surface allowance goes."""
+    bears on; behind it the body's stadium to its back plus one `slip`. The tails are the lead
+    passage's. The bores open from the datum on the ears' own pitch and run the insert and its
+    relief. `up` is the piece's print-up, the side the roof's supported-surface allowance goes."""
     s = fits.slip
     w = _pogo.BODY_W + 2.0 * s
     back = _pogo.ear_back()
@@ -6245,9 +6258,7 @@ def _pogo_seat(face_y, into, x, z, up):
         return face_y + into * d0, face_y + into * d1
 
     seat = (_y_stadium(_pogo.EAR_L + 2.0 * s, w, x, z, *at(-1.0, back))
-            .fuse(_y_stadium(_pogo.BODY_L + 2.0 * s, w, x, z, *at(back - 0.01, _pogo.BODY_T + s)))
-            .fuse(_y_stadium(2.0 * pogo_lead_half, w, x, z,
-                             *at(_pogo.BODY_T, _pogo.BODY_T + pogo_tail_room))))
+            .fuse(_y_stadium(_pogo.BODY_L + 2.0 * s, w, x, z, *at(back - 0.01, _pogo.BODY_T + s))))
     bores = [_supported_cut(_ycyl(pogo_heatset_dia / 2.0, x + ex, z,
                                   *at(back - 0.01,
                                       back + pogo_heatset_len + pogo_heatset_relief)), up)
@@ -6255,14 +6266,47 @@ def _pogo_seat(face_y, into, x, z, up):
     return _supported_cut(seat, up), bores
 
 
+def pump_contact_lead_axis_z(box):
+    """The bulkhead lead bore's axis: its teardrop apex `pogo_lead_skin` under the bay
+    bulkhead's crown."""
+    apex = pogo_lead_r / math.cos(math.radians(teardrop_roof_angle))
+    return box.pump_bay[2] - pogo_lead_skin - apex
+
+
+def _lead_bore_floor(box):
+    """The crown of the valve tray standing on the bay bulkhead's aft face, or None: the lead
+    bore runs out through that face above it and ends on the face below it."""
+    wall = box.pack.collet_plate["wall_aft_y"]
+    tops = []
+    for plane, sign, seats in box.pack.valve_trays:
+        face = plane - sign * _valve_tray.SEAT
+        near, far = sorted((face, face - sign * _valve_tray.THICK))
+        if near <= wall + 1.0 and far >= wall:
+            zs = [z for _x, z in seats]
+            tops.append((min(zs) + max(zs)) / 2.0 + _valve_tray.height(seats) / 2.0)
+    return max(tops) if tops else None
+
+
 def _pump_contact_fixed_cuts(box):
     """The male half's seat in the bay bulkhead's fore face, its two insert bores, and the lead
-    bore from the tails' room to the bulkhead's aft face, teardropped for front-top's print."""
+    bore from the body's back to the bulkhead's aft face, teardropped for front-top's print and
+    wide enough at the contact row for the tails and their joints."""
     plate = box.pack.collet_plate
     x, z = pump_contact_station(box)
     face, up = bay_back_y(plate), PIECE_PRINT_UP["front-top"]
+    axis, wall = pump_contact_lead_axis_z(box), plate["wall_aft_y"]
+    reach = max(math.hypot(cx, z - axis) for cx in _pogo.contact_xs())
+    need = reach + _pogo.TAIL_D / 2.0 + pogo_joint + pogo_lead_air
+    if need > pogo_lead_r:
+        raise ValueError(
+            f"the lead bore's Ø{2.0 * pogo_lead_r:g} on its axis at z {axis:.3f} reaches the outer "
+            f"contact's joint at {reach:.3f} mm and needs {need:.3f}: it no longer takes the tails")
     seat, bores = _pogo_seat(face, 1.0, x, z, up)
-    lead = _teardrop_y(pogo_lead_r, x, z, face + _pogo.BODY_T, plate["wall_aft_y"] + 1.0, up=up)
+    lead = _teardrop_y(pogo_lead_r, x, axis, face + _pogo.BODY_T, wall + 1.0, up=up)
+    floor = _lead_bore_floor(box)
+    if floor is not None and floor > axis - pogo_lead_r:
+        lead = lead.cut(_ybox(x - pogo_lead_r - 1.0, x + pogo_lead_r + 1.0, wall, wall + 2.0,
+                              axis - pogo_lead_r - 1.0, floor))
     return [seat, *bores, lead]
 
 
