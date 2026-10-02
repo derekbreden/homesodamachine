@@ -41,6 +41,11 @@ def datums(seat=349.0):
 def rail_runs(inner, y_joint, col, centre):
     cx, cy = centre
     start, stop = cy - funnel.collar_d / 2 + 6, cy + funnel.collar_d / 2 + 3.3
+    # The full-width end planes bound the rail and its receiver. Material beyond
+    # their reach cannot engage the frame and would occupy the component bays.
+    reach = (corbel_foot_half_depth + corbel_slope *
+             (funnel.drop + web - rail_below_seat + receiver_height))
+    start, stop = max(start, cy - reach), min(stop, cy + reach)
     y0, lane = (start, y_joint + 14.55) if col == 'front' else (stop, y_joint - 1)
     return [(inner[0], 1.0, y0, y_joint, lane),
             (inner[1], -1.0, y0, y_joint, lane)]

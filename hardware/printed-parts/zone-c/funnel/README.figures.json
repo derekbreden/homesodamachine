@@ -1,6 +1,6 @@
 {
   "/hardware/printed-parts/zone-c/funnel/funnel.py": {
-    "FUNNEL_CAP": "300 mL",
+    "FUNNEL_CAP": "600 mL",
     "FUNNEL_SPOUT_OD": "36 mm"
   }
 }

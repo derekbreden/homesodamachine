@@ -1,6 +1,6 @@
 # Funnel and sliding frame
 
-The removable silicone funnel holds nominally [300 mL](FUNNEL_CAP). Its PET-GF
+The removable silicone funnel holds nominally [600 mL](FUNNEL_CAP). Its PET-GF
 frame slides into front-top; closing front-top onto back-top captures the rear
 rails. The frame uses the enclosure's production rail section and its running
 clearances. Both flavors share this filling interface.
@@ -9,8 +9,8 @@ clearances. Both flavors share this filling interface.
 
 The collar center stays at world X0, Y182.5. Its brim underside is Z349 and its
 6 mm brim finishes flush with the Z355 enclosure roof. The collar is
-165 × 81.783 mm with R20 corners; the mouth is 153 × 69.783 mm with R14 corners;
-the brim is 179 × 95.783 mm with R27 corners. The collar wall and ramp's normal
+165 × 151 mm with R20 corners; the mouth is 153 × 139 mm with R14 corners;
+the brim is 179 × 165 mm with R27 corners. The collar wall and ramp's normal
 wall are 6 mm. The ramp falls toward X1.85, Y182.5.
 
 The integral silicone plug is [36 mm](FUNNEL_SPOUT_OD) in diameter and 15 mm
@@ -26,14 +26,15 @@ The existing mold tooling and its slice records do not qualify this plug.
 
 ## PET-GF frame
 
-The frame is 207 mm wide and 106.383 mm long. Its entire underside is flat at
+The frame is 207 mm wide and 111.697 mm long. Its entire underside is flat at
 Z299.9, leaving 3 mm below the silicone plug. A plain 6.85 mm through hole sits
 at X1.85, Y182.5. The plug socket is 36.6 mm in diameter.
 
 Both end corbels are 30° from vertical, across the complete X width, including
 the rail wings. The lower footprint runs from Y155 to Y210. The body widens
-upward to Y129.308 and Y235.692. The rail datum is Z306.9 and its top is Z321.7.
+upward to Y126.652 and Y238.348. The rail datum is Z306.9 and its top is Z321.7.
 The broad body fills the stock between its bowl clearance and rails.
+The funnel's brim bears on the enclosure's recessed roof ledge around its collar.
 
 The frame prints on its underside. The exported individual STEP and STL place
 that face at Z0 and the funnel's plan center at X0, Y0. Functional rail catches
@@ -60,7 +61,7 @@ records sampled insertion of the exported frame through both actual upper shells
 their closing motion, and capture against 2 mm translations on all three axes.
 Run `integration-review/check_fit.py` from the CAD environment to refresh it.
 
-The frame's native slice uses a 0.20 mm first layer, 0.24 mm subsequent layers,
+The stored native slice uses a 0.20 mm first layer, 0.24 mm subsequent layers,
 and six walls through the 44.499 mm corbel band. Its four support bodies reach
 only the four rail bearing regions; none start on the model. The
 [`support audit`](integration-review/frame-support-audit.json) includes unlabelled

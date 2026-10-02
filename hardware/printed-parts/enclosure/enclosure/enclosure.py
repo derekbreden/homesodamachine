@@ -475,7 +475,7 @@ funnel_chain_gap = 1.0
 # cut to the collar plus the project's ordinary slip instead of sharing an exact B-rep face
 # with the roof rib and ceiling corbels.
 funnel_collar_air = fits.running
-# The shortened collar stays centered on the fixed outlet station at Y182.5.
+# The collar stays centered on the fixed outlet station at Y182.5.
 funnel_front_y = 182.5 - _funnel.collar_d / 2.0
 funnel_seat_thickness = _swept_top.FUNNEL_SEAT
 ceiling_skin = _interface.ceiling_skin

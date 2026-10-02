@@ -759,7 +759,8 @@ access face with a slope.
 
 The ground boss's full-width column joins the ceiling. The ASSE anchor's end sections continue
 from the V's arris to the slab pocket's roof as rectangular blocks. The `fluid-28` anchor has
-an ordinary corbel at each end. The flow-regulator anchor has two columns. Each tube-anchor and
+an ordinary corbel at each end. The flow-regulator anchor has two end corbels beneath the ASSE
+outlet. Each tube-anchor and
 body-anchor end names its form in `TUBE_ANCHOR_END_FORMS` or `BODY_ANCHOR_END_FORMS`, and each
 Wago tower names its column in `WELL_COLUMNS`.
 
@@ -1617,7 +1618,7 @@ sloped face from the clip's fore end through the seam rather than three with ste
 
 ## Funnel opening
 
-The 300 mL silicone funnel sits in a separate solid PET-GF frame centered at
+The 600 mL silicone funnel sits in a separate solid PET-GF frame centered at
 Y182.5. The frame slides into front-top's receivers; closing the enclosure
 captures its rear rails in back-top. `funnel_frame.py` uses the production
 Z-seam heads and channels with the same section and fit allowances. The
