@@ -58,3 +58,21 @@ click: x=-64.775 y=80.013 z=310.750
 [sliver] These are narrow patches on the existing thick lintel floor at the mouths of the vertical wing-support exits. The 0.498 mm measurement is the exposed surface width, not wall thickness; the full lintel remains below and the tee/bay geometry is unchanged.
 click: x=-64.775 y=79.764 z=284.424
 click: x=64.775 y=79.764 z=284.424
+
+[sliver] This 1.2 mm-wide patch is where the funnel receiver's front end meets the existing flank features. It is not the wall's thickness: a cross-section 0.1 mm into the end at Z312.525 spans X98.5..106.606, giving 8.106 mm of continuous backing to the fluted exterior.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=99.100 y=144.608 z=312.525
+
+[sliver] The 0.25 mm seam-end strips are the running clearance above the rear receiver's roof. Each is backed by the full front shell from Z330.45 to Z355 and approximately 9 mm in X; no 0.25 mm-thick ligament stands alone. The actual shell-closing sweep is recorded in the funnel integration review.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-102.993 y=199.875 z=330.450
+click: x=102.993 y=199.875 z=330.450
+
+[ceiling] The frame's clearance leaves this flat, 5.75 mm-backed roof around the silicone opening. Support is reached through the broad frame opening before inserting the frame. The upper-shell native audit records its contacts; removal remains a physical review item.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=0.000 y=164.529 z=349.250
+
+[ceiling] These are the two flat lower faces of the shell's funnel-rail receivers. They retain the production rail's full foot section. Supports are accessible from the open interior and the Y sliding entrance before the frame is installed; the front-top native audit records the rail contacts.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=101.125 y=170.304 z=306.900
+click: x=-101.125 y=173.335 z=306.900

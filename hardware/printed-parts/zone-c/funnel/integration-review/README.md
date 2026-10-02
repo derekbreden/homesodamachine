@@ -25,6 +25,12 @@ both are below the 1 mm routing target. The anchor and the authored tube paths
 remain in place. Tube retention through the frame and the connection to V-B
 are unresolved.
 
+The shell's frame/rail clearance also enters the existing +X flank cable-clip
+profile. Three lint findings there remain open: two offsets at Y148.304 and
+Y188, and the exposed edge at Y188. A local cross-section at the forward
+clip reads 2.55 mm in X. Cable retention at these stations is not qualified;
+the integration needs review before accepting that compromise.
+
 ## Native slice readings
 
 The frame's slice has four bed-rooted support bodies, each serving a rail

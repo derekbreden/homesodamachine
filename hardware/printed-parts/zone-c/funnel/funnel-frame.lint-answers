@@ -1,0 +1,10 @@
+[step] The 0.30 mm step is the silicone forming clearance beneath its brim. The plug's lower annulus lands on the 3 mm web; the surrounding PET-GF stays solid behind this shallow seating relief.
+file: hardware/printed-parts/zone-c/funnel/funnel-frame.step
+click: x=20.833 y=-43.425 z=48.800
+
+[ceiling] These four square rail bearings retain the frame against vertical lift. They preserve the enclosure's production sliding profile. The native slice places one bed-rooted support beneath each bearing; each groove opens along its outer flank and its sliding entrance for support removal before assembly. The support contact locations are recorded in integration-review/frame-support-audit.json; physical removal and fit remain unqualified.
+file: hardware/printed-parts/zone-c/funnel/funnel-frame.step
+click: x=100.875 y=-10.571 z=16.200
+click: x=-100.875 y=-10.571 z=16.200
+click: x=100.875 y=29.124 z=16.450
+click: x=-100.875 y=29.124 z=16.450

@@ -129,3 +129,11 @@ click: x=93.688 y=465.300 z=293.178
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=42.660 y=466.140 z=264.178
 click: x=33.660 y=466.140 z=264.178
+[sliver] This narrow exposed patch is the junction of the funnel receiver and the existing flow-regulator anchor column. Immediately below its Z310.011 face, the actual printed section spans X-106.358..-98.5 and continues aft from Y204. It has 7.858 mm of transverse backing and is not a freestanding 0.318 mm wall. The regulator/frame interference remains unresolved in the assembly review.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-100.800 y=229.851 z=310.011
+
+[ceiling] The rear funnel receivers' flat rail bearings preserve the production sliding profile. Back-top prints roof-down, so these faces receive supports through the open channel. The channels are accessible from the interior and their Y entrances before assembly; support removal and the bed layout remain physical/preparation review items.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-101.125 y=215.346 z=315.600
+click: x=101.125 y=215.346 z=315.600
