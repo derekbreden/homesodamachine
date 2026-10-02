@@ -1,6 +1,6 @@
 {
   "revision": 1,
-  "status": "reviewed_for_elbow_cradle_snap_trial",
+  "status": "reviewed_combined_plate_reference_not_submitted",
   "printer": "H2C",
   "quantity": {
     "receiver": 1,
@@ -106,5 +106,9 @@
     "hardware/printed-parts/cadlib/fits.py": "3821989044c5bc3ae99cc6912538b8a34bd75a6b0a081aefc8e4c5a0ce714191",
     "hardware/reference/jg-pp0308e-elbow/elbow.py": "f4bbf9e1db98c82da4a96076e16a0333d2976b67f965a9d09d147fec510518d1",
     "hardware/reference/jg-pp0308e-elbow/scan-measurements.json": "d977e38f2966b4d3839e7161f5d6fb9b0b276faf7ec2e4ed2b942b5f4b22dd1a"
-  }
+  },
+  "current_allocations": [
+    "receiver-mark2-preflight.json",
+    "cradle-h2c-preflight.json"
+  ]
 }

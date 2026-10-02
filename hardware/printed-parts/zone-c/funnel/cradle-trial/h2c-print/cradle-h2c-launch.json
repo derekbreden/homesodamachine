@@ -1,0 +1,95 @@
+{
+  "printer": "H2C",
+  "part": "test-cradle",
+  "quantity": 1,
+  "printer_task_id": "1303138499",
+  "job_name": "funnel-test-cradle-h2c-v1.gcode.3mf",
+  "accepted_observed_utc": "2026-10-02T20:31:37.233882+00:00",
+  "task_id_confirmed_utc": "2026-10-02T20:33:10.472626+00:00",
+  "status": "completed",
+  "archive": ".cache/prints/funnel-test-cradle-h2c-v1/ready/funnel-test-cradle-h2c-v1.gcode.3mf",
+  "archive_sha256": "2cab31e8bf03c3c60bca3641395081a05ac050e334b40d80ece3dee86ccefdd9",
+  "gcode_sha256": "6c5445a3726157cee01530f503f8bac4de3da6bf88212722dac32a195bd11abd",
+  "source_stl_sha256": {
+    "test-cradle": "a138ed5c47fac79c396acbbc6ba11f3cbcda31f49a2cae6fa3939608156cd7e9"
+  },
+  "imported_copy_archive_sha256": "2cab31e8bf03c3c60bca3641395081a05ac050e334b40d80ece3dee86ccefdd9",
+  "imported_copy_gcode_sha256": "6c5445a3726157cee01530f503f8bac4de3da6bf88212722dac32a195bd11abd",
+  "imported_copy_byte_identical_to_reviewed_archive": true,
+  "requested_z_trim_mm": 0.18,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "support_summary": {
+    "support_bodies": 2,
+    "interface_islands": 2,
+    "bed_rooted_bodies": 2,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 32.64,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 2,
+    "shortest_labelled_build_up_mm": 32.64
+  },
+  "filament_mapping": {
+    "physical_material": "black PET-GF",
+    "profile_label": "PET-CF",
+    "external_spool": 254,
+    "nozzle": "fixed left hardened 0.4 mm"
+  },
+  "sender": "Bambu Connect through background tools/bambu_send.py",
+  "send_attempts": 1,
+  "mapping_attempts": 1,
+  "printer_acceptance_verified": true,
+  "options": {
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "bed_clear_confirmation": {
+    "confirmed": true,
+    "source": "User: Both beds are clear; start Funnel 2 test receiver and cradle"
+  },
+  "shared_circuit_minimum_start_spacing_seconds": 180,
+  "other_printer_previous_task_id": "1300236834",
+  "other_printer_idle_since_observation_utc": "2026-10-02T16:50:26.630658+00:00",
+  "startup_observation": {
+    "observed_at": "2026-10-02T20:33:10.472626+00:00",
+    "job_id": "1303138499",
+    "gcode_state": "RUNNING",
+    "subtask_name": "funnel-test-cradle-h2c-v1.gcode.3mf",
+    "layer_num": 0,
+    "total_layer_num": 148,
+    "mc_percent": 0,
+    "mc_remaining_time": 27,
+    "print_error": 0,
+    "hms": [],
+    "nozzle_temper": 200.0,
+    "nozzle_target_temper": 200.0,
+    "bed_temper": 26.0,
+    "bed_target_temper": 26.0,
+    "stg_cur": 74
+  },
+  "physical_fit_and_retention_tested": false,
+  "first_layer_confirmed_utc": "2026-10-02T20:42:54.211956+00:00",
+  "first_layer_observation": {
+    "observed_at": "2026-10-02T20:42:54.211956+00:00",
+    "job_id": "1303138499",
+    "gcode_state": "RUNNING",
+    "subtask_name": "funnel-test-cradle-h2c-v1.gcode.3mf",
+    "layer_num": 10,
+    "total_layer_num": 148,
+    "mc_percent": 25,
+    "mc_remaining_time": 20,
+    "print_error": 0,
+    "hms": [],
+    "nozzle_temper": 280.0,
+    "nozzle_target_temper": 280.0,
+    "bed_temper": 80.0,
+    "bed_target_temper": 80.0,
+    "stg_cur": 0
+  },
+  "completed_observed_utc": "2026-10-02T21:02:54.281874+00:00",
+  "completion_record": "cradle-h2c-completion.json"
+}

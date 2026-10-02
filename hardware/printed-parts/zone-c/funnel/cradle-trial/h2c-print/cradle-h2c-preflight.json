@@ -1,0 +1,115 @@
+{
+  "revision": 1,
+  "printer": "H2C",
+  "part": "test-cradle",
+  "quantity": 1,
+  "archive": ".cache/prints/funnel-test-cradle-h2c-v1/ready/funnel-test-cradle-h2c-v1.gcode.3mf",
+  "archive_sha256": "2cab31e8bf03c3c60bca3641395081a05ac050e334b40d80ece3dee86ccefdd9",
+  "project": ".cache/prints/funnel-test-cradle-h2c-v1/funnel-test-cradle-h2c-v1-input.3mf",
+  "project_sha256": "553612fb01566f5d23758457bfa2d1c0f442d40339b8b1ffd09abc4ec5d36638",
+  "gcode_sha256": "6c5445a3726157cee01530f503f8bac4de3da6bf88212722dac32a195bd11abd",
+  "estimated_seconds": 1658.2122802734375,
+  "source_stl_sha256": {
+    "test-cradle": "a138ed5c47fac79c396acbbc6ba11f3cbcda31f49a2cae6fa3939608156cd7e9"
+  },
+  "requested_z_trim_mm": 0.18,
+  "support_mode": "shared_automatic_tree",
+  "submitted": true,
+  "geometry_export_revision": "f8f59be7e",
+  "hook_underside_geometry_z_mm": 33.552898407,
+  "support_interface_last_z_mm": 33.08,
+  "first_hook_model_layer_z_mm": 33.8,
+  "nominal_first_hook_layer_bottom_z_mm": 33.56,
+  "printed_support_gap_mm": 0.48,
+  "pocket_support_paths": 0,
+  "status": "reviewed_for_elbow_cradle_snap_trial",
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "parts": [
+    {
+      "name": "test-cradle",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.stl",
+      "stl_sha256": "a138ed5c47fac79c396acbbc6ba11f3cbcda31f49a2cae6fa3939608156cd7e9",
+      "triangles": 12190,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        4.661194801330566,
+        17.77644920349121
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        162.5,
+        160.0,
+        17.77644920349121
+      ],
+      "plate_translation_mm": [
+        162.5,
+        160.0,
+        17.77644920349121
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          148.0871000289917,
+          144.09880542755127,
+          0.0
+        ],
+        [
+          176.9128999710083,
+          175.90119457244873,
+          35.55289840698242
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    }
+  ],
+  "model_layer_count": 148,
+  "first_two_layer_heights_mm": [
+    0.2,
+    0.44
+  ],
+  "minimum_second_layer_bead_area_overlap_fraction": 0.7809535841212799,
+  "minimum_second_layer_outer_wall_bead_area_overlap_fraction": 0.999164861644403,
+  "support_summary": {
+    "support_bodies": 2,
+    "interface_islands": 2,
+    "bed_rooted_bodies": 2,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 32.64,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 2,
+    "shortest_labelled_build_up_mm": 32.64
+  },
+  "support_contacts": "two_external_hook_undersides_only",
+  "physical_fit_and_retention_tested": false,
+  "production_print_pose_retained": true,
+  "filament_mapping": {
+    "physical_material": "black PET-GF",
+    "profile_label": "PET-CF",
+    "external_spool": 254,
+    "nozzle": "fixed left hardened 0.4 mm"
+  },
+  "launch_record": "cradle-h2c-launch.json"
+}

@@ -1,10 +1,28 @@
-# H2C elbow-cradle trial
+# Funnel elbow-cradle trial
 
-One test receiver and one test cradle, retaining their production print poses and
-the [trial geometry and bench procedure](../README.md). The native slice estimates
-45 minutes 18 seconds. It uses black PET-GF on H2C's fixed left hardened 0.4 mm
-nozzle, the requested **+0.18 mm Z trim**, a 0.20 mm first layer and ordinary
-0.24 mm layers. Textured-plate compensation emits `G29.1 Z0.16`.
+One frozen Funnel 2 test receiver and one test cradle, retaining their production
+print poses and the [trial geometry and bench procedure](../README.md). Both use
+black PET-GF on the fixed left hardened 0.4 mm nozzle, with a 0.20 mm first layer
+and ordinary 0.24 mm layers. The user's request to start the pair confirmed both
+beds clear.
+
+| Part | Printer | Task | Requested Z trim | Native estimate | Printer state |
+| --- | --- | --- | --- | --- | --- |
+| Test receiver | Mark2 | 1303210057 | +0.04 mm | 22 min 56 sec | Accepted and running startup, 2026-10-02 21:02:54 UTC |
+| Test cradle | H2C | 1303138499 | +0.18 mm | 27 min 38 sec | Finished, 2026-10-02 21:02:54 UTC |
+
+Textured-plate compensation emits `G29.1 Z0.02` on Mark2 and `G29.1 Z0.16`
+on H2C. The [receiver launch](receiver-mark2-launch.json) and
+[cradle launch](cradle-h2c-launch.json) bind the archive and G-code hashes to
+the new printer task IDs. Mark2 returned `project_file` SUCCESS with error code
+zero. Its accepted import is byte-identical to the reviewed archive and uses a
+20-second settled print dialog. The
+[explicitly rejected submission](receiver-mark2-rejected-send.json) created no
+new task. Automatic resends are disabled.
+
+The cradle's [completion record](cradle-h2c-completion.json) reports all 148
+layers finished, 100%, no printer error and no HMS notice. Physical print quality,
+support removal and fit remain unverified. The paired receiver is still printing.
 
 The shared PET-GF automatic tree profile puts exactly two supports under the
 flat outward hooks. Both start on the bed and stand in open air outside the
@@ -13,33 +31,38 @@ layer is Z 33.80 mm with a nominal bottom at Z 33.56 mm, leaving 0.48 mm between
 support and bearing. The receiver and upward-opening pocket have no support
 paths. No blockers or geometry amendments are needed for this slice.
 
-[support-audit.json](support-audit.json) retains the complete support topology,
-including bodies without interface labels. [preflight.json](preflight.json)
-binds the frozen meshes, input project and native G-code archive, and records
-both nozzle mapping and first/second-layer bead overlap. Every second-layer
-model bead has more than half its area over the first-layer model footprint;
-the outer-wall minima are 99.7% on the receiver and 99.9% on the cradle.
-Elephant-foot compensation is zero and there is no brim.
+[receiver-mark2-support-audit.json](receiver-mark2-support-audit.json) and
+[cradle-h2c-support-audit.json](cradle-h2c-support-audit.json) retain the complete
+support topology, including bodies without interface labels. Their
+[receiver preflight](receiver-mark2-preflight.json) and
+[cradle preflight](cradle-h2c-preflight.json) bind the frozen meshes, input projects
+and native G-code archives, including nozzle mapping and first/second-layer bead
+overlap. Every second-layer model bead has more than half its area over the
+first-layer model footprint; outer-wall minima are 99.7% on the receiver and
+99.9% on the cradle. Elephant-foot compensation is zero and there is no brim.
 
-[preparation.json](preparation.json) records the saved profile, source snapshot
-and separated bed positions. The production generators belong to the Funnel 2
-session; these print records describe the frozen trial meshes.
-Every source in that snapshot matches the export commit `f8f59be7e`, and both
-STL hashes match the exporting session's frozen-mesh receipt.
+[receiver preparation](receiver-mark2-preparation.json) and
+[cradle preparation](cradle-h2c-preparation.json) record the saved profile, source
+snapshot and bed positions. The production generators belong to the Funnel 2
+session; these print records describe the frozen trial meshes. Every source in
+that snapshot matches export commit `f8f59be7e`, and both STL hashes match the
+exporting session's frozen-mesh receipt. The
+[combined-plate preflight](preflight.json), [preparation](preparation.json) and
+[support audit](support-audit.json) are an unsent profile reference.
 
-This job follows the contact-seat coupons in the H2C queue. It has not been
-submitted. Submission requires the preceding job to finish, the printed pieces
-and supports to be removed, and a current clear-bed confirmation. Use the
-background Bambu Connect sender with the external PET-CF-labelled black PET-GF
-spool. Print options are Timelapse On, Bed Leveling On, Flow Dynamic Calibration
-Auto and Nozzle Offset Calibration Auto. Keep at least three minutes after
-either printer accepts or resumes a job before starting the other.
+The [allocation and queue](../../../../enclosure/enclosure/contact-pair-coupon/h2c-print/queue.json)
+record one part per printer. The background Bambu Connect sender uses the
+external PET-CF-labelled black PET-GF spool. Print options are Timelapse On, Bed
+Leveling On, Flow Dynamic Calibration Auto and Nozzle Offset Calibration Auto.
+The receiver's send gate was 1,760 seconds after confirmation of the cradle's new
+task, exceeding the shared-circuit minimum of 180 seconds. A subsequent start
+or resume must retain that minimum interval. Printer completion alone does not
+clear a bed for a following job.
 
 To prepare and review a fresh revision:
 
 ```sh
-HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/prepare.py --revision 2
-HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/verify.py --revision 2
+HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/prepare_split.py --revision 2
 ```
 
 Each revision has a separate immutable directory in `.cache/prints/`.

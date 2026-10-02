@@ -1,0 +1,32 @@
+{
+  "printer": "Mark2",
+  "part": "test-receiver",
+  "status": "explicitly_rejected_no_new_task",
+  "archive": ".cache/prints/funnel-test-receiver-mark2-v1/ready/funnel-test-receiver-mark2-v1.gcode.3mf",
+  "archive_sha256": "bf0c29db0750198fc199e4a1ec44e1ea924cf23171ea2eabc2e464a16a1e433f",
+  "gcode_sha256": "ec2a209da7e898b4c2284c0c33b8f8cc51495153f72d5e3abab4d4204b9a0584",
+  "import_copy_byte_identical": true,
+  "project_file_reply": {
+    "command": "project_file",
+    "err_code": 83902534,
+    "reason": "ERROR STATE",
+    "result": "FAIL"
+  },
+  "vendor_error_definition": "Invalid 3MF; verify selected printer model or re-slice.",
+  "vendor_error_source": "/Applications/BambuStudio.app/Contents/Resources/hms/hms_en_31B.json",
+  "send_attempts": 1,
+  "previous_task_id": "1300236834",
+  "status_after": {
+    "observed_at": "2026-10-02T21:00:13.009980+00:00",
+    "job_id": "1300236834",
+    "gcode_state": "FAILED",
+    "subtask_name": "Back_bottom;_accepted_grip_bridges;_Mark2",
+    "print_error": 0,
+    "hms": [],
+    "nozzle_target_temper": 0.0,
+    "bed_target_temper": 0.0
+  },
+  "upload_after": "idle",
+  "recovery_reference": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v12/submission.json",
+  "planned_recovery": "Fresh import of the same reviewed archive and a 20-second settled-dialog wait; one Send with automatic retries disabled."
+}

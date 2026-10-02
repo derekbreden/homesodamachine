@@ -1,0 +1,127 @@
+{
+  "printers": {
+    "H2C": {
+      "observed_at": "2026-10-02T20:26:15.454135+00:00",
+      "job_id": "1302534665",
+      "gcode_state": "FINISH",
+      "subtask_name": "contact-pair-coupons-h2c-v2.gcode.3mf",
+      "layer_num": 78,
+      "total_layer_num": 78,
+      "mc_percent": 100,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [],
+      "nozzle_temper": 27.0,
+      "nozzle_target_temper": 0.0,
+      "bed_temper": 26.0,
+      "bed_target_temper": 0.0,
+      "stg_cur": -1,
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "000000FF"
+        },
+        "255": {
+          "type": "TPU",
+          "colour": "161616FF"
+        }
+      },
+      "nozzles": [
+        {
+          "id": 16,
+          "type": "HS01",
+          "diameter": 0.6
+        },
+        {
+          "id": 1,
+          "type": "HS01",
+          "diameter": 0.4
+        },
+        {
+          "id": 17,
+          "type": "HS00",
+          "diameter": 0.2
+        },
+        {
+          "id": 0,
+          "type": "HS00",
+          "diameter": 0.2
+        }
+      ]
+    },
+    "Mark2": {
+      "observed_at": "2026-10-02T20:26:15.351384+00:00",
+      "job_id": "1300236834",
+      "gcode_state": "FINISH",
+      "subtask_name": "Back_bottom;_accepted_grip_bridges;_Mark2",
+      "layer_num": 1402,
+      "total_layer_num": 1402,
+      "mc_percent": 100,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [],
+      "nozzle_temper": 28.0,
+      "nozzle_target_temper": 0.0,
+      "bed_temper": 25.0,
+      "bed_target_temper": 0.0,
+      "stg_cur": -1,
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "000000FF"
+        },
+        "255": {
+          "type": "PET-CF",
+          "colour": "FFFFFFFF"
+        }
+      },
+      "nozzles": [
+        {
+          "id": 0,
+          "type": "HS01",
+          "diameter": 0.4
+        },
+        {
+          "id": 1,
+          "type": "HS01",
+          "diameter": 0.4
+        },
+        {
+          "id": 16,
+          "type": "HS01",
+          "diameter": 0.6
+        },
+        {
+          "id": 18,
+          "type": "HS00",
+          "diameter": 0.2
+        },
+        {
+          "id": 20,
+          "type": "HH01",
+          "diameter": 0.8
+        },
+        {
+          "id": 21,
+          "type": "HS01",
+          "diameter": 0.8
+        }
+      ]
+    }
+  },
+  "beds_clear": true,
+  "bed_clear_source": "User: Both beds are clear; start Funnel 2 test receiver and cradle",
+  "allocation": {
+    "Mark2": "test-receiver",
+    "H2C": "test-cradle"
+  },
+  "minimum_start_spacing_seconds": 180,
+  "earlier_idle_observation_utc": {
+    "Mark2": "2026-10-02T16:50:26.630658+00:00",
+    "H2C": "2026-10-02T17:00:26.771173+00:00"
+  },
+  "requested_z_trim_mm": {
+    "Mark2": 0.04,
+    "H2C": 0.18
+  }
+}

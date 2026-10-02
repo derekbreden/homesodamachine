@@ -21,12 +21,51 @@
     {
       "order": 2,
       "trial": "funnel elbow-cradle receiver and cradle",
-      "archive": ".cache/prints/funnel-cradle-trial-h2c-v1/ready/funnel-cradle-trial-h2c-v1.gcode.3mf",
-      "archive_sha256": "e1aaec1ae6d75f02f29fe7e77dc26535bf7697e64b846a23310ddc506f08adef",
-      "estimated_seconds": 2717.639892578125,
-      "review": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/preflight.json",
-      "status": "ready_awaiting_start_request_or_clear_bed_report_after_coupon_removal",
-      "submitted": false
+      "review": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/README.md",
+      "status": "cradle_completed_receiver_printing",
+      "submitted": true,
+      "allocation_reason": "Both beds are clear and both fixed left nozzles have suitable black PET-GF loaded.",
+      "allocations": [
+        {
+          "printer": "Mark2",
+          "part": "test-receiver",
+          "archive": ".cache/prints/funnel-test-receiver-mark2-v1/ready/funnel-test-receiver-mark2-v1.gcode.3mf",
+          "archive_sha256": "bf0c29db0750198fc199e4a1ec44e1ea924cf23171ea2eabc2e464a16a1e433f",
+          "gcode_sha256": "ec2a209da7e898b4c2284c0c33b8f8cc51495153f72d5e3abab4d4204b9a0584",
+          "requested_z_trim_mm": 0.04,
+          "review": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/receiver-mark2-preflight.json",
+          "status": "printing",
+          "submitted": true,
+          "rejected_send_record": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/receiver-mark2-rejected-send.json",
+          "printer_task_id": "1303210057",
+          "job_name": "funnel-test-receiver-mark2-v1-settled.gcode.3mf",
+          "accepted_observed_utc": "2026-10-02T21:02:45.508698+00:00",
+          "launch_record": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/receiver-mark2-launch.json"
+        },
+        {
+          "printer": "H2C",
+          "part": "test-cradle",
+          "archive": ".cache/prints/funnel-test-cradle-h2c-v1/ready/funnel-test-cradle-h2c-v1.gcode.3mf",
+          "archive_sha256": "2cab31e8bf03c3c60bca3641395081a05ac050e334b40d80ece3dee86ccefdd9",
+          "gcode_sha256": "6c5445a3726157cee01530f503f8bac4de3da6bf88212722dac32a195bd11abd",
+          "requested_z_trim_mm": 0.18,
+          "review": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/cradle-h2c-preflight.json",
+          "status": "completed",
+          "submitted": true,
+          "printer_task_id": "1303138499",
+          "accepted_observed_utc": "2026-10-02T20:31:37.233882+00:00",
+          "launch_record": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/cradle-h2c-launch.json",
+          "completed_observed_utc": "2026-10-02T21:02:54.281874+00:00",
+          "completion_record": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/cradle-h2c-completion.json"
+        }
+      ],
+      "combined_archive_submitted": false,
+      "combined_archive_reference": {
+        "archive": ".cache/prints/funnel-cradle-trial-h2c-v1/ready/funnel-cradle-trial-h2c-v1.gcode.3mf",
+        "archive_sha256": "e1aaec1ae6d75f02f29fe7e77dc26535bf7697e64b846a23310ddc506f08adef",
+        "estimated_seconds": 2717.639892578125,
+        "submitted": false
+      }
     }
   ],
   "followup_automation": "continue-h2c-trial-queue"
