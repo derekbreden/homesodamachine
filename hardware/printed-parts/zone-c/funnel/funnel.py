@@ -1,4 +1,4 @@
-"""Removable 600 mL silicone funnel, seated in the enclosure's sliding PET-GF frame.
+"""Removable 300 mL silicone funnel, seated in the enclosure's sliding PET-GF frame.
 
 The collar center is the origin; z=0 is the brim underside. The 6 mm brim,
 collar and normal ramp wall lead to a substantial silicone plug, a 36 mm wide
@@ -34,7 +34,7 @@ import _stated_bounds as _bounds
 
 # --- funnel parameters ------------------------------------------------------
 collar_w = 165.0  # collar footprint in X, inside the top-wall frame
-collar_d = 151.0  # collar footprint in Y
+collar_d = 81.78301584656256  # collar footprint in Y
 mouth_corner_r = 14.0
 collar_corner_r = mouth_corner_r + 6.0
 brim_corner_r = collar_corner_r + 7.0
@@ -42,7 +42,7 @@ brim_margin = 7.0  # top-wall frame between the collar and its outer boundary
 brim_overhang = 7.0  # flange reach beyond the collar on each side
 brim_thickness = 6.0  # vertical flange thickness
 collar_wall = 6.0  # vertical collar wall and normal ramp-wall thickness
-capacity_ml = 600.0  # nominal capacity to the brim
+capacity_ml = 300.0  # nominal capacity to the brim
 chute_h = 23.485946291005064  # brim top to inner ramp start
 neck_dx = 1.85
 neck_dy = 0.0
@@ -191,7 +191,7 @@ def build_solids(drop=drop, ramp_wall=collar_wall, outer_air=0.0):
              .translate(cq.Vector(ncx, ncy, end_z))]
     if outer_air:
         bases = [bases[0], *(normal_envelope(b, outer_air) for b in bases[1:])]
-    solid = fuse_shapes(*(base.toNURBS() for base in bases)).clean()
+    solid = fuse_shapes(*bases, tol=0.0001).clean()
     # The plug's broad lower annulus is the silicone's sole bottom plane.
     solid = solid.intersect(_box(600, 600, end_z - outer_air, top_z + 1, 0, 0)).clean()
     assert solid.isValid() and len(solid.Solids()) == 1

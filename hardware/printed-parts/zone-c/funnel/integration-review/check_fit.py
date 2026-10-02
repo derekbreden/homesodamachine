@@ -25,8 +25,8 @@ for sign in (-1,1):
     corbel_excess.append(float(residual.max()))
 assert max(corbel_excess)<.001,corbel_excess
 web=[]
-# This ring stays inside the plug socket and outside the drain and wing slots.
-web_probe_radius=17.0
+# This ring lies between the 5.625 mm drain radius and the 10.38 mm slot edge.
+web_probe_radius=8.0
 for angle in np.linspace(0,2*np.pi,8,endpoint=False):
     origin=[1.85+web_probe_radius*np.cos(angle),182.5+web_probe_radius*np.sin(angle),298.9]
     points,_,_=mesh.ray.intersects_location([origin],[[0,0,1]])
