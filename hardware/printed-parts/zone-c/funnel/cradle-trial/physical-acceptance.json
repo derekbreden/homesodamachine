@@ -1,0 +1,24 @@
+{
+  "trials": [
+    {
+      "trial": "v1",
+      "source_commit": "f8f59be7e",
+      "reported_by": "Derek",
+      "reported_date": "2026-10-02",
+      "insertion": "Inserted pretty easily.",
+      "retention_and_cycle_testing": "Not reported.",
+      "wing_free_length_mm": 11.24,
+      "cradle_half_width_mm": 11.313,
+      "frame_web_slot_to_hole_mm": 1.028,
+      "printer_jobs": {
+        "H2C": "1303138499",
+        "Mark2": "1303210057"
+      },
+      "geometry_sha256": {
+        "hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.stl": "a138ed5c47fac79c396acbbc6ba11f3cbcda31f49a2cae6fa3939608156cd7e9",
+        "hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.stl": "fba0609890e494df9be162c66ba1df90cab2d613f1921ec92a1dad4b5b84973b"
+      },
+      "print_record": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/README.md"
+    }
+  ]
+}

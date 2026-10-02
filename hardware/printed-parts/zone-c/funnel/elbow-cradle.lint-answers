@@ -1,4 +1,4 @@
 [ceiling] The two hooks' flat undersides are the snap's retention bearings: each lies flat on the funnel frame's 3 mm web, so it keeps its square face. They print on accessible bed-rooted supports under the hooks, the two supports the cradle trial's native slice places.
 file: hardware/printed-parts/zone-c/funnel/elbow-cradle.step
-click: x=-12.863 y=4.661 z=33.553
-click: x=12.863 y=4.661 z=33.553
+click: x=-16.600 y=4.661 z=33.553
+click: x=16.600 y=4.661 z=33.553
