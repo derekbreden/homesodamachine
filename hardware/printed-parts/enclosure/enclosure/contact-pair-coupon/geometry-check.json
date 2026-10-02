@@ -1,0 +1,59 @@
+{
+  "box": "hardware/manifold-layout/enclosure-box.json",
+  "coupons": {
+    "male": {
+      "piece": "enclosure-front-top",
+      "print_up": 1.0,
+      "crop_in_machine_frame": [
+        -17.85,
+        17.85,
+        78.515,
+        95.836,
+        266.926,
+        285.424
+      ],
+      "print_size_mm": [
+        35.7,
+        16.32,
+        18.5
+      ],
+      "volume_mm3": 8109.57,
+      "stl_facets": 5424,
+      "outputs": {
+        "contact-pair-male-coupon.step": "463c5737263851691ec17003125bb2441b1695da27701724716fdc1a67afbf24",
+        "contact-pair-male-coupon.stl": "4a7bf11c0ec4afe6b450801679acbbec83abe9b38ac06bba12582d2d490dad6f",
+        "contact-pair-male-coupon.step.mesh": "c95cff16f4901666b4a2531c94df058adcb8bd7865a3bd1ceeab363cb19df400"
+      }
+    },
+    "female": {
+      "piece": "enclosure-pump-cap",
+      "print_up": -1.0,
+      "crop_in_machine_frame": [
+        -17.85,
+        17.85,
+        67.269,
+        80.269,
+        272.124,
+        285.174
+      ],
+      "print_size_mm": [
+        35.7,
+        12.0,
+        12.05
+      ],
+      "volume_mm3": 4055.97,
+      "stl_facets": 4376,
+      "outputs": {
+        "contact-pair-female-coupon.step": "78de2f579c754ea9b3218d43aeb9f7fe8df9cc853ed1ff666657f0a01920403a",
+        "contact-pair-female-coupon.stl": "f9454fcb871c430abed36025821d1711c682f7c5b47582fd4c86a11fd70f4d8b",
+        "contact-pair-female-coupon.step.mesh": "a9e34a4b5f3f24cbc2a64b05b55769d45207aa821f1e0fe061cda7991e4fe23d"
+      }
+    }
+  },
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py": "7a8b3ec013fc4b951eb8caaf5cf935b75fc634a4c7ab01a6fbd3beb7bbbe8fb3",
+    "hardware/manifold-layout/enclosure-box.json": "590cfed407b4150ca25926daad1182f0698f7fc3a7f88348db8b3cbbcdc58683",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "01f9674f9a5938321079c3007c49afc5e4d2ef0931232a3c58d3290810ec9c0f",
+    "hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py": "7a2cc5efd8b6de98cb596c4b5d5ed94028a7c7c869f6763d6dc9e1bf310a3f44"
+  }
+}
