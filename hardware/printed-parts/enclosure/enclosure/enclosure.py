@@ -146,6 +146,7 @@ sys.path.insert(0, str(_repo / "hardware" / "reference" / "wago-221"))
 sys.path.insert(0, str(_repo / "hardware" / "reference" / "mq6-gas-sensor"))
 sys.path.insert(0, str(_repo / "hardware" / "reference" / "riteav-keystone"))
 sys.path.insert(0, str(_repo / "hardware" / "reference" / "iec-c14-inlet"))
+sys.path.insert(0, str(_repo / "hardware" / "reference" / "yyfkgcp-pogo-4p"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "valve-seat"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "valve-tray"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "pump-tray"))
@@ -166,6 +167,7 @@ import wago_221 as _wago
 import mq6_gas_sensor as _mq6
 import riteav_keystone as _keystone
 import iec_c14_inlet as _c14
+import yyfkgcp_pogo_4p as _pogo
 import valve_seat as _seat
 import valve_tray as _valve_tray
 import pump_tray as _tray
@@ -1650,6 +1652,40 @@ clamp_pump_y_shift = _tray.rear_axis_y_shift  # rear-stack openings off the head
 cap_bridge_rise = 2.0
 cap_terminal_opening_r = 22.5  # open crown around each motor end and its terminal pair
 cap_lift_clearance = 0.25      # extra sampled travel below the nominal cap position
+
+# --- THE CARTRIDGE CONNECTS AS IT SEATS --------------------------------------
+#
+# A YYFKGCP 4-pin magnetic pogo pair (`reference/yyfkgcp-pogo-4p`) mates across the kiss
+# between the cartridge's flat back and the bay bulkhead. The FEMALE half, four flush pads
+# between two magnets, rides the cartridge in the clamp's aft face; the MALE half, four sprung
+# pins, stands opposite it in the bulkhead's fore face. Each face lies flush with the plane it is
+# let into, so the pins, `PIN_PROUD` out at rest, cross `cap_kiss` and are pressed by the rest of
+# their reach when the cartridge is home. Straight Y insertion is the pair's own mating axis: the
+# pins meet their pads head-on and nothing sweeps across either face.
+#
+# THE STATION IS THE CLAMP'S CENTRE LANE, UNDER ITS CROWN. The lane between the two boss octagons
+# stays full base to crown, so the female's seat, its two inserts and the lead slot behind it are
+# cut from solid stock clear of both screw counterbores. The slot opens through the crown, which
+# is the clamp's bed face, and one groove per pump carries that pump's two leads along the crown
+# into its terminal well: the -X contacts serve the -X pump.
+#
+# EACH HALF BEARS ON ITS EAR PLATE. The mouth is the plate's whole outline, one `slip` round,
+# from the face to the plate's back, and that back is the datum: the plate lands on it and the
+# face lands flush. Behind it stand the body's own stadium and the tails' room. Two M1.4 × 5
+# SHCS pass the ears' Ø1.5 holes into M1.4 × 4 × Ø2.3 brass heat-sets opening from the datum,
+# each head on its ear inside the mouth. The roof is one bridge between the mouth's round ends
+# and takes the supported-surface allowance on the face that looks print-up.
+pogo_crown_skin = 3.5        # clamp stock between the crown and the seat's mouth
+pogo_heatset_dia = 2.0       # the M1.4 × 4 × Ø2.3 insert's hole
+pogo_heatset_len = 4.0
+pogo_heatset_relief = 1.0    # pilot past the insert's blind end
+pogo_screw_len = 5.0         # M1.4 SHCS under-head length: the ear plate and the whole insert
+pogo_head = (2.6, 1.4)       # DIN 912 M1.4 head, (diameter, height)
+pogo_lead_half = 5.5         # the tails' room either side of the axis: the outer tails' joints
+pogo_tail_room = 3.0         # the tails' room behind the body: tails, joints and the leads' turn
+pogo_lead_run = 5.0          # the clamp's lead slot behind the body, where the leads turn up
+pogo_groove = (4.0, 3.5)     # a crown groove, (width, depth): two 22 AWG leads side by side
+pogo_lead_r = 3.5            # the bulkhead's lead bore, teardropped for front-top's print
 
 # --- THE HAND PULLS ONLY THE LOWER CRADLE -----------------------------------
 #
@@ -5722,6 +5758,34 @@ def pump_cartridge_figures(box):
         "PLATE_STROKE": f"{plate['stroke']:.4g} mm",
         "PLATE_REST_GAP": f"{plate['rest_gap']:.4g} mm",
         "SLEEVE_TRAVEL": f"{(plate['stroke'] - plate['rest_gap']):.4g} mm",
+        **pump_contact_figures(box),
+    }
+
+
+def pump_contact_figures(box):
+    """The contact pair's station, seat and lead dimensions written into the docs."""
+    trays, plate = box.pack.pump_trays, box.pack.collet_plate
+    if not (box.pump_bay and trays and plate):
+        return {}
+    _x, z = pump_contact_station(box)
+    kiss = bay_back_y(plate) - pump_cartridge_aft_y(trays, plate)
+    press = _pogo.PIN_PROUD - kiss
+    w = _pogo.BODY_W + 2.0 * fits.slip
+    groove_w, groove_d = pogo_groove
+    # What the bulkhead keeps over the lead bore's teardrop apex, to its crown.
+    roof = box.pump_bay[2] - (z + pogo_lead_r / math.cos(math.radians(teardrop_roof_angle)))
+    return {
+        "POGO_AXIS_Z": f"{z:.6g} mm",
+        "POGO_CROWN_SKIN": f"{pogo_crown_skin:.4g} mm",
+        "POGO_PIN_PRESS": f"{press:.4g} mm",
+        "POGO_PIN_SPARE": f"{_pogo.STROKE - press:.4g} mm",
+        "POGO_MOUTH": f"{_pogo.EAR_L + 2.0 * fits.slip:.4g} × {w:.4g} mm",
+        "POGO_DATUM_DEPTH": f"{_pogo.ear_back():.4g} mm",
+        "POGO_INSERT_HOLE": f"Ø{pogo_heatset_dia:g} × {pogo_heatset_len + pogo_heatset_relief:g} mm",
+        "POGO_HEAD_RECESS": f"{_pogo.EAR_FACE - pogo_head[1]:.4g} mm",
+        "POGO_LEAD_BORE": f"Ø{2.0 * pogo_lead_r:g} mm",
+        "POGO_LEAD_BORE_ROOF": f"{roof:.4g} mm",
+        "POGO_GROOVE": f"{groove_w:g} × {groove_d:g} mm",
     }
 
 
@@ -6205,6 +6269,99 @@ def _cap_screws(box):
     return clear, sets
 
 
+def pump_contact_station(box):
+    """The contact pair's axis, `(x, z)`: the clamp's centre lane, with `pogo_crown_skin` of
+    clamp over the seat's mouth."""
+    return (0.0, cap_crown_z(box) - pogo_crown_skin - (_pogo.BODY_W / 2.0 + fits.slip))
+
+
+def _y_stadium(length, width, x, z, y0, y1):
+    """A stadium `length` × `width` overall on the XZ plane, long in X and centred on `(x, z)`,
+    standing from `y0` to `y1`."""
+    lo, hi = min(y0, y1), max(y0, y1)
+    return (cq.Workplane("XZ", origin=(x, 0.0, z)).slot2D(length, width)
+            .extrude(-(hi - lo)).val().translate((0.0, lo, 0.0)))
+
+
+def _pogo_seat(face_y, into, x, z, up):
+    """One half's seat let into the face at `face_y`, struck `into` (±1 along Y) from it: the
+    cutter, then the two insert bores.
+
+    The mouth is the ear plate's outline from the face to the plate's back, the datum the plate
+    bears on; behind it the body's stadium to its back plus one `slip`, then the tails' room. The
+    bores open from the datum on the ears' own pitch and run the insert and its relief. `up` is
+    the piece's print-up, the side the roof's supported-surface allowance goes."""
+    s = fits.slip
+    w = _pogo.BODY_W + 2.0 * s
+    back = _pogo.ear_back()
+    head_d, head_h = pogo_head
+    if (head_h > _pogo.EAR_FACE or head_d > w
+            or max(_pogo.ear_xs()) + head_d / 2.0 > _pogo.EAR_L / 2.0 + s):
+        raise ValueError(
+            f"an M1.4 head Ø{head_d:g} × {head_h:g} does not land on its ear inside the mouth: "
+            f"the ear stands {_pogo.EAR_FACE:g} under the face in a {w:g} mm slot")
+    if _pogo.EAR_FACE + pogo_screw_len > back + pogo_heatset_len + pogo_heatset_relief:
+        raise ValueError(
+            f"an M1.4 × {pogo_screw_len:g} runs past the {pogo_heatset_len:g} mm insert and its "
+            f"{pogo_heatset_relief:g} mm relief")
+
+    def at(d0, d1):
+        return face_y + into * d0, face_y + into * d1
+
+    seat = (_y_stadium(_pogo.EAR_L + 2.0 * s, w, x, z, *at(-1.0, back))
+            .fuse(_y_stadium(_pogo.BODY_L + 2.0 * s, w, x, z, *at(back - 0.01, _pogo.BODY_T + s)))
+            .fuse(_y_stadium(2.0 * pogo_lead_half, w, x, z,
+                             *at(_pogo.BODY_T, _pogo.BODY_T + pogo_tail_room))))
+    bores = [_supported_cut(_ycyl(pogo_heatset_dia / 2.0, x + ex, z,
+                                  *at(back - 0.01,
+                                      back + pogo_heatset_len + pogo_heatset_relief)), up)
+             for ex in _pogo.ear_xs()]
+    return _supported_cut(seat, up), bores
+
+
+def _pump_contact_fixed_cuts(box):
+    """The male half's seat in the bay bulkhead's fore face, its two insert bores, and the lead
+    bore from the tails' room to the bulkhead's aft face, teardropped for front-top's print."""
+    plate = box.pack.collet_plate
+    x, z = pump_contact_station(box)
+    face, up = bay_back_y(plate), PIECE_PRINT_UP["front-top"]
+    seat, bores = _pogo_seat(face, 1.0, x, z, up)
+    lead = _teardrop_y(pogo_lead_r, x, z, face + _pogo.BODY_T, plate["wall_aft_y"] + 1.0, up=up)
+    return [seat, *bores, lead]
+
+
+def _xy_lane(p0, p1, width, z0, z1):
+    """A straight channel `width` wide in plan from `p0` to `p1`, standing from `z0` to `z1`."""
+    (x0, y0), (x1, y1) = p0, p1
+    run = math.hypot(x1 - x0, y1 - y0)
+    nx, ny = -(y1 - y0) / run * width / 2.0, (x1 - x0) / run * width / 2.0
+    return _xy_prism(z0, z1, [(x0 + nx, y0 + ny), (x1 + nx, y1 + ny),
+                              (x1 - nx, y1 - ny), (x0 - nx, y0 - ny)])
+
+
+def _pump_contact_cap_cuts(box):
+    """The female half's seat in the clamp's aft face, its two insert bores, the lead slot from
+    the tails' room up through the crown, and one crown groove from that slot to each pump's
+    terminal well."""
+    trays, plate = box.pack.pump_trays, box.pack.collet_plate
+    x, z = pump_contact_station(box)
+    face, up = pump_cartridge_aft_y(trays, plate), PIECE_PRINT_UP["pump-cap"]
+    crown = cap_crown_z(box)
+    seat, bores = _pogo_seat(face, -1.0, x, z, up)
+    floor = z - (_pogo.BODY_W / 2.0 + fits.slip) + min(up, 0.0) * fits.supported_surface
+    fore = face - (_pogo.BODY_T + pogo_lead_run)
+    slot = _ybox(x - pogo_lead_half, x + pogo_lead_half, fore, face - _pogo.BODY_T + 0.01,
+                 floor, crown + 1.0)
+    groove_w, groove_d = pogo_groove
+    grooves = []
+    for cx, cy, _cz in trays:
+        side = 1.0 if cx > x else -1.0
+        start = (x + side * (pogo_lead_half - groove_w / 2.0), fore + groove_w / 2.0)
+        grooves.append(_xy_lane(start, (cx, cy + clamp_pump_y_shift), groove_w,
+                                crown - groove_d, crown + 1.0))
+    return [seat, *bores, slot, *grooves]
+
+
 def build_pump_cap(box, halves_cache=None):
     """THE TOP CLAMP: one filled field fitted around both pump heads.
 
@@ -6213,11 +6370,14 @@ def build_pump_cap(box, halves_cache=None):
     and closes with one shoulder round the can. The broad underside, locating profiles and
     screw seats share the fitted holder datums. Two open motor-terminal wells cross the crown,
     level with the cartridge's top edge, and two M3×60 reach
-    the cradle from counterbores in that crown. This piece carries no show face, plate stop or
-    pull."""
+    the cradle from counterbores in that crown. The aft face carries the contact pair's female
+    half, whose leads reach both terminal wells along the crown. This piece carries no show
+    face, plate stop or pull."""
     solid = _pump_clamp_gross(box, halves_cache)
     for bore in _cap_screws(box)[0]:
         solid = solid.cut(bore)
+    for cutter in _pump_contact_cap_cuts(box):
+        solid = solid.cut(cutter)
     return _unified(solid)
 
 
@@ -8907,6 +9067,10 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     if y_side == "front" and z_side == "top" and box.pump_bay:
         piece = piece.cut(_bay_cut(inner, outer, box.pump_bay, box.pack.pump_trays,
                                    box.pack.collet_plate))
+        # And the contact pair's fixed half, let into the bulkhead face the bay ends on.
+        if box.pack.collet_plate:
+            for cutter in _pump_contact_fixed_cuts(box):
+                piece = piece.cut(cutter)
     # And then the columns give up whatever the pack stands in them (`_column_relief`), which is
     # last of everything: a relief is air, and air a later step fuses back in is not a relief.
     # Clipped to the pillar — the column AND the lip's skin wrapping it (`_column_pillar`) —
