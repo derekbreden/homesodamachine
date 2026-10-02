@@ -1,11 +1,12 @@
 {
   "source_sha256": {
-    "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "d9329e77f6a10e53c1c33c54fa5d0e217f0d222651e3e4f08cbf847547eda6e4",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "7eb74496a684e5f33ef521698c01728b239e7d3257411c22a747f26a6b6e46c6",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "5ef2d424cd8f3834cefee9067f144574791ac86a8935301e12b9a273c475e8bb"
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "d3ea904a480940ebc75ef03638110eca277637a13e5bcdfaf1733fc1411b315d",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "1dc77fbde96d96618bf4e89156c8eb7a2708a56fae951db772e494905ec947f2",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "82bfd8028b52b3ce508f53eef4b757c55ae166fceeccf09bd372614a1cb4b7ec"
   },
   "method": "Closed STL solids; sampled relative straight Y insertion. Other installed components are outside this mating-joint check.",
   "flat_floor_z_mm": 299.8999999999999,
+  "plug_web_probe_radius_mm": 17.0,
   "plug_web_samples_mm": [
     3.000000000000057,
     3.000000000000057,

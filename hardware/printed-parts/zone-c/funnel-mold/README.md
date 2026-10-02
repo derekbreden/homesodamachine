@@ -4,6 +4,9 @@ Two PETG shells follow the [funnel](../funnel/README.md), with
 [5 mm](SKIN) minimum forming walls and [5 mm](FLANGE) clamping flanges. The cavity
 stands on three small feet. The core has a [142.4 × 128.4 mm](DRY_MOUTH) rounded rectangular opening
 in its dry back. Both halves print with automatic normal supports in Snug style.
+The tooling forms a rounded plug blank with a straight dowel bore. The
+production plug's hook pockets and staged sealing bore require separate
+forming features before this tooling can produce the finished funnel.
 
 ![Cavity and core in their print orientations](overview.png)
 
@@ -21,7 +24,6 @@ admit a blunt opening tool.
 
 The nominal silicone ramp, brim and collar are 6 mm thick. Ramp thickness is
 measured perpendicular to its surface, with a locally thicker rounded throat.
-The outlet wall is 4.5 mm radially.
 [Wall measurements](../funnel/wall-review.json) record the geometry.
 
 Both forming faces reserve [0.30 mm](FINISH) of net finishing growth, including
@@ -34,7 +36,7 @@ The [6.35 mm](ROD_D) × [50.8 mm](ROD_LEN) steel dowel passes freely through an
 [8.35 mm](ROD_GUIDE_D) opening, with [2 mm](ROD_CLEARANCE) diametral clearance.
 An open V cradle on the dry back centres it. Its upper end meets a visible
 stop; two zip ties in [4.4 mm](ROD_TIE_WIDTH) grooves hold it in the cradle.
-Engagement is [26.5 mm](ROD_ENGAGEMENT), leaving [24.25 mm](ROD_EXPOSED) below the
+Engagement is [30.4 mm](ROD_ENGAGEMENT), leaving [20.4148 mm](ROD_EXPOSED) below the
 core's neck. The rod stays clear of the cavity during closure.
 
 Pack a small removable seal around the rod at the forming-face entry, flush
@@ -46,11 +48,12 @@ closes the annular passage into the dry back. Smooth-On's
 [sealer reference](https://www.smooth-on.com/page/sealers-releases/) distinguishes
 sulfur-free modeling clay from sulfur-bearing clay for platinum silicone.
 
-The finished outlet has a [4.5 mm](SPOUT_WALL) nominal wall and
-[15.35 mm](SPOUT_OD) outside diameter around the [6.35 mm](ROD_D) bore. Its
-[12 mm](SPOUT_LAND) clamp land takes the 1/4-inch LLDPE stub and the recorded
-10–16 mm worm clamp. A full-diameter [18 mm](TIP_LENGTH) sacrificial extension
-leaves [12 mm](TIP_CAP) beneath the rod end. Mark the trim plane
+The plug blank is [36 × 44.1 × 15 mm](PLUG_BLANK), with a straight
+[6.35 mm](ROD_D) bore. The finished plug's hook pockets, 8.4 mm entry,
+6.7 mm relief and 6 mm sealing land are described in the
+[funnel specification](../funnel/README.md#silicone). They are absent from
+this casting. An [18 mm](TIP_LENGTH) sacrificial extension leaves
+[12 mm](TIP_CAP) beneath the rod end. Mark the trim plane
 [18 mm](TIP_LENGTH) from the casting's closed end and cut square after demolding.
 
 [design.json](design.json) checks simultaneous [1.5 mm](ROD_OFFSET) lateral
@@ -58,17 +61,17 @@ offset, [2°](ROD_TILT) tilt and axial error in eight directions. The rod may
 project [6 mm](ROD_EXTRA) farther when not fully seated, or [3 mm](ROD_AXIAL)
 less than nominal. The minimum depth beneath its tip in these cases is
 [5.90 mm](ROD_MIN_END).
-The minimum silicone clearance in that envelope is [2.16 mm](ROD_MIN_WALL),
+The minimum silicone clearance in that envelope is [5.90 mm](ROD_MIN_WALL),
 including the sacrificial end. These checks describe geometry; the first
 physical trial establishes retention, sealing and casting quality.
 
-![Rod held from the open core cradle, with a full-thickness outlet and closed sacrificial end](rod-detail.png)
+![Rod held from the open core cradle, with a plug blank and closed sacrificial end](rod-detail.png)
 
 ![Section through the assembled forming shells, silicone and steel dowel](section.png)
 
 Teal is the cavity, gold the core, grey the nominal silicone, light grey the
 steel dowel and blue the removable entry seal. The nominal casting, including its sacrificial spout tip, is
-[258 mL](CAST_VOLUME). The two halves fit inside a [278.5 mm](ENVELOPE) circle,
+[287 mL](CAST_VOLUME). The two halves fit inside a [278.5 mm](ENVELOPE) circle,
 leaving [10.6 mm](CHAMBER_GAP) radial clearance in the recorded chamber. Check
 the actual opening, clamp/bolt envelope and catch tray before pouring.
 
@@ -87,7 +90,7 @@ one-atmosphere differential or pressure injection.
 [1.00 kPa](LOAD_PRESSURE), using an assumed PETG modulus of
 [1000 MPa](LOAD_MODULUS) and Poisson ratio 0.4. Its calculated deflection is
 [0.243 mm](LOAD_DEFLECTION); the maximum static silicone head is
-[0.875 kPa](HEAD_PRESSURE). This flat-plate model is a screening approximation;
+[0.833 kPa](HEAD_PRESSURE). This flat-plate model is a screening approximation;
 it does not establish the printed shell's stiffness, creep, release force or
 transient pressure during degassing.
 
@@ -103,13 +106,14 @@ face, rounded edge and corner is contained in the finished shell envelope.
 Before the flange and mouth trim, the minimum distance between the complete
 forming and backing boundaries is checked against the 5 mm shell thickness;
 [design.json](design.json) records that measurement.
+The dry backing includes the forming ramp's 0.005 mm rounded-join allowance.
 The generator checks that the capped cavity and the assembled mold each retain
 the complete casting in one enclosed liquid region, separate from outside air.
 The assembled check uses the modeled rod-entry seal and caps the fill and vent
 mouths.
 
 [containment-review.json](containment-review.json) records independent checks of
-the exported STEP and STL, including their file hashes. These checks use the
+the STEP and STL identified by its file hashes. These checks use the
 complete surfaces and the whole casting, including openings smaller than a print
 layer. The assembled STEP uses the exact entry seal; the assembled STL gives
 that soft seal 0.02 mm contact overlap along each axis at the independently
@@ -120,7 +124,10 @@ porosity, flange sealing and the first casting remain physical checks.
 
 [Saved Bambu Studio project](funnel-mold.3mf)
 
-The saved project contains two plates: the cavity upright and the core inverted.
+The saved project contains geometry `953dbfa68` on two plates: the cavity
+upright and the core inverted. Its meshes are bound to the
+[saved slice review](current-slice-review.json); they do not include the
+rounded plug blank in the current CAD exports.
 It selects these presets:
 
 - Process: **0.24mm Standard @BBL H2C funnel mold**
@@ -139,16 +146,16 @@ first layer and 245 °C afterward.
 The startup code applies a +0.18 mm Z trim in addition to the plate correction.
 With the 0.4 mm nozzle and Textured PEI, the emitted command is `G29.1 Z0.16`.
 
-Open and slice this project in Bambu Studio for the current
-toolpaths, print time and material estimate; the saved project contains no G-code.
+The saved project contains no G-code. The current CAD exports require their
+own native slice, toolpath checks and print estimate.
 
-[current-slice-review.json](current-slice-review.json) verifies both saved meshes
-against the current STLs and the finished casting against the current funnel
-source. Both plates slice successfully with the settings above; their toolpath
-hashes, layer counts, time and material estimates are in that reading.
+[current-slice-review.json](current-slice-review.json) records successful
+slices of the saved geometry with the settings above. Its mesh and source
+hashes identify the scope of its casting-match check, layer counts, time and
+material estimates.
 
 The core's envelope is [211 × 211 × 42.2 mm](CORE_DIMS); the cavity is
-[211 × 211 × 82.9 mm](CAVITY_DIMS). Supports are accessible from the dry backs.
+[211 × 211 × 79.1 mm](CAVITY_DIMS). Supports are accessible from the dry backs.
 Inspect and remove every branch before finishing. Sand and finish the layer
 steps on the forming slopes before casting.
 
@@ -187,9 +194,9 @@ casting are untested for these shells.
 tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py
 ```
 
-After changing geometry, reload the cavity and core STLs in the saved Bambu
-Studio project, retain their print orientations and review the slice before
-saving.
+Before preparing the current tooling for printing, complete the plug's
+forming features. Reload the cavity and core STLs in Bambu Studio, retain
+their print orientations and review the native slice before saving.
 
 After publication, run [review_geometry.py](/tools/funnel-mold-print/review_geometry.py)
 with this models directory. Geometry lint reports overhangs in the print
