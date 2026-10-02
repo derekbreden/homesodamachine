@@ -7,7 +7,8 @@ shells provide capture against 2 mm translations in each axis direction.
 
 The silicone capacity is 299.90 mL. The frame's flat underside is Z299.9, its
 plug seat is Z302.9, and both end corbels cross the full 207 mm width at 30°
-from vertical. The drain is a plain 6.85 mm hole.
+from vertical. The drain hole is 11.25 mm, with the elbow cradle's two wing
+slots beside it.
 
 ## Open geometry
 
@@ -22,8 +23,7 @@ The V-A plinth shares 232.46 mm³ with the fluid-14 anchor, and that anchor also
 intersects V-A itself. Fluid-2 has 0.712 mm
 clearance to the G Ganen pump, and fluid-14 has 0.805 mm clearance to V-A;
 both are below the 1 mm routing target. The anchor and the authored tube paths
-remain in place. Tube retention through the frame and the connection to V-B
-are unresolved.
+remain in place.
 
 The shell's frame/rail clearance also enters the existing +X flank cable-clip
 profile. Three lint findings there remain open: two offsets at Y148.304 and

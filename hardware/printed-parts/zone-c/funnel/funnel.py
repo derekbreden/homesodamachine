@@ -1,9 +1,11 @@
 """Removable 600 mL silicone funnel, seated in the enclosure's sliding PET-GF frame.
 
 The collar center is the origin; z=0 is the brim underside. The 6 mm brim,
-collar and normal ramp wall lead to a substantial 36 mm silicone plug. Its
-lower bore has a lead-in and relief; the upper 3 mm is the nominal sealing land.
-The frame's through hole and the eventual rigid drain tube are separate parts.
+collar and normal ramp wall lead to a substantial silicone plug, a 36 mm wide
+rounded rectangle centred on the outlet and long enough in Y to house the
+elbow cradle's two hooks in pockets in its underside. Its lower bore has a
+lead-in and relief; the upper 3 mm is the nominal sealing land. The frame's
+through hole and the drain stub are separate parts.
 """
 
 import math
@@ -26,6 +28,7 @@ sys.path.insert(0, str(_tools))
 from _cadq_export import export_assembly
 from _materials import M_SILICONE_BLACK, one_body
 from docgen import substitute_md
+import elbow_cradle
 # The bound this file states about its own collar, recorded at import for the machine's card.
 import _stated_bounds as _bounds
 
@@ -184,7 +187,8 @@ def build_solids(drop=drop, ramp_wall=collar_wall, outer_air=0.0):
              _rounded_box(w + 2 * brim_overhang, d + 2 * brim_overhang,
                           brim_corner_r, 0.0, top_z),
              _cyl(spout_or, neck_z, end_z, ncx, ncy),
-             _cyl(plug_diameter / 2, end_z + plug_height, end_z, ncx, ncy)]
+             elbow_cradle.plug_outline(plug_diameter / 2, 0.0, 0.0, plug_height)
+             .translate(cq.Vector(ncx, ncy, end_z))]
     if outer_air:
         bases = [bases[0], *(normal_envelope(b, outer_air) for b in bases[1:])]
     solid = fuse_shapes(*(base.toNURBS() for base in bases)).clean()
@@ -229,6 +233,11 @@ def build(drop=drop):
     fill = cavity.intersect(_box(600, 600, m["end_z"], m["top_z"], 0, 0)).Volume()
     assert abs(fill / 1000 - capacity_ml) < 0.25, fill / 1000
     part = cut_shapes(solid, cavity, tol=0.0001).clean()
+    # The cradle's hooks lie on the frame's web under the plug, each in its own pocket.
+    lift = cq.Vector(m["ncx"], m["ncy"], m["end_z"] - elbow_cradle.WEB)
+    for pocket in elbow_cradle.pockets():
+        part = part.cut(pocket.translate(lift))
+    part = part.clean()
     assert part.isValid() and len(part.Solids()) == 1
     assert abs(part.BoundingBox().zmin + drop) < 0.0001
     assert abs(part.BoundingBox().zmax - brim_thickness) < 0.0001
@@ -253,7 +262,10 @@ def main():
         _here.parent / "README.md",
         variables={
             "FUNNEL_SPOUT_ID": f"{spout_id:g} mm",
-            "FUNNEL_SPOUT_OD": f"{plug_diameter:g} mm",
+            "FUNNEL_PLUG": f"{plug_diameter:g} × "
+                           f"{2 * elbow_cradle.plug_half_length(plug_diameter / 2):.1f} mm",
+            "FUNNEL_PLUG_CORNER": f"R{elbow_cradle.PLUG_CORNER:g}",
+            "FUNNEL_PLUG_WALL": f"{elbow_cradle.PLUG_WALL:g} mm",
             "FUNNEL_SPOUT_WALL": f"{spout_wall:g} mm",
             "FUNNEL_CHUTE": f"{chute_h:g} mm",
             "FUNNEL_DROP_UNDER": f"{drop:g} mm",

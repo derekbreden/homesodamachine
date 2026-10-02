@@ -307,4 +307,10 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    if sys.argv[1:] == ["selftest"]:
+        s = selftest()
+        print(f"  the elbow drops straight in and both wings stand on the body; the hook bends "
+              f"{s['bend']['hook_deflection']:.2f} mm into a {s['lane']:.2f} mm lane")
+        print("elbow_cradle selftest OK")
+    else:
+        main()

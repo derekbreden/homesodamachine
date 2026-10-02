@@ -11,6 +11,7 @@ from pathlib import Path
 
 import cadquery as cq
 
+import elbow_cradle
 import funnel
 
 ROOT = next(p for p in Path(__file__).resolve().parents
@@ -29,8 +30,10 @@ rail_below_seat = 42.1
 receiver_height = 23.3
 corbel_foot_half_depth = 27.5
 corbel_slope = math.tan(math.radians(30.0))
-tube_hole_diameter = 6.85
-socket_diameter = 36.6
+tube_hole_diameter = elbow_cradle.HOLE_D
+socket_width = 36.6
+socket_depth = 19.0
+socket_flare = (2.0, 1.0)   # height, outward reach of the plug's lead-in
 DEFAULT_INNER = (-104.5, 104.5, 0.0, 290.0, 0.0, 352.0)
 
 
@@ -93,21 +96,26 @@ def build(inner=DEFAULT_INNER, y_joint=200.0, centre=(0.0, center_y), seat=349.0
         body = body.fuse(enc._z_rail_heads(
             inner, y_joint, rail, col, None, runs=rail_runs(inner, y_joint, col, centre)))
     body = body.cut(corbel_cut(centre, floor))
-    # Only the tube hole pierces the 3 mm bottom web.
+    # The drain hole and the elbow cradle's two wing slots are all that pierce the 3 mm web.
     clear = forming_clearance().translate((cx, cy, seat))
     clear = clear.intersect(funnel._box(400, 400, plug, seat + 10, cx, cy))
-    nx, ny = cx + funnel.neck_dx, cy + funnel.neck_dy
-    socket = cq.Solid.makeCylinder(socket_diameter / 2, 19, cq.Vector(nx, ny, plug))
-    socket = socket.fuse(cq.Solid.makeCone(socket_diameter / 2, socket_diameter / 2 + 1,
-                                         2, cq.Vector(nx, ny, plug + 17)))
-    hole = cq.Solid.makeCylinder(tube_hole_diameter / 2, seat - floor + 2,
-                                 cq.Vector(nx, ny, floor - 1))
-    body = body.cut(clear.fuse(socket).fuse(hole)).clean()
+    place = cq.Vector(cx + funnel.neck_dx, cy + funnel.neck_dy, floor)
+    half, gap = funnel.plug_diameter / 2, (socket_width - funnel.plug_diameter) / 2
+    socket = elbow_cradle.socket(half, gap, socket_depth, *socket_flare).translate(place)
+    pierce = [c.translate(place) for c in elbow_cradle.web_cuts()]
+    body = body.cut(clear.fuse(socket)).clean()
+    for c in pierce:
+        body = body.cut(c)
+    body = body.clean()
     assert body.isValid() and len(body.Solids()) == 1
     assert abs(body.BoundingBox().zmin - floor) < 0.0001
-    web_ring = (cq.Workplane('XY', origin=(nx, ny, floor))
-                .circle(17.5).circle(3.5).extrude(web).val())
-    assert web_ring.cut(body).Volume() < 0.001
+    # The web stands whole under the socket but for those cuts, and no stock stands in the socket.
+    plate = elbow_cradle.plug_outline(half, gap, 0.0, web).translate(place)
+    for c in pierce:
+        plate = plate.cut(c)
+    assert plate.cut(body).Volume() < 0.001
+    above = elbow_cradle.plug_outline(half, gap, web + 0.01, seat - floor).translate(place)
+    assert body.intersect(above).Volume() < 0.001
     return body
 
 
@@ -168,6 +176,18 @@ def main():
     cq.exporters.export(print_shape.copy(mesh=False), str(stl), tolerance=0.05, angularTolerance=0.15)
     cut(step, stl)
     print(f'-> {step.name}, {stl.name}; {shape.Volume():.1f} mm3; floor Z {floor:g}')
+    sys.path.insert(0, str(next(p for p in here.parents if (p / 'tools' / 'docgen').is_dir())
+                           / 'tools'))
+    from docgen import substitute_md
+    s = elbow_cradle.stations()
+    half, gap = funnel.plug_diameter / 2, (socket_width - funnel.plug_diameter) / 2
+    substitute_md(here / 'README.md', variables={
+        'FRAME_HOLE': f'{tube_hole_diameter:g} mm',
+        'FRAME_SOCKET': f'{socket_width:g} × '
+                        f'{2 * (elbow_cradle.plug_half_length(half) + gap):.1f} mm',
+        'FRAME_SLOTS': f'{s["slot_out"] - s["slot_in"]:.2f} × '
+                       f'{s["y1"] - s["y0"] + 2 * elbow_cradle.END_SLIP:.1f} mm',
+    })
 
 
 if __name__ == '__main__':

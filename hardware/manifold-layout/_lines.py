@@ -35,6 +35,7 @@ Run it through the assembly:
     tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py
 """
 
+import math
 import sys
 from pathlib import Path
 
@@ -58,7 +59,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "neofit-flow-control",
            _hw / "reference" / "beduan-solenoid",
            _hw / "reference" / "jg-bulkhead-union",
-           _hw / "reference" / "elbow-connector",
+           _hw / "reference" / "jg-pp0308e-elbow",
            _hw / "reference" / "neofit-bulkhead",
            _hw / "reference" / "gasher-check-valve",
            _hw / "reference" / "wr1110-regulator",
@@ -74,7 +75,7 @@ import seaflo_suction_chain as _suct                   # noqa: E402
 import seaflo_discharge_chain as _dis                  # noqa: E402
 import beduan_solenoid as _beduan                      # noqa: E402
 import jg_bulkhead_union as _jg                        # noqa: E402
-import elbow_connector as _elbow                       # noqa: E402
+import elbow as _elbow                                 # noqa: E402
 import neofit_bulkhead as _neofit                      # noqa: E402
 import neofit_flow_control as _flowreg                 # noqa: E402
 import water_split as _split                           # noqa: E402
@@ -179,11 +180,12 @@ STATIONS = {
     # wherever the top wall carries it.
     "funnel": {"drain": ((lambda: (_funnel.drain_local, (0.0, 0.0, -1.0))),
                                 _funnel.spout_id)},
-    # The disconnect under that drain. Its upper collet takes the stub the funnel carries and
-    # its lower one starts `fluid-4`, so the two are named for the joint rather than for flow:
-    # `stub` is the mouth a hand works and `outlet` is the mouth a run leaves by.
-    "funnel-drain-union": {"stub": (lambda: _elbow.port("z"), _elbow.TUBE_D),
-                           "outlet": (lambda: _elbow.port("y"), _elbow.TUBE_D)},
+    # The PP0308E elbow under that drain, standing in its cradle below the funnel frame. Its
+    # upper collet holds the drain stub the plug slides onto, and its aft one starts `fluid-4`,
+    # so the two are named for the joint rather than for flow: `stub` is the mouth a hand works
+    # and `outlet` is the mouth a run leaves by.
+    "funnel-drain-union": {"stub": (lambda: _elbow.port("z"), _elbow.TUBE_OD),
+                           "outlet": (lambda: _elbow.port("y"), _elbow.TUBE_OD)},
 }
 
 # The three unions the machine dispenses through, all on one row of the +Y wall of back-top. Each carries
@@ -304,8 +306,8 @@ def build_seated_runs(placed, carries):
     do."""
     F = frames(placed, carries)
     runs = []
-    if {"funnel-drain-union", "valve-v-a", "valve-v-b", "g-ganen-pump"} <= set(F):
-        runs.append(_fluid_4(F, placed))
+    if {"funnel-drain-union", "valve-v-b"} <= set(F):
+        runs.append(_fluid_4(F))
     return runs
 
 
@@ -669,47 +671,38 @@ def _fluid_2(F, solids):
 
 # --- the funnel's gravity drain ---------------------------------------------
 #
-# The spout exit and every tube segment stand above V-B's inlet. The line has
-# a local rise below the spout, so its physical drain and purge behaviour must
-# be checked with the assembled tubing and concentrate.
+# The drain leaves the elbow aft, level, through the gap between V-A and V-B. The G Ganen pump's
+# head stands across that gap close behind the valves' collets, so the line turns west over
+# V-B's collet boss, behind its coil and short of the pump's face, and runs aft down V-B's west
+# flank. One tilted U then brings it east and down into V-B's inlet, which faces aft. Every leg
+# before the U is level and the U only falls, so nothing on the line stands above the elbow.
 
-# The drain leaves the elbow forward and rounds the west side of the source pair.
-# Its low crossing stays above V-B's inlet; the aft rise clears the reservoir lines.
-FLUID_4_FORE_Y = 148.0
-FLUID_4_LOOP_X = -52.0
-FLUID_4_LOW_Z = 272.0
-FLUID_4_RISE_START_Y = 193.0
-FLUID_4_RISE_END_Y = 223.0
-FLUID_4_LANE_Z = 282.0
-FLUID_4_COMEABOUT = 17.0
+# The westward crossing's Y: aft of coil-v-b's end and forward of the pump head's face.
+FLUID_4_CROSS_Y = 282.0
 
 
-def _fluid_4_turn_y(F, solids) -> float:
-    """Aft tangent plane, leaving a full R14 corner into V-B's inlet."""
-    return solids["valve-v-b"].BoundingBox().ymax + FLUID_4_COMEABOUT
+def _fluid_4(F):
+    """The funnel's gravity feed: aft off the elbow, west behind V-B's coil, aft down V-B's west
+    flank, and one U into V-B's inlet.
 
-
-def _fluid_4(F, solids):
-    """The funnel's gravity feed, forward off the elbow and aft around V-B.
-
-    The west lane rises below the spout exit and stays above the destination inlet.
-    Each corner holds the stock's R14 minimum; the final lean meets the valve axially.
+    The U's two legs are a full `2 * TUBE_BEND` apart, so its corners hold the stock's minimum
+    radius; the flank stands that far, across the line's fall, from the inlet's own axis.
     """
     drain = F["funnel-drain-union"].at("outlet")
     inlet = F["valve-v-b"].at("inlet")
-    turn = _fluid_4_turn_y(F, solids)
+    fall = drain[2] - inlet[2]
+    flank_x = inlet[0] - math.sqrt((2 * TUBE_BEND) ** 2 - fall ** 2) - 0.25
+    turn_y = FLUID_4_CROSS_Y + 2 * TUBE_BEND
     return R.bent(
         "fluid-4", "funnel-drain-union.outlet",
-        (drain[0], FLUID_4_FORE_Y, drain[2]),
-        (FLUID_4_LOOP_X, FLUID_4_FORE_Y, FLUID_4_LOW_Z),
-        (FLUID_4_LOOP_X, FLUID_4_RISE_START_Y, FLUID_4_LOW_Z),
-        (FLUID_4_LOOP_X, FLUID_4_RISE_END_Y, FLUID_4_LANE_Z),
-        (FLUID_4_LOOP_X, turn, FLUID_4_LANE_Z),
-        (inlet[0], turn, inlet[2]),
+        (drain[0], FLUID_4_CROSS_Y, drain[2]),
+        (flank_x, FLUID_4_CROSS_Y, drain[2]),
+        (flank_x, turn_y, drain[2]),
+        (inlet[0], turn_y, inlet[2]),
         "valve-v-b.inlet",
         kind="fluid", bend=TUBE_BEND,
-        note="funnel disconnect → V-B inlet, forward off the elbow, west around the source "
-             "pair and aft along the reservoir-line gap, then east and down into V-B")
+        note="funnel drain elbow → V-B inlet: aft through the V-A/V-B gap, west behind V-B's "
+             "coil, aft down its west flank, and one U east and down into its aft-facing inlet")
 
 
 # --- the carb-water riser, and the two flavour gates' lines to the panel ----
