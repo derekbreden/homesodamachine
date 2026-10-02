@@ -243,10 +243,10 @@ WAGO_POLES = ("wago-h", "wago-n", "wago-g", "wago-v12", "wago-gnd")
 # land on — `wiring/ac-wiring-schedule.md` "Loom terminations". So each stands on the flank its
 # own cluster stands on rather than beside the main board the trunk leaves:
 #
-#   wago-mana     J1 MANIFOLD A `COM` → V-A…V-H, on the east flank the manifold's own
-#                 outboard pair (V-F, V-G) stands against
-#   wago-manb     J2 MANIFOLD B `COM` → V-I, V-J, the condenser fan and V-K, mirrored on
-#                 the west flank V-I and V-J stand against
+#   wago-mana     J1 MANIFOLD A `COM` → V-A…V-H, on the fore east flank above
+#                 the pump cartridge and ahead of the valves
+#   wago-manb     J2 MANIFOLD B `COM` → V-I, V-J, the condenser fan and V-K,
+#                 at the same fore station on the west flank
 #   wago-reeds-b  J7 REEDS B `GND` → reservoir B's four reeds plus the carbonator's two
 #   wago-reeds-a  J6 REEDS A `GND` → reservoir A's four reeds
 #   wago-sensors  J4 SENSORS `GND` → the 1-wire bus, the DIGITEN meter and the moisture
@@ -268,8 +268,8 @@ WAGO_POLES = ("wago-h", "wago-n", "wago-g", "wago-v12", "wago-gnd")
 #
 #     w.travel("wago-reeds-b", (0, 0, -1))
 CLUSTER_WAGOS = {
-    "wago-mana": (+1, 121.0, 300.0, "420"),
-    "wago-manb": (-1, 119.0, 291.0, "415"),
+    "wago-mana": (+1, 63.0, 302.0, "420"),
+    "wago-manb": (-1, 63.0, 302.0, "415"),
     "wago-reeds-b": (-1, 335.0 - 2.0 * _enc.wago_pitch, 270.0, "420"),
     "wago-reeds-a": (-1, 335.0 - 1.0 * _enc.wago_pitch, 270.0, "415"),
     "wago-sensors": (-1, 335.0, 270.0, "415"),

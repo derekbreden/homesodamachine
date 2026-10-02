@@ -1602,23 +1602,17 @@ crown behind the rib to the centreline, then drops down the bulkhead's aft face 
 pair's lead bore ([Cartridge contacts](#cartridge-contacts)). Nothing on the cartridge is clipped
 here. The loom bore is teardropped because the piece beds on Z.
 
-**That run does not stop at the rib.** Past the clip's +X end the lead turns the corner onto
-front-top's own +X flank face and runs aft to the main-board wall, and SIG-7 arrives forward
-along that same face, so the flank carries [2](FLANK_CLIPS) more of the same complete clip
-profile, embedded 1.2 mm into the wall and projecting 7.8 mm, over y
-[137–155, 179–197 mm](FLANK_CLIP_Y). Each keeps its 3 mm arms, S-shaped channel and ramped
-ends; the 9 mm host retains 7.8 mm behind the recessed channel. Both stand in the **Y+ half** of that face,
-which is the half that is clear: the +X Wago tower stands its own engagement off `interior_x`
-and reaches into this face's air over its Y band, and the fore end of the face is a corner the
-lead turns rather than a run it lies along. `_flank_cable_clips` checks each station against the
-tower, against the ridge clip's own proud body and against the Y seam rather than assuming them.
+The fixed pump lead turns onto front-top's +X flank, and SIG-7 follows the same
+wall toward the display. The flank carries [1](FLANK_CLIPS) complete clip for the two ribbons
+over Y[124–142 mm](FLANK_CLIP_Y), above V-F's coil and ahead of the funnel frame's
+front corbel. Its bottom is Z[281 mm](FLANK_CLIP_Z), and its 39 mm profile ends
+at Z320. The clip keeps its 3 mm arms, S-shaped channel and ramped ends. It is
+embedded 1.2 mm into the 9 mm wall, leaving 7.8 mm of projection and 7.8 mm
+behind the recessed channel. Both arms root directly in the flank.
 
-**Their height is the seam collar's own 45°.** The upper Y-seam socket stands on a web falling at
-45° off the collar's floor to the lip face, and the clip carries the same 45° under its upper
-arm. The two are struck as **one plane** — the web crosses this flank's face at
-z [318.15 mm](FLANK_CLIP_Z), which is where each clip's own slope starts — so the aftmost clip's
-underside runs straight on into the collar instead of stepping off it, and the print lays one
-sloped face from the clip's fore end through the seam rather than three with steps between.
+The clip's arms follow front-top's print orientation. `_flank_cable_clips`
+checks the run against the ridge clip, Wago wells and Y seam. Additional
+loom supports elsewhere in the machine remain to be placed.
 
 ## Funnel opening
 
