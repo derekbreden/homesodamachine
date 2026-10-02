@@ -10,10 +10,11 @@
       "archive_sha256": "e512a754050c30892f3919c29eea1db0a10a64b16909e0282f92cea9b52a2c49",
       "estimated_seconds": 1334.3519287109375,
       "review": "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preflight.json",
-      "status": "accepted_in_startup",
+      "status": "printing",
       "submitted": true,
       "printer_task_id": "1302534665",
-      "accepted_observed_utc": "2026-10-02T16:29:37.033095+00:00"
+      "accepted_observed_utc": "2026-10-02T16:29:37.033095+00:00",
+      "first_layer_confirmed_utc": "2026-10-02T16:39:58.313897+00:00"
     },
     {
       "order": 2,
