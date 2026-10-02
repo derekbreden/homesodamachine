@@ -1,0 +1,12 @@
+{
+  "/hardware/printed-parts/zone-c/funnel/cradle-trial/cradle_trial.py": {
+    "TRIAL_CATCH": "0.4 mm",
+    "TRIAL_HOLE": "11.25 mm",
+    "TRIAL_HOOK_BED": "33.6 mm",
+    "TRIAL_NOSE": "0.4 mm",
+    "TRIAL_PINCH": "2.5 mm",
+    "TRIAL_RECEIVER": "48.6 \u00d7 54 \u00d7 12 mm",
+    "TRIAL_RECEIVER_H": "12 mm",
+    "TRIAL_WEB": "3 mm"
+  }
+}
