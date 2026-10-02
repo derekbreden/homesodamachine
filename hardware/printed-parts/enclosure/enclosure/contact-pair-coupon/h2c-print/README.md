@@ -6,6 +6,10 @@ paths**, uses the left hardened 0.4 mm nozzle and black PET-GF, and estimates
 22 minutes 14 seconds. The requested H2C Z trim is **+0.18 mm**; textured-plate
 compensation emits `G29.1 Z0.16`.
 
+H2C accepted this pair as task **1302534665** through Bambu Connect, with no
+reported print error. [launch.json](launch.json) records the printer receipt,
+archive and imported-copy hashes, settings, startup state and spacing evidence.
+
 The coupons retain their production print poses. The male's cropped bed matches
 front-top's layer phase; the female prints on the clamp's real crown. The first
 layer is 0.20 mm and ordinary layers are 0.24 mm. Elephant-foot compensation is
@@ -41,8 +45,9 @@ are required before recording a launch.
 dry run with Send enabled, the external PET-CF-labelled PET-GF spool selected,
 and those four options confirmed. The dialog was cancelled without submission.
 [prestart-status.json](prestart-status.json) records H2C's finished grip insert and
-Mark2's running back-bottom. Launch awaits physical confirmation that the grip
-insert has been removed and H2C's bed is clear.
+Mark2's running back-bottom immediately before submission. The user's start
+request confirms the bed is clear, following the
+[printer instructions](../../../../../../tools/bambu-printers.md#what-ready-looks-like-from-software).
 [queue.json](queue.json) records the prepared order: these contact coupons,
 followed by the funnel's receiver/cradle trial after this bed is cleared again.
 

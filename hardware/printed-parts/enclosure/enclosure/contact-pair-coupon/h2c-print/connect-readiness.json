@@ -18,7 +18,8 @@
   "dry_run": true,
   "dialog_cancelled": true,
   "submitted": false,
-  "launch_hold": "Awaiting physical confirmation that the finished grip insert has been removed and H2C's bed is clear.",
+  "launch_hold": null,
   "sender": "tools/bambu_send.py",
-  "transport": "background Bambu Connect accessibility controls"
+  "transport": "background Bambu Connect accessibility controls",
+  "submission_receipt": "launch.json"
 }

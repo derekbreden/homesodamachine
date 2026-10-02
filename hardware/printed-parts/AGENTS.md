@@ -69,6 +69,9 @@ ask for reloading only when an actual runout requires it.
 
 ## Printer allocation
 
+Derek's request to start a print on a printer confirms that its bed is clear.
+Do not ask for a separate bed-clear confirmation.
+
 When both printers are loaded with suitable material, have clear beds and are ready,
 distribute the authorized test parts across both printers. Derek prefers using both
 ready machines to leaving one loaded and idle while combining everything on a single

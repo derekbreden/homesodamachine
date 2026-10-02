@@ -17,7 +17,7 @@
     "contact-pair-female-coupon": "48106ec308cd970ec96a1609106a3a1ee8495105931eccbeb12af3b504017514"
   },
   "requested_z_trim_mm": 0.18,
-  "submitted": false,
+  "submitted": true,
   "support_mode": "coupon_only_support_blockers",
   "blocked_source_facets": {
     "contact-pair-male-coupon": 5440,
@@ -175,5 +175,6 @@
     "record": "automatic-support-audit.json"
   },
   "geometry_record_sha256": "4e178924c90070f0acb2253742edc93519a5b50938b03e2e0fbd1271a68b6cad",
-  "physical_fit_tested": false
+  "physical_fit_tested": false,
+  "launch_record": "launch.json"
 }
