@@ -1622,7 +1622,7 @@ sloped face from the clip's fore end through the seam rather than three with ste
 
 ## Funnel opening
 
-The 600 mL silicone funnel sits in a separate solid PET-GF frame centered at
+The 300 mL silicone funnel sits in a separate solid PET-GF frame centered at
 Y182.5. The frame slides into front-top's receivers; closing the enclosure
 captures its rear rails in back-top. `funnel_frame.py` uses the production
 Z-seam heads and channels with the same section and fit allowances. The
@@ -1630,10 +1630,10 @@ receiving bands are part of the corresponding enclosure solids.
 
 The frame's top is Z349, its flat underside is Z299.9, and its two full-width
 end corbels are 30° from vertical. It leaves a 3 mm web beneath the silicone
-plug, pierced only by a plain 6.85 mm tube hole. The shell opening clears the
+plug, pierced by an 11.25 mm elbow-collet hole and the cradle's two wing slots.
+The shell opening clears the
 frame body, while the rail channels retain their separate functional profile.
-See [`../../zone-c/funnel/`](../../zone-c/funnel/) for dimensions and the open
-drain-attachment requirement.
+See [`../../zone-c/funnel/`](../../zone-c/funnel/) for dimensions and the drain joint.
 
 ## back-top's ceiling
 
