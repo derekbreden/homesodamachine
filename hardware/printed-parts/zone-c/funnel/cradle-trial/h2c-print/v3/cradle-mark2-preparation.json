@@ -1,0 +1,133 @@
+{
+  "project": "funnel-test-cradle-mark2-v3-input.3mf",
+  "settings_source": ".cache/prints/funnel-cradle-trial-h2c-v1/funnel-cradle-trial-h2c-v1-input.3mf",
+  "settings_source_sha256": "ab8303d14f377dba194c6803b6e3550c9a7c874a06c5cdce351ba21b209a84b3",
+  "settings_sha256": "c6272ea381c89e4b4a0ba767f882c280b7f44dee7727fe49d60d90efe649e691",
+  "source_settings_sha256": "6811b785e18de2082ae96890c1e221cd49c555dfe5d9f9ef8e3a2f7b2002285b",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "409b1516f0401361a02b18a34420c10ca83bc33615e8896cade2fea42edee871",
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 Standard +0.18 Z trim",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    }
+  },
+  "printer": "Mark2",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 15.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "test-cradle",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.stl",
+      "stl_sha256": "ab1875532b46a0254c945a2a263b9c00689502c580705a9070b8f558e395a251",
+      "triangles": 11638,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        4.661194801330566,
+        17.77644920349121
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        162.5,
+        160.0,
+        17.77644920349121
+      ],
+      "plate_translation_mm": [
+        162.5,
+        160.0,
+        17.77644920349121
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          144.35000038146973,
+          144.09880542755127,
+          0.0
+        ],
+        [
+          180.64999961853027,
+          175.90119457244873,
+          35.55289840698242
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    }
+  ],
+  "project_sha256": "94ab07f4217233a16db169b2daa55b6d21fccdc5a138f69289b97bf1dd4a0651",
+  "settings_preserved_byte_for_byte": false,
+  "requested_z_trim_mm": 0.04,
+  "geometry_export_revision": "5a1fb5f08e9879c6bec3fb1e7f62a1a0801bf159",
+  "geometry_export_status": "source_snapshot_verified",
+  "source_snapshot_matches_export_revision": true,
+  "source_snapshot": {
+    "hardware/printed-parts/zone-c/funnel/cradle-trial/cradle_trial.py": "20f3b22a14ef4297b85378fe7bd7b63853bda1cda58e61a2c2ff5dd673920c3a",
+    "hardware/printed-parts/zone-c/funnel/cradle-trial/geometry-check.json": "b29b015602d529e5051280ec5b0b3c61309afb2b28fd7708b750e3f00008dc57",
+    "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": "f998423b6476295bd998884352b4dae8a1876e3313e8df854e6550e408a6be40",
+    "hardware/printed-parts/zone-c/funnel/funnel.py": "db38c9efc7b5cd151a8957cfde67b952b468f4d9ebb0c99d023119360d9c9f16",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "aa92879c1e46d2da42d2166890c473481fd72d671cd608cace6e59361b03100f",
+    "hardware/printed-parts/cadlib/fits.py": "3821989044c5bc3ae99cc6912538b8a34bd75a6b0a081aefc8e4c5a0ce714191",
+    "hardware/reference/jg-pp0308e-elbow/elbow.py": "f4bbf9e1db98c82da4a96076e16a0333d2976b67f965a9d09d147fec510518d1",
+    "hardware/reference/jg-pp0308e-elbow/scan-measurements.json": "d977e38f2966b4d3839e7161f5d6fb9b0b276faf7ec2e4ed2b942b5f4b22dd1a"
+  },
+  "preparation_script_sha256": "662fcb6b9ed59b13f91c224c9c4295377c430f158ccfc6648b883f7950be7b3a"
+}

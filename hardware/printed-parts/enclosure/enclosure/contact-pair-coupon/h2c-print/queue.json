@@ -126,6 +126,42 @@
       "source_commit_verification_record": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v2/source-commit-verification.json",
       "pair_completed_observed_utc": "2026-10-02T22:33:55.200388+00:00",
       "physical_fit_and_retention_tested": false
+    },
+    {
+      "order": 4,
+      "trial": "funnel elbow-cradle v3 with reused v2 receiver",
+      "geometry_revision": 3,
+      "review": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v3/README.md",
+      "status": "printer_accepted",
+      "submitted": true,
+      "bed_clear_confirmation": {
+        "confirmed": true,
+        "source": "User in Printer 2: Both beds are clear."
+      },
+      "allocation_reason": "Both printers are idle with black PET-GF loaded. Mark2 completed before H2C and has been idle with that suitable filament longer.",
+      "receiver_reprinted": false,
+      "reused_receiver_printer_task_id": "1303345379",
+      "reused_receiver_stl_sha256": "cd25b650c948d38fbe8880bfb51b223620adec2f44bfc56b13316797c308bd4e",
+      "allocations": [
+        {
+          "printer": "Mark2",
+          "part": "test-cradle",
+          "archive": ".cache/prints/funnel-test-cradle-mark2-v3/ready/funnel-test-cradle-mark2-v3.gcode.3mf",
+          "archive_sha256": "0fe77876b8601fb7a1e1d469fcae24bb3048235313acc3b7842b36d8924d7f05",
+          "gcode_sha256": "1e1e06608d1907e4fd699ca564b89925238ccf197df93baa7d951741b1803915",
+          "source_stl_sha256": "ab1875532b46a0254c945a2a263b9c00689502c580705a9070b8f558e395a251",
+          "requested_z_trim_mm": 0.04,
+          "review": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v3/cradle-mark2-preflight.json",
+          "status": "printer_accepted",
+          "submitted": true,
+          "printer_task_id": "1303516417",
+          "job_name": "funnel-test-cradle-mark2-v3.gcode.3mf",
+          "accepted_observed_utc": "2026-10-02T23:30:15.349262+00:00",
+          "launch_record": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v3/cradle-mark2-launch.json"
+        }
+      ],
+      "geometry_export_revision": "5a1fb5f08e9879c6bec3fb1e7f62a1a0801bf159",
+      "physical_fit_and_retention_tested": false
     }
   ],
   "followup_automation": "continue-h2c-trial-queue"
