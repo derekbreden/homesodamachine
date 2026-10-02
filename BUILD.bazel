@@ -30145,6 +30145,20 @@ sh_test(
     tags = ["local"],
 )
 
+sh_test(
+    name = "build-selftest",
+    srcs = ["tools/bazel/selftest.sh"],
+    data = [
+        "tools/viz/build.py",
+        "tools/viz/page.html",
+        "tools/viz/step-mesh.cjs",
+        "web/public/finishes.json",
+    ],
+    args = ["tools/viz/build.py"],
+    size = "large",
+    tags = ["local"],
+)
+
 filegroup(
     name = "render-card-runtime",
     srcs = glob(

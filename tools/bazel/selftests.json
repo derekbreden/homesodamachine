@@ -1269,5 +1269,11 @@
   "tools/publish_now.py": [
     "tools/_single_flight.py",
     "tools/publish_now.py"
+  ],
+  "tools/viz/build.py": [
+    "tools/viz/build.py",
+    "tools/viz/page.html",
+    "tools/viz/step-mesh.cjs",
+    "web/public/finishes.json"
   ]
 }
