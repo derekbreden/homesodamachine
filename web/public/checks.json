@@ -67,12 +67,12 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 4920 tracked, 572 fetched solids, 56 tags, 39 site routes",
+      "note": "paths: every reference lands — 4920 tracked, 573 fetched solids, 56 tags, 39 site routes",
       "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 430 of 1000 free, the next cut wants 426, and the whole pointer file reads by name in 21.8 MB against 175.8 MB of bundle",
+      "note": "check_release_room: 430 of 1000 free, the next cut wants 427, and the whole pointer file reads by name in 21.8 MB against 175.8 MB of bundle",
       "status": "ok"
     },
     {
@@ -97,7 +97,7 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 1 of 2753 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 572 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 2742 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 568 member(s) keep their provenance",
       "status": "ok"
     }
   ],
@@ -130,8 +130,12 @@
       "    hardware/printed-parts/enclosure/tee-carrier/low-force-trial/tee-carrier-low-force.step.mesh — declared by nobody"
     ],
     "hardware/scripts/check_step_colours.py": [
-      "step colours: 248/251 carry the colour of what they are made of",
-      "  3 STEP(s) name no colour, so /3d and their own cards draw them at the viewer's blue-grey:",
+      "step colours: 245/252 carry the colour of what they are made of",
+      "  7 STEP(s) name no colour, so /3d and their own cards draw them at the viewer's blue-grey:",
+      "    hardware/.cache/roof-corner/continuous.step",
+      "    hardware/.cache/roof-corner/crescent.step",
+      "    hardware/.cache/roof-corner/old.step",
+      "    hardware/.cache/roof-corner/ruled.step",
       "    hardware/.look-pump-contacts/contact-look.step",
       "    hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/back-top-backing-proposal.step",
       "    hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/placed-psu.step",
