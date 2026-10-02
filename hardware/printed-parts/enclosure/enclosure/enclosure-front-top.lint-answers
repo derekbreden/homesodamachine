@@ -49,24 +49,33 @@ click: x=-64.775 y=80.013 z=310.750
 click: x=-64.775 y=79.764 z=284.424
 click: x=64.775 y=79.764 z=284.424
 
-[sliver] This 1.2 mm-wide patch is where the funnel receiver's front end meets the existing flank features. It is not the wall's thickness: a cross-section 0.1 mm into the end at Z312.525 spans X98.5..106.606, giving 8.106 mm of continuous backing to the fluted exterior.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=99.100 y=144.608 z=312.525
-
 [sliver] The 0.25 mm seam-end strips are the running clearance above the rear receiver's roof. Each is backed by the full front shell from Z330.45 to Z355 and approximately 9 mm in X; no 0.25 mm-thick ligament stands alone. The actual shell-closing sweep is recorded in the funnel integration review.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-102.993 y=199.875 z=330.450
 click: x=102.993 y=199.875 z=330.450
 
-[ceiling] The frame's clearance leaves this flat, 5.75 mm-backed roof around the silicone opening. Support is reached through the broad frame opening before inserting the frame. The upper-shell native audit records its contacts; removal remains a physical review item.
+[ceiling] The frame's clearance leaves these flat, 5.75 mm-backed roof strips beside the silicone opening. Support is reached through the broad frame opening before inserting the frame. These strips require their own native slice and physical removal review.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=0.000 y=164.529 z=349.250
+click: x=-94.119 y=163.110 z=349.250
+click: x=94.119 y=163.110 z=349.250
 
-[ceiling] These are the two flat lower faces of the shell's funnel-rail receivers. They retain the production rail's full foot section. Supports are accessible from the open interior and the Y sliding entrance before the frame is installed; the front-top native audit records the rail contacts.
+[ceiling] These two flat lower faces retain the production funnel rail's full foot section. Supports are accessible from the open interior and Y sliding entrance before the frame is installed. The receiver requires its own native slice and physical removal review.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=101.125 y=170.304 z=306.900
+click: x=101.125 y=166.500 z=306.900
 click: x=-101.125 y=173.335 z=306.900
 
 [ceiling] The contact pair's male seat roof, one plane over the mouth, the body and the tails' room, 0.25 mm above the seat for the supported-face allowance. It bridges between the mouth's round ends, at most 23.7 mm, anchored on its back wall, and carries no load: the half bears on its ear-plate datum and is held by its two screws. Support placed here stands 4.6 mm in the open seat and leaves through the mouth on the bay face before the half goes in.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=0.000 y=83.015 z=280.924
+
+[step] These parallel top planes bound the frame-entry clearance beside the east mounting stock. The printed section at Y188 retains X90.70..93.70 across Z299.00..299.60, a complete 3 mm wall. At X93.50 its vertical backing spans Z293.15..299.65. The adjoining X99.20 section continues down from Z298.95 through Z180.10.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=99.100 y=188.000 z=298.950
+
+[sliver] This 0.70 mm-high exposed band closes the top of the 3 mm wall at X90.70..93.70. Printed ray sections at Y188 retain the complete 3 mm width across the band; at X93.50 the solid continues 6.50 mm down from its Z299.65 top. The surrounding mounting stock carries the wall below the frame-entry clearance.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=93.700 y=188.000 z=299.300
+
+[slope] This is the end of the production rail channel's 45-degree gable, at its Y137.506 entrance. The Y-normal face is the channel's end cap; the ramp follows the rail's required X section. Preserve that mating section. The open Y entrance and interior give direct support access to the entry tip before inserting the frame; native slice and physical removal review remain required.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=96.249 y=139.534 z=324.926
