@@ -92,7 +92,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "zone-c" / "funnel",
            _hw / "reference" / "worm-clamp",
            _hw / "reference" / "jg-pp0408w",
-           _hw / "reference" / "elbow-connector",
+           _hw / "reference" / "jg-pp0308e-elbow",
            _hw / "reference" / "funnel-drain-stub",
            _hw / "reference" / "seaflo-suction-chain",
            _hw / "reference" / "seaflo-discharge-chain",
@@ -158,7 +158,9 @@ import enclosure as _enc                              # noqa: E402
 import reeding as _reeding                            # noqa: E402
 import funnel_frame as _funnel_frame
 import funnel as _funnel                       # noqa: E402
-import elbow_connector as _elbow                      # noqa: E402
+import elbow as _elbow                                # noqa: E402
+import elbow_cradle as _cradle                        # noqa: E402
+import funnel_drain_stub as _stub                     # noqa: E402
 import valve_seat as _vseat                           # noqa: E402
 import manifold_layout as ml                          # noqa: E402
 import seaflo_suction_chain as _suct                  # noqa: E402
@@ -318,10 +320,8 @@ from _materials import (C_AC_HUB, C_C14, C_COMP, C_COND, C_DIGITEN,  # noqa: E40
 C_FOAM = M_PETG_BLACK
 # Cast platinum silicone, pigmented to hide concentrate staining.
 C_FUNNEL = M_SILICONE_BLACK
-# The funnel's own length of tube, off the roll `fluid-4` carries on below the union.
+# The funnel's drain stub, off the roll `fluid-4` carries on from the elbow.
 C_STUB = _routing.tube_color("fluid-4")
-# The LOKMAN band closing that spout, 304 SS by its own listing (`reference/worm-clamp.MATERIAL`).
-C_WORM = M_STAINLESS
 # Each pump-port chain is a made-up run of SS adapter, check valve and reinforced PVC, and it is
 # drawn as the metal that is most of it.
 C_SUCT = M_STAINLESS
@@ -5429,6 +5429,36 @@ def build_funnel(box):
 
 
 
+def build_drain_joint(box):
+    """The funnel's drain joint under the frame's hole, read off the hole's own datum.
+
+    Three bodies on one column, each in the frame its own module states:
+
+      * the elbow cradle, snapped into the frame's web round the hole
+        (`elbow_cradle`, origin on the hole's axis in the frame's underside);
+      * the PP0308E elbow standing in it, its fixed nose face on that underside, +Z leg up the
+        hole and +Y leg aft;
+      * the drain stub in the elbow's upper collet, up through the hole into the plug's land
+        (`funnel_drain_stub`, origin on the elbow's release face).
+
+    Returns `(name, solid, colour, carry)` per body — the elbow's carry is what `fluid-4`
+    anchors on."""
+    _stub.joint_holds()
+    cx, cy = funnel_centre(box)
+    floor = _funnel_frame.datums(_enc.funnel_seat_z(box.outer))[0]
+    hole = (cx + _funnel.neck_dx, cy + _funnel.neck_dy, floor)
+    up = (0.0, 0.0, 1.0)
+    cradle, _ = seat_body(_cradle.build(), seat="elbow-cradle", station=(((0, 0, 0), up), hole))
+    union, union_carry = seat_body(_elbow.build_elbow_connector().val(),
+                                   seat="funnel-drain-union",
+                                   station=(((0.0, 0.0, _elbow.FIXED_FACE), up), hole))
+    stub, _ = seat_body(_stub.build_stub().val(), seat="funnel-drain-stub",
+                        station=(((0, 0, 0), up), union_carry(_elbow.port("z"))[0]))
+    return (("elbow-cradle", cradle, M_PETGF_BLACK, None),
+            ("funnel-drain-union", union, M_JG_BLACK_PP, union_carry),
+            ("funnel-drain-stub", stub, C_STUB, None))
+
+
 # Carry the display's screen normal onto the enclosure facet.
 DISPLAY_TILT = ((1.0, 0.0, 0.0), _enc.display_facet_angle_deg - 90.0)
 
@@ -5651,14 +5681,37 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     floor = _funnel_frame.datums(_enc.funnel_seat_z(box.outer))[0]
     record_seat("funnel-frame", planes={"cx": cx, "cy": cy, "z0": floor},
                 got=frame.BoundingBox())
-    # The plain frame hole has no tube attachment yet. Keep that open design
-    # requirement on the card; fluid-4 needs the eventual rigid tube endpoint.
-    record_bound(Bound(
-        "funnel-drain-attachment", "The removable funnel has a retained drain tube", False,
-        "plain 6.85 mm frame hole", "a fixed tube through the frame connected to V-B",
-        ["Tube retention and the fluid-4 connection are unresolved."], "goal"))
-    a.bounds = list(BOUNDS)
+    # The drain joint under the frame's hole. `fluid-4` starts at the elbow's aft collet, so the
+    # joint goes in before the run is drawn.
+    for name, solid, colour, carry in build_drain_joint(box):
+        a.add(solid, name=name, color=colour)
+        a.pack_solids[name] = solid
+        if carry is not None:
+            a.carries[name] = carry
     draw_runs(a, _lines.build_seated_runs(a.pack_solids, a.carries))
+    # THE DROP, AND NOT THE LENGTH. `fluid-4` carries the funnel's head and is its air-purge path,
+    # so what it owes is a line that never ends higher than it starts.
+    drain = next((r for r in a.runs if r.id == "fluid-4"), None)
+    if drain is not None:
+        note_room("funnel-drain-union", "the drop off the elbow `fluid-4` reaches V-B on",
+                  _elbow.TUBE_OD, drain.pts[0][2] - drain.pts[-1][2])
+    # The joint's own stack, read back off the placed bodies: the elbow's nose on the frame's
+    # underside, the stub's top at the plug's land, and the line drawn to V-B.
+    union_carry = a.carries["funnel-drain-union"]
+    nose = union_carry(((0.0, 0.0, _elbow.FIXED_FACE), (0.0, 0.0, 1.0)))[0][2]
+    stub_top = a.pack_solids["funnel-drain-stub"].BoundingBox().zmax
+    land_top = (_enc.funnel_seat_z(box.outer) + _funnel.spout_land_z)
+    joined = (abs(nose - floor) < 1e-6 and abs(stub_top - land_top) < 1e-3
+              and drain is not None and "fluid-4" not in _routing.BLOCKED)
+    record_bound(Bound(
+        "funnel-drain-attachment", "The removable funnel has a retained drain tube", joined,
+        f"PP0308E nose on the web at Z{nose:.3f}; stub top Z{stub_top:.3f} at the plug's "
+        f"{_funnel.sealing_land:g} mm land; fluid-4 "
+        + (f"{drain.length:.1f} mm to V-B" if drain is not None else "not drawn"),
+        "a fixed tube through the frame connected to V-B",
+        ["The cradle's snap and the plug's push-on seal on the stub are not physically "
+         "qualified; `zone-c/funnel/cradle-trial` tests the snap."], "goal"))
+    a.bounds = list(BOUNDS)
     display = build_display(box)
     # THE MODULE IS ONE BODY HERE AND TWO MATERIALS IN ITS OWN CARD. `waveshare_43b_display`
     # draws the main board in its own blue solder mask and the cover glass over it, and this
