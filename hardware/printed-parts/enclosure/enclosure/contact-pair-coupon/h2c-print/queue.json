@@ -113,7 +113,8 @@
           "printer_task_id": "1303335008",
           "job_name": "funnel-test-cradle-h2c-v2.gcode.3mf",
           "accepted_observed_utc": "2026-10-02T21:59:32.035882+00:00",
-          "launch_record": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v2/cradle-h2c-launch.json"
+          "launch_record": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v2/cradle-h2c-launch.json",
+          "first_layer_confirmed_utc": "2026-10-02T22:12:32.764121+00:00"
         }
       ],
       "geometry_export_revision": "3498db7dd53a13a7b964adc1674b9331ba8f26e4",
