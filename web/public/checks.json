@@ -37,7 +37,7 @@
     },
     {
       "check": "hardware/scripts/check_payloads.py",
-      "note": "re-run tools/bazel/trace_inputs.py hardware/printed-parts/zone-c/funnel/funnel.py, then gen_build.py",
+      "note": "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/tee-carrier-low-force.step.mesh — declared by nobody",
       "status": "red"
     },
     {
@@ -62,12 +62,12 @@
     },
     {
       "check": "hardware/scripts/check_tracked.py",
-      "note": "68/68 artifacts have their record in the index",
+      "note": "69/69 artifacts have their record in the index",
       "status": "ok"
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 4836 tracked, 569 fetched solids, 56 tags, 39 site routes",
+      "note": "paths: every reference lands — 4861 tracked, 569 fetched solids, 56 tags, 39 site routes",
       "status": "ok"
     },
     {
@@ -92,18 +92,18 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "tools/cad-venv/bin/python tools/bazel/gen_build.py",
-      "status": "red"
+      "note": "check_declared_imports: every step holds what it imports, over 264 source(s) the graph names",
+      "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 2779 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 568 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 2742 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 568 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds bc88b8b273772462f2c4dd723d370359 for the 230 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 6b7d96931318a4d4ec5af7ec75e42f5d here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 52c28b6966de75e1690809d1c17d077f for the 242 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at cb1acba19968a3be94f9d209720b6545 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
@@ -113,7 +113,7 @@
       "  ✗ procedure with no doc-sync driver — every number and part name in it is a bare literal: hardware/assembly/weld-position.md (expected hardware/assembly/_weld_position_sync.py)"
     ],
     "hardware/scripts/check_payloads.py": [
-      "20 solid(s) the bundle serves a payload for that no rule produces:",
+      "19 solid(s) the bundle serves a payload for that no rule produces:",
       "    hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.step.mesh — declared by nobody",
@@ -132,10 +132,7 @@
       "    hardware/printed-parts/enclosure/grip-cover/grip-section.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-001.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.step.mesh — declared by nobody",
-      "    hardware/printed-parts/enclosure/tee-carrier/low-force-trial/tee-carrier-low-force.step.mesh — declared by nobody",
-      "    hardware/printed-parts/zone-c/funnel/funnel.step.mesh — declared by nobody",
-      "      name it in tools/bazel/inventory.py IMPLICIT_SOLIDS under hardware/printed-parts/zone-c/funnel/funnel.py,",
-      "      re-run tools/bazel/trace_inputs.py hardware/printed-parts/zone-c/funnel/funnel.py, then gen_build.py"
+      "    hardware/printed-parts/enclosure/tee-carrier/low-force-trial/tee-carrier-low-force.step.mesh — declared by nobody"
     ],
     "hardware/scripts/check_step_colours.py": [
       "step colours: 245/248 carry the colour of what they are made of",
@@ -147,41 +144,14 @@
     ],
     "tools/bazel/check_build_file.py": [
       "BUILD.bazel is not what the graph would write now:",
-      "  1 build-graph generator(s) are absent from the tree — hardware/printed-parts/zone-c/funnel/elbow_cradle.py among them. Re-trace the renamed generator or remove its stale graph entry.",
-      "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
-    ],
-    "tools/bazel/check_declared_imports.py": [
-      "    hardware/scripts/_bom_sync.py",
-      "      reads hardware/manifold-layout/_lines.py, which imports hardware/reference/jg-pp0308e-elbow/elbow.py",
-      "    hardware/scripts/_bom_sync.py",
-      "      reads hardware/manifold-layout/enclosure_assembly.py, which imports hardware/reference/jg-pp0308e-elbow/elbow.py",
-      "    hardware/scripts/_bom_sync.py",
-      "      reads hardware/reference/funnel-drain-stub/funnel_drain_stub.py, which imports hardware/reference/jg-pp0308e-elbow/elbow.py",
-      "    hardware/scripts/tube_routes.py",
-      "      reads hardware/manifold-layout/_lines.py, which imports hardware/reference/jg-pp0308e-elbow/elbow.py",
-      "    hardware/scripts/tube_routes.py",
-      "      reads hardware/manifold-layout/enclosure_assembly.py, which imports hardware/reference/jg-pp0308e-elbow/elbow.py",
-      "    hardware/scripts/tube_routes.py",
-      "      reads hardware/reference/funnel-drain-stub/funnel_drain_stub.py, which imports hardware/reference/jg-pp0308e-elbow/elbow.py",
-      "    hardware/topology/_fluid_topology_sync.py",
-      "      reads hardware/manifold-layout/_lines.py, which imports hardware/reference/jg-pp0308e-elbow/elbow.py",
-      "    hardware/topology/_fluid_topology_sync.py",
-      "      reads hardware/manifold-layout/enclosure_assembly.py, which imports hardware/reference/jg-pp0308e-elbow/elbow.py",
-      "    hardware/topology/_fluid_topology_sync.py",
-      "      reads hardware/reference/funnel-drain-stub/funnel_drain_stub.py, which imports hardware/reference/jg-pp0308e-elbow/elbow.py",
-      "  the import edges are read off the source and written in seconds:",
-      "    tools/cad-venv/bin/python tools/bazel/check_declared_imports.py --fix",
-      "  a read this cannot see — a solid a lazy path loads — is recorded by watching a run.",
-      "  FIX THE IMPORTS FIRST: a trace of a run that died early records only what ran, so a",
-      "  step that cannot import yet is a step whose file loads were never reached.",
-      "    tools/cad-venv/bin/python tools/bazel/trace_inputs.py hardware/assembly/_electronics_bay_sync.py hardware/assembly/_enclosure_mechanical_sync.py hardware/assembly/_internal_plumbing_sync.py hardware/assembly/scenes/render_scenes.py hardware/manifold-layout/enclosure_assembly.py hardware/manifold-layout/enclosure_box.py hardware/printed-parts/enclosure/_enclosure_dimensions.py hardware/printed-parts/enclosure/drawings/line-art/_appliance_model.py hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-back.py hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.py hardware/printed-parts/enclosure/pump-tray/pump_tray.py hardware/printed-parts/enclosure/valve-tray/valve_tray.py hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py hardware/scripts/_bom_sync.py hardware/scripts/tube_routes.py hardware/topology/_fluid_topology_sync.py",
+      "  tools/viz/build.py answers to selftest and selftests.json does not name it",
+      "      tools/cad-venv/bin/python tools/bazel/trace_inputs.py --selftests tools/viz/build.py",
       "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
     ],
     "tools/check_web_tests.py": [
-      "3 test(s) in web/ fail:",
+      "2 test(s) in web/ fail:",
       "    every alias names a component an assembly carries",
       "    EXCLUDED_DIRS is every out/ .gitignore holds under hardware",
-      "    the artifact pointer file points at every committed viewer scorecard",
       "  cd web && npm test"
     ]
   },
