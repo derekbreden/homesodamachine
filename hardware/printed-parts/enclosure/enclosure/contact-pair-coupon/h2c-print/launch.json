@@ -8,7 +8,7 @@
   "job_name": "contact-pair-coupons-h2c-v2.gcode.3mf",
   "accepted_observed_utc": "2026-10-02T16:29:37.033095+00:00",
   "state_at_acceptance": "RUNNING",
-  "status": "printing_first_layer_confirmed",
+  "status": "completed",
   "archive": ".cache/prints/contact-pair-coupons-h2c-v2/ready/contact-pair-coupons-h2c-v2.gcode.3mf",
   "archive_sha256": "e512a754050c30892f3919c29eea1db0a10a64b16909e0282f92cea9b52a2c49",
   "gcode_sha256": "a69fdbe7fe802a5a88a83d0decac4394a1a0b067ce4945a39b4594b0c7e6242c",
@@ -123,5 +123,8 @@
     "bed_temper": 80.0,
     "bed_target_temper": 80.0,
     "stg_cur": 0
-  }
+  },
+  "completed_observed_utc": "2026-10-02T17:00:26.771173+00:00",
+  "completion_record": "completion.json",
+  "completion_notification_utc": "2026-10-02T17:01:13.767443+00:00"
 }

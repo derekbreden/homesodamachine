@@ -1,0 +1,24 @@
+{
+  "printer": "H2C",
+  "printer_task_id": "1302534665",
+  "archive_sha256": "e512a754050c30892f3919c29eea1db0a10a64b16909e0282f92cea9b52a2c49",
+  "gcode_sha256": "a69fdbe7fe802a5a88a83d0decac4394a1a0b067ce4945a39b4594b0c7e6242c",
+  "completion_observation": {
+    "observed_at": "2026-10-02T17:00:26.771173+00:00",
+    "job_id": "1302534665",
+    "gcode_state": "FINISH",
+    "subtask_name": "contact-pair-coupons-h2c-v2.gcode.3mf",
+    "layer_num": 78,
+    "total_layer_num": 78,
+    "mc_percent": 100,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": []
+  },
+  "bed_cleared_for_next_print": false,
+  "physical_print_quality_verified": false,
+  "physical_fit_tested": false,
+  "physical_check_document": "README.md#bench-check",
+  "next_trial": "funnel elbow-cradle receiver and cradle",
+  "next_trial_status": "ready_awaiting_start_request_or_clear_bed_report_after_coupon_removal"
+}
