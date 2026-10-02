@@ -2746,6 +2746,7 @@
       "hardware/printed-parts/enclosure/mating-clearance-check.json",
       "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
       "hardware/reference/iec-c14-inlet/.scan-check-cache.npz",
+      "hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py",
       "hardware/scripts/_tools_totals.py",
       "marketing/lincoln/README.md",
       "marketing/lincoln/advertising.md",
@@ -3304,7 +3305,9 @@
       "hardware/reference/waveshare-43b-display/waveshare-43b-display.step",
       "hardware/reference/wellbom-regulator/wellbom-regulator.step",
       "hardware/reference/worm-clamp/worm-clamp.step",
-      "hardware/reference/wr1110-regulator/wr1110-regulator.step"
+      "hardware/reference/wr1110-regulator/wr1110-regulator.step",
+      "hardware/reference/yyfkgcp-pogo-4p/pogo-4p-female.step",
+      "hardware/reference/yyfkgcp-pogo-4p/pogo-4p-male.step"
     ],
     "targets": [
       "//:above-counter-gasket",
@@ -3961,7 +3964,9 @@
     "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "2bdf719b4f9c1f584ffd4024b6fad423ef4171e3f7ef41feffb227f2dc0f8871",
     "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh": "d7929fe89d96a8843cad1f76ecb0741f2fb682a5492586b71b40a1cc8b18236a",
     "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "f4ec58b800d497e3863ab34397aa3522a042006ec7042196f5d5537f30ae6524",
-    "hardware/printed-parts/zone-c/funnel/funnel.step.mesh": "08296e8ccb1ccd8f63f739a32ca7012ec7966dd48f55d26478bae16edc97714b"
+    "hardware/printed-parts/zone-c/funnel/funnel.step.mesh": "08296e8ccb1ccd8f63f739a32ca7012ec7966dd48f55d26478bae16edc97714b",
+    "hardware/reference/yyfkgcp-pogo-4p/pogo-4p-female.step": "a1c1eb3dd51b03690c9e83ea9d2aac3fe6b732866c5645ce92c3dd52f1185e1c",
+    "hardware/reference/yyfkgcp-pogo-4p/pogo-4p-male.step": "18b27fd4cdc0aa24c44e0c394c7dbf17f4c14bd0861cfaf489dc8592e78742df"
   },
   "sidecars": {
     "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "43ba81d94f4ee8fb04ac5a6c93e26479ea47174b772e5f98684e966856c8c1a5",
@@ -4519,6 +4524,8 @@
     "hardware/reference/waveshare-43b-display/waveshare-43b-display.step": 1787356215,
     "hardware/reference/wellbom-regulator/wellbom-regulator.step": 1789013075,
     "hardware/reference/worm-clamp/worm-clamp.step": 1787578592,
-    "hardware/reference/wr1110-regulator/wr1110-regulator.step": 1790196723
+    "hardware/reference/wr1110-regulator/wr1110-regulator.step": 1790196723,
+    "hardware/reference/yyfkgcp-pogo-4p/pogo-4p-female.step": 1790919001,
+    "hardware/reference/yyfkgcp-pogo-4p/pogo-4p-male.step": 1790919001
   }
 }
