@@ -19,8 +19,8 @@ bezel seat against its back datum.
 The visible face is flush with the enclosure's 30° display plane. A 1 mm TPU ring
 and 1 mm glass lie beneath the cover. Glass back depth is 5.84 mm. The complete
 17 mm module behind the glass has 1 mm rear clearance; the supporting rib retains
-3 mm stock. The PCB opening, funnel clearance and pump-jack service path are
-checked in the [integrated geometry](../enclosure/accepted-fit-integration/geometry-check.json).
+3 mm stock. The PCB opening and funnel clearance are checked in the
+[integrated geometry](../enclosure/accepted-fit-integration/geometry-check.json).
 
 The wing pockets open down through the display storey to its existing floor.
 Remove shared-profile tree supports through the empty bay before installing the

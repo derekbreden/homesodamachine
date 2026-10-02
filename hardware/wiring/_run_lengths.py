@@ -32,7 +32,6 @@ import enclosure_assembly as _ea  # noqa: E402
 # The measured cabinet routing calibration: 273 mm of direct reach carries a 400 mm cut.
 CAL_REACH = 273.0
 CAL_CUT = 400.0
-CARTRIDGE_CUT = 400.0
 
 # Each loom's conductors, grouped by the body they land on. The board end is `pcba` for all of
 # them. AC-1…AC-6 are not here: they are built in place, not as cable assemblies.
@@ -55,7 +54,7 @@ LEGS = {
                    ("GND → 221-420", 1, ["wago-reeds-b"])],
     "J9 DISPLAY": [("all four", 4, ["display"])],
     "J11 GAS": [("all four", 4, ["mq6-sensor"])],
-    "J13 PUMPS": [("fixed AM1/AM2, BM1/BM2", 4, ["pump-jack"])],
+    "J13 PUMPS": [("fixed AM1/AM2, BM1/BM2", 4, ["pump-contact-male"])],
 }
 
 # J3 is not measured: SIG-6 is the one loom that leaves the box, climbing the umbilical to the
@@ -88,8 +87,12 @@ def measure():
             routed = max(reach(b) for b in bodies) * factor
             rows.append((loom, label, count, routed))
             total += count * routed
-    rows.append(("DC-5 CARTRIDGE", "all four", 4, CARTRIDGE_CUT))
-    total += 4 * CARTRIDGE_CUT
+    # DC-5's cartridge half starts at the contact pair's female half, inside the clamp, and ends on
+    # the two motors' tabs: it rides the cartridge and never reaches the board.
+    cartridge = max(math.dist(pos["pump-contact-female"], pos[m])
+                    for m in ("pump-a-motor", "pump-b-motor")) * factor
+    rows.append(("DC-5 CARTRIDGE", "contact pair → motors", 4, cartridge))
+    total += 4 * cartridge
     return rows, total, factor
 
 

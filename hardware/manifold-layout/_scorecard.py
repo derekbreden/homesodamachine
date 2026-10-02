@@ -260,9 +260,6 @@ MOUNTS = (
     ("display", ("enclosure-front-top", "display-cover"), "plate-capture"),
     ("display-cover", "enclosure-front-top", "snap-capture"),
     ("display-gasket", ("display-cover", "display"), "gap-press"),
-    # The pump jack snaps into front-top's ridge wall: the keystone's tang and latch close over
-    # the receptacle's two catches behind the rib.
-    ("pump-jack", "enclosure-front-top", "wall-capture"),
     # The cartridge's contact pair: each half's ear plate screwed down on its seat's datum by two
     # M1.4 into heat-sets, the male in front-top's bay bulkhead and the female in the clamp
     # (`enclosure._pump_contact_fixed_cuts`, `enclosure._pump_contact_cap_cuts`).
@@ -646,9 +643,6 @@ TOUCHING_OK = {frozenset(p) for p in (
     # The plate and the glass therefore stand one ring apart, which is a seat and not a gap:
     # `display_gasket.thickness` IS this distance, taken off the same two depths.
     ("display-cover", "display"),
-    # The pump jack's face bottoms on the ridge wall's lip while its tang and latch close over
-    # the receptacle's catches. Zero distance to the host is the installed joint.
-    ("pump-jack", "enclosure-front-top"),
     # The contact pair mated: the male's pins pressed onto the female's pads across the kiss.
     ("pump-contact-male", "pump-contact-female"),
     # AND THE EIGHT IN THE TWO VALVE TRAYS' — the same seat and the same press, on a plate the

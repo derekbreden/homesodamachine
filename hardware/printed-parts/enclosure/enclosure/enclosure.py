@@ -436,16 +436,14 @@ ridge_wall_t = 3.0               # the rib under `pcb_ridge`, measured across it
 cable_sleeve_nom = 12.7          # 1/2" PET expandable braid, SIG-7's own
 cable_bore_air = 1.0             # all round it, because this is a pass and not a seat
 cable_bore_dia = cable_sleeve_nom + 2.0 * cable_bore_air   # [14.7 mm](CABLE_BORE)
-# THE CENTRE STATION IS THE PUMP JACK: a RiteAV RJ11 keystone jack, the module the +Y wall
-# holds for the umbilical, in this rib's centreline where a hand reaching up through the empty
-# pump bay finds it, its receptacle boss rooted on the bay bulkhead's crown. BOTH CROSSINGS STAND
-# ON +X, WHICH IS THE SIDE BOTH RUNS ARRIVE ON: SIG-7 comes forward along that flank from the
-# electronics bay and passes the rib through its own bore, with solid stock between that bore and
-# the receptacle's boss; the fixed J13-to-jack lead comes down the same flank, turns the corner
-# and runs back west into one full-depth cable clip rooted on this rib's cavity face. Nothing on
-# the removable pump cartridge is clipped to the enclosure.
+# TWO RUNS MEET THIS RIB, AND BOTH ARRIVE ON +X. SIG-7 comes forward along that flank from the
+# electronics bay and passes the rib through its own bore east of the centreline. The fixed
+# J13-to-contact lead comes down the same flank, turns the corner and runs back west into one
+# full-depth cable clip rooted on this rib's cavity face, then along the bay bulkhead's crown
+# behind the rib to the centreline and down the bulkhead's aft face into the contact pair's lead
+# bore. Nothing on the removable pump cartridge is clipped to the enclosure.
 display_loom_x_offset = 32.0
-pump_jack_clip_edge_land = 12.0
+pump_lead_clip_edge_land = 12.0
 # AND THE FLANK CARRIES THE REST OF THAT RUN. What the ridge clip guides toward +X turns the
 # corner onto front-top's own +X face and runs aft to the main-board wall, so that face takes the
 # same complete clip profile embedded in the section `front_top_flank_t` provides.
@@ -2988,33 +2986,12 @@ def _ridge_join(outer, fore):
                  jog - ridge_wall_t * (math.sqrt(2.0) - 1.0))
 
 
-def _ridge_stations(outer, plate, bay):
-    """The two electrical stations in the rib's straight section, `(x, y, z)` each: the pump
-    jack's aperture centre on the box centreline, and the enclosure-display loom's bore east of
-    it.
-
-    THE JACK'S RECEPTACLE STANDS ON THE PLATE CAP'S CROWN. Its boss's lower wall lands on
-    `bay[2]`, which puts the aperture centre `POCKET_H / 2 + RECEPTACLE_WALL - POCKET_RISE`
-    above that plane, so on this Z-bedded piece the boss roots on the crown and the rib and
-    nothing of it hangs. The loom keeps the height it had on the centreline and moves only in
-    X — east, onto the flank it arrives on, and far enough that its sleeve and the boss keep
-    solid stock between them."""
-    ry, rz = pcb_ridge(outer)
+def _ridge_loom_station(outer, plate, bay):
+    """The enclosure-display loom's bore in the rib's straight section, `(x, y, z)`: east of the
+    box centreline, on the flank the loom arrives on, halfway up the straight section."""
     fore, foot = plate["aft_y"], bay[2]
     jog, _crown = _ridge_join(outer, fore)
-    z_loom = (foot + jog) / 2.0
-    z_jack = (foot + _keystone.POCKET_H / 2.0 + _keystone.RECEPTACLE_WALL
-              - _keystone.POCKET_RISE)
-    centre = display_centre_x(outer)
-    return ((centre, fore, z_jack),
-            (centre + display_loom_x_offset, fore, z_loom))
-
-
-def pump_jack_station(box):
-    """The pump jack's aperture centre on the ridge wall's fore face, `(x, y, z)`."""
-    if not (box.pack.collet_plate and box.pump_bay):
-        raise ValueError("the pump jack needs the collet plate and pump bay")
-    return _ridge_stations(box.outer, box.pack.collet_plate, box.pump_bay)[0]
+    return (display_centre_x(outer) + display_loom_x_offset, fore, (foot + jog) / 2.0)
 
 
 def _seat_back(depth, half_slope):
@@ -5878,49 +5855,11 @@ def _tee_wall(inner, y_joint, plate, bay):
     return slab
 
 
-def _ridge_keystone(slab, station, t):
-    """The pump jack's receptacle in the ridge wall: `riteav_keystone`'s aperture, ease, pocket,
-    two catches and boss, turned to face the pump bay.
-
-    THE MODULE LOOKS +Y OUT OF THE WALL AND THIS WALL'S USER FACE LOOKS -Y, so the receptacle is
-    struck at the origin and given a half turn about Z before it is carried to the station: X
-    is the module's own mirror plane, the ease stays over the aperture's top edge, and the jack
-    goes in from the cavity behind the rib, tang first, swinging down onto the lower catch.
-
-    THE RIB IS THE LIP. `ridge_wall_t` is `riteav_keystone.LIP_D`, so the aperture passes the
-    whole rib and the pocket, the catches and the boss that carries them stand aft of it. The
-    boss's lower wall lands on the bay bulkhead's crown (`_ridge_stations`), so the block roots on
-    the crown and the rib and hangs nowhere on this Z-bedded piece.
-
-    Fused, cut, fused: the boss first, then the receptacle through boss and rib together, then
-    the catches, which a cut running after them would take off."""
-    x, y_face, z = station
-    block, catches = _keystone.receptacle_boss(0.0, 0.0, 0.0, -t)
-    cutter, _bands = _keystone_pocket_cut(0.0, 0.0, 0.0)
-
-    def turned(shape):
-        return (shape.rotate((0.0, 0.0, 0.0), (0.0, 0.0, 1.0), 180.0)
-                .translate((x, y_face, z)))
-
-    if block is not None:
-        bb = block.BoundingBox()
-        pw = _keystone.POCKET_W - _keystone.FIT_SLIP + 2.0 * fits.slip
-        ph = _keystone.POCKET_H - _keystone.FIT_SLIP + 2.0 * fits.slip
-        hx, hz = pw / 2.0 + _keystone.RECEPTACLE_WALL, ph / 2.0 + _keystone.RECEPTACLE_WALL
-        block = _ybox(-hx, hx, bb.ymin, bb.ymax,
-                       _keystone.POCKET_RISE - hz, _keystone.POCKET_RISE + hz)
-        slab = slab.fuse(turned(_supported_cut(block)))
-    slab = slab.cut(turned(_supported_cut(cutter)))
-    if catches is not None:
-        slab = slab.fuse(turned(_keystone_catches(catches, up=1.0)))
-    return slab
-
-
 def _ridge_wall(inner, outer, plate, bay, funnel):
     """A wall-width rib joins the bay bulkhead to the display housing and funnel seat.
 
-    Its straight lower section carries the pump jack, machine-display loom passage
-    and fixed pump-lead clip. The crown follows a 45° rise to the display pocket;
+    Its straight lower section carries the machine-display loom passage and the fixed
+    pump-lead clip. The crown follows a 45° rise to the display pocket;
     the aft face continues to the underside of the funnel bearing. Display and
     retention-pocket cuts pass through the completed rib. Its cavity-facing roof
     can take slicer support through the open display and funnel apertures.
@@ -5942,15 +5881,12 @@ def _ridge_wall(inner, outer, plate, bay, funnel):
          (funnel_front, ceiling),                               # the opening's front underside
          aft_start,                                             # the one roof's aft foot
          (fore + t, foot)])
-    jack, loom = _ridge_stations(outer, plate, bay)
+    loom = _ridge_loom_station(outer, plate, bay)
     slab = slab.cut(_teardrop_y(cable_bore_dia / 2.0, loom[0], loom[2],
                                 fore - 1.0, fore + t + 1.0))
-    slab = _ridge_keystone(slab, jack, t)
 
-    clip_end = inner[1] - pump_jack_clip_edge_land
+    clip_end = inner[1] - pump_lead_clip_edge_land
     clip_start = clip_end - _cable_clip.RUN
-    if clip_start <= jack[0] + _keystone.panel_footprint()[0] / 2.0:
-        raise ValueError("the pump-jack cable clip no longer clears the receptacle boss")
     # The seat follows the loom's height while keeping a full wall thickness below
     # the ridge crown. The lead reaches down into the seat where the crown sets its height.
     clip_z = min(loom[2] - _cable_clip.seat_top(),
@@ -10225,12 +10161,7 @@ def main():
         "CABLE_BORE": f"{cable_bore_dia:.4g} mm",
         "CABLE_SLEEVE_NOM": f"{cable_sleeve_nom:.4g} mm",
         "DISPLAY_LOOM_X": f"{display_loom_x_offset:+.4g} mm",
-        "PUMP_JACK_Z": (f"{_ridge_stations(bo, plate, box.pump_bay)[0][2]:.5g} mm"
-                        if plate else "no bay on this pack"),
-        "PUMP_JACK_APERTURE": f"{_keystone.FACE_W + 2 * fits.slip:.4g} × {_keystone.FACE_H + 2 * fits.slip:.4g} mm",
-        "PUMP_JACK_BOSS_REACH": f"{_keystone.DEPTH - ridge_wall_t:.4g} mm",
-        "PUMP_JACK_BODY": f"{_keystone.BODY_DEPTH:.4g} mm",
-        "PUMP_JACK_CLIP_LAND": f"{pump_jack_clip_edge_land:.4g} mm",
+        "PUMP_LEAD_CLIP_LAND": f"{pump_lead_clip_edge_land:.4g} mm",
         "FLANK_CLIPS": f"{len(flank_clip_stations)}",
         "FLANK_CLIP_Y": ", ".join(
             f"{y0:.4g}–{y0 + run:.4g}" for y0, run in flank_clip_stations) + " mm",
