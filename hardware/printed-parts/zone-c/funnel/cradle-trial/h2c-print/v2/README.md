@@ -10,7 +10,7 @@ estimate; insertion, elastic return and retention require the printed trial.
 
 | Part | Printer | Requested Z trim | Native estimate | State |
 | --- | --- | --- | --- | --- |
-| Test receiver | Mark2 | +0.04 mm | 23 min 00 sec | Accepted task 1303345379 |
+| Test receiver | Mark2 | +0.04 mm | 23 min 00 sec | First layers confirmed; task 1303345379 |
 | Test cradle | H2C | +0.18 mm | 30 min 29 sec | First layers confirmed; task 1303335008 |
 
 The [receiver launch](receiver-mark2-launch.json) and
