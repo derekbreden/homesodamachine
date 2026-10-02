@@ -6,17 +6,18 @@ nose face on that underside, and its +Y leg aft toward V-B.
 
 The cradle is the block under the elbow less the elbow's upward shadow grown by `fits.slip`. The
 elbow drops straight in, and every pocket face opens upward, so the body prints bottom-down. The
-block's top is the top of the vertical leg's root band, which the pocket wraps about 78% of the
-way round; the collar, rung and nose stand free above it.
+block's top is the underside of the vertical leg's collar: the pocket wraps the root band about 78%
+of the way round, and the collar, rung and nose stand free above it.
 
 Each X side of the block carries on up as a wing, the body's full length, through a straight slot
-in the frame's bottom web. A flat hook at the wing's top reaches outward over the web, inside the
-silicone plug's counterbore. Going up, each wing bends inward into its slot's inboard lane until
-the hook clears the slot's outer edge, then springs back over the web. The plug's pockets keep it
-there.
+in the frame's bottom web. A flat hook at the wing's top reaches outward over the web to within
+`TIP_GAP` of the counterbore's X wall, which sets the block's width and so how far the slots stand
+off the drain hole. Going up, each wing bends inward into its slot's inboard lane until the hook
+clears the slot's outer edge, then springs back over the web. The plug's pockets, open through its
+X sides, keep it there.
 
 The counterbore and the silicone plug are rounded rectangles centred on the hole: the plug's
-width, and long enough in Y to keep `PLUG_WALL` of silicone outside every hook pocket.
+width, and long enough in Y to keep `PLUG_WALL` of silicone past the pockets' ends.
 """
 
 import functools
@@ -42,7 +43,9 @@ SLIP = fits.slip       # pocket off the scanned elbow
 WALL = 3.0             # block wall and floor beyond the elbow's widest section
 HOLE_D = 11.25         # the 10.64 mm collet passes 0.3 mm a side; the 12.12 mm nose bears round it
 ELBOW_Z = -_elbow.FIXED_FACE   # the elbow's axis intersection, under the frame's underside
-ROOT_BAND_TOP = 11.0   # vertical-leg station where the root band ends and the collar taper starts
+COLLAR_UNDERSIDE = 13.0   # vertical-leg station where the collar starts, above the root band's taper
+SOCKET_HALF = 18.3     # the counterbore's half-width, `funnel_frame.socket_width / 2`
+TIP_GAP = fits.slip    # hook tip off the counterbore's X wall
 
 LEAF_T = 1.3           # wing thickness
 SIDE = 0.5             # slot's outer edge off the wing's outer face
@@ -52,8 +55,8 @@ CATCH_GAP = fits.slip + fits.supported_surface   # hook underside over the web, 
 INSERTION_SLIP = 0.1   # hook tip inside the slot's outer edge while it passes
 END_SLIP = 0.5         # slot and pocket beyond each wing end
 POCKET_AIR = 0.5       # plug pocket round each hook and wing top
-PLUG_WALL = 1.0        # silicone kept outside each pocket
-PLUG_CORNER = 3.0      # plug's plan corner radius; the socket's grows by its gap
+PLUG_WALL = 1.0        # silicone kept past each pocket's ends
+PLUG_CORNER = 1.0      # plug's plan corner radius, short of the hooks' ends; the socket's grows by its gap
 
 # The scanned elbow's bend: a round core with short stubs up both legs, and a thin web at its
 # outer corner, as `elbow.build` draws them.
@@ -70,10 +73,15 @@ def _profiles(leg):
 
 
 def block():
-    """`(half_width, y0, y1, z0, z1)` of the block the pocket is cut from."""
+    """`(half_width, y0, y1, z0, z1)` of the block the pocket is cut from. Its X sides are the
+    wings' outer faces, set back from the counterbore's wall by the hook and its clearances."""
     rz = max(r for _t, r in _profiles("z")[0]) + SLIP + WALL
     ry = max(r for _t, r in _profiles("y")[0]) + SLIP + WALL
-    return (max(rz, ry), -rz, _elbow.COLLET_FACE, ELBOW_Z - ry, ELBOW_Z + ROOT_BAND_TOP)
+    half = SOCKET_HALF - TIP_GAP - OVERLAP - SIDE
+    assert half >= max(rz, ry), (half, rz, ry)
+    # the hooks' ends stand on the counterbore's straight X walls, clear of its corners
+    assert PLUG_CORNER < END_SLIP + PLUG_WALL
+    return (half, -rz, _elbow.COLLET_FACE, ELBOW_Z - ry, ELBOW_Z + COLLAR_UNDERSIDE)
 
 
 def elbow_parts():
@@ -299,6 +307,9 @@ def main():
         "CRADLE_BEND": f"{b['hook_deflection']:.2f} mm",
         "CRADLE_LANE": f"{s['lane']:.2f} mm",
         "CRADLE_STRAIN": f"{100 * b['root_strain']:.1f}%",
+        "CRADLE_TIP_GAP": f"{TIP_GAP:g} mm",
+        "CRADLE_WIDTH": f"{2 * s['half']:.1f} mm",
+        "CRADLE_WEB": f"{s['slot_in'] - HOLE_D / 2:.2f} mm",
     })
     print(f"-> {step.name}, {stl.name}; {cradle.Volume():.1f} mm3; wings "
           f"{s['hook_top'] - s['top']:.2f} mm, hook bends {b['hook_deflection']:.2f} mm over "

@@ -34,6 +34,7 @@ tube_hole_diameter = elbow_cradle.HOLE_D
 socket_width = 36.6
 socket_depth = 19.0
 socket_flare = (2.0, 1.0)   # height, outward reach of the plug's lead-in
+assert abs(socket_width / 2 - elbow_cradle.SOCKET_HALF) < 1e-9
 DEFAULT_INNER = (-104.5, 104.5, 0.0, 290.0, 0.0, 352.0)
 
 
