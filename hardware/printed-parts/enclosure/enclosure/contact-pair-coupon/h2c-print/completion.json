@@ -20,6 +20,6 @@
   "physical_fit_tested": false,
   "physical_check_document": "README.md#bench-check",
   "next_trial": "funnel elbow-cradle receiver and cradle",
-  "next_trial_status": "cradle_completed_on_h2c_receiver_printing_on_mark2",
+  "next_trial_status": "funnel_receiver_and_cradle_completed_ready_for_bench_test",
   "bed_clear_source": "User: Both beds are clear; start Funnel 2 test receiver and cradle"
 }
