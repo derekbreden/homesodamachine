@@ -1,0 +1,134 @@
+{
+  "selected_printer": "Mark2",
+  "part": "test-cradle",
+  "geometry_revision": 3,
+  "reason": "Both printers are idle with black PET-GF loaded. Mark2 completed before H2C and has been idle with that suitable filament longer.",
+  "idle_and_loaded_comparison": {
+    "Mark2": {
+      "completed_observed_utc": "2026-10-02T22:33:02.231457+00:00",
+      "prior_task_id": "1303345379"
+    },
+    "H2C": {
+      "completed_observed_utc": "2026-10-02T22:33:55.200388+00:00",
+      "prior_task_id": "1303335008"
+    }
+  },
+  "bed_clear_confirmation": {
+    "confirmed": true,
+    "source": "User in Printer 2: Both beds are clear."
+  },
+  "receiver_reprinted": false,
+  "reused_receiver_printer_task_id": "1303345379",
+  "reused_receiver_stl_sha256": "cd25b650c948d38fbe8880bfb51b223620adec2f44bfc56b13316797c308bd4e",
+  "requested_z_trim_mm": 0.04,
+  "printers": {
+    "H2C": {
+      "job_id": "1303335008",
+      "gcode_state": "FINISH",
+      "subtask_name": "funnel-test-cradle-h2c-v2.gcode.3mf",
+      "layer_num": 148,
+      "total_layer_num": 148,
+      "mc_percent": 100,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [],
+      "nozzle_temper": 40.0,
+      "nozzle_target_temper": 0.0,
+      "bed_temper": 41.0,
+      "bed_target_temper": 0.0,
+      "stg_cur": -1,
+      "observed_at": "2026-10-02T23:09:12.257520+00:00",
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "000000FF"
+        },
+        "255": {
+          "type": "TPU",
+          "colour": "161616FF"
+        }
+      },
+      "nozzles": [
+        {
+          "id": 16,
+          "type": "HS01",
+          "diameter": 0.6
+        },
+        {
+          "id": 1,
+          "type": "HS01",
+          "diameter": 0.4
+        },
+        {
+          "id": 17,
+          "type": "HS00",
+          "diameter": 0.2
+        },
+        {
+          "id": 0,
+          "type": "HS00",
+          "diameter": 0.2
+        }
+      ]
+    },
+    "Mark2": {
+      "job_id": "1303345379",
+      "gcode_state": "FINISH",
+      "subtask_name": "funnel-test-receiver-mark2-v2.gcode.3mf",
+      "layer_num": 50,
+      "total_layer_num": 50,
+      "mc_percent": 100,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [],
+      "nozzle_temper": 40.0,
+      "nozzle_target_temper": 0.0,
+      "bed_temper": 40.0,
+      "bed_target_temper": 0.0,
+      "stg_cur": -1,
+      "observed_at": "2026-10-02T23:09:11.716694+00:00",
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "000000FF"
+        },
+        "255": {
+          "type": "PET-CF",
+          "colour": "FFFFFFFF"
+        }
+      },
+      "nozzles": [
+        {
+          "id": 0,
+          "type": "HS01",
+          "diameter": 0.4
+        },
+        {
+          "id": 1,
+          "type": "HS01",
+          "diameter": 0.4
+        },
+        {
+          "id": 16,
+          "type": "HS01",
+          "diameter": 0.6
+        },
+        {
+          "id": 18,
+          "type": "HS00",
+          "diameter": 0.2
+        },
+        {
+          "id": 20,
+          "type": "HH01",
+          "diameter": 0.8
+        },
+        {
+          "id": 21,
+          "type": "HS01",
+          "diameter": 0.8
+        }
+      ]
+    }
+  }
+}

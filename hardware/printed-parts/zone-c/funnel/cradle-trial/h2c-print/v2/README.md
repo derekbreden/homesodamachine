@@ -58,8 +58,10 @@ five cycles without cracking, whitening or residual wing bend. Record the
 physical result beside the trial parts. The [receiver completion](receiver-mark2-completion.json) records all 50 layers
 finished; the [cradle completion](cradle-h2c-completion.json) records all 148.
 Both printers report 100%, no printer error and no HMS notice. The pair is ready
-for removal after cooling and the bench procedure above. Print telemetry establishes
-completion; physical fit, retention and operating life remain unverified for v2.
+for removal after cooling and the bench procedure above. The
+[physical record](../../physical-acceptance.json) reports the v2 cradle snapping.
+Retention and cycle testing are not reported. The [v3 trial](../v3/README.md)
+uses this printed receiver with the v3 cradle.
 
 To prepare a fresh native archive revision from these frozen v2 meshes:
 
