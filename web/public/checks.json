@@ -67,12 +67,12 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 4822 tracked, 551 fetched solids, 56 tags, 39 site routes",
+      "note": "paths: every reference lands — 4832 tracked, 554 fetched solids, 56 tags, 39 site routes",
       "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 430 of 1000 free, the next cut wants 406, and the whole pointer file reads by name in 21.8 MB against 175.8 MB of bundle",
+      "note": "check_release_room: 430 of 1000 free, the next cut wants 409, and the whole pointer file reads by name in 21.8 MB against 175.8 MB of bundle",
       "status": "ok"
     },
     {
@@ -92,23 +92,23 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 260 source(s) the graph names",
+      "note": "check_declared_imports: every step holds what it imports, over 261 source(s) the graph names",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 2742 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 551 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 2755 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 554 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 7efecb9e854f9d10b77cb8007fb198e8 for the 229 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at f658ddda559b5da0d78889ccd5e1d524 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds a0a4c907af0d2eb993477ba71cdb8da6 for the 230 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 898e7caea8b3ce961fd588f088d4cea1 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
     "hardware/scripts/check_ledger.py": [
-      "instructions: 121 files (16 procedures + 104 cards + cover) | ledger brands: 580 | waived: 1 ASIN + 4 brand",
+      "instructions: 121 files (16 procedures + 104 cards + cover) | ledger brands: 585 | waived: 1 ASIN + 4 brand",
       "DRIFT: 1 instruction(s) out of step with the ledger:",
       "  ✗ procedure with no doc-sync driver — every number and part name in it is a bare literal: hardware/assembly/weld-position.md (expected hardware/assembly/_weld_position_sync.py)"
     ],
@@ -136,7 +136,7 @@
       "      re-run tools/bazel/trace_inputs.py hardware/printed-parts/zone-c/funnel/funnel.py, then gen_build.py"
     ],
     "hardware/scripts/check_step_colours.py": [
-      "step colours: 238/240 carry the colour of what they are made of",
+      "step colours: 241/243 carry the colour of what they are made of",
       "  2 STEP(s) name no colour, so /3d and their own cards draw them at the viewer's blue-grey:",
       "    hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/back-top-backing-proposal.step",
       "    hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/placed-psu.step",
