@@ -126,7 +126,7 @@ len_pump_mm = 250       # DC-3 (diaphragm pump), which never leaves the box
 # against the board. Each run below reaches its own device and gets its own name.
 len_relays_mm = 100      # LV-1/2/3 → both Teyleten modules, one crown above the board (88)
 len_vk_mm = 100          # DC-9 → V-K, which stands against the board's own flank (87)
-len_man_a_com_mm = 250   # DC-6 `COM` → the 221-420 at manifold A (241)
+len_man_a_com_mm = 350   # DC-6 `COM` → the fore east-wall 221-420 (321)
 len_flow_mm = 300        # SIG-4 → the DIGITEN in the strip ahead of the cold core (256)
 len_onewire_mm = 300     # SIG-1 → the DS18B20/DS18S20 bus in the core (267)
 len_sensors_gnd_mm = 300 # SIG-1/4/9's shared `GND` → the 221-415 on the −X wall aft (284)
@@ -134,7 +134,9 @@ len_reeds_gnd_mm = 300   # SIG-10/11's `GND` → the 221-415 / 221-420 at the re
 len_man_a_mm = 350       # DC-6 `OUT1`–`OUT8` → the eight manifold-A coils (309)
 len_moisture_mm = 350    # SIG-9 → the dry LM393 board by the pan's −X-wall cable clip (304)
 len_carb_reeds_mm = 350  # SIG-2/3 → the carbonator's low and high reeds (323)
-len_man_b_mm = 400       # DC-7 `OUT1`/`OUT2` → V-I and V-J, and `COM` → the 221-415 (356–359)
+len_man_b_mm = 450       # DC-7 `OUT1`/`OUT2` → V-I and V-J, and `COM` → the fore 221-415 (418)
+len_man_a_fanout_mm = 350  # Fore 221-420 → the farthest manifold-A valve (337)
+len_man_b_fanout_mm = 450  # Fore 221-415 → the farthest J2 load (410)
 len_pump_fixed_mm = 350  # DC-5, J13 → the contact pair's male half through the +X clips (319)
 len_cartridge_mm = 100   # DC-5, the contact pair's female half → each pump's tabs, in the clamp (95)
 len_front_face_mm = 400  # SIG-7 → the 4.3B in the front-top facet, which never leaves the box (369)
@@ -199,6 +201,8 @@ def main():
         "LEN_RELAYS": f"~{len_relays_mm:.4g} mm",
         "LEN_VK": f"~{len_vk_mm:.4g} mm",
         "LEN_MAN_A_COM": f"~{len_man_a_com_mm:.4g} mm",
+        "LEN_MAN_A_FANOUT": f"~{len_man_a_fanout_mm:.4g} mm",
+        "LEN_MAN_B_FANOUT": f"~{len_man_b_fanout_mm:.4g} mm",
         "LEN_FLOW": f"~{len_flow_mm:.4g} mm",
         "LEN_ONEWIRE": f"~{len_onewire_mm:.4g} mm",
         "LEN_SENSORS_GND": f"~{len_sensors_gnd_mm:.4g} mm",
