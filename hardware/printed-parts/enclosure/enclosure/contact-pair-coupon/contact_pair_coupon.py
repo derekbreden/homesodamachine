@@ -16,6 +16,7 @@ machine-to-bed transform and the bed position of every feature a slice review lo
 `geometry-check.json`.
 
     tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py
+    tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py --readme-only
 """
 import hashlib
 import json
@@ -47,6 +48,8 @@ BEYOND = 4.0
 LAYER = 0.24
 # How far each half's mating face may stand off its coupon face and still seat.
 FLUSH_TOL = 0.1
+# The listing drawing's tolerance on the body's 4.00 mm width, which the seat's height takes.
+BODY_W_TOL = 0.08
 
 
 def sha(path):
@@ -182,12 +185,22 @@ def main():
                ROOT / "hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py"]
     report["source_sha256"] = {str(p.resolve().relative_to(ROOT)): sha(p) for p in sources}
     (HERE / "geometry-check.json").write_text(json.dumps(report, indent=2) + "\n")
+    write_readme(box, report)
 
+
+def write_readme(box, report):
+    """The README's figures, off the box and the coupons' recorded report."""
     plate, trays = box.pack.collet_plate, box.pack.pump_trays
     kiss = e.bay_back_y(plate) - e.pump_cartridge_aft_y(trays, plate)
     press = e._pogo.PIN_PROUD - kiss
     sizes = {n: report["coupons"][n]["print_size_mm"] for n in ("male", "female")}
+    seat = e._pogo.BODY_W + 2.0 * e.fits.slip + e.fits.supported_surface
+    body_max = e._pogo.BODY_W + BODY_W_TOL
     substitute_md(HERE / "README.md", {
+        "COUPON_SEAT_HEIGHT": f"{seat:.4g} mm",
+        "COUPON_ROOF_SPAN": f"{e._pogo.EAR_L + 2.0 * e.fits.slip:.4g} mm",
+        "COUPON_BODY_MAX": f"{body_max:.4g} mm",
+        "COUPON_SAG_LIMIT": f"{seat - body_max:.3g} mm",
         "COUPON_MALE_SIZE": " × ".join(f"{v:.1f}" for v in sizes["male"]) + " mm",
         "COUPON_FEMALE_SIZE": " × ".join(f"{v:.1f}" for v in sizes["female"]) + " mm",
         "COUPON_LAYER": f"{LAYER:g} mm",
@@ -203,4 +216,10 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    if "--readme-only" in sys.argv:
+        # The doc alone, off the recorded report: the coupons' meshes stay the bytes a print
+        # was prepared from.
+        box, _bounds, _path = _declared_box(_box_spec, e)
+        write_readme(box, json.loads((HERE / "geometry-check.json").read_text()))
+    else:
+        main()
