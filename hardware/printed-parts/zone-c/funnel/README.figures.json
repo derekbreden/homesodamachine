@@ -15,7 +15,7 @@
     "CRADLE_WING_T": "1.3 mm"
   },
   "/hardware/printed-parts/zone-c/funnel/funnel.py": {
-    "FUNNEL_CAP": "600 mL",
+    "FUNNEL_CAP": "300 mL",
     "FUNNEL_PLUG": "36 \u00d7 44.1 mm",
     "FUNNEL_PLUG_CORNER": "R1",
     "FUNNEL_PLUG_WALL": "1 mm"

@@ -1,6 +1,6 @@
 # Funnel and sliding frame
 
-The removable silicone funnel holds nominally [600 mL](FUNNEL_CAP). Its PET-GF
+The removable silicone funnel holds nominally [300 mL](FUNNEL_CAP). Its PET-GF
 frame slides into front-top; closing front-top onto back-top captures the rear
 rails. The frame uses the enclosure's production rail section and its running
 clearances. Both flavors share this filling interface.
@@ -9,8 +9,8 @@ clearances. Both flavors share this filling interface.
 
 The collar center stays at world X0, Y182.5. Its brim underside is Z349 and its
 6 mm brim finishes flush with the Z355 enclosure roof. The collar is
-165 × 151 mm with R20 corners; the mouth is 153 × 139 mm with R14 corners;
-the brim is 179 × 165 mm with R27 corners. The collar wall and ramp's normal
+165 × 81.783 mm with R20 corners; the mouth is 153 × 69.783 mm with R14 corners;
+the brim is 179 × 95.783 mm with R27 corners. The collar wall and ramp's normal
 wall are 6 mm. The ramp falls toward X1.85, Y182.5.
 
 The integral silicone plug is a [36 × 44.1 mm](FUNNEL_PLUG) rounded rectangle with
@@ -28,7 +28,7 @@ do not qualify this plug.
 
 ## PET-GF frame
 
-The frame is 207 mm wide and 111.697 mm long. Its entire underside is flat at
+The frame is 207 mm wide and 106.383 mm long. Its entire underside is flat at
 Z299.9, leaving 3 mm below the silicone plug. An [11.25 mm](FRAME_HOLE) hole at
 X1.85, Y182.5 passes the drain elbow's collet, and the web round it bears on the
 elbow's nose. The plug socket is a [36.6 × 44.7 mm](FRAME_SOCKET) rounded rectangle
@@ -38,7 +38,7 @@ take the elbow cradle's wings.
 
 Both end corbels are 30° from vertical, across the complete X width, including
 the rail wings. The lower footprint runs from Y155 to Y210. The body widens
-upward to Y126.652 and Y238.348. The rail datum is Z306.9 and its top is Z321.7.
+upward to Y129.308 and Y235.692. The rail datum is Z306.9 and its top is Z321.7.
 The broad body fills the stock between its bowl clearance and rails.
 The funnel's brim bears on the enclosure's recessed roof ledge around its collar.
 
