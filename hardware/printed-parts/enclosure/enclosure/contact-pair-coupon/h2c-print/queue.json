@@ -10,11 +10,13 @@
       "archive_sha256": "e512a754050c30892f3919c29eea1db0a10a64b16909e0282f92cea9b52a2c49",
       "estimated_seconds": 1334.3519287109375,
       "review": "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preflight.json",
-      "status": "printing",
+      "status": "completed",
       "submitted": true,
       "printer_task_id": "1302534665",
       "accepted_observed_utc": "2026-10-02T16:29:37.033095+00:00",
-      "first_layer_confirmed_utc": "2026-10-02T16:39:58.313897+00:00"
+      "first_layer_confirmed_utc": "2026-10-02T16:39:58.313897+00:00",
+      "completed_observed_utc": "2026-10-02T17:00:26.771173+00:00",
+      "completion_record": "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/completion.json"
     },
     {
       "order": 2,
@@ -23,7 +25,7 @@
       "archive_sha256": "e1aaec1ae6d75f02f29fe7e77dc26535bf7697e64b846a23310ddc506f08adef",
       "estimated_seconds": 2717.639892578125,
       "review": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/preflight.json",
-      "status": "ready_after_contact_coupons_finish_and_are_removed",
+      "status": "ready_awaiting_start_request_or_clear_bed_report_after_coupon_removal",
       "submitted": false
     }
   ],

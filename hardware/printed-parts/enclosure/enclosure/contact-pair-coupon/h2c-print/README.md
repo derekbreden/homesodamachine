@@ -6,8 +6,9 @@ paths**, uses the left hardened 0.4 mm nozzle and black PET-GF, and estimates
 22 minutes 14 seconds. The requested H2C Z trim is **+0.18 mm**; textured-plate
 compensation emits `G29.1 Z0.16`.
 
-H2C is printing this pair as task **1302534665** through Bambu Connect. The
-printer reports its first layer underway, with no print error or HMS alert.
+H2C reports this pair finished as task **1302534665**, at 78/78 layers and 100%,
+with no print error or HMS alert. Physical quality and fit checks are pending.
+[completion.json](completion.json) records the finished printer state.
 [launch.json](launch.json) records the printer receipt, archive and imported-copy
 hashes, settings, first-layer observation and spacing evidence.
 
@@ -49,8 +50,9 @@ and those four options confirmed. The dialog was cancelled without submission.
 Mark2's running back-bottom immediately before submission. The user's start
 request confirms the bed is clear, following the
 [printer instructions](../../../../../../tools/bambu-printers.md#what-ready-looks-like-from-software).
-[queue.json](queue.json) records the prepared order: these contact coupons,
-followed by the funnel's receiver/cradle trial after this bed is cleared again.
+[queue.json](queue.json) records these completed contact coupons and the ready
+funnel receiver/cradle trial. A new start request or clear-bed report after the
+coupons are removed enables that next print.
 
 To prepare fresh automatic and unsupported slices, then review them:
 
