@@ -97,13 +97,13 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 2755 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 554 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 2743 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 553 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds a0a4c907af0d2eb993477ba71cdb8da6 for the 230 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 898e7caea8b3ce961fd588f088d4cea1 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds a0a4c907af0d2eb993477ba71cdb8da6 for the 230 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at b4570c2053baf54d1dc40170b46c374b here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
@@ -136,8 +136,9 @@
       "      re-run tools/bazel/trace_inputs.py hardware/printed-parts/zone-c/funnel/funnel.py, then gen_build.py"
     ],
     "hardware/scripts/check_step_colours.py": [
-      "step colours: 241/243 carry the colour of what they are made of",
-      "  2 STEP(s) name no colour, so /3d and their own cards draw them at the viewer's blue-grey:",
+      "step colours: 240/243 carry the colour of what they are made of",
+      "  3 STEP(s) name no colour, so /3d and their own cards draw them at the viewer's blue-grey:",
+      "    hardware/.look-pump-contacts/contact-look.step",
       "    hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/back-top-backing-proposal.step",
       "    hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/placed-psu.step",
       "  A generator hands its solid to `_materials.one_body` and exports the assembly."
