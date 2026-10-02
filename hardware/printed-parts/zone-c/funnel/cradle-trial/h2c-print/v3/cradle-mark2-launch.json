@@ -7,7 +7,7 @@
   "job_name": "funnel-test-cradle-mark2-v3.gcode.3mf",
   "accepted_observed_utc": "2026-10-02T23:30:15.349262+00:00",
   "task_id_confirmed_utc": "2026-10-02T23:30:36.406724+00:00",
-  "status": "printer_accepted",
+  "status": "printing",
   "archive": ".cache/prints/funnel-test-cradle-mark2-v3/ready/funnel-test-cradle-mark2-v3.gcode.3mf",
   "archive_sha256": "0fe77876b8601fb7a1e1d469fcae24bb3048235313acc3b7842b36d8924d7f05",
   "gcode_sha256": "1e1e06608d1907e4fd699ca564b89925238ccf197df93baa7d951741b1803915",
@@ -99,5 +99,23 @@
   "receiver_reprinted": false,
   "reused_receiver_printer_task_id": "1303345379",
   "reused_receiver_stl_sha256": "cd25b650c948d38fbe8880bfb51b223620adec2f44bfc56b13316797c308bd4e",
-  "physical_fit_and_retention_tested": false
+  "physical_fit_and_retention_tested": false,
+  "first_layer_confirmed_utc": "2026-10-02T23:44:08.067753+00:00",
+  "first_layer_observation": {
+    "job_id": "1303516417",
+    "subtask_name": "funnel-test-cradle-mark2-v3.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 23,
+    "total_layer_num": 148,
+    "mc_percent": 34,
+    "mc_remaining_time": 19,
+    "print_error": 0,
+    "hms": [],
+    "nozzle_temper": 280.0,
+    "nozzle_target_temper": 280.0,
+    "bed_temper": 80.0,
+    "bed_target_temper": 80.0,
+    "stg_cur": 0,
+    "observed_at": "2026-10-02T23:44:08.067753+00:00"
+  }
 }
