@@ -115,6 +115,7 @@ to **Derek approved** when he recognises them, or are replaced when he doesn't.
 | **parcel figure** | a dimension that is a listing's shipping box: an upper bound on the thing inside it, and no lower bound at all | product dimensions, listing envelope |
 | **pump jack** | the RiteAV RJ11 keystone jack in the ridge wall behind the machine display, that the pump cartridge's cord plugs into | pump connector, cartridge jack, pump socket |
 | **pump plug** | the RJ11 6P4C plug on the pump cartridge's cord, that clicks into the pump jack | cartridge plug |
+| **contact pair** | the YYFKGCP 4-pin magnetic pogo pair the pump cartridge connects through as it seats: the female half in the top clamp's aft face, the male half opposite it in the bay bulkhead | pogo connector, pogo pins, cartridge connector |
 | **install kit** | the box beside the soda machine in the carton holding what the install needs beyond the faucet bag: the customer's plumbing, the collet press, the line cord, the documentation packet | installer kit |
 | **cold kit** | the bagged bonus in the install kit — the tube cutter, the loose foam segments and its own guide — for trimming and insulating the run to the faucet | cold optimization kit, cold enhancing kit, cold-line kit |
 | **quick start** | the illustrated one-sheet guide from installation through the first glass, lying face up on top of the packing | quickstart sheet, install sheet |

@@ -76,3 +76,7 @@ click: x=0.000 y=164.529 z=349.250
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=101.125 y=170.304 z=306.900
 click: x=-101.125 y=173.335 z=306.900
+
+[ceiling] The contact pair's male seat roof, one plane over the mouth, the body and the tails' room, 0.25 mm above the seat for the supported-face allowance. It bridges between the mouth's round ends, at most 23.7 mm, anchored on its back wall, and carries no load: the half bears on its ear-plate datum and is held by its two screws. Support placed here stands 4.6 mm in the open seat and leaves through the mouth on the bay face before the half goes in.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=0.000 y=83.015 z=280.924

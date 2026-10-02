@@ -263,6 +263,11 @@ MOUNTS = (
     # The pump jack snaps into front-top's ridge wall: the keystone's tang and latch close over
     # the receptacle's two catches behind the rib.
     ("pump-jack", "enclosure-front-top", "wall-capture"),
+    # The cartridge's contact pair: each half's ear plate screwed down on its seat's datum by two
+    # M1.4 into heat-sets, the male in front-top's bay bulkhead and the female in the clamp
+    # (`enclosure._pump_contact_fixed_cuts`, `enclosure._pump_contact_cap_cuts`).
+    ("pump-contact-male", "enclosure-front-top", "bosses"),
+    ("pump-contact-female", "enclosure-pump-cap", "bosses"),
     # Both chains lie in ribs printed on the cold core's cap lid — the same plate the pump bolts
     # to, so the hose stub at each of its barbs spans no joint
     # (`_cold_core_interface.cap_anchors`, read by `chains-seated`).
@@ -644,6 +649,8 @@ TOUCHING_OK = {frozenset(p) for p in (
     # The pump jack's face bottoms on the ridge wall's lip while its tang and latch close over
     # the receptacle's catches. Zero distance to the host is the installed joint.
     ("pump-jack", "enclosure-front-top"),
+    # The contact pair mated: the male's pins pressed onto the female's pads across the kiss.
+    ("pump-contact-male", "pump-contact-female"),
     # AND THE EIGHT IN THE TWO VALVE TRAYS' — the same seat and the same press, on a plate the
     # front-top piece carries instead of a lid.
     *(("enclosure-front-top", f"valve-v-{v}") for v in "cdefghij"),

@@ -1,3 +1,12 @@
 [ceiling] Flat transition from the fitted motor bore to the wider open terminal well. The cap prints crown-down; support is open to the bed and withdraws axially through the same Ø45 well before pump installation.
 click: x=-52.225 y=44.859 z=278.925
 click: x=52.225 y=44.859 z=278.925
+
+[ceiling] The contact pair's female seat and the lead slot behind it share one roof, the seat's floor in the machine, 0.25 mm below the seat for the crown-down print. It bridges between the mouth's round ends and the slot's walls, at most 23.7 mm, and carries no load: the half bears on its ear-plate datum and is held by its two screws. Support placed here stands 4.6 mm in the open seat and leaves through the mouth or the crown before the half goes in.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step
+click: x=0.000 y=74.769 z=276.124
+
+[ceiling] Each crown groove's floor, 3.5 mm into the bed face. The groove is 4 mm wide, so its roof in the print is a 4 mm bridge between the groove's two walls, and the two leads it carries lie loose in it.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step
+click: x=-18.325 y=63.771 z=280.674
+click: x=18.325 y=63.771 z=280.674

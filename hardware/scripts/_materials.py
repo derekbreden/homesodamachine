@@ -178,8 +178,9 @@ C_C14 = cq.Color(0.18, 0.18, 0.20)
 C_DIGITEN = cq.Color(0.92, 0.92, 0.94)
 # The moulded blue retainers on the scanned DIGITEN push-fit collets.
 C_DIGITEN_CLIP = cq.Color(0.10, 0.29, 0.46)
-# The JHYOSSTHI pogo dock's black moulded pill, either half; its gold pins and pads and the
-# flush magnets are that face's own metal and are not drawn apart from it.
+# A magnetic pogo pair's black moulded housing, either half: the JHYOSSTHI dock and the
+# YYFKGCP pump contacts. The gold pins and pads and the flush magnets are that face's own
+# metal and are not drawn apart from it.
 C_DOCK = cq.Color(0.09, 0.09, 0.10)
 # The Beduan solenoid's moulded white body — the eleven valves' one shared shell — and the
 # lacquered coil pack stacked on top of it, which is its own body and its own material.

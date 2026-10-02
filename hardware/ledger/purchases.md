@@ -446,6 +446,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | P3 Kill-A-Watt P4400 power meter (bench) | [B00009MDBU](https://www.amazon.com/dp/B00009MDBU) | 1 | $34.31 | 112-0118962-3725825 | 2026-04-17 | 2026-04-18 | ACQUIRED |
 | RiteAV RJ11 6P4C black punchdown keystone jack, 110 IDC 90° (10 pk) — the SIG-6 umbilical station on the +Y wall of back-top; snap-in keystone, colour-coded wiring diagram on the jack body, ships with its own snap-in dust cover. mpn46181. $13.92 + $12.08 ship = $26.00, so $2.60/ea landed | [riteav.com](https://www.riteav.com/products/riteav-rj11-phone-black-punchdown-type-keystone-jack-10-pack) | 1 pk (10) | $26.00 | RiteAV #58999 | 2026-08-27 | — | ON-ORDER |
 | EZYUMM RJ11 6P4C modular plug, 3-prong, solid or stranded (20 pk) — the umbilical end of SIG-6, crimped onto the BNTECHGO ribbon | [B0DK4V733Q](https://www.amazon.com/dp/B0DK4V733Q) | 1 pk (20) | $5.02 | 112-2674521-7496252 | 2026-08-27 | 2026-08-28 | ACQUIRED |
+| YYFKGCP 2.54 mm 4-pin magnetic pogo connector with ears, male + female pair — the pump cartridge's contacts: the female in the top clamp's aft face, the male in the bay bulkhead ([reference](/hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py)). 12 V / 2 A per contact; Ø1.5 mm ear holes on a 20.44 mm pitch. Sold by Yuanyaofa Electronic, ships from Amazon. $6.80 item + $0.49 estimated tax at the 7.25 % Lincoln rate | [B0GCBNTBT8](https://www.amazon.com/dp/B0GCBNTBT8) | 1 pr | $7.29 | — | 2026-10-01 | — | ON-ORDER (order # and invoice pending; tax estimated) |
 | Klein Tools VDV427-300 impact punchdown tool, 66/110 blade, adjustable force — seats the J3 loom on the keystone's 110 IDC; the bench's first IDC tool. $39.97 item + $2.90 allocated tax | [B08J2DN6HC](https://www.amazon.com/dp/B08J2DN6HC) | 1 | $42.87 | 112-9068130-2805061 | 2026-08-27 | 2026-08-28 | ACQUIRED |
 | Cable Matters keystone jack punch-down stand — holds the jack square under the Klein. $6.99 item + $0.51 allocated tax | [B00MHWRYMQ](https://www.amazon.com/dp/B00MHWRYMQ) | 1 | $7.50 | 112-9068130-2805061 | 2026-08-27 | 2026-08-28 | ACQUIRED |
 | VCE RJ45 / RJ11-12 / RJ22 modular-plug crimper, cutter + stripper — closes the 6P4C plug on the ribbon. $13.99 item + $1.01 allocated tax | [B07XD98YYT](https://www.amazon.com/dp/B07XD98YYT) | 1 | $15.00 | 112-9068130-2805061 | 2026-08-27 | 2026-08-28 | ACQUIRED |
@@ -736,10 +737,10 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$36,201.81](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$5,437.54](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$41,639.35](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$691.44](LEDGER_ON_ORDER) |
+| ON-ORDER | [$698.73](LEDGER_ON_ORDER) |
 | MISSING — paid, not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$42,383.86](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$42,391.15](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
