@@ -8,7 +8,7 @@ beds clear.
 
 | Part | Printer | Task | Requested Z trim | Native estimate | Printer state |
 | --- | --- | --- | --- | --- | --- |
-| Test receiver | Mark2 | 1303210057 | +0.04 mm | 22 min 56 sec | Accepted and running startup, 2026-10-02 21:02:54 UTC |
+| Test receiver | Mark2 | 1303210057 | +0.04 mm | 22 min 56 sec | Printing layer 9/50, 2026-10-02 21:17:30 UTC |
 | Test cradle | H2C | 1303138499 | +0.18 mm | 27 min 38 sec | Finished, 2026-10-02 21:02:54 UTC |
 
 Textured-plate compensation emits `G29.1 Z0.02` on Mark2 and `G29.1 Z0.16`
