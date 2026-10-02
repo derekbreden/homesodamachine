@@ -1,0 +1,38 @@
+{
+  "printer": "H2C",
+  "part": "test-cradle",
+  "geometry_revision": 2,
+  "printer_task_id": "1303335008",
+  "archive_sha256": "0b25f035a7eaebfdd1b6a99c6916ceb57e4f33f1a22689c2492b274cab6a3ef8",
+  "gcode_sha256": "59621b648eeb4a051ce5d233c7dbfbaf21445c4aaededad7d27430e7e1375b27",
+  "source_stl_sha256": {
+    "test-cradle": "a12fccaa8557b81198caacc6b7913a0361806beb46d79df29ea62f7aa0fc622f"
+  },
+  "geometry_export_revision": "3498db7dd53a13a7b964adc1674b9331ba8f26e4",
+  "completion_observation": {
+    "job_id": "1303335008",
+    "gcode_state": "FINISH",
+    "subtask_name": "funnel-test-cradle-h2c-v2.gcode.3mf",
+    "layer_num": 148,
+    "total_layer_num": 148,
+    "mc_percent": 100,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [],
+    "nozzle_temper": 218.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 77.0,
+    "bed_target_temper": 0.0,
+    "stg_cur": -1,
+    "observed_at": "2026-10-02T22:33:55.200388+00:00"
+  },
+  "bed_cleared_for_next_print": false,
+  "physical_print_quality_verified": false,
+  "physical_fit_and_retention_tested": false,
+  "support_removal": "Remove the two hook supports outward into open space; retain the bearing dimensions and inspect the undersides before the bench trial.",
+  "bench_check_document": "../../README.md",
+  "paired_receiver_printer": "Mark2",
+  "paired_receiver_task_id": "1303345379",
+  "paired_receiver_status": "completed",
+  "pair_ready_for_removal_and_bench_test": true
+}
