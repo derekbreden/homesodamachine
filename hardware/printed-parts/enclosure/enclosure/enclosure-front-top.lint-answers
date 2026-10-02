@@ -12,6 +12,7 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-99.175 y=117.540 z=252.425
 click: x=99.175 y=117.540 z=252.425
 click: x=99.175 y=117.540 z=253.100
+click: x=-99.175 y=117.540 z=253.100
 click: x=-99.175 y=151.152 z=253.100
 click: x=99.175 y=150.882 z=253.100
 click: x=-98.500 y=176.690 z=180.550
@@ -22,10 +23,6 @@ click: x=-99.175 y=135.196 z=235.811
 click: x=99.175 y=135.061 z=235.811
 click: x=-99.175 y=134.346 z=235.811
 click: x=99.175 y=134.211 z=235.811
-
-[sliver] The yoke-entry pocket roof meets the underside corbel of the left front Wago well here. Its 0.838643 mm exposed edge is below the well floor, not a separate ligament. The complete 3 mm floor occupies Z272.85..275.85 and remains present across the full tower. The pocket edge ends at Z271.388643, 1.461357 mm below that floor; the remaining corbel joins the tower to the full flank.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-97.500 y=121.945 z=270.969
 
 [sliver] These collinear STL triangles have zero area and a zero normal; their strip dimensions are undefined. They add no surface area or volume and do not describe a physical thin section. The complete unmodified mesh is one watertight, consistently wound body. Removing these triangles alone would break indexed edge adjacency and is not a geometry correction.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
@@ -54,14 +51,13 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-102.993 y=199.875 z=330.450
 click: x=102.993 y=199.875 z=330.450
 
-[ceiling] The frame's clearance leaves these flat, 5.75 mm-backed roof strips beside the silicone opening. Support is reached through the broad frame opening before inserting the frame. These strips require their own native slice and physical removal review.
+[ceiling] The frame clearance leaves a flat, 5.75 mm-backed roof around the silicone opening. Support is reached through the broad frame opening before inserting the frame. This roof requires its own native slice and physical removal review.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-94.119 y=163.110 z=349.250
-click: x=94.119 y=163.110 z=349.250
+click: x=0.000 y=164.529 z=349.250
 
 [ceiling] These two flat lower faces retain the production funnel rail's full foot section. Supports are accessible from the open interior and Y sliding entrance before the frame is installed. The receiver requires its own native slice and physical removal review.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=101.125 y=166.500 z=306.900
+click: x=101.125 y=173.335 z=306.900
 click: x=-101.125 y=173.335 z=306.900
 
 [ceiling] The contact pair's male seat roof, one plane over the mouth and the body, 0.25 mm above the seat for the supported-face allowance. It bridges between the mouth's round ends, at most 23.7 mm, and carries no load: the half bears on its ear-plate datum and is held by its two screws. Behind the body the lead bore's teardrop roof takes over. Support placed here stands 4.6 mm in the open seat and leaves through the mouth on the bay face before the half goes in.
