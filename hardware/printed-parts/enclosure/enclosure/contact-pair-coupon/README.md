@@ -50,6 +50,11 @@ either seat or lead passage is the case being tested, so record any support the 
 Checks 1, 2, 4 and 5 need only the connector pair. Check 3 needs the M1.4 inserts and screws in
 [`bom.md`](/hardware/ledger/bom.md) §13.
 
+## Print record
+
+The H2C trial's slice preparation, support audit, verification and launch record are in
+[`h2c-print/`](h2c-print/README.md).
+
 ## Open questions the prints answer
 
 - The ear plate's overall length is read off the listing drawing's scale, not dimensioned on it;
