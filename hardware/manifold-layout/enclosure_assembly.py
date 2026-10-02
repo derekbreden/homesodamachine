@@ -74,6 +74,7 @@ import collections
 from dataclasses import replace
 import functools
 import math
+import json
 import os
 import sys
 from pathlib import Path
@@ -154,8 +155,8 @@ import display_cover as _cover                        # noqa: E402
 import display_gasket as _dgasket                     # noqa: E402
 import enclosure as _enc                              # noqa: E402
 import reeding as _reeding                            # noqa: E402
+import funnel_frame as _funnel_frame
 import funnel as _funnel                       # noqa: E402
-import funnel_drain_stub as _stub                     # noqa: E402
 import elbow_connector as _elbow                      # noqa: E402
 import valve_seat as _vseat                           # noqa: E402
 import manifold_layout as ml                          # noqa: E402
@@ -4482,6 +4483,14 @@ def build_pack() -> cq.Assembly:
     # two came up with the pack, so this is the first point at which all three are in world.
     on_cap = {**{n: s for n, s, _c in stood}, "vk-solenoid": vk}
     a.cradles = cradle_rows(foam, foam_carry, on_cap)
+    cap_features = json.loads((_hw / 'printed-parts/cold-core/foam-cap'
+                               / 'cap-feature-intersections.json').read_text())
+    feature_hits = cap_features['intersections']
+    record_bound(Bound(
+        'cap-cradle-anchor-separation', 'Valve plinths clear the existing tube anchors',
+        not feature_hits, f'{len(feature_hits)} shared-material region(s)', '0 intersections',
+        [f"{r['valve']} plinth / {r['anchor']} anchor: {r['volume_mm3']:.3f} mm3"
+         for r in feature_hits], 'goal'))
     adrift = cradles_land(a.cradles)
     if adrift:
         raise ValueError(
@@ -4646,6 +4655,7 @@ def build_pack() -> cq.Assembly:
     a.refrigerant = refrigerant_joints(carries, a.runs)
     a.refrigerant_mates = refrigerant_mates(a.refrigerant)
     a.seats = dict(SEATS)
+    carry_stated_bounds()
     a.bounds = list(BOUNDS)
     return a
 
@@ -5413,23 +5423,8 @@ from _materials import WALL_COLORS                     # noqa: E402
 
 
 def funnel_centre(box):
-    """The funnel collar's centre in plan: (x, y).
-
-    Centred across the box, and standing its front edge on the box's own stated
-    `enclosure.funnel_front_y`.
-
-    THE FUNNEL IS WHERE THE USER POURS, so the funnel stands as far forward as the top wall
-    lets it: `enclosure.funnel_front_y` is the display housing's own back plane, and what stops
-    that plane going further forward is the BRIM rather than the throat — the flange overhangs
-    the collar and has to land on top wall, which begins at the display facet's arris
-    (`funnel-brim-lands`). What the housing then leaves the throat is `funnel-collar-frame`.
-
-    THE DRAIN RIDES THE FUNNEL WHEREVER THAT PUTS IT, and the elbow under the spout turns the
-    fall forward inside its own envelope — so nothing under the top wall has to be a berth wide
-    enough for a fitting to hang in, and `drain-over-deck` is the reading that says the foot
-    of it stands over the folded deck rather than in it."""
-    ix0, ix1 = box.inner[0], box.inner[1]
-    return ((ix0 + ix1) / 2.0, _enc.funnel_front_y + _funnel.collar_d / 2.0)
+    """The collar stays centered on its fixed outlet station at Y182.5."""
+    return ((box.inner[0] + box.inner[1]) / 2, _funnel_frame.center_y)
 
 
 def build_funnel(box):
@@ -5446,42 +5441,8 @@ def build_funnel(box):
                               (cx, cy, _enc.funnel_seat_z(box.outer))))
 
 
-def build_drain_joint(funnel_carry):
-    """The funnel's disconnect, seated on the spout the funnel carries.
 
-    Three bodies on one column, all of them read off `reference/funnel-drain-stub`'s own frame —
-    origin the spout's exit face, +Z up into the funnel — so the joint's stack is stated once
-    beside the parts and placed here:
-
-      * the stub, up inside the silicone and down into the fitting, hidden at both ends;
-      * the worm clamp, closed on the spout's land above the exit face;
-      * the union ELBOW, its +Z collet face ON that exit face.
-
-    The elbow takes the stub through its +Z collet and hands the drain forward
-    along world −Y. The tube then turns west around the lowered source valves.
-    Its vertical leg stands one `elbow_connector.LEG` below the spout exit.
-
-    Returns `(name, solid, colour, carry)` per body — the elbow's carry is what `fluid-4`
-    anchors on now that it starts at a collet rather than at silicone."""
-    _stub.joint_holds()
-    drain, _axis = funnel_carry((_funnel.drain_local, (0.0, 0.0, -1.0)))
-    origin = ((0.0, 0.0, 0.0), (0.0, 0.0, 1.0))
-    stub, _ = seat_body(_stub.build_stub().val(), seat="funnel-drain-stub",
-                        station=(origin, drain))
-    clamp, _ = seat_body(_stub.build_clamp().val(), seat="funnel-drain-clamp",
-                         station=(origin, drain))
-    union, union_carry = seat_body(_elbow.build_elbow_connector().val(),
-                                   (((0.0, 0.0, 1.0), 180.0),),
-                                   seat="funnel-drain-union",
-                                   station=(_elbow.port("z"), drain))
-    return (("funnel-drain-stub", stub, C_STUB, None),
-            ("funnel-drain-clamp", clamp, C_WORM, None),
-            ("funnel-drain-union", union, M_JG_BLACK_PP, union_carry))
-
-
-# The display's own frame faces its screen along −Y with the glass on Y = 0; the facet faces
-# up-and-forward at `enclosure.display_facet_angle_deg`. One turn about X carries the screen
-# normal onto the facet's and the up-screen axis up the slope with it.
+# Carry the display's screen normal onto the enclosure facet.
 DISPLAY_TILT = ((1.0, 0.0, 0.0), _enc.display_facet_angle_deg - 90.0)
 
 
@@ -5724,29 +5685,22 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     # the box — so the line it drains through is drawn HERE, off the same frames the pack's own
     # runs anchor on, with the funnel's now among them.
     a.pack_solids["funnel"], a.carries["funnel"] = funnel, funnel_carry
-    # The disconnect, on the spout the funnel carries. `fluid-4` starts at the union's lower
-    # collet, so the joint goes in before the run is drawn.
-    joint = build_drain_joint(funnel_carry)
-    for name, solid, colour, carry in joint:
-        a.add(solid, name=name, color=colour)
-        if carry is not None:
-            a.pack_solids[name], a.carries[name] = solid, carry
+    frame = _funnel_frame.build(box.inner, box.y_joint, funnel_centre(box),
+                                _enc.funnel_seat_z(box.outer))
+    a.add(frame, name="funnel-frame", color=M_PETGF_BLACK)
+    a.pack_solids["funnel-frame"] = frame
+    cx, cy = funnel_centre(box)
+    floor = _funnel_frame.datums(_enc.funnel_seat_z(box.outer))[0]
+    record_seat("funnel-frame", planes={"cx": cx, "cy": cy, "z0": floor},
+                got=frame.BoundingBox())
+    # The plain frame hole has no tube attachment yet. Keep that open design
+    # requirement on the card; fluid-4 needs the eventual rigid tube endpoint.
+    record_bound(Bound(
+        "funnel-drain-attachment", "The removable funnel has a retained drain tube", False,
+        "plain 6.85 mm frame hole", "a fixed tube through the frame connected to V-B",
+        ["Tube retention and the fluid-4 connection are unresolved."], "goal"))
+    a.bounds = list(BOUNDS)
     draw_runs(a, _lines.build_seated_runs(a.pack_solids, a.carries))
-    # WHERE THE MACHINE'S HEIGHT IS SPENT, recorded against the seat that spends it. The funnel's
-    # brim bears on the top wall, so the drain hangs a fixed drop under the ceiling and the elbow
-    # hands the line forward one leg below that — and what is left is the HEAD the gravity feed runs
-    # on, the drop from that mouth to V-B's own collet. Every millimetre off
-    # `enclosure.appliance_height`, and every millimetre `funnel.chute_h` takes for
-    # capacity, comes out of this one.
-    # THE DROP, AND NOT THE LENGTH. `fluid-4` carries head and is the funnel's air-purge path, so
-    # what it owes is a line that never ends higher than it starts. A run measured by distance
-    # reads a rise as room; measured by drop, a rise reads negative and the gate says so. The
-    # band is the line's own bore: under one diameter of fall across a run this long there is no
-    # grade left once the corners have taken their tangents, and the funnel stops draining dry.
-    for r in a.runs:
-        if r.id == "fluid-4":
-            note_room("funnel", "the drop off the elbow `fluid-4` reaches V-B on",
-                      _elbow.TUBE_D, r.pts[0][2] - r.pts[-1][2])
     display = build_display(box)
     # THE MODULE IS ONE BODY HERE AND TWO MATERIALS IN ITS OWN CARD. `waveshare_43b_display`
     # draws the main board in its own blue solder mask and the cover glass over it, and this

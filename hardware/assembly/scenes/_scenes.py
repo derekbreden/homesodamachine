@@ -203,7 +203,7 @@ SCENES = (
     Scene(
         "front-top", "Enclosure front top",
         roots=("enclosure-front-top",), inner=(), flip=((1, 0, 0), 180.0), also=(),
-        # The collet plate is part of front-top; the funnel is fitted with the box standing.
+        # The frame enters front-top before closure; the silicone is fitted afterwards.
         later=("funnel",),
         # `zoom` is a multiple of the SCENE's own bounding radius, and nothing here leaves the
         # piece: the radius is the piece's. The elevation is what opens the two valve rows —
@@ -217,9 +217,8 @@ SCENES = (
         cam=(0.8, -1.0, 0.9), up=(0, 0, 1), zoom=4.4, look="centre",
         note="The same pose as the back top and the other half of the same box: on its ceiling, "
              "the mouth to the room. Every seat under this manifold is the piece's own "
-             "material, and so is the collet plate. Its two openings stand empty: one "
-             "takes the funnel and the front bay takes the pump cartridge both pumps ride, and "
-             "each is filled with the box standing.",
+             "material, and so is the collet plate. The sliding funnel frame is installed; "
+             "the silicone funnel and pump cartridge enter with the box standing.",
     ),
     # THE UNIT THAT FILLS THAT BAY, rooted on its two printed pieces: the full-height lower
     # cradle and the small top clamp. It is worked upright, the same way it stands in the bay,
@@ -289,20 +288,13 @@ SCENES = (
              "proud of this rim is the cap's own thickness and the cap comes down over it.",
     ),
     Scene(
-        "funnel-drain", "Funnel drain stub",
-        roots=("funnel",), inner=(), flip=((1, 0, 0), 180.0), also=(),
-        # The union is on the far end of the stub and is the joint that PARTS: it stays in the
-        # machine when the funnel comes out, so it is not on the bench with this one.
-        later=("funnel-drain-union",),
-        # THE BRIM IS WHAT THE FRAME HAS TO HOLD, not the spout the card is about. Inverted, the
-        # funnel is a 173 mm plate with a 20 mm joint standing on the middle of it, and `crown`
-        # aims at the plate's own face — so the distance is set by the plate's diagonal and the
-        # subject comes out small inside it. Fitted on the PNG's borders.
+        "funnel-drain", "Funnel frame and silicone",
+        roots=("funnel-frame",), inner=(), flip=((1, 0, 0), 180.0), also=(),
+        later=(),
         cam=(0.55, -0.85, 0.9), up=(0, 0, 1), zoom=4.0, look="crown",
-        note="The funnel inverted, which is how the joint is made: the brim is the bench and the "
-             "spout stands up where two hands reach it. The stub is in as far as it goes and the "
-             "band is on the land between its two shoulders — nothing of the stub shows below "
-             "the spout's face, because what is below that face is the collet it pushes into.",
+        note="The inverted frame shows its flat underside, full-width end corbels and plain "
+             "tube hole. The silicone plug bears on the 3 mm web. Drain tube retention and "
+             "the connection to V-B remain unresolved.",
     ),
     Scene(
         "back-half", "Enclosure back half",
@@ -486,12 +478,8 @@ BEARS_ON = {
     "co2-inlet": "enclosure-back-top",
     "display": "enclosure-front-top",               # let into that piece's own facet
     "display-gasket": "enclosure-front-top",         # in the same inset, under the plate's lap
-    "funnel": "enclosure-front-top",         # brim on the top wall, collar forward
-    # The funnel's disconnect, all of it on the spout the funnel carries: the stub and the clamp
-    # go to the dishwasher with it, and the union is on the stub's far end.
-    "funnel-drain-stub": "funnel",
-    "funnel-drain-clamp": "funnel",
-    "funnel-drain-union": "funnel",
+    "funnel-frame": "enclosure-front-top",           # slid into its front receivers before closure
+    "funnel": "funnel-frame",                       # removable silicone in the frame's socket
     # Hanging off the line they splice, on the wall that line is cradled against.
     "water-split": "enclosure-back-top",
     "flow-regulator": "enclosure-back-top",

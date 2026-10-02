@@ -255,13 +255,7 @@ MOUNTS = (
     ("foam-assembly", ("enclosure-front-bottom", "enclosure-back-top"), "seam-capture"),
     ("g-ganen-pump", "foam-assembly", "deck-mount"),
     ("funnel", None, "wall-capture"),
-    # THE FUNNEL'S DISCONNECT, THREE BODIES ON THE SPOUT'S OWN AXIS. The stub stands inside the
-    # silicone under the clamp's band; the clamp closes silicone onto steel; the union takes the
-    # stub in its upper collet and starts `fluid-4` at its lower one. The first two are made up
-    # at the factory and never come apart; the third is the joint the customer opens.
-    ("funnel-drain-stub", None, "tube-clamp"),
-    ("funnel-drain-clamp", None, "tube-clamp"),
-    ("funnel-drain-union", None, "tube-hung"),
+    ("funnel-frame", ("enclosure-front-top", "enclosure-back-top"), "wall-capture"),
     # The glass is captured between its housing seat and the rounded snap bezel.
     ("display", ("enclosure-front-top", "display-cover"), "plate-capture"),
     ("display-cover", "enclosure-front-top", "snap-capture"),
@@ -490,29 +484,9 @@ def fastened_by(name: str):
 # machine stands on grommets to hold off itself. Its row's `by` is null and `never_holds` keeps
 # it null. These rows come out of the axis's denominator, and their text goes out on the card.
 NEVER = {
-    # THE FUNNEL AND THE THREE BODIES ON ITS SPOUT'S COLUMN. The funnel lifts out of the top wall
-    # and goes into the dishwasher with the stub and the clamp still on it. Its brim bears on the
-    # top wall's outer face and its collar runs in the opening cut for it, and the union's collet
-    # grips the stub through the wall — thumb on the collet and the whole funnel comes away. The
-    # union stays behind on its two collets. A printed feature closing on any of the four would be
-    # a feature the customer has to work past every time the funnel is washed.
     "funnel":
-        "The brim bears on the inset 6 mm seat, the collar runs in "
-        "`enclosure._funnel_cut_plan`, "
-        "and the elbow's own collet grips the stub the spout carries — so the funnel is held down by "
-        "the joint it releases from. It is a dishwasher part and comes out by hand.",
-    "funnel-drain-stub":
-        "The worm clamp closes the funnel's silicone spout onto it over the whole of the spout's "
-        "land, and the pair is made up at the factory. Nothing printed is in the path: the stub "
-        "leaves the machine with the funnel every time it is washed.",
-    "funnel-drain-clamp":
-        "A worm clamp closes on itself — the band draws through its own housing and the housing "
-        "rides the band. What it lands on is silicone, and it goes to the dishwasher with it.",
-    "funnel-drain-union":
-        "Both its collets land on held bodies — the +Z leg takes the stub the funnel carries, the "
-        "other leg hands `fluid-4` forward to turn west and return to V-B's cap cradle — so the elbow "
-        "hangs between two seats with nothing printed closing on it. It is the joint the customer "
-        "opens, and a thumb on that collet is the whole of the motion.",
+        "The silicone brim rests in the sliding PET-GF frame. The funnel lifts out by hand; "
+        "its drain tube retention and connection remain unresolved.",
     "fuse-clamp":
         "Both faces of the slot the clamp presses into are the compressor's own — the air its "
         "power box hangs over its mounting plate — so the clamp rides the can. The plate's "
@@ -541,9 +515,7 @@ TEE_LANDS = {
 
 
 # Every exemption a length of tube rests on, as `(body, port, run, what the run lands on)`.
-# The gas check has its own cradle; only the removable funnel disconnect uses this proof.
 CHAIN_LANDS = (
-    ("funnel-drain-union", "outlet", "fluid-4", "valve-v-b"),
 )
 
 
@@ -628,17 +600,6 @@ MADE_UP = (
     # brings the two faces together. The tube is cut to the two grips and swallowed whole by them,
     # which is why there is no `water-4` either.
     ("vk-solenoid.outlet", "suction-chain.tube-port"),
-    # The funnel's stub and the elbow's +Z collet. The stub IS the tube in that grip — it runs
-    # `funnel_drain_stub.UNION_INSERTION` down inside the fitting — so the collet's lead is
-    # filled by the thing it is a grip on.
-    ("funnel-drain-stub.spout", "funnel-drain-union.stub"),
-    # And the same stub in the funnel's own spout, `funnel_drain_stub.FUNNEL_ENGAGEMENT` up the
-    # bore under the clamp's band. The funnel drains THROUGH the stub, so the drain's lead is the
-    # stub's own bore and there is no length of anything else to leave room for.
-    ("funnel.drain", "funnel-drain-stub.funnel"),
-    # The spout's exit face and the elbow's +Z collet face, which meet. That contact is what
-    # leaves no stub standing in the room between the silicone and the fitting.
-    ("funnel.drain", "funnel-drain-union.stub"),
 )
 
 # Ports that open to ATMOSPHERE rather than onto a line. Nothing is ever bent onto one, so a bend
@@ -728,18 +689,13 @@ TOUCHING_OK = {frozenset(p) for p in (
     # And the nameplate's lettering against the plate it is lettered into, the same print in the
     # same two filaments at another size.
     ("nameplate", "nameplate-ink"),
-    # THE FUNNEL'S DISCONNECT, WHICH IS THREE CONTACTS ON ONE AXIS. The stub is inside the spout's
-    # bore for the whole of the spout's land; the band lies on the spout's outer face and closes
-    # the silicone between the two; and the union's collet face meets that same spout's exit
-    # face, which is what leaves no stub showing in the room between them.
+    # The silicone plug's lower annulus bears on the frame's 3 mm web.
+    ("funnel", "funnel-frame"),
     # V-K'S OUTLET AND THE SUCTION CHAIN'S COLLET, which `water-4` butts. `enclosure_assembly
     # .build_vk` seats the valve on that collet's own column and plane and the source row's
     # depth brings the two faces together, so what the run carries is the tube inside each
     # quick-connect and nothing between them.
     ("suction-chain", "vk-solenoid"),
-    ("funnel", "funnel-drain-stub"),
-    ("funnel", "funnel-drain-clamp"),
-    ("funnel", "funnel-drain-union"),
 )} | {frozenset((x.partition(".")[0], y.partition(".")[0])) for x, y in MADE_UP}
 
 
@@ -1687,12 +1643,6 @@ def _room_holds(a) -> Check:
 # machine leaves loose because a HAND takes it — the same shape as `NEVER` on the mounted axis:
 # out of the denominator, and its text goes out on the card.
 LOOSE = {
-    "fluid-4":
-        "The funnel's own drain, and the one line in the machine a customer handles. It parts at "
-        "the union under the spout every time the funnel goes to the dishwasher and is pushed "
-        "back at the same collet, so the length between that joint and V-B has to give: a rib "
-        "zip-tied across it would be a fixed point the customer works against, and the run would "
-        "take the load at the collet instead of along its own length.",
     "fluid-18":
         "Flavor A's line to its rear union. The cold core's side post grips its crossing fore "
         "of the pump (`_cold_core_interface.cap_side_anchors`), and what runs loose past it is "

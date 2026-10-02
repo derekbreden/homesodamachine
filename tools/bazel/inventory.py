@@ -138,6 +138,10 @@ IMPLICIT_SOLIDS = {
     ),
     # These STL exports are written by OCCT below Python's filesystem audit.
     # Their generators still own them in a clean action.
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": (
+        "hardware/printed-parts/zone-c/funnel/funnel-frame.stl",
+        "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh",
+    ),
     "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py": (
         "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.stl",
     ),

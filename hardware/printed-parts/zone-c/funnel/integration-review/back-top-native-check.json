@@ -1,0 +1,20 @@
+{
+  "native_success": true,
+  "native_warnings": "",
+  "extrusion_bounds_xy_mm": [
+    [
+      38.798,
+      10.017000000000001
+    ],
+    [
+      270.1,
+      317.04200000000003
+    ]
+  ],
+  "minimum_shared_bed_margin_mm": 2.958,
+  "support_margin_target_mm": 10,
+  "support_margin_pass": false,
+  "submitted": false,
+  "physical_fit_tested": false,
+  "note": "The native slice stays on the shared bed but does not meet the review recipe\u2019s 10 mm support margin. This is not a print release."
+}

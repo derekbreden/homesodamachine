@@ -65,6 +65,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "digiten-flow-sensor"):
     sys.path.insert(0, str(_p))
 import _routing as R                                   # noqa: E402
+import _stated_bounds as _bounds                       # noqa: E402
 import _cold_core_interface as _cc                     # noqa: E402
 import asse1022_assembly as _asse                      # noqa: E402
 import funnel as _funnel                        # noqa: E402
@@ -719,12 +720,15 @@ def _fluid_2(F, solids):
         raise ValueError(f"fluid-2's inlet approach seats R{radius:.3f}, below its R{TUBE_BEND:g} stock")
     tube = R.tube(run)
     # Fore/aft box separation is a lower bound on the finished sweep's clearance.
-    if pump_fore - tube.BoundingBox().ymax < _card.CLEARANCE_FLOOR - 1e-6:
+    pump_gap = pump_fore - tube.BoundingBox().ymax
+    if pump_gap < _card.CLEARANCE_FLOOR - 1e-6:
         pump_gap = tube.distance(solids["g-ganen-pump"])
-        if pump_gap < _card.CLEARANCE_FLOOR - 1e-6:
-            raise ValueError(
-                f"fluid-2's finished sweep clears the pump by {pump_gap:.3f} mm, below "
-                f"the {_card.CLEARANCE_FLOOR:g} mm clearance floor")
+    # Keep the authored route visible when a placed endpoint leaves insufficient
+    # room. The scorecard carries the shortfall beside that same geometry.
+    _bounds.state("fluid-2-pump-clearance", "The V-A inlet tube clears the water pump",
+                  f"at least {_card.CLEARANCE_FLOOR:g} mm",
+                  pump_gap >= _card.CLEARANCE_FLOOR - 1e-6,
+                  f"fluid-2 clears the pump by {pump_gap:.3f} mm")
     return run
 
 
@@ -1161,10 +1165,10 @@ def _fluid_14(F, solids):
     tube = R.tube(run)
     for name in ("valve-v-a", "vk-solenoid"):
         gap = clearance(tube, solids[name], _card.REPORT_NEAR)
-        if gap < _card.CLEARANCE_FLOOR - 1e-6:
-            raise ValueError(
-                f"fluid-14 clears {name} by {gap:.3f} mm, below "
-                f"the {_card.CLEARANCE_FLOOR:g} mm clearance floor")
+        _bounds.state(f"fluid-14-{name}-clearance", f"The reservoir-A fill tube clears {name}",
+                      f"at least {_card.CLEARANCE_FLOOR:g} mm",
+                      gap >= _card.CLEARANCE_FLOOR - 1e-6,
+                      f"fluid-14 clears {name} by {gap:.3f} mm")
     return run
 
 

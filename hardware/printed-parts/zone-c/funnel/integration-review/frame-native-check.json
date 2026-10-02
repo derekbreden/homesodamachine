@@ -1,0 +1,36 @@
+{
+  "native_success": true,
+  "native_warnings": "",
+  "supports_enabled": "1",
+  "support_segments": 49336,
+  "feature_segments": {
+    "Support": 48735,
+    "Inner wall": 114992,
+    "Outer wall": 32616,
+    "Bottom surface": 834,
+    "Internal solid infill": 13070,
+    "Sparse infill": 47165,
+    "Floating vertical shell": 14672,
+    "Bridge": 14560,
+    "Top surface": 14119,
+    "Gap infill": 5045,
+    "Support interface": 601,
+    "Overhang wall": 48
+  },
+  "estimated_hours": 5.1218212890625,
+  "estimated_g": 223.72120666503906,
+  "first_layer_checks": {
+    "1901": {
+      "first_two_z_mm": [
+        0.2,
+        0.44
+      ],
+      "first_layer_area_mm2": 11364.400495955848,
+      "second_layer_wall_bead_min_supported_fraction": 0.6974157406332513,
+      "second_layer_wall_bead_under_half_supported": 0,
+      "layers": 205,
+      "first_layer_bodies": 1
+    }
+  },
+  "physical_printed": false
+}

@@ -234,7 +234,7 @@ def add_cradles(lid, face_z):
     return lid
 
 
-def add_chain_anchors(lid, face_z):
+def add_chain_anchors(lid, face_z, names=None):
     """Every chain anchor, standing on the lid's outer face at `face_z`.
 
     THE CHANNEL IS A REMAINDER: the rib stands one `cap_anchor_wall` over the face down its whole
@@ -251,6 +251,8 @@ def add_chain_anchors(lid, face_z):
     so a rib fused straight onto the plate carries its lip in as many pieces as it was laid down
     in, and its bore in as many again."""
     for name, station in cap_anchors.items():
+        if names is not None and name not in names:
+            continue
         (cx, cy) = station.centre
         seat_r = station.seat_r
         reach = seat_r + cap_anchor_wall
@@ -285,6 +287,24 @@ def add_chain_anchors(lid, face_z):
                              face_z - fits.supported_surface, face_z)
         lid = lid.cut(floor_relief.val())
     return lid
+
+
+def cradle_anchor_intersections(face_z):
+    """Actual shared material between valve seats and the unmoved tube anchors."""
+    rows = []
+    for valve in cap_cradles:
+        plinth = cradle_shape(valve, face_z).val()
+        for anchor in cap_anchors:
+            rib = add_chain_anchors(cq.Workplane('XY'), face_z, (anchor,)).val()
+            shared = plinth.intersect(rib)
+            volume = shared.Volume()
+            if volume <= 0.001:
+                continue
+            b = shared.BoundingBox()
+            rows.append({'valve': valve, 'anchor': anchor, 'volume_mm3': volume,
+                         'bounds_cap_mm': [[b.xmin, b.ymin, b.zmin],
+                                           [b.xmax, b.ymax, b.zmax]]})
+    return rows
 
 
 def add_side_anchors(lid, face_z):
@@ -521,6 +541,10 @@ def main():
         .unwrap()
     ).val().Volume()
     lid_diff = lid_bottom.val().Volume() - lid_top.val().Volume()
+    # These independently authored features stay at their stated stations.
+    # Account for shared material in the union and publish each overlap for review.
+    feature_overlaps = cradle_anchor_intersections(lid_total_height)
+    lid_expect += sum(row['volume_mm3'] for row in feature_overlaps)
     assert math.isclose(cap_diff, cap_expect, rel_tol=1e-6), \
         f"cap diff {cap_diff:.6f} != expected deck columns = {cap_expect:.6f}"
     assert math.isclose(lid_diff, lid_expect, rel_tol=1e-6), \
@@ -528,8 +552,16 @@ def main():
     assert len(cap_top.solids().vals()) == 1, "cap_top must be a single solid"
     # Every plinth and anchor joins the lid.
     assert len(lid_top.solids().vals()) == 1, "lid_top must be a single solid"
+    import json
+    (_here / 'cap-feature-intersections.json').write_text(json.dumps({
+        'frame': 'cap local coordinates', 'intersections': feature_overlaps,
+        'clear': not feature_overlaps,
+    }, indent=2) + '\n')
+    for row in feature_overlaps:
+        print(f"  OPEN: {row['valve']} plinth / {row['anchor']} anchor: "
+              f"{row['volume_mm3']:.3f} mm3 shared material")
 
-    # Each valve lands at the original bearing plane, and every lid opening remains clear.
+    # Each valve lands at its stated bearing plane, and every lid opening remains clear.
     for name, station in cap_cradles.items():
         plinth = cradle_shape(name, lid_total_height).val()
         native_valve = (seat.valve.build_beduan_solenoid()

@@ -161,6 +161,7 @@ import reeding
 import trimesh
 import flute_skin as _flute_skin
 import funnel as _funnel
+import funnel_frame as _funnel_frame_part
 import wago_221 as _wago
 import mq6_gas_sensor as _mq6
 import riteav_keystone as _keystone
@@ -474,15 +475,8 @@ funnel_chain_gap = 1.0
 # cut to the collar plus the project's ordinary slip instead of sharing an exact B-rep face
 # with the roof rib and ceiling corbels.
 funnel_collar_air = fits.running
-# The collar's front edge, read by `enclosure_assembly.funnel_centre`. THE FUNNEL IS WHERE THE
-# USER POURS, so it stands as far forward as the top wall lets it — and what stops it is the
-# BRIM rather than the throat: the flange overhangs the collar by `funnel.brim_overhang`
-# and has to land on top wall, which begins at the display facet's own arris. So the figure is
-# that arris, one `wall` of landing, and the overhang — 66.87 + 3 + 7 — and it stands aft of
-# `housing_back_y`, which is the other plane that could have stopped it. `funnel-brim-lands`
-# reads it back against the facet the box actually cuts, which is what catches it when the
-# facet's own size moves.
-funnel_front_y = 107.0
+# The shortened collar stays centered on the fixed outlet station at Y182.5.
+funnel_front_y = 182.5 - _funnel.collar_d / 2.0
 funnel_seat_thickness = _swept_top.FUNNEL_SEAT
 ceiling_skin = _interface.ceiling_skin
 ceiling_lip_drop = funnel_seat_thickness + _funnel.brim_thickness - ceiling_skin
@@ -3689,7 +3683,8 @@ def _funnel_cut(inner, outer, centre):
         _funnel.collar_d + 2.0 * funnel_collar_air,
         _funnel.collar_corner_r + funnel_collar_air,
         inner[5] - wall - 1.0, seat + 0.01, cx, cy)
-    return pocket.fuse(throat).fuse(_funnel_keepout(outer, centre))
+    return (pocket.fuse(throat).fuse(_funnel_keepout(outer, centre))
+            .fuse(_funnel_frame_part.shell_clearance(centre, seat)))
 
 
 def _ceiling_corbels(solid, inner, outer, centre, y_joint, y_bosses=()):
@@ -4343,7 +4338,7 @@ def rail_catch_air(col):
     return slide_slip + supported_faces * fits.supported_surface
 
 
-def _z_rail_heads(inner, y_joint, zj, col, plate, chase=()):
+def _z_rail_heads(inner, y_joint, zj, col, plate, chase=(), *, runs=None):
     """The BOTTOM piece's whole share of its Z seam above the mouth: the hooked
     rails — an ARM standing on the mouth down each straight run, its HEAD stepping
     outboard over the groove the top's foot slides in — and the stop block closing
@@ -4368,7 +4363,8 @@ def _z_rail_heads(inner, y_joint, zj, col, plate, chase=()):
     if rim - catch_z < wall:
         raise ValueError("supported Z-rail catch leaves less than one wall of head stock")
     out = None
-    for x_in, sx, y0, y1, _lane in _z_rail_runs(inner, y_joint, col, plate, chase):
+    for x_in, sx, y0, y1, _lane in (runs if runs is not None else
+            _z_rail_runs(inner, y_joint, col, plate, chase)):
         sy = 1.0 if y1 > y0 else -1.0        # open end to closed: the way this column goes
         if col == "front" and plate:
             # Both rail ends have running room at the assembled position,
@@ -4444,7 +4440,7 @@ def _rail_keep(inner):
                     corner_round - wall)
 
 
-def _z_rail_channels(inner, y_joint, zj, col, plate, chase=()):
+def _z_rail_channels(inner, y_joint, zj, col, plate, chase=(), *, runs=None):
     """The TOP piece's channel voids, one per rail — cut LAST of the piece's work, so
     everything the piece fused near a flank is carved to the slide's own section.
 
@@ -4484,8 +4480,8 @@ def _z_rail_channels(inner, y_joint, zj, col, plate, chase=()):
     z_roof = rim + slide_slip
     keep = _rail_keep(inner)
     out = None
-    for x_in, sx, y0, y1, lane_aft in _z_rail_runs(inner, y_joint, col, plate,
-                                                   chase):
+    for x_in, sx, y0, y1, lane_aft in (runs if runs is not None else
+            _z_rail_runs(inner, y_joint, col, plate, chase)):
         sy = 1.0 if y1 > y0 else -1.0
         stop = y1 - sy * rail_stop_len
         # One slip outboard of the head is the channel's own standing wall. It lies in the
@@ -8951,8 +8947,12 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         cx, cy = box.pack.funnel
         brim_front = cy - _funnel.collar_d / 2.0 - _funnel.brim_overhang
         brim_back = cy + _funnel.collar_d / 2.0 + _funnel.brim_overhang
+        # The fore roof joins the ridge crown as solid stock. A closed pocket
+        # between that crown and the roof would trap its printing supports.
+        seat_front = (housing_back_y(outer) if y_side == 'front' else
+                      brim_front - funnel_seat_thickness)
         seat_stock = _ybox(inner[0], inner[1],
-                           brim_front - funnel_seat_thickness,
+                           seat_front,
                            brim_back + funnel_seat_thickness,
                            funnel_seat_z(outer) - funnel_seat_thickness, outer[5])
         if y_side == "back":
@@ -8974,7 +8974,17 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         piece = piece.fuse(seat_stock.intersect(own_band).intersect(_rounded_outer(outer)))
         if y_side == 'front':
             piece = piece.cut(_y_lip_channel(inner, y_joint, box.y_bosses))
+        piece = piece.fuse(_funnel_frame_part.receivers(
+            inner, outer, y_joint, box.pack.funnel, funnel_seat_z(outer), y_side))
         piece = piece.cut(_funnel_cut(inner, outer, box.pack.funnel))
+        rail = _funnel_frame_part.datums(funnel_seat_z(outer))[2]
+        piece = piece.cut(_z_rail_channels(
+            inner, y_joint, rail, y_side, None,
+            runs=_funnel_frame_part.rail_runs(inner, y_joint, y_side, box.pack.funnel)))
+        if y_side == 'front':
+            piece = piece.cut(_y_lip_channel(inner, y_joint, box.y_bosses))
+            piece = piece.cut(_funnel_frame_part.front_seam_relief(
+                outer, y_joint, box.pack.funnel, funnel_seat_z(outer)))
         if y_side == 'front':
             piece = piece.cut(_display_cuts(outer, box.pump_bay[2] if box.pump_bay else None))
             for cavity in display_storey_cavities(box):
@@ -9387,7 +9397,14 @@ def _upper_y_seam_bound(pieces, box):
         contested = sweep.intersect(front).Volume()
         ramp = _xz_prism(y0, y1, [
             (x_in, floor), (x_tip, floor), (x_in, floor - abs(x_tip - x_in))])
-        below = ramp.intersect(back).Volume()
+        below_shape = ramp.intersect(back)
+        if box.pack.funnel:
+            # The functional funnel receiver stands below the ceiling column.
+            # Its flat bearing is supported during printing and owns this stock.
+            below_shape = below_shape.cut(_funnel_frame_part.receivers(
+                box.inner, box.outer, box.y_joint, box.pack.funnel,
+                funnel_seat_z(box.outer), 'back'))
+        below = below_shape.Volume()
         shank = _xcyl(screw_clear_dia / 2.0, yb, z, x_ext, x_tip)
         insert = _xcyl(heatset_dia / 2.0, yb, z, x_tip, x_heat)
         bore = shank.intersect(back).Volume() + insert.intersect(front).Volume()

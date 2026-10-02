@@ -533,9 +533,9 @@ BENT = {"V-A": UPPER_Z, "V-B": UPPER_Z}
 # is, and it stands where BOTH channels' crosses clear that floor by `SOURCE_SLACK`. It is also
 # where the two valves sit: the pose turns the pack's own −Y onto the machine's −Z, so a
 # millimetre of jog is a millimetre of height the row on the cap gives up and a millimetre its
-# printed cradles stand taller (`_cold_core_interface.cap_cradles`).
-SOURCE_TRAVEL = 19.72
-SOURCE_JOG = 7.0
+# printed cradles stand lower (`_cold_core_interface.cap_cradles`).
+SOURCE_TRAVEL = 34.72
+SOURCE_JOG = 10.0
 # The step also carries each source valve OUTBOARD, off its own limb's column. A CROSS-MOVE IS A
 # VECTOR AND NOT A DISTANCE: both arcs and the straight lie in the one plane that holds the run
 # and the way it steps, so leaning that plane about the run costs the step nothing and only its
