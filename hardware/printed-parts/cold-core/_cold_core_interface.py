@@ -815,14 +815,14 @@ for _name in deck_mounts:
 # suction chain at its existing port plane.
 Cradle = namedtuple("Cradle", "centre yaw seat")
 # The cap installs with its +X opposite world +Y. The fixed flavour valves' mounting
-# centres stay on world Y229.710 while the core follows the rear enclosure plane.
+# centres stay on world Y244.710 while the core follows the rear enclosure plane.
 cap_manifold_cradle_x = (rear_plane_y - rear_seam_clear - outer_shell_x_length / 2.0
-                         - 229.710)
+                         - 244.710)
 cap_cradles = {
     #                      centre           yaw    seat
     "vk-solenoid": Cradle(( 94.270,  65.050), 0.0, 3.6500),
-    "valve-v-a":   Cradle((cap_manifold_cradle_x,  24.770), 0.0, 12.7250 + manifold_rise - inner_limb_drop),
-    "valve-v-b":   Cradle((cap_manifold_cradle_x, -22.350), 0.0, 12.7250 + manifold_rise - inner_limb_drop),
+    "valve-v-a":   Cradle((cap_manifold_cradle_x,  24.770), 0.0, 2.2250),
+    "valve-v-b":   Cradle((cap_manifold_cradle_x, -22.350), 0.0, 2.2250),
 }
 
 # Where a boss stands off the valve's centre, and how wide it is: a socket with a wall around it.

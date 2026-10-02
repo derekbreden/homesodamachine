@@ -1,60 +1,70 @@
-# Funnel
+# Funnel and sliding frame
 
-The removable dishwasher-safe silicone funnel seats in the top-wall opening,
-directly behind the display facet. It holds [600 mL](FUNNEL_CAP), including a
-full 440 mL SodaStream flavor bottle. Its brim, collar and ramp are 6 mm thick;
-the outlet has a [4.5 mm](FUNNEL_SPOUT_WALL) radial wall.
-Zone framing: [`../README.md`](/hardware/printed-parts/zone-c/README.md).
+The removable silicone funnel holds nominally [300 mL](FUNNEL_CAP). Its PET-GF
+frame slides into front-top; closing front-top onto back-top captures the rear
+rails. The frame uses the enclosure's production rail section and its running
+clearances. Both flavors share this filling interface.
 
-## Shape
+## Silicone
 
-The origin is the collar center at the brim underside. The enclosure seats this
-plane at Z349, with the brim flush with its Z355 roof. The rounded outlines share
-concentric corner arcs: the 153 × 139 mm mouth has R14 corners, the 165 × 151 mm
-collar has R20 corners, and the 179 × 165 mm brim has R27 corners.
+The collar center stays at world X0, Y182.5. Its brim underside is Z349 and its
+6 mm brim finishes flush with the Z355 enclosure roof. The collar is
+165 × 81.783 mm with R20 corners; the mouth is 153 × 69.783 mm with R14 corners;
+the brim is 179 × 95.783 mm with R27 corners. The collar wall and ramp's normal
+wall are 6 mm. The ramp falls toward X1.85, Y182.5.
 
-The brim is 6 mm thick and overhangs the collar by 7 mm. It bears on 6 mm of
-printed enclosure stock, filled outward to the walls. The collar and sloping
-floor have 6 mm silicone walls; floor thickness is measured normal to its surface.
-The straight chute is [23.4859 mm](FUNNEL_CHUTE) deep from the brim's upper face.
-The floor falls continuously toward the outlet, centered fore–aft and offset
-1.85 mm in X. The brim underside is [49.9352 mm](FUNNEL_DROP_UNDER) above
-the drain's mating face.
+The integral silicone plug is [36 mm](FUNNEL_SPOUT_OD) in diameter and 15 mm
+high, with its bottom at Z302.9. Its lower bore has an 8.4 mm entrance,
+1.8 mm lead-in and 6.7 mm relief. A nominal 6 mm bore forms the upper 3 mm
+sealing land. This geometry describes the proposed push-on seal; its wet and
+dry retention and sealing performance have not been physically qualified.
 
-A 6.25 mm transition below the inner floor joins the straight outlet. The outlet
-has a [6.35 mm](FUNNEL_SPOUT_ID) bore, [4.5 mm](FUNNEL_SPOUT_WALL) radial wall and
-[12 mm](FUNNEL_LAND) clamp land. The worm clamp closes the silicone onto the 1/4-inch
-LLDPE drain stub between two 2 mm shoulders. The stub and clamp remain attached
-when the funnel is removed for washing.
+The intended cleaning motion is lifting the whole silicone funnel out by hand.
+Tube retention and the final connection to V-B remain unresolved. The assembly
+shows the plain frame hole and carries that open requirement on its scorecard.
+The existing mold tooling and its slice records do not qualify this plug.
 
-## Wall reading
+## PET-GF frame
 
-[`wall-review.json`](wall-review.json) measures the complete inner ramp against
-the exterior boundary and samples surface-normal thickness in both the source
-and exported STEP. The ramp's minimum normal wall is 6 mm; the collar and brim
-are 6 mm thick, and the clamp land has a 4.5 mm radial wall.
+The frame is 207 mm wide and 106.383 mm long. Its entire underside is flat at
+Z299.9, leaving 3 mm below the silicone plug. A plain 6.85 mm through hole sits
+at X1.85, Y182.5. The plug socket is 36.6 mm in diameter.
 
-```sh
-tools/cad-venv/bin/python tools/funnel-mold-print/review_funnel_wall.py --grid 9 --output hardware/printed-parts/zone-c/funnel/wall-review.json
-```
+Both end corbels are 30° from vertical, across the complete X width, including
+the rail wings. The lower footprint runs from Y155 to Y210. The body widens
+upward to Y129.308 and Y235.692. The rail datum is Z306.9 and its top is Z321.7.
+The broad body fills the stock between its bowl clearance and rails.
 
-## Lifting it out
-
-The funnel's drain stub seats in the JG PP0308E union elbow below it
-([`reference/elbow-connector`](/hardware/reference/elbow-connector/README.md)).
-The elbow turns `fluid-4` forward; the tube then passes west of the source valves
-and returns to V-B. The funnel stays captive until this
-elbow's collet releases the stub.
-
-The 1/4" jaw of the printed [`collet press`](../../collet-press/) drops over
-the stub and presses the collet sleeve evenly. The funnel lifts away with its
-stub and clamp attached; `fluid-4` stays on the machine.
+The frame prints on its underside. The exported individual STEP and STL place
+that face at Z0 and the funnel's plan center at X0, Y0. Functional rail catches
+retain their square bearing faces and accessible supports. Use the enclosure's
+PET-GF support-removal strategy; physical surface and fit qualification remain
+separate from geometric checks.
 
 ## Regenerate
 
-`tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/funnel.py`
-→ `funnel.step`. Seated in the machine by
-[`../../../manifold-layout/enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py).
+```sh
+tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/funnel.py
+tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/funnel_frame.py
+```
+
+The assembly places both parts through
+[`enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py).
+The shell uses `funnel_frame.receivers` and `funnel_frame.shell_clearance` for
+its matching enclosure features.
+
+## Integration checks
+
+[`integration-review/rail-motion-check.json`](integration-review/rail-motion-check.json)
+records sampled insertion of the exported frame through both actual upper shells,
+their closing motion, and capture against 2 mm translations on all three axes.
+Run `integration-review/check_fit.py` from the CAD environment to refresh it.
+
+The frame's native slice uses a 0.20 mm first layer, 0.24 mm subsequent layers,
+and six walls through the 44.499 mm corbel band. Its four support bodies reach
+only the four rail bearing regions; none start on the model. The
+[`support audit`](integration-review/frame-support-audit.json) includes unlabelled
+support bodies. These records describe the slice, not a physical fit test.
 
 ## Sources
 [value](NAME) texts are updated by:

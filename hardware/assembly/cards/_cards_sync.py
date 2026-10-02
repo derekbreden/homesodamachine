@@ -450,8 +450,8 @@ def sub_assemblies(m: Machine):
     import _scorecard as _sc
     import _cold_core_interface as _cci
     import g_ganen_installation as _water_pump   # on the path once `_cci` is imported
-    import funnel_drain_stub as _stub
     import funnel as _funnel
+    import funnel_frame as _frame
 
     import enclosure as _enc
     import pump_tray as _tray
@@ -505,10 +505,10 @@ def sub_assemblies(m: Machine):
     # one, the funnel in the other. The piece carries it in the finished machine and the
     # scene holds it back, which is the pair of readings those two sentences stand on.
     for scene_id, absent in (("back-top", "asse-drip-pan"), ("front-top", "funnel"),
-                             ("funnel-drain", "funnel-drain-union"),
                              ("cap-lid", "tube-fluid-14")):
         scene = _scenes.SCENE_BY_ID[scene_id]
-        assert holder.get(absent) in scene.roots and absent in scene.later, (
+        assert (holder.get(absent) in set(scene.roots) | set(_scenes.named(scene, m.a.runs))
+                and absent in scene.later), (
             f"the {scene_id} scene draws {absent}, and its card says the piece leaves the "
             f"bench without it — hold it back in `_scenes.SCENES`, or restate the card")
 
@@ -559,11 +559,6 @@ def sub_assemblies(m: Machine):
     assert len(stands) == 1, (
         f"the four barb tubes stand {sorted(stands)} proud of their barbs — SA-09 quotes one "
         f"figure for all four, and one collet plate stands in one berth")
-
-    # SA-06's three figures are the drain joint's own stack, and each of them is read off the
-    # part that owns it: the stub states its own length and how much of it the spout takes, the
-    # union states the grip, and the funnel states the wall the band closes.
-    _stub.joint_holds()
 
     # WHAT A UNIT LEAVES THE BENCH HOLDING IN THE AIR, and for the two units it is two readings.
     # A box half's is its `also` rows — runs made up early, which nothing derives. The core's is
@@ -633,10 +628,9 @@ def sub_assemblies(m: Machine):
         "SA05_HANGING": f"{len(_scenes.SCENE_BY_ID['back-half'].also)}",
         "SA07_HANGING": f"{len(core_loose)}",
         "SA07_CLOSED": f"{len(conduit_runs) - len(core_loose)}",
-        "SA06_STUB_LEN": f"{_stub.LENGTH:g}",
-        "SA06_SPOUT_LAND": f"{_stub.FUNNEL_ENGAGEMENT:g}",
-        "SA06_UNION_INSERT": f"{_stub.UNION_INSERTION:g}",
-        "SA06_SPOUT_WALL": f"{_funnel.spout_wall:g}",
+        "SA06_CAPACITY": f"{_funnel.capacity_ml:g}",
+        "SA06_FRAME_WEB": f"{_frame.web:g}",
+        "SA06_FRAME_HOLE": f"{_frame.tube_hole_diameter:g}",
         "PUMP_MOUNT_SCREWS": f"{len(_cci.deck_mount_xy('g-ganen-pump'))}",
         # And what goes down each one: the screw the station's column is bored for, and the
         # washer that lies on the pad under its head.
@@ -670,8 +664,7 @@ def sub_assemblies(m: Machine):
         "sa-04-cap-lid": {"PUMP_MOUNT_SCREWS", "PUMP_MOUNT_SCREW", "PUMP_MOUNT_WASHER",
                           "SA04_CRADLES", "SA04_CHAINS", "SA04_RIB_EMPTY", "SA04_POSTS_EMPTY"},
         "sa-05-back-half": {"SA05_HANGING"},
-        "sa-06-funnel-drain": {"SA06_STUB_LEN", "SA06_SPOUT_LAND", "SA06_UNION_INSERT",
-                               "SA06_SPOUT_WALL"},
+        "sa-06-funnel-drain": {"SA06_CAPACITY", "SA06_FRAME_WEB", "SA06_FRAME_HOLE"},
         "sa-07-cold-core": {"CAP_CONDUITS", "SA07_HANGING", "SA07_CLOSED"},
         "sa-08-cold-core-open": {"CAP_CONDUITS", "SA08_LINES"},
         "sa-09-pump-cartridge": {"SA09_PUMPS", "PUMP_SOCKET", "PUMP_BRACKET", "PUMP_SKIRT_DEPTH",

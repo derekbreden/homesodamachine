@@ -154,7 +154,10 @@ def region_readings(cast, exported, metadata, brim_thickness, spout_wall, tolera
             for station, fraction in enumerate((-0.75, 0.0, 0.75)):
                 point = [0, 0, metadata["ramp_top_z"] / 2]
                 point[axis] = side * bore[axis] / 2
-                point[other] = fraction * bore[other] / 2
+                # Axis-aligned rays measure the straight wall, before its
+                # rounded corner starts; corner rays use surface normals.
+                straight_half = bore[other] / 2 - metadata["mouth_corner_r"]
+                point[other] = fraction * straight_half
                 measure(f"collar-{axis}-{side}-{station}", point, normal,
                         metadata["collar_wall"])
                 point = [0, 0, 0]
@@ -162,15 +165,23 @@ def region_readings(cast, exported, metadata, brim_thickness, spout_wall, tolera
                 point[other] = fraction * collar[other] / 2
                 measure(f"brim-{axis}-{side}-{station}", point, [0, 0, 1],
                         brim_thickness)
+    bottom, top = metadata["end_z"], metadata["spout_land_z"]
+    seal_bottom = top - metadata["sealing_land"]
+    lead_top = bottom + metadata["lead_height"]
+    stations = (
+        ("lead", (bottom + lead_top) / 2,
+         (metadata["lead_radius"] + metadata["relief_radius"]) / 2),
+        ("relief", (lead_top + seal_bottom) / 2, metadata["relief_radius"]),
+        ("seal", (seal_bottom + top) / 2, metadata["sealing_radius"]),
+    )
     for index, direction in enumerate(DIRECTIONS):
         angle = math.radians(index * 45)
         normal = [math.cos(angle), math.sin(angle), 0]
-        for station, fraction in enumerate((0.001, 0.5, 0.999)):
-            point = [metadata["ncx"] + normal[0] * metadata["spout_id"] / 2,
-                     metadata["ncy"] + normal[1] * metadata["spout_id"] / 2,
-                     metadata["end_z"] + fraction *
-                     (metadata["spout_land_z"] - metadata["end_z"])]
-            measure(f"clamp-land-{direction}-{station}", point, normal, spout_wall)
+        for station, z, radius in stations:
+            point = [metadata["ncx"] + normal[0] * radius,
+                     metadata["ncy"] + normal[1] * radius, z]
+            measure(f"plug-{direction}-{station}", point, normal,
+                    metadata["plug_radius"] - radius)
     return {"sample_count": len(readings), "readings": readings,
             "passes": all(reading["passes"] for reading in readings)}
 
@@ -230,7 +241,7 @@ def review(source, step, minimum=6.0, tolerance=0.01, grid=5, edge_margin=0.25):
         "source_step_symmetric_difference_mm3": round(difference, 6),
         "failed_samples": [reading["sample"] for reading in readings
                            if not reading["passes"]],
-        "collar_brim_and_clamp_land": regions,
+        "collar_brim_and_plug": regions,
         "passes": global_ramp_minimum >= minimum - tolerance
                   and all(reading["passes"] for reading in readings)
                   and regions["passes"] and difference < 0.001,
@@ -256,9 +267,9 @@ def main():
     if args.output:
         args.output.write_text(encoded)
         summary = {key: value for key, value in result.items()
-                   if key not in ("readings", "collar_brim_and_clamp_land")}
-        summary["collar_brim_and_clamp_land"] = {
-            key: value for key, value in result["collar_brim_and_clamp_land"].items()
+                   if key not in ("readings", "collar_brim_and_plug")}
+        summary["collar_brim_and_plug"] = {
+            key: value for key, value in result["collar_brim_and_plug"].items()
             if key != "readings"}
         print(json.dumps(summary, indent=2), flush=True)
     else:

@@ -313,7 +313,7 @@ its far end hanging.
 | SA-03 | Foam shell top cap lid — fill |
 | SA-04 | Foam shell top cap lid assembly |
 | SA-05 | Enclosure back half |
-| SA-06 | Funnel drain stub |
+| SA-06 | Funnel and frame |
 | SA-07 | Cold core, plumbed |
 | SA-08 | Cold core, ready to foam |
 | SA-09 | Pump cartridge |

@@ -210,19 +210,17 @@ teardrop is shifted to +X for the display loom; and the cable clip near +X is re
 fixed J13-to-jack ribbon. Deburr all three without rounding the receptacle's catches or opening
 the clip throat. The cartridge's cord never enters that clip.
 
-The funnel seats behind the display, across the Y seam. Both top pieces carry the
-continuous 6 mm bearing beneath its recessed 6 mm brim. Deburr and wipe that seat
-so the silicone sits flush with the roof.
+The 300 mL silicone funnel seats in a separate PET-GF frame behind the display,
+across the Y seam. Slide the frame into front-top before closure; back-top
+captures its opposite rails as the enclosure closes. The silicone lifts out
+from above. Deburr and wipe its seat without rounding the rail bearing faces.
 
-The centered 600 mL funnel feeds V-B through `fluid-4`. The elbow points forward;
-the tube turns west, passes around the lowered source valves and returns to V-B.
-The [Ø6.35](FUNNEL_TUBE_D) tube's nearest unconnected hardware body is
-[discharge-chain](FUNNEL_NEAR_A), with **[4.621 mm](FUNNEL_LANE_SIDE)** air.
-The assembly's `clearance-floor` check also includes other tubes and printed pieces and
-[currently passes](FUNNEL_GATE_STATUS). Keep the tube on its drawn route and
-remove any support nibs intruding into that air. The line includes a rise below
-the spout; prove drain and purge behaviour during the assembled fluid trial.
-The funnel itself is fitted after the final wipe-down during finish-and-pack.
+The frame has a plain 6.85 mm drain hole through 3 mm of stock beneath the
+silicone plug. Rigid tube retention and the `fluid-4` connection to V-B remain
+unresolved. Frame intersections with V-K, the flow regulator, fluid-1 and
+fluid-18, and the valve-seat/anchor conflict, are recorded in the
+[integration review](/hardware/printed-parts/zone-c/funnel/integration-review/README.md).
+This area is under design review and is not ready for fluid commissioning.
 
 ## Output condition
 
@@ -237,12 +235,12 @@ A complete mechanical chassis ready for [`internal-plumbing.md`](/hardware/assem
 - Electronics bay bolted to `enclosure-back-top`'s +X wall on [17](EAST_BOSSES) printed bosses, feet on the cold core's cap — PSU, both relays, ground stack and main board, every mounting plane on one seat, plus five Wago lever nuts pressed into the wall's own wells, no tray under any of them — unpowered, AC pigtails hanging free
 - ASSE drip pan + moisture sensor in the west-wall slot under the backflow vent's fall, sensor leads routed toward the electronics bay (not yet terminated)
 - Machine display seated in the rounded 30° housing of `enclosure-front-top`, with the TPU ring on the glass and both cover skirts engaged in their retaining pockets, leads loose
-- Funnel opening deburred, fall corridor clear, silicone funnel **not** yet seated (see [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md))
+- Funnel frame captured by both upper enclosure pieces; drain attachment and recorded intersections resolved before fluid commissioning; silicone funnel **not** yet seated (see [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md))
 - This unit's nameplate set aside in the unit's build folder, **not** applied
 - Chassis bonding lead ring-terminated at the compressor's own earth screw on its terminal box, routed toward the ground stack, not yet terminated at the bus
 - No cabinet-spanning plumbing beyond the prepared front-top manifold subassembly; no AC/DC/signal wiring runs
 
-The card's own reading of the chassis at this point: [100](BODY_COUNT) bodies placed, the pack closing with no two solids sharing volume, and every printed piece on the bed.
+The card's own reading of the chassis at this point: [98](BODY_COUNT) bodies placed, the pack closing with no two solids sharing volume, and every printed piece on the bed.
 
 ## Open items
 

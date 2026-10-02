@@ -95,21 +95,6 @@ def main():
             f"so either they go back on one diameter or the rows read out separately.")
     _co2_hole_d = _F.wall_ports["co2"][3]
 
-    # Funnel corridor — `fluid-4` falls from the funnel's spout to V-B's own inlet, passing
-    # west of the source valves on the way. That run exists only once the funnel is placed
-    # and its lines drawn, past what `build_pack` reaches.
-    _funnel_runs = list(_F.runs)
-    _funnel_run = next((r for r in _funnel_runs if r.id == "fluid-4"), None)
-    if _funnel_run is None:
-        raise ValueError(
-            "no `fluid-4` is drawn — the funnel-corridor paragraph in enclosure-mechanical.md "
-            "describes a tube the machine no longer has, so it needs rewriting, not resyncing.")
-    # The nearest unconnected hardware body is read from the placed run. Other
-    # tubes and printed pieces remain covered by the complete clearance gate.
-    _funnel_near = [(g, other) for other, g in _F.near("fluid-4")]
-    _side, _neighbour = _funnel_near[0]
-    _funnel_gate = _F.check("clearance-floor")
-
     _ox0, _ox1, _oy0, _oy1, _oz0, _oz1 = _box["outer"]
     # WHAT EACH OF THE CORE'S GRIPS STANDS CLEAR OF, off the placed bodies rather than typed
     # beside them. A front block's headroom is the refrigerant loop's: both drawn legs cross the
@@ -258,12 +243,6 @@ def main():
         # between the two seats, taken off the same two depths the facet is cut to, so the
         # doc quotes the gap the ring fills rather than a figure typed beside it.
         "DISPLAY_GASKET_T": f"{_dgasket.thickness:g} mm",
-        # The funnel corridor `fluid-4` falls down, and the gate it stands in.
-        "FUNNEL_LANE_SIDE": f"{_side:.3f} mm",
-        "FUNNEL_NEAR_A": _neighbour,
-        "FUNNEL_TUBE_D": f"Ø{_funnel_run.diam:g}",
-        "FUNNEL_GATE_STATUS": (
-            "currently reports red" if _funnel_gate.status == "fail" else "currently passes"),
     }
 
     substitute_md(
