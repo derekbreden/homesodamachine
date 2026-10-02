@@ -835,7 +835,7 @@ reaches one interface after 105.40 mm and leaves directly through its open side 
 clamp-screw counterbore under its head seat after 8.80 mm; each leaves through the
 counterbore's mouth on the bed face. On front-top all three bodies root on the print bed. One reaches the pump-bay lintel and
 cartridge-facing recesses after 123 mm. The other two branch to the west and east flanks and
-the funnel seat; the west body also reaches the pump-jack roof. Their shortest build-up is
+the funnel seat. Their shortest build-up is
 29 mm. Remove these branches through the empty cartridge bay and funnel opening before
 installing the hardware.
 Four bed-rooted bodies carry the handhold ceilings, one per flank on each bottom piece.
@@ -1550,7 +1550,7 @@ Its 107.5 × 71 mm window laps the glass through the 1 mm TPU gasket. The glass
 face is 4.84 mm below the display plane and its back is 5.84 mm below it. The
 106 × 69 × 17 mm module is offset 0.5 mm laterally and 1 mm down the slope.
 The PCB opening is 23.84 mm deep, retaining 1 mm behind the module's rear face.
-The supporting rib keeps its 3 mm stock and the pump-jack service path stays open.
+The supporting rib keeps its 3 mm stock.
 
 Each horizontal wing is 1.44 mm thick, projects 3.60 mm and spans 70 mm. It has
 0.60 mm clearance below the retaining roof and at least 3.00 mm of capture at
@@ -1571,8 +1571,7 @@ housing, between the display opening and the side cavity. The cavity runs from
 its inboard plane out to 6 mm inside the side wall's flute valleys, and from the front wall
 back to the plane of the pump bay's aft wall, straight up to the ceiling. It opens into
 the bay across its whole floor, and its ceiling is 10.02 mm behind the display plane. Between the two walls the opening continues down to
-the bay as one room, which holds the display's back, SIG-7's run to the ridge bore and the
-pump plug's unplug path.
+the bay as one room, which holds the display's back and SIG-7's run to the ridge bore.
 The ridge's cavity-side roof is one plane around the funnel's rounded clearance envelope.
 Supports carry the lintel's flat underside, the room's short housing strips and the two
 cavity ceilings from the bay; their geometry preserves the display seats and the catches.
@@ -1582,37 +1581,21 @@ turn into the smooth top curves. The rounded display bezel and funnel rim remain
 smooth. Print meshes use a 0.005 mm absolute surface tolerance and 0.05 radian
 angular tolerance before the flute field is cut.
 
-**Running it to the flanks closes the storey, and two electrical paths cross.** The **pump jack**
-owns the centreline a hand finds behind the display, directly above the valves: a RiteAV RJ11
-keystone jack in a printed keystone receptacle, the same module in the same receptacle the +Y
-wall of back-top holds for the umbilical ([`reference/riteav-keystone/`](/hardware/reference/riteav-keystone/)).
-Its nominal [14.8 × 16.3 mm](PUMP_JACK_APERTURE) aperture has an additional 0.25 mm at the
-supported crown. It passes the 3 mm rib, which is the receptacle's
-whole lip; the pocket, the two catches the jack's tang and latch snap over, and the boss that
-carries them stand [6.7 mm](PUMP_JACK_BOSS_REACH) aft of the rib in the cavity, the boss's lower
-wall on the bay bulkhead's crown, which puts the aperture centre at z [297.95 mm](PUMP_JACK_Z). The
-jack goes in from the cavity, tang first, swinging down onto the lower catch, and its
-[30 mm](PUMP_JACK_BODY) body with the 110 punchdown block reaches aft over the valves. The fixed
-J13 lead ends on that punchdown; the cartridge's cord ends in the **pump plug**, an RJ11 6P4C
-modular plug whose clip faces down into the empty pump bay. After the cartridge is drawn, the
-hand reaches up through that bay, presses the clip, pulls the plug straight forward until it is
-clear of the bulkhead, and lowers it through the bay without approaching the display body.
-
-SIG-7 still crosses the rib, at the same height but shifted [+32 mm](DISPLAY_LOOM_X) in X —
+**Running it to the flanks closes the storey, and two electrical runs meet it.** SIG-7 crosses
+the rib halfway up its straight section, [+32 mm](DISPLAY_LOOM_X) in X from the centreline —
 **east**, the side it arrives on, since the run comes forward from the electronics bay along the +X
 wall. Its four conductors are one flat ribbon, and an expandable braid opens over what is inside
 it: over a single 4P ribbon the 1/2" sleeve lies at or under the
 [12.7 mm](CABLE_SLEEVE_NOM) nominal it is bought by and never reaches the ceiling that figure
-opens to, so the teardrop bore is that nominal with air all round — Ø[14.7 mm](CABLE_BORE) — with
-solid stock between it and the receptacle's boss. It locates nothing and carries nothing; the
-display loom is dressed after it is through.
+opens to, so the teardrop bore is that nominal with air all round — Ø[14.7 mm](CABLE_BORE). It
+locates nothing and carries nothing; the display loom is dressed after it is through.
 
 On the same rib's cavity face, one unembedded [9 mm](CABLE_CLIP_DEPTH)-deep cable clip runs toward
-+X and stops [12 mm](PUMP_JACK_CLIP_LAND) short of that edge. It guides and strain-relieves the
-**fixed enclosure-side J13-to-jack lead** on its return to the main-board wall. It does not
-retain the cartridge's cord. The shifted loom bore remains teardropped because the piece beds on
-Z; the receptacle's aperture and pocket keep the module standard's rectangles, whose flat tops the
-rib and the boss bridge.
++X and stops [12 mm](PUMP_LEAD_CLIP_LAND) short of that edge. It guides and strain-relieves the
+**fixed J13-to-contact lead**. From the clip's west end the lead lies along the bay bulkhead's
+crown behind the rib to the centreline, then drops down the bulkhead's aft face into the contact
+pair's lead bore ([Cartridge contacts](#cartridge-contacts)). Nothing on the cartridge is clipped
+here. The loom bore is teardropped because the piece beds on Z.
 
 **That run does not stop at the rib.** Past the clip's +X end the lead turns the corner onto
 front-top's own +X flank face and runs aft to the main-board wall, and SIG-7 arrives forward

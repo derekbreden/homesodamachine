@@ -25,7 +25,7 @@ gooseneck's tip. The user's part is a container under the faucet.
 |---|---|
 | Both Kamoer pumps, [2](CART_PUMPS) molded skirts bearing in the lower cradle and both bosses located by the top clamp ([`pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/README.md)) | [8](TRAY_VALVES) valves — V-C…V-J, on the two valve trays ([`valve-tray/`](/hardware/printed-parts/enclosure/valve-tray/README.md)) |
 | The four barb tubes, on the barbs they were pushed onto | [3](CAP_VALVES) valves — V-A, V-B, V-K, in the cold core's lid cradles (`_cold_core_interface.cap_cradles`) |
-| The pump cartridge's 28 AWG 4P cord, its RJ11 pump plug, and both Faston pairs on the pump tabs | The pump jack, its J13-side 22 AWG 4P ribbon, and the +X ridge-wall cable clip |
+| The contact pair's female half in the top clamp, its four leads in the clamp's crown grooves, and both Faston pairs on the pump tabs | The contact pair's male half in the bay bulkhead, its J13-side 22 AWG 4P ribbon, and the +X ridge-wall cable clip |
 | | All [6](BOX_TEES) PP0208E tees. Y-A and Y-B butt fixed valves; Y-C, Y-D, Y-F and Y-G are the [4](CARRIER_TEES) tees tied into the tee carrier plate, their branch collars journalled in the tee wall |
 | | The integral collet plate and tee-journal wall in `enclosure-front-top` |
 | | The [4](BOWED_STUBS) bowed tee-to-fore-valve stubs and [4](MOVING_HAIRPINS) spine hairpins. Their tee ends move with the tees; their valve ends remain fixed |
@@ -138,20 +138,17 @@ supported. Pull the fore ledge and draw the cradle straight forward along the ba
 The four gripped tubes carry the tees from nominal connected to the fore stop.
 The fixed plate takes up the nose gap and depresses the sleeves, then holds them continuously
 while all [4](JOINT_COUNT_2) tubes leave. Stop if one tube remains caught; do not twist the
-cradle or pry a sleeve. The free cartridge ribbon follows without
-passing through the enclosure-side cable clip.
+cradle or pry a sleeve. The contact pair parts as the cartridge leaves.
 
 With the cradle clear and power still removed, inspect all four cartridge-tube ends for a
 square, unscarred mouth; inspect the four plate holes and the visible travel ends of all eight
-flexible links. Then reach up through the empty
-bay behind the display, press the pump plug's clip from below, pull the plug straight forward
-until it is clear of the plate cap, and lower it through the bay before standing the cradle on
-its bottom floor. Do not lever the jack or pull either ribbon. The four pump Fastons remain made
-off until the cartridge is on the bench.
+flexible links, and wipe both contact faces. The four pump Fastons remain made off until the
+cartridge is on the bench.
 
-**3. Unscrew the top clamp, then swap the pumps.** Back out the [2](CAP_SCREWS)
-M3×[60](CAP_SCREW_LEN) between the pumps and lift the complete clamp straight up. Remove the two
-Faston pairs from the old motor tabs, then lift each pump out of its cradle well. Lower each replacement until its molded
+**3. Unscrew the top clamp, then swap the pumps.** Pull the two Faston pairs off the old motor
+tabs through the clamp's open terminal wells, back out the [2](CAP_SCREWS)
+M3×[60](CAP_SCREW_LEN) between the pumps and lift the complete clamp straight up with the
+contact half and its four leads aboard. Lift each pump out of its cradle well. Lower each replacement until its molded
 skirt lies flat on the cradle lands, lower the clamp until its two octagonal collars surround
 the bosses, then draw both screws down evenly.
 The skirts carry pump weight into the cradle; the clamp prevents lift and fixes X, Y and yaw.
@@ -167,16 +164,15 @@ That LLDPE is what the plate's hole passes and the branch collet grips. **The zi
 load-bearing here** — this joint takes the release tension when the cartridge is next drawn, so
 tug-test each of the four before the deck goes back in.
 
-**5. Connect and seat.** Put both Faston pairs back on the replacement
-motor tabs first — they are unreachable once the cradle is in. With power removed, reach behind
-the display and push the pump plug into the pump jack until it clicks; tug the plug, not the
-cord, to prove it is home. Set the cradle on the bay
+**5. Connect and seat.** Push both Faston pairs back onto the replacement motor tabs through the
+clamp's terminal wells, the +X groove's pair on pump A and the −X groove's on pump B, and lay
+the leads back in their grooves below the crown. With power removed, set the cradle on the bay
 floor and present all four tubes squarely through their plate holes. Bring all four tubes to
 their 10 mm bottoms at the fore stop, with the cartridge still 2.00 mm short of seating. Push
 the cartridge through its final 2.00 mm to seat it with the tubes bottomed at nominal connected
 and 0.50 mm of nose air. Gently tug the cartridge to prove all four connections; if a tube is
 loose, withdraw it, inspect its end and alignment, and reconnect. The cartridge face should
-finish flush.
+finish flush, and the contact pair mates as it does.
 
 **6. Re-prime.** Both channels through the funnel-fill path, then a dispense on each until it
 runs clean. While each channel flows, inspect both replacement-head connections and all visible
@@ -185,8 +181,9 @@ flex links for seepage, rubbing or a link pulled taut.
 ## Output condition
 
 - Both pumps replaced, each bracket bearing in the lower cradle with the top clamp closed, tug-tested
-- The pump plug clicked into the pump jack behind the display; the fixed J13-side ribbon retained
-  in the ridge-wall clip and the cartridge's cord free to follow the next withdrawal
+- Both Faston pairs on the replacement motor tabs and the four leads below the clamp's crown; the
+  contact pair mated with the cartridge seated, and the fixed J13-side ribbon retained in the
+  ridge-wall clip
 - During removal, all four tubes released together at the fore stop
 - Four LLDPE ends secured in the pump tubing and all [4](JOINT_COUNT_4) joints bottomed together at
   the fore stop with the cartridge 2.00 mm short of seating; cartridge fully seated and tubes

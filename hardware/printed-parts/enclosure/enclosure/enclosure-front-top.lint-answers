@@ -7,16 +7,6 @@ click: x=-98.500 y=176.690 z=180.550
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=0.000 y=42.257 z=284.674
 
-[sliver] The pump jack's two snap catches are the module's 1.4 mm upper tang keeper and 1.3 mm lower latch keeper. Both retain their complete sections, backed by the receptacle boss on the ridge wall. The upper catch translates upward by the 0.25 mm supported-face allowance; it is not thinned.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=0.000 y=91.690 z=310.074
-click: x=0.000 y=91.740 z=290.024
-
-[ceiling] The pump jack's pocket roof and upper snap catch are flat module-engagement surfaces. The pocket bridges its two side walls with a 14.95 mm internal width; the catch spans 14.9 mm. `_ridge_keystone` grows the surrounding boss with the 0.25 mm supported relief, preserving its 3 mm surround. Support is accessible through the receptacle mouth.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=0.000 y=89.035 z=312.099
-click: x=0.000 y=91.690 z=310.074
-
 [sliver] The outer valve yoke-entry pocket enters the 9 mm flank by 1.35 mm, from |X|98.50 to |X|99.85. These narrow Y-normal faces are the aft ends of the open pockets, not freestanding strips. The nominal smooth flank backing is 7.65 mm; the 1.2 mm exterior flutes leave at least 6.45 mm. Native full-stock probes retain 7.639 mm of continuous smooth-body X stock behind both complete pocket lengths. The 45-degree roofs in _front_top_flank_pockets preserve that backing.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-99.175 y=117.540 z=252.425
