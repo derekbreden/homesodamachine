@@ -8,7 +8,7 @@ beds clear.
 
 | Part | Printer | Task | Requested Z trim | Native estimate | Printer state |
 | --- | --- | --- | --- | --- | --- |
-| Test receiver | Mark2 | 1303210057 | +0.04 mm | 22 min 56 sec | Printing layer 9/50, 2026-10-02 21:17:30 UTC |
+| Test receiver | Mark2 | 1303210057 | +0.04 mm | 22 min 56 sec | Finished, 2026-10-02 21:32:31 UTC |
 | Test cradle | H2C | 1303138499 | +0.18 mm | 27 min 38 sec | Finished, 2026-10-02 21:02:54 UTC |
 
 Textured-plate compensation emits `G29.1 Z0.02` on Mark2 and `G29.1 Z0.16`
@@ -20,9 +20,11 @@ zero. Its accepted import is byte-identical to the reviewed archive and uses a
 [explicitly rejected submission](receiver-mark2-rejected-send.json) created no
 new task. Automatic resends are disabled.
 
-The cradle's [completion record](cradle-h2c-completion.json) reports all 148
-layers finished, 100%, no printer error and no HMS notice. Physical print quality,
-support removal and fit remain unverified. The paired receiver is still printing.
+The [receiver completion](receiver-mark2-completion.json) reports all 50 layers
+finished, and the [cradle completion](cradle-h2c-completion.json) reports all 148.
+Both printers report 100%, no printer error and no HMS notice. The pair is ready
+for removal after cooling and the bench procedure below. Physical print quality,
+support removal and fit remain unverified.
 
 The shared PET-GF automatic tree profile puts exactly two supports under the
 flat outward hooks. Both start on the bed and stand in open air outside the

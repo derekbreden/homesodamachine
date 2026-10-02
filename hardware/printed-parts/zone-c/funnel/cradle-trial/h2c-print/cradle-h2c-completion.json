@@ -32,5 +32,6 @@
   "bench_check_document": "../README.md",
   "paired_receiver_printer": "Mark2",
   "paired_receiver_task_id": "1303210057",
-  "paired_receiver_status": "printing"
+  "paired_receiver_status": "completed",
+  "pair_ready_for_removal_and_bench_test": true
 }
