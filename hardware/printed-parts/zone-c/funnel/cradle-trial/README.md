@@ -39,7 +39,7 @@ Use the scanned [PP0308E elbow](/hardware/reference/jg-pp0308e-elbow/README.md).
    should fall in under its own weight and sit without rocking.
 2. Hold the receiver with its socket facing up. From below, guide the elbow's collet into the
    drain hole and each wing into its slot.
-3. Pinch both wings inward, about [2.4 mm](TRIAL_PINCH) at the hooks, and push the cradle up until the hooks
+3. Pinch both wings inward, about [2.5 mm](TRIAL_PINCH) at the hooks, and push the cradle up until the hooks
    pass the slots' outer edges. Release the wings; the hooks spring out over the web.
 4. Let go of the cradle. It drops [0.4 mm](TRIAL_CATCH) and hangs from its hooks.
 5. To remove it, press both hooks inward from inside the socket and draw the cradle down.

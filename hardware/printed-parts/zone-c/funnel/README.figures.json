@@ -1,17 +1,17 @@
 {
   "/hardware/printed-parts/zone-c/funnel/elbow_cradle.py": {
-    "CRADLE_BEND": "2.42 mm",
+    "CRADLE_BEND": "2.52 mm",
     "CRADLE_CATCH": "0.4 mm",
     "CRADLE_HOOK": "3.1 mm",
-    "CRADLE_LANE": "3.38 mm",
+    "CRADLE_LANE": "3.35 mm",
     "CRADLE_LENGTH": "31.8 mm",
     "CRADLE_OVERLAP": "2.6 mm",
     "CRADLE_SLIP": "0.15 mm",
-    "CRADLE_STRAIN": "5.5%",
+    "CRADLE_STRAIN": "3.3%",
     "CRADLE_TIP_GAP": "0.15 mm",
-    "CRADLE_WEB": "4.75 mm",
+    "CRADLE_WEB": "4.78 mm",
     "CRADLE_WIDTH": "30.1 mm",
-    "CRADLE_WING_H": "11.24 mm",
+    "CRADLE_WING_H": "14.24 mm",
     "CRADLE_WING_T": "1.3 mm"
   },
   "/hardware/printed-parts/zone-c/funnel/funnel.py": {
@@ -22,7 +22,7 @@
   },
   "/hardware/printed-parts/zone-c/funnel/funnel_frame.py": {
     "FRAME_HOLE": "11.25 mm",
-    "FRAME_SLOTS": "5.18 \u00d7 32.8 mm",
+    "FRAME_SLOTS": "5.15 \u00d7 32.8 mm",
     "FRAME_SOCKET": "36.6 \u00d7 44.7 mm"
   }
 }

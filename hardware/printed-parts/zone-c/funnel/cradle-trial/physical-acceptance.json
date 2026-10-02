@@ -19,6 +19,26 @@
         "hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.stl": "fba0609890e494df9be162c66ba1df90cab2d613f1921ec92a1dad4b5b84973b"
       },
       "print_record": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/README.md"
+    },
+    {
+      "trial": "v2",
+      "source_commit": "3498db7dd",
+      "reported_by": "Derek",
+      "reported_date": "2026-10-02",
+      "insertion": "The cradle snapped.",
+      "retention_and_cycle_testing": "Not reported.",
+      "wing_free_length_mm": 9.24,
+      "cradle_half_width_mm": 15.05,
+      "frame_web_slot_to_hole_mm": 4.745,
+      "printer_jobs": {
+        "H2C": "1303335008",
+        "Mark2": "1303345379"
+      },
+      "geometry_sha256": {
+        "hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.stl": "a12fccaa8557b81198caacc6b7913a0361806beb46d79df29ea62f7aa0fc622f",
+        "hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.stl": "cd25b650c948d38fbe8880bfb51b223620adec2f44bfc56b13316797c308bd4e"
+      },
+      "print_record": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v2/"
     }
   ]
 }
