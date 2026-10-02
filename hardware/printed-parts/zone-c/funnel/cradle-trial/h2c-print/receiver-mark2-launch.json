@@ -6,7 +6,7 @@
   "job_name": "funnel-test-receiver-mark2-v1-settled.gcode.3mf",
   "accepted_observed_utc": "2026-10-02T21:02:45.508698+00:00",
   "task_id_confirmed_utc": "2026-10-02T21:02:54.850713+00:00",
-  "status": "printing_startup_accepted",
+  "status": "printing_first_layers_confirmed",
   "archive": ".cache/prints/funnel-test-receiver-mark2-v1/ready/funnel-test-receiver-mark2-v1.gcode.3mf",
   "archive_sha256": "bf0c29db0750198fc199e4a1ec44e1ea924cf23171ea2eabc2e464a16a1e433f",
   "gcode_sha256": "ec2a209da7e898b4c2284c0c33b8f8cc51495153f72d5e3abab4d4204b9a0584",
@@ -82,5 +82,23 @@
     "observed_at": "2026-10-02T21:02:54.850713+00:00",
     "upload_status": "idle"
   },
-  "physical_fit_and_retention_tested": false
+  "physical_fit_and_retention_tested": false,
+  "first_layer_confirmed_utc": "2026-10-02T21:17:30.935797+00:00",
+  "first_layer_observation": {
+    "job_id": "1303210057",
+    "gcode_state": "RUNNING",
+    "subtask_name": "funnel-test-receiver-mark2-v1-settled.gcode.3mf",
+    "layer_num": 9,
+    "total_layer_num": 50,
+    "mc_percent": 43,
+    "mc_remaining_time": 12,
+    "print_error": 0,
+    "hms": [],
+    "nozzle_temper": 281.0,
+    "nozzle_target_temper": 280.0,
+    "bed_temper": 80.0,
+    "bed_target_temper": 80.0,
+    "stg_cur": 0,
+    "observed_at": "2026-10-02T21:17:30.935797+00:00"
+  }
 }

@@ -40,7 +40,8 @@
           "printer_task_id": "1303210057",
           "job_name": "funnel-test-receiver-mark2-v1-settled.gcode.3mf",
           "accepted_observed_utc": "2026-10-02T21:02:45.508698+00:00",
-          "launch_record": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/receiver-mark2-launch.json"
+          "launch_record": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/receiver-mark2-launch.json",
+          "first_layer_confirmed_utc": "2026-10-02T21:17:30.935797+00:00"
         },
         {
           "printer": "H2C",
