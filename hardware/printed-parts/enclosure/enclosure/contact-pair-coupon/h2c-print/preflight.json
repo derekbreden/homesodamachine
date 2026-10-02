@@ -1,0 +1,179 @@
+{
+  "revision": 2,
+  "status": "reviewed_for_unsupported_contact_seat_trial",
+  "printer": "H2C",
+  "quantity": {
+    "male": 1,
+    "female": 1
+  },
+  "archive": ".cache/prints/contact-pair-coupons-h2c-v2/ready/contact-pair-coupons-h2c-v2.gcode.3mf",
+  "archive_sha256": "e512a754050c30892f3919c29eea1db0a10a64b16909e0282f92cea9b52a2c49",
+  "project": ".cache/prints/contact-pair-coupons-h2c-v2/contact-pair-coupons-h2c-v2-input.3mf",
+  "project_sha256": "77510546c276f22bb7aa9a9554f222ce026e92516c769794f7760a82bbf63365",
+  "gcode_sha256": "a69fdbe7fe802a5a88a83d0decac4394a1a0b067ce4945a39b4594b0c7e6242c",
+  "estimated_seconds": 1334.3519287109375,
+  "source_stl_sha256": {
+    "contact-pair-male-coupon": "89b15219143a475dc3e25650c95f2d0eb5364a3b2bd1a508c4e440beb172794d",
+    "contact-pair-female-coupon": "48106ec308cd970ec96a1609106a3a1ee8495105931eccbeb12af3b504017514"
+  },
+  "requested_z_trim_mm": 0.18,
+  "submitted": false,
+  "support_mode": "coupon_only_support_blockers",
+  "blocked_source_facets": {
+    "contact-pair-male-coupon": 5440,
+    "contact-pair-female-coupon": 4376
+  },
+  "project_members_changed_from_automatic_comparison": [
+    "3D/Objects/object_1.model",
+    "3D/Objects/object_2.model"
+  ],
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "support_paths": 0,
+  "support_summary": {
+    "support_bodies": 0,
+    "interface_islands": 0,
+    "bed_rooted_bodies": 0,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 0,
+    "shortest_labelled_build_up_mm": null
+  },
+  "parts": [
+    {
+      "name": "contact-pair-male-coupon",
+      "source_stl_sha256": "89b15219143a475dc3e25650c95f2d0eb5364a3b2bd1a508c4e440beb172794d",
+      "production_print_pose_retained": true,
+      "native_rotation_x_degrees": 0.0,
+      "plate_bounds_mm": [
+        [
+          114.64999961853027,
+          151.8395004272461,
+          0.0
+        ],
+        [
+          150.35000038146973,
+          168.1604995727539,
+          18.624000549316406
+        ]
+      ],
+      "model_layer_count": 78,
+      "first_two_layer_heights_mm": [
+        0.2,
+        0.44
+      ],
+      "minimum_second_layer_bead_area_overlap_fraction": 0.6421446796829361,
+      "minimum_second_layer_outer_wall_bead_area_overlap_fraction": 0.6421446796829361,
+      "short_inner_wall_corner_segments_below_half_overlap": [],
+      "overlap_scope": "Short corner segments connect to longer anchored inner-wall paths; all second-layer outer walls have more than half their nominal bead area on the first-layer footprint.",
+      "seat_roof_landmark_z_mm": 14.124,
+      "first_roof_layer_z_mm": 14.36,
+      "roof_bridge_layers_mm": [
+        14.36
+      ],
+      "maximum_roof_bridge_toolpath_length_mm": 23.216000000000008
+    },
+    {
+      "name": "contact-pair-female-coupon",
+      "source_stl_sha256": "48106ec308cd970ec96a1609106a3a1ee8495105931eccbeb12af3b504017514",
+      "production_print_pose_retained": true,
+      "native_rotation_x_degrees": 0.0,
+      "plate_bounds_mm": [
+        [
+          174.64999961853027,
+          154.0,
+          0.0
+        ],
+        [
+          210.35000038146973,
+          166.0,
+          12.050000190734863
+        ]
+      ],
+      "model_layer_count": 50,
+      "first_two_layer_heights_mm": [
+        0.2,
+        0.44
+      ],
+      "minimum_second_layer_bead_area_overlap_fraction": 0.22378840857539398,
+      "minimum_second_layer_outer_wall_bead_area_overlap_fraction": 0.9807728326158187,
+      "short_inner_wall_corner_segments_below_half_overlap": [
+        {
+          "area_overlap_fraction": 0.23171980138457707,
+          "feature": "Inner wall",
+          "length_mm": 0.09314504817756367,
+          "start_plate_mm": [
+            198.203,
+            165.317
+          ],
+          "end_plate_mm": [
+            198.179,
+            165.407
+          ],
+          "width_mm": 0.45
+        },
+        {
+          "area_overlap_fraction": 0.31933910238302715,
+          "feature": "Inner wall",
+          "length_mm": 0.18506755523321872,
+          "start_plate_mm": [
+            186.821,
+            165.407
+          ],
+          "end_plate_mm": [
+            186.774,
+            165.228
+          ],
+          "width_mm": 0.45
+        },
+        {
+          "area_overlap_fraction": 0.22378840857539398,
+          "feature": "Inner wall",
+          "length_mm": 0.03201562118714489,
+          "start_plate_mm": [
+            198.226,
+            165.228
+          ],
+          "end_plate_mm": [
+            198.218,
+            165.259
+          ],
+          "width_mm": 0.45
+        }
+      ],
+      "overlap_scope": "Short corner segments connect to longer anchored inner-wall paths; all second-layer outer walls have more than half their nominal bead area on the first-layer footprint.",
+      "seat_roof_landmark_z_mm": 8.05,
+      "first_roof_layer_z_mm": 8.12,
+      "roof_bridge_layers_mm": [
+        8.36
+      ],
+      "maximum_roof_bridge_toolpath_length_mm": 22.882000000000005
+    }
+  ],
+  "export_generator_review": {
+    "export_generator_revision": "9d3b242f9",
+    "export_source_sha256": "84e217aea5a52ec328cd96beed45dcf5f1decbd6346886b2bc897a764b5eb068",
+    "current_source_sha256": "df602889cb0056f76323c12291adfb93ede4c2c08770fcf9f0d6831693d20515",
+    "geometry_functions_and_export_unchanged": true
+  },
+  "automatic_comparison": {
+    "archive": ".cache/prints/contact-pair-coupons-h2c-v1/ready/contact-pair-coupons-h2c-v1.gcode.3mf",
+    "archive_sha256": "a61dde30a815170e823d196c3f0df6a4c236a0156bb5cec39c039105e5f1ed33",
+    "support_summary": {
+      "support_bodies": 3,
+      "interface_islands": 5,
+      "bed_rooted_bodies": 2,
+      "model_rooted_bodies": 1,
+      "shortest_build_up_mm": 0.0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 5,
+      "shortest_labelled_build_up_mm": 0.0
+    },
+    "record": "automatic-support-audit.json"
+  },
+  "geometry_record_sha256": "4e178924c90070f0acb2253742edc93519a5b50938b03e2e0fbd1271a68b6cad",
+  "physical_fit_tested": false
+}
