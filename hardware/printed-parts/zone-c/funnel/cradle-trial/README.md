@@ -29,6 +29,8 @@ support. The cradle prints on its bottom with the pocket opening upward. The two
 undersides are retention bearings [33.6 mm](TRIAL_HOOK_BED) above the bed and take accessible supports from the
 bed under them. Nothing else on the cradle needs support.
 
+The H2C print and its native slice are recorded in [`h2c-print/`](h2c-print/README.md).
+
 ## Procedure
 
 Use the scanned [PP0308E elbow](/hardware/reference/jg-pp0308e-elbow/README.md).
