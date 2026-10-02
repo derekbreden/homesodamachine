@@ -1,0 +1,344 @@
+{
+  "source": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+  "source_sha256": "eb269385f545e9ea2735260c9dd4ede7bdf7b23b08342bd5ad55c1f7d63974dd",
+  "method": "Intersections of closed exported assembly meshes above 0.1 mm3; individual component meshes remain in their assembly positions.",
+  "frame_datums": {
+    "depth_mm": 81.78301584656256,
+    "center_y": 182.5,
+    "spout_y": 182.5,
+    "capacity_ml": 299.904352,
+    "frame_floor_z": 299.9,
+    "silicone_bottom_z": 302.9,
+    "tube_web_mm": 3.0,
+    "rail_base_z": 306.9,
+    "rail_top_z": 321.7,
+    "rail_start_y": 147.60849207671873,
+    "rail_end_y": 226.69150792328128,
+    "seam_y": 200.0,
+    "frame_width_mm": 207.0,
+    "frame_depth_mm": 106.38301584656256,
+    "frame_height_mm": 49.10000000000002,
+    "tube_hole_diameter_mm": 6.85,
+    "tube_hole_xy_mm": [
+      1.85,
+      182.5
+    ],
+    "socket_id_mm": 36.6,
+    "socket_floor_z": 302.9,
+    "corbels": [
+      {
+        "edge": "Y-",
+        "angle_from_vertical_deg": 30.0,
+        "foot_distance_y": 27.5,
+        "foot_y": 155.0,
+        "end_y": 129.30849207671872,
+        "end_z": 344.39899704618153,
+        "minimum_normal_stock_mm": 3.0785449789290014,
+        "blend_radius_mm": 0.0,
+        "cut_x_half_width_mm": 140.0,
+        "full_width": true
+      },
+      {
+        "edge": "Y+",
+        "angle_from_vertical_deg": 30.0,
+        "foot_distance_y": 27.5,
+        "foot_y": 210.0,
+        "end_y": 235.69150792328128,
+        "end_z": 344.39899704618153,
+        "minimum_normal_stock_mm": 3.0794646151720904,
+        "blend_radius_mm": 0.0,
+        "cut_x_half_width_mm": 140.0,
+        "full_width": true
+      }
+    ],
+    "implemented": true,
+    "valve_movement_mm": [
+      0,
+      15,
+      -3
+    ],
+    "valve_frame_min_gap_mm": 2.427946810131117,
+    "valve_lid_intersections": [
+      {
+        "part": "valve-v-a",
+        "other": "cold-core/foam-cap-lid-top",
+        "mm3": 123.31734195603744
+      }
+    ]
+  },
+  "intersections": [
+    {
+      "role": "frame",
+      "part": "vk-solenoid/4",
+      "base": "vk-solenoid",
+      "mm3": 0.478,
+      "bounds": [
+        [
+          62.685,
+          217.31,
+          312.561
+        ],
+        [
+          67.715,
+          217.817,
+          313.44
+        ]
+      ]
+    },
+    {
+      "role": "frame",
+      "part": "flow-regulator",
+      "base": "flow-regulator",
+      "mm3": 376.302,
+      "bounds": [
+        [
+          -96.694,
+          220.26,
+          317.671
+        ],
+        [
+          -83.006,
+          226.708,
+          328.838
+        ]
+      ]
+    },
+    {
+      "role": "frame",
+      "part": "tube-fluid-1",
+      "base": "tube-fluid-1",
+      "mm3": 943.63,
+      "bounds": [
+        [
+          -93.002,
+          203.085,
+          299.9
+        ],
+        [
+          -86.698,
+          220.26,
+          325.186
+        ]
+      ]
+    },
+    {
+      "role": "frame",
+      "part": "tube-fluid-18",
+      "base": "tube-fluid-18",
+      "mm3": 441.809,
+      "bounds": [
+        [
+          76.01,
+          170.288,
+          299.9
+        ],
+        [
+          89.548,
+          211.429,
+          302.375
+        ]
+      ]
+    }
+  ],
+  "valve_frame_gaps": [
+    {
+      "part": "valve-v-a",
+      "gap_mm": 25.0
+    },
+    {
+      "part": "coil-v-a/1",
+      "gap_mm": 8.371290849914743
+    },
+    {
+      "part": "coil-v-a/2",
+      "gap_mm": 2.427946810131117
+    },
+    {
+      "part": "coil-v-a/3",
+      "gap_mm": 2.427946810131117
+    },
+    {
+      "part": "valve-v-b",
+      "gap_mm": 25.0
+    },
+    {
+      "part": "coil-v-b/1",
+      "gap_mm": 8.371290849914743
+    },
+    {
+      "part": "coil-v-b/2",
+      "gap_mm": 2.427946810131117
+    },
+    {
+      "part": "coil-v-b/3",
+      "gap_mm": 2.427946810131117
+    }
+  ],
+  "valve_translation": [
+    {
+      "part": "valve-v-a",
+      "bounds_translation_mm": [
+        [
+          -0.035,
+          15.0,
+          -3.0
+        ],
+        [
+          0.009,
+          15.0,
+          -2.953
+        ]
+      ]
+    },
+    {
+      "part": "coil-v-a/1",
+      "bounds_translation_mm": [
+        [
+          0.0,
+          14.95,
+          -3.0
+        ],
+        [
+          0.0,
+          15.0,
+          -3.0
+        ]
+      ]
+    },
+    {
+      "part": "coil-v-a/2",
+      "bounds_translation_mm": [
+        [
+          -0.074,
+          14.926,
+          -3.0
+        ],
+        [
+          0.074,
+          15.074,
+          -3.0
+        ]
+      ]
+    },
+    {
+      "part": "coil-v-a/3",
+      "bounds_translation_mm": [
+        [
+          -0.074,
+          14.926,
+          -3.0
+        ],
+        [
+          0.074,
+          15.074,
+          -3.0
+        ]
+      ]
+    },
+    {
+      "part": "valve-v-b",
+      "bounds_translation_mm": [
+        [
+          -0.009,
+          15.0,
+          -3.0
+        ],
+        [
+          0.009,
+          15.0,
+          -2.953
+        ]
+      ]
+    },
+    {
+      "part": "coil-v-b/1",
+      "bounds_translation_mm": [
+        [
+          0.0,
+          14.95,
+          -3.0
+        ],
+        [
+          0.0,
+          15.0,
+          -3.0
+        ]
+      ]
+    },
+    {
+      "part": "coil-v-b/2",
+      "bounds_translation_mm": [
+        [
+          -0.074,
+          14.926,
+          -3.0
+        ],
+        [
+          0.074,
+          15.074,
+          -3.0
+        ]
+      ]
+    },
+    {
+      "part": "coil-v-b/3",
+      "bounds_translation_mm": [
+        [
+          -0.074,
+          14.926,
+          -3.0
+        ],
+        [
+          0.074,
+          15.074,
+          -3.0
+        ]
+      ]
+    }
+  ],
+  "other_component_stations": [
+    {
+      "part": "vk-solenoid/4",
+      "max_bound_change_mm": 0.05900000000002592
+    },
+    {
+      "part": "flow-regulator",
+      "max_bound_change_mm": 0.000362731933591931
+    },
+    {
+      "part": "tube-fluid-1",
+      "max_bound_change_mm": 0.0004287109375127329
+    },
+    {
+      "part": "tube-fluid-18",
+      "max_bound_change_mm": 0.0001500244140686391
+    },
+    {
+      "part": "pump-jack",
+      "max_bound_change_mm": 1.1230468771827873e-05
+    }
+  ],
+  "cap_feature_intersections": {
+    "frame": "cap local coordinates",
+    "intersections": [
+      {
+        "valve": "valve-v-a",
+        "anchor": "fluid-14",
+        "volume_mm3": 232.46460589227866,
+        "bounds_cap_mm": [
+          [
+            60.599999999999966,
+            38.425,
+            5.4
+          ],
+          [
+            69.4,
+            43.57,
+            12.825000000000001
+          ]
+        ]
+      }
+    ],
+    "clear": false
+  }
+}

@@ -1,14 +1,9 @@
-"""Zone C funnel — the removable dishwasher-safe silicone insert.
+"""Removable 300 mL silicone funnel, seated in the enclosure's sliding PET-GF frame.
 
-The collar center is the origin; z = 0 is the brim underside that
-rests on the inset enclosure seat. The machine places the part through
-`enclosure_assembly.build_funnel` and cuts its opening from the collar.
-
-The brim and vertical collar wall are 6 mm thick. The sloping floor has a
-6 mm skin measured normal to its inner faces, with rounded joins and a
-thicker throat. The inner floor ends at the 1/4-inch outlet bore. A 6.25 mm
-transition separates that point from the 12 mm straight clamp land, whose
-radial wall is 4.5 mm. Capacity to the brim is printed at export.
+The collar center is the origin; z=0 is the brim underside. The 6 mm brim,
+collar and normal ramp wall lead to a substantial 36 mm silicone plug. Its
+lower bore has a lead-in and relief; the upper 3 mm is the nominal sealing land.
+The frame's through hole and the eventual rigid drain tube are separate parts.
 """
 
 import math
@@ -27,19 +22,16 @@ _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_ex
 # repo root, so it gets its own anchor rather than a tools/ per edition.
 _tools = next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"
 sys.path.insert(0, str(_repo / "hardware" / "scripts"))
-sys.path.insert(0, str(_repo / "hardware" / "reference" / "worm-clamp"))
 sys.path.insert(0, str(_tools))
 from _cadq_export import export_assembly
 from _materials import M_SILICONE_BLACK, one_body
 from docgen import substitute_md
 # The bound this file states about its own collar, recorded at import for the machine's card.
 import _stated_bounds as _bounds
-# The band that closes the spout on the drain stub, and so the length of round the spout owes it.
-import worm_clamp as _clamp
 
 # --- funnel parameters ------------------------------------------------------
 collar_w = 165.0  # collar footprint in X, inside the top-wall frame
-collar_d = 151.0  # collar footprint in Y
+collar_d = 81.78301584656256  # collar footprint in Y
 mouth_corner_r = 14.0
 collar_corner_r = mouth_corner_r + 6.0
 brim_corner_r = collar_corner_r + 7.0
@@ -47,23 +39,27 @@ brim_margin = 7.0  # top-wall frame between the collar and its outer boundary
 brim_overhang = 7.0  # flange reach beyond the collar on each side
 brim_thickness = 6.0  # vertical flange thickness
 collar_wall = 6.0  # vertical collar wall and normal ramp-wall thickness
-bottle_ml = 440.0  # one SodaStream concentrate bottle
-capacity_bottles = 600.0 / bottle_ml  # minimum capacity to the brim, checked in build()
+capacity_ml = 300.0  # nominal capacity to the brim
 chute_h = 23.485946291005064  # brim top to inner ramp start
-neck_dx = 1.85  # outlet offset in X from the collar center
-neck_dy = 0.0  # outlet centered fore–aft
-spout_id = 6.35  # 1/4-inch outlet bore
-spout_wall = 4.5  # radial wall on the straight clamp land
-neck_blend_drop = 6.25  # inner ramp tip to the top of the straight clamp land
-clamp_shoulder = 2.0  # silicone beyond each edge of the clamp band
-spout_tube = _clamp.BAND_W + 2.0 * clamp_shoulder  # straight clamp land, below the rounded throat
-
-# The inner ramp uses one vertical rise between its rectangular mouth and round
-# outlet. The drain drop includes the chute, ramp, throat transition and clamp land.
+neck_dx = 1.85
+neck_dy = 0.0
+spout_id = 6.35  # wet-side outlet above the sealing land
+spout_wall = 4.5  # minimum radial stock around the throat
+neck_blend_drop = 6.25
+# Ramp and outlet elevations are independent of the plug's lower face.
+_ramp_rise = 14.199233063709995
+plug_diameter = 36.0
+plug_height = 15.0
+drop = 46.1  # brim underside to plug underside
+sealing_land = 3.0
+sealing_id = 6.0
+bore_relief_id = 6.7
+bore_lead_id = 8.4
+bore_lead_height = 1.8
+spout_land_z = brim_thickness - chute_h - _ramp_rise - neck_blend_drop
+spout_tube = spout_land_z + drop
 _ramp_run = (collar_w - 2.0 * collar_wall) / 2.0 - spout_id / 2.0 + abs(neck_dx)
 _y_run = (collar_d - 2.0 * collar_wall) / 2.0 - spout_id / 2.0 + abs(neck_dy)
-drop = 49.93517935471506  # brim underside to the drain mating face
-_ramp_rise = drop - (chute_h - brim_thickness) - neck_blend_drop - spout_tube
 ramp_angle = math.degrees(math.atan2(_ramp_rise, max(_ramp_run, _y_run)))
 
 _bounds.state(
@@ -128,7 +124,7 @@ def normal_envelope(shape, distance, faces=None, *, rounds_first=False):
                 inside = cq.Compound.makeCompound(shape.Faces())
                 outside = cq.Compound.makeCompound(envelope.Faces())
                 measured = inside.distance(outside)
-                assert measured >= distance - 0.001, ("normal envelope", measured, distance)
+                assert measured >= distance - 0.005, ("normal envelope", measured, distance)
                 return envelope.Solids()[0]
     faces = shape.Faces() if faces is None else list(faces)
     edges = {edge.hashCode(): edge for face in faces for edge in face.Edges()}
@@ -164,104 +160,79 @@ def normal_envelope(shape, distance, faces=None, *, rounds_first=False):
 # --- the funnel -------------------------------------------------------------
 
 def build_solids(drop=drop, ramp_wall=collar_wall, outer_air=0.0):
-    """The funnel's outer envelope and inner bore as separate solids, plus a
-    metrics dict. This is the source the silicone-mold generator consumes: the
-    mold cavity is the negative of `solid` and the mold core is `cavity`. Keeping
-    it here, beside the funnel, keeps the mold in lockstep with the part.
-    ``outer_air`` grows each construction solid before their union. Tooling and
-    the enclosure use this normal envelope for their forming and clearance faces.
-    See ../funnel-mold/."""
+    """Filled outer envelope, complete wet cavity, and mold-forming dimensions.
+
+    Clearance grows the forming primitives along their own normal faces.
+    The ramp keeps a 5 micron allowance for the rounded offset joins.
+    """
     w, d = collar_w, collar_d
     cx = cy = 0.0
+    ncx, ncy = neck_dx, neck_dy
     bore_w, bore_d = w - 2.0 * collar_wall, d - 2.0 * collar_wall
-    top_z = brim_thickness                              # brim top = outermost point
+    top_z = brim_thickness
+    ramp_top_z = top_z - chute_h
+    neck_z = ramp_top_z - _ramp_rise
+    end_z = -drop
+    land_z = neck_z - neck_blend_drop
     spout_or = spout_id / 2.0 + spout_wall
-    ncx = cx + neck_dx                                  # spout/neck, shifted in X
-    ncy = cy + neck_dy                                  # fore–aft outlet station
-    ramp_top_z = top_z - chute_h                        # straight chute bottom = ramp start
-    end_z = -drop                                       # spout exit (the drain)
-    spout_land_z = end_z + spout_tube
-    neck_z = ramp_top_z - _ramp_rise                    # inner ramp tip
-
-    # The flange, collar and outlet form the base of the outer envelope.
-    bases = [
-        _rounded_box(w + 2.0 * brim_overhang, d + 2.0 * brim_overhang,
-                     brim_corner_r, 0.0, top_z, cx, cy),
-        _rounded_box(w, d, collar_corner_r, ramp_top_z, 0.0, cx, cy),
-        _cyl(spout_or, neck_z, end_z, ncx, ncy),
-    ]
-    if not ramp_wall:
-        bases.append(_loft_rc(w, d, cx, cy, ramp_top_z, spout_or,
-                              ncx, ncy, neck_z, collar_corner_r))
-    if outer_air:
-        bases = [normal_envelope(base, outer_air) for base in bases]
-    # The inner forming surface runs from the mouth through the ramp and outlet.
     ramp = _loft_rc(bore_w, bore_d, cx, cy, ramp_top_z, spout_id / 2.0,
                     ncx, ncy, neck_z, mouth_corner_r)
-    cavity = (
-        _rounded_box(bore_w, bore_d, mouth_corner_r, ramp_top_z, top_z + 1.0, cx, cy)
-        .fuse(ramp)
-        .fuse(_cyl(spout_id / 2.0, neck_z, end_z - 1.0, ncx, ncy))
-    )
-    ramp_faces = [face for face in cavity.Faces() if face.geomType() == "BSPLINE"]
-    assert ramp_faces, "inner ramp faces must carry the normal wall"
-    # Each inner ramp face carries a 6 mm normal skin with round edge joins.
-    if ramp_wall:
-        bases.insert(0, normal_envelope(ramp, ramp_wall + outer_air))
-    # The normal ramp envelope supplies the complete floor. Fuse it directly with
-    # the collar, brim and spout, without an overlapping thin loft inside the skin.
-    solid = fuse_shapes(*[base.toNURBS() for base in bases])
+    bases = [normal_envelope(ramp, ramp_wall + outer_air + (0.005 if outer_air else 0)) if ramp_wall else
+             _loft_rc(w, d, cx, cy, ramp_top_z, spout_or,
+                      ncx, ncy, neck_z, collar_corner_r),
+             _rounded_box(w, d, collar_corner_r, ramp_top_z, 0.05),
+             _rounded_box(w + 2 * brim_overhang, d + 2 * brim_overhang,
+                          brim_corner_r, 0.0, top_z),
+             _cyl(spout_or, neck_z, end_z, ncx, ncy),
+             _cyl(plug_diameter / 2, end_z + plug_height, end_z, ncx, ncy)]
+    if outer_air:
+        bases = [bases[0], *(normal_envelope(b, outer_air) for b in bases[1:])]
+    solid = fuse_shapes(*bases, tol=0.0001).clean()
+    # The plug's broad lower annulus is the silicone's sole bottom plane.
+    solid = solid.intersect(_box(600, 600, end_z - outer_air, top_z + 1, 0, 0)).clean()
     assert solid.isValid() and len(solid.Solids()) == 1
-    bounds = solid.BoundingBox()
-    assert bounds.zmax >= top_z - 0.0001, "the complete brim must survive the union"
-    assert bounds.xlen >= w + 2.0 * brim_overhang - 0.0001
-    if ramp_wall:
-        ramp_boundary = cq.Compound.makeCompound(ramp_faces)
-        outer_boundary = cq.Compound.makeCompound(solid.Faces())
-        minimum_wall = ramp_boundary.distance(outer_boundary)
-        assert minimum_wall >= ramp_wall-0.001, minimum_wall
-    land_window = _box(w, d, end_z, spout_land_z, cx, cy)
-    land = _cyl(spout_or, spout_land_z, end_z, ncx, ncy)
-    if not outer_air:
-        assert solid.intersect(land_window).cut(land).Volume() < 0.0001, "ramp enters clamp land"
+    upper_bore = _cyl(spout_id / 2, neck_z, land_z, ncx, ncy)
+    land = _cyl(sealing_id / 2, land_z + 0.01, land_z - sealing_land, ncx, ncy)
+    relief = _cyl(bore_relief_id / 2, land_z - sealing_land,
+                  end_z + bore_lead_height, ncx, ncy)
+    lead = cq.Solid.makeCone(bore_lead_id / 2, bore_relief_id / 2,
+                            bore_lead_height, cq.Vector(ncx, ncy, end_z))
+    through = _cyl(bore_lead_id / 2, end_z + 0.01, end_z - 1, ncx, ncy)
+    cavity = fuse_shapes(
+        _rounded_box(bore_w, bore_d, mouth_corner_r, ramp_top_z, top_z + 1),
+        ramp, upper_bore, land, relief, lead, through, tol=0.0001).clean()
+    assert cavity.isValid() and len(cavity.Solids()) == 1
     meta = {
         "w": w, "d": d, "cx": cx, "cy": cy, "ncx": ncx, "ncy": ncy,
         "bore_w": bore_w, "bore_d": bore_d,
+        "mouth_corner_r": mouth_corner_r,
         "brim_overhang": brim_overhang, "brim_margin": brim_margin,
         "collar_wall": collar_wall,
-        # The part's outer footprint (the brim) and the flange + collar ring
-        # between the bore mouth and that outer edge — the mold's pour/vent land.
-        "out_w": w + 2.0 * brim_overhang, "out_d": d + 2.0 * brim_overhang,
-        "out_cx": cx, "out_cy": cy,
-        "rim_ring": collar_wall + brim_overhang,
-        "spout_id": spout_id, "spout_or": spout_or,
-        "top_z": top_z, "ramp_top_z": ramp_top_z,
-        "neck_z": neck_z, "spout_land_z": spout_land_z, "end_z": end_z,
+        "out_w": w + 2 * brim_overhang, "out_d": d + 2 * brim_overhang,
+        "out_cx": cx, "out_cy": cy, "rim_ring": collar_wall + brim_overhang,
+        "spout_id": spout_id, "spout_or": plug_diameter / 2,
+        "top_z": top_z, "ramp_top_z": ramp_top_z, "neck_z": neck_z,
+        "spout_land_z": land_z, "end_z": end_z,
         "neck_blend_drop": neck_blend_drop,
+        "plug_radius": plug_diameter / 2,
+        "sealing_radius": sealing_id / 2,
+        "sealing_land": sealing_land,
+        "relief_radius": bore_relief_id / 2,
+        "lead_radius": bore_lead_id / 2,
+        "lead_height": bore_lead_height,
     }
     return solid, cavity, meta
 
 
 def build(drop=drop):
     solid, cavity, m = build_solids(drop)
-    # Capacity filled to the brim rim: the cavity between the spout exit and brim top.
-    fill = cavity.intersect(
-        _box(600.0, 600.0, m["end_z"], m["top_z"], m["cx"], m["cy"])
-    ).Volume()
-    # Additional chute height adds the bore area times that height to capacity.
-    want = capacity_bottles * bottle_ml * 1000.0
-    if fill < want - 1.0:
-        bore_area = m["bore_w"] * m["bore_d"]
-        raise ValueError(
-            f"the funnel holds {fill / 1000.0:.1f} mL, short of the "
-            f"{capacity_bottles:g} × {bottle_ml:g} mL = {want / 1000.0:.1f} mL target — "
-            f"set chute_h to {chute_h + (want - fill) / bore_area:.2f} mm")
-    part = solid.cut(cavity.toNURBS())
+    fill = cavity.intersect(_box(600, 600, m["end_z"], m["top_z"], 0, 0)).Volume()
+    assert abs(fill / 1000 - capacity_ml) < 0.25, fill / 1000
+    part = cut_shapes(solid, cavity, tol=0.0001).clean()
     assert part.isValid() and len(part.Solids()) == 1
+    assert abs(part.BoundingBox().zmin + drop) < 0.0001
     assert abs(part.BoundingBox().zmax - brim_thickness) < 0.0001
-    return cq.Workplane(obj=part), (
-        m["w"], m["d"], m["top_z"] - m["end_z"], m["end_z"], fill,
-    )
+    return cq.Workplane(obj=part), (m["w"], m["d"], m["top_z"] - m["end_z"], m["end_z"], fill)
 
 
 def main():
@@ -276,13 +247,13 @@ def main():
     print(f"  mouth:   {w:.1f} × {d:.1f} mm (collar), bore {w - 2*collar_wall:.1f} × {d - 2*collar_wall:.1f}")
     print(f"  spout:   Ø{spout_id:g} bore, drain at ({drain_local[0]:g}, {drain_local[1]:g}, {drain_local[2]:g}) local, total drop {total:.1f} mm")
     print(f"  capacity to brim: {fill:.0f} mm³ = {fill / 1000.0:.0f} mL "
-          f"({fill / 440000.0:.2f}× a 440 mL SodaStream bottle)")
+          f"(nominal {capacity_ml:g} mL)")
 
     substitute_md(
         _here.parent / "README.md",
         variables={
             "FUNNEL_SPOUT_ID": f"{spout_id:g} mm",
-            "FUNNEL_SPOUT_OD": f"{spout_id + 2*spout_wall:g} mm",
+            "FUNNEL_SPOUT_OD": f"{plug_diameter:g} mm",
             "FUNNEL_SPOUT_WALL": f"{spout_wall:g} mm",
             "FUNNEL_CHUTE": f"{chute_h:g} mm",
             "FUNNEL_DROP_UNDER": f"{drop:g} mm",

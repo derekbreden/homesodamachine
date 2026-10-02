@@ -1596,22 +1596,18 @@ sloped face from the clip's fore end through the seam rather than three with ste
 
 ## Funnel opening
 
-The removable silicone funnel sits in a rounded recess behind the display. Its
-6 mm brim is flush with the roof at Z355 and bears on a seat at Z349. A continuous
-6 mm section supports the brim, filling outward to the enclosure walls. Outside
-the brim's footprint, the surround keeps the existing ceiling pockets for the
-internal hardware. Both top quadrants carry their portion of the bearing. The ceiling tongue runs below the
-bearing section with 0.25 mm running clearance, and the six enclosure seam screws
-retain their existing axes.
+The 300 mL silicone funnel sits in a separate solid PET-GF frame centered at
+Y182.5. The frame slides into front-top's receivers; closing the enclosure
+captures its rear rails in back-top. `funnel_frame.py` uses the production
+Z-seam heads and channels with the same section and fit allowances. The
+receiving bands are part of the corresponding enclosure solids.
 
-The opening follows the funnel's rounded collar, ramp and outlet with
-[0.25 mm](FUNNEL_COLLAR_AIR) running clearance. The drain is centered fore–aft
-at X1.85, Y182.5, Z299.0648. The basin holds 600 mL within its inset rounded brim.
-V-A/B, Y-A/B and V-C/D sit 9.5 mm below the outer manifold limbs. The flow
-regulator points 25° down toward the center, with its square hub in a shallow
-clearance pocket in the 9 mm west flank. The silicone funnel and its
-casting molds share the same source geometry in
-[`zone-c/funnel/`](/hardware/printed-parts/zone-c/funnel/).
+The frame's top is Z349, its flat underside is Z299.9, and its two full-width
+end corbels are 30° from vertical. It leaves a 3 mm web beneath the silicone
+plug, pierced only by a plain 6.85 mm tube hole. The shell opening clears the
+frame body, while the rail channels retain their separate functional profile.
+See [`../../zone-c/funnel/`](../../zone-c/funnel/) for dimensions and the open
+drain-attachment requirement.
 
 ## back-top's ceiling
 

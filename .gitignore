@@ -78,6 +78,7 @@ tools/cad-venv
 # web/scripts/fetch-cad-artifacts.mjs puts them on the disk a deploy serves from. The lock is
 # what git carries.
 *.step
+hardware/printed-parts/zone-c/funnel/funnel-frame.stl
 # The placement pass hands this description directly from `//:enclosure-box` to the enclosure,
 # ceiling and full-assembly actions. Direct design runs derive the live placement and never read
 # a checkout copy, so retaining one here would only preserve a stale action intermediate.

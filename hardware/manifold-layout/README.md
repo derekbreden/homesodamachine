@@ -96,26 +96,26 @@ axis runs along X, so the pair shares one transform and still faces itself acros
 
 ### The source valves' step
 
-V-A/B, Y-A/B and V-C/D sit 6 mm below the outer limbs in the enclosure. Both
-source bends move with that group. The source valve cradles stand 5.615 mm
-above the cap lid, leaving room for the centered 600 mL funnel.
+Y-A/B and V-C/D sit 9.5 mm below the outer limbs in the enclosure. Both source
+bends move with that group. V-A and V-B stand on 2.225 mm seats above the cap
+lid, aft of the centered 300 mL funnel frame.
 
-Once they are round, V-A and V-B go [19.72](STEP_TRAVEL) mm further along their run and
-[7](STEP_JOG) mm across it, toward the foam shell's crown, without changing direction. Two arcs
+Once they are round, V-A and V-B go [34.72](STEP_TRAVEL) mm further along their run and
+[10](STEP_JOG) mm across it, toward the foam shell's crown, without changing direction. Two arcs
 of one radius with a straight between them do that, and the two distances fix the pair:
 
     travel = 2R·sinθ + s·cosθ        jog = 2R(1 − cosθ) + s·sinθ
 
 which solve to `(2R − jog)·cosθ + travel·sinθ = 2R`, and at R[14](QUARTER_R) that is
-θ = [29.601](STEP_ANGLE)° either side of s = [6.77](STEP_STRAIGHT) mm —
-[21.24](STEP_LEN) mm of tube.
+θ = [18.318](STEP_ANGLE)° either side of s = [27.30](STEP_STRAIGHT) mm —
+[36.26](STEP_LEN) mm of tube.
 
 That pair has a member only while `(2R − jog)² + travel² ≥ (2R)²`, and the travel is not this
 run's to choose: V-A and V-B stand on the cold core's cap, which the pack does not carry, so
 every millimetre the pack goes aft — the collet plate's berth among them — comes off it. **THE
 JOG IS WHAT THE FLOOR IS SET BY.** Written out, that floor is `√(jog·(4R − jog))`, and it climbs
-with the jog for every jog under 2R: at [7](STEP_JOG2) mm across it is
-[18.52](STEP_FLOOR) mm against a travel of [19.72](STEP_TRAVEL2), so each run is the pair of
+with the jog for every jog under 2R: at [10](STEP_JOG2) mm across it is
+[21.45](STEP_FLOOR) mm against a travel of [34.72](STEP_TRAVEL2), so each run is the pair of
 arcs and nothing else.
 
 Under that floor the family has no member at all, and a run that cannot span its jog has to go
@@ -131,9 +131,9 @@ the travel**, because each quarter spends R on both axes. So 90° turns step 28 
 that holds the run and the way it steps, so leaning that plane about the run costs the step
 nothing — one pair of arcs carries a valve toward the crown and outboard at the same time, and
 only the length of the step is solved for. V-A takes [2.42](STEP_SPREAD) mm of that: it steps
-[7.41](STEP_CROSS_A) mm across in the same [19.72](STEP_TRAVEL3) along, θ = [32.878](STEP_ANGLE_A)° either side of
-s = [5.38](STEP_STRAIGHT_A) mm, [21.45](STEP_LEN_A) mm of tube. V-A retains this
-outboard offset; the funnel drain runs around the west side of the pair.
+[10.29](STEP_CROSS_A) mm across in the same [34.72](STEP_TRAVEL3) along, θ = [18.894](STEP_ANGLE_A)° either side of
+s = [27.11](STEP_STRAIGHT_A) mm, [36.35](STEP_LEN_A) mm of tube. V-A retains this
+outboard offset.
 
 **Y-C, Y-D, Y-F and Y-G** receive the four barbs through short straight runs on the barbs' own
 axes, branch down, at the hinge. **Y-A and Y-B** stand on the
@@ -163,10 +163,10 @@ V-I-O and V-H-I for B — on the lower.
 
 ## Envelope
 
-[198](ENV_X) × [172](ENV_Y) × [247](ENV_Z) mm — [8.42](ENV_L) L of bounding box over the
+[198](ENV_X) × [169](ENV_Y) × [262](ENV_Z) mm — [8.77](ENV_L) L of bounding box over the
 bodies and the tube between them, with [0](CLASHES) pairs of placed solids sharing volume.
 Add one [14](STUB_LEN) mm mouth stub on each of the [8](MOUTH_COUNT2) and it is
-[198](REACH_X) × [172](REACH_Y) × [261](REACH_Z).
+[198](REACH_X) × [169](REACH_Y) × [276](REACH_Z).
 
 Two figures in [`manifold_layout.py`](manifold_layout.py) are the study's own rather than any
 part's. `BUTT` is the tube left outside a pair of butted quick-connects, and it is 0.

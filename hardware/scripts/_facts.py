@@ -125,9 +125,7 @@ DECLARED_GAPS = (
 # THE HORIZON IS THIS LIST'S, the way `DECLARED_GAPS`' is. What a lane's two sides measure and
 # where the tight end of the pack lies are two questions, so a sentence naming a neighbour at
 # five millimetres has a reading here whatever the card's `REPORT_NEAR` stops at.
-DECLARED_RUN_NEIGHBOURS = (
-    ("fluid-4", 6.0),
-)
+DECLARED_RUN_NEIGHBOURS = ()
 
 # The bodies whose ports a printed card holds its own sentence against — `assembly/cards/`,
 # which is the only reader of `card_ports`. A name here is a name a card asserts on; the

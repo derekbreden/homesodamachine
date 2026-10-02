@@ -7,36 +7,26 @@ rest of the pack stands, and what each face of the box carries:
 
 ## The opening
 
-One rectangular opening spans the top wall behind the display facet
-([`../enclosure/enclosure/`](/hardware/printed-parts/enclosure/enclosure/)
-`_funnel_hole`), cut from the placed funnel's own collar. It reaches aft
-across the Y seam, so both top pieces carry their share of the cut and the
-collar bridges it.
+The opening behind the display receives the full-width PET-GF funnel frame.
+The frame enters front-top's sliding receivers and is captured by back-top as
+the enclosure closes. Its rails use the same section and fit allowances as the
+enclosure's sliding joints. The silicone lifts out through the top.
 
-**It is a fill and cleaning interface and nothing else.** The funnel is the
-one part that comes out through it, and what lies under it is valves: the
-manifold's two decks across the front of the footprint, the cap's own cradle
-row at the aft end of it, and the funnel's own drain joint between them.
-Neither pump is down there — both stand forward of the opening and ride out
-of the front of the box on `enclosure-pump-cartridge`, whose face fills the
-bay in the front wall
-([`../enclosure/enclosure/README.md`](/hardware/printed-parts/enclosure/enclosure/README.md)
-"The pump cartridge and its bay").
+The flavor pumps stand forward of this opening and leave through the front
+wall on the pump cartridge. V-A and V-B stand aft of the funnel on the cold-core
+lid; their printed seats follow their individual mounting stations.
 
 ## The funnel
 
-A wide silicone funnel that drops into the opening — its flat
-brim resting on the enclosure top is the only visible edge. One shared funnel,
-sized to take a full 440 mL SodaStream concentrate bottle dumped in one pour.
-Silicone, removable, dishwasher-safe; cast in the two-piece printed mold
-([`funnel-mold/`](/hardware/printed-parts/zone-c/funnel-mold/)).
-Its drain collet releases with the 1/4" jaw of the printed
-[`collet press`](../collet-press/)
-and it lifts out by hand for the dishwasher — flavor concentrate is sticky, so
-the cleanable interface has to come all the way out. Weekly-touch item.
+The removable silicone funnel holds nominally 300 mL. Its 6 mm brim, collar and
+normal ramp wall lead to a 36 mm plug seated over the frame's plain tube hole.
+The intended connection is a push-on silicone seal over a fixed tube. The tube's
+retention and its connection to V-B remain unresolved in the assembly; the
+current mold tooling does not qualify the new plug. The customer removes the
+silicone by hand for cleaning.
 Detail: [`funnel/`](/hardware/printed-parts/zone-c/funnel/).
 
-Its spout feeds the V-B funnel gate on the V-A/V-B tray; the valve
+The drain is intended to feed the V-B funnel gate on the V-A/V-B tray; the valve
 manifold, not the funnel, picks the channel, so one funnel serves both
 flavors. Valve states:
 [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md).
