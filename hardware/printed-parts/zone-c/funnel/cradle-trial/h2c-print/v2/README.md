@@ -10,8 +10,8 @@ estimate; insertion, elastic return and retention require the printed trial.
 
 | Part | Printer | Requested Z trim | Native estimate | State |
 | --- | --- | --- | --- | --- |
-| Test receiver | Mark2 | +0.04 mm | 23 min 00 sec | First layers confirmed; task 1303345379 |
-| Test cradle | H2C | +0.18 mm | 30 min 29 sec | First layers confirmed; task 1303335008 |
+| Test receiver | Mark2 | +0.04 mm | 23 min 00 sec | Finished; task 1303345379 |
+| Test cradle | H2C | +0.18 mm | 30 min 29 sec | Finished; task 1303335008 |
 
 The [receiver launch](receiver-mark2-launch.json) and
 [cradle launch](cradle-h2c-launch.json) verify new task IDs and successful printer
@@ -55,8 +55,11 @@ Remove the two supports outward into open space beside the cradle, retaining
 the hook bearing dimensions. Follow the bench procedure with the real PP0308E
 elbow: seating without rocking, hand insertion and release, hook retention and
 five cycles without cracking, whitening or residual wing bend. Record the
-physical result beside the trial parts. Print telemetry establishes completion;
-physical fit, retention and operating life remain unverified for v2.
+physical result beside the trial parts. The [receiver completion](receiver-mark2-completion.json) records all 50 layers
+finished; the [cradle completion](cradle-h2c-completion.json) records all 148.
+Both printers report 100%, no printer error and no HMS notice. The pair is ready
+for removal after cooling and the bench procedure above. Print telemetry establishes
+completion; physical fit, retention and operating life remain unverified for v2.
 
 To prepare a fresh native archive revision from these frozen v2 meshes:
 
