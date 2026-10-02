@@ -10,11 +10,14 @@ estimate; insertion, elastic return and retention require the printed trial.
 
 | Part | Printer | Requested Z trim | Native estimate | State |
 | --- | --- | --- | --- | --- |
-| Test receiver | Mark2 | +0.04 mm | 23 min 00 sec | Reviewed; submission pending |
+| Test receiver | Mark2 | +0.04 mm | 23 min 00 sec | Accepted task 1303345379 |
 | Test cradle | H2C | +0.18 mm | 30 min 29 sec | Accepted task 1303335008 |
 
-The [cradle launch](cradle-h2c-launch.json) verifies the new task and a successful
-printer reply. The receiver launch remains pending the shared-circuit interval.
+The [receiver launch](receiver-mark2-launch.json) and
+[cradle launch](cradle-h2c-launch.json) verify new task IDs and successful printer
+replies for both jobs. Each uses one Send with automatic resends disabled.
+The receiver send gate is 233 seconds after confirmation of the cradle task,
+exceeding the shared-circuit minimum of 180 seconds.
 
 Both use external black PET-GF, labelled PET-CF, on the fixed left hardened
 0.4 mm nozzle. The 0.20 mm first layer and 0.24 mm layers retain the production
