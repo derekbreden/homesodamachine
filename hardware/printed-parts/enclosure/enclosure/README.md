@@ -1494,6 +1494,44 @@ well through the crown. The annular transition has a straight support-removal pa
 that open well; each screw-head seat is accessible through its counterbore mouth on the
 crown. The current production slice records the supports at those contact regions.
 
+## Cartridge contacts
+
+**The cartridge connects as it seats.** A
+[YYFKGCP 4-pin magnetic pogo pair](/hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py)
+mates across the [0.246 mm](CARTRIDGE_BULKHEAD_KISS) kiss between the cartridge's flat back
+and the bay bulkhead. The female half, four flush pads between two magnets, is let into the
+clamp's aft face. The male half, four sprung pins, stands opposite it in the bulkhead's fore
+face. Both faces lie flush with their planes on one axis, on the centreline at z
+[278.524 mm](POGO_AXIS_Z). Straight Y insertion is the pair's mating axis, so each pin meets its
+pad head-on and nothing sweeps across either face. Seated, each pin is pressed
+[0.754 mm](POGO_PIN_PRESS) of its 1.10 mm stroke, leaving [0.346 mm](POGO_PIN_SPARE). Each
+contact is rated 12 V and 2 A.
+
+Contacts pair by X: the two −X contacts serve the −X pump and the two +X contacts the +X pump.
+The pair snaps together only in its attracting orientation. Mate it by hand, mark the end of
+each half that will stand at −X, and seat both halves with that mark at −X.
+
+**Each half bears on its ear plate.** The seat's mouth is the plate's outline,
+[23.7 × 4.3 mm](POGO_MOUTH), cut from the face to the plate's back. That plane,
+[3 mm](POGO_DATUM_DEPTH) in, is the datum the plate lands on, so the face lands flush. The
+body's stadium and the tails' room continue behind it. Two M1.4 × 5 socket-head screws pass the
+ears' Ø1.5 mm holes into M1.4 × 4 × Ø2.3 brass heat-set inserts, each in a
+[Ø2 × 5 mm](POGO_INSERT_HOLE) bore opening from the datum. Each head stands
+[0.6 mm](POGO_HEAD_RECESS) under the face. Press each insert flush with the datum before the
+half goes in.
+
+**Both seats are horizontal pockets.** Front-top builds in +Z and the clamp prints on its
+crown, so each roof is one short bridge between the mouth's round ends, with the
+supported-surface allowance on the face that looks print-up. The insert bores are round and
+carry the same allowance.
+
+**The leads leave by the routes each print allows.** Behind the male, a
+[Ø7 mm](POGO_LEAD_BORE) teardrop bore runs from the tails' room through the bulkhead to its aft
+face, apex up, under [1.574 mm](POGO_LEAD_BORE_ROOF) of bulkhead. Behind the female, a lead slot
+opens through the clamp's crown, which is the clamp's bed face, and one
+[4 × 3.5 mm](POGO_GROOVE) groove per pump carries that pump's pair along the crown into its
+terminal well. The crown keeps [3.5 mm](POGO_CROWN_SKIN) of clamp over the seat's mouth.
+
 ## Display housing
 
 The machine display sits on a 30° plane within the enclosure's [215 × 466.3 × 361 mm](BOX_SIZE)

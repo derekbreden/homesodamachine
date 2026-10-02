@@ -115,6 +115,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "jg-bulkhead-union",
            _hw / "reference" / "iec-c14-inlet",
            _hw / "reference" / "riteav-keystone",
+           _hw / "reference" / "yyfkgcp-pogo-4p",
            _hw / "reference" / "neofit-bulkhead",
            _hw / "reference" / "gasher-check-valve",
            _hw / "reference" / "wr1110-regulator",
@@ -178,6 +179,7 @@ import _cold_core_interface as _cci                   # noqa: E402
 import beduan_solenoid as _beduan                     # noqa: E402
 import iec_c14_inlet as _c14                          # noqa: E402
 import riteav_keystone as _keystone                   # noqa: E402
+import yyfkgcp_pogo_4p as _pogo                       # noqa: E402
 import jg_bulkhead_union as _jg                       # noqa: E402
 import bulkhead_ring as _ring                         # noqa: E402
 # The same word and the same two filaments, on the customer's own tube outboard of the ring.
@@ -304,7 +306,7 @@ FUNNEL_ROT = 0.0
 # The material colours are `hardware/scripts/_materials.py`, which the generators that cut these
 # bodies' own STEPs read too.
 from _materials import (C_AC_HUB, C_C14, C_COMP, C_COND, C_DIGITEN,  # noqa: E402
-                        C_DISPLAY_GLASS, C_GND, C_MQ6, C_PCBA, C_PLATE,
+                        C_DISPLAY_GLASS, C_DOCK, C_GND, C_MQ6, C_PCBA, C_PLATE,
                         C_PSU, C_RELAY,
                         M_ALUMINIUM, M_BRASS, M_DONOR_BLACK, M_JG_BLACK_PP, M_JG_GREY_ACETAL,
                         M_NEOFIT_ACETAL, M_PETG_BLACK, M_PETGF_BLACK, M_SILICONE_BLACK,
@@ -5533,6 +5535,29 @@ def build_pump_jack(box):
                      station=(PUMP_JACK_FACE_DATUM, _enc.pump_jack_station(box)))
 
 
+# THE CARTRIDGE'S CONTACT PAIR, on the station `enclosure.pump_contact_station` strikes: the male
+# in the bay bulkhead's fore face, the female in the clamp's aft face, each mating face flush with
+# its own plane. `yyfkgcp_pogo_4p` looks +Z out of either half's face; a quarter turn about X lays
+# the male's face on -Y and the female's on +Y, and the female's half turn about Y stands its N
+# magnet at +X, opposite the male's. Seated, the male's pins reach the female's pads across the
+# kiss.
+POGO_FACE_DATUM = ((0.0, 0.0, 0.0), (0.0, 0.0, 1.0))
+POGO_MALE_TURNS = (((1.0, 0.0, 0.0), 90.0),)
+POGO_FEMALE_TURNS = (((1.0, 0.0, 0.0), -90.0), ((0.0, 1.0, 0.0), 180.0))
+
+
+def build_pump_contacts(box):
+    """The seated contact pair, `(male, female)`, each `(placed, carry)`."""
+    plate, trays = box.pack.collet_plate, box.pack.pump_trays
+    x, z = _enc.pump_contact_station(box)
+    fixed, rides = _enc.bay_back_y(plate), _enc.pump_cartridge_aft_y(trays, plate)
+    male = seat_body(_pogo.build_male(pin_reach=fixed - rides).val(), turns=POGO_MALE_TURNS,
+                     seat="pump-contact-male", station=(POGO_FACE_DATUM, (x, fixed, z)))
+    female = seat_body(_pogo.build_female().val(), turns=POGO_FEMALE_TURNS,
+                       seat="pump-contact-female", station=(POGO_FACE_DATUM, (x, rides, z)))
+    return male, female
+
+
 def _pump_plug_envelope():
     """The plug's two boxes in the jack's frame, each `(x0, y0, z0, x1, y1, z1)`: the part inside
     the port, which is the port's own section, and the part standing out of the aperture with
@@ -5715,6 +5740,10 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     a.add(dgasket, name="display-gasket", color=C_DGASKET)
     pump_jack, _pump_jack_carry = build_pump_jack(box)
     a.add(pump_jack, name="pump-jack", color=M_DONOR_BLACK)
+    if box.pump_bay and box.pack.collet_plate:
+        (male, _male_carry), (female, _female_carry) = build_pump_contacts(box)
+        a.add(male, name="pump-contact-male", color=C_DOCK)
+        a.add(female, name="pump-contact-female", color=C_DOCK)
     pieces = _materialized_enclosure_pieces(box, require_box_spec)
     _enc._upper_y_seam_bound(pieces, box)
     _enc._lower_y_seam_bound(pieces, box)
