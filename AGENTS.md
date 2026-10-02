@@ -26,6 +26,13 @@ You have access to my Chrome which is signed in to my amazon through your MCP. I
 
 Git keeps history. Code and docs in this repo describe current state. Don't write "was X, now Y" or decision narratives in current files. Don't defend the current choice against alternatives the reader hasn't asked about. The repo describes only what is.
 
+## Physical Evidence
+
+Physical observations and acceptance records live beside the parts and reference hardware.
+The current index is [`hardware/mechanical-qualification/README.md`](hardware/mechanical-qualification/README.md), with enclosure results also in [`hardware/printed-parts/enclosure/print-readiness.md`](hardware/printed-parts/enclosure/print-readiness.md).
+Read the relevant records before asking the founder to reconstruct reported issues. Preserve accepted results and their scope, and link resolution evidence when recording an addressed issue.
+For hardware optimizations, identify the customer outcome, supporting evidence and measurement needed to assess the candidate. Saved settings and geometric checks alone do not establish load capacity or lifetime.
+
 ## Privacy
 
 This repository is public. Do not include the founder's family relationships or private details about relatives in repository content, including examples and transcripts. Refer to participants generically, such as "nearby beta household."
