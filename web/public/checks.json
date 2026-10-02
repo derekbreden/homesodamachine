@@ -17,8 +17,8 @@
     },
     {
       "check": "hardware/scripts/check_facts_current.py",
-      "note": "tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py",
-      "status": "red"
+      "note": "and the 243 sources behind them stand where they stood when it was written",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_faucet_geometry.py",
@@ -67,7 +67,7 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 4861 tracked, 569 fetched solids, 56 tags, 39 site routes",
+      "note": "paths: every reference lands — 4893 tracked, 569 fetched solids, 56 tags, 39 site routes",
       "status": "ok"
     },
     {
@@ -82,8 +82,8 @@
     },
     {
       "check": "tools/bazel/check_build_file.py",
-      "note": "tools/cad-venv/bin/python tools/bazel/gen_build.py",
-      "status": "red"
+      "note": "check_build_file: BUILD.bazel is what the graph writes; 3MFs are build-inert",
+      "status": "ok"
     },
     {
       "check": "tools/bazel/check_ci_targets.py",
@@ -102,11 +102,6 @@
     }
   ],
   "detail": {
-    "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 52c28b6966de75e1690809d1c17d077f for the 242 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at cb1acba19968a3be94f9d209720b6545 here. The three artifacts agree with each other and describe a machine that has since moved.",
-      "  the three come off one run:",
-      "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
-    ],
     "hardware/scripts/check_ledger.py": [
       "instructions: 121 files (16 procedures + 104 cards + cover) | ledger brands: 585 | waived: 1 ASIN + 4 brand",
       "DRIFT: 1 instruction(s) out of step with the ledger:",
@@ -141,12 +136,6 @@
       "    hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/back-top-backing-proposal.step",
       "    hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/placed-psu.step",
       "  A generator hands its solid to `_materials.one_body` and exports the assembly."
-    ],
-    "tools/bazel/check_build_file.py": [
-      "BUILD.bazel is not what the graph would write now:",
-      "  tools/viz/build.py answers to selftest and selftests.json does not name it",
-      "      tools/cad-venv/bin/python tools/bazel/trace_inputs.py --selftests tools/viz/build.py",
-      "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
     ],
     "tools/check_web_tests.py": [
       "2 test(s) in web/ fail:",
