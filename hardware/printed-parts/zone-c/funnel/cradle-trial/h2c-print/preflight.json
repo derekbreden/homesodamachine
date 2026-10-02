@@ -1,0 +1,110 @@
+{
+  "revision": 1,
+  "status": "reviewed_for_elbow_cradle_snap_trial",
+  "printer": "H2C",
+  "quantity": {
+    "receiver": 1,
+    "cradle": 1
+  },
+  "archive": ".cache/prints/funnel-cradle-trial-h2c-v1/ready/funnel-cradle-trial-h2c-v1.gcode.3mf",
+  "archive_sha256": "e1aaec1ae6d75f02f29fe7e77dc26535bf7697e64b846a23310ddc506f08adef",
+  "project": ".cache/prints/funnel-cradle-trial-h2c-v1/funnel-cradle-trial-h2c-v1-input.3mf",
+  "project_sha256": "ab8303d14f377dba194c6803b6e3550c9a7c874a06c5cdce351ba21b209a84b3",
+  "gcode_sha256": "1c7314f98eec64b2a858c072f4560804288f7a049ad9e7175e9eef20dbb0f871",
+  "estimated_seconds": 2717.639892578125,
+  "source_stl_sha256": {
+    "test-receiver": "fba0609890e494df9be162c66ba1df90cab2d613f1921ec92a1dad4b5b84973b",
+    "test-cradle": "a138ed5c47fac79c396acbbc6ba11f3cbcda31f49a2cae6fa3939608156cd7e9"
+  },
+  "requested_z_trim_mm": 0.18,
+  "support_mode": "shared_automatic_tree",
+  "submitted": false,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "parts": [
+    {
+      "name": "test-receiver",
+      "stl_sha256": "fba0609890e494df9be162c66ba1df90cab2d613f1921ec92a1dad4b5b84973b",
+      "rotation_x_degrees": 0.0,
+      "plate_bounds_mm": [
+        [
+          93.20000076293945,
+          133.0,
+          0.0
+        ],
+        [
+          141.79999923706055,
+          187.0,
+          12.000000000000057
+        ]
+      ],
+      "embedded_vertex_error_mm": 4.990248214653548e-10,
+      "model_layer_count": 50,
+      "first_two_layer_heights_mm": [
+        0.2,
+        0.44
+      ],
+      "minimum_second_layer_bead_area_overlap_fraction": 0.6642678381837712,
+      "minimum_second_layer_outer_wall_bead_area_overlap_fraction": 0.9971417788378049
+    },
+    {
+      "name": "test-cradle",
+      "stl_sha256": "a138ed5c47fac79c396acbbc6ba11f3cbcda31f49a2cae6fa3939608156cd7e9",
+      "rotation_x_degrees": 0.0,
+      "plate_bounds_mm": [
+        [
+          193.0871000289917,
+          144.09880542755127,
+          0.0
+        ],
+        [
+          221.9128999710083,
+          175.90119457244873,
+          35.55289840698242
+        ]
+      ],
+      "embedded_vertex_error_mm": 5.000000413701855e-10,
+      "model_layer_count": 148,
+      "first_two_layer_heights_mm": [
+        0.2,
+        0.44
+      ],
+      "minimum_second_layer_bead_area_overlap_fraction": 0.7824769314847737,
+      "minimum_second_layer_outer_wall_bead_area_overlap_fraction": 0.999164861644403
+    }
+  ],
+  "support_summary": {
+    "support_bodies": 2,
+    "interface_islands": 2,
+    "bed_rooted_bodies": 2,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 32.64,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 2,
+    "shortest_labelled_build_up_mm": 32.64
+  },
+  "support_contacts": "two_external_hook_undersides_only",
+  "receiver_support_paths": 0,
+  "pocket_support_paths": 0,
+  "hook_underside_geometry_z_mm": 33.552898407,
+  "support_interface_last_z_mm": 33.08,
+  "first_hook_model_layer_z_mm": 33.8,
+  "nominal_first_hook_layer_bottom_z_mm": 33.56,
+  "printed_support_gap_mm": 0.48,
+  "production_print_poses_retained": true,
+  "physical_fit_and_retention_tested": false,
+  "geometry_export_revision": "f8f59be7e",
+  "source_snapshot_matches_export_revision": true,
+  "source_snapshot": {
+    "hardware/printed-parts/zone-c/funnel/cradle-trial/cradle_trial.py": "20f3b22a14ef4297b85378fe7bd7b63853bda1cda58e61a2c2ff5dd673920c3a",
+    "hardware/printed-parts/zone-c/funnel/cradle-trial/geometry-check.json": "bbb1b2196ca3a7d18aaf9ed3bbd7ed3bee49bc88285ae3fb7e7df9c2d5924d6e",
+    "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": "de2b1d84cae80e99acfd73407d256b3d099a9c1afbf50edac2a1b40efcbf2461",
+    "hardware/printed-parts/zone-c/funnel/funnel.py": "5b36f155df999a31613bdb585d5aac4db1187b328b1e4082b7644d3bf619e2f4",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "e01a3efaf93b7b0cc4d81de9be1355a8527584d63d28dd053e62c3e868657e2b",
+    "hardware/printed-parts/cadlib/fits.py": "3821989044c5bc3ae99cc6912538b8a34bd75a6b0a081aefc8e4c5a0ce714191",
+    "hardware/reference/jg-pp0308e-elbow/elbow.py": "f4bbf9e1db98c82da4a96076e16a0333d2976b67f965a9d09d147fec510518d1",
+    "hardware/reference/jg-pp0308e-elbow/scan-measurements.json": "d977e38f2966b4d3839e7161f5d6fb9b0b276faf7ec2e4ed2b942b5f4b22dd1a"
+  }
+}
