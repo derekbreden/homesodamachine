@@ -32,6 +32,8 @@ Physical observations and acceptance records live beside the parts and reference
 The current index is [`hardware/mechanical-qualification/README.md`](hardware/mechanical-qualification/README.md), with enclosure results also in [`hardware/printed-parts/enclosure/print-readiness.md`](hardware/printed-parts/enclosure/print-readiness.md).
 Read the relevant records before asking the founder to reconstruct reported issues. Preserve accepted results and their scope, and link resolution evidence when recording an addressed issue.
 For hardware optimizations, identify the customer outcome, supporting evidence and measurement needed to assess the candidate. Saved settings and geometric checks alone do not establish load capacity or lifetime.
+Existing specifications carry no presumption of correctness. Start from product requirements, load paths and applicable manufacturer guidance; justify deviations with evidence relevant to the property being assessed. Prefer a supported, straightforward correction when testing would not change that decision.
+Missing evidence is a limit on a claim, not automatically a task for the founder. Before requesting a measurement or test, explain the decision it changes, why it is worth the effort, the exact procedure, fixtures and tools, and acceptance criteria derived from the application. Use existing tools where possible; any requested purchase needs an Amazon Prime link and a clear purpose.
 
 ## Privacy
 
