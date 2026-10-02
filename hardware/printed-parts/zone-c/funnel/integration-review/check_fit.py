@@ -25,9 +25,12 @@ for sign in (-1,1):
     corbel_excess.append(float(residual.max()))
 assert max(corbel_excess)<.001,corbel_excess
 web=[]
+# This ring stays inside the plug socket and outside the drain and wing slots.
+web_probe_radius=17.0
 for angle in np.linspace(0,2*np.pi,8,endpoint=False):
-    origin=[1.85+12*np.cos(angle),182.5+12*np.sin(angle),298.9]
+    origin=[1.85+web_probe_radius*np.cos(angle),182.5+web_probe_radius*np.sin(angle),298.9]
     points,_,_=mesh.ray.intersects_location([origin],[[0,0,1]])
+    assert len(points)==2,(origin,points)
     zs=sorted(points[:,2]);assert len(zs)==2,zs
     web.append(float(zs[1]-zs[0]))
 assert np.max(np.abs(np.asarray(web)-3))<.001,web
@@ -56,7 +59,7 @@ for axis in range(3):
         shift=np.zeros(3);shift[axis]=sign*2
         a=frame.translate(shift)
         capture.append({'axis':'XYZ'[axis],'direction':sign,'displacement_mm':2,'bearing_intersection_mm3':(a^front).volume()+(a^back).volume()})
-result={'source_sha256':hashes,'method':'Closed STL solids; sampled relative straight Y insertion. Other installed components are outside this mating-joint check.','flat_floor_z_mm':float(mesh.bounds[0,2]),'plug_web_samples_mm':web,'full_width_corbel_plane_max_excess_mm':corbel_excess,'joints':reads,'captured_at_2mm':capture,'clear':all(r['max_overlap_mm3']<.1 for r in reads)}
+result={'source_sha256':hashes,'method':'Closed STL solids; sampled relative straight Y insertion. Other installed components are outside this mating-joint check.','flat_floor_z_mm':float(mesh.bounds[0,2]),'plug_web_probe_radius_mm':web_probe_radius,'plug_web_samples_mm':web,'full_width_corbel_plane_max_excess_mm':corbel_excess,'joints':reads,'captured_at_2mm':capture,'clear':all(r['max_overlap_mm3']<.1 for r in reads)}
 (Path(__file__).parent/'rail-motion-check.json').write_text(json.dumps(result,indent=2)+'\n')
 assert result['clear'],[(r['joint'],r['max_overlap_mm3']) for r in reads]
 assert all(r['bearing_intersection_mm3']>.1 for r in capture),capture

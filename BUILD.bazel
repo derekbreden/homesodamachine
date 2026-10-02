@@ -8611,7 +8611,7 @@ genrule(
         "pysrc/hardware/printed-parts/zone-c/funnel/elbow_cradle.py",
         "pysrc/hardware/printed-parts/zone-c/funnel/funnel.py",
         "pysrc/hardware/reference/jg-pp0308e-elbow/elbow.py",
-        "pysrc/hardware/reference/worm-clamp/worm_clamp.py",
+        "hardware/reference/jg-pp0308e-elbow/scan-measurements.json",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",

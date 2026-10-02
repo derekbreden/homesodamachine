@@ -356,7 +356,7 @@ def enclosure(m: Machine):
         "en-08-close-the-box": {
             "BOX_QUADRANTS", "Y_SEAM", "Z_SEAM_FRONT",
             "BODY_COUNT"},
-        "en-10-display-and-funnel": {"FUNNEL_PIECES"},
+        "en-10-display-and-funnel": {"FUNNEL_PIECES", "SA06_CAPACITY"},
     }
     return facts, cards
 

@@ -113,12 +113,14 @@ def internal_plumbing(m):
     assert corners("carb-2") == 2, (
         f"`carb-2` turns {corners('carb-2')} time(s) — IP-06 carries a two-bend rise "
         f"from the meter to the rear union")
-    # AND `fluid-1` IS THE HAIRPIN. The regulator stands over the split on one column with both
-    # mouths forward, so the run leaves one, turns through 180° in the room ahead of the pair
-    # and comes back into the other — two stock quarter-turns with no straight in it.
-    assert corners("fluid-1") == 2, (
-        f"`fluid-1` turns {corners('fluid-1')} time(s) — IP-04 stands the flow regulator over "
-        f"the split on one column, both mouths forward, and a hairpin is two quarter-turns")
+    # IP-04 feeds the aft regulator from the split, then closes its outlet into
+    # V-A. Bend count and developed length come from those built runs.
+    for rid, ends in (("fluid-1", ("water-split.to-flavor", "flow-regulator.inlet")),
+                      ("fluid-2", ("flow-regulator.outlet", "valve-v-a.inlet"))):
+        assert (runs[rid].frm, runs[rid].to) == ends, (
+            f"`{rid}` runs {runs[rid].frm} → {runs[rid].to} — IP-04 connects {ends}")
+    assert a.bb("flow-regulator").ymin > port("water-split", "to-flavor")[0][1], (
+        "the regulator is no longer aft of the split — IP-04 feeds it under the frame")
     # `water-2` is the tap's step off the panel deck onto the lane under the funnel's
     # bowl, so it is a route and IP-02 bends it. Its two corners are the one lean.
     assert corners("water-2") == 2, (
@@ -313,6 +315,10 @@ def internal_plumbing(m):
         "MANIFOLD_HAIRPINS": f"{hairpins}",
         "BARB_TEES": f"{len(_ml.BARB_OF)}",
         "SPLIT_BRANCH": "down",
+        "FLUID_1_LEN": mm("fluid-1"),
+        "FLUID_1_CORNERS": f"{corners('fluid-1')}",
+        "FLUID_2_LEN": mm("fluid-2"),
+        "FLUID_2_CORNERS": f"{corners('fluid-2')}",
         # The four moving tees, and the plate EN-05 sights through.
         "CARRIER_TEES": f"{len(_ml.CARRIER_TEES)}",
         "CARRIER_TEE_NAMES": ", ".join(aft_valves),
@@ -366,7 +372,8 @@ def internal_plumbing(m):
             "MANIFOLD_VALVES", "MANIFOLD_TEES", "MANIFOLD_SEGMENTS", "MANIFOLD_LIMBS",
             "MANIFOLD_BUTTS", "MANIFOLD_HAIRPINS", "CARRIER_TEES", "CARRIER_TEE_NAMES"},
         "ip-04-manifold-pumps-channels": {
-            "MANIFOLD_VALVES", "MANIFOLD_TEES", "BARB_TEES", "SPLIT_BRANCH"},
+            "MANIFOLD_VALVES", "MANIFOLD_TEES", "BARB_TEES", "SPLIT_BRANCH",
+            "FLUID_1_LEN", "FLUID_1_CORNERS", "FLUID_2_LEN", "FLUID_2_CORNERS"},
         "ip-05-seat-pump-cartridge": {
             "PLATE_HOLES", "PLATE_STROKE", "PLATE_REST_GAP", "SLEEVE_TRAVEL",
             "TUBE_DEPTH_SQUEEZE", "TUBE_DEPTH_HOME", "SA09_STUBS"},
