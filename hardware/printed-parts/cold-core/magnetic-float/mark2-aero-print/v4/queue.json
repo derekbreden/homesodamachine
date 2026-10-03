@@ -21,7 +21,7 @@
   "bed": "Textured PEI Plate",
   "print_sequence": "by layer",
   "trial": "magnetic-float ASA Aero physical v4",
-  "status": "accepted",
+  "status": "stopped_cause_unconfirmed",
   "printer": "Mark2",
   "archive_name": "magnetic-float-pair-mark2-aero-v5.gcode.3mf",
   "parts": [
@@ -36,7 +36,7 @@
   "completion_reported": false,
   "monitor_active": true,
   "send_attempts": 1,
-  "updated_utc": "2026-10-03T05:07:10.041675+00:00",
+  "updated_utc": "2026-10-03T05:24:10.156012+00:00",
   "priming_strip_review": {
     "centerline_bounds_xy_mm": [
       230.0,
@@ -71,8 +71,10 @@
     ],
     "clear_of_parts_and_bed_exclusions": true
   },
-  "scope": "Combined frozen core and insert with an added corner startup strip; printer acceptance is confirmed, physical adhesion and fit are unverified.",
+  "scope": "Combined frozen core and insert with corner startup strip. Task is stopped at layer 0; an AMS feed alert was observed, with its relationship to the stop unconfirmed. No visual adhesion or fit acceptance is reported.",
   "accepted_task_id": "1304058102",
   "launch_record": "pair-mark2-launch.json",
-  "accepted_utc": "2026-10-03T05:06:30.947572+00:00"
+  "accepted_utc": "2026-10-03T05:06:30.947572+00:00",
+  "stop_reported_utc": "2026-10-03T05:24:10.156012+00:00",
+  "operator_clarification_pending": true
 }
