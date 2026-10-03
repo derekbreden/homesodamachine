@@ -122,14 +122,17 @@ carbonators like the coil mandrel.
 
 ## Bench procedure
 
+Complete the [finished-float calibration](../magnetic-float/all-aero/installation.md#reed-calibration)
+before printing the bridge/setting gauge or fixing the reed heights.
+
 1. Solder the two reeds to their three 22 AWG silicone conductors (`CLO`,
    `CHI`, shared common); heat-shrink every joint and every bare lead — the
    3M 425 skin is aluminium. Prove each reed with the printed RC62 float.
 2. Hang the setting gauge on the tube's bottom rim, sight the register line
    90° off the two end-plate ports, mark the bridge's bottom edge.
 3. Lay the reeds into the pockets, leads into the groove, a 3M 425 patch
-   over each pocket. Prove both reeds through the wall with the donor
-   magnet, sliding it along the register line.
+   over each pocket. Prove both reeds through the wall with the RC62 in the
+   finished ASA Aero float, sliding it along the register line.
 4. Seat the bridge on the mark; a wrap of 3M 425 over each ramp end holds
    it. Skin the carbonator per [`cold-core.md`](/hardware/assembly/cold-core.md)
    §1 — the foil goes over the bridge, burnished down onto both ramps.
