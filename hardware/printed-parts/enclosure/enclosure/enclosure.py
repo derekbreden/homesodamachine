@@ -141,6 +141,7 @@ _tools = next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "
 sys.path.insert(0, str(_repo / "hardware" / "scripts"))
 sys.path.insert(0, str(_tools))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "cadlib"))
+sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "cold-core"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "zone-c" / "funnel"))
 sys.path.insert(0, str(_repo / "hardware" / "reference" / "wago-221"))
 sys.path.insert(0, str(_repo / "hardware" / "reference" / "mq6-gas-sensor"))
@@ -176,6 +177,7 @@ import _enclosure_interface as _interface
 import _swept_top
 import _display_wing_interface as _display_wings
 import _grip_interface
+from _cold_core_interface import foam_cap_lid_height
 
 # Shell parameters.
 wall = _interface.wall      # PETG wall thickness
@@ -450,7 +452,7 @@ pump_lead_clip_edge_land = 12.0
 #
 # One complete clip sits ahead of V-F's coil and the funnel frame's front corbel.
 # Its arms root in the flank, and the loom continues aft along the wall.
-flank_clip_stations = ((95.0, _cable_clip.RUN),)
+flank_clip_stations = ((95.0, 16.5),)
 flank_clip_floor_z = 269.0
 flank_clip_embed = 1.4
 display_cover_thickness = _interface.display_cover_thickness
@@ -472,7 +474,7 @@ funnel_chain_gap = 1.0
 # cut to the collar plus the project's ordinary slip instead of sharing an exact B-rep face
 # with the roof rib and ceiling corbels.
 funnel_collar_air = fits.running
-# The collar's offset outlet stays on the fixed machine station at Y182.5.
+# The collar and outlet share the frame's Y centre.
 funnel_front_y = _funnel_frame_part.center_y - _funnel.collar_d / 2.0
 funnel_seat_thickness = _swept_top.FUNNEL_SEAT
 ceiling_skin = _interface.ceiling_skin
@@ -7673,6 +7675,32 @@ def _core_holds(solid, inner, stations, y0, y1, z0, z1, face=None):
     return solid
 
 
+def _core_cap_pocket(box):
+    """The top lid's complete plan outline, with running air in XY only.
+
+    The placed corner centres and radius come from the core's front stops; its rear face and
+    crown come from the hold-down stations. The pocket stands only through the lid's own plate,
+    ending on the crown so the hold-downs keep their zero-clearance bearing. The cup, shell and
+    enclosure seams retain their locating faces. The nameplate station keeps a full wall above
+    this pocket and its accepted receiver clear of the cap.
+    """
+    stops, holds = box.pack.core_stops, box.pack.core_holds
+    if not stops or not holds:
+        return None
+    r = stops[0][2]
+    aft, crown = holds[0][2:]
+    assert all(abs(radius - r) < 1e-6 for _cx, _cy, radius in stops)
+    assert all(abs(y - aft) < 1e-6 and abs(z - crown) < 1e-6
+               for _x0, _x1, y, z in holds)
+    x0 = min(cx - radius for cx, _cy, radius in stops)
+    x1 = max(cx + radius for cx, _cy, radius in stops)
+    fore = min(cy - radius for _cx, cy, radius in stops)
+    air = fits.running
+    return _swept_top.rounded_prism(
+        x1 - x0 + 2.0 * air, aft - fore + 2.0 * air, r + air,
+        crown - foam_cap_lid_height, crown, (x0 + x1) / 2.0, (fore + aft) / 2.0)
+
+
 # --- the tap-water chain's cradle on the −X wall ---------------------------
 #
 # The ASSE anchor's own section, and what it spends on either side of the chain's axis.
@@ -9122,6 +9150,10 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     if y_side == "back" and z_side == "bottom":
         disposal_field(outer)
         piece = piece.fuse(*disposal_letters(outer).Solids())
+    if (y_side, z_side) == ("back", "top"):
+        cap_pocket = _core_cap_pocket(box)
+        if cap_pocket is not None:
+            piece = piece.cut(cap_pocket)
     return _unified(piece)
 
 

@@ -573,10 +573,15 @@ def _water_2(F):
 
 
 def _water_7(F):
-    """Braided suction hose from the measured G Ganen barb to its anchored chain."""
+    """Braided suction hose from the measured G Ganen barb to its anchored chain.
+
+    Both leads follow the measured barb axes. The chain-side lead leaves the
+    shared middle leg enough length for both full-radius arcs.
+    """
     return R.bent(
         "water-7", "g-ganen-pump.suction", "suction-chain.barb-tip",
-        kind="water", bend=HOSE_BEND, skew=BARB_SKEW, lead=HOSE_BEND,
+        kind="water", bend=HOSE_BEND, skew=BARB_SKEW,
+        lead=(HOSE_BEND, HOSE_BEND - 0.5),
         note="carb water: G Ganen suction barb → suction chain, 3/8 inch braided PVC, two clamps")
 
 
@@ -627,6 +632,9 @@ def _co2_2(F):
 FLUID_2_LEAD = TUBE_BEND
 FLUID_2_RISER_X = -42.0
 FLUID_2_RISE_FORE = 5.0
+# The upper crossing descends gently onto the axial inlet quarter, leaving the
+# pump's rounded front casting its full clearance.
+FLUID_2_DESCENT_EAST = 0.5
 
 
 def _fluid_2(F, solids):
@@ -647,7 +655,7 @@ def _fluid_2(F, solids):
         "fluid-2", "flow-regulator.outlet",
         (lane_x, lane, out[2]),
         (FLUID_2_RISER_X, lane - FLUID_2_RISE_FORE, cross_z),
-        (inlet[0], inlet_turn, cross_z),
+        (inlet[0] + FLUID_2_DESCENT_EAST, inlet_turn, cross_z),
         (inlet[0], inlet_turn, inlet[2]),
         "valve-v-a.inlet",
         kind="fluid", lead=(FLUID_2_LEAD, _ml.STUB),
@@ -943,14 +951,15 @@ def _fluid_18(F, solids):
 # everything entering has to cross the cavity to leave by the trough, so a purge displaces what
 # is in there rather than short-circuiting back out the drain it came in by.
 #
-# BOTH ENDS OF EVERY ONE OF THESE FACE UP. A gate's collet on the lower deck opens +Z and a cap
-# conduit opens +Z, so each is a U over the crown rather than a fall: it leaves on its own axis,
-# crosses on one plane, and comes down on the far one's.
+# Both ends face up: a gate's lower-deck collet and a cap conduit open +Z.
+# Each crossing rises above its gate and returns into the cap or draw gate.
 #
-# THREE OF THE FOUR CROSS ON `RESERVOIR_CRUISE`, which is not typed — it is the least a collet
-# facing up can rise and still turn, one stock radius, and every one of those ends sits on the
-# same port plane so one figure serves them. `fluid-14` is the exception and says why.
+# Reservoir A's draw crosses one stock radius above its upward gate. The two B
+# lines use a lower crown and shallow gate leads, retaining their full R14 turns
+# below the funnel frame. Reservoir A's fill uses its own anchored low lane.
 RESERVOIR_CRUISE = TUBE_BEND
+RESERVOIR_B_CRUISE = TUBE_BEND - 0.6
+RESERVOIR_B_GATE_LEAN_DEG = 2.9
 # The two ends of `fluid-24`'s crossing from the outboard lane to the bore's own column.
 #
 # THE WEST HALF IS OPEN AT THIS PLANE ONLY FORWARD OF `water-5`. Swept east from x −80 at the
@@ -967,9 +976,6 @@ RESERVOIR_CRUISE = TUBE_BEND
 # which is what buys that clearance.
 FILL_B_LEAN_Y = 170.0
 FILL_B_JOIN_Y = 192.0
-# The first rise leans 0.6 mm inboard, within the collet's 3-degree allowance.
-# This leaves 1.19 mm to the manifold-B Wago while retaining the full R14 bend.
-FILL_B_GATE_INBOARD = 0.6
 # What a line holds off a body it passes in a lane, where the lane is the whole of its room.
 LANE_CLEAR = 4.0
 # The high approach crosses over fluid-16. The long low leg's column and height belong to
@@ -1120,11 +1126,12 @@ def _fluid_24(F):
     inboard onto the bore only at `FILL_B_JOIN_Y`, behind the tap water's own descent."""
     mouth = F["valve-v-i"].at("outlet")
     bore = F["foam-assembly"].at("reservoir-b-fill")
-    cruise = mouth[2] + RESERVOIR_CRUISE
-    lane_x = mouth[0] + FILL_B_GATE_INBOARD
+    cruise = mouth[2] + RESERVOIR_B_CRUISE
+    lane_x = mouth[0]
+    lead_aft = RESERVOIR_B_CRUISE * math.tan(math.radians(RESERVOIR_B_GATE_LEAN_DEG))
     return R.bent(
         "fluid-24", "valve-v-i.outlet",
-        (lane_x, mouth[1], cruise),            # a shallow inboard rise past the Wago's tip
+        (lane_x, mouth[1] + lead_aft, cruise), # shallow aft lead within the collet allowance
         (lane_x, FILL_B_LEAN_Y, cruise),       # aft along the cleared outboard lane
         (bore[0], FILL_B_JOIN_Y, cruise),       # one lean inboard onto the bore's column
         (bore[0], bore[1], cruise),             # aft on it, past what shuts the strip west
@@ -1143,12 +1150,15 @@ def _fluid_26(F):
     storey above — and holds the cruise plane between them."""
     bore = F["foam-assembly"].at("reservoir-b")
     gate = F["valve-v-h"].at("inlet")
-    cruise = gate[2] + RESERVOIR_CRUISE
+    cruise = gate[2] + RESERVOIR_B_CRUISE
+    lean = RESERVOIR_B_CRUISE * math.tan(math.radians(RESERVOIR_B_GATE_LEAN_DEG))
+    dx, dy = bore[0] - gate[0], bore[1] - gate[1]
+    reach = math.hypot(dx, dy)
     return R.bent(
         "fluid-26", "foam-assembly.reservoir-b",
         (bore[0], bore[1], cruise),             # up off the bore onto the cruise plane
-        (gate[0], gate[1], cruise),             # one lean forward and inboard onto the gate
-        "valve-v-h.inlet",                      # and straight down into the collet
+        (gate[0] + lean * dx / reach, gate[1] + lean * dy / reach, cruise),
+        "valve-v-h.inlet",                      # shallow approach into the gate's collet
         kind="fluid", bend=TUBE_BEND, skew=(CAP_BORE_SKEW, R.COLLET_SKEW),
         note="reservoir B draw: the cap's draw conduit → V-H-I, up off the bore and one lean "
              "forward and inboard onto the gate's own column")

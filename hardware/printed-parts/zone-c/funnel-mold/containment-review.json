@@ -5,69 +5,69 @@
   "seal_mesh_contact_overlap_scope": "Actual entry seal only; translations along each axis.",
   "witness_mm": [
     8.2,
-    17.95,
+    0.0,
     7.5
   ],
   "sha256": {
-    "cavity.step": "308de770afb75fc69bd241662ea585c3a616ff332e98a92b65f16fe5db78cb46",
-    "cavity.stl": "52cf6ae0a417e15d8b9ec912e80b8b55e943b0e0d8c6026fc2e1c1e942958aba",
-    "core.step": "941e554b71fcc7697ce9ac1a004fc1988b34c6a6975c50e63f3aef245ca7b991",
-    "core.stl": "d5b599c8fea4fa7c223fea1419367735f06e26a750d17fdce93f1c5e2265fdbd",
-    "rod.step": "20e2e4297811d196fcc50dcc12cb0f24b6b2460e94d8008333fd669e7eb074d3",
-    "funnel.step": "2f53284a268bf28d3ec3d75ab1cf322eda503f0c5ad953579f18a0f93ea1ab10",
-    "assembly.step": "90bd039da591d4b00a644fb498df2ee9f9e9e9f514de3c52a5229bbc0e1b7fad",
-    "design.json": "d56db9f65bf9865608c60c4f68f5051a90912777fabdc6857d730bd5187c29ed"
+    "cavity.step": "23181e43564083459d5d994f44105d51084a5f4fb0cf52caf7e7df479c413d9d",
+    "cavity.stl": "1ce5878e4b25309c131feb9f7b29af3f1add419602033602f0da22e5582d7afc",
+    "core.step": "39a0fd8e316e2c05f598d99e490f75ae19c26334cd9eed5394a5a5ea3eb50d40",
+    "core.stl": "ab01e93b9b2fdf40ce10ff6af51509b95f6f0fdffcb1fd5ff387d4a26547e694",
+    "rod.step": "683c61357b376fea791e43406c329903e87463697ccb2566609428b495087a55",
+    "funnel.step": "437e57f7cfa88454ce3fe0f59c87c8d153267e7f32a4b5cdefd3e960cc7ad3db",
+    "assembly.step": "ac020eff947f9d917a08f23ca594de764c4c1818ef122e17a8e3232a22d7ca05",
+    "design.json": "99507c63139e86b903936f7a8b3c617b8cf89028ee33e91064bbf2aa6431c96b"
   },
   "readings": {
     "cavity_step": {
       "contained": true,
       "regions": 2,
       "region_volumes_ml": [
-        691.840933,
-        2792.162925
+        686.452854,
+        2623.332528
       ],
-      "retained_volume_ml": 691.840933,
+      "retained_volume_ml": 686.452854,
       "casting_outside_retained_mm3": 0.0
     },
     "assembled_step": {
       "contained": true,
       "regions": 2,
       "region_volumes_ml": [
-        248.009047,
-        3256.969318
+        242.709834,
+        3087.757339
       ],
-      "retained_volume_ml": 248.009047,
+      "retained_volume_ml": 242.709834,
       "casting_outside_retained_mm3": 0.0
     },
     "cavity_stl": {
       "contained": true,
       "positive_regions": 2,
       "boundary_volumes_ml": [
-        -1313.645776,
-        691.776167,
-        4105.953814
+        -1305.533334,
+        686.393316,
+        3929.021379
       ],
       "negligible_boundaries": {
         "count": 0,
         "max_abs_volume_mm3": 0.0
       },
-      "retained_volume_ml": 691.776167,
+      "retained_volume_ml": 686.393316,
       "casting_outside_retained_mm3": 0.0
     },
     "assembled_stl": {
       "contained": true,
       "positive_regions": 2,
       "boundary_volumes_ml": [
-        -848.841139,
-        247.950965,
-        4105.953814
+        -841.110386,
+        242.656995,
+        3929.021379
       ],
       "negligible_boundaries": {
-        "count": 241,
-        "max_abs_volume_mm3": 9.587733630749458e-10
+        "count": 244,
+        "max_abs_volume_mm3": 7.987468550795773e-10
       },
-      "retained_volume_ml": 247.950965,
-      "casting_outside_retained_mm3": 3e-06
+      "retained_volume_ml": 242.656995,
+      "casting_outside_retained_mm3": 1e-06
     }
   },
   "contained": true

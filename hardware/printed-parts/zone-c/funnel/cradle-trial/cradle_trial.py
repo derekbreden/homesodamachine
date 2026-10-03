@@ -26,7 +26,7 @@ from OCP.BRepExtrema import BRepExtrema_DistShapeShape         # noqa: E402
 
 RECEIVER_H = 12.0      # receiver block height above the frame's underside
 RECEIVER_RIM = 6.0     # stock beyond the socket's widest X
-RECEIVER_HALF_Y = 27.0  # inside the frame's flat-underside run, Y155..Y210 about the hole
+RECEIVER_HALF_Y = 27.0  # socket-centred crop within the frame's flat underside
 
 
 def _gap(a, b):
@@ -43,7 +43,7 @@ def build():
     half_x = FF.socket_width / 2 + RECEIVER_RIM
     keep = cq.Solid.makeBox(2 * half_x, 2 * RECEIVER_HALF_Y, RECEIVER_H,
                             cq.Vector(hole.x - half_x, hole.y - RECEIVER_HALF_Y, floor))
-    receiver = FF.build().intersect(keep).translate(-hole).clean()
+    receiver = FF.merge_edges(FF.build().intersect(keep).translate(-hole))
     assert receiver.isValid() and len(receiver.Solids()) == 1
     elbow = cq.Compound.makeCompound(list(EC.elbow_parts().values()))
     return receiver, EC.build(), elbow
@@ -66,6 +66,9 @@ def check(receiver, cradle, elbow):
         "lane_mm": s["lane"],
         "hook_overlap_mm": EC.OVERLAP,
         "hook_catch_gap_mm": EC.CATCH_GAP,
+        "hook_thickness_mm": EC.HOOK_T,
+        "hook_top_hanging_mm": s["hook_top"] - EC.CATCH_GAP,
+        "funnel_block_bottom_mm": EC.WEB + FUN.plug_lift,
         "hole_diameter_mm": EC.HOLE_D,
         "receiver_volume_mm3": receiver.Volume(),
         "cradle_volume_mm3": cradle.Volume(),

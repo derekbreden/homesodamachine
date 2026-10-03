@@ -1,6 +1,6 @@
 # Funnel and sliding frame
 
-The removable silicone funnel holds nominally [456 mL](FUNNEL_CAP). Its PET-GF
+The removable silicone funnel holds nominally [455 mL](FUNNEL_CAP). Its PET-GF
 frame slides into front-top; closing front-top onto back-top captures the rear
 rails. The frame uses the enclosure's production rail section and its running
 clearances. Both flavors share this filling interface.
@@ -11,17 +11,16 @@ The collar center is world X0, Y164.55. Its brim underside is Z349 and its
 6 mm brim finishes flush with the Z355 enclosure roof. The collar is
 165 × 117.683 mm with R20 corners; the mouth is 153 × 105.683 mm with R14 corners;
 the brim is 179 × 131.683 mm with R27 corners. The collar wall and ramp's normal
-wall are 6 mm. The ramp falls toward X1.85, Y182.5.
+wall are 6 mm. The ramp falls toward X1.85, Y164.55, centred in Y.
 
-The native cavity holds 455.55 mL to the brim. The brim pocket keeps a 3.114 mm
+The native cavity holds 455.437 mL to the brim. The brim pocket keeps a 3.114 mm
 roof landing behind the display facet's arris, including its 0.25 mm running air.
-The drain stays at X1.85, Y182.5, Z302.9. Geometry and clearances are recorded in
+The drain exits at X1.85, Y164.55, Z306.05. Geometry and clearances are recorded in
 [`integration-review/forward-expansion-check.json`](integration-review/forward-expansion-check.json).
 
 The integral silicone plug is a [36 × 41.0 mm](FUNNEL_PLUG) rectangle with square corners,
-centred on the outlet, with its bottom at Z302.9. Its walls run up into the bowl's underside, so
-none of its top shows. Two notches along its X sides,
-open at its underside and its +Y end, house the elbow cradle's hooks. Its lower bore has an
+centred on the outlet, 12.85 mm tall with its flat bottom at Z306.05 resting on the cradle's
+hook tops. Its walls run up into the bowl's underside, so none of its top shows. Its lower bore has an
 8.4 mm entrance,
 1.8 mm lead-in and 6.7 mm relief. A nominal 6 mm bore forms the upper 3 mm
 sealing land. This geometry describes the proposed push-on seal; its wet and
@@ -35,12 +34,14 @@ do not qualify this plug.
 ## PET-GF frame
 
 The frame is 207 mm wide and 142.283 mm long. Its entire underside is flat at
-Z299.9, leaving 3 mm below the silicone plug. An [11.25 mm](FRAME_HOLE) hole at
-X1.85, Y182.5 passes the drain elbow's collet, and the web round it bears on the
-elbow's nose. The plug socket is a [36.6 × 41.6 mm](FRAME_SOCKET) rectangle centred on that
+Z299.9. Its socket floor is Z302.9, with a 3 mm web beneath it and 3.15 mm air to the
+silicone block's lower face between the hook tops. An [11.25 mm](FRAME_HOLE) hole at
+X1.85, Y164.55 passes the drain elbow's collet. Its fixed nose face stands 0.65 mm
+below the frame's underside in the released pose. The plug socket is a
+[36.6 × 41.6 mm](FRAME_SOCKET) rectangle centred on that
 hole, its corners rounded by the plug's gap, with a 1 mm lead-in at its mouth. Its ±Y walls stand
 on the far ends of two straight
-[5.15 × 32.3 mm](FRAME_SLOTS) slots through the web, one each side of the hole, that take
+[5.49 × 32.3 mm](FRAME_SLOTS) slots through the web, one each side of the hole, that take
 the elbow cradle's wings, so no strip of web stands between a slot and a wall.
 
 Both end corbels are 30° from vertical, across the complete X width, including
@@ -67,14 +68,19 @@ stands in the elbow's upper collet and up into the plug's land, and `fluid-4` le
 aft collet for V-B.
 
 Both X sides of the block carry on up the body's full [31.8 mm](CRADLE_LENGTH) length as
-[1.3 mm](CRADLE_WING_T) wings, [14.49 mm](CRADLE_WING_H) above the body, through the frame's
+[1.3 mm](CRADLE_WING_T) wings, [15.64 mm](CRADLE_WING_H) above the body, through the frame's
 slots. Each ends in a flat hook reaching [3.1 mm](CRADLE_HOOK) outward,
-[2.6 mm](CRADLE_OVERLAP) past its slot's outer edge and [0.65 mm](CRADLE_CATCH) over the web,
-to within [0.15 mm](CRADLE_TIP_GAP) of the counterbore's X wall, in a notch in the plug's side.
+[2.6 mm](CRADLE_OVERLAP) past its slot's outer edge, to within
+[0.15 mm](CRADLE_TIP_GAP) of the counterbore's X wall. The cradle releases
+[0.65 mm](CRADLE_CATCH) from its insertion datum until the hook undersides bear on the web.
+The 3.15 mm thick hooks' flat tops at Z306.05 then bear beneath the silicone block over
+269.895 mm² in the native geometry.
 That reach sets the cradle's [30.1 mm](CRADLE_WIDTH) width and leaves
-[4.78 mm](CRADLE_WEB) of web between each slot and the drain hole. Pushed up, each wing bends [2.53 mm](CRADLE_BEND) inward at its
-hook into a [3.35 mm](CRADLE_LANE) lane inboard of it. A tip-loaded cantilever estimate puts the
+[4.44 mm](CRADLE_WEB) of web between each slot and the drain hole. Pushed up, each wing bends [2.53 mm](CRADLE_BEND) inward at its
+hook into a [3.69 mm](CRADLE_LANE) lane inboard of it. A tip-loaded cantilever estimate puts the
 root strain near [3.2%](CRADLE_STRAIN). The [cradle trial](cradle-trial/README.md) tests the snap.
+The accepted v4 trial applies to its frozen meshes; the current hook thickness, slots and
+block bearing need a separate physical trial.
 
 The cradle prints on its bottom. The hooks' flat undersides are retention bearings and take
 accessible supports.

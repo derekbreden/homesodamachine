@@ -10,6 +10,7 @@ import sys
 from pathlib import Path
 
 import cadquery as cq
+from OCP.ShapeUpgrade import ShapeUpgrade_UnifySameDomain
 
 import elbow_cradle
 import funnel
@@ -20,7 +21,7 @@ sys.path[:0] = [str(ROOT / 'hardware/printed-parts/enclosure/enclosure'),
                 str(ROOT / 'hardware/scripts')]
 
 # Shared by the frame, shell opening, and assembly placement.
-center_y = 182.5 - funnel.neck_dy
+center_y = 182.5 - funnel.forward_extension / 2.0
 web = 3.0
 width = 207.0
 body_width = 196.5
@@ -28,7 +29,7 @@ depth = funnel.collar_d + 24.6
 corner_radius = 6.0
 rail_below_seat = 42.1
 receiver_height = 23.3
-corbel_foot_half_depth = 27.5 + funnel.neck_dy
+corbel_foot_half_depth = 27.5 + funnel.forward_extension / 2.0
 corbel_slope = math.tan(math.radians(30.0))
 tube_hole_diameter = elbow_cradle.HOLE_D
 socket_width = 36.6
@@ -89,11 +90,20 @@ def forming_clearance():
     return funnel.build_solids(outer_air=0.3)[0]
 
 
+def merge_edges(shape):
+    """Merge redundant edges while retaining the bowl's analytic offset faces."""
+    merge = ShapeUpgrade_UnifySameDomain(shape.wrapped, True, False, False)
+    merge.Build()
+    return cq.Shape.cast(merge.Shape())
+
+
 @functools.cache
 def build(inner=DEFAULT_INNER, y_joint=200.0, centre=(0.0, center_y), seat=349.0):
     import enclosure as enc
     cx, cy = centre
     floor, plug, rail = datums(seat)
+    assert abs(web + funnel.plug_lift -
+               (elbow_cradle.stations()['hook_top'] - elbow_cradle.CATCH_GAP)) < 1e-6
     body = body_blank(centre, seat)
     for col in ('front', 'back'):
         body = body.fuse(enc._z_rail_heads(
@@ -106,10 +116,10 @@ def build(inner=DEFAULT_INNER, y_joint=200.0, centre=(0.0, center_y), seat=349.0
     half, gap = funnel.plug_width / 2, (socket_width - funnel.plug_width) / 2
     socket = elbow_cradle.socket(half, gap, socket_depth, *socket_flare).translate(place)
     pierce = [c.translate(place) for c in elbow_cradle.web_cuts()]
-    body = body.cut(clear.fuse(socket)).clean()
+    body = body.cut(clear.fuse(socket))
     for c in pierce:
         body = body.cut(c)
-    body = body.clean()
+    body = merge_edges(body)
     assert body.isValid() and len(body.Solids()) == 1
     assert abs(body.BoundingBox().zmin - floor) < 0.0001
     # The web stands whole under the socket but for those cuts, and no stock stands in the socket.

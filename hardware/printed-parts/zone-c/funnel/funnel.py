@@ -1,9 +1,9 @@
-"""Removable 456 mL silicone funnel, seated in the enclosure's sliding PET-GF frame.
+"""Removable 455 mL silicone funnel, seated in the enclosure's sliding PET-GF frame.
 
 The collar center is the origin; z=0 is the brim underside. The 6 mm brim,
 collar and normal ramp wall lead to a substantial silicone plug, a 36 mm wide
-square-cornered rectangle centred on the outlet and long enough in Y to house
-the elbow cradle's two hooks in pockets in its underside. Its walls run up into
+square-cornered rectangle centred on the outlet. Its flat underside bears on
+the elbow cradle's two hook tops. Its walls run up into
 the bowl's underside, so none of its top shows. Its lower bore has a lead-in
 and relief; the upper 3 mm is the nominal sealing land. The frame's through
 hole and the drain stub are separate parts.
@@ -44,20 +44,20 @@ brim_margin = 7.0  # top-wall frame between the collar and its outer boundary
 brim_overhang = 7.0  # flange reach beyond the collar on each side
 brim_thickness = 6.0  # vertical flange thickness
 collar_wall = 6.0  # vertical collar wall and normal ramp-wall thickness
-capacity_ml = 455.55  # nominal capacity to the brim
+capacity_ml = 455.44  # nominal capacity to the brim
 chute_h = 23.485946291005064  # brim top to inner ramp start
 neck_dx = 1.85
-neck_dy = forward_extension / 2.0  # keep the drain's machine position fixed
+neck_dy = 0.0  # the outlet shares the collar's Y centre
 spout_id = 6.35  # wet-side outlet above the sealing land
 spout_wall = 4.5  # minimum radial stock around the throat
 neck_blend_drop = 6.25
 # Ramp and outlet elevations are independent of the plug's lower face.
 _ramp_rise = 14.199233063709995
-plug_width = 36.0  # the plug rectangle's X width; its Y length houses the cradle's hooks
-# Tall enough that the plug's top lies wholly inside the bowl: the bowl's underside stands
-# 15.745 mm over the plug's bottom at its +X corners, its highest over the plug.
-plug_height = 16.0
-drop = 46.1  # brim underside to plug underside
+plug_width = 36.0  # the plug rectangle's X width; its underside spans the cradle's hooks
+# The block's top lies wholly inside the bowl; its lower plane bears on the cradle's hooks.
+plug_lift = 3.15  # block underside above the frame's socket-floor datum
+plug_height = 16.0 - plug_lift
+drop = 46.1  # brim underside to the frame's socket-floor datum
 sealing_land = 3.0
 sealing_id = 6.0
 bore_relief_id = 6.7
@@ -65,7 +65,7 @@ bore_lead_id = 8.4
 bore_lead_height = 1.8
 spout_land_z = brim_thickness - chute_h - _ramp_rise - neck_blend_drop
 # The stub's reach into the plug: from its bottom face to the top of its sealing land.
-stub_engagement = spout_land_z + drop
+stub_engagement = spout_land_z + drop - plug_lift
 _ramp_run = (collar_w - 2.0 * collar_wall) / 2.0 - spout_id / 2.0 + abs(neck_dx)
 _y_run = (collar_d - 2.0 * collar_wall) / 2.0 - spout_id / 2.0 + abs(neck_dy)
 ramp_angle = math.degrees(math.atan2(_ramp_rise, max(_ramp_run, _y_run)))
@@ -79,7 +79,7 @@ _bounds.state(
 
 # The drain, in the funnel's own frame: the bore's exit on the plug's bottom face. World
 # position = this + the funnel's placement; it rides the part.
-drain_local = (neck_dx, neck_dy, -drop)
+drain_local = (neck_dx, neck_dy, -drop + plug_lift)
 
 
 # --- primitives -------------------------------------------------------------
@@ -180,7 +180,7 @@ def build_solids(drop=drop, ramp_wall=collar_wall, outer_air=0.0):
     top_z = brim_thickness
     ramp_top_z = top_z - chute_h
     neck_z = ramp_top_z - _ramp_rise
-    end_z = -drop
+    end_z = -drop + plug_lift
     land_z = neck_z - neck_blend_drop
     spout_or = spout_id / 2.0 + spout_wall
     ramp = _loft_rc(bore_w, bore_d, cx, cy, ramp_top_z, spout_id / 2.0,
@@ -240,13 +240,9 @@ def build(drop=drop):
     fill = cavity.intersect(_box(600, 600, m["end_z"], m["top_z"], 0, 0)).Volume()
     assert abs(fill / 1000 - capacity_ml) < 0.25, fill / 1000
     part = cut_shapes(solid, cavity, tol=0.0001).clean()
-    # The cradle's hooks lie on the frame's web under the plug, each in its own pocket.
-    lift = cq.Vector(m["ncx"], m["ncy"], m["end_z"] - elbow_cradle.WEB)
-    for pocket in elbow_cradle.pockets():
-        part = part.cut(pocket.translate(lift))
     part = part.clean()
     assert part.isValid() and len(part.Solids()) == 1
-    assert abs(part.BoundingBox().zmin + drop) < 0.0001
+    assert abs(part.BoundingBox().zmin - m["end_z"]) < 0.0001
     assert abs(part.BoundingBox().zmax - brim_thickness) < 0.0001
     return cq.Workplane(obj=part), (m["w"], m["d"], m["top_z"] - m["end_z"], m["end_z"], fill)
 

@@ -10,8 +10,7 @@
       284.3,
       289.8
     ],
-    "axis_mapping": "localX→worldY;localY→−worldZ;localZ→−worldX",
-    "mating_contact_plane_x_mm": 94.65,
+    "axis_mapping": "localX\u2192worldY;localY\u2192\u2212worldZ;localZ\u2192\u2212worldX",
     "nominal_free_wire_plane_x_mm": 83,
     "contact_to_free_plane_allowance_mm": 11.65,
     "connector_y_mm": 320.8,
@@ -33,7 +32,18 @@
       "OUT4": 296.92,
       "FAN": 299.42,
       "COM": 301.92
-    }
+    },
+    "board_top_contact_datum_x_mm": 94.65,
+    "model_frame_centre_in_physical_pcb_mm": [
+      -25.5,
+      0.1
+    ],
+    "physical_pcb_to_world_translation_mm": [
+      96.25,
+      309.8,
+      289.9
+    ],
+    "contact_datum_scope": "Pin XY follows the canonical Jst physical pin map. X94.65 is the PCB top surface, used as a conservative cut-length datum; actual XH mating-contact depth and termination insertion are unmodelled."
   },
   "bench_cut_recommendations_mm": {
     "J1_COM": 300,
@@ -74,8 +84,8 @@
     "distance_method": "Native CadQuery/OCP shape distance against every scene body within a 3 mm bounding-box search margin; no near body is reconstructed.",
     "clearance_reporting_limit_mm": 3,
     "terminal_contact_scope": "Only each named terminal body is excluded at its first or last contact segment and endpoint sphere. All other segments and corner spheres include that body. Mating terminal boots and hidden terminal insertion remain unmodelled.",
-    "query_script_sha256": "4278af96bf74e5069d44f3bf146cd82cc2f9588752eea2deed1b0b50c7d4d891",
-    "assembly_step_sha256": "1910e849a9caa3977f1c372915322b730c10da32db021c71469694092c98b49e",
+    "query_script_sha256": "a6f9597621a1db90611f65f03150e94ec4ff3823557f035bd04bee8da426ceec",
+    "assembly_step_sha256": "2ea8aa70c2075ebeb899cbe621d5515cea5703b96da6aad1817b4941a87a2a5d",
     "native_body_count": 216,
     "front_top_native_shape": {
       "bounds_mm": [
@@ -86,14 +96,26 @@
         159.9999999,
         355.0000001038191
       ],
-      "volume_mm3": 1258276.2885817296,
+      "volume_mm3": 1258105.9445356503,
       "solids": 1
-    }
+    },
+    "cut_reserve_method": "Authored complete centreline length; board routes additionally spend 11.65 mm from the board-top contact datum to the free-wire plane. Remaining reserve covers hidden termination insertion and service allowance."
   },
   "source_sha256": {
-    "hardware/manifold-layout/enclosure-assembly.step": "1910e849a9caa3977f1c372915322b730c10da32db021c71469694092c98b49e",
+    "hardware/manifold-layout/enclosure-assembly.step": "2ea8aa70c2075ebeb899cbe621d5515cea5703b96da6aad1817b4941a87a2a5d",
+    "hardware/manifold-layout/enclosure_assembly.py": "d4f46a3316b29645f877e10f22a93328caf6e55fa42dfaada07224dd1940e9ec",
+    "hardware/manifold-layout/manifold_layout.py": "3ca053e20d70996b94f184f0ba86f8e1c5d205ea5140d9ec34bdca2311844567",
+    "hardware/pcb/pcba/out/pcba.glb": "819d2d6a51579a8c3ee66bcb9432075bc50ca77cf129bd828ea538b8fc72b767",
+    "hardware/pcb/pcba/parts.tsx": "3a040dacac15ffa24500c0e4c96525da484e7deef05fc5de8bf95a42a2900fa8",
     "hardware/pcb/pcba/pcba.tsx": "50c52bbe8880f2bcb2854544a1f7dbc8c8f2eb0ef69dc179cb4824aba9000e90",
-    "hardware/pcb/pcba/parts.tsx": "3a040dacac15ffa24500c0e4c96525da484e7deef05fc5de8bf95a42a2900fa8"
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "9cb0b893247a4d43e3a892ca011127d1f373cdb8045d9f4ebbef387220908f6f",
+    "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py": "a515c906320bc40f02b4f8037135596ed57dc823650156351628fa03d98af759",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "ef39a549003017fd0602844e3c46cc3899a3df00ad6c866fcac61da65cf06069",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "cb45044df359205d55dafe6ad3a8f5e8f332eccb2cfe6ac708f3c913672541b6",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "63d17e1d9dd08945d42795639eb0311a91c1511d7693fa3add4eb62ca8287946",
+    "hardware/printed-parts/zone-c/funnel/elbow-cradle.step": "dfcbbdf80d91e10127a32f6cd98787088aaa4f588c06159d38541c8346940923",
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "011cba0d23badd7f0bc31ddffee6b55f68ac8b6cec8044aeb9d457e9b34be089",
+    "hardware/reference/beduan-solenoid/beduan_solenoid.py": "640acf974256bbfff88546cbef5672b870a2ceb21d34c128487bf1aa286ab498"
   },
   "combined_bare_trunk": {
     "envelope_mm": [
@@ -106,23 +128,23 @@
     ],
     "near": [
       {
-        "body": "enclosure-back-top",
-        "gap_mm": 1.325,
-        "intersection_mm3": 0.0
-      },
-      {
         "body": "enclosure-front-top",
         "gap_mm": 1.325,
         "intersection_mm3": 0.0
       },
       {
-        "body": "cold-core/foam-cap-lid-top",
-        "gap_mm": 1.575,
+        "body": "enclosure-back-top",
+        "gap_mm": 1.325,
         "intersection_mm3": 0.0
       },
       {
         "body": "cold-core/foam-cap-top",
-        "gap_mm": 1.575,
+        "gap_mm": 1.574999993,
+        "intersection_mm3": 0.0
+      },
+      {
+        "body": "cold-core/foam-cap-lid-top",
+        "gap_mm": 1.574999993,
         "intersection_mm3": 0.0
       },
       {
@@ -132,7 +154,7 @@
       }
     ],
     "min_stock_gap_lower_bound_mm": 1.325,
-    "stock": "A 5P + 4P ribbons plus the descending B 4P ribbon: three 1.7 mm layers, 5.1 × 8.5 mm, unsleeved.",
+    "stock": "A 5P + 4P ribbons plus the descending B 4P ribbon: three 1.7 mm layers, 5.1 \u00d7 8.5 mm, unsleeved.",
     "scope": "Straight native corridor only. Entry and exit bends, local fanout packing, sleeve fit and retention remain unqualified.",
     "native_envelope_clear": true
   },
@@ -142,14 +164,14 @@
     "The V-I switched wire rises at X79.5/Y179, then crosses west at Y158/Z280. The shared straight ribbon envelope and separate path checks do not qualify simultaneous local elbow packing."
   ],
   "bare_tab_endpoints": {
-    "A_B": "Fore-facing tips at Y229.61/Z304.2: A X32.22 and 17.32; B X−14.9 and −29.8.",
-    "C_D": "Down-facing tips at Z163.325/Y125.09: C X14.9 and 29.8; D X−14.9 and −29.8.",
-    "E_H": "Down-facing tips at Z225.325/Y146.44: E X14.9 and 29.8; H X−14.9 and −29.8.",
-    "F_I": "Up-facing tips at Z279.525/Y146.44: F X74.65 and 89.55; I X−74.65 and −89.55.",
-    "G_J": "Up-facing tips at Z227.025/Y125.09: G X66.37 and 81.27; J X−66.37 and −81.27.",
-    "VK": "Aft-facing tips at Y256.63/Z309.25: X57.6 and 72.5."
+    "A_B": "Fore-facing tips at Y229.61/Z304.2: A X31.72 and 16.82; B X\u221214.9 and \u221229.8.",
+    "C_D": "Down-facing tips at Z163.325/Y125.09: C X14.9 and 29.8; D X\u221214.9 and \u221229.8.",
+    "E_H": "Down-facing tips at Z225.325/Y146.44: E X14.9 and 29.8; H X\u221214.9 and \u221229.8.",
+    "F_I": "Up-facing tips at Z279.525/Y146.44: F X74.65 and 89.55; I X\u221274.65 and \u221289.55.",
+    "G_J": "Up-facing tips at Z227.025/Y125.09: G X66.37 and 81.27; J X\u221266.37 and \u221281.27.",
+    "VK": "Aft-facing tips at Y258.63/Z309.25: positive X57.6; switched return X72.5."
   },
-  "cut_scope": "Bench maxima are trimmed at landing. The complete authored paths determine the local lengths. Board paths begin at the free-wire plane and exclude the 11.65 mm contact-to-plane span; the remaining cut reserve still includes hidden termination insertion and service allowance. Wago port points are nominal entry-face stations on the native connector envelope, whose individual bores are not modelled. Fan cuts remain provisional because the factory donor lead exit, length and termination are unlocated.",
+  "cut_scope": "Bench maxima are trimmed at landing. The complete authored paths determine the local lengths. Board paths begin at the free-wire plane and exclude the conservative 11.65 mm board-top-to-free-plane span; the remaining cut reserve still includes hidden termination insertion and service allowance. Wago port points are nominal entry-face stations on the native connector envelope, whose individual bores are not modelled. Fan cuts remain provisional because the factory donor lead exit, length and termination are unlocated.",
   "unqualified_terminal_limits": [
     "Native G/J up-facing bare tips have 8.5 mm to the upper F/I housing bottoms. The checked wire centreline at Z231.025 clears; fitted female Faston boots and actual wire dressing remain unqualified.",
     "Valve spades are modelled. The on-hand insulated female Faston envelopes are not included in this check.",
@@ -204,7 +226,7 @@
       "bench_cut_max_mm": 300,
       "bench_cut_minus_centreline_mm": 56.300536,
       "native_wire_envelope_clear": true,
-      "min_stock_gap_lower_bound_mm": 1.231015,
+      "min_stock_gap_lower_bound_mm": 1.231015377,
       "terminal_contact_exclusions": [
         {
           "segment_index": 6,
@@ -216,68 +238,84 @@
       "straight_segment_checks": [
         {
           "index": 0,
-          "stock_gap_lower_bound_mm": 1.475,
+          "stock_gap_lower_bound_mm": 1.474999993,
           "closest_stock": [
             {
               "body": "tube-co2-2",
-              "gap_mm": 1.475
+              "gap_mm": 1.474999993
             }
           ]
         },
         {
           "index": 1,
-          "stock_gap_lower_bound_mm": 1.954002,
+          "stock_gap_lower_bound_mm": 1.954002303,
           "closest_stock": [
             {
               "body": "relay-2",
-              "gap_mm": 1.954002
+              "gap_mm": 1.954002303
+            },
+            {
+              "body": "pcba",
+              "gap_mm": 2.350132975
             }
           ]
         },
         {
           "index": 2,
-          "stock_gap_lower_bound_mm": 1.231015,
+          "stock_gap_lower_bound_mm": 1.231015377,
           "closest_stock": [
             {
               "body": "enclosure-back-top",
-              "gap_mm": 1.231015
+              "gap_mm": 1.231015377
+            },
+            {
+              "body": "relay-2",
+              "gap_mm": 1.95278879
+            },
+            {
+              "body": "pcba",
+              "gap_mm": 2.350097655
             }
           ]
         },
         {
           "index": 3,
-          "stock_gap_lower_bound_mm": 1.55013,
+          "stock_gap_lower_bound_mm": 1.550130205,
           "closest_stock": [
             {
               "body": "pcba",
-              "gap_mm": 1.55013
+              "gap_mm": 1.550130205
+            },
+            {
+              "body": "enclosure-back-top",
+              "gap_mm": 1.64475808
             }
           ]
         },
         {
           "index": 4,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 5,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 6,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         }
       ],
       "spherical_corner_checks": [
         {
           "index": 0,
-          "stock_gap_lower_bound_mm": 1.675877,
+          "stock_gap_lower_bound_mm": 1.675877119,
           "closest_stock": [
             {
               "body": "tube-co2-2",
-              "gap_mm": 1.675877
+              "gap_mm": 1.675877119
             }
           ]
         },
@@ -293,49 +331,70 @@
         },
         {
           "index": 2,
-          "stock_gap_lower_bound_mm": 1.952789,
+          "stock_gap_lower_bound_mm": 1.95278879,
           "closest_stock": [
             {
               "body": "relay-2",
-              "gap_mm": 1.952789
+              "gap_mm": 1.95278879
+            },
+            {
+              "body": "pcba",
+              "gap_mm": 2.350097655
             }
           ]
         },
         {
           "index": 3,
-          "stock_gap_lower_bound_mm": 1.417295,
+          "stock_gap_lower_bound_mm": 1.417294643,
           "closest_stock": [
             {
               "body": "enclosure-back-top",
-              "gap_mm": 1.417295
+              "gap_mm": 1.417294643
+            },
+            {
+              "body": "relay-2",
+              "gap_mm": 2.839935636
             }
           ]
         },
         {
           "index": 4,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 5,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 6,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 7,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         }
       ],
       "contact_to_free_wire_plane_mm": 11.65,
       "contact_plane_to_route_endpoint_mm": 255.349464,
       "remaining_cut_reserve_mm": 44.650536,
-      "endpoint_scope": "Native bare spade tip or nominal Wago entry face; terminal boot and installed bend radius unqualified."
+      "endpoint_scope": "Native bare spade tip or nominal Wago entry face; terminal boot and installed bend radius unqualified.",
+      "board_contact_to_free_plane_mm": 11.65,
+      "bench_cut_reserve_after_board_span_mm": 44.650536,
+      "terminal_endpoint_native_checks": [
+        {
+          "body": "wago-mana",
+          "point_mm": [
+            86.2,
+            169,
+            268
+          ],
+          "point_distance_mm": 0.0
+        }
+      ]
     },
     "J2_COM_to_B": {
       "points_mm": [
@@ -385,7 +444,7 @@
       "bench_cut_max_mm": 300,
       "bench_cut_minus_centreline_mm": 45.696978,
       "native_wire_envelope_clear": true,
-      "min_stock_gap_lower_bound_mm": 1.231015,
+      "min_stock_gap_lower_bound_mm": 1.231015377,
       "terminal_contact_exclusions": [
         {
           "segment_index": 6,
@@ -397,146 +456,191 @@
       "straight_segment_checks": [
         {
           "index": 0,
-          "stock_gap_lower_bound_mm": 1.475,
+          "stock_gap_lower_bound_mm": 1.474999993,
           "closest_stock": [
             {
               "body": "tube-co2-2",
-              "gap_mm": 1.475
+              "gap_mm": 1.474999993
             }
           ]
         },
         {
           "index": 1,
-          "stock_gap_lower_bound_mm": 1.954002,
+          "stock_gap_lower_bound_mm": 1.954002303,
           "closest_stock": [
             {
               "body": "relay-2",
-              "gap_mm": 1.954002
+              "gap_mm": 1.954002303
+            },
+            {
+              "body": "pcba",
+              "gap_mm": 2.350132975
             }
           ]
         },
         {
           "index": 2,
-          "stock_gap_lower_bound_mm": 1.231015,
+          "stock_gap_lower_bound_mm": 1.231015377,
           "closest_stock": [
             {
               "body": "enclosure-back-top",
-              "gap_mm": 1.231015
+              "gap_mm": 1.231015377
+            },
+            {
+              "body": "relay-2",
+              "gap_mm": 1.95278879
+            },
+            {
+              "body": "pcba",
+              "gap_mm": 2.350097655
             }
           ]
         },
         {
           "index": 3,
-          "stock_gap_lower_bound_mm": 1.55013,
+          "stock_gap_lower_bound_mm": 1.550130205,
           "closest_stock": [
             {
               "body": "pcba",
-              "gap_mm": 1.55013
+              "gap_mm": 1.550130205
+            },
+            {
+              "body": "enclosure-back-top",
+              "gap_mm": 1.64475808
+            },
+            {
+              "body": "enclosure-front-top",
+              "gap_mm": 2.65
             }
           ]
         },
         {
           "index": 4,
-          "stock_gap_lower_bound_mm": 1.88943,
+          "stock_gap_lower_bound_mm": 1.889430335,
           "closest_stock": [
             {
               "body": "enclosure-front-top",
-              "gap_mm": 1.88943
+              "gap_mm": 1.889430335
+            },
+            {
+              "body": "cold-core/foam-cap-lid-top",
+              "gap_mm": 2.48455191
             }
           ]
         },
         {
           "index": 5,
-          "stock_gap_lower_bound_mm": 2.503271,
+          "stock_gap_lower_bound_mm": 2.503270611,
           "closest_stock": [
             {
               "body": "tube-fluid-18",
-              "gap_mm": 2.503271
+              "gap_mm": 2.503270611
             }
           ]
         },
         {
           "index": 6,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         }
       ],
       "spherical_corner_checks": [
         {
           "index": 0,
-          "stock_gap_lower_bound_mm": 1.675877,
+          "stock_gap_lower_bound_mm": 1.675877119,
           "closest_stock": [
             {
               "body": "tube-co2-2",
-              "gap_mm": 1.675877
+              "gap_mm": 1.675877119
             }
           ]
         },
         {
           "index": 1,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 2,
-          "stock_gap_lower_bound_mm": 1.952789,
+          "stock_gap_lower_bound_mm": 1.95278879,
           "closest_stock": [
             {
               "body": "relay-2",
-              "gap_mm": 1.952789
+              "gap_mm": 1.95278879
+            },
+            {
+              "body": "pcba",
+              "gap_mm": 2.350097655
             }
           ]
         },
         {
           "index": 3,
-          "stock_gap_lower_bound_mm": 1.417295,
+          "stock_gap_lower_bound_mm": 1.417294643,
           "closest_stock": [
             {
               "body": "enclosure-back-top",
-              "gap_mm": 1.417295
+              "gap_mm": 1.417294643
+            },
+            {
+              "body": "relay-2",
+              "gap_mm": 2.839935636
             }
           ]
         },
         {
           "index": 4,
-          "stock_gap_lower_bound_mm": 1.861665,
+          "stock_gap_lower_bound_mm": 1.861664618,
           "closest_stock": [
             {
               "body": "enclosure-front-top",
-              "gap_mm": 1.861665
+              "gap_mm": 1.861664618
             }
           ]
         },
         {
           "index": 5,
-          "stock_gap_lower_bound_mm": 2.482645,
+          "stock_gap_lower_bound_mm": 2.482644912,
           "closest_stock": [
             {
               "body": "cold-core/foam-cap-lid-top",
-              "gap_mm": 2.482645
+              "gap_mm": 2.482644912
             }
           ]
         },
         {
           "index": 6,
-          "stock_gap_lower_bound_mm": 2.465427,
+          "stock_gap_lower_bound_mm": 2.461980362,
           "closest_stock": [
             {
               "body": "tube-fluid-18",
-              "gap_mm": 2.465427
+              "gap_mm": 2.461980362
             }
           ]
         },
         {
           "index": 7,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         }
       ],
       "contact_to_free_wire_plane_mm": 11.65,
       "contact_plane_to_route_endpoint_mm": 265.953022,
       "remaining_cut_reserve_mm": 34.046978,
-      "endpoint_scope": "Native bare spade tip or nominal Wago entry face; terminal boot and installed bend radius unqualified."
+      "endpoint_scope": "Native bare spade tip or nominal Wago entry face; terminal boot and installed bend radius unqualified.",
+      "board_contact_to_free_plane_mm": 11.65,
+      "bench_cut_reserve_after_board_span_mm": 34.046978,
+      "terminal_endpoint_native_checks": [
+        {
+          "body": "wago-manb",
+          "point_mm": [
+            85.9,
+            169,
+            252
+          ],
+          "point_distance_mm": 0.0
+        }
+      ]
     },
     "J1_OUT4_to_D": {
       "points_mm": [
@@ -596,7 +700,7 @@
       "bench_cut_max_mm": 550,
       "bench_cut_minus_centreline_mm": 72.245,
       "native_wire_envelope_clear": true,
-      "min_stock_gap_lower_bound_mm": 1.231015,
+      "min_stock_gap_lower_bound_mm": 1.231015377,
       "terminal_contact_exclusions": [
         {
           "segment_index": 8,
@@ -608,31 +712,43 @@
       "straight_segment_checks": [
         {
           "index": 0,
-          "stock_gap_lower_bound_mm": 1.475,
+          "stock_gap_lower_bound_mm": 1.474999993,
           "closest_stock": [
             {
               "body": "tube-co2-2",
-              "gap_mm": 1.475
+              "gap_mm": 1.474999993
             }
           ]
         },
         {
           "index": 1,
-          "stock_gap_lower_bound_mm": 1.954002,
+          "stock_gap_lower_bound_mm": 1.954002303,
           "closest_stock": [
             {
               "body": "relay-2",
-              "gap_mm": 1.954002
+              "gap_mm": 1.954002303
+            },
+            {
+              "body": "pcba",
+              "gap_mm": 2.350132975
             }
           ]
         },
         {
           "index": 2,
-          "stock_gap_lower_bound_mm": 1.231015,
+          "stock_gap_lower_bound_mm": 1.231015377,
           "closest_stock": [
             {
               "body": "enclosure-back-top",
-              "gap_mm": 1.231015
+              "gap_mm": 1.231015377
+            },
+            {
+              "body": "relay-2",
+              "gap_mm": 1.95278879
+            },
+            {
+              "body": "pcba",
+              "gap_mm": 2.350097655
             }
           ]
         },
@@ -648,73 +764,89 @@
         },
         {
           "index": 4,
-          "stock_gap_lower_bound_mm": 1.88961,
+          "stock_gap_lower_bound_mm": 1.889609748,
           "closest_stock": [
             {
               "body": "enclosure-front-top",
-              "gap_mm": 1.88961
+              "gap_mm": 1.889609748
+            },
+            {
+              "body": "cold-core/foam-cap-top",
+              "gap_mm": 2.45
+            },
+            {
+              "body": "cold-core/foam-cap-lid-top",
+              "gap_mm": 2.598187988
             }
           ]
         },
         {
           "index": 5,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 6,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 7,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 8,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         }
       ],
       "spherical_corner_checks": [
         {
           "index": 0,
-          "stock_gap_lower_bound_mm": 1.675877,
+          "stock_gap_lower_bound_mm": 1.675877119,
           "closest_stock": [
             {
               "body": "tube-co2-2",
-              "gap_mm": 1.675877
+              "gap_mm": 1.675877119
+            },
+            {
+              "body": "pcba",
+              "gap_mm": 2.545
             }
           ]
         },
         {
           "index": 1,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 2,
-          "stock_gap_lower_bound_mm": 1.952789,
+          "stock_gap_lower_bound_mm": 1.95278879,
           "closest_stock": [
             {
               "body": "relay-2",
-              "gap_mm": 1.952789
+              "gap_mm": 1.95278879
+            },
+            {
+              "body": "pcba",
+              "gap_mm": 2.350097655
             }
           ]
         },
         {
           "index": 3,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 4,
-          "stock_gap_lower_bound_mm": 1.861665,
+          "stock_gap_lower_bound_mm": 1.861664618,
           "closest_stock": [
             {
               "body": "enclosure-front-top",
-              "gap_mm": 1.861665
+              "gap_mm": 1.861664618
             }
           ]
         },
@@ -725,34 +857,51 @@
             {
               "body": "cold-core/foam-cap-top",
               "gap_mm": 2.45
+            },
+            {
+              "body": "cold-core/foam-cap-lid-top",
+              "gap_mm": 2.598187988
             }
           ]
         },
         {
           "index": 6,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 7,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 8,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 9,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         }
       ],
       "contact_to_free_wire_plane_mm": 11.65,
       "contact_plane_to_route_endpoint_mm": 489.405,
       "remaining_cut_reserve_mm": 60.595,
-      "endpoint_scope": "Native bare spade tip or nominal Wago entry face; terminal boot and installed bend radius unqualified."
+      "endpoint_scope": "Native bare spade tip or nominal Wago entry face; terminal boot and installed bend radius unqualified.",
+      "board_contact_to_free_plane_mm": 11.65,
+      "bench_cut_reserve_after_board_span_mm": 60.595,
+      "terminal_endpoint_native_checks": [
+        {
+          "body": "coil-v-d",
+          "point_mm": [
+            -29.8,
+            125.09,
+            163.325
+          ],
+          "point_distance_mm": 1.0000002248489182e-07
+        }
+      ]
     },
     "J1_OUT8_to_H_conservative": {
       "points_mm": [
@@ -793,12 +942,12 @@
         ],
         [
           79.5,
-          158,
+          151.2,
           280
         ],
         [
           -48,
-          158,
+          151.2,
           280
         ],
         [
@@ -817,12 +966,12 @@
           225.325
         ]
       ],
-      "centreline_length_mm": 496.914949,
+      "centreline_length_mm": 502.869056,
       "start_reference": "Board free-wire plane",
       "bench_cut_max_mm": 550,
-      "bench_cut_minus_centreline_mm": 53.085051,
+      "bench_cut_minus_centreline_mm": 47.130944,
       "native_wire_envelope_clear": true,
-      "min_stock_gap_lower_bound_mm": 1.231015,
+      "min_stock_gap_lower_bound_mm": 1.231015377,
       "terminal_contact_exclusions": [
         {
           "segment_index": 10,
@@ -834,31 +983,43 @@
       "straight_segment_checks": [
         {
           "index": 0,
-          "stock_gap_lower_bound_mm": 1.475,
+          "stock_gap_lower_bound_mm": 1.474999993,
           "closest_stock": [
             {
               "body": "tube-co2-2",
-              "gap_mm": 1.475
+              "gap_mm": 1.474999993
             }
           ]
         },
         {
           "index": 1,
-          "stock_gap_lower_bound_mm": 1.954002,
+          "stock_gap_lower_bound_mm": 1.954002303,
           "closest_stock": [
             {
               "body": "relay-2",
-              "gap_mm": 1.954002
+              "gap_mm": 1.954002303
+            },
+            {
+              "body": "pcba",
+              "gap_mm": 2.350132975
             }
           ]
         },
         {
           "index": 2,
-          "stock_gap_lower_bound_mm": 1.231015,
+          "stock_gap_lower_bound_mm": 1.231015377,
           "closest_stock": [
             {
               "body": "enclosure-back-top",
-              "gap_mm": 1.231015
+              "gap_mm": 1.231015377
+            },
+            {
+              "body": "relay-2",
+              "gap_mm": 1.95278879
+            },
+            {
+              "body": "pcba",
+              "gap_mm": 2.350097655
             }
           ]
         },
@@ -874,62 +1035,75 @@
         },
         {
           "index": 4,
-          "stock_gap_lower_bound_mm": 1.88961,
+          "stock_gap_lower_bound_mm": 1.889609748,
           "closest_stock": [
             {
               "body": "enclosure-front-top",
-              "gap_mm": 1.88961
+              "gap_mm": 1.889609748
+            },
+            {
+              "body": "cold-core/foam-cap-top",
+              "gap_mm": 2.484560745
+            },
+            {
+              "body": "cold-core/foam-cap-lid-top",
+              "gap_mm": 2.63119608
             }
           ]
         },
         {
           "index": 5,
-          "stock_gap_lower_bound_mm": 2.482645,
+          "stock_gap_lower_bound_mm": 2.482644912,
           "closest_stock": [
             {
-              "body": "cold-core/foam-cap-lid-top",
-              "gap_mm": 2.482645
+              "body": "cold-core/foam-cap-top",
+              "gap_mm": 2.482644912
             },
             {
-              "body": "cold-core/foam-cap-top",
-              "gap_mm": 2.482645
+              "body": "cold-core/foam-cap-lid-top",
+              "gap_mm": 2.482644912
             }
           ]
         },
         {
           "index": 6,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 7,
-          "stock_gap_lower_bound_mm": 3,
-          "closest_stock": []
+          "stock_gap_lower_bound_mm": 1.26,
+          "closest_stock": [
+            {
+              "body": "elbow-cradle",
+              "gap_mm": 1.26
+            }
+          ]
         },
         {
           "index": 8,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 9,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 10,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         }
       ],
       "spherical_corner_checks": [
         {
           "index": 0,
-          "stock_gap_lower_bound_mm": 1.675877,
+          "stock_gap_lower_bound_mm": 1.675877119,
           "closest_stock": [
             {
               "body": "tube-co2-2",
-              "gap_mm": 1.675877
+              "gap_mm": 1.675877119
             }
           ]
         },
@@ -945,74 +1119,95 @@
         },
         {
           "index": 2,
-          "stock_gap_lower_bound_mm": 1.952789,
+          "stock_gap_lower_bound_mm": 1.95278879,
           "closest_stock": [
             {
               "body": "relay-2",
-              "gap_mm": 1.952789
+              "gap_mm": 1.95278879
+            },
+            {
+              "body": "pcba",
+              "gap_mm": 2.350097655
             }
           ]
         },
         {
           "index": 3,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 4,
-          "stock_gap_lower_bound_mm": 1.861665,
+          "stock_gap_lower_bound_mm": 1.861664618,
           "closest_stock": [
             {
               "body": "enclosure-front-top",
-              "gap_mm": 1.861665
+              "gap_mm": 1.861664618
             }
           ]
         },
         {
           "index": 5,
-          "stock_gap_lower_bound_mm": 2.482645,
+          "stock_gap_lower_bound_mm": 2.482644912,
           "closest_stock": [
             {
               "body": "cold-core/foam-cap-top",
-              "gap_mm": 2.482645
+              "gap_mm": 2.482644912
+            },
+            {
+              "body": "cold-core/foam-cap-lid-top",
+              "gap_mm": 2.629442844
             }
           ]
         },
         {
           "index": 6,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 7,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 8,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 9,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 10,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 11,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         }
       ],
       "contact_to_free_wire_plane_mm": 11.65,
       "contact_plane_to_route_endpoint_mm": 508.564949,
       "remaining_cut_reserve_mm": 41.435051,
-      "endpoint_scope": "Native bare spade tip or nominal Wago entry face; terminal boot and installed bend radius unqualified."
+      "endpoint_scope": "Native bare spade tip or nominal Wago entry face; terminal boot and installed bend radius unqualified.",
+      "board_contact_to_free_plane_mm": 11.65,
+      "bench_cut_reserve_after_board_span_mm": 35.480944,
+      "terminal_endpoint_native_checks": [
+        {
+          "body": "coil-v-h",
+          "point_mm": [
+            -29.8,
+            146.44,
+            225.325
+          ],
+          "point_distance_mm": 1.0000002248489182e-07
+        }
+      ]
     },
     "J2_OUT1_to_I": {
       "points_mm": [
@@ -1053,17 +1248,17 @@
         ],
         [
           79.5,
-          158,
+          151.2,
           280
         ],
         [
           -89.55,
-          158,
+          151.2,
           280
         ],
         [
           -89.55,
-          158,
+          151.2,
           288
         ],
         [
@@ -1082,7 +1277,7 @@
       "bench_cut_max_mm": 550,
       "bench_cut_minus_centreline_mm": 69.545,
       "native_wire_envelope_clear": true,
-      "min_stock_gap_lower_bound_mm": 1.231015,
+      "min_stock_gap_lower_bound_mm": 1.231015377,
       "terminal_contact_exclusions": [
         {
           "segment_index": 10,
@@ -1094,31 +1289,43 @@
       "straight_segment_checks": [
         {
           "index": 0,
-          "stock_gap_lower_bound_mm": 1.475,
+          "stock_gap_lower_bound_mm": 1.474999993,
           "closest_stock": [
             {
               "body": "tube-co2-2",
-              "gap_mm": 1.475
+              "gap_mm": 1.474999993
             }
           ]
         },
         {
           "index": 1,
-          "stock_gap_lower_bound_mm": 1.954002,
+          "stock_gap_lower_bound_mm": 1.954002303,
           "closest_stock": [
             {
               "body": "relay-2",
-              "gap_mm": 1.954002
+              "gap_mm": 1.954002303
+            },
+            {
+              "body": "pcba",
+              "gap_mm": 2.350132975
             }
           ]
         },
         {
           "index": 2,
-          "stock_gap_lower_bound_mm": 1.231015,
+          "stock_gap_lower_bound_mm": 1.231015377,
           "closest_stock": [
             {
               "body": "enclosure-back-top",
-              "gap_mm": 1.231015
+              "gap_mm": 1.231015377
+            },
+            {
+              "body": "relay-2",
+              "gap_mm": 1.95278879
+            },
+            {
+              "body": "pcba",
+              "gap_mm": 2.350097655
             }
           ]
         },
@@ -1134,62 +1341,75 @@
         },
         {
           "index": 4,
-          "stock_gap_lower_bound_mm": 1.88961,
+          "stock_gap_lower_bound_mm": 1.889609748,
           "closest_stock": [
             {
               "body": "enclosure-front-top",
-              "gap_mm": 1.88961
+              "gap_mm": 1.889609748
+            },
+            {
+              "body": "cold-core/foam-cap-top",
+              "gap_mm": 2.484560745
+            },
+            {
+              "body": "cold-core/foam-cap-lid-top",
+              "gap_mm": 2.63119608
             }
           ]
         },
         {
           "index": 5,
-          "stock_gap_lower_bound_mm": 2.482645,
+          "stock_gap_lower_bound_mm": 2.482644912,
           "closest_stock": [
             {
-              "body": "cold-core/foam-cap-lid-top",
-              "gap_mm": 2.482645
+              "body": "cold-core/foam-cap-top",
+              "gap_mm": 2.482644912
             },
             {
-              "body": "cold-core/foam-cap-top",
-              "gap_mm": 2.482645
+              "body": "cold-core/foam-cap-lid-top",
+              "gap_mm": 2.482644912
             }
           ]
         },
         {
           "index": 6,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 7,
-          "stock_gap_lower_bound_mm": 3,
-          "closest_stock": []
+          "stock_gap_lower_bound_mm": 1.26,
+          "closest_stock": [
+            {
+              "body": "elbow-cradle",
+              "gap_mm": 1.26
+            }
+          ]
         },
         {
           "index": 8,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 9,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 10,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         }
       ],
       "spherical_corner_checks": [
         {
           "index": 0,
-          "stock_gap_lower_bound_mm": 1.675877,
+          "stock_gap_lower_bound_mm": 1.675877119,
           "closest_stock": [
             {
               "body": "tube-co2-2",
-              "gap_mm": 1.675877
+              "gap_mm": 1.675877119
             }
           ]
         },
@@ -1205,74 +1425,95 @@
         },
         {
           "index": 2,
-          "stock_gap_lower_bound_mm": 1.952789,
+          "stock_gap_lower_bound_mm": 1.95278879,
           "closest_stock": [
             {
               "body": "relay-2",
-              "gap_mm": 1.952789
+              "gap_mm": 1.95278879
+            },
+            {
+              "body": "pcba",
+              "gap_mm": 2.350097655
             }
           ]
         },
         {
           "index": 3,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 4,
-          "stock_gap_lower_bound_mm": 1.861665,
+          "stock_gap_lower_bound_mm": 1.861664618,
           "closest_stock": [
             {
               "body": "enclosure-front-top",
-              "gap_mm": 1.861665
+              "gap_mm": 1.861664618
             }
           ]
         },
         {
           "index": 5,
-          "stock_gap_lower_bound_mm": 2.482645,
+          "stock_gap_lower_bound_mm": 2.482644912,
           "closest_stock": [
             {
               "body": "cold-core/foam-cap-top",
-              "gap_mm": 2.482645
+              "gap_mm": 2.482644912
+            },
+            {
+              "body": "cold-core/foam-cap-lid-top",
+              "gap_mm": 2.629442844
             }
           ]
         },
         {
           "index": 6,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 7,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 8,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 9,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 10,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 11,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         }
       ],
       "contact_to_free_wire_plane_mm": 11.65,
       "contact_plane_to_route_endpoint_mm": 492.105,
       "remaining_cut_reserve_mm": 57.895,
-      "endpoint_scope": "Native bare spade tip or nominal Wago entry face; terminal boot and installed bend radius unqualified."
+      "endpoint_scope": "Native bare spade tip or nominal Wago entry face; terminal boot and installed bend radius unqualified.",
+      "board_contact_to_free_plane_mm": 11.65,
+      "bench_cut_reserve_after_board_span_mm": 57.895,
+      "terminal_endpoint_native_checks": [
+        {
+          "body": "coil-v-i",
+          "point_mm": [
+            -89.55,
+            146.44,
+            279.525
+          ],
+          "point_distance_mm": 1.0000002248489182e-07
+        }
+      ]
     },
     "J2_OUT2_to_J": {
       "points_mm": [
@@ -1327,7 +1568,7 @@
       "bench_cut_max_mm": 550,
       "bench_cut_minus_centreline_mm": 97.132883,
       "native_wire_envelope_clear": true,
-      "min_stock_gap_lower_bound_mm": 1.231015,
+      "min_stock_gap_lower_bound_mm": 1.231015377,
       "terminal_contact_exclusions": [
         {
           "segment_index": 7,
@@ -1339,31 +1580,43 @@
       "straight_segment_checks": [
         {
           "index": 0,
-          "stock_gap_lower_bound_mm": 1.475,
+          "stock_gap_lower_bound_mm": 1.474999993,
           "closest_stock": [
             {
               "body": "tube-co2-2",
-              "gap_mm": 1.475
+              "gap_mm": 1.474999993
             }
           ]
         },
         {
           "index": 1,
-          "stock_gap_lower_bound_mm": 1.954002,
+          "stock_gap_lower_bound_mm": 1.954002303,
           "closest_stock": [
             {
               "body": "relay-2",
-              "gap_mm": 1.954002
+              "gap_mm": 1.954002303
+            },
+            {
+              "body": "pcba",
+              "gap_mm": 2.350132975
             }
           ]
         },
         {
           "index": 2,
-          "stock_gap_lower_bound_mm": 1.231015,
+          "stock_gap_lower_bound_mm": 1.231015377,
           "closest_stock": [
             {
               "body": "enclosure-back-top",
-              "gap_mm": 1.231015
+              "gap_mm": 1.231015377
+            },
+            {
+              "body": "relay-2",
+              "gap_mm": 1.95278879
+            },
+            {
+              "body": "pcba",
+              "gap_mm": 2.350097655
             }
           ]
         },
@@ -1379,38 +1632,46 @@
         },
         {
           "index": 4,
-          "stock_gap_lower_bound_mm": 1.88961,
+          "stock_gap_lower_bound_mm": 1.889609748,
           "closest_stock": [
             {
               "body": "enclosure-front-top",
-              "gap_mm": 1.88961
+              "gap_mm": 1.889609748
+            },
+            {
+              "body": "cold-core/foam-cap-top",
+              "gap_mm": 2.45
+            },
+            {
+              "body": "cold-core/foam-cap-lid-top",
+              "gap_mm": 2.598187988
             }
           ]
         },
         {
           "index": 5,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 6,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 7,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         }
       ],
       "spherical_corner_checks": [
         {
           "index": 0,
-          "stock_gap_lower_bound_mm": 1.675877,
+          "stock_gap_lower_bound_mm": 1.675877119,
           "closest_stock": [
             {
               "body": "tube-co2-2",
-              "gap_mm": 1.675877
+              "gap_mm": 1.675877119
             }
           ]
         },
@@ -1426,26 +1687,30 @@
         },
         {
           "index": 2,
-          "stock_gap_lower_bound_mm": 1.952789,
+          "stock_gap_lower_bound_mm": 1.95278879,
           "closest_stock": [
             {
               "body": "relay-2",
-              "gap_mm": 1.952789
+              "gap_mm": 1.95278879
+            },
+            {
+              "body": "pcba",
+              "gap_mm": 2.350097655
             }
           ]
         },
         {
           "index": 3,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 4,
-          "stock_gap_lower_bound_mm": 1.861665,
+          "stock_gap_lower_bound_mm": 1.861664618,
           "closest_stock": [
             {
               "body": "enclosure-front-top",
-              "gap_mm": 1.861665
+              "gap_mm": 1.861664618
             }
           ]
         },
@@ -1456,29 +1721,46 @@
             {
               "body": "cold-core/foam-cap-top",
               "gap_mm": 2.45
+            },
+            {
+              "body": "cold-core/foam-cap-lid-top",
+              "gap_mm": 2.598187988
             }
           ]
         },
         {
           "index": 6,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 7,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 8,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         }
       ],
       "contact_to_free_wire_plane_mm": 11.65,
       "contact_plane_to_route_endpoint_mm": 464.517117,
       "remaining_cut_reserve_mm": 85.482883,
-      "endpoint_scope": "Native bare spade tip or nominal Wago entry face; terminal boot and installed bend radius unqualified."
+      "endpoint_scope": "Native bare spade tip or nominal Wago entry face; terminal boot and installed bend radius unqualified.",
+      "board_contact_to_free_plane_mm": 11.65,
+      "bench_cut_reserve_after_board_span_mm": 85.482883,
+      "terminal_endpoint_native_checks": [
+        {
+          "body": "coil-v-j",
+          "point_mm": [
+            -81.27,
+            125.09,
+            227.025
+          ],
+          "point_distance_mm": 9.999999406318238e-08
+        }
+      ]
     },
     "A_positive_to_D_max": {
       "points_mm": [
@@ -1518,20 +1800,20 @@
           153.325
         ],
         [
-          -29.8,
+          -14.9,
           125.09,
           153.325
         ],
         [
-          -29.8,
+          -14.9,
           125.09,
           163.325
         ]
       ],
-      "centreline_length_mm": 304.585,
+      "centreline_length_mm": 289.685,
       "start_reference": "Nominal Wago entry face",
       "bench_cut_max_mm": 350,
-      "bench_cut_minus_centreline_mm": 45.415,
+      "bench_cut_minus_centreline_mm": 60.315,
       "native_wire_envelope_clear": true,
       "min_stock_gap_lower_bound_mm": 2.45,
       "terminal_contact_exclusions": [
@@ -1551,25 +1833,25 @@
       "straight_segment_checks": [
         {
           "index": 0,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 1,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 2,
-          "stock_gap_lower_bound_mm": 2.482645,
+          "stock_gap_lower_bound_mm": 2.482644912,
           "closest_stock": [
             {
-              "body": "cold-core/foam-cap-lid-top",
-              "gap_mm": 2.482645
+              "body": "cold-core/foam-cap-top",
+              "gap_mm": 2.482644912
             },
             {
-              "body": "cold-core/foam-cap-top",
-              "gap_mm": 2.482645
+              "body": "cold-core/foam-cap-lid-top",
+              "gap_mm": 2.482644912
             }
           ]
         },
@@ -1580,53 +1862,61 @@
             {
               "body": "cold-core/foam-cap-top",
               "gap_mm": 2.45
+            },
+            {
+              "body": "cold-core/foam-cap-lid-top",
+              "gap_mm": 2.598187988
             }
           ]
         },
         {
           "index": 4,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 5,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 6,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 7,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         }
       ],
       "spherical_corner_checks": [
         {
           "index": 0,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 1,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 2,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 3,
-          "stock_gap_lower_bound_mm": 2.482645,
+          "stock_gap_lower_bound_mm": 2.482644912,
           "closest_stock": [
             {
               "body": "cold-core/foam-cap-top",
-              "gap_mm": 2.482645
+              "gap_mm": 2.482644912
+            },
+            {
+              "body": "cold-core/foam-cap-lid-top",
+              "gap_mm": 2.629442844
             }
           ]
         },
@@ -1637,31 +1927,57 @@
             {
               "body": "cold-core/foam-cap-top",
               "gap_mm": 2.45
+            },
+            {
+              "body": "cold-core/foam-cap-lid-top",
+              "gap_mm": 2.598187988
             }
           ]
         },
         {
           "index": 5,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 6,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 7,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 8,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         }
       ],
-      "endpoint_scope": "Native bare spade tip or nominal Wago entry face; terminal boot and installed bend radius unqualified."
+      "endpoint_scope": "Native bare spade tip or nominal Wago entry face; terminal boot and installed bend radius unqualified.",
+      "board_contact_to_free_plane_mm": 0,
+      "bench_cut_reserve_after_board_span_mm": 60.315,
+      "terminal_endpoint_native_checks": [
+        {
+          "body": "wago-mana",
+          "point_mm": [
+            86.2,
+            169,
+            268
+          ],
+          "point_distance_mm": 0.0
+        },
+        {
+          "body": "coil-v-d",
+          "point_mm": [
+            -14.9,
+            125.09,
+            163.325
+          ],
+          "point_distance_mm": 1.0000002248489182e-07
+        }
+      ]
     },
     "B_positive_to_J": {
       "points_mm": [
@@ -1696,22 +2012,22 @@
           231.025
         ],
         [
-          -81.27,
+          -66.37,
           125.09,
           231.025
         ],
         [
-          -81.27,
+          -66.37,
           125.09,
           227.025
         ]
       ],
-      "centreline_length_mm": 244.397117,
+      "centreline_length_mm": 229.497117,
       "start_reference": "Nominal Wago entry face",
       "bench_cut_max_mm": 300,
-      "bench_cut_minus_centreline_mm": 55.602883,
+      "bench_cut_minus_centreline_mm": 70.502883,
       "native_wire_envelope_clear": true,
-      "min_stock_gap_lower_bound_mm": 2.290061,
+      "min_stock_gap_lower_bound_mm": 2.290061362,
       "terminal_contact_exclusions": [
         {
           "segment_index": 0,
@@ -1729,31 +2045,35 @@
       "straight_segment_checks": [
         {
           "index": 0,
-          "stock_gap_lower_bound_mm": 2.817537,
+          "stock_gap_lower_bound_mm": 2.817537025,
           "closest_stock": [
             {
               "body": "tube-fluid-18",
-              "gap_mm": 2.817537
+              "gap_mm": 2.817537025
             }
           ]
         },
         {
           "index": 1,
-          "stock_gap_lower_bound_mm": 2.387958,
+          "stock_gap_lower_bound_mm": 2.387957846,
           "closest_stock": [
             {
               "body": "tube-fluid-18",
-              "gap_mm": 2.387958
+              "gap_mm": 2.387957846
             }
           ]
         },
         {
           "index": 2,
-          "stock_gap_lower_bound_mm": 2.482645,
+          "stock_gap_lower_bound_mm": 2.482644912,
           "closest_stock": [
             {
               "body": "cold-core/foam-cap-top",
-              "gap_mm": 2.482645
+              "gap_mm": 2.482644912
+            },
+            {
+              "body": "cold-core/foam-cap-lid-top",
+              "gap_mm": 2.676476444
             }
           ]
         },
@@ -1764,58 +2084,66 @@
             {
               "body": "cold-core/foam-cap-top",
               "gap_mm": 2.45
+            },
+            {
+              "body": "cold-core/foam-cap-lid-top",
+              "gap_mm": 2.598187988
             }
           ]
         },
         {
           "index": 4,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 5,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 6,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         }
       ],
       "spherical_corner_checks": [
         {
           "index": 0,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 1,
-          "stock_gap_lower_bound_mm": 2.290061,
+          "stock_gap_lower_bound_mm": 2.290061362,
           "closest_stock": [
             {
               "body": "tube-fluid-18",
-              "gap_mm": 2.290061
+              "gap_mm": 2.290061362
             }
           ]
         },
         {
           "index": 2,
-          "stock_gap_lower_bound_mm": 2.482645,
+          "stock_gap_lower_bound_mm": 2.482644912,
           "closest_stock": [
             {
               "body": "cold-core/foam-cap-top",
-              "gap_mm": 2.482645
+              "gap_mm": 2.482644912
             }
           ]
         },
         {
           "index": 3,
-          "stock_gap_lower_bound_mm": 2.482645,
+          "stock_gap_lower_bound_mm": 2.482644912,
           "closest_stock": [
             {
               "body": "cold-core/foam-cap-top",
-              "gap_mm": 2.482645
+              "gap_mm": 2.482644912
+            },
+            {
+              "body": "cold-core/foam-cap-lid-top",
+              "gap_mm": 2.629442844
             }
           ]
         },
@@ -1826,26 +2154,52 @@
             {
               "body": "cold-core/foam-cap-top",
               "gap_mm": 2.45
+            },
+            {
+              "body": "cold-core/foam-cap-lid-top",
+              "gap_mm": 2.598187988
             }
           ]
         },
         {
           "index": 5,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 6,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 7,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         }
       ],
-      "endpoint_scope": "Native bare spade tip or nominal Wago entry face; terminal boot and installed bend radius unqualified."
+      "endpoint_scope": "Native bare spade tip or nominal Wago entry face; terminal boot and installed bend radius unqualified.",
+      "board_contact_to_free_plane_mm": 0,
+      "bench_cut_reserve_after_board_span_mm": 70.502883,
+      "terminal_endpoint_native_checks": [
+        {
+          "body": "wago-manb",
+          "point_mm": [
+            85.9,
+            169,
+            240
+          ],
+          "point_distance_mm": 0.0
+        },
+        {
+          "body": "coil-v-j",
+          "point_mm": [
+            -66.37,
+            125.09,
+            227.025
+          ],
+          "point_distance_mm": 9.999999406318238e-08
+        }
+      ]
     },
     "B_positive_to_VK": {
       "points_mm": [
@@ -1890,22 +2244,22 @@
           309.25
         ],
         [
-          72.5,
+          57.6,
           265,
           309.25
         ],
         [
-          72.5,
-          256.63,
+          57.6,
+          258.63,
           309.25
         ]
       ],
-      "centreline_length_mm": 226.910437,
+      "centreline_length_mm": 210.010437,
       "start_reference": "Nominal Wago entry face",
       "bench_cut_max_mm": 300,
-      "bench_cut_minus_centreline_mm": 73.089563,
+      "bench_cut_minus_centreline_mm": 89.989563,
       "native_wire_envelope_clear": true,
-      "min_stock_gap_lower_bound_mm": 1.371289,
+      "min_stock_gap_lower_bound_mm": 1.37128856,
       "terminal_contact_exclusions": [
         {
           "segment_index": 0,
@@ -1923,118 +2277,135 @@
       "straight_segment_checks": [
         {
           "index": 0,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 1,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 2,
-          "stock_gap_lower_bound_mm": 1.371289,
+          "stock_gap_lower_bound_mm": 1.37128856,
           "closest_stock": [
             {
               "body": "tube-fluid-16",
-              "gap_mm": 1.371289
+              "gap_mm": 1.37128856
             }
           ]
         },
         {
           "index": 3,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 4,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 5,
-          "stock_gap_lower_bound_mm": 2.55,
+          "stock_gap_lower_bound_mm": 2.550000007,
           "closest_stock": [
             {
               "body": "vk-solenoid",
-              "gap_mm": 2.55
+              "gap_mm": 2.550000007
             }
           ]
         },
         {
           "index": 6,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 7,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 8,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         }
       ],
       "spherical_corner_checks": [
         {
           "index": 0,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 1,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 2,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 3,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 4,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 5,
-          "stock_gap_lower_bound_mm": 2.832109,
-          "closest_stock": [
-            {
-              "body": "vk-solenoid",
-              "gap_mm": 2.832109
-            }
-          ]
+          "stock_gap_lower_bound_mm": 3.0,
+          "closest_stock": []
         },
         {
           "index": 6,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 7,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 8,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 9,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         }
       ],
-      "endpoint_scope": "Native bare spade tip or nominal Wago entry face; terminal boot and installed bend radius unqualified."
+      "endpoint_scope": "Native bare spade tip or nominal Wago entry face; terminal boot and installed bend radius unqualified.",
+      "board_contact_to_free_plane_mm": 0,
+      "bench_cut_reserve_after_board_span_mm": 89.989563,
+      "terminal_endpoint_native_checks": [
+        {
+          "body": "wago-manb",
+          "point_mm": [
+            85.9,
+            169,
+            258
+          ],
+          "point_distance_mm": 0.0
+        },
+        {
+          "body": "vk-solenoid",
+          "point_mm": [
+            57.6,
+            258.63,
+            309.25
+          ],
+          "point_distance_mm": 0.0
+        }
+      ]
     },
     "J2_OUT3_to_VK": {
       "points_mm": [
@@ -2065,16 +2436,16 @@
         ],
         [
           72.5,
-          256.63,
+          258.63,
           309.25
         ]
       ],
-      "centreline_length_mm": 107.310755,
+      "centreline_length_mm": 105.310755,
       "start_reference": "Board free-wire plane",
       "bench_cut_max_mm": 150,
-      "bench_cut_minus_centreline_mm": 42.689245,
+      "bench_cut_minus_centreline_mm": 44.689245,
       "native_wire_envelope_clear": true,
-      "min_stock_gap_lower_bound_mm": 1.475,
+      "min_stock_gap_lower_bound_mm": 1.474999993,
       "terminal_contact_exclusions": [
         {
           "segment_index": 4,
@@ -2086,11 +2457,11 @@
       "straight_segment_checks": [
         {
           "index": 0,
-          "stock_gap_lower_bound_mm": 1.475,
+          "stock_gap_lower_bound_mm": 1.474999993,
           "closest_stock": [
             {
               "body": "tube-co2-2",
-              "gap_mm": 1.475
+              "gap_mm": 1.474999993
             }
           ]
         },
@@ -2106,28 +2477,28 @@
         },
         {
           "index": 2,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 3,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 4,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         }
       ],
       "spherical_corner_checks": [
         {
           "index": 0,
-          "stock_gap_lower_bound_mm": 1.675877,
+          "stock_gap_lower_bound_mm": 1.675877119,
           "closest_stock": [
             {
               "body": "tube-co2-2",
-              "gap_mm": 1.675877
+              "gap_mm": 1.675877119
             }
           ]
         },
@@ -2143,29 +2514,42 @@
         },
         {
           "index": 2,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 3,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 4,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 5,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         }
       ],
       "contact_to_free_wire_plane_mm": 11.65,
       "contact_plane_to_route_endpoint_mm": 118.960755,
       "remaining_cut_reserve_mm": 31.039245,
-      "endpoint_scope": "Native bare spade tip or nominal Wago entry face; terminal boot and installed bend radius unqualified."
+      "endpoint_scope": "Native bare spade tip or nominal Wago entry face; terminal boot and installed bend radius unqualified.",
+      "board_contact_to_free_plane_mm": 11.65,
+      "bench_cut_reserve_after_board_span_mm": 33.039245,
+      "terminal_endpoint_native_checks": [
+        {
+          "body": "vk-solenoid",
+          "point_mm": [
+            72.5,
+            258.63,
+            309.25
+          ],
+          "point_distance_mm": 0.0
+        }
+      ]
     },
     "B_positive_to_fan_crown": {
       "points_mm": [
@@ -2220,7 +2604,7 @@
       "bench_cut_max_mm": 450,
       "bench_cut_minus_centreline_mm": 145.1,
       "native_wire_envelope_clear": true,
-      "min_stock_gap_lower_bound_mm": 1.322336,
+      "min_stock_gap_lower_bound_mm": 1.322335785,
       "terminal_contact_exclusions": [
         {
           "segment_index": 0,
@@ -2232,118 +2616,135 @@
       "straight_segment_checks": [
         {
           "index": 0,
-          "stock_gap_lower_bound_mm": 1.787308,
+          "stock_gap_lower_bound_mm": 1.787307931,
           "closest_stock": [
             {
               "body": "tube-fluid-18",
-              "gap_mm": 1.787308
+              "gap_mm": 1.787307931
             }
           ]
         },
         {
           "index": 1,
-          "stock_gap_lower_bound_mm": 1.465097,
+          "stock_gap_lower_bound_mm": 1.465096982,
           "closest_stock": [
             {
               "body": "tube-fluid-18",
-              "gap_mm": 1.465097
+              "gap_mm": 1.465096982
+            },
+            {
+              "body": "cold-core/copper-plug-port",
+              "gap_mm": 2.8
             }
           ]
         },
         {
           "index": 2,
-          "stock_gap_lower_bound_mm": 2.013564,
+          "stock_gap_lower_bound_mm": 2.013564192,
           "closest_stock": [
             {
               "body": "cold-core/copper-plug-port",
-              "gap_mm": 2.013564
+              "gap_mm": 2.013564192
             }
           ]
         },
         {
           "index": 3,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 4,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 5,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 6,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 7,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         }
       ],
       "spherical_corner_checks": [
         {
           "index": 0,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 1,
-          "stock_gap_lower_bound_mm": 1.322336,
+          "stock_gap_lower_bound_mm": 1.322335785,
           "closest_stock": [
             {
               "body": "tube-fluid-18",
-              "gap_mm": 1.322336
+              "gap_mm": 1.322335785
             }
           ]
         },
         {
           "index": 2,
-          "stock_gap_lower_bound_mm": 2.040221,
+          "stock_gap_lower_bound_mm": 2.013564192,
           "closest_stock": [
             {
               "body": "cold-core/copper-plug-port",
-              "gap_mm": 2.040221
+              "gap_mm": 2.013564192
             }
           ]
         },
         {
           "index": 3,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 4,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 5,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 6,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 7,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 8,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         }
       ],
-      "endpoint_scope": "Accessible condenser crown region; final donor lead and terminal unlocated."
+      "endpoint_scope": "Accessible condenser crown region; final donor lead and terminal unlocated.",
+      "board_contact_to_free_plane_mm": 0,
+      "bench_cut_reserve_after_board_span_mm": 145.1,
+      "terminal_endpoint_native_checks": [
+        {
+          "body": "wago-manb",
+          "point_mm": [
+            85.9,
+            169,
+            234
+          ],
+          "point_distance_mm": 0.0
+        }
+      ]
     },
     "J2_FAN_to_fan_crown": {
       "points_mm": [
@@ -2408,36 +2809,48 @@
       "bench_cut_max_mm": 650,
       "bench_cut_minus_centreline_mm": 106.63,
       "native_wire_envelope_clear": true,
-      "min_stock_gap_lower_bound_mm": 1.231015,
+      "min_stock_gap_lower_bound_mm": 1.231015377,
       "terminal_contact_exclusions": [],
       "straight_segment_checks": [
         {
           "index": 0,
-          "stock_gap_lower_bound_mm": 1.475,
+          "stock_gap_lower_bound_mm": 1.474999993,
           "closest_stock": [
             {
               "body": "tube-co2-2",
-              "gap_mm": 1.475
+              "gap_mm": 1.474999993
             }
           ]
         },
         {
           "index": 1,
-          "stock_gap_lower_bound_mm": 1.954002,
+          "stock_gap_lower_bound_mm": 1.954002303,
           "closest_stock": [
             {
               "body": "relay-2",
-              "gap_mm": 1.954002
+              "gap_mm": 1.954002303
+            },
+            {
+              "body": "pcba",
+              "gap_mm": 2.350132975
             }
           ]
         },
         {
           "index": 2,
-          "stock_gap_lower_bound_mm": 1.231015,
+          "stock_gap_lower_bound_mm": 1.231015377,
           "closest_stock": [
             {
               "body": "enclosure-back-top",
-              "gap_mm": 1.231015
+              "gap_mm": 1.231015377
+            },
+            {
+              "body": "relay-2",
+              "gap_mm": 1.95278879
+            },
+            {
+              "body": "pcba",
+              "gap_mm": 2.350097655
             }
           ]
         },
@@ -2453,48 +2866,56 @@
         },
         {
           "index": 4,
-          "stock_gap_lower_bound_mm": 1.88961,
+          "stock_gap_lower_bound_mm": 1.889609748,
           "closest_stock": [
             {
               "body": "enclosure-front-top",
-              "gap_mm": 1.88961
+              "gap_mm": 1.889609748
+            },
+            {
+              "body": "cold-core/foam-cap-top",
+              "gap_mm": 2.45
+            },
+            {
+              "body": "cold-core/foam-cap-lid-top",
+              "gap_mm": 2.598187988
             }
           ]
         },
         {
           "index": 5,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 6,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 7,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 8,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 9,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         }
       ],
       "spherical_corner_checks": [
         {
           "index": 0,
-          "stock_gap_lower_bound_mm": 1.675877,
+          "stock_gap_lower_bound_mm": 1.675877119,
           "closest_stock": [
             {
               "body": "tube-co2-2",
-              "gap_mm": 1.675877
+              "gap_mm": 1.675877119
             }
           ]
         },
@@ -2510,69 +2931,80 @@
         },
         {
           "index": 2,
-          "stock_gap_lower_bound_mm": 1.952789,
+          "stock_gap_lower_bound_mm": 1.95278879,
           "closest_stock": [
             {
               "body": "relay-2",
-              "gap_mm": 1.952789
+              "gap_mm": 1.95278879
+            },
+            {
+              "body": "pcba",
+              "gap_mm": 2.350097655
             }
           ]
         },
         {
           "index": 3,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 4,
-          "stock_gap_lower_bound_mm": 1.861665,
+          "stock_gap_lower_bound_mm": 1.861664618,
           "closest_stock": [
             {
               "body": "enclosure-front-top",
-              "gap_mm": 1.861665
+              "gap_mm": 1.861664618
             }
           ]
         },
         {
           "index": 5,
-          "stock_gap_lower_bound_mm": 2.45,
+          "stock_gap_lower_bound_mm": 2.450000001,
           "closest_stock": [
             {
               "body": "cold-core/foam-cap-top",
-              "gap_mm": 2.45
+              "gap_mm": 2.450000001
+            },
+            {
+              "body": "cold-core/foam-cap-lid-top",
+              "gap_mm": 2.598187988
             }
           ]
         },
         {
           "index": 6,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 7,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 8,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 9,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         },
         {
           "index": 10,
-          "stock_gap_lower_bound_mm": 3,
+          "stock_gap_lower_bound_mm": 3.0,
           "closest_stock": []
         }
       ],
       "contact_to_free_wire_plane_mm": 11.65,
       "contact_plane_to_route_endpoint_mm": 555.02,
       "remaining_cut_reserve_mm": 94.98,
-      "endpoint_scope": "Accessible condenser crown region; final donor lead and terminal unlocated."
+      "endpoint_scope": "Accessible condenser crown region; final donor lead and terminal unlocated.",
+      "board_contact_to_free_plane_mm": 11.65,
+      "bench_cut_reserve_after_board_span_mm": 94.98,
+      "terminal_endpoint_native_checks": []
     }
   }
 }

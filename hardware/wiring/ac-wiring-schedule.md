@@ -123,12 +123,21 @@ Dress J1 and the four descending J2 conductors aft of the PCB, then along its
 lower +X flank in an unsleeved flat stack. The native straight corridor accepts
 the nine J1 and four J2 conductors together in a 5.1 × 8.5 mm envelope at
 X92.075–97.175, Y178–330, Z242.75–251.25. J2 OUT3 takes the short route to V-K.
-The cross-bank branches pass behind the upper coils at Y158, Z280; the E/H
+The cross-bank branches pass behind the upper coils at Y151.2, Z280; the E/H
 branches enter the gap between coil tiers, and C/D are reached below their
 downward-facing tabs. The fan pair drops through the +X side gap and passes
 forward above the condenser crown. The
 [native junction review](manifold-junction-clearance-check.json) records the
 terminal directions, paths, stock clearances and bench cuts.
+
+The twelve complete 1.7 mm wire envelopes keep at least 1.231 mm from native
+stock; the shared bare trunk keeps 1.325 mm. The checked H and I switched
+routes are 502.869 and 480.455 mm from the board's free-wire plane. Their
+550 mm cuts retain 35.481 and 57.895 mm after the additional 11.65 mm span
+from the board-top contact datum. V-K's positive branch is 210.010 mm to one
+tab, and its OUT3 return is 105.311 mm to the other; the 150 mm return cut
+retains 33.039 mm after that board span. Positive and switched conductors
+land on separate tabs at every coil.
 
 The 1.7 mm wire envelopes and shared straight strip establish geometric
 clearance. The review does not qualify Faston boots, bend radii at the tabs,

@@ -256,6 +256,10 @@ MOUNTS = (
     ("g-ganen-pump", "foam-assembly", "deck-mount"),
     ("funnel", None, "wall-capture"),
     ("funnel-frame", ("enclosure-front-top", "enclosure-back-top"), "wall-capture"),
+    # Each interchangeable grip strip crosses the connected bottom seam. Its two flat wings
+    # snap into the existing through-slots, one end in each bottom half (`_grip_interface`).
+    ("grip-cover-east", ("enclosure-front-bottom", "enclosure-back-bottom"), "snap-capture"),
+    ("grip-cover-west", ("enclosure-front-bottom", "enclosure-back-bottom"), "snap-capture"),
     # THE FUNNEL'S DRAIN JOINT HANGS UNDER THE FRAME. The cradle's two wings rise through slots
     # in the frame's bottom web and hook over it (`zone-c/funnel/elbow_cradle.py`); the elbow
     # stands in the cradle's pocket with its nose on the web; the stub stands in the elbow's
@@ -494,7 +498,7 @@ def fastened_by(name: str):
 # it null. These rows come out of the axis's denominator, and their text goes out on the card.
 NEVER = {
     "funnel":
-        "The silicone brim rests in the sliding PET-GF frame and its plug in the frame's socket, "
+        "The silicone brim rests on the roof ledge and its plug on the cradle's hook tops within the frame's socket, "
         "its sealing land on the drain stub. The funnel lifts out by hand for the dishwasher, the "
         "land sliding off the stub.",
     "funnel-drain-stub":
@@ -621,8 +625,8 @@ MADE_UP = (
     # And the same stub up the plug's bore to the top of its land. The funnel drains THROUGH the
     # stub, so the drain's lead is the stub's own bore.
     ("funnel.drain", "funnel-drain-stub.upper"),
-    # The plug's bottom face and the elbow's release face, which stand the frame's web less the
-    # collet's projection apart with the stub filling the hole between them.
+    # The block's bottom face stands above the socket floor on the hook tops; the web and block
+    # lift, less the collet's projection, separate it from the elbow's release face.
     ("funnel.drain", "funnel-drain-union.stub"),
 )
 
@@ -712,11 +716,14 @@ TOUCHING_OK = {frozenset(p) for p in (
     # And the nameplate's lettering against the plate it is lettered into, the same print in the
     # same two filaments at another size.
     ("nameplate", "nameplate-ink"),
-    # The silicone plug's lower face bears on the frame's 3 mm web.
+    # The grip covers' wings and backs retain their running clearances within the bottom halves.
+    *((cover, wall) for cover in ("grip-cover-east", "grip-cover-west")
+                   for wall in ("enclosure-front-bottom", "enclosure-back-bottom")),
+    # The frame surrounds the silicone bowl and its plug; the brim bears on the roof ledge.
     ("funnel", "funnel-frame"),
     # THE DRAIN JOINT'S SEATS. The elbow's nose bears on the frame's underside round the hole and
     # its body on the cradle's pocket; the cradle's wings stand in the web's slots with their
-    # hooks over it, inside the plug's pockets; the plug's land closes on the stub.
+    # hooks over it, supporting the plug's flat underside; the plug's land closes on the stub.
     ("funnel-frame", "funnel-drain-union"),
     ("elbow-cradle", "funnel-drain-union"),
     ("elbow-cradle", "funnel-frame"),

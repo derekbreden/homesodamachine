@@ -29,7 +29,7 @@ for sign in (-1,1):
     corbel_excess.append(float(residual.max()))
 assert max(corbel_excess)<.001,corbel_excess
 web=[]
-# This ring lies between the 5.625 mm drain radius and the 10.38 mm slot edge.
+# This ring lies between the drain hole and either wing slot.
 web_probe_radius=8.0
 for angle in np.linspace(0,2*np.pi,8,endpoint=False):
     origin=[ff.funnel.neck_dx+web_probe_radius*np.cos(angle),
