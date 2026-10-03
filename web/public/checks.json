@@ -67,12 +67,12 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 4920 tracked, 573 fetched solids, 56 tags, 39 site routes",
+      "note": "paths: every reference lands — 4923 tracked, 573 fetched solids, 56 tags, 39 site routes",
       "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 430 of 1000 free, the next cut wants 427, and the whole pointer file reads by name in 21.8 MB against 175.8 MB of bundle",
+      "note": "check_release_room: 429 of 1000 free, the next cut wants 427, and the whole pointer file reads by name in 22.0 MB against 175.8 MB of bundle",
       "status": "ok"
     },
     {
@@ -92,12 +92,12 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 264 source(s) the graph names",
+      "note": "check_declared_imports: every step holds what it imports, over 0 staged source(s)",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 2742 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 568 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 2773 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 568 member(s) keep their provenance",
       "status": "ok"
     }
   ],
