@@ -46,8 +46,6 @@ locator_leadin = 1.0
 locator_clearance = 0.60
 locator_slot_travel = 1.5
 locator_y = (22.0, -12.0)
-tip_length = 18.0
-tip_cap = 12.0
 rod_diameter = 6.35
 rod_length = 50.8
 rod_clearance = 2.0
@@ -58,11 +56,15 @@ rod_tie_stations = (15.0, 23.0)
 rod_tie_width = 4.4
 rod_tie_groove_depth = 0.7
 rod_seal_depth = 2.0
+# The rod's lower end stands in a blind socket in the cavity floor, so the bore opens through
+# the plug's bottom face. Both depths are measured below that face.
+rod_socket_diameter = 11.0
+rod_socket_depth = 3.0
+rod_end_depth = 1.5
 rod_offset_allowance = 1.5
-rod_axial_allowance = 3.0
-rod_extra_projection_allowance = 6.0
+rod_axial_allowance = 1.0
+rod_extra_projection_allowance = 1.0
 rod_tilt_allowance = 2.0
-minimum_spout_wall = 2.0
 vent_diameter = 4.0
 pour_diameter = 11.0
 foot_diameter = 10.0
@@ -182,7 +184,8 @@ def liquid_containment(cavity, core, rod, cast, seal, floor, top, back, width,
     overlap = 0.02
     surrounding = box(width+26, width+26, floor-2, back+8)
     outside = cq.Vector(-(width+26)/2+1, 0, floor)
-    witness = cq.Vector(x, y, rod.BoundingBox().zmin-3)
+    # In the plug's silicone, beside the rod and above its socket.
+    witness = cq.Vector(x+rod_diameter, y, rod.BoundingBox().zmin+rod_socket_depth)
     mouth_cap = box(width+2, width+2, top-overlap, back+2)
     ports = [(pour, pour_diameter), *[(xy, vent_diameter) for xy in vents]]
     caps = [cylinder(diameter/2+overlap, back-overlap, back+1, *xy)
@@ -207,8 +210,7 @@ def build():
     exterior, bore, m = funnel.build_solids()
     top, neck, end = m['top_z'], m['neck_z'], m['end_z']
     x, y = m['ncx'], m['ncy']
-    tip_bottom = end-tip_length
-    floor = tip_bottom-finish_allowance-shell_thickness-foot_clearance
+    floor = end-finish_allowance-shell_thickness-foot_clearance
     flange_width = m['out_w']+2*flange_margin
     bolt_radius = flange_width/2-bolt_edge_margin
     bolt_xy = [(side*bolt_radius, station*bolt_station)
@@ -217,12 +219,9 @@ def build():
                 for side in (-1, 1) for station in (-1, 1)]
     locator_xy = [(bolt_radius, locator_y[0]), (-bolt_radius, locator_y[1])]
 
-    tip = cylinder(m['spout_or'], tip_bottom, end, x, y)
-    nominal_exterior = one(exterior.fuse(tip), 'casting envelope')
+    nominal_exterior = one(exterior, 'casting envelope')
     print('Offsetting cavity forming face and dry back', flush=True)
-    forming_void = one(fuse_shapes(
-        funnel.build_solids(outer_air=finish_allowance)[0],
-        expanded(tip, finish_allowance), tol=tolerance), 'forming void')
+    forming_void = one(funnel.build_solids(outer_air=finish_allowance)[0], 'forming void')
     # Carry the forming ramp's rounded-join margin into its dry backing.
     backing_allowance = finish_allowance+shell_thickness+forming_join_allowance
     ramp = funnel._loft_rc(m['bore_w'], m['bore_d'], 0, 0, m['ramp_top_z'],
@@ -231,7 +230,6 @@ def build():
     backing_bodies = (
         funnel._rounded_box(m['w'], m['d'], funnel.collar_corner_r, m['ramp_top_z'], 0),
         funnel._rounded_box(m['out_w'], m['out_d'], funnel.brim_corner_r, 0, top),
-        cylinder(m['spout_or'], tip_bottom, neck, x, y),
         funnel.elbow_cradle.plug_outline(funnel.plug_diameter/2, 0.0, 0.0,
                                          funnel.plug_height).translate((x, y, end)),
     )
@@ -248,6 +246,8 @@ def build():
     feet = [cylinder(foot_diameter/2, floor, m['ramp_top_z'], *xy) for xy in feet_xy]
     cavity = one(cavity_outer.fuse(cavity_flange, *feet).cut(forming_void)
                  .intersect(box(flange_width+2, flange_width+2, floor, top)), 'cavity shell')
+    socket = cylinder(rod_socket_diameter/2, end-rod_socket_depth, end, x, y)
+    cavity = one(cavity.cut(socket), 'cavity rod socket')
 
     back = top+flange_thickness
     nominal_plug = one(bore.intersect(box(flange_width, flange_width, neck, top))
@@ -274,9 +274,8 @@ def build():
     core = one(plug.fuse(plate).cut(dry_void)
                .intersect(box(flange_width+2, flange_width+2, neck, back)), 'core shell')
 
-    rod_bottom = tip_bottom+tip_cap
+    rod_bottom = end-rod_end_depth
     rod_top = rod_bottom+rod_length
-    rod_below = neck-rod_bottom
     rod_engagement = rod_top-neck
     rod = cylinder(rod_diameter/2, rod_bottom, rod_top, x, y)
     guide_radius = (rod_diameter+rod_clearance)/2
@@ -370,7 +369,7 @@ def build():
         assert core.intersect(rod.translate((0.5, 0, -withdrawal))).Volume() < tolerance
     for station in rod_tie_stations:
         assert station-rod_tie_width/2 > rod_guide_length
-    clearances, end_clearances = [], []
+    socket_clearances, end_depths = [], []
     for azimuth in range(0, 360, 45):
         angle = math.radians(azimuth)
         dx, dy = math.cos(angle), math.sin(angle)
@@ -380,12 +379,13 @@ def build():
                 misplaced = misplaced.translate((rod_offset_allowance*dx,
                                                    rod_offset_allowance*dy, axial))
                 assert cavity.intersect(misplaced).Volume() < tolerance
-                clearances.append(cavity.distance(misplaced)-finish_allowance)
-                end_clearances.append(misplaced.BoundingBox().zmin-tip_bottom)
-    assert min(clearances) > minimum_spout_wall
-    assert min(end_clearances) > funnel.spout_wall
+                socket_clearances.append(cavity.distance(misplaced))
+                # The rod's whole end face stays under the plug's bottom face.
+                face = min(misplaced.Faces(), key=lambda f: f.Center().z)
+                end_depths.append(end-face.BoundingBox().zmax)
+    assert min(socket_clearances) > 0
+    assert min(end_depths) > 0
     assert abs(rod.BoundingBox().zlen-rod_length) < tolerance
-    assert rod_below-rod_axial_allowance > neck-end
     minimum_core_backing = dry_void.distance(cast) - finish_allowance
     assert minimum_core_backing >= shell_thickness-0.001, minimum_core_backing
     assert (forming_void.cut(nominal_exterior).Volume() > 0)
@@ -415,25 +415,23 @@ def build():
         'parting_z_mm': top-floor, 'finish_allowance_mm': finish_allowance,
         'casting_scope': 'rectangular plug blank with a straight dowel bore; hook pockets and the staged sealing bore require separate forming features',
         'plug_blank_mm': [funnel.plug_diameter,
-                          2*funnel.elbow_cradle.plug_half_length(funnel.plug_diameter/2),
-                          funnel.plug_height],
+                          2*funnel.elbow_cradle.plug_half_length(funnel.plug_diameter/2)],
         'rod_support': {'engagement_mm': rod_engagement, 'guide_diameter_mm': 2*guide_radius,
             'guide_diametral_clearance_mm': rod_clearance, 'guide_length_mm': rod_guide_length,
             'cradle': 'open 90-degree V, two zip ties, visible axial stop on dry back',
             'tie_width_mm': rod_tie_width, 'tie_stations_from_neck_mm': list(rod_tie_stations),
             'seal': 'removable mold-sealing clay, shaped flush with the forming face',
             'seal_depth_mm': rod_seal_depth},
-        'spout': {'bore_mm': rod_diameter, 'outside_diameter_mm': 2*m['spout_or'],
-            'nominal_wall_mm': funnel.spout_wall, 'finished_length_mm': funnel.spout_tube,
-            'sacrificial_length_mm': tip_length, 'rod_end_clearance_mm': tip_cap},
+        'rod_socket': {'diameter_mm': rod_socket_diameter, 'depth_mm': rod_socket_depth,
+            'rod_end_depth_mm': rod_end_depth,
+            'reference': 'depths below the plug blank bottom face; the socket is a masked rod passage'},
         'rod_tolerance_screen': {'offset_mm': rod_offset_allowance,
             'short_projection_mm': rod_axial_allowance,
             'extra_projection_mm': rod_extra_projection_allowance, 'tilt_deg': rod_tilt_allowance,
             'azimuths_deg': list(range(0, 360, 45)),
-            'minimum_silicone_clearance_mm': min(clearances),
-            'minimum_end_clearance_mm': min(end_clearances),
-            'minimum_required_wall_mm': minimum_spout_wall,
-            'scope': 'Simultaneous rod offset, tilt and axial error against the cavity; cradle retention and sealing need a physical trial.'},
+            'minimum_socket_clearance_mm': min(socket_clearances),
+            'minimum_end_depth_mm': min(end_depths),
+            'scope': 'Simultaneous rod offset, tilt and axial error against the cavity and its socket; cradle retention and sealing need a physical trial.'},
         'locators': {'diameter_mm': locator_diameter, 'height_mm': locator_height,
                      'radial_clearance_mm': locator_clearance, 'slot_travel_each_way_mm': locator_slot_travel,
                      'centres_xy_mm': locator_xy},
@@ -442,18 +440,18 @@ def build():
         'ports': {'fill_diameter_mm': pour_diameter, 'vent_diameter_mm': vent_diameter,
                   'fill_xy_mm': pour, 'vent_xy_mm': vents},
         'feet': {'diameter_mm': foot_diameter, 'centres_xy_mm': feet_xy,
-                 'spout_back_clearance_mm': foot_clearance},
+                 'plug_backing_clearance_mm': foot_clearance},
         'dry_opening_mm': m['bore_w']-2*(shell_thickness+finish_allowance),
         'dry_opening_depth_mm': m['bore_d']-2*(shell_thickness+finish_allowance),
         'ramp_print_z_mm': {'cavity': [neck-floor, m['ramp_top_z']-floor],
                             'core': [back-m['ramp_top_z'], back-neck]},
         'nominal_chamber_diameter_mm': chamber_diameter,
-        'load_screen': load_screen(m, tip_bottom),
+        'load_screen': load_screen(m, end),
         'status': 'CAD geometry verified; print, coated closure, vacuum cycle and casting untested'}
     return parts, info
 
 
-def load_screen(m, tip_bottom):
+def load_screen(m, bottom):
     # Simply supported flat-square screening surrogate; q is uniform at the maximum head.
     span = m['w']
     pressure = 0.001  # N/mm² = 1 kPa, including head and a modest process allowance.
@@ -461,7 +459,7 @@ def load_screen(m, tip_bottom):
     poisson = 0.4
     rigidity = modulus*shell_thickness**3/(12*(1-poisson**2))
     deflection = 0.00406*pressure*span**4/rigidity
-    head = m['top_z']+flange_thickness-tip_bottom
+    head = m['top_z']+flange_thickness-bottom
     return {'model': 'simply supported flat square under uniform load; screening, not FEA or a pressure rating',
             'span_mm': span, 'pressure_kpa': pressure*1000,
             'assumed_modulus_mpa': modulus, 'assumed_poisson_ratio': poisson,

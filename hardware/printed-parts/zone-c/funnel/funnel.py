@@ -2,10 +2,11 @@
 
 The collar center is the origin; z=0 is the brim underside. The 6 mm brim,
 collar and normal ramp wall lead to a substantial silicone plug, a 36 mm wide
-rounded rectangle centred on the outlet and long enough in Y to house the
-elbow cradle's two hooks in pockets in its underside. Its lower bore has a
-lead-in and relief; the upper 3 mm is the nominal sealing land. The frame's
-through hole and the drain stub are separate parts.
+square-cornered rectangle centred on the outlet and long enough in Y to house
+the elbow cradle's two hooks in pockets in its underside. Its walls run up into
+the bowl's underside, so none of its top shows. Its lower bore has a lead-in
+and relief; the upper 3 mm is the nominal sealing land. The frame's through
+hole and the drain stub are separate parts.
 """
 
 import math
@@ -52,7 +53,9 @@ neck_blend_drop = 6.25
 # Ramp and outlet elevations are independent of the plug's lower face.
 _ramp_rise = 14.199233063709995
 plug_diameter = 36.0
-plug_height = 15.0
+# Tall enough that the plug's top lies wholly inside the bowl: the bowl's underside stands
+# 15.745 mm over the plug's bottom at its +X corners, its highest over the plug.
+plug_height = 16.0
 drop = 46.1  # brim underside to plug underside
 sealing_land = 3.0
 sealing_id = 6.0
@@ -192,6 +195,9 @@ def build_solids(drop=drop, ramp_wall=collar_wall, outer_air=0.0):
     if outer_air:
         bases = [bases[0], *(normal_envelope(b, outer_air) for b in bases[1:])]
     solid = fuse_shapes(*bases, tol=0.0001).clean()
+    plug_top = end_z + plug_height + outer_air
+    assert not [f for f in solid.Faces() if f.geomType() == "PLANE"
+                and abs(f.Center().z - plug_top) < 0.001], "the plug's top shows below the bowl"
     # The plug's broad lower annulus is the silicone's sole bottom plane.
     solid = solid.intersect(_box(600, 600, end_z - outer_air, top_z + 1, 0, 0)).clean()
     assert solid.isValid() and len(solid.Solids()) == 1

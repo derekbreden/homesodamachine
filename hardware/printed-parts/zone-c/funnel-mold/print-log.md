@@ -23,10 +23,10 @@ from speed or establish the cause of the remaining defect.
 The original supplied JPEG bytes are preserved; their hashes are in
 [print-jobs.json](print-jobs.json).
 
-The saved [funnel-mold.3mf](funnel-mold.3mf) contains the current **600 mL**
+The saved [funnel-mold.3mf](funnel-mold.3mf) contains the **600 mL**
 rounded-mouth funnel's cavity and core from geometry commit `953dbfa68`.
-The finished casting solid matches a fresh build of `../funnel/funnel.py`,
-with zero symmetric-difference volume after trimming the sacrificial tip.
+Its finished casting solid matched that commit's `../funnel/funnel.py`,
+with zero symmetric-difference volume after trimming that design's sacrificial tip.
 Both embedded meshes match the current STL files and retain their print
 orientations. The complete process, filament and machine settings equal
 those of the printed 0.88 project. Both plates freshly slice successfully;

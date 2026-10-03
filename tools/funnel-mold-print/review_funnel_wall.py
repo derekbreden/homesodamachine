@@ -12,6 +12,7 @@ import importlib.util
 import json
 import math
 import os
+import sys
 from pathlib import Path
 
 import cadquery as cq
@@ -129,7 +130,18 @@ def wall_reading(shape, point, normal):
             "exit_surface": None}
 
 
-def region_readings(cast, exported, metadata, brim_thickness, spout_wall, tolerance):
+def nominal_plug(module, metadata):
+    """The plug as the generator cuts it: its outline prism less the elbow cradle's hook pockets."""
+    cradle = module.elbow_cradle
+    plug = cradle.plug_outline(module.plug_diameter / 2, 0.0, 0.0, module.plug_height).translate(
+        cq.Vector(metadata["ncx"], metadata["ncy"], metadata["end_z"]))
+    lift = cq.Vector(metadata["ncx"], metadata["ncy"], metadata["end_z"] - cradle.WEB)
+    for pocket in cradle.pockets():
+        plug = plug.cut(pocket.translate(lift))
+    return plug
+
+
+def region_readings(cast, exported, metadata, brim_thickness, spout_wall, tolerance, plug):
     readings = []
 
     def measure(label, point, normal, expected):
@@ -180,14 +192,17 @@ def region_readings(cast, exported, metadata, brim_thickness, spout_wall, tolera
         for station, z, radius in stations:
             point = [metadata["ncx"] + normal[0] * radius,
                      metadata["ncy"] + normal[1] * radius, z]
-            measure(f"plug-{direction}-{station}", point, normal,
-                    metadata["plug_radius"] - radius)
+            # The wall reaches the plug's outline, or a hook pocket where one stands in the way.
+            reach = wall_reading(plug, cq.Vector(*point), cq.Vector(*normal))["thickness_mm"]
+            measure(f"plug-{direction}-{station}", point, normal, reach)
     return {"sample_count": len(readings), "readings": readings,
             "passes": all(reading["passes"] for reading in readings)}
 
 
 def review(source, step, minimum=6.0, tolerance=0.01, grid=5, edge_margin=0.25):
     os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
+    # The source imports its sibling generators (the elbow cradle) by name.
+    sys.path.insert(0, str(Path(source).resolve().parent))
     spec = importlib.util.spec_from_file_location("funnel_wall_source", source)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
@@ -224,7 +239,7 @@ def review(source, step, minimum=6.0, tolerance=0.01, grid=5, edge_margin=0.25):
         ranges[label] = {"minimum_mm": min(values) if values else None,
                          "maximum_mm": max(values) if values else None}
     regions = region_readings(cast, exported, metadata, module.brim_thickness,
-                              module.spout_wall, tolerance)
+                              module.spout_wall, tolerance, nominal_plug(module, metadata))
     return {
         "method": "Exact B-rep rays along outward inner-ramp surface normals.",
         "scope": "Interior of every sloping bore face; cylindrical outlet excluded.",

@@ -3,7 +3,7 @@
     "cavity": [
       211.0,
       211.0,
-      79.10000009999999
+      61.1000001
     ],
     "core": [
       211.0,
@@ -13,7 +13,7 @@
     "funnel": [
       179.0000002,
       95.78301604656257,
-      70.10000009999999
+      52.100000200000004
     ],
     "rod": [
       6.35,
@@ -22,16 +22,16 @@
     ],
     "seal": [
       8.35000020000212,
-      8.350000200393094,
+      8.35000020039309,
       1.6951296328122325
     ]
   },
   "volume_ml": {
-    "cavity": 314.45466190992965,
-    "core": 281.1601747997588,
-    "funnel": 195.83598386659193,
-    "rod": 1.6087962461345553,
-    "seal": 0.03542484628703538
+    "cavity": 298.83483963716145,
+    "core": 281.5417888144587,
+    "funnel": 177.74686773104662,
+    "rod": 1.6087962461345555,
+    "seal": 0.03542484628698541
   },
   "shell_thickness_mm": 5.0,
   "flange_thickness_mm": 5.0,
@@ -40,24 +40,23 @@
   "minimum_core_backing_mm": 4.999999997518456,
   "liquid_containment": {
     "cavity": {
-      "retained_volume_ml": 505.82043323543235,
+      "retained_volume_ml": 487.1599256732373,
       "casting_outside_retained_mm3": 0.0
     },
     "assembled": {
-      "retained_volume_ml": 214.95642148564536,
+      "retained_volume_ml": 196.4377468064277,
       "casting_outside_retained_mm3": 0.0
     }
   },
-  "parting_z_mm": 76.1,
+  "parting_z_mm": 58.1,
   "finish_allowance_mm": 0.3,
   "casting_scope": "rectangular plug blank with a straight dowel bore; hook pockets and the staged sealing bore require separate forming features",
   "plug_blank_mm": [
     36.0,
-    41.02478,
-    15.0
+    41.02478
   ],
   "rod_support": {
-    "engagement_mm": 30.385179354715063,
+    "engagement_mm": 34.885179354715056,
     "guide_diameter_mm": 8.35,
     "guide_diametral_clearance_mm": 2.0,
     "guide_length_mm": 10.0,
@@ -70,18 +69,16 @@
     "seal": "removable mold-sealing clay, shaped flush with the forming face",
     "seal_depth_mm": 2.0
   },
-  "spout": {
-    "bore_mm": 6.35,
-    "outside_diameter_mm": 36.0,
-    "nominal_wall_mm": 4.5,
-    "finished_length_mm": 8.16482064528494,
-    "sacrificial_length_mm": 18.0,
-    "rod_end_clearance_mm": 12.0
+  "rod_socket": {
+    "diameter_mm": 11.0,
+    "depth_mm": 3.0,
+    "rod_end_depth_mm": 1.5,
+    "reference": "depths below the plug blank bottom face; the socket is a masked rod passage"
   },
   "rod_tolerance_screen": {
     "offset_mm": 1.5,
-    "short_projection_mm": 3.0,
-    "extra_projection_mm": 6.0,
+    "short_projection_mm": 1.0,
+    "extra_projection_mm": 1.0,
     "tilt_deg": 2.0,
     "azimuths_deg": [
       0,
@@ -93,10 +90,9 @@
       270,
       315
     ],
-    "minimum_silicone_clearance_mm": 5.901630255116669,
-    "minimum_end_clearance_mm": 5.901630255116672,
-    "minimum_required_wall_mm": 2.0,
-    "scope": "Simultaneous rod offset, tilt and axial error against the cavity; cradle retention and sealing need a physical trial."
+    "minimum_socket_clearance_mm": 0.2715148935833538,
+    "minimum_end_depth_mm": 0.3794992192365143,
+    "scope": "Simultaneous rod offset, tilt and axial error against the cavity and its socket; cradle retention and sealing need a physical trial."
   },
   "locators": {
     "diameter_mm": 8.0,
@@ -198,14 +194,14 @@
         40.0
       ]
     ],
-    "spout_back_clearance_mm": 0.7
+    "plug_backing_clearance_mm": 0.7
   },
   "dry_opening_mm": 142.4,
   "dry_opening_depth_mm": 59.18301584656256,
   "ramp_print_z_mm": {
     "cavity": [
-      38.414820645284934,
-      52.61405370899493
+      20.41482064528494,
+      34.61405370899494
     ],
     "core": [
       28.485946291005064,
@@ -220,8 +216,8 @@
     "assumed_modulus_mpa": 1000.0,
     "assumed_poisson_ratio": 0.4,
     "silicone_density_assumption_kg_m3": 1130,
-    "maximum_silicone_head_mm": 75.1,
-    "head_pressure_kpa": 0.8325060300000001,
+    "maximum_silicone_head_mm": 57.1,
+    "head_pressure_kpa": 0.63297063,
     "screen_deflection_mm": 0.24266789870400002,
     "pressure_force_n": 27.225,
     "condition": "fill, vents and both dry backs open to the same chamber; no sealed pressure differential",
