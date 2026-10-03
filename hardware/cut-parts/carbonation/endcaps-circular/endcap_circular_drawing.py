@@ -22,6 +22,9 @@ sys.path.insert(
 )
 from docgen import substitute_py_comments
 from _cadq_export import export_pdf
+from endcap_circular_dxf import (
+    register_position, register_drill_diameter, register_depth,
+)
 
 # Part geometry in inches, same disc as endcap_circular_dxf.py.
 
@@ -41,15 +44,7 @@ hole_spacing = 1.500
 hole_offset = hole_spacing / 2
 hole_positions = [(-hole_offset, 0.0), (+hole_offset, 0.0)]
 
-# Rod register — in-house blind drill, shown REFERENCE-ONLY (mirrors the
-# source-of-truth constants in endcap_circular_dxf.py). Not a cut/vendor
-# feature: a through-hole here would breach the 90 PSI pressure boundary.
-# Register center, derived like endcap_circular_dxf.py (donut OD at the wall + a
-# 3 mm wall-preload) so this REF view can't drift from the source geometry.
-_reg_radius_in = 4.870 / 2 - (27.75 / 25.4) / 2 + 3.0 / 25.4
-register_position = (0.0, -round(_reg_radius_in, 3))  # on −Y, clear of the two ports
-register_drill_diameter = 0.140625  # 9/64" — slip-fit on the 1/8" rod
-register_depth = 0.100             # blind, to the drill-tip (leaves [0.15 in](REGISTER_WALL) wall)
+# Rod register is a blind in-house operation, read from the same datum as STEP.
 
 # Drawing revision date shown in the title block. A fixed constant rather
 # than date.today() so regenerating the PDF is byte-stable — a render on a
@@ -57,7 +52,7 @@ register_depth = 0.100             # blind, to the drill-tip (leaves [0.15 in](R
 # content stream, so this visible date can't be reached by the regex-based
 # canonicalizer in _cadq_export (unlike the /CreationDate metadata, which it
 # does pin). Bump on a real revision.
-revision_date = "2026-06-15"
+revision_date = "2026-10-03"
 
 # Sheet layout in inches (ANSI A landscape).
 sheet_width = 11.0
@@ -210,7 +205,7 @@ def draw_notes(c: canvas.Canvas) -> None:
     x0 = title_block_x
     y0 = title_block_y + title_block_height + 0.10
     w = title_block_width
-    h = 1.35
+    h = 1.55
 
     c.setLineWidth(thin_line_width)
     c.setDash()
@@ -225,7 +220,8 @@ def draw_notes(c: canvas.Canvas) -> None:
         "3. NPT THREAD DEPTH: THRU (NO COUNTERBORE, NO SPOT-FACE).",
         "4. BREAK OUTER EDGE 0.010 IN x 45\u00b0.",
         "5. CUT/TAPPED PART IS SYMMETRIC \u2014 NO HANDEDNESS.",
-        "6. ROD REGISTER (REF): IN-HOUSE, NOT VENDOR \u2014 DO NOT BREAK THRU.",
+        "6. REGISTER: IN-HOUSE BLIND DRILL; DO NOT BREAK THRU.",
+        "7. REGISTER AXIS: 20 MM FROM TUBE INSIDE WALL; FLOAT DIA 36 MM.",
     ]
     c.setFont("Helvetica", 8)
     line_height = 0.165
@@ -328,7 +324,7 @@ def draw_main_view(c: canvas.Canvas) -> None:
     c.drawString((reg_cx + 0.14) * inch, (reg_cy + 0.05) * inch,
                  f"REGISTER (REF): Ø{register_drill_diameter:.3f} BLIND")
     c.drawString((reg_cx + 0.14) * inch, (reg_cy - 0.09) * inch,
-                 f"x {register_depth:.2f} DEEP — SEE NOTE 6")
+                 f"x {register_depth:.3f} TO DRILL TIP — SEE NOTE 6")
 
     # Radial location of the register from disc center, dimensioned on the
     # left of the −Y centerline (center → register, value placed beside).
@@ -342,7 +338,7 @@ def draw_main_view(c: canvas.Canvas) -> None:
     c.setFont("Helvetica", 8)
     c.drawRightString((reg_dim_x - 0.04) * inch,
                       ((view_center_y + reg_cy) / 2 - 0.04) * inch,
-                      f"{abs(register_position[1]):.3f}")
+                      f"{abs(register_position[1]):.4f}")
 
     # ── Dimensions ──────────────────────────────────────────────────
 

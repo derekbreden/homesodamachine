@@ -727,12 +727,12 @@
    "active": true
   },
   {
-   "id": "reservoir-float-reaches-rod",
-   "label": "The capsule's bore has the slop the park spends",
+   "id": "reservoir-float-clears-wall",
+   "label": "The Aero float keeps running clearance at full radial guide motion",
    "kind": "gate",
    "status": "pass",
    "value": "holds",
-   "target": "a bias under 3.2875 mm",
+   "target": "at least 1 mm nominal geometric clearance",
    "detail": [],
    "active": true
   },

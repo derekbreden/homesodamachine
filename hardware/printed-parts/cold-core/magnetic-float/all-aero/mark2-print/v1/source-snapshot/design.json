@@ -1,0 +1,104 @@
+{
+  "article": "One-piece ASA Aero guided bench float; RC62 inserted during printing",
+  "dimensions_mm": {
+    "diameter": 36.0,
+    "height": 28.0,
+    "guide_bore": 4.8,
+    "bench_guide": 3.175,
+    "guide_radial_clearance": 0.8125,
+    "magnet_midplane": 14.0,
+    "magnet_seat": 12.4125,
+    "pocket_roof": 15.8125,
+    "pocket_od": 19.35,
+    "pocket_id": 9.225,
+    "pocket_depth": 3.4,
+    "bore_side_collar": 2.2125,
+    "outer_band_beside_magnet": 8.325,
+    "foam_below_magnet": 12.4125,
+    "foam_above_pocket": 12.1875
+  },
+  "sizing": {
+    "outcome": "Positive guided lift with a 5 g allowance for density and absorbed-water variation in a bench trial",
+    "water_density_g_cc": 0.9997,
+    "design_foam_density_g_cc": 0.65,
+    "minimum_reserve_lift_g": 5.0,
+    "minimum_calculated_height_mm": 27.42327956442148,
+    "upward_height_rounding_mm": 1.0,
+    "equation": "H = (reserve + magnet_mass - foam_density * pocket_volume) / ((water_density - foam_density) * annular_area)",
+    "scope": "Foam density is an engineering assumption, not a measured tolerance or a water-absorption allowance proven adequate for service."
+  },
+  "volumes_cc": {
+    "external_displacement_excluding_open_bore": 27.993852490195643,
+    "asa_aero": 27.22126073472624,
+    "magnet_pocket": 0.7725917554694011
+  },
+  "magnet": {
+    "model": "K&J RC62",
+    "od_mm": 19.05,
+    "id_mm": 9.525,
+    "thickness_mm": 3.175,
+    "dimensional_tolerance_mm": 0.1,
+    "mass_g": 5.09,
+    "grade": "N42",
+    "continuous_operating_limit_c": 80,
+    "source": "https://www.kjmagnetics.com/rc62-neodymium-ring-magnet"
+  },
+  "buoyancy": [
+    {
+      "foam_density_g_cc": 0.46,
+      "assembled_mass_g": 17.61177993797407,
+      "reserve_lift_g": 10.373674396474513,
+      "guided_upright_freeboard_mm": 10.379066197390342
+    },
+    {
+      "foam_density_g_cc": 0.53,
+      "assembled_mass_g": 19.51726818940491,
+      "reserve_lift_g": 8.468186145043674,
+      "guided_upright_freeboard_mm": 8.472587553075893
+    },
+    {
+      "foam_density_g_cc": 0.55,
+      "assembled_mass_g": 20.061693404099433,
+      "reserve_lift_g": 7.92376093034915,
+      "guided_upright_freeboard_mm": 7.927879368986051
+    },
+    {
+      "foam_density_g_cc": 0.6,
+      "assembled_mass_g": 21.422756440835744,
+      "reserve_lift_g": 6.562697893612839,
+      "guided_upright_freeboard_mm": 6.566108908761446
+    },
+    {
+      "foam_density_g_cc": 0.65,
+      "assembled_mass_g": 22.783819477572056,
+      "reserve_lift_g": 5.201634856876527,
+      "guided_upright_freeboard_mm": 5.204338448536841
+    },
+    {
+      "foam_density_g_cc": 0.7,
+      "assembled_mass_g": 24.144882514308367,
+      "reserve_lift_g": 3.840571820140216,
+      "guided_upright_freeboard_mm": 3.842567988312236
+    }
+  ],
+  "neutral_foam_density_g_cc": 0.8410872133207551,
+  "print_intent": {
+    "layer_height_mm": 0.2,
+    "wall_loops": 300,
+    "pause_before_layer_z_mm": 16.0,
+    "xy_contour_compensation_mm": 0.05,
+    "xy_hole_compensation_mm": -0.05,
+    "minimum_compensated_radial_magnet_clearance_mm": 0.05000000000000035,
+    "minimum_nominal_pocket_depth_clearance_mm": 0.12500000000000008,
+    "scope": "Native slicing must verify the printed seat, last open-pocket layer, pause and first covering deposition. CAD midpoint is exact; the physical center depends on layer quantization and actual magnet thickness."
+  },
+  "qualification": {
+    "density_measured": false,
+    "buoyancy_measured": false,
+    "paused_magnet_retention_verified": false,
+    "magnet_heat_exposure_verified": false,
+    "pressure_rating": "Unqualified bench prototype",
+    "wetted_service": "Not qualified; no water uptake, pressure endurance or material-contact acceptance is recorded",
+    "upright_scope": "Guided on the bench rod; no free-floating upright stability claim"
+  }
+}

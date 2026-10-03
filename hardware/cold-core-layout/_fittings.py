@@ -130,19 +130,11 @@ def sv125_reach() -> float:
     return PRV_HEX_H + PRV_CAP_H
 
 
-# --- YXQ float capsule (harvested) -------------------------------------------
-#
-# `bom.md` §12. Only the float is shipped product — a commodity ⌀[28](FLOAT_D) mm crimped
-# stainless capsule with a ferrite donut inside.
-#
-# THE BORE IS THE DONOR'S, NOT THIS MACHINE'S. The capsule slid on the YXQ switch's own stem
-# and here it goes onto a bare 1/8" rod, so ⌀9.75 of bore over ⌀3.175 of rod leaves millimetres
-# of radial freedom rather than a fit. The float is NOT concentric with the rod it rides: it
-# lies against whatever wall is nearest, which is what puts its magnet where the external reed
-# can read it. `_internals.float_seats` is where that lie is struck.
-FLOAT_OD = 28.0
-FLOAT_H = 12.0                   # the donor capsule, the same figure `reed_bridge` reaches with
-FLOAT_BORE = 9.75                # measured on the donor — the donor stem's clearance, not ours
+# --- Guided ASA Aero float with an inserted RC62 ----------------------------
+import _float_interface as _float
+FLOAT_OD = _float.diameter
+FLOAT_H = _float.height
+FLOAT_BORE = _float.bore_diameter
 
 
 def float_capsule(*, centre, axis=(0, 0, 1)):
@@ -151,10 +143,16 @@ def float_capsule(*, centre, axis=(0, 0, 1)):
     body = _orient(_cyl(FLOAT_OD / 2, FLOAT_H), axis).translate(c - axis.multiply(FLOAT_H / 2))
     bore = _orient(_cyl(FLOAT_BORE / 2, FLOAT_H + 2), axis).translate(
         c - axis.multiply(FLOAT_H / 2 + 1))
-    return body.cut(bore)
+    pocket = _cyl(_float.pocket_od / 2, _float.pocket_depth).cut(
+        _cyl(_float.pocket_id / 2, _float.pocket_depth))
+    pocket = _orient(pocket, axis).translate(c + axis.multiply(_float.magnet_seat - FLOAT_H / 2))
+    magnet = _cyl(_float.magnet_od / 2, _float.magnet_thickness).cut(
+        _cyl(_float.magnet_id / 2, _float.magnet_thickness))
+    magnet = _orient(magnet, axis).translate(c + axis.multiply(_float.magnet_seat - FLOAT_H / 2))
+    return cq.Compound.makeCompound([body.cut(bore).cut(pocket), magnet])
 
 
-# --- Gebildet reed switch, 14 mm glass body ----------------------------------
+# --- MDSR-7-10-15 reed, 14 x 2.5 mm capture envelope -------------------------
 #
 # `bom.md` §12. The glass body is the whole of what has to fit: leads are wire and follow the
 # channel. [10](REEDS_TOTAL) per build — 2 on the carbonator's bridge, 4 in each reservoir.

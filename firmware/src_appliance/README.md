@@ -108,7 +108,8 @@ The refill is [`refill_policy.h`](/firmware/lib/machine_policy/refill_policy.h).
 debounced, then held in `Queued` for as long as a dispense window is open or another operation
 owns the manifold; a draw runs `ST_REFILLING` with V-K open and relay #2 closed until CHI, a
 ceiling on pumping time, or a pour — which stops the draw before it opens its own path. Two
-reeds closed at once is a latched fault, and `refill clear` is what leaves it.
+reeds can close together in an RC62 activation overlap; the high reed keeps refill off.
+A pump-time timeout remains latched until `refill clear`.
 
 `status` prints both loops with their relays; `thermal` walks the bus; `sim` puts a reading at
 the top of either so the policy, the relays and the fan can be exercised with no probe on the

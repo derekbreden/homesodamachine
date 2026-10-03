@@ -187,6 +187,8 @@ def main():
         # explanation and the closed open item read one part.
         "LOW_LEVEL": f"{_reed_bridge_gen.low_level_z:.4g} mm",
         "HIGH_LEVEL": f"{_reed_bridge_gen.high_level_z:.4g} mm",
+        "REED_LOW_Z": f"{_reed_bridge_gen.reed_low_z:.3f} mm",
+        "REED_HIGH_Z": f"{_reed_bridge_gen.reed_high_z:.3f} mm",
         "INTER_WRAP_CLEAR": f"{_reed_bridge_gen.inter_wrap_clear:.4g} mm",
         "BRIDGE_Z_BOTTOM": f"{_reed_bridge_gen.bridge_z_bottom:.4g} mm",
         "POCKET_DEPTH": f"{_reed_bridge_gen.pocket_depth:.4g} mm",

@@ -23,6 +23,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_port_cuts.py",
         "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
@@ -145,6 +146,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
         "hardware/printed-parts/cold-core/_internal_routes.py",
         "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
@@ -247,6 +249,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
         "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
         "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
@@ -410,6 +413,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
         "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
         "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
@@ -670,6 +674,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_port_cuts.py",
         "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
@@ -750,6 +755,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
         "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
         "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
@@ -846,6 +852,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
         "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
         "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
@@ -988,6 +995,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
@@ -1156,6 +1164,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/printed-parts/fixtures/weld-rotator/_rotator_interface.py",
@@ -1587,6 +1596,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
         "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
         "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
@@ -1888,6 +1898,7 @@ genrule(
         "out/cards-build/hardware/assembly/cards/ab-05-level-transitions.html",
         "out/cards-build/hardware/assembly/cards/ab-06-burn-in-log.html",
         "out/cards-build/hardware/assembly/cards/ca-02-harness-schedule.html",
+        "out/cards-build/hardware/assembly/cards/cc-02-dress-the-carbonator-wall.html",
         "out/cards-build/hardware/assembly/cards/cc-03-transfer-the-coil.html",
         "out/cards-build/hardware/assembly/cards/cc-05-press-shell-inserts.html",
         "out/cards-build/hardware/assembly/cards/cc-06-pour-cap-foam.html",
@@ -1951,6 +1962,8 @@ genrule(
         "out/cards-build/hardware/assembly/cards/sa-07-cold-core.html",
         "out/cards-build/hardware/assembly/cards/sa-08-cold-core-open.html",
         "out/cards-build/hardware/assembly/cards/sa-09-pump-cartridge.html",
+        "out/cards-build/hardware/assembly/cards/tools/bs-band-saw.html",
+        "out/cards-build/hardware/assembly/cards/tools/dp-drill-press.html",
         "out/cards-build/hardware/assembly/cards/tools/pc-pour-cure.html",
         "out/cards-build/hardware/assembly/cards/wr-04-cabinet-12v-runs.html",
         "out/cards-build/hardware/assembly/cards/wr-05-signal-looms.html",
@@ -2142,72 +2155,75 @@ O180=$$PWD/$(location out/cards-build/hardware/assembly/cards/ab-02-water-fill-c
 O181=$$PWD/$(location out/cards-build/hardware/assembly/cards/ab-05-level-transitions.html)
 O182=$$PWD/$(location out/cards-build/hardware/assembly/cards/ab-06-burn-in-log.html)
 O183=$$PWD/$(location out/cards-build/hardware/assembly/cards/ca-02-harness-schedule.html)
-O184=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-03-transfer-the-coil.html)
-O185=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-05-press-shell-inserts.html)
-O186=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-06-pour-cap-foam.html)
-O187=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-08-seat-reservoir-rods.html)
-O188=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-10-lower-the-carbonator.html)
-O189=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-11-seat-reservoirs.html)
-O190=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-12-route-penetrations.html)
-O191=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-13-stack-copper-plugs.html)
-O192=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-14-pour-body-foam.html)
-O193=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-15-columns-gaskets-caps.html)
-O194=$$PWD/$(location out/cards-build/hardware/assembly/cards/eb-01-prepare-the-wall.html)
-O195=$$PWD/$(location out/cards-build/hardware/assembly/cards/eb-03-stage-psu-relays-board.html)
-O196=$$PWD/$(location out/cards-build/hardware/assembly/cards/eb-05-stage-dc-distribution.html)
-O197=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-01-stage-the-printed-pieces.html)
-O198=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-02-y-wall-bodies.html)
-O199=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-03-bolt-the-compressor-down.html)
-O200=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-04-stand-the-compressor-bay.html)
-O201=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-05-close-front-column.html)
-O202=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-06-seat-cold-core.html)
-O203=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-07-electronics-bay.html)
-O204=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-08-close-the-box.html)
-O205=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-10-display-and-funnel.html)
-O206=$$PWD/$(location out/cards-build/hardware/assembly/cards/fc-01-first-dc-power-on.html)
-O207=$$PWD/$(location out/cards-build/hardware/assembly/cards/fc-03-sensor-health.html)
-O208=$$PWD/$(location out/cards-build/hardware/assembly/cards/fc-04-valve-pump-self-test.html)
-O209=$$PWD/$(location out/cards-build/hardware/assembly/cards/fc-05-compressor-smoke-test.html)
-O210=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-01-wipe-down-inspect.html)
-O211=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-02-drain-dry-nameplate.html)
-O212=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-03-cap-photograph.html)
-O213=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-04-pack-kit-carton.html)
-O214=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-05-weigh-label-handoff.html)
-O215=$$PWD/$(location out/cards-build/hardware/assembly/cards/fu-01-cut-lldpe-tubes.html)
-O216=$$PWD/$(location out/cards-build/hardware/assembly/cards/fu-03-insulate-and-sleeve.html)
-O217=$$PWD/$(location out/cards-build/hardware/assembly/cards/gt-02-push-to-connect.html)
-O218=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-01-co2-path.html)
-O219=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-02-water-path.html)
-O220=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-03-manifold-valves-tees.html)
-O221=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-04-manifold-pumps-channels.html)
-O222=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-05-seat-pump-cartridge.html)
-O223=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-06-risers.html)
-O224=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-07-witness-tidy.html)
-O225=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-01-chamfer-port-holes.html)
-O226=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-02-tap-npt-ports.html)
-O227=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-03-rod-register.html)
-O228=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-04-break-plate-edges.html)
-O229=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-05-cut-level-rods.html)
-O230=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-06-tack-float-rod.html)
-O231=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-07-deburr-and-prep.html)
-O232=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-09-close-the-carbonator.html)
-O233=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-11-hydro-test.html)
-O234=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-13-prv-shroud-subassembly.html)
-O235=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-14-port-fittings.html)
-O236=$$PWD/$(location out/cards-build/hardware/assembly/cards/rl-04-suction-tie-in.html)
-O237=$$PWD/$(location out/cards-build/hardware/assembly/cards/rl-05-pinch-swage.html)
-O238=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-01-back-top.html)
-O239=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-02-front-top.html)
-O240=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-03-cap-lid-fill.html)
-O241=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-04-cap-lid.html)
-O242=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-05-back-half.html)
-O243=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-06-funnel-drain.html)
-O244=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-07-cold-core.html)
-O245=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-08-cold-core-open.html)
-O246=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-09-pump-cartridge.html)
-O247=$$PWD/$(location out/cards-build/hardware/assembly/cards/tools/pc-pour-cure.html)
-O248=$$PWD/$(location out/cards-build/hardware/assembly/cards/wr-04-cabinet-12v-runs.html)
-O249=$$PWD/$(location out/cards-build/hardware/assembly/cards/wr-05-signal-looms.html)
+O184=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-02-dress-the-carbonator-wall.html)
+O185=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-03-transfer-the-coil.html)
+O186=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-05-press-shell-inserts.html)
+O187=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-06-pour-cap-foam.html)
+O188=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-08-seat-reservoir-rods.html)
+O189=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-10-lower-the-carbonator.html)
+O190=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-11-seat-reservoirs.html)
+O191=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-12-route-penetrations.html)
+O192=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-13-stack-copper-plugs.html)
+O193=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-14-pour-body-foam.html)
+O194=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-15-columns-gaskets-caps.html)
+O195=$$PWD/$(location out/cards-build/hardware/assembly/cards/eb-01-prepare-the-wall.html)
+O196=$$PWD/$(location out/cards-build/hardware/assembly/cards/eb-03-stage-psu-relays-board.html)
+O197=$$PWD/$(location out/cards-build/hardware/assembly/cards/eb-05-stage-dc-distribution.html)
+O198=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-01-stage-the-printed-pieces.html)
+O199=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-02-y-wall-bodies.html)
+O200=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-03-bolt-the-compressor-down.html)
+O201=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-04-stand-the-compressor-bay.html)
+O202=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-05-close-front-column.html)
+O203=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-06-seat-cold-core.html)
+O204=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-07-electronics-bay.html)
+O205=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-08-close-the-box.html)
+O206=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-10-display-and-funnel.html)
+O207=$$PWD/$(location out/cards-build/hardware/assembly/cards/fc-01-first-dc-power-on.html)
+O208=$$PWD/$(location out/cards-build/hardware/assembly/cards/fc-03-sensor-health.html)
+O209=$$PWD/$(location out/cards-build/hardware/assembly/cards/fc-04-valve-pump-self-test.html)
+O210=$$PWD/$(location out/cards-build/hardware/assembly/cards/fc-05-compressor-smoke-test.html)
+O211=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-01-wipe-down-inspect.html)
+O212=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-02-drain-dry-nameplate.html)
+O213=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-03-cap-photograph.html)
+O214=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-04-pack-kit-carton.html)
+O215=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-05-weigh-label-handoff.html)
+O216=$$PWD/$(location out/cards-build/hardware/assembly/cards/fu-01-cut-lldpe-tubes.html)
+O217=$$PWD/$(location out/cards-build/hardware/assembly/cards/fu-03-insulate-and-sleeve.html)
+O218=$$PWD/$(location out/cards-build/hardware/assembly/cards/gt-02-push-to-connect.html)
+O219=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-01-co2-path.html)
+O220=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-02-water-path.html)
+O221=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-03-manifold-valves-tees.html)
+O222=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-04-manifold-pumps-channels.html)
+O223=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-05-seat-pump-cartridge.html)
+O224=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-06-risers.html)
+O225=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-07-witness-tidy.html)
+O226=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-01-chamfer-port-holes.html)
+O227=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-02-tap-npt-ports.html)
+O228=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-03-rod-register.html)
+O229=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-04-break-plate-edges.html)
+O230=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-05-cut-level-rods.html)
+O231=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-06-tack-float-rod.html)
+O232=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-07-deburr-and-prep.html)
+O233=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-09-close-the-carbonator.html)
+O234=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-11-hydro-test.html)
+O235=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-13-prv-shroud-subassembly.html)
+O236=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-14-port-fittings.html)
+O237=$$PWD/$(location out/cards-build/hardware/assembly/cards/rl-04-suction-tie-in.html)
+O238=$$PWD/$(location out/cards-build/hardware/assembly/cards/rl-05-pinch-swage.html)
+O239=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-01-back-top.html)
+O240=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-02-front-top.html)
+O241=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-03-cap-lid-fill.html)
+O242=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-04-cap-lid.html)
+O243=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-05-back-half.html)
+O244=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-06-funnel-drain.html)
+O245=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-07-cold-core.html)
+O246=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-08-cold-core-open.html)
+O247=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-09-pump-cartridge.html)
+O248=$$PWD/$(location out/cards-build/hardware/assembly/cards/tools/bs-band-saw.html)
+O249=$$PWD/$(location out/cards-build/hardware/assembly/cards/tools/dp-drill-press.html)
+O250=$$PWD/$(location out/cards-build/hardware/assembly/cards/tools/pc-pour-cure.html)
+O251=$$PWD/$(location out/cards-build/hardware/assembly/cards/wr-04-cabinet-12v-runs.html)
+O252=$$PWD/$(location out/cards-build/hardware/assembly/cards/wr-05-signal-looms.html)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -2409,72 +2425,75 @@ cp hardware/assembly/cards/ab-02-water-fill-co2.html $$O180
 cp hardware/assembly/cards/ab-05-level-transitions.html $$O181
 cp hardware/assembly/cards/ab-06-burn-in-log.html $$O182
 cp hardware/assembly/cards/ca-02-harness-schedule.html $$O183
-cp hardware/assembly/cards/cc-03-transfer-the-coil.html $$O184
-cp hardware/assembly/cards/cc-05-press-shell-inserts.html $$O185
-cp hardware/assembly/cards/cc-06-pour-cap-foam.html $$O186
-cp hardware/assembly/cards/cc-08-seat-reservoir-rods.html $$O187
-cp hardware/assembly/cards/cc-10-lower-the-carbonator.html $$O188
-cp hardware/assembly/cards/cc-11-seat-reservoirs.html $$O189
-cp hardware/assembly/cards/cc-12-route-penetrations.html $$O190
-cp hardware/assembly/cards/cc-13-stack-copper-plugs.html $$O191
-cp hardware/assembly/cards/cc-14-pour-body-foam.html $$O192
-cp hardware/assembly/cards/cc-15-columns-gaskets-caps.html $$O193
-cp hardware/assembly/cards/eb-01-prepare-the-wall.html $$O194
-cp hardware/assembly/cards/eb-03-stage-psu-relays-board.html $$O195
-cp hardware/assembly/cards/eb-05-stage-dc-distribution.html $$O196
-cp hardware/assembly/cards/en-01-stage-the-printed-pieces.html $$O197
-cp hardware/assembly/cards/en-02-y-wall-bodies.html $$O198
-cp hardware/assembly/cards/en-03-bolt-the-compressor-down.html $$O199
-cp hardware/assembly/cards/en-04-stand-the-compressor-bay.html $$O200
-cp hardware/assembly/cards/en-05-close-front-column.html $$O201
-cp hardware/assembly/cards/en-06-seat-cold-core.html $$O202
-cp hardware/assembly/cards/en-07-electronics-bay.html $$O203
-cp hardware/assembly/cards/en-08-close-the-box.html $$O204
-cp hardware/assembly/cards/en-10-display-and-funnel.html $$O205
-cp hardware/assembly/cards/fc-01-first-dc-power-on.html $$O206
-cp hardware/assembly/cards/fc-03-sensor-health.html $$O207
-cp hardware/assembly/cards/fc-04-valve-pump-self-test.html $$O208
-cp hardware/assembly/cards/fc-05-compressor-smoke-test.html $$O209
-cp hardware/assembly/cards/fs-01-wipe-down-inspect.html $$O210
-cp hardware/assembly/cards/fs-02-drain-dry-nameplate.html $$O211
-cp hardware/assembly/cards/fs-03-cap-photograph.html $$O212
-cp hardware/assembly/cards/fs-04-pack-kit-carton.html $$O213
-cp hardware/assembly/cards/fs-05-weigh-label-handoff.html $$O214
-cp hardware/assembly/cards/fu-01-cut-lldpe-tubes.html $$O215
-cp hardware/assembly/cards/fu-03-insulate-and-sleeve.html $$O216
-cp hardware/assembly/cards/gt-02-push-to-connect.html $$O217
-cp hardware/assembly/cards/ip-01-co2-path.html $$O218
-cp hardware/assembly/cards/ip-02-water-path.html $$O219
-cp hardware/assembly/cards/ip-03-manifold-valves-tees.html $$O220
-cp hardware/assembly/cards/ip-04-manifold-pumps-channels.html $$O221
-cp hardware/assembly/cards/ip-05-seat-pump-cartridge.html $$O222
-cp hardware/assembly/cards/ip-06-risers.html $$O223
-cp hardware/assembly/cards/ip-07-witness-tidy.html $$O224
-cp hardware/assembly/cards/pv-01-chamfer-port-holes.html $$O225
-cp hardware/assembly/cards/pv-02-tap-npt-ports.html $$O226
-cp hardware/assembly/cards/pv-03-rod-register.html $$O227
-cp hardware/assembly/cards/pv-04-break-plate-edges.html $$O228
-cp hardware/assembly/cards/pv-05-cut-level-rods.html $$O229
-cp hardware/assembly/cards/pv-06-tack-float-rod.html $$O230
-cp hardware/assembly/cards/pv-07-deburr-and-prep.html $$O231
-cp hardware/assembly/cards/pv-09-close-the-carbonator.html $$O232
-cp hardware/assembly/cards/pv-11-hydro-test.html $$O233
-cp hardware/assembly/cards/pv-13-prv-shroud-subassembly.html $$O234
-cp hardware/assembly/cards/pv-14-port-fittings.html $$O235
-cp hardware/assembly/cards/rl-04-suction-tie-in.html $$O236
-cp hardware/assembly/cards/rl-05-pinch-swage.html $$O237
-cp hardware/assembly/cards/sa-01-back-top.html $$O238
-cp hardware/assembly/cards/sa-02-front-top.html $$O239
-cp hardware/assembly/cards/sa-03-cap-lid-fill.html $$O240
-cp hardware/assembly/cards/sa-04-cap-lid.html $$O241
-cp hardware/assembly/cards/sa-05-back-half.html $$O242
-cp hardware/assembly/cards/sa-06-funnel-drain.html $$O243
-cp hardware/assembly/cards/sa-07-cold-core.html $$O244
-cp hardware/assembly/cards/sa-08-cold-core-open.html $$O245
-cp hardware/assembly/cards/sa-09-pump-cartridge.html $$O246
-cp hardware/assembly/cards/tools/pc-pour-cure.html $$O247
-cp hardware/assembly/cards/wr-04-cabinet-12v-runs.html $$O248
-cp hardware/assembly/cards/wr-05-signal-looms.html $$O249
+cp hardware/assembly/cards/cc-02-dress-the-carbonator-wall.html $$O184
+cp hardware/assembly/cards/cc-03-transfer-the-coil.html $$O185
+cp hardware/assembly/cards/cc-05-press-shell-inserts.html $$O186
+cp hardware/assembly/cards/cc-06-pour-cap-foam.html $$O187
+cp hardware/assembly/cards/cc-08-seat-reservoir-rods.html $$O188
+cp hardware/assembly/cards/cc-10-lower-the-carbonator.html $$O189
+cp hardware/assembly/cards/cc-11-seat-reservoirs.html $$O190
+cp hardware/assembly/cards/cc-12-route-penetrations.html $$O191
+cp hardware/assembly/cards/cc-13-stack-copper-plugs.html $$O192
+cp hardware/assembly/cards/cc-14-pour-body-foam.html $$O193
+cp hardware/assembly/cards/cc-15-columns-gaskets-caps.html $$O194
+cp hardware/assembly/cards/eb-01-prepare-the-wall.html $$O195
+cp hardware/assembly/cards/eb-03-stage-psu-relays-board.html $$O196
+cp hardware/assembly/cards/eb-05-stage-dc-distribution.html $$O197
+cp hardware/assembly/cards/en-01-stage-the-printed-pieces.html $$O198
+cp hardware/assembly/cards/en-02-y-wall-bodies.html $$O199
+cp hardware/assembly/cards/en-03-bolt-the-compressor-down.html $$O200
+cp hardware/assembly/cards/en-04-stand-the-compressor-bay.html $$O201
+cp hardware/assembly/cards/en-05-close-front-column.html $$O202
+cp hardware/assembly/cards/en-06-seat-cold-core.html $$O203
+cp hardware/assembly/cards/en-07-electronics-bay.html $$O204
+cp hardware/assembly/cards/en-08-close-the-box.html $$O205
+cp hardware/assembly/cards/en-10-display-and-funnel.html $$O206
+cp hardware/assembly/cards/fc-01-first-dc-power-on.html $$O207
+cp hardware/assembly/cards/fc-03-sensor-health.html $$O208
+cp hardware/assembly/cards/fc-04-valve-pump-self-test.html $$O209
+cp hardware/assembly/cards/fc-05-compressor-smoke-test.html $$O210
+cp hardware/assembly/cards/fs-01-wipe-down-inspect.html $$O211
+cp hardware/assembly/cards/fs-02-drain-dry-nameplate.html $$O212
+cp hardware/assembly/cards/fs-03-cap-photograph.html $$O213
+cp hardware/assembly/cards/fs-04-pack-kit-carton.html $$O214
+cp hardware/assembly/cards/fs-05-weigh-label-handoff.html $$O215
+cp hardware/assembly/cards/fu-01-cut-lldpe-tubes.html $$O216
+cp hardware/assembly/cards/fu-03-insulate-and-sleeve.html $$O217
+cp hardware/assembly/cards/gt-02-push-to-connect.html $$O218
+cp hardware/assembly/cards/ip-01-co2-path.html $$O219
+cp hardware/assembly/cards/ip-02-water-path.html $$O220
+cp hardware/assembly/cards/ip-03-manifold-valves-tees.html $$O221
+cp hardware/assembly/cards/ip-04-manifold-pumps-channels.html $$O222
+cp hardware/assembly/cards/ip-05-seat-pump-cartridge.html $$O223
+cp hardware/assembly/cards/ip-06-risers.html $$O224
+cp hardware/assembly/cards/ip-07-witness-tidy.html $$O225
+cp hardware/assembly/cards/pv-01-chamfer-port-holes.html $$O226
+cp hardware/assembly/cards/pv-02-tap-npt-ports.html $$O227
+cp hardware/assembly/cards/pv-03-rod-register.html $$O228
+cp hardware/assembly/cards/pv-04-break-plate-edges.html $$O229
+cp hardware/assembly/cards/pv-05-cut-level-rods.html $$O230
+cp hardware/assembly/cards/pv-06-tack-float-rod.html $$O231
+cp hardware/assembly/cards/pv-07-deburr-and-prep.html $$O232
+cp hardware/assembly/cards/pv-09-close-the-carbonator.html $$O233
+cp hardware/assembly/cards/pv-11-hydro-test.html $$O234
+cp hardware/assembly/cards/pv-13-prv-shroud-subassembly.html $$O235
+cp hardware/assembly/cards/pv-14-port-fittings.html $$O236
+cp hardware/assembly/cards/rl-04-suction-tie-in.html $$O237
+cp hardware/assembly/cards/rl-05-pinch-swage.html $$O238
+cp hardware/assembly/cards/sa-01-back-top.html $$O239
+cp hardware/assembly/cards/sa-02-front-top.html $$O240
+cp hardware/assembly/cards/sa-03-cap-lid-fill.html $$O241
+cp hardware/assembly/cards/sa-04-cap-lid.html $$O242
+cp hardware/assembly/cards/sa-05-back-half.html $$O243
+cp hardware/assembly/cards/sa-06-funnel-drain.html $$O244
+cp hardware/assembly/cards/sa-07-cold-core.html $$O245
+cp hardware/assembly/cards/sa-08-cold-core-open.html $$O246
+cp hardware/assembly/cards/sa-09-pump-cartridge.html $$O247
+cp hardware/assembly/cards/tools/bs-band-saw.html $$O248
+cp hardware/assembly/cards/tools/dp-drill-press.html $$O249
+cp hardware/assembly/cards/tools/pc-pour-cure.html $$O250
+cp hardware/assembly/cards/wr-04-cabinet-12v-runs.html $$O251
+cp hardware/assembly/cards/wr-05-signal-looms.html $$O252
 """,
 )
 
@@ -2577,15 +2596,18 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
         "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
         "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
         "pysrc/hardware/printed-parts/cold-core/_port_cuts.py",
         "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
+        "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
         "pysrc/hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
         "pysrc/hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
         "pysrc/hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
+        "pysrc/hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
         "pysrc/hardware/printed-parts/cold-core/reservoir/reservoir.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
@@ -2724,6 +2746,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
         "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
         "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
@@ -3257,6 +3280,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
         "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
         "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
@@ -3270,6 +3294,7 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
         "hardware/printed-parts/cold-core/foam-cap/.gitignore",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json",
+        "hardware/printed-parts/cold-core/foam-cap/fluid-18-clearance-check.json",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         ":out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
@@ -3376,6 +3401,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
         "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
         "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
@@ -3436,6 +3462,8 @@ genrule(
     name = "endcap-circular-drawing",
     srcs = [
         "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_drawing.py",
+        "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+        "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
@@ -3473,6 +3501,7 @@ genrule(
     name = "endcap-circular-dxf",
     srcs = [
         "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+        "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
@@ -3509,7 +3538,9 @@ cp hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py $$O1
 genrule(
     name = "endcap-circular-step",
     srcs = [
+        "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
         "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.py",
+        "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
@@ -3997,6 +4028,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
         "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
         "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
@@ -4011,6 +4043,7 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
         "hardware/printed-parts/cold-core/foam-cap/.gitignore",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json",
+        "hardware/printed-parts/cold-core/foam-cap/fluid-18-clearance-check.json",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         ":out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
@@ -4101,6 +4134,20 @@ genrule(
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-male-coupon.stl",
         "pysrc/hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/geometry-check.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/README.md",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/automatic-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/completion.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/connect-readiness.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/launch.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preflight.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preparation.json",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prepare.py",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prestart-status.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v1.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v2.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/queue.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/unsupported-support-audit.json",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/verify.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.lint-answers",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
@@ -4435,6 +4482,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
         "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
         "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
@@ -4527,6 +4575,7 @@ genrule(
         "pysrc/hardware/reference/jg-pp010822e/jg_pp010822e.py",
         "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json",
         "pysrc/hardware/reference/jg-pp0308e-elbow/elbow.py",
+        "hardware/reference/jg-pp0308e-elbow/scan-measurements.json",
         ":out/kamoer-kphm400/hardware/reference/kamoer-kphm400/kamoer-kphm400.step",
         "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
         ":out/meanwell-irm90/hardware/reference/meanwell-irm90/meanwell-irm90.step",
@@ -4843,6 +4892,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
         "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
         "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
@@ -5036,6 +5086,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_shell.py",
         "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
@@ -5192,6 +5243,7 @@ cp hardware/printed-parts/cold-core/reservoir/vent.md $$O24
 genrule(
     name = "all-aero-float",
     srcs = [
+        "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/magnetic-float/all-aero/all_aero_float.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/scripts/_cadq_export.py",
@@ -5252,6 +5304,88 @@ cp hardware/printed-parts/cold-core/magnetic-float/all-aero/insertion.step $$O6
 cp hardware/printed-parts/cold-core/magnetic-float/all-aero/insertion.step.mesh $$O7
 cp hardware/printed-parts/cold-core/magnetic-float/all-aero/section.step $$O8
 cp hardware/printed-parts/cold-core/magnetic-float/all-aero/section.step.mesh $$O9
+""",
+)
+
+genrule(
+    name = "integration",
+    srcs = [
+        "pysrc/hardware/assembly/_pressure_vessel_sync.py",
+        ":out/endcap-circular-drawing/hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole-drawing.pdf",
+        ":out/endcap-circular-step/hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step",
+        "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+        "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/reeding.py",
+        "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_port_cuts.py",
+        "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
+        "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
+        "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
+        ":out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/design.json",
+        ":out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step",
+        ":out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.stl",
+        "hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.md",
+        "pysrc/hardware/printed-parts/cold-core/magnetic-float/all-aero/integration.py",
+        "pysrc/hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
+        ":out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step",
+        ":out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step",
+        ":out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-left.step",
+        ":out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-right.step",
+        "pysrc/hardware/printed-parts/cold-core/reservoir/reservoir.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
+        "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
+        "pysrc/hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py",
+        "pysrc/hardware/reference/g-ganen-pump/g_ganen_pump.py",
+        "pysrc/hardware/reference/g-ganen-pump/installation/g_ganen_installation.py",
+        "pysrc/hardware/reference/g-ganen-pump/integration-envelope/g_ganen_integration.py",
+        "pysrc/hardware/reference/g-ganen-pump/integration-envelope/native_queries.py",
+        "hardware/reference/g-ganen-pump/reference-parameters.json",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_material_base.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_realized.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_stated_bounds.py",
+        "pysrc/tools/docgen/__init__.py",
+    ] + glob(
+        [
+            "hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.figures.json",
+        ],
+        allow_empty = True,
+    ),
+    outs = [
+        "out/integration/hardware/printed-parts/cold-core/magnetic-float/all-aero/integration-check.json",
+        "out/integration/hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.figures.json",
+        "out/integration/hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.md",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/integration/hardware/printed-parts/cold-core/magnetic-float/all-aero/integration-check.json)
+O1=$$PWD/$(location out/integration/hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.figures.json)
+O2=$$PWD/$(location out/integration/hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.md)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/magnetic-float/all-aero/integration.py > /dev/null
+cp hardware/printed-parts/cold-core/magnetic-float/all-aero/integration-check.json $$O0
+cp hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.figures.json $$O1
+cp hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.md $$O2
 """,
 )
 
@@ -5593,6 +5727,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
         "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
         "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
@@ -6244,6 +6379,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
         "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
         "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
@@ -6867,6 +7003,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
         "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
         "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
@@ -7030,6 +7167,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
         "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
         "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
@@ -7193,6 +7331,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
         "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
         "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
@@ -11102,6 +11241,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
         "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
         "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
@@ -11173,6 +11313,7 @@ genrule(
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step",
         "pysrc/hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
@@ -11183,7 +11324,9 @@ genrule(
         ":out/fuse-clamp/hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step",
         "pysrc/hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
         "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
+        ":out/elbow-cradle/hardware/printed-parts/zone-c/funnel/elbow-cradle.step",
         "pysrc/hardware/printed-parts/zone-c/funnel/elbow_cradle.py",
+        ":out/elbow-cradle/hardware/printed-parts/zone-c/funnel/funnel-frame.step",
         "pysrc/hardware/printed-parts/zone-c/funnel/funnel.py",
         "pysrc/hardware/printed-parts/zone-c/funnel/funnel_frame.py",
         "pysrc/hardware/reference/asse1022-assembly/asse1022_assembly.py",
@@ -11207,6 +11350,7 @@ genrule(
         "pysrc/hardware/reference/jg-pp010822e/jg_pp010822e.py",
         "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json",
         "pysrc/hardware/reference/jg-pp0308e-elbow/elbow.py",
+        "hardware/reference/jg-pp0308e-elbow/scan-measurements.json",
         "pysrc/hardware/reference/jg-pp0408w/jg_pp0408w.py",
         "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
         "pysrc/hardware/reference/meanwell-irm90/meanwell_irm90.py",
@@ -11651,6 +11795,7 @@ genrule(
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_float_interface.py",
         "hardware/printed-parts/cold-core/_foam_cap.py",
         "hardware/printed-parts/cold-core/_internal_routes.py",
         "hardware/printed-parts/cold-core/_outer_shell.py",
@@ -12036,6 +12181,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
         "pysrc/hardware/printed-parts/cold-core/_internal_routes.py",
         "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
@@ -12763,6 +12909,14 @@ genrule(
 )
 
 genrule(
+    name = "pysrc-969722b17baf",
+    srcs = ["hardware/printed-parts/cold-core/_float_interface.py"],
+    outs = ["pysrc/hardware/printed-parts/cold-core/_float_interface.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
     name = "pysrc-1672ec35a852",
     srcs = ["hardware/printed-parts/cold-core/_foam_cap.py"],
     outs = ["pysrc/hardware/printed-parts/cold-core/_foam_cap.py"],
@@ -12886,6 +13040,14 @@ genrule(
     name = "pysrc-77deb5ea4f70",
     srcs = ["hardware/printed-parts/cold-core/magnetic-float/all-aero/all_aero_float.py"],
     outs = ["pysrc/hardware/printed-parts/cold-core/magnetic-float/all-aero/all_aero_float.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-951c1d4ad889",
+    srcs = ["hardware/printed-parts/cold-core/magnetic-float/all-aero/integration.py"],
+    outs = ["pysrc/hardware/printed-parts/cold-core/magnetic-float/all-aero/integration.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -13190,6 +13352,22 @@ genrule(
     name = "pysrc-df67688e6470",
     srcs = ["hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py"],
     outs = ["pysrc/hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-ef881a8cf414",
+    srcs = ["hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prepare.py"],
+    outs = ["pysrc/hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prepare.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-d5ef32634c66",
+    srcs = ["hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/verify.py"],
+    outs = ["pysrc/hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/verify.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -14434,6 +14612,7 @@ sh_test(
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_float_interface.py",
         "hardware/printed-parts/cold-core/_foam_cap.py",
         "hardware/printed-parts/cold-core/_foam_shell.py",
         "hardware/printed-parts/cold-core/_internal_routes.py",
@@ -14454,6 +14633,7 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/.gitignore",
         "hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json",
+        "hardware/printed-parts/cold-core/foam-cap/fluid-18-clearance-check.json",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
@@ -14569,6 +14749,20 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-male-coupon.stl",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/geometry-check.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/README.md",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/automatic-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/completion.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/connect-readiness.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/launch.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preflight.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preparation.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prepare.py",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prestart-status.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v1.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v2.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/queue.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/unsupported-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/verify.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.lint-answers",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
@@ -14927,6 +15121,7 @@ sh_test(
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_float_interface.py",
         "hardware/printed-parts/cold-core/_foam_cap.py",
         "hardware/printed-parts/cold-core/_foam_shell.py",
         "hardware/printed-parts/cold-core/_internal_routes.py",
@@ -14947,6 +15142,7 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/.gitignore",
         "hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json",
+        "hardware/printed-parts/cold-core/foam-cap/fluid-18-clearance-check.json",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
@@ -15062,6 +15258,20 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-male-coupon.stl",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/geometry-check.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/README.md",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/automatic-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/completion.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/connect-readiness.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/launch.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preflight.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preparation.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prepare.py",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prestart-status.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v1.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v2.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/queue.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/unsupported-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/verify.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.lint-answers",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
@@ -15423,6 +15633,7 @@ sh_test(
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_float_interface.py",
         "hardware/printed-parts/cold-core/_foam_cap.py",
         "hardware/printed-parts/cold-core/_foam_shell.py",
         "hardware/printed-parts/cold-core/_internal_routes.py",
@@ -15443,6 +15654,7 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/.gitignore",
         "hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json",
+        "hardware/printed-parts/cold-core/foam-cap/fluid-18-clearance-check.json",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
@@ -15558,6 +15770,20 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-male-coupon.stl",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/geometry-check.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/README.md",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/automatic-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/completion.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/connect-readiness.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/launch.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preflight.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preparation.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prepare.py",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prestart-status.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v1.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v2.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/queue.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/unsupported-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/verify.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.lint-answers",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
@@ -15919,6 +16145,7 @@ sh_test(
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_float_interface.py",
         "hardware/printed-parts/cold-core/_foam_cap.py",
         "hardware/printed-parts/cold-core/_foam_shell.py",
         "hardware/printed-parts/cold-core/_internal_routes.py",
@@ -15939,6 +16166,7 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/.gitignore",
         "hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json",
+        "hardware/printed-parts/cold-core/foam-cap/fluid-18-clearance-check.json",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
@@ -16054,6 +16282,20 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-male-coupon.stl",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/geometry-check.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/README.md",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/automatic-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/completion.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/connect-readiness.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/launch.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preflight.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preparation.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prepare.py",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prestart-status.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v1.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v2.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/queue.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/unsupported-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/verify.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.lint-answers",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
@@ -16423,6 +16665,7 @@ sh_test(
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_float_interface.py",
         "hardware/printed-parts/cold-core/_foam_cap.py",
         "hardware/printed-parts/cold-core/_foam_shell.py",
         "hardware/printed-parts/cold-core/_internal_routes.py",
@@ -16443,6 +16686,7 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/.gitignore",
         "hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json",
+        "hardware/printed-parts/cold-core/foam-cap/fluid-18-clearance-check.json",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
@@ -16558,6 +16802,20 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-male-coupon.stl",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/geometry-check.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/README.md",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/automatic-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/completion.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/connect-readiness.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/launch.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preflight.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preparation.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prepare.py",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prestart-status.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v1.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v2.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/queue.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/unsupported-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/verify.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.lint-answers",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
@@ -16916,6 +17174,7 @@ sh_test(
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_float_interface.py",
         "hardware/printed-parts/cold-core/_foam_cap.py",
         "hardware/printed-parts/cold-core/_foam_shell.py",
         "hardware/printed-parts/cold-core/_internal_routes.py",
@@ -16936,6 +17195,7 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/.gitignore",
         "hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json",
+        "hardware/printed-parts/cold-core/foam-cap/fluid-18-clearance-check.json",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
@@ -17051,6 +17311,20 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-male-coupon.stl",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/geometry-check.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/README.md",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/automatic-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/completion.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/connect-readiness.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/launch.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preflight.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preparation.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prepare.py",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prestart-status.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v1.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v2.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/queue.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/unsupported-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/verify.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.lint-answers",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
@@ -17409,6 +17683,7 @@ sh_test(
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_float_interface.py",
         "hardware/printed-parts/cold-core/_foam_cap.py",
         "hardware/printed-parts/cold-core/_foam_shell.py",
         "hardware/printed-parts/cold-core/_internal_routes.py",
@@ -17429,6 +17704,7 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/.gitignore",
         "hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json",
+        "hardware/printed-parts/cold-core/foam-cap/fluid-18-clearance-check.json",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
@@ -17544,6 +17820,20 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-male-coupon.stl",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/geometry-check.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/README.md",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/automatic-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/completion.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/connect-readiness.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/launch.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preflight.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preparation.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prepare.py",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prestart-status.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v1.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v2.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/queue.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/unsupported-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/verify.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.lint-answers",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
@@ -17902,6 +18192,7 @@ sh_test(
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_float_interface.py",
         "hardware/printed-parts/cold-core/_foam_cap.py",
         "hardware/printed-parts/cold-core/_foam_shell.py",
         "hardware/printed-parts/cold-core/_internal_routes.py",
@@ -17922,6 +18213,7 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/.gitignore",
         "hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json",
+        "hardware/printed-parts/cold-core/foam-cap/fluid-18-clearance-check.json",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
@@ -18037,6 +18329,20 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-male-coupon.stl",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/geometry-check.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/README.md",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/automatic-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/completion.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/connect-readiness.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/launch.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preflight.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preparation.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prepare.py",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prestart-status.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v1.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v2.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/queue.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/unsupported-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/verify.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.lint-answers",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
@@ -18395,6 +18701,7 @@ sh_test(
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_float_interface.py",
         "hardware/printed-parts/cold-core/_foam_cap.py",
         "hardware/printed-parts/cold-core/_foam_shell.py",
         "hardware/printed-parts/cold-core/_internal_routes.py",
@@ -18415,6 +18722,7 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/.gitignore",
         "hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json",
+        "hardware/printed-parts/cold-core/foam-cap/fluid-18-clearance-check.json",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
@@ -18530,6 +18838,20 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-male-coupon.stl",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/geometry-check.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/README.md",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/automatic-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/completion.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/connect-readiness.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/launch.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preflight.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preparation.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prepare.py",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prestart-status.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v1.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v2.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/queue.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/unsupported-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/verify.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.lint-answers",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
@@ -18901,6 +19223,7 @@ sh_test(
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_float_interface.py",
         "hardware/printed-parts/cold-core/_foam_cap.py",
         "hardware/printed-parts/cold-core/_foam_shell.py",
         "hardware/printed-parts/cold-core/_internal_routes.py",
@@ -18921,6 +19244,7 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/.gitignore",
         "hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json",
+        "hardware/printed-parts/cold-core/foam-cap/fluid-18-clearance-check.json",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
@@ -19036,6 +19360,20 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-male-coupon.stl",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/geometry-check.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/README.md",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/automatic-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/completion.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/connect-readiness.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/launch.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preflight.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preparation.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prepare.py",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prestart-status.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v1.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v2.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/queue.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/unsupported-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/verify.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.lint-answers",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
@@ -19394,6 +19732,7 @@ sh_test(
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_float_interface.py",
         "hardware/printed-parts/cold-core/_foam_cap.py",
         "hardware/printed-parts/cold-core/_foam_shell.py",
         "hardware/printed-parts/cold-core/_internal_routes.py",
@@ -19414,6 +19753,7 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/.gitignore",
         "hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json",
+        "hardware/printed-parts/cold-core/foam-cap/fluid-18-clearance-check.json",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
@@ -19529,6 +19869,20 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-male-coupon.stl",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/geometry-check.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/README.md",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/automatic-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/completion.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/connect-readiness.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/launch.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preflight.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preparation.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prepare.py",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prestart-status.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v1.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v2.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/queue.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/unsupported-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/verify.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.lint-answers",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
@@ -19887,6 +20241,7 @@ sh_test(
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_float_interface.py",
         "hardware/printed-parts/cold-core/_foam_cap.py",
         "hardware/printed-parts/cold-core/_foam_shell.py",
         "hardware/printed-parts/cold-core/_internal_routes.py",
@@ -19907,6 +20262,7 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/.gitignore",
         "hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json",
+        "hardware/printed-parts/cold-core/foam-cap/fluid-18-clearance-check.json",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
@@ -20022,6 +20378,20 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-male-coupon.stl",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/geometry-check.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/README.md",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/automatic-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/completion.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/connect-readiness.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/launch.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preflight.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preparation.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prepare.py",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prestart-status.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v1.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v2.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/queue.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/unsupported-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/verify.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.lint-answers",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
@@ -20401,6 +20771,7 @@ sh_test(
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_float_interface.py",
         "hardware/printed-parts/cold-core/_foam_cap.py",
         "hardware/printed-parts/cold-core/_foam_shell.py",
         "hardware/printed-parts/cold-core/_internal_routes.py",
@@ -20421,6 +20792,7 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/.gitignore",
         "hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json",
+        "hardware/printed-parts/cold-core/foam-cap/fluid-18-clearance-check.json",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
@@ -20536,6 +20908,20 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-male-coupon.stl",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/geometry-check.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/README.md",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/automatic-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/completion.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/connect-readiness.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/launch.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preflight.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preparation.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prepare.py",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prestart-status.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v1.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v2.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/queue.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/unsupported-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/verify.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.lint-answers",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
@@ -20969,6 +21355,7 @@ sh_test(
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_float_interface.py",
         "hardware/printed-parts/cold-core/_foam_cap.py",
         "hardware/printed-parts/cold-core/_foam_shell.py",
         "hardware/printed-parts/cold-core/_internal_routes.py",
@@ -20989,6 +21376,7 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/.gitignore",
         "hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json",
+        "hardware/printed-parts/cold-core/foam-cap/fluid-18-clearance-check.json",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
@@ -21104,6 +21492,20 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-male-coupon.stl",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/geometry-check.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/README.md",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/automatic-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/completion.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/connect-readiness.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/launch.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preflight.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preparation.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prepare.py",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prestart-status.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v1.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v2.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/queue.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/unsupported-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/verify.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.lint-answers",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
@@ -21473,6 +21875,7 @@ sh_test(
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_float_interface.py",
         "hardware/printed-parts/cold-core/_foam_cap.py",
         "hardware/printed-parts/cold-core/_foam_shell.py",
         "hardware/printed-parts/cold-core/_internal_routes.py",
@@ -21493,6 +21896,7 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/.gitignore",
         "hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json",
+        "hardware/printed-parts/cold-core/foam-cap/fluid-18-clearance-check.json",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
@@ -21608,6 +22012,20 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-male-coupon.stl",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/geometry-check.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/README.md",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/automatic-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/completion.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/connect-readiness.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/launch.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preflight.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preparation.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prepare.py",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prestart-status.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v1.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v2.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/queue.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/unsupported-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/verify.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.lint-answers",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
@@ -21967,6 +22385,7 @@ sh_test(
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_float_interface.py",
         "hardware/printed-parts/cold-core/_foam_cap.py",
         "hardware/printed-parts/cold-core/_foam_shell.py",
         "hardware/printed-parts/cold-core/_internal_routes.py",
@@ -21987,6 +22406,7 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/.gitignore",
         "hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json",
+        "hardware/printed-parts/cold-core/foam-cap/fluid-18-clearance-check.json",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
@@ -22102,6 +22522,20 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-male-coupon.stl",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/geometry-check.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/README.md",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/automatic-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/completion.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/connect-readiness.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/launch.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preflight.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preparation.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prepare.py",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prestart-status.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v1.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v2.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/queue.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/unsupported-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/verify.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.lint-answers",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
@@ -22460,6 +22894,7 @@ sh_test(
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_float_interface.py",
         "hardware/printed-parts/cold-core/_foam_cap.py",
         "hardware/printed-parts/cold-core/_foam_shell.py",
         "hardware/printed-parts/cold-core/_internal_routes.py",
@@ -22480,6 +22915,7 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/.gitignore",
         "hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json",
+        "hardware/printed-parts/cold-core/foam-cap/fluid-18-clearance-check.json",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
@@ -22595,6 +23031,20 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-male-coupon.stl",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/geometry-check.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/README.md",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/automatic-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/completion.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/connect-readiness.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/launch.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preflight.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preparation.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prepare.py",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prestart-status.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v1.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v2.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/queue.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/unsupported-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/verify.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.lint-answers",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
@@ -22979,6 +23429,7 @@ sh_test(
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_float_interface.py",
         "hardware/printed-parts/cold-core/_foam_cap.py",
         "hardware/printed-parts/cold-core/_foam_shell.py",
         "hardware/printed-parts/cold-core/_internal_routes.py",
@@ -22999,6 +23450,7 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/.gitignore",
         "hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json",
+        "hardware/printed-parts/cold-core/foam-cap/fluid-18-clearance-check.json",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
@@ -23114,6 +23566,20 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-male-coupon.stl",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/geometry-check.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/README.md",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/automatic-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/completion.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/connect-readiness.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/launch.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preflight.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preparation.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prepare.py",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prestart-status.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v1.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v2.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/queue.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/unsupported-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/verify.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.lint-answers",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
@@ -23495,6 +23961,7 @@ sh_test(
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_float_interface.py",
         "hardware/printed-parts/cold-core/_foam_cap.py",
         "hardware/printed-parts/cold-core/_foam_shell.py",
         "hardware/printed-parts/cold-core/_internal_routes.py",
@@ -23515,6 +23982,7 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/.gitignore",
         "hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json",
+        "hardware/printed-parts/cold-core/foam-cap/fluid-18-clearance-check.json",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
@@ -23630,6 +24098,20 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-male-coupon.stl",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/geometry-check.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/README.md",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/automatic-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/completion.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/connect-readiness.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/launch.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preflight.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preparation.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prepare.py",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prestart-status.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v1.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v2.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/queue.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/unsupported-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/verify.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.lint-answers",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
@@ -23999,6 +24481,7 @@ sh_test(
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_float_interface.py",
         "hardware/printed-parts/cold-core/_foam_cap.py",
         "hardware/printed-parts/cold-core/_foam_shell.py",
         "hardware/printed-parts/cold-core/_internal_routes.py",
@@ -24019,6 +24502,7 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/.gitignore",
         "hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json",
+        "hardware/printed-parts/cold-core/foam-cap/fluid-18-clearance-check.json",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
@@ -24134,6 +24618,20 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-male-coupon.stl",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/geometry-check.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/README.md",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/automatic-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/completion.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/connect-readiness.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/launch.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preflight.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preparation.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prepare.py",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prestart-status.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v1.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v2.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/queue.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/unsupported-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/verify.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.lint-answers",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
@@ -24492,6 +24990,7 @@ sh_test(
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_float_interface.py",
         "hardware/printed-parts/cold-core/_foam_cap.py",
         "hardware/printed-parts/cold-core/_foam_shell.py",
         "hardware/printed-parts/cold-core/_internal_routes.py",
@@ -24512,6 +25011,7 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/.gitignore",
         "hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json",
+        "hardware/printed-parts/cold-core/foam-cap/fluid-18-clearance-check.json",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
@@ -24627,6 +25127,20 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-male-coupon.stl",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/geometry-check.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/README.md",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/automatic-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/completion.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/connect-readiness.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/launch.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preflight.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preparation.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prepare.py",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prestart-status.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v1.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v2.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/queue.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/unsupported-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/verify.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.lint-answers",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
@@ -24985,6 +25499,7 @@ sh_test(
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_float_interface.py",
         "hardware/printed-parts/cold-core/_foam_cap.py",
         "hardware/printed-parts/cold-core/_foam_shell.py",
         "hardware/printed-parts/cold-core/_internal_routes.py",
@@ -25005,6 +25520,7 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/.gitignore",
         "hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json",
+        "hardware/printed-parts/cold-core/foam-cap/fluid-18-clearance-check.json",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
@@ -25120,6 +25636,20 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-male-coupon.stl",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/geometry-check.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/README.md",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/automatic-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/completion.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/connect-readiness.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/launch.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preflight.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preparation.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prepare.py",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prestart-status.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v1.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v2.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/queue.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/unsupported-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/verify.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.lint-answers",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
@@ -25478,6 +26008,7 @@ sh_test(
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_float_interface.py",
         "hardware/printed-parts/cold-core/_foam_cap.py",
         "hardware/printed-parts/cold-core/_foam_shell.py",
         "hardware/printed-parts/cold-core/_internal_routes.py",
@@ -25498,6 +26029,7 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/.gitignore",
         "hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json",
+        "hardware/printed-parts/cold-core/foam-cap/fluid-18-clearance-check.json",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
@@ -25613,6 +26145,20 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-male-coupon.stl",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/geometry-check.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/README.md",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/automatic-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/completion.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/connect-readiness.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/launch.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preflight.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preparation.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prepare.py",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prestart-status.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v1.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v2.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/queue.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/unsupported-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/verify.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.lint-answers",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
@@ -25971,6 +26517,7 @@ sh_test(
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_float_interface.py",
         "hardware/printed-parts/cold-core/_foam_cap.py",
         "hardware/printed-parts/cold-core/_foam_shell.py",
         "hardware/printed-parts/cold-core/_internal_routes.py",
@@ -25991,6 +26538,7 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/.gitignore",
         "hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json",
+        "hardware/printed-parts/cold-core/foam-cap/fluid-18-clearance-check.json",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
@@ -26106,6 +26654,20 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-male-coupon.stl",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/geometry-check.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/README.md",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/automatic-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/completion.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/connect-readiness.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/launch.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preflight.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preparation.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prepare.py",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prestart-status.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v1.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v2.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/queue.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/unsupported-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/verify.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.lint-answers",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
@@ -26486,6 +27048,7 @@ sh_test(
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_float_interface.py",
         "hardware/printed-parts/cold-core/_foam_cap.py",
         "hardware/printed-parts/cold-core/_foam_shell.py",
         "hardware/printed-parts/cold-core/_internal_routes.py",
@@ -26506,6 +27069,7 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/.gitignore",
         "hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json",
+        "hardware/printed-parts/cold-core/foam-cap/fluid-18-clearance-check.json",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
@@ -26623,6 +27187,20 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-male-coupon.stl",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/geometry-check.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/README.md",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/automatic-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/completion.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/connect-readiness.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/launch.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preflight.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preparation.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prepare.py",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prestart-status.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v1.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v2.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/queue.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/unsupported-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/verify.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.lint-answers",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
@@ -26777,6 +27355,7 @@ sh_test(
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
         "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
         "hardware/printed-parts/faucet/faucet-shell/print-log.md",
+        "hardware/printed-parts/faucet/lever-replica/lever-replica.step",
         "hardware/printed-parts/faucet/tpu-o-ring/README.figures.json",
         "hardware/printed-parts/faucet/tpu-o-ring/README.md",
         "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step",
@@ -27032,6 +27611,7 @@ sh_test(
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_float_interface.py",
         "hardware/printed-parts/cold-core/_foam_cap.py",
         "hardware/printed-parts/cold-core/_foam_shell.py",
         "hardware/printed-parts/cold-core/_internal_routes.py",
@@ -27052,6 +27632,7 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/.gitignore",
         "hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json",
+        "hardware/printed-parts/cold-core/foam-cap/fluid-18-clearance-check.json",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
@@ -27167,6 +27748,20 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-male-coupon.stl",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/geometry-check.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/README.md",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/automatic-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/completion.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/connect-readiness.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/launch.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preflight.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preparation.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prepare.py",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prestart-status.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v1.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v2.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/queue.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/unsupported-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/verify.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.lint-answers",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
@@ -27557,6 +28152,7 @@ sh_test(
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_float_interface.py",
         "hardware/printed-parts/cold-core/_foam_cap.py",
         "hardware/printed-parts/cold-core/_foam_shell.py",
         "hardware/printed-parts/cold-core/_internal_routes.py",
@@ -27577,6 +28173,7 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/.gitignore",
         "hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json",
+        "hardware/printed-parts/cold-core/foam-cap/fluid-18-clearance-check.json",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
@@ -27692,6 +28289,20 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-male-coupon.stl",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/geometry-check.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/README.md",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/automatic-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/completion.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/connect-readiness.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/launch.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preflight.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preparation.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prepare.py",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prestart-status.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v1.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v2.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/queue.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/unsupported-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/verify.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.lint-answers",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
@@ -28099,6 +28710,7 @@ sh_test(
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_float_interface.py",
         "hardware/printed-parts/cold-core/_foam_cap.py",
         "hardware/printed-parts/cold-core/_foam_shell.py",
         "hardware/printed-parts/cold-core/_internal_routes.py",
@@ -28119,6 +28731,7 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/.gitignore",
         "hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json",
+        "hardware/printed-parts/cold-core/foam-cap/fluid-18-clearance-check.json",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
@@ -28234,6 +28847,20 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-male-coupon.stl",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/geometry-check.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/README.md",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/automatic-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/completion.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/connect-readiness.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/launch.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preflight.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preparation.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prepare.py",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prestart-status.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v1.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v2.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/queue.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/unsupported-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/verify.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.lint-answers",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
@@ -28595,6 +29222,7 @@ sh_test(
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_float_interface.py",
         "hardware/printed-parts/cold-core/_foam_cap.py",
         "hardware/printed-parts/cold-core/_foam_shell.py",
         "hardware/printed-parts/cold-core/_internal_routes.py",
@@ -28615,6 +29243,7 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/.gitignore",
         "hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json",
+        "hardware/printed-parts/cold-core/foam-cap/fluid-18-clearance-check.json",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
@@ -28730,6 +29359,20 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-male-coupon.stl",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/geometry-check.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/README.md",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/automatic-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/completion.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/connect-readiness.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/launch.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preflight.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preparation.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prepare.py",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prestart-status.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v1.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v2.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/queue.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/unsupported-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/verify.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.lint-answers",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
@@ -29132,6 +29775,7 @@ sh_test(
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_float_interface.py",
         "hardware/printed-parts/cold-core/_foam_cap.py",
         "hardware/printed-parts/cold-core/_foam_shell.py",
         "hardware/printed-parts/cold-core/_internal_routes.py",
@@ -29152,6 +29796,7 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/.gitignore",
         "hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json",
+        "hardware/printed-parts/cold-core/foam-cap/fluid-18-clearance-check.json",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
@@ -29267,6 +29912,20 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-male-coupon.stl",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/geometry-check.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/README.md",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/automatic-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/completion.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/connect-readiness.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/launch.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preflight.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preparation.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prepare.py",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prestart-status.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v1.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v2.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/queue.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/unsupported-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/verify.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.lint-answers",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
@@ -29641,6 +30300,7 @@ sh_test(
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_float_interface.py",
         "hardware/printed-parts/cold-core/_foam_cap.py",
         "hardware/printed-parts/cold-core/_foam_shell.py",
         "hardware/printed-parts/cold-core/_internal_routes.py",
@@ -29661,6 +30321,7 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/.gitignore",
         "hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json",
+        "hardware/printed-parts/cold-core/foam-cap/fluid-18-clearance-check.json",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
@@ -29776,6 +30437,20 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-male-coupon.stl",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py",
         "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/geometry-check.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/README.md",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/automatic-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/completion.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/connect-readiness.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/launch.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preflight.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preparation.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prepare.py",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prestart-status.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v1.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/preview-v2.png",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/queue.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/unsupported-support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/verify.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.lint-answers",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
@@ -30340,6 +31015,7 @@ filegroup(
         ":foam-cap",
         ":foam-shell",
         ":all-aero-float",
+        ":integration",
         ":magnetic-float",
         ":prv-shroud",
         ":collet-press",

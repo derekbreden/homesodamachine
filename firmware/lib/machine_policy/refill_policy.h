@@ -3,10 +3,11 @@
 #include <stdint.h>
 
 // ── The refill ────────────────────────────────────────────────────────────
-// One donut magnet rides the water in the carbonator and two reeds stand on
-// the bridge beside it: CLO at 67.12 mm closes as the level falls past it and
-// asks for water, CHI at 95.25 mm closes as the level reaches it and ends the
-// draw. Between the two the donut is off both reeds, so a refill is a latch
+// One RC62 magnet in an ASA Aero float rides the water in the carbonator and two reeds stand on
+// the bridge beside it. Design liquid targets are CLO at 67.098 mm and
+// CHI at 95.250 mm above the bottom tube rim; the reed glass centers include
+// immersion and directional activation offsets. Low asks for water, high ends it.
+// Between activation windows both reeds can be open; the windows may overlap. A refill is a latch
 // from the one to the other and not a level a single reading answers.
 //
 // The G Ganen is budgeted at 5 A and the main board peaks at 3.33 A against a
@@ -33,7 +34,7 @@ enum class RefillState : uint8_t {
     Queued,    // CLO asked; the dispense window or another operation holds it
     Filling,
     Timeout,   // pumped kRefillCeilingMs without reaching CHI — latched
-    Fault,     // CLO and CHI closed together, which one magnet cannot do — latched
+    Fault,     // reserved latched fault state; valid overlapping reed windows are allowed
 };
 
 enum class RefillAction : uint8_t {

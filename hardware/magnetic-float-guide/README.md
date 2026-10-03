@@ -1,6 +1,10 @@
-# Magnetic float build guide
+# PETG-shell float bench reference guide
 
-[Open the illustrated guide](magnetic-float-guide.pdf).
+The current ASA Aero float and installation dimensions are in
+[the float record](../printed-parts/cold-core/magnetic-float/all-aero/README.md) and
+[installation guide](../printed-parts/cold-core/magnetic-float/all-aero/installation.md).
+
+[Open the separate PETG-shell reference booklet](magnetic-float-guide.pdf).
 
 Published beside the other booklets on
 [homesodamachine.com/drawings](https://homesodamachine.com/drawings).
@@ -13,7 +17,7 @@ roof closure and finishing. The style, type and CAD illustration conventions
 match the [weld-rotator guide](../weld-rotator-guide/README.md).
 
 The [float source and projects](../printed-parts/cold-core/magnetic-float/README.md)
-provide its dimensions, prepared print files and engineering record. The guide
+link to the current float plan. The [PETG-shell reference](../printed-parts/cold-core/magnetic-float/petg-bench-reference.md) binds this booklet's dimensions and recipes. The guide
 gives the build order and actions. Research and pressure-test procedures remain
 in that engineering record.
 

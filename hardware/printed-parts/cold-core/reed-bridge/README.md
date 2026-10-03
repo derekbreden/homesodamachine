@@ -12,20 +12,20 @@ coupling it is sized against is in
 
 ## What the reed sits in
 
-The donut is an axially-magnetised ferrite ring. Radially outside it, on
+The inserted magnet is an axially magnetised RC62 N42 ring. Radially outside it, on
 its mid-plane, the field is purely axial — the radial component vanishes by
 symmetry on the equatorial plane, the tangential component by axisymmetry.
 Both reeds stand with their glass vertical; a reed tilted θ off vertical
-couples as sin θ.
+has a smaller axial projection as it tilts.
 
 The wind's pitch is [12.33 mm](WRAP_PITCH) over [6.35 mm](COPPER_OD) tube,
 leaving [5.976 mm](INTER_WRAP_CLEAR) of bare wall between adjacent wraps at
-any one azimuth. The glass envelope is [14 mm](REED_GLASS_L), so a reed
+any one azimuth. The mounting envelope is [14 mm](REED_GLASS_L), so a reed
 standing vertical spans at least one wrap and at most two.
 
 Each reed lies in a pocket cut clear through the bridge to the wall — the
 pocket floor is the carbonator's steel. The plateau around it stands
-[3.25 mm](POCKET_DEPTH) proud, clearing a ⌀[2.5 mm](REED_GLASS_D) glass
+[3.25 mm](POCKET_DEPTH) proud, clearing a ⌀[2.5 mm](REED_GLASS_D) capture
 envelope by copper_clearance_over_glass. Nothing sits between the reed and
 the wall.
 
@@ -47,40 +47,53 @@ carbonator support ring.
 tube end. The wetted column runs from the bottom plate's inside face at
 [12.7 mm](INTERIOR_FLOOR) to the top plate's inside face at
 [139.7 mm](INTERIOR_CEILING) — [127 mm](INTERIOR_H) of height in a
-[123.7 mm](TUBE_ID_MM) bore, [12.02 mL](ML_PER_MM) per mm,
-[1526 mL](INTERIOR_ML) brim-full.
+[123.7 mm](TUBE_ID_MM) bore, [12.01 mL](ML_PER_MM) per mm,
+[1497 mL](INTERIOR_ML) brim-full.
 
 **The serving.** 12 US fl oz of finished soda at the syrup's 1:20 ratio is
-[338.1 mL](WATER_PER_SERVING) of carbonated water — [28.13 mm](SERVING_RISE)
+[338.1 mL](WATER_PER_SERVING) of carbonated water — [28.15 mm](SERVING_RISE)
 of level.
 
 **CHI — pump off** at 65 % of the wetted height: level
-[95.25 mm](HIGH_LEVEL). [992 mL](STORED_ML) = [2.93](STORED_SERVINGS)
-servings stored above the floor, [534.2 mL](HEADSPACE_ML) of CO2 headspace
+[95.25 mm](HIGH_LEVEL). [968.6 mL](STORED_ML) = [2.86](STORED_SERVINGS)
+servings stored above the floor, [528.6 mL](HEADSPACE_ML) of CO2 headspace
 (35 %) above it for the inlet jet and the level surge.
 
-**CLO — pump on** one serving below: level [67.12 mm](LOW_LEVEL). The
-refill increment is one drink. Below CLO, [654 mL](RESERVE_ML) =
-[1.93](RESERVE_SERVINGS) servings of reserve.
+**CLO — pump on** one serving below: level [67.1 mm](LOW_LEVEL). The
+refill increment is one drink. Below CLO, [630.5 mL](RESERVE_ML) =
+[1.86](RESERVE_SERVINGS) servings of reserve.
 
-**Reach.** The donut's magnetic mid-plane travels between
-[20.2 mm](MAGNET_LOWEST), sitting on the rod's tack bead, and
-[133.7 mm](MAGNET_HIGHEST), against the top plate. Both reed heights fall
+**Reach.** The Aero float's magnetic midplane travels between
+[28.2 mm](MAGNET_LOWEST), sitting on the rod's tack bead, and
+[125.7 mm](MAGNET_HIGHEST), against the top plate. Both reed heights fall
 inside the wind band, [15 mm](BAND_BOTTOM) … [134.4 mm](BAND_TOP).
 
-**Azimuth.** The rod parks the donut [3 mm](REGISTER_WALL_BIAS) into the bore
-wall, so the magnet-to-wall gap is zero on the register line and opens as
-the reed walks off it — 0.7 mm at 5 mm of arc, 2.8 mm at 10 mm. The bridge
-goes within ±5 mm of arc of the register line.
+**Reed centres and calibration.** The geometric seed centres are
+CLO [58.332 mm](REED_LOW_Z) and CHI [86.484 mm](REED_HIGH_Z), above the tube bottom rim.
+The 28 mm float's magnet is [-8.766 mm](MAGNET_LEAD) relative to the waterline
+at the assumed 0.65 g/cm³ foam density. These seed centres align magnet and
+reed; they do not predict the rising/falling contact thresholds. Measure the
+finished float in water through the actual stainless wall before printing a
+final bridge or bonding it in place. [Calibration and datums](../magnetic-float/all-aero/installation.md).
+
+**Azimuth.** The rod axis is 20 mm inside the wet wall. The float has
+[2 mm](FLOAT_WALL_CLEARANCE) nominal body clearance and ±0.8125 mm radial guide
+motion. The conservative nearest RC62-edge to reed-centre distance is at most
+14.189 mm on this azimuth. Keep the reeds vertical. The mount retains a
+14 × 2.5 mm envelope for the smaller MDSR-7-10-15 glass and capture tape.
+
+Stored liquid and headspace estimates include the assumed immersed float
+volume and the guide rod. They require a dry, undeformed float; pressure,
+wetting and actual density can change them.
 
 ## The part
 
 Cylindrical shell segment on a 127 mm OD, [3.25 mm](POCKET_DEPTH) proud at the
 plateau, [0.8 mm](SKIRT_T) at the skirt.
 
-- **Extent** — Z [46.97 mm](BRIDGE_Z_BOTTOM) … [115.4 mm](BRIDGE_Z_TOP),
-  [68.43 mm](BRIDGE_H) tall × [51.4 mm](BRIDGE_ARC) of arc,
-  [6.79 cm³](BRIDGE_VOL) of PETG.
+- **Extent** — Z [38.18 mm](BRIDGE_Z_BOTTOM) … [106.6 mm](BRIDGE_Z_TOP),
+  [68.45 mm](BRIDGE_H) tall × [51.4 mm](BRIDGE_ARC) of arc,
+  [6.8 cm³](BRIDGE_VOL) of PETG.
 - **Reed pockets** — two, [14.3 mm](POCKET_L) × [2.8 mm](POCKET_W), through to
   the wall, centred on the two reed heights. The part is symmetric end for
   end. Lower reed is `CLO`, upper is `CHI`.
@@ -103,15 +116,15 @@ pockets pass completely through the bridge.
 
 `reed-bridge-setting-gauge.step` — a [60°](GAUGE_ARC_DEG) band that hangs
 on the tube's bottom rim by an inward hook. Its top face is at
-[46.97 mm](BRIDGE_Z_BOTTOM), the bridge's bottom edge.
-[7.81 cm³](GAUGE_VOL) of PETG. Shop tooling, printed once and reused across
+[38.18 mm](BRIDGE_Z_BOTTOM), the bridge's bottom edge.
+[6.62 cm³](GAUGE_VOL) of PETG. Shop tooling, printed once and reused across
 carbonators like the coil mandrel.
 
 ## Bench procedure
 
 1. Solder the two reeds to their three 22 AWG silicone conductors (`CLO`,
    `CHI`, shared common); heat-shrink every joint and every bare lead — the
-   3M 425 skin is aluminium. Prove each reed with the donor magnet.
+   3M 425 skin is aluminium. Prove each reed with the printed RC62 float.
 2. Hang the setting gauge on the tube's bottom rim, sight the register line
    90° off the two end-plate ports, mark the bridge's bottom edge.
 3. Lay the reeds into the pockets, leads into the groove, a 3M 425 patch
