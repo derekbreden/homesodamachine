@@ -7,47 +7,93 @@ closed enclosure captures the frame against 2 mm translations in every axis
 direction. [`rail-motion-check.json`](rail-motion-check.json) binds those
 readings to the exported meshes.
 
-The silicone capacity is 455.55 mL, nominally 456 mL. The frame's flat underside is Z299.9, its
-plug seat is Z302.9, and both end corbels cross the full 207 mm width at 30°
+The silicone capacity is 455.437 mL, nominally 455 mL. The frame's flat underside is Z299.9, its
+socket floor is Z302.9. The carrier and elbow hang 0.65 mm below their insertion datum;
+the 12.85 mm silicone block bears on the released carrier's 3.15 mm hook tops at Z306.05.
+Both end corbels cross the full 207 mm width at 30°
 from vertical. The drain hole is 11.25 mm, with the elbow cradle's two wing
 slots beside it. Eight samples on an 8 mm-radius ring around the outlet measure
 the remaining 3 mm web outside the hole and slots.
 
 The complete 207 × 142.283 mm frame has its collar centre at Y164.55, while
-the plug and drain stay at Y182.5. Both full-width corbels, rail wings and
+the plug and drain share its Y164.55 centre. Both full-width corbels, rail wings and
 the socket's 3 mm floor remain present. The brim pocket keeps a 3.114 mm
 roof landing behind the display arris. The native
 [`forward expansion check`](forward-expansion-check.json) records its capacity,
 mounting datums, cable-hook fit and neighbouring tube clearances.
 
-## Open geometry
+The side cable hook runs from Y95 to Y111.5. Its complete upper jaw retains a
+3 mm tip at both ends and the middle, with 2.532 mm air to the frame. The native
+2 mm-thickness DC-5 lead-entry probe reaches its seat without shared volume
+with front-top or the frame. Its declared local path is 137.491 mm long; this
+is a clearance probe and does not qualify an entire bundled loom or its cut length.
+
+## Placed clearances
 
 The [assembly scorecard](/hardware/manifold-layout/enclosure-assembly.scorecard.json)
-records the current placed machine. Fluid-18 clears the frame by 35.725 mm in the
-[native cap and tube review](/hardware/printed-parts/cold-core/foam-cap/fluid-18-clearance-check.json).
-V-K has zero clearance to the frame. Fluid-24 and fluid-26 each clear the frame by
-0.551 mm, and fluid-14 clears V-A by 0.805 mm, below the 1 mm routing target.
-Fluid-2 clears the water pump by 1.421 mm. The regulator and fluid-1 clear the
-frame. These readings cover the authored solids and tube paths.
+records the current placed machine. The independent native-solid readings in
+[`forward-expansion-check.json`](forward-expansion-check.json) cover the complete
+frame and the authored tube bodies:
+
+| Pair | Native clearance |
+| --- | ---: |
+| V-K / frame | 1.456 mm |
+| Fluid-24 / frame | 1.150 mm |
+| Fluid-26 / frame | 1.150 mm |
+| Fluid-14 / V-A | 1.305 mm |
+| Fluid-14 / frame | 1.133 mm |
+| Fluid-2 / water pump | 1.092 mm |
+| Fluid-18 / frame | 35.725 mm |
+
+The [cap and tube review](/hardware/printed-parts/cold-core/foam-cap/fluid-18-clearance-check.json)
+records fluid-18's anchor and cap fit. The drain starts at the released elbow's
+aft mouth at X1.85, Y185.112, Z280.41 and finishes at V-B-I, X−22.35, Y286.46,
+Z263.05. Its 199.008 mm native centreline has four R14 corners and falls or stays
+level throughout. The 25.792 mm stub reaches through its full 3 mm silicone
+sealing land.
+
+The rear cap pocket has 0.25 mm running air in XY and no added Z clearance. Its
+rear floor retains a complete 3.75 mm wall behind the actual flat pocket face;
+the entire rounded pocket's bounding width has at least 3.5 mm of stock. The
+nameplate's inboard receiver stands 1.379 mm above the cap crown, with 1 mm air
+to the PSU and 3.129 mm of wall below the supported mouth. These are native
+geometry checks; silicone sealing, flexible tubing, installed fit and retention
+remain physical qualifications.
 
 [`assembly-intersections.json`](assembly-intersections.json) is a separate
 mesh review bound to its recorded source hashes. Its measurements apply to
 those meshes; the current machine's measurements are in the scorecard.
 
-## Native slice readings
+## Native slice records
+
+The current [front-top H2C native slice receipt](/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/README.md)
+is bound to front-top's current STEP and STL, including the complete 16.5 mm
+cable hook. It records the emitted first layers, complete fine roof band,
+show-face support clearance and support-removal lanes. Its physical finish,
+removal and installed fit remain separate observations.
 
 The stored [frame support audit](frame-support-audit.json) has four bed-rooted
 support bodies, each serving a rail bearing region. Its first layer is one
 body; every second-layer wall bead has more than half its area over the first
-layer. The records name the source mesh, profile, project and emitted toolpaths.
+layer. Its source mesh, profile, project and emitted toolpaths identify the
+specific reviewed geometry. This stored slice does not qualify the current
+expanded frame's supports or physical removal.
 
-The stored upper-enclosure toolpaths have no slicer warnings, and their
-first-layer and local wall-count checks pass. The front-top audit retains
+The stored upper-enclosure toolpaths' first-layer and local wall-count checks pass.
+The stored front-top audit retains
 35 support bodies, including 29 without explicit interface labels. Back-top has
 14 support bodies, including one without an explicit interface label.
 
-The back-top review placement leaves only 2.958 mm between a support extrusion
+The stored back-top review placement leaves only 2.958 mm between a support extrusion
 and the shared bed edge, below the recipe's 10 mm target. Its print layout and
-the upper shells' support removal need further review. The current frame and
-upper shells require native slices bound to their current meshes. Physical
-support removal and fit remain unqualified for this geometry.
+that archive's upper-shell support removal require separate review. Current
+print receipts must name the current mesh hashes, bed placement, emitted paths
+and removal lanes. Physical support removal and fit remain unqualified for this
+geometry.
+
+The accepted [v4 cradle trial](../cradle-trial/physical-acceptance.json) records
+insertion of its printed pair and the 0.65 mm released drop. That drop is retained.
+The current 3.15 mm hook thickness and flat silicone bearing are separately
+checked in native geometry, including 29 sampled insertion poses with the
+silicone funnel removed. The v4 result does not establish physical acceptance
+of those changed features or production frame and shell fit.

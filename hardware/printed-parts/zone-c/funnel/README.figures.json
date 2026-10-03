@@ -3,24 +3,24 @@
     "CRADLE_BEND": "2.53 mm",
     "CRADLE_CATCH": "0.65 mm",
     "CRADLE_HOOK": "3.1 mm",
-    "CRADLE_LANE": "3.35 mm",
+    "CRADLE_LANE": "3.69 mm",
     "CRADLE_LENGTH": "31.8 mm",
     "CRADLE_OVERLAP": "2.6 mm",
     "CRADLE_SLIP": "0.15 mm",
     "CRADLE_STRAIN": "3.2%",
     "CRADLE_TIP_GAP": "0.15 mm",
-    "CRADLE_WEB": "4.78 mm",
+    "CRADLE_WEB": "4.44 mm",
     "CRADLE_WIDTH": "30.1 mm",
-    "CRADLE_WING_H": "14.49 mm",
+    "CRADLE_WING_H": "15.64 mm",
     "CRADLE_WING_T": "1.3 mm"
   },
   "/hardware/printed-parts/zone-c/funnel/funnel.py": {
-    "FUNNEL_CAP": "456 mL",
+    "FUNNEL_CAP": "455 mL",
     "FUNNEL_PLUG": "36 \u00d7 41.0 mm"
   },
   "/hardware/printed-parts/zone-c/funnel/funnel_frame.py": {
     "FRAME_HOLE": "11.25 mm",
-    "FRAME_SLOTS": "5.15 \u00d7 32.3 mm",
+    "FRAME_SLOTS": "5.49 \u00d7 32.3 mm",
     "FRAME_SOCKET": "36.6 \u00d7 41.6 mm"
   }
 }

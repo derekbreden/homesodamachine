@@ -36,9 +36,10 @@ import funnel as _funnel
 
 STUB_OD = 6.35          # 1/4" LLDPE, the same stock every water-side run is cut from
 STUB_ID = 4.32          # its bore
-# The elbow's nose bears on the frame's underside and the plug sits on the web's top, so the
-# web less the elbow's collet projection stands between the release face and the plug.
-FACE_GAP = _cradle.WEB - (_cradle.ELBOW_Z + _union.COLLET_FACE)
+# The elbow and cradle hang at the hooks' bearing position. The silicone block
+# rests on the hook tops, and the stub bridges the complete collet-to-block gap.
+FACE_GAP = (_cradle.WEB + _funnel.plug_lift + _cradle.CATCH_GAP
+            - (_cradle.ELBOW_Z + _union.COLLET_FACE))
 # The plug's bore from its bottom face to the top of its sealing land.
 FUNNEL_ENGAGEMENT = _funnel.stub_engagement
 # Collet face to tube stop for John Guest's 1/4" PP range, data sheet Pp4608_01/23 row D
@@ -75,7 +76,7 @@ def build_stub():
 def selftest():
     joint_holds()
     return [f"  the stub is {LENGTH:.2f} mm: {UNION_INSERTION:g} in the elbow, {FACE_GAP:.3f} "
-            f"through the web, and {FUNNEL_ENGAGEMENT:.3f} up the plug to its land's top"]
+            f"across the collet-to-block gap, and {FUNNEL_ENGAGEMENT:.3f} up the plug to its land's top"]
 
 
 if __name__ == "__main__":

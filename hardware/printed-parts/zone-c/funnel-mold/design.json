@@ -3,60 +3,60 @@
     "cavity": [
       211.0,
       211.0,
-      61.1000001
+      57.950000100000004
     ],
     "core": [
       211.0,
       211.0,
-      42.233776906066744
+      42.215984785579835
     ],
     "funnel": [
       179.0000002,
       131.68301604656256,
-      52.100000200000004
+      48.950000200000005
     ],
     "rod": [
       6.35,
-      6.350000000000001,
+      6.35,
       50.8
     ],
     "seal": [
-      8.370207245940454,
-      8.350381900009053,
-      1.696708992117749
+      8.35000020000212,
+      8.350616782696239,
+      1.6965387174988464
     ]
   },
   "volume_ml": {
-    "cavity": 304.14187671138717,
-    "core": 295.01487403006774,
-    "funnel": 224.45651567288687,
+    "cavity": 301.45418341575635,
+    "core": 295.307930917868,
+    "funnel": 219.33755505110614,
     "rod": 1.6087962461345555,
-    "seal": 0.036259113140304174
+    "seal": 0.03649029468985404
   },
   "shell_thickness_mm": 5.0,
   "flange_thickness_mm": 5.0,
-  "minimum_cavity_backing_mm": 5.004600844313272,
+  "minimum_cavity_backing_mm": 5.00486472199034,
   "backing_join_allowance_mm": 0.01,
   "minimum_core_backing_mm": 4.9999999975185245,
   "liquid_containment": {
     "cavity": {
-      "retained_volume_ml": 691.8650182933898,
+      "retained_volume_ml": 686.4812279757061,
       "casting_outside_retained_mm3": 0.0
     },
     "assembled": {
-      "retained_volume_ml": 248.0415610352059,
+      "retained_volume_ml": 242.7456000832119,
       "casting_outside_retained_mm3": 0.0
     }
   },
-  "parting_z_mm": 58.1,
+  "parting_z_mm": 54.95,
   "finish_allowance_mm": 0.3,
-  "casting_scope": "rectangular plug blank with a straight dowel bore; hook pockets and the staged sealing bore require separate forming features",
+  "casting_scope": "rectangular plug blank with a flat lower bearing face and straight dowel bore; the staged sealing bore requires separate forming features",
   "plug_blank_mm": [
     36.0,
     41.02478
   ],
   "rod_support": {
-    "engagement_mm": 34.885179354715056,
+    "engagement_mm": 38.035179354715055,
     "guide_diameter_mm": 8.35,
     "guide_diametral_clearance_mm": 2.0,
     "guide_length_mm": 10.0,
@@ -90,8 +90,8 @@
       270,
       315
     ],
-    "minimum_socket_clearance_mm": 0.2715148935833529,
-    "minimum_end_depth_mm": 0.3794992192365143,
+    "minimum_socket_clearance_mm": 0.3814483081962319,
+    "minimum_end_depth_mm": 0.38141811412636173,
     "scope": "Simultaneous rod offset, tilt and axial error against the cavity and its socket; cradle retention and sealing need a physical trial."
   },
   "locators": {
@@ -200,8 +200,8 @@
   "dry_opening_depth_mm": 95.08301584656257,
   "ramp_print_z_mm": {
     "cavity": [
-      20.41482064528494,
-      34.61405370899494
+      17.264820645284942,
+      31.46405370899494
     ],
     "core": [
       28.485946291005064,
@@ -216,8 +216,8 @@
     "assumed_modulus_mpa": 1000.0,
     "assumed_poisson_ratio": 0.4,
     "silicone_density_assumption_kg_m3": 1130,
-    "maximum_silicone_head_mm": 57.1,
-    "head_pressure_kpa": 0.63297063,
+    "maximum_silicone_head_mm": 53.95,
+    "head_pressure_kpa": 0.5980519350000001,
     "screen_deflection_mm": 0.24266789870400002,
     "pressure_force_n": 27.225,
     "condition": "fill, vents and both dry backs open to the same chamber; no sealed pressure differential",

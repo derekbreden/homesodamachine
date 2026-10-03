@@ -39,7 +39,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §7 (
 | ASSE drip pan + moisture sensor | Pan: [`/hardware/printed-parts/enclosure/asse-drip-pan/`](/hardware/printed-parts/enclosure/asse-drip-pan/) (printed PETG); sensor: Shutao LM393 water-sensor module (B0B2W76MB1, [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md)) | Backflow-vent observation per [`/hardware/README.md`](/hardware/README.md) "Safety". The plate lies loose in the pan on its continuous lead. A cable clip printed into the dry −X flank retains the service loop: draw the pan until the plate is reachable, lift the plate clear, then remove the empty pan. SIG-9 ([`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md)) lands on the dry LM393 board during [`wiring.md`](/hardware/assembly/wiring.md) |
 | Waveshare ESP32-S3-Touch-LCD-4.3B display | B0D925SBYF ([`/hardware/reference/waveshare-43b-display/`](/hardware/reference/waveshare-43b-display/)) | Let into the 30° display plane of `enclosure-front-top`; its RS485 link lands in [`wiring.md`](/hardware/assembly/wiring.md) |
 | Display cover plate + display gasket | Plate: [`/hardware/printed-parts/enclosure/display-cover/`](/hardware/printed-parts/enclosure/display-cover/README.md) (printed PET-GF15); gasket: [`/hardware/printed-parts/enclosure/display-gasket/`](/hardware/printed-parts/enclosure/display-gasket/README.md) (printed TPU 90A) | The rounded cover retains the display with two broad snap skirts inside the housing. The gasket is the ring between the plate's lap and the glass, cut to the glass's outline outside and the plate's window inside, so it lands on the glass's border and nowhere else. Both go on at §8 |
-| Funnel frame, elbow cradle, PP0308E elbow + drain stub | Frame and cradle: [`/hardware/printed-parts/zone-c/funnel/`](/hardware/printed-parts/zone-c/funnel/README.md) (printed PET-GF15); elbow: John Guest PP0308E ([`bom.md`](/hardware/ledger/bom.md) §8); stub: 1/4" black LLDPE cut to [25.14 mm](FUNNEL_STUB_LEN) | The cradle snaps under the frame's web with the elbow in it and the stub in the elbow's upper collet, and the frame slides into front-top before closure (§8). The silicone funnel itself seats at final staging |
+| Funnel frame, elbow cradle, PP0308E elbow + drain stub | Frame and cradle: [`/hardware/printed-parts/zone-c/funnel/`](/hardware/printed-parts/zone-c/funnel/README.md) (printed PET-GF15); elbow: John Guest PP0308E ([`bom.md`](/hardware/ledger/bom.md) §8); stub: 1/4" black LLDPE cut to [25.79 mm](FUNNEL_STUB_LEN) | The cradle snaps under the frame's web with the elbow in it and the stub in the elbow's upper collet, and the frame slides into front-top before closure (§8). The silicone funnel itself seats at final staging |
 | MQ-6 combustible-gas sensor | ACEIRMC B0978JSCZ8 ([`/hardware/reference/mq6-gas-sensor/`](/hardware/reference/mq6-gas-sensor/)) | Drops from above into the two grooved posts printed on the floor of the refrigeration bay's −X strip; no fastener — the module has no mounting hole. Wires to SIG-12 on the J11 GAS loom in [`wiring.md`](/hardware/assembly/wiring.md); safety rationale at [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) "Safety" |
 | Bench-built electronics bay | Output of [`electronics-bay.md`](/hardware/assembly/electronics-bay.md) | Unpowered; AC pigtails hang free, terminated at the C14 inlet in [`wiring.md`](/hardware/assembly/wiring.md) |
 | ruthex M3 heat-set inserts, **both bodies** + M3 fasteners | ruthex B08BCRZZS3 (RX-M3x5.7 full-length) + B09ZHSGHXD (RX-M3Sx4.0 short) + BNUOK B0DJQGF665 / B0DJQGPRPV | Per the seam and mount schedules the printed pieces carry, including the condenser's two aft fingers. The cold core's grips take none, being printed features closed by the seam screws. The nameplate's receiving slots and retaining shoulders are printed features |
@@ -211,7 +211,7 @@ Deburr both without opening the clip throat. Below them, the bay bulkhead's fore
 contact pair's male seat and its lead bore; the male half goes in during WR-04. Nothing on the
 cartridge enters that clip.
 
-The 456 mL silicone funnel seats in a separate PET-GF frame behind the display,
+The 455 mL silicone funnel seats in a separate PET-GF frame behind the display,
 across the Y seam. Slide the frame into front-top before closure; back-top
 captures its opposite rails as the enclosure closes. The silicone lifts out
 from above. Deburr and wipe its seat without rounding the rail bearing faces.
@@ -220,10 +220,10 @@ Before the frame goes in, drop the PP0308E elbow into the
 [elbow cradle](/hardware/printed-parts/zone-c/funnel/README.md#elbow-cradle), vertical leg up.
 From below, guide its collet into the frame's [11.25 mm](FUNNEL_DRAIN_HOLE) drain hole and the
 cradle's wings into the two slots beside it, pinch the wings in, and push the cradle home until
-its hooks spring out over the frame's web. Cut the drain stub [25.14 mm](FUNNEL_STUB_LEN) of 1/4"
+its hooks spring out over the frame's web. Cut the drain stub [25.79 mm](FUNNEL_STUB_LEN) of 1/4"
 black LLDPE, square, and push it down through the hole into the elbow's upper collet until it
 bottoms; the silicone plug's land closes on its top when the funnel goes in. `fluid-4` joins the elbow's
-aft collet to V-B. Current clearances and the remaining V-K/frame contact are recorded in the
+aft collet to V-B. The complete frame, drain joint and surrounding tube clearances are recorded in the
 [integration review](/hardware/printed-parts/zone-c/funnel/integration-review/README.md).
 This area is under design review and is not ready for fluid commissioning.
 
@@ -245,7 +245,7 @@ A complete mechanical chassis ready for [`internal-plumbing.md`](/hardware/assem
 - Chassis bonding lead ring-terminated at the compressor's own earth screw on its terminal box, routed toward the ground stack, not yet terminated at the bus
 - No cabinet-spanning plumbing beyond the prepared front-top manifold subassembly; no AC/DC/signal wiring runs
 
-The card's own reading of the chassis at this point: [102](BODY_COUNT) bodies placed, the pack closing with no two solids sharing volume, and every printed piece on the bed.
+The card's own reading of the chassis at this point: [104](BODY_COUNT) bodies placed, the pack closing with no two solids sharing volume, and every printed piece on the bed.
 
 ## Open items
 

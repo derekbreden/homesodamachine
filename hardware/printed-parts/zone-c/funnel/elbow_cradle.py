@@ -1,8 +1,9 @@
 """PET-GF cradle holding the funnel's PP0308E drain elbow under the funnel frame.
 
 Coordinates are local to the frame's drain hole: the origin is on the hole's axis in the frame's
-flat underside, +Z up and +Y aft. The scanned elbow stands with its +Z leg up the hole, its fixed
-nose face on that underside, and its +Y leg aft toward V-B.
+flat underside, +Z up and +Y aft. At the insertion datum the scanned elbow's +Z leg stands up the
+hole with its fixed nose face on that underside. The installed cradle and elbow hang `CATCH_GAP`
+below that datum, with the elbow's +Y leg aft toward V-B.
 
 The cradle is the block under the elbow less the elbow's upward shadow grown by `fits.slip`. The
 elbow drops straight in, and every pocket face opens upward, so the body prints bottom-down. The
@@ -13,12 +14,12 @@ Each X side of the block carries on up as a wing, the body's full length, throug
 in the frame's bottom web. A flat hook at the wing's top reaches outward over the web to within
 `TIP_GAP` of the counterbore's X wall, which sets the block's width and so how far the slots stand
 off the drain hole. Going up, each wing bends inward into its slot's inboard lane until the hook
-clears the slot's outer edge, then springs back over the web. The plug's pockets, open through its
-X sides, keep it there.
+clears the slot's outer edge, then springs back over the web. The silicone plug's flat underside
+rests on the two hook tops in that released pose.
 
 The counterbore and the silicone plug are rectangles centred on the hole, the plug's width across
 X. The counterbore's ±Y walls stand on the slots' farther ends, so the web carries no strip between
-a slot and a wall, and the plug's hook pockets open through its +Y end as well as its X sides.
+a slot and a wall.
 """
 
 import functools
@@ -39,7 +40,7 @@ for _p in (_hw / "scripts", _hw / "printed-parts" / "cadlib",
 import fits                                                   # noqa: E402
 import elbow as _elbow                                        # noqa: E402
 
-WEB = 3.0              # the frame's bottom web under the plug
+WEB = 3.0              # the frame's bottom web under the socket
 SLIP = fits.slip       # pocket off the scanned elbow
 WALL = 3.0             # block wall and floor beyond the elbow's widest section
 HOLE_D = 11.25         # the 10.64 mm collet passes 0.3 mm a side; the 12.12 mm nose bears round it
@@ -51,12 +52,11 @@ TIP_GAP = fits.slip    # hook tip off the counterbore's X wall
 LEAF_T = 1.3           # wing thickness
 SIDE = 0.5             # slot's outer edge off the wing's outer face
 OVERLAP = 2.6          # hook over the web past that edge
-HOOK_T = 2.0           # flat hook thickness
+HOOK_T = 3.15          # flat hook thickness; its released top bears under the silicone block
 HOOK_RISE = 0.25       # further lift the printed hooks need to clear the web
-CATCH_GAP = fits.slip + fits.supported_surface + HOOK_RISE   # hook underside over the web, cradle home
+CATCH_GAP = fits.slip + fits.supported_surface + HOOK_RISE   # release travel from insertion datum
 INSERTION_SLIP = 0.1   # hook tip inside the slot's outer edge while it passes
 END_SLIP = 0.25        # slot beyond each wing end
-POCKET_AIR = 0.5       # plug pocket round each hook and wing top
 PLUG_CORNER = 0.0      # square plug corners; the socket's corner radius is its gap
 
 # The scanned elbow's bend: a round core with short stubs up both legs, and a thin web at its
@@ -248,18 +248,6 @@ def web_cuts():
         cuts.append(cq.Solid.makeBox(x1 - x0, s["y1"] - s["y0"] + 2 * END_SLIP, WEB + 2.0,
                                      cq.Vector(x0, s["y0"] - END_SLIP, -1.0)))
     return cuts
-
-
-def pockets():
-    """The plug's hook pockets, from below the web top to past the hooks."""
-    s = stations()
-    out = []
-    for side in (-1, 1):
-        x0, x1 = sorted((side * (s["w_in"] - POCKET_AIR), side * (s["hook_tip"] + POCKET_AIR)))
-        out.append(cq.Solid.makeBox(x1 - x0, s["y1"] - s["y0"] + 2 * POCKET_AIR,
-                                    s["hook_top"] + POCKET_AIR - WEB + 1.0,
-                                    cq.Vector(x0, s["y0"] - POCKET_AIR, WEB - 1.0)))
-    return out
 
 
 def build():

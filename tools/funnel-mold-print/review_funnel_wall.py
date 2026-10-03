@@ -131,13 +131,10 @@ def wall_reading(shape, point, normal):
 
 
 def nominal_plug(module, metadata):
-    """The plug as the generator cuts it: its outline prism less the elbow cradle's hook pockets."""
+    """The plug's outline prism, with its flat lower face on the carrier's hook tops."""
     cradle = module.elbow_cradle
     plug = cradle.plug_outline(module.plug_width / 2, 0.0, 0.0, module.plug_height).translate(
         cq.Vector(metadata["ncx"], metadata["ncy"], metadata["end_z"]))
-    lift = cq.Vector(metadata["ncx"], metadata["ncy"], metadata["end_z"] - cradle.WEB)
-    for pocket in cradle.pockets():
-        plug = plug.cut(pocket.translate(lift))
     return plug
 
 
@@ -192,7 +189,7 @@ def region_readings(cast, exported, metadata, brim_thickness, spout_wall, tolera
         for station, z, radius in stations:
             point = [metadata["ncx"] + normal[0] * radius,
                      metadata["ncy"] + normal[1] * radius, z]
-            # The wall reaches the plug's outline, or a hook pocket where one stands in the way.
+            # The wall reaches the plug's square-cornered outline.
             reach = wall_reading(plug, cq.Vector(*point), cq.Vector(*normal))["thickness_mm"]
             measure(f"plug-{direction}-{station}", point, normal, reach)
     return {"sample_count": len(readings), "readings": readings,

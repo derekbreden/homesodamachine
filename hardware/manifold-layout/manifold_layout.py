@@ -545,7 +545,7 @@ SOURCE_JOG = 13.625
 # pack's west inner limb, V-A, then V-K on the suction chain's column. The chain is not in this
 # study, so the figure is stated here and measured there:
 # `enclosure_assembly.check_valve_row` prints the spread the row wants.
-SOURCE_SPREAD = {"V-A": 2.42, "V-B": 0.0}
+SOURCE_SPREAD = {"V-A": 1.92, "V-B": 0.0}
 
 
 # WHAT A RUN DOES WHEN THE TRAVEL WILL NOT REACH IS GO BACKWARD. A hairpin — half a turn, a

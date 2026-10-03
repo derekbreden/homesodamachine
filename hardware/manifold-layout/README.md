@@ -103,7 +103,7 @@ and crosses directly to V-A's vertical inlet approach. Both routes keep R14 bend
 Y-A/B and V-C/D sit 9.5 mm below the outer limbs in the enclosure. Both source
 bends move with that group. V-A and V-B have mounting planes 1.4 mm below the cap
 lid's outer face, with 3 mm beneath their blind socket floors, aft of the
-456 mL funnel frame.
+455 mL funnel frame.
 
 Fluid-4 drains the funnel into V-B. It leaves the PP0308E elbow under the funnel
 frame aft and level through the gap between V-A and V-B, turns west behind V-B's
@@ -141,9 +141,9 @@ the travel**, because each quarter spends R on both axes. So 90° turns step 28 
 **A CROSS-MOVE IS A VECTOR AND NOT A DISTANCE.** Both arcs and the straight lie in the one plane
 that holds the run and the way it steps, so leaning that plane about the run costs the step
 nothing — one pair of arcs carries a valve toward the crown and outboard at the same time, and
-only the length of the step is solved for. V-A takes [2.42](STEP_SPREAD) mm of that: it steps
-[13.84](STEP_CROSS_A) mm across in the same [46.72](STEP_TRAVEL3) along, θ = [18.135](STEP_ANGLE_A)° either side of
-s = [39.99](STEP_STRAIGHT_A) mm, [48.85](STEP_LEN_A) mm of tube. V-A retains this
+only the length of the step is solved for. V-A takes [1.92](STEP_SPREAD) mm of that: it steps
+[13.76](STEP_CROSS_A) mm across in the same [46.72](STEP_TRAVEL3) along, θ = [18.028](STEP_ANGLE_A)° either side of
+s = [40.02](STEP_STRAIGHT_A) mm, [48.83](STEP_LEN_A) mm of tube. V-A retains this
 outboard offset.
 
 **Y-C, Y-D, Y-F and Y-G** receive the four barbs through short straight runs on the barbs' own

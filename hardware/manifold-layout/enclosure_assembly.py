@@ -1929,6 +1929,7 @@ NAMEPLATE_INK = "nameplate-ink"
 # What the receiving bar keeps off the PSU's AC terminal block, the enclosure's assembly-clearance
 # floor.
 NAMEPLATE_PSU_CLEAR = 1.0
+NAMEPLATE_CAP_CLEAR = 1.0
 
 
 def nameplate_field() -> tuple:
@@ -1938,12 +1939,21 @@ def nameplate_field() -> tuple:
             deck_storey()-port_pocket_d()/2)
 
 
-def nameplate_station(stations) -> tuple:
-    """Centred across the rear field, and on the flavour chips' own height."""
+def nameplate_station(stations, foam) -> tuple:
+    """Centre the plate across the rear field, above the cap's complete wall ligament."""
     west, east, _north = nameplate_field()
     _x, axis, _fitting, _family, which, _fluid = stations["bulkhead-flavor-a"]
     od, rise = _ring.outline(which)
-    return ((west+east)/2, axis+(rise-od/2)/2)
+    chip_z = axis + (rise - od / 2) / 2
+    receiver = _np.wing_interface
+    pad_low = -(receiver.HEIGHT / 2 + receiver.FACE_SLIP + 2.0)
+    mouth_low = -(receiver.HEIGHT / 2 + receiver.FACE_SLIP
+                  + receiver.SUPPORTED_END_AIR)
+    crown = cap_face(foam)
+    required_z = max(crown + NAMEPLATE_CAP_CLEAR - pad_low,
+                     crown + _enc.wall - mouth_low)
+    lift = max(0.0, math.ceil((required_z - chip_z) * 4) / 4)
+    return ((west + east) / 2, chip_z + lift)
 
 
 def nameplate_cut(station) -> _enc.Nameplate:
@@ -4576,7 +4586,7 @@ def build_pack() -> cq.Assembly:
         a.add(solid, name=name, color=colour)
     # And the nameplate, in the field those rings leave east of the flavour pair — the same
     # pocket floor, one plate's thickness inside the wall's outer face, centred on the chips.
-    a.nameplate_station = nameplate_station(a.wall_stations)
+    a.nameplate_station = nameplate_station(a.wall_stations, foam)
     for name, solid, colour in build_nameplate(a.nameplate_station):
         a.add(solid, name=name, color=colour)
     # Its receiving bar stands behind the wall beside the PSU's AC terminal block, and the
@@ -5410,7 +5420,7 @@ from _materials import WALL_COLORS                     # noqa: E402
 
 
 def funnel_centre(box):
-    """The collar's offset drain stays on its fixed outlet station at Y182.5."""
+    """The collar and drain share the sliding frame's Y centre."""
     return ((box.inner[0] + box.inner[1]) / 2, _funnel_frame.center_y)
 
 
@@ -5436,8 +5446,8 @@ def build_drain_joint(box):
 
       * the elbow cradle, snapped into the frame's web round the hole
         (`elbow_cradle`, origin on the hole's axis in the frame's underside);
-      * the PP0308E elbow standing in it, its fixed nose face on that underside, +Z leg up the
-        hole and +Y leg aft;
+      * the PP0308E elbow standing in it, its nose below the web by the cradle's catch
+        clearance, +Z leg up the hole and +Y leg aft;
       * the drain stub in the elbow's upper collet, up through the hole into the plug's land
         (`funnel_drain_stub`, origin on the elbow's release face).
 
@@ -5446,7 +5456,7 @@ def build_drain_joint(box):
     _stub.joint_holds()
     cx, cy = funnel_centre(box)
     floor = _funnel_frame.datums(_enc.funnel_seat_z(box.outer))[0]
-    hole = (cx + _funnel.neck_dx, cy + _funnel.neck_dy, floor)
+    hole = (cx + _funnel.neck_dx, cy + _funnel.neck_dy, floor - _cradle.CATCH_GAP)
     up = (0.0, 0.0, 1.0)
     cradle, _ = seat_body(_cradle.build(), seat="elbow-cradle", station=(((0, 0, 0), up), hole))
     union, union_carry = seat_body(_elbow.build_elbow_connector().val(),
@@ -5701,11 +5711,13 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     nose = union_carry(((0.0, 0.0, _elbow.FIXED_FACE), (0.0, 0.0, 1.0)))[0][2]
     stub_top = a.pack_solids["funnel-drain-stub"].BoundingBox().zmax
     land_top = (_enc.funnel_seat_z(box.outer) + _funnel.spout_land_z)
-    joined = (abs(nose - floor) < 1e-6 and abs(stub_top - land_top) < 1e-3
+    joined = (abs(nose - (floor - _cradle.CATCH_GAP)) < 1e-6
+              and abs(stub_top - land_top) < 1e-3
               and drain is not None and "fluid-4" not in _routing.BLOCKED)
     record_bound(Bound(
         "funnel-drain-attachment", "The removable funnel has a retained drain tube", joined,
-        f"PP0308E nose on the web at Z{nose:.3f}; stub top Z{stub_top:.3f} at the plug's "
+        f"PP0308E nose {_cradle.CATCH_GAP:g} mm below the web at Z{nose:.3f}; "
+        f"stub top Z{stub_top:.3f} at the plug's "
         f"{_funnel.sealing_land:g} mm land; fluid-4 "
         + (f"{drain.length:.1f} mm to V-B" if drain is not None else "not drawn"),
         "a fixed tube through the frame connected to V-B",
@@ -5736,8 +5748,13 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     _enc._handhold_bound(pieces, box)
     for name, piece in pieces.items():
         a.add(piece, name=f"enclosure-{name}", color=WALL_COLORS[name])
+    grip = _enc.grip_interface(box.inner)
     for name, cover in _enc.grip_covers(box).items():
         a.add(cover, name=name, color=M_PETGF_BLACK)
+        side = -1 if name.endswith("west") else 1
+        record_seat(name, planes={"cx": side * grip.X_CENTER,
+                                  "cy": _enc.handhold_y,
+                                  "z0": grip.BACK - grip.THICK}, got=cover.BoundingBox())
     # The tee carrier seated through both front flanks, its troughs on the four tees, and its
     # four return springs from their pockets in the tee wall to their bores in its columns.
     if box.pack.collet_plate:

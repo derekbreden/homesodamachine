@@ -820,8 +820,8 @@ cap_manifold_cradle_x = (rear_plane_y - rear_seam_clear - outer_shell_x_length /
                          - 256.710)
 cap_cradles = {
     #                      centre           yaw    seat
-    "vk-solenoid": Cradle(( 94.270,  65.050), 0.0, 3.6500),
-    "valve-v-a":   Cradle((cap_manifold_cradle_x,  24.770), 0.0, -1.4000),
+    "vk-solenoid": Cradle(( 92.270,  65.050), 0.0, 3.6500),
+    "valve-v-a":   Cradle((cap_manifold_cradle_x,  24.270), 0.0, -1.4000),
     "valve-v-b":   Cradle((cap_manifold_cradle_x, -22.350), 0.0, -1.4000),
 }
 
@@ -1348,7 +1348,7 @@ CapAnchor.__new__.__defaults__ = (None,)
 cap_anchors = {
     #                             centre         seat_r  over_face
     "discharge-chain": CapAnchor((61.000, -60.500), 8.5 + fits.slip, 14.700),
-    "suction-chain":   CapAnchor((35.120,  65.050), 8.5 + fits.slip, 14.700),
+    "suction-chain":   CapAnchor((33.120,  65.050), 8.5 + fits.slip, 14.700),
     # Reservoir A's fill runs aft along this straight cap lane. The anchor stands behind
     # V-A's plinth with the full room required by `cap_anchor_room`.
     #
