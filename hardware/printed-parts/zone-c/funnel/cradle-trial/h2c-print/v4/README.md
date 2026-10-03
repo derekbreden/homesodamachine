@@ -9,8 +9,8 @@ reported. This v4 pair requires its own physical result.
 
 | Part | Printer | Requested Z trim | Native estimate | State |
 | --- | --- | --- | --- | --- |
-| Test cradle v4 | H2C | +0.18 mm | 29 min 37 sec | Printing; task 1303667680 |
-| Test receiver v4 | Mark2 | +0.04 mm | 23 min 06 sec | Printing; task 1303677943 |
+| Test cradle v4 | H2C | +0.18 mm | 29 min 37 sec | Finished; task 1303667680 |
+| Test receiver v4 | Mark2 | +0.04 mm | 23 min 06 sec | Finished; task 1303677943 |
 
 The [allocation](allocation.json) records the verified user request for one
 fresh part per printer and both printers idle with black PET-GF loaded. Each
@@ -65,6 +65,14 @@ has not been inspected.
 The [receiver first-layer observation](receiver-mark2-launch.json) records
 matching task and archive telemetry at layer 6 of 50, with no print error or
 HMS alerts; its physical print quality has not been inspected.
+
+The [cradle completion](cradle-h2c-completion.json) reports all 149 layers
+finished, and the [receiver completion](receiver-mark2-completion.json) reports
+all 50. Each task and archive name matches its accepted launch. Both printers
+report 100%, no print error and no HMS alerts. The reviewed archive and G-code
+hashes remain unchanged, with ZIP integrity and G-code MD5 checks passing.
+The pair is ready for removal and the bench procedure after cooling. These
+completion observations do not establish physical fit or retention.
 
 After cooling, remove the two hook supports outward into open space,
 retaining the hook bearing dimensions. Follow the bench procedure with the
