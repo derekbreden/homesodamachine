@@ -334,5 +334,6 @@
   "print_sequence": "by layer",
   "non_trim_commands_identical_to_parent": true,
   "printer_message": "The task was canceled.",
-  "operator_report_pending": true
+  "operator_report_pending": false,
+  "physical_observation_record": "physical-observations.json"
 }

@@ -1,0 +1,75 @@
+{
+  "archive": ".cache/prints/magnetic-float-pair-mark2-aero-v5/ready/magnetic-float-pair-mark2-aero-v5.gcode.3mf",
+  "archive_sha256": "8c5f5700665135fbb5ecf9d25e81bd933f99b67b7a120d8e268c883b2c2b1a7f",
+  "gcode_sha256": "023da2dff8c106bcc879ef2f72ac0ebc673dac555ea241059cec93c5e13757b6",
+  "source_commit": "f3cefbe360b7a8019741d177868d1e6c6770b93f",
+  "source_stl_sha256": {
+    "body-aero": "63d12cbb501b629997a2462822df42a1f4f6bf20ee2806f2f6f310c1f7e72771",
+    "insert-aero": "c69cdc552c1dec84dd0bd84972ed601667df8327b0388236eec63ea7d672b8c6"
+  },
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "material_mapping": {
+    "physical_material": "Bambu ASA Aero White 46100",
+    "filament_id": "GFB02",
+    "nozzle": "right standard-flow hardened 0.4 mm",
+    "source": "AMS HT, unit 128 tray 0"
+  },
+  "bed": "Textured PEI Plate",
+  "print_sequence": "by layer",
+  "trial": "magnetic-float ASA Aero physical v4",
+  "status": "prepared_awaiting_start_request",
+  "printer": "Mark2",
+  "archive_name": "magnetic-float-pair-mark2-aero-v5.gcode.3mf",
+  "parts": [
+    "body-aero",
+    "insert-aero"
+  ],
+  "quantity_per_part": 1,
+  "native_archive_revision": 5,
+  "bed_clear_confirmation": null,
+  "minimum_cross_printer_start_or_resume_spacing_s": 180,
+  "cool_before_removal_c": 35,
+  "completion_reported": false,
+  "monitor_active": false,
+  "send_attempts": 0,
+  "updated_utc": "2026-10-03T04:56:50.808458+00:00",
+  "priming_strip_review": {
+    "centerline_bounds_xy_mm": [
+      230.0,
+      15.0,
+      290.0,
+      19.95
+    ],
+    "bead_bounds_xy_mm": [
+      229.76,
+      14.76,
+      290.24,
+      20.189999999999998
+    ],
+    "rows": 12,
+    "row_length_mm": 60.0,
+    "pitch_mm": 0.45,
+    "layer_height_mm": 0.2,
+    "line_width_mm": 0.48,
+    "speed_mm_s": 20,
+    "flow_ratio": 0.52,
+    "filament_feed_mm": 13.700486345035634,
+    "approximate_added_mass_g": 0.03262399617504415,
+    "extrusion_path_mm": 724.95,
+    "nominal_extrusion_time_s": 36.2475,
+    "wipe_mm": 5,
+    "extra_retraction_mm": 0,
+    "adaptive_bed_leveling_bounds_xy_mm": [
+      110,
+      14,
+      291,
+      160
+    ],
+    "clear_of_parts_and_bed_exclusions": true
+  },
+  "scope": "Combined frozen core and insert with an added corner startup strip. A new start request or clear-bed report after the canceled job supplies the launch condition."
+}

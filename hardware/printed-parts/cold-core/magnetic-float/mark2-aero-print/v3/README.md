@@ -14,9 +14,12 @@ density and physical fit remain unreported. The native estimate is **1 h
 At 2026-10-03 04:38 UTC, the same task reported `FAILED`, layer 0, with
 error **0300400C** (50348044). Bambu Connect and the installed Bambu Studio
 English error catalog identify it as **"The task was canceled."** No first-layer
-progress was observed for this trial. Who canceled it and any physical print
-problem are unreported. No retry or resume has been submitted; neither part
-has a completed-print or physical-acceptance result.
+progress was observed through printer telemetry for this trial. The operator's
+[physical startup report](physical-observations.json) describes the corner load
+line and initial part lines lifting, with adhesion beginning after about two
+loops. The report does not name a specific attempt. No completed-print or
+physical-acceptance result is recorded. An additional corner priming strip is
+[prepared for the next trial](../v4/README.md).
 
 ## Selected recipe
 
