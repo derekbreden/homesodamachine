@@ -11,6 +11,13 @@ of 220. This establishes startup; visual first-layer acceptance, printed
 density and physical fit remain unreported. The native estimate is **1 h
 56 min**, with **18.05 g** slicer mass and **18.03 g** model extrusion mass.
 
+At 2026-10-03 04:38 UTC, the same task reported `FAILED`, layer 0, with
+error **0300400C** (50348044). Bambu Connect and the installed Bambu Studio
+English error catalog identify it as **"The task was canceled."** No first-layer
+progress was observed for this trial. Who canceled it and any physical print
+problem are unreported. No retry or resume has been submitted; neither part
+has a completed-print or physical-acceptance result.
+
 ## Selected recipe
 
 | Setting | Value |
