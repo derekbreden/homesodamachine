@@ -6,7 +6,7 @@
   ],
   "physical_trial_revision": 5,
   "native_archive_revision": 5,
-  "status": "accepted",
+  "status": "stopped_cause_unreported",
   "archive": ".cache/prints/magnetic-float-pair-mark2-aero-v5/ready/magnetic-float-pair-mark2-aero-v5.gcode.3mf",
   "archive_name": "magnetic-float-pair-mark2-aero-v5.gcode.3mf",
   "archive_sha256": "8c5f5700665135fbb5ecf9d25e81bd933f99b67b7a120d8e268c883b2c2b1a7f",
@@ -183,6 +183,48 @@
           "target_c": 0
         }
       ]
+    },
+    {
+      "event": "stopped_cause_unreported",
+      "observed_at": "2026-10-03T05:41:10.139696+00:00",
+      "recorded_utc": "2026-10-03T05:42:51.076544+00:00",
+      "job_id": "1304085052",
+      "subtask_name": "magnetic-float-pair-mark2-aero-v5.gcode.3mf",
+      "gcode_state": "FAILED",
+      "stg_cur": -1,
+      "layer_num": 0,
+      "total_layer_num": 220,
+      "mc_percent": 0,
+      "mc_remaining_time": 0,
+      "bed_temper": 83.0,
+      "bed_target_temper": 0.0,
+      "print_error": 0,
+      "hms": [],
+      "installed_extruders": [
+        {
+          "id": 0,
+          "actual_c": 100,
+          "target_c": 0
+        },
+        {
+          "id": 1,
+          "actual_c": 62,
+          "target_c": 0
+        }
+      ],
+      "background_ax_state": {
+        "printer": "Mark2",
+        "archive_name": "magnetic-float-pair-mark2-aero-v5.gcode.3mf",
+        "state": "Failed",
+        "error_message_observed": false,
+        "right_nozzle_c": 89,
+        "left_nozzle_c": 61,
+        "bed_c": 82,
+        "chamber_c": 49
+      },
+      "operator_clarification_requested": true,
+      "physical_adhesion_result": "Not reported.",
+      "send_or_resume_performed": false
     }
   ],
   "printer_reports": [
@@ -342,33 +384,29 @@
       ]
     }
   ],
-  "latest_observed_utc": "2026-10-03T05:27:44.346214+00:00",
+  "latest_observed_utc": "2026-10-03T05:41:10.139696+00:00",
   "latest_status": {
     "job_id": "1304085052",
     "subtask_name": "magnetic-float-pair-mark2-aero-v5.gcode.3mf",
-    "gcode_state": "RUNNING",
+    "gcode_state": "FAILED",
+    "stg_cur": -1,
     "layer_num": 0,
     "total_layer_num": 220,
     "mc_percent": 0,
-    "mc_remaining_time": 116,
+    "mc_remaining_time": 0,
+    "bed_temper": 83.0,
+    "bed_target_temper": 0.0,
     "print_error": 0,
     "hms": [],
-    "stg_cur": -1,
-    "bed_temper": 67.0,
-    "bed_target_temper": 0.0,
-    "nozzle_temper": 73.0,
-    "nozzle_target_temper": 0.0,
     "installed_extruders": [
       {
         "id": 0,
-        "temperature_packed": 73,
-        "actual_c": 73,
+        "actual_c": 100,
         "target_c": 0
       },
       {
         "id": 1,
-        "temperature_packed": 53,
-        "actual_c": 53,
+        "actual_c": 62,
         "target_c": 0
       }
     ]
@@ -377,5 +415,6 @@
   "task_id_confirmed_utc": "2026-10-03T05:27:44.346816+00:00",
   "retry_of": "../v4/pair-mark2-launch.json",
   "heater_field_interpretation": "Mark2 installed extruder id 0 is right; legacy top-level nozzle temperature and target refer to left. Readings describe startup, not profile targets.",
-  "send_attempt_marker": ".cache/printer-control/magnetic-float-aero-physical-v5-send-attempt.json"
+  "send_attempt_marker": ".cache/printer-control/magnetic-float-aero-physical-v5-send-attempt.json",
+  "stop_reported_utc": "2026-10-03T05:42:51.076544+00:00"
 }
