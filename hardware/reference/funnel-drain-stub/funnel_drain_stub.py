@@ -40,7 +40,7 @@ STUB_ID = 4.32          # its bore
 # web less the elbow's collet projection stands between the release face and the plug.
 FACE_GAP = _cradle.WEB - (_cradle.ELBOW_Z + _union.COLLET_FACE)
 # The plug's bore from its bottom face to the top of its sealing land.
-FUNNEL_ENGAGEMENT = _funnel.spout_tube
+FUNNEL_ENGAGEMENT = _funnel.stub_engagement
 # Collet face to tube stop for John Guest's 1/4" PP range, data sheet Pp4608_01/23 row D
 # (`jg_pp0208e_tee.INSERTION`). The scan leaves the elbow's own stop unmeasured
 # (`elbow.INSERTION`); a shallower stop only carries the stub further up the plug's bore.

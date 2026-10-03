@@ -81,9 +81,9 @@ from the can and colder — so put it under test and report what happens, includ
 
 ### E. Refilling it (30 s)
 
-Lift the silicone funnel out of the top wall, pour in a bottle of concentrate, put it back.
-That is the whole maintenance story for flavor, and it is the first question after "is this
-real".
+Pour a bottle of concentrate into the silicone funnel in the top wall; it lifts out only to be
+washed. That is the whole maintenance story for flavor, and it is the first question after "is
+this real".
 
 - **Title anchor:** *home soda machine* — how you actually live with one.
 

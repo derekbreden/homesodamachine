@@ -62,14 +62,14 @@ The carbonator receives dye penetrant and hydro before foaming, the refrigerant 
 
 ## 4. Silicone casting
 
-One cast part per unit: the funnel, ~153 g of 1:1 platinum silicone poured into the printed two-part mold. The cure and the post-cure bake are oven time, not operator time. What costs is the release film, the degas, and the flash trim.
+One cast part per unit: the funnel, ~201 g of 1:1 platinum silicone poured into the printed two-part mold. The cure and the post-cure bake are oven time, not operator time. What costs is the release film, the degas, and the flash trim.
 
 | Operation | Cards | Notes | Minutes |
 |---|---|---|---:|
 | Release both forming faces, seat the rod, set the nuts and washers | — | Ease Release 200 on both faces every pour | 5 |
-| Weigh, pigment, mix and vacuum-degas 153 g of silicone | — | 1:1 by weight, ≤2 % black pigment, chamber until it falls back | 10 |
+| Weigh, pigment, mix and vacuum-degas 201 g of silicone | — | 1:1 by weight, ≤2 % black pigment, chamber until it falls back | 10 |
 | Pour the open cavity, lower the core, vacuum and top up, rack to cure | — | The cure and the vacuum hold are unattended | 5 |
-| Demold, trim the sacrificial tip and the port and vent flash | — | 6 mm wall, 40A — the spout still wants to tear if the release is thin | 5 |
+| Demold, trim the socket's collar at the bore exit and the port and vent flash | — | 6 mm wall, 40A; peel the brim first to admit air | 5 |
 | Post-cure bake — load and unload the oven | — | Bake is unattended | 5 |
 | Re-sand, re-seal and re-release the core as the film wears | — | Amortized across the pulls one seal coat survives | 5 |
 | **Silicone casting** | | | **[35](LAB_SEC4)** |

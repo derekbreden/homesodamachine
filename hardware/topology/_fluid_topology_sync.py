@@ -210,9 +210,9 @@ def _valve(v) -> frozenset:
 
 NODES = {
     # The funnel is SEATED IN THE BOX rather than placed in the pack, but it is placed: its
-    # drain is an anchor like any other. The node stands for the funnel AND its disconnect — the
-    # spout, the stub clamped in it and the union under it are one source as far as this chart
-    # is concerned, and `fluid-4` is drawn off the union's lower collet.
+    # drain is an anchor like any other. The node stands for the funnel AND its drain joint — the
+    # plug, the stub its land closes on and the elbow the stub stands in are one source as far as
+    # this chart is concerned, and `fluid-4` is drawn off the elbow's aft collet.
     "Funnel":     (_body("funnel", "drain")
                    | _body("funnel-drain-union", "stub", "outlet")),
     "Split":      _body("water-split", "supply", "to-flavor", "to-vk"),
@@ -247,8 +247,7 @@ NODES.update({f"Y{t[-1]}": frozenset(f"{t}-{i}" for i in (1, 2, 3))
 NODES.update({f"P{p[-1].upper()}": frozenset({f"P-{p[-1].upper()}-I", f"P-{p[-1].upper()}-O"})
               for p in ml.PUMPS})
 
-# Chart nodes that stand for nothing the pack places — the funnel's spout, the far side of the
-# +Y wall of back-top, the customer's supply and their cylinder, and everything inside the
+# Chart nodes that stand for nothing the pack places — the far side of the +Y wall of back-top, the customer's supply and their cylinder, and everything inside the
 # carbonator. An edge to one of these carries a route id only if the segment it names has just one
 # end the machine knows, which is what a mouth with nothing on it yet is.
 UNPLACED = {"Faucet", "Gooseneck", "Tap", "CO2", "Vent", "PRVOut", "LevelSense",

@@ -230,7 +230,7 @@ def build():
     backing_bodies = (
         funnel._rounded_box(m['w'], m['d'], funnel.collar_corner_r, m['ramp_top_z'], 0),
         funnel._rounded_box(m['out_w'], m['out_d'], funnel.brim_corner_r, 0, top),
-        funnel.elbow_cradle.plug_outline(funnel.plug_diameter/2, 0.0, 0.0,
+        funnel.elbow_cradle.plug_outline(funnel.plug_width/2, 0.0, 0.0,
                                          funnel.plug_height).translate((x, y, end)),
     )
     # Fuse the analytic offset faces in one operation around the collar.
@@ -414,8 +414,8 @@ def build():
         'liquid_containment': containment,
         'parting_z_mm': top-floor, 'finish_allowance_mm': finish_allowance,
         'casting_scope': 'rectangular plug blank with a straight dowel bore; hook pockets and the staged sealing bore require separate forming features',
-        'plug_blank_mm': [funnel.plug_diameter,
-                          2*funnel.elbow_cradle.plug_half_length(funnel.plug_diameter/2)],
+        'plug_blank_mm': [funnel.plug_width,
+                          2*funnel.elbow_cradle.plug_half_length(funnel.plug_width/2)],
         'rod_support': {'engagement_mm': rod_engagement, 'guide_diameter_mm': 2*guide_radius,
             'guide_diametral_clearance_mm': rod_clearance, 'guide_length_mm': rod_guide_length,
             'cradle': 'open 90-degree V, two zip ties, visible axial stop on dry back',

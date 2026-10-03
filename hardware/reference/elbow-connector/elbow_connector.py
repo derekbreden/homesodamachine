@@ -2,8 +2,8 @@
 
 `elbow-connector.step` is a harvested solid standing in for the John Guest PP0308E
 (`README.md`): there is no builder here, and every number below was measured off that file.
-`stations_hold` reads them back off it at import of the machine that places it, so a
-measurement and the metal it was taken from cannot part.
+`stations_hold` reads them back off it, so a measurement and the metal it was taken from cannot
+part. The machine places the scanned PP0308E (`reference/jg-pp0308e-elbow`), not this stand-in.
 
 Coordinate frame
 ----------------
@@ -15,9 +15,9 @@ Coordinate frame
 
 WHAT AN ELBOW BUYS OVER A UNION IS THE CORNER. A straight union hands the line back on its own
 axis and the run turns after it, in the room past the fitting; this turns inside its own
-envelope, so the line leaves on an axis the run never had to spend a bend radius reaching. One
-hangs under the funnel's spout, taking the fall out of the funnel's drain on its +Z
-leg and handing `fluid-4` aft off its +Y one.
+envelope, so the line leaves on an axis the run never had to spend a bend radius reaching. The
+funnel's drain turns this way: its PP0308E stands in a cradle under the funnel frame, the drain
+stub in its +Z collet and `fluid-4` leaving aft off its +Y one.
 """
 
 import sys
@@ -93,9 +93,8 @@ def stations_hold():
     Four of them are extents of the solid's own box, and each leg is also a 1/4" bore standing
     on the body's own centreline — which is what says the two axes cross at this origin and not
     merely near it. `INSERTION` is the fifth and is not an extent at all: it is where a tube
-    pushed into a leg meets the stop, bisected off the metal, and it is what the funnel's drain
-    stub is cut to (`reference/funnel-drain-stub`). A stub cut to a deeper socket than the
-    fitting has is a stub the collet never closes on."""
+    pushed into a leg meets the stop, bisected off the metal. The funnel's drain stub is cut to
+    John Guest's data-sheet stop instead (`reference/funnel-drain-stub`)."""
     solid = import_step(str(STEP)).val()
     bb = solid.BoundingBox()
     for leg in LEGS:

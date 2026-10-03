@@ -243,6 +243,10 @@ def main():
         # between the two seats, taken off the same two depths the facet is cut to, so the
         # doc quotes the gap the ring fills rather than a figure typed beside it.
         "DISPLAY_GASKET_T": f"{_dgasket.thickness:g} mm",
+        # The funnel's drain joint: the frame's hole the elbow's collet stands up, and the stub
+        # cut to reach from the elbow's tube stop up through the web to the top of the plug's land.
+        "FUNNEL_DRAIN_HOLE": f"{_ea._funnel_frame.tube_hole_diameter:g} mm",
+        "FUNNEL_STUB_LEN": f"{_ea._stub.LENGTH:.4g} mm",
     }
 
     substitute_md(
