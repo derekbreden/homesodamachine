@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-10-03T03:16:18.999047+00:00",
+  "updated_utc": "2026-10-03T03:35:47.239259+00:00",
   "trial": "magnetic-float ASA Aero v1",
   "scope": "One core followed by one insert, each on Mark2; no PETG shell print is requested.",
   "user_authorization": "User has dried and loaded ASA Aero on Mark2 right and requested the float core and insert; user reported beds clear.",
@@ -31,7 +31,7 @@
       "native_archive_revision": 2,
       "physical_trial_revision": 1,
       "estimated_time_s": 5843.0,
-      "status": "accepted",
+      "status": "printing",
       "accepted_task_id": "1303907771",
       "launch_record": "core-mark2-launch.json"
     },

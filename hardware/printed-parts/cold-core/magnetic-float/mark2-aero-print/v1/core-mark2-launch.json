@@ -2,7 +2,7 @@
   "printer": "Mark2",
   "part": "body-aero",
   "physical_trial_revision": 1,
-  "status": "accepted",
+  "status": "printing",
   "archive": ".cache/prints/magnetic-float-core-mark2-aero-v2/ready/magnetic-float-core-mark2-aero-v2.gcode.3mf",
   "archive_name": "magnetic-float-core-mark2-aero-v2.gcode.3mf",
   "archive_sha256": "a48c017e41f2d7f6b4ab96ba72c4a3da0688c8ade4a6b0d5ee3340f78ab228d8",
@@ -131,6 +131,40 @@
           "temp": 40
         }
       ]
+    },
+    {
+      "job_id": "1303907771",
+      "subtask_name": "magnetic-float-core-mark2-aero-v2.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "layer_num": 13,
+      "total_layer_num": 220,
+      "mc_percent": 22,
+      "mc_remaining_time": 75,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": 0,
+      "bed_temper": 90.0,
+      "bed_target_temper": 90.0,
+      "observed_at": "2026-10-03T03:34:06.543956+00:00",
+      "right_extruder": [
+        {
+          "id": 0,
+          "hnow": 0,
+          "temp": 17694990,
+          "snow": 32768
+        }
+      ],
+      "event": "first_layer_printer_progress",
+      "basis": "Printer reports printing beyond the first layer; first-layer appearance was not inspected.",
+      "background_app_corrob": {
+        "printer": "Mark2",
+        "archive_name": "magnetic-float-core-mark2-aero-v2.gcode.3mf",
+        "layer_num": 15,
+        "total_layer_num": 220,
+        "right_nozzle_temperature_c": 270,
+        "bed_temperature_c": 90,
+        "chamber_temperature_c": 60
+      }
     }
   ],
   "printer_reports": [
@@ -164,32 +198,26 @@
       ]
     }
   ],
-  "latest_observed_utc": "2026-10-03T03:18:50.888799+00:00",
+  "latest_observed_utc": "2026-10-03T03:34:06.543956+00:00",
   "latest_status": {
     "job_id": "1303907771",
     "subtask_name": "magnetic-float-core-mark2-aero-v2.gcode.3mf",
     "gcode_state": "RUNNING",
-    "layer_num": 0,
+    "layer_num": 13,
     "total_layer_num": 220,
-    "mc_percent": 0,
-    "mc_remaining_time": 96,
+    "mc_percent": 22,
+    "mc_remaining_time": 75,
     "print_error": 0,
     "hms": [],
-    "stg_cur": 14,
-    "bed_temper": 82.0,
+    "stg_cur": 0,
+    "bed_temper": 90.0,
     "bed_target_temper": 90.0,
-    "nozzle_temper": 40.0,
-    "nozzle_target_temper": 0.0,
-    "reported_extruder_temperatures": [
+    "right_extruder": [
       {
         "id": 0,
         "hnow": 0,
-        "temp": 9830585
-      },
-      {
-        "id": 1,
-        "hnow": 1,
-        "temp": 40
+        "temp": 17694990,
+        "snow": 32768
       }
     ]
   },
