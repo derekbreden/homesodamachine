@@ -7,7 +7,7 @@
   "job_name": "funnel-test-cradle-h2c-v4.gcode.3mf",
   "accepted_observed_utc": "2026-10-03T00:51:57.671023+00:00",
   "task_id_confirmed_utc": "2026-10-03T00:54:26.716799+00:00",
-  "status": "printing",
+  "status": "completed",
   "archive": ".cache/prints/funnel-test-cradle-h2c-v4/ready/funnel-test-cradle-h2c-v4.gcode.3mf",
   "archive_sha256": "18d6662e7d496f74e1582735905eea4e2799012d029f73269ba2e108e1d23f50",
   "gcode_sha256": "53c3038c4d988078540fda0a793e17e28972b959e8e1db2b52b0b06f14a1f7ae",
@@ -114,5 +114,7 @@
     "bed_target_temper": 80.0,
     "stg_cur": 0,
     "observed_at": "2026-10-03T01:06:10.243865+00:00"
-  }
+  },
+  "completed_observed_utc": "2026-10-03T01:26:40.109139+00:00",
+  "completion_record": "cradle-h2c-completion.json"
 }
