@@ -7,7 +7,7 @@
   "job_name": "funnel-test-cradle-mark2-v3.gcode.3mf",
   "accepted_observed_utc": "2026-10-02T23:30:15.349262+00:00",
   "task_id_confirmed_utc": "2026-10-02T23:30:36.406724+00:00",
-  "status": "printing",
+  "status": "completed",
   "archive": ".cache/prints/funnel-test-cradle-mark2-v3/ready/funnel-test-cradle-mark2-v3.gcode.3mf",
   "archive_sha256": "0fe77876b8601fb7a1e1d469fcae24bb3048235313acc3b7842b36d8924d7f05",
   "gcode_sha256": "1e1e06608d1907e4fd699ca564b89925238ccf197df93baa7d951741b1803915",
@@ -117,5 +117,7 @@
     "bed_target_temper": 80.0,
     "stg_cur": 0,
     "observed_at": "2026-10-02T23:44:08.067753+00:00"
-  }
+  },
+  "completed_observed_utc": "2026-10-03T00:05:05.244847+00:00",
+  "completion_record": "cradle-mark2-completion.json"
 }
