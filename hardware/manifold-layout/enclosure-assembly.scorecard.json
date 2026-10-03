@@ -81,7 +81,7 @@
    "target": "0 clash, 0 unanswered",
    "detail": [
     "funnel-frame \u2229 tube-fluid-18   450.8 mm\u00b3, x[   75.95,   89.57] y[  170.12,  211.43] z[  299.90,  302.37]",
-    "foam-assembly \u2229 enclosure-back-top   512.1 mm\u00b3, x[  -78.50,   83.20] y[  464.34,  465.30] z[  160.00,  253.40]",
+    "foam-assembly \u2229 enclosure-back-top   512.1 mm\u00b3, x[  -90.50,   83.20] y[  314.80,  465.30] z[  160.00,  253.40]",
     "Drain stub in the plug's land: 10.18 mm\u00b3 in the push-on seal's ring, 0.000000 mm\u00b3 outside it"
    ],
    "active": true
@@ -159,6 +159,7 @@
     "display-cover \u2014 display-gasket: 0.000 mm \u2014 seated against it",
     "pump-contact-male \u2014 pump-contact-female: 0.000 mm \u2014 seated against it",
     "funnel-frame \u2014 funnel-drain-union: 0.003 mm \u2014 seated against it",
+    "funnel-frame \u2014 elbow-cradle: 0.142 mm \u2014 seated against it",
     "co2-2 \u2014 enclosure-back-top: 0.149 mm \u2014 seated against it",
     "fluid-18 \u2014 foam-assembly: 0.149 mm \u2014 seated against it",
     "fluid-28 \u2014 enclosure-back-top: 0.149 mm \u2014 seated against it",
@@ -166,7 +167,6 @@
     "carb-1 \u2014 enclosure-back-top: 0.149 mm \u2014 seated against it",
     "discharge-chain \u2014 foam-assembly: 0.150 mm \u2014 seated against it",
     "suction-chain \u2014 foam-assembly: 0.150 mm \u2014 seated against it",
-    "funnel-frame \u2014 elbow-cradle: 0.150 mm \u2014 seated against it",
     "funnel \u2014 elbow-cradle: 0.500 mm \u2014 seated against it",
     "display \u2014 display-cover: 1.000 mm \u2014 seated against it",
     "co2-1 \u2014 enclosure-back-top: 1.101 mm",
@@ -891,12 +891,13 @@
    "label": "Every print-down slope on a ceiling-down piece has its stated carry",
    "kind": "goal",
    "status": "fail",
-   "value": "43 print-down slope(s): 23 under a body, 6 within 1 mm of one, 9 in a kept room, 5 could be columns",
+   "value": "42 print-down slope(s): 21 under a body, 6 within 1 mm of one, 9 in a kept room, 6 could be columns",
    "target": "no unaccounted slope a column could replace, and every named room standing",
    "detail": [
     "enclosure-back-top: a 45\u00b0 face at x -98.50..-90.50 y 252.06..255.06 z 305.41..313.41: a column of 406 mm\u00b3 rising 29.6 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.707 y=0.000 z=0.707 \u00b7 thru x=-94.500 y=253.560 z=309.411\nclick: x=-94.500 y=253.560 z=309.411",
     "enclosure-back-top: a 45\u00b0 face at x -98.50..-90.50 y 258.56..261.56 z 305.41..313.41: a column of 406 mm\u00b3 rising 29.6 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.707 y=0.000 z=0.707 \u00b7 thru x=-94.500 y=260.060 z=309.411\nclick: x=-94.500 y=260.060 z=309.411",
     "enclosure-back-top: a 45\u00b0 face at x 65.60..90.55 y 464.34..465.30 z 286.73..287.69: a column of 371 mm\u00b3 rising 33.1 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=-0.707 z=0.707 \u00b7 thru x=78.075 y=464.820 z=287.209\nclick: x=78.075 y=464.820 z=287.209",
+    "enclosure-back-top: a 69\u00b0 face at x -65.60..-56.60 y 453.30..465.30 z 261.40..293.40: a column of 35 mm\u00b3 rising 49.6 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=-0.936 z=0.351 \u00b7 thru x=-61.100 y=459.300 z=277.400\nclick: x=-61.100 y=459.300 z=277.400",
     "enclosure-back-top: a 45\u00b0 face at x -95.20..-90.50 y 312.01..315.01 z 315.01..319.71: a column of 179 mm\u00b3 rising 23.3 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.707 y=0.000 z=0.707 \u00b7 thru x=-92.850 y=313.510 z=317.361\nclick: x=-92.850 y=313.510 z=317.361",
     "enclosure-back-top: a 45\u00b0 face at x -95.20..-90.50 y 305.51..308.51 z 315.01..319.71: a column of 179 mm\u00b3 rising 23.3 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.707 y=0.000 z=0.707 \u00b7 thru x=-92.850 y=307.010 z=317.361\nclick: x=-92.850 y=307.010 z=317.361"
    ],
