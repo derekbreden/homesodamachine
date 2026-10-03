@@ -4985,6 +4985,37 @@
       "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl"
     ]
   },
+  "hardware/printed-parts/cold-core/magnetic-float/all-aero/all_aero_float.py": {
+    "reads": [
+      "hardware/printed-parts/cold-core/magnetic-float/all-aero/all_aero_float.py",
+      "hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step",
+      "hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step.mesh",
+      "hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step",
+      "hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.stl",
+      "hardware/printed-parts/cold-core/magnetic-float/all-aero/insertion.step",
+      "hardware/printed-parts/cold-core/magnetic-float/all-aero/insertion.step.mesh",
+      "hardware/printed-parts/cold-core/magnetic-float/all-aero/section.step",
+      "hardware/printed-parts/cold-core/magnetic-float/all-aero/section.step.mesh",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+      "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_material_base.py",
+      "hardware/scripts/_materials.py",
+      "hardware/scripts/_mesh_payload.py",
+      "hardware/scripts/_run_lock.py",
+      "hardware/scripts/flute_payload.py",
+      "tools/docgen/__init__.py"
+    ],
+    "rewritten": [],
+    "writes": [
+      "hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step",
+      "hardware/printed-parts/cold-core/magnetic-float/all-aero/design.json",
+      "hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step",
+      "hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step.mesh",
+      "hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.stl",
+      "hardware/printed-parts/cold-core/magnetic-float/all-aero/insertion.step",
+      "hardware/printed-parts/cold-core/magnetic-float/all-aero/section.step"
+    ]
+  },
   "hardware/printed-parts/cold-core/magnetic-float/magnetic_float.py": {
     "reads": [
       "hardware/printed-parts/cold-core/magnetic-float/README.figures.json",

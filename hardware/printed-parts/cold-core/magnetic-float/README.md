@@ -1,5 +1,9 @@
 # Magnetic float
 
+The [all-ASA Aero bench float](all-aero/README.md) has one foam body with a
+midplane RC62 insertion pause. Its CAD, buoyancy calculation and native slice
+review are kept together beside that article.
+
 An RC62 ring magnet inside a continuous **Bambu PETG Translucent Clear 32101**
 envelope, filled with Bambu ASA Aero White 46100. This is a separate bench float
 and reed test article.

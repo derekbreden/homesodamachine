@@ -1,0 +1,33 @@
+{
+  "article": "All-ASA Aero magnetic float, paused RC62 insertion trial v1",
+  "printer": "Mark2",
+  "status": "prepared_not_submitted",
+  "send_attempts": 0,
+  "monitor_active": false,
+  "preflight": "float-preflight.json",
+  "archive": ".cache/prints/magnetic-float-all-aero-mark2-v1/ready/magnetic-float-all-aero-mark2-v1.gcode.3mf",
+  "archive_sha256": "b64e1e8a003af554bb194ad3bcfe24f65cfc6cdf293b96f01d1655ebd2127a86",
+  "gcode_sha256": "361071a87606a213c493b2297977947d676fce7b8a07a44b41eda115a48d8462",
+  "source_stl_sha256": {
+    "float-aero": "88da0b4e454a99b3ef01ca5b13da323d81504146785a321fc07592de0c0acd6e"
+  },
+  "source_commit": null,
+  "pause_before_layer": 80,
+  "last_open_pocket_layer_z_mm": 15.8,
+  "first_covering_layer_z_mm": 16.0,
+  "quantity": 1,
+  "bed": "Engineering Plate, with glue",
+  "requested_z_trim_mm": 0.04,
+  "material_mapping": {
+    "material": "Bambu ASA Aero White 46100",
+    "filament_id": "GFB02",
+    "source": "Polymaker drybox",
+    "external_slot": 255,
+    "nozzle": "right fixed hardened standard-flow 0.4 mm",
+    "send_dialog_tile_required": "Ext ASA-AERO R",
+    "send_dialog_verified": false
+  },
+  "launch_condition": "A new start request or a clear-bed report after the current insert is removed is required. Verify the frozen archive, G-code and STL, idle Mark2, external right ASA Aero mapping, both printers and at least 180 seconds since any other start/resume before one guarded Send. No print is submitted by preparation or completion monitoring.",
+  "user_request": "After this print, which seems to be going well, I'd like you to design a print that is an entirely ASA Aero float, paused halfway through for magnet insertion, and then continue to print on top of that.",
+  "scope": "Single body bench trial. Insert one RC62 at the native pause before resuming. Printed adhesion, retention, magnet heat exposure, density, buoyancy and service qualification are unverified."
+}
