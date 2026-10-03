@@ -1,0 +1,72 @@
+{
+  "updated_utc": "2026-10-03T03:16:18.999047+00:00",
+  "trial": "magnetic-float ASA Aero v1",
+  "scope": "One core followed by one insert, each on Mark2; no PETG shell print is requested.",
+  "user_authorization": "User has dried and loaded ASA Aero on Mark2 right and requested the float core and insert; user reported beds clear.",
+  "job_sequence": [
+    "core",
+    "insert"
+  ],
+  "jobs": [
+    {
+      "printer": "Mark2",
+      "part": "body-aero",
+      "quantity": 1,
+      "archive": ".cache/prints/magnetic-float-core-mark2-aero-v2/ready/magnetic-float-core-mark2-aero-v2.gcode.3mf",
+      "archive_sha256": "a48c017e41f2d7f6b4ab96ba72c4a3da0688c8ade4a6b0d5ee3340f78ab228d8",
+      "gcode_sha256": "31592f001cb8cb44933f5e7f7b3958e4fd0d3d32f91929e403e04d05b94747ef",
+      "source_commit": "f3cefbe360b7a8019741d177868d1e6c6770b93f",
+      "source_stl_sha256": {
+        "body-aero": "63d12cbb501b629997a2462822df42a1f4f6bf20ee2806f2f6f310c1f7e72771"
+      },
+      "requested_z_trim_mm": 0.04,
+      "bed": "Textured PEI Plate",
+      "material_mapping": {
+        "physical_material": "Bambu ASA Aero White 46100",
+        "filament_id": "GFB02",
+        "nozzle": "right standard-flow hardened 0.4 mm",
+        "source": "AMS HT, unit 128 tray 0"
+      },
+      "key": "core",
+      "native_archive_revision": 2,
+      "physical_trial_revision": 1,
+      "estimated_time_s": 5843.0,
+      "status": "accepted",
+      "accepted_task_id": "1303907771",
+      "launch_record": "core-mark2-launch.json"
+    },
+    {
+      "printer": "Mark2",
+      "part": "insert-aero",
+      "quantity": 1,
+      "archive": ".cache/prints/magnetic-float-insert-mark2-aero-v2/ready/magnetic-float-insert-mark2-aero-v2.gcode.3mf",
+      "archive_sha256": "3913941711b0204f4ed102dc25d1836c238c34409f167e16df6334f2f584c4bd",
+      "gcode_sha256": "a9aab6e9d3d11caab9470949b777e5f1f3b580ae22012a24f5383ea0d49bb7d8",
+      "source_commit": "f3cefbe360b7a8019741d177868d1e6c6770b93f",
+      "source_stl_sha256": {
+        "insert-aero": "c69cdc552c1dec84dd0bd84972ed601667df8327b0388236eec63ea7d672b8c6"
+      },
+      "requested_z_trim_mm": 0.04,
+      "bed": "Textured PEI Plate",
+      "material_mapping": {
+        "physical_material": "Bambu ASA Aero White 46100",
+        "filament_id": "GFB02",
+        "nozzle": "right standard-flow hardened 0.4 mm",
+        "source": "AMS HT, unit 128 tray 0"
+      },
+      "key": "insert",
+      "native_archive_revision": 2,
+      "physical_trial_revision": 1,
+      "estimated_time_s": 2192.0,
+      "status": "prepared_waiting_for_core_removal",
+      "preflight_record": "insert-preflight.json",
+      "submission_attempts": 0
+    }
+  ],
+  "minimum_cross_printer_start_or_resume_spacing_s": 180,
+  "removal_gate": "After the core completes and cools, require a new start request or clear-bed report before submitting the insert. A start request confirms bed clear; never ask a separate bed-clear question.",
+  "cool_before_removal_c": 35,
+  "core_completion_reported": false,
+  "insert_completion_reported": false,
+  "monitor_active": true
+}

@@ -1,0 +1,198 @@
+{
+  "printer": "Mark2",
+  "part": "body-aero",
+  "physical_trial_revision": 1,
+  "status": "accepted",
+  "archive": ".cache/prints/magnetic-float-core-mark2-aero-v2/ready/magnetic-float-core-mark2-aero-v2.gcode.3mf",
+  "archive_name": "magnetic-float-core-mark2-aero-v2.gcode.3mf",
+  "archive_sha256": "a48c017e41f2d7f6b4ab96ba72c4a3da0688c8ade4a6b0d5ee3340f78ab228d8",
+  "gcode_sha256": "31592f001cb8cb44933f5e7f7b3958e4fd0d3d32f91929e403e04d05b94747ef",
+  "source_stl_sha256": {
+    "body-aero": "63d12cbb501b629997a2462822df42a1f4f6bf20ee2806f2f6f310c1f7e72771"
+  },
+  "source_commit": "f3cefbe360b7a8019741d177868d1e6c6770b93f",
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "bed": "Textured PEI Plate",
+  "bed_clear_confirmation": "User: '(beds are clear)'.",
+  "plate_choice": "User requested a first ASA Aero trial on the installed Textured PEI.",
+  "adhesive_application_reported": false,
+  "material_mapping": {
+    "physical_material": "Bambu ASA Aero White 46100",
+    "filament_id": "GFB02",
+    "nozzle": "right standard-flow hardened 0.4 mm",
+    "source": "AMS HT, unit 128 tray 0",
+    "dialog_tile": "HT - A ASA-AERO R"
+  },
+  "print_options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "send_attempts": 1,
+  "send_attempt_utc": "2026-10-03T03:13:46.049389+00:00",
+  "send_gate": {
+    "observed_at": "2026-10-03T03:13:46.049393+00:00",
+    "printers": {
+      "Mark2": {
+        "job_id": "1303677943",
+        "subtask_name": "funnel-test-receiver-mark2-v4.gcode.3mf",
+        "gcode_state": "FINISH",
+        "layer_num": 50,
+        "total_layer_num": 50,
+        "mc_percent": 100,
+        "mc_remaining_time": 0,
+        "print_error": 0,
+        "hms": [],
+        "stg_cur": -1,
+        "bed_temper": 29.0,
+        "bed_target_temper": 0.0,
+        "nozzle_temper": 34.0,
+        "nozzle_target_temper": 0.0
+      },
+      "H2C": {
+        "job_id": "1303667680",
+        "subtask_name": "funnel-test-cradle-h2c-v4.gcode.3mf",
+        "gcode_state": "FINISH",
+        "layer_num": 149,
+        "total_layer_num": 149,
+        "mc_percent": 100,
+        "mc_remaining_time": 0,
+        "print_error": 0,
+        "hms": [],
+        "stg_cur": -1,
+        "bed_temper": 29.0,
+        "bed_target_temper": 0.0,
+        "nozzle_temper": 31.0,
+        "nozzle_target_temper": 0.0
+      }
+    },
+    "other_printer_acceptance_reference_utc": "2026-10-03T00:54:26.716799+00:00",
+    "seconds_since_other_printer_acceptance": 8359.332578,
+    "installed_right_nozzle": {
+      "id": 0,
+      "diameter_mm": 0.4,
+      "type": "HS01",
+      "filament_id": "GFB02"
+    },
+    "ams_unit": 128,
+    "tray": 0
+  },
+  "estimated_time_s": 5843.0,
+  "observations": [
+    {
+      "event": "printer_accepted",
+      "observed_at": "2026-10-03T03:13:57.691568+00:00",
+      "job_id": "1303907771",
+      "subtask_name": "magnetic-float-core-mark2-aero-v2.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "layer_num": 0,
+      "total_layer_num": 220,
+      "mc_percent": 0,
+      "mc_remaining_time": 97,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": 79,
+      "bed_temper": 29.0,
+      "bed_target_temper": 0.0,
+      "nozzle_temper": 34.0,
+      "nozzle_target_temper": 0.0
+    },
+    {
+      "event": "startup_in_progress",
+      "observed_at": "2026-10-03T03:18:50.888799+00:00",
+      "job_id": "1303907771",
+      "subtask_name": "magnetic-float-core-mark2-aero-v2.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "layer_num": 0,
+      "total_layer_num": 220,
+      "mc_percent": 0,
+      "mc_remaining_time": 96,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": 14,
+      "bed_temper": 82.0,
+      "bed_target_temper": 90.0,
+      "nozzle_temper": 40.0,
+      "nozzle_target_temper": 0.0,
+      "reported_extruder_temperatures": [
+        {
+          "id": 0,
+          "hnow": 0,
+          "temp": 9830585
+        },
+        {
+          "id": 1,
+          "hnow": 1,
+          "temp": 40
+        }
+      ]
+    }
+  ],
+  "printer_reports": [
+    {
+      "section": "print",
+      "gcode_state": [
+        "FINISH",
+        "funnel-test-receiver-mark2-v4.gcode.3mf"
+      ]
+    },
+    {
+      "section": "print",
+      "command": "project_file",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "err_code": 0,
+      "sequence_id": "0"
+    },
+    {
+      "section": "print",
+      "gcode_state": [
+        "PREPARE",
+        "magnetic-float-core-mark2-aero-v2.gcode.3mf"
+      ]
+    },
+    {
+      "section": "print",
+      "gcode_state": [
+        "RUNNING",
+        "magnetic-float-core-mark2-aero-v2.gcode.3mf"
+      ]
+    }
+  ],
+  "latest_observed_utc": "2026-10-03T03:18:50.888799+00:00",
+  "latest_status": {
+    "job_id": "1303907771",
+    "subtask_name": "magnetic-float-core-mark2-aero-v2.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 0,
+    "total_layer_num": 220,
+    "mc_percent": 0,
+    "mc_remaining_time": 96,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": 14,
+    "bed_temper": 82.0,
+    "bed_target_temper": 90.0,
+    "nozzle_temper": 40.0,
+    "nozzle_target_temper": 0.0,
+    "reported_extruder_temperatures": [
+      {
+        "id": 0,
+        "hnow": 0,
+        "temp": 9830585
+      },
+      {
+        "id": 1,
+        "hnow": 1,
+        "temp": 40
+      }
+    ]
+  },
+  "accepted_task_id": "1303907771",
+  "task_id_confirmed_utc": "2026-10-03T03:13:57.691566+00:00"
+}
