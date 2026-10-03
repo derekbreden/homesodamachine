@@ -1,0 +1,132 @@
+{
+  "geometry_revision": 4,
+  "reason": "Both printers are ready with black PET-GF loaded; one authorized part per printer. Start the longer cradle job on H2C first, then the receiver on Mark2 after at least 180 seconds.",
+  "bed_clear_confirmation": {
+    "confirmed": true,
+    "source": "User in Funnel 2: And then print me new test pieces of each, one on each printer."
+  },
+  "allocations": [
+    {
+      "part": "test-cradle",
+      "printer": "H2C",
+      "requested_z_trim_mm": 0.18
+    },
+    {
+      "part": "test-receiver",
+      "printer": "Mark2",
+      "requested_z_trim_mm": 0.04
+    }
+  ],
+  "printers": {
+    "H2C": {
+      "job_id": "1303335008",
+      "subtask_name": "funnel-test-cradle-h2c-v2.gcode.3mf",
+      "gcode_state": "FINISH",
+      "layer_num": 148,
+      "total_layer_num": 148,
+      "mc_percent": 100,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [],
+      "nozzle_temper": 30.0,
+      "nozzle_target_temper": 0.0,
+      "bed_temper": 28.0,
+      "bed_target_temper": 0.0,
+      "stg_cur": -1,
+      "observed_at": "2026-10-03T00:47:08.655439+00:00",
+      "upload_status": "idle",
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "000000FF"
+        },
+        "255": {
+          "type": "TPU",
+          "colour": "161616FF"
+        }
+      },
+      "nozzles": [
+        {
+          "id": 16,
+          "type": "HS01",
+          "diameter": 0.6
+        },
+        {
+          "id": 1,
+          "type": "HS01",
+          "diameter": 0.4
+        },
+        {
+          "id": 17,
+          "type": "HS00",
+          "diameter": 0.2
+        },
+        {
+          "id": 0,
+          "type": "HS00",
+          "diameter": 0.2
+        }
+      ]
+    },
+    "Mark2": {
+      "job_id": "1303516417",
+      "subtask_name": "funnel-test-cradle-mark2-v3.gcode.3mf",
+      "gcode_state": "FINISH",
+      "layer_num": 148,
+      "total_layer_num": 148,
+      "mc_percent": 100,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [],
+      "nozzle_temper": 39.0,
+      "nozzle_target_temper": 0.0,
+      "bed_temper": 37.0,
+      "bed_target_temper": 0.0,
+      "stg_cur": -1,
+      "observed_at": "2026-10-03T00:47:09.353692+00:00",
+      "upload_status": "idle",
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "000000FF"
+        },
+        "255": {
+          "type": "PET-CF",
+          "colour": "FFFFFFFF"
+        }
+      },
+      "nozzles": [
+        {
+          "id": 0,
+          "type": "HS01",
+          "diameter": 0.4
+        },
+        {
+          "id": 1,
+          "type": "HS01",
+          "diameter": 0.4
+        },
+        {
+          "id": 16,
+          "type": "HS01",
+          "diameter": 0.6
+        },
+        {
+          "id": 18,
+          "type": "HS00",
+          "diameter": 0.2
+        },
+        {
+          "id": 20,
+          "type": "HH01",
+          "diameter": 0.8
+        },
+        {
+          "id": 21,
+          "type": "HS01",
+          "diameter": 0.8
+        }
+      ]
+    }
+  }
+}

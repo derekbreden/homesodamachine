@@ -3,8 +3,9 @@
 One frozen Funnel 2 cradle on Mark2, with the printed v2 receiver from task
 `1303345379` reused for the [bench procedure](../../README.md). The cradle has
 12.24 mm free wings and a 30.1 mm body width. Nominal 3.3% root strain is a CAD
-estimate. The [physical record](../../physical-acceptance.json) records the v2
-cradle snapping; v3 insertion, elastic return and retention require this trial.
+estimate. The [physical record](../../physical-acceptance.json) rates v3 insertion
+"Very good" with the printed v2 receiver. Retention and cycle testing are not
+reported. The [v4 print records](../v4/README.md) describe the current trial pair.
 
 | Part | Printer | Requested Z trim | Native estimate | State |
 | --- | --- | --- | --- | --- |
@@ -49,8 +50,9 @@ H2C and Mark2 remain at least 180 seconds apart.
 The [completion record](cradle-mark2-completion.json) confirms all 148 layers
 finished at 100%, with no printer error or HMS notice. The cradle and reused
 v2 receiver are ready for the bench trial after the cradle cools. Print telemetry
-establishes completion; v3 physical quality, elastic return and retention remain
-unverified. Completion does not establish a clear bed for another job.
+establishes completion. The physical record rates insertion "Very good";
+retention and cycle testing are not reported. Completion does not establish
+a clear bed for another job.
 
 After cooling, remove the two supports outward into the open space beside the cradle,
 retaining the hook bearing dimensions. Use the real PP0308E elbow and the

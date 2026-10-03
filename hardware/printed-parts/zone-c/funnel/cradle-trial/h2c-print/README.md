@@ -1,7 +1,9 @@
 # Funnel elbow-cradle v1 print
 
-The [v3 print records](v3/README.md) describe the current cradle trial with the
-printed v2 receiver. The [v2 print records](v2/README.md) describe that pair.
+The [v4 print records](v4/README.md) describe the current receiver and cradle
+trial. The [v3 print records](v3/README.md) describe the accepted insertion
+trial with the printed v2 receiver. The [v2 print records](v2/README.md)
+describe that pair.
 
 One frozen Funnel 2 test receiver and one test cradle, retaining their production
 print poses and the [trial geometry and bench procedure](../README.md). Both use
