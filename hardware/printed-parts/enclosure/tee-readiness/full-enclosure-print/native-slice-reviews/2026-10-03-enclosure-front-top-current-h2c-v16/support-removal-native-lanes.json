@@ -1,0 +1,134 @@
+{
+  "source_step_sha256": "6b8c2b511fc14c8fad8e012cba4703f25c724055909b4ffca6e0462475457180",
+  "lanes": [
+    {
+      "lane": "west_display_down",
+      "cad_from_mm": [
+        -80,
+        40,
+        300
+      ],
+      "cad_to_mm": [
+        -80,
+        40,
+        282
+      ],
+      "native_stock_distance_mm": 12.350834875383509,
+      "native_from_inside": false,
+      "native_to_inside": false
+    },
+    {
+      "lane": "east_display_down",
+      "cad_from_mm": [
+        80,
+        40,
+        300
+      ],
+      "cad_to_mm": [
+        80,
+        40,
+        282
+      ],
+      "native_stock_distance_mm": 12.350834875383509,
+      "native_from_inside": false,
+      "native_to_inside": false
+    },
+    {
+      "lane": "bay_to_front_mid",
+      "cad_from_mm": [
+        0,
+        55,
+        245
+      ],
+      "cad_to_mm": [
+        0,
+        0,
+        245
+      ],
+      "native_stock_distance_mm": 24.515,
+      "native_from_inside": false,
+      "native_to_inside": false
+    },
+    {
+      "lane": "bay_to_front_upper",
+      "cad_from_mm": [
+        0,
+        55,
+        274
+      ],
+      "cad_to_mm": [
+        0,
+        0,
+        274
+      ],
+      "native_stock_distance_mm": 10.6740001,
+      "native_from_inside": false,
+      "native_to_inside": false
+    },
+    {
+      "lane": "display_central_to_open",
+      "cad_from_mm": [
+        0,
+        40,
+        299
+      ],
+      "cad_to_mm": [
+        0,
+        40,
+        285
+      ],
+      "native_stock_distance_mm": 12.701700580292002,
+      "native_from_inside": false,
+      "native_to_inside": false
+    },
+    {
+      "lane": "funnel_bay_aft",
+      "cad_from_mm": [
+        0,
+        110,
+        340
+      ],
+      "cad_to_mm": [
+        0,
+        218,
+        340
+      ],
+      "native_stock_distance_mm": 12.433555722676182,
+      "native_from_inside": false,
+      "native_to_inside": false
+    },
+    {
+      "lane": "west_roof_aft",
+      "cad_from_mm": [
+        -95,
+        110,
+        335
+      ],
+      "cad_to_mm": [
+        -95,
+        218,
+        335
+      ],
+      "native_stock_distance_mm": 3.5,
+      "native_from_inside": false,
+      "native_to_inside": false
+    },
+    {
+      "lane": "east_roof_aft",
+      "cad_from_mm": [
+        95,
+        110,
+        335
+      ],
+      "cad_to_mm": [
+        95,
+        218,
+        335
+      ],
+      "native_stock_distance_mm": 3.5,
+      "native_from_inside": false,
+      "native_to_inside": false
+    }
+  ],
+  "scope": "Clearance of illustrative straight access lines in the current native part, separate from support-body topology. These do not assert a connected tree can leave intact or establish physical removal effort."
+}

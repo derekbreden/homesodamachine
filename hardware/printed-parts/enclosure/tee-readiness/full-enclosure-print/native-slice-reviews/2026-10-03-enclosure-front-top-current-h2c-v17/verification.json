@@ -1,0 +1,141 @@
+{
+  "pass": true,
+  "printer": "H2C",
+  "native_archive": ".cache/prints/2026-10-03-enclosure-front-top-current-h2c-v17/ready/enclosure-front-top-current-black-z018-h2c-v17.gcode.3mf",
+  "native_archive_sha256": "feaba430dd2856f35d296345b4edae03f66ee36199d1a672cfb2bccf805f5a65",
+  "gcode_sha256": "c36cdbf25e44a187b635de5ba59ad412aaa69107511b7f56daf4532df944b7f4",
+  "project_sha256": "0906160ade38636a4395e9f239fd7bbaf582276fe7a172d531b507f56eeacc22",
+  "source_step_sha256": "cb45044df359205d55dafe6ad3a8f5e8f332eccb2cfe6ac708f3c913672541b6",
+  "source_stl_sha256": "b9a330b868dde6cdab0278fecb023b4b3dc01a993e9070fa2828605237fded88",
+  "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "native_export_normalizations": {
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ],
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ]
+  },
+  "settings": {
+    "enable_support": "1",
+    "support_type": "tree(auto)",
+    "support_object_xy_distance": "0.4",
+    "support_top_z_distance": "0.45",
+    "support_bottom_z_distance": "0.3",
+    "initial_layer_print_height": "0.2",
+    "layer_height": "0.24",
+    "wall_loops": "2",
+    "enable_arc_fitting": "0",
+    "is_infill_first": "0",
+    "wall_sequence": "inner wall/outer wall",
+    "infill_wall_overlap": "15%",
+    "filament_colour": [
+      "#000000"
+    ],
+    "filament_nozzle_map": [
+      "0"
+    ],
+    "nozzle_diameter": [
+      "0.4",
+      "0.4"
+    ],
+    "support_filament": "1",
+    "support_interface_filament": "1"
+  },
+  "emitted_z_trim_mm": [
+    0.0,
+    0.16
+  ],
+  "rounds": [
+    {
+      "name": "complete roof show rounds",
+      "print_z_mm": [
+        187.392304745,
+        195.0
+      ],
+      "wall_layer_count": 96,
+      "first_wall_layer": [
+        187.4,
+        0.079987
+      ],
+      "last_wall_layer": [
+        195.0,
+        0.080002
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    }
+  ],
+  "layer_count": 878,
+  "layer_runs": [
+    {
+      "height": 0.2,
+      "bottom": 0.0,
+      "last_z": 0.2,
+      "count": 1
+    },
+    {
+      "height": 0.24,
+      "bottom": 0.2,
+      "last_z": 187.16,
+      "count": 779
+    },
+    {
+      "height": 0.08,
+      "bottom": 187.16,
+      "last_z": 195.0,
+      "count": 98
+    }
+  ],
+  "toolpath_bounds": {
+    "extrusion_bounds_xy_mm": [
+      [
+        24.427999999999997,
+        25.183
+      ],
+      [
+        300.78000000000003,
+        264.639
+      ]
+    ],
+    "maximum_line_width_mm": 0.663821,
+    "additional_bounds_margin_mm": 0.1,
+    "extrusion_segment_count": 3344692,
+    "method": "Every retained linear extrusion plus its own half-width and 0.10 mm; extruding arcs rejected."
+  },
+  "minimum_shared_bed_margin_mm": 24.21999999999997,
+  "minimum_model_bed_margin_mm": 55.0,
+  "required_model_margin_mm": 15,
+  "required_support_extrusion_margin_mm": 10,
+  "estimated_seconds": 92685.421875,
+  "estimated_grams_saved_profile_density": 948.1798706054688,
+  "support_removal_review_pending": false,
+  "physical_full_enclosure_fit_tested": false,
+  "submitted": false,
+  "emitted_path_review_sha256": "b1bd2d1c5e6ef14721cd8f70c57e1d5bd2ce86a407936588101115318fcd4ff0",
+  "native_functional_surface_emission_sha256": "ee5e38af1fc2c3ef2fcfa4e1a992aeff6f5b7f5312e6b9a649a79775673b3c63",
+  "support_removal_review_sha256": "0b48093f06d1b16ed02ec81a09f47bbc27b35a4737e6e1d63569fda150172ada",
+  "show_support_clearance_summary_sha256": "7da515ea0311671c4a1dc3b6e3deb02c08d090dae7d307390e5c489814df434e",
+  "round_layer_verification_sha256": "d17a855a7c16cf4940579e57e5e270906e42448fc39c966179844ecf88b87e0c",
+  "roof_overlap_review": {
+    "generic_centreline_trigger_pass": false,
+    "diagnostic_record": "roof-layer-overlap.json",
+    "local_road_review": "final-roof-corner-review.json",
+    "local_final_road_nominal_supported_area_fraction": 0.7883992437262292,
+    "entire_final_exterior_nominal_supported_area_fraction": 0.9993878057224869,
+    "review": "The final 0.738 mm inward-moving road retains 78.84% nominal full-width support across a small preceding interior-road gap. Retained centreline diagnostic; physical finish and bond unmeasured."
+  },
+  "status": "ready for authorized H2C submission; native geometry, emitted paths and accessible support lanes reviewed",
+  "physical_show_surface_tested": false,
+  "physical_support_removal_tested": false,
+  "flank_clip_native_binding_sha256": "d63f0a80fdddab2dceb71dd544c3208a596ed659e8363796cf674cfefcd5bd25"
+}

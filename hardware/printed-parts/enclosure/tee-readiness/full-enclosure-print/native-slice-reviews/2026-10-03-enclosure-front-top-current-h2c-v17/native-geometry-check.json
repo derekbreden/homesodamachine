@@ -1,0 +1,13 @@
+{
+  "step_sha256": "cb45044df359205d55dafe6ad3a8f5e8f332eccb2cfe6ac708f3c913672541b6",
+  "stl_sha256": "b9a330b868dde6cdab0278fecb023b4b3dc01a993e9070fa2828605237fded88",
+  "source_sha256": "63d17e1d9dd08945d42795639eb0311a91c1511d7693fa3add4eb62ca8287946",
+  "native_valid": true,
+  "native_solid_count": 1,
+  "roof_corner_flat_fins": [],
+  "flat_fin_selector": "Complete native planar face above CAD Z350 mm, entirely outboard of |X|100 mm, with downward normal. Functional interior ceiling and mating surfaces are separate retained stock.",
+  "stl_watertight": true,
+  "stl_winding_consistent": true,
+  "stl_facets": 524676,
+  "scope": "Materialized native front-top and exact print STL. Slice and physical surface qualification remain separate."
+}

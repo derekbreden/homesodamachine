@@ -1,0 +1,14 @@
+[
+  "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+  "--slice",
+  "0",
+  "--arrange",
+  "0",
+  "--orient",
+  "0",
+  "--outputdir",
+  "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-10-03-enclosure-front-top-current-h2c-v17/ready",
+  "--export-3mf",
+  "enclosure-front-top-current-black-z018-h2c-v17.gcode.3mf",
+  "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-10-03-enclosure-front-top-current-h2c-v17/enclosure-front-top-current-black-z018-h2c-v17-input.3mf"
+]

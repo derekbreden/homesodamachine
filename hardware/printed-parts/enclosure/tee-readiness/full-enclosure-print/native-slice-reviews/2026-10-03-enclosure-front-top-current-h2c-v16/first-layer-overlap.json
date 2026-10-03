@@ -1,0 +1,24 @@
+{
+  "pass": true,
+  "gcode_sha256": "7b5a7f3d754e1f0effe8b5dac5a3cf79a12578a404369beaa59f6ae2ab17ea87",
+  "first_layer_height_mm": 0.2,
+  "next_layer_height_mm": 0.24,
+  "transitions": [
+    {
+      "from_z": 0.2,
+      "to_z": 0.44,
+      "outer_wall_area_fraction_supported": 0.6447127883144486,
+      "max_sampled_outer_centerline_unsupported_mm": 0.019420560856026513
+    },
+    {
+      "from_z": 0.44,
+      "to_z": 0.68,
+      "outer_wall_area_fraction_supported": 0.9997350608910014,
+      "max_sampled_outer_centerline_unsupported_mm": 0.0
+    }
+  ],
+  "surface": "Front-top mouth-down datum and rails; no expanding bottom round.",
+  "wall_count_samples": [],
+  "wall_crossing_y_mm": null,
+  "wall_crossings": {}
+}

@@ -1,0 +1,33 @@
+{
+  "pass": true,
+  "native_archive_sha256": "1f34308f5a73c255f1a593aa418e99670d2456f3aa791d19749ddc50da8e76d2",
+  "gcode_sha256": "7b5a7f3d754e1f0effe8b5dac5a3cf79a12578a404369beaa59f6ae2ab17ea87",
+  "native_return_code": 0,
+  "native_error_string": "Success.",
+  "native_warning_message": "",
+  "diagnostics": [
+    "ZFiller: encounter idx from clip: 555",
+    "Invalid T command (T1001).",
+    "Invalid T command (T65535).",
+    "Invalid T command (T65279)."
+  ],
+  "special_tools": {
+    "contexts_record": "special-tool-contexts.json",
+    "literal_native_recipe_token_match": true,
+    "occurrences_in_model_layer_routine": 0,
+    "review": "T1001 is the native hotend-detection operation; T65535 and T65279 are native end-routine park/unload selections. These tokens occur verbatim in the effective archived machine recipes."
+  },
+  "z_filler_review": {
+    "record": "emitted-path-review.json",
+    "model_slabs_checked": 878,
+    "native_section_components_without_wall": 0,
+    "invalid_or_wrong_tool_model_roads": 0,
+    "review": "The native slice returned success with no warning and a complete integrity-checked archive. Independent layer-by-layer source-STL comparison finds no omitted stock section component. Local perimeter/bridge/slab-quantization diagnostics remain explicit in the emitted-path record."
+  },
+  "support_audit_comment_normalization": {
+    "labelled_gcode_sha256": "0a9f6a95ca704ef44683e294ef60b3f0e7937756f6dddeb99fa98b39bc24653b",
+    "native_gcode_sha256": "7b5a7f3d754e1f0effe8b5dac5a3cf79a12578a404369beaa59f6ae2ab17ea87",
+    "all_executable_commands_identical": true
+  },
+  "scope": "Native archive diagnostics and geometric emission; this is not physical fit, finish, removal, load or lifetime qualification."
+}

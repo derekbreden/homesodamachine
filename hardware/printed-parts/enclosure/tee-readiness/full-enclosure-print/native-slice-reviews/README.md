@@ -12,6 +12,8 @@ their own physical checks.
 
 | Job | Printer | State | Evidence |
 | --- | --- | --- | --- |
+| Current front-top, centred expanded funnel interface | H2C | Native archive and accessible supports reviewed; authorized submission pending; 25 h 44 min 45 sec | [2026-10-03-enclosure-front-top-current-h2c-v17](2026-10-03-enclosure-front-top-current-h2c-v17/README.md) |
+| Front-top v16 source-bound archive | H2C | Reviewed native archive; superseded for current geometry; do not submit | [2026-10-03-enclosure-front-top-current-h2c-v16](2026-10-03-enclosure-front-top-current-h2c-v16/README.md) |
 | Tee carrier, 1.00 mm upper / 0.25 mm lower clearance | Mark2 | accepted sliding and reduced tilt, task 1297480230; existing front-top; 1 h 45 min 40 sec | [2026-09-30-tee-low-force050-mark2-v16](2026-09-30-tee-low-force050-mark2-v16/README.md) |
 | Display receiver; 0.30 mm body X and 0.60 mm wing-thickness clearance | H2C | accepted fit and shake retention with residual bow, task 1297296218; 2 h 49 min 41 sec | [2026-09-30-display-x030-receiver-h2c-v5](2026-09-30-display-x030-receiver-h2c-v5/README.md) |
 | Nameplate receiver; 0.15 mm body X and 0.45 mm wing Y clearance | Mark2 | completed, task 1297285813; fit accepted with existing flat nameplate | [2026-09-30-nameplate-x015-y045-receiver-mark2-v10](2026-09-30-nameplate-x015-y045-receiver-mark2-v10/README.md) |

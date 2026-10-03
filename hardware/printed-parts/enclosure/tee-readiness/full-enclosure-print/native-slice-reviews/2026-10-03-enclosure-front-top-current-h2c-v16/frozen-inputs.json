@@ -1,0 +1,36 @@
+{
+  "scope": "Root-confirmed final front-top native geometry, before fresh production-pose native slicing.",
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "79a0eea4fbe871d3039562d0fd2244e86eb63aff934f0ea606328d5df1a24ebb",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "6b8c2b511fc14c8fad8e012cba4703f25c724055909b4ffca6e0462475457180",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "hardware/printed-parts/enclosure/enclosure/_swept_top.py": "347f941b2b2aed2aa5af26373fc4dcfb852390bab61f8d60cb2d538926221a22",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "b64e0ed3c2f3071065c20e70091582fa98897555c1317f44732d36923fc824ca",
+    "hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py": "e3e5f0251ab9f0f82324c82e94e45667cac0e5d9c505cf06fd6f525c6bf3ce82",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py": "301e9a2a291e5c43c6e885d869e74d2f600204ba0041e70979a1c7d5c6203bbc"
+  },
+  "snapshot_sha256": {
+    ".cache/prints/2026-10-03-enclosure-front-top-current-h2c-v16/inputs/enclosure-front-top.stl": "79a0eea4fbe871d3039562d0fd2244e86eb63aff934f0ea606328d5df1a24ebb",
+    ".cache/prints/2026-10-03-enclosure-front-top-current-h2c-v16/inputs/enclosure-front-top.step": "6b8c2b511fc14c8fad8e012cba4703f25c724055909b4ffca6e0462475457180",
+    ".cache/prints/2026-10-03-enclosure-front-top-current-h2c-v16/inputs/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    ".cache/prints/2026-10-03-enclosure-front-top-current-h2c-v16/inputs/_swept_top.py": "347f941b2b2aed2aa5af26373fc4dcfb852390bab61f8d60cb2d538926221a22",
+    ".cache/prints/2026-10-03-enclosure-front-top-current-h2c-v16/inputs/enclosure.py": "b64e0ed3c2f3071065c20e70091582fa98897555c1317f44732d36923fc824ca",
+    ".cache/prints/2026-10-03-enclosure-front-top-current-h2c-v16/inputs/_display_wing_interface.py": "e3e5f0251ab9f0f82324c82e94e45667cac0e5d9c505cf06fd6f525c6bf3ce82",
+    ".cache/prints/2026-10-03-enclosure-front-top-current-h2c-v16/inputs/_nameplate_wing_interface.py": "301e9a2a291e5c43c6e885d869e74d2f600204ba0041e70979a1c7d5c6203bbc"
+  },
+  "printer": "H2C",
+  "physical_material": "black PET-GF",
+  "external_mapping": "left external black Ext PET-CF",
+  "nozzle": "fixed left 0.4 mm; Standard sliced recipe; active-head mapping checked by sender",
+  "requested_z_trim_mm": 0.18,
+  "expected_textured_emitted_trim_mm": 0.16,
+  "print_options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "bed_clear_authorization": "The user explicitly requested this next front-top PET-GF print on H2C.",
+  "spool_quantity_is_launch_condition": false,
+  "submitted": false
+}

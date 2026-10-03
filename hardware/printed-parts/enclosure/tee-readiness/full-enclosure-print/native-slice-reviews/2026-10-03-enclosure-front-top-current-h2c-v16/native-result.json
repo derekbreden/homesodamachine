@@ -1,0 +1,74 @@
+{
+    "error_string": "Success.",
+    "export_time": 12714,
+    "layer_height": 0.23999999463558197,
+    "plate_index": 0,
+    "prepare_time": 1469,
+    "return_code": 0,
+    "sliced_plates": [
+        {
+            "feature_type_times": {
+                "Bottom surface": 649.6287231445313,
+                "Bridge": 4172.2890625,
+                "Custom": 297.5545349121094,
+                "Flush": 15.0,
+                "Gap infill": 363.5373229980469,
+                "Inner wall": 9037.2158203125,
+                "Internal solid infill": 6176.74755859375,
+                "Outer wall": 11610.9130859375,
+                "Overhang wall": 1608.2462158203125,
+                "Sparse infill": 15993.7578125,
+                "Support": 28827.6328125,
+                "Support interface": 649.23681640625,
+                "Support transition": 1819.213134765625,
+                "Top surface": 605.6965942382813,
+                "Travel": 10645.5595703125,
+                "Undefined": 10643.8408203125
+            },
+            "filament_change_times": 0,
+            "filaments": [
+                {
+                    "filament_id": "GFT01",
+                    "id": 1,
+                    "main_used_g": 949.5599975585938,
+                    "total_used_g": 949.5599975585938
+                }
+            ],
+            "generate_support_material_time": 40097,
+            "id": 1,
+            "infill_time": 6474,
+            "layer_filament_change": 0,
+            "main_predication": 92482.0234375,
+            "make_perimeters_time": 9339,
+            "obj_cached_cnt": 0,
+            "objects": [
+                {
+                    "bbox": {
+                        "depth": 207.5500030517578,
+                        "height": 195.0,
+                        "width": 215.0,
+                        "x": 55.0,
+                        "y": 56.224998474121094,
+                        "z": 0.0
+                    },
+                    "id": 5,
+                    "name": "enclosure-front-top",
+                    "triangle_count": 524684
+                }
+            ],
+            "sliced_time": 136998,
+            "sliced_time_with_cache": 74959,
+            "total_predication": 92807.859375,
+            "triangle_count": 524684,
+            "warning_message": ""
+        }
+    ],
+    "sparse_infill_density": 15.0,
+    "upward_compatible_machine": [
+        "Bambu Lab H2S 0.4 nozzle",
+        "Bambu Lab H2D 0.4 nozzle",
+        "Bambu Lab H2D Pro 0.4 nozzle",
+        "Bambu Lab A2L 0.4 nozzle"
+    ],
+    "wall_loops": 2
+}

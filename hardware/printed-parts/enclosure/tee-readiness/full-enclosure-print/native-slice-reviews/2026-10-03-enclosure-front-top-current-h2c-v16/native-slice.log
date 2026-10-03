@@ -1,0 +1,5 @@
+[2026-10-03 00:45:17.205519] [0x00000001f4096180] [trace]   Initializing StaticPrintConfigs
+[2026-10-03 00:45:32.486298] [0x000000016eaab000] [error]   ZFiller: encounter idx from clip: 555
+[2026-10-03 00:46:20.840786] [0x00000001f4096180] [error]   Invalid T command (T1001).
+[2026-10-03 00:46:39.127372] [0x00000001f4096180] [error]   Invalid T command (T65535).
+[2026-10-03 00:46:39.130277] [0x00000001f4096180] [error]   Invalid T command (T65279).

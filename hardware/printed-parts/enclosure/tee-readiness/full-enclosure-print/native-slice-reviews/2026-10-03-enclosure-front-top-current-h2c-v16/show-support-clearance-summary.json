@@ -1,0 +1,17 @@
+{
+  "pass": true,
+  "source_step_sha256": "6b8c2b511fc14c8fad8e012cba4703f25c724055909b4ffca6e0462475457180",
+  "source_stl_sha256": "79a0eea4fbe871d3039562d0fd2244e86eb63aff934f0ea606328d5df1a24ebb",
+  "gcode_sha256": "7b5a7f3d754e1f0effe8b5dac5a3cf79a12578a404369beaa59f6ae2ab17ea87",
+  "protected_show_face_count": 119,
+  "support_roads_checked": 1535891,
+  "support_road_max_print_z_mm": 188.79,
+  "support_road_max_width_mm": 0.62,
+  "support_road_max_height_mm": 0.279956,
+  "native_distance_candidate_roads": 271368,
+  "potential_bead_contacts": [],
+  "detailed_road_readings_sha256": "e3b5d01b1f02f79b79447e5dfc380d3e4136c3649d743888483dc969dce5a255",
+  "detail_file": "show-support-clearance.json",
+  "method": "All emitted support roads, including bodies without an interface label, checked using their actual width/height envelope against exact native exterior display/roof faces. Bounding boxes exclude distant roads; exact native edge-to-face distance checks candidates.",
+  "scope": "Native nominal geometric clearance; does not establish physical surface finish or removal effort."
+}

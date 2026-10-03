@@ -1,0 +1,12 @@
+{
+  "step_sha256": "6b8c2b511fc14c8fad8e012cba4703f25c724055909b4ffca6e0462475457180",
+  "stl_sha256": "79a0eea4fbe871d3039562d0fd2244e86eb63aff934f0ea606328d5df1a24ebb",
+  "source_sha256": "347f941b2b2aed2aa5af26373fc4dcfb852390bab61f8d60cb2d538926221a22",
+  "native_valid": true,
+  "native_solid_count": 1,
+  "roof_corner_flat_fins": [],
+  "stl_watertight": true,
+  "stl_winding_consistent": true,
+  "stl_facets": 524684,
+  "scope": "Materialized native front-top and print STL. Slice and physical surface qualification remain separate."
+}
