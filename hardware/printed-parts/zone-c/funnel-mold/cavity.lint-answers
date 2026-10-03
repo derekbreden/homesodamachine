@@ -23,11 +23,11 @@ click: x=0.000 y=0.000 z=71.100
 
 [ceiling] The flat underside of the brim shell is backed by 5 mm of mold stock. Supports carry this annular face and are accessible from the open dry back before finishing the forming surfaces.
 file: hardware/printed-parts/zone-c/funnel-mold/cavity.step
-click: x=0.000 y=0.000 z=64.795
+click: x=0.000 y=0.000 z=64.790
 
-[ceiling] The rounded plug pocket projects beyond the round sacrificial-tip shell at these four corners. The flat dry undersides retain the 5 mm forming backing. Supports carry them from the bed and remain accessible around the outside for removal before finishing.
+[ceiling] The rectangular plug pocket projects beyond the round sacrificial-tip shell at its four square corners. The flat dry undersides retain the 5 mm forming backing. Supports carry them from the bed and remain accessible around the outside for removal before finishing.
 file: hardware/printed-parts/zone-c/funnel-mold/cavity.step
-click: x=14.604 y=18.433 z=18.695
-click: x=14.604 y=-18.433 z=18.695
-click: x=-10.904 y=18.433 z=18.695
-click: x=-10.904 y=-18.433 z=18.695
+click: x=17.700 y=18.736 z=18.690
+click: x=17.700 y=-18.736 z=18.690
+click: x=-14.000 y=18.736 z=18.690
+click: x=-14.000 y=-18.736 z=18.690
