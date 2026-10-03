@@ -1,0 +1,41 @@
+{
+  "archive": ".cache/prints/magnetic-float-pair-mark2-aero-v4/ready/magnetic-float-pair-mark2-aero-v4.gcode.3mf",
+  "archive_sha256": "fb54e83a62caba169c73180e61b3122027b0be49484cd4bc28c25bc9a8253392",
+  "gcode_sha256": "7076a481e19c01a901830cdabdb40c0aa6740c460043376579026ef4f1730a3f",
+  "source_commit": "f3cefbe360b7a8019741d177868d1e6c6770b93f",
+  "source_stl_sha256": {
+    "body-aero": "63d12cbb501b629997a2462822df42a1f4f6bf20ee2806f2f6f310c1f7e72771",
+    "insert-aero": "c69cdc552c1dec84dd0bd84972ed601667df8327b0388236eec63ea7d672b8c6"
+  },
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "material_mapping": {
+    "physical_material": "Bambu ASA Aero White 46100",
+    "filament_id": "GFB02",
+    "nozzle": "right standard-flow hardened 0.4 mm",
+    "source": "AMS HT, unit 128 tray 0"
+  },
+  "bed": "Textured PEI Plate",
+  "print_sequence": "by layer",
+  "trial": "magnetic-float ASA Aero physical v3",
+  "status": "accepted",
+  "printer": "Mark2",
+  "archive_name": "magnetic-float-pair-mark2-aero-v4.gcode.3mf",
+  "parts": [
+    "body-aero",
+    "insert-aero"
+  ],
+  "quantity_per_part": 1,
+  "native_archive_revision": 4,
+  "bed_clear_confirmation": "Stopped again. Bed clear. Try same plate again back to 0.04 all else the same.",
+  "minimum_cross_printer_start_or_resume_spacing_s": 180,
+  "cool_before_removal_c": 35,
+  "completion_reported": false,
+  "monitor_active": true,
+  "updated_utc": "2026-10-03T04:29:56.446301+00:00",
+  "scope": "One core and one insert together. No PETG shell or separate foam job is requested.",
+  "accepted_task_id": "1304010811"
+}

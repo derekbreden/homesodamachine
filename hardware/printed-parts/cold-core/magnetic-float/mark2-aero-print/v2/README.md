@@ -19,10 +19,10 @@ printer progress beyond the first layer; visual first-layer acceptance, printed
 density and physical fit remain unreported.
 
 At 2026-10-03 04:17 UTC, the same task reported **FAILED**, with `print_error`
-0 and no HMS fault. The stop's cause is unreported; this telemetry identifies
-neither manual cancellation nor a printer fault. The user has been notified,
-and no retry or resume has been submitted. Neither part has a completed-print
-or physical-acceptance result.
+0 and no HMS fault. The operator reported: **"Stopped again. Bed clear. Try same
+plate again back to 0.04 all else the same."** A specific print defect is
+unreported. Neither part has a completed-print or physical-acceptance result.
+The active combined trial is [v3](../v3/README.md).
 
 ## Selected recipe
 
