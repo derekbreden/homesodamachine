@@ -1,11 +1,11 @@
 {
   "/tools/funnel-mold-print/verify_print.py": {
     "BOLT_D": "5 mm",
-    "CAST_VOLUME": "287 mL",
+    "CAST_VOLUME": "197 mL",
     "CAVITY_DIMS": "211 \u00d7 211 \u00d7 79.1 mm",
     "CHAMBER_GAP": "10.6 mm",
     "CORE_DIMS": "211 \u00d7 211 \u00d7 42.2 mm",
-    "DRY_MOUTH": "142.4 \u00d7 128.4 mm",
+    "DRY_MOUTH": "142.4 \u00d7 59.2 mm",
     "ENVELOPE": "278.5 mm",
     "FILL_D": "11 mm",
     "FINISH": "0.30 mm",

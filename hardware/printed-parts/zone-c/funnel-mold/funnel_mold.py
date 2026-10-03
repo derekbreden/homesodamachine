@@ -14,6 +14,9 @@ from pathlib import Path
 
 import cadquery as cq
 from cadquery.occ_impl.shapes import fuse as fuse_shapes
+from OCP.BRepOffsetAPI import BRepOffsetAPI_MakeOffsetShape
+from OCP.BRepOffset import BRepOffset_Mode
+from OCP.GeomAbs import GeomAbs_Arc
 import numpy as np
 import trimesh
 
@@ -27,8 +30,8 @@ from _materials import one_body
 from flute_payload import cut as write_print_payload
 
 finish_allowance = 0.30
-# Match build_solids' normal-envelope margin at the rounded ramp joins.
-forming_join_allowance = 0.005
+# Dry-backing margin for the forming ramp's rounded offset joins.
+forming_join_allowance = 0.01
 shell_thickness = 5.0
 dry_ramp_lift = 6.0
 flange_thickness = 5.0
@@ -64,7 +67,7 @@ vent_diameter = 4.0
 pour_diameter = 11.0
 foot_diameter = 10.0
 foot_clearance = 0.7
-feet_xy = ((-55.0, -50.0), (55.0, -50.0), (0.0, 65.0))
+feet_xy = ((-55.0, -40.0), (55.0, -40.0), (0.0, 40.0))
 pry_width = 16.0
 pry_depth = 5.0
 pry_height = 1.0
@@ -126,11 +129,23 @@ def slab(face, distance):
 
 
 def contraction_attempts(shape, faces, distance):
-    """Ways of taking `distance` off `faces`, first the direct one, then the orderings
-    the OCP wheel on the runner has been seen to want."""
+    """An inward normal offset with joined edges, then face-skin fallbacks."""
+    def joined():
+        offset = BRepOffsetAPI_MakeOffsetShape()
+        offset.PerformByJoin(shape.wrapped, -distance, 1e-5,
+                             BRepOffset_Mode.BRepOffset_Skin,
+                             True, False, GeomAbs_Arc, False)
+        assert offset.IsDone() and not offset.Shape().IsNull(), 'joined core offset'
+        inset = cq.Shape.cast(offset.Shape())
+        if not inset.Solids() and len(inset.Shells()) == 1:
+            inset = cq.Solid.makeSolid(inset.Shells()[0])
+        assert inset.cut(shape, tol=tolerance).Volume() < tolerance
+        return inset
+
     def sequential(tool):
         return functools.reduce(lambda s, f: s.cut(tool(f, distance), tol=tolerance),
                                 faces, shape)
+    yield 'joined normal offset', joined
     yield 'planes as slabs', lambda: shape.cut(
         *[slab(f, distance) for f in faces], tol=tolerance)
     yield 'faces at once', lambda: shape.cut(
@@ -220,12 +235,10 @@ def build():
         funnel.elbow_cradle.plug_outline(funnel.plug_diameter/2, 0.0, 0.0,
                                          funnel.plug_height).translate((x, y, end)),
     )
-    # Explicit spline surfaces allow OCCT to trim the coincident offset joins
-    # around the collar. Fuse the complete backing in one operation.
+    # Fuse the analytic offset faces in one operation around the collar.
     backing = [cavity_outer, *[expanded(body, backing_allowance)
                                for body in backing_bodies]]
-    cavity_outer = one(fuse_shapes(*[body.toNURBS() for body in backing],
-                                    tol=tolerance), 'cavity backing')
+    cavity_outer = one(fuse_shapes(*backing, tol=tolerance), 'cavity backing')
     assert forming_void.cut(cavity_outer, tol=tolerance).Volume() < tolerance
     forming_boundary = cq.Compound.makeCompound(forming_void.Faces())
     backing_boundary = cq.Compound.makeCompound(cavity_outer.Faces())

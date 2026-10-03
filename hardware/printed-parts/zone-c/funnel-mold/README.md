@@ -2,7 +2,7 @@
 
 Two PETG shells follow the [funnel](../funnel/README.md), with
 [5 mm](SKIN) minimum ramp backing and [5 mm](FLANGE) clamping flanges. The cavity
-stands on three small feet. The core has a [142.4 × 128.4 mm](DRY_MOUTH) rounded rectangular opening
+stands on three small feet. The core has a [142.4 × 59.2 mm](DRY_MOUTH) rounded rectangular opening
 in its dry back. Both halves print with automatic normal supports in Snug style.
 The tooling forms a rounded plug blank with a straight dowel bore. The
 production plug's hook pockets and staged sealing bore require separate
@@ -71,7 +71,7 @@ physical trial establishes retention, sealing and casting quality.
 
 Teal is the cavity, gold the core, grey the nominal silicone, light grey the
 steel dowel and blue the removable entry seal. The nominal casting, including its sacrificial spout tip, is
-[287 mL](CAST_VOLUME). The two halves fit inside a [278.5 mm](ENVELOPE) circle,
+[197 mL](CAST_VOLUME). The two halves fit inside a [278.5 mm](ENVELOPE) circle,
 leaving [10.6 mm](CHAMBER_GAP) radial clearance in the recorded chamber. Check
 the actual opening, clamp/bolt envelope and catch tray before pouring.
 
@@ -106,7 +106,7 @@ face, rounded edge and corner is contained in the finished shell envelope.
 Before the flange and mouth trim, the minimum distance between the complete
 forming and backing boundaries is checked against the 5 mm shell thickness;
 [design.json](design.json) records that measurement.
-The dry backing includes the forming ramp's 0.005 mm rounded-join allowance.
+The dry backing includes the forming ramp's 0.01 mm rounded-join allowance.
 The core's 0.30 mm brim-finishing recess leaves 4.70 mm behind that pocket;
 the surrounding bare flange remains 5 mm thick.
 The generator checks that the capped cavity and the assembled mold each retain
