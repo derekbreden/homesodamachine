@@ -38,6 +38,12 @@ detach this support from the open radial sides. The
 bodies without interface labels; it is a quantized path reading rather than a
 reconstructed support solid.
 
+The [post-live geometry lint](geometry-lint.json) binds the published mandrel
+files verified at 2026-10-03 10:50:29 UTC. It reports 112,136 printed facets,
+zero unanswered findings and one intentional ceiling: this flat entry
+shoulder with its reviewed accessible support and measured finishing reserve.
+The [manifest](manifest.json) binds the lint receipt and native slice evidence.
+
 ![First layer and all native support paths](native-supports.png)
 
 The raw print reserves stock for the separately measured finishing stack in

@@ -1,0 +1,78 @@
+{
+  "checked_utc": "2026-10-03T10:52:56.590328+00:00",
+  "timing": "Executed after the published geometry hash verification recorded below.",
+  "command": "HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/scripts/geometry_lint.py hardware/printed-parts/zone-c/funnel-mold/forming-mandrel.stl",
+  "exit_code": 0,
+  "stdout": "forming-mandrel.stl \u00b7 112136 printed facets \u00b7 0 findings \u00b7 1 answered",
+  "printed_facets": 112136,
+  "unanswered_findings": 0,
+  "answered_findings": 1,
+  "sha256": {
+    "forming-mandrel.step": "0cf0e36037ba2f0d1d6e8a8dd9057b8ecaab7f68a379cd92f3bc418f0c27d8ce",
+    "forming-mandrel.stl": "6b67468da5c28217f85d54ef170e3a884b4e4ec3ed256a410a2764693354d9c0",
+    "forming-mandrel.step.mesh": "dd12e1fe654bee1b5191da4166a00e0920221bc40bb3bab832ede794df0d62e2",
+    "forming-mandrel.lint-answers": "7bd6fe10ec30c7697b2794bea8267525da395de211b890a167bf29ec3ef1e91b",
+    "geometry_lint.py": "79914fb4ca91a5620956c1d4d95fd6fe253fcae1b5f26bac0fafc43edffb4f53",
+    "readiness-review.json": "f7828c1bd08c9dc9f64840103733859c7a91485eb6e4a532668b01c59e6c8fd8",
+    "support-topology.json": "9b7286927d0d3c40b3c89ed98fbe3df560ab4522faf51ca7866c2f68de0f34fa"
+  },
+  "publication_verification": {
+    "verified_utc": "2026-10-03T10:50:29Z",
+    "pass": true,
+    "verified_files_count": 40,
+    "source_receipt_sha256": "fc1ae9b2109ca4450edd023be81cf49c2dd7c1128d1c8b32abffe13ca34482db",
+    "mandrel_files": [
+      {
+        "path": "hardware/printed-parts/zone-c/funnel-mold/forming-mandrel.step",
+        "url": "https://objects.homesodamachine.com/s-0cf0e36037ba2f0d1d6e8a8dd9057b8ecaab7f68a379cd92f3bc418f0c27d8ce.gz",
+        "expected_sha256": "0cf0e36037ba2f0d1d6e8a8dd9057b8ecaab7f68a379cd92f3bc418f0c27d8ce",
+        "live_sha256": "0cf0e36037ba2f0d1d6e8a8dd9057b8ecaab7f68a379cd92f3bc418f0c27d8ce",
+        "match": true,
+        "bytes": 40218
+      },
+      {
+        "path": "hardware/printed-parts/zone-c/funnel-mold/forming-mandrel.stl",
+        "url": "https://objects.homesodamachine.com/s-6b67468da5c28217f85d54ef170e3a884b4e4ec3ed256a410a2764693354d9c0.gz",
+        "expected_sha256": "6b67468da5c28217f85d54ef170e3a884b4e4ec3ed256a410a2764693354d9c0",
+        "live_sha256": "6b67468da5c28217f85d54ef170e3a884b4e4ec3ed256a410a2764693354d9c0",
+        "match": true,
+        "bytes": 5606884
+      },
+      {
+        "path": "hardware/printed-parts/zone-c/funnel-mold/forming-mandrel.step.mesh",
+        "url": "https://objects.homesodamachine.com/s-dd12e1fe654bee1b5191da4166a00e0920221bc40bb3bab832ede794df0d62e2.gz",
+        "expected_sha256": "dd12e1fe654bee1b5191da4166a00e0920221bc40bb3bab832ede794df0d62e2",
+        "live_sha256": "dd12e1fe654bee1b5191da4166a00e0920221bc40bb3bab832ede794df0d62e2",
+        "match": true,
+        "bytes": 2746128
+      }
+    ]
+  },
+  "intentional_features": [
+    {
+      "class": "ceiling",
+      "point_mm": [
+        0.0,
+        0.0,
+        1.54
+      ],
+      "point_scope": "Lint group centroid identifier; the functional face is the complete exposed annular shoulder.",
+      "feature": "Flat raw entry-shoulder underside at print Z1.540",
+      "native_annular_area_mm2": 21.8081,
+      "native_slice_receipt": "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-03-forming-mandrel-petg088-v1/readiness-review.json",
+      "emitted_first_expanded_model_layer_z_mm": [
+        1.54,
+        1.62
+      ],
+      "support_interface_z_mm": [
+        1.112,
+        1.34
+      ],
+      "support_top_gap_mm": 0.2,
+      "access": "One bed-rooted Snug support, exposed at the open radial sides; cut and detach the support radially before finishing.",
+      "forming_reserve_mm": 0.05,
+      "answer": "The complete flat shoulder retains its required shape and receives the reviewed accessible support. Finish it to the measured forming reference."
+    }
+  ],
+  "scope": "Geometry lint and current native emitted support/removal evidence only. No geometry, slice archive, accepted cradle, generators or printer submission changed. Physical support cleanout, coating adhesion, finished profile, release and casting remain unqualified."
+}

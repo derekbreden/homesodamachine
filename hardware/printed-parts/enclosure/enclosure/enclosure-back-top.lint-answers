@@ -142,3 +142,7 @@ click: x=0.000 y=465.425 z=248.000
 [ceiling] The 0.25 mm-deep lower return of the foam-cap recess faces print-down in the roof-down orientation. It is backed by the complete rear wall and opens into the cap recess. Any contact support can leave directly through that opening before the cap is installed; this small return is not a hidden cavity.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=0.000 y=465.425 z=248.000
+
+[ceiling] The PRV chase's flat exterior crown is the complete 8 x 18 mm structural roof backing at the lip's height; the 12 mm passage and inner 45 degree air roof retain their datums. Its +Z face prints down in the ceiling-bedded back-top. The current v9 archive's tree-1/interface-30 carries this exact crown, and its first two model slabs contain full crown roads. Release the contact from the empty forebay above the crown or through the lateral approach, break the sacrificial branch and remove every fragment before the cold core and tubes are installed. The exact native face, actual interface roads and 6.801/3.500 mm native air-line clearances are in native-slice-reviews/2026-10-03-enclosure-back-top-current-mark2-v9/prv-crown-lint-contact-review.json; physical cleanup effort and finish remain unqualified.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-94.500 y=323.800 z=214.600

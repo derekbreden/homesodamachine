@@ -1,0 +1,2 @@
+/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/geometry_lint.py:110: RuntimeWarning: invalid value encountered in divide
+  u /= np.linalg.norm(u)
