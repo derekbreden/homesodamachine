@@ -235,7 +235,7 @@ GROUP_OF = [
     ("Collet press",                "tool"),
     ("Nameplate",                   "petgf"),
     ("Funnel frame",                "ext"),
-    ("Funnel drain-elbow cradle",   "small"),
+    ("Funnel drain-elbow cradle",   "ext"),
 ]
 
 PRINTED = "<!--@printed-->"

@@ -67,7 +67,7 @@ Four of the seven conduits in the cold core's top cap are this circuit's: a fill
 | 1 | water-split to-flavor | flow-regulator inlet | Off the ASSE 1022's split, west lane (see [`fluid-topology-carbonator.mmd`](/hardware/topology/fluid-topology-carbonator.mmd)) |
 | 2 | flow-regulator outlet | V-A-I | Across the machine and up onto the folded deck |
 | 3 | V-A-O | Y-A-1 | Quarter turn out of the deck plane, then the step aft over the core's crown |
-| 4 | Funnel bottom | V-B-I | Gravity drain |
+| 4 | funnel-drain-union outlet | V-B-I | Gravity drain, aft off the funnel's drain elbow |
 | 5 | V-B-O | Y-B-1 | The mirror of segment 3 |
 | 6 | Y-A-3 | Y-B-3 | The crossbar — branch to branch, face to face |
 | 7 | Y-A-2 | V-C-I | Butted |

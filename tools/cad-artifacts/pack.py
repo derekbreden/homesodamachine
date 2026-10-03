@@ -86,8 +86,9 @@ NOT_BUNDLED_DIRS = (
     "hardware/reference/g-ganen-pump/_scratch",
 )
 
-#: Solids with no builder in this tree — `y_divider.py:3` says it of its own. A generator reads
-#: them: `manifold_layout.py` places the elbow and the tee. They are in git and out of the bundle.
+#: Solids with no builder in this tree — `y_divider.py:3` says it of its own. `manifold_layout.py`
+#: places the tee; the elbow is the PP0308E stand-in the machine no longer places. They are in git
+#: and out of the bundle.
 HARVESTED = (
     "hardware/reference/elbow-connector/elbow-connector.step",
     "hardware/reference/tee-connector/tee-connector.step",

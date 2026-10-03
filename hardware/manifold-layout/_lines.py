@@ -175,9 +175,9 @@ STATIONS = {
     # bore takes the same 1/4" LLDPE the rest of the water side runs.
     "digiten-flow": {"inlet": (_digiten.inlet, _split.TUBE_D),
                      "outlet": (_digiten.outlet, _split.TUBE_D)},
-    # The funnel's gravity drain — the spout's exit annulus, on the collar centre, facing the
-    # floor. `funnel.drain_local` is in the part's own frame, so it rides the funnel
-    # wherever the top wall carries it.
+    # The funnel's gravity drain — the bore's exit on the plug's bottom face, facing the floor.
+    # `funnel.drain_local` is in the part's own frame, so it rides the funnel wherever the top
+    # wall carries it.
     "funnel": {"drain": ((lambda: (_funnel.drain_local, (0.0, 0.0, -1.0))),
                                 _funnel.spout_id)},
     # The PP0308E elbow under that drain, standing in its cradle below the funnel frame. Its
@@ -345,15 +345,15 @@ def _co2_1(F):
 
 # WHERE THE MACHINE IS CROSSABLE, and it is the cold core's own front step. The lid's outer face
 # runs forward at z 253.4 from the deck the valve cradles stand on, and the band over that face —
-# between the core's front and the funnel union's ring — is clear from wall to wall. The crossing
+# between the core's front and the funnel's drain union — is clear from wall to wall. The crossing
 # lies in it, one lane off the core it is assembled onto, and the core's cap prints the rib that
 # holds it there. Re-measure it by sweeping the cast in y —
 #
 #     w.cast((-78.0, y, z), (1, 0, 0), dia=6.35)
 #
-# WHAT MOVES IT IS THE FUNNEL'S OWN STATION. The band's forward bound is the funnel union's ring
-# and the fall `fluid-4` drops off it; the union hangs on the funnel's drain, and the drain
-# stands `funnel.neck_dy` aft of the collar's Y centre — so this crossing walks with
+# WHAT MOVES IT IS THE FUNNEL'S OWN STATION. The band's forward bound is the drain union, standing
+# in its cradle under the frame's drain hole with its aft leg reaching toward the core, and the
+# drain stands `funnel.neck_dy` aft of the collar's Y centre — so this crossing walks with
 # `enclosure.funnel_front_y` and that offset, and with nothing else. The display housing's
 # back is its own stated cut (`enclosure.display_housing_back`), so the facet does not drag the
 # funnel aft behind it.
@@ -380,8 +380,8 @@ CROSS_Y = _CORE_FRONT_Y - 1.5
 CROSS_DODGE_Y = _CORE_FRONT_Y + 2.0
 CROSS_DODGE_SPAN = (-22.0, -5.5)
 CROSS_DODGE_RAMP = 8.0
-# And how far UNDER V-K's own inlet plane it runs. The funnel's disconnect hangs on the spout's
-# column and its ring stands in the storey this run used to cross on, so the crossing drops
+# And how far UNDER V-K's own inlet plane it runs. The funnel's drain union hangs under the frame
+# on the drain's column and its body fills the storey at that plane, so the crossing drops
 # beneath the union's foot — and what it drops ONTO is the height the cap's rib holds it at over
 # the lid's face, which is what `_cold_core_interface.cap_anchors` states.
 CROSS_DROP = 7.1
@@ -419,7 +419,7 @@ CHANNEL_X = -94.0
 #
 CROSS_RISE = 4.5
 # Where it starts leaning off the core again. The crossing hugs the core as far east as the
-# funnel union's ring, then leans forward and up in ONE leg onto V-K's column and inlet plane:
+# funnel's drain union, then leans forward and up in ONE leg onto V-K's column and inlet plane:
 # the collet needs its own straight, and a crossing that stayed against the core to the end would
 # leave a closing leg too short to turn a stock arc in.
 # WHERE THE RUN REACHES THE CHANNEL'S OWN COLUMN, and it is what carries the fall's belly out of
@@ -446,7 +446,7 @@ def _water_3(F):
     It has to. The split stands in the WEST lane and V-K stands on the EAST, and V-K's inlet
     faces FORWARD — so the water leaves the split going down, and has to arrive at V-K from in
     front of it. There is no shorter way round: the valve manifold occupies the storey between
-    the two columns and the band behind the union's ring is the one window through it.
+    the two columns and the band behind the drain union is the one window through it.
 
     IT FALLS INTO THE CHANNEL AND RUNS IT. The branch drops on the split's own column, and its
     corner turns WEST off that column into `CHANNEL_X` — the strip between the shell's face and
@@ -459,8 +459,9 @@ def _water_3(F):
     on that column and bellies over the cap lid. Leaving WEST swings the arc into the strip, where
     what is under the belly is the cabinet floor rather than the lid.
 
-    IT CROSSES UNDER THE FUNNEL'S DISCONNECT. The union hangs on the funnel's spout in the middle
-    of that window, so the crossing runs `CROSS_DROP` under the inlet's own plane, the whole width
+    IT CROSSES UNDER THE FUNNEL'S DRAIN UNION. The union stands in its cradle under the frame's
+    drain hole in the middle of that window, so the crossing runs `CROSS_DROP` under the inlet's
+    own plane, the whole width
     of the machine beneath the union's foot and against the cold core's front, and climbs back
     onto the inlet's plane on V-K'S OWN COLUMN — where the climb costs nothing, because the aft
     leg into the collet is there anyway and the lean shares it. The cap's own side post grips the
@@ -477,15 +478,15 @@ def _water_3(F):
         (src[0], src[1], z - CROSS_RISE),   # the whole fall, on the branch's column, past the lane
         (CHANNEL_X, CHANNEL_ENTRY_Y, z - CROSS_RISE),  # west OUT of the lid's shadow, still low
         (CHANNEL_X, CROSS_Y, z),              # forward down the channel, rising onto the lane
-        (dx0 - CROSS_DODGE_RAMP, CROSS_Y, z),  # east along that lane, to the drain's column
-        (dx0, CROSS_DODGE_Y, z),               # aft into the lid's notched corner, round the fall
+        (dx0 - CROSS_DODGE_RAMP, CROSS_Y, z),  # east along that lane, to the dodge
+        (dx0, CROSS_DODGE_Y, z),               # aft into the lid's notched corner, onto the lid
         (dx1, CROSS_DODGE_Y, z),               # through the side post's own grip
         (CROSS_LIFT_X, CROSS_Y, z),            # and back onto the lane
         (dst[0], CROSS_APPROACH_Y, dst[2]),  # one lean off the core, onto V-K's column and plane
         "vk-solenoid.inlet",
         kind="water", lead=(None, _ml.STUB),
         note="tap water: split branch → V-K inlet, down into the west channel, across the window "
-             "under the funnel's union — stepping aft round the drain's fall — and up V-K's own "
+             "under the funnel's drain union — stepping aft onto the lid's side post — and up V-K's own "
              "column into the mouth")
 
 

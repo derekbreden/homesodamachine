@@ -6,8 +6,8 @@ screw, and the band's free tail run out through that housing. Turning the screw
 draws the tail through and closes the band; the housing stands well off the
 circle and stays where it is.
 
-One closes the funnel's silicone spout onto its drain stub — see
-`hardware/reference/funnel-drain-stub/`.
+One closes the backflow-vent telltale's clear PVC stub onto the ASSE 1022's vent barb — see
+`hardware/assembly/internal-plumbing.md`.
 
 Coordinate convention:
   Z = the clamped axis, the tube running through the band. The band is centred

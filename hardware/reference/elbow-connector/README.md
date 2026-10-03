@@ -1,25 +1,21 @@
 # Elbow connector — reference fitting (stand-in)
 
-The production fitting is the **John Guest PP0308E** 1/4" union elbow, black PP.
-
-**Where the PP0308E stands in the machine:** under the funnel frame's drain
-hole, as the drain's disconnect. The assembly places the scanned
-[PP0308E reference](/hardware/reference/jg-pp0308e-elbow/README.md) there through
-[`manifold-layout/enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py)
-`build_drain_joint`; this McMaster STEP is not placed.
-
 `elbow-connector.step` is **McMaster 51055K136**, a 1/4" push-to-connect
-drinking-water elbow — simply a STEP that happened to be available, used as a
-close-but-not-exact geometric stand-in for layout, exactly as
-[`../tee-connector/`](/hardware/reference/tee-connector/README.md) stands in for
-the PP0208E tee. The design iterates toward the **installed characteristics of
-the PP0308E**, not this file; swap in measured PP0308E geometry as parts come in
-hand.
+drinking-water elbow: a vendor STEP close to, but not the same as, the
+**John Guest PP0308E** 1/4" union elbow, black PP. It is a reference only;
+nothing in the machine places it.
+
+The machine's PP0308E is the scanned
+[PP0308E reference](/hardware/reference/jg-pp0308e-elbow/README.md).
+[`manifold-layout/enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py)
+`build_drain_joint` places it under the funnel frame's drain hole as the drain's
+disconnect. The funnel's drain stub takes its insertion, `UNION_INSERTION` =
+15.7 mm, from John Guest's data sheet for the 1/4" PP range
+([`funnel_drain_stub.py`](/hardware/reference/funnel-drain-stub/funnel_drain_stub.py)).
 
 ## Geometry (measured from the STEP)
 
-The McMaster stand-in's figures — close to the PP0308E, not identical; reconcile
-against a measured production elbow once one is in hand.
+The McMaster part's figures, not the PP0308E's.
 
 Two 1/4" ports whose axes meet at 90°. In the file's own frame the two leg axes
 cross at the **origin** (the bend corner): one leg runs along **+Y**, the other
@@ -36,4 +32,4 @@ corner (the back of the bend) sits at **Y = Z = −7.37**, and the body is
 
 Accepts 1/4" (6.35 mm) OD tube; the 1/4" bore radius is 3.175 mm, the collet
 outer radius 7.366 mm. A tube pushed into either leg runs **15.75 mm** before it
-bottoms on the socket's own stop, which is what the funnel's drain stub is cut to.
+bottoms on the socket's own stop.

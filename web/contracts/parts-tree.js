@@ -168,6 +168,7 @@ export const TOOLING = [
   "printed-parts/calibration",
   "printed-parts/cold-core/coil-mandrel",
   "printed-parts/zone-c/funnel-mold",
+  "printed-parts/zone-c/funnel/cradle-trial",
 ];
 
 // --- reading a file list into the tree ---------------------------------------

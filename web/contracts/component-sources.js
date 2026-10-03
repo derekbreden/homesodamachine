@@ -70,8 +70,9 @@ export const ALIASES = {
   "flow-regulator": "reference/neofit-flow-control/neofit-flow-control.step",
   "gasher-co2": "reference/gasher-check-valve/gasher-check-valve.step",
   "ground-stack": "reference/ground-ring-stack/ground-ring-stack.step",
-  "funnel-drain-clamp": "reference/worm-clamp/worm-clamp.step",
-  "funnel-drain-union": "reference/jg-pp0408w/jg-pp0408w.step",
+  // Two files carry the `funnel` stem — the part, and the mould's casting of it.
+  "funnel": "printed-parts/zone-c/funnel/funnel.step",
+  "funnel-drain-union": "reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step",
   "moisture-plate": "reference/shutao-moisture-plate/shutao-moisture-plate.step",
   "above_counter_gasket": "printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
   "above_counter_plate": "printed-parts/faucet/above-counter-plate/above-counter-plate.step",

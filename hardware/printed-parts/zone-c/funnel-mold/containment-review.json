@@ -9,64 +9,64 @@
     7.5
   ],
   "sha256": {
-    "cavity.step": "2763f10666cf979eedde03fae79043dfc3e62a0206e4a16d820bbd752080152d",
-    "cavity.stl": "0e29e09aac257792cbe007f299e83be202b406aa06188a8a066419d4a4bd0e15",
-    "core.step": "0725d8b7f15585da5bb977aa3160fdec218f7195676667d1d66347a6bcc0f630",
-    "core.stl": "dabb5b3bc5a794bf5d1ee470e5581dd638430a55be79f16c9709e16feeb0d898",
+    "cavity.step": "13a44cd7c752a37fac64cba3602f4fe602444f301c0ab40435d36645ab7b3e33",
+    "cavity.stl": "fb23da6b0a03fc84ac662ffacd62545f7c49a9367e25a92debbedfde392bdf3e",
+    "core.step": "b838402476de7ce96e751a315ee14cfcda3f1cb3fdb2f4ed0a1648fb132d8954",
+    "core.stl": "6d42ae63a6c063132a09153745ba226bd806843f9f31d18a5f3bdd397608f592",
     "rod.step": "683c61357b376fea791e43406c329903e87463697ccb2566609428b495087a55",
-    "funnel.step": "0c6792972198e4e99ffb53c97411922f0b3727c1553924b0feac06dd407d1bca",
-    "assembly.step": "dee76afa1f323a706c7a840818c2866fe34435241ef2832bba130510b3594496",
-    "design.json": "99063366e11b3c26aaabb4c3577aabb8bfd62fc47c072c58564c9ba70c0634f5"
+    "funnel.step": "8d14620828e5e6953d6f79856d9778a8fb93ca3888bf1683a38bb67ee4e3f41c",
+    "assembly.step": "02661812a0582ee2778ac25c09ea6b7c9574f596f14bc0eb81a5b782a7cdbfff",
+    "design.json": "97f60d11575eac2d35256322109a8da47410f6eb58f27cb22a26cd7537aba6a7"
   },
   "readings": {
     "cavity_step": {
       "contained": true,
       "regions": 2,
       "region_volumes_ml": [
-        487.101975,
-        3002.346718
+        487.102085,
+        3002.346726
       ],
-      "retained_volume_ml": 487.101975,
+      "retained_volume_ml": 487.102085,
       "casting_outside_retained_mm3": 0.0
     },
     "assembled_step": {
       "contained": true,
       "regions": 2,
       "region_volumes_ml": [
-        196.361973,
-        3327.398126
+        196.362091,
+        3327.398134
       ],
-      "retained_volume_ml": 196.361973,
+      "retained_volume_ml": 196.362091,
       "casting_outside_retained_mm3": 0.0
     },
     "cavity_stl": {
       "contained": true,
       "positive_regions": 2,
       "boundary_volumes_ml": [
-        -1103.405288,
-        487.013502,
+        -1103.405333,
+        487.01348,
         4105.953814
       ],
       "negligible_boundaries": {
         "count": 0,
         "max_abs_volume_mm3": 0.0
       },
-      "retained_volume_ml": 487.013502,
+      "retained_volume_ml": 487.01348,
       "casting_outside_retained_mm3": 0.0
     },
     "assembled_stl": {
       "contained": true,
       "positive_regions": 2,
       "boundary_volumes_ml": [
-        -778.350968,
-        196.278758,
+        -778.351013,
+        196.278542,
         4105.953814
       ],
       "negligible_boundaries": {
-        "count": 243,
-        "max_abs_volume_mm3": 8.153404918812927e-10
+        "count": 258,
+        "max_abs_volume_mm3": 7.98373858993881e-10
       },
-      "retained_volume_ml": 196.278758,
+      "retained_volume_ml": 196.278542,
       "casting_outside_retained_mm3": 1e-06
     }
   },

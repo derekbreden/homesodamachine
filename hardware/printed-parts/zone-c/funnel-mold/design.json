@@ -27,11 +27,11 @@
     ]
   },
   "volume_ml": {
-    "cavity": 298.83483963716145,
-    "core": 281.5417888144587,
-    "funnel": 177.74686773104662,
+    "cavity": 298.83483178899917,
+    "core": 281.54178706106,
+    "funnel": 177.74686773104673,
     "rod": 1.6087962461345555,
-    "seal": 0.03542484628698541
+    "seal": 0.03542484628760569
   },
   "shell_thickness_mm": 5.0,
   "flange_thickness_mm": 5.0,
@@ -44,7 +44,7 @@
       "casting_outside_retained_mm3": 0.0
     },
     "assembled": {
-      "retained_volume_ml": 196.4377468064277,
+      "retained_volume_ml": 196.4377472621103,
       "casting_outside_retained_mm3": 0.0
     }
   },
