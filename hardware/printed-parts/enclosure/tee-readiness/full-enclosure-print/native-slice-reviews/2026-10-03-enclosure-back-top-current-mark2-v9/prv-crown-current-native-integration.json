@@ -1,0 +1,936 @@
+{
+  "pass": true,
+  "machine_step_sha256": "4f17ca4ad869ed62bdda46184ff3399f3f3a91eacdd7ec19e5db799ab05e58bc",
+  "machine_active_checks": 112,
+  "machine_active_checks_pass": true,
+  "machine_scorecard_sha256": "ef4283be1403e90905520a6cb755567d9288322a27e1caff848a96e434ee1041",
+  "native_cache_manifest_sha256": "4429532051768accccb6fac9e30a67685830f71ae9de23d2b19fe02404d4b1cc",
+  "production_step_sha256": "85e4e97f382142f2ed497abe36d6be493dda94ee4b672a9e0a706b684c0ef573",
+  "production_stl_sha256": "866cffceff2bd16e8f760b520ac5ca699904999238e3eedfe1f8ed4311a7672c",
+  "original_exact_cap_candidate_record": "prv-crown-native-candidate-review.json",
+  "original_exact_cap_candidate_record_sha256": "e42ea3575171b2ac97b77a3303a3baba8e88c20dc0006bf563b5a006a01f2c8d",
+  "native_current_body_count": 216,
+  "exact_native_neighbours_held": [
+    {
+      "name": "cold-core/foam-shell",
+      "bbox_distance_lower_bound_mm": 5.172751116333529e-12,
+      "added_stock_native_gap_mm": 1.0697739583065413e-07,
+      "added_stock_overlap_mm3": 0.0,
+      "complete_candidate_native_gap_mm": 0.0,
+      "cached_body_file": "cold-core__foam-shell.brep",
+      "cached_body_sha256": "a4f5fdd50129a2af35a7275842e85a32cf0d5629c71ccbadd61c26a39a27c5fc",
+      "current_body_sha256": "a4f5fdd50129a2af35a7275842e85a32cf0d5629c71ccbadd61c26a39a27c5fc",
+      "native_body_byte_exact_to_original_neighbour_test": true
+    },
+    {
+      "name": "cold-core/foam-cap-top",
+      "bbox_distance_lower_bound_mm": 18.80000020697483,
+      "added_stock_native_gap_mm": 18.800000206977415,
+      "added_stock_overlap_mm3": 0.0,
+      "complete_candidate_native_gap_mm": 0.0,
+      "cached_body_file": "cold-core__foam-cap-top.brep",
+      "cached_body_sha256": "86d8440dcc73f4983fad538d128f6ed30c6f8b0cf2d7075ec9a300e77c9a2420",
+      "current_body_sha256": "86d8440dcc73f4983fad538d128f6ed30c6f8b0cf2d7075ec9a300e77c9a2420",
+      "native_body_byte_exact_to_original_neighbour_test": true
+    },
+    {
+      "name": "cold-core/prv-sv125",
+      "bbox_distance_lower_bound_mm": 12.776000113954794,
+      "added_stock_native_gap_mm": 12.776000113954794,
+      "added_stock_overlap_mm3": 0.0,
+      "complete_candidate_native_gap_mm": 12.776000113950005,
+      "cached_body_file": "cold-core__prv-sv125.brep",
+      "cached_body_sha256": "e4ef2aa385e4930b9a435af7c717c6aa6a17de93e96e19fd198d49cd5c510b35",
+      "current_body_sha256": "e4ef2aa385e4930b9a435af7c717c6aa6a17de93e96e19fd198d49cd5c510b35",
+      "native_body_byte_exact_to_original_neighbour_test": true
+    },
+    {
+      "name": "cold-core/prv-shroud",
+      "bbox_distance_lower_bound_mm": 4.876000013954794,
+      "added_stock_native_gap_mm": 4.8760001139523865,
+      "added_stock_overlap_mm3": 0.0,
+      "complete_candidate_native_gap_mm": 4.876000113949999,
+      "cached_body_file": "cold-core__prv-shroud.brep",
+      "cached_body_sha256": "c890aa11ffcba5eaa4d5dc9d6576f7344cfe35f96963eb2a88110c43b1441631",
+      "current_body_sha256": "c890aa11ffcba5eaa4d5dc9d6576f7344cfe35f96963eb2a88110c43b1441631",
+      "native_body_byte_exact_to_original_neighbour_test": true
+    },
+    {
+      "name": "cold-core/line-prv-vent",
+      "bbox_distance_lower_bound_mm": 0.0,
+      "added_stock_native_gap_mm": 11.917079314381931,
+      "added_stock_overlap_mm3": 0.0,
+      "complete_candidate_native_gap_mm": 2.8249999999999886,
+      "cached_body_file": "cold-core__line-prv-vent.brep",
+      "cached_body_sha256": "53ada54b4175f9612a359a9bb35ea19164e342a936951807f8785d3f9d6c8c0a",
+      "current_body_sha256": "53ada54b4175f9612a359a9bb35ea19164e342a936951807f8785d3f9d6c8c0a",
+      "native_body_byte_exact_to_original_neighbour_test": true
+    },
+    {
+      "name": "cold-core/line-water-in",
+      "bbox_distance_lower_bound_mm": 9.825000013956839,
+      "added_stock_native_gap_mm": 37.10925695501145,
+      "added_stock_overlap_mm3": 0.0,
+      "complete_candidate_native_gap_mm": 17.82500000697999,
+      "cached_body_file": "cold-core__line-water-in.brep",
+      "cached_body_sha256": "883884e6fc1c516515930290608051704262461562f5a12f14c19d9fcc491ed5",
+      "current_body_sha256": "883884e6fc1c516515930290608051704262461562f5a12f14c19d9fcc491ed5",
+      "native_body_byte_exact_to_original_neighbour_test": true
+    },
+    {
+      "name": "tube-fluid-28",
+      "bbox_distance_lower_bound_mm": 17.689280747232072,
+      "added_stock_native_gap_mm": 54.162540849213606,
+      "added_stock_overlap_mm3": 0.0,
+      "complete_candidate_native_gap_mm": 0.14999999999277683,
+      "cached_body_file": "tube-fluid-28.brep",
+      "cached_body_sha256": "e80134662ef89c7a0ac4359f7b16600b54c4ac6f1ddcb6c685173df54bb9a499",
+      "current_body_sha256": "e80134662ef89c7a0ac4359f7b16600b54c4ac6f1ddcb6c685173df54bb9a499",
+      "native_body_byte_exact_to_original_neighbour_test": true
+    },
+    {
+      "name": "tube-fluid-18",
+      "bbox_distance_lower_bound_mm": 18.558993925891993,
+      "added_stock_native_gap_mm": 44.143495460717936,
+      "added_stock_overlap_mm3": 0.0,
+      "complete_candidate_native_gap_mm": 1.3079121115631875,
+      "cached_body_file": "tube-fluid-18.brep",
+      "cached_body_sha256": "1d6f191241740b7c6042b2e46d57d3d7347d165ab848645262488b7e04ac9490",
+      "current_body_sha256": "1d6f191241740b7c6042b2e46d57d3d7347d165ab848645262488b7e04ac9490",
+      "native_body_byte_exact_to_original_neighbour_test": true
+    }
+  ],
+  "all_other_current_native_bbox_readings": [
+    {
+      "name": "compressor",
+      "current_native_bbox_lower_bound_mm": 161.28347719900157
+    },
+    {
+      "name": "condenser+fan",
+      "current_native_bbox_lower_bound_mm": 206.51053251677342
+    },
+    {
+      "name": "mq6-sensor",
+      "current_native_bbox_lower_bound_mm": 305.76005304277396
+    },
+    {
+      "name": "thermal-fuse",
+      "current_native_bbox_lower_bound_mm": 332.8963991245053
+    },
+    {
+      "name": "fuse-clamp",
+      "current_native_bbox_lower_bound_mm": 323.9500502299468
+    },
+    {
+      "name": "valve-v-a",
+      "current_native_bbox_lower_bound_mm": 108.67306944825408
+    },
+    {
+      "name": "coil-v-a",
+      "current_native_bbox_lower_bound_mm": 123.79053491497541
+    },
+    {
+      "name": "tee-y-a",
+      "current_native_bbox_lower_bound_mm": 167.05755518848943
+    },
+    {
+      "name": "valve-v-c",
+      "current_native_bbox_lower_bound_mm": 167.76236204989647
+    },
+    {
+      "name": "coil-v-c",
+      "current_native_bbox_lower_bound_mm": 189.6595110205669
+    },
+    {
+      "name": "tee-y-c",
+      "current_native_bbox_lower_bound_mm": 226.5969552363383
+    },
+    {
+      "name": "valve-v-e",
+      "current_native_bbox_lower_bound_mm": 217.14973922915075
+    },
+    {
+      "name": "coil-v-e",
+      "current_native_bbox_lower_bound_mm": 189.74736682020952
+    },
+    {
+      "name": "valve-v-g",
+      "current_native_bbox_lower_bound_mm": 201.70747391103913
+    },
+    {
+      "name": "coil-v-g",
+      "current_native_bbox_lower_bound_mm": 220.25536322998477
+    },
+    {
+      "name": "tee-y-d",
+      "current_native_bbox_lower_bound_mm": 259.6458022675556
+    },
+    {
+      "name": "valve-v-f",
+      "current_native_bbox_lower_bound_mm": 249.41535990884094
+    },
+    {
+      "name": "coil-v-f",
+      "current_native_bbox_lower_bound_mm": 226.67356645663148
+    },
+    {
+      "name": "valve-v-b",
+      "current_native_bbox_lower_bound_mm": 69.59795688848003
+    },
+    {
+      "name": "coil-v-b",
+      "current_native_bbox_lower_bound_mm": 91.42284246599104
+    },
+    {
+      "name": "tee-y-b",
+      "current_native_bbox_lower_bound_mm": 152.66298418086924
+    },
+    {
+      "name": "valve-v-d",
+      "current_native_bbox_lower_bound_mm": 146.80245267364234
+    },
+    {
+      "name": "coil-v-d",
+      "current_native_bbox_lower_bound_mm": 171.39860008470606
+    },
+    {
+      "name": "tee-y-f",
+      "current_native_bbox_lower_bound_mm": 209.74515515933987
+    },
+    {
+      "name": "valve-v-h",
+      "current_native_bbox_lower_bound_mm": 201.39701891399642
+    },
+    {
+      "name": "coil-v-h",
+      "current_native_bbox_lower_bound_mm": 171.49581104400076
+    },
+    {
+      "name": "valve-v-j",
+      "current_native_bbox_lower_bound_mm": 137.50999999999996
+    },
+    {
+      "name": "coil-v-j",
+      "current_native_bbox_lower_bound_mm": 163.50999999999996
+    },
+    {
+      "name": "tee-y-g",
+      "current_native_bbox_lower_bound_mm": 201.01005596743678
+    },
+    {
+      "name": "valve-v-i",
+      "current_native_bbox_lower_bound_mm": 194.72749992004884
+    },
+    {
+      "name": "coil-v-i",
+      "current_native_bbox_lower_bound_mm": 164.59551390249032
+    },
+    {
+      "name": "pump-a-head",
+      "current_native_bbox_lower_bound_mm": 263.5425258184873
+    },
+    {
+      "name": "pump-a-boss",
+      "current_native_bbox_lower_bound_mm": 269.7624447673955
+    },
+    {
+      "name": "pump-a-motor",
+      "current_native_bbox_lower_bound_mm": 282.0929685107775
+    },
+    {
+      "name": "pump-b-head",
+      "current_native_bbox_lower_bound_mm": 238.9326838532791
+    },
+    {
+      "name": "pump-b-boss",
+      "current_native_bbox_lower_bound_mm": 243.72561741543518
+    },
+    {
+      "name": "pump-b-motor",
+      "current_native_bbox_lower_bound_mm": 253.77744454713752
+    },
+    {
+      "name": "tube-fluid-10",
+      "current_native_bbox_lower_bound_mm": 232.69016178298867
+    },
+    {
+      "name": "tube-fluid-11",
+      "current_native_bbox_lower_bound_mm": 246.52507935190874
+    },
+    {
+      "name": "tube-fluid-12",
+      "current_native_bbox_lower_bound_mm": 278.29990974171795
+    },
+    {
+      "name": "tube-fluid-13",
+      "current_native_bbox_lower_bound_mm": 265.75595515684785
+    },
+    {
+      "name": "tube-fluid-20",
+      "current_native_bbox_lower_bound_mm": 215.0736424407226
+    },
+    {
+      "name": "tube-fluid-21",
+      "current_native_bbox_lower_bound_mm": 230.1472566421363
+    },
+    {
+      "name": "tube-fluid-22",
+      "current_native_bbox_lower_bound_mm": 220.84680148717993
+    },
+    {
+      "name": "tube-fluid-23",
+      "current_native_bbox_lower_bound_mm": 206.0922518818585
+    },
+    {
+      "name": "tube-fluid-9",
+      "current_native_bbox_lower_bound_mm": 186.82155343409897
+    },
+    {
+      "name": "tube-fluid-17",
+      "current_native_bbox_lower_bound_mm": 220.07110194088838
+    },
+    {
+      "name": "tube-fluid-19",
+      "current_native_bbox_lower_bound_mm": 164.60691913436187
+    },
+    {
+      "name": "tube-fluid-27",
+      "current_native_bbox_lower_bound_mm": 149.9695951687303
+    },
+    {
+      "name": "turn-fluid-3",
+      "current_native_bbox_lower_bound_mm": 180.1283011128888
+    },
+    {
+      "name": "turn-fluid-5",
+      "current_native_bbox_lower_bound_mm": 156.96926406526848
+    },
+    {
+      "name": "step-fluid-3",
+      "current_native_bbox_lower_bound_mm": 147.62891604344117
+    },
+    {
+      "name": "step-fluid-5",
+      "current_native_bbox_lower_bound_mm": 118.26851594795987
+    },
+    {
+      "name": "cold-core/foam-cap-lid-top",
+      "current_native_bbox_lower_bound_mm": 33.40000020697482
+    },
+    {
+      "name": "cold-core/foam-cap-bottom",
+      "current_native_bbox_lower_bound_mm": 186.60000009999996
+    },
+    {
+      "name": "cold-core/foam-cap-lid-bottom",
+      "current_native_bbox_lower_bound_mm": 201.20000009999995
+    },
+    {
+      "name": "cold-core/carbonator-tube",
+      "current_native_bbox_lower_bound_mm": 27.08948146704324
+    },
+    {
+      "name": "cold-core/endcap-bottom",
+      "current_native_bbox_lower_bound_mm": 144.78875401963538
+    },
+    {
+      "name": "cold-core/endcap-top",
+      "current_native_bbox_lower_bound_mm": 30.021255645933323
+    },
+    {
+      "name": "cold-core/float-rod-carb",
+      "current_native_bbox_lower_bound_mm": 98.43409804921816
+    },
+    {
+      "name": "cold-core/carbonator-elbow-co2-in",
+      "current_native_bbox_lower_bound_mm": 174.32351962775257
+    },
+    {
+      "name": "cold-core/carbonator-elbow-carb-water-out",
+      "current_native_bbox_lower_bound_mm": 155.23345962364266
+    },
+    {
+      "name": "cold-core/carbonator-elbow-water-in",
+      "current_native_bbox_lower_bound_mm": 87.44443022145144
+    },
+    {
+      "name": "cold-core/carbonator-elbow-prv",
+      "current_native_bbox_lower_bound_mm": 50.876000113954795
+    },
+    {
+      "name": "cold-core/reservoir-a",
+      "current_native_bbox_lower_bound_mm": 47.790377421813005
+    },
+    {
+      "name": "cold-core/reservoir-a-cap",
+      "current_native_bbox_lower_bound_mm": 48.38308253650913
+    },
+    {
+      "name": "cold-core/reservoir-b",
+      "current_native_bbox_lower_bound_mm": 47.790377421812906
+    },
+    {
+      "name": "cold-core/reservoir-b-cap",
+      "current_native_bbox_lower_bound_mm": 48.38308253650902
+    },
+    {
+      "name": "cold-core/copper-plug-west",
+      "current_native_bbox_lower_bound_mm": 128.34351610804927
+    },
+    {
+      "name": "cold-core/copper-plug-port",
+      "current_native_bbox_lower_bound_mm": 207.81315685562706
+    },
+    {
+      "name": "cold-core/evap-coil",
+      "current_native_bbox_lower_bound_mm": 26.76414962546287
+    },
+    {
+      "name": "cold-core/evap-tail-inlet",
+      "current_native_bbox_lower_bound_mm": 200.1305406237892
+    },
+    {
+      "name": "cold-core/evap-tail-outlet",
+      "current_native_bbox_lower_bound_mm": 32.07245867860815
+    },
+    {
+      "name": "cold-core/water-inlet-jet-cap-nominal",
+      "current_native_bbox_lower_bound_mm": 105.8899605245175
+    },
+    {
+      "name": "cold-core/collet-co2-in",
+      "current_native_bbox_lower_bound_mm": 195.40635672815728
+    },
+    {
+      "name": "cold-core/collet-carb-water-out",
+      "current_native_bbox_lower_bound_mm": 173.69318457124083
+    },
+    {
+      "name": "cold-core/collet-water-in",
+      "current_native_bbox_lower_bound_mm": 71.35371791825338
+    },
+    {
+      "name": "cold-core/bulkhead-reservoir-a",
+      "current_native_bbox_lower_bound_mm": 187.79397837628747
+    },
+    {
+      "name": "cold-core/bulkhead-reservoir-b",
+      "current_native_bbox_lower_bound_mm": 185.73254507047466
+    },
+    {
+      "name": "cold-core/float-carb",
+      "current_native_bbox_lower_bound_mm": 96.51914482854835
+    },
+    {
+      "name": "cold-core/reed-carb-1",
+      "current_native_bbox_lower_bound_mm": 131.95986828228115
+    },
+    {
+      "name": "cold-core/reed-carb-2",
+      "current_native_bbox_lower_bound_mm": 116.9458636307416
+    },
+    {
+      "name": "cold-core/float-rod-a",
+      "current_native_bbox_lower_bound_mm": 118.45757289155037
+    },
+    {
+      "name": "cold-core/float-a",
+      "current_native_bbox_lower_bound_mm": 113.98650143778535
+    },
+    {
+      "name": "cold-core/reed-a-1",
+      "current_native_bbox_lower_bound_mm": 183.21308635829996
+    },
+    {
+      "name": "cold-core/reed-a-2",
+      "current_native_bbox_lower_bound_mm": 156.8535463830317
+    },
+    {
+      "name": "cold-core/reed-a-3",
+      "current_native_bbox_lower_bound_mm": 140.31762189024542
+    },
+    {
+      "name": "cold-core/reed-a-4",
+      "current_native_bbox_lower_bound_mm": 136.59657760329827
+    },
+    {
+      "name": "cold-core/float-rod-b",
+      "current_native_bbox_lower_bound_mm": 118.45757289155024
+    },
+    {
+      "name": "cold-core/float-b",
+      "current_native_bbox_lower_bound_mm": 113.98650143779311
+    },
+    {
+      "name": "cold-core/reed-b-1",
+      "current_native_bbox_lower_bound_mm": 183.21308635829988
+    },
+    {
+      "name": "cold-core/reed-b-2",
+      "current_native_bbox_lower_bound_mm": 156.8535463830316
+    },
+    {
+      "name": "cold-core/reed-b-3",
+      "current_native_bbox_lower_bound_mm": 140.3176218902453
+    },
+    {
+      "name": "cold-core/reed-b-4",
+      "current_native_bbox_lower_bound_mm": 136.59657760329816
+    },
+    {
+      "name": "cold-core/bulkhead-seal-a",
+      "current_native_bbox_lower_bound_mm": 192.46343163803894
+    },
+    {
+      "name": "cold-core/vent-membrane-a",
+      "current_native_bbox_lower_bound_mm": 142.48557832261733
+    },
+    {
+      "name": "cold-core/bulkhead-seal-b",
+      "current_native_bbox_lower_bound_mm": 192.46343163803888
+    },
+    {
+      "name": "cold-core/vent-membrane-b",
+      "current_native_bbox_lower_bound_mm": 142.48557832261727
+    },
+    {
+      "name": "cold-core/probe-carbonator-ds18b20",
+      "current_native_bbox_lower_bound_mm": 126.2367506940182
+    },
+    {
+      "name": "cold-core/probe-coil-ds18s20",
+      "current_native_bbox_lower_bound_mm": 55.25964822408593
+    },
+    {
+      "name": "cold-core/reed-bridge",
+      "current_native_bbox_lower_bound_mm": 91.15664309886392
+    },
+    {
+      "name": "cold-core/line-carb-water-out",
+      "current_native_bbox_lower_bound_mm": 69.24906571864231
+    },
+    {
+      "name": "cold-core/line-co2-in",
+      "current_native_bbox_lower_bound_mm": 119.99124695293096
+    },
+    {
+      "name": "cold-core/line-reservoir-a",
+      "current_native_bbox_lower_bound_mm": 105.21274310411565
+    },
+    {
+      "name": "cold-core/line-reservoir-a-fill",
+      "current_native_bbox_lower_bound_mm": 171.68863907368575
+    },
+    {
+      "name": "cold-core/line-reservoir-b",
+      "current_native_bbox_lower_bound_mm": 93.34351200632103
+    },
+    {
+      "name": "cold-core/line-reservoir-b-fill",
+      "current_native_bbox_lower_bound_mm": 91.64899761566896
+    },
+    {
+      "name": "g-ganen-pump",
+      "current_native_bbox_lower_bound_mm": 59.47139845395843
+    },
+    {
+      "name": "suction-chain",
+      "current_native_bbox_lower_bound_mm": 153.7813465383249
+    },
+    {
+      "name": "psu",
+      "current_native_bbox_lower_bound_mm": 161.66942362041414
+    },
+    {
+      "name": "relay-2",
+      "current_native_bbox_lower_bound_mm": 174.127833894697
+    },
+    {
+      "name": "pcba",
+      "current_native_bbox_lower_bound_mm": 172.08126022972388
+    },
+    {
+      "name": "c14-inlet",
+      "current_native_bbox_lower_bound_mm": 201.18195445318878
+    },
+    {
+      "name": "wago-h",
+      "current_native_bbox_lower_bound_mm": 203.33839440477362
+    },
+    {
+      "name": "wago-n",
+      "current_native_bbox_lower_bound_mm": 205.8904809337024
+    },
+    {
+      "name": "wago-g",
+      "current_native_bbox_lower_bound_mm": 209.674515950583
+    },
+    {
+      "name": "wago-v12",
+      "current_native_bbox_lower_bound_mm": 214.62534831447863
+    },
+    {
+      "name": "wago-gnd",
+      "current_native_bbox_lower_bound_mm": 220.66445712690407
+    },
+    {
+      "name": "relay-1",
+      "current_native_bbox_lower_bound_mm": 204.53330422674347
+    },
+    {
+      "name": "ground-stack",
+      "current_native_bbox_lower_bound_mm": 208.86912777866922
+    },
+    {
+      "name": "wago-mana",
+      "current_native_bbox_lower_bound_mm": 229.75976592630258
+    },
+    {
+      "name": "wago-manb",
+      "current_native_bbox_lower_bound_mm": 226.79611997997117
+    },
+    {
+      "name": "wago-reeds-b",
+      "current_native_bbox_lower_bound_mm": 40.73831121395389
+    },
+    {
+      "name": "wago-reeds-a",
+      "current_native_bbox_lower_bound_mm": 40.400000006974835
+    },
+    {
+      "name": "wago-sensors",
+      "current_native_bbox_lower_bound_mm": 40.400000006974835
+    },
+    {
+      "name": "vk-solenoid",
+      "current_native_bbox_lower_bound_mm": 154.69916916620667
+    },
+    {
+      "name": "keystone-jack",
+      "current_native_bbox_lower_bound_mm": 140.31733843677029
+    },
+    {
+      "name": "co2-inlet",
+      "current_native_bbox_lower_bound_mm": 182.08276983376797
+    },
+    {
+      "name": "wr1110",
+      "current_native_bbox_lower_bound_mm": 138.3254571071149
+    },
+    {
+      "name": "gasher-co2",
+      "current_native_bbox_lower_bound_mm": 165.57646754777662
+    },
+    {
+      "name": "co2-adapter-regulator-in",
+      "current_native_bbox_lower_bound_mm": 155.40630626829227
+    },
+    {
+      "name": "co2-adapter-regulator-out",
+      "current_native_bbox_lower_bound_mm": 141.75932426922543
+    },
+    {
+      "name": "co2-adapter-check-in",
+      "current_native_bbox_lower_bound_mm": 166.22434328054496
+    },
+    {
+      "name": "co2-adapter-check-out",
+      "current_native_bbox_lower_bound_mm": 167.14733546105242
+    },
+    {
+      "name": "asse1022-assembly",
+      "current_native_bbox_lower_bound_mm": 92.61058084452486
+    },
+    {
+      "name": "asse-drip-pan",
+      "current_native_bbox_lower_bound_mm": 79.47025698072079
+    },
+    {
+      "name": "moisture-plate",
+      "current_native_bbox_lower_bound_mm": 88.823904842559
+    },
+    {
+      "name": "water-split",
+      "current_native_bbox_lower_bound_mm": 76.05914794628292
+    },
+    {
+      "name": "flow-regulator",
+      "current_native_bbox_lower_bound_mm": 69.08045382560317
+    },
+    {
+      "name": "discharge-chain",
+      "current_native_bbox_lower_bound_mm": 50.00210010117365
+    },
+    {
+      "name": "bulkhead-water",
+      "current_native_bbox_lower_bound_mm": 158.3373755480709
+    },
+    {
+      "name": "bulkhead-flavor-b",
+      "current_native_bbox_lower_bound_mm": 121.57075365980303
+    },
+    {
+      "name": "bulkhead-flavor-a",
+      "current_native_bbox_lower_bound_mm": 128.37770738732686
+    },
+    {
+      "name": "bulkhead-carb",
+      "current_native_bbox_lower_bound_mm": 163.62185704869765
+    },
+    {
+      "name": "digiten-flow",
+      "current_native_bbox_lower_bound_mm": 119.46633714223215
+    },
+    {
+      "name": "bulkhead-ring-water",
+      "current_native_bbox_lower_bound_mm": 171.079416369501
+    },
+    {
+      "name": "bulkhead-ring-water-word",
+      "current_native_bbox_lower_bound_mm": 192.35831633147475
+    },
+    {
+      "name": "bulkhead-ring-carb",
+      "current_native_bbox_lower_bound_mm": 174.46630278023977
+    },
+    {
+      "name": "bulkhead-ring-carb-word",
+      "current_native_bbox_lower_bound_mm": 197.02466784546488
+    },
+    {
+      "name": "bulkhead-ring-flavor-a",
+      "current_native_bbox_lower_bound_mm": 145.23961320578982
+    },
+    {
+      "name": "bulkhead-ring-flavor-a-word",
+      "current_native_bbox_lower_bound_mm": 158.05125766366274
+    },
+    {
+      "name": "bulkhead-ring-flavor-b",
+      "current_native_bbox_lower_bound_mm": 141.15318325737547
+    },
+    {
+      "name": "bulkhead-ring-flavor-b-word",
+      "current_native_bbox_lower_bound_mm": 152.98043613269334
+    },
+    {
+      "name": "bulkhead-ring-co2",
+      "current_native_bbox_lower_bound_mm": 186.88584268686728
+    },
+    {
+      "name": "bulkhead-ring-co2-word",
+      "current_native_bbox_lower_bound_mm": 210.52871143586083
+    },
+    {
+      "name": "tube-customer-water",
+      "current_native_bbox_lower_bound_mm": 189.78050963405093
+    },
+    {
+      "name": "tube-collar-water",
+      "current_native_bbox_lower_bound_mm": 194.27596678976565
+    },
+    {
+      "name": "tube-collar-water-word",
+      "current_native_bbox_lower_bound_mm": 205.5163822908498
+    },
+    {
+      "name": "tube-customer-co2",
+      "current_native_bbox_lower_bound_mm": 214.88076936935295
+    },
+    {
+      "name": "tube-collar-co2",
+      "current_native_bbox_lower_bound_mm": 218.09398194888567
+    },
+    {
+      "name": "tube-collar-co2-word",
+      "current_native_bbox_lower_bound_mm": 228.30510628755616
+    },
+    {
+      "name": "nameplate",
+      "current_native_bbox_lower_bound_mm": 159.78041667761315
+    },
+    {
+      "name": "nameplate-ink",
+      "current_native_bbox_lower_bound_mm": 167.32681650776757
+    },
+    {
+      "name": "tube-refrig-3",
+      "current_native_bbox_lower_bound_mm": 195.26131369270556
+    },
+    {
+      "name": "tube-refrig-1",
+      "current_native_bbox_lower_bound_mm": 276.28107300772575
+    },
+    {
+      "name": "tube-refrig-2",
+      "current_native_bbox_lower_bound_mm": 260.3239916474411
+    },
+    {
+      "name": "tube-water-7",
+      "current_native_bbox_lower_bound_mm": 137.68697847067503
+    },
+    {
+      "name": "tube-water-6",
+      "current_native_bbox_lower_bound_mm": 51.14103064025554
+    },
+    {
+      "name": "tube-water-5",
+      "current_native_bbox_lower_bound_mm": 98.96474439945752
+    },
+    {
+      "name": "tube-water-2",
+      "current_native_bbox_lower_bound_mm": 76.6849912740562
+    },
+    {
+      "name": "tube-fluid-1",
+      "current_native_bbox_lower_bound_mm": 77.26005029415963
+    },
+    {
+      "name": "tube-water-3",
+      "current_native_bbox_lower_bound_mm": 78.57097974624725
+    },
+    {
+      "name": "tube-co2-0",
+      "current_native_bbox_lower_bound_mm": 169.4187032488593
+    },
+    {
+      "name": "tube-co2-1",
+      "current_native_bbox_lower_bound_mm": 148.41624629320418
+    },
+    {
+      "name": "tube-co2-2",
+      "current_native_bbox_lower_bound_mm": 131.62367059237772
+    },
+    {
+      "name": "tube-fluid-2",
+      "current_native_bbox_lower_bound_mm": 45.49561803782857
+    },
+    {
+      "name": "tube-carb-1",
+      "current_native_bbox_lower_bound_mm": 60.54714279485126
+    },
+    {
+      "name": "tube-carb-2",
+      "current_native_bbox_lower_bound_mm": 153.7679255546404
+    },
+    {
+      "name": "tube-fluid-24",
+      "current_native_bbox_lower_bound_mm": 87.56452625563689
+    },
+    {
+      "name": "tube-fluid-26",
+      "current_native_bbox_lower_bound_mm": 135.96873256370208
+    },
+    {
+      "name": "tube-fluid-14",
+      "current_native_bbox_lower_bound_mm": 137.65625898224187
+    },
+    {
+      "name": "tube-fluid-16",
+      "current_native_bbox_lower_bound_mm": 169.10195528664403
+    },
+    {
+      "name": "funnel",
+      "current_native_bbox_lower_bound_mm": 124.45439332488566
+    },
+    {
+      "name": "funnel-frame",
+      "current_native_bbox_lower_bound_mm": 116.33676770411778
+    },
+    {
+      "name": "elbow-cradle",
+      "current_native_bbox_lower_bound_mm": 159.04229032731314
+    },
+    {
+      "name": "funnel-drain-union",
+      "current_native_bbox_lower_bound_mm": 165.0137332198385
+    },
+    {
+      "name": "funnel-drain-stub",
+      "current_native_bbox_lower_bound_mm": 185.9511306187109
+    },
+    {
+      "name": "tube-fluid-4",
+      "current_native_bbox_lower_bound_mm": 62.29409736737598
+    },
+    {
+      "name": "display",
+      "current_native_bbox_lower_bound_mm": 241.3975658669406
+    },
+    {
+      "name": "display-cover",
+      "current_native_bbox_lower_bound_mm": 247.35285194487986
+    },
+    {
+      "name": "display-gasket",
+      "current_native_bbox_lower_bound_mm": 250.63675262663068
+    },
+    {
+      "name": "pump-contact-male",
+      "current_native_bbox_lower_bound_mm": 250.68938555732237
+    },
+    {
+      "name": "pump-contact-female",
+      "current_native_bbox_lower_bound_mm": 255.9665481407831
+    },
+    {
+      "name": "enclosure-front-bottom",
+      "current_native_bbox_lower_bound_mm": 107.080822213457
+    },
+    {
+      "name": "enclosure-front-top",
+      "current_native_bbox_lower_bound_mm": 102.24999989999989
+    },
+    {
+      "name": "enclosure-back-bottom",
+      "current_native_bbox_lower_bound_mm": 31.80000009999995
+    },
+    {
+      "name": "enclosure-pump-cartridge",
+      "current_native_bbox_lower_bound_mm": 235.53099999999995
+    },
+    {
+      "name": "enclosure-pump-cap",
+      "current_native_bbox_lower_bound_mm": 235.5652419431464
+    },
+    {
+      "name": "grip-cover-west",
+      "current_native_bbox_lower_bound_mm": 187.00230623048472
+    },
+    {
+      "name": "grip-cover-east",
+      "current_native_bbox_lower_bound_mm": 262.45206243220645
+    },
+    {
+      "name": "enclosure-tee-carrier-plate",
+      "current_native_bbox_lower_bound_mm": 197.75999989999997
+    },
+    {
+      "name": "enclosure-window-cover-west",
+      "current_native_bbox_lower_bound_mm": 161.61399999999995
+    },
+    {
+      "name": "enclosure-window-cover-east",
+      "current_native_bbox_lower_bound_mm": 244.1476705503306
+    },
+    {
+      "name": "tee-carrier-spring-west-lower",
+      "current_native_bbox_lower_bound_mm": 206.520479524857
+    },
+    {
+      "name": "tee-carrier-spring-west-upper",
+      "current_native_bbox_lower_bound_mm": 204.7238292648262
+    },
+    {
+      "name": "tee-carrier-spring-east-lower",
+      "current_native_bbox_lower_bound_mm": 276.8314030830251
+    },
+    {
+      "name": "tee-carrier-spring-east-upper",
+      "current_native_bbox_lower_bound_mm": 275.49367241117017
+    }
+  ],
+  "all_other_native_bodies_tested": 215,
+  "cap_added_stock_clash_count": 0,
+  "scope": "The production cap is CSG-identical to the exact candidate. Every nearby body in the final placed machine is byte-identical to its exact original added-stock test; all remaining native bodies retain independently recomputed >20mm bbox lower bounds. No stale rigid-body pose or unrebuilt run is used."
+}

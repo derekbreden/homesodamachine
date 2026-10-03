@@ -861,7 +861,18 @@ sliding face out past the exterior plane, so each of the four stands on the outs
 with a face exposed down the whole run. Front-bottom's pair is printed and pulled — the easiest
 support on the piece, off cleanly in one piece, reachable without going near the cavity.
 
-Back-top prints on its ceiling, so what a support reaches there is the set of faces that look print-down and cannot carry themselves: the drip pan slot's lower bearing face, the nameplate pocket's lower rim and its catch pockets' floors, the C14's aperture and flange-pocket floors, the keystone pocket's floor, the tap-water ribs' tie-band flanks and crown strips over their tie bands, the Z-seam feet's broad flat caught faces, the ASSE anchor's two round seats and its tie cavity's lower threshold, and the identification-chip pockets' lower arcs on the rear face. The current slice reaches 35 interface islands with 14 bodies: four rooted on the bed and ten rooted on the printed piece. The slot-floor interface runs straight through the 9 mm wall and is exposed at both ends before the pan is inserted. The shortest build-up is 1.44 mm beneath an anchor crown. Each body's contacts, root and build-up, and the slice's settings and hashes, are in `enclosure-back-top.support-audit.json`.
+Back-top prints on its ceiling, so its supports reach separate functional faces:
+the drip-pan slot's bearing face, nameplate receiver rims and catch pockets,
+C14 and keystone pockets, tie-band and anchor ceilings, Z-seam feet, rear port
+lips, and the PRV chase crown and mouth. The
+[current native review](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-back-top-current-mark2-v9/README.md)
+records 13 support bodies and 34 labelled contact regions: three bed-rooted and
+ten model-rooted. Six short local bodies have 1.68 mm build-up. The slot-floor
+interface runs through the 9 mm wall and stays exposed at both ends before the
+pan is inserted. Each actual body and contact has a removal route through the
+empty shell; release contacts and break sacrificial branches before installing
+hardware. Native access and protected-face sweeps establish geometric lanes;
+physical cleanup effort and finish remain observations of the print.
 Back-bottom's two slide-head bodies carry the broad flat undersides: the west run from the bed through the PRV passage and the east from the arm's under-flare 8.60 mm below.
 
 ## Print orientation + corner relief
@@ -1046,9 +1057,10 @@ becomes the closed fall, the roof rises inward across the exact
 [3 mm](VENT_GROOVE_ROOF) show-skin section at 45°. The closed passage's roof is one X plane
 from its liner inside the flank through the wall and out to the cold-core lip, and the lip
 keeps [3.05 mm](VENT_RIB_LAND) of solid land below the square mouth. Back-top's share of the rib
-stands square on the seam rim, which looks print-up on that piece, and its crown — the one face
-of it that looks print-down — is carried by a 45° wedge from the lip back over the
-[8 mm](VENT_RIB_BASE) to the grown flank. The mouth's floor is a `vent_channel_w` bridge
+stands square on the seam rim, which looks print-up on that piece. Its exterior crown is flat
+at the lip's height across the [8 mm](VENT_RIB_BASE) to the grown flank, with the complete
+first printed section carried by removable tree support. The inner passage roof keeps its
+45° plane. The mouth's floor is a `vent_channel_w` bridge
 between the passage's two jambs. The exterior groove edge, the square passage and the back
 slide's opening remain on their own datums.
 

@@ -1,0 +1,698 @@
+[
+  {
+    "z_mm": 21.32,
+    "native_component_area_mm2": 2629.5974129502647,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 6.106154192520532,
+    "witness_plate_xy_mm": [
+      161.54338083113655,
+      256.76310659532305
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 6.106154192520532,
+    "nearest_model_road": [
+      151.398,
+      263.492,
+      177.157,
+      262.457,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      0.90571,
+      0.24,
+      795376
+    ],
+    "resolved_by_model_fill": false,
+    "native_surface_group": "ground_stack_mounting_annulus",
+    "functional_feature": "Ground-stack D-shaped M3 insert annulus on the east flank, rooted along its entire X run and connected to the full-width ground-stack ceiling column. Its print-up round terminal closes the annulus; it is not a separate flat fin, rail or catch.",
+    "source_feature_functions": [
+      "_east_boss_stem",
+      "_east_bosses"
+    ],
+    "source_feature_sha256": "20f8a25c7c8c37f6bb65292d7bb0650b81a17b8b27a07a507477bcfec985149c",
+    "native_surface_and_full_local_roads_record": "native-functional-surface-emission.json",
+    "native_required_stock_record": "native-functional-stock.json",
+    "nominal_bearing_footprints_record": "native-functional-bearing-footprints.json",
+    "review": "Exact source/native feature identity, full3D host connectivity and actual own-width path evidence are retained. A nearest-road distance or generic midplane contour does not alone resolve this witness. Printed fit, load, removal and finish remain separate.",
+    "actual_terminal_emission_limitation": {
+      "native_round_terminal_cad_z_mm": 333.7942287340604,
+      "lowest_local_emitted_bead_cad_z_mm": 333.92,
+      "terminal_cad_height_beyond_emitted_bead_mm": 0.12577126593959065,
+      "last_native_round_terminal_slab_has_free_annulus_roads": false,
+      "scope": "Actual0.24mm layer lattice approximation of the retained round mounting annulus. A grazing flank-wall road does not resolve the terminal omission. The exact terminal deviation stays explicit; local window coverage is not a dimensional-fit or insert-retention test."
+    }
+  },
+  {
+    "z_mm": 45.08,
+    "native_component_area_mm2": 5771.704594933934,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 7.368584477272713,
+    "witness_plate_xy_mm": [
+      288.72531185685847,
+      121.31462197928575
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 7.368584477272713,
+    "nearest_model_road": [
+      288.378,
+      113.744,
+      285.931,
+      113.842,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      0.08605,
+      0.240002,
+      1668853
+    ],
+    "resolved_by_model_fill": false,
+    "native_surface_group": "keystone_swing_entry_bevel",
+    "functional_feature": "RiteAV rear jack swing-in entry bevel. The closing strips belong to the bevel at the exterior aperture top. Complete rooted catches and the nominal3mm aperture surround are separate functional stock and are verified against their canonical source.",
+    "source_feature_functions": [
+      "_keystone_pocket_cut",
+      "_keystone_receptacle_geometry",
+      "_keystone_catches"
+    ],
+    "source_feature_sha256": "20f8a25c7c8c37f6bb65292d7bb0650b81a17b8b27a07a507477bcfec985149c",
+    "native_surface_and_full_local_roads_record": "native-functional-surface-emission.json",
+    "native_required_stock_record": "native-functional-stock.json",
+    "nominal_bearing_footprints_record": "native-functional-bearing-footprints.json",
+    "review": "Exact source/native feature identity, full3D host connectivity and actual own-width path evidence are retained. A nearest-road distance or generic midplane contour does not alone resolve this witness. Printed fit, load, removal and finish remain separate."
+  },
+  {
+    "z_mm": 45.32,
+    "native_component_area_mm2": 5773.866185771802,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 6.786467178781179,
+    "witness_plate_xy_mm": [
+      288.90303210190984,
+      120.72136024351067
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 6.786467178781179,
+    "nearest_model_road": [
+      288.31,
+      113.42,
+      288.4,
+      113.743,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      0.01178,
+      0.239998,
+      1676889
+    ],
+    "resolved_by_model_fill": false,
+    "native_surface_group": "keystone_swing_entry_bevel",
+    "functional_feature": "RiteAV rear jack swing-in entry bevel. The closing strips belong to the bevel at the exterior aperture top. Complete rooted catches and the nominal3mm aperture surround are separate functional stock and are verified against their canonical source.",
+    "source_feature_functions": [
+      "_keystone_pocket_cut",
+      "_keystone_receptacle_geometry",
+      "_keystone_catches"
+    ],
+    "source_feature_sha256": "20f8a25c7c8c37f6bb65292d7bb0650b81a17b8b27a07a507477bcfec985149c",
+    "native_surface_and_full_local_roads_record": "native-functional-surface-emission.json",
+    "native_required_stock_record": "native-functional-stock.json",
+    "nominal_bearing_footprints_record": "native-functional-bearing-footprints.json",
+    "review": "Exact source/native feature identity, full3D host connectivity and actual own-width path evidence are retained. A nearest-road distance or generic midplane contour does not alone resolve this witness. Printed fit, load, removal and finish remain separate."
+  },
+  {
+    "z_mm": 92.36,
+    "native_component_area_mm2": 27.000005503681603,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 0.3007819109848894,
+    "witness_plate_xy_mm": [
+      274.67771518587745,
+      64.14408801683909
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 0.3007819109848894,
+    "nearest_model_road": [
+      273.197,
+      63.064,
+      274.193,
+      63.983,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      0.04762,
+      0.239998,
+      3045390
+    ],
+    "resolved_by_model_fill": false,
+    "native_surface_group": "moisture_clip_entry_ramps_and_rear_corner",
+    "functional_feature": "SIG-9 moisture-lead clip: two6mm longitudinal recessed-entry ramps, their S-channel terminal edges and their junction with the rearR12 wall corner. The central6mm-long cable retaining seat keeps its full3mm section, independently checked as a complete162mm3 native block and by actual own-width emitted bead coverage.",
+    "source_feature_functions": [
+      "_pan_cable_clip"
+    ],
+    "source_feature_sha256": "20f8a25c7c8c37f6bb65292d7bb0650b81a17b8b27a07a507477bcfec985149c",
+    "native_surface_and_full_local_roads_record": "native-functional-surface-emission.json",
+    "native_required_stock_record": "native-functional-stock.json",
+    "nominal_bearing_footprints_record": "native-functional-bearing-footprints.json",
+    "review": "Exact source/native feature identity, full3D host connectivity and actual own-width path evidence are retained. A nearest-road distance or generic midplane contour does not alone resolve this witness. Printed fit, load, removal and finish remain separate."
+  },
+  {
+    "z_mm": 95.24,
+    "native_component_area_mm2": 27.000003854422086,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 0.32660017183726586,
+    "witness_plate_xy_mm": [
+      274.6984352886658,
+      64.16320797259581
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 0.32660017183726586,
+    "nearest_model_road": [
+      272.2,
+      62.143,
+      274.193,
+      63.983,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      0.09531,
+      0.24,
+      3133751
+    ],
+    "resolved_by_model_fill": false,
+    "native_surface_group": "moisture_clip_entry_ramps_and_rear_corner",
+    "functional_feature": "SIG-9 moisture-lead clip: two6mm longitudinal recessed-entry ramps, their S-channel terminal edges and their junction with the rearR12 wall corner. The central6mm-long cable retaining seat keeps its full3mm section, independently checked as a complete162mm3 native block and by actual own-width emitted bead coverage.",
+    "source_feature_functions": [
+      "_pan_cable_clip"
+    ],
+    "source_feature_sha256": "20f8a25c7c8c37f6bb65292d7bb0650b81a17b8b27a07a507477bcfec985149c",
+    "native_surface_and_full_local_roads_record": "native-functional-surface-emission.json",
+    "native_required_stock_record": "native-functional-stock.json",
+    "nominal_bearing_footprints_record": "native-functional-bearing-footprints.json",
+    "review": "Exact source/native feature identity, full3D host connectivity and actual own-width path evidence are retained. A nearest-road distance or generic midplane contour does not alone resolve this witness. Printed fit, load, removal and finish remain separate."
+  },
+  {
+    "z_mm": 96.2,
+    "native_component_area_mm2": 26.999998148169592,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 0.3176213467588449,
+    "witness_plate_xy_mm": [
+      262.7406848722678,
+      64.65304107689354
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 0.3176213467588449,
+    "nearest_model_road": [
+      263.216,
+      64.424,
+      265.691,
+      61.742,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      0.12819,
+      0.239998,
+      3164941
+    ],
+    "resolved_by_model_fill": false,
+    "native_surface_group": "moisture_clip_entry_ramps_and_rear_corner",
+    "functional_feature": "SIG-9 moisture-lead clip: two6mm longitudinal recessed-entry ramps, their S-channel terminal edges and their junction with the rearR12 wall corner. The central6mm-long cable retaining seat keeps its full3mm section, independently checked as a complete162mm3 native block and by actual own-width emitted bead coverage.",
+    "source_feature_functions": [
+      "_pan_cable_clip"
+    ],
+    "source_feature_sha256": "20f8a25c7c8c37f6bb65292d7bb0650b81a17b8b27a07a507477bcfec985149c",
+    "native_surface_and_full_local_roads_record": "native-functional-surface-emission.json",
+    "native_required_stock_record": "native-functional-stock.json",
+    "nominal_bearing_footprints_record": "native-functional-bearing-footprints.json",
+    "review": "Exact source/native feature identity, full3D host connectivity and actual own-width path evidence are retained. A nearest-road distance or generic midplane contour does not alone resolve this witness. Printed fit, load, removal and finish remain separate."
+  },
+  {
+    "z_mm": 97.64,
+    "native_component_area_mm2": 29.820043671836135,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 0.33895771948301245,
+    "witness_plate_xy_mm": [
+      262.487642,
+      64.663204
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 0.33895771948301245,
+    "nearest_model_road": [
+      262.986,
+      64.433,
+      265.681,
+      61.512,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      0.13964,
+      0.239998,
+      3213594
+    ],
+    "resolved_by_model_fill": false,
+    "native_surface_group": "moisture_clip_entry_ramps_and_rear_corner",
+    "functional_feature": "SIG-9 moisture-lead clip: two6mm longitudinal recessed-entry ramps, their S-channel terminal edges and their junction with the rearR12 wall corner. The central6mm-long cable retaining seat keeps its full3mm section, independently checked as a complete162mm3 native block and by actual own-width emitted bead coverage.",
+    "source_feature_functions": [
+      "_pan_cable_clip"
+    ],
+    "source_feature_sha256": "20f8a25c7c8c37f6bb65292d7bb0650b81a17b8b27a07a507477bcfec985149c",
+    "native_surface_and_full_local_roads_record": "native-functional-surface-emission.json",
+    "native_required_stock_record": "native-functional-stock.json",
+    "nominal_bearing_footprints_record": "native-functional-bearing-footprints.json",
+    "review": "Exact source/native feature identity, full3D host connectivity and actual own-width path evidence are retained. A nearest-road distance or generic midplane contour does not alone resolve this witness. Printed fit, load, removal and finish remain separate."
+  },
+  {
+    "z_mm": 97.88,
+    "native_component_area_mm2": 32.868335614681556,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 0.3386291556707246,
+    "witness_plate_xy_mm": [
+      262.247834,
+      64.672836
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 0.3386291556707246,
+    "nearest_model_road": [
+      262.746,
+      64.443,
+      265.4,
+      61.566,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      0.13751,
+      0.239998,
+      3220221
+    ],
+    "resolved_by_model_fill": false,
+    "native_surface_group": "moisture_clip_entry_ramps_and_rear_corner",
+    "functional_feature": "SIG-9 moisture-lead clip: two6mm longitudinal recessed-entry ramps, their S-channel terminal edges and their junction with the rearR12 wall corner. The central6mm-long cable retaining seat keeps its full3mm section, independently checked as a complete162mm3 native block and by actual own-width emitted bead coverage.",
+    "source_feature_functions": [
+      "_pan_cable_clip"
+    ],
+    "source_feature_sha256": "20f8a25c7c8c37f6bb65292d7bb0650b81a17b8b27a07a507477bcfec985149c",
+    "native_surface_and_full_local_roads_record": "native-functional-surface-emission.json",
+    "native_required_stock_record": "native-functional-stock.json",
+    "nominal_bearing_footprints_record": "native-functional-bearing-footprints.json",
+    "review": "Exact source/native feature identity, full3D host connectivity and actual own-width path evidence are retained. A nearest-road distance or generic midplane contour does not alone resolve this witness. Printed fit, load, removal and finish remain separate."
+  },
+  {
+    "z_mm": 98.12,
+    "native_component_area_mm2": 36.03178295560596,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 0.33871591829375125,
+    "witness_plate_xy_mm": [
+      262.00803,
+      64.682467
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 0.33871591829375125,
+    "nearest_model_road": [
+      262.688,
+      64.445,
+      262.506,
+      64.452,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      0.00639,
+      0.240005,
+      3226694
+    ],
+    "resolved_by_model_fill": false,
+    "native_surface_group": "moisture_clip_entry_ramps_and_rear_corner",
+    "functional_feature": "SIG-9 moisture-lead clip: two6mm longitudinal recessed-entry ramps, their S-channel terminal edges and their junction with the rearR12 wall corner. The central6mm-long cable retaining seat keeps its full3mm section, independently checked as a complete162mm3 native block and by actual own-width emitted bead coverage.",
+    "source_feature_functions": [
+      "_pan_cable_clip"
+    ],
+    "source_feature_sha256": "20f8a25c7c8c37f6bb65292d7bb0650b81a17b8b27a07a507477bcfec985149c",
+    "native_surface_and_full_local_roads_record": "native-functional-surface-emission.json",
+    "native_required_stock_record": "native-functional-stock.json",
+    "nominal_bearing_footprints_record": "native-functional-bearing-footprints.json",
+    "review": "Exact source/native feature identity, full3D host connectivity and actual own-width path evidence are retained. A nearest-road distance or generic midplane contour does not alone resolve this witness. Printed fit, load, removal and finish remain separate."
+  },
+  {
+    "z_mm": 98.36,
+    "native_component_area_mm2": 39.31051387773053,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 0.3383898921041759,
+    "witness_plate_xy_mm": [
+      261.768219,
+      64.692099
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 0.3383898921041759,
+    "nearest_model_road": [
+      262.448,
+      64.455,
+      262.266,
+      64.462,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      0.00639,
+      0.239998,
+      3233219
+    ],
+    "resolved_by_model_fill": false,
+    "native_surface_group": "moisture_clip_entry_ramps_and_rear_corner",
+    "functional_feature": "SIG-9 moisture-lead clip: two6mm longitudinal recessed-entry ramps, their S-channel terminal edges and their junction with the rearR12 wall corner. The central6mm-long cable retaining seat keeps its full3mm section, independently checked as a complete162mm3 native block and by actual own-width emitted bead coverage.",
+    "source_feature_functions": [
+      "_pan_cable_clip"
+    ],
+    "source_feature_sha256": "20f8a25c7c8c37f6bb65292d7bb0650b81a17b8b27a07a507477bcfec985149c",
+    "native_surface_and_full_local_roads_record": "native-functional-surface-emission.json",
+    "native_required_stock_record": "native-functional-stock.json",
+    "nominal_bearing_footprints_record": "native-functional-bearing-footprints.json",
+    "review": "Exact source/native feature identity, full3D host connectivity and actual own-width path evidence are retained. A nearest-road distance or generic midplane contour does not alone resolve this witness. Printed fit, load, removal and finish remain separate."
+  },
+  {
+    "z_mm": 98.6,
+    "native_component_area_mm2": 42.74586531864446,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 0.383757441953533,
+    "witness_plate_xy_mm": [
+      275.9335335989669,
+      64.15739751860966
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 0.383757441953533,
+    "nearest_model_road": [
+      273.281,
+      61.995,
+      275.383,
+      63.935,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      0.1005,
+      0.239998,
+      3239711
+    ],
+    "resolved_by_model_fill": false,
+    "native_surface_group": "moisture_clip_entry_ramps_and_rear_corner",
+    "functional_feature": "SIG-9 moisture-lead clip: two6mm longitudinal recessed-entry ramps, their S-channel terminal edges and their junction with the rearR12 wall corner. The central6mm-long cable retaining seat keeps its full3mm section, independently checked as a complete162mm3 native block and by actual own-width emitted bead coverage.",
+    "source_feature_functions": [
+      "_pan_cable_clip"
+    ],
+    "source_feature_sha256": "20f8a25c7c8c37f6bb65292d7bb0650b81a17b8b27a07a507477bcfec985149c",
+    "native_surface_and_full_local_roads_record": "native-functional-surface-emission.json",
+    "native_required_stock_record": "native-functional-stock.json",
+    "nominal_bearing_footprints_record": "native-functional-bearing-footprints.json",
+    "review": "Exact source/native feature identity, full3D host connectivity and actual own-width path evidence are retained. A nearest-road distance or generic midplane contour does not alone resolve this witness. Printed fit, load, removal and finish remain separate."
+  },
+  {
+    "z_mm": 98.84,
+    "native_component_area_mm2": 46.46373673530158,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 0.9779182298887645,
+    "witness_plate_xy_mm": [
+      276.6244166019227,
+      64.5639949219639
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 0.9779182298887645,
+    "nearest_model_road": [
+      273.022,
+      61.525,
+      275.623,
+      63.925,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      0.12434,
+      0.239998,
+      3246401
+    ],
+    "resolved_by_model_fill": false,
+    "native_surface_group": "moisture_clip_entry_ramps_and_rear_corner",
+    "functional_feature": "SIG-9 moisture-lead clip: two6mm longitudinal recessed-entry ramps, their S-channel terminal edges and their junction with the rearR12 wall corner. The central6mm-long cable retaining seat keeps its full3mm section, independently checked as a complete162mm3 native block and by actual own-width emitted bead coverage.",
+    "source_feature_functions": [
+      "_pan_cable_clip"
+    ],
+    "source_feature_sha256": "20f8a25c7c8c37f6bb65292d7bb0650b81a17b8b27a07a507477bcfec985149c",
+    "native_surface_and_full_local_roads_record": "native-functional-surface-emission.json",
+    "native_required_stock_record": "native-functional-stock.json",
+    "nominal_bearing_footprints_record": "native-functional-bearing-footprints.json",
+    "review": "Exact source/native feature identity, full3D host connectivity and actual own-width path evidence are retained. A nearest-road distance or generic midplane contour does not alone resolve this witness. Printed fit, load, removal and finish remain separate."
+  },
+  {
+    "z_mm": 99.08,
+    "native_component_area_mm2": 5437.92968117019,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 0.5687854293232555,
+    "witness_plate_xy_mm": [
+      276.46509378002924,
+      64.6536186387621
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 0.5687854293232555,
+    "nearest_model_road": [
+      275.992,
+      64.035,
+      275.838,
+      63.917,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      0.00684,
+      0.240005,
+      3250758
+    ],
+    "resolved_by_model_fill": false,
+    "native_surface_group": "moisture_clip_entry_ramps_and_rear_corner",
+    "functional_feature": "SIG-9 moisture-lead clip: two6mm longitudinal recessed-entry ramps, their S-channel terminal edges and their junction with the rearR12 wall corner. The central6mm-long cable retaining seat keeps its full3mm section, independently checked as a complete162mm3 native block and by actual own-width emitted bead coverage.",
+    "source_feature_functions": [
+      "_pan_cable_clip"
+    ],
+    "source_feature_sha256": "20f8a25c7c8c37f6bb65292d7bb0650b81a17b8b27a07a507477bcfec985149c",
+    "native_surface_and_full_local_roads_record": "native-functional-surface-emission.json",
+    "native_required_stock_record": "native-functional-stock.json",
+    "nominal_bearing_footprints_record": "native-functional-bearing-footprints.json",
+    "review": "Exact source/native feature identity, full3D host connectivity and actual own-width path evidence are retained. A nearest-road distance or generic midplane contour does not alone resolve this witness. Printed fit, load, removal and finish remain separate."
+  },
+  {
+    "z_mm": 101.96,
+    "native_component_area_mm2": 5275.949959506623,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 0.3302877728322644,
+    "witness_plate_xy_mm": [
+      259.73009312351934,
+      64.77395856931625
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 0.3302877728322644,
+    "nearest_model_road": [
+      275.837,
+      63.917,
+      260.219,
+      64.544,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      0.54916,
+      0.239998,
+      3341933
+    ],
+    "resolved_by_model_fill": false,
+    "native_surface_group": "moisture_clip_entry_ramps_and_rear_corner",
+    "functional_feature": "SIG-9 moisture-lead clip: two6mm longitudinal recessed-entry ramps, their S-channel terminal edges and their junction with the rearR12 wall corner. The central6mm-long cable retaining seat keeps its full3mm section, independently checked as a complete162mm3 native block and by actual own-width emitted bead coverage.",
+    "source_feature_functions": [
+      "_pan_cable_clip"
+    ],
+    "source_feature_sha256": "20f8a25c7c8c37f6bb65292d7bb0650b81a17b8b27a07a507477bcfec985149c",
+    "native_surface_and_full_local_roads_record": "native-functional-surface-emission.json",
+    "native_required_stock_record": "native-functional-stock.json",
+    "nominal_bearing_footprints_record": "native-functional-bearing-footprints.json",
+    "review": "Exact source/native feature identity, full3D host connectivity and actual own-width path evidence are retained. A nearest-road distance or generic midplane contour does not alone resolve this witness. Printed fit, load, removal and finish remain separate."
+  },
+  {
+    "z_mm": 104.6,
+    "native_component_area_mm2": 5220.199654995106,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 0.3994164747443967,
+    "witness_plate_xy_mm": [
+      277.0673816510043,
+      65.04822613932951
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 0.3994164747443967,
+    "nearest_model_road": [
+      276.704,
+      64.559,
+      275.837,
+      63.917,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      0.03789,
+      0.239998,
+      3420987
+    ],
+    "resolved_by_model_fill": false,
+    "native_surface_group": "moisture_clip_entry_ramps_and_rear_corner",
+    "functional_feature": "SIG-9 moisture-lead clip: two6mm longitudinal recessed-entry ramps, their S-channel terminal edges and their junction with the rearR12 wall corner. The central6mm-long cable retaining seat keeps its full3mm section, independently checked as a complete162mm3 native block and by actual own-width emitted bead coverage.",
+    "source_feature_functions": [
+      "_pan_cable_clip"
+    ],
+    "source_feature_sha256": "20f8a25c7c8c37f6bb65292d7bb0650b81a17b8b27a07a507477bcfec985149c",
+    "native_surface_and_full_local_roads_record": "native-functional-surface-emission.json",
+    "native_required_stock_record": "native-functional-stock.json",
+    "nominal_bearing_footprints_record": "native-functional-bearing-footprints.json",
+    "review": "Exact source/native feature identity, full3D host connectivity and actual own-width path evidence are retained. A nearest-road distance or generic midplane contour does not alone resolve this witness. Printed fit, load, removal and finish remain separate."
+  },
+  {
+    "z_mm": 104.84,
+    "native_component_area_mm2": 48.717259704589594,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 0.7241428803531117,
+    "witness_plate_xy_mm": [
+      276.3966203110674,
+      64.60547792210626
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 0.7241428803531117,
+    "nearest_model_road": [
+      275.762,
+      63.92,
+      261.708,
+      64.484,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      0.49413,
+      0.239998,
+      3430004
+    ],
+    "resolved_by_model_fill": false,
+    "native_surface_group": "moisture_clip_entry_ramps_and_rear_corner",
+    "functional_feature": "SIG-9 moisture-lead clip: two6mm longitudinal recessed-entry ramps, their S-channel terminal edges and their junction with the rearR12 wall corner. The central6mm-long cable retaining seat keeps its full3mm section, independently checked as a complete162mm3 native block and by actual own-width emitted bead coverage.",
+    "source_feature_functions": [
+      "_pan_cable_clip"
+    ],
+    "source_feature_sha256": "20f8a25c7c8c37f6bb65292d7bb0650b81a17b8b27a07a507477bcfec985149c",
+    "native_surface_and_full_local_roads_record": "native-functional-surface-emission.json",
+    "native_required_stock_record": "native-functional-stock.json",
+    "nominal_bearing_footprints_record": "native-functional-bearing-footprints.json",
+    "review": "Exact source/native feature identity, full3D host connectivity and actual own-width path evidence are retained. A nearest-road distance or generic midplane contour does not alone resolve this witness. Printed fit, load, removal and finish remain separate."
+  },
+  {
+    "z_mm": 105.08,
+    "native_component_area_mm2": 44.86701953409059,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 0.7725657887183245,
+    "witness_plate_xy_mm": [
+      276.9704668317266,
+      64.98065146770075
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 0.7725657887183245,
+    "nearest_model_road": [
+      277.967,
+      65.308,
+      277.792,
+      60.959,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      0.15293,
+      0.240005,
+      3432580
+    ],
+    "resolved_by_model_fill": false,
+    "native_surface_group": "moisture_clip_entry_ramps_and_rear_corner",
+    "functional_feature": "SIG-9 moisture-lead clip: two6mm longitudinal recessed-entry ramps, their S-channel terminal edges and their junction with the rearR12 wall corner. The central6mm-long cable retaining seat keeps its full3mm section, independently checked as a complete162mm3 native block and by actual own-width emitted bead coverage.",
+    "source_feature_functions": [
+      "_pan_cable_clip"
+    ],
+    "source_feature_sha256": "20f8a25c7c8c37f6bb65292d7bb0650b81a17b8b27a07a507477bcfec985149c",
+    "native_surface_and_full_local_roads_record": "native-functional-surface-emission.json",
+    "native_required_stock_record": "native-functional-stock.json",
+    "nominal_bearing_footprints_record": "native-functional-bearing-footprints.json",
+    "review": "Exact source/native feature identity, full3D host connectivity and actual own-width path evidence are retained. A nearest-road distance or generic midplane contour does not alone resolve this witness. Printed fit, load, removal and finish remain separate."
+  },
+  {
+    "z_mm": 187.88,
+    "native_component_area_mm2": 5196.54875935442,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 5.665593699128023,
+    "witness_plate_xy_mm": [
+      139.186060866219,
+      57.99614300041233
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 5.665593699128023,
+    "nearest_model_road": [
+      145.394,
+      66.154,
+      145.05,
+      57.588,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      0.30117,
+      0.240005,
+      5914684
+    ],
+    "resolved_by_model_fill": false,
+    "native_surface_group": "prv_open_groove_roof",
+    "functional_feature": "PRV open groove45degree X roof across the ordinary3mm show skin. The last horizontal strips close the existing12mm air passage onto the exterior wall. They are non-bearing air-route edges, separate from the corrected exterior chase crown and from any retaining hook or rail.",
+    "source_feature_functions": [
+      "_vent_chase"
+    ],
+    "source_feature_sha256": "20f8a25c7c8c37f6bb65292d7bb0650b81a17b8b27a07a507477bcfec985149c",
+    "native_surface_and_full_local_roads_record": "native-functional-surface-emission.json",
+    "native_required_stock_record": "native-functional-stock.json",
+    "nominal_bearing_footprints_record": "native-functional-bearing-footprints.json",
+    "review": "Exact source/native feature identity, full3D host connectivity and actual own-width path evidence are retained. A nearest-road distance or generic midplane contour does not alone resolve this witness. Printed fit, load, removal and finish remain separate."
+  },
+  {
+    "z_mm": 188.12,
+    "native_component_area_mm2": 5193.909493058034,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 5.864057637546587,
+    "witness_plate_xy_mm": [
+      138.97770884570724,
+      57.76430276605781
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 5.864057637546587,
+    "nearest_model_road": [
+      145.394,
+      66.154,
+      145.049,
+      57.581,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      0.30142,
+      0.23999,
+      5920070
+    ],
+    "resolved_by_model_fill": false,
+    "native_surface_group": "prv_open_groove_roof",
+    "functional_feature": "PRV open groove45degree X roof across the ordinary3mm show skin. The last horizontal strips close the existing12mm air passage onto the exterior wall. They are non-bearing air-route edges, separate from the corrected exterior chase crown and from any retaining hook or rail.",
+    "source_feature_functions": [
+      "_vent_chase"
+    ],
+    "source_feature_sha256": "20f8a25c7c8c37f6bb65292d7bb0650b81a17b8b27a07a507477bcfec985149c",
+    "native_surface_and_full_local_roads_record": "native-functional-surface-emission.json",
+    "native_required_stock_record": "native-functional-stock.json",
+    "nominal_bearing_footprints_record": "native-functional-bearing-footprints.json",
+    "review": "Exact source/native feature identity, full3D host connectivity and actual own-width path evidence are retained. A nearest-road distance or generic midplane contour does not alone resolve this witness. Printed fit, load, removal and finish remain separate."
+  }
+]

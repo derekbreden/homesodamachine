@@ -1,0 +1,3 @@
+[ceiling] The raw entry shoulder's 21.8081 mm² flat underside at print Z1.540 is exposed around the socket pilot. The current native PETG slice emits one bed-rooted Snug support with an interface ending at Z1.340, 0.200 mm below this face. Cut and detach it radially from the exposed outside, then finish the complete shoulder to the measured forming reference. The 0.05 mm normal reserve belongs to this supported forming face. Physical support cleanout, coating adhesion and the finished profile remain unqualified.
+file: hardware/printed-parts/zone-c/funnel-mold/forming-mandrel.step
+click: x=0.000 y=0.000 z=1.540

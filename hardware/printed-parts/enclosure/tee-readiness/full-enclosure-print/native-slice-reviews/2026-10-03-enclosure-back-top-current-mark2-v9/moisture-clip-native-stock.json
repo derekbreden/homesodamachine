@@ -1,0 +1,98 @@
+{
+  "pass": true,
+  "source_step_sha256": "85e4e97f382142f2ed497abe36d6be493dda94ee4b672a9e0a706b684c0ef573",
+  "source_stl_sha256": "866cffceff2bd16e8f760b520ac5ca699904999238e3eedfe1f8ed4311a7672c",
+  "source_feature": "enclosure.py::_pan_cable_clip and cadlib/cable_clip.py::local_geometry",
+  "role": "SIG-9 moisture-lead service-loop retention on the dry west flank, below the ASSE pan slot. The S-shaped channel has recessed longitudinal end ramps for lead entry and a central full retaining seat.",
+  "source_recipe_sha256": "bddddf78c5daa97106c781964ad152ac61b28916f3c2e00eff4a527461a1aa7f",
+  "full_canonical_air_side_clip_stock_missing_from_native_mm3": 0.0,
+  "clip_run_mm": 18.0,
+  "entry_ramps_each_mm": 6.0,
+  "central_full_seat_run_mm": 6.0,
+  "source_nominal_grid_mm": 3.0,
+  "source_embed_mm": 6.0,
+  "native_bounds_cad_mm": [
+    -104.5,
+    444.3,
+    239.7105808375568,
+    -95.5,
+    462.3,
+    278.7105808375568
+  ],
+  "nominal_retaining_wall_samples": [
+    {
+      "cad_y_mm": 450.301,
+      "cad_z_mm": 265.2105808375568,
+      "retaining_wall_cad_x_mm": [
+        -98.5,
+        -95.5
+      ],
+      "nominal_retaining_wall_thickness_mm": 3.0,
+      "required_sample_stock_missing_mm3": 0.0
+    },
+    {
+      "cad_y_mm": 450.301,
+      "cad_z_mm": 260.7105808375568,
+      "retaining_wall_cad_x_mm": [
+        -98.5,
+        -95.5
+      ],
+      "nominal_retaining_wall_thickness_mm": 3.0,
+      "required_sample_stock_missing_mm3": 0.0
+    },
+    {
+      "cad_y_mm": 453.3,
+      "cad_z_mm": 265.2105808375568,
+      "retaining_wall_cad_x_mm": [
+        -98.5,
+        -95.5
+      ],
+      "nominal_retaining_wall_thickness_mm": 3.0,
+      "required_sample_stock_missing_mm3": 0.0
+    },
+    {
+      "cad_y_mm": 453.3,
+      "cad_z_mm": 260.7105808375568,
+      "retaining_wall_cad_x_mm": [
+        -98.5,
+        -95.5
+      ],
+      "nominal_retaining_wall_thickness_mm": 3.0,
+      "required_sample_stock_missing_mm3": 0.0
+    },
+    {
+      "cad_y_mm": 456.29900000000004,
+      "cad_z_mm": 265.2105808375568,
+      "retaining_wall_cad_x_mm": [
+        -98.5,
+        -95.5
+      ],
+      "nominal_retaining_wall_thickness_mm": 3.0,
+      "required_sample_stock_missing_mm3": 0.0
+    },
+    {
+      "cad_y_mm": 456.29900000000004,
+      "cad_z_mm": 260.7105808375568,
+      "retaining_wall_cad_x_mm": [
+        -98.5,
+        -95.5
+      ],
+      "nominal_retaining_wall_thickness_mm": 3.0,
+      "required_sample_stock_missing_mm3": 0.0
+    }
+  ],
+  "geometry_scope": "The exact channel cutter intentionally relieves its two entry ends, so the wire can enter a recessed seat without a step. All remaining canonical free clip stock is retained in the complete native part, including the full 3 mm central retaining wall. The narrowed entry-ramp terminal sections are separate from the complete load/retaining seat.",
+  "unwanted_ordinary_flat_fin_exception_claimed": false,
+  "physical_wire_retention_load_fatigue_or_removal_qualified": false,
+  "complete_central_seat_cad_bounds_mm": [
+    -98.5,
+    450.3,
+    257.7105808375568,
+    -95.5,
+    456.3,
+    266.7105808375568
+  ],
+  "complete_central_seat_volume_mm3": 162.0,
+  "complete_central_seat_stock_missing_mm3": 0.0,
+  "full_3d_native_host_solid_count": 1
+}

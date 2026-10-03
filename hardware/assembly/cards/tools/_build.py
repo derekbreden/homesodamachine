@@ -89,5 +89,9 @@ def build_pdf() -> None:
 
 
 if __name__ == "__main__":
+    sys.path.insert(0, str(TOOLS_DIR.parent))
+    from _cards_sync import tool_station_figures
+    if tool_station_figures(check=True):
+        sys.exit("tool-station figures differ from their generated models")
     render_cards()
     build_pdf()

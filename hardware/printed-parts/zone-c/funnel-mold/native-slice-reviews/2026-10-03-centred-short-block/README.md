@@ -7,11 +7,14 @@ the current STLs, including their faces. The
 [review record](readiness-review.json) binds the native files, prepared project,
 emitted G-code, recipe, support readings and post-publication geometry lint.
 
-This tooling produces a rectangular plug blank with a straight 6.35 mm dowel
-bore. It does not form the finished funnel's 8.4 mm entry, 6.7 mm relief or
-6.0 mm sealing land. Native point probes and solid differences confirm that
-limitation. Complete those forming features before preparing a finished-funnel
-casting. No mould print was submitted in this review.
+The complete tooling uses the separate contoured
+[forming mandrel](../2026-10-03-forming-mandrel-petg088-v1/README.md) to form the
+finished funnel's 8.4 mm entry, 6.7 mm relief and 6.0 mm by 3.0 mm sealing land.
+The current native casting matches the complete finished funnel in both solid
+differences, including the block, ramp, collar and brim. Its silicone volume is
+219.294495 mL. The [tooling check](../../forming-mandrel-check.json) records the
+complete comparison and the measured finishing target. The shell STEP/STL and
+frozen half-slice receipts retain their exact geometry scope.
 
 | Plate | Orientation | Layers | Estimated time | PETG | Minimum deposited-path bed margin |
 | --- | --- | ---: | ---: | ---: | ---: |
@@ -46,5 +49,5 @@ overlap; they do not create a thin shared ledge. The
 [native face reading](readiness-review.json) binds that check to the current core.
 
 The documented 0.88-flow print showed improved remaining roughness on its
-square-mouth cavity. The current geometry has no physical print, coated closure,
-vacuum-cycle, sealing or casting qualification.
+square-mouth cavity. The current tooling has no physical print, measured finished
+mandrel, coated closure, vacuum-cycle, sealing, release or casting qualification.

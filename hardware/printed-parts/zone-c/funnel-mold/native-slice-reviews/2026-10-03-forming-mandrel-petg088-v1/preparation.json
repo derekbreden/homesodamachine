@@ -1,0 +1,119 @@
+{
+  "status": "prepared_for_native_slice",
+  "source_stl": "hardware/printed-parts/zone-c/funnel-mold/forming-mandrel.stl",
+  "source_stl_sha256": "6b67468da5c28217f85d54ef170e3a884b4e4ec3ed256a410a2764693354d9c0",
+  "source_step": "hardware/printed-parts/zone-c/funnel-mold/forming-mandrel.step",
+  "source_step_sha256": "0cf0e36037ba2f0d1d6e8a8dd9057b8ecaab7f68a379cd92f3bc418f0c27d8ce",
+  "source_bounds_mm": [
+    [
+      -4.125816822052002,
+      -4.125816822052002,
+      0.0
+    ],
+    [
+      4.125816822052002,
+      4.125816822052002,
+      50.79999923706055
+    ]
+  ],
+  "native_mesh_watertight": true,
+  "native_mesh_winding_consistent": true,
+  "triangles": 112136,
+  "source_center_mm": [
+    0.0,
+    0.0,
+    25.399999618530273
+  ],
+  "project": ".cache/funnel-block-seat/mandrel-readiness/forming-mandrel-petg088-v3.3mf",
+  "project_sha256": "e7e8a073c623ac9c08f390f495078645fc5a7c97213ff4fe693cb032744b7cbb",
+  "template": "hardware/printed-parts/zone-c/funnel-mold/funnel-mold.3mf",
+  "template_sha256": "da09a13449d6ce902eb929e8dec0ab64e1c8cfb434498aab72dbf79d2527df2a",
+  "complete_global_settings_byte_identical_to_template": true,
+  "global_settings_sha256": "7f8fcc15f36ecfd52e855147153c927676f5362d50ac0eba8ad2005c44da4abc",
+  "print_orientation": "Socket pilot down; source +Z up on bed.",
+  "source_to_bed_translation_mm": [
+    149.5,
+    160.0,
+    0.0
+  ],
+  "model_bounds_on_bed_mm": [
+    [
+      145.374183177948,
+      155.874183177948,
+      0.0
+    ],
+    [
+      153.625816822052,
+      164.125816822052,
+      50.79999923706055
+    ]
+  ],
+  "local_fine_band": {
+    "bed_z_min_mm": 0.72,
+    "bed_z_max_mm": 7.12,
+    "layer_height_mm": 0.08,
+    "phase_alignment_range_z_mm": [
+      0.72,
+      0.85
+    ],
+    "phase_alignment_layer_height_mm": 0.14,
+    "phase_alignment_reason": "One layer in the uncoated socket pilot sets the wet-detail lattice so the expanded entry underside starts at native Z1.54 and the raw relief starts at Z3.30.",
+    "reason": "The raw axial relief band is approximately 0.165 mm; local 0.08 mm layers preserve multiple emitted layers across it while retaining the recorded recipe elsewhere."
+  },
+  "requested_z_trim_mm": 0.18,
+  "expected_textured_emitted_trim_mm": 0.16,
+  "selected_recipe": {
+    "printer_settings_id": "Bambu Lab H2C 0.4 Standard +0.18 Z trim",
+    "print_settings_id": "0.24mm Standard @BBL H2C funnel mold",
+    "filament_settings_id": [
+      "Funnel mold PETG Translucent - 0.4 Standard - flow 0.88"
+    ],
+    "filament_flow_ratio": [
+      "0.88",
+      "0.97",
+      "0.97"
+    ],
+    "filament_max_volumetric_speed": [
+      "5.61702",
+      "6",
+      "6"
+    ],
+    "nozzle_diameter": [
+      "0.4",
+      "0.4"
+    ],
+    "nozzle_volume_type": [
+      "Standard",
+      "Standard"
+    ],
+    "filament_volume_map": [
+      "0"
+    ],
+    "layer_height": "0.24",
+    "initial_layer_print_height": "0.2",
+    "wall_loops": "2",
+    "sparse_infill_density": "100%",
+    "support_type": "normal(auto)",
+    "support_style": "snug",
+    "support_top_z_distance": "0.2",
+    "support_object_xy_distance": "0.48"
+  },
+  "slice_command": [
+    "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+    "--slice",
+    "0",
+    "--arrange",
+    "0",
+    "--orient",
+    "0",
+    "--outputdir",
+    "/Users/derekbredensteiner/Developer/homesodamachine/.cache/funnel-block-seat/mandrel-readiness/slice-v3",
+    "--export-3mf",
+    "forming-mandrel-petg088-v3.gcode.3mf",
+    "/Users/derekbredensteiner/Developer/homesodamachine/.cache/funnel-block-seat/mandrel-readiness/forming-mandrel-petg088-v3.3mf"
+  ],
+  "slice_directory": ".cache/funnel-block-seat/mandrel-readiness/slice-v3",
+  "prepared_script_sha256": "52b1398ae26b3947053227d544d51ff6f83aa8dffef75af6dcb81ea2e45f84a5",
+  "submitted": false,
+  "scope": "Separate current native mandrel preparation; existing mould shell files and frozen print projects retain their scope. Physical forming-surface finish, coating and cast seal are unqualified."
+}

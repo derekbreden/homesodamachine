@@ -1,0 +1,84 @@
+{
+  "gcode_sha256": "69978f9224efc0942db3c03ce998057909e217e84703f40d28f7f049686baf97",
+  "contexts": [
+    {
+      "token": "T1000",
+      "native_gcode_line": 695,
+      "recipe": "machine_start_gcode",
+      "literal_effective_native_recipe_match": true,
+      "context": [
+        "M640 S",
+        "M640.1 R",
+        "M641",
+        "G28 X T300",
+        "T1000",
+        "",
+        "G150.3",
+        "M972 S24 P0 T2000 ; live-view camera foolproof",
+        "M972 S46 P0 T5000 ; vortek anti-collision"
+      ]
+    },
+    {
+      "token": "T1001",
+      "native_gcode_line": 747,
+      "recipe": "machine_start_gcode",
+      "literal_effective_native_recipe_match": true,
+      "context": [
+        "    M972 S34 P0 T5000 ; heatbed plate offset detection",
+        "M623",
+        "",
+        "M1002 gcode_claim_action : 72 ; Hotend Type Detection",
+        "T1001",
+        "M972 S14 P0 T5000 ; nozzle type detection",
+        "",
+        "M104 S265 T1 ; rise temp in advance",
+        ""
+      ]
+    },
+    {
+      "token": "T65535",
+      "native_gcode_line": 6068329,
+      "recipe": "machine_end_gcode",
+      "literal_effective_native_recipe_match": true,
+      "context": [
+        "M620.11 K1 I0 B-1 R10 F449.008",
+        "",
+        "",
+        "M620.11 P1 I0 B-1 E-14",
+        "T65535",
+        "G150.2",
+        "M621 S65535",
+        "",
+        "M620 S65279"
+      ]
+    },
+    {
+      "token": "T65279",
+      "native_gcode_line": 6068334,
+      "recipe": "machine_end_gcode",
+      "literal_effective_native_recipe_match": true,
+      "context": [
+        "G150.2",
+        "M621 S65535",
+        "",
+        "M620 S65279",
+        "T65279",
+        "G150.2",
+        "M621 S65279",
+        "",
+        "G150.3"
+      ]
+    }
+  ],
+  "native_recipe_tokens": {
+    "machine_start_gcode": [
+      "T1000",
+      "T1001"
+    ],
+    "machine_end_gcode": [
+      "T65535",
+      "T65279"
+    ]
+  },
+  "occurrences_in_model_layer_routine": 0
+}

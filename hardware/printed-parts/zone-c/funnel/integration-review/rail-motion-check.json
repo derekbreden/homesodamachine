@@ -2,7 +2,7 @@
   "source_sha256": {
     "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "9bbdd18722b968407c6eb844d1d70d4f85963a26afb1dceedbd5b4d0f754b6bd",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "b9a330b868dde6cdab0278fecb023b4b3dc01a993e9070fa2828605237fded88",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "e73227a6870af4f8f1b394fc77979c8f632f245df990c1c8a88691a65f7105f7"
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "866cffceff2bd16e8f760b520ac5ca699904999238e3eedfe1f8ed4311a7672c"
   },
   "method": "Closed STL solids; sampled relative straight Y insertion. Other installed components are outside this mating-joint check.",
   "flat_floor_z_mm": 299.8999999999998,

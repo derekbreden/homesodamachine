@@ -57,6 +57,20 @@ retained pogo seat, display recess and funnel receiver mating transitions.
 Printed receiver/rail fit, cleanup, show finish, loom retention, load capacity
 and lifetime keep their separate evidence scope.
 
+## Current back-top native review
+
+The [current back-top v9 review](tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-back-top-current-mark2-v9/README.md)
+binds its corrected PRV crown, native STEP/STL and saved PET-GF recipe to one
+unmodified Mark2 archive. It has 813 model layers and estimates **26 h 8 min
+54 sec**; it has not been submitted. Both initial crown slabs contain model
+roads across the full crown. All 1,050,514 support roads clear the nine protected
+native exterior faces, and the 13 bodies and 34 labelled contacts have removal
+routes through the empty shell. Model and support borders meet the respective
+15 mm and 5 mm requirements. The complete cable retaining seat and both jack
+catches have dense emitted coverage. The ground mounting annulus's final round
+terminal has an explicit 0.126 mm layer-lattice deviation. Physical insert and
+cable retention, show finish, cleanup effort and assembled fit remain separate.
+
 ## Physical evidence
 
 | Part or interface | Established result and current use |

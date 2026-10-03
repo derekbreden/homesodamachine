@@ -129,7 +129,7 @@ def geometry_figures(info):
         'BOLT_D': f"{info['clamping']['hole_diameter_mm']:g} mm",
         'LOCATOR_HEIGHT': f"{info['locators']['height_mm']:g} mm",
         'LOCATOR_CLEARANCE': f"{info['locators']['radial_clearance_mm']:.2f} mm",
-        'ROD_D': f"{info['dimensions_mm']['rod'][0]:g} mm",
+        'ROD_D': f"{info['rod_support'].get('dry_shank_diameter_mm', info['dimensions_mm']['rod'][0]):g} mm",
         'ROD_LEN': f"{info['dimensions_mm']['rod'][2]:g} mm",
         'ROD_ENGAGEMENT': f"{info['rod_support']['engagement_mm']:.1f} mm",
         'ROD_EXPOSED': f"{info['dimensions_mm']['rod'][2]-info['rod_support']['engagement_mm']:g} mm",

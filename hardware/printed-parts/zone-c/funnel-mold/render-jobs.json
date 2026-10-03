@@ -1,0 +1,80 @@
+[
+  {
+    "cam": [
+      0,
+      -1,
+      0
+    ],
+    "up": [
+      0,
+      0,
+      1
+    ],
+    "solid": true,
+    "ortho": true,
+    "ground": false,
+    "fog": false,
+    "bg": "#1a1a2e",
+    "step": "printed-parts/zone-c/funnel-mold/section.step",
+    "out": "hardware/printed-parts/zone-c/funnel-mold/section.png",
+    "target": [
+      0,
+      0,
+      29.5
+    ],
+    "span": 65,
+    "size": "1600x900"
+  },
+  {
+    "cam": [
+      0,
+      -1,
+      0
+    ],
+    "up": [
+      0,
+      0,
+      1
+    ],
+    "solid": true,
+    "ortho": true,
+    "ground": false,
+    "fog": false,
+    "bg": "#1a1a2e",
+    "step": "printed-parts/zone-c/funnel-mold/section.step",
+    "out": "hardware/printed-parts/zone-c/funnel-mold/rod-detail.png",
+    "target": [
+      1.85,
+      0,
+      28
+    ],
+    "span": 39,
+    "size": "1100x1000"
+  },
+  {
+    "cam": [
+      0,
+      -1,
+      0
+    ],
+    "up": [
+      0,
+      0,
+      1
+    ],
+    "solid": true,
+    "ortho": true,
+    "ground": false,
+    "fog": false,
+    "bg": "#1a1a2e",
+    "step": "printed-parts/zone-c/funnel-mold/forming-mandrel-finished.step",
+    "out": "hardware/printed-parts/zone-c/funnel-mold/forming-mandrel-detail.png",
+    "target": [
+      0,
+      0,
+      4.4
+    ],
+    "span": 5.1,
+    "size": "1000x1000"
+  }
+]

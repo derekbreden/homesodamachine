@@ -1,0 +1,27 @@
+{
+  "gcode_sha256": "69978f9224efc0942db3c03ce998057909e217e84703f40d28f7f049686baf97",
+  "object_id": 1901,
+  "requested_layer_height_mm": 0.24,
+  "spans": [
+    {
+      "name": "expanding roof chamfer and taper",
+      "print_z_mm": [
+        0.2,
+        9.3
+      ],
+      "wall_layer_count": 38,
+      "first_wall_layer": [
+        0.44,
+        0.24
+      ],
+      "last_wall_layer": [
+        9.32,
+        0.24
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    }
+  ],
+  "pass": true
+}
