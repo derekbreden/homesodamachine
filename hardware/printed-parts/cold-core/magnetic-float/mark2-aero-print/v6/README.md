@@ -46,13 +46,17 @@ adhesion or evidence of density, fit or buoyancy. The parts and plate retain a
 conservative **35 °C** cooling threshold before release from the glued plate.
 No physical acceptance is recorded for this Engineering trial.
 
-The active printer reports local job `RC62 magnetic float - aero`, task ID
-`6700`, with cloud job ID `0`. Its archive identity is unverified, and its
-progress is recorded separately in [operator observations](operator-print.json).
+Mark2 reports local job `RC62 magnetic float - aero`, task ID `6700`, with
+cloud job ID `0`, as **FINISH**, layer **220 of 220**, at 08:16:12 UTC on
+2026-10-03. The observed bed temperature is 82 °C and chamber temperature is
+59 °C, with both heater targets at zero and no reported print error or HMS
+alert. It is cooling toward the 35 °C handling threshold. Its archive identity
+is unverified, and its telemetry is recorded separately in
+[operator observations](operator-print.json).
 The user reports that feeding from the Polymaker drybox works better, with
-flaking and material carried during travel moves still present. The current
-print is being allowed to finish. These observations establish neither the
-local archive settings nor the terminal state of accepted cloud task 1304125241.
+flaking and material carried during travel moves still present. These
+observations establish neither the local archive settings nor the terminal
+state of accepted cloud task 1304125241. Physical acceptance remains unreported.
 
 - [Preflight and native comparison](pair-preflight.json)
 - [Native preparation](prepare.py)
