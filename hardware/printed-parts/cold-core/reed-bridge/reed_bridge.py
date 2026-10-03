@@ -2,7 +2,7 @@
 external level reeds against the carbonator wall on the register azimuth,
 standing the evaporator coil off the glass where a wrap crosses it.
 
-The donut is an axially-magnetised ferrite ring: radially outside it, on
+The RC62 is an axially-magnetised neodymium ring: radially outside it, on
 its mid-plane, the field is purely axial, so both reeds stand with their
 glass vertical. reed_glass_length of vertical glass spans one wrap or two
 at the wind's inter_wrap_clear.
