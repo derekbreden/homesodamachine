@@ -205,6 +205,10 @@ PARTS = {
     # The lever the donor Westbrass arrives with is set aside; the printed replica, rebuilt from
     # a scan of it and printed in the faucet's finish, is the one that ships.
     "Faucet lever": ["faucet/lever-replica/lever-replica.step"],
+    # The funnel's sliding frame and the cradle that hangs the drain elbow under its web. The
+    # silicone funnel itself is cast, and §8 bills it as silicone.
+    "Funnel frame": ["zone-c/funnel/funnel-frame.step"],
+    "Funnel drain-elbow cradle": ["zone-c/funnel/elbow-cradle.step"],
 }
 
 # §7 row-name fragment -> the PROFILES key that row ships on. Every row must match
@@ -230,6 +234,8 @@ GROUP_OF = [
     ("Tube collar",                 "small"),
     ("Collet press",                "tool"),
     ("Nameplate",                   "petgf"),
+    ("Funnel frame",                "ext"),
+    ("Funnel drain-elbow cradle",   "small"),
 ]
 
 PRINTED = "<!--@printed-->"

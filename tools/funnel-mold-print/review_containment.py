@@ -65,7 +65,8 @@ def read_geometry(models):
     flange = info["flange_thickness_mm"]
     rod = shapes["rod"].BoundingBox()
     x, y = (rod.xmin+rod.xmax)/2, (rod.ymin+rod.ymax)/2
-    witness = (x, y, rod.zmin-3)
+    # In the plug's silicone, beside the rod and above its socket.
+    witness = (x+rod.xlen, y, rod.zmin+info["rod_socket"]["depth_mm"])
     cavity_box = shapes["cavity"].BoundingBox()
     width = max(cavity_box.xlen, cavity_box.ylen)+2
     surrounding = box(width+24, width+24, -2, parting+flange+8)

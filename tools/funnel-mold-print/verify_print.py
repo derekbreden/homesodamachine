@@ -137,17 +137,15 @@ def geometry_figures(info):
         'ROD_GUIDE_D': f"{info['rod_support']['guide_diameter_mm']:g} mm",
         'ROD_TIE_WIDTH': f"{info['rod_support']['tie_width_mm']:g} mm",
         'ROD_SEAL_DEPTH': f"{info['rod_support']['seal_depth_mm']:g} mm",
-        'SPOUT_WALL': f"{info['spout']['nominal_wall_mm']:g} mm",
-        'SPOUT_OD': f"{info['spout']['outside_diameter_mm']:g} mm",
-        'SPOUT_LAND': f"{info['spout']['finished_length_mm']:g} mm",
-        'TIP_LENGTH': f"{info['spout']['sacrificial_length_mm']:g} mm",
-        'TIP_CAP': f"{info['spout']['rod_end_clearance_mm']:g} mm",
+        'SOCKET_D': f"{info['rod_socket']['diameter_mm']:g} mm",
+        'SOCKET_DEPTH': f"{info['rod_socket']['depth_mm']:g} mm",
+        'ROD_END_DEPTH': f"{info['rod_socket']['rod_end_depth_mm']:g} mm",
         'ROD_OFFSET': f"{info['rod_tolerance_screen']['offset_mm']:g} mm",
         'ROD_TILT': f"{info['rod_tolerance_screen']['tilt_deg']:g}°",
         'ROD_AXIAL': f"{info['rod_tolerance_screen']['short_projection_mm']:g} mm",
         'ROD_EXTRA': f"{info['rod_tolerance_screen']['extra_projection_mm']:g} mm",
-        'ROD_MIN_END': f"{info['rod_tolerance_screen']['minimum_end_clearance_mm']:.2f} mm",
-        'ROD_MIN_WALL': f"{info['rod_tolerance_screen']['minimum_silicone_clearance_mm']:.2f} mm",
+        'ROD_MIN_SOCKET': f"{info['rod_tolerance_screen']['minimum_socket_clearance_mm']:.2f} mm",
+        'ROD_MIN_END': f"{info['rod_tolerance_screen']['minimum_end_depth_mm']:.2f} mm",
         'FINISH': f"{info['finish_allowance_mm']:.2f} mm",
         **({'PLUG_BLANK': ' × '.join(f'{v:.1f}'.removesuffix('.0')
                                    for v in info['plug_blank_mm'])+' mm'}
@@ -172,7 +170,8 @@ def write_figures(models, figures, merge=False):
     key = '/tools/funnel-mold-print/verify_print.py'
     held = json.loads(sidecar.read_text()).get(key, {}) if merge and sidecar.exists() else {}
     held.update(figures)
-    for retired in ('SOCKET', 'SOCKET_VENT'):
+    for retired in ('SOCKET', 'SOCKET_VENT', 'SPOUT_WALL', 'SPOUT_OD', 'SPOUT_LAND',
+                    'TIP_LENGTH', 'TIP_CAP', 'ROD_MIN_WALL'):
         held.pop(retired, None)
     substitute_md(models/'README.md', variables=figures)
     sidecar.write_text(json.dumps({key: held}, indent=2, sort_keys=True)+'\n')

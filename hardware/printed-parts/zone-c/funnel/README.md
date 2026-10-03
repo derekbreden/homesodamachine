@@ -14,7 +14,8 @@ the brim is 179 × 95.783 mm with R27 corners. The collar wall and ramp's normal
 wall are 6 mm. The ramp falls toward X1.85, Y182.5.
 
 The integral silicone plug is a [36 × 41.0 mm](FUNNEL_PLUG) rectangle with square corners,
-centred on the outlet, 15 mm high, with its bottom at Z302.9. Two notches along its X sides,
+centred on the outlet, with its bottom at Z302.9. Its walls run up into the bowl's underside, so
+none of its top shows. Two notches along its X sides,
 open at its underside and its +Y end, house the elbow cradle's hooks. Its lower bore has an
 8.4 mm entrance,
 1.8 mm lead-in and 6.7 mm relief. A nominal 6 mm bore forms the upper 3 mm
