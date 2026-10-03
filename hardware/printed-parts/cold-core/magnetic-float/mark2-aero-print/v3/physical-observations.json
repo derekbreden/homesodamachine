@@ -1,0 +1,24 @@
+{
+  "recorded_utc": "2026-10-03T04:56:50.808458+00:00",
+  "context": "Magnetic-float ASA Aero startup on Mark2; operator describes the H2C-family startup routine.",
+  "context_task_id": "1304010811",
+  "exact_attempt_named_in_report": false,
+  "operator_report": "So, there's this thing that the H2C does at the start of every print where it prints a tiny little line in a corner, and then it goes to the middle and starts its print. That tiny little line does not adhere to the bed at all. It just raises right up. And even when it gets to the start of the print and it drags that piece of string along with it, as it starts to lay down the first little tiny bit there, that also raises up. And after, like, two loops or so, it then finally starts to adhere. So there was some filament that was already in the nozzle that just didn't work, but then as it gets going, everything is fine. And so there's a bit of a delay between its, like, initial purge and when it starts printing. But I think the ideal thing to be able to try, if you could either fake it or do something to increase the length and size and area of that first little splooge in the corner that it does. Do you know what I'm talking about? Do you understand what I'm asking for?",
+  "observed_behavior": [
+    "The corner startup line lifts from the bed.",
+    "The lifted line is carried to the part.",
+    "The earliest part extrusion also lifts.",
+    "Adhesion begins after about two loops."
+  ],
+  "operator_hypothesis": "Residual filament in the nozzle is initially unsuitable; continued extrusion then adheres.",
+  "root_cause_established": false,
+  "completed_print_accepted": false,
+  "next_candidate": "../v4/README.md",
+  "candidate_outcome": "Leave unreliable startup extrusion in a sacrificial corner strip so the part begins with adhering extrusion.",
+  "candidate_success_observations": [
+    "The priming strip remains on the plate.",
+    "No loose startup strand is dragged into the part.",
+    "The first part loop adheres without waiting for later loops."
+  ],
+  "scope": "Startup adhesion only; printed density, dimensions, fit and buoyancy remain unreported."
+}

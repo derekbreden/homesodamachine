@@ -1,0 +1,344 @@
+{
+  "printer": "Mark2",
+  "physical_trial_revision": 4,
+  "native_archive_revision": 5,
+  "parts": {
+    "body-aero": {
+      "center_xy_mm": [
+        125.0,
+        145.0
+      ],
+      "identify_id": 4601,
+      "embedded_vertex_error_mm": 7.227650973761835e-10,
+      "embedded_mesh_sha256": "1ad8a1ad885dde93dd50b196206ba3e7b53b20c033599a31b64d3f5e9d091537",
+      "stl_sha256": "63d12cbb501b629997a2462822df42a1f4f6bf20ee2806f2f6f310c1f7e72771",
+      "orientation_retained": true,
+      "bed_z_mm": 0.0
+    },
+    "insert-aero": {
+      "center_xy_mm": [
+        175.0,
+        145.0
+      ],
+      "identify_id": 4602,
+      "embedded_vertex_error_mm": 7.227641971597874e-10,
+      "embedded_mesh_sha256": "573feccf331a15949b1c836e30fa06278551e22c48d074cd36f63643c1be1ee2",
+      "stl_sha256": "c69cdc552c1dec84dd0bd84972ed601667df8327b0388236eec63ea7d672b8c6",
+      "orientation_retained": true,
+      "bed_z_mm": 0.0
+    }
+  },
+  "quantity_per_part": 1,
+  "print_sequence": "by layer",
+  "source_commit": "f3cefbe360b7a8019741d177868d1e6c6770b93f",
+  "source_snapshot": {
+    "hardware/printed-parts/cold-core/magnetic-float/magnetic_float.py": "7d427f044916de750ba9e3cf93ca5b0445bac988d3dc555900f47af1342c4355",
+    "hardware/printed-parts/cold-core/magnetic-float/prepare_print.py": "b42d0cedae4090451937a22642e01aa62be4352f9960136f140b47c376b9db39",
+    "hardware/printed-parts/cold-core/magnetic-float/print-profile.json": "9f94e04b774a235aad06494e7087b6ab200e3a1a5a7786768eeedbe586618b4f",
+    "hardware/printed-parts/cold-core/magnetic-float/verification.json": "a6fbf14a1ef138664ca8dc6c23b348b480f3327368cc909ec0e1b1ba4eb00c9d",
+    "hardware/printed-parts/cold-core/magnetic-float/asa-aero-research.md": "926a4d0e2e779e93aeaf8c00c659a0ded0b0a1781ec9ea6ca0c3baf826806191"
+  },
+  "source_project": ".cache/prints/magnetic-float-pair-mark2-aero-v4/magnetic-float-pair-mark2-aero-v4-input.3mf",
+  "source_project_sha256": "b65bcd06a502c70529c3bf7c53bf08a95dba82e13f42a235fde78765d3b3f975",
+  "preparation_dependency_sha256": {
+    "hardware/printed-parts/cold-core/magnetic-float/mark2-aero-print/v3/prepare.py": "f4c7730044174ec91aff0b50667833227e3af61d422c230015ab08b7061a2c75"
+  },
+  "project": ".cache/prints/magnetic-float-pair-mark2-aero-v5/magnetic-float-pair-mark2-aero-v5-input.3mf",
+  "project_sha256": "f8ee007f2798b573916752a16ff6961c86e8bedb76ee12481c1af28fb9682f04",
+  "archive": ".cache/prints/magnetic-float-pair-mark2-aero-v5/ready/magnetic-float-pair-mark2-aero-v5.gcode.3mf",
+  "archive_sha256": "8c5f5700665135fbb5ecf9d25e81bd933f99b67b7a120d8e268c883b2c2b1a7f",
+  "gcode_sha256": "023da2dff8c106bcc879ef2f72ac0ebc673dac555ea241059cec93c5e13757b6",
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "bed": "Textured PEI Plate",
+  "profile_changes": {
+    "nozzle_diameter": {
+      "source": [
+        "0.6",
+        "0.4"
+      ],
+      "selected": [
+        "0.4",
+        "0.4"
+      ]
+    },
+    "max_layer_height": {
+      "source": [
+        "0.42",
+        "0.28"
+      ],
+      "selected": [
+        "0.28",
+        "0.28"
+      ]
+    },
+    "min_layer_height": {
+      "source": [
+        "0.12",
+        "0.08"
+      ],
+      "selected": [
+        "0.08",
+        "0.08"
+      ]
+    },
+    "machine_start_gcode": {
+      "source_sha256": "69195dc5b4ba63df63e6355f52a201c0cce28a1e9e62bcfa2a599aae8c476df4",
+      "selected_sha256": "33d02072ed23c04dfb32d76da616b217229d2a7fd7b39aa7a821aa010413e727",
+      "change": "Add a single-layer corner priming strip after stock startup and include it in adaptive bed leveling; retain +0.04 mm user trim."
+    },
+    "brim_width": {
+      "source": "3",
+      "selected": "0"
+    },
+    "elefant_foot_compensation": {
+      "source": "0.15",
+      "selected": "0"
+    },
+    "brim_type": {
+      "source": "outer_only",
+      "selected": "no_brim"
+    },
+    "curr_bed_type": {
+      "source": "Engineering Plate",
+      "selected": "Textured PEI Plate"
+    }
+  },
+  "material_mapping": {
+    "physical_material": "Bambu ASA Aero White 46100",
+    "filament_id": "GFB02",
+    "nozzle": "right standard-flow hardened 0.4 mm",
+    "source": "AMS HT, unit 128 tray 0"
+  },
+  "per_part_native_path_review": {
+    "body-aero": {
+      "part": "body-aero",
+      "object_extrusion_mass_g": 14.622791026352408,
+      "material_tools": [
+        0
+      ],
+      "mapped_extruder": 2,
+      "layers": 220,
+      "print_height_mm": 44.0,
+      "insertion_pauses": [],
+      "roof_layers_mm": [],
+      "aero_perimeter_centerline_radii_mm": [
+        4.353471551852677,
+        14.810545229666616
+      ],
+      "minimum_guide_bore_centerline_radius_mm": null,
+      "wall_coverage": null,
+      "magnet_pocket_clearance": {
+        "layer_z_mm": 42.2,
+        "minimum_maximum_size_magnet_clearance_mm": 0.029153001354301177,
+        "basis": "Nominal emitted LINE_WIDTH footprints and RC62 maximum dimensional tolerance; not measured printed fit."
+      },
+      "thermal_commands": [
+        "M104 O-80 A",
+        "M104 S0",
+        "M104 S0 T0",
+        "M104 S0 T1",
+        "M104 S270",
+        "M104 S270 T0",
+        "M109 S140 A",
+        "M109 S270",
+        "M140 D90",
+        "M140 S0",
+        "M140 S90",
+        "M141 S0",
+        "M141 S60",
+        "M190 D90",
+        "M190 S90",
+        "M191 S60"
+      ],
+      "minimum_second_layer_bead_area_overlap_fraction": 0.5680638616089552
+    },
+    "insert-aero": {
+      "part": "insert-aero",
+      "object_extrusion_mass_g": 3.4071140640525344,
+      "material_tools": [
+        0
+      ],
+      "mapped_extruder": 2,
+      "layers": 50,
+      "print_height_mm": 10.0,
+      "insertion_pauses": [],
+      "roof_layers_mm": [],
+      "aero_perimeter_centerline_radii_mm": [
+        4.35295780743611,
+        14.810503873940267
+      ],
+      "minimum_guide_bore_centerline_radius_mm": null,
+      "wall_coverage": null,
+      "magnet_pocket_clearance": null,
+      "thermal_commands": [
+        "M104 O-80 A",
+        "M104 S0",
+        "M104 S0 T0",
+        "M104 S0 T1",
+        "M104 S270",
+        "M104 S270 T0",
+        "M109 S140 A",
+        "M109 S270",
+        "M140 D90",
+        "M140 S0",
+        "M140 S90",
+        "M141 S0",
+        "M141 S60",
+        "M190 D90",
+        "M190 S90",
+        "M191 S60"
+      ],
+      "minimum_second_layer_bead_area_overlap_fraction": 0.5675974703899255
+    }
+  },
+  "native_slice_summary": {
+    "estimated_time_s": 6969.0,
+    "filament_mass_g": 18.05,
+    "object_count": 2,
+    "warnings": []
+  },
+  "support_paths": 0,
+  "skirt_paths": 0,
+  "brim_paths": 0,
+  "submitted": false,
+  "preview_inspected": true,
+  "physical_fit_verified": false,
+  "source_stl_sha256": {
+    "body-aero": "63d12cbb501b629997a2462822df42a1f4f6bf20ee2806f2f6f310c1f7e72771",
+    "insert-aero": "c69cdc552c1dec84dd0bd84972ed601667df8327b0388236eec63ea7d672b8c6"
+  },
+  "launch_record": "pair-mark2-launch.json",
+  "selected_recipe": {
+    "filament_type": [
+      "ASA-AERO"
+    ],
+    "filament_ids": [
+      "GFB02"
+    ],
+    "filament_flow_ratio": [
+      "0.52"
+    ],
+    "nozzle_temperature": [
+      "270"
+    ],
+    "nozzle_temperature_initial_layer": [
+      "270"
+    ],
+    "textured_plate_temp": [
+      "90"
+    ],
+    "textured_plate_temp_initial_layer": [
+      "90"
+    ],
+    "chamber_temperatures": [
+      "60"
+    ],
+    "initial_layer_print_height": "0.2",
+    "layer_height": "0.2",
+    "line_width": "0.48",
+    "sparse_infill_density": "100%",
+    "sparse_infill_pattern": "zig-zag",
+    "wall_loops": "3",
+    "top_shell_layers": "5",
+    "bottom_shell_layers": "5",
+    "outer_wall_speed": [
+      "80",
+      "80",
+      "80",
+      "80",
+      "80"
+    ],
+    "inner_wall_speed": [
+      "80",
+      "80",
+      "80",
+      "80",
+      "80"
+    ],
+    "initial_layer_speed": [
+      "50",
+      "50",
+      "50",
+      "50",
+      "50"
+    ],
+    "initial_layer_infill_speed": [
+      "105",
+      "105",
+      "105",
+      "105",
+      "105"
+    ],
+    "fan_min_speed": [
+      "30"
+    ],
+    "fan_max_speed": [
+      "50"
+    ],
+    "close_fan_the_first_x_layers": [
+      "3"
+    ],
+    "additional_cooling_fan_speed": [
+      "0"
+    ],
+    "skirt_loops": "0",
+    "brim_type": "no_brim",
+    "brim_width": "0",
+    "print_sequence": "by layer",
+    "elefant_foot_compensation": "0"
+  },
+  "prepared_utc": "2026-10-03T04:54:33.673816+00:00",
+  "parent_review": {
+    "preflight": "hardware/printed-parts/cold-core/magnetic-float/mark2-aero-print/v3/pair-preflight.json",
+    "archive_sha256": "fb54e83a62caba169c73180e61b3122027b0be49484cd4bc28c25bc9a8253392",
+    "gcode_sha256": "7076a481e19c01a901830cdabdb40c0aa6740c460043376579026ef4f1730a3f"
+  },
+  "archive_changed_members": [
+    "Metadata/project_settings.config",
+    "Metadata/plate_1.gcode.md5",
+    "Metadata/plate_1.gcode"
+  ],
+  "native_geometry_and_preview_identical": true,
+  "preview_review": "Part geometry and native previews are byte-identical; the startup strip is checked separately by its coordinates.",
+  "part_program_byte_identical": true,
+  "non_startup_settings_identical": true,
+  "priming_strip_review": {
+    "centerline_bounds_xy_mm": [
+      230.0,
+      15.0,
+      290.0,
+      19.95
+    ],
+    "bead_bounds_xy_mm": [
+      229.76,
+      14.76,
+      290.24,
+      20.189999999999998
+    ],
+    "rows": 12,
+    "row_length_mm": 60.0,
+    "pitch_mm": 0.45,
+    "layer_height_mm": 0.2,
+    "line_width_mm": 0.48,
+    "speed_mm_s": 20,
+    "flow_ratio": 0.52,
+    "filament_feed_mm": 13.700486345035634,
+    "approximate_added_mass_g": 0.03262399617504415,
+    "extrusion_path_mm": 724.95,
+    "nominal_extrusion_time_s": 36.2475,
+    "wipe_mm": 5,
+    "extra_retraction_mm": 0,
+    "adaptive_bed_leveling_bounds_xy_mm": [
+      110,
+      14,
+      291,
+      160
+    ],
+    "clear_of_parts_and_bed_exclusions": true
+  },
+  "native_slice_summary_scope": "Inherited part estimate; excludes added startup strip time and additional adaptive bed leveling."
+}
