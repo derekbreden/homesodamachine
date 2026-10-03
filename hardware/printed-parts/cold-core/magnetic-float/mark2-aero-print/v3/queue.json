@@ -21,7 +21,7 @@
   "bed": "Textured PEI Plate",
   "print_sequence": "by layer",
   "trial": "magnetic-float ASA Aero physical v3",
-  "status": "accepted",
+  "status": "canceled_operator_report_unreported",
   "printer": "Mark2",
   "archive_name": "magnetic-float-pair-mark2-aero-v4.gcode.3mf",
   "parts": [
@@ -35,7 +35,10 @@
   "cool_before_removal_c": 35,
   "completion_reported": false,
   "monitor_active": true,
-  "updated_utc": "2026-10-03T04:29:56.446301+00:00",
+  "updated_utc": "2026-10-03T04:38:08.272272+00:00",
   "scope": "One core and one insert together. No PETG shell or separate foam job is requested.",
-  "accepted_task_id": "1304010811"
+  "accepted_task_id": "1304010811",
+  "cancellation_reported": true,
+  "printer_message": "The task was canceled.",
+  "operator_report_pending": true
 }
