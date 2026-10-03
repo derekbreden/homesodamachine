@@ -8,9 +8,11 @@ for this material trial.
 
 The core is accepted as **Mark2 task 1303907771**,
 `magnetic-float-core-mark2-aero-v2.gcode.3mf`. One Send received
-`project_file SUCCESS`; the printer reported the new task and matching archive
-in `RUNNING`, layer 0 of 220. This is startup telemetry, not a first-layer or
-physical acceptance result.
+`project_file SUCCESS`. The first printing observation at 03:34 UTC on
+2026-10-03 reports the matching task and archive in `RUNNING`, layer 13 of 220,
+with no printer errors or HMS. Bambu Connect corroborates the right nozzle at
+270 °C, bed at 90 °C and chamber at 60 °C. This records printer progress beyond
+the first layer; first-layer appearance and physical acceptance are unreported.
 
 The insert is sliced and reviewed for the same printer. It follows the core
 after removal and a new clear-bed report or start request. Completion alone
