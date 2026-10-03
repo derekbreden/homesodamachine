@@ -29,6 +29,14 @@
     7.12
   ],
   "recommended_fine_layer_height_mm": 0.08,
+  "recommended_pilot_alignment_layer": {
+    "print_z_range_mm": [
+      0.72,
+      0.85
+    ],
+    "layer_height_mm": 0.14,
+    "scope": "One local phase-alignment layer on the dry pilot, followed by 0.08 mm layers through the wet band. Keep the saved 0.20 mm bed layer and global PETG settings."
+  },
   "finished_profile": {
     "entry_diameter_mm": 8.4,
     "lead_height_mm": 1.8,
@@ -173,8 +181,8 @@
   },
   "status": "Native geometry checked separately; printed fit, finishing, release and casting remain physical checks.",
   "sha256": {
-    "forming-mandrel.step": "0cf0e36037ba2f0d1d6e8a8dd9057b8ecaab7f68a379cd92f3bc418f0c27d8ce",
-    "forming-mandrel.stl": "6b67468da5c28217f85d54ef170e3a884b4e4ec3ed256a410a2764693354d9c0",
+    "forming-mandrel.step": "3c851eb5635d9a043ba41e1a7aed70f3d0dd452eaae08039a60768f76b28c136",
+    "forming-mandrel.stl": "d1b40b0fd5cfc285f7ccc693be6154c573a719546a20a07039d5b28f72ec58fa",
     "forming-mandrel-finished.step": "2261822ac0cefc13abe9f5e57f6509a5be77cedb61f66424046799265753cb42"
   },
   "mesh": {
@@ -182,13 +190,5 @@
     "watertight": true,
     "winding_consistent": true,
     "bodies": 1
-  },
-  "recommended_pilot_alignment_layer": {
-    "print_z_range_mm": [
-      0.72,
-      0.85
-    ],
-    "layer_height_mm": 0.14,
-    "scope": "One local phase-alignment layer on the dry pilot, followed by 0.08 mm layers through the wet band. Keep the saved 0.20 mm bed layer and global PETG settings."
   }
 }

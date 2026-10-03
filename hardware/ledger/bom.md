@@ -134,13 +134,13 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Flavor reservoir body — right | 1 | PETG (translucent) | 0.386 | $4.32 <!--@printed--> |
 | Flavor reservoir cap — left | 1 | PETG (translucent) | 0.059 | $0.66 <!--@printed--> |
 | Flavor reservoir cap — right | 1 | PETG (translucent) | 0.059 | $0.66 <!--@printed--> |
-| Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.279 | $32.01 <!--@printed--> |
+| Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.236 | $30.94 <!--@printed--> |
 | Enclosure — pump cartridge + clamp (one set) | 1 set | PET-GF | 0.471 | $11.80 <!--@printed--> |
 | Carbonator reed bridge | 1 | PETG | 0.008 | $0.09 <!--@printed--> |
 | Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.491 | $37.30 <!--@printed--> |
 | Display cover plate | 1 | PET-GF | 0.012 | $0.31 <!--@printed--> |
 | Bulkhead ring — one per +Y-wall crossing | 5 | PETG (blue, white, red, black ×2) | 0.012 | $0.13 <!--@printed--> |
-| Tube collar — one per +Y-wall crossing | 5 | PETG (blue, white, red, black ×2) | 0.017 | $0.19 <!--@printed--> |
+| Tube collar — one per +Y-wall crossing | 5 | PETG (blue, white, red, black ×2) | 0.017 | $0.20 <!--@printed--> |
 | Collet press — install-kit customer tool | 1 | PET-GF | 0.017 | $0.44 <!--@printed--> |
 | Nameplate — one per unit, serialized | 1 | PET-GF (black + white) | 0.017 | $0.42 <!--@printed--> |
 | ASSE drip pan | 1 | PETG | 0.019 | $0.21 <!--@printed--> |
@@ -149,11 +149,11 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Faucet display cover plate | 1 | PET-GF | 0.005 | $0.13 <!--@printed--> |
 | Above-counter plate | 1 | PET-GF | 0.009 | $0.22 <!--@printed--> |
 | Faucet lever | 1 | PET-GF | 0.004 | $0.09 <!--@printed--> |
-| Funnel frame | 1 | PET-GF | 0.172 | $4.30 <!--@printed--> |
+| Funnel frame | 1 | PET-GF | 0.233 | $5.83 <!--@printed--> |
 | Funnel drain-elbow cradle | 1 | PET-GF | 0.012 | $0.30 <!--@printed--> |
-| **Printed parts total** | | | **~7.05** | **[$163.10](BOM_SEC7)** |
+| **Printed parts total** | | | **~7.07** | **[$163.57](BOM_SEC7)** |
 
-By material: PETG ≈ 0.97 kg / $10.86 — of which the four translucent reservoir parts are ≈ 0.89 kg / $9.96 — and PET-GF ≈ 6.08 kg / $152.22.
+By material: PETG ≈ 0.97 kg / $10.86 — of which the four translucent reservoir parts are ≈ 0.89 kg / $9.96 — and PET-GF ≈ 6.10 kg / $152.69.
 
 Each cap lid ships bolted to its cap. It is the pour clamp at [`cold-core.md`](/hardware/assembly/cold-core.md) step 3 and stays: the [10](FOAM_FACE_SCREWS) M3 × 25 SHCS per face pass through lid and cap into the shell-face inserts, the CO2 line enters through the top lid's tube hole, and the top lid's outer face is the plane the whole water deck and the electronics bay stand on. The top lid also carries the [3](CAP_CRADLES) valve cradles — four bosses printed into that face per valve that stands on it (`_cold_core_interface.cap_cradles`, [`valve-seat/`](/hardware/printed-parts/valve-seat/)) — which is why it outweighs the bottom one. The cradles are a press fit and take no screw. The top cap under it carries the [4](DECK_INSERTS) deck-mount columns, which are the cap's rotation key and the water pump's own bolt pattern: its bracket bolts down into all [4](PUMP_MOUNT_SCREWS).
 
@@ -317,7 +317,7 @@ The bonus bagged inside the install kit, with its own guide: what a buyer uses t
 | 4. CO2 subsystem | [$97.77](BOM_SEC4) |
 | 5. Refrigeration | [$142.25](BOM_SEC5) |
 | 6. Cold core insulation | [$15.62](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-GF) | [$163.10](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-GF) | [$163.57](BOM_SEC7) |
 | 8. Flavor subsystem | [$227.32](BOM_SEC8) |
 | 9. Dispensing | [$71.96](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
@@ -325,7 +325,7 @@ The bonus bagged inside the install kit, with its own guide: what a buyer uses t
 | 12. Level sensing | [$37.50](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$17.99](BOM_SEC13) |
 | 14. Cold kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,389.36](BOM_GRAND)** |
+| **Total** | **[$1,389.83](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

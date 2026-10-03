@@ -86,7 +86,7 @@ The G Ganen's four identical rubber feet have nominal 7 mm pads and slide indepe
 Each valve cradle is a broad rectangular plinth with four blind sockets
 ([`valve-seat/`](/hardware/printed-parts/valve-seat/)). The valve presses into the sockets and
 its round body rests on the plinth beside an open port channel. A vertical edge passage
-clears the reservoir-B fill conduit. The pour hole has [1.5 mm](POUR_CRADLE_GAP) of land to
+clears the reservoir-B fill conduit. The pour hole has [16.13 mm](POUR_CRADLE_GAP) of land to
 the nearest plinth; trim the cured foam to the plate. Keep the caps labeled — the top one
 also goes on rotated 180° at step 7. Geometry detail at
 [`foam_cap.py`](/hardware/printed-parts/cold-core/foam-cap/foam_cap.py).
