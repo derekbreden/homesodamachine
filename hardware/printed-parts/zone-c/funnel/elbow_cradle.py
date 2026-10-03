@@ -120,9 +120,14 @@ def shadow(top):
     run.append((h + 1.0, run[-1][1]))
     out = _revolve([(0.0, run[0][1])] + run, "z")
     # horizontal leg: the leg itself, and its plan footprint from the axis up
-    out = out.fuse(_revolve([(s, r + c) for s, r in yb + yc[1:]], "y"))
+    # Carry the fixed body's last section straight through the smaller collet.
+    # Following the collet's end taper leaves an unprintable knife edge at the
+    # block's aft face. This mouth clearance does not support the elbow.
+    mouth_radius = max(yb[-1][1], *(r for _s, r in yc))
+    horizontal = yb + [(yc[-1][0] + c, mouth_radius)]
+    out = out.fuse(_revolve([(s, r + c) for s, r in horizontal], "y"))
     edge = []
-    for s, r in yb + yc[1:]:
+    for s, r in horizontal:
         q = (r + c, s)
         if not edge or abs(q[0] - edge[-1][0]) > 1e-6 or abs(q[1] - edge[-1][1]) > 1e-6:
             edge.append(q)

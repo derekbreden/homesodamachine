@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "command": [
+    "tools/cad-venv/bin/python",
+    "hardware/scripts/geometry_lint.py",
+    "hardware/printed-parts/zone-c/funnel/elbow-cradle.stl"
+  ],
+  "source_stl_sha256": "651e537dfff26b46a18509768de188e617c63c3e75fb2d8e9622ddcff7171f03",
+  "printed_facets": 10918,
+  "unanswered_findings": 0,
+  "intentional_findings_answered": 2,
+  "after_live_geometry_verification": false,
+  "live_scope": "Corrected cradle geometry lint completed after export; root has not yet published the corrected cradle. Repeat after that live publish before claiming post-live coverage.",
+  "intentional_features": "Two square external hook retention-bearing ceilings.",
+  "scope": "Geometry lint locates selected face defects. It does not replace native emitted-path and support-removal review or physical qualification.",
+  "identical_trial_stl_sha256": "651e537dfff26b46a18509768de188e617c63c3e75fb2d8e9622ddcff7171f03",
+  "trial_lint_unanswered_findings": 0,
+  "trial_lint_intentional_findings_answered": 2
+}

@@ -1,4 +1,4 @@
-[ceiling] The two hooks' flat undersides are the snap's retention bearings: each lies flat on the funnel frame's 3 mm web, so it keeps its square face. They print on accessible bed-rooted supports under the hooks, the two supports the cradle trial's native slice places.
+[ceiling] The two hooks' flat undersides are the snap's retention bearings: each lies flat on the funnel frame's 3 mm web, so it keeps its square face. The current native slice in integration-review/native-slice-reviews/2026-10-03-elbow-cradle-h2c-v2/ retains two bed-rooted supports beneath those bearings. Every emitted support bead has a clear outward removal sweep after its contact and branch junctions are detached. Physical retention, bearing finish and removal effort remain unqualified for the current hooks.
 file: hardware/printed-parts/zone-c/funnel/elbow-cradle.step
 click: x=-16.600 y=4.661 z=33.803
 click: x=16.600 y=4.661 z=33.803

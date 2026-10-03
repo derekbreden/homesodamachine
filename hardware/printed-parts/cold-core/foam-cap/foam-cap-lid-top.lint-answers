@@ -4,7 +4,7 @@ click: x=61.000 y=-60.500 z=5.150
 
 [ceiling] The suction-chain and discharge-chain tunnel roofs are the backs of the clamping ribs: the zip tie passes under each rib and pulls its body into the seat. Each roof bridges 2.8 mm along X between complete 3 mm feet; the 23.3 mm transverse extent is the rib's width. The recessed floor provides 3.25 mm of clear height. The cleanout lane runs along Y through either open mouth, before the purchased body and tie are fitted. Release any attached support at its contact faces and clear the 0.25 mm floor-relief lip before withdrawing it through a mouth; the relief is not a flush floor-level slide path.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=35.120 y=65.050 z=8.400
+click: x=33.120 y=65.050 z=8.400
 click: x=61.000 y=-60.500 z=8.400
 
 [ceiling] The fluid-18 side-anchor window carries the tie beneath the low tube seat. Its roof bridges 2.8 mm along Y between complete 3 mm flanks; the 5.8 mm transverse extent is the post depth above the relieved window. The available height is 1.525 mm, including the 0.25 mm floor relief for roof strands. Both X mouths are open for cleanout before the tube and tie are fitted. Release any attached support and lift it clear of the 0.25 mm floor-relief lip before withdrawing it through a mouth; the surrounding lid surface is above the recessed floor. The tie's rear channel continues openly from the window floor to the post crown. The 16.24 mm² roof is below the lint's 20 mm² ceiling threshold; the native cap and mouth checks in fluid-18-clearance-check.json establish its geometry.

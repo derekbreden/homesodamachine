@@ -1,18 +1,22 @@
 [step] The forming pocket over the silicone brim reserves 0.30 mm of coating growth. The surrounding bare parting lands establish the closure height. This face prints upward with the core inverted.
 file: hardware/printed-parts/zone-c/funnel-mold/core.step
-click: x=20.833 y=-57.075 z=58.400
+click: x=20.833 y=-57.075 z=55.250
+
+[step] The rod's axial stop has a separate lower datum at Z55.300; the brim's forming pocket lies at Z55.250. Their native planar faces have zero projected overlap. The 0.05 mm difference is between separate functional faces and does not form a thin shared stock ledge. The axial stop retains its 3 mm depth.
+file: hardware/printed-parts/zone-c/funnel-mold/core.step
+click: x=3.692 y=0.000 z=55.300
 
 [sliver] These four vertical faces are the 0.30 mm edge of the finishing pocket over the silicone brim. The 4.70 mm flange material behind the pocket supports its forming face; keep the surrounding parting lands bare.
 file: hardware/printed-parts/zone-c/funnel-mold/core.step
-click: x=0.000 y=66.142 z=58.250
-click: x=0.000 y=-66.142 z=58.250
-click: x=89.800 y=0.000 z=58.250
-click: x=-89.800 y=0.000 z=58.250
+click: x=0.000 y=66.142 z=55.100
+click: x=0.000 y=-66.142 z=55.100
+click: x=89.800 y=0.000 z=55.100
+click: x=-89.800 y=0.000 z=55.100
 
-[ceiling] This shelf is the dry end of the loose rod guide at Y=17.95, below the open V cradle. It faces downward with the core inverted. Supports are removed through the open front before inserting the rod; its shelf retains the complete guide section.
+[ceiling] This shelf is the dry end of the loose rod guide at Y=0, below the open V cradle. It faces downward with the core inverted. The current native slice emits bed-rooted Snug support and a labelled interface in the guide band. Cut and detach support through the open V/front before inserting the rod; the shelf retains the complete guide section.
 file: hardware/printed-parts/zone-c/funnel-mold/core.step
-click: x=5.773 y=17.950 z=30.415
+click: x=5.773 y=0.000 z=27.265
 
-[ceiling] This is the dry end of the rod cradle axial stop at Y=17.95. It stands 4.8 mm off the bed with the core inverted. Supports carry the flat stop, whose outer face is exposed for their removal.
+[ceiling] This is the dry end of the rod cradle axial stop at Y=0. It stands 1.65 mm off the bed with the core inverted. The current native slice emits a labelled interface at print Z1.192–1.440 beneath it, with 0.992 mm of support build-up before the first interface. The outer stop face is exposed for cutting and detaching this support; clean physical release remains untested.
 file: hardware/printed-parts/zone-c/funnel-mold/core.step
-click: x=1.850 y=17.950 z=58.300
+click: x=1.850 y=0.000 z=58.300

@@ -156,9 +156,9 @@
   "all_pass": true,
   "input_sha256": {
     "hardware/manifold-layout/_lines.py": "1afcff9a0d90b49cca1b11b7f663c6183205e3020087c56986c1987d121018cd",
-    "hardware/manifold-layout/enclosure-assembly.facts.json": "1df4232b14675cd450357f002fb286b1422ab5ac211831646b0f43fcc40e2c69",
-    "hardware/manifold-layout/enclosure-assembly.scorecard.json": "32dae5c5b262aa21a9a2de3169a4be2fbfca08a9627d20261a45374573a7f52e",
-    "hardware/manifold-layout/enclosure-assembly.step": "2ea8aa70c2075ebeb899cbe621d5515cea5703b96da6aad1817b4941a87a2a5d",
+    "hardware/manifold-layout/enclosure-assembly.facts.json": "d701827b1ead54f36229e8ce1b022c5544dc797cd67e84c46f64df3ab5ecd2e5",
+    "hardware/manifold-layout/enclosure-assembly.scorecard.json": "1572050c9139953b73a20ab7e22e472b740f66106cc23cbc1e3efa60a06f38ef",
+    "hardware/manifold-layout/enclosure-assembly.step": "423b46dd9d931d4e34e8c53daa9b468a5d57494321c5f4f76e906a9b9a0d1f77",
     "hardware/printed-parts/cadlib/fits.py": "3821989044c5bc3ae99cc6912538b8a34bd75a6b0a081aefc8e4c5a0ce714191",
     "hardware/printed-parts/cold-core/_cold_core_interface.py": "9cb0b893247a4d43e3a892ca011127d1f373cdb8045d9f4ebbef387220908f6f",
     "hardware/printed-parts/cold-core/_foam_cap.py": "8234fa4a41dcc6097906636bb8482fb344af5137ce0fcea420d723e5435f8d43",
@@ -170,15 +170,15 @@
     "hardware/printed-parts/zone-c/funnel/funnel.py": "7e224d80c14b8bb089405d3c98964201a6df5141aaf3d1a10177808117df97e1",
     "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "4e8f53f1aaa2bb572a207f32ec58725213510e9a581f004902400a06cd6b615a",
     "hardware/scripts/_routing.py": "7c58056295b6b3dd94caec51ea90dee7d318c1950052bb88162f5d689c097d06",
-    "web/public/tube-routes.json": "bd77a118c90b2de4af9623e2feb99c2709520452a709ab2187084e45ed17f32f"
+    "web/public/tube-routes.json": "f210014314dae344eed286ce1176d5bac9103864f2612053cd995622dd5803e0"
   },
   "neighbour_origin": {
-    "assembly_step_sha256": "2ea8aa70c2075ebeb899cbe621d5515cea5703b96da6aad1817b4941a87a2a5d",
+    "assembly_step_sha256": "423b46dd9d931d4e34e8c53daa9b468a5d57494321c5f4f76e906a9b9a0d1f77",
     "native_body_sha256_method": "OpenCASCADE BRepTools.Write, format version 1, without triangulations or normals",
     "native_body_sha256": {
       "cold-core/foam-cap-lid-top": "32b88eb8d391004c4d88d7ac04058ca3f71dfb4769c507c1f99b6f78bb9c635e",
       "enclosure-back-top": "8b9fec794060d7d7daf804813007d5ea14324df2e519cc39289aa726946b52a5",
-      "funnel-frame": "f028187d1948799061cf3d57bfca69f85355890ca7faccff9e02bf2bdf090980",
+      "funnel-frame": "b26fb08dbaadba07852ea8af831144c45c7c7a9e62c63050626fd9d41a2f1f1b",
       "g-ganen-pump": "29867f85e92a6b2687a9e658b7bccd301a9a05b7dbb09cb6a9d4108b8517e906",
       "step-fluid-3": "15040197e2e51e472d006ca286c47051c6935c74a124217bba69b04df1a7cdfb",
       "step-fluid-5": "29cf2ecf390cdd1016cb09862a848b637df28f4d33b390897ca497752b3d2bba",
@@ -443,5 +443,21 @@
       ".cache/funnel-block-seat/wire-cap/check_cap.py": "f63cf372f1f6b4a587e59a416575ca3b490c1a4472b3904a570d55ef0b484bd1",
       ".cache/funnel-block-seat/wire-cap/finalize_cap.py": "315f190ba89d0add4eb539fd1cfcc4059fa28b50cd223cd375d70fb324e3c0a2"
     }
+  },
+  "post_live_geometry_lint": {
+    "checked_at_utc": "2026-10-03 08:15:43 UTC",
+    "publication_verified_by_parent_at_utc": "2026-10-03 08:01 UTC",
+    "native_step_sha256": "bff744a48001cd7260cab8f983868c751b34c07f56f6304ceaf932924e9b93ed",
+    "scratch_stl_sha256": "778acb796f5018089357a7e2668932182f2c6b366ba4f71e5a1346552d6e79a6",
+    "scratch_stl_path": ".cache/funnel-block-seat/wire-cap/foam-cap-lid-top.stl",
+    "linear_tessellation_tolerance_mm": 0.05,
+    "angular_tessellation_tolerance": 0.05,
+    "tool_sha256": "79914fb4ca91a5620956c1d4d95fd6fe253fcae1b5f26bac0fafc43edffb4f53",
+    "answers_sha256": "5042c3f72a4e7df13bd21244271bec0114b09b3da670faa4b5794f2852022609",
+    "all_classes": true,
+    "all_findings_inspected": true,
+    "open_findings": 0,
+    "answered_findings": 5,
+    "scope": "Post-live lint of current native cap tessellation. Intentional tunnel roofs and the floor relief are answered at exact current points; no cap print or support-removal trial is established."
   }
 }

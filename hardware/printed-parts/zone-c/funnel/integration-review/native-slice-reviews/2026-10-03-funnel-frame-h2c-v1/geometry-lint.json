@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "command": [
+    "tools/cad-venv/bin/python",
+    "hardware/scripts/geometry_lint.py",
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.stl"
+  ],
+  "source_stl_sha256": "9bbdd18722b968407c6eb844d1d70d4f85963a26afb1dceedbd5b4d0f754b6bd",
+  "printed_facets": 53032,
+  "unanswered_findings": 0,
+  "intentional_findings_answered": 5,
+  "after_live_geometry_verification": true,
+  "live_scope": "Root verified the current frame and trial receiver live geometry before these lint runs.",
+  "intentional_features": "Four functional rail-lifting bearing ceilings and the silicone brim clearance step.",
+  "scope": "Geometry lint locates selected face defects. It does not replace native emitted-path and support-removal review or physical qualification."
+}
