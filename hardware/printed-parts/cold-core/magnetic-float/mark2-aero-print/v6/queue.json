@@ -21,7 +21,7 @@
   "bed": "Engineering Plate",
   "print_sequence": "by layer",
   "trial": "magnetic-float ASA Aero physical v6",
-  "status": "local_float_print_finished_cooling",
+  "status": "local_float_print_completed_cooled",
   "printer": "Mark2",
   "archive_name": "magnetic-float-pair-mark2-aero-v6.gcode.3mf",
   "parts": [
@@ -33,10 +33,10 @@
   "bed_clear_confirmation": "Engineering plate is glued and loaded now. Textured plate is a no go.",
   "minimum_cross_printer_start_or_resume_spacing_s": 180,
   "cool_before_removal_c": 35,
-  "completion_reported": false,
-  "monitor_active": true,
+  "completion_reported": true,
+  "monitor_active": false,
   "send_attempts": 1,
-  "updated_utc": "2026-10-03T08:16:12.818890+00:00",
+  "updated_utc": "2026-10-03T09:46:43.401528+00:00",
   "priming_strip_review": {
     "centerline_bounds_xy_mm": [
       230.0,
@@ -71,7 +71,7 @@
     ],
     "clear_of_parts_and_bed_exclusions": true
   },
-  "scope": "Local float print RC62 magnetic float - aero, task_id 6700, is the active monitor target. Cloud v6 acceptance and frozen hashes remain historical; local archive identity is unverified.",
+  "scope": "Local float print RC62 magnetic float - aero, task_id 6700, is finished and cooled for removal. Cloud v6 acceptance and frozen hashes remain historical; local archive identity is unverified.",
   "launch_record": "pair-mark2-launch.json",
   "adhesive_application_reported": true,
   "physical_trial_revision": 6,
@@ -79,5 +79,6 @@
   "accepted_utc": "2026-10-03T05:58:21.680040+00:00",
   "active_monitor_record": "operator-print.json",
   "accepted_task_terminal_state": "Not observed",
-  "local_completion_observed_utc": "2026-10-03T08:16:12.818890+00:00"
+  "local_completion_observed_utc": "2026-10-03T08:16:12.818890+00:00",
+  "local_cooled_observed_utc": "2026-10-03T09:46:43.401528+00:00"
 }
