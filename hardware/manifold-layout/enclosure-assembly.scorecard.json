@@ -168,6 +168,8 @@
     "co2-1 \u2014 enclosure-back-top: 1.101 mm",
     "carb-1 \u2014 suction-chain: 1.114 mm",
     "fluid-14 \u2014 vk-solenoid: 1.125 mm",
+    "fluid-14 \u2014 funnel-frame: 1.165 mm",
+    "fluid-16 \u2014 funnel-frame: 1.213 mm",
     "g-ganen-pump \u2014 bulkhead-flavor-a: 1.275 mm",
     "funnel \u2014 funnel-drain-union: 1.278 mm \u2014 seated against it",
     "fluid-18 \u2014 enclosure-back-top: 1.308 mm",
@@ -1104,7 +1106,7 @@
    "label": "The funnel collar stands in the frame the top wall has left",
    "kind": "gate",
    "status": "pass",
-   "value": "collar x -82.50..82.50, y 141.61..223.39",
+   "value": "collar x -82.50..82.50, y 105.71..223.39",
    "target": "frame x -89.50..89.50, y 101.00..465.30",
    "detail": [],
    "active": true
@@ -1134,7 +1136,7 @@
    "label": "The funnel's brim lands on top wall ahead of the throat",
    "kind": "gate",
    "status": "pass",
-   "value": "brim front at y 134.61, facet arris at 95.34",
+   "value": "brim pocket front at y 98.46, facet arris at 95.34",
    "target": "a 3 mm landing, so at or aft of 98.34",
    "detail": [],
    "active": true
@@ -1311,7 +1313,7 @@
    "value": "20/21 within span, 1 left loose",
    "target": "200 mm between held points",
    "detail": [
-    "fluid-14: 205.2 mm unheld, 5.2 over",
+    "fluid-14: 203.1 mm unheld, 3.1 over",
     "carb-1: 146.1 mm, held at its anchor",
     "co2-2: 174.4 mm, held at its anchor",
     "fluid-28: 164.6 mm, held at its anchor",
