@@ -31,7 +31,7 @@
   },
   "estimated_part_time_s": 2118.722412109375,
   "archive_name": "magnetic-float-insert-mark2-aero-v8.gcode.3mf",
-  "status": "running",
+  "status": "completed_cooling",
   "send_attempts": 1,
   "send_attempt_utc": "2026-10-03T15:17:27.731516+00:00",
   "print_options": {
@@ -258,6 +258,49 @@
         "source_field": "device.ctc.info.temp"
       },
       "scope": "Printer reports layer 2 of 50 with no error or HMS. This is printer progress, not visual first-layer adhesion or physical acceptance."
+    },
+    {
+      "observed_at": "2026-10-03T16:08:17.293297+00:00",
+      "job_id": "1305301700",
+      "task_id": "1305301700",
+      "subtask_name": "magnetic-float-insert-mark2-aero-v8.gcode.3mf",
+      "print_type": "cloud",
+      "gcode_state": "FINISH",
+      "layer_num": 50,
+      "total_layer_num": 50,
+      "mc_percent": 100,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": -1,
+      "bed_temper": 62.0,
+      "bed_target_temper": 0.0,
+      "installed_extruders": [
+        {
+          "id": 0,
+          "hnow": 0,
+          "snow": 65280,
+          "temperature_packed": 58,
+          "actual_c": 58,
+          "target_c": 0
+        },
+        {
+          "id": 1,
+          "hnow": 1,
+          "snow": 65024,
+          "temperature_packed": 58,
+          "actual_c": 58,
+          "target_c": 0
+        }
+      ],
+      "chamber": {
+        "temperature_packed": 51,
+        "actual_c": 51,
+        "target_c": 0,
+        "source_field": "device.ctc.info.temp"
+      },
+      "event": "printer_completed",
+      "scope": "Printer reports FINISH, 50 of 50 layers and no error. Cooling remains in progress; this does not establish adhesion, foam density, buoyancy or fit."
     }
   ],
   "printer_reports": [
@@ -417,44 +460,44 @@
       ]
     }
   ],
-  "latest_observed_utc": "2026-10-03T15:35:15.561188+00:00",
+  "latest_observed_utc": "2026-10-03T16:08:17.293297+00:00",
   "latest_status": {
     "job_id": "1305301700",
     "task_id": "1305301700",
     "subtask_name": "magnetic-float-insert-mark2-aero-v8.gcode.3mf",
     "print_type": "cloud",
-    "gcode_state": "RUNNING",
-    "layer_num": 2,
+    "gcode_state": "FINISH",
+    "layer_num": 50,
     "total_layer_num": 50,
-    "mc_percent": 52,
-    "mc_remaining_time": 16,
+    "mc_percent": 100,
+    "mc_remaining_time": 0,
     "print_error": 0,
     "hms": [],
-    "stg_cur": 0,
-    "bed_temper": 90.0,
-    "bed_target_temper": 90.0,
+    "stg_cur": -1,
+    "bed_temper": 62.0,
+    "bed_target_temper": 0.0,
     "installed_extruders": [
       {
         "id": 0,
         "hnow": 0,
         "snow": 65280,
-        "temperature_packed": 17694990,
-        "actual_c": 270,
-        "target_c": 270
+        "temperature_packed": 58,
+        "actual_c": 58,
+        "target_c": 0
       },
       {
         "id": 1,
         "hnow": 1,
         "snow": 65024,
-        "temperature_packed": 57,
-        "actual_c": 57,
+        "temperature_packed": 58,
+        "actual_c": 58,
         "target_c": 0
       }
     ],
     "chamber": {
-      "temperature_packed": 3932220,
-      "actual_c": 60,
-      "target_c": 60,
+      "temperature_packed": 51,
+      "actual_c": 51,
+      "target_c": 0,
       "source_field": "device.ctc.info.temp"
     }
   },
@@ -462,5 +505,7 @@
   "accepted_job_id": "1305301700",
   "accepted_utc": "2026-10-03T15:17:39.814994+00:00",
   "monitor_active": true,
-  "monitor_automation_id": "monitor-float-insert-and-front-top"
+  "monitor_automation_id": "monitor-float-insert-and-front-top",
+  "completed_observed_utc": "2026-10-03T16:08:17.293297+00:00",
+  "completion_reported": false
 }
