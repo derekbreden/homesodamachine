@@ -1,0 +1,8 @@
+{
+  "native_archive_sha256": "235e948e975086a4cebc2dabaa09b1f54f458ebf54f84e36261debecc38889da",
+  "gcode_sha256": "69978f9224efc0942db3c03ce998057909e217e84703f40d28f7f049686baf97",
+  "gcode_md5": "3052c099d97f11ab5cd29cecab12cd1b",
+  "stored_gcode_md5": "3052C099D97F11AB5CD29CECAB12CD1B",
+  "archive_zip_crc_pass": true,
+  "metadata_part_name": "enclosure-back-top"
+}

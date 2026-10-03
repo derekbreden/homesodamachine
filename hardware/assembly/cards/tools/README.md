@@ -11,6 +11,11 @@ A number printed here is copied verbatim from one of them or from
 [`ledger/tools.md`](/hardware/ledger/tools.md), and
 [`_index.py --drift`](_index.py) fails the build on any that is not.
 
+The pour bench's nominal silicone volume follows the generated mould's
+[`design.json`](../../../printed-parts/zone-c/funnel-mold/design.json) through
+[`_cards_sync.py`](../_cards_sync.py). Both deck builders check that figure
+before rendering.
+
 ## Layout
 
 - One `.html` per station, named `<code>-<slug>.html`, authored against a fixed

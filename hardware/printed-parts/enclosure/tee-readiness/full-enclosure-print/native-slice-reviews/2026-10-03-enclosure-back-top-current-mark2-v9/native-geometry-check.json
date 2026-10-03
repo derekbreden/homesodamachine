@@ -1,0 +1,12 @@
+{
+  "pass": true,
+  "step_sha256": "85e4e97f382142f2ed497abe36d6be493dda94ee4b672a9e0a706b684c0ef573",
+  "stl_sha256": "866cffceff2bd16e8f760b520ac5ca699904999238e3eedfe1f8ed4311a7672c",
+  "native_valid": true,
+  "native_solid_count": 1,
+  "roof_corner_downward_flat_fin_candidates": [],
+  "flat_fin_selector": "Complete native planar face above CAD Z350 mm, entirely outboard of |X|100 mm, with downward normal. Separate internal locating and retaining features receive their own full native/source/path reviews.",
+  "moisture_clip_native_stock_record": "moisture-clip-native-stock.json",
+  "moisture_clip_native_stock_sha256": "b7c6fd0e63e69ed5c0c492e133d919f0f52601481ad518741e0939371df91d53",
+  "scope": "Current source/native back-top; production source print mesh is independently bound in the project and emitted-path audit. Physical fit, finish, strength and lifetime remain separate."
+}

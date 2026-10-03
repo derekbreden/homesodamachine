@@ -1,0 +1,31 @@
+{
+  "pass": true,
+  "production_source_sha256": "20f8a25c7c8c37f6bb65292d7bb0650b81a17b8b27a07a507477bcfec985149c",
+  "source_box_sha256": "cc3bce91a6c22325682dbc18841ede8d61f00153dfb3322f0cc0ad2b4b3e7b37",
+  "source_box_geometry_only_no_full_machine_build": true,
+  "back_top_step_sha256": "85e4e97f382142f2ed497abe36d6be493dda94ee4b672a9e0a706b684c0ef573",
+  "back_top_stl_sha256": "866cffceff2bd16e8f760b520ac5ca699904999238e3eedfe1f8ed4311a7672c",
+  "back_top_stl_facets": 1066190,
+  "valid_native_solid_count": 1,
+  "back_top_stl_watertight": true,
+  "back_top_stl_winding_consistent": true,
+  "native_geometry_vs_scratch_mm3": {
+    "production_minus_scratch": 0.0,
+    "scratch_minus_production": 0.0
+  },
+  "preserved_other_five_native_STEP_STL_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "cb45044df359205d55dafe6ad3a8f5e8f332eccb2cfe6ac708f3c913672541b6",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "b9a330b868dde6cdab0278fecb023b4b3dc01a993e9070fa2828605237fded88",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "388955f5bc340be0e8048aff9e66cbd1a2488760926627d85101725bec79daf7",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "b6cb885cf4619e27e9ca8d702c95b475d934a572de91633016bf63a5bcb3487b",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "0f742e347d3f2ed4e812e8172a0762ef2d4f609a0a477627d81f352c7d328ff6",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "916c443fbb594eefe28612422f55ec2d3aced9bb05ffe6a6b0d42f9e310ba0ee",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "78a98c163ef99a07867f5c3b703775d86f6d665eb2be050a99da0e63b31d7db8",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl": "517a772b6842aa4a5474496a4d0ad29fcfede7dae5aceb880c8b5d04ea1e1179",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "489567d35acfb8db558919fa712212971c71bc02832a955d4b7413e5e4d37a87",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl": "3430c05b8db739ce38a59306bb5560ee62ee755ab46ad66f946e8c568af1a4c5"
+  },
+  "aggregate_enclosure_machine_facts_and_routes_written": false,
+  "fresh_production_native_slice_review_pending": true,
+  "elapsed_seconds": 52.92229199409485
+}

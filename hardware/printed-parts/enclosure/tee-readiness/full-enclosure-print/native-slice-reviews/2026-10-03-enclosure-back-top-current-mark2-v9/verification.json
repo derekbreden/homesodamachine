@@ -1,0 +1,131 @@
+{
+  "pass": true,
+  "printer": "Mark2",
+  "native_archive": ".cache/prints/2026-10-03-enclosure-back-top-current-mark2-v9/ready/enclosure-back-top-current-black-z004-mark2-v9.gcode.3mf",
+  "native_archive_sha256": "235e948e975086a4cebc2dabaa09b1f54f458ebf54f84e36261debecc38889da",
+  "gcode_sha256": "69978f9224efc0942db3c03ce998057909e217e84703f40d28f7f049686baf97",
+  "project_sha256": "8292d7e05763f8f4556c207210fb379a304ac59ceb6e8479c79c991bbe62e4f5",
+  "source_step_sha256": "85e4e97f382142f2ed497abe36d6be493dda94ee4b672a9e0a706b684c0ef573",
+  "source_stl_sha256": "866cffceff2bd16e8f760b520ac5ca699904999238e3eedfe1f8ed4311a7672c",
+  "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "native_export_normalizations": {
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ],
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ]
+  },
+  "settings": {
+    "enable_support": "1",
+    "support_type": "tree(auto)",
+    "support_object_xy_distance": "0.4",
+    "support_top_z_distance": "0.45",
+    "support_bottom_z_distance": "0.3",
+    "initial_layer_print_height": "0.2",
+    "layer_height": "0.24",
+    "wall_loops": "2",
+    "enable_arc_fitting": "0",
+    "is_infill_first": "0",
+    "wall_sequence": "inner wall/outer wall",
+    "infill_wall_overlap": "15%",
+    "filament_colour": [
+      "#000000"
+    ],
+    "filament_nozzle_map": [
+      "0"
+    ],
+    "nozzle_diameter": [
+      "0.4",
+      "0.4"
+    ],
+    "support_filament": "1",
+    "support_interface_filament": "1"
+  },
+  "emitted_z_trim_mm": [
+    0.0,
+    0.02
+  ],
+  "rounds": [
+    {
+      "name": "expanding roof chamfer and taper",
+      "print_z_mm": [
+        0.2,
+        9.3
+      ],
+      "wall_layer_count": 38,
+      "first_wall_layer": [
+        0.44,
+        0.24
+      ],
+      "last_wall_layer": [
+        9.32,
+        0.24
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    }
+  ],
+  "layer_count": 813,
+  "layer_runs": [
+    {
+      "height": 0.2,
+      "bottom": 0.0,
+      "last_z": 0.2,
+      "count": 1
+    },
+    {
+      "height": 0.24,
+      "bottom": 0.2,
+      "last_z": 195.08,
+      "count": 812
+    }
+  ],
+  "toolpath_bounds": {
+    "extrusion_bounds_xy_mm": [
+      [
+        12.396,
+        37.532
+      ],
+      [
+        316.694,
+        277.5
+      ]
+    ],
+    "maximum_line_width_mm": 0.81644,
+    "additional_bounds_margin_mm": 0.1,
+    "extrusion_segment_count": 4707905,
+    "method": "Every retained linear extrusion plus its own half-width and 0.10 mm; extruding arcs rejected."
+  },
+  "minimum_shared_bed_margin_mm": 8.305999999999983,
+  "minimum_model_bed_margin_mm": 15.13594671100168,
+  "required_model_margin_mm": 15,
+  "required_support_extrusion_margin_mm": 5,
+  "support_extrusion_10_mm_diagnostic_pass": false,
+  "estimated_seconds": 94134.5859375,
+  "estimated_grams_saved_profile_density": 843.8819580078125,
+  "support_removal_review_pending": false,
+  "physical_full_enclosure_fit_tested": false,
+  "submitted": false,
+  "emitted_path_review_sha256": "b87a05f5aff0170ce36fcdda8bb57fdb37fecf7f8324903d3177b014f42c9344",
+  "native_functional_surface_emission_sha256": "abf24eb98770ce8e380388811aa966dd402a60e45a54b18abb109897301b4567",
+  "native_functional_bearing_footprints_sha256": "67c2977fb31d646fa84d446320f7c9e098347b59d96aa879c46967a09499dd2a",
+  "support_removal_review_sha256": "aea5c18de64d95fec494d9aec735db34e595435c7eeb39c4b6edcfa9de9399a9",
+  "show_support_clearance_summary_sha256": "ecf5fb431086a22ef9baa45fc88f5400c9545d0a8aafcd1ecfae52defbcdb8cc",
+  "prv_crown_emission_review_sha256": "56f4a8ea75031b905a166f9833f3945dd024ba1439b74cadbec584395b0c7864",
+  "current_native_integration_sha256": "58aa2333b338337ca08935b6a08904c19fbeb03c54d83f5eb360d973e011f909",
+  "retained_ground_mount_round_terminal_deviation_mm": 0.12577126593959065,
+  "status": "native geometry, emitted bearing paths, protected faces and accessible support lanes reviewed; retained ground-round terminal approximation; not submitted",
+  "physical_show_surface_tested": false,
+  "physical_support_removal_tested": false,
+  "physical_fastening_or_lead_retention_tested": false
+}

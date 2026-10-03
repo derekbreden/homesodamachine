@@ -1,0 +1,110 @@
+{
+  "schema": 1,
+  "piece": "funnel-mold/forming-mandrel",
+  "inputs": {
+    "gcode": "plate_1.gcode",
+    "gcode_sha256": "ee726734599b5935120c50aba3136d20d8bf83ce662cba845bb6faf46273cea5",
+    "model": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/zone-c/funnel-mold/forming-mandrel.stl",
+    "model_sha256": "6b67468da5c28217f85d54ef170e3a884b4e4ec3ed256a410a2764693354d9c0",
+    "profile": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/funnel-block-seat/mandrel-readiness/forming-mandrel-petg088-v3.3mf",
+    "profile_sha256": "e7e8a073c623ac9c08f390f495078645fc5a7c97213ff4fe693cb032744b7cbb"
+  },
+  "slicer": "BambuStudio 02.08.02.61",
+  "first_layer_z_mm": 0.2,
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -149.5,
+      -160.0,
+      0.0
+    ],
+    "plate_to_cad_translation_mm": [
+      -149.5,
+      -160.0,
+      0.0
+    ]
+  },
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.2",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.48",
+    "support_on_build_plate_only": "0",
+    "support_style": "snug",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.2",
+    "support_type": "normal(auto)"
+  },
+  "summary": {
+    "support_bodies": 1,
+    "interface_islands": 1,
+    "bed_rooted_bodies": 1,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 0.912,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 1,
+    "shortest_labelled_build_up_mm": 0.912
+  },
+  "trees": [
+    {
+      "id": "tree-1",
+      "root": "bed",
+      "base_z_mm": 0.2,
+      "first_interface_z_mm": 1.112,
+      "shortest_build_up_mm": 0.912,
+      "top_z_mm": 1.34,
+      "bbox_xy_mm": [
+        143.6,
+        154.0,
+        155.6,
+        166.0
+      ],
+      "interfaces": [
+        "interface-1"
+      ],
+      "interface_reading": "explicit_feature",
+      "bbox_cad_xyz_mm": [
+        -5.9,
+        -6.0,
+        0.2,
+        6.1,
+        6.0,
+        1.34
+      ]
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "interface-1",
+      "first_z_mm": 1.112,
+      "last_z_mm": 1.34,
+      "bbox_xy_mm": [
+        145.6,
+        156.0,
+        153.6,
+        164.0
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 0.912,
+      "bbox_cad_xyz_mm": [
+        -3.9,
+        -4.0,
+        1.112,
+        4.1,
+        4.0,
+        1.34
+      ]
+    }
+  ],
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up."
+}

@@ -4,7 +4,7 @@
   "seal_mesh_contact_overlap_mm": 0.02,
   "seal_mesh_contact_overlap_scope": "Actual entry seal only; translations along each axis.",
   "witness_mm": [
-    8.2,
+    10.25,
     0.0,
     7.5
   ],
@@ -13,10 +13,10 @@
     "cavity.stl": "1ce5878e4b25309c131feb9f7b29af3f1add419602033602f0da22e5582d7afc",
     "core.step": "39a0fd8e316e2c05f598d99e490f75ae19c26334cd9eed5394a5a5ea3eb50d40",
     "core.stl": "ab01e93b9b2fdf40ce10ff6af51509b95f6f0fdffcb1fd5ff387d4a26547e694",
-    "rod.step": "683c61357b376fea791e43406c329903e87463697ccb2566609428b495087a55",
-    "funnel.step": "437e57f7cfa88454ce3fe0f59c87c8d153267e7f32a4b5cdefd3e960cc7ad3db",
-    "assembly.step": "ac020eff947f9d917a08f23ca594de764c4c1818ef122e17a8e3232a22d7ca05",
-    "design.json": "99507c63139e86b903936f7a8b3c617b8cf89028ee33e91064bbf2aa6431c96b"
+    "rod.step": "bc6c95a7702e3a552a0267678f9ee995f897d855362b0c1fe76c2ea30b16eb0b",
+    "funnel.step": "14f80d9a06ffa783f2bd4b4c71efe6206f09c7c659b77df55047d7b7ca3f6aca",
+    "assembly.step": "66a0283155f932c7a1f47e4427d649fa930b0d7c66b1f7e011698a4db342d7cc",
+    "design.json": "22344e488c6ed4eb8a9d74de54ddf4194280709a991abca3054dafe94e1bf455"
   },
   "readings": {
     "cavity_step": {
@@ -33,10 +33,10 @@
       "contained": true,
       "regions": 2,
       "region_volumes_ml": [
-        242.709834,
+        242.695544,
         3087.757339
       ],
-      "retained_volume_ml": 242.709834,
+      "retained_volume_ml": 242.695544,
       "casting_outside_retained_mm3": 0.0
     },
     "cavity_stl": {
@@ -59,15 +59,15 @@
       "positive_regions": 2,
       "boundary_volumes_ml": [
         -841.110386,
-        242.656995,
+        242.64227,
         3929.021379
       ],
       "negligible_boundaries": {
-        "count": 244,
-        "max_abs_volume_mm3": 7.987468550795773e-10
+        "count": 246,
+        "max_abs_volume_mm3": 7.987468551157173e-10
       },
-      "retained_volume_ml": 242.656995,
-      "casting_outside_retained_mm3": 1e-06
+      "retained_volume_ml": 242.64227,
+      "casting_outside_retained_mm3": 0.0
     }
   },
   "contained": true

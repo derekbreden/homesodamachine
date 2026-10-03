@@ -31,36 +31,36 @@
       "volume_mm3": 295312.47488110844
     },
     "funnel": {
-      "sha256": "437e57f7cfa88454ce3fe0f59c87c8d153267e7f32a4b5cdefd3e960cc7ad3db",
+      "sha256": "14f80d9a06ffa783f2bd4b4c71efe6206f09c7c659b77df55047d7b7ca3f6aca",
       "valid": true,
       "solids": 1,
       "bounds_mm": [
-        -89.5000001,
-        89.5000001,
-        -65.84150802328,
-        65.841508023281,
-        5.999999899999997,
-        54.95000010000001
+        -89.5,
+        89.5,
+        -65.84150792328,
+        65.841507923281,
+        5.9999999,
+        54.95
       ],
-      "volume_mm3": 219305.05127862314
+      "volume_mm3": 219294.49543458826
     },
     "rod": {
-      "sha256": "683c61357b376fea791e43406c329903e87463697ccb2566609428b495087a55",
+      "sha256": "bc6c95a7702e3a552a0267678f9ee995f897d855362b0c1fe76c2ea30b16eb0b",
       "valid": true,
       "solids": 1,
       "bounds_mm": [
-        -1.3249999999999997,
-        5.025,
-        -3.175,
-        3.175,
+        -2.35,
+        6.050000000000001,
+        -4.2,
+        4.2,
         4.5,
         55.3
       ],
-      "volume_mm3": 1608.7962461345553
+      "volume_mm3": 1623.5415950447325
     }
   },
-  "design_sha256": "99507c63139e86b903936f7a8b3c617b8cf89028ee33e91064bbf2aa6431c96b",
-  "containment_review_sha256": "4b425e0a243b5d1ea3c405b2df3e1479d17d132901e3373320473c50bfa586f2",
+  "design_sha256": "22344e488c6ed4eb8a9d74de54ddf4194280709a991abca3054dafe94e1bf455",
+  "containment_review_sha256": "85dd877dd8ddb9464ad4ba4f4ce88af2f1266e27259a70485fefbbf719236ff5",
   "all_containment_bindings_current": true,
   "containment_pass": true,
   "minimum_cavity_backing_mm": 5.00486472199034,
@@ -68,8 +68,8 @@
   "finished_funnel_step_sha256": "fd0143ed0caeef95d80b2a2c7bf4b4ce089c03da6ad39554f6f4e736f1cebc7a",
   "mould_z_translation_mm": 48.95,
   "casting_vs_finished": {
-    "actual_minus_reference_mm3": 24.096829467052874,
-    "reference_minus_actual_mm3": 11.049952949546464
+    "actual_minus_reference_mm3": 0.0,
+    "reference_minus_actual_mm3": 0.0
   },
   "bore_probe_rows": [
     {
@@ -80,7 +80,7 @@
         -42.050000100000005
       ],
       "finished_silicone_at_point": false,
-      "casting_blank_silicone_at_point": true
+      "current_casting_silicone_at_point": false
     },
     {
       "feature": "relief",
@@ -90,7 +90,7 @@
         -40.950000100000004
       ],
       "finished_silicone_at_point": false,
-      "casting_blank_silicone_at_point": true
+      "current_casting_silicone_at_point": false
     },
     {
       "feature": "sealing-land",
@@ -100,12 +100,10 @@
         -39.43517935471506
       ],
       "finished_silicone_at_point": true,
-      "casting_blank_silicone_at_point": false
+      "current_casting_silicone_at_point": true
     }
   ],
-  "casting_scope": "rectangular plug blank with a flat lower bearing face and straight dowel bore; the staged sealing bore requires separate forming features",
-  "ready_to_cast_finished_funnel": false,
-  "production_tooling_limitation": "The straight 6.35 mm dowel forms a blank bore, without the finished 8.4 mm lead-in, 6.7 mm relief and 6.0 mm sealing land.",
+  "casting_scope": "whole finished funnel, including the rectangular block, flat lower bearing face and complete staged sealing bore",
   "template_project_sha256": "da09a13449d6ce902eb929e8dec0ab64e1c8cfb434498aab72dbf79d2527df2a",
   "template_project": "hardware/printed-parts/zone-c/funnel-mold/funnel-mold.3mf",
   "current_project": ".cache/funnel-block-seat/mould-readiness/current-funnel-mould-petg088.3mf",
@@ -499,7 +497,7 @@
     "exact_physical_gcode_archive_currently_available": false,
     "physical_result_scope": "Printed September 18 square-mouth cavity showed improved remaining roughness. Current mould geometry is unprinted."
   },
-  "scope": "Current native mould geometry and independent native PETG slice are review artifacts. This tooling produces a plug blank and cannot yet cast the finished staged sealing bore. No mould print was submitted and no frozen print project or archive was changed.",
+  "scope": "Current native complete tooling geometry and independently sliced PETG shell and mandrel review artifacts. The finished contoured mandrel forms the complete staged bore; measured printed finishing, release and casting remain unqualified. Frozen shell project/archive receipts retain their exact slice geometry scope.",
   "native_support_tool_sha256": "3dd14a091d92aabde9b20d65bbe84acb15262e2bdb3f615722b2623cabd396f1",
   "support_topology_method": {
     "grid_mm": 0.4,
@@ -545,5 +543,39 @@
   "proof_helpers_sha256": {
     ".cache/funnel-block-seat/mould-readiness/prepare.py": "bcdff5aa9d6d89130adcd4121abeb6f284164e7c4893a508bf4cbf39639adcaa",
     ".cache/funnel-block-seat/mould-readiness/review_slice.py": "a3b7cc6a6747fe82cbb466fe6588e8ec90ccdbd84ee06478bbe7de4713ffa75f"
+  },
+  "geometry_forms_complete_finished_funnel": true,
+  "physical_finished_tool_and_casting_qualified": false,
+  "tooling_completion_review": {
+    "input_sha256": {
+      "hardware/printed-parts/zone-c/funnel-mold/design.json": "22344e488c6ed4eb8a9d74de54ddf4194280709a991abca3054dafe94e1bf455",
+      "hardware/printed-parts/zone-c/funnel-mold/containment-review.json": "85dd877dd8ddb9464ad4ba4f4ce88af2f1266e27259a70485fefbbf719236ff5",
+      "hardware/printed-parts/zone-c/funnel-mold/forming-mandrel-check.json": "5c1e41cd49d3c1f982083db0a852f7aea19b8b252a5e33d34c8829f9babba60d",
+      "hardware/printed-parts/zone-c/funnel-mold/forming-mandrel-design.json": "25b19261fc90c35244dceeef8bae623bde26c46579631a68edf889e8646b44fa",
+      "hardware/printed-parts/zone-c/funnel-mold/funnel.step": "14f80d9a06ffa783f2bd4b4c71efe6206f09c7c659b77df55047d7b7ca3f6aca",
+      "hardware/printed-parts/zone-c/funnel-mold/rod.step": "bc6c95a7702e3a552a0267678f9ee995f897d855362b0c1fe76c2ea30b16eb0b",
+      "hardware/printed-parts/zone-c/funnel/funnel.step": "fd0143ed0caeef95d80b2a2c7bf4b4ce089c03da6ad39554f6f4e736f1cebc7a",
+      "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-03-forming-mandrel-petg088-v1/readiness-review.json": "f7828c1bd08c9dc9f64840103733859c7a91485eb6e4a532668b01c59e6c8fd8"
+    },
+    "native_casting_comparison": {
+      "actual_minus_reference_mm3": 0.0,
+      "reference_minus_actual_mm3": 0.0
+    },
+    "finished_silicone_volume_ml": 219.2944954345884,
+    "native_geometry_scope": "All current native funnel walls, ramp, brim, collar, rectangular block and complete staged bore; complete CSG comparison, not an axial section alone.",
+    "forming_mandrel_check": "../../forming-mandrel-check.json",
+    "forming_mandrel_native_slice": "../2026-10-03-forming-mandrel-petg088-v1/readiness-review.json",
+    "forming_mandrel_native_slice_sha256": "f7828c1bd08c9dc9f64840103733859c7a91485eb6e4a532668b01c59e6c8fd8",
+    "separate_forming_tool_required": true,
+    "physical_limits": [
+      "Coating compatibility and adhesion",
+      "Measured finished wet profile",
+      "Nominal alignment, tie retention and entry seal",
+      "Coated closure and vacuum cycle",
+      "Silicone-assisted withdrawal and release force",
+      "Finished casting quality and installed seal"
+    ],
+    "shell_slice_evidence_scope": "Both shell STEP/STL files and their frozen native slice receipts are unchanged. The completed staged bore is formed by the separately reviewed finished mandrel.",
+    "query_sha256": "35dda69181efa588a64ce0364be1c043609df891b144b165d39dce29871b22a5"
   }
 }

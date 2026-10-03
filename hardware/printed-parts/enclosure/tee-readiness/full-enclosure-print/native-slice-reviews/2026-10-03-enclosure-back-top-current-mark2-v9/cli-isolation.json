@@ -1,0 +1,14 @@
+{
+  "installed_version": "02.08.02.61",
+  "tagged_source": "https://github.com/bambulab/BambuStudio/blob/v02.08.02.61/src/BambuStudio.cpp",
+  "source_sha256": "f59b0258556b6a1cb0532317dfcdd6ba619f1b90ad84e2a73196c3e595f9e93c",
+  "gui_entry_condition_line": 1604,
+  "gui_entry_condition": "m_actions.empty() && !downward_check",
+  "action_registration_line": 8342,
+  "direct_cli_actions": [
+    "slice",
+    "export_3mf"
+  ],
+  "foreground_studio_pid_before_launch": 8968,
+  "launch_method": "Direct binary subprocess; no macOS launcher/open call and no GUI_Run for the nonempty actions."
+}

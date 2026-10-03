@@ -9,11 +9,19 @@
   "printed_facets": 10918,
   "unanswered_findings": 0,
   "intentional_findings_answered": 2,
-  "after_live_geometry_verification": false,
-  "live_scope": "Corrected cradle geometry lint completed after export; root has not yet published the corrected cradle. Repeat after that live publish before claiming post-live coverage.",
+  "after_live_geometry_verification": true,
+  "live_scope": "Corrected production cradle STEP and viewer payload were hash-verified live before this geometry lint. The trial STL is byte-identical to that production print geometry; its own download endpoint was not separately verified.",
   "intentional_features": "Two square external hook retention-bearing ceilings.",
   "scope": "Geometry lint locates selected face defects. It does not replace native emitted-path and support-removal review or physical qualification.",
   "identical_trial_stl_sha256": "651e537dfff26b46a18509768de188e617c63c3e75fb2d8e9622ddcff7171f03",
   "trial_lint_unanswered_findings": 0,
-  "trial_lint_intentional_findings_answered": 2
+  "trial_lint_intentional_findings_answered": 2,
+  "live_verification_utc": "2026-10-03T09:21:38Z",
+  "live_geometry": {
+    "path": "hardware/printed-parts/zone-c/funnel/elbow-cradle.step",
+    "url": "https://objects.homesodamachine.com/s-02127f475220ce77f32d955cb795fc941f43c36346ee4fdfaf5210b2eb07047d.gz",
+    "sha256": "02127f475220ce77f32d955cb795fc941f43c36346ee4fdfaf5210b2eb07047d"
+  },
+  "lint_completed_utc": "2026-10-03T09:27:18.973105Z",
+  "trial_lint_after_live_production_geometry_verification": true
 }

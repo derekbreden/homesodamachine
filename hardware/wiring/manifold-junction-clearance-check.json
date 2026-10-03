@@ -46,7 +46,7 @@
     "contact_datum_scope": "Pin XY follows the canonical Jst physical pin map. X94.65 is the PCB top surface, used as a conservative cut-length datum; actual XH mating-contact depth and termination insertion are unmodelled.",
     "canonical_native_station_check": {
       "status": "clear",
-      "assembly_step_sha256": "423b46dd9d931d4e34e8c53daa9b468a5d57494321c5f4f76e906a9b9a0d1f77",
+      "assembly_step_sha256": "4f17ca4ad869ed62bdda46184ff3399f3f3a91eacdd7ec19e5db799ab05e58bc",
       "standalone_board_step_sha256": "0d5f3259f3ee833f7a0611e6d4259ab280473b78999211665934ec4024f558a4",
       "native_board_brep_sha256": "600f09a27cbd971ed339b69cf3eaea078d723605261d560c47c8abf126cb8bf2",
       "native_placement": {
@@ -428,7 +428,7 @@
     "clearance_reporting_limit_mm": 3,
     "terminal_contact_scope": "Only each named terminal body is excluded at its first or last contact segment and endpoint sphere. All other segments and corner spheres include that body. Mating terminal boots and hidden terminal insertion remain unmodelled.",
     "query_script_sha256": "275cbe8242fd7af75e83925692a7fd57510b7c24fd5d0414e261be0ebc30a72e",
-    "assembly_step_sha256": "423b46dd9d931d4e34e8c53daa9b468a5d57494321c5f4f76e906a9b9a0d1f77",
+    "assembly_step_sha256": "4f17ca4ad869ed62bdda46184ff3399f3f3a91eacdd7ec19e5db799ab05e58bc",
     "native_body_count": 216,
     "front_top_native_shape": {
       "bounds_mm": [
@@ -445,7 +445,7 @@
     "cut_reserve_method": "Authored complete centreline length; board routes additionally spend 11.65 mm from the board-top contact datum to the free-wire plane. Remaining reserve covers hidden termination insertion and service allowance."
   },
   "source_sha256": {
-    "hardware/manifold-layout/enclosure-assembly.step": "423b46dd9d931d4e34e8c53daa9b468a5d57494321c5f4f76e906a9b9a0d1f77",
+    "hardware/manifold-layout/enclosure-assembly.step": "4f17ca4ad869ed62bdda46184ff3399f3f3a91eacdd7ec19e5db799ab05e58bc",
     "hardware/manifold-layout/enclosure_assembly.py": "d4f46a3316b29645f877e10f22a93328caf6e55fa42dfaada07224dd1940e9ec",
     "hardware/manifold-layout/manifold_layout.py": "3ca053e20d70996b94f184f0ba86f8e1c5d205ea5140d9ec34bdca2311844567",
     "hardware/pcb/pcba/out/pcba.glb": "819d2d6a51579a8c3ee66bcb9432075bc50ca77cf129bd828ea538b8fc72b767",
@@ -454,9 +454,9 @@
     "hardware/printed-parts/cold-core/_cold_core_interface.py": "9cb0b893247a4d43e3a892ca011127d1f373cdb8045d9f4ebbef387220908f6f",
     "hardware/printed-parts/electronics/pcba-tray/pcba-board.step": "0d5f3259f3ee833f7a0611e6d4259ab280473b78999211665934ec4024f558a4",
     "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py": "a515c906320bc40f02b4f8037135596ed57dc823650156351628fa03d98af759",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "ef39a549003017fd0602844e3c46cc3899a3df00ad6c866fcac61da65cf06069",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "85e4e97f382142f2ed497abe36d6be493dda94ee4b672a9e0a706b684c0ef573",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "cb45044df359205d55dafe6ad3a8f5e8f332eccb2cfe6ac708f3c913672541b6",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "63d17e1d9dd08945d42795639eb0311a91c1511d7693fa3add4eb62ca8287946",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "20f8a25c7c8c37f6bb65292d7bb0650b81a17b8b27a07a507477bcfec985149c",
     "hardware/printed-parts/zone-c/funnel/elbow-cradle.step": "02127f475220ce77f32d955cb795fc941f43c36346ee4fdfaf5210b2eb07047d",
     "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "011cba0d23badd7f0bc31ddffee6b55f68ac8b6cec8044aeb9d457e9b34be089",
     "hardware/reference/beduan-solenoid/beduan_solenoid.py": "640acf974256bbfff88546cbef5672b870a2ceb21d34c128487bf1aa286ab498"

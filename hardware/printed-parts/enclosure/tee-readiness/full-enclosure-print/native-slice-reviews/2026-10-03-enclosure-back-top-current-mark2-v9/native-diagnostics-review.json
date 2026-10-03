@@ -1,0 +1,28 @@
+{
+  "pass": true,
+  "native_archive_sha256": "235e948e975086a4cebc2dabaa09b1f54f458ebf54f84e36261debecc38889da",
+  "gcode_sha256": "69978f9224efc0942db3c03ce998057909e217e84703f40d28f7f049686baf97",
+  "native_return_code": 0,
+  "native_warning_message": "",
+  "diagnostics": [
+    "Invalid T command (T1001).",
+    "Invalid T command (T65535).",
+    "Invalid T command (T65279)."
+  ],
+  "special_tools": {
+    "contexts_record": "special-tool-contexts.json",
+    "literal_native_recipe_token_match": true,
+    "occurrences_in_model_layer_routine": 0,
+    "review": "T1001 is the saved native hotend-detection selection; T65535/T65279 occur only in the saved native end routine. Fresh archive contexts and effective recipe token matches are retained."
+  },
+  "native_stock_emission_review": "emitted-path-review.json",
+  "support_audit_comment_normalization": {
+    "native_gcode_sha256": "69978f9224efc0942db3c03ce998057909e217e84703f40d28f7f049686baf97",
+    "labelled_gcode_sha256": "9879394a1760791f7b8c4bc688ff5f0e4c70466955a909a0a3c49c60646b03f2",
+    "executable_command_sequence_sha256": "92b293b23932ff9b44bf3b12e83d0728226feab3b5f2ee94f78cf313889ecb86",
+    "all_executable_commands_identical": true,
+    "inserted_feature_resets_before_object_id": 813,
+    "method": "The topology reader carries feature state across native OBJECT_ID delimiters. Insert Other object before each delimiter and replace Custom with Other object so routine prime/wipe extrusions cannot be counted as support. No executable command changes; the printer archive remains unmodified."
+  },
+  "scope": "Native archive diagnostics and geometric emission; physical fit, finish, removal, load and lifetime remain separate."
+}

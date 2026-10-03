@@ -1,0 +1,180 @@
+{
+  "pass": true,
+  "source_step_sha256": "85e4e97f382142f2ed497abe36d6be493dda94ee4b672a9e0a706b684c0ef573",
+  "lanes": [
+    {
+      "lane": "empty central bay to open fore mouth",
+      "cad_from_mm": [
+        0,
+        335,
+        260
+      ],
+      "cad_to_mm": [
+        0,
+        180,
+        260
+      ],
+      "native_stock_distance_mm": 73.37052558824159,
+      "native_from_inside": false,
+      "native_to_inside": false
+    },
+    {
+      "lane": "empty lower bay to open fore mouth",
+      "cad_from_mm": [
+        0,
+        335,
+        190
+      ],
+      "cad_to_mm": [
+        0,
+        180,
+        190
+      ],
+      "native_stock_distance_mm": 90.50000010697,
+      "native_from_inside": false,
+      "native_to_inside": false
+    },
+    {
+      "lane": "empty upper bay to open fore mouth",
+      "cad_from_mm": [
+        0,
+        335,
+        318
+      ],
+      "cad_to_mm": [
+        0,
+        180,
+        318
+      ],
+      "native_stock_distance_mm": 19.5865776769402,
+      "native_from_inside": false,
+      "native_to_inside": false
+    },
+    {
+      "lane": "west exposed flank",
+      "cad_from_mm": [
+        -115,
+        360,
+        275
+      ],
+      "cad_to_mm": [
+        -130,
+        360,
+        275
+      ],
+      "native_stock_distance_mm": 7.5,
+      "native_from_inside": false,
+      "native_to_inside": false
+    },
+    {
+      "lane": "east exposed flank",
+      "cad_from_mm": [
+        115,
+        360,
+        275
+      ],
+      "cad_to_mm": [
+        130,
+        360,
+        275
+      ],
+      "native_stock_distance_mm": 7.5,
+      "native_from_inside": false,
+      "native_to_inside": false
+    },
+    {
+      "lane": "C14 centre through tunnel and rear opening",
+      "cad_from_mm": [
+        66.9,
+        448,
+        336.21058084
+      ],
+      "cad_to_mm": [
+        66.9,
+        490,
+        336.21058084
+      ],
+      "native_stock_distance_mm": 9.149999997550026,
+      "native_from_inside": false,
+      "native_to_inside": false
+    },
+    {
+      "lane": "rear exposed C14 hood normal",
+      "cad_from_mm": [
+        66.9,
+        475,
+        350
+      ],
+      "cad_to_mm": [
+        66.9,
+        490,
+        350
+      ],
+      "native_stock_distance_mm": 3.6999999999999886,
+      "native_from_inside": false,
+      "native_to_inside": false
+    },
+    {
+      "lane": "current nameplate receiver centre through diamond back access and open mouth",
+      "cad_from_mm": [
+        38.160000000000004,
+        462,
+        275.92850009999995
+      ],
+      "cad_to_mm": [
+        38.160000000000004,
+        490,
+        275.92850009999995
+      ],
+      "native_stock_distance_mm": 6.689647316221461,
+      "native_from_inside": false,
+      "native_to_inside": false
+    },
+    {
+      "lane": "forebay access above PRV crown",
+      "cad_from_mm": [
+        -85.0,
+        190.0,
+        218.6
+      ],
+      "cad_to_mm": [
+        -85.0,
+        350.0,
+        218.6
+      ],
+      "native_stock_distance_mm": 6.800735344983666,
+      "native_from_inside": false,
+      "native_to_inside": false
+    },
+    {
+      "lane": "lateral approach to detachable PRV crown support",
+      "cad_from_mm": [
+        -85.0,
+        323.8,
+        219.0
+      ],
+      "cad_to_mm": [
+        -95.0,
+        323.8,
+        219.0
+      ],
+      "native_stock_distance_mm": 3.5,
+      "native_from_inside": false,
+      "native_to_inside": false
+    }
+  ],
+  "minimum_illustrative_lane_distance_mm": 3.5,
+  "current_nameplate_station": {
+    "x": 38.160000000000004,
+    "z": 275.92850009999995,
+    "width": 104.53,
+    "height": 38.0,
+    "corner": 3.0,
+    "bevel": 0.4,
+    "slip": 0.15,
+    "thick": 3.36,
+    "wall": 6.0
+  },
+  "source_station_record_sha256": "cc3bce91a6c22325682dbc18841ede8d61f00153dfb3322f0cc0ad2b4b3e7b37",
+  "scope": "Fresh exact native empty-shell access lines. Sacrificial contacts and branches are detached before removal; complete connected trees are not expected to leave intact. These are geometric access examples, not measurements of physical removal effort."
+}

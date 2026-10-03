@@ -6964,9 +6964,10 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1, up=1.0):
 
     THE TUNNEL'S CEILING IS ONE 45° X RAMP FROM THE −X WALL TO THE CORE. It begins at the
     square passage's roof on the liner inside the flank, then rises one millimetre in Z for every
-    millimetre it advances in X through the wall and across the exposed rib. The cap follows that
-    same plane one structural section above it. The wall is the root that already prints, so no
-    part of this X-wall feature slopes in Y from the channel's jambs.
+    millimetre it advances in X through the wall and across the exposed rib. The mouth-down cap
+    follows that plane one structural section above it. The ceiling-down cap has a flat exterior
+    crown at the lip's height, with its complete first section carried by removable support.
+    Neither cap slopes in Y from the channel's jambs.
 
     NEITHER THE RIB NOR THE PASSAGE CROSSES THE SEAM. They part on different planes and for
     different reasons, and between them nothing of one piece stands in the other's travel.
@@ -6994,10 +6995,9 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1, up=1.0):
 
     `up` is the print direction of the piece the share is cut for. Printed mouth-down (`up > 0`)
     the top share beds on the flank's 45° planes off the rim and hangs below none of them.
-    Printed ceiling-down (`up < 0`) the share stands square on the rim, which looks print-up, and
-    what looks print-down is the rib's own crown: a 45° wedge from the lip back to the flank's
-    root carries it, and the mouth's floor is a `vent_channel_w` bridge between the passage's two
-    jambs."""
+    Printed ceiling-down (`up < 0`) the share stands square on the rim, which looks print-up.
+    Its flat exterior crown is supported across the complete wall-to-lip section; the passage
+    keeps its 45° inner roof and its mouth's floor bridges between the two jambs."""
     for sx, sy, sz in stations:
         half = vent_channel_w / 2.0 + vent_rib_wall
         rib_x = sx                                  # the lip, on the core's own flank
@@ -7041,15 +7041,17 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1, up=1.0):
         rib = _xz_prism(sy - half, sy + half,
                         [(inner[0], sz + half), (rib_x, sz + half),
                          (rib_x, ramp_top - under), (inner[0], rib_end - under)])
-        # THE CAP FOLLOWS THE PASSAGE'S X RAMP. At `root_x` the roof has already climbed through
-        # the flank from `liner_x`, so material stands across the channel's whole width and the
-        # exposed rib continues the same wall-normal plane to the core. The lower rectangle is
-        # already inside `rib`; including it here makes this one closed wedge before the two fuse.
+        # The inner roof keeps its X ramp and complete 12 mm passage. The ceiling-down
+        # exterior crown is level with the existing lip height, so its first printed section
+        # is the full wall-to-lip span. The mouth-down cap follows the roof's X ramp.
+        # The lower rectangle is inside `rib`, closing the cap before they fuse.
         cap_root = roof_root + 2.0 * vent_rib_wall
+        cap_lip = cap_root + roof_run
+        cap_wall = cap_lip if up < 0.0 else cap_root
         rib = rib.fuse(_xz_prism(
             sy - half, sy + half,
             ((root_x, sz + half), (rib_x, sz + half),
-             (rib_x, cap_root + roof_run), (root_x, cap_root))))
+             (rib_x, cap_lip), (root_x, cap_wall))))
         # THE RIB KEEPS OUT OF THE JOINT'S BAND AND THE DUCT DOES NOT, because one of them
         # is material and the other is air. Over the seam's own storey the joint reaches
         # `rail_reach_in + slide_slip` inboard of the flank — head, foot, arm and channel —

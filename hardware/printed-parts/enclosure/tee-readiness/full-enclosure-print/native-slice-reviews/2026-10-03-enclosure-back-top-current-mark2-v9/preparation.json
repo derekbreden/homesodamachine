@@ -1,0 +1,209 @@
+{
+  "project": "enclosure-back-top-current-black-z004-mark2-v9-input.3mf",
+  "settings_source": "hardware/printed-parts/petgf.3mf",
+  "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "settings_sha256": "413f466b0f82b9f08163384565315535bbd116a22707f29815e28a4a7364d125",
+  "source_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    }
+  },
+  "printer": "Mark2",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 15.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "enclosure-back-top",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+      "stl_sha256": "866cffceff2bd16e8f760b520ac5ca699904999238e3eedfe1f8ed4311a7672c",
+      "triangles": 1066190,
+      "rotation_x_degrees": 180.0,
+      "source_center_mm": [
+        0.0,
+        335.6499938964844,
+        257.5
+      ],
+      "build_transform": [
+        0.04013179253256728,
+        0.9991943951144456,
+        0.0,
+        0.9991943951144456,
+        -0.04013179253256728,
+        1.2246467991473532e-16,
+        1.2236602177028816e-16,
+        -4.914727126905417e-18,
+        -1.0,
+        154.9905680590232,
+        164.55772977441512,
+        97.50000000000001
+      ],
+      "plate_translation_mm": [
+        154.9905680590232,
+        164.55772977441512,
+        97.50000000000001
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          15.13594671100168,
+          52.177983436458874,
+          0.0
+        ],
+        [
+          294.36793811726994,
+          277.4086011327826,
+          195.00000000000003
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10,
+      "rotation_z_degrees": 87.69999999999956
+    }
+  ],
+  "project_sha256": "8292d7e05763f8f4556c207210fb379a304ac59ceb6e8479c79c991bbe62e4f5",
+  "settings_preserved_byte_for_byte": false,
+  "intentional_overrides": {
+    "extruder_ams_count": [
+      "1#0|4#0",
+      "1#0|4#0"
+    ],
+    "support_filament": "1",
+    "support_interface_filament": "1",
+    "flush_into_support": "0",
+    "elefant_foot_compensation": "0"
+  },
+  "layer_ranges_mm": [
+    {
+      "min_z": 0.0,
+      "max_z": 9.4,
+      "layer_height": 0.24,
+      "wall_loops": 6,
+      "reason": "Additive expanding roof-side transition and its show-surface run-out."
+    }
+  ],
+  "normal_layer_height_mm": 0.24,
+  "first_layer_height_mm": 0.2,
+  "normal_wall_loops": 2,
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "866cffceff2bd16e8f760b520ac5ca699904999238e3eedfe1f8ed4311a7672c",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "85e4e97f382142f2ed497abe36d6be493dda94ee4b672a9e0a706b684c0ef573"
+  },
+  "paint": {
+    "west": 26703,
+    "east": 26782,
+    "cad_z_min": 345.69,
+    "abs_x_min": 100
+  },
+  "support_policy": "Shared tree supports; black base and interface; exterior roof-side transitions blocked; internal functional contacts retained.",
+  "requested_z_trim_mm": 0.04,
+  "expected_textured_trim_mm": 0.02,
+  "in_plane_packing": {
+    "yaw_degrees": 87.69999999999956,
+    "native_trigger": "Prior fresh support base reaches Y317.274; a \u22642.726 mm border violates the 10 mm support-road margin.",
+    "placement_estimate": {
+      "yaw_degrees": 87.69999999999956,
+      "support_span_mm": [
+        306.1466783094233,
+        237.67998418695927
+      ],
+      "model_span_bound_mm": [
+        279.7097625988794,
+        225.71454977408345
+      ],
+      "translation_window_mm": [
+        [
+          317.70610202006833,
+          -32.19066724598909
+        ],
+        [
+          316.55942371064504,
+          22.979323431097214
+        ]
+      ],
+      "feasible": false,
+      "minimum_placement_room_mm": -1.1466783094232937
+    },
+    "scope": "Placement only; source mesh, saved settings, roof-down face, show blockers and layer ranges identical. Fresh native footprint verification determines readiness.",
+    "additional_plate_x_shift_mm": 0.5,
+    "previous_native_reading": {
+      "support_border_mm": 12.297,
+      "conservative_model_border_mm": 14.63568676309626
+    }
+  },
+  "required_model_margin_mm": 15.0,
+  "required_support_extrusion_margin_mm": 5.0,
+  "scratch_candidate_only": false,
+  "previous_project_sha256": "31b96e6b82555bb5cc021d678ac00c45e2a59373846c339203f0b9cfe6078afe",
+  "candidate_geometry_review": ".cache/funnel-block-seat/print-review/back-top-prv-crown-production-handoff.json",
+  "candidate_geometry_review_sha256": "7c359194e1a80bd6888d8bee5375ccb0a71550cdccd406d3d3781dc15f550aa7",
+  "unchanged_print_recipe": {
+    "project_settings_byte_exact": true,
+    "layer_ranges_byte_exact": true,
+    "build_transform_byte_exact": true,
+    "show_support_blocker_geometric_rule_exact": true,
+    "previous_paint_triangle_counts": {
+      "west": 26703,
+      "east": 26784
+    },
+    "fresh_paint_triangle_counts": {
+      "west": 26703,
+      "east": 26782
+    },
+    "previous_source_stl_sha256": "e73227a6870af4f8f1b394fc77979c8f632f245df990c1c8a88691a65f7105f7"
+  },
+  "status": "Current production back-top; fresh native audit pending, no printer submission."
+}

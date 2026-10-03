@@ -1,0 +1,463 @@
+{
+  "pass": true,
+  "gcode_sha256": "69978f9224efc0942db3c03ce998057909e217e84703f40d28f7f049686baf97",
+  "source_stl_sha256": "866cffceff2bd16e8f760b520ac5ca699904999238e3eedfe1f8ed4311a7672c",
+  "first_layer_height_mm": 0.2,
+  "next_layer_height_mm": 0.24,
+  "transitions": [
+    {
+      "from_z": 0.2,
+      "to_z": 0.44,
+      "outer_wall_area_fraction_supported": 0.7526742760336153,
+      "max_sampled_outer_centerline_unsupported_mm": 0.0,
+      "actual_upper_outer_road_count": 44
+    },
+    {
+      "from_z": 0.44,
+      "to_z": 0.68,
+      "outer_wall_area_fraction_supported": 0.7243499179227114,
+      "max_sampled_outer_centerline_unsupported_mm": 0.0,
+      "actual_upper_outer_road_count": 49
+    }
+  ],
+  "surface": "Both expanding roof-side edges; upper outer/overhang roads whose complete CAD-X segment lies outside |X|98.5 mm. Own nominal bead widths are used. All lower model roads can support them.",
+  "wall_count_samples": [
+    {
+      "print_z_mm": 0.2,
+      "west_wall_count": 6,
+      "east_wall_count": 6,
+      "expected": 6
+    },
+    {
+      "print_z_mm": 0.44,
+      "west_wall_count": 6,
+      "east_wall_count": 6,
+      "expected": 6
+    },
+    {
+      "print_z_mm": 2.6,
+      "west_wall_count": 6,
+      "east_wall_count": 6,
+      "expected": 6
+    },
+    {
+      "print_z_mm": 5.0,
+      "west_wall_count": 6,
+      "east_wall_count": 6,
+      "expected": 6
+    },
+    {
+      "print_z_mm": 9.08,
+      "west_wall_count": 6,
+      "east_wall_count": 6,
+      "expected": 6
+    },
+    {
+      "print_z_mm": 9.8,
+      "west_wall_count": 2,
+      "east_wall_count": 2,
+      "expected": 2
+    }
+  ],
+  "wall_crossing_cad_y_mm": 335.6499938964844,
+  "wall_crossings": {
+    "0.2": [
+      {
+        "cad_x_mm": 102.72302894753004,
+        "feature": "Inner wall",
+        "width_mm": 0.5,
+        "gcode_line": 2597
+      },
+      {
+        "cad_x_mm": -102.72294845355549,
+        "feature": "Inner wall",
+        "width_mm": 0.5,
+        "gcode_line": 2669
+      },
+      {
+        "cad_x_mm": 103.18010086285706,
+        "feature": "Inner wall",
+        "width_mm": 0.5,
+        "gcode_line": 2698
+      },
+      {
+        "cad_x_mm": -103.18011961819947,
+        "feature": "Inner wall",
+        "width_mm": 0.5,
+        "gcode_line": 2770
+      },
+      {
+        "cad_x_mm": 103.63696867722423,
+        "feature": "Inner wall",
+        "width_mm": 0.5,
+        "gcode_line": 2802
+      },
+      {
+        "cad_x_mm": -103.63698079613457,
+        "feature": "Inner wall",
+        "width_mm": 0.5,
+        "gcode_line": 2875
+      },
+      {
+        "cad_x_mm": 104.09426219053087,
+        "feature": "Inner wall",
+        "width_mm": 0.5,
+        "gcode_line": 2909
+      },
+      {
+        "cad_x_mm": -104.09394424539956,
+        "feature": "Inner wall",
+        "width_mm": 0.5,
+        "gcode_line": 2981
+      },
+      {
+        "cad_x_mm": 104.55100794546694,
+        "feature": "Inner wall",
+        "width_mm": 0.5,
+        "gcode_line": 3051
+      },
+      {
+        "cad_x_mm": -104.55137885383238,
+        "feature": "Inner wall",
+        "width_mm": 0.5,
+        "gcode_line": 3123
+      },
+      {
+        "cad_x_mm": 105.00828157957325,
+        "feature": "Outer wall",
+        "width_mm": 0.5,
+        "gcode_line": 3170
+      },
+      {
+        "cad_x_mm": -105.00838296518273,
+        "feature": "Outer wall",
+        "width_mm": 0.5,
+        "gcode_line": 3243
+      }
+    ],
+    "0.44": [
+      {
+        "cad_x_mm": 103.18049426046652,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 6070
+      },
+      {
+        "cad_x_mm": -103.17539432131325,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 6143
+      },
+      {
+        "cad_x_mm": 103.57944780402408,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 6201
+      },
+      {
+        "cad_x_mm": -103.57389459049362,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 6274
+      },
+      {
+        "cad_x_mm": 103.97792946914481,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 6307
+      },
+      {
+        "cad_x_mm": -103.97259829475873,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 6380
+      },
+      {
+        "cad_x_mm": 104.37639100495468,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 6418
+      },
+      {
+        "cad_x_mm": -104.3708156771152,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 6491
+      },
+      {
+        "cad_x_mm": 104.77487320890177,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 6563
+      },
+      {
+        "cad_x_mm": -104.76952350586578,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 6636
+      },
+      {
+        "cad_x_mm": 105.15852065383534,
+        "feature": "Outer wall",
+        "width_mm": 0.42,
+        "gcode_line": 6693
+      },
+      {
+        "cad_x_mm": -105.15304548207095,
+        "feature": "Outer wall",
+        "width_mm": 0.42,
+        "gcode_line": 6789
+      }
+    ],
+    "2.6": [
+      {
+        "cad_x_mm": 104.26119970917168,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 41860
+      },
+      {
+        "cad_x_mm": -104.26081226212986,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 41934
+      },
+      {
+        "cad_x_mm": 104.65945680308224,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 42105
+      },
+      {
+        "cad_x_mm": -104.65928017185556,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 42179
+      },
+      {
+        "cad_x_mm": 105.05759147746133,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 42363
+      },
+      {
+        "cad_x_mm": -105.05733985691622,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 42438
+      },
+      {
+        "cad_x_mm": 105.45607214634812,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 42656
+      },
+      {
+        "cad_x_mm": -105.45591077617199,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 42731
+      },
+      {
+        "cad_x_mm": 105.85442966685085,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 42990
+      },
+      {
+        "cad_x_mm": -105.85513376576557,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 43065
+      },
+      {
+        "cad_x_mm": 106.23848263439388,
+        "feature": "Outer wall",
+        "width_mm": 0.42,
+        "gcode_line": 43317
+      },
+      {
+        "cad_x_mm": -106.23822060609633,
+        "feature": "Outer wall",
+        "width_mm": 0.42,
+        "gcode_line": 43420
+      }
+    ],
+    "5.0": [
+      {
+        "cad_x_mm": 105.20670595061911,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 98168
+      },
+      {
+        "cad_x_mm": -105.2063578307266,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 98241
+      },
+      {
+        "cad_x_mm": 105.60472645597173,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 98419
+      },
+      {
+        "cad_x_mm": -105.60446183438346,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 98491
+      },
+      {
+        "cad_x_mm": 106.00324533308122,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 98683
+      },
+      {
+        "cad_x_mm": -106.003083817316,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 98756
+      },
+      {
+        "cad_x_mm": 106.40178407125941,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 98961
+      },
+      {
+        "cad_x_mm": -106.4016883163509,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 99034
+      },
+      {
+        "cad_x_mm": 106.80032333215435,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 99312
+      },
+      {
+        "cad_x_mm": -106.79833371335576,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 99385
+      },
+      {
+        "cad_x_mm": 107.18410255983042,
+        "feature": "Outer wall",
+        "width_mm": 0.42,
+        "gcode_line": 99649
+      },
+      {
+        "cad_x_mm": -107.18358111816663,
+        "feature": "Outer wall",
+        "width_mm": 0.42,
+        "gcode_line": 99724
+      }
+    ],
+    "9.08": [
+      {
+        "cad_x_mm": 104.69139935744724,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 323438
+      },
+      {
+        "cad_x_mm": -104.69221719587671,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 323894
+      },
+      {
+        "cad_x_mm": 105.15091266655116,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 324567
+      },
+      {
+        "cad_x_mm": -105.1508108549509,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 325051
+      },
+      {
+        "cad_x_mm": 105.6599072913328,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 325651
+      },
+      {
+        "cad_x_mm": -105.6606342287208,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 326157
+      },
+      {
+        "cad_x_mm": 106.17040594031988,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 326798
+      },
+      {
+        "cad_x_mm": -106.17022903767904,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 327359
+      },
+      {
+        "cad_x_mm": 106.77324790631795,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 328135
+      },
+      {
+        "cad_x_mm": -106.77304487558476,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 328805
+      },
+      {
+        "cad_x_mm": 107.29039951378793,
+        "feature": "Outer wall",
+        "width_mm": 0.42,
+        "gcode_line": 329634
+      },
+      {
+        "cad_x_mm": -107.29028616151851,
+        "feature": "Outer wall",
+        "width_mm": 0.42,
+        "gcode_line": 330304
+      }
+    ],
+    "9.8": [
+      {
+        "cad_x_mm": 106.76888812207156,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 373427
+      },
+      {
+        "cad_x_mm": -106.76966950582703,
+        "feature": "Inner wall",
+        "width_mm": 0.45,
+        "gcode_line": 374097
+      },
+      {
+        "cad_x_mm": 107.29040585869605,
+        "feature": "Outer wall",
+        "width_mm": 0.42,
+        "gcode_line": 374891
+      },
+      {
+        "cad_x_mm": -107.29031409918576,
+        "feature": "Outer wall",
+        "width_mm": 0.42,
+        "gcode_line": 375560
+      }
+    ]
+  },
+  "method": "Invert the full native in-plane yaw plus roof-down transform before assigning west/east side-wall roads. This avoids a plate-axis proxy after rotation. The native archive remains unchanged.",
+  "physical_bond_or_show_finish_qualified": false
+}

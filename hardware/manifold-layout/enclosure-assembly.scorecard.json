@@ -883,7 +883,7 @@
    "label": "Every print-down slope on a ceiling-down piece has its stated carry",
    "kind": "goal",
    "status": "fail",
-   "value": "42 print-down slope(s): 23 under a body, 6 within 1 mm of one, 9 in a kept room, 4 could be columns",
+   "value": "41 print-down slope(s): 22 under a body, 6 within 1 mm of one, 9 in a kept room, 4 could be columns",
    "target": "no unaccounted slope a column could replace, and every named room standing",
    "detail": [
     "enclosure-back-top: a 45\u00b0 face at x -98.50..-90.50 y 252.06..255.06 z 305.41..313.41: a column of 406 mm\u00b3 rising 29.6 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.707 y=0.000 z=0.707 \u00b7 thru x=-94.500 y=253.560 z=309.411\nclick: x=-94.500 y=253.560 z=309.411",
