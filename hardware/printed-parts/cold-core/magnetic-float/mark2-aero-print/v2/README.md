@@ -18,6 +18,12 @@ observed **270 °C right nozzle, 90 °C bed and 60 °C chamber**. This establish
 printer progress beyond the first layer; visual first-layer acceptance, printed
 density and physical fit remain unreported.
 
+At 2026-10-03 04:17 UTC, the same task reported **FAILED**, with `print_error`
+0 and no HMS fault. The stop's cause is unreported; this telemetry identifies
+neither manual cancellation nor a printer fault. The user has been notified,
+and no retry or resume has been submitted. Neither part has a completed-print
+or physical-acceptance result.
+
 ## Selected recipe
 
 | Setting | Value |

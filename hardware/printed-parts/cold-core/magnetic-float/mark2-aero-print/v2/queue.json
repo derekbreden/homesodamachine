@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-10-03T04:12:18.662626+00:00",
+  "updated_utc": "2026-10-03T04:17:07.561444+00:00",
   "trial": "magnetic-float ASA Aero physical v2",
-  "status": "printing",
+  "status": "stopped_cause_unreported",
   "printer": "Mark2",
   "accepted_task_id": "1303972802",
   "archive": ".cache/prints/magnetic-float-pair-mark2-aero-v3/ready/magnetic-float-pair-mark2-aero-v3.gcode.3mf",
@@ -40,5 +40,7 @@
   "completion_reported": false,
   "monitor_active": true,
   "scope": "One core and one insert together. No PETG shell print is requested.",
-  "first_layer_printer_progress_utc": "2026-10-03T04:12:18.662626+00:00"
+  "first_layer_printer_progress_utc": "2026-10-03T04:12:18.662626+00:00",
+  "stop_reported": true,
+  "stop_cause_report_pending": true
 }
