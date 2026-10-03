@@ -174,7 +174,7 @@
       "trial": "funnel elbow-cradle receiver and cradle v4",
       "geometry_revision": 4,
       "review": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v4/README.md",
-      "status": "printing",
+      "status": "completed",
       "submitted": true,
       "bed_clear_confirmation": {
         "confirmed": true,
@@ -191,13 +191,15 @@
           "source_stl_sha256": "bfa9f8c089fd4a2dc11e59949f00431c3273bc0e78e48981ca891b832def34f1",
           "requested_z_trim_mm": 0.18,
           "review": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v4/cradle-h2c-preflight.json",
-          "status": "printing",
+          "status": "completed",
           "submitted": true,
           "printer_task_id": "1303667680",
           "job_name": "funnel-test-cradle-h2c-v4.gcode.3mf",
           "accepted_observed_utc": "2026-10-03T00:51:57.671023+00:00",
           "launch_record": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v4/cradle-h2c-launch.json",
-          "first_layer_confirmed_utc": "2026-10-03T01:06:10.243865+00:00"
+          "first_layer_confirmed_utc": "2026-10-03T01:06:10.243865+00:00",
+          "completed_observed_utc": "2026-10-03T01:26:40.109139+00:00",
+          "completion_record": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v4/cradle-h2c-completion.json"
         },
         {
           "printer": "Mark2",
@@ -208,17 +210,21 @@
           "source_stl_sha256": "e23e82074fa6aaa0f6d93aefb8a95147908e24418021b2501e32e24a08c2eaad",
           "requested_z_trim_mm": 0.04,
           "review": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v4/receiver-mark2-preflight.json",
-          "status": "printing",
+          "status": "completed",
           "submitted": true,
           "printer_task_id": "1303677943",
           "job_name": "funnel-test-receiver-mark2-v4.gcode.3mf",
           "accepted_observed_utc": "2026-10-03T00:57:43.982893+00:00",
           "launch_record": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v4/receiver-mark2-launch.json",
-          "first_layer_confirmed_utc": "2026-10-03T01:11:15.958902+00:00"
+          "first_layer_confirmed_utc": "2026-10-03T01:11:15.958902+00:00",
+          "completed_observed_utc": "2026-10-03T01:26:39.836764+00:00",
+          "completion_record": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v4/receiver-mark2-completion.json"
         }
       ],
       "geometry_export_revision": "29808fba7830848e59cbb740c11ff1b6d0b162fa",
-      "physical_fit_and_retention_tested": false
+      "physical_fit_and_retention_tested": false,
+      "pair_completed_observed_utc": "2026-10-03T01:26:40.109139+00:00",
+      "ready_for_removal_and_bench_test_after_cooling": true
     }
   ],
   "followup_automation": "continue-h2c-trial-queue"

@@ -1,0 +1,49 @@
+{
+  "printer": "H2C",
+  "part": "test-cradle",
+  "geometry_revision": 4,
+  "printer_task_id": "1303667680",
+  "job_name": "funnel-test-cradle-h2c-v4.gcode.3mf",
+  "archive": ".cache/prints/funnel-test-cradle-h2c-v4/ready/funnel-test-cradle-h2c-v4.gcode.3mf",
+  "archive_sha256": "18d6662e7d496f74e1582735905eea4e2799012d029f73269ba2e108e1d23f50",
+  "gcode_sha256": "53c3038c4d988078540fda0a793e17e28972b959e8e1db2b52b0b06f14a1f7ae",
+  "source_stl_sha256": {
+    "test-cradle": "bfa9f8c089fd4a2dc11e59949f00431c3273bc0e78e48981ca891b832def34f1"
+  },
+  "geometry_export_revision": "29808fba7830848e59cbb740c11ff1b6d0b162fa",
+  "completion_observation": {
+    "job_id": "1303667680",
+    "subtask_name": "funnel-test-cradle-h2c-v4.gcode.3mf",
+    "gcode_state": "FINISH",
+    "layer_num": 149,
+    "total_layer_num": 149,
+    "mc_percent": 100,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [],
+    "nozzle_temper": 185.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 75.0,
+    "bed_target_temper": 0.0,
+    "stg_cur": -1,
+    "observed_at": "2026-10-03T01:26:40.109139+00:00"
+  },
+  "archive_integrity_verification": {
+    "verified_at": "2026-10-03T01:28:13.022346+00:00",
+    "archive_sha256": "18d6662e7d496f74e1582735905eea4e2799012d029f73269ba2e108e1d23f50",
+    "gcode_sha256": "53c3038c4d988078540fda0a793e17e28972b959e8e1db2b52b0b06f14a1f7ae",
+    "zip_integrity_passed": true,
+    "gcode_md5_passed": true,
+    "task_and_archive_identity_match": true
+  },
+  "bed_cleared_for_next_print": false,
+  "physical_print_quality_verified": false,
+  "physical_fit_and_retention_tested": false,
+  "bench_check_document": "../../README.md",
+  "paired_part": "test-receiver",
+  "paired_printer": "Mark2",
+  "paired_printer_task_id": "1303677943",
+  "paired_status": "completed",
+  "ready_for_removal_and_bench_test_after_cooling": true,
+  "support_removal": "After cooling, remove the two hook supports outward into open space; retain the bearing dimensions and inspect the undersides before the bench trial."
+}

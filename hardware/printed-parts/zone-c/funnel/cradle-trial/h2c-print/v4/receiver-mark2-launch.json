@@ -7,7 +7,7 @@
   "job_name": "funnel-test-receiver-mark2-v4.gcode.3mf",
   "accepted_observed_utc": "2026-10-03T00:57:43.982893+00:00",
   "task_id_confirmed_utc": "2026-10-03T00:58:12.147068+00:00",
-  "status": "printing",
+  "status": "completed",
   "archive": ".cache/prints/funnel-test-receiver-mark2-v4/ready/funnel-test-receiver-mark2-v4.gcode.3mf",
   "archive_sha256": "bfda3895b2e2ea955342fd3b80c10b842ad4acf7f575c874262f200b3355ffd4",
   "gcode_sha256": "31286daa05d945c44c6a04efcb723029b73d76e5918697b7121b7e457aeb6003",
@@ -114,5 +114,7 @@
     "bed_target_temper": 80.0,
     "stg_cur": 0,
     "observed_at": "2026-10-03T01:11:15.958902+00:00"
-  }
+  },
+  "completed_observed_utc": "2026-10-03T01:26:39.836764+00:00",
+  "completion_record": "receiver-mark2-completion.json"
 }
