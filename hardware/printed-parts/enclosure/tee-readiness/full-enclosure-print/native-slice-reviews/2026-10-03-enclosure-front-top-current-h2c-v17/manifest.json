@@ -1,7 +1,7 @@
 {
   "schema": 1,
-  "status": "ready for authorized H2C submission; native geometry, emitted paths and accessible support lanes reviewed",
-  "submitted": false,
+  "status": "accepted by H2C; native geometry, emitted paths and accessible support lanes reviewed",
+  "submitted": true,
   "printer": "H2C",
   "part": "enclosure-front-top",
   "native_archive": ".cache/prints/2026-10-03-enclosure-front-top-current-h2c-v17/ready/enclosure-front-top-current-black-z018-h2c-v17.gcode.3mf",
@@ -33,14 +33,14 @@
     "Flow dynamic calibration": "Auto",
     "Nozzle Offset Calibration": "Auto"
   },
-  "nozzle_mapping_verification": "Read current active fixed-left head, external material mapping and signed send-dialog options immediately before submission. Root owns printer submission.",
+  "nozzle_mapping_verification": "The launch receipt records fixed-left hardened 0.4 mm Standard nozzle 1, black external slot 254 mapped as Ext PET-CF, and signed send options On/On/Auto/Auto. Printer 2 owns launch and monitoring.",
   "physical_support_removal_verified": false,
   "physical_full_enclosure_fit_tested": false,
   "files": {
     "preparation.json": "a0a70e34b029b9af5730af77fa2b2acffd9ba8a867272da7fba3b1949131dabf",
     "frozen-inputs.json": "1ae0d4c8647faf4992aa44f5adaf2b24b96fbcc37bce92221241ba7eb907baf7",
     "slice-command.json": "a35f9db7e8d8beeb203ca81efe5b3312eb3cae076ec530b26936fe1414b3f2bb",
-    "verification.json": "f9b4bd10426e4a1003c6889457f1a8f9252cabc3b6609c5caef9c81ee8c933ad",
+    "verification.json": "a4d594a70e7019dbf0ada4dbf1efbd7053141313325c4db5a2adafaf6ec331a1",
     "archive-integrity.json": "96d675454f461ce71998f1b76bbdb7019c84e0634c792d850f524e723bbfcfeb",
     "native-geometry-check.json": "07a4a19204286effe8f459153dad5ea4d3849b7919a558a3d57c1658d7698268",
     "native-diagnostics-review.json": "83faeae3c4118e40d642c9813406af583eff1894ad30be047ee9073c0ae2e1a1",
@@ -70,5 +70,18 @@
     "sha256": "366d882fe5cd7d126779ca123d73d80651c70301deb7b673d92f7397690c2579",
     "support_roads_checked": 1526926
   },
-  "source_binding_scope": "The current shared enclosure producer includes the ceiling-down back-top PRV crown. That branch applies only with up<0. Front-top native STEP/STL are byte-exact to this archive\u2019s reviewed source snapshots; all primary emitted-path and support proofs remain bound to those unchanged native bytes."
+  "source_binding_scope": "The current shared enclosure producer includes the ceiling-down back-top PRV crown. That branch applies only with up<0. Front-top native STEP/STL are byte-exact to this archive\u2019s reviewed source snapshots; all primary emitted-path and support proofs remain bound to those unchanged native bytes.",
+  "printer_submission": {
+    "status": "accepted",
+    "printer": "H2C",
+    "receipt": "front-top-h2c-launch.json",
+    "accepted_task_id": "1305315362",
+    "accepted_job_id": "1305315362",
+    "accepted_utc": "2026-10-03T15:22:21.776285+00:00",
+    "launch_owned_by_chat": "Printer 2",
+    "send_attempts": 1,
+    "seconds_since_other_printer_acceptance": 267.488201
+  },
+  "layer_count_scope": "model-feature layers",
+  "total_gcode_layer_changes": 1354
 }

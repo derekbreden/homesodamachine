@@ -13,7 +13,7 @@ their own physical checks.
 | Job | Printer | State | Evidence |
 | --- | --- | --- | --- |
 | Current back-top, PRV chase crown | Mark2 | Native paths and accessible supports reviewed; retained ground-round terminal approximation; not submitted; 26 h 8 min 54 sec | [2026-10-03-enclosure-back-top-current-mark2-v9](2026-10-03-enclosure-back-top-current-mark2-v9/README.md) |
-| Current front-top, centred expanded funnel interface | H2C | Native archive and accessible supports reviewed; authorized submission pending; 25 h 44 min 45 sec | [2026-10-03-enclosure-front-top-current-h2c-v17](2026-10-03-enclosure-front-top-current-h2c-v17/README.md) |
+| Current front-top, centred expanded funnel interface | H2C | Native archive and accessible supports reviewed; accepted task 1305315362; 25 h 44 min 45 sec | [2026-10-03-enclosure-front-top-current-h2c-v17](2026-10-03-enclosure-front-top-current-h2c-v17/README.md) |
 | Front-top v16 source-bound archive | H2C | Reviewed native archive; superseded for current geometry; do not submit | [2026-10-03-enclosure-front-top-current-h2c-v16](2026-10-03-enclosure-front-top-current-h2c-v16/README.md) |
 | Tee carrier, 1.00 mm upper / 0.25 mm lower clearance | Mark2 | accepted sliding and reduced tilt, task 1297480230; existing front-top; 1 h 45 min 40 sec | [2026-09-30-tee-low-force050-mark2-v16](2026-09-30-tee-low-force050-mark2-v16/README.md) |
 | Display receiver; 0.30 mm body X and 0.60 mm wing-thickness clearance | H2C | accepted fit and shake retention with residual bow, task 1297296218; 2 h 49 min 41 sec | [2026-09-30-display-x030-receiver-h2c-v5](2026-09-30-display-x030-receiver-h2c-v5/README.md) |

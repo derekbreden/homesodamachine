@@ -120,7 +120,7 @@
   "estimated_grams_saved_profile_density": 948.1798706054688,
   "support_removal_review_pending": false,
   "physical_full_enclosure_fit_tested": false,
-  "submitted": false,
+  "submitted": true,
   "emitted_path_review_sha256": "b1bd2d1c5e6ef14721cd8f70c57e1d5bd2ce86a407936588101115318fcd4ff0",
   "native_functional_surface_emission_sha256": "ee5e38af1fc2c3ef2fcfa4e1a992aeff6f5b7f5312e6b9a649a79775673b3c63",
   "support_removal_review_sha256": "0b48093f06d1b16ed02ec81a09f47bbc27b35a4737e6e1d63569fda150172ada",
@@ -134,8 +134,21 @@
     "entire_final_exterior_nominal_supported_area_fraction": 0.9993878057224869,
     "review": "The final 0.738 mm inward-moving road retains 78.84% nominal full-width support across a small preceding interior-road gap. Retained centreline diagnostic; physical finish and bond unmeasured."
   },
-  "status": "ready for authorized H2C submission; native geometry, emitted paths and accessible support lanes reviewed",
+  "status": "accepted by H2C; native geometry, emitted paths and accessible support lanes reviewed",
   "physical_show_surface_tested": false,
   "physical_support_removal_tested": false,
-  "flank_clip_native_binding_sha256": "87d7af35281eff280a3ae82130194dc8c79b611e4df3357f5340d70591fe2a60"
+  "flank_clip_native_binding_sha256": "87d7af35281eff280a3ae82130194dc8c79b611e4df3357f5340d70591fe2a60",
+  "printer_submission": {
+    "status": "accepted",
+    "printer": "H2C",
+    "receipt": "front-top-h2c-launch.json",
+    "accepted_task_id": "1305315362",
+    "accepted_job_id": "1305315362",
+    "accepted_utc": "2026-10-03T15:22:21.776285+00:00",
+    "launch_owned_by_chat": "Printer 2",
+    "send_attempts": 1,
+    "seconds_since_other_printer_acceptance": 267.488201
+  },
+  "layer_count_scope": "model-feature layers",
+  "total_gcode_layer_changes": 1354
 }

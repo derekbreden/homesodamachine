@@ -45,6 +45,9 @@ quantity is not a launch condition ([filament-use policy](tee-readiness/full-enc
 
 The [current front-top v17 review](tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/README.md)
 binds the native STEP/STL and saved PET-GF recipe to one unmodified H2C archive.
+The [launch receipt](tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/front-top-h2c-launch.json)
+records H2C's acceptance as task **1305315362** at **2026-10-03 15:22:21 UTC**,
+with one Send and 267.488 seconds since Mark2's recorded acceptance.
 It has 878 model layers and estimates **25 h 44 min 45 sec**. All actual model slabs
 have finite left-tool roads and every native stock section component receives
 model walls. The full roof-round span has 0.08 mm walls and first-layer overlap
