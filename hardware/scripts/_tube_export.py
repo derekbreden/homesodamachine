@@ -258,8 +258,7 @@ def export(a):
         if r is None:
             unmatched.append(f"TUBE_ANCHOR_SITES[{n}] names {rid}, which the machine does not draw")
             continue
-        p, q = r.pts[leg], r.pts[leg + 1]
-        mid = tuple((p[k] + q[k]) / 2.0 for k in range(3))
+        mid = ea.tube_anchor_midpoint(r, leg)
         st = find_station(a.tube_anchors, mid)
         if st is None:
             unmatched.append(f"TUBE_ANCHOR_SITES[{n}] {rid} leg {leg}: no station in a.tube_anchors at {mid}")

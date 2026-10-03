@@ -516,7 +516,7 @@ def write_parts(parts, info, output):
     overview.add(core, name='core', color=colors['core'])
     export_assembly(overview, str(output/'overview.step'))
     section = cq.Assembly()
-    section_slab = box(240, 2, -1, 120)
+    section_slab = box(240, 2, -1, 120, y=funnel.neck_dy)
     for name, shape in parts.items():
         section.add(shape.intersect(section_slab), name=name, color=colors[name])
     export_assembly(section, str(output/'section.step'))

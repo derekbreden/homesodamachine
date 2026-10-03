@@ -111,37 +111,35 @@ solenoid_count = 10
 # All values mm except where noted.
 len_short_mm = 50       # AC-3 (a hop along the +X wall)
 len_short_2_mm = 100    # AC-2 (distribution → PSU), DC-1, DC-2
-len_mid_mm = 150        # AC-1 (C14 → distribution block, over the foam-cap top), DC-4, and the
-                        # DC-6/DC-7 valve fan-out legs downstream of the manifold lever nuts
+len_mid_mm = 150        # AC-1 (C14 → distribution block, over the foam-cap top), DC-4
 len_pump_mm = 250       # DC-3 (diaphragm pump), which never leaves the box
 
-# ─── Loom cut lengths, measured ───────────────────────────────────────
-# Every length below is `_run_lengths.py` — the placed assembly, board centre to device centre,
-# scaled by the routed factor that module calibrates on DC-5 — rounded UP to the next 50 mm.
-# Rounded up because slack coils and short does not reach. Re-run that tool when a body moves;
-# these are the one thing in this file the machine can answer and a typist cannot.
-#
-# THEY DO NOT SHARE. A token that carried two runs is how SIG-7 came to be quoted the umbilical's
-# metre for a trip across half a box, and how DC-9 came to be quoted 500 mm to a solenoid standing
-# against the board. Each run below reaches its own device and gets its own name.
+# ─── Loom bench cut lengths ───────────────────────────────────────────
+# Manifold cuts use the authored native-clear wire paths in the junction review,
+# with at least 40 mm for terminations and dressing, rounded up to 50 mm. Equal
+# bench cuts are trimmed at their individual landings. FAN reserves extra length
+# beyond the clear condenser-crown approach; its donor lead is not located in CAD.
+# Other fixed looms use _run_lengths.py's centre-based reach estimates and the
+# recorded DC-5 routing factor. Those estimates do not validate a wire corridor.
 len_relays_mm = 100      # LV-1/2/3 → both Teyleten modules, one crown above the board (88)
-len_vk_mm = 100          # DC-9 → V-K, which stands against the board's own flank (87)
-len_man_a_com_mm = 350   # DC-6 `COM` → the fore east-wall 221-420 (321)
+len_vk_mm = 150          # DC-9 OUT3 → V-K, 107 mm free-wire path
+len_man_a_com_mm = 300   # J1 COM → +X Y169 221-420, via the aft under-PCB strip
+len_man_b_com_mm = 300   # J2 COM → +X Y169 221-415, independently of the valve OUT cuts
 len_flow_mm = 300        # SIG-4 → the DIGITEN in the strip ahead of the cold core (256)
 len_onewire_mm = 300     # SIG-1 → the DS18B20/DS18S20 bus in the core (267)
 len_sensors_gnd_mm = 300 # SIG-1/4/9's shared `GND` → the 221-415 on the −X wall aft (284)
 len_reeds_gnd_mm = 300   # SIG-10/11's `GND` → the 221-415 / 221-420 at the reservoirs (274–278)
-len_man_a_mm = 350       # DC-6 `OUT1`–`OUT8` → the eight manifold-A coils (309)
+len_man_a_mm = 550       # DC-6 OUT1–OUT8 → eight coils; longest free-wire path 497 mm
 len_moisture_mm = 350    # SIG-9 → the dry LM393 board by the pan's −X-wall cable clip (304)
 len_carb_reeds_mm = 350  # SIG-2/3 → the carbonator's low and high reeds (323)
-len_man_b_mm = 450       # DC-7 `OUT1`/`OUT2` → V-I and V-J, and `COM` → the fore 221-415 (418)
-len_man_a_fanout_mm = 350  # Fore 221-420 → the farthest manifold-A valve (337)
-len_man_b_fanout_mm = 450  # Fore 221-415 → the farthest J2 load (410)
+len_man_b_mm = 550       # DC-7 OUT1/OUT2 → V-I/V-J; longest free-wire path 480 mm
+len_man_a_fanout_mm = 350  # +X Y169 221-420 → eight coil positives; longest path 305 mm
+len_man_b_fanout_mm = 450  # +X Y169 221-415 → I, J, V-K and the condenser-crown lead approach
 len_pump_fixed_mm = 350  # DC-5, J13 → the contact pair's male half through the +X clips (319)
 len_cartridge_mm = 100   # DC-5, the contact pair's female half → each pump's tabs, in the clamp (95)
 len_front_face_mm = 400  # SIG-7 → the 4.3B in the front-top facet, which never leaves the box (369)
 len_reeds_b_mm = 400     # SIG-11 → reservoir B's four level reeds (383)
-len_fan_mm = 450         # DC-8 → the condenser fan, off the J2 trunk (415)
+len_fan_mm = 650         # J2 FAN → condenser-crown approach (~543 mm), plus donor-lead reserve
 len_reeds_a_mm = 450     # SIG-10 → reservoir A's four level reeds, the far end of the core (442)
 len_gas_mm = 600         # SIG-12 → the MQ-6 low on the rear cabinet floor, the longest in the box (582)
 len_compressor_mm = 400  # AC-4/5/6 — the purchased SJOOW cord to the compressor, not measured here
@@ -201,6 +199,7 @@ def main():
         "LEN_RELAYS": f"~{len_relays_mm:.4g} mm",
         "LEN_VK": f"~{len_vk_mm:.4g} mm",
         "LEN_MAN_A_COM": f"~{len_man_a_com_mm:.4g} mm",
+        "LEN_MAN_B_COM": f"~{len_man_b_com_mm:.4g} mm",
         "LEN_MAN_A_FANOUT": f"~{len_man_a_fanout_mm:.4g} mm",
         "LEN_MAN_B_FANOUT": f"~{len_man_b_fanout_mm:.4g} mm",
         "LEN_FLOW": f"~{len_flow_mm:.4g} mm",

@@ -20,7 +20,7 @@ sys.path[:0] = [str(ROOT / 'hardware/printed-parts/enclosure/enclosure'),
                 str(ROOT / 'hardware/scripts')]
 
 # Shared by the frame, shell opening, and assembly placement.
-center_y = 182.5
+center_y = 182.5 - funnel.neck_dy
 web = 3.0
 width = 207.0
 body_width = 196.5
@@ -28,7 +28,7 @@ depth = funnel.collar_d + 24.6
 corner_radius = 6.0
 rail_below_seat = 42.1
 receiver_height = 23.3
-corbel_foot_half_depth = 27.5
+corbel_foot_half_depth = 27.5 + funnel.neck_dy
 corbel_slope = math.tan(math.radians(30.0))
 tube_hole_diameter = elbow_cradle.HOLE_D
 socket_width = 36.6
@@ -167,16 +167,17 @@ def front_seam_relief(outer, y_joint, centre, seat):
 
 
 def main():
-    from _cadq_export import export_assembly
+    from _cadq_export import export_assembly, import_assembly
     from _materials import M_PETGF_BLACK, one_body
     from flute_payload import cut
+    from print_mesh import write_print_stl
     shape = build()
     floor, _plug, _rail = datums()
     print_shape = shape.translate((0, -center_y, -floor))
     here = Path(__file__).resolve().parent
     step, stl = here / 'funnel-frame.step', here / 'funnel-frame.stl'
     export_assembly(one_body(cq.Workplane(obj=print_shape), 'funnel-frame', M_PETGF_BLACK), str(step))
-    cq.exporters.export(print_shape.copy(mesh=False), str(stl), tolerance=0.05, angularTolerance=0.15)
+    write_print_stl(import_assembly(step)['funnel-frame'][0], stl, tol=0.02, angle=0.08)
     cut(step, stl)
     print(f'-> {step.name}, {stl.name}; {shape.Volume():.1f} mm3; floor Z {floor:g}')
     sys.path.insert(0, str(next(p for p in here.parents if (p / 'tools' / 'docgen').is_dir())

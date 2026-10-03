@@ -8,43 +8,43 @@
     "core": [
       211.0,
       211.0,
-      42.199384169470164
+      42.233776906066744
     ],
     "funnel": [
       179.0000002,
-      95.78301604656257,
+      131.68301604656256,
       52.100000200000004
     ],
     "rod": [
       6.35,
-      6.35,
+      6.350000000000001,
       50.8
     ],
     "seal": [
-      8.35000020000212,
-      8.35000020039309,
-      1.6951296328122325
+      8.370207245940454,
+      8.350381900009053,
+      1.696708992117749
     ]
   },
   "volume_ml": {
-    "cavity": 298.83483178899917,
-    "core": 281.54178706106,
-    "funnel": 177.74686773104673,
+    "cavity": 304.14187671138717,
+    "core": 295.01487403006774,
+    "funnel": 224.45651567288687,
     "rod": 1.6087962461345555,
-    "seal": 0.03542484628760569
+    "seal": 0.036259113140304174
   },
   "shell_thickness_mm": 5.0,
   "flange_thickness_mm": 5.0,
-  "minimum_cavity_backing_mm": 5.003510291711975,
+  "minimum_cavity_backing_mm": 5.004600844313272,
   "backing_join_allowance_mm": 0.01,
-  "minimum_core_backing_mm": 4.999999997518456,
+  "minimum_core_backing_mm": 4.9999999975185245,
   "liquid_containment": {
     "cavity": {
-      "retained_volume_ml": 487.1599256732373,
+      "retained_volume_ml": 691.8650182933898,
       "casting_outside_retained_mm3": 0.0
     },
     "assembled": {
-      "retained_volume_ml": 196.4377472621103,
+      "retained_volume_ml": 248.0415610352059,
       "casting_outside_retained_mm3": 0.0
     }
   },
@@ -90,7 +90,7 @@
       270,
       315
     ],
-    "minimum_socket_clearance_mm": 0.2715148935833538,
+    "minimum_socket_clearance_mm": 0.2715148935833529,
     "minimum_end_depth_mm": 0.3794992192365143,
     "scope": "Simultaneous rod offset, tilt and axial error against the cavity and its socket; cradle retention and sealing need a physical trial."
   },
@@ -153,20 +153,20 @@
     "vent_diameter_mm": 4.0,
     "fill_xy_mm": [
       -76.99568901432423,
-      -35.38719693760551
+      -53.33719693760551
     ],
     "vent_xy_mm": [
       [
         76.99568901432423,
-        -35.38719693760551
+        -53.33719693760551
       ],
       [
         76.99568901432423,
-        35.38719693760551
+        53.33719693760551
       ],
       [
         -76.99568901432423,
-        35.38719693760551
+        53.33719693760551
       ],
       [
         -83.0,
@@ -197,7 +197,7 @@
     "plug_backing_clearance_mm": 0.7
   },
   "dry_opening_mm": 142.4,
-  "dry_opening_depth_mm": 59.18301584656256,
+  "dry_opening_depth_mm": 95.08301584656257,
   "ramp_print_z_mm": {
     "cavity": [
       20.41482064528494,

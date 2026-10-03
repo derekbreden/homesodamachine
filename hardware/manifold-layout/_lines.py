@@ -978,12 +978,14 @@ LANE_CLEAR = 4.0
 FILL_A_LANE_Z = 289.0
 # Straight lead off V-F before spending its lifted station in the diagonal. The completed
 # route below checks every bend rather than assuming this lead alone guarantees R14.
-FILL_A_GATE_LEAD = 17.0
+FILL_A_GATE_LEAD = 14.6
+# A shallow aft lean keeps both gate approaches below the complete funnel frame.
+FILL_A_GATE_LEAN_DEG = 2.9
 # The draw line and fill line cross as two long leans. Keep their centre lines a tube section
 # plus this air apart at the fill line's lane plane, rather than making either established end
 # storey carry the other's valve lift.
 FILL_A_DRAW_CLEAR = 1.5
-FILL_A_DRAW_GATE_LEAD = 17.5
+FILL_A_DRAW_GATE_LEAD = 16.3
 # How long the run holds that storey before it falls — one stock radius, of which the corner off
 # the diagonal and the corner into the fall take 11.2 between them. What is left is the only
 # straight between those two bends. Re-read the fall's room by sweeping the two waypoints that
@@ -1056,7 +1058,8 @@ def _fluid_14(F, solids):
     hose_under = cap - FILL_A_HOSE_DROP
     run = R.bent(
         "fluid-14", "valve-v-f.outlet",
-        (gate[0], gate[1], gate[2] + FILL_A_GATE_LEAD),     # a full-radius lead off lifted V-F
+        (gate[0], gate[1] + FILL_A_GATE_LEAD * math.tan(math.radians(FILL_A_GATE_LEAN_DEG)),
+         gate[2] + FILL_A_GATE_LEAD),                       # full-radius lead, leaning aft within the collet
         (lane_x, _fill_a_lane_y(solids), FILL_A_LANE_Z),    # one diagonal aft, inboard and down
         (lane_x, fall, FILL_A_LANE_Z),                      # one stock radius of it, over that lean
         (lane_x, fall + FILL_A_FALL_RUN, valve_under),      # low through the V-A / V-K body gap
@@ -1100,7 +1103,8 @@ def _fluid_16(F):
     return R.bent(
         "fluid-16", "foam-assembly.reservoir-a",
         (bore[0], bore[1], draw_z),              # up under the fill lane with named skin air
-        (gate[0], gate[1], gate_z),              # one lean forward, inboard and up
+        (gate[0], gate[1] + FILL_A_DRAW_GATE_LEAD * math.tan(math.radians(FILL_A_GATE_LEAN_DEG)),
+         gate_z),                              # full-radius approach, leaning aft within the collet
         "valve-v-e.inlet",                      # and straight down into the collet
         kind="fluid", bend=TUBE_BEND, skew=(CAP_BORE_SKEW, R.COLLET_SKEW),
         note="reservoir A draw: the cap's draw conduit → V-E-I, up under the fill lane and "

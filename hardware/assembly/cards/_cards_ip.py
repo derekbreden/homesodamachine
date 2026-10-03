@@ -354,6 +354,7 @@ def internal_plumbing(m):
         "LEN_CARTRIDGE": loom(_acw.len_cartridge_mm),
         "LEN_MAN_A": loom(_acw.len_man_a_mm),
         "LEN_MAN_A_COM": loom(_acw.len_man_a_com_mm),
+        "LEN_MAN_B_COM": loom(_acw.len_man_b_com_mm),
         "LEN_MAN_A_FANOUT": loom(_acw.len_man_a_fanout_mm),
         "LEN_MAN_B_FANOUT": loom(_acw.len_man_b_fanout_mm),
         "LEN_MAN_B": loom(_acw.len_man_b_mm),
@@ -385,7 +386,7 @@ def internal_plumbing(m):
         "ip-07-witness-tidy": {"PUMP_CLAMPS", "VENT_GAP"},
         "wr-04-cabinet-12v-runs": {
             "VK_SIDE", "DIAPHRAGM_A", "LEN_PUMP", "LEN_PUMP_FIXED", "LEN_CARTRIDGE",
-            "LEN_MAN_A", "LEN_MAN_A_COM", "LEN_MAN_A_FANOUT", "LEN_MAN_B_FANOUT",
+            "LEN_MAN_A", "LEN_MAN_A_COM", "LEN_MAN_B_COM", "LEN_MAN_A_FANOUT", "LEN_MAN_B_FANOUT",
             "LEN_MAN_B", "LEN_FAN", "LEN_VK"},
         "wr-05-signal-looms": {"CARB_2_LEN", "METER_BOSS", "LEN_FRONT_FACE", "COLD_CORE_LOOMS"},
     }

@@ -409,8 +409,8 @@ on the wall between them, and the complete `wago_well_wall` section on its roof;
 on the two tabs and the wall's press fit locates it.
 
 The manifold junctions share the +X front-top flank at Y169: the J1 221-420
-is centred at Z280 and the J2 221-415 at Z246. Their pockets retain a continuous
-3.2 mm web. The lower pocket has a full lid; the upper pocket keeps its two tabs
+is centred at Z280 and the J2 221-415 at Z246. Their pockets retain the
+3 mm wall section. The lower pocket has a full lid; the upper pocket keeps its two tabs
 and ramp. Both connectors face inboard, with room for their wire entries and
 lever travel below the funnel frame. J1 branches feed V-A through V-H; J2 branches
 feed V-I, V-J, the condenser fan and V-K. Their routes and remaining harness
@@ -1615,10 +1615,10 @@ here. The loom bore is teardropped because the piece beds on Z.
 
 The fixed pump lead turns onto front-top's +X flank, and SIG-7 follows the same
 wall toward the display. The flank carries [1](FLANK_CLIPS) complete clip for the two ribbons
-over Y[124–142 mm](FLANK_CLIP_Y), above V-F's coil and ahead of the funnel frame's
-front corbel. Its bottom is Z[281 mm](FLANK_CLIP_Z), and its 39 mm profile ends
-at Z320. The clip keeps its 3 mm arms, S-shaped channel and ramped ends. It is
-embedded 1.2 mm into the 9 mm wall, leaving 7.8 mm of projection and 7.8 mm
+over Y[95–113 mm](FLANK_CLIP_Y), ahead of V-F's coil and the funnel frame's
+front corbel. Its bottom is Z[269 mm](FLANK_CLIP_Z), and its 39 mm profile ends
+at Z308. The clip keeps its 3 mm arms, S-shaped channel and ramped ends. It is
+embedded 1.4 mm into the 9 mm wall, leaving 7.6 mm of projection and 7.6 mm
 behind the recessed channel. Both arms root directly in the flank.
 
 The clip's arms follow front-top's print orientation. `_flank_cable_clips`
@@ -1627,8 +1627,8 @@ loom supports elsewhere in the machine remain to be placed.
 
 ## Funnel opening
 
-The 300 mL silicone funnel sits in a separate solid PET-GF frame centered at
-Y182.5. The frame slides into front-top's receivers; closing the enclosure
+The 456 mL silicone funnel sits in a separate solid PET-GF frame centered at
+Y164.55, with its outlet at Y182.5. The frame slides into front-top's receivers; closing the enclosure
 captures its rear rails in back-top. `funnel_frame.py` uses the production
 Z-seam heads and channels with the same section and fit allowances. The
 receiving bands are part of the corresponding enclosure solids.

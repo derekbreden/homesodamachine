@@ -7,11 +7,18 @@ closed enclosure captures the frame against 2 mm translations in every axis
 direction. [`rail-motion-check.json`](rail-motion-check.json) binds those
 readings to the exported meshes.
 
-The silicone capacity is 299.90 mL, nominally 300 mL. The frame's flat underside is Z299.9, its
+The silicone capacity is 455.55 mL, nominally 456 mL. The frame's flat underside is Z299.9, its
 plug seat is Z302.9, and both end corbels cross the full 207 mm width at 30°
 from vertical. The drain hole is 11.25 mm, with the elbow cradle's two wing
 slots beside it. Eight samples on an 8 mm-radius ring around the outlet measure
 the remaining 3 mm web outside the hole and slots.
+
+The complete 207 × 142.283 mm frame has its collar centre at Y164.55, while
+the plug and drain stay at Y182.5. Both full-width corbels, rail wings and
+the socket's 3 mm floor remain present. The brim pocket keeps a 3.114 mm
+roof landing behind the display arris. The native
+[`forward expansion check`](forward-expansion-check.json) records its capacity,
+mounting datums, cable-hook fit and neighbouring tube clearances.
 
 ## Open geometry
 

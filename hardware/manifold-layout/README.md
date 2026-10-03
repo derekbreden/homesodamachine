@@ -102,8 +102,8 @@ and crosses directly to V-A's vertical inlet approach. Both routes keep R14 bend
 
 Y-A/B and V-C/D sit 9.5 mm below the outer limbs in the enclosure. Both source
 bends move with that group. V-A and V-B have mounting planes 1.4 mm below the cap
-lid's outer face, with 3 mm beneath their blind socket floors, aft of the centered
-300 mL funnel frame.
+lid's outer face, with 3 mm beneath their blind socket floors, aft of the
+456 mL funnel frame.
 
 Fluid-4 drains the funnel into V-B. It leaves the PP0308E elbow under the funnel
 frame aft and level through the gap between V-A and V-B, turns west behind V-B's

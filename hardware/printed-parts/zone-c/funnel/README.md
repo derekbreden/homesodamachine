@@ -1,17 +1,22 @@
 # Funnel and sliding frame
 
-The removable silicone funnel holds nominally [300 mL](FUNNEL_CAP). Its PET-GF
+The removable silicone funnel holds nominally [456 mL](FUNNEL_CAP). Its PET-GF
 frame slides into front-top; closing front-top onto back-top captures the rear
 rails. The frame uses the enclosure's production rail section and its running
 clearances. Both flavors share this filling interface.
 
 ## Silicone
 
-The collar center stays at world X0, Y182.5. Its brim underside is Z349 and its
+The collar center is world X0, Y164.55. Its brim underside is Z349 and its
 6 mm brim finishes flush with the Z355 enclosure roof. The collar is
-165 × 81.783 mm with R20 corners; the mouth is 153 × 69.783 mm with R14 corners;
-the brim is 179 × 95.783 mm with R27 corners. The collar wall and ramp's normal
+165 × 117.683 mm with R20 corners; the mouth is 153 × 105.683 mm with R14 corners;
+the brim is 179 × 131.683 mm with R27 corners. The collar wall and ramp's normal
 wall are 6 mm. The ramp falls toward X1.85, Y182.5.
+
+The native cavity holds 455.55 mL to the brim. The brim pocket keeps a 3.114 mm
+roof landing behind the display facet's arris, including its 0.25 mm running air.
+The drain stays at X1.85, Y182.5, Z302.9. Geometry and clearances are recorded in
+[`integration-review/forward-expansion-check.json`](integration-review/forward-expansion-check.json).
 
 The integral silicone plug is a [36 × 41.0 mm](FUNNEL_PLUG) rectangle with square corners,
 centred on the outlet, with its bottom at Z302.9. Its walls run up into the bowl's underside, so
@@ -29,7 +34,7 @@ do not qualify this plug.
 
 ## PET-GF frame
 
-The frame is 207 mm wide and 106.383 mm long. Its entire underside is flat at
+The frame is 207 mm wide and 142.283 mm long. Its entire underside is flat at
 Z299.9, leaving 3 mm below the silicone plug. An [11.25 mm](FRAME_HOLE) hole at
 X1.85, Y182.5 passes the drain elbow's collet, and the web round it bears on the
 elbow's nose. The plug socket is a [36.6 × 41.6 mm](FRAME_SOCKET) rectangle centred on that
@@ -39,8 +44,8 @@ on the far ends of two straight
 the elbow cradle's wings, so no strip of web stands between a slot and a wall.
 
 Both end corbels are 30° from vertical, across the complete X width, including
-the rail wings. The lower footprint runs from Y155 to Y210. The body widens
-upward to Y129.308 and Y235.692. The rail datum is Z306.9 and its top is Z321.7.
+the rail wings. The lower footprint runs from Y119.1 to Y210. The body widens
+upward to Y93.408 and Y235.692. The rail datum is Z306.9 and its top is Z321.7.
 The broad body fills the stock between its bowl clearance and rails.
 The funnel's brim bears on the enclosure's recessed roof ledge around its collar.
 
