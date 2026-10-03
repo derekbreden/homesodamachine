@@ -1,0 +1,30 @@
+{
+  "checked_utc": "2026-10-03T10:53:51.414536+00:00",
+  "scope": "Current mandrel native slice and actual post-live geometry-lint evidence. The native archive, emitted-path receipts and print geometry are unchanged. Physical support removal, finishing, release and casting remain unqualified.",
+  "files": {
+    "README.md": "11972d5e59100674fc68eb4e4dbf775d2ac57f1486239812ad6b017fe0675846",
+    "prepare.py": "52b1398ae26b3947053227d544d51ff6f83aa8dffef75af6dcb81ea2e45f84a5",
+    "review.py": "fd0ecad88db581c10680c2982ef87ad34835455895d4cc1eb9da9a7eb7b556fa",
+    "read_paths.py": "bf25603bd231160e24722c50358f1247b1b4d8f05c99977b224f47607e471149",
+    "readiness-review.json": "f7828c1bd08c9dc9f64840103733859c7a91485eb6e4a532668b01c59e6c8fd8",
+    "preparation.json": "f86892044e21d46c5900866ea91eb16a6900d57bb9846505be9c19591310a6f0",
+    "support-topology.json": "9b7286927d0d3c40b3c89ed98fbe3df560ab4522faf51ca7866c2f68de0f34fa",
+    "native-preview.png": "5110cc62f3f5ac8695393caf4bb4f85b4091e418062a7468df6115831513448f",
+    "native-supports.png": "b31f5f83040a9f2b5fa73a4c55ca49827cccbdc055133e440c470ec6e83ddd7a",
+    "axial-profile.png": "dbb94e34f1d5073bf89b23d65a9edef33fc02c9cce2851f3e43944ff8beff2a2",
+    "geometry-lint.json": "226054b26a09c25e17165fd7257e77a73563c89c3e99e06fb1de730f279f7931"
+  },
+  "print_geometry_sha256": {
+    "forming-mandrel.step": "0cf0e36037ba2f0d1d6e8a8dd9057b8ecaab7f68a379cd92f3bc418f0c27d8ce",
+    "forming-mandrel.stl": "6b67468da5c28217f85d54ef170e3a884b4e4ec3ed256a410a2764693354d9c0",
+    "forming-mandrel.step.mesh": "dd12e1fe654bee1b5191da4166a00e0920221bc40bb3bab832ede794df0d62e2"
+  },
+  "native_archive_sha256": "74fa97abd19f686119665060d65a874256a2d1ca4ec58175afafe92ff4fabfd3",
+  "gcode_sha256": "ee726734599b5935120c50aba3136d20d8bf83ce662cba845bb6faf46273cea5",
+  "post_live_lint": {
+    "unanswered_findings": 0,
+    "answered_findings": 1,
+    "publication_verified_utc": "2026-10-03T10:50:29Z",
+    "checked_utc": "2026-10-03T10:52:56.590328+00:00"
+  }
+}

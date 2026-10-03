@@ -21,7 +21,8 @@
     "hardware/printed-parts/cadlib/flute_skin.py": "34b4a2e1a301be1947869f3e17e2f658757623b7cfbeaf658c7c5e68f42c3f56",
     "hardware/printed-parts/cadlib/cable_clip.py": "bddddf78c5daa97106c781964ad152ac61b28916f3c2e00eff4a527461a1aa7f",
     "hardware/reference/riteav-keystone/riteav_keystone.py": "f5e62c218a7dd9aed82f4f7701b15167ff4171b45bb226b879e866c890a826fe",
-    "hardware/manifold-layout/enclosure-box.json": "cc3bce91a6c22325682dbc18841ede8d61f00153dfb3322f0cc0ad2b4b3e7b37"
+    "hardware/manifold-layout/enclosure-box.json": "cc3bce91a6c22325682dbc18841ede8d61f00153dfb3322f0cc0ad2b4b3e7b37",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.lint-answers": "69f610ec7069d089703db18a529cbf3ab19dd3c8d533785af6af0b290874c0a5"
   },
   "machine_step_sha256": "4f17ca4ad869ed62bdda46184ff3399f3f3a91eacdd7ec19e5db799ab05e58bc",
   "native_integration_record": "prv-crown-current-native-integration.json",
@@ -74,12 +75,25 @@
     "prv-crown-native-candidate-review.json": "e42ea3575171b2ac97b77a3303a3baba8e88c20dc0006bf563b5a006a01f2c8d",
     "production-native-export.json": "7c359194e1a80bd6888d8bee5375ccb0a71550cdccd406d3d3781dc15f550aa7",
     "native-result.json": "31df13975fa68cc185db8dfc1b5c0a87639d190843c142a7677c98418d47b74f",
-    "native-slice.log": "2581afccf6d2a087e0767deaa9c410e151f49f482d17a4697850d663a162fa09"
+    "native-slice.log": "2581afccf6d2a087e0767deaa9c410e151f49f482d17a4697850d663a162fa09",
+    "geometry-lint-before-answers.log": "bfd15e1f80e929cef97b2fe6043364377b8ba82f6c9306a5a37cb93fedb32f77",
+    "geometry-lint.log": "c00aa176a213057ee39d99dc471d212d554119387346a7d727453ba1038524a5",
+    "geometry-lint.stderr": "f531694c51becd767a1e37079fb5fbebd894be89b6f4edd8dd92912f5addb07e",
+    "geometry-lint.json": "803ffdecc4e91a359a1851f3b2b1841d17ac2d545a2c4a8546dd67d0f93d5e06",
+    "prv-crown-lint-contact-review.json": "1e47da8a5f7c0d3aef51578606213187dcc9b8b2fb82f8fac24c2b681876c87f"
   },
   "private_detailed_support_reading": {
     "file": ".cache/prints/2026-10-03-enclosure-back-top-current-mark2-v9/show-support-clearance.json",
     "sha256": "6bbc1918f424b5a78a6b1d1cdc08547ea7dfe179d93ae851832fcedde406ac52",
     "support_roads_checked": 1050514
   },
-  "print_control_scope": "The archived recipe and geometry are reviewed only. No printer GUI, send or start was used for this secondary job. Root owns any future submission and verifies active head, material mapping, bed readiness and printer options."
+  "print_control_scope": "The archived recipe and geometry are reviewed only. No printer GUI, send or start was used for this secondary job. Root owns any future submission and verifies active head, material mapping, bed readiness and printer options.",
+  "post_live_geometry_lint": {
+    "record": "geometry-lint.json",
+    "sha256": "803ffdecc4e91a359a1851f3b2b1841d17ac2d545a2c4a8546dd67d0f93d5e06",
+    "live_verified_utc": "2026-10-03T10:50:29Z",
+    "open_findings": 0,
+    "answered_findings": 47,
+    "only_new_answer": "PRV exterior crown at(-94.500,323.800,214.600)"
+  }
 }

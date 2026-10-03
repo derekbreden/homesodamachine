@@ -1,0 +1,100 @@
+{
+  "schema": 1,
+  "pass": true,
+  "status": "post-live geometry lint complete; all47 exact face findings answered",
+  "live_verified_utc": "2026-10-03T10:50:29Z",
+  "lint_review_completed_utc": "2026-10-03T11:01:55.079682+00:00",
+  "live_verification_record_sha256": "fc1ae9b2109ca4450edd023be81cf49c2dd7c1128d1c8b32abffe13ca34482db",
+  "live_native_bindings": [
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+      "url": "https://objects.homesodamachine.com/s-85e4e97f382142f2ed497abe36d6be493dda94ee4b672a9e0a706b684c0ef573.gz",
+      "expected_sha256": "85e4e97f382142f2ed497abe36d6be493dda94ee4b672a9e0a706b684c0ef573",
+      "live_sha256": "85e4e97f382142f2ed497abe36d6be493dda94ee4b672a9e0a706b684c0ef573",
+      "match": true,
+      "bytes": 2720206
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-9014a0dc8f70d0ababcaafd82b0e670ea922c27c99b91db3f532026945234bfd.gz",
+      "expected_sha256": "9014a0dc8f70d0ababcaafd82b0e670ea922c27c99b91db3f532026945234bfd",
+      "live_sha256": "9014a0dc8f70d0ababcaafd82b0e670ea922c27c99b91db3f532026945234bfd",
+      "match": true,
+      "bytes": 4732292
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+      "url": "https://objects.homesodamachine.com/s-866cffceff2bd16e8f760b520ac5ca699904999238e3eedfe1f8ed4311a7672c.gz",
+      "expected_sha256": "866cffceff2bd16e8f760b520ac5ca699904999238e3eedfe1f8ed4311a7672c",
+      "live_sha256": "866cffceff2bd16e8f760b520ac5ca699904999238e3eedfe1f8ed4311a7672c",
+      "match": true,
+      "bytes": 53309584
+    }
+  ],
+  "source_step_sha256": "85e4e97f382142f2ed497abe36d6be493dda94ee4b672a9e0a706b684c0ef573",
+  "source_stl_sha256": "866cffceff2bd16e8f760b520ac5ca699904999238e3eedfe1f8ed4311a7672c",
+  "source_payload_sha256": "9014a0dc8f70d0ababcaafd82b0e670ea922c27c99b91db3f532026945234bfd",
+  "source_geometry_lint_sha256": "79914fb4ca91a5620956c1d4d95fd6fe253fcae1b5f26bac0fafc43edffb4f53",
+  "command": [
+    "tools/cad-venv/bin/python",
+    "hardware/scripts/geometry_lint.py",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+    "--all",
+    "--top",
+    "1000"
+  ],
+  "initial_actual_run": {
+    "return_code": 0,
+    "open_findings": 1,
+    "answered_findings": 46,
+    "stdout": "geometry-lint-before-answers.log",
+    "stdout_sha256": "bfd15e1f80e929cef97b2fe6043364377b8ba82f6c9306a5a37cb93fedb32f77"
+  },
+  "required_actual_rerun": {
+    "return_code": 0,
+    "open_findings": 0,
+    "answered_findings": 47,
+    "answered_by_class": {
+      "step": 2,
+      "sliver": 15,
+      "ceiling": 28,
+      "slope": 2
+    },
+    "stdout": "geometry-lint.log",
+    "stdout_sha256": "c00aa176a213057ee39d99dc471d212d554119387346a7d727453ba1038524a5",
+    "stderr": "geometry-lint.stderr",
+    "stderr_sha256": "f531694c51becd767a1e37079fb5fbebd894be89b6f4edd8dd92912f5addb07e",
+    "warnings_preserved": [
+      "/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/geometry_lint.py:110: RuntimeWarning: invalid value encountered in divide",
+      "  u /= np.linalg.norm(u)"
+    ],
+    "lint_class_failure_messages": 0,
+    "warning_scope": "The numerical basis warning remains in the actual stderr. Existing zero-normal/zero-area facet answers are unmodified; no class pass failed. Native geometry and the print mesh were not changed."
+  },
+  "answers_file": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.lint-answers",
+  "answers_file_sha256_before": "70e922ae3d1f49fe523c31f969d93950711640ca5aef3cf596a182ee8623c5db",
+  "answers_file_sha256": "69f610ec7069d089703db18a529cbf3ab19dd3c8d533785af6af0b290874c0a5",
+  "only_new_answer": {
+    "class": "ceiling",
+    "anchor_cad_mm": [
+      -94.5,
+      323.8,
+      214.6
+    ],
+    "native_face": 78,
+    "native_face_area_mm2": 143.9999980745399,
+    "source_feature": "enclosure.py::_vent_chase exterior crown for ceiling-down back-top",
+    "native_support_body": "tree-1",
+    "native_contact": "interface-30",
+    "contact_and_removal_record": "prv-crown-lint-contact-review.json",
+    "contact_and_removal_record_sha256": "1e47da8a5f7c0d3aef51578606213187dcc9b8b2fb82f8fac24c2b681876c87f",
+    "removal_scope": "Release the actual crown contact through the empty forebay or lateral approach, break its sacrificial branch and remove fragments before the cold core/tubes enter. Physical cleanup effort and finish remain unqualified."
+  },
+  "native_archive_sha256": "235e948e975086a4cebc2dabaa09b1f54f458ebf54f84e36261debecc38889da",
+  "gcode_sha256": "69978f9224efc0942db3c03ce998057909e217e84703f40d28f7f049686baf97",
+  "primary_archive_sha256_held": "feaba430dd2856f35d296345b4edae03f66ee36199d1a672cfb2bccf805f5a65",
+  "native_geometry_changed": false,
+  "generators_or_slices_run": false,
+  "printer_submission_performed": false,
+  "scope": "Actual post-publication lint of the exact live-verified source STL. Only the required flat PRV crown finding receives a new face-specific answer, backed by actual v9 contact roads and native removal lanes. Existing46 answers retain their scope. This record does not establish physical support-removal force, show finish, fit, retention load or lifetime."
+}
