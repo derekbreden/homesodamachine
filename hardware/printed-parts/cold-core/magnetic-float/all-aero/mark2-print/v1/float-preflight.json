@@ -1,0 +1,195 @@
+{
+  "article": "All-ASA Aero magnetic float with RC62 insertion pause",
+  "printer": "Mark2",
+  "status": "prepared_not_submitted",
+  "send_attempts": 0,
+  "preview_inspected": true,
+  "source_commit": null,
+  "source_snapshot": {
+    "hardware/printed-parts/cold-core/magnetic-float/all-aero/all_aero_float.py": "aa60072961ce7dc4962d48e99cdc51434f14fb254bd26c8e626f31cb927cf4d0",
+    "hardware/printed-parts/cold-core/magnetic-float/all-aero/design.json": "7fe0dcfd46acf0a74a7c459a66a472edda0c109418ff6f13286f544e47d317fb",
+    "hardware/printed-parts/cold-core/magnetic-float/all-aero/prepare_print.py": "eb84256c4116c20da51be847a71fc4a132c7561e899272a21db9eec212a8523a",
+    "hardware/printed-parts/cold-core/magnetic-float/mark2-aero-print/v7/prepare.py": "dc6397f5ab6f99cb90bda44389e01f50a3a31564d1743d0e68a58b8743a75047"
+  },
+  "source_stl_sha256": {
+    "float-aero": "88da0b4e454a99b3ef01ca5b13da323d81504146785a321fc07592de0c0acd6e"
+  },
+  "source_step_sha256": "cf3b7f72d90b4c0c41170acf921db598c5ee0bec21946f4513817bee2ba69581",
+  "recipe_project": ".cache/prints/magnetic-float-insert-mark2-aero-v8/magnetic-float-insert-mark2-aero-v8-input.3mf",
+  "recipe_project_sha256": "dbd35a162783e72848fda869cf6c03802ef51610e78e11fb6b018a7f3e0841af",
+  "project": "hardware/printed-parts/cold-core/magnetic-float/all-aero/all-aero-float.3mf",
+  "project_sha256": "926b0964f7dd0289a10a29ba45281281d6d1b5c5f32b38c3e3df6a5d8fd1a936",
+  "archive": ".cache/prints/magnetic-float-all-aero-mark2-v1/ready/magnetic-float-all-aero-mark2-v1.gcode.3mf",
+  "archive_sha256": "b64e1e8a003af554bb194ad3bcfe24f65cfc6cdf293b96f01d1655ebd2127a86",
+  "gcode_sha256": "361071a87606a213c493b2297977947d676fce7b8a07a44b41eda115a48d8462",
+  "slicer_version": "02.08.02.61",
+  "native_mesh_vertex_max_delta_mm": 4.956054766580564e-08,
+  "native_triangle_connectivity_retained": true,
+  "native_geometry_matches_frozen_stl": true,
+  "center_xy_mm": [
+    150,
+    145
+  ],
+  "bed_z_mm": 0,
+  "bed": "Engineering Plate, with glue",
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.04
+  ],
+  "native_recipe_retained": true,
+  "adaptive_leveling_bounds_mm": {
+    "x_min": 110,
+    "x_max": 291,
+    "y_min": 14,
+    "y_max": 168
+  },
+  "startup_printing_commands_retained_except_leveling_bounds": true,
+  "corner_priming_strip_printing_commands_retained": true,
+  "corner_priming_strip_progress_estimates": "Native M73 progress estimates differ; motion, extrusion and heating commands are retained.",
+  "recipe": {
+    "wall_loops": 300,
+    "top_shell_layers": 0,
+    "bottom_shell_layers": 0,
+    "sparse_infill_density_percent": 0,
+    "layer_height_mm": 0.2,
+    "line_width_mm": 0.48,
+    "flow_ratio": 0.52,
+    "nozzle_c": 270,
+    "bed_c": 90,
+    "chamber_c": 60
+  },
+  "material_mapping": {
+    "material": "Bambu ASA Aero White 46100",
+    "filament_id": "GFB02",
+    "source": "Polymaker drybox",
+    "external_slot": 255,
+    "nozzle": "right fixed hardened standard-flow 0.4 mm",
+    "send_dialog_tile_required": "Ext ASA-AERO R",
+    "send_dialog_verified": false
+  },
+  "native_slice_summary": {
+    "estimated_time_s": 5299.4833984375,
+    "filament_mass_g": 14.123331069946289,
+    "object_feed_mass_g": 14.066893769821165,
+    "feed_mass_per_cad_foam_volume_g_cc": 0.5167612884246757,
+    "scope": "Slicer/feed accounting excludes magnet, startup waste and firmware extrusion; it is not measured foam density.",
+    "object_count": 1,
+    "warnings": []
+  },
+  "path_features": {
+    "Inner wall": 393412,
+    "Outer wall": 23830,
+    "Overhang wall": 706
+  },
+  "layers": 140,
+  "coverage_review": [
+    {
+      "layer_z_mm": 0.2,
+      "nominal_solid_area_mm2": 1006.0398962441467,
+      "bead_footprint_coverage_fraction": 0.9996128098853795,
+      "scope": "Idealized native bead footprints against compensated frozen STL section; this does not model actual foaming or establish physical density."
+    },
+    {
+      "layer_z_mm": 0.4,
+      "nominal_solid_area_mm2": 1006.0398962435513,
+      "bead_footprint_coverage_fraction": 0.9996292602950151,
+      "scope": "Idealized native bead footprints against compensated frozen STL section; this does not model actual foaming or establish physical density."
+    },
+    {
+      "layer_z_mm": 14.2,
+      "nominal_solid_area_mm2": 783.3293114053612,
+      "bead_footprint_coverage_fraction": 0.9989944022288174,
+      "scope": "Idealized native bead footprints against compensated frozen STL section; this does not model actual foaming or establish physical density."
+    },
+    {
+      "layer_z_mm": 28.0,
+      "nominal_solid_area_mm2": 1006.0398962439073,
+      "bead_footprint_coverage_fraction": 0.9996249532420707,
+      "scope": "Idealized native bead footprints against compensated frozen STL section; this does not model actual foaming or establish physical density."
+    }
+  ],
+  "travel_review": {
+    "explicit_object_xy_travel_move_count": 8241,
+    "explicit_object_xy_travel_distance_mm": 6555.234859146722,
+    "longest_explicit_object_xy_travel_mm": 159.79514859031235,
+    "moves_longer_than_5_mm": 314,
+    "within_layer_xy_move_count": 6661,
+    "within_layer_xy_distance_mm": 4634.723086216195,
+    "longest_within_layer_xy_move_mm": 10.250025609724108,
+    "object_retraction_count": 1605,
+    "sample_layers": {
+      "0.2": {
+        "xy_move_count": 43,
+        "xy_distance_mm": 187.95925342941712,
+        "longest_xy_move_mm": 159.79514859031235
+      },
+      "14.2": {
+        "xy_move_count": 66,
+        "xy_distance_mm": 71.44104745954068,
+        "longest_xy_move_mm": 7.674934397113761
+      },
+      "28.0": {
+        "xy_move_count": 61,
+        "xy_distance_mm": 47.22506321782318,
+        "longest_xy_move_mm": 10.210929046859565
+      }
+    },
+    "zero_travel": false,
+    "scope": "Explicit object G0/G1 moves with no positive extrusion, including retraction wipes and initial positioning. The first transfer from the startup strip is included in total travel, and excluded from within-layer travel. Firmware motion, timelapse internals and moves outside object labels are excluded. Ring transitions, seam positioning and layer changes can still require travel."
+  },
+  "magnet_pause_review": {
+    "pause_command": "M400 U1",
+    "pause_count": 1,
+    "completed_layers_before_pause": 79,
+    "last_open_pocket_layer_z_mm": 15.8,
+    "printed_seat_top_z_mm": 12.4,
+    "first_covering_layer_z_mm": 16.0,
+    "nominal_printed_magnet_center_z_mm": 13.9875,
+    "nominal_cad_magnet_center_z_mm": 14.0,
+    "physical_center_scope": "Layer quantization, magnet thickness tolerance and actual printed fit limit physical centering.",
+    "nominal_seated_magnet_top_z_mm": 15.575,
+    "maximum_seated_magnet_top_z_mm": 15.674999999999999,
+    "minimum_magnet_recess_below_printed_rim_mm": 0.12500000000000178,
+    "minimum_first_cover_nozzle_clearance_mm": 0.32500000000000107,
+    "ring_footprint_coverage_by_layer": {
+      "12.2": 1.000000000000002,
+      "12.4": 1.000000000000002,
+      "12.6": 0.0,
+      "12.8": 0.0,
+      "13.0": 0.0,
+      "13.2": 0.0,
+      "13.4": 0.0,
+      "13.6": 0.0,
+      "13.8": 0.0,
+      "14.0": 0.0,
+      "14.2": 0.0,
+      "14.4": 0.0,
+      "14.6": 0.0,
+      "14.8": 0.0,
+      "15.0": 0.0,
+      "15.2": 0.0,
+      "15.4": 0.0,
+      "15.6": 0.0,
+      "15.8": 0.0,
+      "16.0": 1.000000000000002,
+      "16.2": 1.000000000000002
+    },
+    "covering_roads_emitted_after_pause_only": true,
+    "guide_bore_remains_open": true,
+    "pause_message": "Insert one RC62 ring into the open annular pocket, fully down onto its floor. The magnet must sit below both pocket rims. Keep the guide bore open and clear loose strings without moving the float. Resume only with the magnet fully seated.",
+    "scope": "Explicit commands and idealized bead footprints; firmware parking/resume motion, actual foam, magnet movement and hot metal adhesion remain physical-trial observations."
+  },
+  "skirt_paths": 0,
+  "brim_paths": 0,
+  "support_paths": 0,
+  "prepared_utc": "2026-10-03T16:23:16.871106+00:00",
+  "physical_print_completed": false,
+  "density_verified": false,
+  "buoyancy_verified": false,
+  "preview_review": {
+    "native_geometry_preview": "native-preview.png",
+    "section_and_native_pause_paths": "pause-preview.png",
+    "observations": "One upright body with an open guide bore. The last pre-pause layer has an open annular pocket, and the next layer has nested roads over the nominal ring footprint."
+  }
+}

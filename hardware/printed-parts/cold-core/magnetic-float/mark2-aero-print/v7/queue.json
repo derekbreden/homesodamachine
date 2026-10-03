@@ -3,7 +3,7 @@
   "physical_trial_revision": 7,
   "native_archive_revision": 8,
   "printer": "Mark2",
-  "status": "insert_completed_cooling_core_prepared",
+  "status": "insert_completed_cooling_all_aero_next",
   "parts_in_launch_order": [
     "insert",
     "core"
@@ -13,7 +13,7 @@
   "send_attempts": 1,
   "monitor_active": true,
   "current_print_monitor_record": "insert-mark2-launch.json",
-  "start_condition": "The insert is accepted. After it finishes and is removed, a new clear-bed report or start request supplies the core launch condition. Do not start the core automatically.",
+  "start_condition": "After the insert is removed, the requested all-ASA Aero float is prepared next. A new clear-bed report or start request supplies its launch condition. Do not submit the separate core automatically.",
   "source_commit": "f3cefbe360b7a8019741d177868d1e6c6770b93f",
   "jobs": {
     "core": {
@@ -25,7 +25,7 @@
       "source_stl_sha256": {
         "body-aero": "63d12cbb501b629997a2462822df42a1f4f6bf20ee2806f2f6f310c1f7e72771"
       },
-      "status": "prepared_not_submitted",
+      "status": "deferred_not_submitted",
       "send_attempts": 0
     },
     "insert": {
@@ -85,5 +85,6 @@
     "dialog_tile": "Ext ASA-AERO R",
     "external_slot": 255
   },
-  "monitor_automation_id": "monitor-float-insert-and-front-top"
+  "monitor_automation_id": "monitor-float-insert-and-front-top",
+  "next_prepared_trial": "../../all-aero/mark2-print/v1/queue.json"
 }
