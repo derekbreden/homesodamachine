@@ -4,9 +4,10 @@ Two PETG shells follow the [funnel](../funnel/README.md), with
 [5 mm](SKIN) minimum ramp backing and [5 mm](FLANGE) clamping flanges. The cavity
 stands on three small feet. The core has a [142.4 × 59.2 mm](DRY_MOUTH) rounded rectangular opening
 in its dry back. Both halves print with automatic normal supports in Snug style.
-The tooling forms a rounded plug blank with a straight dowel bore. The
-production plug's hook pockets and staged sealing bore require separate
-forming features before this tooling can produce the finished funnel.
+The tooling forms a rectangular plug blank with square corners and a straight
+dowel bore. The production plug's hook pockets, open through its X sides and
++Y end, and staged sealing bore require separate forming features before this
+tooling can produce the finished funnel.
 
 ![Cavity and core in their print orientations](overview.png)
 
@@ -48,7 +49,7 @@ closes the annular passage into the dry back. Smooth-On's
 [sealer reference](https://www.smooth-on.com/page/sealers-releases/) distinguishes
 sulfur-free modeling clay from sulfur-bearing clay for platinum silicone.
 
-The plug blank is [36 × 44.1 × 15 mm](PLUG_BLANK), with a straight
+The plug blank is [36 × 41 × 15 mm](PLUG_BLANK), with a straight
 [6.35 mm](ROD_D) bore. The finished plug's hook pockets, 8.4 mm entry,
 6.7 mm relief and 6 mm sealing land are described in the
 [funnel specification](../funnel/README.md#silicone). They are absent from
@@ -71,7 +72,7 @@ physical trial establishes retention, sealing and casting quality.
 
 Teal is the cavity, gold the core, grey the nominal silicone, light grey the
 steel dowel and blue the removable entry seal. The nominal casting, including its sacrificial spout tip, is
-[197 mL](CAST_VOLUME). The two halves fit inside a [278.5 mm](ENVELOPE) circle,
+[196 mL](CAST_VOLUME). The two halves fit inside a [278.5 mm](ENVELOPE) circle,
 leaving [10.6 mm](CHAMBER_GAP) radial clearance in the recorded chamber. Check
 the actual opening, clamp/bolt envelope and catch tray before pouring.
 
@@ -129,7 +130,7 @@ porosity, flange sealing and the first casting remain physical checks.
 The saved project contains geometry `953dbfa68` on two plates: the cavity
 upright and the core inverted. Its meshes are bound to the
 [saved slice review](current-slice-review.json); they do not include the
-rounded plug blank in the current CAD exports.
+rectangular plug blank in the current CAD exports.
 It selects these presets:
 
 - Process: **0.24mm Standard @BBL H2C funnel mold**
