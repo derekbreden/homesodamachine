@@ -82,7 +82,7 @@ def colour_for(name: str):
     if name.startswith("float-rod"):
         return _mat.M_STAINLESS
     if name.startswith("float-"):
-        return _mat.M_STAINLESS
+        return _mat.M_ASA_AERO_WHITE
     if name.startswith("reed-"):
         return _mat.C_REED
     if name.startswith("probe-"):

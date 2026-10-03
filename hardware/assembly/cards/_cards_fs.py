@@ -237,7 +237,13 @@ def _figures():
         # Both faces of every hole, both plates — the count PV-01 flips for.
         "CHAMFER_PASSES": f"{ports_per_plate * 2 * plates}",
         "REGISTER_D": _frac(_cap.register_drill_diameter),
-        "REGISTER_Y": f"{abs(_cap.register_position[1]):.3f}",
+        "REGISTER_Y": f"{abs(_cap.register_position[1]):.4f}",
+        "REGISTER_MM": f"{abs(_cap.register_position[1]) * MM_PER_IN:.3f}",
+        "FLOAT_WALL_DATUM": f"{_rsv._float.rod_axis_from_inner_wall:g}",
+        "RSVR_ROD_X": f"{_rsv.rod_position_x:.2f}",
+        "RSVR_ROD_Y": f"{_rsv.rod_position_y:g}",
+        "FLOAT_SIZE": f"{_rsv._float.diameter:g} {X} {_rsv._float.height:g}",
+        "FLOAT_BORE": f"{_rsv._float.bore_diameter:g}",
         "REGISTER_DEPTH": _dec(_cap.register_depth),
         "REGISTER_REMAINING": _dec(_cap.disc_thickness - _cap.register_depth),
         "PLATE_SLIP": f"~{_dec(plate_slip)}",
@@ -253,6 +259,7 @@ def _figures():
         "RSVR_ROD_MM": f"{_rsv.reservoir_rod_len:.4g} mm",
         # The span the cut backs off from. CC-08 draws it beside the cut length.
         "RSVR_SEAT_TO_SEAT": f"{_rsv.reservoir_rod_len + _rsv.reservoir_rod_clearance:.4g}",
+        "RSVR_ROD_BORE": f"{_rsv.rod_bore:.4g}",
         "ROD_CLEARANCE": f"{_pv.rod_clearance:.4g} mm",
         "RSVR_ROD_CLEARANCE": f"{_rsv.reservoir_rod_clearance:.4g} mm",
         "ROD_PAIR_SUM": f"{rod_pair:.4g}",
@@ -320,7 +327,7 @@ def _figures():
         "pv-02-tap-npt-ports": {"PORTS_PER_PLATE", "CARBONATOR_PORTS", "TAP_DRILL"},
         "pv-03-rod-register": {
             "DISC_D", "PLATE_THK", "TAP_DRILL", "PORT_SPACING", "PORTS_PER_PLATE",
-            "REGISTER_D", "REGISTER_Y", "REGISTER_DEPTH", "REGISTER_REMAINING",
+            "REGISTER_D", "REGISTER_Y", "REGISTER_MM", "FLOAT_WALL_DATUM", "REGISTER_DEPTH", "REGISTER_REMAINING",
             "REG_PSI"},
         "pv-04-break-plate-edges": {"PLATE_SLIP"},
         # PV — the rods and the closure.

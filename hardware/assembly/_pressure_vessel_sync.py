@@ -30,7 +30,7 @@ from _cold_core_interface import (
     below_carbonator_elbows_height,
     carbonator_height,
 )
-from endcap_circular_dxf import disc_thickness, hole_diameter, register_depth
+from endcap_circular_dxf import disc_thickness, hole_diameter, register_depth, register_radius
 from docgen import substitute_md
 
 MM_PER_IN = 25.4
@@ -80,6 +80,8 @@ def main():
         # so the sentence explaining the cut cannot describe a different cut.
         "ROD_LEN": f"{carbonator_rod_len:.4g} mm ({carbonator_rod_len / MM_PER_IN:.3g} in)",
         "ROD_CLEARANCE": f"{rod_clearance:.4g} mm",
+        "REGISTER_RADIUS_IN": f"{register_radius:.4f}",
+        "REGISTER_RADIUS_MM": f"{register_radius * MM_PER_IN:.3f} mm",
         # Nominal gas-feed setpoint / design reference, not an upper pressure bound.
         "WORKING_PSI": f"{secondary_regulator_pressure_psi:.4g} PSI",
         "REG_FIXED": f"fixed-{secondary_regulator_pressure_psi:.4g} PSI",

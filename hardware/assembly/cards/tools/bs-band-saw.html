@@ -38,10 +38,10 @@
     </tr>
     <tr>
       <td class="op"><b>Stock</b><span class="ref">PV-05</span></td>
-      <td>Tandefio <span class="dim">12&Prime;</span> sticks, one rod out of each
-        <span class="sub">the same stock for all three &#8212; nothing else on this bench uses it</span></td>
-      <td>One rod per stick
-        <span class="sub">the drop is scrap, not the next rod</span></td>
+      <td>Tandefio <span class="dim">12&Prime;</span> sticks
+        <span class="sub">one stick per reservoir rod; two carbonator blanks fit one stick</span></td>
+      <td>Three sticks for one build
+        <span class="sub">retain the carbonator drop for another build</span></td>
       <td>The two lengths butt past the end of a <span class="dim">12&Prime;</span>
         stick before the blade has taken its kerf.</td>
     </tr>
@@ -58,9 +58,9 @@
       <td class="op"><b>Length</b><span class="ref">PV-05</span></td>
       <td>Length stop, cut on the waste side of the mark
         <span class="sub">measure from a squared end, never from the mill end</span></td>
-      <td><span class="dim">131.1 mm</span> &#215;1 &#183; <span class="dim">176.5 mm</span> &#215;2
+      <td><span class="dim" data-gen="CARB_ROD_MM">131.1 mm</span> starting blank &#215;1<br><span class="dim" data-gen="RSVR_ROD_MM">176.5 mm</span> &#215;2
         <span class="sub">caliper each rod before it leaves the vise</span></td>
-      <td>One carbonator float rod, and one rod per flavor reservoir.</td>
+      <td>Hand-fit the carbonator blank to the actual drilled register pair before tacking. The reservoir pair is captured by printed bosses.</td>
     </tr>
     <tr>
       <td class="op"><b>Ends</b><span class="ref">PV-05</span></td>
@@ -84,13 +84,12 @@
 
   <div class="below">
     <div class="col" style="flex:1">
-      <div class="critical"><span class="sign">&#9940;</span><div><b>Err short,
-        never long.</b> The rod's <span class="dim">1 mm</span> of clearance is
-        the whole budget &#8212; long, it holds the top plate off its seated
-        depth at PV-09 and props the fillet root open.</div></div>
+      <div class="critical"><span class="sign">&#9940;</span><div><b>Check the actual seats.</b>
+        Carbonator registers have conical drill bottoms: hand-fit the blank until both plates seat fully with positive rod engagement.
+        Reservoir rods have <span class="dim" data-gen="RSVR_ROD_CLEARANCE">0.15 mm</span> total end clearance.</div></div>
       <div class="note"><b>Level rods: three sticks.</b> The
-        <span class="dim">131.1 mm</span> rod is tack-welded inside the carbonator
-        at PV-06; the <span class="dim">176.5 mm</span> pair is captured by
+        <span class="dim" data-gen="CARB_ROD_MM">131.1 mm</span> starting blank is fitted and tack-welded inside the carbonator
+        at PV-06; the <span class="dim" data-gen="RSVR_ROD_MM">176.5 mm</span> pair is captured by
         printed bosses. Each starts from its own 12&Prime; stick.</div>
       <div class="rack">
         <span class="lbl">Have in hand</span>
@@ -114,7 +113,7 @@
             .sub   { font: 400 27px 'IBM Plex Sans','Helvetica Neue',sans-serif; fill: #70707c; }
           </style>
 
-          <text class="ttl" x="26" y="44">STOCK &#183; one stick, one rod</text>
+          <text class="ttl" x="26" y="44">STOCK &#183; separate the two rod lengths</text>
           <text class="sub" x="26" y="82">1/8&#8243; 316L against a 12&#8243; stick &#183; drawn to scale</text>
           <line x1="26" y1="112" x2="1774" y2="112" stroke="#d9d5cb" stroke-width="3"/>
 
@@ -140,8 +139,8 @@
           <line class="dimln" x1="1139" y1="420" x2="1139" y2="444"/>
           <line class="dimln" x1="1139" y1="432" x2="1733" y2="432"/>
           <line class="dimln" x1="1733" y1="420" x2="1733" y2="444"/>
-          <text class="dtx" x="739.5" y="478" text-anchor="middle">176.5 mm</text>
-          <text class="dtx" x="1436" y="478" text-anchor="middle">131.1 mm</text>
+          <text class="dtx" x="739.5" y="478" text-anchor="middle" data-gen="RSVR_ROD_MM">176.5 mm</text>
+          <text class="dtx" x="1436" y="478" text-anchor="middle"><tspan data-gen="CARB_ROD_MM">131.1 mm</tspan> blank</text>
 
           <!-- ── the overshoot, magnified ── -->
           <line class="dimln" x1="1733" y1="404" x2="1672" y2="504"/>
@@ -156,11 +155,11 @@
           <text class="sub" x="1470" y="628" text-anchor="end">ends past the stick,</text>
           <text class="sub" x="1470" y="662" text-anchor="end">before any kerf</text>
 
-          <text class="ttl" x="26" y="576">So each rod starts</text>
-          <text class="ttl" x="26" y="614">a fresh stick.</text>
-          <text class="sub" x="26" y="654">Three rods, three sticks.</text>
+          <text class="ttl" x="26" y="576">A reservoir rod needs</text>
+          <text class="ttl" x="26" y="614">its own stick.</text>
+          <text class="sub" x="26" y="654">Two carbonator blanks fit another.</text>
         </svg>
-        <div class="cap"><b>Why the drop is scrap</b> &#8212; the two lengths
+        <div class="cap"><b>Why these lengths need separate sticks</b> &#8212; the two lengths
         overrun a 12&Prime; stick by about 2.8&nbsp;mm before allowing for
         saw kerf.</div>
       </div>
@@ -171,7 +170,7 @@
 
 <footer>
   <div class="done"><span class="lbl">Leave the bench when</span>Level rods are square, deburred and length-checked. The trial cap is measured, flat and clean, with both hole faces deburred.</div>
-  <div class="src">pressure-vessel.md &#183; water-inlet-jet.md<br>handwork.md &#183; ledger/tools.md &#183; PV-05<br>rev 2026-09-16</div>
+  <div class="src">pressure-vessel.md &#183; water-inlet-jet.md<br>handwork.md &#183; ledger/tools.md &#183; PV-05 &#183; _cards_sync.py<br>rev 2026-10-03</div>
 </footer>
 
 </div>

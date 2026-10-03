@@ -1,20 +1,18 @@
 {
-  "/hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py": {
-    "DONUT_OD": "27.75 mm",
-    "REED_GLASS_L": "14 mm",
-    "TUBE_ID_MM": "123.7 mm"
-  },
+  "/hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py": {},
   "/hardware/printed-parts/cold-core/reservoir/reservoir.py": {
-    "CAVITY_FAR_WALL_X": "126.2",
+    "CAVITY_FAR_WALL_X": "126.25",
     "CONDUIT_BORE_D": "6.8 mm",
     "FLAVOR_HOLE_X": "\u00b197",
-    "MAGNET_WALL_BIAS": "2.5 mm",
+    "FLOAT_TRAVEL": "52.48\u2013188.15 mm",
     "REEDS_PER_RES": "4",
+    "REED_CENTRES": "52.82, 97.82, 142.82, 187.82",
     "REED_CONDUIT_XY": "reed-cable-a (134.5, 31), reed-cable-b (-134.5, 31)",
-    "RESERVOIR_CLEARANCE": "0.25 mm",
     "RESERVOIR_ROD_LEN": "176.5 mm (6.95 in)",
     "ROD_DIAMETER": "3.175 mm",
-    "ROD_POSITION_X": "114.8",
-    "ROD_POSITION_Y": "32.5"
+    "ROD_END_CLEARANCE": "0.15 mm",
+    "ROD_POSITION_X": "106.25",
+    "ROD_POSITION_Y": "32.5",
+    "ROD_WALL_DISTANCE": "20 mm"
   }
 }

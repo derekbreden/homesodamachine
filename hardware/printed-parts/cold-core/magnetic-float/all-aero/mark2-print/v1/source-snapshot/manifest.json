@@ -1,0 +1,18 @@
+{
+  "source_commit": "4ac1fa874ddbccd9f96fa3c708079927c82049d2",
+  "scope": "Immutable exact source copies for accepted v1 print; current CAD is separate.",
+  "files": {
+    "all_aero_float.py": {
+      "source_path": "hardware/printed-parts/cold-core/magnetic-float/all-aero/all_aero_float.py",
+      "sha256": "aa60072961ce7dc4962d48e99cdc51434f14fb254bd26c8e626f31cb927cf4d0"
+    },
+    "design.json": {
+      "source_path": "hardware/printed-parts/cold-core/magnetic-float/all-aero/design.json",
+      "sha256": "7fe0dcfd46acf0a74a7c459a66a472edda0c109418ff6f13286f544e47d317fb"
+    },
+    "prepare_print.py": {
+      "source_path": "hardware/printed-parts/cold-core/magnetic-float/all-aero/prepare_print.py",
+      "sha256": "eb84256c4116c20da51be847a71fc4a132c7561e899272a21db9eec212a8523a"
+    }
+  }
+}

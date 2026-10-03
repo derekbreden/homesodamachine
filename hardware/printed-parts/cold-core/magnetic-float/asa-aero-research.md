@@ -1,5 +1,9 @@
 # ASA Aero and the magnetic float
 
+Sizing and preset evidence for the [PETG-shell bench reference](petg-bench-reference.md).
+The current ASA-only float's dimensions and buoyancy model are in
+[all-aero/README.md](all-aero/README.md).
+
 Research checked 2026-09-28. [Calculation and preset evidence](asa-aero-research.json).
 
 **Bambu ASA Aero supports a buoyant float at the standard H2C filament settings.**
