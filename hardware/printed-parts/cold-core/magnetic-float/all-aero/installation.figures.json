@@ -1,5 +1,6 @@
 {
   "/hardware/printed-parts/cold-core/magnetic-float/all-aero/integration.py": {
+    "CARB_FLOAT_REED_PATH": "5.713 mm",
     "CARB_RADIUS": "41.849 mm",
     "CARB_RADIUS_IN": "1.6476 in",
     "CARB_REED_CENTERS": "58.332 / 86.484 mm",
@@ -8,10 +9,13 @@
     "CARB_TRAVEL": "28.200\u2013125.700 mm",
     "CARB_WATER_LEVELS": "67.098 / 95.250 mm",
     "FLOAT_BORE": "4.8 mm",
+    "FLOAT_REED_DESIGN_MAX": "18 mm",
+    "FLOAT_REED_REPORTED_LIMIT": "20 mm",
     "FLOAT_SIZE": "36 \u00d7 28 mm",
     "GUIDE_SLOP": "0.8125 mm",
     "MAGNET_CENTER": "14 mm",
     "MAGNET_SUBMERGENCE": "8.766 mm",
+    "RES_FLOAT_REED_PATH": "11.062 mm",
     "RES_REED_CENTERS": "52.817, 97.817, 142.817, 187.817 mm",
     "RES_REED_PATH": "19.538 mm",
     "RES_REED_PITCH": "45 mm",

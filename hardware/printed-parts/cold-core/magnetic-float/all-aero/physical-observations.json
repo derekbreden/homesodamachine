@@ -63,5 +63,25 @@
     "material_data_checked_date": "2026-10-03",
     "material_data_source": "https://store.bblcdn.com/2bb7c6814cdc42d19ffc62570cfc1fb2.pdf",
     "pressure_process_source": "https://blog.prusa3d.com/watertight-3d-printing-part-2_53638/"
+  },
+  "reed_reach_report": {
+    "status": "operator_reported_printed_float_bench_range",
+    "reported_date": "2026-10-03",
+    "source": "Derek report in Printer 2",
+    "article": "Current ASA Aero float with inserted RC62",
+    "distance_datum": "Nearest outer edge of float body to center of reed",
+    "operator_quote": "But, I wanted to mention, I did some testing with the float just now, and I am seeing a usable limit from \"edge of float\" to \"center of reed\" of pretty much exactly 20 mm, and 25 mm is consistently not working, and 21-24 mm is sketchy, so I would like to target something slightly less than 20 mm (15, or 16, or 17 or 18 or 19) as our designed distance (initially here at least, pending further verification) from the edge of float to the reed.",
+    "reported_usable_limit_mm": 20.0,
+    "reported_intermittent_range_mm": [
+      21.0,
+      24.0
+    ],
+    "reported_consistently_absent_distance_mm": 25.0,
+    "provisional_design_maximum_mm": 18.0,
+    "design_basis": "Use at most 18 mm from float edge to reed center, including upright guide retreat, below the reported 20 mm usable limit. Current installed geometry meets this limit.",
+    "reed_model_in_this_report": null,
+    "wall_and_fixture_conditions_in_this_report": null,
+    "directional_closure_release_measurements": null,
+    "scope": "Operator-reported range for the current printed float. No reed identity, repeat count, wall fixture, directional activation window, liquid crossing or all-reed installed acceptance is supplied."
   }
 }

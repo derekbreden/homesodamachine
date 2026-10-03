@@ -53,7 +53,7 @@ writes. `bom-covered` is the axis the work is on.
 | `arcs-hold` | every corner turns at the stock arc |
 | `stations-met` | every station the wall's slot leaves carries a run |
 | `prv-vent-lands` | the PRV shroud's own vent bore opens on the lane its line falls |
-| `floats-couple` | ASA Aero bodies clear their walls; RC62 edge paths stay within the bench design band, with installed switching unmeasured |
+| `floats-couple` | ASA Aero bodies keep at least 1 mm upright wall clearance; float-edge to reed-center distance stays within the provisional 18 mm maximum, with installed switching unmeasured |
 | `inlet-jet-qualified` | the cap is a nominal layout; its actual weld land, joint and installed projection await the fabrication trial |
 | `gas-adapter-envelope` | the PI010822S gas adapter uses the existing nominal collet envelope until the acquired fitting is measured |
 

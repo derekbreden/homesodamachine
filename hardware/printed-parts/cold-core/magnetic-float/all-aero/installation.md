@@ -4,7 +4,9 @@ The carbonator and both flavor reservoirs use the same one-piece ASA Aero
 float: **[36 × 28 mm](FLOAT_SIZE)**, **[4.8 mm](FLOAT_BORE)** open guide bore,
 and an RC62 center **[14 mm](MAGNET_CENTER)** above its bottom. Each
 **[3.175 mm](ROD_DIAMETER)** rod stands **[20 mm](WALL_DATUM)** from the inside
-wall. These are construction datums; liquid switching heights need calibration.
+wall. The guide-axis distance is a drilling datum. The reed-distance limit is
+**[18 mm](FLOAT_REED_DESIGN_MAX) from the nearest float edge to the reed center**,
+including upright guide play. Liquid switching heights need calibration.
 
 ## Rod and drilling datums
 
@@ -37,15 +39,22 @@ rod. Nominal body-to-wall clearance is **[2 mm](WALL_CLEARANCE)**, with an uprig
 CAD range of **[1.1875–2.8125 mm](WALL_CLEARANCE_RANGE)**. Foam expansion,
 rod alignment, tilt and finished sliding are physical checks.
 
-| Vessel | Worst collinear reed-center to nearest RC62 edge, including guide play |
-| --- | --- |
-| Carbonator, reed against the bare tube | **[14.188 mm](CARB_REED_PATH)** |
-| Reservoir, reed in the foam-shell channel | **[19.538 mm](RES_REED_PATH)** |
+| Vessel | Greatest float-edge to reed-center distance | Greatest RC62-edge to reed-center distance |
+| --- | --- | --- |
+| Carbonator, reed against the bare tube | **[5.713 mm](CARB_FLOAT_REED_PATH)** | [14.188 mm](CARB_REED_PATH) |
+| Reservoir, reed in the foam-shell channel | **[11.062 mm](RES_FLOAT_REED_PATH)** | [19.538 mm](RES_REED_PATH) |
 
-The [existing RC62/MDSR-7-10-15 bench measurements](../README.md#reed-reach)
-include stable detection at a 30 mm edge distance. They support these radial
-positions. They are one magnet/reed pair; they do not establish the switching
-window through the installed stainless wall or after magnet insertion/heat.
+Both distance columns include the float's maximum upright retreat through the
+bore. The RC62 edge is 8.475 mm inside the float perimeter. The 20 mm
+guide-axis-to-inside-wall datum is neither of these reed distances.
+
+The [printed-float bench report](physical-observations.json) gives a usable
+float-edge-to-reed-center limit of **[20 mm](FLOAT_REED_REPORTED_LIMIT)**,
+intermittent response at 21–24 mm and consistently absent response at 25 mm.
+The provisional 18 mm design maximum keeps below that reported limit. Both
+installed layouts meet it; the rod/drill coordinates above retain running room.
+The reported reed identity and wall/fixture conditions are unspecified, so the
+report does not establish installed directional switching or all-reed acceptance.
 Use vertical reeds parallel to the guide and the actual MDSR-7-10-15 stock.
 The CAD capture envelope remains 14 × 2.5 mm for glass, tape and leads; the
 manufacturer gives 12.7 mm glass length.
