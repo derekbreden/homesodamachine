@@ -1,6 +1,6 @@
 {
   "printer": "Mark2",
-  "status": "finished_cooling",
+  "status": "completed_cooled",
   "launch_actor": "Not reported",
   "launch_timestamp": "Not reported",
   "accepted_cloud_task_id": null,
@@ -143,10 +143,49 @@
         "source_field": "device.ctc.info.temp"
       },
       "scope": "Matching local task 6700 reports FINISH. Archive, geometry and trim identity remain unverified. Telemetry does not establish physical adhesion, fit, density or buoyancy."
+    },
+    {
+      "event": "cooled_for_removal",
+      "observed_at": "2026-10-03T09:46:43.401528+00:00",
+      "job_id": "0",
+      "task_id": "6700",
+      "subtask_name": "RC62 magnetic float - aero",
+      "print_type": "local",
+      "gcode_state": "FINISH",
+      "stg_cur": -1,
+      "layer_num": 220,
+      "total_layer_num": 220,
+      "mc_percent": 100,
+      "mc_remaining_time": 0,
+      "bed_temper": 35.0,
+      "bed_target_temper": 0.0,
+      "print_error": 0,
+      "hms": [],
+      "installed_extruders": [
+        {
+          "id": 0,
+          "temperature_packed": 42,
+          "actual_c": 42,
+          "target_c": 0
+        },
+        {
+          "id": 1,
+          "temperature_packed": 40,
+          "actual_c": 40,
+          "target_c": 0
+        }
+      ],
+      "chamber": {
+        "temperature_packed": 33,
+        "actual_c": 33,
+        "target_c": 0,
+        "source_field": "device.ctc.info.temp"
+      },
+      "scope": "Matching local task is finished. Actual bed and chamber meet the conservative 35 C handling threshold. Archive identity and physical adhesion, fit, density and buoyancy remain unverified."
     }
   ],
-  "completion_reported": false,
-  "monitor_active": true,
+  "completion_reported": true,
+  "monitor_active": false,
   "latest_status": {
     "job_id": "0",
     "task_id": "6700",
@@ -158,39 +197,42 @@
     "total_layer_num": 220,
     "mc_percent": 100,
     "mc_remaining_time": 0,
-    "bed_temper": 82.0,
+    "bed_temper": 35.0,
     "bed_target_temper": 0.0,
     "print_error": 0,
     "hms": [],
     "installed_extruders": [
       {
         "id": 0,
-        "temperature_packed": 95,
-        "actual_c": 95,
+        "temperature_packed": 42,
+        "actual_c": 42,
         "target_c": 0
       },
       {
         "id": 1,
-        "temperature_packed": 71,
-        "actual_c": 71,
+        "temperature_packed": 40,
+        "actual_c": 40,
         "target_c": 0
       }
     ],
     "chamber": {
-      "temperature_packed": 59,
-      "actual_c": 59,
+      "temperature_packed": 33,
+      "actual_c": 33,
       "target_c": 0,
       "source_field": "device.ctc.info.temp"
     }
   },
-  "latest_observed_utc": "2026-10-03T08:16:12.818890+00:00",
+  "latest_observed_utc": "2026-10-03T09:46:43.401528+00:00",
   "recorded_utc": "2026-10-03T06:58:15.340438+00:00",
   "completion_observed_utc": "2026-10-03T08:16:12.818890+00:00",
   "cooling": {
     "threshold_c": 35,
-    "bed_actual_c": 82.0,
-    "chamber_actual_c": 59,
-    "ready_for_removal": false,
-    "basis": "Conservative handling threshold; both actual bed and chamber readings must be at or below 35 C."
-  }
+    "bed_actual_c": 35.0,
+    "chamber_actual_c": 33,
+    "ready_for_removal": true,
+    "basis": "Conservative handling threshold; both actual bed and chamber readings must be at or below 35 C.",
+    "observed_at": "2026-10-03T09:46:43.401528+00:00"
+  },
+  "completion_report_observation_utc": "2026-10-03T09:46:43.401528+00:00",
+  "completion_notification": "The ASA Aero float print is finished and cooled, ready to remove. The single-piece 300-wall insert is prepared next."
 }

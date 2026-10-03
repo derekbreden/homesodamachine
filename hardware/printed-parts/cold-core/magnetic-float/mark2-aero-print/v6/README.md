@@ -48,15 +48,20 @@ No physical acceptance is recorded for this Engineering trial.
 
 Mark2 reports local job `RC62 magnetic float - aero`, task ID `6700`, with
 cloud job ID `0`, as **FINISH**, layer **220 of 220**, at 08:16:12 UTC on
-2026-10-03. The observed bed temperature is 82 °C and chamber temperature is
-59 °C, with both heater targets at zero and no reported print error or HMS
-alert. It is cooling toward the 35 °C handling threshold. Its archive identity
-is unverified, and its telemetry is recorded separately in
+2026-10-03. At 09:46:43 UTC the observed bed temperature is **35 °C** and chamber
+temperature is **33 °C**, with both heater targets at zero and no reported
+print error or HMS alert. It is ready for removal under the conservative
+35 °C handling threshold. Its archive identity is unverified, and its telemetry
+is recorded separately in
 [operator observations](operator-print.json).
 The user reports that feeding from the Polymaker drybox works better, with
 flaking and material carried during travel moves still present. These
 observations establish neither the local archive settings nor the terminal
 state of accepted cloud task 1304125241. Physical acceptance remains unreported.
+
+The [separate 300-wall jobs](../v7/README.md) are prepared, with the insert first.
+The next submission requires a new start request or clear-bed report after
+removing the completed print.
 
 - [Preflight and native comparison](pair-preflight.json)
 - [Native preparation](prepare.py)
