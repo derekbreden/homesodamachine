@@ -204,7 +204,7 @@
   "support_paths": 0,
   "skirt_paths": 0,
   "brim_paths": 0,
-  "submitted": false,
+  "submitted": true,
   "preview_inspected": true,
   "physical_fit_verified": false,
   "source_stl_sha256": {
@@ -340,5 +340,7 @@
     ],
     "clear_of_parts_and_bed_exclusions": true
   },
-  "native_slice_summary_scope": "Inherited part estimate; excludes added startup strip time and additional adaptive bed leveling."
+  "native_slice_summary_scope": "Inherited part estimate; excludes added startup strip time and additional adaptive bed leveling.",
+  "accepted_task_id": "1304058102",
+  "submitted_utc": "2026-10-03T05:06:18.398583+00:00"
 }
