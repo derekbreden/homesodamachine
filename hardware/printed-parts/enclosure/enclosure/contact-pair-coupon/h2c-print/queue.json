@@ -168,6 +168,51 @@
       "first_layer_confirmed_utc": "2026-10-02T23:44:08.067753+00:00",
       "completed_observed_utc": "2026-10-03T00:05:05.244847+00:00",
       "completion_record": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v3/cradle-mark2-completion.json"
+    },
+    {
+      "order": 5,
+      "trial": "funnel elbow-cradle receiver and cradle v4",
+      "geometry_revision": 4,
+      "review": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v4/README.md",
+      "status": "partially_submitted",
+      "submitted": false,
+      "bed_clear_confirmation": {
+        "confirmed": true,
+        "source": "User in Funnel 2: And then print me new test pieces of each, one on each printer."
+      },
+      "allocation_reason": "Both printers are ready with black PET-GF loaded; one authorized part per printer. Start the longer cradle job on H2C first, then the receiver on Mark2 after at least 180 seconds.",
+      "allocations": [
+        {
+          "printer": "H2C",
+          "part": "test-cradle",
+          "archive": ".cache/prints/funnel-test-cradle-h2c-v4/ready/funnel-test-cradle-h2c-v4.gcode.3mf",
+          "archive_sha256": "18d6662e7d496f74e1582735905eea4e2799012d029f73269ba2e108e1d23f50",
+          "gcode_sha256": "53c3038c4d988078540fda0a793e17e28972b959e8e1db2b52b0b06f14a1f7ae",
+          "source_stl_sha256": "bfa9f8c089fd4a2dc11e59949f00431c3273bc0e78e48981ca891b832def34f1",
+          "requested_z_trim_mm": 0.18,
+          "review": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v4/cradle-h2c-preflight.json",
+          "status": "printer_accepted",
+          "submitted": true,
+          "printer_task_id": "1303667680",
+          "job_name": "funnel-test-cradle-h2c-v4.gcode.3mf",
+          "accepted_observed_utc": "2026-10-03T00:51:57.671023+00:00",
+          "launch_record": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v4/cradle-h2c-launch.json"
+        },
+        {
+          "printer": "Mark2",
+          "part": "test-receiver",
+          "archive": ".cache/prints/funnel-test-receiver-mark2-v4/ready/funnel-test-receiver-mark2-v4.gcode.3mf",
+          "archive_sha256": "bfda3895b2e2ea955342fd3b80c10b842ad4acf7f575c874262f200b3355ffd4",
+          "gcode_sha256": "31286daa05d945c44c6a04efcb723029b73d76e5918697b7121b7e457aeb6003",
+          "source_stl_sha256": "e23e82074fa6aaa0f6d93aefb8a95147908e24418021b2501e32e24a08c2eaad",
+          "requested_z_trim_mm": 0.04,
+          "review": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v4/receiver-mark2-preflight.json",
+          "status": "submission_pending",
+          "submitted": false
+        }
+      ],
+      "geometry_export_revision": "29808fba7830848e59cbb740c11ff1b6d0b162fa",
+      "physical_fit_and_retention_tested": false
     }
   ],
   "followup_automation": "continue-h2c-trial-queue"

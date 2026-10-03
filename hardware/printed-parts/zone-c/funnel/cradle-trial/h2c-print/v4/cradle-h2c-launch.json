@@ -1,0 +1,100 @@
+{
+  "printer": "H2C",
+  "part": "test-cradle",
+  "geometry_revision": 4,
+  "quantity": 1,
+  "printer_task_id": "1303667680",
+  "job_name": "funnel-test-cradle-h2c-v4.gcode.3mf",
+  "accepted_observed_utc": "2026-10-03T00:51:57.671023+00:00",
+  "task_id_confirmed_utc": "2026-10-03T00:54:26.716799+00:00",
+  "status": "printer_accepted",
+  "archive": ".cache/prints/funnel-test-cradle-h2c-v4/ready/funnel-test-cradle-h2c-v4.gcode.3mf",
+  "archive_sha256": "18d6662e7d496f74e1582735905eea4e2799012d029f73269ba2e108e1d23f50",
+  "gcode_sha256": "53c3038c4d988078540fda0a793e17e28972b959e8e1db2b52b0b06f14a1f7ae",
+  "source_stl_sha256": {
+    "test-cradle": "bfa9f8c089fd4a2dc11e59949f00431c3273bc0e78e48981ca891b832def34f1"
+  },
+  "geometry_export_revision": "29808fba7830848e59cbb740c11ff1b6d0b162fa",
+  "geometry_export_status": "source_snapshot_verified",
+  "source_snapshot": {
+    "hardware/printed-parts/zone-c/funnel/cradle-trial/cradle_trial.py": "20f3b22a14ef4297b85378fe7bd7b63853bda1cda58e61a2c2ff5dd673920c3a",
+    "hardware/printed-parts/zone-c/funnel/cradle-trial/geometry-check.json": "1b85b24485305a1c3032b9aa751287bd8a363958a830a67afd5d347808293449",
+    "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": "e729eb0f96c5a4a37f1fcb146105a959b8f1ef1a3ee1cc85cdbaa9aaa8c03f71",
+    "hardware/printed-parts/zone-c/funnel/funnel.py": "f19b80ffa50f260330161ef02a5533f56a287f1c8ff75a8d62b07d965462a756",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "c62f7e54ef00d1a9510e5dbab8f0a8a8c4fc14725cc3411cf7d5fc042630820c",
+    "hardware/printed-parts/cadlib/fits.py": "3821989044c5bc3ae99cc6912538b8a34bd75a6b0a081aefc8e4c5a0ce714191",
+    "hardware/reference/jg-pp0308e-elbow/elbow.py": "f4bbf9e1db98c82da4a96076e16a0333d2976b67f965a9d09d147fec510518d1",
+    "hardware/reference/jg-pp0308e-elbow/scan-measurements.json": "d977e38f2966b4d3839e7161f5d6fb9b0b276faf7ec2e4ed2b942b5f4b22dd1a"
+  },
+  "source_snapshot_matches_export_revision": true,
+  "source_commit_verification_record": "source-commit-verification.json",
+  "imported_copy_byte_identical_to_reviewed_archive": true,
+  "imported_copy_archive_sha256": "18d6662e7d496f74e1582735905eea4e2799012d029f73269ba2e108e1d23f50",
+  "imported_copy_gcode_sha256": "53c3038c4d988078540fda0a793e17e28972b959e8e1db2b52b0b06f14a1f7ae",
+  "requested_z_trim_mm": 0.18,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "support_summary": {
+    "support_bodies": 2,
+    "interface_islands": 2,
+    "bed_rooted_bodies": 2,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 32.88,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 2,
+    "shortest_labelled_build_up_mm": 32.88
+  },
+  "support_contacts": "two_external_hook_undersides_only",
+  "filament_mapping": {
+    "physical_material": "black PET-GF",
+    "profile_label": "PET-CF",
+    "external_spool": 254,
+    "nozzle": "fixed left hardened 0.4 mm"
+  },
+  "sender": "Bambu Connect through background tools/bambu_send.py",
+  "send_attempts": 1,
+  "automatic_resends": 0,
+  "settled_dialog_seconds": 20,
+  "printer_reply": {
+    "command": "project_file",
+    "err_code": 0,
+    "reason": "SUCCESS",
+    "result": "SUCCESS"
+  },
+  "printer_acceptance_verified": true,
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "bed_clear_confirmation": {
+    "confirmed": true,
+    "source": "User in Funnel 2: And then print me new test pieces of each, one on each printer."
+  },
+  "shared_circuit_minimum_start_spacing_seconds": 180,
+  "seconds_since_other_printer_acceptance_at_send_gate": 4866.061519,
+  "other_printer_acceptance_reference_utc": "2026-10-02T23:30:36.406724+00:00",
+  "send_gate_observed_utc": "2026-10-03T00:51:42.468243+00:00",
+  "previous_printer_task_id": "1303335008",
+  "startup_observation": {
+    "job_id": "1303667680",
+    "gcode_state": "RUNNING",
+    "subtask_name": "funnel-test-cradle-h2c-v4.gcode.3mf",
+    "layer_num": 0,
+    "total_layer_num": 149,
+    "mc_percent": 0,
+    "mc_remaining_time": 29,
+    "print_error": 0,
+    "hms": [],
+    "nozzle_temper": 158.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 28.0,
+    "bed_target_temper": 28.0,
+    "stg_cur": 72,
+    "observed_at": "2026-10-03T00:54:26.716799+00:00"
+  },
+  "physical_fit_and_retention_tested": false
+}
