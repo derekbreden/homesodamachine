@@ -211,7 +211,7 @@ Deburr both without opening the clip throat. Below them, the bay bulkhead's fore
 contact pair's male seat and its lead bore; the male half goes in during WR-04. Nothing on the
 cartridge enters that clip.
 
-The 300 mL silicone funnel seats in a separate PET-GF frame behind the display,
+The 456 mL silicone funnel seats in a separate PET-GF frame behind the display,
 across the Y seam. Slide the frame into front-top before closure; back-top
 captures its opposite rails as the enclosure closes. The silicone lifts out
 from above. Deburr and wipe its seat without rounding the rail bearing faces.

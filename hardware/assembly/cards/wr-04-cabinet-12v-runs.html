@@ -25,11 +25,12 @@
       <li><b>DC-5</b> — seat J13; dress the 22 AWG ribbon through the <b>+X clips</b>,
         along the bulkhead's crown and down through its lead bore to the contact
         pair's male half. Fastons stay on the pump tabs (GT-03).</li>
-      <li><b>DC-6 + DC-7</b> — the J1 trunk (8 OUT + COM) to valve disconnects,
-        COM into the 221-420; the J2 trunk <b>5 of 6 ways live</b>, OUT4 spare.</li>
+      <li><b>DC-6 + DC-7</b> — J1's 8 OUTs to valves, COM into the upper
+        221-420; J2 COM into the lower 221-415,
+        <b>5 of 6 ways live</b>, OUT4 spare.</li>
       <li><b>DC-8</b> — fan + ties to the manifold COM fan-out; FAN sinks
         the &#8722; on-board.</li>
-      <li><b>DC-9</b> — OUT3 <span class="dim" data-gen="LEN_VK">~100 mm</span>
+      <li><b>DC-9</b> — OUT3 <span class="dim" data-gen="LEN_VK">~150 mm</span>
         to <b>V-K</b> in its cradle on the core cap,
         <span class="dim" data-gen="VK_SIDE">east</span> of the pump; + off the
         same fan-out.</li>
@@ -76,15 +77,16 @@
         <text class="sub" x="605" y="284" text-anchor="middle"><tspan data-gen="LEN_CARTRIDGE">~100 mm</tspan> cartridge leads</text>
         <!-- DC-6 -->
         <line class="wire" x1="210" y1="382" x2="480" y2="382"/>
-        <text class="runid" x="240" y="366">DC-6 &#183; <tspan data-gen="LEN_MAN_A">~350 mm</tspan></text>
-        <text class="sub" x="240" y="410">COM <tspan data-gen="LEN_MAN_A_COM">~350 mm</tspan></text>
+        <text class="runid" x="240" y="366">DC-6 &#183; <tspan data-gen="LEN_MAN_A">~550 mm</tspan></text>
+        <text class="sub" x="240" y="410">COM <tspan data-gen="LEN_MAN_A_COM">~300 mm</tspan></text>
         <rect class="blk" x="480" y="330" width="250" height="104" rx="10"/>
         <text class="lbl" x="605" y="368" text-anchor="middle">MANIFOLD A</text>
         <text class="sub" x="605" y="396" text-anchor="middle">8 valves &#183; 221-420 COM</text>
         <text class="sub" x="605" y="424" text-anchor="middle"><tspan data-gen="LEN_MAN_A_FANOUT">~350 mm</tspan> fan-out each</text>
         <!-- DC-7 -->
         <line class="wire" x1="210" y1="532" x2="480" y2="532"/>
-        <text class="runid" x="240" y="516">DC-7 &#183; <tspan data-gen="LEN_MAN_B">~450 mm</tspan></text>
+        <text class="runid" x="240" y="516">DC-7 &#183; <tspan data-gen="LEN_MAN_B">~550 mm</tspan></text>
+        <text class="sub" x="240" y="560">COM <tspan data-gen="LEN_MAN_B_COM">~300 mm</tspan></text>
         <rect class="blk" x="480" y="480" width="250" height="104" rx="10"/>
         <text class="lbl" x="605" y="518" text-anchor="middle">MANIFOLD B</text>
         <text class="sub" x="605" y="546" text-anchor="middle">2 valves &#183; 221-415 COM</text>
@@ -96,15 +98,15 @@
         <path class="wire" d="M 660 584 V 596 H 630 V 608"/>
         <rect class="blk" x="240" y="608" width="230" height="66" rx="10"/>
         <text class="lbl" x="355" y="638" text-anchor="middle">V-K &#183; CORE CAP</text>
-        <text class="runid" x="355" y="664" text-anchor="middle">DC-9 &#183; <tspan data-gen="LEN_VK">~100 mm</tspan></text>
+        <text class="runid" x="355" y="664" text-anchor="middle">DC-9 &#183; <tspan data-gen="LEN_VK">~150 mm</tspan></text>
         <rect class="blk" x="505" y="608" width="250" height="66" rx="10"/>
         <text class="lbl" x="630" y="638" text-anchor="middle">CONDENSER FAN</text>
-        <text class="runid" x="630" y="664" text-anchor="middle">DC-8 &#183; <tspan data-gen="LEN_FAN">~450 mm</tspan></text>
+        <text class="runid" x="630" y="664" text-anchor="middle">DC-8 &#183; <tspan data-gen="LEN_FAN">~650 mm</tspan></text>
       </svg>
-      <div class="cap"><b>Low-side switching</b> — COM carries the shared
-      12 V; each load's &#8722; returns on its OUT conductor to the
-      on-board driver. The fan and V-K take their + off the J2 fan-out at
-      the fore west-wall Wago; V-K's OUT3 runs straight from the column.</div>
+      <div class="cap"><b>Low-side switching</b> — COM feeds shared 12 V;
+      each load's &#8722; returns on its OUT. Fan and V-K positives branch
+      at the lower +X Wago; V-K's OUT3 runs from the column.
+      Trim cuts at each landing; dress flat trunks below the PCB.</div>
     </div>
   </div>
 </main>

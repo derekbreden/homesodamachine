@@ -1,11 +1,14 @@
 """Read the exported pieces, including both enclosure halves, at assembly poses."""
 from pathlib import Path
+import sys
 import json, hashlib
 import numpy as np
 import trimesh
 import manifold3d as mf
 
 ROOT=next(p for p in Path(__file__).resolve().parents if (p/'tools/cad-venv').is_dir())
+sys.path.insert(0,str(ROOT/'hardware/printed-parts/zone-c/funnel'))
+import funnel_frame as ff
 ENC=ROOT/'hardware/printed-parts/enclosure/enclosure'
 F=ROOT/'hardware/printed-parts/zone-c/funnel/funnel-frame.stl'
 
@@ -17,18 +20,20 @@ def solid(path,translation=(0,0,0)):
     assert a.status()==mf.Error.NoError,str(path)
     return a,m
 
-frame,mesh=solid(F,(0,182.5,299.9))
-assert abs(mesh.bounds[0,2]-299.9)<.001,mesh.bounds
+floor=ff.datums()[0]
+frame,mesh=solid(F,(0,ff.center_y,floor))
+assert abs(mesh.bounds[0,2]-floor)<.001,mesh.bounds
 corbel_excess=[]
 for sign in (-1,1):
-    residual=sign*(mesh.vertices[:,1]-182.5)-np.tan(np.radians(30))*(mesh.vertices[:,2]-299.9)-27.5
+    residual=sign*(mesh.vertices[:,1]-ff.center_y)-ff.corbel_slope*(mesh.vertices[:,2]-floor)-ff.corbel_foot_half_depth
     corbel_excess.append(float(residual.max()))
 assert max(corbel_excess)<.001,corbel_excess
 web=[]
 # This ring lies between the 5.625 mm drain radius and the 10.38 mm slot edge.
 web_probe_radius=8.0
 for angle in np.linspace(0,2*np.pi,8,endpoint=False):
-    origin=[1.85+web_probe_radius*np.cos(angle),182.5+web_probe_radius*np.sin(angle),298.9]
+    origin=[ff.funnel.neck_dx+web_probe_radius*np.cos(angle),
+            ff.center_y+ff.funnel.neck_dy+web_probe_radius*np.sin(angle),floor-1]
     points,_,_=mesh.ray.intersects_location([origin],[[0,0,1]])
     assert len(points)==2,(origin,points)
     zs=sorted(points[:,2]);assert len(zs)==2,zs

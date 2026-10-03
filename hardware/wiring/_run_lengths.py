@@ -1,22 +1,16 @@
-"""What each loom conductor actually has to reach, measured off the placed machine.
+"""Centre-based loom reach estimates from the placed machine.
 
 Run: tools/cad-venv/bin/python hardware/wiring/_run_lengths.py
 
-`_ac_wiring_schedule_sync.py` carries the run lengths as typed constants because it is a doc
-driver and must not build the machine to render a table. This is where those constants come
-from: it places the whole assembly, takes the centre of the main board and the centre of every
-device a loom lands on, and reports the reach between them.
+This tool multiplies board-to-device centre distance by the recorded DC-5
+400/273 routing factor. It does not locate terminals, follow installed wires,
+or check clearance. The factor applies one mock-up observation to other runs;
+different bends and terminal positions can require longer or shorter cuts.
 
-THE ROUTED FACTOR IS CALIBRATED, NOT GUESSED. A conductor does not fly — it drops a wall, runs
-a floor and turns a corner, so the cut length is longer than the reach. The cabinet mock-up's
-273 mm centre-to-centre route takes a 400 mm cut, and that ratio is what every fixed loom below
-uses. One calibration point is one calibration point: a run that turns more corners reads short
-here, and a straighter one reads long. What it is not is a guess, and it is not a metre because
-a neighbouring run is.
-
-CENTRES, NOT NEAREST FACES. A conductor lands on a terminal somewhere on the body, not on the
-face nearest the board, and the terminal is not modelled. Centre-to-centre is the measure that
-reproduced DC-5, so it is the measure.
+The doc driver _ac_wiring_schedule_sync.py carries bench cuts without building
+the machine. Its manifold, fan and V-K cuts instead use the authored wire paths
+and qualifications in manifold-junction-clearance-check.json. This tool's
+corresponding rows remain reach estimates, not those routed cut lengths.
 """
 
 import math

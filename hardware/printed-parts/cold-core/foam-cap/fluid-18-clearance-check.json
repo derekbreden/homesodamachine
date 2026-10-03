@@ -2,7 +2,7 @@
   "schema": 1,
   "required_free_gap_mm": 1.0,
   "functional_seat_gap_mm": 0.15,
-  "scope": "Native CAD geometry: authored tube paths, full printed cap, stock and clearances. The source hashes bind this reading. The 0.15 mm cap-seat gap is functional; other cap stock clears the tube by 1.175 mm. Physical retention, supported-face cleanout and relaxed tube shape remain unqualified.",
+  "scope": "Native CAD geometry: the current exported machine, authored tube paths, full printed cap, stock and clearances. Source and native-body hashes bind this reading. The 0.15 mm cap-seat gap is functional; other cap stock clears the tube by 1.175 mm. Physical retention, supported-face cleanout and relaxed tube shape remain unqualified.",
   "anchor_world_mm": [
     34.000000006974815,
     201.99999999999994,
@@ -88,93 +88,102 @@
     ]
   ],
   "bearing_straight_x_mm": [
-    27.381534613489162,
-    45.270398071519914
+    27.381534613489,
+    45.27039807152002
   ],
   "full_bearing_x_mm": [
     29.600000006974817,
     38.400000006974814
   ],
-  "free_cap_gap_mm": 1.1750000069748125,
+  "free_cap_gap_mm": 1.1750000069799995,
   "tube_cap_overlap_mm3": 0.0,
-  "tube_frame_gap_mm": 35.72499989999989,
+  "tube_frame_gap_mm": 35.72499989999994,
   "post_frame_gap_mm": 32.324999899999966,
   "nearby_tube": [
     {
       "name": "enclosure-back-top",
-      "gap": 1.3079121115631291,
+      "gap": 1.3079121115631875,
       "overlap": 0.0
     },
     {
       "name": "tube-water-3",
-      "gap": 1.3947212036257752,
+      "gap": 1.3947212036254786,
       "overlap": 0.0
     },
     {
       "name": "tube-water-5",
-      "gap": 1.5910230750119732,
+      "gap": 1.591023075012018,
       "overlap": 0.0
     },
     {
       "name": "g-ganen-pump",
-      "gap": 1.8673049767861065,
+      "gap": 1.8673049767759553,
       "overlap": 0.0
     },
     {
       "name": "step-fluid-3",
-      "gap": 2.7386184876878357,
+      "gap": 2.738618487690902,
       "overlap": 0.0
     },
     {
       "name": "vk-solenoid",
-      "gap": 3.5551479720793093,
+      "gap": 3.5551479720820462,
       "overlap": 0.0
     },
     {
       "name": "step-fluid-5",
-      "gap": 3.718708380711582,
+      "gap": 3.7187083807116066,
       "overlap": 0.0
     },
     {
       "name": "tube-fluid-28",
-      "gap": 4.537790225752799,
+      "gap": 4.537790225752866,
       "overlap": 0.0
     }
   ],
   "nearby_post": [
     {
       "name": "step-fluid-3",
-      "gap": 2.490286658728769,
+      "gap": 2.4902866587287344,
       "overlap": 0.0
     },
     {
       "name": "tube-fluid-14",
-      "gap": 4.025094298364973,
+      "gap": 4.025094298364992,
       "overlap": 0.0
     }
   ],
   "all_pass": true,
   "input_sha256": {
-    "hardware/manifold-layout/_lines.py": "cfc9d482f67ad4db671e722d2911396bad380eaa2fe717f77300040e194da97c",
+    "hardware/manifold-layout/_lines.py": "a7e613f99595913dce1878ff254c070dbc9643d2db49657cdcbe9afe441c8aad",
     "hardware/printed-parts/cold-core/_cold_core_interface.py": "aaed2e1129fe39597b70dcc6dc2d50c80bdf88783017e8397ae02e24a164c0d2",
     "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "5b798d101e40be396d1f571f6570307c3f8f60ef93b2a7fe5e5e827af21cb1da",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "a261cedb006c164b1e135036eaefe5c0eb9a03ff62e193a5e91c1ce365035762",
     "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "4fb00cbbd2de2ceb4bed7124021eab75a8630656aca966b43918d4cf207768da",
-    "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "b1798bdb1349700bf89cf46f5e8980e042f1b8b890cf8bbd03bf75e5ce12c0a2"
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "b4fbc7cc4bbf50c2c2fae3a1c3db6b96d2f7eb4e82d41dbcd91132ab8f594de8",
+    "hardware/manifold-layout/enclosure-assembly.step": "1910e849a9caa3977f1c372915322b730c10da32db021c71469694092c98b49e",
+    "web/public/tube-routes.json": "db504fea4d884e3e4f01fbb2b500c352f154ea73856c0bb7ca1aa7e0200f2fa7",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "600987f68cb9d43482c392338b6178f95ee8b62ccc7a78e899a8452065fbbaf6",
+    "hardware/printed-parts/zone-c/funnel/funnel.py": "408891120546cad74ebf67f5dcade0e422b628c3da84825914e1c41d47d4caeb",
+    "hardware/printed-parts/cold-core/foam-cap/cap-feature-intersections.json": "96783d83e9faf4663f1190b699b24c4aebfda2bc3c0f579100e4d7b0edbe3cd6",
+    "hardware/scripts/_routing.py": "7c58056295b6b3dd94caec51ea90dee7d318c1950052bb88162f5d689c097d06"
   },
   "neighbour_origin": {
-    "assembly_step_sha256": "61efc1112f72c8cbe2e0a850d2e8b0f6fb3be62b6ffcf2b08b2cc08b9a53b2d8",
+    "assembly_step_sha256": "1910e849a9caa3977f1c372915322b730c10da32db021c71469694092c98b49e",
+    "native_body_sha256_method": "OpenCASCADE BRepTools.Write, format version 1, without triangulations or normals",
     "native_body_sha256": {
-      "enclosure-back-top": "04703dee5d4d2562adf68c0ffc48f6a536259a3019e7155714111386cea66ab1",
-      "tube-water-3": "b99920936a81ab1601da52297cd66bbe0e475c20129af460c7fd5b90877988ed",
-      "tube-water-5": "49e70b923005524476e7ad47694789a95cf0bc21beb7d4e508a3bc146f1f800d",
-      "g-ganen-pump": "1d6d47f8a89593d3a6d64112fc63bc967b15c5d97fd1fce41e2b6d9d902d070c",
-      "step-fluid-3": "17abac1f7b0c016626f77172d27cefa84c4a30560408f2a840250104d6f2c3fa",
-      "vk-solenoid": "b9476b04d8f8ad3eaf1bfb6f84b232bf8bb7ad58d3328f30beda9f27abc49a8e",
-      "step-fluid-5": "0c2d432ed6bdda24b5ff4f9e0ff6ef303776c91de0fd1e170a53342d7bef8bf6",
-      "tube-fluid-28": "e80134662ef89c7a0ac4359f7b16600b54c4ac6f1ddcb6c685173df54bb9a499",
-      "tube-fluid-14": "a9b292ca8b95be410f426995c0a4412fa5901409741937aa5af5ecb775e0f056",
-      "funnel-frame": "7a77dfb5ff47cae3874d4da1a70a0549c3a5bf5a336d08667c40d25b39711544"
+      "cold-core/foam-cap-lid-top": "f1743c8d8f430f3ba3ba9e873b1a3ea1dbac36b4af8b3e9c0689fa14bed49c9e",
+      "enclosure-back-top": "ea7da1781ff06f5d1425b458aa3cb645441372eb37bb0a4e0dfda04c5785d8f7",
+      "funnel-frame": "3719fbba159188a5c5f11819a92b3d056b2d15e466e20406f4131dfee1a56aa5",
+      "g-ganen-pump": "f1d362f6d890756881f8f306f7b9e43627ba46da609cfdde5bce30c143b0df67",
+      "step-fluid-3": "d5688719deb53263b72528874f113ae3f89e7ab5411924286c1ec8ffd6d3613f",
+      "step-fluid-5": "51689247aa87dcebf7e614948f158fc2c397a5b592e9b599ed9dc51a2f5e275b",
+      "tube-fluid-14": "33b83f8acaf69e1df8794234c2ac357b3a7afae289384801815a8fb7942afdb6",
+      "tube-fluid-18": "fc4521a5e14767a4f6d69525b8de36f0173ea4edfde931e66fa32201240385ae",
+      "tube-fluid-28": "bcbc974baedc3f330036fb3953d16066e4eaff09d9d27842cb59057d55b863b6",
+      "tube-water-3": "b272918dade2e5ff9ab990bbc597dd5fe8da5a7bdc26e9107f7a68239a17f202",
+      "tube-water-5": "c69702698a6d467da19c911ef50c8ac5dc3131992b45429d73dd9fb1abd2a9a9",
+      "vk-solenoid": "9dae165eaa0893c9c4ecc1bd78279710c69e98ee295518d779b6de9ab65ee61d"
     }
   },
   "endpoint_frames": {
@@ -241,5 +250,61 @@
     "lid_single_valid_solid": true,
     "internal_cold_core_routes_clear": true
   },
-  "tube_frame_overlap_mm3": 0.0
+  "tube_frame_overlap_mm3": 0.0,
+  "native_checks": {
+    "assembly_body_count": 216,
+    "free_neighbour_search_mm": 5.0,
+    "tube_route_sample_alignment": {
+      "samples": 124,
+      "max_surface_miss_mm": 1.98623339997539e-11,
+      "tolerance_mm": 0.05
+    },
+    "native_torus_major_radii_mm": [
+      14.0,
+      14.0,
+      14.000000000012,
+      14.000000000012,
+      14.0,
+      14.0,
+      14.0,
+      13.999999999998,
+      13.999999999998
+    ],
+    "functional_post_gap_mm": 0.14999999999994007,
+    "post_depth_mm": 7.0,
+    "post_bearing_length_mm": 8.800000000000004,
+    "post_bbox_mm": [
+      29.60000000697483,
+      38.400000006974835,
+      202.99999999999994,
+      209.99999999999994,
+      253.4000001,
+      267.5750001
+    ],
+    "frame_bbox_mm": [
+      -103.5,
+      103.5,
+      93.40849207671673,
+      235.69150792328227,
+      299.89999989999995,
+      349.0
+    ],
+    "individual_frame_translation_mm": [
+      0.0,
+      164.549999999999,
+      299.90000000000015
+    ],
+    "individual_frame_native_equivalence": {
+      "assembly_minus_placed_part_mm3": 0.0,
+      "placed_part_minus_assembly_mm3": 0.0
+    },
+    "cap_native_equivalence": {
+      "actual_minus_reference_mm3": 0.0,
+      "reference_minus_actual_mm3": 0.0,
+      "reference_body_sha256": "117720569c8185084be64bca6cc96b83fb468bb8091844a9338a97915141f505"
+    },
+    "post_inside_current_cap_delta_mm3": 0.0,
+    "current_cap_post_delta_mm3": 0.0,
+    "cap_producer_checks_scope": "The prior cap producer checks are retained after matching the current placed lid to the producer-checked native lid and confirming unchanged cap generator, interface and individual lid STEP hashes."
+  }
 }
