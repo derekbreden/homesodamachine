@@ -9,7 +9,7 @@ reported. This v4 pair requires its own physical result.
 
 | Part | Printer | Requested Z trim | Native estimate | State |
 | --- | --- | --- | --- | --- |
-| Test cradle v4 | H2C | +0.18 mm | 29 min 37 sec | Printer accepted; task 1303667680 |
+| Test cradle v4 | H2C | +0.18 mm | 29 min 37 sec | Printing; task 1303667680 |
 | Test receiver v4 | Mark2 | +0.04 mm | 23 min 06 sec | Printer accepted; task 1303677943 |
 
 The [allocation](allocation.json) records the verified user request for one
@@ -57,6 +57,11 @@ task confirmation, exceeding the 180-second minimum. The
 [launch relay](launch-relay.json) records submission of both task IDs to
 Funnel 2. H2C starts first; every later start or resume across H2C and Mark2 stays
 at least 180 seconds after the other printer's accepted start or resume.
+
+The [cradle first-layer observation](cradle-h2c-launch.json) records matching
+task and archive telemetry at layer 19 of 149, with no print error or HMS
+alerts. This confirms progress beyond the first layer; physical print quality
+has not been inspected.
 
 After cooling, remove the two hook supports outward into open space,
 retaining the hook bearing dimensions. Follow the bench procedure with the
