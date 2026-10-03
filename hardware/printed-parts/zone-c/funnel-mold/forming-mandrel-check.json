@@ -1,0 +1,972 @@
+{
+  "checked_utc": "2026-10-03T10:24:26.062365+00:00",
+  "method": "Complete native BREP booleans, independent source-envelope casting, exact axial cylinder trims, whole wet-boundary normal reserve and all combined socket positioning poses.",
+  "sha256": {
+    "cavity.step": "23181e43564083459d5d994f44105d51084a5f4fb0cf52caf7e7df479c413d9d",
+    "cavity.stl": "1ce5878e4b25309c131feb9f7b29af3f1add419602033602f0da22e5582d7afc",
+    "core.step": "39a0fd8e316e2c05f598d99e490f75ae19c26334cd9eed5394a5a5ea3eb50d40",
+    "core.stl": "ab01e93b9b2fdf40ce10ff6af51509b95f6f0fdffcb1fd5ff387d4a26547e694",
+    "rod.step": "bc6c95a7702e3a552a0267678f9ee995f897d855362b0c1fe76c2ea30b16eb0b",
+    "funnel.step": "14f80d9a06ffa783f2bd4b4c71efe6206f09c7c659b77df55047d7b7ca3f6aca",
+    "assembly.step": "66a0283155f932c7a1f47e4427d649fa930b0d7c66b1f7e011698a4db342d7cc",
+    "design.json": "22344e488c6ed4eb8a9d74de54ddf4194280709a991abca3054dafe94e1bf455",
+    "forming_mandrel.py": "e59ef9782dec430cff4395f092b52bc200fda5086eeae75e4ee2f8fc2752b78f",
+    "funnel_mold.py": "321d152f1c1f7b1c7253f84d73b91b299ce97d34e99b0a38d6edcf0eeb7006c9",
+    "forming-mandrel.step": "0cf0e36037ba2f0d1d6e8a8dd9057b8ecaab7f68a379cd92f3bc418f0c27d8ce",
+    "forming-mandrel.stl": "6b67468da5c28217f85d54ef170e3a884b4e4ec3ed256a410a2764693354d9c0",
+    "forming-mandrel-finished.step": "2261822ac0cefc13abe9f5e57f6509a5be77cedb61f66424046799265753cb42",
+    "forming-mandrel-design.json": "25b19261fc90c35244dceeef8bae623bde26c46579631a68edf889e8646b44fa"
+  },
+  "review_source_sha256": "3d8af9398193b85933ff390000f58d46ab7723ea211ecdcc7a56612a1c4ac94f",
+  "finished_funnel_native_step_sha256": "fd0143ed0caeef95d80b2a2c7bf4b4ce089c03da6ad39554f6f4e736f1cebc7a",
+  "source_funnel_sha256": "7e224d80c14b8bb089405d3c98964201a6df5141aaf3d1a10177808117df97e1",
+  "native_shell_bytes_held": true,
+  "native_shell_sha256": {
+    "cavity.step": "23181e43564083459d5d994f44105d51084a5f4fb0cf52caf7e7df479c413d9d",
+    "cavity.stl": "1ce5878e4b25309c131feb9f7b29af3f1add419602033602f0da22e5582d7afc",
+    "cavity.step.mesh": "58f03c6c307880dcab3bbe7281913ddf80587fe46f4df3e9e4edd78a9c0e3cad",
+    "core.step": "39a0fd8e316e2c05f598d99e490f75ae19c26334cd9eed5394a5a5ea3eb50d40",
+    "core.stl": "ab01e93b9b2fdf40ce10ff6af51509b95f6f0fdffcb1fd5ff387d4a26547e694",
+    "core.step.mesh": "66dbe3cbcabf64f27dde253b642c116e2e25dbb0970c83f1477161a473b94067"
+  },
+  "native_bodies": {
+    "cavity": {
+      "valid": true,
+      "solids": 1,
+      "bounds_mm": [
+        -105.5,
+        105.5,
+        -105.5,
+        105.5,
+        -1e-07,
+        57.95
+      ],
+      "volume_mm3": 301434.6835446503
+    },
+    "core": {
+      "valid": true,
+      "solids": 1,
+      "bounds_mm": [
+        -105.5000000000014,
+        105.5,
+        -105.5,
+        105.5,
+        17.734015214420467,
+        59.95
+      ],
+      "volume_mm3": 295312.47488110844
+    },
+    "rod": {
+      "valid": true,
+      "solids": 1,
+      "bounds_mm": [
+        -2.35,
+        6.050000000000001,
+        -4.2,
+        4.2,
+        4.5,
+        55.3
+      ],
+      "volume_mm3": 1623.5415950447325
+    },
+    "funnel": {
+      "valid": true,
+      "solids": 1,
+      "bounds_mm": [
+        -89.5,
+        89.5,
+        -65.84150792328,
+        65.841507923281,
+        5.9999999,
+        54.95
+      ],
+      "volume_mm3": 219294.49543458826
+    },
+    "seal": {
+      "valid": true,
+      "solids": 1,
+      "bounds_mm": [
+        -2.3250001,
+        6.025000100002124,
+        -4.175308396658622,
+        4.175308386050516,
+        17.568282027784807,
+        19.264820745285
+      ],
+      "volume_mm3": 36.49095947426905
+    }
+  },
+  "complete_csg_bindings": {
+    "cavity": {
+      "actual_minus_reference_mm3": 0.0,
+      "reference_minus_actual_mm3": 0.0
+    },
+    "core": {
+      "actual_minus_reference_mm3": 0.0,
+      "reference_minus_actual_mm3": 0.0
+    },
+    "rod": {
+      "actual_minus_reference_mm3": 0.0,
+      "reference_minus_actual_mm3": 0.0
+    },
+    "funnel": {
+      "actual_minus_reference_mm3": 0.0,
+      "reference_minus_actual_mm3": 0.0
+    },
+    "seal": {
+      "actual_minus_reference_mm3": 0.0,
+      "reference_minus_actual_mm3": 0.0
+    },
+    "raw_tool_source_vs_native": {
+      "actual_minus_reference_mm3": 0.0,
+      "reference_minus_actual_mm3": 0.0
+    },
+    "finished_tool_source_vs_native": {
+      "actual_minus_reference_mm3": 0.0,
+      "reference_minus_actual_mm3": 0.0
+    },
+    "finished_tool_vs_assembled_rod": {
+      "actual_minus_reference_mm3": 0.0,
+      "reference_minus_actual_mm3": 0.0
+    },
+    "whole_casting_vs_current_native_funnel": {
+      "actual_minus_reference_mm3": 0.0,
+      "reference_minus_actual_mm3": 0.0
+    },
+    "independent_whole_casting_vs_current_native_funnel": {
+      "actual_minus_reference_mm3": 0.0,
+      "reference_minus_actual_mm3": 0.0
+    },
+    "independent_whole_casting_vs_full_source_funnel": {
+      "actual_minus_reference_mm3": 0.0,
+      "reference_minus_actual_mm3": 0.0
+    }
+  },
+  "finished_casting_volume_ml": 219.29449543458827,
+  "funnel_to_mould_z_translation_mm": 48.95,
+  "print_to_mould_translation_mm": [
+    1.85,
+    0.0,
+    4.5
+  ],
+  "recommended_local_layer_phase": {
+    "fine_band_print_z_mm": [
+      0.72,
+      7.12
+    ],
+    "fine_layer_height_mm": 0.08,
+    "pilot_alignment_layer": {
+      "print_z_range_mm": [
+        0.72,
+        0.85
+      ],
+      "layer_height_mm": 0.14,
+      "scope": "One local phase-alignment layer on the dry pilot, followed by 0.08 mm layers through the wet band. Keep the saved 0.20 mm bed layer and global PETG settings."
+    }
+  },
+  "whole_casting_scope": "All current native funnel walls, ramp, brim, collar, rectangular block and complete staged bore; complete CSG comparison, not an axial section alone.",
+  "raw_stock": {
+    "valid_solid": true,
+    "raw_outside_finished_reference_mm3": 0.0,
+    "minimum_solid_land_diameter_mm": 5.9,
+    "raw_relief": {
+      "diameter_mm": 6.6,
+      "z_mm": [
+        3.3,
+        3.464820645285
+      ],
+      "length_mm": 0.1648206452850003
+    },
+    "raw_land": {
+      "diameter_mm": 5.9,
+      "z_mm": [
+        3.514820645285,
+        6.514820645285
+      ],
+      "length_mm": 3.0
+    },
+    "minimum_wet_boundary_to_raw_mm": 0.04999999999956141,
+    "bare_interface_complete_csg": {
+      "socket_pilot": {
+        "actual_minus_reference_mm3": 0.0,
+        "reference_minus_actual_mm3": 0.0
+      },
+      "dry_shank": {
+        "actual_minus_reference_mm3": 0.0,
+        "reference_minus_actual_mm3": 0.0
+      }
+    },
+    "mesh": {
+      "triangles": 112136,
+      "watertight": true,
+      "winding_consistent": true,
+      "bodies": 1
+    }
+  },
+  "finished_wet_reference": {
+    "land": {
+      "diameter_mm": 6.0,
+      "z_mm": [
+        3.514820645285,
+        6.514820645285
+      ],
+      "length_mm": 3.0
+    },
+    "relief": {
+      "diameter_mm": 6.7,
+      "z_mm": [
+        3.3,
+        3.514820645285
+      ],
+      "length_mm": 0.2148206452850001
+    },
+    "profile": {
+      "entry_diameter_mm": 8.4,
+      "lead_height_mm": 1.8,
+      "relief_diameter_mm": 6.7,
+      "relief_print_z_mm": [
+        3.299999999999997,
+        3.514820645284942
+      ],
+      "relief_height_mm": 0.21482064528494504,
+      "land_diameter_mm": 6.0,
+      "land_print_z_mm": [
+        3.514820645284942,
+        6.514820645284942
+      ],
+      "land_height_mm": 3.0,
+      "throat_diameter_mm": 6.35
+    },
+    "scope": "Measured finished target; the raw print and a coating thickness assumption alone do not establish this finished profile."
+  },
+  "nominal_native_fit": {
+    "cavity": {
+      "overlap_mm3": 0.0,
+      "minimum_distance_mm": 1.3319534526401429
+    },
+    "core": {
+      "overlap_mm3": 0.0,
+      "minimum_distance_mm": 0.0
+    },
+    "seal": {
+      "overlap_mm3": 0.0,
+      "minimum_distance_mm": 0.0
+    }
+  },
+  "combined_positioning_screen": {
+    "poses": 72,
+    "lateral_offset_mm": 0.5,
+    "tilt_deg": 1.0,
+    "axial_each_way_mm": 0.1,
+    "maximum_cavity_overlap_mm3": 0.0,
+    "minimum_cavity_gap_mm": 0.6594614809625475,
+    "minimum_whole_pilot_end_depth_mm": 1.34264446554955,
+    "readings": [
+      {
+        "azimuth_deg": 0,
+        "tilt_deg": -1.0,
+        "axial_mm": -0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.6594614809625482,
+        "whole_pilot_end_depth_mm": 1.5426444655495493
+      },
+      {
+        "azimuth_deg": 0,
+        "tilt_deg": -1.0,
+        "axial_mm": 0,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.7056152692789852,
+        "whole_pilot_end_depth_mm": 1.4426444655495496
+      },
+      {
+        "azimuth_deg": 0,
+        "tilt_deg": -1.0,
+        "axial_mm": 0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.7621655801766387,
+        "whole_pilot_end_depth_mm": 1.34264446554955
+      },
+      {
+        "azimuth_deg": 0,
+        "tilt_deg": 0,
+        "axial_mm": -0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.8222530024268677,
+        "whole_pilot_end_depth_mm": 1.5999999999999996
+      },
+      {
+        "azimuth_deg": 0,
+        "tilt_deg": 0,
+        "axial_mm": 0,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.8509406559801914,
+        "whole_pilot_end_depth_mm": 1.5
+      },
+      {
+        "azimuth_deg": 0,
+        "tilt_deg": 0,
+        "axial_mm": 0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.8899999999999989,
+        "whole_pilot_end_depth_mm": 1.4000000000000004
+      },
+      {
+        "azimuth_deg": 0,
+        "tilt_deg": 1.0,
+        "axial_mm": -0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 1.0044173292184215,
+        "whole_pilot_end_depth_mm": 1.5426444655495501
+      },
+      {
+        "azimuth_deg": 0,
+        "tilt_deg": 1.0,
+        "axial_mm": 0,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 1.021047301443948,
+        "whole_pilot_end_depth_mm": 1.4426444655495505
+      },
+      {
+        "azimuth_deg": 0,
+        "tilt_deg": 1.0,
+        "axial_mm": 0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 1.0470057365352252,
+        "whole_pilot_end_depth_mm": 1.3426444655495509
+      },
+      {
+        "azimuth_deg": 45,
+        "tilt_deg": -1.0,
+        "axial_mm": -0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.6594614809625475,
+        "whole_pilot_end_depth_mm": 1.542644465549551
+      },
+      {
+        "azimuth_deg": 45,
+        "tilt_deg": -1.0,
+        "axial_mm": 0,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.7056152692789841,
+        "whole_pilot_end_depth_mm": 1.4426444655495514
+      },
+      {
+        "azimuth_deg": 45,
+        "tilt_deg": -1.0,
+        "axial_mm": 0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.7621655801766377,
+        "whole_pilot_end_depth_mm": 1.3426444655495517
+      },
+      {
+        "azimuth_deg": 45,
+        "tilt_deg": 0,
+        "axial_mm": -0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.8222530024268684,
+        "whole_pilot_end_depth_mm": 1.5999999999999996
+      },
+      {
+        "azimuth_deg": 45,
+        "tilt_deg": 0,
+        "axial_mm": 0,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.8509406559801921,
+        "whole_pilot_end_depth_mm": 1.5
+      },
+      {
+        "azimuth_deg": 45,
+        "tilt_deg": 0,
+        "axial_mm": 0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.8899999999999996,
+        "whole_pilot_end_depth_mm": 1.4000000000000004
+      },
+      {
+        "azimuth_deg": 45,
+        "tilt_deg": 1.0,
+        "axial_mm": -0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 1.0044173292184222,
+        "whole_pilot_end_depth_mm": 1.542644465549552
+      },
+      {
+        "azimuth_deg": 45,
+        "tilt_deg": 1.0,
+        "axial_mm": 0,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 1.0210473014439487,
+        "whole_pilot_end_depth_mm": 1.4426444655495523
+      },
+      {
+        "azimuth_deg": 45,
+        "tilt_deg": 1.0,
+        "axial_mm": 0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 1.0470057365352259,
+        "whole_pilot_end_depth_mm": 1.3426444655495526
+      },
+      {
+        "azimuth_deg": 90,
+        "tilt_deg": -1.0,
+        "axial_mm": -0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.6594614809625482,
+        "whole_pilot_end_depth_mm": 1.542644465549551
+      },
+      {
+        "azimuth_deg": 90,
+        "tilt_deg": -1.0,
+        "axial_mm": 0,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.7056152692789851,
+        "whole_pilot_end_depth_mm": 1.4426444655495514
+      },
+      {
+        "azimuth_deg": 90,
+        "tilt_deg": -1.0,
+        "axial_mm": 0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.7621655801766383,
+        "whole_pilot_end_depth_mm": 1.3426444655495517
+      },
+      {
+        "azimuth_deg": 90,
+        "tilt_deg": 0,
+        "axial_mm": -0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.8222530024268685,
+        "whole_pilot_end_depth_mm": 1.5999999999999996
+      },
+      {
+        "azimuth_deg": 90,
+        "tilt_deg": 0,
+        "axial_mm": 0,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.8509406559801922,
+        "whole_pilot_end_depth_mm": 1.5
+      },
+      {
+        "azimuth_deg": 90,
+        "tilt_deg": 0,
+        "axial_mm": 0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.8899999999999997,
+        "whole_pilot_end_depth_mm": 1.4000000000000004
+      },
+      {
+        "azimuth_deg": 90,
+        "tilt_deg": 1.0,
+        "axial_mm": -0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 1.0044173292184224,
+        "whole_pilot_end_depth_mm": 1.542644465549551
+      },
+      {
+        "azimuth_deg": 90,
+        "tilt_deg": 1.0,
+        "axial_mm": 0,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 1.0210473014439487,
+        "whole_pilot_end_depth_mm": 1.4426444655495514
+      },
+      {
+        "azimuth_deg": 90,
+        "tilt_deg": 1.0,
+        "axial_mm": 0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 1.0470057365352257,
+        "whole_pilot_end_depth_mm": 1.3426444655495517
+      },
+      {
+        "azimuth_deg": 135,
+        "tilt_deg": -1.0,
+        "axial_mm": -0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.6594614809625475,
+        "whole_pilot_end_depth_mm": 1.542644465549552
+      },
+      {
+        "azimuth_deg": 135,
+        "tilt_deg": -1.0,
+        "axial_mm": 0,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.705615269278984,
+        "whole_pilot_end_depth_mm": 1.4426444655495523
+      },
+      {
+        "azimuth_deg": 135,
+        "tilt_deg": -1.0,
+        "axial_mm": 0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.7621655801766374,
+        "whole_pilot_end_depth_mm": 1.3426444655495526
+      },
+      {
+        "azimuth_deg": 135,
+        "tilt_deg": 0,
+        "axial_mm": -0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.8222530024268679,
+        "whole_pilot_end_depth_mm": 1.5999999999999996
+      },
+      {
+        "azimuth_deg": 135,
+        "tilt_deg": 0,
+        "axial_mm": 0,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.8509406559801916,
+        "whole_pilot_end_depth_mm": 1.5
+      },
+      {
+        "azimuth_deg": 135,
+        "tilt_deg": 0,
+        "axial_mm": 0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.8899999999999992,
+        "whole_pilot_end_depth_mm": 1.4000000000000004
+      },
+      {
+        "azimuth_deg": 135,
+        "tilt_deg": 1.0,
+        "axial_mm": -0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 1.0044173292184226,
+        "whole_pilot_end_depth_mm": 1.542644465549551
+      },
+      {
+        "azimuth_deg": 135,
+        "tilt_deg": 1.0,
+        "axial_mm": 0,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 1.021047301443949,
+        "whole_pilot_end_depth_mm": 1.4426444655495514
+      },
+      {
+        "azimuth_deg": 135,
+        "tilt_deg": 1.0,
+        "axial_mm": 0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 1.0470057365352259,
+        "whole_pilot_end_depth_mm": 1.3426444655495517
+      },
+      {
+        "azimuth_deg": 180,
+        "tilt_deg": -1.0,
+        "axial_mm": -0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.6594614809625482,
+        "whole_pilot_end_depth_mm": 1.5426444655495501
+      },
+      {
+        "azimuth_deg": 180,
+        "tilt_deg": -1.0,
+        "axial_mm": 0,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.7056152692789851,
+        "whole_pilot_end_depth_mm": 1.4426444655495505
+      },
+      {
+        "azimuth_deg": 180,
+        "tilt_deg": -1.0,
+        "axial_mm": 0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.7621655801766385,
+        "whole_pilot_end_depth_mm": 1.3426444655495509
+      },
+      {
+        "azimuth_deg": 180,
+        "tilt_deg": 0,
+        "axial_mm": -0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.8222530024268685,
+        "whole_pilot_end_depth_mm": 1.5999999999999996
+      },
+      {
+        "azimuth_deg": 180,
+        "tilt_deg": 0,
+        "axial_mm": 0,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.8509406559801922,
+        "whole_pilot_end_depth_mm": 1.5
+      },
+      {
+        "azimuth_deg": 180,
+        "tilt_deg": 0,
+        "axial_mm": 0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.8899999999999997,
+        "whole_pilot_end_depth_mm": 1.4000000000000004
+      },
+      {
+        "azimuth_deg": 180,
+        "tilt_deg": 1.0,
+        "axial_mm": -0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 1.004417329218423,
+        "whole_pilot_end_depth_mm": 1.5426444655495493
+      },
+      {
+        "azimuth_deg": 180,
+        "tilt_deg": 1.0,
+        "axial_mm": 0,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 1.0210473014439494,
+        "whole_pilot_end_depth_mm": 1.4426444655495496
+      },
+      {
+        "azimuth_deg": 180,
+        "tilt_deg": 1.0,
+        "axial_mm": 0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 1.0470057365352268,
+        "whole_pilot_end_depth_mm": 1.34264446554955
+      },
+      {
+        "azimuth_deg": 225,
+        "tilt_deg": -1.0,
+        "axial_mm": -0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.6594614809625475,
+        "whole_pilot_end_depth_mm": 1.542644465549552
+      },
+      {
+        "azimuth_deg": 225,
+        "tilt_deg": -1.0,
+        "axial_mm": 0,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.705615269278984,
+        "whole_pilot_end_depth_mm": 1.4426444655495523
+      },
+      {
+        "azimuth_deg": 225,
+        "tilt_deg": -1.0,
+        "axial_mm": 0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.7621655801766374,
+        "whole_pilot_end_depth_mm": 1.3426444655495526
+      },
+      {
+        "azimuth_deg": 225,
+        "tilt_deg": 0,
+        "axial_mm": -0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.822253002426868,
+        "whole_pilot_end_depth_mm": 1.5999999999999996
+      },
+      {
+        "azimuth_deg": 225,
+        "tilt_deg": 0,
+        "axial_mm": 0,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.8509406559801918,
+        "whole_pilot_end_depth_mm": 1.5
+      },
+      {
+        "azimuth_deg": 225,
+        "tilt_deg": 0,
+        "axial_mm": 0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.8899999999999993,
+        "whole_pilot_end_depth_mm": 1.4000000000000004
+      },
+      {
+        "azimuth_deg": 225,
+        "tilt_deg": 1.0,
+        "axial_mm": -0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 1.0044173292184226,
+        "whole_pilot_end_depth_mm": 1.542644465549551
+      },
+      {
+        "azimuth_deg": 225,
+        "tilt_deg": 1.0,
+        "axial_mm": 0,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 1.021047301443949,
+        "whole_pilot_end_depth_mm": 1.4426444655495514
+      },
+      {
+        "azimuth_deg": 225,
+        "tilt_deg": 1.0,
+        "axial_mm": 0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 1.0470057365352259,
+        "whole_pilot_end_depth_mm": 1.3426444655495517
+      },
+      {
+        "azimuth_deg": 270,
+        "tilt_deg": -1.0,
+        "axial_mm": -0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.6594614809625482,
+        "whole_pilot_end_depth_mm": 1.542644465549551
+      },
+      {
+        "azimuth_deg": 270,
+        "tilt_deg": -1.0,
+        "axial_mm": 0,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.7056152692789851,
+        "whole_pilot_end_depth_mm": 1.4426444655495514
+      },
+      {
+        "azimuth_deg": 270,
+        "tilt_deg": -1.0,
+        "axial_mm": 0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.7621655801766383,
+        "whole_pilot_end_depth_mm": 1.3426444655495517
+      },
+      {
+        "azimuth_deg": 270,
+        "tilt_deg": 0,
+        "axial_mm": -0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.8222530024268685,
+        "whole_pilot_end_depth_mm": 1.5999999999999996
+      },
+      {
+        "azimuth_deg": 270,
+        "tilt_deg": 0,
+        "axial_mm": 0,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.8509406559801922,
+        "whole_pilot_end_depth_mm": 1.5
+      },
+      {
+        "azimuth_deg": 270,
+        "tilt_deg": 0,
+        "axial_mm": 0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.8899999999999997,
+        "whole_pilot_end_depth_mm": 1.4000000000000004
+      },
+      {
+        "azimuth_deg": 270,
+        "tilt_deg": 1.0,
+        "axial_mm": -0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 1.0044173292184224,
+        "whole_pilot_end_depth_mm": 1.542644465549551
+      },
+      {
+        "azimuth_deg": 270,
+        "tilt_deg": 1.0,
+        "axial_mm": 0,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 1.0210473014439487,
+        "whole_pilot_end_depth_mm": 1.4426444655495514
+      },
+      {
+        "azimuth_deg": 270,
+        "tilt_deg": 1.0,
+        "axial_mm": 0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 1.0470057365352257,
+        "whole_pilot_end_depth_mm": 1.3426444655495517
+      },
+      {
+        "azimuth_deg": 315,
+        "tilt_deg": -1.0,
+        "axial_mm": -0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.6594614809625479,
+        "whole_pilot_end_depth_mm": 1.542644465549551
+      },
+      {
+        "azimuth_deg": 315,
+        "tilt_deg": -1.0,
+        "axial_mm": 0,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.7056152692789847,
+        "whole_pilot_end_depth_mm": 1.4426444655495514
+      },
+      {
+        "azimuth_deg": 315,
+        "tilt_deg": -1.0,
+        "axial_mm": 0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.7621655801766379,
+        "whole_pilot_end_depth_mm": 1.3426444655495517
+      },
+      {
+        "azimuth_deg": 315,
+        "tilt_deg": 0,
+        "axial_mm": -0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.8222530024268684,
+        "whole_pilot_end_depth_mm": 1.5999999999999996
+      },
+      {
+        "azimuth_deg": 315,
+        "tilt_deg": 0,
+        "axial_mm": 0,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.8509406559801921,
+        "whole_pilot_end_depth_mm": 1.5
+      },
+      {
+        "azimuth_deg": 315,
+        "tilt_deg": 0,
+        "axial_mm": 0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.8899999999999996,
+        "whole_pilot_end_depth_mm": 1.4000000000000004
+      },
+      {
+        "azimuth_deg": 315,
+        "tilt_deg": 1.0,
+        "axial_mm": -0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 1.004417329218422,
+        "whole_pilot_end_depth_mm": 1.542644465549552
+      },
+      {
+        "azimuth_deg": 315,
+        "tilt_deg": 1.0,
+        "axial_mm": 0,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 1.0210473014439483,
+        "whole_pilot_end_depth_mm": 1.4426444655495523
+      },
+      {
+        "azimuth_deg": 315,
+        "tilt_deg": 1.0,
+        "axial_mm": 0.1,
+        "cavity_overlap_mm3": 0.0,
+        "cavity_gap_mm": 1.0470057365352254,
+        "whole_pilot_end_depth_mm": 1.3426444655495526
+      }
+    ],
+    "scope": "Tool-specific cavity clearance and pilot reach; does not qualify a deliberately displaced wet forming profile, coated fit or tie retention."
+  },
+  "demould": {
+    "core_withdrawal": [
+      {
+        "travel_mm": 0,
+        "core_overlap_mm3": 0.0,
+        "with_0_5_mm_lateral_offset_overlap_mm3": 0.0
+      },
+      {
+        "travel_mm": 0.5,
+        "core_overlap_mm3": 0.0,
+        "with_0_5_mm_lateral_offset_overlap_mm3": 0.0
+      },
+      {
+        "travel_mm": 1,
+        "core_overlap_mm3": 0.0,
+        "with_0_5_mm_lateral_offset_overlap_mm3": 0.0
+      },
+      {
+        "travel_mm": 2,
+        "core_overlap_mm3": 0.0,
+        "with_0_5_mm_lateral_offset_overlap_mm3": 0.0
+      },
+      {
+        "travel_mm": 3,
+        "core_overlap_mm3": 0.0,
+        "with_0_5_mm_lateral_offset_overlap_mm3": 0.0
+      },
+      {
+        "travel_mm": 5,
+        "core_overlap_mm3": 0.0,
+        "with_0_5_mm_lateral_offset_overlap_mm3": 0.0
+      },
+      {
+        "travel_mm": 10,
+        "core_overlap_mm3": 0.0,
+        "with_0_5_mm_lateral_offset_overlap_mm3": 0.0
+      },
+      {
+        "travel_mm": 20,
+        "core_overlap_mm3": 0.0,
+        "with_0_5_mm_lateral_offset_overlap_mm3": 0.0
+      },
+      {
+        "travel_mm": 38.035179354715055,
+        "core_overlap_mm3": 0.0,
+        "with_0_5_mm_lateral_offset_overlap_mm3": 0.0
+      },
+      {
+        "travel_mm": 50.8,
+        "core_overlap_mm3": 0.0,
+        "with_0_5_mm_lateral_offset_overlap_mm3": 0.0
+      }
+    ],
+    "rigid_silicone_withdrawal_readings": [
+      {
+        "travel_mm": 0,
+        "rigid_silicone_overlap_mm3": 0.0
+      },
+      {
+        "travel_mm": 0.5,
+        "rigid_silicone_overlap_mm3": 1.6974417806597533
+      },
+      {
+        "travel_mm": 1,
+        "rigid_silicone_overlap_mm3": 3.394883561302528
+      },
+      {
+        "travel_mm": 2,
+        "rigid_silicone_overlap_mm3": 6.789767122588074
+      },
+      {
+        "travel_mm": 3,
+        "rigid_silicone_overlap_mm3": 10.184650683967874
+      },
+      {
+        "travel_mm": 5,
+        "rigid_silicone_overlap_mm3": 10.184650683856646
+      },
+      {
+        "travel_mm": 10,
+        "rigid_silicone_overlap_mm3": 10.184650683856646
+      },
+      {
+        "travel_mm": 20,
+        "rigid_silicone_overlap_mm3": 10.184650683856646
+      },
+      {
+        "travel_mm": 38.035179354715055,
+        "rigid_silicone_overlap_mm3": 10.184650683856646
+      },
+      {
+        "travel_mm": 50.8,
+        "rigid_silicone_overlap_mm3": 0.0
+      }
+    ],
+    "required_land_diametric_expansion_percent": 5.833333333333335,
+    "sequence": [
+      "Cut the ties and remove the entry seal.",
+      "Lift the core in +Z off the free mandrel.",
+      "Peel the funnel and mandrel together from the open cavity.",
+      "Trim the socket collar flush with the block bottom before pulling the entry through it.",
+      "Withdraw the mandrel in -Z using the silicone sealing land's elastic expansion."
+    ],
+    "physical_release_force_qualified": false,
+    "scope": "Core removal clears geometrically. Mandrel withdrawal intentionally uses silicone flexibility; no rigid-clearance or release-force claim."
+  },
+  "static_head_load_screen": {
+    "model": "cantilever with full maximum head applied laterally along its unsupported length",
+    "head_pressure_kpa": 0.5980519350000001,
+    "unsupported_length_mm": 22.764820645284942,
+    "minimum_solid_diameter_mm": 5.9,
+    "assumed_modulus_mpa": 1000.0,
+    "lateral_force_n": 0.11436217830946115,
+    "tip_deflection_mm": 0.0028353533248216644,
+    "maximum_bending_stress_mpa": 0.06455958455900675,
+    "maximum_axial_head_force_n": 0.03314265937473488,
+    "scope": "Room-temperature equalized-pressure static screening; not release-force, creep, lifetime or sealed-vacuum qualification."
+  },
+  "geometry_forms_complete_finished_funnel": true,
+  "physical_casting_qualified": false,
+  "physical_limits": [
+    "Coating compatibility and adhesion",
+    "Measured finished wet profile",
+    "Nominal alignment, tie retention and entry seal",
+    "Coated closure and vacuum cycle",
+    "Silicone-assisted withdrawal and release force",
+    "Finished casting quality and installed seal"
+  ]
+}

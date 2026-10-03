@@ -156,9 +156,9 @@
   "all_pass": true,
   "input_sha256": {
     "hardware/manifold-layout/_lines.py": "1afcff9a0d90b49cca1b11b7f663c6183205e3020087c56986c1987d121018cd",
-    "hardware/manifold-layout/enclosure-assembly.facts.json": "d701827b1ead54f36229e8ce1b022c5544dc797cd67e84c46f64df3ab5ecd2e5",
-    "hardware/manifold-layout/enclosure-assembly.scorecard.json": "1572050c9139953b73a20ab7e22e472b740f66106cc23cbc1e3efa60a06f38ef",
-    "hardware/manifold-layout/enclosure-assembly.step": "423b46dd9d931d4e34e8c53daa9b468a5d57494321c5f4f76e906a9b9a0d1f77",
+    "hardware/manifold-layout/enclosure-assembly.facts.json": "88c96d95ac70fb7a5c5a1a1a5b1f4490de7d270009da3f929c3b216dcea97c6f",
+    "hardware/manifold-layout/enclosure-assembly.scorecard.json": "ef4283be1403e90905520a6cb755567d9288322a27e1caff848a96e434ee1041",
+    "hardware/manifold-layout/enclosure-assembly.step": "4f17ca4ad869ed62bdda46184ff3399f3f3a91eacdd7ec19e5db799ab05e58bc",
     "hardware/printed-parts/cadlib/fits.py": "3821989044c5bc3ae99cc6912538b8a34bd75a6b0a081aefc8e4c5a0ce714191",
     "hardware/printed-parts/cold-core/_cold_core_interface.py": "9cb0b893247a4d43e3a892ca011127d1f373cdb8045d9f4ebbef387220908f6f",
     "hardware/printed-parts/cold-core/_foam_cap.py": "8234fa4a41dcc6097906636bb8482fb344af5137ce0fcea420d723e5435f8d43",
@@ -170,14 +170,14 @@
     "hardware/printed-parts/zone-c/funnel/funnel.py": "7e224d80c14b8bb089405d3c98964201a6df5141aaf3d1a10177808117df97e1",
     "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "4e8f53f1aaa2bb572a207f32ec58725213510e9a581f004902400a06cd6b615a",
     "hardware/scripts/_routing.py": "7c58056295b6b3dd94caec51ea90dee7d318c1950052bb88162f5d689c097d06",
-    "web/public/tube-routes.json": "f210014314dae344eed286ce1176d5bac9103864f2612053cd995622dd5803e0"
+    "web/public/tube-routes.json": "625874a363496a8d658b278e728a9efea789995e53d5a33cd46e7c693d0bb957"
   },
   "neighbour_origin": {
-    "assembly_step_sha256": "423b46dd9d931d4e34e8c53daa9b468a5d57494321c5f4f76e906a9b9a0d1f77",
+    "assembly_step_sha256": "4f17ca4ad869ed62bdda46184ff3399f3f3a91eacdd7ec19e5db799ab05e58bc",
     "native_body_sha256_method": "OpenCASCADE BRepTools.Write, format version 1, without triangulations or normals",
     "native_body_sha256": {
       "cold-core/foam-cap-lid-top": "32b88eb8d391004c4d88d7ac04058ca3f71dfb4769c507c1f99b6f78bb9c635e",
-      "enclosure-back-top": "8b9fec794060d7d7daf804813007d5ea14324df2e519cc39289aa726946b52a5",
+      "enclosure-back-top": "4c04e84342a44174ad21649096e1188bbdb791ecca12eb9dbf2a2cc723748936",
       "funnel-frame": "b26fb08dbaadba07852ea8af831144c45c7c7a9e62c63050626fd9d41a2f1f1b",
       "g-ganen-pump": "29867f85e92a6b2687a9e658b7bccd301a9a05b7dbb09cb6a9d4108b8517e906",
       "step-fluid-3": "15040197e2e51e472d006ca286c47051c6935c74a124217bba69b04df1a7cdfb",

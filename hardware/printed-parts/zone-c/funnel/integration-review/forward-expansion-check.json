@@ -3,14 +3,14 @@
   "scope": "Native exported solids, complete frame stock, sampled assembly motion and authored-route geometry. Digital checks do not qualify physical fit, support removal, silicone sealing, retention force or cycle life.",
   "source_sha256": {
     "hardware/manifold-layout/_lines.py": "1afcff9a0d90b49cca1b11b7f663c6183205e3020087c56986c1987d121018cd",
-    "hardware/manifold-layout/enclosure-assembly.scorecard.json": "1572050c9139953b73a20ab7e22e472b740f66106cc23cbc1e3efa60a06f38ef",
-    "hardware/manifold-layout/enclosure-assembly.step": "423b46dd9d931d4e34e8c53daa9b468a5d57494321c5f4f76e906a9b9a0d1f77",
+    "hardware/manifold-layout/enclosure-assembly.scorecard.json": "ef4283be1403e90905520a6cb755567d9288322a27e1caff848a96e434ee1041",
+    "hardware/manifold-layout/enclosure-assembly.step": "4f17ca4ad869ed62bdda46184ff3399f3f3a91eacdd7ec19e5db799ab05e58bc",
     "hardware/manifold-layout/enclosure_assembly.py": "d4f46a3316b29645f877e10f22a93328caf6e55fa42dfaada07224dd1940e9ec",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "ef39a549003017fd0602844e3c46cc3899a3df00ad6c866fcac61da65cf06069",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "e73227a6870af4f8f1b394fc77979c8f632f245df990c1c8a88691a65f7105f7",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "85e4e97f382142f2ed497abe36d6be493dda94ee4b672a9e0a706b684c0ef573",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "866cffceff2bd16e8f760b520ac5ca699904999238e3eedfe1f8ed4311a7672c",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "cb45044df359205d55dafe6ad3a8f5e8f332eccb2cfe6ac708f3c913672541b6",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "b9a330b868dde6cdab0278fecb023b4b3dc01a993e9070fa2828605237fded88",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "63d17e1d9dd08945d42795639eb0311a91c1511d7693fa3add4eb62ca8287946",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "20f8a25c7c8c37f6bb65292d7bb0650b81a17b8b27a07a507477bcfec985149c",
     "hardware/printed-parts/zone-c/funnel/elbow-cradle.step": "02127f475220ce77f32d955cb795fc941f43c36346ee4fdfaf5210b2eb07047d",
     "hardware/printed-parts/zone-c/funnel/elbow-cradle.stl": "651e537dfff26b46a18509768de188e617c63c3e75fb2d8e9622ddcff7171f03",
     "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": "08c0f5cd3373c6ea0a6d2f24b2d1d5cc5da704691fbbbaa6eda94910c84403b0",
@@ -20,7 +20,7 @@
     "hardware/printed-parts/zone-c/funnel/funnel.step": "fd0143ed0caeef95d80b2a2c7bf4b4ce089c03da6ad39554f6f4e736f1cebc7a",
     "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "4e8f53f1aaa2bb572a207f32ec58725213510e9a581f004902400a06cd6b615a",
     "hardware/reference/funnel-drain-stub/funnel_drain_stub.py": "f22b45c7d877112c49c5d51bef81688ad88d624082d04deeaa812cddcbae702c",
-    "web/public/tube-routes.json": "f210014314dae344eed286ce1176d5bac9103864f2612053cd995622dd5803e0"
+    "web/public/tube-routes.json": "625874a363496a8d658b278e728a9efea789995e53d5a33cd46e7c693d0bb957"
   },
   "native_body_count": 216,
   "frame": {
@@ -413,22 +413,22 @@
   "geometric_extension_limit_mm": 36.01428194747256,
   "native_source_agreement": {
     "source_capacity_ml": 455.437155060864,
-    "source_volume_mm3": 219323.6218654631,
+    "source_volume_mm3": 219323.621865428,
     "native_volume_mm3": 219300.9370636243,
     "source_only_mm3": 0,
     "native_only_mm3": 0,
     "source_valid": true,
     "native_valid": true,
-    "elapsed_seconds": 12.34241008758545,
+    "elapsed_seconds": 7.0141990184783936,
     "source_sha256": "7e224d80c14b8bb089405d3c98964201a6df5141aaf3d1a10177808117df97e1",
-    "native_machine_step_sha256": "423b46dd9d931d4e34e8c53daa9b468a5d57494321c5f4f76e906a9b9a0d1f77",
+    "native_machine_step_sha256": "4f17ca4ad869ed62bdda46184ff3399f3f3a91eacdd7ec19e5db799ab05e58bc",
     "method": "Complete two-way native CSG at the actual assembly pose. Raw volume integration is diagnostic."
   },
   "rear_cap_and_nameplate": {
-    "source_step_sha256": "423b46dd9d931d4e34e8c53daa9b468a5d57494321c5f4f76e906a9b9a0d1f77",
+    "source_step_sha256": "4f17ca4ad869ed62bdda46184ff3399f3f3a91eacdd7ec19e5db799ab05e58bc",
     "back_top_valid": true,
     "back_top_solids": 1,
-    "back_top_sha256": "ef39a549003017fd0602844e3c46cc3899a3df00ad6c866fcac61da65cf06069",
+    "back_top_sha256": "85e4e97f382142f2ed497abe36d6be493dda94ee4b672a9e0a706b684c0ef573",
     "cap_pocket_bounds_mm": [
       -90.75000000697483,
       90.75000000697483,
@@ -497,7 +497,7 @@
     "max_flute_stock_floor_mm": 4.550000000000011
   },
   "cradle_insertion": {
-    "step_sha256": "423b46dd9d931d4e34e8c53daa9b468a5d57494321c5f4f76e906a9b9a0d1f77",
+    "step_sha256": "4f17ca4ad869ed62bdda46184ff3399f3f3a91eacdd7ec19e5db799ab05e58bc",
     "method": "Native cradle body plus full two-wing solid cross-sections transformed through the declared cantilever model; 29 sampled upward insertion poses with silicone funnel removed. This is geometric insertion clearance, not physical flexure qualification.",
     "stations": {
       "half": 15.050000000000002,
@@ -672,7 +672,7 @@
   },
   "drain_route": {
     "native_body": "tube-fluid-4",
-    "step_sha256": "423b46dd9d931d4e34e8c53daa9b468a5d57494321c5f4f76e906a9b9a0d1f77",
+    "step_sha256": "4f17ca4ad869ed62bdda46184ff3399f3f3a91eacdd7ec19e5db799ab05e58bc",
     "method": "Read every analytic native cylinder and torus face; connect their centreline endpoints from the elbow cap to the V-B cap; sample 81 points per piece to check fall.",
     "start_mm": [
       1.8499999999999999,
@@ -1037,7 +1037,7 @@
     "scope": "2 mm conductor thickness spatial air probe from the fixed lead gap into the complete side clip. Full harness retention, bundles and cut length require their own evidence."
   },
   "rail_motion_record": "hardware/printed-parts/zone-c/funnel/integration-review/rail-motion-check.json",
-  "rail_motion_sha256": "6a16c80056acf07c5198caa41ee958c9ea3f8c75f3237d62aa0013a8207de7e0",
+  "rail_motion_sha256": "d261ec2c84fa19f6e8a7f8fb304563d09ec455c562f2678521043416a7b40d5f",
   "rail_motion_summary": {
     "flat_floor_z_mm": 299.8999999999998,
     "web_samples_mm": [

@@ -6,32 +6,32 @@
       57.950000100000004
     ],
     "core": [
+      211.00000000000142,
       211.0,
-      211.0,
-      42.215984785579835
+      42.215984785579536
     ],
     "funnel": [
-      179.0000002,
-      131.68301604656256,
-      48.950000200000005
+      179.0,
+      131.683015846561,
+      48.950000100000004
     ],
     "rod": [
-      6.35,
-      6.35,
+      8.4,
+      8.4,
       50.8
     ],
     "seal": [
-      8.35000020000212,
-      8.350616782696239,
-      1.6965387174988464
+      8.350000200002125,
+      8.3506167827112,
+      1.6965387175001965
     ]
   },
   "volume_ml": {
-    "cavity": 301.45418341575635,
-    "core": 295.307930917868,
-    "funnel": 219.33755505110614,
-    "rod": 1.6087962461345555,
-    "seal": 0.03649029468985404
+    "cavity": 301.43468354465034,
+    "core": 295.3124748811084,
+    "funnel": 219.29449543458827,
+    "rod": 1.6235415950447325,
+    "seal": 0.036490959474269044
   },
   "shell_thickness_mm": 5.0,
   "flange_thickness_mm": 5.0,
@@ -40,17 +40,17 @@
   "minimum_core_backing_mm": 4.9999999975185245,
   "liquid_containment": {
     "cavity": {
-      "retained_volume_ml": 686.4812279757061,
+      "retained_volume_ml": 686.4528542454836,
       "casting_outside_retained_mm3": 0.0
     },
     "assembled": {
-      "retained_volume_ml": 242.7456000832119,
+      "retained_volume_ml": 242.69554368915013,
       "casting_outside_retained_mm3": 0.0
     }
   },
   "parting_z_mm": 54.95,
   "finish_allowance_mm": 0.3,
-  "casting_scope": "rectangular plug blank with a flat lower bearing face and straight dowel bore; the staged sealing bore requires separate forming features",
+  "casting_scope": "whole finished funnel, including the rectangular block, flat lower bearing face and complete staged sealing bore",
   "plug_blank_mm": [
     36.0,
     41.02478
@@ -67,19 +67,20 @@
       23.0
     ],
     "seal": "removable mold-sealing clay, shaped flush with the forming face",
-    "seal_depth_mm": 2.0
+    "seal_depth_mm": 2.0,
+    "dry_shank_diameter_mm": 6.35
   },
   "rod_socket": {
     "diameter_mm": 11.0,
     "depth_mm": 3.0,
     "rod_end_depth_mm": 1.5,
-    "reference": "depths below the plug blank bottom face; the socket is a masked rod passage"
+    "reference": "depths below the block bottom face; the socket is a masked pilot passage"
   },
   "rod_tolerance_screen": {
-    "offset_mm": 1.5,
-    "short_projection_mm": 1.0,
-    "extra_projection_mm": 1.0,
-    "tilt_deg": 2.0,
+    "offset_mm": 0.5,
+    "short_projection_mm": 0.1,
+    "extra_projection_mm": 0.1,
+    "tilt_deg": 1.0,
     "azimuths_deg": [
       0,
       45,
@@ -90,9 +91,10 @@
       270,
       315
     ],
-    "minimum_socket_clearance_mm": 0.3814483081962319,
-    "minimum_end_depth_mm": 0.38141811412636173,
-    "scope": "Simultaneous rod offset, tilt and axial error against the cavity and its socket; cradle retention and sealing need a physical trial."
+    "minimum_socket_clearance_mm": 0.6594614809625482,
+    "minimum_end_depth_mm": 1.34264446554955,
+    "scope": "Tool-specific simultaneous mandrel offset, tilt and axial error against the cavity and its socket; nominal forming alignment, retention and sealing need a physical trial.",
+    "poses": 72
   },
   "locators": {
     "diameter_mm": 8.0,
@@ -223,7 +225,212 @@
     "condition": "fill, vents and both dry backs open to the same chamber; no sealed pressure differential",
     "material_reference": "https://store.bblcdn.eu/s8/default/71ca815e70e74afc96ff5883f003235f/Bambu_PETG_Translucent_Technical_Data_Sheet.pdf"
   },
-  "status": "CAD geometry verified; print, coated closure, vacuum cycle and casting untested",
+  "status": "Complete forming geometry checked against the current native funnel; print, finishing, coated closure, vacuum cycle, demould force and casting remain unqualified.",
   "enclosing_diameter_mm": 278.51681928622355,
-  "chamber_radial_clearance_mm": 10.601590356888238
+  "chamber_radial_clearance_mm": 10.601590356888238,
+  "forming_mandrel": {
+    "material": "PETG Translucent with a separately measured finishing stack",
+    "print_frame": "socket pilot end at Z0, axis X0 Y0, shank upright",
+    "print_to_funnel_translation_mm": [
+      1.85,
+      0.0,
+      -44.45
+    ],
+    "length_mm": 50.8,
+    "dry_shank_diameter_mm": 6.35,
+    "socket_end_depth_mm": 1.5,
+    "normal_finishing_reserve_mm": 0.05,
+    "uncoated_print_z_mm": [
+      [
+        0,
+        1.0
+      ],
+      [
+        15.764820645284942,
+        50.8
+      ]
+    ],
+    "wet_forming_print_z_mm": [
+      1.5,
+      12.764820645284942
+    ],
+    "recommended_fine_band_print_z_mm": [
+      0.72,
+      7.12
+    ],
+    "recommended_fine_layer_height_mm": 0.08,
+    "finished_profile": {
+      "entry_diameter_mm": 8.4,
+      "lead_height_mm": 1.8,
+      "relief_diameter_mm": 6.7,
+      "relief_print_z_mm": [
+        3.299999999999997,
+        3.514820645284942
+      ],
+      "relief_height_mm": 0.21482064528494504,
+      "land_diameter_mm": 6.0,
+      "land_print_z_mm": [
+        3.514820645284942,
+        6.514820645284942
+      ],
+      "land_height_mm": 3.0,
+      "throat_diameter_mm": 6.35
+    },
+    "raw_cylindrical_faces": [
+      {
+        "diameter_mm": 6.35,
+        "z_mm": [
+          0.0,
+          1.0
+        ],
+        "length_mm": 1.0
+      },
+      {
+        "diameter_mm": 6.25,
+        "z_mm": [
+          1.0,
+          1.49
+        ],
+        "length_mm": 0.49
+      },
+      {
+        "diameter_mm": 6.6,
+        "z_mm": [
+          3.3,
+          3.464820645285
+        ],
+        "length_mm": 0.1648206452850003
+      },
+      {
+        "diameter_mm": 5.9,
+        "z_mm": [
+          3.514820645285,
+          6.514820645285
+        ],
+        "length_mm": 3.0
+      },
+      {
+        "diameter_mm": 6.25,
+        "z_mm": [
+          6.564820645285,
+          15.764820645285
+        ],
+        "length_mm": 9.200000000000001
+      },
+      {
+        "diameter_mm": 6.35,
+        "z_mm": [
+          15.764820645285,
+          50.8
+        ],
+        "length_mm": 35.035179354715
+      }
+    ],
+    "finished_cylindrical_faces": [
+      {
+        "diameter_mm": 6.35,
+        "z_mm": [
+          0.0,
+          1.49
+        ],
+        "length_mm": 1.49
+      },
+      {
+        "diameter_mm": 8.4,
+        "z_mm": [
+          1.49,
+          1.51
+        ],
+        "length_mm": 0.020000000000000018
+      },
+      {
+        "diameter_mm": 6.7,
+        "z_mm": [
+          3.3,
+          3.514820645285
+        ],
+        "length_mm": 0.2148206452850001
+      },
+      {
+        "diameter_mm": 6.0,
+        "z_mm": [
+          3.514820645285,
+          6.514820645285
+        ],
+        "length_mm": 3.0
+      },
+      {
+        "diameter_mm": 6.35,
+        "z_mm": [
+          6.514820645285,
+          50.8
+        ],
+        "length_mm": 44.285179354715
+      }
+    ],
+    "positioning_allowance": {
+      "lateral_mm": 0.5,
+      "tilt_deg": 1.0,
+      "axial_each_way_mm": 0.1,
+      "poses": 72,
+      "scope": "Tool-specific combined positioning screen against the unchanged cavity; nominal finished wet profile still requires measured alignment."
+    },
+    "load_screen": {
+      "model": "cantilever with full maximum head applied laterally along its unsupported length",
+      "head_pressure_kpa": 0.5980519350000001,
+      "unsupported_length_mm": 22.764820645284942,
+      "minimum_solid_diameter_mm": 5.9,
+      "assumed_modulus_mpa": 1000.0,
+      "lateral_force_n": 0.11436217830946115,
+      "tip_deflection_mm": 0.0028353533248216644,
+      "maximum_bending_stress_mpa": 0.06455958455900675,
+      "maximum_axial_head_force_n": 0.03314265937473488,
+      "scope": "Room-temperature equalized-pressure static screening; not release-force, creep, lifetime or sealed-vacuum qualification."
+    },
+    "demould": {
+      "direction_in_funnel_frame": "-Z after both shells are removed",
+      "trim_before_withdrawal": "Remove the sacrificial socket collar flush with the block bottom before pulling the 8.4 mm entry through it.",
+      "maximum_shank_diameter_through_land_mm": 6.35,
+      "land_diameter_mm": 6.0,
+      "required_land_diametric_expansion_percent": 5.833333333333335,
+      "scope": "Silicone-assisted withdrawal; native rigid-body interference is intentional. Release force, coating adhesion, cure compatibility and casting quality are untested."
+    },
+    "finishing_check": {
+      "method": "Mask the recorded bare zones. Finish a same-stack witness, measure net growth, and measure the finished tool against the finished reference before casting.",
+      "reference": "forming-mandrel-finished.step",
+      "criterion": "The finished wet profile must retain the 8.4 mm entry, 6.7 mm relief, 6.0 mm by 3.0 mm land and 6.35 mm throat. Finishing may not erase the relief or add a ridge at the land transitions.",
+      "qualification": "Printed geometry and reserve only; a coating thickness assumption is not a measured finished tool."
+    },
+    "status": "Native geometry checked separately; printed fit, finishing, release and casting remain physical checks.",
+    "sha256": {
+      "forming-mandrel.step": "0cf0e36037ba2f0d1d6e8a8dd9057b8ecaab7f68a379cd92f3bc418f0c27d8ce",
+      "forming-mandrel.stl": "6b67468da5c28217f85d54ef170e3a884b4e4ec3ed256a410a2764693354d9c0",
+      "forming-mandrel-finished.step": "2261822ac0cefc13abe9f5e57f6509a5be77cedb61f66424046799265753cb42"
+    },
+    "mesh": {
+      "triangles": 112136,
+      "watertight": true,
+      "winding_consistent": true,
+      "bodies": 1
+    },
+    "recommended_pilot_alignment_layer": {
+      "print_z_range_mm": [
+        0.72,
+        0.85
+      ],
+      "layer_height_mm": 0.14,
+      "scope": "One local phase-alignment layer on the dry pilot, followed by 0.08 mm layers through the wet band. Keep the saved 0.20 mm bed layer and global PETG settings."
+    }
+  },
+  "native_shell_preservation": {
+    "cavity.step": "23181e43564083459d5d994f44105d51084a5f4fb0cf52caf7e7df479c413d9d",
+    "cavity.stl": "1ce5878e4b25309c131feb9f7b29af3f1add419602033602f0da22e5582d7afc",
+    "cavity.step.mesh": "58f03c6c307880dcab3bbe7281913ddf80587fe46f4df3e9e4edd78a9c0e3cad",
+    "core.step": "39a0fd8e316e2c05f598d99e490f75ae19c26334cd9eed5394a5a5ea3eb50d40",
+    "core.stl": "ab01e93b9b2fdf40ce10ff6af51509b95f6f0fdffcb1fd5ff387d4a26547e694",
+    "core.step.mesh": "66dbe3cbcabf64f27dde253b642c116e2e25dbb0970c83f1477161a473b94067"
+  },
+  "finished_funnel_step_sha256": "fd0143ed0caeef95d80b2a2c7bf4b4ce089c03da6ad39554f6f4e736f1cebc7a",
+  "funnel_to_mould_z_translation_mm": 48.95,
+  "volume_measurement_scope": "Numerical integration of the final native STEP solids; whole-shape equality is established by complete CSG, separately from spline volume integration."
 }

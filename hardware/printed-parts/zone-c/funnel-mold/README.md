@@ -4,9 +4,13 @@ Two PETG shells follow the [funnel](../funnel/README.md), with
 [5 mm](SKIN) minimum ramp backing and [5 mm](FLANGE) clamping flanges. The cavity
 stands on three small feet. The core has a [142.4 × 95.1 mm](DRY_MOUTH) rounded rectangular opening
 in its dry back. Both halves print with automatic normal supports in Snug style.
-The tooling forms a rectangular plug blank with square corners, a flat lower
-bearing face and a straight dowel bore. The staged sealing bore requires separate
-forming features before this tooling can produce the finished funnel.
+The shells and a separate contoured PETG mandrel form the complete
+[funnel](../funnel/README.md): its rectangular block, flat bearing face,
+8.4 mm entry, 6.7 mm relief and 6.0 mm sealing land. The mandrel's
+[raw print](forming-mandrel.step) reserves 0.05 mm of normal finishing growth;
+the [finished reference](forming-mandrel-finished.step) defines its measured
+wet profile. Casting with that profile is geometrically complete. Finishing,
+release and casting remain physical checks.
 
 ![Cavity and core in their print orientations](overview.png)
 
@@ -29,51 +33,78 @@ measured perpendicular to its surface, with a locally thicker rounded throat.
 Both forming faces reserve [0.30 mm](FINISH) of net finishing growth, including
 primer, sealer and release. Sand and coat a sample with the actual finishing
 stack, then measure its net growth. Mask the parting lands, locating pegs and
-holes, clamp holes, rod passage, V cradle and rod stop. The finishing allowance belongs to
+holes, clamp holes, mandrel passage, V cradle and axial stop. The finishing allowance belongs to
 the silicone-forming surfaces; the bare lands establish closure height.
 
-The [6.35 mm](ROD_D) × [50.8 mm](ROD_LEN) steel dowel passes freely through an
+The [50.8 mm](ROD_LEN) mandrel's [6.35 mm](ROD_D) dry shank passes through an
 [8.35 mm](ROD_GUIDE_D) opening, with [2 mm](ROD_CLEARANCE) diametral clearance.
-An open V cradle on the dry back centres it. Its upper end meets a visible
+An open V cradle on the dry back centres the shank. Its upper end meets a visible
 stop; two zip ties in [4.4 mm](ROD_TIE_WIDTH) grooves hold it in the cradle.
 Engagement is [38.0 mm](ROD_ENGAGEMENT), leaving [12.7648 mm](ROD_EXPOSED) below the
 core's neck. Its lower end drops into an [11 mm](SOCKET_D) socket in the cavity floor,
-[3 mm](SOCKET_DEPTH) deep below the plug blank's bottom face, and stands
-[1.5 mm](ROD_END_DEPTH) into it, so the bore opens through that face. The rod touches
-neither half as the mold closes.
+[3 mm](SOCKET_DEPTH) deep below the block's bottom face, and stands
+[1.5 mm](ROD_END_DEPTH) into it, so the bore opens through that face. The pilot touches
+neither shell as the mold closes; the dry shank seats against the V and stop.
 
-Pack a small removable seal around the rod at the forming-face entry, flush
+Pack a small removable seal around the mandrel at the forming-face entry, flush
 with the adjacent surface. The illustrated seal is [2 mm](ROD_SEAL_DEPTH) deep.
 Prove the mold-sealing clay's compatibility with the actual
 [platinum-cure silicone](silicone.md) on a sample before using it in the mold.
-The cradle holds the rod; the seal
+The cradle holds the mandrel; the seal
 closes the annular passage into the dry back. Smooth-On's
 [sealer reference](https://www.smooth-on.com/page/sealers-releases/) distinguishes
 sulfur-free modeling clay from sulfur-bearing clay for platinum silicone.
 
-The plug blank is [36 × 41 mm](PLUG_BLANK), its walls running up into the bowl's
-underside, with a straight [6.35 mm](ROD_D) bore. The finished plug's 8.4 mm entry,
-6.7 mm relief and 6 mm sealing land are described in the
-[funnel specification](../funnel/README.md#silicone). They are absent from
-this casting. Silicone that runs into the socket around the rod's end leaves a thin collar
-on the bore's exit; trim it flush with the plug blank's bottom face after demolding.
+The block is [36 × 41 mm](PLUG_BLANK), its walls running into the bowl's
+underside. Its complete staged bore is formed by the mandrel. Silicone that
+runs into the socket around the pilot leaves a sacrificial collar. Peel the
+casting and mandrel from the cavity, then trim that collar flush with the block
+bottom **before** withdrawing the 8.4 mm entry through it.
 
-[design.json](design.json) checks simultaneous [1.5 mm](ROD_OFFSET) lateral
-offset, [2°](ROD_TILT) tilt and axial error in eight directions. The rod may
-stand [1 mm](ROD_EXTRA) deeper or [1 mm](ROD_AXIAL) shallower than nominal.
-In each case it clears the socket by at least [0.38 mm](ROD_MIN_SOCKET), and its whole
-end face stays at least [0.38 mm](ROD_MIN_END) below the plug blank's bottom face.
-A rod left lower than that under its stop meets the socket's floor, so seat it against the stop
-before closing.
-These checks describe geometry; the first physical trial establishes retention,
-sealing and casting quality.
+| Wet feature | Raw tool | Finished tool |
+| --- | --- | --- |
+| Entry | 0.05 mm normal reserve on the lead and shoulder | 8.4 mm entry; 1.8 mm lead to 6.7 mm |
+| Relief | 6.6 mm diameter × 0.164821 mm axial length | 6.7 mm diameter × 0.214821 mm axial length |
+| Sealing land | 5.9 mm diameter × 3.0 mm axial length | 6.0 mm diameter × 3.0 mm axial length |
+| Upper throat | 6.25 mm diameter on its reserved cylindrical zone | 6.35 mm diameter |
 
-![Rod held from the open core cradle, its end standing in the cavity floor's socket under the plug blank](rod-detail.png)
+The [tool dimensions](forming-mandrel-design.json) identify the actual native
+axial trims and the two bare zones: the pilot's first millimetre and the dry
+shank from print Z15.764821 to Z50.8. Mask those zones. The shell's 0.30 mm
+finishing reserve applies to its own forming faces. The mandrel uses the
+separate 0.05 mm reserve, measured over its complete wet boundary in the
+[native tool check](forming-mandrel-check.json).
 
-![Section through the assembled forming shells, silicone and steel dowel](section.png)
+Finish a witness using the actual PETG, abrasion, sealer and release stack,
+and measure its net growth with the recorded caliper. Finish the mandrel to
+the reference profile, checking the entry, relief, land and both transition
+edges. Keep the relief open and the 3 mm land cylindrical. A coating thickness
+assumption does not establish those dimensions; inspect the thin relief under
+magnification and check its axial extent against the reference. The acquired
+acrylic sealer, release spray and silicone are listed in the
+[purchases ledger](../../../ledger/purchases.md). Their compatibility and
+adhesion on this small tool need a same-stack cure and release sample.
+Smooth-On's [sealer guidance](https://www.smooth-on.com/support/faq/101/)
+describes acrylic sealing and compatibility checks for printed mould surfaces.
+
+![Finished mandrel's entry, relief and sealing land, in its print datum](forming-mandrel-detail.png)
+
+[design.json](design.json) checks the finished tool at simultaneous
+[0.5 mm](ROD_OFFSET) lateral offset, [1°](ROD_TILT) tilt and axial error in eight
+directions, for 72 poses. Its end may stand [0.1 mm](ROD_EXTRA) deeper or
+[0.1 mm](ROD_AXIAL) shallower than nominal. Every pose clears the complete cavity
+by at least [0.66 mm](ROD_MIN_SOCKET), and the whole pilot end remains at least
+[1.34 mm](ROD_MIN_END) below the block's bottom. These are tool-specific clearance
+limits. Seat the bare shank in the V and against its stop, then confirm nominal
+alignment before closing; the screen does not qualify a displaced wet profile,
+tie retention or sealing.
+
+![Contoured mandrel held by the open core cradle, with its pilot in the cavity's socket](rod-detail.png)
+
+![Section through the assembled forming shells, finished funnel and contoured mandrel](section.png)
 
 Teal is the cavity, gold the core, grey the nominal silicone, light grey the
-steel dowel and blue the removable entry seal. The nominal casting is
+finished mandrel and blue the removable entry seal. The nominal casting is
 [219 mL](CAST_VOLUME). The two halves fit inside a [278.5 mm](ENVELOPE) circle,
 leaving [10.6 mm](CHAMBER_GAP) radial clearance in the recorded chamber. Check
 the actual opening, clamp/bolt envelope and catch tray before pouring.
@@ -97,6 +128,13 @@ one-atmosphere differential or pressure injection.
 it does not establish the printed shell's stiffness, creep, release force or
 transient pressure during degassing.
 
+The solid mandrel has at least 5.9 mm stock across the sealing land. A separate
+equalized-head cantilever screen in
+[forming-mandrel-check.json](forming-mandrel-check.json) gives 0.00284 mm tip
+deflection and 0.0646 MPa maximum bending stress at the 0.598 kPa static head,
+using an assumed 1000 MPa room-temperature PETG modulus. It does not qualify
+release force, coating adhesion, creep or lifetime.
+
 Bambu reports PETG Translucent bending moduli of 1610 MPa in XY and 1520 MPa in
 Z on conditioned test specimens. The sizing assumption is lower; the actual
 print still needs its own dry-fit and vacuum trial.
@@ -104,8 +142,8 @@ print still needs its own dry-fit and vacuum trial.
 
 ## Geometry verification
 
-The cavity is a continuous cup from the brim to the plug blank's floor and its blind
-rod socket. Each offset
+The cavity is a continuous cup from the brim to the block's floor and its blind
+pilot socket. Each offset
 face, rounded edge and corner is contained in the finished shell envelope.
 Before the flange and mouth trim, the minimum distance between the complete
 forming and backing boundaries is checked against the 5 mm shell thickness;
@@ -125,6 +163,16 @@ layer. The assembled STEP uses the exact entry seal; the assembled STL gives
 that soft seal 0.02 mm contact overlap along each axis at the independently
 tessellated surfaces. Coating
 porosity, flange sealing and the first casting remain physical checks.
+
+[forming-mandrel-check.json](forming-mandrel-check.json) independently derives
+the complete casting from the whole forming envelope, bowl core and contoured
+tool. Its complete native solid differences against the current funnel are
+0/0 mm³, including all block, ramp, brim and collar stock. Both shell STEP/STL
+files and their print payloads remain byte-exact and bound to that record.
+The [physical evidence](print-log.md) retains its measured stock-dowel and
+shell scope; it does not qualify this printed, finished mandrel. The accepted
+[v4 elbow-cradle trial](../funnel/cradle-trial/physical-acceptance.json) retains
+its 0.65 mm catch gap and its own frozen print scope.
 
 ## Print
 
@@ -157,8 +205,14 @@ The saved project contains no G-code. The
 binds a separate mesh-refreshed copy to the current cavity and core STLs,
 retaining this PETG recipe. Both plates slice successfully with bed-rooted
 Snug support and at least 42 mm of deposited-path clearance from the bed edge.
-This review covers the plug blank tooling; its staged sealing-bore forming
-features still require completion before a finished funnel can be cast.
+This review covers those exact shell prints. The separate
+[mandrel native slice](native-slice-reviews/2026-10-03-forming-mandrel-petg088-v1/README.md)
+reviews its current raw tool with the same saved PETG strategy and a local
+0.08 mm band across the entry, relief and sealing land. One 0.14 mm local layer
+in the dry pilot's Z0.72–0.85 alignment range sets the wet-layer phase; the
+0.20 mm bed layer and global recipe stay as recorded. The first expanded entry
+layer occupies Z1.540–1.620, starting at the native shoulder's underside.
+The relief receives two 0.08 mm layers, Z3.300–3.380 and Z3.380–3.460.
 
 [current-slice-review.json](current-slice-review.json) records successful
 slices of the saved geometry with the settings above. Its mesh and source
@@ -177,38 +231,51 @@ casting are untested for these shells.
 
 ## Cast and open
 
-1. Remove supports and brim, including branches inside the open rod cradle.
-   Slide the rod through the loose passage, bring its end to the visible stop
+1. Remove shell and mandrel supports and brim, including branches inside the
+   open V cradle and under the tool's exposed entry shoulder. Finish and measure
+   the tool to its reference profile, keeping both locating zones bare. Measure
+   50.8 mm from the pilot end to the axial-stop end; the native slice deposits
+   its final dry top at 50.820 mm, leaving 0.020 mm to finish at that stop.
+   Slide its dry shank through the loose passage, bring its end to the visible stop
    and secure it in the V with two zip ties. Dry-fit the two halves and check
-   that the rod's lower end drops into the cavity's socket without touching it.
+   that the pilot drops into the cavity's socket without touching its walls or floor.
    Check the lands with a light behind the seam; use the flange bolts or clamps
    to close slight bow. Confirm that the coated halves still meet on those lands.
-2. Prove the PETG, finishing stack, release, entry-seal clay and
-   [silicone](silicone.md) on a sample. Pack the rod-entry seal flush with the
+2. Prove the shell and mandrel PETG, finishing stacks, release, entry-seal clay and
+   [silicone](silicone.md) on a sample. Pack the mandrel-entry seal flush with the
    forming face. Degas the mixed silicone in a separate container with expansion room.
    [Smooth-On's degassing example](https://www.smooth-on.com/tutorials/making-piece-cut-block-mold/vacuum-de-gassing/)
    shows the required headroom above the liquid.
 3. Fill the open cavity, including the rod socket. Lower the core slowly
-   with its dowel installed. Seat and hold the flanges evenly. Top up through the
+   with its finished mandrel installed. Seat and hold the flanges evenly. Top up through the
    [11 mm](FILL_D) fill hole; the five [4 mm](VENT_D) vents remain open.
 4. For a filled-mold vacuum cycle, use a catch tray and keep overflow clear of the
    dry-back openings. Vent slowly, recheck the fill level and top up while fluid.
    Hold the flanges through the silicone's room-temperature cure.
-5. Trim overflow at the port mouths and cut the rod's zip ties. Open in small alternating movements at
+5. Trim overflow at the port mouths, cut the mandrel's zip ties and remove the entry seal.
+   Open in small alternating movements at
    opposite notches. Peel the accessible silicone brim to admit air, lift the
-   core straight off the rod, peel the casting from the cavity, withdraw the
-   dowel and trim the socket's collar flush with the plug blank's bottom face. Remove the entry seal
-   and clean the passage before the next cast.
+   core straight off the mandrel and peel the casting and tool together from
+   the cavity. Trim the socket's collar flush with the block bottom. Withdraw
+   the tool toward −Z: its 6.35 mm upper shank passes through the 6.0 mm land by
+   5.83% diametric silicone expansion. This is an elastic release, and its force,
+   surface damage and coating retention remain unqualified. Clean the passage
+   and inspect the tool before the next cast.
 
 ## Regenerate
 
 ```sh
+tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-mold/forming_mandrel.py
 tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py
 ```
 
-Before preparing the current tooling for printing, complete the plug's
-forming features. Reload the cavity and core STLs in Bambu Studio, retain
-their print orientations and review the native slice before saving.
+To compose the complete tooling from the current exact shell files without
+regenerating their prints, use `funnel_mold.py --preserve-native-shells`.
+Run `tools/funnel-mold-print/review_forming_mandrel.py` and
+`review_containment.py` afterward. The mandrel prints socket-pilot-down at Z0;
+its native receipt records the local fine-band layers and support-removal route.
+Reload changed print meshes in a separate Bambu Studio project, retain their
+documented orientations and review the native slice before saving.
 
 After publication, run [review_geometry.py](/tools/funnel-mold-print/review_geometry.py)
 with this models directory. Geometry lint reports overhangs in the print

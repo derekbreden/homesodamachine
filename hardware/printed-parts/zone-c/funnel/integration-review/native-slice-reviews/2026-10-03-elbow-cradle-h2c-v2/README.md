@@ -36,6 +36,11 @@ The cradle prints bottom-down with its pocket opening upward. Its two supports r
 
 The [native mouth check](native-mouth-correction-check.json) retains the elbow seat, 0.65 mm catch gap and 3.15 mm hook tops. The aft collet clearance opens straight through the mouth; its floor retains 5.103 mm and its side walls retain 8.840 mm.
 
+The [post-live geometry lint](geometry-lint.json) follows hash verification of the
+production cradle on the site. Both its STL and the byte-identical trial STL
+report zero unanswered findings; their two square retention ceilings retain
+the recorded accessible supports.
+
 The [accepted v4 record](../../../cradle-trial/physical-acceptance.json) remains
 limited to its frozen printed pair. Current 3.15 mm hooks, corresponding slots
 and flat silicone bearing require separate physical acceptance. Native slicing

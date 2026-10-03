@@ -1,0 +1,101 @@
+{
+  "pass": true,
+  "source_stl_sha256": "866cffceff2bd16e8f760b520ac5ca699904999238e3eedfe1f8ed4311a7672c",
+  "native_archive_sha256": "235e948e975086a4cebc2dabaa09b1f54f458ebf54f84e36261debecc38889da",
+  "gcode_sha256": "69978f9224efc0942db3c03ce998057909e217e84703f40d28f7f049686baf97",
+  "readings": [
+    {
+      "print_z_mm": 2.12,
+      "actual_slab_height_mm": 0.24,
+      "native_midplane_z_mm": 2.0,
+      "initial_coplanar_polygonization_component_count": 0,
+      "one_sided_contours": [
+        {
+          "native_print_plane_mm": 1.99999,
+          "plane_offset_mm": -1e-05,
+          "native_components": [
+            {
+              "native_section_area_mm2": 52160.13473463338,
+              "native_bounds_plate_xy_mm": [
+                15.187529,
+                53.257135,
+                294.343797,
+                276.124247
+              ],
+              "actual_wall_roads_touching_component": 1513,
+              "native_perimeter_ring_count": 1,
+              "maximum_sampled_boundary_distance_beyond_wall_half_width_mm": 0.08688961393925451
+            }
+          ],
+          "native_total_section_area_mm2": 52160.13473463338
+        },
+        {
+          "native_print_plane_mm": 2.00001,
+          "plane_offset_mm": 1e-05,
+          "native_components": [
+            {
+              "native_section_area_mm2": 52160.13944779588,
+              "native_bounds_plate_xy_mm": [
+                15.187529,
+                53.257126,
+                294.343797,
+                276.124257
+              ],
+              "actual_wall_roads_touching_component": 1513,
+              "native_perimeter_ring_count": 1,
+              "maximum_sampled_boundary_distance_beyond_wall_half_width_mm": 0.0868963853013385
+            }
+          ],
+          "native_total_section_area_mm2": 52160.13944779588
+        }
+      ]
+    },
+    {
+      "print_z_mm": 32.12,
+      "actual_slab_height_mm": 0.24,
+      "native_midplane_z_mm": 31.999999999999996,
+      "initial_coplanar_polygonization_component_count": 0,
+      "one_sided_contours": [
+        {
+          "native_print_plane_mm": 31.999989999999997,
+          "plane_offset_mm": -1e-05,
+          "native_components": [
+            {
+              "native_section_area_mm2": 6467.771495594709,
+              "native_bounds_plate_xy_mm": [
+                15.13743,
+                52.208133,
+                294.343797,
+                277.371606
+              ],
+              "actual_wall_roads_touching_component": 3434,
+              "native_perimeter_ring_count": 2,
+              "maximum_sampled_boundary_distance_beyond_wall_half_width_mm": 0.08076361158747405
+            }
+          ],
+          "native_total_section_area_mm2": 6467.771495594709
+        },
+        {
+          "native_print_plane_mm": 32.000009999999996,
+          "plane_offset_mm": 1e-05,
+          "native_components": [
+            {
+              "native_section_area_mm2": 6467.775422883189,
+              "native_bounds_plate_xy_mm": [
+                15.13743,
+                52.208133,
+                294.343797,
+                277.371606
+              ],
+              "actual_wall_roads_touching_component": 3434,
+              "native_perimeter_ring_count": 2,
+              "maximum_sampled_boundary_distance_beyond_wall_half_width_mm": 0.08045256066002368
+            }
+          ],
+          "native_total_section_area_mm2": 6467.775422883189
+        }
+      ]
+    }
+  ],
+  "method": "At printZ2.12 and32.12 the actual slab midpoint coincides with exact planar mesh faces. Strict triangle crossing leaves an empty numerical polygonization. Both native one-sided contours10nm away are explicitly read against the same actual slab walls; every component on each side receives model walls. Every ring on each side is also sampled at most2mm along its native perimeter against the actual own-width wall paths. This is numerical contour closure, not an acceptance of omitted stock or a geometric tolerance."
+}

@@ -1,0 +1,991 @@
+{
+  "schema": 1,
+  "status": "scratch-only native candidate; no production geometry changed",
+  "production_source_sha256": {
+    "step": "ef39a549003017fd0602844e3c46cc3899a3df00ad6c866fcac61da65cf06069",
+    "stl": "e73227a6870af4f8f1b394fc77979c8f632f245df990c1c8a88691a65f7105f7"
+  },
+  "source_recipe_sha256": "63d17e1d9dd08945d42795639eb0311a91c1511d7693fa3add4eb62ca8287946",
+  "machine_step_sha256": "423b46dd9d931d4e34e8c53daa9b468a5d57494321c5f4f76e906a9b9a0d1f77",
+  "native_cache_manifest_sha256": "496ed8050a2344f9efa5cfeb876fef138be36a82a7edebc01fac3957863941d5",
+  "station_record_sha256": "cc3bce91a6c22325682dbc18841ede8d61f00153dfb3322f0cc0ad2b4b3e7b37",
+  "station_cad_mm": [
+    -90.5000001069748,
+    323.79999999999995,
+    191.85000009999996
+  ],
+  "source_feature": "enclosure.py::_vent_chase; exterior cap crown only",
+  "role": "Roof and structural backing of the PRV relief chase above its 12 mm passage; no retaining hook, rail, flexure, insertion bearing or tube-locating face is altered.",
+  "added_triangle_cad_xz_mm": [
+    [
+      -98.5,
+      206.60000009999996
+    ],
+    [
+      -98.5,
+      214.59999999302516
+    ],
+    [
+      -90.5000001069748,
+      214.59999999302516
+    ]
+  ],
+  "added_y_span_cad_mm": [
+    314.79999999999995,
+    332.79999999999995
+  ],
+  "original_maximum_cap_z_mm": 214.59999999302516,
+  "candidate_maximum_cap_z_mm": 214.59999999302516,
+  "additional_stock_mm3": 575.9999845956296,
+  "native_overlap_with_existing_stock_mm3": 0.0,
+  "native_entire_candidate_valid": true,
+  "native_entire_candidate_solid_count": 1,
+  "native_existing_stock_removed_mm3": 0.0,
+  "preservation": {
+    "exact_existing_duct_air_added_stock_mm3": 0.0,
+    "z_seam_added_stock_mm3": 0.0,
+    "tube_axis_cad_mm": [
+      -90.5000001069748,
+      323.79999999999995,
+      191.85000009999996
+    ],
+    "other_five_native_STEP_STL_byte_hashes": {
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "cb45044df359205d55dafe6ad3a8f5e8f332eccb2cfe6ac708f3c913672541b6",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "b9a330b868dde6cdab0278fecb023b4b3dc01a993e9070fa2828605237fded88",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "388955f5bc340be0e8048aff9e66cbd1a2488760926627d85101725bec79daf7",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "b6cb885cf4619e27e9ca8d702c95b475d934a572de91633016bf63a5bcb3487b",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "0f742e347d3f2ed4e812e8172a0762ef2d4f609a0a477627d81f352c7d328ff6",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "916c443fbb594eefe28612422f55ec2d3aced9bb05ffe6a6b0d42f9e310ba0ee",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "78a98c163ef99a07867f5c3b703775d86f6d665eb2be050a99da0e63b31d7db8",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl": "517a772b6842aa4a5474496a4d0ad29fcfede7dae5aceb880c8b5d04ea1e1179",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "489567d35acfb8db558919fa712212971c71bc02832a955d4b7413e5e4d37a87",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl": "3430c05b8db739ce38a59306bb5560ee62ee755ab46ad66f946e8c568af1a4c5"
+    },
+    "production_back_top_STEP_STL_unchanged": true
+  },
+  "neighbour_reading": {
+    "body_count": 216,
+    "host_body_excluded": "enclosure-back-top",
+    "all_other_body_bboxes_tested": 215,
+    "exact_native_neighbours_within_20_mm": [
+      {
+        "name": "cold-core/foam-shell",
+        "bbox_distance_lower_bound_mm": 5.172751116333529e-12,
+        "added_stock_native_gap_mm": 1.0697739583065413e-07,
+        "added_stock_overlap_mm3": 0.0,
+        "complete_candidate_native_gap_mm": 0.0,
+        "cached_body_file": "cold-core__foam-shell.brep",
+        "cached_body_sha256": "a4f5fdd50129a2af35a7275842e85a32cf0d5629c71ccbadd61c26a39a27c5fc"
+      },
+      {
+        "name": "cold-core/prv-shroud",
+        "bbox_distance_lower_bound_mm": 4.876000013954794,
+        "added_stock_native_gap_mm": 4.8760001139523865,
+        "added_stock_overlap_mm3": 0.0,
+        "complete_candidate_native_gap_mm": 4.876000113949999,
+        "cached_body_file": "cold-core__prv-shroud.brep",
+        "cached_body_sha256": "c890aa11ffcba5eaa4d5dc9d6576f7344cfe35f96963eb2a88110c43b1441631"
+      },
+      {
+        "name": "cold-core/line-prv-vent",
+        "bbox_distance_lower_bound_mm": 0.0,
+        "added_stock_native_gap_mm": 11.917079314381931,
+        "added_stock_overlap_mm3": 0.0,
+        "complete_candidate_native_gap_mm": 2.8249999999999886,
+        "cached_body_file": "cold-core__line-prv-vent.brep",
+        "cached_body_sha256": "53ada54b4175f9612a359a9bb35ea19164e342a936951807f8785d3f9d6c8c0a"
+      },
+      {
+        "name": "cold-core/prv-sv125",
+        "bbox_distance_lower_bound_mm": 12.776000113954794,
+        "added_stock_native_gap_mm": 12.776000113954794,
+        "added_stock_overlap_mm3": 0.0,
+        "complete_candidate_native_gap_mm": 12.776000113950005,
+        "cached_body_file": "cold-core__prv-sv125.brep",
+        "cached_body_sha256": "e4ef2aa385e4930b9a435af7c717c6aa6a17de93e96e19fd198d49cd5c510b35"
+      },
+      {
+        "name": "cold-core/foam-cap-top",
+        "bbox_distance_lower_bound_mm": 18.80000020697483,
+        "added_stock_native_gap_mm": 18.800000206977415,
+        "added_stock_overlap_mm3": 0.0,
+        "complete_candidate_native_gap_mm": 0.0,
+        "cached_body_file": "cold-core__foam-cap-top.brep",
+        "cached_body_sha256": "86d8440dcc73f4983fad538d128f6ed30c6f8b0cf2d7075ec9a300e77c9a2420"
+      },
+      {
+        "name": "cold-core/line-water-in",
+        "bbox_distance_lower_bound_mm": 9.825000013956839,
+        "added_stock_native_gap_mm": 37.10925695501145,
+        "added_stock_overlap_mm3": 0.0,
+        "complete_candidate_native_gap_mm": 17.82500000697999,
+        "cached_body_file": "cold-core__line-water-in.brep",
+        "cached_body_sha256": "883884e6fc1c516515930290608051704262461562f5a12f14c19d9fcc491ed5"
+      },
+      {
+        "name": "tube-fluid-18",
+        "bbox_distance_lower_bound_mm": 18.558993925891993,
+        "added_stock_native_gap_mm": 44.143495460717936,
+        "added_stock_overlap_mm3": 0.0,
+        "complete_candidate_native_gap_mm": 1.3079121115631875,
+        "cached_body_file": "tube-fluid-18.brep",
+        "cached_body_sha256": "1d6f191241740b7c6042b2e46d57d3d7347d165ab848645262488b7e04ac9490"
+      },
+      {
+        "name": "tube-fluid-28",
+        "bbox_distance_lower_bound_mm": 17.689280747232072,
+        "added_stock_native_gap_mm": 54.162540849213606,
+        "added_stock_overlap_mm3": 0.0,
+        "complete_candidate_native_gap_mm": 0.14999999999277683,
+        "cached_body_file": "tube-fluid-28.brep",
+        "cached_body_sha256": "e80134662ef89c7a0ac4359f7b16600b54c4ac6f1ddcb6c685173df54bb9a499"
+      }
+    ],
+    "remaining_bodies_native_bbox_distance_lower_bounds_mm": [
+      {
+        "name": "compressor",
+        "bbox_distance_lower_bound_mm": 161.28347719900157
+      },
+      {
+        "name": "condenser+fan",
+        "bbox_distance_lower_bound_mm": 206.51053251677342
+      },
+      {
+        "name": "mq6-sensor",
+        "bbox_distance_lower_bound_mm": 305.76005304277396
+      },
+      {
+        "name": "thermal-fuse",
+        "bbox_distance_lower_bound_mm": 332.8963991245053
+      },
+      {
+        "name": "fuse-clamp",
+        "bbox_distance_lower_bound_mm": 323.9500502299468
+      },
+      {
+        "name": "valve-v-a",
+        "bbox_distance_lower_bound_mm": 108.67306944825408
+      },
+      {
+        "name": "coil-v-a",
+        "bbox_distance_lower_bound_mm": 123.79053491497541
+      },
+      {
+        "name": "tee-y-a",
+        "bbox_distance_lower_bound_mm": 167.05755518848943
+      },
+      {
+        "name": "valve-v-c",
+        "bbox_distance_lower_bound_mm": 167.76236204989647
+      },
+      {
+        "name": "coil-v-c",
+        "bbox_distance_lower_bound_mm": 189.6595110205669
+      },
+      {
+        "name": "tee-y-c",
+        "bbox_distance_lower_bound_mm": 226.5969552363383
+      },
+      {
+        "name": "valve-v-e",
+        "bbox_distance_lower_bound_mm": 217.14973922915075
+      },
+      {
+        "name": "coil-v-e",
+        "bbox_distance_lower_bound_mm": 189.74736682020952
+      },
+      {
+        "name": "valve-v-g",
+        "bbox_distance_lower_bound_mm": 201.70747391103913
+      },
+      {
+        "name": "coil-v-g",
+        "bbox_distance_lower_bound_mm": 220.25536322998477
+      },
+      {
+        "name": "tee-y-d",
+        "bbox_distance_lower_bound_mm": 259.6458022675556
+      },
+      {
+        "name": "valve-v-f",
+        "bbox_distance_lower_bound_mm": 249.41535990884094
+      },
+      {
+        "name": "coil-v-f",
+        "bbox_distance_lower_bound_mm": 226.67356645663148
+      },
+      {
+        "name": "valve-v-b",
+        "bbox_distance_lower_bound_mm": 69.59795688848003
+      },
+      {
+        "name": "coil-v-b",
+        "bbox_distance_lower_bound_mm": 91.42284246599104
+      },
+      {
+        "name": "tee-y-b",
+        "bbox_distance_lower_bound_mm": 152.66298418086924
+      },
+      {
+        "name": "valve-v-d",
+        "bbox_distance_lower_bound_mm": 146.80245267364234
+      },
+      {
+        "name": "coil-v-d",
+        "bbox_distance_lower_bound_mm": 171.39860008470606
+      },
+      {
+        "name": "tee-y-f",
+        "bbox_distance_lower_bound_mm": 209.74515515933987
+      },
+      {
+        "name": "valve-v-h",
+        "bbox_distance_lower_bound_mm": 201.39701891399642
+      },
+      {
+        "name": "coil-v-h",
+        "bbox_distance_lower_bound_mm": 171.49581104400076
+      },
+      {
+        "name": "valve-v-j",
+        "bbox_distance_lower_bound_mm": 137.50999999999996
+      },
+      {
+        "name": "coil-v-j",
+        "bbox_distance_lower_bound_mm": 163.50999999999996
+      },
+      {
+        "name": "tee-y-g",
+        "bbox_distance_lower_bound_mm": 201.01005596743678
+      },
+      {
+        "name": "valve-v-i",
+        "bbox_distance_lower_bound_mm": 194.72749992004884
+      },
+      {
+        "name": "coil-v-i",
+        "bbox_distance_lower_bound_mm": 164.59551390249032
+      },
+      {
+        "name": "pump-a-head",
+        "bbox_distance_lower_bound_mm": 263.5425258184873
+      },
+      {
+        "name": "pump-a-boss",
+        "bbox_distance_lower_bound_mm": 269.7624447673955
+      },
+      {
+        "name": "pump-a-motor",
+        "bbox_distance_lower_bound_mm": 282.0929685107775
+      },
+      {
+        "name": "pump-b-head",
+        "bbox_distance_lower_bound_mm": 238.9326838532791
+      },
+      {
+        "name": "pump-b-boss",
+        "bbox_distance_lower_bound_mm": 243.72561741543518
+      },
+      {
+        "name": "pump-b-motor",
+        "bbox_distance_lower_bound_mm": 253.77744454713752
+      },
+      {
+        "name": "tube-fluid-10",
+        "bbox_distance_lower_bound_mm": 232.69016178298867
+      },
+      {
+        "name": "tube-fluid-11",
+        "bbox_distance_lower_bound_mm": 246.52507935190874
+      },
+      {
+        "name": "tube-fluid-12",
+        "bbox_distance_lower_bound_mm": 278.29990974171795
+      },
+      {
+        "name": "tube-fluid-13",
+        "bbox_distance_lower_bound_mm": 265.75595515684785
+      },
+      {
+        "name": "tube-fluid-20",
+        "bbox_distance_lower_bound_mm": 215.0736424407226
+      },
+      {
+        "name": "tube-fluid-21",
+        "bbox_distance_lower_bound_mm": 230.1472566421363
+      },
+      {
+        "name": "tube-fluid-22",
+        "bbox_distance_lower_bound_mm": 220.84680148717993
+      },
+      {
+        "name": "tube-fluid-23",
+        "bbox_distance_lower_bound_mm": 206.0922518818585
+      },
+      {
+        "name": "tube-fluid-9",
+        "bbox_distance_lower_bound_mm": 186.82155343409897
+      },
+      {
+        "name": "tube-fluid-17",
+        "bbox_distance_lower_bound_mm": 220.07110194088838
+      },
+      {
+        "name": "tube-fluid-19",
+        "bbox_distance_lower_bound_mm": 164.60691913436187
+      },
+      {
+        "name": "tube-fluid-27",
+        "bbox_distance_lower_bound_mm": 149.9695951687303
+      },
+      {
+        "name": "turn-fluid-3",
+        "bbox_distance_lower_bound_mm": 180.1283011128888
+      },
+      {
+        "name": "turn-fluid-5",
+        "bbox_distance_lower_bound_mm": 156.96926406526848
+      },
+      {
+        "name": "step-fluid-3",
+        "bbox_distance_lower_bound_mm": 147.62891604344117
+      },
+      {
+        "name": "step-fluid-5",
+        "bbox_distance_lower_bound_mm": 118.26851594795987
+      },
+      {
+        "name": "cold-core/foam-cap-lid-top",
+        "bbox_distance_lower_bound_mm": 33.40000020697482
+      },
+      {
+        "name": "cold-core/foam-cap-bottom",
+        "bbox_distance_lower_bound_mm": 186.60000009999996
+      },
+      {
+        "name": "cold-core/foam-cap-lid-bottom",
+        "bbox_distance_lower_bound_mm": 201.20000009999995
+      },
+      {
+        "name": "cold-core/carbonator-tube",
+        "bbox_distance_lower_bound_mm": 27.08948146704324
+      },
+      {
+        "name": "cold-core/endcap-bottom",
+        "bbox_distance_lower_bound_mm": 144.78875401963538
+      },
+      {
+        "name": "cold-core/endcap-top",
+        "bbox_distance_lower_bound_mm": 30.021255645933323
+      },
+      {
+        "name": "cold-core/float-rod-carb",
+        "bbox_distance_lower_bound_mm": 98.43409804921816
+      },
+      {
+        "name": "cold-core/carbonator-elbow-co2-in",
+        "bbox_distance_lower_bound_mm": 174.32351962775257
+      },
+      {
+        "name": "cold-core/carbonator-elbow-carb-water-out",
+        "bbox_distance_lower_bound_mm": 155.23345962364266
+      },
+      {
+        "name": "cold-core/carbonator-elbow-water-in",
+        "bbox_distance_lower_bound_mm": 87.44443022145144
+      },
+      {
+        "name": "cold-core/carbonator-elbow-prv",
+        "bbox_distance_lower_bound_mm": 50.876000113954795
+      },
+      {
+        "name": "cold-core/reservoir-a",
+        "bbox_distance_lower_bound_mm": 47.790377421813005
+      },
+      {
+        "name": "cold-core/reservoir-a-cap",
+        "bbox_distance_lower_bound_mm": 48.38308253650913
+      },
+      {
+        "name": "cold-core/reservoir-b",
+        "bbox_distance_lower_bound_mm": 47.790377421812906
+      },
+      {
+        "name": "cold-core/reservoir-b-cap",
+        "bbox_distance_lower_bound_mm": 48.38308253650902
+      },
+      {
+        "name": "cold-core/copper-plug-west",
+        "bbox_distance_lower_bound_mm": 128.34351610804927
+      },
+      {
+        "name": "cold-core/copper-plug-port",
+        "bbox_distance_lower_bound_mm": 207.81315685562706
+      },
+      {
+        "name": "cold-core/evap-coil",
+        "bbox_distance_lower_bound_mm": 26.76414962546287
+      },
+      {
+        "name": "cold-core/evap-tail-inlet",
+        "bbox_distance_lower_bound_mm": 200.1305406237892
+      },
+      {
+        "name": "cold-core/evap-tail-outlet",
+        "bbox_distance_lower_bound_mm": 32.07245867860815
+      },
+      {
+        "name": "cold-core/water-inlet-jet-cap-nominal",
+        "bbox_distance_lower_bound_mm": 105.8899605245175
+      },
+      {
+        "name": "cold-core/collet-co2-in",
+        "bbox_distance_lower_bound_mm": 195.40635672815728
+      },
+      {
+        "name": "cold-core/collet-carb-water-out",
+        "bbox_distance_lower_bound_mm": 173.69318457124083
+      },
+      {
+        "name": "cold-core/collet-water-in",
+        "bbox_distance_lower_bound_mm": 71.35371791825338
+      },
+      {
+        "name": "cold-core/bulkhead-reservoir-a",
+        "bbox_distance_lower_bound_mm": 187.79397837628747
+      },
+      {
+        "name": "cold-core/bulkhead-reservoir-b",
+        "bbox_distance_lower_bound_mm": 185.73254507047466
+      },
+      {
+        "name": "cold-core/float-carb",
+        "bbox_distance_lower_bound_mm": 96.51914482854835
+      },
+      {
+        "name": "cold-core/reed-carb-1",
+        "bbox_distance_lower_bound_mm": 131.95986828228115
+      },
+      {
+        "name": "cold-core/reed-carb-2",
+        "bbox_distance_lower_bound_mm": 116.9458636307416
+      },
+      {
+        "name": "cold-core/float-rod-a",
+        "bbox_distance_lower_bound_mm": 118.45757289155037
+      },
+      {
+        "name": "cold-core/float-a",
+        "bbox_distance_lower_bound_mm": 113.98650143778535
+      },
+      {
+        "name": "cold-core/reed-a-1",
+        "bbox_distance_lower_bound_mm": 183.21308635829996
+      },
+      {
+        "name": "cold-core/reed-a-2",
+        "bbox_distance_lower_bound_mm": 156.8535463830317
+      },
+      {
+        "name": "cold-core/reed-a-3",
+        "bbox_distance_lower_bound_mm": 140.31762189024542
+      },
+      {
+        "name": "cold-core/reed-a-4",
+        "bbox_distance_lower_bound_mm": 136.59657760329827
+      },
+      {
+        "name": "cold-core/float-rod-b",
+        "bbox_distance_lower_bound_mm": 118.45757289155024
+      },
+      {
+        "name": "cold-core/float-b",
+        "bbox_distance_lower_bound_mm": 113.98650143779311
+      },
+      {
+        "name": "cold-core/reed-b-1",
+        "bbox_distance_lower_bound_mm": 183.21308635829988
+      },
+      {
+        "name": "cold-core/reed-b-2",
+        "bbox_distance_lower_bound_mm": 156.8535463830316
+      },
+      {
+        "name": "cold-core/reed-b-3",
+        "bbox_distance_lower_bound_mm": 140.3176218902453
+      },
+      {
+        "name": "cold-core/reed-b-4",
+        "bbox_distance_lower_bound_mm": 136.59657760329816
+      },
+      {
+        "name": "cold-core/bulkhead-seal-a",
+        "bbox_distance_lower_bound_mm": 192.46343163803894
+      },
+      {
+        "name": "cold-core/vent-membrane-a",
+        "bbox_distance_lower_bound_mm": 142.48557832261733
+      },
+      {
+        "name": "cold-core/bulkhead-seal-b",
+        "bbox_distance_lower_bound_mm": 192.46343163803888
+      },
+      {
+        "name": "cold-core/vent-membrane-b",
+        "bbox_distance_lower_bound_mm": 142.48557832261727
+      },
+      {
+        "name": "cold-core/probe-carbonator-ds18b20",
+        "bbox_distance_lower_bound_mm": 126.2367506940182
+      },
+      {
+        "name": "cold-core/probe-coil-ds18s20",
+        "bbox_distance_lower_bound_mm": 55.25964822408593
+      },
+      {
+        "name": "cold-core/reed-bridge",
+        "bbox_distance_lower_bound_mm": 91.15664309886392
+      },
+      {
+        "name": "cold-core/line-carb-water-out",
+        "bbox_distance_lower_bound_mm": 69.24906571864231
+      },
+      {
+        "name": "cold-core/line-co2-in",
+        "bbox_distance_lower_bound_mm": 119.99124695293096
+      },
+      {
+        "name": "cold-core/line-reservoir-a",
+        "bbox_distance_lower_bound_mm": 105.21274310411565
+      },
+      {
+        "name": "cold-core/line-reservoir-a-fill",
+        "bbox_distance_lower_bound_mm": 171.68863907368575
+      },
+      {
+        "name": "cold-core/line-reservoir-b",
+        "bbox_distance_lower_bound_mm": 93.34351200632103
+      },
+      {
+        "name": "cold-core/line-reservoir-b-fill",
+        "bbox_distance_lower_bound_mm": 91.64899761566896
+      },
+      {
+        "name": "g-ganen-pump",
+        "bbox_distance_lower_bound_mm": 59.47139845395843
+      },
+      {
+        "name": "suction-chain",
+        "bbox_distance_lower_bound_mm": 153.7813465383249
+      },
+      {
+        "name": "psu",
+        "bbox_distance_lower_bound_mm": 161.66942362041414
+      },
+      {
+        "name": "relay-2",
+        "bbox_distance_lower_bound_mm": 174.127833894697
+      },
+      {
+        "name": "pcba",
+        "bbox_distance_lower_bound_mm": 172.08126022972388
+      },
+      {
+        "name": "c14-inlet",
+        "bbox_distance_lower_bound_mm": 201.18195445318878
+      },
+      {
+        "name": "wago-h",
+        "bbox_distance_lower_bound_mm": 203.33839440477362
+      },
+      {
+        "name": "wago-n",
+        "bbox_distance_lower_bound_mm": 205.8904809337024
+      },
+      {
+        "name": "wago-g",
+        "bbox_distance_lower_bound_mm": 209.674515950583
+      },
+      {
+        "name": "wago-v12",
+        "bbox_distance_lower_bound_mm": 214.62534831447863
+      },
+      {
+        "name": "wago-gnd",
+        "bbox_distance_lower_bound_mm": 220.66445712690407
+      },
+      {
+        "name": "relay-1",
+        "bbox_distance_lower_bound_mm": 204.53330422674347
+      },
+      {
+        "name": "ground-stack",
+        "bbox_distance_lower_bound_mm": 208.86912777866922
+      },
+      {
+        "name": "wago-mana",
+        "bbox_distance_lower_bound_mm": 229.75976592630258
+      },
+      {
+        "name": "wago-manb",
+        "bbox_distance_lower_bound_mm": 226.79611997997117
+      },
+      {
+        "name": "wago-reeds-b",
+        "bbox_distance_lower_bound_mm": 40.73831121395389
+      },
+      {
+        "name": "wago-reeds-a",
+        "bbox_distance_lower_bound_mm": 40.400000006974835
+      },
+      {
+        "name": "wago-sensors",
+        "bbox_distance_lower_bound_mm": 40.400000006974835
+      },
+      {
+        "name": "vk-solenoid",
+        "bbox_distance_lower_bound_mm": 154.69916916620667
+      },
+      {
+        "name": "keystone-jack",
+        "bbox_distance_lower_bound_mm": 140.31733843677029
+      },
+      {
+        "name": "co2-inlet",
+        "bbox_distance_lower_bound_mm": 182.08276983376797
+      },
+      {
+        "name": "wr1110",
+        "bbox_distance_lower_bound_mm": 138.3254571071149
+      },
+      {
+        "name": "gasher-co2",
+        "bbox_distance_lower_bound_mm": 165.57646754777662
+      },
+      {
+        "name": "co2-adapter-regulator-in",
+        "bbox_distance_lower_bound_mm": 155.40630626829227
+      },
+      {
+        "name": "co2-adapter-regulator-out",
+        "bbox_distance_lower_bound_mm": 141.75932426922543
+      },
+      {
+        "name": "co2-adapter-check-in",
+        "bbox_distance_lower_bound_mm": 166.22434328054496
+      },
+      {
+        "name": "co2-adapter-check-out",
+        "bbox_distance_lower_bound_mm": 167.14733546105242
+      },
+      {
+        "name": "asse1022-assembly",
+        "bbox_distance_lower_bound_mm": 92.61058084452486
+      },
+      {
+        "name": "asse-drip-pan",
+        "bbox_distance_lower_bound_mm": 79.47025698072079
+      },
+      {
+        "name": "moisture-plate",
+        "bbox_distance_lower_bound_mm": 88.823904842559
+      },
+      {
+        "name": "water-split",
+        "bbox_distance_lower_bound_mm": 76.05914794628292
+      },
+      {
+        "name": "flow-regulator",
+        "bbox_distance_lower_bound_mm": 69.08045382560317
+      },
+      {
+        "name": "discharge-chain",
+        "bbox_distance_lower_bound_mm": 50.00210010117365
+      },
+      {
+        "name": "bulkhead-water",
+        "bbox_distance_lower_bound_mm": 158.3373755480709
+      },
+      {
+        "name": "bulkhead-flavor-b",
+        "bbox_distance_lower_bound_mm": 121.57075365980303
+      },
+      {
+        "name": "bulkhead-flavor-a",
+        "bbox_distance_lower_bound_mm": 128.37770738732686
+      },
+      {
+        "name": "bulkhead-carb",
+        "bbox_distance_lower_bound_mm": 163.62185704869765
+      },
+      {
+        "name": "digiten-flow",
+        "bbox_distance_lower_bound_mm": 119.46633714223215
+      },
+      {
+        "name": "bulkhead-ring-water",
+        "bbox_distance_lower_bound_mm": 171.079416369501
+      },
+      {
+        "name": "bulkhead-ring-water-word",
+        "bbox_distance_lower_bound_mm": 192.35831633147475
+      },
+      {
+        "name": "bulkhead-ring-carb",
+        "bbox_distance_lower_bound_mm": 174.46630278023977
+      },
+      {
+        "name": "bulkhead-ring-carb-word",
+        "bbox_distance_lower_bound_mm": 197.02466784546488
+      },
+      {
+        "name": "bulkhead-ring-flavor-a",
+        "bbox_distance_lower_bound_mm": 145.23961320578982
+      },
+      {
+        "name": "bulkhead-ring-flavor-a-word",
+        "bbox_distance_lower_bound_mm": 158.05125766366274
+      },
+      {
+        "name": "bulkhead-ring-flavor-b",
+        "bbox_distance_lower_bound_mm": 141.15318325737547
+      },
+      {
+        "name": "bulkhead-ring-flavor-b-word",
+        "bbox_distance_lower_bound_mm": 152.98043613269334
+      },
+      {
+        "name": "bulkhead-ring-co2",
+        "bbox_distance_lower_bound_mm": 186.88584268686728
+      },
+      {
+        "name": "bulkhead-ring-co2-word",
+        "bbox_distance_lower_bound_mm": 210.52871143586083
+      },
+      {
+        "name": "tube-customer-water",
+        "bbox_distance_lower_bound_mm": 189.78050963405093
+      },
+      {
+        "name": "tube-collar-water",
+        "bbox_distance_lower_bound_mm": 194.27596678976565
+      },
+      {
+        "name": "tube-collar-water-word",
+        "bbox_distance_lower_bound_mm": 205.5163822908498
+      },
+      {
+        "name": "tube-customer-co2",
+        "bbox_distance_lower_bound_mm": 214.88076936935295
+      },
+      {
+        "name": "tube-collar-co2",
+        "bbox_distance_lower_bound_mm": 218.09398194888567
+      },
+      {
+        "name": "tube-collar-co2-word",
+        "bbox_distance_lower_bound_mm": 228.30510628755616
+      },
+      {
+        "name": "nameplate",
+        "bbox_distance_lower_bound_mm": 159.78041667761315
+      },
+      {
+        "name": "nameplate-ink",
+        "bbox_distance_lower_bound_mm": 167.32681650776757
+      },
+      {
+        "name": "tube-refrig-3",
+        "bbox_distance_lower_bound_mm": 195.26131369270556
+      },
+      {
+        "name": "tube-refrig-1",
+        "bbox_distance_lower_bound_mm": 276.28107300772575
+      },
+      {
+        "name": "tube-refrig-2",
+        "bbox_distance_lower_bound_mm": 260.3239916474411
+      },
+      {
+        "name": "tube-water-7",
+        "bbox_distance_lower_bound_mm": 137.68697847067503
+      },
+      {
+        "name": "tube-water-6",
+        "bbox_distance_lower_bound_mm": 51.14103064025554
+      },
+      {
+        "name": "tube-water-5",
+        "bbox_distance_lower_bound_mm": 98.96474439945752
+      },
+      {
+        "name": "tube-water-2",
+        "bbox_distance_lower_bound_mm": 76.6849912740562
+      },
+      {
+        "name": "tube-fluid-1",
+        "bbox_distance_lower_bound_mm": 77.26005029415963
+      },
+      {
+        "name": "tube-water-3",
+        "bbox_distance_lower_bound_mm": 78.57097974624725
+      },
+      {
+        "name": "tube-co2-0",
+        "bbox_distance_lower_bound_mm": 169.4187032488593
+      },
+      {
+        "name": "tube-co2-1",
+        "bbox_distance_lower_bound_mm": 148.41624629320418
+      },
+      {
+        "name": "tube-co2-2",
+        "bbox_distance_lower_bound_mm": 131.62367059237772
+      },
+      {
+        "name": "tube-fluid-2",
+        "bbox_distance_lower_bound_mm": 45.49561803782857
+      },
+      {
+        "name": "tube-carb-1",
+        "bbox_distance_lower_bound_mm": 60.54714279485126
+      },
+      {
+        "name": "tube-carb-2",
+        "bbox_distance_lower_bound_mm": 153.7679255546404
+      },
+      {
+        "name": "tube-fluid-24",
+        "bbox_distance_lower_bound_mm": 87.56452625563689
+      },
+      {
+        "name": "tube-fluid-26",
+        "bbox_distance_lower_bound_mm": 135.96873256370208
+      },
+      {
+        "name": "tube-fluid-14",
+        "bbox_distance_lower_bound_mm": 137.65625898224187
+      },
+      {
+        "name": "tube-fluid-16",
+        "bbox_distance_lower_bound_mm": 169.10195528664403
+      },
+      {
+        "name": "funnel",
+        "bbox_distance_lower_bound_mm": 124.45439332488566
+      },
+      {
+        "name": "funnel-frame",
+        "bbox_distance_lower_bound_mm": 116.33676770411778
+      },
+      {
+        "name": "elbow-cradle",
+        "bbox_distance_lower_bound_mm": 159.04229032731314
+      },
+      {
+        "name": "funnel-drain-union",
+        "bbox_distance_lower_bound_mm": 165.0137332198385
+      },
+      {
+        "name": "funnel-drain-stub",
+        "bbox_distance_lower_bound_mm": 185.9511306187109
+      },
+      {
+        "name": "tube-fluid-4",
+        "bbox_distance_lower_bound_mm": 62.29409736737598
+      },
+      {
+        "name": "display",
+        "bbox_distance_lower_bound_mm": 241.3975658669406
+      },
+      {
+        "name": "display-cover",
+        "bbox_distance_lower_bound_mm": 247.35285194487986
+      },
+      {
+        "name": "display-gasket",
+        "bbox_distance_lower_bound_mm": 250.63675262663068
+      },
+      {
+        "name": "pump-contact-male",
+        "bbox_distance_lower_bound_mm": 250.68938555732237
+      },
+      {
+        "name": "pump-contact-female",
+        "bbox_distance_lower_bound_mm": 255.9665481407831
+      },
+      {
+        "name": "enclosure-front-bottom",
+        "bbox_distance_lower_bound_mm": 107.080822213457
+      },
+      {
+        "name": "enclosure-front-top",
+        "bbox_distance_lower_bound_mm": 102.24999989999989
+      },
+      {
+        "name": "enclosure-back-bottom",
+        "bbox_distance_lower_bound_mm": 31.80000009999995
+      },
+      {
+        "name": "enclosure-pump-cartridge",
+        "bbox_distance_lower_bound_mm": 235.53099999999995
+      },
+      {
+        "name": "enclosure-pump-cap",
+        "bbox_distance_lower_bound_mm": 235.5652419431464
+      },
+      {
+        "name": "grip-cover-west",
+        "bbox_distance_lower_bound_mm": 187.00230623048472
+      },
+      {
+        "name": "grip-cover-east",
+        "bbox_distance_lower_bound_mm": 262.45206243220645
+      },
+      {
+        "name": "enclosure-tee-carrier-plate",
+        "bbox_distance_lower_bound_mm": 197.75999989999997
+      },
+      {
+        "name": "enclosure-window-cover-west",
+        "bbox_distance_lower_bound_mm": 161.61399999999995
+      },
+      {
+        "name": "enclosure-window-cover-east",
+        "bbox_distance_lower_bound_mm": 244.1476705503306
+      },
+      {
+        "name": "tee-carrier-spring-west-lower",
+        "bbox_distance_lower_bound_mm": 206.520479524857
+      },
+      {
+        "name": "tee-carrier-spring-west-upper",
+        "bbox_distance_lower_bound_mm": 204.7238292648262
+      },
+      {
+        "name": "tee-carrier-spring-east-lower",
+        "bbox_distance_lower_bound_mm": 276.8314030830251
+      },
+      {
+        "name": "tee-carrier-spring-east-upper",
+        "bbox_distance_lower_bound_mm": 275.49367241117017
+      }
+    ],
+    "added_stock_clash_count": 0
+  },
+  "candidate_step": ".cache/funnel-block-seat/print-review/prv-crown-candidate/enclosure-back-top-prv-crown-candidate.step",
+  "candidate_step_sha256": "0ca97c59003b2e9798bf9c74b87b9ee385a7fc05f4e4dc05f02ea7ef4d9f663a",
+  "candidate_stl": ".cache/funnel-block-seat/print-review/prv-crown-candidate/enclosure-back-top-prv-crown-candidate.stl",
+  "candidate_stl_sha256": "a639bbbaa7de75d25681c78c45139dc3b4fd9658e907387109a8f6254d179926",
+  "candidate_stl_facets": 1066200,
+  "candidate_stl_watertight": true,
+  "candidate_stl_winding_consistent": true,
+  "candidate_stl_solid_count": 1,
+  "mesh_added_volume_mm3": 575.9999999997672,
+  "mesh_stock_outside_cap_envelope_identical_triangles": true,
+  "mesh_stock_outside_cap_envelope_removed_triangle_count": 0,
+  "mesh_stock_outside_cap_envelope_added_triangle_count": 0,
+  "native_current_neighbour_scope": "Full current 216-body placed native assembly. Exact geometry for all bodies whose bounding boxes lie within 20 mm of added stock; larger independent bounds explicitly retained for all remaining bodies.",
+  "physical_fit_load_surface_finish_or_support_removal_measured": false,
+  "candidate_emitted_path_review_pending": true
+}

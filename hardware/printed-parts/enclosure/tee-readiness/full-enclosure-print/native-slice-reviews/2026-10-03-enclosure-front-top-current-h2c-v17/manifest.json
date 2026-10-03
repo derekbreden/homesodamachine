@@ -17,7 +17,7 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "cb45044df359205d55dafe6ad3a8f5e8f332eccb2cfe6ac708f3c913672541b6",
     "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
     "hardware/printed-parts/enclosure/enclosure/_swept_top.py": "347f941b2b2aed2aa5af26373fc4dcfb852390bab61f8d60cb2d538926221a22",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "63d17e1d9dd08945d42795639eb0311a91c1511d7693fa3add4eb62ca8287946",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "20f8a25c7c8c37f6bb65292d7bb0650b81a17b8b27a07a507477bcfec985149c",
     "hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py": "e3e5f0251ab9f0f82324c82e94e45667cac0e5d9c505cf06fd6f525c6bf3ce82",
     "hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py": "301e9a2a291e5c43c6e885d869e74d2f600204ba0041e70979a1c7d5c6203bbc"
   },
@@ -40,7 +40,7 @@
     "preparation.json": "a0a70e34b029b9af5730af77fa2b2acffd9ba8a867272da7fba3b1949131dabf",
     "frozen-inputs.json": "1ae0d4c8647faf4992aa44f5adaf2b24b96fbcc37bce92221241ba7eb907baf7",
     "slice-command.json": "a35f9db7e8d8beeb203ca81efe5b3312eb3cae076ec530b26936fe1414b3f2bb",
-    "verification.json": "55137c2c80de6e7041c478ae4fcad50f90fa944871bc2682e980bbfb63a32c96",
+    "verification.json": "f9b4bd10426e4a1003c6889457f1a8f9252cabc3b6609c5caef9c81ee8c933ad",
     "archive-integrity.json": "96d675454f461ce71998f1b76bbdb7019c84e0634c792d850f524e723bbfcfeb",
     "native-geometry-check.json": "07a4a19204286effe8f459153dad5ea4d3849b7919a558a3d57c1658d7698268",
     "native-diagnostics-review.json": "83faeae3c4118e40d642c9813406af583eff1894ad30be047ee9073c0ae2e1a1",
@@ -59,7 +59,7 @@
     "support-removal-review.json": "0b48093f06d1b16ed02ec81a09f47bbc27b35a4737e6e1d63569fda150172ada",
     "support-removal-native-lanes.json": "526859f9b1da994d1c149ca486d80fbed08e63140d2481c1f38d94a157eba540",
     "show-support-clearance-summary.json": "7da515ea0311671c4a1dc3b6e3deb02c08d090dae7d307390e5c489814df434e",
-    "flank-clip-native-binding.json": "2c879f42c1aba256b0cf3055c41bdd6c0a74ee92ff7ff36b19652b48b0a96910",
+    "flank-clip-native-binding.json": "87d7af35281eff280a3ae82130194dc8c79b611e4df3357f5340d70591fe2a60",
     "preview.png": "2731c46e8526825934c8e6fdd2f6053fcab2849e77ddb69619139869d4333543",
     "final-roof-corner-beads.png": "be08b7f35935ca10e4a5298c58ac26c55c42476031323a0e821278ab1f091afd",
     "native-result.json": "cd11dc4d7676e3d0f944a02dc4eaa11a3012d358f79aa6f45b5e01ea60a705d6",
@@ -69,5 +69,6 @@
     "file": ".cache/prints/2026-10-03-enclosure-front-top-current-h2c-v17/show-support-clearance.json",
     "sha256": "366d882fe5cd7d126779ca123d73d80651c70301deb7b673d92f7397690c2579",
     "support_roads_checked": 1526926
-  }
+  },
+  "source_binding_scope": "The current shared enclosure producer includes the ceiling-down back-top PRV crown. That branch applies only with up<0. Front-top native STEP/STL are byte-exact to this archive\u2019s reviewed source snapshots; all primary emitted-path and support proofs remain bound to those unchanged native bytes."
 }

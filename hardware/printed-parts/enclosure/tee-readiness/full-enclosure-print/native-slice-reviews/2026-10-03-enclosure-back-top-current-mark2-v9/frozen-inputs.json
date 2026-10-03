@@ -1,0 +1,17 @@
+{
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "866cffceff2bd16e8f760b520ac5ca699904999238e3eedfe1f8ed4311a7672c",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "85e4e97f382142f2ed497abe36d6be493dda94ee4b672a9e0a706b684c0ef573"
+  },
+  "snapshot_sha256": {
+    ".cache/prints/2026-10-03-enclosure-back-top-current-mark2-v9/inputs/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    ".cache/prints/2026-10-03-enclosure-back-top-current-mark2-v9/inputs/back-top-prv-crown-production-handoff.json": "7c359194e1a80bd6888d8bee5375ccb0a71550cdccd406d3d3781dc15f550aa7",
+    ".cache/prints/2026-10-03-enclosure-back-top-current-mark2-v9/inputs/enclosure-back-top.step": "85e4e97f382142f2ed497abe36d6be493dda94ee4b672a9e0a706b684c0ef573",
+    ".cache/prints/2026-10-03-enclosure-back-top-current-mark2-v9/inputs/enclosure-back-top.stl": "866cffceff2bd16e8f760b520ac5ca699904999238e3eedfe1f8ed4311a7672c"
+  },
+  "scratch_candidate_only": false,
+  "submitted": false,
+  "printer": "Mark2",
+  "material": "black PET-GF",
+  "scope": "One exact saved native CLI recipe for the current production back-top. No printer send; whole native path/support review pending."
+}

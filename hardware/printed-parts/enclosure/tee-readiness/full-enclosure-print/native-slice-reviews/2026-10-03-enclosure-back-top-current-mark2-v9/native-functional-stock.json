@@ -1,0 +1,68 @@
+{
+  "pass": true,
+  "source_step_sha256": "85e4e97f382142f2ed497abe36d6be493dda94ee4b672a9e0a706b684c0ef573",
+  "source_recipe_sha256": "20f8a25c7c8c37f6bb65292d7bb0650b81a17b8b27a07a507477bcfec985149c",
+  "source_station_sha256": "cc3bce91a6c22325682dbc18841ede8d61f00153dfb3322f0cc0ad2b4b3e7b37",
+  "ground_stack_mount": {
+    "source_feature": "enclosure.py::_east_boss_stem and _east_bosses",
+    "role": "Ground-stack insert mounting annulus, rooted across its entire X run in the east flank and supported by the full-width ground-stack ceiling column.",
+    "station_cad_mm": [
+      338.30000010000003,
+      337.5442287340604,
+      92.25
+    ],
+    "wall_root_cad_x_mm": 98.5,
+    "outer_radius_mm": 3.5,
+    "insert_bore_radius_mm": 2.0,
+    "source_radial_ligament_mm": 1.5,
+    "complete_canonical_mounting_annulus_missing_from_native_mm3": 0.0,
+    "print_direction": "ceiling down; flat D chord and ceiling column print first; the retained curved annulus closes last",
+    "full_3d_native_host_solid_count": 1,
+    "terminal_role": "The round outer half closes the insert annulus; it is a curved mounting-boss terminal, not a separate flat fin or a new thin rail."
+  },
+  "keystone_receptacle": {
+    "source_feature": "enclosure.py::_keystone_pocket_cut, _keystone_receptacle_geometry and _keystone_catches",
+    "reference_source": "hardware/reference/riteav-keystone/riteav_keystone.py",
+    "role": "Rear RiteAV jack receptacle: standard-size face/body aperture, swing-entry bevel and two complete rooted retaining catches.",
+    "station_cad_mm": [
+      -37.809999999999995,
+      301.5472904687784
+    ],
+    "face_width_mm": 14.8,
+    "face_height_mm": 16.3,
+    "receptacle_surround_mm": 3.0,
+    "entry_ease_rise_mm": 3.5752607777826295,
+    "complete_canonical_receptacle_stock_missing_from_native_mm3": 0.0,
+    "complete_catch_stock_missing_from_native_mm3": 0.0,
+    "catches": [
+      {
+        "catch": 0,
+        "native_required_bounds_cad_mm": [
+          -45.26000010000008,
+          461.59999989999994,
+          313.4172903687783,
+          -30.359999899999917,
+          463.0000001000001,
+          315.44229056877845
+        ],
+        "canonical_stock_missing_mm3": 0.0
+      },
+      {
+        "catch": 1,
+        "native_required_bounds_cad_mm": [
+          -45.260000100000056,
+          461.59999989999994,
+          290.74229036877836,
+          -30.359999899999938,
+          462.9000001000001,
+          293.3672905687785
+        ],
+        "canonical_stock_missing_mm3": 0.0
+      }
+    ],
+    "full_3d_native_host_solid_count": 1,
+    "terminal_role": "The two witnesses lie on the swing-entry bevel as its outer strip closes onto the rear show plane; neither lies on a retaining catch or the full-section aperture surround."
+  },
+  "moisture_clip_record": "moisture-clip-native-stock.json",
+  "scope": "Native canonical stock, functional load/fit roles and complete host connectivity. Actual emitted-path envelopes are recorded separately; printed fit, insert retention, cable retention, removal force and lifetime are unmeasured."
+}
