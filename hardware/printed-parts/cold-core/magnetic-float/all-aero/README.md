@@ -3,7 +3,8 @@
 One connected ASA Aero body encloses an RC62 ring magnet at its axial midplane.
 This is a guided bench float for the existing 3.175 mm rod and reed setup.
 Its [physical observations](physical-observations.json) record the reported magnet
-grip and small hotend attraction; the paused-print result is not reported.
+grip, small hotend attraction, and successful paused insertion followed by initial
+overprinting on Mark2.
 
 [Assembly](/3d?file=printed-parts/cold-core/magnetic-float/all-aero/assembly.step) ·
 [Section](/3d?file=printed-parts/cold-core/magnetic-float/all-aero/section.step) ·
@@ -91,11 +92,50 @@ physical roof adhesion or magnet retention.
 The [launch receipt](mark2-print/v1/float-mark2-launch.json) records one accepted
 Send on 2026-10-03 at 15:01:48 CDT, Mark2 task **1306080180**, after the reported
 clear bed. The dialog verified `Ext ASA-AERO R`; archive, G-code and source
-hashes match the slice review. The native insertion pause is estimated near
-16:00 CDT, with 15:50–16:10 as a planning window. Heating and calibration can
-shift that time. The existing monitor remains paused by the user.
+hashes match the slice review. The existing monitor remains paused by the user.
 
 ![Section and native pocket-closing paths](mark2-print/v1/pause-preview.png)
+
+## Insertion result and next trial
+
+For Mark2 task **1306080180**, the operator reports that paused magnet insertion
+and overprinting worked. The first covering layer was a bit too tight on the
+magnet; the second deposited beautifully. The [report and photo binding](physical-observations.json)
+belong to the frozen v1 geometry and native archive. This result covers insertion
+and the initial covering layers; final roof integrity and finished float behavior
+are unreported.
+
+![Operator photo during magnet overprinting](mark2-print/v1/evidence/magnet-insertion-overprint-2026-10-03.jpg)
+
+The next trial candidate adds **0.20 mm of upper pocket clearance**, one native
+layer, with the magnet seat at Z12.4125 and its CAD center at Z14.0. The target
+pocket depth is 3.60 mm and roof is Z16.0125. The expected first covering layer
+is Z16.2, with insertion before layer 81; a separate native slice review must
+verify that sequence. Assessment concerns smooth initial covering deposition
+and a ring that remains seated through closure. This candidate is specified in
+the physical record and has no prepared or submitted archive.
+
+## Material trial route
+
+The bench candidate uses ASA Aero throughout, with the inserted RC62. Pressure
+endurance and exposure to the actual flavoring are properties to establish on
+this article. Relevant results include water uptake, permanent dimensional
+change, retained lift and surface softening.
+
+Bambu's [ASA Aero TDS](https://store.bblcdn.com/2bb7c6814cdc42d19ffc62570cfc1fb2.pdf)
+lists water insolubility and broad acid/alkali resistance, alongside vulnerability
+to some organic solvents. These are general material descriptors; the sheet
+supplies no result for this foamed print in pressurized water or the actual flavor
+mixture. Its humidity-conditioned moisture value is not a submerged sealing
+measurement.
+
+A sealed skin could limit liquid entry, and a structural shell could carry
+external pressure if its geometry and material support that load. Those benefits
+require an intact barrier and adequate stiffness. In [Prusa's underwater trials](https://blog.prusa3d.com/watertight-3d-printing-part-2_53638/),
+untreated PETG leaked at seams and perimeter/infill junctions. That result concerns
+their parts and settings; it supplies no pressure rating for this float. A
+protective skin remains a response to an identified ingress or compatibility
+problem, rather than a prerequisite for this bench trial.
 
 ## Trial scope
 

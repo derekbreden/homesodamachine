@@ -4,5 +4,62 @@
   "source": "Derek's request in Printer 2",
   "observation": "There is such a tiny amount of pull with the small amount of metal on the hotend that actually gets close enough, I think it might just work, especially because the magnet actually sits and grips quite well in the ASA Aero.",
   "scope": "Operator observation of hotend attraction and magnet grip in an existing ASA Aero piece. Magnet stability during a paused print, roof adhesion, heat exposure, finished buoyancy and density are not established by this observation.",
-  "paused_print_result": "Not reported."
+  "paused_print_result": {
+    "status": "operator_reported_successful_insertion_and_initial_overprint",
+    "reported_date": "2026-10-03",
+    "recorded_utc": "2026-10-03T21:12:57.118228+00:00",
+    "source": "Derek report and attached photo in Printer 2",
+    "printer": "Mark2",
+    "task_id": "1306080180",
+    "archive": ".cache/prints/magnetic-float-all-aero-mark2-v1/ready/magnetic-float-all-aero-mark2-v1.gcode.3mf",
+    "archive_sha256": "b64e1e8a003af554bb194ad3bcfe24f65cfc6cdf293b96f01d1655ebd2127a86",
+    "gcode_sha256": "361071a87606a213c493b2297977947d676fce7b8a07a44b41eda115a48d8462",
+    "source_stl_sha256": {
+      "float-aero": "88da0b4e454a99b3ef01ca5b13da323d81504146785a321fc07592de0c0acd6e"
+    },
+    "operator_quote": "It worked. Maybe one more layer of space needed above the magnet for next time, as the first layer on the magnet was a bit too tight, but the second layer went down beautifully.",
+    "first_covering_layer": "Reported a bit too tight on the magnet.",
+    "second_covering_layer": "Reported to have gone down beautifully.",
+    "scope": "Supports paused RC62 insertion and initial overprinting in this identified trial. Final roof integrity, completed and cooled removal, retained magnetic signal, density, buoyancy, pressure endurance and flavor compatibility are not established by this report.",
+    "photo": {
+      "path": "mark2-print/v1/evidence/magnet-insertion-overprint-2026-10-03.jpg",
+      "sha256": "5cf085bba95407c77af32557fb85ef49bb4849e2b47385c53d09759ced32944c",
+      "source_attachment_sha256": "1cd00e4305a19096adb0938227fdb91b3017d654f4bce55802e85143f212cb54",
+      "image_size_px": [
+        2880,
+        3840
+      ],
+      "caption": "Operator photo of the ASA Aero float and ring area beneath the toolhead during magnet overprinting. The toolhead partly obscures the covering roads.",
+      "metadata_scope": "EXIF, XMP, IPTC and comment segments removed; decoded image pixels are identical to the attachment."
+    }
+  },
+  "next_trial": {
+    "status": "specified_for_next_preparation_native_slice_review_pending",
+    "material": "ASA Aero only",
+    "petg_shell": false,
+    "customer_outcome": "Simpler buoyant float construction and easier first covering deposition over the inserted magnet.",
+    "basis": "Operator-reported successful paused insertion; the first covering layer was tight and the second deposited well.",
+    "extra_upper_pocket_clearance_mm": 0.2,
+    "target_pocket_depth_mm": 3.6,
+    "target_pocket_roof_z_mm": 16.0125,
+    "magnet_seat_z_mm": 12.4125,
+    "magnet_midplane_z_mm": 14.0,
+    "body_diameter_mm": 36.0,
+    "body_height_mm": 28.0,
+    "expected_first_covering_layer_z_mm": 16.2,
+    "expected_pause_before_layer": 81,
+    "expected_layer_scope": "One 0.20 mm higher covering plane inferred from the current CAD and layer grid; requires a separate native slice review.",
+    "assessment_for_next_trial": "First and second covering layers deposit over the seated ring without reported dragging or lifting, and the ring stays seated through closure.",
+    "ready_archive_prepared": false,
+    "submitted": false
+  },
+  "trial_route": {
+    "material": "ASA Aero only",
+    "petg_shell": false,
+    "source_quote": "As in, I am thinking we move forward with this plan, no PETG, unless you have reason to suggest otherwise.",
+    "scope": "Bench candidate selection; pressure endurance and compatibility with the actual flavoring remain physical results.",
+    "material_data_checked_date": "2026-10-03",
+    "material_data_source": "https://store.bblcdn.com/2bb7c6814cdc42d19ffc62570cfc1fb2.pdf",
+    "pressure_process_source": "https://blog.prusa3d.com/watertight-3d-printing-part-2_53638/"
+  }
 }
