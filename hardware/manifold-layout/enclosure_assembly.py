@@ -5410,7 +5410,7 @@ from _materials import WALL_COLORS                     # noqa: E402
 
 
 def funnel_centre(box):
-    """The collar stays centered on its fixed outlet station at Y182.5."""
+    """The collar's offset drain stays on its fixed outlet station at Y182.5."""
     return ((box.inner[0] + box.inner[1]) / 2, _funnel_frame.center_y)
 
 

@@ -7,9 +7,9 @@ file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
 click: x=35.120 y=65.050 z=8.400
 click: x=61.000 y=-60.500 z=8.400
 
-[ceiling] The fluid-18 side-anchor window carries the tie under the tube seat while retaining a solid column beneath it. Its roof bridges 2.8 mm along Y between complete 3 mm flanks; the 28.8 mm transverse extent is the post depth above the window. The window is 3.25 mm high. Support cleanout runs straight along X through the open front or relieved rear mouth before tubing, ties or the adjacent pump hardware are installed. No branch turns into a blind pocket; the tie's rear channel continues openly from the window floor to the post crown.
+[ceiling] The fluid-18 side-anchor window carries the tie beneath the low tube seat. Its roof bridges 2.8 mm along Y between complete 3 mm flanks; the 5.8 mm transverse extent is the post depth above the relieved window. The available height is 1.525 mm, including the 0.25 mm floor relief for roof strands. Both X mouths are open for cleanout before the tube and tie are fitted. Release any attached support and lift it clear of the 0.25 mm floor-relief lip before withdrawing it through a mouth; the surrounding lid surface is above the recessed floor. The tie's rear channel continues openly from the window floor to the post crown. The 16.24 mm² roof is below the lint's 20 mm² ceiling threshold; the native cap and mouth checks in fluid-18-clearance-check.json establish its geometry.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=21.600 y=34.000 z=44.875
+click: x=117.900 y=34.000 z=6.675
 
 [ceiling] The water-3 side-anchor window lets the tie pass beneath the low tube seat. Its roof bridges 2.8 mm along Y between complete 3 mm flanks; the 7.6 mm transverse extent is the post depth above the window. The available height is 1.525 mm, including the 0.25 mm floor relief for roof strands. Both X mouths are open for cleanout before the tube and tie are fitted. Any attached support must be released and lifted clear of the 0.25 mm floor-relief lip before it leaves through a mouth; the surrounding lid surface is above the recessed floor.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step

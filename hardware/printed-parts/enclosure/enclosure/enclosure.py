@@ -448,11 +448,11 @@ pump_lead_clip_edge_land = 12.0
 # corner onto front-top's own +X face and runs aft to the main-board wall, so that face takes the
 # same complete clip profile embedded in the section `front_top_flank_t` provides.
 #
-# One complete clip sits above V-F's coil and ahead of the funnel frame's front corbel.
+# One complete clip sits ahead of V-F's coil and the funnel frame's front corbel.
 # Its arms root in the flank, and the loom continues aft along the wall.
-flank_clip_stations = ((124.0, _cable_clip.RUN),)
-flank_clip_floor_z = 281.0
-flank_clip_embed = 1.2
+flank_clip_stations = ((95.0, _cable_clip.RUN),)
+flank_clip_floor_z = 269.0
+flank_clip_embed = 1.4
 display_cover_thickness = _interface.display_cover_thickness
 display_cover_slip = _interface.display_cover_slip
 
@@ -472,8 +472,8 @@ funnel_chain_gap = 1.0
 # cut to the collar plus the project's ordinary slip instead of sharing an exact B-rep face
 # with the roof rib and ceiling corbels.
 funnel_collar_air = fits.running
-# The collar stays centered on the fixed outlet station at Y182.5.
-funnel_front_y = 182.5 - _funnel.collar_d / 2.0
+# The collar's offset outlet stays on the fixed machine station at Y182.5.
+funnel_front_y = _funnel_frame_part.center_y - _funnel.collar_d / 2.0
 funnel_seat_thickness = _swept_top.FUNNEL_SEAT
 ceiling_skin = _interface.ceiling_skin
 ceiling_lip_drop = funnel_seat_thickness + _funnel.brim_thickness - ceiling_skin
@@ -3674,17 +3674,17 @@ def with_funnel(box, centre):
     # behind the display's own seats: at the arris itself the slab under the flange is a
     # feather edge, and a wall in from it the wedge is the wall's own section deep.
     arris = _swept_top.profile(box.outer)["roof"][0]
-    brim_y0 = y0 - _funnel.brim_overhang
+    brim_y0 = y0 - _funnel.brim_overhang - funnel_collar_air
     lands = brim_y0 >= arris + wall - tol
     record_bound(Bound(
         "funnel-brim-lands", "The funnel's brim lands on top wall ahead of the throat", lands,
-        f"brim front at y {brim_y0:.2f}, facet arris at {arris:.2f}",
+        f"brim pocket front at y {brim_y0:.2f}, facet arris at {arris:.2f}",
         f"a {wall:g} mm landing, so at or aft of {arris + wall:.2f}",
         ([] if lands else [
-            f"the brim's front edge stands at y {brim_y0:.2f} and the top face begins at the "
+            f"the brim pocket's front edge stands at y {brim_y0:.2f} and the top face begins at the "
             f"facet's arris, y {arris:.2f} — the flange reaches "
             f"{arris + wall - brim_y0:.2f} mm past the landing it owes and hangs over the 45°. "
-            f"Take `funnel_front_y` aft of {arris + wall + _funnel.brim_overhang:.2f}, or "
+            f"Take `funnel_front_y` aft of {arris + wall + _funnel.brim_overhang + funnel_collar_air:.2f}, or "
             f"shorten the facet"])))
     return box._replace(pack=box.pack._replace(funnel=centre))
 

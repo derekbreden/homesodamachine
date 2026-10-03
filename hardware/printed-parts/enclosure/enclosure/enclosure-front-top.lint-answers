@@ -75,3 +75,11 @@ click: x=93.700 y=188.000 z=299.300
 [slope] This is the end of the production rail channel's 45-degree gable, at its Y137.506 entrance. The Y-normal face is the channel's end cap; the ramp follows the rail's required X section. Preserve that mating section. The open Y entrance and interior give direct support access to the entry tip before inserting the frame; native slice and physical removal review remain required.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=96.249 y=139.534 z=324.926
+
+[sliver] The manifold-B well's top land at Z264.4 spans X95.20..95.35 and Y161.65..176.35. Its 0.15 mm exposed width comes from the lower well's 9.30 mm reach meeting the upper manifold-A well's 9.15 mm reach. Native sections at X95.275 through the land's ends and middle retain at least 3.00 mm of continuous Z stock beneath the face. The lower connector's complete retention lid carries this land.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=95.275 y=169.000 z=264.400
+
+[ceiling] The manifold-B Wago pocket keeps its complete flat retention lid. Its native underside at Z261.4 spans X95.20..104.50 and Y164.65..173.35, with at least 3.00 mm of stock above it. Support stands on the empty pocket's Z230.85 floor and leaves through its open inboard X-negative mouth before the connector is installed. This part requires its own native slice and physical support-removal review.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=99.850 y=169.000 z=261.400

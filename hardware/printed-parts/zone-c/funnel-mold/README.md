@@ -2,7 +2,7 @@
 
 Two PETG shells follow the [funnel](../funnel/README.md), with
 [5 mm](SKIN) minimum ramp backing and [5 mm](FLANGE) clamping flanges. The cavity
-stands on three small feet. The core has a [142.4 × 59.2 mm](DRY_MOUTH) rounded rectangular opening
+stands on three small feet. The core has a [142.4 × 95.1 mm](DRY_MOUTH) rounded rectangular opening
 in its dry back. Both halves print with automatic normal supports in Snug style.
 The tooling forms a rectangular plug blank with square corners and a straight
 dowel bore. The production plug's hook pockets, open through its X sides and
@@ -75,7 +75,7 @@ sealing and casting quality.
 
 Teal is the cavity, gold the core, grey the nominal silicone, light grey the
 steel dowel and blue the removable entry seal. The nominal casting is
-[178 mL](CAST_VOLUME). The two halves fit inside a [278.5 mm](ENVELOPE) circle,
+[224 mL](CAST_VOLUME). The two halves fit inside a [278.5 mm](ENVELOPE) circle,
 leaving [10.6 mm](CHAMBER_GAP) radial clearance in the recorded chamber. Check
 the actual opening, clamp/bolt envelope and catch tray before pouring.
 

@@ -7762,6 +7762,7 @@
       "hardware/printed-parts/cadlib/fits.py",
       "hardware/printed-parts/cadlib/flute_skin.py",
       "hardware/printed-parts/cadlib/overhang_round.py",
+      "hardware/printed-parts/cadlib/print_mesh.py",
       "hardware/printed-parts/cadlib/reeding.py",
       "hardware/printed-parts/cadlib/snap.py",
       "hardware/printed-parts/cadlib/world_workplane.py",
@@ -7816,7 +7817,8 @@
       "hardware/printed-parts/zone-c/funnel/README.figures.json",
       "hardware/printed-parts/zone-c/funnel/README.md",
       "hardware/printed-parts/zone-c/funnel/funnel-frame.step",
-      "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh"
+      "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh",
+      "hardware/printed-parts/zone-c/funnel/funnel-frame.stl"
     ]
   },
   "hardware/quickstart/_build.py": {
