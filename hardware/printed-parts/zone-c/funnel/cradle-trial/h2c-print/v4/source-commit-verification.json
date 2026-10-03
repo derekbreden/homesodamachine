@@ -1,0 +1,55 @@
+{
+  "geometry_export_revision": "29808fba7830848e59cbb740c11ff1b6d0b162fa",
+  "verified_at_utc": "2026-10-03T00:51:03.432835+00:00",
+  "all_saved_source_hashes_match": true,
+  "sources": [
+    {
+      "path": "hardware/printed-parts/zone-c/funnel/cradle-trial/cradle_trial.py",
+      "saved_sha256": "20f3b22a14ef4297b85378fe7bd7b63853bda1cda58e61a2c2ff5dd673920c3a",
+      "commit_sha256": "20f3b22a14ef4297b85378fe7bd7b63853bda1cda58e61a2c2ff5dd673920c3a",
+      "matches": true
+    },
+    {
+      "path": "hardware/printed-parts/zone-c/funnel/cradle-trial/geometry-check.json",
+      "saved_sha256": "1b85b24485305a1c3032b9aa751287bd8a363958a830a67afd5d347808293449",
+      "commit_sha256": "1b85b24485305a1c3032b9aa751287bd8a363958a830a67afd5d347808293449",
+      "matches": true
+    },
+    {
+      "path": "hardware/printed-parts/zone-c/funnel/elbow_cradle.py",
+      "saved_sha256": "e729eb0f96c5a4a37f1fcb146105a959b8f1ef1a3ee1cc85cdbaa9aaa8c03f71",
+      "commit_sha256": "e729eb0f96c5a4a37f1fcb146105a959b8f1ef1a3ee1cc85cdbaa9aaa8c03f71",
+      "matches": true
+    },
+    {
+      "path": "hardware/printed-parts/zone-c/funnel/funnel.py",
+      "saved_sha256": "f19b80ffa50f260330161ef02a5533f56a287f1c8ff75a8d62b07d965462a756",
+      "commit_sha256": "f19b80ffa50f260330161ef02a5533f56a287f1c8ff75a8d62b07d965462a756",
+      "matches": true
+    },
+    {
+      "path": "hardware/printed-parts/zone-c/funnel/funnel_frame.py",
+      "saved_sha256": "c62f7e54ef00d1a9510e5dbab8f0a8a8c4fc14725cc3411cf7d5fc042630820c",
+      "commit_sha256": "c62f7e54ef00d1a9510e5dbab8f0a8a8c4fc14725cc3411cf7d5fc042630820c",
+      "matches": true
+    },
+    {
+      "path": "hardware/printed-parts/cadlib/fits.py",
+      "saved_sha256": "3821989044c5bc3ae99cc6912538b8a34bd75a6b0a081aefc8e4c5a0ce714191",
+      "commit_sha256": "3821989044c5bc3ae99cc6912538b8a34bd75a6b0a081aefc8e4c5a0ce714191",
+      "matches": true
+    },
+    {
+      "path": "hardware/reference/jg-pp0308e-elbow/elbow.py",
+      "saved_sha256": "f4bbf9e1db98c82da4a96076e16a0333d2976b67f965a9d09d147fec510518d1",
+      "commit_sha256": "f4bbf9e1db98c82da4a96076e16a0333d2976b67f965a9d09d147fec510518d1",
+      "matches": true
+    },
+    {
+      "path": "hardware/reference/jg-pp0308e-elbow/scan-measurements.json",
+      "saved_sha256": "d977e38f2966b4d3839e7161f5d6fb9b0b276faf7ec2e4ed2b942b5f4b22dd1a",
+      "commit_sha256": "d977e38f2966b4d3839e7161f5d6fb9b0b276faf7ec2e4ed2b942b5f4b22dd1a",
+      "matches": true
+    }
+  ]
+}
