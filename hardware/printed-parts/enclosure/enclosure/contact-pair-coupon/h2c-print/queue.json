@@ -132,7 +132,7 @@
       "trial": "funnel elbow-cradle v3 with reused v2 receiver",
       "geometry_revision": 3,
       "review": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v3/README.md",
-      "status": "printing",
+      "status": "completed",
       "submitted": true,
       "bed_clear_confirmation": {
         "confirmed": true,
@@ -152,18 +152,22 @@
           "source_stl_sha256": "ab1875532b46a0254c945a2a263b9c00689502c580705a9070b8f558e395a251",
           "requested_z_trim_mm": 0.04,
           "review": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v3/cradle-mark2-preflight.json",
-          "status": "printing",
+          "status": "completed",
           "submitted": true,
           "printer_task_id": "1303516417",
           "job_name": "funnel-test-cradle-mark2-v3.gcode.3mf",
           "accepted_observed_utc": "2026-10-02T23:30:15.349262+00:00",
           "launch_record": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v3/cradle-mark2-launch.json",
-          "first_layer_confirmed_utc": "2026-10-02T23:44:08.067753+00:00"
+          "first_layer_confirmed_utc": "2026-10-02T23:44:08.067753+00:00",
+          "completed_observed_utc": "2026-10-03T00:05:05.244847+00:00",
+          "completion_record": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v3/cradle-mark2-completion.json"
         }
       ],
       "geometry_export_revision": "5a1fb5f08e9879c6bec3fb1e7f62a1a0801bf159",
       "physical_fit_and_retention_tested": false,
-      "first_layer_confirmed_utc": "2026-10-02T23:44:08.067753+00:00"
+      "first_layer_confirmed_utc": "2026-10-02T23:44:08.067753+00:00",
+      "completed_observed_utc": "2026-10-03T00:05:05.244847+00:00",
+      "completion_record": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v3/cradle-mark2-completion.json"
     }
   ],
   "followup_automation": "continue-h2c-trial-queue"
