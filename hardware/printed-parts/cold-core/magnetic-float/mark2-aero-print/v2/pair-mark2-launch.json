@@ -5,7 +5,7 @@
     "insert-aero"
   ],
   "physical_trial_revision": 2,
-  "status": "stopped_cause_unreported",
+  "status": "operator_stopped",
   "archive": ".cache/prints/magnetic-float-pair-mark2-aero-v3/ready/magnetic-float-pair-mark2-aero-v3.gcode.3mf",
   "archive_name": "magnetic-float-pair-mark2-aero-v3.gcode.3mf",
   "archive_sha256": "997477bd22fff8de5f7d811038c1d4d5db219dffd034b06c48addcbbaf8316f1",
@@ -181,6 +181,12 @@
         "target_c": 270
       },
       "interpretation": "The exact combined job is stopped. The printer reports FAILED with print_error 0 and no HMS fault; this does not identify manual cancellation or a printer fault. User cause report is pending. No retry or resume is submitted."
+    },
+    {
+      "event": "operator_stop_report",
+      "recorded_at": "2026-10-03T04:26:06.995135+00:00",
+      "report": "Stopped again. Bed clear. Try same plate again back to 0.04 all else the same.",
+      "interpretation": "The operator reported stopping this job and requested a new combined print at +0.04 mm user trim. A specific print defect is not reported."
     }
   ],
   "printer_reports": [
@@ -248,5 +254,7 @@
   "print_sequence": "by layer",
   "native_archive_revision": 3,
   "quantity_per_part": 1,
-  "stop_cause_report_pending": true
+  "stop_cause_report_pending": false,
+  "operator_report": "Stopped again. Bed clear. Try same plate again back to 0.04 all else the same.",
+  "reported_print_problem": "Not reported."
 }
