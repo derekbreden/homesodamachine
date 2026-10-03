@@ -41,6 +41,22 @@ support reviews; old archives do not establish the new treatment.
 Every spool is used fully, with reloading during a print as needed; remaining filament
 quantity is not a launch condition ([filament-use policy](tee-readiness/full-enclosure-print/filament-use-policy.json)).
 
+## Current front-top H2C archive
+
+The [current front-top v17 review](tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/README.md)
+binds the native STEP/STL and saved PET-GF recipe to one unmodified H2C archive.
+It has 878 model layers and estimates **25 h 44 min 45 sec**. All actual model slabs
+have finite left-tool roads and every native stock section component receives
+model walls. The full roof-round span has 0.08 mm walls and first-layer overlap
+passes. All 1,526,926 support roads clear the protected
+native exterior show faces. The 76 support bodies have removal routes
+through the empty bay, display storey, exposed flanks and aft opening.
+The complete flank jaw retains 3 mm tip stock and 2.532 mm frame clearance;
+its local DC5 entry lane remains clear. Exact source/road records name the
+retained pogo seat, display recess and funnel receiver mating transitions.
+Printed receiver/rail fit, cleanup, show finish, loom retention, load capacity
+and lifetime keep their separate evidence scope.
+
 ## Physical evidence
 
 | Part or interface | Established result and current use |

@@ -1,0 +1,24 @@
+{
+  "pass": true,
+  "gcode_sha256": "c36cdbf25e44a187b635de5ba59ad412aaa69107511b7f56daf4532df944b7f4",
+  "first_layer_height_mm": 0.2,
+  "next_layer_height_mm": 0.24,
+  "transitions": [
+    {
+      "from_z": 0.2,
+      "to_z": 0.44,
+      "outer_wall_area_fraction_supported": 0.6447127883144448,
+      "max_sampled_outer_centerline_unsupported_mm": 0.019420560856026513
+    },
+    {
+      "from_z": 0.44,
+      "to_z": 0.68,
+      "outer_wall_area_fraction_supported": 0.9997350608910056,
+      "max_sampled_outer_centerline_unsupported_mm": 0.0
+    }
+  ],
+  "surface": "Front-top mouth-down datum and rails; no expanding bottom round.",
+  "wall_count_samples": [],
+  "wall_crossing_y_mm": null,
+  "wall_crossings": {}
+}

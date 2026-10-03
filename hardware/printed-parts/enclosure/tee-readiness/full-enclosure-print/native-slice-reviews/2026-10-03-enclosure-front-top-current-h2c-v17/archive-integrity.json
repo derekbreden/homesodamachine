@@ -1,0 +1,8 @@
+{
+  "native_archive_sha256": "feaba430dd2856f35d296345b4edae03f66ee36199d1a672cfb2bccf805f5a65",
+  "gcode_sha256": "c36cdbf25e44a187b635de5ba59ad412aaa69107511b7f56daf4532df944b7f4",
+  "gcode_md5": "f35d70a3fbb8a98c0b64b9403a826ef6",
+  "stored_gcode_md5": "F35D70A3FBB8A98C0B64B9403A826EF6",
+  "archive_zip_crc_pass": true,
+  "metadata_part_name": "enclosure-front-top"
+}

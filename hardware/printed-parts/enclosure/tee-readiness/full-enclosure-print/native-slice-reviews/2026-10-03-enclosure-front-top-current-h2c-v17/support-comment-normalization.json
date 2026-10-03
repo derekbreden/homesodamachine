@@ -1,0 +1,8 @@
+{
+  "native_gcode_sha256": "c36cdbf25e44a187b635de5ba59ad412aaa69107511b7f56daf4532df944b7f4",
+  "labelled_gcode_sha256": "4b5b215230bd34ed733991d4a4ccc78847c371d257145e9323a44b626db5445a",
+  "executable_command_sequence_sha256": "d20339478bab45418da66b60025b1349488506f7cf7e4d5fc4f68c7326e90724",
+  "all_executable_commands_identical": true,
+  "inserted_feature_resets_before_object_id": 1354,
+  "method": "The topology reader carries feature state across native OBJECT_ID delimiters. Insert Other object before each delimiter and replace Custom with Other object so routine prime/wipe extrusions cannot be counted as support. No executable command changes; the printer archive remains unmodified."
+}

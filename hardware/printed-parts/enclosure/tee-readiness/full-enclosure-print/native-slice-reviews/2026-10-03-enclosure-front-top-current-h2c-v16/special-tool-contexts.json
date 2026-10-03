@@ -1,0 +1,82 @@
+{
+  "contexts": [
+    {
+      "line": 747,
+      "token": "T1001",
+      "before": [
+        "    ;M1002 gcode_claim_action : 11 ; Indentifying build plate type",
+        "    M972 S19 P0 C0    ; heatbed presence detection",
+        "    M972 S31 P0 T5000 ; toolhead camera dirty detection",
+        "    ;M1002 gcode_claim_action : 73 ; Build plate alignment detection",
+        "    M972 S34 P0 T5000 ; heatbed plate offset detection",
+        "M623",
+        "",
+        "M1002 gcode_claim_action : 72 ; Hotend Type Detection"
+      ],
+      "after": [
+        "M972 S14 P0 T5000 ; nozzle type detection",
+        "",
+        "M104 S265 T1 ; rise temp in advance",
+        "",
+        "G151 P1 M ; plug the heat nozzle",
+        "",
+        "",
+        "M1002 gcode_claim_action : 75 ; Heatbed underside foreign object detection"
+      ]
+    },
+    {
+      "line": 4584341,
+      "token": "T65535",
+      "before": [
+        "M620.11 P1 I0 B-1 E-14 F449.008",
+        "",
+        "",
+        "",
+        "M620.11 K1 I0 B-1 R10 F449.008",
+        "",
+        "",
+        "M620.11 P1 I0 B-1 E-14"
+      ],
+      "after": [
+        "G150.2",
+        "M621 S65535",
+        "",
+        "M620 S65279",
+        "T65279"
+      ]
+    },
+    {
+      "line": 4584346,
+      "token": "T65279",
+      "before": [
+        "",
+        "",
+        "M620.11 P1 I0 B-1 E-14",
+        "T65535",
+        "G150.2",
+        "M621 S65535",
+        "",
+        "M620 S65279"
+      ],
+      "after": [
+        "G150.2",
+        "M621 S65279",
+        "",
+        "G150.3",
+        "",
+        "M104 S0 T0; turn off hotend",
+        "M104 S0 T1; turn off hotend",
+        ""
+      ]
+    }
+  ],
+  "native_recipe_tokens": {
+    "machine_start_gcode": [
+      "T1001"
+    ],
+    "machine_end_gcode": [
+      "T65535",
+      "T65279"
+    ]
+  }
+}
