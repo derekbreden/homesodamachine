@@ -21,7 +21,7 @@
   "bed": "Textured PEI Plate",
   "print_sequence": "by layer",
   "trial": "magnetic-float ASA Aero physical v4",
-  "status": "prepared_awaiting_start_request",
+  "status": "accepted",
   "printer": "Mark2",
   "archive_name": "magnetic-float-pair-mark2-aero-v5.gcode.3mf",
   "parts": [
@@ -30,13 +30,13 @@
   ],
   "quantity_per_part": 1,
   "native_archive_revision": 5,
-  "bed_clear_confirmation": null,
+  "bed_clear_confirmation": "Bed is clear and ready for your next attempt, whatever you would like to try.",
   "minimum_cross_printer_start_or_resume_spacing_s": 180,
   "cool_before_removal_c": 35,
   "completion_reported": false,
-  "monitor_active": false,
-  "send_attempts": 0,
-  "updated_utc": "2026-10-03T04:56:50.808458+00:00",
+  "monitor_active": true,
+  "send_attempts": 1,
+  "updated_utc": "2026-10-03T05:07:10.041675+00:00",
   "priming_strip_review": {
     "centerline_bounds_xy_mm": [
       230.0,
@@ -71,5 +71,8 @@
     ],
     "clear_of_parts_and_bed_exclusions": true
   },
-  "scope": "Combined frozen core and insert with an added corner startup strip. A new start request or clear-bed report after the canceled job supplies the launch condition."
+  "scope": "Combined frozen core and insert with an added corner startup strip; printer acceptance is confirmed, physical adhesion and fit are unverified.",
+  "accepted_task_id": "1304058102",
+  "launch_record": "pair-mark2-launch.json",
+  "accepted_utc": "2026-10-03T05:06:30.947572+00:00"
 }

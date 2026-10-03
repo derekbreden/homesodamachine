@@ -1,9 +1,13 @@
 # Magnetic-float ASA Aero corner priming strip
 
-A combined core and insert plate is prepared for Mark2's right standard-flow
-hardened 0.4 mm nozzle, with an additional single-layer priming strip at the
-front-right corner. **No Send has occurred for this archive.** A new start request
-or clear-bed report after the canceled job supplies the launch condition.
+The combined core and insert plate is accepted on Mark2 as task **1304058102**,
+`magnetic-float-pair-mark2-aero-v5.gcode.3mf`, using its right standard-flow hardened
+0.4 mm nozzle and an additional single-layer priming strip at the front-right
+corner. One Send received `project_file SUCCESS`; the matching task entered
+`RUNNING` at layer 0. This confirms printer startup, with visual adhesion and
+physical fit still unverified. The user's start request confirms the bed is clear.
+Full acceptance, mapping, heater readings and startup spacing are in the
+[launch record](pair-mark2-launch.json).
 
 The [physical startup report](../v3/physical-observations.json) describes the
 corner load line lifting, being dragged to the part, and the first part extrusion
@@ -54,7 +58,7 @@ parent archive is retained. The inherited 1 h 56 min estimate excludes the
 added strip and expanded probing. The native part preview does not show
 startup priming paths; their coordinates are checked separately.
 
-For the next trial, startup success means the strip stays on the plate, no loose
+For this trial, startup success means the strip stays on the plate, no loose
 strand reaches the part, and the first part loop adheres. These visual observations
 address startup adhesion; they do not establish printed density, fit or buoyancy.
 The parts and plate retain the 35 °C cooling threshold before release.
