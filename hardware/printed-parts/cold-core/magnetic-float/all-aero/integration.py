@@ -43,7 +43,7 @@ def main():
     body = load(float_path)
     guides = {}
     inputs = [float_path, HERE/'float-aero.stl', HERE/'design.json',
-              HERE.parents[1]/'_float_interface.py',
+              HERE.parents[1]/'_float_interface.py', HERE/'physical-observations.json',
               HW/'cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step',
               HW/'cut-parts/carbonation/endcaps-circular/endcap-circular-2hole-drawing.pdf']
     assert abs(body.BoundingBox().xlen - f.diameter) < 1e-6
@@ -89,7 +89,11 @@ def main():
     reservoir_reed_axis = bag_pocket_outermost_x + reed_x_depth/2
     paths = {'carbonator': f.reed_edge_distance(cap.register_radius*25.4, carb_reed_axis),
              'reservoir': f.reed_edge_distance(res.rod_position_x, reservoir_reed_axis)}
-    assert all(0 < x < f.bench_edge_distance for x in paths.values())
+    float_paths = {'carbonator': f.reed_float_edge_distance(cap.register_radius*25.4, carb_reed_axis),
+                   'reservoir': f.reed_float_edge_distance(res.rod_position_x, reservoir_reed_axis)}
+    assert all(0 < x <= f.float_edge_design_maximum for x in float_paths.values())
+    assert all(abs(paths[name] - distance - f.magnet_edge_inset) < 1e-9
+               for name, distance in float_paths.items())
     for z in (bridge.reed_low_z, bridge.reed_high_z):
         assert bridge.magnet_lowest_z < z < bridge.magnet_highest_z
     assert res.float_magnet_travel_z[0] < min(res.reservoir_reed_centres_z)
@@ -112,6 +116,10 @@ def main():
         'WALL_CLEARANCE_RANGE': f'{f.minimum_wall_clearance:g}–{f.maximum_wall_clearance:g} mm',
         'CARB_REED_PATH': f'{paths["carbonator"]:.3f} mm',
         'RES_REED_PATH': f'{paths["reservoir"]:.3f} mm',
+        'CARB_FLOAT_REED_PATH': f'{float_paths["carbonator"]:.3f} mm',
+        'RES_FLOAT_REED_PATH': f'{float_paths["reservoir"]:.3f} mm',
+        'FLOAT_REED_DESIGN_MAX': f'{f.float_edge_design_maximum:g} mm',
+        'FLOAT_REED_REPORTED_LIMIT': f'{f.float_edge_reported_usable_limit:g} mm',
         'CARB_WATER_LEVELS': f'{bridge.low_level_z:.3f} / {bridge.high_level_z:.3f} mm',
         'CARB_REED_CENTERS': f'{bridge.reed_low_z:.3f} / {bridge.reed_high_z:.3f} mm',
         'CARB_TRAVEL': f'{bridge.magnet_lowest_z:.3f}–{bridge.magnet_highest_z:.3f} mm',
@@ -126,13 +134,19 @@ def main():
               'carbonator_register_xy_mm': list(x*25.4 for x in cap.register_position),
               'carbonator_upright_wall_clearance_range_mm': [f.minimum_wall_clearance, f.maximum_wall_clearance],
               'reservoirs': guides, 'maximum_reed_center_to_nearest_rc62_edge_mm': paths,
-              'bench_reference_edge_distance_mm': f.bench_edge_distance,
+              'maximum_float_edge_to_reed_center_mm': float_paths,
+              'design_maximum_float_edge_to_reed_center_mm': f.float_edge_design_maximum,
+              'reported_usable_float_edge_to_reed_center_mm': f.float_edge_reported_usable_limit,
+              'radial_signal_evidence': f.float_edge_evidence,
+              'bare_rc62_bench_reference_magnet_edge_distance_mm': f.bench_edge_distance,
               'reed_centers': 'provisional geometry; installed directional liquid calibration pending',
               'scope': 'Nominal upright CAD and horizontal bore play only; no foam expansion, tilted motion, installed switching, pressure, lifetime or wetted acceptance.',
               'files_sha256': {str(p.relative_to(ROOT)): digest(p) for p in inputs}}
     (HERE/'integration-check.json').write_text(json.dumps(record, indent=2)+'\n')
     substitute_md(HERE/'installation.md', variables=facts)
-    print(json.dumps({'reservoirs': guides, 'reed_edge_paths_mm': paths}, indent=2))
+    print(json.dumps({'reservoirs': guides, 'rc62_edge_to_reed_center_mm': paths,
+                      'float_edge_to_reed_center_mm': float_paths,
+                      'design_maximum_float_edge_to_reed_center_mm': f.float_edge_design_maximum}, indent=2))
 
 
 if __name__ == '__main__':

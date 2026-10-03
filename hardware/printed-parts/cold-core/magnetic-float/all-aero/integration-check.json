@@ -49,14 +49,22 @@
     "carbonator": 14.188499999999996,
     "reservoir": 19.5375
   },
-  "bench_reference_edge_distance_mm": 30.0,
+  "maximum_float_edge_to_reed_center_mm": {
+    "carbonator": 5.713499999999996,
+    "reservoir": 11.0625
+  },
+  "design_maximum_float_edge_to_reed_center_mm": 18.0,
+  "reported_usable_float_edge_to_reed_center_mm": 20.0,
+  "radial_signal_evidence": "magnetic-float/all-aero/physical-observations.json#reed_reach_report",
+  "bare_rc62_bench_reference_magnet_edge_distance_mm": 30.0,
   "reed_centers": "provisional geometry; installed directional liquid calibration pending",
   "scope": "Nominal upright CAD and horizontal bore play only; no foam expansion, tilted motion, installed switching, pressure, lifetime or wetted acceptance.",
   "files_sha256": {
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step": "1e4ed9c8ebea605ef20e10455824795c1b795d3e9458aea1ced41d55cb52d1e1",
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.stl": "3399efb10948de1ebd86b20bf13f0ce8f4989a10eff061200fd1a8cab066fb4e",
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/design.json": "26d56f4b34bbb391548c9f226014884ba1e8e12235564fb32aea22353873dfeb",
-    "hardware/printed-parts/cold-core/_float_interface.py": "fbd61e3bfe51be4ba5c4b42167421fe141e969bfade8137f8292779f816428f5",
+    "hardware/printed-parts/cold-core/_float_interface.py": "d2fc9c9029101bf471e06f81f9b1acbc4c6c841ba629e561fd9a33833319a72a",
+    "hardware/printed-parts/cold-core/magnetic-float/all-aero/physical-observations.json": "67f7ae668054a076388c50a6568e9c4e345dda6559eef7f381fc4dc7077bbe38",
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": "cd81ff529ce5d1fafef25744935ea798db8ae4ed898c1ed42b63b8d0be2ec00a",
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole-drawing.pdf": "7b1fe8c38f558ac50b50b6332eb7366310230237e6e2de468a406594aa792749",
     "hardware/printed-parts/cold-core/reservoir/reservoir-right.step": "1bbf0e57b592503969b0884f0c4fc56b18e8bccf4f2880af9924298bb3925ea4",

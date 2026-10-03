@@ -196,11 +196,11 @@ def carbonator_reed_x() -> float:
 
 # --- where a float rides -----------------------------------------------------
 #
-# Running room and RC62 edge reach are separate datums. The nearest RC62 edge
-# is 8.475 mm inside the foam perimeter. Bench reach is one unheated pair;
-# installed-wall switching and the printed magnet still require calibration.
+# Running room and float-edge reed reach are separate datums. The nearest
+# RC62 edge is 8.475 mm inside the foam perimeter. The printed-float bench
+# report supplies the provisional radial limit; installed switching needs calibration.
 FLOAT_SLOP = _float.guide_radial_clearance
-MAGNET_EDGE_BENCH_REACH = _float.bench_edge_distance
+FLOAT_EDGE_DESIGN_MAXIMUM = _float.float_edge_design_maximum
 
 
 def float_ride(park: float, wall: float) -> tuple:

@@ -148,15 +148,15 @@
   },
   {
    "id": "floats-couple",
-   "label": "Aero floats clear their walls within the RC62 bench reach band",
+   "label": "Aero floats clear their walls within the float-edge reed distance limit",
    "kind": "gate",
    "status": "pass",
    "value": "3/3 floats",
-   "target": ">=1 mm body clearance, <=30 mm edge path; geometry only",
+   "target": ">=1 mm body clearance, <=18 mm float-edge to reed-centre; geometry only",
    "detail": [
-    "float-a: body/wet-wall gap 1.187..2.812 mm; reed-centre to RC62 edge at most 19.538 mm; installed switching height unmeasured",
-    "float-b: body/wet-wall gap 1.187..2.812 mm; reed-centre to RC62 edge at most 19.538 mm; installed switching height unmeasured",
-    "float-carb: body/wet-wall gap 1.187..2.812 mm; reed-centre to RC62 edge at most 14.188 mm; installed switching height unmeasured"
+    "float-a: body/wet-wall gap 1.187..2.812 mm; float-edge to reed-centre at most 11.062 mm; reed-centre to RC62 edge at most 19.538 mm; installed switching height unmeasured",
+    "float-b: body/wet-wall gap 1.187..2.812 mm; float-edge to reed-centre at most 11.062 mm; reed-centre to RC62 edge at most 19.538 mm; installed switching height unmeasured",
+    "float-carb: body/wet-wall gap 1.187..2.812 mm; float-edge to reed-centre at most 5.713 mm; reed-centre to RC62 edge at most 14.188 mm; installed switching height unmeasured"
    ],
    "active": true
   },

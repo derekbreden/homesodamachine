@@ -240,7 +240,7 @@ def cold_core(m):
         "BRIDGE_BOTTOM": f"{rb.bridge_z_bottom:.3f}",
         "CLO_REED_Z": f"{rb.reed_low_z:.3f}",
         "CHI_REED_Z": f"{rb.reed_high_z:.3f}",
-        "CARB_MAGNET_EDGE_PATH": f"{flt.reed_edge_distance(rb.register_radius*25.4, rb.carbonator_outer_radius+flt.reed_mount_diameter/2):.3f}",
+        "CARB_FLOAT_EDGE_PATH": f"{flt.reed_float_edge_distance(rb.register_radius*25.4, rb.carbonator_outer_radius+flt.reed_mount_diameter/2):.3f}",
         # The shell (CC-05, CC-14, CC-15).
         "CORE_FOOTPRINT": f"{cci.outer_shell_x_length:.4g} {X} "
                           f"{cci.outer_shell_y_length:.4g} mm",
@@ -300,7 +300,7 @@ def cold_core(m):
     }
 
     cards = {
-        "cc-02-dress-the-carbonator-wall": {"BRIDGE_BOTTOM", "CLO_REED_Z", "CHI_REED_Z", "CARB_MAGNET_EDGE_PATH"},
+        "cc-02-dress-the-carbonator-wall": {"BRIDGE_BOTTOM", "CLO_REED_Z", "CHI_REED_Z", "CARB_FLOAT_EDGE_PATH"},
         "cc-03-transfer-the-coil": {
             "WIND_LENGTH", "WIND_BAND_LOW", "WIND_BAND_HIGH"},
         "cc-05-press-shell-inserts": {

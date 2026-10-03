@@ -54,9 +54,16 @@ reed_model = "Littelfuse MDSR-7-10-15"
 # The MDSR-7 glass itself is 12.7 mm long. A mounting envelope is not an AT rating.
 reed_mount_length = 14.0
 reed_mount_diameter = 2.5
+# Bare-magnet reference measurements use the RC62 edge, not the foam perimeter.
 bench_edge_distance = 30.0
 bench_stable_travel = 30.0
-bench_scope = "One RC62 and one MDSR-7-10-15, axial reed; nearest magnet edge datum; no installed-wall or post-print calibration"
+bench_scope = "One bare RC62 and one MDSR-7-10-15, axial reed; nearest magnet edge datum; no installed-wall calibration"
+# The reported printed-float test uses FLOAT EDGE to REED CENTER: 20 mm
+# usable, 21–24 mm intermittent, 25 mm consistently absent. Keep the initial
+# installed geometry within 18 mm, including retreat through the running bore.
+float_edge_reported_usable_limit = 20.0
+float_edge_design_maximum = 18.0
+float_edge_evidence = "magnetic-float/all-aero/physical-observations.json#reed_reach_report"
 
 
 def magnet_above_waterline(mass_g=design_mass_g, liquid_density=water_density):
@@ -72,6 +79,11 @@ def magnet_above_waterline(mass_g=design_mass_g, liquid_density=water_density):
 def reed_edge_distance(rod_axis, reed_axis):
     """Conservative collinear horizontal reed-centre to nearest RC62 edge."""
     return abs(reed_axis - rod_axis) + guide_radial_clearance - magnet_od / 2
+
+
+def reed_float_edge_distance(rod_axis, reed_axis):
+    """Greatest collinear float-perimeter to reed-center distance with bore play."""
+    return abs(reed_axis - rod_axis) + guide_radial_clearance - diameter / 2
 
 
 assert minimum_wall_clearance > 1.0
