@@ -208,12 +208,13 @@
           "source_stl_sha256": "e23e82074fa6aaa0f6d93aefb8a95147908e24418021b2501e32e24a08c2eaad",
           "requested_z_trim_mm": 0.04,
           "review": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v4/receiver-mark2-preflight.json",
-          "status": "printer_accepted",
+          "status": "printing",
           "submitted": true,
           "printer_task_id": "1303677943",
           "job_name": "funnel-test-receiver-mark2-v4.gcode.3mf",
           "accepted_observed_utc": "2026-10-03T00:57:43.982893+00:00",
-          "launch_record": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v4/receiver-mark2-launch.json"
+          "launch_record": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v4/receiver-mark2-launch.json",
+          "first_layer_confirmed_utc": "2026-10-03T01:11:15.958902+00:00"
         }
       ],
       "geometry_export_revision": "29808fba7830848e59cbb740c11ff1b6d0b162fa",
