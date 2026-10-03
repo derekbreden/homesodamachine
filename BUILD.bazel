@@ -5190,6 +5190,72 @@ cp hardware/printed-parts/cold-core/reservoir/vent.md $$O24
 )
 
 genrule(
+    name = "all-aero-float",
+    srcs = [
+        "pysrc/hardware/printed-parts/cold-core/magnetic-float/all-aero/all_aero_float.py",
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_material_base.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/flute_payload.py",
+        "pysrc/tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step",
+        "out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step.mesh",
+        "out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/design.json",
+        "out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step",
+        "out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step.mesh",
+        "out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.stl",
+        "out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/insertion.step",
+        "out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/insertion.step.mesh",
+        "out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/section.step",
+        "out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/section.step.mesh",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step)
+O1=$$PWD/$(location out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step.mesh)
+O2=$$PWD/$(location out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/design.json)
+O3=$$PWD/$(location out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step)
+O4=$$PWD/$(location out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step.mesh)
+O5=$$PWD/$(location out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.stl)
+O6=$$PWD/$(location out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/insertion.step)
+O7=$$PWD/$(location out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/insertion.step.mesh)
+O8=$$PWD/$(location out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/section.step)
+O9=$$PWD/$(location out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/section.step.mesh)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/magnetic-float/all-aero/all_aero_float.py > /dev/null
+cp hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step $$O0
+cp hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step.mesh $$O1
+cp hardware/printed-parts/cold-core/magnetic-float/all-aero/design.json $$O2
+cp hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step $$O3
+cp hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step.mesh $$O4
+cp hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.stl $$O5
+cp hardware/printed-parts/cold-core/magnetic-float/all-aero/insertion.step $$O6
+cp hardware/printed-parts/cold-core/magnetic-float/all-aero/insertion.step.mesh $$O7
+cp hardware/printed-parts/cold-core/magnetic-float/all-aero/section.step $$O8
+cp hardware/printed-parts/cold-core/magnetic-float/all-aero/section.step.mesh $$O9
+""",
+)
+
+genrule(
     name = "magnetic-float",
     srcs = [
         "hardware/printed-parts/cold-core/magnetic-float/README.md",
@@ -12812,6 +12878,14 @@ genrule(
     name = "pysrc-2bc0460825be",
     srcs = ["hardware/printed-parts/cold-core/foam-shell/foam_shell.py"],
     outs = ["pysrc/hardware/printed-parts/cold-core/foam-shell/foam_shell.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-77deb5ea4f70",
+    srcs = ["hardware/printed-parts/cold-core/magnetic-float/all-aero/all_aero_float.py"],
+    outs = ["pysrc/hardware/printed-parts/cold-core/magnetic-float/all-aero/all_aero_float.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -30265,6 +30339,7 @@ filegroup(
         ":foam-assembly",
         ":foam-cap",
         ":foam-shell",
+        ":all-aero-float",
         ":magnetic-float",
         ":prv-shroud",
         ":collet-press",

@@ -1,0 +1,8 @@
+{
+  "article": "All-ASA Aero magnetic float bench prototype",
+  "reported_date": "2026-10-03",
+  "source": "Derek's request in Printer 2",
+  "observation": "There is such a tiny amount of pull with the small amount of metal on the hotend that actually gets close enough, I think it might just work, especially because the magnet actually sits and grips quite well in the ASA Aero.",
+  "scope": "Operator observation of hotend attraction and magnet grip in an existing ASA Aero piece. Magnet stability during a paused print, roof adhesion, heat exposure, finished buoyancy and density are not established by this observation.",
+  "paused_print_result": "Not reported."
+}
