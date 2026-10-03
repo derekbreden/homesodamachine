@@ -21,7 +21,7 @@
   "bed": "Engineering Plate",
   "print_sequence": "by layer",
   "trial": "magnetic-float ASA Aero physical v6",
-  "status": "running",
+  "status": "monitoring_local_float_print",
   "printer": "Mark2",
   "archive_name": "magnetic-float-pair-mark2-aero-v6.gcode.3mf",
   "parts": [
@@ -36,7 +36,7 @@
   "completion_reported": false,
   "monitor_active": true,
   "send_attempts": 1,
-  "updated_utc": "2026-10-03T06:08:41.259312+00:00",
+  "updated_utc": "2026-10-03T06:58:15.340438+00:00",
   "priming_strip_review": {
     "centerline_bounds_xy_mm": [
       230.0,
@@ -71,10 +71,12 @@
     ],
     "clear_of_parts_and_bed_exclusions": true
   },
-  "scope": "Combined frozen core and insert on glued Engineering plate reached layer 1 in matching task telemetry; visual adhesion, physical fit, density and buoyancy unreported.",
+  "scope": "Local float print RC62 magnetic float - aero, task_id 6700, is the active monitor target. Cloud v6 acceptance and frozen hashes remain historical; local archive identity is unverified.",
   "launch_record": "pair-mark2-launch.json",
   "adhesive_application_reported": true,
   "physical_trial_revision": 6,
   "accepted_task_id": "1304125241",
-  "accepted_utc": "2026-10-03T05:58:21.680040+00:00"
+  "accepted_utc": "2026-10-03T05:58:21.680040+00:00",
+  "active_monitor_record": "operator-print.json",
+  "accepted_task_terminal_state": "Not observed"
 }

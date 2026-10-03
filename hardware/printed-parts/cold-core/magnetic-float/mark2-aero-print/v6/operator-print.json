@@ -1,0 +1,169 @@
+{
+  "printer": "Mark2",
+  "status": "running",
+  "launch_actor": "Not reported",
+  "launch_timestamp": "Not reported",
+  "accepted_cloud_task_id": null,
+  "identity": {
+    "job_id": "0",
+    "task_id": "6700",
+    "subtask_name": "RC62 magnetic float - aero",
+    "print_type": "local",
+    "gcode_file": "/data/Metadata/plate_1.gcode"
+  },
+  "archive_identity_verified": false,
+  "archive_sha256": null,
+  "source_stl_sha256": null,
+  "scope": "Current operator-observed float print has a local identity. Frozen v6 archive, geometry, trim and path identity are not established for this local task. It must not be attributed to cloud task 1304125241.",
+  "material_source": {
+    "physical_source": "Polymaker drybox",
+    "basis": "User report",
+    "feeding_result": "User reports working better than AMS HT",
+    "cause_established": false
+  },
+  "observations": [
+    {
+      "event": "printer_progress",
+      "observed_at": "2026-10-03T06:53:18.298026+00:00",
+      "job_id": "0",
+      "subtask_name": "RC62 magnetic float - aero",
+      "gcode_state": "RUNNING",
+      "stg_cur": 0,
+      "layer_num": 25,
+      "total_layer_num": 220,
+      "mc_percent": 31,
+      "mc_remaining_time": 80,
+      "bed_temper": 90.0,
+      "bed_target_temper": 90.0,
+      "print_error": 0,
+      "hms": [],
+      "installed_extruders": [
+        {
+          "id": 0,
+          "temperature_packed": 17694990,
+          "actual_c": 270,
+          "target_c": 270
+        },
+        {
+          "id": 1,
+          "temperature_packed": 76,
+          "actual_c": 76,
+          "target_c": 0
+        }
+      ],
+      "chamber": {
+        "temperature_packed": 3932219,
+        "actual_c": 59,
+        "target_c": 60,
+        "source_field": "device.ctc.info.temp"
+      },
+      "nozzles": [
+        {
+          "id": 0,
+          "diameter": 0.4,
+          "type": "HS01",
+          "fila_id": "GFB02",
+          "color_m": "FFFFFFFF"
+        },
+        {
+          "id": 1,
+          "diameter": 0.4,
+          "type": "HS01",
+          "fila_id": "",
+          "color_m": "00000000"
+        }
+      ],
+      "ams_mapping": {
+        "mapping": [
+          65280
+        ],
+        "ams_status": 768
+      },
+      "scope": "Printer telemetry only; identity task_id 6700 confirmed in a following read."
+    },
+    {
+      "event": "user_report",
+      "recorded_utc": "2026-10-03T06:58:15.340438+00:00",
+      "quote": "There have been a few distinct problems, and I haven't shared all the details, but the key point is that we had been using the AMS HT and we are now using the polymaker drybox and that is working better.",
+      "scope": "User reports feed-source change and improved operation. Specific earlier failures and mechanisms are not fully reported."
+    },
+    {
+      "event": "user_report",
+      "recorded_utc": "2026-10-03T06:58:15.340438+00:00",
+      "quote": "We do still have some flaking, that is reminiscent of issues we had with TPU in too small of a nozzle, but I see 0.4 is the right size here, so maybe we just need to reduce the volume a bit.",
+      "scope": "Flaking reported. Location and mechanism remain unreported; reduced volume is a proposed adjustment."
+    },
+    {
+      "event": "user_report",
+      "recorded_utc": "2026-10-03T06:58:15.340438+00:00",
+      "quote": "I'm going to let the current print finish. There is flaking, and one more issue but I think it might finish anyways.",
+      "scope": "Continue monitoring the running print without changing its settings."
+    },
+    {
+      "event": "user_report",
+      "recorded_utc": "2026-10-03T06:58:15.340438+00:00",
+      "quote": "The one more issue is that every time the nozzle moves and is *not* printing the filament continues to extrude just because of its expansion when heating, and so we end up with bits carried around on each \"jump\".",
+      "scope": "Travel oozing and carried bits are observed by the user. Thermal expansion is the user's explanation; the observation alone does not quantify expansion or prove the cause of flaking."
+    }
+  ],
+  "completion_reported": false,
+  "monitor_active": true,
+  "latest_status": {
+    "job_id": "0",
+    "subtask_name": "RC62 magnetic float - aero",
+    "gcode_state": "RUNNING",
+    "stg_cur": 0,
+    "layer_num": 25,
+    "total_layer_num": 220,
+    "mc_percent": 31,
+    "mc_remaining_time": 80,
+    "bed_temper": 90.0,
+    "bed_target_temper": 90.0,
+    "print_error": 0,
+    "hms": [],
+    "installed_extruders": [
+      {
+        "id": 0,
+        "temperature_packed": 17694990,
+        "actual_c": 270,
+        "target_c": 270
+      },
+      {
+        "id": 1,
+        "temperature_packed": 76,
+        "actual_c": 76,
+        "target_c": 0
+      }
+    ],
+    "chamber": {
+      "temperature_packed": 3932219,
+      "actual_c": 59,
+      "target_c": 60,
+      "source_field": "device.ctc.info.temp"
+    },
+    "nozzles": [
+      {
+        "id": 0,
+        "diameter": 0.4,
+        "type": "HS01",
+        "fila_id": "GFB02",
+        "color_m": "FFFFFFFF"
+      },
+      {
+        "id": 1,
+        "diameter": 0.4,
+        "type": "HS01",
+        "fila_id": "",
+        "color_m": "00000000"
+      }
+    ],
+    "ams_mapping": {
+      "mapping": [
+        65280
+      ],
+      "ams_status": 768
+    }
+  },
+  "latest_observed_utc": "2026-10-03T06:53:18.298026+00:00",
+  "recorded_utc": "2026-10-03T06:58:15.340438+00:00"
+}

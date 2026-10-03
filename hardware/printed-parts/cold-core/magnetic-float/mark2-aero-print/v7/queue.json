@@ -1,0 +1,71 @@
+{
+  "trial": "magnetic-float ASA Aero nested-wall physical trial v7",
+  "physical_trial_revision": 7,
+  "native_archive_revision": 8,
+  "printer": "Mark2",
+  "status": "prepared_not_submitted",
+  "parts_in_launch_order": [
+    "insert",
+    "core"
+  ],
+  "quantity_per_part": 1,
+  "one_object_per_plate": true,
+  "send_attempts": 0,
+  "monitor_active": false,
+  "current_print_monitor_record": "../v6/operator-print.json",
+  "start_condition": "Current local float print must finish and be removed, followed by a new clear-bed report or start request. Do not automatically start either prepared job. A start request confirms the bed clear.",
+  "source_commit": "f3cefbe360b7a8019741d177868d1e6c6770b93f",
+  "jobs": {
+    "core": {
+      "part": "body-aero",
+      "preflight": "core-preflight.json",
+      "archive": ".cache/prints/magnetic-float-core-mark2-aero-v8/ready/magnetic-float-core-mark2-aero-v8.gcode.3mf",
+      "archive_sha256": "5be370afc5d7498cba59007bd201437a07379f37b92c89c4af0d1e5dbd5652e3",
+      "gcode_sha256": "f961311377b16c7fcb14df65ef22834824f84b532805fcff3477b124ea45b772",
+      "source_stl_sha256": {
+        "body-aero": "63d12cbb501b629997a2462822df42a1f4f6bf20ee2806f2f6f310c1f7e72771"
+      },
+      "status": "prepared_not_submitted",
+      "send_attempts": 0
+    },
+    "insert": {
+      "part": "insert-aero",
+      "preflight": "insert-preflight.json",
+      "archive": ".cache/prints/magnetic-float-insert-mark2-aero-v8/ready/magnetic-float-insert-mark2-aero-v8.gcode.3mf",
+      "archive_sha256": "9a1b755ecd9d62abd0aeae3617a2cdfad50b527a712b073de3bb203d565ac2bd",
+      "gcode_sha256": "39ed09d593b983b8cc6e431b2d7ee6b5f185095af9cbfa44c35fb397307eee8c",
+      "source_stl_sha256": {
+        "insert-aero": "c69cdc552c1dec84dd0bd84972ed601667df8327b0388236eec63ea7d672b8c6"
+      },
+      "status": "prepared_not_submitted",
+      "send_attempts": 0
+    }
+  },
+  "bed": "Engineering Plate, with glue",
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.04
+  ],
+  "recipe": {
+    "wall_loops": 300,
+    "top_one_wall_type": "not apply",
+    "only_one_wall_first_layer": false,
+    "top_shell_layers": 0,
+    "bottom_shell_layers": 0,
+    "sparse_infill_density_percent": 0,
+    "layer_height_mm": 0.2,
+    "line_width_mm": 0.48,
+    "flow_ratio": 0.52,
+    "nozzle_c": 270,
+    "bed_c": 90,
+    "chamber_c": 60
+  },
+  "physical_material_source": "Polymaker drybox, reported by user",
+  "send_dialog_source_verified": false,
+  "launch_gate": "Verify frozen archive/G-code/STL hashes, actual external ASA Aero mapping to right hardened standard-flow 0.4 mm nozzle, idle Mark2, both printer states and 180-second start/resume spacing before a single guarded Send. No AMS HT source is requested.",
+  "cool_before_removal_c": 35,
+  "scope": "Only nested inner/outer wall deposition paths are emitted. Travel, retraction wipes, seam positioning and crossings over the core magnet pocket remain. No claim of zero travel or physical success.",
+  "user_request": "So I'm thinking we want to try one piece at a time, and with that piece, just do like 300 walls so that it is all walls and we get concentric the whole way, and no jumps.",
+  "updated_utc": "2026-10-03T07:21:04.652136+00:00"
+}
