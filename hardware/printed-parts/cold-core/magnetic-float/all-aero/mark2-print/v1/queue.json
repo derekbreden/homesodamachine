@@ -53,5 +53,8 @@
     "basis": "Native initial M73 C56 time-to-pause and M73 R31 at the end of layer 79 in the 88-minute slice; actual warm-up and calibration can shift wall-clock timing.",
     "scope": "Approximate wall-clock estimate; startup heating, calibration and firmware motion can shift arrival. The native pause waits for manual magnet insertion and resume."
   },
-  "completion_reported": false
+  "completion_reported": false,
+  "physical_observations": "../../physical-observations.json",
+  "operator_reported_progress": "Paused RC62 insertion and initial overprint reported successful; first covering layer tight, second deposited well.",
+  "next_trial_record": "../../physical-observations.json"
 }

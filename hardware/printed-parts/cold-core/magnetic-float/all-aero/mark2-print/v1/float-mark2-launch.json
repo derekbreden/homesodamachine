@@ -229,6 +229,16 @@
         "target_c": 0,
         "source_field": "device.ctc.info.temp"
       }
+    },
+    {
+      "event": "operator_reported_magnet_insertion_and_initial_overprint",
+      "recorded_utc": "2026-10-03T21:12:57.118228+00:00",
+      "source": "Derek report and attached photo in Printer 2",
+      "task_id": "1306080180",
+      "operator_quote": "It worked. Maybe one more layer of space needed above the magnet for next time, as the first layer on the magnet was a bit too tight, but the second layer went down beautifully.",
+      "evidence_record": "../../physical-observations.json",
+      "photo": "evidence/magnet-insertion-overprint-2026-10-03.jpg",
+      "scope": "Supports paused RC62 insertion and initial overprinting in this identified trial. Final roof integrity, completed and cooled removal, retained magnetic signal, density, buoyancy, pressure endurance and flavor compatibility are not established by this report."
     }
   ],
   "printer_reports": [
