@@ -3,9 +3,10 @@
 One frozen Funnel 2 receiver on Mark2 and one cradle on H2C, using the
 [bench procedure](../../README.md). The slots have 0.25 mm clearance at each
 wing end. The hook catch gap is 0.65 mm, and the counterbore ends on the slots.
-The [physical record](../../physical-acceptance.json) rates v3 insertion
-"Very good" with the printed v2 receiver; retention and cycle testing are not
-reported. This v4 pair requires its own physical result.
+The [physical record](../../physical-acceptance.json) records Derek's result
+for this v4 pair: "Alright, I think we're good here." The report matches the
+two printer tasks and frozen meshes below. Retention and cycle testing are
+not reported.
 
 | Part | Printer | Requested Z trim | Native estimate | State |
 | --- | --- | --- | --- | --- |
@@ -60,19 +61,19 @@ at least 180 seconds after the other printer's accepted start or resume.
 
 The [cradle first-layer observation](cradle-h2c-launch.json) records matching
 task and archive telemetry at layer 19 of 149, with no print error or HMS
-alerts. This confirms progress beyond the first layer; physical print quality
-has not been inspected.
+alerts. This confirms progress beyond the first layer.
 The [receiver first-layer observation](receiver-mark2-launch.json) records
 matching task and archive telemetry at layer 6 of 50, with no print error or
-HMS alerts; its physical print quality has not been inspected.
+HMS alerts. These observations describe printer progress; the physical result
+is recorded above.
 
 The [cradle completion](cradle-h2c-completion.json) reports all 149 layers
 finished, and the [receiver completion](receiver-mark2-completion.json) reports
 all 50. Each task and archive name matches its accepted launch. Both printers
 report 100%, no print error and no HMS alerts. The reviewed archive and G-code
 hashes remain unchanged, with ZIP integrity and G-code MD5 checks passing.
-The pair is ready for removal and the bench procedure after cooling. These
-completion observations do not establish physical fit or retention.
+These completion observations confirm job completion; the reported physical
+result is linked above.
 
 After cooling, remove the two hook supports outward into open space,
 retaining the hook bearing dimensions. Follow the bench procedure with the
