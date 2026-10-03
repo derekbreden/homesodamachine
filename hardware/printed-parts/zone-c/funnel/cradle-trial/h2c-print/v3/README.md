@@ -8,7 +8,7 @@ cradle snapping; v3 insertion, elastic return and retention require this trial.
 
 | Part | Printer | Requested Z trim | Native estimate | State |
 | --- | --- | --- | --- | --- |
-| Test cradle v3 | Mark2 | +0.04 mm | 29 min 31 sec | Printing; task 1303516417 |
+| Test cradle v3 | Mark2 | +0.04 mm | 29 min 31 sec | Finished; task 1303516417 |
 | Reused test receiver v2 | Mark2 | +0.04 mm | Already printed | Finished; task 1303345379 |
 
 The [allocation](allocation.json) records both beds clear and Mark2's longer
@@ -46,7 +46,13 @@ beyond the first layer with no printer error or HMS notice. Print options are Ti
 Calibration Auto and Nozzle Offset Calibration Auto. Starts and resumes across
 H2C and Mark2 remain at least 180 seconds apart.
 
-Remove the two supports outward into the open space beside the cradle,
+The [completion record](cradle-mark2-completion.json) confirms all 148 layers
+finished at 100%, with no printer error or HMS notice. The cradle and reused
+v2 receiver are ready for the bench trial after the cradle cools. Print telemetry
+establishes completion; v3 physical quality, elastic return and retention remain
+unverified. Completion does not establish a clear bed for another job.
+
+After cooling, remove the two supports outward into the open space beside the cradle,
 retaining the hook bearing dimensions. Use the real PP0308E elbow and the
 printed v2 receiver for the bench procedure: elbow seating without rocking,
 hand insertion and release, hook retention and five cycles without cracking,
