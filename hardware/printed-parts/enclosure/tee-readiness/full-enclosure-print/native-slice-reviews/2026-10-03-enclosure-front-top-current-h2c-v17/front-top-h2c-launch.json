@@ -38,7 +38,7 @@
   "launch_requested_in_chat": "Funnel 3",
   "launch_owned_by_chat": "Printer 2",
   "archive_name": "enclosure-front-top-current-black-z018-h2c-v17.gcode.3mf",
-  "status": "accepted",
+  "status": "running",
   "send_attempts": 1,
   "send_attempt_utc": "2026-10-03T15:22:07.303262+00:00",
   "print_options": {
@@ -222,6 +222,49 @@
         "target_c": 0,
         "source_field": "device.ctc.info.temp"
       }
+    },
+    {
+      "event": "first_layer_printer_progress",
+      "observed_at": "2026-10-03T15:40:15.933929+00:00",
+      "job_id": "1305315362",
+      "task_id": "1305315362",
+      "subtask_name": "enclosure-front-top-current-black-z018-h2c-v17.gcode.3mf",
+      "print_type": "cloud",
+      "gcode_state": "RUNNING",
+      "layer_num": 1,
+      "total_layer_num": 1354,
+      "mc_percent": 0,
+      "mc_remaining_time": 1535,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": 0,
+      "bed_temper": 80.0,
+      "bed_target_temper": 80.0,
+      "installed_extruders": [
+        {
+          "id": 0,
+          "hnow": 0,
+          "snow": 65535,
+          "temperature_packed": 47,
+          "actual_c": 47,
+          "target_c": 0
+        },
+        {
+          "id": 1,
+          "hnow": 1,
+          "snow": 65024,
+          "temperature_packed": 17367305,
+          "actual_c": 265,
+          "target_c": 265
+        }
+      ],
+      "chamber": {
+        "temperature_packed": 34,
+        "actual_c": 34,
+        "target_c": 0,
+        "source_field": "device.ctc.info.temp"
+      },
+      "scope": "Printer reports layer 1 of 1354 with no error or HMS. This is printer progress, not visual adhesion, first-layer acceptance, support-removal or physical fit evidence."
     }
   ],
   "printer_reports": [
@@ -353,43 +396,43 @@
       ]
     }
   ],
-  "latest_observed_utc": "2026-10-03T15:24:46.850821+00:00",
+  "latest_observed_utc": "2026-10-03T15:40:15.933929+00:00",
   "latest_status": {
     "job_id": "1305315362",
     "task_id": "1305315362",
     "subtask_name": "enclosure-front-top-current-black-z018-h2c-v17.gcode.3mf",
     "print_type": "cloud",
     "gcode_state": "RUNNING",
-    "layer_num": 0,
+    "layer_num": 1,
     "total_layer_num": 1354,
     "mc_percent": 0,
-    "mc_remaining_time": 1544,
+    "mc_remaining_time": 1535,
     "print_error": 0,
     "hms": [],
-    "stg_cur": 74,
-    "bed_temper": 26.0,
-    "bed_target_temper": 26.0,
+    "stg_cur": 0,
+    "bed_temper": 80.0,
+    "bed_target_temper": 80.0,
     "installed_extruders": [
       {
         "id": 0,
         "hnow": 0,
         "snow": 65535,
-        "temperature_packed": 34,
-        "actual_c": 34,
+        "temperature_packed": 47,
+        "actual_c": 47,
         "target_c": 0
       },
       {
         "id": 1,
         "hnow": 1,
         "snow": 65024,
-        "temperature_packed": 176,
-        "actual_c": 176,
-        "target_c": 0
+        "temperature_packed": 17367305,
+        "actual_c": 265,
+        "target_c": 265
       }
     ],
     "chamber": {
-      "temperature_packed": 27,
-      "actual_c": 27,
+      "temperature_packed": 34,
+      "actual_c": 34,
       "target_c": 0,
       "source_field": "device.ctc.info.temp"
     }
@@ -404,5 +447,6 @@
   "layer_count_scope": "The native program has 878 layers containing part features and 476 additional support-only layers, totaling 1354 layer-change records. Printer telemetry reports the total; the committed review count is the part-feature layer count.",
   "native_part_layer_count": 878,
   "native_support_only_layer_count": 476,
-  "monitor_automation_id": "monitor-float-insert-and-front-top"
+  "monitor_automation_id": "monitor-float-insert-and-front-top",
+  "first_layer_printer_progress_utc": "2026-10-03T15:40:15.933929+00:00"
 }
