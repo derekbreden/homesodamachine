@@ -264,8 +264,7 @@ def main():
             "FUNNEL_SPOUT_ID": f"{spout_id:g} mm",
             "FUNNEL_PLUG": f"{plug_diameter:g} × "
                            f"{2 * elbow_cradle.plug_half_length(plug_diameter / 2):.1f} mm",
-            "FUNNEL_PLUG_CORNER": f"R{elbow_cradle.PLUG_CORNER:g}",
-            "FUNNEL_PLUG_WALL": f"{elbow_cradle.PLUG_WALL:g} mm",
+
             "FUNNEL_SPOUT_WALL": f"{spout_wall:g} mm",
             "FUNNEL_CHUTE": f"{chute_h:g} mm",
             "FUNNEL_DROP_UNDER": f"{drop:g} mm",
