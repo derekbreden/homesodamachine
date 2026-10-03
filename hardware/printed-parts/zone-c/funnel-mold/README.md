@@ -152,8 +152,13 @@ first layer and 245 °C afterward.
 The startup code applies a +0.18 mm Z trim in addition to the plate correction.
 With the 0.4 mm nozzle and Textured PEI, the emitted command is `G29.1 Z0.16`.
 
-The saved project contains no G-code. The current CAD exports require their
-own native slice, toolpath checks and print estimate.
+The saved project contains no G-code. The
+[current native slice review](native-slice-reviews/2026-10-03-centred-short-block/README.md)
+binds a separate mesh-refreshed copy to the current cavity and core STLs,
+retaining this PETG recipe. Both plates slice successfully with bed-rooted
+Snug support and at least 42 mm of deposited-path clearance from the bed edge.
+This review covers the plug blank tooling; its staged sealing-bore forming
+features still require completion before a finished funnel can be cast.
 
 [current-slice-review.json](current-slice-review.json) records successful
 slices of the saved geometry with the settings above. Its mesh and source

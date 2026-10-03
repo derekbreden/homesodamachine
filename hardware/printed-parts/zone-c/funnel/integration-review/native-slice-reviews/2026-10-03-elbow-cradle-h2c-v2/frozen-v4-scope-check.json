@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "physical_acceptance_record_sha256": "cd52d64ed5592767b94f73b5c97e17f96dab1a2de1086439b56de8fead1a78b7",
+  "unchanged_frozen_native_archives": [
+    {
+      "part": "cradle-h2c",
+      "preflight_sha256": "520c826569797afcb411f739975b9b99d9702aa86e5402359431e2b413e60592",
+      "archive": ".cache/prints/funnel-test-cradle-h2c-v4/ready/funnel-test-cradle-h2c-v4.gcode.3mf",
+      "archive_sha256": "18d6662e7d496f74e1582735905eea4e2799012d029f73269ba2e108e1d23f50",
+      "recorded_mesh_sha256": {
+        "test-cradle": "bfa9f8c089fd4a2dc11e59949f00431c3273bc0e78e48981ca891b832def34f1"
+      }
+    },
+    {
+      "part": "receiver-mark2",
+      "preflight_sha256": "40a19e0eb9f830f7d7430394f1f8b2a3bcad3bc2ace0a108718fc6fafd0a70e0",
+      "archive": ".cache/prints/funnel-test-receiver-mark2-v4/ready/funnel-test-receiver-mark2-v4.gcode.3mf",
+      "archive_sha256": "bfda3895b2e2ea955342fd3b80c10b842ad4acf7f575c874262f200b3355ffd4",
+      "recorded_mesh_sha256": {
+        "test-receiver": "e23e82074fa6aaa0f6d93aefb8a95147908e24418021b2501e32e24a08c2eaad"
+      }
+    }
+  ],
+  "scope": "Accepted v4 physical acceptance and native archives remain bound to their recorded frozen meshes; no current slice transfers that acceptance."
+}

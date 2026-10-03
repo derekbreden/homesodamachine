@@ -2,24 +2,25 @@
   "schema": 2,
   "scope": "Native exported solids, complete frame stock, sampled assembly motion and authored-route geometry. Digital checks do not qualify physical fit, support removal, silicone sealing, retention force or cycle life.",
   "source_sha256": {
-    "hardware/manifold-layout/enclosure-assembly.step": "2ea8aa70c2075ebeb899cbe621d5515cea5703b96da6aad1817b4941a87a2a5d",
-    "hardware/printed-parts/zone-c/funnel/funnel.step": "fd0143ed0caeef95d80b2a2c7bf4b4ce089c03da6ad39554f6f4e736f1cebc7a",
-    "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "011cba0d23badd7f0bc31ddffee6b55f68ac8b6cec8044aeb9d457e9b34be089",
-    "hardware/printed-parts/zone-c/funnel/elbow-cradle.step": "dfcbbdf80d91e10127a32f6cd98787088aaa4f588c06159d38541c8346940923",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "cb45044df359205d55dafe6ad3a8f5e8f332eccb2cfe6ac708f3c913672541b6",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "ef39a549003017fd0602844e3c46cc3899a3df00ad6c866fcac61da65cf06069",
-    "hardware/printed-parts/zone-c/funnel/funnel.py": "7e224d80c14b8bb089405d3c98964201a6df5141aaf3d1a10177808117df97e1",
-    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "4e8f53f1aaa2bb572a207f32ec58725213510e9a581f004902400a06cd6b615a",
-    "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": "c2b2c353984f14f50e9bfde6d16b8909a33e4fb3a98adc07efbc80873dd3fbe7",
-    "hardware/reference/funnel-drain-stub/funnel_drain_stub.py": "f22b45c7d877112c49c5d51bef81688ad88d624082d04deeaa812cddcbae702c",
-    "hardware/manifold-layout/enclosure_assembly.py": "d4f46a3316b29645f877e10f22a93328caf6e55fa42dfaada07224dd1940e9ec",
     "hardware/manifold-layout/_lines.py": "1afcff9a0d90b49cca1b11b7f663c6183205e3020087c56986c1987d121018cd",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "63d17e1d9dd08945d42795639eb0311a91c1511d7693fa3add4eb62ca8287946",
-    "hardware/manifold-layout/enclosure-assembly.scorecard.json": "32dae5c5b262aa21a9a2de3169a4be2fbfca08a9627d20261a45374573a7f52e",
-    "web/public/tube-routes.json": "bd77a118c90b2de4af9623e2feb99c2709520452a709ab2187084e45ed17f32f",
-    "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "9bbdd18722b968407c6eb844d1d70d4f85963a26afb1dceedbd5b4d0f754b6bd",
+    "hardware/manifold-layout/enclosure-assembly.scorecard.json": "1572050c9139953b73a20ab7e22e472b740f66106cc23cbc1e3efa60a06f38ef",
+    "hardware/manifold-layout/enclosure-assembly.step": "423b46dd9d931d4e34e8c53daa9b468a5d57494321c5f4f76e906a9b9a0d1f77",
+    "hardware/manifold-layout/enclosure_assembly.py": "d4f46a3316b29645f877e10f22a93328caf6e55fa42dfaada07224dd1940e9ec",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "ef39a549003017fd0602844e3c46cc3899a3df00ad6c866fcac61da65cf06069",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "e73227a6870af4f8f1b394fc77979c8f632f245df990c1c8a88691a65f7105f7",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "cb45044df359205d55dafe6ad3a8f5e8f332eccb2cfe6ac708f3c913672541b6",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "b9a330b868dde6cdab0278fecb023b4b3dc01a993e9070fa2828605237fded88",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "e73227a6870af4f8f1b394fc77979c8f632f245df990c1c8a88691a65f7105f7"
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "63d17e1d9dd08945d42795639eb0311a91c1511d7693fa3add4eb62ca8287946",
+    "hardware/printed-parts/zone-c/funnel/elbow-cradle.step": "02127f475220ce77f32d955cb795fc941f43c36346ee4fdfaf5210b2eb07047d",
+    "hardware/printed-parts/zone-c/funnel/elbow-cradle.stl": "651e537dfff26b46a18509768de188e617c63c3e75fb2d8e9622ddcff7171f03",
+    "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": "08c0f5cd3373c6ea0a6d2f24b2d1d5cc5da704691fbbbaa6eda94910c84403b0",
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "011cba0d23badd7f0bc31ddffee6b55f68ac8b6cec8044aeb9d457e9b34be089",
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "9bbdd18722b968407c6eb844d1d70d4f85963a26afb1dceedbd5b4d0f754b6bd",
+    "hardware/printed-parts/zone-c/funnel/funnel.py": "7e224d80c14b8bb089405d3c98964201a6df5141aaf3d1a10177808117df97e1",
+    "hardware/printed-parts/zone-c/funnel/funnel.step": "fd0143ed0caeef95d80b2a2c7bf4b4ce089c03da6ad39554f6f4e736f1cebc7a",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "4e8f53f1aaa2bb572a207f32ec58725213510e9a581f004902400a06cd6b615a",
+    "hardware/reference/funnel-drain-stub/funnel_drain_stub.py": "f22b45c7d877112c49c5d51bef81688ad88d624082d04deeaa812cddcbae702c",
+    "web/public/tube-routes.json": "f210014314dae344eed286ce1176d5bac9103864f2612053cd995622dd5803e0"
   },
   "native_body_count": 216,
   "frame": {
@@ -166,12 +167,12 @@
   "cradle": {
     "valid": true,
     "solid_count": 1,
-    "volume_mm3": 17711.450304082413,
+    "volume_mm3": 17657.600353008318,
     "bounds_mm": [
       -16.3,
       20.0,
       153.31,
-      185.11239000000003,
+      185.11239,
       269.09709999999995,
       306.05
     ]
@@ -273,6 +274,10 @@
       "native_part_only_mm3": 0.0
     },
     "silicone": {
+      "assembly_only_mm3": 0.0,
+      "native_part_only_mm3": 0.0
+    },
+    "cradle": {
       "assembly_only_mm3": 0.0,
       "native_part_only_mm3": 0.0
     },
@@ -408,17 +413,19 @@
   "geometric_extension_limit_mm": 36.01428194747256,
   "native_source_agreement": {
     "source_capacity_ml": 455.437155060864,
-    "source_volume_mm3": 219323.62186546286,
+    "source_volume_mm3": 219323.6218654631,
     "native_volume_mm3": 219300.9370636243,
     "source_only_mm3": 0,
     "native_only_mm3": 0,
     "source_valid": true,
     "native_valid": true,
-    "elapsed_seconds": 7.37285304069519,
-    "source_sha256": "7e224d80c14b8bb089405d3c98964201a6df5141aaf3d1a10177808117df97e1"
+    "elapsed_seconds": 12.34241008758545,
+    "source_sha256": "7e224d80c14b8bb089405d3c98964201a6df5141aaf3d1a10177808117df97e1",
+    "native_machine_step_sha256": "423b46dd9d931d4e34e8c53daa9b468a5d57494321c5f4f76e906a9b9a0d1f77",
+    "method": "Complete two-way native CSG at the actual assembly pose. Raw volume integration is diagnostic."
   },
   "rear_cap_and_nameplate": {
-    "source_step_sha256": "2ea8aa70c2075ebeb899cbe621d5515cea5703b96da6aad1817b4941a87a2a5d",
+    "source_step_sha256": "423b46dd9d931d4e34e8c53daa9b468a5d57494321c5f4f76e906a9b9a0d1f77",
     "back_top_valid": true,
     "back_top_solids": 1,
     "back_top_sha256": "ef39a549003017fd0602844e3c46cc3899a3df00ad6c866fcac61da65cf06069",
@@ -490,7 +497,7 @@
     "max_flute_stock_floor_mm": 4.550000000000011
   },
   "cradle_insertion": {
-    "step_sha256": "2ea8aa70c2075ebeb899cbe621d5515cea5703b96da6aad1817b4941a87a2a5d",
+    "step_sha256": "423b46dd9d931d4e34e8c53daa9b468a5d57494321c5f4f76e906a9b9a0d1f77",
     "method": "Native cradle body plus full two-wing solid cross-sections transformed through the declared cantilever model; 29 sampled upward insertion poses with silicone funnel removed. This is geometric insertion clearance, not physical flexure qualification.",
     "stations": {
       "half": 15.050000000000002,
@@ -665,7 +672,7 @@
   },
   "drain_route": {
     "native_body": "tube-fluid-4",
-    "step_sha256": "2ea8aa70c2075ebeb899cbe621d5515cea5703b96da6aad1817b4941a87a2a5d",
+    "step_sha256": "423b46dd9d931d4e34e8c53daa9b468a5d57494321c5f4f76e906a9b9a0d1f77",
     "method": "Read every analytic native cylinder and torus face; connect their centreline endpoints from the elbow cap to the V-B cap; sample 81 points per piece to check fall.",
     "start_mm": [
       1.8499999999999999,
@@ -1101,5 +1108,13 @@
     "clear": true
   },
   "geometry_checks_pass": true,
-  "physical_acceptance_scope": "Frozen v4 cradle insertion and released 0.65 mm drop remain accepted for their recorded geometry. Current hook thickness and silicone bearing, frame/shell fit, support removal and finished casting are not physically qualified."
+  "physical_acceptance_scope": "Frozen v4 cradle insertion and released 0.65 mm drop remain accepted for their recorded geometry. Current mouth clearance, hook thickness and silicone bearing, frame/shell fit, support removal and finished casting are not physically qualified.",
+  "cradle_mouth_correction": {
+    "record": "hardware/printed-parts/zone-c/funnel/integration-review/native-slice-reviews/2026-10-03-elbow-cradle-h2c-v2/native-mouth-correction-check.json",
+    "record_sha256": "89d9de3ab8200fd5ed4a5e44997277901293fda20d19efa4cbd46d9c32bb3e89",
+    "opening_floor_mm": 5.102900000000003,
+    "opening_side_wall_mm": 8.840000000000003,
+    "main_elbow_seat_missing_mm3": 0.0,
+    "qualification_scope": "Exact current mouth geometry, retained seat and hooks, and current native emitted-path/support-removal receipt. Frozen v4 physical acceptance remains limited to its recorded meshes."
+  }
 }

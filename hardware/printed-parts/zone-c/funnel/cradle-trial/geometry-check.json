@@ -17,6 +17,6 @@
  "funnel_block_bottom_mm": 6.15,
  "hole_diameter_mm": 11.25,
  "receiver_volume_mm3": 16420.0462,
- "cradle_volume_mm3": 17711.4503,
+ "cradle_volume_mm3": 17657.6004,
  "scope": "Nominal CAD clearances and a tip-loaded cantilever estimate of the wing's bend; insertion force, strain tolerance and retention are for the print."
 }

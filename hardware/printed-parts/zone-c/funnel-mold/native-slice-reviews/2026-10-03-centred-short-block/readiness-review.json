@@ -1,0 +1,549 @@
+{
+  "checked_date": "2026-10-03",
+  "method": "Current native STEP/STL reads, hash-exact containment binding and separate mesh-refreshed copy of frozen project settings.",
+  "native_geometry": {
+    "cavity": {
+      "sha256": "23181e43564083459d5d994f44105d51084a5f4fb0cf52caf7e7df479c413d9d",
+      "valid": true,
+      "solids": 1,
+      "bounds_mm": [
+        -105.5,
+        105.5,
+        -105.5,
+        105.5,
+        -1e-07,
+        57.95
+      ],
+      "volume_mm3": 301434.6835446503
+    },
+    "core": {
+      "sha256": "39a0fd8e316e2c05f598d99e490f75ae19c26334cd9eed5394a5a5ea3eb50d40",
+      "valid": true,
+      "solids": 1,
+      "bounds_mm": [
+        -105.5000000000014,
+        105.5,
+        -105.5,
+        105.5,
+        17.734015214420467,
+        59.95
+      ],
+      "volume_mm3": 295312.47488110844
+    },
+    "funnel": {
+      "sha256": "437e57f7cfa88454ce3fe0f59c87c8d153267e7f32a4b5cdefd3e960cc7ad3db",
+      "valid": true,
+      "solids": 1,
+      "bounds_mm": [
+        -89.5000001,
+        89.5000001,
+        -65.84150802328,
+        65.841508023281,
+        5.999999899999997,
+        54.95000010000001
+      ],
+      "volume_mm3": 219305.05127862314
+    },
+    "rod": {
+      "sha256": "683c61357b376fea791e43406c329903e87463697ccb2566609428b495087a55",
+      "valid": true,
+      "solids": 1,
+      "bounds_mm": [
+        -1.3249999999999997,
+        5.025,
+        -3.175,
+        3.175,
+        4.5,
+        55.3
+      ],
+      "volume_mm3": 1608.7962461345553
+    }
+  },
+  "design_sha256": "99507c63139e86b903936f7a8b3c617b8cf89028ee33e91064bbf2aa6431c96b",
+  "containment_review_sha256": "4b425e0a243b5d1ea3c405b2df3e1479d17d132901e3373320473c50bfa586f2",
+  "all_containment_bindings_current": true,
+  "containment_pass": true,
+  "minimum_cavity_backing_mm": 5.00486472199034,
+  "minimum_core_backing_mm": 4.9999999975185245,
+  "finished_funnel_step_sha256": "fd0143ed0caeef95d80b2a2c7bf4b4ce089c03da6ad39554f6f4e736f1cebc7a",
+  "mould_z_translation_mm": 48.95,
+  "casting_vs_finished": {
+    "actual_minus_reference_mm3": 24.096829467052874,
+    "reference_minus_actual_mm3": 11.049952949546464
+  },
+  "bore_probe_rows": [
+    {
+      "feature": "lead-in",
+      "probe_xyz_mm": [
+        5.45,
+        0.0,
+        -42.050000100000005
+      ],
+      "finished_silicone_at_point": false,
+      "casting_blank_silicone_at_point": true
+    },
+    {
+      "feature": "relief",
+      "probe_xyz_mm": [
+        5.1,
+        0.0,
+        -40.950000100000004
+      ],
+      "finished_silicone_at_point": false,
+      "casting_blank_silicone_at_point": true
+    },
+    {
+      "feature": "sealing-land",
+      "probe_xyz_mm": [
+        4.95,
+        0.0,
+        -39.43517935471506
+      ],
+      "finished_silicone_at_point": true,
+      "casting_blank_silicone_at_point": false
+    }
+  ],
+  "casting_scope": "rectangular plug blank with a flat lower bearing face and straight dowel bore; the staged sealing bore requires separate forming features",
+  "ready_to_cast_finished_funnel": false,
+  "production_tooling_limitation": "The straight 6.35 mm dowel forms a blank bore, without the finished 8.4 mm lead-in, 6.7 mm relief and 6.0 mm sealing land.",
+  "template_project_sha256": "da09a13449d6ce902eb929e8dec0ab64e1c8cfb434498aab72dbf79d2527df2a",
+  "template_project": "hardware/printed-parts/zone-c/funnel-mold/funnel-mold.3mf",
+  "current_project": ".cache/funnel-block-seat/mould-readiness/current-funnel-mould-petg088.3mf",
+  "current_project_sha256": "2b10336ab9331e442193f104b77d8eba74e6f281cabb8cd39d6eea6a8f89ecb5",
+  "project_settings_payload_sha256": "7f8fcc15f36ecfd52e855147153c927676f5362d50ac0eba8ad2005c44da4abc",
+  "settings_byte_identical_to_frozen_template": true,
+  "prepared_plates": [
+    {
+      "part": "cavity",
+      "plate": 1,
+      "stl_sha256": "1ce5878e4b25309c131feb9f7b29af3f1add419602033602f0da22e5582d7afc",
+      "mesh_watertight": true,
+      "winding_consistent": true,
+      "mesh_bodies": 1,
+      "triangles": 87430,
+      "embedded_maximum_vertex_distance_mm": 8.497056609060758e-10,
+      "transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        149.5,
+        160.0,
+        28.975000381469727
+      ],
+      "source_center_mm": [
+        0.0,
+        0.0,
+        28.975000381469727
+      ],
+      "local_bed_bounds_mm": [
+        [
+          44.0,
+          54.5,
+          0.0
+        ],
+        [
+          255.0,
+          265.5,
+          57.95000076293945
+        ]
+      ],
+      "model_within_bed": true,
+      "orientation": "upright"
+    },
+    {
+      "part": "core",
+      "plate": 2,
+      "stl_sha256": "ab01e93b9b2fdf40ce10ff6af51509b95f6f0fdffcb1fd5ff387d4a26547e694",
+      "mesh_watertight": true,
+      "winding_consistent": true,
+      "mesh_bodies": 1,
+      "triangles": 62526,
+      "embedded_maximum_vertex_distance_mm": 8.52605065573134e-10,
+      "transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        -1.0,
+        0.0,
+        0.0,
+        0.0,
+        -1.0,
+        545.5,
+        160.0,
+        21.107990264892578
+      ],
+      "source_center_mm": [
+        0.0,
+        0.0,
+        38.842010498046875
+      ],
+      "local_bed_bounds_mm": [
+        [
+          44.0,
+          54.5,
+          0.0
+        ],
+        [
+          255.0,
+          265.5,
+          42.215980529785156
+        ]
+      ],
+      "model_within_bed": true,
+      "orientation": "inverted"
+    }
+  ],
+  "selected_recipe": {
+    "printer_settings_id": "Bambu Lab H2C 0.4 Standard +0.18 Z trim",
+    "print_settings_id": "0.24mm Standard @BBL H2C funnel mold",
+    "filament_settings_id": [
+      "Funnel mold PETG Translucent - 0.4 Standard - flow 0.88"
+    ],
+    "nozzle_diameter": [
+      "0.4",
+      "0.4"
+    ],
+    "nozzle_volume_type": [
+      "Standard",
+      "Standard"
+    ],
+    "filament_volume_map": [
+      "0"
+    ],
+    "curr_bed_type": "Textured PEI Plate",
+    "layer_height": "0.24",
+    "initial_layer_print_height": "0.2",
+    "wall_loops": "2",
+    "sparse_infill_density": "100%",
+    "support_type": "normal(auto)",
+    "support_style": "snug",
+    "support_top_z_distance": "0.2",
+    "support_bottom_z_distance": "0.2",
+    "support_object_xy_distance": "0.48",
+    "filament_flow_ratio": [
+      "0.88",
+      "0.97",
+      "0.97"
+    ],
+    "filament_max_volumetric_speed": [
+      "5.61702",
+      "6",
+      "6"
+    ]
+  },
+  "physical_scope": "The September 18 square-mouth cavity printed with these settings showed improved remaining roughness. No current tooling print, coated closure, vacuum cycle, sealing or casting is physically qualified.",
+  "native_slice_pending": false,
+  "native_slice_success": true,
+  "native_slice": {
+    "slice_sha256": "c8cb44e0e2fbb570a645e2838433a90c34fcd1eaa7f37b0a39610b19bc3dcbf8",
+    "slice_file": ".cache/funnel-block-seat/mould-readiness/slice/current-funnel-mould-petg088.gcode.3mf",
+    "cli_return_code": 0,
+    "slicer_version": "02.08.02.61",
+    "plates": [
+      {
+        "part": "cavity",
+        "plate": 1,
+        "orientation": "upright",
+        "mesh": {
+          "matches_stl": true,
+          "triangles": 87430,
+          "maximum_vertex_distance_mm": 1.0045499074640883e-06
+        },
+        "gcode_sha256": "2712e2e6a1143feb1cb1e78bdcead0e4aa32e63470ac8f24f0efefa0bd372136",
+        "nozzle": [
+          {
+            "id": "0",
+            "extruder_id": "1",
+            "nozzle_diameter": "0.4",
+            "volume_type": "Standard"
+          }
+        ],
+        "z_trim_commands": [
+          "G29.1 Z0 ; clear z-trim value first",
+          "G29.1 Z0.16"
+        ],
+        "support_present": true,
+        "slice_warning": "",
+        "layers": 429,
+        "estimated_seconds": 101581.4453125,
+        "estimated_filament_g": 559.8594360351562,
+        "all_deposited_feature_bounds_xy_mm": [
+          [
+            42.0,
+            52.50162380284772
+          ],
+          [
+            256.99943326410727,
+            267.489
+          ]
+        ],
+        "left_nozzle_printable_polygon_mm": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            325.0,
+            0.0
+          ],
+          [
+            325.0,
+            320.0
+          ],
+          [
+            0.0,
+            320.0
+          ]
+        ],
+        "within_printable_area": true,
+        "minimum_bed_edge_margin_mm": 42.0,
+        "first_layer_height_mm": 0.2,
+        "first_layer_model_segments": 1187,
+        "first_layer_support_segments": 9244,
+        "extrusion_feature_segment_counts": {
+          "Support": 448258,
+          "Support transition": 67519,
+          "Support interface": 70150,
+          "Inner wall": 395352,
+          "Outer wall": 382048,
+          "Bottom surface": 269,
+          "Internal solid infill": 169080,
+          "Sparse infill": 481981,
+          "Overhang wall": 84351,
+          "Bridge": 52777,
+          "Floating vertical shell": 412627,
+          "Top surface": 28452,
+          "Gap infill": 3039
+        },
+        "support_topology_summary": {
+          "support_bodies": 1,
+          "interface_islands": 4,
+          "bed_rooted_bodies": 1,
+          "model_rooted_bodies": 0,
+          "shortest_build_up_mm": 0.0,
+          "bodies_without_interface_labels": 0,
+          "explicit_interface_islands": 4,
+          "shortest_labelled_build_up_mm": 0.0
+        },
+        "support_topology_record_sha256": "1c43dd7f077bbc57fbeef4c74d0f440954e08538980980000da03be7a07a4f72",
+        "support_removal_scope": "Every emitted support body is retained in the topology record, including bodies lacking interface labels. Open dry backs and exposed outer flanges provide access to cut and detach supports. A collision-free withdrawal of complete connected support bodies, adhesion, clean release and finished casting are not established by this reading."
+      },
+      {
+        "part": "core",
+        "plate": 2,
+        "orientation": "inverted",
+        "mesh": {
+          "matches_stl": true,
+          "triangles": 62526,
+          "maximum_vertex_distance_mm": 5.003009351573186e-07
+        },
+        "gcode_sha256": "8b803acd4e019af0888552037083561fd7301abd098a7e3de4bc0536243d257d",
+        "nozzle": [
+          {
+            "id": "0",
+            "extruder_id": "1",
+            "nozzle_diameter": "0.4",
+            "volume_type": "Standard"
+          }
+        ],
+        "z_trim_commands": [
+          "G29.1 Z0 ; clear z-trim value first",
+          "G29.1 Z0.16"
+        ],
+        "support_present": true,
+        "slice_warning": "",
+        "layers": 311,
+        "estimated_seconds": 70021.5546875,
+        "estimated_filament_g": 385.1428527832031,
+        "all_deposited_feature_bounds_xy_mm": [
+          [
+            43.992149824982135,
+            54.499999999999986
+          ],
+          [
+            255.0007898775962,
+            265.50099981085634
+          ]
+        ],
+        "left_nozzle_printable_polygon_mm": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            325.0,
+            0.0
+          ],
+          [
+            325.0,
+            320.0
+          ],
+          [
+            0.0,
+            320.0
+          ]
+        ],
+        "within_printable_area": true,
+        "minimum_bed_edge_margin_mm": 43.992149824982135,
+        "first_layer_height_mm": 0.2,
+        "first_layer_model_segments": 9706,
+        "first_layer_support_segments": 917,
+        "extrusion_feature_segment_counts": {
+          "Support": 59418,
+          "Outer wall": 199691,
+          "Inner wall": 215303,
+          "Gap infill": 3764,
+          "Bottom surface": 3576,
+          "Internal solid infill": 100205,
+          "Sparse infill": 346608,
+          "Support transition": 48145,
+          "Support interface": 47670,
+          "Overhang wall": 62149,
+          "Bridge": 45410,
+          "Floating vertical shell": 345201,
+          "Top surface": 27989
+        },
+        "support_topology_summary": {
+          "support_bodies": 1,
+          "interface_islands": 8,
+          "bed_rooted_bodies": 1,
+          "model_rooted_bodies": 0,
+          "shortest_build_up_mm": 0.992,
+          "bodies_without_interface_labels": 0,
+          "explicit_interface_islands": 8,
+          "shortest_labelled_build_up_mm": 0.992
+        },
+        "support_topology_record_sha256": "1d4491a0eca79bcce7ef8bfa7e340462118f12faf0df382822d04fed63159497",
+        "support_removal_scope": "Every emitted support body is retained in the topology record, including bodies lacking interface labels. Open dry backs and exposed outer flanges provide access to cut and detach supports. A collision-free withdrawal of complete connected support bodies, adhesion, clean release and finished casting are not established by this reading."
+      }
+    ],
+    "all_settings_changes": {
+      "filament_map_2": {
+        "input": null,
+        "sliced": [
+          "1"
+        ]
+      },
+      "extruder_nozzle_stats": {
+        "input": [
+          "Standard#1",
+          "Standard#0|High Flow#0"
+        ],
+        "sliced": [
+          "Standard#1",
+          "Standard#0"
+        ]
+      },
+      "filament_prime_volume": {
+        "input": [
+          "30"
+        ],
+        "sliced": [
+          "45"
+        ]
+      },
+      "extruder_nozzle_stats_new": {
+        "input": [
+          "Standard#1",
+          "Standard#0|High Flow#0"
+        ],
+        "sliced": [
+          "Standard#1",
+          "Standard#0"
+        ]
+      }
+    },
+    "nontrivial_setting_changes": {
+      "filament_map_2": {
+        "input": null,
+        "sliced": [
+          "1"
+        ]
+      },
+      "filament_prime_volume": {
+        "input": [
+          "30"
+        ],
+        "sliced": [
+          "45"
+        ]
+      }
+    },
+    "selected_recipe_retained": true,
+    "figures": [
+      {
+        "file": "cavity-native-supports.png",
+        "sha256": "099431582473105bcb7c9d1b96874d379184d45127c0d0e6b406b129446b1cea",
+        "scope": "First layer complete; all-layer support/interface drawing is subsampled. Topology record reads every emitted path."
+      },
+      {
+        "file": "core-native-supports.png",
+        "sha256": "6c4e759eb6f8e56f6d76b53ba03ec9bcba1df197ec5632aa2d6d20f2f6dfc1ed",
+        "scope": "First layer complete; all-layer support/interface drawing is subsampled. Topology record reads every emitted path."
+      }
+    ]
+  },
+  "physical_recipe_binding": {
+    "print_source": "git:59e088d8d:hardware/printed-parts/zone-c/funnel-mold/funnel-mold.3mf",
+    "print_source_sha256": "2bc6a358dbfb74c94d9388bf4abd166ab243182298f45768c0dff9d928182c68",
+    "expected_recorded_source_sha256": "2bc6a358dbfb74c94d9388bf4abd166ab243182298f45768c0dff9d928182c68",
+    "current_template_sha256": "da09a13449d6ce902eb929e8dec0ab64e1c8cfb434498aab72dbf79d2527df2a",
+    "project_setting_changes_from_physical_input": {},
+    "exact_physical_gcode_archive_currently_available": false,
+    "physical_result_scope": "Printed September 18 square-mouth cavity showed improved remaining roughness. Current mould geometry is unprinted."
+  },
+  "scope": "Current native mould geometry and independent native PETG slice are review artifacts. This tooling produces a plug blank and cannot yet cast the finished staged sealing bore. No mould print was submitted and no frozen print project or archive was changed.",
+  "native_support_tool_sha256": "3dd14a091d92aabde9b20d65bbe84acb15262e2bdb3f615722b2623cabd396f1",
+  "support_topology_method": {
+    "grid_mm": 0.4,
+    "support_layer_link_mm": 0.85,
+    "interface_layer_link_mm": 1.25,
+    "scope": "Quantized connectivity of emitted extrusion centrelines. It identifies support groups and labelled interface regions; it does not reconstruct solid support volumes or prove their complete withdrawal."
+  },
+  "native_rod_stop_and_pocket_face_check": {
+    "datum_z_mm": [
+      55.3,
+      55.25
+    ],
+    "actual_projected_face_overlap_mm2": 0.0,
+    "native_face_areas_mm2": [
+      125.13855026741096,
+      7106.864407350892
+    ],
+    "interpretation": "Separate axial rod-stop and forming-pocket faces; plane bounding-box overlap does not imply shared projected stock."
+  },
+  "post_live_geometry_lint": {
+    "checked_at_utc": "2026-10-03 08:15:43 UTC",
+    "publication_verified_by_parent_at_utc": "2026-10-03 08:01 UTC",
+    "tool_sha256": "79914fb4ca91a5620956c1d4d95fd6fe253fcae1b5f26bac0fafc43edffb4f53",
+    "all_classes": true,
+    "all_findings_inspected": true,
+    "parts": [
+      {
+        "part": "cavity",
+        "stl_sha256": "1ce5878e4b25309c131feb9f7b29af3f1add419602033602f0da22e5582d7afc",
+        "answers_sha256": "b4e5da43ec834adcda3e7ce0248f9f8d1aecd4b96a812a276e731400db469195",
+        "open_findings": 0,
+        "answered_findings": 15
+      },
+      {
+        "part": "core",
+        "stl_sha256": "ab01e93b9b2fdf40ce10ff6af51509b95f6f0fdffcb1fd5ff387d4a26547e694",
+        "answers_sha256": "6f612aa3656ef0d2d2998b380b6972937b8e557135d11c5fa27eee1056709f55",
+        "open_findings": 0,
+        "answered_findings": 8
+      }
+    ]
+  },
+  "proof_helpers_sha256": {
+    ".cache/funnel-block-seat/mould-readiness/prepare.py": "bcdff5aa9d6d89130adcd4121abeb6f284164e7c4893a508bf4cbf39639adcaa",
+    ".cache/funnel-block-seat/mould-readiness/review_slice.py": "a3b7cc6a6747fe82cbb466fe6588e8ec90ccdbd84ee06478bbe7de4713ffa75f"
+  }
+}

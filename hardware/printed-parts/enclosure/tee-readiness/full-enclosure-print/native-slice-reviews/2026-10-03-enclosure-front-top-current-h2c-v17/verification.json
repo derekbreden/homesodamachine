@@ -137,5 +137,5 @@
   "status": "ready for authorized H2C submission; native geometry, emitted paths and accessible support lanes reviewed",
   "physical_show_surface_tested": false,
   "physical_support_removal_tested": false,
-  "flank_clip_native_binding_sha256": "d63f0a80fdddab2dceb71dd544c3208a596ed659e8363796cf674cfefcd5bd25"
+  "flank_clip_native_binding_sha256": "2c879f42c1aba256b0cf3055c41bdd6c0a74ee92ff7ff36b19652b48b0a96910"
 }
