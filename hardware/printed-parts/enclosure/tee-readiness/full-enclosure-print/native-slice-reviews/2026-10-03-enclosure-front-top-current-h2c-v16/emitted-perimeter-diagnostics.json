@@ -1,0 +1,2050 @@
+[
+  {
+    "z_mm": 20.84,
+    "native_component_area_mm2": 601.4358197434382,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 3.1578635291409056,
+    "witness_plate_xy_mm": [
+      63.919997,
+      227.2908635291409
+    ],
+    "nearest_model_feature": "Bridge",
+    "distance_beyond_nearest_model_half_width_mm": -0.09874347085909498,
+    "nearest_model_road": [
+      62.812,
+      227.176,
+      64.688,
+      227.176,
+      0.427214,
+      0,
+      1901,
+      "Bridge",
+      "G1",
+      0.06723,
+      350409
+    ],
+    "resolved_by_model_fill": true,
+    "review": "The native mid-slab contour at this witness is covered by an actual Bridge/Top-surface road. A perimeter-only comparison excludes that material."
+  },
+  {
+    "z_mm": 20.84,
+    "native_component_area_mm2": 1599.5890593950699,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 3.479911955915549,
+    "witness_plate_xy_mm": [
+      261.0,
+      227.61291195591554
+    ],
+    "nearest_model_feature": "Bridge",
+    "distance_beyond_nearest_model_half_width_mm": -0.1276950440844512,
+    "nearest_model_road": [
+      260.312,
+      227.527,
+      262.188,
+      227.527,
+      0.427214,
+      0,
+      1901,
+      "Bridge",
+      "G1",
+      0.06723,
+      349952
+    ],
+    "resolved_by_model_fill": true,
+    "review": "The native mid-slab contour at this witness is covered by an actual Bridge/Top-surface road. A perimeter-only comparison excludes that material."
+  },
+  {
+    "z_mm": 20.84,
+    "native_component_area_mm2": 601.4363286179306,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 3.0968698277957225,
+    "witness_plate_xy_mm": [
+      261.080003,
+      227.2298698277957
+    ],
+    "nearest_model_feature": "Bridge",
+    "distance_beyond_nearest_model_half_width_mm": -0.13473717220430037,
+    "nearest_model_road": [
+      262.188,
+      227.151,
+      260.312,
+      227.151,
+      0.427214,
+      0,
+      1901,
+      "Bridge",
+      "G1",
+      0.06723,
+      349954
+    ],
+    "resolved_by_model_fill": true,
+    "review": "The native mid-slab contour at this witness is covered by an actual Bridge/Top-surface road. A perimeter-only comparison excludes that material."
+  },
+  {
+    "z_mm": 76.52,
+    "native_component_area_mm2": 5848.985091734108,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 2.1345119999999955,
+    "witness_plate_xy_mm": [
+      68.200488,
+      146.79614711780326
+    ],
+    "nearest_model_feature": "Top surface",
+    "distance_beyond_nearest_model_half_width_mm": -0.06506259912999637,
+    "nearest_model_road": [
+      70.341,
+      148.71,
+      66.059,
+      144.429,
+      0.45,
+      0,
+      1901,
+      "Top surface",
+      "G1",
+      0.23006,
+      1163083
+    ],
+    "resolved_by_model_fill": true,
+    "review": "The native mid-slab contour at this witness is covered by an actual Bridge/Top-surface road. A perimeter-only comparison excludes that material."
+  },
+  {
+    "z_mm": 109.4,
+    "native_component_area_mm2": 5816.952931108935,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 5.364316736045674,
+    "witness_plate_xy_mm": [
+      92.572698,
+      144.48168326395432
+    ],
+    "nearest_model_feature": "Bridge",
+    "distance_beyond_nearest_model_half_width_mm": -0.1160652639543302,
+    "nearest_model_road": [
+      91.284,
+      144.576,
+      93.916,
+      144.576,
+      0.420764,
+      0,
+      1901,
+      "Bridge",
+      "G1",
+      0.09269,
+      1769542
+    ],
+    "resolved_by_model_fill": true,
+    "review": "The native mid-slab contour at this witness is covered by an actual Bridge/Top-surface road. A perimeter-only comparison excludes that material."
+  },
+  {
+    "z_mm": 118.28,
+    "native_component_area_mm2": 2373.622631103788,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 1.1657176331873653,
+    "witness_plate_xy_mm": [
+      153.21365110017484,
+      133.739998
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 1.1657176331873653,
+    "nearest_model_road": [
+      153.421,
+      138.95,
+      153.421,
+      135.1,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      0.13526,
+      2009550
+    ],
+    "resolved_by_model_fill": false,
+    "native_slab_samples": [
+      {
+        "slab_height_fraction": 0.01,
+        "native_z_mm": 118.0424,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.1,
+        "native_z_mm": 118.06400000000001,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.25,
+        "native_z_mm": 118.10000000000001,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.5,
+        "native_z_mm": 118.16000000000001,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.75,
+        "native_z_mm": 118.22000000000001,
+        "material_distance_mm": 0.018945899825155266,
+        "material_boundary_distance_mm": 0.018945899825155266,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.9,
+        "native_z_mm": 118.256,
+        "material_distance_mm": 0.02974289982515188,
+        "material_boundary_distance_mm": 0.02974289982515188,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.99,
+        "native_z_mm": 118.2776,
+        "material_distance_mm": 0.035515899825156794,
+        "material_boundary_distance_mm": 0.035515899825156794,
+        "witness_in_material": false
+      }
+    ],
+    "local_mid_slab_material_area_in_half_nozzle_disk_mm2": 0.0350555723404006,
+    "half_nozzle_disk_area_mm2": 0.13832178843308218,
+    "distance_to_mid_slab_material_with_half_nozzle_erosion_mm": 1.2566205797871557,
+    "review": "The exact native witness is on a stadium ear-seat end or an insert-bore circle at the fixed magnetic pogo seat. The 2D slice contour contains the local circular/tangent crescent beside that seat. All 19 local model layers retain model roads through the complete seat/bore window. This is a locating/fastening recess and bore; it is not an unwanted flat underside on the exterior roof. The narrow planar witness does not replace the complete native seat or establish printed insert fit or load capacity.",
+    "native_surface_group": "pogo_contact_seat_and_insert_bores",
+    "functional_feature": "Magnetic pogo male stadium ear seat and two insert bores on the bay bulkhead; R2.15 seat ends, R1 insert bores. The bores and ear-bearing datum are functional locating and fastening geometry.",
+    "feature_sources": {
+      "file": "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "functions": [
+        "_pogo_seat",
+        "_pump_contact_fixed_cuts"
+      ],
+      "sha256": "b64e0ed3c2f3071065c20e70091582fa98897555c1317f44732d36923fc824ca"
+    },
+    "local_emitted_layer_count": 19,
+    "local_layers_receiving_model_roads": 19,
+    "actual_native_faces_and_local_roads_record": "native-functional-surface-emission.json"
+  },
+  {
+    "z_mm": 118.28,
+    "native_component_area_mm2": 2432.7225664135653,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 1.0756322505545564,
+    "witness_plate_xy_mm": [
+      171.388838,
+      133.81436774944544
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 1.0756322505545564,
+    "nearest_model_road": [
+      167.962,
+      135.1,
+      171.579,
+      135.1,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      0.12707,
+      2010175
+    ],
+    "resolved_by_model_fill": false,
+    "native_slab_samples": [
+      {
+        "slab_height_fraction": 0.01,
+        "native_z_mm": 118.0424,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.023639000000002852,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.1,
+        "native_z_mm": 118.06400000000001,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.01867899999999167,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.25,
+        "native_z_mm": 118.10000000000001,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.011219999999980248,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.5,
+        "native_z_mm": 118.16000000000001,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.75,
+        "native_z_mm": 118.22000000000001,
+        "material_distance_mm": 0.009498000000007778,
+        "material_boundary_distance_mm": 0.009498000000007778,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.9,
+        "native_z_mm": 118.256,
+        "material_distance_mm": 0.01423099999999522,
+        "material_boundary_distance_mm": 0.01423099999999522,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.99,
+        "native_z_mm": 118.2776,
+        "material_distance_mm": 0.01698799999999778,
+        "material_boundary_distance_mm": 0.01698799999999778,
+        "witness_in_material": false
+      }
+    ],
+    "local_mid_slab_material_area_in_half_nozzle_disk_mm2": 0.04985210424833918,
+    "half_nozzle_disk_area_mm2": 0.13832178843308218,
+    "distance_to_mid_slab_material_with_half_nozzle_erosion_mm": 1.180317017052434,
+    "review": "The exact native witness is on a stadium ear-seat end or an insert-bore circle at the fixed magnetic pogo seat. The 2D slice contour contains the local circular/tangent crescent beside that seat. All 19 local model layers retain model roads through the complete seat/bore window. This is a locating/fastening recess and bore; it is not an unwanted flat underside on the exterior roof. The narrow planar witness does not replace the complete native seat or establish printed insert fit or load capacity.",
+    "native_surface_group": "pogo_contact_seat_and_insert_bores",
+    "functional_feature": "Magnetic pogo male stadium ear seat and two insert bores on the bay bulkhead; R2.15 seat ends, R1 insert bores. The bores and ear-bearing datum are functional locating and fastening geometry.",
+    "feature_sources": {
+      "file": "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "functions": [
+        "_pogo_seat",
+        "_pump_contact_fixed_cuts"
+      ],
+      "sha256": "b64e0ed3c2f3071065c20e70091582fa98897555c1317f44732d36923fc824ca"
+    },
+    "local_emitted_layer_count": 19,
+    "local_layers_receiving_model_roads": 19,
+    "actual_native_faces_and_local_roads_record": "native-functional-surface-emission.json"
+  },
+  {
+    "z_mm": 118.52,
+    "native_component_area_mm2": 2373.773847070123,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 1.0920677693212155,
+    "witness_plate_xy_mm": [
+      153.272281,
+      133.8149325243614
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 1.0920677693212155,
+    "nearest_model_road": [
+      153.482,
+      138.95,
+      153.482,
+      135.1,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      0.13526,
+      2011686
+    ],
+    "resolved_by_model_fill": false,
+    "native_slab_samples": [
+      {
+        "slab_height_fraction": 0.01,
+        "native_z_mm": 118.28240198,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.021953999999993812,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.1,
+        "native_z_mm": 118.3040018,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.016807000000000016,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.25,
+        "native_z_mm": 118.3400015,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.009433000000001359,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.5,
+        "native_z_mm": 118.400001,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.75,
+        "native_z_mm": 118.46000049999999,
+        "material_distance_mm": 0.005593000000004622,
+        "material_boundary_distance_mm": 0.005593000000004622,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.9,
+        "native_z_mm": 118.4960002,
+        "material_distance_mm": 0.007288000000016837,
+        "material_boundary_distance_mm": 0.007288000000016837,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.99,
+        "native_z_mm": 118.51760001999999,
+        "material_distance_mm": 0.007636000000019294,
+        "material_boundary_distance_mm": 0.007636000000019294,
+        "witness_in_material": false
+      }
+    ],
+    "local_mid_slab_material_area_in_half_nozzle_disk_mm2": 0.0499628330399831,
+    "half_nozzle_disk_area_mm2": 0.13832178843308218,
+    "distance_to_mid_slab_material_with_half_nozzle_erosion_mm": 1.276201654871722,
+    "review": "The exact native witness is on a stadium ear-seat end or an insert-bore circle at the fixed magnetic pogo seat. The 2D slice contour contains the local circular/tangent crescent beside that seat. All 19 local model layers retain model roads through the complete seat/bore window. This is a locating/fastening recess and bore; it is not an unwanted flat underside on the exterior roof. The narrow planar witness does not replace the complete native seat or establish printed insert fit or load capacity.",
+    "native_surface_group": "pogo_contact_seat_and_insert_bores",
+    "functional_feature": "Magnetic pogo male stadium ear seat and two insert bores on the bay bulkhead; R2.15 seat ends, R1 insert bores. The bores and ear-bearing datum are functional locating and fastening geometry.",
+    "feature_sources": {
+      "file": "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "functions": [
+        "_pogo_seat",
+        "_pump_contact_fixed_cuts"
+      ],
+      "sha256": "b64e0ed3c2f3071065c20e70091582fa98897555c1317f44732d36923fc824ca"
+    },
+    "local_emitted_layer_count": 19,
+    "local_layers_receiving_model_roads": 19,
+    "actual_native_faces_and_local_roads_record": "native-functional-surface-emission.json"
+  },
+  {
+    "z_mm": 118.52,
+    "native_component_area_mm2": 2432.8737814579677,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 1.1060871177250327,
+    "witness_plate_xy_mm": [
+      171.416282,
+      133.78391288227496
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 1.1060871177250327,
+    "nearest_model_road": [
+      168.288,
+      135.1,
+      171.518,
+      135.1,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      0.11347,
+      2012329
+    ],
+    "resolved_by_model_fill": false,
+    "native_slab_samples": [
+      {
+        "slab_height_fraction": 0.01,
+        "native_z_mm": 118.28240198,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.00994900000000598,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.1,
+        "native_z_mm": 118.3040018,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.007732000000004292,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.25,
+        "native_z_mm": 118.3400015,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.004261999999982891,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.5,
+        "native_z_mm": 118.400001,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.75,
+        "native_z_mm": 118.46000049999999,
+        "material_distance_mm": 0.002603999999990947,
+        "material_boundary_distance_mm": 0.002603999999990947,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.9,
+        "native_z_mm": 118.4960002,
+        "material_distance_mm": 0.0034689999999955035,
+        "material_boundary_distance_mm": 0.0034689999999955035,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.99,
+        "native_z_mm": 118.51760001999999,
+        "material_distance_mm": 0.003545000000002574,
+        "material_boundary_distance_mm": 0.003545000000002574,
+        "witness_in_material": false
+      }
+    ],
+    "local_mid_slab_material_area_in_half_nozzle_disk_mm2": 0.043727755966757466,
+    "half_nozzle_disk_area_mm2": 0.13832178843308218,
+    "distance_to_mid_slab_material_with_half_nozzle_erosion_mm": 1.2938074523838563,
+    "review": "The exact native witness is on a stadium ear-seat end or an insert-bore circle at the fixed magnetic pogo seat. The 2D slice contour contains the local circular/tangent crescent beside that seat. All 19 local model layers retain model roads through the complete seat/bore window. This is a locating/fastening recess and bore; it is not an unwanted flat underside on the exterior roof. The narrow planar witness does not replace the complete native seat or establish printed insert fit or load capacity.",
+    "native_surface_group": "pogo_contact_seat_and_insert_bores",
+    "functional_feature": "Magnetic pogo male stadium ear seat and two insert bores on the bay bulkhead; R2.15 seat ends, R1 insert bores. The bores and ear-bearing datum are functional locating and fastening geometry.",
+    "feature_sources": {
+      "file": "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "functions": [
+        "_pogo_seat",
+        "_pump_contact_fixed_cuts"
+      ],
+      "sha256": "b64e0ed3c2f3071065c20e70091582fa98897555c1317f44732d36923fc824ca"
+    },
+    "local_emitted_layer_count": 19,
+    "local_layers_receiving_model_roads": 19,
+    "actual_native_faces_and_local_roads_record": "native-functional-surface-emission.json"
+  },
+  {
+    "z_mm": 118.76,
+    "native_component_area_mm2": 2374.7678060611233,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 1.0806698012061953,
+    "witness_plate_xy_mm": [
+      153.273175,
+      133.82650009614423
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 1.0806698012061953,
+    "nearest_model_road": [
+      153.483,
+      135.1,
+      155.998,
+      135.1,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      0.08835,
+      2021162
+    ],
+    "resolved_by_model_fill": false,
+    "native_slab_samples": [
+      {
+        "slab_height_fraction": 0.01,
+        "native_z_mm": 118.5224,
+        "material_distance_mm": 0.006798000000003412,
+        "material_boundary_distance_mm": 0.006798000000003412,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.1,
+        "native_z_mm": 118.54400000000001,
+        "material_distance_mm": 0.006570999999979677,
+        "material_boundary_distance_mm": 0.006570999999979677,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.25,
+        "native_z_mm": 118.58000000000001,
+        "material_distance_mm": 0.005201999999997042,
+        "material_boundary_distance_mm": 0.005201999999997042,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.5,
+        "native_z_mm": 118.64000000000001,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.75,
+        "native_z_mm": 118.70000000000002,
+        "material_distance_mm": 0.004066999999992049,
+        "material_boundary_distance_mm": 0.004066999999992049,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.9,
+        "native_z_mm": 118.736,
+        "material_distance_mm": 0.006024999999993952,
+        "material_boundary_distance_mm": 0.006024999999993952,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.99,
+        "native_z_mm": 118.75760000000001,
+        "material_distance_mm": 0.006618000000003121,
+        "material_boundary_distance_mm": 0.006618000000003121,
+        "witness_in_material": false
+      }
+    ],
+    "local_mid_slab_material_area_in_half_nozzle_disk_mm2": 0.052203473858902415,
+    "half_nozzle_disk_area_mm2": 0.13832178843308218,
+    "distance_to_mid_slab_material_with_half_nozzle_erosion_mm": 1.2664006444689384,
+    "review": "The exact native witness is on a stadium ear-seat end or an insert-bore circle at the fixed magnetic pogo seat. The 2D slice contour contains the local circular/tangent crescent beside that seat. All 19 local model layers retain model roads through the complete seat/bore window. This is a locating/fastening recess and bore; it is not an unwanted flat underside on the exterior roof. The narrow planar witness does not replace the complete native seat or establish printed insert fit or load capacity.",
+    "native_surface_group": "pogo_contact_seat_and_insert_bores",
+    "functional_feature": "Magnetic pogo male stadium ear seat and two insert bores on the bay bulkhead; R2.15 seat ends, R1 insert bores. The bores and ear-bearing datum are functional locating and fastening geometry.",
+    "feature_sources": {
+      "file": "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "functions": [
+        "_pogo_seat",
+        "_pump_contact_fixed_cuts"
+      ],
+      "sha256": "b64e0ed3c2f3071065c20e70091582fa98897555c1317f44732d36923fc824ca"
+    },
+    "local_emitted_layer_count": 19,
+    "local_layers_receiving_model_roads": 19,
+    "actual_native_faces_and_local_roads_record": "native-functional-surface-emission.json"
+  },
+  {
+    "z_mm": 118.76,
+    "native_component_area_mm2": 2433.867741390377,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 1.1500019999999802,
+    "witness_plate_xy_mm": [
+      171.4276098364886,
+      133.739998
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 1.1500019999999802,
+    "nearest_model_road": [
+      169.002,
+      135.1,
+      171.517,
+      135.1,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      0.08835,
+      2021816
+    ],
+    "resolved_by_model_fill": false,
+    "native_slab_samples": [
+      {
+        "slab_height_fraction": 0.01,
+        "native_z_mm": 118.5224,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.1,
+        "native_z_mm": 118.54400000000001,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.25,
+        "native_z_mm": 118.58000000000001,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.5,
+        "native_z_mm": 118.64000000000001,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.75,
+        "native_z_mm": 118.70000000000002,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.9,
+        "native_z_mm": 118.736,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.99,
+        "native_z_mm": 118.75760000000001,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      }
+    ],
+    "local_mid_slab_material_area_in_half_nozzle_disk_mm2": 0.036852879179995995,
+    "half_nozzle_disk_area_mm2": 0.13832178843308218,
+    "distance_to_mid_slab_material_with_half_nozzle_erosion_mm": 1.3375497749077168,
+    "review": "The exact native witness is on a stadium ear-seat end or an insert-bore circle at the fixed magnetic pogo seat. The 2D slice contour contains the local circular/tangent crescent beside that seat. All 19 local model layers retain model roads through the complete seat/bore window. This is a locating/fastening recess and bore; it is not an unwanted flat underside on the exterior roof. The narrow planar witness does not replace the complete native seat or establish printed insert fit or load capacity.",
+    "native_surface_group": "pogo_contact_seat_and_insert_bores",
+    "functional_feature": "Magnetic pogo male stadium ear seat and two insert bores on the bay bulkhead; R2.15 seat ends, R1 insert bores. The bores and ear-bearing datum are functional locating and fastening geometry.",
+    "feature_sources": {
+      "file": "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "functions": [
+        "_pogo_seat",
+        "_pump_contact_fixed_cuts"
+      ],
+      "sha256": "b64e0ed3c2f3071065c20e70091582fa98897555c1317f44732d36923fc824ca"
+    },
+    "local_emitted_layer_count": 19,
+    "local_layers_receiving_model_roads": 19,
+    "actual_native_faces_and_local_roads_record": "native-functional-surface-emission.json"
+  },
+  {
+    "z_mm": 119.0,
+    "native_component_area_mm2": 2375.8985952102194,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 1.07491260424073,
+    "witness_plate_xy_mm": [
+      153.274302,
+      133.8323142545044
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 1.07491260424073,
+    "nearest_model_road": [
+      153.484,
+      135.1,
+      155.297,
+      135.1,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      0.06368,
+      2030952
+    ],
+    "resolved_by_model_fill": false,
+    "native_slab_samples": [
+      {
+        "slab_height_fraction": 0.01,
+        "native_z_mm": 118.7624,
+        "material_distance_mm": 0.0055539999999894,
+        "material_boundary_distance_mm": 0.0055539999999894,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.1,
+        "native_z_mm": 118.784,
+        "material_distance_mm": 0.005572000000000798,
+        "material_boundary_distance_mm": 0.005572000000000798,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.25,
+        "native_z_mm": 118.82000000000001,
+        "material_distance_mm": 0.004604000000000497,
+        "material_boundary_distance_mm": 0.004604000000000497,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.5,
+        "native_z_mm": 118.88000000000001,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.75,
+        "native_z_mm": 118.94000000000001,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.008240999999998166,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.9,
+        "native_z_mm": 118.976,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.014963999999991984,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.99,
+        "native_z_mm": 118.9976,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.019642000000004604,
+        "witness_in_material": true
+      }
+    ],
+    "local_mid_slab_material_area_in_half_nozzle_disk_mm2": 0.05330663148555256,
+    "half_nozzle_disk_area_mm2": 0.13832178843308218,
+    "distance_to_mid_slab_material_with_half_nozzle_erosion_mm": 1.2607516214098007,
+    "review": "The exact native witness is on a stadium ear-seat end or an insert-bore circle at the fixed magnetic pogo seat. The 2D slice contour contains the local circular/tangent crescent beside that seat. All 19 local model layers retain model roads through the complete seat/bore window. This is a locating/fastening recess and bore; it is not an unwanted flat underside on the exterior roof. The narrow planar witness does not replace the complete native seat or establish printed insert fit or load capacity.",
+    "native_surface_group": "pogo_contact_seat_and_insert_bores",
+    "functional_feature": "Magnetic pogo male stadium ear seat and two insert bores on the bay bulkhead; R2.15 seat ends, R1 insert bores. The bores and ear-bearing datum are functional locating and fastening geometry.",
+    "feature_sources": {
+      "file": "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "functions": [
+        "_pogo_seat",
+        "_pump_contact_fixed_cuts"
+      ],
+      "sha256": "b64e0ed3c2f3071065c20e70091582fa98897555c1317f44732d36923fc824ca"
+    },
+    "local_emitted_layer_count": 19,
+    "local_layers_receiving_model_roads": 19,
+    "actual_native_faces_and_local_roads_record": "native-functional-surface-emission.json"
+  },
+  {
+    "z_mm": 119.0,
+    "native_component_area_mm2": 2434.9985304100082,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 1.1500019999999802,
+    "witness_plate_xy_mm": [
+      171.480030370233,
+      133.739998
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 1.1500019999999802,
+    "nearest_model_road": [
+      169.703,
+      135.1,
+      171.516,
+      135.1,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      0.06368,
+      2031626
+    ],
+    "resolved_by_model_fill": false,
+    "native_slab_samples": [
+      {
+        "slab_height_fraction": 0.01,
+        "native_z_mm": 118.7624,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.1,
+        "native_z_mm": 118.784,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.25,
+        "native_z_mm": 118.82000000000001,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.5,
+        "native_z_mm": 118.88000000000001,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.75,
+        "native_z_mm": 118.94000000000001,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.9,
+        "native_z_mm": 118.976,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.99,
+        "native_z_mm": 118.9976,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      }
+    ],
+    "local_mid_slab_material_area_in_half_nozzle_disk_mm2": 0.04755771509108375,
+    "half_nozzle_disk_area_mm2": 0.13832178843308218,
+    "distance_to_mid_slab_material_with_half_nozzle_erosion_mm": 1.3359315101917333,
+    "review": "The exact native witness is on a stadium ear-seat end or an insert-bore circle at the fixed magnetic pogo seat. The 2D slice contour contains the local circular/tangent crescent beside that seat. All 19 local model layers retain model roads through the complete seat/bore window. This is a locating/fastening recess and bore; it is not an unwanted flat underside on the exterior roof. The narrow planar witness does not replace the complete native seat or establish printed insert fit or load capacity.",
+    "native_surface_group": "pogo_contact_seat_and_insert_bores",
+    "functional_feature": "Magnetic pogo male stadium ear seat and two insert bores on the bay bulkhead; R2.15 seat ends, R1 insert bores. The bores and ear-bearing datum are functional locating and fastening geometry.",
+    "feature_sources": {
+      "file": "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "functions": [
+        "_pogo_seat",
+        "_pump_contact_fixed_cuts"
+      ],
+      "sha256": "b64e0ed3c2f3071065c20e70091582fa98897555c1317f44732d36923fc824ca"
+    },
+    "local_emitted_layer_count": 19,
+    "local_layers_receiving_model_roads": 19,
+    "actual_native_faces_and_local_roads_record": "native-functional-surface-emission.json"
+  },
+  {
+    "z_mm": 119.24,
+    "native_component_area_mm2": 2377.8575591659283,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 1.1320330813335397,
+    "witness_plate_xy_mm": [
+      153.218183,
+      133.7744700614831
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 1.1320330813335397,
+    "nearest_model_road": [
+      153.428,
+      138.909,
+      153.428,
+      135.1,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      0.13382,
+      2042352
+    ],
+    "resolved_by_model_fill": false,
+    "native_slab_samples": [
+      {
+        "slab_height_fraction": 0.01,
+        "native_z_mm": 119.0024,
+        "material_distance_mm": 0.035321999999979425,
+        "material_boundary_distance_mm": 0.035321999999979425,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.1,
+        "native_z_mm": 119.024,
+        "material_distance_mm": 0.030022000000002436,
+        "material_boundary_distance_mm": 0.030022000000002436,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.25,
+        "native_z_mm": 119.06,
+        "material_distance_mm": 0.019969000000003234,
+        "material_boundary_distance_mm": 0.019969000000003234,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.5,
+        "native_z_mm": 119.12,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.75,
+        "native_z_mm": 119.18,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.024368000000009715,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.9,
+        "native_z_mm": 119.216,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.03447206148308624,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.99,
+        "native_z_mm": 119.2376,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.034472061483086236,
+        "witness_in_material": true
+      }
+    ],
+    "local_mid_slab_material_area_in_half_nozzle_disk_mm2": 0.04178082254201307,
+    "half_nozzle_disk_area_mm2": 0.13832178843308218,
+    "distance_to_mid_slab_material_with_half_nozzle_erosion_mm": 1.2412686056029956,
+    "review": "The exact native witness is on a stadium ear-seat end or an insert-bore circle at the fixed magnetic pogo seat. The 2D slice contour contains the local circular/tangent crescent beside that seat. All 19 local model layers retain model roads through the complete seat/bore window. This is a locating/fastening recess and bore; it is not an unwanted flat underside on the exterior roof. The narrow planar witness does not replace the complete native seat or establish printed insert fit or load capacity.",
+    "native_surface_group": "pogo_contact_seat_and_insert_bores",
+    "functional_feature": "Magnetic pogo male stadium ear seat and two insert bores on the bay bulkhead; R2.15 seat ends, R1 insert bores. The bores and ear-bearing datum are functional locating and fastening geometry.",
+    "feature_sources": {
+      "file": "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "functions": [
+        "_pogo_seat",
+        "_pump_contact_fixed_cuts"
+      ],
+      "sha256": "b64e0ed3c2f3071065c20e70091582fa98897555c1317f44732d36923fc824ca"
+    },
+    "local_emitted_layer_count": 19,
+    "local_layers_receiving_model_roads": 19,
+    "actual_native_faces_and_local_roads_record": "native-functional-surface-emission.json"
+  },
+  {
+    "z_mm": 119.24,
+    "native_component_area_mm2": 2436.9574904442297,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 1.1500019999999802,
+    "witness_plate_xy_mm": [
+      171.5294278269487,
+      133.739998
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 1.1500019999999802,
+    "nearest_model_road": [
+      170.791,
+      135.1,
+      171.557,
+      135.1,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      0.02692,
+      2040874
+    ],
+    "resolved_by_model_fill": false,
+    "native_slab_samples": [
+      {
+        "slab_height_fraction": 0.01,
+        "native_z_mm": 119.0024,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.1,
+        "native_z_mm": 119.024,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.25,
+        "native_z_mm": 119.06,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.5,
+        "native_z_mm": 119.12,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.75,
+        "native_z_mm": 119.18,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.9,
+        "native_z_mm": 119.216,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.99,
+        "native_z_mm": 119.2376,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      }
+    ],
+    "local_mid_slab_material_area_in_half_nozzle_disk_mm2": 0.06120986066463102,
+    "half_nozzle_disk_area_mm2": 0.13832178843308218,
+    "distance_to_mid_slab_material_with_half_nozzle_erosion_mm": 1.258561667556988,
+    "review": "The exact native witness is on a stadium ear-seat end or an insert-bore circle at the fixed magnetic pogo seat. The 2D slice contour contains the local circular/tangent crescent beside that seat. All 19 local model layers retain model roads through the complete seat/bore window. This is a locating/fastening recess and bore; it is not an unwanted flat underside on the exterior roof. The narrow planar witness does not replace the complete native seat or establish printed insert fit or load capacity.",
+    "native_surface_group": "pogo_contact_seat_and_insert_bores",
+    "functional_feature": "Magnetic pogo male stadium ear seat and two insert bores on the bay bulkhead; R2.15 seat ends, R1 insert bores. The bores and ear-bearing datum are functional locating and fastening geometry.",
+    "feature_sources": {
+      "file": "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "functions": [
+        "_pogo_seat",
+        "_pump_contact_fixed_cuts"
+      ],
+      "sha256": "b64e0ed3c2f3071065c20e70091582fa98897555c1317f44732d36923fc824ca"
+    },
+    "local_emitted_layer_count": 19,
+    "local_layers_receiving_model_roads": 19,
+    "actual_native_faces_and_local_roads_record": "native-functional-surface-emission.json"
+  },
+  {
+    "z_mm": 123.32,
+    "native_component_area_mm2": 4868.178519324764,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 5.848166011208855,
+    "witness_plate_xy_mm": [
+      162.533032,
+      138.39383398879116
+    ],
+    "nearest_model_feature": "Bridge",
+    "distance_beyond_nearest_model_half_width_mm": -0.03627098879116977,
+    "nearest_model_road": [
+      163.822,
+      138.569,
+      161.178,
+      138.569,
+      0.422874,
+      0,
+      1901,
+      "Bridge",
+      "G1",
+      0.09362,
+      2249548
+    ],
+    "resolved_by_model_fill": true,
+    "review": "The native mid-slab contour at this witness is covered by an actual Bridge/Top-surface road. A perimeter-only comparison excludes that material."
+  },
+  {
+    "z_mm": 131.48,
+    "native_component_area_mm2": 6788.93177980749,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 1.6803771893264865,
+    "witness_plate_xy_mm": [
+      264.2516228106735,
+      251.224998
+    ],
+    "nearest_model_feature": "Top surface",
+    "distance_beyond_nearest_model_half_width_mm": -0.19762297033258303,
+    "nearest_model_road": [
+      262.679,
+      252.837,
+      265.083,
+      250.432,
+      0.45,
+      0,
+      1901,
+      "Top surface",
+      "G1",
+      0.12919,
+      2542457
+    ],
+    "resolved_by_model_fill": true,
+    "review": "The native mid-slab contour at this witness is covered by an actual Bridge/Top-surface road. A perimeter-only comparison excludes that material."
+  },
+  {
+    "z_mm": 131.48,
+    "native_component_area_mm2": 72.10502874999989,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 2.044104473684209,
+    "witness_plate_xy_mm": [
+      61.11210447368421,
+      251.234997
+    ],
+    "nearest_model_feature": "Top surface",
+    "distance_beyond_nearest_model_half_width_mm": -0.031888096005852684,
+    "nearest_model_road": [
+      61.642,
+      250.432,
+      59.237,
+      252.837,
+      0.45,
+      0,
+      1901,
+      "Top surface",
+      "G1",
+      0.12919,
+      2541592
+    ],
+    "resolved_by_model_fill": true,
+    "review": "The native mid-slab contour at this witness is covered by an actual Bridge/Top-surface road. A perimeter-only comparison excludes that material."
+  },
+  {
+    "z_mm": 131.48,
+    "native_component_area_mm2": 72.10502874999989,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 1.5977804736841905,
+    "witness_plate_xy_mm": [
+      264.3342195263158,
+      251.234997
+    ],
+    "nearest_model_feature": "Top surface",
+    "distance_beyond_nearest_model_half_width_mm": -0.18689129800514978,
+    "nearest_model_road": [
+      262.679,
+      252.837,
+      265.083,
+      250.432,
+      0.45,
+      0,
+      1901,
+      "Top surface",
+      "G1",
+      0.12919,
+      2542457
+    ],
+    "resolved_by_model_fill": true,
+    "review": "The native mid-slab contour at this witness is covered by an actual Bridge/Top-surface road. A perimeter-only comparison excludes that material."
+  },
+  {
+    "z_mm": 146.6,
+    "native_component_area_mm2": 6754.987949937096,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 2.938634874669962,
+    "witness_plate_xy_mm": [
+      107.855038,
+      69.365472
+    ],
+    "nearest_model_feature": "Top surface",
+    "distance_beyond_nearest_model_half_width_mm": -0.080633975066255,
+    "nearest_model_road": [
+      106.614,
+      68.329,
+      109.45,
+      71.164,
+      0.45,
+      0,
+      1901,
+      "Top surface",
+      "G1",
+      0.15237,
+      3159409
+    ],
+    "resolved_by_model_fill": true,
+    "review": "The native mid-slab contour at this witness is covered by an actual Bridge/Top-surface road. A perimeter-only comparison excludes that material."
+  },
+  {
+    "z_mm": 146.84,
+    "native_component_area_mm2": 6655.097330677918,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 3.526971128899855,
+    "witness_plate_xy_mm": [
+      104.841107,
+      65.782907
+    ],
+    "nearest_model_feature": "Top surface",
+    "distance_beyond_nearest_model_half_width_mm": -0.2242829937238884,
+    "nearest_model_road": [
+      106.233,
+      64.39,
+      103.06,
+      67.563,
+      0.45,
+      0,
+      1901,
+      "Top surface",
+      "G1",
+      0.17049,
+      3169506
+    ],
+    "resolved_by_model_fill": true,
+    "review": "The native mid-slab contour at this witness is covered by an actual Bridge/Top-surface road. A perimeter-only comparison excludes that material."
+  },
+  {
+    "z_mm": 148.04,
+    "native_component_area_mm2": 6673.8443683631795,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 3.4628769913897424,
+    "witness_plate_xy_mm": [
+      212.1496066252358,
+      71.964006
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 3.4628769913897424,
+    "nearest_model_road": [
+      216.825,
+      68.291,
+      108.101,
+      68.294,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      3.81973,
+      3215170
+    ],
+    "resolved_by_model_fill": false,
+    "native_slab_samples": [
+      {
+        "slab_height_fraction": 0.01,
+        "native_z_mm": 147.8024099,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.067892999999998,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.1,
+        "native_z_mm": 147.824009,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.05542300000000466,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.25,
+        "native_z_mm": 147.8600075,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.03463899999999853,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.5,
+        "native_z_mm": 147.92000499999997,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.75,
+        "native_z_mm": 147.98000249999998,
+        "material_distance_mm": 3.4987380000000035,
+        "material_boundary_distance_mm": 3.4987380000000035,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.9,
+        "native_z_mm": 148.016001,
+        "material_distance_mm": 3.519521999999995,
+        "material_boundary_distance_mm": 3.519521999999995,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.99,
+        "native_z_mm": 148.0376001,
+        "material_distance_mm": 3.5319920000000025,
+        "material_boundary_distance_mm": 3.5319920000000025,
+        "witness_in_material": false
+      }
+    ],
+    "local_mid_slab_material_area_in_half_nozzle_disk_mm2": 0.033836117243181224,
+    "half_nozzle_disk_area_mm2": 0.1383217884330792,
+    "distance_to_mid_slab_material_with_half_nozzle_erosion_mm": 3.6740989999999982,
+    "review": "The native witness is on the lower glass/PCB end plane, the R6.15 inset corner, or the sloping display face bordering the bottom recess. These required recess boundaries intersect a horizontal slice obliquely; a terminal sliver of one mid-slab contour is not the whole locating/seat face. All 32 local model layers have emitted model roads; exact face records and the actual witness-layer roads are retained. Receiver fit and surface quality remain observations of the new full print.",
+    "native_surface_group": "display_lower_glass_and_pcb_seats",
+    "functional_feature": "Display pocket lower end walls: the deeper glass seat ends at worldZ307.95587, the PCB through-opening end at Z308.18792; both normals follow the 30 degree display-local plane. The lower inset corner roll is R6.15. The remaining witness lies on the adjacent swept display face as that lower inset opens across it. These are display recess/corner/seat boundaries, not exposed flat roof undersides.",
+    "feature_sources": {
+      "file": "hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
+      "functions": [
+        "cuts"
+      ],
+      "sha256": "e3e5f0251ab9f0f82324c82e94e45667cac0e5d9c505cf06fd6f525c6bf3ce82"
+    },
+    "local_emitted_layer_count": 32,
+    "local_layers_receiving_model_roads": 32,
+    "actual_native_faces_and_local_roads_record": "native-functional-surface-emission.json"
+  },
+  {
+    "z_mm": 148.28,
+    "native_component_area_mm2": 6468.053695872036,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 3.4623480000000146,
+    "witness_plate_xy_mm": [
+      111.25030798101861,
+      68.361348
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 3.4623480000000146,
+    "nearest_model_road": [
+      219.559,
+      64.689,
+      105.439,
+      64.689,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      4.00934,
+      3224581
+    ],
+    "resolved_by_model_fill": false,
+    "native_slab_samples": [
+      {
+        "slab_height_fraction": 0.01,
+        "native_z_mm": 148.04239505,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0678969999999879,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.1,
+        "native_z_mm": 148.0639955,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.05542599999999708,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.25,
+        "native_z_mm": 148.09999625,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.03464099999999348,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.5,
+        "native_z_mm": 148.1599975,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.75,
+        "native_z_mm": 148.21999875,
+        "material_distance_mm": 3.4987460000000117,
+        "material_boundary_distance_mm": 3.4987460000000117,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.9,
+        "native_z_mm": 148.2559995,
+        "material_distance_mm": 3.5195310000000006,
+        "material_boundary_distance_mm": 3.5195310000000006,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.99,
+        "native_z_mm": 148.27759995,
+        "material_distance_mm": 3.532002000000005,
+        "material_boundary_distance_mm": 3.532002000000005,
+        "witness_in_material": false
+      }
+    ],
+    "local_mid_slab_material_area_in_half_nozzle_disk_mm2": 0.02663677267379002,
+    "half_nozzle_disk_area_mm2": 0.13832178843307627,
+    "distance_to_mid_slab_material_with_half_nozzle_erosion_mm": 3.674104,
+    "review": "The native witness is on the lower glass/PCB end plane, the R6.15 inset corner, or the sloping display face bordering the bottom recess. These required recess boundaries intersect a horizontal slice obliquely; a terminal sliver of one mid-slab contour is not the whole locating/seat face. All 32 local model layers have emitted model roads; exact face records and the actual witness-layer roads are retained. Receiver fit and surface quality remain observations of the new full print.",
+    "native_surface_group": "display_lower_glass_and_pcb_seats",
+    "functional_feature": "Display pocket lower end walls: the deeper glass seat ends at worldZ307.95587, the PCB through-opening end at Z308.18792; both normals follow the 30 degree display-local plane. The lower inset corner roll is R6.15. The remaining witness lies on the adjacent swept display face as that lower inset opens across it. These are display recess/corner/seat boundaries, not exposed flat roof undersides.",
+    "feature_sources": {
+      "file": "hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
+      "functions": [
+        "cuts"
+      ],
+      "sha256": "e3e5f0251ab9f0f82324c82e94e45667cac0e5d9c505cf06fd6f525c6bf3ce82"
+    },
+    "local_emitted_layer_count": 32,
+    "local_layers_receiving_model_roads": 32,
+    "actual_native_faces_and_local_roads_record": "native-functional-surface-emission.json"
+  },
+  {
+    "z_mm": 149.96,
+    "native_component_area_mm2": 5928.670171832487,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 53.997221987238554,
+    "witness_plate_xy_mm": [
+      162.52708403479207,
+      63.526699
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 53.997221987238554,
+    "nearest_model_road": [
+      105.39,
+      75.417,
+      109.64,
+      75.417,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      0.14931,
+      3288184
+    ],
+    "resolved_by_model_fill": false,
+    "native_slab_samples": [
+      {
+        "slab_height_fraction": 0.01,
+        "native_z_mm": 149.72239505000002,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.20369600000000074,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.1,
+        "native_z_mm": 149.7439955,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.16628299999999996,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.25,
+        "native_z_mm": 149.77999625,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.10392699999999877,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.5,
+        "native_z_mm": 149.8399975,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.75,
+        "native_z_mm": 149.89999875,
+        "material_distance_mm": 0.10392600000000128,
+        "material_boundary_distance_mm": 0.10392600000000128,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.9,
+        "native_z_mm": 149.9359995,
+        "material_distance_mm": 0.16628200000000246,
+        "material_boundary_distance_mm": 0.16628200000000246,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.99,
+        "native_z_mm": 149.95759995,
+        "material_distance_mm": 0.20369600000000074,
+        "material_boundary_distance_mm": 0.20369600000000074,
+        "witness_in_material": false
+      }
+    ],
+    "local_mid_slab_material_area_in_half_nozzle_disk_mm2": 0.06916089421653976,
+    "half_nozzle_disk_area_mm2": 0.13832178843307955,
+    "distance_to_mid_slab_material_with_half_nozzle_erosion_mm": 54.20715810053871,
+    "review": "The native witness is on the lower glass/PCB end plane, the R6.15 inset corner, or the sloping display face bordering the bottom recess. These required recess boundaries intersect a horizontal slice obliquely; a terminal sliver of one mid-slab contour is not the whole locating/seat face. All 32 local model layers have emitted model roads; exact face records and the actual witness-layer roads are retained. Receiver fit and surface quality remain observations of the new full print.",
+    "native_surface_group": "display_lower_glass_and_pcb_seats",
+    "functional_feature": "Display pocket lower end walls: the deeper glass seat ends at worldZ307.95587, the PCB through-opening end at Z308.18792; both normals follow the 30 degree display-local plane. The lower inset corner roll is R6.15. The remaining witness lies on the adjacent swept display face as that lower inset opens across it. These are display recess/corner/seat boundaries, not exposed flat roof undersides.",
+    "feature_sources": {
+      "file": "hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
+      "functions": [
+        "cuts"
+      ],
+      "sha256": "e3e5f0251ab9f0f82324c82e94e45667cac0e5d9c505cf06fd6f525c6bf3ce82"
+    },
+    "local_emitted_layer_count": 32,
+    "local_layers_receiving_model_roads": 32,
+    "actual_native_faces_and_local_roads_record": "native-functional-surface-emission.json"
+  },
+  {
+    "z_mm": 150.2,
+    "native_component_area_mm2": 3057.0064026218915,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 0.33437173026408074,
+    "witness_plate_xy_mm": [
+      103.68329553150834,
+      64.14289203146892
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 0.33437173026408074,
+    "nearest_model_road": [
+      61.03,
+      64.152,
+      103.139,
+      64.152,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      1.47937,
+      3297817
+    ],
+    "resolved_by_model_fill": false,
+    "native_slab_samples": [
+      {
+        "slab_height_fraction": 0.01,
+        "native_z_mm": 149.96240989999998,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.06362852862585198,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.1,
+        "native_z_mm": 149.984009,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.05194129402117665,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.25,
+        "native_z_mm": 150.0200075,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.032463724694595256,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.5,
+        "native_z_mm": 150.08000499999997,
+        "material_distance_mm": 5.896746412259481e-15,
+        "material_boundary_distance_mm": 5.896746412259481e-15,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.75,
+        "native_z_mm": 150.14000249999998,
+        "material_distance_mm": 0.03246290708926128,
+        "material_boundary_distance_mm": 0.03246290708926128,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.9,
+        "native_z_mm": 150.17600099999999,
+        "material_distance_mm": 0.06545546755739483,
+        "material_boundary_distance_mm": 0.06545546755739483,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.99,
+        "native_z_mm": 150.1976001,
+        "material_distance_mm": 0.17924374168621107,
+        "material_boundary_distance_mm": 0.17924374168621107,
+        "witness_in_material": false
+      }
+    ],
+    "local_mid_slab_material_area_in_half_nozzle_disk_mm2": 0.06890091535280175,
+    "half_nozzle_disk_area_mm2": 0.1383217884330762,
+    "distance_to_mid_slab_material_with_half_nozzle_erosion_mm": 0.5533214210112257,
+    "review": "The native witness is on the lower glass/PCB end plane, the R6.15 inset corner, or the sloping display face bordering the bottom recess. These required recess boundaries intersect a horizontal slice obliquely; a terminal sliver of one mid-slab contour is not the whole locating/seat face. All 32 local model layers have emitted model roads; exact face records and the actual witness-layer roads are retained. Receiver fit and surface quality remain observations of the new full print.",
+    "native_surface_group": "display_lower_glass_and_pcb_seats",
+    "functional_feature": "Display pocket lower end walls: the deeper glass seat ends at worldZ307.95587, the PCB through-opening end at Z308.18792; both normals follow the 30 degree display-local plane. The lower inset corner roll is R6.15. The remaining witness lies on the adjacent swept display face as that lower inset opens across it. These are display recess/corner/seat boundaries, not exposed flat roof undersides.",
+    "feature_sources": {
+      "file": "hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
+      "functions": [
+        "cuts"
+      ],
+      "sha256": "e3e5f0251ab9f0f82324c82e94e45667cac0e5d9c505cf06fd6f525c6bf3ce82"
+    },
+    "local_emitted_layer_count": 32,
+    "local_layers_receiving_model_roads": 32,
+    "actual_native_faces_and_local_roads_record": "native-functional-surface-emission.json"
+  },
+  {
+    "z_mm": 150.2,
+    "native_component_area_mm2": 2806.7508611239605,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 0.6263735581765009,
+    "witness_plate_xy_mm": [
+      221.03167749944058,
+      64.04362602303735
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 0.6263735581765009,
+    "nearest_model_road": [
+      221.861,
+      64.152,
+      263.969,
+      64.152,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      1.47936,
+      3299216
+    ],
+    "resolved_by_model_fill": false,
+    "native_slab_samples": [
+      {
+        "slab_height_fraction": 0.01,
+        "native_z_mm": 149.96240989999998,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.06485462330586558,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.1,
+        "native_z_mm": 149.984009,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.052942197781669594,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.25,
+        "native_z_mm": 150.0200075,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.033088778749432106,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.5,
+        "native_z_mm": 150.08000499999997,
+        "material_distance_mm": 1.095289079382872e-15,
+        "material_boundary_distance_mm": 1.095289079382872e-15,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.75,
+        "native_z_mm": 150.14000249999998,
+        "material_distance_mm": 0.11275456855255503,
+        "material_boundary_distance_mm": 0.11275456855255503,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.9,
+        "native_z_mm": 150.17600099999999,
+        "material_distance_mm": 0.3469771333150896,
+        "material_boundary_distance_mm": 0.3469771333150896,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.99,
+        "native_z_mm": 150.1976001,
+        "material_distance_mm": 0.47541169266385436,
+        "material_boundary_distance_mm": 0.47541169266385436,
+        "witness_in_material": false
+      }
+    ],
+    "local_mid_slab_material_area_in_half_nozzle_disk_mm2": 0.04131198570259833,
+    "half_nozzle_disk_area_mm2": 0.13832178843307935,
+    "distance_to_mid_slab_material_with_half_nozzle_erosion_mm": 0.845295048708161,
+    "review": "The native witness is on the lower glass/PCB end plane, the R6.15 inset corner, or the sloping display face bordering the bottom recess. These required recess boundaries intersect a horizontal slice obliquely; a terminal sliver of one mid-slab contour is not the whole locating/seat face. All 32 local model layers have emitted model roads; exact face records and the actual witness-layer roads are retained. Receiver fit and surface quality remain observations of the new full print.",
+    "native_surface_group": "display_lower_glass_and_pcb_seats",
+    "functional_feature": "Display pocket lower end walls: the deeper glass seat ends at worldZ307.95587, the PCB through-opening end at Z308.18792; both normals follow the 30 degree display-local plane. The lower inset corner roll is R6.15. The remaining witness lies on the adjacent swept display face as that lower inset opens across it. These are display recess/corner/seat boundaries, not exposed flat roof undersides.",
+    "feature_sources": {
+      "file": "hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
+      "functions": [
+        "cuts"
+      ],
+      "sha256": "e3e5f0251ab9f0f82324c82e94e45667cac0e5d9c505cf06fd6f525c6bf3ce82"
+    },
+    "local_emitted_layer_count": 32,
+    "local_layers_receiving_model_roads": 32,
+    "actual_native_faces_and_local_roads_record": "native-functional-surface-emission.json"
+  },
+  {
+    "z_mm": 170.36,
+    "native_component_area_mm2": 6453.074633771253,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 2.9899980000000004,
+    "witness_plate_xy_mm": [
+      66.989998,
+      152.44245655931405
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 2.9899980000000004,
+    "nearest_model_road": [
+      63.79,
+      151.312,
+      63.79,
+      250.765,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      3.49402,
+      4032759
+    ],
+    "resolved_by_model_fill": false,
+    "native_slab_samples": [
+      {
+        "slab_height_fraction": 0.01,
+        "native_z_mm": 170.12239505000002,
+        "material_distance_mm": 0.11760300000000255,
+        "material_boundary_distance_mm": 0.11760300000000255,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.1,
+        "native_z_mm": 170.14399550000002,
+        "material_distance_mm": 0.09600199999999859,
+        "material_boundary_distance_mm": 0.09600199999999859,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.25,
+        "native_z_mm": 170.17999625000002,
+        "material_distance_mm": 0.06000199999999723,
+        "material_boundary_distance_mm": 0.06000199999999723,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.5,
+        "native_z_mm": 170.23999750000002,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.75,
+        "native_z_mm": 170.29999875000001,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.04242044068595874,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.9,
+        "native_z_mm": 170.3359995,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.02163544068594092,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.99,
+        "native_z_mm": 170.35759995,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.009164440685935913,
+        "witness_in_material": true
+      }
+    ],
+    "local_mid_slab_material_area_in_half_nozzle_disk_mm2": 0.05037900354681784,
+    "half_nozzle_disk_area_mm2": 0.1383217884330793,
+    "distance_to_mid_slab_material_with_half_nozzle_erosion_mm": 3.14039165145374,
+    "review": "The witness lies on the funnel receiver capture channel\u2019s required 45 degree mating end at Y101, with full native face extents Z327.25\u2013330.75012 and X94.99988\u201398.5 (mirrored west). Its terminal horizontal section becomes narrower than a road as the mating bevel meets the face. All 15 local model layers retain emitted model roads, and the complete mating-channel shape remains in the source. This functional bevel is distinct from an unwanted flat exterior-roof fin. Actual new rail fit remains a print/assembly observation.",
+    "native_surface_group": "funnel_receiver_capture_end",
+    "functional_feature": "Front funnel receiver capture channel ends at Y101: full 45 degree mating end faces rooted on the side wall, spanning X94.99988..98.5 / X-98.5..-94.99988 and Z327.25..330.75012. These faces guide/capture the sliding rail and retain their functional profile. The native short triangular terminal sections are distinct from an unwanted flat underside on the exterior roof.",
+    "feature_sources": {
+      "file": "hardware/printed-parts/zone-c/funnel/funnel_frame.py",
+      "functions": [
+        "receivers",
+        "rail_runs"
+      ],
+      "sha256": "4e8f53f1aaa2bb572a207f32ec58725213510e9a581f004902400a06cd6b615a"
+    },
+    "local_emitted_layer_count": 15,
+    "local_layers_receiving_model_roads": 15,
+    "actual_native_faces_and_local_roads_record": "native-functional-surface-emission.json"
+  },
+  {
+    "z_mm": 170.6,
+    "native_component_area_mm2": 6496.081001734295,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 3.1608259113672057,
+    "witness_plate_xy_mm": [
+      257.8391740886328,
+      152.224998
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 3.1608259113672057,
+    "nearest_model_road": [
+      261.21,
+      246.406,
+      261.21,
+      151.492,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      3.33455,
+      4039827
+    ],
+    "resolved_by_model_fill": false,
+    "native_slab_samples": [
+      {
+        "slab_height_fraction": 0.01,
+        "native_z_mm": 170.36239505,
+        "material_distance_mm": 0.048430911367233875,
+        "material_boundary_distance_mm": 0.048430911367233875,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.1,
+        "native_z_mm": 170.3839955,
+        "material_distance_mm": 0.02683091136719895,
+        "material_boundary_distance_mm": 0.02683091136719895,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.25,
+        "native_z_mm": 170.41999625,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.5,
+        "native_z_mm": 170.4799975,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.75,
+        "native_z_mm": 170.53999875,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.9,
+        "native_z_mm": 170.5759995,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.99,
+        "native_z_mm": 170.59759995,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      }
+    ],
+    "local_mid_slab_material_area_in_half_nozzle_disk_mm2": 0.04018063328675984,
+    "half_nozzle_disk_area_mm2": 0.13832178843306897,
+    "distance_to_mid_slab_material_with_half_nozzle_erosion_mm": 3.356599884218654,
+    "review": "The witness lies on the funnel receiver capture channel\u2019s required 45 degree mating end at Y101, with full native face extents Z327.25\u2013330.75012 and X94.99988\u201398.5 (mirrored west). Its terminal horizontal section becomes narrower than a road as the mating bevel meets the face. All 15 local model layers retain emitted model roads, and the complete mating-channel shape remains in the source. This functional bevel is distinct from an unwanted flat exterior-roof fin. Actual new rail fit remains a print/assembly observation.",
+    "native_surface_group": "funnel_receiver_capture_end",
+    "functional_feature": "Front funnel receiver capture channel ends at Y101: full 45 degree mating end faces rooted on the side wall, spanning X94.99988..98.5 / X-98.5..-94.99988 and Z327.25..330.75012. These faces guide/capture the sliding rail and retain their functional profile. The native short triangular terminal sections are distinct from an unwanted flat underside on the exterior roof.",
+    "feature_sources": {
+      "file": "hardware/printed-parts/zone-c/funnel/funnel_frame.py",
+      "functions": [
+        "receivers",
+        "rail_runs"
+      ],
+      "sha256": "4e8f53f1aaa2bb572a207f32ec58725213510e9a581f004902400a06cd6b615a"
+    },
+    "local_emitted_layer_count": 15,
+    "local_layers_receiving_model_roads": 15,
+    "actual_native_faces_and_local_roads_record": "native-functional-surface-emission.json"
+  },
+  {
+    "z_mm": 170.84,
+    "native_component_area_mm2": 6534.505146935421,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 3.403273554833675,
+    "witness_plate_xy_mm": [
+      67.40327355483367,
+      152.242387
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 3.403273554833675,
+    "nearest_model_road": [
+      63.79,
+      151.672,
+      63.79,
+      251.015,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      3.49016,
+      4046856
+    ],
+    "resolved_by_model_fill": false,
+    "native_slab_samples": [
+      {
+        "slab_height_fraction": 0.01,
+        "native_z_mm": 170.6024099,
+        "material_distance_mm": 0.05086355483366845,
+        "material_boundary_distance_mm": 0.05086355483366845,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.1,
+        "native_z_mm": 170.624009,
+        "material_distance_mm": 0.029264554833673625,
+        "material_boundary_distance_mm": 0.029264554833673625,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.25,
+        "native_z_mm": 170.6600075,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.00673444516633026,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.5,
+        "native_z_mm": 170.720005,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.75,
+        "native_z_mm": 170.7800025,
+        "material_distance_mm": 3.4032735548336746,
+        "material_boundary_distance_mm": 3.4032735548336746,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.9,
+        "native_z_mm": 170.816001,
+        "material_distance_mm": 3.403273554833674,
+        "material_boundary_distance_mm": 3.403273554833674,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.99,
+        "native_z_mm": 170.8376001,
+        "material_distance_mm": 3.403273554833674,
+        "material_boundary_distance_mm": 3.403273554833674,
+        "witness_in_material": false
+      }
+    ],
+    "local_mid_slab_material_area_in_half_nozzle_disk_mm2": 0.004804655677388274,
+    "half_nozzle_disk_area_mm2": 0.1383217884330793,
+    "distance_to_mid_slab_material_with_half_nozzle_erosion_mm": 3.6128568833030434,
+    "review": "The witness lies on the funnel receiver capture channel\u2019s required 45 degree mating end at Y101, with full native face extents Z327.25\u2013330.75012 and X94.99988\u201398.5 (mirrored west). Its terminal horizontal section becomes narrower than a road as the mating bevel meets the face. All 15 local model layers retain emitted model roads, and the complete mating-channel shape remains in the source. This functional bevel is distinct from an unwanted flat exterior-roof fin. Actual new rail fit remains a print/assembly observation.",
+    "native_surface_group": "funnel_receiver_capture_end",
+    "functional_feature": "Front funnel receiver capture channel ends at Y101: full 45 degree mating end faces rooted on the side wall, spanning X94.99988..98.5 / X-98.5..-94.99988 and Z327.25..330.75012. These faces guide/capture the sliding rail and retain their functional profile. The native short triangular terminal sections are distinct from an unwanted flat underside on the exterior roof.",
+    "feature_sources": {
+      "file": "hardware/printed-parts/zone-c/funnel/funnel_frame.py",
+      "functions": [
+        "receivers",
+        "rail_runs"
+      ],
+      "sha256": "4e8f53f1aaa2bb572a207f32ec58725213510e9a581f004902400a06cd6b615a"
+    },
+    "local_emitted_layer_count": 15,
+    "local_layers_receiving_model_roads": 15,
+    "actual_native_faces_and_local_roads_record": "native-functional-surface-emission.json"
+  },
+  {
+    "z_mm": 194.04,
+    "native_component_area_mm2": 5570.55405144444,
+    "boundary_distance_beyond_nearest_wall_half_width_mm": 0.44804755141093144,
+    "witness_plate_xy_mm": [
+      263.4000689974457,
+      140.215925
+    ],
+    "nearest_model_feature": "Outer wall",
+    "distance_beyond_nearest_model_half_width_mm": 0.44804755141093144,
+    "nearest_model_road": [
+      60.959,
+      140.867,
+      264.197,
+      140.874,
+      0.42,
+      0,
+      1901,
+      "Outer wall",
+      "G1",
+      2.60186,
+      4559461
+    ],
+    "resolved_by_model_fill": false,
+    "native_slab_samples": [
+      {
+        "slab_height_fraction": 0.01,
+        "native_z_mm": 193.64399999999998,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.4974330000000009,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.1,
+        "native_z_mm": 193.67999999999998,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.40896799999998734,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.25,
+        "native_z_mm": 193.73999999999998,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.261525000000006,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.5,
+        "native_z_mm": 193.83999999999997,
+        "material_distance_mm": 0.0,
+        "material_boundary_distance_mm": 0.0,
+        "witness_in_material": true
+      },
+      {
+        "slab_height_fraction": 0.75,
+        "native_z_mm": 193.94,
+        "material_distance_mm": 0.269915999999995,
+        "material_boundary_distance_mm": 0.269915999999995,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.9,
+        "native_z_mm": 194.0,
+        "material_distance_mm": 0.4413859999999943,
+        "material_boundary_distance_mm": 0.4413859999999943,
+        "witness_in_material": false
+      },
+      {
+        "slab_height_fraction": 0.99,
+        "native_z_mm": 194.03599999999997,
+        "material_distance_mm": 0.5442679999999882,
+        "material_boundary_distance_mm": 0.5442679999999882,
+        "witness_in_material": false
+      }
+    ],
+    "local_mid_slab_material_area_in_half_nozzle_disk_mm2": 0.06916089421653508,
+    "half_nozzle_disk_area_mm2": 0.13832178843307014,
+    "distance_to_mid_slab_material_with_half_nozzle_erosion_mm": 0.21000000000000799,
+    "review": "The exact native face is the R18 swept roof cylinder, not a flat underside. Its contour retreats by up to 0.544 mm within this 0.08 mm slab, so midpoint contour proximity is not the emitted-bead support test. The full fine-band overlap and final-corner records retain the actual preceding-layer support reading.",
+    "native_surface_group": "swept_roof_r18_curve",
+    "functional_feature": "The R18 curve joining the display plane to the flat roof, with axis parallel to X through Y95.34421,Z337.0. Its measured complete show span is verified at 0.08 mm. This witness is on the native cylinder, not a flat face or a loft underside.",
+    "feature_sources": {
+      "file": "hardware/printed-parts/enclosure/enclosure/_swept_top.py",
+      "functions": [
+        "profile",
+        "silhouette"
+      ],
+      "sha256": "347f941b2b2aed2aa5af26373fc4dcfb852390bab61f8d60cb2d538926221a22"
+    },
+    "local_emitted_layer_count": 31,
+    "local_layers_receiving_model_roads": 31,
+    "actual_native_faces_and_local_roads_record": "native-functional-surface-emission.json"
+  }
+]

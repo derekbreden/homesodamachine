@@ -1,0 +1,22 @@
+{
+  "pass": true,
+  "source_step_sha256": "cb45044df359205d55dafe6ad3a8f5e8f332eccb2cfe6ac708f3c913672541b6",
+  "source_stl_sha256": "b9a330b868dde6cdab0278fecb023b4b3dc01a993e9070fa2828605237fded88",
+  "gcode_sha256": "c36cdbf25e44a187b635de5ba59ad412aaa69107511b7f56daf4532df944b7f4",
+  "protected_show_face_count": 119,
+  "source_show_faces_unchanged_sha256": "6b8c2b511fc14c8fad8e012cba4703f25c724055909b4ffca6e0462475457180",
+  "support_roads_checked": 1526926,
+  "support_road_max_print_z_mm": 188.79,
+  "support_road_max_width_mm": 0.62,
+  "support_road_max_height_mm": 0.279956,
+  "native_bbox_candidate_pairs": 273547,
+  "analytic_surface_lower_bound_exclusions": 272781,
+  "exact_native_edge_to_face_pairs": 766,
+  "minimum_candidate_bead_clearance_lower_bound_mm": 0.25498072368988595,
+  "potential_bead_contacts": [],
+  "method": "Every emitted support road uses its own width/height capsule. Native face bounding boxes exclude distant capsules. Exact infinite-plane/cylinder distance lower bounds may exclude a finite face only when the lower bound exceeds the bead radius; remaining candidates receive exact native edge-to-face queries. The119 exterior display/roof show faces match the previous native geometry by type, complete bounds, area and cross-face vertex distance, while every road comes from this fresh archive.",
+  "scope": "Nominal native geometric bead-envelope clearance. Physical surface finish and removal effort remain separate.",
+  "detail_file": "show-support-clearance.json",
+  "detailed_road_readings_sha256": "366d882fe5cd7d126779ca123d73d80651c70301deb7b673d92f7397690c2579",
+  "elapsed_seconds": 34.81230878829956
+}
