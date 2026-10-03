@@ -34,11 +34,13 @@
   "minimum_cross_printer_start_or_resume_spacing_s": 180,
   "cool_before_removal_c": 35,
   "completion_reported": false,
-  "monitor_active": true,
-  "updated_utc": "2026-10-03T04:38:08.272272+00:00",
+  "monitor_active": false,
+  "updated_utc": "2026-10-03T04:56:50.808458+00:00",
   "scope": "One core and one insert together. No PETG shell or separate foam job is requested.",
   "accepted_task_id": "1304010811",
   "cancellation_reported": true,
   "printer_message": "The task was canceled.",
-  "operator_report_pending": true
+  "operator_report_pending": false,
+  "physical_observation_record": "physical-observations.json",
+  "next_trial_queue": "../v4/queue.json"
 }
