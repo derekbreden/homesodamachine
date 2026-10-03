@@ -1,0 +1,3374 @@
+{
+  "schema": 1,
+  "pass": true,
+  "live_verified_utc": "2026-10-03T10:50:29Z",
+  "live_verification_record_sha256": "fc1ae9b2109ca4450edd023be81cf49c2dd7c1128d1c8b32abffe13ca34482db",
+  "live_native_bindings": [
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+      "url": "https://objects.homesodamachine.com/s-85e4e97f382142f2ed497abe36d6be493dda94ee4b672a9e0a706b684c0ef573.gz",
+      "expected_sha256": "85e4e97f382142f2ed497abe36d6be493dda94ee4b672a9e0a706b684c0ef573",
+      "live_sha256": "85e4e97f382142f2ed497abe36d6be493dda94ee4b672a9e0a706b684c0ef573",
+      "match": true,
+      "bytes": 2720206
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-9014a0dc8f70d0ababcaafd82b0e670ea922c27c99b91db3f532026945234bfd.gz",
+      "expected_sha256": "9014a0dc8f70d0ababcaafd82b0e670ea922c27c99b91db3f532026945234bfd",
+      "live_sha256": "9014a0dc8f70d0ababcaafd82b0e670ea922c27c99b91db3f532026945234bfd",
+      "match": true,
+      "bytes": 4732292
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+      "url": "https://objects.homesodamachine.com/s-866cffceff2bd16e8f760b520ac5ca699904999238e3eedfe1f8ed4311a7672c.gz",
+      "expected_sha256": "866cffceff2bd16e8f760b520ac5ca699904999238e3eedfe1f8ed4311a7672c",
+      "live_sha256": "866cffceff2bd16e8f760b520ac5ca699904999238e3eedfe1f8ed4311a7672c",
+      "match": true,
+      "bytes": 53309584
+    }
+  ],
+  "source_step_sha256": "85e4e97f382142f2ed497abe36d6be493dda94ee4b672a9e0a706b684c0ef573",
+  "source_stl_sha256": "866cffceff2bd16e8f760b520ac5ca699904999238e3eedfe1f8ed4311a7672c",
+  "native_archive_sha256": "235e948e975086a4cebc2dabaa09b1f54f458ebf54f84e36261debecc38889da",
+  "gcode_sha256": "69978f9224efc0942db3c03ce998057909e217e84703f40d28f7f049686baf97",
+  "source_feature": "enclosure.py::_vent_chase exterior crown for ceiling-down back-top",
+  "functional_role": "Full wall-to-lip structural roof backing above the PRV mouth and12mm duct; the internal45degree air roof, tube axis, seam and foam-flank lip plane retain their native datums.",
+  "native_crown_face": {
+    "native_face": 78,
+    "type": "PLANE",
+    "normal": [
+      0.0,
+      0.0,
+      1.0
+    ],
+    "area_mm2": 143.9999980745399,
+    "cad_bounds_mm": [
+      -98.5,
+      314.8,
+      214.59999999302,
+      -90.50000010697,
+      332.8,
+      214.59999999302
+    ],
+    "lint_click_cad_mm": [
+      -94.5,
+      323.8,
+      214.6
+    ],
+    "native_witness_distance_mm": 6.980002353884629e-09
+  },
+  "print_down_direction": "Global+Z; the part beds on its greatest-Z roof and prints toward decreasing worldZ.",
+  "native_crown_first_print_plane_mm": 140.40000000000003,
+  "fresh_archived_support_bodies": [
+    {
+      "base_z_mm": 0.2,
+      "bbox_cad_xyz_mm": [
+        -132.162,
+        195.619,
+        169.28,
+        -44.696,
+        495.614,
+        354.8
+      ],
+      "bbox_xy_mm": [
+        12.8,
+        38.0,
+        310.0,
+        113.6
+      ],
+      "first_interface_z_mm": 36.44,
+      "id": "tree-1",
+      "interface_reading": "explicit_feature",
+      "interfaces": [
+        "interface-14",
+        "interface-16",
+        "interface-19",
+        "interface-23",
+        "interface-24",
+        "interface-25",
+        "interface-26",
+        "interface-28",
+        "interface-30",
+        "interface-31",
+        "interface-32",
+        "interface-34"
+      ],
+      "root": "bed",
+      "shortest_build_up_mm": 36.24,
+      "top_z_mm": 185.72
+    }
+  ],
+  "fresh_archived_contact_regions": [
+    {
+      "bbox_cad_xyz_mm": [
+        -98.266,
+        314.649,
+        215.12,
+        -89.151,
+        332.972,
+        215.6
+      ],
+      "bbox_xy_mm": [
+        130.4,
+        67.2,
+        148.4,
+        75.6
+      ],
+      "build_up_mm": 139.2,
+      "first_z_mm": 139.4,
+      "id": "interface-30",
+      "last_z_mm": 139.88,
+      "tree": "tree-1"
+    }
+  ],
+  "actual_support_slabs_intersecting_crown_footprint": [
+    {
+      "print_z_mm": 139.4,
+      "actual_support_road_count": 95,
+      "nominal_support_bead_coverage_of_crown_footprint_mm2": 44.73726003649044,
+      "nominal_support_bead_coverage_of_crown_footprint_percent": 31.067542107419104,
+      "actual_support_roads": [
+        {
+          "gcode_line": 4328199,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -95.50803354438186,
+              330.43313169518115,
+              215.71999499999998
+            ],
+            [
+              -96.80752323908777,
+              331.842417873838,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 1.4899416107523398
+        },
+        {
+          "gcode_line": 4328200,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -96.80752323908777,
+              331.842417873838,
+              215.71999499999998
+            ],
+            [
+              -96.6585679834383,
+              331.56421591156163,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.49707529254076044
+        },
+        {
+          "gcode_line": 4328201,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -96.6585679834383,
+              331.56421591156163,
+              215.71999499999998
+            ],
+            [
+              -96.81205752078361,
+              330.7577260096252,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.8104211645570595
+        },
+        {
+          "gcode_line": 4328202,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -96.81205752078361,
+              330.7577260096252,
+              215.71999499999998
+            ],
+            [
+              -97.0638512803237,
+              330.5436584907049,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.5063273855252536
+        },
+        {
+          "gcode_line": 4328203,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -97.0638512803237,
+              330.5436584907049,
+              215.71999499999998
+            ],
+            [
+              -96.56513872698113,
+              330.0032088731285,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.7573647624505315
+        },
+        {
+          "gcode_line": 4328215,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -95.09681388242828,
+              328.4120004798409,
+              215.71999499999998
+            ],
+            [
+              -95.70294144726003,
+              329.06885463043386,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.8555677522217316
+        },
+        {
+          "gcode_line": 4328216,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -95.70294144726003,
+              329.06885463043386,
+              215.71999499999998
+            ],
+            [
+              -96.03278866457846,
+              328.8799397998162,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.5370940884810343
+        },
+        {
+          "gcode_line": 4328217,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -96.03278866457846,
+              328.8799397998162,
+              215.71999499999998
+            ],
+            [
+              -96.25412501075473,
+              328.67665865986135,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.48774546255542256
+        },
+        {
+          "gcode_line": 4328218,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -96.25412501075473,
+              328.67665865986135,
+              215.71999499999998
+            ],
+            [
+              -96.5174037914061,
+              328.3759822829064,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.54920676627399
+        },
+        {
+          "gcode_line": 4328219,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -96.5174037914061,
+              328.3759822829064,
+              215.71999499999998
+            ],
+            [
+              -96.05513561696164,
+              327.8750270604606,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.7240458909210319
+        },
+        {
+          "gcode_line": 4328231,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -97.45776166283697,
+              326.24300219072603,
+              215.71999499999998
+            ],
+            [
+              -95.58467226820203,
+              324.21419734064654,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 2.0133985940061367
+        },
+        {
+          "gcode_line": 4328243,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -93.9662972685383,
+              325.6113746237654,
+              215.71999499999998
+            ],
+            [
+              -94.72012047416764,
+              326.42828500725597,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.9905968631571022
+        },
+        {
+          "gcode_line": 4328244,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -94.72012047416764,
+              326.42828500725597,
+              215.71999499999998
+            ],
+            [
+              -94.61260469700241,
+              326.4389788213817,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.36841100749560746
+        },
+        {
+          "gcode_line": 4328245,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -94.61260469700241,
+              326.4389788213817,
+              215.71999499999998
+            ],
+            [
+              -94.23235718259987,
+              326.3876774784101,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.5393117128159984
+        },
+        {
+          "gcode_line": 4328246,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -94.23235718259987,
+              326.3876774784101,
+              215.71999499999998
+            ],
+            [
+              -93.58529108896671,
+              326.7750216025043,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.7689902857481712
+        },
+        {
+          "gcode_line": 4328247,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -93.58529108896671,
+              326.7750216025043,
+              215.71999499999998
+            ],
+            [
+              -93.0472971007108,
+              326.19096041683923,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.793752672604603
+        },
+        {
+          "gcode_line": 4328259,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -92.9074921552879,
+              324.4639585126031,
+              215.71999499999998
+            ],
+            [
+              -93.39277783219433,
+              324.9898575635525,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.7450893887291439
+        },
+        {
+          "gcode_line": 4328260,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -93.39277783219433,
+              324.9898575635525,
+              215.71999499999998
+            ],
+            [
+              -93.31162602555459,
+              325.0916828270145,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.38215097647324436
+        },
+        {
+          "gcode_line": 4328261,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -93.31162602555459,
+              325.0916828270145,
+              215.71999499999998
+            ],
+            [
+              -93.00600436489232,
+              325.2505456626118,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.5149778877192238
+        },
+        {
+          "gcode_line": 4328262,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -93.00600436489232,
+              325.2505456626118,
+              215.71999499999998
+            ],
+            [
+              -92.90910213826774,
+              325.37075364269305,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.3971515949069442
+        },
+        {
+          "gcode_line": 4328263,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -92.90910213826774,
+              325.37075364269305,
+              215.71999499999998
+            ],
+            [
+              -92.55919897029835,
+              325.51082424290945,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.5350989857137859
+        },
+        {
+          "gcode_line": 4328264,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -92.55919897029835,
+              325.51082424290945,
+              215.71999499999998
+            ],
+            [
+              -92.44021047327648,
+              325.5330669400587,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.37647304744616206
+        },
+        {
+          "gcode_line": 4328265,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -92.44021047327648,
+              325.5330669400587,
+              215.71999499999998
+            ],
+            [
+              -91.81873790680342,
+              324.8595835704634,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.8695967507604648
+        },
+        {
+          "gcode_line": 4328278,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -90.19003141306534,
+              324.6700679846785,
+              215.71999499999998
+            ],
+            [
+              -90.84056759816838,
+              324.5700946288701,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.36434184088076516
+        },
+        {
+          "gcode_line": 4328279,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -90.84056759816838,
+              324.5700946288701,
+              215.71999499999998
+            ],
+            [
+              -91.37661004701317,
+              324.38045419795816,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.6539537865502876
+        },
+        {
+          "gcode_line": 4328280,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -91.37661004701317,
+              324.38045419795816,
+              215.71999499999998
+            ],
+            [
+              -89.71551361934137,
+              322.5803412409535,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.9521421261349362
+        },
+        {
+          "gcode_line": 4328282,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -89.71573181389542,
+              321.00508096011384,
+              215.71999499999998
+            ],
+            [
+              -92.34452240757234,
+              323.8538740404543,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 1.8370453284492518
+        },
+        {
+          "gcode_line": 4328283,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -92.34452240757234,
+              323.8538740404543,
+              215.71999499999998
+            ],
+            [
+              -92.55789712954383,
+              323.6993126351049,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.46477554437530944
+        },
+        {
+          "gcode_line": 4328284,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -92.55789712954383,
+              323.6993126351049,
+              215.71999499999998
+            ],
+            [
+              -92.98558103358022,
+              323.54134910061606,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.5840947182165019
+        },
+        {
+          "gcode_line": 4328285,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -92.98558103358022,
+              323.54134910061606,
+              215.71999499999998
+            ],
+            [
+              -93.35175633483736,
+              323.36990625664396,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.5521025022183846
+        },
+        {
+          "gcode_line": 4328286,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -93.35175633483736,
+              323.36990625664396,
+              215.71999499999998
+            ],
+            [
+              -89.71595000844947,
+              319.42982067927414,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 2.7578978395190856
+        },
+        {
+          "gcode_line": 4328288,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -89.71520914040093,
+              317.8535210722468,
+              215.71999499999998
+            ],
+            [
+              -94.21608993431768,
+              322.7310788708742,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 3.5481053016968955
+        },
+        {
+          "gcode_line": 4328289,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -94.21608993431768,
+              322.7310788708742,
+              215.71999499999998
+            ],
+            [
+              -94.53743008400868,
+              322.50479252971206,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.5450949304797539
+        },
+        {
+          "gcode_line": 4328290,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -94.53743008400868,
+              322.50479252971206,
+              215.71999499999998
+            ],
+            [
+              -94.6694924721703,
+              322.45605316540514,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.3886992851411052
+        },
+        {
+          "gcode_line": 4328291,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -94.6694924721703,
+              322.45605316540514,
+              215.71999499999998
+            ],
+            [
+              -94.83725723726293,
+              322.34069293138396,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.42765437084518326
+        },
+        {
+          "gcode_line": 4328292,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -94.83725723726293,
+              322.34069293138396,
+              215.71999499999998
+            ],
+            [
+              -94.99216107143307,
+              322.17177341753376,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.44352138664499574
+        },
+        {
+          "gcode_line": 4328293,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -94.99216107143307,
+              322.17177341753376,
+              215.71999499999998
+            ],
+            [
+              -95.11303166228579,
+              322.12758857548454,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.3812122391305666
+        },
+        {
+          "gcode_line": 4328294,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -95.11303166228579,
+              322.12758857548454,
+              215.71999499999998
+            ],
+            [
+              -89.71542733495498,
+              316.2782607914071,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 4.368124385769553
+        },
+        {
+          "gcode_line": 4328297,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -90.15186991537878,
+              315.3540314508249,
+              215.71999499999998
+            ],
+            [
+              -90.32469041394106,
+              315.36197344532815,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.04822198093343229
+        },
+        {
+          "gcode_line": 4328298,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -90.32469041394106,
+              315.36197344532815,
+              215.71999499999998
+            ],
+            [
+              -94.75072419306389,
+              320.15946299571425,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 4.0371173290443805
+        },
+        {
+          "gcode_line": 4328299,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -94.75072419306389,
+              320.15946299571425,
+              215.71999499999998
+            ],
+            [
+              -94.575181450196,
+              319.4468440614819,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.7564537378670619
+        },
+        {
+          "gcode_line": 4328300,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -94.575181450196,
+              319.4468440614819,
+              215.71999499999998
+            ],
+            [
+              -94.41689276094873,
+              319.0521737042768,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.5650645068675263
+        },
+        {
+          "gcode_line": 4328301,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -94.41689276094873,
+              319.0521737042768,
+              215.71999499999998
+            ],
+            [
+              -94.35992402353332,
+              318.6515647141664,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.5522987042076399
+        },
+        {
+          "gcode_line": 4328302,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -94.35992402353332,
+              318.6515647141664,
+              215.71999499999998
+            ],
+            [
+              -94.09782075525969,
+              317.87642158108696,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.808741832530521
+        },
+        {
+          "gcode_line": 4328303,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -94.09782075525969,
+              317.87642158108696,
+              215.71999499999998
+            ],
+            [
+              -92.30629181363673,
+              315.9349602625623,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 1.9393078893394677
+        },
+        {
+          "gcode_line": 4328304,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -92.30629181363673,
+              315.9349602625623,
+              215.71999499999998
+            ],
+            [
+              -92.74405438126679,
+              316.22376111848547,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.6265778800921273
+        },
+        {
+          "gcode_line": 4328305,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -92.74405438126679,
+              316.22376111848547,
+              215.71999499999998
+            ],
+            [
+              -93.09125144507423,
+              316.4999172317321,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.5764732055953453
+        },
+        {
+          "gcode_line": 4328306,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -93.09125144507423,
+              316.4999172317321,
+              215.71999499999998
+            ],
+            [
+              -93.3100381138405,
+              316.73388601933027,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.5000246754862944
+        },
+        {
+          "gcode_line": 4328307,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -93.3100381138405,
+              316.73388601933027,
+              215.71999499999998
+            ],
+            [
+              -93.58838010119597,
+              316.7060339444523,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.47485615900212624
+        },
+        {
+          "gcode_line": 4328308,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -93.58838010119597,
+              316.7060339444523,
+              215.71999499999998
+            ],
+            [
+              -93.76309499484367,
+              316.6169738190444,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.4230071395872796
+        },
+        {
+          "gcode_line": 4328309,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -93.76309499484367,
+              316.6169738190444,
+              215.71999499999998
+            ],
+            [
+              -94.12009738967312,
+              316.32506580256313,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.5873364376091967
+        },
+        {
+          "gcode_line": 4328310,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -94.12009738967312,
+              316.32506580256313,
+              215.71999499999998
+            ],
+            [
+              -94.54783931042464,
+              316.7886052822537,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.6924806442088643
+        },
+        {
+          "gcode_line": 4328311,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -94.54783931042464,
+              316.7886052822537,
+              215.71999499999998
+            ],
+            [
+              -94.5879438832796,
+              316.6871330040881,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.36907053238668763
+        },
+        {
+          "gcode_line": 4328312,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -94.5879438832796,
+              316.6871330040881,
+              215.71999499999998
+            ],
+            [
+              -94.66133062425902,
+              316.6540514949263,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.35133134719926246
+        },
+        {
+          "gcode_line": 4328313,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -94.66133062425902,
+              316.6540514949263,
+              215.71999499999998
+            ],
+            [
+              -94.7310097110421,
+              316.5637751144878,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.37212677939002003
+        },
+        {
+          "gcode_line": 4328314,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -94.7310097110421,
+              316.5637751144878,
+              215.71999499999998
+            ],
+            [
+              -94.86363481668866,
+              316.25184630634044,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.5115730453672533
+        },
+        {
+          "gcode_line": 4328315,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -94.86363481668866,
+              316.25184630634044,
+              215.71999499999998
+            ],
+            [
+              -94.93536149728037,
+              315.8614102894423,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.5475435686738195
+        },
+        {
+          "gcode_line": 4328316,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -94.93536149728037,
+              315.8614102894423,
+              215.71999499999998
+            ],
+            [
+              -94.94990473546049,
+              315.6488226740381,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.43353469391813443
+        },
+        {
+          "gcode_line": 4328317,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -94.94990473546049,
+              315.6488226740381,
+              215.71999499999998
+            ],
+            [
+              -94.41286980980718,
+              315.06580081456065,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.7834149251497882
+        },
+        {
+          "gcode_line": 4328329,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -95.80251138915578,
+              316.5727836548563,
+              215.71999499999998
+            ],
+            [
+              -96.44608252728075,
+              317.2691723323723,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.8893251934179688
+        },
+        {
+          "gcode_line": 4328330,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -96.44608252728075,
+              317.2691723323723,
+              215.71999499999998
+            ],
+            [
+              -96.67814139051016,
+              316.99826702789,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.5225816199421938
+        },
+        {
+          "gcode_line": 4328331,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -96.67814139051016,
+              316.99826702789,
+              215.71999499999998
+            ],
+            [
+              -97.02094210359076,
+              316.7858531133,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.5514537895595449
+        },
+        {
+          "gcode_line": 4328332,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -97.02094210359076,
+              316.7858531133,
+              215.71999499999998
+            ],
+            [
+              -97.27776786648076,
+              316.59600705061774,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.4994354014278495
+        },
+        {
+          "gcode_line": 4328333,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -97.27776786648076,
+              316.59600705061774,
+              215.71999499999998
+            ],
+            [
+              -96.76466937409946,
+              316.0399675402266,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.7705169485806084
+        },
+        {
+          "gcode_line": 4328345,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -96.99540720400613,
+              319.4399665187338,
+              215.71999499999998
+            ],
+            [
+              -97.4605124344658,
+              319.9450389141377,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.7271149601011846
+        },
+        {
+          "gcode_line": 4328346,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -97.4605124344658,
+              319.9450389141377,
+              215.71999499999998
+            ],
+            [
+              -96.94310902227872,
+              320.293555354291,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.6881999566585266
+        },
+        {
+          "gcode_line": 4328347,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -96.94310902227872,
+              320.293555354291,
+              215.71999499999998
+            ],
+            [
+              -96.49643632431696,
+              320.4757763763921,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.6005175329056441
+        },
+        {
+          "gcode_line": 4328348,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -96.49643632431696,
+              320.4757763763921,
+              215.71999499999998
+            ],
+            [
+              -95.92195782537043,
+              319.85321998999154,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.8266329427355651
+        },
+        {
+          "gcode_line": 4328360,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -95.7050316144254,
+              321.1925933580279,
+              215.71999499999998
+            ],
+            [
+              -96.9172867440889,
+              322.5063016592137,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 1.4097131945019847
+        },
+        {
+          "gcode_line": 4328372,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -91.62294980946002,
+              328.91199088228916,
+              215.71999499999998
+            ],
+            [
+              -91.3984160935252,
+              328.87094687653314,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.44293994135182896
+        },
+        {
+          "gcode_line": 4328373,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -91.3984160935252,
+              328.87094687653314,
+              215.71999499999998
+            ],
+            [
+              -91.0875790446126,
+              328.6613035388777,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.5338768388283017
+        },
+        {
+          "gcode_line": 4328374,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -91.0875790446126,
+              328.6613035388777,
+              215.71999499999998
+            ],
+            [
+              -90.88362386502112,
+              328.4069135140776,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.5035765401717647
+        },
+        {
+          "gcode_line": 4328375,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -90.88362386502112,
+              328.4069135140776,
+              215.71999499999998
+            ],
+            [
+              -90.80015758805857,
+              328.2424313551362,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.4147985594835571
+        },
+        {
+          "gcode_line": 4328376,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -90.80015758805857,
+              328.2424313551362,
+              215.71999499999998
+            ],
+            [
+              -90.74783096493289,
+              328.0501765125125,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.4075377462448485
+        },
+        {
+          "gcode_line": 4328377,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -90.74783096493289,
+              328.0501765125125,
+              215.71999499999998
+            ],
+            [
+              -90.76091305690903,
+              327.973639862014,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.3315949791168487
+        },
+        {
+          "gcode_line": 4328378,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -90.76091305690903,
+              327.973639862014,
+              215.71999499999998
+            ],
+            [
+              -90.82282707803179,
+              327.95210723587576,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.33100831586223944
+        },
+        {
+          "gcode_line": 4328379,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -90.82282707803179,
+              327.95210723587576,
+              215.71999499999998
+            ],
+            [
+              -90.90535889490097,
+              327.9654301186071,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.35325445826660845
+        },
+        {
+          "gcode_line": 4328380,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -90.90535889490097,
+              327.9654301186071,
+              215.71999499999998
+            ],
+            [
+              -91.12113245119856,
+              328.0501577552005,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.44514601292744715
+        },
+        {
+          "gcode_line": 4328381,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -91.12113245119856,
+              328.0501577552005,
+              215.71999499999998
+            ],
+            [
+              -91.32658480836835,
+              328.1925176123701,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.4563937873171357
+        },
+        {
+          "gcode_line": 4328382,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -91.32658480836835,
+              328.1925176123701,
+              215.71999499999998
+            ],
+            [
+              -91.50133486100091,
+              328.37667900654634,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.4588254013977568
+        },
+        {
+          "gcode_line": 4328383,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -91.50133486100091,
+              328.37667900654634,
+              215.71999499999998
+            ],
+            [
+              -91.6678742978371,
+              328.6655952850394,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.5081790636401113
+        },
+        {
+          "gcode_line": 4328395,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -91.97728771516985,
+              329.7578925601319,
+              215.71999499999998
+            ],
+            [
+              -92.68699404108045,
+              330.52699393899064,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.9502634923582194
+        },
+        {
+          "gcode_line": 4328396,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -92.68699404108045,
+              330.52699393899064,
+              215.71999499999998
+            ],
+            [
+              -92.79433611743148,
+              330.84455759976544,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.5092555209545323
+        },
+        {
+          "gcode_line": 4328397,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -92.79433611743148,
+              330.84455759976544,
+              215.71999499999998
+            ],
+            [
+              -92.96087145384946,
+              331.15849386992886,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.5217535968709285
+        },
+        {
+          "gcode_line": 4328398,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -92.96087145384946,
+              331.15849386992886,
+              215.71999499999998
+            ],
+            [
+              -93.05523630431863,
+              331.4004758423895,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.4624553003502562
+        },
+        {
+          "gcode_line": 4328399,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -93.05523630431863,
+              331.4004758423895,
+              215.71999499999998
+            ],
+            [
+              -93.11406750586332,
+              331.65504192364307,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.46341325413280604
+        },
+        {
+          "gcode_line": 4328400,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -93.11406750586332,
+              331.65504192364307,
+              215.71999499999998
+            ],
+            [
+              -93.13026670401294,
+              331.8248288076457,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.40716821293539324
+        },
+        {
+          "gcode_line": 4328401,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -93.13026670401294,
+              331.8248288076457,
+              215.71999499999998
+            ],
+            [
+              -93.09873306069768,
+              332.0617541742472,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.4496113891612228
+        },
+        {
+          "gcode_line": 4328402,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -93.09873306069768,
+              332.0617541742472,
+              215.71999499999998
+            ],
+            [
+              -93.01983273485797,
+              332.0826045599124,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.3520197802339605
+        },
+        {
+          "gcode_line": 4328403,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -93.01983273485797,
+              332.0826045599124,
+              215.71999499999998
+            ],
+            [
+              -92.87496594923917,
+              331.9767054833136,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.412679059849064
+        },
+        {
+          "gcode_line": 4328404,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -92.87496594923917,
+              331.9767054833136,
+              215.71999499999998
+            ],
+            [
+              -92.7092889097477,
+              331.79090688648,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.45576371073853655
+        },
+        {
+          "gcode_line": 4328405,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -92.7092889097477,
+              331.79090688648,
+              215.71999499999998
+            ],
+            [
+              -92.53559458497557,
+              331.50570646301964,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.5084586825912866
+        },
+        {
+          "gcode_line": 4328406,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -92.53559458497557,
+              331.50570646301964,
+              215.71999499999998
+            ],
+            [
+              -92.27706452948713,
+              331.36421720403104,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.4841456822833727
+        },
+        {
+          "gcode_line": 4328407,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -92.27706452948713,
+              331.36421720403104,
+              215.71999499999998
+            ],
+            [
+              -91.96939701979515,
+              331.32483823147044,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.49373227848183093
+        },
+        {
+          "gcode_line": 4328408,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.23999,
+          "cad_midheight_endpoints_mm": [
+            [
+              -91.96939701979515,
+              331.32483823147044,
+              215.71999499999998
+            ],
+            [
+              -91.22228725238386,
+              330.5152031312934,
+              215.71999499999998
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.9844591762964054
+        }
+      ]
+    },
+    {
+      "print_z_mm": 139.64,
+      "actual_support_road_count": 31,
+      "nominal_support_bead_coverage_of_crown_footprint_mm2": 81.04525577040472,
+      "nominal_support_bead_coverage_of_crown_footprint_percent": 56.28142837088963,
+      "actual_support_roads": [
+        {
+          "gcode_line": 4334479,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -91.39496205251974,
+              314.82849559231636,
+              215.4800025
+            ],
+            [
+              -89.71541093328217,
+              316.37834075808865,
+              215.4800025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.7639543835298925
+        },
+        {
+          "gcode_line": 4334481,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -89.71509284544153,
+              317.83149866376175,
+              215.4800025
+            ],
+            [
+              -92.69376156744534,
+              315.0838244391572,
+              215.4800025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 1.996823633907893
+        },
+        {
+          "gcode_line": 4334482,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -92.69376156744534,
+              315.0838244391572,
+              215.4800025
+            ],
+            [
+              -94.26902184828504,
+              315.08404263371125,
+              215.4800025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 1.2327221693171804
+        },
+        {
+          "gcode_line": 4334483,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -94.26902184828504,
+              315.08404263371125,
+              215.4800025
+            ],
+            [
+              -89.71573382020347,
+              319.28569589562244,
+              215.4800025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 3.326120912105731
+        },
+        {
+          "gcode_line": 4334485,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -89.71537560057027,
+              320.7398529956906,
+              215.4800025
+            ],
+            [
+              -95.84428212912472,
+              315.0842608282653,
+              215.4800025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 4.655120047373494
+        },
+        {
+          "gcode_line": 4334486,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -95.84428212912472,
+              315.0842608282653,
+              215.4800025
+            ],
+            [
+              -97.42054160435953,
+              315.0845191546119,
+              215.4800025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 1.2341477336271833
+        },
+        {
+          "gcode_line": 4334487,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -97.42054160435953,
+              315.0845191546119,
+              215.4800025
+            ],
+            [
+              -89.71601657533222,
+              322.1940502275514,
+              215.4800025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 5.984971723571032
+        },
+        {
+          "gcode_line": 4334489,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -89.71569848749157,
+              323.6472081332244,
+              215.4800025
+            ],
+            [
+              -97.60102614137692,
+              316.3717993618308,
+              215.4800025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 6.141024100106292
+        },
+        {
+          "gcode_line": 4334490,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -97.60102614137692,
+              316.3717993618308,
+              215.4800025
+            ],
+            [
+              -97.60070805353627,
+              317.8249572675039,
+              215.4800025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 1.202380233043317
+        },
+        {
+          "gcode_line": 4334491,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -97.60070805353627,
+              317.8249572675039,
+              215.4800025
+            ],
+            [
+              -90.27241910443718,
+              324.5873076783087,
+              215.4800025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 6.141120048636207
+        },
+        {
+          "gcode_line": 4334492,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -90.27241910443718,
+              324.5873076783087,
+              215.4800025
+            ],
+            [
+              -90.78425972674556,
+              324.5268000147035,
+              215.4800025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.3281793287262641
+        },
+        {
+          "gcode_line": 4334493,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -90.78425972674556,
+              324.5268000147035,
+              215.4800025
+            ],
+            [
+              -90.78440856352144,
+              325.56964610969914,
+              215.4800025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.9170200696973939
+        },
+        {
+          "gcode_line": 4334494,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -90.78440856352144,
+              325.56964610969914,
+              215.4800025
+            ],
+            [
+              -97.60034983390308,
+              319.27911436757205,
+              215.4800025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 6.047815891558596
+        },
+        {
+          "gcode_line": 4334495,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -97.60034983390308,
+              319.27911436757205,
+              215.4800025
+            ],
+            [
+              -97.60099080866502,
+              320.7333115994328,
+              215.4800025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 1.2030246812781964
+        },
+        {
+          "gcode_line": 4334496,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -97.60099080866502,
+              320.7333115994328,
+              215.4800025
+            ],
+            [
+              -90.7840904756808,
+              327.02280401537223,
+              215.4800025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 6.047737716568133
+        },
+        {
+          "gcode_line": 4334497,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -90.7840904756808,
+              327.02280401537223,
+              215.4800025
+            ],
+            [
+              -90.7837322560476,
+              328.47696111544036,
+              215.4800025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 1.1607569822559072
+        },
+        {
+          "gcode_line": 4334498,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -90.7837322560476,
+              328.47696111544036,
+              215.4800025
+            ],
+            [
+              -97.60067272082438,
+              322.18646950510583,
+              215.4800025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 6.048087475905186
+        },
+        {
+          "gcode_line": 4334499,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -97.60067272082438,
+              322.18646950510583,
+              215.4800025
+            ],
+            [
+              -97.60031450119118,
+              323.640626605174,
+              215.4800025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 1.2029997393394996
+        },
+        {
+          "gcode_line": 4334500,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -97.60031450119118,
+              323.640626605174,
+              215.4800025
+            ],
+            [
+              -90.78437323080955,
+              329.9311583473011,
+              215.4800025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 6.047807231627662
+        },
+        {
+          "gcode_line": 4334501,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -90.78437323080955,
+              329.9311583473011,
+              215.4800025
+            ],
+            [
+              -90.78401501117635,
+              331.3853154473693,
+              215.4800025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 1.1612380501662842
+        },
+        {
+          "gcode_line": 4334502,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -90.78401501117635,
+              331.3853154473693,
+              215.4800025
+            ],
+            [
+              -97.60095547595311,
+              325.0948238370347,
+              215.4800025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 6.048157484504483
+        },
+        {
+          "gcode_line": 4334503,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -97.60095547595311,
+              325.0948238370347,
+              215.4800025
+            ],
+            [
+              -97.60059725631994,
+              326.5489809371029,
+              215.4800025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 1.202999739339502
+        },
+        {
+          "gcode_line": 4334504,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -97.60059725631994,
+              326.5489809371029,
+              215.4800025
+            ],
+            [
+              -91.13390971678021,
+              332.51626845036736,
+              215.4800025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 5.752601545353426
+        },
+        {
+          "gcode_line": 4334505,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -91.13390971678021,
+              332.51626845036736,
+              215.4800025
+            ],
+            [
+              -92.70921012941244,
+              332.5154874505263,
+              215.4800025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 1.2330893571967343
+        },
+        {
+          "gcode_line": 4334506,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -92.70921012941244,
+              332.5154874505263,
+              215.4800025
+            ],
+            [
+              -97.60027916847928,
+              328.00213884277593,
+              215.4800025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 4.423546367337918
+        },
+        {
+          "gcode_line": 4334507,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -97.60027916847928,
+              328.00213884277593,
+              215.4800025
+            ],
+            [
+              -97.60092014324121,
+              329.4563360746367,
+              215.4800025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 1.2030246812781964
+        },
+        {
+          "gcode_line": 4334508,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -97.60092014324121,
+              329.4563360746367,
+              215.4800025
+            ],
+            [
+              -94.28546960464725,
+              332.51574577687285,
+              215.4800025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 3.094235431924333
+        },
+        {
+          "gcode_line": 4334509,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -94.28546960464725,
+              332.51574577687285,
+              215.4800025
+            ],
+            [
+              -95.86072988548693,
+              332.5159639714269,
+              215.4800025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 1.2331077948031919
+        },
+        {
+          "gcode_line": 4334510,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -95.86072988548693,
+              332.5159639714269,
+              215.4800025
+            ],
+            [
+              -97.60056192360804,
+              330.91049317470487,
+              215.4800025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 1.764934082915125
+        },
+        {
+          "gcode_line": 4334511,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -97.60056192360804,
+              330.91049317470487,
+              215.4800025
+            ],
+            [
+              -97.60120289836996,
+              332.36469040656556,
+              215.4800025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 1.2030246812781964
+        },
+        {
+          "gcode_line": 4334512,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -97.60120289836996,
+              332.36469040656556,
+              215.4800025
+            ],
+            [
+              -97.15952940041252,
+              332.77129281826774,
+              215.4800025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.5319554264914343
+        }
+      ]
+    },
+    {
+      "print_z_mm": 139.88,
+      "actual_support_road_count": 32,
+      "nominal_support_bead_coverage_of_crown_footprint_mm2": 80.7169565016164,
+      "nominal_support_bead_coverage_of_crown_footprint_percent": 56.05344276451595,
+      "actual_support_roads": [
+        {
+          "gcode_line": 4341385,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -90.527667601768,
+              331.33899044667174,
+              215.2400025
+            ],
+            [
+              -91.61432566228581,
+              332.5155478228807,
+              215.2400025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 1.1478746900484087
+        },
+        {
+          "gcode_line": 4341386,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -91.61432566228581,
+              332.5155478228807,
+              215.2400025
+            ],
+            [
+              -93.06848276235398,
+              332.51590604251385,
+              215.2400025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 1.1613724876808045
+        },
+        {
+          "gcode_line": 4341387,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -93.06848276235398,
+              332.51590604251385,
+              215.2400025
+            ],
+            [
+              -90.78399564300395,
+              330.04023106353867,
+              215.2400025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 2.3814493605065032
+        },
+        {
+          "gcode_line": 4341388,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -90.78399564300395,
+              330.04023106353867,
+              215.2400025
+            ],
+            [
+              -90.784213837558,
+              328.464970782699,
+              215.2400025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 1.2330340110763833
+        },
+        {
+          "gcode_line": 4341389,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -90.784213837558,
+              328.464970782699,
+              215.2400025
+            ],
+            [
+              -94.52164066802705,
+              332.51622413035454,
+              215.2400025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 3.710233719645953
+        },
+        {
+          "gcode_line": 4341390,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -94.52164066802705,
+              332.51622413035454,
+              215.2400025
+            ],
+            [
+              -95.97583789988776,
+              332.5155831555926,
+              215.2400025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 1.161095666566567
+        },
+        {
+          "gcode_line": 4341391,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -95.97583789988776,
+              332.5155831555926,
+              215.2400025
+            ],
+            [
+              -90.78343283771694,
+              326.88967037006677,
+              215.2400025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 5.039445760089723
+        },
+        {
+          "gcode_line": 4341392,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -90.78343283771694,
+              326.88967037006677,
+              215.2400025
+            ],
+            [
+              -90.78369116406351,
+              325.313410894832,
+              215.2400025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 1.232637461665197
+        },
+        {
+          "gcode_line": 4341393,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -90.78369116406351,
+              325.313410894832,
+              215.2400025
+            ],
+            [
+              -97.42999499995594,
+              332.5159413752258,
+              215.2400025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 6.369108049809578
+        },
+        {
+          "gcode_line": 4341394,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -97.42999499995594,
+              332.5159413752258,
+              215.2400025
+            ],
+            [
+              -97.60113816406823,
+              332.5158095509831,
+              215.2400025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.3988498779780303
+        },
+        {
+          "gcode_line": 4341395,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -97.60113816406823,
+              332.5158095509831,
+              215.2400025
+            ],
+            [
+              -97.60092633776956,
+              331.1256811557873,
+              215.2400025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 1.1590653936836828
+        },
+        {
+          "gcode_line": 4341396,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -97.60092633776956,
+              331.1256811557873,
+              215.2400025
+            ],
+            [
+              -89.71551361934137,
+              322.5803412409535,
+              215.2400025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 6.6426546584116615
+        },
+        {
+          "gcode_line": 4341398,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -89.7152954247873,
+              324.1556015217932,
+              215.2400025
+            ],
+            [
+              -90.27534785290258,
+              324.7635672097742,
+              215.2400025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.024952634455038997
+        },
+        {
+          "gcode_line": 4341478,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -89.45966209900604,
+              320.72758086801207,
+              215.2400025
+            ],
+            [
+              -97.60114453232362,
+              329.5504208749476,
+              215.2400025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 6.6428541403766355
+        },
+        {
+          "gcode_line": 4341479,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -97.60114453232362,
+              329.5504208749476,
+              215.2400025
+            ],
+            [
+              -97.60040366427509,
+              327.9741212679202,
+              215.2400025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 1.2787281742439434
+        },
+        {
+          "gcode_line": 4341480,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -97.60040366427509,
+              327.9741212679202,
+              215.2400025
+            ],
+            [
+              -89.71499094584688,
+              319.4287813530865,
+              215.2400025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 6.642176809932948
+        },
+        {
+          "gcode_line": 4341482,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -89.71520914040093,
+              317.8535210722468,
+              215.2400025
+            ],
+            [
+              -97.60062185882913,
+              326.3988609870806,
+              215.2400025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 6.642376291897923
+        },
+        {
+          "gcode_line": 4341483,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -97.60062185882913,
+              326.3988609870806,
+              215.2400025
+            ],
+            [
+              -97.60084005338318,
+              324.8236007062409,
+              215.2400025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 1.2780836934311446
+        },
+        {
+          "gcode_line": 4341484,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -97.60084005338318,
+              324.8236007062409,
+              215.2400025
+            ],
+            [
+              -89.71542733495498,
+              316.2782607914071,
+              215.2400025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 6.6425757738628946
+        },
+        {
+          "gcode_line": 4341487,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -89.77792544804312,
+              315.61923804076764,
+              215.2400025
+            ],
+            [
+              -90.24427650885023,
+              315.59493396530536,
+              215.2400025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.01282786015544442
+        },
+        {
+          "gcode_line": 4341488,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -90.24427650885023,
+              315.59493396530536,
+              215.2400025
+            ],
+            [
+              -90.56541512718911,
+              315.62284431842755,
+              215.2400025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.19142135324480175
+        },
+        {
+          "gcode_line": 4341489,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -90.56541512718911,
+              315.62284431842755,
+              215.2400025
+            ],
+            [
+              -97.60105824793723,
+              323.2483404254012,
+              215.2400025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 6.618670006098162
+        },
+        {
+          "gcode_line": 4341490,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -97.60105824793723,
+              323.2483404254012,
+              215.2400025
+            ],
+            [
+              -97.60131657428381,
+              321.6720809501664,
+              215.2400025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 1.2787031977112042
+        },
+        {
+          "gcode_line": 4341491,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -97.60131657428381,
+              321.6720809501664,
+              215.2400025
+            ],
+            [
+              -91.52081954212217,
+              315.0837521148794,
+              215.2400025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 5.8556321228023505
+        },
+        {
+          "gcode_line": 4341492,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -91.52081954212217,
+              315.0837521148794,
+              215.2400025
+            ],
+            [
+              -92.97497664219036,
+              315.0841103345126,
+              215.2400025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 1.160790962340763
+        },
+        {
+          "gcode_line": 4341493,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -92.97497664219036,
+              315.0841103345126,
+              215.2400025
+            ],
+            [
+              -97.60053557444276,
+              320.09678053753413,
+              215.2400025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 4.526034683887413
+        },
+        {
+          "gcode_line": 4341494,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -97.60053557444276,
+              320.09678053753413,
+              215.2400025
+            ],
+            [
+              -97.60075376899681,
+              318.52152025669443,
+              215.2400025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 1.278083693431127
+        },
+        {
+          "gcode_line": 4341495,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -97.60075376899681,
+              318.52152025669443,
+              215.2400025
+            ],
+            [
+              -94.42917387405106,
+              315.08346935975067,
+              215.2400025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 3.1970665567134104
+        },
+        {
+          "gcode_line": 4341496,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -94.42917387405106,
+              315.08346935975067,
+              215.2400025
+            ],
+            [
+              -95.88333097411925,
+              315.08382757938386,
+              215.2400025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 1.1603095802207002
+        },
+        {
+          "gcode_line": 4341497,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -95.88333097411925,
+              315.08382757938386,
+              215.2400025
+            ],
+            [
+              -97.60101209534339,
+              316.94526078145964,
+              215.2400025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 1.8674695825553616
+        },
+        {
+          "gcode_line": 4341498,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -97.60101209534339,
+              316.94526078145964,
+              215.2400025
+            ],
+            [
+              -97.60123028989743,
+              315.37000050061994,
+              215.2400025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 1.278083693431127
+        },
+        {
+          "gcode_line": 4341499,
+          "feature": "Support interface",
+          "tool": 0,
+          "own_width_mm": 0.62,
+          "own_height_mm": 0.240005,
+          "cad_midheight_endpoints_mm": [
+            [
+              -97.60123028989743,
+              315.37000050061994,
+              215.2400025
+            ],
+            [
+              -97.10055947955718,
+              314.8284714250633,
+              215.2400025
+            ]
+          ],
+          "nominal_bead_intersection_with_crown_footprint_mm2": 0.6197945650991501
+        }
+      ]
+    }
+  ],
+  "complete_first_two_model_slabs": [
+    {
+      "print_z_mm": 140.6,
+      "actual_model_roads_count": 55,
+      "actual_wall_roads_count": 16,
+      "nominal_model_bead_union_overlap_percent": 99.99169217694084
+    },
+    {
+      "print_z_mm": 140.84,
+      "actual_model_roads_count": 82,
+      "actual_wall_roads_count": 8,
+      "nominal_model_bead_union_overlap_percent": 99.81251870164711
+    }
+  ],
+  "support_removal_group": {
+    "trees": [
+      "tree-1"
+    ],
+    "route": "Detach the exposed west-flank/rail-foot strips, rear identification-port lips, ASSE/tube-anchor interfaces and PRV cap/mouth contacts in the empty shell. Peel exposed strips outward and release internal branches through the open forebay. Approach the cap from the unobstructed central bay above its crown, release its interface, then break the sacrificial branch into pieces before extraction. The groove opens on the exterior flank.",
+    "native_access_examples": [
+      "empty central bay to open fore mouth",
+      "west exposed flank",
+      "forebay access above PRV crown",
+      "lateral approach to detachable PRV crown support"
+    ]
+  },
+  "exact_native_access_lanes": [
+    {
+      "lane": "forebay access above PRV crown",
+      "cad_from_mm": [
+        -85.0,
+        190.0,
+        218.6
+      ],
+      "cad_to_mm": [
+        -85.0,
+        350.0,
+        218.6
+      ],
+      "native_stock_distance_mm": 6.800735344983666,
+      "native_from_inside": false,
+      "native_to_inside": false
+    },
+    {
+      "lane": "lateral approach to detachable PRV crown support",
+      "cad_from_mm": [
+        -85.0,
+        323.8,
+        219.0
+      ],
+      "cad_to_mm": [
+        -95.0,
+        323.8,
+        219.0
+      ],
+      "native_stock_distance_mm": 3.5,
+      "native_from_inside": false,
+      "native_to_inside": false
+    }
+  ],
+  "physical_cleanup_force_surface_finish_fit_load_or_lifetime_qualified": false,
+  "answer_scope": "Only the lint witness on the exact144mm2 crown is answered. Actual interface roads below its own footprint and full initial model emission support the required flat geometry. Detach this contact and break the sacrificial tree branch before extracting fragments through the unoccupied forebay; a complete connected tree is not assumed to leave intact."
+}

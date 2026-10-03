@@ -77,3 +77,12 @@ The native archive passes ZIP CRC and embedded G-code MD5 checks. The
 start/end recipe; special tool tokens do not occur in model layer routines.
 Physical removal effort, show finish, complete assembled fit, cable retention,
 insert load capacity and lifetime remain outside this native software review.
+
+The [post-publication geometry lint](geometry-lint.json) uses the exact STEP,
+STL and payload live-verified at **2026-10-03 10:50:29 UTC**. Its required rerun
+has zero open findings and 47 answered findings. Only the 144 mm² PRV exterior
+crown has a new answer: [native face 78 and its actual contact roads](prv-crown-lint-contact-review.json)
+bind tree-1/interface-30 to this supported crown. The empty-forebay and lateral
+approaches keep their exact native air lanes; release the contact, break the
+sacrificial branch and remove its fragments before hardware enters. Physical
+cleanup effort and finish remain unqualified.
