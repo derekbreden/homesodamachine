@@ -10,7 +10,7 @@ reported. This v4 pair requires its own physical result.
 | Part | Printer | Requested Z trim | Native estimate | State |
 | --- | --- | --- | --- | --- |
 | Test cradle v4 | H2C | +0.18 mm | 29 min 37 sec | Printer accepted; task 1303667680 |
-| Test receiver v4 | Mark2 | +0.04 mm | 23 min 06 sec | Reviewed; Mark2 submission pending |
+| Test receiver v4 | Mark2 | +0.04 mm | 23 min 06 sec | Printer accepted; task 1303677943 |
 
 The [allocation](allocation.json) records the verified user request for one
 fresh part per printer and both printers idle with black PET-GF loaded. Each
@@ -51,7 +51,11 @@ resends disabled and a settled print dialog. Print options are Timelapse On,
 Bed Leveling On, Flow Dynamic Calibration Auto and Nozzle Offset Calibration
 Auto. The [cradle launch](cradle-h2c-launch.json) verifies task `1303667680`
 with a successful printer reply, one Send and the reviewed archive hashes.
-H2C starts first; every later start or resume across H2C and Mark2 stays
+The [receiver launch](receiver-mark2-launch.json) verifies task `1303677943`
+and its successful single Send. Mark2's Send gate is 181 seconds after H2C
+task confirmation, exceeding the 180-second minimum. The
+[launch relay](launch-relay.json) records submission of both task IDs to
+Funnel 2. H2C starts first; every later start or resume across H2C and Mark2 stays
 at least 180 seconds after the other printer's accepted start or resume.
 
 After cooling, remove the two hook supports outward into open space,
