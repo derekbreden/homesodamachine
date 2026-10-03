@@ -16,8 +16,9 @@ off the drain hole. Going up, each wing bends inward into its slot's inboard lan
 clears the slot's outer edge, then springs back over the web. The plug's pockets, open through its
 X sides, keep it there.
 
-The counterbore and the silicone plug are rounded rectangles centred on the hole: the plug's
-width, and long enough in Y to keep `PLUG_WALL` of silicone past the pockets' ends.
+The counterbore and the silicone plug are rectangles centred on the hole, the plug's width across
+X. The counterbore's ±Y walls stand on the slots' farther ends, so the web carries no strip between
+a slot and a wall, and the plug's hook pockets open through its +Y end as well as its X sides.
 """
 
 import functools
@@ -51,12 +52,12 @@ LEAF_T = 1.3           # wing thickness
 SIDE = 0.5             # slot's outer edge off the wing's outer face
 OVERLAP = 2.6          # hook over the web past that edge
 HOOK_T = 2.0           # flat hook thickness
-CATCH_GAP = fits.slip + fits.supported_surface   # hook underside over the web, cradle home
+HOOK_RISE = 0.25       # further lift the printed hooks need to clear the web
+CATCH_GAP = fits.slip + fits.supported_surface + HOOK_RISE   # hook underside over the web, cradle home
 INSERTION_SLIP = 0.1   # hook tip inside the slot's outer edge while it passes
-END_SLIP = 0.5         # slot and pocket beyond each wing end
+END_SLIP = 0.25        # slot beyond each wing end
 POCKET_AIR = 0.5       # plug pocket round each hook and wing top
-PLUG_WALL = 1.0        # silicone kept past each pocket's ends
-PLUG_CORNER = 1.0      # plug's plan corner radius, short of the hooks' ends; the socket's grows by its gap
+PLUG_CORNER = 0.0      # square plug corners; the socket's corner radius is its gap
 
 # The scanned elbow's bend: a round core with short stubs up both legs, and a thin web at its
 # outer corner, as `elbow.build` draws them.
@@ -79,8 +80,6 @@ def block():
     ry = max(r for _t, r in _profiles("y")[0]) + SLIP + WALL
     half = SOCKET_HALF - TIP_GAP - OVERLAP - SIDE
     assert half >= max(rz, ry), (half, rz, ry)
-    # the hooks' ends stand on the counterbore's straight X walls, clear of its corners
-    assert PLUG_CORNER < END_SLIP + PLUG_WALL
     return (half, -rz, _elbow.COLLET_FACE, ELBOW_Z - ry, ELBOW_Z + BODY_TOP_STATION)
 
 
@@ -203,16 +202,31 @@ def stations():
     return s
 
 
-def plug_half_length(half_width):
-    """Half the plug's Y length: `PLUG_WALL` past the pockets at the farther wing end."""
+def socket_half_length():
+    """Half the counterbore's Y length: to the slots' ends at the wing end farther from the hole."""
     s = stations()
-    return max(s["y1"] + END_SLIP + PLUG_WALL, -(s["y0"] - END_SLIP - PLUG_WALL), half_width)
+    return max(s["y1"] + END_SLIP, -(s["y0"] - END_SLIP))
+
+
+def plug_half_length(half_width):
+    """Half the plug's Y length: the counterbore's, less the plug's gap to its walls."""
+    return socket_half_length() - (SOCKET_HALF - half_width)
+
+
+def hook_corner_clearance(half_width):
+    """How far each hook's outer +Y corner stands inside the counterbore's corner round."""
+    s = stations()
+    r = PLUG_CORNER + SOCKET_HALF - half_width
+    cx, cy = SOCKET_HALF - r, socket_half_length() - r
+    return r - math.hypot(max(s["hook_tip"] - cx, 0.0), max(s["y1"] - cy, 0.0))
 
 
 def plug_outline(half_width, grow, z0, height, taper=0.0):
     """The plug's plan, centred on the hole and grown by `grow`, extruded from `z0`."""
     length = 2 * (plug_half_length(half_width) + grow)
-    sketch = cq.Sketch().rect(2 * (half_width + grow), length).vertices().fillet(PLUG_CORNER + grow)
+    sketch = cq.Sketch().rect(2 * (half_width + grow), length)
+    if PLUG_CORNER + grow > 0:
+        sketch = sketch.vertices().fillet(PLUG_CORNER + grow)
     return (cq.Workplane("XY", origin=(0, 0, z0)).placeSketch(sketch)
             .extrude(height, taper=taper).val())
 
@@ -242,9 +256,9 @@ def pockets():
     out = []
     for side in (-1, 1):
         x0, x1 = sorted((side * (s["w_in"] - POCKET_AIR), side * (s["hook_tip"] + POCKET_AIR)))
-        out.append(cq.Solid.makeBox(x1 - x0, s["y1"] - s["y0"] + 2 * END_SLIP,
+        out.append(cq.Solid.makeBox(x1 - x0, s["y1"] - s["y0"] + 2 * POCKET_AIR,
                                     s["hook_top"] + POCKET_AIR - WEB + 1.0,
-                                    cq.Vector(x0, s["y0"] - END_SLIP, WEB - 1.0)))
+                                    cq.Vector(x0, s["y0"] - POCKET_AIR, WEB - 1.0)))
     return out
 
 

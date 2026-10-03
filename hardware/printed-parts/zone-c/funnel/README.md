@@ -13,10 +13,10 @@ The collar center stays at world X0, Y182.5. Its brim underside is Z349 and its
 the brim is 179 × 95.783 mm with R27 corners. The collar wall and ramp's normal
 wall are 6 mm. The ramp falls toward X1.85, Y182.5.
 
-The integral silicone plug is a [36 × 44.1 mm](FUNNEL_PLUG) rounded rectangle with
-[R1](FUNNEL_PLUG_CORNER) corners, centred on the outlet, 15 mm high, with its bottom at Z302.9.
-Two notches along its X sides, open at its underside, house the elbow cradle's hooks and end
-[1 mm](FUNNEL_PLUG_WALL) short of its +Y end. Its lower bore has an 8.4 mm entrance,
+The integral silicone plug is a [36 × 41.0 mm](FUNNEL_PLUG) rectangle with square corners,
+centred on the outlet, 15 mm high, with its bottom at Z302.9. Two notches along its X sides,
+open at its underside and its +Y end, house the elbow cradle's hooks. Its lower bore has an
+8.4 mm entrance,
 1.8 mm lead-in and 6.7 mm relief. A nominal 6 mm bore forms the upper 3 mm
 sealing land. This geometry describes the proposed push-on seal; its wet and
 dry retention and sealing performance have not been physically qualified.
@@ -31,10 +31,11 @@ do not qualify this plug.
 The frame is 207 mm wide and 106.383 mm long. Its entire underside is flat at
 Z299.9, leaving 3 mm below the silicone plug. An [11.25 mm](FRAME_HOLE) hole at
 X1.85, Y182.5 passes the drain elbow's collet, and the web round it bears on the
-elbow's nose. The plug socket is a [36.6 × 44.7 mm](FRAME_SOCKET) rounded rectangle
-centred on that hole, with a 1 mm lead-in at its mouth. Two straight
-[5.15 × 32.8 mm](FRAME_SLOTS) slots through the web, one each side of the hole,
-take the elbow cradle's wings.
+elbow's nose. The plug socket is a [36.6 × 41.6 mm](FRAME_SOCKET) rectangle centred on that
+hole, its corners rounded by the plug's gap, with a 1 mm lead-in at its mouth. Its ±Y walls stand
+on the far ends of two straight
+[5.15 × 32.3 mm](FRAME_SLOTS) slots through the web, one each side of the hole, that take
+the elbow cradle's wings, so no strip of web stands between a slot and a wall.
 
 Both end corbels are 30° from vertical, across the complete X width, including
 the rail wings. The lower footprint runs from Y155 to Y210. The body widens
@@ -60,14 +61,14 @@ stands in the elbow's upper collet and up into the plug's land, and `fluid-4` le
 aft collet for V-B.
 
 Both X sides of the block carry on up the body's full [31.8 mm](CRADLE_LENGTH) length as
-[1.3 mm](CRADLE_WING_T) wings, [14.24 mm](CRADLE_WING_H) above the body, through the frame's
+[1.3 mm](CRADLE_WING_T) wings, [14.49 mm](CRADLE_WING_H) above the body, through the frame's
 slots. Each ends in a flat hook reaching [3.1 mm](CRADLE_HOOK) outward,
-[2.6 mm](CRADLE_OVERLAP) past its slot's outer edge and [0.4 mm](CRADLE_CATCH) over the web,
+[2.6 mm](CRADLE_OVERLAP) past its slot's outer edge and [0.65 mm](CRADLE_CATCH) over the web,
 to within [0.15 mm](CRADLE_TIP_GAP) of the counterbore's X wall, in a notch in the plug's side.
 That reach sets the cradle's [30.1 mm](CRADLE_WIDTH) width and leaves
-[4.78 mm](CRADLE_WEB) of web between each slot and the drain hole. Pushed up, each wing bends [2.52 mm](CRADLE_BEND) inward at its
+[4.78 mm](CRADLE_WEB) of web between each slot and the drain hole. Pushed up, each wing bends [2.53 mm](CRADLE_BEND) inward at its
 hook into a [3.35 mm](CRADLE_LANE) lane inboard of it. A tip-loaded cantilever estimate puts the
-root strain near [3.3%](CRADLE_STRAIN). The [cradle trial](cradle-trial/README.md) tests the snap.
+root strain near [3.2%](CRADLE_STRAIN). The [cradle trial](cradle-trial/README.md) tests the snap.
 
 The cradle prints on its bottom. The hooks' flat undersides are retention bearings and take
 accessible supports.
