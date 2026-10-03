@@ -34,7 +34,7 @@
     }
   },
   "next_trial": {
-    "status": "specified_for_next_preparation_native_slice_review_pending",
+    "status": "cad_prepared_native_slice_review_pending",
     "material": "ASA Aero only",
     "petg_shell": false,
     "customer_outcome": "Simpler buoyant float construction and easier first covering deposition over the inserted magnet.",
@@ -51,7 +51,9 @@
     "expected_layer_scope": "One 0.20 mm higher covering plane inferred from the current CAD and layer grid; requires a separate native slice review.",
     "assessment_for_next_trial": "First and second covering layers deposit over the seated ring without reported dragging or lifting, and the ring stays seated through closure.",
     "ready_archive_prepared": false,
-    "submitted": false
+    "submitted": false,
+    "cad_record": "design.json",
+    "cad_revision": "v2-upper-clearance"
   },
   "trial_route": {
     "material": "ASA Aero only",

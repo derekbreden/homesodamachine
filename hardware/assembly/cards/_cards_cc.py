@@ -53,11 +53,14 @@ from pathlib import Path
 _hw = next(p for p in Path(__file__).resolve().parents if p.name == "hardware")
 for _p in ("printed-parts/cadlib", "printed-parts/cold-core",
            "printed-parts/cold-core/copper-plugs",
+           "printed-parts/cold-core/reed-bridge",
            "printed-parts/cold-core/foam-assembly"):
     _dir = str(_hw / _p.replace("/", os.sep))
     if _dir not in sys.path:
         sys.path.insert(0, _dir)
 
+import _float_interface as flt
+import reed_bridge as rb
 import _cold_core_interface as cci  # noqa: E402
 import _port_cuts as pcuts  # noqa: E402
 import _reed_channels as reed  # noqa: E402
@@ -234,6 +237,10 @@ def cold_core(m):
         return f"{lo:.4g} &#8594; {hi:.4g}"
 
     facts = {
+        "BRIDGE_BOTTOM": f"{rb.bridge_z_bottom:.3f}",
+        "CLO_REED_Z": f"{rb.reed_low_z:.3f}",
+        "CHI_REED_Z": f"{rb.reed_high_z:.3f}",
+        "CARB_MAGNET_EDGE_PATH": f"{flt.reed_edge_distance(rb.register_radius*25.4, rb.carbonator_outer_radius+flt.reed_mount_diameter/2):.3f}",
         # The shell (CC-05, CC-14, CC-15).
         "CORE_FOOTPRINT": f"{cci.outer_shell_x_length:.4g} {X} "
                           f"{cci.outer_shell_y_length:.4g} mm",
@@ -293,6 +300,7 @@ def cold_core(m):
     }
 
     cards = {
+        "cc-02-dress-the-carbonator-wall": {"BRIDGE_BOTTOM", "CLO_REED_Z", "CHI_REED_Z", "CARB_MAGNET_EDGE_PATH"},
         "cc-03-transfer-the-coil": {
             "WIND_LENGTH", "WIND_BAND_LOW", "WIND_BAND_HIGH"},
         "cc-05-press-shell-inserts": {
@@ -303,7 +311,8 @@ def cold_core(m):
             "POUR_HOLE_D", "LID_VENT_D", "FACE_BOSSES", "CAP_SCREW"},
         # The rods PV-05 cuts, seated here — same three figures, one bench later.
         "cc-08-seat-reservoir-rods": {
-            "RSVR_ROD_MM", "RSVR_ROD_LEN", "RSVR_SEAT_TO_SEAT"},
+            "RSVR_ROD_MM", "RSVR_ROD_LEN", "RSVR_SEAT_TO_SEAT", "RSVR_ROD_CLEARANCE", "RSVR_ROD_BORE",
+            "RSVR_ROD_X", "RSVR_ROD_Y", "FLOAT_WALL_DATUM", "FLOAT_SIZE", "FLOAT_BORE"},
         "cc-10-lower-the-carbonator": {
             "RING_H", "RING_SLOTS", "RING_SLOT_DEG", "TUBE_HOLE_D"},
         "cc-11-seat-reservoirs": {

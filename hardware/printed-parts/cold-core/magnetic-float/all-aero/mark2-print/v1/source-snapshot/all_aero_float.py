@@ -17,18 +17,40 @@ ROOT = next(p for p in Path(__file__).resolve().parents
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "hardware/scripts"))
 from _cadq_export import export_assembly
-from _materials import one_body, M_ASA_AERO_WHITE
+from _materials import one_body
 from flute_payload import cut as write_print_payload
-sys.path.insert(0, str(HERE.parents[1]))
-from _float_interface import (
-    diameter, bore_diameter, guide_diameter, magnet_od, magnet_id,
-    magnet_thickness, magnet_tolerance, magnet_mass, pocket_od, pocket_id,
-    pocket_depth, water_density, design_foam_density, minimum_reserve_lift_g,
-    height_increment, layer_height, xy_contour_compensation, xy_hole_compensation,
-    annular_area, pocket_volume, minimum_height, height, magnet_midplane,
-    magnet_seat, pocket_roof, pause_before_z, rod_axis_from_inner_wall,
-    minimum_wall_clearance, maximum_wall_clearance, magnet_above_waterline,
-)
+
+diameter = 36.0
+bore_diameter = 4.8
+guide_diameter = 3.175
+magnet_od = 19.05
+magnet_id = 9.525
+magnet_thickness = 3.175
+magnet_tolerance = 0.1
+magnet_mass = 5.09
+pocket_od = 19.35
+pocket_id = 9.225
+pocket_depth = 3.4
+water_density = 0.9997
+design_foam_density = 0.65
+minimum_reserve_lift_g = 5.0
+height_increment = 1.0
+layer_height = 0.2
+xy_contour_compensation = 0.05
+xy_hole_compensation = -0.05
+
+annular_area = math.pi * ((diameter / 2) ** 2 - (bore_diameter / 2) ** 2)
+pocket_volume = math.pi * ((pocket_od / 2) ** 2 - (pocket_id / 2) ** 2) * pocket_depth
+# Buoyancy is water displacement less foam and magnet mass. Pocket air is not
+# charged as foam. Round upwards to a whole millimetre for this bench article.
+minimum_height = ((minimum_reserve_lift_g + magnet_mass
+                   - design_foam_density * pocket_volume / 1000)
+                  / ((water_density - design_foam_density) * annular_area / 1000))
+height = math.ceil(minimum_height / height_increment) * height_increment
+magnet_midplane = height / 2
+magnet_seat = magnet_midplane - magnet_thickness / 2
+pocket_roof = magnet_seat + pocket_depth
+pause_before_z = math.ceil(pocket_roof / layer_height - 1e-9) * layer_height
 
 
 def annulus(outer_radius, inner_radius, bottom, top):
@@ -60,8 +82,6 @@ def measurements(body):
                       "guided_upright_freeboard_mm": reserve / (water_density * annular_area / 1000)})
     return {
         "article": "One-piece ASA Aero guided bench float; RC62 inserted during printing",
-        "cad_revision": "v2-upper-clearance",
-        "accepted_print_reference": "mark2-print/v1/float-preflight.json; immutable v1 source commit and snapshot",
         "dimensions_mm": {"diameter": diameter, "height": height, "guide_bore": bore_diameter,
                           "bench_guide": guide_diameter,
                           "guide_radial_clearance": (bore_diameter - guide_diameter) / 2,
@@ -86,10 +106,6 @@ def measurements(body):
                    "thickness_mm": magnet_thickness, "dimensional_tolerance_mm": magnet_tolerance,
                    "mass_g": magnet_mass, "grade": "N42", "continuous_operating_limit_c": 80,
                    "source": "https://www.kjmagnetics.com/rc62-neodymium-ring-magnet"},
-        "installation": {"rod_axis_from_inner_wall_mm": rod_axis_from_inner_wall,
-                         "body_wall_clearance_range_mm": [minimum_wall_clearance, maximum_wall_clearance],
-                         "design_magnet_above_waterline_mm": magnet_above_waterline(),
-                         "scope": "Upright geometric clearances; liquid switching heights require finished-float and installed-reed calibration"},
         "buoyancy": table,
         "neutral_foam_density_g_cc": (displacement_cc * water_density - magnet_mass) / foam_cc,
         "print_intent": {"layer_height_mm": layer_height, "wall_loops": 300,
@@ -112,7 +128,7 @@ def measurements(body):
 
 def write():
     body, magnet = build()
-    foam_color, magnet_color = M_ASA_AERO_WHITE, cq.Color("#737D88")
+    foam_color, magnet_color = cq.Color("#EEE4C4"), cq.Color("#737D88")
     export_assembly(one_body(cq.Workplane(obj=body), "float-aero", foam_color),
                     str(HERE / "float-aero.step"))
     stl = HERE / "float-aero.stl"

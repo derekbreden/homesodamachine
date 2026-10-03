@@ -1,5 +1,9 @@
 # Pressure printing: evidence and first-article choices
 
+This evidence and shell recipe address the [PETG-shell bench reference](petg-bench-reference.md).
+The selected ASA-only trial and its physical qualification scope are in
+[all-aero/README.md](all-aero/README.md#qualification).
+
 Research checked **2026-09-28**, including publications through 2026. The task is
 an uncoated PETG Translucent Clear envelope around an ASA Aero core, under **external** water
 pressure: 90 psi operating reference, 125 psi relief reference, and a 180 psi,

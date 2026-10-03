@@ -25,21 +25,13 @@ Two identical discs per carbonator, each with 2x tap-drill holes for 1/4"-18 NPT
   Both discs are drilled identically (kept interchangeable): top plate captures
   the rod tip, bottom plate seats/locates the rod base for its tack weld.
 
-  Register center:     (0, [-2.007](REGISTER_Y))"  on the −Y axis, clear of the two ports.
-                       Radius [2.007 in](REGISTER_R) = tube-ID radius [2.435 in](TUBE_ID_R) − donut radius
-                       [0.546 in](DONUT_R) (27.75 mm donor ferrite donut, DEVMO MINI) + a
-                       [3 mm](MAGNET_BIAS_MM) MAGNET BIAS. The reed is OUTSIDE the carbonator and
-                       reads the donut through the 0.065" wall, and that coupling
-                       falls off fast, so the register is deliberately parked PAST
-                       where a centred float would touch the bore. The float is a
-                       loose capsule — its donor bore is ⌀9.75 on a ⌀3.175 rod — so
-                       the wall takes the bias up and holds the magnet against
-                       itself for the whole travel. That is the mechanism, not a
-                       tolerance allowance: shrink the bias and the magnet drifts
-                       inboard, past the bench's "trips within ~2 mm, nothing by
-                       ~3 mm" (level-sensing.md). `cold-core-layout`'s
-                       `floats-couple` grades what is left. The −Y azimuth must
-                       match where the reeds mount outside.
+  Register center:     (0, -[-1.648](REGISTER_Y))" on the -Y axis, clear of the two ports.
+                       Radius [1.648 in](REGISTER_R) = tube-ID radius [2.435 in](TUBE_ID_R)
+                       minus [20 mm](ROD_WALL_DISTANCE), the shared Aero float guide datum.
+                       A 36 mm float has 2 mm nominal clearance from the wet wall;
+                       its 4.8 mm bore allows 0.8125 mm radial motion on the 1/8" rod.
+                       The external reed lies on this same azimuth. Exact metric
+                       radius is 41.849 mm. Liquid switching height needs calibration.
   Register drill:      9/64" ([0.141 in](REGISTER_DRILL_D))  — slip-fit on the 1/8" rod; snug, which
                        self-locates the rod base in the bottom plate for its tack
                        weld. Open the TOP plate's pocket to 5/32" (0.156") only if
@@ -72,6 +64,9 @@ sys.path.insert(
 )
 from docgen import substitute_py_comments
 from _cadq_export import export_dxf
+sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware")
+                       / "printed-parts" / "cold-core"))
+from _float_interface import rod_axis_from_inner_wall
 
 # Dimensions in inches; DXF $INSUNITS = 1 (inches).
 
@@ -97,17 +92,10 @@ hole_positions = [
 # Source of truth for the level-sensing rod register. NOT emitted into the cut
 # DXF: a through-hole here would breach the 90 PSI pressure boundary. Drilled
 # blind from the inside face on the WEN 4208T; the drawing carries the callout.
-tube_id = 4.870                       # tube inner Ø — donut rides this wall
+tube_id = 4.870                       # tube inner Ø; float guide datum
 tube_id_radius = tube_id / 2          # 2.435"
-donut_od = 27.75 / 25.4               # 1.0925" — 27.75 mm donor ferrite donut
-# Park the rod so the donut OD reaches the inner wall, then carry on PAST it by the
-# magnet bias. The float is LOOSE on this rod — the donor capsule's ⌀9.75 bore over a
-# ⌀3.175 rod — so what the bias buys is not a fit: it makes the bore the only place the
-# capsule can lie, which is where its magnet has to be for a reed standing outside the
-# wall to read it. Reduce the bias and the magnet drifts inboard off the wall.
-magnet_wall_bias = 3.0 / 25.4  # 3 mm PAST the bore wall, expressed in inches
-register_radius = tube_id_radius - donut_od / 2 + magnet_wall_bias
-register_position = (0.0, -round(register_radius, 3))  # on −Y, clear of ports
+register_radius = tube_id_radius - rod_axis_from_inner_wall / 25.4
+register_position = (0.0, -register_radius)  # on −Y, clear of ports
 register_drill_diameter = 0.140625    # 9/64" — slip-fit on the 1/8" rod (snug)
 register_depth = 0.100                # to the drill-tip; leaves 0.150" of plate
 
@@ -156,8 +144,7 @@ def main() -> None:
         "REGISTER_Y": f"{register_position[1]:.4g}",
         "REGISTER_R": f"{register_radius:.4g} in",
         "TUBE_ID_R": f"{tube_id_radius:.4g} in",
-        "DONUT_R": f"{donut_od / 2:.3f} in",
-        "MAGNET_BIAS_MM": f"{magnet_wall_bias * 25.4:.4g} mm",
+        "ROD_WALL_DISTANCE": f"{rod_axis_from_inner_wall:g} mm",
         "REGISTER_DRILL_D": f"{register_drill_diameter:.3f} in",
         "REGISTER_DEPTH": f"{register_depth:.2f} in",
         "REGISTER_REMAINING": f"{disc_thickness - register_depth:.4g} in",

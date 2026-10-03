@@ -89,7 +89,7 @@ The appliance ships with the water filter included, mounted **external to the en
 | Part | Notes | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
 | [Frigidaire EFIC117-SS ice-maker donor (compressor/condenser/cap-tube/drier)](https://www.amazon.com/dp/B07PCZKG94) | Harvest the compressor with its terminal block, clip-on PTC start relay/overload module, moulded power-box cover, original cover retention, and factory-external electrical interface intact. The cover remains securely installed in the shipped appliance; its external lead colors, connector family, polarity mapping, and retained harness length are recorded at teardown before AC-4/5 production wiring. | 1 | $78.70 | $78.70 <!--@refrigeration--> |
-| [GOORY 1/4" OD × 50 ft ACR copper coil (evaporator)](https://www.amazon.com/dp/B0DKSW5VL9) | single-layer wrap on 5" OD carbonator at the coil-mandrel's [12.33 mm](PITCH) groove pitch. **Billed AS LAID, not as wound.** The wrap is formed on a mandrel [3 mm](NET_UNDERSIZE) under the carbonator and springs onto it, and where it crosses the carbonator reed bridge it rides that bridge's plateau rather than the wall — so the copper a build consumes is [13.42 ft](LAID_FT) against the [12.72 ft](MANDREL_FT) the mandrel holds (`cold-core-layout/_coil.wrap_length`, drawn and measured at every build). Plus one tie-in allowance per end — [335.5 mm](STUB_INLET) at the inlet, [429.6 mm](STUB_OUTLET) at the outlet — each of them that tail's own run down its lane and out through the copper-plug wall, which nothing else bills, plus what protrudes past the plug for fit-up and re-cuts. **A STUB IS NOT THERMAL STANDOFF:** how far the braze stands off the shell is set by the routed leg (`_lines` refrig-3, the only refrigerant run in the machine that draws tube at all, 92.0 mm end to end), and stub past that reach is trimmed off before the torch is lit. Cut per unit = [15.93 ft](CUT_FT), so three units fit a 50 ft roll with [+2.22 ft](ROLL_SPARE) spare and the allocation is [1/3](ROLL_SHARE) roll ($68.63/3) | [1/3](ROLL_SHARE) roll | $22.88 | $22.88 <!--@refrigeration--> |
+| [GOORY 1/4" OD × 50 ft ACR copper coil (evaporator)](https://www.amazon.com/dp/B0DKSW5VL9) | single-layer wrap on 5" OD carbonator at the coil-mandrel's [12.33 mm](PITCH) groove pitch. **Billed AS LAID, not as wound.** The wrap is formed on a mandrel [3 mm](NET_UNDERSIZE) under the carbonator and springs onto it, and where it crosses the carbonator reed bridge it rides that bridge's plateau rather than the wall — so the copper a build consumes is [13.41 ft](LAID_FT) against the [12.72 ft](MANDREL_FT) the mandrel holds (`cold-core-layout/_coil.wrap_length`, drawn and measured at every build). Plus one tie-in allowance per end — [335.5 mm](STUB_INLET) at the inlet, [429.6 mm](STUB_OUTLET) at the outlet — each of them that tail's own run down its lane and out through the copper-plug wall, which nothing else bills, plus what protrudes past the plug for fit-up and re-cuts. **A STUB IS NOT THERMAL STANDOFF:** how far the braze stands off the shell is set by the routed leg (`_lines` refrig-3, the only refrigerant run in the machine that draws tube at all, 92.0 mm end to end), and stub past that reach is trimmed off before the torch is lit. Cut per unit = [15.92 ft](CUT_FT), so three units fit a 50 ft roll with [+2.23 ft](ROLL_SPARE) spare and the allocation is [1/3](ROLL_SHARE) roll ($68.63/3) | [1/3](ROLL_SHARE) roll | $22.88 | $22.88 <!--@refrigeration--> |
 | [Teyleten 3.3 V relay module, opto-isolated, 10 A @ 250 VAC (5-pk)](https://www.amazon.com/dp/B07XGZSYJV) | two relays per unit: relay #1 switches the compressor's 120 VAC hot leg (ESP32 IO19), relay #2 gates 12 V to the G Ganen diaphragm pump for firmware-controlled refill (ESP32 IO2); 2 of 5 per unit | 2 (of 5 pk) | $2.60 | $5.20 <!--@electronics--> |
 | [TIEXYE DS18B20 TO-92 1-wire sensor (10-pk)](https://www.amazon.com/dp/B0FKG3HT9Q) | **Carbonator-wall probe** — compressor-cycling setpoint, 1-wire family code **0x28**. Bare TO-92, leads heat-shrunk, foil-taped to the carbonator OD and potted in the cold-core foam. Shares the IO26 1-wire bus with the DS18S20 coil probe; firmware tells the two apart by family code (no per-unit ID map). Amazon 112-1487355 Jul 11: $8.59 + $0.62 tax = $9.21 ÷ 10 = $0.92/ea | 1 (of 10 pk) | $0.92 | $0.92 <!--@sensors--> |
 | [DS18S20+ TO-92 1-wire sensor, family 0x10 (LCSC C52574)](https://www.lcsc.com/product-detail/Temperature-Sensors_Analog-Devices-Inc-Maxim-Integrated-DS18S20_C52574.html) | **Evaporator-coil / suction-line probe** — freeze-protect cutout, 1-wire family code **0x10** (distinct from the carbonator probe's 0x28, so firmware keys the −8 °C freeze cutoff by family code at cold boot). Bare TO-92, leads heat-shrunk, tucked under the 3M 425 foil tape at the coil's suction end and potted in the foam. Genuine MAXIM silicon from an authorized channel — marketplace "DS18S20" are relabeled DS18B20 clones reporting 0x28. LCSC C52574: $1.78/ea @ qty 10, rides a JLCPCB/LCSC order at ~$1.80 landed. On-hand DigiKey stock (purchases.md, $9.30/ea landed) covers prototype builds. | 1 (of 10 pk) | $1.80 | $1.80 <!--@sensors--> |
@@ -229,34 +229,39 @@ The buzzer is on the main board — an MLT-5020 magnetic transducer (U8) low-sid
 | Insulated bootlace ferrules, 16/22 AWG (from the Preciva kit) | Conductor landings into the Wago 221 lever nuts + screw terminals — DIN-style insulated cord-end ferrules. The crimper is tooling ([tools.md](/hardware/ledger/tools.md)); the 950-ferrule stock comes with it, so per-unit ferrule cost is negligible. | ~35 (of 950) | — | $0.50 <!--@wiring--> |
 | [Umbilical sleeve — Alex Tech 1" PET expandable braided sleeve, black/blue, 100 ft](https://www.amazon.com/dp/B075VRDS53) | Over all three tubes and the SIG-6 ribbon, in **five 1-ft segments** — one goes over each CARGEN foam segment as that segment seats, on the foam's own run, per [`assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) §3, so the installer's field trim takes one foam segment and its braid segment together. 1" nominal expanding 50%, and the pack opens it to Ø31.66 mm (1.25"). Amazon 112-1380657 Aug 17: $24.99/100 ft = $0.25/ft | ~5 ft (of 100 ft) | $0.25/ft | $1.25 <!--@cable-mgmt--> |
 
-## 12. Level sensing (external reed + internal magnetic float on 316L SS rod, shared SKU across carbonator + reservoirs)
+## 12. Level sensing (ASA Aero float, RC62 magnet and external reeds)
 
-The same reed-and-float pattern is used in three places: the carbonator ([2](CARB_REEDS) reeds, threshold-only) and each flavor reservoir ([4](REEDS_PER_RES) reeds per reservoir × [2](RESERVOIRS) = [8](RES_REEDS_TOTAL) reeds, ~13-serving-step granularity / 5-state fuel-gauge display). All three use the same 1/8" 316L SS rod (Tandefio B0CY4DWJFQ) as the float guide. Flavor-reservoir architecture, rod material rationale, and rod-end retention geometry in [`printed-parts/cold-core/reservoir/level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md) and [`printed-parts/cold-core/reservoir/reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py) (`ROD_*` and `BODY_BOSS_*` constants). The float itself is a commodity ⌀28 mm crimped-stainless capsule common to nearly every SS float switch (hence harvesting it from the cheapest donor). The bare float is available from component makers (e.g. Shenzhen Sunwoald, ~$1–3, MOQ ~10), with OEM/ODM custom (316L, chosen magnet) at the same price if a stronger or food-grade float is ever wanted.
+The carbonator and both flavor reservoirs each use one **ASA Aero magnetic float**,
+36 × 28 mm, with a 4.8 mm guide bore and an RC62 center 14 mm above its bottom.
+All three rods stand 20 mm from the inside wall. [Installation datums and
+calibration](/hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.md)
+bind the carbonator drilling radius and both reservoir body/cap guides. These
+trial articles have no pressure-life or wetted-service acceptance record.
 
-### Carbonator (2 reeds, threshold-only)
-
-| Part | Notes | Qty | Unit $ | Line $ |
-|---|---|---:|---:|---:|
-| [YXQ 45 mm SS float switch (donor — harvest 316 float ball + ferrite magnet)](https://www.amazon.com/dp/B08HWRMRQR) | float slides on the welded SS rod; only the float is shipped product, the rest of the donor unit is discarded. Amazon 112-8193263 Jul 16: 4 @ $6.99 = $27.96 + $2.04 tax = $30.00 ÷ 4 = $7.50/ea | 1 | $7.50 | $7.50 <!--@sensors--> |
-
-### Flavor reservoirs ([4](REEDS_PER_RES) reeds per reservoir × [2](RESERVOIRS) reservoirs = [8](RES_REEDS_TOTAL) reeds, ~13-serving-step granularity)
-
-| Part | Notes | Qty | Unit $ | Line $ |
-|---|---|---:|---:|---:|
-| Pre-soldered reed-and-wire column | [4](REEDS_PER_RES) Gebildet reeds hand-soldered to a laced bundle of 5 × 22 AWG black silicone conductors (4 reed signals + 1 shared common return) — the reservoir end of the J6/J7 REEDS runs per [`cable-assemblies.md`](/hardware/assembly/cable-assemblies.md), dropped into the foam-shell channel from above before the cap. Same wire as every other reed/sensor run, no jacketed cable — the conductors are cut from the §11 22 AWG silicone stock (not a separate line). Architecture in [`printed-parts/cold-core/reservoir/level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md). Reeds in shared §12 line below | 2 columns per build | — | — <!--@sensors--> |
-| [YXQ 45 mm SS float switch (donor — harvest 316 float ball + ferrite magnet)](https://www.amazon.com/dp/B08HWRMRQR) | donor float ball + its ferrite magnet kept (switch body / cable discarded); slides on the 1/8" 316L SS rod inside each reservoir. 316 SS float ball, same 45 mm-mini form as the carbonator donor. Architecture + magnet-strength rationale in [`printed-parts/cold-core/reservoir/level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md) | 2 (1 per reservoir) | $7.50 | $15.00 <!--@sensors--> |
-
-### Float-guide rod (shared SKU across carbonator + flavor reservoirs)
+### Float and inserted magnet (three locations)
 
 | Part | Notes | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
-| [Tandefio 1/8" × 12" 316 SS round rod (5-pk)](https://www.amazon.com/dp/B0CY4DWJFQ) | float-guide rod used in three places per build: (a) carbonator — ~6" cut, laser-welded between plates (1/2 stick per build); (b) each flavor reservoir — ~200 mm rod dropped into a printed BODY boss (1 full stick per reservoir × 2 reservoirs). Total = 2.5 sticks/build; $8.57/5 × 2.5 = $4.29/build. Reservoir-side material rationale in [`printed-parts/cold-core/reservoir/level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md) | 2.5 (of 5 pk) | $1.71 | $4.29 <!--@sensors--> |
+| ASA Aero magnetic float | One-piece printed body, one per vessel. Material estimate uses 14.067 g object feed from the accepted v1 native slice, excluding startup purge; it is not measured foam mass or density. The upper-clearance CAD requires a separate v2 slice to refine this estimate. ASA Aero White 46100 acquired at $99.98/2 kg = $49.99/kg. Geometry and evidence: [float record](/hardware/printed-parts/cold-core/magnetic-float/all-aero/README.md) | 3 | ~$0.70 | $2.11 <!--@sensors--> |
+| [K&J Magnetics RC62 N42 ring magnet](https://www.kjmagnetics.com/rc62-neodymium-ring-magnet) | 19.05 × 9.525 × 3.175 mm, inserted during each float's print pause. Acquired K&J 1599057: $88.28/30 including shipping/tax = $2.9427 each | 3 | $2.94 | $8.83 <!--@sensors--> |
 
-### Reeds (shared SKU across carbonator + flavor reservoirs)
+### Flavor reservoirs ([4](REEDS_PER_RES) reeds per reservoir × [2](RESERVOIRS))
 
 | Part | Notes | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
-| [Gebildet reed switches, 14 mm glass body, NO (6-pk)](https://www.amazon.com/dp/B0CW9418F6) | [10](REEDS_TOTAL) reeds per build ([2](CARB_REEDS) carbonator + [8](RES_REEDS_TOTAL) flavor reservoir at 4 each × 2 reservoirs). 2 × 6-pack = 12 reeds, 2 spares | [10](REEDS_TOTAL) (of 2 × 6 = 12) | $1.07 | $10.71 <!--@sensors--> |
+| Pre-soldered reed-and-wire column | [4](REEDS_PER_RES) MDSR-7-10-15 reeds soldered and laced along BNTECHGO 22 AWG black silicone 5P ribbon, four signals plus common. Fix positions after directional liquid calibration. One column drops into each foam-shell channel; the J6/J7 wire is counted in §11, reeds in the shared line below. [Reservoir sensing](/hardware/printed-parts/cold-core/reservoir/level-sensing.md) | 2 columns | — | — <!--@sensors--> |
+
+### Float-guide rod (carbonator and two reservoirs)
+
+| Part | Notes | Qty | Unit $ | Line $ |
+|---|---|---:|---:|---:|
+| [Tandefio 1/8" × 12" 316 SS round rod (5-pk)](https://www.amazon.com/dp/B0CY4DWJFQ) | Three finished guides per build: carbonator starts with a 131.08 mm blank and is hand-fit to the as-drilled register pair before tacking; each reservoir uses 176.515 mm. A carbonator blank plus one reservoir rod exceeds a 12-inch stick. Batch allocation uses half a stick per carbonator (two blanks per stick) plus one full stick per reservoir, 2.5 sticks/build; a single build needs three physical sticks. $8.57/5 × 2.5 = $4.29 | 2.5 (of 5 pk) | $1.71 | $4.29 <!--@sensors--> |
+
+### Reeds (two carbonator, eight reservoir)
+
+| Part | Notes | Qty | Unit $ | Line $ |
+|---|---|---:|---:|---:|
+| [Littelfuse MDSR-7-10-15 reed switches](https://www.mouser.com/ProductDetail/Littelfuse/MDSR-7-10-15) | [10](REEDS_TOTAL) per build: [2](CARB_REEDS) carbonator + [8](RES_REEDS_TOTAL) reservoir. 10–15 AT grade matches the RC62 bench test. Acquired stock: Mouser 40443716, $58.18/40 estimated landed cost including tariff estimate, not a final invoiced tariff. Mount vertically; 14 × 2.5 mm CAD capture envelope covers glass, tape and leads | [10](REEDS_TOTAL) (of 40) | ~$1.45 | $14.55 estimated <!--@sensors--> |
 
 ## 13. Mechanical attach hardware (heat-set inserts + screws + gasket) + reservoir-cap vent filter
 
@@ -322,10 +327,10 @@ The bonus bagged inside the install kit, with its own guide: what a buyer uses t
 | 9. Dispensing | [$71.96](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
 | 11. Wiring | [$40.91](BOM_SEC11) |
-| 12. Level sensing | [$37.50](BOM_SEC12) |
+| 12. Level sensing | [$29.78](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$17.99](BOM_SEC13) |
 | 14. Cold kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,389.83](BOM_GRAND)** |
+| **Total** | **[$1,382.11](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

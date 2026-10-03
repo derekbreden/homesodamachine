@@ -713,27 +713,39 @@ def collect(machine: Machine = None):
 
 
 def tool_station_figures(check: bool = False) -> int:
-    """Keep the pour bench's silicone volume with the generated mould casting."""
+    """Keep tool-station dimensions with their fabrication sources."""
     from _cardgen import _note_target, _rewritten, markers
+    from endcap_circular_dxf import register_position
+    from _pressure_vessel_sync import carbonator_rod_len
+    from reservoir import reservoir_rod_len, reservoir_rod_clearance
 
     design = _hw / "printed-parts/zone-c/funnel-mold/design.json"
     casting_ml = json.loads(design.read_text())["volume_ml"]["funnel"]
     assert casting_ml > 0.0, "the mould has no nominal casting volume"
-    values = {"MOLD_CAST_ML": f"{casting_ml:.0f}"}
-    path = CARDS_DIR / "tools/pc-pour-cure.html"
-    text = path.read_text()
-    found = markers(text)
-    assert {name for name, *_ in found} == set(values), (
-        "the pour bench must carry the mould's casting-volume marker")
-    assert "_cards_sync.py" in text, "the pour bench must name its figure driver"
-    rewritten = _rewritten(text, values)
-    if check and rewritten != text:
-        print("pc-pour-cure: casting volume differs from the generated mould", file=sys.stderr)
-        return 2
-    if not check:
-        if rewritten != text:
-            path.write_text(rewritten)
-        _note_target(path)
+    stations = {
+        "pc-pour-cure": {"MOLD_CAST_ML": f"{casting_ml:.0f}"},
+        "dp-drill-press": {"REGISTER_Y": f"{abs(register_position[1]):.4f}"},
+        "bs-band-saw": {
+            "CARB_ROD_MM": f"{carbonator_rod_len:.1f} mm",
+            "RSVR_ROD_MM": f"{reservoir_rod_len:.1f} mm",
+            "RSVR_ROD_CLEARANCE": f"{reservoir_rod_clearance:g} mm",
+        },
+    }
+    for stem, values in stations.items():
+        path = CARDS_DIR / "tools" / f"{stem}.html"
+        text = path.read_text()
+        found = markers(text)
+        assert {name for name, *_ in found} == set(values), (
+            f"{stem} must carry its fabrication-source markers")
+        assert "_cards_sync.py" in text, f"{stem} must name its figure driver"
+        rewritten = _rewritten(text, values)
+        if check and rewritten != text:
+            print(f"{stem}: figures differ from their fabrication source", file=sys.stderr)
+            return 2
+        if not check:
+            if rewritten != text:
+                path.write_text(rewritten)
+            _note_target(path)
     return 0
 
 

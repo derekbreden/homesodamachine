@@ -76,11 +76,13 @@ PARTS = (
      ("bulkhead-seal-a", "bulkhead-seal-b")),
 
     # §12 — level sensing
-    ("floats", "YXQ 45 mm SS float switch", ("float-carb", "float-a", "float-b")),
+    ("floats", "ASA Aero magnetic float", ("float-carb", "float-a", "float-b")),
+    # Each float compound contains the foam body and its inserted RC62.
+    ("float magnets", "K&J Magnetics RC62 N42 ring magnet", ("float-carb", "float-a", "float-b")),
     ("reed columns", "Pre-soldered reed-and-wire column", ()),
     ("float rods", "Tandefio 1/8\" × 12\" 316 SS round rod",
      ("float-rod-carb", "float-rod-a", "float-rod-b")),
-    ("reeds", "Gebildet reed switches",
+    ("reeds", "Littelfuse MDSR-7-10-15 reed switches",
      ("reed-carb-1", "reed-carb-2",
       "reed-a-1", "reed-a-2", "reed-a-3", "reed-a-4",
       "reed-b-1", "reed-b-2", "reed-b-3", "reed-b-4")),

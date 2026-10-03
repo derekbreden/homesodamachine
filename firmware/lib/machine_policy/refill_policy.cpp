@@ -62,9 +62,11 @@ RefillAction Refill::service(uint32_t now_ms, const RefillContext &ctx) {
     for (int guard = 0; guard < 4; guard++) {
         const RefillState before = state_;
 
-        // One magnet cannot close two reeds 28 mm apart.
-        if (last_.valid && last_.lowClosed && last_.highClosed) {
-            if (state_ != RefillState::Fault) enter(RefillState::Fault, now_ms);
+        // RC62 activation windows may overlap. A valid high reed inhibits
+        // refill even while the low reed remains closed. Preserve a latched timeout.
+        if (last_.valid && last_.highClosed) {
+            if (state_ != RefillState::Timeout && state_ != RefillState::Fault)
+                enter(RefillState::Idle, now_ms);
         } else {
             switch (state_) {
                 case RefillState::Idle:

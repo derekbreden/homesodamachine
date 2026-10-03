@@ -59,7 +59,7 @@
    "label": "Every billed cold-core part has a body here",
    "kind": "goal",
    "status": "fail",
-   "value": "28/35",
+   "value": "29/36",
    "target": "a body per billed part",
    "detail": [
     "PTFE thread tape \u2014 billed, no solid here (\"Millrose 70894 Nickel Guard\")",
@@ -148,15 +148,15 @@
   },
   {
    "id": "floats-couple",
-   "label": "Every float's magnet is held against the wall its reed reads through",
+   "label": "Aero floats clear their walls within the RC62 bench reach band",
    "kind": "gate",
    "status": "pass",
    "value": "3/3 floats",
-   "target": "standoff under 2.0 mm",
+   "target": ">=1 mm body clearance, <=30 mm edge path; geometry only",
    "detail": [
-    "float-a: rod parked 114.75 biases the capsule +2.50 mm into a wall at 126.25; magnet standoff 0..0.79 mm",
-    "float-b: rod parked 114.75 biases the capsule +2.50 mm into a wall at 126.25; magnet standoff 0..0.79 mm",
-    "float-carb: rod parked 50.97 biases the capsule +3.13 mm into a wall at 61.85; magnet standoff 0..0.16 mm"
+    "float-a: body/wet-wall gap 1.187..2.812 mm; reed-centre to RC62 edge at most 19.538 mm; installed switching height unmeasured",
+    "float-b: body/wet-wall gap 1.187..2.812 mm; reed-centre to RC62 edge at most 19.538 mm; installed switching height unmeasured",
+    "float-carb: body/wet-wall gap 1.187..2.812 mm; reed-centre to RC62 edge at most 14.188 mm; installed switching height unmeasured"
    ],
    "active": true
   },

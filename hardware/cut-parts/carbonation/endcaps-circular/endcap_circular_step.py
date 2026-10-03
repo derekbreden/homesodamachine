@@ -18,7 +18,7 @@ diameter — the vendor taps 1/4"-18 NPT per the drawing callout.
   Disc:            [123.4 mm](DISC_D_MM) Ø × [6.35 mm](DISC_THK_MM)  (4.860" × 1/4", = tube ID 4.870" − 0.010")
   NPT tap-drill:   2× [11.13 mm](HOLE_D_MM) Ø  (7/16") THRU, at X = ±[19.05 mm](HOLE_OFFSET_MM) (±0.750")
   Rod register:    [3.572 mm](REG_D) Ø (9/64") blind, [2.54 mm](REG_DEPTH) (0.100") deep, at
-                   (0, −[50.97 mm](REG_Y)) on the inside (+Z) face — leaves [3.81 mm](REG_PLATE_REMAINING)
+                   (0, −[41.85 mm](REG_Y)) on the inside (+Z) face — leaves [3.81 mm](REG_PLATE_REMAINING)
                    (0.150") of plate as intact pressure boundary.
 
 The register sits on the +Z face = the carbonator INSIDE face; the −Z face is the
@@ -44,6 +44,7 @@ sys.path.insert(
 from _cadq_export import export_assembly
 from _materials import M_STAINLESS, one_body
 from docgen import substitute_py_comments
+from endcap_circular_dxf import register_radius as _register_radius_in
 
 inch = 25.4  # mm per inch — the cap's source specs are in inches.
 
@@ -61,15 +62,9 @@ hole_offset = 0.750 * inch
 hole_positions = [(-hole_offset, 0.0), (hole_offset, 0.0)]
 
 # ── Rod register — blind retention pocket, machined (see module docstring) ──
-# Mirrors the source-of-truth derivation in endcap_circular_dxf.py: park the rod
-# so the 27.75 mm donor donut's OD reaches the inner wall, then carry on PAST it
-# by the magnet bias, which is what makes the bore the only place the loose
-# capsule can lie and so holds its magnet where the external reed reads it.
-tube_id = 4.870 * inch                       # donut rides this wall
-donut_od = 27.75                             # mm — donor ferrite donut (DEVMO MINI)
-magnet_wall_bias = 3.0                       # mm PAST the bore wall (see the dxf module)
-# [50.97 mm](REG_Y) — register center on the −Y axis (= 2.007"), clear of ports.
-register_radius = tube_id / 2.0 - donut_od / 2.0 + magnet_wall_bias
+# The DXF module owns this blind-drill datum; both artifacts read it exactly.
+# [41.85 mm](REG_Y) — register center on the −Y axis, clear of ports.
+register_radius = _register_radius_in * inch
 register_position = (0.0, -register_radius)
 # [3.572 mm](REG_D) — 9/64" slip-fit drill on the 1/8" rod.
 register_drill_diameter = 0.140625 * inch

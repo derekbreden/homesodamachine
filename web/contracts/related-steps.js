@@ -75,7 +75,7 @@ export const FIXTURES = {
 };
 
 export const COLLET_PRESS = "printed-parts/collet-press/collet-press.step";
-export const MAGNETIC_FLOAT = "printed-parts/cold-core/magnetic-float/magnetic-float.step";
+export const MAGNETIC_FLOAT = "printed-parts/cold-core/magnetic-float/all-aero/assembly.step";
 export const MANIFOLD = "manifold-layout/manifold-layout.step";
 
 // The isolated manifold is reached from its pumps, valves and tees.

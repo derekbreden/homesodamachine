@@ -33,6 +33,8 @@ The teardown, the recharge and its charge mass, and the brazing safety are in [`
 
 Read it inside out: the carbonator; the evaporator coil bonded to its outside; the foam shell's inner wall foamed against the coil; the two flavor reservoirs nested in that foam, where they pre-chill in the gradient between the near-freezing core and the cabinet air; the foam shell's outer wall, foamed again. The reservoirs are vented printed parts, not pressure vessels — sized for a refill of concentrate, and level-sensed the same way the carbonator is.
 
+The carbonator and reservoirs use the [one-piece ASA Aero float](/hardware/printed-parts/cold-core/magnetic-float/all-aero/README.md), 36 × 28 mm with an inserted RC62 at its midplane. Its [shared guide datums and reed calibration](/hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.md) set the 20 mm inside-wall rod spacing. This is a trial article; pressure life and liquid compatibility remain unqualified.
+
 The layered build is in [`/hardware/assembly/cold-core.md`](/hardware/assembly/cold-core.md). The shells and the pour-in-place foam are in [`/hardware/printed-parts/cold-core/foam-shell/`](/hardware/printed-parts/cold-core/foam-shell/), with [`foam-cap/`](/hardware/printed-parts/cold-core/foam-cap/) and [`foam-assembly/`](/hardware/printed-parts/cold-core/foam-assembly/). The reservoirs — their floor and bulkhead, their filtered vent, their reed-and-float level column, their watertight printing — are in [`/hardware/printed-parts/cold-core/reservoir/`](/hardware/printed-parts/cold-core/reservoir/). The relief-valve shroud is in [`prv-shroud/`](/hardware/printed-parts/cold-core/prv-shroud/).
 
 ### Flavor

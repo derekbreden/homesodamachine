@@ -200,3 +200,7 @@ analysis can decide it, or whether a specific experiment would change the choice
 evidence limits without turning them into an uncosted task list. Record material and time
 consequences alongside the performance basis. Lifetime qualification is not a prerequisite
 for an authorized assembly trial.
+
+## Guided ASA Aero floats
+
+The [float physical record](../printed-parts/cold-core/magnetic-float/all-aero/physical-observations.json) binds successful paused RC62 insertion and initial overprinting to accepted Mark2 task 1306080180. The [installation check](../printed-parts/cold-core/magnetic-float/all-aero/integration-check.json) covers current guide datums and an upright CAD sweep; it is not physical acceptance. Finished liquid immersion, installed directional reed crossings, welding/cleaning exposure, pressure life and flavor compatibility remain unmeasured. [Reed calibration](../printed-parts/cold-core/magnetic-float/all-aero/installation.md#reed-calibration) defines the height-placement test; its [record](../printed-parts/cold-core/magnetic-float/all-aero/reed-calibration.json) contains no invented results.

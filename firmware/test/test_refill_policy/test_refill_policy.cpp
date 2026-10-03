@@ -171,21 +171,39 @@ void test_a_draw_that_never_reaches_the_high_reed_times_out_and_latches() {
     TEST_ASSERT_EQUAL(RefillState::Idle, r.state());
 }
 
-void test_two_reeds_closed_at_once_is_a_latched_fault() {
+void test_overlapping_reed_windows_stop_refill_without_latching_a_fault() {
     Refill r;
     step(r, 1000, reeds(true, false), ctx(false));
     step(r, 1000 + kRefillDebounceMs, reeds(true, false), ctx(false));
     TEST_ASSERT_EQUAL(RefillState::Filling, r.state());
 
     TEST_ASSERT_EQUAL(RefillAction::Stop, step(r, 10000, reeds(true, true), ctx(false)));
-    TEST_ASSERT_EQUAL(RefillState::Fault, r.state());
-
-    // Latched even once the reading is sane again.
-    TEST_ASSERT_EQUAL(RefillAction::None, carry(r, 11000, 40000, reeds(true, false), ctx(false)));
-    TEST_ASSERT_EQUAL(RefillState::Fault, r.state());
-
-    r.clear(40000);
     TEST_ASSERT_EQUAL(RefillState::Idle, r.state());
+    TEST_ASSERT_FALSE(r.pumpOn());
+
+    // Remaining in the overlap cannot start another refill.
+    TEST_ASSERT_EQUAL(RefillAction::None, carry(r, 11000, 40000, reeds(true, true), ctx(false)));
+    TEST_ASSERT_EQUAL(RefillState::Idle, r.state());
+    TEST_ASSERT_EQUAL(RefillAction::None, step(r, 40000, reeds(false, false), ctx(false)));
+
+    // On a later falling crossing, low-only still needs the full debounce.
+    TEST_ASSERT_EQUAL(RefillAction::None, step(r, 41000, reeds(true, false), ctx(false)));
+    TEST_ASSERT_EQUAL(RefillAction::Start,
+                      step(r, 41000 + kRefillDebounceMs, reeds(true, false), ctx(false)));
+
+}
+
+void test_an_overlapping_high_signal_does_not_clear_a_refill_timeout() {
+    Refill r;
+    step(r, 0, reeds(true, false), ctx(false));
+    step(r, kRefillDebounceMs, reeds(true, false), ctx(false));
+    TEST_ASSERT_EQUAL(RefillAction::Stop,
+                      step(r, kRefillDebounceMs + kRefillCeilingMs, reeds(false, false), ctx(false)));
+    TEST_ASSERT_EQUAL(RefillState::Timeout, r.state());
+    TEST_ASSERT_EQUAL(RefillAction::None,
+                      step(r, kRefillDebounceMs + kRefillCeilingMs + 1000, reeds(true, true), ctx(false)));
+    TEST_ASSERT_EQUAL(RefillState::Timeout, r.state());
+    TEST_ASSERT_FALSE(r.pumpOn());
 }
 
 void test_reeds_that_cannot_be_read_are_not_reeds_that_read_open() {
@@ -233,7 +251,8 @@ int main(int, char **) {
     RUN_TEST(test_the_high_reed_ends_the_draw);
     RUN_TEST(test_pumping_time_accumulates_only_while_the_relay_is_closed);
     RUN_TEST(test_a_draw_that_never_reaches_the_high_reed_times_out_and_latches);
-    RUN_TEST(test_two_reeds_closed_at_once_is_a_latched_fault);
+    RUN_TEST(test_overlapping_reed_windows_stop_refill_without_latching_a_fault);
+    RUN_TEST(test_an_overlapping_high_signal_does_not_clear_a_refill_timeout);
     RUN_TEST(test_reeds_that_cannot_be_read_are_not_reeds_that_read_open);
     RUN_TEST(test_a_level_that_recovers_while_queued_stands_the_ask_down);
     return UNITY_END();

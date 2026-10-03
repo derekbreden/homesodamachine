@@ -42,6 +42,8 @@ if str(_yw) not in sys.path:
 import _y_wall_dimensions as _rear                     # noqa: E402
 
 # --- the plastics ------------------------------------------------------------
+# Expanded ASA Aero White 46100, the cream-white foam body around each RC62.
+M_ASA_AERO_WHITE = cq.Color("#EEE4C4")
 M_JG_BLACK_PP = cq.Color(0.12, 0.12, 0.14)     # John Guest's black polypropylene PTC range
 # The white range beside it. A John Guest part number ending W IS the white one, and three of
 # them are on this machine: the PP0408W union, the PP061208W reducer stem and the PP451223W
@@ -72,7 +74,7 @@ M_PTFE_WHITE = cq.Color(0.93, 0.93, 0.92)
 # A moulded epoxy package, which is the black both 1-wire probes arrive in: the TO-92 body of
 # the DS18B20 carbonator probe and the DS18S20 coil probe (`ledger/bom.md` §5).
 M_EPOXY_BLACK = cq.Color(0.10, 0.10, 0.10)
-# The Gebildet reed's 14 mm glass ampoule (`ledger/bom.md` §12) — soda-lime, and see-through
+# The MDSR-7-10-15 reed's glass ampoule (`ledger/bom.md` §12) — soda-lime, and see-through
 # because a reed switch is see-through.
 M_GLASS = cq.Color(0.86, 0.90, 0.88, 0.35)
 # CARGEN closed-cell nitrile pipe insulation, the sleeve over the carbonated-water riser
@@ -138,7 +140,7 @@ C_SHROUD = M_PETG_BLACK
 C_RESERVOIR = M_PETG_TRANSLUCENT
 C_RES_CAP = M_PETG_TRANSLUCENT
 C_SILICONE = M_SILICONE_CLEAR
-# The Gebildet reed bodies standing against the vessel and in each reservoir's channel.
+# The MDSR-7-10-15 reed bodies against the vessel and in each reservoir's channel.
 C_REED = M_GLASS
 
 # --- the enclosure's own bodies -----------------------------------------------
@@ -241,6 +243,7 @@ FINISHES = [
     (M_PETG_BLACK,       0.45, _DIELECTRIC),   # the flank that blooms bronze in flute-evidence/02
     (M_PETGF_BLACK,      0.85, _DIELECTRIC),   # glass fill scatters; it holds neutral in that frame
     (M_PETG_TRANSLUCENT, 0.40, _DIELECTRIC),   # the black stock's own gloss, on a clear spool
+    (M_ASA_AERO_WHITE,   0.90, _DIELECTRIC),   # estimated matte foamed ASA surface
     (M_TPU_BLACK,        0.70, _DIELECTRIC),
     (M_SILICONE_BLACK,   0.60, _DIELECTRIC),
     (M_SILICONE_CLEAR,   0.55, _DIELECTRIC),

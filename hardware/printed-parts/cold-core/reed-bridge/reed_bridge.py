@@ -53,11 +53,12 @@ import fits as _fits
 from coil_mandrel import pitch, tube_radius, wrap_length
 from endcap_circular_dxf import (
     tube_id,
-    donut_od,
     register_radius,
     disc_thickness,
 )
 
+
+import _float_interface as _float
 
 # ═══════════════════════════════════════════════════════
 # THE WALL THE BRIDGE SITS ON
@@ -98,15 +99,15 @@ interior_ceiling_z = carbonator_height - plate_recess - plate_thickness  # [139.
 interior_height = interior_ceiling_z - interior_floor_z
 
 tube_id_mm = tube_id * 25.4
-interior_area = math.pi / 4 * tube_id_mm**2
-# [12.02 mL](ML_PER_MM) of water per mm of level; [1526 mL](INTERIOR_ML) if it were full.
+interior_area = math.pi / 4 * (tube_id_mm**2 - _float.guide_diameter**2)
+# [12.01 mL](ML_PER_MM) of water per mm of level; [1497 mL](INTERIOR_ML) if it were full.
 volume_per_mm = interior_area / 1000
-interior_volume_ml = volume_per_mm * interior_height
+interior_volume_ml = volume_per_mm * interior_height - _float.displacement_cc
 
 serving_volume_ml = 355.0  # 12 US fl oz, the app's default serving
 syrup_dilution = 20.0      # 1 part SodaStream-compatible syrup : 20 parts water
 # [338.1 mL](WATER_PER_SERVING) of carbonated water per serving —
-# [28.13 mm](SERVING_RISE) of level.
+# [28.15 mm](SERVING_RISE) of level.
 carbonated_water_per_serving = (
     serving_volume_ml * syrup_dilution / (syrup_dilution + 1)
 )
@@ -115,50 +116,49 @@ serving_level_rise = carbonated_water_per_serving / volume_per_mm
 # Pump-off level, as a fraction of the wetted height. The complement is
 # the CO2 headspace the inlet jet discharges into.
 high_fill_fraction = 0.65
-# [95.25 mm](HIGH_LEVEL) — CHI, pump off. [67.12 mm](LOW_LEVEL) — CLO,
+# [95.25 mm](HIGH_LEVEL) — CHI, pump off. [67.1 mm](LOW_LEVEL) — CLO,
 # pump on, one serving below.
 high_level_z = interior_floor_z + high_fill_fraction * interior_height
 low_level_z = high_level_z - serving_level_rise
 
 headspace_height = interior_ceiling_z - high_level_z
-headspace_ml = headspace_height * volume_per_mm
+_immersed_float_cc = _float.design_mass_g / _float.water_density
+headspace_ml = headspace_height * volume_per_mm - (_float.displacement_cc - _immersed_float_cc)
 reserve_height = low_level_z - interior_floor_z
-reserve_ml = reserve_height * volume_per_mm
-stored_ml = (high_level_z - interior_floor_z) * volume_per_mm
+reserve_ml = reserve_height * volume_per_mm - _immersed_float_cc
+stored_ml = (high_level_z - interior_floor_z) * volume_per_mm - _immersed_float_cc
 
-# Height of the donut's magnetic mid-plane above the water surface it rides.
-magnet_lead_above_surface = 0.0
+# Provisional magnet midplane minus liquid surface in the conservative foam model.
+magnet_lead_above_surface = _float.magnet_above_waterline()
 reed_low_z = low_level_z + magnet_lead_above_surface
 reed_high_z = high_level_z + magnet_lead_above_surface
 
 
 # ═══════════════════════════════════════════════════════
-# THE DONUT'S REACH
+# THE FLOAT'S REACH
 # ═══════════════════════════════════════════════════════
 
-float_height = 12.0     # donor YXQ capsule, magnet ring taken as centred
-rod_tack_fillet = 1.5   # the tack bead the donut lands on at the rod base
+float_height = _float.height
+rod_tack_fillet = 1.5   # the tack bead the float lands on at the rod base
 
-# [20.2 mm](MAGNET_LOWEST) to [133.7 mm](MAGNET_HIGHEST) — where the
-# donut's mid-plane can be, between the tack bead and the top plate.
+# [28.2 mm](MAGNET_LOWEST) to [125.7 mm](MAGNET_HIGHEST) — where the
+# RC62 midplane can be, between the tack bead and the top plate.
 magnet_lowest_z = interior_floor_z + rod_tack_fillet + float_height / 2
 magnet_highest_z = interior_ceiling_z - float_height / 2
 
-# [3 mm](REGISTER_WALL_BIAS) — how far the plate's register parks the rod PAST
-# the bore wall. The donut is loose on the rod, so the wall takes the bias up
-# and that is what holds the magnet-to-wall gap at zero for the whole travel —
-# the reed is outside the carbonator and reads through it.
-donut_wall_bias = (register_radius + donut_od / 2 - tube_id / 2) * 25.4
+# Running room for the ASA Aero body, read from the shared 20 mm rod datum.
+# Finished expansion/alignment and installed switching are unmeasured.
+float_wall_clearance = (tube_id / 2 - register_radius) * 25.4 - _float.diameter / 2
 
 
 # ═══════════════════════════════════════════════════════
 # BRIDGE
 # ═══════════════════════════════════════════════════════
 
-# [14 mm](REED_GLASS_L) × ⌀[2.5 mm](REED_GLASS_D) — Gebildet B0CW9418F6
-# glass envelope, diameter taken at the top of the supplier's range.
-reed_glass_length = 14.0
-reed_glass_diameter = 2.5
+# [14 mm](REED_GLASS_L) × ⌀[2.5 mm](REED_GLASS_D) mounting envelope for
+# MDSR-7-10-15 glass, tape and leads; actual glass length is 12.7 mm.
+reed_glass_length = _float.reed_mount_length
+reed_glass_diameter = _float.reed_mount_diameter
 
 seat_clearance = _fits.slip
 inner_radius = carbonator_outer_radius + seat_clearance
@@ -377,8 +377,8 @@ def main():
     print(f"CLO (pump on):          level {low_level_z:.2f} mm  "
           f"reserve {reserve_ml:.0f} mL = {reserve_ml / carbonated_water_per_serving:.2f} servings, "
           f"band {serving_level_rise:.2f} mm = 1.00 serving")
-    print(f"Donut mid-plane reach:  {magnet_lowest_z:.1f} .. {magnet_highest_z:.1f} mm "
-          f"(magnet wall bias {donut_wall_bias:.2f} mm)")
+    print(f"RC62 midplane reach:    {magnet_lowest_z:.1f} .. {magnet_highest_z:.1f} mm "
+          f"(nominal body/wall clearance {float_wall_clearance:.2f} mm)")
     print(f"Bridge:                 Z {bridge_z_bottom:.2f} .. {bridge_z_top:.2f} "
           f"({bridge_height:.2f} mm), arc {2 * bridge_half_width:.1f} mm, "
           f"{pocket_depth:.1f} mm proud")
@@ -418,8 +418,10 @@ def main():
         "STORED_SERVINGS": f"{stored_ml / carbonated_water_per_serving:.3g}",
         "MAGNET_LOWEST": f"{magnet_lowest_z:.4g} mm",
         "MAGNET_HIGHEST": f"{magnet_highest_z:.4g} mm",
-        "REGISTER_WALL_BIAS": f"{donut_wall_bias:.3g} mm",
-        "DONUT_OD": f"{donut_od * 25.4:.4g} mm",
+        "FLOAT_WALL_CLEARANCE": f"{float_wall_clearance:.3g} mm",
+        "MAGNET_LEAD": f"{magnet_lead_above_surface:.3f} mm",
+        "REED_LOW_Z": f"{reed_low_z:.3f} mm",
+        "REED_HIGH_Z": f"{reed_high_z:.3f} mm",
         "REED_GLASS_L": f"{reed_glass_length:.4g} mm",
         "REED_GLASS_D": f"{reed_glass_diameter:.4g} mm",
         "POCKET_DEPTH": f"{pocket_depth:.4g} mm",

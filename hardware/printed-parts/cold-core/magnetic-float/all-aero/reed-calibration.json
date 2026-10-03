@@ -1,0 +1,21 @@
+{
+  "status": "not_measured",
+  "article": "Finished one-piece ASA Aero float with RC62 at nominal Z14.0",
+  "procedure": "installation.md#reed-calibration",
+  "scope": "Final vertical reed positions require actual liquid immersion and installed directional closure/release; rod XY datums are fixed by geometry.",
+  "float_task_id": null,
+  "dry_mass_g": null,
+  "liquids": {
+    "water": {"magnet_center_minus_surface_mm": null},
+    "actual_flavoring": {"magnet_center_minus_surface_mm": null}
+  },
+  "crossings": [],
+  "crossing_record_fields": ["reed_id", "vessel", "fluid", "direction", "radial_position", "repeat", "closure_or_release", "magnet_center_minus_reed_center_mm", "liquid_height_mm", "liquid_volume_ml"],
+  "placement_acceptance": {
+    "free_guided_travel": null,
+    "correct_directional_order": null,
+    "repeated_crossing_spread_at_most_2mm": null,
+    "crossings_before_mechanical_stops": null,
+    "no_unintended_pump_trigger_crossing": null
+  }
+}

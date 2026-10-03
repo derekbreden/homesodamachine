@@ -35,9 +35,9 @@ ET.register_namespace("", CORE)
 ET.register_namespace("p", PROD)
 SETTING = "Metadata/project_settings.config"
 GCODE = "Metadata/plate_1.gcode"
-RECORDS = HERE / "mark2-print/v2"
-JOB = ROOT / ".cache/prints/magnetic-float-all-aero-mark2-v2"
-NAME = "magnetic-float-all-aero-mark2-v2.gcode.3mf"
+RECORDS = HERE / "mark2-print/v1"
+JOB = ROOT / ".cache/prints/magnetic-float-all-aero-mark2-v1"
+NAME = "magnetic-float-all-aero-mark2-v1.gcode.3mf"
 MESSAGE = ("Insert one RC62 ring into the open annular pocket, fully down onto its floor. "
            "The magnet must sit below both pocket rims. Keep the guide bore open and clear "
            "loose strings without moving the float. Resume only with the magnet fully seated.")
@@ -250,7 +250,7 @@ def main():
     for name, xml in [("Metadata/model_settings.config", config), ("3D/3dmodel.model", model),
                       (member, embedded), ("Metadata/custom_gcode_per_layer.xml", pauses)]:
         revised[name] = ET.tostring(xml, encoding="UTF-8", xml_declaration=True)
-    project = RECORDS / "all-aero-float.3mf"
+    project = HERE / "all-aero-float.3mf"
     native_dir = JOB / "native"
     native = native_dir / NAME
     if not native.exists():
@@ -313,8 +313,7 @@ def main():
     render(roads, pause)
     mass = sum(r["extrusion_mm"] for r in roads) * math.pi * (1.75 / 2) ** 2 * 0.99 / 1000
     design = json.loads((HERE / "design.json").read_text())
-    source_paths = [HERE / "all_aero_float.py", HERE / "design.json", HERE / "prepare_print.py",
-                    HERE.parents[1] / "_float_interface.py", HELPER]
+    source_paths = [HERE / "all_aero_float.py", HERE / "design.json", HERE / "prepare_print.py", HELPER]
     record = {"article": "All-ASA Aero magnetic float with RC62 insertion pause", "printer": "Mark2",
               "status": "prepared_not_submitted", "send_attempts": 0, "preview_inspected": False,
               "source_commit": None, "source_snapshot": {str(p.relative_to(ROOT)): sha(p) for p in source_paths},

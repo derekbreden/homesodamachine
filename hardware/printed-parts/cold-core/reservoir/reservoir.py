@@ -47,6 +47,7 @@ from _cold_core_interface import (
 )
 from _reed_channels import reeds_per_reservoir
 from _port_cuts import flavor_line_hole_x
+import _float_interface as _float
 
 
 def _z_cylinder(anchor_xy, z_range, diameter):
@@ -252,8 +253,8 @@ reservoir_count = len(fill_position)
 # `rod_position_x` is struck off the cavity's own far wall, further down with that wall.
 rod_position_y = level_rod_y  # y of the rod centerline; does NOT mirror with side —
 # the reed column outside stands on this same station (`_cold_core_interface.level_rod_y`)
-rod_diameter = 3.175  # 1/8" 316 SS round rod OD
-# [3.475 mm](ROD_BORE) — rod ⌀ + 0.5 mm slip-fit clearance; shared by body anchor boss and cap register boss.
+rod_diameter = _float.guide_diameter  # 1/8" 316 SS round rod OD
+# [3.475 mm](ROD_BORE) — rod ⌀ + 0.3 mm diametral slip clearance; shared by body anchor boss and cap register boss.
 rod_bore = rod_diameter + 2.0 * fits.slip  # stationary rod seats; float's running bore is separate
 # [7.475 mm](ROD_BOSS_OD) — bore ⌀ + 4 mm (2 mm radial wall); shared by body anchor and cap register bosses.
 rod_boss_od = rod_bore + 4.0  # 2 mm radial wall around the bore
@@ -450,30 +451,16 @@ inner_far_x_abs = outer_far_x_abs - reservoir_wall_thickness
 inner_y_max = outer_y_max - reservoir_wall_thickness
 inner_centerward_radius = outer_centerward_radius + reservoir_wall_thickness
 
-# WHERE THE LEVEL ROD PARKS, and it is a statement about the wall above rather than a station of
-# its own. The reed column stands outside `inner_far_x_abs` (`_internals.REED_COLUMN_X`) and
-# magnetic coupling falls off fast across a wall, so the float is NOT concentric on its rod: the
-# rod is parked outboard of where a concentric capsule would touch, and the capsule's own loose
-# bore spends that difference, so the wall holds the magnet against itself for the whole travel.
-# The carbonator makes the same move on the carbonator's bore — `endcap_circular_dxf.magnet_wall_bias`.
-# Parking it off the wall is what keeps a wall that moves carrying its rod.
-#   The two donor figures below are the assembly's as well (`_internals.FLOAT_SLOP` reads them
-# from `_fittings`), and `cold-core-layout`'s `floats-couple` grades the pair against the bench
-# reach — so the two drifting apart comes back as a standoff the reed cannot read, not silence.
-float_capsule_od = 28.0    # the harvested donor float ball, `bom.md` §12
-float_capsule_bore = 9.75  # its own bore: made for the donor's stem, so it is LOOSE on this rod
-# How far past touching the rod stands. Under the carbonator's 3.0 because this wall is printed
-# PETG and gives, where the carbonator's is rigid 316 — and it has to stay under the slop below or the
-# capsule cannot reach the rod inside the wall at all.
-magnet_wall_bias = 2.5
-rod_position_x = inner_far_x_abs - float_capsule_od / 2.0 + magnet_wall_bias
+# The 36 mm ASA Aero float clears the wet wall without relying on wall contact.
+# The guide's nominal axis is 20 mm inboard; body and cap use the same station.
+float_capsule_od = _float.diameter
+float_capsule_bore = _float.bore_diameter
+rod_position_x = inner_far_x_abs - _float.rod_axis_from_inner_wall
 state(
-    "reservoir-float-reaches-rod", "The capsule's bore has the slop the park spends",
-    f"a bias under {(float_capsule_bore - rod_diameter) / 2.0:g} mm",
-    magnet_wall_bias < (float_capsule_bore - rod_diameter) / 2.0,
-    f"the rod is parked {magnet_wall_bias:g} mm past touching against a capsule with only "
-    f"{(float_capsule_bore - rod_diameter) / 2.0:g} mm of radial freedom on it, so the float "
-    f"cannot be on the rod and against the wall at once")
+    "reservoir-float-clears-wall", "The Aero float keeps running clearance at full radial guide motion",
+    "at least 1 mm nominal geometric clearance",
+    _float.minimum_wall_clearance >= 1.0,
+    f"the guide leaves only {_float.minimum_wall_clearance:g} mm against the wet wall")
 state(
     "reservoir-rod-boss-inboard", "The rod's anchor boss stands clear of the cavity wall",
     f"a boss inboard of {inner_far_x_abs:g} mm",
@@ -553,7 +540,21 @@ reservoir_rod_len = (
     - (floor_trough_z + floor_slope_rate * (abs(rod_position_y) - floor_trough_half_width_y)
        + rod_anchor_boss_floor)
     - reservoir_rod_clearance
-)  # [176.5 mm (6.95 in)](RESERVOIR_ROD_LEN) — 1/8" 316 SS rod, seat-to-seat − 1 mm
+)  # [176.5 mm (6.95 in)](RESERVOIR_ROD_LEN) — 1/8" 316 SS rod, seat-to-seat − 0.15 mm
+
+# The bosses are wider than the float bore and are its end stops. These are
+# magnet-centre travel limits, not liquid level or reed switching measurements.
+rod_floor_z = floor_trough_z + floor_slope_rate * (abs(rod_position_y) - floor_trough_half_width_y)
+float_magnet_travel_z = (
+    rod_floor_z + rod_anchor_boss_height + _float.magnet_midplane,
+    cap_assembly_lift - rod_register_boss_height - (_float.height - _float.magnet_midplane),
+)
+reservoir_reed_pitch = 45.0
+_reed_span = (reeds_per_reservoir - 1) * reservoir_reed_pitch
+_reed_mid = sum(float_magnet_travel_z) / 2
+reservoir_reed_centres_z = tuple(_reed_mid - _reed_span / 2 + i * reservoir_reed_pitch
+                               for i in range(reeds_per_reservoir))
+assert _reed_span < float_magnet_travel_z[1] - float_magnet_travel_z[0]
 # Floor wedge extrusion top — above the highest slope point so the
 # slope half-spaces cut a clean upper face on the wedge fill.
 floor_wedge_top_z = floor_trough_z + floor_slope_rise + 2.0
@@ -1358,13 +1359,18 @@ def main():
         "FILL_POSITION_B": "({:.4g}, {:.4g})".format(*fill_position[-1]),
         # level-sensing.md rod placement + size + reed count.
         "ROD_DIAMETER": f"{rod_diameter:.4g} mm",
-        "ROD_POSITION_X": f"{rod_position_x:.4g}",
-        "CAVITY_FAR_WALL_X": f"{inner_far_x_abs:.4g}",
-        "MAGNET_WALL_BIAS": f"{magnet_wall_bias:.4g} mm",
+        "ROD_POSITION_X": f"{rod_position_x:.2f}",
+        "CAVITY_FAR_WALL_X": f"{inner_far_x_abs:.2f}",
+        "ROD_WALL_DISTANCE": f"{_float.rod_axis_from_inner_wall:g} mm",
+        "FLOAT_DIAMETER": f"{_float.diameter:g} mm",
+        "FLOAT_HEIGHT": f"{_float.height:g} mm",
+        "FLOAT_TRAVEL": f"{float_magnet_travel_z[0]:.2f}–{float_magnet_travel_z[1]:.2f} mm",
+        "REED_CENTRES": ", ".join(f"{z:.2f}" for z in reservoir_reed_centres_z),
         "ROD_POSITION_Y": f"{rod_position_y:.4g}",
         "REEDS_PER_RES": f"{reeds_per_reservoir:.4g}",
         "RESERVOIR_ROD_LEN": f"{reservoir_rod_len:.4g} mm ({reservoir_rod_len / 25.4:.3g} in)",
         "RESERVOIR_SEAT_TO_SEAT": f"{reservoir_rod_len + reservoir_rod_clearance:.4g} mm",
+        "ROD_END_CLEARANCE": f"{reservoir_rod_clearance:g} mm",
         # level-sensing.md — the one −Y wall hole, the draw's own, cut by _port_cuts.
         # The reed cable does not cross this wall: it leaves up its channel and out the
         # bore the cap stands over that channel's mouth, stated in the SHELL's frame.

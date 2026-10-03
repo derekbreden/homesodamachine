@@ -555,37 +555,24 @@ def _one_core(placed: dict) -> Check:
 
 
 def _floats_couple(placed: dict) -> Check:
-    """Every float's magnet held against the wall its reed reads through.
+    """Running clearance and an RC62 edge path within the bench design band.
 
-    A reed here is OUTSIDE the carbonator it reads, so what the check is about is COUPLING, not
-    clearance: the capsule is loose on its rod (`_internals.FLOAT_SLOP`) and each rod is parked
-    outboard of where a concentric float would touch, so the wall pushes the magnet against
-    itself for the whole travel. `standoff` is what is left of the slop — the most the magnet
-    can retreat anywhere in that travel — and a float that gets LOOSER fails this, which is the
-    direction the failure actually comes from. Under zero is the other end: a capsule the wall
-    will not let onto its rod at all."""
+    This is geometry, not installed reed actuation or liquid calibration.
+    """
     detail = []
     seats = _I.float_seats({n: s for n, s in placed.items() if n.startswith("reservoir-")})
     good = 0
     for name, (park, wall, _centre, standoff) in sorted(seats.items()):
-        bias = park + _F.FLOAT_OD / 2.0 - wall
-        if standoff < 0.0:
-            detail.append(f"{name}: rod parked {park:.2f} bites {-standoff:.2f} mm past the "
-                          f"{_I.FLOAT_SLOP:.2f} mm of bore slop — the wall at {wall:.2f} will "
-                          f"not let the capsule onto its rod")
-        elif standoff > _I.MAGNET_WALL_REACH:
-            detail.append(f"{name}: rod parked {park:.2f} against a wall at {wall:.2f} leaves "
-                          f"the capsule {-bias:.2f} mm short of it, so the magnet stands off "
-                          f"up to {standoff:.2f} mm — past the "
-                          f"{_I.MAGNET_WALL_REACH:.1f} mm the reed reads at")
-        else:
-            good += 1
-            detail.append(f"{name}: rod parked {park:.2f} biases the capsule {bias:+.2f} mm "
-                          f"into a wall at {wall:.2f}; magnet standoff 0..{standoff:.2f} mm")
-    return Check("floats-couple", "Every float's magnet is held against the wall its reed "
-                 "reads through", "gate", verdict(good == len(seats)),
-                 f"{good}/{len(seats)} floats",
-                 f"standoff under {_I.MAGNET_WALL_REACH:.1f} mm", detail)
+        minimum_gap = standoff - 2 * _I.FLOAT_SLOP
+        reed_axis = _I.carbonator_reed_x() if name == "float-carb" else _I.REED_COLUMN_X
+        edge_path = _I._float.reed_edge_distance(park, reed_axis)
+        good += minimum_gap >= 1.0 and edge_path <= _I.MAGNET_EDGE_BENCH_REACH
+        detail.append(f"{name}: body/wet-wall gap {minimum_gap:.3f}..{standoff:.3f} mm; "
+                      f"reed-centre to RC62 edge at most {edge_path:.3f} mm; "
+                      "installed switching height unmeasured")
+    return Check("floats-couple", "Aero floats clear their walls within the RC62 bench reach band",
+                 "gate", verdict(good == len(seats)), f"{good}/{len(seats)} floats",
+                 f">=1 mm body clearance, <={_I.MAGNET_EDGE_BENCH_REACH:g} mm edge path; geometry only", detail)
 
 
 def _arcs_hold(fitted: dict) -> Check:
