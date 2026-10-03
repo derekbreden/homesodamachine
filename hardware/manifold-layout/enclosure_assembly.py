@@ -243,10 +243,9 @@ WAGO_POLES = ("wago-h", "wago-n", "wago-g", "wago-v12", "wago-gnd")
 # land on — `wiring/ac-wiring-schedule.md` "Loom terminations". So each stands on the flank its
 # own cluster stands on rather than beside the main board the trunk leaves:
 #
-#   wago-mana     J1 MANIFOLD A `COM` → V-A…V-H, on the fore east flank above
-#                 the pump cartridge and ahead of the valves
+#   wago-mana     J1 MANIFOLD A `COM` → V-A…V-H, on the +X flank beside the valves
 #   wago-manb     J2 MANIFOLD B `COM` → V-I, V-J, the condenser fan and V-K,
-#                 at the same fore station on the west flank
+#                 directly below J1's fan-out on the +X flank
 #   wago-reeds-b  J7 REEDS B `GND` → reservoir B's four reeds plus the carbonator's two
 #   wago-reeds-a  J6 REEDS A `GND` → reservoir A's four reeds
 #   wago-sensors  J4 SENSORS `GND` → the 1-wire bus, the DIGITEN meter and the moisture
@@ -268,8 +267,8 @@ WAGO_POLES = ("wago-h", "wago-n", "wago-g", "wago-v12", "wago-gnd")
 #
 #     w.travel("wago-reeds-b", (0, 0, -1))
 CLUSTER_WAGOS = {
-    "wago-mana": (+1, 63.0, 302.0, "420"),
-    "wago-manb": (-1, 63.0, 302.0, "415"),
+    "wago-mana": (+1, 169.0, 280.0, "420"),
+    "wago-manb": (+1, 169.0, 246.0, "415"),
     "wago-reeds-b": (-1, 335.0 - 2.0 * _enc.wago_pitch, 270.0, "420"),
     "wago-reeds-a": (-1, 335.0 - 1.0 * _enc.wago_pitch, 270.0, "415"),
     "wago-sensors": (-1, 335.0, 270.0, "415"),
@@ -3359,8 +3358,9 @@ def wago_wells(row, cluster, over):
     placed lug, read off the lug's own box so a well cannot end up anywhere but under the thing
     it holds.
 
-    Every well keeps the two-tab, 45°-ramped supportless lid on its pocket's print-down face
-    (`enclosure._side_wells`). `clear_z` is the plane on the tower's print-down side that its
+    Separate wells keep the two-tab, 45°-ramped lid on their print-down face.
+    The lower manifold well has a full lid, retaining the 3.2 mm web between
+    the stacked connector pockets. `clear_z` is the plane on the tower's print-down side that its
     wedge may not cross. The five power-row wells stand on back-top's +X wall, whose print-up is
     `enclosure.print_up("back", "top")`: printing machine −Z up, the row's wedge stands over the
     tower and that plane is the ceiling slab's interior face
@@ -3382,7 +3382,8 @@ def wago_wells(row, cluster, over):
         centre = ((b.xmin + b.xmax) / 2.0, (b.ymin + b.ymax) / 2.0, (b.zmin + b.zmax) / 2.0)
         cluster_clear = (_enc.back_top_ceiling_face()
                          if up < 0 and _enc.back_top_owns(centre) else None)
-        out.append((CLUSTER_WAGOS[name][0], centre[1], centre[2], size, cluster_clear, True))
+        out.append((CLUSTER_WAGOS[name][0], centre[1], centre[2], size, cluster_clear,
+                    name != "wago-manb"))
     return tuple(out)
 
 

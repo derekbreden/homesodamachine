@@ -761,9 +761,8 @@ def _carb_2(F):
 #
 # WHAT CROSSES A GATE'S COLUMN IS ITS OWN CHANNEL'S FILL LINE. West that is `fluid-24`, which
 # runs aft up the outboard lane on `RESERVOIR_CRUISE` and passes directly over V-J and fixes this
-# plane. East, `fluid-14` climbs a storey higher to cross V-K, so NOTHING FENCES V-G AT ALL —
-# and `fluid-18` climbs its own bay through this plane to the crown lane. This figure is the
-# west line's.
+# plane. Flavor A crosses the fore cap strip below this plane before it reaches the
+# west flank. This figure is the west gate's.
 GATE_STUB_CLEAR = 4.0
 # WHERE THE WEST GATE'S LINE RUNS AFT IS ITS OWN UNION'S COLUMN, and it takes that column at the
 # first corner it can and holds it to the wall. The gate stands on `LIMB_OUT_XW` and the union on
@@ -777,10 +776,8 @@ GATE_STUB_CLEAR = 4.0
 # the whole height it crosses at. On the union's column the tube spans x[−81.2, −74.9] and the
 # strip outboard of it is the wall's.
 #
-# THE EAST FLANK IS NOT ITS TWIN. The main board and its relay hang on the +X wall's own seat and take
-# that column from y 232 aft for the whole of the height a gate line would climb it in — so
-# `fluid-18` cannot come down its own flank at all and takes the crown lane over the core instead.
-# What follows is the west line's.
+# The main board and relay occupy the +X flank from y 232 aft. Flavor A crosses the
+# fore cap strip and runs aft on the west flank. What follows is the west gate's.
 #
 # HOW FAR AFT THE JOG IS TAKEN, and it is fenced from both sides. The leg has to hold the climb's
 # whole quarter-turn as tangent — a square corner spends its whole radius in each leg it touches,
@@ -804,13 +801,19 @@ GATE_B_STEP_Y = 393.0
 # apiece, so nearly all of this is straight — the reach is here to keep the corner well over the
 # 2° a lean needs to be a lean, not because the arcs want it.
 GATE_B_RISE_RUN = 20.0
-# The upper lane passes between V-K's east face and the actual populated main board.
-# Its diagonal arrives before the valve's front face, with both R14 tangents intact.
-GATE_A_EAST_AIR = 1.5
-GATE_A_LANE_REACH = 18.0
-# Turn west ahead of the carb-water riser, then meet the post on a full straight.
-GATE_A_CROSS_TURN_Y = 244.0
+# Flavor A crosses the lid's fore strip on a low side bearing. The adjoining legs
+# pass 1.2 mm lower to clear the tap-water crossing and its cap-entry approach.
+GATE_A_FORE_DROP = 1.2
 GATE_A_POST_STRAIGHT_AIR = 1.0
+GATE_A_POST_EXIT = 7.0
+GATE_A_LOW_LEAN_RUN = 22.0
+# The west lane is outside the reservoir-B fill column and the discharge chain.
+# Its return begins behind the pump discharge, below the discharge hose.
+GATE_A_WEST_X = -76.5
+GATE_A_RETURN_START_Y = 345.0
+GATE_A_UNION_JOIN_Y = 375.0
+GATE_A_UNION_LEVEL_RUN = 10.0
+GATE_A_RISE_RUN = 20.0
 
 
 def _gate_a_anchor(F) -> tuple:
@@ -822,26 +825,6 @@ def _gate_a_anchor(F) -> tuple:
     return (draw[0] + anchor.centre[1] - local_draw[1],
             draw[1] + local_draw[0] - _cc.cap_side_axis_y("fluid-18"),
             draw[2] + anchor.over_face)
-
-
-def _gate_a_lane_y(solids) -> float:
-    """Where the slant off the gate lands on the crown lane — fore of V-K, whose block takes
-    the lane's east flank from its own front face aft."""
-    return solids["vk-solenoid"].BoundingBox().ymin - _split.TUBE_D / 2.0 - LANE_CLEAR
-
-
-def _gate_a_desc_y(solids) -> float:
-    """Where the crown lane starts down — aft of `fluid-14`'s fall, which owns the lane's low
-    room fore of this, one section and an air off its own last corner."""
-    return (_fill_a_lane_y(solids) + FILL_A_LANE_RUN + FILL_A_FALL_RUN
-            + _split.TUBE_D / 2.0 + 1.0)
-# The west leg holds the side-post height until it has passed fluid-2. It then
-# drops below the G Ganen discharge hose and regains the union's height behind that
-# hose. Each end remains on its original collet axis with a straight lead.
-GATE_A_FALL_START_Y = 292.0
-GATE_A_FALL_Y = 328.0
-GATE_A_RISE_Y = 366.0
-GATE_A_RISE_RUN = 20.0
 
 
 def gate_cruise(v_i_outlet_z: float) -> float:
@@ -915,36 +898,37 @@ def _fluid_28(F, solids):
 
 
 def _fluid_18(F, solids):
-    """Flavor A: rise off V-G, pass east of V-K, and cross through the cap's side post.
+    """Flavor A: cross the low cap bearing, follow the west flank and reach the rear union.
 
-    The complete post bears on a straight tube. The west leg remains high over fluid-2,
-    passes below the discharge hose, then rises onto the rear union's axis.
+    The complete post bears on a straight tube ahead of the cap valves. The west leg
+    passes outside the fill column and discharge chain, then turns in behind the
+    discharge hose and rises onto the rear union's axis.
     """
     gate = F["valve-v-g"].at("outlet")
     tin = F["bulkhead-flavor-a"].at("tube-in")
     anchor_x, deck_y, cross_z = _gate_a_anchor(F)
-    lane_x = (solids["vk-solenoid"].BoundingBox().xmax
-              + _split.TUBE_D / 2.0 + GATE_A_EAST_AIR)
     join_x = (anchor_x + _cc.cap_side_len / 2.0 + TUBE_BEND
               + GATE_A_POST_STRAIGHT_AIR)
+    post_exit_x = anchor_x - GATE_A_POST_EXIT
+    fore_z = cross_z - GATE_A_FORE_DROP
     low_z = (F["g-ganen-pump"].at("discharge")[2]
              - (_suct.HOSE_OD + _split.TUBE_D) / 2.0 - LANE_CLEAR)
-    fall_start_y = max(GATE_A_FALL_START_Y, deck_y + 2.0 * TUBE_BEND)
+    rise_y = GATE_A_UNION_JOIN_Y + GATE_A_UNION_LEVEL_RUN
     run = R.bent(
         "fluid-18", "valve-v-g.outlet",
-        (gate[0], gate[1], cross_z),
-        (lane_x, gate[1] + GATE_A_LANE_REACH, cross_z),
-        (lane_x, GATE_A_CROSS_TURN_Y, cross_z),
+        (gate[0], gate[1], fore_z),
         (join_x, deck_y, cross_z),
-        (tin[0], deck_y, cross_z),
-        (tin[0], fall_start_y, cross_z),
-        (tin[0], GATE_A_FALL_Y, low_z),
-        (tin[0], GATE_A_RISE_Y, low_z),
-        (tin[0], GATE_A_RISE_Y + GATE_A_RISE_RUN, tin[2]),
+        (post_exit_x, deck_y, cross_z),
+        (post_exit_x - GATE_A_LOW_LEAN_RUN, deck_y, fore_z),
+        (GATE_A_WEST_X, deck_y, fore_z),
+        (GATE_A_WEST_X, GATE_A_RETURN_START_Y, fore_z),
+        (tin[0], GATE_A_UNION_JOIN_Y, low_z),
+        (tin[0], rise_y, low_z),
+        (tin[0], rise_y + GATE_A_RISE_RUN, tin[2]),
         "bulkhead-flavor-a.tube-in",
         kind="fluid", bend=TUBE_BEND,
-        note="flavor A: V-G-O → rear union, east of V-K through the cap's side post, "
-             "over fluid-2 and below the pump discharge hose")
+        note="flavor A: V-G-O → rear union, through the low fore cap post, "
+             "aft along the west flank and below the pump discharge hose")
     if run.tightest < TUBE_BEND - 1e-6:
         raise ValueError(f"fluid-18: minimum bend {run.tightest:.3f} mm is below R{TUBE_BEND:g}")
     return run

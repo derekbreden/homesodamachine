@@ -6861,6 +6861,7 @@ def _side_wells(solid, inner, stations, y0, y1, z0, z1, up=1.0):
             rows[-1][1].append(st)
         else:
             rows.append((key, [st]))
+    pockets = []
     for (side, sz, clear_z, supportless_roof), row in rows:
         face = inner[1] if side > 0 else inner[0]
         engage = max(wago_engage(st[3]) for st in row)
@@ -6892,26 +6893,29 @@ def _side_wells(solid, inner, stations, y0, y1, z0, z1, up=1.0):
                 prof.append((face - side * (engage - run), zb - up * run))
             prof.append((face, zb - up * run))
             solid = solid.fuse(_xz_prism(ya, yb, prof))
-        for _side, sy, _sz, size, _clear_z, _supportless_roof in (s[:6] for s in row):
-            reach = wago_engage(size) + 1.0
-            pocket = sorted((face, face - side * reach))
-            stand_y, stand_z, _sx = wago_stand(size)
-            pk_y = stand_y / 2.0 + wago_well_press
-            floor_z = sz - (stand_z / 2.0 + wago_well_press)
-            roof_z = sz + stand_z / 2.0 + wago_well_press
-            floor_z -= fits.supported_surface if up < 0.0 else 0.0
-            roof_z += fits.supported_surface if up > 0.0 else 0.0
-            solid = solid.cut(_ybox(pocket[0], pocket[1],
-                                    sy - pk_y, sy + pk_y, floor_z, roof_z))
-            if supportless_roof:
-                # the tabs and the ramp are on the pocket's print-down face, and the ramp
-                # opens away from the pocket
-                lid_z = roof_z if up > 0 else floor_z
-                gap = pk_y - wago_roof_tab
-                solid = solid.cut(_xz_prism(
-                    sy - gap, sy + gap,
-                    [(face, lid_z), (face - side * reach, lid_z),
-                     (face - side * reach, lid_z + up * reach)]))
+        pockets.extend(row)
+    # Stacked towers share backing. Cut every pocket after all backing and
+    # wedges are joined so an upper tower cannot fill the lower connector seat.
+    for side, sy, sz, size, clear_z, supportless_roof in (s[:6] for s in pockets):
+        face = inner[1] if side > 0 else inner[0]
+        reach = wago_engage(size) + 1.0
+        pocket = sorted((face, face - side * reach))
+        stand_y, stand_z, _sx = wago_stand(size)
+        pk_y = stand_y / 2.0 + wago_well_press
+        floor_z = sz - (stand_z / 2.0 + wago_well_press)
+        roof_z = sz + stand_z / 2.0 + wago_well_press
+        floor_z -= fits.supported_surface if up < 0.0 else 0.0
+        roof_z += fits.supported_surface if up > 0.0 else 0.0
+        solid = solid.cut(_ybox(pocket[0], pocket[1],
+                                sy - pk_y, sy + pk_y, floor_z, roof_z))
+        if supportless_roof:
+            # The tabs and ramp carry the pocket's print-down face.
+            lid_z = roof_z if up > 0 else floor_z
+            gap = pk_y - wago_roof_tab
+            solid = solid.cut(_xz_prism(
+                sy - gap, sy + gap,
+                [(face, lid_z), (face - side * reach, lid_z),
+                 (face - side * reach, lid_z + up * reach)]))
     return solid
 
 

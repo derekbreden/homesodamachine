@@ -210,7 +210,7 @@ Deburr both without opening the clip throat. Below them, the bay bulkhead's fore
 contact pair's male seat and its lead bore; the male half goes in during WR-04. Nothing on the
 cartridge enters that clip.
 
-The 600 mL silicone funnel seats in a separate PET-GF frame behind the display,
+The 300 mL silicone funnel seats in a separate PET-GF frame behind the display,
 across the Y seam. Slide the frame into front-top before closure; back-top
 captures its opposite rails as the enclosure closes. The silicone lifts out
 from above. Deburr and wipe its seat without rounding the rail bearing faces.
@@ -221,8 +221,7 @@ From below, guide its collet into the frame's 11.25 mm drain hole and the cradle
 two slots beside it, pinch the wings in, and push the cradle home until its hooks spring out
 over the frame's web. Push the drain stub down through the hole into the elbow's upper collet;
 the silicone plug's land closes on its top when the funnel goes in. `fluid-4` joins the elbow's
-aft collet to V-B. Frame intersections with V-K, the flow regulator, fluid-1 and
-fluid-18, and the valve-seat/anchor conflict, are recorded in the
+aft collet to V-B. Current clearances and the remaining V-K/frame contact are recorded in the
 [integration review](/hardware/printed-parts/zone-c/funnel/integration-review/README.md).
 This area is under design review and is not ready for fluid commissioning.
 

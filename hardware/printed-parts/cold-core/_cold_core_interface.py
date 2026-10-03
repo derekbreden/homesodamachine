@@ -1514,10 +1514,10 @@ cap_side_cav_backing_min = 1.0  # printable stock, independent of tie clearance
 # The tie's own channel down the post's back face, so the buckle seats and the zip tie cannot walk
 # along the run.
 cap_side_back_relief = 1.2
-# The least material the post may carry behind the pipe's deepest point. The tie pulls the tube
-# into the pipe and the whole section reacts it, so this is a printing floor and not a strength
-# one: under it the back face is a skin with no fill behind the bore.
-cap_side_web = 1.5
+# The bore and the rear tie channel retain one nominal wall between them. The
+# zip tie pulls the tube into that section; this geometric floor does not qualify
+# its retention load or endurance.
+cap_side_web = cap_side_wall
 
 cap_side_anchors = {
     # The tap-water branch to V-K, on the lid's front step. `centre` is the run's own axis where
@@ -1534,14 +1534,11 @@ cap_side_anchors = {
     # through, so the pair cannot drift apart quietly.
     # The post is one length deep, with the V-B plinth aft of it.
     "water-3": SideAnchor((138.000, -13.000), 7.600, 6.35 / 2.0 + fits.slip, 1.500, cap_side_len),
-    # `fluid-18`'s gate-side hold: its crossing runs the crown storey fore of the pump, and
-    # this post stands the whole of that storey off the lid to grip it — the blade's front
-    # face one air fore of the pump's own, the pipe proud of it by less than its wrap. The
-    # union side is the box's own wall rib on the aft straight
-    # (`enclosure_assembly.TUBE_ANCHOR_SITES`).
-    # The block runs aft alongside the pump, leaving room before its head block to thread
-    # the 6-inch tie this post's loop takes.
-    "fluid-18": SideAnchor((36.000, 34.000), 45.800, 6.35 / 2.0 + fits.slip, 1.000, 30.000),
+    # The flavor-A crossing is on the lid's fore strip, ahead of both cap valves.
+    # Its low side seat keeps a full wall below and above the bore, a tie path under it,
+    # and 3.475 mm of stock between the bore and the rear tie channel. The west leg
+    # follows the cap's outboard flank before returning to the rear union's column.
+    "fluid-18": SideAnchor((120.800, 34.000), 7.600, 6.35 / 2.0 + fits.slip, 1.000, 7.000),
 }
 
 
