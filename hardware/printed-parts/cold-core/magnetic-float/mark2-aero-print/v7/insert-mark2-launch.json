@@ -31,7 +31,7 @@
   },
   "estimated_part_time_s": 2118.722412109375,
   "archive_name": "magnetic-float-insert-mark2-aero-v8.gcode.3mf",
-  "status": "completed_cooling",
+  "status": "completed_cooled",
   "send_attempts": 1,
   "send_attempt_utc": "2026-10-03T15:17:27.731516+00:00",
   "print_options": {
@@ -301,6 +301,49 @@
       },
       "event": "printer_completed",
       "scope": "Printer reports FINISH, 50 of 50 layers and no error. Cooling remains in progress; this does not establish adhesion, foam density, buoyancy or fit."
+    },
+    {
+      "job_id": "1305301700",
+      "task_id": "1305301700",
+      "subtask_name": "magnetic-float-insert-mark2-aero-v8.gcode.3mf",
+      "print_type": "cloud",
+      "gcode_state": "FINISH",
+      "layer_num": 50,
+      "total_layer_num": 50,
+      "mc_percent": 100,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": -1,
+      "bed_temper": 35.0,
+      "bed_target_temper": 0.0,
+      "installed_extruders": [
+        {
+          "id": 0,
+          "hnow": 0,
+          "snow": 65280,
+          "temperature_packed": 42,
+          "actual_c": 42,
+          "target_c": 0
+        },
+        {
+          "id": 1,
+          "hnow": 1,
+          "snow": 65024,
+          "temperature_packed": 40,
+          "actual_c": 40,
+          "target_c": 0
+        }
+      ],
+      "chamber": {
+        "actual_c": 33,
+        "target_c": 0,
+        "source_field": "device.ctc.info.temp"
+      },
+      "event": "cooled_ready_for_removal",
+      "observed_at": "2026-10-03T17:11:21.198083+00:00",
+      "cool_before_removal_c": 35,
+      "scope": "Printer reports FINISH, 50 of 50 layers and no error. Actual bed is 35 C and chamber is 33 C, meeting the retained cooling threshold. Ready for physical removal; adhesion, fit, foam density and buoyancy are not established by telemetry. Completion does not confirm bed clearance."
     }
   ],
   "printer_reports": [
@@ -460,7 +503,7 @@
       ]
     }
   ],
-  "latest_observed_utc": "2026-10-03T16:08:17.293297+00:00",
+  "latest_observed_utc": "2026-10-03T17:11:21.198083+00:00",
   "latest_status": {
     "job_id": "1305301700",
     "task_id": "1305301700",
@@ -474,29 +517,28 @@
     "print_error": 0,
     "hms": [],
     "stg_cur": -1,
-    "bed_temper": 62.0,
+    "bed_temper": 35.0,
     "bed_target_temper": 0.0,
     "installed_extruders": [
       {
         "id": 0,
         "hnow": 0,
         "snow": 65280,
-        "temperature_packed": 58,
-        "actual_c": 58,
+        "temperature_packed": 42,
+        "actual_c": 42,
         "target_c": 0
       },
       {
         "id": 1,
         "hnow": 1,
         "snow": 65024,
-        "temperature_packed": 58,
-        "actual_c": 58,
+        "temperature_packed": 40,
+        "actual_c": 40,
         "target_c": 0
       }
     ],
     "chamber": {
-      "temperature_packed": 51,
-      "actual_c": 51,
+      "actual_c": 33,
       "target_c": 0,
       "source_field": "device.ctc.info.temp"
     }
@@ -504,8 +546,10 @@
   "accepted_task_id": "1305301700",
   "accepted_job_id": "1305301700",
   "accepted_utc": "2026-10-03T15:17:39.814994+00:00",
-  "monitor_active": true,
+  "monitor_active": false,
   "monitor_automation_id": "monitor-float-insert-and-front-top",
   "completed_observed_utc": "2026-10-03T16:08:17.293297+00:00",
-  "completion_reported": false
+  "completion_reported": true,
+  "cooled_observed_utc": "2026-10-03T17:11:21.198083+00:00",
+  "completion_reported_utc": "2026-10-03T17:13:10.847444+00:00"
 }
