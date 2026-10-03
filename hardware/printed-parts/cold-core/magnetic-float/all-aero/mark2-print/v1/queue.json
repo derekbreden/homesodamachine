@@ -11,7 +11,7 @@
   "source_stl_sha256": {
     "float-aero": "88da0b4e454a99b3ef01ca5b13da323d81504146785a321fc07592de0c0acd6e"
   },
-  "source_commit": null,
+  "source_commit": "4ac1fa874ddbccd9f96fa3c708079927c82049d2",
   "pause_before_layer": 80,
   "last_open_pocket_layer_z_mm": 15.8,
   "first_covering_layer_z_mm": 16.0,
