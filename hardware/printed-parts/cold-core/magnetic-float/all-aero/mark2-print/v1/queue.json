@@ -1,8 +1,8 @@
 {
   "article": "All-ASA Aero magnetic float, paused RC62 insertion trial v1",
   "printer": "Mark2",
-  "status": "prepared_not_submitted",
-  "send_attempts": 0,
+  "status": "accepted",
+  "send_attempts": 1,
   "monitor_active": false,
   "preflight": "float-preflight.json",
   "archive": ".cache/prints/magnetic-float-all-aero-mark2-v1/ready/magnetic-float-all-aero-mark2-v1.gcode.3mf",
@@ -25,9 +25,33 @@
     "external_slot": 255,
     "nozzle": "right fixed hardened standard-flow 0.4 mm",
     "send_dialog_tile_required": "Ext ASA-AERO R",
-    "send_dialog_verified": false
+    "send_dialog_verified": true,
+    "send_dialog_tile": "Ext ASA-AERO R",
+    "verified_utc": "2026-10-03T20:01:21.560212+00:00"
   },
-  "launch_condition": "A new start request or a clear-bed report after the current insert is removed is required. Verify the frozen archive, G-code and STL, idle Mark2, external right ASA Aero mapping, both printers and at least 180 seconds since any other start/resume before one guarded Send. No print is submitted by preparation or completion monitoring.",
+  "launch_condition": "One submission is accepted. At the native magnet pause, seat one RC62 fully below both pocket rims before manual resume. No automatic resume or further submission is authorized.",
   "user_request": "After this print, which seems to be going well, I'd like you to design a print that is an entirely ASA Aero float, paused halfway through for magnet insertion, and then continue to print on top of that.",
-  "scope": "Single body bench trial. Insert one RC62 at the native pause before resuming. Printed adhesion, retention, magnet heat exposure, density, buoyancy and service qualification are unverified."
+  "scope": "Single body bench trial. Insert one RC62 at the native pause before resuming. Printed adhesion, retention, magnet heat exposure, density, buoyancy and service qualification are unverified.",
+  "launch_record": "float-mark2-launch.json",
+  "accepted_task_id": "1306080180",
+  "accepted_job_id": "1306080180",
+  "accepted_utc": "2026-10-03T20:01:48.556792+00:00",
+  "project_file_result": "SUCCESS",
+  "bed_clear_confirmation": "I am ready for the next print on mark2. Bed is clear.",
+  "monitor_status": "The existing follow-up is paused by the user.",
+  "magnet_insertion_estimate": {
+    "calculated_utc": "2026-10-03T20:03:44.986961+00:00",
+    "timezone": "America/Chicago",
+    "local_zone_at_launch": "CDT",
+    "elapsed_from_acceptance_min": 57,
+    "estimated_pause_utc": "2026-10-03T20:58:48.556792+00:00",
+    "estimated_pause_local": "2026-10-03T15:58:48.556792-05:00",
+    "planning_window_local": [
+      "2026-10-03T15:50:00-05:00",
+      "2026-10-03T16:10:00-05:00"
+    ],
+    "basis": "Native initial M73 C56 time-to-pause and M73 R31 at the end of layer 79 in the 88-minute slice; actual warm-up and calibration can shift wall-clock timing.",
+    "scope": "Approximate wall-clock estimate; startup heating, calibration and firmware motion can shift arrival. The native pause waits for manual magnet insertion and resume."
+  },
+  "completion_reported": false
 }
