@@ -192,5 +192,11 @@
     "section_and_native_pause_paths": "pause-preview.png",
     "observations": "One upright body with an open guide bore. The last pre-pause layer has an open annular pocket, and the next layer has nested roads over the nominal ring footprint."
   },
-  "source_commit_binding_verified": true
+  "source_commit_binding_verified": true,
+  "post_publish_geometry_lint": {
+    "findings": 1,
+    "class": "ceiling",
+    "answer_file": "../../float-aero.lint-answers",
+    "scope": "Intentional annular insertion-pocket ceiling, backed by the magnet installed at the native pause. The actual foam closure is unverified."
+  }
 }

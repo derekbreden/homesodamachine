@@ -1,0 +1,2 @@
+[ceiling] RC62 insertion pocket. The native print pauses after the open-pocket layer at Z15.8 before covering it at Z16.0. The seated ring backs this annular ceiling, with a nominal 0.225 mm recess below the printed rim. The native coverage and nozzle clearance are recorded in mark2-print/v1/float-preflight.json; actual closure adhesion and magnet retention remain unverified. Internal supports would obstruct insertion and remain enclosed.
+click: x=0.000 y=0.000 z=15.812
