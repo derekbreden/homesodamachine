@@ -1,13 +1,13 @@
 # Magnetic-float ASA Aero corner priming retry
 
-The combined core and insert retry is accepted on Mark2 as task **1304085052**,
-using the identical frozen `magnetic-float-pair-mark2-aero-v5.gcode.3mf` archive,
-right standard-flow hardened 0.4 mm nozzle, and front-right corner priming strip.
-One Send received `project_file SUCCESS`; the matching new task entered `RUNNING`
-at layer 0. The user reported the bed clear and requested the same settings.
-Visual adhesion and physical fit remain unreported. Full acceptance, mapping,
-heater readings and startup spacing are in the [launch record](pair-mark2-launch.json).
-[Prior trial record](../v4/pair-mark2-launch.json).
+The combined core and insert retry on Mark2 is **stopped at layer 0**, task
+**1304085052**, `magnetic-float-pair-mark2-aero-v5.gcode.3mf`. MQTT reports `FAILED`,
+with zero print-error code and no HMS alert. Bambu Connect shows the matching
+archive as `Failed`, with no error message observed. Operator clarification is
+pending; the cause, visual adhesion and physical fit remain unreported. One Send
+received `project_file SUCCESS` and the matching new task entered `RUNNING`.
+The archive and all settings are frozen. No further Send or resume has occurred.
+Full observations are in the [launch record](pair-mark2-launch.json).
 
 The [physical startup report](../v3/physical-observations.json) describes the
 corner load line lifting, being dragged to the part, and the first part extrusion
