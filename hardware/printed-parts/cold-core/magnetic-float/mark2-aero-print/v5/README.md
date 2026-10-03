@@ -1,14 +1,13 @@
-# Magnetic-float ASA Aero corner priming strip
+# Magnetic-float ASA Aero corner priming retry
 
-The combined core and insert trial on Mark2, task **1304058102**,
-`magnetic-float-pair-mark2-aero-v5.gcode.3mf`, is **canceled by the operator**.
-The operator reported: “Hit an entirely unrelated problem this time. I stopped
-it. Bed is clear. Try again same settings.” Startup adhesion and physical fit
-remain unreported. MQTT showed `FAILED` at layer 0 with no print-error code or
-HMS alert. A separately observed AMS feed alert has an unconfirmed relationship
-to the reported problem. The full observations are in the
-[launch record](pair-mark2-launch.json); the authorized retry uses the unchanged
-archive in [physical trial v5](../v5/queue.json).
+The combined core and insert retry is accepted on Mark2 as task **1304085052**,
+using the identical frozen `magnetic-float-pair-mark2-aero-v5.gcode.3mf` archive,
+right standard-flow hardened 0.4 mm nozzle, and front-right corner priming strip.
+One Send received `project_file SUCCESS`; the matching new task entered `RUNNING`
+at layer 0. The user reported the bed clear and requested the same settings.
+Visual adhesion and physical fit remain unreported. Full acceptance, mapping,
+heater readings and startup spacing are in the [launch record](pair-mark2-launch.json).
+[Prior trial record](../v4/pair-mark2-launch.json).
 
 The [physical startup report](../v3/physical-observations.json) describes the
 corner load line lifting, being dragged to the part, and the first part extrusion
@@ -46,7 +45,7 @@ recipe retains **+0.04 mm user Z trim**, emitted as `G29.1 Z0.02` after reset,
 skirt, brim or support on the parts. ASA Aero White GFB02 uses AMS HT unit 128,
 tray 0, mapped to the right nozzle; normal Send options are On/On/Auto/Auto.
 
-This is physical trial **v4**, native archive revision **v5**. Geometry and
+This is physical trial **v5**, native archive revision **v5**. Geometry and
 orientation remain bound to export commit
 `f3cefbe360b7a8019741d177868d1e6c6770b93f`, with core SHA `63d12cbb…` and
 insert SHA `c69cdc55…`. Full hashes and source verification are in the preflight.
@@ -65,8 +64,8 @@ address startup adhesion; they do not establish printed density, fit or buoyancy
 The parts and plate retain the 35 °C cooling threshold before release.
 
 - [Preflight and priming-strip coordinate review](pair-preflight.json)
-- [Preparation and exact part-program comparison](prepare.py)
+- [Preparation and exact part-program comparison](../v4/prepare.py)
 - [Queue](queue.json)
 - [Operator's physical startup report](../v3/physical-observations.json)
 
-![Frozen part preview](pair-preview.png)
+![Frozen part preview](../v4/pair-preview.png)
