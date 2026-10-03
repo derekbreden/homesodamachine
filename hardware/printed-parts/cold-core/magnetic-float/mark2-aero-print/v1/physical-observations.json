@@ -1,0 +1,21 @@
+{
+  "trial": "ASA Aero magnetic-float core, physical v1",
+  "printer": "Mark2",
+  "task_id": "1303907771",
+  "archive_name": "magnetic-float-core-mark2-aero-v2.gcode.3mf",
+  "archive_sha256": "a48c017e41f2d7f6b4ab96ba72c4a3da0688c8ade4a6b0d5ee3340f78ab228d8",
+  "source_commit": "f3cefbe360b7a8019741d177868d1e6c6770b93f",
+  "source_stl_sha256": {
+    "body-aero": "63d12cbb501b629997a2462822df42a1f4f6bf20ee2806f2f6f310c1f7e72771"
+  },
+  "requested_z_trim_mm": 0.04,
+  "bed": "Textured PEI Plate",
+  "operator_report": "Several things were working well. It did, eventually, adhere to the bed, after more layers were added, but then it peeled off *very* easily.",
+  "reported_adhesion": "Adhesion developed after additional layers.",
+  "reported_release": "Very easy peeling.",
+  "release_temperature_c": "Not reported.",
+  "completed_core": false,
+  "physical_fit": "Not reported.",
+  "density": "Not measured.",
+  "recorded_utc": "2026-10-03T04:00:22.817831+00:00"
+}

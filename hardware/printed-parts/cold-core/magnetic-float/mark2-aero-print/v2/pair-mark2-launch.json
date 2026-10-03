@@ -1,0 +1,165 @@
+{
+  "printer": "Mark2",
+  "parts": [
+    "body-aero",
+    "insert-aero"
+  ],
+  "physical_trial_revision": 2,
+  "status": "accepted",
+  "archive": ".cache/prints/magnetic-float-pair-mark2-aero-v3/ready/magnetic-float-pair-mark2-aero-v3.gcode.3mf",
+  "archive_name": "magnetic-float-pair-mark2-aero-v3.gcode.3mf",
+  "archive_sha256": "997477bd22fff8de5f7d811038c1d4d5db219dffd034b06c48addcbbaf8316f1",
+  "gcode_sha256": "afeadb240e0a02d688989d4f770d3b5bd302fced256913a1bd531cbe26963524",
+  "source_stl_sha256": {
+    "body-aero": "63d12cbb501b629997a2462822df42a1f4f6bf20ee2806f2f6f310c1f7e72771",
+    "insert-aero": "c69cdc552c1dec84dd0bd84972ed601667df8327b0388236eec63ea7d672b8c6"
+  },
+  "source_commit": "f3cefbe360b7a8019741d177868d1e6c6770b93f",
+  "requested_z_trim_mm": 0.0,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    -0.02
+  ],
+  "bed": "Textured PEI Plate",
+  "bed_clear_confirmation": "User: '(mark2 bed is clear)'.",
+  "plate_choice": "User requested core and insert together on Textured PEI, zero user trim and no skirt/brim.",
+  "adhesive_application_reported": false,
+  "material_mapping": {
+    "physical_material": "Bambu ASA Aero White 46100",
+    "filament_id": "GFB02",
+    "nozzle": "right standard-flow hardened 0.4 mm",
+    "source": "AMS HT, unit 128 tray 0",
+    "dialog_tile": "HT - A ASA-AERO R"
+  },
+  "print_options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "send_attempts": 1,
+  "send_attempt_utc": "2026-10-03T03:59:49.109926+00:00",
+  "send_gate": {
+    "observed_at": "2026-10-03T03:59:49.109932+00:00",
+    "printers": {
+      "Mark2": {
+        "job_id": "1303907771",
+        "subtask_name": "magnetic-float-core-mark2-aero-v2.gcode.3mf",
+        "gcode_state": "FAILED",
+        "layer_num": 0,
+        "total_layer_num": 220,
+        "mc_percent": 0,
+        "mc_remaining_time": 0,
+        "print_error": 0,
+        "hms": [],
+        "stg_cur": -1,
+        "bed_temper": 58.0,
+        "bed_target_temper": 0.0,
+        "nozzle_temper": 54.0,
+        "nozzle_target_temper": 0.0
+      },
+      "H2C": {
+        "job_id": "1303667680",
+        "subtask_name": "funnel-test-cradle-h2c-v4.gcode.3mf",
+        "gcode_state": "FINISH",
+        "layer_num": 149,
+        "total_layer_num": 149,
+        "mc_percent": 100,
+        "mc_remaining_time": 0,
+        "print_error": 0,
+        "hms": [],
+        "stg_cur": -1,
+        "bed_temper": 28.0,
+        "bed_target_temper": 0.0,
+        "nozzle_temper": 30.0,
+        "nozzle_target_temper": 0.0
+      }
+    },
+    "other_printer_acceptance_reference_utc": "2026-10-03T00:54:26.716799+00:00",
+    "seconds_since_other_printer_acceptance": 11122.393112,
+    "installed_right_nozzle": {
+      "id": 0,
+      "diameter_mm": 0.4,
+      "type": "HS01",
+      "filament_id": "GFB02"
+    },
+    "ams_unit": 128,
+    "tray": 0
+  },
+  "estimated_time_s": 6969.0,
+  "observations": [
+    {
+      "event": "printer_accepted",
+      "observed_at": "2026-10-03T04:00:00.662268+00:00",
+      "job_id": "1303972802",
+      "subtask_name": "magnetic-float-pair-mark2-aero-v3.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "layer_num": 0,
+      "total_layer_num": 220,
+      "mc_percent": 0,
+      "mc_remaining_time": 116,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": -1,
+      "bed_temper": 58.0,
+      "bed_target_temper": 0.0,
+      "nozzle_temper": 54.0,
+      "nozzle_target_temper": 0.0
+    }
+  ],
+  "printer_reports": [
+    {
+      "section": "print",
+      "gcode_state": [
+        "FAILED",
+        "magnetic-float-core-mark2-aero-v2.gcode.3mf"
+      ]
+    },
+    {
+      "section": "print",
+      "command": "project_file",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "err_code": 0,
+      "sequence_id": "0"
+    },
+    {
+      "section": "print",
+      "gcode_state": [
+        "PREPARE",
+        "magnetic-float-pair-mark2-aero-v3.gcode.3mf"
+      ]
+    },
+    {
+      "section": "print",
+      "gcode_state": [
+        "RUNNING",
+        "magnetic-float-pair-mark2-aero-v3.gcode.3mf"
+      ]
+    }
+  ],
+  "latest_observed_utc": "2026-10-03T04:00:00.662033+00:00",
+  "latest_status": {
+    "job_id": "1303972802",
+    "subtask_name": "magnetic-float-pair-mark2-aero-v3.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 0,
+    "total_layer_num": 220,
+    "mc_percent": 0,
+    "mc_remaining_time": 116,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": -1,
+    "bed_temper": 58.0,
+    "bed_target_temper": 0.0,
+    "nozzle_temper": 54.0,
+    "nozzle_target_temper": 0.0
+  },
+  "accepted_task_id": "1303972802",
+  "task_id_confirmed_utc": "2026-10-03T04:00:00.662260+00:00",
+  "skirt_loops": 0,
+  "brim_type": "no_brim",
+  "print_sequence": "by layer",
+  "native_archive_revision": 3,
+  "quantity_per_part": 1
+}

@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-10-03T03:46:25.180621+00:00",
+  "updated_utc": "2026-10-03T04:02:16.412615+00:00",
   "trial": "magnetic-float ASA Aero v1",
   "scope": "One core followed by one insert, each on Mark2; no PETG shell print is requested.",
   "user_authorization": "User has dried and loaded ASA Aero on Mark2 right and requested the float core and insert; user reported beds clear.",
@@ -58,7 +58,7 @@
       "native_archive_revision": 2,
       "physical_trial_revision": 1,
       "estimated_time_s": 2192.0,
-      "status": "prepared_held_after_manual_core_stop",
+      "status": "not_submitted_active_trial_is_v2_pair",
       "preflight_record": "insert-preflight.json",
       "submission_attempts": 0
     }
@@ -68,8 +68,8 @@
   "cool_before_removal_c": 35,
   "core_completion_reported": false,
   "insert_completion_reported": false,
-  "monitor_active": true,
+  "monitor_active": false,
   "core_stop_reported": true,
   "operator_report": "I stopped it.",
-  "further_printing_gate": "Wait for user instructions and physical clearance after the manual core stop. Do not automatically retry the core or start the insert. A new start request confirms bed clear."
+  "further_printing_gate": "The active user-authorized trial is ../v2/queue.json. Do not send the separate v1 insert or retry the v1 core."
 }
