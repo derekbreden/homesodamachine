@@ -31,7 +31,7 @@
   },
   "estimated_part_time_s": 2118.722412109375,
   "archive_name": "magnetic-float-insert-mark2-aero-v8.gcode.3mf",
-  "status": "accepted",
+  "status": "running",
   "send_attempts": 1,
   "send_attempt_utc": "2026-10-03T15:17:27.731516+00:00",
   "print_options": {
@@ -215,6 +215,49 @@
         "target_c": 60,
         "source_field": "device.ctc.info.temp"
       }
+    },
+    {
+      "event": "first_layer_printer_progress",
+      "observed_at": "2026-10-03T15:35:15.561188+00:00",
+      "job_id": "1305301700",
+      "task_id": "1305301700",
+      "subtask_name": "magnetic-float-insert-mark2-aero-v8.gcode.3mf",
+      "print_type": "cloud",
+      "gcode_state": "RUNNING",
+      "layer_num": 2,
+      "total_layer_num": 50,
+      "mc_percent": 52,
+      "mc_remaining_time": 16,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": 0,
+      "bed_temper": 90.0,
+      "bed_target_temper": 90.0,
+      "installed_extruders": [
+        {
+          "id": 0,
+          "hnow": 0,
+          "snow": 65280,
+          "temperature_packed": 17694990,
+          "actual_c": 270,
+          "target_c": 270
+        },
+        {
+          "id": 1,
+          "hnow": 1,
+          "snow": 65024,
+          "temperature_packed": 57,
+          "actual_c": 57,
+          "target_c": 0
+        }
+      ],
+      "chamber": {
+        "temperature_packed": 3932220,
+        "actual_c": 60,
+        "target_c": 60,
+        "source_field": "device.ctc.info.temp"
+      },
+      "scope": "Printer reports layer 2 of 50 with no error or HMS. This is printer progress, not visual first-layer adhesion or physical acceptance."
     }
   ],
   "printer_reports": [
@@ -374,20 +417,20 @@
       ]
     }
   ],
-  "latest_observed_utc": "2026-10-03T15:24:46.849642+00:00",
+  "latest_observed_utc": "2026-10-03T15:35:15.561188+00:00",
   "latest_status": {
     "job_id": "1305301700",
     "task_id": "1305301700",
     "subtask_name": "magnetic-float-insert-mark2-aero-v8.gcode.3mf",
     "print_type": "cloud",
     "gcode_state": "RUNNING",
-    "layer_num": 0,
+    "layer_num": 2,
     "total_layer_num": 50,
-    "mc_percent": 1,
-    "mc_remaining_time": 34,
+    "mc_percent": 52,
+    "mc_remaining_time": 16,
     "print_error": 0,
     "hms": [],
-    "stg_cur": 49,
+    "stg_cur": 0,
     "bed_temper": 90.0,
     "bed_target_temper": 90.0,
     "installed_extruders": [
@@ -395,22 +438,22 @@
         "id": 0,
         "hnow": 0,
         "snow": 65280,
-        "temperature_packed": 9175180,
-        "actual_c": 140,
-        "target_c": 140
+        "temperature_packed": 17694990,
+        "actual_c": 270,
+        "target_c": 270
       },
       {
         "id": 1,
         "hnow": 1,
         "snow": 65024,
-        "temperature_packed": 38,
-        "actual_c": 38,
+        "temperature_packed": 57,
+        "actual_c": 57,
         "target_c": 0
       }
     ],
     "chamber": {
-      "temperature_packed": 3932204,
-      "actual_c": 44,
+      "temperature_packed": 3932220,
+      "actual_c": 60,
       "target_c": 60,
       "source_field": "device.ctc.info.temp"
     }

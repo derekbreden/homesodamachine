@@ -3,7 +3,7 @@
   "physical_trial_revision": 7,
   "native_archive_revision": 8,
   "printer": "Mark2",
-  "status": "insert_accepted_core_prepared",
+  "status": "insert_printing_core_prepared",
   "parts_in_launch_order": [
     "insert",
     "core"
@@ -37,12 +37,13 @@
       "source_stl_sha256": {
         "insert-aero": "c69cdc552c1dec84dd0bd84972ed601667df8327b0388236eec63ea7d672b8c6"
       },
-      "status": "accepted",
+      "status": "running",
       "send_attempts": 1,
       "task_id": "1305301700",
       "archive_name": "magnetic-float-insert-mark2-aero-v8.gcode.3mf",
       "accepted_utc": "2026-10-03T15:17:39.814994+00:00",
-      "launch_record": "insert-mark2-launch.json"
+      "launch_record": "insert-mark2-launch.json",
+      "first_layer_printer_progress_utc": "2026-10-03T15:35:15.561188+00:00"
     }
   },
   "bed": "Engineering Plate, with glue",
@@ -71,7 +72,7 @@
   "cool_before_removal_c": 35,
   "scope": "Only nested inner/outer wall deposition paths are emitted. Travel, retraction wipes, seam positioning and crossings over the core magnet pocket remain. No claim of zero travel or physical success.",
   "user_request": "So I'm thinking we want to try one piece at a time, and with that piece, just do like 300 walls so that it is all walls and we get concentric the whole way, and no jumps.",
-  "updated_utc": "2026-10-03T15:28:12.764074+00:00",
+  "updated_utc": "2026-10-03T15:35:15.561188+00:00",
   "bed_clear_confirmation": "Mark2 bed is clear and ready for next float print",
   "verified_material_mapping": {
     "physical_material": "Bambu ASA Aero White 46100",
