@@ -17,8 +17,8 @@
     },
     {
       "check": "hardware/scripts/check_facts_current.py",
-      "note": "and the 243 sources behind them stand where they stood when it was written",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_faucet_geometry.py",
@@ -92,16 +92,21 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 0 staged source(s)",
+      "note": "check_declared_imports: every step holds what it imports, over 263 source(s) the graph names",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 2773 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 568 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 2 of 2812 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 568 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
+    "hardware/scripts/check_facts_current.py": [
+      "enclosure-assembly.facts.json was taken from a different tree — it holds b2369c175a51dd02ed61d532e9a021c6 for the 243 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at b16f0c4361b2de5068003a894d397e47 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "  the three come off one run:",
+      "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
+    ],
     "hardware/scripts/check_ledger.py": [
       "instructions: 121 files (16 procedures + 104 cards + cover) | ledger brands: 585 | waived: 1 ASIN + 4 brand",
       "DRIFT: 1 instruction(s) out of step with the ledger:",
@@ -142,8 +147,7 @@
       "  A generator hands its solid to `_materials.one_body` and exports the assembly."
     ],
     "tools/check_web_tests.py": [
-      "2 test(s) in web/ fail:",
-      "    every alias names a component an assembly carries",
+      "1 test(s) in web/ fail:",
       "    EXCLUDED_DIRS is every out/ .gitignore holds under hardware",
       "  cd web && npm test"
     ]
