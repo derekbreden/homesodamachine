@@ -3444,7 +3444,7 @@
   "solids": {
     "hardware/.cache/pump-roof/enclosure-pump-cartridge.step": "4f3c521165747f039ff44b338de914a5e9eece6e4fe0e39a3a65bedeed90c67d",
     "hardware/assembly/cards/deck.cover.png": "af44c013d862e1d710d2fbe901238cb51953542bfd365575caf0cd4d171f2482",
-    "hardware/assembly/cards/deck.pdf": "51b05eeeb71cf96d4549c7553962d38e25736b1eaadcf5b4739994cff9cea0fe",
+    "hardware/assembly/cards/deck.pdf": "9bdedc8e2ffb3d110b0027e6ccac70c49517cd4168ce72af97cff1bdd791dd92",
     "hardware/assembly/cards/img/asse1022-chain.png": "b4496207881e32ddf0f50d4b39b50bacb84bea32ebed80f955b133bf71c98fa1",
     "hardware/assembly/cards/img/asse1022-chain.png.scene.json": "a1e16e37bf86a1bdd48b2fbea6f9666121c7ceb80a7bf2535e57149f630e50aa",
     "hardware/assembly/cards/img/coil-mandrel.png": "940824e2f4838d7165665784dddbc4fadba461f1e99435a877bfa8daed8714d0",
@@ -4031,9 +4031,9 @@
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/section.step.mesh": "d0214b8e080fad0f03bb5fe1aa41b96761cdd4a1108c41ca6e5938264d392b18"
   },
   "sidecars": {
-    "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "317527a582fe0cb31624b6be04b7fc0da71fcc31020ffb950eb5bce6f8bd21bf",
+    "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "c7fe5c748fb2a4fa5118317908f9c4edf76bc4923a8a17e08003096d632b0125",
     "hardware/manifold-layout/enclosure-assembly.scorecard.json": "9d22721af935610c26731c9df82bb53f248e3cd41d03023ede5bd0e06944f518",
-    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.scorecard.json": "317527a582fe0cb31624b6be04b7fc0da71fcc31020ffb950eb5bce6f8bd21bf"
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.scorecard.json": "c7fe5c748fb2a4fa5118317908f9c4edf76bc4923a8a17e08003096d632b0125"
   },
   "moved": {
     "hardware/.cache/pump-roof/enclosure-pump-cartridge.step": 1788847421,
@@ -4043,7 +4043,7 @@
     "hardware/.cache/roof-corner/ruled.step": 1790989096,
     "hardware/.look-pump-contacts/contact-look.step": 1790920227,
     "hardware/assembly/cards/deck.cover.png": 1790135557,
-    "hardware/assembly/cards/deck.pdf": 1791068517,
+    "hardware/assembly/cards/deck.pdf": 1791070567,
     "hardware/assembly/cards/img/asse1022-chain.png": 1787805103,
     "hardware/assembly/cards/img/asse1022-chain.png.scene.json": 1787805103,
     "hardware/assembly/cards/img/coil-mandrel.png": 1787805103,
