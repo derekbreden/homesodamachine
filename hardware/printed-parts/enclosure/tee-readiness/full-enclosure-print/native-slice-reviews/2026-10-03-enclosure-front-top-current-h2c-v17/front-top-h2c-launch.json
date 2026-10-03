@@ -1,0 +1,408 @@
+{
+  "printer": "H2C",
+  "parts": [
+    "enclosure-front-top"
+  ],
+  "physical_trial_revision": null,
+  "native_archive_revision": 17,
+  "archive": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-10-03-enclosure-front-top-current-h2c-v17/ready/enclosure-front-top-current-black-z018-h2c-v17.gcode.3mf",
+  "archive_sha256": "feaba430dd2856f35d296345b4edae03f66ee36199d1a672cfb2bccf805f5a65",
+  "gcode_sha256": "c36cdbf25e44a187b635de5ba59ad412aaa69107511b7f56daf4532df944b7f4",
+  "source_commit": null,
+  "source_stl_sha256": {
+    "enclosure-front-top": "b9a330b868dde6cdab0278fecb023b4b3dc01a993e9070fa2828605237fded88"
+  },
+  "requested_z_trim_mm": 0.18,
+  "emitted_z_trim_commands_mm": [
+    0,
+    0.16
+  ],
+  "bed": "Textured PEI Plate",
+  "bed_clear_confirmation": "Your goal after all of this is to ensure everything is truly ready to print, and to start a print of the front-top on H2C whose bed is clear and is ready for its next PET-GF print.",
+  "material_mapping": {
+    "physical_material": "black PET-GF",
+    "physical_source": "external spool",
+    "send_dialog_source_verified": true,
+    "dialog_tile": "Ext PET-CF",
+    "metadata_type": "PET-CF",
+    "filament_id": "GFT01",
+    "external_slot": 254,
+    "nozzle": "fixed left standard-flow hardened 0.4 mm"
+  },
+  "estimated_part_time_s": 92685.421875,
+  "native_review_manifest": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/manifest.json",
+  "native_review_commit": "0eaf2fe37a402cc09273b5d85830b5cdbd9c3452",
+  "source_step_sha256": "cb45044df359205d55dafe6ad3a8f5e8f332eccb2cfe6ac708f3c913672541b6",
+  "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "source_binding_scope": "Launch binds the verified frozen native STEP/STL and archive hashes to the committed native review; no geometry regeneration or source-export commit inference.",
+  "launch_requested_in_chat": "Funnel 3",
+  "launch_owned_by_chat": "Printer 2",
+  "archive_name": "enclosure-front-top-current-black-z018-h2c-v17.gcode.3mf",
+  "status": "accepted",
+  "send_attempts": 1,
+  "send_attempt_utc": "2026-10-03T15:22:07.303262+00:00",
+  "print_options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "send_gate": {
+    "observed_at": "2026-10-03T15:22:07.303291+00:00",
+    "printers": {
+      "Mark2": {
+        "job_id": "1305301700",
+        "task_id": "1305301700",
+        "subtask_name": "magnetic-float-insert-mark2-aero-v8.gcode.3mf",
+        "print_type": "cloud",
+        "gcode_state": "RUNNING",
+        "layer_num": 0,
+        "total_layer_num": 50,
+        "mc_percent": 1,
+        "mc_remaining_time": 34,
+        "print_error": 0,
+        "hms": [],
+        "stg_cur": 49,
+        "bed_temper": 77.0,
+        "bed_target_temper": 90.0,
+        "installed_extruders": [
+          {
+            "id": 0,
+            "hnow": 0,
+            "snow": 65280,
+            "temperature_packed": 9175180,
+            "actual_c": 140,
+            "target_c": 140
+          },
+          {
+            "id": 1,
+            "hnow": 1,
+            "snow": 65024,
+            "temperature_packed": 35,
+            "actual_c": 35,
+            "target_c": 0
+          }
+        ],
+        "chamber": {
+          "temperature_packed": 3932188,
+          "actual_c": 28,
+          "target_c": 60,
+          "source_field": "device.ctc.info.temp"
+        }
+      },
+      "H2C": {
+        "job_id": "1303667680",
+        "task_id": "1303667680",
+        "subtask_name": "funnel-test-cradle-h2c-v4.gcode.3mf",
+        "print_type": "cloud",
+        "gcode_state": "FINISH",
+        "layer_num": 149,
+        "total_layer_num": 149,
+        "mc_percent": 100,
+        "mc_remaining_time": 0,
+        "print_error": 0,
+        "hms": [],
+        "stg_cur": -1,
+        "bed_temper": 26.0,
+        "bed_target_temper": 0.0,
+        "installed_extruders": [
+          {
+            "id": 0,
+            "hnow": 0,
+            "snow": 65535,
+            "temperature_packed": 33,
+            "actual_c": 33,
+            "target_c": 0
+          },
+          {
+            "id": 1,
+            "hnow": 1,
+            "snow": 65024,
+            "temperature_packed": 27,
+            "actual_c": 27,
+            "target_c": 0
+          }
+        ],
+        "chamber": {
+          "temperature_packed": 27,
+          "actual_c": 27,
+          "target_c": 0,
+          "source_field": "device.ctc.info.temp"
+        }
+      }
+    },
+    "other_printer_reference_utc": "2026-10-03T15:17:39.814994+00:00",
+    "seconds_since_other_printer_reference": 267.488201,
+    "reference_basis": "Mark2 accepted the insert at this recorded time; the Send gate verifies its matching new task and no fault.",
+    "dialog_tile": "Ext PET-CF",
+    "nozzle_id": 1,
+    "external_slot": 254
+  },
+  "observations": [
+    {
+      "event": "printer_accepted",
+      "observed_at": "2026-10-03T15:22:21.776298+00:00",
+      "job_id": "1305315362",
+      "task_id": "1305315362",
+      "subtask_name": "enclosure-front-top-current-black-z018-h2c-v17.gcode.3mf",
+      "print_type": "cloud",
+      "gcode_state": "PREPARE",
+      "layer_num": 149,
+      "total_layer_num": 149,
+      "mc_percent": 0,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": -1,
+      "bed_temper": 26.0,
+      "bed_target_temper": 0.0,
+      "installed_extruders": [
+        {
+          "id": 0,
+          "hnow": 0,
+          "snow": 65535,
+          "temperature_packed": 33,
+          "actual_c": 33,
+          "target_c": 0
+        },
+        {
+          "id": 1,
+          "hnow": 1,
+          "snow": 65024,
+          "temperature_packed": 27,
+          "actual_c": 27,
+          "target_c": 0
+        }
+      ],
+      "chamber": {
+        "temperature_packed": 27,
+        "actual_c": 27,
+        "target_c": 0,
+        "source_field": "device.ctc.info.temp"
+      }
+    },
+    {
+      "event": "startup_progress",
+      "observed_at": "2026-10-03T15:24:46.850821+00:00",
+      "job_id": "1305315362",
+      "task_id": "1305315362",
+      "subtask_name": "enclosure-front-top-current-black-z018-h2c-v17.gcode.3mf",
+      "print_type": "cloud",
+      "gcode_state": "RUNNING",
+      "layer_num": 0,
+      "total_layer_num": 1354,
+      "mc_percent": 0,
+      "mc_remaining_time": 1544,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": 74,
+      "bed_temper": 26.0,
+      "bed_target_temper": 26.0,
+      "installed_extruders": [
+        {
+          "id": 0,
+          "hnow": 0,
+          "snow": 65535,
+          "temperature_packed": 34,
+          "actual_c": 34,
+          "target_c": 0
+        },
+        {
+          "id": 1,
+          "hnow": 1,
+          "snow": 65024,
+          "temperature_packed": 176,
+          "actual_c": 176,
+          "target_c": 0
+        }
+      ],
+      "chamber": {
+        "temperature_packed": 27,
+        "actual_c": 27,
+        "target_c": 0,
+        "source_field": "device.ctc.info.temp"
+      }
+    }
+  ],
+  "printer_reports": [
+    {
+      "section": "print",
+      "gcode_state": [
+        "FINISH",
+        "funnel-test-cradle-h2c-v4.gcode.3mf"
+      ]
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "3279"
+    },
+    {
+      "section": "print",
+      "command": "project_file",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "err_code": 0,
+      "sequence_id": "0"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "3280"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "3282"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "3283"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "3284"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "3285"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "3286"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "3287"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "3288"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "3289"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "3290"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "3291"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "3292"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "3293"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "3294"
+    },
+    {
+      "section": "print",
+      "gcode_state": [
+        "PREPARE",
+        "enclosure-front-top-current-black-z018-h2c-v17.gcode.3mf"
+      ]
+    }
+  ],
+  "latest_observed_utc": "2026-10-03T15:24:46.850821+00:00",
+  "latest_status": {
+    "job_id": "1305315362",
+    "task_id": "1305315362",
+    "subtask_name": "enclosure-front-top-current-black-z018-h2c-v17.gcode.3mf",
+    "print_type": "cloud",
+    "gcode_state": "RUNNING",
+    "layer_num": 0,
+    "total_layer_num": 1354,
+    "mc_percent": 0,
+    "mc_remaining_time": 1544,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": 74,
+    "bed_temper": 26.0,
+    "bed_target_temper": 26.0,
+    "installed_extruders": [
+      {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65535,
+        "temperature_packed": 34,
+        "actual_c": 34,
+        "target_c": 0
+      },
+      {
+        "id": 1,
+        "hnow": 1,
+        "snow": 65024,
+        "temperature_packed": 176,
+        "actual_c": 176,
+        "target_c": 0
+      }
+    ],
+    "chamber": {
+      "temperature_packed": 27,
+      "actual_c": 27,
+      "target_c": 0,
+      "source_field": "device.ctc.info.temp"
+    }
+  },
+  "accepted_task_id": "1305315362",
+  "accepted_job_id": "1305315362",
+  "accepted_utc": "2026-10-03T15:22:21.776285+00:00",
+  "monitor_active": true,
+  "review_manifest_layer_count": 878,
+  "gcode_total_layer_number_header": 1354,
+  "gcode_layer_change_count": 1354,
+  "layer_count_scope": "The native program has 878 layers containing part features and 476 additional support-only layers, totaling 1354 layer-change records. Printer telemetry reports the total; the committed review count is the part-feature layer count.",
+  "native_part_layer_count": 878,
+  "native_support_only_layer_count": 476,
+  "monitor_automation_id": "monitor-float-insert-and-front-top"
+}
