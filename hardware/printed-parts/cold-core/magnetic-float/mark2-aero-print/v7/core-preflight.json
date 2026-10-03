@@ -1,0 +1,302 @@
+{
+  "printer": "Mark2",
+  "part": "body-aero",
+  "quantity": 1,
+  "physical_trial_revision": 7,
+  "native_archive_revision": 8,
+  "status": "prepared_not_submitted",
+  "submitted": false,
+  "preview_inspected": true,
+  "source_commit": "f3cefbe360b7a8019741d177868d1e6c6770b93f",
+  "source_snapshot": {
+    "hardware/printed-parts/cold-core/magnetic-float/magnetic_float.py": "7d427f044916de750ba9e3cf93ca5b0445bac988d3dc555900f47af1342c4355",
+    "hardware/printed-parts/cold-core/magnetic-float/prepare_print.py": "b42d0cedae4090451937a22642e01aa62be4352f9960136f140b47c376b9db39",
+    "hardware/printed-parts/cold-core/magnetic-float/print-profile.json": "9f94e04b774a235aad06494e7087b6ab200e3a1a5a7786768eeedbe586618b4f",
+    "hardware/printed-parts/cold-core/magnetic-float/verification.json": "a6fbf14a1ef138664ca8dc6c23b348b480f3327368cc909ec0e1b1ba4eb00c9d",
+    "hardware/printed-parts/cold-core/magnetic-float/asa-aero-research.md": "926a4d0e2e779e93aeaf8c00c659a0ded0b0a1781ec9ea6ca0c3baf826806191"
+  },
+  "preparation_script_sha256": "dc6397f5ab6f99cb90bda44389e01f50a3a31564d1743d0e68a58b8743a75047",
+  "slicer_version": "02.08.02.61",
+  "source_stl_sha256": {
+    "body-aero": "63d12cbb501b629997a2462822df42a1f4f6bf20ee2806f2f6f310c1f7e72771"
+  },
+  "source_project": ".cache/prints/magnetic-float-pair-mark2-aero-v6/magnetic-float-pair-mark2-aero-v6-input.3mf",
+  "source_project_sha256": "e1fec8840843eecbbcee56ad60827ebfd018bb8661ad5c80aedcbb4a85ebf354",
+  "project": ".cache/prints/magnetic-float-core-mark2-aero-v8/magnetic-float-core-mark2-aero-v8-input.3mf",
+  "project_sha256": "877a9a40af01eea5eddb84b17f7ae4c96b52270da98296ea31fcc0b3b163b8be",
+  "archive": ".cache/prints/magnetic-float-core-mark2-aero-v8/ready/magnetic-float-core-mark2-aero-v8.gcode.3mf",
+  "archive_sha256": "5be370afc5d7498cba59007bd201437a07379f37b92c89c4af0d1e5dbd5652e3",
+  "gcode_sha256": "f961311377b16c7fcb14df65ef22834824f84b532805fcff3477b124ea45b772",
+  "selected_recipe_changes": {
+    "bottom_shell_layers": {
+      "source": "5",
+      "selected": "0"
+    },
+    "bottom_shell_thickness": {
+      "source": "1",
+      "selected": "0"
+    },
+    "sparse_infill_density": {
+      "source": "100%",
+      "selected": "0%"
+    },
+    "top_shell_layers": {
+      "source": "5",
+      "selected": "0"
+    },
+    "top_shell_thickness": {
+      "source": "1",
+      "selected": "0"
+    },
+    "wall_loops": {
+      "source": "3",
+      "selected": "300"
+    },
+    "top_one_wall_type": {
+      "source": null,
+      "selected": "not apply"
+    },
+    "only_one_wall_first_layer": {
+      "source": null,
+      "selected": "0"
+    }
+  },
+  "native_setting_normalizations": {
+    "best_object_pos": {
+      "input": "0.3x0.5",
+      "native": "0.3,0.5"
+    },
+    "enable_long_retraction_when_cut": {
+      "input": [
+        "2"
+      ],
+      "native": "2"
+    },
+    "extruder_height_gap": {
+      "input": "5",
+      "native": null
+    },
+    "extruder_clearance_radius": {
+      "input": "49",
+      "native": null
+    },
+    "deretract_speed_extruder_change": {
+      "input": [
+        "15",
+        "15",
+        "15",
+        "15",
+        "15"
+      ],
+      "native": null
+    },
+    "unprintable_filament_types": {
+      "input": [
+        "TPU",
+        "PPS-CF,PPA-CF"
+      ],
+      "native": null
+    },
+    "adaptive_layer_height": {
+      "input": "0",
+      "native": null
+    },
+    "bottom_surface_density": {
+      "input": "100",
+      "native": "100%"
+    },
+    "monotonic_travel_into_wall": {
+      "input": "45.0",
+      "native": "45%"
+    },
+    "infill_lock_depth": {
+      "input": "1.0",
+      "native": "1"
+    },
+    "layer_time_smoothing": {
+      "input": "0",
+      "native": null
+    },
+    "layer_time_smoothing_threshold": {
+      "input": "30",
+      "native": null
+    },
+    "skin_infill_depth": {
+      "input": "2.0",
+      "native": "2"
+    },
+    "support_ironing_inset": {
+      "input": "0.0",
+      "native": "0"
+    },
+    "top_surface_density": {
+      "input": "100",
+      "native": "100%"
+    },
+    "wall_infill_order": {
+      "input": "inner wall/outer wall/infill",
+      "native": null
+    },
+    "fuzzy_skin_scale": {
+      "input": "1.0",
+      "native": "1"
+    },
+    "filament_dev_chamber_drying_bed_temperature": {
+      "input": [
+        "90.0"
+      ],
+      "native": [
+        "90"
+      ]
+    },
+    "filament_dev_chamber_drying_time": {
+      "input": [
+        "12.0"
+      ],
+      "native": [
+        "12"
+      ]
+    },
+    "filament_long_retractions_when_ec": {
+      "input": [
+        "nil"
+      ],
+      "native": null
+    },
+    "filament_prime_volume": {
+      "input": [
+        "30"
+      ],
+      "native": [
+        "45"
+      ]
+    },
+    "filament_retraction_distances_when_ec": {
+      "input": [
+        "nil"
+      ],
+      "native": null
+    },
+    "filament_ingredients_safe": {
+      "input": "1",
+      "native": null
+    },
+    "filament_emission_safe": {
+      "input": "1",
+      "native": null
+    },
+    "filament_contact_safe": {
+      "input": "1",
+      "native": null
+    },
+    "name": {
+      "input": "Magnetic float aero",
+      "native": "project_settings"
+    }
+  },
+  "startup_printing_commands_identical_to_parent": true,
+  "input_mesh_bytes_retained": true,
+  "native_mesh_bytes_retained": false,
+  "input_mesh_member": "3D/Objects/object_1.model",
+  "native_mesh_member": "3D/Objects/object_1.model",
+  "native_vertex_max_coordinate_delta_mm": 6.720000023108241e-07,
+  "native_triangle_connectivity_retained": true,
+  "embedded_vertex_error_mm": 7.227650973761835e-10,
+  "orientation_retained": true,
+  "center_xy_mm": [
+    150,
+    145
+  ],
+  "bed_z_mm": 0,
+  "bed": "Engineering Plate",
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.04
+  ],
+  "material_mapping": {
+    "physical_material": "Bambu ASA Aero White 46100",
+    "filament_id": "GFB02",
+    "nozzle": "right standard-flow hardened 0.4 mm",
+    "physical_source": "Polymaker drybox, reported by user",
+    "send_dialog_source_verified": false,
+    "scope": "External feed must be verified in the actual Send dialog before any launch; AMS HT is not the requested source."
+  },
+  "native_slice_summary": {
+    "estimated_time_s": 5429.13720703125,
+    "filament_mass_g": 14.490213394165039,
+    "object_extrusion_mass_g": 14.433776374208398,
+    "object_count": 1,
+    "warnings": []
+  },
+  "path_features": {
+    "Inner wall": 373795,
+    "Outer wall": 30711
+  },
+  "layers": 220,
+  "coverage_review": [
+    {
+      "layer_z_mm": 0.2,
+      "nominal_solid_area_mm2": 621.2055930673124,
+      "bead_footprint_coverage_fraction": 0.9804545759834067,
+      "scope": "Idealized native bead footprints against compensated frozen STL section; this does not model actual foaming or establish physical density."
+    },
+    {
+      "layer_z_mm": 0.4,
+      "nominal_solid_area_mm2": 645.3106913207753,
+      "bead_footprint_coverage_fraction": 0.9810470835318953,
+      "scope": "Idealized native bead footprints against compensated frozen STL section; this does not model actual foaming or establish physical density."
+    },
+    {
+      "layer_z_mm": 22.2,
+      "nominal_solid_area_mm2": 657.3750913232014,
+      "bead_footprint_coverage_fraction": 0.9991710066589454,
+      "scope": "Idealized native bead footprints against compensated frozen STL section; this does not model actual foaming or establish physical density."
+    },
+    {
+      "layer_z_mm": 44.0,
+      "nominal_solid_area_mm2": 434.6645085701991,
+      "bead_footprint_coverage_fraction": 0.9976393185827807,
+      "scope": "Idealized native bead footprints against compensated frozen STL section; this does not model actual foaming or establish physical density."
+    }
+  ],
+  "travel_review": {
+    "explicit_object_xy_travel_move_count": 9119,
+    "explicit_object_xy_travel_distance_mm": 9086.425124319276,
+    "longest_explicit_object_xy_travel_mm": 159.50458012546224,
+    "moves_longer_than_5_mm": 634,
+    "within_layer_xy_move_count": 8850,
+    "within_layer_xy_distance_mm": 7707.978766748209,
+    "longest_within_layer_xy_move_mm": 8.444144243201896,
+    "object_retraction_count": 3241,
+    "sample_layers": {
+      "0.2": {
+        "xy_move_count": 40,
+        "xy_distance_mm": 193.5993587535026,
+        "longest_xy_move_mm": 159.50458012546224
+      },
+      "21.4": {
+        "xy_move_count": 43,
+        "xy_distance_mm": 40.81123555902065,
+        "longest_xy_move_mm": 8.18419360719183
+      },
+      "44.0": {
+        "xy_move_count": 40,
+        "xy_distance_mm": 43.22495948306533,
+        "longest_xy_move_mm": 7.982912000016043
+      }
+    },
+    "zero_travel": false,
+    "scope": "Explicit object G0/G1 moves with no positive extrusion, including retraction wipes and initial positioning. The first transfer from the startup strip is included in total travel, and excluded from within-layer travel. Firmware motion, timelapse internals and moves outside object labels are excluded. Ring transitions, seam positioning and layer changes can still require travel."
+  },
+  "skirt_paths": 0,
+  "brim_paths": 0,
+  "support_paths": 0,
+  "physical_adhesion_verified": false,
+  "physical_fit_verified": false,
+  "density_verified": false,
+  "buoyancy_verified": false,
+  "prepared_utc": "2026-10-03T07:18:23.059317+00:00",
+  "preview_scope": "Native single-object preview and explicit G-code path plot inspected; this does not establish physical fit or adhesion.",
+  "maximum_commanded_cold_filament_volume_mm3_s": 5.772676500943681
+}
