@@ -6,7 +6,7 @@
   ],
   "physical_trial_revision": 5,
   "native_archive_revision": 5,
-  "status": "stopped_cause_unreported",
+  "status": "stopped_plate_rejected",
   "archive": ".cache/prints/magnetic-float-pair-mark2-aero-v5/ready/magnetic-float-pair-mark2-aero-v5.gcode.3mf",
   "archive_name": "magnetic-float-pair-mark2-aero-v5.gcode.3mf",
   "archive_sha256": "8c5f5700665135fbb5ecf9d25e81bd933f99b67b7a120d8e268c883b2c2b1a7f",
@@ -225,6 +225,12 @@
       "operator_clarification_requested": true,
       "physical_adhesion_result": "Not reported.",
       "send_or_resume_performed": false
+    },
+    {
+      "event": "operator_plate_report",
+      "recorded_utc": "2026-10-03T05:55:16.040851+00:00",
+      "operator_report": "Engineering plate is glued and loaded now. Textured plate is a no go.",
+      "scope": "Textured plate rejected for this ASA Aero trial; specific stop mechanism and quantitative adhesion remain unreported."
     }
   ],
   "printer_reports": [
@@ -416,5 +422,7 @@
   "retry_of": "../v4/pair-mark2-launch.json",
   "heater_field_interpretation": "Mark2 installed extruder id 0 is right; legacy top-level nozzle temperature and target refer to left. Readings describe startup, not profile targets.",
   "send_attempt_marker": ".cache/printer-control/magnetic-float-aero-physical-v5-send-attempt.json",
-  "stop_reported_utc": "2026-10-03T05:42:51.076544+00:00"
+  "stop_reported_utc": "2026-10-03T05:42:51.076544+00:00",
+  "operator_report": "Engineering plate is glued and loaded now. Textured plate is a no go.",
+  "operator_report_utc": "2026-10-03T05:55:16.040851+00:00"
 }

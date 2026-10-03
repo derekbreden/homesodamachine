@@ -1,0 +1,374 @@
+{
+  "printer": "Mark2",
+  "parts": [
+    "body-aero",
+    "insert-aero"
+  ],
+  "physical_trial_revision": 6,
+  "native_archive_revision": 6,
+  "status": "accepted",
+  "archive": ".cache/prints/magnetic-float-pair-mark2-aero-v6/ready/magnetic-float-pair-mark2-aero-v6.gcode.3mf",
+  "archive_name": "magnetic-float-pair-mark2-aero-v6.gcode.3mf",
+  "archive_sha256": "22689911264655fd4158f8cba9fd3843c9a7ae32aee9b9985aafb581ebcdd6cf",
+  "gcode_sha256": "66b51259f636ab7dda7e6d5e6df1c8b1cdb4a5c6563130eebe76afb62acd664c",
+  "source_stl_sha256": {
+    "body-aero": "63d12cbb501b629997a2462822df42a1f4f6bf20ee2806f2f6f310c1f7e72771",
+    "insert-aero": "c69cdc552c1dec84dd0bd84972ed601667df8327b0388236eec63ea7d672b8c6"
+  },
+  "source_commit": "f3cefbe360b7a8019741d177868d1e6c6770b93f",
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.04
+  ],
+  "bed": "Engineering Plate",
+  "bed_clear_confirmation": "Engineering plate is glued and loaded now. Textured plate is a no go.",
+  "plate_choice": "User reported glued Engineering plate loaded and rejected Textured PEI; combined frozen parts, corner priming strip and non-plate recipe retained.",
+  "adhesive_application_reported": true,
+  "material_mapping": {
+    "physical_material": "Bambu ASA Aero White 46100",
+    "filament_id": "GFB02",
+    "nozzle": "right standard-flow hardened 0.4 mm",
+    "source": "AMS HT, unit 128 tray 0",
+    "dialog_tile": "HT - A ASA-AERO R"
+  },
+  "print_options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "send_attempts": 1,
+  "send_attempt_utc": "2026-10-03T05:58:09.407676+00:00",
+  "send_gate": {
+    "observed_at": "2026-10-03T05:58:09.407697+00:00",
+    "printers": {
+      "Mark2": {
+        "job_id": "1304085052",
+        "subtask_name": "magnetic-float-pair-mark2-aero-v5.gcode.3mf",
+        "gcode_state": "FAILED",
+        "layer_num": 0,
+        "total_layer_num": 220,
+        "mc_percent": 0,
+        "mc_remaining_time": 0,
+        "print_error": 0,
+        "hms": [],
+        "stg_cur": -1,
+        "bed_temper": 55.0,
+        "bed_target_temper": 0.0,
+        "nozzle_temper": 53.0,
+        "nozzle_target_temper": 0.0,
+        "installed_extruders": [
+          {
+            "id": 0,
+            "temperature_packed": 53,
+            "actual_c": 53,
+            "target_c": 0
+          },
+          {
+            "id": 1,
+            "temperature_packed": 52,
+            "actual_c": 52,
+            "target_c": 0
+          }
+        ]
+      },
+      "H2C": {
+        "job_id": "1303667680",
+        "subtask_name": "funnel-test-cradle-h2c-v4.gcode.3mf",
+        "gcode_state": "FINISH",
+        "layer_num": 149,
+        "total_layer_num": 149,
+        "mc_percent": 100,
+        "mc_remaining_time": 0,
+        "print_error": 0,
+        "hms": [],
+        "stg_cur": -1,
+        "bed_temper": 27.0,
+        "bed_target_temper": 0.0,
+        "nozzle_temper": 29.0,
+        "nozzle_target_temper": 0.0,
+        "installed_extruders": [
+          {
+            "id": 0,
+            "temperature_packed": 35,
+            "actual_c": 35,
+            "target_c": 0
+          },
+          {
+            "id": 1,
+            "temperature_packed": 29,
+            "actual_c": 29,
+            "target_c": 0
+          }
+        ]
+      }
+    },
+    "other_printer_acceptance_reference_utc": "2026-10-03T00:54:26.716799+00:00",
+    "seconds_since_other_printer_acceptance": 18222.690804,
+    "installed_right_nozzle": {
+      "id": 0,
+      "diameter_mm": 0.4,
+      "type": "HS01",
+      "filament_id": "GFB02"
+    },
+    "ams_unit": 128,
+    "tray": 0
+  },
+  "estimate_scope": "Native v6 estimate includes the priming strip; actual heating, calibration and bed probing times vary.",
+  "priming_strip_review": {
+    "centerline_bounds_xy_mm": [
+      230.0,
+      15.0,
+      290.0,
+      19.95
+    ],
+    "bead_bounds_xy_mm": [
+      229.76,
+      14.76,
+      290.24,
+      20.189999999999998
+    ],
+    "rows": 12,
+    "row_length_mm": 60.0,
+    "pitch_mm": 0.45,
+    "layer_height_mm": 0.2,
+    "line_width_mm": 0.48,
+    "speed_mm_s": 20,
+    "flow_ratio": 0.52,
+    "filament_feed_mm": 13.700486345035634,
+    "approximate_added_mass_g": 0.03262399617504415,
+    "extrusion_path_mm": 724.95,
+    "nominal_extrusion_time_s": 36.2475,
+    "wipe_mm": 5,
+    "extra_retraction_mm": 0,
+    "adaptive_bed_leveling_bounds_xy_mm": [
+      110,
+      14,
+      291,
+      160
+    ],
+    "clear_of_parts_and_bed_exclusions": true
+  },
+  "observations": [
+    {
+      "event": "printer_accepted",
+      "observed_at": "2026-10-03T05:58:21.680044+00:00",
+      "job_id": "1304125241",
+      "subtask_name": "magnetic-float-pair-mark2-aero-v6.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "layer_num": 0,
+      "total_layer_num": 220,
+      "mc_percent": 0,
+      "mc_remaining_time": 116,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": -1,
+      "bed_temper": 55.0,
+      "bed_target_temper": 0.0,
+      "nozzle_temper": 53.0,
+      "nozzle_target_temper": 0.0,
+      "installed_extruders": [
+        {
+          "id": 0,
+          "temperature_packed": 53,
+          "actual_c": 53,
+          "target_c": 0
+        },
+        {
+          "id": 1,
+          "temperature_packed": 52,
+          "actual_c": 52,
+          "target_c": 0
+        }
+      ]
+    }
+  ],
+  "printer_reports": [
+    {
+      "section": "print",
+      "gcode_state": [
+        "FAILED",
+        "magnetic-float-pair-mark2-aero-v5.gcode.3mf"
+      ]
+    },
+    {
+      "section": "print",
+      "command": "project_file",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "err_code": 0,
+      "sequence_id": "0"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "1539"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "1541"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "1542"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "1544"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "1545"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "1546"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "1547"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "1548"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "1549"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "1550"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "1551"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "1552"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "1553"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "1554"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "1555"
+    },
+    {
+      "section": "print",
+      "gcode_state": [
+        "PREPARE",
+        "magnetic-float-pair-mark2-aero-v6.gcode.3mf"
+      ]
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "1559"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "1560"
+    },
+    {
+      "section": "print",
+      "gcode_state": [
+        "RUNNING",
+        "magnetic-float-pair-mark2-aero-v6.gcode.3mf"
+      ]
+    }
+  ],
+  "latest_observed_utc": "2026-10-03T05:58:21.679965+00:00",
+  "latest_status": {
+    "job_id": "1304125241",
+    "subtask_name": "magnetic-float-pair-mark2-aero-v6.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 0,
+    "total_layer_num": 220,
+    "mc_percent": 0,
+    "mc_remaining_time": 116,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": -1,
+    "bed_temper": 55.0,
+    "bed_target_temper": 0.0,
+    "nozzle_temper": 53.0,
+    "nozzle_target_temper": 0.0,
+    "installed_extruders": [
+      {
+        "id": 0,
+        "temperature_packed": 53,
+        "actual_c": 53,
+        "target_c": 0
+      },
+      {
+        "id": 1,
+        "temperature_packed": 52,
+        "actual_c": 52,
+        "target_c": 0
+      }
+    ]
+  },
+  "accepted_task_id": "1304125241",
+  "task_id_confirmed_utc": "2026-10-03T05:58:21.680040+00:00",
+  "prior_trial": "../v5/pair-mark2-launch.json",
+  "send_attempt_marker": ".cache/printer-control/magnetic-float-aero-physical-v6-send-attempt.json",
+  "heater_field_interpretation": "Mark2 installed extruder id 0 is right; legacy top-level nozzle temperature and target refer to left. Readings describe startup, not profile targets.",
+  "estimated_time_s": 7006.740234375
+}

@@ -1,0 +1,9 @@
+{
+  "recorded_utc": "2026-10-03T05:55:16.040851+00:00",
+  "printer": "Mark2",
+  "context_task_id": "1304085052",
+  "operator_report": "Engineering plate is glued and loaded now. Textured plate is a no go.",
+  "reported_result": "Textured PEI rejected for this ASA Aero printing trial.",
+  "scope": "Plate choice and glue/loading report; no dimensional, density, fit or buoyancy measurements reported.",
+  "next_trial": "../v6/queue.json"
+}

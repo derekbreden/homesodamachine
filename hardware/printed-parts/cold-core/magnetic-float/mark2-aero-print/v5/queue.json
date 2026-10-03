@@ -21,7 +21,7 @@
   "bed": "Textured PEI Plate",
   "print_sequence": "by layer",
   "trial": "magnetic-float ASA Aero physical v5",
-  "status": "stopped_cause_unreported",
+  "status": "stopped_plate_rejected",
   "printer": "Mark2",
   "archive_name": "magnetic-float-pair-mark2-aero-v5.gcode.3mf",
   "parts": [
@@ -34,9 +34,9 @@
   "minimum_cross_printer_start_or_resume_spacing_s": 180,
   "cool_before_removal_c": 35,
   "completion_reported": false,
-  "monitor_active": true,
+  "monitor_active": false,
   "send_attempts": 1,
-  "updated_utc": "2026-10-03T05:42:51.076544+00:00",
+  "updated_utc": "2026-10-03T05:55:16.040851+00:00",
   "priming_strip_review": {
     "centerline_bounds_xy_mm": [
       230.0,
@@ -71,11 +71,13 @@
     ],
     "clear_of_parts_and_bed_exclusions": true
   },
-  "scope": "The identical combined core and insert retry is stopped at layer 0, with no fault code or error message observed. Cause and physical adhesion outcome are unreported.",
+  "scope": "Operator rejected Textured PEI and reported a glued Engineering plate loaded; the authorized combined plate is allocated to physical trial v6.",
   "launch_record": "pair-mark2-launch.json",
   "retry_of": "../v4/pair-mark2-launch.json",
   "accepted_task_id": "1304085052",
   "accepted_utc": "2026-10-03T05:27:44.346816+00:00",
   "stop_reported_utc": "2026-10-03T05:42:51.076544+00:00",
-  "operator_clarification_pending": true
+  "operator_clarification_pending": false,
+  "operator_report": "Engineering plate is glued and loaded now. Textured plate is a no go.",
+  "superseded_by": "../v6/queue.json"
 }
