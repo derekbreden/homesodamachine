@@ -1,0 +1,423 @@
+{
+  "printer": "Mark2",
+  "parts": [
+    "insert-aero"
+  ],
+  "physical_trial_revision": 7,
+  "native_archive_revision": 8,
+  "archive": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/magnetic-float-insert-mark2-aero-v8/ready/magnetic-float-insert-mark2-aero-v8.gcode.3mf",
+  "archive_sha256": "9a1b755ecd9d62abd0aeae3617a2cdfad50b527a712b073de3bb203d565ac2bd",
+  "gcode_sha256": "39ed09d593b983b8cc6e431b2d7ee6b5f185095af9cbfa44c35fb397307eee8c",
+  "source_commit": "f3cefbe360b7a8019741d177868d1e6c6770b93f",
+  "source_stl_sha256": {
+    "insert-aero": "c69cdc552c1dec84dd0bd84972ed601667df8327b0388236eec63ea7d672b8c6"
+  },
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_commands_mm": [
+    0,
+    0.04
+  ],
+  "bed": "Engineering Plate, with glue",
+  "bed_clear_confirmation": "Mark2 bed is clear and ready for next float print",
+  "material_mapping": {
+    "physical_material": "Bambu ASA Aero White 46100",
+    "filament_id": "GFB02",
+    "nozzle": "right standard-flow hardened 0.4 mm",
+    "physical_source": "Polymaker drybox",
+    "send_dialog_source_verified": true,
+    "scope": "External feed must be verified in the actual Send dialog before any launch; AMS HT is not the requested source.",
+    "dialog_tile": "Ext ASA-AERO R",
+    "external_slot": 255
+  },
+  "estimated_part_time_s": 2118.722412109375,
+  "archive_name": "magnetic-float-insert-mark2-aero-v8.gcode.3mf",
+  "status": "accepted",
+  "send_attempts": 1,
+  "send_attempt_utc": "2026-10-03T15:17:27.731516+00:00",
+  "print_options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "send_gate": {
+    "observed_at": "2026-10-03T15:17:27.731530+00:00",
+    "printers": {
+      "Mark2": {
+        "job_id": "0",
+        "task_id": "6700",
+        "subtask_name": "RC62 magnetic float - aero",
+        "print_type": "local",
+        "gcode_state": "FINISH",
+        "layer_num": 220,
+        "total_layer_num": 220,
+        "mc_percent": 100,
+        "mc_remaining_time": 0,
+        "print_error": 0,
+        "hms": [],
+        "stg_cur": -1,
+        "bed_temper": 26.0,
+        "bed_target_temper": 0.0,
+        "installed_extruders": [
+          {
+            "id": 0,
+            "hnow": 0,
+            "snow": 65280,
+            "temperature_packed": 33,
+            "actual_c": 33,
+            "target_c": 0
+          },
+          {
+            "id": 1,
+            "hnow": 1,
+            "snow": 65024,
+            "temperature_packed": 28,
+            "actual_c": 28,
+            "target_c": 0
+          }
+        ],
+        "chamber": {
+          "temperature_packed": 27,
+          "actual_c": 27,
+          "target_c": 0,
+          "source_field": "device.ctc.info.temp"
+        }
+      },
+      "H2C": {
+        "job_id": "1303667680",
+        "task_id": "1303667680",
+        "subtask_name": "funnel-test-cradle-h2c-v4.gcode.3mf",
+        "print_type": "cloud",
+        "gcode_state": "FINISH",
+        "layer_num": 149,
+        "total_layer_num": 149,
+        "mc_percent": 100,
+        "mc_remaining_time": 0,
+        "print_error": 0,
+        "hms": [],
+        "stg_cur": -1,
+        "bed_temper": 26.0,
+        "bed_target_temper": 0.0,
+        "installed_extruders": [
+          {
+            "id": 0,
+            "hnow": 0,
+            "snow": 65535,
+            "temperature_packed": 33,
+            "actual_c": 33,
+            "target_c": 0
+          },
+          {
+            "id": 1,
+            "hnow": 1,
+            "snow": 65024,
+            "temperature_packed": 27,
+            "actual_c": 27,
+            "target_c": 0
+          }
+        ],
+        "chamber": {
+          "temperature_packed": 27,
+          "actual_c": 27,
+          "target_c": 0,
+          "source_field": "device.ctc.info.temp"
+        }
+      }
+    },
+    "other_printer_reference_utc": "2026-10-03T15:01:39.633883+00:00",
+    "seconds_since_other_printer_reference": 948.097592,
+    "reference_basis": "H2C was idle on the same completed task at this observed time, and the Send gate verifies that task remains unchanged.",
+    "dialog_tile": "Ext ASA-AERO R",
+    "nozzle_id": 0,
+    "external_slot": 255
+  },
+  "observations": [
+    {
+      "event": "printer_accepted",
+      "observed_at": "2026-10-03T15:17:39.814999+00:00",
+      "job_id": "1305301700",
+      "task_id": "1305301700",
+      "subtask_name": "magnetic-float-insert-mark2-aero-v8.gcode.3mf",
+      "print_type": "cloud",
+      "gcode_state": "RUNNING",
+      "layer_num": 0,
+      "total_layer_num": 50,
+      "mc_percent": 0,
+      "mc_remaining_time": 35,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": 79,
+      "bed_temper": 26.0,
+      "bed_target_temper": 0.0,
+      "installed_extruders": [
+        {
+          "id": 0,
+          "hnow": 0,
+          "snow": 65280,
+          "temperature_packed": 33,
+          "actual_c": 33,
+          "target_c": 0
+        },
+        {
+          "id": 1,
+          "hnow": 1,
+          "snow": 65024,
+          "temperature_packed": 28,
+          "actual_c": 28,
+          "target_c": 0
+        }
+      ],
+      "chamber": {
+        "temperature_packed": 27,
+        "actual_c": 27,
+        "target_c": 0,
+        "source_field": "device.ctc.info.temp"
+      }
+    },
+    {
+      "event": "startup_progress",
+      "observed_at": "2026-10-03T15:24:46.849642+00:00",
+      "job_id": "1305301700",
+      "task_id": "1305301700",
+      "subtask_name": "magnetic-float-insert-mark2-aero-v8.gcode.3mf",
+      "print_type": "cloud",
+      "gcode_state": "RUNNING",
+      "layer_num": 0,
+      "total_layer_num": 50,
+      "mc_percent": 1,
+      "mc_remaining_time": 34,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": 49,
+      "bed_temper": 90.0,
+      "bed_target_temper": 90.0,
+      "installed_extruders": [
+        {
+          "id": 0,
+          "hnow": 0,
+          "snow": 65280,
+          "temperature_packed": 9175180,
+          "actual_c": 140,
+          "target_c": 140
+        },
+        {
+          "id": 1,
+          "hnow": 1,
+          "snow": 65024,
+          "temperature_packed": 38,
+          "actual_c": 38,
+          "target_c": 0
+        }
+      ],
+      "chamber": {
+        "temperature_packed": 3932204,
+        "actual_c": 44,
+        "target_c": 60,
+        "source_field": "device.ctc.info.temp"
+      }
+    }
+  ],
+  "printer_reports": [
+    {
+      "section": "print",
+      "gcode_state": [
+        "FINISH",
+        "RC62 magnetic float - aero"
+      ]
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "2246"
+    },
+    {
+      "section": "print",
+      "command": "project_file",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "err_code": 0,
+      "sequence_id": "0"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "2247"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "2249"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "2250"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "2251"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "2252"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "2253"
+    },
+    {
+      "section": "print",
+      "gcode_state": [
+        "FINISH",
+        "magnetic-float-insert-mark2-aero-v8.gcode.3mf"
+      ]
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "2254"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "2255"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "2256"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "2257"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "2258"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "2259"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "2260"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "2261"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "2264"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "2265"
+    },
+    {
+      "section": "print",
+      "gcode_state": [
+        "PREPARE",
+        "magnetic-float-insert-mark2-aero-v8.gcode.3mf"
+      ]
+    },
+    {
+      "section": "print",
+      "gcode_state": [
+        "RUNNING",
+        "magnetic-float-insert-mark2-aero-v8.gcode.3mf"
+      ]
+    }
+  ],
+  "latest_observed_utc": "2026-10-03T15:24:46.849642+00:00",
+  "latest_status": {
+    "job_id": "1305301700",
+    "task_id": "1305301700",
+    "subtask_name": "magnetic-float-insert-mark2-aero-v8.gcode.3mf",
+    "print_type": "cloud",
+    "gcode_state": "RUNNING",
+    "layer_num": 0,
+    "total_layer_num": 50,
+    "mc_percent": 1,
+    "mc_remaining_time": 34,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": 49,
+    "bed_temper": 90.0,
+    "bed_target_temper": 90.0,
+    "installed_extruders": [
+      {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65280,
+        "temperature_packed": 9175180,
+        "actual_c": 140,
+        "target_c": 140
+      },
+      {
+        "id": 1,
+        "hnow": 1,
+        "snow": 65024,
+        "temperature_packed": 38,
+        "actual_c": 38,
+        "target_c": 0
+      }
+    ],
+    "chamber": {
+      "temperature_packed": 3932204,
+      "actual_c": 44,
+      "target_c": 60,
+      "source_field": "device.ctc.info.temp"
+    }
+  },
+  "accepted_task_id": "1305301700",
+  "accepted_job_id": "1305301700",
+  "accepted_utc": "2026-10-03T15:17:39.814994+00:00",
+  "monitor_active": true,
+  "monitor_automation_id": "monitor-float-insert-and-front-top"
+}

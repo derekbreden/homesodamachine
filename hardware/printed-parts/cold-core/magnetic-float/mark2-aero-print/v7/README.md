@@ -4,7 +4,11 @@ One core and one insert are prepared as separate single-object Mark2 jobs, with
 **300 wall loops** and no top/bottom skin or infill passes. Native G-code contains
 only **inner and outer wall** deposition paths. Each object fills its available
 cross-section with nested walls; 300 is the requested upper limit on wall count.
-This is physical trial **v7**, native archive **v8**, with **zero Send attempts**.
+This is physical trial **v7**, native archive **v8**. Mark2 accepted the insert as
+task **1305301700** after **one Send** with `project_file SUCCESS`. The exact
+archive name, hashes, material mapping and startup observations are in the
+[insert launch record](insert-mark2-launch.json). The core is prepared and has
+not been sent.
 
 | Part | Native estimate | Object extrusion mass, calculated | Preflight |
 | --- | --- | --- | --- |
@@ -16,10 +20,10 @@ Estimates include the retained corner priming strip; actual heating, calibration
 and probing times vary. Calculated masses are filament-feed accounting, not
 measured foam densities.
 
-The current local float print is being allowed to finish, as recorded in
-[operator observations](../v6/operator-print.json). A following clear-bed report
-or start request after removal supplies the next launch condition. Neither
-prepared job starts automatically on completion of the current print.
+The user confirmed, "Mark2 bed is clear and ready for next float print" before
+the insert launch. After the insert finishes and is removed, a new clear-bed
+report or start request supplies the core launch condition. The core does not
+start automatically on completion of the insert.
 
 ## Recipe and source
 
@@ -33,10 +37,12 @@ reviewed Engineering archive, including the 12-pass corner priming strip.
 
 The requested material source is **ASA Aero from the Polymaker drybox**, reported
 by the user as working better than AMS HT, feeding Mark2's right standard-flow
-hardened 0.4 mm nozzle. The actual external source and ASA Aero identity must be
-verified in the Send dialog before a guarded single-attempt submission. Normal
-options remain Timelapse On, bed leveling On, flow dynamic calibration Auto and
-nozzle offset calibration Auto. Any start or resume preserves the 180-second
+hardened 0.4 mm nozzle. The actual Send dialog mapped **Ext ASA-AERO R** under
+**Right Nozzle**, and printer telemetry confirmed external slot 255, white ASA
+Aero GFB02 and the right fixed hardened standard-flow 0.4 mm nozzle before
+submission. Normal options remain Timelapse On, bed leveling On, flow dynamic
+calibration Auto and nozzle offset calibration Auto. Any start or resume
+preserves the 180-second
 spacing across Mark2 and H2C. The conservative cooling threshold is 35 °C for
 both bed and chamber before release.
 
@@ -67,7 +73,7 @@ wipes, not just moves across open air.
 
 The intended physical outcome is usable foam pieces with fewer carried bits
 from travel. Completion, surface debris, adhesion, fit, density and buoyancy
-remain unreported for these prepared jobs. The user's current flaking and
+remain unreported for these trial pieces. The user's current flaking and
 travel-ooze observations are in the operator record; they do not establish the
 cause of flaking. Bambu identifies ASA Aero as
 [heat-sensitive self-foaming material](https://bambulab-us.myshopify.com/products/asa-aero),
