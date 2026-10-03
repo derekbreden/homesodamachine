@@ -4,8 +4,10 @@ A test receiver and a test cradle for the funnel's drain-elbow cradle. The trial
 whether the production snap goes together and holds as drawn: full-length wings standing on
 the cradle's body, flat hooks reaching outward over the frame's [3 mm](TRIAL_WEB) bottom web, and straight
 slots with square edges. The production frame and cradle use the same geometry, so a pass
-carries straight to the machine and a failure names the dimension to change before the frame
-is printed.
+carries to the matching machine geometry and a failure names the dimension to change before the frame
+is printed. The accepted [v4 result](physical-acceptance.json) applies to its frozen
+meshes. The current 3.15 mm hooks, corresponding slots and flat silicone bearing
+face require a separate physical trial.
 
 ## Parts
 

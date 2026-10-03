@@ -471,6 +471,9 @@ BEARS_ON = {
     "foam-assembly": "enclosure-back-bottom",
     "compressor": "enclosure-front-bottom",
     "condenser+fan": "enclosure-front-bottom",
+    # The covers span both bottom pieces and enter the bottom assembly with its front half.
+    "grip-cover-east": "enclosure-front-bottom",
+    "grip-cover-west": "enclosure-front-bottom",
     # Clamped through a hole in that wall by their own nut, which is why no screw is billed for
     # them. All five of the +Y wall's crossings are above the back column's Z seam.
     "bulkhead-water": "enclosure-back-top",

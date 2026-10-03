@@ -4,10 +4,9 @@ Two PETG shells follow the [funnel](../funnel/README.md), with
 [5 mm](SKIN) minimum ramp backing and [5 mm](FLANGE) clamping flanges. The cavity
 stands on three small feet. The core has a [142.4 × 95.1 mm](DRY_MOUTH) rounded rectangular opening
 in its dry back. Both halves print with automatic normal supports in Snug style.
-The tooling forms a rectangular plug blank with square corners and a straight
-dowel bore. The production plug's hook pockets, open through its X sides and
-+Y end, and staged sealing bore require separate forming features before this
-tooling can produce the finished funnel.
+The tooling forms a rectangular plug blank with square corners, a flat lower
+bearing face and a straight dowel bore. The staged sealing bore requires separate
+forming features before this tooling can produce the finished funnel.
 
 ![Cavity and core in their print orientations](overview.png)
 
@@ -37,7 +36,7 @@ The [6.35 mm](ROD_D) × [50.8 mm](ROD_LEN) steel dowel passes freely through an
 [8.35 mm](ROD_GUIDE_D) opening, with [2 mm](ROD_CLEARANCE) diametral clearance.
 An open V cradle on the dry back centres it. Its upper end meets a visible
 stop; two zip ties in [4.4 mm](ROD_TIE_WIDTH) grooves hold it in the cradle.
-Engagement is [34.9 mm](ROD_ENGAGEMENT), leaving [15.9148 mm](ROD_EXPOSED) below the
+Engagement is [38.0 mm](ROD_ENGAGEMENT), leaving [12.7648 mm](ROD_EXPOSED) below the
 core's neck. Its lower end drops into an [11 mm](SOCKET_D) socket in the cavity floor,
 [3 mm](SOCKET_DEPTH) deep below the plug blank's bottom face, and stands
 [1.5 mm](ROD_END_DEPTH) into it, so the bore opens through that face. The rod touches
@@ -53,7 +52,7 @@ closes the annular passage into the dry back. Smooth-On's
 sulfur-free modeling clay from sulfur-bearing clay for platinum silicone.
 
 The plug blank is [36 × 41 mm](PLUG_BLANK), its walls running up into the bowl's
-underside, with a straight [6.35 mm](ROD_D) bore. The finished plug's hook pockets, 8.4 mm entry,
+underside, with a straight [6.35 mm](ROD_D) bore. The finished plug's 8.4 mm entry,
 6.7 mm relief and 6 mm sealing land are described in the
 [funnel specification](../funnel/README.md#silicone). They are absent from
 this casting. Silicone that runs into the socket around the rod's end leaves a thin collar
@@ -62,7 +61,7 @@ on the bore's exit; trim it flush with the plug blank's bottom face after demold
 [design.json](design.json) checks simultaneous [1.5 mm](ROD_OFFSET) lateral
 offset, [2°](ROD_TILT) tilt and axial error in eight directions. The rod may
 stand [1 mm](ROD_EXTRA) deeper or [1 mm](ROD_AXIAL) shallower than nominal.
-In each case it clears the socket by at least [0.27 mm](ROD_MIN_SOCKET), and its whole
+In each case it clears the socket by at least [0.38 mm](ROD_MIN_SOCKET), and its whole
 end face stays at least [0.38 mm](ROD_MIN_END) below the plug blank's bottom face.
 A rod left lower than that under its stop meets the socket's floor, so seat it against the stop
 before closing.
@@ -75,7 +74,7 @@ sealing and casting quality.
 
 Teal is the cavity, gold the core, grey the nominal silicone, light grey the
 steel dowel and blue the removable entry seal. The nominal casting is
-[224 mL](CAST_VOLUME). The two halves fit inside a [278.5 mm](ENVELOPE) circle,
+[219 mL](CAST_VOLUME). The two halves fit inside a [278.5 mm](ENVELOPE) circle,
 leaving [10.6 mm](CHAMBER_GAP) radial clearance in the recorded chamber. Check
 the actual opening, clamp/bolt envelope and catch tray before pouring.
 
@@ -94,7 +93,7 @@ one-atmosphere differential or pressure injection.
 [1.00 kPa](LOAD_PRESSURE), using an assumed PETG modulus of
 [1000 MPa](LOAD_MODULUS) and Poisson ratio 0.4. Its calculated deflection is
 [0.243 mm](LOAD_DEFLECTION); the maximum static silicone head is
-[0.633 kPa](HEAD_PRESSURE). This flat-plate model is a screening approximation;
+[0.598 kPa](HEAD_PRESSURE). This flat-plate model is a screening approximation;
 it does not establish the printed shell's stiffness, creep, release force or
 transient pressure during degassing.
 
@@ -162,7 +161,7 @@ hashes identify the scope of its casting-match check, layer counts, time and
 material estimates.
 
 The core's envelope is [211 × 211 × 42.2 mm](CORE_DIMS); the cavity is
-[211 × 211 × 61.1 mm](CAVITY_DIMS). Supports are accessible from the dry backs.
+[211 × 211 × 58 mm](CAVITY_DIMS). Supports are accessible from the dry backs.
 Inspect and remove every branch before finishing. Sand and finish the layer
 steps on the forming slopes before casting.
 

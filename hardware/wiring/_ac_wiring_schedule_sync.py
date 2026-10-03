@@ -116,24 +116,25 @@ len_pump_mm = 250       # DC-3 (diaphragm pump), which never leaves the box
 
 # ─── Loom bench cut lengths ───────────────────────────────────────────
 # Manifold cuts use the authored native-clear wire paths in the junction review,
-# with at least 40 mm for terminations and dressing, rounded up to 50 mm. Equal
+# with their contact-to-free-plane span and termination/dressing reserve,
+# rounded up to 50 mm. Equal
 # bench cuts are trimmed at their individual landings. FAN reserves extra length
 # beyond the clear condenser-crown approach; its donor lead is not located in CAD.
 # Other fixed looms use _run_lengths.py's centre-based reach estimates and the
 # recorded DC-5 routing factor. Those estimates do not validate a wire corridor.
 len_relays_mm = 100      # LV-1/2/3 → both Teyleten modules, one crown above the board (88)
-len_vk_mm = 150          # DC-9 OUT3 → V-K, 107 mm free-wire path
+len_vk_mm = 150          # DC-9 OUT3 → V-K, 105.311 mm free-wire path + 11.65 mm board span
 len_man_a_com_mm = 300   # J1 COM → +X Y169 221-420, via the aft under-PCB strip
 len_man_b_com_mm = 300   # J2 COM → +X Y169 221-415, independently of the valve OUT cuts
 len_flow_mm = 300        # SIG-4 → the DIGITEN in the strip ahead of the cold core (256)
 len_onewire_mm = 300     # SIG-1 → the DS18B20/DS18S20 bus in the core (267)
 len_sensors_gnd_mm = 300 # SIG-1/4/9's shared `GND` → the 221-415 on the −X wall aft (284)
 len_reeds_gnd_mm = 300   # SIG-10/11's `GND` → the 221-415 / 221-420 at the reservoirs (274–278)
-len_man_a_mm = 550       # DC-6 OUT1–OUT8 → eight coils; longest free-wire path 497 mm
+len_man_a_mm = 550       # DC-6 OUT1–OUT8 → eight coils; checked H free-wire path 502.869 mm
 len_moisture_mm = 350    # SIG-9 → the dry LM393 board by the pan's −X-wall cable clip (304)
 len_carb_reeds_mm = 350  # SIG-2/3 → the carbonator's low and high reeds (323)
-len_man_b_mm = 550       # DC-7 OUT1/OUT2 → V-I/V-J; longest free-wire path 480 mm
-len_man_a_fanout_mm = 350  # +X Y169 221-420 → eight coil positives; longest path 305 mm
+len_man_b_mm = 550       # DC-7 OUT1/OUT2 → V-I/V-J; checked I free-wire path 480.455 mm
+len_man_a_fanout_mm = 350  # +X Y169 221-420 → eight coil positives; checked D path 289.685 mm
 len_man_b_fanout_mm = 450  # +X Y169 221-415 → I, J, V-K and the condenser-crown lead approach
 len_pump_fixed_mm = 350  # DC-5, J13 → the contact pair's male half through the +X clips (319)
 len_cartridge_mm = 100   # DC-5, the contact pair's female half → each pump's tabs, in the clamp (95)

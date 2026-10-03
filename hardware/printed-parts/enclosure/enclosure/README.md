@@ -1615,7 +1615,7 @@ here. The loom bore is teardropped because the piece beds on Z.
 
 The fixed pump lead turns onto front-top's +X flank, and SIG-7 follows the same
 wall toward the display. The flank carries [1](FLANK_CLIPS) complete clip for the two ribbons
-over Y[95–113 mm](FLANK_CLIP_Y), ahead of V-F's coil and the funnel frame's
+over Y[95–111.5 mm](FLANK_CLIP_Y), ahead of V-F's coil and the funnel frame's
 front corbel. Its bottom is Z[269 mm](FLANK_CLIP_Z), and its 39 mm profile ends
 at Z308. The clip keeps its 3 mm arms, S-shaped channel and ramped ends. It is
 embedded 1.4 mm into the 9 mm wall, leaving 7.6 mm of projection and 7.6 mm
@@ -1627,15 +1627,16 @@ loom supports elsewhere in the machine remain to be placed.
 
 ## Funnel opening
 
-The 456 mL silicone funnel sits in a separate solid PET-GF frame centered at
-Y164.55, with its outlet at Y182.5. The frame slides into front-top's receivers; closing the enclosure
+The 455 mL silicone funnel sits in a separate solid PET-GF frame centered at
+Y164.55, with its outlet at the same Y centre. The frame slides into front-top's receivers; closing the enclosure
 captures its rear rails in back-top. `funnel_frame.py` uses the production
 Z-seam heads and channels with the same section and fit allowances. The
 receiving bands are part of the corresponding enclosure solids.
 
 The frame's top is Z349, its flat underside is Z299.9, and its two full-width
-end corbels are 30° from vertical. It leaves a 3 mm web beneath the silicone
-plug, pierced by an 11.25 mm elbow-collet hole and the cradle's two wing slots.
+end corbels are 30° from vertical. Its socket has a 3 mm floor, pierced by an 11.25 mm
+elbow-collet hole and the cradle's two wing slots. The silicone block rests on the carrier's
+hook tops 3.15 mm above that socket floor.
 The shell opening clears the
 frame body, while the rail channels retain their separate functional profile.
 See [`../../zone-c/funnel/`](../../zone-c/funnel/) for dimensions and the drain joint.
