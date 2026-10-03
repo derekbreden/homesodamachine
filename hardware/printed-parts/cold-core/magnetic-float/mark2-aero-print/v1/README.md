@@ -12,6 +12,11 @@ Mark2 reports `FAILED` at 03:44 UTC on 2026-10-03, with error code 0 and no HMS.
 This is a manual stop; it does not establish a printer fault or a physical
 acceptance result.
 
+The user reports that adhesion developed after additional layers and the part
+peeled off very easily. [Physical observations](physical-observations.json)
+preserve the exact report. Release temperature, density and assembly fit are
+unreported.
+
 One Send received `project_file SUCCESS`. The first printing observation at 03:34 UTC on
 2026-10-03 reports the matching task and archive in `RUNNING`, layer 13 of 220,
 with no printer errors or HMS. Bambu Connect corroborates the right nozzle at
