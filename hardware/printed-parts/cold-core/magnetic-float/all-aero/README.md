@@ -88,6 +88,13 @@ and idealized road coverage confirm the open pocket before the pause, full
 ring coverage after it, and a through-open guide bore. They do not establish
 physical roof adhesion or magnet retention.
 
+The [launch receipt](mark2-print/v1/float-mark2-launch.json) records one accepted
+Send on 2026-10-03 at 15:01:48 CDT, Mark2 task **1306080180**, after the reported
+clear bed. The dialog verified `Ext ASA-AERO R`; archive, G-code and source
+hashes match the slice review. The native insertion pause is estimated near
+16:00 CDT, with 15:50–16:10 as a planning window. Heating and calibration can
+shift that time. The existing monitor remains paused by the user.
+
 ![Section and native pocket-closing paths](mark2-print/v1/pause-preview.png)
 
 ## Trial scope
@@ -101,9 +108,10 @@ still gives the expected signal in the existing bench reed setup.
 
 This is an unqualified bench prototype. Exposed ASA Aero, water uptake,
 external pressure endurance and wetted material acceptance have no recorded
-qualification. The prepared print has not been submitted. A new start request
-or clear-bed report after the current insert is removed supplies the launch
-condition; completion alone does not remove it.
+qualification. The [queue](mark2-print/v1/queue.json) records the accepted trial;
+its physical completion is unreported. The native pause requires a fully
+seated RC62 before manual resume. Completion alone does not clear the bed or
+authorize another print.
 
 To reproduce the CAD and preparation:
 
