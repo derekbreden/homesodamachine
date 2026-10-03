@@ -5,7 +5,7 @@
     "insert-aero"
   ],
   "physical_trial_revision": 2,
-  "status": "printing",
+  "status": "stopped_cause_unreported",
   "archive": ".cache/prints/magnetic-float-pair-mark2-aero-v3/ready/magnetic-float-pair-mark2-aero-v3.gcode.3mf",
   "archive_name": "magnetic-float-pair-mark2-aero-v3.gcode.3mf",
   "archive_sha256": "997477bd22fff8de5f7d811038c1d4d5db219dffd034b06c48addcbbaf8316f1",
@@ -146,6 +146,41 @@
         "chamber_temperature_c": 60.0
       },
       "interpretation": "Printer progress beyond the first layer; no visual first-layer acceptance, printed density or physical fit is established."
+    },
+    {
+      "event": "job_stopped_cause_unreported",
+      "job_id": "1303972802",
+      "subtask_name": "magnetic-float-pair-mark2-aero-v3.gcode.3mf",
+      "gcode_state": "FAILED",
+      "layer_num": 0,
+      "total_layer_num": 220,
+      "mc_percent": 0,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": -1,
+      "bed_temper": 80.0,
+      "bed_target_temper": 0.0,
+      "nozzle_temper": 269.0,
+      "nozzle_target_temper": 270.0,
+      "observed_at": "2026-10-03T04:17:07.561444+00:00",
+      "extruder_temperature_info": [
+        {
+          "id": 0,
+          "temp": 17694989
+        },
+        {
+          "id": 1,
+          "temp": 64
+        }
+      ],
+      "right_nozzle_temperature_observation": {
+        "source": "device.extruder.info id 0 packed temp",
+        "raw_temp": 17694989,
+        "actual_c": 269,
+        "target_c": 270
+      },
+      "interpretation": "The exact combined job is stopped. The printer reports FAILED with print_error 0 and no HMS fault; this does not identify manual cancellation or a printer fault. User cause report is pending. No retry or resume is submitted."
     }
   ],
   "printer_reports": [
@@ -179,31 +214,30 @@
       ]
     }
   ],
-  "latest_observed_utc": "2026-10-03T04:12:18.662626+00:00",
+  "latest_observed_utc": "2026-10-03T04:17:07.561444+00:00",
   "latest_status": {
     "job_id": "1303972802",
     "subtask_name": "magnetic-float-pair-mark2-aero-v3.gcode.3mf",
-    "gcode_state": "RUNNING",
-    "layer_num": 5,
+    "gcode_state": "FAILED",
+    "layer_num": 0,
     "total_layer_num": 220,
-    "mc_percent": 18,
-    "mc_remaining_time": 94,
+    "mc_percent": 0,
+    "mc_remaining_time": 0,
     "print_error": 0,
     "hms": [],
-    "stg_cur": 0,
-    "bed_temper": 90.0,
-    "bed_target_temper": 90.0,
-    "nozzle_temper": 270.0,
+    "stg_cur": -1,
+    "bed_temper": 80.0,
+    "bed_target_temper": 0.0,
+    "nozzle_temper": 269.0,
     "nozzle_target_temper": 270.0,
-    "device_temperature_info": {},
     "extruder_temperature_info": [
       {
         "id": 0,
-        "temp": 17694990
+        "temp": 17694989
       },
       {
         "id": 1,
-        "temp": 67
+        "temp": 64
       }
     ]
   },
@@ -213,5 +247,6 @@
   "brim_type": "no_brim",
   "print_sequence": "by layer",
   "native_archive_revision": 3,
-  "quantity_per_part": 1
+  "quantity_per_part": 1,
+  "stop_cause_report_pending": true
 }
