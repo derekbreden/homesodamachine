@@ -5,7 +5,7 @@
     "insert-aero"
   ],
   "physical_trial_revision": 3,
-  "status": "accepted",
+  "status": "canceled_operator_report_unreported",
   "archive": ".cache/prints/magnetic-float-pair-mark2-aero-v4/ready/magnetic-float-pair-mark2-aero-v4.gcode.3mf",
   "archive_name": "magnetic-float-pair-mark2-aero-v4.gcode.3mf",
   "archive_sha256": "fb54e83a62caba169c73180e61b3122027b0be49484cd4bc28c25bc9a8253392",
@@ -105,6 +105,47 @@
       "bed_target_temper": 0.0,
       "nozzle_temper": 56.0,
       "nozzle_target_temper": 0.0
+    },
+    {
+      "event": "printer_reported_cancellation",
+      "job_id": "1304010811",
+      "subtask_name": "magnetic-float-pair-mark2-aero-v4.gcode.3mf",
+      "gcode_state": "FAILED",
+      "layer_num": 0,
+      "total_layer_num": 220,
+      "mc_percent": 0,
+      "mc_remaining_time": 0,
+      "print_error": 50348044,
+      "hms": [],
+      "stg_cur": -1,
+      "bed_temper": 89.0,
+      "bed_target_temper": 0.0,
+      "nozzle_temper": 232.0,
+      "nozzle_target_temper": 0.0,
+      "observed_at": "2026-10-03T04:38:08.272272+00:00",
+      "extruder_temperature_info": [
+        {
+          "id": 0,
+          "temp": 232
+        },
+        {
+          "id": 1,
+          "temp": 62
+        }
+      ],
+      "printer_message": "The task was canceled.",
+      "print_error_hex": "0300400C",
+      "message_sources": [
+        "Bambu Connect background accessibility state",
+        "Installed Bambu Studio English HMS catalog, error 0300400C"
+      ],
+      "right_nozzle_temperature_observation": {
+        "source": "device.extruder.info id 0 packed temp",
+        "raw_temp": 232,
+        "actual_c": 232,
+        "target_c": 0
+      },
+      "interpretation": "The exact combined job is canceled. No first-layer progress was observed. The code identifies cancellation; who canceled it and any physical print problem are unreported. No retry or resume is submitted."
     }
   ],
   "printer_reports": [
@@ -257,22 +298,32 @@
       ]
     }
   ],
-  "latest_observed_utc": "2026-10-03T04:28:52.415856+00:00",
+  "latest_observed_utc": "2026-10-03T04:38:08.272272+00:00",
   "latest_status": {
     "job_id": "1304010811",
     "subtask_name": "magnetic-float-pair-mark2-aero-v4.gcode.3mf",
-    "gcode_state": "RUNNING",
+    "gcode_state": "FAILED",
     "layer_num": 0,
     "total_layer_num": 220,
     "mc_percent": 0,
-    "mc_remaining_time": 116,
-    "print_error": 0,
+    "mc_remaining_time": 0,
+    "print_error": 50348044,
     "hms": [],
     "stg_cur": -1,
-    "bed_temper": 62.0,
+    "bed_temper": 89.0,
     "bed_target_temper": 0.0,
-    "nozzle_temper": 56.0,
-    "nozzle_target_temper": 0.0
+    "nozzle_temper": 232.0,
+    "nozzle_target_temper": 0.0,
+    "extruder_temperature_info": [
+      {
+        "id": 0,
+        "temp": 232
+      },
+      {
+        "id": 1,
+        "temp": 62
+      }
+    ]
   },
   "accepted_task_id": "1304010811",
   "task_id_confirmed_utc": "2026-10-03T04:28:52.415874+00:00",
@@ -281,5 +332,7 @@
   "skirt_loops": 0,
   "brim_type": "no_brim",
   "print_sequence": "by layer",
-  "non_trim_commands_identical_to_parent": true
+  "non_trim_commands_identical_to_parent": true,
+  "printer_message": "The task was canceled.",
+  "operator_report_pending": true
 }
