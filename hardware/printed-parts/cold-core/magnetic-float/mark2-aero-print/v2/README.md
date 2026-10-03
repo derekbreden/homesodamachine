@@ -12,6 +12,12 @@ in `RUNNING`, layer 0 of 220. This records startup, not first-layer appearance
 or physical acceptance. The native estimate is **1 h 56 min**, with **18.05 g**
 reported by the slicer and **18.03 g** integrated from model extrusion paths.
 
+At 2026-10-03 04:12 UTC, the matching task reported layer **5 of 220** with
+no printer error or HMS fault. Background Bambu Connect reported layer 6 and
+observed **270 °C right nozzle, 90 °C bed and 60 °C chamber**. This establishes
+printer progress beyond the first layer; visual first-layer acceptance, printed
+density and physical fit remain unreported.
+
 ## Selected recipe
 
 | Setting | Value |
