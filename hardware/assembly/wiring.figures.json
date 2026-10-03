@@ -14,7 +14,7 @@
     "COMP_LEAD_AWG": "18 AWG",
     "COMP_LEAD_LEN": "~400 mm",
     "DC_BUS_V": "12 V",
-    "FAN_RUN_LEN": "~450 mm",
+    "FAN_RUN_LEN": "~650 mm",
     "JST_PITCH": "2.5 mm",
     "LOGIC_V": "5 V",
     "MCU_V": "3.3 V",
@@ -24,7 +24,7 @@
     "SIG_ONEWIRE_LEN": "~300 mm",
     "SIG_REEDS_A_LEN": "~450 mm",
     "SIG_UMBILICAL_LEN": "~1 m",
-    "VK_RUN_LEN": "~100 mm",
+    "VK_RUN_LEN": "~150 mm",
     "WINDING_R_HIGH": "30 \u03a9",
     "WINDING_R_LOW": "10"
   }

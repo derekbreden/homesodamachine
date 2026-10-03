@@ -15,7 +15,7 @@ The leaves sit [0.9 mm](INSET) inward per side. Each hook overlaps its catch by
 [3.1 mm](OVERLAP) when centered and at least [2.8 mm](MIN_OVERLAP) at full lateral float.
 Its bearing face stands [0.98 mm](BEARING_CLEARANCE) below the catch. The insertion nose
 runs [3.2 mm](NOSE_DEPTH) down from its square land, and the leaf reaches
-[15.4 mm](TIP_DEPTH) below the visible face. The receiver slots have
+[17.24 mm](TIP_DEPTH) below the visible face. The receiver slots have
 [0.5 mm](END_SLIP) clearance at each end and open inward flex lanes.
 
 Print the cover visible face down on Mark2 and the receiver with its display plane at

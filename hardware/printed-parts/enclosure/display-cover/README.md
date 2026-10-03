@@ -29,3 +29,7 @@ screen. No short support strip is enclosed beneath a wing pocket.
 [`display_cover.py`](display_cover.py) and
 [`_display_wing_interface.py`](../enclosure/_display_wing_interface.py) generate the
 cover and production receiver. Their cover solid equals the accepted specimen.
+
+## Sources
+[value](NAME) texts are updated by:
+- `/hardware/printed-parts/enclosure/display-cover/display_cover.py`
