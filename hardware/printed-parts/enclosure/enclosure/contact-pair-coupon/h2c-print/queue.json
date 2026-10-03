@@ -174,7 +174,7 @@
       "trial": "funnel elbow-cradle receiver and cradle v4",
       "geometry_revision": 4,
       "review": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v4/README.md",
-      "status": "printer_accepted",
+      "status": "printing",
       "submitted": true,
       "bed_clear_confirmation": {
         "confirmed": true,
@@ -191,12 +191,13 @@
           "source_stl_sha256": "bfa9f8c089fd4a2dc11e59949f00431c3273bc0e78e48981ca891b832def34f1",
           "requested_z_trim_mm": 0.18,
           "review": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v4/cradle-h2c-preflight.json",
-          "status": "printer_accepted",
+          "status": "printing",
           "submitted": true,
           "printer_task_id": "1303667680",
           "job_name": "funnel-test-cradle-h2c-v4.gcode.3mf",
           "accepted_observed_utc": "2026-10-03T00:51:57.671023+00:00",
-          "launch_record": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v4/cradle-h2c-launch.json"
+          "launch_record": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v4/cradle-h2c-launch.json",
+          "first_layer_confirmed_utc": "2026-10-03T01:06:10.243865+00:00"
         },
         {
           "printer": "Mark2",
