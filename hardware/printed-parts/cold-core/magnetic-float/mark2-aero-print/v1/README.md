@@ -6,17 +6,22 @@ standard-flow hardened 0.4 mm nozzle. The material is loaded from AMS HT unit
 reported both beds clear and selected the installed **Textured PEI plate**
 for this material trial.
 
-The core is accepted as **Mark2 task 1303907771**,
-`magnetic-float-core-mark2-aero-v2.gcode.3mf`. One Send received
-`project_file SUCCESS`. The first printing observation at 03:34 UTC on
+The core job is **Mark2 task 1303907771**,
+`magnetic-float-core-mark2-aero-v2.gcode.3mf`. The user reports: **"I stopped it."**
+Mark2 reports `FAILED` at 03:44 UTC on 2026-10-03, with error code 0 and no HMS.
+This is a manual stop; it does not establish a printer fault or a physical
+acceptance result.
+
+One Send received `project_file SUCCESS`. The first printing observation at 03:34 UTC on
 2026-10-03 reports the matching task and archive in `RUNNING`, layer 13 of 220,
 with no printer errors or HMS. Bambu Connect corroborates the right nozzle at
 270 °C, bed at 90 °C and chamber at 60 °C. This records printer progress beyond
 the first layer; first-layer appearance and physical acceptance are unreported.
 
-The insert is sliced and reviewed for the same printer. It follows the core
-after removal and a new clear-bed report or start request. Completion alone
-does not clear the bed. These are separate, single-object jobs, following the
+The insert is sliced and reviewed for the same printer and remains queued.
+Further printing awaits the user's instructions and clearance of the stopped
+core. A new start request confirms bed clearance. These are separate,
+single-object jobs, following the
 [float recipe](../../README.md) and the
 [manufacturer's Aero printing guide](https://wiki.bambulab.com/en/filament-acc/filament/asa-aero-printing-guide).
 
