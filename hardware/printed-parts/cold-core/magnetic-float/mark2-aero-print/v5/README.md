@@ -3,8 +3,10 @@
 The combined core and insert retry on Mark2 is **stopped at layer 0**, task
 **1304085052**, `magnetic-float-pair-mark2-aero-v5.gcode.3mf`. MQTT reports `FAILED`,
 with zero print-error code and no HMS alert. Bambu Connect shows the matching
-archive as `Failed`, with no error message observed. Operator clarification is
-pending; the cause, visual adhesion and physical fit remain unreported. One Send
+archive as `Failed`, with no error message observed. The operator reports Textured PEI is a no go and has loaded a glued Engineering
+plate. The specific stop mechanism, quantitative adhesion and physical fit
+remain unreported. The [physical plate report](physical-observations.json)
+supplies the plate choice for [trial v6](../v6/queue.json). One Send
 received `project_file SUCCESS` and the matching new task entered `RUNNING`.
 The archive and all settings are frozen. No further Send or resume has occurred.
 Full observations are in the [launch record](pair-mark2-launch.json).

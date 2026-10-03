@@ -1,7 +1,7 @@
 {
-  "archive": ".cache/prints/magnetic-float-pair-mark2-aero-v5/ready/magnetic-float-pair-mark2-aero-v5.gcode.3mf",
-  "archive_sha256": "8c5f5700665135fbb5ecf9d25e81bd933f99b67b7a120d8e268c883b2c2b1a7f",
-  "gcode_sha256": "023da2dff8c106bcc879ef2f72ac0ebc673dac555ea241059cec93c5e13757b6",
+  "archive": ".cache/prints/magnetic-float-pair-mark2-aero-v6/ready/magnetic-float-pair-mark2-aero-v6.gcode.3mf",
+  "archive_sha256": "22689911264655fd4158f8cba9fd3843c9a7ae32aee9b9985aafb581ebcdd6cf",
+  "gcode_sha256": "66b51259f636ab7dda7e6d5e6df1c8b1cdb4a5c6563130eebe76afb62acd664c",
   "source_commit": "f3cefbe360b7a8019741d177868d1e6c6770b93f",
   "source_stl_sha256": {
     "body-aero": "63d12cbb501b629997a2462822df42a1f4f6bf20ee2806f2f6f310c1f7e72771",
@@ -10,7 +10,7 @@
   "requested_z_trim_mm": 0.04,
   "emitted_z_trim_commands_mm": [
     0.0,
-    0.02
+    0.04
   ],
   "material_mapping": {
     "physical_material": "Bambu ASA Aero White 46100",
@@ -18,25 +18,25 @@
     "nozzle": "right standard-flow hardened 0.4 mm",
     "source": "AMS HT, unit 128 tray 0"
   },
-  "bed": "Textured PEI Plate",
+  "bed": "Engineering Plate",
   "print_sequence": "by layer",
-  "trial": "magnetic-float ASA Aero physical v5",
-  "status": "stopped_plate_rejected",
+  "trial": "magnetic-float ASA Aero physical v6",
+  "status": "accepted",
   "printer": "Mark2",
-  "archive_name": "magnetic-float-pair-mark2-aero-v5.gcode.3mf",
+  "archive_name": "magnetic-float-pair-mark2-aero-v6.gcode.3mf",
   "parts": [
     "body-aero",
     "insert-aero"
   ],
   "quantity_per_part": 1,
-  "native_archive_revision": 5,
-  "bed_clear_confirmation": "Hit an entirely unrelated problem this time. I stopped it. Bed is clear. Try again same settings.",
+  "native_archive_revision": 6,
+  "bed_clear_confirmation": "Engineering plate is glued and loaded now. Textured plate is a no go.",
   "minimum_cross_printer_start_or_resume_spacing_s": 180,
   "cool_before_removal_c": 35,
   "completion_reported": false,
-  "monitor_active": false,
+  "monitor_active": true,
   "send_attempts": 1,
-  "updated_utc": "2026-10-03T05:55:16.040851+00:00",
+  "updated_utc": "2026-10-03T05:59:40.465128+00:00",
   "priming_strip_review": {
     "centerline_bounds_xy_mm": [
       230.0,
@@ -71,13 +71,10 @@
     ],
     "clear_of_parts_and_bed_exclusions": true
   },
-  "scope": "Operator rejected Textured PEI and reported a glued Engineering plate loaded; the authorized combined plate is allocated to physical trial v6.",
+  "scope": "Combined frozen core and insert accepted on Mark2 with glued Engineering plate and retained corner priming strip; visual adhesion and physical fit unreported.",
   "launch_record": "pair-mark2-launch.json",
-  "retry_of": "../v4/pair-mark2-launch.json",
-  "accepted_task_id": "1304085052",
-  "accepted_utc": "2026-10-03T05:27:44.346816+00:00",
-  "stop_reported_utc": "2026-10-03T05:42:51.076544+00:00",
-  "operator_clarification_pending": false,
-  "operator_report": "Engineering plate is glued and loaded now. Textured plate is a no go.",
-  "superseded_by": "../v6/queue.json"
+  "adhesive_application_reported": true,
+  "physical_trial_revision": 6,
+  "accepted_task_id": "1304125241",
+  "accepted_utc": "2026-10-03T05:58:21.680040+00:00"
 }
