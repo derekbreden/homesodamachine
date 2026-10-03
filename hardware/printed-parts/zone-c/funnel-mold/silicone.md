@@ -22,8 +22,8 @@ is [`funnel_mold.py`](funnel_mold.py)'s and is not repeated here.
 | Food contact | food-contact safe for **fat-free** food, skin-contact safe |
 | Shelf life | > 12 months, sealed, below 30 °C, out of direct sunlight |
 
-The [mold geometry](README.md) gives the mixed volume for one cast, including the
-sacrificial tip. Use ~1.13 g/mL to estimate its mass, with extra for the fill ports
+The [mold geometry](README.md) gives the nominal casting's volume for one cast.
+Use ~1.13 g/mL to estimate its mass, with extra for the fill ports
 and mixing losses. Pigment is BBDINO's own platinum-cure black at
 ≤ 2 % by weight.
 

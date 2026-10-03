@@ -37,8 +37,11 @@ The [6.35 mm](ROD_D) × [50.8 mm](ROD_LEN) steel dowel passes freely through an
 [8.35 mm](ROD_GUIDE_D) opening, with [2 mm](ROD_CLEARANCE) diametral clearance.
 An open V cradle on the dry back centres it. Its upper end meets a visible
 stop; two zip ties in [4.4 mm](ROD_TIE_WIDTH) grooves hold it in the cradle.
-Engagement is [30.4 mm](ROD_ENGAGEMENT), leaving [20.4148 mm](ROD_EXPOSED) below the
-core's neck. The rod stays clear of the cavity during closure.
+Engagement is [34.9 mm](ROD_ENGAGEMENT), leaving [15.9148 mm](ROD_EXPOSED) below the
+core's neck. Its lower end drops into an [11 mm](SOCKET_D) socket in the cavity floor,
+[3 mm](SOCKET_DEPTH) deep below the plug blank's bottom face, and stands
+[1.5 mm](ROD_END_DEPTH) into it, so the bore opens through that face. The rod touches
+neither half as the mold closes.
 
 Pack a small removable seal around the rod at the forming-face entry, flush
 with the adjacent surface. The illustrated seal is [2 mm](ROD_SEAL_DEPTH) deep.
@@ -49,30 +52,30 @@ closes the annular passage into the dry back. Smooth-On's
 [sealer reference](https://www.smooth-on.com/page/sealers-releases/) distinguishes
 sulfur-free modeling clay from sulfur-bearing clay for platinum silicone.
 
-The plug blank is [36 × 41 × 15 mm](PLUG_BLANK), with a straight
-[6.35 mm](ROD_D) bore. The finished plug's hook pockets, 8.4 mm entry,
+The plug blank is [36 × 41 mm](PLUG_BLANK), its walls running up into the bowl's
+underside, with a straight [6.35 mm](ROD_D) bore. The finished plug's hook pockets, 8.4 mm entry,
 6.7 mm relief and 6 mm sealing land are described in the
 [funnel specification](../funnel/README.md#silicone). They are absent from
-this casting. An [18 mm](TIP_LENGTH) sacrificial extension leaves
-[12 mm](TIP_CAP) beneath the rod end. Mark the trim plane
-[18 mm](TIP_LENGTH) from the casting's closed end and cut square after demolding.
+this casting. Silicone that runs into the socket around the rod's end leaves a thin collar
+on the bore's exit; trim it flush with the plug blank's bottom face after demolding.
 
 [design.json](design.json) checks simultaneous [1.5 mm](ROD_OFFSET) lateral
 offset, [2°](ROD_TILT) tilt and axial error in eight directions. The rod may
-project [6 mm](ROD_EXTRA) farther when not fully seated, or [3 mm](ROD_AXIAL)
-less than nominal. The minimum depth beneath its tip in these cases is
-[5.90 mm](ROD_MIN_END).
-The minimum silicone clearance in that envelope is [5.90 mm](ROD_MIN_WALL),
-including the sacrificial end. These checks describe geometry; the first
-physical trial establishes retention, sealing and casting quality.
+stand [1 mm](ROD_EXTRA) deeper or [1 mm](ROD_AXIAL) shallower than nominal.
+In each case it clears the socket by at least [0.27 mm](ROD_MIN_SOCKET), and its whole
+end face stays at least [0.38 mm](ROD_MIN_END) below the plug blank's bottom face.
+A rod left lower than that under its stop meets the socket's floor, so seat it against the stop
+before closing.
+These checks describe geometry; the first physical trial establishes retention,
+sealing and casting quality.
 
-![Rod held from the open core cradle, with a plug blank and closed sacrificial end](rod-detail.png)
+![Rod held from the open core cradle, its end standing in the cavity floor's socket under the plug blank](rod-detail.png)
 
 ![Section through the assembled forming shells, silicone and steel dowel](section.png)
 
 Teal is the cavity, gold the core, grey the nominal silicone, light grey the
-steel dowel and blue the removable entry seal. The nominal casting, including its sacrificial spout tip, is
-[196 mL](CAST_VOLUME). The two halves fit inside a [278.5 mm](ENVELOPE) circle,
+steel dowel and blue the removable entry seal. The nominal casting is
+[178 mL](CAST_VOLUME). The two halves fit inside a [278.5 mm](ENVELOPE) circle,
 leaving [10.6 mm](CHAMBER_GAP) radial clearance in the recorded chamber. Check
 the actual opening, clamp/bolt envelope and catch tray before pouring.
 
@@ -91,7 +94,7 @@ one-atmosphere differential or pressure injection.
 [1.00 kPa](LOAD_PRESSURE), using an assumed PETG modulus of
 [1000 MPa](LOAD_MODULUS) and Poisson ratio 0.4. Its calculated deflection is
 [0.243 mm](LOAD_DEFLECTION); the maximum static silicone head is
-[0.833 kPa](HEAD_PRESSURE). This flat-plate model is a screening approximation;
+[0.633 kPa](HEAD_PRESSURE). This flat-plate model is a screening approximation;
 it does not establish the printed shell's stiffness, creep, release force or
 transient pressure during degassing.
 
@@ -102,7 +105,8 @@ print still needs its own dry-fit and vacuum trial.
 
 ## Geometry verification
 
-The cavity is a continuous cup from the brim to the blind spout. Each offset
+The cavity is a continuous cup from the brim to the plug blank's floor and its blind
+rod socket. Each offset
 face, rounded edge and corner is contained in the finished shell envelope.
 Before the flange and mouth trim, the minimum distance between the complete
 forming and backing boundaries is checked against the 5 mm shell thickness;
@@ -130,7 +134,7 @@ porosity, flange sealing and the first casting remain physical checks.
 The saved project contains geometry `953dbfa68` on two plates: the cavity
 upright and the core inverted. Its meshes are bound to the
 [saved slice review](current-slice-review.json); they do not include the
-rectangular plug blank in the current CAD exports.
+rectangular plug blank or the rod socket in the current CAD exports.
 It selects these presets:
 
 - Process: **0.24mm Standard @BBL H2C funnel mold**
@@ -158,7 +162,7 @@ hashes identify the scope of its casting-match check, layer counts, time and
 material estimates.
 
 The core's envelope is [211 × 211 × 42.2 mm](CORE_DIMS); the cavity is
-[211 × 211 × 79.1 mm](CAVITY_DIMS). Supports are accessible from the dry backs.
+[211 × 211 × 61.1 mm](CAVITY_DIMS). Supports are accessible from the dry backs.
 Inspect and remove every branch before finishing. Sand and finish the layer
 steps on the forming slopes before casting.
 
@@ -171,7 +175,8 @@ casting are untested for these shells.
 
 1. Remove supports and brim, including branches inside the open rod cradle.
    Slide the rod through the loose passage, bring its end to the visible stop
-   and secure it in the V with two zip ties. Dry-fit the two halves.
+   and secure it in the V with two zip ties. Dry-fit the two halves and check
+   that the rod's lower end drops into the cavity's socket without touching it.
    Check the lands with a light behind the seam; use the flange bolts or clamps
    to close slight bow. Confirm that the coated halves still meet on those lands.
 2. Prove the PETG, finishing stack, release, entry-seal clay and
@@ -179,7 +184,7 @@ casting are untested for these shells.
    forming face. Degas the mixed silicone in a separate container with expansion room.
    [Smooth-On's degassing example](https://www.smooth-on.com/tutorials/making-piece-cut-block-mold/vacuum-de-gassing/)
    shows the required headroom above the liquid.
-3. Fill the open cavity, including the blind spout pocket. Lower the core slowly
+3. Fill the open cavity, including the rod socket. Lower the core slowly
    with its dowel installed. Seat and hold the flanges evenly. Top up through the
    [11 mm](FILL_D) fill hole; the five [4 mm](VENT_D) vents remain open.
 4. For a filled-mold vacuum cycle, use a catch tray and keep overflow clear of the
@@ -188,7 +193,7 @@ casting are untested for these shells.
 5. Trim overflow at the port mouths and cut the rod's zip ties. Open in small alternating movements at
    opposite notches. Peel the accessible silicone brim to admit air, lift the
    core straight off the rod, peel the casting from the cavity, withdraw the
-   dowel and cut off the marked sacrificial extension. Remove the entry seal
+   dowel and trim the socket's collar flush with the plug blank's bottom face. Remove the entry seal
    and clean the passage before the next cast.
 
 ## Regenerate

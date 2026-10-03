@@ -59,6 +59,26 @@
       },
       "receiver": "the printed v2 receiver",
       "print_record": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v3/"
+    },
+    {
+      "trial": "v4",
+      "source_commit": "29808fba7",
+      "reported_by": "Derek",
+      "reported_date": "2026-10-02",
+      "insertion": "Alright, I think we're good here.",
+      "retention_and_cycle_testing": "Not reported.",
+      "wing_free_length_mm": 12.49,
+      "cradle_half_width_mm": 15.05,
+      "frame_web_slot_to_hole_mm": 4.775,
+      "printer_jobs": {
+        "H2C": "1303667680",
+        "Mark2": "1303677943"
+      },
+      "geometry_sha256": {
+        "hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.stl": "bfa9f8c089fd4a2dc11e59949f00431c3273bc0e78e48981ca891b832def34f1",
+        "hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.stl": "e23e82074fa6aaa0f6d93aefb8a95147908e24418021b2501e32e24a08c2eaad"
+      },
+      "print_record": "hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v4/"
     }
   ]
 }
