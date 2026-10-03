@@ -1,0 +1,182 @@
+{
+  "project": ".cache/prints/2026-10-03-cradle-trial-receiver-h2c-v1/2026-10-03-cradle-trial-receiver-h2c-v1-input.3mf",
+  "settings_source": "hardware/printed-parts/petgf.3mf",
+  "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "settings_sha256": "07f46991b6e7f746ddf9ab80ed91b3ea5967d8fa0402015cd939c20d41c73d1f",
+  "source_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "409b1516f0401361a02b18a34420c10ca83bc33615e8896cade2fea42edee871",
+      "requested_z_trim_mm": 0.18
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.18 Z trim"
+    }
+  },
+  "printer": "H2C",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 15.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "cradle-trial-receiver",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.stl",
+      "stl_sha256": "6d4c1b2d9ccdf8769db04c900337cc2358e51b61a4e43bdf1b6a8a2a010b6fd6",
+      "triangles": 928,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        5.999999999999915
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        162.5,
+        160.0,
+        6.000000000000085
+      ],
+      "plate_translation_mm": [
+        162.5,
+        160.0,
+        6.000000000000085
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          138.20000076293945,
+          133.0,
+          0.0
+        ],
+        [
+          186.79999923706055,
+          187.0,
+          12.00000000000017
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.873044190389919e-10
+    }
+  ],
+  "project_sha256": "ed045b714240d8235345020f1e1a1141c09b6e7a5847d9adc83b6f02622d92dd",
+  "settings_preserved_byte_for_byte": false,
+  "source_sha256": {
+    "hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.stl": "6d4c1b2d9ccdf8769db04c900337cc2358e51b61a4e43bdf1b6a8a2a010b6fd6",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "hardware/printed-parts/zone-c/funnel/funnel.py": "7e224d80c14b8bb089405d3c98964201a6df5141aaf3d1a10177808117df97e1",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "4e8f53f1aaa2bb572a207f32ec58725213510e9a581f004902400a06cd6b615a",
+    "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": "c2b2c353984f14f50e9bfde6d16b8909a33e4fb3a98adc07efbc80873dd3fbe7",
+    "hardware/printed-parts/zone-c/funnel/cradle-trial/cradle_trial.py": "c49a270dd07bb8ca3ced753f7d3e9eba2ad89941f922fb489176484bf9cea95f",
+    "hardware/printed-parts/zone-c/funnel/cradle-trial/geometry-check.json": "d6cc14d1551bfec87a3b3bb4f0175f15c91211e073b279ae050b12b9c863c7ea",
+    "hardware/printed-parts/cadlib/fits.py": "3821989044c5bc3ae99cc6912538b8a34bd75a6b0a081aefc8e4c5a0ce714191",
+    "hardware/reference/jg-pp0308e-elbow/scan-measurements.json": "d977e38f2966b4d3839e7161f5d6fb9b0b276faf7ec2e4ed2b942b5f4b22dd1a",
+    "hardware/printed-parts/zone-c/funnel/cradle-trial/physical-acceptance.json": "cd52d64ed5592767b94f73b5c97e17f96dab1a2de1086439b56de8fead1a78b7",
+    "hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.step": "79de294d370cbb103475febb4149b52832582c388db1de7d038edf93442038d2"
+  },
+  "intentional_overrides": {
+    "elefant_foot_compensation": {
+      "from": "0.15",
+      "to": "0"
+    },
+    "brim_type": {
+      "from": "auto_brim",
+      "to": "no_brim"
+    },
+    "brim_width": {
+      "from": "5",
+      "to": "0"
+    },
+    "support_filament": {
+      "from": "0",
+      "to": "1"
+    },
+    "support_interface_filament": {
+      "from": "0",
+      "to": "1"
+    },
+    "flush_into_support": {
+      "from": "1",
+      "to": "0"
+    },
+    "extruder_ams_count": {
+      "from": [
+        "1#0|4#1",
+        "1#0|4#0"
+      ],
+      "to": [
+        "1#0|4#0",
+        "1#0|4#0"
+      ]
+    }
+  },
+  "current_source_stl_sha256": "6d4c1b2d9ccdf8769db04c900337cc2358e51b61a4e43bdf1b6a8a2a010b6fd6",
+  "current_source_step_sha256": "79de294d370cbb103475febb4149b52832582c388db1de7d038edf93442038d2",
+  "preparation_script_sha256": "c38d32b4732a92afef4b939fb4962676799ecca6f26da001083e5f3ec16246f2",
+  "physical_material": "black PET-GF",
+  "profile_filament_label": "PET-CF",
+  "requested_z_trim_mm": 0.18,
+  "expected_textured_emitted_trim_mm": 0.16,
+  "normal_layer_height_mm": 0.24,
+  "first_layer_height_mm": 0.2,
+  "support_policy": "Shared automatic trees; all functional flat ceilings and bearings retained. No painted exclusions.",
+  "show_round_band_policy": "No expanding print-down exterior show rounds or inward/top exterior show rounds on these three parts. Frame bowl forming faces and cradle pocket faces are functional internal surfaces.",
+  "production_print_pose_retained": true,
+  "submitted": false,
+  "physical_qualification": "Frozen accepted v4 applies only to its recorded meshes. Current frame/drain parts and 3.15 mm hooks are not physically qualified by that acceptance.",
+  "scope": "Supplementary current-source offline native slice. No printer send, no geometry export, and no change to frozen v4 projects."
+}

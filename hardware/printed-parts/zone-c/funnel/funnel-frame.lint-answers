@@ -1,4 +1,4 @@
-[ceiling] These four square rail bearings retain the frame against vertical lift and preserve the enclosure's production sliding profile. Each groove opens along its outer flank and Y entrance for support removal before assembly. The bearings require four bed-rooted supports. The stored native slice illustrates this arrangement; the current frame requires its own slice and physical removal and fit review.
+[ceiling] These four square rail bearings retain the frame against vertical lift and preserve the enclosure's production sliding profile. Each groove opens along its outer flank and Y entrance for support removal before assembly. The current native slice in integration-review/native-slice-reviews/2026-10-03-funnel-frame-h2c-v1/ retains four bed-rooted supports. Every emitted support bead has a clear outward removal sweep after its contact and branch junctions are detached. Physical removal effort, bearing finish and installed fit remain unqualified.
 file: hardware/printed-parts/zone-c/funnel/funnel-frame.step
 click: x=100.875 y=-10.571 z=16.200
 click: x=-100.875 y=-10.571 z=16.200

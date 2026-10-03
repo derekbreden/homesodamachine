@@ -1,0 +1,18 @@
+{
+  "status": "native_slice_awaiting_emitted_path_and_removal_review",
+  "part": "funnel-frame",
+  "quantity": 1,
+  "printer": "H2C",
+  "submitted": false,
+  "archive": ".cache/prints/2026-10-03-funnel-frame-h2c-v1/ready/2026-10-03-funnel-frame-h2c-v1.gcode.3mf",
+  "archive_sha256": "5e2727797dd2ab2408b9ca6b76835f553e4a2eefcea52fd64fa1e30000f43a1d",
+  "project": ".cache/prints/2026-10-03-funnel-frame-h2c-v1/2026-10-03-funnel-frame-h2c-v1-input.3mf",
+  "project_sha256": "7a3e87f7f3c5aa1d28d6dc5b190a01dffee3338efb38e7b5daa01ca24597a292",
+  "gcode_sha256": "76f2446486242eaa014621a47019a6b18957dd5d39a99724e6e95c54a18e268b",
+  "estimated_seconds": 22522.27734375,
+  "source_stl": "hardware/printed-parts/zone-c/funnel/funnel-frame.stl",
+  "source_stl_sha256": "9bbdd18722b968407c6eb844d1d70d4f85963a26afb1dceedbd5b4d0f754b6bd",
+  "source_step_sha256": "011cba0d23badd7f0bc31ddffee6b55f68ac8b6cec8044aeb9d457e9b34be089",
+  "production_print_pose_retained": true,
+  "physical_fit_retention_and_surface_qualified": false
+}

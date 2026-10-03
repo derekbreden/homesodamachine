@@ -72,12 +72,28 @@ cable hook. It records the emitted first layers, complete fine roof band,
 show-face support clearance and support-removal lanes. Its physical finish,
 removal and installed fit remain separate observations.
 
-The stored [frame support audit](frame-support-audit.json) has four bed-rooted
-support bodies, each serving a rail bearing region. Its first layer is one
-body; every second-layer wall bead has more than half its area over the first
-layer. Its source mesh, profile, project and emitted toolpaths identify the
-specific reviewed geometry. This stored slice does not qualify the current
-expanded frame's supports or physical removal.
+The current [expanded-frame H2C receipt](native-slice-reviews/2026-10-03-funnel-frame-h2c-v1/README.md)
+reviews all 205 model layers and four bed-rooted support bodies beneath the
+external rail bearings. Every native stock component receives model walls, and
+every emitted support bead has a clear outward removal sweep after its contact
+and branch junctions are detached. The single brim-seat perimeter diagnostic
+receives actual top-surface roads. These measurements qualify the recorded
+slice; physical removal and installed frame fit remain separate observations.
+
+The current [receiver coupon receipt](native-slice-reviews/2026-10-03-cradle-trial-receiver-h2c-v1/README.md)
+reviews all 50 model layers of the matching 3 mm web, drain hole and wing slots.
+It has no supports or perimeter diagnostics. The full frame and receiver keep
+their flat underside on the bed, with a 0.20 mm first layer and ordinary 0.24 mm
+layers above it. The stored [frame support audit](frame-support-audit.json) retains
+its own source hashes and measurement scope.
+
+The current [cradle H2C receipt](native-slice-reviews/2026-10-03-elbow-cradle-h2c-v2/README.md)
+reviews all 154 model layers and the two external hook supports. Every native
+stock component receives model walls; there are no perimeter diagnostics or
+support-motion obstructions. The non-bearing collet mouth opens through a
+constant-radius clearance, retaining a 5.103 mm floor and 8.840 mm side walls.
+Its main elbow seat, 0.65 mm catch gap and 269.895 mm² silicone bearing remain
+whole. The current production and trial cradle meshes are byte-identical.
 
 The stored upper-enclosure toolpaths' first-layer and local wall-count checks pass.
 The stored front-top audit retains

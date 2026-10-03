@@ -1,0 +1,103 @@
+{
+  "schema": 1,
+  "source_step_sha256": "011cba0d23badd7f0bc31ddffee6b55f68ac8b6cec8044aeb9d457e9b34be089",
+  "source_stl_sha256": "9bbdd18722b968407c6eb844d1d70d4f85963a26afb1dceedbd5b4d0f754b6bd",
+  "archive_sha256": "5e2727797dd2ab2408b9ca6b76835f553e4a2eefcea52fd64fa1e30000f43a1d",
+  "diagnostic_count": 1,
+  "readings": [
+    {
+      "z_mm": 48.92,
+      "native_component_area_mm2": 4982.739500742067,
+      "boundary_distance_beyond_wall_half_width_mm": 1.1376668327575528,
+      "witness_source_xyz_mm": [
+        -80.73226384256387,
+        58.75307252229956,
+        48.800001
+      ],
+      "closest_actual_model_bead_air_mm": -0.02643827834284715,
+      "closest_actual_model_feature": "Top surface",
+      "closest_actual_model_road_line": 602884,
+      "closest_actual_model_road_source_xy_mm": [
+        -76.429,
+        54.16900000000001,
+        -81.687,
+        59.42699999999999
+      ],
+      "closest_actual_model_bead_width_mm": 0.45,
+      "native_nearest_faces": [
+        {
+          "face": 96,
+          "geom_type": "PLANE",
+          "distance_mm": 1.00000000458067e-06,
+          "normal_at_face_reference": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "bounds_mm": [
+            -89.5,
+            -65.84150792328,
+            48.8,
+            89.5,
+            65.841507923281,
+            48.8
+          ],
+          "area_mm2": 3711.554540193063
+        },
+        {
+          "face": 83,
+          "geom_type": "TORUS",
+          "distance_mm": 0.002113979183853699,
+          "normal_at_face_reference": [
+            0.5000000000000518,
+            -0.4999999999999483,
+            0.7071067811865476
+          ],
+          "bounds_mm": [
+            -89.8,
+            38.841507923281,
+            48.8,
+            -62.5,
+            66.141507923281,
+            49.1
+          ],
+          "area_mm2": 20.12732058161884
+        },
+        {
+          "face": 48,
+          "geom_type": "PLANE",
+          "distance_mm": 0.4257607970168134,
+          "normal_at_face_reference": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "bounds_mm": [
+            -98.25,
+            -71.14150792328,
+            49.1,
+            98.25,
+            71.141507923281,
+            49.1
+          ],
+          "area_mm2": 4809.442714542182
+        }
+      ],
+      "layer_slab_native_stock": [
+        {
+          "native_z_mm": 48.690002,
+          "stock_area_mm2": 8694.087123998881
+        },
+        {
+          "native_z_mm": 48.800001,
+          "stock_area_mm2": 4982.7395007420455
+        },
+        {
+          "native_z_mm": 48.910000000000004,
+          "stock_area_mm2": 4849.177059381396
+        }
+      ]
+    }
+  ],
+  "scope": "Exact native-face and actual emitted-model-road readings at every retained perimeter diagnostic. A reading locates a feature; its reasoned functional review decides the verdict."
+}

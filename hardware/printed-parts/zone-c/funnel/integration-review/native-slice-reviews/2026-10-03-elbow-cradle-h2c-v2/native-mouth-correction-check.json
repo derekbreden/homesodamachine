@@ -1,0 +1,292 @@
+{
+  "schema": 1,
+  "pass": true,
+  "source_step_sha256": "02127f475220ce77f32d955cb795fc941f43c36346ee4fdfaf5210b2eb07047d",
+  "source_stl_sha256": "651e537dfff26b46a18509768de188e617c63c3e75fb2d8e9622ddcff7171f03",
+  "source_script_sha256": "08c0f5cd3373c6ea0a6d2f24b2d1d5cc5da704691fbbbaa6eda94910c84403b0",
+  "trial_cradle_stl_sha256": "651e537dfff26b46a18509768de188e617c63c3e75fb2d8e9622ddcff7171f03",
+  "reference_machine_step_sha256": "2ea8aa70c2075ebeb899cbe621d5515cea5703b96da6aad1817b4941a87a2a5d",
+  "comparison_scope": "Current corrected native cradle placed against the other frozen native machine bodies. Root separately re-exports the whole machine; this check is not a claim that the referenced older machine STEP contains the corrected cradle.",
+  "removed_stock_mm3": 53.84995107547611,
+  "added_stock_mm3": 0.0,
+  "removed_stock_world_bounds_mm": [
+    -4.36,
+    183.38699999999335,
+    274.2,
+    8.06,
+    185.11239000000003,
+    290.41
+  ],
+  "retained_main_elbow_seat_missing_mm3": 0.0,
+  "retained_main_elbow_seat_extra_mm3": 0.0,
+  "opening_constant_radius_mm": 6.21,
+  "opening_floor_minimum_mm": 5.102900000000003,
+  "opening_side_wall_minimum_mm": 8.840000000000003,
+  "catch_gap_mm": 0.65,
+  "hook_thickness_mm": 3.15,
+  "released_hook_top_world_z_mm": 306.05,
+  "native_flat_silicone_bearing_area_mm2": 269.895315,
+  "silicone_overlap_mm3": 0.0,
+  "cradle_elbow_gap_mm": 0.0,
+  "cradle_frame_gap_mm": 0.0,
+  "neighbouring_native_bodies": [
+    {
+      "body": "coil-v-e",
+      "overlap_mm3": 0.0,
+      "gap_mm": 6.157206734037643
+    },
+    {
+      "body": "coil-v-h",
+      "overlap_mm3": 0.0,
+      "gap_mm": 7.377033551263219
+    },
+    {
+      "body": "turn-fluid-3",
+      "overlap_mm3": 0.0,
+      "gap_mm": 2.2749999999999986
+    },
+    {
+      "body": "turn-fluid-5",
+      "overlap_mm3": 0.0,
+      "gap_mm": 5.975
+    },
+    {
+      "body": "step-fluid-3",
+      "overlap_mm3": 0.0,
+      "gap_mm": 2.2749999999999986
+    },
+    {
+      "body": "step-fluid-5",
+      "overlap_mm3": 0.0,
+      "gap_mm": 5.975
+    },
+    {
+      "body": "cold-core/foam-cap-lid-top",
+      "overlap_mm3": 0.0,
+      "gap_mm": 1.6702081646489924
+    },
+    {
+      "body": "tube-water-3",
+      "overlap_mm3": 0.0,
+      "gap_mm": 4.922099899999978
+    },
+    {
+      "body": "tube-fluid-18",
+      "overlap_mm3": 0.0,
+      "gap_mm": 15.792276587472342
+    },
+    {
+      "body": "tube-fluid-26",
+      "overlap_mm3": 0.0,
+      "gap_mm": 15.926756352584277
+    },
+    {
+      "body": "tube-fluid-16",
+      "overlap_mm3": 0.0,
+      "gap_mm": 13.787513451308792
+    },
+    {
+      "body": "funnel",
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.0
+    },
+    {
+      "body": "funnel-frame",
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.0
+    },
+    {
+      "body": "funnel-drain-union",
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.0
+    },
+    {
+      "body": "funnel-drain-stub",
+      "overlap_mm3": 0.0,
+      "gap_mm": 1.641980060119196
+    },
+    {
+      "body": "tube-fluid-4",
+      "overlap_mm3": 0.0,
+      "gap_mm": 3.0349999999999997
+    },
+    {
+      "body": "enclosure-front-top",
+      "overlap_mm3": 0.0,
+      "gap_mm": 47.14710000000002
+    }
+  ],
+  "insertion_pose_count": 29,
+  "insertion_poses": [
+    {
+      "offset_from_insertion_datum_mm": -7.3,
+      "tip_deflection_mm": 1.9293488976131812,
+      "frame_overlap_mm3": 0.0
+    },
+    {
+      "offset_from_insertion_datum_mm": -7.0625,
+      "tip_deflection_mm": 1.9794053916029952,
+      "frame_overlap_mm3": 0.0
+    },
+    {
+      "offset_from_insertion_datum_mm": -6.825,
+      "tip_deflection_mm": 2.0185967918732786,
+      "frame_overlap_mm3": 0.0
+    },
+    {
+      "offset_from_insertion_datum_mm": -6.5874999999999995,
+      "tip_deflection_mm": 2.0592861325599188,
+      "frame_overlap_mm3": 0.0
+    },
+    {
+      "offset_from_insertion_datum_mm": -6.35,
+      "tip_deflection_mm": 2.116010384478159,
+      "frame_overlap_mm3": 0.0
+    },
+    {
+      "offset_from_insertion_datum_mm": -6.1125,
+      "tip_deflection_mm": 2.1605213971893136,
+      "frame_overlap_mm3": 0.0
+    },
+    {
+      "offset_from_insertion_datum_mm": -5.875,
+      "tip_deflection_mm": 2.222673544108602,
+      "frame_overlap_mm3": 0.0
+    },
+    {
+      "offset_from_insertion_datum_mm": -5.637499999999999,
+      "tip_deflection_mm": 2.2715234549159504,
+      "frame_overlap_mm3": 0.0
+    },
+    {
+      "offset_from_insertion_datum_mm": -5.3999999999999995,
+      "tip_deflection_mm": 2.3398478320627873,
+      "frame_overlap_mm3": 0.0
+    },
+    {
+      "offset_from_insertion_datum_mm": -5.1625,
+      "tip_deflection_mm": 2.3936390891053634,
+      "frame_overlap_mm3": 0.0
+    },
+    {
+      "offset_from_insertion_datum_mm": -4.925,
+      "tip_deflection_mm": 2.469002780210303,
+      "frame_overlap_mm3": 0.0
+    },
+    {
+      "offset_from_insertion_datum_mm": -4.6875,
+      "tip_deflection_mm": 2.5284370277840935,
+      "frame_overlap_mm3": 0.0
+    },
+    {
+      "offset_from_insertion_datum_mm": -4.449999999999999,
+      "tip_deflection_mm": 2.5284370277840935,
+      "frame_overlap_mm3": 0.0
+    },
+    {
+      "offset_from_insertion_datum_mm": -4.2124999999999995,
+      "tip_deflection_mm": 2.5284370277840935,
+      "frame_overlap_mm3": 0.0
+    },
+    {
+      "offset_from_insertion_datum_mm": -3.9749999999999996,
+      "tip_deflection_mm": 2.5284370277840935,
+      "frame_overlap_mm3": 0.0
+    },
+    {
+      "offset_from_insertion_datum_mm": -3.7374999999999994,
+      "tip_deflection_mm": 2.5284370277840935,
+      "frame_overlap_mm3": 0.0
+    },
+    {
+      "offset_from_insertion_datum_mm": -3.4999999999999996,
+      "tip_deflection_mm": 2.5284370277840935,
+      "frame_overlap_mm3": 0.0
+    },
+    {
+      "offset_from_insertion_datum_mm": -3.2624999999999993,
+      "tip_deflection_mm": 2.5284370277840935,
+      "frame_overlap_mm3": 0.0
+    },
+    {
+      "offset_from_insertion_datum_mm": -3.0249999999999995,
+      "tip_deflection_mm": 2.5284370277840935,
+      "frame_overlap_mm3": 0.0
+    },
+    {
+      "offset_from_insertion_datum_mm": -2.7874999999999996,
+      "tip_deflection_mm": 2.5284370277840935,
+      "frame_overlap_mm3": 0.0
+    },
+    {
+      "offset_from_insertion_datum_mm": -2.55,
+      "tip_deflection_mm": 2.5284370277840935,
+      "frame_overlap_mm3": 0.0
+    },
+    {
+      "offset_from_insertion_datum_mm": -2.312499999999999,
+      "tip_deflection_mm": 2.5284370277840935,
+      "frame_overlap_mm3": 0.0
+    },
+    {
+      "offset_from_insertion_datum_mm": -2.0749999999999993,
+      "tip_deflection_mm": 2.5284370277840935,
+      "frame_overlap_mm3": 0.0
+    },
+    {
+      "offset_from_insertion_datum_mm": -1.8374999999999995,
+      "tip_deflection_mm": 2.5284370277840935,
+      "frame_overlap_mm3": 0.0
+    },
+    {
+      "offset_from_insertion_datum_mm": -1.5999999999999996,
+      "tip_deflection_mm": 2.2733696312866414,
+      "frame_overlap_mm3": 0.0
+    },
+    {
+      "offset_from_insertion_datum_mm": -1.3624999999999998,
+      "tip_deflection_mm": 1.9368459673332836,
+      "frame_overlap_mm3": 0.0
+    },
+    {
+      "offset_from_insertion_datum_mm": -1.1249999999999991,
+      "tip_deflection_mm": 1.5204334362251757,
+      "frame_overlap_mm3": 0.0
+    },
+    {
+      "offset_from_insertion_datum_mm": -0.8874999999999993,
+      "tip_deflection_mm": 0.9498190479694131,
+      "frame_overlap_mm3": 0.0
+    },
+    {
+      "offset_from_insertion_datum_mm": -0.6499999999999999,
+      "tip_deflection_mm": 1.3642420526593924e-12,
+      "frame_overlap_mm3": 0.0
+    }
+  ],
+  "maximum_insertion_frame_overlap_mm3": 0.0,
+  "stations": {
+    "half": 15.050000000000002,
+    "y0": -11.24,
+    "y1": 20.56239,
+    "z0": -30.152900000000002,
+    "top": -8.84,
+    "w_in": 13.750000000000002,
+    "w_out": 15.050000000000002,
+    "slot_out": 15.550000000000002,
+    "hook_tip": 18.150000000000002,
+    "face": 3.65,
+    "hook_top": 6.8,
+    "bend": {
+      "free_length": 12.49,
+      "hook_deflection": 2.5284370277840935,
+      "inner_face_travel": 3.440581987434019,
+      "root_strain": 0.03160544258740209
+    },
+    "lane": 3.69,
+    "slot_in": 10.060000000000002
+  },
+  "physical_acceptance": "Frozen accepted v4 record and archived projects remain unchanged. Current mouth, 3.15 mm hooks, corresponding slots and flat silicone bearing require their own physical acceptance.",
+  "physical_acceptance_record_sha256": "cd52d64ed5592767b94f73b5c97e17f96dab1a2de1086439b56de8fead1a78b7",
+  "scope": "Exact native pocket/body correction, retained seat and hook bearing, nearest neighbours and 29 sampled full bent-wing insertion poses with the silicone removed. Does not establish physical flexure, retention, operating life, sealing or removal effort."
+}

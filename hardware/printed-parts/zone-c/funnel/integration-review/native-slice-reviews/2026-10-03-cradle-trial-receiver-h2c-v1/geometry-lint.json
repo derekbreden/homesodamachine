@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "command": [
+    "tools/cad-venv/bin/python",
+    "hardware/scripts/geometry_lint.py",
+    "hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.stl"
+  ],
+  "source_stl_sha256": "6d4c1b2d9ccdf8769db04c900337cc2358e51b61a4e43bdf1b6a8a2a010b6fd6",
+  "printed_facets": 928,
+  "unanswered_findings": 0,
+  "intentional_findings_answered": 0,
+  "after_live_geometry_verification": false,
+  "live_scope": "Coupon lint was run after root verified the matching production frame live. The coupon itself is a separate offline trial artifact and was not verified as a served native artifact.",
+  "intentional_features": "No geometry-lint findings.",
+  "scope": "Geometry lint locates selected face defects. It does not replace native emitted-path and support-removal review or physical qualification."
+}

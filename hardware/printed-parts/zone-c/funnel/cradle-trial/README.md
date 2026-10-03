@@ -32,6 +32,10 @@ undersides are retention bearings [33.8 mm](TRIAL_HOOK_BED) above the bed and ta
 bed under them. Nothing else on the cradle needs support.
 
 The H2C print and its native slice are recorded in [`h2c-print/`](h2c-print/README.md).
+The current offline [cradle slice](../integration-review/native-slice-reviews/2026-10-03-elbow-cradle-h2c-v2/README.md)
+and [receiver slice](../integration-review/native-slice-reviews/2026-10-03-cradle-trial-receiver-h2c-v1/README.md)
+bind the current meshes and emitted support-removal paths. No print has been
+submitted from those receipts; the accepted v4 pair remains frozen separately.
 
 ## Procedure
 

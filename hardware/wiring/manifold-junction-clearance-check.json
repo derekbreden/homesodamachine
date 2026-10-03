@@ -15,23 +15,23 @@
     "contact_to_free_plane_allowance_mm": 11.65,
     "connector_y_mm": 320.8,
     "J1_z_mm": {
-      "OUT1": 263.42,
-      "OUT2": 265.92,
-      "OUT3": 268.42,
-      "OUT4": 270.92,
-      "OUT5": 273.42,
-      "OUT6": 275.92,
-      "OUT7": 278.42,
-      "OUT8": 280.92,
-      "COM": 283.42
+      "COM": 263.42,
+      "OUT1": 265.92,
+      "OUT2": 268.42,
+      "OUT3": 270.92,
+      "OUT4": 273.42,
+      "OUT5": 275.92,
+      "OUT6": 278.42,
+      "OUT7": 280.92,
+      "OUT8": 283.42
     },
     "J2_z_mm": {
-      "OUT1": 289.42,
-      "OUT2": 291.92,
-      "OUT3": 294.42,
-      "OUT4": 296.92,
+      "COM": 301.92,
       "FAN": 299.42,
-      "COM": 301.92
+      "OUT4": 296.92,
+      "OUT3": 294.42,
+      "OUT2": 291.92,
+      "OUT1": 289.42
     },
     "board_top_contact_datum_x_mm": 94.65,
     "model_frame_centre_in_physical_pcb_mm": [
@@ -43,7 +43,350 @@
       309.8,
       289.9
     ],
-    "contact_datum_scope": "Pin XY follows the canonical Jst physical pin map. X94.65 is the PCB top surface, used as a conservative cut-length datum; actual XH mating-contact depth and termination insertion are unmodelled."
+    "contact_datum_scope": "Pin XY follows the canonical Jst physical pin map. X94.65 is the PCB top surface, used as a conservative cut-length datum; actual XH mating-contact depth and termination insertion are unmodelled.",
+    "canonical_native_station_check": {
+      "status": "clear",
+      "assembly_step_sha256": "423b46dd9d931d4e34e8c53daa9b468a5d57494321c5f4f76e906a9b9a0d1f77",
+      "standalone_board_step_sha256": "0d5f3259f3ee833f7a0611e6d4259ab280473b78999211665934ec4024f558a4",
+      "native_board_brep_sha256": "600f09a27cbd971ed339b69cf3eaea078d723605261d560c47c8abf126cb8bf2",
+      "native_placement": {
+        "rotation_sequence": [
+          [
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            -90.0
+          ],
+          [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            -90.0
+          ]
+        ],
+        "model_to_world_translation_mm": [
+          96.25,
+          284.3,
+          289.8
+        ],
+        "physical_pcb_to_world_translation_mm": [
+          96.25,
+          309.8,
+          289.9
+        ],
+        "world_minus_placed_standalone_mm3": 0.0,
+        "placed_standalone_minus_world_mm3": 0.0
+      },
+      "canonical_pin_derivation": {
+        "method": "Execute exact current canonical TypeScript declarations, jstPins function and J1/J2 JSX props after TypeScript transpilation; no board build.",
+        "extracted_source_sha256": "fdf8581f46031db089778d3b9a31e0ca38ab17433e9673429ab142c0fbbaac55"
+      },
+      "connectors": {
+        "J1": {
+          "placement": {
+            "x": 11,
+            "y": 16.48,
+            "count": 9,
+            "rot": 270,
+            "labels": [
+              "OUT8",
+              "OUT7",
+              "OUT6",
+              "OUT5",
+              "OUT4",
+              "OUT3",
+              "OUT2",
+              "OUT1",
+              "COM"
+            ]
+          },
+          "wafer_rotation_degrees": 270,
+          "pins": {
+            "COM": {
+              "physical_pcb_xy_mm": [
+                11.0,
+                26.48
+              ],
+              "standalone_model_station_mm": [
+                36.5,
+                26.38,
+                1.6
+              ],
+              "world_board_top_station_mm": [
+                94.65,
+                320.8,
+                263.42
+              ]
+            },
+            "OUT1": {
+              "physical_pcb_xy_mm": [
+                11.0,
+                23.98
+              ],
+              "standalone_model_station_mm": [
+                36.5,
+                23.88,
+                1.6
+              ],
+              "world_board_top_station_mm": [
+                94.65,
+                320.8,
+                265.92
+              ]
+            },
+            "OUT2": {
+              "physical_pcb_xy_mm": [
+                11.0,
+                21.48
+              ],
+              "standalone_model_station_mm": [
+                36.5,
+                21.38,
+                1.6
+              ],
+              "world_board_top_station_mm": [
+                94.65,
+                320.8,
+                268.42
+              ]
+            },
+            "OUT3": {
+              "physical_pcb_xy_mm": [
+                11.0,
+                18.98
+              ],
+              "standalone_model_station_mm": [
+                36.5,
+                18.88,
+                1.6
+              ],
+              "world_board_top_station_mm": [
+                94.65,
+                320.8,
+                270.92
+              ]
+            },
+            "OUT4": {
+              "physical_pcb_xy_mm": [
+                11,
+                16.48
+              ],
+              "standalone_model_station_mm": [
+                36.5,
+                16.38,
+                1.6
+              ],
+              "world_board_top_station_mm": [
+                94.65,
+                320.8,
+                273.42
+              ]
+            },
+            "OUT5": {
+              "physical_pcb_xy_mm": [
+                11.0,
+                13.98
+              ],
+              "standalone_model_station_mm": [
+                36.5,
+                13.88,
+                1.6
+              ],
+              "world_board_top_station_mm": [
+                94.65,
+                320.8,
+                275.92
+              ]
+            },
+            "OUT6": {
+              "physical_pcb_xy_mm": [
+                11.0,
+                11.48
+              ],
+              "standalone_model_station_mm": [
+                36.5,
+                11.38,
+                1.6
+              ],
+              "world_board_top_station_mm": [
+                94.65,
+                320.8,
+                278.42
+              ]
+            },
+            "OUT7": {
+              "physical_pcb_xy_mm": [
+                11.0,
+                8.98
+              ],
+              "standalone_model_station_mm": [
+                36.5,
+                8.88,
+                1.6
+              ],
+              "world_board_top_station_mm": [
+                94.65,
+                320.8,
+                280.92
+              ]
+            },
+            "OUT8": {
+              "physical_pcb_xy_mm": [
+                11.0,
+                6.48
+              ],
+              "standalone_model_station_mm": [
+                36.5,
+                6.38,
+                1.6
+              ],
+              "world_board_top_station_mm": [
+                94.65,
+                320.8,
+                283.42
+              ]
+            }
+          }
+        },
+        "J2": {
+          "placement": {
+            "x": 11,
+            "y": -5.77,
+            "count": 6,
+            "rot": 270,
+            "labels": [
+              "COM",
+              "FAN",
+              "OUT4",
+              "OUT3",
+              "OUT2",
+              "OUT1"
+            ]
+          },
+          "wafer_rotation_degrees": 90,
+          "pins": {
+            "COM": {
+              "physical_pcb_xy_mm": [
+                11.0,
+                -12.02
+              ],
+              "standalone_model_station_mm": [
+                36.5,
+                -12.12,
+                1.6
+              ],
+              "world_board_top_station_mm": [
+                94.65,
+                320.8,
+                301.92
+              ]
+            },
+            "FAN": {
+              "physical_pcb_xy_mm": [
+                11.0,
+                -9.52
+              ],
+              "standalone_model_station_mm": [
+                36.5,
+                -9.62,
+                1.6
+              ],
+              "world_board_top_station_mm": [
+                94.65,
+                320.8,
+                299.42
+              ]
+            },
+            "OUT4": {
+              "physical_pcb_xy_mm": [
+                11.0,
+                -7.02
+              ],
+              "standalone_model_station_mm": [
+                36.5,
+                -7.12,
+                1.6
+              ],
+              "world_board_top_station_mm": [
+                94.65,
+                320.8,
+                296.92
+              ]
+            },
+            "OUT3": {
+              "physical_pcb_xy_mm": [
+                11.0,
+                -4.52
+              ],
+              "standalone_model_station_mm": [
+                36.5,
+                -4.62,
+                1.6
+              ],
+              "world_board_top_station_mm": [
+                94.65,
+                320.8,
+                294.42
+              ]
+            },
+            "OUT2": {
+              "physical_pcb_xy_mm": [
+                11.0,
+                -2.02
+              ],
+              "standalone_model_station_mm": [
+                36.5,
+                -2.12,
+                1.6
+              ],
+              "world_board_top_station_mm": [
+                94.65,
+                320.8,
+                291.92
+              ]
+            },
+            "OUT1": {
+              "physical_pcb_xy_mm": [
+                11.0,
+                0.48
+              ],
+              "standalone_model_station_mm": [
+                36.5,
+                0.38,
+                1.6
+              ],
+              "world_board_top_station_mm": [
+                94.65,
+                320.8,
+                289.42
+              ]
+            }
+          }
+        }
+      },
+      "model_frame_centre_in_physical_pcb_mm": [
+        -25.5,
+        0.10000000000000142
+      ],
+      "source_sha256": {
+        "hardware/manifold-layout/enclosure_assembly.py": "d4f46a3316b29645f877e10f22a93328caf6e55fa42dfaada07224dd1940e9ec",
+        "hardware/printed-parts/electronics/pcba-tray/pcba-board.step": "0d5f3259f3ee833f7a0611e6d4259ab280473b78999211665934ec4024f558a4",
+        "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py": "a515c906320bc40f02b4f8037135596ed57dc823650156351628fa03d98af759",
+        "hardware/pcb/pcba/parts.tsx": "3a040dacac15ffa24500c0e4c96525da484e7deef05fc5de8bf95a42a2900fa8",
+        "hardware/pcb/pcba/pcba.tsx": "50c52bbe8880f2bcb2854544a1f7dbc8c8f2eb0ef69dc179cb4824aba9000e90",
+        "hardware/pcb/pcba/out/pcba.glb": "819d2d6a51579a8c3ee66bcb9432075bc50ca77cf129bd828ea538b8fc72b767"
+      },
+      "query_sha256": {
+        ".cache/funnel-block-seat/wire-cap/check_pcb.py": "e3eee685904599fae0de867975d7fa93ba3a72492072a78f3453d9405290048a",
+        ".cache/funnel-block-seat/wire-cap/canonical_pins.js": "b532fc7379cb24d3ed2ecda03cf8bb726a10a8270c91e8f778e0517b83298831"
+      },
+      "source_unchanged_during_check": true,
+      "datum_scope": "The canonical pin XY maps to pcba_tray.port at the board top surface. Actual XH mating-contact depth and crimp insertion remain unmodelled; this is a conservative cut-length datum."
+    }
   },
   "bench_cut_recommendations_mm": {
     "J1_COM": 300,
@@ -84,8 +427,8 @@
     "distance_method": "Native CadQuery/OCP shape distance against every scene body within a 3 mm bounding-box search margin; no near body is reconstructed.",
     "clearance_reporting_limit_mm": 3,
     "terminal_contact_scope": "Only each named terminal body is excluded at its first or last contact segment and endpoint sphere. All other segments and corner spheres include that body. Mating terminal boots and hidden terminal insertion remain unmodelled.",
-    "query_script_sha256": "a6f9597621a1db90611f65f03150e94ec4ff3823557f035bd04bee8da426ceec",
-    "assembly_step_sha256": "2ea8aa70c2075ebeb899cbe621d5515cea5703b96da6aad1817b4941a87a2a5d",
+    "query_script_sha256": "275cbe8242fd7af75e83925692a7fd57510b7c24fd5d0414e261be0ebc30a72e",
+    "assembly_step_sha256": "423b46dd9d931d4e34e8c53daa9b468a5d57494321c5f4f76e906a9b9a0d1f77",
     "native_body_count": 216,
     "front_top_native_shape": {
       "bounds_mm": [
@@ -96,24 +439,25 @@
         159.9999999,
         355.0000001038191
       ],
-      "volume_mm3": 1258105.9445356503,
+      "volume_mm3": 1258105.944535648,
       "solids": 1
     },
     "cut_reserve_method": "Authored complete centreline length; board routes additionally spend 11.65 mm from the board-top contact datum to the free-wire plane. Remaining reserve covers hidden termination insertion and service allowance."
   },
   "source_sha256": {
-    "hardware/manifold-layout/enclosure-assembly.step": "2ea8aa70c2075ebeb899cbe621d5515cea5703b96da6aad1817b4941a87a2a5d",
+    "hardware/manifold-layout/enclosure-assembly.step": "423b46dd9d931d4e34e8c53daa9b468a5d57494321c5f4f76e906a9b9a0d1f77",
     "hardware/manifold-layout/enclosure_assembly.py": "d4f46a3316b29645f877e10f22a93328caf6e55fa42dfaada07224dd1940e9ec",
     "hardware/manifold-layout/manifold_layout.py": "3ca053e20d70996b94f184f0ba86f8e1c5d205ea5140d9ec34bdca2311844567",
     "hardware/pcb/pcba/out/pcba.glb": "819d2d6a51579a8c3ee66bcb9432075bc50ca77cf129bd828ea538b8fc72b767",
     "hardware/pcb/pcba/parts.tsx": "3a040dacac15ffa24500c0e4c96525da484e7deef05fc5de8bf95a42a2900fa8",
     "hardware/pcb/pcba/pcba.tsx": "50c52bbe8880f2bcb2854544a1f7dbc8c8f2eb0ef69dc179cb4824aba9000e90",
     "hardware/printed-parts/cold-core/_cold_core_interface.py": "9cb0b893247a4d43e3a892ca011127d1f373cdb8045d9f4ebbef387220908f6f",
+    "hardware/printed-parts/electronics/pcba-tray/pcba-board.step": "0d5f3259f3ee833f7a0611e6d4259ab280473b78999211665934ec4024f558a4",
     "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py": "a515c906320bc40f02b4f8037135596ed57dc823650156351628fa03d98af759",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "ef39a549003017fd0602844e3c46cc3899a3df00ad6c866fcac61da65cf06069",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "cb45044df359205d55dafe6ad3a8f5e8f332eccb2cfe6ac708f3c913672541b6",
     "hardware/printed-parts/enclosure/enclosure/enclosure.py": "63d17e1d9dd08945d42795639eb0311a91c1511d7693fa3add4eb62ca8287946",
-    "hardware/printed-parts/zone-c/funnel/elbow-cradle.step": "dfcbbdf80d91e10127a32f6cd98787088aaa4f588c06159d38541c8346940923",
+    "hardware/printed-parts/zone-c/funnel/elbow-cradle.step": "02127f475220ce77f32d955cb795fc941f43c36346ee4fdfaf5210b2eb07047d",
     "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "011cba0d23badd7f0bc31ddffee6b55f68ac8b6cec8044aeb9d457e9b34be089",
     "hardware/reference/beduan-solenoid/beduan_solenoid.py": "640acf974256bbfff88546cbef5672b870a2ceb21d34c128487bf1aa286ab498"
   },
@@ -183,17 +527,17 @@
         [
           83,
           320.8,
-          283.42
+          263.42
         ],
         [
           83,
           330,
-          283.42
+          263.42
         ],
         [
           94.625,
           330,
-          283.42
+          263.42
         ],
         [
           94.625,
@@ -221,10 +565,10 @@
           268
         ]
       ],
-      "centreline_length_mm": 243.699464,
+      "centreline_length_mm": 223.699464,
       "start_reference": "Board free-wire plane",
       "bench_cut_max_mm": 300,
-      "bench_cut_minus_centreline_mm": 56.300536,
+      "bench_cut_minus_centreline_mm": 76.300536,
       "native_wire_envelope_clear": true,
       "min_stock_gap_lower_bound_mm": 1.231015377,
       "terminal_contact_exclusions": [
@@ -316,18 +660,17 @@
             {
               "body": "tube-co2-2",
               "gap_mm": 1.675877119
+            },
+            {
+              "body": "pcba",
+              "gap_mm": 2.545
             }
           ]
         },
         {
           "index": 1,
-          "stock_gap_lower_bound_mm": 2.65,
-          "closest_stock": [
-            {
-              "body": "relay-2",
-              "gap_mm": 2.65
-            }
-          ]
+          "stock_gap_lower_bound_mm": 3.0,
+          "closest_stock": []
         },
         {
           "index": 2,
@@ -383,7 +726,7 @@
       "remaining_cut_reserve_mm": 44.650536,
       "endpoint_scope": "Native bare spade tip or nominal Wago entry face; terminal boot and installed bend radius unqualified.",
       "board_contact_to_free_plane_mm": 11.65,
-      "bench_cut_reserve_after_board_span_mm": 44.650536,
+      "bench_cut_reserve_after_board_span_mm": 64.650536,
       "terminal_endpoint_native_checks": [
         {
           "body": "wago-mana",
@@ -394,7 +737,22 @@
           ],
           "point_distance_mm": 0.0
         }
-      ]
+      ],
+      "canonical_board_pin": {
+        "connector": "J1",
+        "pin": "COM",
+        "board_top_station_mm": [
+          94.65,
+          320.8,
+          263.42
+        ],
+        "free_wire_start_mm": [
+          83,
+          320.8,
+          263.42
+        ],
+        "contact_to_free_plane_span_mm": 11.650000000000006
+      }
     },
     "J2_COM_to_B": {
       "points_mm": [
@@ -640,24 +998,39 @@
           ],
           "point_distance_mm": 0.0
         }
-      ]
+      ],
+      "canonical_board_pin": {
+        "connector": "J2",
+        "pin": "COM",
+        "board_top_station_mm": [
+          94.65,
+          320.8,
+          301.92
+        ],
+        "free_wire_start_mm": [
+          83,
+          320.8,
+          301.92
+        ],
+        "contact_to_free_plane_span_mm": 11.650000000000006
+      }
     },
     "J1_OUT4_to_D": {
       "points_mm": [
         [
           83,
           320.8,
-          270.92
+          273.42
         ],
         [
           83,
           330,
-          270.92
+          273.42
         ],
         [
           94.625,
           330,
-          270.92
+          273.42
         ],
         [
           94.625,
@@ -695,10 +1068,10 @@
           163.325
         ]
       ],
-      "centreline_length_mm": 477.755,
+      "centreline_length_mm": 480.255,
       "start_reference": "Board free-wire plane",
       "bench_cut_max_mm": 550,
-      "bench_cut_minus_centreline_mm": 72.245,
+      "bench_cut_minus_centreline_mm": 69.745,
       "native_wire_envelope_clear": true,
       "min_stock_gap_lower_bound_mm": 1.231015377,
       "terminal_contact_exclusions": [
@@ -812,7 +1185,7 @@
             },
             {
               "body": "pcba",
-              "gap_mm": 2.545
+              "gap_mm": 2.858469834
             }
           ]
         },
@@ -890,7 +1263,7 @@
       "remaining_cut_reserve_mm": 60.595,
       "endpoint_scope": "Native bare spade tip or nominal Wago entry face; terminal boot and installed bend radius unqualified.",
       "board_contact_to_free_plane_mm": 11.65,
-      "bench_cut_reserve_after_board_span_mm": 60.595,
+      "bench_cut_reserve_after_board_span_mm": 58.095,
       "terminal_endpoint_native_checks": [
         {
           "body": "coil-v-d",
@@ -901,24 +1274,39 @@
           ],
           "point_distance_mm": 1.0000002248489182e-07
         }
-      ]
+      ],
+      "canonical_board_pin": {
+        "connector": "J1",
+        "pin": "OUT4",
+        "board_top_station_mm": [
+          94.65,
+          320.8,
+          273.42
+        ],
+        "free_wire_start_mm": [
+          83,
+          320.8,
+          273.42
+        ],
+        "contact_to_free_plane_span_mm": 11.650000000000006
+      }
     },
     "J1_OUT8_to_H_conservative": {
       "points_mm": [
         [
           83,
           320.8,
-          280.92
+          283.42
         ],
         [
           83,
           330,
-          280.92
+          283.42
         ],
         [
           94.625,
           330,
-          280.92
+          283.42
         ],
         [
           94.625,
@@ -966,10 +1354,10 @@
           225.325
         ]
       ],
-      "centreline_length_mm": 502.869056,
+      "centreline_length_mm": 505.369056,
       "start_reference": "Board free-wire plane",
       "bench_cut_max_mm": 550,
-      "bench_cut_minus_centreline_mm": 47.130944,
+      "bench_cut_minus_centreline_mm": 44.630944,
       "native_wire_envelope_clear": true,
       "min_stock_gap_lower_bound_mm": 1.231015377,
       "terminal_contact_exclusions": [
@@ -1196,7 +1584,7 @@
       "remaining_cut_reserve_mm": 41.435051,
       "endpoint_scope": "Native bare spade tip or nominal Wago entry face; terminal boot and installed bend radius unqualified.",
       "board_contact_to_free_plane_mm": 11.65,
-      "bench_cut_reserve_after_board_span_mm": 35.480944,
+      "bench_cut_reserve_after_board_span_mm": 32.980944,
       "terminal_endpoint_native_checks": [
         {
           "body": "coil-v-h",
@@ -1207,7 +1595,22 @@
           ],
           "point_distance_mm": 1.0000002248489182e-07
         }
-      ]
+      ],
+      "canonical_board_pin": {
+        "connector": "J1",
+        "pin": "OUT8",
+        "board_top_station_mm": [
+          94.65,
+          320.8,
+          283.42
+        ],
+        "free_wire_start_mm": [
+          83,
+          320.8,
+          283.42
+        ],
+        "contact_to_free_plane_span_mm": 11.650000000000006
+      }
     },
     "J2_OUT1_to_I": {
       "points_mm": [
@@ -1513,7 +1916,22 @@
           ],
           "point_distance_mm": 1.0000002248489182e-07
         }
-      ]
+      ],
+      "canonical_board_pin": {
+        "connector": "J2",
+        "pin": "OUT1",
+        "board_top_station_mm": [
+          94.65,
+          320.8,
+          289.42
+        ],
+        "free_wire_start_mm": [
+          83,
+          320.8,
+          289.42
+        ],
+        "contact_to_free_plane_span_mm": 11.650000000000006
+      }
     },
     "J2_OUT2_to_J": {
       "points_mm": [
@@ -1760,7 +2178,22 @@
           ],
           "point_distance_mm": 9.999999406318238e-08
         }
-      ]
+      ],
+      "canonical_board_pin": {
+        "connector": "J2",
+        "pin": "OUT2",
+        "board_top_station_mm": [
+          94.65,
+          320.8,
+          291.92
+        ],
+        "free_wire_start_mm": [
+          83,
+          320.8,
+          291.92
+        ],
+        "contact_to_free_plane_span_mm": 11.650000000000006
+      }
     },
     "A_positive_to_D_max": {
       "points_mm": [
@@ -2549,7 +2982,22 @@
           ],
           "point_distance_mm": 0.0
         }
-      ]
+      ],
+      "canonical_board_pin": {
+        "connector": "J2",
+        "pin": "OUT3",
+        "board_top_station_mm": [
+          94.65,
+          320.8,
+          294.42
+        ],
+        "free_wire_start_mm": [
+          83,
+          320.8,
+          294.42
+        ],
+        "contact_to_free_plane_span_mm": 11.650000000000006
+      }
     },
     "B_positive_to_fan_crown": {
       "points_mm": [
@@ -3004,7 +3452,22 @@
       "endpoint_scope": "Accessible condenser crown region; final donor lead and terminal unlocated.",
       "board_contact_to_free_plane_mm": 11.65,
       "bench_cut_reserve_after_board_span_mm": 94.98,
-      "terminal_endpoint_native_checks": []
+      "terminal_endpoint_native_checks": [],
+      "canonical_board_pin": {
+        "connector": "J2",
+        "pin": "FAN",
+        "board_top_station_mm": [
+          94.65,
+          320.8,
+          299.42
+        ],
+        "free_wire_start_mm": [
+          83,
+          320.8,
+          299.42
+        ],
+        "contact_to_free_plane_span_mm": 11.650000000000006
+      }
     }
   }
 }

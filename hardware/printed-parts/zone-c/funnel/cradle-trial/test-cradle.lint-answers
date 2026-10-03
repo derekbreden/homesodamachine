@@ -1,0 +1,4 @@
+[ceiling] The two square hook undersides are the current cradle's retention bearings on the frame's 3 mm web. The trial STL is byte-identical to the production cradle. Its current native slice retains two bed-rooted supports outside the pocket, and every emitted support bead has a clear outward removal sweep after the contacts are detached. See ../integration-review/native-slice-reviews/2026-10-03-elbow-cradle-h2c-v2/. Physical retention, support finish and removal effort remain unqualified for the current 3.15 mm hooks.
+file: hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step
+click: x=-16.600 y=4.661 z=33.803
+click: x=16.600 y=4.661 z=33.803

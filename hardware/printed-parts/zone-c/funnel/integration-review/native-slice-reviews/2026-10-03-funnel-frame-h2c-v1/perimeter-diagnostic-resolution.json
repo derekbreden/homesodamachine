@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "pass": true,
+  "archive_sha256": "5e2727797dd2ab2408b9ca6b76835f553e4a2eefcea52fd64fa1e30000f43a1d",
+  "source_step_sha256": "011cba0d23badd7f0bc31ddffee6b55f68ac8b6cec8044aeb9d457e9b34be089",
+  "source_stl_sha256": "9bbdd18722b968407c6eb844d1d70d4f85963a26afb1dceedbd5b4d0f754b6bd",
+  "raw_perimeter_flag_count": 1,
+  "resolved_flag_count": 1,
+  "native_surface": "Face 96: upward horizontal Z48.8 silicone-brim clearance seat; native adjacent Face 83 is the small internal forming-clearance torus.",
+  "actual_emitted_feature": "Top surface road at native G-code line 602884 crosses the diagnostic point; its own bead covers the witness by 0.0264 mm.",
+  "decision": "The section lies on a horizontal functional seat. It receives top-surface infill as required; a separate wall along the interior contour of that top face is not a missing model feature.",
+  "scope": "Measured native surfaces and emitted roads only. Does not qualify physical brim fit or surface finish."
+}

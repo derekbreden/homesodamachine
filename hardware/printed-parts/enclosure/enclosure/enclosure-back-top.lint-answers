@@ -47,7 +47,7 @@ click: x=-88.285 y=282.000 z=276.899
 
 [ceiling] The lower ledge inside the flush nameplate opening is the pocket bearing face. It is backed by the rear wall and surrounding pad. On the ceiling-down print, supports reach the ledge through the open mouth and are removed before seating the nameplate.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=38.160 y=469.620 z=249.779
+click: x=38.160 y=469.620 z=256.529
 
 [ceiling] Relay 2's lower end bar bridges the 15 mm span between its two blocker-profiled wings over the relay's pin field. The flat first printed face projects only 2.25 mm from the east wall and is carried by those wings; the bar remains a full mounting feature, not a thin detached shelf.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
@@ -111,22 +111,34 @@ click: x=106.867 y=331.567 z=351.683
 
 [step] The nameplate's east backing ends at Y465.8, leaving 1.00 mm to the installed PSU terminal corner. Its 0.50 mm offset from the adjacent inner wall is a clearance relief. The accepted pocket floor remains at Y467.94, retaining 2.14 mm backing and the full 1.23 mm outer retaining lip. See accepted-fit-integration/geometry-check.json and fluted-receiver-stock.json.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=91.716 y=465.800 z=269.178
+click: x=91.716 y=465.800 z=275.928
 
 [sliver] This vertical face is the 1.46 mm depth change from the nameplate's 3.60 mm backing to its local 2.14 mm backing beside the PSU. It bounds solid material toward the exterior, not a separate 1.46 mm ligament. The slot and its retaining face keep the accepted fit.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=90.550 y=465.070 z=269.178
+click: x=90.550 y=465.070 z=275.928
 
-[sliver] The short horizontal face closes the PSU relief at Z293.178. The measured strip is the relief's depth at the end of the surrounding ramp, not wall thickness. It faces print-up in the roof-down orientation and joins the complete 2.14 mm backing.
+[sliver] The short horizontal face closes the PSU relief at Z299.928. The measured strip is the relief's depth at the end of the surrounding ramp, not wall thickness. It faces print-up in the roof-down orientation and joins the complete 2.14 mm backing.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=93.688 y=465.300 z=293.178
+click: x=93.688 y=465.300 z=299.928
 
 [slope] These two sloping edges form the diamond opening used to press the nameplate outward for removal. Their 9 mm horizontal run and 10 mm rise form a self-supporting access ceiling in the roof-down print orientation. The surrounding floor retains its 3.60 mm thickness.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=42.660 y=466.140 z=264.178
-click: x=33.660 y=466.140 z=264.178
+click: x=42.660 y=466.140 z=270.928
+click: x=33.660 y=466.140 z=270.928
 
 [ceiling] The rear funnel receivers' flat rail bearings preserve the production sliding profile. Back-top prints roof-down, so these faces receive supports through the open channel. The channels are accessible from the interior and their Y entrances before assembly; support removal and the bed layout remain physical/preparation review items.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-101.125 y=215.747 z=315.600
-click: x=101.125 y=215.747 z=315.600
+click: x=-101.125 y=215.346 z=315.600
+click: x=101.125 y=215.346 z=315.600
+
+[step] The rounded foam-cap pocket ends at Y465.55, 0.25 mm behind the surrounding Y465.3 interior field. That offset is the cap's XY running clearance, bounded to Z248..253.4. The native pocket floor has 3.75 mm of continuous backing across its flat face, and at least 3.5 mm across its entire rectangular bounds; forward-expansion-check.json records both stock witnesses. This is an exposed clearance step, not a 0.25 mm wall.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=0.000 y=465.550 z=250.700
+
+[sliver] The cap pocket's lower return is the 0.25 mm plan remainder between its Y465.55 wall and the surrounding Y465.3 interior field. The return lies at Z248 and bounds the fully backed pocket floor. It does not form a separate thin ligament; the complete rounded-pocket stock witnesses are in forward-expansion-check.json.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=0.000 y=465.425 z=248.000
+
+[ceiling] The 0.25 mm-deep lower return of the foam-cap recess faces print-down in the roof-down orientation. It is backed by the complete rear wall and opens into the cap recess. Any contact support can leave directly through that opening before the cap is installed; this small return is not a hidden cavity.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=0.000 y=465.425 z=248.000

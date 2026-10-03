@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "pass": true,
+  "archive_sha256": "e572748e4dd94f49a147992231cedf72e7cc2ce8470bd1b168067020e841f6ed",
+  "gcode_sha256": "e2eff4c4ca6dd14280c472a81ded63ccef30764f11aff710e0315adf9b09a509",
+  "source_stl_sha256": "6d4c1b2d9ccdf8769db04c900337cc2358e51b61a4e43bdf1b6a8a2a010b6fd6",
+  "source_step_sha256": "79de294d370cbb103475febb4149b52832582c388db1de7d038edf93442038d2",
+  "support_road_count": 0,
+  "support_bodies": {
+    "support_bodies": 0,
+    "interface_islands": 0,
+    "bed_rooted_bodies": 0,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 0,
+    "shortest_labelled_build_up_mm": null
+  },
+  "maximum_outward_support_sweep_native_stock_overlap_mm2": 0.0,
+  "support_sweep_flags": [],
+  "all_support_layer_sweeps": [],
+  "route": "Detach hook/rail support contacts; cut sacrificial branch junctions if needed; move support sections outward in -X on the west and +X on the east into open space.",
+  "method": "Every emitted support bead footprint, including unlabeled bodies, is swept outward in X past the native bounds plus 30 mm. Its complete actual bead-height interval is compared with filled native STL endpoint sections and all triangle surfaces clipped to that interval, conservatively projected into XY. Empty intersection proves no stock at any occupied bead height obstructs the sweep.",
+  "scope": "Complete native STL stock projection and complete emitted bead-height/width removal sweeps after detaching contacts and branch junctions. Connected trees need not leave intact. Does not establish physical removal effort, contact finish, or bond quality.",
+  "complete_slab_pass": true,
+  "whole_slab_support_road_count": 0,
+  "whole_slab_projection_flags": [],
+  "all_complete_support_slab_sweeps": []
+}

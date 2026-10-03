@@ -132,12 +132,17 @@ terminal directions, paths, stock clearances and bench cuts.
 
 The twelve complete 1.7 mm wire envelopes keep at least 1.231 mm from native
 stock; the shared bare trunk keeps 1.325 mm. The checked H and I switched
-routes are 502.869 and 480.455 mm from the board's free-wire plane. Their
-550 mm cuts retain 35.481 and 57.895 mm after the additional 11.65 mm span
+routes are 505.369 and 480.455 mm from the board's free-wire plane. Their
+550 mm cuts retain 32.981 and 57.895 mm after the additional 11.65 mm span
 from the board-top contact datum. V-K's positive branch is 210.010 mm to one
 tab, and its OUT3 return is 105.311 mm to the other; the 150 mm return cut
 retains 33.039 mm after that board span. Positive and switched conductors
 land on separate tabs at every coil.
+
+J1's 270° connector placement puts COM at Z263.42, OUT1 at Z265.92 and OUT8
+at Z283.42; the pins share Y320.8. The native PCB placement and canonical
+connector pin map bind those wire starts in the junction review. J1's COM
+route is 223.699 mm; its 300 mm cut retains 64.651 mm after the board span.
 
 The 1.7 mm wire envelopes and shared straight strip establish geometric
 clearance. The review does not qualify Faston boots, bend radii at the tabs,

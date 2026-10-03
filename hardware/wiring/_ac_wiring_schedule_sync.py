@@ -124,13 +124,13 @@ len_pump_mm = 250       # DC-3 (diaphragm pump), which never leaves the box
 # recorded DC-5 routing factor. Those estimates do not validate a wire corridor.
 len_relays_mm = 100      # LV-1/2/3 → both Teyleten modules, one crown above the board (88)
 len_vk_mm = 150          # DC-9 OUT3 → V-K, 105.311 mm free-wire path + 11.65 mm board span
-len_man_a_com_mm = 300   # J1 COM → +X Y169 221-420, via the aft under-PCB strip
+len_man_a_com_mm = 300   # J1 COM → +X Y169 221-420; 223.699 mm free-wire path + 11.65 mm board span
 len_man_b_com_mm = 300   # J2 COM → +X Y169 221-415, independently of the valve OUT cuts
 len_flow_mm = 300        # SIG-4 → the DIGITEN in the strip ahead of the cold core (256)
 len_onewire_mm = 300     # SIG-1 → the DS18B20/DS18S20 bus in the core (267)
 len_sensors_gnd_mm = 300 # SIG-1/4/9's shared `GND` → the 221-415 on the −X wall aft (284)
 len_reeds_gnd_mm = 300   # SIG-10/11's `GND` → the 221-415 / 221-420 at the reservoirs (274–278)
-len_man_a_mm = 550       # DC-6 OUT1–OUT8 → eight coils; checked H free-wire path 502.869 mm
+len_man_a_mm = 550       # DC-6 OUT1–OUT8 → eight coils; checked H free-wire path 505.369 mm
 len_moisture_mm = 350    # SIG-9 → the dry LM393 board by the pan's −X-wall cable clip (304)
 len_carb_reeds_mm = 350  # SIG-2/3 → the carbonator's low and high reeds (323)
 len_man_b_mm = 550       # DC-7 OUT1/OUT2 → V-I/V-J; checked I free-wire path 480.455 mm
