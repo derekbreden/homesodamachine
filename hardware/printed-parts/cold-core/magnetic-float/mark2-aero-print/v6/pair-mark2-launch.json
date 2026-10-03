@@ -6,7 +6,7 @@
   ],
   "physical_trial_revision": 6,
   "native_archive_revision": 6,
-  "status": "accepted",
+  "status": "running",
   "archive": ".cache/prints/magnetic-float-pair-mark2-aero-v6/ready/magnetic-float-pair-mark2-aero-v6.gcode.3mf",
   "archive_name": "magnetic-float-pair-mark2-aero-v6.gcode.3mf",
   "archive_sha256": "22689911264655fd4158f8cba9fd3843c9a7ae32aee9b9985aafb581ebcdd6cf",
@@ -182,6 +182,43 @@
           "target_c": 0
         }
       ]
+    },
+    {
+      "event": "first_layer_printer_progress",
+      "observed_at": "2026-10-03T06:08:41.259312+00:00",
+      "job_id": "1304125241",
+      "subtask_name": "magnetic-float-pair-mark2-aero-v6.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "stg_cur": 0,
+      "layer_num": 1,
+      "total_layer_num": 220,
+      "mc_percent": 15,
+      "mc_remaining_time": 98,
+      "bed_temper": 90.0,
+      "bed_target_temper": 90.0,
+      "print_error": 0,
+      "hms": [],
+      "installed_extruders": [
+        {
+          "id": 0,
+          "temperature_packed": 17694990,
+          "actual_c": 270,
+          "target_c": 270
+        },
+        {
+          "id": 1,
+          "temperature_packed": 62,
+          "actual_c": 62,
+          "target_c": 0
+        }
+      ],
+      "chamber": {
+        "temperature_packed": 3932220,
+        "actual_c": 60,
+        "target_c": 60,
+        "source_field": "device.ctc.info.temp"
+      },
+      "scope": "Matching task telemetry reached layer 1. This does not establish visual first-layer adhesion, physical fit, density or buoyancy."
     }
   ],
   "printer_reports": [
@@ -334,36 +371,40 @@
       ]
     }
   ],
-  "latest_observed_utc": "2026-10-03T05:58:21.679965+00:00",
+  "latest_observed_utc": "2026-10-03T06:08:41.259312+00:00",
   "latest_status": {
     "job_id": "1304125241",
     "subtask_name": "magnetic-float-pair-mark2-aero-v6.gcode.3mf",
     "gcode_state": "RUNNING",
-    "layer_num": 0,
+    "stg_cur": 0,
+    "layer_num": 1,
     "total_layer_num": 220,
-    "mc_percent": 0,
-    "mc_remaining_time": 116,
+    "mc_percent": 15,
+    "mc_remaining_time": 98,
+    "bed_temper": 90.0,
+    "bed_target_temper": 90.0,
     "print_error": 0,
     "hms": [],
-    "stg_cur": -1,
-    "bed_temper": 55.0,
-    "bed_target_temper": 0.0,
-    "nozzle_temper": 53.0,
-    "nozzle_target_temper": 0.0,
     "installed_extruders": [
       {
         "id": 0,
-        "temperature_packed": 53,
-        "actual_c": 53,
-        "target_c": 0
+        "temperature_packed": 17694990,
+        "actual_c": 270,
+        "target_c": 270
       },
       {
         "id": 1,
-        "temperature_packed": 52,
-        "actual_c": 52,
+        "temperature_packed": 62,
+        "actual_c": 62,
         "target_c": 0
       }
-    ]
+    ],
+    "chamber": {
+      "temperature_packed": 3932220,
+      "actual_c": 60,
+      "target_c": 60,
+      "source_field": "device.ctc.info.temp"
+    }
   },
   "accepted_task_id": "1304125241",
   "task_id_confirmed_utc": "2026-10-03T05:58:21.680040+00:00",
