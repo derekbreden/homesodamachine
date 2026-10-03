@@ -2,9 +2,9 @@
 file: hardware/printed-parts/zone-c/funnel/funnel-frame.step
 click: x=100.875 y=-10.571 z=16.200
 click: x=-100.875 y=-10.571 z=16.200
-click: x=100.875 y=29.124 z=16.450
-click: x=-100.875 y=29.124 z=16.450
+click: x=100.875 y=47.074 z=16.450
+click: x=-100.875 y=47.074 z=16.450
 
 [step] The 0.3 mm recess below the frame top gives the silicone brim its assembly clearance. The brim bears on the recessed enclosure ledge at Z349; this recess follows the bowl clearance.
 file: hardware/printed-parts/zone-c/funnel/funnel-frame.step
-click: x=20.833 y=-43.425 z=48.800
+click: x=-20.833 y=-61.375 z=48.800
