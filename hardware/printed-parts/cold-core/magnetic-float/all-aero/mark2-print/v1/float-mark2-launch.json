@@ -1,0 +1,443 @@
+{
+  "printer": "Mark2",
+  "parts": [
+    "float-aero"
+  ],
+  "physical_trial_revision": 1,
+  "native_archive_revision": 1,
+  "archive": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/magnetic-float-all-aero-mark2-v1/ready/magnetic-float-all-aero-mark2-v1.gcode.3mf",
+  "archive_sha256": "b64e1e8a003af554bb194ad3bcfe24f65cfc6cdf293b96f01d1655ebd2127a86",
+  "gcode_sha256": "361071a87606a213c493b2297977947d676fce7b8a07a44b41eda115a48d8462",
+  "source_commit": "4ac1fa874ddbccd9f96fa3c708079927c82049d2",
+  "source_stl_sha256": {
+    "float-aero": "88da0b4e454a99b3ef01ca5b13da323d81504146785a321fc07592de0c0acd6e"
+  },
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.04
+  ],
+  "bed": "Engineering Plate, with glue",
+  "bed_clear_confirmation": "I am ready for the next print on mark2. Bed is clear.",
+  "material_mapping": {
+    "material": "Bambu ASA Aero White 46100",
+    "filament_id": "GFB02",
+    "source": "Polymaker drybox",
+    "external_slot": 255,
+    "nozzle": "right fixed hardened standard-flow 0.4 mm",
+    "send_dialog_tile_required": "Ext ASA-AERO R",
+    "send_dialog_verified": true,
+    "send_dialog_tile": "Ext ASA-AERO R",
+    "verified_utc": "2026-10-03T20:01:21.560212+00:00"
+  },
+  "estimated_part_time_s": 5299.4833984375,
+  "article": "All-ASA Aero magnetic float with RC62 insertion pause",
+  "pause_before_layer": 80,
+  "last_open_pocket_layer_z_mm": 15.8,
+  "first_covering_layer_z_mm": 16.0,
+  "magnet_pause_review": {
+    "pause_command": "M400 U1",
+    "pause_count": 1,
+    "completed_layers_before_pause": 79,
+    "last_open_pocket_layer_z_mm": 15.8,
+    "printed_seat_top_z_mm": 12.4,
+    "first_covering_layer_z_mm": 16.0,
+    "nominal_printed_magnet_center_z_mm": 13.9875,
+    "nominal_cad_magnet_center_z_mm": 14.0,
+    "physical_center_scope": "Layer quantization, magnet thickness tolerance and actual printed fit limit physical centering.",
+    "nominal_seated_magnet_top_z_mm": 15.575,
+    "maximum_seated_magnet_top_z_mm": 15.674999999999999,
+    "minimum_magnet_recess_below_printed_rim_mm": 0.12500000000000178,
+    "minimum_first_cover_nozzle_clearance_mm": 0.32500000000000107,
+    "ring_footprint_coverage_by_layer": {
+      "12.2": 1.000000000000002,
+      "12.4": 1.000000000000002,
+      "12.6": 0.0,
+      "12.8": 0.0,
+      "13.0": 0.0,
+      "13.2": 0.0,
+      "13.4": 0.0,
+      "13.6": 0.0,
+      "13.8": 0.0,
+      "14.0": 0.0,
+      "14.2": 0.0,
+      "14.4": 0.0,
+      "14.6": 0.0,
+      "14.8": 0.0,
+      "15.0": 0.0,
+      "15.2": 0.0,
+      "15.4": 0.0,
+      "15.6": 0.0,
+      "15.8": 0.0,
+      "16.0": 1.000000000000002,
+      "16.2": 1.000000000000002
+    },
+    "covering_roads_emitted_after_pause_only": true,
+    "guide_bore_remains_open": true,
+    "pause_message": "Insert one RC62 ring into the open annular pocket, fully down onto its floor. The magnet must sit below both pocket rims. Keep the guide bore open and clear loose strings without moving the float. Resume only with the magnet fully seated.",
+    "scope": "Explicit commands and idealized bead footprints; firmware parking/resume motion, actual foam, magnet movement and hot metal adhesion remain physical-trial observations."
+  },
+  "magnet_pause_elapsed_estimate_min": 57,
+  "magnet_pause_estimate_basis": "Native initial M73 C56 time-to-pause and M73 R31 at the end of layer 79 in the 88-minute slice; actual warm-up and calibration can shift wall-clock timing.",
+  "resume_requires_fully_seated_rc62": true,
+  "automatic_resume_authorized": false,
+  "monitor_active": false,
+  "monitor_status": "Existing follow-up paused by user; it is not reactivated for this launch.",
+  "physical_print_completed": false,
+  "density_verified": false,
+  "buoyancy_verified": false,
+  "archive_name": "magnetic-float-all-aero-mark2-v1.gcode.3mf",
+  "status": "accepted",
+  "send_attempts": 1,
+  "send_attempt_utc": "2026-10-03T20:01:36.432124+00:00",
+  "print_options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "send_gate": {
+    "observed_at": "2026-10-03T20:01:36.432133+00:00",
+    "printers": {
+      "Mark2": {
+        "job_id": "1305301700",
+        "task_id": "1305301700",
+        "subtask_name": "magnetic-float-insert-mark2-aero-v8.gcode.3mf",
+        "print_type": "cloud",
+        "gcode_state": "FINISH",
+        "layer_num": 50,
+        "total_layer_num": 50,
+        "mc_percent": 100,
+        "mc_remaining_time": 0,
+        "print_error": 0,
+        "hms": [],
+        "stg_cur": -1,
+        "bed_temper": 26.0,
+        "bed_target_temper": 0.0,
+        "installed_extruders": [
+          {
+            "id": 0,
+            "hnow": 0,
+            "snow": 65280,
+            "temperature_packed": 33,
+            "actual_c": 33,
+            "target_c": 0
+          },
+          {
+            "id": 1,
+            "hnow": 1,
+            "snow": 65024,
+            "temperature_packed": 28,
+            "actual_c": 28,
+            "target_c": 0
+          }
+        ],
+        "chamber": {
+          "temperature_packed": 26,
+          "actual_c": 26,
+          "target_c": 0,
+          "source_field": "device.ctc.info.temp"
+        }
+      },
+      "H2C": {
+        "job_id": "1305315362",
+        "task_id": "1305315362",
+        "subtask_name": "enclosure-front-top-current-black-z018-h2c-v17.gcode.3mf",
+        "print_type": "cloud",
+        "gcode_state": "RUNNING",
+        "layer_num": 247,
+        "total_layer_num": 1354,
+        "mc_percent": 17,
+        "mc_remaining_time": 1271,
+        "print_error": 0,
+        "hms": [],
+        "stg_cur": 0,
+        "bed_temper": 80.0,
+        "bed_target_temper": 80.0,
+        "installed_extruders": [
+          {
+            "id": 0,
+            "hnow": 0,
+            "snow": 65535,
+            "temperature_packed": 48,
+            "actual_c": 48,
+            "target_c": 0
+          },
+          {
+            "id": 1,
+            "hnow": 1,
+            "snow": 65024,
+            "temperature_packed": 18350360,
+            "actual_c": 280,
+            "target_c": 280
+          }
+        ],
+        "chamber": {
+          "temperature_packed": 35,
+          "actual_c": 35,
+          "target_c": 0,
+          "source_field": "device.ctc.info.temp"
+        }
+      }
+    },
+    "other_printer_reference_utc": "2026-10-03T15:22:21.776285+00:00",
+    "seconds_since_other_printer_reference": 16754.655813,
+    "reference_basis": "H2C accepted front-top task 1305315362 at this time; matching task observed continuously RUNNING during monitoring and in the current pre-launch read. Both printers are read again by the Send gate.",
+    "dialog_tile": "Ext ASA-AERO R",
+    "nozzle_id": 0,
+    "external_slot": 255
+  },
+  "observations": [
+    {
+      "event": "printer_accepted",
+      "observed_at": "2026-10-03T20:01:48.556797+00:00",
+      "job_id": "1306080180",
+      "task_id": "1306080180",
+      "subtask_name": "magnetic-float-all-aero-mark2-v1.gcode.3mf",
+      "print_type": "cloud",
+      "gcode_state": "RUNNING",
+      "layer_num": 0,
+      "total_layer_num": 140,
+      "mc_percent": 0,
+      "mc_remaining_time": 88,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": 79,
+      "bed_temper": 26.0,
+      "bed_target_temper": 0.0,
+      "installed_extruders": [
+        {
+          "id": 0,
+          "hnow": 0,
+          "snow": 65280,
+          "temperature_packed": 33,
+          "actual_c": 33,
+          "target_c": 0
+        },
+        {
+          "id": 1,
+          "hnow": 1,
+          "snow": 65024,
+          "temperature_packed": 28,
+          "actual_c": 28,
+          "target_c": 0
+        }
+      ],
+      "chamber": {
+        "temperature_packed": 26,
+        "actual_c": 26,
+        "target_c": 0,
+        "source_field": "device.ctc.info.temp"
+      }
+    }
+  ],
+  "printer_reports": [
+    {
+      "section": "print",
+      "gcode_state": [
+        "FINISH",
+        "magnetic-float-insert-mark2-aero-v8.gcode.3mf"
+      ]
+    },
+    {
+      "section": "print",
+      "command": "project_file",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "err_code": 0,
+      "sequence_id": "0"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "3066"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "3067"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "3069"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "3070"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "3071"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "3072"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "3073"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "3074"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "3075"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "3076"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "3077"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "3078"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "3079"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "3080"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "3081"
+    },
+    {
+      "section": "print",
+      "gcode_state": [
+        "PREPARE",
+        "magnetic-float-all-aero-mark2-v1.gcode.3mf"
+      ]
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "3086"
+    },
+    {
+      "section": "print",
+      "command": "gcode_line",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "sequence_id": "3087"
+    },
+    {
+      "section": "print",
+      "gcode_state": [
+        "RUNNING",
+        "magnetic-float-all-aero-mark2-v1.gcode.3mf"
+      ]
+    }
+  ],
+  "latest_observed_utc": "2026-10-03T20:01:48.556670+00:00",
+  "latest_status": {
+    "job_id": "1306080180",
+    "task_id": "1306080180",
+    "subtask_name": "magnetic-float-all-aero-mark2-v1.gcode.3mf",
+    "print_type": "cloud",
+    "gcode_state": "RUNNING",
+    "layer_num": 0,
+    "total_layer_num": 140,
+    "mc_percent": 0,
+    "mc_remaining_time": 88,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": 79,
+    "bed_temper": 26.0,
+    "bed_target_temper": 0.0,
+    "installed_extruders": [
+      {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65280,
+        "temperature_packed": 33,
+        "actual_c": 33,
+        "target_c": 0
+      },
+      {
+        "id": 1,
+        "hnow": 1,
+        "snow": 65024,
+        "temperature_packed": 28,
+        "actual_c": 28,
+        "target_c": 0
+      }
+    ],
+    "chamber": {
+      "temperature_packed": 26,
+      "actual_c": 26,
+      "target_c": 0,
+      "source_field": "device.ctc.info.temp"
+    }
+  },
+  "accepted_task_id": "1306080180",
+  "accepted_job_id": "1306080180",
+  "accepted_utc": "2026-10-03T20:01:48.556792+00:00",
+  "magnet_insertion_estimate": {
+    "calculated_utc": "2026-10-03T20:03:44.986961+00:00",
+    "timezone": "America/Chicago",
+    "local_zone_at_launch": "CDT",
+    "elapsed_from_acceptance_min": 57,
+    "estimated_pause_utc": "2026-10-03T20:58:48.556792+00:00",
+    "estimated_pause_local": "2026-10-03T15:58:48.556792-05:00",
+    "planning_window_local": [
+      "2026-10-03T15:50:00-05:00",
+      "2026-10-03T16:10:00-05:00"
+    ],
+    "basis": "Native initial M73 C56 time-to-pause and M73 R31 at the end of layer 79 in the 88-minute slice; actual warm-up and calibration can shift wall-clock timing.",
+    "scope": "Approximate wall-clock estimate; startup heating, calibration and firmware motion can shift arrival. The native pause waits for manual magnet insertion and resume."
+  },
+  "completion_reported": false
+}
