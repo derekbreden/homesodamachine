@@ -26,6 +26,18 @@ You have access to my Chrome which is signed in to my amazon through your MCP. I
 
 Git keeps history. Code and docs in this repo describe current state. Don't write "was X, now Y" or decision narratives in current files. Don't defend the current choice against alternatives the reader hasn't asked about. The repo describes only what is.
 
+A commit takes the paths your session changed — `git commit -- <paths>`, with `git add <path>` first for a new file — and every other change stays in the tree as it is. The message ends in one trailer block:
+
+```text
+Session: <session title>
+Derek: "<his words, exactly as typed>"
+Derek: "<another passage, with ... marking a cut; a long one wraps onto
+ lines that start with a space>"
+Co-Authored-By: <the harness's line, when it adds one>
+```
+
+`python3 ~/Developer/claude-code-setup/jsonl2md/jsonl2md.py whoami` prints the session title, marked `(auto-generated)` when Derek hasn't named the session; in a cloud session, the `Claude-Session:` link names it. Each `Derek:` line is a passage of his that the commit answers, quoted exactly — never paraphrased — and never anything the Privacy section keeps out of the repo. A commit nothing of his asked for has no `Derek:` line. `git log --format='%(trailers:key=Derek)'` reads them back.
+
 ## Privacy
 
 This repository is public. Do not include the founder's family relationships or private details about relatives in repository content, including examples and transcripts. Refer to participants generically, such as "nearby beta household."
