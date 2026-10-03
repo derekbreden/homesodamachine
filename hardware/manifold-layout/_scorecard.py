@@ -617,10 +617,10 @@ MADE_UP = (
     # The drain stub and the elbow's +Z collet. The stub IS the tube in that grip — it runs
     # `funnel_drain_stub.UNION_INSERTION` down inside the fitting — so the collet's lead is
     # filled by the thing it is a grip on.
-    ("funnel-drain-stub.spout", "funnel-drain-union.stub"),
+    ("funnel-drain-stub.lower", "funnel-drain-union.stub"),
     # And the same stub up the plug's bore to the top of its land. The funnel drains THROUGH the
     # stub, so the drain's lead is the stub's own bore.
-    ("funnel.drain", "funnel-drain-stub.funnel"),
+    ("funnel.drain", "funnel-drain-stub.upper"),
     # The plug's bottom face and the elbow's release face, which stand the frame's web less the
     # collet's projection apart with the stub filling the hole between them.
     ("funnel.drain", "funnel-drain-union.stub"),

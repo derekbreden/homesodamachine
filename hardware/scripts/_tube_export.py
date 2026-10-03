@@ -141,7 +141,6 @@ def export(a):
         "asse1022-assembly": {"tube-in": "collet", "tube-out": "collet", "vent-tip": "stub"},
         "vk-solenoid": "collet", "flow-regulator": "collet", "water-split": "collet",
         "digiten-flow": "collet", "funnel-drain-union": "collet",
-        "funnel": "spout",
     }
     for _v in _lines.VALVES:
         END_KINDS[f"valve-{_v.lower()}"] = "collet"

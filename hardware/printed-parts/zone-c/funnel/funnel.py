@@ -52,7 +52,7 @@ spout_wall = 4.5  # minimum radial stock around the throat
 neck_blend_drop = 6.25
 # Ramp and outlet elevations are independent of the plug's lower face.
 _ramp_rise = 14.199233063709995
-plug_diameter = 36.0
+plug_width = 36.0  # the plug rectangle's X width; its Y length houses the cradle's hooks
 # Tall enough that the plug's top lies wholly inside the bowl: the bowl's underside stands
 # 15.745 mm over the plug's bottom at its +X corners, its highest over the plug.
 plug_height = 16.0
@@ -63,7 +63,8 @@ bore_relief_id = 6.7
 bore_lead_id = 8.4
 bore_lead_height = 1.8
 spout_land_z = brim_thickness - chute_h - _ramp_rise - neck_blend_drop
-spout_tube = spout_land_z + drop
+# The stub's reach into the plug: from its bottom face to the top of its sealing land.
+stub_engagement = spout_land_z + drop
 _ramp_run = (collar_w - 2.0 * collar_wall) / 2.0 - spout_id / 2.0 + abs(neck_dx)
 _y_run = (collar_d - 2.0 * collar_wall) / 2.0 - spout_id / 2.0 + abs(neck_dy)
 ramp_angle = math.degrees(math.atan2(_ramp_rise, max(_ramp_run, _y_run)))
@@ -75,7 +76,7 @@ _bounds.state(
     f"{_ramp_rise:.3f} mm rise over {max(_ramp_run, _y_run):.3f} mm run: "
     f"{ramp_angle:.3f} degrees")
 
-# The drain, in the funnel's own frame: the spout exit annulus center. World
+# The drain, in the funnel's own frame: the bore's exit on the plug's bottom face. World
 # position = this + the funnel's placement; it rides the part.
 drain_local = (neck_dx, neck_dy, -drop)
 
@@ -190,7 +191,7 @@ def build_solids(drop=drop, ramp_wall=collar_wall, outer_air=0.0):
              _rounded_box(w + 2 * brim_overhang, d + 2 * brim_overhang,
                           brim_corner_r, 0.0, top_z),
              _cyl(spout_or, neck_z, end_z, ncx, ncy),
-             elbow_cradle.plug_outline(plug_diameter / 2, 0.0, 0.0, plug_height)
+             elbow_cradle.plug_outline(plug_width / 2, 0.0, 0.0, plug_height)
              .translate(cq.Vector(ncx, ncy, end_z))]
     if outer_air:
         bases = [bases[0], *(normal_envelope(b, outer_air) for b in bases[1:])]
@@ -220,11 +221,10 @@ def build_solids(drop=drop, ramp_wall=collar_wall, outer_air=0.0):
         "collar_wall": collar_wall,
         "out_w": w + 2 * brim_overhang, "out_d": d + 2 * brim_overhang,
         "out_cx": cx, "out_cy": cy, "rim_ring": collar_wall + brim_overhang,
-        "spout_id": spout_id, "spout_or": plug_diameter / 2,
+        "spout_id": spout_id,
         "top_z": top_z, "ramp_top_z": ramp_top_z, "neck_z": neck_z,
         "spout_land_z": land_z, "end_z": end_z,
         "neck_blend_drop": neck_blend_drop,
-        "plug_radius": plug_diameter / 2,
         "sealing_radius": sealing_id / 2,
         "sealing_land": sealing_land,
         "relief_radius": bore_relief_id / 2,
@@ -260,21 +260,18 @@ def main():
     b = funnel.val().BoundingBox()
     print(f"  brim:    {b.xlen:.1f} × {b.ylen:.1f} mm, top z={b.zmax:.1f} (local; z 0 = brim underside)")
     print(f"  mouth:   {w:.1f} × {d:.1f} mm (collar), bore {w - 2*collar_wall:.1f} × {d - 2*collar_wall:.1f}")
-    print(f"  spout:   Ø{spout_id:g} bore, drain at ({drain_local[0]:g}, {drain_local[1]:g}, {drain_local[2]:g}) local, total drop {total:.1f} mm")
+    print(f"  outlet:  Ø{spout_id:g} bore, drain at ({drain_local[0]:g}, {drain_local[1]:g}, {drain_local[2]:g}) local, total drop {total:.1f} mm")
     print(f"  capacity to brim: {fill:.0f} mm³ = {fill / 1000.0:.0f} mL "
           f"(nominal {capacity_ml:g} mL)")
 
     substitute_md(
         _here.parent / "README.md",
         variables={
-            "FUNNEL_SPOUT_ID": f"{spout_id:g} mm",
-            "FUNNEL_PLUG": f"{plug_diameter:g} × "
-                           f"{2 * elbow_cradle.plug_half_length(plug_diameter / 2):.1f} mm",
+            "FUNNEL_PLUG": f"{plug_width:g} × "
+                           f"{2 * elbow_cradle.plug_half_length(plug_width / 2):.1f} mm",
 
-            "FUNNEL_SPOUT_WALL": f"{spout_wall:g} mm",
             "FUNNEL_CHUTE": f"{chute_h:g} mm",
             "FUNNEL_DROP_UNDER": f"{drop:g} mm",
-            "FUNNEL_LAND": f"{spout_tube:g} mm",
             "FUNNEL_DROP": f"{total:.0f} mm",
             "FUNNEL_CAP": f"{fill / 1000.0:.0f} mL",
             "FUNNEL_HOLD": f"{brim_overhang:g} mm",

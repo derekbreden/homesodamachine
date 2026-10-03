@@ -57,7 +57,7 @@ turns at spec, and its `path` is the developed length of stock with the arcs tak
 comparable with the card's `need.path`.
 
 THE SEARCH IS ORTHOGONAL AND THE AUTHORED RUNS LEAN. `_routing.bent` draws a leg that steps two
-coordinates at once and two of `fluid-4`'s do, so the search steps square and `_smooth` redraws
+coordinates at once and many authored legs do, so the search steps square and `_smooth` redraws
 each staircase as the lean the machine would bend, checking the diagonal against the same room. A
 leaned corridor is shorter than the square one, so an orthogonal `path` is an UPPER BOUND on what
 that corridor can be drawn at: a lane that beats the authored run squarely beats it leaning too.
@@ -511,8 +511,8 @@ def _rides(name: str) -> str:
 
 # The longest chord a tube is chopped into before it is boxed. A box round a leaning length of
 # tube holds the tube and a wedge of air either side of it, and the wedge is what would delete a
-# lane running beside it — `fluid-2` leans across the strip `fluid-4` runs down, and one box round
-# that whole leg swallows the mirror line. Chopped this fine, the wedge is under a tenth of a
+# lane running beside it — one box round a leg leaning across another run's strip swallows the
+# line beside it. Chopped this fine, the wedge is under a tenth of a
 # millimetre on the steepest lean in the machine.
 TUBE_CHORD = 6.0
 
@@ -1032,8 +1032,8 @@ def lanes(run: str, top: int = 6, floor: float = FLOOR, hold=(), snap: dict = No
 
     # A BODY A RUN LEAVES IS STILL A BODY THE RUN HAS TO MISS. The two the mouths are cut into
     # are held out only where holding them out is the only way to ask the question: if the lead
-    # end still stands inside the body's own box — the funnel is a cone and its box holds
-    # the whole spout — then every line off that mouth reads blocked and there is nothing to
+    # end still stands inside the body's own box — a mouth recessed into a deep body — then
+    # every line off that mouth reads blocked and there is nothing to
     # search. Where the lead end stands clear of it, as it does at a valve whose collet is on the
     # face of its own box, the body stays IN, because a search that may tunnel through the
     # fitting it is plumbing will find its cheapest lane straight down the middle of it.
@@ -1247,8 +1247,8 @@ def _smooth(pts: tuple, near: tuple, od: float, floor: float, radius: float,
     """The orthogonal lane redrawn the way `_routing.bent` would draw it: a staircase of square
     steps replaced by the single leaning leg that takes them all at once.
 
-    THE LEAN IS ONE LEG AND NOT TWO CORNERS — `_lines._fluid_4` says it about the run this
-    instrument was pointed at, and an orthogonal lattice cannot say it at all: a lattice steps
+    THE LEAN IS ONE LEG AND NOT TWO CORNERS — `_routing.bent` draws it that way, and an
+    orthogonal lattice cannot say it at all: a lattice steps
     one world coordinate at a time, so a 20 mm sidestep down a 100 mm fall becomes two right
     angles where the machine draws one gentle move. Searching on the lattice and smoothing after
     is how the search keeps a corridor's shape while the drawing keeps the machine's.
@@ -1642,8 +1642,8 @@ def selftest() -> int:
           all(l.path > got[0].path - 1e-9 for l in got[1:]), True)
 
     # THE LEAN. A 10 mm sidestep down a 200 mm run is one gentle move, not two right angles —
-    # `_lines._fluid_4` says so about the run this instrument was pointed at, and an orthogonal
-    # lattice cannot say it at all. The search steps it square and `_smooth` draws it.
+    # `_routing.bent` draws it so, and an orthogonal lattice cannot say it at all. The search
+    # steps it square and `_smooth` draws it.
     off10 = (((0.0, 0.0, 0.0), (0.0, -1.0, 0.0)), ((10.0, -200.0, 0.0), (0.0, 1.0, 0.0)))
     got = one(off10, top=1)
     check("a 10 mm offset is one leaning leg: bends", got[0].bends, 0)
@@ -1669,9 +1669,9 @@ def selftest() -> int:
     check("a slab across it: turns no further than the cap",
           got[0].worst_turn <= MAX_TURN + 1e-6, True)
 
-    # A 10 mm slot a 0.5 mm floor fits through and a 2 mm floor does not. `fluid-4`'s own case in
-    # miniature — the source pair's limbs leave 7.890 mm for a Ø6.35 line — and the control on
-    # the floor being a real parameter rather than a decoration.
+    # A 10 mm slot a 0.5 mm floor fits through and a 2 mm floor does not: a narrow gap between
+    # two bodies in miniature, and the control on the floor being a real parameter rather than a
+    # decoration.
     slot = dict(west=(-60.0, -5.0, -120.0, -80.0, -40.0, 40.0),
                 east=(5.0, 60.0, -120.0, -80.0, -40.0, 40.0))
     got = one(DOWN_ONE_LINE, top=1, floor=0.5, **slot)

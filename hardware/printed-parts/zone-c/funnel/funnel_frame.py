@@ -36,7 +36,7 @@ socket_depth = 19.0
 socket_flare = (2.0, 1.0)   # height, outward reach of the plug's lead-in
 assert abs(socket_width / 2 - elbow_cradle.SOCKET_HALF) < 1e-9
 # the cradle's hooks clear the socket's corner rounds
-assert elbow_cradle.hook_corner_clearance(funnel.plug_diameter / 2) >= 0.1
+assert elbow_cradle.hook_corner_clearance(funnel.plug_width / 2) >= 0.1
 DEFAULT_INNER = (-104.5, 104.5, 0.0, 290.0, 0.0, 352.0)
 
 
@@ -103,7 +103,7 @@ def build(inner=DEFAULT_INNER, y_joint=200.0, centre=(0.0, center_y), seat=349.0
     clear = forming_clearance().translate((cx, cy, seat))
     clear = clear.intersect(funnel._box(400, 400, plug, seat + 10, cx, cy))
     place = cq.Vector(cx + funnel.neck_dx, cy + funnel.neck_dy, floor)
-    half, gap = funnel.plug_diameter / 2, (socket_width - funnel.plug_diameter) / 2
+    half, gap = funnel.plug_width / 2, (socket_width - funnel.plug_width) / 2
     socket = elbow_cradle.socket(half, gap, socket_depth, *socket_flare).translate(place)
     pierce = [c.translate(place) for c in elbow_cradle.web_cuts()]
     body = body.cut(clear.fuse(socket)).clean()
@@ -183,7 +183,7 @@ def main():
                            / 'tools'))
     from docgen import substitute_md
     s = elbow_cradle.stations()
-    half, gap = funnel.plug_diameter / 2, (socket_width - funnel.plug_diameter) / 2
+    half, gap = funnel.plug_width / 2, (socket_width - funnel.plug_width) / 2
     substitute_md(here / 'README.md', variables={
         'FRAME_HOLE': f'{tube_hole_diameter:g} mm',
         'FRAME_SOCKET': f'{socket_width:g} × '

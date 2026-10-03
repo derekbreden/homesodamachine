@@ -52,8 +52,7 @@ for _p in ("manifold-layout", "printed-parts/cadlib", "printed-parts/cold-core",
            "printed-parts/enclosure/y-wall-of-back-top", "printed-parts/enclosure/enclosure",
            "printed-parts/enclosure/pump-tray", "reference/compressor",
            "reference/jg-bulkhead-union", "reference/iec-c14-inlet",
-           "printed-parts/zone-c/funnel", "reference/worm-clamp",
-           "reference/jg-pp0408w", "reference/funnel-drain-stub", "wiring"):
+           "printed-parts/zone-c/funnel", "reference/funnel-drain-stub", "wiring"):
     sys.path.insert(0, str(_hw / _p.replace("/", os.sep)))
 
 sys.path.insert(0, str(CARDS_DIR))
@@ -158,6 +157,7 @@ def enclosure(m: Machine):
     import enclosure as _enc
     import enclosure_assembly as _ea
     import _scorecard as _card
+    import funnel_drain_stub as _stub
     import iec_c14_inlet as _c14
     import jg_bulkhead_union as _jg
     from _y_wall_dimensions import c14_rim_inset
@@ -264,6 +264,10 @@ def enclosure(m: Machine):
     assert abs((hx0 + hx1) / 2.0 - (ox0 + ox1) / 2.0) < 1e-6, (
         "the funnel opening is off centre across the box and EN-10 sends the bench "
         "straight down it — say where it is instead")
+    # EN-10 cuts the drain stub to one length and pushes it down the frame's drain hole until it
+    # bottoms in the elbow's upper collet; the funnel's land closes on its top at FS. One length
+    # does both only while it reaches the collet's stop and the whole land — the stub's own check.
+    _stub.joint_holds()
 
     # The compressor bay's own width across the pair as it stands, and the cold
     # core's beside it. A body ON THE FLOOR is held one `side_band_inset` in from the ±X
@@ -320,8 +324,10 @@ def enclosure(m: Machine):
         # The cold core (EN-06).
         "CORE_FOOTPRINT": f"{outer_shell_x_length:.4g} {X} {outer_shell_y_length:.4g} mm",
         "CAP_CONDUITS": f"{len(cap_conduits)}",
-        # The funnel opening (EN-10).
+        # The funnel opening (EN-10), and the drain stub cut for it: the elbow's insertion, the
+        # web and the plug's bore to the top of its land.
         "FUNNEL_PIECES": funnel_pieces,
+        "EN10_STUB_LEN": f"{_stub.LENGTH:.4g}",
         # The front column's slide (EN-05) — how far front-top stands proud of the
         # bottom piece's front wall when its mouth first takes the shoulder.
         "RAIL_TRAVEL_FRONT": f"{_enc._z_rail_travel(
@@ -356,7 +362,7 @@ def enclosure(m: Machine):
         "en-08-close-the-box": {
             "BOX_QUADRANTS", "Y_SEAM", "Z_SEAM_FRONT",
             "BODY_COUNT"},
-        "en-10-display-and-funnel": {"FUNNEL_PIECES", "SA06_CAPACITY"},
+        "en-10-display-and-funnel": {"FUNNEL_PIECES", "SA06_CAPACITY", "EN10_STUB_LEN"},
     }
     return facts, cards
 

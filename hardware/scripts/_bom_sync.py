@@ -133,8 +133,8 @@ total_reeds_per_build = reeds_per_carbonator + reservoir_reeds_total
 # bulkhead, not PP1208E.
 pp1208e_per_build = panel_umbilical_bulkheads + panel_water_inlet_bulkheads
 
-# The placed pack turns no line on a fitting, so there is no union-elbow row in
-# the BOM. `manifold_layout.JOINS` is empty — every valve is butted collet to
+# The placed pack turns no line on a fitting, so the BOM's one union-elbow row is the
+# funnel drain's (§8). `manifold_layout.JOINS` is empty — every valve is butted collet to
 # collet down its limb, every junction is a Tee, and each pump barb is taken by a
 # tee's branch, which is what puts that tee's run across the head's face.
 assert not ml.JOINS, (

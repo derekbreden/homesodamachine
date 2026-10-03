@@ -9,9 +9,9 @@ photo-measured off the part in hand —
 `hardware/off-the-shelf-parts/john-guest-union/extracted-results/geometry-description.md`
 is the measurement, and this is the solid struck from it.
 
-One hangs under the funnel's spout, and the customer opens it every time
-the funnel goes to the dishwasher. What pushes into its upper collet is
-`hardware/reference/funnel-drain-stub/`; `fluid-4` leaves the lower one.
+A White faucet joins each flavour tube's white run to its black one with it
+(`hardware/faucet-layout/`), and the collet press is shaped around it
+(`hardware/printed-parts/collet-press/`).
 
 Coordinate convention:
   Z = tube-flow axis, +Z toward the near port.
@@ -83,9 +83,8 @@ def reach() -> float:
 
 
 def stations_hold():
-    """Hold the envelope and both ports to `jg-pp0408w.step` — the file the machine spaces
-    the funnel's disconnect by, while it hangs the funnel's stub in one end and starts a run
-    at the other."""
+    """Hold the envelope and both ports to `jg-pp0408w.step`, the file its users place and
+    shape against."""
     solid = import_step(str(STEP)).val()
     bb = solid.BoundingBox()
     for what, claimed, actual in (("ring width", RING_D, bb.xlen),

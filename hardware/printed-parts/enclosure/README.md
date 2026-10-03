@@ -46,7 +46,7 @@ The arrangement above is the current pack — a working layout. It is free to re
 - The condenser's airflow axis is its own short dimension, and it lies ACROSS the machine: the block draws through its finstack from the −X side face and exhausts out the +X one it stands against, so the air crosses the cabinet rather than turning inside it and the hot end leaves by the nearest wall.
 - The compressor stands upright, on its own feet, and cannot be laid on its side or inverted: the oil charge sits in the bottom of the hermetic can and the pickup is gravity-fed. That fixes its plate on the floor, which leaves a yaw as the only turn it has — and a yaw keeps its copper-bearing tangents horizontal, so the copper always leaves sideways.
 - The compressor is the one body on the floor the box fastens: four posts on the slab, struck off its own plate pattern, each rising through the rubber grommet in a plate hole to that grommet's crown, where a washer stops on it.
-- The funnel drains by gravity onto the funnel gate below it, so its spout has to stand over that valve, and it stays top-removable for cleaning.
+- The funnel drains by gravity to the funnel gate, V-B, below it: the PP0308E elbow under its frame turns the drain aft, and `fluid-4` only falls from that elbow to V-B's inlet. The silicone stays top-removable for cleaning.
 - The ASSE drip pan sits directly under the ASSE 1022 chain's atmospheric vent; the backflow preventer, the pan and the moisture sensor co-locate on the water-inlet path.
 - Everything the customer draws leaves by the rear umbilical, so the carbonated-water run from the core's outlet to its own bulkhead stays short.
 

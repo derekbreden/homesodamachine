@@ -133,7 +133,7 @@ def wall_reading(shape, point, normal):
 def nominal_plug(module, metadata):
     """The plug as the generator cuts it: its outline prism less the elbow cradle's hook pockets."""
     cradle = module.elbow_cradle
-    plug = cradle.plug_outline(module.plug_diameter / 2, 0.0, 0.0, module.plug_height).translate(
+    plug = cradle.plug_outline(module.plug_width / 2, 0.0, 0.0, module.plug_height).translate(
         cq.Vector(metadata["ncx"], metadata["ncy"], metadata["end_z"]))
     lift = cq.Vector(metadata["ncx"], metadata["ncy"], metadata["end_z"] - cradle.WEB)
     for pocket in cradle.pockets():
