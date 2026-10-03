@@ -1,13 +1,16 @@
 # Magnetic-float ASA Aero corner priming strip
 
-The combined core and insert plate is accepted on Mark2 as task **1304058102**,
-`magnetic-float-pair-mark2-aero-v5.gcode.3mf`, using its right standard-flow hardened
-0.4 mm nozzle and an additional single-layer priming strip at the front-right
-corner. One Send received `project_file SUCCESS`; the matching task entered
-`RUNNING` at layer 0. This confirms printer startup, with visual adhesion and
-physical fit still unverified. The user's start request confirms the bed is clear.
-Full acceptance, mapping, heater readings and startup spacing are in the
-[launch record](pair-mark2-launch.json).
+The combined core and insert trial on Mark2 is **stopped at layer 0**, task
+**1304058102**, `magnetic-float-pair-mark2-aero-v5.gcode.3mf`. The right standard-flow
+hardened 0.4 mm nozzle and front-right single-layer priming strip are retained in
+the frozen archive. One Send received `project_file SUCCESS` and the matching task
+entered `RUNNING`; the latest MQTT state is `FAILED`, with zero print-error code
+and no HMS alert. Bambu Connect separately displayed AMS feed alert **1800-8006,
+030021** while the right nozzle was held at 270 °C and filament-load controls were
+present. Whether the alert stopped the print or occurred during a subsequent
+reload is unconfirmed; operator clarification is pending. Visual adhesion and
+physical fit remain unreported. Full acceptance, stop observations, mapping,
+heater readings and startup spacing are in the [launch record](pair-mark2-launch.json).
 
 The [physical startup report](../v3/physical-observations.json) describes the
 corner load line lifting, being dragged to the part, and the first part extrusion
