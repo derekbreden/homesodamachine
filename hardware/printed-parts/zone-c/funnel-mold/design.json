@@ -27,11 +27,11 @@
     ]
   },
   "volume_ml": {
-    "cavity": 315.0547295374516,
-    "core": 281.160154906801,
-    "funnel": 197.49210570543445,
+    "cavity": 314.45466190992965,
+    "core": 281.1601747997588,
+    "funnel": 195.83598386659193,
     "rod": 1.6087962461345553,
-    "seal": 0.03542484628783221
+    "seal": 0.03542484628703538
   },
   "shell_thickness_mm": 5.0,
   "flange_thickness_mm": 5.0,
@@ -40,20 +40,20 @@
   "minimum_core_backing_mm": 4.999999997518456,
   "liquid_containment": {
     "cavity": {
-      "retained_volume_ml": 507.56721671417824,
+      "retained_volume_ml": 505.82043323543235,
       "casting_outside_retained_mm3": 0.0
     },
     "assembled": {
-      "retained_volume_ml": 216.703416940301,
+      "retained_volume_ml": 214.95642148564536,
       "casting_outside_retained_mm3": 0.0
     }
   },
   "parting_z_mm": 76.1,
   "finish_allowance_mm": 0.3,
-  "casting_scope": "rounded plug blank with a straight dowel bore; hook pockets and the staged sealing bore require separate forming features",
+  "casting_scope": "rectangular plug blank with a straight dowel bore; hook pockets and the staged sealing bore require separate forming features",
   "plug_blank_mm": [
     36.0,
-    44.12478,
+    41.02478,
     15.0
   ],
   "rod_support": {

@@ -413,7 +413,7 @@ def build():
         'minimum_core_backing_mm': minimum_core_backing,
         'liquid_containment': containment,
         'parting_z_mm': top-floor, 'finish_allowance_mm': finish_allowance,
-        'casting_scope': 'rounded plug blank with a straight dowel bore; hook pockets and the staged sealing bore require separate forming features',
+        'casting_scope': 'rectangular plug blank with a straight dowel bore; hook pockets and the staged sealing bore require separate forming features',
         'plug_blank_mm': [funnel.plug_diameter,
                           2*funnel.elbow_cradle.plug_half_length(funnel.plug_diameter/2),
                           funnel.plug_height],

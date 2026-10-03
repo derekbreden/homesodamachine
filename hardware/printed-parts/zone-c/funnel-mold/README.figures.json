@@ -1,7 +1,7 @@
 {
   "/tools/funnel-mold-print/verify_print.py": {
     "BOLT_D": "5 mm",
-    "CAST_VOLUME": "197 mL",
+    "CAST_VOLUME": "196 mL",
     "CAVITY_DIMS": "211 \u00d7 211 \u00d7 79.1 mm",
     "CHAMBER_GAP": "10.6 mm",
     "CORE_DIMS": "211 \u00d7 211 \u00d7 42.2 mm",
@@ -17,7 +17,7 @@
     "LOAD_SPAN": "165 mm",
     "LOCATOR_CLEARANCE": "0.60 mm",
     "LOCATOR_HEIGHT": "3 mm",
-    "PLUG_BLANK": "36 \u00d7 44.1 \u00d7 15 mm",
+    "PLUG_BLANK": "36 \u00d7 41 \u00d7 15 mm",
     "ROD_AXIAL": "3 mm",
     "ROD_CLEARANCE": "2 mm",
     "ROD_D": "6.35 mm",
