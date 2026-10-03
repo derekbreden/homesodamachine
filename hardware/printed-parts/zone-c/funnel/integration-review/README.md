@@ -16,8 +16,9 @@ the remaining 3 mm web outside the hole and slots.
 ## Open geometry
 
 The [assembly scorecard](/hardware/manifold-layout/enclosure-assembly.scorecard.json)
-records the current placed machine. Fluid-18 intersects the frame by 450.8 mm³;
-V-K has zero clearance to it. Fluid-24 and fluid-26 each clear the frame by
+records the current placed machine. Fluid-18 clears the frame by 35.725 mm in the
+[native cap and tube review](/hardware/printed-parts/cold-core/foam-cap/fluid-18-clearance-check.json).
+V-K has zero clearance to the frame. Fluid-24 and fluid-26 each clear the frame by
 0.551 mm, and fluid-14 clears V-A by 0.805 mm, below the 1 mm routing target.
 Fluid-2 clears the water pump by 1.421 mm. The regulator and fluid-1 clear the
 frame. These readings cover the authored solids and tube paths.

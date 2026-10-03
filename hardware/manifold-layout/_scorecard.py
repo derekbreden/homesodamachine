@@ -1714,13 +1714,11 @@ def _room_holds(a) -> Check:
 # out of the denominator, and its text goes out on the card.
 LOOSE = {
     "fluid-18":
-        "Flavor A's line to its rear union. The cold core's side post grips its crossing fore "
-        "of the pump (`_cold_core_interface.cap_side_anchors`), and what runs loose past it is "
-        "the fall and the union column's own straight — a column whose overhead is the "
-        "ASSE chain, flow meter and meter down-line, and whose flanks are the "
-        "pump's casting and the moisture plate's lane: nothing printed stands within a rib's "
-        "reach of it. Its unretained shape and clearance to the neighbouring lines require "
-        "a tube-shape review; the authored centreline does not establish them.",
+        "Flavor A's line to its rear union. The low cap post grips the fore crossing "
+        "(`_cold_core_interface.cap_side_anchors`). The remaining line follows the west "
+        "flank, turns below the pump discharge hose and returns to the rear union. Those "
+        "unretained spans need a support and relaxed-tube review. The authored centreline "
+        "does not establish physical tube shape or its clearance to neighbouring parts.",
 }
 
 

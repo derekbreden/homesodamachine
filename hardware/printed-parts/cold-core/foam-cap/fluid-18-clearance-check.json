@@ -1,0 +1,245 @@
+{
+  "schema": 1,
+  "required_free_gap_mm": 1.0,
+  "functional_seat_gap_mm": 0.15,
+  "scope": "Native CAD geometry: authored tube paths, full printed cap, stock and clearances. The source hashes bind this reading. The 0.15 mm cap-seat gap is functional; other cap stock clears the tube by 1.175 mm. Physical retention, supported-face cleanout and relaxed tube shape remain unqualified.",
+  "anchor_world_mm": [
+    34.000000006974815,
+    201.99999999999994,
+    261.0000001
+  ],
+  "anchor_local": {
+    "centre": [
+      120.8,
+      34.0
+    ],
+    "over_face": 7.6,
+    "seat_r": 3.3249999999999997,
+    "axis_off": 1.0,
+    "depth": 7.0
+  },
+  "post_height_above_lid_mm": 14.174999999999999,
+  "post_rear_web_mm": 3.4750000000000005,
+  "tunnel_roof_above_lid_mm": 1.2750000000000004,
+  "tunnel_height_mm": 1.2750000000000004,
+  "shortest_tie_loop_mm": 44.56800648354399,
+  "cap_room_mm": [
+    8.402084239295906,
+    "the vk-solenoid plinth"
+  ],
+  "tube_length_mm": 450.24175897995775,
+  "tube_min_bend_mm": 14.0,
+  "tube_corners": 9,
+  "tube_pts_mm": [
+    [
+      73.82,
+      166.23999999999998,
+      229.67500009999998
+    ],
+    [
+      73.82,
+      166.23999999999998,
+      259.80000010000003
+    ],
+    [
+      53.400000006974814,
+      201.99999999999994,
+      261.0000001
+    ],
+    [
+      27.000000006974815,
+      201.99999999999994,
+      261.0000001
+    ],
+    [
+      5.000000006974815,
+      201.99999999999994,
+      259.80000010000003
+    ],
+    [
+      -76.5,
+      201.99999999999994,
+      259.80000010000003
+    ],
+    [
+      -76.5,
+      345.0,
+      259.80000010000003
+    ],
+    [
+      -37.809999999999995,
+      375.0,
+      265.4438222682448
+    ],
+    [
+      -37.809999999999995,
+      385.0,
+      265.4438222682448
+    ],
+    [
+      -37.809999999999995,
+      405.0,
+      269.02400009999997
+    ],
+    [
+      -37.809999999999995,
+      446.51,
+      269.02400009999997
+    ]
+  ],
+  "bearing_straight_x_mm": [
+    27.381534613489162,
+    45.270398071519914
+  ],
+  "full_bearing_x_mm": [
+    29.600000006974817,
+    38.400000006974814
+  ],
+  "free_cap_gap_mm": 1.1750000069748125,
+  "tube_cap_overlap_mm3": 0.0,
+  "tube_frame_gap_mm": 35.72499989999989,
+  "post_frame_gap_mm": 32.324999899999966,
+  "nearby_tube": [
+    {
+      "name": "enclosure-back-top",
+      "gap": 1.3079121115631291,
+      "overlap": 0.0
+    },
+    {
+      "name": "tube-water-3",
+      "gap": 1.3947212036257752,
+      "overlap": 0.0
+    },
+    {
+      "name": "tube-water-5",
+      "gap": 1.5910230750119732,
+      "overlap": 0.0
+    },
+    {
+      "name": "g-ganen-pump",
+      "gap": 1.8673049767861065,
+      "overlap": 0.0
+    },
+    {
+      "name": "step-fluid-3",
+      "gap": 2.7386184876878357,
+      "overlap": 0.0
+    },
+    {
+      "name": "vk-solenoid",
+      "gap": 3.5551479720793093,
+      "overlap": 0.0
+    },
+    {
+      "name": "step-fluid-5",
+      "gap": 3.718708380711582,
+      "overlap": 0.0
+    },
+    {
+      "name": "tube-fluid-28",
+      "gap": 4.537790225752799,
+      "overlap": 0.0
+    }
+  ],
+  "nearby_post": [
+    {
+      "name": "step-fluid-3",
+      "gap": 2.490286658728769,
+      "overlap": 0.0
+    },
+    {
+      "name": "tube-fluid-14",
+      "gap": 4.025094298364973,
+      "overlap": 0.0
+    }
+  ],
+  "all_pass": true,
+  "input_sha256": {
+    "hardware/manifold-layout/_lines.py": "cfc9d482f67ad4db671e722d2911396bad380eaa2fe717f77300040e194da97c",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "aaed2e1129fe39597b70dcc6dc2d50c80bdf88783017e8397ae02e24a164c0d2",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "5b798d101e40be396d1f571f6570307c3f8f60ef93b2a7fe5e5e827af21cb1da",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "a261cedb006c164b1e135036eaefe5c0eb9a03ff62e193a5e91c1ce365035762",
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "4fb00cbbd2de2ceb4bed7124021eab75a8630656aca966b43918d4cf207768da",
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "b1798bdb1349700bf89cf46f5e8980e042f1b8b890cf8bbd03bf75e5ce12c0a2"
+  },
+  "neighbour_origin": {
+    "assembly_step_sha256": "61efc1112f72c8cbe2e0a850d2e8b0f6fb3be62b6ffcf2b08b2cc08b9a53b2d8",
+    "native_body_sha256": {
+      "enclosure-back-top": "04703dee5d4d2562adf68c0ffc48f6a536259a3019e7155714111386cea66ab1",
+      "tube-water-3": "b99920936a81ab1601da52297cd66bbe0e475c20129af460c7fd5b90877988ed",
+      "tube-water-5": "49e70b923005524476e7ad47694789a95cf0bc21beb7d4e508a3bc146f1f800d",
+      "g-ganen-pump": "1d6d47f8a89593d3a6d64112fc63bc967b15c5d97fd1fce41e2b6d9d902d070c",
+      "step-fluid-3": "17abac1f7b0c016626f77172d27cefa84c4a30560408f2a840250104d6f2c3fa",
+      "vk-solenoid": "b9476b04d8f8ad3eaf1bfb6f84b232bf8bb7ad58d3328f30beda9f27abc49a8e",
+      "step-fluid-5": "0c2d432ed6bdda24b5ff4f9e0ff6ef303776c91de0fd1e170a53342d7bef8bf6",
+      "tube-fluid-28": "e80134662ef89c7a0ac4359f7b16600b54c4ac6f1ddcb6c685173df54bb9a499",
+      "tube-fluid-14": "a9b292ca8b95be410f426995c0a4412fa5901409741937aa5af5ecb775e0f056",
+      "funnel-frame": "7a77dfb5ff47cae3874d4da1a70a0549c3a5bf5a336d08667c40d25b39711544"
+    }
+  },
+  "endpoint_frames": {
+    "valve-v-g.outlet": {
+      "at_mm": [
+        73.82,
+        166.23999999999998,
+        229.67500009999998
+      ],
+      "normal": [
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "diam_mm": 6.35
+    },
+    "bulkhead-flavor-a.tube-in": {
+      "at_mm": [
+        -37.809999999999995,
+        446.51,
+        269.02400009999997
+      ],
+      "normal": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "diam_mm": 6.35
+    },
+    "foam-assembly.reservoir-a": {
+      "at_mm": [
+        43.500000006974815,
+        188.89999999999995,
+        253.4000001
+      ],
+      "normal": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "diam_mm": 6.35
+    },
+    "g-ganen-pump.discharge": {
+      "at_mm": [
+        -34.946262427903676,
+        339.9764884721693,
+        280.1688222682448
+      ],
+      "normal": [
+        -0.9999421767690463,
+        0.0025336385440094433,
+        0.01045101880726016
+      ],
+      "diam_mm": 15.1
+    }
+  },
+  "cap_producer_checks": {
+    "all_ten_clamp_screw_paths_clear": true,
+    "all_conduits_clear": true,
+    "valve_cradles_clear_their_valves": true,
+    "all_cradles_and_anchors_join_lid": true,
+    "cap_features_do_not_overlap": true,
+    "nominal_wall_mm": 3.0,
+    "lid_single_valid_solid": true,
+    "internal_cold_core_routes_clear": true
+  },
+  "tube_frame_overlap_mm3": 0.0
+}

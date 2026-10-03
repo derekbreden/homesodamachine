@@ -408,6 +408,15 @@ and the three-well row on the −X wall stands the same way. Each pocket keeps i
 on the wall between them, and the complete `wago_well_wall` section on its roof; the lug rests
 on the two tabs and the wall's press fit locates it.
 
+The manifold junctions share the +X front-top flank at Y169: the J1 221-420
+is centred at Z280 and the J2 221-415 at Z246. Their pockets retain a continuous
+3.2 mm web. The lower pocket has a full lid; the upper pocket keeps its two tabs
+and ramp. Both connectors face inboard, with room for their wire entries and
+lever travel below the funnel frame. J1 branches feed V-A through V-H; J2 branches
+feed V-I, V-J, the condenser fan and V-K. Their routes and remaining harness
+qualification are described in the
+[wiring schedule](/hardware/wiring/ac-wiring-schedule.md#loom-terminations).
+
 ## Condenser cradle
 
 The condenser's four sheet flanges are the block's whole purchase. Its two fore flanges slide
@@ -1548,6 +1557,8 @@ top 2.6 mm in 0.08 mm layers, a third of its 0.24, where the R18 and the R6 roof
 roll level into the roof.
 The side rounds blend through the junction with the R12 standing front corners,
 forming one continuous surface around each top-front corner.
+The print-down roof fill follows the curved display junction at both side edges;
+it joins the retained rounds without an exposed horizontal underside.
 
 The face-up PET-GF display cover measures 125.5 × 83 × 3.84 mm with R6 corners.
 It seats flush, with 0.30 mm clearance per side in X and 0.15 mm along the slope.
