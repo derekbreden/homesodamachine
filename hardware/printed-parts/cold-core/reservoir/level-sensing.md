@@ -44,10 +44,12 @@ It is not embedded in foam. The cable rises directly through the cap's
 The −X face stays flat against the refrigeration base. The fluid draw exits
 through each pocket's −Y wall at x = [±97](FLAVOR_HOLE_X).
 
-The worst collinear reed-center to nearest magnet edge is 19.538 mm including
-bore play. The [RC62/MDSR bench data](../magnetic-float/README.md#reed-reach)
-support that radial layout; actual installed directional crossings and retained
-post-print magnet strength remain unmeasured.
+The greatest float-edge-to-reed-center distance is **11.063 mm**, including
+upright bore play; the corresponding RC62-edge distance is 19.538 mm. The
+initial design maximum is **18 mm from float edge to reed center**, based on
+the [printed-float report](../magnetic-float/README.md#reed-reach) of a usable
+20 mm limit. The 20 mm rod-to-inside-wall datum supplies running room. Actual
+installed directional crossings and all-reed acceptance remain unmeasured.
 
 Reservoir A's four signals use MCP23017 0x20 PB[0:3]; reservoir B's use 0x21
 PB[0:3]. They reach the main board on the J6/J7 looms; there is no expander

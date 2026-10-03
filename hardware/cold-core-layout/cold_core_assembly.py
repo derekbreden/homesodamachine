@@ -555,7 +555,7 @@ def _one_core(placed: dict) -> Check:
 
 
 def _floats_couple(placed: dict) -> Check:
-    """Running clearance and an RC62 edge path within the bench design band.
+    """Running clearance and float-edge to reed-center distance within the design limit.
 
     This is geometry, not installed reed actuation or liquid calibration.
     """
@@ -566,13 +566,15 @@ def _floats_couple(placed: dict) -> Check:
         minimum_gap = standoff - 2 * _I.FLOAT_SLOP
         reed_axis = _I.carbonator_reed_x() if name == "float-carb" else _I.REED_COLUMN_X
         edge_path = _I._float.reed_edge_distance(park, reed_axis)
-        good += minimum_gap >= 1.0 and edge_path <= _I.MAGNET_EDGE_BENCH_REACH
+        float_path = _I._float.reed_float_edge_distance(park, reed_axis)
+        good += minimum_gap >= 1.0 and float_path <= _I.FLOAT_EDGE_DESIGN_MAXIMUM
         detail.append(f"{name}: body/wet-wall gap {minimum_gap:.3f}..{standoff:.3f} mm; "
+                      f"float-edge to reed-centre at most {float_path:.3f} mm; "
                       f"reed-centre to RC62 edge at most {edge_path:.3f} mm; "
                       "installed switching height unmeasured")
-    return Check("floats-couple", "Aero floats clear their walls within the RC62 bench reach band",
+    return Check("floats-couple", "Aero floats clear their walls within the float-edge reed distance limit",
                  "gate", verdict(good == len(seats)), f"{good}/{len(seats)} floats",
-                 f">=1 mm body clearance, <={_I.MAGNET_EDGE_BENCH_REACH:g} mm edge path; geometry only", detail)
+                 f">=1 mm body clearance, <={_I.FLOAT_EDGE_DESIGN_MAXIMUM:g} mm float-edge to reed-centre; geometry only", detail)
 
 
 def _arcs_hold(fitted: dict) -> Check:
