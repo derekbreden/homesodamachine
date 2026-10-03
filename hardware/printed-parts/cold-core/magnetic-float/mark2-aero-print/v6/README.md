@@ -3,9 +3,12 @@
 The combined frozen core and insert plate is accepted on Mark2 as task
 **1304125241**, `magnetic-float-pair-mark2-aero-v6.gcode.3mf`, using the right
 standard-flow hardened 0.4 mm nozzle and a glued Engineering plate. One Send
-received `project_file SUCCESS`; the matching new task entered `RUNNING` at
-layer 0. This is physical trial **v6**, native archive **v6**. Visual adhesion
-and physical fit remain unreported. Full acceptance, mapping, heater readings
+received `project_file SUCCESS`. Matching task telemetry reached layer **1 of
+220** at 06:08:41 UTC on 2026-10-03, with the right nozzle at 270 °C, bed at
+90 °C and chamber at 60 °C, and no reported print error or HMS alert. These are
+observed readings, and the layer count describes printer progress. This is
+physical trial **v6**, native archive **v6**. Visual adhesion and physical fit
+remain unreported. Full acceptance, mapping, heater readings
 and startup spacing are in the [launch record](pair-mark2-launch.json).
 The [prior plate report](../v5/physical-observations.json) records the limited
 scope of the Textured PEI result.
