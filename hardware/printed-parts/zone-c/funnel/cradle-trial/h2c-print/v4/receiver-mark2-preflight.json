@@ -14,7 +14,7 @@
   },
   "requested_z_trim_mm": 0.04,
   "support_mode": "shared_automatic_tree",
-  "submitted": false,
+  "submitted": true,
   "geometry_revision": 4,
   "geometry_export_revision": "29808fba7830848e59cbb740c11ff1b6d0b162fa",
   "geometry_export_status": "source_snapshot_verified",
@@ -117,5 +117,8 @@
     "profile_label": "PET-CF",
     "external_spool": 254,
     "nozzle": "fixed left hardened 0.4 mm"
-  }
+  },
+  "printer_task_id": "1303677943",
+  "accepted_observed_utc": "2026-10-03T00:57:43.982893+00:00",
+  "launch_record": "receiver-mark2-launch.json"
 }
