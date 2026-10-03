@@ -1,9 +1,10 @@
 # Front-top H2C native print review
 
-The current front-top is ready for its authorized H2C black PET-GF print. The
+H2C accepted the current front-top black PET-GF archive as task **1305315362**
+at **2026-10-03 15:22:21 UTC**. The [launch receipt](front-top-h2c-launch.json)
+records the single Send, printer acceptance and subsequent progress. The
 [manifest](manifest.json) binds the native STEP/STL, frozen source/profile, exact
-native archive and every review. Printer submission and physical assembled fit
-have separate records.
+native archive and every review. Physical assembled fit has its own evidence scope.
 
 It prints mouth-down at 215 × 207.55 × 195 mm on the fixed left 0.4 mm Standard
 hardened nozzle. The saved PET-GF recipe uses a 0.20 mm bed layer, normal 0.24 mm
@@ -59,6 +60,9 @@ physical removal effort remains an observation of the print.
 Every emitted road has at least **24.220 mm**
 shared-bed border, and the model has **55 mm**
 border. Timelapse and bed leveling are On; Flow dynamic calibration and Nozzle
-Offset Calibration are Auto. The signed sender verifies these options, the
-fixed-left head and black external mapping before submission. The user's H2C
-request confirms that the bed is clear.
+Offset Calibration are Auto. The launch receipt records these signed send options,
+the fixed-left head and black external mapping. The Send followed Mark2's
+recorded acceptance by **267.488 seconds**, meeting the shared-circuit interval.
+The user's H2C request confirms that the bed is clear. The program contains
+**1,354 total layer changes**: 878 model-feature layers and 476 support-only layers;
+printer telemetry reports the total.
