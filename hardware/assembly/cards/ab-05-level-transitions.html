@@ -16,22 +16,19 @@
 <main>
   <div class="col" style="flex:1">
     <p class="lede">No new plumbing — <strong>this card reads the
-    log.</strong> Every float has already sailed past every reed; the
-    record must show both states for all
+    log.</strong> Verify calibrated crossing order and both states for all
     <span class="dim" data-gen="REEDS_TOTAL">10</span>.</p>
 
     <ol class="steps">
-      <li><b>Pull the per-serial log</b> — AB-02 through AB-04 exercised
-        every transition; this card audits, it doesn't run.</li>
-      <li><b>Carbonator pair</b> — low and high each fired across the
-        refills (AB-02, AB-03).</li>
+      <li><b>Pull the per-serial log</b> — confirm AB-02 through AB-04
+        covered every calibrated switching window.</li>
+      <li><b>Carbonator pair</b> — low and high crossings in order;
+        high stops refill even while low overlaps (AB-02, AB-03).</li>
       <li><b><span class="dim" data-gen="REEDS_PER_RSVR">4</span> per
-        reservoir</b> — both states each: fills at the AB-01 pre-prime +
-        AB-04 clean cycle, drains across AB-03 metering + AB-04
-        purge.</li>
-      <li><b>Any constant reed</b> — never asserted or never released —
-        is a wiring fault, a magnet-strength problem, or a stuck float:
-        escalate.</li>
+        reservoir</b> — pulses in rising/falling order: AB-01/04 fills,
+        AB-03/04 drains. An open input alone does not establish empty.</li>
+      <li><b>Missing or out-of-order crossing</b> — verify travel coverage,
+        then investigate wiring, magnetic reach or a stuck float.</li>
     </ol>
 
     <div class="tools">
@@ -83,12 +80,12 @@
         <path fill="#70707c" d="M 62 242 L 78 242 L 70 258 Z"/>
         <text class="sub" x="30" y="190">float</text>
       </svg>
-      <div class="cap"><b>Pass = at least one asserted and one
-      de-asserted reading per reed</b> across the acceptance run.</div>
+      <div class="cap"><b>Pass = calibrated crossings in order and both
+      input states per reed.</b> Record rising and falling travel.</div>
     </div>
 
     <table class="spec" style="margin-top:22px">
-      <tr><th>Reed</th><th>Both states seen at</th></tr>
+      <tr><th>Reed</th><th>Crossings seen at</th></tr>
       <tr><td>Carb low &#183; high</td><td>refill cycles &#183; AB-02, AB-03</td></tr>
       <tr><td>Reservoirs &mdash; <span data-gen="REEDS_RSVR_ALL">8</span> between them</td><td>fills AB-01/04 &#183; drains AB-03/04</td></tr>
     </table>
@@ -96,7 +93,7 @@
 </main>
 
 <footer>
-  <div class="done"><span class="lbl">Done when</span>All <span data-gen="REEDS_TOTAL">10</span> reeds show both states in the per-serial log — carbonator <span data-gen="REEDS_CARB">2</span>, reservoirs <span data-gen="REEDS_RSVR_ALL">8</span>.</div>
+  <div class="done"><span class="lbl">Done when</span>All <span data-gen="REEDS_TOTAL">10</span> reeds show calibrated crossings in order and both states — carbonator <span data-gen="REEDS_CARB">2</span>, reservoirs <span data-gen="REEDS_RSVR_ALL">8</span>.</div>
   <div class="src">acceptance-and-burn-in.md &#167;10 &#183; firmware-and-commissioning.md &#167;6<br>_cards_sync.py &#183; rev 2026-08-07</div>
 </footer>
 

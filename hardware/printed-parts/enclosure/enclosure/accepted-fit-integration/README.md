@@ -1,79 +1,58 @@
 # Accepted cover interfaces in the upper enclosure
 
-**Printing is on hold at Derek's request.** The front-top job was stopped before
-printing; back-top has not been sent. These prepared files do not include the
-work underway in the Funnel chat. The Grips chat owns the bottom-half additions.
-Integrate those changes and recheck the affected native slices before another
-enclosure print. No stored launch approval carries past this hold.
+This directory retains the identified cover/nameplate integration evidence and provides
+a check of those accepted mating interfaces against the current upper-shell exports.
+The current production geometry and print records are indexed in
+[print readiness](../../print-readiness.md).
 
-The production front-top contains the physically accepted display-cover wing
-pockets. The cover itself is identical to the accepted specimen. Its deeper
-display inset has a 23.84 mm PCB cavity, 1 mm behind the complete module, with
-the 3 mm supporting rib retained. The wing-pocket support exits reach the empty
-display storey. The tee-carrier region and the front-top below that storey are
-unchanged.
+## Current interface check
 
-The prepared back-top contains the accepted nameplate mouth and wing slots.
-The flat plate, raised artwork, pocket floor, clearances and retaining faces
-match the accepted coupon pair. Smooth exterior lands preserve the full
-1.23 mm retaining lips through the fluted surface.
+[`verify_geometry.py`](verify_geometry.py) reads the declared production Box and existing
+front-top, back-top and pump-cap exports. It writes
+[`current-geometry-check.json`](current-geometry-check.json), leaving the retained
+[`geometry-check.json`](geometry-check.json) with its identified source snapshot.
 
-## Local power-supply clearance
+```sh
+tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/verify_geometry.py
+```
 
-The full-shell candidate has 2.14 mm of backing beside the PSU terminal corner
-and 3.60 mm elsewhere. That local hidden relief gives 1.00 mm clearance to the
-placed PSU. It removes 410 mm³ and keeps the tested nameplate mating faces.
-This backing adjustment remains a proposal to review before printing.
+The check compares the display cover and nameplate with their accepted physical parts,
+checks seated fit and individual-axis clearances, display capture, support-removal exits,
+the complete deeper display module, the current funnel, nominal pump-contact mating and
+PSU clearance. It binds the current exports, placement sources and accepted mating parts
+by hash. It does not claim combined translation extremes, full-enclosure physical fit,
+installed pogo compression or magnetic retention.
 
-![Section through the accepted nameplate wing and prepared backing](backing-clearance.png)
+The display-cover pockets are integrated into front-top. The complete deeper module
+clears the shell and funnel in the current native check. The accepted cover's physical
+fit and appearance remain evidence for that cover and receiver geometry; assembled
+full-shell retention remains a separate observation.
 
-[Geometry checks](geometry-check.json) establish zero interference at the seated
-positions and permitted individual-axis clearances, display-module and funnel
-clearance, the pump-plug withdrawal path, and PSU clearance. The
-[printed-surface sampling](fluted-receiver-stock.json) checks 40 positions on the
-retaining lips; the minimum is 1.230 mm. Combined translation extremes and
-physical full-enclosure fitting are not claimed by these checks.
+Back-top contains the accepted nameplate mouth and wing slots. Smooth exterior lands
+preserve the retaining lips through the fluted surface. Its local backing clears the
+placed PSU while retaining the accepted mating geometry. Complete physical enclosure
+fit remains unreported.
 
-## Print preparation
+## Retained integration evidence
 
-Both halves use the shared PET-GF profile: 0.20 mm first layer, ordinary 0.24 mm
-layers, saved speeds and wall order, 15% infill/wall overlap, and tree supports
-with 0.40 mm XY, 0.45 mm upper Z and 0.30 mm lower Z clearance. Black PET-GF uses
-the fixed left hardened 0.4 mm nozzle. Startup options remain the usual Auto for
-flow dynamics and nozzle offset, with leveling and timelapse enabled.
+[`generation.json`](generation.json), [`source-bindings.json`](source-bindings.json) and
+[`published-artifacts.json`](published-artifacts.json) identify one integration snapshot.
+Their passing results apply to the recorded bytes, not automatically to later exports.
+[`fluted-receiver-stock.json`](fluted-receiver-stock.json) samples 40 retaining-lip
+positions and records a 1.230 mm minimum for its bound mesh.
+[`psu-clearance-detail.json`](psu-clearance-detail.json) and
+[`backing-proposal.json`](backing-proposal.json) retain the local backing assessment.
 
-- Front-top: H2C, mouth down, +0.18 mm requested trim, 0.08 mm through the complete
-  inward roof-round band at print Z187–195 mm. Native estimate: 21 h 52 min.
-- Back-top: Mark2, roof down, +0.04 mm requested trim, six walls through the
-  expanding chamfer/taper at print Z0–9.4 mm, two walls above. Native estimate:
-  26 h 4 min. Model margin is 15.05 mm. The complete sacrificial support footprint
-  has 10.063 mm of margin, including each emitted bead's half-width and a further
-  0.10 mm allowance.
+![Section through the accepted nameplate wing and its backing](backing-clearance.png)
 
-The exterior roof transitions exclude supports. Internal functional seats and
-retaining bearings use accessible trees. Printed support removal and complete
-enclosure fit remain physical checks. The three-minute shared-circuit startup
-interval still applies to any later authorized starts or resumes.
+The [front-top v15 review](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-01-enclosure-front-top-flat-wings-h2c-v15/manifest.json)
+identifies a stopped task and the [back-top v4 review](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-01-enclosure-back-top-flat-wings-mark2-v4/manifest.json)
+identifies an unsent archive. [`print-hold.json`](print-hold.json) is the associated
+dated instruction and task record. Current launch state comes from the current
+part's native review and receipt in the print-readiness index.
 
-## Reproduction and evidence
-
-`prepare_geometry.py` materializes only front-top and back-top from the declared
-assembly dimensions. Publish generated artifacts using `tools/publish_now.py`
-before running geometry lint. `verify_geometry.py` checks the accepted mating
-parts and neighboring hardware. `generation.json` and `source-bindings.json`
-identify the source snapshot; `published-artifacts.json` verifies the live bytes.
-The [build dependency check](build-dependencies.json) covers the shared cover
-interface imports and the generated build graph.
-
-`prepare_prints.py` creates an immutable native Bambu Studio project for either
-half. `verify_prints.py` checks its emitted settings, layer bands, bounds and all
-support bodies, including unlabeled contacts. `verify_early_layers.py` checks
-first/second-layer bead overlap and the actual scoped wall count.
-
-The [front-top native review](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-01-enclosure-front-top-flat-wings-h2c-v15/manifest.json)
-records the sent archive and its stopped job. The
-[back-top native review](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-01-enclosure-back-top-flat-wings-mark2-v4/manifest.json)
-records an unsent archive, its 14 support bodies and 33 interface islands, and the
-first-layer and scoped-wall checks. Both are references for the current geometry;
-the Funnel additions require fresh preparation. The hold status is recorded in
-[`print-hold.json`](print-hold.json).
+The preparation, source-binding, publication, lip-stock and emitted-path scripts beside
+these files describe that evidence route. Stored archives retain their printer-specific
+orientation, trim, support review and source hashes. A changed mesh requires a fresh
+native preparation and review under the current
+[support-removal strategy](../README.md#support-removal-strategy).

@@ -27,9 +27,12 @@ sealing land. This geometry describes the proposed push-on seal; its wet and
 dry retention and sealing performance have not been physically qualified.
 
 The intended cleaning motion is lifting the whole silicone funnel out by hand.
-Its sealing land slides off the drain stub, which stays standing in the drain
-elbow's collet under the frame. The existing mold tooling and its slice records
-do not qualify this plug.
+Its sealing land slides off the raw 1/4-inch LLDPE drain stub, which stays standing in the drain
+elbow's collet under the frame. To refit, press the plug into the frame's socket
+until its flat bottom bears on the cradle's hook tops and the brim seats on the roof ledge.
+The [mold shells and contoured mandrel](../funnel-mold/README.md) form the complete
+plug and staged bore. Their native geometry and slice checks do not establish
+the finished silicone's wet seal, dry retention or removal force.
 
 ## PET-GF frame
 

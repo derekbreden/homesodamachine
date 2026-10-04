@@ -4,7 +4,7 @@ This register connects the current fasteners and print settings to their design 
 physical evidence. Evidence limits describe what can be claimed; they do not assign tests
 or measurements to the founder. It covers
 the printed enclosure, cold-core caps, reservoir closures and attached hardware. Reviewed
-2026-10-01 against the generators, saved print projects and linked physical records.
+2026-10-03 against the generators, saved print projects and linked physical records.
 
 Reported bench issues are addressed. The accepted results below retain their stated scope.
 An accepted fit establishes that fit; a geometric clearance establishes that clearance.
@@ -51,6 +51,24 @@ linked here are the authority for each observation, including their print bindin
 | [Tee-carrier surface](../printed-parts/enclosure/tee-carrier/physical-acceptance.json) and [sliding fit](../printed-parts/enclosure/tee-carrier/low-force-trial/physical-acceptance.json) | Expanding show transition accepted with additive chamfer/taper and six local walls. Sliding and observed tilt accepted with the existing front-top. | Spring return, actuation force and simultaneous release of all four collets remain separate observations. Preserve the accepted surface treatment in structural profile trials. |
 | [Faucet lever](../printed-parts/faucet/lever-replica/physical-acceptance.json) | Fit and functional operation accepted for the identified print. | Operating force and endurance are unmeasured. |
 | [Reservoir water hold](../printed-parts/cold-core/reservoir/print-log.md) | The identified earlier reservoir assembly held water for several hours with its bulkhead and TPU gaskets. | This result belongs to that geometry and recipe. The current 0.8 mm nozzle trials have no recorded water-test result; warm aging and retained sealing load remain unmeasured. |
+
+## Pump cartridge magnetic contacts
+
+The [mounting audit](../reference/yyfkgcp-pogo-4p/mounting-audit.md) covers the current
+YYFKGCP four-contact pair, its factory-contained magnets, screw-fastened printed
+seats, polarity, load path and dimensional allowance. There are no separate
+print-in cartridge retention magnets or magnet-insertion pauses. Current-export
+checks establish nominal mating and clear passages. H2C reported the two seat
+coupons completed; [the physical record](../reference/yyfkgcp-pogo-4p/physical-observations.json)
+contains no reported connector/insert fit, installed compression or continuity result.
+
+The drawing's conservative pin protrusion is 0.80–1.20 mm. The coupon criterion
+of ±0.05 mm face flushness per half gives 0.454–1.054 mm compression at the
+nominal 0.246 mm frame gap, leaving 0.046 mm additional closing allowance before
+the stated 1.10 mm stroke. That conditional calculation does not bound the complete
+printed frame. Installed compression, magnetic pull against the four springs,
+whole-cartridge retention, operating resistance and lifetime remain unmeasured.
+The accepted pump-holder fit does not establish those connector properties.
 
 ## Screw diameter and insert anchorage
 

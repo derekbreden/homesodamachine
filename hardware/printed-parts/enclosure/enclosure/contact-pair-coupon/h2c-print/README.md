@@ -87,13 +87,16 @@ Leave the roof as printed for this check.
 With the connector seated, use the caliper's step-measuring faces between the
 coupon face beside the mouth and the connector's plastic mating face, clear of
 the projecting pins. Check near both ends. Each plastic face must finish within
-±0.1 mm of the coupon face. The nominal installed compression and the limit of
+±0.05 mm of the coupon face. The nominal installed compression and the limit of
 hand mating are explained in the coupon's physical-check document.
 
 Route the soldered leads through the male teardrop or the female crown slot and
 grooves, then repeat seating and removal. The leads must clear without holding
 the half off its datum or projecting above the female crown. Finally, mate the
-pair in its attracting orientation and probe the tails: each male contact must
+pair in its attracting orientation, keeping the plastic faces 0.25–0.30 mm apart
+with two equal measured nonconductive shims beside the contact row. Use the
+caliper to check the shims; keep them clear of the pins and magnets. Do not let
+the faces snap fully together. Probe the tails: each male contact must
 connect to exactly one corresponding female contact, with no connection to the
 other three. This checks continuity and wiring isolation; it does not measure
 contact resistance or qualify operating life.
