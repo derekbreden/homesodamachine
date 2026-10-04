@@ -64,8 +64,8 @@
       "member": "3D/Objects/object_1.model",
       "identify_id": 1901,
       "source": "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl",
-      "stl_sha256": "acf87edfdecf7408931cf6848b5f9e64b758394938ec4b3ecdcdf8f9dfd3bd97",
-      "triangles": 12664,
+      "stl_sha256": "72a9400f9fcebae8712b8b8d82a18f30a83223ff4276adc44ead2710ac4a37ed",
+      "triangles": 12212,
       "rotation_x_degrees": 0.0,
       "source_center_mm": [
         0.0,
@@ -113,9 +113,9 @@
       "embedded_vertex_error_mm": 4.999947122996673e-10
     }
   ],
-  "project_sha256": "1a3646eef1e764f6545e7b664cc8aeac9c83457515bc776da688d2a536c5247c",
+  "project_sha256": "20d20d8848d9b1ec9d5f552493d8f328b8e8fc975418d761e9d3759908b31ced",
   "settings_preserved_byte_for_byte": false,
-  "source_mesh_sha256": "acf87edfdecf7408931cf6848b5f9e64b758394938ec4b3ecdcdf8f9dfd3bd97",
+  "source_mesh_sha256": "72a9400f9fcebae8712b8b8d82a18f30a83223ff4276adc44ead2710ac4a37ed",
   "material": "Bambu PETG Basic Black",
   "filament_preset_sha256": {
     "filament/Bambu PETG Basic @BBL H2C.json": "be58edd2b9b7a7409a9b727c625e70c17441b568993bea6f75c2b2595122d9b5",
