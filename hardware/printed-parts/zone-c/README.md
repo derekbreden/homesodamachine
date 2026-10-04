@@ -27,6 +27,10 @@ The [mold shells and contoured mandrel](funnel-mold/README.md) form the complete
 its finished dimensions, seal and removal force remain physically unqualified.
 Detail: [`funnel/`](/hardware/printed-parts/zone-c/funnel/).
 
+The [funnel cover](funnel-cover/README.md) rests on the brim between fills.
+Its locating skirt and silicone-contacting pads oppose accidental sideways
+displacement. Lift it off before filling or removing the funnel for cleaning.
+
 V-B, the funnel gate, stands in its cap cradle on the cold-core lid; the valve
 manifold, not the funnel, picks the channel, so one funnel serves both
 flavors. Valve states:

@@ -90,6 +90,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "cadlib",
            _hw / "printed-parts" / "valve-seat",
            _hw / "printed-parts" / "zone-c" / "funnel",
+           _hw / "printed-parts" / "zone-c" / "funnel-cover",
            _hw / "reference" / "jg-pp0408w",
            _hw / "reference" / "jg-pp0308e-elbow",
            _hw / "reference" / "funnel-drain-stub",
@@ -275,6 +276,7 @@ CLUSTER_WAGOS = {
 
 FOAM_STEP = _hw / "printed-parts" / "cold-core" / "foam-assembly" / "foam-assembly.step"
 FUNNEL_STEP = _hw / "printed-parts" / "zone-c" / "funnel" / "funnel.step"
+FUNNEL_COVER_STEP = _hw / "printed-parts" / "zone-c" / "funnel-cover" / "funnel-cover.step"
 
 # The placement anchors. Each is a turn a body is installed at, and the machine holds
 # them rather than the bodies: two bodies mating face to face agree about one turn.
@@ -5683,6 +5685,13 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     # the box — so the line it drains through is drawn HERE, off the same frames the pack's own
     # runs anchor on, with the funnel's now among them.
     a.pack_solids["funnel"], a.carries["funnel"] = funnel, funnel_carry
+    cx, cy = funnel_centre(box)
+    lid, lid_carry = seat_body(import_step(str(FUNNEL_COVER_STEP)).val(),
+                               seat="funnel-cover",
+                               station=(((0, 0, 0), (0, 0, 1)), (cx, cy, box.outer[5])))
+    a.add(lid, name="funnel-cover", color=M_PETG_BLACK)
+    a.pack_solids["funnel-cover"] = lid
+    a.carries["funnel-cover"] = lid_carry
     frame = _funnel_frame.build(box.inner, box.y_joint, funnel_centre(box),
                                 _enc.funnel_seat_z(box.outer))
     a.add(frame, name="funnel-frame", color=M_PETGF_BLACK)

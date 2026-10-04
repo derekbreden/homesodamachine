@@ -83,6 +83,8 @@ MATERIALS = {
 # most of that 11 %. Nothing is fitted to close it, because nothing measures it
 # but the one slice.
 PROFILES = {
+    # Cover recipe: three 0.44 mm walls and a fully solid 0.24 mm PETG plate.
+    "cover": (1.32, 0.44, 1.00),
     # enclosure/print-log.md — 0.4 nozzle, `wall_loops` 2 classic, outer 0.42 +
     # inner 0.45, 15 % grid. Every exterior piece ships on it.
     "ext":   (0.87, 0.45, 0.15),
@@ -208,6 +210,7 @@ PARTS = {
     # The funnel's sliding frame and the cradle that hangs the drain elbow under its web. The
     # silicone funnel itself is cast, and §8 bills it as silicone.
     "Funnel frame": ["zone-c/funnel/funnel-frame.step"],
+    "Funnel cover": ["zone-c/funnel-cover/funnel-cover.step"],
     "Funnel drain-elbow cradle": ["zone-c/funnel/elbow-cradle.step"],
 }
 
@@ -235,6 +238,7 @@ GROUP_OF = [
     ("Collet press",                "tool"),
     ("Nameplate",                   "petgf"),
     ("Funnel frame",                "ext"),
+    ("Funnel cover",                "cover"),
     ("Funnel drain-elbow cradle",   "ext"),
 ]
 

@@ -95,6 +95,7 @@ PETGF_CARRY = (_CAP_PETG * _RHO_PETG) / (_CAP_PETGF * _RHO_PETGF)
 # See machine-time.md "Open items".
 _BULK_PETG = round(MEASURED[2] / MEASURED[1], 1)
 RATES = {
+    "cover": None,  # Native unsent solid PETG cover slice.
     "bulk":  round(_BULK_PETG * PETGF_CARRY, 1),                # 13.3 — carried, est.
     "ext":   round(MEASURED_EXT[2] / MEASURED_EXT[1], 1),       # 31.2 — measured
     "tight": round(_BULK_PETG * 2.0),  # 3 mm watertight walls, Arachne, fine nozzle: ~½ the rate
@@ -104,7 +105,7 @@ RATES = {
     "aero": None,   # Native v1 estimate per float, excluding the manual pause.
 }
 
-GROUP_MARKER = {"bulk": "BULK", "ext": "EXT", "tight": "TIGHT",
+GROUP_MARKER = {"cover": "FUNNEL_COVER", "bulk": "BULK", "ext": "EXT", "tight": "TIGHT",
                 "small": "SMALL", "tool": "TOOL", "petgf": "PETGF",
                 "aero": "AERO"}
 
@@ -187,9 +188,16 @@ def print_estimate():
     kg["aero"] = float_qty * float_kg
     rates = dict(RATES, petgf=round(faucet_hours / kg["petgf"], 1),
                  aero=round(float_hours / float_kg, 1))
+    cover_record = Path(HERE).parent / 'printed-parts/zone-c/funnel-cover/native-slice-review.json'
+    with open(cover_record, encoding='utf-8') as fh:
+        cover_hours = json.load(fh)['estimated_seconds'] / 3600
+    if cover_hours <= 0 or kg['cover'] <= 0:
+        raise ValueError('Funnel-cover native duration and BOM mass must be positive')
+    rates['cover'] = round(cover_hours / kg['cover'], 1)
     hours = {g: kg[g] * rates[g] for g in kg}
     hours["petgf"] = faucet_hours
     hours["aero"] = float_qty * float_hours
+    hours['cover'] = cover_hours
     return {"kg": kg, "rates": rates, "hours": hours, "unassigned": orphans,
             "total_kg": sum(kg.values()), "total_hours": sum(hours.values()),
             "float_qty": int(float_qty), "float_minutes": float_hours * 60}
@@ -281,9 +289,9 @@ def main():
         "MT_KG": f"{estimate['total_kg']:.3f}",
         "MT_FLOAT_QTY": estimate["float_qty"],
         "MT_FLOAT_MINUTES": f"{estimate['float_minutes']:.1f}",
-        # What a unit still takes off the PETG spool: the two groups that are not
+        # What a unit still takes off the PETG spool: the three groups that are not
         # PET-GF or ASA Aero. Summed from the same masses, so it follows §7.
-        "MT_KG_PETG_UNIT": f"{kg['tight'] + kg['small']:.2f}",
+        "MT_KG_PETG_UNIT": f"{kg['tight'] + kg['small'] + kg['cover']:.2f}",
         "MT_H_PRINT": f"{h_print:.1f}",
         "MT_H_PRINT_WALL": f"{wall:.1f}",
         "MT_H_CURE": f"{secs.get(2, 0):.1f}",
