@@ -670,11 +670,11 @@ state(
 #   The stations live here, in the cap's own frame, because the mount belongs to the part it
 # is printed in. `foam_assembly.deck_mount_station` carries them into the stack's own frame,
 # and whoever seats the stack carries them from there into the world.
-deck_mount_boss_radius = 3.5     # column radius
+deck_mount_boss_radius = 4.0     # Ø8 column; 2 mm stock around the Ø4 insert pilot
 deck_mount_bore_radius = 2.0     # ⌀4 for a ruthex M3 heat-set
 deck_mount_lid_slip = fits.slip  # a standing column to the lid's clearance hole
 deck_mount_insert_length = 5.7   # ruthex RX-M3x5.7, set flush with the column top
-deck_mount_bore_relief = 0.6     # air past the screw tip at the bore's blind end
+deck_mount_bore_relief = 1.0     # ruthex minimum blind relief; also reserve travel past the screw tip
 
 # The least room a deck column leaves to anything else standing in the cup — a screw boss,
 # the cavity wall, another column. Liquid foam reaches between them.
@@ -746,7 +746,8 @@ def deck_mount_reach(name):
 
 
 # The pump's minimum blind depth leaves screw-tip travel below its nominal stack.
-deck_mount_bore_depth = max(_water_pump.SCREW_BORE_MIN_DEPTH, max(
+deck_mount_bore_depth = max(deck_mount_insert_length + deck_mount_bore_relief,
+    _water_pump.SCREW_BORE_MIN_DEPTH, max(
     (m.screw - m.seat_min - (foam_cap_lid_height if m.standoff == 0.0 else 0.0)
      for m in deck_mounts.values()), default=0.0) + deck_mount_bore_relief)
 _mount_reach = bound(

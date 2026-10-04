@@ -30,18 +30,21 @@ board's edge connectors per [`/hardware/wiring/ac-wiring-schedule.md`](/hardware
 
 ## Layout & retention
 
-Four M3 heat-set standoff bosses (⌀7, ruthex insert, 5 mm standoff) under the
+Four M3 heat-set standoff bosses (⌀7.2, ruthex RX-M3Sx4 insert, 5 mm standoff) under the
 board's four **electrically isolated plated mounting holes** — MH1–MH4 in
 [`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx), 3.2 mm hole / 4.0 mm pad on a
 **78.0 × 66.3 mm** rectangle, each hole ~3.5 mm inside its board corner. M3
 SHCS drive down through the board into the inserts; the board's bottom face
 seats on the boss tops (5 mm clears the THT tails — XH wafers, the J10 screw
 block, U10, BT1, J14's shield legs), and the screw head + washer seat on the
-top-face pad, which the board's pours keep clear (`fastenerAnnulus`).
+top-face pad, which the board's pours keep clear (`fastenerAnnulus`). Each Ø4.0
+pilot is 5.0 mm deep, with 1.6 mm surrounding stock and 1.0 mm relief below
+the 4.0 mm insert, following the
+[ruthex RX-series drawing](https://www.igo3d.com/mediafiles/Sonstiges/Ruthex/ruthex_Datenblatt_RX-Serie.pdf).
 
 The PCB underside and every mounting hole are at Z = 0 in `pcba-board.step`.
 The through-hole component footprints continue to Z = −2 as a conservative
-tail envelope, with the four 7 × 7 mm boss footprints around MH1–MH4 kept
+tail envelope, with the four 7.2 × 7.2 mm boss footprints around MH1–MH4 kept
 open. In the appliance that envelope is seated nearest the +X wall,
 so the four wall bosses reach 2 mm farther inboard to the actual board underside;
 the wall is not allowed to occupy the solder-tail clearance simply because the
@@ -49,10 +52,10 @@ fab visualization omits detailed clipped leads.
 
 The tray frame **is the board's pcb frame** (pcbX/pcbY as in `pcba.tsx`), so
 every boss centre is its MH coordinate verbatim. Board footprint
-**85 × 72.8 mm** as fabbed; the floor is that outline grown 0.5 mm on the
+**85 × 72.8 mm** as fabbed; the floor is that outline grown 0.6 mm on the
 south edge, where MH3/MH4 sit 3.0 mm from the edge against the M3 boss's
-3.5 mm radius (MH1/MH2, 3.5 mm from the north edge, are flush with no
-growth). Keep the west and east edges unobstructed on the wall: the USB-C
+3.6 mm radius (MH1/MH2, 3.5 mm from the north edge, need 0.1 mm growth).
+Keep the west and east edges unobstructed on the wall: the USB-C
 programming port (J14) is flush on the west edge, and the J10 12 V screw
 throats face east.
 
