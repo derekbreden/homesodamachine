@@ -11,7 +11,7 @@ files it was cut from.
 | Coupon | Size | Cut from | Prints | Holds |
 |---|---|---|---|---|
 | `contact-pair-male-coupon.stl` | [35.7 × 16.3 × 18.6 mm](COUPON_MALE_SIZE) | front-top's bay bulkhead | +Z up on its cut base, as front-top builds | the male seat's mouth and body, both M1.4 insert bores, the teardrop lead bore through to the aft face, the root of the fore valve tray behind it and the root of the ridge wall on the crown |
-| `contact-pair-female-coupon.stl` | [35.7 × 12.0 × 12.1 mm](COUPON_FEMALE_SIZE) | the pump clamp | on its crown, as the clamp prints | the female seat's mouth and body, both M1.4 insert bores, the lead slot open through the crown and the start of both crown grooves |
+| `contact-pair-female-coupon.stl` | [35.7 × 14.5 × 12.1 mm](COUPON_FEMALE_SIZE) | the pump clamp | on its crown, as the clamp prints | the female seat's mouth and body, both M1.4 insert bores, the lead slot open through the crown and the start of both crown grooves |
 
 Both STLs stand in their print orientation with the bed at Z = 0, in the production PET-GF
 material and profile. The male coupon's base stands [445](COUPON_BED_LAYERS) layers of
@@ -39,9 +39,10 @@ either seat or lead passage is the case being tested, so record any support the 
    measure at least [4.08 mm](COUPON_BODY_MAX), the largest body the drawing's tolerance allows, so
    the roof may sag at most [0.47 mm](COUPON_SAG_LIMIT). The connector slides out again freely,
    with no witness marks on its top or bottom face.
-3. **The insert bores take the inserts.** Each M1.4 × 4 × Ø2.3 heat-set presses flush with the
-   step, square to the face, and an M1.4 × 5 socket-head screw draws the ear down without lifting
-   the connector's face or spinning the insert.
+3. **The insert bores take the inserts.** Each M1.4 × 4 × Ø2.3 heat-set passes the Ø2.6 entry
+   and seats square with its top 5.00 mm below the mating face, 2.00 mm behind the ear-bearing
+   step. The cold depth check and fine-tip procedure are in [enclosure assembly](../../../../assembly/enclosure-mechanical.md). An M1.4 × 8 socket-head screw draws the ear down without lifting
+   the connector's face or spinning the insert, with 0.50 mm nominal blind-end clearance.
 4. **The leads pass.** With 22 AWG leads soldered to each half's four tails, the male half seats
    with its leads drawn back through the teardrop bore, and the female half seats with its leads
    lying in the slot and grooves below the crown face.

@@ -7,16 +7,16 @@
   "resume_condition": "A separately authorized manual resume after the correct attracting ring is fully seated below the open rim and the toolhead is clear.",
   "shared_circuit": "Read both printers and allow at least 180 seconds after the other printer accepts a start or resume.",
   "geometry_record": "geometry-check.json",
-  "native_record": "native-check.json",
+  "native_record": "v3/native-check.json",
   "physical_record": "physical-observations.json",
   "jobs": [
     {
       "part": "pump-cartridge",
       "printer": "Mark2",
-      "project": "hardware/printed-parts/enclosure/enclosure/magnet-retention/pump-cartridge-pause.3mf",
-      "project_sha256": "88c3e76612b275601cbed8922c50269808bf6b7f79ff54d6f7d0fa1a04f32e84",
-      "source_stl_sha256": "e11c49e85e109cfa96d744ce3039b0d82e0215724a6b6c755312741d9885e186",
-      "source_step_sha256": "9b5044a4aba6e5738499f872451293a3b6fc06595c00a6ac06b7f03c65ad1c12",
+      "project": "hardware/printed-parts/enclosure/enclosure/magnet-retention/v3/pump-cartridge-pause.3mf",
+      "project_sha256": "24613382139f0ecd4939f56a7e9521ec9dd0e2ffb27aeaa29f6f248c4ecd6975",
+      "source_stl_sha256": "d8f6b9a9e12b0594f958b14a6bd8ca9d348471c73f02b28cfe488711be9e5a16",
+      "source_step_sha256": "105c18eed6b10dfab5de7bc12a66174972546a984f2b966e9edc546c7bce285c",
       "machine_to_bed_translation_mm": [
         162.5,
         117.8655014038086,
@@ -26,57 +26,219 @@
       "pocket_roof_height_mm": 30.983992675781252,
       "roof_support_blocked_facets": 2,
       "inherited_show_support_blocks": 0,
-      "grip_support_blocked_facets": 232885,
+      "grip_support_blocked_facets": 233178,
+      "solid_host_regions": [
+        {
+          "name": "Clamp insert and complete spine root 27.7575",
+          "machine_bounds_mm": [
+            -25.475,
+            25.475,
+            22.7575,
+            32.7575,
+            165.19500000000002,
+            214.925
+          ],
+          "sparse_infill_density": "100%",
+          "sparse_infill_pattern": "zig-zag",
+          "applied_machine_bounds_mm": [
+            -25.475,
+            25.475,
+            22.7575,
+            32.7575,
+            165.19600732421875,
+            214.925
+          ]
+        },
+        {
+          "name": "Clamp insert and complete spine root 63.7575",
+          "machine_bounds_mm": [
+            -25.475,
+            25.475,
+            58.7575,
+            68.7575,
+            165.19500000000002,
+            214.925
+          ],
+          "sparse_infill_density": "100%",
+          "sparse_infill_pattern": "zig-zag",
+          "applied_machine_bounds_mm": [
+            -25.475,
+            25.475,
+            58.7575,
+            68.7575,
+            165.19600732421875,
+            214.925
+          ]
+        }
+      ],
+      "solid_host_region_record_sha256": "e58c536fc33b4ed5b3721f67ea222b44671ec4eda22f499dce74eae07493ffa6",
       "baseline_project": ".cache/prints/2026-09-24-pump-cartridge-cap-mark2-v8/pump-cartridge-cap-black-z004-mark2-v8-six-wall-grip-rounds-input.3mf",
       "baseline_project_sha256": "04d71648aa2d61e90ef9be4f152bd901834652189992ce499463a40ec1f9af73",
-      "native_archive": ".cache/prints/cartridge-rc62-retention-v1/pump-cartridge/enclosure-pump-cartridge-rc62-mark2-v1.gcode.3mf",
-      "native_archive_sha256": "b128dbecb9b65fa23bda42edb745cbe62157d15fad067266925a95b64e1911e3",
-      "gcode_sha256": "be6e2f4c9f72469220b4fdf599fa447bb0676d361871b0f6a046ef4ad3eacf29",
-      "state": "prepared_not_submitted",
-      "send_authorized": false,
+      "native_archive": ".cache/prints/cartridge-rc62-retention-v3/pump-cartridge/enclosure-pump-cartridge-rc62-mark2-v3.gcode.3mf",
+      "native_archive_sha256": "defdab6d4dc5ecc243303b0d839608e99c5210a61e5abc4b9c4c3b958f912cb7",
+      "gcode_sha256": "057e9f903d5d430e6277c4e5d214b441192d300b8455bb352d00d0ed9b8df5ed",
       "magnet_count_to_insert": 1,
       "magnet_model": "K&J RC62",
       "fixed_nozzle": "left hardened standard-flow 0.4 mm",
       "filament": "black PET-GF labelled PET-CF/GFT01, external left slot 254",
       "bed_type": "Textured PEI",
-      "pause_before_print_z_mm": 31.16,
-      "completed_open_rim_print_z_mm": 30.92,
+      "state": "prepared_not_submitted",
+      "send_authorized": false,
       "task_id": null,
-      "accepted_at": null
+      "accepted_at": null,
+      "native_checks_pass": true,
+      "pause_before_print_z_mm": 31.16,
+      "completed_open_rim_print_z_mm": 30.92
     },
     {
       "part": "front-top",
       "printer": "H2C",
-      "project": "hardware/printed-parts/enclosure/enclosure/magnet-retention/front-top-pause.3mf",
-      "project_sha256": "f9d4164a7ddf82894730b7ec51fec352c55814c55278a0b63576bc6158a8fd48",
-      "source_stl_sha256": "fa3b51b3543b03c51ea852b328d1d66241e35d712b0df52558762786a858ad50",
-      "source_step_sha256": "e50c763a6e50022055fae968d3e4f209003ed3dd34174f6ab65d7a1ca2a60aa6",
+      "project": "hardware/printed-parts/enclosure/enclosure/magnet-retention/v3/front-top-pause.3mf",
+      "project_sha256": "11c27c669f2f3ecb965d9c224390f77ff2bd349ea1877e6f1e5a77beccee0375",
+      "source_stl_sha256": "c8b5a8b594c7dc23ae13e724c97e1c06ab93dd19ceac7683dceca293d32942da",
+      "source_step_sha256": "69ef530764b2f237acc27cc05be36db875d87f88b6836bad521c2bf3f9ac093e",
       "machine_to_bed_translation_mm": [
         162.5,
-        51.224998474121094,
+        48.599998474121094,
         -160.0
       ],
       "requested_pause_height_mm": 36.440000000000005,
       "pocket_roof_height_mm": 36.179,
       "roof_support_blocked_facets": 2,
-      "inherited_show_support_blocks": 33060,
+      "inherited_show_support_blocks": 33072,
       "grip_support_blocked_facets": 0,
+      "solid_host_regions": [
+        {
+          "name": "Y seam socket and complete root +1/282.05",
+          "machine_bounds_mm": [
+            -107.5,
+            -90.5,
+            197.0,
+            217.8,
+            274.15000000000003,
+            355.0
+          ],
+          "sparse_infill_density": "100%",
+          "sparse_infill_pattern": "zig-zag",
+          "applied_machine_bounds_mm": [
+            -107.499,
+            -90.5,
+            197.0,
+            217.7990030517578,
+            274.15000000000003,
+            354.999
+          ]
+        },
+        {
+          "name": "Y seam socket and complete root -1/291.05",
+          "machine_bounds_mm": [
+            90.5,
+            107.5,
+            197.0,
+            217.8,
+            283.15000000000003,
+            355.0
+          ],
+          "sparse_infill_density": "100%",
+          "sparse_infill_pattern": "zig-zag",
+          "applied_machine_bounds_mm": [
+            90.5,
+            107.499,
+            197.0,
+            217.7990030517578,
+            283.15000000000003,
+            354.999
+          ]
+        },
+        {
+          "name": "Z rail, end stop and wall root -1",
+          "machine_bounds_mm": [
+            -107.5,
+            -90.0,
+            5.0,
+            200.0,
+            157.0,
+            177.8
+          ],
+          "sparse_infill_density": "100%",
+          "sparse_infill_pattern": "zig-zag",
+          "applied_machine_bounds_mm": [
+            -107.499,
+            -90.0,
+            5.001,
+            200.0,
+            160.001,
+            177.8
+          ]
+        },
+        {
+          "name": "Z rail, end stop and wall root +1",
+          "machine_bounds_mm": [
+            90.0,
+            107.5,
+            5.0,
+            200.0,
+            157.0,
+            177.8
+          ],
+          "sparse_infill_density": "100%",
+          "sparse_infill_pattern": "zig-zag",
+          "applied_machine_bounds_mm": [
+            90.0,
+            107.499,
+            5.001,
+            200.0,
+            160.001,
+            177.8
+          ]
+        },
+        {
+          "name": "Both pogo insert hosts, entry steps and blind caps",
+          "machine_bounds_mm": [
+            -15.0,
+            15.0,
+            79.515,
+            93.015,
+            275.7740001,
+            281.2740001
+          ],
+          "sparse_infill_density": "100%",
+          "sparse_infill_pattern": "zig-zag",
+          "applied_machine_bounds_mm": [
+            -15.0,
+            15.0,
+            79.515,
+            93.015,
+            275.7740001,
+            281.2740001
+          ]
+        }
+      ],
+      "solid_host_region_record_sha256": "e58c536fc33b4ed5b3721f67ea222b44671ec4eda22f499dce74eae07493ffa6",
       "baseline_project": ".cache/prints/2026-10-03-enclosure-front-top-current-h2c-v17/enclosure-front-top-current-black-z018-h2c-v17-input.3mf",
       "baseline_project_sha256": "0906160ade38636a4395e9f239fd7bbaf582276fe7a172d531b507f56eeacc22",
-      "native_archive": ".cache/prints/cartridge-rc62-retention-v1/front-top/enclosure-front-top-rc62-h2c-v1.gcode.3mf",
-      "native_archive_sha256": "c730a1d6ba7d5f4c566a2d1c5cea91f7c886f85519388da9910535be7ed98611",
-      "gcode_sha256": "9eff32609d2dce37f09e0d29e3eb4d0f14f46f368d46641bdea6b0b27ffcdb6e",
-      "state": "prepared_not_submitted",
-      "send_authorized": false,
+      "native_archive": ".cache/prints/cartridge-rc62-retention-v3/front-top/enclosure-front-top-rc62-h2c-v3.gcode.3mf",
+      "native_archive_sha256": "bad5065c3e8174792e517184b5c318970e8498a11491b41c9114db223033f159",
+      "gcode_sha256": "480a2b9a729063dacc6d2a336c8947efa2958ca75bff9cb9fb5cf0c61322da91",
       "magnet_count_to_insert": 1,
       "magnet_model": "K&J RC62",
       "fixed_nozzle": "left hardened standard-flow 0.4 mm",
       "filament": "black PET-GF labelled PET-CF/GFT01, external left slot 254",
       "bed_type": "Textured PEI",
-      "pause_before_print_z_mm": 36.44,
-      "completed_open_rim_print_z_mm": 36.2,
+      "state": "prepared_not_submitted",
+      "send_authorized": false,
       "task_id": null,
-      "accepted_at": null
+      "accepted_at": null,
+      "native_checks_pass": true,
+      "pause_before_print_z_mm": 36.44,
+      "completed_open_rim_print_z_mm": 36.2
     }
+  ],
+  "current_revision": 3,
+  "preparation_record": "v3/preparation.json",
+  "retained_reviews": [
+    "v1/queue.json",
+    "v2/preparation.json",
+    "v2/native-check.json"
   ]
 }

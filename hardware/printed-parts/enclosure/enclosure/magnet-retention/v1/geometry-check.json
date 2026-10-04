@@ -1,0 +1,186 @@
+{
+  "article": "One RC62 per cartridge cradle and front-top, centered on tube axes",
+  "geometry_checks_pass": true,
+  "checks": [
+    {
+      "check": "pump-cartridge: one valid native solid",
+      "pass": true
+    },
+    {
+      "check": "pump-cartridge: cavity is empty",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "pump-cartridge: continuous mating cover",
+      "pass": true,
+      "missing_stock_mm3": 0.0
+    },
+    {
+      "check": "pump-cartridge: 3 mm backing",
+      "pass": true,
+      "missing_stock_mm3": 0.0
+    },
+    {
+      "check": "pump-cartridge: maximum-tolerance ring clears finished pocket",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "pump-cartridge: upright ring insertion sweep before closure",
+      "pass": true,
+      "samples": 29,
+      "maximum_overlap_mm3": 0.0
+    },
+    {
+      "check": "pump-cartridge: only retention pocket changes native input",
+      "pass": true,
+      "added_mm3": 0.0,
+      "removed_outside_pocket_mm3": 0.0,
+      "missing_pocket_cut_mm3": 0.0
+    },
+    {
+      "check": "front-top: one valid native solid",
+      "pass": true
+    },
+    {
+      "check": "front-top: cavity is empty",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "front-top: continuous mating cover",
+      "pass": true,
+      "missing_stock_mm3": 0.0
+    },
+    {
+      "check": "front-top: 3 mm backing",
+      "pass": true,
+      "missing_stock_mm3": 0.0
+    },
+    {
+      "check": "front-top: maximum-tolerance ring clears finished pocket",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "front-top: upright ring insertion sweep before closure",
+      "pass": true,
+      "samples": 29,
+      "maximum_overlap_mm3": 0.0
+    },
+    {
+      "check": "front-top: only retention pocket changes native input",
+      "pass": true,
+      "added_mm3": 0.0,
+      "removed_outside_pocket_mm3": 0.0,
+      "missing_pocket_cut_mm3": 0.0
+    },
+    {
+      "check": "at least 3 mm between pocket and nearest tee collar bore",
+      "pass": true,
+      "minimum_web_mm": 4.125000000000002
+    },
+    {
+      "check": "single pair centred on the four tube insertion axes",
+      "pass": true
+    }
+  ],
+  "pieces": {
+    "pump-cartridge": {
+      "axis_xz_mm": [
+        0.0,
+        186.174
+      ],
+      "magnet_axis": [
+        0,
+        1,
+        0
+      ],
+      "mating_face_y_mm": 79.269,
+      "into": -1.0,
+      "pocket_y_mm": [
+        74.494,
+        78.069
+      ],
+      "pocket_radius_mm": 9.725,
+      "arc_center_z_mm": 186.374,
+      "seat_floor_z_mm": 176.649,
+      "roof_z_mm": 196.179,
+      "face_cover_mm": 1.2,
+      "backing_minimum_mm": 3.0,
+      "width_mm": 19.45,
+      "depth_mm": 3.5749999999999997,
+      "minimum_roof_clearance_at_maximum_od_mm": 0.38,
+      "production_print_up": "+Z",
+      "bed_machine_z_mm": 165.195,
+      "roof_height_above_bed_mm": 30.98400000000001,
+      "magnet_nominal_top_above_bed_mm": 30.50400000000002,
+      "magnet_maximum_top_above_bed_mm": 30.604000000000013,
+      "artifact_sha256": {
+        ".step": "9b5044a4aba6e5738499f872451293a3b6fc06595c00a6ac06b7f03c65ad1c12",
+        ".stl": "e11c49e85e109cfa96d744ce3039b0d82e0215724a6b6c755312741d9885e186",
+        ".step.mesh": "919c8fae864facf84e82d176929b94ea33279e40b85e97953d1b920717ebaf2a"
+      }
+    },
+    "front-top": {
+      "axis_xz_mm": [
+        0.0,
+        186.174
+      ],
+      "magnet_axis": [
+        0,
+        1,
+        0
+      ],
+      "mating_face_y_mm": 79.515,
+      "into": 1.0,
+      "pocket_y_mm": [
+        80.715,
+        84.29
+      ],
+      "pocket_radius_mm": 9.725,
+      "arc_center_z_mm": 186.374,
+      "seat_floor_z_mm": 176.649,
+      "roof_z_mm": 196.179,
+      "face_cover_mm": 1.2,
+      "backing_minimum_mm": 3.0,
+      "width_mm": 19.45,
+      "depth_mm": 3.5749999999999997,
+      "minimum_roof_clearance_at_maximum_od_mm": 0.38,
+      "production_print_up": "+Z",
+      "bed_machine_z_mm": 160.0,
+      "roof_height_above_bed_mm": 36.179,
+      "magnet_nominal_top_above_bed_mm": 35.69900000000001,
+      "magnet_maximum_top_above_bed_mm": 35.79900000000001,
+      "artifact_sha256": {
+        ".step": "e50c763a6e50022055fae968d3e4f209003ed3dd34174f6ab65d7a1ca2a60aa6",
+        ".stl": "fa3b51b3543b03c51ea852b328d1d66241e35d712b0df52558762786a858ad50",
+        ".step.mesh": "60bbcdf8a5bf879712cc474c921e681bd53b3a27c3d5ff551a2600194a072c22"
+      }
+    }
+  },
+  "magnet_count": 2,
+  "magnet": {
+    "model": "K&J RC62",
+    "od_mm": 19.05,
+    "id_mm": 9.525,
+    "thickness_mm": 3.175,
+    "dimensional_tolerance_mm": 0.1,
+    "maximum_continuous_service_c": 80.0,
+    "source": "https://www.kjmagnetics.com/rc62-neodymium-ring-magnet"
+  },
+  "nominal_frame_gap_mm": 0.2459999999999951,
+  "nominal_attracting_face_separation_mm": 2.645999999999995,
+  "pogo_axis_z_mm": 278.5240001,
+  "magnet_below_pogos_mm": 92.35000010000002,
+  "minimum_tube_bore_web_mm": 4.125000000000002,
+  "polarity": "Opposite poles on the two mating faces; both installed magnet north vectors point along the same machine Y direction.",
+  "scope": "Current native geometry and insertion sweep only. Actual seating, magnetic force, printed cover capacity, heat exposure, contact compression and operating tube retention are unverified.",
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/audit.py": "cb5bda5ee3aefac1cd5051781d8d2748aef078a91d7ef00f8a0e239795c1d607",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "2d7c127f3b59cd34057137dab7d378b5f7ed47679718118a39353e734267dd39",
+    "hardware/printed-parts/enclosure/enclosure/_cartridge_retention.py": "a91b59bcf7c54120ee83e82a49d02164d155591c61d6725d702db3bc8b03c62a",
+    "hardware/manifold-layout/enclosure-box.json": "2062e00ce991acc021f6583add4555415a05d04a30ea953f5ebca349fdb35289"
+  }
+}

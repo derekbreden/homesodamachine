@@ -497,23 +497,17 @@ split_slip = 2.0 * fits.running # diametral slide fit, plug into socket bore
 scarf_axial = fits.running * math.sqrt(2.0)
 screw_clear_dia = _interface.screw_clear_dia  # M3 shank clearance
 head_cbore_dia = _interface.head_cbore_dia    # M3 SHCS head counterbore
-head_cbore_depth = 4.0       # head recess depth from the ±X exterior (the head seat)
+head_cbore_depth = 3.5       # M3 head recess; the screw keeps 0.5 mm blind-end clearance
 screw_len = 10.0             # M3 SHCS under-head length (M3x10), head seat → heat-set
 plug_dia = screw_clear_dia + 2.0 * wall          # 9.9 — the shank + one wall each side
 socket_bore_dia = plug_dia + split_slip          # 10.2 — slide fit over the plug
 socket_r = socket_bore_dia / 2.0 + wall          # pod half-size: one wall around the bore
 heatset_dia = _interface.heatset_dia  # ruthex M3, ⌀4.0 recommended hole either length
-# BOTH LENGTHS ARE THE SAME INSERT. ruthex's M3 short and M3 differ in body length and in
-# nothing else — same ⌀4.6 knurl, same ⌀4.0 hole — so a station's choice between them is a
-# question about the depth ITS OWN bore has and never about its section. Where a bore is
-# already deeper than the long body, the long body goes in and the pocket does not move.
-#
-# THE SHORT ONE IS NOT A DEFAULT HERE; it is what one family can prove it needs. The Y
-# seam's pilot is `screw_len - seam_pin_shank_len` and comes out under the long body —
-# lengthening it costs a longer seam screw and a wider `side_band_inset` for grip the joint's
-# load case does not ask for. Every other insert on this box is the long one, the pump clamp's
-# two included: the cradle spine under the bracket plane has the depth.
-heatset_len = _interface.heatset_len            # the Y seam, and no other
+# ruthex M3 bodies share the Ø4.0 pilot and 1.6 mm minimum wall. The 4.0 mm short
+# body belongs to the Y seam, electronics mounts and C14. The 5.7 mm body belongs
+# to the condenser fingers and pump clamp. Every pilot extends at least 1 mm
+# beyond its insert, independently of the steel screw's tip clearance.
+heatset_len = _interface.heatset_len
 heatset_long_len = _interface.heatset_long_len  # the condenser fingers, nameplate, display
                                                 # cover and the pump clamp
 heatset_depth = _interface.heatset_depth  # general M3 pilot; the Y seam derives its own below
@@ -854,7 +848,7 @@ mount_boss_out = heatset_depth + mount_bore_relief
 # How far a boss stands inboard of the wall it drives through: the whole chain
 # of head counterbore, pin body, heat-set and cap, less the wall the counterbore
 # is sunk into. This is the socket collar's own depth off the wall.
-boss_in = head_cbore_depth + screw_len + socket_cap - wall
+boss_in = 9.0 + heatset_len + mount_bore_relief + socket_cap - wall
 # The band down each ±X wall IS that chain: what a floor body stands off the wall where the
 # seam's bosses are, so each mouth, plug and collar seats at full section and the body seats
 # flush against them. One name for the reader who is thinking about the band and one for the
@@ -866,7 +860,8 @@ side_band_inset = boss_in
 # +Y face mate the lip rim, with the two bosses coaxial for the cross-screw.
 # With y_boss = y_joint + plug_dia/2 (plug −Y on the mouth), the collar's +Y face
 # (y_boss + socket_r) lands on the rim iff lip_len = plug_dia/2 + socket_r.
-lip_len = plug_dia / 2.0 + socket_r              # = (plug+bore)/2 + wall = 13.1
+seam_edge_distance = 3.0 * screw_clear_dia
+lip_len = seam_edge_distance + socket_r              # = (plug+bore)/2 + wall = 13.1
 
 # The appliance's stated HEIGHT — floor slab's underside (z = −floor_t) to the top
 # wall's outer face. It is the machine's silhouette, the one dimension a counter
@@ -1316,13 +1311,20 @@ def back_seam_flank_t():
 # THE BACK PLUG ENDS ON THE PHYSICAL FULL-THICKNESS FLANK FACE. From either ±X exterior
 # face to that plane is `back_seam_flank_t`; the head counterbore spends its depth first and
 # leaves `seam_pin_shank_len` of solid registration pin under the screw shank. The remainder
-# of the M3x10 span is the front socket's heat-set pilot: the complete four-millimetre insert
-# plus the same one-millimetre screw-tip relief every wall-mounted M3 boss is owed. The cap's
+# of the M3x10 span engages the complete four-millimetre insert. Its five-millimetre
+# pilot supplies one millimetre past the insert and 0.5 mm past the steel tip. The cap's
 # inboard plane therefore stays on the screw stack's own datum while the plug and its 45°
 # corbel land exactly flush with the wall that roots them.
 seam_pin_shank_len = back_seam_flank_t() - head_cbore_depth
-seam_heatset_depth = screw_len - seam_pin_shank_len
+seam_heatset_depth = heatset_len + mount_bore_relief
+seam_screw_tip_clearance = seam_pin_shank_len + seam_heatset_depth - screw_len
+if abs(boss_in - (back_seam_flank_t() + seam_heatset_depth + socket_cap - wall)) > stated_bound_tol:
+    raise ValueError("the M3 seam seat no longer fits its stated corner band")
 seam_heatset_relief = seam_heatset_depth - heatset_len
+if seam_screw_tip_clearance < 0.5 - stated_bound_tol:
+    raise ValueError("the M3 seam screw needs at least 0.5 mm before the blind end")
+if screw_len - seam_pin_shank_len < heatset_len - stated_bound_tol:
+    raise ValueError("the M3 seam screw does not engage its complete insert")
 if seam_pin_shank_len <= 0.0:
     raise ValueError(
         f"the {head_cbore_depth:g} mm Y-seam head seat consumes the whole "
@@ -1542,7 +1544,7 @@ z_rise = 14.8
 # through it the gable's ridge height: the ridge stands PROUD of the bay storey's one
 # ledge plane (`rim + wall` — the seam cap's top and the sill), so the roof leaves that
 # plane through a slot instead of meeting it edge-on in a zero-thickness line.
-hook_arm = 4.0
+hook_arm = 4.5  # complete arm fits the existing channel with its 0.5 mm running clearance
 rail_stop_len = 4.0          # closed-end zone along Y; block retains this less slide_slip
 rail_entry = 5.0             # approach past full disengagement, entry to first engagement
 rail_lead = 2.0              # 45° plan taper easing the head's open end over the foot
@@ -1684,9 +1686,11 @@ cap_lift_clearance = 0.25      # extra sampled travel below the nominal cap posi
 pogo_crown_skin = 3.5        # clamp stock between the crown and the seat's mouth
 pogo_heatset_dia = 2.0       # the M1.4 × 4 × Ø2.3 insert's hole
 pogo_heatset_len = 4.0
-pogo_heatset_relief = 1.0    # pilot past the insert's blind end
-pogo_screw_len = 5.0         # M1.4 SHCS under-head length: the ear plate and the whole insert
-pogo_head = (2.6, 1.4)       # DIN 912 M1.4 head, (diameter, height)
+pogo_heatset_setback = 2.0   # anchor wholly behind the connector's 4.15 mm body cavity
+pogo_heatset_relief = 1.5    # pilot past the insert; also 0.5 mm beyond the M1.4×8 tip
+pogo_screw_len = 8.0
+pogo_head = (2.74, 1.4)      # Kozelo B0DFYKBQ2S, (diameter, height)
+pogo_insert_entry_dia = 2.3 + 2.0 * fits.slip  # clear insertion pass for the complete knurl
 pogo_lead_half = 5.5         # the clamp's lead slot either side of the axis: the outer joints
 pogo_lead_run = 5.0          # the clamp's lead slot behind the body, where the leads turn up
 pogo_groove = (4.0, 3.5)     # a crown groove, (width, depth): two 22 AWG leads side by side
@@ -2230,7 +2234,7 @@ def _y_corner(inner, y_joint):
     One definition, read by the band _dims probes, the heights _bosses may place a
     level at, and the collar `_front_socket` builds — so a change to the boss
     cannot move one of the three and leave the others measuring somewhere else."""
-    return (max(inner[2], _y_boss(y_joint) - socket_r), y_joint + lip_len)
+    return (max(inner[2], y_joint - wall), y_joint + lip_len)
 
 
 def _y_corner_back(iy1, y_joint):
@@ -2841,7 +2845,8 @@ def _dims(pack):
     # section the screw chain needs, which is the band `_bosses` places a level inside.
     # The plug opposite it stands within that same footprint at a shallower reach.
     fy0, fy1 = _y_corner(inner, y_joint)
-    _measure_wall_block(placed, inner, fy0, fy1, boss_in)
+    by0, by1 = _y_corner_back(inner[3], y_joint)
+    _measure_wall_block(placed, inner, min(fy0, by0), max(fy1, by1), boss_in)
     # WHAT EACH LIP'S OWN WALL COSTS THE CAVITY. A flank under a Z seam is `2 * wall` thick
     # from the slab to the rim (`_lip_underwall`), so on three sides of each bottom piece the
     # room stops one `wall` inboard of `inner`. The pack already stands that far off every one
@@ -3690,7 +3695,8 @@ def with_funnel(box, centre):
             f"{arris + wall - brim_y0:.2f} mm past the landing it owes and hangs over the 45°. "
             f"Take `funnel_front_y` aft of {arris + wall + _funnel.brim_overhang + funnel_collar_air:.2f}, or "
             f"shorten the facet"])))
-    return box._replace(pack=box.pack._replace(funnel=centre))
+    result = box._replace(pack=box.pack._replace(funnel=centre))
+    return result._replace(y_bosses=_funnel_safe_seam_bosses(result))
 
 
 def _funnel_cut(inner, outer, centre):
@@ -3709,6 +3715,44 @@ def _funnel_cut(inner, outer, centre):
         inner[5] - wall - 1.0, seat + 0.01, cx, cy)
     return (pocket.fuse(throat).fuse(_funnel_keepout(outer, centre))
             .fuse(_funnel_frame_part.shell_clearance(centre, seat)))
+
+
+def _funnel_safe_seam_bosses(box):
+    """Upper Y fasteners retaining the whole insert seat after the functional funnel cuts.
+
+    The placed-content locator runs before the funnel is fitted. Its corner clearance alone
+    cannot establish an insert seat: the finished funnel opening must also leave the collar,
+    blind relief and full wall cap intact. Move only an upper screw station, downward to the
+    nearest complete seat; every working funnel surface remains on its own datum.
+    """
+    if not box.pack.funnel:
+        return box.y_bosses
+    keepout = _funnel_cut(box.inner, box.outer, box.pack.funnel).fuse(
+        _funnel_frame_part.front_seam_relief(
+            box.outer, box.y_joint, box.pack.funnel, funnel_seat_z(box.outer)))
+    fy0, fy1 = _y_corner(box.inner, box.y_joint)
+    by0, by1 = _y_corner_back(box.inner[3], box.y_joint)
+    fy0, fy1 = min(fy0, by0), max(fy1, by1)
+    yb = _y_boss(box.y_joint)
+    rows = []
+    for xi, xe, sx, wanted in box.y_bosses:
+        if wanted <= z_seam:
+            rows.append((xi, xe, sx, wanted))
+            continue
+        _seat, tip, _blind, cap = _boss_x(xe, sx)
+        xa, xb = sorted((tip, cap))
+        z = wanted
+        while z > z_seam + z_rise + socket_r:
+            seat = _ybox(xa, xb, yb - socket_r, yb + socket_r,
+                          z - socket_r, z + socket_r)
+            if (seat.intersect(keepout).Volume() <= 1e-6
+                    and _level_clear(box.inner, fy0, fy1, z, xi, sx, boss_in)):
+                rows.append((xi, xe, sx, z))
+                break
+            z -= 1.0
+        else:
+            raise ValueError(f"no complete upper Y-seam insert seat on {'west' if sx > 0 else 'east'} flank")
+    return tuple(rows)
 
 
 def _ceiling_corbels(solid, inner, outer, centre, y_joint, y_bosses=()):
@@ -3846,6 +3890,8 @@ def _bosses(inner, y_joint):
     zt = iz1 - seam_screw_end_inset
     zf = _seam_lower_z(inner)
     fy0, fy1 = _y_corner(inner, y_joint)
+    by0, by1 = _y_corner_back(inner[3], y_joint)
+    fy0, fy1 = min(fy0, by0), max(fy1, by1)
     out = []
     for x_in, sx in ((ix0, +1.0), (ix1, -1.0)):
         at = (lambda want, away, limit, x=x_in, s=sx:
@@ -3924,17 +3970,16 @@ def _front_socket(x_in, x_ext, sx, z_boss, y_joint, inner):
     _xs, _xt, _xh, x_cap = _boss_x(x_ext, sx)
     xa, xb = sorted((x_in, x_cap))
     yb = _y_boss(y_joint)
+    y0, y1 = _y_corner(inner, y_joint)
     iz0 = inner[4]
     if z_boss < z_seam:
-        return _ybox(xa, xb, yb - socket_r, yb + socket_r,
-                     iz0 - floor_t, z_boss + socket_r)
-    boss = _ybox(xa, xb, yb - socket_r, yb + socket_r,
-                 z_boss - socket_r, z_boss + socket_r)
+        return _ybox(xa, xb, y0, y1, iz0 - floor_t, z_boss + socket_r)
+    boss = _ybox(xa, xb, y0, y1, z_boss - socket_r, z_boss + socket_r)
     if z_boss - socket_r > iz0 + 0.01:
         lip_in = x_in + sx * wall
         drop = abs(x_cap - lip_in)
         floor = z_boss - socket_r
-        boss = boss.fuse(_xz_prism(yb - socket_r, yb + socket_r,
+        boss = boss.fuse(_xz_prism(y0, y1,
                                    [(lip_in, floor), (x_cap, floor),
                                     (lip_in, floor - drop)]))
     return boss
@@ -3951,7 +3996,7 @@ def _front_pin_slot(x_in, x_tip, z_boss, y_boss, y_joint, ceiling=None, floor=No
     b = socket_bore_dia / 2.0
     bore_y = y_boss + split_slip / 2.0
     bx0, bx1 = sorted((x_in, x_tip))
-    y0, y1 = bore_y - b, y_joint + lip_len + 1.0
+    y0, y1 = y_joint, y_joint + lip_len + 1.0
     roof = z_boss + b if ceiling is None else ceiling + wall + 1.0
     if floor is not None:
         roof = z_seam
@@ -4117,7 +4162,7 @@ def _socket_floor_relief(x_ext, sx, inner, y_joint):
 # coaxial by construction. Placed so the plug's −Y face mates the back mouth;
 # the derived lip_len then lands the socket collar's +Y face on the lip rim.
 def _y_boss(y_joint):
-    return y_joint + plug_dia / 2.0
+    return y_joint + seam_edge_distance
 
 
 # --- handholds through the standing floor -----------------------------------
@@ -6151,7 +6196,8 @@ def _cap_screws(box):
 
     Each M3×60 sits in a counterbore struck into the crown, runs the whole filled field, crosses
     the bridge clearance over the cradle spine and takes the complete long heat-set
-    opened from the cradle's bracket plane; the pilot runs half a millimetre past its tip. The
+    opened from the cradle's bracket plane; the pilot keeps at least one millimetre beyond
+    the insert and half a millimetre beyond the screw tip. The
     seat is placed by the screw (`cap_head_seat_z`), so the crown must stand at least one head
     over it, and both bores stand in the filled lane between the boss octagons with a wall to
     spare on each side."""
@@ -6170,7 +6216,7 @@ def _cap_screws(box):
             f"clamp screws, under the {head_cbore_dia / 2.0 + wall:g} mm a counterbore and "
             f"one wall need")
     screw_tip = seat - cap_screw_len
-    bore_tip = screw_tip - 0.5
+    bore_tip = min(screw_tip - 0.5, split - cap_heatset_len - mount_bore_relief)
     clear, sets = [], []
     for y in cap_screw_ys(box.inner, plate):
         clear.append(_zcyl(screw_clear_dia / 2.0, 0.0, y, base - 0.1, crown + 1.0)
@@ -6216,10 +6262,12 @@ def _pogo_seat(face_y, into, x, z, up):
     """One half's seat let into the face at `face_y`, struck `into` (±1 along Y) from it: the
     cutter, then the two insert bores.
 
-    The mouth is the ear plate's outline from the face to the plate's back, the datum the plate
-    bears on; behind it the body's stadium to its back plus one `slip`. The tails are the lead
-    passage's. The bores open from the datum on the ears' own pitch and run the insert and its
-    relief. `up` is the piece's print-up, the side the roof's supported-surface allowance goes."""
+    The ear datum and working body cavity retain their own dimensions. Each insert starts two
+    millimetres behind that datum, wholly past the body cavity. A slipped knurl-sized entry
+    reaches the anchor and opens toward the body cavity so no thin web serves as an insertion
+    guide. The pilot retains the full insert in the rear stock. `up` assigns the supported-face
+    allowance; the separate factory depth gauge reads the recessed anchor from the mating face.
+    """
     s = fits.slip
     w = _pogo.BODY_W + 2.0 * s
     back = _pogo.ear_back()
@@ -6229,7 +6277,8 @@ def _pogo_seat(face_y, into, x, z, up):
         raise ValueError(
             f"an M1.4 head Ø{head_d:g} × {head_h:g} does not land on its ear inside the mouth: "
             f"the ear stands {_pogo.EAR_FACE:g} under the face in a {w:g} mm slot")
-    if _pogo.EAR_FACE + pogo_screw_len > back + pogo_heatset_len + pogo_heatset_relief:
+    anchor = back + pogo_heatset_setback
+    if _pogo.EAR_FACE + pogo_screw_len > anchor + pogo_heatset_len + pogo_heatset_relief:
         raise ValueError(
             f"an M1.4 × {pogo_screw_len:g} runs past the {pogo_heatset_len:g} mm insert and its "
             f"{pogo_heatset_relief:g} mm relief")
@@ -6239,10 +6288,15 @@ def _pogo_seat(face_y, into, x, z, up):
 
     seat = (_y_stadium(_pogo.EAR_L + 2.0 * s, w, x, z, *at(-1.0, back))
             .fuse(_y_stadium(_pogo.BODY_L + 2.0 * s, w, x, z, *at(back - 0.01, _pogo.BODY_T + s))))
-    bores = [_supported_cut(_ycyl(pogo_heatset_dia / 2.0, x + ex, z,
-                                  *at(back - 0.01,
-                                      back + pogo_heatset_len + pogo_heatset_relief)), up)
-             for ex in _pogo.ear_xs()]
+    bores = [
+        _supported_cut(_y_stadium(
+            2.0 * pogo_insert_entry_dia, pogo_insert_entry_dia,
+            x + ex - math.copysign(pogo_insert_entry_dia / 2.0, ex), z,
+            *at(back - 0.01, anchor + 0.01)), up).fuse(
+            _supported_cut(_ycyl(pogo_heatset_dia / 2.0, x + ex, z,
+                                 *at(anchor - 0.01,
+                                     anchor + pogo_heatset_len + pogo_heatset_relief)), up))
+        for ex in _pogo.ear_xs()]
     return _supported_cut(seat, up), bores
 
 
@@ -6699,6 +6753,16 @@ def _east_boss_support(wall_x, station, up=1.0):
     return stem if corbel is None else stem.fuse(corbel)
 
 
+def east_boss_insert_setback(station):
+    """The installed insert's recess behind a component's mounting face.
+
+    The placed main board supplies its tail depth plus running air in field seven.
+    Its mounting sleeve remains on the PCB datum; the full insert host starts
+    behind the actual tail envelope. Other components keep a flush insert.
+    """
+    return float(station[6]) if len(station) > 6 else 0.0
+
+
 def _east_bosses(solid, roots, outer, stations, fills, y0, y1, z0, z1, up=1.0):
     """The +X wall's mounting bosses added to a PIECE, for the stations inside the depth and
     height band that piece owns — so a boss lands in the piece whose wall carries it, whole,
@@ -6802,6 +6866,27 @@ def _east_bosses(solid, roots, outer, stations, fills, y0, y1, z0, z1, up=1.0):
             # Keep the manufacturer's complete radial ligament behind the relieved insert
             # crown. Only this local boss grows; the component's seating plane is unchanged.
             solid = solid.fuse(_supported_cut(_east_boss_stem(roots[1], station, up), up))
+        setback = east_boss_insert_setback(station)
+        insert_tip = tip + setback
+        if setback:
+            # The populated PCB's established 7.2 mm square mounting clearance
+            # admits the Ø7 D sleeve, including its chord. It does not admit an
+            # Ø8 host in the 2 mm tail zone. Keep that mounting footprint only
+            # in front of the recessed brass; the installed body retains the
+            # complete Ø8 supported host without moving the PCB or its tails.
+            entry_r = 3.5
+            za, zb = (sz-entry_r, sz) if up > 0 else (sz, sz+entry_r)
+            sleeve = _xcyl(entry_r, sy, sz, tip, insert_tip).fuse(
+                _ybox(tip, insert_tip, sy-entry_r, sy+entry_r, za, zb))
+            margin = mount_boss_dia/2.0 + fits.supported_surface + 0.02
+            entry_band = _ybox(tip-0.001, insert_tip, sy-margin, sy+margin,
+                               sz-margin, sz+margin)
+            solid = solid.cut(entry_band.cut(sleeve))
+            # Admit the complete 4.6 mm knurl through the mounting sleeve,
+            # with access for the heat-set tip. This entry is outside the
+            # installed insert's manufacturer-required surrounding stock.
+            solid = solid.cut(_supported_cut(
+                _xcyl(2.5, sy, sz, tip-0.01, insert_tip), up))
         # THE BORE STILL STARTS AT THE BODY'S OWN FACE, stem or no stem. `roots` is one plane and
         # the piece is not: a station standing where the flank has already turned into its rear
         # corner meets a face inboard of that plane, and a bore struck on the plane leaves that
@@ -6814,8 +6899,8 @@ def _east_bosses(solid, roots, outer, stations, fills, y0, y1, z0, z1, up=1.0):
         # It gives up relief before it gives up `flute_backing`; `boss-bore-seats` reads what
         # is left against the insert's own depth.
         solid = solid.cut(_supported_cut(
-            _xcyl(heatset_dia / 2.0, sy, sz, tip,
-                   east_boss_bore_end(sy, tip, outer)), up))
+            _xcyl(heatset_dia / 2.0, sy, sz, insert_tip,
+                   east_boss_bore_end(sy, insert_tip, outer)), up))
     return solid
 
 
@@ -9552,7 +9637,11 @@ def _upper_y_seam_bound(pieces, box):
         xa, xb = sorted((x_ext, x_tip))
         floor = z - plug_dia / 2.0
         crown = z + plug_dia / 2.0
-        column = _ybox(xa, xb, y0, y1, crown, box.inner[5] + wall / 2.0)
+        # The functional funnel cuts the inboard corner above this station. The outer
+        # wall still supplies a continuous full-wall root to the ceiling; read that
+        # root independently of the complete pin and insert bearing at the screw.
+        rx0, rx1 = sorted((x_ext, x_ext + sx * wall))
+        column = _ybox(rx0, rx1, y0, y1, crown, box.inner[5] + wall / 2.0)
         column = column.intersect(_rounded_outer(box.outer))
         missing = column.cut(back).Volume()
         sweep = _ybox(xa, xb, y0, y1 + lip_len, floor, box.inner[5] + wall)
@@ -9560,7 +9649,7 @@ def _upper_y_seam_bound(pieces, box):
         ramp = _xz_prism(y0, y1, [
             (x_in, floor), (x_tip, floor), (x_in, floor - abs(x_tip - x_in))])
         below_shape = ramp.intersect(back)
-        if box.pack.funnel:
+        if box.pack.funnel and below_shape.Volume() > stated_bound_tol:
             # The functional funnel receiver stands below the ceiling column.
             # Its flat bearing is supported during printing and owns this stock.
             below_shape = below_shape.cut(_funnel_frame_part.receivers(
@@ -9570,7 +9659,15 @@ def _upper_y_seam_bound(pieces, box):
         shank = _xcyl(screw_clear_dia / 2.0, yb, z, x_ext, x_tip)
         insert = _xcyl(heatset_dia / 2.0, yb, z, x_tip, x_heat)
         bore = shank.intersect(back).Volume() + insert.intersect(front).Volume()
-        readings.append(("west" if sx > 0 else "east", missing, contested, below, bore))
+        body_end = x_tip + sx * heatset_len
+        body = _supported_cut(_xcyl(heatset_dia / 2.0, yb, z, x_tip, body_end))
+        surround = _supported_cut(_xcyl(
+            heatset_dia / 2.0 + _interface.heatset_min_wall, yb, z, x_tip, body_end))
+        insert_stock = surround.cut(body).cut(front).Volume()
+        cap = _supported_cut(_xcyl(heatset_dia / 2.0 + wall, yb, z, x_heat, _cap))
+        cap_stock = cap.cut(front).Volume()
+        readings.append(("west" if sx > 0 else "east", missing, contested, below, bore,
+                         insert_stock, cap_stock))
     ok = len(readings) == 2 and all(
         max(values) <= stated_bound_tol for _side, *values in readings)
     return record_bound(Bound(
@@ -9578,10 +9675,11 @@ def _upper_y_seam_bound(pieces, box):
         "Both upper seam blocks join the ceiling and pass their complete entry lanes",
         ok,
         f"{sum(max(row[1:]) <= stated_bound_tol for row in readings)}/2 corners clear",
-        "two complete ceiling columns, flat lower ends, open screw pilots and clear swept slots",
+        "two full-wall ceiling roots, flat pin ends, complete manufacturer insert walls and blind caps, open pilots and clear swept slots",
         [f"{side}: missing column {missing:.4f} mm³; entry overlap {contested:.4f} mm³; "
-         f"material below the flat end {below:.4f} mm³; blocked bores {bore:.4f} mm³"
-         for side, missing, contested, below, bore in readings]))
+         f"material below the flat end {below:.4f} mm³; blocked bores {bore:.4f} mm³; "
+         f"missing insert surround {insert_stock:.4f} mm³ and cap {cap_stock:.4f} mm³"
+         for side, missing, contested, below, bore, insert_stock, cap_stock in readings]))
 
 
 def _lower_y_seam_bound(pieces, box):
@@ -9615,23 +9713,42 @@ def _lower_y_seam_bound(pieces, box):
         overlap = sweep.intersect(front).Volume()
         levels_ok = len(stations) == 2 and all(
             abs(actual - wanted) < stated_bound_tol for actual, wanted in zip(stations, levels))
-        readings.append(("west" if sx > 0 else "east", levels_ok, missing, overlap, blocked))
+        fore_stock = 0.0
+        insert_stock = 0.0
+        cap_stock = 0.0
+        xa, xb = sorted((_seat, x_tip))
+        for z in levels:
+            # The native ligament ahead of the clearance hole is the lower screw's
+            # pull-apart path. Check the whole shank width, not only an open bore.
+            strip = _ybox(xa, xb, box.y_joint, yb - screw_clear_dia / 2.0,
+                          z - screw_clear_dia / 2.0, z + screw_clear_dia / 2.0)
+            fore_stock += strip.cut(back).Volume()
+            body_end = x_tip + sx * heatset_len
+            body = _supported_cut(_xcyl(heatset_dia / 2.0, yb, z, x_tip, body_end))
+            surround = _supported_cut(_xcyl(
+                heatset_dia / 2.0 + _interface.heatset_min_wall, yb, z, x_tip, body_end))
+            insert_stock += surround.cut(body).cut(front).Volume()
+            cap = _supported_cut(_xcyl(heatset_dia / 2.0 + wall, yb, z, x_heat, x_cap))
+            cap_stock += cap.cut(front).Volume()
+        readings.append(("west" if sx > 0 else "east", levels_ok, missing, overlap, blocked,
+                         fore_stock, insert_stock, cap_stock))
     floor_lane = _ybox(box.inner[0], box.inner[1], y0, box.y_joint + lip_len,
                        box.outer[4], box.inner[4])
     floor_register = front.intersect(floor_lane).intersect(
         back.intersect(floor_lane).translate((0, 0, 2.0 * fits.running))).Volume()
     ok = floor_register > stated_bound_tol and all(
-             levels_ok and max(missing, overlap, blocked) <= stated_bound_tol
-             for _side, levels_ok, missing, overlap, blocked in readings)
+             levels_ok and max(values) <= stated_bound_tol
+             for _side, levels_ok, *values in readings)
     return record_bound(Bound(
         "y-seam-lower",
         "Both lower seam jambs join the handhold roofs and carry complete lower and middle fasteners",
         ok,
         f"four screw axes at Z {levels[0]:g} and {levels[1]:g} mm; middle collars end at Z {z_seam:g}",
-        "two jambs above the handholds, four open screw pilots, passages open through the rim, and a registering floor lap",
+        "two jambs above the handholds, complete fore shear strips, manufacturer insert walls and blind caps, four open pilots and clear passages, and a registering floor lap",
         [f"{side}: levels {'correct' if levels_ok else 'incorrect'}; missing jamb {missing:.4f} mm³; "
-         f"entry overlap {overlap:.4f} mm³; blocked bores {blocked:.4f} mm³"
-         for side, levels_ok, missing, overlap, blocked in readings] + [
+         f"entry overlap {overlap:.4f} mm³; blocked bores {blocked:.4f} mm³; "
+         f"missing fore strip {fore_stock:.4f} mm³, insert surround {insert_stock:.4f} mm³, cap {cap_stock:.4f} mm³"
+         for side, levels_ok, missing, overlap, blocked, fore_stock, insert_stock, cap_stock in readings] + [
             f"floor lap blocks a {2.0 * fits.running:g} mm upward shift: {floor_register:.4f} mm³ overlap"]))
 
 

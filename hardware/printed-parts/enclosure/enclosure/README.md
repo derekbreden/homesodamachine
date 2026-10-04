@@ -99,8 +99,10 @@ bottom pieces; the ceiling pair pins the two tops. `_bosses` drops a level
 landing within two socket collars of one already placed, so the ladder carries one level per
 height it is owed.
 
-The upper screw axes stand **[17.95 mm](SEAM_SCREW_END_INSET)** below the interior ceiling
-plane. The lower axes stand at **Z[48.9 mm](SEAM_SCREW_LOWER_Z)**, their complete collars above
+The upper screw axes keep at least **[17.95 mm](SEAM_SCREW_END_INSET)** below the interior ceiling
+plane. Their highest complete stations that clear the native funnel receiver and packed bodies
+are Z282.05 mm on the west and Z291.05 mm on the east, respectively 69.95 and 60.95 mm
+below that plane. The lower axes stand at **Z[48.9 mm](SEAM_SCREW_LOWER_Z)**, their complete collars above
 the handhold roofs. Back-top's two upper pins are rectangular corner blocks, from their flat lower ends
 through the ceiling slab and from the seam mouth into the full-thickness flanks. Front-top's
 matching straight passages open through its ceiling tongue; the insert seats remain on the
@@ -119,11 +121,11 @@ remaining floor lap. The existing rails connect the top pieces to this fastening
 alone still frees front-top.
 
 Each cross-pin is sized to its job. Reading an M3×10 screw outboard→inboard from
-the ±X exterior: a Ø6.15 mm head counterbore, then [5 mm](SEAM_PIN_SHANK) of pin body
+the ±X exterior: a Ø6.15 mm head counterbore 3.5 mm deep, then [5.5 mm](SEAM_PIN_SHANK) of pin body
 ending exactly on the [9 mm](BACK_SEAM_FLANK_T) back flank's physical interior face, then a
 [5 mm](SEAM_HEATSET_DEPTH) heat-set pilot, then a one-wall cap. The pilot holds the complete
-4 mm insert and [1 mm](SEAM_HEATSET_RELIEF) of screw-tip relief, so the blind end and cap stay
-on the M3×10 stack's datum while the pin meets the flank flush. The counterbore
+4 mm insert and [1 mm](SEAM_HEATSET_RELIEF) past its body. The M3×10 engages the complete
+insert and finishes 0.5 mm before the blind end; the pin meets the flank flush. The counterbore
 retains that complete circular pass and bearing envelope, while its unsupported crown continues
 on two tangent [36°](TEARDROP_ROOF) roof planes. The six head pockets therefore close without
 isolated support towers.
@@ -141,13 +143,19 @@ isolated support towers.
 **Each boss stands on the joint it pins.** A plug is the wall it drives through and
 the reach it needs past it: the first `wall` of its length *is* that wall's own
 material and the rest a stub off it, its mouth-side face on the receiving mouth. A
-socket starts as a **[15.8 mm](SOCKET_OD) square block** with the pin's passage cut through it
-and a `socket_cap` over the insert's blind end — its rim-side face on the lip rim and its far face a
-hair under the seam mouth, so it stands on that band down its
-whole length. That band is one `wall` deep and runs the piece's full height, the way
-a telescoping lip does. Those two matings are the pair the overlap depth is struck
-from — it works out to (plug + bore)/2 + one wall. The lower and middle levels share
-one jamb per side.
+socket is a rectangular jamb rooted one wall ahead of the seam, extending aft to
+the insert's complete [15.8 mm](SOCKET_OD) collar and capped by `socket_cap` inboard.
+All six screw axes are at Y209.9 mm. The lower and middle back pins retain 8.25 mm
+of native material between the Y200 free edge and the Ø3.3 clearance hole across
+the full 5.5 mm shank. The tongue overlap is 17.8 mm; the lower and middle levels
+share one jamb per side. The [heat-set review](heat-set-review/README.md) checks
+these whole native load-path sections and the manufacturer insert envelopes.
+
+An edge-first drop that opens the lower Y seam puts the lower screw pair in tension.
+The floor scarf registers the floor and supplies no tensile interlock. Joining the
+tops and blocking their common slide does not establish a top compression flange
+under enclosure bending. Drop resistance requires assembled physical qualification;
+native solid volume and the saved 15% general infill do not establish that capacity.
 
 ## Exterior disposal warning
 
@@ -223,7 +231,7 @@ lifting roof, screw passages and assembled fit.
 
 Bottom↔top, per column, at `enclosure.z_seam`: **a full-travel slide on hooked rails, and
 no screw anywhere on it.** Down each flank's **straight run** the bottom piece raises an
-**arm** on its mouth, standing one [0.25 mm](SLIDE_SLIP) inboard of the top's own wall,
+**4.5 mm arm** on its mouth, standing one [0.25 mm](SLIDE_SLIP) inboard of the top's own wall,
 and the arm's **head** steps back out over the **groove** between them: a
 [5 mm](FRONT_HOOK_LAP) overlap on the front column and [5 mm](BACK_HOOK_LAP) on the back.
 The top piece's wall runs to the mouth at full section — the **foot**, its caught face
@@ -247,14 +255,14 @@ tops. Reaching the assembled position does not require compressing the rail ends
 On both columns, the foot carries the flank's full 6 mm inward section from `interior_x` to
 the nominal 9 mm face on both sides: [6 mm](FRONT_RAIL_FOOT) in front and
 [6 mm](BACK_RAIL_FOOT) in back. Each bottom hook carries a 5 mm bearing overlap at that
-face's inboard edge. Their arms reach [10.25 mm](FRONT_RAIL_INBOARD) in front and
-[10.25 mm](BACK_RAIL_INBOARD) in back from `interior_x`, inside the 14 mm body-free seam
+face's inboard edge. Their arms reach [10.75 mm](FRONT_RAIL_INBOARD) in front and
+[10.75 mm](BACK_RAIL_INBOARD) in back from `interior_x`, inside the 14 mm body-free seam
 band. Each catch lies wholly over its six-millimetre foot and keeps a complete exterior wall
 outside its channel.
 
 **Lifting a seated top lands each foot's flat top face on its head's flat underside,
 along both whole runs** — [97 mm](RAIL_RUN_FRONT) per flank on the front column,
-[238 mm](RAIL_RUN_BACK) and [226 mm](RAIL_RUN_BACK_W) on the back — horizontal printed
+[232 mm](RAIL_RUN_BACK) and [220 mm](RAIL_RUN_BACK_W) on the back — horizontal printed
 face on horizontal printed face, square faces bearing full from the first micron. The two
 back flanks differ by the PRV passage: it crosses the −X run and takes
 [12 mm](VENT_CHANNEL_W) of it, which is the figure that flank is already short by.
@@ -316,7 +324,7 @@ floor slab spans the interior wall to wall, so a body laid on a wall's face woul
 leave the seam machinery nowhere to stand. A **floor body is held one
 `side_band_inset` in from the ±X walls where it meets the seam's furniture** — the
 Y-seam collars, or the rail band over the seam's own storey. Each column's full-section foot,
-groove, arm and head reach [10.2 mm](RAIL_REACH) inward from `interior_x`, inside that same
+groove, arm and head reach [10.8 mm](RAIL_REACH) inward from `interior_x`, inside that same
 band.
 The **+Y wall keeps one `rear_seam_clear`**, the rear Z-seam lip's own thickness. That is a requirement
 on the body where it meets one, not a rule about the wall: beside one — over or under
@@ -1555,11 +1563,16 @@ each half that will stand at −X, and seat both halves with that mark at −X.
 [23.7 × 4.3 mm](POGO_MOUTH), cut from the face to the plate's back. That plane,
 [3 mm](POGO_DATUM_DEPTH) in, is the datum the plate lands on, so the face lands flush. The
 body's stadium continues behind it, and the tails and their solder joints stand in the lead
-passage behind that. Two M1.4 × 5 socket-head screws pass the
+passage behind that. Two M1.4 × 8 socket-head screws pass the
 ears' Ø1.5 mm holes into M1.4 × 4 × Ø2.3 brass heat-set inserts, each in a
-[Ø2 × 5 mm](POGO_INSERT_HOLE) bore opening from the datum. Each head stands
-[0.6 mm](POGO_HEAD_RECESS) under the face. Press each insert flush with the datum before the
-half goes in.
+[Ø2 × 5.5 mm](POGO_INSERT_HOLE) pilot starting 2 mm behind the ear datum, or 5 mm
+inside the mating face. A Ø2.6 mm passage admits the entire knurl through that
+setback. The full insert occupies depths 5–9 mm, the pilot ends at 10.5 mm, and
+the M1.4×8 tip ends at 10 mm. Each head stands [0.6 mm](POGO_HEAD_RECESS) under
+the face. Install the inserts before the half goes in, using the recessed-seat
+procedure in [enclosure assembly](../../../assembly/enclosure-mechanical.md).
+The supplier specifies the insert body, without a host-wall or hole-depth rule;
+Ø2.0 is the starting fit and requires physical coupon qualification.
 
 **Both seats are horizontal pockets.** Front-top builds in +Z and the clamp prints on its
 crown, so each seat roof spans the mouth's 23.7 mm length along X between its round ends, with the

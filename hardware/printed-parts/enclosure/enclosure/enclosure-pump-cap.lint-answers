@@ -10,3 +10,7 @@ click: x=0.000 y=74.769 z=276.124
 file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step
 click: x=-18.325 y=63.771 z=280.674
 click: x=18.325 y=63.771 z=280.674
+
+[step] The recessed M1.4 insertion entry opens into the connector's existing body cavity. These parallel faces at Y74.259 and Y75.119 are clearance transitions in front of the installed insert, whose top is Y74.269 and body extends toward lower Y. The Ø2.6 entry admits the whole knurl without moving the ear-bearing datum at Y76.269. The native heat-set audit reads the full 4 mm installed body and retains at least 1.148 mm surrounding stock; the 0.860 mm depth offset is not a load-bearing thin web.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step
+click: x=6.324 y=75.119 z=278.399

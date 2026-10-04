@@ -26,12 +26,12 @@
         16.321,
         18.624
       ],
-      "volume_mm3": 8178.88,
-      "stl_facets": 5440,
+      "volume_mm3": 8136.11,
+      "stl_facets": 7144,
       "outputs": {
-        "contact-pair-male-coupon.step": "415369e79a8b858711b602d7b1e7571ba45f984dbb46eec0264e4c8ee4bf7a0c",
-        "contact-pair-male-coupon.stl": "89b15219143a475dc3e25650c95f2d0eb5364a3b2bd1a508c4e440beb172794d",
-        "contact-pair-male-coupon.step.mesh": "106f4111ca03fe8b06bcec40211742d6bb8cd09926e59608b6fc0f35eaf55046"
+        "contact-pair-male-coupon.step": "c6bd4ee6ffa77f0d71a15189682733f78c9a604984fce5f51da2e56cb5882ca8",
+        "contact-pair-male-coupon.stl": "586129b819279ae729ecaa085cb6bca6cd9c0cc81fe9977531fa4120b0d868b8",
+        "contact-pair-male-coupon.step.mesh": "3afb4dcde4a6fa0c5042e758e756976f2310fd11fd9026d8bf98eac2929b00be"
       },
       "landmarks": [
         {
@@ -87,7 +87,7 @@
           ]
         },
         {
-          "feature": "+X insert bore axis at the datum",
+          "feature": "+X insert access at the ear datum",
           "machine": [
             10.22,
             82.515,
@@ -96,6 +96,19 @@
           "bed": [
             10.22,
             -5.1605,
+            11.724
+          ]
+        },
+        {
+          "feature": "+X insert top behind the datum",
+          "machine": [
+            10.22,
+            84.515,
+            278.524
+          ],
+          "bed": [
+            10.22,
+            -3.1605,
             11.724
           ]
         },
@@ -160,7 +173,7 @@
       "crop_in_machine_frame": [
         -17.85,
         17.85,
-        67.269,
+        64.769,
         80.269,
         272.124,
         285.174
@@ -176,21 +189,21 @@
         },
         "then_shift": [
           -0.0,
-          73.269,
+          72.019,
           284.174
         ]
       },
       "print_size_mm": [
         35.7,
-        12.0,
+        14.5,
         12.05
       ],
-      "volume_mm3": 4055.97,
-      "stl_facets": 4376,
+      "volume_mm3": 4874.4,
+      "stl_facets": 6476,
       "outputs": {
-        "contact-pair-female-coupon.step": "f2f46bea1686294aada16a20ffc82ac5c1a20bd2f067a531f1396fd0e2f28b21",
-        "contact-pair-female-coupon.stl": "48106ec308cd970ec96a1609106a3a1ee8495105931eccbeb12af3b504017514",
-        "contact-pair-female-coupon.step.mesh": "dca680baf24d3f4c3fcaebf6f7a3b8eadea6fc42f5ae8150b0a5abbee3c3cc55"
+        "contact-pair-female-coupon.step": "06b5cf443c60dcabec346f2b2681cee04072045d4e9928879be6784c6627d177",
+        "contact-pair-female-coupon.stl": "7aa8b03c368e6097adac25d235f8890376debaaf59c06a6dceaecc2ba6930d36",
+        "contact-pair-female-coupon.step.mesh": "c0d2fc7afb99f609606234fe56092f6f7aa163ae921abbf6916fa333a05d150c"
       },
       "landmarks": [
         {
@@ -202,7 +215,7 @@
           ],
           "bed": [
             0.0,
-            -6.0,
+            -7.25,
             5.65
           ]
         },
@@ -215,7 +228,7 @@
           ],
           "bed": [
             0.0,
-            -3.0,
+            -4.25,
             5.65
           ]
         },
@@ -228,12 +241,12 @@
           ],
           "bed": [
             0.0,
-            -4.5,
+            -5.75,
             8.05
           ]
         },
         {
-          "feature": "+X insert bore axis at the datum",
+          "feature": "+X insert access at the ear datum",
           "machine": [
             10.22,
             76.269,
@@ -241,7 +254,20 @@
           ],
           "bed": [
             10.22,
-            -3.0,
+            -4.25,
+            5.65
+          ]
+        },
+        {
+          "feature": "+X insert top behind the datum",
+          "machine": [
+            10.22,
+            74.269,
+            278.524
+          ],
+          "bed": [
+            10.22,
+            -2.25,
             5.65
           ]
         },
@@ -254,7 +280,7 @@
           ],
           "bed": [
             11.7798,
-            5.6578,
+            4.4078,
             3.5
           ]
         },
@@ -267,7 +293,7 @@
           ],
           "bed": [
             0.0,
-            -3.0,
+            -4.25,
             0.0
           ]
         }
@@ -275,9 +301,11 @@
     }
   },
   "source_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py": "84e217aea5a52ec328cd96beed45dcf5f1decbd6346886b2bc897a764b5eb068",
-    "hardware/manifold-layout/enclosure-box.json": "590cfed407b4150ca25926daad1182f0698f7fc3a7f88348db8b3cbbcdc58683",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "01f9674f9a5938321079c3007c49afc5e4d2ef0931232a3c58d3290810ec9c0f",
-    "hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py": "7a2cc5efd8b6de98cb596c4b5d5ed94028a7c7c869f6763d6dc9e1bf310a3f44"
+    "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py": "d92fd2c963b9de32091d18ac52f1cd35cb781e75a189afd8e7259a5304a60f6e",
+    "hardware/manifold-layout/enclosure-box.json": "4879e690f9e139856fddb3c5d918be5792e3eff13b5a26cc627e201df7ad0819",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "963a7359e65b2019b3108d950ea701a2d223c469375059e6989fe38294c34542",
+    "hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py": "7a2cc5efd8b6de98cb596c4b5d5ed94028a7c7c869f6763d6dc9e1bf310a3f44",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "69ef530764b2f237acc27cc05be36db875d87f88b6836bad521c2bf3f9ac093e",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "26df3e161efb02ead136abd3de9b6631a9d57d388ba1692cc693c6db42a82bf3"
   }
 }

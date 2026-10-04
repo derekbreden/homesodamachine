@@ -70,7 +70,9 @@ def coupons(box, pieces):
     bed = round(pieces["front-top"].BoundingBox().zmin, 4)
     floor = bed + math.floor((axis - e.pogo_lead_r - BEYOND - bed) / LAYER) * LAYER
     male_y = (fixed, plate["wall_aft_y"] + 2.0)
-    female_y = (rides - (e._pogo.BODY_T + e.pogo_lead_run) - 3.0, rides)
+    anchor_back = e._pogo.ear_back() + e.pogo_heatset_setback
+    host_back = anchor_back + e.pogo_heatset_len + e.pogo_heatset_relief + BEYOND
+    female_y = (rides - max(host_back, e._pogo.BODY_T + e.pogo_lead_run + 3.0), rides)
     return {
         "male": ("front-top",
                  (x - half, x + half, fixed - 1.0, male_y[1], floor, box.pump_bay[2] + 1.0),
@@ -114,7 +116,8 @@ def landmarks(box):
         ("male", "seat datum, the ear plate's bearing step", (x, fixed + datum, z)),
         ("male", "seat roof, the bridge", (x, fixed + datum / 2.0, z + w + e.fits.supported_surface)),
         ("male", "seat floor", (x, fixed + datum / 2.0, z - w)),
-        ("male", "+X insert bore axis at the datum", (x + ear, fixed + datum, z)),
+        ("male", "+X insert access at the ear datum", (x + ear, fixed + datum, z)),
+        ("male", "+X insert top behind the datum", (x + ear, fixed + datum + e.pogo_heatset_setback, z)),
         ("male", "lead bore axis at the body's back", (x, fixed + e._pogo.BODY_T, axis)),
         ("male", "lead bore apex", (x, fixed + e._pogo.BODY_T, apex)),
         ("male", "lead bore exit floor, the tray's crown", (x, plate["wall_aft_y"], e._lead_bore_floor(box))),
@@ -123,7 +126,8 @@ def landmarks(box):
         ("female", "seat datum, the ear plate's bearing step", (x, rides - datum, z)),
         ("female", "seat roof in the print, the bridge", (x, rides - datum / 2.0,
                                                           z - w - e.fits.supported_surface)),
-        ("female", "+X insert bore axis at the datum", (x + ear, rides - datum, z)),
+        ("female", "+X insert access at the ear datum", (x + ear, rides - datum, z)),
+        ("female", "+X insert top behind the datum", (x + ear, rides - datum - e.pogo_heatset_setback, z)),
         ("female", "+X crown groove floor, past the slot", (groove[0], groove[1],
                                                             e.cap_crown_z(box) - groove_d)),
         ("female", "crown, the bed", (x, rides - datum, e.cap_crown_z(box))),
@@ -134,8 +138,12 @@ def main():
     box, bounds, box_path = _declared_box(_box_spec, e)
     e.BOUNDS[:] = bounds
     e._last_box[0] = box
-    pieces = {"front-top": e.build_piece(box, "front", "top").val(),
-              "pump-cap": e.build_pump_cap(box).val()}
+    if '--from-exported-pieces' in sys.argv:
+        pieces = {name: cq.importers.importStep(str(ENC / f'enclosure-{name}.step')).val()
+                  for name in ('front-top', 'pump-cap')}
+    else:
+        pieces = {"front-top": e.build_piece(box, "front", "top").val(),
+                  "pump-cap": e.build_pump_cap(box).val()}
     report = {"box": str(box_path.relative_to(ROOT)), "layer": LAYER, "coupons": {}}
     plan = coupons(box, pieces)
     for name, (piece, (x0, x1, y0, y1, z0, z1), turn, shift) in plan.items():
@@ -183,6 +191,8 @@ def main():
         (male_floor - front_bed) / LAYER)
     sources = [Path(__file__), box_path, ENC / "enclosure.py",
                ROOT / "hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py"]
+    if '--from-exported-pieces' in sys.argv:
+        sources += [ENC / f'enclosure-{name}.step' for name in pieces]
     report["source_sha256"] = {str(p.resolve().relative_to(ROOT)): sha(p) for p in sources}
     (HERE / "geometry-check.json").write_text(json.dumps(report, indent=2) + "\n")
     write_readme(box, report)
