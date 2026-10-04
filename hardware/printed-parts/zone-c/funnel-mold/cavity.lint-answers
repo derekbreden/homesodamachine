@@ -1,26 +1,34 @@
-[step] The opening notch is recessed 1 mm into the parting land and opens through the flange edge. Its 4 mm floor carries a blunt opening tool.
+[step] The opening notch is recessed 1 mm into the bare parting land and opens through the flange edge. Its 4 mm floor carries a blunt opening tool; the 1 mm level change is the pry recess.
 file: hardware/printed-parts/zone-c/funnel-mold/cavity.step
-click: x=-103.000 y=0.000 z=53.950
+click: x=-103.000 y=0.000 z=55.150
 
-[sliver] These are the vertical backs and sides of the four 1 mm high, 16 mm wide opening notches. Each notch retains a 4 mm flange floor and opens through the outer edge.
+[sliver] These are the vertical backs and sides of the four 1 mm high, 16 mm wide opening notches. Each recess retains a 4 mm flange floor and opens through the outer edge; the strip dimension is the recess height.
 file: hardware/printed-parts/zone-c/funnel-mold/cavity.step
-click: x=-100.500 y=0.000 z=54.450
-click: x=0.000 y=-100.500 z=54.450
-click: x=0.000 y=100.503 z=54.450
-click: x=100.500 y=0.000 z=54.450
-click: x=8.000 y=-103.000 z=54.450
-click: x=8.000 y=103.000 z=54.450
-click: x=-103.000 y=8.000 z=54.450
-click: x=103.000 y=8.000 z=54.450
-click: x=-103.000 y=-7.997 z=54.450
-click: x=103.000 y=-7.997 z=54.450
-click: x=-8.000 y=-103.000 z=54.450
-click: x=-8.000 y=103.000 z=54.450
+click: x=-100.500 y=0.000 z=55.650
+click: x=0.000 y=-100.502 z=55.650
+click: x=0.000 y=100.500 z=55.650
+click: x=100.500 y=0.000 z=55.650
+click: x=8.000 y=-103.000 z=55.650
+click: x=8.000 y=103.000 z=55.650
+click: x=-103.000 y=7.998 z=55.650
+click: x=103.000 y=7.998 z=55.650
+click: x=-103.000 y=-8.000 z=55.650
+click: x=103.000 y=-8.000 z=55.650
+click: x=-8.000 y=-103.000 z=55.650
+click: x=-8.000 y=103.000 z=55.650
 
-[ceiling] The 5 mm clamping flange overhangs the mold shell. The current native slice emits Snug support and labelled interfaces beneath it, rooted on the bed and exposed around the outside for cutting and removal before finishing the mold. The complete connected support body need not withdraw intact.
+[ceiling] The 5 mm clamping flange overhangs the shell. The current native Snug slice records bed-rooted support and labelled interface-5 at print Z50.602–50.880 beneath this band. Its exposed outer edges permit cutting and detaching support before finishing. Clean physical removal remains unqualified.
 file: hardware/printed-parts/zone-c/funnel-mold/cavity.step
-click: x=0.000 y=0.000 z=49.950
+click: x=0.000 y=0.000 z=51.150
 
-[ceiling] The flat underside of the brim shell is backed by 5 mm of mold stock. The current native slice emits Snug support and labelled interfaces in this annular band. Cut and detach supports through the open dry back before finishing the forming surfaces; the native slice establishes the emitted paths, while clean physical release remains untested.
+[ceiling] This underside of the brim shell has at least 5 mm backing. The current native Snug slice records bed-rooted support and labelled interface-4 in the brim band. Cut and detach it through the open dry back before finishing the forming face; connected supports need not withdraw intact. Native paths do not establish physical adhesion or clean release.
 file: hardware/printed-parts/zone-c/funnel-mold/cavity.step
-click: x=0.000 y=0.000 z=43.640
+click: x=0.000 y=0.000 z=44.840
+
+[ceiling] This flat underside backs the silicone block with the checked 5 mm shell stock. The current native Snug slice records bed-rooted support and labelled interface-2 in the block band, beginning at print Z1.440. The underside is exposed between the three mold feet for cutting and removal; no enclosed support passage is required. Clean physical removal remains unqualified.
+file: hardware/printed-parts/zone-c/funnel-mold/cavity.step
+click: x=1.850 y=0.000 z=1.890
+
+[ceiling] This is the dry bottom of the blind pilot-seat boss. It leaves 5 mm of axial stock below the seat floor, with 0.7 mm clearance above the mold's feet datum. Native Snug interface-1 occupies print Z0.200–0.480 beneath the boss and is bed-rooted. Cut and detach it from the open underside between the feet before fitting the pin; support quality and physical cleanout remain unqualified.
+file: hardware/printed-parts/zone-c/funnel-mold/cavity.step
+click: x=1.850 y=0.000 z=0.700
