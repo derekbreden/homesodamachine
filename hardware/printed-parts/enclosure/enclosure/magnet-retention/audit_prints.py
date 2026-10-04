@@ -217,12 +217,20 @@ def read_job(job, geom):
         config=ET.fromstring(z.read('Metadata/model_settings.config'))
         # Studio assigns new production UUIDs on export. Volume IDs bind the
         # part settings to the native component and its own object mesh.
-        modifiers={p.get('id'):p for p in config.iter('part') if p.get('subtype')=='modifier_part'}
+        owner = (next(o for o in config.findall('object') if
+                      o.find("metadata[@key='name']").get('value') == job['native_object_name'])
+                 if job.get('native_object_name') else config.find('object'))
+        owner_id = owner.get('id')
+        instance = next(i for i in config.findall('plate/model_instance') if
+                        i.find("metadata[@key='object_id']").get('value') == owner_id)
+        identify_id = instance.find("metadata[@key='identify_id']").get('value')
+        modifiers={p.get('id'):p for p in owner.findall('part') if p.get('subtype')=='modifier_part'}
         model=ET.fromstring(z.read('3D/3dmodel.model'))
-        item=model.find(f'.//{tag("item")}')
+        item=next(i for i in model.iter(tag('item')) if i.get('objectid') == owner_id)
         placement=np.array([float(v) for v in item.get('transform').split()])
         assert np.allclose(placement[:9],np.eye(3).flatten())
-        for comp in model.iter(tag('component')):
+        native_owner=next(o for o in model.iter(tag('object')) if o.get('id') == owner_id)
+        for comp in native_owner.iter(tag('component')):
             part=modifiers.get(comp.get('objectid'))
             if part is None:continue
             values={m.get('key'):m.get('value') for m in part.findall('metadata')}
@@ -252,6 +260,11 @@ def read_job(job, geom):
                 layer_z = float(line.split(": ", 1)[1]); continue
             if line.startswith("; OBJECT_ID:"):
                 object_active = True
+                owned_object = line.split(':', 1)[1].strip() == identify_id
+            if line.startswith('; start printing object, unique label id:'):
+                owned_object = line.rsplit(':', 1)[1].strip() == identify_id
+            if line.startswith('; stop printing object'):
+                owned_object = False
             if line.startswith("M83"):
                 relative_e = True; continue
             if line.startswith("M82"):
@@ -277,6 +290,8 @@ def read_job(job, geom):
             if not object_active or extrusion <= 0 or not ("X" in values or "Y" in values):
                 continue
             is_support = feature.startswith("Support")
+            if job.get('native_object_name') and not is_support and not owned_object:
+                continue
             cad_z = layer_z - tz
             if not is_support:
                 pts=[(start['X']-tx,start['Y']-ty),(actual['X']-tx,actual['Y']-ty)]
