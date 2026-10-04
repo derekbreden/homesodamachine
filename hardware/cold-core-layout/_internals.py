@@ -355,8 +355,8 @@ def report(reservoirs: dict = None) -> None:
     print(f"    res rods        ⌀{_V.ROD_D:.3f} × {RES_ROD_LEN:.1f} at x ±{RES_ROD_X:.0f}, "
           f"y {RES_ROD_Y:.1f}{seats}")
     print(f"    float slop      ⌀{F.FLOAT_BORE:.2f} bore on a ⌀{_V.ROD_D:.3f} rod — "
-          f"{FLOAT_SLOP:.3f} mm radial freedom; RC62 bench edge datum "
-          f"{MAGNET_EDGE_BENCH_REACH:g} mm")
+          f"{FLOAT_SLOP:.3f} mm radial freedom; printed-float bench edge limit "
+          f"{_float.float_edge_reported_usable_limit:g} mm")
     for name, (park, wall, centre, standoff) in sorted(float_seats(reservoirs).items()):
         print(f"    {name:15} rod axis {park:.3f}, wet wall {wall:.3f}, float axis "
               f"{centre:.3f} — maximum body/wall gap {standoff:.3f} mm")

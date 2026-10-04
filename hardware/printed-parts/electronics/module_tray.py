@@ -66,9 +66,11 @@ def _convex_hull(points):
 def _boss_spec(hole_dia):
     """(boss outer dia, heat-set bore dia, bore depth) sized to the board's hole:
     M2 for ~2 mm board holes, M3 otherwise."""
+    # ruthex RX-M2x4 and RX-M3Sx4: Wmin is measured from the recommended
+    # pilot, and each 4 mm insert needs at least 1 mm of blind relief.
     if hole_dia <= 2.6:
-        return 5.5, 3.2, 4.0      # M2 ruthex insert
-    return 7.0, 4.0, 5.5          # M3 ruthex insert
+        return 5.8, 3.2, 5.0
+    return 7.2, 4.0, 5.0
 
 
 def _insert_boss(px, py, boss_d, bore_d, depth):
