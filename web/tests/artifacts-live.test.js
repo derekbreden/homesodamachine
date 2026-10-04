@@ -103,13 +103,18 @@ test("retired parts leave the viewer's directory while current and local files r
   }
 });
 
-test("CAD adoption and retirement keep the committed install guide", async () => {
+test("CAD adoption keeps committed guides and leaves archived cards retired", async () => {
   const root = await mkdtemp(path.join(tmpdir(), "hsm-committed-guide-"));
   try {
-    const names = ["install-guide.pdf", "install-guide.cover.png", "install-guide.pdf.json"];
-    await mkdir(path.join(root, "hardware/install-guide"), { recursive: true });
-    for (const name of names) await writeFile(path.join(root, "hardware/install-guide", name), "new edition");
-    const have = { solids: Object.fromEntries(names.map(name => [`hardware/install-guide/${name}`, "old-hash"])) };
+    const guides = ["install-guide", "drill-and-cut-guide", "mold-guide", "refrigeration-guide", "assembly-letter-guide"];
+    const names = guides.flatMap(guide => [".pdf", ".cover.png", ".pdf.json"]
+      .map(suffix => `hardware/${guide}/${guide}${suffix}`));
+    for (const name of names) {
+      await mkdir(path.dirname(path.join(root, name)), { recursive: true });
+      await writeFile(path.join(root, name), "new edition");
+    }
+    const archived = "hardware/assembly/cards/out/deck.pdf";
+    const have = { solids: Object.fromEntries([...names, archived].map(name => [name, "old-hash"])) };
     await writeFile(path.join(root, "hardware/cad-artifacts.json"), JSON.stringify(have));
     await writeFile(path.join(root, "package.json"), '{"type":"module"}');
     for (const relative of ["scripts/fetch-cad-artifacts.mjs", "lib/store.js", "contracts/documents.js"]) {
@@ -120,9 +125,13 @@ test("CAD adoption and retirement keep the committed install guide", async () =>
     const { stdout } = await promisify(execFile)(process.execPath,
       [path.join(root, "web/scripts/fetch-cad-artifacts.mjs"), "--adopt", "--check"]);
     assert.match(stdout, /0 solid\(s\) at the pointed-at hash/);
-    assert.deepEqual(await retireSolids(root, have, { solids: {} }), []);
+    await mkdir(path.dirname(path.join(root, archived)), { recursive: true });
+    await writeFile(path.join(root, archived), "cached card deck");
+    assert.deepEqual(await retireSolids(root, have, have), [archived]);
+    await assert.rejects(readFile(path.join(root, archived)), { code: "ENOENT" });
+    assert.deepEqual(await retireSolids(root, { solids: Object.fromEntries(names.map(name => [name, "old-hash"])) }, { solids: {} }), []);
     for (const name of names) {
-      assert.equal(await readFile(path.join(root, "hardware/install-guide", name), "utf8"), "new edition");
+      assert.equal(await readFile(path.join(root, name), "utf8"), "new edition");
     }
   } finally {
     await rm(root, { recursive: true, force: true });

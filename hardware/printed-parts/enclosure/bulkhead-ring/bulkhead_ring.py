@@ -121,11 +121,8 @@ STEPS = {name: _here.parent / f"bulkhead-ring-{name}.step" for name in STATIONS}
 FLUIDS = {"water": "water", "carb": "carb", "co2": "co2",
           "flavor-a": "flavor", "flavor-b": "flavor"}
 
-# THE FACE THE REST OF THE MACHINE'S PAPER IS SET IN. `assembly/cards/style.css` sets the build
-# deck's `--sans` to it and `quickstart/style.css` sets the customer's sheets in it — and those
-# sheets point at these very ports. A customer holding one beside the machine reads one typeface,
-# not two. (The web surface's Montserrat is a
-# webfont, not installed, and nothing physical is set in it.)
+# Physical port labels use the typeface below. The cap-height and stroke-width
+# checks establish its printed fit on the identification ring.
 #   Bold is what the nozzle asks for. Every stroke is an extrusion of the word's own colour, laid
 # at `WORD_BEAD`. `WORD_MIN_STROKE` is what this weight turns out to be worth at `WORD_CAP`,
 # measured off the built letterforms rather than claimed, and `selftest` reads it against the bead.

@@ -7,7 +7,7 @@
 //   - Server (this module) stores tokens + which files each subscription
 //     watches in Postgres.
 //   - On prod boot, server.js calls the per-kind detect* functions (steps,
-//     mermaid, dxf, pcb boards, assembly cards) against per-kind hash tables,
+//     mermaid, dxf, pcb boards, published documents) against per-kind hash tables,
 //     concatenates the result, and calls notifyFilesChanged once for the
 //     combined set. One FCM banner regardless of how many files or which kinds
 //     changed; the files-changed broadcast fires alongside for in-app handling
@@ -26,8 +26,7 @@ import path from "path";
 import fs from "fs";
 import crypto from "crypto";
 import { insertNotification } from "./notifications.js";
-import { walkFiles, walkPcbBoards, walkAssemblyCards } from "./walk.js";
-import { isCardPath } from "../contracts/cards.js";
+import { walkFiles, walkPcbBoards, walkDocuments } from "./walk.js";
 
 let pool = null;
 let adminApp = null;
@@ -36,7 +35,7 @@ let schemaReady = null;
 function walkStepFiles(rootDir) { return walkFiles(rootDir, ".step"); }
 function walkMermaidFiles(rootDir) { return walkFiles(rootDir, ".mmd"); }
 function walkDxfFiles(rootDir) { return walkFiles(rootDir, ".dxf"); }
-function walkCardFiles(rootDir) { return walkAssemblyCards(rootDir).map((c) => c.path); }
+function walkDocumentFiles(rootDir) { return walkDocuments(rootDir).map((doc) => doc.path); }
 
 function ensureSchema() {
   if (!pool) return Promise.resolve();
@@ -77,7 +76,7 @@ function ensureSchema() {
       )
     `);
     await pool.query(`
-      CREATE TABLE IF NOT EXISTS card_hashes (
+      CREATE TABLE IF NOT EXISTS document_hashes (
         file TEXT PRIMARY KEY,
         sha256 TEXT NOT NULL,
         updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
@@ -226,7 +225,7 @@ export function mountPushRoutes(app) {
 //
 // Allowed table names are hardcoded — no SQL injection risk despite the
 // template-string interpolation, since callers pick from this whitelist.
-const ALLOWED_HASH_TABLES = new Set(["step_hashes", "mermaid_hashes", "dxf_hashes", "card_hashes"]);
+const ALLOWED_HASH_TABLES = new Set(["step_hashes", "mermaid_hashes", "dxf_hashes", "document_hashes"]);
 
 async function detectChangedFilesInTable(tableName, walker, hardwareDir) {
   if (!ALLOWED_HASH_TABLES.has(tableName)) {
@@ -286,13 +285,10 @@ export function detectChangedDxf(hardwareDir) {
   return detectChangedFilesInTable("dxf_hashes", walkDxfFiles, hardwareDir);
 }
 
-// Assembly cards: the deck's HTML pages. Hashed like the other single-file kinds
-// — a card IS its source, with no rendered intermediate to fingerprint instead.
-// An edit to the deck's shared style.css doesn't move any card's hash, so a
-// restyle-only deploy notifies nothing; that's the right call, since the cards
-// themselves didn't change.
-export function detectChangedCards(hardwareDir) {
-  return detectChangedFilesInTable("card_hashes", walkCardFiles, hardwareDir);
+// Published PDFs are the bytes people read. A manual guide edit moves its
+// document hash; geometry builds do not regenerate it.
+export function detectChangedDocuments(hardwareDir) {
+  return detectChangedFilesInTable("document_hashes", walkDocumentFiles, hardwareDir);
 }
 
 // PCB boards differ from the single-file kinds above: a board is a source
@@ -443,14 +439,14 @@ function describeFilesUpdate(files) {
   const mermaidCount = files.filter((f) => f.endsWith(".mmd")).length;
   const dxfCount = files.filter((f) => f.endsWith(".dxf")).length;
   const pcbCount = files.filter(isPcbPath).length;
-  const cardCount = files.filter(isCardPath).length;
+  const documentCount = files.filter((f) => f.endsWith(".pdf")).length;
   let title;
   if (files.length === 1) {
     if (files[0].endsWith(".step")) title = "Print updated";
     else if (files[0].endsWith(".mmd")) title = "Diagram updated";
     else if (files[0].endsWith(".dxf")) title = "Cut updated";
     else if (isPcbPath(files[0])) title = "Board updated";
-    else if (isCardPath(files[0])) title = "Card updated";
+    else if (files[0].endsWith(".pdf")) title = "Guide updated";
     else title = "File updated";
   } else if (stepCount === files.length) {
     title = `${files.length} Prints updated`;
@@ -460,8 +456,8 @@ function describeFilesUpdate(files) {
     title = `${files.length} Cuts updated`;
   } else if (pcbCount === files.length) {
     title = `${files.length} Boards updated`;
-  } else if (cardCount === files.length) {
-    title = `${files.length} Cards updated`;
+  } else if (documentCount === files.length) {
+    title = `${files.length} Guides updated`;
   } else {
     title = `${files.length} Files updated`;
   }
@@ -495,11 +491,8 @@ export async function notifyFilesChanged({ files }) {
   if (firstFile.endsWith(".mmd")) basePath = "/charts";
   else if (isPcbPath(firstFile)) basePath = "/pcb";
   else basePath = "/3d";
-  // A card is one page of the deck, and the deck is what /drawings hands over —
-  // one bound PDF, not a hundred tiles. So a card notification lands on that
-  // shelf rather than deep-linking a page no surface opens on its own.
-  const link = isCardPath(firstFile)
-    ? "/drawings"
+  const link = firstFile.endsWith(".pdf")
+    ? `/docs/${firstFile}`
     : `${basePath}?file=${encodeURIComponent(firstFile)}`;
   // Pick a kind for the notifications-list icon. Pure step / mermaid /
   // dxf / pcb / (mixed → "files"); inferred from the file list
@@ -508,12 +501,12 @@ export async function notifyFilesChanged({ files }) {
   const mermaidCount = files.filter((f) => f.endsWith(".mmd")).length;
   const dxfCount = files.filter((f) => f.endsWith(".dxf")).length;
   const pcbCount = files.filter(isPcbPath).length;
-  const cardCount = files.filter(isCardPath).length;
+  const documentCount = files.filter((f) => f.endsWith(".pdf")).length;
   const kind = stepCount === files.length ? "step"
              : mermaidCount === files.length ? "mermaid"
              : dxfCount === files.length ? "dxf"
              : pcbCount === files.length ? "pcb"
-             : cardCount === files.length ? "card"
+             : documentCount === files.length ? "card"
              : "files";
   return fanOutToTokens(
     rows,

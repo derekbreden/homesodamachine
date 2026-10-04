@@ -66,10 +66,7 @@ TAG = "cad-artifacts"
 #: Trees of local intermediates, each already ignored by the rule named beside it.
 NOT_BUNDLED_DIRS = (
     "hardware/pcb/pcba/.cad-cache",          # manufacturer downloads, keyed by LCSC
-    "hardware/assembly/scenes/out",          # a rendering intermediate for the unit cards' pictures
-    "hardware/assembly/cards/out",           # a card's own two renders; no route serves one
-    "hardware/assembly/cards/fonts",         # faces the renderer embeds, not a thing it writes
-    "hardware/assembly/cards/tools/img",     # the rack's photo stock, named by ASIN, drawn by no rule
+    "hardware/assembly/scenes/out",          # local bench-service view intermediates
     "hardware/quickstart/out",               # where a mount study lands; no rule declares one
     "hardware/quickstart/plumbing/out",      # the scene renderer's workings beside its STEPs
     "hardware/quickstart/studies",           # drawn by hand; the graph declares none of it
@@ -123,7 +120,7 @@ def barren(root: Path, solid_hashes: dict) -> list:
 
     A SHA256 OF AN EMPTY FILE IS A PERFECTLY GOOD SHA256. `fetch-cad-artifacts.mjs` holds every
     member to its hash on the way in, so a mesh that lost its faces between the build and the pack
-    arrives verified, and the site, the card decks and every clean clone then trust it. Verified
+    arrives verified, and the site and every clean clone then trust it. Verified
     and non-empty are different questions and the fetch only ever asks the first.
 
     Both readings are free beside the hash this file already takes of every member. A binary STL
@@ -240,14 +237,13 @@ BUNDLED_PAYLOAD_FILES = (
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh",
 )
 
-#: Generated sheets, assembly cards and the shared installation scene renders. The owner
+#: Generated quick-start sheets and the shared installation scene renders. The owner
 #: quick start and install guide are committed documents; their PDF, cover and sidecar
 #: reach the site in its checkout. `_install_art.py` still supplies scenes used by manual
 #: authoring tools, so its art directory travels with the generated pictures.
 BUNDLED_ART_DIRS = (
     "hardware/quickstart",
     "hardware/install-guide/art",
-    "hardware/assembly/cards",
 )
 
 #: What a drawn page is made of. `.png.scene.json` rides beside the picture it describes and

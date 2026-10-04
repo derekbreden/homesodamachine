@@ -107,11 +107,11 @@ def pinned_copies(files) -> set:
 
 
 #: WHICH KIND OF WRITE IT WAS IS THE WRITER'S TO SAY, and `graph.json` carries the answer:
-#: `rewritten` is what `docgen` and `_cardgen` read and wrote back, and the rest of `writes`
+#: `rewritten` is what `docgen` read and wrote back, and the rest of `writes`
 #: is what `_cadq_export` cut whole. A name cannot tell them apart — `.figures.json` carries
 #: no marker and is rewritten, a `.step` is read to be compared against and is not — and a
 #: suffix list forgot a medium four times before this: a driver's own docstring, a mermaid
-#: chart's `%%` lines, a doc's figures sidecar, and a card's `data-gen` elements.
+#: chart's `%%` lines, a doc's figures sidecar, and a driver's own source comments.
 
 
 #: The generated solids, which are on this disk and in no index. A sandbox is filled from `srcs`,
@@ -288,21 +288,10 @@ def _one_tree(roots: tuple) -> tuple:
             lambda path: path.startswith(roots) or not path.startswith(_FLUTE_TREES))
 
 
-def _every(_path) -> bool:
-    return True
-
-
-def _not_glb(path) -> bool:
-    return not path.endswith(".glb")
-
-
 #: `{source: {wrapper: (takes_write, takes_read)}}`. A wrapper is a real script with its own
 #: `__main__`; its graph entry is written from the source's trace and whatever a reading of the
 #: wrapper itself left behind is dropped — `trace_inputs.main` says so at its entrance.
 SPLIT_GENERATORS = {
-    "hardware/assembly/scenes/render_scenes.py": {
-        "hardware/assembly/scenes/render_scene_cards.py": (_not_glb, _every),
-    },
     "hardware/scripts/flute_payload.py": {
         wrapper: _one_tree(roots) for wrapper, roots in _FLUTE_ROOTS.items()
     },

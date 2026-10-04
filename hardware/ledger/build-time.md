@@ -12,8 +12,6 @@ Seconds somebody waits for a generator to finish. The fourth ledger beside [bom.
 
 | Generator | Cuts | Seconds |
 |---|---|---:|
-| [`assembly/cards/_build.py`](/hardware/assembly/cards/_build.py) | every build card, and the deck they print as | [7.9](BT_BUILD) |
-| [`assembly/scenes/render_scenes.py`](/hardware/assembly/scenes/render_scenes.py) | every card's picture, off the placed machine | [6.6](BT_RENDER_SCENES) |
 | [`manifold-layout/enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py) | the placed machine — every body in the box | [360](BT_ENCLOSURE_ASSEMBLY) |
 | [`printed-parts/enclosure/enclosure/enclosure.py`](/hardware/printed-parts/enclosure/enclosure/enclosure.py) | the box, in its printable pieces | [78](BT_ENCLOSURE) |
 | [`faucet-layout/faucet_assembly.py`](/hardware/faucet-layout/faucet_assembly.py) | the faucet on its counter | [9.2](BT_FAUCET_ASSEMBLY) |
@@ -22,13 +20,13 @@ Seconds somebody waits for a generator to finish. The fourth ledger beside [bom.
 | [`printed-parts/cold-core/foam-assembly/foam_assembly.py`](/hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py) | the foam shell and its four cap pieces | [3.5](BT_FOAM_ASSEMBLY) |
 | [`printed-parts/refrigeration/fuse-clamp/fuse_clamp.py`](/hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py) | the thermal fuse's clamp | [0.1](BT_FUSE_CLAMP) |
 
-Sixty-two generators cut solids, and two more draw what the rest of them made — the cards and their pictures, which is why those two head the table. The rows here are hand-kept, as bom.md's are. `_build_time.py --check` names a generator whose readings come in slower than every row on this page.
+The rows here are hand-kept, as bom.md's are. `_build_time.py --check` names a generator whose readings come in slower than every row on this page.
 
 ## What rides the machine and what stands one
 
 The enclosure assembly's row is one Bazel action, and every artifact of the appliance comes out of it: the STEP, the `.step.mesh` the viewer reads instead of parsing it, the collet plate's cut file, eleven scene GLBs, the scorecard, the facts, and sixty `check_*` called inline. The 296-solid machine is stood once and all of them read that one.
 
-**Eleven GLBs come off it in 1.4 s.** That is what a scene costs where it rides the machine that made it. What it costs anywhere else is the row above, because an action of its own has to stand the appliance before it can pose a picture — and the same arithmetic prices every other reader here, a check included. What they read is the built machine; the machine is the expense. The box these are measured on has 8 GB, and `.bazelrc` records a full build already sitting in 3.4–4.2 GB of swap, so a second action standing the same 296 solids is a second OpenCASCADE process on it as well as a second derivation.
+**Eleven GLBs come off it in 1.4 s.** Scene publication uses the machine that the enclosure action has already built. A standalone geometry reader has to build or load its subject before inspecting it. What they read is the built machine; the machine is the expense. The box these are measured on has 8 GB, and `.bazelrc` records a full build already sitting in 3.4–4.2 GB of swap, so a second action standing the same 296 solids is a second OpenCASCADE process on it as well as a second derivation.
 
 The seconds inside one run are not a figure this file carries, because a single reading on a shared box is not one — five sessions build this tree at once, and the spread quoted above is what that does to a number.
 

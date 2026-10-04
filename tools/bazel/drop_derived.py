@@ -38,8 +38,8 @@ from pathlib import Path
 
 _ROOT = Path(__file__).resolve().parents[2]
 
-#: Drawn by the deck's browser, declared as an output by nothing.
-_UNDECLARED = ("hardware/assembly/cards/out/*.png",)
+#: Additional generated outputs not declared in the graph.
+_UNDECLARED = ()
 
 #: Authored, or holding a result no rebuild reproduces, whatever else writes into it.
 _KEEP = ("hardware/**/*.py", "tools/bazel/graph.json")

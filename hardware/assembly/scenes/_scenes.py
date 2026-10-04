@@ -1,43 +1,10 @@
-"""Every picture the assembly cards show, and what each one is OF.
+"""Named machine subsets and their bench poses for the parts viewer.
 
-TWO KINDS OF SUBJECT, ONE MECHANISM. A SCENE is a set of bodies the machine places — a finished
-sub-assembly, or a group a card names together. A PART SHOT is one STEP the tree already keeps.
-Both are drawn by `render_scenes.py` through `tools/render/render-step-posed.js`, and both leave
-a `.scene.json` beside the PNG holding the digest of the exact geometry drawn — the file the page
-built its triangles from, which is the scene's mesh payload and the part shot's STEP. So a part
-moving under its own picture is a fact the tree holds rather than something a reader has to
-notice.
-
-A SCENE IS A SUBSET OF THE MACHINE, NOT A FILE. `enclosure-back-top` with everything bolted,
-pressed and zip-tied to it is a real thing a person holds on the bench, and no STEP in this repo
-contains exactly it. So a scene names its ROOTS — the printed pieces the unit is built on — and
-takes everything those roots hold, transitively, off the fastening table the machine already
-keeps.
-
-WHICH BODIES A UNIT CARRIES IS DERIVED. `_scorecard.MOUNTS` is `(body, the part that holds it,
-the joint)` and is gated at every build, so a body that moves to another parent moves scenes with
-it and no list here goes stale. The three anchor tables say the same thing for the bodies and
-runs a printed rib holds. What is stated below is the four things that table cannot say: which
-piece's FLOOR a body stands on when nothing fastens it, which of the bodies it holds a unit has
-not got yet, which run it is carrying that the tables have given to another piece, and where the
-camera goes.
-
-A RUN JOINS A UNIT BY ITS ENDS. A length of tube belongs to the unit that holds both of its
-mouths, or to the unit whose rib closes on it — which is how `fluid-14` is part of the cold
-core's finished state with its far end still hanging, and how the pump's two hose stubs come
-with the pump.
-
-    tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py           # every one
-    tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py back-top  # one
-
-A scene leaves three things in the tree: the PNG, its fingerprint, and the `.glb` /3d opens. The
-scene STEPs land in `out/`, which `.gitignore` holds. `//:render-scenes` runs the render when the
-assembly's STEP moves. `web/contracts/parts-tree.js` claims this whole directory as tooling — a
-scene is a picture of a group of bodies rather than a body — so /3d draws no card for one and a
-scene added here is a scene added here alone.
+A scene names roots and takes the bodies they hold from the machine's fastening
+and rider tables. `render_scenes.write_glbs` publishes those subsets from the
+current mesh payloads. The local service view uses the same membership and pose.
 """
 
-import hashlib
 import json
 import sys
 from collections import namedtuple
@@ -342,117 +309,6 @@ SCENES = (
 SCENE_BY_ID = {s.id: s for s in SCENES}
 
 
-# --- a part on its own ------------------------------------------------------
-#
-# A SCENE IS A SUBSET OF THE MACHINE; A PART SHOT IS ONE STEP. The card that names a single part
-# shows that part with nothing standing on it, so its subject is a FILE rather than a set of
-# bodies — and the file is the one the tree already keeps for that part. `Scene` cannot say that:
-# five of these are not bodies the machine places at all, and `members` is right to raise on a
-# name no assembly has.
-#
-# WHAT IT SHARES WITH A SCENE IS THE WHOLE POINT. Same renderer, same sidecar, same `geometry`
-# digest of the exact bytes drawn — so a part shot goes stale the way a scene does, which is to
-# say it does not: `render_scenes` redraws it when its STEP moves and `//:render-scenes` declares
-# the picture it wrote.
-#
-# `id` IS THE CARD'S OWN FILE NAME. `img/<id>.png` is what the card's `<img src>` already reads,
-# so a part shot takes over the drawing of a file that is already there rather than adding one
-# beside it under a name nobody references.
-#
-# `step` is repo-relative. `cam`, `up` and `zoom` reach `render-step-posed.js` unchanged; it
-# targets the subject's own bounding-box centre and sizes the frame off its own radius, so an
-# entry wanting a plain three-quarter view states no pose at all.
-#
-# `solid` IS WHETHER THE WALLS ARE OPAQUE, and it is the one thing here a picture can get wrong
-# without failing. A part a hand holds is drawn solid, the way the hand meets it. A part whose
-# card is about what is INSIDE it — the packed machine, a shroud that is a cup — is drawn
-# through, and the viewer ghosts it.
-Part = namedtuple("Part", "id title step cam up zoom solid",
-                  defaults=((1.0, 1.0, 1.0), (0, 0, 1), 3.0, True))
-
-#   THREE OF THESE DRAW ONE STEP. `enclosure-back-top` is the wall a card looks at from outside,
-# the wall another looks along for its bosses, and the wall a third looks into for its wells —
-# one piece, three things to teach, three poses. What makes them three pictures is the camera,
-# which is why the camera is in the row.
-PARTS = (
-    Part("en01-shell", "Enclosure, six pieces",
-         "hardware/printed-parts/enclosure/enclosure/enclosure.step",
-         cam=(0.75, -1.0, 0.55)),
-    # The bare wall from OUTSIDE — the union bores in a rectangle, the C14 window under them.
-    Part("en02-y-wall", "Enclosure back top, +Y wall",
-         "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
-         cam=(0.35, 1.0, 0.3)),
-    Part("en03-compressor", "Compressor",
-         "hardware/reference/compressor/compressor.step"),
-    Part("en06-coldcore", "Cold core",
-         "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
-         cam=(0.8, -1.0, 0.5)),
-    Part("en09-asse-drip-pan", "ASSE drip pan",
-         "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
-         cam=(-0.85, -1.0, 0.65)),
-    Part("en10-funnel", "Funnel",
-         "hardware/printed-parts/zone-c/funnel/funnel.step"),
-    # Along the +X wall's INNER face, which is the face the bosses reach in off — so the camera
-    # stands across the box, and the walls between it and them are drawn through.
-    Part("pc01-wall-bosses", "Enclosure back top, +X wall bosses",
-         "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
-         cam=(-1.0, -0.35, 0.3), zoom=2.6, solid=False),
-    # The wells are pockets in the wall itself, seen from the box's own side of it.
-    Part("wago-column", "Enclosure back top, Wago wells",
-         "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
-         cam=(-1.0, 0.45, 0.25), zoom=2.2, solid=False),
-    Part("asse1022-chain", "ASSE 1022 chain, made up",
-         "hardware/reference/asse1022-assembly/asse1022-assembly.step"),
-    # Through the walls: a pack is what is inside it.
-    Part("ip03-manifold-pack", "Flavour manifold, packed",
-         "hardware/manifold-layout/manifold-layout.step", solid=False),
-    Part("fu02-faucet", "Faucet, made up",
-         "hardware/faucet-layout/faucet-assembly.step"),
-    # Through the walls: the two pieces and the seam between them.
-    Part("fu05-shell", "Faucet shell, two pieces",
-         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step", solid=False),
-    # The tee in the attitude the split stands in — the run fore-and-aft and the branch
-    # rolled to look down. `water_split._TURNS` is that turn, so the camera is the default
-    # one carried back through it rather than a second copy of the fitting on disk.
-    Part("water-split", "Tap-water split",
-         "hardware/reference/tee-connector/tee-connector.step",
-         cam=(-1.0, -1.0, 1.0), up=(-1, 0, 0)),
-    Part("coil-mandrel", "Coil mandrel",
-         "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step"),
-    # Through the walls: the card is about the pack, and this box is black PETG.
-    Part("enclosure-assembly", "The machine, packed",
-         "hardware/manifold-layout/enclosure-assembly.step",
-         cam=(0.85, -1.0, 0.5), solid=False),
-    # Through the walls: the stack IS the thing — top cap, shell, bottom cap, lids outermost.
-    Part("foam-assembly-stack", "Cold core, the stack",
-         "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
-         cam=(1.0, -0.55, 0.35), solid=False),
-    Part("foam-cap-top", "Cold core, top cap",
-         "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step"),
-    # Through the walls: the cavity is what this picture is of.
-    Part("foam-shell-cavity", "Cold core shell, the cavity",
-         "hardware/printed-parts/cold-core/foam-shell/foam-shell.step", solid=False),
-    Part("pcba-assembly", "Controller board in its tray",
-         "hardware/printed-parts/electronics/pcba-tray/pcba-assembly.step"),
-    # Through the walls: what the shroud is, is the bore and the lip inside it.
-    Part("prv-shroud", "PRV shroud",
-         "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step", solid=False),
-    Part("reservoir-body", "Flavour reservoir",
-         "hardware/printed-parts/cold-core/reservoir/reservoir-left.step"),
-    Part("reservoir-cap", "Flavour reservoir cap",
-         "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step"),
-)
-
-PART_BY_ID = {p.id: p for p in PARTS}
-
-
-def part_digest(part) -> str:
-    """A name for a part shot's own tuple — its subject and its pose."""
-    h = hashlib.blake2b(digest_size=16)
-    h.update(repr(tuple(part)).encode())
-    return h.hexdigest()
-
-
 # The scene that shows a unit BEFORE anything mounts to it. A pair listed here is drawn from the
 # same roots and differs only in what is allowed to stand on them, which is what makes the two
 # pictures worth putting side by side.
@@ -674,51 +530,3 @@ def members(scene, assembly):
             f"The fastening tables and the two assemblies' own body lists are what this reads; "
             f"a name in one of them and not in the model is the table to correct.")
     return names
-
-
-# --- the fingerprint -------------------------------------------------------
-#
-def scene_digest(scene) -> str:
-    """A name for the scene's own tuple — its roots, its camera, its framing."""
-    h = hashlib.blake2b(digest_size=16)
-    h.update(repr(tuple(scene)).encode())
-    return h.hexdigest()
-
-
-def sidecar_path(png: Path) -> Path:
-    return png.with_suffix(png.suffix + ".scene.json")
-
-
-def digest_of(path: Path) -> str | None:
-    """The hash of a file's bytes, or None when it is not there."""
-    try:
-        h = hashlib.blake2b(digest_size=16)
-        h.update(Path(path).read_bytes())
-        return h.hexdigest()
-    except OSError:
-        return None
-
-
-def held_record(png: Path) -> dict:
-    """What the last render wrote beside `png`, or an empty record."""
-    try:
-        return json.loads(sidecar_path(png).read_text())
-    except (OSError, ValueError):
-        return {}
-
-
-# --- the picture itself ----------------------------------------------------
-#
-# THE SOURCES SAY WHAT WOULD DRAW A PICTURE; THIS SAYS WHICH PICTURE WAS DRAWN.
-
-
-def image_fingerprint(png: Path) -> dict:
-    """`{w, h, bytes, sha}` for a drawn picture."""
-    raw = png.read_bytes()
-    h = hashlib.blake2b(digest_size=16)
-    h.update(raw)
-    # A PNG's IHDR is fixed: eight bytes of signature, a four-byte length, `IHDR`, then the two
-    # dimensions as big-endian u32.
-    w = int.from_bytes(raw[16:20], "big")
-    ht = int.from_bytes(raw[20:24], "big")
-    return {"w": w, "h": ht, "bytes": len(raw), "sha": h.hexdigest()}

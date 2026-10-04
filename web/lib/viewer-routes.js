@@ -3,7 +3,6 @@ import path from "path";
 import fs from "fs";
 
 import { walkFiles, walkPcbBoards, walkDocuments } from "./walk.js";
-import { isCardAssetPath } from "../contracts/cards.js";
 import { DOC_SIDECAR_SUFFIX, isPublishedDocument } from "../contracts/documents.js";
 import { VIEW_REQUEST_RE, PICKS_REQUEST_RE } from "../contracts/pcb-out.js";
 import { sidecarFields } from "../contracts/sidecar.js";
@@ -100,27 +99,10 @@ export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
     res.json(walkDocuments(hardwareDir));
   });
 
-  // Card assets — the page itself plus the shared stylesheet and the renders it
-  // embeds. The viewer loads a card into an iframe at this URL, so the card's
-  // own relative `style.css` and `img/…` references resolve against it and the
-  // browser lays the card out exactly as the print renderer does. Confined to
-  // the deck directory and the asset types a card can reference; build
-  // machinery in the same folder stays unreachable.
-  app.get("/cards/*splat", (req, res) => {
-    const rel = relOf(req);
-    if (!isCardAssetPath(rel)) return res.status(400).send("Not a card asset");
-    const abs = path.join(hardwareDir, rel);
-    if (!abs.startsWith(hardwareDir + path.sep)) return res.status(400).send("Invalid path");
-    if (!fs.existsSync(abs)) return res.status(404).send("Not found");
-    // Cards are edited live while the deck is being written; revalidate so a
-    // reload never shows a stale card (same reasoning as the drawing and PCB
-    // content routes above).
-    res.set("Cache-Control", "no-cache");
-    res.type(path.extname(abs)).sendFile(abs, SEND_OPTS, (err) => {
-      if (!err || res.headersSent) return;
-      if (err.code === "ENOENT" || err.status === 404) return res.status(404).send("Not found");
-      res.status(500).send("File send error");
-    });
+  // Old external links have a permanent retirement response, even if an
+  // earlier artifact bundle still has a deck on disk.
+  app.get("/cards/*splat", (_req, res) => {
+    res.status(410).send("Assembly cards are archived. Letter shop guides are on /drawings.");
   });
 
   app.get("/api/dxf", (req, res) => {
@@ -256,7 +238,7 @@ export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
     streamFile(res, abs);
   });
 
-  // A document, opened in a tab rather than downloaded — the deck a bench
+  // A document, opened in a tab rather than downloaded — the guide a bench
   // builds from, the manual that ships in the carton. What makes a `.pdf` here
   // reachable is its `<name>.pdf.json` sidecar, which is the same thing that
   // puts it in the listing above; every other PDF under hardware/ belongs to

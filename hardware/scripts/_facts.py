@@ -127,11 +127,8 @@ DECLARED_GAPS = (
 # five millimetres has a reading here whatever the card's `REPORT_NEAR` stops at.
 DECLARED_RUN_NEIGHBOURS = ()
 
-# The bodies whose ports a printed card holds its own sentence against — `assembly/cards/`,
-# which is the only reader of `card_ports`. A name here is a name a card asserts on; the
-# machine's other seventy-odd bodies present ports this file does not write down.
-# The two flavour bulkheads are not named in that source — the deck reaches them by walking
-# `constants["PANEL_X"]`, so a column added there needs a row here.
+# Placed port frames used by routing illustrations and bench inspection tools.
+# The two flavour bulkheads are distinct bodies, so each has its own frame.
 CARD_PORT_BODIES = (
     "asse1022-assembly",
     "bulkhead-carb",
@@ -269,20 +266,16 @@ def gather(whole=None, module=None):
         import wr1110_regulator as _wr1110
         carried["wr1110.barrel"] = {"pos": _plain(carries["wr1110"](_wr1110.barrel()[0])[0])}
 
-    # THE PORTS THE PRINTED CARDS ARE HELD AGAINST, as the machine placed them, unrounded.
-    # `assembly/cards/_cards_ip.py` and `_cards_fs.py` assert a card's sentence against these:
-    # the core's three cap conduits opening upward, the union's inboard collet and the ASSE
-    # chain's inlet standing on one point, the split's branch axis, the meter against the carb
-    # union, V-K's outlet facing +Y, the vent tip facing down, and `bulkhead-water` presenting
-    # both collets. A BODY IS HERE BECAUSE A CARD NAMES IT — the rest of the machine's ports are
-    # not written down, and a card reaching for one gets a KeyError rather than a wrong sentence.
+    # Selected placed port frames, at the precision of the assembly. A missing
+    # frame is a source error; downstream routing and illustrations need the
+    # position, axis and bore of the named placed body.
     ports = {}
     for _body in CARD_PORT_BODIES:
         _fr = (getattr(a, "frames", {}) or {}).get(_body)
         if _fr is None:
             raise KeyError(
-                f"{_body!r} is recorded for the card deck to assert on and no placed body "
-                f"carries that name — rename it in assembly/cards/ too, or drop it from "
+                f"{_body!r} is recorded as a placed port frame and no placed body "
+                f"carries that name — correct the body name or drop it from "
                 f"`CARD_PORT_BODIES`.")
         ports[_body] = {n: {"pos": _plain(_pos), "axis": _plain(_ax), "diam": float(_d)}
                         for n, (_pos, _ax, _d) in _fr.ports.items()}
@@ -506,8 +499,8 @@ class Facts:
     @property
     def card_ports(self):
         """`card_ports[body].ports[name]` -> (pos, axis, diam), at the precision the machine
-        placed it. Read by `assembly/cards/_cards_ip.py` and `_cards_fs.py`, and holding only
-        the bodies those two name (`CARD_PORT_BODIES`)."""
+        placed it. Shared by routing illustrations and bench inspection tools;
+        the selected bodies are listed in `CARD_PORT_BODIES`."""
         return {b: _Frame(v) for b, v in self._f["card_ports"].items()}
 
     @property

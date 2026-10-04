@@ -6,11 +6,16 @@ import path from "node:path";
 import express from "express";
 import { mountViewerRoutes } from "../lib/viewer-routes.js";
 
-test("only the owner quick start is published even when builds restore older sidecars", async (t) => {
+test("Letter shop guides are published and archived decks stay retired after artifact restore", async (t) => {
   const hardwareDir = fs.mkdtempSync(path.join(os.tmpdir(), "owner-guide-"));
   t.after(() => fs.rmSync(hardwareDir, { recursive: true, force: true }));
-  const published = ["quickstart-codex/quick-start-codex.pdf", "install-guide/install-guide.pdf"];
+  const published = ["quickstart-codex/quick-start-codex.pdf", "install-guide/install-guide.pdf",
+    "drill-and-cut-guide/drill-and-cut-guide.pdf", "mold-guide/mold-guide.pdf",
+    "refrigeration-guide/refrigeration-guide.pdf",
+    "assembly-letter-guide/assembly-drill-and-weld-letter.pdf"];
   const superseded = [
+    "assembly/cards/deck.pdf",
+    "assembly/cards/tools/deck-tools.pdf",
     "quickstart/quick-start.pdf",
     "quickstart-claude/quick-start-claude.pdf",
     "quickstart-codex/edge-study.pdf",

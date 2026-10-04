@@ -14,6 +14,7 @@ import json
 import math
 import operator
 import re
+import sys
 from pathlib import Path
 
 from reportlab.lib.colors import HexColor
@@ -673,6 +674,11 @@ def main():
     }
     (OUT / "assembly-drill-and-weld-letter.sources.json").write_text(
         json.dumps(manifest, indent=2) + "\n")
+    sys.path.insert(0, str(ROOT / "tools/assembly-guides"))
+    from common import publish
+    publish(PDF, ROOT / "hardware/assembly-letter-guide", "Drill and weld bench sheets",
+            "Shop guide - endcap register and closure weld, 3 pages, 8.5 x 11 in",
+            3, SOURCES.values(), extra=manifest, write_manifest=False)
     print(f"Wrote {PDF.relative_to(ROOT)} (3 pages, 8.5 x 11 in)")
 
 
