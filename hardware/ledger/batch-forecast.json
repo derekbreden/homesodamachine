@@ -1,0 +1,6056 @@
+{
+  "schemaVersion": 2,
+  "checkedAt": "2026-10-04",
+  "bomSha256": "ed952bc4e2b51e235d08c725ae2248c655966b12c1f381118f5a4a836f4a742e",
+  "bomRowCount": 170,
+  "scope": "Additional spending from October 4 inventory for the first 10 or 20 complete integrated machines, with a White faucet and both install-kit tees. Both alternatives begin with the same stock; twenty means twenty total, not twenty more after ten. Credit usable reusable parts already allocated to unit 1, exclude defective/obsolete stock, and deduct existing orders before calculating new purchases.",
+  "taxRate": 0.0725,
+  "roundingNote": "7.25% sales-tax reserve drawn from recorded orders, applied only to merchandise-priced rows and inbound freight allowances; delivered historical allowances are not taxed again.",
+  "excludedBomLines": [
+    {
+      "line": 261,
+      "reason": "Reed columns are assembled from the separately purchased reeds and wires; no second purchase."
+    }
+  ],
+  "suppliers": [
+    {
+      "id": "amazon",
+      "name": "Amazon Prime",
+      "shippingCents": {
+        "10": 0,
+        "20": 0
+      },
+      "note": "Signed-in Prime-filtered searches on 2026-10-04. Current one-time prices; coupons and conditional promotions are not deducted. Listed availability is not a reservation of the full batch."
+    },
+    {
+      "id": "fws",
+      "name": "Fresh Water Systems",
+      "shippingCents": {
+        "10": 1500,
+        "20": 1500
+      },
+      "note": "Live product variant catalog: singles, discounted bags and cut lengths compared. Most orders over $89 qualify for free shipping; $15 is reserved for exclusions until checkout."
+    },
+    {
+      "id": "bambu",
+      "name": "Bambu Lab",
+      "shippingCents": {
+        "10": 0,
+        "20": 0
+      },
+      "note": "Exact Clear 32101 and Black 30105 refills listed in stock. Replenishment uses current 2/4/6/10-roll tiers. ASA Aero White 46100 is out of stock, but estimated on-hand stock covers both batches. Freight applies only to a new order; existing printers/spools retained."
+    },
+    {
+      "id": "jlc",
+      "name": "JLCPCB",
+      "shippingCents": {
+        "10": 0,
+        "20": 0
+      },
+      "note": "Ten usable batch-2 boards credited; defective batch-1 stock is excluded. Additional assembly uses the recorded $702.11 delivered ten-board lot, pending a new quote and component-stock check."
+    },
+    {
+      "id": "metals",
+      "name": "OnlineMetals",
+      "shippingCents": {
+        "10": 0,
+        "20": 0
+      },
+      "note": "Ten recorded 6-inch tube cuts credited. New cuts use the historical delivered ten-cut lot; current quote and quantity-specific cutting price are unconfirmed."
+    },
+    {
+      "id": "scs",
+      "name": "SendCutSend",
+      "shippingCents": {
+        "10": 0,
+        "20": 0
+      },
+      "note": "Delivered allowances from recorded endcap and under-counter-plate orders. Quote the current DXFs at 20/40 endcaps and 10/20 mounting plates. No unquoted bulk saving assumed."
+    },
+    {
+      "id": "midwest",
+      "name": "Midwest Beverage",
+      "shippingCents": {
+        "10": 1500,
+        "20": 2500
+      },
+      "note": "Live catalog lists 19-0897 at $29.33, available. Freight is an allowance pending checkout."
+    },
+    {
+      "id": "kj",
+      "name": "K&J Magnetics",
+      "shippingCents": {
+        "10": 1050,
+        "20": 1050
+      },
+      "note": "RC62 available; new order after thirty on hand uses the applicable 1/10/25/50/100-piece tier. Freight reserve pending checkout."
+    },
+    {
+      "id": "riteav",
+      "name": "RiteAV",
+      "shippingCents": {
+        "10": 1208,
+        "20": 1208
+      },
+      "note": "Live 10-pack of the exact black 6P4C keystone is $13.92, available. Freight allowance uses the recorded $12.08 shipment."
+    },
+    {
+      "id": "lcsc",
+      "name": "LCSC",
+      "shippingCents": {
+        "10": 3000,
+        "20": 4000
+      },
+      "note": "Exact C52574: 384 listed, minimum/multiple 1. Ten existing DigiKey DS18S20+ credited. Freight/import allowance applies only if more sensors are bought."
+    },
+    {
+      "id": "waveshare",
+      "name": "Waveshare",
+      "shippingCents": {
+        "10": 7500,
+        "20": 12000
+      },
+      "note": "Exact ESP32-S3-Touch-LCD-1.47 sourced from its manufacturer; standard version with pinheader at $15.99. Landed-cost allowance includes freight/import uncertainty. Shipment holiday notice ends October 4."
+    },
+    {
+      "id": "mouser",
+      "name": "Mouser",
+      "shippingCents": {
+        "10": 1000,
+        "20": 1000
+      },
+      "note": "MDSR-7-10-15: 100/200 loose switches, not a 40-piece purchase pack. $1.45 each is a conservative ledger allowance; current USD price and stock could not be verified."
+    },
+    {
+      "id": "allowances",
+      "name": "Unquoted supplies",
+      "shippingCents": {
+        "10": 0,
+        "20": 0
+      },
+      "note": "Provisional quantities and delivered budget allowances where a supplier, size map or production consumption is still open. Each is marked *."
+    }
+  ],
+  "items": [
+    {
+      "id": "Main board \u2014 JLCPCB-assembled, delivered (order.md)",
+      "name": "Main board \u2014 JLCPCB-assembled, delivered (order.md)",
+      "bomLines": [
+        15
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "jlc",
+      "priceBasis": "delivered",
+      "status": "estimate",
+      "note": "Delivered repeat-order allowance from the latest 10-board invoice. Buy one/two lots of ten; current assembly quote and component stock unverified.",
+      "options": [
+        {
+          "quantity": 10,
+          "priceCents": 70211,
+          "label": "10 assembled boards",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://jlcpcb.com/",
+      "inventory": {
+        "onHand": 10,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 333
+          }
+        ],
+        "note": "Ten batch-2 assembled boards credited, including the reusable bench board, subject to normal acceptance. The ten batch-1 boards are excluded: the bench log records undrilled vias and explicitly rules out rework. See hardware/pcb/pcba/bench-log.md."
+      }
+    },
+    {
+      "id": "B0C15WJXL2",
+      "name": "Duracell CR2032 3 V lithium cell (9-ct)",
+      "bomLines": [
+        16
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 9,
+          "priceCents": 898,
+          "label": "9-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0C15WJXL2",
+      "inventory": {
+        "onHand": 9.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 431
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B0D925SBYF",
+      "name": "Waveshare ESP32-S3-Touch-LCD-4.3B",
+      "bomLines": [
+        17
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 4299,
+          "label": "one piece",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0D925SBYF",
+      "inventory": {
+        "onHand": 3.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 325
+          },
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 327
+          },
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 328
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B0FCF1MGT3",
+      "name": "Waveshare ESP32-S3 1.47\" Touch LCD, 172\u00d7320 (B0FCF1MGT3)",
+      "bomLines": [
+        18
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "waveshare",
+      "priceBasis": "merchandise",
+      "status": "estimate",
+      "note": "Exact model from the manufacturer at $15.99 with pinheader. Landed cost and batch stock require checkout.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 1599,
+          "label": "standard version with pinheader",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.waveshare.com/esp32-s3-touch-lcd-1.47.htm",
+      "inventory": {
+        "onHand": 5.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 326
+          },
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 329
+          },
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 330
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B0CNRST18V",
+      "name": "Mean Well IRM-90-12ST, 80 W / 12 V / 6.7 A, encapsulated",
+      "bomLines": [
+        19
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 3013,
+          "label": "one piece",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0CNRST18V",
+      "inventory": {
+        "onHand": 2.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 443
+          },
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 444
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "OnlineMetals #12498 \u2014 5\" OD \u00d7 0.065\" wall 316 welded SS round tube",
+      "name": "OnlineMetals #12498 \u2014 5\" OD \u00d7 0.065\" wall 316 welded SS round tube",
+      "bomLines": [
+        27
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "metals",
+      "priceBasis": "delivered",
+      "status": "estimate",
+      "note": "Recorded delivered 10-cut lot; new custom-cut quote, stock and any longer-stock saving unconfirmed. MTRs required.",
+      "options": [
+        {
+          "quantity": 10,
+          "priceCents": 73673,
+          "label": "ten 6-inch tube cuts",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.onlinemetals.com/en/buy/stainless-steel/5-od-x-0-065-wall-x-4-87-id-stainless-round-tube-316-welded/pid/12498",
+      "inventory": {
+        "onHand": 10,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 71
+          }
+        ],
+        "note": "Ten purchased 6-inch tube cuts credited. No completed production-vessel or scrapped-stock count is recorded; remaining usable cuts are an estimate."
+      }
+    },
+    {
+      "id": "SendCutSend 1/4\"-thick 316 SS circular endcap plate (`endcap-circular-2hole.dxf`)",
+      "name": "SendCutSend 1/4\"-thick 316 SS circular endcap plate (`endcap-circular-2hole.dxf`)",
+      "bomLines": [
+        28
+      ],
+      "perUnit": 2.0,
+      "unit": "pieces",
+      "supplier": "scs",
+      "priceBasis": "delivered",
+      "status": "estimate",
+      "note": "Two endcaps per machine. Recorded delivered 20-piece lot; current DXF/quantity quote required.",
+      "options": [
+        {
+          "quantity": 20,
+          "priceCents": 62119,
+          "label": "20 endcaps",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://sendcutsend.com/",
+      "inventory": {
+        "onHand": 20,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 72
+          }
+        ],
+        "note": "Twenty current 316 endcaps credited; the acquired 304 plan-B plates are excluded. Remaining usable blanks are an estimate."
+      }
+    },
+    {
+      "id": "B0CZ38MYL1",
+      "name": "TAISHER 2PCS 316L SS 90\u00b0 Barstock Street Elbow, 1/4\" NPT M \u00d7 1/4\" NPT F",
+      "bomLines": [
+        29
+      ],
+      "perUnit": 4.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 2,
+          "priceCents": 2099,
+          "label": "2-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0CZ38MYL1",
+      "inventory": {
+        "onHand": 5,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 168
+          },
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 169
+          },
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 176
+          }
+        ],
+        "note": "Six elbows acquired; one is reserved for the destructive jet weld coupon specified in the order. Five are credited to machines; usable remainder is estimated."
+      }
+    },
+    {
+      "id": "B0FYCJJXCS",
+      "name": "Water-inlet jet cap, 316 SS, nominal \u00d89.5 \u00d7 2 mm with 1/16-inch passage",
+      "bomLines": [
+        30
+      ],
+      "perUnit": 1,
+      "unit": "caps",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "estimate",
+      "note": "One 400 mm 316 rod nominally yields 30 jet caps. Handling tails, kerf and finishing are allocated in the BOM; production yield remains provisional.",
+      "options": [
+        {
+          "quantity": 30,
+          "priceCents": 999,
+          "label": "400 mm rod, allowance for 30 caps",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0FYCJJXCS",
+      "inventory": {
+        "onHand": 29.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 96
+          }
+        ],
+        "note": "Recorded purchase supplies 30 caps. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
+      }
+    },
+    {
+      "id": "B07C9ZV4PG",
+      "name": "Millrose 70894 Nickel Guard anti-seize PTFE tape",
+      "bomLines": [
+        31
+      ],
+      "perUnit": 75,
+      "unit": "in",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved. Cut lengths or consumable yield are BOM estimates.",
+      "options": [
+        {
+          "quantity": 600,
+          "priceCents": 2146,
+          "label": "600-inch roll",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B07C9ZV4PG",
+      "inventory": {
+        "onHand": 525.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 35
+          }
+        ],
+        "note": "Recorded purchase supplies 600 in. A provisional one-machine consumption reserve of 75 is deducted for development; the remaining stock is uncounted and marked *."
+      }
+    },
+    {
+      "id": "B00DHMHSGM",
+      "name": "Tap Magic EP-Xtra pipe-tap cutting fluid, 16 oz (size variant on listing B00DHMHSGM)",
+      "bomLines": [
+        32
+      ],
+      "perUnit": 1,
+      "unit": "builds",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "estimate",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved. Cut lengths or consumable yield are BOM estimates.",
+      "options": [
+        {
+          "quantity": 34,
+          "priceCents": 1699,
+          "label": "16 oz bottle, provisional 34-build allowance",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B00DHMHSGM",
+      "inventory": {
+        "onHand": 33.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 49
+          }
+        ],
+        "note": "Recorded purchase supplies 34 builds. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
+      }
+    },
+    {
+      "id": "B00T46ZH5E",
+      "name": "Cantesco P101S-A red visible dye penetrant, solvent-removable aerosol",
+      "bomLines": [
+        33
+      ],
+      "perUnit": 1,
+      "unit": "builds",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "estimate",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved. Cut lengths or consumable yield are BOM estimates.",
+      "options": [
+        {
+          "quantity": 20,
+          "priceCents": 1700,
+          "label": "one aerosol, provisional 20-build allowance",
+          "available": true,
+          "listedPackages": 8
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B00T46ZH5E",
+      "inventory": {
+        "onHand": 19.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 78
+          }
+        ],
+        "note": "Recorded purchase supplies 20 builds. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
+      }
+    },
+    {
+      "id": "B008BJCOLK",
+      "name": "Cantesco D101-A non-aqueous wet developer, white, 12 oz aerosol",
+      "bomLines": [
+        34
+      ],
+      "perUnit": 1,
+      "unit": "builds",
+      "supplier": "amazon",
+      "priceBasis": "delivered",
+      "status": "estimate",
+      "note": "No exact priced Prime offer found in the filtered search. Recorded delivered price is an allowance; source/availability unresolved. Cut lengths or consumable yield are BOM estimates.",
+      "options": [
+        {
+          "quantity": 20,
+          "priceCents": 1580,
+          "label": "one aerosol, provisional 20-build allowance",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B008BJCOLK",
+      "inventory": {
+        "onHand": 19.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 79
+          }
+        ],
+        "note": "Recorded purchase supplies 20 builds. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
+      }
+    },
+    {
+      "id": "B0GD16CMYL",
+      "name": "Lint-free cleanroom wipes, 9\" \u00d7 9\", cellulose/polyester Grade A (150 pcs)",
+      "bomLines": [
+        35
+      ],
+      "perUnit": 6.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 150,
+          "priceCents": 1599,
+          "label": "150-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0GD16CMYL",
+      "inventory": {
+        "onHand": 144.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 80
+          }
+        ],
+        "note": "Recorded purchase supplies 150 pieces. A provisional one-machine consumption reserve of 6 is deducted for development; the remaining stock is uncounted and marked *."
+      }
+    },
+    {
+      "id": "100% RTV silicone caulk (e.g. GE Silicone II)",
+      "name": "100% RTV silicone caulk (e.g. GE Silicone II)",
+      "bomLines": [
+        36
+      ],
+      "perUnit": 1,
+      "unit": "builds",
+      "supplier": "allowances",
+      "priceBasis": "delivered",
+      "status": "estimate",
+      "note": "Delivered $8/tube allowance; product selection and bead yield are unconfirmed.",
+      "options": [
+        {
+          "quantity": 20,
+          "priceCents": 800,
+          "label": "one caulk tube, provisional 20-build allowance",
+          "available": true
+        }
+      ],
+      "inventory": {
+        "onHand": 0,
+        "incoming": 0,
+        "basis": "unknown",
+        "estimated": true,
+        "sources": [],
+        "note": "No usable production stock quantified in the reviewed records; no stock credit taken."
+      }
+    },
+    {
+      "id": "B01G2F6EMY",
+      "name": "Control Devices SV-125 safety valve, 1/4\" NPT, 125 psi set pressure, 49 SCFM relief, brass",
+      "bomLines": [
+        37
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 749,
+          "label": "one piece",
+          "available": true,
+          "listedPackages": 10
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B01G2F6EMY",
+      "inventory": {
+        "onHand": 1.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 121
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "neoFlo black 1/4\" OD LLDPE tubing, 100 ft (FWS, WEBFWS100673540)",
+      "name": "neoFlo black 1/4\" OD LLDPE tubing, 100 ft (FWS, WEBFWS100673540)",
+      "bomLines": [
+        38,
+        67
+      ],
+      "perUnit": 8.3,
+      "unit": "ft",
+      "supplier": "fws",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Live supplier catalog checked October 4; all listed sizes compared for the lowest batch purchase total. Full quantity not reserved. Tube-length allowance follows the BOM.",
+      "options": [
+        {
+          "quantity": 5.0,
+          "priceCents": 85,
+          "label": "5 Feet",
+          "available": true,
+          "sku": "LLDPE4-BLACK:5FT"
+        },
+        {
+          "quantity": 25.0,
+          "priceCents": 375,
+          "label": "25 Feet",
+          "available": true,
+          "sku": "LLDPE4-BLACK:25FT"
+        },
+        {
+          "quantity": 50.0,
+          "priceCents": 700,
+          "label": "50 Feet",
+          "available": true,
+          "sku": "LLDPE4-BLACK:50FT"
+        },
+        {
+          "quantity": 100.0,
+          "priceCents": 1200,
+          "label": "100 Feet",
+          "available": true,
+          "sku": "LLDPE4-BLACK:100FT"
+        },
+        {
+          "quantity": 500.0,
+          "priceCents": 5322,
+          "label": "500 Foot Roll",
+          "available": true,
+          "sku": "LLDPE-4-500-E"
+        },
+        {
+          "quantity": 1.0,
+          "priceCents": 19,
+          "label": "1 Foot",
+          "available": true,
+          "sku": "LLDPE4-BLACK"
+        }
+      ],
+      "sourceUrl": "https://www.freshwatersystems.com/products/black-1-4-od-lldpe-polyethylene-tubing",
+      "inventory": {
+        "onHand": 291.7,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 141
+          },
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 152
+          }
+        ],
+        "note": "Acquired tube lengths minus a provisional one-machine cutting/consumption reserve. Remaining continuous lengths and offcuts are not measured; this stock credit is an estimate."
+      }
+    },
+    {
+      "id": "B001BZEQ44",
+      "name": "Cambro 6 QT polycarbonate square container",
+      "bomLines": [
+        39
+      ],
+      "perUnit": 1,
+      "unit": "containers",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "estimate",
+      "note": "One reusable 6 QT bath container for either batch. Current Prime result names translucent polypropylene rather than the ledger polycarbonate variant; temperature/use compatibility and precise variant remain to be confirmed. Budget $19.75/container.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 1975,
+          "label": "6 QT reusable container",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B001BZEQ44",
+      "fixedQuantity": 1,
+      "inventory": {
+        "onHand": 1,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 37
+          }
+        ],
+        "note": "The acquired reusable 6 QT bath container supplies either batch. It is retained as shop equipment, with no new purchase."
+      }
+    },
+    {
+      "id": "B0C5NQM8S1",
+      "name": "Viva Doria food-grade citric acid, 2 lb bag",
+      "bomLines": [
+        40
+      ],
+      "perUnit": 1,
+      "unit": "builds",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "estimate",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved. Cut lengths or consumable yield are BOM estimates.",
+      "options": [
+        {
+          "quantity": 20,
+          "priceCents": 999,
+          "label": "2 lb bag, provisional 20-build allowance",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0C5NQM8S1",
+      "inventory": {
+        "onHand": 19.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 36
+          }
+        ],
+        "note": "Recorded purchase supplies 20 builds. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
+      }
+    },
+    {
+      "id": "B09BKFBXT9",
+      "name": "STARTECHWELD ER316L .030 MIG wire, 10-lb spool",
+      "bomLines": [
+        41
+      ],
+      "perUnit": 1,
+      "unit": "builds",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "estimate",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved. Cut lengths or consumable yield are BOM estimates.",
+      "options": [
+        {
+          "quantity": 378,
+          "priceCents": 11500,
+          "label": "10 lb spool, provisional 378-build allowance",
+          "available": true,
+          "listedPackages": 7
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B09BKFBXT9",
+      "inventory": {
+        "onHand": 377.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 40
+          }
+        ],
+        "note": "Recorded purchase supplies 378 builds. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
+      }
+    },
+    {
+      "id": "B085G9TZ4L",
+      "name": "Waterdrop 15UC-UF 0.01 \u00b5m inline water filter, 1/4\" QC both ends",
+      "bomLines": [
+        49
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 6999,
+          "label": "one piece",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B085G9TZ4L",
+      "inventory": {
+        "onHand": 0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 136
+          }
+        ],
+        "note": "One acquired filter is prototype stock. Its remaining service life and availability for a customer unit are unrecorded; a new filter is budgeted for each machine."
+      }
+    },
+    {
+      "id": "Multiplex 19-0897 ASSE 1022 backflow preventer",
+      "name": "Multiplex 19-0897 ASSE 1022 backflow preventer",
+      "bomLines": [
+        50
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "midwest",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Live supplier catalog checked October 4; all listed sizes compared for the lowest batch purchase total. Full quantity not reserved.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 2933,
+          "label": "one piece",
+          "available": true,
+          "sku": "19-0897"
+        }
+      ],
+      "sourceUrl": "https://www.midwestbev.com/products/asse-1022-backflow-preventer",
+      "inventory": {
+        "onHand": 5,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 131
+          },
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 132
+          }
+        ],
+        "note": "One howdybrewer and four Midwest 19-0897 backflow preventers acquired; five credited subject to usability and final inspection."
+      }
+    },
+    {
+      "id": "John Guest PI4512F6S female flare adapter, 3/8\" tube \u00d7 3/8\" FFL",
+      "name": "John Guest PI4512F6S female flare adapter, 3/8\" tube \u00d7 3/8\" FFL",
+      "bomLines": [
+        51
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "fws",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Live supplier catalog checked October 4; all listed sizes compared for the lowest batch purchase total. Full quantity not reserved.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 324,
+          "label": "Single",
+          "available": true,
+          "sku": "PI4512F6S"
+        },
+        {
+          "quantity": 10.0,
+          "priceCents": 2744,
+          "label": "Bag of 10",
+          "available": true,
+          "sku": "PI4512F6S:10PK"
+        },
+        {
+          "quantity": 200.0,
+          "priceCents": 53343,
+          "label": "Box of 200",
+          "available": true,
+          "sku": "PI4512F6S:200PK"
+        }
+      ],
+      "sourceUrl": "https://www.freshwatersystems.com/products/john-guest-female-adapter-flare-3-8-x-3-8-flare",
+      "inventory": {
+        "onHand": 10,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 150
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "John Guest PP061208W reducer, 3/8\" stem \u00d7 1/4\" PTC",
+      "name": "John Guest PP061208W reducer, 3/8\" stem \u00d7 1/4\" PTC",
+      "bomLines": [
+        52
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "fws",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Live supplier catalog checked October 4; all listed sizes compared for the lowest batch purchase total. Full quantity not reserved.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 194,
+          "label": "Single",
+          "available": true,
+          "sku": "PP061208W"
+        },
+        {
+          "quantity": 10.0,
+          "priceCents": 1644,
+          "label": "Bag of 10",
+          "available": true,
+          "sku": "PP061208W:10PK"
+        },
+        {
+          "quantity": 400.0,
+          "priceCents": 63928,
+          "label": "Box of 400",
+          "available": true,
+          "sku": "PP061208W:400PK"
+        }
+      ],
+      "sourceUrl": "https://www.freshwatersystems.com/products/john-guest-reducer-stem-polypro-3-8-od-stem-x-1-4",
+      "inventory": {
+        "onHand": 10,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 149
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "John Guest PP0208E 1/4\" union tee, black polypropylene (bag of 10)",
+      "name": "John Guest PP0208E 1/4\" union tee, black polypropylene (bag of 10)",
+      "bomLines": [
+        53,
+        70,
+        183
+      ],
+      "perUnit": 8.0,
+      "unit": "pieces",
+      "supplier": "fws",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Live supplier catalog checked October 4; all listed sizes compared for the lowest batch purchase total. Full quantity not reserved.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 252,
+          "label": "Single",
+          "available": true,
+          "sku": "PP0208E"
+        },
+        {
+          "quantity": 10.0,
+          "priceCents": 2134,
+          "label": "Bag of 10",
+          "available": true,
+          "sku": "PP0208E:10PK"
+        },
+        {
+          "quantity": 300.0,
+          "priceCents": 62251,
+          "label": "Box of 300",
+          "available": true,
+          "sku": "PP0208E:300PK"
+        }
+      ],
+      "sourceUrl": "https://www.freshwatersystems.com/products/john-guest-union-tee-black-polypropylene-1-4",
+      "inventory": {
+        "onHand": 30,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 147
+          },
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 229
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B07D9DK94V",
+      "name": "Sealproof 1/4\" ID \u00d7 3/8\" OD clear PVC, 10 ft",
+      "bomLines": [
+        54
+      ],
+      "perUnit": 1,
+      "unit": "ft",
+      "supplier": "amazon",
+      "priceBasis": "delivered",
+      "status": "unconfirmed",
+      "note": "No exact priced Prime offer found in the filtered search. Recorded delivered price is an allowance; source/availability unresolved.",
+      "options": [
+        {
+          "quantity": 10,
+          "priceCents": 850,
+          "label": "10 ft roll",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B07D9DK94V",
+      "inventory": {
+        "onHand": 9.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 135
+          }
+        ],
+        "note": "Recorded purchase supplies 10 ft. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
+      }
+    },
+    {
+      "id": "B0B2W76MB1",
+      "name": "Shutao 6-pc water sensor module, LM393, 3.3\u20135 V",
+      "bomLines": [
+        55
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 6,
+          "priceCents": 699,
+          "label": "6-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0B2W76MB1",
+      "inventory": {
+        "onHand": 6.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 360
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B076Q7QVNM",
+      "name": "LOKMAN 304 SS worm-gear clamps, 10\u201316 mm (20-pk)",
+      "bomLines": [
+        56
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 20,
+          "priceCents": 899,
+          "label": "20-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B076Q7QVNM",
+      "inventory": {
+        "onHand": 0,
+        "incoming": 0,
+        "basis": "unknown",
+        "estimated": true,
+        "sources": [],
+        "note": "No usable production stock quantified in the reviewed records; no stock credit taken."
+      }
+    },
+    {
+      "id": "neoPure reinforced clear PVC tubing, 3/8\" ID \u00d7 0.594\" OD (10 ft)",
+      "name": "neoPure reinforced clear PVC tubing, 3/8\" ID \u00d7 0.594\" OD (10 ft)",
+      "bomLines": [
+        57
+      ],
+      "perUnit": 0.85,
+      "unit": "ft",
+      "supplier": "fws",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Live supplier catalog checked October 4; all listed sizes compared for the lowest batch purchase total. Full quantity not reserved. Tube-length allowance follows the BOM.",
+      "options": [
+        {
+          "quantity": 10.0,
+          "priceCents": 612,
+          "label": "10 Feet",
+          "available": true,
+          "sku": "PVCR-0610-FT-C:10FT"
+        },
+        {
+          "quantity": 50.0,
+          "priceCents": 3006,
+          "label": "50 Feet",
+          "available": true,
+          "sku": "PVCR-0610-FT-C:50FT"
+        },
+        {
+          "quantity": 100.0,
+          "priceCents": 5909,
+          "label": "100 Foot Roll",
+          "available": true,
+          "sku": "PVCR-0610-100-C"
+        }
+      ],
+      "sourceUrl": "https://www.freshwatersystems.com/products/reinforced-clear-pvc-tubing-3-8-id-x-594-od",
+      "inventory": {
+        "onHand": 19.15,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 150
+          },
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 152
+          }
+        ],
+        "note": "Acquired tube lengths minus a provisional one-machine cutting/consumption reserve. Remaining continuous lengths and offcuts are not measured; this stock credit is an estimate."
+      }
+    },
+    {
+      "id": "FWS Basics 316 SS hose clamp, SAE #6 (3/8\"\u20137/8\")",
+      "name": "FWS Basics 316 SS hose clamp, SAE #6 (3/8\"\u20137/8\")",
+      "bomLines": [
+        58
+      ],
+      "perUnit": 4.0,
+      "unit": "pieces",
+      "supplier": "fws",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Live supplier catalog checked October 4; all listed sizes compared for the lowest batch purchase total. Full quantity not reserved.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 217,
+          "label": "Single",
+          "available": true,
+          "sku": "WC-316SS-06"
+        },
+        {
+          "quantity": 10.0,
+          "priceCents": 2134,
+          "label": "Pack of 10",
+          "available": true,
+          "sku": "WC-316SS-06:10PK"
+        },
+        {
+          "quantity": 50.0,
+          "priceCents": 10488,
+          "label": "Pack of 50",
+          "available": true,
+          "sku": "WC-316SS-06:50PK"
+        },
+        {
+          "quantity": 1000.0,
+          "priceCents": 206150,
+          "label": "Case of 1,000",
+          "available": true,
+          "sku": "WC-316SS-06:1000PK"
+        }
+      ],
+      "sourceUrl": "https://www.freshwatersystems.com/products/stainless-steel-hose-clamp-316-sae-6-3-8-7-8",
+      "inventory": {
+        "onHand": 20,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 150
+          },
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 152
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B07F35PTFR",
+      "name": "G Ganen 12 V diaphragm pump",
+      "bomLines": [
+        59
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 1799,
+          "label": "one piece",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B07F35PTFR",
+      "inventory": {
+        "onHand": 1.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 177
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B0DMP77B6S",
+      "name": "MAACFLOW SS 1/4\" NPT M \u00d7 3/8\" hose barb (4-pk)",
+      "bomLines": [
+        60
+      ],
+      "perUnit": 2.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "delivered",
+      "status": "unconfirmed",
+      "note": "No exact priced Prime offer found in the filtered search. Recorded delivered price is an allowance; source/availability unresolved.",
+      "options": [
+        {
+          "quantity": 4,
+          "priceCents": 1296,
+          "label": "4-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0DMP77B6S",
+      "inventory": {
+        "onHand": 4.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 217
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B0FV2D2FFX",
+      "name": "GASHER 1/4\" NPT one-way check valve, male \u00d7 female (2-pk, $15.00)",
+      "bomLines": [
+        61,
+        85
+      ],
+      "perUnit": 2.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 2,
+          "priceCents": 1449,
+          "label": "2-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0FV2D2FFX",
+      "inventory": {
+        "onHand": 6.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 165
+          },
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 166
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "John Guest PP010822E 1/4\" OD \u00d7 1/4\" NPT male connector, black polypropylene (10-pk)",
+      "name": "John Guest PP010822E 1/4\" OD \u00d7 1/4\" NPT male connector, black polypropylene (10-pk)",
+      "bomLines": [
+        62,
+        195
+      ],
+      "perUnit": 3.0,
+      "unit": "pieces",
+      "supplier": "fws",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Live supplier catalog checked October 4; all listed sizes compared for the lowest batch purchase total. Full quantity not reserved.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 130,
+          "label": "Single",
+          "available": true,
+          "sku": "PP010822E"
+        },
+        {
+          "quantity": 10.0,
+          "priceCents": 1100,
+          "label": "Bag of 10",
+          "available": true,
+          "sku": "PP010822E:10PK"
+        },
+        {
+          "quantity": 400.0,
+          "priceCents": 42758,
+          "label": "Box of 400",
+          "available": true,
+          "sku": "PP010822E:400PK"
+        }
+      ],
+      "sourceUrl": "https://www.freshwatersystems.com/products/john-guest-male-connector-nptf-black-polypropylene-1-4-x-1-4-nptf",
+      "inventory": {
+        "onHand": 0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 122
+          }
+        ],
+        "note": "Ten 1/4-inch NPTF male connectors are recorded without the resin/SKU. Their PP010822E identity is unconfirmed, so no numerical production credit is taken."
+      }
+    },
+    {
+      "id": "John Guest PP450822E female adapter, 1/4\" OD \u00d7 1/4\" NPTF, black polypropylene (bag of 10)",
+      "name": "John Guest PP450822E female adapter, 1/4\" OD \u00d7 1/4\" NPTF, black polypropylene (bag of 10)",
+      "bomLines": [
+        63
+      ],
+      "perUnit": 2.0,
+      "unit": "pieces",
+      "supplier": "fws",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Live supplier catalog checked October 4; all listed sizes compared for the lowest batch purchase total. Full quantity not reserved.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 403,
+          "label": "Single",
+          "available": true,
+          "sku": "PP450822E"
+        },
+        {
+          "quantity": 10.0,
+          "priceCents": 3406,
+          "label": "Bag of 10",
+          "available": true,
+          "sku": "PP450822E:10PK"
+        },
+        {
+          "quantity": 200.0,
+          "priceCents": 66234,
+          "label": "Box of 200",
+          "available": true,
+          "sku": "PP450822E:200PK"
+        }
+      ],
+      "sourceUrl": "https://www.freshwatersystems.com/products/john-guest-female-adapter-nptf-black-polypropylene-1-4-x-1-4-nptf",
+      "inventory": {
+        "onHand": 20,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 148
+          },
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 152
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B0G2XJGZMQ",
+      "name": "GAGIRA 316L SS reducing coupling, 3/8\" NPT F \u00d7 1/4\" NPT F (5-pk, incl. Teflon tape)",
+      "bomLines": [
+        64
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "delivered",
+      "status": "unconfirmed",
+      "note": "No exact priced Prime offer found in the filtered search. Recorded delivered price is an allowance; source/availability unresolved.",
+      "options": [
+        {
+          "quantity": 5,
+          "priceCents": 1820,
+          "label": "5-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0G2XJGZMQ",
+      "inventory": {
+        "onHand": 5.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 138
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "neoFit acetal black flow-control bulkhead, 1/4\" tube (ABCVU44-E)",
+      "name": "neoFit acetal black flow-control bulkhead, 1/4\" tube (ABCVU44-E)",
+      "bomLines": [
+        65
+      ],
+      "perUnit": 1,
+      "unit": "pieces",
+      "supplier": "fws",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Live supplier catalog checked October 4; all listed sizes compared for the lowest batch purchase total. Full quantity not reserved.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 439,
+          "label": "Single",
+          "available": true,
+          "sku": "ABCVU44-E"
+        },
+        {
+          "quantity": 10.0,
+          "priceCents": 4345,
+          "label": "Bag of 10",
+          "available": true,
+          "sku": "ABCVU44-E:10PK"
+        },
+        {
+          "quantity": 200.0,
+          "priceCents": 79560,
+          "label": "Box of 200",
+          "available": true,
+          "sku": "ABCVU44-E:200PK"
+        }
+      ],
+      "sourceUrl": "https://www.freshwatersystems.com/products/neofit-acetal-black-flow-control-bulkhead-1-4-tube",
+      "inventory": {
+        "onHand": 10,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 152
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "neoFlo White 1/4\" OD LLDPE tubing, 100 ft (LLDPE4-WHITE)",
+      "name": "neoFlo White 1/4\" OD LLDPE tubing, 100 ft (LLDPE4-WHITE)",
+      "bomLines": [
+        66,
+        198
+      ],
+      "perUnit": 10.11,
+      "unit": "ft",
+      "supplier": "fws",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Live supplier catalog checked October 4; all listed sizes compared for the lowest batch purchase total. Full quantity not reserved. Tube-length allowance follows the BOM.",
+      "options": [
+        {
+          "quantity": 5.0,
+          "priceCents": 85,
+          "label": "5 Feet",
+          "available": true,
+          "sku": "LLDPE4-WHITE:5FT"
+        },
+        {
+          "quantity": 25.0,
+          "priceCents": 375,
+          "label": "25 Feet",
+          "available": true,
+          "sku": "LLDPE4-WHITE:25FT"
+        },
+        {
+          "quantity": 50.0,
+          "priceCents": 700,
+          "label": "50 Feet",
+          "available": true,
+          "sku": "LLDPE4-WHITE:50FT"
+        },
+        {
+          "quantity": 100.0,
+          "priceCents": 1200,
+          "label": "100 Feet",
+          "available": true,
+          "sku": "LLDPE4-WHITE:100FT"
+        },
+        {
+          "quantity": 500.0,
+          "priceCents": 5322,
+          "label": "500 Foot Roll",
+          "available": true,
+          "sku": "LLDPE-4-500-W"
+        }
+      ],
+      "sourceUrl": "https://www.freshwatersystems.com/products/white-1-4-od-lldpe-polyethylene-tubing",
+      "inventory": {
+        "onHand": 89.89,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 152
+          }
+        ],
+        "note": "Acquired tube lengths minus a provisional one-machine cutting/consumption reserve. Remaining continuous lengths and offcuts are not measured; this stock credit is an estimate."
+      }
+    },
+    {
+      "id": "B00JYFU8MM",
+      "name": "John Guest PP1208E 1/4\" OD black polypropylene push-to-connect bulkhead union (10-pk)",
+      "bomLines": [
+        68,
+        180
+      ],
+      "perUnit": 4.0,
+      "unit": "pieces",
+      "supplier": "fws",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Exact PP1208E from Fresh Water Systems. Alternate supplier for the same part; bag of 10 is $28.78 and listed available.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 340,
+          "label": "Single",
+          "available": true,
+          "sku": "PP1208E"
+        },
+        {
+          "quantity": 10.0,
+          "priceCents": 2878,
+          "label": "Bag of 10",
+          "available": true,
+          "sku": "PP1208E:10PK"
+        },
+        {
+          "quantity": 200.0,
+          "priceCents": 55963,
+          "label": "Box of 200",
+          "available": true,
+          "sku": "PP1208E:200PK"
+        }
+      ],
+      "sourceUrl": "https://www.freshwatersystems.com/products/john-guest-bulkhead-union-black-polypropylene-1-4",
+      "inventory": {
+        "onHand": 20,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 153
+          },
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 231
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "John Guest Speedfit ASVPP1LF angle stop adapter valve, 3/8\" \u00d7 3/8\" \u00d7 1/4\" (B003YKF2JC)",
+      "name": "John Guest Speedfit ASVPP1LF angle stop adapter valve, 3/8\" \u00d7 3/8\" \u00d7 1/4\" (B003YKF2JC)",
+      "bomLines": [
+        69
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "fws",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Live supplier catalog checked October 4; all listed sizes compared for the lowest batch purchase total. Full quantity not reserved.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 1286,
+          "label": "Single",
+          "available": true,
+          "sku": "ASVPP1LF"
+        },
+        {
+          "quantity": 30.0,
+          "priceCents": 34729,
+          "label": "Box of 30",
+          "available": true,
+          "sku": "ASVPP1LF:30PK"
+        },
+        {
+          "quantity": 150.0,
+          "priceCents": 167076,
+          "label": "Box of 150",
+          "available": true,
+          "sku": "ASVPP1LF:150PK"
+        },
+        {
+          "quantity": 300.0,
+          "priceCents": 328440,
+          "label": "Box of 300",
+          "available": true,
+          "sku": "ASVPP1LF:300PK"
+        }
+      ],
+      "sourceUrl": "https://www.freshwatersystems.com/products/john-guest-angle-stop-adapter-valve-lead-free-3-8-x-3-8-x-1-4",
+      "inventory": {
+        "onHand": 11,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 152
+          },
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 154
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "John Guest Blue 1/4\" OD LLDPE Polyethylene Tubing, 100 ft",
+      "name": "John Guest Blue 1/4\" OD LLDPE Polyethylene Tubing, 100 ft",
+      "bomLines": [
+        71
+      ],
+      "perUnit": 5.0,
+      "unit": "ft",
+      "supplier": "fws",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Live supplier catalog checked October 4; all listed sizes compared for the lowest batch purchase total. Full quantity not reserved. Tube-length allowance follows the BOM.",
+      "options": [
+        {
+          "quantity": 5.0,
+          "priceCents": 85,
+          "label": "5 Feet",
+          "available": true,
+          "sku": "LLDPE4-BLUE:5FT"
+        },
+        {
+          "quantity": 25.0,
+          "priceCents": 375,
+          "label": "25 Feet",
+          "available": true,
+          "sku": "LLDPE4-BLUE:25FT"
+        },
+        {
+          "quantity": 50.0,
+          "priceCents": 700,
+          "label": "50 Feet",
+          "available": true,
+          "sku": "LLDPE4-BLUE:50FT"
+        },
+        {
+          "quantity": 100.0,
+          "priceCents": 1200,
+          "label": "100 Feet",
+          "available": true,
+          "sku": "LLDPE4-BLUE:100FT"
+        },
+        {
+          "quantity": 500.0,
+          "priceCents": 5322,
+          "label": "500 Foot Roll",
+          "available": true,
+          "sku": "LLDPE-4-500-B"
+        }
+      ],
+      "sourceUrl": "https://www.freshwatersystems.com/products/blue-1-4-od-lldpe-polyethylene-tubing",
+      "inventory": {
+        "onHand": 95,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 147
+          }
+        ],
+        "note": "Acquired tube lengths minus a provisional one-machine cutting/consumption reserve. Remaining continuous lengths and offcuts are not measured; this stock credit is an estimate."
+      }
+    },
+    {
+      "id": "B0G13P5PMY",
+      "name": "Wellbom dual-gauge CO2 regulator, CGA-320, 0\u2013120 PSI out / 150 PSI PRV",
+      "bomLines": [
+        77
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 4599,
+          "label": "one piece",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0G13P5PMY",
+      "inventory": {
+        "onHand": 1.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 110
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B0CGFCJNMG",
+      "name": "Interstate Pneumatics WR1105 1/4\" NPT in-line fixed pre-set pressure regulator, listed 50 PSI, barrel etched 3 bar, 230 PSI max inlet, aluminum body",
+      "bomLines": [
+        78
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 2847,
+          "label": "one piece",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0CGFCJNMG",
+      "inventory": {
+        "onHand": 0,
+        "incoming": 3,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 120
+          }
+        ],
+        "note": "Three WR1105 regulators already shipped, estimated arrival October 7. Confirmed October 4 charge of $91.56 is excluded from future spending; no second order for these three."
+      }
+    },
+    {
+      "id": "Red 1/4\" OD LLDPE polyethylene tubing",
+      "name": "Red 1/4\" OD LLDPE polyethylene tubing",
+      "bomLines": [
+        79
+      ],
+      "perUnit": 2,
+      "unit": "ft",
+      "supplier": "fws",
+      "priceBasis": "merchandise",
+      "status": "estimate",
+      "note": "BOM ~2 ft per machine includes the external tether and three internal gas segments. Add a provisional 25% cut/slack allowance, then credit existing red tubing before rounding any shortfall to supplier lengths.",
+      "options": [
+        {
+          "quantity": 5.0,
+          "priceCents": 85,
+          "label": "5 Feet",
+          "available": true,
+          "sku": "LLDPE4-RED:5FT"
+        },
+        {
+          "quantity": 25.0,
+          "priceCents": 375,
+          "label": "25 Feet",
+          "available": true,
+          "sku": "LLDPE4-RED:25FT"
+        },
+        {
+          "quantity": 50.0,
+          "priceCents": 700,
+          "label": "50 Feet",
+          "available": true,
+          "sku": "LLDPE4-RED:50FT"
+        },
+        {
+          "quantity": 100.0,
+          "priceCents": 1200,
+          "label": "100 Feet",
+          "available": true,
+          "sku": "LLDPE4-RED:100FT"
+        },
+        {
+          "quantity": 500.0,
+          "priceCents": 5322,
+          "label": "500 Foot Roll",
+          "available": true,
+          "sku": "LLDPE-4-500-R"
+        },
+        {
+          "quantity": 1.0,
+          "priceCents": 19,
+          "label": "1 Foot",
+          "available": true,
+          "sku": "LLDPE4-RED"
+        }
+      ],
+      "sourceUrl": "https://www.freshwatersystems.com/products/red-1-4-od-lldpe-polyethylene-tubing",
+      "inventory": {
+        "onHand": 98,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 151
+          }
+        ],
+        "note": "Acquired tube lengths minus a provisional one-machine cutting/consumption reserve. Remaining continuous lengths and offcuts are not measured; this stock credit is an estimate."
+      },
+      "materialAllowance": 0.25
+    },
+    {
+      "id": "John Guest PM4508F4S gray acetal female flare connector, 5/16\" tube \u00d7 1/4\" FFL",
+      "name": "John Guest PM4508F4S gray acetal female flare connector, 5/16\" tube \u00d7 1/4\" FFL",
+      "bomLines": [
+        80
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "fws",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Live supplier catalog checked October 4; all listed sizes compared for the lowest batch purchase total. Full quantity not reserved.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 299,
+          "label": "Single",
+          "available": true,
+          "sku": "PM4508F4S"
+        },
+        {
+          "quantity": 10.0,
+          "priceCents": 2528,
+          "label": "Bag of 10",
+          "available": true,
+          "sku": "PM4508F4S:10PK"
+        },
+        {
+          "quantity": 300.0,
+          "priceCents": 73727,
+          "label": "Box of 300",
+          "available": true,
+          "sku": "PM4508F4S:300PK"
+        }
+      ],
+      "sourceUrl": "https://www.freshwatersystems.com/products/john-guest-female-adapter-flare-5-16-x-1-4-flare",
+      "inventory": {
+        "onHand": 10,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 162
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "John Guest PI061008S gray acetal stem reducer, 5/16\" stem \u00d7 1/4\" tube",
+      "name": "John Guest PI061008S gray acetal stem reducer, 5/16\" stem \u00d7 1/4\" tube",
+      "bomLines": [
+        81
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "fws",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Live supplier catalog checked October 4; all listed sizes compared for the lowest batch purchase total. Full quantity not reserved.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 181,
+          "label": "Single",
+          "available": true,
+          "sku": "PI061008S"
+        },
+        {
+          "quantity": 10.0,
+          "priceCents": 1536,
+          "label": "Bag of 10",
+          "available": true,
+          "sku": "PI061008S:10PK"
+        },
+        {
+          "quantity": 500.0,
+          "priceCents": 74670,
+          "label": "Box of 500",
+          "available": true,
+          "sku": "PI061008S:500PK"
+        }
+      ],
+      "sourceUrl": "https://www.freshwatersystems.com/products/john-guest-reducer-stem-1-4-x-5-16-stem",
+      "inventory": {
+        "onHand": 10,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 162
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "neoFit ABU44-E acetal black bulkhead connector, 1/4\" tube (bag of 10)",
+      "name": "neoFit ABU44-E acetal black bulkhead connector, 1/4\" tube (bag of 10)",
+      "bomLines": [
+        82
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "fws",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Live supplier catalog checked October 4; all listed sizes compared for the lowest batch purchase total. Full quantity not reserved.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 272,
+          "label": "Single",
+          "available": true,
+          "sku": "ABU44-E"
+        },
+        {
+          "quantity": 10.0,
+          "priceCents": 2478,
+          "label": "Bag of 10",
+          "available": true,
+          "sku": "ABU44-E:10PK"
+        },
+        {
+          "quantity": 250.0,
+          "priceCents": 57056,
+          "label": "Box of 250",
+          "available": true,
+          "sku": "ABU44-E:250PK"
+        }
+      ],
+      "sourceUrl": "https://www.freshwatersystems.com/products/neofit-acetal-black-bulkhead-connector-1-4-tube",
+      "inventory": {
+        "onHand": 10,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 151
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "John Guest PI010822S male connector NPTF, 1/4-inch tube \u00d7 1/4-inch NPTF, gray acetal",
+      "name": "John Guest PI010822S male connector NPTF, 1/4-inch tube \u00d7 1/4-inch NPTF, gray acetal",
+      "bomLines": [
+        83
+      ],
+      "perUnit": 3.0,
+      "unit": "pieces",
+      "supplier": "fws",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Live supplier catalog checked October 4; all listed sizes compared for the lowest batch purchase total. Full quantity not reserved.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 125,
+          "label": "Single",
+          "available": true,
+          "sku": "PI010822S-X"
+        },
+        {
+          "quantity": 10.0,
+          "priceCents": 1164,
+          "label": "Bag of 10",
+          "available": true,
+          "sku": "PI010822S:10PK"
+        },
+        {
+          "quantity": 400.0,
+          "priceCents": 45273,
+          "label": "Box of 400",
+          "available": true,
+          "sku": "PI010822S:400PK"
+        },
+        {
+          "quantity": 3000.0,
+          "priceCents": 302167,
+          "label": "Bulk Pack of 3,000",
+          "available": true,
+          "sku": "PI010822S-X:3000PK"
+        }
+      ],
+      "sourceUrl": "https://www.freshwatersystems.com/products/john-guest-male-connector-nptf-1-4-x-1-4-nptf",
+      "inventory": {
+        "onHand": 20,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 151
+          },
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 152
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "John Guest PI450822S female adapter NPTF, 1/4-inch tube \u00d7 1/4-inch NPTF, gray acetal",
+      "name": "John Guest PI450822S female adapter NPTF, 1/4-inch tube \u00d7 1/4-inch NPTF, gray acetal",
+      "bomLines": [
+        84
+      ],
+      "perUnit": 2.0,
+      "unit": "pieces",
+      "supplier": "fws",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Live supplier catalog checked October 4; all listed sizes compared for the lowest batch purchase total. Full quantity not reserved.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 296,
+          "label": "Single",
+          "available": true,
+          "sku": "PI450822S"
+        },
+        {
+          "quantity": 10.0,
+          "priceCents": 2506,
+          "label": "Bag of 10",
+          "available": true,
+          "sku": "PI450822S:10PK"
+        },
+        {
+          "quantity": 400.0,
+          "priceCents": 97464,
+          "label": "Box of 400",
+          "available": true,
+          "sku": "PI450822S:400PK"
+        }
+      ],
+      "sourceUrl": "https://www.freshwatersystems.com/products/john-guest-female-adapter-nptf-1-4-x-1-4-nptf",
+      "inventory": {
+        "onHand": 0,
+        "incoming": 30,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 123
+          }
+        ],
+        "note": "Thirty PI450822S already shipped October 1; delivery pending. Use them before ordering more. Payment evidence is incomplete; the full recorded $94.54 is reserved separately as a possible unpaid balance."
+      }
+    },
+    {
+      "id": "B07PCZKG94",
+      "name": "Frigidaire EFIC117-SS ice-maker donor (compressor/condenser/cap-tube/drier)",
+      "bomLines": [
+        91
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "estimate",
+      "note": "Prime result for this ASIN currently names EFIC117-SSCOPPER-COM. Budget $85/donor; internal hardware compatibility with the measured donor and batch stock remain unconfirmed. No alternate donor geometry assumed.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 8500,
+          "label": "one piece",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B07PCZKG94",
+      "inventory": {
+        "onHand": 1.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 258
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B0DKSW5VL9",
+      "name": "GOORY 1/4\" OD \u00d7 50 ft ACR copper coil (evaporator)",
+      "bomLines": [
+        93
+      ],
+      "perUnit": 1,
+      "unit": "coil cuts",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 3,
+          "priceCents": 7399,
+          "label": "50 ft coil: three 15.92 ft cuts",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0DKSW5VL9",
+      "inventory": {
+        "onHand": 2.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 260
+          }
+        ],
+        "note": "Recorded purchase supplies 3 coil cuts. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
+      }
+    },
+    {
+      "id": "B07XGZSYJV",
+      "name": "Teyleten 3.3 V relay module, opto-isolated, 10 A @ 250 VAC (5-pk)",
+      "bomLines": [
+        94
+      ],
+      "perUnit": 2.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 5,
+          "priceCents": 1199,
+          "label": "5-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B07XGZSYJV",
+      "inventory": {
+        "onHand": 5.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 434
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B0FKG3HT9Q",
+      "name": "TIEXYE DS18B20 TO-92 1-wire sensor (10-pk)",
+      "bomLines": [
+        95
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 10,
+          "priceCents": 859,
+          "label": "10-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0FKG3HT9Q",
+      "inventory": {
+        "onHand": 10.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 264
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "DS18S20+ TO-92 1-wire sensor, family 0x10 (LCSC C52574)",
+      "name": "DS18S20+ TO-92 1-wire sensor, family 0x10 (LCSC C52574)",
+      "bomLines": [
+        96
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "lcsc",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "C52574: minimum/multiple 1; 384 listed available. $2.288 at 1+, $1.9611 at 10+, $1.7558 at 30+. Ten already acquired from DigiKey are the same DS18S20+.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 228.8,
+          "label": "one DS18S20+",
+          "available": true,
+          "tiers": [
+            {
+              "minimum": 10,
+              "priceCents": 196.11
+            },
+            {
+              "minimum": 30,
+              "priceCents": 175.58
+            },
+            {
+              "minimum": 100,
+              "priceCents": 154.72
+            }
+          ]
+        }
+      ],
+      "sourceUrl": "https://www.lcsc.com/product-detail/C52574.html",
+      "inventory": {
+        "onHand": 10,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 265
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B07DCXKNXQ",
+      "name": "MXR IEC 60320 C14 panel-mount AC inlet, 10 A / 250 VAC (10-pk)",
+      "bomLines": [
+        97
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 10,
+          "priceCents": 599,
+          "label": "10-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B07DCXKNXQ",
+      "inventory": {
+        "onHand": 10.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 438
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B08VS8D4WC",
+      "name": "Monoprice NEMA 5-15P \u2192 IEC C13 line cord, 18 AWG, 6 ft, UL-listed (6-pk)",
+      "bomLines": [
+        98
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 6,
+          "priceCents": 1859,
+          "label": "6-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B08VS8D4WC",
+      "inventory": {
+        "onHand": 6.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 439
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B0CGG1WH1N",
+      "name": "Enviro-Safe R-600a 3-pack + brass charging gauge",
+      "bomLines": [
+        99
+      ],
+      "perUnit": 1,
+      "unit": "charges",
+      "supplier": "amazon",
+      "priceBasis": "delivered",
+      "status": "estimate",
+      "note": "No exact priced Prime offer found in the filtered search. Recorded delivered price is an allowance; source/availability unresolved. Cut lengths or consumable yield are BOM estimates.",
+      "options": [
+        {
+          "quantity": 12,
+          "priceCents": 7296,
+          "label": "three-can bundle: provisional 12 charges",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0CGG1WH1N",
+      "inventory": {
+        "onHand": 11.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 274
+          }
+        ],
+        "note": "Recorded purchase supplies 12 charges. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
+      }
+    },
+    {
+      "id": "B00DM8J3MI",
+      "name": "Supco BPV31 bullet-piercing valve",
+      "bomLines": [
+        100
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "delivered",
+      "status": "unconfirmed",
+      "note": "No exact priced Prime offer found in the filtered search. Recorded delivered price is an allowance; source/availability unresolved.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 737,
+          "label": "one piece",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B00DM8J3MI",
+      "inventory": {
+        "onHand": 1.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 271
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B0FH549N6D",
+      "name": "HVAC 1/4\" OD copper slip coupling, ACR-grade, sweat \u00d7 sweat (10-pack)",
+      "bomLines": [
+        101
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 10,
+          "priceCents": 798,
+          "label": "10-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0FH549N6D",
+      "inventory": {
+        "onHand": 10.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 285
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B0DQ3ZMHK7",
+      "name": "BCuP-5 15% Ag silver brazing alloy, 1/16\" \u00d7 1 troy oz rod",
+      "bomLines": [
+        102
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "delivered",
+      "status": "unconfirmed",
+      "note": "No exact priced Prime offer found in the filtered search. Recorded delivered price is an allowance; source/availability unresolved.",
+      "options": [
+        {
+          "quantity": 3,
+          "priceCents": 2037,
+          "label": "3-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0DQ3ZMHK7",
+      "inventory": {
+        "onHand": 2.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 283
+          }
+        ],
+        "note": "Recorded purchase supplies 3 pieces. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
+      }
+    },
+    {
+      "id": "B07CGPCTHT",
+      "name": "3M Scotch-Brite Maroon General Purpose Hand Pads, 6\" \u00d7 9\" (1-pack of 20)",
+      "bomLines": [
+        103
+      ],
+      "perUnit": 2.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 20,
+          "priceCents": 2555,
+          "label": "20-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B07CGPCTHT",
+      "inventory": {
+        "onHand": 18.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 284
+          }
+        ],
+        "note": "Recorded purchase supplies 20 pieces. A provisional one-machine consumption reserve of 2 is deducted for development; the remaining stock is uncounted and marked *."
+      }
+    },
+    {
+      "id": "B0BKQ2H9BZ",
+      "name": "GEARit 25 ft 18/3 SJOOW portable cord, 18 AWG 300 V",
+      "bomLines": [
+        104
+      ],
+      "perUnit": 1.3,
+      "unit": "ft",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 25,
+          "priceCents": 1999,
+          "label": "25 ft cord",
+          "available": true,
+          "listedPackages": 4
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0BKQ2H9BZ",
+      "inventory": {
+        "onHand": 23.7,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 429
+          }
+        ],
+        "note": "Recorded purchase supplies 25 ft. A provisional one-machine consumption reserve of 1.3 is deducted for development; the remaining stock is uncounted and marked *."
+      }
+    },
+    {
+      "id": "B07Y61YTTK",
+      "name": "BOJACK SF76E SEFUSE thermal fuse, 77 \u00b0C, 10 A / 250 V (10-pack)",
+      "bomLines": [
+        105
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 10.0,
+          "priceCents": 599,
+          "label": "10-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B07Y61YTTK",
+      "inventory": {
+        "onHand": 10.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 292
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B0978JSCZ8",
+      "name": "ACEIRMC MQ-6 LPG / iso-butane combustible gas sensor module (5-pack)",
+      "bomLines": [
+        106
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 5,
+          "priceCents": 1099,
+          "label": "5-piece pack",
+          "available": true,
+          "listedPackages": 7
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0978JSCZ8",
+      "inventory": {
+        "onHand": 5.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 293
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B08R7TX8QJ",
+      "name": "Fiberglass Supply Depot 2 lb 2-part closed-cell pour-in-place PU foam, 1 qt kit",
+      "bomLines": [
+        113
+      ],
+      "perUnit": 1,
+      "unit": "builds",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "estimate",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved. Cut lengths or consumable yield are BOM estimates.",
+      "options": [
+        {
+          "quantity": 7,
+          "priceCents": 3999,
+          "label": "quart foam kit: provisional seven builds",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B08R7TX8QJ",
+      "inventory": {
+        "onHand": 6.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 262
+          }
+        ],
+        "note": "Recorded purchase supplies 7 builds. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
+      }
+    },
+    {
+      "id": "B07BTW7C2N",
+      "name": "3M 425 aluminum foil tape, 2\" \u00d7 180 ft",
+      "bomLines": [
+        114
+      ],
+      "perUnit": 15,
+      "unit": "ft",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 180,
+          "priceCents": 9552,
+          "label": "180 ft roll",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B07BTW7C2N",
+      "inventory": {
+        "onHand": 165.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 288
+          }
+        ],
+        "note": "Recorded purchase supplies 180 ft. A provisional one-machine consumption reserve of 15 is deducted for development; the remaining stock is uncounted and marked *."
+      }
+    },
+    {
+      "id": "B08JHH1DBF",
+      "name": "Pouring Masters 5 oz / 150 mL graduated mixing cups (50-pk)",
+      "bomLines": [
+        115
+      ],
+      "perUnit": 4.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 50,
+          "priceCents": 1899,
+          "label": "50-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B08JHH1DBF",
+      "inventory": {
+        "onHand": 46.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 289
+          }
+        ],
+        "note": "Recorded purchase supplies 50 pieces. A provisional one-machine consumption reserve of 4 is deducted for development; the remaining stock is uncounted and marked *."
+      }
+    },
+    {
+      "id": "B09H6ZP447",
+      "name": "JMU 6\" tongue depressors, individually wrapped (100-pk)",
+      "bomLines": [
+        116
+      ],
+      "perUnit": 4.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 100,
+          "priceCents": 739,
+          "label": "100-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B09H6ZP447",
+      "inventory": {
+        "onHand": 96.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 290
+          }
+        ],
+        "note": "Recorded purchase supplies 100 pieces. A provisional one-machine consumption reserve of 4 is deducted for development; the remaining stock is uncounted and marked *."
+      }
+    },
+    {
+      "id": "B0G8SSMVKW",
+      "name": "SUP powder-free 4 mil nitrile exam gloves, XL, 100-pk = 50 pairs",
+      "bomLines": [
+        117
+      ],
+      "perUnit": 1,
+      "unit": "pairs",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 50,
+          "priceCents": 848,
+          "label": "100 gloves / 50 pairs",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0G8SSMVKW",
+      "inventory": {
+        "onHand": 49.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 291
+          }
+        ],
+        "note": "Recorded purchase supplies 50 pairs. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
+      }
+    },
+    {
+      "id": "B09MVPJXFJ",
+      "name": "Kamoer KPHM600-SW3B17 12V peristaltic pump",
+      "bomLines": [
+        177
+      ],
+      "perUnit": 2.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 3962,
+          "label": "one piece",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B09MVPJXFJ",
+      "inventory": {
+        "onHand": 2.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 188
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B07NWCQJK9",
+      "name": "Beduan 12V 1/4\" solenoid valve (NC)",
+      "bomLines": [
+        178,
+        179
+      ],
+      "perUnit": 11.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 899,
+          "label": "one piece",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B07NWCQJK9",
+      "inventory": {
+        "onHand": 14.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 189
+          },
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 190
+          },
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 191
+          },
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 192
+          },
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 193
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B0968K4JRN",
+      "name": "PureSec 1/4\" RO push-to-connect 90\u00b0 elbow bulkhead, white polypropylene (5-pk)",
+      "bomLines": [
+        181
+      ],
+      "perUnit": 2.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 5,
+          "priceCents": 1099,
+          "label": "5-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0968K4JRN",
+      "inventory": {
+        "onHand": 5.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 232
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B07D23JJMR",
+      "name": "uxcell silicone flat washer, \u230016 ID \u00d7 \u230024 OD \u00d7 3 mm, clear (10-pk)",
+      "bomLines": [
+        182
+      ],
+      "perUnit": 2.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 10,
+          "priceCents": 615,
+          "label": "10-piece pack",
+          "available": true,
+          "listedPackages": 3
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B07D23JJMR",
+      "inventory": {
+        "onHand": 10.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 233
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B0FM77LLM1",
+      "name": "Siptenk 1/4\" OD brass tube stiffener insert (100-pk)",
+      "bomLines": [
+        184
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 100,
+          "priceCents": 899,
+          "label": "100-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0FM77LLM1",
+      "inventory": {
+        "onHand": 100.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 308
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "John Guest PP0308E 1/4\" union elbow, black polypropylene (bag of 10)",
+      "name": "John Guest PP0308E 1/4\" union elbow, black polypropylene (bag of 10)",
+      "bomLines": [
+        185
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "fws",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Live supplier catalog checked October 4; all listed sizes compared for the lowest batch purchase total. Full quantity not reserved.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 199,
+          "label": "Single",
+          "available": true,
+          "sku": "PP0308E"
+        },
+        {
+          "quantity": 10.0,
+          "priceCents": 1687,
+          "label": "Bag of 10",
+          "available": true,
+          "sku": "PP0308E:10PK"
+        },
+        {
+          "quantity": 400.0,
+          "priceCents": 65605,
+          "label": "Box of 400",
+          "available": true,
+          "sku": "PP0308E:400PK"
+        }
+      ],
+      "sourceUrl": "https://www.freshwatersystems.com/products/john-guest-union-elbow-black-polypropylene-1-4",
+      "inventory": {
+        "onHand": 0,
+        "incoming": 0,
+        "basis": "unknown",
+        "estimated": true,
+        "sources": [],
+        "note": "No usable production stock quantified in the reviewed records; no stock credit taken."
+      }
+    },
+    {
+      "id": "B0FHHBGSQK",
+      "name": "BBDINO 40A food-contact platinum silicone, 2.42 lb kit, 1:1",
+      "bomLines": [
+        186
+      ],
+      "perUnit": 273,
+      "unit": "g",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "estimate",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved. Cut lengths or consumable yield are BOM estimates.",
+      "options": [
+        {
+          "quantity": 1098,
+          "priceCents": 4397,
+          "label": "2.42 lb / approximately 1098 g kit",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0FHHBGSQK",
+      "inventory": {
+        "onHand": 825.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 742
+          }
+        ],
+        "note": "Recorded purchase supplies 1098 g. A provisional one-machine consumption reserve of 273 is deducted for development; the remaining stock is uncounted and marked *."
+      }
+    },
+    {
+      "id": "B0BVR3R58V",
+      "name": "BBDINO black silicone pigment, 150 g",
+      "bomLines": [
+        187
+      ],
+      "perUnit": 1.5,
+      "unit": "g",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "estimate",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved. Cut lengths or consumable yield are BOM estimates.",
+      "options": [
+        {
+          "quantity": 150,
+          "priceCents": 1997,
+          "label": "150 g bottle",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0BVR3R58V",
+      "inventory": {
+        "onHand": 148.5,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 743
+          }
+        ],
+        "note": "Recorded purchase supplies 150 g. A provisional one-machine consumption reserve of 1.5 is deducted for development; the remaining stock is uncounted and marked *."
+      }
+    },
+    {
+      "id": "B002YEBO1O",
+      "name": "Mann Ease Release 200, 14 oz aerosol",
+      "bomLines": [
+        188
+      ],
+      "perUnit": 1,
+      "unit": "builds",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "estimate",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved. Cut lengths or consumable yield are BOM estimates.",
+      "options": [
+        {
+          "quantity": 50,
+          "priceCents": 2199,
+          "label": "14 oz can: provisional 50-build allowance",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B002YEBO1O",
+      "inventory": {
+        "onHand": 49.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 744
+          }
+        ],
+        "note": "Recorded purchase supplies 50 builds. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
+      }
+    },
+    {
+      "id": "B08HNCGY4N",
+      "name": "TCP Global 32 oz graduated mixing cups (25-pk)",
+      "bomLines": [
+        189
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 25,
+          "priceCents": 1799,
+          "label": "25-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B08HNCGY4N",
+      "inventory": {
+        "onHand": 24.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 745
+          }
+        ],
+        "note": "Recorded purchase supplies 25 pieces. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
+      }
+    },
+    {
+      "id": "B0BXFW1J38",
+      "name": "Westbrass A2031-NL-62 8\" Touch-Flo dispenser faucet, matte black",
+      "bomLines": [
+        196
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "estimate",
+      "note": "Exact A2031-NL-62 source unresolved. Prime R2031-NL-62 8-inch Touch-Flo matte black is $52.40 with 12 listed. Use its price as a compatible-donor allowance; handle/body interfaces must match the accepted faucet before substitution. This forecast does not assert fit.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 5240,
+          "label": "one 8-inch Touch-Flo donor",
+          "available": true,
+          "listedPackages": 12
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B07KH285GJ",
+      "inventory": {
+        "onHand": 1.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 300
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "SendCutSend 0.060\" 316 SS under-counter plate (`under_counter_plate.dxf`)",
+      "name": "SendCutSend 0.060\" 316 SS under-counter plate (`under_counter_plate.dxf`)",
+      "bomLines": [
+        197
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "scs",
+      "priceBasis": "delivered",
+      "status": "estimate",
+      "note": "Recorded delivered 10-piece lot; current DXF quote required.",
+      "options": [
+        {
+          "quantity": 10,
+          "priceCents": 3629,
+          "label": "10 under-counter plates",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://sendcutsend.com/",
+      "inventory": {
+        "onHand": 23,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 77
+          }
+        ],
+        "note": "Twenty-three plates in the later acquired order credited; the older ten are excluded from the usable count. Current DXF compatibility and remaining quantity are estimated."
+      }
+    },
+    {
+      "id": "John Guest PP0408W 1/4\" union connector, white polypropylene (bag of 10)",
+      "name": "John Guest PP0408W 1/4\" union connector, white polypropylene (bag of 10)",
+      "bomLines": [
+        199
+      ],
+      "perUnit": 2.0,
+      "unit": "pieces",
+      "supplier": "fws",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Live supplier catalog checked October 4; all listed sizes compared for the lowest batch purchase total. Full quantity not reserved.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 176,
+          "label": "Single",
+          "available": true,
+          "sku": "PP0408W-X"
+        },
+        {
+          "quantity": 10.0,
+          "priceCents": 1401,
+          "label": "Bag of 10",
+          "available": true,
+          "sku": "PP0408W-US:10PK"
+        },
+        {
+          "quantity": 400.0,
+          "priceCents": 54496,
+          "label": "Box of 400",
+          "available": true,
+          "sku": "PP0408W-US:400PK"
+        },
+        {
+          "quantity": 3000.0,
+          "priceCents": 422280,
+          "label": "Bulk Pack of 3,000",
+          "available": true,
+          "sku": "PP0408W-X:3000PK"
+        }
+      ],
+      "sourceUrl": "https://www.freshwatersystems.com/products/john-guest-union-connector-polypro-1-4",
+      "inventory": {
+        "onHand": 0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [],
+        "note": "No acquired PP0408W union quantity identified; no usable-stock credit."
+      }
+    },
+    {
+      "id": "neoFlo White 3/8\" OD LLDPE tubing, 25 ft (LLDPE6-WHITE)",
+      "name": "neoFlo White 3/8\" OD LLDPE tubing, 25 ft (LLDPE6-WHITE)",
+      "bomLines": [
+        200
+      ],
+      "perUnit": 1.08,
+      "unit": "ft",
+      "supplier": "fws",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Live supplier catalog checked October 4; all listed sizes compared for the lowest batch purchase total. Full quantity not reserved. Tube-length allowance follows the BOM.",
+      "options": [
+        {
+          "quantity": 5.0,
+          "priceCents": 135,
+          "label": "5 Feet",
+          "available": true,
+          "sku": "LLDPE6-WHITE:5FT"
+        },
+        {
+          "quantity": 25.0,
+          "priceCents": 650,
+          "label": "25 Feet",
+          "available": true,
+          "sku": "LLDPE6-WHITE:25FT"
+        },
+        {
+          "quantity": 50.0,
+          "priceCents": 1200,
+          "label": "50 Feet",
+          "available": true,
+          "sku": "LLDPE6-WHITE:50FT"
+        },
+        {
+          "quantity": 100.0,
+          "priceCents": 2100,
+          "label": "100 Feet",
+          "available": true,
+          "sku": "LLDPE6-WHITE:100FT"
+        },
+        {
+          "quantity": 500.0,
+          "priceCents": 7892,
+          "label": "500 Foot Roll",
+          "available": true,
+          "sku": "LLDPE-6-500-W"
+        }
+      ],
+      "sourceUrl": "https://www.freshwatersystems.com/products/white-3-8-od-lldpe-polyethylene-tubing",
+      "inventory": {
+        "onHand": 23.92,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 152
+          }
+        ],
+        "note": "Acquired tube lengths minus a provisional one-machine cutting/consumption reserve. Remaining continuous lengths and offcuts are not measured; this stock credit is an estimate."
+      }
+    },
+    {
+      "id": "B07QRXLRTH",
+      "name": "DIGITEN G1/4\" Hall-effect flow sensor, 0.3\u201310 L/min",
+      "bomLines": [
+        201
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "delivered",
+      "status": "unconfirmed",
+      "note": "No exact priced Prime offer found in the filtered search. Recorded delivered price is an allowance; source/availability unresolved.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 1018,
+          "label": "one piece",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B07QRXLRTH",
+      "inventory": {
+        "onHand": 4.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 309
+          },
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 310
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B0D2XFK337",
+      "name": "CARGEN Pipe Insulation Foam Tube, 1/4\" ID \u00d7 3/8\" wall \u00d7 6 ft, nitrile rubber closed-cell",
+      "bomLines": [
+        202
+      ],
+      "perUnit": 7,
+      "unit": "ft",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved. Cut lengths or consumable yield are BOM estimates.",
+      "options": [
+        {
+          "quantity": 6,
+          "priceCents": 799,
+          "label": "6 ft roll, cut into 12/24-inch segments",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0D2XFK337",
+      "inventory": {
+        "onHand": 5.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 313
+          }
+        ],
+        "note": "Recorded purchase supplies 12 ft. A provisional one-machine consumption reserve of 7 is deducted for development; the remaining stock is uncounted and marked *."
+      }
+    },
+    {
+      "id": "B07PNPHWMG",
+      "name": "BNTECHGO 28 AWG silicone ribbon cable, 4-conductor flat, 50 ft",
+      "bomLines": [
+        203
+      ],
+      "perUnit": 2,
+      "unit": "m",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved. Cut lengths or consumable yield are BOM estimates.",
+      "options": [
+        {
+          "quantity": 15.24,
+          "priceCents": 1998,
+          "label": "50 ft / 15.24 m spool",
+          "available": true,
+          "listedPackages": 8
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B07PNPHWMG",
+      "inventory": {
+        "onHand": 13.24,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 413
+          }
+        ],
+        "note": "Recorded purchase supplies 15.24 m. A provisional one-machine consumption reserve of 2 is deducted for development; the remaining stock is uncounted and marked *."
+      }
+    },
+    {
+      "id": "B09X48444N",
+      "name": "BNTECHGO 22 AWG silicone ribbon cable, 4-conductor flat (4P), black, 50 ft",
+      "bomLines": [
+        204
+      ],
+      "perUnit": 2.2,
+      "unit": "m",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved. Cut lengths or consumable yield are BOM estimates.",
+      "options": [
+        {
+          "quantity": 15.24,
+          "priceCents": 2298,
+          "label": "50 ft / 15.24 m spool",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B09X48444N",
+      "inventory": {
+        "onHand": 13.04,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 414
+          }
+        ],
+        "note": "Recorded purchase supplies 15.24 m. A provisional one-machine consumption reserve of 2.2 is deducted for development; the remaining stock is uncounted and marked *."
+      }
+    },
+    {
+      "id": "B087RCBF53",
+      "name": "BNTECHGO 22 AWG silicone ribbon cable, 3-conductor flat (3P), black, 50 ft",
+      "bomLines": [
+        205
+      ],
+      "perUnit": 1.55,
+      "unit": "m",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved. Cut lengths or consumable yield are BOM estimates.",
+      "options": [
+        {
+          "quantity": 15.24,
+          "priceCents": 1898,
+          "label": "50 ft / 15.24 m spool",
+          "available": true,
+          "listedPackages": 13
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B087RCBF53",
+      "inventory": {
+        "onHand": 13.69,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 415
+          }
+        ],
+        "note": "Recorded purchase supplies 15.24 m. A provisional one-machine consumption reserve of 1.55 is deducted for development; the remaining stock is uncounted and marked *."
+      }
+    },
+    {
+      "id": "B09X46Y36M",
+      "name": "BNTECHGO 22 AWG silicone ribbon cable, 5-conductor flat (5P), black, 50 ft",
+      "bomLines": [
+        206
+      ],
+      "perUnit": 1.2,
+      "unit": "m",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved. Cut lengths or consumable yield are BOM estimates.",
+      "options": [
+        {
+          "quantity": 15.24,
+          "priceCents": 2898,
+          "label": "50 ft / 15.24 m spool",
+          "available": true,
+          "listedPackages": 8
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B09X46Y36M",
+      "inventory": {
+        "onHand": 14.040000000000001,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 416
+          }
+        ],
+        "note": "Recorded purchase supplies 15.24 m. A provisional one-machine consumption reserve of 1.2 is deducted for development; the remaining stock is uncounted and marked *."
+      }
+    },
+    {
+      "id": "B08B5VS8ZR",
+      "name": "smseace #4 (M3) insulated ring terminals, 22\u201316 AWG (150 pc)",
+      "bomLines": [
+        219
+      ],
+      "perUnit": 10.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 150,
+          "priceCents": 899,
+          "label": "150-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B08B5VS8ZR",
+      "inventory": {
+        "onHand": 140.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 383
+          }
+        ],
+        "note": "Recorded purchase supplies 150 pieces. A provisional one-machine consumption reserve of 10 is deducted for development; the remaining stock is uncounted and marked *."
+      }
+    },
+    {
+      "id": "B0BC1VH4XB",
+      "name": "Zip Ties 4\", 18 lb (200-pack)",
+      "bomLines": [
+        222
+      ],
+      "perUnit": 22.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 200.0,
+          "priceCents": 399,
+          "label": "200-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0BC1VH4XB",
+      "inventory": {
+        "onHand": 178.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 420
+          }
+        ],
+        "note": "Recorded purchase supplies 200 pieces. A provisional one-machine consumption reserve of 22 is deducted for development; the remaining stock is uncounted and marked *."
+      }
+    },
+    {
+      "id": "B0DR8KSVQD",
+      "name": "Zip Ties 6\", 18 lb (100-pack)",
+      "bomLines": [
+        223
+      ],
+      "perUnit": 7.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 100.0,
+          "priceCents": 599,
+          "label": "100-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0DR8KSVQD",
+      "inventory": {
+        "onHand": 93.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 419
+          }
+        ],
+        "note": "Recorded purchase supplies 100 pieces. A provisional one-machine consumption reserve of 7 is deducted for development; the remaining stock is uncounted and marked *."
+      }
+    },
+    {
+      "id": "B08BKSHJ93",
+      "name": "Zip Ties 8\", 50 lb (100-pack)",
+      "bomLines": [
+        224
+      ],
+      "perUnit": 2.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 100.0,
+          "priceCents": 399,
+          "label": "100-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B08BKSHJ93",
+      "inventory": {
+        "onHand": 98.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 421
+          }
+        ],
+        "note": "Recorded purchase supplies 100 pieces. A provisional one-machine consumption reserve of 2 is deducted for development; the remaining stock is uncounted and marked *."
+      }
+    },
+    {
+      "id": "B0B2RB524Y",
+      "name": "CQRobot JST XH 2.54 mm 4-pin connector kit (50 sets)",
+      "bomLines": [
+        225
+      ],
+      "perUnit": 5.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 50,
+          "priceCents": 799,
+          "label": "50-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0B2RB524Y",
+      "inventory": {
+        "onHand": 50.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 394
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "RiteAV RJ11 6P4C black punchdown keystone jack, 110 IDC (10 pk)",
+      "name": "RiteAV RJ11 6P4C black punchdown keystone jack, 110 IDC (10 pk)",
+      "bomLines": [
+        226
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "riteav",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Live supplier catalog checked October 4; all listed sizes compared for the lowest batch purchase total. Full quantity not reserved.",
+      "options": [
+        {
+          "quantity": 10,
+          "priceCents": 1392,
+          "label": "10-piece pack",
+          "available": true,
+          "sku": "B09CBXCJBB"
+        }
+      ],
+      "sourceUrl": "https://www.riteav.com/products/riteav-rj11-phone-black-punchdown-type-keystone-jack-10-pack",
+      "inventory": {
+        "onHand": 10,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 447
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B0DK4V733Q",
+      "name": "EZYUMM RJ11 6P4C modular plug, 3-prong contacts, solid or stranded (20 pk)",
+      "bomLines": [
+        227
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 20,
+          "priceCents": 468,
+          "label": "20-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0DK4V733Q",
+      "inventory": {
+        "onHand": 20.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 448
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B0GCBNTBT8",
+      "name": "YYFKGCP 2.54 mm 4-pin magnetic pogo connector with ears, male + female pair",
+      "bomLines": [
+        228
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 680,
+          "label": "one piece",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0GCBNTBT8",
+      "inventory": {
+        "onHand": 4,
+        "incoming": 6,
+        "basis": "counted",
+        "estimated": false,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 449
+          },
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 450
+          },
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 451
+          }
+        ],
+        "note": "Four pairs received. Six already ordered are delayed and unshipped as of October 4; no duplicate order. The received portion is already charged; the pending $43.74 is reserved separately."
+      }
+    },
+    {
+      "id": "B0B2R8Q1JL",
+      "name": "CQRobot JST XH 2.54 mm 6-pin connector kit (50 sets)",
+      "bomLines": [
+        229
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 50,
+          "priceCents": 869,
+          "label": "50-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0B2R8Q1JL",
+      "inventory": {
+        "onHand": 50.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 395
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B0B2R73RQB",
+      "name": "CQRobot JST XH 2.54 mm 9-pin connector kit (30 sets)",
+      "bomLines": [
+        230
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 30,
+          "priceCents": 869,
+          "label": "30-piece pack",
+          "available": true,
+          "listedPackages": 7
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0B2R73RQB",
+      "inventory": {
+        "onHand": 30.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 396
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B0H1MW1LCX",
+      "name": "WAGO 221-420 lever-nut, 10-conductor (box of 15)",
+      "bomLines": [
+        233
+      ],
+      "perUnit": 2.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 15,
+          "priceCents": 2695,
+          "label": "15-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0H1MW1LCX",
+      "inventory": {
+        "onHand": 15.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 385
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B0107SYYGU",
+      "name": "WAGO 221-415 lever-nut, 5-conductor (25 pk)",
+      "bomLines": [
+        234
+      ],
+      "perUnit": 3.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 25,
+          "priceCents": 2800,
+          "label": "25-piece pack",
+          "available": true,
+          "listedPackages": 9
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0107SYYGU",
+      "inventory": {
+        "onHand": 25.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 384
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B07W7W91FX",
+      "name": "WAGO 221-413 lever-nut, 3-conductor (box of 50)",
+      "bomLines": [
+        235
+      ],
+      "perUnit": 5.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 50,
+          "priceCents": 2445,
+          "label": "50-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B07W7W91FX",
+      "inventory": {
+        "onHand": 50.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 386
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B06Y2PNW41",
+      "name": "BNTECHGO 22 AWG silicone, 250 ft black spool",
+      "bomLines": [
+        236
+      ],
+      "perUnit": 30,
+      "unit": "ft",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved. Cut lengths or consumable yield are BOM estimates.",
+      "options": [
+        {
+          "quantity": 250,
+          "priceCents": 2598,
+          "label": "250 ft spool",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B06Y2PNW41",
+      "inventory": {
+        "onHand": 220,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 422
+          }
+        ],
+        "note": "Recorded purchase supplies 250 ft. A provisional one-machine consumption reserve of 30 is deducted for development; the remaining stock is uncounted and marked *."
+      }
+    },
+    {
+      "id": "B075VRDS53",
+      "name": "Umbilical sleeve \u2014 Alex Tech 1\" PET expandable braided sleeve, black/blue, 100 ft",
+      "bomLines": [
+        239
+      ],
+      "perUnit": 5,
+      "unit": "ft",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 100,
+          "priceCents": 2499,
+          "label": "100 ft spool",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B075VRDS53",
+      "inventory": {
+        "onHand": 95,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 427
+          }
+        ],
+        "note": "Recorded purchase supplies 100 ft. A provisional one-machine consumption reserve of 5 is deducted for development; the remaining stock is uncounted and marked *."
+      }
+    },
+    {
+      "id": "K&J Magnetics RC62 N42 ring magnet",
+      "name": "K&J Magnetics RC62 N42 ring magnet",
+      "bomLines": [
+        255
+      ],
+      "perUnit": 5.0,
+      "unit": "pieces",
+      "supplier": "kj",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Five RC62 magnets per machine. Live quantity tiers: $1.92 at 1+, $1.87 at 10+, $1.84 at 25+, $1.79 at 50+, $1.75 at 100+. Thirty recorded in hand.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 192,
+          "label": "one RC62",
+          "available": true,
+          "sku": "RC62",
+          "tiers": [
+            {
+              "minimum": 10,
+              "priceCents": 187
+            },
+            {
+              "minimum": 25,
+              "priceCents": 184
+            },
+            {
+              "minimum": 50,
+              "priceCents": 179
+            },
+            {
+              "minimum": 100,
+              "priceCents": 175
+            }
+          ]
+        }
+      ],
+      "sourceUrl": "https://www.kjmagnetics.com/rc62-neodymium-ring-magnet",
+      "inventory": {
+        "onHand": 30,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 356
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B0CY4DWJFQ",
+      "name": "Tandefio 1/8\" \u00d7 12\" 316 SS round rod (5-pk)",
+      "bomLines": [
+        267
+      ],
+      "perUnit": 2.5,
+      "unit": "rods",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "estimate",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved. Cut lengths or consumable yield are BOM estimates.",
+      "options": [
+        {
+          "quantity": 5,
+          "priceCents": 1199,
+          "label": "five 12-inch rods",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0CY4DWJFQ",
+      "inventory": {
+        "onHand": 2.5,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 365
+          }
+        ],
+        "note": "Recorded purchase supplies 5 rods. A provisional one-machine consumption reserve of 2.5 is deducted for development; the remaining stock is uncounted and marked *."
+      }
+    },
+    {
+      "id": "Littelfuse MDSR-7-10-15 reed switches",
+      "name": "Littelfuse MDSR-7-10-15 reed switches",
+      "bomLines": [
+        273
+      ],
+      "perUnit": 10.0,
+      "unit": "pieces",
+      "supplier": "mouser",
+      "priceBasis": "merchandise",
+      "status": "estimate",
+      "note": "Ten switches per machine. The BOM 40 denotes a stock reference, not a supplier pack. Current USD pricing and availability unconfirmed; $1.45/switch budget.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 145,
+          "label": "one loose MDSR-7-10-15",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.mouser.com/ProductDetail/Littelfuse/MDSR-7-10-15",
+      "inventory": {
+        "onHand": 40,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 351
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B08BCRZZS3",
+      "name": "ruthex M3 Threaded Inserts, 100 pc, RX-M3x5.7 brass heat-set",
+      "bomLines": [
+        300
+      ],
+      "perUnit": 40.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 100,
+          "priceCents": 999,
+          "label": "100-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B08BCRZZS3",
+      "inventory": {
+        "onHand": 100.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 480
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B09ZHSGHXD",
+      "name": "ruthex M3 Threaded Inserts Short, 100 pc, RX-M3Sx4.0 brass heat-set",
+      "bomLines": [
+        301
+      ],
+      "perUnit": 28.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "delivered",
+      "status": "unconfirmed",
+      "note": "No exact priced Prime offer found in the filtered search. Recorded delivered price is an allowance; source/availability unresolved.",
+      "options": [
+        {
+          "quantity": 100,
+          "priceCents": 1071,
+          "label": "100-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B09ZHSGHXD",
+      "inventory": {
+        "onHand": 200.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 478
+          },
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 479
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B07YSVXWS8",
+      "name": "ruthex M5 Threaded Inserts, 50 pc, RX-M5x9.5 brass heat-set",
+      "bomLines": [
+        302
+      ],
+      "perUnit": 4.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 50,
+          "priceCents": 999,
+          "label": "50-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B07YSVXWS8",
+      "inventory": {
+        "onHand": 50.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 489
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B0DFWTJSYD",
+      "name": "ZWMSSLL M1.4 heat-set threaded inserts, M1.4 \u00d7 4 mm \u00d7 \u00d82.3 mm brass, 200 pc",
+      "bomLines": [
+        303
+      ],
+      "perUnit": 4.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 200,
+          "priceCents": 799,
+          "label": "200-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0DFWTJSYD",
+      "inventory": {
+        "onHand": 0,
+        "incoming": 200,
+        "basis": "counted",
+        "estimated": false,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 473
+          }
+        ],
+        "note": "One 200-piece pack already ordered; estimated October 7 arrival. No duplicate purchase. Possible remaining $8.57 payment reserved separately."
+      }
+    },
+    {
+      "id": "B0DJQGMQZM",
+      "name": "BNUOK M3 \u00d7 12 mm DIN 912 socket head cap, 304 stainless steel (18-8), 120 pc",
+      "bomLines": [
+        304
+      ],
+      "perUnit": 12.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 120,
+          "priceCents": 807,
+          "label": "120-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0DJQGMQZM",
+      "inventory": {
+        "onHand": 120.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 486
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B0DJQGF665",
+      "name": "BNUOK M3 \u00d7 25 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, 60 pc",
+      "bomLines": [
+        305
+      ],
+      "perUnit": 20.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 60,
+          "priceCents": 759,
+          "label": "60-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0DJQGF665",
+      "inventory": {
+        "onHand": 60.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 482
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B0DJQGPRPV",
+      "name": "BNUOK M3 \u00d7 8 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, 120 pc",
+      "bomLines": [
+        306
+      ],
+      "perUnit": 23.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 120,
+          "priceCents": 759,
+          "label": "120-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0DJQGPRPV",
+      "inventory": {
+        "onHand": 120.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 485
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B0DJQGGDP2",
+      "name": "BNUOK M3 \u00d7 10 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, 120 pc",
+      "bomLines": [
+        307
+      ],
+      "perUnit": 7.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 120,
+          "priceCents": 719,
+          "label": "120-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0DJQGGDP2",
+      "inventory": {
+        "onHand": 120.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 484
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B0DJQHNL3H",
+      "name": "BNUOK M3 \u00d7 60 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, full thread, 60 pc",
+      "bomLines": [
+        308
+      ],
+      "perUnit": 2.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 60,
+          "priceCents": 949,
+          "label": "60-piece pack",
+          "available": true,
+          "listedPackages": 17
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0DJQHNL3H",
+      "inventory": {
+        "onHand": 60.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 492
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B0DJR2Q5LP",
+      "name": "BNUOK M3 \u00d7 20 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, full thread, 60 pc",
+      "bomLines": [
+        309
+      ],
+      "perUnit": 4.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 60,
+          "priceCents": 759,
+          "label": "60-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0DJR2Q5LP",
+      "inventory": {
+        "onHand": 60.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 493
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B0DFYKBQ2S",
+      "name": "Kozelo M1.4 \u00d7 8 mm socket head cap screws, M1.4-0.3, alloy steel, black oxide, 50 pc",
+      "bomLines": [
+        310
+      ],
+      "perUnit": 4.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 50,
+          "priceCents": 819,
+          "label": "50-piece pack",
+          "available": true,
+          "listedPackages": 6
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0DFYKBQ2S",
+      "inventory": {
+        "onHand": 0,
+        "incoming": 50,
+        "basis": "counted",
+        "estimated": false,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 474
+          }
+        ],
+        "note": "One 50-piece pack already ordered; estimated October 7 arrival. A further pack is needed for twenty machines. Expected $8.78 payment reserved separately."
+      }
+    },
+    {
+      "id": "B0FB45MN93",
+      "name": "uxcell M3 flat washer, \u00d89 mm OD \u00d7 0.8 mm, 304 stainless steel, 200 pc",
+      "bomLines": [
+        311
+      ],
+      "perUnit": 4.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 200,
+          "priceCents": 797,
+          "label": "200-piece pack",
+          "available": true,
+          "listedPackages": 11
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0FB45MN93",
+      "inventory": {
+        "onHand": 200.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 495
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B0BHZVXNJX",
+      "name": "MewuDecor M5 \u00d7 10 mm socket head cap, 12.9 alloy steel, black oxide, fully threaded, 100 pc",
+      "bomLines": [
+        312
+      ],
+      "perUnit": 4.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 100,
+          "priceCents": 949,
+          "label": "100-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0BHZVXNJX",
+      "inventory": {
+        "onHand": 100.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 490
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B0GSMDY5GL",
+      "name": "M5 \u00d7 25 mm OD fender washers, 304 stainless steel, 60 pc",
+      "bomLines": [
+        313
+      ],
+      "perUnit": 4.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 60,
+          "priceCents": 799,
+          "label": "60-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0GSMDY5GL",
+      "inventory": {
+        "onHand": 60.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 491
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B0D41KT345",
+      "name": "LVDALAB PTFE Membrane Filter, \u00f813 mm \u00d7 0.45 \u00b5m, 100 pc, non-sterile",
+      "bomLines": [
+        314
+      ],
+      "perUnit": 2.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 100,
+          "priceCents": 1299,
+          "label": "100-piece pack",
+          "available": true,
+          "listedPackages": 5
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0D41KT345",
+      "inventory": {
+        "onHand": 100.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 488
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "B08VW15TK8",
+      "name": "Mudder 3 Pieces PTFE Plastic Tubing Cutter, OD up to 3/4\", polyacetal body + 304 SS replaceable blade",
+      "bomLines": [
+        322
+      ],
+      "perUnit": 1.0,
+      "unit": "pieces",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
+      "options": [
+        {
+          "quantity": 3,
+          "priceCents": 949,
+          "label": "3-piece pack",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B08VW15TK8",
+      "inventory": {
+        "onHand": 3.0,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 497
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "disconnect-6.3 mm",
+      "name": "Female spade disconnects, 6.3 mm \u2014 provisional size-specific refill",
+      "bomLines": [
+        218
+      ],
+      "perUnit": 32,
+      "unit": "pieces",
+      "supplier": "allowances",
+      "priceBasis": "delivered",
+      "status": "estimate",
+      "note": "Upper bound: 32 of each width per machine until the 32-terminal device/width map is recorded. $10/100 delivered allowance; selected 60-piece assortment only has 20 of each width. Final insulation, AWG and donor connector selection remain open.",
+      "options": [
+        {
+          "quantity": 100,
+          "priceCents": 1000,
+          "label": "100 disconnects",
+          "available": true
+        }
+      ],
+      "inventory": {
+        "onHand": 100,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 381
+          }
+        ],
+        "note": "One matching 100-piece Baomain pack acquired; the usable remainder is estimated. Other mixed-width assortments are not credited."
+      }
+    },
+    {
+      "id": "disconnect-4.8 mm",
+      "name": "Female spade disconnects, 4.8 mm \u2014 provisional size-specific refill",
+      "bomLines": [
+        218
+      ],
+      "perUnit": 32,
+      "unit": "pieces",
+      "supplier": "allowances",
+      "priceBasis": "delivered",
+      "status": "estimate",
+      "note": "Upper bound: 32 of each width per machine until the 32-terminal device/width map is recorded. $10/100 delivered allowance; selected 60-piece assortment only has 20 of each width. Final insulation, AWG and donor connector selection remain open.",
+      "options": [
+        {
+          "quantity": 100,
+          "priceCents": 1000,
+          "label": "100 disconnects",
+          "available": true
+        }
+      ],
+      "inventory": {
+        "onHand": 100,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 382
+          }
+        ],
+        "note": "One matching 100-piece Baomain pack acquired; the usable remainder is estimated. Other mixed-width assortments are not credited."
+      }
+    },
+    {
+      "id": "forks",
+      "name": "Insulated #6 fork terminals, 22\u201316 AWG",
+      "bomLines": [
+        220
+      ],
+      "perUnit": 7,
+      "unit": "pieces",
+      "supplier": "allowances",
+      "priceBasis": "delivered",
+      "status": "estimate",
+      "note": "100-piece / $10 delivered allowance. Screw fit and production SKU remain open; not treated as a free part.",
+      "options": [
+        {
+          "quantity": 100,
+          "priceCents": 1000,
+          "label": "100 fork terminals",
+          "available": true
+        }
+      ],
+      "inventory": {
+        "onHand": 0,
+        "incoming": 0,
+        "basis": "unknown",
+        "estimated": true,
+        "sources": [],
+        "note": "Existing assortments do not have recorded usable counts in the required sizes. No numerical stock credit; size-specific refill/assortment allowance remains *."
+      }
+    },
+    {
+      "id": "ferrules-16",
+      "name": "Insulated bootlace ferrules, 16 AWG \u2014 refill allowance",
+      "bomLines": [
+        238
+      ],
+      "perUnit": 35,
+      "unit": "pieces",
+      "supplier": "allowances",
+      "priceBasis": "delivered",
+      "status": "estimate",
+      "note": "Conservative upper bound of all 35 ferrules in each gauge until the gauge map is confirmed. $10/500 delivered allowance. Mixed-kit totals do not establish usable quantities; existing crimper retained.",
+      "options": [
+        {
+          "quantity": 500,
+          "priceCents": 1000,
+          "label": "500 same-size ferrules",
+          "available": true
+        }
+      ],
+      "inventory": {
+        "onHand": 0,
+        "incoming": 0,
+        "basis": "unknown",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 428
+          }
+        ],
+        "note": "Existing assortments do not have recorded usable counts in the required sizes. No numerical stock credit; size-specific refill/assortment allowance remains *."
+      }
+    },
+    {
+      "id": "ferrules-22",
+      "name": "Insulated bootlace ferrules, 22 AWG \u2014 refill allowance",
+      "bomLines": [
+        238
+      ],
+      "perUnit": 35,
+      "unit": "pieces",
+      "supplier": "allowances",
+      "priceBasis": "delivered",
+      "status": "estimate",
+      "note": "Conservative upper bound of all 35 ferrules in each gauge until the gauge map is confirmed. $10/500 delivered allowance. Mixed-kit totals do not establish usable quantities; existing crimper retained.",
+      "options": [
+        {
+          "quantity": 500,
+          "priceCents": 1000,
+          "label": "500 same-size ferrules",
+          "available": true
+        }
+      ],
+      "inventory": {
+        "onHand": 0,
+        "incoming": 0,
+        "basis": "unknown",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 428
+          }
+        ],
+        "note": "Existing assortments do not have recorded usable counts in the required sizes. No numerical stock credit; size-specific refill/assortment allowance remains *."
+      }
+    },
+    {
+      "id": "16awg-kit",
+      "name": "BNTECHGO 16 AWG, five colours \u00d7 25 ft \u2014 colour allocation pending",
+      "bomLines": [
+        232
+      ],
+      "perUnit": 14,
+      "unit": "ft",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "estimate",
+      "note": "Prime $37.98/kit. Three kits for 10, five for 20 reserve 75/125 ft of EACH colour. The 14 ft total per machine is from the BOM; the limiting colour remains unmeasured. Allocation is provisional rather than dividing total feet by 125.",
+      "options": [
+        {
+          "quantity": 125,
+          "priceCents": 3798,
+          "label": "5 \u00d7 25 ft colour kit",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B06Y557TCL",
+      "packageCounts": {
+        "10": 3,
+        "20": 5
+      },
+      "inventory": {
+        "onHand": 125,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 417
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "sleeve-1/4 inch",
+      "name": "Alex Tech PET braided sleeve, 1/4 inch",
+      "bomLines": [
+        237
+      ],
+      "perUnit": 2,
+      "unit": "ft",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "estimate",
+      "note": "Prime offer verified. Provisional 2/4/2 ft split of the BOM mixed 8 ft; actual size-by-size cut list remains open.",
+      "options": [
+        {
+          "quantity": 25,
+          "priceCents": 799,
+          "label": "25 ft roll",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B071JH14WZ",
+      "inventory": {
+        "onHand": 23,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 426
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "sleeve-1/2 inch",
+      "name": "Alex Tech PET braided sleeve, 1/2 inch",
+      "bomLines": [
+        237
+      ],
+      "perUnit": 4,
+      "unit": "ft",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "estimate",
+      "note": "Prime offer verified. Provisional 2/4/2 ft split of the BOM mixed 8 ft; actual size-by-size cut list remains open.",
+      "options": [
+        {
+          "quantity": 100,
+          "priceCents": 1599,
+          "label": "100 ft roll",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B074GMNW7T",
+      "inventory": {
+        "onHand": 96,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 424
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "sleeve-3/4 inch",
+      "name": "Alex Tech PET braided sleeve, 3/4 inch",
+      "bomLines": [
+        237
+      ],
+      "perUnit": 2,
+      "unit": "ft",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "estimate",
+      "note": "Prime offer verified. Provisional 2/4/2 ft split of the BOM mixed 8 ft; actual size-by-size cut list remains open.",
+      "options": [
+        {
+          "quantity": 100,
+          "priceCents": 2099,
+          "label": "100 ft roll",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B074GMCGZX",
+      "inventory": {
+        "onHand": 98,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 425
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "heatshrink",
+      "name": "Ginsco 580-piece heat-shrink kit \u2014 size mix pending",
+      "bomLines": [
+        221
+      ],
+      "perUnit": 45,
+      "unit": "collars",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "estimate",
+      "note": "Prime $7.99/kit. Aggregate collar count is a provisional allowance; size-specific yield is unverified. Separate large-diameter sleeve-end stock is budgeted below.",
+      "options": [
+        {
+          "quantity": 580,
+          "priceCents": 799,
+          "label": "580-piece assortment",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B01MFA3OFA",
+      "inventory": {
+        "onHand": 0,
+        "incoming": 0,
+        "basis": "unknown",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 592
+          }
+        ],
+        "note": "Existing assortments do not have recorded usable counts in the required sizes. No numerical stock credit; size-specific refill/assortment allowance remains *."
+      }
+    },
+    {
+      "id": "large-shrink",
+      "name": "Large-diameter heat shrink for braided sleeve ends",
+      "bomLines": [],
+      "perUnit": 0.3,
+      "unit": "m",
+      "supplier": "allowances",
+      "priceBasis": "delivered",
+      "status": "estimate",
+      "note": "Delivered allowance only; exact diameters, cut lengths and SKU await the harness size map.",
+      "options": [
+        {
+          "quantity": 5,
+          "priceCents": 2000,
+          "label": "5 m suitable-diameter roll",
+          "available": true
+        }
+      ],
+      "inventory": {
+        "onHand": 0,
+        "incoming": 0,
+        "basis": "unknown",
+        "estimated": true,
+        "sources": [],
+        "note": "Existing assortments do not have recorded usable counts in the required sizes. No numerical stock credit; size-specific refill/assortment allowance remains *."
+      }
+    },
+    {
+      "id": "xh5",
+      "name": "CQRobot JST XH 5-pin housing/terminal kit",
+      "bomLines": [
+        231
+      ],
+      "perUnit": 1,
+      "unit": "sets",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "J6 needs one 5-pin set per machine; wafers are included on the PCBA.",
+      "options": [
+        {
+          "quantity": 50,
+          "priceCents": 829,
+          "label": "50 sets",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0B2R9P2TS",
+      "inventory": {
+        "onHand": 50,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 408
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "xh7",
+      "name": "CQRobot JST XH 7-pin housing/terminal kit",
+      "bomLines": [
+        231
+      ],
+      "perUnit": 2,
+      "unit": "sets",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "listed",
+      "note": "J4 and J7 need two 7-pin sets per machine; wafers are included on the PCBA.",
+      "options": [
+        {
+          "quantity": 50,
+          "priceCents": 899,
+          "label": "50 sets",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0B2R96VS3",
+      "inventory": {
+        "onHand": 50,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 409
+          }
+        ],
+        "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
+      }
+    },
+    {
+      "id": "petgf-black",
+      "name": "Fiberon PET-GF15 Black",
+      "bomLines": [
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136,
+        137,
+        138,
+        139,
+        140,
+        141,
+        142,
+        143,
+        144,
+        145,
+        146,
+        147,
+        148,
+        149,
+        150,
+        151,
+        152,
+        153,
+        154,
+        155
+      ],
+      "perUnit": 6.0,
+      "unit": "kg",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "estimate",
+      "note": "Prime 3 kg Black $74.99 / 1 kg $29.99. BOM total 6.150 kg PET-GF per machine; white faucet 0.121 kg, rings/collars split equally across five stations, nameplate half white. Add 15% for supports, purge and rejects; yield and colour split are provisional. 8% multi-item promotion shown but checkout eligibility/limits unconfirmed, so budget uses full price. Black material is planned at 6.00 kg/machine, rounded from the 6.0001 kg BOM split; the 15% process reserve is applied to that planning mass.",
+      "options": [
+        {
+          "quantity": 3,
+          "priceCents": 7499,
+          "label": "3 kg spool",
+          "available": true
+        },
+        {
+          "quantity": 1,
+          "priceCents": 2999,
+          "label": "1 kg spool",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0FBWGTW9W",
+      "materialAllowance": 0.15,
+      "inventory": {
+        "onHand": 12,
+        "incoming": 0,
+        "basis": "reported",
+        "estimated": true,
+        "sources": [],
+        "note": "Approximately 12 kg remaining, reported October 4, 2026. This current balance replaces purchase totals as the forecast credit."
+      }
+    },
+    {
+      "id": "petgf-white",
+      "name": "Fiberon PET-GF15 White",
+      "bomLines": [
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136,
+        137,
+        138,
+        139,
+        140,
+        141,
+        142,
+        143,
+        144,
+        145,
+        146,
+        147,
+        148,
+        149,
+        150,
+        151,
+        152,
+        153,
+        154,
+        155
+      ],
+      "perUnit": 0.1363,
+      "unit": "kg",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "estimate",
+      "note": "Prime 3 kg Black $74.99 / 1 kg $29.99. BOM total 6.150 kg PET-GF per machine; white faucet 0.121 kg, rings/collars split equally across five stations, nameplate half white. Add 15% for supports, purge and rejects; yield and colour split are provisional. 8% multi-item promotion shown but checkout eligibility/limits unconfirmed, so budget uses full price.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 2999,
+          "label": "1 kg spool",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0FBW9JLFR",
+      "materialAllowance": 0.15,
+      "inventory": {
+        "onHand": 0.8,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 558
+          }
+        ],
+        "note": "Remaining quantity is provisional: 0.8 kg credited from acquired stock after a development-use reserve. No current measured balance; estimate marked *."
+      }
+    },
+    {
+      "id": "petgf-blue",
+      "name": "Fiberon PET-GF15 Blue",
+      "bomLines": [
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136,
+        137,
+        138,
+        139,
+        140,
+        141,
+        142,
+        143,
+        144,
+        145,
+        146,
+        147,
+        148,
+        149,
+        150,
+        151,
+        152,
+        153,
+        154,
+        155
+      ],
+      "perUnit": 0.0068,
+      "unit": "kg",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "estimate",
+      "note": "Prime 3 kg Black $74.99 / 1 kg $29.99. BOM total 6.150 kg PET-GF per machine; white faucet 0.121 kg, rings/collars split equally across five stations, nameplate half white. Add 15% for supports, purge and rejects; yield and colour split are provisional. 8% multi-item promotion shown but checkout eligibility/limits unconfirmed, so budget uses full price.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 2999,
+          "label": "1 kg spool",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0FBWGFGR6",
+      "materialAllowance": 0.15,
+      "inventory": {
+        "onHand": 0.9,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 557
+          }
+        ],
+        "note": "Remaining quantity is provisional: 0.9 kg credited from acquired stock after a development-use reserve. No current measured balance; estimate marked *."
+      }
+    },
+    {
+      "id": "petgf-red",
+      "name": "Fiberon PET-GF15 Red",
+      "bomLines": [
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136,
+        137,
+        138,
+        139,
+        140,
+        141,
+        142,
+        143,
+        144,
+        145,
+        146,
+        147,
+        148,
+        149,
+        150,
+        151,
+        152,
+        153,
+        154,
+        155
+      ],
+      "perUnit": 0.0068,
+      "unit": "kg",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "estimate",
+      "note": "Prime 3 kg Black $74.99 / 1 kg $29.99. BOM total 6.150 kg PET-GF per machine; white faucet 0.121 kg, rings/collars split equally across five stations, nameplate half white. Add 15% for supports, purge and rejects; yield and colour split are provisional. 8% multi-item promotion shown but checkout eligibility/limits unconfirmed, so budget uses full price.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 2999,
+          "label": "1 kg spool",
+          "available": true
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0FBWQNJZQ",
+      "materialAllowance": 0.15,
+      "inventory": {
+        "onHand": 0.9,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 556
+          }
+        ],
+        "note": "Remaining quantity is provisional: 0.9 kg credited from acquired stock after a development-use reserve. No current measured balance; estimate marked *."
+      }
+    },
+    {
+      "id": "petg-clear",
+      "name": "Bambu PETG Translucent Clear 32101 refill",
+      "bomLines": [
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136,
+        137,
+        138,
+        139,
+        140,
+        141,
+        142,
+        143,
+        144,
+        145,
+        146,
+        147,
+        148,
+        149,
+        150,
+        151,
+        152,
+        153,
+        154,
+        155
+      ],
+      "perUnit": 0.89,
+      "unit": "kg",
+      "supplier": "bambu",
+      "priceBasis": "merchandise",
+      "status": "estimate",
+      "note": "Current exact refill variant is in stock. Manufacturer quantity tiers are 5% off at 2, 10% at 4, 15% at 6 and 30% at 10; calculate the tier from the new order, not the original batch size. Existing reusable spools retained. BOM mass plus 15% production allowance.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 1599,
+          "label": "1 kg refill",
+          "available": true,
+          "tiers": [
+            {
+              "minimum": 2,
+              "priceCents": 1519.05
+            },
+            {
+              "minimum": 4,
+              "priceCents": 1439.1
+            },
+            {
+              "minimum": 6,
+              "priceCents": 1359.15
+            },
+            {
+              "minimum": 10,
+              "priceCents": 1119.3
+            }
+          ]
+        }
+      ],
+      "sourceUrl": "https://us.store.bambulab.com/products/petg-translucent",
+      "materialAllowance": 0.15,
+      "inventory": {
+        "onHand": 4,
+        "incoming": 0,
+        "basis": "reported",
+        "estimated": true,
+        "sources": [],
+        "note": "Approximately 4 kg remaining, reported October 4, 2026. This current balance replaces purchase totals as the forecast credit."
+      }
+    },
+    {
+      "id": "petg-black",
+      "name": "Bambu PETG Basic Black 30105 refill",
+      "bomLines": [
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136,
+        137,
+        138,
+        139,
+        140,
+        141,
+        142,
+        143,
+        144,
+        145,
+        146,
+        147,
+        148,
+        149,
+        150,
+        151,
+        152,
+        153,
+        154,
+        155
+      ],
+      "perUnit": 0.155,
+      "unit": "kg",
+      "supplier": "bambu",
+      "priceBasis": "merchandise",
+      "status": "estimate",
+      "note": "Current exact refill variant is in stock. Manufacturer quantity tiers are 5% off at 2, 10% at 4, 15% at 6 and 30% at 10; calculate the tier from the new order, not the original batch size. Existing reusable spools retained. BOM mass plus 15% production allowance.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 1399,
+          "label": "1 kg refill",
+          "available": true,
+          "tiers": [
+            {
+              "minimum": 2,
+              "priceCents": 1329.05
+            },
+            {
+              "minimum": 4,
+              "priceCents": 1259.1
+            },
+            {
+              "minimum": 6,
+              "priceCents": 1189.15
+            },
+            {
+              "minimum": 10,
+              "priceCents": 979.3
+            }
+          ]
+        }
+      ],
+      "sourceUrl": "https://us.store.bambulab.com/products/petg-basic",
+      "materialAllowance": 0.15,
+      "inventory": {
+        "onHand": 10,
+        "incoming": 0,
+        "basis": "reported",
+        "estimated": true,
+        "sources": [],
+        "note": "Approximately 10 kg remaining, reported October 4, 2026. This current balance replaces purchase totals as the forecast credit."
+      }
+    },
+    {
+      "id": "asa-aero",
+      "name": "Bambu ASA Aero White 46100",
+      "bomLines": [
+        254
+      ],
+      "perUnit": 0.042201,
+      "unit": "kg",
+      "supplier": "bambu",
+      "priceBasis": "merchandise",
+      "status": "unavailable",
+      "note": "OUT OF STOCK in manufacturer variant data. $49.99 is an estimate for replenishment. Three floats \u00d7 14.067 g feed per machine from the accepted v1 slice; v2 and production purge/yield unmeasured. No interchangeable foaming filament assumed.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 4999,
+          "label": "1 kg spool",
+          "available": false
+        }
+      ],
+      "sourceUrl": "https://us.store.bambulab.com/products/asa-aero",
+      "materialAllowance": 0.15,
+      "inventory": {
+        "onHand": 1,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 631
+          }
+        ],
+        "note": "Remaining quantity is provisional: one of the two acquired 1 kg White 46100 spools credited; the other is reserved for development. This covers both batches if at least 0.971 kg remains. No replacement is assumed."
+      }
+    },
+    {
+      "id": "tpu",
+      "name": "TPU 90A gasket stock",
+      "bomLines": [],
+      "perUnit": 0.01,
+      "unit": "kg",
+      "supplier": "allowances",
+      "priceBasis": "delivered",
+      "status": "estimate",
+      "note": "Existing gasket material purchase $33.88; spool size and 10 g/machine consumption are provisional. Added because whole-spool startup cash is not in the BOM.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 3388,
+          "label": "1 kg spool allowance",
+          "available": true
+        }
+      ],
+      "inventory": {
+        "onHand": 0.5,
+        "incoming": 0,
+        "basis": "ledger_estimate",
+        "estimated": true,
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 533
+          }
+        ],
+        "note": "Remaining quantity is provisional: 0.5 kg credited from acquired stock after a development-use reserve. No current measured balance; estimate marked *."
+      }
+    },
+    {
+      "id": "drier",
+      "name": "R-600a/oil-compatible sealed replacement filter-drier",
+      "bomLines": [
+        92
+      ],
+      "perUnit": 1,
+      "unit": "pieces",
+      "supplier": "allowances",
+      "priceBasis": "delivered",
+      "status": "estimate",
+      "note": "Required for each opened circuit. $13.40 delivered allowance from purchased Supco candidates; technician selection and capillary interface remain open.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 1340,
+          "label": "one compatible drier allowance",
+          "available": true
+        }
+      ],
+      "inventory": {
+        "onHand": 0,
+        "incoming": 0,
+        "basis": "unknown",
+        "estimated": true,
+        "sources": [],
+        "note": "No usable production stock quantified in the reviewed records; no stock credit taken."
+      }
+    },
+    {
+      "id": "closure",
+      "name": "Permanent refrigerant circuit closure/access supplies",
+      "bomLines": [],
+      "perUnit": 1,
+      "unit": "sets",
+      "supplier": "allowances",
+      "priceBasis": "delivered",
+      "status": "estimate",
+      "note": "Positive $15/machine delivered allowance. Technician-selected permanent closure/access parts and procedure are unquoted; retained temporary access-valve stock is budgeted separately.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 1500,
+          "label": "one closure/access allowance",
+          "available": true
+        }
+      ],
+      "inventory": {
+        "onHand": 0,
+        "incoming": 0,
+        "basis": "unknown",
+        "estimated": true,
+        "sources": [],
+        "note": "No usable production stock quantified in the reviewed records; no stock credit taken."
+      }
+    }
+  ],
+  "allowances": [
+    {
+      "id": "packaging",
+      "name": "Cartons, protective packing and printed customer guides",
+      "perUnitCents": 4000,
+      "note": "Delivered $40/machine allowance. Packaging dimensions/materials and guide quantities are not supplier-quoted."
+    },
+    {
+      "id": "outbound",
+      "name": "Delivery to customer",
+      "perUnitCents": 8000,
+      "note": "$80/machine carrier allowance. Final packed weight, dimensions and destinations are unquoted; actual freight can differ."
+    },
+    {
+      "id": "shop",
+      "name": "Shop gases, cleaning/solder supplies and electricity",
+      "batchCents": {
+        "10": 20000,
+        "20": 35000
+      },
+      "note": "Provisional delivered batch allowance for argon/nitrogen, brazing fuel, solder/IPA and printer/cure/burn-in electricity; measured production usage is not recorded."
+    }
+  ],
+  "notes": [
+    "New purchase requirement = batch consumption (including stated process reserve) minus usable stock and already-ordered quantities, floored at zero. Combine shared SKUs, then round only the shortfall to economical whole supplier lots.",
+    "The 10- and 20-machine alternatives use the same opening inventory; do not add the columns or treat twenty as an extra batch after ten. Both include the current integrated unit under development.",
+    "Existing paid parts, printers, tools, fixtures and reusable spools incur no new acquisition expense. Ten defective batch-1 PCBAs and incompatible/abandoned inventory receive no production credit. Already-ordered stock is shown separately from on hand.",
+    "The possible-payment reserve covers only identified pending component orders whose remaining merchant charge is unresolved. The confirmed $91.56 WR1105 charge and $21.87 received-pogo charge are excluded. Release the reserve when payment is confirmed; do not pay the same order twice.",
+    "Acquired receipt totals alone do not establish remaining stock. Uncounted credits and provisional one-build consumption reserves are marked *. ASA Aero is credited at a provisional 1 kg from 2 kg acquired; a lower actual balance could require unavailable replacement filament.",
+    "Terminal/ferrule/heat-shrink assortments without usable counts by required size receive no numerical stock credit. Cut lengths and wire colours require the recorded per-size/colour allowances; aggregate offcuts are not assumed to make another full component.",
+    "No purchase is placed. Stock limits are dated observations, not reservations. Labor uses the existing experienced-operator estimate; early builds may take longer. Owner labor is not automatically a future cash payment.",
+    "Development spend, extra tooling, rent, payment fees, installation, warranty/support and business taxes are outside the production-and-delivery forecast. Refrigeration selections and donor interfaces remain qualification items with positive purchase allowances."
+  ],
+  "inventoryAsOf": "2026-10-04",
+  "inventoryNote": "Black PET-GF15 12 kg, Clear PETG 4 kg and Black PETG 10 kg are approximate current balances reported October 4. Other credits reconcile acquired packs, same-part supplier swaps and recorded in-transit orders. Usable remaining quantities and cut/consumable development use are generally estimated, not a completed stocktake; each affected row is marked *.",
+  "pendingPayments": [
+    {
+      "name": "PI450822S shipment already ordered",
+      "costCents": 9454,
+      "note": "Shipped; merchant payment confirmation is absent from reviewed evidence. Full recorded amount is a conservative possible-balance reserve."
+    },
+    {
+      "name": "Six delayed pogo contact pairs already ordered",
+      "costCents": 4374,
+      "note": "Unshipped portion; delivered pairs were charged separately. Payment timing remains unconfirmed."
+    },
+    {
+      "name": "M1.4 insert pack already ordered",
+      "costCents": 857,
+      "note": "Estimated delivered order amount; payment not confirmed."
+    },
+    {
+      "name": "M1.4 screw pack already ordered",
+      "costCents": 878,
+      "note": "Expected charge; confirmation absent."
+    }
+  ]
+}
