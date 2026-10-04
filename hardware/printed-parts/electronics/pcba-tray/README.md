@@ -50,6 +50,15 @@ so the four wall bosses reach 2 mm farther inboard to the actual board underside
 the wall is not allowed to occupy the solder-tail clearance simply because the
 fab visualization omits detailed clipped leads.
 
+The appliance's four Ø7 mm mounting sleeves fit inside those unchanged tail
+keepouts. Each short M3 insert starts 2.25 mm wallward of the board's mounting
+face, behind the tail zone and its 0.25 mm supported-face allowance. The complete
+Ø8 mm insert host starts at that recessed seat; a Ø5 mm entry admits the whole
+knurl. M3×8 through the 1.6 mm PCB reaches 4.15 mm into the 4 mm insert, with
+at least 0.85 mm reserve before the blind end. The
+[enclosure audit](../../enclosure/enclosure/heat-set-review/geometry-check.json)
+checks those complete native seats and installed screw stacks.
+
 The tray frame **is the board's pcb frame** (pcbX/pcbY as in `pcba.tsx`), so
 every boss centre is its MH coordinate verbatim. Board footprint
 **85 × 72.8 mm** as fabbed; the floor is that outline grown 0.6 mm on the
