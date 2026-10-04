@@ -62,6 +62,7 @@ CORE_MESH = _HW / "cold-core-layout" / "cold-core-assembly.step.mesh"
 CORE_SCORECARD = _HW / "cold-core-layout" / "cold-core-assembly.scorecard.json"
 RENDERER = _ROOT / "tools" / "render" / "render-step-posed.js"
 SIZE = "1600x1200"
+CARD_BACKGROUND = "#dce6ff"
 # A part shot is drawn on the scenes' own canvas and then TRIMMED to its subject, so this is
 # what the render has to work with rather than what the card receives: the picture that comes
 # out is the subject's own projection, and the card scales it into a panel.
@@ -356,6 +357,7 @@ def draw(scene, assembly, batch, force=False, images=True, glbs=True) -> Path:
     unchanged = (not force
                  and held.get("geometry") == geometry
                  and held.get("scene") == _scenes.scene_digest(scene)
+                 and held.get("background") == CARD_BACKGROUND
                  and png.is_file()
                  and held.get("image") == _scenes.image_fingerprint(png))
 
@@ -372,6 +374,7 @@ def draw(scene, assembly, batch, force=False, images=True, glbs=True) -> Path:
             up=list(scene.up),
             zoom=scene.zoom,
             size=SIZE,
+            bg=CARD_BACKGROUND,
             # Trimmed to the subject. A box seen at an angle projects to a parallelogram and
             # leaves a corner of any rectangle empty; the card wants the picture, not the corner.
             trim=True,
@@ -387,6 +390,7 @@ def draw(scene, assembly, batch, force=False, images=True, glbs=True) -> Path:
     batch.record(png, {
         "scene": _scenes.scene_digest(scene),
         "geometry": geometry,
+        "background": CARD_BACKGROUND,
         "drawn": sorted(c.name for c in scene_assembly.children),
     })
     return png
@@ -433,6 +437,7 @@ def draw_part(part, batch, force=False) -> Path:
     unchanged = (not force
                  and held.get("geometry") == geometry
                  and held.get("part") == _scenes.part_digest(part)
+                 and held.get("background") == CARD_BACKGROUND
                  and png.is_file()
                  and held.get("image") == _scenes.image_fingerprint(png))
 
@@ -449,6 +454,7 @@ def draw_part(part, batch, force=False) -> Path:
             up=list(part.up),
             zoom=part.zoom,
             size=PART_SIZE,
+            bg=CARD_BACKGROUND,
             trim=True,
             solid=bool(part.solid),
         )
@@ -456,6 +462,7 @@ def draw_part(part, batch, force=False) -> Path:
     batch.record(png, {
         "part": _scenes.part_digest(part),
         "geometry": geometry,
+        "background": CARD_BACKGROUND,
         "drawn": ([part.step] if payload is None
                   else [part.step, str(payload.relative_to(_ROOT))]),
     })

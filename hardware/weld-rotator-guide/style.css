@@ -1,11 +1,8 @@
 /* Weld-rotator build guide — 2550 x 3300 px canvas = 8.5 x 11 in at 300 dpi, Letter portrait,
    printed one-up single-sided and read on a laptop or a phone.
 
-   THE PALETTE IS THE QUICK START'S AND THE INSTALL GUIDE'S, unchanged, because a reader who
-   knows one of this project's documents should not have to learn a second colour language.
-   Coral means act, or attend, and it is never decoration. Stone is the field. Here coral does
-   one more job it does not do there: it is also the colour of the part or the fastener the
-   step in hand ADDS, and it means the same thing in the pictures as it does in the type.
+   Cobalt, white and ice match the owner install guide and the website brand palette.
+   Coral identifies motion and the part added by a step. Orange marks a caution.
 
    Brass in a picture is a heat-set insert. Blue in a picture is a gauge, a block or a probe —
    something on the bench that is not part of the fixture. Both are declared on page 3 and used
@@ -43,17 +40,21 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --field: #ded7cd;
-  --field-deep: #cfc6b8;
-  --field-pale: #f1ede7;
+  --blue: #1749d1;
+  --heading: #10319c;
+  --ice: #dce6ff;
+  --orange: #ff9152;
+  --field: var(--ice);
+  --field-deep: #dce2eb;
+  --field-pale: #f5f8ff;
   --action: #d64050;
-  --ink: #1a1a2e;
+  --ink: #202337;
   --paper: #fff;
-  --muted: #6d6a74;
-  --line: #d5cec3;
-  --rule: #b9b1a4;
+  --muted: #606a78;
+  --line: #dce2eb;
+  --rule: #dce2eb;
   --brass: #b08a2c;
-  --gauge: #3a68ac;
+  --gauge: var(--blue);
   --sans: "IBM Plex Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --mono: "IBM Plex Mono", "SF Mono", Menlo, Consolas, monospace;
 }
@@ -86,6 +87,7 @@ body {
   padding: 176px 216px 128px;
 }
 
+.card::before { content: ""; position: absolute; inset: 0 0 auto; height: 28px; background: var(--blue); }
 .card > header { flex: none; }
 .card > main { flex: 1 1 auto; min-height: 0; overflow: hidden; padding-top: 56px; }
 .card > footer { flex: none; padding-top: 34px; border-top: 4px solid var(--line); }
@@ -104,9 +106,10 @@ body {
   text-transform: uppercase;
 }
 
-.eyebrow b { color: var(--action); font-weight: 700; }
+.eyebrow b { color: var(--blue); font-weight: 700; }
 
 h1 {
+  color: var(--heading);
   margin-top: 26px;
   font-size: 108px;
   font-weight: 700;
@@ -115,6 +118,7 @@ h1 {
 }
 
 h2 {
+  color: var(--heading);
   margin-top: 46px;
   margin-bottom: 14px;
   font-size: 52px;
@@ -141,7 +145,7 @@ i.rule {
   height: 10px;
   margin-top: 28px;
   border-radius: 5px;
-  background: var(--action);
+  background: var(--blue);
 }
 
 .lede {
@@ -212,7 +216,7 @@ ol.actions > li::before {
   width: 62px;
   height: 62px;
   border-radius: 31px;
-  background: var(--action);
+  background: var(--blue);
   color: var(--paper);
   font-size: 34px;
   font-weight: 700;
@@ -263,12 +267,12 @@ table.compact td { padding: 9px 14px 9px 0; }
   margin-top: 32px;
   padding: 28px 34px;
   background: var(--field);
-  border-left: 12px solid var(--action);
+  border-left: 12px solid var(--orange);
   border-radius: 6px;
 }
 .mind-label {
   display: block;
-  color: var(--action);
+  color: var(--heading);
   font-size: 30px;
   font-weight: 700;
   letter-spacing: 0.15em;
@@ -280,11 +284,12 @@ table.compact td { padding: 9px 14px 9px 0; }
 .gate {
   margin-top: 32px;
   padding: 28px 34px;
-  border: 5px solid var(--ink);
+  border: 5px solid var(--blue);
   border-radius: 10px;
 }
 .gate-label {
   display: block;
+  color: var(--blue);
   font-size: 30px;
   font-weight: 700;
   letter-spacing: 0.15em;
@@ -297,16 +302,16 @@ table.compact td { padding: 9px 14px 9px 0; }
 pre.console {
   margin-top: 28px;
   padding: 26px 32px;
-  background: var(--ink);
-  color: #eae7f2;
+  background: var(--ice);
+  color: var(--ink);
   border-radius: 12px;
   font-family: var(--mono);
   font-size: 38px;
   line-height: 1.55;
   white-space: pre;
 }
-pre.console b { color: #7fd6a0; font-weight: 700; }
-pre.console i { color: #9a97a8; font-style: normal; }
+pre.console b { color: var(--blue); font-weight: 700; }
+pre.console i { color: var(--muted); font-style: normal; }
 
 /* Two columns, where a picture and its words are each half the page. */
 .split { display: flex; gap: 48px; margin-top: 30px; }
@@ -351,18 +356,19 @@ svg .dotp { fill: var(--ink); }
 
 /* ---- cover ----------------------------------------------------------------- */
 
-.card.cover { background: var(--ink); color: var(--paper); }
+.card.cover { background: var(--blue); color: var(--paper); }
 .card.cover > main { display: flex; align-items: center; padding-top: 40px; }
-.card.cover > footer { border-top-color: #3a3752; color: #a19db2; }
+.card.cover > footer { border-top-color: var(--ice); color: var(--ice); }
+.cover .folio { color: var(--paper); }
 .cover .brand { display: flex; align-items: center; gap: 26px; font-size: 36px; font-weight: 700;
                 letter-spacing: 0.2em; text-transform: uppercase; }
 .cover .brand img { width: 76px; height: 76px; display: block; border-radius: 14px; }
-.cover h1 { margin-top: 96px; font-size: 176px; line-height: 0.98; letter-spacing: -0.03em; }
-.cover .sub { margin-top: 40px; font-size: 58px; line-height: 1.34; color: #cdc9db; max-width: 1500px; }
+.cover h1 { color: var(--paper); margin-top: 96px; font-size: 176px; line-height: 0.98; letter-spacing: -0.03em; }
+.cover .sub { margin-top: 40px; font-size: 58px; line-height: 1.34; color: var(--ice); max-width: 1500px; }
 .cover figure { margin-top: 0; width: 100%; background: none; padding: 0; }
 .cover figure img { max-height: 1560px; max-width: 100%; width: auto; margin: 0 auto; }
 
-/* The cover's picture is drawn on white and lands on navy; the plate behind it is what keeps a
+/* The cover's picture lands on cobalt; the plate behind it is what keeps a
    black printed part from disappearing into the field. */
 .cover figure .plate { background: var(--field-pale); border-radius: 22px; padding: 30px; }
 

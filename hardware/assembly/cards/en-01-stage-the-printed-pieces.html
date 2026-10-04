@@ -3,6 +3,11 @@
 <head>
 <meta charset="utf-8">
 <link rel="stylesheet" href="style.css">
+<style>
+  .lede { margin-bottom: 20px; }
+  ol.steps li { font-size: 31px; margin-bottom: 10px; }
+  .tools { font-size: 25px; }
+</style>
 </head>
 <body class="en">
 <div class="card">
@@ -15,32 +20,38 @@
 
 <main>
   <div class="col" style="flex:1">
-    <p class="lede">Every insert goes in <strong>while the box is still open
-    bench</strong> &#8212; once the pack is in, half of them are
-    unreachable.</p>
+    <p class="lede">Heat-set every insert <strong>on the open bench,</strong>
+    before the pack blocks access.</p>
 
     <ol class="steps">
       <li><b>Print-inspect all
         <span class="dim" data-gen="BOX_PIECES">6</span></b> &#8212; and wipe
         every interior face, above all the floor slab the core lands on.</li>
-      <li><b>Heat-set every ruthex M3:</b> the Y seam&#8217;s 4 sockets
-        (Z seams take none), the
-        C14&#8217;s <span class="dim" data-gen="C14_INSERTS">2</span> in its tunnel,
-        <span class="dim" data-gen="WALL_BOSSES">17</span> +X wall bosses
-        (EN-07), the panel&#8217;s 2 up.</li>
-      <li><b>Dry-fit every seam empty.</b> Slide each top home &#8212;
-        both aft, entering fore of home, onto their stops &#8212; and telescope the
+      <li><b>Heat-set by labelled size:</b>
+        <span class="dim" data-gen="EN01_SHORT_M3">25</span> short M3 &#8212;
+        <span class="dim" data-gen="EN01_SEAM_INSERTS">6</span> Y-seam,
+        <span class="dim" data-gen="C14_INSERTS">2</span> C14 and
+        <span class="dim" data-gen="WALL_BOSSES">17</span> +X wall bosses;
+        <span class="dim" data-gen="EN01_COND_INSERTS">2</span> full-length M3
+        condenser fingers;
+        <span class="dim" data-gen="EN01_FIXED_POGO_INSERTS">2</span> M1.4
+        at the fixed male-contact seat;
+        <span class="dim" data-gen="FLOOR_BOSSES">4</span> M5 floor posts.
+        The display cover takes no screws or inserts.</li>
+      <li><b>Dry-fit every seam empty.</b> Slide front-top aft from the fore end
+        and back-top fore from the aft end, each onto its stops. Telescope the
         halves; every Y plug drops home.</li>
-      <li><b>Then take it all apart again</b> &#8212; the front pack goes in
-        on open floor; the bay rides in with back-top.</li>
-      <li><b>Nameplate blank to the build folder;</b> the
-        nameplate goes on at FS, not here.</li>
+      <li><b>Take it apart again.</b> Front pack installs on open floor;
+        bay rides in with back-top.</li>
+      <li><b>File the display cover, TPU gasket ring and nameplate</b> in
+        the unit's build folder (EN-10 / FS).</li>
     </ol>
 
     <div class="tools" style="line-height:1.25">
       <span class="lbl">Parts + tools</span>
-      seven PET-GF15 pieces + PET-GF nameplate (bom &#167;7) &#183; ruthex
-      M3 B08BCRZZS3 + B09ZHSGHXD (both bodies) &#183; iron + tip &#183; deburr tool
+      <span data-gen="BOX_PIECES">6</span> PET-GF15 enclosure pieces; display
+      cover + TPU ring + nameplate &#183; M3 full / short, M1.4, M5 inserts
+      &#183; iron + insert / fine conical tips &#183; deburr tool
     </div>
   </div>
 
@@ -49,8 +60,9 @@
       <img src="img/en01-shell.png" alt="">
       <div class="cap"><b>Four quadrants, a pump cartridge and its cap</b> &#8212;
       no face of the box is a separate panel; every one is a wall of one of these. Three
-      quadrants print on their Z&#8722; face, back-top on its ceiling, cartridge and cap
-      face-down on their own skin. <code>bed-fit</code> holds all six to the H2C bed.</div>
+      quadrants and the cartridge print upright; back-top prints on its ceiling,
+      cap crown-down. Front-top and the cartridge cradle each capture one RC62
+      at their reviewed print pause. <code>bed-fit</code> holds all six to the bed.</div>
     </div>
 
     <table class="spec" style="margin-top:22px">
@@ -63,8 +75,8 @@
 </main>
 
 <footer>
-  <div class="done"><span class="lbl">Done when</span>Every interior clean, every insert flush, all three seams dry-fitted and taken apart again, nameplate in the build folder.</div>
-  <div class="src">enclosure-mechanical.md &#167;1 &#183; enclosure.py<br>_cards_sync.py &#183; rev 2026-08-07</div>
+  <div class="done"><span class="lbl">Done when</span>Every interior clean, every insert flush, all three seams dry-fitted and taken apart again, display parts and nameplate filed.</div>
+  <div class="src">enclosure-mechanical.md &#167;1 &#183; enclosure.py<br>_cards_sync.py &#183; rev 2026-10-03</div>
 </footer>
 
 </div>

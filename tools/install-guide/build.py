@@ -20,6 +20,8 @@ from press import TRIM_W, TRIM_H, BLEED, write_editions, make_order_bundle
 ROOT = Path(__file__).resolve().parents[2]
 DIR = ROOT / 'hardware/install-guide'
 ART = DIR / 'assets'
+FILL = json.loads((ROOT / 'hardware/quickstart-codex/art/fill-scene-inputs.json').read_text())
+FILL_POSE = tuple(FILL['pose'][key] for key in ('cam', 'target', 'span'))
 OUT = DIR / 'out'
 PDF = DIR / 'install-guide.pdf'
 W, H = 396, 612
@@ -464,7 +466,8 @@ end()
 # 20
 header('Bottle first. Then start.', 'YOUR FIRST GLASS / FILL BOTH FLAVORS',6)
 p=pic('steps/fill-ready.png',M,118,171,235,crop=(295,330,1555,1450))
-arrow(*p(947.15,473.85),*p(947.15,943.67),head=8)
+arrow(*projected(p,FILL['arrow']['start'],*FILL_POSE),
+      *projected(p,FILL['arrow']['end'],*FILL_POSE),head=8)
 para('<b>3 / Add concentrate</b><br/>Invert one whole <b>14.8 fl oz (440 mL)</b> bottle into the top funnel.',223,142,141,11,15,limit=120)
 para('<b>4 / Start filling</b><br/>Tap <b>Start filling</b>. Let the machine draw the concentrate into the selected reservoir.',223,266,141,11,15,limit=105)
 line(M,387,W-M,387)
@@ -492,8 +495,8 @@ text('Top up a flavor',M,111,13,'Bold',NAVY)
 para('Use the same Fill sequence on pages 19-20. If the display says <b>Full</b>, the reservoir is full and some concentrate remains in the funnel. Stop adding concentrate.',M,135,CW,11,15,limit=75)
 line(M,210,W-M,210)
 text('Rinse the funnel',M,227,13,'Bold',NAVY)
-para('Rinse it weekly and after a flavor change. The silicone funnel is dishwasher safe.',M,253,CW,11,15,limit=30)
-para('When empty, lift the funnel straight out. Its plug slides off the short drain stub, which stays in the machine. To refit, press the plug down into the frame until the brim seats.',M,293,CW,11,15,limit=60)
+para('Rinse it weekly and after a flavor change. Wash the removable silicone funnel by hand.',M,253,CW,11,15,limit=30)
+para('When empty, lift the funnel straight out. Its plug slides off the bare drain tube, which stays in the machine. To refit, align the plug in its socket and press down until the brim seats.',M,293,CW,11,15,limit=60)
 line(M,368,W-M,368)
 text('Filter and cylinder',M,385,13,'Bold',NAVY)
 para('Replace the water filter once a year. Release pressure in the white water line as described on page 23 before opening its connections. Keep the spare nylon cylinder washer with the install kit for the next cylinder refill.',M,411,CW,11,15,limit=75)

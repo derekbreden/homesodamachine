@@ -26,6 +26,9 @@ fastener tool access and structural backing are not mating tolerances.
 
 The support ring, reservoir corner posts, straight pocket walls, reed channels
 and vertical cap conduits grow from their floors and have no supported mating
-face. The coil mandrel is forming tooling. The magnetic-float project is a
-separate bench test article with a retained Aero insert supporting its sealed
-roof; its material-specific press fits and existing print projects are retained.
+face. The coil mandrel is forming tooling. The current
+[one-piece ASA Aero float](magnetic-float/all-aero/README.md) closes its annular
+magnet pocket during the same print; its pocket clearances and insertion pause
+require their own native slice review. The
+[separate PETG-shell bench reference](magnetic-float/petg-bench-reference.md)
+defines the press fits of its retained Aero core and insert.

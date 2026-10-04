@@ -88,6 +88,17 @@ STEP. A callout's overlay shares the render's pixel grid, and the feature
 coordinates come from the generator that built the part — the end-cap register
 from `endcap_circular_step.py`, the J4/J7 wafers from `pcba.tsx`.
 
+[`_cad_art.py`](_cad_art.py) renders the two annotated CAD panels on the theme's
+ice field. It reads the current native STEP files, source feature datums and
+card SVG anchors to retain their 1980 × 1040 pixel frames. The PCBA panel keeps
+the native model's simplified component envelopes and x-ray presentation.
+[`img/cad-art.json`](img/cad-art.json) binds source and image hashes, camera
+settings and projected feature coordinates.
+
+```sh
+tools/cad-venv/bin/python hardware/assembly/cards/tools/_cad_art.py
+```
+
 ## Printing
 
 ET-8550, letter premium gloss, **borderless**, photo quality, one card per

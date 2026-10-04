@@ -9,8 +9,6 @@ and reed test article.
 Its predicted assembled mass is **55.08 g** at 0.55 g/cm³ Aero density, against
 **60.05 g** of water displacement: **4.96 g spare lift**.
 
-[Illustrated assembly guide](../../../magnetic-float-guide/magnetic-float-guide.pdf)
-
 [PETG shell project](magnetic-float.3mf) · [ASA Aero parts project](magnetic-float-aero.3mf) ·
 [CadQuery source](magnetic_float.py) · [Material research](asa-aero-research.md) ·
 [PETG shell recipe](petg-shell.md) · [Pressure-printing research](pressure-printing-research.md)
@@ -19,9 +17,9 @@ Its predicted assembled mass is **55.08 g** at 0.55 g/cm³ Aero density, against
 [Section](/3d?file=printed-parts/cold-core/magnetic-float/section.step) ·
 [Exploded view](/3d?file=printed-parts/cold-core/magnetic-float/exploded.step)
 
-In `/3d`, select an existing float in **Enclosure assembly** with **Select →
-Component**, then **Open magnetic-float**. **Beside it** offers the section,
-exploded view and individual materials.
+The views above show this separate bench article. **Enclosure assembly** uses
+the [one-piece ASA Aero float](all-aero/README.md) and its own section and
+insertion views.
 
 ## Geometry
 
@@ -41,7 +39,7 @@ exploded view and individual materials.
 | Water displacement, fully submerged | [60.05 g](DISPLACEMENT) |
 
 The 3.175 mm bench guide rod has 0.8125 mm radial clearance. This float's guide
-position and envelope are separate from the installed donor floats and their
+position and envelope are separate from the current ASA Aero float and its
 rod registers. The larger bench article is not an installed drop-in replacement.
 
 Both Aero pieces print independently, flat on Z=0. Each has 0.5 × 0.5 mm

@@ -1,5 +1,10 @@
 # Plumbing
 
+This guide describes the installed external-carbonator prototype and its
+Platypus-bag flavor lines. For the integrated appliance, use the
+[fluid topology](../hardware/topology/fluid-topology.md) and
+[pump service guide](../hardware/service/pump-replacement.md).
+
 ## Tubing Strategy
 
 1/4" OD hard tubing (PE or PU, food-grade) with John Guest push-to-connect fittings is the primary tubing for all internal plumbing. The entire fluid system already uses 1/4" push-connect fittings (Beduan solenoid valves, John Guest bulkheads, pump tube stubs), so hard tubing pushes directly into every fitting — zero tools, zero skill.

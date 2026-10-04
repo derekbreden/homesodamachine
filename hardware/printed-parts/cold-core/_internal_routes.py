@@ -43,9 +43,8 @@ copper take the two storeys over it.
 A RISER answers to none of that — it stands in every storey at once, so what keeps it
 clear is its X, and one bore of lane holds exactly one riser. EACH LANE CARRIES ONE. The
 CO2's fall is the port lane's (`_cold_core_interface.co2_cap_x`), and the evaporator's
-outlet copper is the west lane's, which is why the vent crosses the wall UNDER that copper
-rather than over it (`copper_plugs.prv_vent_z`). `report_routes` is what proves they never
-meet.
+outlet copper is the west lane’s. The short PRV vent falls from its shroud and
+leaves through the +Y flank. `report_routes` reads the clearance of every run.
 
 WHAT A CORNER TURNS AT IS NOT CHOSEN HERE — it is what the corridor leaves, and
 `fit_route` is how the corridor states it: each line is drawn at the stock arc and
@@ -175,15 +174,10 @@ reservoir_cap_top_z = reservoir_cap_z + _reservoir.cap_total_height
 # cap cannot send one). The bore stands on the west lane's own y by the station it is bored at,
 # so the line falls that lane, turns once, and goes straight out the +Y wall.
 #
-# WHY THIS ONE DOES NOT LEAVE BY THE LID. The core is reached through its lid because nothing
-# potted in it can ever be reached again — every other run here ends on a fitting the machine
-# makes up, the seven on the cap deck and the two coppers on the refrigeration base's own picks.
-# A relief vent has no far fitting: it terminates open, and what it owes is the shortest path to
-# air outside the cabinet. THE TUBE IS THE THROTTLE IN A RELIEF PATH: the SV-125's rated
-# discharge is about what a bare 1/4" orifice passes at its set pressure, so every diameter of
-# tube after the bore is friction taken straight off that number. This line is drawn the short
-# way out, and the appliance's own chase carries the discharge down the OUTSIDE of the west wall
-# — where length costs nothing, because the chase runs several times the tube's bore in section.
+# The tube mouth meets the enclosure's west-wall relief chase at the +Y flank.
+# That chase terminates outside the cabinet. These coordinates establish the
+# short geometric route; installed relief capacity and backpressure require
+# qualification of the valve, shroud, tube and chase together.
 prv_vent_lane_y = west_lane_mid_y
 prv_vent_start = (0.0, prv_vent_lane_y,
                   carbonator_top_plate_z + hole_shift_from_edge - _shroud.outer_diameter / 2.0)

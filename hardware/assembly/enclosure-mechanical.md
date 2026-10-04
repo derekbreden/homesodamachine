@@ -54,7 +54,14 @@ Tooling: standard hand tools — Phillips + hex (2.5 mm for M3 socket caps, 4 mm
 
 ### 1. Stage the printed pieces
 
-Print-inspect all six enclosure pieces — the four quadrants, lower pump cradle and pump top clamp — plus this unit's nameplate. Inspect the four teardrop passages in front-top's fixed release plate. On the ridge wall behind the display, verify the J9 loom's +X teardrop passage is open and the unembedded cable clip remains rooted near the same wall's +X edge. The pump cartridge goes in downstream; the pumps they serve are landed in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md). Wipe down every interior face; remove brim residue and any stray support material at the +Y wall's bores, the rails' heads and channels — a bead in a channel is a 100 mm slide that binds at one station — the Y seam's lips and socket collars, and — above all — **the floor slab the cold core lands on**. The core bears on that slab across its whole footprint, so a bead of brim under it is a high spot, not a blemish. Both halves of the floor joint print on their bed faces: the front tongue is full thickness until its 45° scarf nose, and the back keeps the matching bed-side wedge. Set the nameplate aside in the unit's build folder; it does not go on at this step (see [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md)). **The display's two printed parts go in that folder with it**, not loose on the bench: the cover plate ([`/hardware/printed-parts/enclosure/display-cover/`](/hardware/printed-parts/enclosure/display-cover/README.md)) and, under it, the TPU gasket ring that goes between the plate's lap and the display's glass ([`/hardware/printed-parts/enclosure/display-gasket/`](/hardware/printed-parts/enclosure/display-gasket/README.md)). Both go on at §8, and the ring is soft, black and one wipe from being swept off a bench unnoticed — a display closed without it is a display the cover plate does not hold.
+Print-inspect all six enclosure pieces — the four quadrants, lower pump cradle and pump top clamp — plus this unit's nameplate. Inspect the four circular tube passages in front-top's fixed release plate. On the ridge wall behind the display, verify the J9 loom's +X teardrop passage is open and the unembedded cable clip remains rooted near the same wall's +X edge. The pump cartridge goes in downstream; the pumps they serve are landed in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md). Wipe down every interior face; remove brim residue and any stray support material at the +Y wall's bores, the rails' heads and channels — a bead in a channel is a 100 mm slide that binds at one station — the Y seam's lips and socket collars, and — above all — **the floor slab the cold core lands on**. The core bears on that slab across its whole footprint, so a bead of brim under it is a high spot, not a blemish. Both halves of the floor joint print on their bed faces: the front tongue is full thickness until its 45° scarf nose, and the back keeps the matching bed-side wedge. Set the nameplate aside in the unit's build folder; it does not go on at this step (see [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md)). **The display's two printed parts go in that folder with it**, not loose on the bench: the cover plate ([`/hardware/printed-parts/enclosure/display-cover/`](/hardware/printed-parts/enclosure/display-cover/README.md)) and, under it, the TPU gasket ring that goes between the plate's lap and the display's glass ([`/hardware/printed-parts/enclosure/display-gasket/`](/hardware/printed-parts/enclosure/display-gasket/README.md)). Both go on at §8, and the ring is soft, black and one wipe from being swept off a bench unnoticed — a display closed without it is a display the cover plate does not hold.
+
+Front-top and the lower pump cradle each arrive with one RC62 enclosed during
+its owning print. Pair and label their attracting faces before printing, then
+inspect both finished covers. The rings act along the cartridge insertion axis
+at tube height; the purchased pogo magnets remain in the separate contact
+halves. Use each part's reviewed native insertion pause. The retention
+pair's seating force, heat exposure and cover performance remain unqualified.
 
 Install ruthex heat-set inserts everywhere the pieces call for them. Standard procedure: soldering iron on the insert, press straight down until flush. All of them go in *before* anything is in the box, while there is bench access from every face.
 
@@ -119,9 +126,9 @@ Both of the block's Y faces stand 20 mm back over its whole width, leaving 0.4 m
 
 ### 4. Close the front column
 
-**The release plate and tee journals are fixed features of `enclosure-front-top`.** Inspect its [4](PLATE_HOLES) teardrop passages and the release faces around them; remove print residue from the passages before assembling the flavour manifold. The journals locate four tees in X and Z but leave Y free. At release the sleeves bear fully depressed against the plate; at connected, 2.15 mm aft, they stand fully extended with 0.5 mm of nose air. The release face and journals are passages through the continuous bay bulkhead, which joins the floor, roof and both walls. Two front-bottom feet carry its lower edge.
+**The release plate and tee journals are fixed features of `enclosure-front-top`.** Inspect its [4](PLATE_HOLES) circular tube passages and the release faces around them; remove print residue from the passages before assembling the flavour manifold. The journals locate four tees in X and Z but leave Y free. At release the sleeves bear fully depressed against the plate; at connected, 2.00 mm aft, they stand fully extended with 0.5 mm of nose air. The release face and journals are passages through the continuous bay bulkhead, which joins the floor, roof and both walls. Two front-bottom feet carry its lower edge.
 
-The front-top bench order is: bare tees inserted from aft into the tee wall's journals and moved to release; aft valves raised from the open underside and pressed into their sockets; fore valves and four bowed flex stubs. After the box closes, the pump cartridge's four tubes bottom at release with the cartridge 2.15 mm short of seating, and the cartridge seats through that final 2.15 mm.
+The front-top bench order is: bare tees inserted from aft into the tee wall's journals and moved to release; aft valves raised from the open underside and pressed into their sockets; fore valves and four bowed flex stubs. After the box closes, the pump cartridge's four tubes bottom at release with the cartridge 2.00 mm short of seating, and the cartridge seats through that final 2.00 mm.
 
 `enclosure-front-top` **slides AFT onto `enclosure-front-bottom`** — brought in from the front, standing [102.2 mm](RAIL_TRAVEL_FRONT) proud of the bottom piece's front wall and drawn straight back, mouth riding the shoulder, until both feet land on their stop blocks aft of the tee wall. This is the piece that carries the display facet, front half of the funnel opening, fixed valve trays, release plate and the manifold prepared at [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3. The four spine hairpins sweep over the compressor bay's crowns with the piece, and their tee-side ends retain their Y freedom when it stops. A slide that binds mid-travel is something standing in the channel's lane; a slide that will not close the last millimetre is a foot meeting something on a stop block's face.
 
@@ -163,11 +170,11 @@ The box closes in two slides and six screws, and everything in the service bay i
 
 **Factory teardown uses the enclosure slides in reverse**, and its first move needs no cart: **the ceiling pair alone frees front-top**, which draws fore off its rails with the machine standing where it is, taking the valve trays, fixed release plate, tee journals and tees with it. All six out and the back assembly rides aft off the core — the whole bay open on the cart again — or, with the core out, front-top slides fore and back-top slides aft off their own columns. Pump-cartridge service does not require this teardown; it uses the front bay.
 
-With the box closed, confirm from inside: the four JG unions' cabinet-side collets, the ABU44's inboard collet and the C14's solder-tab pins are all exposed and reachable; the compressor's retained donor cover and factory-external electrical interface are reachable for the AC run arriving from the electronics bay; and **no plumbing or wiring has been routed through any bulkhead at this point.**
+With the box closed, confirm from inside: the four JG unions' cabinet-side collets, the ABU44's inboard collet and the C14's solder-tab pins are all exposed and reachable; the compressor's retained donor cover and factory-external electrical interface are reachable for the AC run arriving from the electronics bay; and **no customer-side tubing or cable has been routed through the rear connection bodies at this point.**
 
-**The release plate is part of front-top.** Confirm through the open bay that its [4](PLATE_HOLES) teardrop passages are clear and aligned with the four barb tees' branch collets.
+**The release plate is part of front-top.** Confirm through the open bay that its [4](PLATE_HOLES) circular tube passages are clear and aligned with the four barb tees' branch collets.
 
-The bay itself rides open. The pump cartridge goes in at [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md): present all four tubes through the fixed plate; at release they bottom with the cartridge 2.15 mm short of seating. Push the cartridge through that final 2.15 mm to seat it with the tubes bottomed. For removal, the cartridge draws the tees fore until the fixed plate continuously holds the fully depressed sleeves while the tubes leave.
+The bay itself rides open. The pump cartridge goes in at [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md): present all four tubes through the fixed plate; at release they bottom with the cartridge 2.00 mm short of seating. Push the cartridge through that final 2.00 mm to seat it with the tubes bottomed. For removal, the cartridge draws the tees fore until the fixed plate continuously holds the fully depressed sleeves while the tubes leave.
 
 ### 7. Slide the ASSE drip pan in through the −X wall
 
@@ -209,9 +216,29 @@ Leave the display's RS485 and power leads loose for [`wiring.md`](/hardware/asse
 
 The ridge wall immediately below the display keeps two electrical features: the J9 teardrop at
 +X for the display loom, and the cable clip near +X reserved for the fixed J13-to-contact ribbon.
-Deburr both without opening the clip throat. Below them, the bay bulkhead's fore face carries the
-contact pair's male seat and its lead bore; the male half goes in during WR-04. Nothing on the
-cartridge enters that clip.
+Deburr both without opening the clip throat. Complete the contact work at the **unpowered,
+loose front-top bench stage (EN-10), before the valves, funnel frame and closing slides**.
+The bay bulkhead's fore face carries the male seat; its solder tails sit inside the lead
+passage when mounted, so prepare and insulate those joints with the half outside its seat.
+
+Use the 350 mm 22 AWG 4P fixed DC-5 ribbon from
+[`cable-assemblies.md`](/hardware/assembly/cable-assemblies.md#contact-pair--dc-5).
+Split its contact end back 20 mm, put individual heat-shrink sleeves on the conductors,
+and feed that free end forward through the bulkhead's lead bore into the empty pump bay.
+Solder to the male half in machine-X order: `AM2`, `AM1`, `BM2`, `BM1` from +X to −X.
+Insulate each joint, then draw the slack back through the bore. Seat the male half with
+its marked end at **−X** and both ear plates on the datum 3 mm inside the fore face.
+Drive **two M1.4 × 5** screws into the **two M1.4 × 4 × Ø2.3** inserts pressed at §1;
+the 1 mm ears leave 4 mm nominal thread engagement. The
+[mounting audit](/hardware/reference/yyfkgcp-pogo-4p/mounting-audit.md) identifies those
+datums, the attracting orientation and the installed compression limits.
+
+Lay the local ribbon along the bulkhead's crown through the ridge-wall clip on front-top.
+Keep its labeled J13 end unplugged and secured to the same piece, clear of the rails,
+valves and moving tee links during the closing slides. Final cabinet routing and the J13
+connection belong to WR-04. The cartridge's leads remain in its cap; nothing on the
+cartridge enters this fixed-lead clip. Both connector halves are mounted before the
+unpowered cartridge seating and compression check at IP-05.
 
 The 455 mL silicone funnel seats in a separate PET-GF frame behind the display,
 across the Y seam. Slide the frame into front-top before closure; back-top
@@ -253,17 +280,9 @@ The card's own reading of the chassis at this point: [104](BODY_COUNT) bodies pl
 
 Procedure-level gaps that need answers before unit 1 ships:
 
-1. **The condenser's air has no route through the box.** The mating settles where the body stands — east of the compressor, on that shell's own tangent — and the air path off it is the donor fan shroud's, per [`/hardware/reference/ice-maker/README.md`](/hardware/reference/ice-maker/README.md). The box gives it nothing: `pack.east_ports` and `pack.front_ports` are both empty and the −X wall carries only the ASSE drip pan's slot, so there is no opening in any face for air to arrive by or leave by. The mount's fin now stands in that east lane too, `cond_mount_clear` off the block's exhaust face and across the aft 12 mm of its depth. Needs the openings cut at the finstack's own footprint, clear of the ±X boss chains, the Z-seam pods and that fin, on the faces the path asks for.
+1. **The condenser's air has no route through the box.** The mating settles where the body stands — east of the compressor, on that shell's own tangent — and the air path off it is the donor fan shroud's, per [`/hardware/reference/ice-maker/README.md`](/hardware/reference/ice-maker/README.md). The box gives it nothing: `pack.east_ports` and `pack.front_ports` are both empty and the −X wall carries only the ASSE drip pan's slot, so there is no opening in any face for air to arrive by or leave by. The mount's fin stands in that east lane, `cond_mount_clear` off the block's exhaust face and across the aft 12 mm of its depth. Needs the openings cut at the finstack's own footprint, clear of the ±X boss chains, the Z-seam pods and that fin, on the faces the path asks for.
 
-2. ~~**The cold core is the one body on the floor nothing fastens.**~~ **CLOSED.** It is held by three quadrants shut on it, since it presents no hole to any one of them. `enclosure._core_stops` blocks each front corner of `enclosure-front-bottom`'s slab, bored on the core's own corner-round axis — the core's front face and its flank run tangent out of that arc, so one bore takes it forward, across and in yaw at once. `enclosure._core_holds` stands a bracket in the `rear_seam_clear` band off `enclosure-back-top`'s +Y wall and turns its foot onto the aft edge of the cap, which takes it up. The slab under it takes the weight and the +Y wall the aft, and every one of those pieces is cross-pinned to the ones beside it, so nothing comes off the core without a seam coming apart first. `_scorecard.MOUNTS` carries it as `seam-capture` naming both pieces. Neither grip bills a fastener.
-
-3. ~~**One placed body has no holder at all.**~~ **CLOSED.** All five are held. The ASSE 1022 chain lies in the stepped 120° ASSE anchor cut into the −X wall, one section per section of the chain (`enclosure._asse_cradle`); the DIGITEN meter hangs in two anchors off the top wall, one over each fixed port collar, each closed by a 6-inch tie with the movable collet exposed (`enclosure._flow_meter_anchors`); **both made-up pump chains lie in bored ribs standing on the cold core's cap lid**, the same plate the pump bolts to, so the hose stub at each of its barbs spans no joint (`foam_cap.add_chain_anchors`); and **the WR1110 secondary regulator lies in a bored rib off the top wall**, closed on the scanned ⌀18.87 barrel between its two wrench hexes (`enclosure._tube_anchors` off `enclosure_assembly.BODY_ANCHOR_SITES`). The regulator crosses the +Y wall one `PORT_PITCH` east of the carb union on the panel deck's storey. The meter lies one column west and lower, with both bodies held from the top wall. **Both flavour pumps bear in the large lower pump cradle** — each molded skirt rests on cradle lands along three sides and, on +Y, between its two tube casings. `enclosure.build_pump_cap` makes the separate small top clamp: two case-derived octagonal collars locate the bosses and surround the motor cans, joined by two top-access M3 in the centre lane. **Nothing on either pump is closed by a zip tie.** **The display is held by its snap-retained cover**, seated flush in the rounded inset and bearing through the TPU ring onto the glass. Owned here, needed by [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §1, §2 and §3.
-
-4. ~~**When `enclosure-back-top` closes, and the fixture that holds the box square while it does.**~~ **CLOSED — the slides fix the order and the card reads every motion.** The Z seams' rails force the sequence this item said nothing stated: back-top can only SLIDE onto its column, its +Y wall sweeps the whole tub on the way in, so the back column closes EMPTY (§6.2), the bay is populated on the open cart and through the Y-seam mouth before the ride (§6.3), and [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md)'s and [`wiring.md`](/hardware/assembly/wiring.md)'s bay work happens on the cart and through that mouth before the halves close. And the bare slides are bounds rather than assumptions: `z-slide-front-clear` and `z-slide-back-clear` sweep each top's whole travel against its bottom piece.
-
-Also unspecified: the bench fixture that holds the pieces square while they telescope, and whether the build proceeds upright or on its side.
-
-**And no gate reads it.** `pack-closes` reads every body against every other where they finally stand, which is a true reading of a closed box and silent on how it got closed. Whether the back column's contents can be brought together at all is a question of that kind, and the card carries nothing that asks it — a bound for it would want a stated motion per body, and there is not one to read.
+2. **The populated chassis needs a stated bench fixture and build orientation.** Specify how the pieces are held square during telescoping and how the open back column is supported while its plumbing and electronics are installed. The current assembly order is in §6. Existing part-fit observations and their accepted scope remain in the [mechanical qualification index](/hardware/mechanical-qualification/README.md).
 
 
 ## Sources

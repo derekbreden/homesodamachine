@@ -1,15 +1,18 @@
 #!/usr/bin/env python3
-"""Render concentrate bottles and a framed Fill screen in the frozen owner-guide scene."""
+"""Render concentrate bottles and a framed Fill screen from the current appliance."""
 from pathlib import Path
 import argparse
 import base64
+import hashlib
 import json
 import math
 import os
+import shutil
 import subprocess
 import sys
 
 import cadquery as cq
+from PIL import Image
 from fontTools.ttLib import TTFont
 from fontTools.pens.svgPathPen import SVGPathPen
 
@@ -17,16 +20,34 @@ ROOT = Path(__file__).resolve().parents[2]
 HARDWARE = ROOT / 'hardware'
 DIR = HARDWARE / 'quickstart-codex'
 OUT = DIR / 'out/fill-redesign'
-SOURCE = DIR / 'out/fill-seated.step'
+SOURCE = HARDWARE / 'manifold-layout/enclosure-assembly.step'
+FACTS = SOURCE.with_suffix('.facts.json')
 RENDERER = ROOT / 'tools/render/render-step-posed.js'
 os.environ.setdefault('HSM_NO_BUILD_LOCK', '1')
 sys.path.insert(0, str(HARDWARE / 'scripts'))
+sys.path.insert(0, str(HARDWARE / 'printed-parts/enclosure/enclosure'))
 from _cadq_export import _per_solid_color
 import _mesh_payload
 from flute_payload import read_payload
+import _swept_top
+import _enclosure_interface
 
-MOUTH = (0, 156.5, 389)
+ASSEMBLY_FACTS = json.loads(FACTS.read_text())
+FUNNEL_BOUNDS = ASSEMBLY_FACTS['bodies']['funnel']
+# This approach pose keeps the bottle mouth 34 mm above the funnel brim.
+MOUTH = ((FUNNEL_BOUNDS[0] + FUNNEL_BOUNDS[3]) / 2,
+         (FUNNEL_BOUNDS[1] + FUNNEL_BOUNDS[4]) / 2, FUNNEL_BOUNDS[5] + 34)
 CAMERA = (.65, -1, .5)
+DISPLAY_PROFILE = _swept_top.profile(ASSEMBLY_FACTS['box']['outer'])
+SCREEN = dict(width=103.5, height=62.1, angle_deg=_swept_top.ANGLE,
+              origin=[p - n * (_enclosure_interface.display_bezel_depth - 1 - .05)
+                      for p, n in zip(DISPLAY_PROFILE['origin'], DISPLAY_PROFILE['normal'])])
+EXTERIOR = {'funnel', 'nameplate', 'nameplate-ink', 'enclosure-front-top',
+            'enclosure-front-bottom', 'enclosure-back-top', 'enclosure-back-bottom'}
+
+
+def visible(name):
+    return name.split('/')[0] in EXTERIOR or 'display' in name
 
 
 def bottle():
@@ -66,15 +87,15 @@ def scene():
     props = bottle()
     a = cq.Assembly(name='fill-with-concentrate')
     for child in original.children:
-        if not child.name.startswith('bottle-'):
+        if visible(child.name):
             a.add(child)
     for child in props.children:
         a.add(child)
     path = OUT / 'fill.step'
     _per_solid_color(a).export(str(path))
-    frozen = read_payload(SOURCE.with_suffix('.step.mesh'))
-    assert frozen and sum(m['name'].startswith('bottle-') for m in frozen) == 4
-    meshes = [m for m in frozen if not m['name'].startswith('bottle-')]
+    current = read_payload(SOURCE.with_suffix('.step.mesh'))
+    assert current
+    meshes = [m for m in current if visible(m['name'])]
     meshes.extend(_mesh_payload.from_assembly(props))
     _mesh_payload.write(meshes, path.with_suffix('.step.mesh'), src=_mesh_payload.source_digest(path))
     return path
@@ -131,7 +152,7 @@ def renderer():
     replace('from "../../web/server.js"', f'from {(ROOT/"web/server.js").as_uri()!r}')
     replace('import sharp from "sharp";', f'import {{ createRequire }} from "module"; const sharp = createRequire({str(RENDERER)!r})("sharp");')
     replace('const REPO_ROOT = path.resolve(__dirname, "..", "..");', f'const REPO_ROOT = {str(ROOT)!r};')
-    replace('const opts = defaults();\n  if (entry.cam', 'const opts = defaults();\n  opts.labelUrl = entry.labelUrl;\n  opts.fillScreen = entry.fillScreen;\n  opts.view = entry.view;\n  if (entry.cam')
+    replace('const opts = defaults();\n  if (entry.cam', 'const opts = defaults();\n  opts.labelUrl = entry.labelUrl;\n  opts.fillScreen = entry.fillScreen;\n  opts.view = entry.view;\n  opts.mouth = entry.mouth;\n  opts.screen = entry.screen;\n  if (entry.cam')
     replace('if (page && pageSize === want) {', 'if (false) {')
     replace('renderer.render(scene, cam);', (Path(__file__).with_name('fill_materials.js')).read_text()+'\nrenderer.render(scene, cam);')
     path = OUT/'render-fill.mjs'; path.write_text(source)
@@ -142,6 +163,10 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--label', choices=['neutral', 'pepsi'], default='neutral')
     parser.add_argument('--compare', action='store_true')
+    parser.add_argument('--scale', type=float, default=1,
+                        help='render scale with the same camera and scene coordinates')
+    parser.add_argument('--publish', action='store_true',
+                        help='copy native artwork to quick start, or scaled artwork to install guide')
     args = parser.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
     step = scene()
@@ -149,19 +174,71 @@ def main():
     jobs = []
     for kind in (['neutral', 'pepsi'] if args.compare else [args.label]):
         jobs.append(dict(step=str(step.relative_to(HARDWARE)), out=str(OUT/f'fill-{kind}.png'),
-                         labelUrl=label(kind), fillScreen=screen, view='fill',
+                         labelUrl=label(kind), fillScreen=screen, view='fill', mouth=MOUTH, screen=SCREEN,
                          cam=CAMERA, target=(0, 140, 465), span=265, size='1600x1500',
                          up=(0, 0, 1), bg='#ffffff', transparent=True, solid=True,
                          ortho=True, trim=False, ground=False, fog=False))
         jobs.append(dict(jobs[-1], out=str(OUT/f'bottle-{kind}.png'), view='bottle',
-                         target=(0, 156.5, 491), span=114, size='900x1350', trim=True))
+                         target=(MOUTH[0], MOUTH[1], MOUTH[2] + 102), span=114, size='900x1350', trim=True))
     jobs.append(dict(jobs[0], out=str(OUT/'fill-screen-framed.png'), view='frame',
-                     cam=(0, -1, 1), target=(0, 38.4095, 321.5895), span=46,
+                     cam=DISPLAY_PROFILE['normal'], target=SCREEN['origin'], span=46,
                      size='1800x1020', trim=True))
+    if args.scale <= 0:
+        parser.error('--scale must be positive')
+    for job in jobs:
+        job['size'] = 'x'.join(str(round(int(value) * args.scale))
+                               for value in job['size'].split('x'))
     manifest = OUT/'jobs.json'; manifest.write_text(json.dumps(jobs, indent=2)+'\n')
     subprocess.run(['node', str(renderer()), '--jobs', str(manifest)], cwd=ROOT, check=True)
+    if args.publish:
+        publish(args)
     for job in jobs:
         print(job['out'])
+
+
+def publish(args):
+    fill = OUT / f'fill-{args.label}.png'
+    frame = OUT / 'fill-screen-framed.png'
+    if args.scale == 1:
+        targets = [(fill, DIR / 'art/insertion-actions/fill-ready.png'),
+                   (frame, DIR / 'art/fill-screen-framed.png')]
+        for source, target in targets:
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(source, target)
+        right = (1 / math.hypot(1, CAMERA[0]), CAMERA[0] / math.hypot(1, CAMERA[0]))
+        side = [MOUTH[0] + 42.5 * right[0], MOUTH[1] + 42.5 * right[1]]
+        inputs = dict(
+            sources={str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
+                     for p in (SOURCE, SOURCE.with_suffix('.step.mesh'), FACTS,
+                               Path(_swept_top.__file__).resolve(),
+                               Path(_enclosure_interface.__file__).resolve(),
+                               Path(__file__), Path(__file__).with_name('fill_materials.js'))},
+            funnel_bounds=FUNNEL_BOUNDS, bottle_mouth=MOUTH, screen=SCREEN,
+            pose=dict(cam=CAMERA, target=(0, 140, 465), span=265, size=(1600, 1500)),
+            arrow=dict(start=[*side, MOUTH[2] + 175], end=[*side, MOUTH[2] + 5]),
+            artwork={str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
+                     for _, p in targets},
+        )
+        (DIR / 'art/fill-scene-inputs.json').write_text(json.dumps(inputs, indent=2) + '\n')
+    else:
+        install = HARDWARE / 'install-guide/assets'
+        resolution_file = install / 'print-resolution.json'
+        resolutions = json.loads(resolution_file.read_text())
+        for source, name, reference in [
+            (fill, 'steps/fill-ready.png', DIR / 'art/insertion-actions/fill-ready.png'),
+            (frame, 'fill-screen-framed.png', DIR / 'art/fill-screen-framed.png'),
+        ]:
+            target = install / name
+            shutil.copy2(source, target)
+            reference_size = Image.open(reference).size
+            render_size = Image.open(target).size
+            resolutions['assets'][name] = dict(
+                reference_size=reference_size, render_size=render_size,
+                scale=[a / b for a, b in zip(render_size, reference_size)],
+                coordinate_reference_sha256=hashlib.sha256(reference.read_bytes()).hexdigest(),
+                render_sha256=hashlib.sha256(target.read_bytes()).hexdigest(),
+            )
+        resolution_file.write_text(json.dumps(resolutions, indent=2) + '\n')
 
 
 if __name__ == '__main__':

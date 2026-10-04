@@ -26,6 +26,7 @@ gooseneck's tip. The user's part is a container under the faucet.
 | Both Kamoer pumps, [2](CART_PUMPS) molded skirts bearing in the lower cradle and both bosses located by the top clamp ([`pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/README.md)) | [8](TRAY_VALVES) valves — V-C…V-J, on the two valve trays ([`valve-tray/`](/hardware/printed-parts/enclosure/valve-tray/README.md)) |
 | The four barb tubes, on the barbs they were pushed onto | [3](CAP_VALVES) valves — V-A, V-B, V-K, in the cold core's lid cradles (`_cold_core_interface.cap_cradles`) |
 | The contact pair's female half in the top clamp, its four leads in the clamp's crown grooves, and both Faston pairs on the pump tabs | The contact pair's male half in the bay bulkhead, its J13-side 22 AWG 4P ribbon, and the +X ridge-wall cable clip |
+| One enclosed RC62 in the lower cradle | One enclosed RC62 in front-top, its attracting mate at tube height |
 | | All [6](BOX_TEES) PP0208E tees. Y-A and Y-B butt fixed valves; Y-C, Y-D, Y-F and Y-G are the [4](CARRIER_TEES) tees tied into the tee carrier plate, their branch collars journalled in the tee wall |
 | | The integral collet plate and tee-journal wall in `enclosure-front-top` |
 | | The [4](BOWED_STUBS) bowed tee-to-fore-valve stubs and [4](MOVING_HAIRPINS) spine hairpins. Their tee ends move with the tees; their valve ends remain fixed |
@@ -129,8 +130,9 @@ Before a swap, check that the visible portions of all four bowed stubs and four 
 ends are free of kinks, abrasion and enclosure contact. A damaged flexible member stops the
 procedure for inspection; the cartridge is not a lever for clearing it.
 
-**1. Run dry mode.** A container under the faucet — states 2 and 4 send a slug of air and residual
-syrup out the gooseneck.
+**1. Run dry mode, then disconnect power.** A container under the faucet — states 2 and 4 send a slug of air and residual
+syrup out the gooseneck. When the cycle finishes, unplug the appliance. Confirm the display
+is dark and the pumps have stopped before withdrawing the cartridge and parting its contacts.
 
 **2. Pull the cartridge.** Hook into the cradle pockets and brace the enclosure with a hand, foot or cupboard edge,
 or let its weight provide the reaction. Both hands can pull when the enclosure is otherwise
@@ -172,7 +174,11 @@ their 10 mm bottoms at the fore stop, with the cartridge still 2.00 mm short of 
 the cartridge through its final 2.00 mm to seat it with the tubes bottomed at nominal connected
 and 0.50 mm of nose air. Gently tug the cartridge to prove all four connections; if a tube is
 loose, withdraw it, inspect its end and alignment, and reconnect. The cartridge face should
-finish flush, and the contact pair mates as it does.
+finish flush, and the contact pair mates as it does. Inspect both RC62 covers and
+confirm the marked tube depths and installed pogo compression. The separate
+retention pair's attraction is not a substitute for those checks; installed
+retention force, printed-cover capacity and magnet heat exposure remain
+unqualified.
 
 **6. Re-prime.** Both channels through the funnel-fill path, then a dispense on each until it
 runs clean. While each channel flows, inspect both replacement-head connections and all visible

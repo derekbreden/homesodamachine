@@ -19,8 +19,8 @@
     <strong>listen for the release</strong> as much as the click.</p>
 
     <ol class="steps">
-      <li><b>Trigger the self-test</b> at the monitor prompt — V-A
-        through V-J in turn, then the fan, then both pumps.</li>
+      <li><b>Enter <code>selftest</code></b> at the monitor prompt — V-A
+        through V-K in turn, then the fan, then both pumps.</li>
       <li><b>Count <span class="dim" data-gen="VALVE_COUNT">11</span>
         distinct clicks</b> — each Beduan coil energizes
         <span class="dim">~250 ms</span> and releases. A missing release
@@ -55,7 +55,7 @@
         <!-- time axis -->
         <line x1="24" y1="150" x2="748" y2="150" stroke="#1d1d26" stroke-width="3"/>
         <path fill="#1d1d26" d="M 744 142 L 744 158 L 758 150 Z"/>
-        <!-- 10 valve pulses -->
+        <!-- 11 valve pulses -->
         <path class="pulse" d="M 40 150 L 40 110 L 54 110 L 54 150"/>
         <path class="pulse" d="M 71 150 L 71 110 L 85 110 L 85 150"/>
         <path class="pulse" d="M 102 150 L 102 110 L 116 110 L 116 150"/>
@@ -66,8 +66,9 @@
         <path class="pulse" d="M 257 150 L 257 110 L 271 110 L 271 150"/>
         <path class="pulse" d="M 288 150 L 288 110 L 302 110 L 302 150"/>
         <path class="pulse" d="M 319 150 L 319 110 L 333 110 L 333 150"/>
-        <text class="btx" x="186" y="92" text-anchor="middle">V-A &#8230; V-J</text>
-        <text class="dimtx" x="186" y="196" text-anchor="middle"><tspan data-gen="MANIFOLD_VALVES">10</tspan> &#215; ~250 ms</text>
+        <path class="pulse" d="M 350 150 L 350 110 L 364 110 L 364 150"/>
+        <text class="btx" x="202" y="92" text-anchor="middle">V-A &#8230; V-K</text>
+        <text class="dimtx" x="202" y="196" text-anchor="middle"><tspan data-gen="VALVE_COUNT">11</tspan> &#215; ~250 ms</text>
         <!-- fan block -->
         <rect class="blk" x="392" y="110" width="86" height="40"/>
         <text class="btx" x="435" y="138" text-anchor="middle">FAN</text>
@@ -91,6 +92,8 @@
         <td>click + release</td></tr>
       <tr><td>Solenoids &times;2</td><td class="v">0x21 PA[6:7] &rarr; U5</td>
         <td>click + release</td></tr>
+      <tr><td>V-K water shutoff</td><td class="v">0x21 PA5 &rarr; U5 ch3</td>
+        <td>click + release</td></tr>
       <tr><td>Condenser fan</td><td class="v">0x21 PA3 &rarr; U5 ch5</td>
         <td>spin-up, coast</td></tr>
       <tr><td>Pumps A &#183; B</td><td class="v">DRV8870 &#183; J13</td>
@@ -101,7 +104,7 @@
 
 <footer>
   <div class="done"><span class="lbl">Done when</span><span data-gen="VALVE_COUNT">11</span> clicks with as many releases, fan up and coasted down, both pump heads turned — nothing stuck, nothing silent.</div>
-  <div class="src">firmware-and-commissioning.md &#167;7 &#183; valve-control.mmd<br>_cards_sync.py &#183; rev 2026-08-07</div>
+  <div class="src">firmware-and-commissioning.md &#167;7 &#183; valve-control.mmd<br>_cards_sync.py &#183; rev 2026-10-03</div>
 </footer>
 
 </div>
