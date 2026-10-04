@@ -40,9 +40,9 @@ at the prepared opening
 stone that is a diamond core bit, and usually a countertop pro. The hole, and everything else the
 sheet does not draw, is in the [install guide](/hardware/install-guide/README.md) beside it.
 
-Downstream of the hole the single sheet in
-[`/hardware/quickstart/`](/hardware/quickstart/README.md) draws the six actions the buyer's hands
-perform, and every one of them is push-fit or hand-tight: lower the complete factory
+Downstream of the hole the
+[seven-step quick start](/hardware/quickstart-codex/README.md) draws what the buyer's hands do,
+and every connection on that path is push-fit or hand-tight: lower the complete factory
 faucet-and-umbilical assembly through the opening, slide the under-counter plate around the tubes,
 hand-tighten the retained nut; close the cold-water valve; press the collet on the existing 1/4"
 plastic line, add the supplied tee assembly, reconnect the original line; push each of the five

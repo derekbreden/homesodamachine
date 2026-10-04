@@ -104,7 +104,7 @@ Repeat step 6 with Channel B selected. Same metered dispense, same measurements,
 
 ### 8. Clean cycle through both channels
 
-From the bench-acceptance UI, run "clean cycle, Channel A." Firmware executes the topology-table sequence (per [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md) "Clean Water Fill → Bag A" followed by "Clean Flush A (water out)"): tap-water source fills the flavor reservoir A through the manifold, then the same path that dispenses syrup is run to flush it out the gooseneck into the target glass. The target glass receives faintly-tinted rinse water.
+From the bench-acceptance UI, run "clean cycle, Channel A." Firmware executes the topology-table sequence (per [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md) "Clean Water Fill → Reservoir A" followed by "Clean Flush A (water out)"): tap-water source fills the flavor reservoir A through the manifold, then the same path that dispenses syrup is run to flush it out the gooseneck into the target glass. The target glass receives faintly-tinted rinse water.
 
 Repeat with "clean cycle, Channel B."
 
@@ -112,7 +112,7 @@ Repeat with "clean cycle, Channel B."
 
 ### 9. Air-purge cycle through both channels
 
-From the bench-acceptance UI, run "air purge, Channel A." Firmware executes the topology-table "Air Purge In → Bag A" + "Air Purge Out A" sequence: with the funnel dry and open to air, pump A pulls air through V-B → V-C → P-A → V-F into the now-rinsed reservoir, then pushes the rinse-water + air slug out the gooseneck through V-E → P-A → V-G.
+From the bench-acceptance UI, run "air purge, Channel A." Firmware executes the topology-table "Air Purge In → Reservoir A" + "Air Purge Out A" sequence: with the funnel dry and open to air, pump A pulls air through V-B → V-C → P-A → V-F into the now-rinsed reservoir, then pushes the rinse-water + air slug out the gooseneck through V-E → P-A → V-G.
 
 Repeat with "air purge, Channel B."
 

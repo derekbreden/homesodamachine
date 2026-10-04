@@ -66,8 +66,9 @@ collet butted to collet.
 
 `BUTT` is the tube left OUTSIDE a pair of butted quick-connects, and it is 0 — there is still
 tube in both collets, there is none between them. The four anchor tees are the exception: each
-stands 14 mm below its fore valve and the 16 mm of exposed LLDPE between them is laid in a bow.
-That flex joint lets the tee travel with the pump cartridge while the valve stays in its tray.
+stands `FORE_STUB_GAP` below its fore valve and the `FORE_STUB_EXPOSED` of exposed LLDPE between
+them is laid in a bow. That flex joint lets the tee travel with the pump cartridge while the
+valve stays in its tray.
 `BARB_STANDOFF` locates the nominal fore deck relative to the pump outlet:
 `pump_station_lead` sets the pump position relative to the fixed
 deck and `BARB_PLATE_BERTH` carries the release section's placement span. The fitted pump

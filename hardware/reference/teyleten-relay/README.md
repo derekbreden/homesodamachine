@@ -4,8 +4,8 @@ The opto-isolated **1-channel relay module** (`hardware/ledger/bom.md` §1, Amaz
 B07XGZSYJV), used **2× per appliance**: relay #1 switches the compressor's
 120 VAC hot leg, relay #2 gates 12 V to the G Ganen diaphragm pump. Relay #1 bolts
 through its PCB's four holes to four printed bosses on the enclosure's +X wall,
-stacked over the PSU's crown; relay #2 has no station yet (see
-[`electronics-bay.md`](/hardware/assembly/electronics-bay.md) Open items).
+stacked over the PSU's crown; relay #2 stands on end on the same wall, between the main board
+and the PSU ([`electronics-bay.md`](/hardware/assembly/electronics-bay.md)).
 SRD-style SPDT relay, 10 A @ 250 VAC; 3.3 V coil.
 
 `teyleten-relay.step` is a generated stand-in. It's a generic reseller board with

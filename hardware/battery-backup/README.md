@@ -2,6 +2,8 @@
 
 Keeps the dispense path running through a mains outage. The compressor stays off, so the carbonated water in the carbonator warms over the outage; CO2 still drives the pour (no power moves the water), and the battery powers only the electronics that sense flow and meter flavor. Pour over ice if desired.
 
+The BOM, the wiring schedules and the appliance firmware do not carry it; this page is its architecture.
+
 ## What the battery carries
 
 Only the dispense-critical subset runs from the battery:
