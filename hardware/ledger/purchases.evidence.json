@@ -1448,14 +1448,12 @@
       "purpose": "components",
       "amount_evidence": "legacy_unverified",
       "order_ids": [
-        "fws:WEBFWS100677768",
-        "fws:WEBFWS100682118"
+        "fws:WEBFWS100677768"
       ],
-      "allocation_status": "unresolved",
+      "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-fws:WEBFWS100677768",
-        "saved-fws:WEBFWS100682118"
+        "saved-fws:WEBFWS100677768"
       ]
     },
     "pur-47dc646d498d479f8d71df053b0ab9f6": {
@@ -3583,13 +3581,11 @@
       "purpose": "components",
       "amount_evidence": "final_vendor_amount",
       "order_ids": [
-        "mouser:934",
         "mouser:40443716"
       ],
-      "allocation_status": "unresolved",
+      "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-mouser:934",
         "saved-mouser:40443716",
         "src-7a58bec635d74979b823c7ad488d6ae6"
       ],
@@ -4954,13 +4950,11 @@
       "purpose": "equipment_tooling",
       "amount_evidence": "final_vendor_amount",
       "order_ids": [
-        "digikey:455",
         "digikey:101910359"
       ],
-      "allocation_status": "unresolved",
+      "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-digikey:455",
         "saved-digikey:101910359",
         "src-6dabd673b2df4a069b57b61513850f8f"
       ],
@@ -4982,16 +4976,14 @@
     },
     "pur-d36058a2086244bb96897635d4ec352a": {
       "vendor": "DigiKey",
-      "purpose": "components",
+      "purpose": "equipment_tooling",
       "amount_evidence": "final_vendor_amount",
       "order_ids": [
-        "digikey:455",
         "digikey:101910359"
       ],
-      "allocation_status": "unresolved",
+      "allocation_status": "all_project",
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-digikey:455",
         "saved-digikey:101910359",
         "src-6dabd673b2df4a069b57b61513850f8f"
       ],
@@ -8567,7 +8559,7 @@
       "vendor": "Fresh Water Systems",
       "reference": "WEBFWS100677768",
       "order_date": null,
-      "allocation_status": "unresolved",
+      "allocation_status": "all_project",
       "source_ids": [
         "saved-fws:WEBFWS100677768"
       ]
@@ -8576,7 +8568,7 @@
       "vendor": "Fresh Water Systems",
       "reference": "WEBFWS100682118",
       "order_date": null,
-      "allocation_status": "unresolved",
+      "allocation_status": "all_project",
       "source_ids": [
         "saved-fws:WEBFWS100682118"
       ]
@@ -9875,18 +9867,6 @@
         "saved-amazon:112-4347613-6452231"
       ]
     },
-    "mouser:934": {
-      "vendor": "Mouser",
-      "reference": "934",
-      "order_date": {
-        "precision": "day",
-        "value": "2026-09-13"
-      },
-      "allocation_status": "unresolved",
-      "source_ids": [
-        "saved-mouser:934"
-      ]
-    },
     "mouser:40443716": {
       "vendor": "Mouser",
       "reference": "40443716",
@@ -9894,7 +9874,7 @@
         "precision": "day",
         "value": "2026-09-13"
       },
-      "allocation_status": "unresolved",
+      "allocation_status": "all_project",
       "source_ids": [
         "saved-mouser:40443716",
         "src-7a58bec635d74979b823c7ad488d6ae6"
@@ -10801,18 +10781,6 @@
         "saved-amazon:112-9068130-2805061"
       ]
     },
-    "digikey:455": {
-      "vendor": "DigiKey",
-      "reference": "455",
-      "order_date": {
-        "precision": "day",
-        "value": "2026-09-29"
-      },
-      "allocation_status": "unresolved",
-      "source_ids": [
-        "saved-digikey:455"
-      ]
-    },
     "digikey:101910359": {
       "vendor": "DigiKey",
       "reference": "101910359",
@@ -10820,7 +10788,7 @@
         "precision": "day",
         "value": "2026-09-29"
       },
-      "allocation_status": "unresolved",
+      "allocation_status": "all_project",
       "source_ids": [
         "saved-digikey:101910359",
         "src-6dabd673b2df4a069b57b61513850f8f"
@@ -19355,18 +19323,6 @@
       "verified_at": "2026-10-04",
       "note": "Preserved project order facts; this source does not establish a completed charge or refund."
     },
-    "saved-mouser:934": {
-      "vendor": "Mouser",
-      "document_type": "preserved_project_ledger_reference",
-      "reference": "934",
-      "document_date": {
-        "precision": "day",
-        "value": "2026-09-13"
-      },
-      "proves": [],
-      "verified_at": "2026-10-04",
-      "note": "Preserved project order facts; this source does not establish a completed charge or refund."
-    },
     "saved-mouser:40443716": {
       "vendor": "Mouser",
       "document_type": "preserved_project_ledger_reference",
@@ -20556,18 +20512,6 @@
         "delivery",
         "price"
       ],
-      "verified_at": "2026-10-04",
-      "note": "Preserved project order facts; this source does not establish a completed charge or refund."
-    },
-    "saved-digikey:455": {
-      "vendor": "DigiKey",
-      "document_type": "preserved_project_ledger_reference",
-      "reference": "455",
-      "document_date": {
-        "precision": "day",
-        "value": "2026-09-29"
-      },
-      "proves": [],
       "verified_at": "2026-10-04",
       "note": "Preserved project order facts; this source does not establish a completed charge or refund."
     },
@@ -25784,7 +25728,6 @@
       "coverage": "partial",
       "source_ids": [
         "saved-digikey:100335720",
-        "saved-digikey:455",
         "saved-digikey:101910359",
         "src-6dabd673b2df4a069b57b61513850f8f"
       ],
@@ -25990,7 +25933,6 @@
       "complete_period": null,
       "coverage": "partial",
       "source_ids": [
-        "saved-mouser:934",
         "saved-mouser:40443716",
         "src-7a58bec635d74979b823c7ad488d6ae6"
       ],

@@ -921,7 +921,6 @@
       "note": "Review of saved project ledger and named vendor sources only; no claim of complete merchant-account order or payment coverage.",
       "source_ids": [
         "saved-mouser:40443716",
-        "saved-mouser:934",
         "src-7a58bec635d74979b823c7ad488d6ae6"
       ],
       "stream": "project procurement records",
@@ -1376,7 +1375,6 @@
       "source_ids": [
         "saved-digikey:100335720",
         "saved-digikey:101910359",
-        "saved-digikey:455",
         "src-6dabd673b2df4a069b57b61513850f8f"
       ],
       "stream": "project procurement records",
@@ -5212,7 +5210,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:787a0dbb80c7e47ecdd042a1da3e93cdd77d83c4d91707f31ff317b7f0c9bbc2",
+  "input_fingerprint": "sha256:5ffdf0092c1ef9bca9fbe17f7fb339e8476ac27a344259332528a54cc6a42862",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -12706,7 +12704,7 @@
       "vendor": "DigiKey"
     },
     {
-      "allocation_status": "unresolved",
+      "allocation_status": "all_project",
       "event_ids": [],
       "order_date": {
         "precision": "day",
@@ -12721,24 +12719,6 @@
       "source_ids": [
         "saved-digikey:101910359",
         "src-6dabd673b2df4a069b57b61513850f8f"
-      ],
-      "vendor": "DigiKey"
-    },
-    {
-      "allocation_status": "unresolved",
-      "event_ids": [],
-      "order_date": {
-        "precision": "day",
-        "value": "2026-09-29"
-      },
-      "order_id": "digikey:455",
-      "purchase_ids": [
-        "pur-375429e1cb9c4b95bb3584b04f7284da",
-        "pur-d36058a2086244bb96897635d4ec352a"
-      ],
-      "reference": "455",
-      "source_ids": [
-        "saved-digikey:455"
       ],
       "vendor": "DigiKey"
     },
@@ -12803,7 +12783,7 @@
       "vendor": "Fresh Water Systems"
     },
     {
-      "allocation_status": "unresolved",
+      "allocation_status": "all_project",
       "event_ids": [],
       "order_date": null,
       "order_id": "fws:WEBFWS100677768",
@@ -12831,13 +12811,12 @@
       "vendor": "Fresh Water Systems"
     },
     {
-      "allocation_status": "unresolved",
+      "allocation_status": "all_project",
       "event_ids": [],
       "order_date": null,
       "order_id": "fws:WEBFWS100682118",
       "purchase_ids": [
-        "pur-47dc646d498d479f8d71df053b0ab9f6",
-        "pur-899e1d6d76f847ab91e145eed0147cb6"
+        "pur-47dc646d498d479f8d71df053b0ab9f6"
       ],
       "reference": "WEBFWS100682118",
       "source_ids": [
@@ -13126,7 +13105,7 @@
       "vendor": "Midwest Beverage"
     },
     {
-      "allocation_status": "unresolved",
+      "allocation_status": "all_project",
       "event_ids": [],
       "order_date": {
         "precision": "day",
@@ -13140,23 +13119,6 @@
       "source_ids": [
         "saved-mouser:40443716",
         "src-7a58bec635d74979b823c7ad488d6ae6"
-      ],
-      "vendor": "Mouser"
-    },
-    {
-      "allocation_status": "unresolved",
-      "event_ids": [],
-      "order_date": {
-        "precision": "day",
-        "value": "2026-09-13"
-      },
-      "order_id": "mouser:934",
-      "purchase_ids": [
-        "pur-ab6c1aedc885487f9041593fc16cc55f"
-      ],
-      "reference": "934",
-      "source_ids": [
-        "saved-mouser:934"
       ],
       "vendor": "Mouser"
     },
@@ -19009,7 +18971,7 @@
       "vendor": "Amazon"
     },
     {
-      "allocation_status": "unresolved",
+      "allocation_status": "all_project",
       "amount_evidence": "final_vendor_amount",
       "amount_minor": 62689,
       "contributes": true,
@@ -19030,8 +18992,7 @@
         "value": "2026-09-29"
       },
       "order_ids": [
-        "digikey:101910359",
-        "digikey:455"
+        "digikey:101910359"
       ],
       "payment_evidence": "unknown",
       "price_basis": "row_total",
@@ -19062,7 +19023,6 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-digikey:101910359",
-        "saved-digikey:455",
         "src-6dabd673b2df4a069b57b61513850f8f"
       ],
       "split_charge": false,
@@ -29561,7 +29521,7 @@
       "vendor": "Amazon"
     },
     {
-      "allocation_status": "unresolved",
+      "allocation_status": "all_project",
       "amount_evidence": "legacy_unverified",
       "amount_minor": 6208,
       "contributes": true,
@@ -29579,8 +29539,7 @@
       "merchant_refund_allocated_minor": 0,
       "order_date": null,
       "order_ids": [
-        "fws:WEBFWS100677768",
-        "fws:WEBFWS100682118"
+        "fws:WEBFWS100677768"
       ],
       "payment_evidence": "unknown",
       "price_basis": "row_total",
@@ -29596,8 +29555,7 @@
       "service_period": null,
       "source_ids": [
         "legacy-ledger-2026",
-        "saved-fws:WEBFWS100677768",
-        "saved-fws:WEBFWS100682118"
+        "saved-fws:WEBFWS100677768"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -33773,7 +33731,7 @@
       "vendor": "Bambu Lab"
     },
     {
-      "allocation_status": "unresolved",
+      "allocation_status": "all_project",
       "amount_evidence": "final_vendor_amount",
       "amount_minor": 5818,
       "contributes": true,
@@ -33794,8 +33752,7 @@
         "value": "2026-09-13"
       },
       "order_ids": [
-        "mouser:40443716",
-        "mouser:934"
+        "mouser:40443716"
       ],
       "payment_evidence": "unknown",
       "price_basis": "row_total",
@@ -33826,7 +33783,6 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-mouser:40443716",
-        "saved-mouser:934",
         "src-7a58bec635d74979b823c7ad488d6ae6"
       ],
       "split_charge": false,
@@ -38808,7 +38764,7 @@
       "vendor": "Amazon"
     },
     {
-      "allocation_status": "unresolved",
+      "allocation_status": "all_project",
       "amount_evidence": "final_vendor_amount",
       "amount_minor": 6012,
       "contributes": true,
@@ -38829,8 +38785,7 @@
         "value": "2026-09-29"
       },
       "order_ids": [
-        "digikey:101910359",
-        "digikey:455"
+        "digikey:101910359"
       ],
       "payment_evidence": "unknown",
       "price_basis": "row_total",
@@ -38846,7 +38801,7 @@
         }
       ],
       "purchase_id": "pur-d36058a2086244bb96897635d4ec352a",
-      "purpose": "components",
+      "purpose": "equipment_tooling",
       "quantity": 1,
       "quantity_text": "1",
       "receipt_date": null,
@@ -38861,7 +38816,6 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-digikey:101910359",
-        "saved-digikey:455",
         "src-6dabd673b2df4a069b57b61513850f8f"
       ],
       "split_charge": false,
@@ -49978,19 +49932,6 @@
       "verified_at": "2026-10-04"
     },
     {
-      "document_date": {
-        "precision": "day",
-        "value": "2026-09-29"
-      },
-      "document_type": "preserved_project_ledger_reference",
-      "note": "Preserved project order facts; this source does not establish a completed charge or refund.",
-      "proves": [],
-      "reference": "455",
-      "source_id": "saved-digikey:455",
-      "vendor": "DigiKey",
-      "verified_at": "2026-10-04"
-    },
-    {
       "document_date": null,
       "document_type": "preserved_project_ledger_reference",
       "note": "Preserved project order facts; this source does not establish a completed charge or refund.",
@@ -50230,19 +50171,6 @@
       "proves": [],
       "reference": "40443716",
       "source_id": "saved-mouser:40443716",
-      "vendor": "Mouser",
-      "verified_at": "2026-10-04"
-    },
-    {
-      "document_date": {
-        "precision": "day",
-        "value": "2026-09-13"
-      },
-      "document_type": "preserved_project_ledger_reference",
-      "note": "Preserved project order facts; this source does not establish a completed charge or refund.",
-      "proves": [],
-      "reference": "934",
-      "source_id": "saved-mouser:934",
       "vendor": "Mouser",
       "verified_at": "2026-10-04"
     },
@@ -55325,7 +55253,7 @@
       ],
       "purpose_totals": [
         {
-          "amount_minor": 1022125,
+          "amount_minor": 1016113,
           "currency": "USD",
           "purpose": "components"
         },
@@ -55345,7 +55273,7 @@
           "purpose": "engineering_software_services"
         },
         {
-          "amount_minor": 2146304,
+          "amount_minor": 2152316,
           "currency": "USD",
           "purpose": "equipment_tooling"
         },
@@ -55525,7 +55453,7 @@
           "undated_unallocated_purchase_minor": 1031234,
           "unknown_amount_event_count": 0,
           "unknown_amount_purchase_count": 0,
-          "unresolved_allocation_purchase_minor": 80727,
+          "unresolved_allocation_purchase_minor": 0,
           "unresolved_event_minor": 0
         }
       ],
@@ -56802,12 +56730,7 @@
       "unknown_amount_event_ids": [],
       "unknown_amount_purchase_ids": [],
       "unresolved_allocation_event_ids": [],
-      "unresolved_allocation_purchase_ids": [
-        "pur-375429e1cb9c4b95bb3584b04f7284da",
-        "pur-899e1d6d76f847ab91e145eed0147cb6",
-        "pur-ab6c1aedc885487f9041593fc16cc55f",
-        "pur-d36058a2086244bb96897635d4ec352a"
-      ]
+      "unresolved_allocation_purchase_ids": []
     }
   },
   "validation": {
