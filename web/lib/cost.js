@@ -214,9 +214,9 @@ export function readLaborRollup(hardwareDir) {
   };
 }
 
-// Cash outlay is the purchase ledger's generated total, including paid orders
-// in transit and paid items not received. Planned purchases and owner time are
-// excluded. Never substitute zero when the investment data is unavailable.
+// Recorded procurement value includes purchases and open commitments whose
+// payment evidence may be unknown. Planned purchases and owner time are excluded.
+// Never substitute zero when the investment data is unavailable.
 export function readInvestmentRollup(hardwareDir) {
   const text = fs.readFileSync(path.join(hardwareDir, "ledger", "purchases.md"), "utf-8");
   const marker = (name) => {
@@ -226,9 +226,9 @@ export function readInvestmentRollup(hardwareDir) {
   };
   const rows = [
     { name: "Parts, tools, equipment, supplies & infrastructure", cost: marker("LEDGER_ACQUIRED_HW") },
-    { name: "Paid development services", cost: marker("LEDGER_LABOR") },
-    { name: "Paid orders in transit", cost: marker("LEDGER_ON_ORDER") },
-    { name: "Paid items not received", cost: marker("LEDGER_MISSING") },
+    { name: "Engineering services", cost: marker("LEDGER_LABOR") },
+    { name: "Open procurement", cost: marker("LEDGER_ON_ORDER") },
+    { name: "Items not received", cost: marker("LEDGER_MISSING") },
   ];
   const total = marker("LEDGER_GRAND_TOTAL");
   if (Math.abs(rows.reduce((sum, row) => sum + row.cost, 0) - total) > 0.011) {
@@ -596,11 +596,11 @@ function renderRecovery(unitCost, labor, investment) {
   return `<section class="cost-recovery" id="recovery" aria-labelledby="recovery-heading"
       data-unit-cost="${unitCost}" data-investment="${investment.total}">
     <h2 class="cost-title" id="recovery-heading">Paying back the investment</h2>
-    <p class="cost-prose">We have <strong>${money(investment.total)}</strong> in recorded cash outlay: parts, prototypes, tools, equipment, supplies and paid development work.${plan.target > plan.investment ? ` The shaded range extends to <strong>${dollars(plan.target, 0)}</strong> to allow for further potential investment.` : ""} Our own development time is additional and unpriced.</p>
+    <p class="cost-prose">We have <strong>${money(investment.total)}</strong> in recorded procurement value: parts, prototypes, tools, equipment, supplies and engineering services. This includes open orders and amounts with unknown payment evidence.${plan.target > plan.investment ? ` The shaded range extends to <strong>${dollars(plan.target, 0)}</strong> to allow for further potential investment.` : ""} Our own development time is additional and unpriced.</p>
     <details class="cost-cat">
       <summary>What&rsquo;s in the investment? <span class="cost-dt">${money(investment.total)}</span></summary>
       <table class="cost-items"><caption class="cost-sr-only">Recorded investment by purchase status</caption><tbody>${investmentRows}</tbody></table>
-      <div class="cost-explainer"><p>Cash recorded in our 2026 purchase ledger, including equipment and inventory we still own. This is the amount we are aiming to earn back while continuing to fund the parts and labor for each machine.</p></div>
+      <div class="cost-explainer"><p>Values recorded in our 2026 purchase ledger, including open commitments, equipment and inventory. Merchant-evidenced payments are reported separately in the ledger. This is the amount we are aiming to earn back while continuing to fund the parts and labor for each machine.</p></div>
     </details>
     <div class="recovery-panel">
       <div class="cost-top-cap">Machines to recover the investment</div>

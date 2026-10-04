@@ -9925,25 +9925,33 @@ cp hardware/ledger/build-time.md $$O1
 genrule(
     name = "ledger-totals",
     srcs = [
+        "hardware/ledger/purchases.evidence.json",
+        "hardware/ledger/purchases.export.csv",
         "hardware/ledger/purchases.md",
         "hardware/ledger/purchases.orders.json",
+        "pysrc/hardware/scripts/_ledger_analysis.py",
         "pysrc/hardware/scripts/_ledger_totals.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/tools/docgen/__init__.py",
     ] + glob(
         [
+            "hardware/ledger/purchases.export.json",
             "hardware/ledger/purchases.figures.json",
         ],
         allow_empty = True,
     ),
     outs = [
+        "out/ledger-totals/hardware/ledger/purchases.export.csv",
+        "out/ledger-totals/hardware/ledger/purchases.export.json",
         "out/ledger-totals/hardware/ledger/purchases.figures.json",
         "out/ledger-totals/hardware/ledger/purchases.md",
     ],
     cmd = """
 set -e
-O0=$$PWD/$(location out/ledger-totals/hardware/ledger/purchases.figures.json)
-O1=$$PWD/$(location out/ledger-totals/hardware/ledger/purchases.md)
+O0=$$PWD/$(location out/ledger-totals/hardware/ledger/purchases.export.csv)
+O1=$$PWD/$(location out/ledger-totals/hardware/ledger/purchases.export.json)
+O2=$$PWD/$(location out/ledger-totals/hardware/ledger/purchases.figures.json)
+O3=$$PWD/$(location out/ledger-totals/hardware/ledger/purchases.md)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -9960,8 +9968,10 @@ cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/_ledger_totals.py > /dev/null
-cp hardware/ledger/purchases.figures.json $$O0
-cp hardware/ledger/purchases.md $$O1
+cp hardware/ledger/purchases.export.csv $$O0
+cp hardware/ledger/purchases.export.json $$O1
+cp hardware/ledger/purchases.figures.json $$O2
+cp hardware/ledger/purchases.md $$O3
 """,
 )
 
@@ -12718,6 +12728,14 @@ genrule(
     name = "pysrc-9efb458fc072",
     srcs = ["hardware/scripts/_labor_totals.py"],
     outs = ["pysrc/hardware/scripts/_labor_totals.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-bb2b215c5a2e",
+    srcs = ["hardware/scripts/_ledger_analysis.py"],
+    outs = ["pysrc/hardware/scripts/_ledger_analysis.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -29534,6 +29552,27 @@ sh_test(
         "tools/docgen/__init__.py",
     ],
     args = ["hardware/scripts/probe.py"],
+    size = "large",
+    tags = ["local"],
+)
+
+sh_test(
+    name = "test-ledger-analysis-selftest",
+    srcs = ["tools/bazel/selftest.sh"],
+    data = [
+        "hardware/ledger/purchases.evidence.json",
+        "hardware/ledger/purchases.export.csv",
+        "hardware/ledger/purchases.export.json",
+        "hardware/ledger/purchases.figures.json",
+        "hardware/ledger/purchases.md",
+        "hardware/ledger/purchases.orders.json",
+        "hardware/scripts/_ledger_analysis.py",
+        "hardware/scripts/_ledger_totals.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/test_ledger_analysis.py",
+        "tools/docgen/__init__.py",
+    ],
+    args = ["hardware/scripts/test_ledger_analysis.py"],
     size = "large",
     tags = ["local"],
 )

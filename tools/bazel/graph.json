@@ -7004,18 +7004,26 @@
   },
   "hardware/scripts/_ledger_totals.py": {
     "reads": [
+      "hardware/ledger/purchases.evidence.json",
+      "hardware/ledger/purchases.export.csv",
+      "hardware/ledger/purchases.export.json",
       "hardware/ledger/purchases.figures.json",
       "hardware/ledger/purchases.md",
       "hardware/ledger/purchases.orders.json",
+      "hardware/scripts/_ledger_analysis.py",
       "hardware/scripts/_ledger_totals.py",
       "hardware/scripts/_realized.py",
       "tools/docgen/__init__.py"
     ],
     "rewritten": [
+      "hardware/ledger/purchases.export.csv",
+      "hardware/ledger/purchases.export.json",
       "hardware/ledger/purchases.figures.json",
       "hardware/ledger/purchases.md"
     ],
     "writes": [
+      "hardware/ledger/purchases.export.csv",
+      "hardware/ledger/purchases.export.json",
       "hardware/ledger/purchases.figures.json",
       "hardware/ledger/purchases.md"
     ]

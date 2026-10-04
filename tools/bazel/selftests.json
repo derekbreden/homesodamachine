@@ -1208,6 +1208,12 @@
     "hardware/scripts/probe.py",
     "tools/docgen/__init__.py"
   ],
+  "hardware/scripts/test_ledger_analysis.py": [
+    "hardware/scripts/_ledger_analysis.py",
+    "hardware/scripts/_ledger_totals.py",
+    "hardware/scripts/test_ledger_analysis.py",
+    "tools/docgen/__init__.py"
+  ],
   "tools/bazel/affected.py": [
     "tools/bazel/affected.py"
   ],
