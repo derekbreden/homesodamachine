@@ -131,9 +131,12 @@ first mated by hand, since the magnets admit only the attracting orientation.
 | 4, −3.81 mm | `BM1` | pump B, −X |
 
 Continuity-test J13 to each pump tab with the cartridge seated, verify no adjacent short, and
-verify J13 net-to-tab polarity. Each contact is rated 2 A at 12 V against the pump's published
-~0.8 A. The pair is a dead-circuit service joint: never draw or seat the cartridge while either
-pump is energized.
+verify J13 net-to-tab polarity. Each contact is rated 2 A at 12 V; the pump's stated normal current is ~0.8 A.
+The current PCB grounds each DRV8870 ISEN pin, disabling adjustable current
+regulation. Startup and jam current are not bounded by the 2 A contact rating;
+see [current protection](/hardware/reference/yyfkgcp-pogo-4p/mounting-audit.md#current-protection).
+The pair is a dead-circuit service joint: remove appliance power before drawing
+or seating the cartridge.
 
 ### MANIFOLD B — the empty contact
 

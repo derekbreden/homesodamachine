@@ -1,13 +1,23 @@
 {
   "_meta": {
-    "source": "amazon.com order history, year-2026 filter: full scrape 2026-08-15 plus individually verified orders through 2026-09-24. The 2026-09-21 walk read the list pages back to 2026-08-27 and opened the invoices for the three orders no earlier pass held — 112-7997113-5902601 (PET-GF15 Dark Grey), 114-4531838-9243459 (two DUROZZLE 0.4 PCD) and 112-4818896-3446652 (the single ASVPP1LF) — plus the cancelled 114-8422321-4073051. The 2026-09-24 passes read the list's first page back to that PET-GF15 order, the newest one already held, and added the five placed since; the WR1105 order placed 2026-10-03 was read from its detail page on 2026-10-04; the three Polymaker orders placed 2026-10-01 (114-2631637-5080268, 114-3202733-4767455, 114-4680955-8473844) and the 112-7997113-5902601 delivery read from their Gmail order, shipment and delivery emails, 2026-10-04",
-    "orders": 383,
-    "ordered/total": "ordered present for all 383; total absent only on the four cancelled orders, which were never charged",
-    "delivered": "present only where Amazon still shows a shipment banner — orders from roughly mid-April 2026 on; Amazon stops exposing it for older orders, and their detail pages do not carry it either",
-    "subtotal/shipping/tax": "present only for the 17 invoices opened during the 2026-08-15 reconciliation, the four orders verified individually on 2026-08-29 and 2026-08-31, and the four invoices opened during the 2026-09-02 update, the M5 × 50 invoice verified 2026-09-08, and the two DUROZZLE 0.4 PCD invoices opened 2026-09-11; not scraped for the rest; the September 13 sensor and September 15 jet/pump invoices verified 2026-09-16, and the five September 16 orders (two spring, three filament) read from their own invoices; the September 16 Revopoint MINI 2 and AESUB Orange orders read from their own invoices; the two September 17 BNTECHGO ribbon orders read from their own invoices; the five September 18 fastener orders (M3 × 60, M3 × 20 and the three washer ODs) read from their own invoices; the 2026-09-21 walk added the PET-GF15 Dark Grey, the two-nozzle DUROZZLE and the single ASVPP1LF invoices; the 2026-09-24 passes added the flap-wheel and Knipex 70 11 110 invoices and the $0.00 Revopoint replacement; the 2026-10-03 WR1105 order from its detail page, 2026-10-04",
+    "source": "amazon.com order history, year-2026 filter: full scrape 2026-08-15 plus individually verified orders through 2026-09-24. The 2026-09-21 walk read the list pages back to 2026-08-27 and opened the invoices for the three orders no earlier pass held \u2014 112-7997113-5902601 (PET-GF15 Dark Grey), 114-4531838-9243459 (two DUROZZLE 0.4 PCD) and 112-4818896-3446652 (the single ASVPP1LF) \u2014 plus the cancelled 114-8422321-4073051. The 2026-09-24 passes read the list's first page back to that PET-GF15 order, the newest one already held, and added the five placed since; the WR1105 order placed 2026-10-03 was read from its detail page on 2026-10-04; the three Polymaker orders placed 2026-10-01 (114-2631637-5080268, 114-3202733-4767455, 114-4680955-8473844) and the 112-7997113-5902601 delivery read from their Gmail order, shipment and delivery emails, 2026-10-04",
+    "orders": 387,
+    "ordered/total": "ordered present for all 387; total absent only on the four cancelled orders, which were never charged",
+    "delivered": "present only where Amazon still shows a shipment banner \u2014 orders from roughly mid-April 2026 on; Amazon stops exposing it for older orders, and their detail pages do not carry it either",
+    "subtotal/shipping/tax": "present only for the 17 invoices opened during the 2026-08-15 reconciliation, the four orders verified individually on 2026-08-29 and 2026-08-31, and the four invoices opened during the 2026-09-02 update, the M5 \u00d7 50 invoice verified 2026-09-08, and the two DUROZZLE 0.4 PCD invoices opened 2026-09-11; not scraped for the rest; the September 13 sensor and September 15 jet/pump invoices verified 2026-09-16, and the five September 16 orders (two spring, three filament) read from their own invoices; the September 16 Revopoint MINI 2 and AESUB Orange orders read from their own invoices; the two September 17 BNTECHGO ribbon orders read from their own invoices; the five September 18 fastener orders (M3 \u00d7 60, M3 \u00d7 20 and the three washer ODs) read from their own invoices; the 2026-09-21 walk added the PET-GF15 Dark Grey, the two-nozzle DUROZZLE and the single ASVPP1LF invoices; the 2026-09-24 passes added the flap-wheel and Knipex 70 11 110 invoices and the $0.00 Revopoint replacement; the 2026-10-03 WR1105 order from its detail page, 2026-10-04",
     "project": "true = a purchases.md row names this order. false = household/pet/yard/garage/cancelled, with `why`. null = flagged for a human call.",
     "nonproject_amount": "on a mixed order, the dollars on the invoice that belong to no ledger row. Expected ledger sum = total - nonproject_amount.",
-    "replaced_by / replaces": "a no-charge replacement Amazon shipped against a paid order: the paid order names its replacement, and the $0.00 replacement names the order it replaces"
+    "replaced_by / replaces": "a no-charge replacement Amazon shipped against a paid order: the paid order names its replacement, and the $0.00 replacement names the order it replaces",
+    "pogo_verification": {
+      "date": "2026-10-04",
+      "source": "Signed-in Amazon order list and individual fastener order details",
+      "orders": [
+        "112-1800134-0339456",
+        "112-4198441-3661019",
+        "112-4379220-8466623",
+        "114-7873884-6062600"
+      ]
+    }
   },
   "orders": {
     "112-6207769-5063458": {
@@ -415,7 +425,7 @@
       "delivered": "2026-09-07",
       "total": 15.37,
       "project": null,
-      "why": "Crush Grape liquid water enhancer, B07QH7QSM4 — flavor-path stock or a household drink; Derek's call"
+      "why": "Crush Grape liquid water enhancer, B07QH7QSM4 \u2014 flavor-path stock or a household drink; Derek's call"
     },
     "112-1549259-6014618": {
       "ordered": "2026-09-05",
@@ -902,7 +912,7 @@
       "delivered": "2026-06-29",
       "total": 102.93,
       "project": false,
-      "why": "reviewed 2026-08-15 — left off the ledger"
+      "why": "reviewed 2026-08-15 \u2014 left off the ledger"
     },
     "112-5591371-7092233": {
       "ordered": "2026-06-23",
@@ -1020,7 +1030,7 @@
       "delivered": "2026-06-21",
       "total": 34.31,
       "project": false,
-      "why": "reviewed 2026-08-15 — left off the ledger"
+      "why": "reviewed 2026-08-15 \u2014 left off the ledger"
     },
     "112-9276465-1199416": {
       "ordered": "2026-06-20",
@@ -2190,7 +2200,7 @@
       "ordered": "2026-03-12",
       "total": 91.11,
       "project": false,
-      "why": "reviewed 2026-08-15 — left off the ledger"
+      "why": "reviewed 2026-08-15 \u2014 left off the ledger"
     },
     "114-5318848-1169066": {
       "ordered": "2026-03-10",
@@ -2207,7 +2217,7 @@
       "ordered": "2026-03-09",
       "total": 14.95,
       "project": false,
-      "why": "reviewed 2026-08-15 — left off the ledger"
+      "why": "reviewed 2026-08-15 \u2014 left off the ledger"
     },
     "114-9018087-5473001": {
       "ordered": "2026-03-08",
@@ -2553,6 +2563,78 @@
       "total": 38.6,
       "project": false,
       "why": "household"
+    },
+    "112-1800134-0339456": {
+      "ordered": "2026-10-03",
+      "subtotal": 7.99,
+      "shipping": 0.0,
+      "tax": 0.58,
+      "total": 8.57,
+      "in_transit": true,
+      "project": true,
+      "verified": "2026-10-04",
+      "expected_delivery": "2026-10-07",
+      "items": [
+        {
+          "asin": "B0DFWTJSYD",
+          "quantity": 1,
+          "pack_quantity": 200
+        }
+      ]
+    },
+    "112-4198441-3661019": {
+      "ordered": "2026-10-03",
+      "subtotal": 8.19,
+      "shipping": 0.0,
+      "tax": 0.59,
+      "total": 8.78,
+      "in_transit": true,
+      "project": true,
+      "verified": "2026-10-04",
+      "expected_delivery": "2026-10-07",
+      "items": [
+        {
+          "asin": "B0DFYKBQ2S",
+          "quantity": 1,
+          "pack_quantity": 50
+        }
+      ]
+    },
+    "112-4379220-8466623": {
+      "ordered": "2026-10-01",
+      "delivered": "2026-10-02",
+      "total": 7.29,
+      "project": true,
+      "verified": "2026-10-04",
+      "items": [
+        {
+          "asin": "B0GCBNTBT8",
+          "quantity": 1
+        }
+      ]
+    },
+    "114-7873884-6062600": {
+      "ordered": "2026-10-02",
+      "total": 65.61,
+      "in_transit": true,
+      "project": true,
+      "verified": "2026-10-04",
+      "items": [
+        {
+          "asin": "B0GCBNTBT8",
+          "quantity": 9
+        }
+      ],
+      "shipments": [
+        {
+          "quantity": 3,
+          "delivered": "2026-10-03"
+        },
+        {
+          "quantity": 6,
+          "status": "delayed, not yet shipped"
+        }
+      ]
     }
   }
 }

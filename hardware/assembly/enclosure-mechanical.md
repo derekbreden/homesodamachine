@@ -80,6 +80,10 @@ Install ruthex heat-set inserts everywhere the pieces call for them. Standard pr
 - **M1.4 — two.** The contact pair's male seat in the bay bulkhead's fore face on `enclosure-front-top`. The insert's top sits 5 mm inside the mating face, 2 mm behind the ear plate's 3 mm bearing step. The Ø2.6 access passage admits the whole Ø2.3 knurl; the Ø2.0 pilot beyond it is 5.5 mm deep. The T18 insert kit stops at M2; use a fine conical tip. The pump clamp's two use the same recessed installation at the cartridge build ([`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3).
 - **M5 — four.** The posts standing off the floor slab under the compressor's feet. A second tip off the same T18 kit, and the only station in the appliance that takes it.
 
+The acquired VECO-T T18 assortment includes I/LB fine tips; the M2–M8 insert kit
+does not provide an M1.4 tip. Cold-check that the selected fine tip reaches the
+insert through the Ø2.6 entry without bearing on its printed wall.
+
 Install each M1.4 insert before its connector is fitted. Hold the loose piece with
 the bore vertical. Use a spare insert and the existing calipers to set the cold
 tip/probe's insertion travel to 5.00 mm from the printed mating face; mark that
@@ -253,7 +257,10 @@ and feed that free end forward through the bulkhead's lead bore into the empty p
 Solder to the male half in machine-X order: `AM2`, `AM1`, `BM2`, `BM1` from +X to −X.
 Insulate each joint, then draw the slack back through the bore. Seat the male half with
 its marked end at **−X** and both ear plates on the datum 3 mm inside the fore face.
-Drive **two M1.4 × 8** screws into the **two M1.4 × 4 × Ø2.3** inserts pressed at §1;
+Use a **hand-operated 1.3 mm hex driver** to seat **two M1.4 × 8** screws into
+the **two M1.4 × 4 × Ø2.3** inserts pressed at §1. Stop with the ear plates
+seated flat, without rotating the inserts or bending the ears. Powered torque
+settings are not qualified for this joint;
 the 1 mm ears and 2 mm setback leave 5 mm nominal threaded reach, including the full 4 mm insert and 0.5 mm blind-end clearance. The
 [mounting audit](/hardware/reference/yyfkgcp-pogo-4p/mounting-audit.md) identifies those
 datums, the attracting orientation and the installed compression limits.
