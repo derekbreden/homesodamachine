@@ -22,8 +22,8 @@
     },
     {
       "check": "hardware/scripts/check_facts_current.py",
-      "note": "and the 258 sources behind them stand where they stood when it was written",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_faucet_geometry.py",
@@ -72,8 +72,8 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "10 reference(s) name a path nothing holds.",
-      "status": "red"
+      "note": "paths: every reference lands — 5056 tracked, 595 fetched solids, 57 tags, 39 site routes",
+      "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
@@ -82,8 +82,8 @@
     },
     {
       "check": "tools/check_web_tests.py",
-      "note": "cd web && npm test",
-      "status": "red"
+      "note": "check_web_tests: web's suite passes",
+      "status": "ok"
     },
     {
       "check": "tools/bazel/check_build_file.py",
@@ -97,16 +97,21 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 1 staged source(s)",
+      "note": "check_declared_imports: every step holds what it imports, over 4 staged source(s)",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 3057 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 508 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 3094 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 508 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
+    "hardware/scripts/check_facts_current.py": [
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 32b34630c2e0f80a93e3147cf8058a0b for the 258 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 37f8471e651391634e4296c1cb4f450e here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "  the three come off one run:",
+      "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
+    ],
     "hardware/scripts/check_ledger.py": [
       "instructions: 16 files (16 procedures + 0 cards + cover) | ledger brands: 585 | waived: 1 ASIN + 4 brand",
       "DRIFT: 1 instruction(s) out of step with the ledger:",
@@ -155,28 +160,10 @@
       "  git add hardware/printed-parts/cold-core/magnetic-float/petg-bench-reference.figures.json",
       "71/72 artifacts have their record in the index"
     ],
-    "tools/check_paths.py": [
-      "hardware/assembly/guides/README.md:12 — hardware/assembly/guides/../../refrigeration-guide/README.md is held nowhere, and no tag is named for it",
-      "  hardware/assembly/refrigerant-loop.md:5 — hardware/refrigeration-guide/refrigeration-guide.pdf is held nowhere, and no tag is named for it",
-      "  hardware/ledger/bom.md:36 — hardware/assembly/cards/pv-13-prv-shroud-subassembly.html is held nowhere, and no tag is named for it",
-      "  hardware/ledger/bom.md:220 — hardware/assembly/cards/gt-05-heat-shrink-sleeve.html is held nowhere, and no tag is named for it",
-      "  hardware/ledger/build-time.md:15 — hardware/assembly/cards/_build.py is held nowhere, and no tag is named for it",
-      "  hardware/ledger/labor.md:19 — hardware/assembly/cards/README.md is held nowhere, and no tag is named for it",
-      "  hardware/ledger/purchases.md:528 — hardware/assembly/cards/README.md is held nowhere, and no tag is named for it",
-      "  hardware/ledger/purchases.md:566 — hardware/assembly/cards/README.md is held nowhere, and no tag is named for it",
-      "  hardware/ledger/purchases.md:567 — hardware/assembly/cards/tools/README.md is held nowhere, and no tag is named for it",
-      "  hardware/ledger/tools.md:231 — hardware/assembly/cards/README.md is held nowhere, and no tag is named for it",
-      "10 reference(s) name a path nothing holds."
-    ],
     "tools/check_release_room.py": [
       "the release holds 575 of 1000 and the next cut wants 475; 449 asset(s) may be retired for it",
       "check_release_room: 1 thing(s) stand between a cut and the site",
       "    tools/cad-venv/bin/python tools/cad-artifacts/pack.py --room"
-    ],
-    "tools/check_web_tests.py": [
-      "1 test(s) in web/ fail:",
-      "    EXCLUDED_DIRS is every out/ .gitignore holds under hardware",
-      "  cd web && npm test"
     ]
   },
   "green": false
