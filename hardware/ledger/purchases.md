@@ -647,11 +647,18 @@ Receipts grouped by order; itemized orders separate equipment, filament and tax.
 
 ## 16. Laser welding / cleaning / cutting
 
-Handheld 3-in-1 laser system (welding, cleaning, cutting) used on the carbonator and related SS fabrication. Purchased direct from the manufacturer; not on Amazon.
+Handheld 3-in-1 laser system (welding, cleaning, cutting) used on the carbonator and related SS fabrication. The welder was purchased direct from the manufacturer. Computer-control diagnostic hardware is purchased from Amazon; its [receive-only wiring and staged test plan](/tools/x1_control/README.md) starts at the rear RS232 port.
 
 | Order date | Vendor / order # | Item | $ | Status |
 |---|---|---|---|---|
 | 2026-04-06 | XLaserlab (xlaserlab.com) — order #XLaserlab3271 | XLaserlab X1 Pro 3-in-1 Laser Welder / Cleaner / Cutter — X1 Pro Ultimate Pack (incl. single wire feeder) | $3,899.00 | ACQUIRED |
+
+| Part | ASIN link | Qty | $ | Order # | Ordered | Delivered | Status |
+|---|---|---|---|---|---|---|---|
+| Waveshare FT232RL isolated USB TO RS232/485/TTL adapter — use the isolated DB9 RS232 receiver for X1 Pro interface discovery. $33.99 item + $2.46 estimated tax; free shipping; Amazon order details verified 2026-10-04 | [B07L2VLY5D](https://www.amazon.com/dp/B07L2VLY5D) | 1 | $36.45 | 112-5001639-8705857 | 2026-10-04 | — | ON-ORDER (ordered, not shipped; Amazon estimate 2026-10-05) |
+| MECCANIXITY DB9 screw-terminal breakout kit, 4 pcs (2 male + 2 female) — male at the X1 and female at the adapter; only machine TX3 → adapter RX2 and GND5 → GND5 connected. $7.99 item + $0.58 estimated tax; free shipping; Amazon order details verified 2026-10-04 | [B0DRZ15WW8](https://www.amazon.com/dp/B0DRZ15WW8) | 1 pk (4) | $8.57 | 112-8546983-6242641 | 2026-10-04 | — | ON-ORDER (ordered, not shipped; Amazon estimate 2026-10-06) |
+
+Both single-item orders were placed 2026-10-04 and total **$45.02**, including estimated sales tax. Tracking shows Ordered, with shipment pending. These are [diagnostic inventory](/hardware/ledger/inventory.md#diagnostic); no received-hardware or welder communication result is recorded.
 
 ## 17. Domain / infrastructure
 
@@ -747,10 +754,10 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$37,148.22](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$5,437.54](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$42,585.76](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$653.96](LEDGER_ON_ORDER) |
+| ON-ORDER | [$698.98](LEDGER_ON_ORDER) |
 | MISSING — paid, not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$43,292.79](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$43,337.81](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
