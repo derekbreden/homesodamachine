@@ -46,8 +46,8 @@ The print STEP and STL place the complete flat exterior on the bed, with the
 skirt growing upward. The part is [9 mm](PRINT_HEIGHT) tall in that pose.
 Use plain black PETG, a 0.20 mm first layer, 0.24 mm layers, three walls and
 100% infill; no supports touch the underside or skirt. Keep the plate solid.
-The front edge's recess grows as a short bridge from the plate; inspect
-that accessible dry face during the part's own native slice review.
+The front recess prints as a thinner strip of the bed-facing plate; inspect
+that accessible dry face after printing.
 
 The [saved PETG project](funnel-cover-petg.3mf) and
 [native slice review](native-slice-review.json) record the separate cover
