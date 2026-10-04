@@ -22,8 +22,8 @@
     },
     {
       "check": "hardware/scripts/check_facts_current.py",
-      "note": "and the 258 sources behind them stand where they stood when it was written",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_faucet_geometry.py",
@@ -67,12 +67,12 @@
     },
     {
       "check": "hardware/scripts/check_tracked.py",
-      "note": "70/71 artifacts have their record in the index",
+      "note": "71/72 artifacts have their record in the index",
       "status": "red"
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 5167 tracked, 591 fetched solids, 56 tags, 39 site routes",
+      "note": "paths: every reference lands — 5214 tracked, 591 fetched solids, 56 tags, 39 site routes",
       "status": "ok"
     },
     {
@@ -87,8 +87,8 @@
     },
     {
       "check": "tools/bazel/check_build_file.py",
-      "note": "tools/cad-venv/bin/python tools/bazel/gen_build.py",
-      "status": "red"
+      "note": "check_build_file: BUILD.bazel is what the graph writes; 3MFs are build-inert",
+      "status": "ok"
     },
     {
       "check": "tools/bazel/check_ci_targets.py",
@@ -97,16 +97,21 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 8 staged source(s)",
+      "note": "check_declared_imports: every step holds what it imports, over 0 staged source(s)",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 3 of 2799 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 586 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 2763 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 586 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
+    "hardware/scripts/check_facts_current.py": [
+      "enclosure-assembly.facts.json was taken from a different tree — it holds f668af5b74b4e868759080a2d26b59e7 for the 258 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at c1a21a4102fe7b695dfbdee64647ab74 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "  the three come off one run:",
+      "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
+    ],
     "hardware/scripts/check_ledger.py": [
       "instructions: 121 files (16 procedures + 104 cards + cover) | ledger brands: 586 | waived: 1 ASIN + 4 brand",
       "DRIFT: 1 instruction(s) out of step with the ledger:",
@@ -153,12 +158,7 @@
     "hardware/scripts/check_tracked.py": [
       "hardware/printed-parts/cold-core/magnetic-float/petg-bench-reference.figures.json — the figures of hardware/printed-parts/cold-core/magnetic-float/petg-bench-reference.md",
       "  git add hardware/printed-parts/cold-core/magnetic-float/petg-bench-reference.figures.json",
-      "70/71 artifacts have their record in the index"
-    ],
-    "tools/bazel/check_build_file.py": [
-      "BUILD.bazel is not what the graph would write now:",
-      "  1 build-graph generator(s) are absent from the tree — hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py among them. Re-trace the renamed generator or remove its stale graph entry.",
-      "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
+      "71/72 artifacts have their record in the index"
     ],
     "tools/check_release_room.py": [
       "the release holds 575 of 1000 and the next cut wants 464; 429 asset(s) may be retired for it",
