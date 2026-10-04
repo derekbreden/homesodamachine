@@ -151,7 +151,7 @@ The magnet's nearest edge is 8.475 mm inside this float's outside surface.
 
 ## Pressure test
 
-The carbonator's reference points are 90 psi nominal CO₂ feed, a 125 psi PRV,
+The carbonator's reference points are 43.5 psi (3 bar) nominal CO₂ feed, a 125 psi PRV,
 and a 180 psi, 30-minute hydrostatic fabrication test. The float sees external
 pressure on its shell and water pressure inside its open bore. It has **no
 recorded pressure-test result**. [petg-shell.md](petg-shell.md) gives the shell
@@ -161,7 +161,7 @@ limits on transferring them to this external-pressure float.
 
 For the first float pressure test, record dry mass and dimensions, verify
 upright float motion on its guide, and use a water-filled metal hydrostatic
-fixture suitable for the test pressure. Record the 90 psi hold and the
+fixture suitable for the test pressure. Record the 43.5 psi hold and the
 180 psi/30-minute hold separately. After depressurization, dry the exterior
 consistently, reweigh, and repeat float/guide/reed checks. A pressure gauge hold
 alone does not detect water entering a submerged float. Record mass gain,

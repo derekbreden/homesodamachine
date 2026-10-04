@@ -31,8 +31,10 @@ Both needles are drawn at rest on zero, which is the state the part ships in.
 
 **The green band is the reason this regulator is the one in the BOM.** On the listing's own front
 view it spans roughly **70–95 psi**, and the vendor's recommended pressure for carbonating soda —
-80 PSI — sits in the middle of it. The appliance's own WR1110 secondary is a fixed 90 psi, so
-the band is the range the customer is asked to set the primary into.
+80 PSI — sits in the middle of it. The appliance's own WR1105 secondary holds a fixed 3 bar
+(43.5 psi) below the whole band, so the band is the range the customer is asked to set the
+primary into: anywhere in it feeds the secondary with room to regulate, and the appliance sees
+the same pressure.
 
 ## Where each figure comes from
 

@@ -52,7 +52,7 @@ The carbonator receives dye penetrant and hydro before foaming, the refrigerant 
 | Operation | Cards | Notes | Minutes |
 |---|---|---|---:|
 | Dye-penetrant both closure welds — clean, dwell, develop, read | PV-10 | Solvent-removable visible dye on bare, dry welds | 10 |
-| Hydro test to 180 PSI — plug, fill, pump, drain | PV-11 | 2× working pressure; the 30-minute hold is not counted | 15 |
+| Hydro test to 180 PSI — plug, fill, pump, drain | PV-11 | 1.44× the SV-125's set pressure; the 30-minute hold is not counted | 15 |
 | Citric passivation — load the tub, rinse, dry | PV-12 | Clean carbonator and jet elbow; batch soak in the shared tub, 30–60 minute soak not counted | 5 |
 | Inspect the jet elbow, flow-check and record the result | [Jet procedure](/hardware/assembly/water-inlet-jet.md) | Provisional, unmeasured estimate; accepted geometry and flow band must be established by qualification | 5 |
 | Pull vacuum to 500 µm, valve off, read the rise | RL-06 | Two 15-minute holds, neither counted | 10 |
