@@ -12,8 +12,10 @@ column of §7 and the $ that follows from it.
 WHAT A PRINT LAYS IS NOT THE SOLID. Two wall loops per face and 15 % grid between
 them, on a box whose pieces are mostly air by volume: the front-top's 1379 cm³ of
 geometry comes off the plate as 456. So the mass here is SHELL PLUS INFILL, taken
-off the part's own volume and area — both read from the one STEP — at the settings
-of the slice that part ships on. PROFILES below holds those settings and states
+off the part's own volume and area — both read from the one STEP — under the
+shared base recipes. Local dense enclosure reinforcement modifiers are not
+included in this estimate; their native projects carry a separate path review.
+PROFILES below holds the base settings and states
 the residual against every slice that has been measured.
 
 Every `<!--@printed-->` row names its geometry in PARTS below and its print

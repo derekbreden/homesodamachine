@@ -4,7 +4,7 @@ This register connects the current fasteners and print settings to their design 
 physical evidence. Evidence limits describe what can be claimed; they do not assign tests
 or measurements to the founder. It covers
 the printed enclosure, cold-core caps, reservoir closures and attached hardware. Reviewed
-2026-10-03 against the generators, saved print projects and linked physical records.
+2026-10-04 against the generators, saved print projects and linked physical records.
 
 Reported bench issues are addressed. The accepted results below retain their stated scope.
 An accepted fit establishes that fit; a geometric clearance establishes that clearance.
@@ -86,8 +86,46 @@ specifies the following dimensions. Its minimum surrounding wall is measured fro
 
 | Insert | Knurl OD | Recommended nominal bore | Minimum surrounding wall | Relevant CAD feature |
 | --- | --- | --- | --- | --- |
-| RX-M3Sx4.0 and RX-M3x5.7 | 4.6 mm | 4.0 mm | 1.6 mm | The shared 7.0 mm mount boss gives a nominal 1.5 mm annulus. Some stations join a wall or web, so the complete feature needs assessment. |
+| RX-M2x4 | 3.6 mm | 3.2 mm | 1.3 mm | The shared bench-tray engine uses a 5.8 mm boss and a 5.0 mm blind pocket for this family. No M2 insert is specified in the integrated appliance. |
+| RX-M3Sx4.0 and RX-M3x5.7 | 4.6 mm | 4.0 mm | 1.6 mm | Enclosure wall-mount bosses and the pump's cold-core columns are 8.0 mm OD; the pump columns have 8.5 mm pockets. The main-board bench tray uses 7.2 mm OD with 5.0 mm pockets for short inserts. Complete native stock, including adjacent cuts, is checked separately. |
 | RX-M5x9.5 | 7.1 mm | 6.4 mm | 2.6 mm | Compressor posts are 12.0 mm OD with a 6.4 mm bore, giving a nominal 2.8 mm annulus. CAD checks the M5 manufacturer's minimum surrounding wall. |
+
+Ruthex specifies at least 1.0 mm of blind relief below the installed insert.
+The [native core and faucet audit](core-and-faucet-heatsets.json), produced by
+[`check_core_and_faucet_heatsets.py`](../scripts/check_core_and_faucet_heatsets.py),
+checks complete annular stock over the full blind pocket, an open pilot and a closed end.
+Its 39 appliance pockets are the 20 cold-core cap stations, four water-pump columns,
+12 reservoir stations and three faucet-base stations. Four additional main-board
+bench-tray pockets are checked in their finished floor-and-boss solid. The report binds
+the imported geometry sources by SHA-256. It establishes CAD geometry; it does not
+establish the deposited structure, installation quality or load capacity.
+The [pump-column integration check](pump-column-integration.json) separately verifies
+the four mounting axes, installed feet, screw/washer stack, cap and lid clearances,
+blind ends and connected routes. All 66 native checks pass with the 8.0 mm columns;
+rubber compression and installed isolation remain physical observations.
+
+The [native enclosure integration record](enclosure-integration.json) binds the checked
+materialized appliance STEP and fit card: required gates pass with no body clashes,
+unanswered overlap calculations or routed-tube interference. It also compares the
+current installed ring and lettering leaves with those exact assembly solids. The
+record retains the full run's concurrent ring-source drift; its scope is the checked
+materialized assembly. The inactive tube-support and support-column goals remain
+recorded. These checks establish fit, without a load or drop acceptance.
+
+The [ZWMSSLL M1.4 supplier listing](https://www.amazon.com/dp/B0DFWTJSYD)
+specifies a 4.0 mm length and 2.3 mm knurl OD. Its published material does not provide
+a host-bore tolerance, minimum surrounding wall or blind-pocket recommendation.
+The corresponding seats therefore need an explicit application specification; the
+ruthex table is not a manufacturer specification for these inserts. Keep that distinction
+when interpreting the enclosure's native audit.
+
+The [native enclosure audit](../printed-parts/enclosure/enclosure/heat-set-review/geometry-check.json)
+checks 37 additional stations in the six exported enclosure pieces, including the four
+M1.4 anchors under their separately stated application rule. It checks complete insert
+stock, fixed supplier pilot dimensions, full-depth open pilots, blind relief and caps,
+whole-knurl installation access, seam shear strips and screw-tip clearance. The
+[enclosure review](../printed-parts/enclosure/enclosure/heat-set-review/README.md)
+records the supplier constraints and each installed screw stack.
 
 **Selection basis:** use the mating component's fastening requirements where they constrain
 the diameter. The compressor's four M5 stations are derived from its donor mounting plate
@@ -99,6 +137,17 @@ torque-out, splitting, the supporting print layers and the boss root can govern 
 M5 requires a larger anchoring feature and head seat; its suitability depends on room for
 those features and on the load path. The current metal grades have no demonstrated
 relationship to the limiting load of these printed assemblies.
+
+The [placed seam comparison](../printed-parts/enclosure/enclosure/heat-set-review/placement-comparison.json)
+checks the actual packed core against supported M5 short-insert stacks, including
+socket-head and button-head candidates. On the fixed 9 mm flank, changing to a
+3 mm button-head recess leaves a 6 mm shank; the recess plus shank remains 9 mm.
+The Ø6.4 mm pilot, 1 mm blind relief and 3 mm closed cap require a 15.8 mm inward
+band, whose required cap intersects the packed core on both sides. M5×12 gives
+full engagement in that button-head stack. A narrower interface requires changes
+to the pin, socket, bearing and roots together. The current correction retains
+M3 with complete manufacturer-sized anchorage and a larger fore-edge ligament;
+the compressor retains its four donor-pattern M5 stations.
 
 **M5 starting specification:** use ruthex's 6.4 mm recommended nominal bore. No recorded
 print compensation or retention result supports a departure from that dimension. A pullout
@@ -114,8 +163,8 @@ Any capacity test also needs the load it must withstand, the relevant root and f
 a decision that the result would change. This register specifies no such test.
 
 For standalone M3 bosses, the supplier's minimum gives a 7.2 mm nominal OD around a 4.0 mm
-bore. The shared 7.0 mm feature needs review at each station: determine the actual surrounding
-wall or web and mating-component clearance before selecting a compliant local section.
+bore. Verify the complete section after nearby cavities, print allowances and relief cuts;
+diameter arithmetic alone can conceal a missing or interrupted insert seat.
 Neither a successful fit nor inheritance from a board tray establishes an adequate anchorage.
 
 [SPIROL's FDM insert guidance](https://www.spirol.com/assets/files/inserts-for-3d-printed-assemblies-us.pdf?s=how+to+select+a+threaded+insert+for+your+3d+printed+assembly)
@@ -126,7 +175,7 @@ published PLA/SPIROL insert loads cannot be transferred to ruthex inserts in thi
 
 | Joint | Current arrangement and load path | Design basis and evidence limit |
 | --- | --- | --- |
-| Enclosure Y seam | Six M3 cross-pin screws, three levels on each flank. The telescoping seam, floor scarf and hooked Z rails also retain the shell. | The screws prevent reverse assembly motion. Determine which stations carry that motion, racking and handling loads through the grips and attached masses; a six-way equal division of appliance weight is not a load model. The existing count has no demonstrated structural margin. |
+| Enclosure Y seam | Six M3 cross-pin screws, three levels on each flank. The lower pair carries opening tension in sagging. The telescoping lap and floor scarf locate the halves without a Y-tension interlock; hooked rails retain the vertical seams. | The pin's fore-edge ligament and root carry the seam-opening load; the screws cannot be assigned equal tension. [Short-drop retention](#short-drop-retention) records the geometry and load-path scope. No assembled impact margin is established. |
 | Cold-core cap stacks | Ten M3 stations per face with 5.7 mm inserts. The four mid stations avoid conduits; the largest straight long-wall center spacing is 91.5 mm. [Station geometry](../printed-parts/cold-core/_cold_core_interface.py). | Select locations from gasket clamping demand, cap stiffness, corner support and routing. The 91.5 mm span is a geometric fact, not an acceptable-deflection limit. These caps enclose the foam core; they are not carbonator pressure-vessel endcaps. |
 | Flavor reservoir caps | Six M3 screws; M3x12 engages 5.0 mm of each 5.7 mm insert. The body bosses are 10.0 mm OD. [Closure geometry](../printed-parts/cold-core/reservoir/reservoir.py). | Vented reservoirs carry liquid head and handling loads. Select the pattern and cap section for controlled gasket compression with allowance for relaxation. Insert length supplies anchorage; it does not by itself preserve gasket preload. |
 | Compressor | Four M5 stations follow the donor plate and grommets. [Mount geometry](../manifold-layout/enclosure_assembly.py). | The donor mounting pattern and isolation geometry provide a starting basis. They do not establish the strength of the printed posts, roots or floor under handling and transport. |
@@ -138,6 +187,57 @@ the grips, their supports, seams, floor and attached masses, with asymmetric loa
 the grip geometry permits it. Derive any proof load, acceptable deflection and permanent-set
 limit from intended handling conditions before proposing a test. A successful lift at
 operating weight is useful evidence but does not establish a transport or endurance margin.
+
+## Short-drop retention
+
+The handling objective is for the complete assembled enclosure to remain joined after
+a 4–6 inch drop onto its base, a lower edge or a corner. The upper/lower joints must
+retain the attached masses and the front/rear joints must stay pinned during the landing;
+the frame cannot depend on equal loading of every screw. Floor, grip, rail, insert-seat
+and supporting-wall roots are all in this load path.
+
+The two top pieces release in opposite Y directions. Their upper seam screws couple
+them; the closed rail ends constrain common translation when the bottom halves remain
+fixed. The hooked bearing runs retain Z lift. That translation check does not establish
+a compression path across the tops when the bottom halves bend toward each other.
+In that sagging mode, each top can withdraw relative to its moving bottom half. The
+lower front/rear pins carry opening tension against compression through the bottom
+flanks; the middle and upper screws cannot be credited with equal tension sharing.
+The lower pin's free-edge ligament, bearing section and connection to the floor therefore
+need their own native checks.
+
+The M3 cross-pins are centred 9.9 mm behind the Y-seam mouth. Their Ø3.3 mm clearance
+leaves an 8.25 mm net fore-edge ligament, and the 3.5 mm head recess leaves a 5.5 mm
+shank-bearing section in the 9.0 mm flank. The front insert pocket is 5.0 mm deep with
+a 3.0 mm blind cap; an M3×10 screw clears the blind end by 0.5 mm. Both pin shear strips
+and the socket/jamb roots have
+[local 100% infill regions](../printed-parts/enclosure/enclosure/heat-set-review/print-regions.json)
+along their complete load path. Each projected shear strip is 45.375 mm² per plane.
+This is a geometric area, not a measured shear capacity.
+
+Every upper screw needs a complete insert seat, cap and connection to the wall after
+the funnel and all other functional cavities are cut. An open screw passage is
+insufficient evidence of anchorage. The rail arms use 4.5 mm nominal stock within the
+existing side band; finished clearance, stops and roots are separate native checks.
+
+Those heights are 0.1016–0.1524 m: gravitational energy is 1.00–1.49 J per kilogram of
+assembled mass, and the ideal free-fall speed is 1.41–1.73 m/s. Height alone does not
+set a peak fastener load. Landing orientation, the contact's stopping distance, the
+attached masses and the deposited layer structure determine the response. The complete
+native insert-envelope checks supply geometry evidence, not an impact allowable.
+
+The [PET-GF15 data sheet](https://fiberon.polymaker.com/wp-content/uploads/TDS_FIBERON-PET-GF15_V1.0_EN.pdf)
+identifies 100% infill and annealing at 120°C for 16 hours for its mechanical specimens.
+Its tensile ultimate values do not supply a measured shear-out capacity for a printed
+pin, and a presumed infill fraction does not establish the deposited load-bearing area.
+An assumed contact stiffness or stopping distance is not a measured landing response.
+Use the bending model to identify loaded features, with strength and impact predictions
+remaining conditional on their material, mass, print and contact assumptions.
+
+No assembled drop acceptance is recorded. Preserve that limit until the production
+geometry, print state, fasteners, installed hardware, fluids, landing surface and
+orientations are bound to an actual acceptance result. Existing fit and surface records
+retain their scope. This register requests no destructive drop, fixture or purchase.
 
 ## Infill and deposited structure
 
@@ -157,6 +257,10 @@ specification. The footprint audit does not qualify the current complete enclosu
 
 **Structural starting treatment:** fill the high-load insert features and their roots locally, carrying
 that material into the supporting floor or wall. Preserve the rubber isolator geometry.
+The enclosure's [current regions](../printed-parts/enclosure/enclosure/heat-set-review/print-regions.json)
+specify 100% rectilinear infill inside complete insert hosts, blind caps, supporting roots,
+Y-seam jambs and fore strips, and Z-rail/foot/stop roots. The print jobs bind those regions
+to the native artifacts; emitted paths still need their own review before submission.
 For enclosure rigidity, compare added wall thickness, floor skins and ribs as well as sparse
 infill. Preserve accepted flexure behavior and print treatments when changing a profile.
 The reservoir's dense watertight recipe remains a separate process.
