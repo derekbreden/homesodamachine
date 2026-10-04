@@ -19,21 +19,23 @@ the submerged cube faces. Step 7 calls for a glass filled with ice.
 the PNG is shared as a snapshot with the install guide.
 
 Step 6 shows the Big Blue Fill screen inside the machine display's frame and on the machine.
-Select a flavor in the left rail, open **Fill**, put the bottle in the funnel, then tap
-**Start filling**. The concentrate bottle has a rounded PET body, tapered shoulders, an open
-ribbed neck, dark liquid and a wrapped COLA concentrate label. `tools/quickstart-codex/fill_scene.py` renders
-the bottle and both display views from the current enclosure assembly. Funnel bounds locate
-the bottle, and the display facet locates the screen overlay. `art/fill-scene-inputs.json`
-records the source hashes and projected motion cue. `art/fill-screen.svg` and its PNG
-supply the interface texture; `art/fill-screen-framed.png` is the framed close-up.
-The cover shares the enclosure's matte black PET-GF appearance. Both Fill views use the same
-exposure, and the complete frame has an uninterrupted outline.
-The same seven step numbers appear in both documents, and the braided-hose link opens
-install guide pages 9-11. The leak band closes the water and cylinder supplies and links to
-the connection checks on page 23.
+Select a flavor in the left rail, open **Fill**, lift off the funnel cover, put the bottle in
+the funnel, then tap **Start filling**; after **Filled**, the cover goes back on. The
+concentrate bottle has a rounded PET body, tapered shoulders, an open ribbed neck, dark liquid
+and a wrapped COLA concentrate label. `tools/quickstart-codex/fill_scene.py` renders the bottle
+and both display views from the current enclosure assembly. Funnel bounds locate the bottle, and
+the display facet locates the screen overlay. The funnel is drawn without its lift-off cover, as
+it stands during a fill. `art/fill-scene-inputs.json` records the source hashes and projected
+motion cue. `art/fill-screen.svg` and its PNG supply the interface texture;
+`art/fill-screen-framed.png` is the framed close-up. The display cover shares the enclosure's
+matte black PET-GF appearance. Both Fill views use the same exposure, and the complete frame has
+an uninterrupted outline. The same seven step numbers appear in both documents, and the
+braided-hose link opens install guide pages 9-11. The leak band closes the water and cylinder
+supplies and links to the connection checks on page 23.
 
 The rear illustrations draw the nameplate from `enclosure-assembly.step`: the white On tap
-mark, HOME SODA MACHINE and the unit's QR code on the black plate.
+mark, HOME SODA MACHINE and the unit's QR code on the black plate. The bulkhead rings and tube
+collars carry their raised words in their PET-GF spool colors.
 `hardware/install-guide/_install_art.py the-back-face` renders step 3's back face.
 `tools/quickstart-codex/scenes.py power` rebuilds the power and rear-connection snapshots from
 the assembly, and `tools/quickstart-codex/insertion_actions.py power-ready` draws step 5 with
