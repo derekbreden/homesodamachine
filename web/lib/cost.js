@@ -15,6 +15,7 @@
 import path from "path";
 import fs from "fs";
 import { renderHead, renderNav, renderFooter } from "./shell.js";
+import { readBatchForecast, renderBatchForecast, BATCH_FORECAST_CSS } from "./batch-forecast.js";
 import {
   SALE_PRICE, SALES_HORIZON, dollars, recoveryPlan, recoveryRange,
   recoverySummary, salesBalance, renderRecoveryChart,
@@ -565,7 +566,7 @@ function renderTopline(total, labor) {
       <a class="cost-top-leg" href="#parts"><i class="cost-key"></i>Parts <b>${money(total)}</b></a>
       <a class="cost-top-leg" href="#labor"><i class="cost-key l"></i>Labor <b>${money(labour)}</b> ${hm(labor.minutes)} at ${rateStr(labor.rate)}/h</a>
     </div>
-    <p class="cost-top-context">Parts plus planned batch labor. Our early builds take substantially longer. <a href="#assumptions">What we&rsquo;re assuming</a></p>
+    <p class="cost-top-context">Parts plus planned batch labor. Our early builds take substantially longer. <a href="#assumptions">What we&rsquo;re assuming</a> · <a href="#batch-forecast">Purchases for 10 &amp; 20 machines</a></p>
   </section>
 `;
 }
@@ -643,7 +644,7 @@ function renderRecovery(unitCost, labor, investment) {
   </section>`;
 }
 
-function renderCostBody(rollup, labor, mach, investment) {
+function renderCostBody(rollup, labor, mach, investment, forecast) {
   const { total, rowCount, cats } = rollup;
   const mx = Math.max(...cats.map((c) => c.sum), 1);
   const unitCost = labor && labor.rate > 0 && labor.opCount > 0
@@ -693,6 +694,7 @@ function renderCostBody(rollup, labor, mach, investment) {
   <h1 class="cost-sr-only">Price, cost &amp; investment</h1>
 ${renderPrice(unitCost)}
 ${unitCost !== null ? renderTopline(total, labor) : ""}
+${renderBatchForecast(forecast)}
 ${renderRecovery(unitCost, labor, investment)}
   <h2 class="cost-title" id="parts">Parts by category</h2>
   <div class="cost-hero">
@@ -722,6 +724,7 @@ export function mountCostRoutes(app, { hardwareDir }) {
     let labor = null;
     let mach = null;
     let investment = null;
+    let forecast = null;
     try {
       labor = readLaborRollup(hardwareDir);
     } catch (e) { /* no labor.md */ }
@@ -732,13 +735,16 @@ export function mountCostRoutes(app, { hardwareDir }) {
       investment = readInvestmentRollup(hardwareDir);
     } catch (e) { /* missing or inconsistent purchase totals */ }
     try {
-      body = renderCostBody(readCostRollup(hardwareDir), labor, mach, investment);
+      forecast = readBatchForecast(hardwareDir, labor);
+    } catch (e) { /* optional supplier forecast */ }
+    try {
+      body = renderCostBody(readCostRollup(hardwareDir), labor, mach, investment, forecast);
     } catch (e) {
       // A stripped checkout (no bom.md) shouldn't 500 — render an empty state.
       body = `<main class="cost-wrap"><h1 class="cost-title">Cost &amp; price</h1>${renderPrice(null)}<p class="cost-note">Cost data unavailable.</p></main>`;
     }
     res.send(
-      renderHead({ title: "Price & Cost · Home Soda Machine", pageStyles: COST_CSS }) +
+      renderHead({ title: "Price & Cost · Home Soda Machine", pageStyles: COST_CSS + BATCH_FORECAST_CSS }) +
       renderNav({ active: "cost" }) +
       body +
       renderFooter(),
