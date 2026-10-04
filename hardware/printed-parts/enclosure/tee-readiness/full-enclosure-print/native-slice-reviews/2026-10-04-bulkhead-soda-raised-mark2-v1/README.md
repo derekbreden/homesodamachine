@@ -31,3 +31,5 @@ snapshot. [`verify.py`](verify.py) checks the archive, layers, letter nozzle,
 filament colours, trim, support absence and the correction
 ([verification](verification.json)). [Preflight](preflight.json) records both
 printers before the send, and [launch](launch.json) records the acceptance.
+Mark2 reported `FINISH` at 05:43:26Z, all 11 layers, no print error or HMS
+([postlaunch](postlaunch.json)).
