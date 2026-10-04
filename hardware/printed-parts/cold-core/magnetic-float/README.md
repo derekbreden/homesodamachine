@@ -53,3 +53,7 @@ no acceptance record. ASA Aero is the selected trial material throughout the flo
 [Material research](asa-aero-research.md) ·
 [Pressure-process research](pressure-printing-research.md) ·
 [Separate PETG-shell bench reference](petg-bench-reference.md)
+
+## Sources
+[value](NAME) texts are updated by:
+- `/hardware/printed-parts/cold-core/magnetic-float/magnetic_float.py`
