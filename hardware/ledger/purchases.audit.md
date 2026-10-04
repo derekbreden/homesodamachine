@@ -1,173 +1,58 @@
-# Auditing purchases
+# Auditing project purchases
 
-Reconciling [purchases.md](/hardware/ledger/purchases.md) against what Amazon
-charged. Two files join on the order number:
+[purchases.md](/hardware/ledger/purchases.md) records project procurement values and fulfillment. [purchases.evidence.json](/hardware/ledger/purchases.evidence.json) links stable purchase and order IDs to sanitized vendor sources and merchant charge/refund events. [purchases.export.json](/hardware/ledger/purchases.export.json) and [purchases.export.csv](/hardware/ledger/purchases.export.csv) are deterministic analytical views. Their totals describe different bases and must not be added together.
 
-- `purchases.md` — the ledger rows, each carrying `Order #`, `Ordered`, `Delivered`.
-- `purchases.orders.json` — the Amazon record, keyed by order number: order date,
-  delivery date, invoice grand total, a `project` flag, and `nonproject_amount`
-  on a mixed order.
+The [schema and external private reconciliation contract](/hardware/ledger/purchases.schema.md) defines authoritative fields, date precision, allocation rules and the public/private boundary.
 
-The row-cost convention and the totals rewrite live in
-[_ledger_totals.py](/hardware/scripts/_ledger_totals.py).
+## Preserved vendor records
 
-## purchases.orders.json holds data Amazon will not serve again
+`purchases.orders.json` is a preserved Amazon source archive. Older delivery banners disappear from Amazon; the saved dates and project classifications are irreplaceable evidence. Recorded mixed-order allocations and replacement relationships remain in that archive. A fresh page lacking an older field does not override it.
 
-Amazon shows a delivery date in the order-list shipment banner for roughly four
-months back. Past that the banner is gone, and the detail page never carried the
-date either. `orders.json` is the only record of 212 delivery dates. For that
-field it is primary source, not a cache.
+The archive contains pre-existing nonproject metadata. It is not a project export. New public sources and exports contain project lines and project shares only. Do not copy unrelated items, full mixed-order totals, private receipt links, customer identifiers or payment-instrument details into evidence, generated artifacts, logs, fixtures or commit messages.
 
-The same applies to judgement already recorded in it: the `project` / `why`
-classifications, and the two `nonproject_amount` values, each of which cost an
-invoice fetch and a human call.
+A saved order total can corroborate a procurement allocation. It does not establish a completed merchant charge. The order checker compares the recorded project row value with the saved project share using exact arithmetic. Orders split across several rows are checked once per order; a row spanning several orders remains explicitly unresolved until actual line allocations are established.
 
-## Pulling the Amazon record
+## Read-only inspection
 
-### The walk
-
-```
-https://www.amazon.com/your-orders/orders?timeFilter=year-2026&startIndex=N
-```
-
-`N` steps by 10. As of 2026-09-24 the year holds 379 orders over 38 pages. A
-`startIndex` past the end returns HTTP 200 with zero order cards — that, not
-the pagination widget's page count, is the terminator.
-
-`timeFilter` takes a load to bite. A first navigation lands on the *past three
-months* view and drops both params; the count above the list says which filter
-is live. Load the URL, read the count, then step `startIndex`.
-
-`purchases.md` is scoped to one calendar year, which the `timeFilter` matches. A
-run after year rollover walks both `year-2026` and `year-2027`.
-
-Order history is not filtered by Prime. The Prime rule in
-[CLAUDE.md](/CLAUDE.md) governs what to consider when shopping; order history is
-what was actually bought, and a tax record drops no cash outlay.
-
-### The order cards are encrypted and decrypt client-side
-
-`fetch()` + `DOMParser` returns markup whose `.order-card` holds only inline
-script — `window.SiegeClientSideDecryption`. The parse succeeds, the card count
-is right, and every extracted field is `null`. **A scrape reporting plausible row
-counts with empty fields has hit this.**
-
-Rendering the page runs the decryption, so the tab has to go there. A hidden
-same-origin `<iframe>` does not stand in for that: Amazon navigates the *top*
-window to the frame's URL, which takes the page's `window` state with it.
-Navigate the tab itself, one `startIndex` per load, ~4 s to settle.
-
-Read text with `innerText`, on a rendered document. The order header reads
-"ORDER PLACED" through CSS `text-transform`; `textContent` returns the
-untransformed source, and on a non-rendered document `innerText` returns
-nothing. A regex written against what the screen shows fails against a parsed
-document.
-
-### What each surface carries
-
-| | Order-list page | Invoice / detail page |
-|---|---|---|
-| Order number, placed date, grand total | ✓ | ✓ |
-| Every item's title and ASIN | ✓ | ✓ |
-| Delivery date | shipment banner, recent orders only | — never |
-| Subtotal, shipping, tax, per-item price | — | ✓ |
-
-The list page carries the full item inventory, untruncated — a 17-line order
-lists all 17. A list-only walk is enough to find purchases no ledger row names.
-
-Delivery-date coverage frays across a week rather than cutting cleanly: the
-latest order without a banner is 2026-04-21, the earliest with one is
-2026-04-14. As of the 2026-08-15 walk, 212 of 318 orders carry a date; of the
-106 without, 3 are cancelled and 1 in transit, leaving 102 permanent gaps.
-
-### Walk the list; open an invoice only when the check complains
-
-38 list-page loads buy every order with its grand total, items and ASINs —
-everything `--check` compares against, since it tests a row's allocated sum
-against the invoice **grand total**.
-
-An invoice buys one thing: splitting a single invoice across several ledger
-rows. It is needed only where an order carries two or more rows **and** their
-sum disagrees. The 2026-08-15 walk opened 21 of 318. Opening all of them costs
-~300 further loads at ~2.5 s each.
-
-### Getting the data out
-
-A navigation wipes `window`, so each page's cards come back as the return value
-of the call that reads them. One pass over `[class*="order-card"]`, per card an
-order number, placed date, grand total, the one delivery/arrival line, and each
-`/dp/` link's ASIN with ~45 characters of its title — joined into a string and
-returned.
-
-- `javascript_tool` truncates its return near ~1000 characters, which ten orders
-  overrun. Read a page in two slices, cards `[0,5)` and `[5,10)`, as two calls
-  after the one navigation. A `browser_batch` of navigate → wait → slice →
-  slice carries three pages per round trip.
-- Keep the extractor to that single pass. Writing what it builds to
-  `localStorage`, or widening the regex work, hangs the renderer past CDP's 45 s
-  `Runtime.evaluate` timeout, and the tab stays unresponsive afterwards.
-- Do not return `location.href` or anything else carrying a query string — the
-  extension replaces the whole result with `[BLOCKED: Cookie/query string data]`.
-  Confirm which page is loaded from the first card's order number instead.
-- No rate limiting, CAPTCHA, or session expiry appeared across ~340 page loads.
-
-Indexing `purchases.md` into JSON runs as a subagent in parallel with the scrape.
-No contention.
-
-Exporting every order is what produces `orders.json`. Running only the check
-needs less: inject the ledger's order numbers into the page and return the
-disagreements.
-
-### What a re-run skips
-
-Scrape only orders whose placed date is newer than the newest `ordered` already
-in `orders.json`. Classify only order numbers the file does not contain. Every
-`project` / `why` judgement, both `nonproject_amount` values, and all 212
-`delivered` dates carry forward untouched.
-
-## Running the checks
-
-```bash
+```sh
+python3 hardware/scripts/_ledger_totals.py --report
+python3 hardware/scripts/_ledger_totals.py --audit
+python3 hardware/scripts/_ledger_totals.py --export-json
+python3 hardware/scripts/_ledger_totals.py --export-csv
 python3 hardware/scripts/_ledger_totals.py --check
 ```
 
-Exits 1 on a stale totals marker, on an order whose rows allocate a sum other
-than what its invoice charged, or on an ON-ORDER row older than
-`STALE_ON_ORDER_DAYS`.
+These paths write nothing to the repository. `--check` fails on mechanical integrity errors or stale generated output. Incomplete historical evidence, unknown payment dates and old open orders are coverage findings; a passing integrity check is not full financial reconciliation.
 
-```bash
-python3 hardware/scripts/_ledger_totals.py --audit
+Regeneration is explicit:
+
+```sh
+python3 hardware/scripts/_ledger_totals.py --write
 ```
 
-Prints the rows and orders that need a person:
+The bare invocation retains its existing regeneration behavior for docgen callers. It updates managed Markdown figures, the figures sidecar and the JSON/CSV exports. Do not hand-edit generated figures or exports.
 
-| Group | Closed by |
-|---|---|
-| Ambiguous / multiplied / priceless rows | Nothing — qty-multiplied rows are listed so their arithmetic is visible. A `no-price` row contributes $0 to every total. |
-| Orders a row names that no invoice covers | Adding the order to `purchases.orders.json`. |
-| Orders shared by a row that names several | Splitting the row, one order per cell, each priced from its own invoice. |
-| ON-ORDER rows with no order date | Entering the date. A row without one is reachable by no age. |
-| Project orders no row names | Adding the ledger row, or setting `"project": false` with a `why`. |
+Synthetic verification:
 
-An order's expected ledger sum is `total - nonproject_amount`, so an invoice
-carrying household items alongside project ones closes by recording that amount.
-
-## Verifying a bulk edit
-
-An edit that moves fields between cells leaves every section total and the grand
-total where they were.
-
-```bash
-python3 hardware/scripts/_ledger_totals.py > /tmp/before.txt
-# ... the edit ...
-python3 hardware/scripts/_ledger_totals.py > /tmp/after.txt
-diff /tmp/before.txt /tmp/after.txt
+```sh
+python3 hardware/scripts/test_ledger_analysis.py
+python3 hardware/scripts/check_purchase_evidence.py
+python3 hardware/scripts/check_ledger.py
 ```
 
-A price, quantity, or status cell altered by accident moves a total, and the
-diff names the section it happened in.
+## Source review
 
-A bare run writes as well as prints: it rewrites every `LEDGER_*` marker in
-`purchases.md` and `purchases.figures.json`. Where the markers had gone stale
-under someone else's rows, the first `before.txt` run is itself a change in the
-working tree.
+Read only relevant project order, invoice, shipment, subscription and refund records. Do not read banking sources or change merchant accounts. Use vendor document references safe to disclose. Keep private access locators outside repository files; an ignored path does not make personal records safe.
+
+Capture a read-only baseline before changing recorded amounts. Record the exact source supporting a correction, retain prior estimated values as noncontributing price history, and preserve unrelated work in the checkout.
+
+A vendor source must prove the fact being recorded:
+
+- An order confirmation proves a placed order and its quoted value when stated.
+- A final invoice proves the final vendor amount and invoice date when stated.
+- A completed merchant transaction or monetary receipt proves a charge; use a separate event date only when the source supplies it.
+- A shipment or delivery confirmation proves fulfillment, without implying payment.
+- An issued monetary refund is a distinct event linked to the purchase and original charge where known. Approval of a refund is an expectation.
+- A replacement at no charge preserves the original paid purchase and contributes an actual zero purchase value. It does not create another charge.
+
+The machine-readable `coverage` and `gaps` records name examined scopes and missing facts. The newest retrieved receipt is not proof of complete earlier coverage. The current evidence review includes all 81 receipts underlying the six AI legacy groups, later project Anthropic receipts, six Render bills, selected Amazon order-scoped payment pages, and named direct-vendor documents. Vendor searches remain partial account coverage.
