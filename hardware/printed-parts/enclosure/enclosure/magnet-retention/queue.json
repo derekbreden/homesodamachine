@@ -1,7 +1,7 @@
 {
   "article": "Centered RC62 retention pair: lower cartridge cradle and front-top",
-  "state": "mark2_scheduled_authorized_h2c_prepared",
-  "submitted": false,
+  "state": "mark2_accepted_h2c_prepared",
+  "submitted": true,
   "auto_advance": false,
   "start_condition": "A new explicit print start request; it confirms the requested printer bed is clear.",
   "resume_condition": "A separately authorized manual resume after the correct attracting ring is fully seated below the open rim and the toolhead is clear.",
@@ -155,7 +155,7 @@
       "requested_pause_height_mm": 31.159999999999997,
       "magnet_count_to_insert": 1,
       "magnet_model": "K&J RC62",
-      "submitted": false,
+      "submitted": true,
       "preparation_script_sha256": "a63aad213fbc67a5f0b7a653b2c6215059a2b9325f09fef69416de7bf689ad94",
       "native_archive": ".cache/prints/cartridge-rc62-retention-v4/pump-cartridge-cap/enclosure-pump-cartridge-cap-rc62-mark2-v4.gcode.3mf",
       "native_archive_sha256": "562d743bff86768011c2986764c0dc0165a8f119fc7d5a8bfbcddb95f3ba4e82",
@@ -169,10 +169,10 @@
       "bed_type": "Textured PEI",
       "requested_z_trim_mm": 0.04,
       "emitted_textured_pei_z_trim_mm": 0.02,
-      "state": "scheduled_authorized",
-      "send_authorized": true,
-      "task_id": null,
-      "accepted_at": null,
+      "state": "accepted",
+      "send_authorized": false,
+      "task_id": "1307633211",
+      "accepted_at": "2026-10-04T10:40:23.619545+00:00",
       "native_checks_pass": true,
       "support_lanes_reviewed": true,
       "pause_before_print_z_mm": 31.16,
@@ -188,7 +188,52 @@
         "estimate_resolution": "Remaining time and countdown are rounded to minutes; elapsed estimate includes native startup overhead and excludes the operator pause duration."
       },
       "launch_plan": "v4/mark2-launch-plan.json",
-      "launch_record": "v4/mark2-launch.json"
+      "launch_record": "v4/mark2-launch.json",
+      "send_attempted": true,
+      "send_count": 1,
+      "job_id": "1307633211",
+      "archive_name": "enclosure-pump-cartridge-cap-rc62-mark2-v4.gcode.3mf",
+      "sent_at": "2026-10-04T10:40:03.841006+00:00",
+      "accepted_local": "2026-10-04T05:40:23.619545-05:00",
+      "estimated_pause_at": "2026-10-04T17:15:10.768151+00:00",
+      "estimated_pause_local": "2026-10-04T12:15:10.768151-05:00",
+      "start_reported": true,
+      "insertion_pause_reported": false,
+      "latest_status": {
+        "printer": "Mark2",
+        "observed_at": "2026-10-04T10:46:16.628816+00:00",
+        "task_id": "1307633211",
+        "job_id": "1307633211",
+        "subtask_name": "enclosure-pump-cartridge-cap-rc62-mark2-v4.gcode.3mf",
+        "gcode_file": "/data/Metadata/plate_1.gcode",
+        "print_type": "cloud",
+        "gcode_state": "RUNNING",
+        "layer_num": 0,
+        "total_layer_num": 1088,
+        "mc_percent": 0,
+        "mc_remaining_time": 910,
+        "print_error": 0,
+        "hms": [],
+        "stg_cur": 14,
+        "extruders": {
+          "0": {
+            "actual_c": 36,
+            "target_c": 0
+          },
+          "1": {
+            "actual_c": 261,
+            "target_c": 225
+          }
+        },
+        "bed_actual_c": 51.0,
+        "bed_target_c": 80.0,
+        "chamber": {
+          "actual_c": 27,
+          "target_c": 0
+        }
+      },
+      "monitor_active": true,
+      "automatic_resume": false
     },
     {
       "part": "front-top",
