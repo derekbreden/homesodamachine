@@ -1,13 +1,13 @@
 {
   "source_sha256": {
-    "hardware/printed-parts/zone-c/funnel-cover/check_cover.py": "bea9f8d921530d4fa6cdba11b3a9d981c5f4b596ea5bf509823f5e3fb6460d30",
-    "hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py": "a8979090430ed8d7b206bd50c7ec29b60e3406ad69c1d3ee198acce23e3b5242",
+    "hardware/printed-parts/zone-c/funnel-cover/check_cover.py": "7f3413182eb9dc5fe6f8fe742a3d9ff91eace68806d198ed07db1b1b34a208f0",
+    "hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py": "fbcba987f883375a8ef84a793a6260b1ee18c4470e16eb3a69d34790b1736a39",
     "hardware/printed-parts/zone-c/funnel/funnel.py": "7e224d80c14b8bb089405d3c98964201a6df5141aaf3d1a10177808117df97e1",
-    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step": "eef368a1547a24a7a6fce6eefc9db81847be2647fadcc3c4bf405267c8b390a6",
-    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step": "bd37a17844a678ddd35ac09e26fb1ec5efd93b622f540685bce7b73e1968c1b1",
-    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl": "7396081ed57136665cd2fd03ce2359761e27e4d081bea431d7fdd92c60a16b0a",
-    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl": "acf87edfdecf7408931cf6848b5f9e64b758394938ec4b3ecdcdf8f9dfd3bd97",
-    "hardware/manifold-layout/enclosure-assembly.step": "793fce34c1f4795bdf1da6ebb22d5e038e105a752521d5f4b0549c67219311b0"
+    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step": "8cc308ed2f3447fc135397897e06ad04e28e01123b89afe5ec7cec7c2ea28a1e",
+    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step": "449975ca608ae8f3ee2a8384d9908ae30f346d81d49986c738f7180cd72348c3",
+    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl": "357f3ddcbba59095c9a3b4630534d29e5c379d8d227abe4971ba8f711788cbe8",
+    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl": "72a9400f9fcebae8712b8b8d82a18f30a83223ff4276adc44ead2710ac4a37ed",
+    "hardware/manifold-layout/enclosure-assembly.step": "6074dc6a542d0ae514f4a30a0d19945d85c9031e774a62cbc548c62defbb929e"
   },
   "seating_mm": [
     0.0,
@@ -15,6 +15,14 @@
     355.0
   ],
   "added_height_mm": 3.0,
+  "plate_bounds_mm": [
+    -91.0,
+    91.0,
+    93.20849207672,
+    231.891507923281
+  ],
+  "front_extension_mm": 4.0,
+  "assembly_cover_difference_mm3": 0.0,
   "closed_mouth_missing_mm3": 0.0,
   "nominal_contact": {
     "pad_contact_mm3": 41.72745947574967,
