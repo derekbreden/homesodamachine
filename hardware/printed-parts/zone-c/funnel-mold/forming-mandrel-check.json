@@ -1,33 +1,33 @@
 {
-  "checked_utc": "2026-10-03T10:24:26.062365+00:00",
+  "checked_utc": "2026-10-04T08:43:56.951052+00:00",
   "method": "Complete native BREP booleans, independent source-envelope casting, exact axial cylinder trims, whole wet-boundary normal reserve and all combined socket positioning poses.",
   "sha256": {
-    "cavity.step": "23181e43564083459d5d994f44105d51084a5f4fb0cf52caf7e7df479c413d9d",
-    "cavity.stl": "1ce5878e4b25309c131feb9f7b29af3f1add419602033602f0da22e5582d7afc",
-    "core.step": "39a0fd8e316e2c05f598d99e490f75ae19c26334cd9eed5394a5a5ea3eb50d40",
-    "core.stl": "ab01e93b9b2fdf40ce10ff6af51509b95f6f0fdffcb1fd5ff387d4a26547e694",
-    "rod.step": "bc6c95a7702e3a552a0267678f9ee995f897d855362b0c1fe76c2ea30b16eb0b",
-    "funnel.step": "14f80d9a06ffa783f2bd4b4c71efe6206f09c7c659b77df55047d7b7ca3f6aca",
-    "assembly.step": "66a0283155f932c7a1f47e4427d649fa930b0d7c66b1f7e011698a4db342d7cc",
-    "design.json": "22344e488c6ed4eb8a9d74de54ddf4194280709a991abca3054dafe94e1bf455",
-    "forming_mandrel.py": "e59ef9782dec430cff4395f092b52bc200fda5086eeae75e4ee2f8fc2752b78f",
-    "funnel_mold.py": "321d152f1c1f7b1c7253f84d73b91b299ce97d34e99b0a38d6edcf0eeb7006c9",
-    "forming-mandrel.step": "0cf0e36037ba2f0d1d6e8a8dd9057b8ecaab7f68a379cd92f3bc418f0c27d8ce",
-    "forming-mandrel.stl": "6b67468da5c28217f85d54ef170e3a884b4e4ec3ed256a410a2764693354d9c0",
-    "forming-mandrel-finished.step": "2261822ac0cefc13abe9f5e57f6509a5be77cedb61f66424046799265753cb42",
-    "forming-mandrel-design.json": "25b19261fc90c35244dceeef8bae623bde26c46579631a68edf889e8646b44fa"
+    "cavity.step": "e534dc1cdc309e88210e29f66d7f9cf25f5056a0fee2499bdf2c220c35c7bb43",
+    "cavity.stl": "a675a0603ba632e947ef514b470556562a84bde2011c42381bceec77ef333cc2",
+    "core.step": "cc9f9c3b034ac5cfced8f26c867b364e0a2673510838cf6aaed556fb5950d3ec",
+    "core.stl": "d20ea2c8ca0b6385325f5bc74f7554cd019a4bc8a5d4294a37576f69dca07818",
+    "rod.step": "70f3ae0a66697d1b28589f200b32625fd2346e2b0449cb596cd4c73e7575d461",
+    "funnel.step": "af2a72a429d67d3d78349a8675643448f401f42d28f95d408765dc10ce73760e",
+    "assembly.step": "9df3cb87306b449fbd37d16cb56b36b9c94892f65915939785b44f7e630ed629",
+    "design.json": "62078e93a48f8262eae2c1bc999ca3b3fe1b6ced564ddccc1b16781cf3940115",
+    "forming_mandrel.py": "9a3cb6edaf3be76760aa46209f1e13c943becd6eb229f5e6a810afbdb10e656a",
+    "funnel_mold.py": "a3003e3f1d51ed45d039f3394795f4cd970706f8855f4074e4123c6d92a5cd09",
+    "forming-mandrel.step": "ab5b623c8deb265fa5fb60debb1dcf491e03d3f32ff8207ed06d2e7bfdabf7aa",
+    "forming-mandrel.stl": "ee4044b3298e6518631698966409f2891ae80d5e4dfd994c7b261f99164c55ce",
+    "forming-mandrel-finished.step": "479ac47f94ec4e05860063a5f8b202f05eb0abebe2c527e78a6091a5364efb1a",
+    "forming-mandrel-design.json": "426044e325260c00c197a598a6012b4b806ffd4ba11ef5bc5222981a494b0f79"
   },
-  "review_source_sha256": "3d8af9398193b85933ff390000f58d46ab7723ea211ecdcc7a56612a1c4ac94f",
+  "review_source_sha256": "37894918786ec87bc0b2d3b32c6de1247a255d191fe6daa8ee1fe0a9c5a79801",
   "finished_funnel_native_step_sha256": "fd0143ed0caeef95d80b2a2c7bf4b4ce089c03da6ad39554f6f4e736f1cebc7a",
   "source_funnel_sha256": "7e224d80c14b8bb089405d3c98964201a6df5141aaf3d1a10177808117df97e1",
-  "native_shell_bytes_held": true,
+  "native_shells_bound_to_design": true,
   "native_shell_sha256": {
-    "cavity.step": "23181e43564083459d5d994f44105d51084a5f4fb0cf52caf7e7df479c413d9d",
-    "cavity.stl": "1ce5878e4b25309c131feb9f7b29af3f1add419602033602f0da22e5582d7afc",
-    "cavity.step.mesh": "58f03c6c307880dcab3bbe7281913ddf80587fe46f4df3e9e4edd78a9c0e3cad",
-    "core.step": "39a0fd8e316e2c05f598d99e490f75ae19c26334cd9eed5394a5a5ea3eb50d40",
-    "core.stl": "ab01e93b9b2fdf40ce10ff6af51509b95f6f0fdffcb1fd5ff387d4a26547e694",
-    "core.step.mesh": "66dbe3cbcabf64f27dde253b642c116e2e25dbb0970c83f1477161a473b94067"
+    "cavity.step": "e534dc1cdc309e88210e29f66d7f9cf25f5056a0fee2499bdf2c220c35c7bb43",
+    "cavity.stl": "a675a0603ba632e947ef514b470556562a84bde2011c42381bceec77ef333cc2",
+    "cavity.step.mesh": "fb0ea842ce92bd63a34eb6dc85cb82faf24c4fa6ec1d84f45e60ba279c644b5c",
+    "core.step": "cc9f9c3b034ac5cfced8f26c867b364e0a2673510838cf6aaed556fb5950d3ec",
+    "core.stl": "d20ea2c8ca0b6385325f5bc74f7554cd019a4bc8a5d4294a37576f69dca07818",
+    "core.step.mesh": "9b20d9bbda23be7a0a6acf58a6927eca8754fccd903d4dd7601daa6ea0e5fe06"
   },
   "native_bodies": {
     "cavity": {
@@ -39,9 +39,9 @@
         -105.5,
         105.5,
         -1e-07,
-        57.95
+        59.15
       ],
-      "volume_mm3": 301434.6835446503
+      "volume_mm3": 302193.1936499078
     },
     "core": {
       "valid": true,
@@ -51,10 +51,10 @@
         105.5,
         -105.5,
         105.5,
-        17.734015214420467,
-        59.95
+        18.938381173584904,
+        61.15
       ],
-      "volume_mm3": 295312.47488110844
+      "volume_mm3": 293427.57334624394
     },
     "rod": {
       "valid": true,
@@ -64,36 +64,23 @@
         6.050000000000001,
         -4.2,
         4.2,
-        4.5,
-        55.3
+        5.7,
+        26.464820645285
       ],
-      "volume_mm3": 1623.5415950447325
+      "volume_mm3": 672.3509691029282
     },
     "funnel": {
       "valid": true,
       "solids": 1,
       "bounds_mm": [
-        -89.5,
-        89.5,
-        -65.84150792328,
-        65.841507923281,
-        5.9999999,
-        54.95
+        -89.5000001,
+        89.5000001,
+        -65.84150802328,
+        65.841508023281,
+        7.199999899999999,
+        56.1500001
       ],
-      "volume_mm3": 219294.49543458826
-    },
-    "seal": {
-      "valid": true,
-      "solids": 1,
-      "bounds_mm": [
-        -2.3250001,
-        6.025000100002124,
-        -4.175308396658622,
-        4.175308386050516,
-        17.568282027784807,
-        19.264820745285
-      ],
-      "volume_mm3": 36.49095947426905
+      "volume_mm3": 219292.91810217878
     }
   },
   "complete_csg_bindings": {
@@ -110,10 +97,6 @@
       "reference_minus_actual_mm3": 0.0
     },
     "funnel": {
-      "actual_minus_reference_mm3": 0.0,
-      "reference_minus_actual_mm3": 0.0
-    },
-    "seal": {
       "actual_minus_reference_mm3": 0.0,
       "reference_minus_actual_mm3": 0.0
     },
@@ -142,12 +125,12 @@
       "reference_minus_actual_mm3": 0.0
     }
   },
-  "finished_casting_volume_ml": 219.29449543458827,
-  "funnel_to_mould_z_translation_mm": 48.95,
+  "finished_casting_volume_ml": 219.2929181021788,
+  "funnel_to_mould_z_translation_mm": 50.150000000000006,
   "print_to_mould_translation_mm": [
     1.85,
     0.0,
-    4.5
+    5.700000000000003
   ],
   "recommended_local_layer_phase": {
     "fine_band_print_z_mm": [
@@ -242,656 +225,2645 @@
   "nominal_native_fit": {
     "cavity": {
       "overlap_mm3": 0.0,
-      "minimum_distance_mm": 1.3319534526401429
+      "minimum_distance_mm": 2.6645352591003757e-15
     },
     "core": {
       "overlap_mm3": 0.0,
-      "minimum_distance_mm": 0.0
-    },
-    "seal": {
-      "overlap_mm3": 0.0,
-      "minimum_distance_mm": 0.0
+      "minimum_distance_mm": 0.1999999999999993
     }
   },
   "combined_positioning_screen": {
     "poses": 72,
-    "lateral_offset_mm": 0.5,
-    "tilt_deg": 1.0,
-    "axial_each_way_mm": 0.1,
+    "lateral_offset_mm": 0.08,
+    "tilt_deg": 0.3,
+    "maximum_additional_axial_lift_mm": 0.1,
     "maximum_cavity_overlap_mm3": 0.0,
-    "minimum_cavity_gap_mm": 0.6594614809625475,
-    "minimum_whole_pilot_end_depth_mm": 1.34264446554955,
+    "maximum_core_overlap_mm3": 0.0,
+    "minimum_core_gap_mm": 0.011319672249792134,
+    "minimum_cavity_gap_mm": 2.6645352591003757e-15,
+    "minimum_whole_pilot_end_depth_mm": 1.3667516296704854,
     "readings": [
       {
         "azimuth_deg": 0,
-        "tilt_deg": -1.0,
-        "axial_mm": -0.1,
+        "tilt_deg": -0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.6594614809625482,
-        "whole_pilot_end_depth_mm": 1.5426444655495493
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 2.6645352591003757e-15,
+        "core_gap_mm": 0.16703626869411536,
+        "whole_pilot_end_depth_mm": 1.466751629670485
       },
       {
         "azimuth_deg": 0,
-        "tilt_deg": -1.0,
-        "axial_mm": 0,
+        "tilt_deg": -0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0.05,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.7056152692789852,
-        "whole_pilot_end_depth_mm": 1.4426444655495496
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.05000000000000249,
+        "core_gap_mm": 0.11703626869411465,
+        "whole_pilot_end_depth_mm": 1.4167516296704852
       },
       {
         "azimuth_deg": 0,
-        "tilt_deg": -1.0,
-        "axial_mm": 0.1,
+        "tilt_deg": -0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0.1,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.7621655801766387,
-        "whole_pilot_end_depth_mm": 1.34264446554955
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.10000000000000231,
+        "core_gap_mm": 0.0670362686941175,
+        "whole_pilot_end_depth_mm": 1.3667516296704854
       },
       {
         "azimuth_deg": 0,
         "tilt_deg": 0,
-        "axial_mm": -0.1,
+        "floor_contact_lift_mm": 0.0,
+        "additional_lift_mm": 0,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.8222530024268677,
-        "whole_pilot_end_depth_mm": 1.5999999999999996
-      },
-      {
-        "azimuth_deg": 0,
-        "tilt_deg": 0,
-        "axial_mm": 0,
-        "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.8509406559801914,
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 2.6645352591003757e-15,
+        "core_gap_mm": 0.11999999999999922,
         "whole_pilot_end_depth_mm": 1.5
       },
       {
         "azimuth_deg": 0,
         "tilt_deg": 0,
-        "axial_mm": 0.1,
+        "floor_contact_lift_mm": 0.0,
+        "additional_lift_mm": 0.05,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.8899999999999989,
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.05000000000000249,
+        "core_gap_mm": 0.11999999999999922,
+        "whole_pilot_end_depth_mm": 1.4500000000000002
+      },
+      {
+        "azimuth_deg": 0,
+        "tilt_deg": 0,
+        "floor_contact_lift_mm": 0.0,
+        "additional_lift_mm": 0.1,
+        "cavity_overlap_mm3": 0.0,
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.10000000000000231,
+        "core_gap_mm": 0.09999999999999787,
         "whole_pilot_end_depth_mm": 1.4000000000000004
       },
       {
         "azimuth_deg": 0,
-        "tilt_deg": 1.0,
-        "axial_mm": -0.1,
+        "tilt_deg": 0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 1.0044173292184215,
-        "whole_pilot_end_depth_mm": 1.5426444655495501
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 2.6645352591003757e-15,
+        "core_gap_mm": 0.011319672249792134,
+        "whole_pilot_end_depth_mm": 1.466751629670485
       },
       {
         "azimuth_deg": 0,
-        "tilt_deg": 1.0,
-        "axial_mm": 0,
+        "tilt_deg": 0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0.05,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 1.021047301443948,
-        "whole_pilot_end_depth_mm": 1.4426444655495505
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.05000000000000249,
+        "core_gap_mm": 0.011319672249792134,
+        "whole_pilot_end_depth_mm": 1.4167516296704852
       },
       {
         "azimuth_deg": 0,
-        "tilt_deg": 1.0,
-        "axial_mm": 0.1,
+        "tilt_deg": 0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0.1,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 1.0470057365352252,
-        "whole_pilot_end_depth_mm": 1.3426444655495509
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.10000000000000231,
+        "core_gap_mm": 0.011319672249792134,
+        "whole_pilot_end_depth_mm": 1.3667516296704854
       },
       {
         "azimuth_deg": 45,
-        "tilt_deg": -1.0,
-        "axial_mm": -0.1,
+        "tilt_deg": -0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.6594614809625475,
-        "whole_pilot_end_depth_mm": 1.542644465549551
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 2.673771110915334e-15,
+        "core_gap_mm": 0.16703626869411536,
+        "whole_pilot_end_depth_mm": 1.466751629670485
       },
       {
         "azimuth_deg": 45,
-        "tilt_deg": -1.0,
-        "axial_mm": 0,
+        "tilt_deg": -0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0.05,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.7056152692789841,
-        "whole_pilot_end_depth_mm": 1.4426444655495514
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.05000000000000249,
+        "core_gap_mm": 0.11703626869411465,
+        "whole_pilot_end_depth_mm": 1.4167516296704852
       },
       {
         "azimuth_deg": 45,
-        "tilt_deg": -1.0,
-        "axial_mm": 0.1,
+        "tilt_deg": -0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0.1,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.7621655801766377,
-        "whole_pilot_end_depth_mm": 1.3426444655495517
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.10000000000000231,
+        "core_gap_mm": 0.0670362686941175,
+        "whole_pilot_end_depth_mm": 1.3667516296704854
       },
       {
         "azimuth_deg": 45,
         "tilt_deg": 0,
-        "axial_mm": -0.1,
+        "floor_contact_lift_mm": 0.0,
+        "additional_lift_mm": 0,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.8222530024268684,
-        "whole_pilot_end_depth_mm": 1.5999999999999996
-      },
-      {
-        "azimuth_deg": 45,
-        "tilt_deg": 0,
-        "axial_mm": 0,
-        "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.8509406559801921,
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 2.6645352591003757e-15,
+        "core_gap_mm": 0.11999999999999988,
         "whole_pilot_end_depth_mm": 1.5
       },
       {
         "azimuth_deg": 45,
         "tilt_deg": 0,
-        "axial_mm": 0.1,
+        "floor_contact_lift_mm": 0.0,
+        "additional_lift_mm": 0.05,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.8899999999999996,
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.05000000000000249,
+        "core_gap_mm": 0.11999999999999966,
+        "whole_pilot_end_depth_mm": 1.4500000000000002
+      },
+      {
+        "azimuth_deg": 45,
+        "tilt_deg": 0,
+        "floor_contact_lift_mm": 0.0,
+        "additional_lift_mm": 0.1,
+        "cavity_overlap_mm3": 0.0,
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.10000000000000231,
+        "core_gap_mm": 0.09999999999999787,
         "whole_pilot_end_depth_mm": 1.4000000000000004
       },
       {
         "azimuth_deg": 45,
-        "tilt_deg": 1.0,
-        "axial_mm": -0.1,
+        "tilt_deg": 0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 1.0044173292184222,
-        "whole_pilot_end_depth_mm": 1.542644465549552
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 2.6645352591003757e-15,
+        "core_gap_mm": 0.01131967224979391,
+        "whole_pilot_end_depth_mm": 1.466751629670485
       },
       {
         "azimuth_deg": 45,
-        "tilt_deg": 1.0,
-        "axial_mm": 0,
+        "tilt_deg": 0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0.05,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 1.0210473014439487,
-        "whole_pilot_end_depth_mm": 1.4426444655495523
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.05000000000000249,
+        "core_gap_mm": 0.01131967224979391,
+        "whole_pilot_end_depth_mm": 1.4167516296704852
       },
       {
         "azimuth_deg": 45,
-        "tilt_deg": 1.0,
-        "axial_mm": 0.1,
+        "tilt_deg": 0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0.1,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 1.0470057365352259,
-        "whole_pilot_end_depth_mm": 1.3426444655495526
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.10000000000000231,
+        "core_gap_mm": 0.01131967224979391,
+        "whole_pilot_end_depth_mm": 1.3667516296704854
       },
       {
         "azimuth_deg": 90,
-        "tilt_deg": -1.0,
-        "axial_mm": -0.1,
+        "tilt_deg": -0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.6594614809625482,
-        "whole_pilot_end_depth_mm": 1.542644465549551
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 2.6645352591003757e-15,
+        "core_gap_mm": 0.16703626869411536,
+        "whole_pilot_end_depth_mm": 1.466751629670485
       },
       {
         "azimuth_deg": 90,
-        "tilt_deg": -1.0,
-        "axial_mm": 0,
+        "tilt_deg": -0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0.05,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.7056152692789851,
-        "whole_pilot_end_depth_mm": 1.4426444655495514
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.05000000000000249,
+        "core_gap_mm": 0.11703626869411465,
+        "whole_pilot_end_depth_mm": 1.4167516296704852
       },
       {
         "azimuth_deg": 90,
-        "tilt_deg": -1.0,
-        "axial_mm": 0.1,
+        "tilt_deg": -0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0.1,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.7621655801766383,
-        "whole_pilot_end_depth_mm": 1.3426444655495517
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.10000000000000231,
+        "core_gap_mm": 0.0670362686941175,
+        "whole_pilot_end_depth_mm": 1.3667516296704854
       },
       {
         "azimuth_deg": 90,
         "tilt_deg": 0,
-        "axial_mm": -0.1,
+        "floor_contact_lift_mm": 0.0,
+        "additional_lift_mm": 0,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.8222530024268685,
-        "whole_pilot_end_depth_mm": 1.5999999999999996
-      },
-      {
-        "azimuth_deg": 90,
-        "tilt_deg": 0,
-        "axial_mm": 0,
-        "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.8509406559801922,
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 2.6645352591003757e-15,
+        "core_gap_mm": 0.1200000000000001,
         "whole_pilot_end_depth_mm": 1.5
       },
       {
         "azimuth_deg": 90,
         "tilt_deg": 0,
-        "axial_mm": 0.1,
+        "floor_contact_lift_mm": 0.0,
+        "additional_lift_mm": 0.05,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.8899999999999997,
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.05000000000000249,
+        "core_gap_mm": 0.1200000000000001,
+        "whole_pilot_end_depth_mm": 1.4500000000000002
+      },
+      {
+        "azimuth_deg": 90,
+        "tilt_deg": 0,
+        "floor_contact_lift_mm": 0.0,
+        "additional_lift_mm": 0.1,
+        "cavity_overlap_mm3": 0.0,
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.10000000000000231,
+        "core_gap_mm": 0.09999999999999787,
         "whole_pilot_end_depth_mm": 1.4000000000000004
       },
       {
         "azimuth_deg": 90,
-        "tilt_deg": 1.0,
-        "axial_mm": -0.1,
+        "tilt_deg": 0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 1.0044173292184224,
-        "whole_pilot_end_depth_mm": 1.542644465549551
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 2.6645352591003757e-15,
+        "core_gap_mm": 0.011319672249793467,
+        "whole_pilot_end_depth_mm": 1.466751629670485
       },
       {
         "azimuth_deg": 90,
-        "tilt_deg": 1.0,
-        "axial_mm": 0,
+        "tilt_deg": 0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0.05,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 1.0210473014439487,
-        "whole_pilot_end_depth_mm": 1.4426444655495514
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.05000000000000249,
+        "core_gap_mm": 0.011319672249793467,
+        "whole_pilot_end_depth_mm": 1.4167516296704852
       },
       {
         "azimuth_deg": 90,
-        "tilt_deg": 1.0,
-        "axial_mm": 0.1,
+        "tilt_deg": 0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0.1,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 1.0470057365352257,
-        "whole_pilot_end_depth_mm": 1.3426444655495517
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.10000000000000231,
+        "core_gap_mm": 0.011319672249793467,
+        "whole_pilot_end_depth_mm": 1.3667516296704854
       },
       {
         "azimuth_deg": 135,
-        "tilt_deg": -1.0,
-        "axial_mm": -0.1,
+        "tilt_deg": -0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.6594614809625475,
-        "whole_pilot_end_depth_mm": 1.542644465549552
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 2.6645352591003757e-15,
+        "core_gap_mm": 0.16703626869411536,
+        "whole_pilot_end_depth_mm": 1.466751629670485
       },
       {
         "azimuth_deg": 135,
-        "tilt_deg": -1.0,
-        "axial_mm": 0,
+        "tilt_deg": -0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0.05,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.705615269278984,
-        "whole_pilot_end_depth_mm": 1.4426444655495523
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.05000000000000249,
+        "core_gap_mm": 0.11703626869411465,
+        "whole_pilot_end_depth_mm": 1.4167516296704852
       },
       {
         "azimuth_deg": 135,
-        "tilt_deg": -1.0,
-        "axial_mm": 0.1,
+        "tilt_deg": -0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0.1,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.7621655801766374,
-        "whole_pilot_end_depth_mm": 1.3426444655495526
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.10000000000000231,
+        "core_gap_mm": 0.0670362686941175,
+        "whole_pilot_end_depth_mm": 1.3667516296704854
       },
       {
         "azimuth_deg": 135,
         "tilt_deg": 0,
-        "axial_mm": -0.1,
+        "floor_contact_lift_mm": 0.0,
+        "additional_lift_mm": 0,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.8222530024268679,
-        "whole_pilot_end_depth_mm": 1.5999999999999996
-      },
-      {
-        "azimuth_deg": 135,
-        "tilt_deg": 0,
-        "axial_mm": 0,
-        "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.8509406559801916,
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 2.6645352591003757e-15,
+        "core_gap_mm": 0.11999999999999973,
         "whole_pilot_end_depth_mm": 1.5
       },
       {
         "azimuth_deg": 135,
         "tilt_deg": 0,
-        "axial_mm": 0.1,
+        "floor_contact_lift_mm": 0.0,
+        "additional_lift_mm": 0.05,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.8899999999999992,
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.05000000000000249,
+        "core_gap_mm": 0.1200000000000001,
+        "whole_pilot_end_depth_mm": 1.4500000000000002
+      },
+      {
+        "azimuth_deg": 135,
+        "tilt_deg": 0,
+        "floor_contact_lift_mm": 0.0,
+        "additional_lift_mm": 0.1,
+        "cavity_overlap_mm3": 0.0,
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.10000000000000231,
+        "core_gap_mm": 0.09999999999999787,
         "whole_pilot_end_depth_mm": 1.4000000000000004
       },
       {
         "azimuth_deg": 135,
-        "tilt_deg": 1.0,
-        "axial_mm": -0.1,
+        "tilt_deg": 0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 1.0044173292184226,
-        "whole_pilot_end_depth_mm": 1.542644465549551
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 2.673771110915334e-15,
+        "core_gap_mm": 0.01131967224979391,
+        "whole_pilot_end_depth_mm": 1.466751629670485
       },
       {
         "azimuth_deg": 135,
-        "tilt_deg": 1.0,
-        "axial_mm": 0,
+        "tilt_deg": 0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0.05,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 1.021047301443949,
-        "whole_pilot_end_depth_mm": 1.4426444655495514
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.05000000000000249,
+        "core_gap_mm": 0.01131967224979391,
+        "whole_pilot_end_depth_mm": 1.4167516296704852
       },
       {
         "azimuth_deg": 135,
-        "tilt_deg": 1.0,
-        "axial_mm": 0.1,
+        "tilt_deg": 0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0.1,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 1.0470057365352259,
-        "whole_pilot_end_depth_mm": 1.3426444655495517
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.10000000000000231,
+        "core_gap_mm": 0.01131967224979391,
+        "whole_pilot_end_depth_mm": 1.3667516296704854
       },
       {
         "azimuth_deg": 180,
-        "tilt_deg": -1.0,
-        "axial_mm": -0.1,
+        "tilt_deg": -0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.6594614809625482,
-        "whole_pilot_end_depth_mm": 1.5426444655495501
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 2.6645352591003757e-15,
+        "core_gap_mm": 0.16703626869411892,
+        "whole_pilot_end_depth_mm": 1.466751629670485
       },
       {
         "azimuth_deg": 180,
-        "tilt_deg": -1.0,
-        "axial_mm": 0,
+        "tilt_deg": -0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0.05,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.7056152692789851,
-        "whole_pilot_end_depth_mm": 1.4426444655495505
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.05000000000000249,
+        "core_gap_mm": 0.1170362686941182,
+        "whole_pilot_end_depth_mm": 1.4167516296704852
       },
       {
         "azimuth_deg": 180,
-        "tilt_deg": -1.0,
-        "axial_mm": 0.1,
+        "tilt_deg": -0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0.1,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.7621655801766385,
-        "whole_pilot_end_depth_mm": 1.3426444655495509
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.10000000000000231,
+        "core_gap_mm": 0.06703626869412105,
+        "whole_pilot_end_depth_mm": 1.3667516296704854
       },
       {
         "azimuth_deg": 180,
         "tilt_deg": 0,
-        "axial_mm": -0.1,
+        "floor_contact_lift_mm": 0.0,
+        "additional_lift_mm": 0,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.8222530024268685,
-        "whole_pilot_end_depth_mm": 1.5999999999999996
-      },
-      {
-        "azimuth_deg": 180,
-        "tilt_deg": 0,
-        "axial_mm": 0,
-        "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.8509406559801922,
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 2.6645352591003757e-15,
+        "core_gap_mm": 0.11999999999999976,
         "whole_pilot_end_depth_mm": 1.5
       },
       {
         "azimuth_deg": 180,
         "tilt_deg": 0,
-        "axial_mm": 0.1,
+        "floor_contact_lift_mm": 0.0,
+        "additional_lift_mm": 0.05,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.8899999999999997,
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.05000000000000249,
+        "core_gap_mm": 0.11999999999999976,
+        "whole_pilot_end_depth_mm": 1.4500000000000002
+      },
+      {
+        "azimuth_deg": 180,
+        "tilt_deg": 0,
+        "floor_contact_lift_mm": 0.0,
+        "additional_lift_mm": 0.1,
+        "cavity_overlap_mm3": 0.0,
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.10000000000000231,
+        "core_gap_mm": 0.09999999999999787,
         "whole_pilot_end_depth_mm": 1.4000000000000004
       },
       {
         "azimuth_deg": 180,
-        "tilt_deg": 1.0,
-        "axial_mm": -0.1,
+        "tilt_deg": 0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 1.004417329218423,
-        "whole_pilot_end_depth_mm": 1.5426444655495493
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 2.6645352591003757e-15,
+        "core_gap_mm": 0.011319672249793022,
+        "whole_pilot_end_depth_mm": 1.466751629670485
       },
       {
         "azimuth_deg": 180,
-        "tilt_deg": 1.0,
-        "axial_mm": 0,
+        "tilt_deg": 0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0.05,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 1.0210473014439494,
-        "whole_pilot_end_depth_mm": 1.4426444655495496
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.05000000000000249,
+        "core_gap_mm": 0.011319672249793022,
+        "whole_pilot_end_depth_mm": 1.4167516296704852
       },
       {
         "azimuth_deg": 180,
-        "tilt_deg": 1.0,
-        "axial_mm": 0.1,
+        "tilt_deg": 0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0.1,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 1.0470057365352268,
-        "whole_pilot_end_depth_mm": 1.34264446554955
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.10000000000000231,
+        "core_gap_mm": 0.011319672249793022,
+        "whole_pilot_end_depth_mm": 1.3667516296704854
       },
       {
         "azimuth_deg": 225,
-        "tilt_deg": -1.0,
-        "axial_mm": -0.1,
+        "tilt_deg": -0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.6594614809625475,
-        "whole_pilot_end_depth_mm": 1.542644465549552
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 2.6645352591003757e-15,
+        "core_gap_mm": 0.16703626869411536,
+        "whole_pilot_end_depth_mm": 1.466751629670485
       },
       {
         "azimuth_deg": 225,
-        "tilt_deg": -1.0,
-        "axial_mm": 0,
+        "tilt_deg": -0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0.05,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.705615269278984,
-        "whole_pilot_end_depth_mm": 1.4426444655495523
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.05000000000000249,
+        "core_gap_mm": 0.11703626869411465,
+        "whole_pilot_end_depth_mm": 1.4167516296704852
       },
       {
         "azimuth_deg": 225,
-        "tilt_deg": -1.0,
-        "axial_mm": 0.1,
+        "tilt_deg": -0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0.1,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.7621655801766374,
-        "whole_pilot_end_depth_mm": 1.3426444655495526
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.10000000000000231,
+        "core_gap_mm": 0.0670362686941175,
+        "whole_pilot_end_depth_mm": 1.3667516296704854
       },
       {
         "azimuth_deg": 225,
         "tilt_deg": 0,
-        "axial_mm": -0.1,
+        "floor_contact_lift_mm": 0.0,
+        "additional_lift_mm": 0,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.822253002426868,
-        "whole_pilot_end_depth_mm": 1.5999999999999996
-      },
-      {
-        "azimuth_deg": 225,
-        "tilt_deg": 0,
-        "axial_mm": 0,
-        "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.8509406559801918,
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 2.6645352591003757e-15,
+        "core_gap_mm": 0.1200000000000001,
         "whole_pilot_end_depth_mm": 1.5
       },
       {
         "azimuth_deg": 225,
         "tilt_deg": 0,
-        "axial_mm": 0.1,
+        "floor_contact_lift_mm": 0.0,
+        "additional_lift_mm": 0.05,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.8899999999999993,
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.05000000000000249,
+        "core_gap_mm": 0.12000000000000004,
+        "whole_pilot_end_depth_mm": 1.4500000000000002
+      },
+      {
+        "azimuth_deg": 225,
+        "tilt_deg": 0,
+        "floor_contact_lift_mm": 0.0,
+        "additional_lift_mm": 0.1,
+        "cavity_overlap_mm3": 0.0,
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.10000000000000231,
+        "core_gap_mm": 0.09999999999999787,
         "whole_pilot_end_depth_mm": 1.4000000000000004
       },
       {
         "azimuth_deg": 225,
-        "tilt_deg": 1.0,
-        "axial_mm": -0.1,
+        "tilt_deg": 0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 1.0044173292184226,
-        "whole_pilot_end_depth_mm": 1.542644465549551
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 2.673771110915334e-15,
+        "core_gap_mm": 0.011319672249793467,
+        "whole_pilot_end_depth_mm": 1.466751629670485
       },
       {
         "azimuth_deg": 225,
-        "tilt_deg": 1.0,
-        "axial_mm": 0,
+        "tilt_deg": 0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0.05,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 1.021047301443949,
-        "whole_pilot_end_depth_mm": 1.4426444655495514
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.05000000000000249,
+        "core_gap_mm": 0.011319672249793467,
+        "whole_pilot_end_depth_mm": 1.4167516296704852
       },
       {
         "azimuth_deg": 225,
-        "tilt_deg": 1.0,
-        "axial_mm": 0.1,
+        "tilt_deg": 0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0.1,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 1.0470057365352259,
-        "whole_pilot_end_depth_mm": 1.3426444655495517
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.10000000000000231,
+        "core_gap_mm": 0.011319672249793467,
+        "whole_pilot_end_depth_mm": 1.3667516296704854
       },
       {
         "azimuth_deg": 270,
-        "tilt_deg": -1.0,
-        "axial_mm": -0.1,
+        "tilt_deg": -0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.6594614809625482,
-        "whole_pilot_end_depth_mm": 1.542644465549551
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 2.6645352591003757e-15,
+        "core_gap_mm": 0.16703626869411536,
+        "whole_pilot_end_depth_mm": 1.466751629670485
       },
       {
         "azimuth_deg": 270,
-        "tilt_deg": -1.0,
-        "axial_mm": 0,
+        "tilt_deg": -0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0.05,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.7056152692789851,
-        "whole_pilot_end_depth_mm": 1.4426444655495514
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.05000000000000249,
+        "core_gap_mm": 0.11703626869411465,
+        "whole_pilot_end_depth_mm": 1.4167516296704852
       },
       {
         "azimuth_deg": 270,
-        "tilt_deg": -1.0,
-        "axial_mm": 0.1,
+        "tilt_deg": -0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0.1,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.7621655801766383,
-        "whole_pilot_end_depth_mm": 1.3426444655495517
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.10000000000000231,
+        "core_gap_mm": 0.0670362686941175,
+        "whole_pilot_end_depth_mm": 1.3667516296704854
       },
       {
         "azimuth_deg": 270,
         "tilt_deg": 0,
-        "axial_mm": -0.1,
+        "floor_contact_lift_mm": 0.0,
+        "additional_lift_mm": 0,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.8222530024268685,
-        "whole_pilot_end_depth_mm": 1.5999999999999996
-      },
-      {
-        "azimuth_deg": 270,
-        "tilt_deg": 0,
-        "axial_mm": 0,
-        "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.8509406559801922,
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 2.6645352591003757e-15,
+        "core_gap_mm": 0.1200000000000001,
         "whole_pilot_end_depth_mm": 1.5
       },
       {
         "azimuth_deg": 270,
         "tilt_deg": 0,
-        "axial_mm": 0.1,
+        "floor_contact_lift_mm": 0.0,
+        "additional_lift_mm": 0.05,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.8899999999999997,
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.05000000000000249,
+        "core_gap_mm": 0.1200000000000001,
+        "whole_pilot_end_depth_mm": 1.4500000000000002
+      },
+      {
+        "azimuth_deg": 270,
+        "tilt_deg": 0,
+        "floor_contact_lift_mm": 0.0,
+        "additional_lift_mm": 0.1,
+        "cavity_overlap_mm3": 0.0,
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.10000000000000231,
+        "core_gap_mm": 0.09999999999999787,
         "whole_pilot_end_depth_mm": 1.4000000000000004
       },
       {
         "azimuth_deg": 270,
-        "tilt_deg": 1.0,
-        "axial_mm": -0.1,
+        "tilt_deg": 0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 1.0044173292184224,
-        "whole_pilot_end_depth_mm": 1.542644465549551
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 2.6645352591003757e-15,
+        "core_gap_mm": 0.011319672249793467,
+        "whole_pilot_end_depth_mm": 1.466751629670485
       },
       {
         "azimuth_deg": 270,
-        "tilt_deg": 1.0,
-        "axial_mm": 0,
+        "tilt_deg": 0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0.05,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 1.0210473014439487,
-        "whole_pilot_end_depth_mm": 1.4426444655495514
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.05000000000000249,
+        "core_gap_mm": 0.011319672249793467,
+        "whole_pilot_end_depth_mm": 1.4167516296704852
       },
       {
         "azimuth_deg": 270,
-        "tilt_deg": 1.0,
-        "axial_mm": 0.1,
+        "tilt_deg": 0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0.1,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 1.0470057365352257,
-        "whole_pilot_end_depth_mm": 1.3426444655495517
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.10000000000000231,
+        "core_gap_mm": 0.011319672249793467,
+        "whole_pilot_end_depth_mm": 1.3667516296704854
       },
       {
         "azimuth_deg": 315,
-        "tilt_deg": -1.0,
-        "axial_mm": -0.1,
+        "tilt_deg": -0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.6594614809625479,
-        "whole_pilot_end_depth_mm": 1.542644465549551
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 2.673771110915334e-15,
+        "core_gap_mm": 0.16703626869411536,
+        "whole_pilot_end_depth_mm": 1.466751629670485
       },
       {
         "azimuth_deg": 315,
-        "tilt_deg": -1.0,
-        "axial_mm": 0,
+        "tilt_deg": -0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0.05,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.7056152692789847,
-        "whole_pilot_end_depth_mm": 1.4426444655495514
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.05000000000000249,
+        "core_gap_mm": 0.11703626869411465,
+        "whole_pilot_end_depth_mm": 1.4167516296704852
       },
       {
         "azimuth_deg": 315,
-        "tilt_deg": -1.0,
-        "axial_mm": 0.1,
+        "tilt_deg": -0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0.1,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.7621655801766379,
-        "whole_pilot_end_depth_mm": 1.3426444655495517
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.10000000000000231,
+        "core_gap_mm": 0.0670362686941175,
+        "whole_pilot_end_depth_mm": 1.3667516296704854
       },
       {
         "azimuth_deg": 315,
         "tilt_deg": 0,
-        "axial_mm": -0.1,
+        "floor_contact_lift_mm": 0.0,
+        "additional_lift_mm": 0,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.8222530024268684,
-        "whole_pilot_end_depth_mm": 1.5999999999999996
-      },
-      {
-        "azimuth_deg": 315,
-        "tilt_deg": 0,
-        "axial_mm": 0,
-        "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.8509406559801921,
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 2.6645352591003757e-15,
+        "core_gap_mm": 0.11999999999999958,
         "whole_pilot_end_depth_mm": 1.5
       },
       {
         "azimuth_deg": 315,
         "tilt_deg": 0,
-        "axial_mm": 0.1,
+        "floor_contact_lift_mm": 0.0,
+        "additional_lift_mm": 0.05,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 0.8899999999999996,
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.05000000000000249,
+        "core_gap_mm": 0.1200000000000002,
+        "whole_pilot_end_depth_mm": 1.4500000000000002
+      },
+      {
+        "azimuth_deg": 315,
+        "tilt_deg": 0,
+        "floor_contact_lift_mm": 0.0,
+        "additional_lift_mm": 0.1,
+        "cavity_overlap_mm3": 0.0,
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.10000000000000231,
+        "core_gap_mm": 0.09999999999999787,
         "whole_pilot_end_depth_mm": 1.4000000000000004
       },
       {
         "azimuth_deg": 315,
-        "tilt_deg": 1.0,
-        "axial_mm": -0.1,
+        "tilt_deg": 0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 1.004417329218422,
-        "whole_pilot_end_depth_mm": 1.542644465549552
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 2.6645352591003757e-15,
+        "core_gap_mm": 0.01131967224979391,
+        "whole_pilot_end_depth_mm": 1.466751629670485
       },
       {
         "azimuth_deg": 315,
-        "tilt_deg": 1.0,
-        "axial_mm": 0,
+        "tilt_deg": 0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0.05,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 1.0210473014439483,
-        "whole_pilot_end_depth_mm": 1.4426444655495523
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.05000000000000249,
+        "core_gap_mm": 0.01131967224979391,
+        "whole_pilot_end_depth_mm": 1.4167516296704852
       },
       {
         "azimuth_deg": 315,
-        "tilt_deg": 1.0,
-        "axial_mm": 0.1,
+        "tilt_deg": 0.3,
+        "floor_contact_lift_mm": 0.0166241851647575,
+        "additional_lift_mm": 0.1,
         "cavity_overlap_mm3": 0.0,
-        "cavity_gap_mm": 1.0470057365352254,
-        "whole_pilot_end_depth_mm": 1.3426444655495526
+        "core_overlap_mm3": 0.0,
+        "cavity_gap_mm": 0.10000000000000231,
+        "core_gap_mm": 0.01131967224979391,
+        "whole_pilot_end_depth_mm": 1.3667516296704854
       }
     ],
-    "scope": "Tool-specific cavity clearance and pilot reach; does not qualify a deliberately displaced wet forming profile, coated fit or tie retention."
+    "scope": "Both loose blind seats, lower floor contact, upper roof clearance and pilot reach. Does not qualify a deliberately displaced wet forming profile or actual printed fit."
+  },
+  "seat_and_closure_motion": {
+    "upright_drop_in_closure": {
+      "poses": 160,
+      "pure_offset_mm": [
+        0,
+        0.19
+      ],
+      "core_lift_mm": [
+        0,
+        9
+      ],
+      "readings": [
+        {
+          "azimuth_deg": 0,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 0,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 0,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 1,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 0,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 2,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 0,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 3,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 0,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 4,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 0,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 5,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 0,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 6,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 0,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 7,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 0,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 8,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 0,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 9,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 0,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 0,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 0,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 1,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 0,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 2,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 0,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 3,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 0,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 4,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 0,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 5,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 0,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 6,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 0,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 7,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 0,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 8,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 0,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 9,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 45,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 0,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 45,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 1,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 45,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 2,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 45,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 3,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 45,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 4,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 45,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 5,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 45,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 6,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 45,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 7,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 45,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 8,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 45,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 9,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 45,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 0,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 45,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 1,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 45,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 2,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 45,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 3,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 45,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 4,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 45,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 5,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 45,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 6,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 45,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 7,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 45,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 8,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 45,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 9,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 90,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 0,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 90,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 1,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 90,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 2,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 90,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 3,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 90,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 4,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 90,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 5,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 90,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 6,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 90,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 7,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 90,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 8,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 90,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 9,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 90,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 0,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 90,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 1,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 90,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 2,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 90,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 3,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 90,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 4,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 90,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 5,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 90,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 6,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 90,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 7,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 90,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 8,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 90,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 9,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 135,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 0,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 135,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 1,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 135,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 2,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 135,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 3,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 135,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 4,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 135,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 5,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 135,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 6,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 135,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 7,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 135,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 8,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 135,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 9,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 135,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 0,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 135,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 1,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 135,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 2,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 135,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 3,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 135,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 4,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 135,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 5,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 135,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 6,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 135,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 7,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 135,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 8,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 135,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 9,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 180,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 0,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 180,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 1,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 180,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 2,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 180,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 3,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 180,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 4,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 180,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 5,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 180,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 6,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 180,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 7,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 180,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 8,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 180,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 9,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 180,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 0,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 180,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 1,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 180,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 2,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 180,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 3,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 180,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 4,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 180,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 5,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 180,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 6,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 180,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 7,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 180,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 8,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 180,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 9,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 225,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 0,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 225,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 1,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 225,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 2,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 225,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 3,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 225,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 4,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 225,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 5,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 225,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 6,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 225,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 7,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 225,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 8,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 225,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 9,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 225,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 0,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 225,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 1,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 225,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 2,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 225,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 3,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 225,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 4,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 225,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 5,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 225,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 6,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 225,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 7,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 225,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 8,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 225,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 9,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 270,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 0,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 270,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 1,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 270,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 2,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 270,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 3,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 270,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 4,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 270,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 5,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 270,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 6,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 270,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 7,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 270,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 8,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 270,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 9,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 270,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 0,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 270,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 1,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 270,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 2,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 270,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 3,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 270,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 4,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 270,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 5,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 270,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 6,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 270,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 7,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 270,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 8,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 270,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 9,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 315,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 0,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 315,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 1,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 315,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 2,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 315,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 3,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 315,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 4,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 315,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 5,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 315,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 6,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 315,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 7,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 315,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 8,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 315,
+          "upright_offset_mm": 0.0,
+          "core_lift_mm": 9,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 315,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 0,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 315,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 1,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 315,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 2,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 315,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 3,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 315,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 4,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 315,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 5,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 315,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 6,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 315,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 7,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 315,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 8,
+          "overlap_mm3": 0.0
+        },
+        {
+          "azimuth_deg": 315,
+          "upright_offset_mm": 0.19,
+          "core_lift_mm": 9,
+          "overlap_mm3": 0.0
+        }
+      ]
+    },
+    "feasible_lead_in_centering_route": {
+      "poses": 88,
+      "initial_tilt_deg": 1,
+      "seated_tilt_deg": 0,
+      "readings": [
+        {
+          "azimuth_deg": 0,
+          "core_lift_mm": 0,
+          "pin_tilt_deg": 0.0,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 0,
+          "core_lift_mm": 0.5,
+          "pin_tilt_deg": 0.021428571428571425,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 0,
+          "core_lift_mm": 1,
+          "pin_tilt_deg": 0.04285714285714285,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 0,
+          "core_lift_mm": 2,
+          "pin_tilt_deg": 0.0857142857142857,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 0,
+          "core_lift_mm": 3,
+          "pin_tilt_deg": 0.12857142857142856,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 0,
+          "core_lift_mm": 4,
+          "pin_tilt_deg": 0.1714285714285714,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 0,
+          "core_lift_mm": 5,
+          "pin_tilt_deg": 0.21428571428571427,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 0,
+          "core_lift_mm": 6,
+          "pin_tilt_deg": 0.2571428571428571,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 0,
+          "core_lift_mm": 7,
+          "pin_tilt_deg": 0.3,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 0,
+          "core_lift_mm": 7.5,
+          "pin_tilt_deg": 0.6499999999999999,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 0,
+          "core_lift_mm": 8,
+          "pin_tilt_deg": 1.0,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 45,
+          "core_lift_mm": 0,
+          "pin_tilt_deg": 0.0,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 45,
+          "core_lift_mm": 0.5,
+          "pin_tilt_deg": 0.021428571428571425,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 45,
+          "core_lift_mm": 1,
+          "pin_tilt_deg": 0.04285714285714285,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 45,
+          "core_lift_mm": 2,
+          "pin_tilt_deg": 0.0857142857142857,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 45,
+          "core_lift_mm": 3,
+          "pin_tilt_deg": 0.12857142857142856,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 45,
+          "core_lift_mm": 4,
+          "pin_tilt_deg": 0.1714285714285714,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 45,
+          "core_lift_mm": 5,
+          "pin_tilt_deg": 0.21428571428571427,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 45,
+          "core_lift_mm": 6,
+          "pin_tilt_deg": 0.2571428571428571,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 45,
+          "core_lift_mm": 7,
+          "pin_tilt_deg": 0.3,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 45,
+          "core_lift_mm": 7.5,
+          "pin_tilt_deg": 0.6499999999999999,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 45,
+          "core_lift_mm": 8,
+          "pin_tilt_deg": 1.0,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 90,
+          "core_lift_mm": 0,
+          "pin_tilt_deg": 0.0,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 90,
+          "core_lift_mm": 0.5,
+          "pin_tilt_deg": 0.021428571428571425,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 90,
+          "core_lift_mm": 1,
+          "pin_tilt_deg": 0.04285714285714285,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 90,
+          "core_lift_mm": 2,
+          "pin_tilt_deg": 0.0857142857142857,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 90,
+          "core_lift_mm": 3,
+          "pin_tilt_deg": 0.12857142857142856,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 90,
+          "core_lift_mm": 4,
+          "pin_tilt_deg": 0.1714285714285714,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 90,
+          "core_lift_mm": 5,
+          "pin_tilt_deg": 0.21428571428571427,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 90,
+          "core_lift_mm": 6,
+          "pin_tilt_deg": 0.2571428571428571,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 90,
+          "core_lift_mm": 7,
+          "pin_tilt_deg": 0.3,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 90,
+          "core_lift_mm": 7.5,
+          "pin_tilt_deg": 0.6499999999999999,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 90,
+          "core_lift_mm": 8,
+          "pin_tilt_deg": 1.0,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 135,
+          "core_lift_mm": 0,
+          "pin_tilt_deg": 0.0,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 135,
+          "core_lift_mm": 0.5,
+          "pin_tilt_deg": 0.021428571428571425,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 135,
+          "core_lift_mm": 1,
+          "pin_tilt_deg": 0.04285714285714285,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 135,
+          "core_lift_mm": 2,
+          "pin_tilt_deg": 0.0857142857142857,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 135,
+          "core_lift_mm": 3,
+          "pin_tilt_deg": 0.12857142857142856,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 135,
+          "core_lift_mm": 4,
+          "pin_tilt_deg": 0.1714285714285714,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 135,
+          "core_lift_mm": 5,
+          "pin_tilt_deg": 0.21428571428571427,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 135,
+          "core_lift_mm": 6,
+          "pin_tilt_deg": 0.2571428571428571,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 135,
+          "core_lift_mm": 7,
+          "pin_tilt_deg": 0.3,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 135,
+          "core_lift_mm": 7.5,
+          "pin_tilt_deg": 0.6499999999999999,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 135,
+          "core_lift_mm": 8,
+          "pin_tilt_deg": 1.0,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 180,
+          "core_lift_mm": 0,
+          "pin_tilt_deg": 0.0,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 180,
+          "core_lift_mm": 0.5,
+          "pin_tilt_deg": 0.021428571428571425,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 180,
+          "core_lift_mm": 1,
+          "pin_tilt_deg": 0.04285714285714285,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 180,
+          "core_lift_mm": 2,
+          "pin_tilt_deg": 0.0857142857142857,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 180,
+          "core_lift_mm": 3,
+          "pin_tilt_deg": 0.12857142857142856,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 180,
+          "core_lift_mm": 4,
+          "pin_tilt_deg": 0.1714285714285714,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 180,
+          "core_lift_mm": 5,
+          "pin_tilt_deg": 0.21428571428571427,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 180,
+          "core_lift_mm": 6,
+          "pin_tilt_deg": 0.2571428571428571,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 180,
+          "core_lift_mm": 7,
+          "pin_tilt_deg": 0.3,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 180,
+          "core_lift_mm": 7.5,
+          "pin_tilt_deg": 0.6499999999999999,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 180,
+          "core_lift_mm": 8,
+          "pin_tilt_deg": 1.0,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 225,
+          "core_lift_mm": 0,
+          "pin_tilt_deg": 0.0,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 225,
+          "core_lift_mm": 0.5,
+          "pin_tilt_deg": 0.021428571428571425,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 225,
+          "core_lift_mm": 1,
+          "pin_tilt_deg": 0.04285714285714285,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 225,
+          "core_lift_mm": 2,
+          "pin_tilt_deg": 0.0857142857142857,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 225,
+          "core_lift_mm": 3,
+          "pin_tilt_deg": 0.12857142857142856,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 225,
+          "core_lift_mm": 4,
+          "pin_tilt_deg": 0.1714285714285714,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 225,
+          "core_lift_mm": 5,
+          "pin_tilt_deg": 0.21428571428571427,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 225,
+          "core_lift_mm": 6,
+          "pin_tilt_deg": 0.2571428571428571,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 225,
+          "core_lift_mm": 7,
+          "pin_tilt_deg": 0.3,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 225,
+          "core_lift_mm": 7.5,
+          "pin_tilt_deg": 0.6499999999999999,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 225,
+          "core_lift_mm": 8,
+          "pin_tilt_deg": 1.0,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 270,
+          "core_lift_mm": 0,
+          "pin_tilt_deg": 0.0,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 270,
+          "core_lift_mm": 0.5,
+          "pin_tilt_deg": 0.021428571428571425,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 270,
+          "core_lift_mm": 1,
+          "pin_tilt_deg": 0.04285714285714285,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 270,
+          "core_lift_mm": 2,
+          "pin_tilt_deg": 0.0857142857142857,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 270,
+          "core_lift_mm": 3,
+          "pin_tilt_deg": 0.12857142857142856,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 270,
+          "core_lift_mm": 4,
+          "pin_tilt_deg": 0.1714285714285714,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 270,
+          "core_lift_mm": 5,
+          "pin_tilt_deg": 0.21428571428571427,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 270,
+          "core_lift_mm": 6,
+          "pin_tilt_deg": 0.2571428571428571,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 270,
+          "core_lift_mm": 7,
+          "pin_tilt_deg": 0.3,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 270,
+          "core_lift_mm": 7.5,
+          "pin_tilt_deg": 0.6499999999999999,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 270,
+          "core_lift_mm": 8,
+          "pin_tilt_deg": 1.0,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 315,
+          "core_lift_mm": 0,
+          "pin_tilt_deg": 0.0,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 315,
+          "core_lift_mm": 0.5,
+          "pin_tilt_deg": 0.021428571428571425,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 315,
+          "core_lift_mm": 1,
+          "pin_tilt_deg": 0.04285714285714285,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 315,
+          "core_lift_mm": 2,
+          "pin_tilt_deg": 0.0857142857142857,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 315,
+          "core_lift_mm": 3,
+          "pin_tilt_deg": 0.12857142857142856,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 315,
+          "core_lift_mm": 4,
+          "pin_tilt_deg": 0.1714285714285714,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 315,
+          "core_lift_mm": 5,
+          "pin_tilt_deg": 0.21428571428571427,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 315,
+          "core_lift_mm": 6,
+          "pin_tilt_deg": 0.2571428571428571,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 315,
+          "core_lift_mm": 7,
+          "pin_tilt_deg": 0.3,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 315,
+          "core_lift_mm": 7.5,
+          "pin_tilt_deg": 0.6499999999999999,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        },
+        {
+          "azimuth_deg": 315,
+          "core_lift_mm": 8,
+          "pin_tilt_deg": 1.0,
+          "overlap_mm3": {
+            "core": 0.0,
+            "cavity": 0.0
+          }
+        }
+      ]
+    },
+    "scope": "Ordinary closure has loose seat guidance. This checks geometry through the full lift and a feasible centering route. It requests no operator angle/offset measurement and does not establish printed insertion force or automatic contact dynamics."
   },
   "demould": {
     "core_withdrawal": [
       {
         "travel_mm": 0,
         "core_overlap_mm3": 0.0,
-        "with_0_5_mm_lateral_offset_overlap_mm3": 0.0
+        "with_screened_lateral_offset_overlap_mm3": 0.0
       },
       {
         "travel_mm": 0.5,
         "core_overlap_mm3": 0.0,
-        "with_0_5_mm_lateral_offset_overlap_mm3": 0.0
+        "with_screened_lateral_offset_overlap_mm3": 0.0
       },
       {
         "travel_mm": 1,
         "core_overlap_mm3": 0.0,
-        "with_0_5_mm_lateral_offset_overlap_mm3": 0.0
+        "with_screened_lateral_offset_overlap_mm3": 0.0
       },
       {
         "travel_mm": 2,
         "core_overlap_mm3": 0.0,
-        "with_0_5_mm_lateral_offset_overlap_mm3": 0.0
+        "with_screened_lateral_offset_overlap_mm3": 0.0
       },
       {
         "travel_mm": 3,
         "core_overlap_mm3": 0.0,
-        "with_0_5_mm_lateral_offset_overlap_mm3": 0.0
+        "with_screened_lateral_offset_overlap_mm3": 0.0
       },
       {
         "travel_mm": 5,
         "core_overlap_mm3": 0.0,
-        "with_0_5_mm_lateral_offset_overlap_mm3": 0.0
+        "with_screened_lateral_offset_overlap_mm3": 0.0
       },
       {
         "travel_mm": 10,
         "core_overlap_mm3": 0.0,
-        "with_0_5_mm_lateral_offset_overlap_mm3": 0.0
+        "with_screened_lateral_offset_overlap_mm3": 0.0
       },
       {
         "travel_mm": 20,
         "core_overlap_mm3": 0.0,
-        "with_0_5_mm_lateral_offset_overlap_mm3": 0.0
+        "with_screened_lateral_offset_overlap_mm3": 0.0
       },
       {
-        "travel_mm": 38.035179354715055,
+        "travel_mm": 7.7,
         "core_overlap_mm3": 0.0,
-        "with_0_5_mm_lateral_offset_overlap_mm3": 0.0
+        "with_screened_lateral_offset_overlap_mm3": 0.0
       },
       {
-        "travel_mm": 50.8,
+        "travel_mm": 20.764820645284942,
         "core_overlap_mm3": 0.0,
-        "with_0_5_mm_lateral_offset_overlap_mm3": 0.0
+        "with_screened_lateral_offset_overlap_mm3": 0.0
       }
     ],
     "rigid_silicone_withdrawal_readings": [
@@ -901,47 +2873,46 @@
       },
       {
         "travel_mm": 0.5,
-        "rigid_silicone_overlap_mm3": 1.6974417806597533
+        "rigid_silicone_overlap_mm3": 1.5674449406387687
       },
       {
         "travel_mm": 1,
-        "rigid_silicone_overlap_mm3": 3.394883561302528
+        "rigid_silicone_overlap_mm3": 3.1348898821927627
       },
       {
         "travel_mm": 2,
-        "rigid_silicone_overlap_mm3": 6.789767122588074
+        "rigid_silicone_overlap_mm3": 6.269779765537336
       },
       {
         "travel_mm": 3,
-        "rigid_silicone_overlap_mm3": 10.184650683967874
+        "rigid_silicone_overlap_mm3": 9.404669648851609
       },
       {
         "travel_mm": 5,
-        "rigid_silicone_overlap_mm3": 10.184650683856646
+        "rigid_silicone_overlap_mm3": 9.45513547223397
       },
       {
         "travel_mm": 10,
-        "rigid_silicone_overlap_mm3": 10.184650683856646
+        "rigid_silicone_overlap_mm3": 9.455135471633106
       },
       {
         "travel_mm": 20,
-        "rigid_silicone_overlap_mm3": 10.184650683856646
+        "rigid_silicone_overlap_mm3": 0.0
       },
       {
-        "travel_mm": 38.035179354715055,
-        "rigid_silicone_overlap_mm3": 10.184650683856646
+        "travel_mm": 7.7,
+        "rigid_silicone_overlap_mm3": 9.455135471717291
       },
       {
-        "travel_mm": 50.8,
+        "travel_mm": 20.764820645284942,
         "rigid_silicone_overlap_mm3": 0.0
       }
     ],
     "required_land_diametric_expansion_percent": 5.833333333333335,
     "sequence": [
-      "Cut the ties and remove the entry seal.",
-      "Lift the core in +Z off the free mandrel.",
+      "Lift the core in +Z off the floor-supported pin.",
       "Peel the funnel and mandrel together from the open cavity.",
-      "Trim the socket collar flush with the block bottom before pulling the entry through it.",
+      "Trim upper-seat flash at the bowl throat and lower-pilot flash flush with the block bottom without entering the sealing land.",
       "Withdraw the mandrel in -Z using the silicone sealing land's elastic expansion."
     ],
     "physical_release_force_qualified": false,
@@ -950,12 +2921,12 @@
   "static_head_load_screen": {
     "model": "cantilever with full maximum head applied laterally along its unsupported length",
     "head_pressure_kpa": 0.5980519350000001,
-    "unsupported_length_mm": 22.764820645284942,
+    "unsupported_length_mm": 12.764820645284942,
     "minimum_solid_diameter_mm": 5.9,
     "assumed_modulus_mpa": 1000.0,
-    "lateral_force_n": 0.11436217830946115,
-    "tip_deflection_mm": 0.0028353533248216644,
-    "maximum_bending_stress_mpa": 0.06455958455900675,
+    "lateral_force_n": 0.06412581576946112,
+    "tip_deflection_mm": 0.00028029097987779467,
+    "maximum_bending_stress_mpa": 0.020298394793404746,
     "maximum_axial_head_force_n": 0.03314265937473488,
     "scope": "Room-temperature equalized-pressure static screening; not release-force, creep, lifetime or sealed-vacuum qualification."
   },
@@ -964,7 +2935,7 @@
   "physical_limits": [
     "Coating compatibility and adhesion",
     "Measured finished wet profile",
-    "Nominal alignment, tie retention and entry seal",
+    "Measured loose seat fit and nominal alignment",
     "Coated closure and vacuum cycle",
     "Silicone-assisted withdrawal and release force",
     "Finished casting quality and installed seal"

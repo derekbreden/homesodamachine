@@ -13,18 +13,18 @@ one-picture-per-step approach and the approved Letter sheets' print calibration.
 | 1 | Identify the funnel cast and three cold-core pours |
 | 2 | Stage tooling, liquids, closure hardware and vacuum equipment |
 | 3 | Remove supports, finish the shell forming faces and mask bare datums |
-| 4 | Finish and measure the contoured mandrel's wet profile |
-| 5 | Prove cure and release on the actual material/finish/clay/pigment stack |
-| 6 | Seat and tie the mandrel; pack its flush entry seal |
+| 4 | Finish and measure the short contoured PETG pin's wet profile |
+| 5 | Prove cure and release on the actual PETG/finish/pigment stack |
+| 6 | Seat the pin in the cavity and dry-close its blind core seat |
 | 7 | Dry-close the bare parting lands with opposite flange stations |
 | 8 | Apply and dry the release film |
 | 9 | Measure A/B, pigment and the silicone batch |
 | 10 | Degas mixed silicone with expansion room |
-| 11 | Fill the cavity/socket, lower the core and top up through the fill hole |
+| 11 | Seat the pin, fill the cavity, lower the core and top up through the fill hole |
 | 12 | Perform an optional equalized filled-mold vacuum cycle while fluid |
 | 13 | Hold the assembled mold through room-temperature cure |
-| 14 | Free restraints and open the tooling in alternating small movements |
-| 15 | Trim the sacrificial socket collar; withdraw the mandrel toward -Z |
+| 14 | Remove flange fasteners and open the tooling in alternating small movements |
+| 15 | Trim both blind-seat flash collars; withdraw the short pin toward -Z |
 | 16 | Inspect and clean the funnel; check its installation |
 | 17 | Record the actual foam-batch recipe for all three pours |
 | 18 | Prepare and clamp the labeled top and bottom cap stacks |
@@ -46,15 +46,41 @@ The guide is an assembly aid, not a qualification receipt. Its diagrams are
 vector schematics; dimensions named in the text govern. No figure is a drill,
 cut or mold-finishing template.
 
-Funnel tooling is the current cavity, core and contoured printed mandrel. The
+Funnel tooling is the current cavity, core and short contoured PETG pin. The
 [mold procedure](../printed-parts/zone-c/funnel-mold/README.md),
 [material record](../printed-parts/zone-c/funnel-mold/silicone.md),
 [tool dimensions](../printed-parts/zone-c/funnel-mold/forming-mandrel-design.json)
 and [native tool check](../printed-parts/zone-c/funnel-mold/forming-mandrel-check.json)
 govern its dimensions and handling order. Its
 [physical print record](../printed-parts/zone-c/funnel-mold/print-log.md)
-retains the measured stock-dowel and earlier-shell scopes. Those results do not
-qualify the current finished mandrel, coated closure, vacuum cycle or full cast.
+retains the recorded stock-dowel and printed-shell scopes. Those results do not
+qualify the current finished pin, coated closure, vacuum cycle or full cast.
+
+The pin is 20.765 mm long. Its finished wet profile forms the 8.4 mm entry,
+6.7 mm relief, 6.0 mm by 3.0 mm sealing land and 6.35 mm upper throat.
+A straight 6.35 mm steel dowel cannot form that 6.0 mm land. The pin's first
+pilot millimetre and upper locating shank remain bare; its wet finishing reserve
+is 0.05 mm normal to the surface. The mold shells use their separate 0.30 mm
+reserve.
+
+Set the pin in the cavity's 6.75 mm blind pilot seat, resting on its floor
+1.5 mm below the block-bottom face. Lower the core over the pin. Its 6.75 mm
+blind upper seat takes 7.7 mm of bare shank, with 0.20 mm axial roof clearance.
+Its 1 mm tapered mouth guides the pin during lowering. If the pin binds,
+lift the core and clear the seat before continuing.
+Both seats have 0.20 mm nominal radial clearance. Their annuli breathe back
+toward the casting as the core lowers; no pin passage opens into the dry back.
+Any cured silicone in those seats is removable flash. Trim the bottom collar
+flush with the block face and the upper collar at the throat before withdrawing
+the pin toward -Z. Preserve the 6.0 mm sealing land.
+
+The section drawings show the 6 mm silicone collar and ramp beside the roughly
+5 mm PETG backing at sensible proportions. The core's brim-finishing pocket has
+4.7 mm backing; its ramp uses the 5 mm minimum. The blind-seat hosts have
+5 mm radial walls and caps away from their opening transitions. The short
+pin and its closed boss sit inside the bowl height. The diagrams omit the thin
+pin-seat clearance at full-mold scale and enlarge the flash in the trimming
+sequence; named dimensions and the finished reference govern.
 
 The purchased BBDINO 40A material record uses a conservative five-hour demold hold
 and 24-hour full-use hold at 23 C. The direct manufacturer's current page gives
@@ -88,7 +114,7 @@ Reviewed 2026-10-04. Batch/container instructions govern the material actually u
 
 - [BBDINO 40A direct product page](https://bbdino.com/products/bbdino-40a-clear-silicone-mold-making-trial-kit-gp-platinum-cure-high-hardness): equal A/B by weight or volume, required degassing, and stated room-temperature working/cure windows.
 - [Smooth-On Ease Release 200](https://www.smooth-on.com/products/ease-release-200/): clean tooling, light spray from six to eight inches, ventilation and handling protection.
-- [Smooth-On sealer/release reference](https://www.smooth-on.com/page/sealers-releases/): light mist/brush/mist application and sulfur-free clay compatibility for platinum silicone. Application guidance does not establish the project's BBDINO/finish-stack compatibility.
+- [Smooth-On sealer/release reference](https://www.smooth-on.com/page/sealers-releases/): light mist/brush/mist application. Application guidance does not establish the project's BBDINO/finish-stack compatibility.
 - [Smooth-On vacuum-degassing example](https://www.smooth-on.com/tutorials/making-piece-cut-block-mold/vacuum-de-gassing/): expansion headroom above the mixed batch.
 - [FSD 2 lb pour foam](https://fiberglasssupplydepot.com/Expandable-Polyurethane-Pour-Foam-2lb.html): acquired material family and equal-component description.
 - [FSD pour-foam SDS](https://fiberglasssupplydepot.com/pour-foam-sds): dry handling, ventilation, skin and eye protection for the liquid components.

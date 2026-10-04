@@ -1,7 +1,7 @@
 """Read the liquid spaces in the funnel mold's STEP and exported STL.
 
 The cavity mouth is capped for the open-cavity reading. The assembled reading
-caps the fill and vent mouths and seals the rod passage. In each case the
+caps the fill and vent mouths. Both loose pin seats are blind. In each case the
 liquid must occupy one closed region separate from the surrounding air.
 """
 
@@ -18,7 +18,7 @@ import trimesh
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "hardware/scripts"))
-from _cadq_export import import_assembly
+
 
 EPS = 0.02
 
@@ -41,26 +41,10 @@ def mesh_of(shape):
     return mesh
 
 
-def seal_mesh(shape):
-    """The soft entry seal overlaps independently tessellated contact faces."""
-    mesh = mesh_of(shape)
-    copies = [mesh]
-    for axis in range(3):
-        for direction in (-1, 1):
-            displacement = np.zeros(3)
-            displacement[axis] = direction*EPS
-            copies.append(mesh.copy().apply_translation(displacement))
-    return trimesh.boolean.union(copies, engine="manifold")
-
-
 def read_geometry(models):
     info = json.loads((models / "design.json").read_text())
     shapes = {name: cq.importers.importStep(str(models / f"{name}.step")).val()
               for name in ("cavity", "core", "rod", "funnel")}
-    # The named assembly identifies the soft entry seal directly; numerical
-    # integration of spline volumes need not reproduce a source mass estimate.
-    shapes["seal"] = import_assembly(str(models / "assembly.step"))["seal"][0]
-    assert shapes["seal"].isValid() and len(shapes["seal"].Solids()) == 1
     parting = info["parting_z_mm"]
     flange = info["flange_thickness_mm"]
     rod = shapes["rod"].BoundingBox()
@@ -76,7 +60,7 @@ def read_geometry(models):
     openings += [(xy, ports["vent_diameter_mm"]) for xy in ports["vent_xy_mm"]]
     port_caps = [cylinder(diameter/2+EPS, parting+flange-EPS,
                           parting+flange+1, *xy) for xy, diameter in openings]
-    return shapes, surrounding, mouth_cap, port_caps+[shapes["seal"]], witness
+    return shapes, surrounding, mouth_cap, port_caps, witness
 
 
 def step_reading(surrounding, tools, witness, cast):
@@ -145,15 +129,14 @@ def review(models):
     for label, pieces in (
         ("cavity", [meshes["cavity"], mesh_of(mouth_cap)]),
         ("assembled", [meshes["cavity"], meshes["core"], mesh_of(shapes["rod"]),
-                       *[mesh_of(plug) for plug in plugs[:-1]], seal_mesh(shapes["seal"])]),
+                       *[mesh_of(plug) for plug in plugs]]),
     ):
         results[f"{label}_stl"] = stl_reading(surround_mesh, pieces, witness,
                                               mesh_of(shapes["funnel"]))
     return {
         "models": str(models.resolve()),
         "method": "Exact B-rep and manifold mesh complements; capped intended openings; no layer-height sampling.",
-        "seal_mesh_contact_overlap_mm": EPS,
-        "seal_mesh_contact_overlap_scope": "Actual entry seal only; translations along each axis.",
+        "pin_seats": "Closed native seats; no artificial entry-seal mesh or exterior leakage cap.",
         "witness_mm": list(witness),
         "sha256": {name: hashlib.sha256((models/name).read_bytes()).hexdigest()
                    for name in ("cavity.step", "cavity.stl", "core.step", "core.stl", "rod.step", "funnel.step", "assembly.step", "design.json")},

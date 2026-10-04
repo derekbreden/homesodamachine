@@ -1,72 +1,71 @@
 {
   "models": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/zone-c/funnel-mold",
   "method": "Exact B-rep and manifold mesh complements; capped intended openings; no layer-height sampling.",
-  "seal_mesh_contact_overlap_mm": 0.02,
-  "seal_mesh_contact_overlap_scope": "Actual entry seal only; translations along each axis.",
+  "pin_seats": "Closed native seats; no artificial entry-seal mesh or exterior leakage cap.",
   "witness_mm": [
     10.25,
     0.0,
-    7.5
+    7.2
   ],
   "sha256": {
-    "cavity.step": "23181e43564083459d5d994f44105d51084a5f4fb0cf52caf7e7df479c413d9d",
-    "cavity.stl": "1ce5878e4b25309c131feb9f7b29af3f1add419602033602f0da22e5582d7afc",
-    "core.step": "39a0fd8e316e2c05f598d99e490f75ae19c26334cd9eed5394a5a5ea3eb50d40",
-    "core.stl": "ab01e93b9b2fdf40ce10ff6af51509b95f6f0fdffcb1fd5ff387d4a26547e694",
-    "rod.step": "bc6c95a7702e3a552a0267678f9ee995f897d855362b0c1fe76c2ea30b16eb0b",
-    "funnel.step": "14f80d9a06ffa783f2bd4b4c71efe6206f09c7c659b77df55047d7b7ca3f6aca",
-    "assembly.step": "66a0283155f932c7a1f47e4427d649fa930b0d7c66b1f7e011698a4db342d7cc",
-    "design.json": "22344e488c6ed4eb8a9d74de54ddf4194280709a991abca3054dafe94e1bf455"
+    "cavity.step": "e534dc1cdc309e88210e29f66d7f9cf25f5056a0fee2499bdf2c220c35c7bb43",
+    "cavity.stl": "a675a0603ba632e947ef514b470556562a84bde2011c42381bceec77ef333cc2",
+    "core.step": "cc9f9c3b034ac5cfced8f26c867b364e0a2673510838cf6aaed556fb5950d3ec",
+    "core.stl": "d20ea2c8ca0b6385325f5bc74f7554cd019a4bc8a5d4294a37576f69dca07818",
+    "rod.step": "70f3ae0a66697d1b28589f200b32625fd2346e2b0449cb596cd4c73e7575d461",
+    "funnel.step": "af2a72a429d67d3d78349a8675643448f401f42d28f95d408765dc10ce73760e",
+    "assembly.step": "9df3cb87306b449fbd37d16cb56b36b9c94892f65915939785b44f7e630ed629",
+    "design.json": "62078e93a48f8262eae2c1bc999ca3b3fe1b6ced564ddccc1b16781cf3940115"
   },
   "readings": {
     "cavity_step": {
       "contained": true,
       "regions": 2,
       "region_volumes_ml": [
-        686.452854,
-        2623.332528
+        686.2392,
+        2690.190339
       ],
-      "retained_volume_ml": 686.452854,
+      "retained_volume_ml": 686.2392,
       "casting_outside_retained_mm3": 0.0
     },
     "assembled_step": {
       "contained": true,
       "regions": 2,
       "region_volumes_ml": [
-        242.695544,
-        3087.757339
+        242.528736,
+        3157.440497
       ],
-      "retained_volume_ml": 242.695544,
+      "retained_volume_ml": 242.528736,
       "casting_outside_retained_mm3": 0.0
     },
     "cavity_stl": {
       "contained": true,
       "positive_regions": 2,
       "boundary_volumes_ml": [
-        -1305.533334,
-        686.393316,
-        3929.021379
+        -1306.078131,
+        686.178217,
+        3996.424436
       ],
       "negligible_boundaries": {
         "count": 0,
         "max_abs_volume_mm3": 0.0
       },
-      "retained_volume_ml": 686.393316,
+      "retained_volume_ml": 686.178217,
       "casting_outside_retained_mm3": 0.0
     },
     "assembled_stl": {
       "contained": true,
       "positive_regions": 2,
       "boundary_volumes_ml": [
-        -841.110386,
-        242.64227,
-        3929.021379
+        -838.829962,
+        242.474846,
+        3996.424436
       ],
       "negligible_boundaries": {
-        "count": 246,
-        "max_abs_volume_mm3": 7.987468551157173e-10
+        "count": 0,
+        "max_abs_volume_mm3": 0.0
       },
-      "retained_volume_ml": 242.64227,
+      "retained_volume_ml": 242.474846,
       "casting_outside_retained_mm3": 0.0
     }
   },
