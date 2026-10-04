@@ -71,8 +71,8 @@
       "member": "3D/Objects/object_1.model",
       "identify_id": 1901,
       "source": "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl",
-      "stl_sha256": "acf87edfdecf7408931cf6848b5f9e64b758394938ec4b3ecdcdf8f9dfd3bd97",
-      "triangles": 12664,
+      "stl_sha256": "72a9400f9fcebae8712b8b8d82a18f30a83223ff4276adc44ead2710ac4a37ed",
+      "triangles": 12212,
       "rotation_x_degrees": 0.0,
       "source_center_mm": [
         0.0,
@@ -120,9 +120,9 @@
       "embedded_vertex_error_mm": 4.999947122996673e-10
     }
   ],
-  "project_sha256": "1a3646eef1e764f6545e7b664cc8aeac9c83457515bc776da688d2a536c5247c",
+  "project_sha256": "20d20d8848d9b1ec9d5f552493d8f328b8e8fc975418d761e9d3759908b31ced",
   "settings_preserved_byte_for_byte": false,
-  "source_mesh_sha256": "acf87edfdecf7408931cf6848b5f9e64b758394938ec4b3ecdcdf8f9dfd3bd97",
+  "source_mesh_sha256": "72a9400f9fcebae8712b8b8d82a18f30a83223ff4276adc44ead2710ac4a37ed",
   "material": "Bambu PETG Basic Black",
   "filament_preset_sha256": {
     "filament/Bambu PETG Basic @BBL H2C.json": "be58edd2b9b7a7409a9b727c625e70c17441b568993bea6f75c2b2595122d9b5",
@@ -133,8 +133,8 @@
   },
   "source_sha256": {
     "hardware/printed-parts/zone-c/funnel-cover/prepare_print.py": "f838fea6948dc8fa7557a8a2a342b11572158328c2cdafad6667d3491e11a96b",
-    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl": "acf87edfdecf7408931cf6848b5f9e64b758394938ec4b3ecdcdf8f9dfd3bd97",
-    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step": "bd37a17844a678ddd35ac09e26fb1ec5efd93b622f540685bce7b73e1968c1b1",
+    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl": "72a9400f9fcebae8712b8b8d82a18f30a83223ff4276adc44ead2710ac4a37ed",
+    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step": "449975ca608ae8f3ee2a8384d9908ae30f346d81d49986c738f7180cd72348c3",
     "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
   },
   "stock_filament_preset_sha256": {
@@ -145,17 +145,17 @@
     "filament/fdm_filament_template_direct_dual_e3d.json": "308498826d6206f611be063e9ed7e6afe50b48e5410bb9e132f00eda483eab19"
   },
   "native_archive": ".cache/prints/funnel-cover-petg-native/funnel-cover.gcode.3mf",
-  "native_sha256": "56c8ad259e2bac61d583aa51b97ea52201a51e4ea49fd5b3365bd0ef9dea37cb",
-  "gcode_sha256": "5eb170ec5f9c8c820a7ccda1aadd2742f9965c58e70749c29742e343b9378fa7",
+  "native_sha256": "b0007a878024209e3be456f23e1708ecfc2ef159f152a1dfaa3b679c36f5672c",
+  "gcode_sha256": "09382b5d43b5608679dc7be8ef7314fe820d8bc665663dbc0c83c8f0265f7b47",
   "settings_verified": true,
   "support_paths": 0,
-  "estimated_seconds": 5300.2021484375,
-  "estimated_grams": 99.34089660644531,
+  "estimated_seconds": 5398.35302734375,
+  "estimated_grams": 100.93121337890625,
   "first_two_layer_heights_mm": [
     0.2,
     0.44
   ],
-  "first_to_second_bead_footprint_overlap_fraction": 0.9959615896138442,
+  "first_to_second_bead_footprint_overlap_fraction": 0.9960505903207725,
   "model_layers": 38,
   "model_tools": [
     0
