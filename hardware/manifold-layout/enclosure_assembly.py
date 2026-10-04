@@ -3417,13 +3417,15 @@ def wago_wells(row, cluster, over):
 def wall_mounts(*mounted, blockers=()):
     """The +X wall's boss plan as `(stations, fills)`.
 
-    `stations` are `(y, z, tip, web_tip, clear_bands[, span])`; `fills` are the few
+    `stations` are `(y, z, tip, web_tip, clear_bands[, span[, insert_setback]])`; `fills` are the few
     individually reviewed rectangular unions among those stations, as
     `(name, (x0, x1, y0, y1, z0, z1), replaced_corbels)`.
 
     `mounted` is one `(name, carry, holes)` per body. Each hole is carried through the
     placement `seat_body` handed back from the body's own Z = 0 mounting plane, so `(y, z)` is
     where the boss stands and `tip` is the plane its D-shaped stem reaches.
+    The main board's insert starts behind its 2 mm solder-tail zone plus the
+    supported-face allowance. Its component seat remains at the carried mounting plane.
 
     A full-width 45 degree corbel is offered from that same plane to the wall, on the boss's
     print-down side. Every station on this wall is back-top's, so that side is read off
@@ -3512,7 +3514,13 @@ def wall_mounts(*mounted, blockers=()):
 
     def keep(k, owner, ky, kz, tip, web_tip, bands, names, span=None):
         setback = names != ()
-        if span is None:
+        if owner == "pcba":
+            # The board's mounting sleeve clears the fixed tail witness. The complete
+            # manufacturer-sized brass host starts wallward of that occupied region.
+            out[k] = (ky, kz, tip, web_tip, bands,
+                      span if span is not None else (ky - r, ky + r),
+                      _pcba.pin_drop + _enc.fits.supported_surface)
+        elif span is None:
             out[k] = (ky, kz, tip, web_tip, bands) if setback else (ky, kz, tip)
         else:
             out[k] = (ky, kz, tip, web_tip, bands, span)
@@ -4790,9 +4798,9 @@ CEILING_RELIEF_MIN_DEPTH_BODIES = ("gasher-co2",)
 CEILING_RELIEF_CONNECTOR_PAIRS = (("relay-1", "ground-stack"),
                                   ("asse1022-assembly", "bulkhead-water"))
 CEILING_RELIEF_CONNECTOR_ENTRY = 0.5
-# The connected ground stack enters the slab in two overlapping sections whose circular plans
-# stagger by 0.8 mm in X. One rectangular service pocket around those named sections avoids
-# leaving either stagger as a thin wall tab. No other body's sections are enveloped together.
+# The ground stack's circular plans stagger by 0.8 mm in X. A single connected slab section
+# keeps its own plan. Two overlapping sections take one rectangular service pocket so neither
+# stagger leaves a thin wall tab. No other body's sections are enveloped together.
 CEILING_RELIEF_ENVELOPE_BODIES = ("ground-stack",)
 # The reviewed 0.8 mm lateral stagger leaves 10.35 mm² of envelope corner which is not inside
 # either source rectangle. More than 12 mm² means the purchased geometry moved enough that one
@@ -4832,10 +4840,14 @@ def _contained_reliefs(reliefs: tuple) -> tuple:
 
 
 def _enveloped_reliefs(reliefs: tuple) -> tuple:
-    """Replace each reviewed same-body pocket group with its one rectangular envelope."""
+    """Keep a connected pocket; envelope only the reviewed pair of overlapping sections."""
     out = list(reliefs)
     for name in CEILING_RELIEF_ENVELOPE_BODIES:
         indices = [i for i, row in enumerate(out) if row[0] == name]
+        if len(indices) == 1:
+            # The lifted native section already joins the ring crowns through their neck.
+            # Its containing plan needs no additional union or empty-corner enlargement.
+            continue
         if len(indices) != 2:
             raise ValueError(
                 f"ceiling relief envelope `{name}` found {len(indices)} intersection sections; review "
@@ -4973,7 +4985,8 @@ def _connected_reliefs(reliefs: tuple) -> tuple:
 
     Source extents are immutable. A connector exists only when exactly one plan axis has a gap
     narrower than a wall and the other overlaps; it spans the overlap and enters each pocket by
-    `CEILING_RELIEF_CONNECTOR_ENTRY`. Already-overlapping and diagonal pockets get nothing.
+    `CEILING_RELIEF_CONNECTOR_ENTRY`. Each named relationship must expose exactly one such
+    gap; a different topology requires review. Unnamed pockets retain their own extents.
     Calling this twice returns the same tuples, so a connector cannot become the source of a
     transitive enlargement."""
     source = tuple(reliefs)
@@ -6063,6 +6076,10 @@ def selftest():
         raise AssertionError(
             f"the two staggered ground-stack sections do not make their one exact envelope: "
             f"{enveloped!r}")
+    connected_ground = ("ground-stack", 84.4499999, 94.2500001,
+                        330.481346652, 347.118653548, roof)
+    if _enveloped_reliefs((relay, connected_ground)) != (relay, connected_ground):
+        raise AssertionError("a single connected ground-stack section changed its own plan")
     source = enveloped
     connected = _connected_reliefs(source)
     expected_connector = (
@@ -6100,13 +6117,24 @@ def selftest():
 
     asse_water = (
         ("asse1022-assembly", -84.33185102677876, -71.80814897322122,
-         407.71, 445.21, 345.4605808375568),
+         415.01, 448.51, 352.0),
         ("bulkhead-water", -89.92532981495471, -66.21467018504528,
-         444.71, 463.0, 348.6405808375568),
+         449.01, 467.3, 348.6405808375568),
     )
-    if _connected_reliefs(asse_water) != asse_water:
-        raise AssertionError("the overlapping ASSE and water pockets acquired a connector")
-    yield "the overlapping ASSE and water pockets keep their exact independent extents"
+    asse_connected = _connected_reliefs(asse_water)
+    asse_connector = ("asse1022-assembly/bulkhead-water connector",
+                      asse_water[0][1], asse_water[0][2], 448.01, 449.51, asse_water[1][5])
+    if asse_connected != (*asse_water, asse_connector):
+        raise AssertionError("the ASSE/water connector changed the 0.5 mm local gap or source plans")
+    overlapping = (asse_water[0], asse_water[1][:3] + (448.01,) + asse_water[1][4:])
+    try:
+        _connected_reliefs(overlapping)
+    except ValueError as exc:
+        if "found 0 eligible gaps" not in str(exc):
+            raise
+    else:
+        raise AssertionError("an unreviewed named ceiling-pocket topology passed silently")
+    yield "the ASSE/water connector preserves source plans and fails closed on changed topology"
 
     # THE PRODUCTION C14 TUNNEL IS ONE CEILING-BEDDED RECTANGULAR BLOCK. Read the back-top
     # branch itself: one fore plane at the mouth with the flange pocket in it, one seating plane
