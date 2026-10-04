@@ -56,8 +56,11 @@ linked here are the authority for each observation, including their print bindin
 
 The [mounting audit](../reference/yyfkgcp-pogo-4p/mounting-audit.md) covers the current
 YYFKGCP four-contact pair, its factory-contained magnets, screw-fastened printed
-seats, polarity, load path and dimensional allowance. There are no separate
-print-in cartridge retention magnets or magnet-insertion pauses. Current-export
+seats, polarity, load path and dimensional allowance. The separate
+[RC62 retention pair](../printed-parts/enclosure/enclosure/magnet-retention/README.md)
+places one paused-in ring in the lower cradle and one in front-top at tube height.
+Its insertion sweep, covers and surrounding stock pass the native geometry checks;
+installed seating force, magnet heat exposure and retention remain unmeasured. Current-export
 checks establish nominal mating and clear passages. H2C reported the two seat
 coupons completed; [the physical record](../reference/yyfkgcp-pogo-4p/physical-observations.json)
 contains no reported connector/insert fit, installed compression or continuity result.

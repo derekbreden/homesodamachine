@@ -1,0 +1,51 @@
+{
+  "submitted": false,
+  "jobs": [
+    {
+      "part": "pump-cartridge",
+      "printer": "Mark2",
+      "project": "hardware/printed-parts/enclosure/enclosure/magnet-retention/pump-cartridge-pause.3mf",
+      "project_sha256": "88c3e76612b275601cbed8922c50269808bf6b7f79ff54d6f7d0fa1a04f32e84",
+      "source_stl_sha256": "e11c49e85e109cfa96d744ce3039b0d82e0215724a6b6c755312741d9885e186",
+      "source_step_sha256": "9b5044a4aba6e5738499f872451293a3b6fc06595c00a6ac06b7f03c65ad1c12",
+      "machine_to_bed_translation_mm": [
+        162.5,
+        117.8655014038086,
+        -165.19500732421875
+      ],
+      "requested_pause_height_mm": 31.159999999999997,
+      "pocket_roof_height_mm": 30.983992675781252,
+      "roof_support_blocked_facets": 2,
+      "inherited_show_support_blocks": 0,
+      "grip_support_blocked_facets": 232885,
+      "baseline_project": ".cache/prints/2026-09-24-pump-cartridge-cap-mark2-v8/pump-cartridge-cap-black-z004-mark2-v8-six-wall-grip-rounds-input.3mf",
+      "baseline_project_sha256": "04d71648aa2d61e90ef9be4f152bd901834652189992ce499463a40ec1f9af73",
+      "native_archive": ".cache/prints/cartridge-rc62-retention-v1/pump-cartridge/enclosure-pump-cartridge-rc62-mark2-v1.gcode.3mf",
+      "native_archive_sha256": "b128dbecb9b65fa23bda42edb745cbe62157d15fad067266925a95b64e1911e3",
+      "gcode_sha256": "be6e2f4c9f72469220b4fdf599fa447bb0676d361871b0f6a046ef4ad3eacf29"
+    },
+    {
+      "part": "front-top",
+      "printer": "H2C",
+      "project": "hardware/printed-parts/enclosure/enclosure/magnet-retention/front-top-pause.3mf",
+      "project_sha256": "f9d4164a7ddf82894730b7ec51fec352c55814c55278a0b63576bc6158a8fd48",
+      "source_stl_sha256": "fa3b51b3543b03c51ea852b328d1d66241e35d712b0df52558762786a858ad50",
+      "source_step_sha256": "e50c763a6e50022055fae968d3e4f209003ed3dd34174f6ab65d7a1ca2a60aa6",
+      "machine_to_bed_translation_mm": [
+        162.5,
+        51.224998474121094,
+        -160.0
+      ],
+      "requested_pause_height_mm": 36.440000000000005,
+      "pocket_roof_height_mm": 36.179,
+      "roof_support_blocked_facets": 2,
+      "inherited_show_support_blocks": 33060,
+      "grip_support_blocked_facets": 0,
+      "baseline_project": ".cache/prints/2026-10-03-enclosure-front-top-current-h2c-v17/enclosure-front-top-current-black-z018-h2c-v17-input.3mf",
+      "baseline_project_sha256": "0906160ade38636a4395e9f239fd7bbaf582276fe7a172d531b507f56eeacc22",
+      "native_archive": ".cache/prints/cartridge-rc62-retention-v1/front-top/enclosure-front-top-rc62-h2c-v1.gcode.3mf",
+      "native_archive_sha256": "c730a1d6ba7d5f4c566a2d1c5cea91f7c886f85519388da9910535be7ed98611",
+      "gcode_sha256": "9eff32609d2dce37f09e0d29e3eb4d0f14f46f368d46641bdea6b0b27ffcdb6e"
+    }
+  ]
+}

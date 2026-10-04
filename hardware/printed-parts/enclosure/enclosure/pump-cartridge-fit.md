@@ -7,6 +7,12 @@ assembly and its physical observations are indexed in
 the male half stays in front-top's bay bulkhead. Its four leads stay on the pump tabs
 when the cartridge is withdrawn.
 
+The lower cradle and front-top each contain one paused-in
+[RC62 retention ring](magnet-retention/README.md), centered at X0, Z186.174 mm
+on the four tube axes. Attraction acts along the tube insertion direction,
+92.350 mm below the pogo row. The guides and tube stops keep their seating datums;
+installed retention force and contact compression remain physical checks.
+
 The cap has a broad underside, fitted octagonal boss openings and Ø37 motor bores.
 Derek confirms that the assembled holder retains both pumps firmly with no vertical
 play. The [physical-fit record](/hardware/reference/kamoer-kphm400/physical-fit.json)
@@ -45,6 +51,11 @@ its own native slice review. The [contact coupons](contact-pair-coupon/README.md
 the production seat orientation for local roof, fit and lead-passage observations.
 Both parts use black PET-GF on the left 0.4 mm nozzle. The cartridge stands on its flat
 underside; the cap prints crown-down.
+
+The current lower cradle has its own single-object
+[paused native source](magnet-retention/pump-cartridge-pause.3mf) and
+[emitted-path check](magnet-retention/native-check.json). Insert its RC62 before
+the centered pocket closes. The cap's purchased pogo magnets need no insertion pause.
 
 The [support audit](pump-support-audit.md) names the actual support bodies and their
 removal lanes. Remove them before installing pumps or screws. The complete enclosure

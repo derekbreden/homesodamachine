@@ -3,8 +3,11 @@
 The current mechanism uses one [YYFKGCP four-pin pair with ears](https://www.amazon.com/dp/B0GCBNTBT8?th=1).
 The female pad half mounts in the pump cap's aft face; the male spring-pin half mounts in
 front-top's bay bulkhead. Each purchased half contains two magnets. The printed parts
-provide screw-fastened seats and lead passages. They contain no separate retention magnet,
-encapsulated ring or magnet-insertion pause.
+provide screw-fastened seats and lead passages. A separate
+[RC62 retention pair](../../printed-parts/enclosure/enclosure/magnet-retention/README.md)
+is embedded in the lower cartridge cradle and front-top at tube height, below
+the pogo row. Each of those two prints pauses for insertion of one ring; the
+pump cap contains only its purchased connector magnets.
 
 The [native audit](mounting-audit.json) reads the current exports and the production placement
 functions. It checks all four nominal pin/pad stations, spring travel, clearances to both
@@ -64,6 +67,14 @@ reliability. The seller's 45±10 gf spring figure applies at its stated working 
 there is no force curve for this installed compression. Its 30 mΩ figure and 10,000-cycle
 claim are connector specifications, not results for the assembled machine.
 
+The separate RC62 pair attracts along Y at X0, Z186.174 mm, on the four tube axes.
+Its nominal attracting-face separation is 2.646 mm through the two 1.20 mm covers
+and frame gap. Its load path enters the cradle and fixed bulkhead at tube height.
+The [retention geometry check](../../printed-parts/enclosure/enclosure/magnet-retention/geometry-check.json)
+does not establish its installed pull, cover strength or ability to overcome the
+tube insertion force and pogo springs. The existing seating stops and the
+compression limits above remain controlling.
+
 Remove appliance power before cartridge insertion or withdrawal. Straight withdrawal
 separates the contacts head-on. The four cartridge leads remain on the pump tabs and move
 with the cap; the fixed leads stay in the bulkhead passage and ridge clip. Solder joints
@@ -79,8 +90,12 @@ binds an unsupported local trial to a completed task. It does not record physica
 roof acceptance. Its longest bridge paths are about 23 mm; the documented clearance
 measurement addresses roof sag. The [current full front-top review](../../printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/README.md)
 contains supported functional seats with removal routes through the empty bay. Its recipe
-is separate from the unsupported coupon trial. Clear supports before inserts, connectors
-or pumps are installed. No loose magnet is inserted into either print.
+is separate from the unsupported coupon trial and retains its frozen geometry.
+The [RC62 front-top source](../../printed-parts/enclosure/enclosure/magnet-retention/front-top-pause.3mf)
+has its own current mesh, one insertion pause and a locally blocked pocket roof.
+The lower cradle has the matching paused source. Insert each retention ring during
+its owning print; clear the accessible supports before threaded inserts, connectors
+or pumps are installed.
 
 The [physical record](physical-observations.json) keeps printer completion separate from
 physical observations. The accepted pump-holder fit remains valid for its recorded holder
