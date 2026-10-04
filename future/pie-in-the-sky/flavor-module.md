@@ -16,7 +16,7 @@ The module does not carbonate. It does not connect to the customer's plumbing or
 - **A top funnel** sized to accept a SodaStream-pour, routed through solenoid-selected valves to the two new reservoirs. Customer fills the two module-side flavors through the module's own funnel, independent of the main unit's funnel.
 - **A valve manifold** extension of the main unit's pattern, generalized for the four-line faucet — flavor select, clean-cycle routing, source-selection for funnel fill.
 - **Its own main board** — local microcontroller, MCP23017 expander, ULN2803A drivers, motor driver, 12 V regulation. Subordinate to the main unit's ESP32 for high-level control; runs its own refrigeration cycle and pump timing locally.
-- **A small enclosure**, roughly half to two-thirds the volume of the main appliance. No carbonator means no hydro-test, no PRV, no level reeds, no WR1110 regulator, no ASSE 1022 backflow preventer, no diaphragm pump, no water-side check valves. The cabinet is meaningfully smaller and cheaper than the main appliance's.
+- **A small enclosure**, roughly half to two-thirds the volume of the main appliance. No carbonator means no hydro-test, no PRV, no level reeds, no WR1105 regulator, no ASSE 1022 backflow preventer, no diaphragm pump, no water-side check valves. The cabinet is meaningfully smaller and cheaper than the main appliance's.
 
 ## The new dispense point
 
@@ -95,7 +95,7 @@ Pre-margin module cost around $560. A Founder Edition module price of **~$2,500*
 
 ## What makes this work cleanly
 
-**The pressure-service half of the main unit doesn't get duplicated.** Carbonator, 90 PSI pressure service, hydro-test, water-inlet jet, level reeds, PRV, WR1110 regulator, ASSE 1022 backflow preventer, and diaphragm pump — none of that lives in the module. If the donor-compressor path is chosen, the module does carry its own smaller R-600a refrigeration loop; that compressor keeps its donor moulded terminal cover and carries the same outstanding enclosure qualification as the main unit.
+**The pressure-service half of the main unit doesn't get duplicated.** Carbonator, 3-bar pressure service, hydro-test, water-inlet jet, level reeds, PRV, WR1105 regulator, ASSE 1022 backflow preventer, and diaphragm pump — none of that lives in the module. If the donor-compressor path is chosen, the module does carry its own smaller R-600a refrigeration loop; that compressor keeps its donor moulded terminal cover and carries the same outstanding enclosure qualification as the main unit.
 
 **The household keeps one CO2 tank, one water tap, one wall outlet.** The customer's install action is "plug umbilical from main into module, run module's faucet bundle up through the counter, mount the second faucet." No second CO2 regulator. No second water tee. No second AC outlet. The plumbing-and-electrical footprint of adding the module is the umbilical and the one new countertop penetration.
 

@@ -219,11 +219,12 @@ def _figures():
         f"{_rsv.reservoir_count} reservoirs of {_fc.reeds_per_reservoir} — AB-05 audits it as that sum")
     # AB-01 sets the primary anywhere in a band and the appliance holds one
     # pressure regardless; the band is the bench's and the pressure is the
-    # WR1110's, and AB-01's caption is about exactly that difference.
-    assert _ab.co2_primary_min_psi <= _pv.secondary_regulator_pressure_psi <= _ab.co2_primary_max_psi, (
-        f"the WR1110 holds {_pv.secondary_regulator_pressure_psi:g} PSI outside the bench's "
-        f"{_ab.co2_primary_min_psi}–{_ab.co2_primary_max_psi} PSI primary band — AB-01 sets the "
-        f"primary to the appliance's own pressure as its centreline")
+    # WR1105's, and AB-01's caption is about exactly that difference. That holds
+    # only while the whole band stands above the secondary's preset.
+    assert _pv.secondary_regulator_pressure_psi < _ab.co2_primary_min_psi, (
+        f"the WR1105 holds {_pv.secondary_regulator_pressure_psi:g} PSI inside the bench's "
+        f"{_ab.co2_primary_min_psi}–{_ab.co2_primary_max_psi} PSI primary band — a primary set "
+        f"below the preset passes straight through, and AB-01 says the appliance holds one pressure")
 
     facts = {
         # ── PV — the end plates (PV-01, PV-02, PV-03, PV-04) ──────────────
@@ -274,9 +275,8 @@ def _figures():
                            f"&#183; {DIA}{_prv.vent_hole_diameter:.4g} mm",
         "PRV_SEAT_SLIP": f"{_prv.overcut:.4g} mm",
         # ── the pressures (PV-03, PV-11, PV-14, AB-01, AB-02, GT-02) ─────
-        # One regulator setting, stated at six benches. The carbonator is proved to
-        # twice it, so PV-11's "~2× working" is arithmetic on this number and
-        # not a second figure to keep in step.
+        # One regulator setting, stated at six benches. PV-11's 180 PSI proof hold
+        # answers to the SV-125's set pressure, not to this number.
         "REG_PSI": f"{_pv.secondary_regulator_pressure_psi:.4g} PSI",
         "CO2_PRIMARY_BAND": f"{_ab.co2_primary_min_psi:.4g}{NDASH}"
                             f"{_ab.co2_primary_max_psi:.4g} PSI",

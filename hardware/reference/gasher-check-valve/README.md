@@ -6,7 +6,7 @@ runs female → male. The two roles are:
 
 - **gasher-water** — the G Ganen discharge check in the MAACFLOW → GASHER →
   PP450822E chain.
-- **gasher-co2** — the check downstream of WR1110, before the cold core's
+- **gasher-co2** — the check downstream of the WR1105, before the cold core's
   plain bottom gas port. Its female inlet takes PI010822S; its male outlet
   takes PI450822S.
 

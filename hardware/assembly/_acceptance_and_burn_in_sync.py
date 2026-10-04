@@ -20,7 +20,7 @@ from docgen import substitute_md
 # restating the number here.
 from _firmware_and_commissioning_sync import gpio_relay2 as _fc_gpio_relay2
 from _firmware_and_commissioning_sync import valve_count as _fc_valve_count
-from _pressure_vessel_sync import secondary_regulator_pressure_psi
+from _pressure_vessel_sync import carbonation_basis_c, secondary_regulator_pressure_psi
 
 # The accepted branch-sleeve travel and the release plate's rest gap are distinct
 # from the tee's run-sleeve travel. Read the installed release stroke from the
@@ -44,10 +44,21 @@ bench_water_temp_max_c = 20             # bench water temperature, upper bound
 co2_cyl_small_lb = 5                    # small bench cylinder
 co2_cyl_large_lb = 10                   # large bench cylinder
 co2_primary_min_psi = 70                # primary regulator setpoint, low end
-co2_primary_max_psi = 100               # primary regulator setpoint, high end
+co2_primary_max_psi = 95                # primary regulator setpoint, high end
+                                        # (the Wellbom outlet dial's green band)
 
-# Centerline: matches the in-appliance WR1110 secondary regulator setpoint.
+# Centerline: the in-appliance WR1105 secondary regulator's preset, which holds the
+# gas feed from anywhere in the primary band above it.
 co2_centerline_psi = secondary_regulator_pressure_psi
+assert co2_centerline_psi < co2_primary_min_psi, (
+    f"the {co2_centerline_psi:g} PSI secondary sits inside the {co2_primary_min_psi}–"
+    f"{co2_primary_max_psi} PSI primary band — the primary must feed it from above")
+
+# The pressure vessel states its carbonation at the wall setpoint and the top of its band.
+assert carbonation_basis_c == (carbonator_wall_setpoint_c,
+                               carbonator_wall_setpoint_c + carbonator_wall_band_c), (
+    f"pressure-vessel.md states carbonation at {carbonation_basis_c} °C, not at the "
+    f"{carbonator_wall_setpoint_c} ± {carbonator_wall_band_c} °C wall setpoint")
 
 # ─── Bench test rig — measurement tooling ──────────────────────────────
 glass_capacity_oz = 12                  # target dispense glass capacity

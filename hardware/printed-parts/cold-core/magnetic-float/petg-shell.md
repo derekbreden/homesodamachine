@@ -136,7 +136,7 @@ and no structural credit for the foam, Lamé thick-cylinder equations give:
 
 | External pressure | Outer-wall hoop compression | Bore-wall hoop tension | Annular end load |
 | --- | --- | --- | --- |
-| 90 psi | 4.06 MPa | 1.22 MPa | 620 N |
+| 43.5 psi | 1.96 MPa | 0.59 MPa | 300 N |
 | 125 psi | 5.64 MPa | 1.70 MPa | 862 N |
 | 180 psi | 8.12 MPa | 2.44 MPa | 1,241 N |
 

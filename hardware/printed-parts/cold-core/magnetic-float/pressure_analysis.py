@@ -16,7 +16,7 @@ PSI_TO_MPA = 0.006894757293168
 
 def calculate():
     loads = []
-    for psi in (90, 125, 180):
+    for psi in (43.5, 125, 180):
         p = psi * PSI_TO_MPA
         R, a, b, c = m.outer_radius, m.core_outer_radius, m.bore_radius, m.core_inner_radius
         loads.append({

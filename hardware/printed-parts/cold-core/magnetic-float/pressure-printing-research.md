@@ -6,7 +6,7 @@ The selected ASA-only trial and its physical qualification scope are in
 
 Research checked **2026-09-28**, including publications through 2026. The task is
 an uncoated PETG Translucent Clear envelope around an ASA Aero core, under **external** water
-pressure: 90 psi operating reference, 125 psi relief reference, and a 180 psi,
+pressure: 43.5 psi operating reference, 125 psi relief reference, and a 180 psi,
 30-minute first-article hydrostatic proof target.
 
 **FDM PETG can retain substantial pressure without a coating.** Published
