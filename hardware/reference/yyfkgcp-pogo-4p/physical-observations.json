@@ -1,6 +1,6 @@
 {
   "article": "YYFKGCP B0GCBNTBT8 four-contact magnetic connector in pump-cap and front-top seats",
-  "reviewed_local_date": "2026-10-03",
+  "reviewed_local_date": "2026-10-04",
   "contact_coupon_print": {
     "printer": "H2C",
     "task_id": "1302534665",
@@ -8,7 +8,16 @@
     "evidence": "../../printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/completion.json",
     "scope": "Printer-reported completion of two contact-seat coupons. Physical roof quality, connector fit, insert fit, lead passage and continuity are not established by printer completion."
   },
-  "reported_physical_connector_fit": null,
+  "reported_physical_connector_fit": {
+    "status": "accepted",
+    "reported_local_date": "2026-10-04",
+    "authority": "Founder report in Concerns",
+    "article": "Printed pogo-contact test piece",
+    "connector_fit_accepted": true,
+    "mating_and_compression_accepted": true,
+    "statement": "Regarding the compression, I have already test fit in test piece that was printed and things are good, please ensure that is documented.",
+    "scope": "Successful fit and mating/compression in the printed test piece. The report gives no numerical gap or pin-travel measurement and does not identify the complete enclosure as the tested article."
+  },
   "reported_insert_retention": null,
   "reported_installed_face_gap": null,
   "reported_attracting_orientation": null,

@@ -241,7 +241,7 @@ Total tooling, acquired and on order: **[$17,117.47](TOOLS_TOTAL)**
 
 ## Open items
 
-- **Pogo screw driver:** a hand-operated **1.3 mm hex driver** for the four Kozelo M1.4 × 8 screws. None is recorded in purchased tool stock, and the screw listing describes only 50 screws. [Wiha 26313, 1.3 mm × 40 mm](https://www.amazon.com/dp/B000O5EFT8) is Prime eligible, $9.35 before tax, verified 2026-10-04. Its purpose is to seat the small connector ears by hand without applying the PixelDrive's 0.5 N·m minimum powered setting.
+- **Pogo screw driver — purchase verification pending:** the founder reports purchasing the [Wiha 26313, 1.3 mm × 40 mm](https://www.amazon.com/dp/B000O5EFT8) on 2026-10-04. The signed-in Amazon order history, Not Yet Shipped list and model-number search show no matching order; the cart contains one driver. The order number, charged amount and delivery date await verification and are excluded from purchase/tool totals. The hand-operated 1.3 mm driver seats the four Kozelo M1.4 × 8 screws without applying the PixelDrive's 0.5 N·m minimum powered setting.
 - Tools section is current as of the 2026-05-20 reorg; the full per-line audit of every purchases.md row hasn't been done — items not yet listed here either belong in this file (and should be added) or in [bom.md](/hardware/ledger/bom.md) / [inventory.md](/hardware/ledger/inventory.md). When in doubt, the underlying purchases.md row is the source of truth.
 - Manufacturer-PDF / spec-sheet links are not yet captured per-tool — add as relevant for the tools whose envelopes constrain design (X1 Pro power range, etc.).
 

@@ -32,7 +32,7 @@ records the delivered connector supply and the two fastener packs on order for
 The screws require a hand-operated 1.3 mm hex driver. The supplier's package
 contents describe 50 screws, with no driver stated. The acquired PixelDrive and
 2.5/4 mm bits do not supply this size; [tool stock](../../ledger/tools.md#open-items)
-lists the missing driver and a verified Prime option. Seat the ears square by
+records the founder's Wiha 26313 purchase report with Amazon order verification pending. Seat the ears square by
 hand; there is no qualified powered torque for the M1.4 joint.
 
 The acquired FX-888D and VECO-T T18 I/LB fine tips provide the insertion-tool
@@ -62,6 +62,11 @@ and motor-pair mapping remain four separate H-bridge conductors; contacts are
 not paralleled. The service joint is mated and parted with appliance power removed.
 
 ## Seating and dimensional allowance
+
+The founder reports successful connector fit and mating/compression in the
+printed test piece on 2026-10-04. That result is accepted in the
+[physical record](physical-observations.json); the report is qualitative and
+belongs to the printed test piece.
 
 The cartridge tubes bottom in the tee bodies at full seat. The flat cap and bulkhead planes
 have 0.246 mm nominal separation. Both connector ear plates bear on steps 3.00 mm behind
@@ -127,8 +132,9 @@ space; their geometry does not prove assembled lead retention.
 
 The male seat prints with front-top in +Z; the female seat prints crown-down with the cap.
 The [H2C coupon record](../../printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/README.md)
-binds an unsupported local trial to a completed task. It does not record physical fit or
-roof acceptance. Its longest bridge paths are about 23 mm; the documented clearance
+binds an unsupported local trial to a completed task. The founder's
+[physical report](physical-observations.json) accepts connector fit and
+mating/compression in the printed test piece; no roof measurement is reported. Its longest bridge paths are about 23 mm; the documented clearance
 measurement addresses roof sag. The [current full front-top review](../../printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/README.md)
 contains supported functional seats with removal routes through the empty bay. Its recipe
 is separate from the unsupported coupon trial and retains its frozen geometry.
@@ -138,10 +144,8 @@ The lower cradle has the matching paused source. Insert each retention ring duri
 its owning print; clear the accessible supports before threaded inserts, connectors
 or pumps are installed.
 
-The [physical record](physical-observations.json) keeps printer completion separate from
-physical observations. The accepted pump-holder fit remains valid for its recorded holder
-and does not qualify the connector. Installed compression, attracting orientation,
-four-channel continuity, magnetic retention, operating contact resistance and lifetime
-have no reported physical result. Those limits do not establish a failure or request a
-new founder test. The existing coupon and full-assembly observations supply the appropriate
-opportunity to resolve fit and connection before claiming acceptance.
+The [physical record](physical-observations.json) accepts the founder's
+successful connector fit and mating/compression check in the printed test piece.
+It keeps that observation separate from printer completion and the accepted
+pump-holder fit. Numerical full-enclosure compression, four-channel continuity,
+magnetic retention, operating contact resistance and lifetime remain unmeasured.
