@@ -16,7 +16,7 @@ the line rather than across the face.
 | height | [13.05](COLLAR_TALL) mm — [7.05](COLLAR_RISE) mm of rectangle over the axis, its own half circle under |
 | length | [30 mm](COLLAR_LENGTH) along the tube |
 | wall | [2.66](COLLAR_WALL) mm, with [1.66](COLLAR_BACKING) mm of it behind the lettering |
-| volume | [2.98](COLLAR_VOL) cm³ + [0.20](COLLAR_WORD_VOL) cm³ of word |
+| volume | [3.02](COLLAR_VOL) cm³ + [0.17](COLLAR_WORD_VOL) cm³ of word |
 
 ## Where each one goes
 
@@ -63,8 +63,7 @@ pair against each other.
 ## The word
 
 A second solid in a second colour, lying in a recess [1](COLLAR_WORD_DEPTH) mm into the flat and
-filling it flush — [`../../enclosure/bulkhead-ring/`](../../enclosure/bulkhead-ring/README.md)'s own construction, at its own em, in
-its own face. The advance runs along the tube and the cap stands across it, in a flat that leaves
+filling it flush, at [`../../enclosure/bulkhead-ring/`](../../enclosure/bulkhead-ring/README.md)'s own em and in its own face. The advance runs along the tube and the cap stands across it, in a flat that leaves
 [28](COLLAR_BAND_ALONG) mm one way and [10](COLLAR_BAND_ACROSS) mm the other. FLAVOR is the longest
 of the five and what `LENGTH` is set from.
 
@@ -74,8 +73,8 @@ component, so all of them carry the colour into `/3d`.
 ## Print
 
 Flat face down on the bed, two colours to a plate — the collars off one spool, the words off the
-other, and the lettering in the first layers. The half circle stands as the arch above. PETG, the
-enclosure's own stock ([`bom.md`](/hardware/ledger/bom.md) §7).
+other, and the lettering in the first layers. The half circle stands as the arch above. PET-GF,
+the enclosure's own stock ([`bom.md`](/hardware/ledger/bom.md) §7).
 
 ## Files
 

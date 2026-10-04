@@ -77,8 +77,10 @@ CONNECT_OPEN_GAP = 160.0
 CONNECT_CROP = (0, 650, 1350, 1800)
 
 sys.path.insert(0, str(HARDWARE / "scripts"))
+sys.path.insert(0, str(HARDWARE / "printed-parts" / "enclosure" / "y-wall-of-back-top"))
 os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
 from _cadq_export import _per_solid_color, _write_mesh_payload, note_read, note_write  # noqa: E402
+import _y_wall_dimensions as _rear  # noqa: E402
 
 
 def _load_faucet_module():
@@ -589,13 +591,6 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
     # countable where they cross the same dark rear wall without turning either one grey.
     tube_black_a = cq.Color(0.025, 0.027, 0.031, 1.0)
     tube_black_b = cq.Color(0.115, 0.12, 0.13, 1.0)
-    collar_blue = cq.Color(0.055, 0.34, 0.84, 1.0)
-    collar_red = cq.Color(0.84, 0.055, 0.055, 1.0)
-    collar_white = cq.Color(0.94, 0.945, 0.955, 1.0)
-    collar_black_a = cq.Color(0.02, 0.022, 0.026, 1.0)
-    collar_black_b = cq.Color(0.105, 0.11, 0.12, 1.0)
-    collar_word = cq.Color(0.94, 0.945, 0.955, 1.0)
-    collar_word_black = cq.Color(0.025, 0.027, 0.031, 1.0)
     ribbon_black = cq.Color(0.035, 0.038, 0.043, 1.0)
     ribbon_edge = cq.Color(0.16, 0.17, 0.19, 1.0)
     plug_body = cq.Color(0.72, 0.74, 0.78, 1.0)
@@ -656,16 +651,22 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
         "flavor-a": tube_black_a,
         "flavor-b": tube_black_b,
     }
+    # Each collar and its word in the spools they print off — the ones the ring each tube leaves
+    # through prints in.
+    collar_fluids = {
+        "tap": "water",
+        "carb": "carb",
+        "co2": "co2",
+        "flavor-a": "flavor",
+        "flavor-b": "flavor",
+    }
     collar_colors = {
-        "tap": collar_white,
-        "carb": collar_blue,
-        "co2": collar_red,
-        "flavor-a": collar_black_a,
-        "flavor-b": collar_black_b,
+        which: cq.Color(*(c / 255.0 for c in _rear.chip_color(fluid)), 1.0)
+        for which, fluid in collar_fluids.items()
     }
     collar_word_colors = {
-        which: collar_word_black if which == "tap" else collar_word
-        for which in collar_colors
+        which: cq.Color(*(c / 255.0 for c in _rear.word_color(fluid)), 1.0)
+        for which, fluid in collar_fluids.items()
     }
     # The bare tails stay straight through their collars, then flex into the compact end of the
     # common umbilical.  These target points preserve five distinct solids all the way out of the
