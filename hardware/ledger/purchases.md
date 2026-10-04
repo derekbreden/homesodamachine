@@ -118,6 +118,7 @@ Cylinders, regulator, CO2 line, push-to-connect adapters for the CO2 side.
 | VUYOMUA 0.8 gal SS portable air tank (bench test fixture) | [B0BV6FMMJP](https://www.amazon.com/dp/B0BV6FMMJP) | 1 | $60.05 | 112-5187846-6776238 | 2026-04-16 | — | ACQUIRED |
 | Control Devices SV-100 safety valve, 1/4" NPT, 100 psi (spare PRV; superseded by SV-125) | [B0D361X97X](https://www.amazon.com/dp/B0D361X97X) | 2 | $8.03 ea | 112-7814251-3174665 | 2026-04-12 | — | ACQUIRED |
 | Interstate Pneumatics WR1110 1/4" NPT in-Line 90 PSI fixed pre-set pressure regulator, 230 PSI max inlet, aluminum body | [B07J2L8LF3](https://www.amazon.com/dp/B07J2L8LF3) | 1 | $25.66 | 112-6323725-5423434 | 2026-05-13 | 2026-05-17 | ACQUIRED |
+| Interstate Pneumatics WR1105 1/4" NPT in-line fixed pre-set pressure regulator, listed 50 PSI, barrel etched 3 bar, 230 PSI max inlet, aluminum body — the appliance's secondary CO2 regulator, one per build. Sole item on its invoice, 3 @ $28.46 + $6.18 NE tax, shipping $0.00. Amazon estimates 2026-10-07 | [B0CGFCJNMG](https://www.amazon.com/dp/B0CGFCJNMG) | 3 | $30.52 ea | 112-6207769-5063458 | 2026-10-03 | — | ON-ORDER |
 | Control Devices SV-125 safety valve, 1/4" NPT, 125 psi set pressure, 49 SCFM relief, brass | [B01G2F6EMY](https://www.amazon.com/dp/B01G2F6EMY) | 1 | $8.03 | 112-6323725-5423434 | 2026-05-13 | 2026-05-17 | ACQUIRED |
 | Fresh Water Systems order WEBFWS100675224 — JG 1/4" NPTF male connector (×10) + 1/4" union elbow PP0308E (×10) | [freshwatersystems.com](https://www.freshwatersystems.com/) | 1 order (2 × bag of 10) | $44.11 | — | — | 2026-05-19 | ACQUIRED |
 | Fresh Water Systems order WEBFWS100708594 — JG **PI450822S** gray acetal female adapter, 1/4" tube × 1/4" NPTF (3 × bag of 10) | [FWS](https://www.freshwatersystems.com/products/john-guest-female-adapter-nptf-1-4-x-1-4-nptf), [Gmail confirmation](https://mail.google.com/mail/u/0/#search/WEBFWS100708594) | 3 bags (30) | $94.54 | WEBFWS100708594 | 2026-09-23 | — | ON-ORDER (placed Sep 23, 2026; $75.18 merchandise + $12.97 economy shipping, 7–10 business days in transit + $6.39 tax. Two per build, on the male outlets of the WR1110 and the CO2 check, bom.md §4) |
@@ -725,7 +726,6 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 
 | Part | Notes |
 |---|---|
-| **Interstate Pneumatics WR1105 1/4" NPT in-line fixed pre-set pressure regulator, listed 50 PSI, barrel etched 3 bar** | The appliance's secondary CO2 regulator ([bom.md §4](/hardware/ledger/bom.md)); its 3-bar preset is the nominal gas feed. Prime, $28.47 on Oct 3. [B0CGFCJNMG](https://www.amazon.com/dp/B0CGFCJNMG). |
 | **Google Pixel 10a unlocked Android phone, 128 GB Obsidian (2026 model)** | Android development handset for the soda-machine app's Android side (`android/`). [B0GHRHXVN1](https://www.amazon.com/dp/B0GHRHXVN1). |
 | **Smooth-On XTC-3D 3D-print smoothing epoxy, 6.4 oz (~$19.99) — optional** | Self-leveling epoxy base coat under the §21 core's clear-acrylic seal, only if the 0.08 mm core texture still telegraphs through the acrylic alone. Fills/seals; not the release face. [B01BKSLI9M](https://www.amazon.com/dp/B01BKSLI9M). |
 
@@ -738,10 +738,10 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$36,201.81](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$5,437.54](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$41,639.35](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$698.73](LEDGER_ON_ORDER) |
+| ON-ORDER | [$790.29](LEDGER_ON_ORDER) |
 | MISSING — paid, not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$42,391.15](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$42,482.71](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
