@@ -29,25 +29,17 @@ import _routing                                                  # noqa: E402
 #: Colours where two substances genuinely share a triple, and the finish the pair is drawn at.
 #: The value is the one that wins; the comment is why it is the one that wins.
 SHARED = {
-    # A TUBE AND A PRINT AT ONE COLOUR, twice, and both times because the identification scheme
-    # and the filament that answers to it were chosen to match. `port_colors` and
-    # `chip_filaments` are "a different product answering to the same name, and the two are a
-    # few points apart" — except at these two, where they are not apart at all.
+    # A TUBE AND A PRINT AT ONE COLOUR: neoFlo black LLDPE against Bambu PETG Basic Black, at
+    # `port_colors["flavor"]` — the five potted cold-core runs and the printed plugs beside them.
     #
-    # THE PRINT'S FIGURE CARRIES BOTH PAIRS: far more bodies at either colour come off a plate
-    # than off a spool, and the two estimates are a tenth apart in a table that is estimates
+    # THE PRINT'S FIGURE CARRIES THE PAIR: far more bodies at that colour come off a plate than
+    # off a spool, and the two estimates are a tenth apart in a table that is estimates
     # throughout. Separating them would take a measured colour for the LLDPE, which this tree
     # does not have.
-    #
-    #   black — neoFlo black LLDPE against Bambu PETG Basic Black, at `port_colors["flavor"]`:
-    #           the five potted cold-core runs and the printed plugs beside them.
-    #   white — neoFlo white LLDPE against PETG Basic White, at `port_colors["water"]`: the tap
-    #           runs, the water chip and every word lettered in white.
     #
     # The `copper` spool is NOT here and needs no entry — `M_COPPER` is declared as that spool's
     # own stock at that spool's own triple, so the two agree and nothing has to give way.
     "black": "M_PETG_BLACK",
-    "white": "the chip's PETG Basic White",
 }
 
 

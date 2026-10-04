@@ -4,7 +4,8 @@ read by.
 A flat chip lying in a pocket of that wall's outer face, with a through-wall fitting's own
 flange landing on it. Nothing fastens it: the fitting's nut makes up on the inboard side and draws
 flange, chip and wall together, so the chip is in the clamped stack the way the wall is. The pocket
-is the chip's own thickness deep, so the two faces come out one plane.
+is the chip's own thickness deep, so the two faces come out one plane and only the word stands out
+of it.
 
     RING_W    how far a chip stands past the fitting's own flange, and so the width of colour that
               shows once the flange is on. The wall strikes its pockets from it, the iso line-art
@@ -22,9 +23,10 @@ the blue tube — `../y-wall-of-back-top/README.md` §"Umbilical port — tube i
 is its tube's colour and there are four of them; what a colour means is stated once, in
 `../y-wall-of-back-top/_y_wall_dimensions.py`.
 
-THE WORD IS A SECOND SOLID. It lies in a recess `WORD_DEPTH` into the chip's outboard face and
-fills it flush, printed in the second colour that reads against the chip's own —
-`_y_wall_dimensions.word_color` is where light-on-dark or dark-on-light is decided.
+THE WORD IS A SECOND SOLID. It fills a recess `WORD_DEPTH` into the chip's outboard face and
+stands `WORD_RAISE` proud of it, printed in the second colour that reads against the chip's own —
+`_y_wall_dimensions.word_color` is where light-on-dark or dark-on-light is decided. It stands in
+the band above the flange, so the flange lands on the chip and never on a letter.
 
 The push a 1/4" push-to-connect takes to seat — past the collet's grabbers and an EPDM O-ring —
 lands on this chip, and the chip carries it to the pocket floor across its whole face.
@@ -33,11 +35,13 @@ Coordinate frame — THE FITTING'S, so `enclosure_assembly` seats one on a union
 no turn of its own:
   Y = the fitting's flow axis. +Y = outboard, toward the customer's tube.
   Origin = the chip's INBOARD face, the one that lands on the pocket floor. The chip spans
-      y = 0 to y = THICK, and the flange lands on that far face.
+      y = 0 to y = THICK, the flange lands on that far face, and the word stands to
+      y = THICK + WORD_RAISE.
   +Z = up. X completes the right-handed frame, so from outside the machine — looking down −Y —
       +X runs to the LEFT and a word reads along −X.
 
-It prints flat, many to a bed, two colours to a plate.
+It prints face up, two colours to a plate: the inboard face on the bed, the outboard face closing on
+a layer boundary, and the letters standing in whole layers above it.
 
 Run:
     tools/cad-venv/bin/python hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py
@@ -45,6 +49,7 @@ Run:
 """
 
 import collections
+import math
 import sys
 from pathlib import Path
 
@@ -106,9 +111,9 @@ STATIONS = {
     "flavor-b": Chip("union", "FLAVOR", False),
 }
 # ONE FILE PER STATION, AND IT HOLDS BOTH BODIES. The part is one print in two filaments — a chip
-# and the word lying in its recess — so the file is that pair, each body carrying the colour of the
-# spool it comes off. A reader opening a station sees the part a customer meets; a slicer opening
-# it gets the two bodies to assign. `split` is how the pair comes back apart.
+# and the word standing in its recess — so the file is that pair, each body carrying the colour of
+# the spool it comes off. A reader opening a station sees the part a customer meets; a slicer
+# opening it gets the two bodies to assign. `split` is how the pair comes back apart.
 STEPS = {name: _here.parent / f"bulkhead-ring-{name}.step" for name in STATIONS}
 
 # The key each station reads its two filaments under in `_y_wall_dimensions` — both flavour
@@ -121,10 +126,9 @@ FLUIDS = {"water": "water", "carb": "carb", "co2": "co2",
 # sheets point at these very ports. A customer holding one beside the machine reads one typeface,
 # not two. (The web surface's Montserrat is a
 # webfont, not installed, and nothing physical is set in it.)
-#   Bold is what the nozzle asks for. Every stroke is an extrusion of the word's own colour and
-# every counter and gap is an extrusion of the chip's, so both are held over the nozzle's width.
-# `WORD_MIN_STROKE` is what this weight turns out to be worth at `WORD_CAP`, measured off the built
-# letterforms rather than claimed, and `word-stroke` reads it against the tip.
+#   Bold is what the nozzle asks for. Every stroke is an extrusion of the word's own colour, laid
+# at `WORD_BEAD`. `WORD_MIN_STROKE` is what this weight turns out to be worth at `WORD_CAP`,
+# measured off the built letterforms rather than claimed, and `selftest` reads it against the bead.
 WORD_FONT = "Helvetica"
 WORD_KIND = "bold"
 # The em the word is set at. `WORD_CAP` is what that turns out to be worth in cap height, which is
@@ -133,12 +137,20 @@ WORD_SIZE = 6.5
 # How deep the word's recess is cut into the chip's outboard face — half the chip, so the colour
 # behind the lettering is as thick as the lettering itself and neither side of the print is a skin.
 WORD_DEPTH = 1.0
-# The PROFILE these slice under — `0.08mm High Quality @BBL H2C 0.2 nozzle`, saved in the plate at
-# `bulkhead-ring-water.3mf` — and the bead it asks for. The ORIFICE is `WORD_NOZZLE`; this is the width
-# the profile lays at, and it is what a slicer divides a feature by to decide how many perimeters
-# fit in it. So it, and not the tip, is what a stroke and a bridge are counted in.
-WORD_LAYER = 0.08
-WORD_BEAD = 0.22
+# HOW FAR THE WORD STANDS PROUD OF THAT FACE. Each letter fills its recess and runs on past the
+# face as one solid, the last `WORD_RAISE` of the print in the word's colour alone — the
+# nameplate's rise. A whole number of `WORD_LAYER`s, standing in the band above the flange.
+WORD_RAISE = 0.48
+# The PROFILE these slice under — `0.24mm PET-GF faucet`, the nameplate's, saved in its plate at
+# `../nameplate/nameplate-001-petgf.3mf` — and the bead it asks for. Face up, the first layer is
+# `WORD_FIRST_LAYER` and every layer after it `WORD_LAYER`, but for the one `closing_layer` that
+# lands the outboard face on `THICK`, so the letters start on a layer boundary. The ORIFICE is
+# `WORD_NOZZLE`; `WORD_BEAD` is the outer wall the profile lays, and it is what a slicer divides a
+# feature by to decide how many perimeters fit in it. So it, and not the tip, is what a stroke is
+# counted in.
+WORD_FIRST_LAYER = 0.2
+WORD_LAYER = 0.24
+WORD_BEAD = 0.42
 # What the built words measure across, and the tallest cap among them. The face is the SYSTEM'S and
 # not this repo's, so a machine that resolves `WORD_FONT` to something else letters a different chip
 # — and the only thing that catches it is a figure carried here and read back off the solid.
@@ -148,15 +160,15 @@ WORD_WIDTHS = {"TAP": 12.657, "SODA": 18.411, "CO2": 12.813, "FLAVOR": 25.952}
 # The narrowest stroke any of these words carries, taken off the built letterforms as twice a
 # glyph face's area over its perimeter.
 WORD_MIN_STROKE = 0.771
-# AND THE NARROWEST BRIDGE — the chip standing between two letters, which is the finer of the two
-# features by more than a factor of two. A stroke is the word's spool and a bridge is the chip's,
-# but both are laid at `WORD_BEAD` through the same tip, so the bridge is what runs out first. This
-# is FLAVOR's, between the L and the A. It scales with `WORD_SIZE`, so it is also the floor under
+# AND THE NARROWEST BRIDGE — the chip standing between two letters in the recess, and the gap
+# between their raised tops above it. This is FLAVOR's, between the L and the A: under one
+# `WORD_BEAD`, laid as a single outer wall of chip up to the face, with the tops apart above it.
+# `words_hold` holds every word to it. It scales with `WORD_SIZE`, so it is also the floor under
 # how small this lettering can be set.
 WORD_MIN_BRIDGE = 0.346
-# The tip these print through. The chips are the machine's first two-colour print and its finest
-# work; everything else in the box runs 0.4 and up (`ledger/machine-time.md`).
-WORD_NOZZLE = 0.2
+# The tip these print through — one per filament, the hardened pair the nameplate's two colours
+# come off.
+WORD_NOZZLE = 0.4
 # What the word keeps off the flange below it and the chip's own top edge above. The band is
 # `RING_W` tall and the cap stands in the middle of it, so this is what is left either side.
 WORD_MARGIN = 1.0
@@ -228,9 +240,17 @@ def word_band(which: str) -> tuple:
     return (FAMILIES[chip.family].flange_footprint() / 2.0, rise(which))
 
 
+def closing_layer() -> float:
+    """The layer that lands the outboard face on `THICK`, face up: what is left of the chip over the
+    first layer and every whole `WORD_LAYER` under the face. Zero when the face lands on a layer
+    boundary of its own."""
+    whole = math.floor((THICK - WORD_FIRST_LAYER) / WORD_LAYER + 1e-9)
+    return round(THICK - WORD_FIRST_LAYER - whole * WORD_LAYER, 6)
+
+
 def build_word(which: str):
-    """One station's word — its letters, standing in the recess they fill, `WORD_DEPTH` deep with
-    their outboard faces flush with the chip's own.
+    """One station's word — its letters, each filling its recess `WORD_DEPTH` deep and standing
+    `WORD_RAISE` proud of the chip's outboard face, one solid from the recess floor to its own top.
 
     THE LETTERS ARE LOOSE, one solid each, and nothing joins them. They are placed by the print
     rather than by hand: the chip is opened as one part carrying both bodies and the lettering is
@@ -242,7 +262,7 @@ def build_word(which: str):
     two turns — a quarter about X to stand it up, then a half about Z — which leaves it extruding
     OUTBOARD with its cap up and its advance along −X, the way a word reads to someone standing
     behind the machine."""
-    flat = cq.Workplane("XY").text(STATIONS[which].word, WORD_SIZE, WORD_DEPTH,
+    flat = cq.Workplane("XY").text(STATIONS[which].word, WORD_SIZE, WORD_DEPTH + WORD_RAISE,
                                    font=WORD_FONT, kind=WORD_KIND,
                                    halign="center", valign="center")
     letters = (flat.rotate((0, 0, 0), (1, 0, 0), 90.0)
@@ -271,9 +291,24 @@ def _filament(rgb) -> "cq.Color":
     return step_safe(cq.Color(*(c / 255.0 for c in rgb)))
 
 
+def flange_clearance(which: str) -> float:
+    """The nearest one station's word comes to its fitting's flange: the letters against the
+    flange's own footprint, standing outboard of the chip's face alongside them."""
+    flange = cq.Solid.makeCylinder(FAMILIES[family(which)].flange_footprint() / 2.0,
+                                   WORD_RAISE + WORD_DEPTH, cq.Vector(0.0, THICK, 0.0),
+                                   cq.Vector(0.0, 1.0, 0.0))
+    word = build_word(which)
+    if word.intersect(flange).Volume() > 1e-9:
+        return 0.0
+    probe = BRepExtrema_DistShapeShape(word.wrapped, flange.wrapped)
+    probe.Perform()
+    return probe.Value()
+
+
 def build_part(which: str) -> cq.Assembly:
-    """One station as it prints: the chip, and the word lying in its recess, each in the filament
-    it comes off. Two bodies of one part, in the frame `seat` places them by."""
+    """One station as it prints: the chip, and the word standing in its recess and proud of its
+    face, each in the filament it comes off. Two bodies of one part, in the frame `seat` places them
+    by."""
     a = cq.Assembly()
     a.add(build_ring(which), name=f"bulkhead-ring-{which}",
           color=_filament(_rear.chip_color(FLUIDS[which])))
@@ -333,7 +368,7 @@ def min_stroke(word_solid) -> float:
     a letterform's thinnest limb is what the smallest of them reports."""
     out = []
     for f in word_solid.Faces():
-        if abs(f.Center().y - THICK) > 1e-6:
+        if abs(f.Center().y - (THICK + WORD_RAISE)) > 1e-6:
             continue
         perimeter = sum(e.Length() for e in f.Edges())
         if perimeter > 0:
@@ -392,10 +427,13 @@ def words_hold():
                 f"'{word}' is declared {WORD_WIDTHS[word]:.3f} mm across and {step.name} carries "
                 f"{bb.xlen:.3f} — `{WORD_FONT}` did not resolve to the face these figures were "
                 f"struck on, and the chip is lettered in something else.")
-        if abs(bb.ylen - WORD_DEPTH) > 1e-6:
-            raise ValueError(
-                f"'{word}' runs {bb.ylen:.4f} mm deep and the recess cut for it is "
-                f"{WORD_DEPTH:g} — the word and the chip do not come out one plane.")
+        for what, claimed, actual in (("floor", THICK - WORD_DEPTH, bb.ymin),
+                                      ("top", THICK + WORD_RAISE, bb.ymax)):
+            if abs(claimed - actual) > 1e-6:
+                raise ValueError(
+                    f"'{word}' has its {what} at y = {actual:.4f} in {step.name} and the word is "
+                    f"{WORD_DEPTH:g} deep and {WORD_RAISE:g} proud of a {THICK:g} mm chip, which "
+                    f"puts it at {claimed:g}.")
 
 
 def selftest() -> int:
@@ -438,14 +476,24 @@ def selftest() -> int:
         fails.append(
             f"a word {WORD_DEPTH:g} deep is cut through a chip {THICK:g} thick, and what is "
             f"behind the lettering is the pocket floor rather than the colour")
-    # BOTH FEATURES ARE COUNTED IN BEADS, and the bridge is the one that runs out first — a stroke
-    # is the word's spool and a bridge is the chip's, but the same tip lays both at `WORD_BEAD`.
-    for what, got in (("stroke these words carry", WORD_MIN_STROKE),
-                      ("bridge of chip they leave standing", WORD_MIN_BRIDGE)):
-        if got < WORD_BEAD + 1e-9:
+    if WORD_MIN_STROKE < WORD_BEAD + 1e-9:
+        fails.append(
+            f"the narrowest stroke these words carry is {WORD_MIN_STROKE:.3f} mm and the profile "
+            f"lays a {WORD_BEAD:g} bead — a stroke under one bead wide is not one the slicer can lay")
+    layers = WORD_RAISE / WORD_LAYER
+    if abs(layers - round(layers)) > 1e-9 or round(layers) < 1:
+        fails.append(
+            f"a word {WORD_RAISE:g} proud stands in {layers:.3f} layers of {WORD_LAYER:g} — its "
+            f"top is not a layer the profile lays")
+    if not 0.0 <= closing_layer() < WORD_LAYER:
+        fails.append(
+            f"the face closes on a {closing_layer():g} mm layer, outside one {WORD_LAYER:g} layer")
+    for which in STATIONS:
+        clear = flange_clearance(which)
+        if clear < WORD_MARGIN - 1e-6:
             fails.append(
-                f"the narrowest {what} is {got:.3f} mm and the profile lays a {WORD_BEAD:g} bead — "
-                f"a feature under one bead wide is not a feature the slicer can fill")
+                f"'{STATIONS[which].word}' stands {clear:.3f} mm off the {family(which)} flange "
+                f"and owes it {WORD_MARGIN:g} mm")
     for which in STATIONS:
         got = min_stroke(build_word(which))
         if abs(got - WORD_MIN_STROKE) > 1e-3 and got < WORD_MIN_STROKE:
@@ -468,7 +516,7 @@ def selftest() -> int:
 
 
 def main():
-    volumes, word_volumes = {}, {}
+    volumes, word_volumes, clears = {}, {}, {}
     for which in STATIONS:
         chip, word = build_ring(which), build_word(which)
         diameter, top = outline(which)
@@ -484,6 +532,9 @@ def main():
               f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  "
               f"Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
         print(f"  Solid valid: {chip.isValid()}")
+        clears[which] = flange_clearance(which)
+        print(f"  Word: {WORD_DEPTH:g} deep, {WORD_RAISE:g} proud, top at y = "
+              f"{THICK + WORD_RAISE:g}; {clears[which]:.3f} mm off the flange")
         export_assembly(build_part(which), str(STEPS[which]))
         print(f"-> {STEPS[which].name}")
 
@@ -505,6 +556,13 @@ def main():
         "WORD_KIND": WORD_KIND,
         "WORD_CAP": f"{WORD_CAP:g}",
         "WORD_DEPTH": f"{WORD_DEPTH:g}",
+        "WORD_RAISE": f"{WORD_RAISE:g}",
+        "WORD_TOP": f"{THICK + WORD_RAISE:g}",
+        "WORD_RAISE_LAYERS": f"{round(WORD_RAISE / WORD_LAYER):d}",
+        "WORD_FIRST_LAYER": f"{WORD_FIRST_LAYER:g}",
+        "WORD_CLOSING_LAYER": f"{closing_layer():g}",
+        "WORD_FLANGE_CLEAR": f"{min(c for w, c in clears.items() if family(w) == 'union'):.2f}",
+        "CO2_WORD_FLANGE_CLEAR": f"{clears['co2']:.2f}",
         "WORD_LAYER": f"{WORD_LAYER:g}",
         "WORD_BEAD": f"{WORD_BEAD:g}",
         "WORD_MIN_STROKE": f"{WORD_MIN_STROKE:g}",

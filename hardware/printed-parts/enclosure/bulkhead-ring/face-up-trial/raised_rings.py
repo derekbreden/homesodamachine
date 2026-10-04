@@ -1,4 +1,4 @@
-"""Face-up raised TAP/FLAVOR lettering, with the existing fitting seats intact."""
+"""The TAP and FLAVOR rings of the face-up plate: `bulkhead_ring`'s chip and raised word."""
 import hashlib
 import json
 from pathlib import Path
@@ -13,7 +13,7 @@ import bulkhead_ring as ring
 from _cadq_export import export_assembly, note_write, _write_mesh_payload, _per_solid_color
 
 STATIONS = ('water', 'flavor-a', 'flavor-b')
-RISE = .48
+RISE = ring.WORD_RAISE
 
 
 def name(station):
@@ -21,12 +21,7 @@ def name(station):
 
 
 def build(station):
-    body = ring.build_ring(station)
-    original = ring.build_word(station)
-    word = cq.Compound.makeCompound([
-        s.fuse(s.translate((0, RISE, 0))).clean() for s in original.Solids()
-    ])
-    return body, word
+    return ring.build_ring(station), ring.build_word(station)
 
 
 def print_pose(shape):

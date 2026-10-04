@@ -58,23 +58,25 @@ port_colors = {
 }
 
 
-# THE SPOOL EACH CHIP IS CUT OFF, and it is not the tube's own colour. `port_colors` is the
-# IDENTIFICATION scheme — neoFlo LLDPE, what the customer's tube is — and a chip printed to match
-# one is Bambu PETG Basic, a different product that happens to answer to the same name. These are
-# the filaments themselves, sampled off the store's own product photograph (`ledger/purchases.md`
-# buys White 30106, Navy Blue 30604 and Red 30201; black is the enclosure's own 30105 stock).
+# THE SPOOL EACH CHIP AND ITS TUBE COLLAR ARE CUT OFF, and it is not the tube's own colour.
+# `port_colors` is the IDENTIFICATION scheme — neoFlo LLDPE, what the customer's tube is — and a
+# chip printed to match one is Polymaker Fiberon PET-GF15, a different product that happens to
+# answer to the same name. These are the filaments themselves: each triple is the median of the
+# wound filament in Polymaker's own product photograph of that spool (FL02003, FL02006, FL02007,
+# FL02001), and `ledger/purchases.md` §13 buys all four.
 chip_filaments = {
-    "water": ("PETG Basic White 30106", (255, 255, 255)),
-    "carb": ("PETG Basic Navy Blue 30604", (45, 113, 211)),
-    "co2": ("PETG Basic Red 30201", (227, 52, 49)),
-    "flavor": ("PETG Basic Black 30105", (38, 38, 41)),
+    "water": ("Fiberon PET-GF15 White", (235, 236, 234)),
+    "carb": ("Fiberon PET-GF15 Blue", (105, 180, 247)),
+    "co2": ("Fiberon PET-GF15 Red", (228, 83, 87)),
+    "flavor": ("Fiberon PET-GF15 Black", (31, 34, 35)),
 }
-# Which of black and white a chip's word letters in, one entry per `chip_filaments` spool.
+# Which of the black and the white spool a chip's word letters in, one entry per `chip_filaments`
+# spool.
 chip_word_colors = {
-    "water": (0, 0, 0),
-    "carb": (255, 255, 255),
-    "co2": (255, 255, 255),
-    "flavor": (255, 255, 255),
+    "water": chip_filaments["flavor"][1],
+    "carb": chip_filaments["water"][1],
+    "co2": chip_filaments["water"][1],
+    "flavor": chip_filaments["water"][1],
 }
 
 
@@ -83,16 +85,17 @@ def chip_color(fluid):
     identification colour it stands for.
 
     `port_colors` is the SCHEME: what blue means on this wall, and the neoFlo
-    LLDPE the customer's tube is cut off. A chip printed to match one is Bambu
-    PETG Basic, a different product answering to the same name, and the two are
-    a few points apart. `enclosure_assembly.build_bulkhead_rings` draws the chip
+    LLDPE the customer's tube is cut off. A chip printed to match one is Fiberon
+    PET-GF15, a different product answering to the same name.
+    `enclosure_assembly.build_bulkhead_rings` and the tube collars draw the chip
     from here and the drawings paint the scheme from `port_colors`."""
     return chip_filaments[fluid][1]
 
 
 def word_color(fluid):
-    """The colour a chip's WORD is lettered in — the one of black and white that reads against the
-    filament that chip actually prints in. `bulkhead_ring` cuts the recess and this is what fills it."""
+    """The colour a chip's WORD is lettered in — the one of the black and white spools that reads
+    against the filament that chip actually prints in. `bulkhead_ring` cuts the recess and this is
+    what fills it and stands out of it."""
     return chip_word_colors[fluid]
 
 
