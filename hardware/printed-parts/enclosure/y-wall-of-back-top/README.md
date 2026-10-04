@@ -14,7 +14,7 @@ and the keystone jack its signal ribbon plugs into, the tap-water inlet, the AC
 inlet, and the **CO2 inlet**. The connector bodies
 reach forward into the band's open rear half — the electronics bay stands against the
 +X wall, clear of them — so every body hangs in open air. The piece prints in
-**PETG** — see §"Material" below.
+**PET-GF** — see §"Material" below.
 
 The face has no fluid-pressure duty. It is a connection-management face:
 hole patterns sized for off-the-shelf bulkheads and panel-mount receptacles,
@@ -86,7 +86,7 @@ The two flavor unions stand side by side at the [west](FLAVOR_B_END) end on one 
 
 ## Material
 
-This wall is `enclosure-back-top`'s own, so it is that piece's material: **PETG** ($11.20/kg), the same as the rest of the enclosure ([`bom.md`](/hardware/ledger/bom.md) §7). Service temperature is above the ~30–40 °C cabinet ambient. There is no row of its own in §7 because there is no separate part.
+This wall is `enclosure-back-top`'s own, so it is that piece's material: **PET-GF** (Polymaker Fiberon PET-GF15), the same as the rest of the enclosure ([`bom.md`](/hardware/ledger/bom.md) §7). Service temperature is above the ~30–40 °C cabinet ambient. There is no row of its own in §7 because there is no separate part.
 
 ## Open items
 
