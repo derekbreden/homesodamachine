@@ -578,8 +578,9 @@ def stock_min(kind: str, diam: float) -> float:
 
 # The spool each run is cut off. A stock is a material at a diameter; a SPOOL is a stock in one
 # colour, keyed by that colour, and `names` is the fluid the colour identifies. White, blue and
-# red are `_y_wall_dimensions.port_colors` read through, so a tube, the ring around the hole
-# it leaves by, and the customer's own tube outboard of that ring are one colour struck once.
+# red are `_y_wall_dimensions.port_colors` read through, so a tube and the customer's own tube
+# outboard of the ring it leaves by are one colour struck once. The ring prints in the spool
+# that answers to that colour's name, `_y_wall_dimensions.chip_filaments`.
 @dataclass(frozen=True)
 class Spool:
     name: str

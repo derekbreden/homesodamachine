@@ -49,9 +49,9 @@ Net identification scheme on this wall: **blue = carbonated water** [#1f6feb](CA
 
 The scheme is the five tube crossings'. The signal station wears no ring: it is the one rectangle among them, it takes a plug and not a tube, and its own opening is the shape a customer reads it by.
 
-**The scheme does not stop at the wall.** Every line inside the cabinet is cut off the spool of what it carries — [`_routing.SPOOLS`](/hardware/scripts/_routing.py), which reads `port_colors` above — so a tube outboard of a ring, the ring, and the tube inboard of it are one colour: white through the water station, blue through the carb union, red through the CO2 bulkhead, black through the two flavour unions. [`assembly/internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) names the spool at each cut, and the enclosure and cold-core assemblies draw every run in it.
+**The scheme does not stop at the wall.** Every line inside the cabinet is cut off the spool of what it carries — [`_routing.SPOOLS`](/hardware/scripts/_routing.py), which reads `port_colors` above — so the tube outboard of a ring and the tube inboard of it are one colour, the colour the ring between them is named for: white through the water station, blue through the carb union, red through the CO2 bulkhead, black through the two flavour unions. [`assembly/internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) names the spool at each cut, and the enclosure and cold-core assemblies draw every run in it.
 
-Blue naming carbonated water is what makes the other two fall out: the umbilical riser is bought as blue tube ([`bom.md`](/hardware/ledger/bom.md) §3) and the union that receives it is bought to wear a blue ring (§8), so blue is spent, and the customer's teed-in tap-water station is the white-marked one. The four colors are the customer-wayfinding system committed in [`/marketing/unboxing-and-quickstart.md`](/marketing/unboxing-and-quickstart.md) "Color system"; the quick start ([`/hardware/quickstart/`](/hardware/quickstart/README.md)) reads this same table into its stylesheet and the iso line-art paints its rings from it, so the customer's eye moves from sheet to face without translation. Any change to a ring here (color shade, ring mechanism, placement on the face) needs to round-trip through the unboxing brief because the printed sheet must match.
+Blue naming carbonated water is what makes the other two fall out: the umbilical riser is bought as blue tube ([`bom.md`](/hardware/ledger/bom.md) §3) and the union that receives it is bought to wear a blue ring (§8), so blue is spent, and the customer's teed-in tap-water station is the white-marked one. The iso line-art paints its rings from this table, and [`/hardware/quickstart/`](/hardware/quickstart/README.md) reads it into its stylesheet. A chip prints in the Fiberon PET-GF15 spool that answers to its colour's name ([`_y_wall_dimensions.chip_filaments`](_y_wall_dimensions.py)), lettered with its station's word.
 
 ## Umbilical bundle construction
 
@@ -87,10 +87,6 @@ The two flavor unions stand side by side at the [west](FLAVOR_B_END) end on one 
 ## Material
 
 This wall is `enclosure-back-top`'s own, so it is that piece's material: **PET-GF** (Polymaker Fiberon PET-GF15), the same as the rest of the enclosure ([`bom.md`](/hardware/ledger/bom.md) §7). Service temperature is above the ~30–40 °C cabinet ambient. There is no row of its own in §7 because there is no separate part.
-
-## Open items
-
-- **The CO2 station's ring** waits on its own bulkhead. `co2-inlet`'s ABU44 arrived on WEBFWS100697928; until it is placed, the field spans the four unions and stops west of that column.
 
 The wall is not a moisture or vapor barrier — the appliance is not hermetic. Each bulkhead seals the pressurized fluid path *around the tube* via its internal O-ring; the wall interface is purely mechanical capture, flange + ring + nut sandwiching the wall through its Ø[17.44](PANEL_HOLE_D_SHORT) hole, so no wall-side bulkhead gasket is required.
 
