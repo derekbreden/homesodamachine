@@ -12,6 +12,7 @@ their own physical checks.
 
 | Job | Printer | State | Evidence |
 | --- | --- | --- | --- |
+| Face-up raised SODA ring, blue body, white letters | Mark2 | accepted task 1307088867; right-nozzle correction on blue; 13 min 58 sec | [2026-10-04-bulkhead-soda-raised-mark2-v1](2026-10-04-bulkhead-soda-raised-mark2-v1/README.md) |
 | Current back-top, PRV chase crown | Mark2 | Native paths and accessible supports reviewed; retained ground-round terminal approximation; not submitted; 26 h 8 min 54 sec | [2026-10-03-enclosure-back-top-current-mark2-v9](2026-10-03-enclosure-back-top-current-mark2-v9/README.md) |
 | Current front-top, centred expanded funnel interface | H2C | Native archive and accessible supports reviewed; accepted task 1305315362; 25 h 44 min 45 sec | [2026-10-03-enclosure-front-top-current-h2c-v17](2026-10-03-enclosure-front-top-current-h2c-v17/README.md) |
 | Front-top v16 source-bound archive | H2C | Reviewed native archive; superseded for current geometry; do not submit | [2026-10-03-enclosure-front-top-current-h2c-v16](2026-10-03-enclosure-front-top-current-h2c-v16/README.md) |
