@@ -1,0 +1,54 @@
+{
+  "station": "carb",
+  "word": "SODA",
+  "head": "7ce979614c6c39fa1e160f5c5bf9eb6ecea08839",
+  "sources": {
+    "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/raised_rings.py": {
+      "working_sha256": "ef5f4a412425e55b400d8f09f81e6fa83e5942fdd61e9c6c737164ac6352fa5d",
+      "head_sha256": "ef5f4a412425e55b400d8f09f81e6fa83e5942fdd61e9c6c737164ac6352fa5d"
+    },
+    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py": {
+      "working_sha256": "490207b4fa6b1a6ad69897386ca661ae7ecd4eaf1d21f4d54280d01a539bf2b7",
+      "head_sha256": "490207b4fa6b1a6ad69897386ca661ae7ecd4eaf1d21f4d54280d01a539bf2b7"
+    }
+  },
+  "letter_rise_mm": 0.48,
+  "mounting_thickness_mm": 2.0,
+  "flange_to_word_band_gap_mm": 1.2039139625000015,
+  "parts": {
+    "body": {
+      "bounds": [
+        [
+          -18.48,
+          -18.634500050000003,
+          -2.0516921495072893e-15
+        ],
+        [
+          18.480000000000004,
+          18.634499950000002,
+          2.0000001000000043
+        ]
+      ],
+      "volume_mm3": 1940.9679378258525,
+      "solids": 1,
+      "stl_sha256": "f8be65d4d1d4f3be788a5326ddda705b907804c543a36aea485cb8004aa3ff24"
+    },
+    "lettering": {
+      "bounds": [
+        [
+          -9.205688426562498,
+          12.479414012499998,
+          1.0000001000000016
+        ],
+        [
+          9.205688526562502,
+          17.430585887499998,
+          2.4800001000000043
+        ]
+      ],
+      "volume_mm3": 63.609500314095236,
+      "solids": 4,
+      "stl_sha256": "c1ed5f5e806a2fcdce1502fd89d07bfcdd96190bb3df5e6454d756c114449c43"
+    }
+  }
+}

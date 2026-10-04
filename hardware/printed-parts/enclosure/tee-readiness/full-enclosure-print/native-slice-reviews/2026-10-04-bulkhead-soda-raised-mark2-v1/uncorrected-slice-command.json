@@ -1,0 +1,14 @@
+[
+  "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+  "--slice",
+  "0",
+  "--arrange",
+  "0",
+  "--orient",
+  "0",
+  "--outputdir",
+  "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-10-04-bulkhead-soda-raised-mark2-v1/uncorrected/ready",
+  "--export-3mf",
+  "soda-raised-face-up-z004-mark2-v1-uncorrected.gcode.3mf",
+  "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-10-04-bulkhead-soda-raised-mark2-v1/uncorrected/soda-raised-face-up-z004-mark2-v1-uncorrected-input.3mf"
+]

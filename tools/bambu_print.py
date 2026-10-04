@@ -374,9 +374,13 @@ def prepare_dialog(ui, path, printer, details):
             raise PrintError("The external spool mapping is unresolved")
         ui.call("click_offsets", label="? ?", role="AXGroup",
                 offsets=[[47, 30], [-245, 282]])
+    # A two-nozzle dialog marks a tile "Ext <type> ?" until it has read the
+    # printer's nozzles; Send stays disabled until the tile names its side.
+    def tiles(ns):
+        return [n for n in ns if n["role"] == "AXGroup" and n["label"].startswith("Ext ")]
     nodes = ui.wait(lambda ns: not matching(ns, "? ?", "AXGroup")
-                    and len([n for n in ns if n["role"] == "AXGroup"
-                             and n["label"].startswith("Ext ")]) == len(details["slots"]))
+                    and len(tiles(ns)) == len(details["slots"])
+                    and not any(tile["label"].endswith("?") for tile in tiles(ns)))
     set_options(ui)
     verify_dialog(ui.nodes(), printer, details)
     log(f"Dialog: {printer}; external spools mapped; " + ", ".join(f"{k} {v}" for k, v in OPTIONS.items()))

@@ -1,0 +1,59 @@
+{
+  "pass": true,
+  "native_archive": ".cache/prints/2026-10-04-bulkhead-soda-raised-mark2-v1/ready/soda-raised-face-up-z004-mark2-v1.gcode.3mf",
+  "native_archive_sha256": "e96ffe6d001d999efea9ab643656f55fd45b9387a60860b24c0b2829f3ec24c5",
+  "gcode_sha256": "b4d45f54e2daf7e168cd8b7d2161a88fb16a709404b9332474d03ea6ab3ad96f",
+  "staged_input_sha256": "60e0ebcc12b94290453bf9ee35d851913fca6b858ed31e27933dad64097e7b2f",
+  "geometry_snapshot_head": "7ce979614c6c39fa1e160f5c5bf9eb6ecea08839",
+  "filaments": {
+    "1": "white PET-GF, left nozzle, external 254: lettering",
+    "2": "blue PET-GF, right nozzle, external 255: body"
+  },
+  "support_paths": 0,
+  "layers": {
+    "first": [
+      0.2,
+      0.2
+    ],
+    "last_three": [
+      [
+        2.0,
+        0.12
+      ],
+      [
+        2.24,
+        0.24
+      ],
+      [
+        2.48,
+        0.24
+      ]
+    ]
+  },
+  "raised_letter_checks": [
+    {
+      "print_z_mm": 2.24,
+      "letter_nozzle": "left",
+      "extrusion_paths": 281
+    },
+    {
+      "print_z_mm": 2.48,
+      "letter_nozzle": "left",
+      "extrusion_paths": 283
+    }
+  ],
+  "emitted_z_trim_mm": [
+    0.0,
+    0.02
+  ],
+  "estimated_seconds": 837.815673828125,
+  "estimated_grams_saved_profile_density": 3.2276220619678497,
+  "submitted": false,
+  "calibration_applied": true,
+  "right_nozzle_correction_mm": {
+    "X": -0.5,
+    "Y": 0.7
+  },
+  "maximum_normalized_registration_path_error_mm": 4.0194366942304644e-14,
+  "send_copy": ".cache/prints/2026-10-04-bulkhead-soda-raised-mark2-v1/send/soda-raised-face-up-z004-mark2-v1.gcode.3mf"
+}

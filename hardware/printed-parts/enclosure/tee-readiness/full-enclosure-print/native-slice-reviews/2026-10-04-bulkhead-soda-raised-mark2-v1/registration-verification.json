@@ -1,0 +1,329 @@
+{
+  "pass": true,
+  "baseline_archive": ".cache/prints/2026-10-04-bulkhead-soda-raised-mark2-v1/uncorrected/ready/soda-raised-face-up-z004-mark2-v1-uncorrected.gcode.3mf",
+  "baseline_archive_sha256": "7cb98e02c29933f8899385ce742de62d4ce0aa290b19180d7009bdd9162f0552",
+  "corrected_archive_sha256": "e96ffe6d001d999efea9ab643656f55fd45b9387a60860b24c0b2829f3ec24c5",
+  "nominal_mesh_members_unchanged": [
+    "3D/3dmodel.model",
+    "3D/_rels/3dmodel.model.rels",
+    "3D/Objects/object_1.model"
+  ],
+  "effective_setting_changes": {
+    "extruder_offset": [
+      [
+        "0x0",
+        "-0x-0"
+      ],
+      [
+        "0x0",
+        "0.5x-0.7"
+      ]
+    ]
+  },
+  "native_purge_tower_endpoints_unchanged": true,
+  "native_purge_tower_white_entries": [
+    {
+      "print_z_mm": 1.16,
+      "entry_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "native_first_road_start_xy": [
+        167.244,
+        253.507
+      ],
+      "native_first_road_end_xy": [
+        194.744,
+        252.807
+      ]
+    },
+    {
+      "print_z_mm": 1.4,
+      "entry_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "native_first_road_start_xy": [
+        194.494,
+        267.007
+      ],
+      "native_first_road_end_xy": [
+        191.994,
+        266.307
+      ]
+    },
+    {
+      "print_z_mm": 1.64,
+      "entry_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "native_first_road_start_xy": [
+        167.244,
+        253.507
+      ],
+      "native_first_road_end_xy": [
+        194.744,
+        252.807
+      ]
+    },
+    {
+      "print_z_mm": 1.88,
+      "entry_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "native_first_road_start_xy": [
+        166.994,
+        267.007
+      ],
+      "native_first_road_end_xy": [
+        170.494,
+        266.307
+      ]
+    },
+    {
+      "print_z_mm": 2.0,
+      "entry_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "native_first_road_start_xy": [
+        167.244,
+        253.507
+      ],
+      "native_first_road_end_xy": [
+        194.744,
+        252.807
+      ]
+    }
+  ],
+  "model_path_checks": [
+    {
+      "object": 2901,
+      "tool": 0,
+      "print_z_mm": 1.16,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 285,
+      "corrected_segments": 285,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2901,
+      "tool": 0,
+      "print_z_mm": 1.4,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 284,
+      "corrected_segments": 284,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2901,
+      "tool": 0,
+      "print_z_mm": 1.64,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 288,
+      "corrected_segments": 288,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2901,
+      "tool": 0,
+      "print_z_mm": 1.88,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 280,
+      "corrected_segments": 280,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2901,
+      "tool": 0,
+      "print_z_mm": 2.0,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 277,
+      "corrected_segments": 277,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2901,
+      "tool": 0,
+      "print_z_mm": 2.24,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 281,
+      "corrected_segments": 281,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2901,
+      "tool": 0,
+      "print_z_mm": 2.48,
+      "requested_displacement_mm": [
+        0.0,
+        0.0
+      ],
+      "baseline_segments": 283,
+      "corrected_segments": 283,
+      "normalized_path_hausdorff_mm": 0.0,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2901,
+      "tool": 1,
+      "print_z_mm": 0.2,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 510,
+      "corrected_segments": 510,
+      "normalized_path_hausdorff_mm": 2.842170943040401e-14,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 9.094947017729282e-13
+    },
+    {
+      "object": 2901,
+      "tool": 1,
+      "print_z_mm": 0.44,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 580,
+      "corrected_segments": 580,
+      "normalized_path_hausdorff_mm": 2.842170943040401e-14,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 4.547473508864641e-13
+    },
+    {
+      "object": 2901,
+      "tool": 1,
+      "print_z_mm": 0.68,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 575,
+      "corrected_segments": 575,
+      "normalized_path_hausdorff_mm": 2.842170943040401e-14,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 4.547473508864641e-13
+    },
+    {
+      "object": 2901,
+      "tool": 1,
+      "print_z_mm": 0.92,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 458,
+      "corrected_segments": 458,
+      "normalized_path_hausdorff_mm": 2.842170943040401e-14,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 2.2737367544323206e-13
+    },
+    {
+      "object": 2901,
+      "tool": 1,
+      "print_z_mm": 1.16,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 977,
+      "corrected_segments": 977,
+      "normalized_path_hausdorff_mm": 2.842170943040401e-14,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 0.0
+    },
+    {
+      "object": 2901,
+      "tool": 1,
+      "print_z_mm": 1.4,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 1034,
+      "corrected_segments": 1034,
+      "normalized_path_hausdorff_mm": 2.842170943040401e-14,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 4.547473508864641e-13
+    },
+    {
+      "object": 2901,
+      "tool": 1,
+      "print_z_mm": 1.64,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 1037,
+      "corrected_segments": 1037,
+      "normalized_path_hausdorff_mm": 2.842170943040401e-14,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 9.094947017729282e-13
+    },
+    {
+      "object": 2901,
+      "tool": 1,
+      "print_z_mm": 1.88,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 1033,
+      "corrected_segments": 1033,
+      "normalized_path_hausdorff_mm": 4.0194366942304644e-14,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 2.7284841053187847e-12
+    },
+    {
+      "object": 2901,
+      "tool": 1,
+      "print_z_mm": 2.0,
+      "requested_displacement_mm": [
+        -0.5,
+        0.7
+      ],
+      "baseline_segments": 602,
+      "corrected_segments": 602,
+      "normalized_path_hausdorff_mm": 4.0194366942304644e-14,
+      "normalized_bounds_error_mm": 0.0,
+      "total_path_length_difference_mm": 1.3642420526593924e-12
+    }
+  ],
+  "maximum_normalized_path_error_mm": 4.0194366942304644e-14,
+  "physical_alignment": "Right-nozzle correction measured with the registration coupon and accepted on the nameplate and the TAP/FLAVOR rings; this ring awaits its own finish check."
+}
