@@ -1,0 +1,124 @@
+{
+  "project": ".cache/prints/2026-10-04-bulkhead-soda-raised-mark2-v1/uncorrected/soda-raised-face-up-z004-mark2-v1-uncorrected-input.3mf",
+  "project_sha256": "ae843b4a1905d310edfb290fa910c305cbcba44b9828ac3c2de5ed8855621124",
+  "geometry_snapshot": {
+    "station": "carb",
+    "word": "SODA",
+    "head": "7ce979614c6c39fa1e160f5c5bf9eb6ecea08839",
+    "sources": {
+      "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/raised_rings.py": {
+        "working_sha256": "ef5f4a412425e55b400d8f09f81e6fa83e5942fdd61e9c6c737164ac6352fa5d",
+        "head_sha256": "ef5f4a412425e55b400d8f09f81e6fa83e5942fdd61e9c6c737164ac6352fa5d"
+      },
+      "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py": {
+        "working_sha256": "490207b4fa6b1a6ad69897386ca661ae7ecd4eaf1d21f4d54280d01a539bf2b7",
+        "head_sha256": "490207b4fa6b1a6ad69897386ca661ae7ecd4eaf1d21f4d54280d01a539bf2b7"
+      }
+    },
+    "letter_rise_mm": 0.48,
+    "mounting_thickness_mm": 2.0,
+    "flange_to_word_band_gap_mm": 1.2039139625000015,
+    "parts": {
+      "body": {
+        "bounds": [
+          [
+            -18.48,
+            -18.634500050000003,
+            -2.0516921495072893e-15
+          ],
+          [
+            18.480000000000004,
+            18.634499950000002,
+            2.0000001000000043
+          ]
+        ],
+        "volume_mm3": 1940.9679378258525,
+        "solids": 1,
+        "stl_sha256": "f8be65d4d1d4f3be788a5326ddda705b907804c543a36aea485cb8004aa3ff24"
+      },
+      "lettering": {
+        "bounds": [
+          [
+            -9.205688426562498,
+            12.479414012499998,
+            1.0000001000000016
+          ],
+          [
+            9.205688526562502,
+            17.430585887499998,
+            2.4800001000000043
+          ]
+        ],
+        "volume_mm3": 63.609500314095236,
+        "solids": 4,
+        "stl_sha256": "c1ed5f5e806a2fcdce1502fd89d07bfcdd96190bb3df5e6454d756c114449c43"
+      }
+    }
+  },
+  "settings_and_script_sha256": {
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf": "84c5011c0be15dd9aab41a516abe85bf99b08e2c80d91375b5f2608a96bc0e72",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "hardware/printed-parts/calibration/dual-nozzle-registration/mark2-registration.json": "07ae8fcf4ea2fca75a5bcffd182d397475fc359bbae6cfed000482b5e7f3a4c9",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-04-bulkhead-soda-raised-mark2-v1/prepare.py": "0b6fe00de7230e8251982d8f1c983a38f2b4b157d564359bd2cd2b190aa2644b"
+  },
+  "printer": "Mark2",
+  "parts": [
+    {
+      "station": "carb",
+      "part": "body",
+      "filament": 2,
+      "colour": "#46A8F9",
+      "bounds": [
+        [
+          -18.479999542236328,
+          -18.63450050354004,
+          -2.0516920986853125e-15
+        ],
+        [
+          18.479999542236328,
+          18.63450050354004,
+          2.0
+        ]
+      ]
+    },
+    {
+      "station": "carb",
+      "part": "lettering",
+      "filament": 1,
+      "colour": "#FFFFFF",
+      "bounds": [
+        [
+          -9.2056884765625,
+          12.479413986206055,
+          1.0000001192092896
+        ],
+        [
+          9.2056884765625,
+          17.430585861206055,
+          2.4800000190734863
+        ]
+      ]
+    }
+  ],
+  "identify_ids": {
+    "2901": "carb"
+  },
+  "orientation": "Face up. Inboard face on the bed; 2.0 mm fitting face, letters standing to 2.48 mm.",
+  "nozzles": {
+    "left": "filament 1, white PET-GF, external 254, lettering",
+    "right": "filament 2, blue PET-GF, external 255, body"
+  },
+  "requested_z_trim_mm": 0.04,
+  "support_policy": "No supports.",
+  "calibration_applied": false,
+  "submitted": false,
+  "right_nozzle_correction_mm": {
+    "X": 0.0,
+    "Y": 0.0
+  },
+  "native_extruder_offset": [
+    "0x0",
+    "-0x-0"
+  ],
+  "correction_scope": "Right-nozzle paths: the blue body. White lettering and nominal CAD unchanged."
+}

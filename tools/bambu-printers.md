@@ -34,10 +34,10 @@ nozzle it knows.
   offers it. `PREPARE`, `RUNNING` and `PAUSE` are busy, and Send is disabled.
 - `external_spools` are the MQTT `vir_slot` trays: `254` is the left external spool and
   `255` the right. Read both `type` and `colour` when present and verify the physical
-  material from Derek's loading report. Mark2 carries black PET-GF on the left and white
-  PET-GF on the right; both are labelled PET-CF in the printer. A single-colour black job
-  uses the left nozzle. The [two-colour nameplate record](../hardware/printed-parts/enclosure/nameplate/mark2-print-readiness.json)
-  identifies its separate left/black and right/white assignments.
+  material from Derek's loading report. PET-GF reads PET-CF in the printer. Loading
+  changes between jobs: on 2026-10-04 Mark2 carries white PET-GF on the left (`FFFFFF`)
+  and blue PET-GF on the right (`46A8F9`). A slice's filament colours are the reported
+  colours, because the sender compares each active nozzle's type and colour with its spool.
 - `nozzles` lists every nozzle the machine knows, racked or mounted; `nozzle_type` names
   one of them, not the printing head. The send dialog checks the sliced diameter against
   the head and shows a mismatch on the filament tile.
@@ -50,16 +50,36 @@ external-spool mapping. Derek's display confirms a Standard Hardened 0.4 mm left
 hotend and a Standard Stainless 0.2 mm right hotend; selecting Ext PET-CF enables
 the reviewed 0.4 mm cover job without a nozzle mismatch.
 
+## Z trim
+
+Each printer keeps its own first-layer trim in its printer preset's start G-code. Job
+names carry the requested value (`z004`, `z018`).
+
+| printer | requested | emitted on Textured PEI, 0.4 mm | preset on current jobs |
+| --- | --- | --- | --- |
+| Mark2 | +0.04 mm | `G29.1 Z0.02` | `Bambu Lab H2C 0.4 Standard +0.04 Z trim` |
+| H2C | +0.18 mm | `G29.1 Z0.16` | `Bambu Lab H2C 0.4 Standard +0.18 Z trim` |
+
+Bambu's Textured PEI compensation subtracts 0.02 mm from the requested trim with a
+0.4 mm nozzle; other plates emit the requested value. The shared
+[`petgf.3mf`](../hardware/printed-parts/petgf.3mf) working profile carries Mark2's +0.04.
+A sliced archive holds `G29.1 Z0` and exactly one trim line; read that line before
+sending. [z-trim.md](../hardware/printed-parts/z-trim.md) describes the mechanism.
+
 ## Recorded two-nozzle alignment
 
-Mark2's black/white PET-GF pair uses the
+Mark2's two 0.4 mm hotends use the
 [coplanar registration coupon](../hardware/printed-parts/calibration/dual-nozzle-registration/README.md)
-to measure residual XY alignment. Both hotends are 0.4 mm. Record the exact job,
+to measure residual XY alignment. Record the exact job,
 native archive, launch settings, selected X/Y indices, coordinate correction and
 validation result. The correction is printer/nozzle-pair specific; keep the CAD
 artwork aligned. The measurement state is in `mark2-registration.json` beside
-the coupon source: white X −0.50 mm and Y +0.70 mm, with the raised-artwork nameplate
-appearance accepted by the user. Residual XY error is unmeasured; the original
+the coupon source: the right nozzle's paths move X −0.50 mm and Y +0.70 mm (native
+right `extruder_offset` `0.5x-0.7`), with the raised-artwork nameplate appearance
+accepted by the user. The record's `white_correction_mm` names the spool the right
+nozzle carried at measurement. The correction follows the nozzle: the
+[SODA ring](../hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-04-bulkhead-soda-raised-mark2-v1/README.md)
+applies it to blue. Residual XY error is unmeasured; the original
 Y choice was tentative. Use the native
 slice's verified tool-coordinate correction; keep the part geometry nominal.
 
@@ -155,8 +175,14 @@ restored when the transaction ends. Input stops if another application takes foc
 
 The sender checks the archive's embedded G-code checksum, the target printer, each active
 nozzle's external spool type and colour, and the standing print options. It supports one
-external filament per active nozzle on a single sliced H2C plate. Mark2's left/black and
-right/white assignments are checked separately. Spool quantity is not a launch condition.
+external filament per active nozzle on a single sliced H2C plate. Spool quantity is not a
+launch condition.
+
+On a two-nozzle Mark2 plate the dialog's left tile reads `Ext PET-CF` and the right
+`Ext PET-CF R`. For about a second after the dialog opens, the right tile reads
+`Ext PET-CF ?` and Send is disabled while Connect reads the printer's nozzles; the
+sender waits until every tile names its side. The dialog's note “Please check if the
+required nozzle diameter and flow rate match the current display.” does not block Send.
 
 `--dry-run` performs the import and dialog checks, then cancels without clicking Send. It
 also runs while a printer is busy, when Send is disabled. An ordinary run refuses a busy
@@ -325,9 +351,8 @@ library in a standalone helper does not provide print-start authorization
 ([Bambu authorization controls](https://blog.bambulab.com/firmware-update-introducing-new-authorization-control-system-2/)).
 The printer ignores MQTT `stop` from an unsigned client.
 
-The `.gcode.3mf` carries the sliced machine G-code, including Z trim: the shared
-`petgf.3mf` start G-code subtracts a fixed 0.02 mm Textured PEI compensation from the
-requested trim, so +0.18 emits `G29.1 Z0.16` and +0.04 emits `G29.1 Z0.02`. The
+The `.gcode.3mf` carries the sliced machine G-code, including the printer's
+[Z trim](#z-trim). The
 enclosure jobs' profiles, offsets and file hashes are recorded in
 `hardware/printed-parts/enclosure/enclosure/print-jobs.json`, and the lever's in
 `hardware/printed-parts/faucet/lever-replica/print-jobs.json`.
