@@ -80,6 +80,8 @@ tools/cad-venv
 *.step
 hardware/printed-parts/zone-c/funnel/funnel-frame.stl
 hardware/printed-parts/zone-c/funnel/elbow-cradle.stl
+hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl
+hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl
 hardware/printed-parts/zone-c/funnel/cradle-trial/test-*.stl
 # The placement pass hands this description directly from `//:enclosure-box` to the enclosure,
 # ceiling and full-assembly actions. Direct design runs derive the live placement and never read

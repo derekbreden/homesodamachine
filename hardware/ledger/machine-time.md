@@ -18,11 +18,11 @@ The watertight, small-parts and collet-press rates below are the **measured plat
 
 **A kg here is filament, not geometry.** bom.md §7 bills what a slice of each part lays — the wall loops plus the sparse grid between them, at the settings of the plate that part comes off ([`_bom_masses.py`](/hardware/scripts/_bom_masses.py) `PROFILES`) — and the two rates above are measured against that same figure. What §7 leaves out is the plate's scaffolding: supports, brim and purge are filament, and the front-top's tree supports are about 11 % of its slice. The rate carries them anyway, because it is hours per §7-kg and the hours it was measured over included them.
 
-Six groups take masses from §7, which is commit-gated, and `_machine_time.py` imports `_bom_masses.GROUP_OF`; `--check` fails if a §7 row is not assigned. The seventh group reads the ASA Aero object-feed mass from the same v1 slice as its time. That feed estimate excludes startup waste and magnet mass and does not establish the finished float's density or buoyancy. All printer, turnaround and throughput figures here are production estimates; the float's v2 slice and manual pauses remain outside the current timing evidence.
+Seven groups take masses from §7, which is commit-gated, and `_machine_time.py` imports `_bom_masses.GROUP_OF`; `--check` fails if a §7 row is not assigned. The ASA Aero group reads the object-feed mass from the same v1 slice as its time. That feed estimate excludes startup waste and magnet mass and does not establish the finished float's density or buoyancy. The funnel cover takes its duration from its own [unsent native slice](/hardware/printed-parts/zone-c/funnel-cover/native-slice-review.json). All printer, turnaround and throughput figures here are production estimates; the float's v2 slice and manual pauses remain outside the current timing evidence.
 
 ## 1. Printing
 
-[2](MT_PRINTERS) × Bambu Lab H2C ([tools.md](/hardware/ledger/tools.md)). The seven groups cover the shipped PET-GF, PETG and ASA Aero parts. A part's rate follows its nozzle, layer height, wall count and material recipe.
+[2](MT_PRINTERS) × Bambu Lab H2C ([tools.md](/hardware/ledger/tools.md)). The eight groups cover the shipped PET-GF, PETG and ASA Aero parts. A part's rate follows its nozzle, layer height, wall count and material recipe.
 
 | Group | Parts | Rate | Mass | Hours |
 |---|---|---|---:|---:|
@@ -33,11 +33,12 @@ Six groups take masses from §7, which is commit-gated, and `_machine_time.py` i
 | Collet press PET-GF, 0.4 TC | The supportless install-kit tool — 0.24 mm layers, at least six walls and a solid dense core ([collet-press/README.md](/hardware/printed-parts/collet-press/README.md)) | [36](MT_RATE_TOOL) h/kg — est., the small-part rate until its first slice is logged | [0.017](MT_KG_TOOL) kg | [0.6](MT_H_TOOL) |
 | Faucet PET-GF, 0.4 TC | Faucet shell, its display cover plate and the above-counter plate — four pieces on one plate, 0.24 mm layers, two wall loops and 15 % grid ([faucet-petgf.md](/hardware/printed-parts/faucet/faucet-petgf.md)) | [32.7](MT_RATE_PETGF) h/kg — duration from saved-profile slice | [0.138](MT_KG_PETGF) kg | [4.5](MT_H_PETGF) |
 | ASA Aero floats, right 0.4 HS | [3](MT_FLOAT_QTY) one-piece floats, carbonator + two reservoirs; RC62 inserted during printing, 0.20 mm layers and nested perimeters ([float record](/hardware/printed-parts/cold-core/magnetic-float/all-aero/README.md)) | [88.3](MT_FLOAT_MINUTES) min each — v1 native slice estimate, manual pause excluded; v2 unsliced | [0.042](MT_KG_AERO) kg | [4.4](MT_H_AERO) |
-| **Printer time per unit** | | | **[7.116](MT_KG)** kg | **[176.6](MT_H_PRINT)** |
+| Funnel cover, black PETG, left 0.4 nozzle | Solid removable plate and locating skirt ([cover recipe](/hardware/printed-parts/zone-c/funnel-cover/README.md)) | [14.4](MT_RATE_FUNNEL_COVER) h/kg — duration from the unsent native slice | [0.102](MT_KG_FUNNEL_COVER) kg | [1.5](MT_H_FUNNEL_COVER) |
+| **Printer time per unit** | | | **[7.218](MT_KG)** kg | **[178.0](MT_H_PRINT)** |
 
-Spread across [2](MT_PRINTERS) machines that is **[88.3](MT_H_PRINT_WALL) hours** of wall clock, and it is the longest pole in the build by an order of magnitude.
+Spread across [2](MT_PRINTERS) machines that is **[89.0](MT_H_PRINT_WALL) hours** of wall clock, and it is the longest pole in the build by an order of magnitude.
 
-Filament drying is per spool: the AMS 2 Pro dries and feeds the [0.97](MT_KG_PETG_UNIT) kg PETG allocation. PET-GF15 is dried [10 h at 100 °C](MT_PETGF_DRY) and feeds from a PolyDryer Box XL ([tools.md](/hardware/ledger/tools.md) "What dries where"). ASA Aero uses its own drying cycle and the sealed external drybox route recorded in the [float recipe](/hardware/printed-parts/cold-core/magnetic-float/all-aero/README.md).
+Filament drying is per spool: the AMS 2 Pro dries and feeds the [1.07](MT_KG_PETG_UNIT) kg PETG allocation. PET-GF15 is dried [10 h at 100 °C](MT_PETGF_DRY) and feeds from a PolyDryer Box XL ([tools.md](/hardware/ledger/tools.md) "What dries where"). ASA Aero uses its own drying cycle and the sealed external drybox route recorded in the [float recipe](/hardware/printed-parts/cold-core/magnetic-float/all-aero/README.md).
 
 ## 2. Curing and baking
 
@@ -74,12 +75,12 @@ The printers are the constraint in this estimate. Per unit, before unmeasured ma
 
 | Machine | Occupied per unit | Units/year at 100 % | |
 |---|---:|---:|---|
-| [2](MT_PRINTERS) × H2C | [88.3](MT_H_PRINT_WALL) h wall | [99](MT_CEIL_PRINT) | **the bottleneck** |
+| [2](MT_PRINTERS) × H2C | [89.0](MT_H_PRINT_WALL) h wall | [98](MT_CEIL_PRINT) | **the bottleneck** |
 | Test bench (burn-in + chill) | [9.0](MT_OCC_BENCH) h | [973](MT_CEIL_BENCH) | |
 | Funnel mold + oven | [9.0](MT_OCC_MOLD) h | [973](MT_CEIL_MOLD) | |
 | Hydro rig, passivation tub, vacuum pump | [2.6](MT_OCC_CARBONATOR) h | [3,369](MT_CEIL_CARBONATOR) | |
 
-At [65 %](MT_DUTY) assumed machine duty — failed prints, plate changes, filament swaps, maintenance, the hours nobody is in the shop to restart a plate — the modeled output is **[~64](MT_UNITS_YEAR) units a year**. A third H2C gives [~97](MT_UNITS_YEAR_3) on the same rates and allocation assumptions. This is an estimate until the selected recipes and pause handling have production timings.
+At [65 %](MT_DUTY) assumed machine duty — failed prints, plate changes, filament swaps, maintenance, the hours nobody is in the shop to restart a plate — the modeled output is **[~64](MT_UNITS_YEAR) units a year**. A third H2C gives [~96](MT_UNITS_YEAR_3) on the same rates and allocation assumptions. This is an estimate until the selected recipes and pause handling have production timings.
 
 ## Turnaround — one unit, cold start
 
@@ -87,18 +88,18 @@ What one unit takes end to end if production is unpaused and the shop starts emp
 
 | Stage | Hours | |
 |---|---:|---|
-| Print every part | [88.3](MT_H_PRINT_WALL) | 2 printers, both on this unit |
+| Print every part | [89.0](MT_H_PRINT_WALL) | 2 printers, both on this unit |
 | Build the cold core; pour the foam and let it cure | 8.0 | carbonator already done, in parallel with the prints |
 | Assembly, plumbing, wiring | 8.0 | one working day |
 | Power-on and test | 2.0 | |
 | First fill and chill-down | 1.0 | |
 | Burn-in | 8.0 | |
 | Finish and pack | 1.0 | |
-| **Turnaround** | **[116.3](MT_H_TURN)** | **[4.8](MT_DAYS_TURN) days** |
+| **Turnaround** | **[117.0](MT_H_TURN)** | **[4.9](MT_DAYS_TURN) days** |
 
 Runs in parallel with the print, and so costs no turnaround at all: the whole carbonator chain (machining, welding, PT, hydro, passivation, fittings), the twelve harnesses, the silicone funnel's cure and bake, and the PRV-shroud subassembly with its 24-hour caulk cure. Each of those has to be *started* early enough, which is a scheduling problem, not a duration one.
 
-A second unit behind the first does not cost another [4.8](MT_DAYS_TURN) days — it costs the bottleneck's [88.3](MT_H_PRINT_WALL) hours, since its prints start the moment the first unit's come off the plates.
+A second unit behind the first does not cost another [4.9](MT_DAYS_TURN) days — it costs the bottleneck's [89.0](MT_H_PRINT_WALL) hours, since its prints start the moment the first unit's come off the plates.
 
 ## Open items
 
