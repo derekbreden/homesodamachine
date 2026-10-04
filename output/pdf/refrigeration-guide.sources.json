@@ -25,7 +25,7 @@
     "hardware/reference/compressor/README.md": "688ce16e65bce51521dd7dc863d249d31014857348c960aaa5b765a13661d9af",
     "hardware/reference/condenser-block/README.md": "192dc05ffddf2910b327289e170cce69481574b1099e5aa7f4bb98a051e584dc",
     "hardware/assembly/enclosure-mechanical.md": "50c441444710666859cb2140bbf2c02d6f42c857a82ec3d351592d531e31c2bc",
-    "hardware/ledger/bom.md": "80ab7c72980919f06956bcda0780910fb7bcf14533aa600dac4bd0c3b6f35fe8",
+    "hardware/ledger/bom.md": "057d3ad67446f881210f5da0ed0c29b04f6e791236a3533a76358d3fc8b0764e",
     "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py": "ad63830ad6b80fc2fc8761cc3c90ce3fe4d6ea3d09c052c8f22da9c6576186e6",
     "hardware/printed-parts/cold-core/copper-plugs/README.md": "f87987ee5ec4284f92f725d4cb87e7449a87acc637d9c24f15d3124fb8a97ecb",
     "hardware/printed-parts/refrigeration/fuse-clamp/README.md": "aa00eb268b36e7d47645cdaa2b0bab8e7e76a5e081d6be87ecc5864b07d26aaa",
@@ -34,7 +34,7 @@
     "firmware/lib/machine_policy/cold_policy.h": "ef86c64742b9d5d2cb340bfcf718f155b0077fe07a797ba38fb448c86625cdc4",
     "hardware/assembly/acceptance-and-burn-in.md": "7bbc283087e0deee30611ebe43c06d01330b8cf437b0d5727faaad9ce1b0b523",
     "hardware/mechanical-qualification/README.md": "72ce5aa451d3195425ce6998231019d5e90ae86417a73c31ddd48df318a1b89f",
-    "hardware/concerns.md": "7c3f0b1bb1543811216ca757f6e4a71bcd43a4d2b5406c3d8fcb9b3054217f83",
+    "hardware/concerns.md": "d1a0396ebe95ca0b26c84128266625b510eddabf0e2c89926bc666cd95c300f1",
     "business/regulatory.md": "77402a3de5710900d1bb5194a07408a98ee9682510c6b0f0787941ae0f0701e1",
     "tools/refrigeration-guide/build.py": "590aa72158b586e588b91eb6d53e993d4d19b93cb3b787eea4dc7370f0679383",
     "tools/assembly-guides/common.py": "953a51939eb91f1d959b0aff769f0e9bf1cfd5442398666d29acad47f10a8b9c"
@@ -198,5 +198,6 @@
       "page": 28,
       "operation": "Keep the unit's evidence"
     }
-  ]
+  ],
+  "source_commit": "c19a1792d59828eb84b5f6065248c0bf09865035"
 }

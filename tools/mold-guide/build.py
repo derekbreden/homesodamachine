@@ -29,23 +29,36 @@ SOURCES = [
     "hardware/printed-parts/zone-c/funnel-mold/forming-mandrel-design.json",
     "hardware/printed-parts/zone-c/funnel-mold/forming-mandrel-check.json",
     "hardware/printed-parts/zone-c/funnel-mold/print-log.md",
+    "hardware/printed-parts/zone-c/funnel/wall-review.json",
     "hardware/assembly/cold-core.md",
     "hardware/printed-parts/cold-core/foam-shell/README.md",
     "hardware/printed-parts/cold-core/copper-plugs/README.md",
     "hardware/mechanical-qualification/core-and-faucet-heatsets.json",
     "hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md",
+    "hardware/printed-parts/zone-c/funnel-mold/containment-review.json",
 ]
 F = json.loads((ROOT / SOURCES[2]).read_text())
+PIN = json.loads((ROOT / SOURCES[3]).read_text())
 if not math.isclose(F["finish_allowance_mm"], .30):
     raise ValueError("Review changed shell finishing allowance")
 if not math.isclose(F["rod_support"]["dry_shank_diameter_mm"], 6.35):
-    raise ValueError("Review changed mandrel dry-shank diagram")
+    raise ValueError("Review changed pin dry-shank diagram")
+if not math.isclose(PIN["length_mm"], 20.764820645284942):
+    raise ValueError("Review changed short-pin procedure")
+for value, expected in [(F["rod_support"]["guide_diameter_mm"], 6.75),
+                        (F["rod_support"]["engagement_mm"], 7.7),
+                        (F["rod_support"]["axial_roof_clearance_mm"], .20),
+                        (F["rod_support"]["entry_leadin_mm"], 1.0),
+                        (F["rod_socket"]["diameter_mm"], 6.75),
+                        (F["rod_socket"]["depth_mm"], 1.5)]:
+    if not math.isclose(value, expected):
+        raise ValueError("Review changed blind-seat dimensions before rebuilding")
 VOLUME = F["volume_ml"]["funnel"]
 MASS = VOLUME * 1.13  # Planning estimate from the project silicone material record.
 MANUFACTURERS = {
     "BBDINO 40A": "https://bbdino.com/products/bbdino-40a-clear-silicone-mold-making-trial-kit-gp-platinum-cure-high-hardness",
     "Ease Release 200": "https://www.smooth-on.com/products/ease-release-200/",
-    "Sealers and clay": "https://www.smooth-on.com/page/sealers-releases/",
+    "Sealers and release": "https://www.smooth-on.com/page/sealers-releases/",
     "Degassing example": "https://www.smooth-on.com/tutorials/making-piece-cut-block-mold/vacuum-de-gassing/",
     "FSD pour foam": "https://fiberglasssupplydepot.com/Expandable-Polyurethane-Pour-Foam-2lb.html",
     "FSD foam SDS": "https://fiberglasssupplydepot.com/pour-foam-sds",
@@ -141,51 +154,83 @@ def shell(a, x, y, width=190, depth=110, core=False, color_=None):
         a.ellipse(px-3,py-2,6,4,PAPER)
 
 
-def mandrel(a, x, y, length=225, scale=1, color_=ORANGE, labels=True):
-    """Side profile, dry shank above and pilot below; enlarged wet features."""
-    shank = 28*scale
-    a.rect(x-shank/2,y,shank,length*.64,color_)
-    a.rect(x-13*scale,y+length*.64,26*scale,length*.19,color_)
-    a.rect(x-14.5*scale,y+length*.83,29*scale,length*.055,color_)
-    a.shape([(x-14.5*scale,y+length*.885),(x-22*scale,y+length*.955),
-             (x+22*scale,y+length*.955),(x+14.5*scale,y+length*.885)],color_)
-    a.rect(x-13*scale,y+length*.955,26*scale,length*.045,color_)
-    if labels:
-        a.label("dry shank", x + 30*scale, y + length*.29, 10)
-        a.label("upper throat", x + 30*scale, y + length*.67, 10)
-        a.label("sealing land", x + 30*scale, y + length*.79, 10)
-        a.label("relief + entry", x + 30*scale, y + length*.925, 10)
+def forming_pin(a, x, y, height=160, fill=ORANGE, mask=False):
+    """The short contoured PETG pin, in its actual length/diameter proportions.
+
+    Axial feature positions are hand-reviewed against the finished reference;
+    this vector profile is an instruction drawing, not a machining template.
+    """
+    length = 20.764820645284942
+    s = height / length
+    land_top, land_bottom, relief_bottom = 6.514820645284942, 3.514820645284942, 3.3
+    points = [(-3.175, 0), (3.175, 0),
+              (3.175, length-land_top), (3.0, length-land_top),
+              (3.0, length-land_bottom), (3.35, length-land_bottom),
+              (3.35, length-relief_bottom), (4.2, length-1.5),
+              (3.175, length-1.5), (3.175, length),
+              (-3.175, length), (-3.175, length-1.5),
+              (-4.2, length-1.5), (-3.35, length-relief_bottom),
+              (-3.35, length-land_bottom), (-3.0, length-land_bottom),
+              (-3.0, length-land_top), (-3.175, length-land_top)]
+    a.shape([(x+px*s, y+py*s) for px, py in points], fill)
+    if mask:
+        a.rect(x-3.175*s, y, 6.35*s, 7.7*s, BLUE, None)
+        a.rect(x-3.175*s, y+(length-1.0)*s, 6.35*s, 1.0*s, BLUE, None)
+    return s
 
 
 def mold_section(a, x=15, y=110, width=465, include_core=True, liquid=False,
-                 entry_seal=True):
-    mid=x+width/2
-    a.shape([(x,y),(x+25,y),(x+25,y+66),(mid-70,y+91),(mid-70,y+126),
-             (mid+70,y+126),(mid+70,y+91),(x+width-25,y+66),
-             (x+width-25,y),(x+width,y),(x+width,y+12),(x+width-11,y+12),
-             (x+width-11,y+78),(mid+84,y+105),(mid+84,y+138),
-             (mid-84,y+138),(mid-84,y+105),(x+11,y+78),(x+11,y+12),(x,y+12)],TEAL)
-    if liquid:
-        a.shape([(x+25,y+30),(x+width-25,y+30),(x+width-25,y+66),
-                 (mid+70,y+91),(mid+70,y+126),(mid-70,y+126),
-                 (mid-70,y+91),(x+25,y+66)],ORANGE)
+                 include_pin=True):
+    """Reviewed section proportions: 6 mm silicone, about 5 mm PETG backing.
+
+    Coordinates are a hand-authored section in millimetres, not CAD imports.
+    The block and neck are thicker than the ramp; the small pin stays inside
+    the bowl height. The 0.20 mm radial pin clearance is omitted at this scale.
+    """
+    s = width/211
+    nc = 1.85
+    def point(px, py):
+        return x+(px+105.5)*s, y+py*s
+    def shape(points, fill, stroke=INK):
+        a.shape([point(px, py) for px, py in points], fill, stroke)
+    # The cavity's forming surface follows the finished brim/collar/ramp/block.
+    cavity_inner = [(-89.5, 0), (-89.5, 6), (-82.5, 6), (-82.5, 23.486),
+                    (-81.5, 29.5), (nc-18, 42), (nc-18, 48.95),
+                    (nc-3.375, 48.95), (nc-3.375, 50.45),
+                    (nc+3.375, 50.45), (nc+3.375, 48.95),
+                    (nc+18, 48.95), (nc+18, 42), (81.5, 29.5),
+                    (82.5, 23.486), (82.5, 6), (89.5, 6), (89.5, 0)]
+    cavity_outer = [(105.5, 0), (105.5, 5), (94.5, 5), (94.5, 11),
+                    (87.5, 11), (87.5, 23.486), (86.5, 34.5),
+                    (nc+23, 47), (nc+23, 55.45),
+                    (nc-23, 55.45), (nc-23, 47), (-86.5, 34.5),
+                    (-87.5, 23.486), (-87.5, 11), (-94.5, 11),
+                    (-94.5, 5), (-105.5, 5), (-105.5, 0)]
+    shape([(-105.5, 0), *cavity_inner, *cavity_outer], TEAL)
+    # This pale band is the casting space; coral is liquid silicone on pour pages.
+    shape(cavity_inner, ORANGE if liquid else ICE, None)
     if include_core:
-        a.shape([(x,y-13),(x+42,y-13),(x+42,y+51),(mid-27,y+75),
-                 (mid-27,y+96),(mid+27,y+96),(mid+27,y+75),
-                 (x+width-42,y+51),(x+width-42,y-13),(x+width,y-13),
-                 (x+width,y),(x+width-28,y),(x+width-28,y+64),
-                 (mid+46,y+89),(mid+46,y+108),(mid-46,y+108),
-                 (mid-46,y+89),(x+28,y+64),(x+28,y),(x,y)],GOLD)
-        # The open dry back above the forming skin contains air, not silicone.
-        a.shape([(x+42,y-13),(x+width-42,y-13),(x+width-42,y+51),
-                 (mid+27,y+75),(mid+27,y+96),(mid-27,y+96),
-                 (mid-27,y+75),(x+42,y+51)],PAPER,None)
-        a.rect(mid-7,y-76,14,172,STEEL)
-        a.shape([(mid-7,y+96),(mid-11,y+111),(mid+11,y+111),(mid+7,y+96)],STEEL)
-        a.rect(mid-7,y+111,14,20,STEEL)
-        if entry_seal:
-            a.rect(mid-13,y+73,6,5,BLUE,None)
-            a.rect(mid+7,y+73,6,5,BLUE,None)
+        # The core forming face is six millimetres inboard of the collar wall.
+        wet = [(-89.5, -.3), (-76.5, -.3), (-76.5, 23.486),
+               (nc-3.175, 37.685179), (nc+3.175, 37.685179),
+               (76.5, 23.486), (76.5, -.3), (89.5, -.3)]
+        shape([(-105.5, -5), (105.5, -5), (105.5, 0),
+               (89.5, 0), *reversed(wet), (-89.5, 0), (-105.5, 0)], GOLD)
+        dry = [(-71.5, -5), (71.5, -5), (71.5, 17.486),
+               (nc+3.175, 31.685179), (nc-3.175, 31.685179), (-71.5, 17.486)]
+        shape(dry, PAPER, None)
+        # A closed, short boss retains the blind upper seat; it has no dry-back exit.
+        bx, by = point(nc-8.375, 24.485179)
+        a.rect(bx, by, 16.75*s, 13.2*s, GOLD)
+        shape([(nc-3.375, 29.485179), (nc+3.375, 29.485179),
+               (nc+3.375, 36.385179), (nc+4.375, 37.385179),
+               (nc+4.375, 37.685179), (nc-4.375, 37.685179),
+               (nc-4.375, 37.385179), (nc-3.375, 36.385179)],
+              ORANGE if liquid else PAPER)
+    if include_pin:
+        px, py = point(nc, 29.685179)
+        forming_pin(a, px, py, 20.764821*s, STEEL)
+    return {"point": point, "scale": s}
 
 
 def cap_section(a, x=20, y=150, width=455, top=True, foam=False):
@@ -241,7 +286,7 @@ def pages(c):
         shell(a,279,37,185,98,core=True)
         a.arrow(222,80,268,80,ORANGE)
         a.label("FUNNEL",263,18,16,BLUE,"PlexBold","center")
-        a.label("cavity + core + finished mandrel",263,172,11,align="center")
+        a.label("cavity + core + short PETG pin",263,172,11,align="center")
         a.rect(239,247,222,31,FOAM)
         a.rect(239,292,222,31,FOAM)
         a.rect(48,232,146,94,STEEL)
@@ -262,8 +307,8 @@ def pages(c):
         shell(a,288,20,153,78,True)
         a.label("cavity",105,132,11,align="center")
         a.label("core",380,132,11,align="center")
-        mandrel(a,245,18,100,.55,labels=False)
-        a.label("mandrel",245,140,11,align="center")
+        forming_pin(a,245,20,100,ORANGE)
+        a.label("PETG pin",245,140,11,align="center")
         bottle(a,15,180,"A",TEAL)
         bottle(a,90,180,"B",GOLD)
         cup(a,186,195,64,83,.25,label="mix cup")
@@ -277,7 +322,7 @@ def pages(c):
         a.label("ER200",451,247,10,BLUE,align="center")
         a.label("release",452,300,11,align="center")
     figure(c,bench)
-    actions(c,[("Tooling + closure", "Cavity, core, finished mandrel, eight M4 x 20 bolts, 9 mm OD washers and nuts; two zip ties; proven sulfur-free entry-seal clay."),
+    actions(c,[("Tooling + closure", "Cavity, core, finished short PETG pin, eight M4 x 20 bolts, 9 mm OD washers and nuts; a sharp blade for cured flash."),
                ("Liquids + handling", "BBDINO 40A A/B, compatible black pigment, scale, cups, sticks, release, catch tray, vacuum chamber and pump."),
                ("Dry, ventilated work", "Read the container instructions. Wear eye protection and appropriate gloves; keep release spray away from ignition sources.")])
     gate(c,"Ready", "Room, materials and tooling are at the recorded batch temperature. The open mold and catch tray fit through the actual chamber opening.",tone=BLUE)
@@ -298,86 +343,80 @@ def pages(c):
         a.label("mask bare lands",26,17,11,BLUE)
         a.arrow(455,47,404,133,BLUE)
         a.label("mask holes",481,38,11,BLUE,align="right")
-        a.label("also mask: locators, mandrel passage, V cradle and stop",258,289,11,BLUE,align="center")
+        a.label("also mask: locators, pin seats and axial stops",258,289,11,BLUE,align="center")
     figure(c,finish_faces)
-    actions(c,[("Remove every support", "Clear dry backs, V cradle and neck details. Remove loose plastic and smooth the forming slopes before applying the finish."),
+    actions(c,[("Remove every support", "Clear the dry backs, neck and blind pin seats. Remove loose plastic and smooth the forming slopes before applying the finish."),
                ("Measure a witness", "Use the actual PETG, sanding and finish stack on a sample. Measure net growth; the shell reserve is 0.30 mm normal to the face."),
-               ("Mask closure datums", "Keep lands, pegs/holes, bolt bores, mandrel passage, cradle and axial stop bare. Coated lands change closure height.")])
+               ("Mask closure datums", "Keep lands, pegs/holes, bolt bores, blind pin seats and end stops bare. Coated lands change closure height.")])
     gate(c,"Before continuing", "The finish is dry and coherent, and the coated halves still close on the bare lands. Coating compatibility and closure need a physical check.")
     finish(c,n,"Funnel-mold/README.md: forming surfaces and fit; print-log.md", "printed-parts/zone-c/funnel-mold/README.md")
 
     n=4
-    start(c,n,"Finish the small mandrel", "The finished wet profile makes the funnel's staged sealing bore.", "FUNNEL")
+    start(c,n,"Finish the short PETG pin", "A 20.8 mm contoured pin makes the staged bore in the silicone drain block.", "FUNNEL")
     def tool_profile(a):
-        mandrel(a,191,22,264,1.8,ORANGE,False)
-        a.rect(166,22,50,169,BLUE,None)
-        a.rect(167.6,280,46.8,6,BLUE,None)
-        for yy, label, fill in [(88,"6.35 mm dry shank - bare",BLUE),
-                                (187,"6.35 mm upper throat",INK),
-                                (231,"6.0 mm land x 3.0 mm",INK),
-                                (255,"6.7 mm relief x 0.215 mm",INK),
-                                (275,"8.4 mm entry",INK)]:
-            a.line(218,yy,285,yy,fill,.8)
+        forming_pin(a,171,22,264,ORANGE,mask=True)
+        for yy, py, px, label, fill in [(83,83,211.4,"6.35 mm bare shank",BLUE),
+                                        (173,173,211.4,"6.35 mm upper throat",INK),
+                                        (221,221,209.1,"6.0 mm land x 3.0 mm",INK),
+                                        (252,241.3,213.6,"6.7 mm relief x 0.215 mm",INK),
+                                        (279,266.9,224.4,"8.4 mm entry",INK)]:
+            a.line(px,py,285,yy,fill,.8)
             a.label(label,294,yy+3,10,fill)
-        a.dim(126,22,126,286)
-        a.label("50.8 mm",98,132,11,BLUE,align="center")
-        a.label("end to end",98,150,10,BLUE,align="center")
+        a.dim(92,22,92,286)
+        a.label("20.765 mm",54,130,10.5,BLUE,align="center")
+        a.label("end to end",54,148,9.5,BLUE,align="center")
         a.label("0.05 mm normal finish reserve on the wet profile",264,310,11,BLUE,align="center")
-        a.label("pilot's first 1 mm + dry shank remain bare",264,326,10,BLUE,align="center")
+        a.label("blue: first pilot millimetre + upper locating shank",264,326,10,BLUE,align="center")
     figure(c,tool_profile,height=359)
     actions(c,[("Finish to the reference", "Use forming-mandrel-finished.step as the profile reference. Preserve the entry shoulder, tiny relief and cylindrical sealing land."),
-               ("Mask both locating zones", "The mandrel's wet reserve is 0.05 mm. Its first pilot millimetre and dry shank stay bare; the shell's 0.30 mm reserve is separate."),
-               ("Inspect the thin relief", "Check diameters and both relief edges under magnification. Finish the axial-stop end to 50.8 mm from the pilot end.")],y=530)
-    gate(c,"Tool check", "Coating thickness is not a finished-profile measurement. The release force and coating retention of this finished printed mandrel remain unqualified.")
+               ("Mask both locating zones", "The pin's wet reserve is 0.05 mm. Its first pilot millimetre and upper shank stay bare; the shell's 0.30 mm reserve is separate."),
+               ("Measure before casting", "Check the relief under magnification and pin length at 20.765 mm. A straight 6.35 mm steel dowel cannot form the 6.0 mm land.")],y=530)
+    gate(c,"Tool check", "Use the short printed PETG pin and measure its finished profile. Coating thickness alone does not qualify its dimensions, release force or life.")
     finish(c,n,"Funnel-mold/README.md; forming-mandrel-design.json + native tool check", "printed-parts/zone-c/funnel-mold/README.md")
 
     n=5
     start(c,n,"Prove the material stack", "A small same-stack witness protects the first full casting.", "FUNNEL")
     def witness(a):
-        for i,(label,caption) in enumerate([("PETG", "shell + tool"),("FINISH", "sealer + release"),("CLAY", "entry seal")]):
+        for i,(label,caption) in enumerate([("PETG", "shell + pin"),("FINISH", "sealer + release"),("PIGMENT", "actual concentration")]):
             x=18+i*172
             a.rect(x,80,144,79,STEEL)
             a.rect(x+9,96,126,10,BLUE,None)
             a.rect(x+9,107,126,25,ORANGE,None)
             a.label(label,x+72,52,14,BLUE,"PlexBold","center")
             a.label(caption,x+72,188,10,INK,align="center")
-            a.arrow(x+75,225,x+75,147,ORANGE)
+            a.arrow(x+154,225,x+128,140,ORANGE)
         a.label("actual 40A silicone + actual pigment on each actual contact stack",262,258,11,INK,align="center")
         a.label("cure, then peel and inspect the contact face",262,283,12,BLUE,"PlexSemi","center")
     figure(c,witness)
-    actions(c,[("Make the witness representative", "Use the actual PETG, abrasion, sealer, release, clay and silicone batch. Include the planned pigment concentration."),
-               ("Keep sulfur away", "Platinum silicone can be inhibited by sulfur-bearing clay. Use the proven sulfur-free entry seal and clean handling tools."),
+    actions(c,[("Make the witness representative", "Use the actual shell/pin PETG, abrasion, sealer, release and silicone batch. Include the planned pigment concentration."),
+               ("Keep the stack clean", "Use clean cups, tools and contact surfaces. Test the exact finishing products and pigment that will touch this platinum-cure silicone."),
                ("Inspect after cure", "The rubber must cure at the contact face and release without tack, tearing or coating transfer. Record that result before the full cast.")])
     gate(c,"Hold if gummy", "A firm outer surface can hide inhibited rubber at the tool. Cure/release compatibility has no accepted full-tool record yet.")
-    finish(c,n,"Funnel-mold/README.md; Smooth-On sealer/release and clay reference", "printed-parts/zone-c/funnel-mold/README.md")
+    finish(c,n,"Funnel-mold/README.md; Smooth-On sealer/release reference", "printed-parts/zone-c/funnel-mold/README.md")
 
     n=6
-    start(c,n,"Seat the mandrel and seal", "The V cradle and visible stop locate the tool; clay closes the loose annular passage.", "FUNNEL")
+    start(c,n,"Seat the short pin", "The cavity locates the PETG pin; the core lowers over it. Small collars trim after cure.", "FUNNEL")
     def seat(a):
-        mold_section(a,y=160)
-        a.rect(229,56,11,177,GOLD)
-        a.rect(240,56,14,28,STEEL)
-        a.rect(240,41,79,15,GOLD)
-        a.line(247,58,240,41,BLUE,1.2)
-        a.rect(215,89,46,7,ORANGE,None)
-        a.rect(215,118,46,7,ORANGE,None)
-        a.label("visible stop",340,45,11,BLUE)
-        a.line(325,46,313,46,BLUE,.8)
-        a.label("2 zip ties",352,105,11,ORANGE)
-        a.line(334,103,262,92,ORANGE,.8)
-        a.label("open V cradle",31,130,11,BLUE)
-        a.line(132,126,228,174,BLUE,.8)
-        a.label("flush entry seal",12,83,11,BLUE)
-        a.line(127,83,225,233,BLUE,.8)
-        a.label("pilot hangs in socket",28,301,11,BLUE)
-        a.line(168,299,244,290,BLUE,.8)
-        a.label("SECTION / exaggerated wet features",268,329,10,MUTED,align="center")
+        view = mold_section(a,y=95)
+        p = view["point"]
+        a.label("SECTION / pin inside the bowl height",263,21,12,BLUE,"PlexSemi","center")
+        a.label("blind upper seat",43,55,11,BLUE)
+        a.line(154,59,*p(1.85,29.485179),BLUE,.8)
+        a.label("20.8 mm PETG pin",330,142,11,BLUE)
+        a.line(323,143,*p(5.025,40),BLUE,.8)
+        a.label("blind pilot seat / 1.5 mm deep",323,244,10.5,BLUE,align="right")
+        a.line(270,231,*p(5.225,50.45),BLUE,.8)
+        a.label("6 mm silicone space",27,280,11,BLUE)
+        a.line(109,261,*p(-40,37),BLUE,.8)
+        a.label("PETG ramp backing: 5 mm minimum",300,280,10.5,INK,align="center")
+        a.label("core brim pocket backing: 4.7 mm",300,299,10,INK,align="center")
+        a.label("pin-seat clearance + tiny relief omitted at this scale",263,329,9.5,MUTED,align="center")
     figure(c,seat,height=354)
-    actions(c,[("Tie the bare shank", "Pass the 6.35 mm dry shank through the 8.35 mm opening, seat in the V, meet the visible stop and secure with two zip ties."),
-               ("Pack the entry seal", "Pack proven removable clay around the mandrel at its forming-face entry. Smooth it flush; the illustrated seal is 2 mm deep."),
-               ("Check the pilot", "At nominal closure the pilot stands 1.5 mm below the block bottom in the 11 mm socket. It touches neither socket wall nor floor.")],y=530)
-    gate(c,"Alignment", "The cradle locates the shank. Clay seals the passage. The finished wet profile must remain on the nominal bore axis.",tone=BLUE)
-    finish(c,n,"Funnel-mold/README.md: mandrel support, entry seal and socket", "printed-parts/zone-c/funnel-mold/README.md")
+    actions(c,[("Place the pin in the cavity", "Set the finished pin upright in the 6.75 mm blind pilot seat. Its end rests on the floor 1.5 mm below the block-bottom face."),
+               ("Lower the core over it", "The tapered mouth guides the pin into its 6.75 mm blind seat, taking 7.7 mm of bare shank. Lower gently, without pressing."),
+               ("Allow the small collars", "The 0.20 mm radial clearance breathes toward the casting. Small cured collars at both pin seats are trimmed after opening.")],y=530)
+    gate(c,"If the pin binds", "Lift and clear the seats. At nominal closure the pin rests on its lower stop and clears the blind upper roof by 0.20 mm. Prove this dry.",tone=BLUE)
+    finish(c,n,"Funnel-mold/README.md: short PETG pin, blind seats and flash", "printed-parts/zone-c/funnel-mold/README.md")
 
     n=7
     start(c,n,"Dry-close the mold", "Bring the bare parting lands together before adding liquid.", "FUNNEL")
@@ -396,7 +435,7 @@ def pages(c):
     figure(c,close,height=348)
     actions(c,[("Locate without force", "The asymmetric short pegs establish drain orientation. One mating hole is slotted to accommodate spacing error."),
                ("Close opposite stations", "Use eight bolts, washers and nuts or small clamps on the flat flange backs. Tighten incrementally until bare lands meet."),
-               ("Backlight the seam", "Check coated closure and mandrel clearance. Reopen for release and filling only after this dry fit succeeds.")],y=522)
+               ("Backlight the seam", "Check coated closure with the finished pin seated on its lower stop. Reopen for release and filling only after this dry fit succeeds.")],y=522)
     gate(c,"Hold if it will not close", "A bowed or coated-open seam is not cured by adding silicone. Established stock-dowel and earlier shell fits do not qualify this finished tool.")
     finish(c,n,"Funnel-mold/README.md: closure; print-log.md: physical evidence scope", "printed-parts/zone-c/funnel-mold/README.md")
 
@@ -415,8 +454,8 @@ def pages(c):
         a.label("mist / brush detail / mist / dry",284,302,13,BLUE,"PlexSemi","center")
     figure(c,release)
     actions(c,[("Clean and shake", "Use a suitable cleaner for the proven finish stack. Shake Ease Release 200 well; spray with ventilation and eye/skin protection."),
-               ("Mist from 6-8 inches", "Apply lightly, brush over fine details and add a second light mist. Cover the wet mandrel profile; avoid puddles and plugged relief."),
-               ("Let it dry", "Recheck bare closure datums, entry seal and port openings. Apply a light fresh release film before each cast.")])
+               ("Mist from 6-8 inches", "Apply lightly, brush over fine details and add a second light mist. Cover the wet pin profile; avoid puddles and plugged relief."),
+               ("Let it dry", "Recheck bare closure datums, pin seats and port openings. Apply a light fresh release film before each cast.")])
     gate(c,"Release check", "The same-stack witness must already have passed. Spray application does not establish compatibility, cleanability or finished food-contact acceptance.")
     finish(c,n,"Smooth-On Ease Release 200 instructions + sealer/release reference", "mold-guide/README.md#manufacturer-sources")
 
@@ -466,17 +505,17 @@ def pages(c):
     finish(c,n,"Funnel-mold/README.md; BBDINO 40A; Smooth-On degassing example", "printed-parts/zone-c/funnel-mold/README.md")
 
     n=11
-    start(c,n,"Fill, lower, then top up", "Fill the open cavity and rod socket before the core closes the narrow gap.", "FUNNEL")
+    start(c,n,"Fill, lower, then top up", "Seat the short pin, fill the open cavity, then lower the core slowly over the pin.", "FUNNEL")
     def casting(a):
-        step_label(a,1,"Fill cavity + socket",18,4)
+        step_label(a,1,"Pin seated / fill cavity",18,4)
         mold_section(a,x=14,y=66,width=220,include_core=False,liquid=True)
-        cup(a,81,17,49,54,.3,ORANGE)
-        a.arrow(109,48,109,89,ORANGE)
+        cup(a,57,32,49,37,.3,ORANGE)
+        a.arrow(81,69,81,88,ORANGE)
         step_label(a,2,"Lower the core slowly",287,4)
-        mold_section(a,x=289,y=106,width=220,liquid=True)
-        a.arrow(371,46,371,91,ORANGE)
-        a.arrow(427,46,427,91,ORANGE)
-        a.label("socket fills around the pilot",125,231,10,INK,align="center")
+        mold_section(a,x=289,y=111,width=220,liquid=True)
+        a.arrow(352,58,352,98,ORANGE)
+        a.arrow(445,58,445,98,ORANGE)
+        a.label("small flash stays in the blind seats",263,208,10.5,INK,align="center")
         a.rect(133,272,256,27,GOLD)
         a.ellipse(262,277,19,13,ORANGE)
         for px in [163,206,329,359,374]:
@@ -485,10 +524,10 @@ def pages(c):
         a.arrow(272,247,272,271,ORANGE)
         a.label("3  Top up: 11 mm fill / 5 x 4 mm vents open",265,324,12,BLUE,"PlexSemi","center")
     figure(c,casting,height=355)
-    actions(c,[("Wet the entire open cavity", "Include the rod socket and drain block. The degassed mix must still flow when the finished mandrel and core enter."),
-               ("Seat the core evenly", "Lower slowly with the mandrel installed. Close and hold the flanges on their bare lands without sealing the vents."),
+    actions(c,[("Seat the pin, then fill", "Set the PETG pin on the lower pilot-seat floor. Fill around the pin and drain block while the degassed silicone still flows."),
+               ("Seat the core evenly", "Lower slowly over the pin. Let air return from the blind seat into the casting; close the bare flange lands without force."),
                ("Top up through the fill hole", "Use the 11 mm fill opening. The five 4 mm vents remain clear for air; catch overflow and keep the dry backs open.")],y=527)
-    gate(c,"Check", "The parting lands remain closed, the pilot is aligned, and liquid reaches the small block and thin ramp gap. No pressure injection.",tone=BLUE)
+    gate(c,"Check", "The parting lands remain closed, the pin stays seated, and liquid reaches the block and continuous 6 mm ramp space. No pressure injection.",tone=BLUE)
     finish(c,n,"Funnel-mold/README.md: cast and open, steps 2-3", "printed-parts/zone-c/funnel-mold/README.md")
 
     n=12
@@ -499,14 +538,12 @@ def pages(c):
         a.rect(20,19,483,19,BLUE)
         a.rect(56,239,410,9,INK,None)
         a.rect(60,211,405,28,ICE)
-        a.rect(94,167,327,28,TEAL)
-        a.rect(94,143,327,24,GOLD)
-        a.rect(151,97,202,46,GOLD)
-        a.rect(233,63,25,82,STEEL)
-        for px in [122,399]:
-            a.arrow(px,126,px,106,BLUE)
-        a.arrow(264,66,286,54,BLUE)
-        a.arrow(307,113,325,69,BLUE)
+        mold_section(a,x=67,y=132,width=393,liquid=True)
+        for px in [96,435]:
+            a.arrow(px,129,px,98,BLUE)
+        a.arrow(218,119,218,80,BLUE)
+        a.arrow(313,118,336,80,BLUE)
+        a.arrow(86,194,51,209,BLUE)
         a.label("fill + vents + both dry backs open",268,299,12,BLUE,"PlexSemi","center")
         a.label("catch tray / overflow clear of pressure paths",268,321,10,INK,align="center")
     figure(c,mold_vacuum,height=350)
@@ -519,15 +556,13 @@ def pages(c):
     n=13
     start(c,n,"Hold the flanges through cure", "Leave the tool undisturbed at ambient pressure while the silicone develops its cure.", "FUNNEL")
     def cure(a):
-        a.rect(110,120,317,70,TEAL)
-        a.rect(110,93,317,27,GOLD)
-        a.rect(167,48,202,45,GOLD)
-        for xx in [126,411]:
-            a.rect(xx,86,8,99,INK,None)
-            a.rect(xx-5,82,18,12,ORANGE)
-        a.ellipse(16,16,106,106,ICE,BLUE)
-        a.line(69,69,69,37,BLUE,3)
-        a.line(69,69,94,78,BLUE,3)
+        mold_section(a,x=99,y=120,width=333,liquid=True)
+        for xx in [111,420]:
+            a.rect(xx,109,5,24,INK,None)
+            a.rect(xx-4,106,13,7,ORANGE)
+        a.ellipse(8,8,98,98,ICE,BLUE)
+        a.line(57,57,57,29,BLUE,3)
+        a.line(57,57,80,66,BLUE,3)
         a.label("23 C",463,70,16,BLUE,"PlexBold","center")
         a.label("reference",463,89,10,BLUE,align="center")
         a.label("5 h project demold hold",268,245,19,BLUE,"PlexBold","center")
@@ -536,50 +571,60 @@ def pages(c):
     figure(c,cure,height=345)
     actions(c,[("Log time and temperature", "Record A/B mixing start, pour finish, room/liquid temperature and batch identity. Warmer and cooler shops change the cure window."),
                ("Use the conservative project hold", "Project material record uses 5 h before demold at 23 C and 24 h before full use. Check the supplied batch insert and cured witness."),
-               ("Keep the tool assembled", "Maintain ambient pressure and closed flanges. Do not pull the thin brim or mandrel until the contact surfaces have cured.")],y=524)
+               ("Keep the tool assembled", "Maintain ambient pressure and closed flanges. Leave the casting and PETG pin seated until their contact surfaces have cured.")],y=524)
     gate(c,"Cure is not food-contact release", "The manufacturer's direct page lists 3 h; the project holds 5 h conservatively. No qualified post-cure bake schedule is established.")
     finish(c,n,"Funnel silicone.md; BBDINO direct page checked 04 Oct 2026", "printed-parts/zone-c/funnel-mold/silicone.md")
 
     n=14
-    start(c,n,"Open in small movements", "Free the core first; keep the casting and mandrel together while peeling from the cavity.", "FUNNEL")
+    start(c,n,"Open in small movements", "Free the core first; keep the casting and short pin together while peeling from the cavity.", "FUNNEL")
     def open_mold(a):
-        mold_section(a,x=25,y=166,width=455,liquid=True,entry_seal=False)
-        a.arrow(117,143,117,97,ORANGE)
-        a.arrow(396,143,396,97,ORANGE)
-        a.label("lift core straight off mandrel",256,65,14,ORANGE,"PlexSemi","center")
-        a.line(40,154,23,140,BLUE,3)
-        a.line(468,154,488,140,BLUE,3)
+        mold_section(a,x=25,y=152,width=455,liquid=True)
+        a.arrow(117,141,117,97,ORANGE)
+        a.arrow(396,141,396,97,ORANGE)
+        a.label("lift core straight off the short pin",256,65,14,ORANGE,"PlexSemi","center")
+        a.line(40,150,23,136,BLUE,3)
+        a.line(468,150,488,136,BLUE,3)
         a.label("alternate opposite notches",256,320,12,BLUE,"PlexSemi","center")
         a.label("peel accessible brim to admit air",256,341,11,INK,align="center")
     figure(c,open_mold,height=360)
-    actions(c,[("Free the small restraints", "Trim overflow at port mouths. Cut the two mandrel zip ties and remove the entry-seal clay before separating the tooling."),
+    actions(c,[("Clear the opening points", "Trim overflow at port mouths and remove the flange bolts or clamps. Keep the casting supported while freeing the core."),
                ("Alternate opening points", "Use a blunt tool at opposing edge notches, moving a little at a time. Peel accessible silicone brim to let air enter."),
-               ("Lift, then peel", "Lift the core straight off the mandrel. Peel the casting and mandrel together from the cavity; keep the drain block supported.")],y=532)
-    gate(c,"Stop on sticking", "Do not yank the thin brim or use the mandrel as a lever. Release force and surface damage are first-casting observations to record.")
+               ("Lift, then peel", "Lift the core straight off the pin and its upper flash collar. Peel casting and pin together from the cavity; support the drain block.")],y=532)
+    gate(c,"Stop on sticking", "Peel the accessible brim to admit air; keep opening movements small. Do not lever on the pin. Record release force and surface damage.")
     finish(c,n,"Funnel-mold/README.md: cast and open step 5", "printed-parts/zone-c/funnel-mold/README.md")
 
     n=15
-    start(c,n,"Trim the collar, then withdraw", "The socket makes a sacrificial silicone collar. Remove it before the enlarged entry passes through.", "FUNNEL")
+    start(c,n,"Trim flash, then pull the pin", "Trim the small collars at both blind seats. Protect the finished sealing bore.", "FUNNEL")
     def collar(a):
-        for i in range(2):
-            xx=48+i*272
-            a.rect(xx+20,33,125,38,FOAM)
-            a.rect(xx+39,71,87,130,ORANGE)
-            mandrel(a,xx+82,4,208,.72,STEEL,False)
-            if i==0:
-                a.rect(xx+58,201,48,18,ORANGE)
-            a.line(xx+13,201,xx+151,201,BLUE,1.2,dash=[3,3])
-            a.label("block bottom",xx+82,264,11,BLUE,align="center")
-        a.shape([(25,199),(40,177),(92,189),(86,201)],INK)
-        a.label("1  Cut collar flush",130,293,13,BLUE,"PlexSemi","center")
-        a.arrow(402,249,402,310,ORANGE,3,9)
-        a.label("2  Tool out toward -Z",397,334,12,BLUE,"PlexSemi","center")
+        # Both flash collars are enlarged so the blade's target is legible.
+        for i,cx in enumerate([93,268]):
+            a.rect(cx-62,129,124,84,ORANGE)
+            if i == 0:
+                a.rect(cx-33,213,66,17,ORANGE)
+            else:
+                a.rect(cx-32,84,64,45,ORANGE)
+            forming_pin(a,cx,70,154,STEEL)
+            yy = 213 if i == 0 else 129
+            a.line(cx-69,yy,cx+69,yy,BLUE,1.2,dash=[3,3])
+            a.shape([(cx-78,yy-2),(cx-63,yy-22),(cx-21,yy-10),(cx-24,yy-2)],INK)
+        a.label("1  Bottom collar flush",93,39,11.2,BLUE,"PlexSemi","center")
+        a.label("2  Upper collar at throat",268,39,11.2,BLUE,"PlexSemi","center")
+        a.label("flat block bottom",93,261,10.5,BLUE,align="center")
+        a.label("keep the sealing land intact",268,261,10,BLUE,align="center")
+        a.label("FLASH ENLARGED",179,290,9.5,MUTED,align="center")
+        a.rect(387,110,108,73,ORANGE)
+        a.rect(426,110,29,73,PAPER)
+        a.shape([(426,165),(421,183),(461,183),(455,165)],PAPER)
+        forming_pin(a,441,210,91,STEEL)
+        a.arrow(482,207,482,299,ORANGE,3,8)
+        a.label("3  Pull toward entry",441,39,11.2,BLUE,"PlexSemi","center")
+        a.label("short PETG pin",441,325,10.5,BLUE,align="center")
     figure(c,collar,height=352)
-    actions(c,[("Support the drain block", "Trim only the socket collar to the flat block-bottom face. Keep the final bore and 6.0 mm sealing land intact."),
-               ("Withdraw toward the entry", "Move the mandrel toward -Z after trimming. The 6.35 mm shank passes the 6.0 mm land by elastic silicone expansion."),
-               ("Inspect both surfaces", "Check the sealing land, entry shoulder, thin relief and tool coating for tears, transfer or damage before another cast.")],y=528)
+    actions(c,[("Trim the bottom collar", "Support the block. Cut pilot-seat flash flush with its flat bottom before the enlarged 8.4 mm entry passes through it."),
+               ("Trim the upper collar", "Cut upper-seat flash at the throat entry. Preserve the finished 6.35 mm throat and the 6.0 mm x 3.0 mm sealing land below it."),
+               ("Pull toward the entry", "Withdraw the short PETG pin toward -Z, supporting the block. Its 6.35 mm shank passes the 6.0 mm land by silicone expansion.")],y=528)
     gate(c,"Release remains a trial", "The nominal diameter change is 5.83%; it does not establish acceptable extraction force, tearing resistance or tooling life.")
-    finish(c,n,"Funnel-mold/README.md: collar trim and mandrel release", "printed-parts/zone-c/funnel-mold/README.md")
+    finish(c,n,"Funnel-mold/README.md: blind-seat flash trim and short-pin release", "printed-parts/zone-c/funnel-mold/README.md")
 
     n=16
     start(c,n,"Inspect and clean the funnel", "A complete casting has a continuous ramp, an open staged bore and an intact bearing face.", "FUNNEL")
@@ -597,9 +642,9 @@ def pages(c):
         a.line(258,285,258,316,BLUE,.9)
         a.label("flat bearing face",258,339,11,BLUE,align="center")
     figure(c,funnel_check,height=355)
-    actions(c,[("Inspect every wetted surface", "Look for pinholes, bubbles, tack, tears and coating/clay transfer. Trim port overflow without cutting into the nominal brim or drain block."),
+    actions(c,[("Inspect every wetted surface", "Look for pinholes, bubbles, tack, tears and coating transfer. Inspect both trimmed collars, the throat, entry and sealing land."),
                ("Clean with the qualified process", "Release traces and residue must be removed. The finished silicone, black pigment and post-process need the wetted-surface qualification."),
-               ("Check its actual installation", "The flat block face seats on the frame; the bore engages the drain elbow. Record seating, removable lift-out and leak behavior.")],y=528)
+               ("Check its actual installation", "The block bears on the cradle's hook tops. Its land grips the 6.35 mm LLDPE drain stub. Check seating, lift-out and leaks.")],y=528)
     gate(c,"Hold from food service", "No qualified bake schedule or finished-mixture food-contact result is recorded. A cured, attractive part alone does not close that gate.")
     finish(c,n,"Funnel silicone.md; funnel-mold/README.md; wetted-surface-test.md", "printed-parts/zone-c/funnel-mold/silicone.md")
 
