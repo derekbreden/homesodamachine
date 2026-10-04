@@ -1,0 +1,46 @@
+{
+  "pdf": "assembly-drill-and-weld-letter.pdf",
+  "pages": 3,
+  "page_inches": [
+    8.5,
+    11
+  ],
+  "artwork": "vector schematic; dimensions govern; no drilling template or qualified gun pose",
+  "source_sha256": {
+    "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py": "171fcd7fc0b2852e157ce33b403eeea7f8f20eb198d563201a82a4865c3364a6",
+    "hardware/printed-parts/cold-core/_float_interface.py": "d2fc9c9029101bf471e06f81f9b1acbc4c6c841ba629e561fd9a33833319a72a",
+    "hardware/printed-parts/fixtures/weld-rotator/_rotator_interface.py": "f311ff6b36b0ad61d928c46109adaf6bcdf31e767baee5cb8433c1d29ffff584",
+    "hardware/assembly/pressure-vessel.md": "a401a10be5b85f2f60b2f13e36ad168e77133c50b16f2af8d2980f1b9740d671",
+    "hardware/assembly/weld-rotation-rig.md": "ec06b5329db659f51e610d827232e8543ba17ffdb8b59df9e149b3d4f49d56f9",
+    "hardware/weld-rotator-guide/46-the-per-weld-sequence.html": "ce10fcbfb0a5bbe7a050620e5451eabf1bd53766d4921a458e769b99f4e74e08",
+    "firmware/src_weld_rotator/README.md": "859a580436b9e8052b767f391a4e0fa49185006db5264fc1e6be00ef82ba282f"
+  },
+  "manufacturer_source": "https://www.xlaserlab.com/pages/xlaserlab-x1-pro-instruction-manual",
+  "endcap_inches": {
+    "disc_diameter": 4.86,
+    "disc_thickness": 0.25,
+    "hole_diameter": 0.438,
+    "hole_spacing": 1.5,
+    "register_radius": 1.6475984251968505,
+    "register_drill_diameter": 0.140625,
+    "register_depth": 0.1
+  },
+  "rotator_mm": {
+    "TUBE_OD": 127.0,
+    "TUBE_ID": 123.698,
+    "TUBE_WALL": 1.651,
+    "ENDCAP_RECESS": 6.35,
+    "TRAVEL_NOMINAL": 8.0,
+    "OVERLAP_DEGREES": 20.0
+  },
+  "practice_recipe": {
+    "power_percent": "60",
+    "wobble_hz": "80",
+    "sweep_mm": "2",
+    "wire_mm_s": "12",
+    "argon_pre_post_s": "2",
+    "wire_inches_suffix": "030",
+    "tacks": "8"
+  },
+  "pdf_sha256": "09cb0b5265ac814f1bd2261cd732d890a2fb698ad11c225b5ea369623cdc236a"
+}
