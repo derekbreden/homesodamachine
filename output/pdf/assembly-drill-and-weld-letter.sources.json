@@ -5,6 +5,18 @@
     8.5,
     11
   ],
+  "print_layout": {
+    "content_scale": 0.98,
+    "content_alignment": "centered",
+    "bleed_overhang_inches": 0.25,
+    "colored_band_inset_inches": 0.3333333333333333,
+    "bleed_layer_scale": 1,
+    "printer": "Epson ET-8550",
+    "media_source": "rear",
+    "media_type": "photographic-glossy",
+    "media_margins": "zero / Letter.Fullbleed",
+    "sides": "one-sided"
+  },
   "artwork": "vector schematic; dimensions govern; no drilling template or qualified gun pose",
   "source_sha256": {
     "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py": "171fcd7fc0b2852e157ce33b403eeea7f8f20eb198d563201a82a4865c3364a6",
@@ -42,5 +54,5 @@
     "wire_inches_suffix": "030",
     "tacks": "8"
   },
-  "pdf_sha256": "09cb0b5265ac814f1bd2261cd732d890a2fb698ad11c225b5ea369623cdc236a"
+  "pdf_sha256": "837b7fe262d0ea60373335ae058a161966d81acc57fe624fbf82296c348158e2"
 }

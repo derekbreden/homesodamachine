@@ -37,6 +37,9 @@ SOURCES = {
 }
 MANUAL = "https://www.xlaserlab.com/pages/xlaserlab-x1-pro-instruction-manual"
 W, H = 612, 792
+CONTENT_SCALE = 0.98
+BLEED_OVERHANG = 18  # 1/4 inch beyond every page edge.
+BAND_INSET = 24  # 1/3 inch of color inside the top and right edges.
 INK, BLUE, ORANGE = "#202337", "#1749D1", "#E95A2C"
 PAPER, ICE, STEEL = "#FCFCFA", "#EAF0FC", "#E4E8EE"
 MUTED, RULE, COPPER, GLOVE = "#606A78", "#DCE2EB", "#B8722C", "#ECD5AA"
@@ -232,10 +235,16 @@ def badge(c, n, x, y, label, fill=BLUE, size=14):
     text(c, label, x + 31, y + 16, size, "PlexSemi")
 
 
+def page_backdrop(c):
+    """Paint the bleed independently of the centered instructional layer."""
+    bleed = BLEED_OVERHANG
+    box(c, -bleed, -bleed, W + 2 * bleed, H + 2 * bleed, PAPER)
+    box(c, -bleed, -bleed, W + 2 * bleed, BAND_INSET + bleed, BLUE)
+    box(c, W - BAND_INSET, BAND_INSET, BAND_INSET + bleed,
+        H - BAND_INSET + bleed, ORANGE)
+
+
 def header(c, n, title, subtitle):
-    box(c, 0, 0, W, H, PAPER)
-    box(c, 0, 0, W, 8, BLUE)
-    box(c, W - 7, 8, 7, H - 8, ORANGE)
     text(c, "HOME SODA MACHINE / BENCH INSTRUCTIONS", 32, 35, 10,
          "PlexSemi", BLUE)
     text(c, f"{n:02d} / 03", 577, 35, 10, "PlexSemi", MUTED, "right")
@@ -250,7 +259,7 @@ def footer(c, n, source, link):
     paragraph(c, source, 32, 759, 420, 8.1, 9.5, MUTED, 20)
     text(c, f"LETTER / 04 OCT 2026 / {n}", 580, 768, 7.8,
          "PlexSemi", MUTED, "right")
-    c.linkURL(link, (32, 15, 580, 38), relative=0)
+    c.linkURL(link, (32, 15, 580, 38), relative=1)
 
 
 def panel(c, x, y, width, height):
@@ -625,13 +634,30 @@ def main():
     c.setAuthor("Home Soda Machine")
     c.setSubject("Three borderless Letter sheets: blind register, weld setup, pedal and trigger")
     for draw in [drill_page, setup_page, start_page]:
+        page_backdrop(c)
+        c.saveState()
+        c.translate(W * (1 - CONTENT_SCALE) / 2, H * (1 - CONTENT_SCALE) / 2)
+        c.scale(CONTENT_SCALE, CONTENT_SCALE)
         draw(c)
+        c.restoreState()
         c.showPage()
     c.save()
     manifest = {
         "pdf": PDF.name,
         "pages": 3,
         "page_inches": [8.5, 11],
+        "print_layout": {
+            "content_scale": CONTENT_SCALE,
+            "content_alignment": "centered",
+            "bleed_overhang_inches": BLEED_OVERHANG / 72,
+            "colored_band_inset_inches": BAND_INSET / 72,
+            "bleed_layer_scale": 1,
+            "printer": "Epson ET-8550",
+            "media_source": "rear",
+            "media_type": "photographic-glossy",
+            "media_margins": "zero / Letter.Fullbleed",
+            "sides": "one-sided",
+        },
         "artwork": "vector schematic; dimensions govern; no drilling template or qualified gun pose",
         "source_sha256": {
             path: hashlib.sha256((ROOT / path).read_bytes()).hexdigest()
