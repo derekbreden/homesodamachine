@@ -79,7 +79,7 @@ function investmentText(total = "42,383.86") {
 [$${total}](LEDGER_GRAND_TOTAL)`;
 }
 
-test("recorded investment includes paid orders and losses, and must reconcile", (t) => {
+test("recorded procurement includes open orders and missing items, and must reconcile", (t) => {
   const dir = fixture(t);
   const ledger = path.join(dir, "ledger", "purchases.md");
   fs.writeFileSync(ledger, investmentText());
