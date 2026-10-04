@@ -72,7 +72,7 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 5056 tracked, 595 fetched solids, 57 tags, 39 site routes",
+      "note": "paths: every reference lands — 5094 tracked, 595 fetched solids, 57 tags, 39 site routes",
       "status": "ok"
     },
     {
@@ -97,23 +97,23 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 4 staged source(s)",
+      "note": "check_declared_imports: every step holds what it imports, over 263 source(s) the graph names",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 3094 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 508 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 2751 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 508 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 32b34630c2e0f80a93e3147cf8058a0b for the 258 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 37f8471e651391634e4296c1cb4f450e here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 32b34630c2e0f80a93e3147cf8058a0b for the 258 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 63eafe6a6c5caeeb325d40b781917bce here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
     "hardware/scripts/check_ledger.py": [
-      "instructions: 16 files (16 procedures + 0 cards + cover) | ledger brands: 585 | waived: 1 ASIN + 4 brand",
+      "instructions: 16 files (16 procedures + 0 cards + cover) | ledger brands: 586 | waived: 1 ASIN + 4 brand",
       "DRIFT: 1 instruction(s) out of step with the ledger:",
       "  ✗ procedure with no doc-sync driver — every number and part name in it is a bare literal: hardware/assembly/weld-position.md (expected hardware/assembly/_weld_position_sync.py)"
     ],
