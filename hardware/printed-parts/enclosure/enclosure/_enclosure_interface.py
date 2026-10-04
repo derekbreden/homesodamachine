@@ -82,8 +82,11 @@ heatset_dia = 4.0
 heatset_len = 4.0        # RX-M3Sx4.0, where a station cannot give the long body its depth
 heatset_long_len = 5.7   # RX-M3x5.7, everywhere a station can
 heatset_depth = 5.25
-mount_boss_dia = 7.0
+heatset_min_wall = 1.6  # ruthex RX-M3Sx4.0 / RX-M3x5.7, measured from the Ø4 pilot
+mount_boss_dia = 8.0   # 2 mm radial stock, including the supported-face bore allowance
 boss_ligament = (mount_boss_dia - heatset_dia) / 2.0
+if boss_ligament < heatset_min_wall:
+    raise ValueError("an M3 mounting boss needs ruthex's minimum surrounding wall")
 mount_bore_relief = 1.0
 relief_chamfer = 45.0
 

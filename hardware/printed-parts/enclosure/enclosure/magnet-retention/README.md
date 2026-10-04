@@ -40,19 +40,29 @@ does not establish correct contact compression or tube insertion depth.
 
 Both owning parts print in their production +Z orientation using black PET-GF
 on the fixed left hardened standard-flow 0.4 mm nozzle. The separate sources are
-[pump-cartridge-pause.3mf](pump-cartridge-pause.3mf) for Mark2 and
-[front-top-pause.3mf](front-top-pause.3mf) for H2C. Each has one native `M400 U1`
+[pump-cartridge-pause.3mf](v3/pump-cartridge-pause.3mf) for Mark2 and
+[front-top-pause.3mf](v3/front-top-pause.3mf) for H2C. Each has one native `M400 U1`
 insertion pause before the centered pocket's closing layer. They retain each
 printer's saved trim, tree supports, show-surface exclusions and fine layer bands.
 The pocket roof has a local support blocker; functional seats and lifting
 ceilings elsewhere retain their accessible supports.
 
+The [host/root specification](../heat-set-review/print-regions.json) adds local
+100% infill through the clamp spines, pogo hosts and blind caps, upper Y seam
+socket roots and Z rail/stop roots. The native archives retain every modifier
+at its exact placement. Their emitted rows are checked against their actual
+bead widths, with representative layers through each region and checks of
+wider intervals against the current native material. The two jobs check 52,336
+and 37,208 adjacent infill-row intervals respectively, with no uncovered material
+witnesses. General infill stays at 15%. These are nominal deposition checks;
+printed density, joint strength and drop survival remain unmeasured.
+
 The flat pocket roof is at machine Z196.179 mm, 30.984 mm above the cartridge
 bed face and 36.179 mm above the front-top bed face. The nominal seated ring has
 0.48 mm roof air; the conservative maximum-diameter ring has at least 0.38 mm.
-The [native check](native-check.json) records the actual emitted pauses, completed
+The [native check](v3/native-check.json) records the actual emitted pauses, completed
 open rims, short closing bridges and exclusion of internal supports.
-[Preparation](preparation.json) binds the source, native archive and G-code
+[Preparation](v3/preparation.json) binds the source, native archive and G-code
 hashes. These jobs have not been submitted.
 [Queue](queue.json) keeps the two jobs independent and requires a new start
 request for either printer.
@@ -103,11 +113,13 @@ from CAD or printer completion alone.
 
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/magnet-retention/audit.py
-tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/magnet-retention/prepare_prints.py --slice
-tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/magnet-retention/audit_prints.py
+tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/magnet-retention/audit_prints.py --revision 3
 ```
 
 The preparation reads saved local production projects identified in its record.
 It checks the current STEP/STL against the geometry record before preparing a
 candidate. The audit reads the native archives; neither script sends a job or
 communicates with a printer.
+To prepare a fresh candidate, run `prepare_prints.py` with `--slice` and an unused
+`--revision` number. Projects and archives named in a preparation record are
+immutable. The current queue selects only the passing v3 jobs.

@@ -13,7 +13,7 @@ Four printed PET-GF15 quadrants — `enclosure-front-bottom`, `enclosure-front-t
 - **The wall is a fact about a face, not about the box.** [3 mm](WALL_T) is the section a piece starts from and every exterior wall carries at least [6 mm](LIP_UNDERWALL), each grown INWARD — the stated silhouette and `interior_x` both stand still, and only the piece carrying a section knows about it. A bottom piece gets its [6 mm](LIP_UNDERWALL) for nothing down all three of its lipped sides, the lip's own skin carried to the slab. On the top pieces it is stated per face: [9 mm](FRONT_TOP_FLANK) on `enclosure-front-top`'s ±X flanks, [9 mm](BACK_TOP_FLANK) on `enclosure-back-top`'s, [6 mm](BACK_TOP_WALL) on its +Y wall and [12 mm](BACK_TOP_CEILING_T) on its ceiling, a slab the piece prints on, pocketed over every body that stands in it back to the unchanged z = [352](CEILING_LANE) pack lane. The front face is [9 mm](FRONT_WALL); the complete flavour pack stands behind it with the removable pump face on that same exterior plane. **The floor is the one section that grows OUTWARD** — [6 mm](FLOOR_T) of slab under both bottom pieces, and the stated height is struck to its underside, so the slab stands in the silhouette rather than in the cavity and everything the pack sets on the floor stays where it was. What noses into a section is never moved for it: the wall gives that station back as a stated, 45°-chamfered relief — a Wago well, the PRV chase's rib, the CO2 nut's clamp stack — and `back_wall_t_at`, `box-front` and `back-top-flank-clear` are what read those back against the pack.
 - Three quadrants bed on their Z− face — the bottoms on their floor slabs, front-top on its seam rim, mouth down — and back-top beds on its ceiling's outer face, its mouth up. The lower pump cradle and top clamp take their own print orientations; the bed-fit checks belong to each part's source.
 
-**Width is a stated bound, not a consequence of what stands inside.** [215 mm](APPLIANCE_W), struck symmetric about x = 0 — the axis the whole pack is centred on — exactly as the height and the rear plane are stated. No body sets it: a narrower body taking a wider one's place does not make the machine narrower, and a pack that outgrows it reads red on `box-width` rather than quietly resizing the appliance. What that check requires OF a body on the floor is one [14 mm](SIDE_BAND) boss chain of clearance to the ±X walls **at the depths the seam's bosses stand there** — a body standing on the slab spans the interior wall to wall, so a wall on its face would leave the seam's mouths, plugs and socket collars nowhere to stand. Held off by their own reach, every one of them seats at full section and the bodies seat against the band. The reach is in Y and in Z as much as in X: the socket blocks occupy [15.8 mm](SOCKET_OD) in Y; their lower jambs run from the handhold roofs to the Z seam, and the upper collars occupy their own local band. Outside those footprints the band is open. What fences that flank at every height is not a boss at all but the standing corner's own relief. The widest thing on the slab is the **cold core**: yawed a quarter turn so its short face crosses the machine, it still measures [181](CORE_X) against the mated compressor and condenser's [174](COMP_BAY_X).
+**Width is a stated bound, not a consequence of what stands inside.** [215 mm](APPLIANCE_W), struck symmetric about x = 0 — the axis the whole pack is centred on — exactly as the height and the rear plane are stated. No body sets it: a narrower body taking a wider one's place does not make the machine narrower, and a pack that outgrows it reads red on `box-width` rather than quietly resizing the appliance. What that check requires OF a body on the floor is one [14 mm](SIDE_BAND) boss chain of clearance to the ±X walls **at the depths the seam's bosses stand there** — a body standing on the slab spans the interior wall to wall, so a wall on its face would leave the seam's mouths, plugs and socket collars nowhere to stand. Held off by their own reach, every one of them seats at full section and the bodies seat against the band. The reach is in Y and in Z as much as in X: the socket collar spans [15.8 mm](SOCKET_OD) in Y and its root reaches forward to Y197; its lower jambs run from the handhold roofs to the Z seam, and the upper collars occupy their own local band. Outside those footprints the band is open. What fences that flank at every height is not a boss at all but the standing corner's own relief. The widest thing on the slab is the **cold core**: yawed a quarter turn so its short face crosses the machine, it still measures [181](CORE_X) against the mated compressor and condenser's [174](COMP_BAY_X).
 
 ## Scope
 
@@ -69,8 +69,33 @@ Install ruthex heat-set inserts everywhere the pieces call for them. Standard pr
 
 - **Full-length (RX-M3x5.7) — two.** The two in the condenser fin's fingers on `enclosure-front-bottom`'s +X wall that the block's aft flanges are drawn down onto. Each bore takes the full-length body.
 - **Short (RX-M3Sx4.0) — twenty-five.** The Y seam's six socket stations (the Z seams take no screw and no insert: their retention is the rails' own hooked heads); the C14's two in the fore face of the +Y wall's inlet tunnel; and the [17](EAST_BOSSES) +X wall bosses the electronics bay bolts to. Every one of these is short because its own bore stops where it does — `bom.md` §13 names what each is spending that depth on.
-- **M1.4 — two.** The contact pair's male seat in the bay bulkhead's fore face on `enclosure-front-top`, pressed from the bay side flush with the seat's datum, the step 3 mm inside the face where the half's ear plate lands. The T18 insert kit stops at M2; press these with a fine conical tip. The pump clamp's two take the same insert at the cartridge build ([`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3).
+  The main board's four insert tops sit **2.25 mm behind their PCB mounting
+  faces**. Their Ø7 entry sleeves occupy the unchanged tail-clearance footprints;
+  the complete Ø8 brass hosts stand behind the tails. Install these before the
+  board, through the Ø5 entry, using a fine tip that reaches without bearing on
+  the sleeve. Calibrate its travel with a spare insert and calipers, stop at the
+  marked recess and cold-check the depth after cooling. The M3×8 crosses the
+  1.6 mm PCB and 2.25 mm recess, leaving 4.15 mm nominal threaded reach. The
+  other electronics inserts seat on their actual mounting faces.
+- **M1.4 — two.** The contact pair's male seat in the bay bulkhead's fore face on `enclosure-front-top`. The insert's top sits 5 mm inside the mating face, 2 mm behind the ear plate's 3 mm bearing step. The Ø2.6 access passage admits the whole Ø2.3 knurl; the Ø2.0 pilot beyond it is 5.5 mm deep. The T18 insert kit stops at M2; use a fine conical tip. The pump clamp's two use the same recessed installation at the cartridge build ([`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3).
 - **M5 — four.** The posts standing off the floor slab under the compressor's feet. A second tip off the same T18 kit, and the only station in the appliance that takes it.
+
+Install each M1.4 insert before its connector is fitted. Hold the loose piece with
+the bore vertical. Use a spare insert and the existing calipers to set the cold
+tip/probe's insertion travel to 5.00 mm from the printed mating face; mark that
+travel on the probe. Heat and press straight through the clearance entry, stopping
+with the insert's top 5.00 mm below that face. Allow it to cool, then verify the
+depth with the cold probe and calipers before seating the connector. Do not use
+the blind end or the connector's screw to force the depth. The coupon must show
+that this process seats a whole insert without melting the ear datum or raising
+the connector face beyond its ±0.05 mm criterion. The M1.4×8 screw engages the
+whole 4 mm body and leaves 0.5 mm before the pilot's blind end.
+
+The [native heat-set audit](/hardware/printed-parts/enclosure/enclosure/heat-set-review/README.md)
+checks the complete host walls, blind relief, caps, entry paths and seam ligaments.
+Use locally solid deposition through these hosts and their roots as specified in
+that review. Installed fit, pullout and assembled drop performance remain physical
+qualification items.
 
 **Back-top is populated inverted on the bench, ceiling down.** Its ceiling is its own slab, and every anchor under it — the flow meter's two, the carb, CO2 and regulator ribs — is an upward-opening cradle with the piece on its back: the body drops in, the zip tie goes round, and the piece comes upright with everything riding it.
 
@@ -140,7 +165,7 @@ The cold core stays **on its cart** through this step, tethered to the compresso
 
 The bench-built electronics bay's five bodies stand against the **+X wall**, and their feet come down onto the cold core's cap when the piece carrying them closes. Each is turned so its own mounting plane — the PSU's potted base, the main board's underside, the relay's and the hub plate's undersides, the ground stud's landing face — faces that wall and lands on **one common seat**, the plane the compressor bay's own east face defines. That is what puts the whole group clear of the Y seam's posts, pods and plugs in one test rather than five. **No tray stands under any of them.**
 
-**What holds each one is a printed boss per hole.** `enclosure._east_bosses` grows [17](EAST_BOSSES) of them off that wall's inner face — one for every hole in every body's own pattern, each reaching out to that body's own mounting plane and bored back from its tip for a ruthex M3 short, so the standoff a screw crosses is what the body asked for rather than a number typed anywhere. Each boss carries a D stem, its chord on the machine-top side, under a full-width 45° corbel rising from it to the wall; the stem always reaches the hole, while `wall_mounts` holds only a wedge that crosses an installed body back by 1 mm from that body's exact envelope. The screw goes the other way: in through the body from the room. Pattern and screw schedule are [`electronics-bay.md`](/hardware/assembly/electronics-bay.md)'s.
+**What holds each one is a printed boss per hole.** `enclosure._east_bosses` grows [17](EAST_BOSSES) of them off that wall's inner face — one for every hole in every body's own pattern, each reaching out to that body's own mounting plane. The four main-board inserts are recessed 2.25 mm behind that plane, with Ø7 entry sleeves inside the established tail-clearance footprints and complete Ø8 insert hosts behind the tails. The other ruthex M3 short inserts start on their actual mounting faces. Each boss carries a D stem, its chord on the machine-top side, under a full-width 45° corbel rising from it to the wall; the stem always reaches the hole, while `wall_mounts` holds only a wedge that crosses an installed body back by 1 mm from that body's exact envelope. The screw goes the other way: in through the body from the room. Pattern and screw schedule are [`electronics-bay.md`](/hardware/assembly/electronics-bay.md)'s.
 
 **Every one of those bosses is on `enclosure-back-top`**, which is why this step is bench work on that piece and not work inside a standing box: the bodies are offered up to its wall and screwed down there, alongside the seven connection bodies of step 2, and they come down with it.
 
@@ -228,8 +253,8 @@ and feed that free end forward through the bulkhead's lead bore into the empty p
 Solder to the male half in machine-X order: `AM2`, `AM1`, `BM2`, `BM1` from +X to −X.
 Insulate each joint, then draw the slack back through the bore. Seat the male half with
 its marked end at **−X** and both ear plates on the datum 3 mm inside the fore face.
-Drive **two M1.4 × 5** screws into the **two M1.4 × 4 × Ø2.3** inserts pressed at §1;
-the 1 mm ears leave 4 mm nominal thread engagement. The
+Drive **two M1.4 × 8** screws into the **two M1.4 × 4 × Ø2.3** inserts pressed at §1;
+the 1 mm ears and 2 mm setback leave 5 mm nominal threaded reach, including the full 4 mm insert and 0.5 mm blind-end clearance. The
 [mounting audit](/hardware/reference/yyfkgcp-pogo-4p/mounting-audit.md) identifies those
 datums, the attracting orientation and the installed compression limits.
 

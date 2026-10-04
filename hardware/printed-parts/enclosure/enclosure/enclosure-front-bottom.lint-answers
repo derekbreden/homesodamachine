@@ -26,8 +26,8 @@ click: x=0.000 y=132.656 z=54.724
 
 [ceiling] The bottom handholds' flat lifting ceilings stand 35.25 mm above the standing underside, including the 0.25 mm supported-face allowance, with 12 mm of roof section above them. Each roof joins the opening's end walls, blind inner wall and seam jamb. The snap cover bears against this roof. Tree supports beneath the broad ceiling have a straight removal lane toward the open seam end; the narrow 5.30 mm end-wing slot is an unsupported bridge. The matching grip receiver coupons have accepted support removal and assembled fit; see ../grip-cover/physical-acceptance.json. Production slices require the matching slot support exclusions.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
-click: x=-99.000 y=191.725 z=29.250
-click: x=98.458 y=191.725 z=29.250
+click: x=-99.000 y=194.350 z=29.250
+click: x=98.458 y=194.350 z=29.250
 
 [sliver] These STL triangles are collinear and have exactly zero area and zero normal. They add no surface or material thickness. The complete print mesh is watertight and consistently wound, and the native CAD solid has no face below 0.00001 mm2. The current facet measurements are recorded in overhang-treatment/geometry-check.json.
 click: x=105.050 y=179.450 z=29.233

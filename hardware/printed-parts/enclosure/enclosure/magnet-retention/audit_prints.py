@@ -4,6 +4,7 @@ Read native archives without printer communication. Coordinates in the report
 are translated back into the assembled machine frame.
 """
 from collections import Counter
+import argparse
 import hashlib
 import json
 import math
@@ -79,6 +80,96 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def dense_road_check(name, layers):
+    """Measure native infill pitch; the feature label also covers 100% infill.
+
+    Adjacent parallel infill rows must overlap at nominal bead width. Wider
+    intervals are checked against all deposited model roads and the unchanged
+    STL: an empty hole is allowed, an uncovered material witness is not.
+    This is nominal deposition evidence, not measured printed void fraction.
+    """
+    import trimesh
+    from shapely.geometry import Point
+    from shapely.strtree import STRtree
+    gaps, checked = [], 0
+    pitches = []
+    summaries = {}
+    for (region, z), rows in layers.items():
+        layer = dict(machine_layer_center_z_mm=z, model_road_count=len(rows),
+                     feature_road_counts=dict(Counter(r['feature'] for r in rows)),
+                     emitted_bead_width_mm=[min(r['width'] for r in rows),
+                                            max(r['width'] for r in rows)],
+                     adjacent_infill_row_intervals_checked=0, accepted_pitches=[])
+        summaries.setdefault(region, []).append(layer)
+        families = {}
+        lines = [LineString(r['xy']) for r in rows]
+        for row, line in zip(rows, lines):
+            if row['feature'] not in ('Sparse infill', 'Internal solid infill') or line.length < 3*row['width']:
+                continue
+            a,b = np.array(line.coords[0]),np.array(line.coords[-1])
+            theta = round(math.degrees(math.atan2(*(b-a)[::-1])) % 180)
+            angle = math.radians(theta)
+            tangent = np.array([math.cos(angle),math.sin(angle)])
+            normal = np.array([-tangent[1],tangent[0]])
+            d = round(float(((a+b)/2)@normal),3)
+            t0,t1 = sorted((float(a@tangent),float(b@tangent)))
+            families.setdefault(theta,{}).setdefault(d,[]).append((t0,t1,row['width']))
+        tree = STRtree(lines)
+        max_width = max(r['width'] for r in rows)
+        for theta, offsets in families.items():
+            ds = sorted(offsets)
+            tangent = np.array([math.cos(math.radians(theta)),math.sin(math.radians(theta))])
+            normal = np.array([-tangent[1],tangent[0]])
+            for d0,d1 in zip(ds,ds[1:]):
+                for a0,a1,w0 in offsets[d0]:
+                    for b0,b1,w1 in offsets[d1]:
+                        low,high = max(a0,b0),min(a1,b1)
+                        if high-low < 2*max(w0,w1): continue
+                        checked += 1
+                        layer['adjacent_infill_row_intervals_checked'] += 1
+                        pitch, width = d1-d0,(w0+w1)/2
+                        if pitch <= width+0.003:
+                            pitches.append(pitch)
+                            layer['accepted_pitches'].append(pitch)
+                            continue
+                        for fraction in (0.25,0.5,0.75):
+                            xy = normal*((d0+d1)/2)+tangent*(low+(high-low)*fraction)
+                            point = Point(*xy)
+                            near = tree.query(box(xy[0]-max_width/2-0.003,xy[1]-max_width/2-0.003,
+                                                  xy[0]+max_width/2+0.003,xy[1]+max_width/2+0.003))
+                            covered = any(lines[i].distance(point)<=rows[i]['width']/2+0.003 for i in near)
+                            if not covered:
+                                gaps.append(dict(region=region,machine_xyz_mm=[*xy.tolist(),z],
+                                                 normal_pitch_mm=pitch,mean_bead_width_mm=width))
+    material = []
+    if gaps:
+        mesh = trimesh.load_mesh(ENC/f'enclosure-{name}.stl',process=True)
+        for begin in range(0,len(gaps),512):
+            batch=gaps[begin:begin+512]
+            inside=mesh.contains(np.array([r['machine_xyz_mm'] for r in batch]))
+            material.extend(r for r,yes in zip(batch,inside) if yes)
+    region_readings = []
+    for region, slabs in sorted(summaries.items()):
+        slabs.sort(key=lambda r:r['machine_layer_center_z_mm'])
+        for slab in slabs:
+            pp=slab.pop('accepted_pitches')
+            slab['accepted_normal_pitch_mm']=None if not pp else [min(pp),max(pp)]
+        sample_indices=sorted({0,len(slabs)//2,len(slabs)-1})
+        witnesses=[r for r in material if r['region']==region]
+        region_readings.append(dict(name=region,layers_with_model_roads=len(slabs),
+            layer_center_z_range_mm=[slabs[0]['machine_layer_center_z_mm'],slabs[-1]['machine_layer_center_z_mm']],
+            adjacent_infill_row_intervals_checked=sum(r['adjacent_infill_row_intervals_checked'] for r in slabs),
+            uncovered_material_witness_count=len(witnesses),
+            representative_layers=[slabs[i] for i in sample_indices]))
+    return dict(check='nominal dense deposition through host/root infill regions',pass_check=not material,
+                adjacent_infill_row_intervals_checked=checked,
+                accepted_normal_pitch_mm=None if not pitches else [min(pitches),max(pitches)],
+                coordinate_allowance_mm=0.003,empty_or_other_road_intervals=len(gaps)-len(material),
+                uncovered_material_witness_count=len(material),uncovered_material_witnesses=material[:12],
+                regions=region_readings,
+                scope='Native modifier settings plus nominal bead pitch and material-gap witnesses; no measured printed density or strength.')
+
+
 def read_job(job, geom):
     archive = ROOT / job["native_archive"]
     assert sha(archive) == job["native_archive_sha256"]
@@ -107,6 +198,13 @@ def read_job(job, geom):
     wall_layers = set()
     show_support = []
     settings = {}
+    sparse_host_roads = []
+    host_dense_roads = Counter()
+    native_modifier_rows = []
+    host_layers = {}
+    regions = job.get('solid_host_regions',[])
+    tag=lambda name:f'{{http://schemas.microsoft.com/3dmanufacturing/core/2015/02}}{name}'
+    prod='{http://schemas.microsoft.com/3dmanufacturing/production/2015/06}'
     with zipfile.ZipFile(archive) as z:
         settings = json.loads(z.read("Metadata/project_settings.config"))
         data = z.read("Metadata/plate_1.gcode")
@@ -116,6 +214,31 @@ def read_job(job, geom):
         metadata = {v.get("key"): v.get("value") for v in plate.findall("metadata")}
         nozzle_ids = [n.get("id") for n in plate.findall("nozzle")]
         trims = [float(v) for v in re.findall(rb"^\s*G29\.1 Z([-+\d.]+)", data, re.M)]
+        config=ET.fromstring(z.read('Metadata/model_settings.config'))
+        # Studio assigns new production UUIDs on export. Volume IDs bind the
+        # part settings to the native component and its own object mesh.
+        modifiers={p.get('id'):p for p in config.iter('part') if p.get('subtype')=='modifier_part'}
+        model=ET.fromstring(z.read('3D/3dmodel.model'))
+        item=model.find(f'.//{tag("item")}')
+        placement=np.array([float(v) for v in item.get('transform').split()])
+        assert np.allclose(placement[:9],np.eye(3).flatten())
+        for comp in model.iter(tag('component')):
+            part=modifiers.get(comp.get('objectid'))
+            if part is None:continue
+            values={m.get('key'):m.get('value') for m in part.findall('metadata')}
+            region=next(r for r in regions if r['name']==values['name'])
+            path=comp.get(prod+'path').lstrip('/')
+            component=ET.fromstring(z.read(path))
+            native_object=next(o for o in component.iter(tag('object')) if o.get('id')==comp.get('objectid'))
+            vertices=np.array([[float(p.get(axis)) for axis in 'xyz'] for p in native_object.iter(tag('vertex'))])
+            transform=np.array([float(v) for v in comp.get('transform').split()])
+            assert np.allclose(transform[:9],np.eye(3).flatten())
+            vertices += transform[9:]+placement[9:]-np.array([tx,ty,tz])
+            bounds=np.column_stack((vertices.min(0),vertices.max(0))).flatten()
+            native_modifier_rows.append(dict(name=values['name'],density=values.get('sparse_infill_density'),
+                native_sparse_pattern=values.get('sparse_infill_pattern'),machine_bounds_mm=bounds.tolist(),
+                pass_check=values.get('sparse_infill_density')=='100%' and values.get('sparse_infill_pattern')=='zig-zag' and
+                np.allclose(bounds,region['applied_machine_bounds_mm'],atol=0.002,rtol=0)))
         for lineno, raw in enumerate(data.splitlines(), 1):
             line = raw.decode()
             if line.startswith("; FEATURE: "):
@@ -156,6 +279,23 @@ def read_job(job, geom):
             is_support = feature.startswith("Support")
             cad_z = layer_z - tz
             if not is_support:
+                pts=[(start['X']-tx,start['Y']-ty),(actual['X']-tx,actual['Y']-ty)]
+                for region in regions:
+                    x0,x1,y0,y1,z0,z1=region['applied_machine_bounds_mm']
+                    if z0+height/2 < cad_z < z1-height/2 and \
+                       min(p[0] for p in pts)<x1-0.25 and max(p[0] for p in pts)>x0+0.25 and \
+                       min(p[1] for p in pts)<y1-0.25 and max(p[1] for p in pts)>y0+0.25:
+                        overlap=LineString(pts).intersection(box(x0+0.25,y0+0.25,x1-0.25,y1-0.25)).length
+                        if overlap>0.005:
+                            assert words[0] not in ('G2','G3'), (job['part'],region['name'],lineno,cmd)
+                            segment=LineString(pts).intersection(box(x0+0.25,y0+0.25,x1-0.25,y1-0.25))
+                            key=(region['name'],round(cad_z-height/2,6))
+                            host_layers.setdefault(key,[]).append(dict(xy=list(segment.coords),width=width,feature=feature))
+                            if feature=='Sparse infill':
+                                sparse_host_roads.append(dict(region=region['name'],gcode_line=lineno,
+                                    machine_z_mm=cad_z,overlap_length_mm=overlap))
+                            elif feature=='Internal solid infill':
+                                host_dense_roads[region['name']]+=1
                 last_model_z = layer_z
                 (model_after if pause else model_before)[round(layer_z, 6)] += 1
                 if feature in ("Inner wall", "Outer wall", "Overhang wall"):
@@ -224,6 +364,12 @@ def read_job(job, geom):
                  if job["part"] == "pump-cartridge" else [("roof-corner-rounds", 187.392, 195.)]
     fine_checks = [check_span(sorted(wall_layers), *span, 0.08, 0.001) for span in fine_spans]
     checks = [
+        {'check':'whole host/root modifiers retained at 100% with exact native placement',
+         'pass':bool(regions) and len(native_modifier_rows)==len(regions) and all(r['pass_check'] for r in native_modifier_rows),
+         'modifiers':native_modifier_rows},
+        {**(deposition:=dense_road_check(job['part'],host_layers)),
+         'pass':deposition['pass_check'],'infill_feature_road_count':len(sparse_host_roads),
+         'solid_infill_road_counts':dict(host_dense_roads)},
         {"check": "one emitted insertion pause", "pass": len(pause) == 1},
         {"check": "no roof closure before pause", "pass": not prior_closure},
         {"check": "ring below completed open rim", "pass": paused_rim is not None and paused_rim > max_ring_top,
@@ -261,13 +407,17 @@ def read_job(job, geom):
 
 
 def main():
-    preparation = json.loads((HERE / "preparation.json").read_text())
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--revision',type=int,default=3)
+    args=parser.parse_args()
+    destination=HERE / f'v{args.revision}'
+    preparation = json.loads((destination / "preparation.json").read_text())
     geometry = json.loads((HERE / "geometry-check.json").read_text())
     readings = [read_job(job, geometry["pieces"][job["part"]]) for job in preparation["jobs"]]
     report = {"submitted": False, "native_checks_pass": all(r["native_checks_pass"] for r in readings),
               "scope": "Native emitted pause, ring insertion clearance, pocket support exclusion and sealing paths. Physical ring retention, roof quality, heat exposure and assembled seating remain unmeasured.",
               "jobs": readings, "audit_script_sha256": sha(Path(__file__))}
-    (HERE / "native-check.json").write_text(json.dumps(report, indent=2) + "\n")
+    (destination / "native-check.json").write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps({"native_checks_pass": report["native_checks_pass"],
                       "jobs": [{k: r[k] for k in ("part", "native_checks_pass", "checks", "pause", "first_closing_layer_height_mm")} for r in readings]}, indent=2))
     if not report["native_checks_pass"]:

@@ -25,6 +25,16 @@ emitted brim and support paths, and every support contact has an accessible remo
 hardware installation, following the
 [support-removal strategy](enclosure/README.md#support-removal-strategy).
 
+Current fastener hosts and their roots also require the local 100% infill
+[region specification](enclosure/heat-set-review/print-regions.json), including
+the Y seam shanks, sockets and fore ligaments, Z hooks and end stops, and the
+complete insert hosts and blind caps. The general 15% infill recipe does not
+establish solid material in those regions. Each fresh native review must verify
+their actual placement and emitted deposition as well as the show surfaces.
+The separate [RC62 jobs](enclosure/magnet-retention/queue.json) bind their own
+revised geometry and local settings; only a passing emitted-path record supports
+submission.
+
 The show transitions print without support contacts. Back-top's roof side edges use
 the additive 0.24 mm treatment. Keep supports for separate functional features and
 use face-specific blockers on the show transitions. Inspect all emitted support paths, including short bodies without labelled
@@ -41,10 +51,12 @@ support reviews; old archives do not establish the new treatment.
 Every spool is used fully, with reloading during a print as needed; remaining filament
 quantity is not a launch condition ([filament-use policy](tee-readiness/full-enclosure-print/filament-use-policy.json)).
 
-## Current front-top H2C archive
+## Reviewed front-top v17 H2C archive
 
-The [current front-top v17 review](tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/README.md)
+The [front-top v17 review](tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/README.md)
 binds the native STEP/STL and saved PET-GF recipe to one unmodified H2C archive.
+Its results apply only to the source hashes in that review; they do not certify
+the current recessed insert seats, seam stations or solid host/root regions.
 The [launch receipt](tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/front-top-h2c-launch.json)
 records H2C's acceptance as task **1305315362** at **2026-10-03 15:22:21 UTC**,
 with one Send and 267.488 seconds since Mark2's recorded acceptance.
@@ -60,9 +72,9 @@ retained pogo seat, display recess and funnel receiver mating transitions.
 Printed receiver/rail fit, cleanup, show finish, loom retention, load capacity
 and lifetime keep their separate evidence scope.
 
-## Current back-top native review
+## Reviewed back-top v9 native archive
 
-The [current back-top v9 review](tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-back-top-current-mark2-v9/README.md)
+The [back-top v9 review](tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-back-top-current-mark2-v9/README.md)
 binds its corrected PRV crown, native STEP/STL and saved PET-GF recipe to one
 unmodified Mark2 archive. It has 813 model layers and estimates **26 h 8 min
 54 sec**; it has not been submitted. Both initial crown slabs contain model
@@ -73,6 +85,9 @@ routes through the empty shell. Model and support borders meet the respective
 catches have dense emitted coverage. The ground mounting annulus's final round
 terminal has an explicit 0.126 mm layer-lattice deviation. Physical insert and
 cable retention, show finish, cleanup effort and assembled fit remain separate.
+These results apply only to its bound source hashes. Current enlarged hosts,
+recessed PCBA entries and complete solid roots need their own native slice;
+the v9 support review supplies no load-capacity or drop result.
 
 ## Physical evidence
 

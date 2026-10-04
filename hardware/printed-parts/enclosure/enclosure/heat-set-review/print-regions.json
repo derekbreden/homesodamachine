@@ -1,0 +1,686 @@
+{
+  "scope": "Local 100% infill modifiers in existing native material; complete insert hosts, blind caps, roots and seam load paths. No load capacity or lifetime qualification.",
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "47bfbdcd3fb501b394616338e8f0c3c82b457e6e6b0e2fad72f288765b8a3f9c",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "963a7359e65b2019b3108d950ea701a2d223c469375059e6989fe38294c34542",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "0999d5d2a4e54a546e5d1759ff24611ef988eeed74bbb94bbdbf5af470774356",
+    "hardware/manifold-layout/enclosure-box.json": "4879e690f9e139856fddb3c5d918be5792e3eff13b5a26cc627e201df7ad0819"
+  },
+  "native_artifact_sha256": {
+    "front-bottom": {
+      ".step": "750f04515540bc00743bd39cc345c95ac2ed69ca0ac3460244dcd11c09a4b9d2",
+      ".stl": "51c521848a0569907e6811869add3afa95062f072f01f2157f52982794ecba64"
+    },
+    "front-top": {
+      ".step": "69ef530764b2f237acc27cc05be36db875d87f88b6836bad521c2bf3f9ac093e",
+      ".stl": "c8b5a8b594c7dc23ae13e724c97e1c06ab93dd19ceac7683dceca293d32942da"
+    },
+    "back-bottom": {
+      ".step": "cd2aea4170503e5ab0decd929f902b74c6f8e56a7007ed794f216e06dc291a74",
+      ".stl": "67a03fadfafb7a6c654f20524add78cecb8e2f6740d215d5fe79d56555495e88"
+    },
+    "back-top": {
+      ".step": "7de724435d621c63f80916991f9c8d0a38c224705d1e9dbaf5b1c6f2f959950a",
+      ".stl": "cc3fa8d2544fc768e03006edf9757d57c1b2895b5903eb2b0d56167ec2c6dbc7"
+    },
+    "pump-cartridge": {
+      ".step": "105c18eed6b10dfab5de7bc12a66174972546a984f2b966e9edc546c7bce285c",
+      ".stl": "d8f6b9a9e12b0594f958b14a6bd8ca9d348471c73f02b28cfe488711be9e5a16"
+    },
+    "pump-cap": {
+      ".step": "26df3e161efb02ead136abd3de9b6631a9d57d388ba1692cc693c6db42a82bf3",
+      ".stl": "f203266270189d1faff853fd66749bbc1a53c0cd3a4824292a313d26936d1e16"
+    }
+  },
+  "pieces": {
+    "front-bottom": [
+      {
+        "name": "Y seam socket and complete root +1/48.9",
+        "machine_bounds_mm": [
+          -107.5,
+          -90.5,
+          197.0,
+          217.8,
+          29.25,
+          160.0
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Y seam socket and complete root +1/152.1",
+        "machine_bounds_mm": [
+          -107.5,
+          -90.5,
+          197.0,
+          217.8,
+          29.25,
+          160.0
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Y seam socket and complete root -1/48.9",
+        "machine_bounds_mm": [
+          90.5,
+          107.5,
+          197.0,
+          217.8,
+          29.25,
+          160.0
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Y seam socket and complete root -1/152.1",
+        "machine_bounds_mm": [
+          90.5,
+          107.5,
+          197.0,
+          217.8,
+          29.25,
+          160.0
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Z rail, end stop and wall root -1",
+        "machine_bounds_mm": [
+          -107.5,
+          -90.0,
+          5.0,
+          200.0,
+          157.0,
+          177.8
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Z rail, end stop and wall root +1",
+        "machine_bounds_mm": [
+          90.0,
+          107.5,
+          5.0,
+          200.0,
+          157.0,
+          177.8
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Compressor post and floor -54.6/25.5",
+        "machine_bounds_mm": [
+          -60.400000000000006,
+          -48.8,
+          19.7,
+          31.3,
+          -6.0,
+          14.6
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Compressor post and floor -54.6/156.5",
+        "machine_bounds_mm": [
+          -60.400000000000006,
+          -48.8,
+          150.7,
+          162.3,
+          -6.0,
+          14.6
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Compressor post and floor 12.4/25.5",
+        "machine_bounds_mm": [
+          6.600000000000001,
+          18.200000000000003,
+          19.7,
+          31.3,
+          -6.0,
+          14.6
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Compressor post and floor 12.4/156.5",
+        "machine_bounds_mm": [
+          6.599999999999994,
+          18.199999999999996,
+          150.7,
+          162.3,
+          -6.0,
+          14.6
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Condenser host and supporting finger 70.5/153",
+        "machine_bounds_mm": [
+          65.49999999999999,
+          75.49999999999999,
+          148.0,
+          158.0,
+          -6.0,
+          8.999999999999998
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Condenser host and supporting finger 70.5/153",
+        "machine_bounds_mm": [
+          65.49999999999999,
+          75.49999999999999,
+          148.0,
+          158.0,
+          -6.0,
+          145.59999999999994
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      }
+    ],
+    "front-top": [
+      {
+        "name": "Y seam socket and complete root +1/282.05",
+        "machine_bounds_mm": [
+          -107.5,
+          -90.5,
+          197.0,
+          217.8,
+          274.15000000000003,
+          355.0
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Y seam socket and complete root -1/291.05",
+        "machine_bounds_mm": [
+          90.5,
+          107.5,
+          197.0,
+          217.8,
+          283.15000000000003,
+          355.0
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Z rail, end stop and wall root -1",
+        "machine_bounds_mm": [
+          -107.5,
+          -90.0,
+          5.0,
+          200.0,
+          157.0,
+          177.8
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Z rail, end stop and wall root +1",
+        "machine_bounds_mm": [
+          90.0,
+          107.5,
+          5.0,
+          200.0,
+          157.0,
+          177.8
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Both pogo insert hosts, entry steps and blind caps",
+        "machine_bounds_mm": [
+          -15.0,
+          15.0,
+          79.515,
+          93.015,
+          275.7740001,
+          281.2740001
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      }
+    ],
+    "back-bottom": [
+      {
+        "name": "Y seam shank and fore ligament +1/48.9",
+        "machine_bounds_mm": [
+          -107.5,
+          -98.5,
+          200.0,
+          219.8,
+          29.25,
+          160.0
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Y seam shank and fore ligament +1/152.1",
+        "machine_bounds_mm": [
+          -107.5,
+          -98.5,
+          200.0,
+          219.8,
+          29.25,
+          160.0
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Y seam shank and fore ligament -1/48.9",
+        "machine_bounds_mm": [
+          98.5,
+          107.5,
+          200.0,
+          219.8,
+          29.25,
+          160.0
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Y seam shank and fore ligament -1/152.1",
+        "machine_bounds_mm": [
+          98.5,
+          107.5,
+          200.0,
+          219.8,
+          29.25,
+          160.0
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Z rail, end stop and wall root -1",
+        "machine_bounds_mm": [
+          -107.5,
+          -90.0,
+          200.0,
+          471.3,
+          157.0,
+          177.8
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Z rail, end stop and wall root +1",
+        "machine_bounds_mm": [
+          90.0,
+          107.5,
+          200.0,
+          471.3,
+          157.0,
+          177.8
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      }
+    ],
+    "back-top": [
+      {
+        "name": "Y seam shank and fore ligament +1/282.05",
+        "machine_bounds_mm": [
+          -107.5,
+          -98.5,
+          200.0,
+          219.8,
+          274.15000000000003,
+          355.0
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Y seam shank and fore ligament -1/291.05",
+        "machine_bounds_mm": [
+          98.5,
+          107.5,
+          200.0,
+          219.8,
+          283.15000000000003,
+          355.0
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Z rail, end stop and wall root -1",
+        "machine_bounds_mm": [
+          -107.5,
+          -90.0,
+          200.0,
+          471.3,
+          157.0,
+          177.8
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Z rail, end stop and wall root +1",
+        "machine_bounds_mm": [
+          90.0,
+          107.5,
+          200.0,
+          471.3,
+          157.0,
+          177.8
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Electronics host and wall root 361.3/262.9",
+        "machine_bounds_mm": [
+          98.25,
+          107.5,
+          357.3,
+          365.3,
+          258.65,
+          266.9
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Electronics host and wall root 459.3/262.9",
+        "machine_bounds_mm": [
+          98.25,
+          107.5,
+          455.3,
+          463.3,
+          258.65,
+          266.9
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Electronics host and wall root 361.3/295.9",
+        "machine_bounds_mm": [
+          98.25,
+          107.5,
+          357.3,
+          365.3,
+          291.65,
+          299.9
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Electronics host and wall root 459.3/295.9",
+        "machine_bounds_mm": [
+          98.25,
+          107.5,
+          455.3,
+          463.3,
+          291.65,
+          299.9
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Electronics host and wall root 245.3/256.9",
+        "machine_bounds_mm": [
+          96.25,
+          107.5,
+          241.3,
+          249.3,
+          250.65000000000003,
+          260.90000000000003
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Electronics host and wall root 323.3/256.9",
+        "machine_bounds_mm": [
+          96.25,
+          107.5,
+          319.3,
+          327.3,
+          250.65000000000003,
+          260.90000000000003
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Electronics host and wall root 323.3/323.2",
+        "machine_bounds_mm": [
+          96.25,
+          107.5,
+          319.3,
+          327.3,
+          316.95,
+          327.2
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Electronics host and wall root 245.3/323.2",
+        "machine_bounds_mm": [
+          96.25,
+          107.5,
+          241.3,
+          249.3,
+          316.95,
+          327.2
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Electronics host and wall root 347.8/321.4",
+        "machine_bounds_mm": [
+          96.25,
+          107.5,
+          343.8,
+          351.8,
+          315.15,
+          325.4
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Electronics host and wall root 334.8/321.4",
+        "machine_bounds_mm": [
+          96.25,
+          107.5,
+          330.8,
+          338.8,
+          315.15,
+          325.4
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Electronics host and wall root 347.8/255.4",
+        "machine_bounds_mm": [
+          96.25,
+          107.5,
+          343.8,
+          351.8,
+          249.14999999999998,
+          259.4
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Electronics host and wall root 334.8/255.4",
+        "machine_bounds_mm": [
+          96.25,
+          107.5,
+          330.8,
+          338.8,
+          249.14999999999998,
+          259.4
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Electronics host and wall root 324.8/331.2",
+        "machine_bounds_mm": [
+          96.25,
+          107.5,
+          320.8,
+          328.8,
+          324.95000000000005,
+          335.20000000000005
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Electronics host and wall root 324.8/344.2",
+        "machine_bounds_mm": [
+          96.25,
+          107.5,
+          320.8,
+          328.8,
+          337.95000000000005,
+          348.20000000000005
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Electronics host and wall root 258.8/331.2",
+        "machine_bounds_mm": [
+          96.25,
+          107.5,
+          254.8,
+          262.8,
+          324.95000000000005,
+          335.20000000000005
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Electronics host and wall root 258.8/344.2",
+        "machine_bounds_mm": [
+          96.25,
+          107.5,
+          254.8,
+          262.8,
+          337.95000000000005,
+          348.20000000000005
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Electronics host and wall root 338.8/338.044",
+        "machine_bounds_mm": [
+          92.25,
+          107.5,
+          334.80000010000003,
+          342.80000010000003,
+          327.7942287340604,
+          342.0442287340604
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "C14 host and wall 46.9",
+        "machine_bounds_mm": [
+          41.900000000000006,
+          51.900000000000006,
+          463.05,
+          471.3,
+          331.2105808375568,
+          341.2105808375568
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "C14 host and wall 86.9",
+        "machine_bounds_mm": [
+          81.9,
+          91.9,
+          463.05,
+          471.3,
+          331.2105808375568,
+          341.2105808375568
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      }
+    ],
+    "pump-cartridge": [
+      {
+        "name": "Clamp insert and complete spine root 27.7575",
+        "machine_bounds_mm": [
+          -25.475,
+          25.475,
+          22.7575,
+          32.7575,
+          165.19500000000002,
+          214.925
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "name": "Clamp insert and complete spine root 63.7575",
+        "machine_bounds_mm": [
+          -25.475,
+          25.475,
+          58.7575,
+          68.7575,
+          165.19500000000002,
+          214.925
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      }
+    ],
+    "pump-cap": [
+      {
+        "name": "Both pogo insert hosts, entry steps and blind caps",
+        "machine_bounds_mm": [
+          -15.0,
+          15.0,
+          65.769,
+          79.269,
+          275.7740001,
+          281.2740001
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      }
+    ]
+  }
+}
