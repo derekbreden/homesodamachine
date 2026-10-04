@@ -1,0 +1,14 @@
+{
+  "/hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py": {
+    "AIR": "0.25 mm",
+    "DEPTH": "134.683 mm",
+    "OVERHANG": "1.5 mm",
+    "PAD": "0.15 mm",
+    "PLATE": "3 mm",
+    "PRINT_HEIGHT": "9 mm",
+    "PULL": "4 mm",
+    "SKIRT": "6 mm",
+    "WALL": "3 mm",
+    "WIDTH": "182 mm"
+  }
+}

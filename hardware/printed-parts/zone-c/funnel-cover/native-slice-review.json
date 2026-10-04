@@ -1,0 +1,165 @@
+{
+  "project": "funnel-cover-petg.3mf",
+  "settings_source": "hardware/printed-parts/petgf.3mf",
+  "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "settings_sha256": "07f46991b6e7f746ddf9ab80ed91b3ea5967d8fa0402015cd939c20d41c73d1f",
+  "source_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "409b1516f0401361a02b18a34420c10ca83bc33615e8896cade2fea42edee871",
+      "requested_z_trim_mm": 0.18
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.18 Z trim"
+    }
+  },
+  "printer": "Bambu Lab H2C 0.4 Standard +0.18 Z trim",
+  "process": {
+    "first_layer_mm": 0.2,
+    "layer_mm": 0.24,
+    "walls": 3,
+    "infill_percent": 100,
+    "supports": false,
+    "material": "Bambu PETG Basic Black"
+  },
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 3,
+  "sparse_infill_percent": 100,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 15.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "funnel-cover",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl",
+      "stl_sha256": "acf87edfdecf7408931cf6848b5f9e64b758394938ec4b3ecdcdf8f9dfd3bd97",
+      "triangles": 12664,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        2.0,
+        4.499999999999996
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        162.5,
+        160.0,
+        4.500000000000004
+      ],
+      "plate_translation_mm": [
+        162.5,
+        160.0,
+        4.500000000000004
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          71.5,
+          90.65849304199219,
+          0.0
+        ],
+        [
+          253.5,
+          229.3415069580078,
+          9.000000000000009
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.999947122996673e-10
+    }
+  ],
+  "project_sha256": "1a3646eef1e764f6545e7b664cc8aeac9c83457515bc776da688d2a536c5247c",
+  "settings_preserved_byte_for_byte": false,
+  "source_mesh_sha256": "acf87edfdecf7408931cf6848b5f9e64b758394938ec4b3ecdcdf8f9dfd3bd97",
+  "material": "Bambu PETG Basic Black",
+  "filament_preset_sha256": {
+    "filament/Bambu PETG Basic @BBL H2C.json": "be58edd2b9b7a7409a9b727c625e70c17441b568993bea6f75c2b2595122d9b5",
+    "filament/Bambu PETG Basic @base.json": "25345e37ee61078940107143de8d2d1f295929cfbe3b586d208f215c9dad63aa",
+    "filament/fdm_filament_pet.json": "3ed1b36367fe6df800103a9deaaa036f9d79c7afda3f3a17514dff23aa96c7d8",
+    "filament/fdm_filament_common.json": "8c7105b7d59a28f600c43a946f067b8b4d707b9711c0bf6b88e9166e48878548",
+    "filament/fdm_filament_template_direct_dual_e3d.json": "308498826d6206f611be063e9ed7e6afe50b48e5410bb9e132f00eda483eab19"
+  },
+  "source_sha256": {
+    "hardware/printed-parts/zone-c/funnel-cover/prepare_print.py": "f838fea6948dc8fa7557a8a2a342b11572158328c2cdafad6667d3491e11a96b",
+    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl": "acf87edfdecf7408931cf6848b5f9e64b758394938ec4b3ecdcdf8f9dfd3bd97",
+    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step": "bd37a17844a678ddd35ac09e26fb1ec5efd93b622f540685bce7b73e1968c1b1",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
+  },
+  "stock_filament_preset_sha256": {
+    "filament/Bambu PETG Basic @BBL H2C.json": "be58edd2b9b7a7409a9b727c625e70c17441b568993bea6f75c2b2595122d9b5",
+    "filament/Bambu PETG Basic @base.json": "25345e37ee61078940107143de8d2d1f295929cfbe3b586d208f215c9dad63aa",
+    "filament/fdm_filament_pet.json": "3ed1b36367fe6df800103a9deaaa036f9d79c7afda3f3a17514dff23aa96c7d8",
+    "filament/fdm_filament_common.json": "8c7105b7d59a28f600c43a946f067b8b4d707b9711c0bf6b88e9166e48878548",
+    "filament/fdm_filament_template_direct_dual_e3d.json": "308498826d6206f611be063e9ed7e6afe50b48e5410bb9e132f00eda483eab19"
+  },
+  "native_archive": ".cache/prints/funnel-cover-petg-native/funnel-cover.gcode.3mf",
+  "native_sha256": "56c8ad259e2bac61d583aa51b97ea52201a51e4ea49fd5b3365bd0ef9dea37cb",
+  "gcode_sha256": "5eb170ec5f9c8c820a7ccda1aadd2742f9965c58e70749c29742e343b9378fa7",
+  "settings_verified": true,
+  "support_paths": 0,
+  "estimated_seconds": 5300.2021484375,
+  "estimated_grams": 99.34089660644531,
+  "first_two_layer_heights_mm": [
+    0.2,
+    0.44
+  ],
+  "first_to_second_bead_footprint_overlap_fraction": 0.9959615896138442,
+  "model_layers": 38,
+  "model_tools": [
+    0
+  ],
+  "submitted": false,
+  "physical_retention_and_drip_exclusion": "Unqualified"
+}

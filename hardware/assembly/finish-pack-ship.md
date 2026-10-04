@@ -34,6 +34,11 @@ Tooling (amortized per machine only — single-asset tools live in [`/hardware/l
 
 ## Procedure
 
+Remove the [funnel cover](/hardware/printed-parts/zone-c/funnel-cover/README.md)
+before cleaning the funnel. Clean and dry both cover faces separately, then
+seat it evenly on the silicone brim after refitting the funnel. The cover
+ships fitted and is removed for every refill.
+
 ### 1. Cosmetic wipe-down + final visual inspection
 
 Take the machine fresh off the [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) bench. Wipe every exposed surface with the microfiber + isopropyl: the +Y wall and its inlets, the funnel's brim and the top wall around it, condenser intake/exhaust grilles, both side faces, the front face and the pump cartridge's own span of it, and the bottom. Foam-tip swab the funnel cavity to clear any settled dust. Lift the silicone funnel straight up off the raw drain stub, leaving the tube and elbow in the machine, and wipe it down separately. After the unit is dry, press its plug into the frame's socket until the brim seats. The unit has been on the burn-in bench for the acceptance soak — fingerprints, dust drift from shop air, and the residue of fingers from prior assembly steps all land here.

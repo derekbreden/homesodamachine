@@ -5,6 +5,9 @@ frame slides into front-top; closing front-top onto back-top captures the rear
 rails. The frame uses the enclosure's production rail section and its running
 clearances. Both flavors share this filling interface.
 
+The [lift-off cover](../funnel-cover/README.md) closes the mouth between fills.
+Remove it before pouring or lifting the silicone out, and reseat it after filling.
+
 ## Silicone
 
 The collar center is world X0, Y164.55. Its brim underside is Z349 and its

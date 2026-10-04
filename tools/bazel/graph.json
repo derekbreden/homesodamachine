@@ -4431,6 +4431,8 @@
       "hardware/printed-parts/faucet/tube-collar/tube_collar.py",
       "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
       "hardware/printed-parts/valve-seat/valve_seat.py",
+      "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step",
+      "hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py",
       "hardware/printed-parts/zone-c/funnel/elbow_cradle.py",
       "hardware/printed-parts/zone-c/funnel/funnel.py",
       "hardware/printed-parts/zone-c/funnel/funnel.step",
@@ -7983,6 +7985,44 @@
       "hardware/printed-parts/valve-seat/README.md"
     ]
   },
+  "hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py": {
+    "reads": [
+      "hardware/printed-parts/cadlib/fits.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+      "hardware/printed-parts/zone-c/funnel-cover/README.figures.json",
+      "hardware/printed-parts/zone-c/funnel-cover/README.md",
+      "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step",
+      "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step.mesh",
+      "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl",
+      "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step",
+      "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl",
+      "hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py",
+      "hardware/printed-parts/zone-c/funnel/elbow_cradle.py",
+      "hardware/printed-parts/zone-c/funnel/funnel.py",
+      "hardware/reference/jg-pp0308e-elbow/elbow.py",
+      "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_material_base.py",
+      "hardware/scripts/_materials.py",
+      "hardware/scripts/_mesh_payload.py",
+      "hardware/scripts/_realized.py",
+      "hardware/scripts/_run_lock.py",
+      "hardware/scripts/_stated_bounds.py",
+      "hardware/scripts/flute_payload.py",
+      "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/printed-parts/zone-c/funnel-cover/README.figures.json",
+      "hardware/printed-parts/zone-c/funnel-cover/README.md"
+    ],
+    "writes": [
+      "hardware/printed-parts/zone-c/funnel-cover/README.figures.json",
+      "hardware/printed-parts/zone-c/funnel-cover/README.md",
+      "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step",
+      "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step.mesh",
+      "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step",
+      "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.mesh"
+    ]
+  },
   "hardware/printed-parts/zone-c/funnel-mold/forming_mandrel.py": {
     "reads": [
       "hardware/printed-parts/cadlib/fits.py",
@@ -9494,6 +9534,7 @@
       "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step",
       "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step",
+      "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step",
       "hardware/printed-parts/zone-c/funnel/elbow-cradle.step",
       "hardware/printed-parts/zone-c/funnel/funnel-frame.step",
       "hardware/scripts/_bom_masses.py",
@@ -9747,6 +9788,7 @@
       "hardware/ledger/machine-time.md",
       "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/v1/float-preflight.json",
       "hardware/printed-parts/faucet/faucet-petgf.support-audit.json",
+      "hardware/printed-parts/zone-c/funnel-cover/native-slice-review.json",
       "hardware/scripts/_bom_masses.py",
       "hardware/scripts/_machine_time.py",
       "hardware/scripts/_realized.py",

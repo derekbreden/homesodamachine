@@ -255,6 +255,7 @@ MOUNTS = (
     ("foam-assembly", ("enclosure-front-bottom", "enclosure-back-top"), "seam-capture"),
     ("g-ganen-pump", "foam-assembly", "deck-mount"),
     ("funnel", None, "wall-capture"),
+    ("funnel-cover", "funnel", "silicone-grip"),
     ("funnel-frame", ("enclosure-front-top", "enclosure-back-top"), "wall-capture"),
     # Each interchangeable grip strip crosses the connected bottom seam. Its two flat wings
     # snap into the existing through-slots, one end in each bottom half (`_grip_interface`).
@@ -642,6 +643,9 @@ TERMINI = ("asse1022-assembly.vent-tip",)
 # SEATS against each other, each named against the construction that seats it — a contact by
 # intent, not a pack closing on itself.
 TOUCHING_OK = {frozenset(p) for p in (
+    ("funnel-cover", "funnel"),
+    ("funnel-cover", "enclosure-front-top"),
+    ("funnel-cover", "enclosure-back-top"),
     # A return spring's ends: one on its pocket's floor in the tee wall, one on its bore's floor.
     *((f"tee-carrier-spring-{side}-{level}", host)
       for side in ("west", "east") for level in ("lower", "upper")
@@ -1104,6 +1108,18 @@ def pack_clashes(a) -> tuple:
         except Exception as exc:
             unanswered.append(("funnel-drain-stub", "funnel",
                                "sealing land contact: " + str(exc).splitlines()[0]))
+    cover_pair = frozenset(("funnel-cover", "funnel"))
+    if any(frozenset((hit.a, hit.b)) == cover_pair for hit in bad):
+        try:
+            import funnel_cover
+            plug = bodies["funnel"].BoundingBox()
+            reading = funnel_cover.contact_reading(
+                bodies["funnel-cover"], bodies["funnel"],
+                (plug.xmin + plug.xmax) / 2, (plug.ymin + plug.ymax) / 2, plug.zmax)
+            if reading["outside_pads_mm3"] <= _clearing.HIT_VOL:
+                bad = [hit for hit in bad if frozenset((hit.a, hit.b)) != cover_pair]
+        except Exception as exc:
+            unanswered.append(("funnel-cover", "funnel", "silicone pads: " + str(exc).splitlines()[0]))
     result = bad, unanswered
     _clash_cache[id(a)] = (a, result)
     return result
