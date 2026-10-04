@@ -1,0 +1,16 @@
+{
+  "observed_date_local": "2026-10-04",
+  "reporter": "user",
+  "printer": "Mark2",
+  "user_report": "Photo of the print results of recent things.",
+  "photo_shows": "The SODA and CO2 rings beside the TAP and two FLAVOR rings and the nameplate, lying on a fluted enclosure panel.",
+  "verdict_stated": false,
+  "mounting_fit_reported": false,
+  "scope": "Derek's photo without a stated verdict; what the photo shows is recorded, with no dimensional or mounting measurement.",
+  "task_id": "1307189764",
+  "parts": [
+    "CO2"
+  ],
+  "photo": "physical-result.jpg",
+  "observed_in_photo": "Red body with white raised CO2 letters, crisp, seated in their recess with no visible offset."
+}
