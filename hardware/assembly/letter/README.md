@@ -7,8 +7,10 @@ Three 8.5 × 11 inch sheets for the carbonator bench:
 3. Set up the controls, hold the rotation pedal, then pull the laser trigger.
 
 The [PDF](../../../output/pdf/assembly-drill-and-weld-letter.pdf) has vector
-drawings and embedded IBM Plex type. Its colored edge bands extend to the
-paper edges; essential content stays within a borderless-print safe area.
+drawings and embedded IBM Plex type. Instructional content is centered at 98%
+scale. A separate background layer extends 1/4 inch beyond the paper edges;
+its top cobalt and right coral bands extend 1/3 inch inward. The bands fill
+the page edges at full scale, with room for borderless crop variation.
 The final comic frame shows the pedal down and the gloved finger pulling the
 trigger. The finish sequence appears before that frame.
 
@@ -42,14 +44,22 @@ reader, changed named drill/spacer, or changed practice-recipe structure
 requires review before rendering.
 
 Print one copy, single-sided, portrait, color, high quality, Letter borderless,
-using the Epson photo-paper media profile. Let automatic tray selection use
-the loaded Letter photo stock. Example for the ET-8550 queue:
+using the Epson photo-paper media profile. Load Letter photo stock in the
+rear feeder and select **rear** explicitly. The main cassette can contain
+plain Letter stock. Content scaling is already in the PDF; print at 100%
+without another 98% reduction. Example for the ET-8550 queue:
 
 ```sh
 lp -d EPSON_ET_8550_Series -n 1 \
   -o PageSize=Letter.Fullbleed -o MediaType=photographic-glossy \
-  -o InputSlot=auto -o Duplex=None -o sides=one-sided \
+  -o InputSlot=rear -o media-source=rear -o Duplex=None -o sides=one-sided \
   -o ColorModel=RGB -o cupsPrintQuality=High -o print-quality=5 \
   -o print-scaling=none -o number-up=1 \
   output/pdf/assembly-drill-and-weld-letter.pdf
 ```
+
+After submission, check the Epson's native job attributes for
+`media-source=rear`, zero media margins and single-sided photo quality.
+Printer job completion establishes that the sheets ran; edge coverage and
+visual balance are physical observations. The reported fit of this setup
+is the basis for the 98% content scale.
