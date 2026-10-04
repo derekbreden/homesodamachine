@@ -177,6 +177,7 @@ import _enclosure_interface as _interface
 import _swept_top
 import _display_wing_interface as _display_wings
 import _grip_interface
+import _cartridge_retention as _retention
 from _cold_core_interface import foam_cap_lid_height
 
 # Shell parameters.
@@ -1566,8 +1567,9 @@ rail_reach_in = (max(front_top_flank_t, back_top_flank_t) - wall) + slide_slip +
 # corner column — and the large lower cradle come out of front-top as one piece, the PUMP
 # CARTRIDGE. Both pumps drop into that cradle and one top clamp closes on their stamped
 # brackets. The cradle's filled bearing block rides the bay floor while the fixed shell perimeter
-# stays one running clearance below its exterior face. Nothing latches it: four
-# barb tubes gripped in the anchor tees' branch collets are the retention, and the collet plate
+# stays one running clearance below its exterior face. A centred RC62 pair pulls the
+# lower cradle toward the bulkhead on the tubes' own insertion axis. Four
+# barb tubes gripped in the anchor tees' branch collets retain the fluid connections, and the collet plate
 # (`_tee_wall`) is the release — pull the pump cartridge and the tees
 # come with it until their collets press the plate, the tubes come free, and the pumps are
 # in your hand. Pushing it home threads the four tubes back through the plate's holes into
@@ -6062,6 +6064,7 @@ def build_pump_cartridge(box, halves_cache=None):
         solid = solid.cut(pull)
     for bore in _cap_screws(box)[1]:
         solid = solid.cut(bore)
+    solid = solid.cut(pump_retention_pocket(box, "pump-cartridge"))
     return _unified(_round_cradle_pull_rims(solid, box))
 
 
@@ -6174,6 +6177,25 @@ def _cap_screws(box):
                      .fuse(_zcyl(head_cbore_dia / 2.0, 0.0, y, seat, crown + 1.0)))
         sets.append(_zcyl(heatset_dia / 2.0, 0.0, y, bore_tip, split + 0.1))
     return clear, sets
+
+
+def pump_retention_station(box):
+    """One magnetic pair centred between the tubes, at their common height."""
+    return _retention.station(box.pack.collet_plate["holes"])
+
+
+def pump_retention_face(box, name):
+    if PIECE_PRINT_UP[name] != 1.0:
+        raise ValueError("The RC62 mouth requires this part's upright production orientation")
+    if name == "pump-cartridge":
+        return pump_cartridge_aft_y(box.pack.pump_trays, box.pack.collet_plate), -1.0
+    if name == "front-top":
+        return bay_back_y(box.pack.collet_plate), 1.0
+    raise ValueError(f"No separate RC62 retention magnet in {name}")
+
+
+def pump_retention_pocket(box, name):
+    return _retention.pocket(pump_retention_station(box), *pump_retention_face(box, name))
 
 
 def pump_contact_station(box):
@@ -9041,6 +9063,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         if box.pack.collet_plate:
             for cutter in _pump_contact_fixed_cuts(box):
                 piece = piece.cut(cutter)
+            piece = piece.cut(pump_retention_pocket(box, "front-top"))
     # And then the columns give up whatever the pack stands in them (`_column_relief`), which is
     # last of everything: a relief is air, and air a later step fuses back in is not a relief.
     # Clipped to the pillar — the column AND the lip's skin wrapping it (`_column_pillar`) —
