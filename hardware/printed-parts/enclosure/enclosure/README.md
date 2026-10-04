@@ -1530,9 +1530,14 @@ pad head-on and nothing sweeps across either face. Seated, each pin is pressed
 contact is rated 12 V and 2 A.
 
 The [mounting audit](/hardware/reference/yyfkgcp-pogo-4p/mounting-audit.md) covers
-the current exported seats, drawing tolerances and physical evidence. The magnets
-are contained in the purchased connector halves. No separate retention magnet is
-embedded in the cartridge or front-top, and neither print needs a magnet pause.
+the current exported seats, drawing tolerances and physical evidence. The purchased
+connector halves contain their own magnets. A separate
+[RC62 retention pair](magnet-retention/README.md) places one paused-in ring in the
+lower cartridge cradle and one in front-top, centered at X0, Z186.174 mm on the
+four tube axes. Its attraction acts in the seating direction, 92.350 mm below
+the pogo row. The native pocket, insertion sweep and stock checks retain the
+existing tube stops and pogo datums; installed seating force and heat exposure
+remain physical observations.
 The nominal press is not a complete tolerance check: the seller's dimensions permit
 0.80–1.20 mm pin protrusion. The coupon's ±0.05 mm face criterion leaves only
 0.046 mm additional closing allowance at the nominal frame gap. Installed gap,

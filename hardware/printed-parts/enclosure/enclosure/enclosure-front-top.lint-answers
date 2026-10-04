@@ -83,3 +83,7 @@ click: x=95.275 y=169.000 z=264.400
 [ceiling] The manifold-B Wago pocket keeps its complete flat retention lid. Its native underside at Z261.4 spans X95.20..104.50 and Y164.65..173.35, with at least 3.00 mm of stock above it. Support stands on the empty pocket's Z230.85 floor and leaves through its open inboard X-negative mouth before the connector is installed. This part requires its own native slice and physical support-removal review.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=99.850 y=169.000 z=261.400
+
+[ceiling] This is the sealed RC62 retention pocket's flat roof. Its closing beads bridge the 3.575 mm Y depth after the native insertion pause; the ring is fully below the completed rim. The maximum-tolerance ring has 0.38 mm nominal CAD roof air. magnet-retention/native-check.json verifies the pause and absence of support beads inside the pocket. Roof quality, magnet heat exposure and assembled retention remain unmeasured.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=0.000 y=82.502 z=196.179

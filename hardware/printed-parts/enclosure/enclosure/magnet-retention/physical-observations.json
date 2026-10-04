@@ -1,0 +1,26 @@
+{
+  "article": "One paused-in RC62 in pump-cartridge lower cradle and one in enclosure front-top",
+  "design_local_date": "2026-10-03",
+  "customer_outcome": "Seat all four tubes to their insertion stops and retain reliable pogo contact without cartridge creep",
+  "geometry_record": "geometry-check.json",
+  "native_print_record": "native-check.json",
+  "submitted": false,
+  "reported_ring_pocket_fit": null,
+  "reported_roof_quality": null,
+  "reported_magnet_temperature_during_print_c": null,
+  "reported_magnet_strength_after_print": null,
+  "reported_full_tube_insertion": null,
+  "reported_installed_pogo_compression": null,
+  "reported_four_channel_continuity": null,
+  "reported_installed_retention_force": null,
+  "reported_withdrawal_and_collet_release": null,
+  "reported_endurance": null,
+  "related_float_observation": {
+    "evidence": "../../../cold-core/magnetic-float/all-aero/physical-observations.json",
+    "scope": "Successful paused RC62 insertion and initial overprinting in an ASA Aero float. Material, ring orientation, geometry and thermal exposure differ from the cartridge retention pair."
+  },
+  "accepted_pump_holder_fit": {
+    "evidence": "../../../../reference/kamoer-kphm400/physical-fit.json",
+    "scope": "Both pumps held firmly with holder screws tightened and no vertical play. This does not establish the RC62 pair's force or pogo contact behavior."
+  }
+}
