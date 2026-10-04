@@ -92,19 +92,21 @@ After cure, the subassembly is ready. It threads into Port 4 of a
 finished carbonator at [`/hardware/assembly/pressure-vessel.md`](/hardware/assembly/pressure-vessel.md)
 step 9, replacing the elbow + PRV install on that port.
 
-The LLDPE push-in and routing through the foam-shell slot happen
+The LLDPE push-in and routing through the foam-shell’s +Y flank happen
 later, at [`/hardware/assembly/cold-core.md`](/hardware/assembly/cold-core.md)
 step 5.
 
-The shroud + LLDPE keep the **spring chamber bonnet windows** in
-air; the spring sees ~atmospheric reference via the
-LLDPE-to-appliance-interior path, gas-exchanged with the cabinet
-via the condenser-fan path. During a relief event the shroud sees
-the brief discharge pressure peak (a few PSI at most through the
-1/4" LLDPE flow restriction), not carbonator pressure. Once foam is
-poured around the shroud, the SV-125 cannot be unscrewed without
-destroying the foam shell — if it ever needs replacement, the
-cold-core foam pour is the serviceable boundary.
+The shroud keeps the discharge side port and spring-chamber bonnet windows
+clear of the foam. Its downward barrel bore opens into a short LLDPE tube,
+which turns once and crosses the cold core’s +Y flank. The tube mouth is cut
+flush with that flank and opens into the enclosure’s west-wall relief chase;
+the chase terminates outside the cabinet.
+
+The cavity is vented during ordinary operation. Its pressure during a relief
+event, and the installed valve’s discharge capacity with this shroud, tube and
+chase, remain unqualified. Once foam is poured around the shroud, the SV-125
+cannot be unscrewed without destroying the foam shell; the cold-core foam pour
+is the serviceable boundary.
 
 ## Open items
 

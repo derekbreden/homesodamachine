@@ -88,6 +88,10 @@ the roots they share, so a body that moves onto the crown leaves this picture wi
 leaves open. `render-step-posed.js --solid`; the viewer's own default is x-ray, which every part
 draws through.
 
+Card pictures use the owner guide's ice background (`#DCE6FF`) while retaining
+each body's material and fluid colors. The image sidecar records the background
+along with the geometry and camera, so a theme change redraws the picture.
+
 ## Cost
 
 ```

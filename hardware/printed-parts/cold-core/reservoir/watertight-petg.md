@@ -28,7 +28,7 @@ recipe and no success result recorded in that log.
 
 The source recipe also permits 90% overhang cooling for the supported reservoir
 floor. These are observed settings, not a universal PETG preset. The
-[magnetic float](../magnetic-float/petg-shell.md) specifies its own slower paths,
+[separate PETG-shell bench float](../magnetic-float/petg-shell.md) specifies its own slower paths,
 zero seam gap, unconditional scarf and lower overhang cooling for a roof backed
 by an insert. Its adaptations are separate from the physical reservoir result.
 

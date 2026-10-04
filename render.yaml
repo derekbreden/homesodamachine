@@ -58,6 +58,8 @@ services:
         # generated images and printable deck travel in the artifact bundle.
         - hardware/assembly/cards/*.html
         - hardware/assembly/cards/style.css
+        - hardware/assembly/cards/tools/*.html
+        - hardware/assembly/cards/tools/tools.css
         # THE HARDWARE PATHS THAT DEPLOY, AND WHY THEY ARE THE ONLY ONES. Everything else under
         # `hardware/` reaches a running container as data — the artifact pointer file moves and
         # `web/lib/artifacts-live.js` brings its members down without a restart. This

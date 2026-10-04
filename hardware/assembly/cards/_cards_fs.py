@@ -355,7 +355,7 @@ def _figures():
             "RAIL_33V_TOL", "WALL_BOSSES"},
         "fc-03-sensor-health": {
             "PROBE_COUNT", "REEDS_TOTAL", "REEDS_CARB", "REEDS_PER_RSVR"},
-        "fc-04-valve-pump-self-test": {"VALVE_COUNT", "MANIFOLD_VALVES"},
+        "fc-04-valve-pump-self-test": {"VALVE_COUNT"},
         "fc-05-compressor-smoke-test": {
             "TANK_TARGET", "HYSTERESIS", "COMP_ON_OFF", "FREEZE_CUTOUT", "MIN_OFF"},
         # AB — the bench rig stands behind the machine.

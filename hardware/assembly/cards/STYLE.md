@@ -16,7 +16,7 @@ the header band and footer rule already respect this.
 
 Every card is `header` / `main` / `footer` inside `.card`:
 
-- **header** — `.code` chip (subsystem accent), `h1` title (uppercase, ≤ 2
+- **header** — `.code` chip (ice with cobalt text), `h1` title (uppercase, ≤ 2
   lines, imperative), `.deckpos` (subsystem name · NN/of, "The appliance").
 - **main** — two `.col`s: text left (`flex:1`), visuals right (fixed
   `width: 760px`–`800px`). A card that is mostly diagram may flip the ratio.
@@ -27,9 +27,11 @@ Every card is `header` / `main` / `footer` inside `.card`:
   that renames a thing on every card does not move it; the card is still saying
   what it said.
 
-`<body class="pv">` picks the subsystem accent. Every code and its color is one
-`body.<code>` rule in [`style.css`](style.css); the deck table naming each code
-is in [README.md](README.md).
+Subsystem codes and names identify each card. All cards share the owner print
+theme in [`style.css`](style.css): cobalt `#1749D1`, white paper, ice `#DCE6FF`,
+ink `#202337`, muted `#606A78` and rule `#DCE2EB`. The code table is in
+[README.md](README.md). Bundled IBM Plex Sans and Mono keep the print metrics
+consistent across renderers.
 
 ## Voice
 
@@ -50,24 +52,26 @@ is in [README.md](README.md).
 
 ## Callouts
 
-- `.safety` (yellow, ⚠) — personal harm: flame, refrigerant, mains, laser.
-- `.critical` (dark red, ⛔) — part-integrity point of no return ("must not
+- `.safety` (pale orange, ⚠) — personal harm: flame, refrigerant, mains, laser.
+- `.critical` (pale coral, ⛔) — part-integrity point of no return ("must not
   break through"). At most one per card; if everything is critical, nothing is.
-- `.note` (accent bar) — a fact worth a pause (nesting arithmetic, stale-stock
+- `.note` (cobalt bar) — a fact worth a pause (nesting arithmetic, stale-stock
   warnings).
 
 ## Visuals
 
-- `.panel` (navy) holds CAD renders — generate with
-  `tools/render/render-step-posed.js`, house navy `#1a1a2e` background, into
-  `img/`. Pose the camera to show what the step touches.
-- `.panel.light` holds line diagrams: inline SVG, ink `#1d1d26` outlines
+- `.panel` (ice) holds CAD renders — generate with
+  `tools/render/render-step-posed.js --bg '#DCE6FF'` into `img/`. The assembly
+  scene generator supplies that background and records it beside each image.
+  Pose the camera to show what the step touches. Retain the parts' material
+  and fluid colors.
+- `.panel.light` holds line diagrams: inline SVG, ink `#202337` outlines
   (3 px), steel fill `#eef0f3`, weld `#f0b429`, copper `#b8722c`, dimension
-  lines + text in the subsystem accent, `Menlo` 25–26 px for dims, 24 px
+  lines + text in cobalt, `IBM Plex Mono` 25–26 px for dims, 24 px
   labels / 22 px subtext. Draw to scale when the geometry allows and say so
   once ("mm ·  schematic" caption line). Machinist tick dimensions, not
   arrowheads.
-- `.settings` (navy grid) for machine parameters the builder dials in before
+- `.settings` (ice grid with ink text) for machine parameters the builder dials in before
   pulling a trigger.
 - `table.spec` for short fact tables; `.cap` under any panel for the one
   sentence the image needs.

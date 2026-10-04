@@ -94,33 +94,23 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --navy: #1a1a2e;        /* house render background; header band */
-  --paper: #f7f5f0;       /* card body */
+  --blue: #1749d1;       /* brand cobalt; header band and step numbers */
+  --ice: #dce6ff;        /* guide diagrams and settings */
+  --orange: #ff9152;
+  --coral: #d64050;
+  --paper: #ffffff;       /* card body */
   --panel: #ffffff;       /* diagram panels */
-  --ink: #1d1d26;
-  --muted: #70707c;
-  --line: #d9d5cb;
-  --warn-bg: #ffd94d;
-  --accent: #46628a;      /* overridden per subsystem on <body> */
+  --ink: #202337;
+  --muted: #606a78;
+  --line: #dce2eb;
+  --warn-bg: #fff0e6;
+  --accent: var(--blue);
   --accent-ink: #ffffff;
   --mono: "IBM Plex Mono", "Menlo", "SF Mono", monospace;
   --sans: "IBM Plex Sans", "Helvetica Neue", "Helvetica", Arial, sans-serif;
 }
 
-body.pv { --accent: #46628a; }  /* pressure vessel — steel */
-body.cc { --accent: #0f8bab; }  /* cold core — ice */
-body.rl { --accent: #c8481d; }  /* refrigerant loop — flame */
-body.ip { --accent: #2268c2; }  /* internal plumbing — water */
-body.ca { --accent: #7a5cc4; }  /* cable assemblies — signal */
-body.eb { --accent: #b8860b; }  /* electronics bay — power */
-body.wr { --accent: #a8352f; }  /* wiring — live copper */
-body.en { --accent: #4a5d52; }  /* enclosure — cabinet */
-body.fu { --accent: #2f7f6f; }  /* faucet + umbilical */
-body.fc { --accent: #5b6acb; }  /* firmware + commissioning */
-body.ab { --accent: #2e8540; }  /* acceptance + burn-in */
-body.fs { --accent: #8a6d3b; }  /* finish, pack, ship */
-body.gt { --accent: #5c6570; }  /* technique appendix — graphite */
-body.sa { --accent: #6b4e8f; }  /* sub-assembly states — the unit deck */
+/* Subsystem codes and names identify the station within the shared brand theme. */
 
 html, body {
   width: 1800px; height: 1200px;
@@ -136,13 +126,13 @@ html, body {
 
 header {
   height: 150px; flex: none;
-  background: var(--navy);
+  background: var(--blue);
   display: flex; align-items: center;
   padding: 0 60px;
   gap: 36px;
 }
 .code {
-  background: var(--accent); color: var(--accent-ink);
+  background: var(--ice); color: var(--blue);
   font-family: var(--mono); font-weight: 700; font-size: 58px;
   padding: 12px 26px; border-radius: 10px;
   letter-spacing: 1px;
@@ -153,7 +143,7 @@ header h1 {
   line-height: 1.02; flex: 1;
 }
 .deckpos {
-  text-align: right; color: #9a9ab0;
+  text-align: right; color: var(--ice);
   font-size: 26px; line-height: 1.35; flex: none;
   text-transform: uppercase; letter-spacing: 2px;
 }
@@ -191,7 +181,7 @@ ol.steps b { font-weight: 700; }
 .dim {
   font-family: var(--mono);
   font-size: 0.88em;
-  background: #eceadf;
+  background: var(--ice);
   padding: 2px 10px; border-radius: 6px;
   white-space: nowrap;
 }
@@ -222,12 +212,12 @@ ol.steps b { font-weight: 700; }
 
 /* Image + diagram panels */
 .panel {
-  background: var(--navy); border-radius: 14px; overflow: hidden;
+  background: var(--ice); border-radius: 14px; overflow: hidden;
   display: flex; flex-direction: column;
 }
 .panel.light { background: var(--panel); border: 3px solid var(--line); }
 /* When a column runs full the panel is what gives, and the panel gives from
-   the picture — never from the caption. The image rides down inside the navy
+   the picture — never from the caption. The image rides down inside the field
    (aspect kept, so it just reads smaller); a caption squeezed instead would be
    cut off by the overflow above and print as nothing at all. */
 .panel img, .panel svg {
@@ -237,23 +227,31 @@ ol.steps b { font-weight: 700; }
 .panel .cap {
   flex: none;
   padding: 12px 20px 14px;
-  font-size: 26px; line-height: 1.3; color: #b9b9cc;
+  font-size: 26px; line-height: 1.3; color: var(--muted);
 }
 .panel.light .cap { color: var(--muted); }
-.panel .cap b { color: #fff; font-weight: 600; }
+.panel .cap b { color: var(--ink); font-weight: 600; }
 .panel.light .cap b { color: var(--ink); }
+
+/* Shared diagram annotations use the print theme; material and circuit colors
+   belong to the SVG shapes themselves. */
+main svg .dimln, main svg .dimline { stroke: var(--blue); }
+main svg .dimtx, main svg .dimtext, main svg .tnum { fill: var(--blue); }
+main svg .lbl, main svg .btx, main svg .txt { fill: var(--ink); }
+main svg .sub { fill: var(--muted); }
 
 /* Part-integrity critical — the card's one non-negotiable */
 .critical {
-  background: #7c1d12; color: #fff;
+  background: #fbeaec; color: var(--ink);
   border-radius: 10px;
   padding: 16px 22px;
   font-size: 29px; line-height: 1.3; font-weight: 500;
   display: flex; gap: 16px; align-items: flex-start;
   margin: 10px 0 22px;
 }
-.critical .sign { font-size: 34px; flex: none; }
+.critical .sign { font-size: 34px; flex: none; color: var(--coral); }
 .critical b { font-weight: 800; }
+.critical .dim { background: var(--paper); color: var(--ink); }
 
 /* Small callout note */
 .note {
@@ -283,22 +281,22 @@ table.spec tr:last-child td { border-bottom: none; }
 
 /* Machine-settings plate — the numbers you set before pulling a trigger */
 .settings {
-  background: var(--navy); border-radius: 14px;
+  background: var(--ice); border-radius: 14px;
   padding: 26px 30px 20px;
   display: grid; grid-template-columns: repeat(3, 1fr);
   gap: 20px 26px;
 }
 .settings .s { min-width: 0; }
 .settings .k {
-  color: #9a9ab0; font-size: 21px; font-weight: 700;
+  color: var(--muted); font-size: 21px; font-weight: 700;
   letter-spacing: 2.5px; text-transform: uppercase;
   margin-bottom: 4px;
 }
 .settings .v {
-  color: #fff; font-family: var(--mono); font-size: 31px; font-weight: 700;
+  color: var(--ink); font-family: var(--mono); font-size: 31px; font-weight: 700;
   white-space: nowrap;
 }
-.settings .v small { font-size: 23px; font-weight: 400; color: #c9c9da; }
+.settings .v small { font-size: 23px; font-weight: 400; color: var(--muted); }
 
 /* ── Done-when + footer band ─────────────────────────────────── */
 
@@ -347,7 +345,7 @@ main.unit { gap: 44px; padding: 34px 60px 14px; }
 .unit .shot {
   flex: 1 1 62%;
   min-width: 0;
-  background: var(--navy);
+  background: var(--ice);
   border-radius: 12px;
   display: flex; align-items: center; justify-content: center;
   overflow: hidden;

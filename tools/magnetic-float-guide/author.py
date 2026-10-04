@@ -1,6 +1,6 @@
-"""Author the float booklet's HTML leaves from current geometry and print projects.
+"""Author the current one-piece ASA Aero float guide from its design and evidence.
 
-Run manually, then float_art.py and build.py. No publish/build-graph dependency.
+Run manually, then float_art.py and build.py. No printer submission is made.
 """
 
 from __future__ import annotations
@@ -12,8 +12,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 GUIDE = ROOT / 'hardware/magnetic-float-guide'
-FLOAT = ROOT / 'hardware/printed-parts/cold-core/magnetic-float'
-PROJECT_BASE = 'https://raw.githubusercontent.com/derekbreden/homesodamachine/main/hardware/printed-parts/cold-core/magnetic-float/'
+FLOAT = ROOT / 'hardware/printed-parts/cold-core/magnetic-float/all-aero'
+PUBLIC = 'https://raw.githubusercontent.com/derekbreden/homesodamachine/main/'
 
 
 def figure(name, caption, size='tight'):
@@ -33,13 +33,9 @@ def note(label, text):
     return f'<div class="mind"><span class="mind-label">{label}</span><p>{text}</p></div>'
 
 
-def project(filename):
-    return f'<a class="file" href="{PROJECT_BASE}{filename}">{filename}</a>'
-
-
-def duration(seconds):
-    mins = round(seconds / 60)
-    return f'{mins // 60} h {mins % 60:02d} min' if mins >= 60 else f'{mins} min'
+def link(path, label):
+    rel = path.relative_to(ROOT).as_posix()
+    return f'<a href="{PUBLIC}{rel}">{label}</a>'
 
 
 def leaf(number, slug, section, title, lede, body, extra_class=''):
@@ -48,7 +44,7 @@ def leaf(number, slug, section, title, lede, body, extra_class=''):
 <html lang="en"><head><meta charset="utf-8"><title>{escape(title)}</title><link rel="stylesheet" href="style.css"></head>
 <body><article class="card {extra_class}">
 <header><span class="eyebrow"><b>{section}</b> &middot; build guide</span><h1>{title}</h1><i class="rule"></i><p class="lede">{lede}</p></header>
-<main>{body}</main><footer><span>Magnetic float &middot; Home Soda Machine</span><span class="folio">{number}</span></footer>
+<main>{body}</main><footer><span>ASA Aero magnetic float &middot; Home Soda Machine</span><span class="folio">{number}</span></footer>
 </article></body></html>'''
     (GUIDE / name).write_text(content)
     return name
@@ -58,192 +54,213 @@ def main():
     GUIDE.mkdir(exist_ok=True)
     design = json.loads((FLOAT / 'design.json').read_text())
     dims = design['dimensions_mm']
-    profile = json.loads((FLOAT / 'print-profile.json').read_text())
-    verification = json.loads((FLOAT / 'verification.json').read_text())
-    aero, petg = profile['jobs']['aero'], profile['jobs']['petg']
-    core_time, insert_time = [duration(p['estimated_seconds']) for p in aero['plates']]
-    shell_time = duration(petg['plates'][0]['estimated_seconds'])
-    active_time = duration(sum(p['estimated_seconds'] for j in (aero, petg) for p in j['plates']))
-    roof_minutes = verification['jobs']['petg']['plates'][0]['insertion_pauses'][0]['slicer_remaining_minutes_at_pause']
-    height = f"{dims['height']:g}"
+    magnet = design['magnet']
+    preflight = json.loads((FLOAT / 'mark2-print/v1/float-preflight.json').read_text())
+    observations = json.loads((FLOAT / 'physical-observations.json').read_text())
+    integration = json.loads((FLOAT / 'integration-check.json').read_text())
+    installation = json.loads((FLOAT / 'installation.figures.json').read_text())[
+        '/hardware/printed-parts/cold-core/magnetic-float/all-aero/integration.py']
+    recipe = preflight['recipe']
+    mapping = preflight['material_mapping']
+    next_trial = observations['next_trial']
+    assert design['cad_revision'] == next_trial['cad_revision'] == integration['float_cad_revision']
+    assert design['print_intent']['pause_before_layer_z_mm'] == next_trial['expected_first_covering_layer_z_mm']
+    assert not next_trial['ready_archive_prepared'] and not next_trial['submitted'], 'Update the guide from the reviewed current slice before describing a prepared job'
+    diameter, height, bore = (f'{dims[k]:g}' for k in ('diameter', 'height', 'guide_bore'))
+    rod = f'{dims["bench_guide"]:g}'
+    first_cover = f'{design["print_intent"]["pause_before_layer_z_mm"]:g}'
+    layer = f'{recipe["layer_height_mm"]:g}'
+    pause_layer = next_trial['expected_pause_before_layer']
+    last_open = f'{design["print_intent"]["pause_before_layer_z_mm"] - recipe["layer_height_mm"]:g}'
+    minutes = round(preflight['native_slice_summary']['estimated_time_s'] / 60)
+    task_id = observations['paused_print_result']['task_id']
+    page_count = 13
     guide_pages = []
 
-    cover = '''<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Magnetic float build guide</title><link rel="stylesheet" href="style.css"></head>
+    cover = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><title>ASA Aero magnetic float build guide</title><link rel="stylesheet" href="style.css"></head>
 <body><article class="card cover"><header>
 <span class="brand"><img src="../../ios/AppIcon.svg" alt="">Home Soda Machine</span>
-<h1>Magnetic<br>float</h1><p class="sub">Dry the filament. Print the foam. Seat the magnet.<br>Build the PETG shell around all three pieces.</p>
-</header><main><figure><div class="plate"><img src="art/hero.png" alt="Finished clear PETG float beside a cutaway of its foam core and ring magnet"></div></figure></main>
-<footer><span>PETG Translucent Clear &middot; ASA Aero &middot; RC62</span><span>Illustrated build guide &middot; 16 pages</span></footer></article></body></html>'''
+<h1>Magnetic<br>float</h1><p class="sub">One ASA Aero body. One ring magnet.<br>Pause, seat the ring, and print the pocket closed.</p>
+</header><main><figure><div class="plate"><img src="art/hero.png" alt="One-piece ASA Aero float beside a section showing its midplane RC62 ring"></div></figure></main>
+<footer><span>ASA Aero White &middot; RC62 &middot; {diameter} &times; {height} mm</span><span>Illustrated build guide &middot; {page_count} pages</span></footer></article></body></html>'''
     (GUIDE / '01-cover.html').write_text(cover)
     guide_pages.append('01-cover.html')
 
-    guide_pages.append(leaf(2, 'the-whole-build', 'The assembly', 'Three prints. One magnet.',
-        f'A {dims["diameter"]:g} mm &times; {height} mm float with a continuous PETG envelope. The printer closes the roof after the foam and magnet go in.',
-        figure('exploded', 'Parts from bottom to top: open PETG shell, tall foam core, RC62 ring and short foam insert. Seat the ring in the core on the bench before insertion. The roof prints in place.', 'mid') +
+    guide_pages.append(leaf(2, 'one-body-one-ring', 'The assembly', 'One body. One ring.',
+        'The printer makes one connected foamed body. A pause lets the ring enter its annular pocket before the covering roads close it.',
+        figure('exploded', 'The ASA Aero body and purchased RC62 ring are the complete assembly. The exploded view exposes the internal pocket; the covering body prints in the same job.', 'mid') +
         table([
-            ('Tall white core', 'ASA Aero, plate 1. Pocket faces upward.'),
-            ('Short white insert', 'ASA Aero, plate 2. Chamfered edges face downward.'),
-            ('One RC62 ring', 'K&amp;J, nickel plated; 19.05 &times; 9.525 &times; 3.175 mm.'),
-            ('Clear shell', 'Bambu PETG Translucent Clear 32101, one plate with a programmed insertion pause.')]) +
-        '<div class="legend"><span><i style="background:#aac4d1"></i>Clear PETG, shaded blue</span><span><i style="background:#ede9df"></i>Aero foam</span><span><i style="background:#d64050"></i>Part being added</span></div>' +
-        note('Build order', f'Dry overnight. Print and prepare both Aero pieces. Seat the magnet on the bench. Print PETG, insert the prepared pieces at the pause, and resume. Allow about <b>{active_time} of printing</b>, plus heating, cooling and insertion.')))
+            ('Float body', f'{diameter} &times; {height} mm &middot; ASA Aero throughout'),
+            ('Open guide bore', f'{bore} mm on a {rod} mm rod'),
+            ('Ring magnet', f'RC62 &middot; {magnet["od_mm"]:g} &times; {magnet["id_mm"]:g} &times; {magnet["thickness_mm"]:g} mm'),
+            ('Magnet center', f'{dims["magnet_midplane"]:g} mm above the bottom'),
+            ('Current pocket', f'{dims["pocket_depth"]:.2f} mm deep &middot; CAD {design["cad_revision"]}')]) +
+        note('Three articles', 'The carbonator and both flavor reservoirs each use one of these floats. The central bore stays open; the ring pocket is enclosed.')))
 
-    drying_art = '''<svg class="setup" viewBox="0 0 2100 470" role="img" aria-label="Two spools dry at the same time in separate AMS units">
-<rect x="20" y="20" width="960" height="410" rx="28" fill="#f1ede7"/><rect x="1120" y="20" width="960" height="410" rx="28" fill="#f1ede7"/>
-<circle cx="205" cy="220" r="138" fill="#ded7cd" stroke="#1a1a2e" stroke-width="10"/><circle cx="205" cy="220" r="48" fill="#fff" stroke="#1a1a2e" stroke-width="10"/>
-<circle cx="1305" cy="220" r="138" fill="#aac4d1" stroke="#1a1a2e" stroke-width="10"/><circle cx="1305" cy="220" r="48" fill="#fff" stroke="#1a1a2e" stroke-width="10"/>
-<text x="410" y="145" class="label">WHITE ASA AERO</text><text x="410" y="225" class="small">AMS HT</text><text x="410" y="305" class="small">Right nozzle feed</text>
-<text x="1510" y="145" class="label">CLEAR PETG</text><text x="1510" y="225" class="small">AMS 2 Pro</text><text x="1510" y="305" class="small">Left nozzle feed</text></svg>'''
-    guide_pages.append(leaf(3, 'dry-the-filament', 'Prepare', 'Start both dryers tonight',
-        'Use the two different AMS units already in the shop. The cycles run at the same time; the longer PETG cycle sets the overnight schedule.',
-        drying_art + '<div class="numcards"><div class="numcard"><h2>ASA Aero</h2><div class="value">80 &deg;C</div><div class="time">8 hours</div><p>AMS HT &middot; White 46100</p></div><div class="numcard"><h2>PETG Translucent</h2><div class="value">65 &deg;C</div><div class="time">12 hours</div><p>AMS 2 Pro &middot; Clear 32101</p></div></div>' +
-        actions('Load the ASA Aero into an <b>AMS HT</b> and the PETG Translucent into an <b>AMS 2 Pro</b>. Connect the AMS HT\'s own power cable. Remove PLA and other lower-temperature spools from that AMS 2 Pro.',
-                'Latch both lids. Set <b>static drying</b> to the temperatures and durations above, then start both cycles.',
-                'Complete both cycles before printing. Leave each spool in the same closed AMS for storage and printing.') +
-        note('Keep the material names exact', '<b>ASA Aero</b> is the white foaming material. <b>Bambu PETG Translucent Clear (32101)</b> is the shell material, the same clear filament used for the flavor reservoirs. Select those names in the supplied projects.')))
+    drying_art = '''<svg class="setup" viewBox="0 0 2100 460" role="img" aria-label="ASA Aero dries in SUNLU E2 then feeds from a sealed external drybox">
+<rect x="20" y="20" width="900" height="400" rx="28" fill="var(--field-pale)"/><rect x="1180" y="20" width="900" height="400" rx="28" fill="var(--field-pale)"/>
+<circle cx="190" cy="215" r="120" fill="#ede9df" stroke="var(--ink)" stroke-width="8"/><circle cx="190" cy="215" r="40" fill="white" stroke="var(--ink)" stroke-width="8"/>
+<text x="365" y="145" class="label">SUNLU E2</text><text x="365" y="225" class="small">80 &deg;C &middot; 8 hours</text><text x="365" y="305" class="small">Forced-air drying</text>
+<path d="M960 220H1130M1080 170L1130 220L1080 270" fill="none" stroke="var(--gauge)" stroke-width="12"/>
+<text x="1240" y="145" class="label">POLYMAKER DRYBOX</text><text x="1240" y="225" class="small">Sealed &middot; below 20% RH</text><text x="1240" y="305" class="small">External right feed</text></svg>'''
+    guide_pages.append(leaf(3, 'dry-the-filament', 'Prepare', 'Dry one Aero spool',
+        'Use the selected ASA Aero White stock. Complete drying before loading the external feed.',
+        drying_art + '<div class="numcards"><div class="numcard"><h2>Drying temperature</h2><div class="value">80 &deg;C</div><p>SUNLU E2 &middot; forced air</p></div><div class="numcard"><h2>Drying time</h2><div class="value">8 hours</div><p>Before transfer to the drybox</p></div></div>' +
+        actions('Dry <b>Bambu ASA Aero White (GFB02 / 46100)</b> in the SUNLU E2 for the complete cycle.',
+                'Transfer it to the sealed <b>Polymaker drybox</b>. Maintain <b>less than 20% RH</b> during storage and feeding.',
+                'Connect that drybox to the printer\'s external right feed. Keep the filament dry through the print.') +
+        note('Filament preparation', 'These are the ASA Aero manufacturer\'s forced-air drying conditions. They apply to filament before printing; the finished float and its magnet receive no drying bake.')))
 
-    setup_art = '''<svg class="setup" viewBox="0 0 2100 820" role="img" aria-label="H2C seen from the front, PETG left 0.6 mm and Aero right 0.4 mm">
-<rect x="60" y="40" width="1980" height="710" rx="28" fill="#f1ede7" stroke="#b9b1a4" stroke-width="6"/>
-<rect x="155" y="330" width="1790" height="55" rx="10" fill="#1a1a2e"/>
-<rect x="475" y="290" width="250" height="205" rx="12" fill="#303138"/><path d="M535 495H665L622 565H578Z" fill="#b08a2c"/>
-<rect x="1375" y="290" width="250" height="205" rx="12" fill="#303138"/><path d="M1435 495H1565L1522 565H1478Z" fill="#b08a2c"/>
-<text x="600" y="140" text-anchor="middle" class="label">LEFT &middot; PETG TRANSLUCENT</text><text x="600" y="220" text-anchor="middle" class="small">AMS 2 Pro &rarr; 0.6 mm</text>
-<text x="1500" y="140" text-anchor="middle" class="label">RIGHT &middot; ASA AERO</text><text x="1500" y="220" text-anchor="middle" class="small">AMS HT &rarr; 0.4 mm</text>
-<text x="1050" y="680" text-anchor="middle" class="small">H2C FRONT VIEW &middot; STANDARD-FLOW HOTENDS</text></svg>'''
-    guide_pages.append(leaf(4, 'set-up-the-h2c', 'Prepare', 'Set up one H2C',
-        'The whole build uses the same nozzle pair. Foam prints on the right; the shell prints on the left.',
-        setup_art + actions('With the printer cool, fit the <b>left 0.6 mm standard-flow</b> hotend and the <b>right 0.4 mm standard-flow</b> induction hotend.',
-                'In the printer setup, select those nozzle sizes. Route the ASA Aero AMS HT to the right feed and the PETG AMS 2 Pro to the left feed.',
-                'Set out the Engineering plate, Textured PEI plate, Bambu liquid glue, one RC62, flush cutters, a craft knife, a soft brush and a clean flat plastic scraper.',
-                'Open the supplied <b>3MF as a project</b> in Bambu Studio. Keep its printer, material and process settings when prompted; map its material to the matching AMS spool.') +
-        note('The two projects', project('magnetic-float-aero.3mf') + '<br>Two foam plates, printed separately.<br><br>' + project('magnetic-float.3mf') + '<br>One PETG plate, with its insertion pause already included.')))
+    guide_pages.append(leaf(4, 'set-up-mark2', 'Prepare', 'Set up Mark2',
+        'The selected H2C recipe uses its fixed right nozzle and a glued Engineering plate.',
+        figure('plate-aero', 'One upright body on a cropped Engineering plate. The central bore is vertical and the bottom lies directly on the bed.', 'short') +
+        table([
+            ('Right nozzle', mapping['nozzle']),
+            ('Filament feed', f'Polymaker drybox &middot; external right slot {mapping["external_slot"]}'),
+            ('Send tile', '<b>Ext ASA-AERO R</b>'),
+            ('Plate / trim', f'Engineering, Bambu liquid glue &middot; +{preflight["requested_z_trim_mm"]:.2f} mm user trim')], True) +
+        actions('With the printer cool, confirm the <b>right hardened standard-flow 0.4 mm nozzle</b> and matching printer setup.',
+                'Wash the Engineering plate with dish detergent and warm water. Rinse, dry, and apply a thin even coat of the owned Bambu liquid glue.',
+                'Set one RC62 and a soft brush beside the printer. Keep the enclosure closed during printing and run the shop ventilation.') +
+        note('Recipe scope', 'The recorded recipe is a trial process. It does not establish foam density, completed buoyancy or pressure life.')))
 
-    guide_pages.append(leaf(5, 'print-the-core', 'Foam &middot; plate 1', 'Print the tall core',
-        'The flat end sits on the Engineering plate. The circular magnet pocket faces upward.',
-        figure('plate-core', 'Tall core, upright. Print this plate by itself; its geometry and small brim are already placed in the project.', 'mid') +
-        '<div class="split"><div>' + table([('Project', 'magnetic-float-aero.3mf'), ('Plate', '1 &middot; tall core'), ('Nozzle / bed', '270 / 90 &deg;C'), ('Chamber', '60 &deg;C'), ('Flow / layer', '0.52 / 0.20 mm')], True) + f'<p class="timing">Printing: about {core_time}</p></div><div>' +
-        actions('Wash the Engineering plate with dish detergent and warm water. Rinse and dry it.',
-                'Apply a thin, even coat of <b>Bambu liquid glue</b> over the print area and let it dry.',
-                'Select <b>plate 1</b> and the right ASA Aero feed. Close the door and lid, run room ventilation, and print.') + '</div>'))
+    guide_pages.append(leaf(5, 'prepare-the-current-slice', 'Current print preparation', 'Slice the current body',
+        'Use the current v2 body and review its native slice before any submission.',
+        table([
+            ('Current geometry', link(FLOAT / 'float-aero.stl', 'float-aero.stl') + '<br>' + link(FLOAT / 'all_aero_float.py', 'all_aero_float.py')),
+            ('Nozzle / bed / chamber', f'{recipe["nozzle_c"]} / {recipe["bed_c"]} / {recipe["chamber_c"]} &deg;C'),
+            ('Flow / layer / line', f'{recipe["flow_ratio"]:g} / {layer} mm / {recipe["line_width_mm"]:g} mm'),
+            ('Walls', f'{recipe["wall_loops"]} loops &middot; nested foaming perimeters'),
+            ('Other paths', '0 sparse infill, top/bottom skin, skirt, brim and support')]) +
+        actions('Open the current STL with the retained right-nozzle ASA Aero process. Keep the body upright on the plate.',
+                'Use ' + link(FLOAT / 'prepare_print.py', 'prepare_print.py') + ' to prepare a separate v2 project and review record. It does not submit a print.',
+                'Review the actual native geometry, recipe, pause and covering roads. Bind the reviewed project/archive to the current source hashes before submission.') +
+        note('Current preparation state', 'The current CAD has a <b>3.60 mm pocket</b>. Its v2 native archive has not been prepared or submitted. The saved <b>all-aero-float.3mf</b> belongs to the identified v1 article and is listed as evidence on page 13.') +
+        '<p class="dim">Nested perimeters include seams, wipes and short transitions. This process is not a zero-travel spiral.</p>'))
 
-    guide_pages.append(leaf(6, 'print-the-insert', 'Foam &middot; plate 2', 'Print the short insert',
-        'This second foam piece becomes the support directly beneath the PETG roof.',
-        figure('plate-insert', 'Short insert, upright. Its two lower chamfers start the fit into the shell; its full, flat upper face supports the roof.', 'mid') +
-        actions('After the core finishes, leave the enclosure closed for the initial cooldown. Remove the plate once the bed reaches <b>35 &deg;C or below</b>.',
-                'Gently flex the sheet to release the core. Set it upright on a clean surface.',
-                'Renew the thin glue coat in the print area and reinstall the Engineering plate.',
-                'In the same Aero project, select <b>plate 2</b>. Print with the same right nozzle and Aero settings.',
-                'Cool to <b>35 &deg;C or below</b> and release the insert the same way.') +
-        f'<p class="timing">Printing: about {insert_time}</p>'))
+    guide_pages.append(leaf(6, 'review-the-insertion-pause', 'Native review', 'Keep the pocket open',
+        'The pause must occur before the first extrusion that covers the ring pocket.',
+        figure('paused-body', 'Current v2 geometry at the expected last open plane. The annular pocket receives the RC62 while the body stays attached to the plate.', 'mid') +
+        table([
+            ('Pocket floor / roof', f'Z{dims["magnet_seat"]:g} / Z{dims["pocket_roof"]:g} mm'),
+            ('Expected last open layer', f'Z{last_open} mm'),
+            ('Expected first covering layer', f'Layer {pause_layer} &middot; Z{first_cover} mm')], True) +
+        actions('Inspect the <b>seat, last open pocket, pause command and first covering roads</b> in the new native slice.',
+                'Confirm one insertion pause occurs before any covering extrusion. The guide bore must remain open.',
+                'Confirm the seated ring lies below both pocket rims and the covering roads land on the inner collar and outer band.') +
+        note('Expected, not a reviewed archive', f'The layer-{pause_layer} / Z{first_cover} position follows the current CAD and {layer} mm layer grid. A fresh native slice must verify the emitted moves; a CAD section alone does not authorize a print.')))
 
-    guide_pages.append(leaf(7, 'prepare-the-foam', 'Prepare the inserts', 'Clean the entry edges',
-        'Both pieces have a chamfer on the lower outside edge and the lower bore edge. These ends enter the shell first.',
-        figure('lead-in-detail', 'Underside shown upward for clarity; insert the chamfered ends downward. The two 0.5 mm chamfers guide the foam around the bore sleeve and inside the outer wall.', 'tight') +
-        actions('Clip the thin brim from each cooled foam piece. Work around the edge with flush cutters.',
-                'Pare away the remaining brim lip with a sharp craft knife, following the printed edge. Leave the cylindrical fitting surfaces and the chamfers intact.',
-                'Clip loose strings from the central bores and the core\'s magnet pocket. Brush away all loose crumbs.',
-                'Keep the pieces dry and covered on the bench until the shell is ready.') +
-        note('Orientation', '<b>Tall core:</b> magnet pocket up, chamfered end down.<br><b>Short insert:</b> chamfered end down, broad flat face up.')))
+    guide_pages.append(leaf(7, 'seat-the-magnet', 'At the pause', 'Seat one RC62',
+        'The printed body stays on the Engineering plate. Put only the ring magnet into the open pocket.',
+        figure('magnet-seat', 'Lower the RC62 along the guide axis into the open annular pocket. Coral identifies the ring being added; the arrow shows its motion.', 'mid') +
+        actions('Wait for the programmed pause and toolhead parking before reaching into the printer.',
+                'Leave the sheet mounted and the float attached. Separate <b>one RC62</b> from the stack and lower it squarely into the pocket.',
+                'Seat it fully on the pocket floor with its hole coaxial with the guide bore. Its flat faces lie horizontal, <b>below both pocket rims</b>.',
+                'Clear loose strings without shifting the body. Keep the central guide bore open.') +
+        note('Resume condition', 'The ring sits flat and fully down. Nothing projects into the covering path, and no hand or tool remains inside the printing area.')))
 
-    guide_pages.append(leaf(8, 'seat-the-magnet', 'Bench assembly', 'Put the magnet in now',
-        'Prepare the core before starting PETG. At the printer, the core and magnet will go in together.',
-        figure('magnet-seat', 'Lower one RC62 into the circular pocket on top of the core. The pocket has clearance for the plated ring.', 'tight') +
-        actions('Stand the core on its flat bottom, pocket upward.',
-                'Separate <b>one RC62</b> from its stack. Hold it by the edges and lower it squarely into the pocket.',
-                'Seat the ring flat against the pocket floor with light fingertip pressure. Either flat face can point upward for the reed-switch application.',
-                'Keep the prepared core upright beside the printer. Set the short insert beside it, chamfers downward.') +
-        note('Captured by the insert', 'Use the ring as supplied. The printed pocket and upper insert hold it inside the finished float; assembly requires no adhesive.')))
+    guide_pages.append(leaf(8, 'resume-and-close', 'Complete the print', 'Resume over the ring',
+        'The same ASA Aero job builds the material above the pocket and closes the ring inside the body.',
+        figure('roof', 'Section through the current body. Coral shows the material printed above the pocket; the ring is centered at the body\'s axial midplane.', 'mid') +
+        actions('Remove hands, tools and loose strings from the printer. Close the enclosure.',
+                'Manually resume the same job. Let the printer restore its temperatures and continue the covering roads.',
+                'Observe the initial covering layers for ring movement, dragging or lifting. Record the result with that article.') +
+        note('What the existing print demonstrates', 'The identified v1 article supports paused insertion and the initial covering deposition. It does not establish the finished roof or retained signal for a cooled float.') +
+        '<p class="dim">RC62 has an 80 &deg;C continuous operating limit. The 270 &deg;C nozzle setting does not tell us the magnet\'s actual temperature; retained field after insertion is unmeasured.</p>'))
 
-    guide_pages.append(leaf(9, 'prepare-for-petg', 'Shell setup', 'Change to PETG',
-        'Let the warm Aero chamber cool, then fit the clean Textured PEI plate.',
-        '<div class="numcards"><div class="numcard"><h2>Before starting</h2><div class="value">&le;35 &deg;C</div><p>Chamber temperature after the Aero jobs.</p></div><div class="numcard"><h2>During PETG</h2><div class="value">70 &deg;C</div><p>Textured PEI bed. Chamber heater off.</p></div></div>' +
-        actions('Let the chamber cool to <b>35 &deg;C or below</b>. Wash the Textured PEI sheet with dish detergent and warm water, rinse and dry.',
-                'Install the Textured PEI sheet, holding it by the edges. Use its clean texture directly for this PETG job.',
-                'Open ' + project('magnetic-float.3mf') + ' as a project. Keep the project\'s supplied <b>PETG Translucent settings</b> and map its material to the dried PETG Translucent in the left AMS feed.',
-                'Leave the prepared core, short insert and plastic scraper beside the printer. Read the insertion pages before starting.') +
-        table([('Left nozzle', '0.6 mm standard flow'), ('Nozzle, first / remaining', '255 / 260 &deg;C'), ('Flow / layer', '1.02 / 0.18 mm'), ('First layer', '0.30 mm'), ('Ordinary part fan', '10-20%; auxiliary fan off')], True)))
+    guide_pages.append(leaf(9, 'release-and-inspect', 'Finish', 'Release and inspect',
+        'Let the print cool before removing it. Keep the foamed body and its open bore intact.',
+        figure('finished', f'The complete {diameter} &times; {height} mm Aero body. The ring lies at Z{dims["magnet_midplane"]:g}; the through-bore remains open.', 'mid') +
+        actions('Leave the enclosure closed for initial cooling. Use the shop handling threshold of <b>35 &deg;C or lower bed temperature</b> before releasing the part.',
+                'Lift the Engineering sheet and flex it gently. Support the float rather than prying through its bore or pocket roof.',
+                'Clip loose strings and brush away crumbs. Preserve the bore, pocket closure and cylindrical outside surface.',
+                'Inspect the covering area and slide the finished float on its actual rod. Record the finished article\'s condition.') +
+        note('Physical scope', 'Finished roof integrity, cooled removal, retained magnetic signal and sliding have no acceptance record. The cooling threshold is a conservative shop handling choice, not an ASA-specific manufacturer release limit.')))
 
-    guide_pages.append(leaf(10, 'print-the-shell', 'Shell &middot; plate 1', 'Print to the built-in pause',
-        'Start the single PETG plate. The shell stays fixed to the bed throughout insertion and roof printing.',
-        figure('paused-shell', 'Cutaway view. At the pause, the outer wall and central bore sleeve both end at 57 mm. The open annular space receives the foam.', 'tight') +
-        actions('Print <b>plate 1</b> using the left PETG feed. The job builds the 3 mm floor and both upright walls.',
-                'When the programmed pause occurs, let the toolhead finish parking. Open the door to reach the shell.',
-                'Leave the bed at <b>70 &deg;C</b> and the sheet mounted. Keep the shell and the printer axes in place.') +
-        note('The next printed layer', 'The pause is after <b>Z57.00 mm</b>, before the first roof layer at <b>Z57.18 mm</b>. Insert the prepared core and upper insert, then resume the same job.') +
-        f'<p class="timing">Whole PETG job: about {shell_time}, plus your insertion time</p>'))
+    axis = f'{integration["rod_axis_from_inside_wall_mm"]:g}'
+    wall_range = integration['carbonator_upright_wall_clearance_range_mm']
+    reach = integration['maximum_float_edge_to_reed_center_mm']
+    guide_pages.append(leaf(10, 'install-on-the-guide', 'Installation', 'Locate the guide rod',
+        f'Each {rod} mm rod stands {axis} mm inward from the vessel\'s wet inside wall. Use the vessel datum, not the end-cap edge.',
+        figure('guide-fit', f'An explanatory {rod} mm rod through the actual {bore} mm float bore. This picture shows the guide interface, not measured liquid performance.', 'short') +
+        table([
+            ('Rod / radial running play', f'{rod} / {dims["guide_radial_clearance"]:g} mm'),
+            ('Body-to-wall clearance', f'2 mm nominal &middot; {wall_range[0]:g}-{wall_range[1]:g} mm upright range'),
+            ('Carbonator rod blank', installation['CARB_ROD_LENGTH'] + ' &middot; hand-fit actual conical registers'),
+            ('Reservoir rod cut', installation['RES_ROD_LENGTH'] + ' &middot; ' + installation['RES_ROD_CLEARANCE'] + ' axial clearance'),
+            ('Greatest float-edge to reed distance', f'{reach["carbonator"]:.3f} mm carbonator / {reach["reservoir"]:.3f} mm reservoir')], True) +
+        '<p>Use the ' + link(FLOAT / 'installation.md', 'installation record') + ' for the carbonator blind-drill coordinates and the matching reservoir body/cap bosses. Confirm free motion over the actual travel.</p>' +
+        note('Carbonator capture', 'The 36 mm float is captured on the rod before final vessel closure. It cannot pass through the NPT ports. Welding exposure and post-closure function have no acceptance record.')))
 
-    guide_pages.append(leaf(11, 'lower-the-core', 'At the pause &middot; 1', 'Lower the prepared core',
-        'Hold it upright with the magnet at the top. The centre hole slides over the PETG bore sleeve.',
-        figure('core-in', 'Cutaway view. Core and seated magnet enter as one prepared assembly. The lower chamfers guide both circular fits.', 'tall') +
-        actions('Centre the core over the sleeve. Lower it vertically, chamfered end first.',
-                'Press evenly around its outer top face to start it into the shell. Keep it square as it descends.',
-                'Keep the magnet seated in its pocket. Use the short insert for the final push on the next page.')))
+    guide_pages.append(leaf(11, 'calibrate-the-reeds', 'Liquid levels', 'Calibrate the crossings',
+        'The magnet midplane is not the liquid surface. Final reed heights come from the finished float in the actual liquid and wall fixture.',
+        '<div class="numcards"><div class="numcard"><h2>Guide drilling datum</h2><div class="value">20 mm</div><p>Rod axis from the wet inside wall</p></div><div class="numcard"><h2>Reed design maximum</h2><div class="value">18 mm</div><p>Nearest float edge to reed center, including guide play</p></div></div>' +
+        actions('Use the actual rod, finished float, MDSR-7-10-15 reeds, vessel wall, ruler or calipers, multimeter and existing measuring cup.',
+                'In water and actual flavoring, record <b>a = magnet center minus liquid surface height</b>. Magnet center is float bottom plus 14 mm.',
+                'Sweep slowly upward and downward past each reed. Record every closure and release as <b>d = magnet center minus reed center</b>, including separate activation lobes.',
+                'Place each reed at <b>target liquid height + a - d</b>, using the closure in its operating direction. Repeat three cycles at nominal position and greatest permitted retreat.') +
+        note('Placement acceptance', 'Intended crossings must occur in order before the travel stops, with no missed closure or unintended trigger. Repeated liquid crossing heights must span at most 2 mm. Use measured liquid volumes for reservoir quarter marks.') +
+        '<p>Reeds pulse as the float passes. Reservoir control retains the last crossing and flow direction. Carbonator high inhibits refill even if low remains closed; a refill timeout still needs an explicit clear.</p>' +
+        '<p class="dim">The ' + link(FLOAT / 'installation.md', 'calibration procedure') + ' defines the target levels and recording method. Those levels remain provisional until the liquid crossings are measured.</p>'))
 
-    guide_pages.append(leaf(12, 'press-the-insert', 'At the pause &middot; 2', 'Press the insert flush',
-        'The short insert pushes the core home, captures the magnet and supplies a flat surface for the roof.',
-        '<div class="assembly-pair">' +
-        figure('insert-push', '<b>Press down.</b> The insert pushes the prepared core into its seat. Cutaway view.', '') +
-        figure('flush-detail', '<b>Fully seated.</b> The flat foam face is level with both PETG rims. Cutaway detail.', '') + '</div>' +
-        actions('Lower the short insert over the bore sleeve with its <b>chamfered end down</b>. Rest it on the core.',
-                'Press downward evenly on opposite sides. Use the flat face of the clean plastic scraper to spread the last push across the insert.',
-                'Seat the insert with its flat upper face <b>level with the PETG outer rim and bore rim</b>. The core rests on the shell floor beneath it.',
-                'Lift the scraper clear. Brush or lift away any loose string from the top surface.') +
-        note('The seating surface', 'The roof prints across the whole foam annulus. Leave the upper face flat and level with the two PETG rims, and keep the central guide bore open.')))
-
-    guide_pages.append(leaf(13, 'print-the-roof', 'At the pause &middot; 3', 'Close the door and resume',
-        'The remaining 17 PETG layers make the 3.06 mm roof and enclose the complete assembly.',
-        figure('roof', f'Cutaway view. The coral roof joins the outer wall to the bore sleeve over the seated foam. About {roof_minutes} minutes of printing remain after the pause.', 'tall') +
-        actions('Remove your hands and the scraper from the printer.',
-                'Close the enclosure and press <b>Resume</b>. Let the printer restore its nozzle temperature and finish the roof.',
-                'Leave the float on the sheet until the bed reaches <b>35 &deg;C or below</b>.') +
-        note('One continuous shell', 'The final roof is part of the PETG print. There is no separate lid to glue on and no adhesive cure after printing.')))
-
-    guide_pages.append(leaf(14, 'finish-the-float', 'Finish', 'Release and finish',
-        'The cooled print is the completed float. Keep the roof uppermost when fitting it to its guide.',
-        figure('finished', 'Finished PETG float. The open centre bore passes through the body; the magnet remains enclosed near the top.', 'tall') +
-        actions('Lift the cooled Textured PEI sheet out of the printer. Flex it gently to release the float.',
-                'Clip off the outer brim and pare its remaining lip flush with the bottom edge.',
-                'Clip loose strings at the bore entrances and brush the exterior clean. Keep the printed PETG bore and shell walls intact.',
-                'Slide the <b>3.175 mm guide rod</b> through the <b>4.8 mm central bore</b>, with the printed roof facing upward.') +
-        note('Top and bottom', 'The roof is the smooth, printed top surface above the magnet. The bottom carries the Textured PEI imprint. Keep that orientation when installing the float.')))
-
-    guide_pages.append(leaf(15, 'bench-reference', 'Keep beside the printer', 'The build at a glance',
-        'Dry both spools overnight, finish the white pieces, then make the clear PETG shell around them.',
-        table([('ASA Aero drying', 'AMS HT &middot; <b>80 &deg;C &times; 8 h</b>'), ('PETG Translucent drying', 'AMS 2 Pro &middot; <b>65 &deg;C &times; 12 h</b>'),
-            ('Aero project', project('magnetic-float-aero.3mf')), ('Aero nozzle / bed / chamber', 'Right 0.4 mm &middot; 270 / 90 / 60 &deg;C'),
-            ('Aero plate', 'Engineering plate, thin Bambu liquid glue'), ('Aero print order', f'Plate 1 core: {core_time}<br>Plate 2 insert: {insert_time}'),
-            ('Before PETG', 'Cool pieces and chamber to &le;35 &deg;C.<br>Trim both pieces and seat the RC62 in the core.'),
-            ('PETG project', project('magnetic-float.3mf')), ('PETG nozzle / bed', 'Left 0.6 mm &middot; 255/260 &deg;C nozzle, 70 &deg;C bed'),
-            ('PETG plate / chamber', 'Clean Textured PEI &middot; chamber heater off'), ('PETG printing time', f'{shell_time}, plus insertion'),
-            ('Pause', 'After 57.00 mm, before 57.18 mm'), ('Final closure', '17 roof layers &middot; 3.06 mm'), ('Release', 'Bed &le;35 &deg;C; flex sheet, remove brim')], True) +
-        '<div class="assembly-strip"><div><b>1 &middot; Core</b>Magnet already seated.<br>Chamfers down.</div><div><b>2 &middot; Insert</b>Chamfers down.<br>Press level with both rims.</div><div><b>3 &middot; Resume</b>Tools clear.<br>Close enclosure.</div></div>'))
+    # Relative from hardware/magnetic-float-guide; this evidence image stays with its article.
+    photo = '../printed-parts/cold-core/magnetic-float/all-aero/mark2-print/v1/evidence/magnet-insertion-overprint-2026-10-03.jpg'
+    guide_pages.append(leaf(12, 'identified-print-evidence', 'Physical evidence', 'What is recorded',
+        f'Mark2 task {task_id} identifies the paused v1 article. Its pocket and emitted pause belong to that frozen source.',
+        f'<figure class="short"><img src="{photo}" alt="Operator photo of RC62 insertion and initial Aero covering beneath the toolhead"><figcaption>The operator photo partly obscures the covering roads. The report supports insertion and initial overprinting in this identified v1 trial.</figcaption></figure>' +
+        table([
+            ('v1 pocket', '3.40 mm &middot; frozen native source'),
+            ('v1 insertion / first cover', 'After layer 79 at Z15.8 / layer 80 at Z16.0 mm'),
+            ('v1 slice estimate', f'{minutes} minutes &middot; manual pause excluded'),
+            ('Operator result', 'Ring insertion worked; first covering layer was tight, second deposited well'),
+            ('Printed-float reed bench report', '20 mm usable; 21-24 mm intermittent; 25 mm absent<br>Datum: nearest float edge to reed center')], True) +
+        note('Limits of these results', 'Final cooled roof, density, buoyancy, retained signal, liquid uptake, pressure life and flavor compatibility are unreported. The reed bench report does not identify its reed, wall fixture or repeat count.') +
+        '<p>The current sizing model assumes 0.65 g/cm&sup3; Aero: about 22.75 g assembled mass and 5.23 g spare lift. These are calculations, not measurements.</p>'))
 
     refs = [
-        ('Drying cycles', 'https://wiki.bambulab.com/en/filament-acc/filament/dry-filament', 'Bambu drying table: AMS HT / ASA Aero and AMS 2 Pro / PETG.'),
-        ('ASA Aero process', 'https://wiki.bambulab.com/en/filament-acc/filament/asa-aero-printing-guide', 'Bambu ASA Aero guide and H2C filament preset.'),
-        ('Clear PETG material', 'https://us.store.bambulab.com/products/petg-translucent', 'Bambu PETG Translucent, Clear 32101; same stock as the flavor reservoirs.'),
-        ('Engineering plate', 'https://wiki.bambulab.com/en/general/engineering-plate-not-working-as-expected', 'Cleaning and use of Bambu liquid glue.'),
-        ('Textured PEI plate', 'https://us.store.bambulab.com/products/bambu-textured-pei-plate', 'Plate preparation and removal at 35 &deg;C or below.'),
-        ('RC62 ring', 'https://www.kjmagnetics.com/rc62-neodymium-ring-magnet', 'Magnet dimensions, coating and material specification.'),
+        ('Current body', FLOAT / 'all_aero_float.py', 'CAD source for the one-piece ASA Aero float.'),
+        ('Current STL', FLOAT / 'float-aero.stl', 'Current v2 geometry; prepare and review a fresh native slice.'),
+        ('Design and installation', FLOAT / 'README.md', 'Dimensions, selected process and qualification limits.'),
+        ('Rod and reed datums', FLOAT / 'installation.md', 'Drilling, guide motion and directional liquid calibration.'),
+        ('Print preparation', FLOAT / 'prepare_print.py', 'Writes a separate v2 project/review; submits no print.'),
+        ('Identified v1 project', FLOAT / 'all-aero-float.3mf', 'Frozen v1 project, 3.40 mm pocket; evidence for task ' + str(task_id) + '.'),
+        ('Identified v1 review', FLOAT / 'mark2-print/v1/float-preflight.json', 'Native paths, pause and source hashes for that article.'),
+        ('Physical observations', FLOAT / 'physical-observations.json', 'Insertion, initial overprint and reported reed reach, with their scope.'),
     ]
-    guide_pages.append(leaf(16, 'files-and-sources', 'Reference', 'Files and recipe sources',
-        'Use the supplied projects for this geometry. Their nozzle assignments, fit compensation and insertion pause are included.',
-        '<h2>Print projects</h2>' + table([('Foam parts', project('magnetic-float-aero.3mf')), ('PETG shell', project('magnetic-float.3mf'))]) +
-        '<p>The projects sit together under <span class="file">hardware/printed-parts/cold-core/magnetic-float/</span> in this repository.</p>' +
-        '<h2>Recipe basis</h2><table>' + ''.join(f'<tr><td class="k"><a href="{u}">{t}</a></td><td>{d}</td></tr>' for t,u,d in refs) + '</table>' +
-        '<p>The shell uses Bambu PETG Translucent Clear (32101), with sealing settings derived from the water-holding reservoir recipe and adapted to this float. Aero uses the Bambu filament preset with solid foam fill. The 35 &deg;C Aero handling/chamber changeover point is the selected shop procedure.</p>' +
-        '<p class="dim">Prepared 1 October 2026. Illustrations are drawn from the float CAD. Clear PETG is shaded pale blue for clarity; warm white is Aero, and coral marks the part being added. Cutaway faces and insertion arrows explain assembly; they are not extra parts.</p>', 'sources'))
+    guide_pages.append(leaf(13, 'files-and-sources', 'Reference', 'Files and recipe sources',
+        'Current geometry, print preparation and physical evidence are identified separately.',
+        '<h2>Repository files</h2>' + table([(link(path, title), description) for title, path, description in refs], True) +
+        '<h2>Manufacturer guidance</h2>' + table([
+            ('<a href="https://store.bblcdn.com/2bb7c6814cdc42d19ffc62570cfc1fb2.pdf">Bambu ASA Aero TDS</a>', 'Filament drying, storage humidity and material descriptors.'),
+            ('<a href="https://wiki.bambulab.com/en/filament-acc/filament/asa-aero-printing-guide">Bambu ASA Aero guide</a>', 'Foaming, plate selection and printing guidance.'),
+            (f'<a href="{magnet["source"]}">K&amp;J RC62</a>', 'Ring dimensions, N42 grade and continuous operating limit.'),
+            ('<a href="https://www.littelfuse.com/assetdocs/reed-switch-and-reed-sensor-activation-application-note?assetguid=fa9045a4-e577-4f55-9e9b-4232faacffd9">Littelfuse reed activation</a>', 'Closure, hold, release and orientation effects.')], True) +
+        '<p class="dim">Prepared 3 October 2026. Illustrations derive from current v2 CAD. Warm white represents Aero and nickel the ring; coral marks the added ring or covering material. Cutaways, plate crops, rods and arrows explain geometry and motion.</p>', 'sources'))
 
+    assert len(guide_pages) == page_count
     expected = set(guide_pages)
     for stale in GUIDE.glob('[0-9][0-9]-*.html'):
         if stale.name not in expected:
             stale.unlink()
-    inputs = ['design.json', 'print-profile.json', 'verification.json', 'magnetic-float-aero.3mf', 'magnetic-float.3mf']
-    manifest = {'title':'Magnetic float build guide', 'pages': guide_pages,
-                'recipe_sources':'../../tools/magnetic-float-guide/build-recipe-sources.json',
-                'inputs_sha256': {str((FLOAT / name).relative_to(ROOT)): hashlib.sha256((FLOAT / name).read_bytes()).hexdigest() for name in inputs}}
+    inputs = [FLOAT / name for name in [
+        'design.json', 'all_aero_float.py', 'float-aero.stl', 'prepare_print.py',
+        'README.md', 'installation.md', 'installation.figures.json',
+        'physical-observations.json', 'integration-check.json',
+        'all-aero-float.3mf', 'mark2-print/v1/float-preflight.json',
+        'mark2-print/v1/float-mark2-launch.json',
+        'mark2-print/v1/evidence/magnet-insertion-overprint-2026-10-03.jpg']]
+    inputs.extend([Path(__file__), ROOT / 'hardware/printed-parts/cold-core/_float_interface.py',
+                   ROOT / 'tools/magnetic-float-guide/build-recipe-sources.json'])
+    manifest = {
+        'title': 'ASA Aero magnetic float build guide',
+        'current_cad_revision': design['cad_revision'],
+        'current_native_slice_state': 'review_pending',
+        'pages': guide_pages,
+        'recipe_sources': '../../tools/magnetic-float-guide/build-recipe-sources.json',
+        'inputs_sha256': {str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest() for path in inputs},
+    }
     (GUIDE / 'guide-inputs.json').write_text(json.dumps(manifest, indent=2) + '\n')
-    print(f'Authored {len(guide_pages)} pages; printing times {core_time}, {insert_time}, {shell_time}.')
+    print(f'Authored {len(guide_pages)} current ASA Aero pages; v2 native slice review pending.')
 
 
 if __name__ == '__main__':

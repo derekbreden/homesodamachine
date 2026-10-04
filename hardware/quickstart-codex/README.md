@@ -22,7 +22,9 @@ Step 6 shows the Big Blue Fill screen inside the machine display's frame and on 
 Select a flavor in the left rail, open **Fill**, put the bottle in the funnel, then tap
 **Start filling**. The concentrate bottle has a rounded PET body, tapered shoulders, an open
 ribbed neck, dark liquid and a wrapped COLA concentrate label. `tools/quickstart-codex/fill_scene.py` renders
-the bottle and both display views from the frozen scene. `art/fill-screen.svg` and its PNG
+the bottle and both display views from the current enclosure assembly. Funnel bounds locate
+the bottle, and the display facet locates the screen overlay. `art/fill-scene-inputs.json`
+records the source hashes and projected motion cue. `art/fill-screen.svg` and its PNG
 supply the interface texture; `art/fill-screen-framed.png` is the framed close-up.
 The cover shares the enclosure's matte black PET-GF appearance. Both Fill views use the same
 exposure, and the complete frame has an uninterrupted outline.
@@ -47,6 +49,7 @@ and weld rotator guide are the source material for this edition.
 From the repository root:
 
 ```sh
+tools/cad-venv/bin/python tools/quickstart-codex/fill_scene.py --publish
 tools/cad-venv/bin/python tools/quickstart-codex/build.py
 pdftoppm -scale-to 1900 -singlefile -png hardware/quickstart-codex/quick-start-codex.pdf hardware/quickstart-codex/out/review
 ```

@@ -1,0 +1,155 @@
+{
+  "generator": "hardware/assembly/cards/tools/_cad_art.py",
+  "background": "#DCE6FF",
+  "image_size_px": [
+    1980,
+    1040
+  ],
+  "scope": "Native top-view renders registered to existing SVG feature anchors. Materials and dimensions come from STEP; PCBA preserves its simplified-envelope x-ray presentation.",
+  "source_sha256": {
+    "hardware/assembly/cards/tools/_cad_art.py": "87efac660c53342c51af91f27c663662275e4d21b7a31b7d8a942c988a9a8738",
+    "hardware/assembly/cards/tools/dp-drill-press.html": "f1565e85bd0b2a7b35bfaf5f3a0f00eee463d0fc7180fa664a81605cc6584e0d",
+    "hardware/assembly/cards/tools/cr-crimp-bench.html": "9d3a5c34aee5b4b0c36ab20d033e4dcf0a61f14be1de1d5168accb7303629809",
+    "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.py": "4100025cf0e0da234e29e45ed5ef539613175a778b578ea3417fdaa7e696b9b9",
+    "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py": "171fcd7fc0b2852e157ce33b403eeea7f8f20eb198d563201a82a4865c3364a6",
+    "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py": "a515c906320bc40f02b4f8037135596ed57dc823650156351628fa03d98af759",
+    "hardware/printed-parts/electronics/pcba-tray/pcba_assembly.py": "854047137f8023d7b1bc6d7c6d2a26c95cfeace52cc1e2ef52517b60fd68ad15",
+    "hardware/pcb/pcba/pcba.tsx": "50c52bbe8880f2bcb2854544a1f7dbc8c8f2eb0ef69dc179cb4824aba9000e90",
+    "hardware/pcb/pcba/out/pcba.circuit.json": "ad31e5a7c2412b9998a313efeadf16e561a31c2a4752f5b0a3d2658fb7f5ba1c",
+    "hardware/pcb/pcba/out/pcba.glb": "819d2d6a51579a8c3ee66bcb9432075bc50ca77cf129bd828ea538b8fc72b767",
+    "tools/render/render-step-posed.js": "8af449d97b917535e47a02d83205a696794d8176c93a1cbfd61119f8faecd02a",
+    "hardware/printed-parts/electronics/module_tray.py": "006759ab5e84b24ec374c79f795c6ba85cde6b23369cdf6c384e63c92389907e"
+  },
+  "scenes": {
+    "dp-endcap-face": {
+      "file": "dp-endcap-face.png",
+      "sha256": "cb5a7e007a255e12b62a193c13384f18ff20f1ee2b09661e7afe6f60af93ec39",
+      "source_step": "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step",
+      "source_step_sha256": "cd81ff529ce5d1fafef25744935ea798db8ae4ed898c1ed42b63b8d0be2ec00a",
+      "card": "hardware/assembly/cards/tools/dp-drill-press.html",
+      "render": {
+        "solid": true,
+        "cam": [
+          0,
+          0,
+          1
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "target": [
+          2.1496108949416346,
+          -1.1859922178988325,
+          0
+        ],
+        "span": 77.0894941634241,
+        "size": "1980x1040",
+        "bg": "#DCE6FF",
+        "trim": false,
+        "ortho": true,
+        "ground": false,
+        "fog": false,
+        "transparent": false
+      },
+      "feature_points_mm": [
+        [
+          -19.049999999999997,
+          0.0
+        ],
+        [
+          19.049999999999997,
+          0.0
+        ]
+      ],
+      "svg_anchor_pixels": [
+        [
+          847.0,
+          512.0
+        ],
+        [
+          1104.0,
+          512.0
+        ]
+      ],
+      "projected_feature_pixels": [
+        [
+          847.0,
+          512.0
+        ],
+        [
+          1104.0,
+          512.0
+        ]
+      ],
+      "blind_register_projected_pixel": [
+        975.5,
+        794.2885301837271
+      ]
+    },
+    "cr-pcba": {
+      "file": "cr-pcba.png",
+      "sha256": "1c9c0a80817bcd7cf5ba1cf9fd96b06a6a2af1ef4c20c0048280c67908afddc2",
+      "source_step": "hardware/printed-parts/electronics/pcba-tray/pcba-board.step",
+      "source_step_sha256": "0d5f3259f3ee833f7a0611e6d4259ab280473b78999211665934ec4024f558a4",
+      "card": "hardware/assembly/cards/tools/cr-crimp-bench.html",
+      "render": {
+        "solid": false,
+        "cam": [
+          0,
+          0,
+          1
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "target": [
+          -4.143421052631578,
+          0.8763167894736767,
+          0
+        ],
+        "span": 47.21052631578948,
+        "size": "1980x1040",
+        "bg": "#DCE6FF",
+        "trim": false,
+        "ortho": true,
+        "ground": false,
+        "fog": false,
+        "transparent": false
+      },
+      "feature_points_mm": [
+        [
+          -9.5,
+          -30.899999000000008
+        ],
+        [
+          25.0,
+          -30.899999000000008
+        ]
+      ],
+      "svg_anchor_pixels": [
+        [
+          931.0,
+          870.0
+        ],
+        [
+          1311.0,
+          870.0
+        ]
+      ],
+      "projected_feature_pixels": [
+        [
+          931.0,
+          870.0
+        ],
+        [
+          1311.0,
+          870.0
+        ]
+      ]
+    }
+  }
+}

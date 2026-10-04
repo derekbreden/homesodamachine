@@ -20,7 +20,7 @@ flowchart LR
 
   %%  The main board carries 12 valve channels (J1 ×8, J2 ×4); the manifold uses 10,
   %%  and V-K (the water-supply fill/shutoff) takes an 11th: J2.OUT3 — driven from
-  %%  0x21 PA[5] through U2 ch 3. J2.OUT4 (0x21 PA[4], U2 ch 4) remains fully
+  %%  0x21 PA[5] through U5 ch 3. J2.OUT4 (0x21 PA[4], U5 ch 4) remains fully
   %%  routed but lands on no valve — spare capacity, not a missing connection.
 
   %%  Bit order: the main board routes each GPA_k to IN_{8−k}, so GPA_k drives channel
@@ -111,7 +111,7 @@ flowchart LR
   subgraph Drivers["TBD62083 DMOS Arrays"]
     direction TB
 
-    subgraph U1["U1 — Channels 1-8"]
+    subgraph U1["U4 — Channels 1-8"]
       direction TB
       U1_1["1 → V-A"]
       U1_2["2 → V-B"]
@@ -123,7 +123,7 @@ flowchart LR
       U1_8["8 → V-H"]
     end
 
-    subgraph U2["U2 — Channels 1, 2, 5 used"]
+    subgraph U2["U5 — Channels 1, 2, 3, 5 used"]
       direction TB
       U2_1["1 → V-I"]
       U2_2["2 → V-J"]
@@ -192,7 +192,7 @@ flowchart LR
   SDA & SCL <-->|"I2C"| MCP0
   SDA & SCL <-->|"I2C"| MCP1
 
-  %% ── 0x20 Port A → U1  (GPA bit order reversed: GPA_k → channel 8-k) ──
+  %% ── 0x20 Port A → U4  (GPA bit order reversed: GPA_k → channel 8-k) ──
   A0_GPA0 --> U1_8
   A0_GPA1 --> U1_7
   A0_GPA2 --> U1_6
@@ -202,8 +202,8 @@ flowchart LR
   A0_GPA6 --> U1_2
   A0_GPA7 --> U1_1
 
-  %% ── 0x21 Port A[6:7] → U2 ch1-2  (MANIFOLD B valves; GPA bit order reversed).
-  %%    PA[4:5] → U2 ch3-4 stay routed on the main board but drive nothing.
+  %% ── 0x21 Port A[6:7] → U5 ch1-2  (MANIFOLD B valves; GPA bit order reversed).
+  %%    PA5 → U5 ch3 drives V-K; PA4 → U5 ch4 is routed spare capacity.
   A1_GPA7 --> U2_1
   A1_GPA6 --> U2_2
   A1_GPA5 --> U2_3

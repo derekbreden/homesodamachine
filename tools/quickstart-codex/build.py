@@ -21,6 +21,8 @@ from contours import Contours, PAD
 ROOT = Path(__file__).resolve().parents[2]
 DIR = ROOT / 'hardware/quickstart-codex'
 ART = DIR / 'art'
+FILL = json.loads((ART / 'fill-scene-inputs.json').read_text())
+FILL_POSE = tuple(FILL['pose'][key] for key in ('cam', 'target', 'span'))
 parser = argparse.ArgumentParser()
 parser.add_argument('--contour', default='#46515b')
 parser.add_argument('--output', type=Path, default=DIR / 'quick-start-codex.pdf')
@@ -37,7 +39,7 @@ for name in ['Regular', 'Semibold', 'Bold']:
     pdfmetrics.registerFont(TTFont(name, str(DIR / 'fonts' / f'Plex-{name}.ttf')))
 pdfmetrics.registerFontFamily('Regular', normal='Regular', bold='Bold', italic='Regular', boldItalic='Bold')
 pdf_buffer = io.BytesIO()
-c = canvas.Canvas(pdf_buffer, pagesize=(W,H), pageCompression=1, invariant=1)
+c = canvas.Canvas(pdf_buffer, pagesize=(W,H), pageCompression=1, invariant=1, initialFontName='Regular')
 c.setTitle('Home Soda Machine - Quick start')
 c.setAuthor('Derek Bredensteiner')
 c.setSubject('One 19 x 13 inch installation quick start with words')
@@ -306,7 +308,8 @@ para('Invert one whole <b>14.8 fl oz bottle</b> into the funnel. Tap <b>Start fi
 para('<b>Wait for Filled.</b> Repeat for the other flavor.',x,870,270,12,15,limit=30)
 pic('fill-screen-framed.png',309,773,240,130,fade_crops=False)
 p=pic('insertion-actions/fill-ready.png',555,787,131,117,crop=(295,330,1555,1450))
-arrow(*p(947.15,473.85),*p(947.15,943.67),head=6)
+arrow(*projected(p,FILL['arrow']['start'],*FILL_POSE),
+      *projected(p,FILL['arrow']['end'],*FILL_POSE),head=6)
 
 x=716
 step(7,'Chill. Choose. Pour.',x,y)

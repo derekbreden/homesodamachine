@@ -94,33 +94,24 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --navy: #1a1a2e;
-  --paper: #f7f5f0;
+  --blue: #1749d1;
+  --ice: #dce6ff;
+  --orange: #ff9152;
+  --coral: #d64050;
+  --paper: #ffffff;
   --panel: #ffffff;
-  --ink: #1d1d26;
-  --muted: #70707c;
-  --line: #d9d5cb;
-  --rule: #c4bfb2;
-  --warn-bg: #ffd94d;
-  --accent: #46628a;
+  --ink: #202337;
+  --muted: #606a78;
+  --line: #dce2eb;
+  --rule: #dce2eb;
+  --warn-bg: #fff0e6;
+  --accent: var(--blue);
   --accent-ink: #ffffff;
   --mono: "IBM Plex Mono", "Menlo", "SF Mono", monospace;
   --sans: "IBM Plex Sans", "Helvetica Neue", "Helvetica", Arial, sans-serif;
 }
 
-body.dp { --accent: #46628a; }  /* drill press — steel */
-body.bs { --accent: #5c6570; }  /* band saw + cut-off — graphite */
-body.lw { --accent: #b3341f; }  /* laser welder — beam */
-body.hy { --accent: #2268c2; }  /* hydro + pressure test — water */
-body.tb { --accent: #b8722c; }  /* tube bench — copper */
-body.bz { --accent: #c8481d; }  /* braze bench — flame */
-body.vc { --accent: #0f8bab; }  /* vacuum + charge — cold */
-body.cr { --accent: #7a5cc4; }  /* crimp bench — signal */
-body.so { --accent: #b8860b; }  /* solder + heat-set — power */
-body.el { --accent: #5b6acb; }  /* electrical test — instrument */
-body.pl { --accent: #2f7f6f; }  /* plastic tube + fittings */
-body.pc { --accent: #8a6d3b; }  /* pour + cure — resin */
-body.pr { --accent: #4a5d52; }  /* 3D printers — cabinet */
+/* Station codes and names identify the tool within the shared brand theme. */
 
 html, body {
   width: 3300px; height: 2550px;
@@ -136,13 +127,13 @@ html, body {
 
 header {
   height: 250px; flex: none;
-  background: var(--navy);
+  background: var(--blue);
   display: flex; align-items: center;
   padding: 0 90px;
   gap: 52px;
 }
 .code {
-  background: var(--accent); color: var(--accent-ink);
+  background: var(--ice); color: var(--blue);
   font-family: var(--mono); font-weight: 700; font-size: 82px;
   padding: 16px 36px; border-radius: 14px;
   letter-spacing: 1px;
@@ -155,10 +146,10 @@ header h1 {
 header h1 small {
   display: block; font-size: 40px; font-weight: 500;
   text-transform: none; letter-spacing: 0;
-  color: #9a9ab0; margin-top: 8px;
+  color: var(--ice); margin-top: 8px;
 }
 .deckpos {
-  text-align: right; color: #9a9ab0;
+  text-align: right; color: var(--ice);
   font-size: 32px; line-height: 1.35; flex: none;
   text-transform: uppercase; letter-spacing: 2.5px;
 }
@@ -178,19 +169,19 @@ main {
 .machine .lede strong { font-weight: 700; }
 .machine .envelope {
   flex: none; width: 1000px;
-  background: var(--navy); border-radius: 16px;
+  background: var(--ice); border-radius: 16px;
   padding: 24px 32px 20px;
   display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px 30px;
 }
 .envelope .k {
-  color: #9a9ab0; font-size: 24px; font-weight: 700;
+  color: var(--muted); font-size: 24px; font-weight: 700;
   letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 4px;
 }
 .envelope .v {
-  color: #fff; font-family: var(--mono); font-size: 34px; font-weight: 700;
+  color: var(--ink); font-family: var(--mono); font-size: 34px; font-weight: 700;
   white-space: nowrap;
 }
-.envelope .v small { font-size: 26px; font-weight: 400; color: #c9c9da; }
+.envelope .v small { font-size: 26px; font-weight: 400; color: var(--muted); }
 
 /* ── The operations table ──────────────────────────────────────── */
 
@@ -217,23 +208,22 @@ main {
 .ops td.v { font-family: var(--mono); font-size: 40px; }
 .ops td .sub { display: block; font-size: 30px; color: var(--muted); margin-top: 5px; }
 /* A setting the procedure docs give as a word rather than a number. */
-.ops td.unset { color: #a49d90; font-style: italic; font-size: 37px; }
+.ops td.unset { color: var(--muted); font-style: italic; font-size: 37px; }
 
 /* Numbers, verbatim from the procedure docs */
 .dim {
   font-family: var(--mono);
   font-size: 0.9em;
-  background: #eceadf;
+  background: var(--ice);
   padding: 2px 12px; border-radius: 7px;
   white-space: nowrap;
 }
-/* On the dark surfaces the pill inverts — a tan pill inherits the white text
-   it sits under and prints as an empty box. */
+/* Emphasized settings remain legible on each guide field. */
 .critical .dim,
 .panel:not(.light) .cap .dim,
 .envelope .dim {
-  background: rgba(0, 0, 0, 0.34);
-  color: #fff;
+  background: var(--paper);
+  color: var(--ink);
 }
 
 /* ── Below the table ──────────────────────────────────────────── */
@@ -242,12 +232,12 @@ main {
 .below .col { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
 
 .critical {
-  background: #7c1d12; color: #fff;
+  background: #fbeaec; color: var(--ink);
   border-radius: 14px; padding: 24px 30px;
   font-size: 44px; line-height: 1.26; font-weight: 500;
   display: flex; gap: 20px; align-items: flex-start;
 }
-.critical .sign { font-size: 52px; flex: none; }
+.critical .sign { font-size: 52px; flex: none; color: var(--coral); }
 .critical b { font-weight: 800; }
 
 .safety {
@@ -267,7 +257,7 @@ main {
 .note b { color: var(--ink); }
 
 .panel {
-  background: var(--navy); border-radius: 16px; overflow: hidden;
+  background: var(--ice); border-radius: 16px; overflow: hidden;
   display: flex; flex-direction: column;
 }
 .panel.light { background: var(--panel); border: 4px solid var(--line); }
@@ -288,11 +278,25 @@ main {
 
 .panel .cap {
   flex: none; padding: 16px 26px 18px;
-  font-size: 35px; line-height: 1.3; color: #b9b9cc;
+  font-size: 35px; line-height: 1.3; color: var(--muted);
 }
 .panel.light .cap { color: var(--muted); }
-.panel .cap b { color: #fff; font-weight: 600; }
+.panel .cap b { color: var(--ink); font-weight: 600; }
 .panel.light .cap b { color: var(--ink); }
+
+/* Shared diagram annotations use the print theme. CAD callouts are registered
+   to the image beneath them, with ink suited to its ice background. */
+main svg .dimln, main svg .dimline { stroke: var(--blue); }
+main svg .dimtx, main svg .dimtext, main svg .tnum { fill: var(--blue); }
+main svg .lbl, main svg .btx, main svg .txt { fill: var(--ink); }
+main svg .sub { fill: var(--muted); }
+.shot svg .ld { stroke: var(--blue); }
+.shot svg .rng { stroke: var(--blue); }
+.shot svg .rgr, .shot svg .box { stroke: var(--coral); }
+.shot svg .ttl, .shot svg .num, .shot svg .txt { fill: var(--ink); }
+.shot svg .key { fill: var(--blue); }
+.shot svg .kyr { fill: var(--coral); }
+.shot svg .qui { fill: var(--muted); }
 
 /* Tools strip */
 .tools {

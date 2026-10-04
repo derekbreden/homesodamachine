@@ -163,19 +163,35 @@
     },
     "fill-screen-framed.png": {
       "reference_size": [
-        1600,
-        864
+        1472,
+        920
       ],
       "render_size": [
-        3398,
-        1834
+        1600,
+        1001
       ],
       "scale": [
-        2.12375,
-        2.122685185185185
+        1.0869565217391304,
+        1.0880434782608697
       ],
-      "coordinate_reference_sha256": "e7eeb43c725309f2a454f4635a29e2ed55e20780b8c7a4b7639e15201828fdfa",
-      "render_sha256": "e7544c7b55a0d53f34d9c827baccda600a61ccfd122c08a53a81c08f59c44ca4"
+      "coordinate_reference_sha256": "dabe7f476f5f80f9c438377ad47b1379058ff4cb8dd910fd11abfaa855cec05c",
+      "render_sha256": "6a98af0543d4b2e469e70033938394c6a63d0e0d7e85df486b533240fe75801d"
+    },
+    "steps/fill-ready.png": {
+      "reference_size": [
+        1600,
+        1500
+      ],
+      "render_size": [
+        3200,
+        3000
+      ],
+      "scale": [
+        2.0,
+        2.0
+      ],
+      "coordinate_reference_sha256": "bf6abba925a90bf0825bad6c7af8298fd647f61f9d77a26fb25172880cf9e52d",
+      "render_sha256": "407b4a7a80e03f11ad32d26875d780a540bff57f61036ad6cfae074c4ad5e331"
     }
   }
 }

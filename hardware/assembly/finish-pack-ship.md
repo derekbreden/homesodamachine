@@ -67,9 +67,11 @@ per-unit archive at `logs/<serial>/`. The [nameplate](/hardware/printed-parts/en
 carries the faucet mark, `HOME / SODA / MACHINE` and the QR. Ratings and refrigerant warnings
 have their own marking locations. Reject an unreadable code or a plate for another unit.
 
-Clean the two exposed retaining lips and the enclosure's receiving slots. Push the plate
-straight into the rear pocket until both tabs engage and its face seats. Check retention and
-scan the installed QR again. No screws or inserts are used at this joint.
+Clean the two exposed retaining lips and the enclosure's receiving slots. Flex the plate's
+middle outward to enter both horizontal wings, then let its face seat against the pocket
+floor. Check that both wings are captured and scan the installed QR again. No screws or
+inserts are used at this joint. The [accepted fit](/hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/physical-acceptance.json) is for the matching receiver coupon and
+flat nameplate; check the prepared full back-top at assembly.
 
 ### 3a. Refrigerant markings and unit record
 

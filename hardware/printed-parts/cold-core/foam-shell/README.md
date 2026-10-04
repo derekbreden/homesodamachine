@@ -343,16 +343,16 @@ a tight fit.
 conduit through the foam cap and its lid (`_cold_core_interface.cap_conduits`), and the
 service bay stands on the face they open on. What is left on the −X face — the one the
 enclosure's quarter turn puts at the front of the machine, mated flat against the
-refrigeration base — is the three refrigeration-side lines in the two lane slots, and
-nothing else.
+refrigeration base — is the two copper evaporator lines in their lane slots. The PRV vent crosses
+the +Y flank into the enclosure’s exterior relief chase.
 
 | # | Pass-through | Opening | Carries |
 |---|---|---|---|
-| 1 | Reed cable (+X) | own ⌀[6.8 mm](TUBE_HOLE_D) field bore | the reservoir-A level reeds' cable |
-| 2 | Reed cable (−X) | own ⌀[6.8 mm](TUBE_HOLE_D) field bore | the reservoir-B level reeds' cable |
+| 1 | Reed cable (+X) | top-cap reed conduit | the reservoir-A level reeds' cable |
+| 2 | Reed cable (−X) | top-cap reed conduit | the reservoir-B level reeds' cable |
 | 3 | Copper evaporator inlet | port-lane slot | 1/4" OD ACR copper, made up on the condenser's own outlet pick across the plane the two bodies share |
 | 4 | Copper evaporator outlet | west-lane slot | 1/4" OD ACR copper, made up on the compressor's own suction pick across that same plane |
-| 5 | PRV vent | west-lane slot | 1/4" OD LLDPE from the prv-shroud's barrel into the appliance interior (unpressurized; carries relief-event discharge only — see [`/hardware/printed-parts/cold-core/prv-shroud/`](/hardware/printed-parts/cold-core/prv-shroud/)) |
+| 5 | PRV vent | **+Y flank** | short 1/4" OD LLDPE from the prv-shroud’s barrel into the enclosure’s west-wall relief chase, which opens outside the cabinet (see [`prv-shroud`](/hardware/printed-parts/cold-core/prv-shroud/)) |
 | 6 | Water inlet | **top-cap conduit** `water-in` | from the diaphragm pump — down the forward strip, along the +Y band under the cap floor, then one diagonal across the carbonator's own top into the top-plate −Y elbow **above the water line**, where it falls into the headspace against the CO2 back-pressure |
 | 7 | Carbonated-water outlet | **top-cap conduit** `carb-water-out` | to the dispense faucet — off the bottom-plate Port 3 elbow **under the liquid**, across under the carbonator, out through the ring's 225° slot and up beside the coil |
 | 8 | CO2 inlet | **top-cap conduit** `co2-in` | from the check downstream of WR1110 — the one line running DOWN: the port lane the shell's whole height, one corner, then the leaning bore through the ring onto Port 1, which opens **directly below the liquid** |
@@ -471,8 +471,7 @@ threaded after the pour has cured, and are potted nowhere.
 ### The two lane slots and their copper plug stacks
 
 The −X outer_shell wall carries a **Z-elongated slot** on each of its two lanes, and
-between them they take three pass-throughs, one lane pitch up off each lane's floor: the
-two copper evaporator lines and the PRV vent. Each slot is
+between them they take the two copper evaporator lines, one lane pitch up off each lane’s floor. Each slot is
 ⌀[6.8 mm](TUBE_HOLE_D) wide (rounded ends along Z) and both are cut by
 `cut_lane_slots` in `_port_cuts.py`. A slot's
 top extends past the wall top so no sliver of wall material remains
@@ -504,16 +503,10 @@ cavity floor):
 
 [port-lane evap-inlet 28.43; west-lane evap-outlet 28.43](SLOT_Z)
 
-The three stand at their lane's own pitch rather than each crossing
-where its own fitting sits: each line leaves its fitting, turns onto its lane and climbs
-or drops it. The two coppers cross at one height because the lanes are one strip mirrored
-and one coil's two tails reach either the same way. The PRV vent crosses UNDER the copper
-it shares the west lane with, because that copper falls IN the lane from its wrap to its
-station and closes the column at every storey above it. So the whole
-of the shell's front face — field and slots together — is one band in the bottom
-[28.43 mm](COLUMN_TOP) of a wall [213.4 mm](OUTER_H) tall, which is what lets a machine
-packed against this face reach every port in one reach. `copper_plugs.py` derives
-them.
+The two coppers cross at the same height, each after dropping down its own lane.
+The slots sit in the bottom [28.43 mm](COLUMN_TOP) band of a wall
+[213.4 mm](OUTER_H) tall. `copper_plugs.py` derives their stations.
+The PRV vent has a separate +Y-flank opening; it does not enter either copper slot.
 
 Two printed PETG **copper plugs**, one per lane, slide down into their own lane's slot
 from above:
@@ -577,8 +570,7 @@ Every internal component is installed first:
   bonded with 3M 425 aluminum foil tape.
 - Reservoirs installed into the two reservoir pockets.
 - Copper evaporator inlet routed along the port lane and out through its slot; copper
-  evaporator outlet and PRV vent LLDPE (from the prv-shroud's barrel) routed along the WEST
-  lane and out through that lane's own slot. Each leaves its fitting and turns onto its
+  evaporator outlet routed along the west lane and out through that lane’s own slot. Each leaves its fitting and turns onto its
   lane, and each of the two coppers lands on the pick of the body standing against its
   own lane's face — the condenser's outlet east, the compressor's suction west.
 - Water inlet: a 1/4" PTC × 1/4" NPT M adapter (JG PP010822E) made up on the
@@ -597,7 +589,10 @@ Every internal component is installed first:
   cured ahead of time, threaded into Port 4 at carbonator install — is
   here as part of the carbonator by the time the body pour happens.
   Press-fit a length of 1/4" OD LLDPE into the bore in the shroud's barrel and
-  route it down the west lane and out through its slot to the appliance interior.
+  route it down the west lane, turn once and cross the +Y flank. Cut its free mouth
+  flush with the flank to open into the enclosure’s exterior relief chase. The
+  native route is [`_internal_routes.py`](/hardware/printed-parts/cold-core/_internal_routes.py)
+  `prv-vent`; installed relief backpressure and capacity remain unqualified.
 - Reservoir A's draw off its floor bulkhead, out through the pocket's −Y wall
   inboard of the bulkhead axis — the opening there is the line's own corridor, so
   the tube turns as it crosses rather than after it — onto the port lane at the

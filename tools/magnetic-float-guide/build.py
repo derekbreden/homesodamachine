@@ -6,6 +6,7 @@ Run author.py and float_art.py first. This guide is not a CAD build dependency.
 from __future__ import annotations
 
 import io
+import hashlib
 import json
 import subprocess
 import sys
@@ -20,7 +21,7 @@ COVER = GUIDE / "magnetic-float-guide.cover.png"
 SIDECAR = GUIDE / "magnetic-float-guide.pdf.json"
 RENDERER = ROOT / "tools" / "render" / "render-card.js"
 
-TITLE = "Magnetic float build guide"
+TITLE = "ASA Aero magnetic float build guide"
 # 8.5 x 11 in at 300 dpi. The renderer prints at 96 CSS px/in, so the PDF scale it derives is
 # 8.5 * 96 / 2550 = 0.32 exactly; keep the three numbers moving together or the page resizes.
 CANVAS_W, CANVAS_H = 2550, 3300
@@ -40,6 +41,26 @@ def pages() -> list[Path]:
     if numbers != list(range(1, len(numbers) + 1)):
         sys.exit(f"page numbers are not 1..{len(numbers)}: {numbers}")
     return found
+
+
+def validate_inputs() -> None:
+    """Refuse to bind prose or pictures standing on different source geometry."""
+    inputs = json.loads((GUIDE / 'guide-inputs.json').read_text())
+    art = json.loads((GUIDE / 'art/manifest.json').read_text())
+    expected = inputs['pages']
+    if [page.name for page in pages()] != expected:
+        sys.exit('guide leaves differ from guide-inputs.json; run author.py')
+    for rel, digest in {**inputs['inputs_sha256'], **art['source_sha256']}.items():
+        path = ROOT / rel
+        if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != digest:
+            sys.exit(f'guide input moved: {rel}; rerun the corresponding author/art pass')
+    if inputs['current_cad_revision'] != art['cad_revision']:
+        sys.exit('guide text and artwork have different CAD revisions')
+    for scene in art['scenes'].values():
+        path = GUIDE / 'art' / scene['file']
+        if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != scene['sha256']:
+            sys.exit(f'guide artwork moved: {path.name}; rerun float_art.py')
+    print(f'Guide inputs match current sources and {len(art["scenes"])} illustrations')
 
 
 def render() -> int:
@@ -97,7 +118,7 @@ def bind() -> int:
     write_cover(OUT / f"{order[0]}.png")
     sidecar = {
         "title": TITLE,
-        "subtitle": (f"Shop guide - ASA Aero and PETG Translucent Clear, {len(order)} pages, "
+        "subtitle": (f"Shop guide - one-piece ASA Aero float and paused RC62 insertion, {len(order)} pages, "
                      "8.5 x 11 in, single sided"),
         "pages": len(order),
         "cover": COVER.name,
@@ -125,6 +146,7 @@ def write_cover(source: Path) -> None:
 
 
 if __name__ == "__main__":
+    validate_inputs()
     status = render()
     absent = bind()
     if status or absent:

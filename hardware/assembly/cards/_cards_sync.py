@@ -303,6 +303,10 @@ def enclosure(m: Machine):
         # cards stating one wall's boss chain cannot be allowed to disagree.
         "WALL_BOSSES": f"{len(box.east_bosses)}",
         "C14_INSERTS": f"{len(box.c14)}",
+        "EN01_SEAM_INSERTS": f"{len(box.y_bosses)}",
+        "EN01_SHORT_M3": f"{len(box.y_bosses) + len(box.c14) + len(box.east_bosses)}",
+        "EN01_COND_INSERTS": f"{len(box.cond_mount[3]) if box.cond_mount else 0}",
+        "EN01_FIXED_POGO_INSERTS": f"{len(_enc._pogo.ear_xs())}",
         # The +Y wall (EN-02). Arrangement, not stations.
         "BACK_BODIES": f"{len(box.back_ports)}",
         "PORT_COL_PITCH": f"{port_cols[1] - port_cols[0]:.4g} mm",
@@ -341,7 +345,8 @@ def enclosure(m: Machine):
     cards = {
         "en-01-stage-the-printed-pieces": {
             "BOX_SIZE", "BOX_PIECES", "WALL_T", "Y_SEAM", "Z_SEAM_FRONT",
-            "WALL_BOSSES", "C14_INSERTS"},
+            "WALL_BOSSES", "C14_INSERTS", "EN01_SEAM_INSERTS", "EN01_SHORT_M3",
+            "EN01_COND_INSERTS", "EN01_FIXED_POGO_INSERTS", "FLOOR_BOSSES"},
         # UMBILICAL_DROP is the internal-plumbing subsystem's name for the gap between
         # the two storeys, and one namespace spans the deck: EN-02 states the same
         # rectangle IP-06 rides, so it reads the storey pitch off the same fact rather
@@ -363,7 +368,8 @@ def enclosure(m: Machine):
         "en-08-close-the-box": {
             "BOX_QUADRANTS", "Y_SEAM", "Z_SEAM_FRONT",
             "BODY_COUNT"},
-        "en-10-display-and-funnel": {"FUNNEL_PIECES", "SA06_CAPACITY", "EN10_STUB_LEN"},
+        "en-10-display-and-funnel": {"FUNNEL_PIECES", "SA06_CAPACITY", "EN10_STUB_LEN",
+                                      "LEN_PUMP_FIXED", "EN01_FIXED_POGO_INSERTS"},
     }
     return facts, cards
 
@@ -621,10 +627,8 @@ def sub_assemblies(m: Machine):
         "SA01_BOSSED": f"{len(under('enclosure-back-top', 'bosses'))}",
         "SA01_CAPTURED": f"{len(captured)}",
         "SA01_RIB_RUNS": f"{len(back_top_ribs)}",
-        # The front top's two columns, each a different joint on one piece: the valves and
-        # the display's cover plate come down on bosses — the valve seats fused into its own
-        # decks, the plate's two in the facet's inset floor — and the lever nuts stand in
-        # wells printed in its walls.
+        # Front-top receives the valve posts in its deck sockets and the display cover's
+        # horizontal wings in the facet receivers. The lever nuts stand in wall wells.
         "SA02_SEATED": f"{len(under('enclosure-front-top', 'bosses'))}",
         "SA02_WELLS": f"{len(front_top_wells)}",
         "SA04_CRADLES": f"{len(cap_cradled)}",
@@ -645,7 +649,7 @@ def sub_assemblies(m: Machine):
                             f"{_cci.deck_mounts['g-ganen-pump'].screw:g}",
         "PUMP_MOUNT_WASHER": f"{DIA}{_water_pump.WASHER_OD:g}",
         # A cap pours with one per station, clamped to the shell's face, and they come out
-        # again after cure — the stack's other six belong to the other cap.
+        # again after cure — the other cap's stations belong to its own pour.
         "CAP_POUR_SCREWS": f"{len(_cci.attachment_xy_positions)}",
         # SA-09's figures are the case the two pieces make round a Kamoer: the octagon that
         # locates it, the molded flange and skirt the cradle carries it by, and the two screws
@@ -672,8 +676,8 @@ def sub_assemblies(m: Machine):
                           "SA04_CRADLES", "SA04_CHAINS", "SA04_RIB_EMPTY", "SA04_POSTS_EMPTY"},
         "sa-05-back-half": {"SA05_HANGING"},
         "sa-06-funnel-drain": {"SA06_CAPACITY", "SA06_FRAME_WEB", "SA06_FRAME_HOLE"},
-        "sa-07-cold-core": {"CAP_CONDUITS", "SA07_HANGING", "SA07_CLOSED"},
-        "sa-08-cold-core-open": {"CAP_CONDUITS", "SA08_LINES"},
+        "sa-07-cold-core": {"CAP_CONDUITS", "CAP_FLUID_LINES", "SA07_HANGING", "SA07_CLOSED"},
+        "sa-08-cold-core-open": {"CAP_FLUID_LINES", "SA08_LINES"},
         "sa-09-pump-cartridge": {"SA09_PUMPS", "PUMP_SOCKET", "PUMP_BRACKET", "PUMP_SKIRT_DEPTH",
                                  "SA09_CAP_SCREWS", "SA09_CAP_SCREW", "SA09_STUBS",
                                  "SA09_STUB_STAND"},
