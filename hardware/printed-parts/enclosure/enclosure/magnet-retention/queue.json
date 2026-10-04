@@ -1,6 +1,6 @@
 {
   "article": "Centered RC62 retention pair: lower cartridge cradle and front-top",
-  "state": "prepared_not_submitted",
+  "state": "mark2_scheduled_authorized_h2c_prepared",
   "submitted": false,
   "auto_advance": false,
   "start_condition": "A new explicit print start request; it confirms the requested printer bed is clear.",
@@ -169,8 +169,8 @@
       "bed_type": "Textured PEI",
       "requested_z_trim_mm": 0.04,
       "emitted_textured_pei_z_trim_mm": 0.02,
-      "state": "prepared_not_submitted",
-      "send_authorized": false,
+      "state": "scheduled_authorized",
+      "send_authorized": true,
       "task_id": null,
       "accepted_at": null,
       "native_checks_pass": true,
@@ -186,7 +186,9 @@
         "initial_pause_countdown": "M73 C394",
         "last_pause_countdown": "M73 C0",
         "estimate_resolution": "Remaining time and countdown are rounded to minutes; elapsed estimate includes native startup overhead and excludes the operator pause duration."
-      }
+      },
+      "launch_plan": "v4/mark2-launch-plan.json",
+      "launch_record": "v4/mark2-launch.json"
     },
     {
       "part": "front-top",
