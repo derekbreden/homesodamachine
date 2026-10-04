@@ -223,7 +223,7 @@ TOOLS = [
     ("Engineering Plate", "T_ENG_PLATE", L(order="us712460111015776257", contains="Engineering Plate")),
     ("SUNLU E2", "T_DRYER_E2", A("B0F5PMMXKD")),
     ("SUNLU S4", "T_DRYER_S4", A("B0CQJMV71Z")),
-    ("PolyDryer Box ×4", "T_POLYDRYER", A("B0FHPS82YG")),
+    ("PolyDryer Box ×6", "T_POLYDRYER", SUM([A("B0FHPS82YG"), AN("B0CK17RTP4")])),
     ("PolyDryer Box XL ×2", "T_POLYDRYER_XL", A("B0FPQV18L5")),
     ("Hotend stock", "T_HOTENDS", SUM([
         L(order="us712460111015776257", contains="Hotends + nozzles"),

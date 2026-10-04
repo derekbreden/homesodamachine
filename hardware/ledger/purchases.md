@@ -1,6 +1,6 @@
 # Purchases
 
-Capital expenditure ledger for the soda-flavor-injector project. Scope: **2026 calendar year only**. Compiled from Amazon order history, direct-from-vendor receipts (Bambu Lab, XLaserlab, Namecheap, Render, Lulu), and capitalized contract labor (Anthropic / Claude API + subscription for AI-assisted engineering — CAD, firmware, electrical design, documentation, procurement research). Every item is either already in-hand (**ACQUIRED**), placed but not yet arrived (**ON-ORDER**), or identified as a planned purchase (**LIKELY-TO-BUY**).
+Capital expenditure ledger for the soda-flavor-injector project. Scope: **2026 calendar year only**. Compiled from Amazon order history, direct-from-vendor receipts (Bambu Lab, Polymaker, XLaserlab, Namecheap, Render, Lulu), and capitalized contract labor (Anthropic / Claude API + subscription for AI-assisted engineering — CAD, firmware, electrical design, documentation, procurement research). Every item is either already in-hand (**ACQUIRED**), placed but not yet arrived (**ON-ORDER**), or identified as a planned purchase (**LIKELY-TO-BUY**).
 
 This is the **purchase ledger** — every buy event, kept for tax records and complete sourcing history. It is not a per-unit bill of materials. Views over this ledger live in sibling files:
 
@@ -526,6 +526,8 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | SUNLU Official 3D Printer Filament Dryer S4 | [B0CQJMV71Z](https://www.amazon.com/dp/B0CQJMV71Z) | 1 | $125.47 | 114-9764609-4555460 | 2026-03-22 | 2026-03-25 | ACQUIRED |
 | Polymaker 3D Printing Filament Storage Box, 4-Pack (PolyDryer Box x4) | [B0FHPS82YG](https://www.amazon.com/dp/B0FHPS82YG) | 1 pk (4) | $117.96 | 114-9764609-4555460 | 2026-03-22 | 2026-03-25 | ACQUIRED |
 | Polymaker PolyDryer Filament Storage Box XL, 2-Pack (Polymaker PX01009) — sealed spool boxes sized for a 3 kg spool, hygrometer in the lid, filament fed out through the box wall. What a 3 kg spool prints from: it turns too stiffly in the SUNLU E2's chamber to feed a print from there. ($109.99 item + $1.99 shipping + $8.11 tax) | [B0FPQV18L5](https://www.amazon.com/dp/B0FPQV18L5) | 1 pk (2) | $120.09 | 114-8931415-0067401 | 2026-08-13 | 2026-08-15 | ACQUIRED |
+| Polymaker PolyDryer Filament Storage Box (1 kg spool), single — $27.99 + $2.03 NE tax | [B0CK17RTP4](https://www.amazon.com/dp/B0CK17RTP4) | 1 | $30.02 | 114-3202733-4767455 | 2026-10-01 | 2026-10-02 | ACQUIRED |
+| Polymaker PolyDryer Filament Storage Box (1 kg spool), single — a second order placed a minute later; it shipped and arrived with the box above. $27.99 + $2.03 NE tax | [B0CK17RTP4](https://www.amazon.com/dp/B0CK17RTP4) | 1 | $30.02 | 114-4680955-8473844 | 2026-10-01 | 2026-10-02 | ACQUIRED |
 | SUNLU Official 3D Printer Filament Dryer E2 | [B0F5PMMXKD](https://www.amazon.com/dp/B0F5PMMXKD) | 1 | $321.74 | 114-9662555-0662608 | 2026-04-05 | 2026-04-07 | ACQUIRED |
 | DUROZZLE 0.6mm Diamond PCD Nozzle Hotend, L-side (H2D/H2S/P2S/A1 series) | [B0GWDBQW4G](https://www.amazon.com/dp/B0GWDBQW4G) | 1 | $64.24 | 112-9688188-4729035 | 2026-05-08 | 2026-05-09 | ACQUIRED |
 | DUROZZLE 0.6mm Tungsten Carbide Nozzle Hotend, L-side (H2D/H2S/P2S/A1 series) | [B0GWDDKG47](https://www.amazon.com/dp/B0GWDDKG47) | 1 | $37.43 | 112-7749428-2806629 | 2026-05-08 | 2026-05-09 | ACQUIRED (used on faucet-shell PET-CF attempt 7) |
@@ -546,8 +548,11 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | Polymaker Fiberon PET-GF15, 1.75 mm × 1 kg, Red — $29.99 + $2.17 NE tax | [B0FBWQNJZQ](https://www.amazon.com/dp/B0FBWQNJZQ) | 1 | $32.16 | 112-9028685-5492269 | 2026-09-16 | 2026-09-17 | ACQUIRED |
 | Polymaker Fiberon PET-GF15, 1.75 mm × 1 kg, Blue — $29.99 + $2.17 NE tax | [B0FBWGFGR6](https://www.amazon.com/dp/B0FBWGFGR6) | 1 | $32.16 | 112-4443137-8148205 | 2026-09-16 | 2026-09-18 | ACQUIRED |
 | Polymaker Fiberon PET-GF15, 1.75 mm × 1 kg, White — $29.99 + $2.17 NE tax | [B0FBW9JLFR](https://www.amazon.com/dp/B0FBW9JLFR) | 1 | $32.16 | 112-5158473-3421830 | 2026-09-16 | 2026-09-17 | ACQUIRED |
-| Polymaker Fiberon PET-GF15, 1.75 mm × 1 kg, Dark Grey — $29.99 + $2.17 NE tax | [B0FBWM5J8X](https://www.amazon.com/dp/B0FBWM5J8X) | 1 | $32.16 | 112-7997113-5902601 | 2026-09-21 | — | ON-ORDER (Amazon estimate 2026-09-22) |
-| Polymaker order #188663 — Fiberon PET-GF15, 1.75 mm × 3 kg, Black. Bought direct from polymaker.com rather than Amazon: $74.99 ea × 2 + $7.99 USPS Ground Advantage, no tax, = **$26.33/kg** | polymaker.com | 2 | $157.97 | — | 2026-08-29 | — | ON-ORDER |
+| Polymaker Fiberon PET-GF15, 1.75 mm × 1 kg, Dark Grey — $29.99 + $2.17 NE tax | [B0FBWM5J8X](https://www.amazon.com/dp/B0FBWM5J8X) | 1 | $32.16 | 112-7997113-5902601 | 2026-09-21 | 2026-09-22 | ACQUIRED |
+| Polymaker Fiberon PET-GF15, 1.75 mm × 3 kg, Black — $74.99 ea × 3 before promotion and tax; $217.14 charged, $24.13/kg | [B0FBWGTW9W](https://www.amazon.com/dp/B0FBWGTW9W) | 3 | $217.14 | 114-2631637-5080268 | 2026-10-01 | 2026-10-03 | ACQUIRED |
+| Polymaker order #188663 — Fiberon PET-GF15, 1.75 mm × 3 kg, Black. Bought direct from polymaker.com rather than Amazon: $74.99 ea × 2 + $7.99 USPS Ground Advantage, no tax, = **$26.33/kg** | polymaker.com | 2 | $157.97 | — | 2026-08-29 | 2026-09-03 | ACQUIRED |
+| Polymaker order #190118 — Fiberon PET-GF15, 1.75 mm × 3 kg, Black, direct from polymaker.com: $74.99 ea × 2, free Economy shipping, no tax, = **$25.00/kg** | polymaker.com | 2 | $149.98 | — | 2026-09-04 | 2026-09-09 | ACQUIRED |
+| Polymaker order #192064 — Fiberon PET-GF15, 1.75 mm × 3 kg, Black, direct from polymaker.com: $74.99 ea × 4, free Economy shipping, no tax, = **$25.00/kg** | polymaker.com | 4 | $299.96 | — | 2026-09-12 | 2026-09-18 | ACQUIRED |
 | SunTop food-contact-compliant PETG, 1.75 mm × 1 kg, Clear/Transparent | [B0FP34MJ94](https://www.amazon.com/dp/B0FP34MJ94) | 2 | $49.32 | 112-1471049-5385066 | 2026-05-17 | 2026-05-18 | ACQUIRED |
 | Elmer's disappearing purple school glue sticks, washable, 6 g × 12 — print-bed adhesion/release layer | [B003ULCZ7M](https://www.amazon.com/dp/B003ULCZ7M) | 1 pk (12) | $7.38 | 114-9764609-4555460 | 2026-03-22 | 2026-03-24 | ACQUIRED |
 | Koala resin-coated 4×6 glossy photo paper, 72lb, 100 sheets — print stock for the 4×6 sequence deck ([assembly/cards/](/hardware/assembly/cards/README.md)), borderless on the ET-8550 (`4x6.Fullbleed`) | [B073WWB1HS](https://www.amazon.com/dp/B073WWB1HS) | 1 pk (100) | $13.92 | 112-4209023-0725839 | 2026-07-24 | 2026-07-25 | ACQUIRED |
@@ -735,13 +740,13 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$36,201.81](LEDGER_ACQUIRED_HW) |
+| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$37,119.06](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$5,437.54](LEDGER_LABOR) |
-| ACQUIRED (combined) | [$41,639.35](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$790.29](LEDGER_ON_ORDER) |
+| ACQUIRED (combined) | [$42,556.60](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$600.16](LEDGER_ON_ORDER) |
 | MISSING — paid, not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$42,482.71](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$43,209.83](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
@@ -759,7 +764,7 @@ ACQUIRED hardware by section:
 | 10 | User interface | [$156.61](LEDGER_SEC10) |
 | 11 | Enclosure hardware | [$282.80](LEDGER_SEC11) |
 | 12 | Shop / bench infrastructure | [$2,423.33](LEDGER_SEC12) |
-| 13 | Printing consumables | [$2,291.02](LEDGER_SEC13) |
+| 13 | Printing consumables | [$3,208.27](LEDGER_SEC13) |
 | 14 | Soldering + small-signal tools | [$803.87](LEDGER_SEC14) |
 | 15 | 3D printing equipment + filaments (Bambu direct) | [$9,130.67](LEDGER_SEC15) |
 | 16 | Laser welding / cleaning / cutting | [$3,899.00](LEDGER_SEC16) |
