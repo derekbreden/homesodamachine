@@ -2,7 +2,7 @@
 
 Attended human minutes to build one finished appliance, one row per hand operation, grouped into the ten kinds of work the build asks for. Companion to [bom.md](/hardware/ledger/bom.md): that file is what a unit costs in parts, this one is what it costs in time.
 
-**Attended, not elapsed.** A row counts only the minutes a person is *on* the operation. The 30-minute hydro hold, the 15-minute vacuum hold, the silicone cure, the 8-hour burn-in, and the ~100 printer-hours are all real and none of them are in this file — the operator is elsewhere. What is counted is setup, the hands-on pass, the check, the tear-down, and the walk to the next stage. The hours a *machine* is busy are their own ledger: [machine-time.md](/hardware/ledger/machine-time.md), which is what turnaround and throughput are read off.
+**Attended, not elapsed.** A row counts only the minutes a person is *on* the operation. The 30-minute hydro hold, the 15-minute vacuum hold, the silicone cure, the 8-hour burn-in, and the [176.6](LAB_PRINT_H) estimated printer-hours are equipment time. What is counted here is setup, the hands-on pass, the check, the tear-down, and the walk to the next stage. The hours a *machine* is busy are their own ledger: [machine-time.md](/hardware/ledger/machine-time.md), which is what turnaround and throughput are read off.
 
 **An operator who has done the operation before,** with the fixture built, the jig loaded, and a batch of [10](BATCH_SIZE) units in flight, so setup amortizes. That batch is not a hypothetical: it is the size the ledger already buys in — endcap plates 20 at a time (two per carbonator), tube 10 at a time, PCBAs at the qty-10 price. An operation whose setup is per-batch rather than per-unit carries a tenth of that setup here.
 
@@ -62,16 +62,16 @@ The carbonator receives dye penetrant and hydro before foaming, the refrigerant 
 
 ## 4. Silicone casting
 
-One cast part per unit: the funnel, ~201 g of 1:1 platinum silicone poured into the printed two-part mold. The cure and the post-cure bake are oven time, not operator time. What costs is the release film, the degas, and the flash trim.
+One cast part per unit: the funnel, [219.3](FUNNEL_VOLUME_ML) mL of finished CAD volume, estimated at [248](FUNNEL_FINISHED_G) g using an assumed [1.13](FUNNEL_DENSITY_G_ML) g/mL density. The batch allocation is [273](FUNNEL_MIXED_G) g of 1:1 platinum silicone, including a provisional [10%](FUNNEL_MIX_ALLOWANCE) mixing and port-flash allowance. The printed two-part mold and contoured forming mandrel make the entry, relief and sealing land for the raw drain tube. Room-temperature cure and the post-cure bake are equipment time; the attended work is preparation, pouring, release and flash trim. Casting yield, finishing compatibility and these handwork allowances remain unmeasured.
 
 | Operation | Cards | Notes | Minutes |
 |---|---|---|---:|
-| Release both forming faces, seat the rod, set the nuts and washers | — | Ease Release 200 on both faces every pour | 5 |
-| Weigh, pigment, mix and vacuum-degas 201 g of silicone | — | 1:1 by weight, ≤2 % black pigment, chamber until it falls back | 10 |
+| Release both forming faces and the finished mandrel; seat it in the cradle, seal the forming entry and clamp the shells | — | Compatible finishing/release stack, mandrel against the axial stop, bare mold lands closed; [mold procedure](/hardware/printed-parts/zone-c/funnel-mold/README.md) | 5 |
+| Weigh, pigment, mix and vacuum-degas [273](FUNNEL_MIXED_G) g of silicone | — | 1:1 by weight, ≤2 % black pigment, chamber until it falls back | 10 |
 | Pour the open cavity, lower the core, vacuum and top up, rack to cure | — | The cure and the vacuum hold are unattended | 5 |
-| Demold, trim the socket's collar at the bore exit and the port and vent flash | — | 6 mm wall, 40A; peel the brim first to admit air | 5 |
+| Demold, trim the socket's collar at the bore exit and the port and vent flash | — | Peel the brim first to admit air; trim the sacrificial collar before withdrawing the 8.4 mm mandrel entry | 5 |
 | Post-cure bake — load and unload the oven | — | Bake is unattended | 5 |
-| Re-sand, re-seal and re-release the core as the film wears | — | Amortized across the pulls one seal coat survives | 5 |
+| Maintain the mold and mandrel's finishing/release surfaces | — | Amortized across casting pulls; preserve the mandrel's short relief and cylindrical 6.0 × 3.0 mm sealing land | 5 |
 | **Silicone casting** | | | **[35](LAB_SEC4)** |
 
 ## 5. Foam pouring
@@ -88,16 +88,16 @@ Three pour-in-place foam operations: both cold-core caps, the body foam around t
 
 ## 6. Wiring
 
-Twelve harness assemblies off the bench plus the in-cabinet runs — roughly sixty crimped terminations per unit across JST-XH contacts, ferrules, Fastons, forks and rings. The harnesses are built a batch at a time against the schedule, not one loom at a time against the unit in front of you.
+Twelve harness assemblies off the bench plus the in-cabinet runs — roughly sixty crimped terminations per unit across JST-XH contacts, ferrules, Fastons, forks and rings. The pump cartridge disconnect also has eight solder tails on the fixed male/pin and cartridge female/pad halves of its four-pin magnetic pogo pair. The harnesses are built a batch at a time against the schedule. Pogo assembly and verification are included in the estimates below; their production times are unmeasured.
 
 | Operation | Cards | Notes | Minutes |
 |---|---|---|---:|
-| Build the twelve harness assemblies — cut, strip, crimp, sleeve, ring out | CA-01, CA-02 | ~60 terminations; batch-built against the harness schedule | 45 |
+| Build the twelve harness assemblies — cut, strip, crimp, solder, sleeve, ring out | CA-01, CA-02 | ~60 crimp terminations plus eight insulated pogo tails for four fixed 22 AWG leads and four cartridge leads; retain the four motor Fastons. Mark the attracting orientation at machine −X | 45 |
 | AC distribution + ground bus on the shelf; land the pigtails | ES-02, ES-04 | Ferrules into 221s, rings to the ground stud | 10 |
 | DC distribution + 12 V branches; land the RELAYS J5 loom | ES-05, ES-06 | | 5 |
 | Chassis-ground bonds; C14 to compressor and PSU | WR-01, WR-02 | | 10 |
 | Dielectric + continuity check, AC side | ES-07, WR-03 | Pre-power isolation proof — nothing gets energized before it passes | 10 |
-| Cabinet 12 V runs and signal looms | WR-04, WR-05 | Label both 7P housings; J4 and J7 share a shell | 10 |
+| Cabinet 12 V runs and signal looms | WR-04, WR-05 | Label both 7P housings; J4 and J7 share a shell. Route fixed pogo leads through the bulkhead bore and ridge clip, moving leads under the cartridge crown grooves; with AC unplugged, check all four channels point to point and for neighbor isolation with the cartridge out and seated | 10 |
 | Bundle, route, strain-relieve | WR-06 | | 5 |
 | **Wiring** | | | **[95](LAB_SEC6)** |
 
@@ -118,13 +118,13 @@ Every wetted and gas joint in the unit: the carbonator's four elbow stacks, the 
 
 ## 8. Assembly
 
-Everything that is putting parts together with fasteners and hands. Printer tending lives here: ~7.6 kg of filament across the twenty-three §7 lines is ~100 printer-hours per unit ([machine-time.md](/hardware/ledger/machine-time.md)), but the *attended* share is plate changes, spool swaps, part removal and support cleanup. So do the [74](TOTAL_INSERTS) heat-set inserts and the [74](TOTAL_SCREWS) machine screws that close the build — one screw per insert, the whole way through.
+Everything that is putting parts together with fasteners and hands. The print model allocates [7.116](LAB_PRINT_KG) kg of filament and [176.6](LAB_PRINT_H) printer-hours per unit, including the three ASA Aero floats ([machine-time.md](/hardware/ledger/machine-time.md)). The attended share is plate changes, spool swaps, part removal, support cleanup and the three RC62 insertions at their print pauses. That tending allowance is provisional. Assembly includes the [72](TOTAL_INSERTS) M3/M5 heat-set inserts and [72](TOTAL_SCREWS) matching screws, plus four M1.4 inserts and four M1.4 × 5 screws mounting the pogo halves.
 
 | Operation | Cards | Notes | Minutes |
 |---|---|---|---:|
-| Tend the printers — plate changes, spool swaps, part removal, support cleanup | — | ~7.6 kg over ~100 printer-hours; only the load/unload passes are counted | 25 |
-| Press the [74](TOTAL_INSERTS) heat-set inserts — shell faces, cap columns, reservoir caps, touch-flo pods, wall bosses, condenser fingers, the enclosure's [6](SEAM_INSERTS) Y-seam stations — the Z seams slide and take no insert — floor posts | CC-05, ES-01, EN-01 | FX-888D + T18 tip kit, [20](FOAM_CLAMP_INSERTS) of them in the shell faces alone; [70](TOTAL_M3_INSERTS) M3 and the floor's four M5, so the tip changes once | 10 |
-| Drive the [74](TOTAL_SCREWS) machine screws that close the build | — | [20](FOAM_SCREWS) foam-cap, [4](PUMP_MOUNT_SCREWS) water-pump, [12](RES_SCREWS) reservoir-cap, [3](TOUCHFLO_SCREWS) faucet base, [17](SHELF_SCREWS) shelf, [2](COND_SCREWS) condenser, [0](DISPLAY_COVER_SCREWS) display plate, [0](NAMEPLATE_SCREWS) nameplate, [6](SEAM_SCREWS) M3 × 10 enclosure Y-seam screws driven from the ±X exterior faces — the Z seams slide home and take none — [4](FLOOR_SCREWS) floor | 5 |
+| Tend the printers — plate changes, spool swaps, part removal, support cleanup and float-magnet insertion | — | [7.116](LAB_PRINT_KG) kg over [176.6](LAB_PRINT_H) estimated printer-hours; includes three RC62 insertion/resume passes. Provisional attended allowance; the v2 float slice and elapsed manual pauses are unmeasured | 25 |
+| Press the [72](TOTAL_INSERTS) M3/M5 heat-set inserts and four M1.4 pogo inserts | CC-05, ES-01, EN-01 | Shell faces, cap columns, reservoir caps, touch-flo pods, wall bosses, condenser fingers, [6](SEAM_INSERTS) enclosure Y-seam stations and floor posts. FX-888D + T18 tips for [68](TOTAL_M3_INSERTS) M3 and four M5; use the micro-insert tool for the four M1.4 × 4 × Ø2.3 pogo inserts | 10 |
+| Drive the [72](TOTAL_SCREWS) M3/M5 build screws and four M1.4 × 5 pogo screws | — | [20](FOAM_SCREWS) foam-cap, [4](PUMP_MOUNT_SCREWS) water-pump, [12](RES_SCREWS) reservoir-cap, [3](TOUCHFLO_SCREWS) faucet base, [17](SHELF_SCREWS) shelf, [2](COND_SCREWS) condenser, [0](DISPLAY_COVER_SCREWS) display plate, [0](NAMEPLATE_SCREWS) nameplate, [6](SEAM_SCREWS) M3 × 10 enclosure Y-seam screws driven from the ±X exterior faces, [4](FLOOR_SCREWS) floor; two micro screws per pogo half | 5 |
 | Wind the evaporator coil on the mandrel; transfer it, set the band | CC-01, CC-03 | | 10 |
 | Dress the carbonator wall — reeds, probe, foil; bond the coil probe | CC-02, CC-04 | | 10 |
 | Build the reed columns; seat rods and floats; close the reservoirs | CC-07, CC-08, CC-09, CC-15 | Two reservoirs, gaskets, caps, vent filters | 15 |
@@ -159,7 +159,7 @@ The unit passed. Empty it, clean it up, name it, box it.
 |---|---|---|---:|
 | Drain and air-purge for transit | AB-07 | Nothing wet ships | 5 |
 | Wipe down + final inspection | FS-01 | | 5 |
-| Drain dry, sign the nameplate, screw it on | FS-02 | Pigment ink, let it set, two M3×8 | 5 |
+| Scan the nameplate QR and snap its horizontal wings into the back-top receiver | FS-02 | Match the four-digit unit number to the order and per-unit archive; confirm full seating and retention per [finish procedure](/hardware/assembly/finish-pack-ship.md#3-apply-the-per-unit-nameplate) | 5 |
 | Cap the inlets + photograph | FS-03 | | 5 |
 | Make up the customer's runs; pack the install kit, the cold kit and the carton | FS-04 | | 10 |
 | Weigh, label, hand off | FS-05 | | 5 |
@@ -183,8 +183,8 @@ The unit passed. Empty it, clean it up, name it, box it.
 
 The target is 10 hours attended per unit. The current estimate is [10 h 15 m](LAB_HM), including 20 minutes of unmeasured recurring jet work. The largest attended-time categories are:
 
-- **Assembly** ([2 h](LAB_HM8), the largest category) — over a third of it is tending printers, which is setup, not work: a second printer takes it straight out of the unit.
-- **Wiring** ([1 h 35 m](LAB_HM6)) — three quarters of it is the twelve harnesses. A crimp jig and a batch cut list against the harness schedule move that number; nothing else in the section will.
+- **Assembly** ([2 h](LAB_HM8), the largest category) — includes 25 minutes of provisional printer tending. Additional printer capacity changes elapsed print time; plate handling and magnet insertion still require attended work.
+- **Wiring** ([1 h 35 m](LAB_HM6)) — includes 45 minutes for the twelve harnesses and pogo tails. A crimp jig, batch cut list and repeatable pogo soldering setup affect that allowance.
 - **Machining** — the four hand-tapped NPT ports are the slowest five minutes each in the build, and the production tapping fixture is still an open item in [`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md).
 
 ## Not counted here

@@ -33,6 +33,8 @@ sys.path.insert(
     0, str(next(p for p in Path(HERE).resolve().parents
                 if (p / "tools" / "docgen").is_dir()) / "tools"))
 from docgen import cells, substitute_md  # noqa: E402
+from _funnel_casting import figures as funnel_figures  # noqa: E402
+from _machine_time import print_estimate  # noqa: E402
 
 # The build batch the estimates amortize per-batch setup across — the size the
 # ledger already buys in (endcap plates 20 at a time = 10 carbonators, tube 10 at a
@@ -104,6 +106,14 @@ def main():
     grand = sum(sums.values())
 
     variables = {"BATCH_SIZE": BATCH_SIZE, "LABOR_RATE": f"${LABOR_RATE:,}"}
+    printing = print_estimate()
+    if printing["unassigned"]:
+        print("bom.md §7 rows with no machine-time rate group:")
+        print("\n".join(printing["unassigned"]))
+        return 1
+    variables.update({"LAB_PRINT_KG": f"{printing['total_kg']:.3f}",
+                      "LAB_PRINT_H": f"{printing['total_hours']:.1f}"})
+    variables.update(funnel_figures())
     for n, v in sums.items():
         variables[f"LAB_SEC{n}"] = f"{v:,}"
         variables[f"LAB_HM{n}"] = hm(v)

@@ -66,6 +66,12 @@ drybox through external right slot 255. Use 270 °C nozzle, 90 °C bed,
 infill, top/bottom skin, skirt, brim or support. The nested perimeters still
 contain seams, wipes and short transitions.
 
+Before printing, dry the ASA Aero filament at 80 °C for 8 hours in the SUNLU E2,
+following Bambu's [forced-air drying recommendation](https://store.bblcdn.com/2bb7c6814cdc42d19ffc62570cfc1fb2.pdf).
+Transfer it to the sealed external drybox and maintain less than 20% RH during
+storage and feeding. This is filament preparation; it is not a heat treatment
+of the completed float or its inserted magnet.
+
 At the insertion pause, seat one RC62 completely on the pocket floor, keeping
 the guide bore open and the float attached to the plate. The ring must sit
 below the pocket rims. Clear loose strings and manually resume once seated.

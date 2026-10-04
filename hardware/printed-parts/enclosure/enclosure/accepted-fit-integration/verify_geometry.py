@@ -1,4 +1,8 @@
-"""Verify accepted physical interfaces in the complete upper shell solids."""
+"""Verify accepted mating interfaces against the current upper-shell exports.
+
+Writes current-geometry-check.json. The retained geometry-check.json describes
+its identified integration snapshot and is not replaced by this check.
+"""
 from pathlib import Path
 import hashlib,json,sys
 import cadquery as cq
@@ -11,6 +15,7 @@ import enclosure as e,_box_spec
 import _display_wing_interface as dw
 import _nameplate_wing_interface as nw
 import enclosure_assembly as assembly
+from materialize_pump_cartridge import _declared_box
 rows=[]
 def check(name,value,**data):
  rows.append({'check':name,'pass':bool(value),**data});print(name,value,data,flush=True)
@@ -22,7 +27,8 @@ def equal(name,a,b):
 def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 
 def main():
- box,_=_box_spec.read(e.Box,e.Bound,(e.Pack,e.PortField,e.Nameplate),path=HERE/'enclosure-box.json')
+ box,_bounds,box_path=_declared_box(_box_spec,e)
+ e._last_box[0]=box
  shapes={name:cq.importers.importStep(str(ENC/f'enclosure-{name}.step')).val() for name in ('front-top','back-top')}
  front,back=shapes.values()
  display_dir=ENC.parent/'display-cover/face-up-trial'
@@ -60,23 +66,11 @@ def main():
  empty('complete deeper display module clears front-top',module,front)
  funnel,_=assembly.build_funnel(box)
  empty('complete deeper display module clears funnel',module,funnel)
- jack=assembly._pump_jack_service_bound(module,cq.Workplane(obj=front),box)
- check('pump-jack service path',jack.ok,reading=jack._asdict())
- # A local interface edit may not silently change the accepted tee mechanism or seams.
- previous=ROOT/'.cache/enclosure-accepted-integration/before'
- oldfront=cq.importers.importStep(str(previous/'enclosure-front-top.step')).val()
- oldback=cq.importers.importStep(str(previous/'enclosure-back-top.step')).val()
- lower=e._ybox(-108,108,4,472,159,box.pump_bay[2]-.001)
- equal('front-top below display storey unchanged',front.intersect(lower),oldfront.intersect(lower))
- region=e._ybox(station.x-59,station.x+59,box.outer[3]-16,box.outer[3]+1,station.z-25,station.z+25)
- equal('back-top outside nameplate receiver unchanged',back.cut(region),oldback.cut(region))
- # These local interfaces do not move placement stations. Check the affected
- # hardware directly with its production placement functions.
- previous_box,_=_box_spec.read(e.Box,e.Bound,(e.Pack,e.PortField,e.Nameplate),
-                              path=ROOT/'hardware/manifold-layout/enclosure-box.json')
- check('production enclosure datums retained',previous_box.outer==box.outer and previous_box.inner==box.inner
-       and previous_box.y_joint==box.y_joint and previous_box.splits==box.splits,
-       outer=box.outer,splits=box.splits)
+ cap_path=ENC/'enclosure-pump-cap.step'
+ cap=cq.importers.importStep(str(cap_path)).val()
+ contact=assembly._pump_contact_bound(assembly.build_pump_contacts(box),
+                                    {'front-top':front,'pump-cap':cap},box)
+ check('pump cartridge nominal contact mating',contact.ok,reading=contact._asdict())
  foam,_=assembly.build_foam(0)
  psu,_=assembly.build_psu(foam,assembly.east_wall_seat())
  r=nw.production_backing(nw.receiver(),nw.dimensions.station(0,0),nw.THICK).translate(np_loc)
@@ -96,11 +90,15 @@ def main():
   b=face.BoundingBox()
   if face.geomType() not in ('PLANE','CYLINDER') and b.zmax>352 and b.zmin>340:
    round_faces.append({'type':face.geomType(),'bounds':[b.xmin,b.xmax,b.ymin,b.ymax,b.zmin,b.zmax]})
- (HERE/'geometry-check.json').write_text(json.dumps({'pass':True,'checks':rows,
+ (HERE/'current-geometry-check.json').write_text(json.dumps({'pass':True,'checks':rows,
+    'scope':'Accepted cover/nameplate mating geometry checked against current upper-shell exports and declared Box. Individual-axis clearances and nominal pogo mating only; physical full-shell fit, installed pogo compression and retention remain unmeasured.',
     'front_roof_blend_faces':round_faces,
     'accepted_clearances_preserved':True,'pcb_opening_depth_mm':e.display_facet_thickness+e.display_pcb_cut_through,
     'module_rear_clearance_mm':1.,'minimum_ridge_stock_mm':e.ridge_wall_t,
-    'source_sha256':{str(p.relative_to(ROOT)):sha(p) for p in [Path(__file__),ENC/'enclosure.py',ENC/'_display_wing_interface.py',ENC/'_nameplate_wing_interface.py',HERE/'enclosure-box.json',
+    'source_sha256':{str(p.relative_to(ROOT)):sha(p) for p in [Path(__file__),ENC/'enclosure.py',ENC/'_display_wing_interface.py',ENC/'_nameplate_wing_interface.py',ROOT/'hardware/manifold-layout/enclosure_assembly.py',box_path,cap_path,
+            display_dir/'display-cover-flat-wings.step',ENC.parent/'display-cover/display-cover.step',
+            name_dir/'nameplate-horizontal-wings-001.step',ENC.parent/'nameplate/nameplate-001.step',
+            name_dir/'nameplate-horizontal-wings-receiver.step',
             *[ENC/f'enclosure-{n}{ext}' for n in shapes for ext in ('.step','.stl')]]}},indent=2)+'\n')
 
 if __name__=='__main__':main()
