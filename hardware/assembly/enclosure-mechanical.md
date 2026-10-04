@@ -280,9 +280,7 @@ The card's own reading of the chassis at this point: [104](BODY_COUNT) bodies pl
 
 Procedure-level gaps that need answers before unit 1 ships:
 
-1. **The condenser's air has no route through the box.** The mating settles where the body stands — east of the compressor, on that shell's own tangent — and the air path off it is the donor fan shroud's, per [`/hardware/reference/ice-maker/README.md`](/hardware/reference/ice-maker/README.md). The box gives it nothing: `pack.east_ports` and `pack.front_ports` are both empty and the −X wall carries only the ASSE drip pan's slot, so there is no opening in any face for air to arrive by or leave by. The mount's fin stands in that east lane, `cond_mount_clear` off the block's exhaust face and across the aft 12 mm of its depth. Needs the openings cut at the finstack's own footprint, clear of the ±X boss chains, the Z-seam pods and that fin, on the faces the path asks for.
-
-2. **The populated chassis needs a stated bench fixture and build orientation.** Specify how the pieces are held square during telescoping and how the open back column is supported while its plumbing and electronics are installed. The current assembly order is in §6. Existing part-fit observations and their accepted scope remain in the [mechanical qualification index](/hardware/mechanical-qualification/README.md).
+1. **The populated chassis needs a stated bench fixture and build orientation.** Specify how the pieces are held square during telescoping and how the open back column is supported while its plumbing and electronics are installed. The current assembly order is in §6. Existing part-fit observations and their accepted scope remain in the [mechanical qualification index](/hardware/mechanical-qualification/README.md).
 
 
 ## Sources

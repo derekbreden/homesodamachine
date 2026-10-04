@@ -662,13 +662,16 @@ is [60.5 %](VENT_OPEN_PCT) open where every slot runs; the readings above are wh
 out at with the transoms, the hips and the intake's rail in it. The tallest opening on either flank is [24.5 mm](VENT_TOWER) on a
 [2.0221 mm](VENT_MEAS_MULLION) mullion, which is [12.1:1](VENT_ASPECT).
 
-**Two things this does not answer.** There is **no thermal spec anywhere in this repo** — no CFM,
-no free-area requirement, no ΔT budget — and the fan is documented only as a 12 V brushless axial
-drawing ~0.35 A, so the areas above are what the flanks give and not what anything has asked for.
-And **the intake path is obstructed**: the compressor stands 110 mm wide across the west half of
-the same bay, x −76.1 to 33.9 and up to z 135, and the condenser's intake face is at x 44.5 — so
-air drawn through the −X flank reaches the finstack through a 10.6 mm slot between the two
-bodies. Neither is a question the vent geometry settles.
+**The air path is the donor's.** The condenser, its fan and shroud, and the compressor beside
+them stand in the donor ice maker's own arrangement
+([`reference/ice-maker/`](/hardware/reference/ice-maker/README.md)), and these flanks are
+pierced more openly than the donor's grilles. The compressor in the pack is a clearance
+envelope: [`compressor.py`](/hardware/reference/compressor/compressor.py) runs the shell's
+calipered section straight through its full height, so the gap that envelope leaves at the
+condenser's intake face is packing room, not the air passage. The heat the loop
+rejects, ~240 W at worst, and the 40 mm side gap that keeps the cabinet from being the
+restriction are in [`install-envelope.md`](/marketing/install-envelope.md); the cabinet with
+its doors shut is in the [enclosure README](/hardware/printed-parts/enclosure/README.md).
 
 ## Mating clearances
 
