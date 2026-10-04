@@ -5,18 +5,17 @@
   const fillScreenTexture = await textureLoader.loadAsync(o.fillScreen);
   fillScreenTexture.colorSpace = THREE.SRGBColorSpace;
   fillScreenTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
-  const fillScreen = new THREE.Mesh(new THREE.PlaneGeometry(103.5, 62.1),
+  const fillScreen = new THREE.Mesh(new THREE.PlaneGeometry(o.screen.width, o.screen.height),
     new THREE.MeshBasicMaterial({map: fillScreenTexture, toneMapped: false}));
   fillScreen.name = "guide-fill-screen";
-  fillScreen.rotation.x = Math.PI/4;
-  fillScreen.position.set(0, (254.55844-200.76738)/Math.SQRT2,
-                            (254.55844+200.76738)/Math.SQRT2);
+  fillScreen.rotation.x = o.screen.angle_deg * Math.PI/180;
+  fillScreen.position.set(...o.screen.origin);
   currentGroup.add(fillScreen);
 
   const enclosure = currentGroup.children.find(part => part.name === "enclosure-back-top");
   const cover = currentGroup.children.find(part => part.name === "display-cover");
   if (!enclosure?.isMesh || !cover?.isMesh)
-    throw new Error("The frozen Fill scene must contain the enclosure and display cover");
+    throw new Error("The Fill scene must contain the enclosure and display cover");
   cover.material = enclosure.material;
 
   for (const part of currentGroup.children) {
@@ -57,10 +56,10 @@
     const positions = [], normals = [], uvs = [], indices = [];
     const count = 160, angle = Math.atan2(-1, .65);
     for (let j = 0; j < 2; j++) {
-      const z = 389+72+j*106, radius = 32.25+j*.43;
+      const z = o.mouth[2]+72+j*106, radius = 32.25+j*.43;
       for (let i = 0; i <= count; i++) {
         const u = i/count, theta = angle+2*Math.PI*(u-.5);
-        positions.push(radius*Math.cos(theta), 156.5+radius*Math.sin(theta), z);
+        positions.push(o.mouth[0]+radius*Math.cos(theta), o.mouth[1]+radius*Math.sin(theta), z);
         normals.push(Math.cos(theta), Math.sin(theta), 0);
         uvs.push(1-u, 1-j);
       }

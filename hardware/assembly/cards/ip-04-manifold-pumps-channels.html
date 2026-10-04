@@ -6,8 +6,14 @@
 <style>
   /* Five steps against two panels — the densest card in the deck, so the steps
      and the gap between panels both close up. */
-  ol.steps li { margin-bottom: 14px; }
+  .lede { font-size: 30px; margin-bottom: 16px; }
+  ol.steps li { font-size: 29px; margin-bottom: 8px; }
+  .tools { font-size: 24px; }
+  .panel { flex-shrink: 0; }
   .panel + .panel { margin-top: 16px; }
+  .panel svg { flex: none; height: 336px; }
+  .panel img { flex: none; height: 200px; }
+  .panel .cap { font-size: 24px; line-height: 1.25; padding: 10px 18px 12px; }
 </style>
 </head>
 <body class="ip">
@@ -21,24 +27,33 @@
 
 <main>
   <div class="col" style="flex:1">
-    <p class="lede"><strong>Build outward from the two pump rosettes</strong> —
+    <p class="lede"><strong>Build on loose front-top; keep the cartridge separate.</strong>
     <span class="dim" data-gen="MANIFOLD_VALVES">10</span> valves,
     <span class="dim" data-gen="MANIFOLD_TEES">6</span> tees. B mirrors A.</p>
 
     <ol class="steps">
-      <li><b>Rosettes first:</b> all
-        <span class="dim" data-gen="BARB_TEES">4</span> barb tees drop on
-        <b>by their BRANCH</b> — suctions then discharges, map at right. The tee
-        seats on the barb: no fitting, no tube.</li>
-      <li><b>Back: Y&#8209;C &rarr; V&#8209;C + V&#8209;E. Forward:
-        Y&#8209;D &rarr; V&#8209;F + V&#8209;G.</b></li>
-      <li><b>Reservoir A takes its own two mouths:</b> V-F onto the fill, the
-        draw up into V-E. <b>No junction on either.</b></li>
-      <li><b>Shared upstream last:</b> the split&rsquo;s forward run &rarr; flow
-        regulator &rarr; V-A; the drain elbow &rarr; V-B on
-        <b>fluid-4</b>. LLDPE through each pump's BPT barbs, zip-tied.</li>
-      <li><b>Land the manifold</b> (GT-02) above the compressor — runs in the
-        printed channels, zip-tied at every pinch-point.</li>
+      <li><b>Retain the
+        <span class="dim" data-gen="CARRIER_TEES">4</span> moving tees:</b>
+        <span data-gen="CARRIER_TEE_NAMES">Y-C, Y-D, Y-F, Y-G</span>, two ties
+        each in the spring-loaded carrier, branches fore. Fit valve rows +
+        bowed black-LLDPE links per &#167;3.</li>
+      <li><b>Build the cartridge (SA-09).</b> Seat both pumps, silicone outlets
+        +Y. Insert 1/4&Prime; OD LLDPE into both silicone ends; zip-tie the
+        joints. Mark the
+        <span class="dim" data-gen="SA09_STUBS">4</span> free tips
+        <span class="dim" data-gen="SA09_STUB_STAND">17.53 mm</span> aft of
+        the rigid outlet-axis casing datum; pump-end engagement is extra stock.</li>
+      <li><b>Fit the female pogo half and leads before closing the top
+        clamp</b> (WR-04). Draw the
+        <span class="dim" data-gen="SA09_CAP_SCREWS">2</span>
+        <span class="dim" data-gen="SA09_CAP_SCREW">M3 &#215; 60</span>
+        screws evenly. Pumps firm, no vertical play; motor ends + terminals open.</li>
+      <li><b>Land the fixed limbs:</b> A fill/draw &rarr; V-F/V-E;
+        B fill/draw &rarr; V-I/V-H, directly. Split &rarr; flow regulator
+        &rarr; V-A; retained PP0308E drain elbow &rarr; V-B via <b>fluid-4</b>.</li>
+      <li><b>Dress fixed spans in their channels;</b> keep bows and tee-side
+        hairpins free. Leave the cartridge out until chassis closure; seat
+        with power off and check tubes + contacts at IP-05.</li>
     </ol>
 
     <div class="tools">
@@ -120,8 +135,9 @@
         <text class="sub" x="24" y="326">Channel B mirrors — segments 19&ndash;28 &#8594; Nozzle B</text>
       </svg>
       <div class="cap"><b>Segment numbers from the topology tables;</b>
-      each pump hangs in a tray on the pump cartridge's deck &#183; boss in
-      the bore, two 8&Prime; ties under its own mounting bracket.</div>
+      both pumps seat in the fitted lower cradle. The top clamp holds them with
+      <span class="dim" data-gen="SA09_CAP_SCREWS">2</span>
+      <span class="dim" data-gen="SA09_CAP_SCREW">M3 &#215; 60</span> screws.</div>
     </div>
 
     <div class="panel">
@@ -142,8 +158,8 @@
 </main>
 
 <footer>
-  <div class="done"><span class="lbl">Done when</span>Both channels close to the truth table, pumps are threaded, four Fastons are seated, and the cartridge's leads lie in the clamp's crown grooves.</div>
-  <div class="src">internal-plumbing.md &#167;3 &#183; fluid-topology.md<br>_cards_sync.py &#183; rev 2026-10-02</div>
+  <div class="done"><span class="lbl">Done when</span>Channels match the truth table; fixed runs dressed, moving bows free. Cartridge tips marked, leads in crown grooves.</div>
+  <div class="src">internal-plumbing.md &#167;3 &#183; fluid-topology.md<br>_cards_sync.py &#183; rev 2026-10-03</div>
 </footer>
 
 </div>

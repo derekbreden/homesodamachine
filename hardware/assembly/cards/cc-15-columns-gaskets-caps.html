@@ -16,13 +16,13 @@
 <main>
   <div class="col" style="flex:1">
     <p class="lede">Pours cured — the core closes: <strong>columns in, gaskets
-    on, two foam-filled caps clamped</strong> with twelve screws.</p>
+    on, two foam-filled caps clamped</strong> with <span class="dim" data-gen="SHELL_INSERTS">20</span> screws.</p>
 
     <ol class="steps">
       <li><b>Drop the pre-soldered reed columns in</b> — the shelf catches
         them. Lead each cable up its channel and out the cap&#8217;s reed
         conduit
-        (<span class="dim" data-gen="REED_CONDUIT_XY">reed-cable-a (134.5, 31), reed-cable-b (-134.5, 31)</span>).</li>
+        (<span class="dim" style="white-space:normal" data-gen="REED_CONDUIT_XY">reed-cable-a (134.5, 31), reed-cable-b (-134.5, 31)</span>).</li>
       <li><b>First TPU gasket on the body's top edge</b> — perimeter
         ring, <span class="dim">8 &#215; 8 mm</span> pads at the
         <span class="dim" data-gen="FACE_BOSSES">10</span> screws.</li>
@@ -30,28 +30,28 @@
         bolt either way; the
         <span class="dim" data-gen="DECK_COLUMNS">4</span> deck bores and
         <span class="dim" data-gen="CAP_CRADLES">3</span> valve cradles do not.
+        <span class="dim" data-gen="FACE_BOSSES">10</span>
         <span class="dim" data-gen="CAP_SCREW">M3 &#215; 25</span>, top-face
         inserts.</li>
       <li><b>Second gasket + bottom cap mouth-down</b> — the plain cup —
-        six more into the bottom-face inserts.</li>
+        <span class="dim" data-gen="FACE_BOSSES">10</span> more into the bottom-face inserts.</li>
     </ol>
 
     <div class="tools">
       <span class="lbl">Stock + tools</span>
-      M3&#215;25 SHCS 12.9 B0DJQGF665 &#215;12 &#183; TPU gaskets &#215;2
+      <span data-gen="CAP_SCREW">M3 &#215; 25</span> SHCS 12.9 B0DJQGF665 &#215;<span data-gen="SHELL_INSERTS">20</span> &#183; TPU gaskets &#215;2
     </div>
   </div>
 
   <div class="col" style="flex:none; width:760px">
     <div class="panel">
       <img src="img/foam-assembly-stack.png" alt="">
-      <div class="cap"><b>foam-assembly</b> — top cap stack (amber),
-      shell, bottom cap stack (green); lids outermost. Only the top
-      lid is pierced, and only it stands cradles.</div>
+      <div class="cap"><b>foam-assembly</b> — two cap stacks, shell;
+      lids outermost. The top lid carries conduits and valve cradles.</div>
     </div>
 
     <table class="spec" style="margin-top:20px">
-      <tr><td>Screws &#183; per face</td><td class="v" data-gen="SHELL_INSERTS">20</td>
+      <tr><td>Screws &#183; total / face</td><td class="v" data-gen="SHELL_INSERTS">20</td>
           <td class="v" data-gen="FACE_BOSSES">10</td></tr>
       <tr><td>Each one &#183; gaskets</td><td class="v" data-gen="CAP_SCREW">M3 &#215; 25</td>
           <td class="v">TPU 90A</td></tr>
@@ -61,7 +61,7 @@
 </main>
 
 <footer>
-  <div class="done"><span class="lbl">Done when</span>Twelve screws home, both gaskets evenly compressed, reed columns trapped, the cap on its own pattern — the cold core is closed.</div>
+  <div class="done"><span class="lbl">Done when</span><span data-gen="SHELL_INSERTS">20</span> screws home, both gaskets evenly compressed, reed columns trapped, the cap on its own pattern — the cold core is closed.</div>
   <div class="src">cold-core.md &#167;7 &#183; foam-shell/README.md<br>_cards_sync.py &#183; rev 2026-08-07</div>
 </footer>
 

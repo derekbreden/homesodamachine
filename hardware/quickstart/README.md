@@ -35,9 +35,11 @@ connector and `CO2` collar installed; the faucet tails carry their collars from 
 bench. Nothing on this sheet is cut, trimmed, insulated or threaded through a collar. The cutter
 and loose foam belong to the separately bagged cold kit and its own guide.
 
-The clockwork composition sets six warm-stone fields (`#ded7cd`) clockwise around a white centre.
+The clockwork composition sets six ice fields (`#DCE6FF`) clockwise around a
+white centre. Cobalt (`#1749D1`) titles and numbers match the website and owner
+install guide; text uses ink (`#202337`).
 The centre places the app icon and compact uppercase product name above a large `Quick Start`
-label and short coral rule. Each action field carries a compact white disc with a midnight numeral,
+label and short cobalt rule. Each action field carries a compact white disc with a cobalt numeral,
 held in an art-directed clear pocket beneath the instruction scenes. Registered scene pairs follow
 that ring, with closeups enlarged wherever the physical travel must survive arm's-length reading.
 The faucet pair shares one image scale while its counter edges cross the paper and panel

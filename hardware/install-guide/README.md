@@ -33,7 +33,9 @@ call for a glass filled with ice. The illustration is a snapshot of the quick st
 
 The concentrate bottle has a rounded PET body, tapered shoulders, an open ribbed neck, dark
 liquid and a wrapped COLA concentrate label. The bottle and framed display are snapshots from
-`tools/quickstart-codex/fill_scene.py`; `assets/fill-screen.svg` and its PNG supply the interface.
+`tools/quickstart-codex/fill_scene.py`, whose funnel and display positions follow the current
+enclosure assembly. The quick start's `art/fill-scene-inputs.json` records the source hashes
+and motion cue; `assets/fill-screen.svg` and its PNG supply the interface.
 The cover shares the enclosure's matte black PET-GF appearance. Both Fill views use the same
 exposure, and the complete frame has an uninterrupted outline.
 
@@ -49,6 +51,8 @@ supplies shared CAD scene builders used by illustration tools; its output is in 
 From the repository root:
 
 ```sh
+tools/cad-venv/bin/python tools/quickstart-codex/fill_scene.py --publish
+tools/cad-venv/bin/python tools/quickstart-codex/fill_scene.py --scale 2 --publish
 tools/cad-venv/bin/python tools/install-guide/build.py
 tools/cad-venv/bin/python tools/install-guide/preflight.py
 pdftoppm -scale-to 1000 -png hardware/install-guide/install-guide.pdf hardware/install-guide/out/page

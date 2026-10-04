@@ -57,9 +57,10 @@ BOX_Y0, BOX_Y1 = 5.0, 467.0
 BOX_Z0, BOX_Z1 = -6.0, 361.0
 BOX_MID_X = (BOX_X0 + BOX_X1) / 2.0
 
-#: `enclosure-assembly.facts.json` — the funnel mouth in the top face, and the rear wall the
-#: umbilical ports stand on.
-HOPPER_X0, HOPPER_X1, HOPPER_Y0, HOPPER_Y1 = -79.5, 79.5, 77.0, 236.0
+#: The current assembly's funnel bounds locate its mouth in the top face.
+FUNNEL_BOUNDS = json.loads(MACHINE_FACTS.read_text())["bodies"]["funnel"]
+HOPPER_X0, HOPPER_X1 = FUNNEL_BOUNDS[0], FUNNEL_BOUNDS[3]
+HOPPER_Y0, HOPPER_Y1 = FUNNEL_BOUNDS[1], FUNNEL_BOUNDS[4]
 HOPPER_MID = ((HOPPER_X0 + HOPPER_X1) / 2.0, (HOPPER_Y0 + HOPPER_Y1) / 2.0)
 PORT_FACE_Y = 476.5
 PORT_Z_UPPER, PORT_Z_LOWER = 336.2, 273.8
@@ -502,7 +503,7 @@ def s_bottle_in_funnel():
     _machine(a)
     mouth_x = (HOPPER_X0 + HOPPER_X1) / 2.0
     mouth_y = (HOPPER_Y0 + HOPPER_Y1) / 2.0
-    top = 355.0
+    top = FUNNEL_BOUNDS[5]
     # Neck down in the funnel's throat, shoulder just clear of the mouth, body above it.
     neck_z = top - 16.0
     _add(a, _cyl(mouth_x, mouth_y, neck_z, BOTTLE_NECK_D, BOTTLE_NECK_H),

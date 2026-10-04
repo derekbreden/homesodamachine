@@ -1,96 +1,129 @@
 {
   "generator": "tools/magnetic-float-guide/float_art.py",
-  "geometry": "hardware/printed-parts/cold-core/magnetic-float/magnetic_float.py",
-  "geometry_sha256": "7d427f044916de750ba9e3cf93ca5b0445bac988d3dc555900f47af1342c4355",
+  "geometry": "hardware/printed-parts/cold-core/magnetic-float/all-aero/all_aero_float.py",
+  "geometry_sha256": "dec55e28dcbd0c4e7156b4dbf5e4c178d82ff56dcd4b25eb82460ece106cd440",
+  "interface": "hardware/printed-parts/cold-core/_float_interface.py",
+  "source_sha256": {
+    "tools/magnetic-float-guide/float_art.py": "1e4bb2f167bfd17cd15377934e042c50290254e39a48badf6cb14b32d01e264b",
+    "hardware/printed-parts/cold-core/magnetic-float/all-aero/all_aero_float.py": "dec55e28dcbd0c4e7156b4dbf5e4c178d82ff56dcd4b25eb82460ece106cd440",
+    "hardware/printed-parts/cold-core/_float_interface.py": "d2fc9c9029101bf471e06f81f9b1acbc4c6c841ba629e561fd9a33833319a72a"
+  },
+  "cad_revision": "v2-upper-clearance",
+  "dimensions_mm": {
+    "diameter": 36.0,
+    "height": 28.0,
+    "guide_bore": 4.8,
+    "guide_rod": 3.175,
+    "pocket_depth": 3.6,
+    "magnet_center_z": 14.0,
+    "magnet_seat_z": 12.4125,
+    "pocket_roof_z": 16.0125,
+    "expected_last_open_plane_z": 16.0,
+    "expected_first_covering_plane_z": 16.2,
+    "layer_height": 0.2
+  },
+  "scope": "Current CAD and nominal layer-grid illustration; expected last open plane and first covering plane require native slice review.",
   "conventions": {
-    "pale_blue": "Bambu PETG Translucent Clear 32101 shell; diagrammatic shading, not pigment or a prediction of optical clarity",
-    "petg_shading_hex": "#aac4d1",
-    "warm_white": "ASA Aero",
+    "warm_white": "ASA Aero White GFB02; solid shading does not depict foam cells or emitted roads",
     "silver": "RC62 ring magnet",
-    "coral": "part added in this step",
-    "blue": "insertion arrow, not a component",
-    "gray_tile": "cropped build plate, not full printer bed"
+    "accent": "inserted ring or ASA Aero deposited after the expected pause",
+    "accent_hex": "#d64050",
+    "arrow": "explanatory insertion arrow, not a component",
+    "arrow_hex": "#1749d1",
+    "gray_tile": "cropped build-plate proxy, not full printer bed",
+    "steel_gray_rod": "3.175 mm cylindrical guide proxy; no mounting end hardware depicted",
+    "cutaway": "front half removed for visibility; the printed body is one connected solid"
   },
   "scenes": {
     "hero": {
       "file": "hero.png",
-      "caption": "Finished float beside a section through its axis. Pale blue shading identifies the clear PETG shell."
-    },
-    "finished": {
-      "file": "finished.png",
-      "caption": "Finished PETG Translucent Clear 32101 float with its open guide bore. The clear shell is shaded pale blue for visibility."
-    },
-    "section": {
-      "file": "section.png",
-      "caption": "The continuous clear PETG envelope surrounds both Aero pieces and the ring magnet. Pale blue distinguishes PETG from the white Aero."
+      "caption": "Current one-piece ASA Aero float beside an axial cutaway, with one RC62 at Z14.0 mm.",
+      "sha256": "ba0caf68e0cd96499fe671ed535cd90d8223ffe78f358184ac1f1b67abdae034",
+      "image_size_px": [
+        1468,
+        783
+      ]
     },
     "exploded": {
       "file": "exploded.png",
-      "caption": "Open PETG shell, lower Aero core, ring magnet and upper Aero insert. The roof prints in place after insertion."
+      "caption": "One ASA Aero CAD body in cutaway and one RC62 ring lifted for identification. The ring is inserted while the body is still printing.",
+      "sha256": "21acf7cc9cd8cb41dc59e5b47705ae5f0f1e984ecf05814a89c3304ff7c8e59e",
+      "image_size_px": [
+        1151,
+        1600
+      ]
     },
-    "parts": {
-      "file": "parts.png",
-      "caption": "Cooled Aero core, upper insert and one RC62 ring magnet."
+    "section": {
+      "file": "section.png",
+      "caption": "The 36 \u00d7 28 mm ASA Aero body surrounds a 3.60 mm deep enclosed annular pocket and a continuous 4.8 mm guide bore.",
+      "sha256": "7e95638725a9324f12069777616607cc70659e06971154b9ad331d8c7ed90c13",
+      "image_size_px": [
+        1600,
+        1544
+      ]
     },
     "plate-aero": {
       "file": "plate-aero.png",
-      "caption": "Two separate plate crops: core on plate 1, upper insert on plate 2. Both print upright."
+      "caption": "One ASA Aero body prints upright, flat bottom attached to the glued Engineering plate. Gray is a cropped plate proxy.",
+      "sha256": "39563d522ab98f63fe39a2bf9c505c438c68a537bf0796f89ecda0795136dace",
+      "image_size_px": [
+        1600,
+        1284
+      ]
     },
-    "plate-core": {
-      "file": "plate-core.png",
-      "caption": "Aero core upright, flat bottom down and magnet pocket up."
-    },
-    "plate-insert": {
-      "file": "plate-insert.png",
-      "caption": "Aero upper insert flat on its annular face."
-    },
-    "plate-petg": {
-      "file": "plate-petg.png",
-      "caption": "PETG shell upright on the textured plate; its roof is completed after the pause."
+    "paused-body": {
+      "file": "paused-body.png",
+      "caption": "Current CAD clipped at the expected last open plane Z16.0, before covering plane Z16.2. Native pause and covering paths require separate review.",
+      "sha256": "24a802dbdd65c6ce03fc0397cb3fecc0ae24bb97a716862dd0126244fb74d899",
+      "image_size_px": [
+        1600,
+        1109
+      ]
     },
     "magnet-seat": {
       "file": "magnet-seat.png",
-      "caption": "Seat the RC62 ring in the upward-facing recess of the cooled Aero core."
+      "caption": "Lower one RC62 into the open annular pocket, keeping the ASA Aero body attached to the plate. Accent identifies the inserted ring; the arrow shows insertion.",
+      "sha256": "e8a53e84599f07039f55177c6cd986eec3adce7b12a8d2d835544f54bf857990",
+      "image_size_px": [
+        1600,
+        1153
+      ]
     },
     "magnet-seated": {
       "file": "magnet-seated.png",
-      "caption": "The ring sits inside the core's top recess, leaving the central bore clear."
-    },
-    "paused-shell": {
-      "file": "paused-shell.png",
-      "caption": "The shell pauses with its outer and bore walls at 57 mm and its roof still open. Cutaway view."
-    },
-    "core-in": {
-      "file": "core-in.png",
-      "caption": "Lower the core and its seated magnet over the PETG bore tube. Cutaway shell."
-    },
-    "core-seated": {
-      "file": "core-seated.png",
-      "caption": "The core stands on the PETG floor, with its magnet at the top. Cutaway view."
-    },
-    "insert-in": {
-      "file": "insert-in.png",
-      "caption": "Lower the upper Aero insert over the bore tube and onto the core. Cutaway shell and core."
-    },
-    "insert-push": {
-      "file": "insert-push.png",
-      "caption": "Use the upper insert to press the prepared core down evenly until the insert is level with the PETG rim. Cutaway view."
-    },
-    "roof-ready": {
-      "file": "roof-ready.png",
-      "caption": "The top of the upper insert is flush with the PETG rim. Cutaway view."
+      "caption": "Cutaway of the expected pause state: RC62 flat on the Z12.4125 pocket floor, below both rims, with the guide bore clear.",
+      "sha256": "4fc76bdfde792462a3f26818a90a3c1f48572dc7878003d73ef4fe804b5979bc",
+      "image_size_px": [
+        1600,
+        954
+      ]
     },
     "roof": {
       "file": "roof.png",
-      "caption": "Seventeen PETG layers close the roof over the supported insert. Cutaway view."
+      "caption": "Accent highlights the ASA Aero body above the expected pause plane. The inner collar and outer band meet the pocket cover, and the guide bore remains open.",
+      "sha256": "717929b1ed8d0558633d26dccaae694d48d736522840d4d4affdaae902b766ad",
+      "image_size_px": [
+        1600,
+        1544
+      ]
     },
-    "lead-in-detail": {
-      "file": "lead-in-detail.png",
-      "caption": "Underside detail: the 0.5 mm outer and inner lead-ins start the core into the PETG shell. Both Aero pieces have these lower-edge chamfers."
+    "finished": {
+      "file": "finished.png",
+      "caption": "The current one-piece 36 \u00d7 28 mm ASA Aero CAD envelope with an open 4.8 mm guide bore. Finished print dimensions and service behavior require physical evidence.",
+      "sha256": "a9193816c84a65044c02fb562e58b1a35cfef08d48b0898200fad05a16261581",
+      "image_size_px": [
+        1455,
+        1600
+      ]
     },
-    "flush-detail": {
-      "file": "flush-detail.png",
-      "caption": "At the pause, the upper insert is level with the shell rim and bore lining. The guide bore stays clear. Cropped cutaway."
+    "guide-fit": {
+      "file": "guide-fit.png",
+      "caption": "A 3.175 mm guide rod proxy passes through the 4.8 mm bore: 0.8125 mm nominal radial clearance. The cutaway shows the enclosed ring clear of the rod.",
+      "sha256": "e2bf50c0cb57fc57fa9d8c999b1accc38dbd62186fe94d0c33742defd5eaf2c6",
+      "image_size_px": [
+        1343,
+        1600
+      ]
     }
   }
 }

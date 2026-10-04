@@ -1,7 +1,7 @@
 {
-  "title": "PETG-shell float bench reference",
-  "subtitle": "Separate bench article - ASA Aero/PETG, 16 pages; current installation uses the all-ASA Aero float",
-  "pages": 16,
+  "title": "ASA Aero magnetic float build guide",
+  "subtitle": "Shop guide - one-piece ASA Aero float and paused RC62 insertion, 13 pages, 8.5 x 11 in, single sided",
+  "pages": 13,
   "cover": "magnetic-float-guide.cover.png",
   "cover_size": [
     800,

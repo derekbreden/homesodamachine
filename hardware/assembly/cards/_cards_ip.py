@@ -313,7 +313,6 @@ def internal_plumbing(m):
         "MANIFOLD_LIMBS": f"{len(_ml.LIMBS)}",
         "MANIFOLD_BUTTS": f"{butted}",
         "MANIFOLD_HAIRPINS": f"{hairpins}",
-        "BARB_TEES": f"{len(_ml.BARB_OF)}",
         "SPLIT_BRANCH": "down",
         "FLUID_1_LEN": mm("fluid-1"),
         "FLUID_1_CORNERS": f"{corners('fluid-1')}",
@@ -374,8 +373,10 @@ def internal_plumbing(m):
             "MANIFOLD_VALVES", "MANIFOLD_TEES", "MANIFOLD_SEGMENTS", "MANIFOLD_LIMBS",
             "MANIFOLD_BUTTS", "MANIFOLD_HAIRPINS", "CARRIER_TEES", "CARRIER_TEE_NAMES"},
         "ip-04-manifold-pumps-channels": {
-            "MANIFOLD_VALVES", "MANIFOLD_TEES", "BARB_TEES", "SPLIT_BRANCH",
-            "FLUID_1_LEN", "FLUID_1_CORNERS", "FLUID_2_LEN", "FLUID_2_CORNERS"},
+            "MANIFOLD_VALVES", "MANIFOLD_TEES", "CARRIER_TEES", "CARRIER_TEE_NAMES",
+            "SPLIT_BRANCH",
+            "FLUID_1_LEN", "FLUID_1_CORNERS", "FLUID_2_LEN", "FLUID_2_CORNERS",
+            "SA09_CAP_SCREWS", "SA09_CAP_SCREW", "SA09_STUBS", "SA09_STUB_STAND"},
         "ip-05-seat-pump-cartridge": {
             "PLATE_HOLES", "PLATE_STROKE", "PLATE_REST_GAP", "SLEEVE_TRAVEL",
             "TUBE_DEPTH_SQUEEZE", "TUBE_DEPTH_HOME", "SA09_STUBS"},

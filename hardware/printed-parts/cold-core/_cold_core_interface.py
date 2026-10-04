@@ -311,16 +311,10 @@ co2_inlet_tube_radius = port_hole_radius
 # liquid and falls into the headspace against the CO2 back-pressure; the carbonated draw leaves
 # at the bottom plate, below it. So the carbonator is filled high and drawn low, the same way both
 # reservoirs are.
-#   WHICH HOLE THE PRV TAKES IS ITS VENT'S, and it is the only one of the four ports whose
-# choice is made outside the carbonator. `prv-shroud` caps the valve for the pour and vents through
-# a bore in its BARREL, and the cup reaches along the port's own lateral axis — so the bore
-# lands one elbow leg plus one vent station out on that side, and there is exactly one station
-# on that reach a line can fall from, which is a ±Y lane's own centreline. The +Y hole puts it
-# on the WEST lane. The port lane is spoken for: the CO2's fall owns that column from the cap
-# to the floor (`co2_cap_x`), and a ⌀23 cup lying across it is the one body it cannot pass.
-#   The water inlet takes what is left, and pays for it in its run rather than its port: its
-# conduit stands over the +Y band, so the line crosses the carbonator's own top in the band between
-# this plate and the cap's floor (`_internal_routes.water_in_cross_x`).
+# Port 4 and its shroud stand on +Y. The barrel vent points down the west lane,
+# turns once and crosses the +Y shell flank into the enclosure's exterior relief
+# chase (`_internal_routes.prv_vent_flank_y`). The top water inlet stands on -Y;
+# its tube crosses the carbonator top to the +Y cap band.
 water_inlet_port_y = -carbonator_port_offset
 prv_port_y = +carbonator_port_offset
 
@@ -409,7 +403,7 @@ evap_tail_high_z = (foam_shell_outer_height - hole_shift_from_edge
 # plane — so a bore struck here opens into that base rather than into the machine. Every one of
 # the seven fluid lines leaves by the TOP, up its own band to a conduit in the cap
 # (`cap_conduits`), and so do the two reed cables, each up the channel its column stands in
-# (`reed_cable_conduit_xy`). What is left on this face is the copper/PRV slot on each lane and
+# (`reed_cable_conduit_xy`). What is left on this face is the copper slot on each lane and
 # no round bore at all.
 front_port_pitch = 2 * port_hole_radius + port_lane_wall
 # WHAT THE SLOT STANDS ON is the pocket floor's own band — one wall of PET-GF over the floor, one
@@ -1043,9 +1037,8 @@ state(
 # wall to everything crossing that column, and the lane's other traffic all runs WEST at one
 # storey each: the evaporator's inlet copper drops onto the lane beside the carbonator and takes it to
 # its slot station (`copper_plugs.columns`), reservoir A's draw crosses on the pockets' floor
-# storey, and the carbonated water joins only once it is over the carbonator. What used to stand
-# against the riser as well was the PRV — a ⌀23 cup lying across the lane at x ±11.5 — and that
-# vents down the WEST lane now (`prv_port_y`), so this column is free floor to cap.
+# storey, and the carbonated water joins only once it is over the carbonator.
+# The PRV shroud lies on the west lane and its vent leaves through the +Y flank.
 #   WHERE THE LEAN CROSSES is the Carbonator SUPPORT RING's business, not this file's. The reach in
 # from the lane to the bottom plate's port crosses the ring, and the ring is four bearing
 # segments with four slots between them (`_support_ring`); a reach that misses a slot would have

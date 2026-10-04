@@ -22,9 +22,10 @@
     <ol class="steps">
       <li><b>DC-3</b> — the staged relay #2 pigtail to the G Ganen pump;
         female disconnects. Budgeted at <span class="dim" data-gen="DIAPHRAGM_A">5 A</span>.</li>
-      <li><b>DC-5</b> — seat J13; dress the 22 AWG ribbon through the <b>+X clips</b>,
-        along the bulkhead's crown and down through its lead bore to the contact
-        pair's male half. Fastons stay on the pump tabs (GT-03).</li>
+      <li><b>DC-5</b> — route EN-10's prepared fixed ribbon through the
+        <b>+X clips</b> to J13; connect unpowered. The male half is mounted;
+        Fastons stay on the pump tabs. Verify stroke and four-channel
+        continuity to the tabs.</li>
       <li><b>DC-6 + DC-7</b> — J1's 8 OUTs to valves, COM into the upper
         221-420; J2 COM into the lower 221-415,
         <b>5 of 6 ways live</b>, OUT4 spare.</li>
@@ -103,18 +104,17 @@
         <text class="lbl" x="630" y="638" text-anchor="middle">CONDENSER FAN</text>
         <text class="runid" x="630" y="664" text-anchor="middle">DC-8 &#183; <tspan data-gen="LEN_FAN">~650 mm</tspan></text>
       </svg>
-      <div class="cap"><b>Low-side switching</b> — COM feeds shared 12 V;
-      each load's &#8722; returns on its OUT. Fan and V-K positives branch
-      at the lower +X Wago; V-K's OUT3 runs from the column.
-      Trim cuts at each landing; dress flat trunks below the PCB. Cross the bank
-      behind the upper coils at Y151.2, Z280, clear of the funnel carrier.</div>
+      <div class="cap"><b>Low-side switching</b> — COM supplies 12 V; loads
+      return on OUT. Fan and V-K share lower +X COM. Dress flat trunks below
+      the PCB; cross behind the upper coils at Y151.2, Z280, clear of the
+      funnel carrier.</div>
     </div>
   </div>
 </main>
 
 <footer>
-  <div class="done"><span class="lbl">Done when</span>Six runs landed — DC-5 soldered to the contact pair's male half, its fixed half retained in the +X ridge clip, and 12 V contiguous to every load.</div>
-  <div class="src">wiring.md &#167;4 &#183; ac-wiring-schedule.md<br>_cards_sync.py &#183; rev 2026-09-27</div>
+  <div class="done"><span class="lbl">Done when</span>Six runs landed — DC-5 soldered to the male pogo half, its fixed leads retained in the +X ridge clip, and 12 V contiguous to every load.</div>
+  <div class="src">wiring.md &#167;4 &#183; ac-wiring-schedule.md<br>_cards_sync.py &#183; rev 2026-10-03</div>
 </footer>
 
 </div>

@@ -1,9 +1,13 @@
 # PETG shell: recipe and thickness
 
+These dimensions and recipes describe the
+[separate PETG-shell bench article](petg-bench-reference.md).
+The installed float is [one connected ASA Aero body](all-aero/README.md).
+
 The bench float has a **3 mm outer wall, 1.8 mm bore lining, 3 mm floor and
 3.06 mm roof**, printed in **Bambu PETG Translucent Clear 32101**, the reservoir
 filament, using the researched 0.6 mm sealing process. Its 36 × 60.06 mm envelope has 4.96 g of reserve lift at
-0.55 g/cm³ Aero density. This is the specified first pressure-test article.
+0.55 g/cm³ Aero density.
 
 [petg-translucent-recipe.json](petg-translucent-recipe.json) records material
 GFG01, transparent color `#00000000`, the current reservoir project's identity,

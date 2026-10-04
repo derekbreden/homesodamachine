@@ -13,9 +13,10 @@
 }
 
 :root {
-  --field: #ded7cd;
+  --blue: #1749d1;
+  --field: #dce6ff;
   --motion: #d64050;
-  --ink: #1a1a2e;
+  --ink: #202337;
   --paper: #fff;
 }
 
@@ -132,7 +133,7 @@ body {
 
 .brand-document {
   margin-top: 62.5px;
-  color: var(--ink);
+  color: var(--blue);
   font-size: 216.6667px;
   font-weight: 700;
   line-height: 0.98;
@@ -145,7 +146,7 @@ body {
   height: 16.6667px;
   margin-top: 70.8333px;
   border-radius: 8.3333px;
-  background: var(--motion);
+  background: var(--blue);
 }
 
 .clockwork-numbers {
@@ -168,6 +169,7 @@ body {
   justify-content: center;
   border-radius: 50%;
   background: var(--paper);
+  color: var(--blue);
   font-variant-numeric: tabular-nums;
   transform: translate(-50%, -50%);
 }

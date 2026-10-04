@@ -1,10 +1,9 @@
 /* Quick start with words — one 5700 x 3900 px canvas = 19 x 13 in at 300 dpi, landscape,
    printed borderless and propped against a cabinet door while both hands are busy.
 
-   THE PALETTE IS THE WORDLESS QUICK START'S, unchanged, because the two are read in the same
-   hour and a colour that means one thing there cannot mean another here. Stone is the field
-   a step stands on. Coral is the part that moves, and it is never decoration. Blue, red,
-   white and black name fluids and nothing else — the four the bulkhead rings wear. */
+   Cobalt, white and ice match the owner install guide and the website brand palette.
+   Coral marks motion. Port chips retain the blue, red, white and black fluid identities
+   that appear on the appliance's bulkhead rings. */
 
 @font-face {
   font-family: "IBM Plex Sans";
@@ -24,13 +23,15 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --field: #ded7cd;
-  --field-pale: #f1ede7;
+  --blue: #1749d1;
+  --heading: #10319c;
+  --field: #dce6ff;
+  --field-pale: #f5f8ff;
   --action: #d64050;
-  --ink: #1a1a2e;
+  --ink: #202337;
   --paper: #fff;
-  --muted: #6d6a74;
-  --line: #d5cec3;
+  --muted: #606a78;
+  --line: #dce2eb;
   --co2: #d63a3a;
   --soda: #1f6feb;
   --tap: #ffffff;
@@ -101,6 +102,7 @@ body {
 }
 
 h1 {
+  color: var(--heading);
   margin-top: 26px;
   font-size: 176px;
   font-weight: 700;
@@ -114,7 +116,7 @@ i.rule {
   height: 14px;
   margin-top: 26px;
   border-radius: 7px;
-  background: var(--action);
+  background: var(--blue);
 }
 
 .lede {
@@ -139,7 +141,7 @@ i.rule {
 
 .before-label {
   flex: 0 0 330px;
-  color: var(--action);
+  color: var(--blue);
   font-size: 32px;
   font-weight: 700;
   letter-spacing: 0.16em;
@@ -183,7 +185,7 @@ i.rule {
   align-items: baseline;
   gap: 30px;
   margin-top: 6px;
-  color: var(--action);
+  color: var(--blue);
   font-size: 34px;
   font-weight: 700;
   letter-spacing: 0.16em;
@@ -220,7 +222,8 @@ i.rule {
   height: 140px;
   flex: none;
   border-radius: 50%;
-  background: var(--paper);
+  background: var(--blue);
+  color: var(--paper);
   font-size: 92px;
   font-weight: 700;
   line-height: 1;
@@ -228,6 +231,7 @@ i.rule {
 }
 
 h2 {
+  color: var(--heading);
   margin-top: 28px;
   font-size: 78px;
   font-weight: 700;

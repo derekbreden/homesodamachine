@@ -1,8 +1,10 @@
 """Doc-sync driver for hardware/ledger/bom.md.
 
 Run: tools/cad-venv/bin/python hardware/scripts/_bom_sync.py
+Use --only-bom to update the BOM without rewriting the labor ledger.
 """
 
+import argparse
 import sys
 from decimal import Decimal, ROUND_HALF_UP
 from pathlib import Path
@@ -88,6 +90,17 @@ carbonator_ports = 4
 
 # Flavor reservoirs per appliance.
 reservoirs_per_build = 2
+
+# One inserted RC62 per vessel float, plus one in each half of the
+# enclosure's separate cartridge-retention pair.
+floats_per_build = 1 + reservoirs_per_build
+retention_magnet_parts = ("pump-cartridge", "front-top")
+assert set(retention_magnet_parts) <= set(_f.pieces), (
+    "the RC62 retention row requires both owning enclosure pieces")
+assert all(_enc.PIECE_PRINT_UP[name] == 1.0 for name in retention_magnet_parts)
+_enc._retention.station(_f.box["collet_plate"]["holes"])
+retention_magnets_per_build = len(retention_magnet_parts)
+rc62_per_build = floats_per_build + retention_magnets_per_build
 
 # Carbonator reeds (threshold-only). Per-reservoir count lives in
 # `_reed_channels.py`.
@@ -244,12 +257,16 @@ cond_screws_per_build = cond_inserts_per_build
 
 # The nameplate's two integral PET-GF tabs engage rigid enclosure shoulders.
 nameplate_inserts_per_build = 0
+nameplate_wings_per_build = len(_enc._nameplate_fit.wings())
+assert nameplate_wings_per_build == 2
 nameplate_screws_per_build = 0
 
-# The machine display cover is retained by its two printed skirts.
+# The machine display cover is retained by its coplanar horizontal wings.
 display_cover_stations = ()
 display_cover_inserts_per_build = 0
 display_cover_screws_per_build = 0
+display_cover_wings_per_build = len(_enc._display_wings.support_exits(1.0))
+assert display_cover_wings_per_build == 2
 
 # The pump clamp's two, read off its centre lane. ONE TOP CLAMP CLOSES ON BOTH STAMPED
 # BRACKETS (`enclosure.build_pump_cap`) and `cap_screw_ys` strikes a pair either side of the
@@ -294,8 +311,8 @@ enclosure_seam_screws_per_build = len(_f.box["y_bosses"])
 # One insert per screw, pressed into the piece that screw lands in.
 enclosure_seam_inserts_per_build = enclosure_seam_screws_per_build
 
-# Every M3 × 8 in the build: the shelf's short ones, the condenser's aft pair, the nameplate's,
-# the display cover plate's and the C14 inlet's. The inlet's two suit it for the same reason the
+# Every M3 × 8 in the build: the shelf's short ones, the condenser's aft pair,
+# the faucet base and the C14 inlet. The inlet's two suit it for the same reason the
 # condenser's do — a 2 mm flange under the head and the tunnel's own bore past it.
 m3x8_per_build = (shelf_short_screws_per_build + cond_screws_per_build
                   + nameplate_screws_per_build + display_cover_screws_per_build
@@ -429,7 +446,7 @@ def pack_line_cost(quantity, pack_price, pack_quantity):
     return f"${allocated.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)}"
 
 
-def main():
+def main(*, only_bom=False):
     casting = casting_estimate()
     variables = {
         **_casting_figures(),
@@ -441,6 +458,10 @@ def main():
         # Reservoirs.
         "RESERVOIRS": f"{reservoirs_per_build:.4g}",
         "RESERVOIR_CAP_COUNT": f"{reservoirs_per_build:.4g}",
+        "AERO_FLOATS": f"{floats_per_build:.4g}",
+        "RETENTION_RC62": f"{retention_magnets_per_build:.4g}",
+        "RC62_TOTAL": f"{rc62_per_build:.4g}",
+        "RC62_COST": pack_line_cost(rc62_per_build, "88.28", 30),
         # Reeds.
         "REEDS_PER_RES": f"{reeds_per_reservoir:.4g}",
         "CARB_REEDS": f"{reeds_per_carbonator:.4g}",
@@ -489,8 +510,18 @@ def main():
         "M3X8_COST": pack_line_cost(m3x8_per_build, "7.71", 120),
         "NAMEPLATE_INSERTS": f"{nameplate_inserts_per_build:.4g}",
         "NAMEPLATE_SCREWS": f"{nameplate_screws_per_build:.4g}",
+        "NAMEPLATE_MOUNT": (
+            f"retained in `enclosure-back-top` by {nameplate_wings_per_build} coplanar "
+            "horizontal wings. The plate takes "
+            f"{nameplate_screws_per_build} screws and {nameplate_inserts_per_build} inserts."),
         "DISPLAY_COVER_INSERTS": f"{display_cover_inserts_per_build:.4g}",
         "DISPLAY_COVER_SCREWS": f"{display_cover_screws_per_build:.4g}",
+        "DISPLAY_COVER_MOUNT": (
+            f"retained flush with `enclosure-front-top`'s {_enc._display_wings.ANGLE:g}° "
+            f"display plane by {display_cover_wings_per_build} coplanar horizontal wings. "
+            "The TPU ring bears between the cover's lap and the glass. "
+            f"The cover takes {display_cover_screws_per_build} screws and "
+            f"{display_cover_inserts_per_build} inserts."),
         "SHELF_SCREWS_M3X10": f"{shelf_long_screws_per_build:.4g}",
         "M3X10_TOTAL": f"{m3x10_per_build:.4g}",
         "M3X10_COST": pack_line_cost(m3x10_per_build, "8.57", 120),
@@ -556,6 +587,8 @@ def main():
         variables=variables,
     )
     print("-> bom.md")
+    if only_bom:
+        return
 
     # `labor.md` §8 prices two passes of the same hardware — pressing every insert, then
     # driving every screw — so the counts it quotes are these, not its own.
@@ -592,4 +625,7 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--only-bom", action="store_true",
+                        help="update only bom.md and its figure bindings")
+    main(only_bom=parser.parse_args().only_bom)
