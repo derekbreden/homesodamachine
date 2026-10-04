@@ -12,18 +12,18 @@
     },
     {
       "check": "hardware/scripts/check_core_and_faucet_heatsets.py",
-      "note": "FileNotFoundError: [Errno 2] No usable temporary directory found in ['/var/folders/qc/hn57tpxs7tg5842pdqg075vc0000gn/T/', '/tmp', '/var/tmp', '/usr/tmp', '/Users/derekbredensteiner/Developer/homesodamachine']",
-      "status": "red"
+      "note": "43 native pockets: PASS; /Users/derekbredensteiner/Developer/homesodamachine/hardware/mechanical-qualification/core-and-faucet-heatsets.json",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_enclosure_mating_clearance.py",
-      "note": "FileNotFoundError: [Errno 2] No usable temporary directory found in ['/var/folders/qc/hn57tpxs7tg5842pdqg075vc0000gn/T/', '/tmp', '/var/tmp', '/usr/tmp', '/Users/derekbredensteiner/Developer/homesodamachine']",
-      "status": "red"
+      "note": "}",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_facts_current.py",
-      "note": "tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py",
-      "status": "red"
+      "note": "and the 258 sources behind them stand where they stood when it was written",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_faucet_geometry.py",
@@ -102,65 +102,11 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 2764 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 590 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 2761 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 590 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
-    "hardware/scripts/check_core_and_faucet_heatsets.py": [
-      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/check_core_and_faucet_heatsets.py\", line 179, in main",
-      "    result = survey()",
-      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/check_core_and_faucet_heatsets.py\", line 90, in survey",
-      "    import _cold_core_interface as cc",
-      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cold-core/_cold_core_interface.py\", line 31, in <module>",
-      "    import valve_seat as _valve_seat",
-      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/valve-seat/valve_seat.py\", line 26, in <module>",
-      "    import beduan_solenoid as valve",
-      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/beduan-solenoid/beduan_solenoid.py\", line 19, in <module>",
-      "    from _cadq_export import export_assembly",
-      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/_cadq_export.py\", line 56, in <module>",
-      "    from _run_lock import acquire as _acquire_build_lock",
-      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/_run_lock.py\", line 60, in <module>",
-      "    LOCK_DIR = Path(tempfile.gettempdir()) / \"hsm-cad-lock\"",
-      "                    ~~~~~~~~~~~~~~~~~~~^^",
-      "  File \"/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/tempfile.py\", line 315, in gettempdir",
-      "    return _os.fsdecode(_gettempdir())",
-      "                        ~~~~~~~~~~~^^",
-      "  File \"/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/tempfile.py\", line 308, in _gettempdir",
-      "    tempdir = _get_default_tempdir()",
-      "  File \"/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/tempfile.py\", line 223, in _get_default_tempdir",
-      "    raise FileNotFoundError(_errno.ENOENT,",
-      "                            \"No usable temporary directory found in %s\" %",
-      "                            dirlist)",
-      "FileNotFoundError: [Errno 2] No usable temporary directory found in ['/var/folders/qc/hn57tpxs7tg5842pdqg075vc0000gn/T/', '/tmp', '/var/tmp', '/usr/tmp', '/Users/derekbredensteiner/Developer/homesodamachine']"
-    ],
-    "hardware/scripts/check_enclosure_mating_clearance.py": [
-      "Traceback (most recent call last):",
-      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/check_enclosure_mating_clearance.py\", line 21, in <module>",
-      "    import enclosure as e",
-      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/enclosure/enclosure.py\", line 155, in <module>",
-      "    from _cadq_export import export_assembly",
-      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/_cadq_export.py\", line 56, in <module>",
-      "    from _run_lock import acquire as _acquire_build_lock",
-      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/_run_lock.py\", line 60, in <module>",
-      "    LOCK_DIR = Path(tempfile.gettempdir()) / \"hsm-cad-lock\"",
-      "                    ~~~~~~~~~~~~~~~~~~~^^",
-      "  File \"/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/tempfile.py\", line 315, in gettempdir",
-      "    return _os.fsdecode(_gettempdir())",
-      "                        ~~~~~~~~~~~^^",
-      "  File \"/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/tempfile.py\", line 308, in _gettempdir",
-      "    tempdir = _get_default_tempdir()",
-      "  File \"/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/tempfile.py\", line 223, in _get_default_tempdir",
-      "    raise FileNotFoundError(_errno.ENOENT,",
-      "                            \"No usable temporary directory found in %s\" %",
-      "                            dirlist)",
-      "FileNotFoundError: [Errno 2] No usable temporary directory found in ['/var/folders/qc/hn57tpxs7tg5842pdqg075vc0000gn/T/', '/tmp', '/var/tmp', '/usr/tmp', '/Users/derekbredensteiner/Developer/homesodamachine']"
-    ],
-    "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds ca70416c0813eff6a31d218c12dedc92 for the 258 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 32b34630c2e0f80a93e3147cf8058a0b here. The three artifacts agree with each other and describe a machine that has since moved.",
-      "  the three come off one run:",
-      "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
-    ],
     "hardware/scripts/check_ledger.py": [
       "instructions: 121 files (16 procedures + 104 cards + cover) | ledger brands: 587 | waived: 1 ASIN + 4 brand",
       "DRIFT: 1 instruction(s) out of step with the ledger:",
@@ -210,7 +156,7 @@
       "71/72 artifacts have their record in the index"
     ],
     "tools/check_release_room.py": [
-      "the release holds 575 of 1000 and the next cut wants 473; 449 asset(s) may be retired for it",
+      "the release holds 575 of 1000 and the next cut wants 475; 449 asset(s) may be retired for it",
       "check_release_room: 1 thing(s) stand between a cut and the site",
       "    tools/cad-venv/bin/python tools/cad-artifacts/pack.py --room"
     ],
