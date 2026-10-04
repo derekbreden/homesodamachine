@@ -45,6 +45,7 @@ linked here are the authority for each observation, including their print bindin
 
 | Interface | Established result | Evidence limit |
 | --- | --- | --- |
+| [Pogo contact test piece](../reference/yyfkgcp-pogo-4p/physical-observations.json) | Connector fit and mating/compression accepted by the founder, reported 2026-10-04. | The accepted result belongs to the printed test piece. Numerical full-enclosure gap, insert retention, electrical continuity, operating resistance and lifetime are unmeasured. |
 | [Kamoer cartridge and cap](../reference/kamoer-kphm400/physical-fit.json) | Both pumps held firmly with screws tightened; no vertical play reported. | The report does not independently identify the bearing surfaces or establish operating vibration, handling capacity or the complete four-tube mechanism's performance. |
 | [Enclosure grips](../printed-parts/enclosure/grip-cover/physical-acceptance.json) | Support removal and assembled receiver/cover fit accepted on H2C and Mark2. | Loaded lifting, grip retention force and repeated flexing are unmeasured. |
 | [Faucet display cover](../printed-parts/faucet/faucet-display-cover/physical-acceptance.json) | The broad PET-GF walls provide accepted give, spring, fit and retention. | Retention force and cycle life are unmeasured. A differently proportioned flexure needs its own result. |
@@ -63,7 +64,9 @@ Its insertion sweep, covers and surrounding stock pass the native geometry check
 installed seating force, magnet heat exposure and retention remain unmeasured. Current-export
 checks establish nominal mating and clear passages. H2C reported the two seat
 coupons completed; [the physical record](../reference/yyfkgcp-pogo-4p/physical-observations.json)
-contains no reported connector/insert fit, installed compression or continuity result.
+accepts the founder's successful connector fit and mating/compression check in
+the printed test piece, reported 2026-10-04. Insert retention and electrical
+continuity have no reported result.
 
 The drawing's conservative pin protrusion is 0.80–1.20 mm. The coupon criterion
 of ±0.05 mm face flushness per half gives 0.454–1.054 mm compression at the
