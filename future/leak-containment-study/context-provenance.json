@@ -1,0 +1,1611 @@
+{
+  "schema": 1,
+  "generated_utc": "2026-10-04T06:28:27.191991+00:00",
+  "units": "millimetres",
+  "coordinate_frame": "saved assembly world coordinates; Z up",
+  "sources": {
+    "step": {
+      "path": "hardware/manifold-layout/enclosure-assembly.step",
+      "sha256": "6074dc6a542d0ae514f4a30a0d19945d85c9031e774a62cbc548c62defbb929e",
+      "bytes": 97868785,
+      "study_snapshot": "context-source.step"
+    },
+    "payload": {
+      "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+      "sha256": "c7c44903c27732873ae8513294c8654e2effbe8e372fd61a66b639ed95b6b1ce",
+      "bytes": 35360764,
+      "src_sha256": "6074dc6a542d0ae514f4a30a0d19945d85c9031e774a62cbc548c62defbb929e",
+      "version": 3
+    },
+    "facts": {
+      "path": "hardware/manifold-layout/enclosure-assembly.facts.json",
+      "sha256": "0779e580e8af8a6e79a96bf8e770f2aa53976f00ef05d2400412c3d2dcfdc076",
+      "study_snapshot": "context-source.facts.json"
+    },
+    "scorecard": {
+      "path": "hardware/manifold-layout/enclosure-assembly.scorecard.json",
+      "sha256": "de6d2acae5bd3c8a7804cbdaf1d991ba327f590c94276b8adec2dfc6eb75b0e2"
+    }
+  },
+  "snapshot_step_payload_descent_agrees": true,
+  "payload_used_for_geometry": true,
+  "tree_at_capture": {
+    "git_head": "c9b79078cd99359d1da3605ae96500ad66b93f24",
+    "facts_source_digest": "ca70416c0813eff6a31d218c12dedc92",
+    "current_traced_source_digest": "ca70416c0813eff6a31d218c12dedc92",
+    "facts_agrees_with_current_sources": true,
+    "facts_agrees_with_saved_step": true,
+    "facts_agrees_with_saved_scorecard": true,
+    "changed_traced_inputs": [
+      "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+      "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
+      "hardware/scripts/_materials.py"
+    ],
+    "scope": "Saved STEP/payload snapshot; concurrent source edits are not regenerated."
+  },
+  "reference_datums": {
+    "source": "saved facts; their freshness is reported separately",
+    "nominal_outer_bounds_mm": [
+      [
+        -107.5,
+        5.0,
+        -6.0
+      ],
+      [
+        107.5,
+        471.3,
+        355.0
+      ]
+    ],
+    "nominal_dimensions_mm": [
+      215.0,
+      466.3,
+      361.0
+    ],
+    "interior_floor_z_mm": 0.0,
+    "underside_z_mm": -6.0,
+    "mq6_saved_geometry_bounds_mm": [
+      [
+        -101.5,
+        38.29999923706055,
+        3.0
+      ],
+      [
+        -79.9000015258789,
+        70.30000305175781,
+        23.0
+      ]
+    ],
+    "installed_funnel_cover_native_bounds_mm": [
+      [
+        -91.0,
+        93.20849207672,
+        348.9999999
+      ],
+      [
+        91.0,
+        231.89150792328,
+        358.0
+      ]
+    ]
+  },
+  "display_geometry": {
+    "method": "Unmodified matching hardware payload plus absolute STEP tessellation of case/outer core.",
+    "convex_hulls": false,
+    "proxy_envelopes": false,
+    "normals": "Recompute from indexed triangles in the viewer.",
+    "case_show_surface": "Smooth saved STEP BRep; mesh-only decorative flutes are omitted.",
+    "source_body_split": {
+      "asse1022-assembly": [
+        "asse1022-assembly/body",
+        "asse1022-assembly/vent-stub"
+      ],
+      "method": "Existing uniquely lowest native ASSE solid is named vent-stub; remaining native solids remain grouped."
+    },
+    "validation_scope": "Display context only; use saved native BReps for geometric clearance checks.",
+    "tessellation_scope": "Requested OCCT chord deflection is not a measured Hausdorff error bound.",
+    "attempts": [
+      {
+        "linear_mm": 0.3,
+        "base64_bytes": 771016,
+        "triangles": 78824
+      }
+    ],
+    "included_categories": {
+      "upper-pan": 1,
+      "hardware": 31,
+      "core": 5,
+      "case": 7,
+      "sensor": 2
+    },
+    "omissions_scope": "Front-top, pump cartridge/cap and tee-carrier plate omitted for compact cutaway visibility; floor/rear routing surfaces and outer core retained, internal core equipment omitted.",
+    "omitted_case_bodies": [
+      "enclosure-front-top",
+      "enclosure-pump-cap",
+      "enclosure-pump-cartridge",
+      "enclosure-tee-carrier-plate"
+    ],
+    "omitted_payload_bodies": [
+      "bulkhead-ring-carb",
+      "bulkhead-ring-carb-word/1",
+      "bulkhead-ring-carb-word/2",
+      "bulkhead-ring-carb-word/3",
+      "bulkhead-ring-carb-word/4",
+      "bulkhead-ring-co2",
+      "bulkhead-ring-co2-word/1",
+      "bulkhead-ring-co2-word/2",
+      "bulkhead-ring-co2-word/3",
+      "bulkhead-ring-flavor-a",
+      "bulkhead-ring-flavor-a-word/1",
+      "bulkhead-ring-flavor-a-word/2",
+      "bulkhead-ring-flavor-a-word/3",
+      "bulkhead-ring-flavor-a-word/4",
+      "bulkhead-ring-flavor-a-word/5",
+      "bulkhead-ring-flavor-a-word/6",
+      "bulkhead-ring-flavor-b",
+      "bulkhead-ring-flavor-b-word/1",
+      "bulkhead-ring-flavor-b-word/2",
+      "bulkhead-ring-flavor-b-word/3",
+      "bulkhead-ring-flavor-b-word/4",
+      "bulkhead-ring-flavor-b-word/5",
+      "bulkhead-ring-flavor-b-word/6",
+      "bulkhead-ring-water",
+      "bulkhead-ring-water-word/1",
+      "bulkhead-ring-water-word/2",
+      "bulkhead-ring-water-word/3",
+      "co2-adapter-check-in",
+      "co2-adapter-check-out",
+      "co2-adapter-regulator-in",
+      "co2-adapter-regulator-out",
+      "co2-inlet",
+      "coil-v-a/1",
+      "coil-v-a/2",
+      "coil-v-a/3",
+      "coil-v-b/1",
+      "coil-v-b/2",
+      "coil-v-b/3",
+      "coil-v-c/1",
+      "coil-v-c/2",
+      "coil-v-c/3",
+      "coil-v-d/1",
+      "coil-v-d/2",
+      "coil-v-d/3",
+      "coil-v-e/1",
+      "coil-v-e/2",
+      "coil-v-e/3",
+      "coil-v-f/1",
+      "coil-v-f/2",
+      "coil-v-f/3",
+      "coil-v-g/1",
+      "coil-v-g/2",
+      "coil-v-g/3",
+      "coil-v-h/1",
+      "coil-v-h/2",
+      "coil-v-h/3",
+      "coil-v-i/1",
+      "coil-v-i/2",
+      "coil-v-i/3",
+      "coil-v-j/1",
+      "coil-v-j/2",
+      "coil-v-j/3",
+      "cold-core/bulkhead-reservoir-a",
+      "cold-core/bulkhead-reservoir-b",
+      "cold-core/bulkhead-seal-a",
+      "cold-core/bulkhead-seal-b",
+      "cold-core/carbonator-elbow-carb-water-out",
+      "cold-core/carbonator-elbow-co2-in",
+      "cold-core/carbonator-elbow-prv",
+      "cold-core/carbonator-elbow-water-in",
+      "cold-core/carbonator-tube",
+      "cold-core/collet-carb-water-out",
+      "cold-core/collet-co2-in",
+      "cold-core/collet-water-in",
+      "cold-core/copper-plug-port",
+      "cold-core/copper-plug-west",
+      "cold-core/endcap-bottom",
+      "cold-core/endcap-top",
+      "cold-core/evap-coil",
+      "cold-core/evap-tail-inlet",
+      "cold-core/evap-tail-outlet",
+      "cold-core/float-a/1",
+      "cold-core/float-a/2",
+      "cold-core/float-b/1",
+      "cold-core/float-b/2",
+      "cold-core/float-carb/1",
+      "cold-core/float-carb/2",
+      "cold-core/float-rod-a",
+      "cold-core/float-rod-b",
+      "cold-core/float-rod-carb",
+      "cold-core/line-carb-water-out",
+      "cold-core/line-co2-in",
+      "cold-core/line-prv-vent",
+      "cold-core/line-reservoir-a",
+      "cold-core/line-reservoir-a-fill",
+      "cold-core/line-reservoir-b",
+      "cold-core/line-reservoir-b-fill",
+      "cold-core/line-water-in",
+      "cold-core/probe-carbonator-ds18b20",
+      "cold-core/probe-coil-ds18s20",
+      "cold-core/prv-shroud",
+      "cold-core/prv-sv125",
+      "cold-core/reed-a-1",
+      "cold-core/reed-a-2",
+      "cold-core/reed-a-3",
+      "cold-core/reed-a-4",
+      "cold-core/reed-b-1",
+      "cold-core/reed-b-2",
+      "cold-core/reed-b-3",
+      "cold-core/reed-b-4",
+      "cold-core/reed-bridge",
+      "cold-core/reed-carb-1",
+      "cold-core/reed-carb-2",
+      "cold-core/reservoir-a",
+      "cold-core/reservoir-a-cap",
+      "cold-core/reservoir-b",
+      "cold-core/reservoir-b-cap",
+      "cold-core/vent-membrane-a",
+      "cold-core/vent-membrane-b",
+      "cold-core/water-inlet-jet-cap-nominal",
+      "digiten-flow/1",
+      "digiten-flow/10",
+      "digiten-flow/11",
+      "digiten-flow/12",
+      "digiten-flow/2",
+      "digiten-flow/3",
+      "digiten-flow/4",
+      "digiten-flow/5",
+      "digiten-flow/6",
+      "digiten-flow/7",
+      "digiten-flow/8",
+      "digiten-flow/9",
+      "discharge-chain",
+      "display-cover",
+      "display-gasket",
+      "display/1",
+      "display/2",
+      "elbow-cradle",
+      "enclosure-front-top",
+      "enclosure-pump-cap",
+      "enclosure-pump-cartridge",
+      "enclosure-tee-carrier-plate",
+      "funnel",
+      "funnel-drain-stub",
+      "funnel-drain-union/1",
+      "funnel-drain-union/2",
+      "funnel-drain-union/3",
+      "funnel-frame",
+      "g-ganen-pump/1",
+      "g-ganen-pump/10",
+      "g-ganen-pump/11",
+      "g-ganen-pump/12",
+      "g-ganen-pump/13",
+      "g-ganen-pump/14",
+      "g-ganen-pump/15",
+      "g-ganen-pump/16",
+      "g-ganen-pump/17",
+      "g-ganen-pump/18",
+      "g-ganen-pump/19",
+      "g-ganen-pump/2",
+      "g-ganen-pump/20",
+      "g-ganen-pump/21",
+      "g-ganen-pump/22",
+      "g-ganen-pump/23",
+      "g-ganen-pump/24",
+      "g-ganen-pump/25",
+      "g-ganen-pump/26",
+      "g-ganen-pump/3",
+      "g-ganen-pump/4",
+      "g-ganen-pump/5",
+      "g-ganen-pump/6",
+      "g-ganen-pump/7",
+      "g-ganen-pump/8",
+      "g-ganen-pump/9",
+      "gasher-co2",
+      "nameplate",
+      "nameplate-ink/1",
+      "nameplate-ink/10",
+      "nameplate-ink/11",
+      "nameplate-ink/12",
+      "nameplate-ink/13",
+      "nameplate-ink/14",
+      "nameplate-ink/15",
+      "nameplate-ink/16",
+      "nameplate-ink/17",
+      "nameplate-ink/18",
+      "nameplate-ink/19",
+      "nameplate-ink/2",
+      "nameplate-ink/20",
+      "nameplate-ink/21",
+      "nameplate-ink/22",
+      "nameplate-ink/23",
+      "nameplate-ink/24",
+      "nameplate-ink/25",
+      "nameplate-ink/26",
+      "nameplate-ink/27",
+      "nameplate-ink/28",
+      "nameplate-ink/29",
+      "nameplate-ink/3",
+      "nameplate-ink/4",
+      "nameplate-ink/5",
+      "nameplate-ink/6",
+      "nameplate-ink/7",
+      "nameplate-ink/8",
+      "nameplate-ink/9",
+      "pump-a-boss",
+      "pump-a-head",
+      "pump-a-motor",
+      "pump-b-boss",
+      "pump-b-head",
+      "pump-b-motor",
+      "pump-contact-female",
+      "pump-contact-male",
+      "step-fluid-3",
+      "step-fluid-5",
+      "suction-chain",
+      "tee-carrier-spring-east-lower",
+      "tee-carrier-spring-east-upper",
+      "tee-carrier-spring-west-lower",
+      "tee-carrier-spring-west-upper",
+      "tee-y-a",
+      "tee-y-b",
+      "tee-y-c",
+      "tee-y-d",
+      "tee-y-f",
+      "tee-y-g",
+      "tube-carb-1",
+      "tube-carb-2",
+      "tube-co2-0",
+      "tube-co2-1",
+      "tube-co2-2",
+      "tube-collar-co2",
+      "tube-collar-co2-word/1",
+      "tube-collar-co2-word/2",
+      "tube-collar-co2-word/3",
+      "tube-collar-co2-word/4",
+      "tube-collar-co2-word/5",
+      "tube-collar-co2-word/6",
+      "tube-collar-co2-word/7",
+      "tube-collar-co2-word/8",
+      "tube-collar-co2-word/9",
+      "tube-collar-water",
+      "tube-collar-water-word/1",
+      "tube-collar-water-word/2",
+      "tube-collar-water-word/3",
+      "tube-collar-water-word/4",
+      "tube-collar-water-word/5",
+      "tube-collar-water-word/6",
+      "tube-collar-water-word/7",
+      "tube-collar-water-word/8",
+      "tube-collar-water-word/9",
+      "tube-customer-co2",
+      "tube-customer-water",
+      "tube-fluid-1",
+      "tube-fluid-10",
+      "tube-fluid-11",
+      "tube-fluid-12",
+      "tube-fluid-13",
+      "tube-fluid-14",
+      "tube-fluid-16",
+      "tube-fluid-17",
+      "tube-fluid-18",
+      "tube-fluid-19",
+      "tube-fluid-2",
+      "tube-fluid-20",
+      "tube-fluid-21",
+      "tube-fluid-22",
+      "tube-fluid-23",
+      "tube-fluid-24",
+      "tube-fluid-26",
+      "tube-fluid-27",
+      "tube-fluid-28",
+      "tube-fluid-4",
+      "tube-fluid-9",
+      "tube-refrig-1",
+      "tube-refrig-2",
+      "tube-refrig-3",
+      "tube-water-2",
+      "tube-water-3",
+      "tube-water-5",
+      "tube-water-6",
+      "tube-water-7",
+      "turn-fluid-3",
+      "turn-fluid-5",
+      "valve-v-a",
+      "valve-v-b",
+      "valve-v-c",
+      "valve-v-d",
+      "valve-v-e",
+      "valve-v-f",
+      "valve-v-g",
+      "valve-v-h",
+      "valve-v-i",
+      "valve-v-j",
+      "vk-solenoid/1",
+      "vk-solenoid/10",
+      "vk-solenoid/11",
+      "vk-solenoid/2",
+      "vk-solenoid/3",
+      "vk-solenoid/4",
+      "vk-solenoid/5",
+      "vk-solenoid/6",
+      "vk-solenoid/7",
+      "vk-solenoid/8",
+      "vk-solenoid/9",
+      "wr1110"
+    ],
+    "merged_source_solid_names": {
+      "asse1022-assembly": [
+        "asse1022-assembly/1",
+        "asse1022-assembly/2",
+        "asse1022-assembly/3",
+        "asse1022-assembly/4",
+        "asse1022-assembly/5",
+        "asse1022-assembly/6"
+      ],
+      "compressor": [
+        "compressor/1",
+        "compressor/2"
+      ]
+    },
+    "bodies": [
+      {
+        "name": "asse-drip-pan",
+        "method": "saved-payload-unmodified",
+        "preview_bounds_mm": [
+          [
+            -113.44999694824219,
+            362.7500305175781,
+            288.2105712890625
+          ],
+          [
+            -58.45000076293945,
+            446.7500305175781,
+            303.2105712890625
+          ]
+        ],
+        "vertices": 468,
+        "triangles": 450,
+        "coordinate_rounding_mm": 0
+      },
+      {
+        "name": "asse1022-assembly/body",
+        "method": "saved-step-absolute-tessellation",
+        "native_bounds_mm": [
+          [
+            -94.57000000000605,
+            306.51,
+            309.21058083755
+          ],
+          [
+            -61.56999999999825,
+            446.51,
+            350.5
+          ]
+        ],
+        "preview_bounds_mm": [
+          [
+            -94.57,
+            306.51,
+            309.21058083755
+          ],
+          [
+            -61.57,
+            446.51,
+            350.5
+          ]
+        ],
+        "vertices": 1644,
+        "triangles": 3944,
+        "native_tessellation_triangles": 3944,
+        "native_tessellation_vertices": 4032,
+        "reduction": "none; identical coordinates reindexed without rounding or triangle changes",
+        "euler_characteristic": null,
+        "linear_deflection_mm": 0.02,
+        "angular_deflection_rad": 0.15,
+        "coordinate_rounding_mm": 0
+      },
+      {
+        "name": "asse1022-assembly/vent-stub",
+        "method": "saved-step-absolute-tessellation",
+        "native_bounds_mm": [
+          [
+            -82.835,
+            373.745,
+            307.21058083755
+          ],
+          [
+            -73.30499999999999,
+            383.275,
+            321.92116167511
+          ]
+        ],
+        "preview_bounds_mm": [
+          [
+            -82.835,
+            373.745,
+            307.21058083755
+          ],
+          [
+            -73.30499999999999,
+            383.275,
+            321.92116167511
+          ]
+        ],
+        "vertices": 336,
+        "triangles": 672,
+        "native_tessellation_triangles": 672,
+        "native_tessellation_vertices": 676,
+        "reduction": "none; identical coordinates reindexed without rounding or triangle changes",
+        "euler_characteristic": null,
+        "linear_deflection_mm": 0.02,
+        "angular_deflection_rad": 0.15,
+        "coordinate_rounding_mm": 0
+      },
+      {
+        "name": "bulkhead-carb",
+        "method": "saved-payload-unmodified",
+        "preview_bounds_mm": [
+          [
+            -49.2400016784668,
+            446.510009765625,
+            324.8639221191406
+          ],
+          [
+            -26.3799991607666,
+            480.79998779296875,
+            347.5572509765625
+          ]
+        ],
+        "vertices": 742,
+        "triangles": 724,
+        "coordinate_rounding_mm": 0
+      },
+      {
+        "name": "bulkhead-flavor-a",
+        "method": "saved-payload-unmodified",
+        "preview_bounds_mm": [
+          [
+            -49.2400016784668,
+            446.510009765625,
+            257.6773376464844
+          ],
+          [
+            -26.3799991607666,
+            480.79998779296875,
+            280.37066650390625
+          ]
+        ],
+        "vertices": 742,
+        "triangles": 724,
+        "coordinate_rounding_mm": 0
+      },
+      {
+        "name": "bulkhead-flavor-b",
+        "method": "saved-payload-unmodified",
+        "preview_bounds_mm": [
+          [
+            -89.5,
+            446.510009765625,
+            257.6773376464844
+          ],
+          [
+            -66.63999938964844,
+            480.79998779296875,
+            280.37066650390625
+          ]
+        ],
+        "vertices": 742,
+        "triangles": 724,
+        "coordinate_rounding_mm": 0
+      },
+      {
+        "name": "bulkhead-water",
+        "method": "saved-payload-unmodified",
+        "preview_bounds_mm": [
+          [
+            -89.5,
+            446.510009765625,
+            324.8639221191406
+          ],
+          [
+            -66.63999938964844,
+            480.79998779296875,
+            347.5572509765625
+          ]
+        ],
+        "vertices": 742,
+        "triangles": 724,
+        "coordinate_rounding_mm": 0
+      },
+      {
+        "name": "c14-inlet",
+        "method": "saved-payload-unmodified",
+        "preview_bounds_mm": [
+          [
+            42.04768753051758,
+            436.2099914550781,
+            325.14556884765625
+          ],
+          [
+            91.75231170654297,
+            463.04998779296875,
+            347.27557373046875
+          ]
+        ],
+        "vertices": 1850,
+        "triangles": 1684,
+        "coordinate_rounding_mm": 0
+      },
+      {
+        "name": "cold-core/foam-cap-bottom",
+        "method": "saved-step-absolute-tessellation",
+        "native_bounds_mm": [
+          [
+            -90.49999999302003,
+            182.29999999999998,
+            2.0
+          ],
+          [
+            90.50000000697503,
+            465.3,
+            20.0
+          ]
+        ],
+        "preview_bounds_mm": [
+          [
+            -90.5,
+            182.3,
+            2.0
+          ],
+          [
+            90.5,
+            465.3,
+            20.0
+          ]
+        ],
+        "vertices": 968,
+        "triangles": 1972,
+        "native_tessellation_triangles": 1972,
+        "native_tessellation_vertices": 2140,
+        "reduction": "lossless coplanar reduction with protected open boundaries",
+        "euler_characteristic": -18,
+        "linear_deflection_mm": 0.3,
+        "angular_deflection_rad": 0.5,
+        "coordinate_rounding_mm": 0.0001
+      },
+      {
+        "name": "cold-core/foam-cap-lid-bottom",
+        "method": "saved-step-absolute-tessellation",
+        "native_bounds_mm": [
+          [
+            -90.49999999302003,
+            182.29999999999998,
+            0.0
+          ],
+          [
+            90.50000000697503,
+            465.3,
+            5.4
+          ]
+        ],
+        "preview_bounds_mm": [
+          [
+            -90.5,
+            182.3,
+            0.0
+          ],
+          [
+            90.5,
+            465.3,
+            5.4
+          ]
+        ],
+        "vertices": 1532,
+        "triangles": 3112,
+        "native_tessellation_triangles": 3112,
+        "native_tessellation_vertices": 3206,
+        "reduction": "lossless coplanar reduction with protected open boundaries",
+        "euler_characteristic": -24,
+        "linear_deflection_mm": 0.3,
+        "angular_deflection_rad": 0.5,
+        "coordinate_rounding_mm": 0.0001
+      },
+      {
+        "name": "cold-core/foam-cap-lid-top",
+        "method": "saved-step-absolute-tessellation",
+        "native_bounds_mm": [
+          [
+            -90.49999999302005,
+            182.29999999999998,
+            248.0000002
+          ],
+          [
+            90.50000000697506,
+            465.30000000000007,
+            269.2940002
+          ]
+        ],
+        "preview_bounds_mm": [
+          [
+            -90.5,
+            182.3,
+            248.0
+          ],
+          [
+            90.5,
+            465.3,
+            269.294
+          ]
+        ],
+        "vertices": 3395,
+        "triangles": 6910,
+        "native_tessellation_triangles": 6910,
+        "native_tessellation_vertices": 7028,
+        "reduction": "lossless coplanar reduction with protected open boundaries",
+        "euler_characteristic": -60,
+        "linear_deflection_mm": 0.3,
+        "angular_deflection_rad": 0.5,
+        "coordinate_rounding_mm": 0.0001
+      },
+      {
+        "name": "cold-core/foam-cap-top",
+        "method": "saved-step-absolute-tessellation",
+        "native_bounds_mm": [
+          [
+            -90.49999999302005,
+            182.29999999999998,
+            233.4000002
+          ],
+          [
+            90.50000000697506,
+            465.30000000000007,
+            248.0000002
+          ]
+        ],
+        "preview_bounds_mm": [
+          [
+            -90.5,
+            182.3,
+            233.4
+          ],
+          [
+            90.5,
+            465.3,
+            248.0
+          ]
+        ],
+        "vertices": 2172,
+        "triangles": 4416,
+        "native_tessellation_triangles": 4416,
+        "native_tessellation_vertices": 4530,
+        "reduction": "lossless coplanar reduction with protected open boundaries",
+        "euler_characteristic": -36,
+        "linear_deflection_mm": 0.3,
+        "angular_deflection_rad": 0.5,
+        "coordinate_rounding_mm": 0.0001
+      },
+      {
+        "name": "cold-core/foam-shell",
+        "method": "saved-step-absolute-tessellation",
+        "native_bounds_mm": [
+          [
+            -90.50000010696962,
+            182.29999990000002,
+            20.0
+          ],
+          [
+            90.500000106975,
+            465.3,
+            233.4000002
+          ]
+        ],
+        "preview_bounds_mm": [
+          [
+            -90.5,
+            182.3,
+            20.0
+          ],
+          [
+            90.5,
+            465.3,
+            233.4
+          ]
+        ],
+        "vertices": 2984,
+        "triangles": 5980,
+        "native_tessellation_triangles": 5980,
+        "native_tessellation_vertices": 6057,
+        "reduction": "lossless coplanar reduction with protected open boundaries",
+        "euler_characteristic": -6,
+        "linear_deflection_mm": 0.3,
+        "angular_deflection_rad": 0.5,
+        "coordinate_rounding_mm": 0.0001
+      },
+      {
+        "name": "compressor/1",
+        "method": "saved-payload-unmodified",
+        "preview_bounds_mm": [
+          [
+            -76.0952377319336,
+            11.0,
+            0.0
+          ],
+          [
+            33.895240783691406,
+            171.0,
+            135.0
+          ]
+        ],
+        "vertices": 648,
+        "triangles": 626,
+        "coordinate_rounding_mm": 0
+      },
+      {
+        "name": "compressor/2",
+        "method": "saved-payload-unmodified",
+        "preview_bounds_mm": [
+          [
+            -43.599998474121094,
+            11.0,
+            30.0
+          ],
+          [
+            1.399999976158142,
+            38.5,
+            75.0
+          ]
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "coordinate_rounding_mm": 0
+      },
+      {
+        "name": "condenser+fan",
+        "method": "saved-payload-unmodified",
+        "preview_bounds_mm": [
+          [
+            41.5,
+            14.0,
+            9.0
+          ],
+          [
+            97.5,
+            168.0,
+            146.0
+          ]
+        ],
+        "vertices": 284,
+        "triangles": 260,
+        "coordinate_rounding_mm": 0
+      },
+      {
+        "name": "enclosure-back-bottom",
+        "method": "saved-step-absolute-tessellation",
+        "native_bounds_mm": [
+          [
+            -107.50000000000001,
+            199.99999989999955,
+            -6.0000001
+          ],
+          [
+            107.50000010000001,
+            471.9000001,
+            174.8
+          ]
+        ],
+        "preview_bounds_mm": [
+          [
+            -107.5,
+            200.0,
+            -6.0
+          ],
+          [
+            107.5,
+            471.9,
+            174.8
+          ]
+        ],
+        "vertices": 10107,
+        "triangles": 20234,
+        "native_tessellation_triangles": 20326,
+        "native_tessellation_vertices": 23131,
+        "reduction": "lossless coplanar reduction with protected open boundaries",
+        "euler_characteristic": -10,
+        "linear_deflection_mm": 0.3,
+        "angular_deflection_rad": 0.5,
+        "coordinate_rounding_mm": 0.0001
+      },
+      {
+        "name": "enclosure-back-top",
+        "method": "saved-step-absolute-tessellation",
+        "native_bounds_mm": [
+          [
+            -107.5000001,
+            199.9999999,
+            159.9999999
+          ],
+          [
+            107.5000001,
+            471.30000010000003,
+            355.00000010002543
+          ]
+        ],
+        "preview_bounds_mm": [
+          [
+            -107.5,
+            200.0,
+            160.0
+          ],
+          [
+            107.5,
+            471.3,
+            355.0
+          ]
+        ],
+        "vertices": 3736,
+        "triangles": 7560,
+        "native_tessellation_triangles": 7560,
+        "native_tessellation_vertices": 8868,
+        "reduction": "lossless coplanar reduction with protected open boundaries",
+        "euler_characteristic": -44,
+        "linear_deflection_mm": 0.3,
+        "angular_deflection_rad": 0.5,
+        "coordinate_rounding_mm": 0.0001
+      },
+      {
+        "name": "enclosure-front-bottom",
+        "method": "saved-step-absolute-tessellation",
+        "native_bounds_mm": [
+          [
+            -107.5000001,
+            5.0,
+            -6.0000001
+          ],
+          [
+            107.50000010000001,
+            217.8000001,
+            174.8
+          ]
+        ],
+        "preview_bounds_mm": [
+          [
+            -107.5,
+            5.0,
+            -6.0
+          ],
+          [
+            107.5,
+            217.8,
+            174.8
+          ]
+        ],
+        "vertices": 3521,
+        "triangles": 7738,
+        "native_tessellation_triangles": 7822,
+        "native_tessellation_vertices": 9450,
+        "reduction": "lossless coplanar reduction with protected open boundaries",
+        "euler_characteristic": -348,
+        "linear_deflection_mm": 0.3,
+        "angular_deflection_rad": 0.5,
+        "coordinate_rounding_mm": 0.0001
+      },
+      {
+        "name": "enclosure-window-cover-east",
+        "method": "saved-step-absolute-tessellation",
+        "native_bounds_mm": [
+          [
+            92.5,
+            117.19,
+            164.674
+          ],
+          [
+            98.5,
+            153.186,
+            224.796
+          ]
+        ],
+        "preview_bounds_mm": [
+          [
+            92.5,
+            117.19,
+            164.674
+          ],
+          [
+            98.5,
+            153.186,
+            224.796
+          ]
+        ],
+        "vertices": 20,
+        "triangles": 36,
+        "native_tessellation_triangles": 36,
+        "native_tessellation_vertices": 60,
+        "reduction": "lossless coplanar reduction with protected open boundaries",
+        "euler_characteristic": 2,
+        "linear_deflection_mm": 0.3,
+        "angular_deflection_rad": 0.5,
+        "coordinate_rounding_mm": 0.0001
+      },
+      {
+        "name": "enclosure-window-cover-west",
+        "method": "saved-step-absolute-tessellation",
+        "native_bounds_mm": [
+          [
+            -98.5,
+            117.19,
+            164.674
+          ],
+          [
+            -92.5,
+            153.186,
+            224.796
+          ]
+        ],
+        "preview_bounds_mm": [
+          [
+            -98.5,
+            117.19,
+            164.674
+          ],
+          [
+            -92.5,
+            153.186,
+            224.796
+          ]
+        ],
+        "vertices": 20,
+        "triangles": 36,
+        "native_tessellation_triangles": 36,
+        "native_tessellation_vertices": 60,
+        "reduction": "lossless coplanar reduction with protected open boundaries",
+        "euler_characteristic": 2,
+        "linear_deflection_mm": 0.3,
+        "angular_deflection_rad": 0.5,
+        "coordinate_rounding_mm": 0.0001
+      },
+      {
+        "name": "flow-regulator",
+        "method": "saved-payload-unmodified",
+        "preview_bounds_mm": [
+          [
+            -92.41217803955078,
+            302.260009765625,
+            283.7120361328125
+          ],
+          [
+            -50.923362731933594,
+            348.260009765625,
+            314.57275390625
+          ]
+        ],
+        "vertices": 516,
+        "triangles": 468,
+        "coordinate_rounding_mm": 0
+      },
+      {
+        "name": "funnel-cover",
+        "method": "saved-step-absolute-tessellation",
+        "native_bounds_mm": [
+          [
+            -91.0,
+            93.20849207672,
+            348.9999999
+          ],
+          [
+            91.0,
+            231.89150792328,
+            358.0
+          ]
+        ],
+        "preview_bounds_mm": [
+          [
+            -91.0,
+            93.2085,
+            349.0
+          ],
+          [
+            91.0,
+            231.8915,
+            358.0
+          ]
+        ],
+        "vertices": 378,
+        "triangles": 752,
+        "native_tessellation_triangles": 752,
+        "native_tessellation_vertices": 888,
+        "reduction": "lossless coplanar reduction with protected open boundaries",
+        "euler_characteristic": 2,
+        "linear_deflection_mm": 0.3,
+        "angular_deflection_rad": 0.5,
+        "coordinate_rounding_mm": 0.0001
+      },
+      {
+        "name": "fuse-clamp",
+        "method": "saved-payload-unmodified",
+        "preview_bounds_mm": [
+          [
+            -20.600000381469727,
+            15.75,
+            15.0
+          ],
+          [
+            8.100000381469727,
+            33.75,
+            61.45000076293945
+          ]
+        ],
+        "vertices": 108,
+        "triangles": 68,
+        "coordinate_rounding_mm": 0
+      },
+      {
+        "name": "grip-cover-east",
+        "method": "saved-step-absolute-tessellation",
+        "native_bounds_mm": [
+          [
+            93.64999999999999,
+            171.75,
+            25.639999999999993
+          ],
+          [
+            105.20820393249001,
+            256.25,
+            29.000000000000007
+          ]
+        ],
+        "preview_bounds_mm": [
+          [
+            93.65,
+            171.75,
+            25.64
+          ],
+          [
+            105.2082,
+            256.25,
+            29.0
+          ]
+        ],
+        "vertices": 260,
+        "triangles": 520,
+        "native_tessellation_triangles": 520,
+        "native_tessellation_vertices": 508,
+        "reduction": "lossless coplanar reduction with protected open boundaries",
+        "euler_characteristic": 2,
+        "linear_deflection_mm": 0.3,
+        "angular_deflection_rad": 0.5,
+        "coordinate_rounding_mm": 0.0001
+      },
+      {
+        "name": "grip-cover-west",
+        "method": "saved-step-absolute-tessellation",
+        "native_bounds_mm": [
+          [
+            -105.20820393240001,
+            171.75,
+            25.639999999999993
+          ],
+          [
+            -93.64999999999999,
+            256.25,
+            29.000000000000007
+          ]
+        ],
+        "preview_bounds_mm": [
+          [
+            -105.2082,
+            171.75,
+            25.64
+          ],
+          [
+            -93.65,
+            256.25,
+            29.0
+          ]
+        ],
+        "vertices": 260,
+        "triangles": 520,
+        "native_tessellation_triangles": 520,
+        "native_tessellation_vertices": 508,
+        "reduction": "lossless coplanar reduction with protected open boundaries",
+        "euler_characteristic": 2,
+        "linear_deflection_mm": 0.3,
+        "angular_deflection_rad": 0.5,
+        "coordinate_rounding_mm": 0.0001
+      },
+      {
+        "name": "ground-stack",
+        "method": "saved-payload-unmodified",
+        "preview_bounds_mm": [
+          [
+            84.44999694824219,
+            329.79998779296875,
+            329.2076416015625
+          ],
+          [
+            98.25,
+            347.79998779296875,
+            346.88079833984375
+          ]
+        ],
+        "vertices": 1230,
+        "triangles": 1132,
+        "coordinate_rounding_mm": 0
+      },
+      {
+        "name": "keystone-jack",
+        "method": "saved-payload-unmodified",
+        "preview_bounds_mm": [
+          [
+            -45.1349983215332,
+            441.29998779296875,
+            291.1423034667969
+          ],
+          [
+            -30.485000610351562,
+            471.29998779296875,
+            315.29229736328125
+          ]
+        ],
+        "vertices": 160,
+        "triangles": 100,
+        "coordinate_rounding_mm": 0
+      },
+      {
+        "name": "moisture-plate",
+        "method": "saved-payload-unmodified",
+        "preview_bounds_mm": [
+          [
+            -103.94999694824219,
+            377.7500305175781,
+            291.2105712890625
+          ],
+          [
+            -63.95000076293945,
+            431.7500305175781,
+            292.8105773925781
+          ]
+        ],
+        "vertices": 236,
+        "triangles": 228,
+        "coordinate_rounding_mm": 0
+      },
+      {
+        "name": "mq6-sensor",
+        "method": "saved-payload-unmodified",
+        "preview_bounds_mm": [
+          [
+            -101.5,
+            38.29999923706055,
+            3.0
+          ],
+          [
+            -79.9000015258789,
+            70.30000305175781,
+            23.0
+          ]
+        ],
+        "vertices": 226,
+        "triangles": 180,
+        "coordinate_rounding_mm": 0
+      },
+      {
+        "name": "pcba",
+        "method": "saved-payload-unmodified",
+        "preview_bounds_mm": [
+          [
+            77.14999389648438,
+            235.9839324951172,
+            253.39999389648438
+          ],
+          [
+            98.25,
+            326.79998779296875,
+            326.20001220703125
+          ]
+        ],
+        "vertices": 3084,
+        "triangles": 2200,
+        "coordinate_rounding_mm": 0
+      },
+      {
+        "name": "psu",
+        "method": "saved-payload-unmodified",
+        "preview_bounds_mm": [
+          [
+            64.75,
+            355.79998779296875,
+            253.39999389648438
+          ],
+          [
+            98.25,
+            464.79998779296875,
+            305.3999938964844
+          ]
+        ],
+        "vertices": 520,
+        "triangles": 492,
+        "coordinate_rounding_mm": 0
+      },
+      {
+        "name": "relay-1",
+        "method": "saved-payload-unmodified",
+        "preview_bounds_mm": [
+          [
+            79.25,
+            256.79998779296875,
+            329.20001220703125
+          ],
+          [
+            98.25,
+            326.79998779296875,
+            346.20001220703125
+          ]
+        ],
+        "vertices": 544,
+        "triangles": 508,
+        "coordinate_rounding_mm": 0
+      },
+      {
+        "name": "relay-2",
+        "method": "saved-payload-unmodified",
+        "preview_bounds_mm": [
+          [
+            79.25,
+            332.79998779296875,
+            253.39999389648438
+          ],
+          [
+            98.25,
+            349.79998779296875,
+            323.3999938964844
+          ]
+        ],
+        "vertices": 544,
+        "triangles": 508,
+        "coordinate_rounding_mm": 0
+      },
+      {
+        "name": "thermal-fuse",
+        "method": "saved-payload-unmodified",
+        "preview_bounds_mm": [
+          [
+            1.399999976158142,
+            16.25,
+            50.41530990600586
+          ],
+          [
+            5.599999904632568,
+            33.25,
+            54.58469009399414
+          ]
+        ],
+        "vertices": 318,
+        "triangles": 308,
+        "coordinate_rounding_mm": 0
+      },
+      {
+        "name": "wago-g",
+        "method": "saved-payload-unmodified",
+        "preview_bounds_mm": [
+          [
+            85.9000015258789,
+            389.30999755859375,
+            312.8500061035156
+          ],
+          [
+            104.5,
+            397.7099914550781,
+            331.6499938964844
+          ]
+        ],
+        "vertices": 96,
+        "triangles": 60,
+        "coordinate_rounding_mm": 0
+      },
+      {
+        "name": "wago-gnd",
+        "method": "saved-payload-unmodified",
+        "preview_bounds_mm": [
+          [
+            85.9000015258789,
+            421.80999755859375,
+            312.8500061035156
+          ],
+          [
+            104.5,
+            430.2099914550781,
+            331.6499938964844
+          ]
+        ],
+        "vertices": 96,
+        "triangles": 60,
+        "coordinate_rounding_mm": 0
+      },
+      {
+        "name": "wago-h",
+        "method": "saved-payload-unmodified",
+        "preview_bounds_mm": [
+          [
+            85.9000015258789,
+            356.80999755859375,
+            312.8500061035156
+          ],
+          [
+            104.5,
+            365.2099914550781,
+            331.6499938964844
+          ]
+        ],
+        "vertices": 96,
+        "triangles": 60,
+        "coordinate_rounding_mm": 0
+      },
+      {
+        "name": "wago-mana",
+        "method": "saved-payload-unmodified",
+        "preview_bounds_mm": [
+          [
+            86.19999694824219,
+            161.10000610351562,
+            265.1000061035156
+          ],
+          [
+            104.5,
+            176.89999389648438,
+            294.8999938964844
+          ]
+        ],
+        "vertices": 264,
+        "triangles": 172,
+        "coordinate_rounding_mm": 0
+      },
+      {
+        "name": "wago-manb",
+        "method": "saved-payload-unmodified",
+        "preview_bounds_mm": [
+          [
+            85.9000015258789,
+            164.8000030517578,
+            231.0
+          ],
+          [
+            104.5,
+            173.1999969482422,
+            261.0
+          ]
+        ],
+        "vertices": 144,
+        "triangles": 92,
+        "coordinate_rounding_mm": 0
+      },
+      {
+        "name": "wago-n",
+        "method": "saved-payload-unmodified",
+        "preview_bounds_mm": [
+          [
+            85.9000015258789,
+            373.05999755859375,
+            312.8500061035156
+          ],
+          [
+            104.5,
+            381.4599914550781,
+            331.6499938964844
+          ]
+        ],
+        "vertices": 96,
+        "triangles": 60,
+        "coordinate_rounding_mm": 0
+      },
+      {
+        "name": "wago-reeds-a",
+        "method": "saved-payload-unmodified",
+        "preview_bounds_mm": [
+          [
+            -104.5,
+            314.54998779296875,
+            255.0
+          ],
+          [
+            -85.9000015258789,
+            322.95001220703125,
+            285.0
+          ]
+        ],
+        "vertices": 144,
+        "triangles": 92,
+        "coordinate_rounding_mm": 0
+      },
+      {
+        "name": "wago-reeds-b",
+        "method": "saved-payload-unmodified",
+        "preview_bounds_mm": [
+          [
+            -104.5,
+            294.6000061035156,
+            255.10000610351562
+          ],
+          [
+            -86.19999694824219,
+            310.3999938964844,
+            284.8999938964844
+          ]
+        ],
+        "vertices": 264,
+        "triangles": 172,
+        "coordinate_rounding_mm": 0
+      },
+      {
+        "name": "wago-sensors",
+        "method": "saved-payload-unmodified",
+        "preview_bounds_mm": [
+          [
+            -104.5,
+            330.79998779296875,
+            255.0
+          ],
+          [
+            -85.9000015258789,
+            339.20001220703125,
+            285.0
+          ]
+        ],
+        "vertices": 144,
+        "triangles": 92,
+        "coordinate_rounding_mm": 0
+      },
+      {
+        "name": "wago-v12",
+        "method": "saved-payload-unmodified",
+        "preview_bounds_mm": [
+          [
+            85.9000015258789,
+            405.55999755859375,
+            312.8500061035156
+          ],
+          [
+            104.5,
+            413.9599914550781,
+            331.6499938964844
+          ]
+        ],
+        "vertices": 96,
+        "triangles": 60,
+        "coordinate_rounding_mm": 0
+      },
+      {
+        "name": "water-split",
+        "method": "saved-payload-unmodified",
+        "preview_bounds_mm": [
+          [
+            -98.0999984741211,
+            222.00999450683594,
+            271.66058349609375
+          ],
+          [
+            -81.5999984741211,
+            264.510009765625,
+            302.200439453125
+          ]
+        ],
+        "vertices": 1413,
+        "triangles": 1382,
+        "coordinate_rounding_mm": 0
+      }
+    ]
+  },
+  "outputs": {
+    "context.json.gz": {
+      "sha256": "aeac4413515d3e66deb36dfe960aa449609e2c75f7dd5167d750e5ca9645ea2c",
+      "bytes": 578261,
+      "decompressed_json_bytes": 2645537
+    },
+    "context.b64": {
+      "sha256": "596351f1631841084b60409afd5c3e56c6cb44be0d8fe01ebde88008382a33e8",
+      "bytes": 771016
+    },
+    "body_count": 46,
+    "triangles": 78824
+  }
+}
