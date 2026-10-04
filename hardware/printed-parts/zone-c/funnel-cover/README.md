@@ -60,6 +60,11 @@ assembly exports. It checks the solid plate, intended silicone-pad contact,
 surrounding hardware clearance and vertical removal. It does not measure
 friction, silicone distortion, deposited watertightness or lifetime.
 
+The post-publication geometry lint has one intentional finding, the lifting
+recess's short vertical back wall, recorded in the
+[lint answers](funnel-cover-print.lint-answers). The recess retains a continuous
+plate above it and stays outside the mouth.
+
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py
 tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-cover/check_cover.py
