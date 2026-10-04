@@ -1,0 +1,309 @@
+{
+  "generated_utc": "2026-10-04T05:34:04.578025+00:00",
+  "scope": "Actual native placed solids against connected lower/middle corner envelopes; no strength allowable or drop qualification.",
+  "inputs_unchanged": true,
+  "source_and_native_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "963a7359e65b2019b3108d950ea701a2d223c469375059e6989fe38294c34542",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "0999d5d2a4e54a546e5d1759ff24611ef988eeed74bbb94bbdbf5af470774356",
+    "hardware/manifold-layout/enclosure_assembly.py": "eb25f9e3746ef2cb6fac56e45c8fceb849168871f3a5e7e1fe50626dcc5a66aa",
+    "hardware/manifold-layout/enclosure-box.json": "4879e690f9e139856fddb3c5d918be5792e3eff13b5a26cc627e201df7ad0819",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "97ea4bc285ee8e3e08c4d1999877a17db1b6198ce81ecdd8a1dce9a8d08b76ee",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "105c18eed6b10dfab5de7bc12a66174972546a984f2b966e9edc546c7bce285c",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "26df3e161efb02ead136abd3de9b6631a9d57d388ba1692cc693c6db42a82bf3",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "cd2aea4170503e5ab0decd929f902b74c6f8e56a7007ed794f216e06dc291a74",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "7de724435d621c63f80916991f9c8d0a38c224705d1e9dbaf5b1c6f2f959950a",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "69ef530764b2f237acc27cc05be36db875d87f88b6836bad521c2bf3f9ac093e",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "750f04515540bc00743bd39cc345c95ac2ed69ca0ac3460244dcd11c09a4b9d2"
+  },
+  "candidates": [
+    {
+      "side": "west",
+      "candidate": "M3",
+      "x_mm": [
+        -104.5,
+        -90.5
+      ],
+      "y_mm": [
+        197.0,
+        217.8
+      ],
+      "z_mm": [
+        41.0,
+        160.0
+      ]
+    },
+    {
+      "side": "west",
+      "candidate": "M5-short candidate",
+      "x_mm": [
+        -104.5,
+        -87.0
+      ],
+      "y_mm": [
+        197.0,
+        224.8
+      ],
+      "z_mm": [
+        41.0,
+        160.0
+      ]
+    },
+    {
+      "side": "east",
+      "candidate": "M3",
+      "x_mm": [
+        90.5,
+        104.5
+      ],
+      "y_mm": [
+        197.0,
+        217.8
+      ],
+      "z_mm": [
+        41.0,
+        160.0
+      ]
+    },
+    {
+      "side": "east",
+      "candidate": "M5-short candidate",
+      "x_mm": [
+        87.0,
+        104.5
+      ],
+      "y_mm": [
+        197.0,
+        224.8
+      ],
+      "z_mm": [
+        41.0,
+        160.0
+      ]
+    }
+  ],
+  "intersections": [
+    {
+      "side": "west",
+      "candidate": "M3",
+      "component": "cold-core/foam-shell",
+      "overlap_mm3": 0.0,
+      "component_bbox_mm": {
+        "xmin": -90.5000001069748,
+        "xmax": 90.5000001069748,
+        "ymin": 182.29999989999996,
+        "ymax": 465.29999999999995,
+        "zmin": 20.0,
+        "zmax": 233.4000002
+      }
+    },
+    {
+      "side": "west",
+      "candidate": "M5-short candidate",
+      "component": "cold-core/foam-shell",
+      "overlap_mm3": 10586.24000000006,
+      "component_bbox_mm": {
+        "xmin": -90.5000001069748,
+        "xmax": 90.5000001069748,
+        "ymin": 182.29999989999996,
+        "ymax": 465.29999999999995,
+        "zmin": 20.0,
+        "zmax": 233.4000002
+      }
+    },
+    {
+      "side": "east",
+      "candidate": "M3",
+      "component": "cold-core/foam-shell",
+      "overlap_mm3": 0.0,
+      "component_bbox_mm": {
+        "xmin": -90.5000001069748,
+        "xmax": 90.5000001069748,
+        "ymin": 182.29999989999996,
+        "ymax": 465.29999999999995,
+        "zmin": 20.0,
+        "zmax": 233.4000002
+      }
+    },
+    {
+      "side": "east",
+      "candidate": "M5-short candidate",
+      "component": "cold-core/foam-shell",
+      "overlap_mm3": 10586.239999999965,
+      "component_bbox_mm": {
+        "xmin": -90.5000001069748,
+        "xmax": 90.5000001069748,
+        "ymin": 182.29999989999996,
+        "ymax": 465.29999999999995,
+        "zmin": 20.0,
+        "zmax": 233.4000002
+      }
+    }
+  ],
+  "required_m5_closed_caps": [
+    {
+      "side": "west",
+      "candidate": "M5\u00d710 socket-head lower-shank bound",
+      "head_recess_mm": 5.0,
+      "shank_mm": 4.0,
+      "pilot_mm": 6.4,
+      "insert_length_mm": 5.8,
+      "pilot_depth_mm": 6.8,
+      "blind_relief_mm": 1.0,
+      "screw_length_mm": 10.0,
+      "tip_clearance_mm": 0.8000000000000007,
+      "cap_mm": 3.0,
+      "insert_top_x_mm": -98.5,
+      "head_plus_shank_mm": 9.0,
+      "full_insert_thread_reach_mm": 6.0,
+      "blind_x_mm": -91.7,
+      "cap_end_x_mm": -88.7,
+      "inward_band_mm": 15.799999999999997,
+      "cap_witness_radius_mm": 3.2,
+      "intersections": [
+        {
+          "component": "cold-core/foam-shell",
+          "overlap_mm3": 57.90583556658832
+        }
+      ]
+    },
+    {
+      "side": "west",
+      "candidate": "M5\u00d712 socket-head reviewed candidate",
+      "head_recess_mm": 5.0,
+      "shank_mm": 4.0,
+      "pilot_mm": 6.4,
+      "insert_length_mm": 5.8,
+      "pilot_depth_mm": 8.5,
+      "blind_relief_mm": 2.7,
+      "screw_length_mm": 12.0,
+      "tip_clearance_mm": 0.5,
+      "cap_mm": 3.0,
+      "insert_top_x_mm": -98.5,
+      "head_plus_shank_mm": 9.0,
+      "full_insert_thread_reach_mm": 8.0,
+      "blind_x_mm": -90.0,
+      "cap_end_x_mm": -87.0,
+      "inward_band_mm": 17.5,
+      "cap_witness_radius_mm": 3.2,
+      "intersections": [
+        {
+          "component": "cold-core/foam-shell",
+          "overlap_mm3": 86.85875391082996
+        }
+      ]
+    },
+    {
+      "side": "west",
+      "candidate": "M5\u00d712 button-head on fixed 9 mm flank",
+      "head_recess_mm": 3.0,
+      "shank_mm": 6.0,
+      "pilot_mm": 6.4,
+      "insert_length_mm": 5.8,
+      "pilot_depth_mm": 6.8,
+      "blind_relief_mm": 1.0,
+      "screw_length_mm": 12.0,
+      "tip_clearance_mm": 0.8000000000000007,
+      "cap_mm": 3.0,
+      "insert_top_x_mm": -98.5,
+      "head_plus_shank_mm": 9.0,
+      "full_insert_thread_reach_mm": 6.0,
+      "blind_x_mm": -91.7,
+      "cap_end_x_mm": -88.7,
+      "inward_band_mm": 15.799999999999997,
+      "cap_witness_radius_mm": 3.2,
+      "intersections": [
+        {
+          "component": "cold-core/foam-shell",
+          "overlap_mm3": 57.90583556658832
+        }
+      ]
+    },
+    {
+      "side": "east",
+      "candidate": "M5\u00d710 socket-head lower-shank bound",
+      "head_recess_mm": 5.0,
+      "shank_mm": 4.0,
+      "pilot_mm": 6.4,
+      "insert_length_mm": 5.8,
+      "pilot_depth_mm": 6.8,
+      "blind_relief_mm": 1.0,
+      "screw_length_mm": 10.0,
+      "tip_clearance_mm": 0.8000000000000007,
+      "cap_mm": 3.0,
+      "insert_top_x_mm": 98.5,
+      "head_plus_shank_mm": 9.0,
+      "full_insert_thread_reach_mm": 6.0,
+      "blind_x_mm": 91.7,
+      "cap_end_x_mm": 88.7,
+      "inward_band_mm": 15.799999999999997,
+      "cap_witness_radius_mm": 3.2,
+      "intersections": [
+        {
+          "component": "cold-core/foam-shell",
+          "overlap_mm3": 57.90583601534574
+        }
+      ]
+    },
+    {
+      "side": "east",
+      "candidate": "M5\u00d712 socket-head reviewed candidate",
+      "head_recess_mm": 5.0,
+      "shank_mm": 4.0,
+      "pilot_mm": 6.4,
+      "insert_length_mm": 5.8,
+      "pilot_depth_mm": 8.5,
+      "blind_relief_mm": 2.7,
+      "screw_length_mm": 12.0,
+      "tip_clearance_mm": 0.5,
+      "cap_mm": 3.0,
+      "insert_top_x_mm": 98.5,
+      "head_plus_shank_mm": 9.0,
+      "full_insert_thread_reach_mm": 8.0,
+      "blind_x_mm": 90.0,
+      "cap_end_x_mm": 87.0,
+      "inward_band_mm": 17.5,
+      "cap_witness_radius_mm": 3.2,
+      "intersections": [
+        {
+          "component": "cold-core/foam-shell",
+          "overlap_mm3": 86.85875346207158
+        }
+      ]
+    },
+    {
+      "side": "east",
+      "candidate": "M5\u00d712 button-head on fixed 9 mm flank",
+      "head_recess_mm": 3.0,
+      "shank_mm": 6.0,
+      "pilot_mm": 6.4,
+      "insert_length_mm": 5.8,
+      "pilot_depth_mm": 6.8,
+      "blind_relief_mm": 1.0,
+      "screw_length_mm": 12.0,
+      "tip_clearance_mm": 0.8000000000000007,
+      "cap_mm": 3.0,
+      "insert_top_x_mm": 98.5,
+      "head_plus_shank_mm": 9.0,
+      "full_insert_thread_reach_mm": 6.0,
+      "blind_x_mm": 91.7,
+      "cap_end_x_mm": 88.7,
+      "inward_band_mm": 15.799999999999997,
+      "cap_witness_radius_mm": 3.2,
+      "intersections": [
+        {
+          "component": "cold-core/foam-shell",
+          "overlap_mm3": 57.90583601534574
+        }
+      ]
+    }
+  ],
+  "lower_m3": {
+    "clearance_hole_mm": 3.3,
+    "axis_y_mm": 209.9,
+    "free_edge_y_mm": 200.0,
+    "net_edge_ligament_mm": 8.25,
+    "shank_mm": 5.5,
+    "projected_strip_area_per_plane_mm2": 45.375
+  },
+  "status": "pass"
+}

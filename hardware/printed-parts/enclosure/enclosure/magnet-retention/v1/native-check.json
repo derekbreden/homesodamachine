@@ -1,0 +1,2031 @@
+{
+  "submitted": false,
+  "native_checks_pass": true,
+  "scope": "Native emitted pause, ring insertion clearance, pocket support exclusion and sealing paths. Physical ring retention, roof quality, heat exposure and assembled seating remain unmeasured.",
+  "jobs": [
+    {
+      "part": "pump-cartridge",
+      "native_checks_pass": true,
+      "checks": [
+        {
+          "check": "one emitted insertion pause",
+          "pass": true
+        },
+        {
+          "check": "no roof closure before pause",
+          "pass": true
+        },
+        {
+          "check": "ring below completed open rim",
+          "pass": true,
+          "completed_rim_height_mm": 30.92,
+          "largest_ring_top_height_mm": 30.604000000000013
+        },
+        {
+          "check": "no support deposited inside closed pocket",
+          "pass": true,
+          "roads": 0
+        },
+        {
+          "check": "closing roof exists",
+          "pass": true
+        },
+        {
+          "check": "first closing bead clears maximum ring",
+          "pass": true,
+          "minimum_bead_underside_air_mm": 0.3159999999999883
+        },
+        {
+          "check": "closing bridges span the short pocket depth",
+          "pass": true,
+          "y_bridge_roads": 51
+        },
+        {
+          "check": "native plate inside printable area and uses left nozzle",
+          "pass": true,
+          "nozzle_ids": [
+            "0"
+          ]
+        },
+        {
+          "check": "each printer retains its emitted Textured PEI trim",
+          "pass": true,
+          "emitted_trim_mm": [
+            0.0,
+            0.02
+          ]
+        },
+        {
+          "check": "first-to-second wall beads overlap",
+          "pass": true,
+          "second_layer_roads": 321,
+          "roads_without_overlap": 0,
+          "area_overlap_fraction": 0.8320720042151051
+        },
+        {
+          "check": "emitted fine show-round layer bands",
+          "pass": true,
+          "bands": [
+            {
+              "name": "grip-floor-rounds",
+              "print_z_mm": [
+                6.23,
+                18.23
+              ],
+              "wall_layer_count": 151,
+              "first_wall_layer": [
+                6.28,
+                0.08
+              ],
+              "last_wall_layer": [
+                18.28,
+                0.08
+              ],
+              "wrong_height_layers": [],
+              "uncovered_intervals_mm": [],
+              "pass": true
+            },
+            {
+              "name": "grip-ceiling-rounds",
+              "print_z_mm": [
+                100.999,
+                112.999
+              ],
+              "wall_layer_count": 151,
+              "first_wall_layer": [
+                101.0,
+                0.08
+              ],
+              "last_wall_layer": [
+                113.0,
+                0.080002
+              ],
+              "wrong_height_layers": [],
+              "uncovered_intervals_mm": [],
+              "pass": true
+            }
+          ]
+        },
+        {
+          "check": "no support-bead contacts on visible show rounds",
+          "pass": true,
+          "show_round_triangles": 229781,
+          "support_roads_checked": 7325,
+          "vertical_contact_band_mm": 0.6,
+          "xy_allowance_mm": 0.05,
+          "contact_roads": []
+        }
+      ],
+      "pause": [
+        {
+          "gcode_line": 645264,
+          "requested_layer_height_mm": 31.16,
+          "last_deposited_model_height_mm": 30.92
+        }
+      ],
+      "first_closing_layer_height_mm": 31.16,
+      "first_closing_roads": [
+        {
+          "gcode_line": 647254,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -9.242999999999995,
+            78.34949859619141
+          ],
+          "to_machine_xy_mm": [
+            -9.242999999999995,
+            73.8654985961914
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647256,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -8.873999999999995,
+            73.8654985961914
+          ],
+          "to_machine_xy_mm": [
+            -8.873999999999995,
+            78.34949859619141
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647258,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -8.50399999999999,
+            78.34949859619141
+          ],
+          "to_machine_xy_mm": [
+            -8.50399999999999,
+            73.8654985961914
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647260,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -8.133999999999986,
+            73.8654985961914
+          ],
+          "to_machine_xy_mm": [
+            -8.133999999999986,
+            78.34949859619141
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647262,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -7.764999999999986,
+            78.34949859619141
+          ],
+          "to_machine_xy_mm": [
+            -7.764999999999986,
+            73.8654985961914
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647264,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -7.39500000000001,
+            73.8654985961914
+          ],
+          "to_machine_xy_mm": [
+            -7.39500000000001,
+            78.34949859619141
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647266,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -7.025000000000006,
+            78.34949859619141
+          ],
+          "to_machine_xy_mm": [
+            -7.025000000000006,
+            73.8654985961914
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647268,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -6.655000000000001,
+            73.8654985961914
+          ],
+          "to_machine_xy_mm": [
+            -6.655000000000001,
+            78.34949859619141
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647270,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -6.286000000000001,
+            78.34949859619141
+          ],
+          "to_machine_xy_mm": [
+            -6.286000000000001,
+            73.8654985961914
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647272,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -5.915999999999997,
+            73.8654985961914
+          ],
+          "to_machine_xy_mm": [
+            -5.915999999999997,
+            78.34949859619141
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647274,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -5.545999999999992,
+            78.34949859619141
+          ],
+          "to_machine_xy_mm": [
+            -5.545999999999992,
+            73.8654985961914
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647276,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -5.175999999999988,
+            73.8654985961914
+          ],
+          "to_machine_xy_mm": [
+            -5.175999999999988,
+            78.34949859619141
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647278,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -4.806999999999988,
+            78.34949859619141
+          ],
+          "to_machine_xy_mm": [
+            -4.806999999999988,
+            73.8654985961914
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647280,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -4.437000000000012,
+            73.8654985961914
+          ],
+          "to_machine_xy_mm": [
+            -4.437000000000012,
+            78.34949859619141
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647282,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -4.067000000000007,
+            78.34949859619141
+          ],
+          "to_machine_xy_mm": [
+            -4.067000000000007,
+            73.8654985961914
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647284,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -3.6970000000000027,
+            73.8654985961914
+          ],
+          "to_machine_xy_mm": [
+            -3.6970000000000027,
+            78.34949859619141
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647286,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -3.328000000000003,
+            78.34949859619141
+          ],
+          "to_machine_xy_mm": [
+            -3.328000000000003,
+            73.8654985961914
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647288,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -2.9579999999999984,
+            73.8654985961914
+          ],
+          "to_machine_xy_mm": [
+            -2.9579999999999984,
+            78.34949859619141
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647290,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -2.587999999999994,
+            78.34949859619141
+          ],
+          "to_machine_xy_mm": [
+            -2.587999999999994,
+            73.8654985961914
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647292,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -2.2179999999999893,
+            73.8654985961914
+          ],
+          "to_machine_xy_mm": [
+            -2.2179999999999893,
+            78.34949859619141
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647294,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -1.8489999999999895,
+            78.34949859619141
+          ],
+          "to_machine_xy_mm": [
+            -1.8489999999999895,
+            73.8654985961914
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647296,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -1.4790000000000134,
+            73.8654985961914
+          ],
+          "to_machine_xy_mm": [
+            -1.4790000000000134,
+            78.34949859619141
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647298,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -1.1090000000000089,
+            78.34949859619141
+          ],
+          "to_machine_xy_mm": [
+            -1.1090000000000089,
+            73.8654985961914
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647300,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -0.7390000000000043,
+            73.8654985961914
+          ],
+          "to_machine_xy_mm": [
+            -0.7390000000000043,
+            78.34949859619141
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647302,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -0.37000000000000455,
+            78.34949859619141
+          ],
+          "to_machine_xy_mm": [
+            -0.37000000000000455,
+            73.8654985961914
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647304,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            0.0,
+            73.8654985961914
+          ],
+          "to_machine_xy_mm": [
+            0.0,
+            78.34949859619141
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647306,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            0.37000000000000455,
+            78.34949859619141
+          ],
+          "to_machine_xy_mm": [
+            0.37000000000000455,
+            73.8654985961914
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647308,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            0.7400000000000091,
+            73.8654985961914
+          ],
+          "to_machine_xy_mm": [
+            0.7400000000000091,
+            78.34949859619141
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647310,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            1.1090000000000089,
+            78.34949859619141
+          ],
+          "to_machine_xy_mm": [
+            1.1090000000000089,
+            73.8654985961914
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647312,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            1.4790000000000134,
+            73.8654985961914
+          ],
+          "to_machine_xy_mm": [
+            1.4790000000000134,
+            78.34949859619141
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647314,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            1.8489999999999895,
+            78.34949859619141
+          ],
+          "to_machine_xy_mm": [
+            1.8489999999999895,
+            73.8654985961914
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647316,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            2.2179999999999893,
+            73.8654985961914
+          ],
+          "to_machine_xy_mm": [
+            2.2179999999999893,
+            78.34949859619141
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647318,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            2.587999999999994,
+            78.34949859619141
+          ],
+          "to_machine_xy_mm": [
+            2.587999999999994,
+            73.8654985961914
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647320,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            2.9579999999999984,
+            73.8654985961914
+          ],
+          "to_machine_xy_mm": [
+            2.9579999999999984,
+            78.34949859619141
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647322,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            3.328000000000003,
+            78.34949859619141
+          ],
+          "to_machine_xy_mm": [
+            3.328000000000003,
+            73.8654985961914
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647324,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            3.6970000000000027,
+            73.8654985961914
+          ],
+          "to_machine_xy_mm": [
+            3.6970000000000027,
+            78.34949859619141
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647326,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            4.067000000000007,
+            78.34949859619141
+          ],
+          "to_machine_xy_mm": [
+            4.067000000000007,
+            73.8654985961914
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647328,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            4.437000000000012,
+            73.8654985961914
+          ],
+          "to_machine_xy_mm": [
+            4.437000000000012,
+            78.34949859619141
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647330,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            4.806999999999988,
+            78.34949859619141
+          ],
+          "to_machine_xy_mm": [
+            4.806999999999988,
+            73.8654985961914
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647332,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            5.175999999999988,
+            73.8654985961914
+          ],
+          "to_machine_xy_mm": [
+            5.175999999999988,
+            78.34949859619141
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647334,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            5.545999999999992,
+            78.34949859619141
+          ],
+          "to_machine_xy_mm": [
+            5.545999999999992,
+            73.8654985961914
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647336,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            5.915999999999997,
+            73.8654985961914
+          ],
+          "to_machine_xy_mm": [
+            5.915999999999997,
+            78.34949859619141
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647338,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            6.286000000000001,
+            78.34949859619141
+          ],
+          "to_machine_xy_mm": [
+            6.286000000000001,
+            73.8654985961914
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647340,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            6.655000000000001,
+            73.8654985961914
+          ],
+          "to_machine_xy_mm": [
+            6.655000000000001,
+            78.34949859619141
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647342,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            7.025000000000006,
+            78.34949859619141
+          ],
+          "to_machine_xy_mm": [
+            7.025000000000006,
+            73.8654985961914
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647344,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            7.39500000000001,
+            73.8654985961914
+          ],
+          "to_machine_xy_mm": [
+            7.39500000000001,
+            78.34949859619141
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647346,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            7.764999999999986,
+            78.34949859619141
+          ],
+          "to_machine_xy_mm": [
+            7.764999999999986,
+            73.8654985961914
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647348,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            8.133999999999986,
+            73.8654985961914
+          ],
+          "to_machine_xy_mm": [
+            8.133999999999986,
+            78.34949859619141
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647350,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            8.50399999999999,
+            78.34949859619141
+          ],
+          "to_machine_xy_mm": [
+            8.50399999999999,
+            73.8654985961914
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647352,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            8.873999999999995,
+            73.8654985961914
+          ],
+          "to_machine_xy_mm": [
+            8.873999999999995,
+            78.34949859619141
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 647354,
+          "feature": "Bridge",
+          "print_z_mm": 31.16,
+          "machine_z_mm": 196.35500732421875,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            9.244,
+            78.34949859619141
+          ],
+          "to_machine_xy_mm": [
+            9.244,
+            73.8654985961914
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        }
+      ],
+      "support_inside_pocket": [],
+      "closure_before_pause": [],
+      "process": {
+        "printer_settings_id": "Bambu Lab H2C 0.4 Standard +0.04 Z trim",
+        "filament_nozzle_map": [
+          "0"
+        ],
+        "curr_bed_type": "Textured PEI Plate",
+        "layer_height": "0.24",
+        "initial_layer_print_height": "0.2",
+        "wall_loops": "2",
+        "nozzle_temperature": [
+          "280",
+          "265",
+          "270"
+        ],
+        "nozzle_temperature_initial_layer": [
+          "265",
+          "265",
+          "270"
+        ],
+        "chamber_temperatures": [
+          "0"
+        ],
+        "support_type": "tree(auto)"
+      },
+      "native_archive_sha256": "b128dbecb9b65fa23bda42edb745cbe62157d15fad067266925a95b64e1911e3",
+      "gcode_sha256": "be6e2f4c9f72469220b4fdf599fa447bb0676d361871b0f6a046ef4ad3eacf29",
+      "project_sha256": "88c3e76612b275601cbed8922c50269808bf6b7f79ff54d6f7d0fa1a04f32e84",
+      "source_stl_sha256": "e11c49e85e109cfa96d744ce3039b0d82e0215724a6b6c755312741d9885e186"
+    },
+    {
+      "part": "front-top",
+      "native_checks_pass": true,
+      "checks": [
+        {
+          "check": "one emitted insertion pause",
+          "pass": true
+        },
+        {
+          "check": "no roof closure before pause",
+          "pass": true
+        },
+        {
+          "check": "ring below completed open rim",
+          "pass": true,
+          "completed_rim_height_mm": 36.2,
+          "largest_ring_top_height_mm": 35.79900000000001
+        },
+        {
+          "check": "no support deposited inside closed pocket",
+          "pass": true,
+          "roads": 0
+        },
+        {
+          "check": "closing roof exists",
+          "pass": true
+        },
+        {
+          "check": "first closing bead clears maximum ring",
+          "pass": true,
+          "minimum_bead_underside_air_mm": 0.40099999999998914
+        },
+        {
+          "check": "closing bridges span the short pocket depth",
+          "pass": true,
+          "y_bridge_roads": 51
+        },
+        {
+          "check": "native plate inside printable area and uses left nozzle",
+          "pass": true,
+          "nozzle_ids": [
+            "0"
+          ]
+        },
+        {
+          "check": "each printer retains its emitted Textured PEI trim",
+          "pass": true,
+          "emitted_trim_mm": [
+            0.0,
+            0.16
+          ]
+        },
+        {
+          "check": "first-to-second wall beads overlap",
+          "pass": true,
+          "second_layer_roads": 627,
+          "roads_without_overlap": 0,
+          "area_overlap_fraction": 0.8294481086825731
+        },
+        {
+          "check": "emitted fine show-round layer bands",
+          "pass": true,
+          "bands": [
+            {
+              "name": "roof-corner-rounds",
+              "print_z_mm": [
+                187.392,
+                195.0
+              ],
+              "wall_layer_count": 96,
+              "first_wall_layer": [
+                187.4,
+                0.079987
+              ],
+              "last_wall_layer": [
+                195.0,
+                0.080002
+              ],
+              "wrong_height_layers": [],
+              "uncovered_intervals_mm": [],
+              "pass": true
+            }
+          ]
+        },
+        {
+          "check": "no support-bead contacts on visible show rounds",
+          "pass": true,
+          "show_round_triangles": 33060,
+          "support_roads_checked": 35069,
+          "vertical_contact_band_mm": 0.6,
+          "xy_allowance_mm": 0.05,
+          "contact_roads": []
+        }
+      ],
+      "pause": [
+        {
+          "gcode_line": 573836,
+          "requested_layer_height_mm": 36.44,
+          "last_deposited_model_height_mm": 36.2
+        }
+      ],
+      "first_closing_layer_height_mm": 36.44,
+      "first_closing_roads": [
+        {
+          "gcode_line": 575658,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -9.242999999999995,
+            84.9180015258789
+          ],
+          "to_machine_xy_mm": [
+            -9.242999999999995,
+            80.4340015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575660,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -8.873999999999995,
+            80.4340015258789
+          ],
+          "to_machine_xy_mm": [
+            -8.873999999999995,
+            84.9180015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575662,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -8.50399999999999,
+            84.9180015258789
+          ],
+          "to_machine_xy_mm": [
+            -8.50399999999999,
+            80.4340015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575664,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -8.133999999999986,
+            80.4340015258789
+          ],
+          "to_machine_xy_mm": [
+            -8.133999999999986,
+            84.9180015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575666,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -7.764999999999986,
+            84.9180015258789
+          ],
+          "to_machine_xy_mm": [
+            -7.764999999999986,
+            80.4340015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575668,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -7.39500000000001,
+            80.4340015258789
+          ],
+          "to_machine_xy_mm": [
+            -7.39500000000001,
+            84.9180015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575670,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -7.025000000000006,
+            84.9180015258789
+          ],
+          "to_machine_xy_mm": [
+            -7.025000000000006,
+            80.4340015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575672,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -6.655000000000001,
+            80.4340015258789
+          ],
+          "to_machine_xy_mm": [
+            -6.655000000000001,
+            84.9180015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575674,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -6.286000000000001,
+            84.9180015258789
+          ],
+          "to_machine_xy_mm": [
+            -6.286000000000001,
+            80.4340015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575676,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -5.915999999999997,
+            80.4340015258789
+          ],
+          "to_machine_xy_mm": [
+            -5.915999999999997,
+            84.9180015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575678,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -5.545999999999992,
+            84.9180015258789
+          ],
+          "to_machine_xy_mm": [
+            -5.545999999999992,
+            80.4340015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575680,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -5.175999999999988,
+            80.4340015258789
+          ],
+          "to_machine_xy_mm": [
+            -5.175999999999988,
+            84.9180015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575682,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -4.806999999999988,
+            84.9180015258789
+          ],
+          "to_machine_xy_mm": [
+            -4.806999999999988,
+            80.4340015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575684,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -4.437000000000012,
+            80.4340015258789
+          ],
+          "to_machine_xy_mm": [
+            -4.437000000000012,
+            84.9180015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575686,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -4.067000000000007,
+            84.9180015258789
+          ],
+          "to_machine_xy_mm": [
+            -4.067000000000007,
+            80.4340015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575688,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -3.6970000000000027,
+            80.4340015258789
+          ],
+          "to_machine_xy_mm": [
+            -3.6970000000000027,
+            84.9180015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575690,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -3.328000000000003,
+            84.9180015258789
+          ],
+          "to_machine_xy_mm": [
+            -3.328000000000003,
+            80.4340015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575692,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -2.9579999999999984,
+            80.4340015258789
+          ],
+          "to_machine_xy_mm": [
+            -2.9579999999999984,
+            84.9180015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575694,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -2.587999999999994,
+            84.9180015258789
+          ],
+          "to_machine_xy_mm": [
+            -2.587999999999994,
+            80.4340015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575696,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -2.2179999999999893,
+            80.4340015258789
+          ],
+          "to_machine_xy_mm": [
+            -2.2179999999999893,
+            84.9180015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575698,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -1.8489999999999895,
+            84.9180015258789
+          ],
+          "to_machine_xy_mm": [
+            -1.8489999999999895,
+            80.4340015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575700,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -1.4790000000000134,
+            80.4340015258789
+          ],
+          "to_machine_xy_mm": [
+            -1.4790000000000134,
+            84.9180015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575702,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -1.1090000000000089,
+            84.9180015258789
+          ],
+          "to_machine_xy_mm": [
+            -1.1090000000000089,
+            80.4340015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575704,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -0.7390000000000043,
+            80.4340015258789
+          ],
+          "to_machine_xy_mm": [
+            -0.7390000000000043,
+            84.9180015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575706,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            -0.37000000000000455,
+            84.9180015258789
+          ],
+          "to_machine_xy_mm": [
+            -0.37000000000000455,
+            80.4340015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575709,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            0.0,
+            80.4340015258789
+          ],
+          "to_machine_xy_mm": [
+            0.0,
+            84.9180015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575711,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            0.37000000000000455,
+            84.9180015258789
+          ],
+          "to_machine_xy_mm": [
+            0.37000000000000455,
+            80.4340015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575713,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            0.7400000000000091,
+            80.4340015258789
+          ],
+          "to_machine_xy_mm": [
+            0.7400000000000091,
+            84.9180015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575715,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            1.1090000000000089,
+            84.9180015258789
+          ],
+          "to_machine_xy_mm": [
+            1.1090000000000089,
+            80.4340015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575717,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            1.4790000000000134,
+            80.4340015258789
+          ],
+          "to_machine_xy_mm": [
+            1.4790000000000134,
+            84.9180015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575719,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            1.8489999999999895,
+            84.9180015258789
+          ],
+          "to_machine_xy_mm": [
+            1.8489999999999895,
+            80.4340015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575721,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            2.2179999999999893,
+            80.4340015258789
+          ],
+          "to_machine_xy_mm": [
+            2.2179999999999893,
+            84.9180015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575723,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            2.587999999999994,
+            84.9180015258789
+          ],
+          "to_machine_xy_mm": [
+            2.587999999999994,
+            80.4340015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575725,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            2.9579999999999984,
+            80.4340015258789
+          ],
+          "to_machine_xy_mm": [
+            2.9579999999999984,
+            84.9180015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575727,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            3.328000000000003,
+            84.9180015258789
+          ],
+          "to_machine_xy_mm": [
+            3.328000000000003,
+            80.4340015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575729,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            3.6970000000000027,
+            80.4340015258789
+          ],
+          "to_machine_xy_mm": [
+            3.6970000000000027,
+            84.9180015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575731,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            4.067000000000007,
+            84.9180015258789
+          ],
+          "to_machine_xy_mm": [
+            4.067000000000007,
+            80.4340015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575733,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            4.437000000000012,
+            80.4340015258789
+          ],
+          "to_machine_xy_mm": [
+            4.437000000000012,
+            84.9180015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575735,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            4.806999999999988,
+            84.9180015258789
+          ],
+          "to_machine_xy_mm": [
+            4.806999999999988,
+            80.4340015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575737,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            5.175999999999988,
+            80.4340015258789
+          ],
+          "to_machine_xy_mm": [
+            5.175999999999988,
+            84.9180015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575739,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            5.545999999999992,
+            84.9180015258789
+          ],
+          "to_machine_xy_mm": [
+            5.545999999999992,
+            80.4340015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575741,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            5.915999999999997,
+            80.4340015258789
+          ],
+          "to_machine_xy_mm": [
+            5.915999999999997,
+            84.9180015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575743,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            6.286000000000001,
+            84.9180015258789
+          ],
+          "to_machine_xy_mm": [
+            6.286000000000001,
+            80.4340015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575745,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            6.655000000000001,
+            80.4340015258789
+          ],
+          "to_machine_xy_mm": [
+            6.655000000000001,
+            84.9180015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575747,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            7.025000000000006,
+            84.9180015258789
+          ],
+          "to_machine_xy_mm": [
+            7.025000000000006,
+            80.4340015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575749,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            7.39500000000001,
+            80.4340015258789
+          ],
+          "to_machine_xy_mm": [
+            7.39500000000001,
+            84.9180015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575751,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            7.764999999999986,
+            84.9180015258789
+          ],
+          "to_machine_xy_mm": [
+            7.764999999999986,
+            80.4340015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575753,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            8.133999999999986,
+            80.4340015258789
+          ],
+          "to_machine_xy_mm": [
+            8.133999999999986,
+            84.9180015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575755,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            8.50399999999999,
+            84.9180015258789
+          ],
+          "to_machine_xy_mm": [
+            8.50399999999999,
+            80.4340015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575757,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            8.873999999999995,
+            80.4340015258789
+          ],
+          "to_machine_xy_mm": [
+            8.873999999999995,
+            84.9180015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        },
+        {
+          "gcode_line": 575759,
+          "feature": "Bridge",
+          "print_z_mm": 36.44,
+          "machine_z_mm": 196.44,
+          "layer_height_mm": 0.24,
+          "width_mm": 0.421244,
+          "from_machine_xy_mm": [
+            9.244,
+            84.9180015258789
+          ],
+          "to_machine_xy_mm": [
+            9.244,
+            80.4340015258789
+          ],
+          "length_inside_pocket_mm": 3.053756000000007
+        }
+      ],
+      "support_inside_pocket": [],
+      "closure_before_pause": [],
+      "process": {
+        "printer_settings_id": "Bambu Lab H2C 0.4 Standard +0.18 Z trim",
+        "filament_nozzle_map": [
+          "0"
+        ],
+        "curr_bed_type": "Textured PEI Plate",
+        "layer_height": "0.24",
+        "initial_layer_print_height": "0.2",
+        "wall_loops": "2",
+        "nozzle_temperature": [
+          "280",
+          "265",
+          "270"
+        ],
+        "nozzle_temperature_initial_layer": [
+          "265",
+          "265",
+          "270"
+        ],
+        "chamber_temperatures": [
+          "0"
+        ],
+        "support_type": "tree(auto)"
+      },
+      "native_archive_sha256": "c730a1d6ba7d5f4c566a2d1c5cea91f7c886f85519388da9910535be7ed98611",
+      "gcode_sha256": "9eff32609d2dce37f09e0d29e3eb4d0f14f46f368d46641bdea6b0b27ffcdb6e",
+      "project_sha256": "f9d4164a7ddf82894730b7ec51fec352c55814c55278a0b63576bc6158a8fd48",
+      "source_stl_sha256": "fa3b51b3543b03c51ea852b328d1d66241e35d712b0df52558762786a858ad50"
+    }
+  ],
+  "audit_script_sha256": "35d5fdd9816d5d4a964dc3b78ce6157e87b5bb4cdb89fbc89a50acf7fe58eda8"
+}

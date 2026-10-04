@@ -26,9 +26,11 @@ print recipe to the complete parts.
 
 The cartridge tubes bottom in the tee bodies at full seat. The flat cap and bulkhead planes
 have 0.246 mm nominal separation. Both connector ear plates bear on steps 3.00 mm behind
-their printed faces. Two M1.4×5 screws per half clamp each 1.00 mm ear plate onto that datum,
-with 4.00 mm nominal engagement in the M1.4×4 inserts. The 5.00 mm insert pockets include
-1.00 mm blind relief. Screw heads finish 0.60 mm behind the mating faces. The insert fit and
+their printed faces. Two M1.4×8 screws per half clamp each 1.00 mm ear plate onto that datum.
+Each M1.4×4 insert starts 2.00 mm behind the datum, 5.00 mm inside the mating face,
+and occupies depths 5.00–9.00 mm. The Ø2.00 pilot ends at 10.50 mm; the screw tip
+ends at 10.00 mm, leaving 0.50 mm clearance with complete insert engagement.
+The Ø2.60 entry passes the whole knurl. Screw heads finish 0.60 mm behind the mating faces. The insert fit and
 printed fastening capacity have no reported physical result.
 
 The [Prime listing](https://www.amazon.com/dp/B0GCBNTBT8?th=1), checked on 2026-10-03,

@@ -117,21 +117,21 @@
   },
   "source_sha256": {
     "hardware/reference/yyfkgcp-pogo-4p/audit_mounting.py": "9cf2fea608d1a50cba2e34c89da5bf1e3ae93c52b5a544455286b6ddc170311b",
-    "hardware/manifold-layout/enclosure-box.json": "2062e00ce991acc021f6583add4555415a05d04a30ea953f5ebca349fdb35289",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "2d7c127f3b59cd34057137dab7d378b5f7ed47679718118a39353e734267dd39",
-    "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/geometry-check.json": "4e178924c90070f0acb2253742edc93519a5b50938b03e2e0fbd1271a68b6cad",
-    "hardware/manifold-layout/enclosure_assembly.py": "d4f46a3316b29645f877e10f22a93328caf6e55fa42dfaada07224dd1940e9ec",
+    "hardware/manifold-layout/enclosure-box.json": "4879e690f9e139856fddb3c5d918be5792e3eff13b5a26cc627e201df7ad0819",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "963a7359e65b2019b3108d950ea701a2d223c469375059e6989fe38294c34542",
+    "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/geometry-check.json": "a3b8b9fe4704c2f8d9795817fd1dde4004794c13ed322416a5924870e034c241",
+    "hardware/manifold-layout/enclosure_assembly.py": "eb25f9e3746ef2cb6fac56e45c8fceb849168871f3a5e7e1fe50626dcc5a66aa",
     "hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py": "7a2cc5efd8b6de98cb596c4b5d5ed94028a7c7c869f6763d6dc9e1bf310a3f44",
-    "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py": "809dfa1f37cfa04496840f3daa677ea902dadde4fd53b2e21970b5f713d3f43d",
+    "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py": "d92fd2c963b9de32091d18ac52f1cd35cb781e75a189afd8e7259a5304a60f6e",
     "hardware/printed-parts/cadlib/fits.py": "3821989044c5bc3ae99cc6912538b8a34bd75a6b0a081aefc8e4c5a0ce714191",
     "hardware/scripts/_box_spec.py": "6d3fb6a178e443956d87c18a77e143181776b8b79d0f480ed8727b96ea35e1fe"
   },
   "artifact_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "e50c763a6e50022055fae968d3e4f209003ed3dd34174f6ab65d7a1ca2a60aa6",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "78a98c163ef99a07867f5c3b703775d86f6d665eb2be050a99da0e63b31d7db8",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "9b5044a4aba6e5738499f872451293a3b6fc06595c00a6ac06b7f03c65ad1c12",
-    "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-male-coupon.step": "415369e79a8b858711b602d7b1e7571ba45f984dbb46eec0264e4c8ee4bf7a0c",
-    "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-female-coupon.step": "f2f46bea1686294aada16a20ffc82ac5c1a20bd2f067a531f1396fd0e2f28b21"
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "69ef530764b2f237acc27cc05be36db875d87f88b6836bad521c2bf3f9ac093e",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "26df3e161efb02ead136abd3de9b6631a9d57d388ba1692cc693c6db42a82bf3",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "105c18eed6b10dfab5de7bc12a66174972546a984f2b966e9edc546c7bce285c",
+    "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-male-coupon.step": "c6bd4ee6ffa77f0d71a15189682733f78c9a604984fce5f51da2e56cb5882ca8",
+    "hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-female-coupon.step": "06b5cf443c60dcabec346f2b2681cee04072045d4e9928879be6784c6627d177"
   },
   "physical_record": "physical-observations.json"
 }

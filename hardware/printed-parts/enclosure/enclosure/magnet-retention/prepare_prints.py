@@ -8,6 +8,7 @@ import copy
 import hashlib
 import json
 import math
+import shutil
 from pathlib import Path
 import subprocess
 import uuid
@@ -57,7 +58,7 @@ def grip_ceiling_paint(points, depth=0):
     return "".join(grip_ceiling_paint(p, depth+1) for p in children) + "3"
 
 
-def prepare(name, pocket):
+def prepare(name, pocket, revision):
     front = members(FRONT_BASE)
     base = members(PUMP_BASE) if name == "pump-cartridge" else front
     mesh = trimesh.load_mesh(ENC / f"enclosure-{name}.stl", process=True)
@@ -155,13 +156,78 @@ def prepare(name, pocket):
                   color="", extra=message, gcode="M400 U1")
     ET.SubElement(plate, "mode", value="SingleExtruder")
     revised = {n: data for n, data in front.items() if not n.startswith("Metadata/plate_")}
+    region_path = ENC / 'heat-set-review/print-regions.json'
+    regions = json.loads(region_path.read_text())
+    assert regions['native_artifact_sha256'][name]['.stl'] == sha(ENC / f'enclosure-{name}.stl')
+    modifiers = []
+    for region in regions['pieces'][name]:
+        region = copy.deepcopy(region)
+        bounds = np.array(region['machine_bounds_mm']).reshape(3,2)
+        # The slicer includes modifier bounds in its bed-fit test. Keep their
+        # envelope inside the actual STL; boundary shell roads are already solid.
+        bounds[:,0] = np.maximum(bounds[:,0],mesh.bounds[0]+0.001)
+        bounds[:,1] = np.minimum(bounds[:,1],mesh.bounds[1]-0.001)
+        assert (bounds[:,1] > bounds[:,0]).all(),region
+        region['applied_machine_bounds_mm'] = bounds.flatten().tolist()
+        modifiers.append(region)
+    components = model.find(f'.//{TAG("components")}')
+    relation_member = '3D/_rels/3dmodel.model.rels'
+    relationships = ET.fromstring(revised[relation_member]) if relation_member in revised else None
+    for index, region in enumerate(modifiers, 3):
+        x0,x1,y0,y1,z0,z1 = region['applied_machine_bounds_mm']
+        modifier = trimesh.creation.box(extents=[x1-x0,y1-y0,z1-z0])
+        modifier.apply_translation(np.array([(x0+x1)/2,(y0+y1)/2,(z0+z1)/2])-center)
+        member_name = f'3D/Objects/solid-host-{index}.model'
+        ident = str(uuid.uuid5(uuid.NAMESPACE_URL, f'{sha(region_path)}:{name}:{index}'))
+        document = ET.Element(TAG('model'), unit='millimeter')
+        resources = ET.SubElement(document,TAG('resources'))
+        solid = ET.SubElement(resources,TAG('object'),id=str(index),type='model')
+        shaped = ET.SubElement(solid,TAG('mesh'))
+        verts = ET.SubElement(shaped,TAG('vertices'))
+        for point in modifier.vertices:
+            ET.SubElement(verts,TAG('vertex'),**dict(zip('xyz',(f'{v:.9f}' for v in point))))
+        tris=ET.SubElement(shaped,TAG('triangles'))
+        for face in modifier.faces:
+            ET.SubElement(tris,TAG('triangle'),**dict(zip(('v1','v2','v3'),(str(int(v)) for v in face))))
+        ET.SubElement(document,TAG('build'))
+        revised[member_name]=ET.tostring(document,encoding='UTF-8',xml_declaration=True)
+        ET.SubElement(components,TAG('component'),objectid=str(index),transform='1 0 0 0 1 0 0 0 1 0 0 0',
+                      **{f'{{{PROD}}}path':'/'+member_name,f'{{{PROD}}}UUID':ident})
+        part=ET.SubElement(obj,'part',id=str(index),subtype='modifier_part',uuid=ident)
+        ET.SubElement(part,'metadata',key='name',value=region['name'])
+        ET.SubElement(part,'metadata',key='matrix',value='1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1')
+        for key in ('sparse_infill_density','sparse_infill_pattern'):
+            ET.SubElement(part,'metadata',key=key,value=region[key])
+        ET.SubElement(part,'mesh_stat',face_count='12',edges_fixed='0',degenerate_facets='0',
+                      facets_removed='0',facets_reversed='0',backwards_edges='0')
+        if relationships is not None:
+            reltag='{http://schemas.openxmlformats.org/package/2006/relationships}Relationship'
+            example=next(iter(relationships))
+            ET.SubElement(relationships,reltag,Target='/'+member_name,Type=example.get('Type'),Id=f'solid-host-{index}')
+    obj.find('metadata[@face_count]').set('face_count',str(len(mesh.faces)+12*len(modifiers)))
+    if relationships is not None:
+        # Studio's relationship reader expects unprefixed names, as in its own
+        # exported template. Restore the model namespace for subsequent members.
+        ET.register_namespace('','http://schemas.openxmlformats.org/package/2006/relationships')
+        revised[relation_member]=ET.tostring(relationships,encoding='UTF-8',xml_declaration=True)
+        ET.register_namespace('',CORE)
     revised[SETTING] = json.dumps(selected).encode()
     revised["Metadata/filament_settings_1.config"] = base["Metadata/filament_settings_1.config"]
     revised["Metadata/layer_config_ranges.xml"] = base["Metadata/layer_config_ranges.xml"]
     for n, data in [("3D/3dmodel.model", model), (member, geometry),
                     ("Metadata/model_settings.config", config), ("Metadata/custom_gcode_per_layer.xml", pauses)]:
         revised[n] = ET.tostring(data, encoding="UTF-8", xml_declaration=True)
-    project = HERE / f"{name}-pause.3mf"
+    destination = HERE / f'v{revision}'
+    destination.mkdir(exist_ok=True)
+    project = destination / f"{name}-pause.3mf"
+    if project.exists():
+        record_path=destination/'preparation.json'
+        reviewed=json.loads(record_path.read_text())['jobs'] if record_path.exists() else []
+        if any(row['part']==name for row in reviewed):
+            raise FileExistsError(f'Reviewed project is immutable; use a fresh revision: {project}')
+        failed=ROOT/'.cache/enclosure-heatset-review/unreviewed-projects'/f'{sha(project)}.3mf'
+        failed.parent.mkdir(exist_ok=True)
+        shutil.copyfile(project,failed)
     with zipfile.ZipFile(project, "w", zipfile.ZIP_DEFLATED) as z:
         for n, data in revised.items(): z.writestr(n, data)
     return {"part": name, "printer": "Mark2" if name == "pump-cartridge" else "H2C",
@@ -172,6 +238,7 @@ def prepare(name, pocket):
             "requested_pause_height_mm": pause_height, "pocket_roof_height_mm": roof_height,
             "roof_support_blocked_facets": blocked_roof, "inherited_show_support_blocks": inherited,
             "grip_support_blocked_facets": grip_blocked,
+            "solid_host_regions": modifiers, "solid_host_region_record_sha256": sha(region_path),
             "baseline_project": str((PUMP_BASE if name == "pump-cartridge" else FRONT_BASE).relative_to(ROOT)),
             "baseline_project_sha256": sha(PUMP_BASE if name == "pump-cartridge" else FRONT_BASE)}
 
@@ -179,12 +246,13 @@ def prepare(name, pocket):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--slice", action="store_true")
+    parser.add_argument('--revision', type=int, default=3)
     parser.add_argument("parts", nargs="*", choices=("pump-cartridge", "front-top"))
     args = parser.parse_args()
     geometry = json.loads((HERE / "geometry-check.json").read_text())
     assert geometry["geometry_checks_pass"]
     names = args.parts or ["pump-cartridge", "front-top"]
-    record_path = HERE / "preparation.json"
+    record_path = HERE / f'v{args.revision}' / "preparation.json"
     jobs = []
     if record_path.is_file():
         for row in json.loads(record_path.read_text())["jobs"]:
@@ -193,11 +261,13 @@ def main():
                 assert sha(ENC / f"enclosure-{row['part']}.stl") == row["source_stl_sha256"]
                 jobs.append(row)
     for name in names:
-        record = prepare(name, geometry["pieces"][name])
+        record = prepare(name, geometry["pieces"][name], args.revision)
         if args.slice:
-            output = ROOT / ".cache/prints/cartridge-rc62-retention-v1" / name
+            output = ROOT / f".cache/prints/cartridge-rc62-retention-v{args.revision}" / name
             output.mkdir(parents=True, exist_ok=True)
-            filename = f"enclosure-{name}-rc62-{record['printer'].lower()}-v1.gcode.3mf"
+            filename = f"enclosure-{name}-rc62-{record['printer'].lower()}-v{args.revision}.gcode.3mf"
+            if (output / filename).exists():
+                raise FileExistsError(f'Reviewed archive is immutable: {output / filename}')
             command = [str(STUDIO), "--slice", "0", "--arrange", "0", "--orient", "0",
                        "--outputdir", str(output), "--export-3mf", filename, str(ROOT / record["project"])]
             print(f"Slicing {name}", flush=True)
@@ -207,7 +277,7 @@ def main():
             record["native_archive_sha256"] = sha(output / filename)
             record["gcode_sha256"] = hashlib.sha256(members(output / filename)["Metadata/plate_1.gcode"]).hexdigest()
         jobs.append(record)
-        (HERE / "preparation.json").write_text(json.dumps({"submitted": False, "jobs": jobs}, indent=2) + "\n")
+        record_path.write_text(json.dumps({"submitted": False, "revision": args.revision, "jobs": jobs}, indent=2) + "\n")
     print(json.dumps({"submitted": False, "jobs": jobs}, indent=2), flush=True)
 
 
