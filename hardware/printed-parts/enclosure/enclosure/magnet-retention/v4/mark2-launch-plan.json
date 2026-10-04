@@ -1,0 +1,201 @@
+{
+  "article": "Timed Mark2 cartridge and cap RC62 insertion trial",
+  "state": "scheduled_authorized",
+  "submitted": false,
+  "send_attempted": false,
+  "auto_advance": false,
+  "authorization_quote": "Mark2 is loaded with PET-GF in the left 0.4 hotend and textured PEI bed is clear. I'd like you to aim for 12:15 pm CST for the magnet pause. If things don't go well starting and you think it will go past 12:50 pm CST then please give up instead of starting it that late.",
+  "clock_clarification_quote": "Sorry, I meant \"central time\" and forgot there is that whole CST / CDT acronym difference",
+  "timezone": "America/Chicago",
+  "clock_choice": "Local Central clock; CDT UTC-05:00 on 2026-10-04",
+  "printer": "Mark2",
+  "included_parts": [
+    "pump-cartridge",
+    "pump-cap"
+  ],
+  "operator_readiness": {
+    "bed_clear": true,
+    "bed_type": "Textured PEI",
+    "loaded_material": "PET-GF",
+    "fixed_nozzle": "left 0.4 mm",
+    "bed_clear_after_task_id": "1307189764",
+    "bed_clear_after_job_id": "1307189764",
+    "bed_clear_after_subtask_name": "co2-raised-face-up-z004-mark2-v1.gcode.3mf"
+  },
+  "timing": {
+    "target_pause_local": "2026-10-04T12:15:00-05:00",
+    "target_pause_utc": "2026-10-04T17:15:00+00:00",
+    "pause_cutoff_local": "2026-10-04T12:50:00-05:00",
+    "pause_cutoff_utc": "2026-10-04T17:50:00+00:00",
+    "estimated_start_to_pause_seconds": 23687.148438,
+    "target_acceptance_local": "2026-10-04T05:40:12.851562-05:00",
+    "target_acceptance_utc": "2026-10-04T10:40:12.851562+00:00",
+    "prepare_not_before_utc": "2026-10-04T10:30:00+00:00",
+    "expected_send_to_acceptance_seconds": 10,
+    "acceptance_allowance_seconds": 180,
+    "latest_send_utc": "2026-10-04T11:12:12.851562+00:00",
+    "latest_acceptance_utc": "2026-10-04T11:15:12.851562+00:00",
+    "scope": "Native minute-rounded forecast includes modeled startup overhead; actual heating, calibration and transfer can shift the pause. Cutoff governs deciding whether to Send, not an automatic stop after acceptance."
+  },
+  "bindings": {
+    "project": "hardware/printed-parts/enclosure/enclosure/magnet-retention/v4/pump-cartridge-cap-pause.3mf",
+    "project_sha256": "1fcd2933cfd4db0bf9e1f3e010d0944e37b8ed68f390ca06ba792e4010ae5d96",
+    "native_archive": ".cache/prints/cartridge-rc62-retention-v4/pump-cartridge-cap/enclosure-pump-cartridge-cap-rc62-mark2-v4.gcode.3mf",
+    "native_archive_sha256": "562d743bff86768011c2986764c0dc0165a8f119fc7d5a8bfbcddb95f3ba4e82",
+    "gcode_sha256": "3cd2155201e864a2eed2a89e65d3acd310f49bbf00a868dcda83698f8c486706",
+    "components": [
+      {
+        "part": "pump-cartridge",
+        "source_stl_sha256": "d8f6b9a9e12b0594f958b14a6bd8ca9d348471c73f02b28cfe488711be9e5a16",
+        "source_step_sha256": "105c18eed6b10dfab5de7bc12a66174972546a984f2b966e9edc546c7bce285c",
+        "machine_to_bed_translation_mm": [
+          162.5,
+          167.8655014038086,
+          -165.19500732421875
+        ],
+        "requested_pause_height_mm": 31.159999999999997,
+        "pocket_roof_height_mm": 30.983992675781252,
+        "roof_support_blocked_facets": 2,
+        "inherited_show_support_blocks": 0,
+        "grip_support_blocked_facets": 233178,
+        "solid_host_regions": [
+          {
+            "name": "Clamp insert and complete spine root 27.7575",
+            "machine_bounds_mm": [
+              -25.475,
+              25.475,
+              22.7575,
+              32.7575,
+              165.19500000000002,
+              214.925
+            ],
+            "sparse_infill_density": "100%",
+            "sparse_infill_pattern": "zig-zag",
+            "applied_machine_bounds_mm": [
+              -25.475,
+              25.475,
+              22.7575,
+              32.7575,
+              165.19600732421875,
+              214.925
+            ]
+          },
+          {
+            "name": "Clamp insert and complete spine root 63.7575",
+            "machine_bounds_mm": [
+              -25.475,
+              25.475,
+              58.7575,
+              68.7575,
+              165.19500000000002,
+              214.925
+            ],
+            "sparse_infill_density": "100%",
+            "sparse_infill_pattern": "zig-zag",
+            "applied_machine_bounds_mm": [
+              -25.475,
+              25.475,
+              58.7575,
+              68.7575,
+              165.19600732421875,
+              214.925
+            ]
+          }
+        ],
+        "solid_host_region_record_sha256": "e58c536fc33b4ed5b3721f67ea222b44671ec4eda22f499dce74eae07493ffa6",
+        "native_object_name": "enclosure-pump-cartridge-RC62",
+        "machine_to_bed_rotation_matrix": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ]
+      },
+      {
+        "part": "pump-cap",
+        "native_object_name": "enclosure-pump-cap",
+        "source_stl_sha256": "f203266270189d1faff853fd66749bbc1a53c0cd3a4824292a313d26936d1e16",
+        "source_step_sha256": "26df3e161efb02ead136abd3de9b6631a9d57d388ba1692cc693c6db42a82bf3",
+        "machine_to_bed_rotation_matrix": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            -1,
+            0
+          ],
+          [
+            0,
+            0,
+            -1
+          ]
+        ],
+        "machine_to_bed_translation_mm": [
+          162.5,
+          155.06399869918823,
+          284.17401123046875
+        ],
+        "solid_host_regions": [
+          {
+            "name": "Both pogo insert hosts, entry steps and blind caps",
+            "machine_bounds_mm": [
+              -15.0,
+              15.0,
+              65.769,
+              79.269,
+              275.7740001,
+              281.2740001
+            ],
+            "sparse_infill_density": "100%",
+            "sparse_infill_pattern": "zig-zag",
+            "applied_machine_bounds_mm": [
+              -15.0,
+              15.0,
+              65.769,
+              79.26799719238281,
+              275.7740001,
+              281.2740001
+            ]
+          }
+        ]
+      }
+    ],
+    "native_record": "v4/native-check.json",
+    "preparation_record": "v4/preparation.json",
+    "support_record": "v4/support-lanes.json"
+  },
+  "recipe": {
+    "fixed_nozzle": "left hardened standard-flow 0.4 mm",
+    "filament": "black PET-GF labelled PET-CF/GFT01, external left slot 254",
+    "bed_type": "Textured PEI",
+    "requested_z_trim_mm": 0.04,
+    "emitted_textured_pei_z_trim_mm": 0.02,
+    "pause_before_print_z_mm": 31.16,
+    "completed_open_rim_print_z_mm": 30.92,
+    "magnet_count_to_insert": 1,
+    "magnet_model": "K&J RC62"
+  },
+  "launch_record": "v4/mark2-launch.json",
+  "launch_command": ".cache/printer-control/venv/bin/python -u hardware/printed-parts/enclosure/enclosure/magnet-retention/v4/timed_launch.py --launch",
+  "preflight_record": "v4/mark2-preflight.json",
+  "maximum_send_count": 1,
+  "shared_circuit_spacing_seconds": 180,
+  "insertion_action": "Insert one labeled attracting RC62 upright in the lower cartridge cradle, completely below both open rims; keep tube passages and toolhead clear. Resume only on a separate request.",
+  "automation_id": "timed-cartridge-magnet-trial",
+  "preflight_completed_at": "2026-10-04T08:10:51.010447+00:00",
+  "automation_status": "ACTIVE"
+}
