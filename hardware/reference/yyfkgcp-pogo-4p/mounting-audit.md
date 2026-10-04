@@ -22,6 +22,45 @@ current exported front-top and cap exactly in the native comparison. This preser
 their local seat geometry as evidence inputs; it does not transfer their unsupported
 print recipe to the complete parts.
 
+## Build stock and tools
+
+A build uses one purchased connector pair, four M1.4 × 4 × Ø2.3 inserts and four
+M1.4 × 8 socket-head screws. The [purchase ledger](../../ledger/purchases.md)
+records the delivered connector supply and the two fastener packs on order for
+2026-10-07. Their pack quantities are 200 inserts and 50 screws.
+
+The screws require a hand-operated 1.3 mm hex driver. The supplier's package
+contents describe 50 screws, with no driver stated. The acquired PixelDrive and
+2.5/4 mm bits do not supply this size; [tool stock](../../ledger/tools.md#open-items)
+lists the missing driver and a verified Prime option. Seat the ears square by
+hand; there is no qualified powered torque for the M1.4 joint.
+
+The acquired FX-888D and VECO-T T18 I/LB fine tips provide the insertion-tool
+candidates. The M2–M8 heat-set kit does not cover M1.4. Cold-check the selected
+tip through the Ø2.6 entry, with no printed-wall contact, and calibrate the
+insert-top depth to 5.00 mm before heating, as specified in
+[enclosure assembly](../../assembly/enclosure-mechanical.md). The existing
+coupon checks both insert installation and connector face position.
+
+## Current protection
+
+Each purchased contact is specified for 2 A at 12 V. The pump's ~0.8 A normal
+current does not establish startup or jam current. In the current
+[PCB source](../../pcb/pcba/pcba.tsx), U11/U12 ISEN connect directly to ground
+and VREF connects to 3V3. Texas Instruments' [DRV8870 data sheet, §§7.4.2 and
+7.3.5.2](https://www.ti.com/lit/ds/symlink/drv8870.pdf) identifies this as PWM
+without adjustable current regulation; the driver's overcurrent protection is
+not a 2 A contact limit. The 12 V supply can source 6.7 A for the appliance and
+does not provide a per-contact bound.
+
+Contact-current protection is open. A complete implementation needs a current
+limit whose worst-case threshold and transient response stay within the
+connector's supported current envelope while allowing the pump to start, or a
+connector with documented capacity for the actual motor current. No startup,
+jam-current or installed contact-resistance result is recorded. The routing
+and motor-pair mapping remain four separate H-bridge conductors; contacts are
+not paralleled. The service joint is mated and parted with appliance power removed.
+
 ## Seating and dimensional allowance
 
 The cartridge tubes bottom in the tee bodies at full seat. The flat cap and bulkhead planes
