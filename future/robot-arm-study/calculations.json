@@ -1,295 +1,104 @@
 {
-  "status": "Illustrative concept arithmetic and finite geometry samples; not physical performance evidence.",
+  "status": "Concept arithmetic, assumed static loads and ideal pose samples. Not physical-performance evidence.",
   "inputs": {
     "reported_gun_feed_4ft_umbilical_mass_kg": 1.3118,
-    "assumed_shell_flange_coupler_mass_kg": 0.25,
-    "planned_payload_kg": 1.5618,
-    "assumed_tool_cg_beyond_flange_m": 0.1,
-    "assumed_upper_forearm_wrist_mass_kg": [
-      1.8,
-      1.65,
-      0.6
-    ],
-    "assumed_link_link_wrist_lengths_m": [
-      0.18,
-      0.18,
-      0.04
-    ],
+    "assumed_shell_mount_mass_kg": 0.25,
+    "planned_gun_package_mass_kg": 1.5618,
+    "assumed_gimbal_motors_structure_mass_kg": 2.0,
+    "assumed_common_worst_gravity_lever_mm": 100.0,
     "assumed_cable_moment_Nm": 3.0,
-    "assumed_carried_trim_cg_beyond_flange_m": 0.04,
-    "assumed_fine_moving_plate_mass_kg": 0.35
+    "assumed_vertical_moving_stack_mass_kg": 8.0,
+    "normal_axial_force_sizing_scenario_N": 200.0,
+    "assumed_screw_efficiency": 0.2,
+    "assumed_belt_efficiency": 0.9
   },
-  "horizontal_static_arm_torques": [
-    {
-      "carried_stage_mass_kg": 0,
-      "shoulder_Nm": 18.974604,
-      "elbow_Nm": 10.65450756,
-      "wrist_pitch_Nm": 4.5321258
-    },
-    {
-      "carried_stage_mass_kg": 1.5,
-      "shoulder_Nm": 25.449203999999998,
-      "elbow_Nm": 14.480407560000003,
-      "wrist_pitch_Nm": 5.120725800000001
-    },
-    {
-      "carried_stage_mass_kg": 2.5,
-      "shoulder_Nm": 29.765604,
-      "elbow_Nm": 17.031007560000003,
-      "wrist_pitch_Nm": 5.513125800000001
-    },
-    {
-      "carried_stage_mass_kg": 3.5,
-      "shoulder_Nm": 34.082004,
-      "elbow_Nm": 19.581607560000005,
-      "wrist_pitch_Nm": 5.9055257999999995
-    }
-  ],
-  "single_joint_constraints": [
-    {
-      "single_joint_lever_m": 0.4,
-      "endpoint_tolerance_um": 10.0,
-      "angle_deg": 0.001432394487827058,
-      "angle_arcsec": 5.156620156177409,
-      "stiffness_Nm_per_rad_for_assumed_3Nm_change": 120000.00000000001
-    },
-    {
-      "single_joint_lever_m": 0.4,
-      "endpoint_tolerance_um": 5.0,
-      "angle_deg": 0.000716197243913529,
-      "angle_arcsec": 2.5783100780887045,
-      "stiffness_Nm_per_rad_for_assumed_3Nm_change": 240000.00000000003
-    },
-    {
-      "single_joint_lever_m": 0.5,
-      "endpoint_tolerance_um": 10.0,
-      "angle_deg": 0.0011459155902616466,
-      "angle_arcsec": 4.1252961249419275,
-      "stiffness_Nm_per_rad_for_assumed_3Nm_change": 150000.0
-    },
-    {
-      "single_joint_lever_m": 0.5,
-      "endpoint_tolerance_um": 5.0,
-      "angle_deg": 0.0005729577951308233,
-      "angle_arcsec": 2.0626480624709638,
-      "stiffness_Nm_per_rad_for_assumed_3Nm_change": 300000.0
-    }
-  ],
-  "direct_output_one_count_at_400mm_um": {
-    "14": 153.3980787885641,
-    "16": 38.34951969714103,
-    "18": 9.587379924285257,
-    "20": 2.396844981071314
-  },
-  "25_to_1_motor_command_scale_at_400mm_um": {
-    "1_8_degree_full_step": 502.65482457436696,
-    "one_sixteenth_microstep_nominal": 31.415926535897935
-  },
-  "unqualified_drive_sizing_screen": {
-    "assumed_belt_efficiency": 0.85,
-    "assumed_motor_derating_factor": 0.5,
-    "NEMA23_2_4Nm_times_25_times_factors_Nm": 25.5,
-    "NEMA17_0_59Nm_times_25_times_factors_Nm": 6.26875
-  },
-  "fine_stage": {
-    "base_top_radii_height_mm": [
-      80.0,
-      55.0,
-      70.0
-    ],
-    "base_angles_deg": [
-      -10,
-      10,
-      110,
-      130,
-      230,
-      250
-    ],
-    "top_angles_deg": [
-      310,
-      50,
-      70,
-      170,
-      190,
-      290
-    ],
-    "neutral_leg_lengths_mm": [
-      87.08506703535913,
-      87.08506703535913,
-      87.08506703535913,
-      87.08506703535913,
-      87.08506703535912,
-      87.08506703535913
-    ],
-    "neutral_scaled_jacobian_condition_100mm": 2.612947902163754,
-    "screw_lead_mm": 0.5,
-    "motor_steps_per_rev": 200,
+  "nominal_commands": {
+    "screw_lead_mm": 1.0,
+    "motor_full_steps_per_revolution": 200,
     "motor_to_screw_belt_ratio": 4,
-    "nominal_full_step_strut_travel_um": 0.625,
-    "neutral_half_step_rounding_at_200mm_um": 2.0455827712280303,
-    "neutral_forces_before_preload": [
-      {
-        "pitch_moment_Nm": 0,
-        "leg_forces_N": [
-          -3.888712756337948,
-          -3.8887127563379473,
-          -3.8887127563379464,
-          -3.888712756337946,
-          -3.8887127563379478,
-          -3.8887127563379464
-        ],
-        "max_absolute_leg_force_before_preload_N": 3.888712756337948
-      },
-      {
-        "pitch_moment_Nm": 3,
-        "leg_forces_N": [
-          -22.99288932136437,
-          15.215463808688476,
-          16.42133433495513,
-          -2.682842230071285,
-          -5.094583282604607,
-          -24.198759847631027
-        ],
-        "max_absolute_leg_force_before_preload_N": 24.198759847631027
-      },
-      {
-        "pitch_moment_Nm": 6,
-        "leg_forces_N": [
-          -42.09706588639081,
-          34.31964037371491,
-          36.73138142624821,
-          -1.4769717038046248,
-          -6.300453808871268,
-          -44.50880693892411
-        ],
-        "max_absolute_leg_force_before_preload_N": 44.50880693892411
-      }
-    ],
-    "nominal_motor_Nm_for_150N_leg_30pct_screw_90pct_belt_efficiency": 0.011052426603603843,
-    "sampled_tool_pose_envelopes": [
-      {
-        "translation_about_tool_each_axis_plus_minus_mm": 1,
-        "rotation_about_tool_each_axis_plus_minus_deg": 0.5,
-        "tool_offset_m": [
-          0.0,
-          0.0,
-          -0.2
-        ],
-        "sampled_poses": 65,
-        "min_centerline_separation_mm": 19.101299543362313,
-        "max_scaled_jacobian_condition": 2.6196912377836545,
-        "max_one_sided_leg_stroke_mm": 3.544606049142418,
-        "max_end_joint_direction_change_deg": 2.92964244573069,
-        "max_half_step_endpoint_rounding_um": 2.07687792803424,
-        "max_any_6Nm_moment_plus_gravity_leg_bound_N": 59.37729369738806
-      },
-      {
-        "translation_about_tool_each_axis_plus_minus_mm": 1,
-        "rotation_about_tool_each_axis_plus_minus_deg": 0.5,
-        "tool_offset_m": [
-          0.2,
-          0.0,
-          0.0
-        ],
-        "sampled_poses": 65,
-        "min_centerline_separation_mm": 19.101299543362313,
-        "max_scaled_jacobian_condition": 2.63059138845984,
-        "max_one_sided_leg_stroke_mm": 4.605868647055172,
-        "max_end_joint_direction_change_deg": 3.5653754437649314,
-        "max_half_step_endpoint_rounding_um": 2.059073459769526,
-        "max_any_6Nm_moment_plus_gravity_leg_bound_N": 59.75342305235162
-      },
-      {
-        "translation_about_tool_each_axis_plus_minus_mm": 2,
-        "rotation_about_tool_each_axis_plus_minus_deg": 0.5,
-        "tool_offset_m": [
-          0.0,
-          0.0,
-          -0.2
-        ],
-        "sampled_poses": 65,
-        "min_centerline_separation_mm": 19.101299543362313,
-        "max_scaled_jacobian_condition": 2.6284616156868865,
-        "max_one_sided_leg_stroke_mm": 5.1691198801914195,
-        "max_end_joint_direction_change_deg": 4.060134340679046,
-        "max_half_step_endpoint_rounding_um": 2.0960756353924475,
-        "max_any_6Nm_moment_plus_gravity_leg_bound_N": 59.590790758941296
-      },
-      {
-        "translation_about_tool_each_axis_plus_minus_mm": 2,
-        "rotation_about_tool_each_axis_plus_minus_deg": 0.5,
-        "tool_offset_m": [
-          0.2,
-          0.0,
-          0.0
-        ],
-        "sampled_poses": 65,
-        "min_centerline_separation_mm": 19.101299543362313,
-        "max_scaled_jacobian_condition": 2.6502137253353677,
-        "max_one_sided_leg_stroke_mm": 6.051084399710193,
-        "max_end_joint_direction_change_deg": 4.637351327154603,
-        "max_half_step_endpoint_rounding_um": 2.073080603772472,
-        "max_any_6Nm_moment_plus_gravity_leg_bound_N": 59.98071687930398
-      }
-    ],
-    "assumed_stiffness_compliance": [
-      {
-        "assumed_assembled_leg_stiffness_N_per_um": 1.0,
-        "changed_pitch_moment_Nm": 3,
-        "endpoint_deflection_um_at_200mm_tool": 108.53699472051647
-      },
-      {
-        "assumed_assembled_leg_stiffness_N_per_um": 1.0,
-        "changed_pitch_moment_Nm": 0.1,
-        "endpoint_deflection_um_at_200mm_tool": 3.617899824017216
-      },
-      {
-        "assumed_assembled_leg_stiffness_N_per_um": 3.0,
-        "changed_pitch_moment_Nm": 3,
-        "endpoint_deflection_um_at_200mm_tool": 36.17899824017216
-      },
-      {
-        "assumed_assembled_leg_stiffness_N_per_um": 3.0,
-        "changed_pitch_moment_Nm": 0.1,
-        "endpoint_deflection_um_at_200mm_tool": 1.2059666080057387
-      },
-      {
-        "assumed_assembled_leg_stiffness_N_per_um": 10.0,
-        "changed_pitch_moment_Nm": 3,
-        "endpoint_deflection_um_at_200mm_tool": 10.853699472051646
-      },
-      {
-        "assumed_assembled_leg_stiffness_N_per_um": 10.0,
-        "changed_pitch_moment_Nm": 0.1,
-        "endpoint_deflection_um_at_200mm_tool": 0.36178998240172155
-      }
-    ],
-    "scope_limit": "First-order Jacobian rounding/compliance; finite centerline samples exclude physical packages and continuous pose clearance. Thread error, friction, flexure stress/fatigue, bearing/support compliance and uncertainty are unqualified."
+    "linear_travel_um_per_full_step_equivalent": 1.25,
+    "full_step_equivalents_for_nominal_0_5mm_move": 400.0,
+    "angular_increment_at_neutral_arcsec": 2.1485917317405874,
+    "maximum_angular_increment_arcsec_in_sampled_range": 2.375307344015704,
+    "endpoint_increment_at_perpendicular_200mm_lever_neutral_um": 2.083333333333334,
+    "maximum_endpoint_increment_at_perpendicular_200mm_lever_um": 2.303162994437537,
+    "scope_limit": "Nominal command spacing. Actual increments, friction, preload, reversal, settling and current effects must be observed; microstep settings do not establish attained resolution."
   },
-  "thermal_scale_for_1C_um": {
-    "400mm_aluminum_assumed_23ppm_per_C": 9.2,
-    "100mm_steel_assumed_12ppm_per_C": 1.2000000000000002
+  "pivoted_angular_actuator": {
+    "lever_radius_mm": 120.0,
+    "neutral_pivot_to_pivot_length_mm": 120.0,
+    "angle_plus_minus_deg": 20,
+    "sample_spacing_deg": 0.1,
+    "minimum_length_mm": 79.28853885390106,
+    "maximum_length_mm": 161.20493990304732,
+    "required_total_length_change_mm": 81.91640104914627,
+    "stroke_below_neutral_mm": -40.71146114609894,
+    "stroke_above_neutral_mm": 41.204939903047325,
+    "minimum_dlength_dangle_mm_per_rad": 108.5463775702307,
+    "max_base_hinge_articulation_deg": 5.236833517229653,
+    "max_lever_hinge_articulation_deg": 25.236833517229652,
+    "scope_limit": "Planar ideal geometry; excludes motor/belt/bearing/nut packages, hinge preload, interference and screw extension clearance."
+  },
+  "load_scenarios": {
+    "angular_output_moment_Nm": 6.4941258,
+    "angular_actuator_force_before_preload_friction_at_neutral_N": 54.117715000000004,
+    "max_angular_actuator_force_before_preload_friction_in_sampled_range_N": 59.828120895128244,
+    "vertical_gravity_force_N": 78.48,
+    "nominal_motor_torque_Nm_for_normal_force_scenario": 0.04420970641441537,
+    "scope_limit": "Unmeasured loads and assumed efficiencies. Does not qualify motor duty, guide/bearing moments, screw buckling, jam forces, stiffness, retention or lifetime."
+  },
+  "dot_centered_rotation": {
+    "orientation_model": "Rz Ry Rx, ideal intersecting axes",
+    "tool_vector_at_neutral_mm": [
+      200.0,
+      0.0,
+      0.0
+    ],
+    "each_angular_limit_plus_minus_deg": 20,
+    "sampling_spacing_deg": 1,
+    "sampled_poses": 68921,
+    "minimum_compensating_XYZ_mm": [
+      0.0,
+      -68.40402866513375,
+      -68.40402866513375
+    ],
+    "maximum_compensating_XYZ_mm": [
+      23.3955556881022,
+      68.40402866513375,
+      68.40402866513375
+    ],
+    "maximum_compensation_vector_norm_mm": 96.73790505919011,
+    "symmetric_additional_dot_translation_each_axis_mm": [
+      76.60444431189781,
+      31.59597133486626,
+      31.59597133486626
+    ],
+    "scope_limit": "Pose arithmetic only. Does not establish physical clearance, actual tool transform, separated axis centers, reachability under load or a 200 mm dot-translation range at every angle."
   },
   "materials_USD": {
-    "arm": {
-      "low": 900.91,
-      "high": 1301.91
-    },
-    "supported_fine_stage_increment": {
-      "low": 599.99,
-      "high": 999.99
+    "positioner": {
+      "low": 749.98,
+      "high": 1284.98
     },
     "observation": {
-      "low": 1459.0,
-      "high": 1849.0
+      "low": 1209.0,
+      "high": 1349.0
     },
-    "arm_and_observation": {
-      "low": 2359.91,
-      "high": 3150.91
+    "independent_reference": {
+      "low": 250,
+      "high": 500
     },
-    "arm_supported_stage_and_observation": {
-      "low": 2959.9,
-      "high": 4150.9
+    "optional_diagnostics": {
+      "low": 104.94,
+      "high": 114.94
+    },
+    "positioner_and_observation": {
+      "low": 1958.98,
+      "high": 2633.98
+    },
+    "positioner_observation_and_reference": {
+      "low": 2208.98,
+      "high": 3133.98
     }
   }
 }

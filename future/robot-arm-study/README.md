@@ -1,539 +1,415 @@
-# Open robot arms and a custom welding positioner
+# Open robot arms and a camera-guided welding positioner
 
-Research checked **2026-10-04**. The proposed build is a compact, six-axis arm with
-standard steppers, printed transmission parts, purchased bearings and short metal
-load paths. Budget **$900–$1,300 for arm materials**. Measure the actual gun
-endpoints with two calibrated close-up views and correct the pose from those
-measurements. A bench-supported six-axis fine stage is the leading fallback for
-holding precision at one weld orientation neighborhood; it brings the complete
-concept materials budget to approximately **$3,000–$4,200**, including optics and
-an independent-reference allowance. That dock supplies local, provisionally
-±0.5° fine motion; broad-angle 10 µm positioning remains to be established.
+Research checked **2026-10-04**. Build **one permanently bench-mounted,
+six-axis gun positioner: XYZ screw slides carrying a screw-driven yaw/pitch/roll
+gimbal**. The gun stays on it during calibration, dry rotation and welding.
+The existing rotator supplies circumferential travel; the positioner adjusts
+the gun throughout that rotation. Budget approximately **$750–$1,300 for the
+positioner**, or **$2,000–$2,700 including the two-camera dry-run observation setup**,
+before tax and development spares. These are concept materials allowances,
+not a completed CAD design or a qualified shopping cart.
 
-**None of the six open arms below has demonstrated our loaded 0.010 mm
-requirement or 0.005 mm design target.** This proposal identifies a build and a
-qualification path; it does not establish that an unbuilt arm, camera system or
-fine stage already achieves either number.
+The design objective is **observed, correctable local motion**. Software commands
+an adjustment, measures what actually happened, and commands another adjustment
+until the gun has the required relationship to the seam. Calibration and dry
+runs can occupy weeks during development and days for an individual weld. One
+completed carbonator per week is acceptable. Materials cost takes priority over
+assembly effort, software development time and production speed.
 
-## Application requirements
+There is no single final pose to reproduce. The desired gun/seam relationship
+and the corrections needed to maintain it vary with rotation and heating.
+The camera budget covers dry-run observation; live-weld optical protection and
+filtering remain to be designed and priced.
 
-The Rebot and Camera sessions establish the following brief. Their transcripts
-are working context, not repository artifacts.
+## What the mechanism must do
 
-| Requirement | Consequence for the design |
+The Rebot and Camera conversations establish the application context. Their
+transcripts remain outside this public repository.
+
+| Requirement | Design consequence |
 |---|---|
-| 0.010 mm positioning requirement at the work; 0.005 mm design target | Evaluate actual endpoints relative to the seam under load, including reversal, return, settling and held drift. A motor command or pixel count cannot certify the result. |
-| Hours or days of autonomous dry-run iteration | Software must move, observe, correct, compare against independent checks, and recover from departures and camera retraction. Record failures as well as successful trials. |
-| Observe the aiming dot **and actual protruding wire endpoint** | The wire-guide exit is not the endpoint. The fixed gun/guide assembly must be geometrically calibrated. No separately motorized wire guide is in the baseline. |
-| Three gun rotations about a software-defined point at the dot | Six independent pose coordinates and tool-center kinematics are required. Desired grip-axis, hole-axis and vertical-yaw rotations need not coincide with individual robot joints. |
-| Existing rotator supplies weld travel | The arm positions, adjusts, holds and parks the gun; it need not trace the circumference itself. The rotator angle belongs in synchronized experiment records. |
-| Gun, feed and about four feet of umbilical: reported measurement **1.3118 kg** | Add the shell, flange and coupler. A provisional **0.250 kg** allowance makes **1.5618 kg**, before any carried fine stage. The allowance is unmeasured. |
-| Edge mounting and loading clearance on the existing 48 × 24 inch benches | Plan joint and cable swept envelopes, gun parking and retracting optics together. Robot, rotator and measurement references need a common stiff subframe. |
-| Later weld process must survive **180 psi for 30 minutes** | Motion qualification earns a welding trial. Positioning precision alone does not qualify a pressure-vessel weld. |
+| Observe the aiming dot, actual protruding wire endpoint and seam | Measure the working geometry itself. The wire-guide exit and a computed tool center are insufficient substitutes. The fixed gun/guide assembly moves together. |
+| 0.010 mm work-coordinate requirement; 0.005 mm design target | Assess the residual error achieved by the observation-and-correction loop, under the actual load and process conditions. These numbers are not specifications imposed on each motor or on blind return motion. |
+| Three gun rotations about a software-defined point at the dot | Provide all six pose coordinates. Combine XYZ and gimbal motion to implement grip-axis, hole-axis and vertical-axis rotations; these do not have to match individual machine axes. |
+| Gun positioning during tube rotation | Learn and execute angle-dependent corrections, then keep observing during the weld. Human tube loading does not require an additional robot. |
+| Ample autonomous dry-run time | Learn geometry, friction, reversal behavior, settling, temperature effects and each tube's seam before firing. Keep unsuccessful trials in the dataset. |
+| Reported gun/feed/four-foot-umbilical measurement: 1.3118 kg | Allow for the gun shell and mount, carried gimbal parts and cable forces. Support the heavy umbilical independently. |
+| Existing 48 × 24 inch benches and edge mounting | Use one braced station base for positioner, rotator and measurement references. Preserve tube loading, camera views and fiber routing throughout the intended motion. |
+| Completed weld withstands 180 psi for 30 minutes | Positioning is one part of process development. The pressure test remains an acceptance result of the completed vessel. |
 
-The recorded X1 gun proxy is 253 × 143 × 34 mm. Equipment context records
-minimum active/stored fiber bend radii of 350/240 mm and no twisting. These
-constrain routing rather than define arm reach. Relevant current hardware
-context is [gun positioning](../../hardware/assembly/weld-position.md) and the
-[physical-evidence index](../../hardware/mechanical-qualification/README.md).
-There is no accepted physical record for this proposed arm or fine stage.
+The [gun-positioning geometry](../../hardware/assembly/weld-position.md) uses a
+253 × 143 × 34 mm X1 proxy and illustrates the requested dot-centered rotations.
+Its angular dials are exploratory geometry, not qualified travel requirements.
+Equipment context records active/stored fiber bend radii of 350/240 mm and no
+twisting. The [rotation rig](../../hardware/assembly/weld-rotation-rig.md)
+currently starts development at 8 mm/s, approximately 48.6 seconds per lap.
+Preparation can take days; corrections during a live lap must respond to the
+disturbances actually observed during that lap.
 
-## Six open designs
+The [physical-evidence index](../../hardware/mechanical-qualification/README.md)
+contains no accepted result for this proposed positioner or optical loop.
+This proposal specifies what to engineer and measure, without assigning the
+founder an additional measurement task.
 
-These are six open arm projects with actual reusable-source license files,
-including OS-ARM's unfinished design. Project costs have
-different scopes; they are not a ranked set of current shopping carts.
+## The selection criterion
 
-| Arm | Axes and source | Published capacity / size | Performance and cost evidence | Fit for this application |
-|---|---|---|---|---|
-| **[reBot B601-RS](https://github.com/Seeed-Projects/reBot-DevArm)** | 6 arm axes; assembly/part STEP; CERN-OHL-W-2.0 hardware, Apache-2.0 software | 2.5 kg rated; 587.5 mm radius without stock gripper, 754.7 mm with it | Manufacturer reports ±0.1 mm returns. Six actuator manufacturer reference prices total $1,046.97; reproduction machining and wiring are additional. | Strongest complete baseline and control donor; precision and continuous cable-moment capacity remain unresolved. |
-| **[Thor](https://github.com/AngelLM/Thor)** | 6; native FreeCAD, STEP/STL; CC-BY-SA-4.0 CAD | 0.75 kg including tool; 625 mm stretched **height** | Project claims hardware below €350, undated. No qualified TCP repeatability found. | Good low-cost wrist and printing ideas; stock payload is below our gun alone. |
-| **[BCN3D Moveo](https://github.com/BCN3D/BCN3D-Moveo)** | **5**; SolidWorks/STL; MIT mechanics, bundled Marlin under GPL | Primary load/reach qualification not located | Unpriced mechanical/electronics BOM; no demonstrated micron result | Useful bearing/shaft/belt donor; requires a sixth axis, sensing and load redesign. |
-| **[Faze4](https://github.com/Source-Robotics/Faze4-Robotic-arm)** | 6; STLs, cycloidal STEP, assembly/control files; root hardware license CERN-OHL-S-2.0 | 14–15 kg arm; about 581 mm shoulder-to-wrist geometric radius inferred from its model | Docs estimate $1,000–$1,500; README says under $1,000. Unpriced BOM; no numeric payload or instrumented repeatability found. | Best detailed printed-cycloidal donor; heavy, complex build with unobserved joint outputs. |
-| **[OpenArm 2.0](https://github.com/enactic/openarm_hardware)** | 7; released STEP/BOM/wiring; CERN-OHL-S-2.0 hardware, Apache-2.0 software | 4.1 kg nominal defined as a **one-minute** full-extension hold; 606 mm shoulder-to-stock-gripper envelope | Repeatability documentation pending. $6,500 is a complete **bimanual system** claim; published BOM is unpriced. | Best telemetry/calibration architecture donor; custom metal and compliant actuators are a weak materials-budget match. |
-| **[OS-ARM](https://github.com/DDeGonge/OS-ARM)** | 6; Inventor/STEP/STL, encoder/control files; MIT | Work in progress: goals of 500 mm reach and about 1 kg payload | Goal below $500. Creator reports 10 Nm and below $20 for its printed strain-wave **gearbox**, not a whole joint or tested arm. | Relevant harmonic-drive geometry; capacity, precision, lifetime and completed-arm evidence are insufficient. |
+A nominal 0.5 mm X command need not produce exactly 0.5 mm. If it produces a
+visible 0.35 mm displacement, software can learn that response and continue
+correcting. If a reversal initially produces no visible motion, software can
+learn the take-up behavior. Small, stable positions and sufficient useful
+motion are what matter; returning blindly from the other end of an arm's
+workspace is outside this welding task.
 
-### reBot: the best complete comparison arm
+This is a visual-servo problem: use the discrepancy between observed and
+desired features as feedback, with a motion model that can be learned and
+updated. Fixed workspace cameras and approximate motion models are established
+forms of this approach. [Chaumette and Hutchinson, Visual Servo Control, Part I](https://web.mit.edu/amcp/OldFiles/drg/Chaumette_Part_I.pdf).
 
-The current [license](https://github.com/Seeed-Projects/reBot-DevArm/blob/main/LICENSE)
-and [hardware release](https://github.com/Seeed-Projects/reBot-DevArm/tree/main/hardware/reBot_B601_RS)
-permit adaptation. STEP solids are available; native parametric histories are
-not supplied. Its structure mixes CNC aluminum, printed parts and integrated
-actuators. The source snapshot checked is
-`c247ea9cb0da29cd52c31953659cc8c47e6d1a6e`.
+Evaluate each candidate against four concrete questions:
 
-**Pros:** sufficient nominal mass capacity, six-axis pose control, documented
-Python/CAN/ROS/kinematics and temperature/fault feedback. Borrow its modular
-link/interface organization, URDF/dynamics structure and experiment telemetry.
-[Control documentation](https://wiki.seeedstudio.com/rebot_arm_b601_rs_mit_control/),
-[kinematics documentation](https://wiki.seeedstudio.com/rebot_arm_b601_rs_pinocchio_meshcat/).
+1. **Observation:** can the system distinguish relevant changes in dot, wire,
+   seam, standoff and orientation? Multiple features and viewing directions
+   must remove ambiguities; a stationary surface dot alone does not establish
+   unchanged gun pose.
+2. **Correction authority:** do commands produce usable signed changes, and
+   can the loaded mechanism settle at positions close enough together to
+   reduce the error? Test reversals and coupled motion as part of learning.
+3. **Tracking:** can observed errors be reduced while the tube rotates? Learn
+   repeatable angle-dependent error in advance; measure the remaining live
+   disturbance and the observation/move/settle delay together.
+4. **Physical support:** does the mechanism carry its gravity/cable loads,
+   remain within travel and clearance, and retain the gun through faults?
 
-**Cons:** the [manufacturer return test](https://www.seeedstudio.com/blog/2026/09/09/rebot-arm-b601-rs-performance-durability-tests-payload-repeatability-teleoperation-and-gravity-compensation-2/)
-reports ±0.1 mm, ten times the requirement. It does not publish a full uncertainty
-budget, loaded six-dimensional pose dataset or hours-long hold drift. The
-Pinocchio guide limits example operation to 70% of reach and warns that prolonged
-operation outside that workspace can trigger J2 stall protection and a drop.
-The full geometric radius is therefore not a demonstrated continuous holding
-envelope. The 5 kg demonstration is an overload, not its rating. The inexpensive
-reproduction BOM explicitly differs from shipping hardware; retail performance cannot be
-assigned to a more heavily printed copy. RS06/RS00 rated torques are 11/5 Nm;
-their peaks are unsuitable for sizing prolonged holds. The actuator table lists
-two magnetic encoders and 14-bit single-turn resolution; it does not separately
-characterize each sensor's accuracy. This does not establish micron accuracy,
-and power-off damping is not a holding brake. Verify output/rotor field semantics in the
-[RS06 manual](https://files.seeedstudio.com/products/RobStride/Product%20Literature/RS06/RS06User%20Manual251112.pdf).
+Backlash, imperfect calibration, elastic deflection and slow thermal drift can
+be accommodated when their effects are observable and correctable. Feedback
+cannot create an intermediate stable position if stick-slip repeatedly jumps
+across it, distinguish a motion hidden from every view, or correct a disturbance
+before it is observed. These are application-specific engineering questions.
+Catalog return-repeatability figures neither answer them nor exclude a design
+from serving as a useful donor.
 
-Manufacturer references of [$210 RS06](https://www.seeedstudio.com/Robostride-06-Actuator-p-6668.html)
-and [$138.99 RS00](https://www.seeedstudio.com/Robostride-00-Actuator-p-6664.html)
-give $1,046.97 for three of each. These are cost context, not proposed purchases.
-The release BOM's priced rows total about $1,466.98 including a gripper actuator,
-some tools, clamps and power items, while omitting unpriced machining, filament,
-most screws, harness work and separately priced CNY nuts. Its July $1,499
-assembled-kit figure is a dated vendor reference excluding the PSU, not a complete
-current materials quote.
+## Six open arm projects
 
-### Thor: borrow its light wrist, reinforce its load path
+The shortlist includes released hardware designs with reusable-source licenses,
+including an unfinished printed strain-wave arm. Their complete-arm prices and
+payloads describe different scopes. Use the sources as component and control
+libraries; a donor arm's stock payload does not determine the capacity of our
+bench-supported adaptation.
 
-**Pros:** [editable FreeCAD source and license](https://github.com/AngelLM/Thor),
-commodity motors, serviceable printed parts and a two-motor differential wrist
-that reduces distal motor mass. The creator documents gearing and belt routing
-in the [mechanism description](https://hackaday.io/project/12989-thor/details).
-
-**Cons:** our reported gun mass alone is 1.75 times its stated 0.75 kg limit.
-Stock motion is step-count control with homing, and the wrist includes a printed
-bearing. Its [8–10 hour operating notes](https://hackaday.io/project/12989/logs?sort=oldest)
-support cooling/maintenance lessons, not loaded repeatability, creep or lifetime.
-The [original component list](https://hackaday.io/project/12989/components)
-contains seven NEMA17s driving six arm axes; its wrist uses two motors for two
-degrees of freedom.
-
-Adapt the remote-drive/differential concept with purchased output bearings,
-metal compression paths and output sensing. Scaling the STL uniformly is not
-a capacity calculation.
-
-### Moveo: useful inexpensive mechanical construction
-
-**Pros:** complete mechanical files, an [assembly manual](https://github.com/BCN3D/BCN3D-Moveo/blob/master/USER%20MANUAL/User%20Manual%20BCN3D%20Moveo.pdf)
-and ordinary shaft/bearing/belt construction. Borrow paired bearing support,
-large shafts and accessible side plates. Its
-[BOM](https://github.com/BCN3D/BCN3D-Moveo/blob/master/BOM/BCN3D%20Moveo%20BOM.pdf)
-uses inexpensive printer-class controls and paired shoulder motors.
-
-**Cons:** the manual explicitly specifies five axes. Six steppers, including
-two driving one joint, do not provide general six-coordinate gun pose. No output
-encoders or primary qualified payload/repeatability figures were located.
-The printed/hobby wrist and legacy printer firmware require our own structure,
-sixth axis and robot control. Mechanical MIT terms and bundled
-[Marlin GPL headers](https://github.com/BCN3D/BCN3D-Moveo/blob/master/FIRMWARE/Marlin_BCN3D_Moveo/Marlin_main.cpp)
-both matter when adapting files.
-
-### Faze4: borrow reducer internals, avoid copying unnecessary mass
-
-**Pros:** paired cycloidal discs, rolling pin contacts, offset belts, hollow
-routing and a spherical wrist are described in its
-[design decisions](https://faze4-robotic-arm-docs.readthedocs.io/en/latest/B_Design_decisions.html).
-J1–J5 use printed cycloidal reduction; J6 uses a purchased planetary gearbox.
-Print replaceable discs/housings and buy the pins, shafts and bearings.
-
-**Cons:** the [2023 mechanical BOM](https://github.com/Source-Robotics/Faze4-Robotic-arm/blob/master/BOM_7_11_2023.xlsx)
-counts 764 purchased and 197 printed parts, including 200 small bearings. It is
-unpriced and omits the complete controller/driver/PSU cost. Most motors ride on
-their joints, making moving mass significant. Its
-[about page](https://faze4-robotic-arm-docs.readthedocs.io/en/latest/About_faze4.html)
-provides estimates, not load or metrology qualification. The roughly 581 mm
-radius comes from `320 + sqrt(73.5² + 250.7²)` in the
-[source kinematic model](https://github.com/Source-Robotics/Faze4-Robotic-arm/blob/master/Faze4_Work_Envelope.m);
-it is not a rated working reach. Stock sensing is homing/step counts.
-
-Use the actual [CERN-OHL-S license](https://github.com/Source-Robotics/Faze4-Robotic-arm/blob/master/LICENSE),
-not its conflicting README MIT badge; retain file-specific software notices.
-The custom reducer needs independently supported structural output bearings.
-
-### OpenArm: borrow its observability and calibration system
-
-**Pros:** seven axes, substantial stated mass capacity, CAN integration,
-simulation/data collection and temperature/torque/fault records. Released CAD
-and BOM are linked through the
-[hardware source index](https://github.com/enactic/openarm_hardware/blob/main/dev/google-drive-files/file-ids.tsv).
-The [OpenArm Cell](https://docs.openarm.dev/hardware/openarm-cell/general/)
-integrates fixed lighting, camera geometry and a physical calibration fixture.
-These are useful patterns for repeatable software experiments.
-
-**Cons:** the [payload definition](https://docs.openarm.dev/hardware/openarm-2.0/general/)
-is a timed demonstration, not hours/days duty with our umbilical. Its
-[motor documentation](https://docs.openarm.dev/hardware/openarm-2.0/motor/)
-lists 3 Nm-rated wrist actuators, compared with our illustrative 4.53 Nm wrist
-scenario. Backdrivability/compliance is intentional; it is not a micron hold
-claim. Dual 14-bit encoders need protocol verification to expose separate output
-measurements. The [FAQ](https://docs.openarm.dev/faq/) does not yet provide a
-repeatability specification. The full bimanual price cannot be halved into a
-one-arm raw-materials estimate.
-
-### OS-ARM: the harmonic-drive experiment to adapt
-
-**Pros:** MIT source includes a 75 mm flat strain-wave mechanism with a rigid
-output gear separate from the flexible cup. That separation is a useful basis
-for buying structural output bearings and testing replaceable printed cups.
-[Repository](https://github.com/DDeGonge/OS-ARM),
-[creator's reducer demonstration](https://www.youtube.com/watch?v=Emvo3bLT-Z4).
-
-**Cons:** its approximately 1 kg arm goal is below our tool package. The 10 Nm /
-under-$20 report is for a gearbox with its motor priced separately, not a priced
-complete robot actuator or arm. It provides no recovered quantified life,
-lost-motion or micron metrology dataset. It is a promising source experiment
-with incomplete build documentation, not a rated replacement for a 19 Nm shoulder.
-
-AR4 is a useful complete-arm comparator, but its
-[current custom license](https://github.com/Annin-Robotics/ar4-hmi/blob/main/LICENSE.txt)
-restricts design redistribution and commercial derivatives; it is excluded from
-this reusable-source shortlist. PAROL6 publishes STLs and GPL software, while
-its [assembly manual](https://github.com/Source-Robotics/PAROL6-Desktop-robot-arm/blob/main/Building%20instructions/Parol%20building%20instructions.pdf)
-excludes editable STEP and the control board from openness. Its payload is also
-below our package. Record upstream notices and required source obligations when
-actual adaptations enter this public repository.
-
-## Proposed custom arm
-
-Build an actual **6R arm**: base yaw, shoulder pitch, elbow pitch and a
-roll/pitch/roll wrist. Start with two approximately 180 mm links and a 40 mm
-wrist, giving a provisional 400 mm shoulder-to-flange span. Position the base
-near the existing rotator instead of purchasing reach that multiplies deflection
-and cable moment. Final joint limits and reach come from gun, camera, tube and
-cable clearance in CAD; 400 mm is a concept dimension. Map the desired
-dot-centered angle sweeps through IK and the full physical envelope before
-fixing link lengths. A roll/pitch/roll wrist is singular at middle-pitch 0°/180°;
-avoid those poses in the intended experiment domain. Six axes alone do not
-establish accessible, observable, collision-free coverage.
-
-Use three 2.4 Nm-class NEMA23s on the major axes and three 0.59 Nm-class NEMA17s
-for the wrist. Relocate heavy motors proximally where the belt/differential
-routing permits. Use approximately 25:1 two-stage synchronous-belt reduction
-as the first drive candidate, with purchased small pinions and printed large
-pulleys. Purchase steel shafts, opposed/preloaded output bearings and metal
-clamp hubs. Separate belt tension from bearing preload. Actual belt pitch,
-width, tooth count, tension, wrap and ratings must follow the selected belt's
-manufacturer guidance; [Gates' design manual](https://assets.gates.com/content/dam/gates/home/knowledge-center/resource-library/catalogs/powergripdrivedesignmanual_17195_2014.pdf)
-explains why tooth deflection and elongation remain despite synchronous drive.
-
-Print housings, pulleys, guards, assembly locators and the serviceable gun shell.
-Use cut/drilled metal side plates and short backbones for bending and preload
-paths, through-bolts for structural interfaces, and purchased bearings instead
-of printed races. Design preload from actual loads and thermal behavior;
-[NSK's guidance](https://www.nsk.com/am-en/tools-resources/knowledge-center/bearing-abcs/preload/)
-explains stiffness/heat tradeoffs. Counterbalance gravity axes and provide
-positive retention on power loss. Neither a stepper's holding torque nor servo
-damping supplies that retention.
-
-The cable boom supports heavy umbilical weight independently. The wire liner
-approaches tangentially over a long, straight path from the opposite table edge
-and has sliding/swiveling support. Bring the gun's center of gravity toward its
-mount, while retaining access to the existing guide. The common rotator/robot/
-reference subframe must bypass flexible table spans where possible; a bench
-weight rating is not a micron-rigidity specification.
-
-### Size from moments, not just kilograms
-
-[Reproducible calculations](calculate.py) and [generated results](calculations.json)
-use a **100 mm unmeasured tool-CG offset**, estimated upper/forearm/wrist masses
-of 1.80/1.65/0.60 kg and an **unmeasured 3 Nm cable-moment scenario**. With all
-links horizontal, approximate static demands are:
-
-| Configuration | Shoulder | Elbow | Wrist pitch |
-|---|---:|---:|---:|
-| Arm with 1.5618 kg planned tool | 18.97 Nm | 10.65 Nm | 4.53 Nm |
-| Add hypothetical lightweight 1.5 kg carried trim, CG 40 mm beyond flange | 25.45 Nm | 14.48 Nm | 5.12 Nm |
-| Add hypothetical lightweight 2.5 kg carried trim, same CG assumption | 29.77 Nm | 17.03 Nm | 5.51 Nm |
-| Add hypothetical 3.5 kg carried trim, same CG assumption | 34.08 Nm | 19.58 Nm | 5.91 Nm |
-
-The budgeted [NEMA17 motor](https://www.omc-stepperonline.com/nema-17-bipolar-59ncm-84oz-in-2a-42x48mm-4-wires-w-1m-cable-connector-17hs19-2004s1)
-is about 390 g. The 1.65 kg forearm allowance includes three such wrist motors;
-the 0.60 kg wrist assumes those motors are routed proximally. The upper-arm
-allowance accommodates an elbow drive and structure. All masses and midpoint
-centers of gravity are provisional. Six fine-stage motors alone total 2.34 kg:
-the 1.5/2.5 kg carried examples require a separate lighter-motor design. The
-3.5 kg example is an unmeasured carried-stage scenario, not the bench stage's
-weighed mass.
-
-This omits acceleration, shock and detailed link/component mass distribution.
-It explains the short arm and off-arm fine-stage motors. As an initial sizing
-screen, 2.4 Nm × 25 × assumed 85% efficiency × an arbitrary 50% motor derating
-gives 25.5 Nm; the wrist equivalent is 6.27 Nm. These are **not continuous output
-ratings**. Obtain actual motor/current/speed/temperature behavior and design the
-counterbalance before accepting the loaded joint. The assumed 250 g shell/
-coupler and link masses must be replaced by actual design masses.
-
-### Belts, cycloidal or printed harmonic drives?
-
-| Candidate | Why consider it | What decides its use |
+| Project and released hardware | Pros for our application | Cons and work required |
 |---|---|---|
-| Two-stage belt | Few custom precision contact surfaces, easy adjustment/service, inexpensive prints and replaceable commodity belts | Package size, loaded bidirectional return, tension-dependent compliance and held drift. Leading first prototype. |
-| Printed cycloidal | Compact large ratios; paired discs and purchased rolling pins; practical Faze4 donor | Pin/disc clearance, eccentric support, output bearing stiffness, load loss and wear. Strong alternate if belts obstruct the station. |
-| Printed strain-wave/harmonic | Compact coaxial form and many teeth sharing load; OS-ARM supplies openly licensed source | Flexspline fatigue/creep, loaded hysteresis, efficiency, heat and hold drift. Build one cartridge alongside the first joint; do not commit all six joints before its result. |
+| **[reBot B601-RS](https://github.com/Seeed-Projects/reBot-DevArm)** — six axes; part/assembly STEP; CERN-OHL-W-2.0 hardware, Apache-2.0 software | Strongest complete-arm alternative. Accessible joint commands, motion feedback, temperature/fault data and tool kinematics support camera-directed experiments. Rated payload 2.5 kg; 587.5 mm radius without its gripper. | Purchased integrated actuators and custom metal parts spend money on reach we do not need. Continuous cable moments and holding heat need application-specific sizing. Select the command mode carefully for small corrections. |
+| **[Thor](https://github.com/AngelLM/Thor)** — six axes; native FreeCAD, STEP/STL; CC-BY-SA-4.0 CAD | Commodity steppers, printable serviceable mechanisms, remote-drive/differential wrist ideas and software-issued joint moves. Project claims hardware below €350; useful construction economy. | Stock 0.75 kg payload is below the reported gun assembly. Reinforce/balance a copied loaded mechanism and replace critical printed bearing surfaces with purchased bearings. Extend its GUI's coarse jog precision. |
+| **[BCN3D Moveo](https://github.com/BCN3D/BCN3D-Moveo)** — five axes; SolidWorks/STL; MIT mechanics, bundled GPL Marlin | Straightforward shafts, bearings, belts and paired side plates; ordinary step/direction controls can participate in our camera loop. Good source for inexpensive support and assembly details. | Six motors drive only five axes. A complete copy needs a sixth pose axis and a gun-load redesign. Step-derived coordinates need to be supplemented by our actual camera observations. |
+| **[Faze4](https://github.com/Source-Robotics/Faze4-Robotic-arm)** — six axes; STL, cycloidal STEP, assembly/control sources; CERN-OHL-S-2.0 hardware | Most detailed printed-cycloidal donor: paired discs, rolling pin contacts, independent bearings and replaceable printed parts. Exposed joint/step commands are suitable starting points for slow, observed corrections. | Full arm weighs about 14–15 kg; its mechanical BOM has 764 purchased and 197 printed parts. Copying the whole arm adds substantial material and assembly work. Controller needs robust acknowledgements, timestamps and limits. |
+| **[OpenArm 2.0](https://github.com/enactic/openarm_hardware)** — seven axes; STEP/BOM/wiring; CERN-OHL-S-2.0 hardware, Apache-2.0 software | Best telemetry and experiment-system donor: torque, position, velocity, stiffness/damping, temperature and faults. Its calibration fixture and camera/lighting layout are useful patterns. | Custom metal links and integrated actuators are an expensive route to local gun adjustment. Its 4.1 kg nominal payload definition is a one-minute full-extension hold, so prolonged holding remains a separate load/thermal question. |
+| **[OS-ARM](https://github.com/DDeGonge/OS-ARM)** — six-axis design; Inventor/STEP/STL and controller source; MIT | Best printed strain-wave experiment to borrow. Its approximately 75 mm flat reducer separates the rigid output gear from the flexible element; retain that separation and independently support the output. | Unfinished complete arm. Approximately 1 kg payload, 500 mm reach and under-$500 arm cost are goals. Current demonstration firmware controls five active axes with the sixth fixed; complete six-axis integration remains work. |
 
-[James Bruton's MIT drive source](https://github.com/XRobots/CycloidalDrive)
-provides additional cycloidal/strain-wave geometry. A project
-[printed-drive comparison](https://howtomechatronics.com/how-it-works/harmonic-vs-cycloidal-drive-designing-3d-printing-testing/)
-reports loaded movement and damage in particular printed specimens; it is a
-warning to test the proposed geometry/material, not proof that all printed
-reducers fail. Commercial
-[Harmonic Drive documentation](https://www.harmonicdrive.net/_hd/content/documents/reducer_catalog.pdf)
-separately treats torsional stiffness and hysteresis: nominal zero backlash
-does not mean zero loaded deflection.
+### reBot: accessible control is more relevant than its return test
 
-Allow **$30–$60 for a printed harmonic cartridge trial** or **$45–$100 for a
-cycloidal trial**, excluding its shared motor, structural output bearing and
-sensor. These are development allowances, not qualified joint quotations. Count
-the belt/intermediate parts displaced to calculate a saving. Filament-only
-gearbox prices hide the rest of a robot joint. Enlarge/select the flexspline from
-actual load and deformation calculations; copying the 10 Nm OS-ARM example
-does not clear the shoulder scenario.
+The [Seeed control guide](https://wiki.seeedstudio.com/rebot_arm_b601_rs_mit_control/)
+exposes Python joint control. MotorBridge's
+[MIT command packing](https://github.com/motorbridge/motorbridge/blob/main/motor_vendors/robstride/src/protocol.rs)
+uses a 16-bit position field over ±4π: approximately 0.022° per count, or
+153 µm at an illustrative 400 mm lever. Its
+[CSP implementation](https://github.com/motorbridge/motorbridge/blob/main/motor_vendors/robstride/src/motor.rs)
+writes a float32 position reference instead. CSP is therefore the first command
+path to investigate for small jogs; numeric encoding does not establish the
+loaded physical response. Verify what the returned position fields measure.
 
-## Precision and observability
+The [manufacturer's ±0.1 mm return test](https://www.seeedstudio.com/blog/2026/09/09/rebot-arm-b601-rs-performance-durability-tests-payload-repeatability-teleoperation-and-gravity-compensation-2/)
+is background information. It does not decide whether our camera loop can make
+small corrections. The [workspace guide](https://wiki.seeedstudio.com/rebot_arm_b601_rs_pinocchio_meshcat/)
+does matter to holding duty: extended operation can trigger J2 stall protection.
+Use rated, thermally sustainable actuator torque and a favorable posture when
+evaluating a complete reBot. Its cheaper reproduction hardware differs from
+the shipping mechanism, so characterize the actual build.
 
-At a 400 mm lever, a single joint consuming the whole 10 µm budget may rotate
-only **0.001432° (5.16 arcseconds)**; for 5 µm it is 2.58 arcseconds. A direct
-output encoder's ideal single-count endpoint intervals are 153.4 µm at 14 bits,
-38.35 µm at 16, 9.59 µm at 18 and 2.40 µm at 20. Multiple joint errors combine;
-bit count also excludes accuracy, eccentricity, thermal drift and bearing tilt.
-[AS5048A manufacturer's specifications](https://www.infineon.com/part/AS5048A)
-illustrate the distinction between 14-bit resolution and angular accuracy.
+### Thor and Moveo: inexpensive actuation remains usable
 
-Put an encoder **after each reduction** for actual joint-state records, reversal
-and stall detection. Budgeted AS5048A modules provide economical coarse
-observability. They do not supply the micron reference. At 25:1, a 1.8° motor
-full-step nominally moves a 400 mm lever 503 µm; 1/16 microstepping gives 31.4 µm.
-Finer electrical commands do not establish smaller accurate loaded increments.
-[Microchip's stepper-control note](https://ww1.microchip.com/downloads/en/AppNotes/AN1307-Stepper-Motor-Control-with-dsPIC-DSCs-DS00001307B.pdf).
+[Asgard](https://github.com/AngelLM/Asgard/blob/master/asgard.py) sends decimal
+joint coordinates and feed rates. Its
+[GUI](https://github.com/AngelLM/Asgard/blob/master/gui.py) rounds to 0.1°;
+bypass or extend that interface rather than infer a mechanical limit from it.
+Thor's [mechanism notes](https://hackaday.io/project/12989-thor/details)
+explain the two-motor/two-degree differential wrist. Seven motors drive its
+six arm axes. Its remote-drive construction is useful when carried motor mass
+matters.
 
-Two FoMaKo K20UH views with Raynox DCR-250 close-up lenses are the camera
-baseline recovered from the Camera session. Nominal 109 mm working distance
-and an estimated 7.6 mm field across 3840 pixels imply about **2 µm/pixel**.
-DCR-150 gives nominal 210 mm working distance and roughly 3.3 µm/pixel at the
-same camera assumptions. These are sampling estimates, not system accuracy.
-[Raynox working-distance information](https://raynox.co.jp/english/video/pdf/Panasonic_SDR_S200_S150.pdf),
-[FoMaKo product documentation](https://fomako.net/product/K20UH-4K-PTZ-Camera.html).
+Moveo's [assembly manual](https://github.com/BCN3D/BCN3D-Moveo/blob/master/USER%20MANUAL/User%20Manual%20BCN3D%20Moveo.pdf)
+documents the five-axis mechanism. Its
+[firmware](https://github.com/BCN3D/BCN3D-Moveo/blob/master/FIRMWARE/Marlin_BCN3D_Moveo/Marlin_main.cpp)
+supports relative `G91` motion and decimal coordinates. Printer-derived control
+can issue our experiments; homing and commanded step history remain internal
+state, while cameras report the actual gun response. Purchase support bearings
+and add metal load paths where our carried gun requires them.
 
-Fix and log zoom, focus, exposure, iris and gain; disable automatic tracking and
-automatic optical-setting changes. The
+### Faze4 and OS-ARM: retain as reducer options
+
+Faze4's [design decisions](https://faze4-robotic-arm-docs.readthedocs.io/en/latest/B_Design_decisions.html)
+describe printed cycloidal reducers on J1–J5 and a purchased planetary on J6.
+Borrow the discs, pins and bearing arrangements if a rotary reducer improves
+our eventual packaging. Its
+[low-level control](https://github.com/Source-Robotics/Faze4-Robotic-arm/blob/master/Software1/Low_Level_Arduino/Arduino_GUI_code.ino)
+provides joint command plumbing, not an actual tool-position measurement.
+The [root hardware license](https://github.com/Source-Robotics/Faze4-Robotic-arm/blob/master/LICENSE)
+is CERN-OHL-S, despite the conflicting README MIT badge.
+
+The [OS-ARM reducer demonstration](https://www.youtube.com/watch?v=Emvo3bLT-Z4)
+reports about 10 Nm and under $20 for the gearbox with the motor separate.
+That is a creator's component report, not a complete priced actuator or
+loaded-jog/lifetime dataset. Its
+[firmware](https://github.com/DDeGonge/OS-ARM/blob/main/firmware/firstdraft_fw/firstdraft_fw.ino)
+and [kinematics](https://github.com/DDeGonge/OS-ARM/blob/main/firmware/PythonIK.py)
+need the sixth controlled axis completed if reused for a complete arm.
+
+### OpenArm: borrow the experiment interface
+
+The [CAN API](https://docs.openarm.dev/api-reference/can/)
+exposes position, velocity, torque and stiffness/damping commands with actuator
+state. Compliance is a controllable property whose effect our cameras can
+observe; it is not a reason to dismiss the design. The
+[OpenArm Cell](https://docs.openarm.dev/hardware/openarm-cell/general/)
+supplies useful calibration, lighting and logging patterns. The
+[ROS control bridge](https://docs.openarm.dev/api-reference/ros2/control/)
+remains under development. Its advertised $6,500 complete bimanual-system figure
+does not provide a one-arm raw-materials quote.
+
+AR4's [custom license](https://github.com/Annin-Robotics/ar4-hmi/blob/main/LICENSE.txt)
+restricts redistribution/commercial derivatives, so it is outside this
+reusable-source shortlist. Retain upstream attribution and applicable
+source-sharing obligations in actual adaptations; check file-specific software
+licenses separately from hardware licenses.
+
+## Build one positioner
+
+Mount three orthogonal guided screw slides on a short braced base beside the
+rotator. Their carriage carries three nested, bearing-supported rotary axes
+and the permanently clamped gun. The machine has six actuators total. Tube
+loading and camera retraction are fixture operations; the same positioner
+performs every gun correction during dry runs and welding.
+
+The gimbal's physical center need not coincide with the laser dot. For a tool
+offset vector `v`, software uses `translation = (I − R) v` to compensate a
+rotation `R` about the dot. Calibrate the actual tool transform and map the
+requested grip/hole/vertical rotations into this machine's coordinates.
+Place the physical pivot near the working end where clearance allows; a
+smaller offset reduces translation consumed by angular experiments.
+
+### A concrete starting geometry
+
+Use **200 mm usable mechanical travel on each XYZ axis** and **±20° on each
+gimbal axis** as a provisional CAD envelope. These are design assumptions,
+not recovered mandatory ranges or demonstrated collision-free travel. Size
+rails longer than usable travel to accommodate two blocks, supports and limits.
+The model in [calculations.json](calculations.json) uses an illustrative neutral
+tool vector `[200, 0, 0]` mm and samples `Rz Ry Rx` at one-degree spacing.
+Holding the dot while sweeping all angles through ±20° consumes approximately
+24 mm X and ±69 mm Y/Z relative to neutral. A ±100 mm slide envelope leaves
+about 31 mm additional Y/Z adjustment in this geometry; it does not offer
+200 mm of dot translation at every angle. The actual gun transform, virtual
+axes, sightlines and cable envelope must be included before fixing CAD.
+
+Drive each axis with a 200-full-step NEMA17, a **4:1 belt reduction** and a
+**1 mm-lead steel screw**, initially a common M6×1 screw with paired metal nuts
+in an adjustable preload carrier. The nominal linear increment is 1.25 µm per
+full motor step. On a 120 mm angular lever, it is about 2.15 arcseconds, equivalent
+to 2.08 µm at a 200 mm tool offset near neutral. These are command spacings,
+not predictions of attained accuracy. A 0.5 mm lead or greater belt ratio is
+available if the observed motion demonstrates a useful reason to change it.
+
+For each rotary axis, use a screw actuator with **single-plane clevis pivots
+at both ends**. In its local plane, place the base pivot at `A = (r, −L0)` and
+the lever pin at `P = (r cos(angle), r sin(angle))`, with `r = L0 = 120 mm`.
+The screw assembly pivots as it extends; the nut-side clevis prevents nut
+co-rotation through a rigid nut carrier and a genuine one-axis pin parallel
+to the gimbal shaft. Spherical ends would require another anti-rotation
+constraint. This avoids side-loading a rigidly mounted screw as the lever
+arcs. The exact geometry gives
+`L² = L0² + 2 L0 r sin(angle) + 2 r² (1 − cos(angle))`.
+Across ±20° it needs about 82 mm total length change, or 90–100 mm actuator
+travel with margins. Base/lever-side hinges need approximately 6°/26° freedom
+relative to their neutral bodies, plus clearance margin. Use metal pins and
+preloaded bearing/contact arrangements in printed carriers. Prototype friction
+and reversal behavior; the arithmetic does not establish their loaded motion.
+
+Use two metal guides/four blocks per XYZ axis and independently supported
+gimbal output bearings. Screw fixed ends carry thrust and radial load; the long
+linear screws have opposite-end radial support that permits thermal expansion.
+The angular motor/belt/bearing cartridge pivots with its screw. Sweep and guard
+the complete screw, including the overhang beyond its nut at minimum actuator
+length. The packaged prototype determines whether extra radial guidance is
+useful; any added sleeve must follow the pivoting assembly without binding.
+Print carriers, motor mounts, large pulleys, housings, guards, assembly locators and the gun
+shell. Buy screws, paired nuts, bearings, small pinions and shafts. Short cut
+metal plates/backbones and through-bolts carry the bending and preload paths.
+This keeps fabrication inexpensive without requiring every rubbing or heavily
+preloaded surface to be printed.
+
+### Load and drive sizing
+
+The gun/feed/umbilical figure is reported as **1.3118 kg**. A **0.250 kg**
+shell/mount allowance gives **1.5618 kg**; the allowance is unmeasured. The
+illustrative gimbal calculation adds **2.0 kg** of carried motors/structure,
+both at an assumed 100 mm worst gravity lever, plus an assumed **3 Nm cable
+moment**. It produces a **6.49 Nm** moment and about **54 N** angular-screw
+force at neutral, rising to approximately **60 N** at the sampled range's
+least favorable lever geometry, before nut preload and friction.
+These assumptions need the actual CAD mass/CG and cable
+routing; the 3 Nm value is not a measurement or certified disturbance bound.
+
+A separate **8 kg** moving-stack assumption produces about 79 N vertical load.
+Screen screw drives at **200 N normal axial force**, allowing for guide friction
+and preload. With assumed 20% screw and 90% belt efficiency, nominal motor
+torque is approximately **0.0442 Nm**. This is a reduction calculation; motor
+holding torque is not a continuous running/thermal rating. Size rails, bearings,
+mounts and screws for moments, buckling and wear as well as axial force.
+Counterbalance gravity axes and provide retention whose capacity does not
+depend on assuming the threads are self-locking.
+
+The screw reduction can generate damaging force during a jam. Current limiting
+alone does not establish a calibrated force limit. Include adjustable overload
+protection and bounded motion in the prototype, then measure its behavior.
+Reducing carried cable force and holding heat makes the camera loop's job
+easier and preserves equipment through long experiments.
+
+Six TMC2209 drivers provide step/direction motion and UART diagnostics. Use a
+regulated 24 V supply, characterized current and fixed driver settings during
+response measurements. Six readable drivers require two addressed UART buses
+or a multiplexer; four addresses on one bus are insufficient. Board thermal
+capability remains distinct from the chip rating. Driver diagnostics and step
+history help explain motion; cameras measure its actual result.
+[TMC2209 manufacturer datasheet](https://www.analog.com/media/en/technical-documentation/data-sheets/TMC2209_datasheet_rev1.09.pdf).
+
+### Why screws first, and where harmonic drives fit
+
+Screws already turn inexpensive motors into small nominal translations and
+rotations. They make each axis's response comparatively straightforward to
+learn, and their useful range can be enlarged with longer guides or levers.
+The first build spends its budget on guide support, preloaded contacts and
+observable output rather than six elaborate reducers.
+
+If testing identifies a range, packaging or loaded-motion problem that a
+reducer solves, adapt **OS-ARM's strain-wave geometry** or **Faze4's paired
+cycloidal discs** for the affected rotary axis. Buy structural output bearings
+independently of the printed transmission. Test commanded movement and settled
+response with the gun load; use replaceable printed flexible elements/discs
+and log wear over repeated cycles. Nominal tooth reduction or a zero-backlash
+description alone does not establish that response.
+
+A six-strut hexapod is also a valid single gun positioner. It offers compact
+parallel support, but actuator travel, articulated ends and coupled geometry
+must cover the intended dot-centered angular experiments. Choose XYZ plus a
+gimbal first because axis-by-axis prototyping and friction diagnosis are
+simpler. A hexapod is an architecture alternative for the same job.
+
+## Observation and autonomous learning
+
+Use the Camera session's **two FoMaKo K20UH 4K cameras with Raynox DCR-250
+attachments**, plus the existing overview camera. The
 [FoMaKo manual](https://www.fomako.net/uploads/20250529/ce40713967c8ae0e137cabdd8a72ff1d.pdf)
-documents VISCA controls/readback and the USB 4K mode's dependence on HDMI
-4K configuration. Verify actual native-resolution frames rather than assuming
-network previews retain the sampling. Mount lens and camera on one rigid,
-separately supported carriage; do not assume the camera has a suitable filter
-thread. Retract for loading, recover using fixture references and validate
-again. A printed tag is a recovery aid, not a 5 µm ground truth.
+documents numeric zoom/focus commands and inquiries, and exposure/iris/gain
+control. Fix autofocus, tracking and exposure behavior during measurements;
+record optical settings with frames. Native-resolution acquisition matters:
+its 4K USB configuration differs from lower-resolution NDI output.
 
-Together, the views must see dot, actual wire tip, seam and rigid gun references.
-A dot on a surface alone does not reveal standoff along the beam. Calibrate
-distortion and tool/guide geometry; solve pose near the work and report
-confidence/occlusion. Keep held-out reference motions/images and an independent
-displacement reference to detect centroid bias, depth ambiguity, changing
-wire protrusion and software overfitting. The existing indicator's 0.0005 inch
-increments are **12.7 µm**: suitable for coarse-joint screening, inadequate to
-certify 5–10 µm. The caliper and scanner do not establish this reference either.
-The budget reserves $250–$500 for an independent instrument/fixture; a complete
-≤2 µm uncertainty budget has not been established at that price.
+[Raynox's optical guidance](https://raynox.co.jp/english/video/pdf/Panasonic_SDR_S200_S150.pdf)
+gives about 109 mm working distance for DCR-250 at infinity focus; DCR-150
+offers about 210 mm. The earlier optical estimate gives roughly 2 µm/pixel
+for the 4K/DCR-250 combination at maximum useful magnification. That is a
+sampling estimate, not measured localization uncertainty. Mount lens and
+camera together on a rigid carriage with stable lighting and a recoverable
+datum after retraction. Keep camera supports separate from the umbilical boom.
 
-Use the host for FK/IK, tool-point rotations, calibration and experiment choices.
-A local controller generates synchronized bounded joint trajectories, reads
-output sensors and enforces limits/watchdog/retention. The open
-[6-Pack controller design](https://github.com/bdring/6-Pack_CNC_Controller) is a
-pulse-interface donor, not turnkey robot IK or an encoder servo. Log commanded
-and measured joint positions, images, camera settings, timestamps, endpoints,
-rotator angle, temperature, settling time and faults. Reject stale frames or
-incomplete views. After motion and settling, estimate error, correct, then
-validate against the independent check. Freeze acceptance definitions and
-held-out trials while evaluating software changes.
+Observe dot and wire relative to the seam from complementary directions.
+Include rigid gun references so standoff and orientation remain distinguishable.
+Use known local geometry or an independent displacement check when translating
+image errors into claimed physical units. A controller cannot validate itself
+by calling every improved image estimate a successful physical move. Initial
+dry learning can start without buying a separate reference instrument. The
+existing 12.7 µm-increment indicator is useful for coarse checks; it cannot
+establish 5 µm displacement accuracy. A reference/calibration fixture has a
+separate budget allowance, with its actual uncertainty to be established.
 
-Dry learning uses the non-welding aiming light with welding emission inhibited.
-During actual welding, replaying the specific tube's dry baseline and observing
-heat-induced changes with separate probes is a distinct instrumentation task.
-The inexpensive protective-window ideas and contact/eddy probes from the Camera
-session are not qualified live-weld micron instruments. Camera recovery and
-safe retained stops belong in dry-run automation; a software success flag does
-not authorize automatic welding emission.
+The development sequence is software-driven:
 
-## Supported fine stage: a path to smaller controlled increments
+1. **Learn the loaded local response.** With the real gun, liner and umbilical
+   attached, issue bounded positive/negative jogs on each axis. Record commands,
+   frame times, observed feature changes, settling, driver state and temperature.
+   Learn a local command-to-feature Jacobian plus direction/history effects.
+   Use conservative trust regions; enlarge motion only after observing it.
+2. **Close the correction loop.** Compare observations to the desired gun/seam
+   relationship, solve a bounded correction, move and observe again. Update
+   the response map where needed. Take up a reversal with monitored small
+   commands; avoid accumulating an uncontrolled correction while the mechanism
+   is stationary. Treat coupling and unresponsive coordinates as identification
+   problems, not as exact nominal kinematics.
+3. **Learn each rotating tube.** Register its seam, run repeated dry laps, and
+   learn a smooth angle-indexed pose trajectory. Validate on further laps
+   without fitting those observations into the same training pass. Keep
+   cameras checking and correcting throughout; learning may take days per part.
+4. **Develop live observation and weld tracking.** Dry runs establish geometry
+   and mechanical response. Separately engineer optical protection, illumination,
+   exposure/filtering and visibility under emission, wire feed and shielding.
+   Measure feature uncertainty and correction delay under those conditions;
+   do not infer live visibility from dry images. Use the dry trajectory as
+   feedforward, with measured live corrections for heat-induced changes.
+5. **Iterate the process.** Log the actual achieved geometry, rotator phase,
+   power/feed settings and weld outcomes. Repeat coupon/process development,
+   refine the model and evaluate the completed vessel's pressure acceptance.
 
-First try endpoint correction on the arm itself. If loaded motion has deadband
-or unstable increments, add a **bench-supported six-strut screw/flexure stage**.
-The arm transfers a detachable gun cradle, verifies the dock latch, disengages
-and parks. The stage then reacts loads through a short metal stand to the
-rotator/reference base. For retrieval, the arm captures and verifies retention
-before the dock releases. Guided capture/compliance during overlap prevents two
-rigid controllers fighting. Metal contacts and spring-retained latches carry
-the load; sensors report capture state. Fine correction happens after each
-transfer, so coupler relocation need only fall within its capture envelope.
+For example, software can test a 0.5 mm move, observe 0.35 mm, improve its
+model and continue toward the target. That response is illustrative, not an
+observed result of this unbuilt mechanism. At small scales the same principle
+applies, provided actual motion and remaining error are distinguishable. When
+loaded stick-slip leaves gaps larger than the useful correction interval,
+change preload, nut/guide contact, lubrication, reduction or the affected
+actuator and repeat the experiment. Improving mechanics responds to observed
+limits; catalog return repeatability is not a prerequisite for starting.
 
-```mermaid
-flowchart LR
-  A[Six-axis arm: approach, transfer and park] --> C[Gun cradle with fixed wire guide]
-  C --> F[Six-axis local fine stage]
-  F --> B[Common metal base]
-  R[Existing tube rotator] --> B
-  O[Two calibrated camera views] --> E[Endpoint estimate and independent check]
-  E --> H[Bounded pose correction]
-  H --> A
-  H --> F
-```
+The host software/AI can plan experiments, fit models, inspect failures and
+improve the controller over weeks or months. A local deterministic controller
+executes bounded coordinated motion and handles limits, watchdogs and process
+state; an LLM conversation is not the timing loop. Live tracking bandwidth is
+chosen from measured disturbances and frame/motion delay, rather than a factory
+throughput target. Thermal changes and unknown wire/cable behavior remain
+subjects for observation and iteration.
 
-A **fixed dock supports one gross orientation neighborhood**, provisionally
-±2 mm at the tool and ±0.5° about each axis. It preserves local six-axis
-experiments there, but does not supply micron positioning throughout arbitrary
-arm angles. Broad sweeps use the undocked arm, whose precision remains to be
-qualified. If full-angle micron trials are required, a commanded coarse
-orienting dock or a carried trim module needs a separate mass/cost/design pass.
-The carried-module loads above show why that is not a free extension.
+## Materials estimate and development deliverables
 
-The original concept has 80/55 mm base/top radii, 70 mm plate spacing and six
-approximately 87.1 mm legs. Metal plates, steel screws, purchased radial/thrust
-supports, paired preloaded nuts and spring-steel flexure ends carry the load.
-Provide a metal keyed/roller guide against nut co-rotation and an articulated
-drive fork that follows each strut's direction, with its motor offset away from
-the crowded anchors. Motor mass is supported on the stationary base side;
-its moving envelope and flexure reaction loads still need a package design.
-Printed parts guide assembly and guard mechanisms. A 0.5 mm screw lead,
-200-step motor and 4:1 belt give **0.625 µm nominal strut travel per full step**.
-The model accounts for all 64 correlated half-step rounding signs and a tool
-200 mm from the plate: maximum sampled endpoint rounding is **2.10 µm**.
-This is first-order quantization, before screw error, stick-slip, compliance,
-metrology or drift. The 5 µm target requires tighter remaining errors and/or
-finer *verified* drive increments.
+[materials.json](materials.json) contains every cost row; running
+`python3 future/robot-arm-study/calculate.py` reproduces
+[calculations.json](calculations.json). Only rows marked **Prime price observed**
+are verified price anchors. Other values are engineering/fabrication allowances,
+including supports and electrical interfaces. They are not selected precision
+components or proposed purchases.
 
-Sampling neutral and 64 vertices of each provisional tool-centered pose box
-gives at most 6.06 mm one-sided leg stroke and 4.64° joint-direction change.
-Provide at least ±7 mm provisional leg motion. Straight strut centerlines
-remain at least 19.10 mm apart in these samples; this excludes screw overhang,
-nut blocks, end clamps, motors, belts, cables, gun and rotator. Motor layout
-needs staggered or outward positions and a full package sweep in CAD. It is
-not continuous workspace or collision proof. Flexure range, buckling, stress,
-fatigue and screw/nut reversal behavior are unqualified.
-
-Use a regulated 24 V supply for the fine-stage TMC2209 carriers. Their
-[manufacturer datasheet](https://www.analog.com/media/en/technical-documentation/data-sheets/TMC2209_datasheet_rev1.09.pdf)
-supports STEP/DIR, UART configuration and diagnostic readback. Six individually
-readable drivers require two UART buses or multiplexing because a bus has four
-addresses. The controller allowance includes sockets and those interfaces.
-Set and log fixed run/hold current and chopper settings during measurements;
-calibrate current against actual screw friction/preload and temperature. Do not
-infer usable board current from the chip's maximum, or infer static force from
-sensorless stall detection. Limit the 24 V rail's transients to the carrier's
-rating. This driver class saves about $96 compared with six DM542TE units,
-before integration hardware.
-
-For the planned gun plus an assumed 350 g moving plate and a resultant moment
-of any direction up to 6 Nm, sampled leg loads are bounded at about 60 N before
-preload. With 60–80 N deliberate preload, initially design each path for at
-least 150 N, then size across the real envelope and dynamics. The 6 Nm envelope
-is a provisional combined load allowance, not a measured cable rating.
-The 150 N figure is a normal application-load allowance, **not blocked-screw
-capacity or overload protection**. A modest motor torque can generate far more
-thrust through these screws. Qualify current/force limitation and jam response,
-or size the stops and complete load paths for actual blocked thrust. The budget
-includes prototype overload-limiting materials; an engineered solution remains
-part of the first-strut decision.
-
-Short support alone does not close the tolerance. Assuming **10 N/µm assembled
-axial stiffness per leg**, a changed 3 Nm pitch moment deflects a tool 200 mm
-away about **10.85 µm**; a 0.1 Nm change gives 0.362 µm. Neither stiffness nor
-residual moment is measured. At that assumed stiffness, a 2 µm between-frame
-allocation permits about 0.55 Nm uncorrected moment change. Similarly, a 400 mm
-aluminum length changes about 9.2 µm per °C using an illustrative 23 ppm/°C
-coefficient. Cable relief, heat management and endpoint-referenced measurement
-are necessary even with a fine stage.
-
-## Materials estimate and Prime anchors
-
-The itemized [materials file](materials.json) separates observed prices from
-engineering allowances. The [calculation output](calculations.json) sums
-quantities and groups without dropping drivers, bearings, controls, retention
-or transfer hardware.
-
-| Scope | Concept materials estimate, USD |
+| Scope | Calculated materials allowance, USD |
 |---|---:|
-| Six-axis arm, sensing, drivers, structural stock, printing, controls and retention | **$900.91–$1,301.91** |
-| Supported six-axis fine stage increment, including guides, overload provisions, automatic couplers, stand and extra controls | **$599.99–$999.99** |
-| Two close-up views, rigid mounts, cable support, lighting and independent-reference allowance | **$1,459–$1,849** |
-| Arm plus observation | **$2,359.91–$3,150.91** |
-| Arm plus supported fine stage plus observation | **$2,959.90–$4,150.90** |
+| Complete single six-axis positioner, including six motors/drivers, base, retention and overload development | $749.98–$1,284.98 |
+| Two cameras/lenses, rigid mounts, lighting/connections and cable support | $1,200–$1,350 |
+| Positioner plus dry-run observation setup | $1,958.98–$2,633.98 |
+| Separate independent measurement/reference fixture allowance | $250–$500 |
+| Combined scope including that reference allowance | $2,208.98–$3,133.98 |
 
-Prime-qualified price anchors observed in signed-in Chrome on 2026-10-04:
+The six motors cost **$69.99** using a
+[five-motor Prime pack](https://www.amazon.com/dp/B00QEYADRQ) and
+[one matching Prime motor](https://www.amazon.com/dp/B00PNEQKC0).
+The [six-driver Prime pack](https://www.amazon.com/dp/B08WZFK9KT) is **$29.99**.
+Two [Prime cameras](https://www.amazon.com/dp/B0DK1BXJWY) at $449 and two
+[Prime lenses](https://www.amazon.com/dp/B000A1SZ2Y) at $75.50 total **$1,049**.
+Prices/Prime status were observed on the review date. Nothing has been ordered.
+Tax, development replacements, labor, computer, welding equipment, existing
+rotator and formal calibration service are excluded. Optional shaft encoders
+are costed separately; they are useful fault diagnostics, not substitutes for
+camera-observed output.
 
-| Anchor | Price and quantity role | Purpose |
-|---|---|---|
-| [2.4 Nm NEMA23 + DM542T](https://www.amazon.com/dp/B0CS2TBLXP) | $50 each; three | Major joint drive class; holding torque is not a continuous rating. |
-| [0.59 Nm NEMA17 five-pack](https://www.amazon.com/dp/B00QEYADRQ) | $55; one for arm, second if building fine stage | Three wrist motors; unused motors plus second pack supply six bench-stage motors. |
-| [DM542TE](https://www.amazon.com/dp/B0FYDCRX28) | $20.99 each; three arm | Current-limited wrist step/direction drive. |
-| [TMC2209 six-pack](https://www.amazon.com/dp/B08WZFK9KT) | $29.99; one for fine stage | Low-current fine-stage drives with UART diagnostics. |
-| [AS5048A module](https://www.amazon.com/dp/B0F25W4G7L) | $14.99 each; six | Coarse output-angle records; chip identity, SPI diagnostics and accuracy require verification. |
-| [FoMaKo K20UH](https://www.amazon.com/dp/B0DK1BXJWY) | $449 each; two | Software-controlled close-up observation. |
-| [Raynox DCR-250](https://www.amazon.com/dp/B000A1SZ2Y) | $75.50 each; two | Close-up optics, contingent on 109 mm loading/clearance design. |
-
-Camera/lens subtotal is **$1,049**. Deduct verified existing stock when making
-an actual build BOM; ownership of these close-up optics is not assumed. Prices
-can change and part fit remains to be designed. All other rows are unquoted
-allowances, including the homemade fine screws/nuts, controller implementation,
-base structure, safe retention and independent metrology. Taxes, shipping,
-labor, existing rotator/computer/welding equipment and formal calibration
-service are excluded. Live-weld protective instrumentation and a motorized
-coarse orienting dock are outside these totals. These figures do not constitute
-a complete compatible cart or a proven ≤2 µm measurement system.
-
-## Build sequence and decision evidence
-
-The customer outcome is automatic reproduction and improvement of a measured
-gun-to-seam relationship. Build the following in order; these are development
-activities for the build, not requests to reconstruct existing observations.
-
-1. **One major-joint module.** Use the proposed shaft, bearing span, plates,
-   pulley, tensioner and output encoder. A weighed dummy load/lever reproduces
-   the illustrative 19 Nm shoulder demand, including the disturbance scenario:
-   about 1 kg at 306 mm supplies its 3 Nm component. Use the existing scale
-   in its capacity, rigid clamping and existing indicator. Make at least 20
-   bidirectional departures/returns and 49-second holds (the rotator's
-   [8 mm/s nominal lap](../../hardware/assembly/weld-rotation-rig.md)), then repeat warm. Initial screening
-   limits of ≤0.5 mm return spread and ≤0.1 mm hold drift are derived from a
-   proposed ±2 mm fine capture range, leaving correction margin. They qualify
-   the **coarse module only** and do not replace the 10 µm system requirement.
-   A 1,000-cycle pilot detects early wear/drift; it is not life certification.
-   Compare the belt cartridge with a printed reducer only if packaging or these
-   results make that comparison useful.
-2. **Optical instrument and one fine strut.** Establish fixed-setting images,
-   actual wire/dot visibility, recovery after retraction and independent
-   reference uncertainty. Use known reversible translations and held-out
-   images rather than self-scored calibration residuals. Load a prototype
-   strut through its provisional 150 N envelope; measure reversal, commanded
-   5 µm changes, accumulated full-step increments, held drift and temperature.
-   A 2 µm reference cannot certify an individual 0.625 µm increment. Qualify jam
-   detection/force limitation against actual blocked thrust and retained stops.
-   Before making six struts, complete the CAD sweep including anti-rotation
-   guides, nut blocks, screw overhang, 4:1 pulleys, flexure clamps, articulating
-   motor forks, cable loops and loading paths. This decides whether the
-   inexpensive screw/nut/flexure architecture is usable. A reference with
-   ≤2 µm assembled uncertainty is a provisional metrology goal, not the
-   existing indicator's capability.
-3. **Complete the arm and bounded dry loop.** Load the actual gun, routed cables
-   and coupler. Record both actual endpoints and observable pose references
-   after opposite-direction approaches, parks/returns, rotator laps, thermal
-   soak and camera recovery. Measure optical and actuator latency; require
-   successful independent checks after correction. If rigid gun motion cannot
-   bring both endpoints into tolerance at a pose, record the geometric
-   constraint. Add the supported fine stage when increment/deadband/hold data
-   require it; confirm transfer retention independently of command history.
-4. **Acceptance over the intended envelope and hours/days.** Predefine the
-   worst-case displacement criterion for each actual endpoint, including
-   standoff/pose observability, bidirectional repeatability and held drift.
-   Require **measured maximum error plus measurement uncertainty ≤10 µm**;
-   target ≤5 µm. For an established 2 µm uncertainty, observed limits become
-   8 µm and 3 µm respectively. Do not let software revisions change the
-   held-out acceptance definition. Separate local docked results from broad
-   undocked-angle results. Any unobservable interval or unretained fault
-   interrupts a successful trial. Later welding records add process settings,
-   heat-induced changes and the pressure-test outcome.
-
-The first fabrication commitment is one loaded joint and one observable fine
-strut, followed by the compact arm. This avoids spending all the material on
-six elaborate reducers before discovering whether their loaded motion can
-support the camera-guided experiment. Extensive printing is appropriate;
-purchased bearings, metal preload paths and independent endpoint evidence
-remain part of the most economical credible design.
+Proceed by producing the single-positioner CAD, six-channel motion/observation
+interface and one loaded screw/clevis prototype before fabricating every
+axis. The first prototype addresses a specific decision: whether this cheap
+drive's observed, settled, reversible motion is useful for the feedback loop.
+Its results set the remaining axis details. Assemble the complete positioner,
+automate calibration and repeated dry rotations, then develop live observation
+and weld corrections. Long software iteration and low production volume are
+part of this plan. Success is the gun's observed relationship to the moving
+seam and the accepted weld outcome.
