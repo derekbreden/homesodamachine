@@ -154,7 +154,7 @@
     {
       "check": "front-top solid and mesh",
       "pass": true,
-      "facets": 524676,
+      "facets": 525204,
       "bounds": [
         [
           -107.5,
@@ -325,7 +325,7 @@
       "bounds": [
         -105.02671161369999,
         -104.8551573208,
-        87.36661528106201,
+        87.36661528106158,
         90.508835671313,
         351.87767087729696,
         353.65818890628134
@@ -394,7 +394,7 @@
         87.0808558417183,
         88.21875666149299,
         352.4261693235887,
-        353.06020561036166
+        353.0602056103621
       ]
     },
     {
@@ -710,7 +710,7 @@
       "bounds": [
         -104.13022698069999,
         -103.94041975840001,
-        88.21875646148794,
+        88.21875646148868,
         95.34421022924599,
         353.06020541035997,
         355.0000001
@@ -919,7 +919,7 @@
       "bounds": [
         104.4999999,
         104.67951568539,
-        87.25894016517492,
+        87.25894016517567,
         89.644817049662,
         352.08249257654995,
         353.42976292793577
@@ -966,7 +966,7 @@
         87.080855841718,
         88.21875666149299,
         352.4261693235887,
-        353.06020561036166
+        353.0602056103621
       ]
     },
     {
@@ -1084,9 +1084,9 @@
       "bounds": [
         101.70939688021001,
         101.91853894245999,
-        88.44626927486945,
+        88.44626927487025,
         95.34421022924599,
-        353.6100107923969,
+        353.61001079239725,
         355.0000001
       ]
     },
@@ -1183,7 +1183,7 @@
       "bounds": [
         103.94041975845,
         104.13022698073,
-        88.21875646148794,
+        88.21875646148868,
         95.34421022924599,
         353.06020541035997,
         355.0000001
@@ -1339,7 +1339,7 @@
   "minimum_ridge_stock_mm": 3.0,
   "source_sha256": {
     "hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/verify_geometry.py": "5b1e96525aac40073c41f7cdd848eb72e8b170bec6c895d27b919a4ebd08e90f",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "20f8a25c7c8c37f6bb65292d7bb0650b81a17b8b27a07a507477bcfec985149c",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "2d7c127f3b59cd34057137dab7d378b5f7ed47679718118a39353e734267dd39",
     "hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py": "e3e5f0251ab9f0f82324c82e94e45667cac0e5d9c505cf06fd6f525c6bf3ce82",
     "hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py": "301e9a2a291e5c43c6e885d869e74d2f600204ba0041e70979a1c7d5c6203bbc",
     "hardware/manifold-layout/enclosure_assembly.py": "d4f46a3316b29645f877e10f22a93328caf6e55fa42dfaada07224dd1940e9ec",
@@ -1350,8 +1350,8 @@
     "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-001.step": "e9f635dcf4ed04a199a20c3a2ef225d2d4d094a67f793e6b5b556951d12beb04",
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": "57f3190210e89e9c1bedf9139fc2c1f28377e6b2de6283956362a7cae64bb57c",
     "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.step": "0ae19c97cc7e526ed4d1405564dec24d280e8e2a2541f17875fb1809ab8581a8",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "cb45044df359205d55dafe6ad3a8f5e8f332eccb2cfe6ac708f3c913672541b6",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "b9a330b868dde6cdab0278fecb023b4b3dc01a993e9070fa2828605237fded88",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "e50c763a6e50022055fae968d3e4f209003ed3dd34174f6ab65d7a1ca2a60aa6",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "fa3b51b3543b03c51ea852b328d1d66241e35d712b0df52558762786a858ad50",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "85e4e97f382142f2ed497abe36d6be493dda94ee4b672a9e0a706b684c0ef573",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "866cffceff2bd16e8f760b520ac5ca699904999238e3eedfe1f8ed4311a7672c"
   }
