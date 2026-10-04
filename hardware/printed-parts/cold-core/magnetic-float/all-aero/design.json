@@ -31,7 +31,7 @@
   },
   "volumes_cc": {
     "external_displacement_excluding_open_bore": 27.993852490195643,
-    "asa_aero": 27.175814160875095,
+    "asa_aero": 27.175814160875092,
     "magnet_pocket": 0.8180383293205423
   },
   "magnet": {
@@ -69,30 +69,30 @@
     },
     {
       "foam_density_g_cc": 0.55,
-      "assembled_mass_g": 20.036697788481305,
-      "reserve_lift_g": 7.948756545967278,
-      "guided_upright_freeboard_mm": 7.9528879762769495
+      "assembled_mass_g": 20.036697788481302,
+      "reserve_lift_g": 7.9487565459672815,
+      "guided_upright_freeboard_mm": 7.952887976276953
     },
     {
       "foam_density_g_cc": 0.6,
-      "assembled_mass_g": 21.395488496525058,
-      "reserve_lift_g": 6.5899658379235255,
-      "guided_upright_freeboard_mm": 6.593391025806064
+      "assembled_mass_g": 21.395488496525054,
+      "reserve_lift_g": 6.589965837923529,
+      "guided_upright_freeboard_mm": 6.593391025806068
     },
     {
       "foam_density_g_cc": 0.65,
-      "assembled_mass_g": 22.754279204568814,
-      "reserve_lift_g": 5.2311751298797695,
-      "guided_upright_freeboard_mm": 5.233894075335175
+      "assembled_mass_g": 22.75427920456881,
+      "reserve_lift_g": 5.231175129879773,
+      "guided_upright_freeboard_mm": 5.233894075335178
     },
     {
       "foam_density_g_cc": 0.7,
-      "assembled_mass_g": 24.113069912612566,
-      "reserve_lift_g": 3.872384421836017,
-      "guided_upright_freeboard_mm": 3.87439712486429
+      "assembled_mass_g": 24.113069912612563,
+      "reserve_lift_g": 3.8723844218360206,
+      "guided_upright_freeboard_mm": 3.8743971248642937
     }
   ],
-  "neutral_foam_density_g_cc": 0.8424937776992556,
+  "neutral_foam_density_g_cc": 0.8424937776992557,
   "print_intent": {
     "layer_height_mm": 0.2,
     "wall_loops": 300,

@@ -141,7 +141,7 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.486 | $37.19 <!--@printed--> |
 | Display cover plate | 1 | PET-GF | 0.012 | $0.31 <!--@printed--> |
 | Bulkhead ring — one per +Y-wall crossing | 5 | PET-GF (blue, white, red, black ×2) | 0.014 | $0.34 <!--@printed--> |
-| Tube collar — one per +Y-wall crossing | 5 | PET-GF (blue, white, red, black ×2) | 0.019 | $0.49 <!--@printed--> |
+| Tube collar — one per +Y-wall crossing | 5 | PET-GF (blue, white, red, black ×2) | 0.020 | $0.49 <!--@printed--> |
 | Collet press — install-kit customer tool | 1 | PET-GF | 0.017 | $0.44 <!--@printed--> |
 | Nameplate — one per unit, serialized | 1 | PET-GF (black + white) | 0.017 | $0.42 <!--@printed--> |
 | ASSE drip pan | 1 | PETG | 0.019 | $0.21 <!--@printed--> |
@@ -155,7 +155,7 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Funnel drain-elbow cradle | 1 | PET-GF | 0.012 | $0.30 <!--@printed--> |
 | **Printed parts total** | | | **~7.19** | **[$165.55](BOM_SEC7)** |
 
-By material: PETG ≈ 1.04 kg / $11.69 — of which the four translucent reservoir parts are ≈ 0.89 kg / $9.96 — and PET-GF ≈ 6.15 kg / $153.84.
+By material: PETG ≈ 1.04 kg / $11.69 — of which the four translucent reservoir parts are ≈ 0.89 kg / $9.96 — and PET-GF ≈ 6.15 kg / $153.85.
 
 These geometry-based estimates use the shared wall and sparse-infill recipes.
 They exclude the additional material in the enclosure's

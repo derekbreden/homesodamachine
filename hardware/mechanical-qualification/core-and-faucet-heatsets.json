@@ -31,7 +31,7 @@
     "hardware/printed-parts/electronics/module_tray.py": "ac2fcb4fe818aa240b3fcdaef2cf0c3c83417dd1897a17a5f1b2802f16d8312e",
     "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py": "a515c906320bc40f02b4f8037135596ed57dc823650156351628fa03d98af759",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "0999d5d2a4e54a546e5d1759ff24611ef988eeed74bbb94bbdbf5af470774356",
-    "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py": "a601e8765e0c82ee6c1282f6ba2970c9cf0b653eccc913c55f2ad54695315eff",
+    "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py": "e749a254cf0dcdb8b2751003ed9f3af51cb0dbb6ed498c2957557c0a1a7eb3b8",
     "hardware/printed-parts/faucet/_display_snap.py": "344e9919836622bd68d7d5b1b1a0c0c3c79d5d28ccebedec864718a0fac90683",
     "hardware/printed-parts/faucet/_faucet_interface.py": "c6b475227ac6f9815bd2ca0d93959c0125b21eafbd39516ab18e4fd22a6cbc2c",
     "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "bfac67e2fdf36b53bc93e872464b919a33caf4298edb5f6cb036d11d2bab6ea6",
@@ -42,13 +42,13 @@
     "hardware/reference/g-ganen-pump/installation/g_ganen_installation.py": "7c0c1fb6c5d91b6a2ff38b01a5e50d014be5c6e930f5c92de13970debab1997c",
     "hardware/reference/g-ganen-pump/integration-envelope/g_ganen_integration.py": "2ec9662bbc4cc10b1ac2fa1d756354c2b15aa4d6efeae184512f76fab85903c0",
     "hardware/reference/g-ganen-pump/integration-envelope/native_queries.py": "751efb3b7184c37cc85238c951cedccd60c06c1cb1926e9e9fdd7deaff2e4a11",
-    "hardware/scripts/_cadq_export.py": "f96535e6735a51886f23e43813ce20e89c44d56d6cc25e48b0fd3c50170823a6",
+    "hardware/scripts/_cadq_export.py": "ea4d494df422de3c17baac56b3e8d5f510635985fd72ee327ccaaffc2e1e611e",
     "hardware/scripts/_material_base.py": "c97c71569b75fc8279b7da52157ac3a2b24ccc63a6fbffef24ff85be3daddc04",
-    "hardware/scripts/_materials.py": "3e519ca9c034252b5f422c54fc9fcb7180f626b08d4f3c1faca74f83e3006058",
+    "hardware/scripts/_materials.py": "3d4104617dd515c6fe76f5c27953e57678eba79c6b6d62c7b16a99aef1818630",
     "hardware/scripts/_meshes.py": "9959f2378b89a28631b1c2895cf04d922dfbc142fdedaf11dceff397416e70db",
     "hardware/scripts/_overlap.py": "df36898148ab89f8a187c3d627376a86f673cf31ba0ee30cf03549d04f2c1f0f",
     "hardware/scripts/_realized.py": "698d8a7104f3aaa2b24c5cfc8a9b2842a4807d1bafd5ce2acb0104da4f147722",
-    "hardware/scripts/_routing.py": "7c58056295b6b3dd94caec51ea90dee7d318c1950052bb88162f5d689c097d06",
+    "hardware/scripts/_routing.py": "80ff9db49ad05b3c12cbf48f68bb4ca6af2ac9624919c27e89e0e0d0e068cf3e",
     "hardware/scripts/_run_lock.py": "2f6483e0829c0119a6d72b90504bcf6b62ee11f1ddbfdf5cd9e4ad4bc5dc0e8a",
     "hardware/scripts/_stated_bounds.py": "47b284a21eb19e7f39c61965290adfad16e1e3515a62fc27a5b9db809537f0de",
     "hardware/scripts/check_core_and_faucet_heatsets.py": "a5955b7ef5f67ca9609fd5c78ed6b0d9943737fcabf807bb2270d320d6d1828f",
@@ -58,7 +58,7 @@
     "foam-shell": {
       "valid": true,
       "solid_count": 1,
-      "volume_mm3": 1264096.1271160515
+      "volume_mm3": 1264096.1271182327
     },
     "foam-cap-top": {
       "valid": true,
@@ -68,17 +68,17 @@
     "reservoir-right": {
       "valid": true,
       "solid_count": 1,
-      "volume_mm3": 303777.3162198273
+      "volume_mm3": 303777.3162198635
     },
     "reservoir-left": {
       "valid": true,
       "solid_count": 1,
-      "volume_mm3": 303777.31623413507
+      "volume_mm3": 303777.31623416883
     },
     "faucet-shell-base": {
       "valid": true,
       "solid_count": 1,
-      "volume_mm3": 128498.33006219724
+      "volume_mm3": 128498.14358676283
     },
     "pcba-bench-tray": {
       "valid": true,

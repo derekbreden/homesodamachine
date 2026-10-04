@@ -182,7 +182,7 @@
   "status": "Native geometry checked separately; printed fit, finishing, release and casting remain physical checks.",
   "sha256": {
     "forming-mandrel.step": "ab5b623c8deb265fa5fb60debb1dcf491e03d3f32ff8207ed06d2e7bfdabf7aa",
-    "forming-mandrel.stl": "ee4044b3298e6518631698966409f2891ae80d5e4dfd994c7b261f99164c55ce",
+    "forming-mandrel.stl": "d7bbad6c5c72c29b656747f3f1502438cf94906ba6cfd86e35a20071d0d52f0f",
     "forming-mandrel-finished.step": "479ac47f94ec4e05860063a5f8b202f05eb0abebe2c527e78a6091a5364efb1a"
   },
   "mesh": {
