@@ -1,8 +1,8 @@
 {
   "article": "Timed Mark2 cartridge and cap RC62 insertion trial",
-  "state": "scheduled_authorized",
-  "submitted": false,
-  "send_attempted": false,
+  "state": "accepted",
+  "submitted": true,
+  "send_attempted": true,
   "auto_advance": false,
   "authorization_quote": "Mark2 is loaded with PET-GF in the left 0.4 hotend and textured PEI bed is clear. I'd like you to aim for 12:15 pm CST for the magnet pause. If things don't go well starting and you think it will go past 12:50 pm CST then please give up instead of starting it that late.",
   "clock_clarification_quote": "Sorry, I meant \"central time\" and forgot there is that whole CST / CDT acronym difference",
@@ -197,5 +197,14 @@
   "insertion_action": "Insert one labeled attracting RC62 upright in the lower cartridge cradle, completely below both open rims; keep tube passages and toolhead clear. Resume only on a separate request.",
   "automation_id": "timed-cartridge-magnet-trial",
   "preflight_completed_at": "2026-10-04T08:10:51.010447+00:00",
-  "automation_status": "ACTIVE"
+  "automation_status": "ACTIVE",
+  "sent_at": "2026-10-04T10:40:03.841006+00:00",
+  "task_id": "1307633211",
+  "accepted_at": "2026-10-04T10:40:23.619545+00:00",
+  "estimated_pause_at": "2026-10-04T17:15:10.768151+00:00",
+  "estimated_pause_local": "2026-10-04T12:15:10.768151-05:00",
+  "accepted_local": "2026-10-04T05:40:23.619545-05:00",
+  "start_reported": true,
+  "start_reported_at": "2026-10-04T10:47:14.850312+00:00",
+  "monitor_stage": "accepted_mark2_insertion_pause"
 }
