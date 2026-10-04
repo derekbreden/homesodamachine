@@ -38,3 +38,5 @@ The first send, at 06:05Z, came while the right nozzle was still at 232 °C from
 loading the red spool. Mark2 refused it with `ERROR STATE` 0502400D, "filament
 loading/unloading not completed" ([rejected send](rejected-send.json)). The same
 archive sent after the load cycle ended was accepted ([launch](launch.json)).
+Mark2 reported `FINISH` at 07:02:24Z, all 11 layers, no print error or HMS
+([postlaunch](postlaunch.json)).
