@@ -152,6 +152,8 @@ async function unpackProposals(b64) {
 function adopt(saved) {
   const restored=saved?.modelContent||saved||{};
   for (const key of Object.keys(defaults)) {
+    // Snapshots without drawer motion use the front drawer defaults.
+    if(typeof restored.withdrawal!=='number'&&['variant','view','water'].includes(key))continue;
     if (typeof restored[key]!==typeof defaults[key]) continue;
     if (typeof defaults[key]==='boolean') state[key]=restored[key];
     else if(key==='withdrawal')state[key]=Math.max(0,Math.min(500,restored[key]));
