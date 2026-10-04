@@ -1,6 +1,6 @@
 {
   "article": "Centered RC62 retention pair: lower cartridge cradle and front-top",
-  "state": "mark2_accepted_h2c_prepared",
+  "state": "mark2_running_h2c_prepared",
   "submitted": true,
   "auto_advance": false,
   "start_condition": "A new explicit print start request; it confirms the requested printer bed is clear.",
@@ -169,7 +169,7 @@
       "bed_type": "Textured PEI",
       "requested_z_trim_mm": 0.04,
       "emitted_textured_pei_z_trim_mm": 0.02,
-      "state": "accepted",
+      "state": "running",
       "send_authorized": false,
       "task_id": "1307633211",
       "accepted_at": "2026-10-04T10:40:23.619545+00:00",
@@ -201,39 +201,41 @@
       "insertion_pause_reported": false,
       "latest_status": {
         "printer": "Mark2",
-        "observed_at": "2026-10-04T10:46:16.628816+00:00",
+        "observed_at": "2026-10-04T10:54:47.244504+00:00",
         "task_id": "1307633211",
         "job_id": "1307633211",
         "subtask_name": "enclosure-pump-cartridge-cap-rc62-mark2-v4.gcode.3mf",
         "gcode_file": "/data/Metadata/plate_1.gcode",
         "print_type": "cloud",
         "gcode_state": "RUNNING",
-        "layer_num": 0,
+        "layer_num": 1,
         "total_layer_num": 1088,
         "mc_percent": 0,
-        "mc_remaining_time": 910,
+        "mc_remaining_time": 902,
         "print_error": 0,
         "hms": [],
-        "stg_cur": 14,
+        "stg_cur": 0,
         "extruders": {
           "0": {
-            "actual_c": 36,
+            "actual_c": 46,
             "target_c": 0
           },
           "1": {
-            "actual_c": 261,
-            "target_c": 225
+            "actual_c": 265,
+            "target_c": 265
           }
         },
-        "bed_actual_c": 51.0,
+        "bed_actual_c": 80.0,
         "bed_target_c": 80.0,
         "chamber": {
-          "actual_c": 27,
+          "actual_c": 34,
           "target_c": 0
         }
       },
       "monitor_active": true,
-      "automatic_resume": false
+      "automatic_resume": false,
+      "first_layer_printer_progress": true,
+      "first_layer_observed_at": "2026-10-04T10:54:47.244504+00:00"
     },
     {
       "part": "front-top",
