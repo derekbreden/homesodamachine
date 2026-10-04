@@ -6,7 +6,7 @@ A home soda machine — a kitchen appliance that dispenses flavored carbonated w
 
 The prototype under the counter dispenses from a Lillium-class external carbonator. The integrated soda machine under development consolidates the carbonator into the same enclosure.
 
-See `future/README.md` for where this is going and what done looks like, and `hardware/README.md` for the machine as it stands, subsystem by subsystem.
+See `future/README.md` for where this is going and what done looks like, `hardware/README.md` for the machine as it stands, subsystem by subsystem, and `hardware/concerns.md` for every concern raised about it, answered or open.
 
 ## Why This Exists
 
