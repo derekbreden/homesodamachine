@@ -14,10 +14,10 @@ The float contribution is a separate provisional slice allowance.
     faucet batch, whose duration is read directly from its committed slice. THE KG IS
     FILAMENT, not geometry — §7 bills what a slice of the part lays, shell and
     infill (_bom_masses.PROFILES), and the rates below are measured against that
-    same figure. Six groups use §7's print configurations;
+    same figure. Eight groups use §7's print configurations;
     _bom_masses.GROUP_OF assigns every row by name and is imported rather than
     restated, so one list says what plate a part comes off. --check fails on an
-    unassigned row. The seventh group is the three ASA Aero floats: quantity
+    unassigned row. The ninth group is the three ASA Aero floats: quantity
     comes from the float's BOM row; object-feed mass and time come from its v1
     native slice. The v2 geometry and manual insertion pause remain unmeasured.
   * The §2/§3/§4 process tables are read, not computed — those are datasheet and
@@ -88,10 +88,10 @@ _CAP_PETGF, _RHO_PETGF = 18.0, 1.43      # enclosure/print-log.md, bom.md §7
 PETGF_CARRY = (_CAP_PETG * _RHO_PETG) / (_CAP_PETGF * _RHO_PETGF)
 
 # Hours per kg of filament, by print configuration. `ext` is measured; `bulk` is that
-# measurement carried across the stock; three are the MEASURED PLATE's own
+# measurement carried across the stock; four are the MEASURED PLATE's own
 # rate scaled for a slower configuration, which is a scaling of the setup and not of
 # the stock — so they hang off `_BULK_PETG` rather than off the carried figure. All
-# four are labelled est. in the ledger. Faucet and float read native slice durations.
+# five are labelled est. in the ledger. Faucet and float read native slice durations.
 # See machine-time.md "Open items".
 _BULK_PETG = round(MEASURED[2] / MEASURED[1], 1)
 RATES = {
@@ -101,13 +101,14 @@ RATES = {
     "tight": round(_BULK_PETG * 2.0),  # 3 mm watertight walls, Arachne, fine nozzle: ~½ the rate
     "small": round(_BULK_PETG * 2.8),  # travel + layer-change overhead dominates a small part
     "tool":  round(_BULK_PETG * 2.8),  # small supportless 0.4-nozzle part, six walls + dense core
+    "rings": round(_BULK_PETG * 2.8),  # ten small two-colour PET-GF parts on two 0.4 nozzles
     "petgf": None,  # Exact batch duration from the committed production-profile slice.
     "aero": None,   # Native v1 estimate per float, excluding the manual pause.
 }
 
 GROUP_MARKER = {"cover": "FUNNEL_COVER", "bulk": "BULK", "ext": "EXT", "tight": "TIGHT",
                 "small": "SMALL", "tool": "TOOL", "petgf": "PETGF",
-                "aero": "AERO"}
+                "rings": "RINGS", "aero": "AERO"}
 
 
 # The turnaround table's one computed cell. Named here because two readers want it:

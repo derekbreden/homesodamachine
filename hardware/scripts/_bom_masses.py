@@ -58,8 +58,8 @@ MATERIALS = {
 }
 
 # WHAT A PRINT LAYS, by print configuration — (shell per face mm, line width mm,
-# sparse infill fraction). Six configurations, one per plate the build actually
-# runs, each read off a committed slice named beside it. The same six
+# sparse infill fraction). Eight configurations, one per plate the build actually
+# runs, each read off a committed slice named beside it. The same eight
 # `_machine_time.py` prices in hours, off the GROUP_OF list below.
 #
 #     wall = 2V/A                        the mean wall the solid presents
@@ -108,6 +108,10 @@ PROFILES = {
     # dense core. Until its first committed slice, bill the specified core as
     # solid; on this thin tool the result is its geometry.
     "tool":  (2.70, 0.45, 1.00),
+    # The bulkhead rings and their tube collars, two PET-GF spools to a plate: the
+    # nameplate's saved profile, `nameplate/nameplate-001-petgf.3mf` — 0.4 nozzles,
+    # 0.24 layer, two wall loops at outer 0.42 + inner 0.45 mm, 15 % grid.
+    "rings": (0.87, 0.45, 0.15),
 }
 
 #: What gap fill lays in a wall too thin to tile with whole beads, as a fraction of
@@ -235,8 +239,8 @@ GROUP_OF = [
     ("Carbonator reed bridge",      "small"),
     ("ASSE drip pan",               "small"),
     ("Fuse clamp",                  "small"),
-    ("Bulkhead ring",               "small"),
-    ("Tube collar",                 "small"),
+    ("Bulkhead ring",               "rings"),
+    ("Tube collar",                 "rings"),
     ("Collet press",                "tool"),
     ("Nameplate",                   "petgf"),
     ("Funnel frame",                "ext"),
