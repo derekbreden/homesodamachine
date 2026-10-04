@@ -1,6 +1,7 @@
 import {
   dollars, recoveryPlan, recoveryRange, recoverySummary, salesBalance, renderRecoveryChart,
 } from "./cost-recovery.js";
+import "./batch-forecast.js";
 
 const section = document.querySelector("#recovery[data-unit-cost]");
 if (section) {

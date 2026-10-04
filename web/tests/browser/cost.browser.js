@@ -71,10 +71,84 @@ test("price, chart and cost disclosures work without JavaScript and fit phone wi
       await page.click("main > details.cost-cat summary");
       assert.equal(await page.$eval("main > details.cost-cat", el => el.open), true);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `parts at ${width}px`);
-      await page.click(".forecast-supplier summary");
+      assert.equal(await page.$eval(".forecast-controls", el => el.hidden), true);
+      assert.equal(await page.$eval('.forecast-plan[data-units="10"]', el => el.open), true);
+      await page.click('.forecast-plan[data-units="20"] > summary');
+      assert.equal(await page.$eval('.forecast-plan[data-units="20"]', el => el.open), true);
       assert.equal(await page.$eval(".forecast-supplier", el => el.open), true);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `supplier quantities at ${width}px`);
       assert.match(await page.$eval(".forecast-supplier", el => el.textContent), /11[0]? pieces|110/);
+      await page.click('.forecast-plan[data-units="10"] .forecast-part > summary');
+      assert.equal(await page.$eval('.forecast-plan[data-units="10"] .forecast-part', el => el.open), true);
+      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `stock details at ${width}px`);
     }
+  } finally { await page.close(); }
+});
+
+test("batch purchases rank by cost, filter Prime, regroup categories and preserve stock credits", async () => {
+  const page = await browser.newPage();
+  const errors = [];
+  page.on("pageerror", error => errors.push(error.message));
+  const hardware = fileURLToPath(new URL("../../../hardware", import.meta.url));
+  const forecast = readBatchForecast(hardware, readLaborRollup(hardware));
+  const dollars = cents => "$" + (cents / 100).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const active = '.forecast-plan:not([hidden])';
+  const current = active + ' .forecast-groups:not([hidden])';
+  try {
+    for (const width of [320, 390, 1440]) {
+      await page.setViewport({ width, height: 950, deviceScaleFactor: 1 });
+      await page.goto(baseUrl + "/cost", { waitUntil: "networkidle0" });
+      assert.equal(await page.$eval(".forecast-controls", el => el.hidden), false);
+      assert.equal(await page.$eval(active, el => el.dataset.units), "10");
+      const prime = current + ' [data-group-id="amazon"]';
+      assert.equal(await page.$eval(prime, el => el.open), true);
+      const firstRows = await page.$$eval(prime + " .forecast-part:not([hidden])", rows => rows.map(row => ({ id: row.dataset.partId, cents: Number(row.dataset.cents) })));
+      const expected = forecast.batches[0].rows.filter(row => row.supplier === "amazon" && row.quantity).sort((a, b) => b.costCents - a.costCents);
+      assert.equal(firstRows[0].id, "petgf-black");
+      assert.equal(firstRows.length, expected.length);
+      assert.deepEqual(firstRows.map(row => row.cents), expected.map(row => row.costCents));
+      assert.match(await page.$eval(prime + " .forecast-part-qty", el => el.textContent), /19 × 3 kg spool/);
+      const scroll = await page.$eval(prime + " .forecast-item-scroll", el => ({ height: el.clientHeight, content: el.scrollHeight }));
+      assert.ok(scroll.content > scroll.height, "Prime list scrolls within its panel");
+      assert.ok(scroll.height <= 420, "list fits in a compact panel");
+      await page.focus(prime + " .forecast-item-scroll");
+      await page.keyboard.press("End");
+      await page.waitForFunction(selector => document.querySelector(selector).scrollTop > 0, {}, prime + " .forecast-item-scroll");
+
+      await page.select("#forecast-supplier", "amazon");
+      assert.ok((await page.$eval(".forecast-result", el => el.textContent)).includes(dollars(expected.reduce((sum, row) => sum + row.costCents, 0))));
+      await page.select("#forecast-group", "category");
+      const sums = await page.$$eval(current + " .forecast-group:not([hidden])", groups => groups.map(group => Number(group.dataset.cents)));
+      assert.deepEqual(sums, [...sums].sort((a, b) => b - a));
+      assert.equal(sums.reduce((sum, cents) => sum + cents, 0), 810300);
+      assert.equal(await page.$$eval(current + " .forecast-part:not([hidden])", rows => new Set(rows.map(row => row.dataset.supplier)).size), 1);
+      assert.equal(await page.$$eval(current + " .forecast-part:not([hidden])", rows => new Set(rows.map(row => row.dataset.partId)).size), expected.length);
+
+      await page.focus('input[name="forecast-units"][value="10"]');
+      await page.keyboard.press("ArrowRight");
+      assert.equal(await page.$eval(active, el => el.dataset.units), "20");
+      assert.match(await page.$eval(".forecast-result", el => el.textContent), /\$18,065.11/);
+      assert.equal(await page.$eval('[data-card-units="20"]', el => el.dataset.selected), "true");
+      await page.select("#forecast-group", "supplier");
+      await page.select("#forecast-supplier", "all");
+      assert.ok((await page.$eval(".forecast-result", el => el.textContent)).includes(dollars(forecast.batches[1].partsCents)));
+      await page.click("#forecast-show-stock");
+      assert.equal(await page.$$eval(current + " .forecast-part:not([hidden])", rows => rows.length), forecast.batches[1].rows.length);
+      assert.ok((await page.$eval(".forecast-result", el => el.textContent)).includes(dollars(forecast.batches[1].partsCents)), "stock credits do not alter the cash total");
+
+      await page.select("#forecast-supplier", "jlc");
+      await page.focus('input[name="forecast-units"][value="20"]');
+      await page.keyboard.press("ArrowLeft");
+      assert.match(await page.$eval(".forecast-result", el => el.textContent), /\$0.00.*1 stock credit/);
+      const board = current + " .forecast-part:not([hidden])";
+      assert.equal(await page.$eval(board, el => el.dataset.purchase), "false");
+      await page.click(board + " > summary");
+      assert.match(await page.$eval(board, el => el.textContent), /Batch need.*10 pieces.*On hand.*10 pieces/s);
+      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `purchase and stock details at ${width}px`);
+      await page.click("#forecast-show-stock");
+      assert.match(await page.$eval(current, el => el.textContent), /No new purchases for this supplier/);
+      assert.equal(await page.$$eval(current + " .forecast-group:not([hidden])", groups => groups.length), 0);
+    }
+    assert.deepEqual(errors, []);
   } finally { await page.close(); }
 });
