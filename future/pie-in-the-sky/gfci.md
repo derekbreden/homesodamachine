@@ -2,7 +2,7 @@
 
 *Pie-in-the-sky, not roadmap. Captured 2026-06-22.*
 
-An in-appliance Class A GFCI, so the machine carries its own ground-fault protection on its AC side and that protection travels with the unit to whatever receptacle it plugs into. A plumbed Class I appliance — water, four bonded exposed-metal surfaces, a 120 VAC cord — is exactly the case this protection exists for.
+An in-appliance Class A GFCI, so the machine carries its own ground-fault protection on its AC side and that protection travels with the unit to whatever receptacle it plugs into. A plumbed Class I appliance — water, three bonded exposed-metal surfaces, a 120 VAC cord — is exactly the case this protection exists for.
 
 ## The desire
 

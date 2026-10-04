@@ -14,7 +14,7 @@ Out:
 
 - All three MCUs — the main board's ESP32-WROOM, the 4.3" enclosure display, the 1.47" faucet display — flashed with the current firmware on `main`.
 - First DC power-on under PSU control succeeds with no smoke, no breaker trip, no thermal-fuse open.
-- Sensor health passes: both 1-wire probes addressed on the bus — one DS18B20 (carbonator, family 0x28) + one DS18S20 (coil, family 0x10) — and reporting within [±2 °C](AMBIENT_TOL) of room ambient; all [10](REEDS_TOTAL) reed switches ([2](REEDS_CARB) carbonator + [4](REEDS_PER_RSVR) per flavor reservoir × [2](RSVR_COUNT) reservoirs) settled to their no-magnet "empty" baseline; the DIGITEN flow meter ticks pulses when its impeller is rotated by hand; the MQ-6 hydrocarbon sensor in the refrigeration bay's -X wall slot has reached operating temperature and reads its clean-air baseline; the ASSE drip pan's moisture sensor reads dry.
+- Sensor health passes: both 1-wire probes addressed on the bus — one DS18B20 (carbonator, family 0x28) + one DS18S20 (coil, family 0x10) — and reporting within [±2 °C](AMBIENT_TOL) of room ambient; all [10](REEDS_TOTAL) reed switches ([2](REEDS_CARB) carbonator + [4](REEDS_PER_RSVR) per flavor reservoir × [2](RSVR_COUNT) reservoirs) settled to their no-magnet "empty" baseline; the DIGITEN flow meter ticks pulses when its impeller is rotated by hand; the MQ-6 hydrocarbon sensor in the floor strip down the refrigeration bay's −X wall has reached operating temperature and reads its clean-air baseline; the ASSE drip pan's moisture sensor reads dry.
 - Both MCP23017 GPIO expanders ACK on the I²C bus at [0x20](MCP_VALVES) and [0x21](MCP_RESERVOIRS), with the DS3231 RTC at [0x68](RTC_ADDR) also responsive.
 - Valve self-test pass: each of the [11](VALVE_COUNT) Beduan solenoids clicks once with audible / visual confirmation, and both Kamoer peristaltic pumps spin briefly under DRV8870 drive.
 - Relay #1 verified switching the compressor's AC leg under a deliberate firmware override: the suction-line probe (the DS18S20, family 0x10) reads a few degrees lower within a couple of minutes of the override starting (running dry, no water in the carbonator), confirming the relay is making AND that the DS18S20 is physically mounted on the suction line (its identity among the two probes is already fixed by family code, not by this test).
@@ -75,11 +75,11 @@ pio run -e appliance -t upload
 
 Per [`/platformio.ini`](/platformio.ini). Expected outcome: build succeeds, upload reaches 100 %, ESP32 resets, the serial monitor at 115200 baud shows the firmware boot banner with the `fw_version.h` build ID.
 
-`src_appliance/` boots to that banner, parks every actuator dark and turns one flavor pump — the rest of this procedure is written against firmware that fills it in, and that is the Open item below.
+`src_appliance/` boots to that banner with every actuator parked. What it runs is in its [README](/firmware/src_appliance/README.md) "What runs today"; what has not yet answered on real hardware is the Open item below.
 
 ### 4. Flash the ESP32-S3 enclosure display
 
-Plug the USB-C cable into the ESP32-S3-Touch-LCD-4.3B (the enclosure display, let into the 45° facet chamfered across `enclosure-front-top`'s top-front arris per [`/hardware/printed-parts/enclosure/enclosure/README.md`](/hardware/printed-parts/enclosure/enclosure/README.md); its SIG-7 RS485 link to the main board's J9 lands at [`wiring.md`](/hardware/assembly/wiring.md)). It enumerates as a native USB-CDC device — the build flag `ARDUINO_USB_CDC_ON_BOOT=1` in `[env:esp32s3_front]` brings the CDC port up immediately on boot.
+Plug the USB-C cable into the ESP32-S3-Touch-LCD-4.3B (the enclosure display, let into the sloped plane of `enclosure-front-top`'s rounded top-front arris per [`/hardware/printed-parts/enclosure/enclosure/README.md`](/hardware/printed-parts/enclosure/enclosure/README.md); its SIG-7 RS485 link to the main board's J9 lands at [`wiring.md`](/hardware/assembly/wiring.md)). It enumerates as a native USB-CDC device — the build flag `ARDUINO_USB_CDC_ON_BOOT=1` in `[env:esp32s3_front]` brings the CDC port up immediately on boot.
 
 ```
 pio run -e esp32s3_front -t upload

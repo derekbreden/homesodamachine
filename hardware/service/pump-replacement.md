@@ -201,20 +201,13 @@ flex links for seepage, rubbing or a link pulled taut.
 
 ## Open items
 
-1. **Nothing sequences these four states.** Each is canonical on its own — they are the two
-   `Air Purge In` and two `Air Purge Through` rows of
-   [`fluid-topology.md`](/hardware/topology/fluid-topology.md) "Operations — Valve States" — but
-   the cycle that runs them in order is named only here. `firmware/src_appliance` carries no
-   purge and no dry mode: what it has is a per-channel PRIME (`machinePrimeBegin`,
-   `machineIsPriming`, `HOLD_PRIME`), and priming FILLS where this EMPTIES. Step 1 of this
-   procedure cannot be performed until something sequences them.
-2. **Dry-run wear on a KPHM600's BPT tube is not characterised.** Every one of the four states
+1. **Dry-run wear on a KPHM600's BPT tube is not characterised.** Every one of the four states
    turns a rotor on air.
-3. **A customer-facing transit mode is not written.** This procedure leaves the carbonator charged.
+2. **A customer-facing transit mode is not written.** This procedure leaves the carbonator charged.
    The carbonator's only liquid outlet climbs to the faucet, and the factory's transit sequence is
    [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) step 13.
-4. **Bowed-stub stock lengths.** The four tee-to-valve links have 16 mm exposed paths across
-   sleeve faces 14 mm apart in height and 1.75 mm apart fore/aft at squeeze. Their stock blanks also include both fittings' insertion depths;
+3. **Bowed-stub stock lengths.** The four tee-to-valve links' exposed paths and sleeve-face gaps are
+   in [`fluid-topology.md`](/hardware/topology/fluid-topology.md). Their stock blanks also include both fittings' insertion depths;
    the valve-side depth is not recorded. Factory assembly fits and records these lengths in
    [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3 step 3.
 
