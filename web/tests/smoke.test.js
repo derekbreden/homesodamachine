@@ -99,6 +99,7 @@ const routes = [
   { path: "/landing.js",          expect: 200, ct: "text/javascript" },
   { path: "/cost.js",             expect: 200, ct: "text/javascript" },
   { path: "/cost-recovery.js",    expect: 200, ct: "text/javascript" },
+  { path: "/batch-forecast.js",   expect: 200, ct: "text/javascript" },
   { path: "/settings.js",         expect: 200, ct: "text/javascript" },
   { path: "/pan-zoom.js",         expect: 200, ct: "text/javascript" },
   { path: "/js/weld-position/main.js", expect: 200, ct: "text/javascript" },

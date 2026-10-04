@@ -16,6 +16,7 @@ import path from "path";
 import fs from "fs";
 import { renderHead, renderNav, renderFooter } from "./shell.js";
 import { readBatchForecast, renderBatchForecast, BATCH_FORECAST_CSS } from "./batch-forecast.js";
+import { categoryName } from "./cost-categories.js";
 import {
   SALE_PRICE, SALES_HORIZON, dollars, recoveryPlan, recoveryRange,
   recoverySummary, salesBalance, renderRecoveryChart,
@@ -35,35 +36,6 @@ function plainMarkdown(text) {
     .trim();
 }
 
-// Display names mirror hardware/scripts/_bom_categories.py CATEGORIES, the
-// source of truth for the taxonomy. An unknown tag falls back to a prettified
-// form, so a category added there still renders (just without a hand-tuned
-// label) until it's mirrored here.
-const CATEGORY_NAMES = {
-  sensors: "Sensors",
-  wiring: "Wires & wire connectors",
-  plumbing: "Tubes, connectors, adapters & safety",
-  "solenoid-valves": "Solenoid valves",
-  pumps: "Pumps",
-  electronics: "Electronics",
-  printed: "FDM printed parts",
-  "cut-parts": "SendCutSend cut parts",
-  pipes: "Pipes",
-  refrigeration: "Refrigeration",
-  "water-filter": "Water filter",
-  insulation: "Insulation & foam",
-  faucet: "Faucet",
-  fasteners: "Fasteners",
-  consumables: "Fab consumables",
-  "funnel-casting": "Funnel casting",
-  "ac-mains": "AC-mains hardware",
-  carbonation: "Carbonation (sparge stone)",
-  "cable-mgmt": "Cable management",
-  "vent-filter": "Vent filter",
-  welding: "Welding filler",
-  "cold-kit": "Cold kit",
-};
-
 const TAG_RE = /<!--@([a-z][a-z-]*)-->/;
 const MONEY_RE = /\$\s?([0-9][0-9,]*(?:\.[0-9]{1,2})?)/;
 
@@ -73,10 +45,6 @@ function escape(s) {
 
 function money(n) {
   return "$" + n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-}
-
-function prettifyTag(tag) {
-  return tag.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
 // Drop the purchase pack size from a display name — both the parenthetical form
@@ -147,7 +115,7 @@ export function readCostRollup(hardwareDir) {
     rowCount += 1;
 
     if (!byTag.has(tag)) {
-      byTag.set(tag, { tag, name: CATEGORY_NAMES[tag] || prettifyTag(tag), sum: 0, parts: new Map() });
+      byTag.set(tag, { tag, name: categoryName(tag), sum: 0, parts: new Map() });
     }
     const b = byTag.get(tag);
     b.sum += cost;
