@@ -1,0 +1,1082 @@
+{
+  "scope": "36 cold-core, 3 faucet-base and 4 unshipped board-tray insert pockets; enclosure audited separately",
+  "method": "Native CAD Boolean witnesses over each full blind pocket: open pilot, complete radial wall, closed end",
+  "supplier": "https://www.igo3d.com/mediafiles/Sonstiges/Ruthex/ruthex_Datenblatt_RX-Serie.pdf",
+  "minimum_blind_relief_mm": 1.0,
+  "cad_boundary_reserve_mm": 0.001,
+  "volume_tolerance_mm3": 1e-05,
+  "cadquery_version": "2.7.0",
+  "physical_strength_or_drop_acceptance": false,
+  "source_sha256": {
+    "hardware/printed-parts/cadlib/fits.py": "3821989044c5bc3ae99cc6912538b8a34bd75a6b0a081aefc8e4c5a0ce714191",
+    "hardware/printed-parts/cadlib/flute_skin.py": "34b4a2e1a301be1947869f3e17e2f658757623b7cfbeaf658c7c5e68f42c3f56",
+    "hardware/printed-parts/cadlib/reeding.py": "726c6341a30eb87d4a7ddd90222599bc9bf682dac118c0571f1903b8a45c98bb",
+    "hardware/printed-parts/cadlib/world_workplane.py": "6fc15b2371091f653390c5ebb7390d2eb3b94b21f4194f07a188ef562dcd4226",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "97ea4bc285ee8e3e08c4d1999877a17db1b6198ce81ecdd8a1dce9a8d08b76ee",
+    "hardware/printed-parts/cold-core/_float_interface.py": "d2fc9c9029101bf471e06f81f9b1acbc4c6c841ba629e561fd9a33833319a72a",
+    "hardware/printed-parts/cold-core/_foam_cap.py": "8234fa4a41dcc6097906636bb8482fb344af5137ce0fcea420d723e5435f8d43",
+    "hardware/printed-parts/cold-core/_foam_shell.py": "ebec8ddaed127e39cecd25f0dccc12dbe063e6bcd484d9619391a589fe96bdbf",
+    "hardware/printed-parts/cold-core/_internal_routes.py": "7654dfe51d3eebe16de1b3c12ba3c1140665613d4ff3b27d6d32f4568981af12",
+    "hardware/printed-parts/cold-core/_outer_shell.py": "902e234ce80ccc395532e5f7910a4d3c068c1fb0ddfe1c913a1357e97a33399c",
+    "hardware/printed-parts/cold-core/_port_cuts.py": "c05e1281fcfc6cff70374ea70464e24dbd9d61415f386bd772f673b3c29a5cf6",
+    "hardware/printed-parts/cold-core/_reed_channels.py": "9248a47c7eaac98e914697caabc9720b00a3cf4c643d5c2c63ff29bfe10a0e62",
+    "hardware/printed-parts/cold-core/_reservoir_pocket_walls.py": "a44c15132bba8d4816f89160b11e92124f07915489b31ed5e61ec8e3e2d65a90",
+    "hardware/printed-parts/cold-core/_reservoir_supports.py": "801c3d811848789530d209c113d2cfd6cd10de1cfa3a826fcb2baac8ce504520",
+    "hardware/printed-parts/cold-core/_show_skin.py": "788a9ffc756cb1d08d09b2a3cc09d13f37859361435f9a94ea5f3509d02576bd",
+    "hardware/printed-parts/cold-core/_support_ring.py": "4d382e80be2cd6ee4b88a9c77171d97f56b251e8747ed1ffbffdc14712b9ee64",
+    "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py": "a89cffe69231aa3410cad08a25e036486ee49095016efba334168092870af194",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "5b798d101e40be396d1f571f6570307c3f8f60ef93b2a7fe5e5e827af21cb1da",
+    "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py": "9e17b7d63b3dc976c4e22493fb9933994f67774bce19eb7854ad1903d2613b22",
+    "hardware/printed-parts/cold-core/reservoir/reservoir.py": "c6f4a41eaf04de83b338957b02e99c045ba1efd2b314e46754f3f87792d14394",
+    "hardware/printed-parts/electronics/module_tray.py": "ac2fcb4fe818aa240b3fcdaef2cf0c3c83417dd1897a17a5f1b2802f16d8312e",
+    "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py": "a515c906320bc40f02b4f8037135596ed57dc823650156351628fa03d98af759",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "0999d5d2a4e54a546e5d1759ff24611ef988eeed74bbb94bbdbf5af470774356",
+    "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py": "a601e8765e0c82ee6c1282f6ba2970c9cf0b653eccc913c55f2ad54695315eff",
+    "hardware/printed-parts/faucet/_display_snap.py": "344e9919836622bd68d7d5b1b1a0c0c3c79d5d28ccebedec864718a0fac90683",
+    "hardware/printed-parts/faucet/_faucet_interface.py": "c6b475227ac6f9815bd2ca0d93959c0125b21eafbd39516ab18e4fd22a6cbc2c",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "bfac67e2fdf36b53bc93e872464b919a33caf4298edb5f6cb036d11d2bab6ea6",
+    "hardware/printed-parts/valve-seat/valve_seat.py": "fd058e64f8e0b8c843007d255d58a450ca2e17e799c183ebb89098c96f52efc1",
+    "hardware/reference/beduan-solenoid/beduan_solenoid.py": "640acf974256bbfff88546cbef5672b870a2ceb21d34c128487bf1aa286ab498",
+    "hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py": "ca6ff8cd43074132835169682cd05876b6cdcf120540da4cfc056a572685bb43",
+    "hardware/reference/g-ganen-pump/g_ganen_pump.py": "5a071188f84296c38c84e7d6eebfa961d8ba0917070ca0b5cddcdce841dc68fd",
+    "hardware/reference/g-ganen-pump/installation/g_ganen_installation.py": "7c0c1fb6c5d91b6a2ff38b01a5e50d014be5c6e930f5c92de13970debab1997c",
+    "hardware/reference/g-ganen-pump/integration-envelope/g_ganen_integration.py": "2ec9662bbc4cc10b1ac2fa1d756354c2b15aa4d6efeae184512f76fab85903c0",
+    "hardware/reference/g-ganen-pump/integration-envelope/native_queries.py": "751efb3b7184c37cc85238c951cedccd60c06c1cb1926e9e9fdd7deaff2e4a11",
+    "hardware/scripts/_cadq_export.py": "f96535e6735a51886f23e43813ce20e89c44d56d6cc25e48b0fd3c50170823a6",
+    "hardware/scripts/_material_base.py": "c97c71569b75fc8279b7da52157ac3a2b24ccc63a6fbffef24ff85be3daddc04",
+    "hardware/scripts/_materials.py": "3e519ca9c034252b5f422c54fc9fcb7180f626b08d4f3c1faca74f83e3006058",
+    "hardware/scripts/_meshes.py": "9959f2378b89a28631b1c2895cf04d922dfbc142fdedaf11dceff397416e70db",
+    "hardware/scripts/_overlap.py": "df36898148ab89f8a187c3d627376a86f673cf31ba0ee30cf03549d04f2c1f0f",
+    "hardware/scripts/_realized.py": "698d8a7104f3aaa2b24c5cfc8a9b2842a4807d1bafd5ce2acb0104da4f147722",
+    "hardware/scripts/_routing.py": "7c58056295b6b3dd94caec51ea90dee7d318c1950052bb88162f5d689c097d06",
+    "hardware/scripts/_run_lock.py": "2f6483e0829c0119a6d72b90504bcf6b62ee11f1ddbfdf5cd9e4ad4bc5dc0e8a",
+    "hardware/scripts/_stated_bounds.py": "47b284a21eb19e7f39c61965290adfad16e1e3515a62fc27a5b9db809537f0de",
+    "hardware/scripts/check_core_and_faucet_heatsets.py": "a5955b7ef5f67ca9609fd5c78ed6b0d9943737fcabf807bb2270d320d6d1828f",
+    "tools/docgen/__init__.py": "1d7766d594df9a0791c4144af96954a7058414bda2d099203b5d1240688f50fb"
+  },
+  "solids": {
+    "foam-shell": {
+      "valid": true,
+      "solid_count": 1,
+      "volume_mm3": 1264096.1271160515
+    },
+    "foam-cap-top": {
+      "valid": true,
+      "solid_count": 1,
+      "volume_mm3": 148247.8609612742
+    },
+    "reservoir-right": {
+      "valid": true,
+      "solid_count": 1,
+      "volume_mm3": 303777.3162198273
+    },
+    "reservoir-left": {
+      "valid": true,
+      "solid_count": 1,
+      "volume_mm3": 303777.31623413507
+    },
+    "faucet-shell-base": {
+      "valid": true,
+      "solid_count": 1,
+      "volume_mm3": 128498.33006219724
+    },
+    "pcba-bench-tray": {
+      "valid": true,
+      "solid_count": 1,
+      "volume_mm3": 19349.573403523278
+    }
+  },
+  "pockets": [
+    {
+      "mount": "core lower cap 1",
+      "family": "RX-M3x5.7",
+      "mouth_mm": [
+        131.5,
+        86.5,
+        0.0
+      ],
+      "inward_axis": [
+        0,
+        0,
+        1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 5.7,
+      "blind_depth_mm": 8.25,
+      "blind_relief_mm": 2.55,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "core lower cap 2",
+      "family": "RX-M3x5.7",
+      "mouth_mm": [
+        131.5,
+        -86.5,
+        0.0
+      ],
+      "inward_axis": [
+        0,
+        0,
+        1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 5.7,
+      "blind_depth_mm": 8.25,
+      "blind_relief_mm": 2.55,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "core lower cap 3",
+      "family": "RX-M3x5.7",
+      "mouth_mm": [
+        -131.5,
+        86.5,
+        0.0
+      ],
+      "inward_axis": [
+        0,
+        0,
+        1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 5.7,
+      "blind_depth_mm": 8.25,
+      "blind_relief_mm": 2.55,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "core lower cap 4",
+      "family": "RX-M3x5.7",
+      "mouth_mm": [
+        -131.5,
+        -86.5,
+        0.0
+      ],
+      "inward_axis": [
+        0,
+        0,
+        1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 5.7,
+      "blind_depth_mm": 8.25,
+      "blind_relief_mm": 2.55,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "core lower cap 5",
+      "family": "RX-M3x5.7",
+      "mouth_mm": [
+        40.0,
+        86.5,
+        0.0
+      ],
+      "inward_axis": [
+        0,
+        0,
+        1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 5.7,
+      "blind_depth_mm": 8.25,
+      "blind_relief_mm": 2.55,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "core lower cap 6",
+      "family": "RX-M3x5.7",
+      "mouth_mm": [
+        40.0,
+        -86.5,
+        0.0
+      ],
+      "inward_axis": [
+        0,
+        0,
+        1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 5.7,
+      "blind_depth_mm": 8.25,
+      "blind_relief_mm": 2.55,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "core lower cap 7",
+      "family": "RX-M3x5.7",
+      "mouth_mm": [
+        -40.0,
+        86.5,
+        0.0
+      ],
+      "inward_axis": [
+        0,
+        0,
+        1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 5.7,
+      "blind_depth_mm": 8.25,
+      "blind_relief_mm": 2.55,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "core lower cap 8",
+      "family": "RX-M3x5.7",
+      "mouth_mm": [
+        -40.0,
+        -86.5,
+        0.0
+      ],
+      "inward_axis": [
+        0,
+        0,
+        1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 5.7,
+      "blind_depth_mm": 8.25,
+      "blind_relief_mm": 2.55,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "core lower cap 9",
+      "family": "RX-M3x5.7",
+      "mouth_mm": [
+        137.5,
+        0.0,
+        0.0
+      ],
+      "inward_axis": [
+        0,
+        0,
+        1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 5.7,
+      "blind_depth_mm": 8.25,
+      "blind_relief_mm": 2.55,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "core lower cap 10",
+      "family": "RX-M3x5.7",
+      "mouth_mm": [
+        -137.5,
+        0.0,
+        0.0
+      ],
+      "inward_axis": [
+        0,
+        0,
+        1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 5.7,
+      "blind_depth_mm": 8.25,
+      "blind_relief_mm": 2.55,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "core upper cap 1",
+      "family": "RX-M3x5.7",
+      "mouth_mm": [
+        131.5,
+        86.5,
+        213.4
+      ],
+      "inward_axis": [
+        0,
+        0,
+        -1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 5.7,
+      "blind_depth_mm": 8.0,
+      "blind_relief_mm": 2.3,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "core upper cap 2",
+      "family": "RX-M3x5.7",
+      "mouth_mm": [
+        131.5,
+        -86.5,
+        213.4
+      ],
+      "inward_axis": [
+        0,
+        0,
+        -1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 5.7,
+      "blind_depth_mm": 8.0,
+      "blind_relief_mm": 2.3,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "core upper cap 3",
+      "family": "RX-M3x5.7",
+      "mouth_mm": [
+        -131.5,
+        86.5,
+        213.4
+      ],
+      "inward_axis": [
+        0,
+        0,
+        -1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 5.7,
+      "blind_depth_mm": 8.0,
+      "blind_relief_mm": 2.3,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "core upper cap 4",
+      "family": "RX-M3x5.7",
+      "mouth_mm": [
+        -131.5,
+        -86.5,
+        213.4
+      ],
+      "inward_axis": [
+        0,
+        0,
+        -1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 5.7,
+      "blind_depth_mm": 8.0,
+      "blind_relief_mm": 2.3,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "core upper cap 5",
+      "family": "RX-M3x5.7",
+      "mouth_mm": [
+        40.0,
+        86.5,
+        213.4
+      ],
+      "inward_axis": [
+        0,
+        0,
+        -1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 5.7,
+      "blind_depth_mm": 8.0,
+      "blind_relief_mm": 2.3,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "core upper cap 6",
+      "family": "RX-M3x5.7",
+      "mouth_mm": [
+        40.0,
+        -86.5,
+        213.4
+      ],
+      "inward_axis": [
+        0,
+        0,
+        -1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 5.7,
+      "blind_depth_mm": 8.0,
+      "blind_relief_mm": 2.3,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "core upper cap 7",
+      "family": "RX-M3x5.7",
+      "mouth_mm": [
+        -40.0,
+        86.5,
+        213.4
+      ],
+      "inward_axis": [
+        0,
+        0,
+        -1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 5.7,
+      "blind_depth_mm": 8.0,
+      "blind_relief_mm": 2.3,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "core upper cap 8",
+      "family": "RX-M3x5.7",
+      "mouth_mm": [
+        -40.0,
+        -86.5,
+        213.4
+      ],
+      "inward_axis": [
+        0,
+        0,
+        -1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 5.7,
+      "blind_depth_mm": 8.0,
+      "blind_relief_mm": 2.3,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "core upper cap 9",
+      "family": "RX-M3x5.7",
+      "mouth_mm": [
+        137.5,
+        0.0,
+        213.4
+      ],
+      "inward_axis": [
+        0,
+        0,
+        -1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 5.7,
+      "blind_depth_mm": 8.0,
+      "blind_relief_mm": 2.3,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "core upper cap 10",
+      "family": "RX-M3x5.7",
+      "mouth_mm": [
+        -137.5,
+        0.0,
+        213.4
+      ],
+      "inward_axis": [
+        0,
+        0,
+        -1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 5.7,
+      "blind_depth_mm": 8.0,
+      "blind_relief_mm": 2.3,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "g-ganen-pump 1",
+      "family": "RX-M3x5.7",
+      "mouth_mm": [
+        -116.93545827612205,
+        -37.92886485503283,
+        14.6
+      ],
+      "inward_axis": [
+        0,
+        0,
+        -1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 5.7,
+      "blind_depth_mm": 8.5,
+      "blind_relief_mm": 2.8,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "g-ganen-pump 2",
+      "family": "RX-M3x5.7",
+      "mouth_mm": [
+        -116.93545827612205,
+        42.07113514496717,
+        14.6
+      ],
+      "inward_axis": [
+        0,
+        0,
+        -1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 5.7,
+      "blind_depth_mm": 8.5,
+      "blind_relief_mm": 2.8,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "g-ganen-pump 3",
+      "family": "RX-M3x5.7",
+      "mouth_mm": [
+        -58.93545827612205,
+        -37.92886485503283,
+        14.6
+      ],
+      "inward_axis": [
+        0,
+        0,
+        -1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 5.7,
+      "blind_depth_mm": 8.5,
+      "blind_relief_mm": 2.8,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "g-ganen-pump 4",
+      "family": "RX-M3x5.7",
+      "mouth_mm": [
+        -58.93545827612205,
+        42.07113514496717,
+        14.6
+      ],
+      "inward_axis": [
+        0,
+        0,
+        -1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 5.7,
+      "blind_depth_mm": 8.5,
+      "blind_relief_mm": 2.8,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "reservoir-right 1",
+      "family": "RX-M3x5.7",
+      "mouth_mm": [
+        123.25,
+        64.25,
+        202.15
+      ],
+      "inward_axis": [
+        0,
+        0,
+        -1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 5.7,
+      "blind_depth_mm": 7.0,
+      "blind_relief_mm": 1.3,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "reservoir-right 2",
+      "family": "RX-M3x5.7",
+      "mouth_mm": [
+        123.25,
+        -64.25,
+        202.15
+      ],
+      "inward_axis": [
+        0,
+        0,
+        -1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 5.7,
+      "blind_depth_mm": 7.0,
+      "blind_relief_mm": 1.3,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "reservoir-right 3",
+      "family": "RX-M3x5.7",
+      "mouth_mm": [
+        123.25,
+        0.0,
+        202.15
+      ],
+      "inward_axis": [
+        0,
+        0,
+        -1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 5.7,
+      "blind_depth_mm": 7.0,
+      "blind_relief_mm": 1.3,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "reservoir-right 4",
+      "family": "RX-M3x5.7",
+      "mouth_mm": [
+        58.28807768317634,
+        64.25,
+        202.15
+      ],
+      "inward_axis": [
+        0,
+        0,
+        -1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 5.7,
+      "blind_depth_mm": 7.0,
+      "blind_relief_mm": 1.3,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "reservoir-right 5",
+      "family": "RX-M3x5.7",
+      "mouth_mm": [
+        58.28807768317634,
+        -64.25,
+        202.15
+      ],
+      "inward_axis": [
+        0,
+        0,
+        -1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 5.7,
+      "blind_depth_mm": 7.0,
+      "blind_relief_mm": 1.3,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "reservoir-right 6",
+      "family": "RX-M3x5.7",
+      "mouth_mm": [
+        86.75,
+        0.0,
+        202.15
+      ],
+      "inward_axis": [
+        0,
+        0,
+        -1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 5.7,
+      "blind_depth_mm": 7.0,
+      "blind_relief_mm": 1.3,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "reservoir-left 1",
+      "family": "RX-M3x5.7",
+      "mouth_mm": [
+        -123.25,
+        64.25,
+        202.15
+      ],
+      "inward_axis": [
+        0,
+        0,
+        -1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 5.7,
+      "blind_depth_mm": 7.0,
+      "blind_relief_mm": 1.3,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "reservoir-left 2",
+      "family": "RX-M3x5.7",
+      "mouth_mm": [
+        -123.25,
+        -64.25,
+        202.15
+      ],
+      "inward_axis": [
+        0,
+        0,
+        -1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 5.7,
+      "blind_depth_mm": 7.0,
+      "blind_relief_mm": 1.3,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "reservoir-left 3",
+      "family": "RX-M3x5.7",
+      "mouth_mm": [
+        -123.25,
+        0.0,
+        202.15
+      ],
+      "inward_axis": [
+        0,
+        0,
+        -1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 5.7,
+      "blind_depth_mm": 7.0,
+      "blind_relief_mm": 1.3,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "reservoir-left 4",
+      "family": "RX-M3x5.7",
+      "mouth_mm": [
+        -58.28807768317634,
+        64.25,
+        202.15
+      ],
+      "inward_axis": [
+        0,
+        0,
+        -1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 5.7,
+      "blind_depth_mm": 7.0,
+      "blind_relief_mm": 1.3,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "reservoir-left 5",
+      "family": "RX-M3x5.7",
+      "mouth_mm": [
+        -58.28807768317634,
+        -64.25,
+        202.15
+      ],
+      "inward_axis": [
+        0,
+        0,
+        -1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 5.7,
+      "blind_depth_mm": 7.0,
+      "blind_relief_mm": 1.3,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "reservoir-left 6",
+      "family": "RX-M3x5.7",
+      "mouth_mm": [
+        -86.75,
+        0.0,
+        202.15
+      ],
+      "inward_axis": [
+        0,
+        0,
+        -1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 5.7,
+      "blind_depth_mm": 7.0,
+      "blind_relief_mm": 1.3,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "faucet base 1",
+      "family": "RX-M3Sx4",
+      "mouth_mm": [
+        20.0,
+        10.0,
+        3.2
+      ],
+      "inward_axis": [
+        0,
+        0,
+        1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 4.0,
+      "blind_depth_mm": 5.25,
+      "blind_relief_mm": 1.25,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "faucet base 2",
+      "family": "RX-M3Sx4",
+      "mouth_mm": [
+        -20.0,
+        10.0,
+        3.2
+      ],
+      "inward_axis": [
+        0,
+        0,
+        1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 4.0,
+      "blind_depth_mm": 5.25,
+      "blind_relief_mm": 1.25,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "faucet base 3",
+      "family": "RX-M3Sx4",
+      "mouth_mm": [
+        0.0,
+        -22.3,
+        3.2
+      ],
+      "inward_axis": [
+        0,
+        0,
+        1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 4.0,
+      "blind_depth_mm": 5.25,
+      "blind_relief_mm": 1.25,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "bench pcba 1",
+      "family": "RX-M3Sx4",
+      "mouth_mm": [
+        -64.5,
+        33.0,
+        8.0
+      ],
+      "inward_axis": [
+        0,
+        0,
+        -1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 4.0,
+      "blind_depth_mm": 5.0,
+      "blind_relief_mm": 1.0,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "bench pcba 2",
+      "family": "RX-M3Sx4",
+      "mouth_mm": [
+        13.5,
+        33.0,
+        8.0
+      ],
+      "inward_axis": [
+        0,
+        0,
+        -1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 4.0,
+      "blind_depth_mm": 5.0,
+      "blind_relief_mm": 1.0,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "bench pcba 3",
+      "family": "RX-M3Sx4",
+      "mouth_mm": [
+        13.5,
+        -33.3,
+        8.0
+      ],
+      "inward_axis": [
+        0,
+        0,
+        -1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 4.0,
+      "blind_depth_mm": 5.0,
+      "blind_relief_mm": 1.0,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "mount": "bench pcba 4",
+      "family": "RX-M3Sx4",
+      "mouth_mm": [
+        -64.5,
+        -33.3,
+        8.0
+      ],
+      "inward_axis": [
+        0,
+        0,
+        -1
+      ],
+      "pilot_diameter_mm": 4.0,
+      "insert_length_mm": 4.0,
+      "blind_depth_mm": 5.0,
+      "blind_relief_mm": 1.0,
+      "required_surrounding_wall_mm": 1.6,
+      "bore_obstruction_mm3": 0.0,
+      "missing_full_wall_envelope_mm3": 0.0,
+      "missing_closed_end_mm3": 0.0,
+      "pass": true
+    }
+  ],
+  "pocket_count": 43,
+  "pass": true
+}
