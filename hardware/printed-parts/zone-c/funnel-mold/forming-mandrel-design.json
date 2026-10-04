@@ -6,7 +6,7 @@
     0.0,
     -44.45
   ],
-  "length_mm": 50.8,
+  "length_mm": 20.764820645284942,
   "dry_shank_diameter_mm": 6.35,
   "socket_end_depth_mm": 1.5,
   "normal_finishing_reserve_mm": 0.05,
@@ -16,8 +16,8 @@
       1.0
     ],
     [
-      15.764820645284942,
-      50.8
+      13.064820645284943,
+      20.764820645284942
     ]
   ],
   "wet_forming_print_z_mm": [
@@ -29,6 +29,14 @@
     7.12
   ],
   "recommended_fine_layer_height_mm": 0.08,
+  "recommended_pilot_alignment_layer": {
+    "print_z_range_mm": [
+      0.72,
+      0.85
+    ],
+    "layer_height_mm": 0.14,
+    "scope": "One local phase-alignment layer on the dry pilot, followed by 0.08 mm layers through the wet band. Keep the saved 0.20 mm bed layer and global PETG settings."
+  },
   "finished_profile": {
     "entry_diameter_mm": 8.4,
     "lead_height_mm": 1.8,
@@ -83,17 +91,17 @@
       "diameter_mm": 6.25,
       "z_mm": [
         6.564820645285,
-        15.764820645285
+        13.064820645285
       ],
-      "length_mm": 9.200000000000001
+      "length_mm": 6.5
     },
     {
       "diameter_mm": 6.35,
       "z_mm": [
-        15.764820645285,
-        50.8
+        13.064820645285,
+        20.764820645285
       ],
-      "length_mm": 35.035179354715
+      "length_mm": 7.699999999999999
     }
   ],
   "finished_cylindrical_faces": [
@@ -133,33 +141,33 @@
       "diameter_mm": 6.35,
       "z_mm": [
         6.514820645285,
-        50.8
+        20.764820645285
       ],
-      "length_mm": 44.285179354715
+      "length_mm": 14.25
     }
   ],
   "positioning_allowance": {
-    "lateral_mm": 0.5,
-    "tilt_deg": 1.0,
+    "lateral_mm": 0.08,
+    "tilt_deg": 0.3,
     "axial_each_way_mm": 0.1,
     "poses": 72,
-    "scope": "Tool-specific combined positioning screen against the unchanged cavity; nominal finished wet profile still requires measured alignment."
+    "scope": "Combined lower-floor-contact positioning screen against both short seats; nominal finished wet profile still requires measured alignment."
   },
   "load_screen": {
     "model": "cantilever with full maximum head applied laterally along its unsupported length",
     "head_pressure_kpa": 0.5980519350000001,
-    "unsupported_length_mm": 22.764820645284942,
+    "unsupported_length_mm": 12.764820645284942,
     "minimum_solid_diameter_mm": 5.9,
     "assumed_modulus_mpa": 1000.0,
-    "lateral_force_n": 0.11436217830946115,
-    "tip_deflection_mm": 0.0028353533248216644,
-    "maximum_bending_stress_mpa": 0.06455958455900675,
+    "lateral_force_n": 0.06412581576946112,
+    "tip_deflection_mm": 0.00028029097987779467,
+    "maximum_bending_stress_mpa": 0.020298394793404746,
     "maximum_axial_head_force_n": 0.03314265937473488,
     "scope": "Room-temperature equalized-pressure static screening; not release-force, creep, lifetime or sealed-vacuum qualification."
   },
   "demould": {
     "direction_in_funnel_frame": "-Z after both shells are removed",
-    "trim_before_withdrawal": "Remove the sacrificial socket collar flush with the block bottom before pulling the 8.4 mm entry through it.",
+    "trim_before_withdrawal": "Trim the thin upper-seat flash at the bowl throat and lower-pilot flash flush with the block bottom; protect the sealing land.",
     "maximum_shank_diameter_through_land_mm": 6.35,
     "land_diameter_mm": 6.0,
     "required_land_diametric_expansion_percent": 5.833333333333335,
@@ -173,22 +181,14 @@
   },
   "status": "Native geometry checked separately; printed fit, finishing, release and casting remain physical checks.",
   "sha256": {
-    "forming-mandrel.step": "0cf0e36037ba2f0d1d6e8a8dd9057b8ecaab7f68a379cd92f3bc418f0c27d8ce",
-    "forming-mandrel.stl": "6b67468da5c28217f85d54ef170e3a884b4e4ec3ed256a410a2764693354d9c0",
-    "forming-mandrel-finished.step": "2261822ac0cefc13abe9f5e57f6509a5be77cedb61f66424046799265753cb42"
+    "forming-mandrel.step": "ab5b623c8deb265fa5fb60debb1dcf491e03d3f32ff8207ed06d2e7bfdabf7aa",
+    "forming-mandrel.stl": "ee4044b3298e6518631698966409f2891ae80d5e4dfd994c7b261f99164c55ce",
+    "forming-mandrel-finished.step": "479ac47f94ec4e05860063a5f8b202f05eb0abebe2c527e78a6091a5364efb1a"
   },
   "mesh": {
     "triangles": 112136,
     "watertight": true,
     "winding_consistent": true,
     "bodies": 1
-  },
-  "recommended_pilot_alignment_layer": {
-    "print_z_range_mm": [
-      0.72,
-      0.85
-    ],
-    "layer_height_mm": 0.14,
-    "scope": "One local phase-alignment layer on the dry pilot, followed by 0.08 mm layers through the wet band. Keep the saved 0.20 mm bed layer and global PETG settings."
   }
 }

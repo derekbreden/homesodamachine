@@ -50,18 +50,16 @@ locator_slot_travel = 1.5
 locator_y = (22.0, -12.0)
 rod_diameter = forming_mandrel.dry_shank_diameter
 rod_length = forming_mandrel.length
-rod_clearance = 2.0
-rod_guide_length = 10.0
-rod_cradle_wall = 4.0
-rod_stop_thickness = 3.0
-rod_tie_stations = (15.0, 23.0)
-rod_tie_width = 4.4
-rod_tie_groove_depth = 0.7
-rod_seal_depth = 2.0
+rod_clearance = 0.40
+rod_guide_length = forming_mandrel.core_engagement
+rod_seat_axial_clearance = 0.20
+rod_seat_wall = shell_thickness
+rod_seat_cap = shell_thickness
+rod_seat_leadin = 1.0
 # The rod's lower end stands in a blind socket in the cavity floor, so the bore opens through
 # the plug's bottom face. Both depths are measured below that face.
-rod_socket_diameter = 11.0
-rod_socket_depth = 3.0
+rod_socket_diameter = rod_diameter+rod_clearance
+rod_socket_depth = forming_mandrel.socket_end_depth
 rod_end_depth = forming_mandrel.socket_end_depth
 rod_offset_allowance = forming_mandrel.lateral_allowance
 rod_axial_allowance = forming_mandrel.axial_allowance
@@ -180,7 +178,7 @@ def contracted(shape, distance, top):
     raise AssertionError('core offset')
 
 
-def liquid_containment(cavity, core, rod, cast, seal, floor, top, back, width,
+def liquid_containment(cavity, core, rod, cast, floor, top, back, width,
                        neck, pour, vents, x, y):
     """The intended liquid occupies an enclosed region separate from outside air."""
     overlap = 0.02
@@ -194,7 +192,7 @@ def liquid_containment(cavity, core, rod, cast, seal, floor, top, back, width,
             for xy, diameter in ports]
     readings = {}
     for label, tools in [('cavity', [cavity, mouth_cap]),
-                         ('assembled', [cavity, core, rod, seal, *caps])]:
+                         ('assembled', [cavity, core, rod, *caps])]:
         remainder = cleaned_shape(surrounding.cut(*tools))
         assert remainder.isValid(), f'{label}: invalid liquid complement'
         retained = [s for s in remainder.Solids()
@@ -212,7 +210,7 @@ def build():
     exterior, bore, m = funnel.build_solids()
     top, neck, end = m['top_z'], m['neck_z'], m['end_z']
     x, y = m['ncx'], m['ncy']
-    floor = end-finish_allowance-shell_thickness-foot_clearance
+    floor = end-rod_socket_depth-shell_thickness-foot_clearance
     flange_width = m['out_w']+2*flange_margin
     bolt_radius = flange_width/2-bolt_edge_margin
     bolt_xy = [(side*bolt_radius, station*bolt_station)
@@ -237,7 +235,9 @@ def build():
     )
     # Fuse the analytic offset faces in one operation around the collar.
     backing = [cavity_outer, *[expanded(body, backing_allowance)
-                               for body in backing_bodies]]
+                               for body in backing_bodies],
+               cylinder(rod_socket_diameter/2+shell_thickness,
+                        end-rod_socket_depth-shell_thickness, end, x, y)]
     cavity_outer = one(fuse_shapes(*backing, tol=tolerance), 'cavity backing')
     assert forming_void.cut(cavity_outer, tol=tolerance).Volume() < tolerance
     forming_boundary = cq.Compound.makeCompound(forming_void.Faces())
@@ -255,7 +255,7 @@ def build():
     nominal_plug = one(bore.intersect(box(flange_width, flange_width, neck, top))
         .fuse(funnel._rounded_box(m['bore_w'], m['bore_d'], funnel.mouth_corner_r,
                                  top, back+1)), 'core envelope')
-    # Explicit spline surfaces let the small rod/cradle booleans trim these
+    # Explicit spline surfaces let the short pin-seat booleans trim these
     # contracted lofts without relying on an OFFSET surface's continuation.
     plug = contracted(nominal_plug, finish_allowance, back+1).toNURBS()
     inset = finish_allowance + shell_thickness
@@ -283,31 +283,18 @@ def build():
     assert abs(rod.BoundingBox().zmin-rod_bottom) < tolerance
     assert abs(rod.BoundingBox().zmax-rod_top) < tolerance
     guide_radius = (rod_diameter+rod_clearance)/2
-    cradle_radius = guide_radius+rod_cradle_wall
-    cradle_start = neck+rod_guide_length
-    guide = cylinder(guide_radius, neck-1, cradle_start, x, y)
-    boss = cylinder(cradle_radius, neck+finish_allowance,
-                    rod_top+rod_stop_thickness, x, y)
-    v_vertex = x-rod_diameter/math.sqrt(2)
-    v_reach = 3*cradle_radius
-    v_profile = [(v_vertex, y), (v_vertex+v_reach, y+v_reach),
-                 (v_vertex+v_reach, y-v_reach), (v_vertex, y)]
-    v_slot = (cq.Workplane('XY', origin=(0, 0, cradle_start)).polyline(v_profile)
-              .wire().extrude(rod_top-cradle_start).val())
-    open_front = box(2*cradle_radius, 2*cradle_radius, cradle_start,
-                     rod_top, x+cradle_radius, y)
-    retained = boss.cut(v_slot, open_front)
-    core = one(plug.fuse(plate).cut(dry_void.cut(retained), guide)
+    seat_top = rod_top+rod_seat_axial_clearance
+    seat = cylinder(guide_radius, neck-1, seat_top, x, y)
+    leadin = cq.Solid.makeCone(guide_radius+rod_seat_leadin+0.01, guide_radius-0.01,
+        rod_seat_leadin+0.02, cq.Vector(x, y, neck+finish_allowance-0.01))
+    seat = seat.fuse(leadin)
+    boss = cylinder(guide_radius+rod_seat_wall, neck+finish_allowance,
+                    seat_top+rod_seat_cap, x, y)
+    # A loose closed pocket breathes through its annular entrance into the bowl.
+    # Silicone entering either blind seat remains enclosed removable flash.
+    core = one(plug.fuse(plate).cut(dry_void.cut(boss), seat)
                .intersect(box(flange_width+2, flange_width+2, neck, back)),
-               'core with loose rod passage and open V cradle')
-    for station in rod_tie_stations:
-        lower = neck+station-rod_tie_width/2
-        upper = lower+rod_tie_width
-        groove = cylinder(cradle_radius+1, lower, upper, x, y).cut(
-            cylinder(cradle_radius-rod_tie_groove_depth, lower-1, upper+1, x, y))
-        core = one(core.cut(groove), 'core cradle tie groove')
-    seal = one(plug.intersect(cylinder(guide_radius, neck-1,
-                                      neck+rod_seal_depth, x, y)).cut(rod), 'rod entry seal')
+               'core with loose blind pin seat')
 
     locators, locator_holes = [], []
     for index, (px, py) in enumerate(locator_xy):
@@ -357,7 +344,7 @@ def build():
     assert finished_funnel.cut(cast).Volume() < tolerance
 
     print('Checking closure, release, passages and wall backing', flush=True)
-    containment = liquid_containment(cavity, core, rod, cast, seal, floor, top, back,
+    containment = liquid_containment(cavity, core, rod, cast, floor, top, back,
                                      flange_width, neck, pour, vents, x, y)
     assert cavity.intersect(core).Volume() < tolerance
     assert all(s.intersect(cast).Volume() < tolerance for s in (cavity, core))
@@ -366,31 +353,37 @@ def build():
         assert cavity.intersect(core.translate((0, 0, lift))).Volume() < tolerance
     for angle in (90, 180, 270):
         assert cavity.intersect(core.rotate((0, 0, 0), (0, 0, 1), angle)).Volume() > 1
-    assert guide_radius-rod_diameter/2 >= 1.0
-    assert rod_engagement > rod_tie_stations[-1]+rod_tie_width/2
-    assert core.intersect(seal).Volume() < tolerance
-    assert rod.intersect(seal).Volume() < tolerance
-    assert cavity.intersect(seal).Volume() < tolerance
-    assert seal.Volume() > 1
-    for withdrawal in (0, 5, 10, 20, rod_engagement, rod_length):
-        assert core.intersect(rod.translate((0.5, 0, -withdrawal))).Volume() < tolerance
-    for station in rod_tie_stations:
-        assert station-rod_tie_width/2 > rod_guide_length
-    socket_clearances, end_depths = [], []
+    assert abs(2*guide_radius-rod_diameter-rod_clearance) < tolerance
+    assert abs(seat_top-rod_top-rod_seat_axial_clearance) < tolerance
+    for withdrawal in (0, 0.5, 1, 2, 4, 8, rod_length):
+        assert core.intersect(rod.translate((0, 0, -withdrawal))).Volume() < tolerance
+    socket_clearances, end_depths, core_clearances, poses = [], [], [], []
     for azimuth in range(0, 360, 45):
         angle = math.radians(azimuth)
         dx, dy = math.cos(angle), math.sin(angle)
         for tilt in (-rod_tilt_allowance, 0, rod_tilt_allowance):
-            for axial in (-rod_extra_projection_allowance, 0, rod_axial_allowance):
-                misplaced = rod.rotate((x, y, neck), (x-dy, y+dx, neck), tilt)
-                misplaced = misplaced.translate((rod_offset_allowance*dx,
-                                                   rod_offset_allowance*dy, axial))
-                assert cavity.intersect(misplaced).Volume() < tolerance
+            for lift in (0, rod_axial_allowance/2, rod_axial_allowance):
+                misplaced = rod.rotate((x, y, rod_bottom),
+                    (x-dy, y+dx, rod_bottom), tilt).translate(
+                    (rod_offset_allowance*dx, rod_offset_allowance*dy, 0))
+                # A tilted flat-ended pilot seats on its low rim; it cannot pass
+                # below its lower floor. Add the screened possible axial lift.
+                floor_lift = rod_bottom-misplaced.BoundingBox().zmin
+                misplaced = misplaced.translate((0, 0, floor_lift+lift))
+                overlaps = {name: shape.intersect(misplaced).Volume()
+                            for name, shape in [('cavity', cavity), ('core', core)]}
+                assert all(abs(v) < tolerance for v in overlaps.values()), (azimuth, tilt, lift, overlaps)
                 socket_clearances.append(cavity.distance(misplaced))
-                # The rod's whole end face stays under the plug's bottom face.
+                core_clearances.append(core.distance(misplaced))
                 face = min(misplaced.Faces(), key=lambda f: f.Center().z)
                 end_depths.append(end-face.BoundingBox().zmax)
-    assert min(socket_clearances) > 0
+                poses.append({'azimuth_deg': azimuth, 'tilt_deg': tilt,
+                    'floor_contact_lift_mm': floor_lift, 'additional_lift_mm': lift,
+                    'overlap_mm3': overlaps,
+                    'core_clearance_mm': core_clearances[-1],
+                    'whole_pilot_end_depth_mm': end_depths[-1]})
+    assert min(socket_clearances) >= 0
+    assert min(core_clearances) > 0
     assert min(end_depths) > 0
     assert abs(rod.BoundingBox().zlen-rod_length) < tolerance
     minimum_core_backing = dry_void.distance(cast) - finish_allowance
@@ -409,7 +402,7 @@ def build():
     assert core.intersect(dry_mouth).Volume() < tolerance
     shift = (0, 0, -floor)
     parts = {name: shape.translate(shift) for name, shape in
-             [('cavity', cavity), ('core', core), ('funnel', cast), ('rod', rod), ('seal', seal)]}
+             [('cavity', cavity), ('core', core), ('funnel', cast), ('rod', rod)]}
     info = {
         'dimensions_mm': {n: [s.BoundingBox().xlen, s.BoundingBox().ylen,
                               s.BoundingBox().zlen] for n, s in parts.items()},
@@ -423,24 +416,31 @@ def build():
         'casting_scope': 'whole finished funnel, including the rectangular block, flat lower bearing face and complete staged sealing bore',
         'plug_blank_mm': [funnel.plug_width,
                           2*funnel.elbow_cradle.plug_half_length(funnel.plug_width/2)],
-        'rod_support': {'engagement_mm': rod_engagement, 'guide_diameter_mm': 2*guide_radius,
-            'dry_shank_diameter_mm': rod_diameter,
-            'guide_diametral_clearance_mm': rod_clearance, 'guide_length_mm': rod_guide_length,
-            'cradle': 'open 90-degree V, two zip ties, visible axial stop on dry back',
-            'tie_width_mm': rod_tie_width, 'tie_stations_from_neck_mm': list(rod_tie_stations),
-            'seal': 'removable mold-sealing clay, shaped flush with the forming face',
-            'seal_depth_mm': rod_seal_depth},
+        'rod_support': {'engagement_mm': rod_engagement-finish_allowance,
+            'guide_diameter_mm': 2*guide_radius, 'dry_shank_diameter_mm': rod_diameter,
+            'guide_diametral_clearance_mm': rod_clearance,
+            'guide_length_mm': seat_top-(neck+finish_allowance),
+            'axial_roof_clearance_mm': rod_seat_axial_clearance,
+            'entry_leadin_mm': rod_seat_leadin,
+            'straight_dry_wall_mm': rod_seat_wall, 'cap_mm': rod_seat_cap,
+            'lead_in_nominal_boss_annulus_mm': rod_seat_wall-rod_seat_leadin,
+            'registration': 'short loose blind seats; lower pilot floor establishes axial datum',
+            'retention': 'place pin in lower cavity seat; lower core over its dry shank without pressing',
+            'air_path': 'annular seat entrance into bowl; no dry-back opening',
+            'flash': 'thin enclosed annular flash at bowl throat and block bottom; trim outside sealing land'},
         'rod_socket': {'diameter_mm': rod_socket_diameter, 'depth_mm': rod_socket_depth,
-            'rod_end_depth_mm': rod_end_depth,
-            'reference': 'depths below the block bottom face; the socket is a masked pilot passage'},
+            'rod_end_depth_mm': rod_end_depth, 'floor_backing_mm': shell_thickness,
+            'reference': 'blind pilot seat below block bottom; bare floor establishes axial datum'},
         'rod_tolerance_screen': {'offset_mm': rod_offset_allowance,
-            'short_projection_mm': rod_axial_allowance,
-            'extra_projection_mm': rod_extra_projection_allowance, 'tilt_deg': rod_tilt_allowance,
-            'azimuths_deg': list(range(0, 360, 45)),
+            'axial_lift_mm': rod_axial_allowance, 'tilt_deg': rod_tilt_allowance,
             'minimum_socket_clearance_mm': min(socket_clearances),
-            'minimum_end_depth_mm': min(end_depths),
-            'scope': 'Tool-specific simultaneous mandrel offset, tilt and axial error against the cavity and its socket; nominal forming alignment, retention and sealing need a physical trial.'},
+            'minimum_core_clearance_mm': min(core_clearances),
+            'minimum_end_depth_mm': min(end_depths), 'poses': poses,
+            'scope': 'Combined offset and tilt at lower floor contact plus possible lift; both seats, upper roof and pilot reach checked. Not printed fit or release-force qualification.'},
         'forming_mandrel': forming_mandrel.metadata(),
+        'funnel_to_mould_z_translation_mm': -floor,
+        'finished_funnel_step_sha256': hashlib.sha256(
+            (ROOT/'hardware/printed-parts/zone-c/funnel/funnel.step').read_bytes()).hexdigest(),
         'locators': {'diameter_mm': locator_diameter, 'height_mm': locator_height,
                      'radial_clearance_mm': locator_clearance, 'slot_travel_each_way_mm': locator_slot_travel,
                      'centres_xy_mm': locator_xy},
@@ -489,8 +489,7 @@ def write_parts(parts, info, output, *, preserve_native_shells=False):
             (output/f'{name}.{suffix}').read_bytes()).hexdigest()
             for name in ('cavity', 'core') for suffix in ('step', 'stl', 'step.mesh')}
     colors = {'cavity': cq.Color('#3D9998'), 'core': cq.Color('#D8A751'),
-              'funnel': cq.Color('#555C68'), 'rod': cq.Color('#AAB9C8'),
-              'seal': cq.Color('#4D86B7')}
+              'funnel': cq.Color('#555C68'), 'rod': cq.Color('#AAB9C8')}
     assembly = cq.Assembly()
     radii = []
     for name, shape in parts.items():
@@ -544,76 +543,13 @@ def write_parts(parts, info, output, *, preserve_native_shells=False):
     info['chamber_radial_clearance_mm'] = chamber_diameter/2-max(radii)
     info['volume_measurement_scope'] = 'Numerical integration of the final native STEP solids; whole-shape equality is established by complete CSG, separately from spline volume integration.'
     assert info['chamber_radial_clearance_mm'] > 10
+    info['native_shell_sha256'] = {f'{name}.{suffix}': hashlib.sha256(
+        (output/f'{name}.{suffix}').read_bytes()).hexdigest()
+        for name in ('cavity', 'core') for suffix in ('step', 'stl', 'step.mesh')}
     (output/'design.json').write_text(json.dumps(info, indent=2)+'\n')
     assert all(hashlib.sha256((output/name).read_bytes()).hexdigest() == digest
                for name, digest in protected.items()), 'native shell bytes changed'
     print(json.dumps(info, indent=2), flush=True)
-
-
-def compose_native_shells(output):
-    """Compose the current exact shells with the complete funnel and finished tool.
-
-    This path does not regenerate, heal or re-export either shell print file.
-    Independent whole-casting and fit checks are in review_forming_mandrel.py.
-    """
-    info = json.loads((output/'design.json').read_text())
-    native = import_assembly(str(output/'assembly.step'))
-    parts = {name: import_step(str(output/f'{name}.step')).val()
-             for name in ('cavity', 'core')}
-    z = forming_mandrel.stations()
-    floor = z['end']-finish_allowance-shell_thickness-foot_clearance
-    assert abs(info['parting_z_mm']-(funnel.brim_thickness-floor)) < tolerance
-    finished = import_step(str(ROOT/'hardware/printed-parts/zone-c/funnel/funnel.step')).val()
-    parts['funnel'] = finished.translate((0, 0, -floor))
-    parts['rod'] = forming_mandrel.finished_funnel_frame().translate((0, 0, -floor))
-    parts['seal'] = native['seal'][0]
-    assert all(shape.isValid() and len(shape.Solids()) == 1 for shape in parts.values())
-    for shell in ('cavity', 'core'):
-        assert parts[shell].intersect(parts['rod']).Volume() < tolerance
-        assert parts[shell].intersect(parts['funnel']).Volume() < tolerance
-    assert parts['seal'].intersect(parts['rod']).Volume() < tolerance
-    assert parts['seal'].intersect(parts['funnel']).Volume() < tolerance
-    clearances, end_depths = [], []
-    neck = z['neck']-floor
-    for azimuth in range(0, 360, 45):
-        angle = math.radians(azimuth)
-        dx, dy = math.cos(angle), math.sin(angle)
-        for tilt in (-rod_tilt_allowance, 0, rod_tilt_allowance):
-            for axial in (-rod_extra_projection_allowance, 0, rod_axial_allowance):
-                misplaced = parts['rod'].rotate((funnel.neck_dx, funnel.neck_dy, neck),
-                    (funnel.neck_dx-dy, funnel.neck_dy+dx, neck), tilt).translate(
-                    (rod_offset_allowance*dx, rod_offset_allowance*dy, axial))
-                assert parts['cavity'].intersect(misplaced).Volume() < tolerance
-                clearances.append(parts['cavity'].distance(misplaced))
-                face = min(misplaced.Faces(), key=lambda face: face.Center().z)
-                end_depths.append(z['end']-floor-face.BoundingBox().zmax)
-    info['dimensions_mm'].update({name: [shape.BoundingBox().xlen,
-        shape.BoundingBox().ylen, shape.BoundingBox().zlen] for name, shape in parts.items()})
-    info['volume_ml'].update({name: shape.Volume()/1000 for name, shape in parts.items()})
-    info['casting_scope'] = 'whole finished funnel, including the rectangular block, flat lower bearing face and complete staged sealing bore'
-    info['rod_support']['dry_shank_diameter_mm'] = rod_diameter
-    info['rod_socket']['reference'] = 'depths below the block bottom face; the socket is a masked pilot passage'
-    info['rod_tolerance_screen'].update({'offset_mm': rod_offset_allowance,
-        'short_projection_mm': rod_axial_allowance,
-        'extra_projection_mm': rod_extra_projection_allowance, 'tilt_deg': rod_tilt_allowance,
-        'poses': len(clearances), 'minimum_socket_clearance_mm': min(clearances),
-        'minimum_end_depth_mm': min(end_depths),
-        'scope': 'Tool-specific simultaneous mandrel offset, tilt and axial error against the cavity and its socket; nominal forming alignment, retention and sealing need a physical trial.'})
-    info['forming_mandrel'] = json.loads((output/'forming-mandrel-design.json').read_text())
-    info['native_shell_preservation'] = {f'{name}.{suffix}': hashlib.sha256(
-        (output/f'{name}.{suffix}').read_bytes()).hexdigest()
-        for name in ('cavity', 'core') for suffix in ('step', 'stl', 'step.mesh')}
-    info['finished_funnel_step_sha256'] = hashlib.sha256(
-        (ROOT/'hardware/printed-parts/zone-c/funnel/funnel.step').read_bytes()).hexdigest()
-    info['funnel_to_mould_z_translation_mm'] = -floor
-    info['status'] = 'Complete forming geometry checked against the current native funnel; print, finishing, coated closure, vacuum cycle, demould force and casting remain unqualified.'
-    # Re-read the exact native liquid region with the contoured tool.
-    info['liquid_containment'] = liquid_containment(parts['cavity'], parts['core'],
-        parts['rod'], parts['funnel'], parts['seal'], 0,
-        info['parting_z_mm'], info['parting_z_mm']+flange_thickness,
-        parts['cavity'].BoundingBox().xlen, neck,
-        info['ports']['fill_xy_mm'], info['ports']['vent_xy_mm'], funnel.neck_dx, funnel.neck_dy)
-    return parts, info
 
 
 def write_back_view(parts, output):
@@ -631,16 +567,10 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path,
         default=ROOT/'hardware/printed-parts/zone-c/funnel-mold')
-    parser.add_argument('--preserve-native-shells', action='store_true',
-        help='Use the current exact cavity/core STEP/STL files and export only the assembled tooling and casting reference.')
     args = parser.parse_args()
-    if args.preserve_native_shells:
-        parts, info = compose_native_shells(args.output)
-        write_parts(parts, info, args.output, preserve_native_shells=True)
-    else:
-        parts, info = build()
-        write_parts(parts, info, args.output)
-        write_back_view(parts, args.output)
+    parts, info = build()
+    write_parts(parts, info, args.output)
+    write_back_view(parts, args.output)
 
 
 if __name__ == '__main__':

@@ -1,9 +1,10 @@
-"""Removable PETG tool forming the funnel's complete staged outlet bore.
+"""Short removable PETG pin forming the funnel's complete staged outlet bore.
 
 The print axis is Z and the socket pilot's end is the bed datum. The finished
 reference is the coated, measured tool; the print has a separate 0.05 mm normal
 finishing reserve. The dry registration shank and first millimetre of the socket
-pilot remain bare at 6.35 mm. Neither mould shell changes for this tool.
+pilot remain bare at 6.35 mm. Two loose blind seats locate the pin without
+external sealing material or press-fit retention.
 """
 
 import argparse
@@ -28,14 +29,16 @@ from _cadq_export import export_assembly, import_step
 from _materials import M_PETG_TRANSLUCENT, one_body
 from flute_payload import cut as write_print_payload
 
-length = 50.8
+core_engagement = 8.0
+length = (funnel.brim_thickness-funnel.chute_h-funnel._ramp_rise
+          -(-funnel.drop+funnel.plug_lift)+1.5+core_engagement)
 dry_shank_diameter = 6.35
 socket_end_depth = 1.5
 finishing_reserve = 0.05
 socket_bare_length = 1.0
-dry_bare_start_from_neck = 3.0
-lateral_allowance = 0.5
-tilt_allowance = 1.0
+dry_bare_start_from_neck = 0.30
+lateral_allowance = 0.08
+tilt_allowance = 0.3
 axial_allowance = 0.1
 tolerance = 0.0001
 # Fine layers include the entry shoulder, tiny relief and complete sealing land.
@@ -139,7 +142,7 @@ def load_screen():
     z = stations()
     head = funnel.brim_thickness+5-z['end']
     pressure = 1130*9.81*(head/1000)/1000  # kPa
-    unsupported = z['neck']+10-z['bottom']
+    unsupported = z['neck']-z['bottom']
     diameter = funnel.sealing_id-2*finishing_reserve
     inertia = math.pi*diameter**4/64
     distributed = pressure/1000*funnel.bore_lead_id  # N/mm
@@ -190,11 +193,11 @@ def metadata(raw=None, reference=None):
         'positioning_allowance': {'lateral_mm': lateral_allowance,
                                   'tilt_deg': tilt_allowance, 'axial_each_way_mm': axial_allowance,
                                   'poses': 72,
-                                  'scope': 'Tool-specific combined positioning screen against the unchanged cavity; nominal finished wet profile still requires measured alignment.'},
+                                  'scope': 'Combined lower-floor-contact positioning screen against both short seats; nominal finished wet profile still requires measured alignment.'},
         'load_screen': load_screen(),
         'demould': {
             'direction_in_funnel_frame': '-Z after both shells are removed',
-            'trim_before_withdrawal': 'Remove the sacrificial socket collar flush with the block bottom before pulling the 8.4 mm entry through it.',
+            'trim_before_withdrawal': 'Trim the thin upper-seat flash at the bowl throat and lower-pilot flash flush with the block bottom; protect the sealing land.',
             'maximum_shank_diameter_through_land_mm': dry_shank_diameter,
             'land_diameter_mm': funnel.sealing_id,
             'required_land_diametric_expansion_percent': 100*(dry_shank_diameter/funnel.sealing_id-1),

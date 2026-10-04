@@ -1,0 +1,198 @@
+{
+  "schema": 1,
+  "piece": "funnel-mold/cavity",
+  "inputs": {
+    "gcode": "plate_1.gcode",
+    "gcode_sha256": "1327cdc7abe0a677cf4c7aeb8fc63a05fcaf3da9ae0e2ba5b6199d231cdb110a",
+    "model": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/zone-c/funnel-mold/cavity.stl",
+    "model_sha256": "a675a0603ba632e947ef514b470556562a84bde2011c42381bceec77ef333cc2",
+    "profile": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/funnel-short-pin-2026-10-04/shells/current-funnel-mould-petg088.3mf",
+    "profile_sha256": "8847f34c92a7befdc808581ff90e98468f2721c884e69f978b9f9b5f6b288898"
+  },
+  "slicer": "BambuStudio 02.08.02.61",
+  "first_layer_z_mm": 0.2,
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -149.5,
+      -160.0,
+      0.0
+    ],
+    "plate_to_cad_translation_mm": [
+      -149.5,
+      -160.0,
+      0.0
+    ]
+  },
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.2",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.48",
+    "support_on_build_plate_only": "0",
+    "support_style": "snug",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.2",
+    "support_type": "normal(auto)"
+  },
+  "summary": {
+    "support_bodies": 1,
+    "interface_islands": 5,
+    "bed_rooted_bodies": 1,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 0.0,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 5,
+    "shortest_labelled_build_up_mm": 0.0
+  },
+  "trees": [
+    {
+      "id": "tree-1",
+      "root": "bed",
+      "base_z_mm": 0.2,
+      "first_interface_z_mm": 0.2,
+      "shortest_build_up_mm": 0.0,
+      "top_z_mm": 50.88,
+      "bbox_xy_mm": [
+        42.4,
+        52.8,
+        256.8,
+        267.2
+      ],
+      "interfaces": [
+        "interface-1",
+        "interface-2",
+        "interface-3",
+        "interface-4",
+        "interface-5"
+      ],
+      "interface_reading": "explicit_feature",
+      "bbox_cad_xyz_mm": [
+        -107.1,
+        -107.2,
+        0.2,
+        107.3,
+        107.2,
+        50.88
+      ]
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "interface-1",
+      "first_z_mm": 0.2,
+      "last_z_mm": 0.48,
+      "bbox_xy_mm": [
+        142.4,
+        150.8,
+        160.4,
+        169.2
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 0.0,
+      "bbox_cad_xyz_mm": [
+        -7.1,
+        -9.2,
+        0.2,
+        10.9,
+        9.2,
+        0.48
+      ]
+    },
+    {
+      "id": "interface-2",
+      "first_z_mm": 1.44,
+      "last_z_mm": 2.64,
+      "bbox_xy_mm": [
+        129.6,
+        135.6,
+        173.6,
+        184.4
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 1.24,
+      "bbox_cad_xyz_mm": [
+        -19.9,
+        -24.4,
+        1.44,
+        24.1,
+        24.4,
+        2.64
+      ]
+    },
+    {
+      "id": "interface-3",
+      "first_z_mm": 10.287,
+      "last_z_mm": 23.04,
+      "bbox_xy_mm": [
+        66.0,
+        100.0,
+        233.2,
+        220.0
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 10.087,
+      "bbox_cad_xyz_mm": [
+        -83.5,
+        -60.0,
+        10.287,
+        83.7,
+        60.0,
+        23.04
+      ]
+    },
+    {
+      "id": "interface-4",
+      "first_z_mm": 44.362,
+      "last_z_mm": 45.6,
+      "bbox_xy_mm": [
+        56.0,
+        90.4,
+        242.8,
+        229.6
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 44.162,
+      "bbox_cad_xyz_mm": [
+        -93.5,
+        -69.6,
+        44.362,
+        93.3,
+        69.6,
+        45.6
+      ]
+    },
+    {
+      "id": "interface-5",
+      "first_z_mm": 50.602,
+      "last_z_mm": 50.88,
+      "bbox_xy_mm": [
+        44.0,
+        54.4,
+        254.8,
+        265.6
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 50.402,
+      "bbox_cad_xyz_mm": [
+        -105.5,
+        -105.6,
+        50.602,
+        105.3,
+        105.6,
+        50.88
+      ]
+    }
+  ],
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up."
+}

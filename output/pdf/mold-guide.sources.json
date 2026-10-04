@@ -15,23 +15,25 @@
   },
   "artwork": "vector schematic; dimensions govern; not a full-size template",
   "source_sha256": {
-    "hardware/printed-parts/zone-c/funnel-mold/README.md": "019a1994b94cb3b7050094befb9f11f026efa2fa60a183e04900aeff602dab6e",
+    "hardware/printed-parts/zone-c/funnel-mold/README.md": "e390e86c1c91c28ad340df6937a9d04c233195309c5d2bbdca434d92886ebe77",
     "hardware/printed-parts/zone-c/funnel-mold/silicone.md": "5e0bc66c84b08b438b492c7825b81f437c17ce64fb0d3258e71ba03c470d35a8",
-    "hardware/printed-parts/zone-c/funnel-mold/design.json": "22344e488c6ed4eb8a9d74de54ddf4194280709a991abca3054dafe94e1bf455",
-    "hardware/printed-parts/zone-c/funnel-mold/forming-mandrel-design.json": "25b19261fc90c35244dceeef8bae623bde26c46579631a68edf889e8646b44fa",
-    "hardware/printed-parts/zone-c/funnel-mold/forming-mandrel-check.json": "5c1e41cd49d3c1f982083db0a852f7aea19b8b252a5e33d34c8829f9babba60d",
+    "hardware/printed-parts/zone-c/funnel-mold/design.json": "62078e93a48f8262eae2c1bc999ca3b3fe1b6ced564ddccc1b16781cf3940115",
+    "hardware/printed-parts/zone-c/funnel-mold/forming-mandrel-design.json": "426044e325260c00c197a598a6012b4b806ffd4ba11ef5bc5222981a494b0f79",
+    "hardware/printed-parts/zone-c/funnel-mold/forming-mandrel-check.json": "f645f2d3d4a47a4df30eb7721161313817e96143dac9a2bed409c70d7b15cf5d",
     "hardware/printed-parts/zone-c/funnel-mold/print-log.md": "3edf021035baf9fe9bd73f394feacc7304ea7befa65e3eb65e26044fb4535613",
+    "hardware/printed-parts/zone-c/funnel/wall-review.json": "29a9a0915faa7e240163cd8816acee94316a4c040fd1581daf468cb3e37fdbd1",
     "hardware/assembly/cold-core.md": "2ee8fe235e23cc40cfabbae5197dcddcddd64c31b1a3896df46780c9efa4d174",
     "hardware/printed-parts/cold-core/foam-shell/README.md": "ef8ca82bcc9d5bc5ede9f29a514cbdde68d87d200b85195259f10a28551095cb",
     "hardware/printed-parts/cold-core/copper-plugs/README.md": "f87987ee5ec4284f92f725d4cb87e7449a87acc637d9c24f15d3124fb8a97ecb",
     "hardware/mechanical-qualification/core-and-faucet-heatsets.json": "f4a1ea3fd976ac00cd6097a631e6b5114d54636b90de58444061a5f61e1b914c",
-    "hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md": "8f50ef31c91e3220b8bd79261263a35ef21ee710256be557eccd8e8111ce79de"
+    "hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md": "8f50ef31c91e3220b8bd79261263a35ef21ee710256be557eccd8e8111ce79de",
+    "hardware/printed-parts/zone-c/funnel-mold/containment-review.json": "5069eeb0ba32d1b0c0efcbdcaceb7a02535f030339b6d4f088f4711a9be79507"
   },
-  "pdf_sha256": "30abaa04a51cbc18962b2f5df4cdb06c7c356a7143baddc0cc8824e504768e43",
+  "pdf_sha256": "ab0626ab6ad28b6d5f655f235872d62f9eba13180fba66c7eb98487af17031d5",
   "manufacturer_sources": {
     "BBDINO 40A": "https://bbdino.com/products/bbdino-40a-clear-silicone-mold-making-trial-kit-gp-platinum-cure-high-hardness",
     "Ease Release 200": "https://www.smooth-on.com/products/ease-release-200/",
-    "Sealers and clay": "https://www.smooth-on.com/page/sealers-releases/",
+    "Sealers and release": "https://www.smooth-on.com/page/sealers-releases/",
     "Degassing example": "https://www.smooth-on.com/tutorials/making-piece-cut-block-mold/vacuum-de-gassing/",
     "FSD pour foam": "https://fiberglasssupplydepot.com/Expandable-Polyurethane-Pour-Foam-2lb.html",
     "FSD foam SDS": "https://fiberglasssupplydepot.com/pour-foam-sds"

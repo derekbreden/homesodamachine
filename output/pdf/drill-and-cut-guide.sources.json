@@ -65,5 +65,6 @@
       "FOAM_BARE_TOP": 127.0,
       "COLLAR_SLEEVE_TAIL": 75.0
     }
-  }
+  },
+  "source_commit": "c19a1792d59828eb84b5f6065248c0bf09865035"
 }

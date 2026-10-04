@@ -62,21 +62,55 @@ def cylinder_row(rows, diameter, bottom, top):
     return matches[0]
 
 
+def seat_motion(shapes, z, shift):
+    """Native fit envelopes and one feasible centering route; no force model."""
+    core, cavity, pin = (shapes[name] for name in ('core', 'cavity', 'rod'))
+    x, y = funnel.neck_dx, funnel.neck_dy
+    bottom = z['bottom']+shift
+    rows, guided = [], []
+    for azimuth in range(0, 360, 45):
+        angle = math.radians(azimuth)
+        dx, dy = math.cos(angle), math.sin(angle)
+        for offset in (0.0, 0.19):
+            moved = pin.translate((offset*dx, offset*dy, 0))
+            assert cavity.intersect(moved).Volume() < EPS
+            for lift in (0, 1, 2, 3, 4, 5, 6, 7, 8, 9):
+                overlap = core.translate((0, 0, lift)).intersect(moved).Volume()
+                assert abs(overlap) < EPS, (azimuth, offset, lift, overlap)
+                rows.append({'azimuth_deg': azimuth, 'upright_offset_mm': offset,
+                             'core_lift_mm': lift, 'overlap_mm3': overlap})
+        for lift in (0, .5, 1, 2, 3, 4, 5, 6, 7, 7.5, 8):
+            # A feasible path through the lead-in, not a commanded operator angle
+            # or proof that gravity/contact forces select this precise motion.
+            tilt = .3*(lift/7) if lift <= 7 else .3+.7*(lift-7)
+            moved = pin.rotate((x, y, bottom), (x-dy, y+dx, bottom), tilt)
+            moved = moved.translate((0, 0, bottom-moved.BoundingBox().zmin))
+            overlaps = {'core': core.translate((0, 0, lift)).intersect(moved).Volume(),
+                        'cavity': cavity.intersect(moved).Volume()}
+            assert all(abs(v) < EPS for v in overlaps.values()), (azimuth, lift, tilt, overlaps)
+            guided.append({'azimuth_deg': azimuth, 'core_lift_mm': lift,
+                           'pin_tilt_deg': tilt, 'overlap_mm3': overlaps})
+    return {'upright_drop_in_closure': {'poses': len(rows),
+            'pure_offset_mm': [0, .19], 'core_lift_mm': [0, 9], 'readings': rows},
+        'feasible_lead_in_centering_route': {'poses': len(guided),
+            'initial_tilt_deg': 1, 'seated_tilt_deg': 0, 'readings': guided},
+        'scope': 'Ordinary closure has loose seat guidance. This checks geometry through the full lift and a feasible centering route. It requests no operator angle/offset measurement and does not establish printed insertion force or automatic contact dynamics.'}
+
+
 def review(models, baseline=None):
     design = json.loads((models/'design.json').read_text())
     tool_info = json.loads((models/'forming-mandrel-design.json').read_text())
     shell_hashes = {f'{name}.{suffix}': sha(models/f'{name}.{suffix}')
                     for name in ('cavity', 'core') for suffix in ('step', 'stl', 'step.mesh')}
-    assert shell_hashes == design['native_shell_preservation']
+    assert shell_hashes == design['native_shell_sha256']
     if baseline:
         held = json.loads(baseline.read_text())['paths']
         assert all(sha(ROOT/path) == digest for path, digest in held.items())
     assert all(sha(models/name) == digest for name, digest in tool_info['sha256'].items())
     assembly = import_assembly(str(models/'assembly.step'))
-    assert set(assembly) == {'cavity', 'core', 'rod', 'funnel', 'seal'}
+    assert set(assembly) == {'cavity', 'core', 'rod', 'funnel'}
     shapes = {name: import_step(str(models/f'{name}.step')).val()
               for name in ('cavity', 'core', 'rod', 'funnel')}
-    shapes['seal'] = assembly['seal'][0]
     body_readings = {name: body_info(shape) for name, shape in shapes.items()}
     bindings = {name: matched(shape, assembly[name][0]) for name, shape in shapes.items()}
     raw = import_step(str(models/'forming-mandrel.step')).val()
@@ -139,26 +173,33 @@ def review(models, baseline=None):
 
     nominal_fit = {name: {'overlap_mm3': tool.intersect(shapes[name]).Volume(),
                           'minimum_distance_mm': tool.distance(shapes[name])}
-                   for name in ('cavity', 'core', 'seal')}
+                   for name in ('cavity', 'core')}
     assert all(abs(reading['overlap_mm3']) < EPS for reading in nominal_fit.values())
     poses = []
     neck_mould = z['neck']+shift
     end_mould = z['end']+shift
     x, y = funnel.neck_dx, funnel.neck_dy
+    bottom_mould = z['bottom']+shift
     for azimuth in range(0, 360, 45):
         angle = math.radians(azimuth)
         dx, dy = math.cos(angle), math.sin(angle)
         for tilt in (-mandrel.tilt_allowance, 0, mandrel.tilt_allowance):
-            for axial in (-mandrel.axial_allowance, 0, mandrel.axial_allowance):
-                misplaced = tool.rotate((x, y, neck_mould), (x-dy, y+dx, neck_mould), tilt)
-                misplaced = misplaced.translate((mandrel.lateral_allowance*dx,
-                    mandrel.lateral_allowance*dy, axial))
-                overlap = misplaced.intersect(shapes['cavity']).Volume()
-                assert abs(overlap) < EPS
+            for lift in (0, mandrel.axial_allowance/2, mandrel.axial_allowance):
+                misplaced = tool.rotate((x, y, bottom_mould),
+                    (x-dy, y+dx, bottom_mould), tilt).translate(
+                    (mandrel.lateral_allowance*dx, mandrel.lateral_allowance*dy, 0))
+                floor_lift = bottom_mould-misplaced.BoundingBox().zmin
+                misplaced = misplaced.translate((0, 0, floor_lift+lift))
+                overlaps = {name: misplaced.intersect(shapes[name]).Volume()
+                            for name in ('cavity', 'core')}
+                assert all(abs(v) < EPS for v in overlaps.values()), (azimuth, tilt, lift, overlaps)
                 bottom_face = min(misplaced.Faces(), key=lambda face: face.Center().z)
-                poses.append({'azimuth_deg': azimuth, 'tilt_deg': tilt, 'axial_mm': axial,
-                    'cavity_overlap_mm3': overlap,
+                poses.append({'azimuth_deg': azimuth, 'tilt_deg': tilt,
+                    'floor_contact_lift_mm': floor_lift, 'additional_lift_mm': lift,
+                    'cavity_overlap_mm3': overlaps['cavity'],
+                    'core_overlap_mm3': overlaps['core'],
                     'cavity_gap_mm': misplaced.distance(shapes['cavity']),
+                    'core_gap_mm': misplaced.distance(shapes['core']),
                     'whole_pilot_end_depth_mm': end_mould-bottom_face.BoundingBox().zmax})
     assert len(poses) == 72
     assert min(row['whole_pilot_end_depth_mm'] for row in poses) > 0
@@ -167,10 +208,10 @@ def review(models, baseline=None):
     for travel in (0, 0.5, 1, 2, 3, 5, 10, 20, design['rod_support']['engagement_mm'], mandrel.length):
         moved = tool.translate((0, 0, -travel))
         core_overlap = moved.intersect(shapes['core']).Volume()
-        offset_overlap = moved.translate((0.5, 0, 0)).intersect(shapes['core']).Volume()
+        offset_overlap = moved.translate((mandrel.lateral_allowance, 0, 0)).intersect(shapes['core']).Volume()
         assert abs(core_overlap) < EPS and abs(offset_overlap) < EPS
         core_withdrawal.append({'travel_mm': travel, 'core_overlap_mm3': core_overlap,
-                                'with_0_5_mm_lateral_offset_overlap_mm3': offset_overlap})
+                                'with_screened_lateral_offset_overlap_mm3': offset_overlap})
         silicone_withdrawal.append({'travel_mm': travel,
                                     'rigid_silicone_overlap_mm3': moved.intersect(shapes['funnel']).Volume()})
     assert max(row['rigid_silicone_overlap_mm3'] for row in silicone_withdrawal) > 1
@@ -189,7 +230,7 @@ def review(models, baseline=None):
         'review_source_sha256': sha(Path(__file__)),
         'finished_funnel_native_step_sha256': sha(native_funnel_path),
         'source_funnel_sha256': sha(ROOT/'hardware/printed-parts/zone-c/funnel/funnel.py'),
-        'native_shell_bytes_held': True, 'native_shell_sha256': shell_hashes,
+        'native_shells_bound_to_design': True, 'native_shell_sha256': shell_hashes,
         'native_bodies': body_readings, 'complete_csg_bindings': bindings,
         'finished_casting_volume_ml': shapes['funnel'].Volume()/1000,
         'funnel_to_mould_z_translation_mm': shift,
@@ -212,19 +253,21 @@ def review(models, baseline=None):
         'nominal_native_fit': nominal_fit,
         'combined_positioning_screen': {'poses': 72,
             'lateral_offset_mm': mandrel.lateral_allowance,
-            'tilt_deg': mandrel.tilt_allowance, 'axial_each_way_mm': mandrel.axial_allowance,
+            'tilt_deg': mandrel.tilt_allowance, 'maximum_additional_axial_lift_mm': mandrel.axial_allowance,
             'maximum_cavity_overlap_mm3': max(abs(row['cavity_overlap_mm3']) for row in poses),
+            'maximum_core_overlap_mm3': max(abs(row['core_overlap_mm3']) for row in poses),
+            'minimum_core_gap_mm': min(row['core_gap_mm'] for row in poses),
             'minimum_cavity_gap_mm': min(row['cavity_gap_mm'] for row in poses),
             'minimum_whole_pilot_end_depth_mm': min(row['whole_pilot_end_depth_mm'] for row in poses),
             'readings': poses,
-            'scope': 'Tool-specific cavity clearance and pilot reach; does not qualify a deliberately displaced wet forming profile, coated fit or tie retention.'},
+            'scope': 'Both loose blind seats, lower floor contact, upper roof clearance and pilot reach. Does not qualify a deliberately displaced wet forming profile or actual printed fit.'},
+        'seat_and_closure_motion': seat_motion(shapes, z, shift),
         'demould': {'core_withdrawal': core_withdrawal,
             'rigid_silicone_withdrawal_readings': silicone_withdrawal,
             'required_land_diametric_expansion_percent': 100*(mandrel.dry_shank_diameter/funnel.sealing_id-1),
-            'sequence': ['Cut the ties and remove the entry seal.',
-                         'Lift the core in +Z off the free mandrel.',
+            'sequence': ['Lift the core in +Z off the floor-supported pin.',
                          'Peel the funnel and mandrel together from the open cavity.',
-                         'Trim the socket collar flush with the block bottom before pulling the entry through it.',
+                         'Trim upper-seat flash at the bowl throat and lower-pilot flash flush with the block bottom without entering the sealing land.',
                          'Withdraw the mandrel in -Z using the silicone sealing land\'s elastic expansion.'],
             'physical_release_force_qualified': False,
             'scope': 'Core removal clears geometrically. Mandrel withdrawal intentionally uses silicone flexibility; no rigid-clearance or release-force claim.'},
@@ -232,10 +275,10 @@ def review(models, baseline=None):
         'geometry_forms_complete_finished_funnel': True,
         'physical_casting_qualified': False,
         'physical_limits': ['Coating compatibility and adhesion', 'Measured finished wet profile',
-                            'Nominal alignment, tie retention and entry seal',
+                            'Measured loose seat fit and nominal alignment',
                             'Coated closure and vacuum cycle', 'Silicone-assisted withdrawal and release force',
                             'Finished casting quality and installed seal']}
-    print(json.dumps({key: result[key] for key in ('native_shell_bytes_held',
+    print(json.dumps({key: result[key] for key in ('native_shells_bound_to_design',
           'finished_casting_volume_ml', 'geometry_forms_complete_finished_funnel')}, indent=2), flush=True)
     return result
 
