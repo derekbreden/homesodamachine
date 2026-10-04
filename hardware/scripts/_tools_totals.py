@@ -206,6 +206,7 @@ TOOLS = [
     ("SMALLRIG 9.8\" magic arm", "T_MAGIC_ARM", A("B087T4T8D5")),
     ("Anker 332 5-in-1 USB-C hub", "T_USB_HUB", A("B0BQLLB61B")),
     ("HOTO PixelDrive electric screwdriver", "T_PIXELDRIVE", A("B0FKBJL68H")),
+    ("Wiha 26313 precision hex driver", "T_WIHA_1_3", A("B000O5EFT8")),
     ("Railer 2.5 mm hex bit (5-pack)", "T_HEXBIT_2_5", A("B0BXMLLXSN")),
     ("Railer 4 mm hex bit (5-pack)", "T_HEXBIT_4", A("B0BXMJ48LC")),
     ("Bambu Lab H2C (×2)", "T_H2C", SUM([

@@ -31,8 +31,9 @@ records the delivered connector supply and the two fastener packs on order for
 
 The screws require a hand-operated 1.3 mm hex driver. The supplier's package
 contents describe 50 screws, with no driver stated. The acquired PixelDrive and
-2.5/4 mm bits do not supply this size; [tool stock](../../ledger/tools.md#open-items)
-records the founder's Wiha 26313 purchase report with Amazon order verification pending. Seat the ears square by
+2.5/4 mm bits do not supply this size; [tool stock](../../ledger/tools.md#shop--bench-infrastructure)
+lists the Wiha 26313 on order for 2026-10-05, verified against Amazon
+order 112-9011811-0810621. Seat the ears square by
 hand; there is no qualified powered torque for the M1.4 joint.
 
 The acquired FX-888D and VECO-T T18 I/LB fine tips provide the insertion-tool
