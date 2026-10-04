@@ -21,6 +21,12 @@ The capture hardware is a
 and a [DB9 male/female screw-terminal breakout kit](https://www.amazon.com/dp/B0DRZ15WW8).
 Both listings showed Prime in the signed-in Amazon buy box on 2026-10-04. Use
 the adapter's DB9 RS232 connector; its screw terminals serve TTL and RS485.
+Both were ordered on 2026-10-04; Amazon order details and tracking were verified
+that day. The adapter is ON-ORDER, expected 2026-10-05; the four-piece breakout
+kit is ON-ORDER, expected 2026-10-06. Order numbers, estimated tax and costs are
+recorded in [purchases.md §16](../../hardware/ledger/purchases.md#16-laser-welding--cleaning--cutting),
+with quantities in [diagnostic inventory](../../hardware/ledger/inventory.md#diagnostic).
+Neither item has a recorded arrival or bench communication result.
 The [adapter manual, pages 1, 3 and 10](https://files.waveshare.com/wiki/USB-TO-RS232-485-TTL/manual/USB_TO_RS232_485_TTL_-user-manual-en.pdf)
 specifies isolated power/signals, a male DB9, RX on pin 2, and GND on pin 5.
 
@@ -114,7 +120,32 @@ confirmed, before attaching a receiver or logic analyzer. Cabinet mains, laser
 power wiring and the optical assembly are outside this capture procedure. No
 unknown internal pin is an approved probe point.
 
+Check the internal probe's isolation and ground arrangement separately. The
+Waveshare adapter's isolation does not isolate another analyzer. For example,
+the [Saleae Logic 8 datasheet](https://downloads.saleae.com/specs/logic_8_data_sheet.pdf)
+specifies high-impedance digital inputs but connects its grounds to USB/PC
+ground. Input voltage tolerance alone does not establish a suitable tap.
+
 Parameter writes require a decoded, repeatable command and response, confirmed
 controller identity, emission inhibited, and exact agreement between requested,
 read-back and displayed values. Laser start control is a separate integration
 step that preserves the factory weld sequence and hardware interlocks.
+
+## Progress toward computer control
+
+Maintain a coverage record for every required recipe field and status: captured
+request/response, value encoding and limits, controller acknowledgment/read-back,
+display agreement, and repeatability. Distinguish controller feedback from the
+touchscreen's own variable memory. A screen-memory read or one successful
+parameter change does not establish complete control. Include observed key-off
+and E-stop status in that record; their hardware inhibit remains independent of
+the software connection.
+
+Once the internal interface is identified, the proposed write path is a
+removable inline bridge with one transmitter per line and a physical bypass
+that restores the original screen/controller connection. An ESP32 may implement
+that bridge with the identified interface's level conversion and isolation;
+its TX must not be paralleled onto the original screen's TX. Validate bounded
+recipe writes and controller read-back with emission inhibited before adding
+any process-start function. No transmitting harness or start controller is
+implemented or qualified by this capture tool.
