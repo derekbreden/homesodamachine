@@ -1,7 +1,10 @@
 import { test, before, after } from "node:test";
 import assert from "node:assert/strict";
 import { createRequire } from "node:module";
+import { fileURLToPath } from "node:url";
 import { start } from "../../server.js";
+import { readBatchForecast } from "../../lib/batch-forecast.js";
+import { readLaborRollup } from "../../lib/cost.js";
 
 const require = createRequire(new URL("../../../tools/render/package.json", import.meta.url));
 let browser, server, baseUrl;
@@ -57,6 +60,10 @@ test("price, chart and cost disclosures work without JavaScript and fit phone wi
       assert.match(await page.$eval(".cost-price", el => el.textContent), /\$4,495/);
       assert.equal(await page.$eval("main > section", el => el.classList.contains("cost-price")), true);
       assert.ok(await page.$(".recovery-svg"));
+      assert.match(await page.$eval("#batch-forecast", el => el.textContent), /From today’s stock to 10 & 20 machines/);
+      const hardware = fileURLToPath(new URL("../../../hardware", import.meta.url));
+      const cash = readBatchForecast(hardware, readLaborRollup(hardware)).batches[0].cashCents / 100;
+      assert.ok((await page.$eval(".forecast-cards", el => el.textContent)).includes("$" + cash.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })));
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `page at ${width}px`);
       await page.click("#recovery details summary");
       assert.equal(await page.$eval("#recovery details", el => el.open), true);
@@ -64,6 +71,10 @@ test("price, chart and cost disclosures work without JavaScript and fit phone wi
       await page.click("main > details.cost-cat summary");
       assert.equal(await page.$eval("main > details.cost-cat", el => el.open), true);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `parts at ${width}px`);
+      await page.click(".forecast-supplier summary");
+      assert.equal(await page.$eval(".forecast-supplier", el => el.open), true);
+      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `supplier quantities at ${width}px`);
+      assert.match(await page.$eval(".forecast-supplier", el => el.textContent), /11[0]? pieces|110/);
     }
   } finally { await page.close(); }
 });
