@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Materialize only the pump cartridge's two pieces: STEP, printed STL and viewer payload each.
+"""Materialize selected pump-bay pieces: STEP, printed STL and viewer payload each.
 
 The ordinary enclosure producer deliberately draws all six pieces and its aggregate before the
 assembly runs.  That is the right reconciliation path and the wrong visual-iteration path for a
@@ -10,6 +10,7 @@ or an assembly.
 
     tools/cad-venv/bin/python hardware/scripts/materialize_pump_cartridge.py
     tools/cad-venv/bin/python hardware/scripts/materialize_pump_cartridge.py --pieces pump-cap
+    tools/cad-venv/bin/python hardware/scripts/materialize_pump_cartridge.py --pieces pump-cartridge front-top
 
 All three siblings are completed in a temporary directory and seated only after the printed STL
 has passed the ordinary producer's own slicer-facing reading.  They seat STEP, STL, then payload:
@@ -76,7 +77,8 @@ def _declared_box(box_spec, enc):
 
 # The two pieces this path can stand, each with the flute rails the ordinary producer gives it:
 # the cradle owns the show face and both flanks, the clamp carries no show field and takes none.
-PIECES = ("pump-cartridge", "pump-cap")
+DEFAULT_PIECES = ("pump-cartridge", "pump-cap")
+PIECES = (*DEFAULT_PIECES, "front-top")
 
 
 def _builder(enc, name):
@@ -86,6 +88,17 @@ def _builder(enc, name):
             enc._pump_cartridge_front_flute_rail(box.outer)]
     if name == "pump-cap":
         return enc.build_pump_cap, lambda box: []
+    if name == "front-top":
+        def rails(box):
+            # The ordinary producer's shadow bodies, read from retained STEP
+            # exports; changing one bay part never rebuilds the other quadrants.
+            berthed = [enc._piece_mesh(enc.cq.importers.importStep(
+                str(_ENCLOSURE / f"enclosure-{other}.step")).val())
+                for other in enc.PIECE_COLORS if other != name]
+            if box.pack.collet_plate:
+                berthed.append(enc._piece_mesh(enc._collet_plate_body(box.pack.collet_plate)))
+            return enc.flute_rails(box, berthed)
+        return lambda box: enc.build_piece(box, "front", "top"), rails
     raise ValueError(f"{name!r} is not a pump-cartridge piece; this path stands {PIECES}")
 
 
@@ -169,7 +182,7 @@ def _materialize_piece(enc, flute_payload, box, name, output: Path, started: flo
             "payload_src": step_sha}
 
 
-def materialize(output: Path = _OUTPUT, pieces: tuple[str, ...] = PIECES) -> dict:
+def materialize(output: Path = _OUTPUT, pieces: tuple[str, ...] = DEFAULT_PIECES) -> dict:
     started = time.perf_counter()
     scripts = _ROOT / "hardware" / "scripts"
     for directory in (scripts, _ENCLOSURE):
@@ -182,9 +195,10 @@ def materialize(output: Path = _OUTPUT, pieces: tuple[str, ...] = PIECES) -> dic
 
     box, bounds, box_path = _declared_box(_box_spec, enc)
     enc.BOUNDS[:] = bounds
+    enc._last_box[0] = box
     output = Path(output)
     output.mkdir(parents=True, exist_ok=True)
-    print("pump cartridge only:")
+    print("selected pump-bay pieces:")
     print(f"  box {_sha256(box_path)}  {box_path.relative_to(_ROOT)}")
     return {name: _materialize_piece(enc, flute_payload, box, name, output, time.perf_counter())
             for name in pieces}
@@ -196,8 +210,8 @@ def main(argv: list[str]) -> int:
         "--output-dir", type=Path, default=_OUTPUT,
         help="destination for the three siblings (default: the enclosure artifact directory)")
     parser.add_argument(
-        "--pieces", nargs="+", choices=PIECES, default=list(PIECES),
-        help="which of the cartridge's pieces to stand (default: both)")
+        "--pieces", nargs="+", choices=PIECES, default=list(DEFAULT_PIECES),
+        help="which pump-bay pieces to stand (default: cartridge and cap)")
     args = parser.parse_args(argv)
     materialize(args.output_dir, tuple(args.pieces))
     return 0
