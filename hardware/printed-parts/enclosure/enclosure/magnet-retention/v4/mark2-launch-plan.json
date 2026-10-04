@@ -197,7 +197,7 @@
   "insertion_action": "Insert one labeled attracting RC62 upright in the lower cartridge cradle, completely below both open rims; keep tube passages and toolhead clear. Resume only on a separate request.",
   "automation_id": "timed-cartridge-magnet-trial",
   "preflight_completed_at": "2026-10-04T08:10:51.010447+00:00",
-  "automation_status": "ACTIVE",
+  "automation_status": "PAUSED",
   "sent_at": "2026-10-04T10:40:03.841006+00:00",
   "task_id": "1307633211",
   "accepted_at": "2026-10-04T10:40:23.619545+00:00",
@@ -206,5 +206,23 @@
   "accepted_local": "2026-10-04T05:40:23.619545-05:00",
   "start_reported": true,
   "start_reported_at": "2026-10-04T10:47:14.850312+00:00",
-  "monitor_stage": "accepted_mark2_insertion_pause"
+  "monitor_stage": "insertion_complete_user_confirmed",
+  "insertion_pause_reported": true,
+  "insertion_pause_report_source": "Derek confirmation of magnet insertion and manual resume",
+  "magnet_insertion_confirmation": {
+    "recorded_at": "2026-10-04T17:24:58.750853+00:00",
+    "source": "Derek",
+    "question": "Mark2 is running at layer 348, past the RC62 insertion pause at layer 344. Did you insert the magnet and manually resume the print?",
+    "quote": "Yes, inserted and resumed",
+    "magnet_insertion_confirmed": true,
+    "manual_resume_confirmed": true,
+    "actual_pause_at": null,
+    "actual_resume_at": null,
+    "pause_observed_by_monitor": false,
+    "agent_resume_sent": false,
+    "scope": "User confirmation of magnet insertion and manual resume for the accepted Mark2 job. Exact pause and resume times, seating, polarity, fit and retention strength are not independently verified."
+  },
+  "monitor_active": false,
+  "monitor_completion_reason": "User confirmed magnet insertion and manual resume.",
+  "monitor_paused_at": "2026-10-04T17:24:58.839000+00:00"
 }

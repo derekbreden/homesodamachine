@@ -198,30 +198,33 @@
       "estimated_pause_at": "2026-10-04T17:15:10.768151+00:00",
       "estimated_pause_local": "2026-10-04T12:15:10.768151-05:00",
       "start_reported": true,
-      "insertion_pause_reported": false,
+      "insertion_pause_reported": true,
       "latest_status": {
         "printer": "Mark2",
-        "observed_at": "2026-10-04T11:09:45.257992+00:00",
+        "observed_at": "2026-10-04T17:23:14.091703+00:00",
         "task_id": "1307633211",
         "job_id": "1307633211",
         "subtask_name": "enclosure-pump-cartridge-cap-rc62-mark2-v4.gcode.3mf",
         "gcode_file": "/data/Metadata/plate_1.gcode",
         "print_type": "cloud",
         "gcode_state": "RUNNING",
-        "layer_num": 2,
+        "layer_num": 353,
         "total_layer_num": 1088,
-        "mc_percent": 2,
-        "mc_remaining_time": 887,
+        "mc_percent": 44,
+        "mc_remaining_time": 506,
         "print_error": 0,
         "hms": [],
         "stg_cur": 0,
+        "mc_print_stage": "2",
+        "gcode_file_prepare_percent": "100",
+        "print_real_action": 0,
         "extruders": {
           "0": {
-            "actual_c": 50,
+            "actual_c": 49,
             "target_c": 0
           },
           "1": {
-            "actual_c": 279,
+            "actual_c": 280,
             "target_c": 280
           }
         },
@@ -232,12 +235,28 @@
           "target_c": 0
         }
       },
-      "monitor_active": true,
+      "monitor_active": false,
       "automatic_resume": false,
       "first_layer_printer_progress": true,
       "first_layer_observed_at": "2026-10-04T10:54:47.244504+00:00",
       "past_first_layer_printer_progress": true,
-      "past_first_layer_observed_at": "2026-10-04T11:09:45.257992+00:00"
+      "past_first_layer_observed_at": "2026-10-04T11:09:45.257992+00:00",
+      "insertion_pause_report_source": "Derek confirmation of magnet insertion and manual resume",
+      "magnet_insertion_confirmation": {
+        "recorded_at": "2026-10-04T17:24:58.750853+00:00",
+        "source": "Derek",
+        "question": "Mark2 is running at layer 348, past the RC62 insertion pause at layer 344. Did you insert the magnet and manually resume the print?",
+        "quote": "Yes, inserted and resumed",
+        "magnet_insertion_confirmed": true,
+        "manual_resume_confirmed": true,
+        "actual_pause_at": null,
+        "actual_resume_at": null,
+        "pause_observed_by_monitor": false,
+        "agent_resume_sent": false,
+        "scope": "User confirmation of magnet insertion and manual resume for the accepted Mark2 job. Exact pause and resume times, seating, polarity, fit and retention strength are not independently verified."
+      },
+      "monitor_completion_reason": "User confirmed magnet insertion and manual resume.",
+      "monitor_paused_at": "2026-10-04T17:24:58.839000+00:00"
     },
     {
       "part": "front-top",
