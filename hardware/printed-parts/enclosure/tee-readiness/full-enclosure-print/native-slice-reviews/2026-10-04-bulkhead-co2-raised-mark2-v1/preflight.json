@@ -1,0 +1,139 @@
+{
+  "pass": true,
+  "archive": ".cache/prints/2026-10-04-bulkhead-co2-raised-mark2-v1/send/co2-raised-face-up-z004-mark2-v1.gcode.3mf",
+  "archive_details": {
+    "name": "co2-raised-face-up-z004-mark2-v1.gcode.3mf",
+    "sha256": "b9f421292f612bc6fdecb25dd82c0615dce4997300c1aa748766eb9962567c3c",
+    "gcode_sha256": "d96a30e016a3b2d08c63b00472d3f3eb307128f9f3f2927d3c7908b8c1393516",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "FFFFFF"
+      },
+      "2": {
+        "type": "PET-CF",
+        "colour": "F72323"
+      }
+    },
+    "objects": [
+      "bulkhead-ring-co2-raised"
+    ]
+  },
+  "readings": {
+    "Mark2": {
+      "gcode_state": "FINISH",
+      "subtask_name": "soda-raised-face-up-z004-mark2-v1.gcode.3mf",
+      "mc_percent": 100,
+      "layer_num": 11,
+      "total_layer_num": 11,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [],
+      "nozzle_target_temper": 0.0,
+      "bed_target_temper": 0.0,
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "FFFFFFFF"
+        },
+        "255": {
+          "type": "PET-CF",
+          "colour": "F72323FF"
+        }
+      },
+      "nozzles": [
+        {
+          "id": 0,
+          "type": "HS01",
+          "diameter": 0.4,
+          "sn": "20D06A611036799"
+        },
+        {
+          "id": 1,
+          "type": "HS01",
+          "diameter": 0.4,
+          "sn": "N/A"
+        },
+        {
+          "id": 16,
+          "type": "HS01",
+          "diameter": 0.6,
+          "sn": "20D06A5C1014313"
+        },
+        {
+          "id": 18,
+          "type": "HS00",
+          "diameter": 0.2,
+          "sn": "20D06A611037433"
+        },
+        {
+          "id": 20,
+          "type": "HH01",
+          "diameter": 0.8,
+          "sn": "20D06A5C3110240"
+        },
+        {
+          "id": 21,
+          "type": "HS01",
+          "diameter": 0.8,
+          "sn": "20D06A610807096"
+        }
+      ],
+      "observed_at": "2026-10-04T06:05:59.280015+00:00"
+    },
+    "H2C": {
+      "gcode_state": "RUNNING",
+      "subtask_name": "enclosure-front-top-current-black-z018-h2c-v17.gcode.3mf",
+      "mc_percent": 59,
+      "layer_num": 981,
+      "total_layer_num": 1354,
+      "mc_remaining_time": 630,
+      "print_error": 0,
+      "hms": [],
+      "nozzle_target_temper": 280.0,
+      "bed_target_temper": 80.0,
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "000000FF"
+        },
+        "255": {
+          "type": "TPU",
+          "colour": "161616FF"
+        }
+      },
+      "nozzles": [
+        {
+          "id": 16,
+          "type": "HS01",
+          "diameter": 0.6,
+          "sn": "20D06A610715877"
+        },
+        {
+          "id": 1,
+          "type": "HS01",
+          "diameter": 0.4,
+          "sn": "N/A"
+        },
+        {
+          "id": 17,
+          "type": "HS00",
+          "diameter": 0.2,
+          "sn": "20D06A5C1907799"
+        },
+        {
+          "id": 0,
+          "type": "HS00",
+          "diameter": 0.2,
+          "sn": "20D06A5C1907737"
+        }
+      ],
+      "observed_at": "2026-10-04T06:05:59.623185+00:00"
+    }
+  },
+  "loading_basis": "Derek: \"I've got red loaded in right hotend now.\" White PET-GF stays in the left 0.4 mm nozzle from the SODA ring.",
+  "bed_clear_basis": "Derek: \"Please give me a print of co2 bulkhead ring on mark2 whose bed is clear.\"",
+  "startup_spacing_minimum_seconds": 180,
+  "other_printer_basis": "H2C has been RUNNING enclosure-front-top-current-black-z018-h2c-v17 (task 1305315362, accepted 2026-10-03T15:22:21Z); no other start within 180 s.",
+  "sender_dry_run": "tools/bambu_print.py --dry-run: dialog Mark2, external spools mapped, standing options, Send enabled; cancelled without sending."
+}

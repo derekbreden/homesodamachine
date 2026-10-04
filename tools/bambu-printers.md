@@ -365,6 +365,15 @@ reads them again and makes the whole pass again, up to three times. The job id m
 what says a job reached the printer; the file name alone cannot, because the last job can
 carry the same one.
 
+Right after a filament load from the touchscreen, a send can instead be refused outright.
+The printer answers `project_file` with `ERROR STATE`, err_code 84033549 (0502400D,
+"Failed to start a new task: filament loading/unloading not completed"). Its nozzle and
+bed targets already read zero while the loaded nozzle is still hot. The same archive is
+accepted once that nozzle has cooled
+([CO2 ring](../hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-04-bulkhead-co2-raised-mark2-v1/rejected-send.json)).
+`ams_status` 0x300 and an extruder `stat` with 0x0300 set also appear while a printer
+prints normally, so neither marks an open load.
+
 
 ## Printer storage
 
