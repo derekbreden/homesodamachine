@@ -1,0 +1,395 @@
+<div id="leak-containment-3d">
+  <h3>Vent route and leak collection</h3>
+  <div class="viz-controls">
+    <label class="form-label">Collection
+      <select class="form-select" data-control="variant">
+        <option value="current">Current upper pan</option>
+        <option value="local60">Side collector · +0 mm height</option>
+        <option value="local100">Deeper side collector · +0 mm height</option>
+        <option value="drawer8">Front drawer · +8 mm height</option>
+        <option value="drawer10" selected>Front drawer · +10 mm height</option>
+        <option value="drawer12">Front drawer · +12 mm height</option>
+        <option value="drawer16">Front drawer · +16 mm height</option>
+        <option value="full5">Lift-off pan · +5 mm height</option>
+      </select>
+    </label>
+    <label class="form-label">View
+      <select class="form-select" data-control="view">
+        <option value="whole">Whole machine</option>
+        <option value="vent">Vent and wall opening</option>
+        <option value="receiver">Outlet and air gap</option>
+        <option value="base">Tray height</option>
+        <option value="under">Tray and sensing strips</option>
+        <option value="withdraw" selected>Drawer removal</option>
+      </select>
+    </label>
+  </div>
+  <label class="form-label" data-withdrawal hidden>Pull tray forward: <span class="tabular-nums" data-withdrawal-value>250 mm</span>
+    <input class="form-range" data-control="withdrawal" type="range" min="0" max="500" step="5" value="250" aria-label="Pull tray forward">
+  </label>
+  <div class="viz-grid">
+    <div class="card viz-stat"><div class="text-small">Installed height</div><div class="viz-stat-value tabular-nums" data-metric="height">374 mm</div><div class="text-small" data-metric="added">+10 mm under base</div></div>
+    <div class="card viz-stat"><div class="text-small">Case + collector width</div><div class="viz-stat-value tabular-nums" data-metric="width">289 mm</div><div class="text-small" data-metric="cabinet">320 mm cabinet allowance</div></div>
+    <div class="card viz-stat"><div class="text-small" data-metric="capacityLabel">Static volume to rim</div><div class="viz-stat-value tabular-nums" data-metric="capacity">712 mL</div><div class="text-small" data-metric="depth">5.5 mm wet depth · no freeboard</div></div>
+  </div>
+  <div class="viz-row leak-display-controls">
+    <label class="form-label">Case
+      <select class="form-select" data-control="case">
+        <option value="ghost" selected>Transparent</option>
+        <option value="solid">Solid</option>
+        <option value="hidden">Hidden</option>
+      </select>
+    </label>
+    <label class="form-check"><input class="form-check-input" type="checkbox" data-control="water"><span class="form-check-label">Water to rim</span></label>
+    <label class="form-check"><input class="form-check-input" type="checkbox" data-control="oldpan"><span class="form-check-label">Original pan outline</span></label>
+    <label class="form-check"><input class="form-check-input" type="checkbox" data-control="dimensions" checked><span class="form-check-label">Dimensions</span></label>
+  </div>
+  <div class="leak-stage" role="img" aria-label="Interactive three dimensional proposal in the saved appliance coordinates. Rotate by dragging, zoom with the wheel, pan with the right mouse button. Use the view selector for close views.">
+    <div class="leak-loading" aria-live="polite">Loading saved geometry…</div>
+    <svg class="leak-leaders" aria-hidden="true"></svg>
+    <div class="leak-labels" aria-hidden="true"></div>
+  </div>
+  <div class="viz-row leak-legend text-small">
+    <span><i data-swatch="tray"></i>Collector</span>
+    <span><i data-swatch="frame"></i>Fixed frame</span>
+    <span><i data-swatch="tube"></i>Clear vent tube</span>
+    <span><i data-swatch="sensor"></i>Sensing strip</span>
+    <span><i data-swatch="relief"></i>New wall relief</span>
+    <span><i data-swatch="water"></i>Water to rim</span>
+  </div>
+  <div class="text-small leak-detail" data-detail aria-live="polite">Saved assembly context · proposed geometry</div>
+  <div class="text-small text-muted leak-status" data-status>Drag to rotate · wheel to zoom · right-drag to pan</div>
+  <span class="sr-only" data-accessible></span>
+</div>
+<style>
+#leak-containment-3d { position:relative; }
+#leak-containment-3d .leak-display-controls { margin-top:12px; }
+#leak-containment-3d .leak-stage { height:460px; position:relative; overflow:hidden; touch-action:none; }
+#leak-containment-3d canvas { width:100%; height:100%; display:block; }
+#leak-containment-3d .leak-labels { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+#leak-containment-3d .leak-leaders { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+#leak-containment-3d .leak-leaders line { stroke:var(--muted-foreground); stroke-width:1px; }
+#leak-containment-3d .leak-label { position:absolute; color:var(--foreground); background:var(--background); padding:2px 4px; white-space:nowrap; transform:translate(-50%,-50%); }
+#leak-containment-3d .leak-loading { position:absolute; left:0; right:0; top:45%; text-align:center; color:var(--muted-foreground); }
+#leak-containment-3d .leak-legend { gap:12px; }
+#leak-containment-3d .leak-legend span { display:inline-flex; align-items:center; gap:5px; }
+#leak-containment-3d .leak-legend i { display:inline-block; width:9px; height:9px; }
+#leak-containment-3d [data-swatch="tray"] { background:var(--viz-series-1); }
+#leak-containment-3d [data-swatch="tube"] { background:var(--viz-series-2); }
+#leak-containment-3d [data-swatch="sensor"] { background:var(--viz-series-3); }
+#leak-containment-3d [data-swatch="relief"] { background:var(--destructive); }
+#leak-containment-3d [data-swatch="water"] { background:var(--viz-series-4); }
+#leak-containment-3d [data-swatch="frame"] { background:var(--muted-foreground); }
+#leak-containment-3d [data-withdrawal] { display:block; margin-top:12px; }
+#leak-containment-3d [data-withdrawal][hidden] { display:none; }
+#leak-containment-3d .leak-detail { margin-top:8px; min-height:2em; }
+@media(max-width:480px) {
+  #leak-containment-3d .leak-stage { height:380px; }
+}
+</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const root = document.getElementById('leak-containment-3d');
+const stage = root.querySelector('.leak-stage');
+const labelsNode = root.querySelector('.leak-labels');
+const leadersNode = root.querySelector('.leak-leaders');
+const loading = root.querySelector('.leak-loading');
+const detail = root.querySelector('[data-detail]');
+const controlsUI = Object.fromEntries([...root.querySelectorAll('[data-control]')].map(n=>[n.dataset.control,n]));
+const defaults = {variant:'drawer10',view:'withdraw',case:'ghost',water:false,oldpan:false,dimensions:true,withdrawal:250};
+let state = {...defaults}, context, proposals, metadata, renderer, scene, camera, orbit;
+let contextGroup, proposalGroup, dimensionGroup, originalPanGhost;
+let labels = [], animated = false, dragStart, selectedName = null;
+const meshes = [], raycaster = new THREE.Raycaster(), pointer = new THREE.Vector2();
+const colorRoles = {tray:'--viz-series-1',tube:'--viz-series-2',sensor:'--viz-series-3',water:'--viz-series-4',relief:'--destructive',critical:'--destructive',support:'--muted-foreground',frame:'--muted-foreground',presence:'--viz-series-3',case:'--foreground',core:'--muted-foreground',hardware:'--foreground','upper-pan':'--viz-series-1',outline:'--muted-foreground',dimension:'--muted-foreground'};
+const materials = new Set();
+function themeColor(token) {
+  const probe=document.createElement('span');
+  probe.style.color=`var(${token})`; root.append(probe);
+  const resolved=getComputedStyle(probe).color;
+  const color=new THREE.Color(resolved.startsWith('rgba(')?`rgb(${resolved.slice(5,-1).split(',').slice(0,3).join(',')})`:resolved);
+  probe.remove(); return color;
+}
+function material(category, extra={}) {
+  const opacity = ({case:.11,core:.36,hardware:.68,tube:.80,water:.38,relief:.24})[category] ?? 1;
+  const m=new THREE.MeshStandardMaterial({color:themeColor(colorRoles[category]||'--foreground'),roughness:.65,metalness:0,transparent:opacity<1,opacity,side:THREE.DoubleSide,depthWrite:opacity>=.9,...extra});
+  m.userData.role=category; materials.add(m); return m;
+}
+function geometry(data) {
+  const g=new THREE.BufferGeometry();
+  g.setAttribute('position',new THREE.Float32BufferAttribute(data.p,3));
+  g.setIndex(data.i); g.computeVertexNormals(); g.computeBoundingBox(); return g;
+}
+function surface(data) {
+  const m=new THREE.Mesh(geometry(data),material(data.category));
+  if(data.name==='mq6-sensor'){m.material.userData.role='critical';m.material.color.copy(themeColor('--destructive'));}
+  m.userData={name:data.name,category:data.category};
+  m.renderOrder=data.category==='water'?7:data.category==='case'?8:0;
+  meshes.push(m); return m;
+}
+async function unpack(b64) {
+  const raw=Uint8Array.from(atob(b64),c=>c.charCodeAt(0));
+  const stream=new Blob([raw]).stream().pipeThrough(new DecompressionStream('gzip'));
+  return JSON.parse(await new Response(stream).text());
+}
+async function unpackProposals(b64) {
+  const raw=Uint8Array.from(atob(b64),c=>c.charCodeAt(0));
+  const stream=new Blob([raw]).stream().pipeThrough(new DecompressionStream('gzip'));
+  const bytes=await new Response(stream).arrayBuffer();
+  const headerLength=new DataView(bytes).getUint32(0,true);
+  const data=JSON.parse(new TextDecoder().decode(new Uint8Array(bytes,4,headerLength)));
+  if(data.schema!==2)throw new Error('Unsupported proposal pack');
+  const start=Math.ceil((4+headerLength)/4)*4;
+  for(const m of data.meshes){
+    m.p=Array.from(new Int32Array(bytes,start+m.p[0],m.p[1]),v=>v/data.position_scale);
+    m.i=Array.from(new Uint32Array(bytes,start+m.i[0],m.i[1]));
+  }
+  return data;
+}
+function adopt(saved) {
+  const restored=saved?.modelContent||saved||{};
+  for (const key of Object.keys(defaults)) {
+    if (typeof restored[key]!==typeof defaults[key]) continue;
+    if (typeof defaults[key]==='boolean') state[key]=restored[key];
+    else if(key==='withdrawal')state[key]=Math.max(0,Math.min(500,restored[key]));
+    else if ([...controlsUI[key].options].some(o=>o.value===restored[key])) state[key]=restored[key];
+  }
+  for (const [key,node] of Object.entries(controlsUI)) {
+    if (node.type==='checkbox') node.checked=state[key]; else node.value=state[key];
+  }
+}
+function remember() {
+  const v=metadata?.variants[state.variant];
+  window.openai?.setWidgetState?.({modelContent:{...state,addedHeightMm:v?.parameters.added_z||0,staticRimCapacityMl:Math.round(v?.net_capacity_ml||39.2)},privateContent:null}).catch(()=>{});
+}
+function setMetric(key,value) { root.querySelector(`[data-metric="${key}"]`).textContent=value; }
+function disposeChildren(group) {
+  for (const child of [...group.children]) {
+    group.remove(child);
+    child.traverse(c=>{c.geometry?.dispose();if(c.material){materials.delete(c.material);c.material.dispose();}});
+    const index=meshes.indexOf(child);if(index>=0)meshes.splice(index,1);
+  }
+}
+function addLabel(position,text,kind='label') {
+  const n=document.createElement('span');n.className='leak-label text-small';n.textContent=text;
+  const leader=document.createElementNS('http://www.w3.org/2000/svg','line');
+  leadersNode.append(leader);labelsNode.append(n); labels.push({node:n,leader,point:new THREE.Vector3(...position),kind});
+}
+function line(points, role='dimension', dashed=false) {
+  const g=new THREE.BufferGeometry().setFromPoints(points.map(p=>new THREE.Vector3(...p)));
+  const m=dashed?new THREE.LineDashedMaterial({color:themeColor(colorRoles[role]),dashSize:5,gapSize:3,transparent:true,opacity:.8}):new THREE.LineBasicMaterial({color:themeColor(colorRoles[role]),transparent:true,opacity:.85});
+  m.userData.role=role;materials.add(m);
+  const l=new THREE.Line(g,m);if(dashed)l.computeLineDistances();dimensionGroup.add(l);return l;
+}
+function dimension(a,b,text,offset=[0,0,0]) {
+  line([a,b]);
+  const direction=new THREE.Vector3(...b).sub(new THREE.Vector3(...a)).normalize();
+  const tick= Math.abs(direction.z)>.9?[5,0,0]:[0,0,5];
+  for(const p of [a,b])line([p.map((v,i)=>v-tick[i]),p.map((v,i)=>v+tick[i])]);
+  addLabel(a.map((v,i)=>(v+b[i])/2+offset[i]),text,'dimension');
+}
+function buildDimensions(v) {
+  labelsNode.replaceChildren();leadersNode.replaceChildren();labels=[];disposeChildren(dimensionGroup);
+  if(!state.dimensions)return;
+  if(state.variant==='current') {
+    if(state.view==='vent'||state.view==='receiver')addLabel([-78.07,378.51,303.21],'Current pan · 39 mL');
+    else dimension([130,20,-6],[130,20,358],'364 mm',[20,0,0]);
+    return;
+  }
+  const p=v.parameters, out=v.tube_outlet_xyz;
+  const isDrawer=p.mode==='drawer', travel=isDrawer?state.withdrawal:0;
+  if(state.view==='whole') {
+    dimension([137,20,v.overall_bounds[2]],[137,20,358],`${v.installed_height_mm.toFixed(0)} mm`,[19,0,0]);
+    addLabel([-148,378,265],'Clear vent extension');
+    addLabel([-125,310-travel,p.rim_z],isDrawer?'Removable tray':'Lower collector');
+  } else if(state.view==='vent') {
+    addLabel([-78.07,378.51,316],'Existing vent connection');
+    addLabel([-112,378,276],'New wall relief');
+    addLabel([-146,378,222],'9.53 OD / 6.35 ID');
+    addLabel([-120,378,300],'R30 bends');
+  } else if(state.view==='receiver') {
+    if(isDrawer&&travel>95.5)addLabel([out[0],out[1],p.rim_z],'No receiving tray below');
+    else {
+      dimension([out[0]-9,out[1]-36,p.rim_z],[out[0]-9,out[1]-36,out[2]],`${p.air_gap} mm gap`,[-25,0,0]);
+      addLabel([out[0]+10,out[1]-travel,p.rim_z],'Flood rim level');
+      addLabel([out[0]-9,out[1]+26-travel,p.innerfloor_z],'Sensing strip');
+    }
+    addLabel([out[0],out[1],out[2]+14],'Open tube end');
+  } else if(state.view==='base') {
+    const edge=isDrawer?v.frame.west_web[0]:-121;
+    dimension([edge-4,92,p.bottom_z],[edge-4,92,-6],`+${p.added_z} mm`,[-22,0,0]);
+    dimension([edge-4,150,p.innerfloor_z],[edge-4,150,p.rim_z],`${p.depth} mm wet`,[-25,0,0]);
+    line([[-107.5,5,-6],[-107.5,220,-6]],'dimension',true);
+    addLabel([-45,105,18],'Existing base');
+    addLabel([-100,54,p.bottom_z-14],'2 mm tray floor');
+    if(isDrawer){addLabel([-141,125,-5],'Fixed bearing lip · 2 mm');addLabel([-143,190,-8.5],'0.5 mm rim clearance');}
+    else if(p.mode==='full') addLabel([-100,44,15],'MQ-6 · 4 mm above rim');
+  } else if(state.view==='under') {
+    dimension([v.overall_bounds[0],-22,p.innerfloor_z],[v.overall_bounds[3],-22,p.innerfloor_z],`${v.overall_width_mm.toFixed(1)} mm overall`,[0,-13,0]);
+    dimension([128,v.overall_bounds[1],p.innerfloor_z],[128,v.overall_bounds[4],p.innerfloor_z],`${v.overall_depth_mm.toFixed(0)} mm`,[25,0,0]);
+    if(p.mode==='full')addLabel([-45,226,p.innerfloor_z],'8 × 1.7 mm strip envelopes');
+    if(isDrawer)addLabel([-45,226-travel,p.innerfloor_z],'Moving sensing strips');
+  } else if(state.view==='withdraw'&&isDrawer) {
+    addLabel([-166,300,-6],'Fixed load frame');
+    addLabel([0,140-travel,p.innerfloor_z],'Removable tray');
+    if(travel>0)dimension([135,-4.05,p.innerfloor_z],[135,-4.05-travel,p.innerfloor_z],`${travel} mm pull-out`,[25,0,0]);
+    addLabel([-94,106,5],'Fixed internal floor strip');
+  }
+}
+function updateVariant() {
+  const v=metadata.variants[state.variant];
+  selectedName=null;disposeChildren(proposalGroup);
+  const isDrawer=v?.parameters.mode==='drawer';
+  if(!isDrawer)state.withdrawal=0;
+  root.querySelector('[data-withdrawal]').hidden=!isDrawer;
+  controlsUI.withdrawal.value=state.withdrawal;
+  root.querySelector('[data-withdrawal-value]').textContent=`${state.withdrawal} mm`;
+  if(v)for(const index of v.mesh_indices){
+    const data=proposals.meshes[index],m=surface(data);
+    m.userData.moving=isDrawer&&(data.category==='water'||v.parts[data.name]?.role==='moving');
+    if(m.userData.moving)m.position.y=-state.withdrawal;
+    proposalGroup.add(m);
+  }
+  for(const m of contextGroup.children) {
+    const category=m.userData.category;
+    if(category==='case') {
+      m.visible=state.case!=='hidden';m.material.opacity=state.case==='solid'?.94:.11;m.material.depthWrite=state.case==='solid';
+      m.material.clippingPlanes=['base','withdraw'].includes(state.view)?[new THREE.Plane(new THREE.Vector3(0,0,-1),25)]:[];
+    } else if(category==='upper-pan') m.visible=state.variant==='current';
+    else if(m.userData.name==='moisture-plate')m.visible=state.variant==='current';
+    else if(m.userData.name==='asse1022-assembly/vent-stub')m.visible=state.variant==='current';
+    else if(state.view==='under')m.visible=false;
+    else if(['base','withdraw'].includes(state.view))m.visible=category==='sensor';
+    else m.visible=true;
+  }
+  if(state.view==='under') for(const m of contextGroup.children)m.visible=false;
+  for(const m of proposalGroup.children) {
+    if(m.userData.category==='water')m.visible=state.water;
+    if(['base','withdraw'].includes(state.view)&&['tube','relief'].includes(m.userData.category))m.visible=false;
+    if(state.view==='under'&&['tube','relief'].includes(m.userData.category))m.visible=false;
+    if(['base','withdraw','under'].includes(state.view)&&m.userData.category==='support'&&!m.userData.name.startsWith('support-'))m.visible=false;
+  }
+  originalPanGhost.visible=state.oldpan&&state.variant!=='current'&&!['under','base','withdraw'].includes(state.view);
+  controlsUI.water.disabled=state.variant==='current';controlsUI.water.checked=state.variant!=='current'&&state.water;
+  if(v) {
+    const p=v.parameters;
+    setMetric('height',`${v.installed_height_mm.toFixed(0)} mm`);
+    setMetric('added',p.mode!=='local'?`+${p.added_z} mm under base`:'Machine height unchanged');
+    setMetric('width',`${v.overall_width_mm.toFixed(1)} mm`);
+    setMetric('cabinet',`${v.cabinet_width_with_side_gaps_mm.toFixed(1)} mm cabinet allowance`);
+    setMetric('capacity',`${Math.round(v.net_capacity_ml)} mL`);
+    setMetric('capacityLabel','Static volume to rim');
+    setMetric('depth',`${p.depth} mm wet depth · no freeboard`);
+    detail.textContent=isDrawer?`${['base','withdraw'].includes(state.view)?'Case cut at base · ':''}Frame carries machine · ${p.depth} mm wet depth · 485 mm travel to remove`:p.mode==='full'?`Separate pan · lift machine to remove · ${p.gap} mm under-base gap · ${p.gap-1.7} mm above strip`:`ASSE discharge collector · ${p.depth+2} mm tall · internal floor witness also shown`;
+    root.querySelector('[data-accessible]').textContent=`Proposed ${p.mode} collection. ${v.installed_height_mm} mm installed height, including the existing 3 mm funnel cover. ${v.overall_width_mm.toFixed(1)} mm case plus collector width. ${Math.round(v.net_capacity_ml)} mL maximum static volume at the rim with installed solids subtracted. Air gap ${p.air_gap} mm is an unapproved review assumption.`;
+    const status=root.querySelector('[data-status]');
+    status.classList.toggle('text-destructive',isDrawer&&state.withdrawal>95.5);
+    status.textContent=isDrawer&&state.withdrawal>95.5?'Outlet is outside the usable tray opening · supply isolation and presence interlock required':isDrawer&&state.withdrawal>0?'Service position · supply must be isolated · water motion is not simulated':state.view==='receiver'?`${p.air_gap} mm air gap is a review assumption · rotate or zoom to inspect`:'Drag to rotate · wheel to zoom · right-drag to pan';
+  } else {
+    setMetric('height','364 mm');setMetric('added','Current geometry');setMetric('width','221 mm');setMetric('cabinet','295 mm cabinet allowance');setMetric('capacity','39 mL');setMetric('capacityLabel','Nominal empty-pan capacity');setMetric('depth','Before plate / cove displacement');
+    detail.textContent='Existing upper pan · discharge below it meets the cold-core roof';
+    root.querySelector('[data-status]').classList.remove('text-destructive');
+    root.querySelector('[data-status]').textContent='Saved assembly context · drag to rotate · wheel to zoom';
+    root.querySelector('[data-accessible]').textContent='Current appliance with upper ASSE discharge pan. Installed height 364 mm including cover; nominal empty-pan volume 39 mL.';
+  }
+  buildDimensions(v); requestRender();
+}
+function setView() {
+  const v=metadata.variants[state.variant], p=v?.parameters;
+  const routeX=p?.downcomer_x??-78.07, rim=p?.rim_z??292.81,travel=p?.mode==='drawer'?state.withdrawal:0;
+  const views={
+    whole:{target:[-10,244-travel/2,169],offset:[-700,-740,450],span:540+travel*.55},
+    vent:{target:[-103,378,290],offset:[-260,-350,125],span:130},
+    receiver:{target:[routeX+9,378,p?.mode==='local'?(p.bottom_z+rim+p.air_gap)/2+3:rim+18],offset:[-230,-300,150],span:p?.mode==='local'?165:125},
+    base:{target:[p?.mode==='drawer'?-119:-43,112,-3],offset:[-280,-400,70],span:160},
+    under:{target:[-20,237-travel/2,p?.innerfloor_z??-6],offset:[0,-250,850],span:560+travel*.65},
+    withdraw:{target:[-25,240-travel/2,-6],offset:[-400,-550,300],span:590+travel*.65},
+  };
+  const spec=views[state.view];orbit.target.set(...spec.target);camera.position.copy(orbit.target).add(new THREE.Vector3(...spec.offset));
+  camera.up.set(0,0,1);
+  camera.userData.span=spec.span;camera.zoom=1;resize();camera.lookAt(orbit.target);orbit.update();requestRender();
+}
+function resize() {
+  if(!renderer)return;
+  const width=stage.clientWidth,height=stage.clientHeight,span=camera.userData.span||540;
+  renderer.setSize(width,height,false);
+  const aspect=width/height;
+  camera.top=span/2;camera.bottom=-span/2;camera.left=-span*aspect/2;camera.right=span*aspect/2;
+  if(aspect<1&&['whole','under','withdraw'].includes(state.view)){camera.top=span/(2*aspect);camera.bottom=-span/(2*aspect);camera.left=-span/2;camera.right=span/2;}
+  camera.updateProjectionMatrix();requestRender();
+}
+function render() {
+  animated=false;if(!renderer)return;
+  renderer.render(scene,camera);
+  const w=stage.clientWidth,h=stage.clientHeight;
+  const placed=[];
+  for(const label of [...labels].sort((a,b)=>(a.kind==='dimension'?0:1)-(b.kind==='dimension'?0:1))) {
+    const point=label.point.clone().project(camera),x=(point.x+1)*w/2,y=(1-point.y)*h/2;
+    label.node.hidden=point.z< -1||point.z>1||x<0||x>w||y<0||y>h;
+    label.leader.style.display='none';if(label.node.hidden)continue;
+    const half=Math.min(label.node.offsetWidth/2+3,w/2),hh=label.node.offsetHeight/2+2;
+    const candidates=[[0,0],[0,2*hh+6],[0,-2*hh-6],[0,4*hh+12],[0,-4*hh-12],[half+12,0],[-half-12,0],[0,6*hh+18],[0,-6*hh-18]];
+    let position;
+    for(const [dx,dy]of candidates) {
+      const cx=Math.max(half,Math.min(w-half,x+dx)),cy=Math.max(hh,Math.min(h-hh,y+dy));
+      const box=[cx-half,cy-hh,cx+half,cy+hh];
+      if(placed.every(b=>box[0]>b[2]+4||box[2]<b[0]-4||box[1]>b[3]+4||box[3]<b[1]-4)){position=[cx,cy];placed.push(box);break;}
+    }
+    if(!position){label.node.hidden=true;continue;}
+    const [cx,cy]=position;label.node.style.left=`${cx}px`;label.node.style.top=`${cy}px`;
+    if(Math.hypot(cx-x,cy-y)>14){for(const [key,value]of Object.entries({x1:x,y1:y,x2:cx,y2:cy}))label.leader.setAttribute(key,value);label.leader.style.display='';}
+  }
+}
+function requestRender() {if(!animated){animated=true;requestAnimationFrame(render);}}
+function themeChanged() {
+  for(const m of materials)m.color.copy(themeColor(colorRoles[m.userData.role]||'--foreground'));
+  requestRender();
+}
+try {
+  [context,proposals]=await Promise.all([unpack('__CONTEXT_DATA__'),unpackProposals('__PROPOSAL_DATA__')]);metadata=proposals.metadata;
+  adopt(window.openai?.widgetState);
+  scene=new THREE.Scene();
+  renderer=new THREE.WebGLRenderer({alpha:true,antialias:true});renderer.localClippingEnabled=true;renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setClearColor(themeColor('--background'),0);stage.prepend(renderer.domElement);
+  camera=new THREE.OrthographicCamera(-300,300,270,-270,.1,4000);
+  camera.up.set(0,0,1);
+  orbit=new OrbitControls(camera,renderer.domElement);orbit.enableDamping=false;orbit.enablePan=true;orbit.minZoom=.25;orbit.maxZoom=15;
+  orbit.addEventListener('change',requestRender);
+  scene.add(new THREE.AmbientLight(themeColor('--background'),2.4));
+  const light=new THREE.DirectionalLight(themeColor('--foreground'),2.8);light.position.set(-300,-500,700);scene.add(light);
+  const fill=new THREE.DirectionalLight(themeColor('--background'),1.7);fill.position.set(250,550,100);scene.add(fill);
+  contextGroup=new THREE.Group();proposalGroup=new THREE.Group();dimensionGroup=new THREE.Group();originalPanGhost=new THREE.Group();
+  scene.add(contextGroup,proposalGroup,dimensionGroup,originalPanGhost);
+  for(const data of context) {
+    const m=surface(data);contextGroup.add(m);
+    if(data.category==='upper-pan') {
+      const wire=new THREE.LineSegments(new THREE.EdgesGeometry(m.geometry,30),new THREE.LineBasicMaterial({color:themeColor('--muted-foreground'),transparent:true,opacity:.65}));
+      wire.material.userData.role='outline';materials.add(wire.material);originalPanGhost.add(wire);
+    }
+  }
+  for(const [key,node]of Object.entries(controlsUI)) node.addEventListener(key==='withdrawal'?'input':'change',()=>{
+    state[key]=node.type==='checkbox'?node.checked:key==='withdrawal'?Number(node.value):node.value;
+    if(key==='view'&&['vent','receiver','base'].includes(state.view))state.withdrawal=0;
+    updateVariant();if(key==='view'||key==='variant'||(key==='withdrawal'&&['whole','under','withdraw'].includes(state.view)))setView();if(key!=='withdrawal')remember();
+  });
+  controlsUI.withdrawal.addEventListener('change',remember);
+  renderer.domElement.addEventListener('pointerdown',e=>{dragStart=[e.clientX,e.clientY];});
+  renderer.domElement.addEventListener('pointerup',e=>{
+    if(!dragStart||Math.hypot(e.clientX-dragStart[0],e.clientY-dragStart[1])>4)return;
+    const rect=renderer.domElement.getBoundingClientRect();pointer.set((e.clientX-rect.left)/rect.width*2-1,-(e.clientY-rect.top)/rect.height*2+1);
+    raycaster.setFromCamera(pointer,camera);
+    const hit=raycaster.intersectObjects(meshes.filter(m=>m.visible&&m.parent?.visible&&m.userData.category!=='water'&&m.userData.category!=='case'),false)[0];
+    if(hit){selectedName=hit.object.userData.name;detail.textContent=selectedName.replaceAll('-',' ').replaceAll('/',' / ');}
+  });
+  new ResizeObserver(resize).observe(stage);
+  new MutationObserver(themeChanged).observe(document.documentElement,{attributes:true,attributeFilter:['class','style','data-theme']});
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',themeChanged);
+  window.addEventListener('openai:set_globals',event=>{if(event.detail?.globals?.widgetState){adopt(event.detail.globals.widgetState);updateVariant();setView();}});
+  updateVariant();setView();loading.remove();root.dataset.ready='true';
+} catch(error) {
+  loading.textContent='3D view could not load.';loading.setAttribute('role','alert');
+  detail.textContent=error.message;root.dataset.error=error.message;
+}
+</script>
