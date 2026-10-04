@@ -33,3 +33,7 @@ filament colours, trim, support absence and the correction
 printers before the send, and [launch](launch.json) records the acceptance.
 Mark2 reported `FINISH` at 05:43:26Z, all 11 layers, no print error or HMS
 ([postlaunch](postlaunch.json)).
+
+Derek's [photo](../2026-10-04-bulkhead-co2-raised-mark2-v1/physical-result.jpg) of the printed rings shows the white letters crisp and seated in their
+recess with no visible offset ([physical result](physical-result.json)); no verdict or mounting fit
+was stated.

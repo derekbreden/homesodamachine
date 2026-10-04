@@ -40,3 +40,7 @@ loading/unloading not completed" ([rejected send](rejected-send.json)). The same
 archive sent after the load cycle ended was accepted ([launch](launch.json)).
 Mark2 reported `FINISH` at 07:02:24Z, all 11 layers, no print error or HMS
 ([postlaunch](postlaunch.json)).
+
+Derek's [photo](physical-result.jpg) of the printed rings shows the white letters crisp and seated in their
+recess with no visible offset ([physical result](physical-result.json)); no verdict or mounting fit
+was stated.
