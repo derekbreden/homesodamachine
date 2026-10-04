@@ -1,0 +1,143 @@
+cavity.stl · 88238 printed facets · 0 findings · 17 answered
+
+  [step · answered] The opening notch is recessed 1 mm into the bare parting land and opens through the flange edge. Its 4 mm floor carries a blunt opening tool; the 1 mm level change is the pry recess.
+    Δ1.000 mm between parallel planes · footprint met 16.0 × 5.0 mm
+    faceA: plane · n x=0.000 y=0.000 z=1.000 · thru x=-103.000 y=0.000 z=55.150
+    faceB: plane · n x=0.000 y=0.000 z=1.000 · thru x=0.000 y=0.000 z=56.150
+    click: x=-103.000 y=0.000 z=55.150
+
+  [sliver · answered] These are the vertical backs and sides of the four 1 mm high, 16 mm wide opening notches. Each recess retains a 4 mm flange floor and opens through the outer edge; the strip dimension is the recess height.
+    1.000 mm strip, 16.0 mm long
+    face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-100.500 y=0.000 z=55.650
+    edge: x=-100.500 y=-8.000 z=55.650 → x=-100.500 y=8.000 z=55.650 · len 16.000 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-100.500 y=0.000 z=55.650
+
+  [sliver · answered] These are the vertical backs and sides of the four 1 mm high, 16 mm wide opening notches. Each recess retains a 4 mm flange floor and opens through the outer edge; the strip dimension is the recess height.
+    1.000 mm strip, 16.0 mm long
+    face: plane · n x=0.000 y=-1.000 z=0.000 · thru x=0.000 y=-100.502 z=55.650
+    edge: x=8.000 y=-100.502 z=55.650 → x=-8.000 y=-100.502 z=55.650 · len 16.000 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=0.000 y=-100.502 z=55.650
+
+  [sliver · answered] These are the vertical backs and sides of the four 1 mm high, 16 mm wide opening notches. Each recess retains a 4 mm flange floor and opens through the outer edge; the strip dimension is the recess height.
+    1.000 mm strip, 16.0 mm long
+    face: plane · n x=0.000 y=1.000 z=0.000 · thru x=0.000 y=100.500 z=55.650
+    edge: x=-8.000 y=100.500 z=55.650 → x=8.000 y=100.500 z=55.650 · len 16.000 · straight · dir x=1.000 y=0.000 z=0.000
+    click: x=0.000 y=100.500 z=55.650
+
+  [sliver · answered] These are the vertical backs and sides of the four 1 mm high, 16 mm wide opening notches. Each recess retains a 4 mm flange floor and opens through the outer edge; the strip dimension is the recess height.
+    1.000 mm strip, 16.0 mm long
+    face: plane · n x=1.000 y=0.000 z=0.000 · thru x=100.500 y=0.000 z=55.650
+    edge: x=100.500 y=8.000 z=55.650 → x=100.500 y=-8.000 z=55.650 · len 16.000 · straight · dir x=0.000 y=-1.000 z=0.000
+    click: x=100.500 y=0.000 z=55.650
+
+  [sliver · answered] These are the vertical backs and sides of the four 1 mm high, 16 mm wide opening notches. Each recess retains a 4 mm flange floor and opens through the outer edge; the strip dimension is the recess height.
+    1.000 mm strip, 5.0 mm long
+    face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=8.000 y=-103.000 z=55.650
+    edge: x=8.000 y=-105.500 z=55.650 → x=8.000 y=-100.500 z=55.650 · len 5.000 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=8.000 y=-103.000 z=55.650
+
+  [sliver · answered] These are the vertical backs and sides of the four 1 mm high, 16 mm wide opening notches. Each recess retains a 4 mm flange floor and opens through the outer edge; the strip dimension is the recess height.
+    1.000 mm strip, 5.0 mm long
+    face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=8.000 y=103.000 z=55.650
+    edge: x=8.000 y=100.500 z=55.650 → x=8.000 y=105.500 z=55.650 · len 5.000 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=8.000 y=103.000 z=55.650
+
+  [sliver · answered] These are the vertical backs and sides of the four 1 mm high, 16 mm wide opening notches. Each recess retains a 4 mm flange floor and opens through the outer edge; the strip dimension is the recess height.
+    1.000 mm strip, 5.0 mm long
+    face: plane · n x=0.000 y=-1.000 z=0.000 · thru x=-103.000 y=7.998 z=55.650
+    edge: x=-100.500 y=7.998 z=55.650 → x=-105.500 y=7.998 z=55.650 · len 5.000 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=-103.000 y=7.998 z=55.650
+
+  [sliver · answered] These are the vertical backs and sides of the four 1 mm high, 16 mm wide opening notches. Each recess retains a 4 mm flange floor and opens through the outer edge; the strip dimension is the recess height.
+    1.000 mm strip, 5.0 mm long
+    face: plane · n x=0.000 y=-1.000 z=0.000 · thru x=103.000 y=7.998 z=55.650
+    edge: x=105.500 y=7.998 z=55.650 → x=100.500 y=7.998 z=55.650 · len 5.000 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=103.000 y=7.998 z=55.650
+
+  [sliver · answered] These are the vertical backs and sides of the four 1 mm high, 16 mm wide opening notches. Each recess retains a 4 mm flange floor and opens through the outer edge; the strip dimension is the recess height.
+    1.000 mm strip, 5.0 mm long
+    face: plane · n x=0.000 y=1.000 z=0.000 · thru x=-103.000 y=-8.000 z=55.650
+    edge: x=-105.500 y=-8.000 z=55.650 → x=-100.500 y=-8.000 z=55.650 · len 5.000 · straight · dir x=1.000 y=0.000 z=0.000
+    click: x=-103.000 y=-8.000 z=55.650
+
+  [sliver · answered] These are the vertical backs and sides of the four 1 mm high, 16 mm wide opening notches. Each recess retains a 4 mm flange floor and opens through the outer edge; the strip dimension is the recess height.
+    1.000 mm strip, 5.0 mm long
+    face: plane · n x=0.000 y=1.000 z=0.000 · thru x=103.000 y=-8.000 z=55.650
+    edge: x=100.500 y=-8.000 z=55.650 → x=105.500 y=-8.000 z=55.650 · len 5.000 · straight · dir x=1.000 y=0.000 z=0.000
+    click: x=103.000 y=-8.000 z=55.650
+
+  [sliver · answered] These are the vertical backs and sides of the four 1 mm high, 16 mm wide opening notches. Each recess retains a 4 mm flange floor and opens through the outer edge; the strip dimension is the recess height.
+    1.000 mm strip, 5.0 mm long
+    face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-8.000 y=-103.000 z=55.650
+    edge: x=-8.000 y=-100.500 z=55.650 → x=-8.000 y=-105.500 z=55.650 · len 5.000 · straight · dir x=0.000 y=-1.000 z=0.000
+    click: x=-8.000 y=-103.000 z=55.650
+
+  [sliver · answered] These are the vertical backs and sides of the four 1 mm high, 16 mm wide opening notches. Each recess retains a 4 mm flange floor and opens through the outer edge; the strip dimension is the recess height.
+    1.000 mm strip, 5.0 mm long
+    face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-8.000 y=103.000 z=55.650
+    edge: x=-8.000 y=105.500 z=55.650 → x=-8.000 y=100.500 z=55.650 · len 5.000 · straight · dir x=0.000 y=-1.000 z=0.000
+    click: x=-8.000 y=103.000 z=55.650
+
+  [ceiling · answered] The 5 mm clamping flange overhangs the shell. The current native Snug slice records bed-rooted support and labelled interface-5 at print Z50.602–50.880 beneath this band. Its exposed outer edges permit cutting and detaching support before finishing. Clean physical removal remains unqualified.
+    17783 mm² flat print-down face at z=51.150 · 211.0 × 211.0 mm · open to the bed (51.2 mm up)
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=0.000 y=0.000 z=51.150
+    click: x=0.000 y=0.000 z=51.150
+
+  [ceiling · answered] This underside of the brim shell has at least 5 mm backing. The current native Snug slice records bed-rooted support and labelled interface-4 in the brim band. Cut and detach it through the open dry back before finishing the forming face; connected supports need not withdraw intact. Native paths do not establish physical adhesion or clean release.
+    963 mm² flat print-down face at z=44.840 · 179.0 × 131.7 mm · open to the bed (44.8 mm up)
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=0.000 y=0.000 z=44.840
+    click: x=0.000 y=0.000 z=44.840
+
+  [ceiling · answered] This flat underside backs the silicone block with the checked 5 mm shell stock. The current native Snug slice records bed-rooted support and labelled interface-2 in the block band, beginning at print Z1.440. The underside is exposed between the three mold feet for cutting and removal; no enclosed support passage is required. Clean physical removal remains unqualified.
+    1257 mm² flat print-down face at z=1.890 · 41.0 × 36.0 mm · open to the bed (1.9 mm up)
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=1.850 y=0.000 z=1.890
+    click: x=1.850 y=0.000 z=1.890
+
+  [ceiling · answered] This is the dry bottom of the blind pilot-seat boss. It leaves 5 mm of axial stock below the seat floor, with 0.7 mm clearance above the mold's feet datum. Native Snug interface-1 occupies print Z0.200–0.480 beneath the boss and is bed-rooted. Cut and detach it from the open underside between the feet before fitting the pin; support quality and physical cleanout remain unqualified.
+    220 mm² flat print-down face at z=0.700 · 16.8 × 16.7 mm · open to the bed (0.7 mm up)
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=1.850 y=0.000 z=0.700
+    click: x=1.850 y=0.000 z=0.700
+
+core.stl · 61234 printed facets · 0 findings · 6 answered
+
+  [step · answered] The forming pocket over the silicone brim reserves 0.30 mm of coating growth. The surrounding bare lands set closure height. This face prints upward with the core inverted; the 4.70 mm stock behind it supports the forming face.
+    Δ0.300 mm between parallel planes · footprint met 179.6 × 132.3 mm
+    faceA: plane · n x=0.000 y=0.000 z=-1.000 · thru x=0.000 y=0.000 z=56.450
+    faceB: plane · n x=0.000 y=0.000 z=-1.000 · thru x=0.000 y=0.000 z=56.150
+    click: x=20.833 y=-57.075 z=56.450
+
+  [sliver · answered] These four vertical faces are the 0.30 mm edge of the finishing pocket over the silicone brim. The 4.70 mm flange behind the pocket supports its forming face; the thin strip is a surface-level change. Keep the surrounding lands bare.
+    0.300 mm strip, 125.0 mm long
+    face: plane · n x=0.000 y=-1.000 z=0.000 · thru x=0.000 y=66.142 z=56.300
+    edge: x=62.500 y=66.142 z=56.300 → x=-62.500 y=66.142 z=56.300 · len 125.000 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=0.000 y=66.142 z=56.300
+
+  [sliver · answered] These four vertical faces are the 0.30 mm edge of the finishing pocket over the silicone brim. The 4.70 mm flange behind the pocket supports its forming face; the thin strip is a surface-level change. Keep the surrounding lands bare.
+    0.300 mm strip, 125.0 mm long
+    face: plane · n x=0.000 y=1.000 z=0.000 · thru x=0.000 y=-66.142 z=56.300
+    edge: x=-62.500 y=-66.142 z=56.300 → x=62.500 y=-66.142 z=56.300 · len 125.000 · straight · dir x=1.000 y=0.000 z=0.000
+    click: x=0.000 y=-66.142 z=56.300
+
+  [sliver · answered] These four vertical faces are the 0.30 mm edge of the finishing pocket over the silicone brim. The 4.70 mm flange behind the pocket supports its forming face; the thin strip is a surface-level change. Keep the surrounding lands bare.
+    0.300 mm strip, 77.7 mm long
+    face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=89.800 y=0.000 z=56.300
+    edge: x=89.800 y=-38.842 z=56.300 → x=89.800 y=38.842 z=56.300 · len 77.683 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=89.800 y=0.000 z=56.300
+
+  [sliver · answered] These four vertical faces are the 0.30 mm edge of the finishing pocket over the silicone brim. The 4.70 mm flange behind the pocket supports its forming face; the thin strip is a surface-level change. Keep the surrounding lands bare.
+    0.300 mm strip, 77.7 mm long
+    face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-89.800 y=0.000 z=56.300
+    edge: x=-89.800 y=38.842 z=56.300 → x=-89.800 y=-38.842 z=56.300 · len 77.683 · straight · dir x=0.000 y=-1.000 z=0.000
+    click: x=-89.800 y=0.000 z=56.300
+
+  [ceiling · answered] This is the exposed dry top of the short blind pin-seat boss. Its cap is 5 mm thick and faces downward when the core prints inverted. The native Snug slice records a bed-rooted support and labelled interface-2 at print Z29.040–29.280 beneath this face, which lies at print Z29.485. Cut and detach that support through the open dry back, then clear the short seat mouth. The support is outside the closed cap; printed fit and clean physical removal remain unqualified.
+    220 mm² flat print-down face at z=31.665 · 16.8 × 16.7 mm · open to the bed (29.5 mm up)
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=1.850 y=0.000 z=31.665
+    click: x=1.850 y=0.000 z=31.665
+
+forming-mandrel.stl · 112136 printed facets · 0 findings · 1 answered
+
+  [ceiling · answered] The raw entry shoulder's 21.8081 mm² flat underside at print Z1.540 is exposed around the socket pilot. The 2026-10-04 native PETG slice in native-slice-reviews/2026-10-04-short-pin/pin/support-topology.json emits one bed-rooted Snug support with an interface ending at Z1.340, 0.200 mm below this face. Cut and detach it radially from the exposed outside, then finish the complete shoulder to the measured forming reference. The 0.05 mm normal reserve belongs to this supported forming face. Physical support cleanout, coating adhesion and the finished profile remain unqualified.
+    22 mm² flat print-down face at z=1.540 · 8.3 × 8.3 mm · open to the bed (1.5 mm up)
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=0.000 y=0.000 z=1.540
+    click: x=0.000 y=0.000 z=1.540

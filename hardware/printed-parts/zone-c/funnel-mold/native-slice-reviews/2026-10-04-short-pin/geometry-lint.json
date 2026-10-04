@@ -1,0 +1,131 @@
+{
+  "checked_at_utc": "2026-10-04T09:06:35.869756+00:00",
+  "method": "Post-publication native geometry lint in each actual print orientation, with all current intentional faces answered against native stock dimensions and reviewed Snug support paths.",
+  "publication": {
+    "published_geometry_commit": "54445303c554307025e53f0792ef1a37a848b46e",
+    "live_verification": "Live GET/gunzip payload hashes for cavity.step.mesh, core.step.mesh, forming-mandrel.step.mesh, rod.step and assembly.step match the current native exports for the published geometry commit."
+  },
+  "command": "tools/cad-venv/bin/python hardware/scripts/geometry_lint.py hardware/printed-parts/zone-c/funnel-mold/cavity.stl hardware/printed-parts/zone-c/funnel-mold/core.stl hardware/printed-parts/zone-c/funnel-mold/forming-mandrel.stl --all",
+  "linter": {
+    "path": "hardware/scripts/geometry_lint.py",
+    "sha256": "79914fb4ca91a5620956c1d4d95fd6fe253fcae1b5f26bac0fafc43edffb4f53"
+  },
+  "report": {
+    "path": "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-04-short-pin/geometry-lint.txt",
+    "sha256": "9c4e87ed68d49610b4305149de4d7d4306b240c9e8bcb096a9f4a3bc7a090dcb"
+  },
+  "parts": [
+    {
+      "part": "cavity",
+      "print_orientation": "cavity feet down",
+      "print_up_z_sign": 1,
+      "printed_facets": 88238,
+      "unanswered_findings": 0,
+      "answered_findings": 17,
+      "geometry": [
+        {
+          "path": "hardware/printed-parts/zone-c/funnel-mold/cavity.stl",
+          "sha256": "a675a0603ba632e947ef514b470556562a84bde2011c42381bceec77ef333cc2"
+        },
+        {
+          "path": "hardware/printed-parts/zone-c/funnel-mold/cavity.step",
+          "sha256": "e534dc1cdc309e88210e29f66d7f9cf25f5056a0fee2499bdf2c220c35c7bb43"
+        },
+        {
+          "path": "hardware/printed-parts/zone-c/funnel-mold/cavity.step.mesh",
+          "sha256": "fb0ea842ce92bd63a34eb6dc85cb82faf24c4fa6ec1d84f45e60ba279c644b5c"
+        }
+      ],
+      "answers": {
+        "path": "hardware/printed-parts/zone-c/funnel-mold/cavity.lint-answers",
+        "sha256": "b19f5d4137095c70f2dbd6cfd37b434c9aa5581b65f9b031f3ef70d5606bb41e"
+      },
+      "support_evidence": [
+        {
+          "path": "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-04-short-pin/shells/cavity-support-topology.json",
+          "sha256": "d6156523f0284366d5345a87aca4a3b1e9d3b056239aa1a13fca312bb67974d1"
+        },
+        {
+          "path": "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-04-short-pin/shells/readiness-review.json",
+          "sha256": "2a6b83a70913a54f5ae2115bf0df50553fe6d351748e4143e025a78d7e2bb7ca"
+        }
+      ]
+    },
+    {
+      "part": "core",
+      "print_orientation": "core inverted, back face on bed",
+      "print_up_z_sign": -1,
+      "printed_facets": 61234,
+      "unanswered_findings": 0,
+      "answered_findings": 6,
+      "geometry": [
+        {
+          "path": "hardware/printed-parts/zone-c/funnel-mold/core.stl",
+          "sha256": "d20ea2c8ca0b6385325f5bc74f7554cd019a4bc8a5d4294a37576f69dca07818"
+        },
+        {
+          "path": "hardware/printed-parts/zone-c/funnel-mold/core.step",
+          "sha256": "cc9f9c3b034ac5cfced8f26c867b364e0a2673510838cf6aaed556fb5950d3ec"
+        },
+        {
+          "path": "hardware/printed-parts/zone-c/funnel-mold/core.step.mesh",
+          "sha256": "9b20d9bbda23be7a0a6acf58a6927eca8754fccd903d4dd7601daa6ea0e5fe06"
+        }
+      ],
+      "answers": {
+        "path": "hardware/printed-parts/zone-c/funnel-mold/core.lint-answers",
+        "sha256": "fdb6771559cb2ddc2d23e7e7b7cf5a5e07cd3223cd80a74f2feb553a10cc36f1"
+      },
+      "support_evidence": [
+        {
+          "path": "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-04-short-pin/shells/core-support-topology.json",
+          "sha256": "2c8efd00aec9a996938429f9546d082b67fe22968ade4aa4d299113a6f079139"
+        },
+        {
+          "path": "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-04-short-pin/shells/readiness-review.json",
+          "sha256": "2a6b83a70913a54f5ae2115bf0df50553fe6d351748e4143e025a78d7e2bb7ca"
+        }
+      ]
+    },
+    {
+      "part": "forming-mandrel",
+      "print_orientation": "pilot down",
+      "print_up_z_sign": 1,
+      "printed_facets": 112136,
+      "unanswered_findings": 0,
+      "answered_findings": 1,
+      "geometry": [
+        {
+          "path": "hardware/printed-parts/zone-c/funnel-mold/forming-mandrel.stl",
+          "sha256": "ee4044b3298e6518631698966409f2891ae80d5e4dfd994c7b261f99164c55ce"
+        },
+        {
+          "path": "hardware/printed-parts/zone-c/funnel-mold/forming-mandrel.step",
+          "sha256": "ab5b623c8deb265fa5fb60debb1dcf491e03d3f32ff8207ed06d2e7bfdabf7aa"
+        },
+        {
+          "path": "hardware/printed-parts/zone-c/funnel-mold/forming-mandrel.step.mesh",
+          "sha256": "703935f149b421b9e2f252c8cc74a3d82ea074904b06e2d299b386a2d985a03f"
+        }
+      ],
+      "answers": {
+        "path": "hardware/printed-parts/zone-c/funnel-mold/forming-mandrel.lint-answers",
+        "sha256": "bd87953ae45514fe342357132659dc3f3ced954ad7a8326531e2f9f3955a95af"
+      },
+      "support_evidence": [
+        {
+          "path": "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-04-short-pin/pin/support-topology.json",
+          "sha256": "c8bb546baaf17e76065ee660d6c4899a389b0784ba5ad0d3e8adb0ac61faf0bd"
+        },
+        {
+          "path": "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-04-short-pin/pin/readiness-review.json",
+          "sha256": "e5eb985e76eeb0821de3e423b5bb4f50cd72f0b13bdfd1b4a662f833f9549930"
+        }
+      ]
+    }
+  ],
+  "total_unanswered_findings": 0,
+  "total_answered_findings": 24,
+  "disposition": "No actual geometry defect found. Current answers cover opening recesses, forming-pocket edges and accessible ceilings with measured backing and native support evidence.",
+  "limits": "Native stock and toolpaths do not establish physical printed fit, support cleanout, coating adhesion, load capacity or service life."
+}
