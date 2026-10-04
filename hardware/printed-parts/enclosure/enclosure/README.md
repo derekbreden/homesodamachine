@@ -1357,8 +1357,9 @@ bulkhead. The show face shares the fixed front plane at [0 mm](PUMP_FACE_OFFSET)
 stands one flute depth ahead of the pump-pocket datum. The pump wells and their Y+ edge occupy
 the complete flavour pack's common station.
 
-Nothing latches the cartridge in the enclosure. The four barb tubes gripped in the anchor
-tees' branch collets retain it, and the **collet plate** releases them: a 3.175 mm section
+The four barb tubes gripped in the anchor tees' branch collets retain the cartridge, with the
+[RC62 retention pair](magnet-retention/README.md) drawing it home at tube height, and the
+**collet plate** releases them: a 3.175 mm section
 printed into front-top, standing [0.5 mm](PLATE_REST_GAP) fore of the fully extended collet noses at nominal rest. Pull the cradle and
 the tubes draw the tees forward until their collet noses land on the printed release face;
 the collets open and the tubes pass back through the four plate passages. The fixed plate

@@ -105,8 +105,8 @@ Print the [two-page proof](../../output/pdf/refrigerant-warning-proof.pdf) at
 
 These are artwork dimensions, not mandated label dimensions. Width, line breaks and
 panel shape can change while preserving the warning content, letter height and
-location. The 215 x 462 x 361 mm enclosure provides substantially more marking area
-than the 104.53 x 66.07 mm brand plate.
+location. The [enclosure](/hardware/printed-parts/enclosure/README.md) provides substantially more
+marking area than the [brand plate](/hardware/printed-parts/enclosure/nameplate/README.md).
 
 The exterior implementation is owned by the [enclosure CAD](../printed-parts/enclosure/enclosure/README.md#exterior-disposal-warning).
 The full disposal wording is centered low on back-bottom, raised in the enclosure's
