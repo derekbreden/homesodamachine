@@ -26,6 +26,11 @@ def main():
     b = silicone.BoundingBox()
     cx, cy, roof = (b.xmin + b.xmax) / 2, (b.ymin + b.ymax) / 2, b.zmax
     cover = import_assembly(cover_step)['funnel-cover'][0].translate((cx, cy, roof))
+    assembled_cover = bodies['funnel-cover'][0]
+    assembly_difference = (cover.cut(assembled_cover).Volume()
+                           + assembled_cover.cut(cover).Volume())
+    assert assembly_difference < 0.001, assembly_difference
+    cover_bounds = cover.BoundingBox()
     contact = lid.contact_reading(cover, silicone, cx, cy, roof)
     assert contact['pad_contact_mm3'] > 0
     assert contact['outside_pads_mm3'] < 0.001, contact
@@ -77,6 +82,10 @@ def main():
                                     HERE / 'funnel-cover-print.step', HERE / 'funnel-cover.stl',
                                     HERE / 'funnel-cover-print.stl', assembly)},
         'seating_mm': [cx, cy, roof], 'added_height_mm': lid.PLATE_T,
+        'plate_bounds_mm': [cover_bounds.xmin, cover_bounds.xmax,
+                            cover_bounds.ymin, cover_bounds.ymax],
+        'front_extension_mm': lid.FRONT_EXTENSION,
+        'assembly_cover_difference_mm3': assembly_difference,
         'closed_mouth_missing_mm3': missing, 'nominal_contact': contact,
         'neighbours': neighbours, 'vertical_removal': removal,
         'lateral_locating_interference': lateral,

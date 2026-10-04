@@ -31,14 +31,14 @@ PAD_INTERFERENCE = 0.15
 PAD_LENGTH = 16.0
 PAD_Y = 22.0
 PAD_LEAD_H = 1.6
-PULL_WIDTH = 28.0
-PULL_REACH = 4.0
-PULL_RELIEF = 1.2
+FRONT_EXTENSION = 4.0
+FRONT_RELIEF = 1.2
 
 MOUTH_W = funnel.collar_w - 2 * funnel.collar_wall
 MOUTH_D = funnel.collar_d - 2 * funnel.collar_wall
 WIDTH = funnel.collar_w + 2 * (funnel.brim_overhang + OVERHANG)
-DEPTH = funnel.collar_d + 2 * (funnel.brim_overhang + OVERHANG)
+SEATED_DEPTH = funnel.collar_d + 2 * (funnel.brim_overhang + OVERHANG)
+DEPTH = SEATED_DEPTH + FRONT_EXTENSION
 RADIUS = funnel.brim_corner_r + OVERHANG
 
 
@@ -65,15 +65,13 @@ def pads():
 
 @functools.cache
 def build():
-    plate = rounded(WIDTH, DEPTH, RADIUS, 0.0, PLATE_T)
-    pull = rounded(PULL_WIDTH, 8.0, 3.0, 0.0, PLATE_T,
-                   y=-DEPTH / 2 - PULL_REACH + 4.0)
-    plate = plate.fuse(pull).clean()
-    # The underside finger relief ends outside the silicone brim and never
+    plate = rounded(WIDTH, DEPTH, RADIUS, 0.0, PLATE_T,
+                    y=-FRONT_EXTENSION / 2)
+    # The full-width underside lifting relief ends outside the brim and never
     # pierces the plate. Its minimum closed section is 1.8 mm.
-    relief = funnel._box(PULL_WIDTH + 2, PULL_REACH + 1,
-                         -1.0, PULL_RELIEF, 0.0,
-                         -DEPTH / 2 - (PULL_REACH + 1) / 2 + 0.5)
+    relief = funnel._box(WIDTH + 2, FRONT_EXTENSION + 1,
+                         -1.0, FRONT_RELIEF, 0.0,
+                         -SEATED_DEPTH / 2 - (FRONT_EXTENSION + 1) / 2 + 0.5)
     plate = plate.cut(relief).clean()
     sw, sd = MOUTH_W - 2 * RUNNING_AIR, MOUTH_D - 2 * RUNNING_AIR
     sr = funnel.mouth_corner_r - RUNNING_AIR
@@ -129,7 +127,9 @@ def main():
         'WALL': f'{SKIRT_WALL:g} mm', 'WIDTH': f'{WIDTH:g} mm',
         'DEPTH': f'{DEPTH:.3f} mm', 'OVERHANG': f'{OVERHANG:g} mm',
         'AIR': f'{RUNNING_AIR:g} mm', 'PAD': f'{PAD_INTERFERENCE:g} mm',
-        'PULL': f'{PULL_REACH:g} mm', 'PRINT_HEIGHT': f'{PLATE_T + SKIRT_DEPTH:g} mm',
+        'FRONT_EXTENSION': f'{FRONT_EXTENSION:g} mm',
+        'FRONT_RELIEF': f'{FRONT_RELIEF:g} mm',
+        'PRINT_HEIGHT': f'{PLATE_T + SKIRT_DEPTH:g} mm',
     })
     print(f'-> cover STEP, print STEP, STL and payload; {build().Volume():.1f} mm3')
 

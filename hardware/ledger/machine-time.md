@@ -33,8 +33,8 @@ Seven groups take masses from §7, which is commit-gated, and `_machine_time.py`
 | Collet press PET-GF, 0.4 TC | The supportless install-kit tool — 0.24 mm layers, at least six walls and a solid dense core ([collet-press/README.md](/hardware/printed-parts/collet-press/README.md)) | [36](MT_RATE_TOOL) h/kg — est., the small-part rate until its first slice is logged | [0.017](MT_KG_TOOL) kg | [0.6](MT_H_TOOL) |
 | Faucet PET-GF, 0.4 TC | Faucet shell, its display cover plate and the above-counter plate — four pieces on one plate, 0.24 mm layers, two wall loops and 15 % grid ([faucet-petgf.md](/hardware/printed-parts/faucet/faucet-petgf.md)) | [32.7](MT_RATE_PETGF) h/kg — duration from saved-profile slice | [0.138](MT_KG_PETGF) kg | [4.5](MT_H_PETGF) |
 | ASA Aero floats, right 0.4 HS | [3](MT_FLOAT_QTY) one-piece floats, carbonator + two reservoirs; RC62 inserted during printing, 0.20 mm layers and nested perimeters ([float record](/hardware/printed-parts/cold-core/magnetic-float/all-aero/README.md)) | [88.3](MT_FLOAT_MINUTES) min each — v1 native slice estimate, manual pause excluded; v2 unsliced | [0.042](MT_KG_AERO) kg | [4.4](MT_H_AERO) |
-| Funnel cover, black PETG, left 0.4 nozzle | Solid removable plate and locating skirt ([cover recipe](/hardware/printed-parts/zone-c/funnel-cover/README.md)) | [14.4](MT_RATE_FUNNEL_COVER) h/kg — duration from the unsent native slice | [0.102](MT_KG_FUNNEL_COVER) kg | [1.5](MT_H_FUNNEL_COVER) |
-| **Printer time per unit** | | | **[7.218](MT_KG)** kg | **[178.0](MT_H_PRINT)** |
+| Funnel cover, black PETG, left 0.4 nozzle | Solid removable plate and locating skirt ([cover recipe](/hardware/printed-parts/zone-c/funnel-cover/README.md)) | [14.6](MT_RATE_FUNNEL_COVER) h/kg — duration from the unsent native slice | [0.103](MT_KG_FUNNEL_COVER) kg | [1.5](MT_H_FUNNEL_COVER) |
+| **Printer time per unit** | | | **[7.219](MT_KG)** kg | **[178.1](MT_H_PRINT)** |
 
 Spread across [2](MT_PRINTERS) machines that is **[89.0](MT_H_PRINT_WALL) hours** of wall clock, and it is the longest pole in the build by an order of magnitude.
 
