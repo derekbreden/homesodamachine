@@ -1,5 +1,5 @@
 {
- "gatesPass": true,
+ "gatesPass": false,
  "size": [
   {
    "id": "enclosure",
@@ -31,12 +31,12 @@
    "max": [
     107.5,
     536.191,
-    355.0
+    358.0
    ],
    "mm": [
     220.95,
     531.191,
-    361.0
+    364.0
    ]
   }
  ],
@@ -46,7 +46,7 @@
    "label": "Every placed body is declared in the fastening table",
    "kind": "gate",
    "status": "pass",
-   "value": "104/104 declared",
+   "value": "105/105 declared",
    "target": "all declared",
    "detail": [],
    "active": true
@@ -73,10 +73,11 @@
    "id": "pack-closes",
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
-   "status": "pass",
-   "value": "0 clash, 0 unanswered",
+   "status": "fail",
+   "value": "1 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
    "detail": [
+    "pcba \u2229 enclosure-back-top   3.1 mm\u00b3, x[   96.25,   98.25] y[  241.80,  326.80] z[  253.40,  326.20]",
     "Drain stub in the plug's land: 10.18 mm\u00b3 in the push-on seal's ring, 0.000000 mm\u00b3 outside it"
    ],
    "active": true
@@ -109,7 +110,7 @@
    "label": "Two things the machine does not seat together stand a millimetre apart",
    "kind": "gate",
    "status": "pass",
-   "value": "0 under, tightest 1.093 mm",
+   "value": "0 under, tightest 1.073 mm",
    "target": "\u2265 1 mm",
    "detail": [
     "every body pair, and every drawn run against what its own line does not join it to \u2014 the exact solid distance, with boxes only as a prefilter",
@@ -139,6 +140,7 @@
     "bulkhead-ring-flavor-b \u2014 bulkhead-ring-flavor-b-word: 0.000 mm \u2014 seated against it",
     "bulkhead-ring-co2 \u2014 bulkhead-ring-co2-word: 0.000 mm \u2014 seated against it",
     "nameplate \u2014 nameplate-ink: 0.000 mm \u2014 seated against it",
+    "funnel \u2014 funnel-cover: 0.000 mm \u2014 seated against it",
     "funnel \u2014 elbow-cradle: 0.000 mm \u2014 seated against it",
     "funnel \u2014 funnel-drain-stub: 0.000 mm \u2014 seated against it",
     "funnel-frame \u2014 elbow-cradle: 0.000 mm \u2014 seated against it",
@@ -157,6 +159,7 @@
     "funnel \u2014 funnel-frame: 0.189 mm \u2014 seated against it",
     "funnel-frame \u2014 funnel-drain-union: 0.364 mm \u2014 seated against it",
     "display \u2014 display-cover: 1.000 mm \u2014 seated against it",
+    "fluid-1 \u2014 enclosure-front-top: 1.073 mm",
     "fluid-2 \u2014 g-ganen-pump: 1.093 mm",
     "co2-1 \u2014 enclosure-back-top: 1.101 mm",
     "fluid-14 \u2014 vk-solenoid: 1.125 mm",
@@ -214,8 +217,8 @@
    "value": "17/17 clear; 14 reach their mounting face across their whole width and 1 use blocker-profiled split corbels, 1 are held back across their whole width (1 with offered wing(s) stood down); 4 hole pair(s) share a bar",
    "target": "one clear candidate corbel per mounting hole, one bar per hole pair",
    "detail": [
-    "`pcba` y 323.300, z 256.900: 3.000 mm setback past pcba, offered wing(s) y 325.298..326.800 stand down, 1.50 of 7.00 mm; no wing",
-    "`relay-2` y 347.800, z 255.400: 3.000 mm setback past relay-2, full wall-rooted wing(s) y 331.300..333.800, y 348.800..351.300"
+    "`pcba` y 323.300, z 256.900: 3.000 mm setback past pcba, offered wing(s) y 325.298..327.300 stand down, 2.00 of 8.00 mm; no wing",
+    "`relay-2` y 347.800, z 255.400: 3.000 mm setback past relay-2, full wall-rooted wing(s) y 330.800..333.800, y 348.800..351.800"
    ],
    "active": true
   },
@@ -227,10 +230,10 @@
    "value": "4/4 clear",
    "target": "one ground-stack ceiling column, one upper pcba/relay-2 pad union, and two relay-1 paired-bar ceiling columns",
    "detail": [
-    "`ground-stack ceiling column` x 92.250..98.500, y 334.800..341.800, z 341.044..348.500",
-    "`pcba/relay-2 upper pad union` x 96.250..98.500, y 319.800..351.300, z 317.900..327.200",
-    "`relay-1 y=258.8 ceiling column` x 96.250..98.500, y 255.300..262.300, z 327.200..348.500",
-    "`relay-1 y=324.8 ceiling column` x 96.250..98.500, y 321.300..328.300, z 327.200..348.500"
+    "`ground-stack ceiling column` x 92.250..98.500, y 334.800..342.800, z 342.044..348.000",
+    "`pcba/relay-2 upper pad union` x 96.250..98.500, y 319.300..351.800, z 317.400..327.200",
+    "`relay-1 y=258.8 ceiling column` x 96.250..98.500, y 254.800..262.800, z 327.200..348.000",
+    "`relay-1 y=324.8 ceiling column` x 96.250..98.500, y 320.800..328.800, z 327.200..348.000"
    ],
    "active": true
   },
@@ -883,13 +886,19 @@
    "label": "Every print-down slope on a ceiling-down piece has its stated carry",
    "kind": "goal",
    "status": "fail",
-   "value": "41 print-down slope(s): 22 under a body, 6 within 1 mm of one, 9 in a kept room, 4 could be columns",
+   "value": "41 print-down slope(s): 22 under a body, 5 within 1 mm of one, 5 in a kept room, 9 could be columns; 1 kept room(s) match nothing",
    "target": "no unaccounted slope a column could replace, and every named room standing",
    "detail": [
+    "enclosure-back-top: a 36\u00b0 face at x -107.50..-104.00 y 209.90..211.60 z 278.47..279.70: a column of 15 mm\u00b3 rising 5.2 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=-0.588 z=0.809 \u00b7 thru x=-105.750 y=210.752 z=279.085\nclick: x=-105.750 y=210.752 z=279.085",
+    "enclosure-back-top: a 36\u00b0 face at x -107.50..-104.00 y 208.20..209.90 z 278.47..279.70: a column of 17 mm\u00b3 rising 5.2 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=0.588 z=0.809 \u00b7 thru x=-105.750 y=209.048 z=279.085\nclick: x=-105.750 y=209.048 z=279.085",
     "enclosure-back-top: a 45\u00b0 face at x -98.50..-90.50 y 252.06..255.06 z 305.41..313.41: a column of 406 mm\u00b3 rising 29.6 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.707 y=0.000 z=0.707 \u00b7 thru x=-94.500 y=253.560 z=309.411\nclick: x=-94.500 y=253.560 z=309.411",
     "enclosure-back-top: a 45\u00b0 face at x -98.50..-90.50 y 258.56..261.56 z 305.41..313.41: a column of 406 mm\u00b3 rising 29.6 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.707 y=0.000 z=0.707 \u00b7 thru x=-94.500 y=260.060 z=309.411\nclick: x=-94.500 y=260.060 z=309.411",
+    "enclosure-back-top: a 45\u00b0 face at x 96.25..98.50 y 241.30..249.30 z 327.20..329.45: a column of 130 mm\u00b3 rising 13.6 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=-0.707 y=0.000 z=0.707 \u00b7 thru x=97.375 y=245.300 z=328.325\nclick: x=97.375 y=245.300 z=328.325",
+    "enclosure-back-top: a 36\u00b0 face at x 104.00..107.50 y 208.20..209.90 z 287.47..288.70: a column of 17 mm\u00b3 rising 5.2 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=0.588 z=0.809 \u00b7 thru x=105.750 y=209.048 z=288.085\nclick: x=105.750 y=209.048 z=288.085",
+    "enclosure-back-top: a 36\u00b0 face at x 104.00..107.50 y 209.90..211.60 z 287.47..288.70: a column of 15 mm\u00b3 rising 5.2 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=-0.588 z=0.809 \u00b7 thru x=105.750 y=210.752 z=288.085\nclick: x=105.750 y=210.752 z=288.085",
     "enclosure-back-top: a 45\u00b0 face at x -95.20..-90.50 y 312.01..315.01 z 315.01..319.71: a column of 179 mm\u00b3 rising 23.3 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.707 y=0.000 z=0.707 \u00b7 thru x=-92.850 y=313.510 z=317.361\nclick: x=-92.850 y=313.510 z=317.361",
-    "enclosure-back-top: a 45\u00b0 face at x -95.20..-90.50 y 305.51..308.51 z 315.01..319.71: a column of 179 mm\u00b3 rising 23.3 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.707 y=0.000 z=0.707 \u00b7 thru x=-92.850 y=307.010 z=317.361\nclick: x=-92.850 y=307.010 z=317.361"
+    "enclosure-back-top: a 45\u00b0 face at x -95.20..-90.50 y 305.51..308.51 z 315.01..319.71: a column of 179 mm\u00b3 rising 23.3 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.707 y=0.000 z=0.707 \u00b7 thru x=-92.850 y=307.010 z=317.361\nclick: x=-92.850 y=307.010 z=317.361",
+    "kept room `the Y-seam screws' head counterbores` matches no face"
    ],
    "active": false
   },
@@ -918,7 +927,7 @@
    "label": "The front column's lip ring is clear at the seam height",
    "kind": "gate",
    "status": "pass",
-   "value": "seam at 160.00, lane 150.75..216.20",
+   "value": "seam at 160.00, lane 151.25..216.20",
    "target": "a lane containing it",
    "detail": [],
    "active": true
@@ -1134,35 +1143,15 @@
    "active": true
   },
   {
-   "id": "connected-pieces",
-   "label": "Each printed enclosure piece is one valid connected solid",
-   "kind": "gate",
-   "status": "pass",
-   "value": "6 connected pieces",
-   "target": "one valid solid per printed piece",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "ceiling-show-cap",
-   "label": "The ceiling slab keeps a complete exterior wall over its whole field",
-   "kind": "gate",
-   "status": "pass",
-   "value": "3 mm cap; missing 0.0000 mm\u00b3",
-   "target": "a complete wall over the field, the funnel's own plan excepted",
-   "detail": [],
-   "active": true
-  },
-  {
    "id": "y-seam-upper",
    "label": "Both upper seam blocks join the ceiling and pass their complete entry lanes",
    "kind": "gate",
    "status": "pass",
    "value": "2/2 corners clear",
-   "target": "two complete ceiling columns, flat lower ends, open screw pilots and clear swept slots",
+   "target": "two full-wall ceiling roots, flat pin ends, complete manufacturer insert walls and blind caps, open pilots and clear swept slots",
    "detail": [
-    "west: missing column 0.0000 mm\u00b3; entry overlap 0.0000 mm\u00b3; material below the flat end 0.0000 mm\u00b3; blocked bores 0.0000 mm\u00b3",
-    "east: missing column 0.0000 mm\u00b3; entry overlap 0.0000 mm\u00b3; material below the flat end 0.0000 mm\u00b3; blocked bores 0.0000 mm\u00b3"
+    "west: missing column 0.0000 mm\u00b3; entry overlap 0.0000 mm\u00b3; material below the flat end 0.0000 mm\u00b3; blocked bores 0.0000 mm\u00b3; missing insert surround 0.0000 mm\u00b3 and cap 0.0000 mm\u00b3",
+    "east: missing column 0.0000 mm\u00b3; entry overlap 0.0000 mm\u00b3; material below the flat end 0.0000 mm\u00b3; blocked bores 0.0000 mm\u00b3; missing insert surround 0.0000 mm\u00b3 and cap 0.0000 mm\u00b3"
    ],
    "active": true
   },
@@ -1172,10 +1161,10 @@
    "kind": "gate",
    "status": "pass",
    "value": "four screw axes at Z 48.9 and 152.1 mm; middle collars end at Z 160",
-   "target": "two jambs above the handholds, four open screw pilots, passages open through the rim, and a registering floor lap",
+   "target": "two jambs above the handholds, complete fore shear strips, manufacturer insert walls and blind caps, four open pilots and clear passages, and a registering floor lap",
    "detail": [
-    "west: levels correct; missing jamb 0.0000 mm\u00b3; entry overlap 0.0000 mm\u00b3; blocked bores 0.0000 mm\u00b3",
-    "east: levels correct; missing jamb 0.0000 mm\u00b3; entry overlap 0.0000 mm\u00b3; blocked bores 0.0000 mm\u00b3",
+    "west: levels correct; missing jamb 0.0000 mm\u00b3; entry overlap 0.0000 mm\u00b3; blocked bores 0.0000 mm\u00b3; missing fore strip 0.0000 mm\u00b3, insert surround 0.0000 mm\u00b3, cap 0.0000 mm\u00b3",
+    "east: levels correct; missing jamb 0.0000 mm\u00b3; entry overlap 0.0000 mm\u00b3; blocked bores 0.0000 mm\u00b3; missing fore strip 0.0000 mm\u00b3, insert surround 0.0000 mm\u00b3, cap 0.0000 mm\u00b3",
     "floor lap blocks a 0.5 mm upward shift: 145.3849 mm\u00b3 overlap"
    ],
    "active": true
@@ -1191,96 +1180,6 @@
     "west: blocked entry 0.0000 mm\u00b3; missing inner wall 0.0000 mm\u00b3; missing roof 0.0000 mm\u00b3; missing end posts 0.0000 mm\u00b3",
     "east: blocked entry 0.0000 mm\u00b3; missing inner wall 0.0000 mm\u00b3; missing roof 0.0000 mm\u00b3; missing end posts 0.0000 mm\u00b3"
    ],
-   "active": true
-  },
-  {
-   "id": "pieces-in-silhouette",
-   "label": "Every quadrant wall lies inside the machine's exterior; only the disposal letters stand proud",
-   "kind": "gate",
-   "status": "pass",
-   "value": "walls inside `outer`; disposal letters raised 0.6 mm",
-   "target": "only the disposal letters extend past the box's exterior",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "z-slide-front-clear",
-   "label": "The front top slides its whole travel onto its bottom clear",
-   "kind": "gate",
-   "status": "pass",
-   "value": "worst 0.0 mm\u00b3 contested, 0.00 mm out of home, 13 stations over 102.2 mm",
-   "target": "0 mm\u00b3 at every station",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "z-slide-front-catch",
-   "label": "The front top's rails catch it against a lift, on both flanks",
-   "kind": "gate",
-   "status": "pass",
-   "value": "309.1 mm\u00b3 engaged at a 1 mm lift \u2014 154.5 west, 154.5 east",
-   "target": "the hooks bearing down both flanks, so more than 5 mm\u00b3 on each",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "z-slide-front-foot-section",
-   "label": "Both front-top slide feet carry the nominal flank section to the seam",
-   "kind": "gate",
-   "status": "pass",
-   "value": "6.00 mm west, 6.00 mm east; arm reaches 10.25 mm into a 14 mm band",
-   "target": "6.00 mm inward of interior_x on both flanks, rail inside its band",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "z-slide-front-catch-section",
-   "label": "Both front-bottom heads spend the grown flank section on their catches",
-   "kind": "gate",
-   "status": "pass",
-   "value": "5.00 mm west, 5.00 mm east; least outer skin 3.75 mm",
-   "target": "5.00 mm overlap on both flanks and at least 3.00 mm outside the channel",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "z-slide-back-clear",
-   "label": "The back top slides its whole travel onto its bottom clear",
-   "kind": "gate",
-   "status": "pass",
-   "value": "worst 0.0 mm\u00b3 contested, 0.00 mm out of home, 22 stations over 242.8 mm",
-   "target": "0 mm\u00b3 at every station",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "z-slide-back-catch",
-   "label": "The back top's rails catch it against a lift, on both flanks",
-   "kind": "gate",
-   "status": "pass",
-   "value": "577.2 mm\u00b3 engaged at a 1 mm lift \u2014 281.1 west, 296.1 east",
-   "target": "the hooks bearing down both flanks, so more than 5 mm\u00b3 on each",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "z-slide-back-foot-section",
-   "label": "Both back-top slide feet carry the nominal flank section to the seam",
-   "kind": "gate",
-   "status": "pass",
-   "value": "6.00 mm west, 6.00 mm east; arm reaches 10.25 mm into a 14 mm band",
-   "target": "6.00 mm inward of interior_x on both flanks, rail inside its band",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "z-slide-back-catch-section",
-   "label": "Both back-bottom heads spend the grown flank section on their catches",
-   "kind": "gate",
-   "status": "pass",
-   "value": "5.00 mm west, 5.00 mm east; least outer skin 3.75 mm",
-   "target": "5.00 mm overlap on both flanks and at least 3.00 mm outside the channel",
-   "detail": [],
    "active": true
   },
   {
@@ -1312,7 +1211,7 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "gate",
    "status": "pass",
-   "value": "75/75 mounted, 24 part of another body, 5 nothing fastens",
+   "value": "76/76 mounted, 24 part of another body, 5 nothing fastens",
    "target": "a printed joint per body",
    "detail": [
     "funnel: wall-capture \u2014 nothing fastens it; The silicone brim rests on the roof ledge and its plug on the cradle's hook tops within the frame's socket, its sealing land on the drain stub. The funnel lifts out by hand for the dishwasher, the land sliding off the stub.",
@@ -1328,7 +1227,7 @@
    "label": "Every placement is stated as a rule, and the solid lands on it",
    "kind": "goal",
    "status": "pass",
-   "value": "104/104 stated",
+   "value": "105/105 stated",
    "target": "a stated rule per body, each landing on it",
    "detail": [],
    "active": false
