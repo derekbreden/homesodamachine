@@ -41,7 +41,7 @@ See [reservoir/level-sensing.md](/hardware/printed-parts/cold-core/reservoir/lev
 
 ## Pressure-test 316L carbonators
 
-Hydro-test each fully welded + tapped carbonator to 180 PSI for 30 minutes (~2× the nominal 90 PSI CO2 feed setting). This fabrication proof test does not establish the completed carbonator's pressure rating. Done after tapping and welding are both complete on a given carbonator. Beyond the 30-min hydro-test minimum, the in-vessel SENCTRL pressure-test gauge (B0BCHMQLFB, ACQUIRED in [purchases.md](/hardware/ledger/purchases.md) §1) supports hour-scale leak soaks for catching slow weep before passivation and service.
+Hydro-test each fully welded + tapped carbonator to 180 PSI for 30 minutes, 1.44× the SV-125's 125 PSI set pressure. This fabrication proof test does not establish the completed carbonator's pressure rating. Done after tapping and welding are both complete on a given carbonator. Beyond the 30-min hydro-test minimum, the in-vessel SENCTRL pressure-test gauge (B0BCHMQLFB, ACQUIRED in [purchases.md](/hardware/ledger/purchases.md) §1) supports hour-scale leak soaks for catching slow weep before passivation and service.
 
 See [assembly/pressure-vessel.md](/hardware/assembly/pressure-vessel.md) step 6 for the production-procedure framing, including the rig + criteria + failure-handling gaps still open.
 

@@ -1,8 +1,11 @@
 # WR1110 fixed inline regulator
 
-The received WR1110 is the secondary regulator inside the appliance's warm CO₂
-chain. Its reference is an analytic CadQuery exterior measured from two coated
-MINI 2 captures. The inlet face is Y = 0, the male outlet points along +Y, and the
+The received WR1110 is the scan specimen for the secondary regulator inside the
+appliance's warm CO₂ chain. The installed secondary is the WR1105, Interstate's
+3-bar preset in the same Mini Body series ([bom.md §4](/hardware/ledger/bom.md)), so
+this exterior stands for both; check a received WR1105's barrel and outlet stub against
+the table below before it goes into the cradle. The reference is an analytic CadQuery
+exterior measured from two coated MINI 2 captures. The inlet face is Y = 0, the male outlet points along +Y, and the
 smooth mounting barrel is centred on X/Z.
 
 | Feature | Model, mm | Evidence |

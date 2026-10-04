@@ -55,21 +55,43 @@ and restart with the installed inlet pressure. The G Ganen's listing advertises
 110 psi and 4.5 L/min. That is not a curve, and not a measured one for this
 machine's pressurized inlet, tubing, checks and jet.
 
-The WR1110 limits incoming CO2 supply pressure to nominally 90 psig. It does
-not hold the carbonator at 90 psig while water compresses the sealed gas space.
+The WR1105 holds incoming CO2 at nominally 43.5 psig, its etched 3 bar. It
+does not hold the carbonator there while water compresses the sealed gas space.
 At the current level stations, a nominal 338 mL refill reduces headspace from
-about 872 to 534 mL. How far pressure rises depends on CO2 uptake during the
-fill as well as temperature. Gas admission pauses when its forward pressure
-difference disappears; the plain inlet is not a continuous bubbler. A pump
-cutting out before CHI can therefore be a real pressure-margin failure even
-when water flowed briskly at the start. A relief-valve event requires finding
-the pressure source; it does not identify a regulator fault by itself.
+about 872 to 534 mL; if the incoming water absorbed none of the trapped gas,
+the fill would end near 80 psig, under the pump's nominal 100 psi switch. How
+far pressure actually rises depends on CO2 uptake during the fill as well as
+temperature. Gas admission pauses when its forward pressure difference
+disappears; the plain inlet is not a continuous bubbler. A pump cutting out
+before CHI is a real pressure-margin failure even when water flowed briskly at
+the start. A relief-valve event requires finding the pressure source; it does
+not identify a regulator fault by itself.
 
-Measure the primary setting that gives the required drink, including a run at
-the nominal 90 psi gas-feed ceiling as the high-pressure case. Lower settings
-are valid only if the first and successive glasses meet the same carbonation
-target. Gas pressure, gas-transfer rate and the carbonation retained in the
-glass are separate measurements.
+Most house supplies stand above the 43.5 psig feed. Tap pressure alone then
+drives water through the idle pump and jet whenever V-K opens, and V-K's seat
+is all that holds it out between refills. A leaking V-K fills the carbonator
+past CHI until the headspace reaches house pressure, and the drink goes flat.
+
+The headspace is not all CO2. Air dissolved in the tap water comes out into it
+and leaves only dissolved in the water dispensed, so it builds until the
+outgoing water carries what the incoming water brings: about 11 psi of air with
+air-saturated 15 °C water and a 2 °C carbonator, more with colder or
+supersaturated supply, most of the way there within the first hundred litres.
+That air displaces CO2 the feed would otherwise deliver
+([pressure vessel](/hardware/assembly/pressure-vessel.md#co2-supply-and-pressure-protection)).
+Coca-Cola measured unvented fountain carbonators at up to 30 % air and put a
+20–25 % level at 1.0–1.5 volumes of lost carbonation
+([US4745853](https://patents.google.com/patent/US4745853A/en)). A carbonator
+measured before and after that build-up has been measured at two operating
+points.
+
+Qualify at the nominal 43.5 psig feed with the primary in its band. A trial at
+a lower feed sets the primary below the preset. A trial above it seats the
+owned WR1110, the same body preset at 6 bar, in the regulator cradle and sets
+the primary to the trial pressure. A setting other than the nominal is valid
+only if the first and successive glasses meet the same carbonation target. Gas
+pressure, gas-transfer rate and the carbonation retained in the glass are
+separate measurements.
 
 ## Change the part that the measurements identify
 
@@ -78,6 +100,8 @@ glass are separate measurements.
 | Nominal 9.5 mm cap does not fit the actual elbow/plate, or welding cannot produce inspectable bore-side root fusion | Do not install that trial part. Record the measured elbow tip, bore, thread engagement, cap clearance and failed joint section under the water-inlet-jet procedure. | Redesign the cap/joint to the measured elbow, or qualify a replaceable purpose-made stainless jet in an existing threaded port. Source the actual candidate and study its made-up stack height and outlet position before adoption. Keep the identical plates; purchased rod does not qualify a joint or select a production part. |
 | Refill cannot reach CHI, stalls, or cannot restart after a dispense | Verify flowing inlet pressure, V-K opening, level sensing, jet bore, check direction, voltage and actual switch behavior. Separate jet pressure loss from rising carbonator pressure. | Compare jet bores or outlet geometry on bench fixtures, then pump samples at the measured inlet and outlet pressures. Select another pump only from demonstrated pressure/flow/current and verified material and installation limits. Retain the required carbonation target in that comparison. |
 | Refill completes and the water is cold, but carbonation is weak after idle or in successive glasses | Verify CO2 charging/air removal, actual gas pressure and dispense losses. Confirm the jet leaves the final elbow passage into headspace and strikes the water without an intervening turn or obstruction. Record mixing and the time available for absorption. | Compare a revised jet at the same temperature and pressure. If adequate jet mixing still fails the target, evaluate a documented food-contact 316 diffuser as a separate trial, including its cleaning, fouling and permanent-immersion requirements. A brewing-stone listing alone does not qualify a lifetime component. |
+| Carbonation that met the target at first fades over the first weeks of use | Record the headspace's air against the CO2 the feed should deliver: carbonator pressure, temperature and dissolved CO2 after the same idle, early and late. | Remove the air: a timed headspace vent, as US4745853 fits, needs a top-plate path that the four existing ports do not offer. Otherwise trial a higher fixed preset against the same first- and successive-glass target. |
+| The carbonator fills past CHI with the pump off | Verify V-K closes and seals against the measured house pressure, and that firmware ends every refill at CHI. | Hold house pressure below the gas feed with a water-inlet pressure-limiting valve. Zip HydroTap fits one at 50 psi ahead of a 39–44 psi carbonator ([specification](https://us.zipwater.com/wp-content/uploads/2026/06/HydroTap-R290-CS-120V-Command-Center-Only-Spec-Sheet-with-Small-CO2_01048500.pdf)); a limit under 43.5 psi keeps tap pressure from driving water through the idle pump. |
 | Voltage falls or the 12 V supply limits during refill | Measure at both supply and pump, including other active loads; check connections and wire loss. Repeat the same hydraulic point with the acquired LRS-200-12 bench supply. | Revise supply capacity or load sequencing only if the isolated comparison establishes the shortfall. Account for electrical integration, heat and fit before changing the production supply; the current dispense-then-refill policy remains the baseline. |
 | The first glass meets the target but following glasses warm up or lose fizz | Record actual pour cadence, refill timing, incoming temperature, immediate in-glass temperature and recovery. Check coil contact, refrigerant charge, sensor contact and dispense-line insulation against their procedures. | Change refill batching or cadence only after separating thermal and pressure effects; moving CLO alone does not shorten a refill that waits for a full pour to finish. Consider incoming-water prechill, more cold storage or refrigeration capacity only if the remaining measured heat load requires it. |
 

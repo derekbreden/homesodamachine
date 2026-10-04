@@ -23,13 +23,13 @@
   "stress_model": "Lame thick-cylinder hoop stresses away from ends; axial stress averaged over both PETG tubes.",
   "loads": [
     {
-      "external_pressure_psi": 90,
-      "differential_MPa": 0.62052815638512,
-      "annular_end_load_N": 620.3919169949323,
-      "outer_wall_maximum_hoop_compression_MPa": 4.061638841793513,
-      "bore_wall_maximum_hoop_tension_MPa": 1.222252429243418,
-      "axial_average_compression_MPa": 1.7809963968975524,
-      "foam_contact_pressure_MPa_if_it_takes_full_load": 0.62052815638512
+      "external_pressure_psi": 43.5,
+      "differential_MPa": 0.299921942252808,
+      "annular_end_load_N": 299.85609321421725,
+      "outer_wall_maximum_hoop_compression_MPa": 1.9631254402001979,
+      "bore_wall_maximum_hoop_tension_MPa": 0.5907553408009854,
+      "axial_average_compression_MPa": 0.8608149251671503,
+      "foam_contact_pressure_MPa_if_it_takes_full_load": 0.299921942252808
     },
     {
       "external_pressure_psi": 125,

@@ -725,6 +725,7 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 
 | Part | Notes |
 |---|---|
+| **Interstate Pneumatics WR1105 1/4" NPT in-line fixed pre-set pressure regulator, listed 50 PSI, barrel etched 3 bar** | The appliance's secondary CO2 regulator ([bom.md §4](/hardware/ledger/bom.md)); its 3-bar preset is the nominal gas feed. Prime, $28.47 on Oct 3. [B0CGFCJNMG](https://www.amazon.com/dp/B0CGFCJNMG). |
 | **Google Pixel 10a unlocked Android phone, 128 GB Obsidian (2026 model)** | Android development handset for the soda-machine app's Android side (`android/`). [B0GHRHXVN1](https://www.amazon.com/dp/B0GHRHXVN1). |
 | **Smooth-On XTC-3D 3D-print smoothing epoxy, 6.4 oz (~$19.99) — optional** | Self-leveling epoxy base coat under the §21 core's clear-acrylic seal, only if the 0.08 mm core texture still telegraphs through the acrylic alone. Fills/seals; not the release face. [B01BKSLI9M](https://www.amazon.com/dp/B01BKSLI9M). |
 
