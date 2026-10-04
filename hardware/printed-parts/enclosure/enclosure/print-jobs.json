@@ -2941,6 +2941,44 @@
       "startup_spacing_seconds": 51643.973591,
       "sender": "Bambu Studio, Print plate, LAN acceleration",
       "gcode_byte_identical_to_reviewed_slice": true
+    },
+    {
+      "date": "2026-10-04",
+      "printer": "Mark2",
+      "parts": [
+        "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-04-bulkhead-soda-raised-mark2-v1/geometry-snapshot.json"
+      ],
+      "job_name": "soda-raised-face-up-z004-mark2-v1.gcode.3mf",
+      "printer_task_id": "1307088867",
+      "status": "started",
+      "observed_at_utc": "2026-10-04T05:16:40.430086+00:00",
+      "observed_state_at_acceptance": "RUNNING",
+      "sliced_file": ".cache/prints/2026-10-04-bulkhead-soda-raised-mark2-v1/ready/soda-raised-face-up-z004-mark2-v1.gcode.3mf",
+      "sliced_file_sha256": "e96ffe6d001d999efea9ab643656f55fd45b9387a60860b24c0b2829f3ec24c5",
+      "gcode_sha256": "b4d45f54e2daf7e168cd8b7d2161a88fb16a709404b9332474d03ea6ab3ad96f",
+      "estimated_seconds": 837.815673828125,
+      "filament_grams": 3.2276220619678497,
+      "print_options": {
+        "Timelapse": "On",
+        "Auto bed leveling": "On",
+        "Flow dynamic calibration": "Auto",
+        "Nozzle Offset Calibration": "Auto"
+      },
+      "filaments": {
+        "left": "white PET-GF, external 254: letters",
+        "right": "blue PET-GF, external 255: body"
+      },
+      "right_nozzle_correction_mm": {
+        "X": -0.5,
+        "Y": 0.7
+      },
+      "requested_z_trim_mm": 0.04,
+      "raised_letter_height_mm": 0.48,
+      "mounting_thickness_mm": 2.0,
+      "supports": false,
+      "review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-04-bulkhead-soda-raised-mark2-v1",
+      "startup_spacing_seconds": 50058.653801,
+      "startup_spacing_basis": "H2C accepted front-top v17, task 1305315362, at 2026-10-03T15:22:21.776285Z; no other start since."
     }
   ]
 }
