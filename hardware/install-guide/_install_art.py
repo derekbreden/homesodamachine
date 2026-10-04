@@ -215,8 +215,8 @@ def _floor(x0, y0, sx, sy):
 # --- the back face ----------------------------------------------------------
 #
 # The children of `enclosure-assembly.step` a customer standing behind the machine can see. Each
-# carries its own colour out of the STEP: the shell dark, the four bulkhead rings in the fluids'
-# colours, the nameplate's ink white.
+# carries its own colour out of the STEP: the shell dark, the five bulkhead rings and their raised
+# words in their spool colours, the nameplate's ink white, and the funnel under its seated cover.
 REAR_CHILDREN = frozenset({
     "c14-inlet",
     "keystone-jack",
@@ -226,6 +226,7 @@ REAR_CHILDREN = frozenset({
     "bulkhead-flavor-a",
     "bulkhead-flavor-b",
     "funnel",
+    "funnel-cover",
     "nameplate",
     "nameplate-ink",
     "enclosure-back-bottom",
@@ -498,9 +499,14 @@ def s_plate_sideways():
 
 
 def s_bottle_in_funnel():
-    """The one action after the last push: a 440 mL bottle upended over the funnel."""
+    """The one action after the last push: a 440 mL bottle upended over the funnel.
+
+    The funnel's lift-off cover comes off for every fill, so the machine stands here without it.
+    """
     a = cq.Assembly(name="bottle-scene")
-    _machine(a)
+    for child in cq.Assembly.load(str(MACHINE_STEP)).children:
+        if child.name != "funnel-cover":
+            a.add(child)
     mouth_x = (HOPPER_X0 + HOPPER_X1) / 2.0
     mouth_y = (HOPPER_Y0 + HOPPER_Y1) / 2.0
     top = FUNNEL_BOUNDS[5]

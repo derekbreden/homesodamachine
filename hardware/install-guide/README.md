@@ -20,12 +20,15 @@ The booklet is complete on its own. Its step numbers match the
 [quick start](../quickstart-codex/README.md), whose braided-hose link opens pages 9-11.
 The Fill spread shows the Big Blue screen inside the machine display's frame, with its
 **Start filling** control. The same screen appears on the machine in the bottle illustration.
+Its steps lift the funnel cover off by its front edge before the bottle goes in and press it
+back down after **Filled**. Page 22 has the funnel and both faces of its cover washed by hand.
 
 ## Artwork
 
 The [On tap identity](../../brand/README.md) supplies cobalt, navy, ice and orange. Instructional
 scenes use white paper, 0.72 pt slate contours (`#46515b`) and coral arrows with white outlines.
-Tube and connector colors match the hardware. The power scene carries the white faucet mark on
+Tube and connector colors match the hardware: each bulkhead ring and tube collar is drawn in
+its PET-GF spool color with its raised word. The power scene carries the white faucet mark on
 its black nameplate. The glass contains dark cola and rounded ice cubes packed from the base to
 just above the liquid, with a visible rim and no falling streams. The first-pour instructions
 call for a glass filled with ice. The illustration is a snapshot of the quick start's
@@ -34,17 +37,20 @@ call for a glass filled with ice. The illustration is a snapshot of the quick st
 The concentrate bottle has a rounded PET body, tapered shoulders, an open ribbed neck, dark
 liquid and a wrapped COLA concentrate label. The bottle and framed display are snapshots from
 `tools/quickstart-codex/fill_scene.py`, whose funnel and display positions follow the current
-enclosure assembly. The quick start's `art/fill-scene-inputs.json` records the source hashes
-and motion cue; `assets/fill-screen.svg` and its PNG supply the interface.
-The cover shares the enclosure's matte black PET-GF appearance. Both Fill views use the same
-exposure, and the complete frame has an uninterrupted outline.
+enclosure assembly. The funnel is drawn without its lift-off cover, as it stands during a fill.
+The quick start's `art/fill-scene-inputs.json` records the source hashes and motion cue;
+`assets/fill-screen.svg` and its PNG supply the interface. The display cover shares the
+enclosure's matte black PET-GF appearance. Both Fill views use the same exposure, and the
+complete frame has an uninterrupted outline.
 
 The PDF, cover, fonts and illustration snapshots are committed here. `assets/` contains the
 booklet's artwork, including its Fill-screen illustration and hose-removal scene.
 `assets/print-resolution.json` registers crop and arrow coordinates against the native artwork
-dimensions. Manual page
-composition lives in [`tools/install-guide/`](../../tools/install-guide/). `_install_art.py`
-supplies shared CAD scene builders used by illustration tools; its output is in `art/`.
+dimensions. The back face, rear connections and bottle scene are the quick start's snapshots drawn
+again at twice the resolution from the same cameras; each entry names its quick-start reference
+by hash. Manual page composition lives in [`tools/install-guide/`](../../tools/install-guide/).
+`_install_art.py` supplies shared CAD scene builders used by illustration tools; its output is
+in `art/`.
 
 ## Compose and review
 

@@ -1,10 +1,10 @@
 {
   "sources": {
-    "hardware/manifold-layout/enclosure-assembly.step": "95fd3c36e17ff36df44a6a8ecf04cfa4944d48c0508543dab11913a99aa3b84c",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "19fb68929797d4254e3deab025a693b83c7185db73e604461812b753f04dd432",
-    "hardware/manifold-layout/enclosure-assembly.facts.json": "6c122b18074d04d83ba12e951c7759948dfa4589c4da5b2510e966f9b5047f35",
+    "hardware/manifold-layout/enclosure-assembly.step": "6074dc6a542d0ae514f4a30a0d19945d85c9031e774a62cbc548c62defbb929e",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "c7c44903c27732873ae8513294c8654e2effbe8e372fd61a66b639ed95b6b1ce",
+    "hardware/manifold-layout/enclosure-assembly.facts.json": "6c16045c1b177f07816b2e5d718206c8329bd5e95d8f3ae990c9613a666735de",
     "hardware/printed-parts/enclosure/enclosure/_swept_top.py": "347f941b2b2aed2aa5af26373fc4dcfb852390bab61f8d60cb2d538926221a22",
-    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "75e7a1933dfc2d52d0538e9a9abf7e2e3ca01245ee01974240ff9763e1b7de98",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "0999d5d2a4e54a546e5d1759ff24611ef988eeed74bbb94bbdbf5af470774356",
     "tools/quickstart-codex/fill_scene.py": "659bed024dc760335bb77960f72684fd11c8901ef229434957a0856961c57049",
     "tools/quickstart-codex/fill_materials.js": "7523d10b9cf603eaf20c9ca5401db03dff5104acefca0f00d412add21ba1b2e3"
   },
@@ -61,7 +61,7 @@
     ]
   },
   "artwork": {
-    "hardware/quickstart-codex/art/insertion-actions/fill-ready.png": "bf6abba925a90bf0825bad6c7af8298fd647f61f9d77a26fb25172880cf9e52d",
+    "hardware/quickstart-codex/art/insertion-actions/fill-ready.png": "18b02eeaf8aaaeeb8b54464f5a819d634c5c829241123ffd5dbe69cdd580bcbb",
     "hardware/quickstart-codex/art/fill-screen-framed.png": "dabe7f476f5f80f9c438377ad47b1379058ff4cb8dd910fd11abfaa855cec05c"
   }
 }
