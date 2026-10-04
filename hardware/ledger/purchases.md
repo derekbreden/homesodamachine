@@ -511,7 +511,6 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | Anker 5-in-1 USB-C hub, USB-C to HDMI 4K — bench fan-out from one of the M3 Air's two USB-C ports to the boards and the panelcam. $17.99 + $1.30 allocated NE tax | [B0BQLLB61B](https://www.amazon.com/dp/B0BQLLB61B) | 1 | $19.29 | 112-5197027-7255407 | 2026-08-31 | 2026-09-01 | ACQUIRED |
 | Amazon Basics LR44 alkaline button cell (6 pk) — cells for the NEIKO 01407A caliper above, whose readings the `raw-images/` caliper photos encode ([measure-from-drawings](/tools/measure-from-drawings/README.md)). $5.49 + $0.40 allocated NE tax | [B07JLBCH8L](https://www.amazon.com/dp/B07JLBCH8L) | 1 pk (6) | $5.89 | 112-5197027-7255407 | 2026-08-31 | 2026-09-01 | ACQUIRED |
 | HOTO PixelDrive electric screwdriver — the driver for the M2/M3/M5 insert work. 1/4" hex chuck, 6 torque settings over 0.5–6 N·m with the setting on its display. The 0.5 N·m floor is the point: a ruthex insert's grip on PETG gives out well below what a 12.9 M3 or a drill's lowest clutch click will deliver, so the torque this tool will not exceed is the spec that matters. Sole item on its invoice, $69.99 + $5.07 NE tax | [B0FKBJL68H](https://www.amazon.com/dp/B0FKBJL68H) | 1 | $75.06 | 112-3695429-8445811 | 2026-09-02 | 2026-09-03 | ACQUIRED |
-| Wiha 26313 precision hex driver, 1.3 mm × 40 mm blade — hand-operated driver for the four M1.4 × 8 pogo-connector screws; $9.33 item + $0.68 estimated tax, free shipping; Amazon order details verified 2026-10-04 | [B000O5EFT8](https://www.amazon.com/dp/B000O5EFT8) | 1 | $10.01 | 112-9011811-0810621 | 2026-10-04 | — | ON-ORDER (Amazon estimate 2026-10-05) |
 | Railer 2.5 mm hex bit, 2", S2 steel, 5-pack — the M3 driver size; every M3 SHCS in this build is DIN 912 and takes 2.5 mm. Bought five because the 2.5 is the wear item at this screw count. Sole item on its invoice, $9.99 + $0.72 NE tax | [B0BXMLLXSN](https://www.amazon.com/dp/B0BXMLLXSN) | 1 pk (5) | $10.71 | 112-1104114-3043411 | 2026-09-02 | 2026-09-05 | ACQUIRED |
 | Railer 4 mm hex bit, 2", S2 steel, 5-pack — the M5 SHCS driver size (MewuDecor M5 × 10, §11). Does not drive the M5 × 20 countersunk motor-carriage screws in §1, which are DIN 7991 and take 3 mm. Sole item on its invoice, $9.99 + $0.72 NE tax | [B0BXMJ48LC](https://www.amazon.com/dp/B0BXMJ48LC) | 1 pk (5) | $10.71 | 112-6302698-6065059 | 2026-09-02 | 2026-09-03 | ACQUIRED |
 | SVLING M5 × 0.8 × 50 mm fully threaded socket-head cap screws, 40 pc, 12.9 alloy steel, black, 4 mm hex key included — general fixture stock; $7.99 + $0.58 tax, shipping $0.00. Amazon order details verified 2026-09-08; arriving 2026-09-11 | [B0GHNQFZYR](https://www.amazon.com/dp/B0GHNQFZYR) | 1 pk (40) | $8.57 | 112-6085763-5397009 | 2026-09-08 | 2026-09-11 | ACQUIRED |
@@ -522,7 +521,7 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 
 ## 13. Printing consumables
 
-3D-printer filament stock used for printed mechanical parts (cold-core shells, bladder cradles, enclosure, funnel, etc.). Per bom.md §7 the exterior and the cold core's own shell stack are Polymaker Fiberon PET-GF15, and the small parts inside are PETG; specialty filaments below are for specific parts requiring flexibility or chemical resistance. Also the photo stock the ET-8550 prints the bench instruction decks on ([assembly/cards/](/hardware/assembly/cards/README.md)).
+3D-printer filament stock used for printed mechanical parts (cold-core shells, bladder cradles, enclosure, funnel, etc.). Per bom.md §7 the exterior and the cold core's own shell stack are Polymaker Fiberon PET-GF15, and the small parts inside are PETG; specialty filaments below are for specific parts requiring flexibility or chemical resistance. Also the photo stock the ET-8550 prints the [Letter shop guides](/hardware/assembly/guides/README.md) on.
 
 | Part | ASIN link | Qty | $ | Order # | Ordered | Delivered | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -560,8 +559,8 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | Polymaker order #192064 — Fiberon PET-GF15, 1.75 mm × 3 kg, Black, direct from polymaker.com: $74.99 ea × 4, free Economy shipping, no tax, = **$25.00/kg** | polymaker.com | 4 | $299.96 | — | 2026-09-12 | 2026-09-18 | ACQUIRED |
 | SunTop food-contact-compliant PETG, 1.75 mm × 1 kg, Clear/Transparent | [B0FP34MJ94](https://www.amazon.com/dp/B0FP34MJ94) | 2 | $49.32 | 112-1471049-5385066 | 2026-05-17 | 2026-05-18 | ACQUIRED |
 | Elmer's disappearing purple school glue sticks, washable, 6 g × 12 — print-bed adhesion/release layer | [B003ULCZ7M](https://www.amazon.com/dp/B003ULCZ7M) | 1 pk (12) | $7.38 | 114-9764609-4555460 | 2026-03-22 | 2026-03-24 | ACQUIRED |
-| Koala resin-coated 4×6 glossy photo paper, 72lb, 100 sheets — print stock for the 4×6 sequence deck ([assembly/cards/](/hardware/assembly/cards/README.md)), borderless on the ET-8550 (`4x6.Fullbleed`) | [B073WWB1HS](https://www.amazon.com/dp/B073WWB1HS) | 1 pk (100) | $13.92 | 112-4209023-0725839 | 2026-07-24 | 2026-07-25 | ACQUIRED |
-| Koala resin-coated 8.5×11 glossy photo paper, 72lb, 50 sheets — print stock for the letter-size tool-station deck ([assembly/cards/tools/](/hardware/assembly/cards/tools/README.md)), borderless on the ET-8550 (`Letter.Fullbleed`). Same RC base as the 4×6 stock: waterproof, and stiff enough at 260 gsm that a letter sheet stands at a bench instead of flopping | [B073WWL82Z](https://www.amazon.com/dp/B073WWL82Z) | 2 pk (50 ea) | $18.22 ea | 112-7818515-5395414 | 2026-07-25 | 2026-07-27 | ACQUIRED |
+| Koala resin-coated 4×6 glossy photo paper, 72lb, 100 sheets — 4×6 photo stock for borderless printing on the ET-8550 (`4x6.Fullbleed`) | [B073WWB1HS](https://www.amazon.com/dp/B073WWB1HS) | 1 pk (100) | $13.92 | 112-4209023-0725839 | 2026-07-24 | 2026-07-25 | ACQUIRED |
+| Koala resin-coated 8.5×11 glossy photo paper, 72lb, 50 sheets — print stock for the [Letter shop guides](/hardware/assembly/guides/README.md), borderless on the ET-8550 (`Letter.Fullbleed`). Same RC base as the 4×6 stock: waterproof, and stiff enough at 260 gsm that a letter sheet stands at a bench instead of flopping | [B073WWL82Z](https://www.amazon.com/dp/B073WWL82Z) | 2 pk (50 ea) | $18.22 ea | 112-7818515-5395414 | 2026-07-25 | 2026-07-27 | ACQUIRED |
 | A-SUB satin resin-coated 13×19 photo paper, 72lb (260 gsm), warm white, 50 sheets — print stock for the customer's one-sheet quick start ([quickstart/](/hardware/quickstart/README.md)), borderless on the ET-8550 from the rear feed. Same 260 gsm RC base as the Koala stock, satin rather than gloss; $39.99 + $2.90 tax | [B0DSJ9X4CR](https://www.amazon.com/dp/B0DSJ9X4CR) | 1 pk (50) | $42.89 | 112-6847774-7837033 | 2026-09-03 | 2026-09-08 | ACQUIRED |
 
 ## 14. Soldering + small-signal electrical tools
@@ -748,10 +747,10 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$37,148.22](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$5,437.54](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$42,585.76](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$663.97](LEDGER_ON_ORDER) |
+| ON-ORDER | [$653.96](LEDGER_ON_ORDER) |
 | MISSING — paid, not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$43,302.80](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$43,292.79](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 

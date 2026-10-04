@@ -17,7 +17,7 @@
 // One banner per deploy for the file changes (any mix of kinds).
 
 // --- Boot-time change detection (web/server.js on prod boot) ---
-// Per-kind SHA tables — step_hashes, mermaid_hashes, dxf_hashes, drawing_hashes, card_hashes,
+// Per-kind SHA tables — step_hashes, mermaid_hashes, dxf_hashes, document_hashes,
 // pcb_hashes — diffed by push.js detect* functions; the changed set drives both the WS
 // files-changed broadcast (ws-frames.js) and the FCM fan-out.
 

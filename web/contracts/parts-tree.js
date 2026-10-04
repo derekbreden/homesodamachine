@@ -65,10 +65,9 @@
 // A build that has never run on this machine leaves its directory absent, so an
 // entry naming nothing is the normal state and not a stale line.
 export const EXCLUDED_DIRS = [
-  "assembly/cards/out",
-  "assembly/cards/tools/out",
   "assembly/scenes/out",
   "install-guide/out",
+  "magnetic-float-guide/out",
   "pcb/pcba/out",
   "quickstart-claude/out",
   "quickstart-codex/out",

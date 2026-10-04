@@ -18,18 +18,6 @@
  * @property {string|null} picks  out/<name>.picks.json when present (picks-schema.ts), else null
  */
 /**
- * @typedef {Object} Card  one walkAssemblyCards entry (web/lib/walk.js), deck-ordered — what
- *                          /build lays out against the procedure steps its cards render
- * @property {string} path            assembly/cards/<file>.html, root-relative — the card's id everywhere
- * @property {string} file            bare filename
- * @property {string|null} code       the printed code chip, e.g. "PV-05"
- * @property {string} title           the printed title (filename-derived if the card has none)
- * @property {string|null} deckpos    the printed deck position, e.g. "Pressure vessel · 05/14"
- * @property {string|null} subsystem  two-letter body class, e.g. "pv"; null on the cover
- * @property {string} subsystemLabel  display name from the deck's style.css, or "Deck"
- * @property {string|null} accent     the subsystem's accent colour from style.css
- */
-/**
  * @typedef {Object} Document  one /api/documents entry (walkDocuments in web/lib/walk.js)
  * @property {string} path      <dir>/<name>.pdf, root-relative — served at /docs/<path>
  * @property {string} title     from the <name>.pdf.json sidecar (contracts/documents.js)
@@ -66,6 +54,5 @@
 //        against the assembly and routing inputs by lib/tube-routes.js. Errors are 404/503.
 //   GET /steps/<path>  /dxfs/<path>  -> file bytes
 //   GET /thumbs/<path>               -> image/png        (server-rendered STEP thumbnail)
-//   GET /cards/<path>                -> card page / stylesheet / embedded render / the bound deck (cards.js)
 //   GET /docs/<path>                 -> application/pdf   (confined by documents.js — a sidecar makes it a document)
 //   GET /api/version                 -> { commit }       (deploy/activation check; boot.js polls it)

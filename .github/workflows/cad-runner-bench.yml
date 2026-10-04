@@ -26,7 +26,7 @@
 #
 #   WHETHER A TARGET IS GREEN ANYWHERE ELSE. This lane installs its toolchain; `derive` pulls
 #   an image; this Mac has had both for months. A target can be red in one and green in the
-#   other for reasons that touch no line of the code it builds — //:cards-build failed on a
+#   other for reasons that touch no line of the code it builds — //:quickstart-build failed on a
 #   runner with `Could not find Chrome` while rendering every card cleanly here, because a
 #   bazel action sees only the environment `.bazelrc` names and PUPPETEER_CACHE_DIR was not
 #   in it. A green here is evidence about here.
@@ -148,11 +148,11 @@ jobs:
           node web/scripts/fetch-cad-artifacts.mjs
           echo "seconds=$(( $(date +%s) - start ))" >> "$GITHUB_OUTPUT"
 
-      # `//:cards-build` DRIVES A REAL CHROME. `tools/render/browser.js` imports puppeteer, so
-      # the card deck needs `tools/render/node_modules` and the Chromium puppeteer downloads on
+      # `//:quickstart-build` DRIVES A REAL CHROME. `tools/render/browser.js` imports puppeteer, so
+      # the quick-start renderer needs `tools/render/node_modules` and the Chromium puppeteer downloads on
       # install — neither in the tree, both assumed present by every local build. This is the
       # second thing a clean checkout turned out to need that no machine holding it can notice.
-      - name: Time the card renderer toolchain
+      - name: Time the document renderer toolchain
         id: cards
         run: |
           start=$(date +%s)
@@ -242,7 +242,7 @@ jobs:
             echo "|---|---:|"
             echo "| system toolchain (blender) | ${{ steps.sys.outputs.seconds }} |"
             echo "| CadQuery install (${{ steps.pip.outputs.venv }}) | ${{ steps.pip.outputs.seconds }} |"
-            echo "| card renderer (puppeteer + chromium) | ${{ steps.cards.outputs.seconds }} |"
+            echo "| document renderer (puppeteer + chromium) | ${{ steps.cards.outputs.seconds }} |"
             echo "| pointed-at solid fetch | ${{ steps.fetch.outputs.seconds }} |"
             echo "| gen_build | ${{ steps.gen.outputs.seconds }} |"
             echo "| **cold \`//:everything\`** | **${{ steps.build.outputs.seconds }}** |"

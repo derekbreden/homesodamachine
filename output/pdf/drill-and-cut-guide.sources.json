@@ -1,0 +1,69 @@
+{
+  "pdf": "drill-and-cut-guide.pdf",
+  "pages": 28,
+  "page_inches": [
+    8.5,
+    11
+  ],
+  "print_layout": {
+    "content_scale": 0.98,
+    "bleed_overhang_inches": 0.25,
+    "colored_band_inset_inches": 0.3333333333333333,
+    "bleed_layer_scale": 1,
+    "media_source": "rear",
+    "print_scaling": "100% / none"
+  },
+  "artwork": "vector schematic; dimensions govern; not a full-size template",
+  "source_sha256": {
+    "hardware/assembly/pressure-vessel.md": "a401a10be5b85f2f60b2f13e36ad168e77133c50b16f2af8d2980f1b9740d671",
+    "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py": "171fcd7fc0b2852e157ce33b403eeea7f8f20eb198d563201a82a4865c3364a6",
+    "hardware/printed-parts/cold-core/_float_interface.py": "d2fc9c9029101bf471e06f81f9b1acbc4c6c841ba629e561fd9a33833319a72a",
+    "hardware/assembly/handwork.md": "8752a60dd63ccd4ce4eaf9abf6e14280db43367adb444af9c0afe71db70cbbe8",
+    "hardware/assembly/water-inlet-jet.md": "ea1458dfaf81e70ab24b1bab8023f2134623579ce8aec50725c6f598fcbeb6da",
+    "hardware/printed-parts/fixtures/water-inlet-jet/README.md": "da878267cdf498a4be7a71206a9e3bf8be3e3aba6adee23b1bd1b3e4aa37b32b",
+    "hardware/printed-parts/fixtures/weld-rotator/README.md": "a954e0aa9dec2cdcf912370595cd85d8e384b63c1c6ef9f60dd7651d131a9044",
+    "hardware/assembly/refrigerant-loop.md": "9c650d3b235b662601d0c529e683c177cd25a74226e9b1dd066e8d951ef93c06",
+    "hardware/assembly/internal-plumbing.md": "b583f1e659b83ba1858e66f62ed18706bd720b52eefbff82f90dbb8b8649332b",
+    "hardware/assembly/cold-core.md": "2ee8fe235e23cc40cfabbae5197dcddcddd64c31b1a3896df46780c9efa4d174",
+    "hardware/assembly/faucet-and-umbilical.md": "b9d3f1a8851712aad87671e2847b3dad5a6f81a60cebaf14d1c7787d15ca3c37",
+    "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md": "3d35ffa3549332a50e9eb91d8de0074f49a3b99351101767db87c90aa163965c",
+    "hardware/assembly/enclosure-mechanical.md": "50c441444710666859cb2140bbf2c02d6f42c857a82ec3d351592d531e31c2bc",
+    "hardware/assembly/finish-pack-ship.md": "984f7aa43b6ca8dec5a299e9a174658aac57ba7440298283696beeca78565afb",
+    "hardware/assembly/cable-assemblies.md": "899411da442e4b4b88e77b284acb2905c87091db3af6035266d88ce50cd27304",
+    "hardware/wiring/ac-wiring-schedule.md": "e1d1e2a751a1550050ca1e2ca9d073ecc8abf4f23356f905578a4e31a0cc49c3",
+    "hardware/ledger/tools.md": "672748bc973a2e90d28877e8078f870f53e2e9b8e2b033ed2dff7c7f0b7ef98f",
+    "hardware/topology/fluid-topology.md": "155529db0dc9184c84dc338162cb82b67aed1f121ba2c06e8899f837bae517f1",
+    "hardware/mechanical-qualification/README.md": "72ce5aa451d3195425ce6998231019d5e90ae86417a73c31ddd48df318a1b89f",
+    "hardware/printed-parts/fixtures/tube-miter-box/README.md": "6e3493586098c09a7a5cff0664fe1fc28931a0e112d46fe07f23b08f2f1d2515"
+  },
+  "pdf_sha256": "db797fc4398147e75e02f265fc9f94ba613530391e03374f4afa44cbab4e7df8",
+  "external_sources": {
+    "WEN 4208T": "https://cdn.shopify.com/s/files/1/0012/0350/3168/files/4208T.manual.20220914.pdf?v=1664398265",
+    "WEN BA4555": "https://cdn.shopify.com/s/files/1/0012/0350/3168/files/BA4555.manual.20211206.pdf?v=1649272733"
+  },
+  "external_checked": "2026-10-04",
+  "numeric_inputs": {
+    "endcap": {
+      "disc_diameter": 4.86,
+      "disc_thickness": 0.25,
+      "hole_spacing": 1.5,
+      "register_radius": 1.6475984251968505,
+      "register_drill_diameter": 0.140625,
+      "register_depth": 0.1
+    },
+    "carbonator_rod_blank_mm": 131.1,
+    "reservoir_rod_mm": 176.5,
+    "faucet_cuts_mm": {
+      "BLUE_CUT": 1540.0,
+      "FLAVOR_CUT": 1967.0,
+      "SODA_FAUCET_CUT": 330.0,
+      "WHITE_A_CUT": 495.0,
+      "WHITE_B_CUT": 454.0,
+      "BLACK_A_CUT": 1464.0,
+      "BLACK_B_CUT": 1504.0,
+      "FOAM_LENGTH": 1338.0,
+      "FOAM_BARE_TOP": 127.0,
+      "COLLAR_SLEEVE_TAIL": 75.0
+    }
+  }
+}

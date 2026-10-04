@@ -219,9 +219,7 @@ CARB_SEGMENTS = (
 #             `well`, `cradle`, `anchor`, `tray`, `channel`, `slot`, `wall-capture`, `seam-capture`,
 #             `plate-capture`, `tube-clamp`, `deck-mount`, `basin`, `gap-press`,
 #             `tie-capture`, `tube-hung`, `pack`. Not an axis and not a score —
-#             it is how the machine puts this body down, and it is what lets a card count the
-#             bodies bossed to a piece apart from the ones captured in its wall
-#             (`assembly/cards/_cards_sync.py`) and a scene tell a pack body from an orphan.
+#             it is how the machine puts this body down, and it lets a scene tell a pack body from an orphan.
 #
 # WHERE A BODY IS DRAWN IS NOT WHAT HOLDS IT. Rows for the flavour manifold's own bodies stand
 # in this table beside every other, because what fastens a valve is a printed seat under it and

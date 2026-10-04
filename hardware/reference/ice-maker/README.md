@@ -4,14 +4,15 @@ Two countertop ice makers were purchased for harvesting refrigeration components
 
 ## Cold core architecture
 
-Custom SS carbonator + new evaporator coil. The factory finger-plate evaporator is discarded; a custom copper coil is wound around the fabricated 316L SS carbonator (vertical 5" OD × 0.065" wall 316 welded round tube with 1/4"-thick 316 circular end plates, per [`hardware/README.md`](/hardware/README.md)). The refrigerant loop is opened (cut into the suction and cap-tube sides of the factory evaporator), the factory charge is vented, the drier is replaced, the system is evacuated, and it is recharged.
+Custom SS carbonator + new evaporator coil. The factory finger-plate evaporator is discarded; a custom copper coil is wound around the fabricated 316L SS carbonator (vertical 5" OD × 0.065" wall 316 welded round tube with 1/4"-thick 316 circular end plates, per [`hardware/README.md`](/hardware/README.md)). The refrigerant loop is opened (cut into the suction and cap-tube sides of the factory evaporator), the factory charge is removed under a controlled hydrocarbon service method, the drier is replaced, the system is leak-tested and evacuated, and a qualified finished-machine charge is metered in.
 
 The hot-gas bypass solenoid is deleted.
 
-EPA's R-600a Section 608 exemption applies to specified end-uses. Its household
-refrigeration definition includes stand-alone household ice makers; the rebuilt soda
-machine's category and handling route remain open in
-[`business/regulatory.md`](/business/regulatory.md). Equipment suitability for
+EPA's R-600a Section 608 exemption applies to specified end-uses. The project's
+residential household design basis and its scope are recorded in
+[`business/regulatory.md`](/business/regulatory.md). It is a reasoned classification,
+not an individual EPA determination; the service route still addresses the actual
+appliance and refrigerant handling conditions. Equipment suitability for
 flammable refrigerants must be checked against its manufacturer's instructions;
 an end-use venting exemption is not a qualification of the pump, manifold or other
 service equipment.
@@ -64,7 +65,7 @@ Finned-tube forced-convection condenser with its own fan shroud (fan not yet sep
 
 A fat copper cylinder sits between the condenser outlet and the capillary tube inlet. It holds a molecular-sieve desiccant charge that traps residual moisture and debris.
 
-**Disposition: keep in service.** The factory drier is preserved through the loop-open period under continuous argon flow per [`/hardware/assembly/refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) step 3. The drier, its brazed-on capillary tube, the cap-tube helix at the evap end, and the bonded suction-line heat-exchanger pair stay together as one preserved upstream subassembly. Replacement driers (Supco SUD8358 + Supco D111) are kept on the shelf as spares.
+**Disposition: replace when the loop is opened.** [Secop's hermetic-system service guidance](https://www.secop.com/fileadmin/user_upload/technical-literature/guidelines/repair_of_hermetic_refrigeration_systems_05-2018_desg620a202.pdf) calls for drier replacement after opening. The technician specifies a sealed R-600a/oil-compatible replacement and its connection to the retained capillary. The stocked Supco D111/SUD8358 are candidates, not a qualified connection recipe. Preserve the cap-tube helix and bonded suction-line heat exchanger; record metering length and any required recalculation.
 
 Label on this unit's drier:
 
@@ -73,7 +74,7 @@ Label on this unit's drier:
 - `20251107 A-1` — manufacturing date code, 2025-11-07, line/shift A-1.
 - Small stylized logo at left (manufacturer mark, not identified).
 
-**Desiccant preservation rule:** Once the refrigerant loop is opened (unbrazing for re-piping), the drier's desiccant absorbs atmospheric moisture unless it is kept in a continuous dry inert-gas blanket from the moment of cut until vacuum begins. Continuous low-pressure argon flow through the loop during the entire loop-open period (see [`/hardware/assembly/refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) step 3) provides that blanket. The same argon flow doubles as the braze-safety hydrocarbon sweep, so the two requirements satisfy each other via one rig. A saturated drier produces short service life and eventual capillary icing.
+**Moisture control:** Stage the replacement before opening and keep it sealed until installation. Protect open tubing with the technician's dry-nitrogen service sequence; a dry blanket does not qualify reuse of a spent drier. The circuit-opening and branch-clearing procedure is [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) step 3.
 
 ### Capillary tube + suction-line heat exchanger
 
@@ -90,7 +91,7 @@ Keep the bonded cap-tube-plus-suction-line pair intact when re-piping. The helic
 
 ### Process tube (the "dead-end" copper stub)
 
-A short (~2″) copper tube closed with a pinched-and-brazed tip sticks out of the compressor body and connects to nothing else. This is the factory charging port: evacuate through this tube, inject the refrigerant charge, then crimp and braze the tip shut. Recovery and recharge taps in here during reassembly — either by cutting the crimped tip and brazing on a piercing saddle / access port, or by installing a bolt-on Schrader saddle over the tube.
+A short (~2″) copper tube closed with a pinched-and-brazed tip sticks out of the compressor body and connects to nothing else. This is the factory charging port: evacuate through this tube, inject the refrigerant charge, then crimp and braze the tip shut. Temporary service access is made here under the chosen access device's instructions. The BPV31 can provide that access on compatible tubing; [Supco's FAQ](https://supco.com/web/supco_live/products/BPV31.html) says solderless piercing valves should not remain after repair. The technician must specify and qualify a final hermetic closure or permanent service connection, without heating a charged circuit.
 
 ### Hot-gas bypass solenoid (DISCARD for our use)
 
@@ -98,7 +99,7 @@ A small AC solenoid valve is teed into the refrigerant circuit:
 
 - Label: **SOLENOID VALVE — AC 110V 50/60Hz 4/4.5 W — TIANHAQ 25.10.17**
 - Function in ice maker: during the harvest cycle, this valve opens and routes hot compressor discharge gas directly into the evaporator (bypassing the condenser and capillary tube), warming the cold fingers so formed cubes release and drop.
-- Remove the valve entirely when re-piping, or leave physically in place and never energize it.
+- Remove the harvest branch under the traced donor closure plan. The completed circuit must have no discharge-to-suction bypass path, open tee or unqualified branch cap; leaving the solenoid unpowered does not establish that closure.
 
 ### Evaporator cold plate
 
@@ -126,8 +127,8 @@ For ESP32 control:
 | Compressor | Keep |
 | Condenser + fan | Keep |
 | Capillary tube (bonded to suction line) | Keep — do not separate |
-| Filter-drier | Keep in service — preserved through loop-open period under continuous argon flow per `assembly/refrigerant-loop.md` step 3 |
-| Process tube | Keep — vent/recharge access point |
+| Filter-drier | Replace at loop opening with a sealed compatible drier; qualify its capillary connection |
+| Process tube | Keep — temporary controlled service access, followed by qualified final closure |
 | Hot-gas bypass solenoid | Discard / bypass |
 | Evaporator finger plate | Discard (replaced by custom copper coil around the SS carbonator) |
 | Thermostat / harvest-cycle controller | Discard (custom ESP32-S3 firmware replaces it) |
@@ -145,7 +146,7 @@ For ESP32 control:
 
 **R600a, 23 g (0.81 oz)** factory charge per the EFIC189-family user manual hosted on Amazon's CDN — the EFIC117-SS is listed as one of the model variants the manual covers ("Refrigerant/Refrigerant amount: R600a / 23g. Foaming agent: C5H10"). The same nameplate text — "R600a 0.81oz/23g" — appears verbatim in multiple independent secondhand-listing posts quoting the back-panel rating label. The label is the authoritative source once the housing is opened.
 
-This baseline is what `assembly/refrigerant-loop.md` step 1 reads. The recharge target for this build is *not* the factory mass — the new evaporator coil has greater internal volume than the discarded factory finger-plate, so the recharge runs higher than factory.
+This baseline is what `assembly/refrigerant-loop.md` step 1 reads. The redesigned loop's charge must be established under a qualified calibration procedure. Evaporator volume alone does not establish an automatic overage above the factory mass.
 
 ### Compressor (from inspection, pre-teardown)
 

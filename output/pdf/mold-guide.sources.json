@@ -1,0 +1,45 @@
+{
+  "pdf": "mold-guide.pdf",
+  "pages": 22,
+  "page_inches": [
+    8.5,
+    11
+  ],
+  "print_layout": {
+    "content_scale": 0.98,
+    "bleed_overhang_inches": 0.25,
+    "colored_band_inset_inches": 0.3333333333333333,
+    "bleed_layer_scale": 1,
+    "media_source": "rear",
+    "print_scaling": "100% / none"
+  },
+  "artwork": "vector schematic; dimensions govern; not a full-size template",
+  "source_sha256": {
+    "hardware/printed-parts/zone-c/funnel-mold/README.md": "019a1994b94cb3b7050094befb9f11f026efa2fa60a183e04900aeff602dab6e",
+    "hardware/printed-parts/zone-c/funnel-mold/silicone.md": "5e0bc66c84b08b438b492c7825b81f437c17ce64fb0d3258e71ba03c470d35a8",
+    "hardware/printed-parts/zone-c/funnel-mold/design.json": "22344e488c6ed4eb8a9d74de54ddf4194280709a991abca3054dafe94e1bf455",
+    "hardware/printed-parts/zone-c/funnel-mold/forming-mandrel-design.json": "25b19261fc90c35244dceeef8bae623bde26c46579631a68edf889e8646b44fa",
+    "hardware/printed-parts/zone-c/funnel-mold/forming-mandrel-check.json": "5c1e41cd49d3c1f982083db0a852f7aea19b8b252a5e33d34c8829f9babba60d",
+    "hardware/printed-parts/zone-c/funnel-mold/print-log.md": "3edf021035baf9fe9bd73f394feacc7304ea7befa65e3eb65e26044fb4535613",
+    "hardware/assembly/cold-core.md": "2ee8fe235e23cc40cfabbae5197dcddcddd64c31b1a3896df46780c9efa4d174",
+    "hardware/printed-parts/cold-core/foam-shell/README.md": "ef8ca82bcc9d5bc5ede9f29a514cbdde68d87d200b85195259f10a28551095cb",
+    "hardware/printed-parts/cold-core/copper-plugs/README.md": "f87987ee5ec4284f92f725d4cb87e7449a87acc637d9c24f15d3124fb8a97ecb",
+    "hardware/mechanical-qualification/core-and-faucet-heatsets.json": "f4a1ea3fd976ac00cd6097a631e6b5114d54636b90de58444061a5f61e1b914c",
+    "hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md": "8f50ef31c91e3220b8bd79261263a35ef21ee710256be557eccd8e8111ce79de"
+  },
+  "pdf_sha256": "30abaa04a51cbc18962b2f5df4cdb06c7c356a7143baddc0cc8824e504768e43",
+  "manufacturer_sources": {
+    "BBDINO 40A": "https://bbdino.com/products/bbdino-40a-clear-silicone-mold-making-trial-kit-gp-platinum-cure-high-hardness",
+    "Ease Release 200": "https://www.smooth-on.com/products/ease-release-200/",
+    "Sealers and clay": "https://www.smooth-on.com/page/sealers-releases/",
+    "Degassing example": "https://www.smooth-on.com/tutorials/making-piece-cut-block-mold/vacuum-de-gassing/",
+    "FSD pour foam": "https://fiberglasssupplydepot.com/Expandable-Polyurethane-Pour-Foam-2lb.html",
+    "FSD foam SDS": "https://fiberglasssupplydepot.com/pour-foam-sds"
+  },
+  "source_review_date": "2026-10-04",
+  "recipe_limits": [
+    "Foam shot quantities, ratio measurement basis, processing temperature and mix/cure times must be supplied by the actual batch recipe before any pour.",
+    "Project silicone hold is 5h demold/24h full use at23C; the direct manufacturer page states3h. No qualified post-cure bake or finished food-contact release is recorded.",
+    "Current molding operations exclude the unbuilt silicone reservoir alternative and printed ASA Aero floats."
+  ]
+}

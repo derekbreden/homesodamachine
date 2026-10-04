@@ -82,24 +82,24 @@ test("walkDocuments lists a PDF its sidecar names, and no other", (t) => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "walk-docs-"));
   t.after(() => fs.rmSync(root, { recursive: true, force: true }));
 
-  fs.mkdirSync(path.join(root, "assembly", "cards"), { recursive: true });
-  fs.writeFileSync(path.join(root, "assembly", "cards", "deck.pdf"), "%PDF-1.4\n");
-  fs.writeFileSync(path.join(root, "assembly", "cards", "deck.cover.png"), "png");
+  fs.mkdirSync(path.join(root, "drill-and-cut-guide"), { recursive: true });
+  fs.writeFileSync(path.join(root, "drill-and-cut-guide", "drill-and-cut-guide.pdf"), "%PDF-1.4\n");
+  fs.writeFileSync(path.join(root, "drill-and-cut-guide", "drill-and-cut-guide.cover.png"), "png");
   fs.writeFileSync(
-    path.join(root, "assembly", "cards", "deck.pdf.json"),
-    JSON.stringify({ title: "Assembly card deck", subtitle: "6 × 4 in", pages: 103, cover: "deck.cover.png" }),
+    path.join(root, "drill-and-cut-guide", "drill-and-cut-guide.pdf.json"),
+    JSON.stringify({ title: "Drill and cut guide", subtitle: "8.5 × 11 in", pages: 20, cover: "drill-and-cut-guide.cover.png" }),
   );
   // A datasheet a board vendored: a PDF under the same root with no sidecar.
   fs.mkdirSync(path.join(root, "pcb"), { recursive: true });
   fs.writeFileSync(path.join(root, "pcb", "wroom.pdf"), "%PDF-1.4\n");
 
   const docs = walkDocuments(root);
-  assert.deepEqual(docs.map((d) => d.path), ["assembly/cards/deck.pdf"]);
-  assert.equal(docs[0].title, "Assembly card deck");
-  assert.equal(docs[0].pages, 103);
+  assert.deepEqual(docs.map((d) => d.path), ["drill-and-cut-guide/drill-and-cut-guide.pdf"]);
+  assert.equal(docs[0].title, "Drill and cut guide");
+  assert.equal(docs[0].pages, 20);
   // The cover comes back root-relative, because that is what /thumbs/ takes.
-  assert.equal(docs[0].cover, "assembly/cards/deck.cover.png");
-  assert.equal(docs[0].bytes, fs.statSync(path.join(root, "assembly", "cards", "deck.pdf")).size);
+  assert.equal(docs[0].cover, "drill-and-cut-guide/drill-and-cut-guide.cover.png");
+  assert.equal(docs[0].bytes, fs.statSync(path.join(root, "drill-and-cut-guide", "drill-and-cut-guide.pdf")).size);
 });
 
 // A sidecar whose document has not been built yet names nothing, and neither
@@ -132,11 +132,11 @@ test("walkDocuments returns the shelf in title order", (t) => {
   // it found would fail this.
   shelve("quickstart-codex", "quick-start-codex", "Quick start");
   shelve("guide", "casting", "Funnel casting guide");
-  shelve("assembly/cards", "deck", "Assembly card deck");
+  shelve("drill-and-cut-guide", "drill-and-cut-guide", "Drill and cut guide");
 
   assert.deepEqual(
     walkDocuments(root).map((d) => d.title),
-    ["Assembly card deck", "Funnel casting guide", "Quick start"],
+    ["Drill and cut guide", "Funnel casting guide", "Quick start"],
   );
 });
 

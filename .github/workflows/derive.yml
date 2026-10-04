@@ -133,8 +133,8 @@ jobs:
     # A HUNG RUN HOLDS THE WHOLE LANE, and with no timeout it holds it for GitHub's default
     # SIX HOURS. Only one run is pending at a time, so a build that never returns does not
     # merely lose itself — every push behind it is cancelled out of the slot and nothing
-    # derives at all. One did exactly that for an hour and a half: `//:render-scene-cards` boots
-    # a server and drives a browser, and neither has a timeout of its own.
+    # derives at all. Rendering steps start a server and drive a browser, so their
+    # own timeouts and this lane deadline both bound that work.
     #
     # A `trace=all` DISPATCH TRACES FIRST, AND A TRACE STANDS THE APPLIANCE EIGHT TIMES ON
     # THIS MACHINE at 15-27 minutes a standing (the sweep of 2026-09-14, 189 minutes for 176
@@ -359,7 +359,7 @@ jobs:
         # invocation never sees — it analysed an empty one and answered "not up to date",
         # which is the carry refusing on a build that had in fact just run. The two have to
         # be the same bazel or the guard reads the wrong tree.
-        # NOT `--jobs`. Capping parallelism was measured and did not move this: `//:tools-build`
+        # NOT `--jobs`. Capping parallelism was measured and did not move this: `the document renderer`
         # took 270 s and 1926 s at four concurrent actions and 1905 s at two, and at two the
         # failure SPREAD to a second card and to the manual's cover. What decides it is the size
         # of the capture, not how many run at once, which is what `--shm-size` above addresses.
@@ -454,9 +454,6 @@ jobs:
         run: |
           tools/cad-venv/bin/python hardware/assembly/_enclosure_mechanical_sync.py
           tools/cad-venv/bin/python hardware/printed-parts/enclosure/_enclosure_dimensions.py
-
-      - name: The card deck
-        run: tools/cad-venv/bin/python hardware/assembly/cards/_cards_sync.py
 
       # EVERY CHECK, AGAINST THIS TREE, WHERE SOMETHING RUNS THEM. Three of the eleven are in
       # the pre-commit hook and only for the paths they watch; four are registered in

@@ -75,7 +75,9 @@ z = [100](PROCESS_Z), [40](PROCESS_OVER_SUCTION) mm above the suction's own stat
 the saddle and the suction leg share one lane down the machine's west side.
 
 `process_tube()` reads [20](PROCESS_CLAMP) mm out along that stub, where the Supco
-BPV31's saddle bands it. The valve goes on once and stays for the life of the appliance —
+BPV31's saddle bands it. This station represents temporary service access. The BPV31 is removed after service
+under [Supco's FAQ](https://supco.com/web/supco_live/products/BPV31.html); the final hermetic
+closure or permanent fitting needs its own qualified detail in
 [`assembly/refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md).
 
 ## Holds

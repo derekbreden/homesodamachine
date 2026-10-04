@@ -524,7 +524,7 @@ def check(files: set, dirs: set, solids: set, tags: set, routes: set) -> list[st
 
             # A COMMENT IS ONLY HELD TO A PATH IT PLAINLY MEANT. Comments here write from
             # several roots — the repo, their own directory, their top-level tree, and the
-            # hardware/ space /api/steps serves — and `viewer/cards.js` or `css/viewer.css`
+            # hardware/ space /api/steps serves — and `viewer/grid.js` or `css/viewer.css`
             # is a reader's shorthand, not a claim about the root. So a comment is reported
             # on two grounds only: it anchored the path itself (a leading `/`, or a
             # top-level directory it could not have meant relatively), or it named a TAG

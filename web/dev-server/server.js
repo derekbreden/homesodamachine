@@ -34,8 +34,7 @@ import {
   buildOrder,
 } from "./deps.js";
 import { WS } from "../contracts/ws-frames.js";
-import { isCardAssetPath, isCardPath } from "../contracts/cards.js";
-import { walkAssemblyCards } from "../lib/walk.js";
+import { isPublishedDocument } from "../contracts/documents.js";
 import { runLocalServiceFirst } from "./local-service.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -558,35 +557,22 @@ const WATCH_OPTS = {
 };
 const debounce = new Map();
 
-// Assembly deck (hardware/assembly/cards). Cards are hand-authored HTML, not a
-// generated artifact, so there is nothing to re-run on an edit: the viewer loads
-// the same file in an iframe and only needs to be told to re-frame it. An edit
-// to the deck's shared style.css or to a render under img/ restyles or redraws
-// cards we can't attribute, so those broadcast the whole deck instead of one
-// file. Returns true when it claimed the path, so the listeners can bail.
-//
-// Wired to `add` as well as `change` — the deck grows a card at a time, and a
-// card that appears while the grid is open should show up there without a
-// reload (the client re-lists when a broadcast names a card it has no tile for).
-function maybeBroadcastCard(absPath) {
-  const relFile = relForBroadcast(absPath).split(path.sep).join("/");
-  if (!isCardAssetPath(relFile)) return false;
-  if (debounce.has(absPath)) clearTimeout(debounce.get(absPath));
-  debounce.set(
-    absPath,
-    setTimeout(() => {
-      debounce.delete(absPath);
-      // A card page names itself; so does the bound deck, which is a document
-      // rather than a card and moves the /drawings listing rather than a tile.
-      // Anything else in the deck directory — the shared stylesheet, a render a
-      // card embeds — could be on any card, so the whole deck refreshes.
-      const single = isCardPath(relFile) || relFile.endsWith(".pdf");
-      const files = single ? [relFile] : walkAssemblyCards(HARDWARE_DIR).map((c) => c.path);
-      if (files.length === 0) return;
-      console.log(`Card changed: ${relFile}${single ? "" : ` -> refresh ${files.length} card(s)`}`);
-      broadcast({ type: WS.FILES_CHANGED, files });
-    }, 300),
-  );
+// Hand-authored documents are served from the checkout. A PDF, its sidecar,
+// or its cover moving refreshes the document shelf without invoking CAD.
+function maybeBroadcastDocument(absPath) {
+  const rel = relForBroadcast(absPath).split(path.sep).join("/");
+  let pdf;
+  if (rel.endsWith(".pdf")) pdf = rel;
+  else if (rel.endsWith(".pdf.json")) pdf = rel.slice(0, -5);
+  else if (rel.endsWith(".cover.png")) pdf = rel.slice(0, -10) + ".pdf";
+  else return false;
+  if (!isPublishedDocument(pdf)) return false;
+  if (!fs.existsSync(path.join(HARDWARE_DIR, pdf + ".json"))) return false;
+  if (debounce.has(pdf)) clearTimeout(debounce.get(pdf));
+  debounce.set(pdf, setTimeout(() => {
+    debounce.delete(pdf);
+    broadcast({ type: WS.FILES_CHANGED, files: [pdf] });
+  }, 300));
   return true;
 }
 
@@ -654,8 +640,7 @@ function onContentChange(absPath) {
     return;
   }
 
-  // Assembly card changed — broadcast update (see maybeBroadcastCard).
-  if (maybeBroadcastCard(absPath)) return;
+  if (maybeBroadcastDocument(absPath)) return;
 
   // Sidecar metadata file changed — broadcast a change for the part it
   // belongs to. `foo.dxf.json` -> broadcast `foo.dxf`; `foo.step.json`
@@ -786,7 +771,7 @@ if (NO_WATCH) {
   console.log("Not watching (--no-watch): nothing rebuilds, nothing hot-reloads.");
 } else {
   const watcher = chokidar.watch(CONTENT_ROOTS, WATCH_OPTS);
-  watcher.on("add", (absPath) => { maybeBroadcastCard(absPath); });
+  watcher.on("add", (absPath) => { maybeBroadcastDocument(absPath); });
   watcher.on("change", onContentChange);
 
   chokidar

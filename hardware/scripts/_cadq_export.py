@@ -161,7 +161,7 @@ _DXF_CLASS_NAME_RE = re.compile(rb"  1\n([^\n]+)\n")
 #   Cairo honors SOURCE_DATE_EPOCH, so a producer using it can set that
 #   and leave this a harmless no-op; a browser honors nothing, and what
 #   settles it there is the merge — pypdf drops each appended document's
-#   `/Info` (hardware/assembly/cards/_build.py).
+#   `/Info` (tools/weld-rotator-guide/build.py).
 #
 # Entries:
 #   /CreationDate and /ModDate — PDF dates: D:YYYYMMDDHHMMSSOHH'MM'.
@@ -828,7 +828,7 @@ def _atomic_write(target_path, write_fn):
 # the dev-server watcher, neither of which sets it.
 #
 # A run that needs a payload IN the action writes its own and does not come through
-# here — `render_scenes.draw_part` calls `_write_mesh_payload` directly, because the
+# here — manual render tools can call `_write_mesh_payload` directly, because the
 # viewer it stands really does read one.
 
 

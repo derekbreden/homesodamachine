@@ -1,5 +1,5 @@
-@font-face{font-family:"IBM Plex Sans";font-style:normal;font-weight:400 700;src:url(../../../assembly/cards/fonts/IBMPlexSans-400-700-normal-latin.woff2) format("woff2")}
-@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:400 700;src:url(../../../assembly/cards/fonts/IBMPlexMono-400-normal-latin.woff2) format("woff2")}
+@font-face{font-family:"IBM Plex Sans";font-style:normal;font-weight:400 700;src:url(../../../guide-assets/fonts/IBMPlexSans-400-700-normal-latin.woff2) format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:400 700;src:url(../../../guide-assets/fonts/IBMPlexMono-400-normal-latin.woff2) format("woff2")}
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--ink:#202126;--muted:#6d6f76;--rule:#d4d5d9;--accent:#ed5966;--good:#2d9b6b;--screen:#1a1a2e;--screen-card:#242440;--screen-on:#33335c;--screen-accent:#e94560;--screen-text:#e8e8f2;--screen-dim:#8888aa}
 html,body{width:2550px;height:1650px;overflow:hidden;background:#fff;color:var(--ink);font-family:"IBM Plex Sans",sans-serif}
