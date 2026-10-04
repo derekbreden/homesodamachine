@@ -1,0 +1,142 @@
+{
+  "project": ".cache/prints/2026-10-04-bulkhead-co2-raised-mark2-v1/co2-raised-face-up-z004-mark2-v1-input.3mf",
+  "project_sha256": "f48b3e578ef89a8fa06d1870592ca39ee0717f3fc5060a121576ce457857b586",
+  "geometry_snapshot": {
+    "station": "co2",
+    "word": "CO2",
+    "head": "cb54c7e84f458eff5524060d18d20cb58f4b2aa6",
+    "sources_from_head_sha256": {
+      "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py": "490207b4fa6b1a6ad69897386ca661ae7ecd4eaf1d21f4d54280d01a539bf2b7",
+      "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/raised_rings.py": "ef5f4a412425e55b400d8f09f81e6fa83e5942fdd61e9c6c737164ac6352fa5d",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py": "a601e8765e0c82ee6c1282f6ba2970c9cf0b653eccc913c55f2ad54695315eff",
+      "hardware/scripts/_materials.py": "3e519ca9c034252b5f422c54fc9fcb7180f626b08d4f3c1faca74f83e3006058"
+    },
+    "other_loaded_sources_unmodified_from_head": [
+      "hardware/printed-parts/cadlib/fits.py",
+      "hardware/printed-parts/cadlib/flute_skin.py",
+      "hardware/printed-parts/cadlib/reeding.py",
+      "hardware/printed-parts/cadlib/world_workplane.py",
+      "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+      "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-04-bulkhead-co2-raised-mark2-v1/prepare.py",
+      "hardware/printed-parts/faucet/_display_snap.py",
+      "hardware/printed-parts/faucet/_faucet_interface.py",
+      "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+      "hardware/printed-parts/faucet/refresh_print_project.py",
+      "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
+      "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
+      "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_material_base.py",
+      "hardware/scripts/_measuring.py",
+      "hardware/scripts/_run_lock.py",
+      "hardware/scripts/_stated_bounds.py",
+      "tools/docgen/__init__.py"
+    ],
+    "letter_rise_mm": 0.48,
+    "mounting_thickness_mm": 2.0,
+    "fitting_family": "neofit",
+    "flange_to_word_band_gap_mm": 1.5593173453062334,
+    "flange_intersection_mm3": 0.0,
+    "parts": {
+      "body": {
+        "bounds": [
+          [
+            -18.019193234387537,
+            -18.52909666719377,
+            -2.000532321398689e-15
+          ],
+          [
+            18.01919323438754,
+            18.52909656719377,
+            2.000000100000004
+          ]
+        ],
+        "volume_mm3": 1893.0920755063662,
+        "solids": 1,
+        "stl_sha256": "72c0b9450375bfdfc05998ac5098bf405e5a26f6b92be7674a056e616cfcc5a7"
+      },
+      "lettering": {
+        "bounds": [
+          [
+            -6.406372070312498,
+            12.018607246887534,
+            1.0000001000000016
+          ],
+          [
+            6.406372070312502,
+            16.969779121887534,
+            2.4800001000000034
+          ]
+        ],
+        "volume_mm3": 42.989605492603964,
+        "solids": 3,
+        "stl_sha256": "764744e27d34703311ce1b430934c6df15702282671a125636613e6dc189d523"
+      }
+    }
+  },
+  "settings_and_script_sha256": {
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf": "84c5011c0be15dd9aab41a516abe85bf99b08e2c80d91375b5f2608a96bc0e72",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "hardware/printed-parts/calibration/dual-nozzle-registration/mark2-registration.json": "07ae8fcf4ea2fca75a5bcffd182d397475fc359bbae6cfed000482b5e7f3a4c9",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-04-bulkhead-co2-raised-mark2-v1/prepare.py": "a27b59f70bace3bdc7a03b1f038e52d338c069cd6040806340589afc22e822e8"
+  },
+  "printer": "Mark2",
+  "parts": [
+    {
+      "station": "co2",
+      "part": "body",
+      "filament": 2,
+      "colour": "#F72323",
+      "bounds": [
+        [
+          -18.019193649291992,
+          -18.529096603393555,
+          -2.0005323674623368e-15
+        ],
+        [
+          18.019193649291992,
+          18.529096603393555,
+          2.0
+        ]
+      ]
+    },
+    {
+      "station": "co2",
+      "part": "lettering",
+      "filament": 1,
+      "colour": "#FFFFFF",
+      "bounds": [
+        [
+          -6.4063720703125,
+          12.018607139587402,
+          1.0000001192092896
+        ],
+        [
+          6.4063720703125,
+          16.96977996826172,
+          2.4800000190734863
+        ]
+      ]
+    }
+  ],
+  "identify_ids": {
+    "2901": "co2"
+  },
+  "orientation": "Face up. Inboard face on the bed; 2.0 mm fitting face, letters standing to 2.48 mm.",
+  "nozzles": {
+    "left": "filament 1, white PET-GF, external 254, lettering",
+    "right": "filament 2, red PET-GF, external 255, body"
+  },
+  "requested_z_trim_mm": 0.04,
+  "support_policy": "No supports.",
+  "calibration_applied": true,
+  "submitted": false,
+  "right_nozzle_correction_mm": {
+    "X": -0.5,
+    "Y": 0.7
+  },
+  "native_extruder_offset": [
+    "0x0",
+    "0.5x-0.7"
+  ],
+  "correction_scope": "Right-nozzle paths: the red body. White lettering and nominal CAD unchanged."
+}
