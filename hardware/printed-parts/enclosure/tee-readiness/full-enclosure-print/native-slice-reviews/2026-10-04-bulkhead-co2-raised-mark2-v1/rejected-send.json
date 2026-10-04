@@ -1,0 +1,38 @@
+{
+  "recorded_at_utc": "2026-10-04T06:12:09Z",
+  "printer": "Mark2",
+  "archive": ".cache/prints/2026-10-04-bulkhead-co2-raised-mark2-v1/send/co2-raised-face-up-z004-mark2-v1.gcode.3mf",
+  "send_attempts": 1,
+  "command_reply": {
+    "command": "project_file",
+    "result": "FAIL",
+    "reason": "ERROR STATE",
+    "err_code": 84033549
+  },
+  "vendor_error_code_hex": "0502400D",
+  "vendor_error_text": "Failed to start a new task: filament loading/unloading not completed.",
+  "vendor_error_source": "/Applications/BambuStudio.app/Contents/Resources/hms/hms_en_31B.json, as decoded in ../2026-09-25-display-cover-mark2-v9/restart-1/loading-sequence.json",
+  "printer_state_after": {
+    "gcode_state": "FINISH",
+    "job_id_unchanged": "1307088867",
+    "print_error": 0,
+    "hms": [],
+    "ams_status": 768,
+    "right_extruder": {
+      "id": 0,
+      "stat": "0x60300",
+      "temp_c": [
+        232,
+        41
+      ],
+      "external_spool": "255, PET-CF F72323"
+    },
+    "left_extruder": {
+      "id": 1,
+      "stat": "0x60000",
+      "temp_c": 49
+    }
+  },
+  "observation": "The refusal came while the right nozzle was still at 232 °C from the red load, with nozzle and bed targets at zero. ams_status 0x300 and the right extruder stat 0x60300 persisted after it cooled, but H2C reports ams_status 0x300 and an extruder stat 0x30300 while printing normally, so neither flag marks an open load. The resend after the load cycle had ended, at 06:32Z with the nozzle at 41 °C, was accepted as task 1307189764.",
+  "new_job_started": false
+}
