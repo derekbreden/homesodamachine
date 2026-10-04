@@ -39,7 +39,7 @@ import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 
 import { isScorecard } from "../contracts/scorecard-sidecar.js";
-import { isCommittedDocumentFile } from "../contracts/documents.js";
+import { isArchivedDocumentFile, isCommittedDocumentFile } from "../contracts/documents.js";
 
 const run = promisify(execFile);
 
@@ -109,7 +109,8 @@ export function pointersMoved(have, pointers) {
 export async function retireSolids(root, have, pointers) {
   const hardware = path.resolve(root, "hardware");
   const retired = Object.keys(have?.solids ?? {})
-    .filter(rel => !isCommittedDocumentFile(rel) && !(rel in (pointers.solids ?? {})));
+    .filter(rel => !isCommittedDocumentFile(rel) &&
+      (isArchivedDocumentFile(rel) || !(rel in (pointers.solids ?? {}))));
   for (const rel of retired) {
     const target = path.resolve(root, rel);
     const inside = path.relative(hardware, target);

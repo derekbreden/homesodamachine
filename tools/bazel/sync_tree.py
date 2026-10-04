@@ -48,7 +48,7 @@ _DECLARED = re.compile(r"/bin/out/[^/]+/(.+)$")
 
 #: The remote publisher carries only bytes the deployed viewer consumes. Geometry leaves through
 #: the artifact bundle; scorecards remain tracked beside it because the viewer reads them directly.
-#: Everything else stays in bazel-bin so a scoped CAD publish never grows into a docs, cards,
+#: Everything else stays in bazel-bin so a scoped CAD publish never grows into a docs,
 #: ledger, facts, or thumbnail regeneration lane.
 _SOLID_OUTPUTS = (".step", ".stl", ".glb", ".step.mesh")
 _PUBLIC_EVIDENCE = (".scorecard.json",)
@@ -57,7 +57,7 @@ _PUBLIC_EVIDENCE = (".scorecard.json",)
 def _runtime_output(path: str) -> bool:
     return path.endswith(_SOLID_OUTPUTS + _PUBLIC_EVIDENCE)
 
-#: HOW A REWRITTEN MEDIUM IS CARRIED. `_SPLICE` names the four whose text is partly their own,
+#: HOW A REWRITTEN MEDIUM IS CARRIED. `_SPLICE` names the three whose text is partly their own,
 #: each with a scope a substituter writes in and everything outside it authored; `_WHOLE` names
 #: the two a writer composes every byte of — a `.figures.json` holds figures and nothing a
 #: person typed, and a card's `.png` is a photograph of a page, drawn whole by the run that
@@ -68,7 +68,7 @@ def _runtime_output(path: str) -> bool:
 #: answer whether a file was rewritten at all. That second question is the one whose wrong
 #: answer destroys: a medium missing from a list, copied whole, lands a stale build's text over
 #: a sentence somebody wrote. A rewritten medium in neither list is named and left alone.
-_SPLICE = (".md", ".mmd", ".py", ".html")
+_SPLICE = (".md", ".mmd", ".py")
 _WHOLE = (".json", ".png")
 
 #: `docgen`'s own marker, and the section `substitute_md` maintains at the end of every markdown
@@ -82,7 +82,7 @@ _SOURCES = re.compile(r"## Sources\n\[value\]\(NAME\) texts are updated by:\n"
 def _rewritten() -> set:
     """Every file a run read and wrote back over, as the writers recorded it.
 
-    `docgen` and `_cardgen` note each target they maintain; `trace_inputs` keeps that beside
+    `docgen` note each target they maintain; `trace_inputs` keeps that beside
     the writes, and `inventory` sorts the docs from the solids by it. A reading taken without
     it cannot tell a doc from a STEP — 102 solids stand in both the reads and the writes of
     their own run, because `_atomic_write` opens the target to compare before it renames.
@@ -263,38 +263,12 @@ def _figures(text: str, suffix: str) -> dict:
     return out
 
 
-_CARDGEN = None
-
-
-def _cardgen():
-    """`_cardgen`, whose `markers()` answers a card's `(name, value, start, end)`."""
-    global _CARDGEN
-    if _CARDGEN is None:
-        sys.path.append(str(_ROOT / "hardware" / "assembly" / "cards"))
-        import _cardgen as module
-        _CARDGEN = module
-    return _CARDGEN
-
-
 def carried(built: str, tracked: str, suffix: str) -> str:
     """`tracked` holding the figures `built` decided, and nothing else that `built` holds.
 
     A NAME the build does not carry stays where it stands: a marker somebody has just typed is
     filled by the build that next reads the file, and by nothing before it.
     """
-    # A CARD'S MARKER IS AN ELEMENT: `<td data-gen="BOX_SIZE">215 × 464 × 358 mm</td>`, whose
-    # text is the figure. Every other word on the card is the card's, the way every sentence
-    # around a `[value](NAME)` is the doc's.
-    if suffix == ".html":
-        cards = _cardgen()
-        figures = {name: value for name, value, _s, _e in cards.markers(built)}
-        out = tracked
-        for name, value, start, end in sorted(cards.markers(tracked),
-                                              key=lambda m: m[2], reverse=True):
-            if name in figures and figures[name] != value:
-                out = out[:start] + figures[name] + out[end:]
-        return out
-
     figures = _figures(built, suffix)
 
     def fill(match: re.Match) -> str:
@@ -533,20 +507,6 @@ def selftest() -> int:
     # A .py MID-EDIT does not tokenize, and nothing is carried into a file this cannot read.
     broken = 'WALL = (  # [99](RIB_Z)\n'
     holds(carried(built, broken, ".py"), broken, "a file that does not parse was written into")
-
-    # A CARD. The figure sits in the element's text; the sentence beside it is the card's, and
-    # an element the build does not carry keeps the text it has.
-    built = ('<p>Stage the four pieces.</p>\n'
-             '<td class="v" data-gen="BOX_SIZE">215 &#215; 464 &#215; 358 mm</td>\n'
-             '<span class="dim" data-gen="LATER">7</span>\n')
-    tree = ('<p>Stage the four pieces on the bench, gasket up.</p>\n'
-            '<td class="v" data-gen="BOX_SIZE">215 &#215; 462 &#215; 358 mm</td>\n'
-            '<span class="dim" data-gen="NEW_ONE">?</span>\n')
-    holds(carried(built, tree, ".html"),
-          '<p>Stage the four pieces on the bench, gasket up.</p>\n'
-          '<td class="v" data-gen="BOX_SIZE">215 &#215; 464 &#215; 358 mm</td>\n'
-          '<span class="dim" data-gen="NEW_ONE">?</span>\n',
-          "a card's own sentence or an uncarried figure moved")
 
     # IDEMPOTENT, so what `--write` changes is what the reading without it named.
     once = carried(built, tree, ".py")

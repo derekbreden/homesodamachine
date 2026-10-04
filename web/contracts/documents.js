@@ -16,8 +16,8 @@
 // excluded even when a scene build restores their PDF and sidecar.
 export const DOC_SIDECAR_SUFFIX = ".pdf.json";
 
-// These install-guide files are carried by the checkout. CAD publications may still name
-// an earlier edition; adopting or retiring those objects must leave the booklet in place.
+// Committed guides are carried by the checkout. CAD publications may still name
+// an earlier edition; adopting or retiring those objects must leave the guides in place.
 const COMMITTED_DOCUMENT_FILES = new Set([
   "hardware/install-guide/install-guide.pdf",
   "hardware/install-guide/install-guide.cover.png",
@@ -25,7 +25,14 @@ const COMMITTED_DOCUMENT_FILES = new Set([
 ]);
 
 export function isCommittedDocumentFile(repoRel) {
-  return COMMITTED_DOCUMENT_FILES.has(repoRel);
+  return COMMITTED_DOCUMENT_FILES.has(repoRel) || (
+    /^hardware\/(?:drill-and-cut-guide|mold-guide|refrigeration-guide|assembly-letter-guide)\//.test(repoRel)
+    && /(?:\.pdf|\.cover\.png|\.pdf\.json)$/.test(repoRel)
+  );
+}
+
+export function isArchivedDocumentFile(repoRel) {
+  return repoRel.startsWith("hardware/assembly/cards/");
 }
 
 const SUPERSEDED_QUICK_STARTS = new Set([
@@ -36,7 +43,7 @@ const SUPERSEDED_QUICK_STARTS = new Set([
 ]);
 
 export function isPublishedDocument(pdfRel) {
-  return !SUPERSEDED_QUICK_STARTS.has(pdfRel);
+  return !isArchivedDocumentFile("hardware/" + pdfRel) && !SUPERSEDED_QUICK_STARTS.has(pdfRel);
 }
 
 // The cover beside a document, as a path relative to the same root. Covers are

@@ -40,8 +40,7 @@ function dim(x1, y1, x2, y2, label, side = "top") {
 // ── Two machines, to scale in plan ───────────────────────────────────────────
 // Jul 26 – Aug 1. Both silhouettes as `updates/2026-08-08-the-bench.md` states
 // them at the swap a week later: counter 317 × 375 × 337.7, thin 223 × 481 × 358.
-// The thin one is the box `hardware/assembly/cards/_cardgen.py` publishes today;
-// the counter tree it stands beside was deleted on 3 August.
+// These silhouettes illustrate the dimensions recorded in that update.
 // 0.46 px per mm, drawn to the 200 mm bar.
 const TWO_MACHINES = `
 <svg viewBox="0 0 520 350" class="uf" role="img" aria-label="Plan view of both machines to scale, seen from above with the cabinet's back wall along the top: the counter machine 317 mm wide by 375 mm deep, the thin machine 223 mm wide by 481 mm deep.">

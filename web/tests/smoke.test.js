@@ -111,7 +111,6 @@ const routes = [
   // .js contracts are browser-imported; the .ts ones are builder-side.)
   { path: "/contracts/client-events.js", expect: 200, ct: "text/javascript" },
   { path: "/contracts/ws-frames.js",     expect: 200, ct: "text/javascript" },
-  { path: "/contracts/cards.js",         expect: 200, ct: "text/javascript" },
 ];
 
 for (const r of routes) {
@@ -222,22 +221,9 @@ test("GET /api/mermaid-content/* returns text when a .mmd exists", async (t) => 
   assert.match(res.headers.get("content-type") || "", /^text\/plain/);
 });
 
-// The deck's own pages, served so a card's relative style.css and img/… resolve
-// when the printed deck is assembled off them. Skipped on a checkout with no
-// cards. A card page must come back as HTML (the browser parses it as a
-// document); build machinery in the same directory must not come back at all.
-test("GET /cards/* serves a card page but not the deck's build machinery", async (t) => {
-  const dir = path.join(REPO_ROOT, "hardware", "assembly", "cards");
-  const card = fs.existsSync(dir)
-    ? fs.readdirSync(dir).sort().find((f) => f.endsWith(".html") && !f.startsWith("_"))
-    : null;
-  if (!card) return t.skip("no assembly cards under hardware/");
-  const res = await fetch(`${baseUrl}/cards/assembly/cards/${card}`);
-  assert.equal(res.status, 200);
-  assert.match(res.headers.get("content-type") || "", /^text\/html/);
-
-  const blocked = await fetch(`${baseUrl}/cards/assembly/cards/_build.py`);
-  assert.equal(blocked.status, 400);
+test("GET /cards/* reports the archived deck", async () => {
+  const response = await fetch(`${baseUrl}/cards/assembly/cards/pv-01-chamfer.html`);
+  assert.equal(response.status, 410);
 });
 
 // A document is a PDF the site hands over whole, and what makes one reachable
@@ -259,7 +245,7 @@ test("GET /docs/* serves a document but not a PDF with no sidecar", async (t) =>
     assert.match(cover.headers.get("content-type") || "", /^image\/png/);
   }
 
-  const blocked = await fetch(`${baseUrl}/docs/assembly/cards/nothing-here.pdf`);
+  const blocked = await fetch(`${baseUrl}/docs/drill-and-cut-guide/nothing-here.pdf`);
   assert.equal(blocked.status, 400);
 });
 

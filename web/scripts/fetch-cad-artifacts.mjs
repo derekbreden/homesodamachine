@@ -39,7 +39,7 @@ import { pipeline } from "node:stream/promises";
 import { createGunzip, createGzip } from "node:zlib";
 import { fileURLToPath } from "node:url";
 import { storeFromEnv } from "../lib/store.js";
-import { isCommittedDocumentFile } from "../contracts/documents.js";
+import { isArchivedDocumentFile, isCommittedDocumentFile } from "../contracts/documents.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 const POINTERS = path.join(ROOT, "hardware", "cad-artifacts.json");
@@ -108,7 +108,7 @@ if (!pointers) {
 }
 
 const solids = Object.fromEntries(Object.entries(pointers.solids ?? {})
-  .filter(([rel]) => !isCommittedDocumentFile(rel)));
+  .filter(([rel]) => !isCommittedDocumentFile(rel) && !isArchivedDocumentFile(rel)));
 const { missing: absent, drifted } = await wanted(solids);
 const OBJECTS = pointers.store?.objects ?? pointers.release?.objects ?? null;
 

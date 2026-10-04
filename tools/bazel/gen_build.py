@@ -43,8 +43,7 @@ CACHE = f"{_WS}/.cache"
 RC_PATHS = _ROOT / ".bazelrc.paths"
 
 #: See the tag it earns in `render`.
-NOT_HERMETIC = ("hardware/assembly/scenes/render_scenes.py",
-                "hardware/assembly/scenes/render_scene_cards.py")
+NOT_HERMETIC = ()
 
 #: Where `pysrc.py` lays a Python file down with its comments taken out. A step reads its
 #: sources from under here, so a comment edit leaves every input it holds byte for byte the
@@ -60,8 +59,6 @@ SELFTESTS = _HERE.parent / "selftests.json"
 #: entrypoints retain the broad group and fail closed rather than losing an input edge.
 _NODE = ("tools/render/", "web/")
 _NODE_RUNTIME_CONSUMERS = {
-    "hardware/assembly/cards/_build.py": ":render-card-runtime",
-    "hardware/assembly/cards/tools/_build.py": ":render-card-runtime",
     "hardware/quickstart/_build.py": ":render-card-runtime",
     "hardware/quickstart/quickstart_art.py": ":render-step-posed-runtime",
     "hardware/quickstart/plumbing/modern/render_modern_tee.py": ":render-step-posed-runtime",
@@ -205,11 +202,12 @@ def target_name(gen: str, taken=None) -> str:
     """A Bazel name for a generator. `_wiring_sync.py` is a doc sync like any other, and its
     leading underscore is a Python convention, not part of what it is called here.
 
-    A STEM IS NOT A NAME WHEN TWO FILES SHARE IT. `assembly/cards/_build.py` draws the unit
-    cards and `assembly/cards/tools/_build.py` the tool deck, and one target cannot be both —
-    so where a stem is taken, the directory the file sits in goes in front of it.
+    Build entrypoints take their parent directory as a prefix. Other stems shared
+    by two generators do the same, so each target has its own stable name.
     """
     stem = Path(gen).stem.strip("_").replace("_", "-")
+    if stem == "build":
+        return f"{Path(gen).parent.name}-{stem}"
     if taken is not None and stem in taken:
         return f"{Path(gen).parent.name}-{stem}"
     return stem

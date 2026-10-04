@@ -169,13 +169,13 @@ finally:
     mod = sys.modules.get("_cadq_export")
     read |= set(getattr(mod, "_STEP_READS", ())) | set(getattr(mod, "_READ_TARGETS", ()))
     # A FILE IS CUT WHOLE OR REWRITTEN IN PLACE, and the module that wrote it is the one that
-    # knows which. `_cadq_export` draws a solid from nothing; `docgen` and `_cardgen` read a
-    # doc or a card, replace the values they manage, and write the rest of it back. A file of
+    # knows which. `_cadq_export` draws a solid from nothing; `docgen` reads a
+    # doc, replaces the values it manages, and writes the rest of it back. A file of
     # the second kind belongs on both sides of its own action, and no suffix says so —
     # `.figures.json` carries no marker and is rewritten; a `.step` is read to be compared
     # against and is not.
     back = set()
-    for mod in ("docgen", "_cardgen"):
+    for mod in ("docgen",):
         back |= set(getattr(sys.modules.get(mod), "_WRITE_TARGETS", ()))
     wrote |= back | set(getattr(sys.modules.get("_cadq_export"), "_WRITE_TARGETS", ()))
     with open(OUT, "w") as fh:
@@ -283,7 +283,8 @@ def trace(gen: str, files: set, argv=()) -> dict:
 #: outside the tree, and `board-3d.py` runs `tsci` through them. An action cannot hold what
 #: it reads, so the main board is built by `bun render-board.ts` and its GLB carried by the hook.
 #: Vendoring the forks is what would let it join the graph.
-ELSEWHERE = ("tools/", "hardware/pcb/pcba/")
+ELSEWHERE = ("tools/", "hardware/pcb/pcba/",
+             "hardware/assembly/scenes/render_scenes.py")
 
 
 def _generators(files: set) -> list:
@@ -540,8 +541,7 @@ def main() -> int:
 
     # A SWEEP READS THE SOURCES AND LEAVES THE WRAPPERS, for the reason the refusal above gives:
     # `inventory` writes a wrapper's entry out of its source's reading and drops the wrapper's
-    # own. `render_scene_cards.py` stands the whole appliance to be read, and the runner spent
-    # its deadline on that reading before discarding it.
+    # own. The flute-payload wrappers take their reading from their shared source.
     gens = args.gen or [gen for gen in _generators(files) if gen not in written_from]
 
     # A LINE PER GENERATOR, AS IT LANDS. On the runner stdout is a pipe and Python holds the

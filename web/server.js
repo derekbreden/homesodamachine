@@ -23,7 +23,7 @@ import {
   detectChangedSteps,
   detectChangedMermaid,
   detectChangedDxf,
-  detectChangedCards,
+  detectChangedDocuments,
   detectChangedPcb,
   notifyFilesChanged,
 } from "./lib/push.js";
@@ -328,14 +328,14 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   if (!dev) {
     (async () => {
       try {
-        const [changedSteps, changedMermaid, changedDxf, changedCards, changedPcb] = await Promise.all([
+        const [changedSteps, changedMermaid, changedDxf, changedDocuments, changedPcb] = await Promise.all([
           detectChangedSteps(HARDWARE_DIR),
           detectChangedMermaid(HARDWARE_DIR),
           detectChangedDxf(HARDWARE_DIR),
-          detectChangedCards(HARDWARE_DIR),
+          detectChangedDocuments(HARDWARE_DIR),
           detectChangedPcb(HARDWARE_DIR),
         ]);
-        const changedFiles = [...changedSteps, ...changedMermaid, ...changedDxf, ...changedCards, ...changedPcb];
+        const changedFiles = [...changedSteps, ...changedMermaid, ...changedDxf, ...changedDocuments, ...changedPcb];
 
         if (changedFiles.length === 0) return;
 
@@ -371,7 +371,7 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
         commit,
         hardwareDir: HARDWARE_DIR,
         detect: [detectChangedSteps, detectChangedMermaid, detectChangedDxf,
-                 detectChangedCards, detectChangedPcb],
+                 detectChangedDocuments, detectChangedPcb],
       });
     }
   }

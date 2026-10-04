@@ -103,12 +103,7 @@ hardware/manifold-layout/enclosure-box.json
 hardware/ledger/.build-time.samples.json
 hardware/ledger/.build-time.samples.json.tmp
 
-# Scene STEPs are a rendering intermediate for the unit cards' pictures — a cut
-# of enclosure-assembly.step, regenerated on demand by
-# hardware/assembly/scenes/render_scenes.py. What is committed is the PNG in
-# cards/img/ and the fingerprint beside it; the STEPs would churn on every move
-# of any body they contain, which is exactly the commit cost the pictures must
-# not add.
+# Local bench-service scene exports are inspection intermediates.
 hardware/assembly/scenes/out/
 bazel-*
 
@@ -118,24 +113,6 @@ bazel-*
 # The flags a CI lane adds, written by the workflow so every bazel invocation in the job
 # reads them rather than only the command line that names one.
 .bazelrc.ci
-
-# A card's own two renders — the PNG a printer is handed one card at a time, and the page it
-# contributes to the bound deck — drawn from the card HTML by a browser
-# (hardware/assembly/cards/_build.py). `//:cards-build` names them in `outs` and none in `srcs`,
-# no web route serves one and no doc embeds one. The build makes them, sync_tree lands them on
-# the disk, and nothing carries them into a commit.
-hardware/assembly/cards/out/
-
-# The bound decks and the cards' own pictures, drawn by `//:cards-build` and `//:render-scene-cards`.
-# They arrive the road every solid takes: `pack.py`'s BUNDLED_ART_DIRS puts them in the release
-# asset, hardware/cad-artifacts.lock.json names each by sha256, and
-# web/scripts/fetch-cad-artifacts.mjs puts them on the disk a deploy serves from. The card pages
-# themselves are HTML and stay; so does the rack's photo stock under `tools/img`, which is named
-# by ASIN and drawn by no rule.
-hardware/assembly/cards/deck.cover.png
-hardware/assembly/cards/deck.pdf
-hardware/assembly/cards/img/
-hardware/assembly/cards/tools/out/
 
 # A quick-start sheet's own two renders, the same pair for the same reasons
 # (hardware/quickstart/_build.py).
