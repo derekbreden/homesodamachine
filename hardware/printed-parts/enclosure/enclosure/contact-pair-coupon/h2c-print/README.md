@@ -7,7 +7,10 @@ paths**, uses the left hardened 0.4 mm nozzle and black PET-GF, and estimates
 compensation emits `G29.1 Z0.16`.
 
 H2C reports this pair finished as task **1302534665**, at 78/78 layers and 100%,
-with no print error or HMS alert. Physical quality and fit checks are pending.
+with no print error or HMS alert. The founder reports successful connector
+fit and mating/compression in the printed test piece on 2026-10-04; the
+[physical record](../../../../../reference/yyfkgcp-pogo-4p/physical-observations.json)
+accepts that result. No numerical roof measurement is reported.
 [completion.json](completion.json) records the finished printer state.
 [launch.json](launch.json) records the printer receipt, archive and imported-copy
 hashes, settings, first-layer observation and spacing evidence.

@@ -20,6 +20,15 @@ boundary falls where front-top lays it. The female coupon's bed is the clamp's o
 seat's roof is a short bridge between the mouth's round ends; a print with no support inside
 either seat or lead passage is the case being tested, so record any support the slicer puts there.
 
+## Accepted physical result
+
+The founder reports successful connector fit and mating/compression in the
+printed test piece on 2026-10-04: "I have already test fit in test piece that was
+printed and things are good." The [physical record](../../../../reference/yyfkgcp-pogo-4p/physical-observations.json)
+preserves the complete statement and accepts this result for the printed test
+piece. Numerical gap, insert retention and electrical continuity are separate
+observations.
+
 ## What the prints have to show
 
 1. **Each half seats on its datum.** The connector half enters its seat by hand with no force,
