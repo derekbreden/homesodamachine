@@ -72,8 +72,8 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 5094 tracked, 595 fetched solids, 57 tags, 39 site routes",
-      "status": "ok"
+      "note": "1 reference(s) name a path nothing holds.",
+      "status": "red"
     },
     {
       "check": "tools/check_release_room.py",
@@ -102,13 +102,13 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 2751 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 508 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 2 of 2788 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 508 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 32b34630c2e0f80a93e3147cf8058a0b for the 258 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 63eafe6a6c5caeeb325d40b781917bce here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 32b34630c2e0f80a93e3147cf8058a0b for the 258 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 0462c9a6d22388cef90e4af7ea7238b4 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
@@ -159,6 +159,10 @@
       "hardware/printed-parts/cold-core/magnetic-float/petg-bench-reference.figures.json — the figures of hardware/printed-parts/cold-core/magnetic-float/petg-bench-reference.md",
       "  git add hardware/printed-parts/cold-core/magnetic-float/petg-bench-reference.figures.json",
       "71/72 artifacts have their record in the index"
+    ],
+    "tools/check_paths.py": [
+      "hardware/printed-parts/zone-c/funnel-mold/README.md:171 — hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-04-short-pin/README.md is held nowhere, and no tag is named for it",
+      "1 reference(s) name a path nothing holds."
     ],
     "tools/check_release_room.py": [
       "the release holds 575 of 1000 and the next cut wants 475; 449 asset(s) may be retired for it",
