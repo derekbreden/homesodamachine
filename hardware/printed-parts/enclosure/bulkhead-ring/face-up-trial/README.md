@@ -1,9 +1,9 @@
 # Face-up raised TAP and FLAVOR rings
 
-One TAP ring and two FLAVOR rings print face up with 0.48 mm raised lettering.
-The existing 2.0 mm fitting seat, bores and outlines remain the mounting
-interface. The raised letters clear the fitting flanges by at least 1.20 mm
-in the lettering band.
+One TAP ring and two FLAVOR rings print face up with 0.48 mm raised lettering,
+on the 2.0 mm fitting seat, bores and outlines of [`../bulkhead_ring.py`](../bulkhead_ring.py).
+The raised letters clear the fitting flanges by at least 1.20 mm in the
+lettering band.
 
 TAP has a white body and black letters. Both FLAVOR rings have black bodies and
 white letters. Mark2's left 0.4 mm nozzle uses black PET-GF; its right 0.4 mm
@@ -25,8 +25,8 @@ Mounting fit was not separately reported. The
 [registration record](../../../calibration/dual-nozzle-registration/mark2-registration.json)
 links the accepted nameplate artwork appearance; residual XY error is unmeasured.
 
-`raised_rings.py` supplies the unchanged trial CAD. `prepare_print.py` creates
-the corrected native archive, and `--uncorrected` creates its comparison slice.
-`verify_print.py` checks source hashes, seating and letter planes, filament
-assignments, support absence and the correction on every object/tool/layer.
-Production ring geometry is separate from this fit and finish trial.
+`raised_rings.py` builds the three rings from `../bulkhead_ring.py`.
+`prepare_print.py` creates the corrected native archive, and `--uncorrected`
+creates its comparison slice. `verify_print.py` checks source hashes, seating
+and letter planes, filament assignments, support absence and the correction on
+every object/tool/layer.

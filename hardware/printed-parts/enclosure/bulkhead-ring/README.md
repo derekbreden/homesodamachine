@@ -3,7 +3,7 @@
 A flat printed chip lying in a pocket cut into the +Y wall of back-top's outer face, under a
 through-wall fitting's own flange. The pocket is the chip's own thickness deep, so colour and wall come out one
 plane; the fitting's nut draws flange, chip and wall together. One at every crossing the wall
-passes a tube through, and each carries a word.
+passes a tube through, and each carries a raised word.
 
 The outline is a D on its back — a half circle below the bore's axis, the shape the port itself
 is, and a rectangle above it, which is where the word goes. It takes its pocket one way up and no
@@ -15,7 +15,7 @@ other.
 | width | Ø[36.96](RING_OD) | Ø[36.04](CO2_RING_OD) |
 | bore | Ø[17.44](RING_BORE) | Ø[17.3](CO2_RING_BORE) |
 | height | [37.27](RING_TALL) mm | [37.06](CO2_RING_TALL) mm |
-| volume | [1.92](RING_VOL) cm³ | [1.89](CO2_RING_VOL) cm³ |
+| volume | [1.93](RING_VOL) cm³ | [1.89](CO2_RING_VOL) cm³ |
 
 | | |
 |---|---|
@@ -53,11 +53,13 @@ either one and the manifold sorts them, so nothing on that face tells A from B.
 
 ## The word
 
-A second solid in a second colour, lying in a recess [1](WORD_DEPTH) mm into the chip's outboard
-face and filling it flush. [Helvetica](WORD_FONT) [bold](WORD_KIND) at a [4.951](WORD_CAP) mm cap,
-set in the band between the flange's edge and the top of the chip — the face the build deck and the
-customer's quick start are already set in, so a customer holding that sheet beside the machine
-reads one typeface and not two.
+A second solid in a second colour, filling a recess [1](WORD_DEPTH) mm into the chip's outboard
+face and standing [0.48](WORD_RAISE) mm proud of it, [2.48](WORD_TOP) mm off the pocket floor.
+[Helvetica](WORD_FONT) [bold](WORD_KIND) at a [4.951](WORD_CAP) mm cap, set in the band between the
+flange's edge and the top of the chip — the face the build deck and the customer's quick start are
+already set in, so a customer holding that sheet beside the machine reads one typeface and not two.
+At their nearest the letters stand [1.34](WORD_FLANGE_CLEAR) mm off a union's flange and
+[1.57](CO2_WORD_FLANGE_CLEAR) mm off the ABU44's, so the flange lands on the chip alone.
 
 The letters are loose — six solids for FLAVOR, nothing joining them. Nothing needs to: the chip
 opens as one part carrying both bodies and the lettering is assigned the second filament, so there
@@ -68,12 +70,11 @@ own component, so every one of them carries the colour into `/3d`.
 |---|---|
 | narrowest stroke | [0.771](WORD_MIN_STROKE) mm, measured off the built letterforms |
 | narrowest bridge of chip between two letters | [0.346](WORD_MIN_BRIDGE) mm — FLAVOR's, between the L and the A |
-| bead | [0.22](WORD_BEAD) mm laid through a [0.2](WORD_NOZZLE) mm tip |
+| bead | [0.42](WORD_BEAD) mm laid through a [0.4](WORD_NOZZLE) mm tip |
 
-The bridge and not the stroke is what this lettering runs out of first — a stroke is the word's
-spool and a bridge is the chip's, but the same tip lays both, so the finer of the two is the one
-with the margin. It scales with the em, which is what puts a floor under how small these words can
-be set.
+Every stroke is wider than one bead. The bridge is not: the slicer runs a single outer wall of chip
+through FLAVOR's L and A up to the face, and the raised tops stand apart above it. The bridge
+scales with the em, which is what puts a floor under how small these words can be set.
 
 Which of black and white a chip's word letters in is
 [`_y_wall_dimensions.chip_word_colors`](../y-wall-of-back-top/_y_wall_dimensions.py), one entry per
@@ -86,48 +87,40 @@ reads the built solid back against those figures, and against being one solid.
 
 ## Print
 
-Flat on the bed, face up, two colours to a plate — the chips off one spool, the words off the
-other. PETG, the enclosure's own stock ([`bom.md`](/hardware/ledger/bom.md) §7). The plate and
-the profile it slices on are [`bulkhead-ring-water.3mf`](bulkhead-ring-water.3mf).
+Face up on Mark2, the inboard face on the bed and no supports: the chip off one hardened
+[0.4](WORD_NOZZLE) mm nozzle and the word off the other, both in PET-GF, the enclosure's own stock
+([`bom.md`](/hardware/ledger/bom.md) §7). The profile is the nameplate's, saved in
+[`nameplate-001-petgf.3mf`](../nameplate/nameplate-001-petgf.3mf): a
+[0.2](WORD_FIRST_LAYER) mm first layer and [0.24](WORD_LAYER) mm after it, one
+[0.12](WORD_CLOSING_LAYER) mm layer closing the face at [2](RING_THICK) mm, and the letters in the
+[2](WORD_RAISE_LAYERS) layers above it. Mark2 runs it at its +0.04 mm Z trim, and its
+[registration correction](../../calibration/dual-nozzle-registration/mark2-registration.json) moves
+every right-nozzle path, whichever colour that nozzle carries; the CAD stays nominal.
 
-The em, how far the word stands past the face, and how deep its recess is cut were each put to a
-plate of six chips, every one a bulkhead ring carrying a proposal against the chip either side of it.
-Nothing on the printed plate read better than what this part stands at, so these are the figures
-it keeps and the word stays flush. The plate and the case each chip was cut to make stand at the
-`archive-port-ring-coupons` tag.
+[`face-up-trial/`](face-up-trial/README.md) prepares and verifies the TAP and FLAVOR plate, and its
+[print review](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-bulkhead-raised-mark2-v2/README.md)
+records the [physical result](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-bulkhead-raised-mark2-v2/physical-result.json):
+accepted finish and clear lettering, with mounting fit not separately reported. The
+[SODA](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-04-bulkhead-soda-raised-mark2-v1/README.md)
+and [CO2](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-04-bulkhead-co2-raised-mark2-v1/README.md)
+rings' reviews each hold their own preparation and verification.
 
 The pocket it drops into is struck by [`enclosure.py`](../enclosure/enclosure.py) from the same
 `back_ports` stations that bore the wall — cut [2](RING_THICK) mm into the outer face, with a boss
 of the same shape one rim larger standing that far inboard behind it, so the wall keeps its whole
 thickness under every chip.
 
-## Face-up raised-lettering trial
-
-The [TAP and FLAVOR trial](face-up-trial/README.md) uses face-up printing and
-0.48 mm raised lettering, following the accepted nameplate appearance. Its
-2.0 mm fitting seat, bore and outline retain the existing mounting interface.
-TAP has a white body and black letters; both FLAVOR rings have black bodies
-and white letters.
-
-Mark2's accepted white-nozzle correction is X −0.50 mm, Y +0.70 mm, including
-TAP's white body. Nominal geometry stays aligned. The native slice comparison
-checks every model layer against the uncorrected paths; the usual Auto nozzle
-offset startup setting applies. The
-[registration record](../../calibration/dual-nozzle-registration/mark2-registration.json)
-links the appearance evidence. The
-[collar physical result](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-bulkhead-raised-mark2-v2/physical-result.json)
-records accepted finish and excellent, clear lettering. Mounting fit was not
-separately reported; production ring geometry is separate from this trial.
-
 ## Files
 
 - `bulkhead_ring.py` — the part, and the figures the wall and the drawings read
-- `bulkhead-ring-<station>.step` — one station, both bodies: the chip and the word lying in its
+- `bulkhead-ring-<station>.step` — one station, both bodies: the chip and the word standing in its
   recess, each carrying the colour of the spool it comes off. `bulkhead_ring.split` takes the pair
   back apart for anything that places them one at a time.
+- `face-up-trial/` — the TAP and FLAVOR plate's preparation and verification
 
 Run with `tools/cad-venv/bin/python` per the hardware context file. `selftest` reads each chip
-against the fitting it rings, the band its word stands in, and the word's own built width.
+against the fitting it rings, the band its word stands in, the flange its letters stand beside, the
+layers they print in, and the word's own built width.
 
 ## Sources
 [value](NAME) texts are updated by:

@@ -35,7 +35,8 @@ from _material_base import (M_ALUMINIUM, M_COPPER, M_PETGF_BLACK, M_STAINLESS,
 # parts import `_material_base` and therefore do not inherit this module's
 # measured enclosure palette.
 
-# `chip_color`, for `M_PETG_BLACK` below — the same anchor `_routing` uses to reach it.
+# `chip_color` and `word_color`, for the wayfinding palette in `FINISHES` — the same anchor
+# `_routing` uses to reach `port_colors`.
 _yw = Path(__file__).resolve().parents[1] / "printed-parts" / "enclosure" / "y-wall-of-back-top"
 if str(_yw) not in sys.path:
     sys.path.insert(0, str(_yw))
@@ -53,11 +54,10 @@ M_JG_WHITE_PP = cq.Color(0.90, 0.90, 0.87)
 # the PI4512F6S flare swivel inside `reference/flare38-14ptc`.
 M_JG_GREY_ACETAL = cq.Color(0.55, 0.56, 0.57)
 M_NEOFIT_ACETAL = cq.Color(0.14, 0.14, 0.15)   # neoFit's black acetal bulkhead bodies
-# The black PETG spool, and what still comes off it: the drip pan, the fuse clamp, the two
-# copper-line plugs, the PRV shroud, the reed bridge, and the black rings, collars and
-# nameplate stock. MEASURED rather than named — `_y_wall_dimensions.chip_filaments` holds the
-# swatch the flavour chips are cut to.
-M_PETG_BLACK = cq.Color(*(c / 255.0 for c in _rear.chip_color("flavor")))
+# Bambu PETG Basic Black 30105, and what comes off it: the drip pan, the fuse clamp, the two
+# copper-line plugs, the PRV shroud and the reed bridge. Sampled off the store's own product
+# photograph, and the triple `_y_wall_dimensions.port_colors` draws black LLDPE at.
+M_PETG_BLACK = cq.Color(*(c / 255.0 for c in (38, 38, 41)))
 # Bambu PETG Translucent Clear, the stock the four syrup-wetted reservoir parts print in
 # (`ledger/bom.md` §7) — SO THE CUSTOMER READS FILL STATE THROUGH THE WALL, which is the whole
 # reason a clear spool is bought. Neutral rather than blue: PETG's own clear pulls faintly warm.
@@ -295,12 +295,11 @@ FINISHES = [
     (C_PUMP_MOTOR,       0.40, _METAL),        # "a bare steel motor can"
     (M_DONOR_BLACK,      0.70, _DIELECTRIC),   # matte black on a finished metal: the coating is what shows
     # THE WAYFINDING PALETTE, which is stock and not decoration. `_y_wall_dimensions` holds the
-    # four spools a bulkhead ring and its tube collar are cut from and the two a word is
-    # lettered in, and every one of them is Bambu PETG Basic — the black among them IS
-    # `M_PETG_BLACK` above, which is why it is not repeated here. `enclosure_assembly` paints
+    # four spools a bulkhead ring and its tube collar are cut from, and a word is lettered off
+    # the black or the white of them; every one is Fiberon PET-GF15. `enclosure_assembly` paints
     # these bodies straight off `chip_color`/`word_color` rather than off a constant in this
-    # module, so without these rows the rings, the collars and the nameplate's lettering are
-    # the one part of the machine with no finish to find.
+    # module, so without these rows the rings, the collars and the nameplate are the one part
+    # of the machine with no finish to find.
     # WALKED, NOT LISTED, so a sixth chip or a third lettering colour cannot arrive without one.
     *[(cq.Color(*(c / 255.0 for c in rgb)), 0.45, _DIELECTRIC)
       for rgb in dict.fromkeys([_rear.chip_color(f) for f in _rear.chip_filaments]
@@ -340,10 +339,10 @@ def finish_rows() -> list:
         # generators that cut a body's own STEP go through it — while the assemblies that place
         # that body paint it off the raw constant. Both reach a renderer, so both are named.
         for rgb in dict.fromkeys((linear(color), linear(step_safe(color)))):
-            # ONE ROW PER COLOUR. A stock can be named twice over — the flavour chip's filament
-            # IS `M_PETG_BLACK`, and a white reached through `step_safe` is the white it was —
-            # and naming it twice is agreement, not conflict. It is a second ROW at one colour
-            # that would be the defect, because a reader matching on distance would find both.
+            # ONE ROW PER COLOUR. A stock can be named twice over — a white reached through
+            # `step_safe` is the white it was — and naming it twice is agreement, not conflict.
+            # It is a second ROW at one colour that would be the defect, because a reader
+            # matching on distance would find both.
             if rgb in seen:
                 seen[rgb].add((rough, metal))
                 continue
