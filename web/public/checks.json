@@ -72,8 +72,8 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 5235 tracked, 595 fetched solids, 56 tags, 39 site routes",
-      "status": "ok"
+      "note": "10 reference(s) name a path nothing holds.",
+      "status": "red"
     },
     {
       "check": "tools/check_release_room.py",
@@ -97,18 +97,18 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 0 staged source(s)",
+      "note": "check_declared_imports: every step holds what it imports, over 1 staged source(s)",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 2770 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 590 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 3057 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 508 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_ledger.py": [
-      "instructions: 121 files (16 procedures + 104 cards + cover) | ledger brands: 587 | waived: 1 ASIN + 4 brand",
+      "instructions: 16 files (16 procedures + 0 cards + cover) | ledger brands: 585 | waived: 1 ASIN + 4 brand",
       "DRIFT: 1 instruction(s) out of step with the ledger:",
       "  ✗ procedure with no doc-sync driver — every number and part name in it is a bare literal: hardware/assembly/weld-position.md (expected hardware/assembly/_weld_position_sync.py)"
     ],
@@ -154,6 +154,19 @@
       "hardware/printed-parts/cold-core/magnetic-float/petg-bench-reference.figures.json — the figures of hardware/printed-parts/cold-core/magnetic-float/petg-bench-reference.md",
       "  git add hardware/printed-parts/cold-core/magnetic-float/petg-bench-reference.figures.json",
       "71/72 artifacts have their record in the index"
+    ],
+    "tools/check_paths.py": [
+      "hardware/assembly/guides/README.md:12 — hardware/assembly/guides/../../refrigeration-guide/README.md is held nowhere, and no tag is named for it",
+      "  hardware/assembly/refrigerant-loop.md:5 — hardware/refrigeration-guide/refrigeration-guide.pdf is held nowhere, and no tag is named for it",
+      "  hardware/ledger/bom.md:36 — hardware/assembly/cards/pv-13-prv-shroud-subassembly.html is held nowhere, and no tag is named for it",
+      "  hardware/ledger/bom.md:220 — hardware/assembly/cards/gt-05-heat-shrink-sleeve.html is held nowhere, and no tag is named for it",
+      "  hardware/ledger/build-time.md:15 — hardware/assembly/cards/_build.py is held nowhere, and no tag is named for it",
+      "  hardware/ledger/labor.md:19 — hardware/assembly/cards/README.md is held nowhere, and no tag is named for it",
+      "  hardware/ledger/purchases.md:528 — hardware/assembly/cards/README.md is held nowhere, and no tag is named for it",
+      "  hardware/ledger/purchases.md:566 — hardware/assembly/cards/README.md is held nowhere, and no tag is named for it",
+      "  hardware/ledger/purchases.md:567 — hardware/assembly/cards/tools/README.md is held nowhere, and no tag is named for it",
+      "  hardware/ledger/tools.md:231 — hardware/assembly/cards/README.md is held nowhere, and no tag is named for it",
+      "10 reference(s) name a path nothing holds."
     ],
     "tools/check_release_room.py": [
       "the release holds 575 of 1000 and the next cut wants 475; 449 asset(s) may be retired for it",
