@@ -24,11 +24,15 @@ either seat or lead passage is the case being tested, so record any support the 
 
 1. **Each half seats on its datum.** The connector half enters its seat by hand with no force,
    its ear plate lands on the step inside the mouth, and its mating face finishes flush with the
-   coupon face within [±0.1 mm](COUPON_FLUSH_TOL) across a straightedge. That tolerance is the
-   installed press's: the [0.246 mm](COUPON_KISS) kiss leaves each pin pressed
-   [0.754 mm](COUPON_PRESS) of its [1.1 mm](COUPON_STROKE) travel, both halves off by the full
-   tolerance in either direction still press it [0.554–0.954 mm](COUPON_PRESS_RANGE), and the two
-   faces keep at least [0.046 mm](COUPON_KISS_MIN) between them.
+   coupon face within [±0.05 mm](COUPON_FLUSH_TOL), measured near both ends. The nominal
+   [0.246 mm](COUPON_KISS) frame gap presses a nominal pin
+   [0.754 mm](COUPON_PRESS) of its [1.1 mm](COUPON_STROKE) travel. The seller's tip-height and
+   body-depth tolerances permit [0.8–1.2 mm](COUPON_PIN_RANGE) protrusion. Including those
+   extremes and both face errors gives [0.454–1.054 mm](COUPON_PRESS_RANGE) compression and
+   [0.146 mm](COUPON_KISS_MIN) to [0.346 mm](COUPON_KISS_MAX) face gap, at the nominal frame gap.
+   Only [0.046 mm](COUPON_STROKE_MARGIN) additional closing error remains before maximum
+   stroke. Printed frame position, tilt and lateral alignment require their own installed
+   reading; this coupon criterion does not qualify the complete dimensional stack.
 2. **The roof did not sag onto the body.** The seat stands [4.55 mm](COUPON_SEAT_HEIGHT) tall
    as drawn, and its roof bridges [23.7 mm](COUPON_ROOF_SPAN) along X between the mouth's round
    ends; the seat's depth is the bridge's width, not its span. At mid-span the seat must still
@@ -41,11 +45,15 @@ either seat or lead passage is the case being tested, so record any support the 
 4. **The leads pass.** With 22 AWG leads soldered to each half's four tails, the male half seats
    with its leads drawn back through the teardrop bore, and the female half seats with its leads
    lying in the slot and grooves below the crown face.
-5. **The pair attracts one way and makes all four contacts.** Brought face to face by hand, the
-   halves attract in one orientation only, and each of the four contacts shows continuity across
-   the pair and none to a neighbour. Faces held together press the pins their full
-   [1 mm](COUPON_FULL_PRESS) working height, not the installed press of check 1, so this check
-   proves polarity and continuity and nothing about the installed compression.
+5. **The pair attracts one way and makes all four contacts.** Hold the halves parallel in
+   their attracting orientation with two equal, measured nonconductive spacers beside the
+   contact row. A 0.25–0.30 mm plastic shim at each end keeps maximum-drawing pins below
+   full stroke while all minimum-drawing pins still reach their pads. Keep the pair unpowered.
+   Probe the tails: each pin must connect to its corresponding pad and none to a neighbour
+   or screw. Mark the attracting ends that will stand at machine −X. Do not let the plastic
+   faces snap into zero-gap contact: maximum-drawing protrusion exceeds the stated stroke.
+   This local check establishes orientation and continuity, not installed compression,
+   holding force or operating contact resistance.
 
 Checks 1, 2, 4 and 5 need only the connector pair. Check 3 needs the M1.4 inserts and screws in
 [`bom.md`](/hardware/ledger/bom.md) §13.
@@ -54,6 +62,11 @@ Checks 1, 2, 4 and 5 need only the connector pair. Check 3 needs the M1.4 insert
 
 The H2C trial's slice preparation, support audit, verification and launch record are in
 [`h2c-print/`](h2c-print/README.md).
+
+The [mounting audit](/hardware/reference/yyfkgcp-pogo-4p/mounting-audit.md) states the
+current magnet construction, tolerance basis, load path and evidence limits. The
+connector magnets are contained in the purchased halves; no magnet goes into a paused
+coupon or enclosure print.
 
 ## Open questions the prints answer
 

@@ -22,6 +22,12 @@ from _firmware_and_commissioning_sync import gpio_relay2 as _fc_gpio_relay2
 from _firmware_and_commissioning_sync import valve_count as _fc_valve_count
 from _pressure_vessel_sync import secondary_regulator_pressure_psi
 
+# The accepted branch-sleeve travel and the release plate's rest gap are distinct
+# from the tee's run-sleeve travel. Read the installed release stroke from the
+# assembled machine, as the service procedure and plumbing cards do.
+sys.path.insert(0, str(_here.parent / "scripts"))
+from _facts import read as _machine_facts
+
 
 # ─── Firmware setpoints loaded at commissioning ────────────────────────
 carbonator_wall_setpoint_c = 2          # carbonator wall service temperature
@@ -90,7 +96,11 @@ duty_cycle_high_pct = 70                # upper-bound of acceptable duty-cycle b
 
 
 def main():
+    plate = _machine_facts().box.collet_plate
     variables = {
+        "PLATE_STROKE": f"{plate['stroke']:.4g} mm",
+        "PLATE_REST_GAP": f"{plate['rest_gap']:.4g} mm",
+        "SLEEVE_TRAVEL": f"{plate['stroke'] - plate['rest_gap']:.4g} mm",
         # Firmware setpoints — § "Scope" In: row.
         "GPIO_RELAY2": f"GPIO {_fc_gpio_relay2:d}",
         "VALVE_COUNT": f"{_fc_valve_count:d}",

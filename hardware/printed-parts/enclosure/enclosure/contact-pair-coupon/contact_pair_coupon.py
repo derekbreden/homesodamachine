@@ -47,7 +47,7 @@ BEYOND = 4.0
 # The production profile's layer above its 0.20 mm first bed layer (`printed-parts/AGENTS.md`).
 LAYER = 0.24
 # How far each half's mating face may stand off its coupon face and still seat.
-FLUSH_TOL = 0.1
+FLUSH_TOL = 0.05
 # The listing drawing's tolerance on the body's 4.00 mm width, which the seat's height takes.
 BODY_W_TOL = 0.08
 
@@ -196,6 +196,10 @@ def write_readme(box, report):
     sizes = {n: report["coupons"][n]["print_size_mm"] for n in ("male", "female")}
     seat = e._pogo.BODY_W + 2.0 * e.fits.slip + e.fits.supported_surface
     body_max = e._pogo.BODY_W + BODY_W_TOL
+    # The drawing gives overall tip height 5.00 ±0.15 and a 4.00 body depth
+    # under its ±0.05 general tolerance. Their independent extremes bound
+    # protrusion by ±0.20; face flushness alone is not the complete stack.
+    pin_tolerance = 0.15 + 0.05
     substitute_md(HERE / "README.md", {
         "COUPON_SEAT_HEIGHT": f"{seat:.4g} mm",
         "COUPON_ROOF_SPAN": f"{e._pogo.EAR_L + 2.0 * e.fits.slip:.4g} mm",
@@ -209,8 +213,11 @@ def write_readme(box, report):
         "COUPON_KISS": f"{kiss:.4g} mm",
         "COUPON_PRESS": f"{press:.4g} mm",
         "COUPON_STROKE": f"{e._pogo.STROKE:g} mm",
-        "COUPON_PRESS_RANGE": f"{press - 2.0 * FLUSH_TOL:.3g}–{press + 2.0 * FLUSH_TOL:.3g} mm",
+        "COUPON_PRESS_RANGE": f"{press - pin_tolerance - 2.0 * FLUSH_TOL:.4g}–{press + pin_tolerance + 2.0 * FLUSH_TOL:.4g} mm",
         "COUPON_KISS_MIN": f"{kiss - 2.0 * FLUSH_TOL:.3g} mm",
+        "COUPON_KISS_MAX": f"{kiss + 2.0 * FLUSH_TOL:.3g} mm",
+        "COUPON_STROKE_MARGIN": f"{e._pogo.STROKE - press - pin_tolerance - 2.0 * FLUSH_TOL:.3g} mm",
+        "COUPON_PIN_RANGE": f"{e._pogo.PIN_PROUD - pin_tolerance:.3g}–{e._pogo.PIN_PROUD + pin_tolerance:.3g} mm",
         "COUPON_FULL_PRESS": f"{e._pogo.PIN_PROUD:g} mm",
     })
 

@@ -1,23 +1,25 @@
 #!/usr/bin/env python3
-"""Compute machine-time.md's print hours off bom.md §7's masses, roll up the
+"""Compute machine-time.md's print hours from bom.md and native slices, roll up the
 other machine processes, and write every derived figure into the [value](NAME)
 docgen markers. Third of the ledger totals scripts, beside _bom_totals.py
 (dollars) and _labor_totals.py (attended minutes) — this one owns HOURS A
 MACHINE IS OCCUPIED, which is not costed and answers turnaround + throughput.
 
-Why a script rather than typed numbers: the print estimate is a function of the
-§7 masses, which are geometry-derived and commit-gated (_bom_masses.py). A part
-that changes shape moves its mass, its print hours, the bottleneck's wall clock
-and the units-per-year ceiling — all of it, without anyone remembering to.
+The print estimate uses §7 masses, which are geometry-derived and commit-gated
+(_bom_masses.py), plus §12's float quantity and the accepted ASA Aero slice.
+For §7 parts, shape changes propagate through mass, print hours and throughput.
+The float contribution is a separate provisional slice allowance.
 
   * Print hours = each §7 row's mass × its GROUP's hours-per-kg, except the
     faucet batch, whose duration is read directly from its committed slice. THE KG IS
     FILAMENT, not geometry — §7 bills what a slice of the part lays, shell and
     infill (_bom_masses.PROFILES), and the rates below are measured against that
-    same figure. Groups are the six print configurations the build uses;
+    same figure. Six groups use §7's print configurations;
     _bom_masses.GROUP_OF assigns every row by name and is imported rather than
     restated, so one list says what plate a part comes off. --check fails on an
-    unassigned row, so a new printed part cannot silently escape the estimate.
+    unassigned row. The seventh group is the three ASA Aero floats: quantity
+    comes from the float's BOM row; object-feed mass and time come from its v1
+    native slice. The v2 geometry and manual insertion pause remain unmeasured.
   * The §2/§3/§4 process tables are read, not computed — those are datasheet and
     procedure figures. Their subtotals are summed here.
   * The turnaround table is likewise read and summed, except for the print's own
@@ -38,6 +40,9 @@ BOM = os.path.join(HERE, "..", "ledger", "bom.md")
 MT = os.path.join(HERE, "..", "ledger", "machine-time.md")
 FAUCET_SLICE = os.path.join(HERE, "..", "printed-parts", "faucet",
                            "faucet-petgf.support-audit.json")
+FLOAT_SLICE = os.path.join(HERE, "..", "printed-parts", "cold-core",
+                          "magnetic-float", "all-aero", "mark2-print", "v1",
+                          "float-preflight.json")
 
 from pathlib import Path  # noqa: E402
 sys.path.insert(
@@ -86,7 +91,7 @@ PETGF_CARRY = (_CAP_PETG * _RHO_PETG) / (_CAP_PETGF * _RHO_PETGF)
 # measurement carried across the stock; three are the MEASURED PLATE's own
 # rate scaled for a slower configuration, which is a scaling of the setup and not of
 # the stock — so they hang off `_BULK_PETG` rather than off the carried figure. All
-# four are labelled est. in the ledger. The faucet reads its own slice duration.
+# four are labelled est. in the ledger. Faucet and float read native slice durations.
 # See machine-time.md "Open items".
 _BULK_PETG = round(MEASURED[2] / MEASURED[1], 1)
 RATES = {
@@ -96,10 +101,12 @@ RATES = {
     "small": round(_BULK_PETG * 2.8),  # travel + layer-change overhead dominates a small part
     "tool":  round(_BULK_PETG * 2.8),  # small supportless 0.4-nozzle part, six walls + dense core
     "petgf": None,  # Exact batch duration from the committed production-profile slice.
+    "aero": None,   # Native v1 estimate per float, excluding the manual pause.
 }
 
 GROUP_MARKER = {"bulk": "BULK", "ext": "EXT", "tight": "TIGHT",
-                "small": "SMALL", "tool": "TOOL", "petgf": "PETGF"}
+                "small": "SMALL", "tool": "TOOL", "petgf": "PETGF",
+                "aero": "AERO"}
 
 
 # The turnaround table's one computed cell. Named here because two readers want it:
@@ -152,6 +159,42 @@ def group_masses():
     return kg, orphans
 
 
+def print_estimate():
+    """Shared print totals for machine-time.md and labor.md; performs no writes."""
+    kg, orphans = group_masses()
+    with open(FAUCET_SLICE, encoding="utf-8") as fh:
+        faucet_slice = json.load(fh)
+    faucet_hours = sum(plate["estimated_total_seconds"]
+                       for plate in faucet_slice["plates"]) / 3600
+    if faucet_hours <= 0 or kg["petgf"] <= 0:
+        raise ValueError("Faucet slice duration and filament mass must be positive")
+
+    float_rows = [cells(ln) for ln in open(BOM, encoding="utf-8").read().splitlines()
+                  if ln.startswith("|") and cells(ln)[0] == "ASA Aero magnetic float"]
+    if len(float_rows) != 1 or len(float_rows[0]) != 5:
+        raise ValueError("Expected one ASA Aero magnetic float BOM row")
+    float_qty = number(float_rows[0][2])
+    if float_qty <= 0 or not float_qty.is_integer():
+        raise ValueError("ASA Aero float BOM quantity must be a positive integer")
+    with open(FLOAT_SLICE, encoding="utf-8") as fh:
+        float_slice = json.load(fh)["native_slice_summary"]
+    if float_slice["object_count"] != 1:
+        raise ValueError("ASA Aero reference slice must contain one float")
+    float_hours = float_slice["estimated_time_s"] / 3600
+    float_kg = float_slice["object_feed_mass_g"] / 1000
+    if float_hours <= 0 or float_kg <= 0:
+        raise ValueError("ASA Aero slice duration and object feed must be positive")
+    kg["aero"] = float_qty * float_kg
+    rates = dict(RATES, petgf=round(faucet_hours / kg["petgf"], 1),
+                 aero=round(float_hours / float_kg, 1))
+    hours = {g: kg[g] * rates[g] for g in kg}
+    hours["petgf"] = faucet_hours
+    hours["aero"] = float_qty * float_hours
+    return {"kg": kg, "rates": rates, "hours": hours, "unassigned": orphans,
+            "total_kg": sum(kg.values()), "total_hours": sum(hours.values()),
+            "float_qty": int(float_qty), "float_minutes": float_hours * 60}
+
+
 def read_sections():
     """({section: summed last column}, [(section, process, hours)]) over
     machine-time.md's numbered sections — the process tables this script reads
@@ -201,17 +244,10 @@ def read_turnaround(wall):
 
 
 def main():
-    kg, orphans = group_masses()
-    with open(FAUCET_SLICE, encoding="utf-8") as fh:
-        faucet_slice = json.load(fh)
-    faucet_hours = sum(plate["estimated_total_seconds"]
-                       for plate in faucet_slice["plates"]) / 3600
-    if faucet_hours <= 0 or kg["petgf"] <= 0:
-        raise ValueError("Faucet slice duration and filament mass must be positive")
-    rates = dict(RATES, petgf=round(faucet_hours / kg["petgf"], 1))
-    hours = {g: kg[g] * rates[g] for g in kg}
-    hours["petgf"] = faucet_hours
-    h_print = sum(hours.values())
+    estimate = print_estimate()
+    kg, rates, hours = estimate["kg"], estimate["rates"], estimate["hours"]
+    orphans = estimate["unassigned"]
+    h_print = estimate["total_hours"]
     wall = h_print / PRINTERS
     secs, rows = read_sections()
     turn = read_turnaround(wall)
@@ -242,9 +278,11 @@ def main():
         "MT_MEASURED_EXT_KG": f"{MEASURED_EXT[1]:.3f}",
         "MT_PETGF_DRY": "10 h at 100 °C",
         "MT_DUTY": f"{DUTY * 100:.0f} %",
-        "MT_KG": f"{sum(kg.values()):.3f}",
+        "MT_KG": f"{estimate['total_kg']:.3f}",
+        "MT_FLOAT_QTY": estimate["float_qty"],
+        "MT_FLOAT_MINUTES": f"{estimate['float_minutes']:.1f}",
         # What a unit still takes off the PETG spool: the two groups that are not
-        # PET-GF. Summed from the same masses rather than typed, so it follows §7.
+        # PET-GF or ASA Aero. Summed from the same masses, so it follows §7.
         "MT_KG_PETG_UNIT": f"{kg['tight'] + kg['small']:.2f}",
         "MT_H_PRINT": f"{h_print:.1f}",
         "MT_H_PRINT_WALL": f"{wall:.1f}",

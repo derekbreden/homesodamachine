@@ -1,10 +1,11 @@
 # Pump cartridge and cap
 
-The current cartridge and raised cap are parts of the complete enclosure trial.
-[`pump-cartridge-generation.json`](pump-cartridge-generation.json) binds their native
-STEP/STL exports, the checked Box and 50 passing local geometry checks. The complete
-assembly and its physical trial have their own readings in
-[print readiness](../print-readiness.md).
+The cartridge and raised cap are parts of the complete enclosure trial. The complete
+assembly and its physical observations are indexed in
+[print readiness](../print-readiness.md). The cap carries the female half of the
+[magnetic pogo connection](/hardware/reference/yyfkgcp-pogo-4p/mounting-audit.md);
+the male half stays in front-top's bay bulkhead. Its four leads stay on the pump tabs
+when the cartridge is withdrawn.
 
 The cap has a broad underside, fitted octagonal boss openings and Ø37 motor bores.
 Derek confirms that the assembled holder retains both pumps firmly with no vertical
@@ -17,25 +18,31 @@ in counterbores accessible from above.
 The cartridge uses the matching relieved enclosure floor. Its fitted lower wells
 match the retained printed input within 0.004 mm at the sampled triangles. The cap
 and cartridge share an aft face at Y79.269 mm, with a complete 3 mm skirt band and
-0.246 mm air to the collet plate. The current local check includes cap insertion,
+0.246 mm air to the collet plate. The retained holder check includes cap insertion,
 screw access, front-rim clearance, all four outlet axes and cartridge withdrawal.
 The measured tee branch travel is integrated; exact terminal-ring seam and diameter
 remain conservative clearance proxies in the native report.
 
-## Reproduce the native check
+## Native evidence
 
-The command checks the existing exports against the retained current Box:
+[`pump-cartridge-generation.json`](pump-cartridge-generation.json) binds a 2026-09-23
+holder snapshot to 50 local geometry checks. That report's source and export hashes
+are its scope; it does not qualify the current pogo seats. The
+[current mounting audit](/hardware/reference/yyfkgcp-pogo-4p/mounting-audit.json)
+checks the existing cap and front-top exports, nominal mating and drawing-tolerance
+stack without changing CAD:
 
 ```sh
-tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/prepare_pump_geometry.py \
-  --existing-exports \
-  --box-sha256 7407956c5dc8e371113406815ff10518a7fe205e4e81d3162ad75c5c262bf5c7
+tools/cad-venv/bin/python hardware/reference/yyfkgcp-pogo-4p/audit_mounting.py
 ```
 
 ## Print and assembly
 
-The reviewed two-part archive, with the printer and settings it is sliced for, is listed
-in the [slice reviews](../tee-readiness/full-enclosure-print/native-slice-reviews/README.md).
+Each reviewed two-part archive, with the printer, settings and geometry hashes it binds,
+is listed in the [slice reviews](../tee-readiness/full-enclosure-print/native-slice-reviews/README.md).
+These archives qualify their identified meshes; a cap carrying the pogo seats needs
+its own native slice review. The [contact coupons](contact-pair-coupon/README.md) retain
+the production seat orientation for local roof, fit and lead-passage observations.
 Both parts use black PET-GF on the left 0.4 mm nozzle. The cartridge stands on its flat
 underside; the cap prints crown-down.
 

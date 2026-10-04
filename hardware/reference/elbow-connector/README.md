@@ -8,8 +8,9 @@ nothing in the machine places it.
 The machine's PP0308E is the scanned
 [PP0308E reference](/hardware/reference/jg-pp0308e-elbow/README.md).
 [`manifold-layout/enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py)
-`build_drain_joint` places it under the funnel frame's drain hole as the drain's
-disconnect. The funnel's drain stub takes its insertion, `UNION_INSERTION` =
+`build_drain_joint` places it under the funnel frame's drain hole to retain the raw
+tube stub. The silicone funnel's sealing land presses onto that stub and lifts off
+for cleaning. The stub takes its insertion, `UNION_INSERTION` =
 15.7 mm, from John Guest's data sheet for the 1/4" PP range
 ([`funnel_drain_stub.py`](/hardware/reference/funnel-drain-stub/funnel_drain_stub.py)).
 

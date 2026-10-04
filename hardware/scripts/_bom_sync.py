@@ -4,6 +4,7 @@ Run: tools/cad-venv/bin/python hardware/scripts/_bom_sync.py
 """
 
 import sys
+from decimal import Decimal, ROUND_HALF_UP
 from pathlib import Path
 
 _here = Path(__file__).resolve().parent  # = hardware/scripts/
@@ -24,6 +25,7 @@ from _cold_core_interface import (attachment_xy_positions, cap_anchor_tie_loop,
                                   deck_mount_xy)
 from _reed_channels import reeds_per_reservoir
 from docgen import load_module, substitute_md
+from _funnel_casting import casting_estimate, figures as _casting_figures
 from reservoir import insert_positions_for_side_plus_1
 from faucet_shell import base_pod_centers
 
@@ -303,6 +305,9 @@ m3x8_per_build = (shelf_short_screws_per_build + cond_screws_per_build
 # And every M3 x 10: the ground-stack clamp's one and the enclosure's six seam screws.
 m3x10_per_build = shelf_long_screws_per_build + enclosure_seam_screws_per_build
 
+# One screw and insert per ear, on each of the magnetic pair's two halves.
+pogo_fasteners_per_build = 2 * len(_enc._pogo.ear_xs())
+
 # And every M3 x 60: the pump clamp's two, the one station whose screw is as long as the field
 # it crosses.
 m3x60_per_build = pump_cap_screws_per_build
@@ -418,8 +423,18 @@ if len(set(_chain_loops.values())) != 1:
 chain_tie_loop = cap_anchor_tie_loop("discharge-chain")
 
 
+def pack_line_cost(quantity, pack_price, pack_quantity):
+    """Allocate the exact paid/list pack price; round only the final line."""
+    allocated = Decimal(str(quantity)) * Decimal(pack_price) / Decimal(str(pack_quantity))
+    return f"${allocated.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)}"
+
+
 def main():
+    casting = casting_estimate()
     variables = {
+        **_casting_figures(),
+        "FUNNEL_KIT_YIELD": f"{1098.0 / casting['mixed_g']:.2f}",
+        "FUNNEL_BATCH_COST": f"${35.16 * casting['mixed_g'] / 1098.0:.2f}",
         # Carbonator.
         "END_CAPS": f"{end_cap_plates_per_carbonator:.4g}",
         "CARBONATOR_PORTS": f"{carbonator_ports:.4g}",
@@ -435,6 +450,7 @@ def main():
         "SOLENOIDS": f"{solenoid_count:.4g}",
         "TEES": f"{tee_count:.4g}",
         "FOUR_INCH_TIES": f"{four_inch_ties_per_build:.4g}",
+        "FOUR_INCH_TIES_COST": pack_line_cost(four_inch_ties_per_build, "4.28", 200),
         "SIX_INCH_TIES": f"{six_inch_ties_per_build:.4g}",
         "PP1208E_PANEL": f"{panel_umbilical_bulkheads:.4g}",
         "PP1208E_INLET": f"{panel_water_inlet_bulkheads:.4g}",
@@ -470,12 +486,14 @@ def main():
         "COND_INSERTS": f"{cond_inserts_per_build:.4g}",
         "COND_SCREWS": f"{cond_screws_per_build:.4g}",
         "M3X8_TOTAL": f"{m3x8_per_build:.4g}",
+        "M3X8_COST": pack_line_cost(m3x8_per_build, "7.71", 120),
         "NAMEPLATE_INSERTS": f"{nameplate_inserts_per_build:.4g}",
         "NAMEPLATE_SCREWS": f"{nameplate_screws_per_build:.4g}",
         "DISPLAY_COVER_INSERTS": f"{display_cover_inserts_per_build:.4g}",
         "DISPLAY_COVER_SCREWS": f"{display_cover_screws_per_build:.4g}",
         "SHELF_SCREWS_M3X10": f"{shelf_long_screws_per_build:.4g}",
         "M3X10_TOTAL": f"{m3x10_per_build:.4g}",
+        "M3X10_COST": pack_line_cost(m3x10_per_build, "8.57", 120),
         "M3X60_TOTAL": f"{m3x60_per_build:.4g}",
         "M3X12_TOTAL": f"{m3x12_per_build:.4g}",
         "SEAM_SCREWS": f"{enclosure_seam_screws_per_build:.4g}",
@@ -497,7 +515,12 @@ def main():
         "CAP_CRADLES": f"{len(cap_cradles):.4g}",
         "TOTAL_M3_INSERTS": f"{total_m3_inserts_per_build:.4g}",
         "M3_LONG_INSERTS": f"{m3_long_inserts_per_build:.4g}",
+        "M3_LONG_INSERTS_COST": pack_line_cost(m3_long_inserts_per_build, "10.71", 100),
         "M3_SHORT_INSERTS": f"{m3_short_inserts_per_build:.4g}",
+        "M3_SHORT_INSERTS_COST": pack_line_cost(m3_short_inserts_per_build, "10.71", 100),
+        "POGO_FASTENERS": f"{pogo_fasteners_per_build:.4g}",
+        "POGO_INSERTS_COST": pack_line_cost(pogo_fasteners_per_build, "7.99", 200),
+        "POGO_SCREWS_COST": pack_line_cost(pogo_fasteners_per_build, "8.19", 50),
         "C14_INSERTS": f"{c14_inserts_per_build:.4g}",
         "C14_SCREWS": f"{c14_screws_per_build:.4g}",
         "TOTAL_M5_INSERTS": f"{total_m5_inserts_per_build:.4g}",

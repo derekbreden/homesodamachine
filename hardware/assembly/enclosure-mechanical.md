@@ -198,11 +198,13 @@ toward the dry LM393 board and terminate SIG-9 in [`wiring.md`](/hardware/assemb
 The machine display sits in the rounded 30° top. Seat its glass in the shallow
 counterbore with the PCB passing through the housing. Handle it ESD-safe.
 
-Place the 1 mm TPU ring on the glass border, aligned with the cover window. Press
-the rounded cover normal to the display plane until both side skirts engage their
-recesses. Its 2 mm bezel finishes flush with the housing and laps the glass by
-[3 mm](DISPLAY_INSET_LAP) through the gasket. Confirm that both long edges are
-seated and the cover resists lift; there are no display-cover screws.
+Place the 1 mm TPU ring on the glass border, aligned with the cover window. Flex
+the accepted cover's middle outward to enter both horizontal wings into their
+pockets, then let the bezel seat against its back datum. Its visible face finishes
+flush with the housing. Confirm that both wings are captured and the cover
+resists lift. The [accepted cover](../printed-parts/enclosure/display-cover/README.md)
+and [current native integration check](../printed-parts/enclosure/enclosure/accepted-fit-integration/current-geometry-check.json)
+identify the receiver geometry; there are no display-cover screws.
 Leave the display's RS485 and power leads loose for [`wiring.md`](/hardware/assembly/wiring.md).
 
 The ridge wall immediately below the display keeps two electrical features: the J9 teardrop at
@@ -239,7 +241,7 @@ A complete mechanical chassis ready for [`internal-plumbing.md`](/hardware/assem
 - +Y wall carrying all seven connection bodies: the four PP1208E unions in a rectangle on two columns — carbonated water (blue ring) and tap water on the upper storey at z [336.2](PORT_ROW_Z), the two flavor unions on their own below — the C14 inlet on its own storey east of them, the ABU44 CO2 inlet on the umbilical row's own storey one column east of the blue-ringed union, and the RJ11 keystone flush in its keyed receptacle. No connection is cut in the front wall.
 - Electronics bay bolted to `enclosure-back-top`'s +X wall on [17](EAST_BOSSES) printed bosses, feet on the cold core's cap — PSU, both relays, ground stack and main board, every mounting plane on one seat, plus five Wago lever nuts pressed into the wall's own wells, no tray under any of them — unpowered, AC pigtails hanging free
 - ASSE drip pan + moisture sensor in the west-wall slot under the backflow vent's fall, sensor leads routed toward the electronics bay (not yet terminated)
-- Machine display seated in the rounded 30° housing of `enclosure-front-top`, with the TPU ring on the glass and both cover skirts engaged in their retaining pockets, leads loose
+- Machine display seated in the rounded 30° housing of `enclosure-front-top`, with the TPU ring on the glass and both horizontal cover wings captured in their pockets, leads loose
 - Funnel frame captured by both upper enclosure pieces; drain attachment and recorded intersections resolved before fluid commissioning; silicone funnel **not** yet seated (see [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md))
 - This unit's nameplate set aside in the unit's build folder, **not** applied
 - Chassis bonding lead ring-terminated at the compressor's own earth screw on its terminal box, routed toward the ground stack, not yet terminated at the bus

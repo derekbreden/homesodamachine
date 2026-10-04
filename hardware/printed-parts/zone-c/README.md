@@ -18,12 +18,13 @@ lid; their printed seats follow their individual mounting stations.
 
 ## The funnel
 
-The removable silicone funnel holds nominally 300 mL. Its 6 mm brim, collar and
+The removable silicone funnel holds nominally [455 mL](funnel/README.md). Its 6 mm brim, collar and
 normal ramp wall lead to a plug seated in the frame's socket. The plug's sealing
-land pushes onto a drain stub standing in a PP0308E elbow, which a printed cradle
-holds under the frame's drain hole; `fluid-4` runs from the elbow to V-B. The
-current mold tooling does not qualify the plug. The customer removes the
-silicone by hand for cleaning.
+land presses onto a raw 1/4-inch LLDPE drain stub standing in a PP0308E elbow, which a printed cradle
+holds under the frame's drain hole; `fluid-4` runs from the elbow to V-B. Lifting the
+silicone releases it from the stub, leaving the frame, cradle, elbow and tube in the machine.
+The [mold shells and contoured mandrel](funnel-mold/README.md) form the complete plug;
+its finished dimensions, seal and removal force remain physically unqualified.
 Detail: [`funnel/`](/hardware/printed-parts/zone-c/funnel/).
 
 V-B, the funnel gate, stands in its cap cradle on the cold-core lid; the valve

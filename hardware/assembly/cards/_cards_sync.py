@@ -635,7 +635,7 @@ def sub_assemblies(m: Machine):
         "SA05_HANGING": f"{len(_scenes.SCENE_BY_ID['back-half'].also)}",
         "SA07_HANGING": f"{len(core_loose)}",
         "SA07_CLOSED": f"{len(conduit_runs) - len(core_loose)}",
-        "SA06_CAPACITY": f"{_funnel.capacity_ml:g}",
+        "SA06_CAPACITY": f"{_funnel.capacity_ml:.0f}",
         "SA06_FRAME_WEB": f"{_frame.web:g}",
         "SA06_FRAME_HOLE": f"{_frame.tube_hole_diameter:g}",
         "PUMP_MOUNT_SCREWS": f"{len(_cci.deck_mount_xy('g-ganen-pump'))}",
@@ -717,6 +717,7 @@ def tool_station_figures(check: bool = False) -> int:
     from _cardgen import _note_target, _rewritten, markers
     from endcap_circular_dxf import register_position
     from _pressure_vessel_sync import carbonator_rod_len
+    from _cold_core_sync import _coil_gen
     from reservoir import reservoir_rod_len, reservoir_rod_clearance
 
     design = _hw / "printed-parts/zone-c/funnel-mold/design.json"
@@ -724,6 +725,10 @@ def tool_station_figures(check: bool = False) -> int:
     assert casting_ml > 0.0, "the mould has no nominal casting volume"
     stations = {
         "pc-pour-cure": {"MOLD_CAST_ML": f"{casting_ml:.0f}"},
+        "tb-tube-bench": {
+            "TB_CUT_FT": f"{_coil_gen.cut_length() / 304.8:.4g} ft",
+            "TB_LAID_FT": f"{_coil_gen.wrap_length() / 304.8:.4g} ft",
+        },
         "dp-drill-press": {"REGISTER_Y": f"{abs(register_position[1]):.4f}"},
         "bs-band-saw": {
             "CARB_ROD_MM": f"{carbonator_rod_len:.1f} mm",

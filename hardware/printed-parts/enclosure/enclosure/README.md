@@ -1529,8 +1529,18 @@ pad head-on and nothing sweeps across either face. Seated, each pin is pressed
 [0.754 mm](POGO_PIN_PRESS) of its 1.10 mm stroke, leaving [0.346 mm](POGO_PIN_SPARE). Each
 contact is rated 12 V and 2 A.
 
+The [mounting audit](/hardware/reference/yyfkgcp-pogo-4p/mounting-audit.md) covers
+the current exported seats, drawing tolerances and physical evidence. The magnets
+are contained in the purchased connector halves. No separate retention magnet is
+embedded in the cartridge or front-top, and neither print needs a magnet pause.
+The nominal press is not a complete tolerance check: the seller's dimensions permit
+0.80–1.20 mm pin protrusion. The coupon's ±0.05 mm face criterion leaves only
+0.046 mm additional closing allowance at the nominal frame gap. Installed gap,
+magnetic retention and operating contact resistance have no reported physical result.
+
 Contacts pair by X: the two −X contacts serve the −X pump and the two +X contacts the +X pump.
-The pair snaps together only in its attracting orientation. Mate it by hand, mark the end of
+The pair attracts only in its matching orientation. Keep its plastic faces 0.25–0.30 mm
+apart with equal measured nonconductive shims during local mating checks, mark the end of
 each half that will stand at −X, and seat both halves with that mark at −X.
 
 **Each half bears on its ear plate.** The seat's mouth is the plate's outline,
@@ -1544,7 +1554,7 @@ ears' Ø1.5 mm holes into M1.4 × 4 × Ø2.3 brass heat-set inserts, each in a
 half goes in.
 
 **Both seats are horizontal pockets.** Front-top builds in +Z and the clamp prints on its
-crown, so each roof is one short bridge between the mouth's round ends, with the
+crown, so each seat roof spans the mouth's 23.7 mm length along X between its round ends, with the
 supported-surface allowance on the face that looks print-up. The insert bores are round and
 carry the same allowance.
 

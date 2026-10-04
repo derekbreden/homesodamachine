@@ -1,0 +1,23 @@
+{
+  "article": "YYFKGCP B0GCBNTBT8 four-contact magnetic connector in pump-cap and front-top seats",
+  "reviewed_local_date": "2026-10-03",
+  "contact_coupon_print": {
+    "printer": "H2C",
+    "task_id": "1302534665",
+    "completed_layers": 78,
+    "evidence": "../../printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/completion.json",
+    "scope": "Printer-reported completion of two contact-seat coupons. Physical roof quality, connector fit, insert fit, lead passage and continuity are not established by printer completion."
+  },
+  "reported_physical_connector_fit": null,
+  "reported_insert_retention": null,
+  "reported_installed_face_gap": null,
+  "reported_attracting_orientation": null,
+  "reported_four_channel_continuity": null,
+  "reported_magnetic_retention_force": null,
+  "reported_operating_contact_resistance": null,
+  "reported_endurance": null,
+  "accepted_pump_holder_fit": {
+    "evidence": "../kamoer-kphm400/physical-fit.json",
+    "scope": "Both pumps held firmly with holder screws tightened and no vertical play. This observation does not include the pogo connector or magnet retention."
+  }
+}
