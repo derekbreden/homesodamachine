@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Verify all six channels and UART</title><link rel="stylesheet" href="style.css"></head>
+<body><article class="card compact">
+<header><div class="eyebrow"><b>Controller / bench motion</b><span>136 / 179</span></div><h1>Verify all six channels and UART</h1><i class="rule"></i><p class="lede">Repeat the signed motor test on Y, Z, U, V and W. Then verify a six-channel request and the diagnostic response to a missing UART bus.</p></header>
+<main><figure class="short"><img src="art/uart-buses.svg" alt=""><figcaption></figcaption></figure><ol class="actions"><li>Run the same +0.0400 / −0.0400 pair on each remaining motor; record connector, sign and completion counts.</li><li>Issue the six-axis request below. Observe each requested sign and no unsolicited channel.</li><li>Disarm; unplug 24 V and disconnect one UART bus. Restore power and issue <code>clear</code>; it must refuse a healthy ready state.</li><li>Unplug 24 V, restore the bus, stop the session and remove the temporary electrical reference.</li></ol><pre>move6 0.0025 -0.0025 0.0025 0.0025 -0.0025 0.0025 500
+status
+disarm</pre><div class="gate"><strong>Ready when</strong><p>All six channels match the harness labels; a missing bus prevents readiness and restore alone produces no motion. <span class="fail">Wrong direction is corrected with all power removed by reversing one identified winding pair or a governed DIR inversion. Record the choice and repeat the affected channel.</span></p></div></main>
+<footer><span>Gun positioner · assembly guide</span><span>LETTER / 136</span></footer>
+</article></body></html>

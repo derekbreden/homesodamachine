@@ -1,5 +1,5 @@
 {
-  "checked_utc": "2026-10-05T03:35:16.868980+00:00",
+  "checked_utc": "2026-10-05T04:01:58.026353+00:00",
   "audit_script_sha256": "d2f8837b07b7f0ba27c3978ec3e8479463ca9f130680f1041c501ff5a0189990",
   "scope": "Independent final mechanical joint demand plus both camera stages and quantified controller mounts. Numeric coverage only; received fit/material and physical tests unqualified. Unknown consumed bolt, nut, washer and camera classes fail the audit.",
   "source_sha256": {
@@ -11,7 +11,7 @@
     "hardware/printed-parts/fixtures/gun-positioner/requirements.json": "736446b1b3de2b8c7d358d2e223928c157248925106409a17354a2f07036d91a",
     "hardware/printed-parts/fixtures/gun-positioner/stock-profiles.json": "1173843327b6e4b340e959f21df8781a2d2f6a6a05a0e3485d6fae02efa27dc6",
     "hardware/printed-parts/fixtures/gun-positioner-observation/manifest.json": "c923dd7c07d2612aac24e64f6a6d9db3ea7aaa43a9e81dc1c33b0e6a994e5b53",
-    "hardware/gun-positioner/sourcing/prime-verified.json": "a7179a0af2ac3945e335094215959ca268b94997980b8071d3ab32da31af4922",
+    "hardware/gun-positioner/sourcing/prime-verified.json": "89b1da867516db99c375298b6da2454443e7150188713b6b8f2179b192839084",
     "hardware/gun-positioner/controller-purchase-requirements.json": "54779beccbcd1dcb92e72bd83109c5b6cd9d4105337ae841817f13bf6e7c83cc",
     "hardware/gun-positioner/mounting/manifest.json": "4e81de4b417eaa357c8f7874448f00b4d35009532b0c789cd34b9f0b0b759625"
   },

@@ -1,0 +1,1191 @@
+{
+  "file": "gun-positioner-drill-templates.pdf",
+  "pages": 120,
+  "page_inches": [
+    8.5,
+    11
+  ],
+  "scale": "1 mm = 72/25.4 PDF points; print actual size",
+  "tile_overlap_mm": 12.0,
+  "source_sha256": {
+    "hardware/printed-parts/fixtures/gun-positioner/gun_positioner.py": "e219feaa319f2aee19c1792522d69dd337b2e27ffdb0eaa46ce5978469bfab08",
+    "tools/gun-positioner-optics/mounts.py": "0e13a0a34b58bc6dcbdd858fd9d80e809630ea8d8a5b296134fbf0a5ee085c9c",
+    "tools/gun-positioner-guide/templates.py": "09ea8c6d246d37de03712622892d385eeb1a96ac7293007a181d339469e966db"
+  },
+  "pdf_sha256": "0f1db71137c4316282ebf96ada733e2a4f0d2c99a3114861fa22b042f2309199",
+  "parts": [
+    {
+      "id": "x-bed",
+      "quantity": 1,
+      "blank_mm": [
+        450,
+        199,
+        6.35
+      ]
+    },
+    {
+      "id": "x-carriage",
+      "quantity": 1,
+      "blank_mm": [
+        210,
+        199,
+        6.35
+      ]
+    },
+    {
+      "id": "y-bed",
+      "quantity": 1,
+      "blank_mm": [
+        450,
+        199,
+        6.35
+      ]
+    },
+    {
+      "id": "y-carriage",
+      "quantity": 1,
+      "blank_mm": [
+        210,
+        199,
+        6.35
+      ]
+    },
+    {
+      "id": "z-bed",
+      "quantity": 1,
+      "blank_mm": [
+        450,
+        199,
+        6.35
+      ]
+    },
+    {
+      "id": "z-carriage",
+      "quantity": 1,
+      "blank_mm": [
+        210,
+        199,
+        6.35
+      ]
+    },
+    {
+      "id": "force-gauge-backing",
+      "quantity": 1,
+      "blank_mm": [
+        70,
+        110,
+        6.35
+      ]
+    },
+    {
+      "id": "installed-Z-gauge-back",
+      "quantity": 1,
+      "blank_mm": [
+        70,
+        160,
+        6.35
+      ]
+    },
+    {
+      "id": "shaft-capture-interface",
+      "quantity": 1,
+      "blank_mm": [
+        100,
+        60,
+        6.35
+      ]
+    },
+    {
+      "id": "shaft-capture-bridge",
+      "quantity": 1,
+      "blank_mm": [
+        100,
+        60,
+        6.35
+      ]
+    },
+    {
+      "id": "capture-catch-upper",
+      "quantity": 1,
+      "blank_mm": [
+        120,
+        80,
+        6.35
+      ]
+    },
+    {
+      "id": "installed-Z-load-platen",
+      "quantity": 1,
+      "blank_mm": [
+        60,
+        40,
+        6.35
+      ]
+    },
+    {
+      "id": "test-output-bridge",
+      "quantity": 1,
+      "blank_mm": [
+        140,
+        40,
+        6.35
+      ]
+    },
+    {
+      "id": "test-output-arm",
+      "quantity": 2,
+      "blank_mm": [
+        70,
+        25,
+        6.35
+      ]
+    },
+    {
+      "id": "drive-test-foot",
+      "quantity": 1,
+      "blank_mm": [
+        120,
+        80,
+        6.35
+      ]
+    },
+    {
+      "id": "force-test-platen",
+      "quantity": 1,
+      "blank_mm": [
+        120,
+        80,
+        6.35
+      ]
+    },
+    {
+      "id": "torque-redirect-bracket",
+      "quantity": 1,
+      "blank_mm": [
+        60,
+        40,
+        6.35
+      ]
+    },
+    {
+      "id": "yaw-head-adapter",
+      "quantity": 1,
+      "blank_mm": [
+        120,
+        120,
+        6.35
+      ]
+    },
+    {
+      "id": "z-head-diagonal",
+      "quantity": 1,
+      "blank_mm": [
+        275,
+        25,
+        6.35
+      ]
+    },
+    {
+      "id": "rotator-platform",
+      "quantity": 1,
+      "blank_mm": [
+        325,
+        300,
+        6.35
+      ]
+    },
+    {
+      "id": "yaw-bearing-back",
+      "quantity": 1,
+      "blank_mm": [
+        180,
+        90,
+        6.35
+      ]
+    },
+    {
+      "id": "yaw-crossbar",
+      "quantity": 1,
+      "blank_mm": [
+        100,
+        380,
+        6.35
+      ]
+    },
+    {
+      "id": "yaw-side",
+      "quantity": 2,
+      "blank_mm": [
+        100,
+        180,
+        6.35
+      ]
+    },
+    {
+      "id": "pitch-bearing-foot",
+      "quantity": 2,
+      "blank_mm": [
+        90,
+        60,
+        6.35
+      ]
+    },
+    {
+      "id": "pitch-side",
+      "quantity": 2,
+      "blank_mm": [
+        280,
+        100,
+        6.35
+      ]
+    },
+    {
+      "id": "pitch-rear-crossbar",
+      "quantity": 2,
+      "blank_mm": [
+        190,
+        40,
+        6.35
+      ]
+    },
+    {
+      "id": "roll-bearing-foot",
+      "quantity": 1,
+      "blank_mm": [
+        150,
+        120,
+        6.35
+      ]
+    },
+    {
+      "id": "roll-cradle-side",
+      "quantity": 2,
+      "blank_mm": [
+        216,
+        60,
+        6.35
+      ]
+    },
+    {
+      "id": "roll-cradle-back",
+      "quantity": 1,
+      "blank_mm": [
+        120,
+        70,
+        6.35
+      ]
+    },
+    {
+      "id": "gun-jaw",
+      "quantity": 4,
+      "blank_mm": [
+        25,
+        130,
+        6.35
+      ]
+    },
+    {
+      "id": "service-load-jaw",
+      "quantity": 2,
+      "blank_mm": [
+        35,
+        160,
+        6.35
+      ]
+    },
+    {
+      "id": "angular-lever",
+      "quantity": 3,
+      "blank_mm": [
+        190,
+        50,
+        6.35
+      ]
+    },
+    {
+      "id": "drive-bulkhead",
+      "quantity": 6,
+      "blank_mm": [
+        38,
+        60,
+        6.35
+      ]
+    },
+    {
+      "id": "linear-drive-support",
+      "quantity": 6,
+      "blank_mm": [
+        150,
+        150,
+        6.35
+      ]
+    },
+    {
+      "id": "motor-support-leg",
+      "quantity": 12,
+      "blank_mm": [
+        100,
+        25,
+        6.35
+      ]
+    },
+    {
+      "id": "thrust-support-leg",
+      "quantity": 12,
+      "blank_mm": [
+        42.65,
+        38,
+        6.35
+      ]
+    },
+    {
+      "id": "nut-face",
+      "quantity": 12,
+      "blank_mm": [
+        46,
+        38,
+        6.35
+      ]
+    },
+    {
+      "id": "force-link-end",
+      "quantity": 12,
+      "blank_mm": [
+        110,
+        38,
+        6.35
+      ]
+    },
+    {
+      "id": "force-link-shuttle",
+      "quantity": 6,
+      "blank_mm": [
+        110,
+        38,
+        6.35
+      ]
+    },
+    {
+      "id": "force-link-shoulder",
+      "quantity": 12,
+      "blank_mm": [
+        110,
+        38,
+        6.35
+      ]
+    },
+    {
+      "id": "force-shuttle-boss",
+      "quantity": 28,
+      "blank_mm": [
+        25.4,
+        25.4,
+        7.35
+      ]
+    },
+    {
+      "id": "force-output-ear",
+      "quantity": 12,
+      "blank_mm": [
+        60,
+        40,
+        6.35
+      ]
+    },
+    {
+      "id": "overload-switch-tab",
+      "quantity": 6,
+      "blank_mm": [
+        60,
+        25,
+        6.35
+      ]
+    },
+    {
+      "id": "friction-spring-seat",
+      "quantity": 3,
+      "blank_mm": [
+        38,
+        60,
+        6.35
+      ]
+    },
+    {
+      "id": "angular-clevis-cheek",
+      "quantity": 12,
+      "blank_mm": [
+        80,
+        40,
+        6.35
+      ]
+    },
+    {
+      "id": "trunnion-inner-ear",
+      "quantity": 12,
+      "blank_mm": [
+        40,
+        40,
+        6.35
+      ]
+    },
+    {
+      "id": "limit-stop",
+      "quantity": 12,
+      "blank_mm": [
+        40,
+        30,
+        6.35
+      ]
+    },
+    {
+      "id": "bench-tether-anchor",
+      "quantity": 2,
+      "blank_mm": [
+        60,
+        30,
+        6.35
+      ]
+    },
+    {
+      "id": "brake-torque-lever",
+      "quantity": 1,
+      "blank_mm": [
+        220,
+        30,
+        6.35
+      ]
+    },
+    {
+      "id": "angular-load-lever",
+      "quantity": 1,
+      "blank_mm": [
+        220,
+        30,
+        6.35
+      ]
+    },
+    {
+      "id": "hub-proof-lever",
+      "quantity": 1,
+      "blank_mm": [
+        300,
+        30,
+        6.35
+      ]
+    },
+    {
+      "id": "hub-proof-load-saddle",
+      "quantity": 1,
+      "blank_mm": [
+        40,
+        50,
+        6.35
+      ]
+    },
+    {
+      "id": "yaw-base-web",
+      "quantity": 2,
+      "blank_mm": [
+        230,
+        250,
+        6.35
+      ]
+    },
+    {
+      "id": "pitch-base-web",
+      "quantity": 2,
+      "blank_mm": [
+        280,
+        100,
+        6.35
+      ]
+    },
+    {
+      "id": "roll-base-web",
+      "quantity": 2,
+      "blank_mm": [
+        220,
+        203.1,
+        6.35
+      ]
+    },
+    {
+      "id": "roll-base-anchor",
+      "quantity": 1,
+      "blank_mm": [
+        160,
+        190,
+        6.35
+      ]
+    },
+    {
+      "id": "angular-output-bridge",
+      "quantity": 3,
+      "blank_mm": [
+        100,
+        60,
+        6.35
+      ]
+    },
+    {
+      "id": "crash-pod-end",
+      "quantity": 4,
+      "blank_mm": [
+        40,
+        80,
+        6.35
+      ]
+    },
+    {
+      "id": "crash-pod-shoulder",
+      "quantity": 4,
+      "blank_mm": [
+        40,
+        40,
+        6.35
+      ]
+    },
+    {
+      "id": "crash-pod-shuttle",
+      "quantity": 2,
+      "blank_mm": [
+        40,
+        40,
+        6.35
+      ]
+    },
+    {
+      "id": "crash-carrier-left",
+      "quantity": 1,
+      "blank_mm": [
+        200,
+        60,
+        6.35
+      ]
+    },
+    {
+      "id": "crash-carrier-right",
+      "quantity": 1,
+      "blank_mm": [
+        200,
+        60,
+        6.35
+      ]
+    },
+    {
+      "id": "crash-magnet-back",
+      "quantity": 1,
+      "blank_mm": [
+        120,
+        90,
+        6.35
+      ]
+    },
+    {
+      "id": "gun-release-tray",
+      "quantity": 1,
+      "blank_mm": [
+        200,
+        80,
+        6.35
+      ]
+    },
+    {
+      "id": "gun-release-back",
+      "quantity": 1,
+      "blank_mm": [
+        120,
+        70,
+        6.35
+      ]
+    },
+    {
+      "id": "crash-output-wall",
+      "quantity": 2,
+      "blank_mm": [
+        100,
+        70,
+        6.35
+      ]
+    },
+    {
+      "id": "crash-ground-crossbar",
+      "quantity": 2,
+      "blank_mm": [
+        200,
+        40,
+        6.35
+      ]
+    },
+    {
+      "id": "vee-seat-keeper",
+      "quantity": 6,
+      "blank_mm": [
+        24,
+        8,
+        6.35
+      ]
+    },
+    {
+      "id": "nozzle-test-fork-arm",
+      "quantity": 2,
+      "blank_mm": [
+        210,
+        30,
+        6.35
+      ]
+    },
+    {
+      "id": "nozzle-test-bridge",
+      "quantity": 1,
+      "blank_mm": [
+        180,
+        30,
+        6.35
+      ]
+    },
+    {
+      "id": "crash-guide-block",
+      "quantity": 4,
+      "blank_mm": [
+        25.4,
+        25.4,
+        15
+      ]
+    },
+    {
+      "id": "shaft-hub-XY-mounting-projection",
+      "quantity": 7,
+      "blank_mm": [
+        38.1,
+        38.1,
+        25
+      ]
+    },
+    {
+      "id": "shaft-hub-YZ-clamp-projection",
+      "quantity": 7,
+      "blank_mm": [
+        38.1,
+        25,
+        38.1
+      ]
+    },
+    {
+      "id": "shaft-end-pilot-projection",
+      "quantity": 8,
+      "blank_mm": [
+        12,
+        12,
+        16
+      ]
+    },
+    {
+      "id": "proof-gauge-quill-cap-upright-projection",
+      "quantity": 1,
+      "blank_mm": [
+        70,
+        50.8,
+        6.35
+      ]
+    },
+    {
+      "id": "linear-stop-angle-foot-projection",
+      "quantity": 6,
+      "blank_mm": [
+        50.8,
+        40,
+        6.35
+      ]
+    },
+    {
+      "id": "linear-stop-angle-upright-projection",
+      "quantity": 6,
+      "blank_mm": [
+        40,
+        50.8,
+        6.35
+      ]
+    },
+    {
+      "id": "guard-thrust-angle-minus-foot-projection",
+      "quantity": 6,
+      "blank_mm": [
+        25.4,
+        25.4,
+        3.175
+      ]
+    },
+    {
+      "id": "guard-thrust-angle-minus-upright-projection",
+      "quantity": 6,
+      "blank_mm": [
+        25.4,
+        25.4,
+        3.175
+      ]
+    },
+    {
+      "id": "guard-thrust-angle-plus-foot-projection",
+      "quantity": 6,
+      "blank_mm": [
+        25.4,
+        25.4,
+        3.175
+      ]
+    },
+    {
+      "id": "guard-thrust-angle-plus-upright-projection",
+      "quantity": 6,
+      "blank_mm": [
+        25.4,
+        25.4,
+        3.175
+      ]
+    },
+    {
+      "id": "installed-Z-jack-angle-foot-projection",
+      "quantity": 1,
+      "blank_mm": [
+        50.8,
+        40,
+        6.35
+      ]
+    },
+    {
+      "id": "installed-Z-jack-angle-upright-projection",
+      "quantity": 1,
+      "blank_mm": [
+        40,
+        50.8,
+        6.35
+      ]
+    },
+    {
+      "id": "friction-washer-drilling-projection",
+      "quantity": 3,
+      "blank_mm": [
+        37.0,
+        37.0,
+        3.0
+      ]
+    },
+    {
+      "id": "crash-striker-drilling-projection",
+      "quantity": 3,
+      "blank_mm": [
+        25.0,
+        25.0,
+        2.0
+      ]
+    },
+    {
+      "id": "camera-fixed-plate",
+      "quantity": 2,
+      "blank_mm": [
+        400,
+        300,
+        6.35
+      ]
+    },
+    {
+      "id": "camera-carriage-plate",
+      "quantity": 2,
+      "blank_mm": [
+        300,
+        300,
+        6.35
+      ]
+    },
+    {
+      "id": "lens-upright",
+      "quantity": 2,
+      "blank_mm": [
+        100,
+        200,
+        6.35
+      ]
+    },
+    {
+      "id": "lens-angle-foot-projection",
+      "quantity": 2,
+      "blank_mm": [
+        50.8,
+        80,
+        6.35
+      ]
+    },
+    {
+      "id": "lens-angle-upright-projection",
+      "quantity": 2,
+      "blank_mm": [
+        80,
+        50.8,
+        6.35
+      ]
+    }
+  ],
+  "index": [
+    {
+      "part": "x-bed",
+      "first_page": 1
+    },
+    {
+      "part": "x-carriage",
+      "first_page": 4
+    },
+    {
+      "part": "y-bed",
+      "first_page": 6
+    },
+    {
+      "part": "y-carriage",
+      "first_page": 9
+    },
+    {
+      "part": "z-bed",
+      "first_page": 11
+    },
+    {
+      "part": "z-carriage",
+      "first_page": 14
+    },
+    {
+      "part": "force-gauge-backing",
+      "first_page": 16
+    },
+    {
+      "part": "installed-Z-gauge-back",
+      "first_page": 17
+    },
+    {
+      "part": "shaft-capture-interface",
+      "first_page": 18
+    },
+    {
+      "part": "shaft-capture-bridge",
+      "first_page": 19
+    },
+    {
+      "part": "capture-catch-upper",
+      "first_page": 20
+    },
+    {
+      "part": "installed-Z-load-platen",
+      "first_page": 21
+    },
+    {
+      "part": "test-output-bridge",
+      "first_page": 22
+    },
+    {
+      "part": "test-output-arm",
+      "first_page": 23
+    },
+    {
+      "part": "drive-test-foot",
+      "first_page": 24
+    },
+    {
+      "part": "force-test-platen",
+      "first_page": 25
+    },
+    {
+      "part": "torque-redirect-bracket",
+      "first_page": 26
+    },
+    {
+      "part": "yaw-head-adapter",
+      "first_page": 27
+    },
+    {
+      "part": "z-head-diagonal",
+      "first_page": 28
+    },
+    {
+      "part": "rotator-platform",
+      "first_page": 30
+    },
+    {
+      "part": "yaw-bearing-back",
+      "first_page": 34
+    },
+    {
+      "part": "yaw-crossbar",
+      "first_page": 35
+    },
+    {
+      "part": "yaw-side",
+      "first_page": 37
+    },
+    {
+      "part": "pitch-bearing-foot",
+      "first_page": 38
+    },
+    {
+      "part": "pitch-side",
+      "first_page": 39
+    },
+    {
+      "part": "pitch-rear-crossbar",
+      "first_page": 41
+    },
+    {
+      "part": "roll-bearing-foot",
+      "first_page": 42
+    },
+    {
+      "part": "roll-cradle-side",
+      "first_page": 43
+    },
+    {
+      "part": "roll-cradle-back",
+      "first_page": 45
+    },
+    {
+      "part": "gun-jaw",
+      "first_page": 46
+    },
+    {
+      "part": "service-load-jaw",
+      "first_page": 47
+    },
+    {
+      "part": "angular-lever",
+      "first_page": 48
+    },
+    {
+      "part": "drive-bulkhead",
+      "first_page": 49
+    },
+    {
+      "part": "linear-drive-support",
+      "first_page": 50
+    },
+    {
+      "part": "motor-support-leg",
+      "first_page": 51
+    },
+    {
+      "part": "thrust-support-leg",
+      "first_page": 52
+    },
+    {
+      "part": "nut-face",
+      "first_page": 53
+    },
+    {
+      "part": "force-link-end",
+      "first_page": 54
+    },
+    {
+      "part": "force-link-shuttle",
+      "first_page": 55
+    },
+    {
+      "part": "force-link-shoulder",
+      "first_page": 56
+    },
+    {
+      "part": "force-shuttle-boss",
+      "first_page": 57
+    },
+    {
+      "part": "force-output-ear",
+      "first_page": 58
+    },
+    {
+      "part": "overload-switch-tab",
+      "first_page": 59
+    },
+    {
+      "part": "friction-spring-seat",
+      "first_page": 60
+    },
+    {
+      "part": "angular-clevis-cheek",
+      "first_page": 61
+    },
+    {
+      "part": "trunnion-inner-ear",
+      "first_page": 62
+    },
+    {
+      "part": "limit-stop",
+      "first_page": 63
+    },
+    {
+      "part": "bench-tether-anchor",
+      "first_page": 64
+    },
+    {
+      "part": "brake-torque-lever",
+      "first_page": 65
+    },
+    {
+      "part": "angular-load-lever",
+      "first_page": 67
+    },
+    {
+      "part": "hub-proof-lever",
+      "first_page": 69
+    },
+    {
+      "part": "hub-proof-load-saddle",
+      "first_page": 71
+    },
+    {
+      "part": "yaw-base-web",
+      "first_page": 72
+    },
+    {
+      "part": "pitch-base-web",
+      "first_page": 76
+    },
+    {
+      "part": "roll-base-web",
+      "first_page": 78
+    },
+    {
+      "part": "roll-base-anchor",
+      "first_page": 80
+    },
+    {
+      "part": "angular-output-bridge",
+      "first_page": 81
+    },
+    {
+      "part": "crash-pod-end",
+      "first_page": 82
+    },
+    {
+      "part": "crash-pod-shoulder",
+      "first_page": 83
+    },
+    {
+      "part": "crash-pod-shuttle",
+      "first_page": 84
+    },
+    {
+      "part": "crash-carrier-left",
+      "first_page": 85
+    },
+    {
+      "part": "crash-carrier-right",
+      "first_page": 86
+    },
+    {
+      "part": "crash-magnet-back",
+      "first_page": 87
+    },
+    {
+      "part": "gun-release-tray",
+      "first_page": 88
+    },
+    {
+      "part": "gun-release-back",
+      "first_page": 89
+    },
+    {
+      "part": "crash-output-wall",
+      "first_page": 90
+    },
+    {
+      "part": "crash-ground-crossbar",
+      "first_page": 91
+    },
+    {
+      "part": "vee-seat-keeper",
+      "first_page": 92
+    },
+    {
+      "part": "nozzle-test-fork-arm",
+      "first_page": 93
+    },
+    {
+      "part": "nozzle-test-bridge",
+      "first_page": 94
+    },
+    {
+      "part": "crash-guide-block",
+      "first_page": 95
+    },
+    {
+      "part": "shaft-hub-XY-mounting-projection",
+      "first_page": 96
+    },
+    {
+      "part": "shaft-hub-YZ-clamp-projection",
+      "first_page": 97
+    },
+    {
+      "part": "shaft-end-pilot-projection",
+      "first_page": 98
+    },
+    {
+      "part": "proof-gauge-quill-cap-upright-projection",
+      "first_page": 99
+    },
+    {
+      "part": "linear-stop-angle-foot-projection",
+      "first_page": 100
+    },
+    {
+      "part": "linear-stop-angle-upright-projection",
+      "first_page": 101
+    },
+    {
+      "part": "guard-thrust-angle-minus-foot-projection",
+      "first_page": 102
+    },
+    {
+      "part": "guard-thrust-angle-minus-upright-projection",
+      "first_page": 103
+    },
+    {
+      "part": "guard-thrust-angle-plus-foot-projection",
+      "first_page": 104
+    },
+    {
+      "part": "guard-thrust-angle-plus-upright-projection",
+      "first_page": 105
+    },
+    {
+      "part": "installed-Z-jack-angle-foot-projection",
+      "first_page": 106
+    },
+    {
+      "part": "installed-Z-jack-angle-upright-projection",
+      "first_page": 107
+    },
+    {
+      "part": "friction-washer-drilling-projection",
+      "first_page": 108
+    },
+    {
+      "part": "crash-striker-drilling-projection",
+      "first_page": 109
+    },
+    {
+      "part": "camera-fixed-plate",
+      "first_page": 110
+    },
+    {
+      "part": "camera-carriage-plate",
+      "first_page": 114
+    },
+    {
+      "part": "lens-upright",
+      "first_page": 118
+    },
+    {
+      "part": "lens-angle-foot-projection",
+      "first_page": 119
+    },
+    {
+      "part": "lens-angle-upright-projection",
+      "first_page": 120
+    }
+  ],
+  "coverage": "Flat plate/bar faces, registered hub faces, centered shaft-end pilots, purchased steel washer drilling projections and formed-angle face projections. STEP geometry, cut schedules and received-part transfer checks govern three-dimensional joints and tube spacers."
+}

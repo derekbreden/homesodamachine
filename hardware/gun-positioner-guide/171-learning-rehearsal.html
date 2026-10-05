@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Rehearse one-axis probing</title><link rel="stylesheet" href="style.css"></head>
+<body><article class="card compact">
+<header><div class="eyebrow"><b>Dry commissioning / rehearsal</b><span>171 / 179</span></div><h1>Rehearse one-axis probing</h1><i class="rule"></i><p class="lede">The simulator defaults allow the complete command sequence to be checked before a controller is connected. Its fit qualifies software execution only.</p></header>
+<main><figure class="short"><img src="art/software-banner.svg" alt=""><figcaption></figcaption></figure><ol class="actions"><li>Begin with X only. Use the simulator jog directory printed by the second command as SIM_JOG_DIR.</li><li>Inspect trial bounds and engagement counts in jog-plan.json. Each request is ≤640 counts; twice engagement stays ≥400 default maximum dead-band.</li><li>Read the held-out validation report. Rehearsal motion and pixel accuracy are separate from loaded hardware acceptance.</li></ol><pre>$GP_PY $GP_OBS/observe.py learn plan --out &quot;$GP_SETUP/jog-plan.json&quot; --axes X
+$GP_PY $GP_OBS/observe.py learn jog --plan &quot;$GP_SETUP/jog-plan.json&quot; --features &quot;$GP_SETUP/features.json&quot; --root &quot;$GP_SIM&quot;
+$GP_PY $GP_OBS/observe.py learn fit SIM_JOG_DIR --features &quot;$GP_SETUP/features.json&quot; --out &quot;$GP_SIM/analysis&quot;
+$GP_PY $GP_OBS/observe.py learn validate SIM_JOG_DIR --model &quot;$GP_SIM/analysis/model.json&quot; --split &quot;$GP_SIM/analysis/split.json&quot; --out &quot;$GP_SIM/analysis&quot;</pre><div class="gate"><strong>Ready when</strong><p>The simulated session completes, fit writes its model/split, and validation-report.txt starts VALIDATION: PASS. <span class="fail">An invalid plan or failed software rehearsal stops the hardware step. Fix its files/model before connecting motor power.</span></p></div></main>
+<footer><span>Gun positioner · assembly guide</span><span>LETTER / 171</span></footer>
+</article></body></html>
