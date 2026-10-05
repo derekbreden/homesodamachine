@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "recorded_at_utc": "2026-10-05T04:10:34.403998+00:00",
+  "recorded_at_utc": "2026-10-05T05:58:34.359097+00:00",
   "live_publication": "live-publication.json",
-  "live_verified_at_utc": "2026-10-05T03:54:26.682855+00:00",
+  "live_verified_at_utc": "2026-10-05T05:57:15.297088+00:00",
   "lint_source": "hardware/scripts/geometry_lint.py",
   "lint_source_sha256": "79914fb4ca91a5620956c1d4d95fd6fe253fcae1b5f26bac0fafc43edffb4f53",
   "classes": [
@@ -15,9 +15,9 @@
     {
       "piece": "funnel-frame",
       "model": "hardware/printed-parts/zone-c/funnel/funnel-frame.stl",
-      "model_sha256": "ca1427026349939176275b3cdffc5c4c2dd8b5317e30fa08fabf112aa7362ef8",
-      "facet_count": 41560,
-      "lint_run_at_utc": "2026-10-05T03:55:23.851722+00:00",
+      "model_sha256": "6cdc42d501fe8f420939bdcc3532ad3a0cc57fef6d79234e7c853230345c8606",
+      "facet_count": 40720,
+      "lint_run_at_utc": "2026-10-05T05:58:14.989537+00:00",
       "findings_by_class": {
         "step": 0,
         "sliver": 0,
@@ -30,7 +30,15 @@
         "ceiling": 0,
         "slope": 0
       },
-      "open": {
+      "answered_by_class": {
+        "step": 0,
+        "sliver": 0,
+        "ceiling": 4,
+        "slope": 0
+      },
+      "answers": "hardware/printed-parts/zone-c/funnel/funnel-frame.lint-answers",
+      "answers_sha256": "ada39d1f1c371483fb1614fbcceb1215934ac8b5d88f9470e0b046786218ba67",
+      "open_findings": {
         "step": [],
         "sliver": [],
         "ceiling": [],
@@ -46,8 +54,8 @@
               "score": 192.85644420623711,
               "line": "439 mm\u00b2 flat print-down face at z=16.200 \u00b7 84.5 \u00d7 5.2 mm \u00b7 drop 9.2\u20139.2 mm to material below",
               "pick": [
-                "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=100.875 y=-10.571 z=16.200",
-                "click: x=100.875 y=-10.571 z=16.200"
+                "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-100.875 y=-10.571 z=16.200",
+                "click: x=-100.875 y=-10.571 z=16.200"
               ]
             },
             "These four square rail bearings retain the frame against vertical lift and preserve the enclosure's production sliding profile. Each groove opens along its outer flank and Y entrance for support removal before assembly. The native combined Mark2 review in ../../enclosure/enclosure/support-bottom-gap/mark2-v2/emitted-path-review.json retains four bed-rooted supports and verifies each full-width outward X removal sweep at its supported layers. Release the interface contacts and cut sacrificial branch junctions before pushing a support outward. Physical removal effort, bearing finish and installed fit remain unqualified."
@@ -58,20 +66,8 @@
               "score": 192.85644420623711,
               "line": "439 mm\u00b2 flat print-down face at z=16.200 \u00b7 84.5 \u00d7 5.2 mm \u00b7 drop 9.2\u20139.2 mm to material below",
               "pick": [
-                "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-100.875 y=-10.571 z=16.200",
-                "click: x=-100.875 y=-10.571 z=16.200"
-              ]
-            },
-            "These four square rail bearings retain the frame against vertical lift and preserve the enclosure's production sliding profile. Each groove opens along its outer flank and Y entrance for support removal before assembly. The native combined Mark2 review in ../../enclosure/enclosure/support-bottom-gap/mark2-v2/emitted-path-review.json retains four bed-rooted supports and verifies each full-width outward X removal sweep at its supported layers. Release the interface contacts and cut sacrificial branch junctions before pushing a support outward. Physical removal effort, bearing finish and installed fit remain unqualified."
-          ],
-          [
-            {
-              "class": "ceiling",
-              "score": 85.92431137924432,
-              "line": "83 mm\u00b2 flat print-down face at z=16.450 \u00b7 15.7 \u00d7 5.2 mm \u00b7 drop 9.5\u20139.5 mm to material below",
-              "pick": [
-                "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=100.875 y=47.074 z=16.450",
-                "click: x=100.875 y=47.074 z=16.450"
+                "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=100.875 y=-10.571 z=16.200",
+                "click: x=100.875 y=-10.571 z=16.200"
               ]
             },
             "These four square rail bearings retain the frame against vertical lift and preserve the enclosure's production sliding profile. Each groove opens along its outer flank and Y entrance for support removal before assembly. The native combined Mark2 review in ../../enclosure/enclosure/support-bottom-gap/mark2-v2/emitted-path-review.json retains four bed-rooted supports and verifies each full-width outward X removal sweep at its supported layers. Release the interface contacts and cut sacrificial branch junctions before pushing a support outward. Physical removal effort, bearing finish and installed fit remain unqualified."
@@ -87,46 +83,53 @@
               ]
             },
             "These four square rail bearings retain the frame against vertical lift and preserve the enclosure's production sliding profile. Each groove opens along its outer flank and Y entrance for support removal before assembly. The native combined Mark2 review in ../../enclosure/enclosure/support-bottom-gap/mark2-v2/emitted-path-review.json retains four bed-rooted supports and verifies each full-width outward X removal sweep at its supported layers. Release the interface contacts and cut sacrificial branch junctions before pushing a support outward. Physical removal effort, bearing finish and installed fit remain unqualified."
+          ],
+          [
+            {
+              "class": "ceiling",
+              "score": 85.92431137924432,
+              "line": "83 mm\u00b2 flat print-down face at z=16.450 \u00b7 15.7 \u00d7 5.2 mm \u00b7 drop 9.5\u20139.5 mm to material below",
+              "pick": [
+                "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=100.875 y=47.074 z=16.450",
+                "click: x=100.875 y=47.074 z=16.450"
+              ]
+            },
+            "These four square rail bearings retain the frame against vertical lift and preserve the enclosure's production sliding profile. Each groove opens along its outer flank and Y entrance for support removal before assembly. The native combined Mark2 review in ../../enclosure/enclosure/support-bottom-gap/mark2-v2/emitted-path-review.json retains four bed-rooted supports and verifies each full-width outward X removal sweep at its supported layers. Release the interface contacts and cut sacrificial branch junctions before pushing a support outward. Physical removal effort, bearing finish and installed fit remain unqualified."
           ]
         ],
         "slope": []
-      },
-      "errors": "",
-      "answers": "hardware/printed-parts/zone-c/funnel/funnel-frame.lint-answers",
-      "answers_sha256": "ada39d1f1c371483fb1614fbcceb1215934ac8b5d88f9470e0b046786218ba67"
+      }
     },
     {
       "piece": "enclosure-front-top",
       "model": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
-      "model_sha256": "cc2cfd8a490b52439d957aa082b0e4369c5602076740494298b3a954f0ba36ba",
-      "facet_count": 529180,
-      "lint_run_at_utc": "2026-10-05T03:56:02.955394+00:00",
+      "model_sha256": "b9a902360673a932f4f26b8f58fcec3c3fe4649be43fc3d6caef01ce245842aa",
+      "facet_count": 528162,
+      "lint_run_at_utc": "2026-10-05T05:58:16.993695+00:00",
       "findings_by_class": {
-        "step": 1,
+        "step": 2,
         "sliver": 13,
-        "ceiling": 9,
+        "ceiling": 8,
         "slope": 0
       },
       "open_by_class": {
         "step": 0,
         "sliver": 0,
-        "ceiling": 1,
+        "ceiling": 0,
         "slope": 0
       },
-      "open": {
+      "answered_by_class": {
+        "step": 2,
+        "sliver": 13,
+        "ceiling": 8,
+        "slope": 0
+      },
+      "answers": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.lint-answers",
+      "answers_sha256": "c1510dde4f42299c78e2254f2c264a134e18b7a31b5dfd70dca0acc9182e1da9",
+      "open_findings": {
         "step": [],
         "sliver": [],
-        "ceiling": [
-          {
-            "class": "ceiling",
-            "score": 138.48990739920845,
-            "line": "391 mm\u00b2 flat print-down face at z=349.250 \u00b7 193.8 \u00d7 2.0 mm \u00b7 drop 4.9\u20137.0 mm to material below",
-            "pick": [
-              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=0.000 y=94.183 z=349.250",
-              "click: x=0.000 y=94.183 z=349.250"
-            ]
-          }
-        ],
+        "ceiling": [],
         "slope": []
       },
       "answered": {
@@ -143,6 +146,19 @@
               ]
             },
             "The print-down display-wing exits meet the existing storey floor and bay wall at this offset. This is an open support-removal lane through otherwise continuous housing stock; the two parallel planes do not form a separate thin wall."
+          ],
+          [
+            {
+              "class": "step",
+              "score": 92.10831778094925,
+              "line": "\u03940.208 mm between parallel planes \u00b7 footprint met 19.2 \u00d7 9.0 mm",
+              "pick": [
+                "faceA: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=94.000 y=95.000 z=295.294",
+                "faceB: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=0.000 y=95.208 z=320.398",
+                "click: x=96.500 y=95.000 z=296.000"
+              ]
+            },
+            "This is the fore entrance of the existing flank cable channel at Y95.000, beside the flat display wall at Y95.208. The 0.208 mm value is the offset between those endpoint planes, not a wall or fin thickness. The clip retains its complete 39 mm profile rooted in the 9 mm flank. Its full channel cutter is clear in the current native front-top; the broad display-wall witness excludes this declared channel. Preserve the functional cable entrance and assess its print/removal finish in the part's own native slice."
           ]
         ],
         "sliver": [
@@ -415,83 +431,23 @@
           ]
         ],
         "slope": []
-      },
-      "errors": "",
-      "answers": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.lint-answers",
-      "answers_sha256": "848b6db87f88af7a06b714978009c93c06e320642bdc4b0378ca01189bf446d4"
+      }
     }
   ],
-  "display_strip_native": {
-    "faces": [
-      {
-        "area_mm2": 391.35936624383936,
-        "bounds_mm": {
-          "xmin": -96.87844466316389,
-          "xmax": 96.87844466316706,
-          "ymin": 93.158492076719,
-          "ymax": 95.208492076719,
-          "zmin": 349.25,
-          "zmax": 349.25
-        },
-        "centroid": [
-          -1.0515130999312632e-15,
-          94.18994435556408,
-          349.25000000000006
-        ]
-      }
-    ],
-    "vertical_stock_probes": [
-      {
-        "x": -90,
-        "y": 94.183,
-        "z_min": 349.25,
-        "z_max": 355.0,
-        "missing_mm3": 0.00029462094327449567,
-        "sampled_full_stock_height_mm": 5.712487696431574
-      },
-      {
-        "x": -50,
-        "y": 94.183,
-        "z_min": 349.25,
-        "z_max": 355.0,
-        "missing_mm3": 0.0002946209432744355,
-        "sampled_full_stock_height_mm": 5.712487696431581
-      },
-      {
-        "x": 0,
-        "y": 94.183,
-        "z_min": 349.25,
-        "z_max": 355.0,
-        "missing_mm3": 0.00029462094327445897,
-        "sampled_full_stock_height_mm": 5.7124876964315785
-      },
-      {
-        "x": 50,
-        "y": 94.183,
-        "z_min": 349.25,
-        "z_max": 355.0,
-        "missing_mm3": 0.00029462094327439446,
-        "sampled_full_stock_height_mm": 5.7124876964315865
-      },
-      {
-        "x": 90,
-        "y": 94.183,
-        "z_min": 349.25,
-        "z_max": 355.0,
-        "missing_mm3": 0.0002946209432744054,
-        "sampled_full_stock_height_mm": 5.712487696431586
-      }
-    ]
-  },
-  "display_strip_v18_emitted_backing": "display-strip-backing-v18.json",
-  "remaining_print_finding": {
-    "status": "support_candidate_review_deferred_for_centered_fit_samples",
-    "native_face_z_mm": 349.25,
-    "geometry_function": "Retained display roof underside and clearance over the removable frame fore edge.",
-    "v18_native_risk": "Two long overhang walls and two bridge roads have only end backing against the immediately preceding emitted layer.",
-    "required_resolution": "Local native support or short-span bridge strategy preserving the frozen frame interface. Verify actual full bead backing, vertical support gap and support-removal access before a future full-part launch.",
-    "frozen_sent_geometry_and_archives_changed": false
-  },
-  "scope": "Post-publication printed-mesh lint and exact backing review. Existing functional faces retain their scoped answers; native geometry and supported-face intent do not qualify physical finish or support removal.",
-  "pass": false
+  "scope": "Printed-mesh findings reviewed after confirmed live publication. Intentional mating and support-access geometry is answered beside each STL; native slice and physical qualification remain separate.",
+  "answers_reviewed_at_utc": "2026-10-05T06:00:54.486830+00:00",
+  "functional_flank_channel_check": [
+    {
+      "origin_mm": [
+        98.5,
+        95.0,
+        269.0
+      ],
+      "channel_blocked_mm3": 0.0,
+      "profile_height_mm": 39.0,
+      "flank_section_mm": 9.0
+    }
+  ],
+  "functional_flank_channel_native_step_sha256": "a35f0dc6d127ca234965d67be0385f138e9b00630ad7f117a584ad07a3276aac",
+  "functional_flank_channel_source_sha256": "6b9d93bb8dfccff08b6b831f33c11bc14b445ee7c2b14902720417b4368f9ddf"
 }
