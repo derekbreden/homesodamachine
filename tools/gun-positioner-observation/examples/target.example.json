@@ -1,0 +1,34 @@
+{
+  "_about": [
+    "Correction target for observe.py learn propose and execute, format_version 1: the desired relationship between features, each with a tolerance.",
+    "Copy it beside features.json (for example ~/gpo-setup/target.json) and replace every FILL_ME. learn refuses this file while any FILL_ME remains.",
+    "Each quantity is one of: value (one feature value), difference (feature a minus feature b), point_to_line (signed distance in pixels from a dot or wire point to a seam line of the same camera).",
+    "Feature references come from features.json: values such as cam_a.wire.u, points such as cam_a.dot, lines such as cam_a.seam.",
+    "Units px, or mm only with px_per_mm and the calibration record it comes from; pixels are not millimetres without an independent calibration.",
+    "axes lists the axes the correction may move (from X, Y, Z, U, V, W); list no more axes than quantities, because each moved axis needs a quantity that observes it.",
+    "learn record --target target.json prints the current value of each quantity. Keys starting with _ are notes."
+  ],
+  "format_version": 1,
+  "units": "FILL_ME: px, or mm",
+  "px_per_mm": null,
+  "calibration": null,
+  "axes": "FILL_ME: list of axes allowed to move, e.g. [\"X\", \"Z\"]",
+  "quantities": [
+    {
+      "name": "FILL_ME: e.g. cam_a dot to seam",
+      "kind": "point_to_line",
+      "point": "FILL_ME: e.g. cam_a.dot",
+      "line": "FILL_ME: e.g. cam_a.seam",
+      "value": "FILL_ME: desired signed distance",
+      "tolerance": "FILL_ME: allowed deviation"
+    },
+    {
+      "name": "FILL_ME: e.g. cam_b wire tip ahead of dot along u",
+      "kind": "difference",
+      "a": "FILL_ME: e.g. cam_b.wire.u",
+      "b": "FILL_ME: e.g. cam_b.dot.u",
+      "value": "FILL_ME: desired difference",
+      "tolerance": "FILL_ME: allowed deviation"
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "_about": [
+    "Feature definitions for observe.py learn, format_version 1: which image regions of which camera hold the aiming dot, the wire tip and the seam, and the detector thresholds.",
+    "Copy it beside cameras.json (for example ~/gpo-setup/features.json) and replace every FILL_ME. learn refuses this file while any FILL_ME remains.",
+    "Read ROI pixel coordinates from a stored frame: observe.py export-frame SESSION_DIR --camera cam_a --out cam_a.png (x is the column and y the row of the region's top-left corner).",
+    "Tune thresholds with observe.py learn record --backend cameras ...; its feature-summary.json shows each value's valid fraction, spread and confidence.",
+    "Observation values are named <camera_id>.<label>.<key>: u and v (pixels) for dot and wire, theta_deg and rho for a seam line x cos(theta) + y sin(theta) = rho.",
+    "Detector defaults, for reference only: dot threshold_sigma 6, min_pixels 3, max_pixels 20000; wire threshold_sigma 5, min_pixels 30, min_elongation 3; seam inlier_px 1, min_inlier_fraction 0.6, min_edge_sigma 5.",
+    "Check with: tools/cad-venv/bin/python tools/gun-positioner-observation/observe.py learn check --features features.json --cameras cameras.json. Keys starting with _ are notes."
+  ],
+  "format_version": 1,
+  "frames_per_observation": "FILL_ME: frames averaged into one observation per camera",
+  "min_valid_fraction": "FILL_ME: fraction of those frames that must yield a value (0-1)",
+  "settle_s": "FILL_ME: seconds after a move's completion before frames count",
+  "features": [
+    {
+      "camera_id": "cam_a",
+      "label": "dot",
+      "type": "dot",
+      "roi": {"x": "FILL_ME", "y": "FILL_ME", "width": "FILL_ME", "height": "FILL_ME"},
+      "params": {"threshold_sigma": "FILL_ME", "min_pixels": "FILL_ME", "max_pixels": "FILL_ME",
+                 "channel": "FILL_ME: red, green, blue or gray"}
+    },
+    {
+      "camera_id": "cam_a",
+      "label": "wire",
+      "type": "wire",
+      "roi": {"x": "FILL_ME", "y": "FILL_ME", "width": "FILL_ME", "height": "FILL_ME"},
+      "params": {"approach_deg": "FILL_ME: image direction from the tip back along the wire, 0 = +x, 90 = +y",
+                 "polarity": "FILL_ME: dark or bright", "threshold_sigma": "FILL_ME", "min_pixels": "FILL_ME",
+                 "min_elongation": "FILL_ME"}
+    },
+    {
+      "camera_id": "cam_a",
+      "label": "seam",
+      "type": "seam",
+      "roi": {"x": "FILL_ME", "y": "FILL_ME", "width": "FILL_ME", "height": "FILL_ME"},
+      "params": {"orientation": "FILL_ME: horizontal or vertical", "inlier_px": "FILL_ME",
+                 "min_inlier_fraction": "FILL_ME", "min_edge_sigma": "FILL_ME"}
+    },
+    {
+      "camera_id": "cam_b",
+      "label": "dot",
+      "type": "dot",
+      "roi": {"x": "FILL_ME", "y": "FILL_ME", "width": "FILL_ME", "height": "FILL_ME"},
+      "params": {"threshold_sigma": "FILL_ME", "min_pixels": "FILL_ME", "max_pixels": "FILL_ME",
+                 "channel": "FILL_ME: red, green, blue or gray"}
+    },
+    {
+      "camera_id": "cam_b",
+      "label": "wire",
+      "type": "wire",
+      "roi": {"x": "FILL_ME", "y": "FILL_ME", "width": "FILL_ME", "height": "FILL_ME"},
+      "params": {"approach_deg": "FILL_ME: image direction from the tip back along the wire, 0 = +x, 90 = +y",
+                 "polarity": "FILL_ME: dark or bright", "threshold_sigma": "FILL_ME", "min_pixels": "FILL_ME",
+                 "min_elongation": "FILL_ME"}
+    },
+    {
+      "camera_id": "cam_b",
+      "label": "seam",
+      "type": "seam",
+      "roi": {"x": "FILL_ME", "y": "FILL_ME", "width": "FILL_ME", "height": "FILL_ME"},
+      "params": {"orientation": "FILL_ME: horizontal or vertical", "inlier_px": "FILL_ME",
+                 "min_inlier_fraction": "FILL_ME", "min_edge_sigma": "FILL_ME"}
+    }
+  ]
+}
