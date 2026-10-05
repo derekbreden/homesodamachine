@@ -56,6 +56,11 @@
       "status": "ok"
     },
     {
+      "check": "hardware/scripts/check_purchase_evidence.py",
+      "note": "Project ledger integrity ✓; historical evidence coverage is reported separately.",
+      "status": "ok"
+    },
+    {
       "check": "hardware/scripts/check_show_faces.py",
       "note": "show faces: 4/4 bounds hold over 3 module(s)",
       "status": "ok"
@@ -72,8 +77,8 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "1 reference(s) name a path nothing holds.",
-      "status": "red"
+      "note": "paths: every reference lands — 6090 tracked, 1114 fetched solids, 57 tags, 39 site routes",
+      "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
@@ -82,8 +87,8 @@
     },
     {
       "check": "tools/check_web_tests.py",
-      "note": "check_web_tests: web's suite passes",
-      "status": "ok"
+      "note": "cd web && npm test",
+      "status": "red"
     },
     {
       "check": "tools/bazel/check_build_file.py",
@@ -97,62 +102,81 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 263 source(s) the graph names",
+      "note": "check_declared_imports: every step holds what it imports, over 264 source(s) the graph names",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 2 of 2788 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 508 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 2765 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 1028 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 32b34630c2e0f80a93e3147cf8058a0b for the 258 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 0462c9a6d22388cef90e4af7ea7238b4 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was measured off a different enclosure-assembly.step — it holds 987ba8ea6e72100358e30a2751035502, enclosure-assembly.step here is 36caf162013c7093c1dc7a5a9501a6ac",
+      "  enclosure-assembly.facts.json was taken from a different tree — it holds 32b34630c2e0f80a93e3147cf8058a0b for the 258 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 0837328668f648a2e51984c53e963d7c here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
     "hardware/scripts/check_ledger.py": [
-      "instructions: 16 files (16 procedures + 0 cards + cover) | ledger brands: 586 | waived: 1 ASIN + 4 brand",
-      "DRIFT: 1 instruction(s) out of step with the ledger:",
+      "instructions: 17 files (17 procedures + 0 cards + cover) | ledger brands: 601 | waived: 1 ASIN + 4 brand",
+      "DRIFT: 3 instruction(s) out of step with the ledger:",
+      "  ✗ instruction names a purchased brand the ledger no longer carries: Lillium (hardware/assembly/lillium-cutover.md:1)",
+      "  ✗ procedure with no doc-sync driver — every number and part name in it is a bare literal: hardware/assembly/lillium-cutover.md (expected hardware/assembly/_lillium_cutover_sync.py)",
       "  ✗ procedure with no doc-sync driver — every number and part name in it is a bare literal: hardware/assembly/weld-position.md (expected hardware/assembly/_weld_position_sync.py)"
     ],
     "hardware/scripts/check_payloads.py": [
-      "21 solid(s) the bundle serves a payload for that no rule produces:",
-      "    hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.step.mesh — declared by nobody",
-      "    hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.step.mesh — declared by nobody",
-      "    hardware/printed-parts/enclosure/display-cover/face-up-trial/display-receiver-flat-wings.step.mesh — declared by nobody",
-      "    hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/back-top-backing-proposal.step.mesh — declared by nobody",
-      "    hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/placed-psu.step.mesh — declared by nobody",
-      "    hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-female-coupon.step.mesh — declared by nobody",
-      "    hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact-pair-male-coupon.step.mesh — declared by nobody",
-      "    hardware/printed-parts/enclosure/enclosure/magnet-retention/section.step.mesh — declared by nobody",
-      "    hardware/printed-parts/enclosure/grip-cover/grip-candidate-back-bottom.step.mesh — declared by nobody",
-      "    hardware/printed-parts/enclosure/grip-cover/grip-candidate-front-bottom.step.mesh — declared by nobody",
-      "    hardware/printed-parts/enclosure/grip-cover/grip-connected-bottoms.step.mesh — declared by nobody",
-      "    hardware/printed-parts/enclosure/grip-cover/grip-cover.step.mesh — declared by nobody",
-      "    hardware/printed-parts/enclosure/grip-cover/grip-exploded.step.mesh — declared by nobody",
-      "    hardware/printed-parts/enclosure/grip-cover/grip-receiver-back.step.mesh — declared by nobody",
-      "    hardware/printed-parts/enclosure/grip-cover/grip-receiver-front.step.mesh — declared by nobody",
-      "    hardware/printed-parts/enclosure/grip-cover/grip-seated.step.mesh — declared by nobody",
-      "    hardware/printed-parts/enclosure/grip-cover/grip-section.step.mesh — declared by nobody",
-      "    hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-001.step.mesh — declared by nobody",
-      "    hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.step.mesh — declared by nobody",
-      "    hardware/printed-parts/enclosure/tee-carrier/low-force-trial/tee-carrier-low-force.step.mesh — declared by nobody",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/thrust-support-leg.step.mesh — declared by nobody",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/torque-cord-pulley.step.mesh — declared by nobody",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/torque-redirect-bracket.step.mesh — declared by nobody",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/trunnion-inner-ear.step.mesh — declared by nobody",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/vee-seat-keeper.step.mesh — declared by nobody",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/x-bed.step.mesh — declared by nobody",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/x-carriage.step.mesh — declared by nobody",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/y-bed.step.mesh — declared by nobody",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/y-carriage.step.mesh — declared by nobody",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/yaw-base-web.step.mesh — declared by nobody",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/yaw-bearing-back.step.mesh — declared by nobody",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/yaw-crossbar.step.mesh — declared by nobody",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/yaw-head-adapter.step.mesh — declared by nobody",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/yaw-side.step.mesh — declared by nobody",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/z-bed.step.mesh — declared by nobody",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/z-carriage.step.mesh — declared by nobody",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/z-head-diagonal.step.mesh — declared by nobody",
+      "    hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v68.step.mesh — declared by nobody",
+      "    hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v69.step.mesh — declared by nobody",
+      "    hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v70.step.mesh — declared by nobody",
+      "    hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v71.step.mesh — declared by nobody",
+      "    hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v72.step.mesh — declared by nobody",
       "    hardware/printed-parts/zone-c/funnel-mold/forming-mandrel-finished.step.mesh — declared by nobody",
       "      name it in tools/bazel/inventory.py IMPLICIT_SOLIDS under hardware/printed-parts/zone-c/funnel-mold/forming_mandrel.py,",
       "      re-run tools/bazel/trace_inputs.py hardware/printed-parts/zone-c/funnel-mold/forming_mandrel.py, then gen_build.py"
     ],
     "hardware/scripts/check_step_colours.py": [
-      "step colours: 254/261 carry the colour of what they are made of",
-      "  7 STEP(s) name no colour, so /3d and their own cards draw them at the viewer's blue-grey:",
-      "    hardware/.cache/roof-corner/continuous.step",
-      "    hardware/.cache/roof-corner/crescent.step",
-      "    hardware/.cache/roof-corner/old.step",
-      "    hardware/.cache/roof-corner/ruled.step",
-      "    hardware/.look-pump-contacts/contact-look.step",
-      "    hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/back-top-backing-proposal.step",
-      "    hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/placed-psu.step",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/shaft-capture-tube-35p15.step",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/shaft-capture-tube-5p50.step",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/shaft-capture-tube-9p50.step",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/shaft-hub.step",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/test-output-arm.step",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/test-output-bridge.step",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/thrust-angle-pad.step",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/thrust-support-leg.step",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/torque-cord-pulley.step",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/torque-redirect-bracket.step",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/trunnion-inner-ear.step",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/vee-seat-keeper.step",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/x-bed.step",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/x-carriage.step",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/y-bed.step",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/y-carriage.step",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/yaw-base-web.step",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/yaw-bearing-back.step",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/yaw-crossbar.step",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/yaw-head-adapter.step",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/yaw-side.step",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/z-bed.step",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/z-carriage.step",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/z-head-diagonal.step",
       "  A generator hands its solid to `_materials.one_body` and exports the assembly."
     ],
     "hardware/scripts/check_tracked.py": [
@@ -160,14 +184,16 @@
       "  git add hardware/printed-parts/cold-core/magnetic-float/petg-bench-reference.figures.json",
       "71/72 artifacts have their record in the index"
     ],
-    "tools/check_paths.py": [
-      "hardware/printed-parts/zone-c/funnel-mold/README.md:171 — hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-04-short-pin/README.md is held nowhere, and no tag is named for it",
-      "1 reference(s) name a path nothing holds."
-    ],
     "tools/check_release_room.py": [
-      "the release holds 575 of 1000 and the next cut wants 475; 449 asset(s) may be retired for it",
+      "the release holds 127 of 1000 and the next cut wants 987; 5 asset(s) may be retired for it",
       "check_release_room: 1 thing(s) stand between a cut and the site",
       "    tools/cad-venv/bin/python tools/cad-artifacts/pack.py --room"
+    ],
+    "tools/check_web_tests.py": [
+      "2 test(s) in web/ fail:",
+      "    nothing in the hardware tree is unseated",
+      "    EXCLUDED_DIRS is every out/ .gitignore holds under hardware",
+      "  cd web && npm test"
     ]
   },
   "green": false
