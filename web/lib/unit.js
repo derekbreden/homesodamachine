@@ -112,7 +112,7 @@ export function mountUnitRoutes(app) {
       `<div class="unit-page" data-unit="${serial}"><a class="unit-skip" href="#content">Skip to content</a>` +
       nav(serial, page) +
       (page === "get-started" ? setup() : page === "guides" ? guides() : overview(serial)) +
-      `<footer class="unit-footer"><span>HOME SODA MACHINE · ${serial}</span><a class="unit-link" href="/${serial}/guides">Quick start &amp; install guide ${iconSvg("arrow-right")}</a></footer></div>` +
+      `<footer class="unit-footer"><span>HOME SODA MACHINE · ${serial}</span><a class="unit-link" href="/${serial}/guides">Install guide ${iconSvg("arrow-right")}</a></footer></div>` +
       renderFooter(),
     );
   });
