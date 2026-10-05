@@ -1,0 +1,676 @@
+{
+  "schema": 1,
+  "scope": "Two manually retracted, level-camera dry-observation stages. No live-laser optical barrier.",
+  "stage_quantity": 2,
+  "retraction_mm": 200,
+  "rail": {
+    "type": "SBR12",
+    "length_mm": 400,
+    "rails_per_stage": 2,
+    "blocks_per_stage": 4,
+    "shaft_center_height_mm": 22.5,
+    "block_top_height_mm": 40.0,
+    "height_status": "Prime listing drawing verified 2026-10-04",
+    "source": "https://www.amazon.com/dp/B08913HVM7",
+    "base_holes": "Transfer drill 3.5 mm from the actual rails; diameter4 mm catalog holes,22 mm transverse,100 mm longitudinal pitch."
+  },
+  "print_quantities": {
+    "lens-cassette": 2,
+    "lens-retainer": 2,
+    "lens-shim": 4
+  },
+  "metal_quantities": {
+    "camera-fixed-plate": 2,
+    "camera-carriage-plate": 2,
+    "lens-upright": 2,
+    "camera-rail-stop": 8,
+    "upright-angle-80mm": 2,
+    "4040-riser-300mm": 4
+  },
+  "fasteners": [
+    {
+      "part": "M3x20 socket bolt",
+      "quantity": 32,
+      "joint": "rail base4 +fixedplate6.35 +washers/nut; actualholestransfer-drilled"
+    },
+    {
+      "part": "M3x20 socket bolt",
+      "quantity": 8,
+      "joint": "Retainer 2.4 + cassette 18; no head washer. Captive M3 hex nut seats in rear 2.8 mm pocket; check full nut engagement and screw tip clear of upright."
+    },
+    {
+      "part": "M3 hex nut",
+      "quantity": 40,
+      "joint": "32railbases +8retainerpockets"
+    },
+    {
+      "part": "M3 washer",
+      "quantity": 64,
+      "joint": "Both sides of 32 rail bolts; no lens-retainer head washers."
+    },
+    {
+      "part": "M5x16 socket bolt",
+      "quantity": 32,
+      "joint": "blocktopM5threads10deep;6.35plate+~1washer leaves8.65engagement; verifyreceivedwasher/depth"
+    },
+    {
+      "part": "M5x25 socket bolt",
+      "quantity": 48,
+      "joint": "32stopfeet +8anglefeet +8upright-angle; two6.35metalfaces, washersandnylocknuts"
+    },
+    {
+      "part": "M5x40 socket bolt",
+      "quantity": 8,
+      "joint": "cassette18 +upright6.35 +washers+nylocknut; opticalrearclearancecheck"
+    },
+    {
+      "part": "M5x70 socket bolt",
+      "quantity": 4,
+      "joint": "returnclamps:plate6.35+spacer40+plate6.35+washers+nylocknut"
+    },
+    {
+      "part": "M5 nylock nut",
+      "quantity": 60,
+      "joint": "48metalangles +8cassette +4returnclamps"
+    },
+    {
+      "part": "M5 washer",
+      "quantity": 152,
+      "joint": "32blockheads +twoeachof60throughjoints"
+    },
+    {
+      "part": "40mm steel spacer, ID6 OD12",
+      "quantity": 4,
+      "joint": "returnclamps, removablebeforeretraction"
+    },
+    {
+      "part": "M8x100 threaded stud",
+      "quantity": 8,
+      "joint": "heightposts;trimafteractualcameraalignment"
+    },
+    {
+      "part": "M8 nut",
+      "quantity": 40,
+      "joint": "32heightpostnuts +8benchnuts"
+    },
+    {
+      "part": "M8 washer",
+      "quantity": 48,
+      "joint": "24heightpost +8bracket/extrusion +16benchthroughboltfaces"
+    },
+    {
+      "part": "M8 slot8 T-nut",
+      "quantity": 16,
+      "joint": "8heightpostanchors +8cornerbracketanchors"
+    },
+    {
+      "part": "M8x16 socket bolt",
+      "quantity": 8,
+      "joint": "metal4040cornerbrackettoextrusion; checkselectedbracketthickness"
+    },
+    {
+      "part": "M8x75 through bolt",
+      "quantity": 8,
+      "joint": "cornerbrackettostationbenchtop18\u201350mm;washerandnut;verifyactualgripbeforedrilling"
+    },
+    {
+      "part": "40-series metal corner bracket",
+      "quantity": 8,
+      "joint": "fourbenchmountsperstage"
+    },
+    {
+      "part": "1/4-20x1/2inch tripod screw",
+      "quantity": 2,
+      "joint": "measureactualsocketdepthandfootstand-off;choosewasherstackwithoutbottoming"
+    },
+    {
+      "part": "1/4inch washer",
+      "quantity": 2,
+      "joint": "tripodscrewstacknominal1.52mm, verifyactualfit"
+    }
+  ],
+  "limits": {
+    "forward_carriage_center_x_mm": 100,
+    "retracted_carriage_center_x_mm": -100,
+    "block_span_mm": 100,
+    "block_edge_at_limit_mm": 169.5,
+    "stop_top_above_rail_base_mm": 38,
+    "carriage_underside_above_rail_base_mm": 40,
+    "return_clamp": "Two M5x70 bolts, 40 mm-long metal tubes OD>=10 ID5.5\u20136, washers and nuts per stage; remove both bolts and tubes before retraction."
+  },
+  "height_adjustment": {
+    "posts_per_stage": 4,
+    "post": "M8x100 threaded steel rod, trim surplus after alignment",
+    "gap_above_4040_mm": [
+      20,
+      70
+    ],
+    "default_gap_mm": 55.7,
+    "proxy_optical_height_above_bench_mm": 278.4,
+    "datum": "Keep fixed plate horizontal. Adjust four lower support nuts to actual seam image center with pan/tilt at zero; lock upper/lower nuts and extrusion-foot nuts. Camera130mm axis is a proxy, not a purchased fit dimension.",
+    "post_clearance": "Trim each post to no more than 22 mm above the fixed-plate underside. The carriage underside is 46.35 mm above that datum, or 40 mm above the rail base; deburr the post."
+  },
+  "parts": {
+    "camera-fixed-plate": {
+      "kind": "metal",
+      "quantity": 2,
+      "material": "aluminum",
+      "blank_mm": [
+        400,
+        300,
+        6.35
+      ],
+      "holes": [
+        [
+          -180,
+          -135,
+          8.5
+        ],
+        [
+          -180,
+          135,
+          8.5
+        ],
+        [
+          180,
+          -135,
+          8.5
+        ],
+        [
+          180,
+          135,
+          8.5
+        ],
+        [
+          -160.85,
+          -114,
+          5.5
+        ],
+        [
+          -160.85,
+          -66,
+          5.5
+        ],
+        [
+          -160.85,
+          66,
+          5.5
+        ],
+        [
+          -160.85,
+          114,
+          5.5
+        ],
+        [
+          -135.85,
+          -114,
+          5.5
+        ],
+        [
+          -135.85,
+          -66,
+          5.5
+        ],
+        [
+          -135.85,
+          66,
+          5.5
+        ],
+        [
+          -135.85,
+          114,
+          5.5
+        ],
+        [
+          160.85,
+          -114,
+          5.5
+        ],
+        [
+          160.85,
+          -66,
+          5.5
+        ],
+        [
+          160.85,
+          66,
+          5.5
+        ],
+        [
+          160.85,
+          114,
+          5.5
+        ],
+        [
+          135.85,
+          -114,
+          5.5
+        ],
+        [
+          135.85,
+          -66,
+          5.5
+        ],
+        [
+          135.85,
+          66,
+          5.5
+        ],
+        [
+          135.85,
+          114,
+          5.5
+        ],
+        [
+          -30,
+          -130,
+          5.5
+        ],
+        [
+          -30,
+          130,
+          5.5
+        ]
+      ],
+      "slots": [],
+      "notes": "Rail centers Y=\u00b190; transfer-drill diameter3.5 from each actual rail. Do not assume longitudinal catalog hole phase."
+    },
+    "camera-carriage-plate": {
+      "kind": "metal",
+      "quantity": 2,
+      "material": "aluminum",
+      "blank_mm": [
+        300,
+        300,
+        6.35
+      ],
+      "holes": [
+        [
+          -63,
+          -104,
+          5.5
+        ],
+        [
+          -63,
+          -76,
+          5.5
+        ],
+        [
+          -37,
+          -104,
+          5.5
+        ],
+        [
+          -37,
+          -76,
+          5.5
+        ],
+        [
+          -63,
+          76,
+          5.5
+        ],
+        [
+          -63,
+          104,
+          5.5
+        ],
+        [
+          -37,
+          76,
+          5.5
+        ],
+        [
+          -37,
+          104,
+          5.5
+        ],
+        [
+          37,
+          -104,
+          5.5
+        ],
+        [
+          37,
+          -76,
+          5.5
+        ],
+        [
+          63,
+          -104,
+          5.5
+        ],
+        [
+          63,
+          -76,
+          5.5
+        ],
+        [
+          37,
+          76,
+          5.5
+        ],
+        [
+          37,
+          104,
+          5.5
+        ],
+        [
+          63,
+          76,
+          5.5
+        ],
+        [
+          63,
+          104,
+          5.5
+        ],
+        [
+          125,
+          -32,
+          5.5
+        ],
+        [
+          125,
+          32,
+          5.5
+        ],
+        [
+          145,
+          -32,
+          5.5
+        ],
+        [
+          145,
+          32,
+          5.5
+        ],
+        [
+          -130,
+          -130,
+          5.5
+        ],
+        [
+          -130,
+          130,
+          5.5
+        ]
+      ],
+      "slots": [
+        [
+          5,
+          0,
+          90,
+          6.8,
+          0
+        ]
+      ],
+      "notes": "Four blocks at X=\u00b150,Y=\u00b190; tripod slot gives X adjustment. Camera remains level."
+    },
+    "lens-upright": {
+      "kind": "metal",
+      "quantity": 2,
+      "material": "aluminum",
+      "blank_mm": [
+        100,
+        200,
+        6.35
+      ],
+      "holes": [
+        [
+          -32,
+          -85,
+          5.5
+        ],
+        [
+          -32,
+          -65,
+          5.5
+        ],
+        [
+          32,
+          -85,
+          5.5
+        ],
+        [
+          32,
+          -65,
+          5.5
+        ]
+      ],
+      "slots": [
+        [
+          -42,
+          25,
+          116,
+          5.5,
+          90
+        ],
+        [
+          42,
+          25,
+          116,
+          5.5,
+          90
+        ]
+      ],
+      "notes": "Cut64\u00d7150 window centered X=0,Y=22. Mount at optical X=100; cassette behind-facing lip clears metal window.",
+      "windows": [
+        [
+          0,
+          22,
+          64,
+          150
+        ]
+      ]
+    },
+    "camera-rail-stop": {
+      "kind": "metal",
+      "quantity": 8,
+      "material": "aluminum",
+      "blank_mm": [
+        50.8,
+        60,
+        38
+      ],
+      "holes": [
+        [
+          15,
+          -24,
+          5.5
+        ],
+        [
+          15,
+          24,
+          5.5
+        ],
+        [
+          40,
+          -24,
+          5.5
+        ],
+        [
+          40,
+          24,
+          5.5
+        ]
+      ],
+      "slots": [],
+      "notes": "Cut from50.8\u00d750.8\u00d76.35 angle,60wide. Shorten upright to38. Remove34-wide center of foot and lower29.5 of upright; leave upper8.5 bridge. 3D STEP governs this angle.",
+      "stock_profile": "50.8\u00d750.8\u00d76.35 aluminum angle; not a flat plate"
+    },
+    "lens-angle": {
+      "kind": "metal",
+      "quantity": 2,
+      "material": "aluminum",
+      "blank_mm": [
+        50.8,
+        80,
+        50.8
+      ],
+      "holes": [],
+      "slots": [],
+      "notes": "Cut80mm wide from50.8\u00d750.8\u00d76.35 angle. Use separate lens-angle-foot and lens-angle-upright DXF projections; hole locations are local to each face.",
+      "stock_profile": "50.8\u00d750.8\u00d76.35 aluminum angle; not a flat plate"
+    },
+    "lens-cassette": {
+      "kind": "print",
+      "quantity": 2,
+      "material": "PET-GF",
+      "blank_mm": [
+        96,
+        86,
+        18
+      ],
+      "holes": [],
+      "slots": [],
+      "notes": "PET-GF; flat rear lip down. Pocket53.4; lip2; rear aperture43.6. Only hold metal lens rim."
+    },
+    "lens-retainer": {
+      "kind": "print",
+      "quantity": 2,
+      "material": "PET-GF",
+      "blank_mm": [
+        76,
+        76,
+        2.4
+      ],
+      "holes": [],
+      "slots": [],
+      "notes": "PET-GF; flat down. Aperture49.4; four M3 screws and captive nuts. No force on glass."
+    },
+    "lens-shim": {
+      "kind": "print",
+      "quantity": 4,
+      "material": "PET-GF",
+      "blank_mm": [
+        53.2,
+        53.2,
+        0.4
+      ],
+      "holes": [],
+      "slots": [],
+      "notes": "Two0.20mm layers. Set axial clearance with shims and retainer screw adjustment; never squeeze the optical assembly."
+    }
+  },
+  "startup": "Remove the complete lens module: angle, upright, cassette and retainer. Power up the clear PTZ head, park the camera at zero pan/tilt, manual zoom/focus, then reinstall the lens module. Recalibrate after every restart or retraction.",
+  "lens": {
+    "outer_diameter_mm": 53,
+    "overall_axial_mm": 18.5,
+    "rear_thread_projection_mm": 3,
+    "body_without_rear_thread_mm": 15.5,
+    "cassette_pocket_mm": 53.4,
+    "cassette_axial_mm": 18,
+    "pocket_back_lip_mm": 2,
+    "front_optical_clearance_mm": 49.4,
+    "working_distance_at_infinity_focus_mm": 109,
+    "working_distance_status": "Manufacturer reference, not achieved calibration."
+  },
+  "sources": {
+    "camera_manual": "https://www.fomako.net/uploads/20250529/ce40713967c8ae0e137cabdd8a72ff1d.pdf",
+    "lens_drawing": "https://raynoxdirect.securesite.jp/comparison/pdf/DCR150_DCR250_drawings.pdf"
+  },
+  "checks": {
+    "lens-cassette": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 107176.42505450077,
+      "bounds_mm": [
+        96.00000020000004,
+        86.00000020000004,
+        18.015074872960422
+      ]
+    },
+    "lens-retainer": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 9175.269424550172,
+      "bounds_mm": [
+        76.00000020000004,
+        76.00000020000004,
+        2.4153546091596882
+      ]
+    },
+    "lens-shim": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 108.11289564288404,
+      "bounds_mm": [
+        53.2153348806591,
+        52.12897725287306,
+        0.4164026051946901
+      ]
+    },
+    "camera-fixed-plate": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 757843.1035056333,
+      "bounds_mm": [
+        400.0,
+        300.0,
+        6.35
+      ]
+    },
+    "camera-carriage-plate": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 564357.7785160163,
+      "bounds_mm": [
+        300.0,
+        300.0,
+        6.35
+      ]
+    },
+    "lens-upright": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 57416.383981730316,
+      "bounds_mm": [
+        100.0,
+        200.0,
+        6.35
+      ]
+    },
+    "camera-rail-stop": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 14844.184321153576,
+      "bounds_mm": [
+        50.8,
+        60.0,
+        38.0
+      ]
+    },
+    "lens-angle": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 47180.07864230712,
+      "bounds_mm": [
+        50.8,
+        80.0,
+        50.8
+      ]
+    }
+  },
+  "sha256": {
+    "camera-carriage-plate.dxf": "8640338299275dbf56ff42d07ce0c048a2af62f180b5112c99321288b470248e",
+    "camera-carriage-plate.step": "9e41c63e4171f66269c5e4f7e4d1fb5a3c6d278d4c7fba1e3dc35dadb69680f3",
+    "camera-fixed-plate.dxf": "e8b84e9948da4bee3c28e62c9e2eec6bfdf65853a7f9714c6757ffdc27d876f1",
+    "camera-fixed-plate.step": "5159ba659ebd4e51ace4b5e7af75687375c485f401d7d86b19d3a8df3aa941f6",
+    "camera-rail-stop.step": "0f1f2772d2badfec607cfaaa49fa6670df5719fc119089b41a854c6db77a496a",
+    "camera-stage-assembly.step": "1710cd9c65136da8055e8b8e79866f04dc2082fdc89e44b137baabc1d8288855",
+    "camera-stage-retracted.step": "9817ce7afdd70adf0145164861f6bf35205d7d0e8467b264be6e4e3392c0f1c8",
+    "camera-stage-startup.step": "34f5a0614154b35b3ef85c50276996da17e80888bfc857bdf5f71f3bd7ed29d7",
+    "lens-angle-foot.dxf": "6f1fb5fef0b47af20254124ced8100177b0e4d30140b64d3e56758172bdf99e3",
+    "lens-angle-upright.dxf": "8384e02db03a938884ed1a08e77038c173e189189967eb77d03918c214bcb811",
+    "lens-angle.step": "a513b842214be922c6215b3eb6309a738b40fe5467038d2029cd31aad62139e0",
+    "lens-cassette.step": "71c44fadbb4e73bbea73c48af14c4e9387151e9709e3e729496c8471632633d9",
+    "lens-cassette.stl": "5902edfdc0e58d348e9d3a1dffe2deeee12c4b1d81d35840d5e7e22bf3af7eec",
+    "lens-retainer.step": "218bd9b4802725a846a2ae733065c21f0815a730e70b21e9cda067568dfc83bc",
+    "lens-retainer.stl": "3471803a0539ea3b1bfba680520862036d49887a9fb94f6ee67ae17c184dd8a7",
+    "lens-shim.step": "415bdf7f24e8a968e37a940075f5ddb9245ee75d4a776a12347fd9820ca2cf95",
+    "lens-shim.stl": "48206799f35401ff3a4911044279ea56ddf860a24dd4009dc0f57e65a8bd819b",
+    "lens-upright.dxf": "7799685b61888d31c520018ff6b28a33c2f84ed78abcf94f49af55e8c21d9856",
+    "lens-upright.step": "1a6ba1ae306aa81ea17c6b55e397785161c604612d9dc8d168ace2290d1b1cf1"
+  }
+}
