@@ -1,0 +1,73 @@
+{
+  "coordinates": "pixels in the committed 1824 x 1368 images, origin top left",
+  "method": "Manual feature selection; project B-C onto A-B, scale by the scanned local reference length. Adjacent axial features share approximately the same foreshortening.",
+  "readings": [
+    {
+      "photo": "IMG_7911.jpg",
+      "feature": "exposed-copper-nozzle",
+      "reference_mm": 30.7,
+      "reference": "straight silver sleeve",
+      "a": [
+        445.0,
+        572.0
+      ],
+      "b": [
+        289.5,
+        595.5
+      ],
+      "c": [
+        159.5,
+        615.0
+      ],
+      "reference_pixels": 157.26569873942634,
+      "feature_projected_pixels": 131.4542851092629,
+      "length_estimate_mm": 25.661327201051247
+    },
+    {
+      "photo": "IMG_7915.jpg",
+      "feature": "exposed-copper-nozzle",
+      "reference_mm": 30.7,
+      "reference": "straight silver sleeve",
+      "a": [
+        396.0,
+        703.0
+      ],
+      "b": [
+        222.5,
+        718.5
+      ],
+      "c": [
+        86.0,
+        731.5
+      ],
+      "reference_pixels": 174.19098713768173,
+      "feature_projected_pixels": 137.11530310762706,
+      "length_estimate_mm": 24.165657905577984
+    },
+    {
+      "photo": "IMG_7910.jpg",
+      "feature": "boot-cuff",
+      "reference_mm": 83.0,
+      "reference": "approximate grip-axis endpoints",
+      "a": [
+        1063.0,
+        514.0
+      ],
+      "b": [
+        1060.0,
+        868.0
+      ],
+      "c": [
+        1065.0,
+        1002.0
+      ],
+      "reference_pixels": 354.0127116361784,
+      "feature_projected_pixels": 133.9528170636283,
+      "length_estimate_mm": 31.405888689407544
+    }
+  ],
+  "limits": [
+    "Photo measurements are estimates; landmark choice and perspective are not a calibrated uncertainty distribution.",
+    "The cuff reference endpoints approximate the projected grip axis; the boot shoulder is rounded and its boundary is gradual."
+  ]
+}
