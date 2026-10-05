@@ -4,8 +4,8 @@ The collar center is the origin; z=0 is the brim underside. The 6 mm brim,
 collar and normal ramp wall lead to a substantial silicone plug, a 36 mm wide
 square-cornered rectangle centred on the outlet. Its flat underside bears on
 the elbow cradle's two hook tops. Its walls run up into
-the bowl's underside, so none of its top shows. Its lower bore has a lead-in
-and relief; the upper 3 mm is the nominal sealing land. The frame's through
+the bowl's underside, so none of its top shows. A straight 6 mm bore grips the
+1/4-inch drain stub over its complete insertion depth. The frame's through
 hole and the drain stub are separate parts.
 """
 
@@ -44,11 +44,11 @@ brim_margin = 7.0  # top-wall frame between the collar and its outer boundary
 brim_overhang = 7.0  # flange reach beyond the collar on each side
 brim_thickness = 6.0  # vertical flange thickness
 collar_wall = 6.0  # vertical collar wall and normal ramp-wall thickness
-capacity_ml = 455.44  # nominal capacity to the brim
+capacity_ml = 455.18  # nominal capacity to the brim
 chute_h = 23.485946291005064  # brim top to inner ramp start
 neck_dx = 1.85
 neck_dy = 0.0  # the outlet shares the collar's Y centre
-spout_id = 6.35  # wet-side outlet above the sealing land
+spout_id = 6.0  # straight outlet, formed by a stock 6 mm steel rod
 spout_wall = 4.5  # minimum radial stock around the throat
 neck_blend_drop = 6.25
 # Ramp and outlet elevations are independent of the plug's lower face.
@@ -58,14 +58,11 @@ plug_width = 36.0  # the plug rectangle's X width; its underside spans the cradl
 plug_lift = 3.15  # block underside above the frame's socket-floor datum
 plug_height = 16.0 - plug_lift
 drop = 46.1  # brim underside to the frame's socket-floor datum
-sealing_land = 3.0
-sealing_id = 6.0
-bore_relief_id = 6.7
-bore_lead_id = 8.4
-bore_lead_height = 1.8
+sealing_id = spout_id
 spout_land_z = brim_thickness - chute_h - _ramp_rise - neck_blend_drop
 # The stub's reach into the plug: from its bottom face to the top of its sealing land.
 stub_engagement = spout_land_z + drop - plug_lift
+sealing_land = stub_engagement  # the whole inserted tube contacts the straight bore
 _ramp_run = (collar_w - 2.0 * collar_wall) / 2.0 - spout_id / 2.0 + abs(neck_dx)
 _y_run = (collar_d - 2.0 * collar_wall) / 2.0 - spout_id / 2.0 + abs(neck_dy)
 ramp_angle = math.degrees(math.atan2(_ramp_rise, max(_ramp_run, _y_run)))
@@ -203,16 +200,10 @@ def build_solids(drop=drop, ramp_wall=collar_wall, outer_air=0.0):
     # The plug's broad lower annulus is the silicone's sole bottom plane.
     solid = solid.intersect(_box(600, 600, end_z - outer_air, top_z + 1, 0, 0)).clean()
     assert solid.isValid() and len(solid.Solids()) == 1
-    upper_bore = _cyl(spout_id / 2, neck_z, land_z, ncx, ncy)
-    land = _cyl(sealing_id / 2, land_z + 0.01, land_z - sealing_land, ncx, ncy)
-    relief = _cyl(bore_relief_id / 2, land_z - sealing_land,
-                  end_z + bore_lead_height, ncx, ncy)
-    lead = cq.Solid.makeCone(bore_lead_id / 2, bore_relief_id / 2,
-                            bore_lead_height, cq.Vector(ncx, ncy, end_z))
-    through = _cyl(bore_lead_id / 2, end_z + 0.01, end_z - 1, ncx, ncy)
+    outlet = _cyl(spout_id / 2, neck_z + 0.01, end_z - 1, ncx, ncy)
     cavity = fuse_shapes(
         _rounded_box(bore_w, bore_d, mouth_corner_r, ramp_top_z, top_z + 1),
-        ramp, upper_bore, land, relief, lead, through, tol=0.0001).clean()
+        ramp, outlet, tol=0.0001).clean()
     assert cavity.isValid() and len(cavity.Solids()) == 1
     meta = {
         "w": w, "d": d, "cx": cx, "cy": cy, "ncx": ncx, "ncy": ncy,
@@ -228,9 +219,7 @@ def build_solids(drop=drop, ramp_wall=collar_wall, outer_air=0.0):
         "neck_blend_drop": neck_blend_drop,
         "sealing_radius": sealing_id / 2,
         "sealing_land": sealing_land,
-        "relief_radius": bore_relief_id / 2,
-        "lead_radius": bore_lead_id / 2,
-        "lead_height": bore_lead_height,
+        "outlet_profile": "straight cylindrical bore",
     }
     return solid, cavity, meta
 

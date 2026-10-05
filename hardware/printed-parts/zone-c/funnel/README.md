@@ -16,26 +16,23 @@ The collar center is world X0, Y164.55. Its brim underside is Z349 and its
 the brim is 179 × 131.683 mm with R27 corners. The collar wall and ramp's normal
 wall are 6 mm. The ramp falls toward X1.85, Y164.55, centred in Y.
 
-The native cavity holds 455.437 mL to the brim. The brim pocket keeps a 3.114 mm
+The native cavity holds 455.182 mL to the brim. The brim pocket keeps a 3.114 mm
 roof landing behind the display facet's arris, including its 0.25 mm running air.
 The drain exits at X1.85, Y164.55, Z306.05. Geometry and clearances are recorded in
 [`integration-review/forward-expansion-check.json`](integration-review/forward-expansion-check.json).
 
 The integral silicone plug is a [36 × 41.0 mm](FUNNEL_PLUG) rectangle with square corners,
 centred on the outlet, 12.85 mm tall with its flat bottom at Z306.05 resting on the cradle's
-hook tops. Its walls run up into the bowl's underside, so none of its top shows. Its lower bore has an
-8.4 mm entrance,
-1.8 mm lead-in and 6.7 mm relief. A nominal 6 mm bore forms the upper 3 mm
-sealing land. This geometry describes the proposed push-on seal; its wet and
-dry retention and sealing performance have not been physically qualified.
+hook tops. Its walls run up into the bowl's underside, so none of its top shows. Its straight 6 mm outlet grips the 6.35 mm drain tube along the complete
+5.015 mm insertion depth. The tube stays in the elbow when the silicone
+funnel lifts out for cleaning.
 
 The intended cleaning motion is lifting the whole silicone funnel out by hand.
-Its sealing land slides off the raw 1/4-inch LLDPE drain stub, which stays standing in the drain
+Its straight bore slides off the raw 1/4-inch LLDPE drain stub, which stays standing in the drain
 elbow's collet under the frame. To refit, press the plug into the frame's socket
 until its flat bottom bears on the cradle's hook tops and the brim seats in the frame's roof recess.
-The [mold shells and contoured mandrel](../funnel-mold/README.md) form the complete
-plug and staged bore. Their native geometry and slice checks do not establish
-the finished silicone's wet seal, dry retention or removal force.
+The [two mold shells and straight steel rod](../funnel-mold/README.md) form the
+complete block and cylindrical outlet.
 
 ## PET-GF frame
 
@@ -68,7 +65,7 @@ curves remain beneath Z349. The display-side roof landing is 3 mm wide.
 Front-top's opening clears the surround and its roof tongue, with
 no fixed inward brim-bearing ledge above the frame. Existing rail, socket
 and drain datums are retained.
-The silicone funnel retains its complete 455.44 mL nominal capacity.
+The silicone funnel retains its complete 455.18 mL nominal capacity.
 [`Flush-roof geometry`](flush-roof-review/README.md) records the exported parts
 and their integration checks.
 
@@ -86,7 +83,7 @@ The cradle is the block under the elbow less the elbow's upward shadow grown by
 [0.15 mm](CRADLE_SLIP), so the elbow drops straight in and every pocket face opens upward. The
 block's top stands 1 mm under the top of the vertical leg's root band: the pocket wraps the band
 about 78% of the way round, and the collar, rung and nose stand free above it. The [drain stub](/hardware/reference/funnel-drain-stub/funnel_drain_stub.py)
-stands in the elbow's upper collet and up into the plug's land, and `fluid-4` leaves the elbow's
+stands in the elbow's upper collet and up into the plug's bore, and `fluid-4` leaves the elbow's
 aft collet for V-B.
 
 Both X sides of the block carry on up the body's full [31.8 mm](CRADLE_LENGTH) length as
