@@ -4,11 +4,11 @@ click: x=20.833 y=-57.075 z=56.450
 
 [sliver] These four vertical faces are the 0.30 mm edge of the finishing pocket over the silicone brim. The 4.70 mm flange behind the pocket supports its forming face; the thin strip is a surface-level change. Keep the surrounding lands bare.
 file: hardware/printed-parts/zone-c/funnel-mold/core.step
-click: x=0.000 y=66.142 z=56.300
+click: x=0.000 y=66.137 z=56.300
 click: x=0.000 y=-66.142 z=56.300
 click: x=89.800 y=0.000 z=56.300
 click: x=-89.800 y=0.000 z=56.300
 
-[ceiling] This is the exposed dry top of the short blind pin-seat boss. Its cap is 5 mm thick and faces downward when the core prints inverted. The native Snug slice records a bed-rooted support and labelled interface-2 at print Z29.040–29.280 beneath this face, which lies at print Z29.485. Cut and detach that support through the open dry back, then clear the short seat mouth. The support is outside the closed cap; printed fit and clean physical removal remain unqualified.
+[ceiling] This annulus is the top of the straight rod guide: 16.4 mm outside diameter and an open 6.4 mm passage. Its surrounding 5 mm radial stock holds the 7.7 mm guide bearing. With the core inverted, the annulus lies at print Z34.685 within the 2026-10-05 bed-rooted Snug interface-1 region (print Z22.040–35.280). Cut and detach support through the open dry back and clear the passage before dropping in the steel rod.
 file: hardware/printed-parts/zone-c/funnel-mold/core.step
-click: x=1.850 y=0.000 z=31.665
+click: x=1.850 y=0.000 z=26.465
