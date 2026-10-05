@@ -1,0 +1,26 @@
+{
+  "status": "native_slice_awaiting_emitted_review",
+  "printer": "Mark2",
+  "part": "funnel-frame",
+  "quantity": 1,
+  "archive": ".cache/prints/2026-10-05-funnel-frame-mark2-v1/ready/2026-10-05-funnel-frame-mark2-v1.gcode.3mf",
+  "archive_sha256": "b2524ff395f8949c7f5b855cec6d7aa80479e84c08703fa5faf4e09dc1e6fefd",
+  "project": ".cache/prints/2026-10-05-funnel-frame-mark2-v1/2026-10-05-funnel-frame-mark2-v1-input.3mf",
+  "project_sha256": "ac43898d1c60cd38813ac78bca875e8b117c8d7ad5fa6bde78223cd6313dd44a",
+  "gcode_sha256": "095dae179b702510fbc86adb45df0dd00a556a055eab1f5c55cfe2ccf7fdeace",
+  "estimated_seconds": 22738.890625,
+  "parts": [
+    {
+      "name": "funnel-frame",
+      "source": "hardware/printed-parts/zone-c/funnel/funnel-frame.stl",
+      "stl_sha256": "a2c10ea55fdedfcea8d512f2637db2399e6f02e5571d92e04db8b0cb54520185",
+      "identify_id": 1901
+    }
+  ],
+  "production_print_pose_retained": true,
+  "submitted": false,
+  "physical_fit_retention_and_surface_qualified": false,
+  "source_stl": "hardware/printed-parts/zone-c/funnel/funnel-frame.stl",
+  "source_stl_sha256": "a2c10ea55fdedfcea8d512f2637db2399e6f02e5571d92e04db8b0cb54520185",
+  "source_step_sha256": "811028ad961ad698759bda54181370aedf090a53fe1af116ec9390a67b918163"
+}

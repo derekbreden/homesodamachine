@@ -1,0 +1,3501 @@
+{
+  "schema": 1,
+  "pass": true,
+  "archive_sha256": "b2524ff395f8949c7f5b855cec6d7aa80479e84c08703fa5faf4e09dc1e6fefd",
+  "gcode_sha256": "095dae179b702510fbc86adb45df0dd00a556a055eab1f5c55cfe2ccf7fdeace",
+  "source_stl_sha256": "a2c10ea55fdedfcea8d512f2637db2399e6f02e5571d92e04db8b0cb54520185",
+  "source_step_sha256": "811028ad961ad698759bda54181370aedf090a53fe1af116ec9390a67b918163",
+  "model_layer_count": 230,
+  "model_tools": {
+    "0": 217502
+  },
+  "model_roads_by_feature": {
+    "Inner wall": 28049,
+    "Outer wall": 34603,
+    "Bottom surface": 1234,
+    "Internal solid infill": 21921,
+    "Sparse infill": 69809,
+    "Bridge": 30558,
+    "Top surface": 28873,
+    "Gap infill": 2439,
+    "Overhang wall": 16
+  },
+  "invalid_model_paths": [],
+  "native_section_components_without_model_wall": [],
+  "perimeter_review_flags": [],
+  "tiny_native_components": [],
+  "all_model_layers": [
+    {
+      "layer": 1,
+      "print_z_mm": 0.2,
+      "height_mm": 0.2,
+      "native_section_z_mm": 0.1,
+      "model_roads": 1390,
+      "wall_roads": 156,
+      "native_components": [
+        {
+          "area_mm2": 18386.146509126535,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.05274622005918422
+        }
+      ]
+    },
+    {
+      "layer": 2,
+      "print_z_mm": 0.44,
+      "height_mm": 0.24,
+      "native_section_z_mm": 0.32,
+      "model_roads": 1703,
+      "wall_roads": 185,
+      "native_components": [
+        {
+          "area_mm2": 18438.731546863146,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.00505459038924666
+        }
+      ]
+    },
+    {
+      "layer": 3,
+      "print_z_mm": 0.68,
+      "height_mm": 0.24,
+      "native_section_z_mm": 0.56,
+      "model_roads": 1712,
+      "wall_roads": 195,
+      "native_components": [
+        {
+          "area_mm2": 18496.097043998117,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.015686784405086
+        }
+      ]
+    },
+    {
+      "layer": 4,
+      "print_z_mm": 0.92,
+      "height_mm": 0.24,
+      "native_section_z_mm": 0.8,
+      "model_roads": 421,
+      "wall_roads": 195,
+      "native_components": [
+        {
+          "area_mm2": 18553.462130609867,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.04895308712914884
+        }
+      ]
+    },
+    {
+      "layer": 5,
+      "print_z_mm": 1.16,
+      "height_mm": 0.24,
+      "native_section_z_mm": 1.04,
+      "model_roads": 421,
+      "wall_roads": 193,
+      "native_components": [
+        {
+          "area_mm2": 18610.82762665004,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.028286155686442133
+        }
+      ]
+    },
+    {
+      "layer": 6,
+      "print_z_mm": 1.4,
+      "height_mm": 0.24,
+      "native_section_z_mm": 1.2799999999999998,
+      "model_roads": 424,
+      "wall_roads": 195,
+      "native_components": [
+        {
+          "area_mm2": 18668.193124690104,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 1.9535811360521516e-05
+        }
+      ]
+    },
+    {
+      "layer": 7,
+      "print_z_mm": 1.64,
+      "height_mm": 0.24,
+      "native_section_z_mm": 1.52,
+      "model_roads": 423,
+      "wall_roads": 193,
+      "native_components": [
+        {
+          "area_mm2": 18725.55862166951,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.03324033467901022
+        }
+      ]
+    },
+    {
+      "layer": 8,
+      "print_z_mm": 1.88,
+      "height_mm": 0.24,
+      "native_section_z_mm": 1.7599999999999998,
+      "model_roads": 430,
+      "wall_roads": 195,
+      "native_components": [
+        {
+          "area_mm2": 18782.923916506945,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.00013788847579915275
+        }
+      ]
+    },
+    {
+      "layer": 9,
+      "print_z_mm": 2.12,
+      "height_mm": 0.24,
+      "native_section_z_mm": 2.0,
+      "model_roads": 1030,
+      "wall_roads": 195,
+      "native_components": [
+        {
+          "area_mm2": 18840.289614476413,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08371097777059758
+        }
+      ]
+    },
+    {
+      "layer": 10,
+      "print_z_mm": 2.36,
+      "height_mm": 0.24,
+      "native_section_z_mm": 2.2399999999999998,
+      "model_roads": 1091,
+      "wall_roads": 195,
+      "native_components": [
+        {
+          "area_mm2": 18897.655110032854,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.087030478806115
+        }
+      ]
+    },
+    {
+      "layer": 11,
+      "print_z_mm": 2.6,
+      "height_mm": 0.24,
+      "native_section_z_mm": 2.48,
+      "model_roads": 1091,
+      "wall_roads": 195,
+      "native_components": [
+        {
+          "area_mm2": 18955.020604773516,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 7.993605777301127e-15
+        }
+      ]
+    },
+    {
+      "layer": 12,
+      "print_z_mm": 2.84,
+      "height_mm": 0.24,
+      "native_section_z_mm": 2.7199999999999998,
+      "model_roads": 1091,
+      "wall_roads": 195,
+      "native_components": [
+        {
+          "area_mm2": 19012.386100343487,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08246187778579148
+        }
+      ]
+    },
+    {
+      "layer": 13,
+      "print_z_mm": 3.08,
+      "height_mm": 0.24,
+      "native_section_z_mm": 2.96,
+      "model_roads": 661,
+      "wall_roads": 133,
+      "native_components": [
+        {
+          "area_mm2": 19069.751600848682,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08504022148878179
+        }
+      ]
+    },
+    {
+      "layer": 14,
+      "print_z_mm": 3.32,
+      "height_mm": 0.24,
+      "native_section_z_mm": 3.1999999999999997,
+      "model_roads": 299,
+      "wall_roads": 88,
+      "native_components": [
+        {
+          "area_mm2": 18057.783459231938,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 7.965850201685498e-15
+        }
+      ]
+    },
+    {
+      "layer": 15,
+      "print_z_mm": 3.56,
+      "height_mm": 0.24,
+      "native_section_z_mm": 3.44,
+      "model_roads": 299,
+      "wall_roads": 88,
+      "native_components": [
+        {
+          "area_mm2": 18115.14895461587,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 8.667117497737631e-05
+        }
+      ]
+    },
+    {
+      "layer": 16,
+      "print_z_mm": 3.8,
+      "height_mm": 0.24,
+      "native_section_z_mm": 3.6799999999999997,
+      "model_roads": 297,
+      "wall_roads": 88,
+      "native_components": [
+        {
+          "area_mm2": 18172.514452832576,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08306927697237745
+        }
+      ]
+    },
+    {
+      "layer": 17,
+      "print_z_mm": 4.04,
+      "height_mm": 0.24,
+      "native_section_z_mm": 3.92,
+      "model_roads": 297,
+      "wall_roads": 88,
+      "native_components": [
+        {
+          "area_mm2": 18229.87994797459,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08636441168023776
+        }
+      ]
+    },
+    {
+      "layer": 18,
+      "print_z_mm": 4.28,
+      "height_mm": 0.24,
+      "native_section_z_mm": 4.16,
+      "model_roads": 297,
+      "wall_roads": 88,
+      "native_components": [
+        {
+          "area_mm2": 18287.24585232517,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 7.965850201685498e-15
+        }
+      ]
+    },
+    {
+      "layer": 19,
+      "print_z_mm": 4.52,
+      "height_mm": 0.24,
+      "native_section_z_mm": 4.3999999999999995,
+      "model_roads": 297,
+      "wall_roads": 88,
+      "native_components": [
+        {
+          "area_mm2": 18344.61134790729,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.00034277552655567756
+        }
+      ]
+    },
+    {
+      "layer": 20,
+      "print_z_mm": 4.76,
+      "height_mm": 0.24,
+      "native_section_z_mm": 4.64,
+      "model_roads": 301,
+      "wall_roads": 88,
+      "native_components": [
+        {
+          "area_mm2": 18401.97684356,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08439029818944502
+        }
+      ]
+    },
+    {
+      "layer": 21,
+      "print_z_mm": 5.0,
+      "height_mm": 0.24,
+      "native_section_z_mm": 4.88,
+      "model_roads": 301,
+      "wall_roads": 88,
+      "native_components": [
+        {
+          "area_mm2": 18459.34233906125,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.0010495386148244856
+        }
+      ]
+    },
+    {
+      "layer": 22,
+      "print_z_mm": 5.24,
+      "height_mm": 0.24,
+      "native_section_z_mm": 5.12,
+      "model_roads": 301,
+      "wall_roads": 88,
+      "native_components": [
+        {
+          "area_mm2": 18516.70783464439,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 3.468818184956812e-05
+        }
+      ]
+    },
+    {
+      "layer": 23,
+      "print_z_mm": 5.48,
+      "height_mm": 0.24,
+      "native_section_z_mm": 5.36,
+      "model_roads": 301,
+      "wall_roads": 88,
+      "native_components": [
+        {
+          "area_mm2": 18574.07333029032,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08243592804763297
+        }
+      ]
+    },
+    {
+      "layer": 24,
+      "print_z_mm": 5.72,
+      "height_mm": 0.24,
+      "native_section_z_mm": 5.6,
+      "model_roads": 305,
+      "wall_roads": 88,
+      "native_components": [
+        {
+          "area_mm2": 18631.438825844594,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08570706662907737
+        }
+      ]
+    },
+    {
+      "layer": 25,
+      "print_z_mm": 5.96,
+      "height_mm": 0.24,
+      "native_section_z_mm": 5.84,
+      "model_roads": 992,
+      "wall_roads": 88,
+      "native_components": [
+        {
+          "area_mm2": 18688.80432146855,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 7.965850201685498e-15
+        }
+      ]
+    },
+    {
+      "layer": 26,
+      "print_z_mm": 6.2,
+      "height_mm": 0.24,
+      "native_section_z_mm": 6.08,
+      "model_roads": 437,
+      "wall_roads": 88,
+      "native_components": [
+        {
+          "area_mm2": 18746.16981705693,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.0002903646208318178
+        }
+      ]
+    },
+    {
+      "layer": 27,
+      "print_z_mm": 6.44,
+      "height_mm": 0.24,
+      "native_section_z_mm": 6.32,
+      "model_roads": 281,
+      "wall_roads": 88,
+      "native_components": [
+        {
+          "area_mm2": 18803.53531100827,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08374952810046463
+        }
+      ]
+    },
+    {
+      "layer": 28,
+      "print_z_mm": 6.68,
+      "height_mm": 0.24,
+      "native_section_z_mm": 6.56,
+      "model_roads": 305,
+      "wall_roads": 86,
+      "native_components": [
+        {
+          "area_mm2": 18860.90121768691,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08701954092964057
+        }
+      ]
+    },
+    {
+      "layer": 29,
+      "print_z_mm": 6.92,
+      "height_mm": 0.24,
+      "native_section_z_mm": 6.8,
+      "model_roads": 683,
+      "wall_roads": 94,
+      "native_components": [
+        {
+          "area_mm2": 18918.26671146257,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 7.965850201685498e-15
+        }
+      ]
+    },
+    {
+      "layer": 30,
+      "print_z_mm": 7.16,
+      "height_mm": 0.24,
+      "native_section_z_mm": 7.04,
+      "model_roads": 333,
+      "wall_roads": 113,
+      "native_components": [
+        {
+          "area_mm2": 18014.576749903044,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.013388281538698893
+        }
+      ]
+    },
+    {
+      "layer": 31,
+      "print_z_mm": 7.4,
+      "height_mm": 0.24,
+      "native_section_z_mm": 7.28,
+      "model_roads": 333,
+      "wall_roads": 113,
+      "native_components": [
+        {
+          "area_mm2": 18069.032399893007,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.06011265493154225
+        }
+      ]
+    },
+    {
+      "layer": 32,
+      "print_z_mm": 7.64,
+      "height_mm": 0.24,
+      "native_section_z_mm": 7.52,
+      "model_roads": 333,
+      "wall_roads": 113,
+      "native_components": [
+        {
+          "area_mm2": 18123.488049977947,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 9.999999770193835e-07
+        }
+      ]
+    },
+    {
+      "layer": 33,
+      "print_z_mm": 7.88,
+      "height_mm": 0.24,
+      "native_section_z_mm": 7.76,
+      "model_roads": 333,
+      "wall_roads": 113,
+      "native_components": [
+        {
+          "area_mm2": 18177.943700090007,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.0015385562476451786
+        }
+      ]
+    },
+    {
+      "layer": 34,
+      "print_z_mm": 8.12,
+      "height_mm": 0.24,
+      "native_section_z_mm": 7.999999999999999,
+      "model_roads": 333,
+      "wall_roads": 113,
+      "native_components": [
+        {
+          "area_mm2": 18232.39935023171,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.020996594218806647
+        }
+      ]
+    },
+    {
+      "layer": 35,
+      "print_z_mm": 8.36,
+      "height_mm": 0.24,
+      "native_section_z_mm": 8.24,
+      "model_roads": 333,
+      "wall_roads": 113,
+      "native_components": [
+        {
+          "area_mm2": 18286.855000568146,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.07996464156969282
+        }
+      ]
+    },
+    {
+      "layer": 36,
+      "print_z_mm": 8.6,
+      "height_mm": 0.240001,
+      "native_section_z_mm": 8.4799995,
+      "model_roads": 334,
+      "wall_roads": 114,
+      "native_components": [
+        {
+          "area_mm2": 18341.31065087705,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.009522824018186937
+        }
+      ]
+    },
+    {
+      "layer": 37,
+      "print_z_mm": 8.84,
+      "height_mm": 0.24,
+      "native_section_z_mm": 8.72,
+      "model_roads": 333,
+      "wall_roads": 113,
+      "native_components": [
+        {
+          "area_mm2": 18395.76630114595,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.006426823533517395
+        }
+      ]
+    },
+    {
+      "layer": 38,
+      "print_z_mm": 9.08,
+      "height_mm": 0.24,
+      "native_section_z_mm": 8.96,
+      "model_roads": 333,
+      "wall_roads": 113,
+      "native_components": [
+        {
+          "area_mm2": 18450.221951676896,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.043844538792339544
+        }
+      ]
+    },
+    {
+      "layer": 39,
+      "print_z_mm": 9.32,
+      "height_mm": 0.24,
+      "native_section_z_mm": 9.200000000000001,
+      "model_roads": 333,
+      "wall_roads": 113,
+      "native_components": [
+        {
+          "area_mm2": 18504.677602185013,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 9.999999770193835e-07
+        }
+      ]
+    },
+    {
+      "layer": 40,
+      "print_z_mm": 9.56,
+      "height_mm": 0.240001,
+      "native_section_z_mm": 9.4399995,
+      "model_roads": 333,
+      "wall_roads": 113,
+      "native_components": [
+        {
+          "area_mm2": 18559.133252764885,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.0002836536069352191
+        }
+      ]
+    },
+    {
+      "layer": 41,
+      "print_z_mm": 9.8,
+      "height_mm": 0.24,
+      "native_section_z_mm": 9.680000000000001,
+      "model_roads": 334,
+      "wall_roads": 113,
+      "native_components": [
+        {
+          "area_mm2": 18613.58909223094,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.016935087903087037
+        }
+      ]
+    },
+    {
+      "layer": 42,
+      "print_z_mm": 10.04,
+      "height_mm": 0.24,
+      "native_section_z_mm": 9.92,
+      "model_roads": 334,
+      "wall_roads": 113,
+      "native_components": [
+        {
+          "area_mm2": 18668.044743021055,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.07541307086776497
+        }
+      ]
+    },
+    {
+      "layer": 43,
+      "print_z_mm": 10.28,
+      "height_mm": 0.24,
+      "native_section_z_mm": 10.16,
+      "model_roads": 334,
+      "wall_roads": 113,
+      "native_components": [
+        {
+          "area_mm2": 18722.5003939086,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.014632234115489057
+        }
+      ]
+    },
+    {
+      "layer": 44,
+      "print_z_mm": 10.52,
+      "height_mm": 0.240001,
+      "native_section_z_mm": 10.3999995,
+      "model_roads": 334,
+      "wall_roads": 113,
+      "native_components": [
+        {
+          "area_mm2": 18776.956044873816,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.00335122148478309
+        }
+      ]
+    },
+    {
+      "layer": 45,
+      "print_z_mm": 10.76,
+      "height_mm": 0.24,
+      "native_section_z_mm": 10.64,
+      "model_roads": 334,
+      "wall_roads": 113,
+      "native_components": [
+        {
+          "area_mm2": 18831.411892443746,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.02974407797820891
+        }
+      ]
+    },
+    {
+      "layer": 46,
+      "print_z_mm": 11.0,
+      "height_mm": 0.24,
+      "native_section_z_mm": 10.88,
+      "model_roads": 334,
+      "wall_roads": 113,
+      "native_components": [
+        {
+          "area_mm2": 18885.86754349868,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.06433372695464942
+        }
+      ]
+    },
+    {
+      "layer": 47,
+      "print_z_mm": 11.24,
+      "height_mm": 0.24,
+      "native_section_z_mm": 11.120000000000001,
+      "model_roads": 334,
+      "wall_roads": 113,
+      "native_components": [
+        {
+          "area_mm2": 18940.323194661432,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.00013599999999147627
+        }
+      ]
+    },
+    {
+      "layer": 48,
+      "print_z_mm": 11.48,
+      "height_mm": 0.24,
+      "native_section_z_mm": 11.360000000000001,
+      "model_roads": 334,
+      "wall_roads": 113,
+      "native_components": [
+        {
+          "area_mm2": 18994.778845877576,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.013295916598146246
+        }
+      ]
+    },
+    {
+      "layer": 49,
+      "print_z_mm": 11.72,
+      "height_mm": 0.240001,
+      "native_section_z_mm": 11.599999500000001,
+      "model_roads": 334,
+      "wall_roads": 113,
+      "native_components": [
+        {
+          "area_mm2": 19049.234300679385,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.057788985447735225
+        }
+      ]
+    },
+    {
+      "layer": 50,
+      "print_z_mm": 11.96,
+      "height_mm": 0.24,
+      "native_section_z_mm": 11.840000000000002,
+      "model_roads": 334,
+      "wall_roads": 113,
+      "native_components": [
+        {
+          "area_mm2": 19103.690148591057,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.02530601226910706
+        }
+      ]
+    },
+    {
+      "layer": 51,
+      "print_z_mm": 12.2,
+      "height_mm": 0.24,
+      "native_section_z_mm": 12.08,
+      "model_roads": 334,
+      "wall_roads": 113,
+      "native_components": [
+        {
+          "area_mm2": 19158.145799949736,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.0031593385127035023
+        }
+      ]
+    },
+    {
+      "layer": 52,
+      "print_z_mm": 12.44,
+      "height_mm": 0.24,
+      "native_section_z_mm": 12.32,
+      "model_roads": 334,
+      "wall_roads": 113,
+      "native_components": [
+        {
+          "area_mm2": 19212.601648015545,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.020717348238599914
+        }
+      ]
+    },
+    {
+      "layer": 53,
+      "print_z_mm": 12.68,
+      "height_mm": 0.240001,
+      "native_section_z_mm": 12.5599995,
+      "model_roads": 334,
+      "wall_roads": 113,
+      "native_components": [
+        {
+          "area_mm2": 19267.057103018797,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08264348593437074
+        }
+      ]
+    },
+    {
+      "layer": 54,
+      "print_z_mm": 12.92,
+      "height_mm": 0.24,
+      "native_section_z_mm": 12.8,
+      "model_roads": 396,
+      "wall_roads": 113,
+      "native_components": [
+        {
+          "area_mm2": 19321.512951231023,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 8.39999999948382e-05
+        }
+      ]
+    },
+    {
+      "layer": 55,
+      "print_z_mm": 13.16,
+      "height_mm": 0.24,
+      "native_section_z_mm": 13.040000000000001,
+      "model_roads": 509,
+      "wall_roads": 113,
+      "native_components": [
+        {
+          "area_mm2": 19375.968602922418,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.005785732561938095
+        }
+      ]
+    },
+    {
+      "layer": 56,
+      "print_z_mm": 13.4,
+      "height_mm": 0.24,
+      "native_section_z_mm": 13.280000000000001,
+      "model_roads": 489,
+      "wall_roads": 113,
+      "native_components": [
+        {
+          "area_mm2": 19430.424254614263,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.04204817998183094
+        }
+      ]
+    },
+    {
+      "layer": 57,
+      "print_z_mm": 13.64,
+      "height_mm": 0.240001,
+      "native_section_z_mm": 13.5199995,
+      "model_roads": 779,
+      "wall_roads": 113,
+      "native_components": [
+        {
+          "area_mm2": 19484.879900633117,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.03816006992610432
+        }
+      ]
+    },
+    {
+      "layer": 58,
+      "print_z_mm": 13.88,
+      "height_mm": 0.24,
+      "native_section_z_mm": 13.760000000000002,
+      "model_roads": 605,
+      "wall_roads": 122,
+      "native_components": [
+        {
+          "area_mm2": 19539.335558352075,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.005125959610518649
+        }
+      ]
+    },
+    {
+      "layer": 59,
+      "print_z_mm": 14.12,
+      "height_mm": 0.24,
+      "native_section_z_mm": 14.0,
+      "model_roads": 739,
+      "wall_roads": 172,
+      "native_components": [
+        {
+          "area_mm2": 19580.593799138725,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.016757624017727485
+        }
+      ]
+    },
+    {
+      "layer": 60,
+      "print_z_mm": 14.36,
+      "height_mm": 0.24,
+      "native_section_z_mm": 14.24,
+      "model_roads": 1118,
+      "wall_roads": 212,
+      "native_components": [
+        {
+          "area_mm2": 19577.737632094995,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.0726788341584956
+        }
+      ]
+    },
+    {
+      "layer": 61,
+      "print_z_mm": 14.6,
+      "height_mm": 0.240001,
+      "native_section_z_mm": 14.4799995,
+      "model_roads": 1330,
+      "wall_roads": 233,
+      "native_components": [
+        {
+          "area_mm2": 19559.24503762017,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.028370658006228316
+        }
+      ]
+    },
+    {
+      "layer": 62,
+      "print_z_mm": 14.84,
+      "height_mm": 0.24,
+      "native_section_z_mm": 14.72,
+      "model_roads": 963,
+      "wall_roads": 251,
+      "native_components": [
+        {
+          "area_mm2": 19529.57950006159,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.0029294967864288146
+        }
+      ]
+    },
+    {
+      "layer": 63,
+      "print_z_mm": 15.08,
+      "height_mm": 0.24,
+      "native_section_z_mm": 14.96,
+      "model_roads": 1387,
+      "wall_roads": 262,
+      "native_components": [
+        {
+          "area_mm2": 19490.155490355555,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.036348719807414775
+        }
+      ]
+    },
+    {
+      "layer": 64,
+      "print_z_mm": 15.32,
+      "height_mm": 0.24,
+      "native_section_z_mm": 15.200000000000001,
+      "model_roads": 1089,
+      "wall_roads": 269,
+      "native_components": [
+        {
+          "area_mm2": 19441.64964170935,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.06768950797805148
+        }
+      ]
+    },
+    {
+      "layer": 65,
+      "print_z_mm": 15.56,
+      "height_mm": 0.240001,
+      "native_section_z_mm": 15.4399995,
+      "model_roads": 1379,
+      "wall_roads": 265,
+      "native_components": [
+        {
+          "area_mm2": 19384.417046162718,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.007512198118778957
+        }
+      ]
+    },
+    {
+      "layer": 66,
+      "print_z_mm": 15.8,
+      "height_mm": 0.24,
+      "native_section_z_mm": 15.680000000000001,
+      "model_roads": 1074,
+      "wall_roads": 254,
+      "native_components": [
+        {
+          "area_mm2": 19318.486598502503,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.01320652764299135
+        }
+      ]
+    },
+    {
+      "layer": 67,
+      "print_z_mm": 16.04,
+      "height_mm": 0.240001,
+      "native_section_z_mm": 15.9199995,
+      "model_roads": 2468,
+      "wall_roads": 279,
+      "native_components": [
+        {
+          "area_mm2": 19242.78163421994,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.07611526754965578
+        }
+      ]
+    },
+    {
+      "layer": 68,
+      "print_z_mm": 16.28,
+      "height_mm": 0.24,
+      "native_section_z_mm": 16.16,
+      "model_roads": 1266,
+      "wall_roads": 261,
+      "native_components": [
+        {
+          "area_mm2": 19106.124290557666,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.00396286146439806
+        }
+      ]
+    },
+    {
+      "layer": 69,
+      "print_z_mm": 16.52,
+      "height_mm": 0.24,
+      "native_section_z_mm": 16.4,
+      "model_roads": 1666,
+      "wall_roads": 340,
+      "native_components": [
+        {
+          "area_mm2": 19830.608203852742,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.007308678815938496
+        }
+      ]
+    },
+    {
+      "layer": 70,
+      "print_z_mm": 16.76,
+      "height_mm": 0.24,
+      "native_section_z_mm": 16.64,
+      "model_roads": 1525,
+      "wall_roads": 332,
+      "native_components": [
+        {
+          "area_mm2": 19834.416490984353,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.02839194538462117
+        }
+      ]
+    },
+    {
+      "layer": 71,
+      "print_z_mm": 17.0,
+      "height_mm": 0.24,
+      "native_section_z_mm": 16.88,
+      "model_roads": 1476,
+      "wall_roads": 260,
+      "native_components": [
+        {
+          "area_mm2": 19664.70226228598,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.0469690300197991
+        }
+      ]
+    },
+    {
+      "layer": 72,
+      "print_z_mm": 17.24,
+      "height_mm": 0.24,
+      "native_section_z_mm": 17.119999999999997,
+      "model_roads": 1828,
+      "wall_roads": 253,
+      "native_components": [
+        {
+          "area_mm2": 19486.767167629652,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.006430873581471042
+        }
+      ]
+    },
+    {
+      "layer": 73,
+      "print_z_mm": 17.48,
+      "height_mm": 0.24,
+      "native_section_z_mm": 17.36,
+      "model_roads": 1311,
+      "wall_roads": 251,
+      "native_components": [
+        {
+          "area_mm2": 19300.545811625725,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.05109283229614561
+        }
+      ]
+    },
+    {
+      "layer": 74,
+      "print_z_mm": 17.72,
+      "height_mm": 0.24,
+      "native_section_z_mm": 17.599999999999998,
+      "model_roads": 1701,
+      "wall_roads": 246,
+      "native_components": [
+        {
+          "area_mm2": 19105.88748020486,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08485387855515839
+        }
+      ]
+    },
+    {
+      "layer": 75,
+      "print_z_mm": 17.96,
+      "height_mm": 0.24,
+      "native_section_z_mm": 17.84,
+      "model_roads": 1534,
+      "wall_roads": 252,
+      "native_components": [
+        {
+          "area_mm2": 18902.920337230993,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.023100706344192007
+        }
+      ]
+    },
+    {
+      "layer": 76,
+      "print_z_mm": 18.2,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 18.079999,
+      "model_roads": 1717,
+      "wall_roads": 247,
+      "native_components": [
+        {
+          "area_mm2": 18691.54736928043,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.0267399950426305
+        }
+      ]
+    },
+    {
+      "layer": 77,
+      "print_z_mm": 18.44,
+      "height_mm": 0.24,
+      "native_section_z_mm": 18.32,
+      "model_roads": 1463,
+      "wall_roads": 248,
+      "native_components": [
+        {
+          "area_mm2": 18471.914547179087,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.005325042436831823
+        }
+      ]
+    },
+    {
+      "layer": 78,
+      "print_z_mm": 18.68,
+      "height_mm": 0.24,
+      "native_section_z_mm": 18.56,
+      "model_roads": 2010,
+      "wall_roads": 260,
+      "native_components": [
+        {
+          "area_mm2": 18243.83852526242,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.04156895004850222
+        }
+      ]
+    },
+    {
+      "layer": 79,
+      "print_z_mm": 18.92,
+      "height_mm": 0.24,
+      "native_section_z_mm": 18.8,
+      "model_roads": 1455,
+      "wall_roads": 259,
+      "native_components": [
+        {
+          "area_mm2": 18007.537611957432,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.0522135427950455
+        }
+      ]
+    },
+    {
+      "layer": 80,
+      "print_z_mm": 19.16,
+      "height_mm": 0.24,
+      "native_section_z_mm": 19.04,
+      "model_roads": 1811,
+      "wall_roads": 250,
+      "native_components": [
+        {
+          "area_mm2": 17762.814613219984,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.058873653640293316
+        }
+      ]
+    },
+    {
+      "layer": 81,
+      "print_z_mm": 19.4,
+      "height_mm": 0.24,
+      "native_section_z_mm": 19.279999999999998,
+      "model_roads": 1424,
+      "wall_roads": 255,
+      "native_components": [
+        {
+          "area_mm2": 17509.769506720244,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.006915719595921299
+        }
+      ]
+    },
+    {
+      "layer": 82,
+      "print_z_mm": 19.64,
+      "height_mm": 0.24,
+      "native_section_z_mm": 19.52,
+      "model_roads": 1863,
+      "wall_roads": 252,
+      "native_components": [
+        {
+          "area_mm2": 17248.394339969334,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.042666450328670474
+        }
+      ]
+    },
+    {
+      "layer": 83,
+      "print_z_mm": 19.88,
+      "height_mm": 0.24,
+      "native_section_z_mm": 19.759999999999998,
+      "model_roads": 1571,
+      "wall_roads": 262,
+      "native_components": [
+        {
+          "area_mm2": 16978.56342766094,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08509534182496645
+        }
+      ]
+    },
+    {
+      "layer": 84,
+      "print_z_mm": 20.12,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 19.999999000000003,
+      "model_roads": 2105,
+      "wall_roads": 262,
+      "native_components": [
+        {
+          "area_mm2": 16700.465301905533,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.01579997390212215
+        }
+      ]
+    },
+    {
+      "layer": 85,
+      "print_z_mm": 20.36,
+      "height_mm": 0.24,
+      "native_section_z_mm": 20.24,
+      "model_roads": 3460,
+      "wall_roads": 255,
+      "native_components": [
+        {
+          "area_mm2": 16413.990712150604,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.009537877964248848
+        }
+      ]
+    },
+    {
+      "layer": 86,
+      "print_z_mm": 20.6,
+      "height_mm": 0.24,
+      "native_section_z_mm": 20.48,
+      "model_roads": 2147,
+      "wall_roads": 264,
+      "native_components": [
+        {
+          "area_mm2": 16119.279530258133,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.04940705186472463
+        }
+      ]
+    },
+    {
+      "layer": 87,
+      "print_z_mm": 20.84,
+      "height_mm": 0.24,
+      "native_section_z_mm": 20.72,
+      "model_roads": 2596,
+      "wall_roads": 263,
+      "native_components": [
+        {
+          "area_mm2": 15816.086903736454,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08645105833507608
+        }
+      ]
+    },
+    {
+      "layer": 88,
+      "print_z_mm": 21.08,
+      "height_mm": 0.24,
+      "native_section_z_mm": 20.959999999999997,
+      "model_roads": 2241,
+      "wall_roads": 262,
+      "native_components": [
+        {
+          "area_mm2": 15504.669113118394,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.01751707591765897
+        }
+      ]
+    },
+    {
+      "layer": 89,
+      "print_z_mm": 21.32,
+      "height_mm": 0.24,
+      "native_section_z_mm": 21.2,
+      "model_roads": 2061,
+      "wall_roads": 268,
+      "native_components": [
+        {
+          "area_mm2": 15184.800031464576,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.0027733131624531893
+        }
+      ]
+    },
+    {
+      "layer": 90,
+      "print_z_mm": 21.56,
+      "height_mm": 0.24,
+      "native_section_z_mm": 21.439999999999998,
+      "model_roads": 2259,
+      "wall_roads": 279,
+      "native_components": [
+        {
+          "area_mm2": 14856.562556264973,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.04821659061838815
+        }
+      ]
+    },
+    {
+      "layer": 91,
+      "print_z_mm": 21.8,
+      "height_mm": 0.24,
+      "native_section_z_mm": 21.68,
+      "model_roads": 2440,
+      "wall_roads": 280,
+      "native_components": [
+        {
+          "area_mm2": 14520.030733439691,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.04560990026711462
+        }
+      ]
+    },
+    {
+      "layer": 92,
+      "print_z_mm": 22.04,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 21.919999,
+      "model_roads": 2365,
+      "wall_roads": 263,
+      "native_components": [
+        {
+          "area_mm2": 13019.009769582528,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.002056806785738746
+        }
+      ]
+    },
+    {
+      "layer": 93,
+      "print_z_mm": 22.28,
+      "height_mm": 0.24,
+      "native_section_z_mm": 22.16,
+      "model_roads": 2010,
+      "wall_roads": 264,
+      "native_components": [
+        {
+          "area_mm2": 12664.28544228882,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.011789507715021547
+        }
+      ]
+    },
+    {
+      "layer": 94,
+      "print_z_mm": 22.52,
+      "height_mm": 0.24,
+      "native_section_z_mm": 22.4,
+      "model_roads": 4118,
+      "wall_roads": 259,
+      "native_components": [
+        {
+          "area_mm2": 12301.261234577776,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.012378577160767956
+        }
+      ]
+    },
+    {
+      "layer": 95,
+      "print_z_mm": 22.76,
+      "height_mm": 0.24,
+      "native_section_z_mm": 22.64,
+      "model_roads": 1959,
+      "wall_roads": 263,
+      "native_components": [
+        {
+          "area_mm2": 11929.93097534604,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.0022489398527779647
+        }
+      ]
+    },
+    {
+      "layer": 96,
+      "print_z_mm": 23.0,
+      "height_mm": 0.24,
+      "native_section_z_mm": 22.88,
+      "model_roads": 2324,
+      "wall_roads": 275,
+      "native_components": [
+        {
+          "area_mm2": 11550.099923901751,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.023525166237547634
+        }
+      ]
+    },
+    {
+      "layer": 97,
+      "print_z_mm": 23.24,
+      "height_mm": 0.24,
+      "native_section_z_mm": 23.119999999999997,
+      "model_roads": 2326,
+      "wall_roads": 266,
+      "native_components": [
+        {
+          "area_mm2": 11162.143884155912,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.0717991498659036
+        }
+      ]
+    },
+    {
+      "layer": 98,
+      "print_z_mm": 23.48,
+      "height_mm": 0.24,
+      "native_section_z_mm": 23.36,
+      "model_roads": 2305,
+      "wall_roads": 256,
+      "native_components": [
+        {
+          "area_mm2": 10765.841792297251,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.04299151245396285
+        }
+      ]
+    },
+    {
+      "layer": 99,
+      "print_z_mm": 23.72,
+      "height_mm": 0.24,
+      "native_section_z_mm": 23.599999999999998,
+      "model_roads": 2789,
+      "wall_roads": 273,
+      "native_components": [
+        {
+          "area_mm2": 10360.981767601199,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.015631232209001394
+        }
+      ]
+    },
+    {
+      "layer": 100,
+      "print_z_mm": 23.96,
+      "height_mm": 0.24,
+      "native_section_z_mm": 23.84,
+      "model_roads": 2078,
+      "wall_roads": 266,
+      "native_components": [
+        {
+          "area_mm2": 9947.79298750865,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.007117596017157085
+        }
+      ]
+    },
+    {
+      "layer": 101,
+      "print_z_mm": 24.2,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 24.079999,
+      "model_roads": 2282,
+      "wall_roads": 263,
+      "native_components": [
+        {
+          "area_mm2": 9526.453229491328,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.07693290931264354
+        }
+      ]
+    },
+    {
+      "layer": 102,
+      "print_z_mm": 24.44,
+      "height_mm": 0.24,
+      "native_section_z_mm": 24.32,
+      "model_roads": 2600,
+      "wall_roads": 255,
+      "native_components": [
+        {
+          "area_mm2": 9096.79440154033,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.043741858457255006
+        }
+      ]
+    },
+    {
+      "layer": 103,
+      "print_z_mm": 24.68,
+      "height_mm": 0.24,
+      "native_section_z_mm": 24.56,
+      "model_roads": 2380,
+      "wall_roads": 248,
+      "native_components": [
+        {
+          "area_mm2": 8658.566837402535,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.006531526981789576
+        }
+      ]
+    },
+    {
+      "layer": 104,
+      "print_z_mm": 24.92,
+      "height_mm": 0.24,
+      "native_section_z_mm": 24.8,
+      "model_roads": 1520,
+      "wall_roads": 250,
+      "native_components": [
+        {
+          "area_mm2": 8212.271731215344,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.031101384913008595
+        }
+      ]
+    },
+    {
+      "layer": 105,
+      "print_z_mm": 25.16,
+      "height_mm": 0.24,
+      "native_section_z_mm": 25.04,
+      "model_roads": 1539,
+      "wall_roads": 252,
+      "native_components": [
+        {
+          "area_mm2": 7757.366081363152,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.002541516444179187
+        }
+      ]
+    },
+    {
+      "layer": 106,
+      "print_z_mm": 25.4,
+      "height_mm": 0.24,
+      "native_section_z_mm": 25.279999999999998,
+      "model_roads": 1674,
+      "wall_roads": 351,
+      "native_components": [
+        {
+          "area_mm2": 7294.026562377667,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.006528594354848177
+        }
+      ]
+    },
+    {
+      "layer": 107,
+      "print_z_mm": 25.64,
+      "height_mm": 0.24,
+      "native_section_z_mm": 25.52,
+      "model_roads": 1899,
+      "wall_roads": 545,
+      "native_components": [
+        {
+          "area_mm2": 6849.002390058384,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.011021995661686795
+        }
+      ]
+    },
+    {
+      "layer": 108,
+      "print_z_mm": 25.88,
+      "height_mm": 0.24,
+      "native_section_z_mm": 25.759999999999998,
+      "model_roads": 959,
+      "wall_roads": 595,
+      "native_components": [
+        {
+          "area_mm2": 6542.231897698992,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.0504250739140141
+        }
+      ]
+    },
+    {
+      "layer": 109,
+      "print_z_mm": 26.12,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 25.999999000000003,
+      "model_roads": 1062,
+      "wall_roads": 684,
+      "native_components": [
+        {
+          "area_mm2": 6326.592996875315,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.06341764173069545
+        }
+      ]
+    },
+    {
+      "layer": 110,
+      "print_z_mm": 26.36,
+      "height_mm": 0.24,
+      "native_section_z_mm": 26.24,
+      "model_roads": 1116,
+      "wall_roads": 743,
+      "native_components": [
+        {
+          "area_mm2": 6158.607837066327,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.018081670745891565
+        }
+      ]
+    },
+    {
+      "layer": 111,
+      "print_z_mm": 26.6,
+      "height_mm": 0.24,
+      "native_section_z_mm": 26.48,
+      "model_roads": 1174,
+      "wall_roads": 788,
+      "native_components": [
+        {
+          "area_mm2": 6027.6628323270415,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.009837983348110396
+        }
+      ]
+    },
+    {
+      "layer": 112,
+      "print_z_mm": 26.84,
+      "height_mm": 0.24,
+      "native_section_z_mm": 26.72,
+      "model_roads": 1016,
+      "wall_roads": 647,
+      "native_components": [
+        {
+          "area_mm2": 5917.8890399549855,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.05334463522093377
+        }
+      ]
+    },
+    {
+      "layer": 113,
+      "print_z_mm": 27.08,
+      "height_mm": 0.24,
+      "native_section_z_mm": 26.959999999999997,
+      "model_roads": 1024,
+      "wall_roads": 647,
+      "native_components": [
+        {
+          "area_mm2": 5828.095107159432,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.010860847069195018
+        }
+      ]
+    },
+    {
+      "layer": 114,
+      "print_z_mm": 27.32,
+      "height_mm": 0.24,
+      "native_section_z_mm": 27.2,
+      "model_roads": 959,
+      "wall_roads": 606,
+      "native_components": [
+        {
+          "area_mm2": 5751.710785672283,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.03111937836698367
+        }
+      ]
+    },
+    {
+      "layer": 115,
+      "print_z_mm": 27.56,
+      "height_mm": 0.24,
+      "native_section_z_mm": 27.439999999999998,
+      "model_roads": 932,
+      "wall_roads": 569,
+      "native_components": [
+        {
+          "area_mm2": 5690.561759884062,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.04832947485295655
+        }
+      ]
+    },
+    {
+      "layer": 116,
+      "print_z_mm": 27.8,
+      "height_mm": 0.24,
+      "native_section_z_mm": 27.68,
+      "model_roads": 922,
+      "wall_roads": 571,
+      "native_components": [
+        {
+          "area_mm2": 5637.893159612224,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.01106676050573055
+        }
+      ]
+    },
+    {
+      "layer": 117,
+      "print_z_mm": 28.04,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 27.919999,
+      "model_roads": 956,
+      "wall_roads": 599,
+      "native_components": [
+        {
+          "area_mm2": 5597.61436815478,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.011634712175256662
+        }
+      ]
+    },
+    {
+      "layer": 118,
+      "print_z_mm": 28.28,
+      "height_mm": 0.24,
+      "native_section_z_mm": 28.16,
+      "model_roads": 915,
+      "wall_roads": 562,
+      "native_components": [
+        {
+          "area_mm2": 5565.031317138146,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.011255986410315277
+        }
+      ]
+    },
+    {
+      "layer": 119,
+      "print_z_mm": 28.52,
+      "height_mm": 0.24,
+      "native_section_z_mm": 28.4,
+      "model_roads": 889,
+      "wall_roads": 537,
+      "native_components": [
+        {
+          "area_mm2": 5539.897808556339,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.03235054915239033
+        }
+      ]
+    },
+    {
+      "layer": 120,
+      "print_z_mm": 28.76,
+      "height_mm": 0.24,
+      "native_section_z_mm": 28.64,
+      "model_roads": 820,
+      "wall_roads": 470,
+      "native_components": [
+        {
+          "area_mm2": 5524.04524209123,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.0865724066569489
+        }
+      ]
+    },
+    {
+      "layer": 121,
+      "print_z_mm": 29.0,
+      "height_mm": 0.24,
+      "native_section_z_mm": 28.88,
+      "model_roads": 884,
+      "wall_roads": 523,
+      "native_components": [
+        {
+          "area_mm2": 5512.988744230588,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.03317504883911884
+        }
+      ]
+    },
+    {
+      "layer": 122,
+      "print_z_mm": 29.24,
+      "height_mm": 0.24,
+      "native_section_z_mm": 29.119999999999997,
+      "model_roads": 870,
+      "wall_roads": 507,
+      "native_components": [
+        {
+          "area_mm2": 5509.882264642998,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.06349093641533901
+        }
+      ]
+    },
+    {
+      "layer": 123,
+      "print_z_mm": 29.48,
+      "height_mm": 0.24,
+      "native_section_z_mm": 29.36,
+      "model_roads": 820,
+      "wall_roads": 463,
+      "native_components": [
+        {
+          "area_mm2": 5513.177482827054,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.020258551523371415
+        }
+      ]
+    },
+    {
+      "layer": 124,
+      "print_z_mm": 29.72,
+      "height_mm": 0.24,
+      "native_section_z_mm": 29.599999999999998,
+      "model_roads": 803,
+      "wall_roads": 457,
+      "native_components": [
+        {
+          "area_mm2": 5520.4683338788345,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.02352261454834259
+        }
+      ]
+    },
+    {
+      "layer": 125,
+      "print_z_mm": 29.96,
+      "height_mm": 0.24,
+      "native_section_z_mm": 29.84,
+      "model_roads": 891,
+      "wall_roads": 535,
+      "native_components": [
+        {
+          "area_mm2": 5535.5215803437895,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.06870841323880603
+        }
+      ]
+    },
+    {
+      "layer": 126,
+      "print_z_mm": 30.2,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 30.079999,
+      "model_roads": 814,
+      "wall_roads": 458,
+      "native_components": [
+        {
+          "area_mm2": 5555.782904247335,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.06906184634790588
+        }
+      ]
+    },
+    {
+      "layer": 127,
+      "print_z_mm": 30.44,
+      "height_mm": 0.24,
+      "native_section_z_mm": 30.32,
+      "model_roads": 760,
+      "wall_roads": 401,
+      "native_components": [
+        {
+          "area_mm2": 5579.163713079215,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.020612085491255483
+        }
+      ]
+    },
+    {
+      "layer": 128,
+      "print_z_mm": 30.68,
+      "height_mm": 0.24,
+      "native_section_z_mm": 30.56,
+      "model_roads": 764,
+      "wall_roads": 412,
+      "native_components": [
+        {
+          "area_mm2": 5609.775429813566,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.01074836606732274
+        }
+      ]
+    },
+    {
+      "layer": 129,
+      "print_z_mm": 30.92,
+      "height_mm": 0.24,
+      "native_section_z_mm": 30.8,
+      "model_roads": 713,
+      "wall_roads": 360,
+      "native_components": [
+        {
+          "area_mm2": 5646.323935022108,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.01134969295450422
+        }
+      ]
+    },
+    {
+      "layer": 130,
+      "print_z_mm": 31.16,
+      "height_mm": 0.24,
+      "native_section_z_mm": 31.04,
+      "model_roads": 687,
+      "wall_roads": 337,
+      "native_components": [
+        {
+          "area_mm2": 5685.339472313022,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.06356420129119658
+        }
+      ]
+    },
+    {
+      "layer": 131,
+      "print_z_mm": 31.4,
+      "height_mm": 0.24,
+      "native_section_z_mm": 31.279999999999998,
+      "model_roads": 665,
+      "wall_roads": 319,
+      "native_components": [
+        {
+          "area_mm2": 5729.064084674774,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.06293756855488095
+        }
+      ]
+    },
+    {
+      "layer": 132,
+      "print_z_mm": 31.64,
+      "height_mm": 0.24,
+      "native_section_z_mm": 31.52,
+      "model_roads": 661,
+      "wall_roads": 317,
+      "native_components": [
+        {
+          "area_mm2": 5780.634195620238,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.051928791216917985
+        }
+      ]
+    },
+    {
+      "layer": 133,
+      "print_z_mm": 31.88,
+      "height_mm": 0.24,
+      "native_section_z_mm": 31.759999999999998,
+      "model_roads": 652,
+      "wall_roads": 307,
+      "native_components": [
+        {
+          "area_mm2": 5834.4424756837725,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.02674161597007138
+        }
+      ]
+    },
+    {
+      "layer": 134,
+      "print_z_mm": 32.12,
+      "height_mm": 0.24,
+      "native_section_z_mm": 31.999999999999996,
+      "model_roads": 633,
+      "wall_roads": 289,
+      "native_components": [
+        {
+          "area_mm2": 5888.867343213093,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.0021653175289032545
+        }
+      ]
+    },
+    {
+      "layer": 135,
+      "print_z_mm": 32.36,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 32.239999,
+      "model_roads": 630,
+      "wall_roads": 287,
+      "native_components": [
+        {
+          "area_mm2": 5943.321230429319,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.058720236077265536
+        }
+      ]
+    },
+    {
+      "layer": 136,
+      "print_z_mm": 32.6,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 32.480001,
+      "model_roads": 630,
+      "wall_roads": 287,
+      "native_components": [
+        {
+          "area_mm2": 5997.7758127219895,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.06209434907161274
+        }
+      ]
+    },
+    {
+      "layer": 137,
+      "print_z_mm": 32.84,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 32.719999,
+      "model_roads": 628,
+      "wall_roads": 287,
+      "native_components": [
+        {
+          "area_mm2": 6052.229720713494,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08163087710429753
+        }
+      ]
+    },
+    {
+      "layer": 138,
+      "print_z_mm": 33.08,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 32.959998999999996,
+      "model_roads": 629,
+      "wall_roads": 287,
+      "native_components": [
+        {
+          "area_mm2": 6106.684119436031,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.03688818282098516
+        }
+      ]
+    },
+    {
+      "layer": 139,
+      "print_z_mm": 33.32,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 33.200001,
+      "model_roads": 629,
+      "wall_roads": 287,
+      "native_components": [
+        {
+          "area_mm2": 6161.139218621174,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.00041192905459172535
+        }
+      ]
+    },
+    {
+      "layer": 140,
+      "print_z_mm": 33.56,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 33.439999,
+      "model_roads": 631,
+      "wall_roads": 289,
+      "native_components": [
+        {
+          "area_mm2": 6215.593238446785,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.05416795004978134
+        }
+      ]
+    },
+    {
+      "layer": 141,
+      "print_z_mm": 33.8,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 33.680001,
+      "model_roads": 635,
+      "wall_roads": 293,
+      "native_components": [
+        {
+          "area_mm2": 6270.048559490198,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.06680259503619243
+        }
+      ]
+    },
+    {
+      "layer": 142,
+      "print_z_mm": 34.04,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 33.919999,
+      "model_roads": 635,
+      "wall_roads": 293,
+      "native_components": [
+        {
+          "area_mm2": 6324.502989024302,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.04312416723813553
+        }
+      ]
+    },
+    {
+      "layer": 143,
+      "print_z_mm": 34.28,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 34.160001,
+      "model_roads": 635,
+      "wall_roads": 293,
+      "native_components": [
+        {
+          "area_mm2": 6378.958477981196,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.06629890612340647
+        }
+      ]
+    },
+    {
+      "layer": 144,
+      "print_z_mm": 34.52,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 34.399999,
+      "model_roads": 643,
+      "wall_roads": 301,
+      "native_components": [
+        {
+          "area_mm2": 6433.412249804947,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.04802677293275129
+        }
+      ]
+    },
+    {
+      "layer": 145,
+      "print_z_mm": 34.76,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 34.640001,
+      "model_roads": 644,
+      "wall_roads": 302,
+      "native_components": [
+        {
+          "area_mm2": 6487.865692393469,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.01199999999999421
+        }
+      ]
+    },
+    {
+      "layer": 146,
+      "print_z_mm": 35.0,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 34.879999,
+      "model_roads": 643,
+      "wall_roads": 301,
+      "native_components": [
+        {
+          "area_mm2": 6542.316775748332,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.011516664169986424
+        }
+      ]
+    },
+    {
+      "layer": 147,
+      "print_z_mm": 35.24,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 35.119999,
+      "model_roads": 643,
+      "wall_roads": 301,
+      "native_components": [
+        {
+          "area_mm2": 6596.765492240069,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.00040466449684761763
+        }
+      ]
+    },
+    {
+      "layer": 148,
+      "print_z_mm": 35.48,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 35.360001,
+      "model_roads": 643,
+      "wall_roads": 301,
+      "native_components": [
+        {
+          "area_mm2": 6651.21072864841,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.05766374693998508
+        }
+      ]
+    },
+    {
+      "layer": 149,
+      "print_z_mm": 35.72,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 35.599999,
+      "model_roads": 642,
+      "wall_roads": 300,
+      "native_components": [
+        {
+          "area_mm2": 6705.650551463925,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.0033630874850487935
+        }
+      ]
+    },
+    {
+      "layer": 150,
+      "print_z_mm": 35.96,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 35.840001,
+      "model_roads": 649,
+      "wall_roads": 303,
+      "native_components": [
+        {
+          "area_mm2": 6760.086121090324,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.06388459120034104
+        }
+      ]
+    },
+    {
+      "layer": 151,
+      "print_z_mm": 36.2,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 36.079999,
+      "model_roads": 648,
+      "wall_roads": 302,
+      "native_components": [
+        {
+          "area_mm2": 6814.514124679736,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.007613717849667523
+        }
+      ]
+    },
+    {
+      "layer": 152,
+      "print_z_mm": 36.44,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 36.320001,
+      "model_roads": 648,
+      "wall_roads": 302,
+      "native_components": [
+        {
+          "area_mm2": 6868.935520983745,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.037496800168690364
+        }
+      ]
+    },
+    {
+      "layer": 153,
+      "print_z_mm": 36.68,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 36.559999,
+      "model_roads": 651,
+      "wall_roads": 305,
+      "native_components": [
+        {
+          "area_mm2": 6923.348464691568,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.027890592239358664
+        }
+      ]
+    },
+    {
+      "layer": 154,
+      "print_z_mm": 36.92,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 36.800001,
+      "model_roads": 650,
+      "wall_roads": 304,
+      "native_components": [
+        {
+          "area_mm2": 6977.752875123471,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.02623086706489544
+        }
+      ]
+    },
+    {
+      "layer": 155,
+      "print_z_mm": 37.16,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 37.039998999999995,
+      "model_roads": 651,
+      "wall_roads": 305,
+      "native_components": [
+        {
+          "area_mm2": 7032.145998211829,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.048044678612064545
+        }
+      ]
+    },
+    {
+      "layer": 156,
+      "print_z_mm": 37.4,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 37.279999,
+      "model_roads": 651,
+      "wall_roads": 305,
+      "native_components": [
+        {
+          "area_mm2": 7086.528698634789,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.051603289709675454
+        }
+      ]
+    },
+    {
+      "layer": 157,
+      "print_z_mm": 37.64,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 37.520001,
+      "model_roads": 651,
+      "wall_roads": 305,
+      "native_components": [
+        {
+          "area_mm2": 7140.899461236157,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.02432498512614034
+        }
+      ]
+    },
+    {
+      "layer": 158,
+      "print_z_mm": 37.88,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 37.759999,
+      "model_roads": 652,
+      "wall_roads": 306,
+      "native_components": [
+        {
+          "area_mm2": 7195.256073559198,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.020956924182274156
+        }
+      ]
+    },
+    {
+      "layer": 159,
+      "print_z_mm": 38.12,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 38.000001,
+      "model_roads": 679,
+      "wall_roads": 333,
+      "native_components": [
+        {
+          "area_mm2": 7249.599511051863,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.07532169493771393
+        }
+      ]
+    },
+    {
+      "layer": 160,
+      "print_z_mm": 38.36,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 38.239999,
+      "model_roads": 680,
+      "wall_roads": 336,
+      "native_components": [
+        {
+          "area_mm2": 7303.926504741448,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08202019958442905
+        }
+      ]
+    },
+    {
+      "layer": 161,
+      "print_z_mm": 38.6,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 38.480001,
+      "model_roads": 683,
+      "wall_roads": 337,
+      "native_components": [
+        {
+          "area_mm2": 7358.237878321848,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.005067383261824876
+        }
+      ]
+    },
+    {
+      "layer": 162,
+      "print_z_mm": 38.84,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 38.719999,
+      "model_roads": 683,
+      "wall_roads": 337,
+      "native_components": [
+        {
+          "area_mm2": 7412.530756363114,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.050653105719566355
+        }
+      ]
+    },
+    {
+      "layer": 163,
+      "print_z_mm": 39.08,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 38.959998999999996,
+      "model_roads": 684,
+      "wall_roads": 338,
+      "native_components": [
+        {
+          "area_mm2": 7466.804970113473,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.03556893206436168
+        }
+      ]
+    },
+    {
+      "layer": 164,
+      "print_z_mm": 39.32,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 39.200001,
+      "model_roads": 688,
+      "wall_roads": 339,
+      "native_components": [
+        {
+          "area_mm2": 7521.059633176832,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.009348330322825948
+        }
+      ]
+    },
+    {
+      "layer": 165,
+      "print_z_mm": 39.56,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 39.439999,
+      "model_roads": 689,
+      "wall_roads": 339,
+      "native_components": [
+        {
+          "area_mm2": 7575.291798156741,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.013817485628380782
+        }
+      ]
+    },
+    {
+      "layer": 166,
+      "print_z_mm": 39.8,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 39.680001,
+      "model_roads": 690,
+      "wall_roads": 339,
+      "native_components": [
+        {
+          "area_mm2": 7629.502266512169,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.02066771433244427
+        }
+      ]
+    },
+    {
+      "layer": 167,
+      "print_z_mm": 40.04,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 39.919999,
+      "model_roads": 693,
+      "wall_roads": 339,
+      "native_components": [
+        {
+          "area_mm2": 7683.687271897525,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.007773949632777166
+        }
+      ]
+    },
+    {
+      "layer": 168,
+      "print_z_mm": 40.28,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 40.160001,
+      "model_roads": 696,
+      "wall_roads": 340,
+      "native_components": [
+        {
+          "area_mm2": 7737.847656892325,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.010361886836183914
+        }
+      ]
+    },
+    {
+      "layer": 169,
+      "print_z_mm": 40.52,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 40.399999,
+      "model_roads": 698,
+      "wall_roads": 342,
+      "native_components": [
+        {
+          "area_mm2": 7791.979288221279,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.04747421545704192
+        }
+      ]
+    },
+    {
+      "layer": 170,
+      "print_z_mm": 40.76,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 40.640001,
+      "model_roads": 697,
+      "wall_roads": 341,
+      "native_components": [
+        {
+          "area_mm2": 7846.083144140972,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.07186893641536116
+        }
+      ]
+    },
+    {
+      "layer": 171,
+      "print_z_mm": 41.0,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 40.879999,
+      "model_roads": 701,
+      "wall_roads": 344,
+      "native_components": [
+        {
+          "area_mm2": 7900.1549949834625,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.0077506011400736985
+        }
+      ]
+    },
+    {
+      "layer": 172,
+      "print_z_mm": 41.24,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 41.119999,
+      "model_roads": 687,
+      "wall_roads": 331,
+      "native_components": [
+        {
+          "area_mm2": 7934.714189316866,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.01508989353145615
+        }
+      ]
+    },
+    {
+      "layer": 173,
+      "print_z_mm": 41.48,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 41.360001,
+      "model_roads": 686,
+      "wall_roads": 332,
+      "native_components": [
+        {
+          "area_mm2": 7961.49090762973,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.0289407063523289
+        }
+      ]
+    },
+    {
+      "layer": 174,
+      "print_z_mm": 41.72,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 41.599999,
+      "model_roads": 690,
+      "wall_roads": 337,
+      "native_components": [
+        {
+          "area_mm2": 7988.229992014523,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.012163803100321946
+        }
+      ]
+    },
+    {
+      "layer": 175,
+      "print_z_mm": 41.96,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 41.840001,
+      "model_roads": 691,
+      "wall_roads": 337,
+      "native_components": [
+        {
+          "area_mm2": 8014.929639733626,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.05405380448646521
+        }
+      ]
+    },
+    {
+      "layer": 176,
+      "print_z_mm": 42.2,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 42.079999,
+      "model_roads": 695,
+      "wall_roads": 340,
+      "native_components": [
+        {
+          "area_mm2": 8041.586184792475,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.009295305020326466
+        }
+      ]
+    },
+    {
+      "layer": 177,
+      "print_z_mm": 42.44,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 42.320001,
+      "model_roads": 699,
+      "wall_roads": 341,
+      "native_components": [
+        {
+          "area_mm2": 8068.197426059083,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.028976835613608892
+        }
+      ]
+    },
+    {
+      "layer": 178,
+      "print_z_mm": 42.68,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 42.559999,
+      "model_roads": 699,
+      "wall_roads": 341,
+      "native_components": [
+        {
+          "area_mm2": 8094.758421560025,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.07030167089464986
+        }
+      ]
+    },
+    {
+      "layer": 179,
+      "print_z_mm": 42.92,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 42.800001,
+      "model_roads": 706,
+      "wall_roads": 353,
+      "native_components": [
+        {
+          "area_mm2": 8121.266505009218,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.010658756637815403
+        }
+      ]
+    },
+    {
+      "layer": 180,
+      "print_z_mm": 43.16,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 43.039998999999995,
+      "model_roads": 709,
+      "wall_roads": 356,
+      "native_components": [
+        {
+          "area_mm2": 8147.7154353071965,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.010508433147459167
+        }
+      ]
+    },
+    {
+      "layer": 181,
+      "print_z_mm": 43.4,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 43.279999,
+      "model_roads": 710,
+      "wall_roads": 357,
+      "native_components": [
+        {
+          "area_mm2": 8174.099936404858,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.05705262001959441
+        }
+      ]
+    },
+    {
+      "layer": 182,
+      "print_z_mm": 43.64,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 43.520001,
+      "model_roads": 716,
+      "wall_roads": 362,
+      "native_components": [
+        {
+          "area_mm2": 8200.41240817243,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.07443662809138821
+        }
+      ]
+    },
+    {
+      "layer": 183,
+      "print_z_mm": 43.88,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 43.759999,
+      "model_roads": 721,
+      "wall_roads": 368,
+      "native_components": [
+        {
+          "area_mm2": 8226.64217978705,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.010633365292704977
+        }
+      ]
+    },
+    {
+      "layer": 184,
+      "print_z_mm": 44.12,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 44.000001,
+      "model_roads": 723,
+      "wall_roads": 370,
+      "native_components": [
+        {
+          "area_mm2": 8252.77536087349,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.057110137046370496
+        }
+      ]
+    },
+    {
+      "layer": 185,
+      "print_z_mm": 44.36,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 44.239999,
+      "model_roads": 740,
+      "wall_roads": 386,
+      "native_components": [
+        {
+          "area_mm2": 8278.78689054583,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.011760140690792897
+        }
+      ]
+    },
+    {
+      "layer": 186,
+      "print_z_mm": 44.6,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 44.480001,
+      "model_roads": 757,
+      "wall_roads": 402,
+      "native_components": [
+        {
+          "area_mm2": 8304.616516245529,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.009302107212433658
+        }
+      ]
+    },
+    {
+      "layer": 187,
+      "print_z_mm": 44.84,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 44.719999,
+      "model_roads": 753,
+      "wall_roads": 399,
+      "native_components": [
+        {
+          "area_mm2": 8306.649151449303,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.040750238302041136
+        }
+      ]
+    },
+    {
+      "layer": 188,
+      "print_z_mm": 45.08,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 44.959998999999996,
+      "model_roads": 757,
+      "wall_roads": 403,
+      "native_components": [
+        {
+          "area_mm2": 8306.653248449922,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.04074972107186706
+        }
+      ]
+    },
+    {
+      "layer": 189,
+      "print_z_mm": 45.32,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 45.200001,
+      "model_roads": 758,
+      "wall_roads": 404,
+      "native_components": [
+        {
+          "area_mm2": 8306.65742283679,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.04074919580788486
+        }
+      ]
+    },
+    {
+      "layer": 190,
+      "print_z_mm": 45.56,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 45.439999,
+      "model_roads": 758,
+      "wall_roads": 404,
+      "native_components": [
+        {
+          "area_mm2": 8306.661666616612,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.040748673111402595
+        }
+      ]
+    },
+    {
+      "layer": 191,
+      "print_z_mm": 45.8,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 45.680001,
+      "model_roads": 760,
+      "wall_roads": 404,
+      "native_components": [
+        {
+          "area_mm2": 8306.665989699744,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.0407481408194619
+        }
+      ]
+    },
+    {
+      "layer": 192,
+      "print_z_mm": 46.04,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 45.919999,
+      "model_roads": 760,
+      "wall_roads": 404,
+      "native_components": [
+        {
+          "area_mm2": 8306.670382932902,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.04074760668221314
+        }
+      ]
+    },
+    {
+      "layer": 193,
+      "print_z_mm": 46.28,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 46.160001,
+      "model_roads": 761,
+      "wall_roads": 404,
+      "native_components": [
+        {
+          "area_mm2": 8306.674851191667,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.04074709172251614
+        }
+      ]
+    },
+    {
+      "layer": 194,
+      "print_z_mm": 46.52,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 46.399999,
+      "model_roads": 761,
+      "wall_roads": 404,
+      "native_components": [
+        {
+          "area_mm2": 8306.679398292788,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.04074657257760497
+        }
+      ]
+    },
+    {
+      "layer": 195,
+      "print_z_mm": 46.76,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 46.640001,
+      "model_roads": 761,
+      "wall_roads": 404,
+      "native_components": [
+        {
+          "area_mm2": 8306.684017935811,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.04074599671689369
+        }
+      ]
+    },
+    {
+      "layer": 196,
+      "print_z_mm": 47.0,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 46.879999,
+      "model_roads": 761,
+      "wall_roads": 404,
+      "native_components": [
+        {
+          "area_mm2": 8306.688710052116,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.04074547582142643
+        }
+      ]
+    },
+    {
+      "layer": 197,
+      "print_z_mm": 47.24,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 47.119999,
+      "model_roads": 760,
+      "wall_roads": 403,
+      "native_components": [
+        {
+          "area_mm2": 8306.693479453515,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.04074494225184824
+        }
+      ]
+    },
+    {
+      "layer": 198,
+      "print_z_mm": 47.48,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 47.360001,
+      "model_roads": 759,
+      "wall_roads": 402,
+      "native_components": [
+        {
+          "area_mm2": 8306.69832521634,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.04074445672946822
+        }
+      ]
+    },
+    {
+      "layer": 199,
+      "print_z_mm": 47.72,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 47.599999,
+      "model_roads": 759,
+      "wall_roads": 402,
+      "native_components": [
+        {
+          "area_mm2": 8306.7032432522,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.04074393098065818
+        }
+      ]
+    },
+    {
+      "layer": 200,
+      "print_z_mm": 47.96,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 47.840001,
+      "model_roads": 767,
+      "wall_roads": 402,
+      "native_components": [
+        {
+          "area_mm2": 8306.708231464669,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.04074338131201491
+        }
+      ]
+    },
+    {
+      "layer": 201,
+      "print_z_mm": 48.2,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 48.079999,
+      "model_roads": 2385,
+      "wall_roads": 402,
+      "native_components": [
+        {
+          "area_mm2": 8306.713300880405,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.04074286299972449
+        }
+      ]
+    },
+    {
+      "layer": 202,
+      "print_z_mm": 48.44,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 48.320001,
+      "model_roads": 2856,
+      "wall_roads": 402,
+      "native_components": [
+        {
+          "area_mm2": 8306.718440097004,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.04074232060086749
+        }
+      ]
+    },
+    {
+      "layer": 203,
+      "print_z_mm": 48.68,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 48.559999,
+      "model_roads": 2848,
+      "wall_roads": 402,
+      "native_components": [
+        {
+          "area_mm2": 8306.72365239057,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.04074177548871441
+        }
+      ]
+    },
+    {
+      "layer": 204,
+      "print_z_mm": 48.92,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 48.800001,
+      "model_roads": 2856,
+      "wall_roads": 402,
+      "native_components": [
+        {
+          "area_mm2": 8306.72870670203,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.040741278117877894
+        }
+      ]
+    },
+    {
+      "layer": 205,
+      "print_z_mm": 49.16,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 49.039998999999995,
+      "model_roads": 1614,
+      "wall_roads": 289,
+      "native_components": [
+        {
+          "area_mm2": 8306.728213833478,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.04074073747221038
+        }
+      ]
+    },
+    {
+      "layer": 206,
+      "print_z_mm": 49.4,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 49.279999,
+      "model_roads": 409,
+      "wall_roads": 176,
+      "native_components": [
+        {
+          "area_mm2": 2630.465870297315,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08698414099240351
+        }
+      ]
+    },
+    {
+      "layer": 207,
+      "print_z_mm": 49.64,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 49.520001,
+      "model_roads": 409,
+      "wall_roads": 176,
+      "native_components": [
+        {
+          "area_mm2": 2630.4658670635495,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08698414099240351
+        }
+      ]
+    },
+    {
+      "layer": 208,
+      "print_z_mm": 49.88,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 49.759999,
+      "model_roads": 397,
+      "wall_roads": 176,
+      "native_components": [
+        {
+          "area_mm2": 2630.4658668855473,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08698414099240351
+        }
+      ]
+    },
+    {
+      "layer": 209,
+      "print_z_mm": 50.12,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 50.000001,
+      "model_roads": 397,
+      "wall_roads": 176,
+      "native_components": [
+        {
+          "area_mm2": 2630.4658703247646,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08698414099240351
+        }
+      ]
+    },
+    {
+      "layer": 210,
+      "print_z_mm": 50.36,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 50.239999,
+      "model_roads": 397,
+      "wall_roads": 176,
+      "native_components": [
+        {
+          "area_mm2": 2630.465869125431,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08698414099240351
+        }
+      ]
+    },
+    {
+      "layer": 211,
+      "print_z_mm": 50.6,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 50.480001,
+      "model_roads": 397,
+      "wall_roads": 176,
+      "native_components": [
+        {
+          "area_mm2": 2630.465869687605,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08698414099240351
+        }
+      ]
+    },
+    {
+      "layer": 212,
+      "print_z_mm": 50.84,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 50.719999,
+      "model_roads": 397,
+      "wall_roads": 176,
+      "native_components": [
+        {
+          "area_mm2": 2630.46586861372,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08698414099240351
+        }
+      ]
+    },
+    {
+      "layer": 213,
+      "print_z_mm": 51.08,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 50.959998999999996,
+      "model_roads": 397,
+      "wall_roads": 176,
+      "native_components": [
+        {
+          "area_mm2": 2630.4658695736657,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08698414099240351
+        }
+      ]
+    },
+    {
+      "layer": 214,
+      "print_z_mm": 51.32,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 51.200001,
+      "model_roads": 397,
+      "wall_roads": 176,
+      "native_components": [
+        {
+          "area_mm2": 2630.4658665819197,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08698414099240351
+        }
+      ]
+    },
+    {
+      "layer": 215,
+      "print_z_mm": 51.56,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 51.439999,
+      "model_roads": 397,
+      "wall_roads": 176,
+      "native_components": [
+        {
+          "area_mm2": 2630.465868466265,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08698414099240351
+        }
+      ]
+    },
+    {
+      "layer": 216,
+      "print_z_mm": 51.8,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 51.680001,
+      "model_roads": 401,
+      "wall_roads": 180,
+      "native_components": [
+        {
+          "area_mm2": 2630.465869674999,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08698414099240351
+        }
+      ]
+    },
+    {
+      "layer": 217,
+      "print_z_mm": 52.04,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 51.919999,
+      "model_roads": 402,
+      "wall_roads": 181,
+      "native_components": [
+        {
+          "area_mm2": 2630.465868926854,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08698414099240351
+        }
+      ]
+    },
+    {
+      "layer": 218,
+      "print_z_mm": 52.28,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 52.160001,
+      "model_roads": 403,
+      "wall_roads": 182,
+      "native_components": [
+        {
+          "area_mm2": 2630.4658686162725,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08698414099240351
+        }
+      ]
+    },
+    {
+      "layer": 219,
+      "print_z_mm": 52.52,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 52.399999,
+      "model_roads": 401,
+      "wall_roads": 180,
+      "native_components": [
+        {
+          "area_mm2": 2630.4658693089177,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08698414099240351
+        }
+      ]
+    },
+    {
+      "layer": 220,
+      "print_z_mm": 52.76,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 52.640001,
+      "model_roads": 402,
+      "wall_roads": 181,
+      "native_components": [
+        {
+          "area_mm2": 2630.4658693652673,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08698414099240351
+        }
+      ]
+    },
+    {
+      "layer": 221,
+      "print_z_mm": 53.0,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 52.879999,
+      "model_roads": 397,
+      "wall_roads": 176,
+      "native_components": [
+        {
+          "area_mm2": 2630.4658704375006,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08698414099240351
+        }
+      ]
+    },
+    {
+      "layer": 222,
+      "print_z_mm": 53.24,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 53.119999,
+      "model_roads": 397,
+      "wall_roads": 176,
+      "native_components": [
+        {
+          "area_mm2": 2630.465869518337,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08698414099240351
+        }
+      ]
+    },
+    {
+      "layer": 223,
+      "print_z_mm": 53.48,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 53.360001,
+      "model_roads": 397,
+      "wall_roads": 176,
+      "native_components": [
+        {
+          "area_mm2": 2630.4658680485845,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08698414099240351
+        }
+      ]
+    },
+    {
+      "layer": 224,
+      "print_z_mm": 53.72,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 53.599999,
+      "model_roads": 397,
+      "wall_roads": 176,
+      "native_components": [
+        {
+          "area_mm2": 2630.4658686893063,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08698414099240351
+        }
+      ]
+    },
+    {
+      "layer": 225,
+      "print_z_mm": 53.96,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 53.840001,
+      "model_roads": 396,
+      "wall_roads": 176,
+      "native_components": [
+        {
+          "area_mm2": 2630.4658689428006,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08698414099240351
+        }
+      ]
+    },
+    {
+      "layer": 226,
+      "print_z_mm": 54.2,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 54.079999,
+      "model_roads": 959,
+      "wall_roads": 176,
+      "native_components": [
+        {
+          "area_mm2": 2630.4658690382093,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08698414099240351
+        }
+      ]
+    },
+    {
+      "layer": 227,
+      "print_z_mm": 54.44,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 54.320001,
+      "model_roads": 1639,
+      "wall_roads": 176,
+      "native_components": [
+        {
+          "area_mm2": 2630.46586886611,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08698414099240351
+        }
+      ]
+    },
+    {
+      "layer": 228,
+      "print_z_mm": 54.68,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 54.559999,
+      "model_roads": 1638,
+      "wall_roads": 176,
+      "native_components": [
+        {
+          "area_mm2": 2630.465869916765,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08698414099240351
+        }
+      ]
+    },
+    {
+      "layer": 229,
+      "print_z_mm": 54.92,
+      "height_mm": 0.239998,
+      "native_section_z_mm": 54.800001,
+      "model_roads": 1639,
+      "wall_roads": 176,
+      "native_components": [
+        {
+          "area_mm2": 2630.465867290902,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08698414099240351
+        }
+      ]
+    },
+    {
+      "layer": 230,
+      "print_z_mm": 55.16,
+      "height_mm": 0.240002,
+      "native_section_z_mm": 55.039998999999995,
+      "model_roads": 794,
+      "wall_roads": 88,
+      "native_components": [
+        {
+          "area_mm2": 2630.465868281896,
+          "receives_model_walls": true,
+          "maximum_sampled_boundary_air_mm": 0.08698414099240351
+        }
+      ]
+    }
+  ],
+  "support_only_stations": [],
+  "first_layer_height_mm": 0.2,
+  "minimum_second_layer_bead_overlap_fraction": 0.6974157406332646,
+  "minimum_second_layer_outer_wall_bead_overlap_fraction": 0.6974157406332646,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "complete_model_and_support_bead_bounds_xy_mm": [
+    [
+      47.462,
+      89.88300000000001
+    ],
+    [
+      277.55,
+      230.11700000000002
+    ]
+  ],
+  "minimum_model_and_support_bead_bed_margin_mm": 47.44999999999999,
+  "hook_layers": [],
+  "scope": "Every exact STL component is sectioned at each actual emitted layer mid-plane and must receive model walls. Every outer/hole ring sampled at <=1 mm spacing; >0.30 mm beyond actual nearest wall half-width is a diagnostic requiring review, not a dimensional acceptance tolerance. Paths and first/second-layer geometric overlap do not establish physical bonds, finish, load or retention.",
+  "elapsed_seconds": 14.605823040008545
+}

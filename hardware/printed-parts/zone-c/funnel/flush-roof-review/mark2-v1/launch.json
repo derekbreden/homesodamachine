@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "session": "Printer 2",
+  "part": "funnel-frame",
+  "printer": "Mark2",
+  "quantity": 1,
+  "state": "accepted",
+  "launch_authorized": true,
+  "launch_authorization_quote": "Mark2 bed is clear, please start funnel frame there unless you have a better suggestion",
+  "send_attempted": true,
+  "foreground_send_count": 1,
+  "maximum_foreground_transactions": 1,
+  "transaction_reserved_at_utc": "2026-10-05T23:22:01.912613+00:00",
+  "submitted": true,
+  "task_id": "1312579244",
+  "job_id": "1312579244",
+  "archive_name": "2026-10-05-funnel-frame-mark2-v1.gcode.3mf",
+  "archive_sha256": "b2524ff395f8949c7f5b855cec6d7aa80479e84c08703fa5faf4e09dc1e6fefd",
+  "gcode_sha256": "095dae179b702510fbc86adb45df0dd00a556a055eab1f5c55cfe2ccf7fdeace",
+  "project_sha256": "ac43898d1c60cd38813ac78bca875e8b117c8d7ad5fa6bde78223cd6313dd44a",
+  "source_stl_sha256": "a2c10ea55fdedfcea8d512f2637db2399e6f02e5571d92e04db8b0cb54520185",
+  "source_step_sha256": "811028ad961ad698759bda54181370aedf090a53fe1af116ec9390a67b918163",
+  "preflight_record": "preflight.json",
+  "launch_command": [
+    "tools/cad-venv/bin/python",
+    "tools/bambu_print.py",
+    ".cache/prints/2026-10-05-funnel-frame-mark2-v1/ready/2026-10-05-funnel-frame-mark2-v1.gcode.3mf",
+    "Mark2",
+    "--attempts",
+    "1"
+  ],
+  "automatic_resume_authorized": false,
+  "scheduled_monitoring_authorized": false,
+  "foreground_sender_exit_code": 0,
+  "acceptance_observed_at_utc": "2026-10-05T23:22:25.572814+00:00",
+  "acceptance_observed_at_local": "2026-10-05T18:22:25.572814-05:00",
+  "acceptance_telemetry": {
+    "gcode_state": "PREPARE",
+    "subtask_name": "2026-10-05-funnel-frame-mark2-v1.gcode.3mf",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 980,
+    "total_layer_num": 980,
+    "mc_remaining_time": 0
+  },
+  "postlaunch_reading": {
+    "printer": "Mark2",
+    "observed_at": "2026-10-05T23:22:49.915124+00:00",
+    "task_id": "1312579244",
+    "job_id": "1312579244",
+    "subtask_name": "2026-10-05-funnel-frame-mark2-v1.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 0,
+    "total_layer_num": 230,
+    "mc_percent": 0,
+    "mc_remaining_time": 378,
+    "print_error": 0,
+    "hms": [],
+    "bed_actual_c": 56.0,
+    "bed_target_c": 57.0,
+    "chamber": {
+      "actual_c": 35,
+      "target_c": 0
+    },
+    "left_nozzle": {
+      "actual_c": 137,
+      "target_c": 200
+    }
+  },
+  "peer_after_launch": {
+    "printer": "H2C",
+    "observed_at": "2026-10-05T23:22:49.714890+00:00",
+    "task_id": "1310609527",
+    "job_id": "1310609527",
+    "subtask_name": "2026-10-05-enclosure-front-top-c3-v69-h2c-v20.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 1010,
+    "total_layer_num": 1346,
+    "mc_percent": 64,
+    "mc_remaining_time": 464,
+    "print_error": 0,
+    "hms": [],
+    "bed_actual_c": 80.0,
+    "bed_target_c": 80.0,
+    "chamber": {
+      "actual_c": 34,
+      "target_c": 0
+    },
+    "left_nozzle": {
+      "actual_c": 281,
+      "target_c": 280
+    }
+  },
+  "initial_print_progress_recorded": false,
+  "estimated_duration_seconds": 22738.890625,
+  "estimated_completion_local": "2026-10-06T00:41:24.463439-05:00",
+  "estimate_scope": "Native print prediction from accepted launch observation; actual heating, calibration and printing may shift completion. Inherited progress fields during PREPARE do not establish model-layer progress.",
+  "printer_control_scope": "One foreground Send for this frame only. No scheduled follow-up or automatic resume is authorized."
+}

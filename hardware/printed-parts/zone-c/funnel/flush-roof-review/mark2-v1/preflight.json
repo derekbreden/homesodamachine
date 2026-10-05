@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "session": "Printer 2",
+  "checked_at_utc": "2026-10-05T23:22:01.912613+00:00",
+  "checked_at_local": "2026-10-05T18:22:01.912613-05:00",
+  "part": "funnel-frame",
+  "printer": "Mark2",
+  "quantity": 1,
+  "launch_authorization_quote": "Mark2 bed is clear, please start funnel frame there unless you have a better suggestion",
+  "bed_clear_confirmed_by_start_request": true,
+  "archive_name": "2026-10-05-funnel-frame-mark2-v1.gcode.3mf",
+  "archive_sha256": "b2524ff395f8949c7f5b855cec6d7aa80479e84c08703fa5faf4e09dc1e6fefd",
+  "gcode_sha256": "095dae179b702510fbc86adb45df0dd00a556a055eab1f5c55cfe2ccf7fdeace",
+  "project_sha256": "ac43898d1c60cd38813ac78bca875e8b117c8d7ad5fa6bde78223cd6313dd44a",
+  "source_stl_sha256": "a2c10ea55fdedfcea8d512f2637db2399e6f02e5571d92e04db8b0cb54520185",
+  "source_step_sha256": "811028ad961ad698759bda54181370aedf090a53fe1af116ec9390a67b918163",
+  "native_reviews_pass": true,
+  "complete_support_slab_sweeps_pass": true,
+  "destination_reading": {
+    "printer": "Mark2",
+    "observed_at": "2026-10-05T23:21:00.202022+00:00",
+    "task_id": "1310615503",
+    "job_id": "1310615503",
+    "subtask_name": "2026-10-05-pump-cradle-c3-mark2-v6.gcode.3mf",
+    "gcode_state": "FINISH",
+    "layer_num": 980,
+    "total_layer_num": 980,
+    "mc_percent": 100,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [],
+    "bed_actual_c": 59.0,
+    "bed_target_c": 0.0,
+    "chamber": {
+      "actual_c": 36,
+      "target_c": 0
+    },
+    "left_nozzle": {
+      "actual_c": 53,
+      "target_c": 0
+    }
+  },
+  "peer_reading": {
+    "printer": "H2C",
+    "observed_at": "2026-10-05T23:20:59.628252+00:00",
+    "task_id": "1310609527",
+    "job_id": "1310609527",
+    "subtask_name": "2026-10-05-enclosure-front-top-c3-v69-h2c-v20.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 1009,
+    "total_layer_num": 1346,
+    "mc_percent": 64,
+    "mc_remaining_time": 466,
+    "print_error": 0,
+    "hms": [],
+    "bed_actual_c": 80.0,
+    "bed_target_c": 80.0,
+    "chamber": {
+      "actual_c": 34,
+      "target_c": 0
+    },
+    "left_nozzle": {
+      "actual_c": 280,
+      "target_c": 280
+    }
+  },
+  "filament_mapping": {
+    "physical_material": "black PET-GF",
+    "profile_label": "PET-CF",
+    "tray_info_idx": "GFT01",
+    "colour": "161616",
+    "external_slot": 254,
+    "nozzle": "fixed left hardened standard-flow 0.4 mm"
+  },
+  "shared_circuit_spacing": {
+    "minimum_seconds": 180,
+    "peer_accepted_start_utc": "2026-10-05T09:43:45.785828+00:00",
+    "peer_insertion_resume_observed_running_by_utc": "2026-10-05T14:42:50.755669+00:00",
+    "peer_first_current_reading": {
+      "printer": "H2C",
+      "observed_at": "2026-10-05T23:16:02.273305+00:00",
+      "task_id": "1310609527",
+      "job_id": "1310609527",
+      "subtask_name": "2026-10-05-enclosure-front-top-c3-v69-h2c-v20.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "layer_num": 1007,
+      "total_layer_num": 1346,
+      "mc_percent": 64,
+      "mc_remaining_time": 471,
+      "print_error": 0,
+      "hms": [],
+      "bed_actual_c": 80.0,
+      "bed_target_c": 80.0,
+      "chamber": {
+        "actual_c": 34,
+        "target_c": 0
+      },
+      "left_nozzle": {
+        "actual_c": 279,
+        "target_c": 280
+      }
+    },
+    "seconds_between_current_peer_running_readings": 297.354947,
+    "same_peer_job_progressed": true,
+    "scope": "Known peer start and insertion resume are more than 180 seconds earlier. Both current readings show the same peer task running with advancing layers; no new peer start or resume was commanded."
+  },
+  "passed": true,
+  "automatic_resume_authorized": false,
+  "scheduled_monitoring_authorized": false,
+  "launch_command": [
+    "tools/cad-venv/bin/python",
+    "tools/bambu_print.py",
+    ".cache/prints/2026-10-05-funnel-frame-mark2-v1/ready/2026-10-05-funnel-frame-mark2-v1.gcode.3mf",
+    "Mark2",
+    "--attempts",
+    "1"
+  ]
+}
