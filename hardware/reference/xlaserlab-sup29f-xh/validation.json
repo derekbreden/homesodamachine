@@ -1,0 +1,229 @@
+{
+  "detailed_stl_sha256": "00f67bde00ec1773fc6cf7d7448e9cf2d984efd4ddb3682d6d1697c42fd9f47f",
+  "mesh": {
+    "watertight": true,
+    "consistent_winding": true,
+    "volumes": 1,
+    "reflected_surface_probes": 1800,
+    "reflection_max_surface_error_mm": 0.0
+  },
+  "wire_feed_openings": {
+    "axis": "Z; gap between paired Y arms",
+    "probe_locations_mm": [
+      [
+        15.8,
+        -3.0,
+        -40.0
+      ],
+      [
+        15.8,
+        -3.0,
+        -30.0
+      ],
+      [
+        15.8,
+        -3.0,
+        -20.0
+      ],
+      [
+        15.8,
+        0.0,
+        -40.0
+      ],
+      [
+        15.8,
+        0.0,
+        -30.0
+      ],
+      [
+        15.8,
+        0.0,
+        -20.0
+      ],
+      [
+        15.8,
+        3.0,
+        -40.0
+      ],
+      [
+        15.8,
+        3.0,
+        -30.0
+      ],
+      [
+        15.8,
+        3.0,
+        -20.0
+      ],
+      [
+        44.7,
+        -3.0,
+        -40.0
+      ],
+      [
+        44.7,
+        -3.0,
+        -30.0
+      ],
+      [
+        44.7,
+        -3.0,
+        -20.0
+      ],
+      [
+        44.7,
+        0.0,
+        -40.0
+      ],
+      [
+        44.7,
+        0.0,
+        -30.0
+      ],
+      [
+        44.7,
+        0.0,
+        -20.0
+      ],
+      [
+        44.7,
+        3.0,
+        -40.0
+      ],
+      [
+        44.7,
+        3.0,
+        -30.0
+      ],
+      [
+        44.7,
+        3.0,
+        -20.0
+      ]
+    ],
+    "all_clear": true
+  },
+  "scan_to_model": {
+    "rear-housing": {
+      "observations": 3500,
+      "detailed_stl": {
+        "median_mm": 0.0020698664351858995,
+        "p95_mm": 0.01395224939828237,
+        "p99_mm": 0.028892104188659555
+      },
+      "editable_cad": {
+        "median_mm": 0.06467783576557906,
+        "p95_mm": 1.2062782337387625,
+        "p99_mm": 1.2584464012678183
+      }
+    },
+    "front-housing": {
+      "observations": 3500,
+      "detailed_stl": {
+        "median_mm": 0.0024486453307907925,
+        "p95_mm": 0.021016531882998898,
+        "p99_mm": 0.0456273284576568
+      },
+      "editable_cad": {
+        "median_mm": 0.5279980832846505,
+        "p95_mm": 1.3211212466510118,
+        "p99_mm": 2.952789502117123
+      }
+    },
+    "grip": {
+      "observations": 3500,
+      "detailed_stl": {
+        "median_mm": 0.0015413844400334348,
+        "p95_mm": 0.007704432597140596,
+        "p99_mm": 0.01535131331209537
+      },
+      "editable_cad": {
+        "median_mm": 0.4038118051739392,
+        "p95_mm": 1.816520462422994,
+        "p99_mm": 2.0150827782257523
+      }
+    },
+    "barrel-stem": {
+      "observations": 3500,
+      "detailed_stl": {
+        "median_mm": 0.008448816968273907,
+        "p95_mm": 0.035095767859823906,
+        "p99_mm": 0.08175553695963349
+      },
+      "editable_cad": {
+        "median_mm": 0.008448816968273792,
+        "p95_mm": 0.03509576785982375,
+        "p99_mm": 0.08175553695963349
+      }
+    },
+    "barrel-sleeve": {
+      "observations": 3500,
+      "detailed_stl": {
+        "median_mm": 0.009787084442691888,
+        "p95_mm": 0.030794655619591656,
+        "p99_mm": 0.04551965935380675
+      },
+      "editable_cad": {
+        "median_mm": 0.009787084442691068,
+        "p95_mm": 0.03079465561959213,
+        "p99_mm": 0.045519659353806356
+      }
+    },
+    "barrel-ring": {
+      "observations": 3500,
+      "detailed_stl": {
+        "median_mm": 0.08018154157809257,
+        "p95_mm": 0.20357746363896548,
+        "p99_mm": 0.24806262173072224
+      },
+      "editable_cad": {
+        "median_mm": 0.08018154157809257,
+        "p95_mm": 0.20357746363896556,
+        "p99_mm": 0.24806262173072224
+      }
+    },
+    "wire-feed-hardware": {
+      "observations": 3500,
+      "detailed_stl": {
+        "median_mm": 0.003108621854598103,
+        "p95_mm": 1.4735803740213442,
+        "p99_mm": 3.48387636940841
+      },
+      "editable_cad": {
+        "median_mm": 0.4309430718619591,
+        "p95_mm": 3.3854011404369904,
+        "p99_mm": 4.027339984377075
+      }
+    },
+    "wire-feed-guide": {
+      "observations": 3500,
+      "detailed_stl": {
+        "median_mm": 0.0029144498945045463,
+        "p95_mm": 0.017085202152740706,
+        "p99_mm": 0.03836703912742808
+      },
+      "editable_cad": {
+        "median_mm": 2.1107888118567755,
+        "p95_mm": 3.7945059593440957,
+        "p99_mm": 4.00132994434827
+      }
+    }
+  },
+  "scan_comparison_scope": "Distances to retained-side observed surfaces. Inferred nozzle, front grip face, trigger and boot have no scan accuracy claim. Optical paint, scanner accuracy and physical mount fit are not bounded by these residuals.",
+  "glb": {
+    "coordinates": "metres, Y-up",
+    "bounds_metres": [
+      [
+        -0.15827349853515627,
+        -0.16827093505859375,
+        -0.018063438415527343
+      ],
+      [
+        0.121,
+        0.02507474136352539,
+        0.018063438415527343
+      ]
+    ]
+  },
+  "physical_mount_fit": "Unmeasured"
+}
