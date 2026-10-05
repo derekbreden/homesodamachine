@@ -38,7 +38,7 @@ import { makeToolRail, makeToolGroup, makeChipRow, makeToolButton } from "./tool
 import { makePickModeControl } from "./pick-mode.js";
 import { setTrail, stepHash, walkDepth } from "./step-nav.js";
 import { mountScorecard } from "./scorecard-3d.js";
-import { mountRelated } from "./related-nav.js";
+import { mountRelated, closeRelated } from "./related-nav.js";
 import { clearHighlight } from "./part-highlight.js";
 import { mountTubeTool, closeTubeTool, clearTubeTool, cancelTubeFocus } from "./tube-overlay-host.js";
 import { mountFaucetOptions } from "./faucet-options.js";
@@ -166,14 +166,14 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
   const chips = makeChipRow();
   if (type === "step") {
     rail.appendChild(makePickFindToggle());
-    rail.appendChild(makeToolGroup("Select", makePickModeControl(file)));
+    rail.appendChild(makeToolGroup("Select", makePickModeControl(file))).classList.add("tool-group-select");
     chips.appendChild(makeXrayToggle());
     mountTubeTool(wrapper, chips);
   }
   chips.appendChild(makeRulerToggle());
-  rail.appendChild(makeToolGroup("Show", chips));
+  rail.appendChild(makeToolGroup("Show", chips)).classList.add("tool-group-show");
   wrapper.appendChild(rail);
-  // The models beside this one, under the rail's own controls.
+  // Related models open from a compact disclosure under the tools.
   if (type === "step") mountRelated(wrapper, file, (path || []).slice(0, -1));
   wrapper.appendChild(makeResetViewButton());
 
@@ -197,10 +197,14 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
     if (e.key !== "Escape" || !wrapper.isConnected) return;
     const checks = wrapper.querySelector(".sc-modal");
     if (checks) { checks.remove(); e.preventDefault(); e.stopPropagation(); return; }
-    if (closeTopPickFind()) { e.preventDefault(); e.stopPropagation(); }
+    if (closeRelated(wrapper, true)) { e.preventDefault(); e.stopPropagation(); }
+    else if (closeTopPickFind()) { e.preventDefault(); e.stopPropagation(); }
     else if (closeTubeTool()) { e.preventDefault(); e.stopPropagation(); }
   };
   document.addEventListener("keydown", onEscape, true);
+  wrapper.addEventListener("pointerdown", (e) => {
+    if (!e.target.closest(".tool-group-related")) closeRelated(wrapper);
+  }, true);
 
   // Re-fit the renderer whenever the wrapper's content box changes
   // (modal show, window resize, orientation change). The first
