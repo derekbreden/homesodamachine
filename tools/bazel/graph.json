@@ -1332,9 +1332,9 @@
       "hardware/reference/jg-pp0408w/jg-pp0408w.step",
       "hardware/reference/jg-pp0408w/jg_pp0408w.py",
       "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
+      "hardware/reference/taprite-3741-regulator/taprite_3741_regulator.py",
       "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json",
       "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step",
-      "hardware/reference/wellbom-regulator/wellbom_regulator.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_material_base.py",
       "hardware/scripts/_materials.py",
@@ -6415,6 +6415,23 @@
       "hardware/reference/shutao-moisture-plate/shutao-moisture-plate.step"
     ]
   },
+  "hardware/reference/taprite-3741-regulator/taprite_3741_regulator.py": {
+    "reads": [
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+      "hardware/reference/taprite-3741-regulator/taprite-3741-regulator.step",
+      "hardware/reference/taprite-3741-regulator/taprite_3741_regulator.py",
+      "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_material_base.py",
+      "hardware/scripts/_materials.py",
+      "hardware/scripts/_mesh_payload.py",
+      "hardware/scripts/_run_lock.py",
+      "tools/docgen/__init__.py"
+    ],
+    "rewritten": [],
+    "writes": [
+      "hardware/reference/taprite-3741-regulator/taprite-3741-regulator.step"
+    ]
+  },
   "hardware/reference/tee-connector/tee_connector.py": {
     "reads": [
       "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -6518,23 +6535,6 @@
       "hardware/reference/waveshare-43b-display/README.md",
       "hardware/reference/waveshare-43b-display/waveshare-43b-display.step",
       "hardware/reference/waveshare-43b-display/waveshare_43b_display.py"
-    ]
-  },
-  "hardware/reference/wellbom-regulator/wellbom_regulator.py": {
-    "reads": [
-      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-      "hardware/reference/wellbom-regulator/wellbom-regulator.step",
-      "hardware/reference/wellbom-regulator/wellbom_regulator.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_material_base.py",
-      "hardware/scripts/_materials.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py"
-    ],
-    "rewritten": [],
-    "writes": [
-      "hardware/reference/wellbom-regulator/wellbom-regulator.step"
     ]
   },
   "hardware/reference/worm-clamp/worm_clamp.py": {

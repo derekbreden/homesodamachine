@@ -52,7 +52,7 @@ function overview(serial) {
     </section>
     <details id="included"><summary>What’s included, and what you supply</summary>
       <div class="unit-inventory">
-        <div><h3>In the box</h3><ul><li>Soda machine and assembled faucet</li><li>Under-counter plate</li><li>Filtered water line and water tees</li><li>CO₂ regulator and tether</li><li>Collet press and power cord</li><li>Cold kit, quick start, and install guide</li></ul></div>
+        <div><h3>In the box</h3><ul><li>Soda machine and assembled faucet</li><li>Under-counter plate</li><li>Filtered water line and water tees</li><li>CO₂ regulator and tether, set at the factory</li><li>Collet press and power cord</li><li>Cold kit, quick start, and install guide</li></ul></div>
         <div><h3>Have these ready</h3><ul><li>Filled CO₂ cylinder with CGA-320 connection</li><li>SodaStream-compatible concentrate for both flavors</li><li>Adjustable wrench, cup, and towel</li><li>Second wrench for a braided-hose connection</li><li>Prepared counter opening, cold water, and a grounded 120 V outlet</li></ul></div>
       </div>
     </details>

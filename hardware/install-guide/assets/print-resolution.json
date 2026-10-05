@@ -62,8 +62,8 @@
         2.0,
         2.0
       ],
-      "coordinate_reference_sha256": "336050cf61fea16a374fb896a1eb1220fd0ea4f0ede1ce31391e51b5a5d168a4",
-      "render_sha256": "f0a7e41b2a5035c91b3f9af6868287d2b27f355afb9376b2ccea0f7c1dbab8ed"
+      "coordinate_reference_sha256": "608914d46f47eeb3b17188555c2c71b02cce2e389b0545c128aaedcdeaf7f14d",
+      "render_sha256": "e160d55f7f19caef18bdbc93f555da547f2760e4f642bae6f63be192262d0a72"
     },
     "steps/modern-water-on.png": {
       "reference_size": [
@@ -158,8 +158,8 @@
         2.0,
         2.0
       ],
-      "coordinate_reference_sha256": "15d88eac4adcdd5671c3b8ed7a58fc6db47bdf31f40aff376b7ca7e5efa725fe",
-      "render_sha256": "9fb51b63ef55b6bae5be809d590c6a7dec66ed619db5254be4b4e8cf71008ad0"
+      "coordinate_reference_sha256": "ffbc5cfb1cdc3d08ed419601497a91815f3080b7c0fa988aa368a7d9cc0f6fe9",
+      "render_sha256": "4e914704473f0f288d7480340b7c715d178cf3d38ccb05a0d38eabdf651f5146"
     },
     "fill-screen-framed.png": {
       "reference_size": [

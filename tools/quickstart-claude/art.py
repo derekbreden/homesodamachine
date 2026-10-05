@@ -6,7 +6,7 @@ and it keeps no `note_read` / `note_write` bookkeeping. Its pictures are committ
 the sheet.
 
 The install scenes (steps 1-6) are the wordless sheet's own renders, copied. These four are
-composed here off the same solids — the Wellbom regulator, the enclosure's rear children with
+composed here off the same solids — the Taprite regulator, the enclosure's rear children with
 their fluted skin, the whole appliance, the faucet — and the same presentation cuts
 `_install_art.py` makes: the cylinder, the bottle, the customer's cord and the glass have no
 source CAD and are drawn to catalogue size, and none is a dimensional authority.
@@ -77,14 +77,14 @@ CYLINDER_Z0 = -330.0
 
 
 def _regulator_module():
-    return ia._load(ia.REGULATOR_DIR, "wellbom_regulator")
+    return ia._load_regulator()
 
 
-def _cylinder_and_regulator(gap: float, stand_off: float = 0.0) -> cq.Assembly:
-    """The regulator and its cylinder: the two joints the buyer makes.
+def _cylinder_and_regulator(stand_off: float = 0.0) -> cq.Assembly:
+    """The regulator and its cylinder: the one joint the buyer makes, the big nut onto the valve.
 
-    `stand_off` holds the regulator out along the inlet axis, its big nut short of the valve's
-    stub; `gap` holds the tether's connector pair below the outlet. Both zero is seated.
+    The red tether is in the regulator's outlet from the factory. `stand_off` holds the regulator
+    out along the inlet axis, its big nut short of the valve's stub; zero is seated.
     """
     reg = _regulator_module()
     regulator = reg.build_assembly()
@@ -119,24 +119,22 @@ def _cylinder_and_regulator(gap: float, stand_off: float = 0.0) -> cq.Assembly:
     ia._add(a, ia._cyl(VALVE_AXIS_X, 0.0, CYLINDER_Z0, ia.CYLINDER_D, SHOULDER_Z0 - CYLINDER_Z0),
             "cylinder", ia.CYLINDER)
 
-    _, _, top = ia._co2_tether_adapter(a, tip, gap=gap)
-    ia._add(a, ia._bend([(x, y, top), (x, y, top - 46.0), (x + 130.0, y, top - 46.0)],
-                        radius=22.0),
-            "red-tether", ia.RED_TUBE)
+    ia._add(a, ia._co2_tether(tip, 46.0, 130.0, 22.0), "red-tether", ia.RED_TUBE)
     return a
 
 
 def s_cylinder_nut_ready():
-    return _cylinder_and_regulator(gap=26.0, stand_off=30.0)
+    return _cylinder_and_regulator(stand_off=30.0)
 
 
 def s_cylinder_nut_seated():
-    return _cylinder_and_regulator(gap=0.0)
+    return _cylinder_and_regulator()
 
 
 def s_gas_on():
-    """The same rig, closer: the handwheel that opens the gas and the knob that sets it."""
-    return _cylinder_and_regulator(gap=0.0)
+    """The same rig, closer: the handwheel that opens the gas. The regulator is set at the
+    factory, so nothing else on it turns."""
+    return _cylinder_and_regulator()
 
 
 # --- the cord ------------------------------------------------------------------------------
@@ -258,7 +256,7 @@ _POUR_CAM = dict(cam=(1.0, -1.15, 0.55), target=(0.0, -70.0, 116.0), span=150.0)
 SCENES = {
     "cylinder-nut-ready": (s_cylinder_nut_ready, _RIG_CAM),
     "cylinder-nut-seated": (s_cylinder_nut_seated, _RIG_CAM),
-    "gas-on": (s_gas_on, dict(cam=(0.42, 1.0, 0.30), target=(-56.0, 10.0, -2.0), span=80.0)),
+    "gas-on": (s_gas_on, dict(cam=(0.42, 1.0, 0.30), target=(-50.0, 10.0, 16.0), span=84.0)),
     "power-cord-ready": (s_power_cord_ready, _CORD_CAM),
     "power-cord-home": (s_power_cord_home, _CORD_CAM),
     "fill-ready": (s_fill_ready, _FILL_CAM),

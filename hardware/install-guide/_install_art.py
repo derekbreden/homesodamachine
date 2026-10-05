@@ -44,7 +44,7 @@ MACHINE_STEP = _cad_art.MACHINE_STEP
 MACHINE_MESH = _cad_art.MACHINE_MESH
 MACHINE_FACTS = _cad_art.MACHINE_FACTS
 COLLET_PRESS = HARDWARE / "printed-parts" / "collet-press" / "collet-press.step"
-REGULATOR_DIR = HARDWARE / "reference" / "wellbom-regulator"
+REGULATOR_DIR = HARDWARE / "reference" / "taprite-3741-regulator"
 PLUMBING_DIR = HARDWARE / "quickstart" / "plumbing"
 MODERN_DIR = PLUMBING_DIR / "modern"
 C14_SOURCE = Path(_c14.__file__).resolve()
@@ -545,69 +545,31 @@ def s_tee_after():
     return _plumbing("plumbing-tee-installed")
 
 
-# John Guest's PM4508F4S and PI061008S drawings, page 2 of each (mm):
-# https://www.johnguest.com/sites/jg/files/2023-04/JG%20Drinks%20Female%20Adaptor%20(FFL%20Thread)%20Data%20Sheet.pdf
-# https://www.johnguest.com/sites/jg/files/2022-03/JG%20Air%20Reducer%20(Imperial)%20Data%20Sheet.pdf
-# Lengths and insertion depths are with the collets in release position.
-CO2_FLARE_LENGTH = 33.8
-CO2_FLARE_BODY_D = 19.8
-CO2_FLARE_HEX_FLATS, CO2_FLARE_HEX_D, CO2_FLARE_HEX_LENGTH = 15.9, 17.5, 10.0
-CO2_FLARE_INSERTION = 16.5
-CO2_REDUCER_LENGTH, CO2_REDUCER_BODY_D = 37.4, 15.0
-CO2_REDUCER_STEM_LENGTH, CO2_REDUCER_STEM_D = 19.1, 7.94
+# The tether is pushed into the regulator's PI010822S at the factory, its end this far past the
+# push-fit's mouth: the picture shows a tube going in, not where in the collet it stops.
+TETHER_IN_MOUTH = 4.0
 
 
-def _co2_tether_adapter(assembly, tip, gap=0.0):
-    """The acetal female flare connector and inserted stem reducer; return the tube exit.
+def _load_regulator():
+    """The shipped Taprite 3741, its PI010822S in the outlet port."""
+    return _load(REGULATOR_DIR, "taprite_3741_regulator")
 
-    Published outer bounds; the moulded transitions and collet lips are schematic. The flare
-    tip lies at the back of the connector's hex in the seated picture: an illustrative pose,
-    since the regulator-side seating depth is unmeasured. `gap` is retreat from that pose.
-    """
-    x, y, z = tip
-    front = z + CO2_FLARE_HEX_LENGTH - gap
-    back = front - CO2_FLARE_LENGTH
-    hex_back = front - CO2_FLARE_HEX_LENGTH
-    lip_length = 1.5
-    hexagon = _hex(x, y, hex_back, CO2_FLARE_HEX_FLATS, CO2_FLARE_HEX_LENGTH).intersect(
-        _cyl(x, y, hex_back, CO2_FLARE_HEX_D, CO2_FLARE_HEX_LENGTH))
-    connector = _cyl(x, y, back + lip_length, CO2_FLARE_BODY_D,
-                     hex_back - back - lip_length).union(hexagon)
-    connector = connector.cut(_cyl(x, y, hex_back, 25.4 * 7.0 / 16.0, CO2_FLARE_HEX_LENGTH))
-    _add(assembly, connector, "tether-flare-connector", ACETAL_GRAY)
 
-    # Collet lips occupy the ends of the published envelopes.
-    _add(assembly, _cyl(x, y, back, CO2_FLARE_BODY_D * 0.8, lip_length),
-         "tether-flare-collet", BLACK_PART)
-    stem_end = back - (CO2_REDUCER_STEM_LENGTH - CO2_FLARE_INSERTION)
-    _add(assembly, _cyl(x, y, stem_end, CO2_REDUCER_STEM_D, back - stem_end),
-         "tether-reducer-stem", ACETAL_GRAY)
-    exit_z = back - (CO2_REDUCER_LENGTH - CO2_FLARE_INSERTION)
-    _add(assembly, _cyl(x, y, exit_z + lip_length, CO2_REDUCER_BODY_D,
-                        stem_end - exit_z - lip_length),
-         "tether-stem-reducer", ACETAL_GRAY)
-    _add(assembly, _cyl(x, y, exit_z, CO2_REDUCER_BODY_D * 0.8, lip_length),
-         "tether-reducer-collet", BLACK_PART)
-    return x, y, exit_z
+def _co2_tether(mouth, drop, run, radius):
+    """The red tether out of the regulator's push-fit mouth: down `drop`, then `run` along +X."""
+    x, y, z = mouth
+    return _bend([(x, y, z + TETHER_IN_MOUTH), (x, y, z - drop), (x + run, y, z - drop)],
+                 radius=radius)
 
 
 def s_regulator():
-    """The two dials, pressure knob and acetal connector pair on the outlet flare."""
-    import importlib.util
-    spec = importlib.util.spec_from_file_location(
-        "wellbom_regulator", REGULATOR_DIR / "wellbom_regulator.py")
-    reg = importlib.util.module_from_spec(spec)
-    note_read(REGULATOR_DIR / "wellbom_regulator.py")
-    spec.loader.exec_module(reg)
-
+    """The two dials, the locked adjusting screw and the red tether in the outlet's push-fit."""
+    reg = _load_regulator()
     a = reg.build_assembly()
-    tip, _ = reg.outlet()
-    _, _, top = _co2_tether_adapter(a, tip)
+    mouth, _ = reg.outlet()
     # The tether leaves sideways rather than hanging: the page's picture has to be wider
     # than it is tall or the two dials print too small to read.
-    _add(a, _bend([(tip[0], tip[1], top), (tip[0], tip[1], top - 46.0),
-                   (tip[0] + 120.0, tip[1], top - 46.0)], radius=22.0),
-         "red-tether", RED_TUBE)
+    _add(a, _co2_tether(mouth, 46.0, 120.0, 22.0), "red-tether", RED_TUBE)
     return a
 
 

@@ -92,26 +92,25 @@ M_TINNED_STEEL = cq.Color(0.78, 0.79, 0.80)
 # Provisional plated-white-metal appearance for the GASHER envelope. Its exact
 # body/seat construction is unresolved in reference/gasher-check-valve/README.md.
 M_NICKEL_PLATE = cq.Color(0.76, 0.75, 0.71)
-# Bright chrome over brass — the shipped Wellbom CGA-320 regulator's body, its cylinder nut and
-# every stem off it (`ledger/bom.md` §4, `reference/wellbom-regulator`). Polished where the
-# nickel above is not, and cooler than it.
+# Bright chrome over brass — the shipped Taprite 3741 regulator's gauge cases and dial hubs
+# (`ledger/bom.md` §4, `reference/taprite-3741-regulator`). Polished where the nickel above is
+# not, and cooler than it.
 M_CHROME_PLATE = cq.Color(0.80, 0.82, 0.85)
 
 # --- what a dial and a control knob are made of -------------------------------
-# The Wellbom regulator stands on the customer's own cylinder, which is where the only pressure
-# gauges and the only moulded control knobs on this machine are.
+# The Taprite regulator stands on the customer's own cylinder, which is where the only pressure
+# gauges on this machine are.
 #
-# Moulded black thermoplastic, glossy in the hand — the pressure-adjustment knob and the ON-OFF
-# knob under it.
+# Moulded or painted black, glossy in the hand — the regulator's black bonnet, a solenoid's
+# winding, the flow sensor's band.
 M_MOULDED_BLACK = cq.Color(0.075, 0.075, 0.085)
-# A gauge's black: the painted steel case and bezel around the dial, and the scale and needle
-# printed on the dial's own face.
+# A gauge's black: the scale and needle printed on the dial's own face.
 M_GAUGE_BLACK = cq.Color(0.125, 0.125, 0.135)
 # The dial ground they are printed on.
 M_GAUGE_WHITE = cq.Color(0.96, 0.96, 0.95)
 # The second scale beside them, in the red a dual-scale dial prints its other unit in.
 M_GAUGE_RED = cq.Color(0.78, 0.10, 0.12)
-# The band on the outlet dial that marks the range the vendor carbonates soda in.
+# The band on the cylinder-contents dial where a cylinder still holding liquid CO2 reads.
 M_GAUGE_GREEN = cq.Color(0.13, 0.72, 0.16)
 
 # --- the cold core's own bodies, by what each one is --------------------------
@@ -262,7 +261,7 @@ FINISHES = [
     (M_NICKEL_PLATE,     0.25, _METAL),        # "a plated white metal"
     (M_CHROME_PLATE,     0.10, _METAL),        # "polished where the nickel above is not"
     (M_COPPER,           0.30, _METAL),
-    # the dial and the knobs on the shipped regulator
+    # the dials and bonnet on the shipped regulator
     (M_MOULDED_BLACK,    0.30, _DIELECTRIC),   # "glossy in the hand"
     (M_GAUGE_BLACK,      0.55, _DIELECTRIC),   # painted steel, and ink standing on a dial
     (M_GAUGE_WHITE,      0.55, _DIELECTRIC),

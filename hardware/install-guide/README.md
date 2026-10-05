@@ -117,14 +117,16 @@ The counter page sends a stone counter to a spare 1-3/8 in sink or counter hole,
 diamond core bit kept wet. No stone-drilling procedure (bit speed, backing, chip control) is
 verified.
 
-The owner gas checks cover locating a leak and closing the supply. The gas disconnection
-procedure is not published. External CO2 pressure release needs verification on the supplied Wellbom
-B0G13P5PMY. The cylinder nut, gray flare connector and red tether/bulkhead joint all sit
-upstream of the machine's GASHER check valve. A verified procedure must establish the
-cylinder-valve, outlet-shutoff and pressure-adjustment positions for manual relief, and
-confirm zero pressure in the red tether as well as at both gauges before disconnection.
-The exterior CAD does not show the regulator's internal gas paths or any outlet check valve.
-Closing the cylinder alone is not a pressure-release procedure.
+The owner's regulator steps are attaching it and opening the cylinder valve: it comes set to
+75 psi at the factory with the red tether already in its outlet
+([`reference/taprite-3741-regulator`](../reference/taprite-3741-regulator/README.md)), and the
+guide tells the owner to leave its adjusting screw alone. The owner gas checks cover locating a
+leak and closing the supply. The gas disconnection procedure is not published. The cylinder nut,
+the regulator's outlet push-fit and the red tether/bulkhead joint all sit upstream of the
+machine's GASHER check valve, and the regulator has no outlet shutoff or manual relief. A verified
+procedure must establish how the red tether is brought to zero pressure, confirmed at both gauges,
+before disconnection, without touching the factory setting. Closing the cylinder alone is not a
+pressure-release procedure.
 
 The refrigerant figure is the project's documented bound, under 40 g. A per-unit charge comes
 from factory run-up.

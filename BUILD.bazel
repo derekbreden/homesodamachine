@@ -1922,9 +1922,9 @@ genrule(
         ":out/jg-pp0408w/hardware/reference/jg-pp0408w/jg-pp0408w.step",
         "pysrc/hardware/reference/jg-pp0408w/jg_pp0408w.py",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
+        "pysrc/hardware/reference/taprite-3741-regulator/taprite_3741_regulator.py",
         "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json",
         ":out/westbrass-reference/hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step",
-        "pysrc/hardware/reference/wellbom-regulator/wellbom_regulator.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
@@ -9109,6 +9109,44 @@ cp hardware/reference/shutao-moisture-plate/shutao-moisture-plate.step $$O0
 )
 
 genrule(
+    name = "taprite-3741-regulator",
+    srcs = [
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/reference/taprite-3741-regulator/taprite_3741_regulator.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_material_base.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/taprite-3741-regulator/hardware/reference/taprite-3741-regulator/taprite-3741-regulator.step",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/taprite-3741-regulator/hardware/reference/taprite-3741-regulator/taprite-3741-regulator.step)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/taprite-3741-regulator/taprite_3741_regulator.py > /dev/null
+cp hardware/reference/taprite-3741-regulator/taprite-3741-regulator.step $$O0
+""",
+)
+
+genrule(
     name = "tee-connector",
     srcs = [
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -9323,44 +9361,6 @@ cp hardware/reference/waveshare-43b-display/waveshare-43b-display.step $$O0
 cp hardware/reference/waveshare-43b-display/README.figures.json $$O1
 cp hardware/reference/waveshare-43b-display/README.md $$O2
 cp hardware/reference/waveshare-43b-display/waveshare_43b_display.py $$O3
-""",
-)
-
-genrule(
-    name = "wellbom-regulator",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/reference/wellbom-regulator/wellbom_regulator.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/tools/docgen/__init__.py",
-    ],
-    outs = [
-        "out/wellbom-regulator/hardware/reference/wellbom-regulator/wellbom-regulator.step",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/wellbom-regulator/hardware/reference/wellbom-regulator/wellbom-regulator.step)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/wellbom-regulator/wellbom_regulator.py > /dev/null
-cp hardware/reference/wellbom-regulator/wellbom-regulator.step $$O0
 """,
 )
 
@@ -12541,6 +12541,14 @@ genrule(
 )
 
 genrule(
+    name = "pysrc-f2dd19d25181",
+    srcs = ["hardware/reference/taprite-3741-regulator/taprite_3741_regulator.py"],
+    outs = ["pysrc/hardware/reference/taprite-3741-regulator/taprite_3741_regulator.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
     name = "pysrc-f5ce2e67290c",
     srcs = ["hardware/reference/tee-connector/tee_connector.py"],
     outs = ["pysrc/hardware/reference/tee-connector/tee_connector.py"],
@@ -12576,14 +12584,6 @@ genrule(
     name = "pysrc-26d871b0be38",
     srcs = ["hardware/reference/waveshare-43b-display/waveshare_43b_display.py"],
     outs = ["pysrc/hardware/reference/waveshare-43b-display/waveshare_43b_display.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
-    name = "pysrc-b4301e48564d",
-    srcs = ["hardware/reference/wellbom-regulator/wellbom_regulator.py"],
-    outs = ["pysrc/hardware/reference/wellbom-regulator/wellbom_regulator.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -29911,12 +29911,12 @@ filegroup(
         ":seaflo-suction-chain",
         ":sf76e-thermal-fuse",
         ":shutao-moisture-plate",
+        ":taprite-3741-regulator",
         ":tee-connector",
         ":teyleten-relay",
         ":westbrass-reference",
         ":wago-221",
         ":waveshare-43b-display",
-        ":wellbom-regulator",
         ":worm-clamp",
         ":wr1110-regulator",
         ":audit-mounting",

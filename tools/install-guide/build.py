@@ -239,8 +239,7 @@ packed=[
     ('Under-counter plate',None),
     ('Water line (TAP)',None),
     ('Braided-hose tee',None),
-    ('CO2 regulator',None),
-    ('CO2 tether',None),
+    ('CO2 regulator and tether','Set and fitted at the factory.'),
     ('Collet press',None),
     ('Power cord',None),
     ('Cold kit','Keep bagged for later.'),
@@ -401,7 +400,7 @@ end()
 
 # 14
 header('Attach the regulator', 'TURN IT ON / PREPARE THE CYLINDER',4, 'Stand the filled 5 lb cylinder upright beside the machine. Keep its valve closed.')
-p=pic('steps/co2-ready.png',M,150,CW,230,crop=(80,0,1600,1500))
+p=pic('steps/co2-ready.png',M,150,CW,230,crop=(0,0,1560,1500))
 caption('The regulator\'s large nut meets the cylinder outlet.',389)
 item('1','One washer, lying flat','Place one supplied nylon washer flat inside the large nut. Start the nut squarely on the cylinder outlet by hand. Keep the spare washer in your kit.',429)
 para('<b>Nip it up with the adjustable wrench.</b> Extra force can damage the washer. Keep the cylinder valve easy to reach.',M+24,510,CW-24,11,15,limit=45)
@@ -409,10 +408,10 @@ end()
 
 # 15
 header('Connect the red tether', 'TURN IT ON / PREPARE THE CYLINDER',4)
-p=pic('steps/co2-connected.png',M,117,159,220,crop=(420,775,830,1335))
-leader('Gray connector',209,158,p(637,943),side='left')
-para('Screw the gray connector onto the regulator\'s bottom outlet <b>by hand until it stops.</b>',209,197,155,11,15,limit=75)
-para('Its rubber washer makes the seal. Keep both gray fittings assembled.',209,281,155,10.5,14,limit=56)
+p=pic('steps/co2-connected.png',M,117,159,220,crop=(430,520,840,1080))
+leader('Fitted at the factory',209,158,p(635,688),side='left')
+para('The tether comes <b>already pushed into</b> the regulator\'s outlet. Leave that end as it is.',209,197,155,11,15,limit=75)
+para('The regulator comes <b>set at the factory.</b> There is nothing on it to adjust.',209,281,155,10.5,14,limit=56)
 line(M,369,W-M,369)
 item('2','Check the other end','The red tube belongs in the machine\'s red CO2 port. Push it fully home and tug gently.',390)
 note('KEEP THE CYLINDER CLOSED','Finish all connections before opening water or gas. The next three pages take you through water, gas and power in that order.',481)
@@ -432,13 +431,12 @@ end()
 header('Then, open the gas', 'TURN IT ON / WATER, GAS, POWER',5)
 label('2 / GAS',M,107)
 gas_pose=((.08,1,.12),(-34.7549267293,3.0634158833,-30.1918478747),129.375,(1800,1500))
-p=pic('steps/startup-gas.png',M,141,210,158,crop=(173,53,1752,1360))
+p=pic('steps/startup-gas.png',M,141,210,158,crop=(173,20,1752,1360))
 leader('Cylinder valve',245,153,projected(p,(-115,0,33),*gas_pose),side='left')
-leader('Big knob',245,207,projected(p,(0,45,0),*gas_pose),side='left')
-leader('Small knob',245,264,projected(p,(0,27,-47),*gas_pose),side='left')
-pic('steps/startup-gas.png',278,320,71,71,crop=(533,48,873,388))
-para('Open the <b>cylinder valve</b>, then the regulator\'s <b>small knob</b>. Turn the <b>big knob</b> until the <b>upper gauge needle sits in the green band.</b>',M,325,221,11,15,limit=75)
-para('Listen at the large nut, gray connector and red CO2 port. A continuing hiss means a leak. Soapy water at a joint can reveal it as growing bubbles.',M,421,CW,11,15,limit=60)
+leader('Set at the factory',245,230,projected(p,(0,92.3,0),*gas_pose),side='left')
+pic('steps/startup-gas.png',278,320,71,71,crop=(534,30,874,370))
+para('Open the <b>cylinder valve</b> slowly. That is all: the regulator is <b>set at the factory</b>, so leave its screw alone. The <b>upper gauge</b> settles near <b>75</b>.',M,325,221,11,15,limit=75)
+para('Listen at the large nut and both ends of the red tube. A continuing hiss means a leak. Soapy water at a joint can reveal it as growing bubbles.',M,421,CW,11,15,limit=60)
 note('CHECK BEFORE POWER','If gas continues to escape, close the cylinder valve. Page 23 has the connection checks. Retest before connecting power.',489,'orange')
 end()
 
@@ -499,7 +497,7 @@ para('Rinse it weekly and after a flavor change. Wash the removable silicone fun
 para('Wipe water and debris off the cover, then lift it off by its front edge. When the funnel is empty, lift it straight out. Its plug slides off the bare drain tube, which stays in the machine. To refit, align the plug in its socket and press down until the brim seats, then press the cover down until it rests evenly on the brim.',M,293,CW,11,15,limit=75)
 line(M,383,W-M,383)
 text('Filter and cylinder',M,400,13,'Bold',NAVY)
-para('Replace the water filter once a year. Release pressure in the white water line as described on page 23 before opening its connections. Keep the spare nylon cylinder washer with the install kit for the next cylinder refill.',M,426,CW,11,15,limit=75)
+para('Replace the water filter once a year. Release pressure in the white water line as described on page 23 before opening its connections. The regulator\'s left gauge reads the cylinder: refill it when the needle reaches the red band. Keep the spare nylon cylinder washer for that refill; the regulator stays as set.',M,426,CW,11,15,limit=90)
 caption('Keep the collet press. The bagged cold kit is for shortening and insulating the faucet run after installation is complete.',532)
 end()
 
@@ -515,7 +513,7 @@ line(M,y+12,W-M,y+12)
 y+=29
 text('Gas at a connection',M,y,13,'Bold',NAVY)
 y+=24
-y+=para('Growing bubbles in soapy water show the leaking joint. The cylinder nut seals on one flat nylon washer; the gray connector seals on rubber. A crooked washer needs reseating; replace a damaged seal. See page 14.',M,y,CW,10.8,14.5,limit=72.5)
+y+=para('Growing bubbles in soapy water show the leaking joint. The cylinder nut seals on one flat nylon washer; reseat a crooked one, replace a damaged one (page 14). A leak at either end of the red tube means it is not fully home (page 15).',M,y,CW,10.8,14.5,limit=72.5)
 y+=10
 y+=para('<b>Keep gas fittings assembled until the regulator and red tether are depressurized.</b> Do not loosen a fitting to let pressure out.',M,y,CW,10.8,14.5,limit=43.5)
 line(M,y+12,W-M,y+12)

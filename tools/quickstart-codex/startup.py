@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Draw the cylinder handwheel, regulator controls and pressurised upper gauge."""
+"""Draw the cylinder handwheel and the factory-set regulator with both gauges pressurised."""
 import json
 import math
 
@@ -14,9 +14,9 @@ CAM = (.08, 1, .12)
 TARGET = (-35, 0, -4.5)
 SPAN = 103.5
 SIZE = (1800, 1200)
-OUTLET_PSI = 80
-CYLINDER_PSI = 800
 reg = scenes.reg
+OUTLET_PSI = reg.FACTORY_SET_PSI
+CYLINDER_PSI = 800
 
 
 def dial_print(child, centre, pressure, full):
@@ -51,9 +51,9 @@ def points():
         'upper-gauge': reg.outlet_dial()[0],
         'upper-needle-tip': (-reg.NEEDLE_R * math.cos(angle),
                              reg.GAUGE_FACE_Y + reg.PRINT_T + .8,
-                             reg.GAUGE_REACH + reg.NEEDLE_R * math.sin(angle)),
-        'big-pressure-knob': reg.adjustment()[0],
-        'small-gas-knob': reg.shutoff()[0],
+                             reg.OUTLET_REACH + reg.NEEDLE_R * math.sin(angle)),
+        'cylinder-gauge': reg.tank_dial()[0],
+        'factory-screw': reg.adjustment()[0],
         'cylinder-handwheel': (-115, 0, 33),
     }
 
