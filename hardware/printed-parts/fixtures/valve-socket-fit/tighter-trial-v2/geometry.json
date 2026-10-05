@@ -1,0 +1,453 @@
+{
+  "schema_version": 1,
+  "article": "Tighter Beduan four-post socket hand-fit screen",
+  "revision": 2,
+  "control": "V72 reproduces the accepted 7.20 mm socket profile",
+  "physical_baseline": "../physical-acceptance.json",
+  "production_orientation": "Enclosure-front-top +Z up; socket axes horizontal on Y",
+  "insertion_axis": [
+    0,
+    -1,
+    0
+  ],
+  "extraction_axis": [
+    0,
+    1,
+    0
+  ],
+  "production_socket_profile_changed": false,
+  "supports_required_by_geometry": false,
+  "insertion_pause": false,
+  "physical_fit_qualified": false,
+  "intentional_interference": "V68 is 0.10 mm smaller in diameter than the nominal post. CAD post overlap is intentional in this empirical hand-fit candidate.",
+  "source_sha256": {
+    "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/generate.py": "67ea40944453a14ace52fe99bbc074aff8fe858ce7211a2b0b8bba1544957960",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "d0c24756d11d2488ae5ccff9ea7e2f3331443272a3a185855feff8a0394a68fc",
+    "hardware/printed-parts/valve-seat/valve_seat.py": "fd058e64f8e0b8c843007d255d58a450ca2e17e799c183ebb89098c96f52efc1",
+    "hardware/printed-parts/enclosure/valve-tray/valve_tray.py": "43a5895456ade58295100388a22704b7e488280c764a49ca048bffe91efb96ca",
+    "hardware/reference/beduan-solenoid/beduan_solenoid.py": "640acf974256bbfff88546cbef5672b870a2ceb21d34c128487bf1aa286ab498"
+  },
+  "samples": [
+    {
+      "label": "V72",
+      "printed_label": "7.20",
+      "socket_diameter_mm": 7.2,
+      "nominal_post_diameter_mm": 6.9,
+      "nominal_diametral_clearance_mm": 0.3,
+      "socket_centers_source_xz_mm": [
+        [
+          -12.2,
+          9.599999999999998
+        ],
+        [
+          -12.2,
+          34.45
+        ],
+        [
+          12.2,
+          9.599999999999998
+        ],
+        [
+          12.2,
+          34.45
+        ]
+      ],
+      "post_pitch_xz_mm": [
+        24.4,
+        24.85
+      ],
+      "bearing_face_y_mm": 5.2,
+      "socket_floor_y_mm": -1.0,
+      "socket_depth_mm": 6.2,
+      "nominal_post_engagement_mm": 5.2,
+      "standing_panel_height_mm": 44.05,
+      "panel_width_mm": 43.599999999999994,
+      "panel_thickness_mm": 9.2,
+      "rear_label_foot_extension_mm": 7,
+      "teardrop_roof_angle_degrees": 36.0,
+      "native_valve_insertion_samples": [
+        {
+          "valve_outward_offset_mm": 20,
+          "nominal_valve_overlap_mm3": 0.0
+        },
+        {
+          "valve_outward_offset_mm": 10,
+          "nominal_valve_overlap_mm3": 0.0
+        },
+        {
+          "valve_outward_offset_mm": 5.2,
+          "nominal_valve_overlap_mm3": 0.0
+        },
+        {
+          "valve_outward_offset_mm": 2,
+          "nominal_valve_overlap_mm3": 0.0
+        },
+        {
+          "valve_outward_offset_mm": 0,
+          "nominal_valve_overlap_mm3": 0.0
+        }
+      ],
+      "nonpost_seated_interference_mm3": 0.0,
+      "name": "beduan-socket-v72",
+      "stl": "beduan-socket-v72.stl",
+      "step": "beduan-socket-v72.step",
+      "payload": "beduan-socket-v72.step.mesh",
+      "stl_sha256": "607d75723a8370deac99cf5aa80ff25bf5e5b6a974be63a2e73e9bcdaab92cfe",
+      "step_sha256": "7d1f0816a9f79e110311a329aa77cf45b35877d5d67db0b6dfc3d9bf99265295",
+      "payload_sha256": "cb1a9e59162861f6dcb56b5e0a58df49c4cc3a2f8f7117783c432249cd5ec1c2",
+      "source_bounds_mm": [
+        [
+          -21.799999237060547,
+          -11.0,
+          -9.54791843529282e-16
+        ],
+        [
+          21.799999237060547,
+          5.199999809265137,
+          44.04999923706055
+        ]
+      ],
+      "volume_mm3": 16005.703140535199,
+      "mesh_watertight": true,
+      "mesh_bodies": 1,
+      "triangles": 18094
+    },
+    {
+      "label": "V71",
+      "printed_label": "7.10",
+      "socket_diameter_mm": 7.1,
+      "nominal_post_diameter_mm": 6.9,
+      "nominal_diametral_clearance_mm": 0.2,
+      "socket_centers_source_xz_mm": [
+        [
+          -12.2,
+          9.599999999999998
+        ],
+        [
+          -12.2,
+          34.45
+        ],
+        [
+          12.2,
+          9.599999999999998
+        ],
+        [
+          12.2,
+          34.45
+        ]
+      ],
+      "post_pitch_xz_mm": [
+        24.4,
+        24.85
+      ],
+      "bearing_face_y_mm": 5.2,
+      "socket_floor_y_mm": -1.0,
+      "socket_depth_mm": 6.2,
+      "nominal_post_engagement_mm": 5.2,
+      "standing_panel_height_mm": 44.05,
+      "panel_width_mm": 43.599999999999994,
+      "panel_thickness_mm": 9.2,
+      "rear_label_foot_extension_mm": 7,
+      "teardrop_roof_angle_degrees": 36.0,
+      "native_valve_insertion_samples": [
+        {
+          "valve_outward_offset_mm": 20,
+          "nominal_valve_overlap_mm3": 0.0
+        },
+        {
+          "valve_outward_offset_mm": 10,
+          "nominal_valve_overlap_mm3": 0.0
+        },
+        {
+          "valve_outward_offset_mm": 5.2,
+          "nominal_valve_overlap_mm3": 0.0
+        },
+        {
+          "valve_outward_offset_mm": 2,
+          "nominal_valve_overlap_mm3": 0.0
+        },
+        {
+          "valve_outward_offset_mm": 0,
+          "nominal_valve_overlap_mm3": 0.0
+        }
+      ],
+      "nonpost_seated_interference_mm3": 0.0,
+      "name": "beduan-socket-v71",
+      "stl": "beduan-socket-v71.stl",
+      "step": "beduan-socket-v71.step",
+      "payload": "beduan-socket-v71.step.mesh",
+      "stl_sha256": "042303cd3c5d71d48bbcc820788345d5cd15dd08cd57de60f90c8e819af6442e",
+      "step_sha256": "90c27084a855c62e574308b3cb228744c3c719b18d5080d20ca6c7323700234b",
+      "payload_sha256": "71fa649aceb319a128d165d89ddbce2b155bc28037b7ea6d352660f18cde3ef1",
+      "source_bounds_mm": [
+        [
+          -21.799999237060547,
+          -11.0,
+          -9.54791843529282e-16
+        ],
+        [
+          21.799999237060547,
+          5.199999809265137,
+          44.04999923706055
+        ]
+      ],
+      "volume_mm3": 16033.65958587019,
+      "mesh_watertight": true,
+      "mesh_bodies": 1,
+      "triangles": 13064
+    },
+    {
+      "label": "V70",
+      "printed_label": "7.00",
+      "socket_diameter_mm": 7.0,
+      "nominal_post_diameter_mm": 6.9,
+      "nominal_diametral_clearance_mm": 0.1,
+      "socket_centers_source_xz_mm": [
+        [
+          -12.2,
+          9.599999999999998
+        ],
+        [
+          -12.2,
+          34.45
+        ],
+        [
+          12.2,
+          9.599999999999998
+        ],
+        [
+          12.2,
+          34.45
+        ]
+      ],
+      "post_pitch_xz_mm": [
+        24.4,
+        24.85
+      ],
+      "bearing_face_y_mm": 5.2,
+      "socket_floor_y_mm": -1.0,
+      "socket_depth_mm": 6.2,
+      "nominal_post_engagement_mm": 5.2,
+      "standing_panel_height_mm": 44.05,
+      "panel_width_mm": 43.599999999999994,
+      "panel_thickness_mm": 9.2,
+      "rear_label_foot_extension_mm": 7,
+      "teardrop_roof_angle_degrees": 36.0,
+      "native_valve_insertion_samples": [
+        {
+          "valve_outward_offset_mm": 20,
+          "nominal_valve_overlap_mm3": 0.0
+        },
+        {
+          "valve_outward_offset_mm": 10,
+          "nominal_valve_overlap_mm3": 0.0
+        },
+        {
+          "valve_outward_offset_mm": 5.2,
+          "nominal_valve_overlap_mm3": 0.0
+        },
+        {
+          "valve_outward_offset_mm": 2,
+          "nominal_valve_overlap_mm3": 0.0
+        },
+        {
+          "valve_outward_offset_mm": 0,
+          "nominal_valve_overlap_mm3": 0.0
+        }
+      ],
+      "nonpost_seated_interference_mm3": 0.0,
+      "name": "beduan-socket-v70",
+      "stl": "beduan-socket-v70.stl",
+      "step": "beduan-socket-v70.step",
+      "payload": "beduan-socket-v70.step.mesh",
+      "stl_sha256": "ce4469a1d590cc26ed603aac6530a5d64be8fe45964ffcfc1f3b5f108e494cf8",
+      "step_sha256": "9761709bba80098628fdb65f34579f722b90edf09e98b3dc7bd362de177d2491",
+      "payload_sha256": "266b2b1136b64b26f9c06706ac0e336cf6930a18d3401e8badcdd5ce6dac9a74",
+      "source_bounds_mm": [
+        [
+          -21.799999237060547,
+          -11.0,
+          -9.54791843529282e-16
+        ],
+        [
+          21.799999237060547,
+          5.199999809265137,
+          44.04999923706055
+        ]
+      ],
+      "volume_mm3": 16062.961861537979,
+      "mesh_watertight": true,
+      "mesh_bodies": 1,
+      "triangles": 21092
+    },
+    {
+      "label": "V69",
+      "printed_label": "6.90",
+      "socket_diameter_mm": 6.9,
+      "nominal_post_diameter_mm": 6.9,
+      "nominal_diametral_clearance_mm": 0.0,
+      "socket_centers_source_xz_mm": [
+        [
+          -12.2,
+          9.599999999999998
+        ],
+        [
+          -12.2,
+          34.45
+        ],
+        [
+          12.2,
+          9.599999999999998
+        ],
+        [
+          12.2,
+          34.45
+        ]
+      ],
+      "post_pitch_xz_mm": [
+        24.4,
+        24.85
+      ],
+      "bearing_face_y_mm": 5.2,
+      "socket_floor_y_mm": -1.0,
+      "socket_depth_mm": 6.2,
+      "nominal_post_engagement_mm": 5.2,
+      "standing_panel_height_mm": 44.05,
+      "panel_width_mm": 43.599999999999994,
+      "panel_thickness_mm": 9.2,
+      "rear_label_foot_extension_mm": 7,
+      "teardrop_roof_angle_degrees": 36.0,
+      "native_valve_insertion_samples": [
+        {
+          "valve_outward_offset_mm": 20,
+          "nominal_valve_overlap_mm3": 0.0
+        },
+        {
+          "valve_outward_offset_mm": 10,
+          "nominal_valve_overlap_mm3": 0.0
+        },
+        {
+          "valve_outward_offset_mm": 5.2,
+          "nominal_valve_overlap_mm3": 0.0
+        },
+        {
+          "valve_outward_offset_mm": 2,
+          "nominal_valve_overlap_mm3": 0.0
+        },
+        {
+          "valve_outward_offset_mm": 0,
+          "nominal_valve_overlap_mm3": 0.0
+        }
+      ],
+      "nonpost_seated_interference_mm3": 0.0,
+      "name": "beduan-socket-v69",
+      "stl": "beduan-socket-v69.stl",
+      "step": "beduan-socket-v69.step",
+      "payload": "beduan-socket-v69.step.mesh",
+      "stl_sha256": "d228dc8eb7ef364b52a22b58ad2c170e13d23c84517a5afd0b213ab950a47885",
+      "step_sha256": "52c4442ee1c7be802625d42079b0e9ea44f398fbadd7fbc24c707c2627741ec3",
+      "payload_sha256": "0c32ef14e6935fe61913654a5cba7d56780868b199185d53665d63387093d119",
+      "source_bounds_mm": [
+        [
+          -21.799999237060547,
+          -11.0,
+          -9.54791843529282e-16
+        ],
+        [
+          21.799999237060547,
+          5.199999809265137,
+          44.04999923706055
+        ]
+      ],
+      "volume_mm3": 16091.832647852672,
+      "mesh_watertight": true,
+      "mesh_bodies": 1,
+      "triangles": 37948
+    },
+    {
+      "label": "V68",
+      "printed_label": "6.80",
+      "socket_diameter_mm": 6.8,
+      "nominal_post_diameter_mm": 6.9,
+      "nominal_diametral_clearance_mm": -0.1,
+      "socket_centers_source_xz_mm": [
+        [
+          -12.2,
+          9.599999999999998
+        ],
+        [
+          -12.2,
+          34.45
+        ],
+        [
+          12.2,
+          9.599999999999998
+        ],
+        [
+          12.2,
+          34.45
+        ]
+      ],
+      "post_pitch_xz_mm": [
+        24.4,
+        24.85
+      ],
+      "bearing_face_y_mm": 5.2,
+      "socket_floor_y_mm": -1.0,
+      "socket_depth_mm": 6.2,
+      "nominal_post_engagement_mm": 5.2,
+      "standing_panel_height_mm": 44.05,
+      "panel_width_mm": 43.599999999999994,
+      "panel_thickness_mm": 9.2,
+      "rear_label_foot_extension_mm": 7,
+      "teardrop_roof_angle_degrees": 36.0,
+      "native_valve_insertion_samples": [
+        {
+          "valve_outward_offset_mm": 20,
+          "nominal_valve_overlap_mm3": 0.0
+        },
+        {
+          "valve_outward_offset_mm": 10,
+          "nominal_valve_overlap_mm3": 0.0
+        },
+        {
+          "valve_outward_offset_mm": 5.2,
+          "nominal_valve_overlap_mm3": 0.0
+        },
+        {
+          "valve_outward_offset_mm": 2,
+          "nominal_valve_overlap_mm3": 10.39586184822847
+        },
+        {
+          "valve_outward_offset_mm": 0,
+          "nominal_valve_overlap_mm3": 17.594813751297327
+        }
+      ],
+      "nonpost_seated_interference_mm3": 0.0,
+      "name": "beduan-socket-v68",
+      "stl": "beduan-socket-v68.stl",
+      "step": "beduan-socket-v68.step",
+      "payload": "beduan-socket-v68.step.mesh",
+      "stl_sha256": "c01d4b985ba53402daa248d2f305d059158c2839da5a9ac6ce565f1cf543d131",
+      "step_sha256": "6ad1aa5994f9747424b5698ab648288d506121ee26c4e44ce2d1acc18761ebde",
+      "payload_sha256": "cbd8317be704af9927852b00585a5a920cae1c4c9620fa539357a7695349cde3",
+      "source_bounds_mm": [
+        [
+          -21.799999237060547,
+          -11.0,
+          -9.54791843529282e-16
+        ],
+        [
+          21.799999237060547,
+          5.199999809265137,
+          44.04999923706055
+        ]
+      ],
+      "volume_mm3": 16119.387004983666,
+      "mesh_watertight": true,
+      "mesh_bodies": 1,
+      "triangles": 43454
+    }
+  ],
+  "scope": "Comparative insertion, fully seated body bearing and hand removal of the actual four-post valve. No retention-force, endurance, loaded assembly or tube-operation qualification."
+}

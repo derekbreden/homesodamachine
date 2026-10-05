@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "checked_utc": "2026-10-05T03:19:41.815021+00:00",
+  "status": "fixture_source_scope_pass",
+  "checks_pass": true,
+  "geometry_record": "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/geometry.json",
+  "geometry_record_sha256": "80ef3e6f2b8a4b7511527bbddadb0fea76219ba8eb2ee3afb5cb16581f08121f",
+  "function_reference": "hardware/printed-parts/fixtures/valve-socket-fit/geometry-check.json",
+  "function_reference_sha256": "3605fb64284a601ed42d0abccb89d02f748baa7388840097c459f983dc761c66",
+  "production_function_ast_sha256": {
+    "enclosure._valve_socket_cutters": {
+      "current_ast_sha256": "e4c5e908ec84c7383ff1f4424c4d427c4f751ba1d3f58188ab0609bce86e092f",
+      "reference_ast_sha256": "e4c5e908ec84c7383ff1f4424c4d427c4f751ba1d3f58188ab0609bce86e092f",
+      "match": true
+    },
+    "enclosure._teardrop_y": {
+      "current_ast_sha256": "f1a8fd458777c091e6ab65da631c8c4e1c34e0da7e3951c98d333cc9c7cb74bb",
+      "reference_ast_sha256": "f1a8fd458777c091e6ab65da631c8c4e1c34e0da7e3951c98d333cc9c7cb74bb",
+      "match": true
+    },
+    "valve_tray.build_body_clearance": {
+      "current_ast_sha256": "c412544cbff57082e6d251a2ae41a3f42281abb1f9dc17fdba24e57e4f0b3836",
+      "reference_ast_sha256": "c412544cbff57082e6d251a2ae41a3f42281abb1f9dc17fdba24e57e4f0b3836",
+      "match": true
+    },
+    "valve_tray.build_port_channel": {
+      "current_ast_sha256": "2ba753ed384d67f8643173aa78e0c6bedfe5f9f8a12505f9146cdb25b6d2307e",
+      "reference_ast_sha256": "2ba753ed384d67f8643173aa78e0c6bedfe5f9f8a12505f9146cdb25b6d2307e",
+      "match": true
+    }
+  },
+  "source_files": {
+    "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/generate.py": {
+      "export_snapshot_sha256": "67ea40944453a14ace52fe99bbc074aff8fe858ce7211a2b0b8bba1544957960",
+      "current_sha256": "67ea40944453a14ace52fe99bbc074aff8fe858ce7211a2b0b8bba1544957960",
+      "whole_file_matches_export_snapshot": true
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": {
+      "export_snapshot_sha256": "d0c24756d11d2488ae5ccff9ea7e2f3331443272a3a185855feff8a0394a68fc",
+      "current_sha256": "020e0ae5ee3dcbe748d5b3ee994ac4975d9d81b8793a1f534a2ad97f7a80595c",
+      "whole_file_matches_export_snapshot": false
+    },
+    "hardware/printed-parts/valve-seat/valve_seat.py": {
+      "export_snapshot_sha256": "fd058e64f8e0b8c843007d255d58a450ca2e17e799c183ebb89098c96f52efc1",
+      "current_sha256": "fd058e64f8e0b8c843007d255d58a450ca2e17e799c183ebb89098c96f52efc1",
+      "whole_file_matches_export_snapshot": true
+    },
+    "hardware/printed-parts/enclosure/valve-tray/valve_tray.py": {
+      "export_snapshot_sha256": "43a5895456ade58295100388a22704b7e488280c764a49ca048bffe91efb96ca",
+      "current_sha256": "43a5895456ade58295100388a22704b7e488280c764a49ca048bffe91efb96ca",
+      "whole_file_matches_export_snapshot": true
+    },
+    "hardware/reference/beduan-solenoid/beduan_solenoid.py": {
+      "export_snapshot_sha256": "640acf974256bbfff88546cbef5672b870a2ceb21d34c128487bf1aa286ab498",
+      "current_sha256": "640acf974256bbfff88546cbef5672b870a2ceb21d34c128487bf1aa286ab498",
+      "whole_file_matches_export_snapshot": true
+    }
+  },
+  "current_fixture_dimensions": {
+    "nominal_post_diameter_mm": 6.9,
+    "post_pitch_xz_mm": [
+      24.4,
+      24.85
+    ],
+    "bearing_face_y_mm": 5.2,
+    "socket_floor_y_mm": -1.0,
+    "socket_depth_mm": 6.2,
+    "nominal_post_engagement_mm": 5.2,
+    "panel_width_mm": 43.599999999999994,
+    "panel_height_mm": 44.05,
+    "panel_thickness_mm": 9.2,
+    "side_margin_mm": 3.0,
+    "teardrop_roof_angle_degrees": 36.0,
+    "production_socket_diameter_mm": 7.2
+  },
+  "export_artifacts": [
+    {
+      "path": "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v72.stl",
+      "sha256": "607d75723a8370deac99cf5aa80ff25bf5e5b6a974be63a2e73e9bcdaab92cfe"
+    },
+    {
+      "path": "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v72.step",
+      "sha256": "7d1f0816a9f79e110311a329aa77cf45b35877d5d67db0b6dfc3d9bf99265295"
+    },
+    {
+      "path": "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v72.step.mesh",
+      "sha256": "cb1a9e59162861f6dcb56b5e0a58df49c4cc3a2f8f7117783c432249cd5ec1c2"
+    },
+    {
+      "path": "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v71.stl",
+      "sha256": "042303cd3c5d71d48bbcc820788345d5cd15dd08cd57de60f90c8e819af6442e"
+    },
+    {
+      "path": "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v71.step",
+      "sha256": "90c27084a855c62e574308b3cb228744c3c719b18d5080d20ca6c7323700234b"
+    },
+    {
+      "path": "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v71.step.mesh",
+      "sha256": "71fa649aceb319a128d165d89ddbce2b155bc28037b7ea6d352660f18cde3ef1"
+    },
+    {
+      "path": "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v70.stl",
+      "sha256": "ce4469a1d590cc26ed603aac6530a5d64be8fe45964ffcfc1f3b5f108e494cf8"
+    },
+    {
+      "path": "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v70.step",
+      "sha256": "9761709bba80098628fdb65f34579f722b90edf09e98b3dc7bd362de177d2491"
+    },
+    {
+      "path": "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v70.step.mesh",
+      "sha256": "266b2b1136b64b26f9c06706ac0e336cf6930a18d3401e8badcdd5ce6dac9a74"
+    },
+    {
+      "path": "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v69.stl",
+      "sha256": "d228dc8eb7ef364b52a22b58ad2c170e13d23c84517a5afd0b213ab950a47885"
+    },
+    {
+      "path": "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v69.step",
+      "sha256": "52c4442ee1c7be802625d42079b0e9ea44f398fbadd7fbc24c707c2627741ec3"
+    },
+    {
+      "path": "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v69.step.mesh",
+      "sha256": "0c32ef14e6935fe61913654a5cba7d56780868b199185d53665d63387093d119"
+    },
+    {
+      "path": "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v68.stl",
+      "sha256": "c01d4b985ba53402daa248d2f305d059158c2839da5a9ac6ce565f1cf543d131"
+    },
+    {
+      "path": "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v68.step",
+      "sha256": "6ad1aa5994f9747424b5698ab648288d506121ee26c4e44ce2d1acc18761ebde"
+    },
+    {
+      "path": "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v68.step.mesh",
+      "sha256": "cbd8317be704af9927852b00585a5a920cae1c4c9620fa539357a7695349cde3"
+    }
+  ],
+  "scope": "The fixture functions match the saved production-function reference, and the generator, valve-seat, valve-tray and valve-reference modules match the export snapshots. Current fixture constants match all five exported panel records. The enclosure module is bound only through fixture functions and dimensions; its whole-file hash differs from the export snapshot. These checks do not qualify physical fit or retention."
+}
