@@ -30,7 +30,7 @@ ART = HERE / "art"
 OUT = HERE / "out"
 
 sys.path.insert(0, str(HARDWARE / "scripts"))
-sys.path.insert(0, str(HARDWARE / "quickstart"))
+sys.path.insert(0, str(HARDWARE / "install-guide"))
 sys.path.insert(0, str(HARDWARE / "printed-parts" / "cadlib"))
 sys.path.insert(0, str(HARDWARE / "reference" / "iec-c14-inlet"))
 
@@ -45,7 +45,7 @@ MACHINE_MESH = _cad_art.MACHINE_MESH
 MACHINE_FACTS = _cad_art.MACHINE_FACTS
 COLLET_PRESS = HARDWARE / "printed-parts" / "collet-press" / "collet-press.step"
 REGULATOR_DIR = HARDWARE / "reference" / "taprite-3741-regulator"
-PLUMBING_DIR = HARDWARE / "quickstart" / "plumbing"
+PLUMBING_DIR = HARDWARE / "install-guide" / "plumbing"
 MODERN_DIR = PLUMBING_DIR / "modern"
 C14_SOURCE = Path(_c14.__file__).resolve()
 
@@ -436,11 +436,11 @@ def s_nameplate():
 #: part turns its DXF a quarter about Z on the way into this frame), so it comes in from -X; at
 #: this stand-off its mouths sit a finger's width short of the shank and the flavor pair.
 PLATE_STANDOFF_X = -44.0
-#: The washer and nut the faucet ships with, as the quick start draws them: on the last thread at
+#: The washer and nut the faucet ships with, in the installation illustrations: on the last thread at
 #: the bottom of the shank, under the gap the plate slides through.
 WASHER_T, NUT_H = 1.5, 5.0
 NUT_STEEL = cq.Color(0.43, 0.45, 0.48, 1.0)
-#: The plate as the quick start draws it, a step lighter than the washer it will meet.
+#: The plate in the installation illustrations, a step lighter than the washer it will meet.
 PLATE_STEEL = cq.Color(0.91, 0.92, 0.94, 1.0)
 #: One of the flavor pair a shade lighter, so the two stay countable where their silhouettes meet.
 BLACK_PART_LIT = cq.Color(0.20, 0.205, 0.215, 1.0)
@@ -452,7 +452,7 @@ def s_plate_sideways():
     Seen from under the counter on the plate's own side, so both mouths and all three lines
     are in the open. The plate stands off at -X with both mouths toward the shank and the
     flavor pair, the washer and nut hang at the bottom of the shank below the gap it slides
-    through, and the seat itself is the quick start's frame.
+    through, and the seat itself is the install guide's frame.
     """
     fa = _cad_art._load_faucet_module()
     parts = _cad_art._children_by_name(fa.build_assembly())

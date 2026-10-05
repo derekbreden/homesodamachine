@@ -4,8 +4,10 @@ from pathlib import Path
 import io
 import json
 import math
+import re
 import subprocess
 import sys
+import xml.etree.ElementTree as ET
 
 from PIL import Image
 from reportlab.pdfgen import canvas
@@ -44,7 +46,7 @@ c.setSubject('Seven steps to the first glass. 32 interior pages. 9 x 7 inch land
 page_no = 0
 checks, image_checks, titles = [], [], []
 resolutions = json.loads((ART/'print-resolution.json').read_text())['assets']
-FILL = json.loads((ROOT/'hardware/quickstart-codex/art/fill-scene-inputs.json').read_text())
+FILL = json.loads((ART/'fill-scene-inputs.json').read_text())
 FILL_POSE = tuple(FILL['pose'][key] for key in ('cam', 'target', 'span'))
 
 
@@ -179,6 +181,30 @@ def caption(s, y, x=M, w=264):
     return para(s, x, y, w, 10, 14, MUTED, limit=42)
 
 
+def kit_picture(name, x, y, w, h):
+    svg = ET.parse(ART/'kit'/f'{name}.svg').getroot()
+    paths = [[(command, float(px), float(py)) for command, px, py in
+              re.findall(r'([ML])([-+\d.eE]+),([-+\d.eE]+)', node.attrib['d'])]
+             for node in svg.iter('{http://www.w3.org/2000/svg}path')]
+    points = [point for path in paths for point in path]
+    left, right = min(p[1] for p in points), max(p[1] for p in points)
+    top, bottom = min(p[2] for p in points), max(p[2] for p in points)
+    scale = min(w/(right-left), h/(bottom-top))
+    ox, oy = x+(w-(right-left)*scale)/2, y+(h-(bottom-top)*scale)/2
+    c.saveState()
+    c.setLineWidth(.68)
+    c.setStrokeColor(HexColor('#46515b'))
+    c.setLineCap(1)
+    c.setLineJoin(1)
+    for points in paths:
+        path = c.beginPath()
+        for command, px, py in points:
+            point = ox+(px-left)*scale, H-oy-(py-top)*scale
+            (path.moveTo if command == 'M' else path.lineTo)(*point)
+        c.drawPath(path, stroke=1, fill=0)
+    c.restoreState()
+
+
 def note(title, s, y, x=M, w=CW, kind='blue'):
     h = Paragraph(s, ParagraphStyle('measure', fontName='Regular', fontSize=12,
                                    leading=17)).wrap(w-28, 1000)[1]+44
@@ -279,7 +305,7 @@ para('<b>Then chill, choose and pour.</b><br/>The first chill takes about an hou
 end()
 
 # Interior 2
-header('Your route to soda', sub='Step numbers match the quick start. Page numbers below refer to this booklet.')
+header('Your route to soda', sub='Follow the seven steps in order. Page numbers below refer to this booklet.')
 route = [(1, 'Mount the faucet', '5-8', 5),
          (2, 'Add the cold-water tee', '9-16', 9),
          (3, 'Match the rear connections', '17-18', 17),
@@ -300,17 +326,32 @@ end()
 # Interior 3
 header('Have everything ready', sub='Unpack the kit. Have your own supplies ready before opening a water connection.')
 label('IN THE BOX', M, 150)
-label('YOU SUPPLY', RIGHT, 150)
-packed = ['Soda machine', 'Faucet assembly + under-counter plate', 'White filtered water run + both tees',
-          'Regulator + red CO2 tether', 'Collet press + power cord', 'Quick start + install guide',
-          'Cold kit - keep bagged for later']
-supplies = ['Filled 5 lb CO2 cylinder (CGA-320)', 'SodaStream-compatible concentrate', 'Adjustable wrench',
-            'Second wrench for a braided hose', 'Cup + towel', 'Prepared counter opening', 'Grounded 120 V outlet']
-for x, entries, width in [(M, packed, 263), (RIGHT, supplies, RW)]:
-    for i, entry in enumerate(entries):
-        y = 181+i*34
-        rect(x, y+2, 11, 11, '#FFFFFF', BLUE, 1)
-        para(entry, x+21, y, width-21, 11.4, 15, limit=30)
+kit = [('machine', 'Soda machine'),
+       ('faucet-and-plate', 'Faucet +<br/>mounting plate'),
+       ('filtered-line', 'Filtered water line'),
+       ('water-tees', 'Both water tees'),
+       ('regulator-and-tether', 'Regulator + CO2 tether<br/>+ nylon washer'),
+       ('collet-press', 'Collet press'),
+       ('power-cord', 'Power cord'),
+       ('install-guide', 'Install guide'),
+       ('cold-kit', 'Cold kit')]
+for i, (art, title) in enumerate(kit):
+    x, y = M+(i%3)*134, 168+(i//3)*90
+    kit_picture(art, x+3, y, 120, 61)
+    para(title, x, y+65, 128, 10.5, 12.5, INK, 'Semibold', limit=25)
+    if art == 'cold-kit':
+        para('Keep bagged for later.', x, y+80, 128, 9, 12, MUTED)
+rect(459, 144, 145, 295, '#F2F5FB', r=6)
+label('YOU SUPPLY', 473, 159, NAVY, 8)
+supplies = ['Filled 5 lb CO2 cylinder<br/>(CGA-320)',
+            'Concentrate for both flavors<br/>(SodaStream compatible)', 'Adjustable wrench',
+            'Second wrench for a braided hose', 'Towel',
+            'Prepared counter opening', 'Grounded 120 V outlet']
+y = 181
+for entry in supplies:
+    rect(473, y+2, 8, 8, '#FFFFFF', MUTED, 1)
+    h = para(entry, 488, y, 103, 10, 13, limit=52)
+    y += h+11
 end()
 
 # Interior 4
@@ -378,7 +419,7 @@ header('Close the cold-water shutoff', 'INSTALL / PLASTIC-TUBE CONNECTION', 2)
 pic('steps/modern-water-off.png', M, 167, 278, 169, crop=(170, 190, 1100, 635))
 caption('Keep the shutoff closed while making connections.', 368)
 item('1 / WATER OFF', 'Wait for flow to stop', 'Close the cold-water shutoff. Run the tap or dispenser on that line until flow stops.', 156)
-para('Put a cup and towel beneath the fitting to catch the water left in the tube.', RIGHT, 318, RW)
+para('Put a towel beneath the fitting to catch the water left in the tube.', RIGHT, 318, RW)
 end()
 
 # Interior 11
@@ -405,7 +446,7 @@ header('Prepare the braided-hose connection', 'INSTALL / BRAIDED-HOSE CONNECTION
 pic('two-tees.png', M, 162, 274, 121)
 caption('The white tee has a side-port lever.', 315)
 item('1 / FIND COLD', 'Trace the hose to its valve', 'The white tee fits a 3/8 in outlet. Close that valve, then open the kitchen faucet on cold. Wait for flow to stop.', 145)
-note('BEFORE LOOSENING', 'If water keeps flowing, leave the hose connected; the shutoff needs repair. Put a cup and towel below the connection.', 321, RIGHT, RW, 'orange')
+note('BEFORE LOOSENING', 'If water keeps flowing, leave the hose connected; the shutoff needs repair. Put a towel below the connection.', 321, RIGHT, RW, 'orange')
 end()
 
 # Interior 14

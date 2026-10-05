@@ -1886,11 +1886,169 @@ cp hardware/faucet-layout/faucet-industrial-assembly.step.mesh $$O1
 )
 
 genrule(
+    name = "cad-art",
+    srcs = [
+        "firmware/src_faucet/images/flavor0_faucet.h",
+        "firmware/src_faucet/images/flavor1_faucet.h",
+        ":out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
+        "pysrc/hardware/faucet-layout/faucet_assembly.py",
+        "pysrc/hardware/install-guide/_cad_art.py",
+        "pysrc/hardware/install-guide/installation_art.py",
+        ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json",
+        ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step",
+        ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.mesh",
+        "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
+        "pysrc/hardware/printed-parts/cadlib/reeding.py",
+        "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/faucet/_display_snap.py",
+        "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
+        "pysrc/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "pysrc/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "pysrc/hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
+        "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "pysrc/hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-water.step",
+        "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
+        "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
+        ":out/jg-pp0408w/hardware/reference/jg-pp0408w/jg-pp0408w.step",
+        "pysrc/hardware/reference/jg-pp0408w/jg_pp0408w.py",
+        "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
+        "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json",
+        ":out/westbrass-reference/hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_material_base.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_measuring.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_stated_bounds.py",
+        "pysrc/hardware/scripts/flute_payload.py",
+        "pysrc/tools/docgen/__init__.py",
+        "tools/render/browser.js",
+        "tools/render/render-step-posed.js",
+        "web/server.js",
+        ":render-step-posed-runtime",
+    ],
+    outs = [
+        "out/cad-art/hardware/install-guide/art/colors.css",
+        "out/cad-art/hardware/install-guide/art/connect-rear-connected.png",
+        "out/cad-art/hardware/install-guide/art/connect-rear-open.png",
+        "out/cad-art/hardware/install-guide/art/faucet-front.png",
+        "out/cad-art/hardware/install-guide/art/faucet-side-pressed.png",
+        "out/cad-art/hardware/install-guide/art/faucet-side.png",
+        "out/cad-art/hardware/install-guide/art/faucet-tails-front.png",
+        "out/cad-art/hardware/install-guide/art/flavor-1.png",
+        "out/cad-art/hardware/install-guide/art/flavor-2.png",
+        "out/cad-art/hardware/install-guide/art/machine-back-close.png",
+        "out/cad-art/hardware/install-guide/art/machine-back-iso.png",
+        "out/cad-art/hardware/install-guide/art/machine-front.png",
+        "out/cad-art/hardware/install-guide/art/machine-funnel-close.png",
+        "out/cad-art/hardware/install-guide/art/machine-ports-action.png",
+        "out/cad-art/hardware/install-guide/art/machine-ports-iso.png",
+        "out/cad-art/hardware/install-guide/art/machine-signal-iso.png",
+        "out/cad-art/hardware/install-guide/art/mount-drop.png",
+        "out/cad-art/hardware/install-guide/art/mount-final-clean.png",
+        "out/cad-art/hardware/install-guide/art/mount-lowered-clean.png",
+        "out/cad-art/hardware/install-guide/art/mount-seated.png",
+        "out/cad-art/hardware/install-guide/art/mount-slide-clean.png",
+        "out/cad-art/hardware/install-guide/art/mount-slide.png",
+        "out/cad-art/hardware/install-guide/art/mount-tighten-close.png",
+        "out/cad-art/hardware/install-guide/art/mount-tighten.png",
+        "out/cad-art/hardware/install-guide/art/mount-under-slide-clean.png",
+        "out/cad-art/hardware/install-guide/art/mount-under-tighten-clean.png",
+    ],
+    tags = ["requires-network"],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/cad-art/hardware/install-guide/art/colors.css)
+O1=$$PWD/$(location out/cad-art/hardware/install-guide/art/connect-rear-connected.png)
+O2=$$PWD/$(location out/cad-art/hardware/install-guide/art/connect-rear-open.png)
+O3=$$PWD/$(location out/cad-art/hardware/install-guide/art/faucet-front.png)
+O4=$$PWD/$(location out/cad-art/hardware/install-guide/art/faucet-side-pressed.png)
+O5=$$PWD/$(location out/cad-art/hardware/install-guide/art/faucet-side.png)
+O6=$$PWD/$(location out/cad-art/hardware/install-guide/art/faucet-tails-front.png)
+O7=$$PWD/$(location out/cad-art/hardware/install-guide/art/flavor-1.png)
+O8=$$PWD/$(location out/cad-art/hardware/install-guide/art/flavor-2.png)
+O9=$$PWD/$(location out/cad-art/hardware/install-guide/art/machine-back-close.png)
+O10=$$PWD/$(location out/cad-art/hardware/install-guide/art/machine-back-iso.png)
+O11=$$PWD/$(location out/cad-art/hardware/install-guide/art/machine-front.png)
+O12=$$PWD/$(location out/cad-art/hardware/install-guide/art/machine-funnel-close.png)
+O13=$$PWD/$(location out/cad-art/hardware/install-guide/art/machine-ports-action.png)
+O14=$$PWD/$(location out/cad-art/hardware/install-guide/art/machine-ports-iso.png)
+O15=$$PWD/$(location out/cad-art/hardware/install-guide/art/machine-signal-iso.png)
+O16=$$PWD/$(location out/cad-art/hardware/install-guide/art/mount-drop.png)
+O17=$$PWD/$(location out/cad-art/hardware/install-guide/art/mount-final-clean.png)
+O18=$$PWD/$(location out/cad-art/hardware/install-guide/art/mount-lowered-clean.png)
+O19=$$PWD/$(location out/cad-art/hardware/install-guide/art/mount-seated.png)
+O20=$$PWD/$(location out/cad-art/hardware/install-guide/art/mount-slide-clean.png)
+O21=$$PWD/$(location out/cad-art/hardware/install-guide/art/mount-slide.png)
+O22=$$PWD/$(location out/cad-art/hardware/install-guide/art/mount-tighten-close.png)
+O23=$$PWD/$(location out/cad-art/hardware/install-guide/art/mount-tighten.png)
+O24=$$PWD/$(location out/cad-art/hardware/install-guide/art/mount-under-slide-clean.png)
+O25=$$PWD/$(location out/cad-art/hardware/install-guide/art/mount-under-tighten-clean.png)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/install-guide/_cad_art.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/install-guide/installation_art.py > /dev/null
+cp hardware/install-guide/art/colors.css $$O0
+cp hardware/install-guide/art/connect-rear-connected.png $$O1
+cp hardware/install-guide/art/connect-rear-open.png $$O2
+cp hardware/install-guide/art/faucet-front.png $$O3
+cp hardware/install-guide/art/faucet-side-pressed.png $$O4
+cp hardware/install-guide/art/faucet-side.png $$O5
+cp hardware/install-guide/art/faucet-tails-front.png $$O6
+cp hardware/install-guide/art/flavor-1.png $$O7
+cp hardware/install-guide/art/flavor-2.png $$O8
+cp hardware/install-guide/art/machine-back-close.png $$O9
+cp hardware/install-guide/art/machine-back-iso.png $$O10
+cp hardware/install-guide/art/machine-front.png $$O11
+cp hardware/install-guide/art/machine-funnel-close.png $$O12
+cp hardware/install-guide/art/machine-ports-action.png $$O13
+cp hardware/install-guide/art/machine-ports-iso.png $$O14
+cp hardware/install-guide/art/machine-signal-iso.png $$O15
+cp hardware/install-guide/art/mount-drop.png $$O16
+cp hardware/install-guide/art/mount-final-clean.png $$O17
+cp hardware/install-guide/art/mount-lowered-clean.png $$O18
+cp hardware/install-guide/art/mount-seated.png $$O19
+cp hardware/install-guide/art/mount-slide-clean.png $$O20
+cp hardware/install-guide/art/mount-slide.png $$O21
+cp hardware/install-guide/art/mount-tighten-close.png $$O22
+cp hardware/install-guide/art/mount-tighten.png $$O23
+cp hardware/install-guide/art/mount-under-slide-clean.png $$O24
+cp hardware/install-guide/art/mount-under-tighten-clean.png $$O25
+""",
+)
+
+genrule(
     name = "install-art",
     srcs = [
         ":out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
         "pysrc/hardware/faucet-layout/faucet_assembly.py",
+        "pysrc/hardware/install-guide/_cad_art.py",
         "pysrc/hardware/install-guide/_install_art.py",
+        "pysrc/hardware/install-guide/plumbing/modern/render_modern_tee.py",
+        "pysrc/hardware/install-guide/plumbing/plumbing_scenes.py",
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json",
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step",
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.mesh",
@@ -1913,9 +2071,6 @@ genrule(
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step",
         "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
-        "pysrc/hardware/quickstart/_cad_art.py",
-        "pysrc/hardware/quickstart/plumbing/modern/render_modern_tee.py",
-        "pysrc/hardware/quickstart/plumbing/plumbing_scenes.py",
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
         "pysrc/hardware/reference/jg-pp0208e-tee/jg_pp0208e_tee.py",
@@ -2011,6 +2166,137 @@ cp hardware/install-guide/art/tee-before.png $$O13
 cp hardware/install-guide/art/the-back-face.png $$O14
 cp hardware/install-guide/art/the-socket.png $$O15
 cp hardware/install-guide/art/two-tees.png $$O16
+""",
+)
+
+genrule(
+    name = "render-modern-tee",
+    srcs = [
+        "pysrc/hardware/install-guide/plumbing/modern/render_modern_tee.py",
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        ":out/jg-pp0408w/hardware/reference/jg-pp0408w/jg-pp0408w.step",
+        "pysrc/hardware/reference/jg-pp0408w/jg_pp0408w.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_material_base.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/tools/docgen/__init__.py",
+        "tools/render/browser.js",
+        "tools/render/render-step-posed.js",
+        "web/public/js/viewer/scene.js",
+        "web/server.js",
+        ":node-packages",
+        ":render-step-posed-runtime",
+    ],
+    outs = [
+        "out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-release-pressed.png",
+        "out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-release-ready.png",
+        "out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-release-withdrawn.png",
+        "out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-tee-assembly-ready.png",
+        "out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-tee-complete.png",
+        "out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-tee-line-ready.png",
+        "out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png",
+        "out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-water-off.png",
+        "out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-water-on.png",
+    ],
+    tags = ["requires-network"],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-release-pressed.png)
+O1=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-release-ready.png)
+O2=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-release-withdrawn.png)
+O3=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-tee-assembly-ready.png)
+O4=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-tee-complete.png)
+O5=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-tee-line-ready.png)
+O6=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png)
+O7=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-water-off.png)
+O8=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-water-on.png)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/install-guide/plumbing/modern/render_modern_tee.py > /dev/null
+cp hardware/install-guide/plumbing/modern/art/modern-release-pressed.png $$O0
+cp hardware/install-guide/plumbing/modern/art/modern-release-ready.png $$O1
+cp hardware/install-guide/plumbing/modern/art/modern-release-withdrawn.png $$O2
+cp hardware/install-guide/plumbing/modern/art/modern-tee-assembly-ready.png $$O3
+cp hardware/install-guide/plumbing/modern/art/modern-tee-complete.png $$O4
+cp hardware/install-guide/plumbing/modern/art/modern-tee-line-ready.png $$O5
+cp hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png $$O6
+cp hardware/install-guide/plumbing/modern/art/modern-water-off.png $$O7
+cp hardware/install-guide/plumbing/modern/art/modern-water-on.png $$O8
+""",
+)
+
+genrule(
+    name = "plumbing-scenes",
+    srcs = [
+        "pysrc/hardware/install-guide/plumbing/plumbing_scenes.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "tools/render/browser.js",
+        "tools/render/render-step-posed.js",
+        "web/server.js",
+        ":render-step-posed-runtime",
+    ],
+    outs = [
+        "out/plumbing-scenes/hardware/install-guide/plumbing/art/plumbing-pre-tee.png",
+        "out/plumbing-scenes/hardware/install-guide/plumbing/art/plumbing-tee-installed.png",
+        "out/plumbing-scenes/hardware/install-guide/plumbing/art/plumbing-valve-off.png",
+        "out/plumbing-scenes/hardware/install-guide/plumbing/art/plumbing-valve-on.png",
+        "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-pre-tee.step",
+        "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-tee-installed.step",
+        "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-off.step",
+        "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-on.step",
+    ],
+    tags = ["requires-network"],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/art/plumbing-pre-tee.png)
+O1=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/art/plumbing-tee-installed.png)
+O2=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/art/plumbing-valve-off.png)
+O3=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/art/plumbing-valve-on.png)
+O4=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-pre-tee.step)
+O5=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-tee-installed.step)
+O6=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-off.step)
+O7=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-on.step)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/install-guide/plumbing/plumbing_scenes.py > /dev/null
+cp hardware/install-guide/plumbing/art/plumbing-pre-tee.png $$O0
+cp hardware/install-guide/plumbing/art/plumbing-tee-installed.png $$O1
+cp hardware/install-guide/plumbing/art/plumbing-valve-off.png $$O2
+cp hardware/install-guide/plumbing/art/plumbing-valve-on.png $$O3
+cp hardware/install-guide/plumbing/out/plumbing-pre-tee.step $$O4
+cp hardware/install-guide/plumbing/out/plumbing-tee-installed.step $$O5
+cp hardware/install-guide/plumbing/out/plumbing-valve-off.step $$O6
+cp hardware/install-guide/plumbing/out/plumbing-valve-on.step $$O7
 """,
 )
 
@@ -7489,355 +7775,6 @@ cp hardware/printed-parts/zone-c/funnel/README.md $$O9
 )
 
 genrule(
-    name = "quickstart-build",
-    srcs = [
-        "hardware/guide-assets/fonts/IBMPlexSans-400-700-normal-latin.woff2",
-        "pysrc/hardware/quickstart/_build.py",
-        ":out/cad-art/hardware/quickstart/art/colors.css",
-        ":out/cad-art/hardware/quickstart/art/connect-rear-connected.png",
-        ":out/cad-art/hardware/quickstart/art/connect-rear-open.png",
-        ":out/cad-art/hardware/quickstart/art/mount-drop.png",
-        ":out/cad-art/hardware/quickstart/art/mount-lowered-clean.png",
-        ":out/cad-art/hardware/quickstart/art/mount-under-slide-clean.png",
-        ":out/cad-art/hardware/quickstart/art/mount-under-tighten-clean.png",
-        ":out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-release-ready.png",
-        ":out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-release-withdrawn.png",
-        ":out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-assembly-ready.png",
-        ":out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-complete.png",
-        ":out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-line-ready.png",
-        ":out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-water-off.png",
-        ":out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-water-on.png",
-        "hardware/quickstart/quick-start.html",
-        "hardware/quickstart/style.css",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "ios/AppIcon.svg",
-        "tools/render/browser.js",
-        "tools/render/package-lock.json",
-        "tools/render/package.json",
-        "tools/render/render-card.js",
-        ":render-card-runtime",
-    ],
-    outs = [
-        "out/quickstart-build/hardware/quickstart/quick-start.cover.png",
-        "out/quickstart-build/hardware/quickstart/quick-start.pdf",
-        "out/quickstart-build/hardware/quickstart/quick-start.pdf.json",
-    ],
-    tags = ["requires-network"],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/quickstart-build/hardware/quickstart/quick-start.cover.png)
-O1=$$PWD/$(location out/quickstart-build/hardware/quickstart/quick-start.pdf)
-O2=$$PWD/$(location out/quickstart-build/hardware/quickstart/quick-start.pdf.json)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/quickstart/_build.py > /dev/null
-cp hardware/quickstart/quick-start.cover.png $$O0
-cp hardware/quickstart/quick-start.pdf $$O1
-cp hardware/quickstart/quick-start.pdf.json $$O2
-""",
-)
-
-genrule(
-    name = "cad-art",
-    srcs = [
-        "firmware/src_faucet/images/flavor0_faucet.h",
-        "firmware/src_faucet/images/flavor1_faucet.h",
-        ":out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
-        "pysrc/hardware/faucet-layout/faucet_assembly.py",
-        ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json",
-        ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step",
-        ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.mesh",
-        "pysrc/hardware/printed-parts/cadlib/fits.py",
-        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
-        "pysrc/hardware/printed-parts/cadlib/reeding.py",
-        "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
-        "pysrc/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/printed-parts/faucet/_display_snap.py",
-        "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
-        "pysrc/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
-        "pysrc/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
-        "pysrc/hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
-        "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
-        "pysrc/hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
-        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
-        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
-        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step",
-        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step",
-        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-water.step",
-        "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
-        "pysrc/hardware/quickstart/_cad_art.py",
-        "pysrc/hardware/quickstart/quickstart_art.py",
-        "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
-        ":out/jg-pp0408w/hardware/reference/jg-pp0408w/jg-pp0408w.step",
-        "pysrc/hardware/reference/jg-pp0408w/jg_pp0408w.py",
-        "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
-        "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json",
-        ":out/westbrass-reference/hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_measuring.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/hardware/scripts/_stated_bounds.py",
-        "pysrc/hardware/scripts/flute_payload.py",
-        "pysrc/tools/docgen/__init__.py",
-        "tools/render/browser.js",
-        "tools/render/render-step-posed.js",
-        "web/server.js",
-        ":render-step-posed-runtime",
-    ],
-    outs = [
-        "out/cad-art/hardware/quickstart/art/colors.css",
-        "out/cad-art/hardware/quickstart/art/connect-rear-connected.png",
-        "out/cad-art/hardware/quickstart/art/connect-rear-open.png",
-        "out/cad-art/hardware/quickstart/art/faucet-front.png",
-        "out/cad-art/hardware/quickstart/art/faucet-side-pressed.png",
-        "out/cad-art/hardware/quickstart/art/faucet-side.png",
-        "out/cad-art/hardware/quickstart/art/faucet-tails-front.png",
-        "out/cad-art/hardware/quickstart/art/flavor-1.png",
-        "out/cad-art/hardware/quickstart/art/flavor-2.png",
-        "out/cad-art/hardware/quickstart/art/machine-back-close.png",
-        "out/cad-art/hardware/quickstart/art/machine-back-iso.png",
-        "out/cad-art/hardware/quickstart/art/machine-front.png",
-        "out/cad-art/hardware/quickstart/art/machine-funnel-close.png",
-        "out/cad-art/hardware/quickstart/art/machine-ports-action.png",
-        "out/cad-art/hardware/quickstart/art/machine-ports-iso.png",
-        "out/cad-art/hardware/quickstart/art/machine-signal-iso.png",
-        "out/cad-art/hardware/quickstart/art/mount-drop.png",
-        "out/cad-art/hardware/quickstart/art/mount-final-clean.png",
-        "out/cad-art/hardware/quickstart/art/mount-lowered-clean.png",
-        "out/cad-art/hardware/quickstart/art/mount-seated.png",
-        "out/cad-art/hardware/quickstart/art/mount-slide-clean.png",
-        "out/cad-art/hardware/quickstart/art/mount-slide.png",
-        "out/cad-art/hardware/quickstart/art/mount-tighten-close.png",
-        "out/cad-art/hardware/quickstart/art/mount-tighten.png",
-        "out/cad-art/hardware/quickstart/art/mount-under-slide-clean.png",
-        "out/cad-art/hardware/quickstart/art/mount-under-tighten-clean.png",
-    ],
-    tags = ["requires-network"],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/cad-art/hardware/quickstart/art/colors.css)
-O1=$$PWD/$(location out/cad-art/hardware/quickstart/art/connect-rear-connected.png)
-O2=$$PWD/$(location out/cad-art/hardware/quickstart/art/connect-rear-open.png)
-O3=$$PWD/$(location out/cad-art/hardware/quickstart/art/faucet-front.png)
-O4=$$PWD/$(location out/cad-art/hardware/quickstart/art/faucet-side-pressed.png)
-O5=$$PWD/$(location out/cad-art/hardware/quickstart/art/faucet-side.png)
-O6=$$PWD/$(location out/cad-art/hardware/quickstart/art/faucet-tails-front.png)
-O7=$$PWD/$(location out/cad-art/hardware/quickstart/art/flavor-1.png)
-O8=$$PWD/$(location out/cad-art/hardware/quickstart/art/flavor-2.png)
-O9=$$PWD/$(location out/cad-art/hardware/quickstart/art/machine-back-close.png)
-O10=$$PWD/$(location out/cad-art/hardware/quickstart/art/machine-back-iso.png)
-O11=$$PWD/$(location out/cad-art/hardware/quickstart/art/machine-front.png)
-O12=$$PWD/$(location out/cad-art/hardware/quickstart/art/machine-funnel-close.png)
-O13=$$PWD/$(location out/cad-art/hardware/quickstart/art/machine-ports-action.png)
-O14=$$PWD/$(location out/cad-art/hardware/quickstart/art/machine-ports-iso.png)
-O15=$$PWD/$(location out/cad-art/hardware/quickstart/art/machine-signal-iso.png)
-O16=$$PWD/$(location out/cad-art/hardware/quickstart/art/mount-drop.png)
-O17=$$PWD/$(location out/cad-art/hardware/quickstart/art/mount-final-clean.png)
-O18=$$PWD/$(location out/cad-art/hardware/quickstart/art/mount-lowered-clean.png)
-O19=$$PWD/$(location out/cad-art/hardware/quickstart/art/mount-seated.png)
-O20=$$PWD/$(location out/cad-art/hardware/quickstart/art/mount-slide-clean.png)
-O21=$$PWD/$(location out/cad-art/hardware/quickstart/art/mount-slide.png)
-O22=$$PWD/$(location out/cad-art/hardware/quickstart/art/mount-tighten-close.png)
-O23=$$PWD/$(location out/cad-art/hardware/quickstart/art/mount-tighten.png)
-O24=$$PWD/$(location out/cad-art/hardware/quickstart/art/mount-under-slide-clean.png)
-O25=$$PWD/$(location out/cad-art/hardware/quickstart/art/mount-under-tighten-clean.png)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/quickstart/_cad_art.py > /dev/null
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/quickstart/quickstart_art.py > /dev/null
-cp hardware/quickstart/art/colors.css $$O0
-cp hardware/quickstart/art/connect-rear-connected.png $$O1
-cp hardware/quickstart/art/connect-rear-open.png $$O2
-cp hardware/quickstart/art/faucet-front.png $$O3
-cp hardware/quickstart/art/faucet-side-pressed.png $$O4
-cp hardware/quickstart/art/faucet-side.png $$O5
-cp hardware/quickstart/art/faucet-tails-front.png $$O6
-cp hardware/quickstart/art/flavor-1.png $$O7
-cp hardware/quickstart/art/flavor-2.png $$O8
-cp hardware/quickstart/art/machine-back-close.png $$O9
-cp hardware/quickstart/art/machine-back-iso.png $$O10
-cp hardware/quickstart/art/machine-front.png $$O11
-cp hardware/quickstart/art/machine-funnel-close.png $$O12
-cp hardware/quickstart/art/machine-ports-action.png $$O13
-cp hardware/quickstart/art/machine-ports-iso.png $$O14
-cp hardware/quickstart/art/machine-signal-iso.png $$O15
-cp hardware/quickstart/art/mount-drop.png $$O16
-cp hardware/quickstart/art/mount-final-clean.png $$O17
-cp hardware/quickstart/art/mount-lowered-clean.png $$O18
-cp hardware/quickstart/art/mount-seated.png $$O19
-cp hardware/quickstart/art/mount-slide-clean.png $$O20
-cp hardware/quickstart/art/mount-slide.png $$O21
-cp hardware/quickstart/art/mount-tighten-close.png $$O22
-cp hardware/quickstart/art/mount-tighten.png $$O23
-cp hardware/quickstart/art/mount-under-slide-clean.png $$O24
-cp hardware/quickstart/art/mount-under-tighten-clean.png $$O25
-""",
-)
-
-genrule(
-    name = "render-modern-tee",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/quickstart/plumbing/modern/render_modern_tee.py",
-        ":out/jg-pp0408w/hardware/reference/jg-pp0408w/jg-pp0408w.step",
-        "pysrc/hardware/reference/jg-pp0408w/jg_pp0408w.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/tools/docgen/__init__.py",
-        "tools/render/browser.js",
-        "tools/render/render-step-posed.js",
-        "web/public/js/viewer/scene.js",
-        "web/server.js",
-        ":node-packages",
-        ":render-step-posed-runtime",
-    ],
-    outs = [
-        "out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-release-pressed.png",
-        "out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-release-ready.png",
-        "out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-release-withdrawn.png",
-        "out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-assembly-ready.png",
-        "out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-complete.png",
-        "out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-line-ready.png",
-        "out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-tug-check.png",
-        "out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-water-off.png",
-        "out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-water-on.png",
-    ],
-    tags = ["requires-network"],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-release-pressed.png)
-O1=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-release-ready.png)
-O2=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-release-withdrawn.png)
-O3=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-assembly-ready.png)
-O4=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-complete.png)
-O5=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-line-ready.png)
-O6=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-tug-check.png)
-O7=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-water-off.png)
-O8=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-water-on.png)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/quickstart/plumbing/modern/render_modern_tee.py > /dev/null
-cp hardware/quickstart/plumbing/modern/art/modern-release-pressed.png $$O0
-cp hardware/quickstart/plumbing/modern/art/modern-release-ready.png $$O1
-cp hardware/quickstart/plumbing/modern/art/modern-release-withdrawn.png $$O2
-cp hardware/quickstart/plumbing/modern/art/modern-tee-assembly-ready.png $$O3
-cp hardware/quickstart/plumbing/modern/art/modern-tee-complete.png $$O4
-cp hardware/quickstart/plumbing/modern/art/modern-tee-line-ready.png $$O5
-cp hardware/quickstart/plumbing/modern/art/modern-tee-tug-check.png $$O6
-cp hardware/quickstart/plumbing/modern/art/modern-water-off.png $$O7
-cp hardware/quickstart/plumbing/modern/art/modern-water-on.png $$O8
-""",
-)
-
-genrule(
-    name = "plumbing-scenes",
-    srcs = [
-        "pysrc/hardware/quickstart/plumbing/plumbing_scenes.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "tools/render/browser.js",
-        "tools/render/render-step-posed.js",
-        "web/server.js",
-        ":render-step-posed-runtime",
-    ],
-    outs = [
-        "out/plumbing-scenes/hardware/quickstart/plumbing/art/plumbing-pre-tee.png",
-        "out/plumbing-scenes/hardware/quickstart/plumbing/art/plumbing-tee-installed.png",
-        "out/plumbing-scenes/hardware/quickstart/plumbing/art/plumbing-valve-off.png",
-        "out/plumbing-scenes/hardware/quickstart/plumbing/art/plumbing-valve-on.png",
-        "out/plumbing-scenes/hardware/quickstart/plumbing/out/plumbing-pre-tee.step",
-        "out/plumbing-scenes/hardware/quickstart/plumbing/out/plumbing-tee-installed.step",
-        "out/plumbing-scenes/hardware/quickstart/plumbing/out/plumbing-valve-off.step",
-        "out/plumbing-scenes/hardware/quickstart/plumbing/out/plumbing-valve-on.step",
-    ],
-    tags = ["requires-network"],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/plumbing-scenes/hardware/quickstart/plumbing/art/plumbing-pre-tee.png)
-O1=$$PWD/$(location out/plumbing-scenes/hardware/quickstart/plumbing/art/plumbing-tee-installed.png)
-O2=$$PWD/$(location out/plumbing-scenes/hardware/quickstart/plumbing/art/plumbing-valve-off.png)
-O3=$$PWD/$(location out/plumbing-scenes/hardware/quickstart/plumbing/art/plumbing-valve-on.png)
-O4=$$PWD/$(location out/plumbing-scenes/hardware/quickstart/plumbing/out/plumbing-pre-tee.step)
-O5=$$PWD/$(location out/plumbing-scenes/hardware/quickstart/plumbing/out/plumbing-tee-installed.step)
-O6=$$PWD/$(location out/plumbing-scenes/hardware/quickstart/plumbing/out/plumbing-valve-off.step)
-O7=$$PWD/$(location out/plumbing-scenes/hardware/quickstart/plumbing/out/plumbing-valve-on.step)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/quickstart/plumbing/plumbing_scenes.py > /dev/null
-cp hardware/quickstart/plumbing/art/plumbing-pre-tee.png $$O0
-cp hardware/quickstart/plumbing/art/plumbing-tee-installed.png $$O1
-cp hardware/quickstart/plumbing/art/plumbing-valve-off.png $$O2
-cp hardware/quickstart/plumbing/art/plumbing-valve-on.png $$O3
-cp hardware/quickstart/plumbing/out/plumbing-pre-tee.step $$O4
-cp hardware/quickstart/plumbing/out/plumbing-tee-installed.step $$O5
-cp hardware/quickstart/plumbing/out/plumbing-valve-off.step $$O6
-cp hardware/quickstart/plumbing/out/plumbing-valve-on.step $$O7
-""",
-)
-
-genrule(
     name = "asse1022-assembly",
     srcs = [
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -11149,9 +11086,41 @@ genrule(
 )
 
 genrule(
+    name = "pysrc-5be3d900f4bd",
+    srcs = ["hardware/install-guide/_cad_art.py"],
+    outs = ["pysrc/hardware/install-guide/_cad_art.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
     name = "pysrc-7f35251849f5",
     srcs = ["hardware/install-guide/_install_art.py"],
     outs = ["pysrc/hardware/install-guide/_install_art.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-4fbdf9ffe23b",
+    srcs = ["hardware/install-guide/installation_art.py"],
+    outs = ["pysrc/hardware/install-guide/installation_art.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-5450dde43241",
+    srcs = ["hardware/install-guide/plumbing/modern/render_modern_tee.py"],
+    outs = ["pysrc/hardware/install-guide/plumbing/modern/render_modern_tee.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-5b95d01220ef",
+    srcs = ["hardware/install-guide/plumbing/plumbing_scenes.py"],
+    outs = ["pysrc/hardware/install-guide/plumbing/plumbing_scenes.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -12184,46 +12153,6 @@ genrule(
     name = "pysrc-6ffd160d7545",
     srcs = ["hardware/printed-parts/zone-c/funnel/funnel_frame.py"],
     outs = ["pysrc/hardware/printed-parts/zone-c/funnel/funnel_frame.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
-    name = "pysrc-2ca0cb498e47",
-    srcs = ["hardware/quickstart/_build.py"],
-    outs = ["pysrc/hardware/quickstart/_build.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
-    name = "pysrc-2c464b11d1d4",
-    srcs = ["hardware/quickstart/_cad_art.py"],
-    outs = ["pysrc/hardware/quickstart/_cad_art.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
-    name = "pysrc-c91832389170",
-    srcs = ["hardware/quickstart/plumbing/modern/render_modern_tee.py"],
-    outs = ["pysrc/hardware/quickstart/plumbing/modern/render_modern_tee.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
-    name = "pysrc-fb4904990362",
-    srcs = ["hardware/quickstart/plumbing/plumbing_scenes.py"],
-    outs = ["pysrc/hardware/quickstart/plumbing/plumbing_scenes.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
-    name = "pysrc-4e2703f3aa71",
-    srcs = ["hardware/quickstart/quickstart_art.py"],
-    outs = ["pysrc/hardware/quickstart/quickstart_art.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -29817,7 +29746,10 @@ filegroup(
         ":under-counter-plate",
         ":faucet-assembly",
         ":faucet-industrial-assembly",
+        ":cad-art",
         ":install-art",
+        ":render-modern-tee",
+        ":plumbing-scenes",
         ":enclosure-assembly",
         ":enclosure-box",
         ":manifold-layout",
@@ -29876,10 +29808,6 @@ filegroup(
         ":funnel-mold",
         ":cradle-trial",
         ":elbow-cradle",
-        ":quickstart-build",
-        ":cad-art",
-        ":render-modern-tee",
-        ":plumbing-scenes",
         ":asse1022-assembly",
         ":basics-mtb-0606wp",
         ":beduan-solenoid",

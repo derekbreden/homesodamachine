@@ -1,7 +1,7 @@
 # Home Soda Machine install guide
 
-A 9 × 7 inch landscape booklet with **32 numbered interior pages**, following the owner
-quick start's seven steps. The 34-page reading PDF includes the front and back covers. Published
+A 9 × 7 inch landscape booklet with **32 numbered interior pages** and seven illustrated
+installation steps. The 34-page reading PDF includes the front and back covers. Published
 on [Drawings](https://homesodamachine.com/drawings) and at
 [install-guide.pdf](https://homesodamachine.com/docs/install-guide/install-guide.pdf).
 
@@ -17,9 +17,10 @@ on [Drawings](https://homesodamachine.com/drawings) and at
 | 28–29 | 7. Chill. Choose. Pour. |
 | 30–32 | Care, water connections, gas and first-pour checks |
 
-The booklet is complete on its own. Its step numbers match the
-[quick start](../quickstart-codex/README.md), whose braided-hose link opens numbered page 13
-(PDF page 14). The connection-check link opens numbered page 31 (PDF page 32).
+The booklet covers installation and care. Braided-hose instructions begin on numbered page 13
+(PDF page 14). Connection checks begin on numbered page 31 (PDF page 32).
+Numbered page 3 shows every supplied kit item as a vector line drawing, with a compact
+customer-supplied checklist in the sidebar. A towel catches residual water at a loosened fitting.
 The Fill pages show the Big Blue screen inside the machine display's frame, with its
 **Start filling** control. The same screen appears on the machine in the bottle illustration.
 The owner lifts the funnel cover by its front edge before the bottle goes in and presses it
@@ -34,14 +35,14 @@ Tube and connector colors match the hardware: each bulkhead ring and tube collar
 its PET-GF spool color with its raised word. The power scene carries the white faucet mark on
 its black nameplate. The glass contains dark cola and rounded ice cubes packed from the base to
 just above the liquid, with a visible rim and no falling streams. The first-pour instructions
-call for a glass filled with ice. The illustration is a snapshot of the quick start's
-`ice_scene.py` render.
+call for a glass filled with ice. The illustration comes from
+`tools/install-guide/ice_scene.py`.
 
 The concentrate bottle has a rounded PET body, tapered shoulders, an open ribbed neck, dark
 liquid and a wrapped COLA concentrate label. The bottle and framed display are snapshots from
-`tools/quickstart-codex/fill_scene.py`, whose funnel and display positions follow the current
+`tools/install-guide/fill_scene.py`, whose funnel and display positions follow the current
 enclosure assembly. The funnel is drawn without its lift-off cover, as it stands during a fill.
-The quick start's `art/fill-scene-inputs.json` records the source hashes and motion cue;
+`assets/fill-scene-inputs.json` records the source hashes and motion cue;
 `assets/fill-screen.svg` and its PNG supply the interface. The display cover shares the
 enclosure's matte black PET-GF appearance. Both Fill views use the same exposure, and the
 complete frame has an uninterrupted outline.
@@ -49,9 +50,13 @@ complete frame has an uninterrupted outline.
 The PDF, cover, fonts and illustration snapshots are committed here. `assets/` contains the
 booklet's artwork, including its Fill-screen illustration and hose-removal scene.
 `assets/print-resolution.json` registers crop and arrow coordinates against the native artwork
-dimensions. The back face, rear connections and bottle scene are the quick start's snapshots drawn
-again at twice the resolution from the same cameras; each entry names its quick-start reference
-by hash. Manual page composition lives in [`landscape.py`](../../tools/install-guide/landscape.py),
+dimensions. The back face, rear connections and bottle scene use higher-resolution snapshots
+from their registered cameras; each entry identifies its native coordinate reference by hash.
+`assets/reference/` retains the native Fill views, and `assets/kit/` holds the kit SVGs.
+[`kit_art.py`](../../tools/install-guide/kit_art.py) exports hidden-line views of the component
+models with a common 0.68 pt pen at page size. Small machine surface details and dial lettering
+are suppressed; the cord, washer, bag and booklet are illustration props.
+Manual page composition lives in [`landscape.py`](../../tools/install-guide/landscape.py),
 with the build entry point and print exporter in [`tools/install-guide/`](../../tools/install-guide/).
 `_install_art.py` supplies shared CAD scene builders used by illustration tools; its output is
 in `art/`.
@@ -61,8 +66,9 @@ in `art/`.
 From the repository root:
 
 ```sh
-tools/cad-venv/bin/python tools/quickstart-codex/fill_scene.py --publish
-tools/cad-venv/bin/python tools/quickstart-codex/fill_scene.py --scale 2 --publish
+tools/cad-venv/bin/python tools/install-guide/fill_scene.py --publish
+tools/cad-venv/bin/python tools/install-guide/fill_scene.py --scale 2 --publish
+tools/cad-venv/bin/python tools/install-guide/kit_art.py
 tools/cad-venv/bin/python tools/install-guide/build.py
 tools/cad-venv/bin/python tools/install-guide/preflight.py --json hardware/install-guide/out/landscape/preflight.json
 pdftoppm -scale-to 1000 -png hardware/install-guide/install-guide.pdf hardware/install-guide/out/landscape/page

@@ -44,7 +44,7 @@ services:
     # off this disk that only `buildCommand` puts there.
     #
     # SO A WEB PUSH CAN LAND AHEAD OF THE ARTWORK IT CHANGES. `render-step-posed-runtime` and
-    # `quickstart-art` stand this same viewer to draw the quick-start artwork, so a viewer change is
+    # `installation-art` stand this same viewer to draw the installation artwork, so a viewer change is
     # an input to those pictures — the page moves on the push, the pictures move when the
     # publish that redraws them lands, and the site is briefly newer than them. That window is
     # the price of the fast lane and it closes itself.
@@ -68,9 +68,7 @@ services:
         - hardware/mold-guide/**
         - hardware/refrigeration-guide/**
         - hardware/magnetic-float-guide/**
-        # The owner quick start, frozen the same way: PDF, cover and
-        # sidecar in git, so a clone carries them and a deploy is what makes a clone.
-        - hardware/quickstart-codex/**
+        # The owner install guide is committed with its cover and sidecar.
         - hardware/install-guide/**
       ignoredPaths:
         # THE VERDICT IS DATA UNDER A CODE PATH. `checks_now.py` pins a reading after every

@@ -289,7 +289,7 @@ def draw_leaf(c,row,col_index,row_index,columns,rows,rotated,page,total):
 def build():
     source_paths=[ROOT/'hardware/printed-parts/fixtures/gun-positioner/gun_positioner.py',ROOT/'tools/gun-positioner-optics/mounts.py',Path(__file__).resolve()]
     input_hashes={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in source_paths}
-    fontdir=ROOT/'hardware/quickstart-codex/fonts'
+    fontdir=ROOT/'hardware/install-guide/fonts'
     for name,file in [('Plex','Plex-Regular.ttf'),('PlexSemi','Plex-Semibold.ttf'),('PlexBold','Plex-Bold.ttf')]:
         pdfmetrics.registerFont(TTFont(name,str(fontdir/file)))
     parts,sources=make_rows()

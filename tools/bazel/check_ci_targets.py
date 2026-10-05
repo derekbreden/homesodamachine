@@ -25,7 +25,7 @@ _ROOT = _HERE.parents[1]
 WORKFLOWS = _ROOT / ".github" / "workflows"
 BUILD = _ROOT / "BUILD.bazel"
 
-#: `//:name`, and the alternation a `grep -E` writes it in — `^//:(quickstart-build|cad-art)$`
+#: `//:name`, and the alternation a `grep -E` writes it in — `^//:(installation-art|cad-art)$`
 #: names two targets and neither is spelled on its own.
 _LABEL = re.compile(r"//:\(?([A-Za-z0-9_|-]+)\)?")
 _DECLARED = re.compile(r'^\s*name = "([^"]+)",\s*$', re.M)
@@ -62,8 +62,8 @@ def selftest() -> int:
 
     hold("a plain label is named", named("bazel build //:cad-art"), ({"cad-art"}, set()))
     hold("an alternation names both",
-         named("grep -E '^//:(quickstart-build|cad-art)$'"),
-         ({"quickstart-build", "cad-art"}, set()))
+         named("grep -E '^//:(installation-art|cad-art)$'"),
+         ({"installation-art", "cad-art"}, set()))
     hold("a label in a longer line is found",
          named("  --targets //:enclosure-assembly\n"), ({"enclosure-assembly"}, set()))
     hold("text with no label names nothing", named("bazel build\n"), (set(), set()))

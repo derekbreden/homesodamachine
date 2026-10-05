@@ -3,16 +3,15 @@ import { iconSvg } from "../contracts/icons.js";
 
 const UNITS = new Set(["0001"]);
 const INSTALL_GUIDE = "/docs/install-guide/install-guide.pdf";
-const QUICK_START = "/docs/quickstart-codex/quick-start-codex.pdf";
 const PAGES = { "": "Your machine", "get-started": "Get started", guides: "Guides" };
 const STEPS = [
-  ["Mount the faucet", 5],
-  ["Add the cold-water tee", 7],
-  ["Match the rear connections", 12],
-  ["Prepare the cylinder", 14],
-  ["Water, then gas, then power", 16],
-  ["Fill both flavors", 19],
-  ["Chill. Choose. Pour.", 21],
+  ["Mount the faucet", 6],
+  ["Add the cold-water tee", 10],
+  ["Match the rear connections", 18],
+  ["Prepare the cylinder", 20],
+  ["Water, then gas, then power", 23],
+  ["Fill both flavors", 26],
+  ["Chill. Choose. Pour.", 29],
 ];
 
 function nav(serial, page) {
@@ -48,12 +47,12 @@ function overview(serial) {
     <section class="unit-items" aria-label="Your equipment">
       <div class="unit-item">${iconSvg("snowflake")}<h3>The soda machine</h3><p>Under the counter. Chills and carbonates the water, and holds both flavors.</p></div>
       <div class="unit-item">${iconSvg("glass-water")}<h3>The faucet</h3><p>Above the counter. Choose a flavor on the display and press the lever to pour.</p></div>
-      <div class="unit-item">${iconSvg("cube")}<h3>The install kit</h3><p>Plumbing, regulator, cord, tools, and printed guides for the installation.</p></div>
+      <div class="unit-item">${iconSvg("cube")}<h3>The install kit</h3><p>Plumbing, regulator, cord, tools, and a printed guide for the installation.</p></div>
     </section>
     <details id="included"><summary>What’s included, and what you supply</summary>
       <div class="unit-inventory">
-        <div><h3>In the box</h3><ul><li>Soda machine and assembled faucet</li><li>Under-counter plate</li><li>Filtered water line and water tees</li><li>CO₂ regulator and tether, set at the factory</li><li>Collet press and power cord</li><li>Cold kit, quick start, and install guide</li></ul></div>
-        <div><h3>Have these ready</h3><ul><li>Filled CO₂ cylinder with CGA-320 connection</li><li>SodaStream-compatible concentrate for both flavors</li><li>Adjustable wrench, cup, and towel</li><li>Second wrench for a braided-hose connection</li><li>Prepared counter opening, cold water, and a grounded 120 V outlet</li></ul></div>
+        <div><h3>In the box</h3><ul><li>Soda machine and assembled faucet</li><li>Under-counter plate</li><li>Filtered water line and water tees</li><li>CO₂ regulator and tether, set at the factory</li><li>Collet press and power cord</li><li>Cold kit and install guide</li></ul></div>
+        <div><h3>Have these ready</h3><ul><li>Filled CO₂ cylinder with CGA-320 connection</li><li>SodaStream-compatible concentrate for both flavors</li><li>Adjustable wrench and towel</li><li>Second wrench for a braided-hose connection</li><li>Prepared counter opening, cold water, and a grounded 120 V outlet</li></ul></div>
       </div>
     </details>
   </main>`;
@@ -65,9 +64,9 @@ function setup() {
     <div class="unit-setup-grid">
       <fieldset class="unit-checks"><legend>Before you connect anything</legend>
         <label class="unit-check"><input type="checkbox" name="kit"><span>The kit is unpacked<small>Machine, faucet, and install kit</small></span></label>
-        <label class="unit-check"><input type="checkbox" name="supplies"><span>My supplies are ready<small>Filled cylinder, concentrate, wrenches, cup, towel</small></span></label>
+        <label class="unit-check"><input type="checkbox" name="supplies"><span>My supplies are ready<small>Filled cylinder, concentrate, wrenches, towel</small></span></label>
         <label class="unit-check"><input type="checkbox" name="location"><span>The location is prepared<small>Counter opening, cabinet space, water, and outlet</small></span></label>
-        <a class="unit-link" href="${INSTALL_GUIDE}#page=3" target="_blank" rel="noopener">See the complete preparation list ${iconSvg("arrow-up-right")}</a>
+        <a class="unit-link" href="${INSTALL_GUIDE}#page=4" target="_blank" rel="noopener">See the complete preparation list ${iconSvg("arrow-up-right")}</a>
       </fieldset>
       <ol class="unit-route">${STEPS.map(([title, page], i) => `<li><a href="${INSTALL_GUIDE}#page=${page}" target="_blank" rel="noopener"><span class="unit-num" aria-hidden="true">${i + 1}</span><span>${title}</span>${iconSvg("arrow-up-right")}</a></li>`).join("")}</ol>
     </div>
@@ -79,11 +78,10 @@ function guides() {
     <div class="unit-page-heading"><span class="unit-kicker">Keep these handy</span><h1>Guides for your machine.</h1></div>
     <div class="unit-guides">
       <div class="unit-book" aria-hidden="true"><img src="/brand/mark.svg" width="44" height="44" alt=""><b>Install<br>guide</b><span>From the box<br>to your first glass.</span></div>
-      <div class="unit-guide-list"><h2>The same guides that came in the box.</h2><p>Open the whole booklet or jump straight to the part you need.</p>
+      <div class="unit-guide-list"><h2>The guide that came in the box.</h2><p>Open the whole booklet or jump straight to the part you need.</p>
         ${[
-          [QUICK_START, "file", "Quick start", "Seven steps on one illustrated sheet"],
-          [INSTALL_GUIDE, "book", "Install guide", "24 pages · Both water connections · Care"],
-          [`${INSTALL_GUIDE}#page=22`, "droplets", "After installation", "Refilling, cleaning, and first checks"],
+          [INSTALL_GUIDE, "book", "Install guide", "32 pages · Both water connections · Care"],
+          [`${INSTALL_GUIDE}#page=31`, "droplets", "After installation", "Refilling, cleaning, and first checks"],
         ].map(([href, icon, title, detail]) => `<a class="unit-document" href="${href}" target="_blank" rel="noopener">${iconSvg(icon)}<span>${title}<span class="unit-small unit-muted">${detail}</span></span>${iconSvg("arrow-up-right", "unit-arrow")}</a>`).join("")}
       </div>
     </div>
