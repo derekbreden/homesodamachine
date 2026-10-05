@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check the Comic Book PDFs with pypdf, pdfplumber and Poppler pdfimages."""
+"""Check the 9 x 7 inch landscape PDFs, navigation, bleed and print artwork."""
 from __future__ import annotations
 
 import argparse
@@ -16,17 +16,18 @@ from pathlib import Path
 import pdfplumber
 from pypdf import PdfReader
 from pypdf.generic import ArrayObject, IndirectObject
+from press import TRIM_W, TRIM_H, BLEED, COVER_SIZE
 
 
 ROOT = Path(__file__).resolve().parents[2]
 TOC = [
-    (4, 'Mount the faucet'),
-    (6, 'Add the cold-water tee'),
-    (11, 'Match the rear connections'),
-    (13, 'Prepare the cylinder'),
-    (15, 'Water, then gas, then power'),
-    (18, 'Fill both flavors'),
-    (20, 'Chill. Choose. Pour.'),
+    (5, 'Mount the faucet'),
+    (9, 'Add the cold-water tee'),
+    (17, 'Match the rear connections'),
+    (19, 'Prepare the cylinder'),
+    (22, 'Water, then gas, then power'),
+    (25, 'Fill both flavors'),
+    (28, 'Chill. Choose. Pour.'),
 ]
 
 
@@ -41,9 +42,11 @@ class Spec:
 
 
 SPECS = [
-    Spec('install-guide.pdf', 24, (0, 0, 477, 738), (0, 0, 477, 738)),
-    Spec('press/interior.pdf', 20, (0, 0, 495, 756), (9, 9, 486, 747), True),
-    Spec('press/cover.pdf', 2, (0, 0, 972, 756), (9, 9, 963, 747), True, True),
+    Spec('install-guide.pdf', 34, (0, 0, TRIM_W, TRIM_H), (0, 0, TRIM_W, TRIM_H)),
+    Spec('press/interior.pdf', 32, (0, 0, TRIM_W+2*BLEED, TRIM_H+2*BLEED),
+         (BLEED, BLEED, TRIM_W+BLEED, TRIM_H+BLEED), True),
+    Spec('press/cover.pdf', 1, (0, 0, *COVER_SIZE),
+         (BLEED, BLEED, COVER_SIZE[0]-BLEED, COVER_SIZE[1]-BLEED), True, True),
 ]
 
 
@@ -202,7 +205,7 @@ class Preflight:
 
     def check_navigation(self):
         reader = self.readers.get('install-guide.pdf')
-        if reader is None or len(reader.pages) != 24:
+        if reader is None or len(reader.pages) != 34:
             return
 
         def outlines(items):
@@ -212,9 +215,12 @@ class Preflight:
                 else:
                     yield item
 
+        expected_labels = ['Cover'] + [str(number) for number in range(1, 33)] + ['Back cover']
+        if reader.page_labels != expected_labels:
+            self.fail('install-guide.pdf', None, 'page labels do not match the cover and numbered interiors')
         destinations = list(outlines(reader.outline))
-        if len(destinations) != 24:
-            self.fail('install-guide.pdf', None, f'has {len(destinations)} bookmarks; expected 24')
+        if len(destinations) != 34:
+            self.fail('install-guide.pdf', None, f'has {len(destinations)} bookmarks; expected 34')
         for index, destination in enumerate(destinations):
             actual = reader.get_destination_page_number(destination)
             if actual != index:
@@ -231,7 +237,7 @@ class Preflight:
             return None
 
         links = []
-        for reference in reader.pages[1].get('/Annots', []):
+        for reference in reader.pages[2].get('/Annots', []):
             annotation = dereference(reference)
             if annotation.get('/Subtype') != '/Link':
                 continue
@@ -241,22 +247,22 @@ class Preflight:
                 links.append((list(map(float, annotation['/Rect'])), destination_page(destination)))
         links.sort(key=lambda link: -link[0][3])
         if len(links) != len(TOC):
-            self.fail('install-guide.pdf', 2, f'has {len(links)} TOC links; expected {len(TOC)}')
+            self.fail('install-guide.pdf', 3, f'has {len(links)} TOC links; expected {len(TOC)}')
         with pdfplumber.open(self.directory / 'install-guide.pdf') as document:
-            page = document.pages[1]
+            page = document.pages[2]
             words = page.extract_words()
             word_text = [word['text'] for word in words]
             for (rect, actual), (expected, label) in zip(links, TOC):
                 if actual != expected:
-                    self.fail('install-guide.pdf', 2, f'TOC "{label}" targets page {None if actual is None else actual + 1}; expected {expected + 1}')
+                    self.fail('install-guide.pdf', 3, f'TOC "{label}" targets page {None if actual is None else actual + 1}; expected {expected + 1}')
                 phrase = label.split()
                 matches = [words[i:i + len(phrase)] for i in range(len(words)) if word_text[i:i + len(phrase)] == phrase]
                 if len(matches) != 1:
-                    self.fail('install-guide.pdf', 2, f'cannot locate the visible TOC label "{label}" once')
+                    self.fail('install-guide.pdf', 3, f'cannot locate the visible TOC label "{label}" once')
                 elif not all(rect[0] <= (word['x0'] + word['x1']) / 2 <= rect[2]
                              and rect[1] <= page.height - (word['top'] + word['bottom']) / 2 <= rect[3]
                              for word in matches[0]):
-                    self.fail('install-guide.pdf', 2, f'TOC link rectangle does not cover "{label}"')
+                    self.fail('install-guide.pdf', 3, f'TOC link rectangle does not cover "{label}"')
 
     def check_text_margins(self):
         for spec in SPECS:
@@ -289,17 +295,17 @@ class Preflight:
     def check_interior_text(self):
         reading = self.readers.get('install-guide.pdf')
         interior = self.readers.get('press/interior.pdf')
-        if reading is None or interior is None or len(reading.pages) != 24 or len(interior.pages) != 20:
+        if reading is None or interior is None or len(reading.pages) != 34 or len(interior.pages) != 32:
             return
         for index, page in enumerate(interior.pages):
-            expected = normalized(reading.pages[index + 2].extract_text() or '')
+            expected = normalized(reading.pages[index + 1].extract_text() or '')
             actual = normalized(page.extract_text() or '')
             if not expected:
-                self.fail('install-guide.pdf', index + 3, 'no text was extracted')
+                self.fail('install-guide.pdf', index + 2, 'no text was extracted')
             if actual != expected:
                 at = next((i for i, pair in enumerate(zip(actual, expected)) if pair[0] != pair[1]), min(len(actual), len(expected)))
                 self.fail('press/interior.pdf', index + 1,
-                          f'text differs from reading page {index + 3} near character {at}: '
+                          f'text differs from reading page {index + 2} near character {at}: '
                           f'{actual[max(0, at - 30):at + 70]!r}; expected {expected[max(0, at - 30):at + 70]!r}')
 
     def run(self):
@@ -326,7 +332,7 @@ def main():
         resolution = file['minimum_image_ppi']
         print(f'{file["file"]}: {file["pages"]} pages, {len(file["images"])} images, '
               f'minimum {resolution:g} PPI' if resolution is not None else f'{file["file"]}: no images')
-    print('PASS Comic Book print preflight' if report['passed'] else f'FAIL {len(report["errors"])} preflight issue(s)')
+    print('PASS Small Landscape print preflight' if report['passed'] else f'FAIL {len(report["errors"])} preflight issue(s)')
     return 0 if report['passed'] else 1
 
 

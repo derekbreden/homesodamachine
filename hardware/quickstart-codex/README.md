@@ -30,8 +30,8 @@ motion cue. `art/fill-screen.svg` and its PNG supply the interface texture;
 `art/fill-screen-framed.png` is the framed close-up. The display cover shares the enclosure's
 matte black PET-GF appearance. Both Fill views use the same exposure, and the complete frame has
 an uninterrupted outline. The same seven step numbers appear in both documents, and the
-braided-hose link opens install guide pages 9-11. The leak band closes the water and cylinder
-supplies and links to the connection checks on page 23.
+braided-hose link opens numbered install guide pages 13-16. The leak band closes the water and
+cylinder supplies and links to the connection checks on numbered pages 31-32.
 
 The rear illustrations draw the nameplate from `enclosure-assembly.step`: the white On tap
 mark, HOME SODA MACHINE and the unit's QR code on the black plate. The bulkhead rings and tube

@@ -42,7 +42,7 @@ DISPLAY_PROFILE = _swept_top.profile(ASSEMBLY_FACTS['box']['outer'])
 SCREEN = dict(width=103.5, height=62.1, angle_deg=_swept_top.ANGLE,
               origin=[p - n * (_enclosure_interface.display_bezel_depth - 1 - .05)
                       for p, n in zip(DISPLAY_PROFILE['origin'], DISPLAY_PROFILE['normal'])])
-EXTERIOR = {'funnel', 'nameplate', 'nameplate-ink', 'enclosure-front-top',
+EXTERIOR = {'funnel', 'funnel-frame', 'nameplate', 'nameplate-ink', 'enclosure-front-top',
             'enclosure-front-bottom', 'enclosure-back-top', 'enclosure-back-bottom'}
 
 

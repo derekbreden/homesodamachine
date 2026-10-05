@@ -1,10 +1,11 @@
 {
   "title": "Home Soda Machine install guide",
-  "subtitle": "Owner install guide - seven steps in detail - 24 pages, 6.625 x 10.25 in",
-  "pages": 24,
+  "subtitle": "Owner install guide - seven steps in detail - 32 interior pages, 9 x 7 in landscape",
+  "pages": 34,
+  "interior_pages": 32,
   "cover": "install-guide.cover.png",
   "cover_size": [
-    776,
-    1200
+    1200,
+    934
   ]
 }
