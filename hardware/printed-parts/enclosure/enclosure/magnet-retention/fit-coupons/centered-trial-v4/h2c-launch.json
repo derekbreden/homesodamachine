@@ -38,15 +38,15 @@
   "acceptance_evidence": "Exact changed task ID and archive in printer telemetry, observed project_file SUCCESS, and Bambu Connect Printing Progress for that archive.",
   "latest_status": {
     "printer": "H2C",
-    "observed_at": "2026-10-05T04:51:08.537572+00:00",
+    "observed_at": "2026-10-05T04:56:38.934647+00:00",
     "task_id": "1310172582",
     "job_id": "1310172582",
     "subtask_name": "2026-10-04-centered-rc62-valve-h2c-v4.gcode.3mf",
     "gcode_state": "RUNNING",
-    "layer_num": 1,
+    "layer_num": 4,
     "total_layer_num": 184,
-    "mc_percent": 8,
-    "mc_remaining_time": 89,
+    "mc_percent": 14,
+    "mc_remaining_time": 84,
     "print_error": 0,
     "hms": [],
     "stg_cur": 0,
@@ -66,12 +66,12 @@
     ],
     "extruders": {
       "0": {
-        "actual_c": 48,
+        "actual_c": 50,
         "target_c": 0
       },
       "1": {
-        "actual_c": 265,
-        "target_c": 265
+        "actual_c": 280,
+        "target_c": 280
       }
     },
     "bed_actual_c": 80.0,
@@ -87,7 +87,7 @@
   "monitor_active": true,
   "automatic_resume": false,
   "first_layer_printer_progress": true,
-  "past_first_layer_printer_progress": false,
+  "past_first_layer_printer_progress": true,
   "physical_fit_and_adhesion_qualified": false,
   "shared_circuit_observed_start_spacing_seconds": 207.541819,
   "events": [
@@ -139,8 +139,58 @@
         }
       },
       "scope": "The exact centered coupon task reports early model-layer progress without a printer fault. Visual adhesion, physical fit, grip and strength are unqualified."
+    },
+    {
+      "event": "past_first_layer_printer_progress",
+      "status": {
+        "printer": "H2C",
+        "observed_at": "2026-10-05T04:56:38.934647+00:00",
+        "task_id": "1310172582",
+        "job_id": "1310172582",
+        "subtask_name": "2026-10-04-centered-rc62-valve-h2c-v4.gcode.3mf",
+        "gcode_state": "RUNNING",
+        "layer_num": 4,
+        "total_layer_num": 184,
+        "mc_percent": 14,
+        "mc_remaining_time": 84,
+        "print_error": 0,
+        "hms": [],
+        "stg_cur": 0,
+        "external_spools": [
+          {
+            "id": "254",
+            "tray_type": "PET-CF",
+            "tray_info_idx": "GFT01",
+            "tray_color": "000000FF"
+          },
+          {
+            "id": "255",
+            "tray_type": "TPU",
+            "tray_info_idx": "GFU04",
+            "tray_color": "161616FF"
+          }
+        ],
+        "extruders": {
+          "0": {
+            "actual_c": 50,
+            "target_c": 0
+          },
+          "1": {
+            "actual_c": 280,
+            "target_c": 280
+          }
+        },
+        "bed_actual_c": 80.0,
+        "bed_target_c": 80.0,
+        "chamber": {
+          "actual_c": 35,
+          "target_c": 0
+        }
+      },
+      "scope": "The exact centered H2C coupon task reports progress past layer 1 without a printer fault. Visual adhesion, physical fit, grip and strength are unqualified."
     }
   ],
   "scope": "12 centered fit coupons only. No full front-top, frame, supports or insertion pause. No repeated Send or automatic resume.",
-  "first_layer_observed_at": "2026-10-05T04:51:08.537572+00:00"
+  "first_layer_observed_at": "2026-10-05T04:51:08.537572+00:00",
+  "past_first_layer_observed_at": "2026-10-05T04:56:38.934647+00:00"
 }
