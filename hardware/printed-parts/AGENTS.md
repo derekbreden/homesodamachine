@@ -42,6 +42,13 @@ settles whether what somebody saw in the viewer was there.
 
 ## Supports
 
+Prefer simple solid stock and broad flat interior walls with few face breaks.
+Set one wall plane that preserves the required hardware clearance and backing
+thickness. Add a curve, step or local recess only for a named fit, bearing,
+drainage or access requirement. Do not contour the wall around every available
+void to gain volume; quantify any useful capacity tradeoff against the simpler
+wall before choosing the boundary.
+
 Every printable piece in the enclosure assembly follows **Support-removal strategy** in
 [`enclosure/enclosure/README.md`](enclosure/enclosure/README.md#support-removal-strategy).
 

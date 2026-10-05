@@ -1,8 +1,8 @@
 # Flush front roof and sliding funnel frame
 
 Front-top's funnel opening clears the removable frame up to the exterior
-Z355 ceiling. The frame carries a 208.5 mm wide front surround with 0.25 mm
-air at each vertical shell wall. That surround ends at Y199.75 before the
+Z355 ceiling. The frame carries a 196.5 mm wide front surround with 0.25 mm
+air to each complete 9 mm shell flank. That surround ends at Y199.75 before the
 Y200 seam. The rear frame envelope remains beneath Z349 and fits the
 existing back-top roof; back-top's STEP, STL and viewer payload are retained
 exactly.
@@ -14,10 +14,19 @@ arris. Front-top's roof tongue clears this surround and the rear frame
 envelope. The lower rails, socket, drain, cradle wing slots and their
 placement datums remain unchanged.
 
-The side expansion grows 6 mm per side over machine Z334–346, equivalent
-to print Z34.1–46.1. Its 0.5 outward/build-rise slope uses normal 0.24 mm
-layers, six walls locally and no supports on the expansion. The frame has
-no new inward/top show round that needs a fine layer band. Functional
+Front-top has a solid display backing with one flat cavity face at Y95.208,
+5.47 mm behind the deepest PCB-pocket corner. The frame's flat front at
+Y95.458 has square plan corners and keeps 0.25 mm running air. A short
+1.37 mm high 45° foot joins the wall to the bay lintel. Its loom bore passes
+through the full wall; the proud cable clip occupies X68.5–86.5 above
+Z285.796 and leaves its channel entrances open. The frame's lower 30° corbel
+clears that clip. The silicone funnel and its 455.44 mL nominal capacity are
+retained; capacity loss is 0 mL.
+The combined rigid wall/frame boundary costs 66.57 mL of enclosure interior
+air, measured against the bound geometry snapshot in `geometry-check.json`.
+
+The front surround has the same width as the lower body. The frame has
+no inward/top show round that needs a fine layer band. Functional
 rail bearings retain accessible supports. Front-top keeps its existing
 RC62 sealed-pocket dimensions pending the separate friction-fit sample
 results.
@@ -31,9 +40,9 @@ its underside on print Z0; front-top retains its machine-coordinate
 exports and production mouth-down orientation.
 
 [`geometry-check.json`](geometry-check.json) reads the exported native
-solids. It checks the full brim bearing, seated shell clearances, unchanged
-lower frame and shell geometry, unchanged back-top, rear envelope and
-clearance of added stock from nearby installed bodies.
+solids. It checks the full brim bearing, seated shell clearances, retained
+lower socket/rail geometry, unchanged back-top, rear envelope, full roof
+flank stock, flat display backing and clearance from nearby installed bodies.
 [`rail-motion-check.json`](../integration-review/rail-motion-check.json)
 reads the printable meshes at sampled front/rear insertion and shell
 closing poses, with capture against 2 mm translations along all axes.
@@ -48,20 +57,16 @@ native Boolean equivalence check as well as the geometry fingerprints.
 This scoped refresh is not a fresh full-machine motion scorecard.
 
 [`geometry-lint.json`](geometry-lint.json) binds the mesh review run after the
-[`live publication check`](live-publication.json). The frame has four
-square rail-bearing ceilings and no step, sliver or slope findings. The
-shell retains a 2.05 mm deep display-side underside strip at Z349.25 above
-the frame's fore edge. Its
-[`v18 bead-backing record`](display-strip-backing-v18.json) measures long
-roads with only end contact against the immediately preceding layer.
-The local support candidate for this functional ceiling requires a separate
-native backing and removal-access review. Full-part printing is deferred
-while the centered magnet and valve fit samples are evaluated. The frame
-and source geometry stay bound to their frozen hashes.
+[`live publication check`](live-publication.json). Each intentional functional
+bearing or supported ceiling has an answer beside its STL.
+The [`v18 bead-backing record`](display-strip-backing-v18.json) binds only
+its frozen native archive. Current geometry requires a fresh native slice
+and support-removal review before a full-part print. Full-part printing is
+deferred while the centered magnet and valve fit samples are evaluated.
 
 The relevant physical failure is recorded in the
 [`front-top v17 result`](../../../enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/physical-result.json).
-The revised geometry and native slice are print candidates. Support
+The source geometry is a print candidate. Support
 removal, rim finish, full-shell assembly fit and bearing under load need
 their own physical observations; these checks do not qualify them.
 
@@ -72,9 +77,9 @@ integration checks and aggregate members:
 
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/flush-roof-review/prepare_geometry.py
+tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/flush-roof-review/refresh_aggregate.py
 tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/flush-roof-review/check_geometry.py
 tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/integration-review/check_fit.py
-tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/flush-roof-review/refresh_aggregate.py
 tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py
 tools/cad-venv/bin/python tools/publish_now.py
 ```
@@ -91,6 +96,6 @@ tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/flush-roof-review
 ```
 
 The retained-baseline comparisons use the immutable STEP/STL snapshots
-in `.cache/flush-funnel-roof/baseline`, identified by the SHA256 values
-in the check records. The scoped generator and current mating-joint check
+in `.cache/flush-funnel-roof/baseline` and `.cache/front-roof-flat-wall/baseline`,
+identified by the SHA256 values in the check records. The scoped generator and current mating-joint check
 do not depend on those comparison snapshots.
