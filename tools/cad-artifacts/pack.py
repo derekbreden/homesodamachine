@@ -175,6 +175,7 @@ BUNDLED_MESH_DIRS = (
     "hardware/printed-parts/fixtures/valve-socket-fit",
     "hardware/printed-parts/fixtures/gun-positioner",
     "hardware/printed-parts/fixtures/gun-positioner-observation",
+    "hardware/gun-positioner/mounting",
 )
 
 #: Scene meshes the parts viewer opens as themselves. `web/public/js/viewer/parts.js` names `glb`
@@ -229,6 +230,7 @@ BUNDLED_PAYLOAD_DIRS = (
     "hardware/printed-parts/fixtures/valve-socket-fit",
     "hardware/printed-parts/fixtures/gun-positioner",
     "hardware/printed-parts/fixtures/gun-positioner-observation",
+    "hardware/gun-positioner/mounting",
 )
 
 # The fit-trial assembly has a viewer payload. Its two separately printable
