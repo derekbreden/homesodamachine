@@ -7752,6 +7752,18 @@
         "legacy-ledger-2026",
         "saved-amazon:114-1933808-1548244"
       ]
+    },
+    "pur-8c01bda97e5f42a49e5b956f6f1a46c9": {
+      "vendor": "Draft Warehouse",
+      "purpose": "components",
+      "amount_evidence": "final_vendor_amount",
+      "order_ids": [
+        "draftwarehouse:244592"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-6698dae129114345b350a05a4a1294d3"
+      ]
     }
   },
   "orders": {
@@ -13199,6 +13211,18 @@
       "allocation_status": "all_project",
       "source_ids": [
         "saved-amazon:114-1933808-1548244"
+      ]
+    },
+    "draftwarehouse:244592": {
+      "vendor": "Draft Warehouse",
+      "reference": "244592",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-05"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-6698dae129114345b350a05a4a1294d3"
       ]
     }
   },
@@ -25440,6 +25464,21 @@
       ],
       "verified_at": "2026-10-04",
       "note": "Vendor body states Delivered today. Its source document date is September 22, establishing same-day delivery; later order detail confirms replacement complete and no return required."
+    },
+    "src-6698dae129114345b350a05a4a1294d3": {
+      "vendor": "Draft Warehouse",
+      "document_type": "order_confirmation",
+      "reference": "244592",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-05"
+      },
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "verified_at": "2026-10-05",
+      "note": "Vendor order confirmation: one Taprite 3741 at $61.95, UPS Ground $13.68, tax $0.00, total $75.63. It does not establish a completed charge."
     }
   },
   "coverage": [

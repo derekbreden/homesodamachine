@@ -85,10 +85,11 @@ Coca-Cola measured unvented fountain carbonators at up to 30 % air and put a
 measured before and after that build-up has been measured at two operating
 points.
 
-Qualify at the nominal 43.5 psig feed with the primary in its band. A trial at
-a lower feed sets the primary below the preset. A trial above it seats the
-owned WR1110, the same body preset at 6 bar, in the regulator cradle and sets
-the primary to the trial pressure. A setting other than the nominal is valid
+Qualify at the nominal 43.5 psig feed, the primary at its factory 75 psig.
+Trials at other feeds use the bench's adjustable regulator, never a unit's
+shipped primary: a lower feed sets it below the preset, and a higher one seats
+the owned WR1110, the same body preset at 6 bar, in the regulator cradle and
+sets the bench regulator to the trial pressure. A setting other than the nominal is valid
 only if the first and successive glasses meet the same carbonation target. Gas
 pressure, gas-transfer rate and the carbonation retained in the glass are
 separate measurements.

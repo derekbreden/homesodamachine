@@ -5210,7 +5210,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:5ffdf0092c1ef9bca9fbe17f7fb339e8476ac27a344259332528a54cc6a42862",
+  "input_fingerprint": "sha256:f17f5a900de42ba2dd38516a569bb0a5355dfca53b9aa046c4e3fd1cdf301c6e",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -12721,6 +12721,23 @@
         "src-6dabd673b2df4a069b57b61513850f8f"
       ],
       "vendor": "DigiKey"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-05"
+      },
+      "order_id": "draftwarehouse:244592",
+      "purchase_ids": [
+        "pur-8c01bda97e5f42a49e5b956f6f1a46c9"
+      ],
+      "reference": "244592",
+      "source_ids": [
+        "src-6698dae129114345b350a05a4a1294d3"
+      ],
+      "vendor": "Draft Warehouse"
     },
     {
       "allocation_status": "all_project",
@@ -30079,6 +30096,50 @@
       "stream": "purchase",
       "unit_amount_minor": null,
       "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "final_vendor_amount",
+      "amount_minor": 7563,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "Taprite 3741 soda primary CO2 regulator, CGA-320 inlet, 0–120 PSI working pressure, 130 ± 4 PSI safety blow-off, 160 PSI and 2000 PSI gauges, 1/4\" flare outlet with check (Draft Warehouse SKU CGR266) — the appliance's shipped primary, set at the factory to 75 PSI. Draft Warehouse order 244592: 1 @ $61.95 + $13.68 UPS Ground + $0.00 tax",
+      "event_ids": [],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-8c01bda97e5f42a49e5b956f6f1a46c9",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-05"
+      },
+      "order_ids": [
+        "draftwarehouse:244592"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-8c01bda97e5f42a49e5b956f6f1a46c9",
+      "purpose": "components",
+      "quantity": 1,
+      "quantity_text": "1",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-05"
+      },
+      "row_date_basis": "order_date",
+      "section": "2. CO2 subsystem",
+      "service_period": null,
+      "source_ids": [
+        "src-6698dae129114345b350a05a4a1294d3"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Draft Warehouse"
     },
     {
       "allocation_status": "all_project",
@@ -51558,6 +51619,22 @@
     {
       "document_date": {
         "precision": "day",
+        "value": "2026-10-05"
+      },
+      "document_type": "order_confirmation",
+      "note": "Vendor order confirmation: one Taprite 3741 at $61.95, UPS Ground $13.68, tax $0.00, total $75.63. It does not establish a completed charge.",
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "reference": "244592",
+      "source_id": "src-6698dae129114345b350a05a4a1294d3",
+      "vendor": "Draft Warehouse",
+      "verified_at": "2026-10-05"
+    },
+    {
+      "document_date": {
+        "precision": "day",
         "value": "2026-03-30"
       },
       "document_type": "merchant_monetary_receipt",
@@ -54216,7 +54293,7 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 98923,
+          "amount_minor": 106486,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
@@ -54224,6 +54301,7 @@
             "pur-375429e1cb9c4b95bb3584b04f7284da",
             "pur-406788001c4d41f39213bbd4ec7a35ad",
             "pur-87565d390bcc451a9fbfb44dc871d585",
+            "pur-8c01bda97e5f42a49e5b956f6f1a46c9",
             "pur-99a0644333ed4c5a8e5d5514098319fa",
             "pur-b03a2dd1d7054c408d12d07ac3eaa1ec",
             "pur-c08cee116c73400bae488deb2d2015f4",
@@ -54250,6 +54328,7 @@
         "pur-375429e1cb9c4b95bb3584b04f7284da",
         "pur-406788001c4d41f39213bbd4ec7a35ad",
         "pur-87565d390bcc451a9fbfb44dc871d585",
+        "pur-8c01bda97e5f42a49e5b956f6f1a46c9",
         "pur-99a0644333ed4c5a8e5d5514098319fa",
         "pur-b03a2dd1d7054c408d12d07ac3eaa1ec",
         "pur-b6c01a5b012340fc888139c1070dc054",
@@ -55208,7 +55287,7 @@
           "currency": "USD",
           "estimate_minor": 11612,
           "evidence_scope": "retrieved_records_only",
-          "final_vendor_amount_minor": 9156,
+          "final_vendor_amount_minor": 16719,
           "legacy_unverified_minor": 30634,
           "month": "2026-10",
           "purchase_ids": [
@@ -55218,6 +55297,7 @@
             "pur-633abd30f0524d80a397fcee998a7658",
             "pur-6fb9cbd2160040c983dc0055e58d4de1",
             "pur-87565d390bcc451a9fbfb44dc871d585",
+            "pur-8c01bda97e5f42a49e5b956f6f1a46c9",
             "pur-b03a2dd1d7054c408d12d07ac3eaa1ec",
             "pur-c08cee116c73400bae488deb2d2015f4",
             "pur-cfc338b991f7400a851a0ea5a018e44e",
@@ -55225,7 +55305,7 @@
             "pur-f7d7511ce9394cae80352c28342d27fd",
             "pur-f98feadd5dec4c1cba460dd7c74baa09"
           ],
-          "total_minor": 51402,
+          "total_minor": 58965,
           "unknown_amount_ids": []
         },
         {
@@ -55253,7 +55333,7 @@
       ],
       "purpose_totals": [
         {
-          "amount_minor": 1016113,
+          "amount_minor": 1023676,
           "currency": "USD",
           "purpose": "components"
         },
@@ -55292,9 +55372,9 @@
         {
           "currency": "USD",
           "estimate_minor": 281605,
-          "final_vendor_amount_minor": 916130,
+          "final_vendor_amount_minor": 923693,
           "legacy_unverified_minor": 3321899,
-          "total_minor": 4519634
+          "total_minor": 4527197
         }
       ],
       "undated_unallocated": [
@@ -55447,7 +55527,7 @@
           "legacy_unverified_purchase_minor": 3321899,
           "order_only_charge_allocation_minor": 2187,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 3811399,
+          "purchases_without_merchant_charge_minor": 3818962,
           "undated_charge_minor": 57998,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 1031234,
@@ -56354,6 +56434,7 @@
         "pur-8b8ba8e2137c4191a05b5752259df5bc",
         "pur-8ba035a103d94342a627b5b6d858d658",
         "pur-8bac7a7d575b4eb7b4611f2b0216cada",
+        "pur-8c01bda97e5f42a49e5b956f6f1a46c9",
         "pur-8c33b046bb6e465ba1473e2fb5e8a0d2",
         "pur-8c7f433f6cae402394b0f3b5eef083bb",
         "pur-8dda604c8c6b4c4581077a554a7667a6",

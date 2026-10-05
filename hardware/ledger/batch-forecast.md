@@ -28,11 +28,12 @@ Already-ordered quantities are separate from on hand and are deducted to prevent
 |---|---:|---:|---|
 | WR1105 regulator | 0 | 3 | Shipped; estimated October 7 arrival. Confirmed $91.56 charge excluded from future spend. |
 | PI450822S female adapter | 0 | 30 | Shipped October 1; delivery pending. |
+| Taprite 3741 primary regulator | 0 | 1 | Ordered October 5 (Draft Warehouse 244592); delivery pending. Its $75.63 is reserved until a charge is confirmed. |
 | Four-pin pogo contact pairs | 4 | 6 | Six delayed and unshipped. Confirmed $21.87 charge for the received portion excluded. |
 | M1.4 inserts | 0 | 200 | Ordered; estimated October 7 arrival. |
 | M1.4 × 8 screws | 0 | 50 | Ordered; estimated October 7 arrival. |
 
-All three alternatives include a **$155.63 possible-payment reserve** for the PI450822S shipment ($94.54), six pending pogo pairs ($43.74), insert pack ($8.57) and screw pack ($8.78). Merchant payment confirmation is incomplete. This is a conservative allowance for a possible remaining balance, not a verified amount owed. Release it when those orders are confirmed paid. Tax is not added again to these delivered order amounts.
+All three alternatives include a **$231.26 possible-payment reserve** for the PI450822S shipment ($94.54), the Taprite 3741 regulator ($75.63), six pending pogo pairs ($43.74), insert pack ($8.57) and screw pack ($8.78). Merchant payment confirmation is incomplete. This is a conservative allowance for a possible remaining balance, not a verified amount owed. Release it when those orders are confirmed paid. Tax is not added again to these delivered order amounts.
 
 Delivery is required before assembly. A delayed order is not physically available stock, and an acquired status alone does not prove payment.
 
