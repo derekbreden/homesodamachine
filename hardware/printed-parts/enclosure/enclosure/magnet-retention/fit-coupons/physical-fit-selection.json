@@ -1,0 +1,215 @@
+{
+  "schema_version": 1,
+  "article": "RC62 upright-pocket and Beduan four-post socket fit selections",
+  "recorded_local_date": "2026-10-05",
+  "session": "Printer 2",
+  "status": "current_operator_fit_preferences",
+  "physical_source": "Derek tested the completed centered H2C fit samples and selected the labels quoted below.",
+  "quotes": {
+    "magnet_preference": "I did some more testing, and changed my mind on the magnet, I think I like C3 better, just a little bit easier to get out of there, which is actually what I want, its still a pretty tight grip, but not so tight that things get risky for loosening the print on the bed during insertion.",
+    "vertical_clearance_intent": "Even though I did approve this very tight clearance in X, it is because I actually want us to be gripping in the X axis, and in Z I do not have the same desire, so I anticipate that will be larger, even though it is ostensibly measuring the exact same dimension, what with this magnet being round and all.",
+    "valve_preference": "On valves I would like to go with V69, though with a note that V70 might be okay as our alternate to try if we ever find a valve or print orientation that doesn't fit in V69 well."
+  },
+  "printed_trial": {
+    "receipt": "centered-trial-v4/h2c-launch.json",
+    "printer": "H2C",
+    "task_id": "1310172582",
+    "archive_name": "2026-10-04-centered-rc62-valve-h2c-v4.gcode.3mf",
+    "archive_sha256": "a3bac5c7429c3b142ef2fe1e4a87d04d73f45b314bc1b0b6aac49a01cf75552b",
+    "gcode_sha256": "d941eedf6115e0ed0a1bc5668b6b0b7c12cfca0bfe20adfb8f7da65ef1c7445b",
+    "completion_observed_at_utc": "2026-10-05T06:25:42.001338+00:00",
+    "cooled_observed_at_utc": "2026-10-05T07:23:49.479637+00:00",
+    "native_coupon_review": "centered-trial-v4/h2c/independent-coupon-review.json",
+    "material": "physical black PET-GF, external left slot 254, labeled PET-CF/GFT01",
+    "filament_colour": "000000",
+    "nozzle": "fixed left hardened standard-flow 0.4 mm",
+    "plate": "Textured PEI",
+    "user_z_trim_mm": 0.18,
+    "emitted_z_trim_mm": 0.16,
+    "first_layer_mm": 0.2,
+    "ordinary_layer_mm": 0.24,
+    "wall_loops": 2,
+    "sparse_infill_percent": 15,
+    "active_filament_flow_ratio": 0.9555,
+    "xy_hole_compensation_mm": 0.0,
+    "xy_contour_compensation_mm": 0.0,
+    "roof": false,
+    "supports": false,
+    "insertion_pause": false
+  },
+  "magnet": {
+    "preferred_label": "C3",
+    "nominal_rc62": {
+      "manufacturer": "K&J Magnetics",
+      "specification_url": "https://www.kjmagnetics.com/rc62-neodymium-ring-magnet",
+      "outer_diameter_mm": 19.05,
+      "inner_diameter_mm": 9.525,
+      "thickness_mm": 3.175,
+      "dimensional_tolerance_mm": 0.1
+    },
+    "geometry_record": "geometry.json",
+    "source_binding": {
+      "name": "rc62-pocket-c3",
+      "native_identify_id": 1903,
+      "stl": "rc62-pocket-c3.stl",
+      "step": "rc62-pocket-c3.step",
+      "stl_sha256": "11a96301b6b47d375dbc7d31eaef39b89c10013568cd8dc9f71bf8c5cd8ca80d",
+      "step_sha256": "2bea517a535e696171174b08b55b7d6eb1ccd6af74ea0d3004a830eec0113483",
+      "payload_sha256": "215ee2274d306f284ca5b706e0f1ab963cd0ee12c5580ef68cabbaf7ba9e80e3"
+    },
+    "coupon_dimensions_mm": {
+      "pocket_width_x_mm": 19.05,
+      "pocket_depth_y_mm": 3.175,
+      "nominal_diametral_clearance_mm": 0.0,
+      "nominal_axial_clearance_mm": 0.0,
+      "lower_arc_radius_mm": 9.525,
+      "lower_arc_center_z_mm": 12.525
+    },
+    "coupon_z_geometry_mm": {
+      "floor": 3.0,
+      "open_rim": 20.12,
+      "nominal_seated_ring_top": 22.05,
+      "nominal_ring_exposure_above_rim": 1.93,
+      "roof": null
+    },
+    "orientation": {
+      "print_build_axis": [
+        0,
+        0,
+        1
+      ],
+      "magnet_axis": [
+        0,
+        1,
+        0
+      ],
+      "insertion_axis": [
+        0,
+        0,
+        -1
+      ]
+    },
+    "physical_acceptance_scope": "Preferred hand insertion/removal and reported tight grip of the tested RC62 in the open C3 PET-GF coupon. The quote identifies easier extraction and reducing the risk of disturbing the bed-held print during insertion.",
+    "production_fit_policy": {
+      "source": "../../_cartridge_retention.py",
+      "radial_air_mm": 0.0,
+      "axial_air_mm": 0.0,
+      "roof_air_mm": 0.48,
+      "pocket_width_x_mm": 19.05,
+      "pocket_depth_y_mm": 3.175,
+      "lower_arc_radius_mm": 9.525,
+      "lower_arc_center_z": "station_z",
+      "floor_z": "station_z - 9.525",
+      "roof_z": "station_z + 10.005",
+      "closed_floor_to_roof_z_span_mm": 19.53,
+      "fully_seated_nominal_ring_roof_air_mm": 0.48,
+      "fully_seated_maximum_od_ring_roof_air_mm": 0.38,
+      "fully_seated_minimum_od_ring_roof_air_mm": 0.58,
+      "mating_face_cover_mm": 1.2,
+      "backing_minimum_mm": 3.0,
+      "owners": [
+        "pump-cartridge",
+        "enclosure-front-top"
+      ],
+      "scope": "The X/Y selected fit and Z roof air are independent. The full-width upper mouth permits downward insertion; the lower seat locates the ring and the flat roof provides headroom. The pump cap has no separate retention ring. These dimensions are design policy, not a physical qualification of a closed production pocket."
+    },
+    "not_established": [
+      "Caliper-measured coupon dimensions or magnet dimensions",
+      "Insertion/removal force or repeated-cycle durability",
+      "Universal fit over magnet and printer tolerance",
+      "Bed adhesion during production insertion",
+      "First-layer roof deposition, absence of rattle in a sealed pocket or finished magnetic retention strength"
+    ]
+  },
+  "valve": {
+    "preferred_label": "V69",
+    "preferred_printed_label": "6.90",
+    "conditional_alternate_label": "V70",
+    "conditional_alternate_printed_label": "7.00",
+    "geometry_record": "../../../../fixtures/valve-socket-fit/tighter-trial-v2/geometry.json",
+    "samples": [
+      {
+        "label": "V69",
+        "role": "preferred",
+        "source_binding": {
+          "name": "beduan-socket-v69",
+          "native_identify_id": 1911,
+          "stl": "beduan-socket-v69.stl",
+          "step": "beduan-socket-v69.step",
+          "stl_sha256": "d228dc8eb7ef364b52a22b58ad2c170e13d23c84517a5afd0b213ab950a47885",
+          "step_sha256": "52c4442ee1c7be802625d42079b0e9ea44f398fbadd7fbc24c707c2627741ec3",
+          "payload_sha256": "0c32ef14e6935fe61913654a5cba7d56780868b199185d53665d63387093d119"
+        },
+        "printed_label": "6.90",
+        "socket_diameter_mm": 6.9,
+        "nominal_post_diameter_mm": 6.9,
+        "nominal_diametral_clearance_mm": 0.0,
+        "post_pitch_xz_mm": [
+          24.4,
+          24.85
+        ],
+        "socket_depth_mm": 6.2,
+        "nominal_post_engagement_mm": 5.2,
+        "bearing_face_y_mm": 5.2,
+        "socket_floor_y_mm": -1.0,
+        "teardrop_roof_angle_degrees": 36.0
+      },
+      {
+        "label": "V70",
+        "role": "conditional_alternate",
+        "source_binding": {
+          "name": "beduan-socket-v70",
+          "native_identify_id": 1910,
+          "stl": "beduan-socket-v70.stl",
+          "step": "beduan-socket-v70.step",
+          "stl_sha256": "ce4469a1d590cc26ed603aac6530a5d64be8fe45964ffcfc1f3b5f108e494cf8",
+          "step_sha256": "9761709bba80098628fdb65f34579f722b90edf09e98b3dc7bd362de177d2491",
+          "payload_sha256": "266b2b1136b64b26f9c06706ac0e336cf6930a18d3401e8badcdd5ce6dac9a74"
+        },
+        "printed_label": "7.00",
+        "socket_diameter_mm": 7.0,
+        "nominal_post_diameter_mm": 6.9,
+        "nominal_diametral_clearance_mm": 0.1,
+        "post_pitch_xz_mm": [
+          24.4,
+          24.85
+        ],
+        "socket_depth_mm": 6.2,
+        "nominal_post_engagement_mm": 5.2,
+        "bearing_face_y_mm": 5.2,
+        "socket_floor_y_mm": -1.0,
+        "teardrop_roof_angle_degrees": 36.0
+      }
+    ],
+    "orientation": {
+      "print_build_axis": [
+        0,
+        0,
+        1
+      ],
+      "socket_axis": [
+        0,
+        1,
+        0
+      ],
+      "insertion_axis": [
+        0,
+        -1,
+        0
+      ]
+    },
+    "conditional_alternate_rule": "Try explicitly selected V70 only when a valve or print orientation does not fit V69 well; no automatic fallback or universal fit claim.",
+    "physical_acceptance_scope": "The operator selected V69 for the tested valve and enclosure-oriented PET-GF four-post panel. V70 is a conditional alternative to try, not a separately qualified general fit.",
+    "production_parameter_source": "../../../../valve-seat/valve_seat.py",
+    "preferred_socket_radial_clearance_mm": 0.0,
+    "conditional_alternate_socket_radial_clearance_mm": 0.05,
+    "earlier_acceptance_record": "../../../../fixtures/valve-socket-fit/physical-acceptance.json",
+    "earlier_acceptance_scope": "The 7.20 mm coupon acceptance covers easy location with zip ties supplying positive retention. It does not qualify the selected tighter sockets.",
+    "not_established": [
+      "Universal fit across all valves or changed print orientations",
+      "Insertion/removal force, positive retention load or lifetime",
+      "Physical acceptance of every shared seat, tray or cold-core mounting station"
+    ]
+  },
+  "scope": "Current operator preferences bind printed labels to the exact completed H2C trial. Native hashes establish the sample identity and commanded geometry; the quotations establish the limited physical preferences. Production geometry and future paused prints require their own review and physical result."
+}

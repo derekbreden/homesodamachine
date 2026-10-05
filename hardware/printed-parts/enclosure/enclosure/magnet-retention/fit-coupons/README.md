@@ -30,11 +30,25 @@ about finished printed tolerances.
 | --- | ---: | ---: | ---: | ---: |
 | Y pocket depth | 3.45 | 3.30 | 3.175 | 3.05 |
 
-For example, **B2** is 19.15 mm wide and 3.30 mm deep. **C0** is the current
-cartridge-clearance control: 19.45 mm wide and 3.575 mm deep. The
+For example, **B2** is 19.15 mm wide and 3.30 mm deep. **C0** is the trial's
+clearance control: 19.45 mm wide and 3.575 mm deep. The
 [K&J RC62 specification](https://www.kjmagnetics.com/rc62-neodymium-ring-magnet)
 is 19.05 mm OD, 3.175 mm thick and ±0.1 mm dimensional tolerance. Some samples
 intentionally have nominal interference.
+
+The [physical fit selection](physical-fit-selection.json) selects **C3**:
+19.05 mm in X and 3.175 mm in Y. Derek reports a tight grip with comfortable
+extraction, reducing the risk of disturbing the print on the bed during
+insertion. This is the tested open coupon's hand-fit preference; a sealed
+production pocket and its first closing layer still need their own physical
+result.
+
+The production pocket retains independent Z headroom: 0.48 mm above a fully
+seated nominal ring, or 0.38 mm at the maximum specified 19.15 mm OD. Its
+floor-to-roof span is 19.53 mm. C3's open rim provides no roof-clearance test.
+The same selection record identifies **V69 / 6.90 mm** as the valve-socket
+preference and **V70 / 7.00 mm** as a conditional alternative to try when a
+valve or print orientation does not fit V69 well.
 
 After the samples cool, use the same labeled RC62 for each comparison:
 
@@ -76,7 +90,9 @@ the [H2C reviews](centered-trial-v4/h2c/README.md) and the
 [two-plate comparison](centered-trial-v4/independent-plate-pair-review.json)
 bind the sample dimensions, labels, ordinary layers and emitted paths.
 Current accepted task identities and one Send per plate are in the
-[launch plan](centered-trial-v4/launch-plan.json). Physical preferred fit and
-visual first-layer adhesion are pending. The
+[launch plan](centered-trial-v4/launch-plan.json). The selected C3 and V69 panels
+are bound to completed H2C task **1310172582** in the
+[physical fit record](physical-fit-selection.json). Visual first-layer adhesion,
+production roof deposition and finished retention strength are unqualified. The
 [edge-adhesion report](../../support-bottom-gap/mark2-v2/physical-result.json)
 is the physical evidence for restricting these plates to the bed centers.

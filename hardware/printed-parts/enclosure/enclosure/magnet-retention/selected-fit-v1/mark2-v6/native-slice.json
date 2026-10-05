@@ -1,0 +1,15 @@
+{
+  "status": "native_slice_awaiting_timing_review",
+  "part": "pump-cartridge",
+  "printer": "Mark2",
+  "quantity": 1,
+  "cap_included": false,
+  "archive": ".cache/prints/2026-10-05-pump-cradle-c3-mark2-v6/ready/2026-10-05-pump-cradle-c3-mark2-v6.gcode.3mf",
+  "archive_sha256": "37646924eca2ca480b595857f9d8e6aa247130b155952cd2ee3027a40969676d",
+  "gcode_sha256": "752c1dbdcc0232ffea5eba9782826c83fd6bf3b53a9366740a3cf73a2fdcd42b",
+  "project": "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/mark2-v6/pump-cartridge-pause.3mf",
+  "project_sha256": "3e2655bac032feafa69bc7b8e4c0be33dbbd01e08940ae87168db5f67c272be4",
+  "estimated_seconds": 35615.65625,
+  "submitted": false,
+  "launch_authorized": false
+}

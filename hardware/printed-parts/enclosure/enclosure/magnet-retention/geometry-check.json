@@ -22,15 +22,44 @@
       "missing_stock_mm3": 0.0
     },
     {
-      "check": "pump-cartridge: maximum-tolerance ring clears finished pocket",
+      "check": "pump-cartridge: continuous flat closing roof",
+      "pass": true,
+      "missing_stock_mm3": 0.0
+    },
+    {
+      "check": "pump-cartridge: nominal ring fits the selected seat",
       "pass": true,
       "overlap_mm3": 0.0
     },
     {
-      "check": "pump-cartridge: upright ring insertion sweep before closure",
+      "check": "pump-cartridge: maximum ring has only declared press-fit interference",
+      "pass": true,
+      "native_interference_mm3": 23.771168693283713,
+      "declared_fit_interference_mm3": 23.771168693303615,
+      "unexpected_interference_mm3": 0.0,
+      "maximum_x_diametral_interference_mm": 0.10000000000000142,
+      "maximum_y_interference_mm": 0.10000000000000009,
+      "scope": "Geometric interference only; no universal insertion-force or tolerance acceptance."
+    },
+    {
+      "check": "pump-cartridge: maximum seated ring keeps independent roof clearance",
+      "pass": true,
+      "clearance_mm": 0.3800000000000239,
+      "minimum_required_mm": 0.38
+    },
+    {
+      "check": "pump-cartridge: nominal upright insertion route remains open before closure",
       "pass": true,
       "samples": 29,
       "maximum_overlap_mm3": 0.0
+    },
+    {
+      "check": "pump-cartridge: maximum ring insertion has only declared press-fit contact",
+      "pass": true,
+      "samples": 29,
+      "maximum_press_fit_overlap_mm3": 23.77116869328333,
+      "maximum_unexpected_overlap_mm3": 0.0,
+      "scope": "The open route preserves the selected lateral press fit; print deformation and hand force are unmeasured."
     },
     {
       "check": "front-top: one valid native solid",
@@ -52,20 +81,49 @@
       "missing_stock_mm3": 0.0
     },
     {
-      "check": "front-top: maximum-tolerance ring clears finished pocket",
+      "check": "front-top: continuous flat closing roof",
+      "pass": true,
+      "missing_stock_mm3": 0.0
+    },
+    {
+      "check": "front-top: nominal ring fits the selected seat",
       "pass": true,
       "overlap_mm3": 0.0
     },
     {
-      "check": "front-top: upright ring insertion sweep before closure",
+      "check": "front-top: maximum ring has only declared press-fit interference",
+      "pass": true,
+      "native_interference_mm3": 23.771168693284665,
+      "declared_fit_interference_mm3": 23.77116869330453,
+      "unexpected_interference_mm3": 0.0,
+      "maximum_x_diametral_interference_mm": 0.10000000000000142,
+      "maximum_y_interference_mm": 0.10000000000000009,
+      "scope": "Geometric interference only; no universal insertion-force or tolerance acceptance."
+    },
+    {
+      "check": "front-top: maximum seated ring keeps independent roof clearance",
+      "pass": true,
+      "clearance_mm": 0.3800000000000239,
+      "minimum_required_mm": 0.38
+    },
+    {
+      "check": "front-top: nominal upright insertion route remains open before closure",
       "pass": true,
       "samples": 29,
       "maximum_overlap_mm3": 0.0
     },
     {
+      "check": "front-top: maximum ring insertion has only declared press-fit contact",
+      "pass": true,
+      "samples": 29,
+      "maximum_press_fit_overlap_mm3": 23.77116869328421,
+      "maximum_unexpected_overlap_mm3": 0.0,
+      "scope": "The open route preserves the selected lateral press fit; print deformation and hand force are unmeasured."
+    },
+    {
       "check": "at least 3 mm between pocket and nearest tee collar bore",
       "pass": true,
-      "minimum_web_mm": 4.125000000000002
+      "minimum_web_mm": 4.325000000000001
     },
     {
       "check": "single pair centred on the four tube insertion axes",
@@ -86,17 +144,21 @@
       "mating_face_y_mm": 79.269,
       "into": -1.0,
       "pocket_y_mm": [
-        74.494,
+        74.894,
         78.069
       ],
-      "pocket_radius_mm": 9.725,
-      "arc_center_z_mm": 186.374,
+      "pocket_radius_mm": 9.525,
+      "arc_center_z_mm": 186.174,
       "seat_floor_z_mm": 176.649,
       "roof_z_mm": 196.179,
       "face_cover_mm": 1.2,
       "backing_minimum_mm": 3.0,
-      "width_mm": 19.45,
-      "depth_mm": 3.5749999999999997,
+      "width_mm": 19.05,
+      "depth_mm": 3.175,
+      "fit_coupon": "C3",
+      "maximum_od_x_interference_mm": 0.10000000000000142,
+      "maximum_thickness_y_interference_mm": 0.10000000000000009,
+      "nominal_roof_clearance_mm": 0.48,
       "minimum_roof_clearance_at_maximum_od_mm": 0.38,
       "production_print_up": "+Z",
       "bed_machine_z_mm": 165.195,
@@ -104,9 +166,9 @@
       "magnet_nominal_top_above_bed_mm": 30.50400000000002,
       "magnet_maximum_top_above_bed_mm": 30.604000000000013,
       "artifact_sha256": {
-        ".step": "105c18eed6b10dfab5de7bc12a66174972546a984f2b966e9edc546c7bce285c",
-        ".stl": "d8f6b9a9e12b0594f958b14a6bd8ca9d348471c73f02b28cfe488711be9e5a16",
-        ".step.mesh": "eb5a0b0d9396fb532118d0fc8d9920910788a73b390ecdca515963410de1aebd"
+        ".step": "ef786ae6bb32e35ed915494fc459ae20420ce28a02073a2bd5b1ad8a9b177aa2",
+        ".stl": "d1302278cfeb56c39d52d060f3ad28c48cd39d9d8657c912005b023b9f9fdfae",
+        ".step.mesh": "789ae356112398861d1fc1a9b8657a144f1edfb9282737d8840d74e1b1ce3038"
       }
     },
     "front-top": {
@@ -123,16 +185,20 @@
       "into": 1.0,
       "pocket_y_mm": [
         80.715,
-        84.29
+        83.89
       ],
-      "pocket_radius_mm": 9.725,
-      "arc_center_z_mm": 186.374,
+      "pocket_radius_mm": 9.525,
+      "arc_center_z_mm": 186.174,
       "seat_floor_z_mm": 176.649,
       "roof_z_mm": 196.179,
       "face_cover_mm": 1.2,
       "backing_minimum_mm": 3.0,
-      "width_mm": 19.45,
-      "depth_mm": 3.5749999999999997,
+      "width_mm": 19.05,
+      "depth_mm": 3.175,
+      "fit_coupon": "C3",
+      "maximum_od_x_interference_mm": 0.10000000000000142,
+      "maximum_thickness_y_interference_mm": 0.10000000000000009,
+      "nominal_roof_clearance_mm": 0.48,
       "minimum_roof_clearance_at_maximum_od_mm": 0.38,
       "production_print_up": "+Z",
       "bed_machine_z_mm": 160.0,
@@ -140,9 +206,9 @@
       "magnet_nominal_top_above_bed_mm": 35.69900000000001,
       "magnet_maximum_top_above_bed_mm": 35.79900000000001,
       "artifact_sha256": {
-        ".step": "69ef530764b2f237acc27cc05be36db875d87f88b6836bad521c2bf3f9ac093e",
-        ".stl": "c8b5a8b594c7dc23ae13e724c97e1c06ab93dd19ceac7683dceca293d32942da",
-        ".step.mesh": "74e276f6c0d09ced6675be4d990ae98c9c19e4cca8049e08d955def04d3fac3a"
+        ".step": "93f232f35f27c5da071132c7332d10e5ff58efac6d2ae02921859b14a07eec4b",
+        ".stl": "af13c3ab421d2a7b5d0a60cb334c3f4c1e1f94e96a407b99c77379486e55ed4f",
+        ".step.mesh": "9be8dca3d6fc91a693055e12f97ae967196f653e7a7385a3cd39572f5bb5dd8f"
       }
     }
   },
@@ -160,13 +226,21 @@
   "nominal_attracting_face_separation_mm": 2.645999999999995,
   "pogo_axis_z_mm": 278.5240001,
   "magnet_below_pogos_mm": 92.35000010000002,
-  "minimum_tube_bore_web_mm": 4.125000000000002,
+  "minimum_tube_bore_web_mm": 4.325000000000001,
   "polarity": "Opposite poles on the two mating faces; both installed magnet north vectors point along the same machine Y direction.",
-  "scope": "Current native geometry and insertion sweep only. Actual seating, magnetic force, printed cover capacity, heat exposure, contact compression and operating tube retention are unverified.",
+  "fit_selection": {
+    "coupon": "C3",
+    "nominal_x_air_mm": 0.0,
+    "nominal_y_air_mm": 0.0,
+    "independent_roof_air_mm": 0.48,
+    "evidence": "fit-coupons/physical-fit-selection.json",
+    "scope": "Preferred hand fit in the printed upright PET-GF coupon; maximum-size rings intentionally interfere in X/Y."
+  },
+  "scope": "Current native geometry and insertion route only. Maximum-tolerance X/Y interference is intentional, not universal fit acceptance. Sealed-pocket roof quality, magnetic force, printed cover capacity, heat exposure, contact compression and operating tube retention are unverified.",
   "source_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/magnet-retention/audit.py": "cb5bda5ee3aefac1cd5051781d8d2748aef078a91d7ef00f8a0e239795c1d607",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "963a7359e65b2019b3108d950ea701a2d223c469375059e6989fe38294c34542",
-    "hardware/printed-parts/enclosure/enclosure/_cartridge_retention.py": "a91b59bcf7c54120ee83e82a49d02164d155591c61d6725d702db3bc8b03c62a",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/audit.py": "eb4ed03a58d7e70fa4ee1511b4980e9bf670b3e2566cd92a17d305e84e4b3939",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "6b9d93bb8dfccff08b6b831f33c11bc14b445ee7c2b14902720417b4368f9ddf",
+    "hardware/printed-parts/enclosure/enclosure/_cartridge_retention.py": "559e877a79dc1a92342526898049b6d0bb929bdb5212b9ba5c02de5654fbd7c1",
     "hardware/manifold-layout/enclosure-box.json": "4879e690f9e139856fddb3c5d918be5792e3eff13b5a26cc627e201df7ad0819"
   }
 }

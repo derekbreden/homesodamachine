@@ -9,9 +9,9 @@
     "PORT_DIA": "15.2",
     "POST_DIA": "6.9",
     "SEAT_TOP_Z": "5.2",
-    "SOCKET_CLEAR": "0.15 mm",
+    "SOCKET_CLEAR": "0 mm",
     "SOCKET_DEPTH": "6.2",
-    "SOCKET_DIA": "7.2",
+    "SOCKET_DIA": "6.9",
     "SOCKET_FLOOR_Z": "-1",
     "WALL": "3 mm"
   }

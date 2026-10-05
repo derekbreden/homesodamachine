@@ -1,0 +1,276 @@
+{
+  "schema": 1,
+  "checked_at_utc": "2026-10-05T07:49:44.437714+00:00",
+  "scope": "Square outside corners of the raised front surround only. Native Boolean checks are restricted to the two 6 mm corner cells; no whole-frame/shell Boolean intersections or full assembly motion review. Lower geometry retention follows identical bound construction plus complete native backing of the raw added footprint below Z349.",
+  "method": "Exact exported STEP comparison within both corner boxes, analytic raw outline difference, AST comparison against the source bound to the previous published frame, retained baseline bearing proof, exported mesh closure and payload source binding.",
+  "previous_frame_step_sha256": "5da1c15d6526467fa4c53978608c5467d1647f0f8a6f9aa99754c65a4de8ef93",
+  "previous_frame_source_sha256": "2955c7a0b27ef43d914dfb3e277285a3745fba8917018a103d0bfeba8d8efad9",
+  "source_sha256": {
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "c192657634e58f38cbd239f31438ca722d17f8f7d73b03cd495952f3723540e1",
+    "hardware/printed-parts/zone-c/funnel/funnel.py": "7e224d80c14b8bb089405d3c98964201a6df5141aaf3d1a10177808117df97e1"
+  },
+  "output_sha256": {
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "811028ad961ad698759bda54181370aedf090a53fe1af116ec9390a67b918163",
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "a2c10ea55fdedfcea8d512f2637db2399e6f02e5571d92e04db8b0cb54520185",
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh": "67b75c1ec0f192f1ca821667177178887bcfa5d31a7f573c41e32b3e87a97fad"
+  },
+  "reference_shell_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "93f232f35f27c5da071132c7332d10e5ff58efac6d2ae02921859b14a07eec4b",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "7de724435d621c63f80916991f9c8d0a38c224705d1e9dbaf5b1c6f2f959950a"
+  },
+  "retained_back_top_step_sha256": "7de724435d621c63f80916991f9c8d0a38c224705d1e9dbaf5b1c6f2f959950a",
+  "roof_datums_mm": {
+    "width": 196.5,
+    "front": 95.45849207671873,
+    "back": 199.75,
+    "floor": 346.0,
+    "top": 355.0,
+    "taper_floor": 346.0,
+    "side_reach": 0.0
+  },
+  "checks": [
+    {
+      "check": "new exported frame is one valid native solid",
+      "pass": true,
+      "native_solid_count": 1,
+      "frame_top_z_mm": 355.0
+    },
+    {
+      "check": "only roof outline construction changed",
+      "pass": true,
+      "previous_frame_source_sha256": "2955c7a0b27ef43d914dfb3e277285a3745fba8917018a103d0bfeba8d8efad9",
+      "all_other_module_and_function_ast_equal": true,
+      "roof_ast_equal_except_outline_assignment": true
+    },
+    {
+      "check": "roof, lower rails and silicone sources retain their datums",
+      "pass": true,
+      "roof_datums_mm": {
+        "width": 196.5,
+        "front": 95.45849207671873,
+        "back": 199.75,
+        "floor": 346.0,
+        "top": 355.0,
+        "taper_floor": 346.0,
+        "side_reach": 0.0
+      },
+      "underside_z_mm": 299.9,
+      "socket_floor_z_mm": 302.9,
+      "rail_z_mm": 306.9,
+      "silicone_seat_z_mm": 349.0
+    },
+    {
+      "check": "exported square corner -1",
+      "pass": true,
+      "bounds_mm": {
+        "x": [
+          -98.25,
+          -92.25
+        ],
+        "y": [
+          193.75,
+          199.75
+        ],
+        "z": [
+          349.0,
+          355.0
+        ]
+      },
+      "addition_mm3": 46.353996706151136,
+      "exported_gain_mm3": 46.35399670614872,
+      "removed_mm3": 0.0,
+      "missing_square_corner_mm3": 0.0,
+      "previous_frame_in_corner_mm3": 0.0,
+      "unexpected_gain_mm3": 0.0,
+      "missing_gain_mm3": 0.0
+    },
+    {
+      "check": "corner backing and zero lower change -1",
+      "pass": true,
+      "raw_outline_addition_below_seat_mm3": 23.176998353075568,
+      "lower_z_mm": [
+        346.0,
+        349.0
+      ],
+      "stock_missing_from_previous_mm3": 0.0,
+      "stock_missing_from_new_mm3": 0.0,
+      "new_stock_below_z349_mm3": 0.0,
+      "basis": "The only changed source expression adds this square-minus-R6 footprint. Its whole Z346\u2013349 portion already exists in the retained lower body. All other geometry construction and cuts are unchanged."
+    },
+    {
+      "check": "corner clears existing shell halves -1",
+      "pass": true,
+      "corner_shell_overlap_mm3": {
+        "front-top": 0.0,
+        "back-top": 0.0
+      },
+      "minimum_corner_shell_distance_mm": {
+        "front-top": 0.25,
+        "back-top": 0.25
+      }
+    },
+    {
+      "check": "exported square corner 1",
+      "pass": true,
+      "bounds_mm": {
+        "x": [
+          92.25,
+          98.25
+        ],
+        "y": [
+          193.75,
+          199.75
+        ],
+        "z": [
+          349.0,
+          355.0
+        ]
+      },
+      "addition_mm3": 46.35399670615118,
+      "exported_gain_mm3": 46.353996706148834,
+      "removed_mm3": 0.0,
+      "missing_square_corner_mm3": 0.0,
+      "previous_frame_in_corner_mm3": 0.0,
+      "unexpected_gain_mm3": 0.0,
+      "missing_gain_mm3": 0.0
+    },
+    {
+      "check": "corner backing and zero lower change 1",
+      "pass": true,
+      "raw_outline_addition_below_seat_mm3": 23.17699835307559,
+      "lower_z_mm": [
+        346.0,
+        349.0
+      ],
+      "stock_missing_from_previous_mm3": 0.0,
+      "stock_missing_from_new_mm3": 0.0,
+      "new_stock_below_z349_mm3": 0.0,
+      "basis": "The only changed source expression adds this square-minus-R6 footprint. Its whole Z346\u2013349 portion already exists in the retained lower body. All other geometry construction and cuts are unchanged."
+    },
+    {
+      "check": "corner clears existing shell halves 1",
+      "pass": true,
+      "corner_shell_overlap_mm3": {
+        "front-top": 0.0,
+        "back-top": 0.0
+      },
+      "minimum_corner_shell_distance_mm": {
+        "front-top": 0.25,
+        "back-top": 0.25
+      }
+    },
+    {
+      "check": "raised rear seam has two square flat end faces",
+      "pass": true,
+      "flat_end_faces": [
+        {
+          "face_id": 54,
+          "area_mm2": 51.0,
+          "bounds_mm": {
+            "x": [
+              89.75,
+              98.25
+            ],
+            "y": [
+              199.75,
+              199.75
+            ],
+            "z": [
+              349.0,
+              355.0
+            ]
+          }
+        },
+        {
+          "face_id": 59,
+          "area_mm2": 51.0,
+          "bounds_mm": {
+            "x": [
+              -98.25,
+              -89.75
+            ],
+            "y": [
+              199.75,
+              199.75
+            ],
+            "z": [
+              349.0,
+              355.0
+            ]
+          }
+        }
+      ],
+      "remaining_outer_rear_round_faces": []
+    },
+    {
+      "check": "only two bounded upper corners are added",
+      "pass": true,
+      "added_volume_mm3": 92.70799341230232,
+      "added_rigid_volume_ml": 0.09270799341230232,
+      "added_stock_min_z_mm": 349.0,
+      "added_stock_max_y_mm": 199.75,
+      "seam_y_mm": 200.0,
+      "running_air_mm": 0.25
+    },
+    {
+      "check": "complete silicone brim bearing and opening retained",
+      "pass": true,
+      "bearing_z_mm": [
+        346.0,
+        349.0
+      ],
+      "retained_bearing_missing_volume_mm3": 0.0,
+      "new_corner_silicone_opening_overlap_mm3": [
+        0.0,
+        0.0
+      ],
+      "minimum_corner_x_air_to_slipped_brim_mm": 2.5,
+      "silicone_source_unchanged": true,
+      "basis": "Existing exported bearing witness is bound to the previous frame. The sole outline addition removes no stock; its part below Z349 is wholly contained in the existing body, and both upper corners lie outboard of the slipped brim opening. No full-frame bearing Boolean repeated."
+    },
+    {
+      "check": "square outline requires no additional front-top clearance removal",
+      "pass": true,
+      "extra_clearance_min_y_mm": 229.69150792328128,
+      "current_front_top_max_y_mm": 217.80000010000006,
+      "additional_front_top_removal_mm3": 0.0,
+      "basis": "Square-minus-rounded full-front-opening outline differs only at its two rear corners, wholly beyond the front-top bounding box."
+    },
+    {
+      "check": "print mesh is one closed oriented positive-volume part",
+      "pass": true,
+      "watertight": true,
+      "winding_consistent": true,
+      "connected_components": 1,
+      "print_bounds_mm": [
+        [
+          -103.5,
+          -69.09150695800781,
+          0.0
+        ],
+        [
+          103.5,
+          71.14151000976562,
+          55.099998474121094
+        ]
+      ]
+    },
+    {
+      "check": "viewer payload binds the new exported STEP",
+      "pass": true,
+      "payload_source_sha256": "811028ad961ad698759bda54181370aedf090a53fe1af116ec9390a67b918163"
+    },
+    {
+      "check": "bound inputs remained unchanged during review",
+      "pass": true
+    }
+  ],
+  "pass": true,
+  "previous_bearing_proof": {
+    "path": "hardware/printed-parts/zone-c/funnel/flush-roof-review/geometry-check.json",
+    "sha256": "fe1d56813052753f024f024746c966a9c06979d07c6a9c84b27897680a8f3448",
+    "bound_frame_step_sha256": "5da1c15d6526467fa4c53978608c5467d1647f0f8a6f9aa99754c65a4de8ef93",
+    "missing_bearing_volume_mm3": 0.0,
+    "pass": true
+  }
+}

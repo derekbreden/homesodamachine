@@ -96,19 +96,25 @@ def refresh(path,changes,surfaces):
     replacement_checks={}
     for name,s in mapped.items():
         landed=after[name][0]
-        delta=abs(s.cut(landed).Volume())+abs(landed.cut(s).Volume())
+        source_fingerprint=fingerprint(s)
+        exported_fingerprint=fingerprint(landed)
+        delta=None
+        if source_fingerprint!=exported_fingerprint:
+            delta=abs(s.cut(landed).Volume())+abs(landed.cut(s).Volume())
         a,b=s.BoundingBox(),landed.BoundingBox()
         error=max(abs(getattr(a,k)-getattr(b,k))
                   for k in ('xmin','xmax','ymin','ymax','zmin','zmax'))
         topology=lambda v:[len(v.Solids()),len(v.Faces()),len(v.Edges()),len(v.Vertices())]
-        assert landed.isValid() and delta<1e-5 and error<1e-6 and topology(s)==topology(landed),(
+        assert landed.isValid() and (delta is None or delta<1e-5) and error<1e-6 and topology(s)==topology(landed),(
             path,name,'replacement geometry changed during export',delta,error)
         # A newly placed spline can integrate with different numeric accuracy
         # after STEP serialization. Boolean equivalence and fixed topology are
         # the relevant geometry checks for that transformed target.
         replacement_checks[name]=dict(native_symmetric_difference_mm3=delta,
             max_bounds_error_mm=error,topology=topology(landed),valid=True,
-            source_fingerprint=fingerprint(s),exported_fingerprint=fingerprint(landed))
+            source_fingerprint=source_fingerprint,exported_fingerprint=exported_fingerprint,
+            comparison='Matching normalized analytic face, edge, vertex and solid fingerprints; native Boolean equivalence only for serialization differences.')
+        print(path.name,name,'replacement verified',flush=True)
     for name,record in retained.items():
         s,c=after[name]
         exported=fingerprint(s)
@@ -134,7 +140,7 @@ def refresh(path,changes,surfaces):
                 retained_member_count=len(retained),all_unrelated_native_names_geometry_placements_colors_and_viewer_arrays_preserved=True)
 
 def main():
-    current={n:cq.importers.importStep(str(ENC/f'enclosure-{n}.step')).val() for n in ('front-top',)}
+    current={n:cq.importers.importStep(str(ENC/f'enclosure-{n}.step')).val() for n in ('front-top','pump-cartridge')}
     changes={f'enclosure-{n}':s for n,s in current.items()}
     surfaces=flute_payload.surfaces((ENC,))
     selected={name:surfaces[name] for name in changes}

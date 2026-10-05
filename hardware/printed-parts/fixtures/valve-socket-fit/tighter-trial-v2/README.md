@@ -16,8 +16,15 @@ panel's rear foot.
 
 The 7.20 mm control retains the dimensions of the [accepted socket
 coupon](../physical-acceptance.json). That acceptance covers easy valve location
-with zip ties providing positive retention. The tighter samples are candidates;
-the production socket dimensions remain unchanged.
+with zip ties providing positive retention. That acceptance retains its scope.
+
+The current [physical fit selection](../../../enclosure/enclosure/magnet-retention/fit-coupons/physical-fit-selection.json)
+selects **V69 / 6.90 mm** as the preferred socket diameter.
+**V70 / 7.00 mm** is a conditional alternative to try if a valve or print
+orientation does not fit V69 well. Selection does not automatically substitute
+V70, qualify every valve or mounting orientation, or establish retention load
+and lifetime. The selected panels came from completed H2C centered task
+**1310172582**.
 
 [The physical request](physical-request.json) records the tighter-fit trial and
 the scope of the earlier socket acceptance.

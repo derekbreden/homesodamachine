@@ -25,6 +25,21 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def volume(shape):
+    """Empty native boolean results contain no interference."""
+    return 0.0 if shape.wrapped.IsNull() else abs(shape.Volume())
+
+
+def outside_volume(actual, allowed):
+    """Keep an obstruction when its allowed envelope is empty."""
+    actual_volume = volume(actual)
+    if actual_volume < 1e-12:
+        return 0.0
+    if volume(allowed) < 1e-12:
+        return actual_volume
+    return volume(actual.cut(allowed))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--baseline-dir", type=Path)
@@ -56,12 +71,20 @@ def main():
                           *sorted((face + into * (r.FACE_COVER + d["depth_mm"]),
                                    face + into * (r.FACE_COVER + d["depth_mm"] + r.BACKING))),
                           footprint[2], footprint[3])
-        for label, stock in (("continuous mating cover", cover), ("3 mm backing", backing)):
+        roof = e._ybox(footprint[0], footprint[1], y0, y1,
+                       d["roof_z_mm"], d["roof_z_mm"] + r.BACKING)
+        for label, stock in (("continuous mating cover", cover), ("3 mm backing", backing),
+                             ("continuous flat closing roof", roof)):
             missing = abs(stock.cut(shape).Volume())
             checks.append({"check": f"{name}: {label}", "pass": missing < 1e-5,
                            "missing_stock_mm3": missing})
-        # Include the manufacturer's largest OD and thickness, seated at the
-        # pocket floor. Sweep it down through the whole full-width mouth.
+        nominal_ring = r.magnet((x, z), face, into)
+        nominal_overlap = abs(shape.intersect(nominal_ring).Volume())
+        checks.append({"check": f"{name}: nominal ring fits the selected seat",
+                       "pass": nominal_overlap < 1e-5, "overlap_mm3": nominal_overlap})
+        # The selected hand fit intentionally grips a maximum-size ring in X/Y.
+        # Keep that declared interference separate from roof clearance and from
+        # an unintended obstruction on the vertical insertion route.
         max_r = (r.OD + r.TOLERANCE) / 2
         max_t = r.THICKNESS + r.TOLERANCE
         cy0 = min(face + into * r.FACE_COVER, face + into * (r.FACE_COVER + max_t))
@@ -69,15 +92,43 @@ def main():
             cq.Vector(x, cy0, d["seat_floor_z_mm"] + max_r), cq.Vector(0, 1, 0))
         max_ring = max_ring.cut(cq.Solid.makeCylinder((r.ID - r.TOLERANCE) / 2, max_t,
             cq.Vector(x, cy0, d["seat_floor_z_mm"] + max_r), cq.Vector(0, 1, 0)))
-        seat_overlap = abs(shape.intersect(max_ring).Volume())
-        checks.append({"check": f"{name}: maximum-tolerance ring clears finished pocket",
-                       "pass": seat_overlap < 1e-5, "overlap_mm3": seat_overlap})
+        interference = shape.intersect(max_ring)
+        intended = max_ring.cut(pocket)
+        unintended = outside_volume(interference, intended)
+        seat_overlap = volume(interference)
+        roof_gap = d["roof_z_mm"] - max_ring.BoundingBox().zmax
+        checks.append({"check": f"{name}: maximum ring has only declared press-fit interference",
+                       "pass": unintended < 1e-5,
+                       "native_interference_mm3": seat_overlap,
+                       "declared_fit_interference_mm3": volume(intended),
+                       "unexpected_interference_mm3": unintended,
+                       "maximum_x_diametral_interference_mm": d["maximum_od_x_interference_mm"],
+                       "maximum_y_interference_mm": d["maximum_thickness_y_interference_mm"],
+                       "scope": "Geometric interference only; no universal insertion-force or tolerance acceptance."})
+        checks.append({"check": f"{name}: maximum seated ring keeps independent roof clearance",
+                       "pass": roof_gap >= r.ROOF_AIR - r.TOLERANCE - 1e-6 and roof_gap > 0,
+                       "clearance_mm": roof_gap,
+                       "minimum_required_mm": r.ROOF_AIR - r.TOLERANCE})
         open_shape = shape.intersect(e._ybox(-200, 200, -100, 500, 0, d["roof_z_mm"] - 0.001))
-        swept_overlap = max(abs(open_shape.intersect(max_ring.translate((0, 0, dz))).Volume())
-                            for dz in np.linspace(0, r.OD + r.TOLERANCE + 1, 29))
-        checks.append({"check": f"{name}: upright ring insertion sweep before closure",
-                       "pass": swept_overlap < 1e-5, "samples": 29,
-                       "maximum_overlap_mm3": swept_overlap})
+        sweep_height = r.OD + r.TOLERANCE + 1
+        open_aperture = pocket.fuse(e._ybox(x - radius, x + radius, y0, y1,
+            d["arc_center_z_mm"], d["roof_z_mm"] + sweep_height + r.OD + 1))
+        nominal_sweep, max_sweep, unexpected_sweep = [], [], []
+        for dz in np.linspace(0, sweep_height, 29):
+            nominal_sweep.append(abs(open_shape.intersect(nominal_ring.translate((0, 0, dz))).Volume()))
+            moving = max_ring.translate((0, 0, dz))
+            actual = open_shape.intersect(moving)
+            max_sweep.append(volume(actual))
+            allowed = moving.cut(open_aperture) if max_sweep[-1] > 1e-12 else actual
+            unexpected_sweep.append(outside_volume(actual, allowed))
+        checks.append({"check": f"{name}: nominal upright insertion route remains open before closure",
+                       "pass": max(nominal_sweep) < 1e-5, "samples": 29,
+                       "maximum_overlap_mm3": max(nominal_sweep)})
+        checks.append({"check": f"{name}: maximum ring insertion has only declared press-fit contact",
+                       "pass": max(unexpected_sweep) < 1e-5, "samples": 29,
+                       "maximum_press_fit_overlap_mm3": max(max_sweep),
+                       "maximum_unexpected_overlap_mm3": max(unexpected_sweep),
+                       "scope": "The open route preserves the selected lateral press fit; print deformation and hand force are unmeasured."})
         bed = round(shape.BoundingBox().zmin, 5)
         pieces[name] = {**d, "production_print_up": "+Z", "bed_machine_z_mm": bed,
                         "roof_height_above_bed_mm": d["roof_z_mm"] - bed,
@@ -113,7 +164,12 @@ def main():
               "magnet_below_pogos_mm": e.pump_contact_station(box)[1] - z,
               "minimum_tube_bore_web_mm": min_web, "polarity":
               "Opposite poles on the two mating faces; both installed magnet north vectors point along the same machine Y direction.",
-              "scope": "Current native geometry and insertion sweep only. Actual seating, magnetic force, printed cover capacity, heat exposure, contact compression and operating tube retention are unverified.",
+              "fit_selection": {"coupon": r.FIT_COUPON,
+                  "nominal_x_air_mm": r.RADIAL_AIR, "nominal_y_air_mm": r.AXIAL_AIR,
+                  "independent_roof_air_mm": r.ROOF_AIR,
+                  "evidence": "fit-coupons/physical-fit-selection.json",
+                  "scope": "Preferred hand fit in the printed upright PET-GF coupon; maximum-size rings intentionally interfere in X/Y."},
+              "scope": "Current native geometry and insertion route only. Maximum-tolerance X/Y interference is intentional, not universal fit acceptance. Sealed-pocket roof quality, magnetic force, printed cover capacity, heat exposure, contact compression and operating tube retention are unverified.",
               "source_sha256": {str(p.relative_to(ROOT)): sha(p) for p in
                   (Path(__file__), ENC / "enclosure.py", ENC / "_cartridge_retention.py", box_path)}}
     (HERE / "geometry-check.json").write_text(json.dumps(report, indent=2) + "\n")

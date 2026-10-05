@@ -1,0 +1,406 @@
+{
+  "project": "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/h2c-v20/2026-10-05-enclosure-front-top-c3-v69-h2c-v20-input.3mf",
+  "settings_source": "hardware/printed-parts/petgf.3mf",
+  "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "settings_sha256": "60e5fb0ffaa67826a4a9bc33aac0c6040999569fa15db3b0e1639c9f3a3e2aa4",
+  "source_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "409b1516f0401361a02b18a34420c10ca83bc33615e8896cade2fea42edee871",
+      "requested_z_trim_mm": 0.18
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.18 Z trim"
+    }
+  },
+  "printer": "H2C",
+  "process": {
+    "layer_height": 0.24,
+    "initial_layer_height": 0.2,
+    "wall_loops": 2,
+    "sparse_infill_percent": 15,
+    "support_type": "tree(auto)"
+  },
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 15.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "enclosure-front-top",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+      "stl_sha256": "af13c3ab421d2a7b5d0a60cb334c3f4c1e1f94e96a407b99c77379486e55ed4f",
+      "triangles": 528162,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        111.4000015258789,
+        257.5
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        162.5,
+        160.0,
+        97.5
+      ],
+      "plate_translation_mm": [
+        162.5,
+        160.0,
+        97.5
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          55.0,
+          53.599998474121094,
+          0.0
+        ],
+        [
+          270.0,
+          266.4000015258789,
+          195.0
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    }
+  ],
+  "project_sha256": "cf7691ccb19e1e29ea97629c84a31f3e173373877de674d3dc1a896f87af4caa",
+  "settings_preserved_byte_for_byte": false,
+  "intentional_overrides": {
+    "support_bottom_z_distance": {
+      "from": "0.3",
+      "to": "0.3"
+    },
+    "support_object_xy_distance": {
+      "from": "0.4",
+      "to": "0.5"
+    },
+    "extruder_ams_count": {
+      "from": [
+        "1#0|4#1",
+        "1#0|4#0"
+      ],
+      "to": [
+        "1#0|4#0",
+        "1#0|4#0"
+      ]
+    },
+    "support_filament": {
+      "from": "0",
+      "to": "1"
+    },
+    "support_interface_filament": {
+      "from": "0",
+      "to": "1"
+    },
+    "flush_into_support": {
+      "from": "1",
+      "to": "0"
+    },
+    "filament_colour": {
+      "from": [
+        "#000000"
+      ],
+      "to": [
+        "#000000"
+      ]
+    }
+  },
+  "layer_ranges_mm": [
+    {
+      "min_z": 187.0,
+      "max_z": 195.0,
+      "layer_height": 0.08,
+      "reason": "Retained complete inward/top roof-side show rounds."
+    }
+  ],
+  "support_painted_facets": {
+    "exterior_roof_side": 33338,
+    "RC62_roof": 2
+  },
+  "pause": {
+    "requested_top_z_mm": 36.440000000000005,
+    "pocket_roof_height_mm": 36.179,
+    "pocket_geometry_unchanged": true,
+    "pocket_fit_qualified": false
+  },
+  "solid_host_regions": [
+    {
+      "name": "Y seam socket and complete root +1/282.05",
+      "machine_bounds_mm": [
+        -107.5,
+        -90.5,
+        197.0,
+        217.8,
+        274.15000000000003,
+        355.0
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        -107.499,
+        -90.5,
+        197.0,
+        217.7990030517578,
+        274.15000000000003,
+        354.999
+      ]
+    },
+    {
+      "name": "Y seam socket and complete root -1/291.05",
+      "machine_bounds_mm": [
+        90.5,
+        107.5,
+        197.0,
+        217.8,
+        283.15000000000003,
+        355.0
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        90.5,
+        107.499,
+        197.0,
+        217.7990030517578,
+        283.15000000000003,
+        354.999
+      ]
+    },
+    {
+      "name": "Z rail, end stop and wall root -1",
+      "machine_bounds_mm": [
+        -107.5,
+        -90.0,
+        5.0,
+        200.0,
+        157.0,
+        177.8
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        -107.499,
+        -90.0,
+        5.001,
+        200.0,
+        160.001,
+        177.8
+      ]
+    },
+    {
+      "name": "Z rail, end stop and wall root +1",
+      "machine_bounds_mm": [
+        90.0,
+        107.5,
+        5.0,
+        200.0,
+        157.0,
+        177.8
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        90.0,
+        107.499,
+        5.001,
+        200.0,
+        160.001,
+        177.8
+      ]
+    },
+    {
+      "name": "Both pogo insert hosts, entry steps and blind caps",
+      "machine_bounds_mm": [
+        -15.0,
+        15.0,
+        79.515,
+        93.015,
+        275.7740001,
+        281.2740001
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        -15.0,
+        15.0,
+        79.515,
+        93.015,
+        275.7740001,
+        281.2740001
+      ]
+    }
+  ],
+  "solid_host_region_record_sha256": "fff9fe2f5da3a7dd818017fedbc6771a3b259674bb6584fa32a8d43306b19e56",
+  "requested_z_trim_mm": 0.18,
+  "expected_textured_trim_mm": 0.16,
+  "source_step_sha256": "93f232f35f27c5da071132c7332d10e5ff58efac6d2ae02921859b14a07eec4b",
+  "source_stl_sha256": "af13c3ab421d2a7b5d0a60cb334c3f4c1e1f94e96a407b99c77379486e55ed4f",
+  "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "support_bottom_z_distance_mm": 0.3,
+  "support_object_xy_distance_mm": 0.5,
+  "support_top_z_distance_mm": 0.45,
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "af13c3ab421d2a7b5d0a60cb334c3f4c1e1f94e96a407b99c77379486e55ed4f",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "93f232f35f27c5da071132c7332d10e5ff58efac6d2ae02921859b14a07eec4b",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/prepare_prints.py": "30cb8cc563da4909813f228bcd74c714bcb371f6543f018936687f0bb92f89aa",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "6b9d93bb8dfccff08b6b831f33c11bc14b445ee7c2b14902720417b4368f9ddf",
+    "hardware/printed-parts/enclosure/enclosure/_cartridge_retention.py": "559e877a79dc1a92342526898049b6d0bb929bdb5212b9ba5c02de5654fbd7c1",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "c192657634e58f38cbd239f31438ca722d17f8f7d73b03cd495952f3723540e1",
+    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json": "fff9fe2f5da3a7dd818017fedbc6771a3b259674bb6584fa32a8d43306b19e56",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/geometry-check.json": "916d9677498cbb4d79187cad6bcc80f520ce39dad62aa78c66f5a9f5438f5108",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/prepare.py": "ff3714de561f99720a4b699d12ec2e9c05de7776681041e911c82706c6d47c7d",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/prepare_prints.py": "fe1411ba54a9fab8d23fe16c8876d16d28a801148cd36764abf0e6a86d50063d",
+    "hardware/printed-parts/valve-seat/valve_seat.py": "47720a332721b2676643e38d94fa9326f07609f420bb9ac59bce304d1ac1e31d",
+    "hardware/printed-parts/faucet/refresh_print_project.py": "78ec647cba763ef165e8e4f5c7f9d96e236254490c7636774d217e96c480853c",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/physical-fit-selection.json": "e301449fe6ef2d6901333bedbd0073e7544a325bf73d2d3dc91b1864cf287dbd"
+  },
+  "production_print_pose_retained": true,
+  "submitted": false,
+  "part": "front-top",
+  "source": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+  "native_object_name": "enclosure-front-top",
+  "identify_id": 1901,
+  "quantity": 1,
+  "cap_included": false,
+  "machine_to_bed_translation_mm": [
+    162.5,
+    48.599998474121094,
+    -160.0
+  ],
+  "requested_pause_height_mm": 36.440000000000005,
+  "pocket_roof_height_mm": 36.179,
+  "sealed_cavity_validation": {
+    "source_stl_sha256": "af13c3ab421d2a7b5d0a60cb334c3f4c1e1f94e96a407b99c77379486e55ed4f",
+    "positive_material_bodies": 1,
+    "inward_closed_cavities": 1,
+    "cavity_bounds_mm": [
+      [
+        -9.524999618530273,
+        80.71499633789062,
+        176.6490020751953
+      ],
+      [
+        9.524999618530273,
+        83.88999938964844,
+        196.1790008544922
+      ]
+    ],
+    "cavity_outside_material_mm3": 0.0,
+    "total_material_volume_mm3": 1286379.2587856306,
+    "scope": "This exact current source: one exterior enclosing the selected C3 void. No mesh repair or extra material body accepted."
+  },
+  "writer_scope": {
+    "original_refresh_source_sha256": "32a15cb4384dee2870e8b75732d67f1c46861c979faacd1aa82e1a7ebca8a137",
+    "scoped_refresh_source_sha256": "0b4b5c5943680edba0038b783b64f8fe61c7c7f5114338f1d6d558e5c2c3f7e9",
+    "replacement": "Only the exact current source's one exterior and contained C3 cavity."
+  },
+  "schema_version": 1,
+  "stem": "2026-10-05-enclosure-front-top-c3-v69-h2c-v20",
+  "revision": 20,
+  "filament_colour": "#000000",
+  "preferred_magnet_label": "C3",
+  "preferred_valve_label": "V69",
+  "roof_air_nominal_mm": 0.48,
+  "roof_air_at_maximum_od_mm": 0.38,
+  "current_pocket": {
+    "axis_xz_mm": [
+      0.0,
+      186.174
+    ],
+    "magnet_axis": [
+      0,
+      1,
+      0
+    ],
+    "mating_face_y_mm": 79.515,
+    "into": 1.0,
+    "pocket_y_mm": [
+      80.715,
+      83.89
+    ],
+    "pocket_radius_mm": 9.525,
+    "arc_center_z_mm": 186.174,
+    "seat_floor_z_mm": 176.649,
+    "roof_z_mm": 196.179,
+    "face_cover_mm": 1.2,
+    "backing_minimum_mm": 3.0,
+    "width_mm": 19.05,
+    "depth_mm": 3.175,
+    "fit_coupon": "C3",
+    "maximum_od_x_interference_mm": 0.10000000000000142,
+    "maximum_thickness_y_interference_mm": 0.10000000000000009,
+    "nominal_roof_clearance_mm": 0.48,
+    "minimum_roof_clearance_at_maximum_od_mm": 0.38,
+    "production_print_up": "+Z",
+    "bed_machine_z_mm": 160.0,
+    "roof_height_above_bed_mm": 36.179,
+    "magnet_nominal_top_above_bed_mm": 35.69900000000001,
+    "magnet_maximum_top_above_bed_mm": 35.79900000000001,
+    "artifact_sha256": {
+      ".step": "93f232f35f27c5da071132c7332d10e5ff58efac6d2ae02921859b14a07eec4b",
+      ".stl": "af13c3ab421d2a7b5d0a60cb334c3f4c1e1f94e96a407b99c77379486e55ed4f",
+      ".step.mesh": "9be8dca3d6fc91a693055e12f97ae967196f653e7a7385a3cd39572f5bb5dd8f"
+    }
+  },
+  "geometry_exports_changed": false,
+  "launch_authorized": false,
+  "purpose": "Current geometry native insertion-pause timing only.",
+  "physical_fit_roof_and_strength_qualified": false
+}

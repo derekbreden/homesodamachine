@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "article": "Timed C3 pump cradle insertion on Mark2",
+  "session": "Printer 2",
+  "state": "waiting_for_timed_start",
+  "timezone": "America/Chicago",
+  "clock_choice": "Local Central clock, CDT UTC-05:00 on 2026-10-05",
+  "authorization_quotes": [
+    "Give me the pump cradle pause at 9:30 am at best and 09:10 am to 9:50 am at worst.",
+    "Both beds are clear."
+  ],
+  "printer": "Mark2",
+  "parts": [
+    "pump-cartridge"
+  ],
+  "cap_included": false,
+  "preferred_magnet": "C3",
+  "operator_readiness": {
+    "bed_clear": true,
+    "bed_type": "Textured PEI",
+    "material": "physical black PET-GF labelled PET-CF/GFT01, external left slot 254",
+    "fixed_nozzle": "left hardened standard-flow 0.4 mm",
+    "requested_z_trim_mm": 0.04,
+    "emitted_z_trim_mm": 0.02
+  },
+  "timing": {
+    "target_pause_local": "2026-10-05T09:30:00-05:00",
+    "target_pause_utc": "2026-10-05T14:30:00+00:00",
+    "earliest_allowed_pause_local": "2026-10-05T09:10:00-05:00",
+    "earliest_allowed_pause_utc": "2026-10-05T14:10:00+00:00",
+    "latest_allowed_pause_local": "2026-10-05T09:50:00-05:00",
+    "latest_allowed_pause_utc": "2026-10-05T14:50:00+00:00",
+    "estimated_start_to_pause_minutes": 287,
+    "initial_native_countdown_minutes": 286,
+    "target_acceptance_local": "2026-10-05T04:43:00-05:00",
+    "target_acceptance_utc": "2026-10-05T09:43:00+00:00",
+    "wake_local": "2026-10-05T04:42:00-05:00",
+    "not_before_send_utc": "2026-10-05T09:42:40+00:00",
+    "latest_send_utc": "2026-10-05T10:00:00+00:00",
+    "latest_acceptance_utc": "2026-10-05T10:03:00+00:00",
+    "acceptance_allowance_seconds": 180,
+    "scope": "Minute-rounded native forecast includes modeled startup. The requested pause window controls the start decision; later estimate drift does not authorize stopping the accepted print."
+  },
+  "bindings": {
+    "archive": ".cache/prints/2026-10-05-pump-cradle-c3-mark2-v6/ready/2026-10-05-pump-cradle-c3-mark2-v6.gcode.3mf",
+    "archive_sha256": "37646924eca2ca480b595857f9d8e6aa247130b155952cd2ee3027a40969676d",
+    "gcode_sha256": "752c1dbdcc0232ffea5eba9782826c83fd6bf3b53a9366740a3cf73a2fdcd42b",
+    "project": "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/mark2-v6/pump-cartridge-pause.3mf",
+    "project_sha256": "3e2655bac032feafa69bc7b8e4c0be33dbbd01e08940ae87168db5f67c272be4",
+    "source_stl_sha256": "d1302278cfeb56c39d52d060f3ad28c48cd39d9d8657c912005b023b9f9fdfae",
+    "source_step_sha256": "ef786ae6bb32e35ed915494fc459ae20420ce28a02073a2bd5b1ad8a9b177aa2"
+  },
+  "review_records": {
+    "preparation.json": {
+      "path": "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/mark2-v6/preparation.json",
+      "sha256": "839dd4a66010bcef66ba9aac546d3653f422916acff3997401a91853aceafc3e"
+    },
+    "pause-forecast.json": {
+      "path": "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/mark2-v6/pause-forecast.json",
+      "sha256": "c4905f476fe3a2246c4126db11ca4509d53e74da3ebd173b04e74550c9ac2c05"
+    },
+    "retention-native-check.json": {
+      "path": "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/mark2-v6/retention-native-check.json",
+      "sha256": "82b207318bf2e4a5bf34bc15664fab0cf9eee6a5029509ec4abda946f0b4cbfb"
+    },
+    "placement-check.json": {
+      "path": "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/mark2-v6/placement-check.json",
+      "sha256": "6e8022bea7b5b8461846f855a08727547fe7375157e47183c6253f5af27ca8af"
+    }
+  },
+  "recipe": {
+    "first_layer_mm": 0.2,
+    "ordinary_layer_mm": 0.24,
+    "wall_loops": 2,
+    "normal_infill_percent": 15,
+    "lower_inward_rim_layer_mm": 0.08,
+    "upper_additive_transition_layer_mm": 0.24,
+    "upper_transition_wall_loops": 6,
+    "support_bottom_z_distance_mm": 0.3,
+    "support_object_xy_distance_mm": 0.5,
+    "pause_before_print_z_mm": 31.16,
+    "magnet_count": 1,
+    "magnet_model": "K&J RC62"
+  },
+  "shared_circuit_spacing_seconds": 180,
+  "maximum_send_count": 1,
+  "send_attempted": false,
+  "submitted": false,
+  "launch_authorized": true,
+  "automatic_resume_authorized": false,
+  "other_job_launch_authorized": false,
+  "front_top_launch_authorized": false,
+  "launch_command": [
+    "tools/cad-venv/bin/python",
+    "tools/bambu_print.py",
+    ".cache/prints/2026-10-05-pump-cradle-c3-mark2-v6/ready/2026-10-05-pump-cradle-c3-mark2-v6.gcode.3mf",
+    "Mark2",
+    "--attempts",
+    "1"
+  ],
+  "launch_record": "launch.json",
+  "preflight_record": "preflight.json",
+  "automation_id": "c3-cradle-timed-insertion",
+  "automation_status": "ACTIVE",
+  "start_reported": false,
+  "insertion_pause_reported": false,
+  "insertion_action": "Insert one labeled attracting K&J RC62 upright in the lower cradle, fully below both open rims, with tube passages and the toolhead clear. The existing pump cap needs no retention ring. Resume only after separate authorization.",
+  "scope": "Exactly one fresh standalone C3 cradle start for the requested Central morning insertion window. Existing reviewed archive bytes remain immutable. Fresh both-printer readings and at least 180 seconds after the peer accepted a start or resume are required immediately before Send. Older monitors and queues remain untouched.",
+  "automation_schedule": "Wake at 4:42 am America/Chicago; aim for acceptance at 4:43 am, then monitor every five minutes after acceptance.",
+  "initial_preflight_completed_at_utc": "2026-10-05T08:22:03.350628+00:00"
+}

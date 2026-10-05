@@ -1,0 +1,206 @@
+{
+  "schema_version": 1,
+  "article": "Selected C3 retention and V69 valve leaf geometry",
+  "method": "Native CadQuery/OCP selected-versus-reference bore solids and frozen coupon bindings.",
+  "geometry_checks_pass": true,
+  "checks": [
+    {
+      "check": "V69 default and V70 conditional alternate match the physical selection",
+      "socket_diameter_mm": 6.9,
+      "conditional_alternate_diameter_mm": 7.0,
+      "automatic_alternate": false,
+      "catalog_post_diameter_mm": 6.9,
+      "catalog_pitch_xy_mm": [
+        24.4,
+        24.85
+      ],
+      "pass": true
+    },
+    {
+      "check": "Selected and reference-control native plinths have the same valid exterior envelope",
+      "selected_bounds_xyz_mm": [
+        -18.799999999999997,
+        18.799999999999997,
+        -19.025,
+        19.025,
+        -2.0,
+        5.2
+      ],
+      "reference_control_bounds_xyz_mm": [
+        -18.799999999999997,
+        18.799999999999997,
+        -19.025,
+        19.025,
+        -2.0,
+        5.2
+      ],
+      "reference_control_bore_diameter_mm": 7.2,
+      "exterior_reference_radius_mm": 6.6,
+      "corner_radius_mm": 3.0,
+      "selected_outer_stock_from_socket_mm": 3.1499999999999995,
+      "validation_plinth_depth_mm": 2.0,
+      "pass": true
+    },
+    {
+      "check": "Only the socket bore annuli differ from the reference control",
+      "added_socket_stock_mm3": 82.39140893304584,
+      "expected_added_mm3": 82.39140893304585,
+      "removed_reference_stock_mm3": 0.0,
+      "unexpected_added_stock_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "check": "Four native socket bores retain their centers, bearing plane and blind floor depth",
+      "sockets": [
+        {
+          "radius_mm": 3.45,
+          "axis_xy_mm": [
+            -12.2,
+            -12.425
+          ]
+        },
+        {
+          "radius_mm": 3.45,
+          "axis_xy_mm": [
+            -12.2,
+            12.425
+          ]
+        },
+        {
+          "radius_mm": 3.45,
+          "axis_xy_mm": [
+            12.2,
+            -12.425
+          ]
+        },
+        {
+          "radius_mm": 3.45,
+          "axis_xy_mm": [
+            12.2,
+            12.425
+          ]
+        }
+      ],
+      "bearing_plane_z_mm": 5.2,
+      "socket_floor_z_mm": -1.0,
+      "socket_depth_mm": 6.2,
+      "nominal_post_tip_floor_air_mm": 1.0,
+      "pass": true
+    },
+    {
+      "check": "Blind-floor supporting stock is unchanged in the native root witness",
+      "selected_floor_stock_mm3": 1422.9543338823075,
+      "reference_floor_stock_mm3": 1422.9543338823075,
+      "witness_z_mm": [
+        -2,
+        -1
+      ],
+      "scope": "Installed owners define the supporting root stock; the validation plinth has one mm below its socket floors.",
+      "pass": true
+    },
+    {
+      "check": "Native port clearance and seated-valve bearing remain clear",
+      "minimum_port_clearance_mm": 0.9999999999999948,
+      "seated_valve_overlap_mm3": 0.0,
+      "bearing_plane_z_mm": 5.2,
+      "pass": true
+    },
+    {
+      "check": "Cold-core stock datum retains the reference exterior envelope",
+      "stock_radius_mm": 6.6,
+      "half_xy_mm": [
+        18.799999999999997,
+        19.025
+      ],
+      "bore_radius_mm": 3.45,
+      "scope": "Shared stock/layout datum only; no cold-core part is regenerated.",
+      "pass": true
+    },
+    {
+      "check": "C3 direction -1: native pocket and ring thickness match the selected coupon",
+      "pocket_xyz_extent_mm": [
+        19.05,
+        3.175,
+        19.53
+      ],
+      "ring_xyz_extent_mm": [
+        19.05,
+        3.175,
+        19.05
+      ],
+      "nominal_ring_outside_selected_pocket_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "check": "C3 direction -1: separate Z allowance remains positive at maximum OD",
+      "floor_relative_to_station_z_mm": -9.525,
+      "roof_relative_to_station_z_mm": 10.005,
+      "closed_z_span_mm": 19.53,
+      "nominal_roof_air_mm": 0.4800000000000004,
+      "fully_seated_maximum_od_roof_air_mm": 0.379999999999999,
+      "maximum_x_diametral_interference_mm": 0.10000000000000142,
+      "maximum_y_thickness_interference_mm": 0.10000000000000009,
+      "pass": true
+    },
+    {
+      "check": "C3 direction +1: native pocket and ring thickness match the selected coupon",
+      "pocket_xyz_extent_mm": [
+        19.05,
+        3.175,
+        19.53
+      ],
+      "ring_xyz_extent_mm": [
+        19.05,
+        3.175,
+        19.05
+      ],
+      "nominal_ring_outside_selected_pocket_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "check": "C3 direction +1: separate Z allowance remains positive at maximum OD",
+      "floor_relative_to_station_z_mm": -9.525,
+      "roof_relative_to_station_z_mm": 10.005,
+      "closed_z_span_mm": 19.53,
+      "nominal_roof_air_mm": 0.4800000000000004,
+      "fully_seated_maximum_od_roof_air_mm": 0.379999999999999,
+      "maximum_x_diametral_interference_mm": 0.10000000000000142,
+      "maximum_y_thickness_interference_mm": 0.10000000000000009,
+      "pass": true
+    },
+    {
+      "check": "Frozen C3 selected sample and C0 thickness control retain their source bindings",
+      "selected_dimensions_xy_mm": [
+        19.05,
+        3.175
+      ],
+      "control_dimensions_xy_mm": [
+        19.45,
+        3.575
+      ],
+      "reference_ring_thickness_mm": 3.175,
+      "scope": "Frozen open coupons bind the reported hand-fit comparison; their open rim does not qualify a sealed roof.",
+      "pass": true
+    }
+  ],
+  "source_sha256": {
+    "hardware/printed-parts/valve-seat/valve_seat.py": "47720a332721b2676643e38d94fa9326f07609f420bb9ac59bce304d1ac1e31d",
+    "hardware/reference/beduan-solenoid/beduan_solenoid.py": "640acf974256bbfff88546cbef5672b870a2ceb21d34c128487bf1aa286ab498",
+    "hardware/printed-parts/cadlib/fits.py": "3821989044c5bc3ae99cc6912538b8a34bd75a6b0a081aefc8e4c5a0ce714191",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "9f8c15c30d29f0740afd506fde805c703bec6d4bb4b01feb2ce4a8bec42c87ed",
+    "hardware/printed-parts/enclosure/enclosure/_cartridge_retention.py": "559e877a79dc1a92342526898049b6d0bb929bdb5212b9ba5c02de5654fbd7c1",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/physical-fit-selection.json": "e301449fe6ef2d6901333bedbd0073e7544a325bf73d2d3dc91b1864cf287dbd",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/geometry.json": "a42224fad6b23fe08d9d72e9a779e6a3bee2313b85d9735df85bd4855826fda7",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-c3.step": "2bea517a535e696171174b08b55b7d6eb1ccd6af74ea0d3004a830eec0113483",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-c3.stl": "11a96301b6b47d375dbc7d31eaef39b89c10013568cd8dc9f71bf8c5cd8ca80d",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-c0.step": "44cc7b38621888767a755464fc07503528111eadf47a2cfd81196ca9002589bc",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-c0.stl": "bab4710828206eef7a5f9de4495cc9adc6d5b866eeefc18839ae892912d3f614"
+  },
+  "physical_selection_record": "physical-fit-selection.json",
+  "affected_current_pieces": [
+    "enclosure-pump-cartridge",
+    "enclosure-front-top",
+    "foam-cap-lid-top"
+  ],
+  "scope": "Leaf geometry only. The hand preference belongs to the tested upright PET-GF coupons. These native checks do not establish universal fit, insertion force, bearing load, sealed-pocket roof quality, thermal exposure or lifetime. No cold-core part is regenerated here."
+}
