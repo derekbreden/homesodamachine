@@ -1,0 +1,23 @@
+{
+  "status": "native_slice_awaiting_emitted_review",
+  "printer": "H2C",
+  "part": "enclosure-front-top",
+  "quantity": 1,
+  "archive": ".cache/prints/2026-10-04-enclosure-front-top-display-strip-h2c-v19/ready/2026-10-04-enclosure-front-top-display-strip-h2c-v19.gcode.3mf",
+  "archive_sha256": "808c1796396d4aa3bf821ff4c11a637bd219a5f86bd867facb4089f018b28319",
+  "project": ".cache/prints/2026-10-04-enclosure-front-top-display-strip-h2c-v19/2026-10-04-enclosure-front-top-display-strip-h2c-v19-input.3mf",
+  "project_sha256": "710fda6dfef5a589d9b7e8afa0d7a9a68f0f2333eda5bbc1e1c149dbc1a9e9c3",
+  "gcode_sha256": "ca93c9ae2919bc853a5bbfea44b2eec4d11aef76bf073619e94e77aa3d6bd975",
+  "estimated_seconds": 85403.0390625,
+  "parts": [
+    {
+      "name": "enclosure-front-top",
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+      "stl_sha256": "cc2cfd8a490b52439d957aa082b0e4369c5602076740494298b3a954f0ba36ba",
+      "identify_id": 1901
+    }
+  ],
+  "production_print_pose_retained": true,
+  "submitted": false,
+  "physical_fit_retention_and_surface_qualified": false
+}

@@ -43,10 +43,19 @@ PET-GF on the fixed left hardened standard-flow 0.4 mm nozzle. Mark2's
 [combined source](v4/pump-cartridge-cap-pause.3mf) prints the lower cartridge
 cradle and its current pump cap together on one plate. The cap prints
 crown-down, with its recessed female pogo seat and complete solid insert hosts.
-H2C uses the independent [front-top source](v3/front-top-pause.3mf).
+The independent H2C [front-top source](v3/front-top-pause.3mf) remains
+unsubmitted. The [front-top v18 record](../support-bottom-gap/front-top-h2c-v18/README.md)
+binds the flush sliding-frame roof and its native retention review; that job
+is cancelled for a separate unsupported display-strip defect. Its replacement
+uses a separate local support preparation.
 Each job has one native `M400 U1` insertion pause before its centered pocket's
-closing layer. They retain each printer's saved trim, tree supports,
-show-surface exclusions and fine layer bands.
+closing layer. They retain each printer's saved trim, tree supports and
+show-surface exclusions. The current
+[normal-layer preparation policy](../layer-policy-correction/README.md) uses
+0.24 mm with six local walls on the cartridge upper additive transition,
+while retaining 0.08 mm on its real lower inward/top rim. Its new combined
+Mark2 candidate retains the nominal pocket dimensions pending the
+[open X/Y fit samples](fit-coupons/README.md).
 The pocket roof has a local support blocker; functional seats and lifting
 ceilings elsewhere retain their accessible supports.
 
@@ -55,9 +64,9 @@ The [host/root specification](../heat-set-review/print-regions.json) adds local
 socket roots and Z rail/stop roots. The native archives retain every modifier
 at its exact placement. Their emitted rows are checked against their actual
 bead widths, with representative layers through each region and checks of
-wider intervals against the current native material. The Mark2 plate checks
+wider intervals against the current native material. The bound v4 Mark2 plate checks
 52,336 adjacent infill-row intervals in the cradle and 1,734 in the cap;
-H2C checks 37,208. None has uncovered material witnesses. General infill stays
+the independent v3 H2C archive checks 37,208. None has uncovered material witnesses. General infill stays
 at 15%. These are nominal deposition checks;
 printed density, joint strength and drop survival remain unmeasured.
 
@@ -87,7 +96,7 @@ the cartridge's roof quality remain unqualified.
 | Lower cradle with cap / Mark2 | 31.16 mm | 30.92 mm | 31.16 mm |
 | Front-top / H2C | 36.44 mm | 36.20 mm | 36.44 mm |
 
-The combined Mark2 plate estimates **15 h 11 min**, with magnet insertion
+The bound v4 combined Mark2 plate estimates **15 h 11 min**, with magnet insertion
 about **6 h 35 min after starting** (native layer 344, 43% progress).
 Its emitted countdown starts at 394 minutes to the pause; the native total
 minus 516 minutes remaining at the pause gives 6 h 34 min 47 sec.
@@ -142,8 +151,11 @@ The preparation reads saved local production projects identified in its record.
 It checks the current STEP/STL against the geometry record before preparing a
 candidate. The audit reads the native archives; neither script sends a job or
 communicates with a printer.
-To prepare a fresh combined Mark2 candidate, run `prepare_cartridge_pair.py`
-with `--slice` and an unused `--revision` number. `prepare_prints.py` prepares
+The current ordinary-transition candidate and both bottom pieces are prepared
+through [the normal-layer workflow](../layer-policy-correction/README.md).
+`prepare_cartridge_pair.py --slice` with an unused `--revision` number also
+applies the current layer policy to a fresh combined Mark2 candidate. `prepare_prints.py` prepares
 independent single-part candidates. Projects and archives named in a preparation
-record are immutable. The queue selects the passing combined Mark2 v4 and
-independent front-top H2C v3 jobs.
+record are immutable. The queue retains the completed combined Mark2 v4 and unsubmitted independent
+front-top H2C v3 identities. The [v18 launch receipt](../support-bottom-gap/h2c-v18-launch.json)
+identifies its acceptance and verified cancellation separately.

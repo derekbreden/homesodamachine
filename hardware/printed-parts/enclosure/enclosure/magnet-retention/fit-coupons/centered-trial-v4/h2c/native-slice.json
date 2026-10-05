@@ -1,0 +1,89 @@
+{
+  "status": "native_slice_awaiting_emitted_review",
+  "printer": "H2C",
+  "part": "rc62-pocket-c1",
+  "quantity": 12,
+  "archive": ".cache/prints/2026-10-04-centered-rc62-valve-h2c-v4/ready/2026-10-04-centered-rc62-valve-h2c-v4.gcode.3mf",
+  "archive_sha256": "a3bac5c7429c3b142ef2fe1e4a87d04d73f45b314bc1b0b6aac49a01cf75552b",
+  "project": ".cache/prints/2026-10-04-centered-rc62-valve-h2c-v4/2026-10-04-centered-rc62-valve-h2c-v4-input.3mf",
+  "project_sha256": "54d0bc0135b31a69d886dbf013339f300215f42e1403c1676ae99b477713562d",
+  "gcode_sha256": "d941eedf6115e0ed0a1bc5668b6b0b7c12cfca0bfe20adfb8f7da65ef1c7445b",
+  "estimated_seconds": 5911.9482421875,
+  "parts": [
+    {
+      "name": "rc62-pocket-c1",
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-c1.stl",
+      "stl_sha256": "fc0e3a6f2ee89bd39bd1b692de6442393b54a5dc5a258313696d60357c1b6adf",
+      "identify_id": 1901
+    },
+    {
+      "name": "rc62-pocket-c2",
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-c2.stl",
+      "stl_sha256": "471e9b95555cea8ddee029096170e7b120d1c8c96afb1b361d52ec35c5d1f7c0",
+      "identify_id": 1902
+    },
+    {
+      "name": "rc62-pocket-c3",
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-c3.stl",
+      "stl_sha256": "11a96301b6b47d375dbc7d31eaef39b89c10013568cd8dc9f71bf8c5cd8ca80d",
+      "identify_id": 1903
+    },
+    {
+      "name": "rc62-pocket-c4",
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-c4.stl",
+      "stl_sha256": "9b82102bc9fcfc8ab6af76c6602bd8134119721f002a74f0e63f64f97169b23c",
+      "identify_id": 1904
+    },
+    {
+      "name": "rc62-pocket-d1",
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-d1.stl",
+      "stl_sha256": "a0787ae86bd3e8b9226e17582e2fe510020e94b066dac657504c1efd7a8423bb",
+      "identify_id": 1905
+    },
+    {
+      "name": "rc62-pocket-d2",
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-d2.stl",
+      "stl_sha256": "d8039c36ad66932171ba0944683eee049867265c7a886a4a129689eed256bfa1",
+      "identify_id": 1906
+    },
+    {
+      "name": "rc62-pocket-d3",
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-d3.stl",
+      "stl_sha256": "98e5993023803b1ec73e3ae5da5a506bce9a8883ec7e1f028b536af2abb80392",
+      "identify_id": 1907
+    },
+    {
+      "name": "rc62-pocket-d4",
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-d4.stl",
+      "stl_sha256": "d233a2d0ed5d8664d92ff58771dc027cf1914f4041f12eea2498febb0cc4c756",
+      "identify_id": 1908
+    },
+    {
+      "name": "rc62-pocket-c0",
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-c0.stl",
+      "stl_sha256": "bab4710828206eef7a5f9de4495cc9adc6d5b866eeefc18839ae892912d3f614",
+      "identify_id": 1909
+    },
+    {
+      "name": "beduan-socket-v70",
+      "source": "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v70.stl",
+      "stl_sha256": "ce4469a1d590cc26ed603aac6530a5d64be8fe45964ffcfc1f3b5f108e494cf8",
+      "identify_id": 1910
+    },
+    {
+      "name": "beduan-socket-v69",
+      "source": "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v69.stl",
+      "stl_sha256": "d228dc8eb7ef364b52a22b58ad2c170e13d23c84517a5afd0b213ab950a47885",
+      "identify_id": 1911
+    },
+    {
+      "name": "beduan-socket-v68",
+      "source": "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v68.stl",
+      "stl_sha256": "c01d4b985ba53402daa248d2f305d059158c2839da5a9ac6ce565f1cf543d131",
+      "identify_id": 1912
+    }
+  ],
+  "production_print_pose_retained": true,
+  "submitted": false,
+  "physical_fit_retention_and_surface_qualified": false
+}

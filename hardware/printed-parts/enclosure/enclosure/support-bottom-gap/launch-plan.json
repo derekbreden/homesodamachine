@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "state": "both_new_prints_accepted",
+  "state": "centered_coupon_only_jobs_accepted",
   "session": "Printer 2",
   "timezone": "America/Chicago",
   "recorded_at_utc": "2026-10-05T03:01:10.767745+00:00",
@@ -19,12 +19,12 @@
   ],
   "intended_allocation": {
     "Mark2": [
-      "revised funnel-frame",
-      "17 labeled open RC62 X/Y pocket samples",
-      "5 labeled tighter four-post valve panels"
+      "RC62 A1\u2013A4, B1\u2013B4 and control C0",
+      "valve V72, V71 and control V70"
     ],
     "H2C": [
-      "revised enclosure-front-top"
+      "RC62 C1\u2013C4, D1\u2013D4 and control C0",
+      "valve control V70, V69 and V68"
     ]
   },
   "launches": [
@@ -35,7 +35,11 @@
       "archive_sha256": "fdd433d6c86d911e236158bfd0f5b611c4ffad7f0dcc78150aed89a632363123",
       "acceptance_observed_at_utc": "2026-10-05T03:26:34.632431+00:00",
       "receipt": "mark2-v2-launch.json",
-      "send_count": 1
+      "send_count": 1,
+      "state": "cancelled",
+      "replacement_requires_physical_removal": false,
+      "agent_cancel_sent": false,
+      "replacement_bed_clear_confirmation": "Both beds are clear."
     },
     {
       "printer": "H2C",
@@ -45,7 +49,11 @@
       "acceptance_observed_at_utc": "2026-10-05T03:50:01.145614+00:00",
       "receipt": "h2c-v18-launch.json",
       "send_count": 1,
-      "peer_acceptance_spacing_seconds": 1406.513183
+      "peer_acceptance_spacing_seconds": 1406.513183,
+      "state": "cancelled",
+      "replacement_requires_physical_removal": false,
+      "agent_cancel_sent": true,
+      "replacement_bed_clear_confirmation": "Both beds are clear."
     }
   ],
   "preferred_friction_dimensions_pending_user_choice": true,
@@ -61,7 +69,8 @@
       "coupon_native_review": "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/combined-mark2-native-check.json",
       "frame_native_review_pending": false,
       "send_count": 1,
-      "frame_native_review": ".cache/prints/2026-10-04-rc62-valve-frame-fit-mark2-v2/emitted-path-review.json"
+      "frame_native_review": ".cache/prints/2026-10-04-rc62-valve-frame-fit-mark2-v2/emitted-path-review.json",
+      "approved_for_relaunch": false
     },
     "H2C": {
       "archive": ".cache/prints/2026-10-04-enclosure-front-top-flush-frame-h2c-v18/ready/2026-10-04-enclosure-front-top-flush-frame-h2c-v18.gcode.3mf",
@@ -71,8 +80,37 @@
       "estimated_seconds": 79003.0546875,
       "native_review": ".cache/prints/2026-10-04-enclosure-front-top-flush-frame-h2c-v18/verification.json",
       "native_checks_pass": true,
-      "send_count": 1
+      "send_count": 1,
+      "display_strip_backing_pass": false,
+      "approved_for_relaunch": false,
+      "launchable": false
     }
   },
-  "earliest_h2c_start_utc": "2026-10-05T03:29:34.632431+00:00"
+  "earliest_h2c_start_utc": "2026-10-05T03:29:34.632431+00:00",
+  "automation_id": "monitor-flush-roof-and-fit-trials",
+  "monitor_status": "PAUSED",
+  "monitor_printer_branches": {
+    "Mark2": false,
+    "H2C": false
+  },
+  "bed_clear_scope": "Fresh user confirmation after both cancelled jobs; applies to the next coupon-only jobs.",
+  "replacement_conditions": {
+    "both": "Coupon-only native review, at least 60 mm full-bead edge clearance, fresh readings of both printers and at least 180 seconds after any peer accepted start or resume.",
+    "full_parts": "Prepared future archives only; no full front-top, funnel frame, cartridge or bottom launch as the next job."
+  },
+  "next_start_authorization_quotes": [
+    "I don't want the full front-top or funnel tray printed next. What I want next (on both printers) is the test prints I asked for, for both magnet fitting and valve leg hole fitting.",
+    "Both beds are clear."
+  ],
+  "full_front_top_or_frame_next_print_authorized": false,
+  "coupon_only": true,
+  "requested_minimum_full_bead_bed_edge_clearance_mm": 60,
+  "current_coupon_launch_plan": "../magnet-retention/fit-coupons/centered-trial-v4/launch-plan.json",
+  "current_coupon_only_jobs": {
+    "plan": "../magnet-retention/fit-coupons/centered-trial-v4/launch-plan.json",
+    "Mark2_task_id": "1310167480",
+    "H2C_task_id": "1310172582",
+    "monitor_status": "ACTIVE",
+    "automation_id": "monitor-flush-roof-and-fit-trials"
+  }
 }

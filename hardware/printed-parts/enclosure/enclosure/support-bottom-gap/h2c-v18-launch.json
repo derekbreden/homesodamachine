@@ -33,7 +33,234 @@
   "physical_fit_and_adhesion_qualified": false,
   "native_duration_seconds": 79003.0546875,
   "insertion_pause_reported": false,
-  "scope": "Exact new H2C task and archive accepted after one foreground Send. Startup layer counters can retain the prior completed job until initialization; no first-layer or physical quality claim is made.",
+  "scope": "One accepted foreground Send, followed by one verified cancellation for a measured native display-strip defect. The recorded native checks cover their named regions; they do not qualify the unsupported strip, physical adhesion, cleanup, fit or strength.",
   "peer_acceptance_spacing_seconds": 1406.513183,
-  "pause_forecast_record": "front-top-h2c-v18/pause-forecast.json"
+  "pause_forecast_record": "front-top-h2c-v18/pause-forecast.json",
+  "automation_id": "monitor-flush-roof-and-fit-trials",
+  "monitor_active": false,
+  "latest_status": {
+    "printer": "H2C",
+    "observed_at": "2026-10-05T04:10:21.944038+00:00",
+    "task_id": "1310109574",
+    "job_id": "1310109574",
+    "subtask_name": "2026-10-04-enclosure-front-top-flush-frame-h2c-v18.gcode.3mf",
+    "gcode_state": "FAILED",
+    "layer_num": 0,
+    "total_layer_num": 1346,
+    "mc_percent": 0,
+    "mc_remaining_time": 0,
+    "print_error": 50348044,
+    "hms": [],
+    "stg_cur": -1,
+    "external_spools": [
+      {
+        "id": "254",
+        "tray_type": "PET-CF",
+        "tray_info_idx": "GFT01",
+        "tray_color": "000000FF"
+      },
+      {
+        "id": "255",
+        "tray_type": "TPU",
+        "tray_info_idx": "GFU04",
+        "tray_color": "161616FF"
+      }
+    ],
+    "extruders": {
+      "0": {
+        "actual_c": 49,
+        "target_c": 0
+      },
+      "1": {
+        "actual_c": 265,
+        "target_c": 0
+      }
+    },
+    "bed_actual_c": 80.0,
+    "bed_target_c": 0.0,
+    "chamber": {
+      "actual_c": 34,
+      "target_c": 0
+    }
+  },
+  "state": "cancelled",
+  "cancellation_reported": true,
+  "cancellation_reported_at_utc": "2026-10-05T04:13:38.455558+00:00",
+  "printer_error_hex": "0300400C",
+  "printer_error_meaning": "The task was canceled.",
+  "printer_error_catalog": "Bambu Studio bundled English HMS catalog hms_en_31B.json",
+  "replacement_requires_physical_removal": false,
+  "events": [
+    {
+      "event": "first_layer_printer_progress",
+      "status": {
+        "printer": "H2C",
+        "observed_at": "2026-10-05T04:09:56.698591+00:00",
+        "task_id": "1310109574",
+        "job_id": "1310109574",
+        "subtask_name": "2026-10-04-enclosure-front-top-flush-frame-h2c-v18.gcode.3mf",
+        "gcode_state": "RUNNING",
+        "layer_num": 1,
+        "total_layer_num": 1346,
+        "mc_percent": 0,
+        "mc_remaining_time": 1304,
+        "print_error": 0,
+        "hms": [],
+        "stg_cur": 0,
+        "external_spools": [
+          {
+            "id": "254",
+            "tray_type": "PET-CF",
+            "tray_info_idx": "GFT01",
+            "tray_color": "000000FF"
+          },
+          {
+            "id": "255",
+            "tray_type": "TPU",
+            "tray_info_idx": "GFU04",
+            "tray_color": "161616FF"
+          }
+        ],
+        "extruders": {
+          "0": {
+            "actual_c": 48,
+            "target_c": 0
+          },
+          "1": {
+            "actual_c": 265,
+            "target_c": 265
+          }
+        },
+        "bed_actual_c": 80.0,
+        "bed_target_c": 80.0,
+        "chamber": {
+          "actual_c": 34,
+          "target_c": 0
+        }
+      },
+      "scope": "Matching task reports layer 1 without a fault. Visual adhesion and physical quality are unqualified."
+    },
+    {
+      "event": "agent_cancelled_defective_native_slice",
+      "observed_at": "2026-10-05T04:10:21.944038+00:00",
+      "status_before": {
+        "printer": "H2C",
+        "observed_at": "2026-10-05T04:09:56.698591+00:00",
+        "task_id": "1310109574",
+        "job_id": "1310109574",
+        "subtask_name": "2026-10-04-enclosure-front-top-flush-frame-h2c-v18.gcode.3mf",
+        "gcode_state": "RUNNING",
+        "layer_num": 1,
+        "total_layer_num": 1346,
+        "mc_percent": 0,
+        "mc_remaining_time": 1304,
+        "print_error": 0,
+        "hms": [],
+        "stg_cur": 0,
+        "external_spools": [
+          {
+            "id": "254",
+            "tray_type": "PET-CF",
+            "tray_info_idx": "GFT01",
+            "tray_color": "000000FF"
+          },
+          {
+            "id": "255",
+            "tray_type": "TPU",
+            "tray_info_idx": "GFU04",
+            "tray_color": "161616FF"
+          }
+        ],
+        "extruders": {
+          "0": {
+            "actual_c": 48,
+            "target_c": 0
+          },
+          "1": {
+            "actual_c": 265,
+            "target_c": 265
+          }
+        },
+        "bed_actual_c": 80.0,
+        "bed_target_c": 80.0,
+        "chamber": {
+          "actual_c": 34,
+          "target_c": 0
+        }
+      },
+      "status_after": {
+        "printer": "H2C",
+        "observed_at": "2026-10-05T04:10:21.944038+00:00",
+        "task_id": "1310109574",
+        "job_id": "1310109574",
+        "subtask_name": "2026-10-04-enclosure-front-top-flush-frame-h2c-v18.gcode.3mf",
+        "gcode_state": "FAILED",
+        "layer_num": 0,
+        "total_layer_num": 1346,
+        "mc_percent": 0,
+        "mc_remaining_time": 0,
+        "print_error": 50348044,
+        "hms": [],
+        "stg_cur": -1,
+        "external_spools": [
+          {
+            "id": "254",
+            "tray_type": "PET-CF",
+            "tray_info_idx": "GFT01",
+            "tray_color": "000000FF"
+          },
+          {
+            "id": "255",
+            "tray_type": "TPU",
+            "tray_info_idx": "GFU04",
+            "tray_color": "161616FF"
+          }
+        ],
+        "extruders": {
+          "0": {
+            "actual_c": 49,
+            "target_c": 0
+          },
+          "1": {
+            "actual_c": 265,
+            "target_c": 0
+          }
+        },
+        "bed_actual_c": 80.0,
+        "bed_target_c": 0.0,
+        "chamber": {
+          "actual_c": 34,
+          "target_c": 0
+        }
+      },
+      "defect_record": "../../../zone-c/funnel/flush-roof-review/display-strip-backing-v18.json",
+      "scope": "One exact H2C stop through the signed Bambu Connect UI. The task was cancelled after first-layer progress; archive and geometry remain frozen. No Mark2 command was sent."
+    },
+    {
+      "event": "user_confirmed_both_cancellations_and_coupon_only_next_jobs",
+      "recorded_at_utc": "2026-10-05T04:20:24.118915+00:00",
+      "quote": "I don't want the full front-top or funnel tray printed next. What I want next (on both printers) is the test prints I asked for, for both magnet fitting and valve leg hole fitting.",
+      "bed_clear_quote": "Both beds are clear."
+    }
+  ],
+  "first_layer_printer_progress": true,
+  "first_layer_observed_at": "2026-10-05T04:09:56.698591+00:00",
+  "agent_cancel_sent": true,
+  "cancellation_source": "Agent stopped the exact H2C task through Bambu Connect after native-path review found a defective display-strip bridge.",
+  "cancellation_reason": "At machine Z349.32 mm, two outer walls and two bridge roads have only endpoint bead contact and approximately 190 mm unsupported spans beneath the retained narrow display ceiling.",
+  "defect_record": "../../../zone-c/funnel/flush-roof-review/display-strip-backing-v18.json",
+  "replacement_revision": "front-top-h2c-v19",
+  "printer_forecast_active": false,
+  "user_reported_cancellation": {
+    "recorded_at_utc": "2026-10-05T04:20:24.118915+00:00",
+    "quote": "I stopped both prints.",
+    "exact_stop_time_known": false
+  },
+  "replacement_bed_clear_confirmation": {
+    "quote": "Both beds are clear.",
+    "recorded_at_utc": "2026-10-05T04:20:24.118915+00:00"
+  },
+  "cancellation_clarification_pending": false,
+  "next_full_part_print_authorized": false,
+  "user_next_job_scope": "I don't want the full front-top or funnel tray printed next. What I want next (on both printers) is the test prints I asked for, for both magnet fitting and valve leg hole fitting."
 }

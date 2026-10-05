@@ -1,0 +1,1759 @@
+{
+  "schema_version": 1,
+  "checked_utc": "2026-10-05T04:28:22.664709+00:00",
+  "status": "centered_native_coupon_only_plate_pass",
+  "checks_pass": true,
+  "printer": "H2C",
+  "preparation": ".cache/prints/2026-10-04-centered-rc62-valve-h2c-v4/preparation.json",
+  "preparation_sha256": "37ef555cff66709be7a8c1194dff121799c2f51ec03b8129ef693fc6892c2c12",
+  "project": ".cache/prints/2026-10-04-centered-rc62-valve-h2c-v4/2026-10-04-centered-rc62-valve-h2c-v4-input.3mf",
+  "project_sha256": "54d0bc0135b31a69d886dbf013339f300215f42e1403c1676ae99b477713562d",
+  "archive": ".cache/prints/2026-10-04-centered-rc62-valve-h2c-v4/ready/2026-10-04-centered-rc62-valve-h2c-v4.gcode.3mf",
+  "archive_sha256": "a3bac5c7429c3b142ef2fe1e4a87d04d73f45b314bc1b0b6aac49a01cf75552b",
+  "gcode_sha256": "d941eedf6115e0ed0a1bc5668b6b0b7c12cfca0bfe20adfb8f7da65ef1c7445b",
+  "checksum_verified": true,
+  "reviewer_source_sha256": "5e068860e4bb0d84226618049aba47c6f95e4187e3ec9ed7e768132a11c6cbac",
+  "dimension_reviewer_source_sha256": "15637c83b7f815c831cda5e20060d69c0b1f2b02ab47c8ff3d8fe0a27ce32649",
+  "source_geometry_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/geometry.json": "a42224fad6b23fe08d9d72e9a779e6a3bee2313b85d9735df85bd4855826fda7",
+    "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/geometry.json": "80ef3e6f2b8a4b7511527bbddadb0fea76219ba8eb2ee3afb5cb16581f08121f"
+  },
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "fit_object_count": 12,
+  "rc62_count": 9,
+  "valve_count": 3,
+  "repeated_reference_labels": [
+    "C0",
+    "V70"
+  ],
+  "no_full_parts": true,
+  "no_supports": true,
+  "no_layer_overrides": true,
+  "no_pauses": true,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "filament_colour": "#000000",
+  "minimum_all_model_bead_margin_mm": 86.69999999999999,
+  "minimum_object_box_gap_mm": 8.800000000000011,
+  "samples": [
+    {
+      "label": "C1",
+      "printed_label": "C1",
+      "name": "rc62-pocket-c1",
+      "kind": "rc62",
+      "identify_id": 1901,
+      "stl_sha256": "fc0e3a6f2ee89bd39bd1b692de6442393b54a5dc5a258313696d60357c1b6adf",
+      "step_sha256": "6411c8ecba51ea93719b6ac5b2281ebc8e9d7dac5c25c2de6c1ac28d2e2eb1b1",
+      "native_mesh_binding": {
+        "native_vertex_max_error_mm": 4.813098151146278e-07,
+        "native_triangle_count": 7200,
+        "exact_source_faces_preserved": true,
+        "source_to_plate_translation_mm": [
+          128.5,
+          151.23125,
+          -1.9616699376001634e-08
+        ],
+        "native_bounds_mm": [
+          [
+            115.9750004,
+            143.03125018999998,
+            0.0
+          ],
+          [
+            141.0249996,
+            157.68124981,
+            20.1200008
+          ]
+        ],
+        "upright_identity_rotation": true,
+        "normal_part_only": true
+      },
+      "model_layer_count": 84,
+      "first_two_layers_z_mm": [
+        0.2,
+        0.44
+      ],
+      "last_model_layer_z_mm": 20.12,
+      "minimum_second_layer_bead_area_overlap_fraction": 0.7509544664510588,
+      "minimum_second_layer_outer_wall_bead_area_overlap_fraction": 0.9987073502032177,
+      "full_deposited_bead_bounds_xy_mm": [
+        [
+          115.975,
+          143.031
+        ],
+        [
+          141.025,
+          157.681
+        ]
+      ],
+      "minimum_bed_edge_margin_mm": 115.975,
+      "raised_label_layers_z_mm": [
+        1.64,
+        1.88,
+        2.12
+      ],
+      "raised_label_road_count": 190,
+      "fixed_left_model_tools": [
+        0
+      ],
+      "support_road_count": 0,
+      "measured_sections": [
+        {
+          "layer_z_mm": 3.32,
+          "contour_midplane_z_mm": 3.2,
+          "expected_gap_x_mm": 3.883298,
+          "emitted_bead_gap_x_mm": 3.878,
+          "expected_gap_y_mm": 3.45,
+          "emitted_bead_gap_y_mm": 3.45
+        },
+        {
+          "layer_z_mm": 6.92,
+          "contour_midplane_z_mm": 6.8,
+          "expected_gap_x_mm": 15.224979,
+          "emitted_bead_gap_x_mm": 15.224,
+          "expected_gap_y_mm": 3.45,
+          "emitted_bead_gap_y_mm": 3.45
+        },
+        {
+          "layer_z_mm": 14.12,
+          "contour_midplane_z_mm": 14.0,
+          "expected_gap_x_mm": 19.05,
+          "emitted_bead_gap_x_mm": 19.05,
+          "expected_gap_y_mm": 3.45,
+          "emitted_bead_gap_y_mm": 3.45
+        },
+        {
+          "layer_z_mm": 19.88,
+          "contour_midplane_z_mm": 19.76,
+          "expected_gap_x_mm": 19.05,
+          "emitted_bead_gap_x_mm": 19.05,
+          "expected_gap_y_mm": 3.45,
+          "emitted_bead_gap_y_mm": 3.45
+        },
+        {
+          "layer_z_mm": 20.12,
+          "contour_midplane_z_mm": 20.0,
+          "expected_gap_x_mm": 19.05,
+          "emitted_bead_gap_x_mm": 19.05,
+          "expected_gap_y_mm": 3.45,
+          "emitted_bead_gap_y_mm": 3.45
+        }
+      ]
+    },
+    {
+      "label": "C2",
+      "printed_label": "C2",
+      "name": "rc62-pocket-c2",
+      "kind": "rc62",
+      "identify_id": 1902,
+      "stl_sha256": "471e9b95555cea8ddee029096170e7b120d1c8c96afb1b361d52ec35c5d1f7c0",
+      "step_sha256": "ca0942764428378867972ef03548e9744b0844f7f95608d353ab90b0240acd29",
+      "native_mesh_binding": {
+        "native_vertex_max_error_mm": 4.813098151146278e-07,
+        "native_triangle_count": 12298,
+        "exact_source_faces_preserved": true,
+        "source_to_plate_translation_mm": [
+          162.5,
+          151.30624980926513,
+          -1.9616699376001634e-08
+        ],
+        "native_bounds_mm": [
+          [
+            149.9750004,
+            143.10625,
+            0.0
+          ],
+          [
+            175.0249996,
+            157.60625,
+            20.1200008
+          ]
+        ],
+        "upright_identity_rotation": true,
+        "normal_part_only": true
+      },
+      "model_layer_count": 84,
+      "first_two_layers_z_mm": [
+        0.2,
+        0.44
+      ],
+      "last_model_layer_z_mm": 20.12,
+      "minimum_second_layer_bead_area_overlap_fraction": 0.7498815295385673,
+      "minimum_second_layer_outer_wall_bead_area_overlap_fraction": 0.9986938938268716,
+      "full_deposited_bead_bounds_xy_mm": [
+        [
+          149.975,
+          143.106
+        ],
+        [
+          175.025,
+          157.606
+        ]
+      ],
+      "minimum_bed_edge_margin_mm": 143.106,
+      "raised_label_layers_z_mm": [
+        1.64,
+        1.88,
+        2.12
+      ],
+      "raised_label_road_count": 267,
+      "fixed_left_model_tools": [
+        0
+      ],
+      "support_road_count": 0,
+      "measured_sections": [
+        {
+          "layer_z_mm": 3.32,
+          "contour_midplane_z_mm": 3.2,
+          "expected_gap_x_mm": 3.883298,
+          "emitted_bead_gap_x_mm": 3.878,
+          "expected_gap_y_mm": 3.3,
+          "emitted_bead_gap_y_mm": 3.3
+        },
+        {
+          "layer_z_mm": 6.92,
+          "contour_midplane_z_mm": 6.8,
+          "expected_gap_x_mm": 15.224979,
+          "emitted_bead_gap_x_mm": 15.224,
+          "expected_gap_y_mm": 3.3,
+          "emitted_bead_gap_y_mm": 3.3
+        },
+        {
+          "layer_z_mm": 14.12,
+          "contour_midplane_z_mm": 14.0,
+          "expected_gap_x_mm": 19.05,
+          "emitted_bead_gap_x_mm": 19.05,
+          "expected_gap_y_mm": 3.3,
+          "emitted_bead_gap_y_mm": 3.3
+        },
+        {
+          "layer_z_mm": 19.88,
+          "contour_midplane_z_mm": 19.76,
+          "expected_gap_x_mm": 19.05,
+          "emitted_bead_gap_x_mm": 19.05,
+          "expected_gap_y_mm": 3.3,
+          "emitted_bead_gap_y_mm": 3.3
+        },
+        {
+          "layer_z_mm": 20.12,
+          "contour_midplane_z_mm": 20.0,
+          "expected_gap_x_mm": 19.05,
+          "emitted_bead_gap_x_mm": 19.05,
+          "expected_gap_y_mm": 3.3,
+          "emitted_bead_gap_y_mm": 3.3
+        }
+      ]
+    },
+    {
+      "label": "C3",
+      "printed_label": "C3",
+      "name": "rc62-pocket-c3",
+      "kind": "rc62",
+      "identify_id": 1903,
+      "stl_sha256": "11a96301b6b47d375dbc7d31eaef39b89c10013568cd8dc9f71bf8c5cd8ca80d",
+      "step_sha256": "2bea517a535e696171174b08b55b7d6eb1ccd6af74ea0d3004a830eec0113483",
+      "native_mesh_binding": {
+        "native_vertex_max_error_mm": 4.813098151146278e-07,
+        "native_triangle_count": 19812,
+        "exact_source_faces_preserved": true,
+        "source_to_plate_translation_mm": [
+          196.5,
+          151.36874980926513,
+          -1.9616699376001634e-08
+        ],
+        "native_bounds_mm": [
+          [
+            183.9750004,
+            143.16875,
+            0.0
+          ],
+          [
+            209.0249996,
+            157.54375,
+            20.1200008
+          ]
+        ],
+        "upright_identity_rotation": true,
+        "normal_part_only": true
+      },
+      "model_layer_count": 84,
+      "first_two_layers_z_mm": [
+        0.2,
+        0.44
+      ],
+      "last_model_layer_z_mm": 20.12,
+      "minimum_second_layer_bead_area_overlap_fraction": 0.7773106994701354,
+      "minimum_second_layer_outer_wall_bead_area_overlap_fraction": 0.9986824642964081,
+      "full_deposited_bead_bounds_xy_mm": [
+        [
+          183.975,
+          143.16899999999998
+        ],
+        [
+          209.025,
+          157.544
+        ]
+      ],
+      "minimum_bed_edge_margin_mm": 115.975,
+      "raised_label_layers_z_mm": [
+        1.64,
+        1.88,
+        2.12
+      ],
+      "raised_label_road_count": 336,
+      "fixed_left_model_tools": [
+        0
+      ],
+      "support_road_count": 0,
+      "measured_sections": [
+        {
+          "layer_z_mm": 3.32,
+          "contour_midplane_z_mm": 3.2,
+          "expected_gap_x_mm": 3.883298,
+          "emitted_bead_gap_x_mm": 3.878,
+          "expected_gap_y_mm": 3.175,
+          "emitted_bead_gap_y_mm": 3.175
+        },
+        {
+          "layer_z_mm": 6.92,
+          "contour_midplane_z_mm": 6.8,
+          "expected_gap_x_mm": 15.224979,
+          "emitted_bead_gap_x_mm": 15.224,
+          "expected_gap_y_mm": 3.175,
+          "emitted_bead_gap_y_mm": 3.175
+        },
+        {
+          "layer_z_mm": 14.12,
+          "contour_midplane_z_mm": 14.0,
+          "expected_gap_x_mm": 19.05,
+          "emitted_bead_gap_x_mm": 19.05,
+          "expected_gap_y_mm": 3.175,
+          "emitted_bead_gap_y_mm": 3.175
+        },
+        {
+          "layer_z_mm": 19.88,
+          "contour_midplane_z_mm": 19.76,
+          "expected_gap_x_mm": 19.05,
+          "emitted_bead_gap_x_mm": 19.05,
+          "expected_gap_y_mm": 3.175,
+          "emitted_bead_gap_y_mm": 3.175
+        },
+        {
+          "layer_z_mm": 20.12,
+          "contour_midplane_z_mm": 20.0,
+          "expected_gap_x_mm": 19.05,
+          "emitted_bead_gap_x_mm": 19.05,
+          "expected_gap_y_mm": 3.175,
+          "emitted_bead_gap_y_mm": 3.175
+        }
+      ]
+    },
+    {
+      "label": "C4",
+      "printed_label": "C4",
+      "name": "rc62-pocket-c4",
+      "kind": "rc62",
+      "identify_id": 1904,
+      "stl_sha256": "9b82102bc9fcfc8ab6af76c6602bd8134119721f002a74f0e63f64f97169b23c",
+      "step_sha256": "9aac97830a7b73c78f3f97998695992ab4f8ab3b433d17c2c6158c8d2fa51851",
+      "native_mesh_binding": {
+        "native_vertex_max_error_mm": 4.813098151146278e-07,
+        "native_triangle_count": 6706,
+        "exact_source_faces_preserved": true,
+        "source_to_plate_translation_mm": [
+          128.5,
+          176.43124980926513,
+          -1.9616699376001634e-08
+        ],
+        "native_bounds_mm": [
+          [
+            115.9750004,
+            168.23125,
+            0.0
+          ],
+          [
+            141.0249996,
+            182.48125,
+            20.1200008
+          ]
+        ],
+        "upright_identity_rotation": true,
+        "normal_part_only": true
+      },
+      "model_layer_count": 84,
+      "first_two_layers_z_mm": [
+        0.2,
+        0.44
+      ],
+      "last_model_layer_z_mm": 20.12,
+      "minimum_second_layer_bead_area_overlap_fraction": 0.7775124050361224,
+      "minimum_second_layer_outer_wall_bead_area_overlap_fraction": 0.9986708329639494,
+      "full_deposited_bead_bounds_xy_mm": [
+        [
+          115.975,
+          168.231
+        ],
+        [
+          141.025,
+          182.481
+        ]
+      ],
+      "minimum_bed_edge_margin_mm": 115.975,
+      "raised_label_layers_z_mm": [
+        1.64,
+        1.88,
+        2.12
+      ],
+      "raised_label_road_count": 205,
+      "fixed_left_model_tools": [
+        0
+      ],
+      "support_road_count": 0,
+      "measured_sections": [
+        {
+          "layer_z_mm": 3.32,
+          "contour_midplane_z_mm": 3.2,
+          "expected_gap_x_mm": 3.883298,
+          "emitted_bead_gap_x_mm": 3.878,
+          "expected_gap_y_mm": 3.05,
+          "emitted_bead_gap_y_mm": 3.05
+        },
+        {
+          "layer_z_mm": 6.92,
+          "contour_midplane_z_mm": 6.8,
+          "expected_gap_x_mm": 15.224979,
+          "emitted_bead_gap_x_mm": 15.224,
+          "expected_gap_y_mm": 3.05,
+          "emitted_bead_gap_y_mm": 3.05
+        },
+        {
+          "layer_z_mm": 14.12,
+          "contour_midplane_z_mm": 14.0,
+          "expected_gap_x_mm": 19.05,
+          "emitted_bead_gap_x_mm": 19.05,
+          "expected_gap_y_mm": 3.05,
+          "emitted_bead_gap_y_mm": 3.05
+        },
+        {
+          "layer_z_mm": 19.88,
+          "contour_midplane_z_mm": 19.76,
+          "expected_gap_x_mm": 19.05,
+          "emitted_bead_gap_x_mm": 19.05,
+          "expected_gap_y_mm": 3.05,
+          "emitted_bead_gap_y_mm": 3.05
+        },
+        {
+          "layer_z_mm": 20.12,
+          "contour_midplane_z_mm": 20.0,
+          "expected_gap_x_mm": 19.05,
+          "emitted_bead_gap_x_mm": 19.05,
+          "expected_gap_y_mm": 3.05,
+          "emitted_bead_gap_y_mm": 3.05
+        }
+      ]
+    },
+    {
+      "label": "D1",
+      "printed_label": "D1",
+      "name": "rc62-pocket-d1",
+      "kind": "rc62",
+      "identify_id": 1905,
+      "stl_sha256": "a0787ae86bd3e8b9226e17582e2fe510020e94b066dac657504c1efd7a8423bb",
+      "step_sha256": "0b23240daa8a554693165b9192467ddd51ffde00bbae48a6dc569c07c1fed263",
+      "native_mesh_binding": {
+        "native_vertex_max_error_mm": 4.813098151146278e-07,
+        "native_triangle_count": 3912,
+        "exact_source_faces_preserved": true,
+        "source_to_plate_translation_mm": [
+          162.5,
+          176.23125,
+          -1.9616699376001634e-08
+        ],
+        "native_bounds_mm": [
+          [
+            150.0249996,
+            168.03125018999998,
+            0.0
+          ],
+          [
+            174.9750004,
+            182.68124981,
+            20.1200008
+          ]
+        ],
+        "upright_identity_rotation": true,
+        "normal_part_only": true
+      },
+      "model_layer_count": 84,
+      "first_two_layers_z_mm": [
+        0.2,
+        0.44
+      ],
+      "last_model_layer_z_mm": 20.12,
+      "minimum_second_layer_bead_area_overlap_fraction": 0.7627976438095869,
+      "minimum_second_layer_outer_wall_bead_area_overlap_fraction": 0.998707350203217,
+      "full_deposited_bead_bounds_xy_mm": [
+        [
+          150.025,
+          168.031
+        ],
+        [
+          174.975,
+          182.681
+        ]
+      ],
+      "minimum_bed_edge_margin_mm": 137.319,
+      "raised_label_layers_z_mm": [
+        1.64,
+        1.88,
+        2.12
+      ],
+      "raised_label_road_count": 128,
+      "fixed_left_model_tools": [
+        0
+      ],
+      "support_road_count": 0,
+      "measured_sections": [
+        {
+          "layer_z_mm": 3.32,
+          "contour_midplane_z_mm": 3.2,
+          "expected_gap_x_mm": 3.872983,
+          "emitted_bead_gap_x_mm": 3.868,
+          "expected_gap_y_mm": 3.45,
+          "emitted_bead_gap_y_mm": 3.45
+        },
+        {
+          "layer_z_mm": 6.92,
+          "contour_midplane_z_mm": 6.8,
+          "expected_gap_x_mm": 15.174979,
+          "emitted_bead_gap_x_mm": 15.174,
+          "expected_gap_y_mm": 3.45,
+          "emitted_bead_gap_y_mm": 3.45
+        },
+        {
+          "layer_z_mm": 14.12,
+          "contour_midplane_z_mm": 14.0,
+          "expected_gap_x_mm": 18.95,
+          "emitted_bead_gap_x_mm": 18.95,
+          "expected_gap_y_mm": 3.45,
+          "emitted_bead_gap_y_mm": 3.45
+        },
+        {
+          "layer_z_mm": 19.88,
+          "contour_midplane_z_mm": 19.76,
+          "expected_gap_x_mm": 18.95,
+          "emitted_bead_gap_x_mm": 18.95,
+          "expected_gap_y_mm": 3.45,
+          "emitted_bead_gap_y_mm": 3.45
+        },
+        {
+          "layer_z_mm": 20.12,
+          "contour_midplane_z_mm": 20.0,
+          "expected_gap_x_mm": 18.95,
+          "emitted_bead_gap_x_mm": 18.95,
+          "expected_gap_y_mm": 3.45,
+          "emitted_bead_gap_y_mm": 3.45
+        }
+      ]
+    },
+    {
+      "label": "D2",
+      "printed_label": "D2",
+      "name": "rc62-pocket-d2",
+      "kind": "rc62",
+      "identify_id": 1906,
+      "stl_sha256": "d8039c36ad66932171ba0944683eee049867265c7a886a4a129689eed256bfa1",
+      "step_sha256": "bd4b17fc20367338a0c6d6a108d144c216e55967785ef62ce9ff9ead1ccc4579",
+      "native_mesh_binding": {
+        "native_vertex_max_error_mm": 4.813098151146278e-07,
+        "native_triangle_count": 9062,
+        "exact_source_faces_preserved": true,
+        "source_to_plate_translation_mm": [
+          196.5,
+          176.30624980926513,
+          -1.9616699376001634e-08
+        ],
+        "native_bounds_mm": [
+          [
+            184.0249996,
+            168.10625,
+            0.0
+          ],
+          [
+            208.9750004,
+            182.60625,
+            20.1200008
+          ]
+        ],
+        "upright_identity_rotation": true,
+        "normal_part_only": true
+      },
+      "model_layer_count": 84,
+      "first_two_layers_z_mm": [
+        0.2,
+        0.44
+      ],
+      "last_model_layer_z_mm": 20.12,
+      "minimum_second_layer_bead_area_overlap_fraction": 0.7497527914609752,
+      "minimum_second_layer_outer_wall_bead_area_overlap_fraction": 0.9986938938268716,
+      "full_deposited_bead_bounds_xy_mm": [
+        [
+          184.025,
+          168.106
+        ],
+        [
+          208.975,
+          182.606
+        ]
+      ],
+      "minimum_bed_edge_margin_mm": 116.025,
+      "raised_label_layers_z_mm": [
+        1.64,
+        1.88,
+        2.12
+      ],
+      "raised_label_road_count": 204,
+      "fixed_left_model_tools": [
+        0
+      ],
+      "support_road_count": 0,
+      "measured_sections": [
+        {
+          "layer_z_mm": 3.32,
+          "contour_midplane_z_mm": 3.2,
+          "expected_gap_x_mm": 3.872983,
+          "emitted_bead_gap_x_mm": 3.868,
+          "expected_gap_y_mm": 3.3,
+          "emitted_bead_gap_y_mm": 3.3
+        },
+        {
+          "layer_z_mm": 6.92,
+          "contour_midplane_z_mm": 6.8,
+          "expected_gap_x_mm": 15.174979,
+          "emitted_bead_gap_x_mm": 15.174,
+          "expected_gap_y_mm": 3.3,
+          "emitted_bead_gap_y_mm": 3.3
+        },
+        {
+          "layer_z_mm": 14.12,
+          "contour_midplane_z_mm": 14.0,
+          "expected_gap_x_mm": 18.95,
+          "emitted_bead_gap_x_mm": 18.95,
+          "expected_gap_y_mm": 3.3,
+          "emitted_bead_gap_y_mm": 3.3
+        },
+        {
+          "layer_z_mm": 19.88,
+          "contour_midplane_z_mm": 19.76,
+          "expected_gap_x_mm": 18.95,
+          "emitted_bead_gap_x_mm": 18.95,
+          "expected_gap_y_mm": 3.3,
+          "emitted_bead_gap_y_mm": 3.3
+        },
+        {
+          "layer_z_mm": 20.12,
+          "contour_midplane_z_mm": 20.0,
+          "expected_gap_x_mm": 18.95,
+          "emitted_bead_gap_x_mm": 18.95,
+          "expected_gap_y_mm": 3.3,
+          "emitted_bead_gap_y_mm": 3.3
+        }
+      ]
+    },
+    {
+      "label": "D3",
+      "printed_label": "D3",
+      "name": "rc62-pocket-d3",
+      "kind": "rc62",
+      "identify_id": 1907,
+      "stl_sha256": "98e5993023803b1ec73e3ae5da5a506bce9a8883ec7e1f028b536af2abb80392",
+      "step_sha256": "5fb1e19c8f2be9d874cba4ead480410960f53052caf2667af3b80dce550c5209",
+      "native_mesh_binding": {
+        "native_vertex_max_error_mm": 4.813098151146278e-07,
+        "native_triangle_count": 16534,
+        "exact_source_faces_preserved": true,
+        "source_to_plate_translation_mm": [
+          128.5,
+          201.36874980926513,
+          -1.9616699376001634e-08
+        ],
+        "native_bounds_mm": [
+          [
+            116.0249996,
+            193.16875,
+            0.0
+          ],
+          [
+            140.9750004,
+            207.54375,
+            20.1200008
+          ]
+        ],
+        "upright_identity_rotation": true,
+        "normal_part_only": true
+      },
+      "model_layer_count": 84,
+      "first_two_layers_z_mm": [
+        0.2,
+        0.44
+      ],
+      "last_model_layer_z_mm": 20.12,
+      "minimum_second_layer_bead_area_overlap_fraction": 0.8273090333315568,
+      "minimum_second_layer_outer_wall_bead_area_overlap_fraction": 0.9986824642964078,
+      "full_deposited_bead_bounds_xy_mm": [
+        [
+          116.025,
+          193.16899999999998
+        ],
+        [
+          140.975,
+          207.544
+        ]
+      ],
+      "minimum_bed_edge_margin_mm": 112.45599999999999,
+      "raised_label_layers_z_mm": [
+        1.64,
+        1.88,
+        2.12
+      ],
+      "raised_label_road_count": 273,
+      "fixed_left_model_tools": [
+        0
+      ],
+      "support_road_count": 0,
+      "measured_sections": [
+        {
+          "layer_z_mm": 3.32,
+          "contour_midplane_z_mm": 3.2,
+          "expected_gap_x_mm": 3.872983,
+          "emitted_bead_gap_x_mm": 3.868,
+          "expected_gap_y_mm": 3.175,
+          "emitted_bead_gap_y_mm": 3.175
+        },
+        {
+          "layer_z_mm": 6.92,
+          "contour_midplane_z_mm": 6.8,
+          "expected_gap_x_mm": 15.174979,
+          "emitted_bead_gap_x_mm": 15.174,
+          "expected_gap_y_mm": 3.175,
+          "emitted_bead_gap_y_mm": 3.175
+        },
+        {
+          "layer_z_mm": 14.12,
+          "contour_midplane_z_mm": 14.0,
+          "expected_gap_x_mm": 18.95,
+          "emitted_bead_gap_x_mm": 18.95,
+          "expected_gap_y_mm": 3.175,
+          "emitted_bead_gap_y_mm": 3.175
+        },
+        {
+          "layer_z_mm": 19.88,
+          "contour_midplane_z_mm": 19.76,
+          "expected_gap_x_mm": 18.95,
+          "emitted_bead_gap_x_mm": 18.95,
+          "expected_gap_y_mm": 3.175,
+          "emitted_bead_gap_y_mm": 3.175
+        },
+        {
+          "layer_z_mm": 20.12,
+          "contour_midplane_z_mm": 20.0,
+          "expected_gap_x_mm": 18.95,
+          "emitted_bead_gap_x_mm": 18.95,
+          "expected_gap_y_mm": 3.175,
+          "emitted_bead_gap_y_mm": 3.175
+        }
+      ]
+    },
+    {
+      "label": "D4",
+      "printed_label": "D4",
+      "name": "rc62-pocket-d4",
+      "kind": "rc62",
+      "identify_id": 1908,
+      "stl_sha256": "d233a2d0ed5d8664d92ff58771dc027cf1914f4041f12eea2498febb0cc4c756",
+      "step_sha256": "dbd0b4dfccfa4dcfc3ccc3ccd79ac9089218947d52655dc783ef554f9146c3d2",
+      "native_mesh_binding": {
+        "native_vertex_max_error_mm": 4.813098151146278e-07,
+        "native_triangle_count": 3446,
+        "exact_source_faces_preserved": true,
+        "source_to_plate_translation_mm": [
+          162.5,
+          201.43124980926513,
+          -1.9616699376001634e-08
+        ],
+        "native_bounds_mm": [
+          [
+            150.0249996,
+            193.23125,
+            0.0
+          ],
+          [
+            174.9750004,
+            207.48125,
+            20.1200008
+          ]
+        ],
+        "upright_identity_rotation": true,
+        "normal_part_only": true
+      },
+      "model_layer_count": 84,
+      "first_two_layers_z_mm": [
+        0.2,
+        0.44
+      ],
+      "last_model_layer_z_mm": 20.12,
+      "minimum_second_layer_bead_area_overlap_fraction": 0.7936416399262994,
+      "minimum_second_layer_outer_wall_bead_area_overlap_fraction": 0.9986708329639483,
+      "full_deposited_bead_bounds_xy_mm": [
+        [
+          150.025,
+          193.231
+        ],
+        [
+          174.975,
+          207.481
+        ]
+      ],
+      "minimum_bed_edge_margin_mm": 112.519,
+      "raised_label_layers_z_mm": [
+        1.64,
+        1.88,
+        2.12
+      ],
+      "raised_label_road_count": 142,
+      "fixed_left_model_tools": [
+        0
+      ],
+      "support_road_count": 0,
+      "measured_sections": [
+        {
+          "layer_z_mm": 3.32,
+          "contour_midplane_z_mm": 3.2,
+          "expected_gap_x_mm": 3.872983,
+          "emitted_bead_gap_x_mm": 3.868,
+          "expected_gap_y_mm": 3.05,
+          "emitted_bead_gap_y_mm": 3.05
+        },
+        {
+          "layer_z_mm": 6.92,
+          "contour_midplane_z_mm": 6.8,
+          "expected_gap_x_mm": 15.174979,
+          "emitted_bead_gap_x_mm": 15.174,
+          "expected_gap_y_mm": 3.05,
+          "emitted_bead_gap_y_mm": 3.05
+        },
+        {
+          "layer_z_mm": 14.12,
+          "contour_midplane_z_mm": 14.0,
+          "expected_gap_x_mm": 18.95,
+          "emitted_bead_gap_x_mm": 18.95,
+          "expected_gap_y_mm": 3.05,
+          "emitted_bead_gap_y_mm": 3.05
+        },
+        {
+          "layer_z_mm": 19.88,
+          "contour_midplane_z_mm": 19.76,
+          "expected_gap_x_mm": 18.95,
+          "emitted_bead_gap_x_mm": 18.95,
+          "expected_gap_y_mm": 3.05,
+          "emitted_bead_gap_y_mm": 3.05
+        },
+        {
+          "layer_z_mm": 20.12,
+          "contour_midplane_z_mm": 20.0,
+          "expected_gap_x_mm": 18.95,
+          "emitted_bead_gap_x_mm": 18.95,
+          "expected_gap_y_mm": 3.05,
+          "emitted_bead_gap_y_mm": 3.05
+        }
+      ]
+    },
+    {
+      "label": "C0",
+      "printed_label": "C0",
+      "name": "rc62-pocket-c0",
+      "kind": "rc62",
+      "identify_id": 1909,
+      "stl_sha256": "bab4710828206eef7a5f9de4495cc9adc6d5b866eeefc18839ae892912d3f614",
+      "step_sha256": "44cc7b38621888767a755464fc07503528111eadf47a2cfd81196ca9002589bc",
+      "native_mesh_binding": {
+        "native_vertex_max_error_mm": 4.813098151146278e-07,
+        "native_triangle_count": 15270,
+        "exact_source_faces_preserved": true,
+        "source_to_plate_translation_mm": [
+          196.5,
+          201.16875,
+          -1.9616699376001634e-08
+        ],
+        "native_bounds_mm": [
+          [
+            183.7749996,
+            192.96875018999998,
+            0.0
+          ],
+          [
+            209.2250004,
+            207.74374981,
+            20.1200008
+          ]
+        ],
+        "upright_identity_rotation": true,
+        "normal_part_only": true
+      },
+      "model_layer_count": 84,
+      "first_two_layers_z_mm": [
+        0.2,
+        0.44
+      ],
+      "last_model_layer_z_mm": 20.12,
+      "minimum_second_layer_bead_area_overlap_fraction": 0.8272693436911787,
+      "minimum_second_layer_outer_wall_bead_area_overlap_fraction": 0.99871835384731,
+      "full_deposited_bead_bounds_xy_mm": [
+        [
+          183.775,
+          192.969
+        ],
+        [
+          209.225,
+          207.744
+        ]
+      ],
+      "minimum_bed_edge_margin_mm": 112.256,
+      "raised_label_layers_z_mm": [
+        1.64,
+        1.88,
+        2.12
+      ],
+      "raised_label_road_count": 313,
+      "fixed_left_model_tools": [
+        0
+      ],
+      "support_road_count": 0,
+      "measured_sections": [
+        {
+          "layer_z_mm": 3.32,
+          "contour_midplane_z_mm": 3.2,
+          "expected_gap_x_mm": 3.924283,
+          "emitted_bead_gap_x_mm": 3.92,
+          "expected_gap_y_mm": 3.575,
+          "emitted_bead_gap_y_mm": 3.575
+        },
+        {
+          "layer_z_mm": 6.92,
+          "contour_midplane_z_mm": 6.8,
+          "expected_gap_x_mm": 15.423359,
+          "emitted_bead_gap_x_mm": 15.422,
+          "expected_gap_y_mm": 3.575,
+          "emitted_bead_gap_y_mm": 3.575
+        },
+        {
+          "layer_z_mm": 14.12,
+          "contour_midplane_z_mm": 14.0,
+          "expected_gap_x_mm": 19.45,
+          "emitted_bead_gap_x_mm": 19.45,
+          "expected_gap_y_mm": 3.575,
+          "emitted_bead_gap_y_mm": 3.575
+        },
+        {
+          "layer_z_mm": 19.88,
+          "contour_midplane_z_mm": 19.76,
+          "expected_gap_x_mm": 19.45,
+          "emitted_bead_gap_x_mm": 19.45,
+          "expected_gap_y_mm": 3.575,
+          "emitted_bead_gap_y_mm": 3.575
+        },
+        {
+          "layer_z_mm": 20.12,
+          "contour_midplane_z_mm": 20.0,
+          "expected_gap_x_mm": 19.45,
+          "emitted_bead_gap_x_mm": 19.45,
+          "expected_gap_y_mm": 3.575,
+          "emitted_bead_gap_y_mm": 3.575
+        }
+      ]
+    },
+    {
+      "label": "V70",
+      "printed_label": "7.00",
+      "name": "beduan-socket-v70",
+      "kind": "valve",
+      "identify_id": 1910,
+      "stl_sha256": "ce4469a1d590cc26ed603aac6530a5d64be8fe45964ffcfc1f3b5f108e494cf8",
+      "step_sha256": "9761709bba80098628fdb65f34579f722b90edf09e98b3dc7bd362de177d2491",
+      "native_mesh_binding": {
+        "native_vertex_max_error_mm": 9.803833016519548e-07,
+        "native_triangle_count": 21092,
+        "exact_source_faces_preserved": true,
+        "source_to_plate_translation_mm": [
+          108.5,
+          123.25625009536743,
+          -1.8530272427597083e-08
+        ],
+        "native_bounds_mm": [
+          [
+            86.7000008,
+            112.25624962,
+            0.0
+          ],
+          [
+            130.2999992,
+            128.45625038,
+            44.0499992
+          ]
+        ],
+        "upright_identity_rotation": true,
+        "normal_part_only": true
+      },
+      "model_layer_count": 184,
+      "first_two_layers_z_mm": [
+        0.2,
+        0.44
+      ],
+      "last_model_layer_z_mm": 44.12,
+      "minimum_second_layer_bead_area_overlap_fraction": 0.6577195169696466,
+      "minimum_second_layer_outer_wall_bead_area_overlap_fraction": 0.9930742874499207,
+      "full_deposited_bead_bounds_xy_mm": [
+        [
+          86.7,
+          112.256
+        ],
+        [
+          130.3,
+          128.471
+        ]
+      ],
+      "minimum_bed_edge_margin_mm": 86.7,
+      "raised_label_layers_z_mm": [
+        1.64,
+        1.88,
+        2.12
+      ],
+      "raised_label_road_count": 375,
+      "fixed_left_model_tools": [
+        0
+      ],
+      "support_road_count": 0,
+      "measured_sections": [
+        {
+          "socket_center_xz_mm": [
+            -12.2,
+            9.599999999999998
+          ],
+          "layer_z_mm": 9.56,
+          "contour_midplane_z_mm": 9.44,
+          "axial_probe_y_mm": 2,
+          "expected_section_opening_x_mm": 6.992682,
+          "emitted_bead_opening_x_mm": [
+            -15.696,
+            -8.704
+          ],
+          "emitted_bead_opening_width_mm": 6.992,
+          "equivalent_round_diameter_mm": 6.999319,
+          "emitted_blind_floor_y_mm": -1.00025,
+          "nominal_bearing_to_emitted_floor_mm": 6.20025
+        },
+        {
+          "socket_center_xz_mm": [
+            -12.2,
+            34.45
+          ],
+          "layer_z_mm": 34.52,
+          "contour_midplane_z_mm": 34.4,
+          "axial_probe_y_mm": 2,
+          "expected_section_opening_x_mm": 6.999286,
+          "emitted_bead_opening_x_mm": [
+            -15.699,
+            -8.701
+          ],
+          "emitted_bead_opening_width_mm": 6.998,
+          "equivalent_round_diameter_mm": 6.998714,
+          "emitted_blind_floor_y_mm": -1.00025,
+          "nominal_bearing_to_emitted_floor_mm": 6.20025
+        },
+        {
+          "socket_center_xz_mm": [
+            12.2,
+            9.599999999999998
+          ],
+          "layer_z_mm": 9.56,
+          "contour_midplane_z_mm": 9.44,
+          "axial_probe_y_mm": 2,
+          "expected_section_opening_x_mm": 6.992682,
+          "emitted_bead_opening_x_mm": [
+            8.704,
+            15.696
+          ],
+          "emitted_bead_opening_width_mm": 6.992,
+          "equivalent_round_diameter_mm": 6.999319,
+          "emitted_blind_floor_y_mm": -1.00025,
+          "nominal_bearing_to_emitted_floor_mm": 6.20025
+        },
+        {
+          "socket_center_xz_mm": [
+            12.2,
+            34.45
+          ],
+          "layer_z_mm": 34.52,
+          "contour_midplane_z_mm": 34.4,
+          "axial_probe_y_mm": 2,
+          "expected_section_opening_x_mm": 6.999286,
+          "emitted_bead_opening_x_mm": [
+            8.701,
+            15.699
+          ],
+          "emitted_bead_opening_width_mm": 6.998,
+          "equivalent_round_diameter_mm": 6.998714,
+          "emitted_blind_floor_y_mm": -1.00025,
+          "nominal_bearing_to_emitted_floor_mm": 6.20025
+        }
+      ]
+    },
+    {
+      "label": "V69",
+      "printed_label": "6.90",
+      "name": "beduan-socket-v69",
+      "kind": "valve",
+      "identify_id": 1911,
+      "stl_sha256": "d228dc8eb7ef364b52a22b58ad2c170e13d23c84517a5afd0b213ab950a47885",
+      "step_sha256": "52c4442ee1c7be802625d42079b0e9ea44f398fbadd7fbc24c707c2627741ec3",
+      "native_mesh_binding": {
+        "native_vertex_max_error_mm": 9.933227538283518e-07,
+        "native_triangle_count": 37948,
+        "exact_source_faces_preserved": true,
+        "source_to_plate_translation_mm": [
+          162.5,
+          123.25625009536743,
+          -1.8530272427597083e-08
+        ],
+        "native_bounds_mm": [
+          [
+            140.7000008,
+            112.25624962,
+            0.0
+          ],
+          [
+            184.2999992,
+            128.45625038,
+            44.0499992
+          ]
+        ],
+        "upright_identity_rotation": true,
+        "normal_part_only": true
+      },
+      "model_layer_count": 184,
+      "first_two_layers_z_mm": [
+        0.2,
+        0.44
+      ],
+      "last_model_layer_z_mm": 44.12,
+      "minimum_second_layer_bead_area_overlap_fraction": 0.6577195169696148,
+      "minimum_second_layer_outer_wall_bead_area_overlap_fraction": 0.993074287449915,
+      "full_deposited_bead_bounds_xy_mm": [
+        [
+          140.7,
+          112.256
+        ],
+        [
+          184.3,
+          128.471
+        ]
+      ],
+      "minimum_bed_edge_margin_mm": 112.256,
+      "raised_label_layers_z_mm": [
+        1.64,
+        1.88,
+        2.12
+      ],
+      "raised_label_road_count": 533,
+      "fixed_left_model_tools": [
+        0
+      ],
+      "support_road_count": 0,
+      "measured_sections": [
+        {
+          "socket_center_xz_mm": [
+            -12.2,
+            9.599999999999998
+          ],
+          "layer_z_mm": 9.56,
+          "contour_midplane_z_mm": 9.44,
+          "axial_probe_y_mm": 2,
+          "expected_section_opening_x_mm": 6.892576,
+          "emitted_bead_opening_x_mm": [
+            -15.646,
+            -8.754
+          ],
+          "emitted_bead_opening_width_mm": 6.892,
+          "equivalent_round_diameter_mm": 6.899425,
+          "emitted_blind_floor_y_mm": -1.00025,
+          "nominal_bearing_to_emitted_floor_mm": 6.20025
+        },
+        {
+          "socket_center_xz_mm": [
+            -12.2,
+            34.45
+          ],
+          "layer_z_mm": 34.52,
+          "contour_midplane_z_mm": 34.4,
+          "axial_probe_y_mm": 2,
+          "expected_section_opening_x_mm": 6.899275,
+          "emitted_bead_opening_x_mm": [
+            -15.649,
+            -8.751
+          ],
+          "emitted_bead_opening_width_mm": 6.898,
+          "equivalent_round_diameter_mm": 6.898725,
+          "emitted_blind_floor_y_mm": -1.00025,
+          "nominal_bearing_to_emitted_floor_mm": 6.20025
+        },
+        {
+          "socket_center_xz_mm": [
+            12.2,
+            9.599999999999998
+          ],
+          "layer_z_mm": 9.56,
+          "contour_midplane_z_mm": 9.44,
+          "axial_probe_y_mm": 2,
+          "expected_section_opening_x_mm": 6.892576,
+          "emitted_bead_opening_x_mm": [
+            8.754,
+            15.646
+          ],
+          "emitted_bead_opening_width_mm": 6.892,
+          "equivalent_round_diameter_mm": 6.899425,
+          "emitted_blind_floor_y_mm": -1.00025,
+          "nominal_bearing_to_emitted_floor_mm": 6.20025
+        },
+        {
+          "socket_center_xz_mm": [
+            12.2,
+            34.45
+          ],
+          "layer_z_mm": 34.52,
+          "contour_midplane_z_mm": 34.4,
+          "axial_probe_y_mm": 2,
+          "expected_section_opening_x_mm": 6.899275,
+          "emitted_bead_opening_x_mm": [
+            8.751,
+            15.649
+          ],
+          "emitted_bead_opening_width_mm": 6.898,
+          "equivalent_round_diameter_mm": 6.898725,
+          "emitted_blind_floor_y_mm": -1.00025,
+          "nominal_bearing_to_emitted_floor_mm": 6.20025
+        }
+      ]
+    },
+    {
+      "label": "V68",
+      "printed_label": "6.80",
+      "name": "beduan-socket-v68",
+      "kind": "valve",
+      "identify_id": 1912,
+      "stl_sha256": "c01d4b985ba53402daa248d2f305d059158c2839da5a9ac6ce565f1cf543d131",
+      "step_sha256": "6ad1aa5994f9747424b5698ab648288d506121ee26c4e44ce2d1acc18761ebde",
+      "native_mesh_binding": {
+        "native_vertex_max_error_mm": 9.933227538283518e-07,
+        "native_triangle_count": 43454,
+        "exact_source_faces_preserved": true,
+        "source_to_plate_translation_mm": [
+          216.5,
+          123.25625009536743,
+          -1.8530272427597083e-08
+        ],
+        "native_bounds_mm": [
+          [
+            194.7000008,
+            112.25624962,
+            0.0
+          ],
+          [
+            238.2999992,
+            128.45625038,
+            44.0499992
+          ]
+        ],
+        "upright_identity_rotation": true,
+        "normal_part_only": true
+      },
+      "model_layer_count": 184,
+      "first_two_layers_z_mm": [
+        0.2,
+        0.44
+      ],
+      "last_model_layer_z_mm": 44.12,
+      "minimum_second_layer_bead_area_overlap_fraction": 0.6577195169696148,
+      "minimum_second_layer_outer_wall_bead_area_overlap_fraction": 0.993074287449915,
+      "full_deposited_bead_bounds_xy_mm": [
+        [
+          194.7,
+          112.256
+        ],
+        [
+          238.3,
+          128.471
+        ]
+      ],
+      "minimum_bed_edge_margin_mm": 86.69999999999999,
+      "raised_label_layers_z_mm": [
+        1.64,
+        1.88,
+        2.12
+      ],
+      "raised_label_road_count": 572,
+      "fixed_left_model_tools": [
+        0
+      ],
+      "support_road_count": 0,
+      "measured_sections": [
+        {
+          "socket_center_xz_mm": [
+            -12.2,
+            9.599999999999998
+          ],
+          "layer_z_mm": 9.56,
+          "contour_midplane_z_mm": 9.44,
+          "axial_probe_y_mm": 2,
+          "expected_section_opening_x_mm": 6.792466,
+          "emitted_bead_opening_x_mm": [
+            -15.596,
+            -8.804
+          ],
+          "emitted_bead_opening_width_mm": 6.792,
+          "equivalent_round_diameter_mm": 6.799534,
+          "emitted_blind_floor_y_mm": -1.00025,
+          "nominal_bearing_to_emitted_floor_mm": 6.20025
+        },
+        {
+          "socket_center_xz_mm": [
+            -12.2,
+            34.45
+          ],
+          "layer_z_mm": 34.52,
+          "contour_midplane_z_mm": 34.4,
+          "axial_probe_y_mm": 2,
+          "expected_section_opening_x_mm": 6.799265,
+          "emitted_bead_opening_x_mm": [
+            -15.599,
+            -8.801
+          ],
+          "emitted_bead_opening_width_mm": 6.798,
+          "equivalent_round_diameter_mm": 6.798735,
+          "emitted_blind_floor_y_mm": -1.00025,
+          "nominal_bearing_to_emitted_floor_mm": 6.20025
+        },
+        {
+          "socket_center_xz_mm": [
+            12.2,
+            9.599999999999998
+          ],
+          "layer_z_mm": 9.56,
+          "contour_midplane_z_mm": 9.44,
+          "axial_probe_y_mm": 2,
+          "expected_section_opening_x_mm": 6.792466,
+          "emitted_bead_opening_x_mm": [
+            8.804,
+            15.596
+          ],
+          "emitted_bead_opening_width_mm": 6.792,
+          "equivalent_round_diameter_mm": 6.799534,
+          "emitted_blind_floor_y_mm": -1.00025,
+          "nominal_bearing_to_emitted_floor_mm": 6.20025
+        },
+        {
+          "socket_center_xz_mm": [
+            12.2,
+            34.45
+          ],
+          "layer_z_mm": 34.52,
+          "contour_midplane_z_mm": 34.4,
+          "axial_probe_y_mm": 2,
+          "expected_section_opening_x_mm": 6.799265,
+          "emitted_bead_opening_x_mm": [
+            8.801,
+            15.599
+          ],
+          "emitted_bead_opening_width_mm": 6.798,
+          "equivalent_round_diameter_mm": 6.798735,
+          "emitted_blind_floor_y_mm": -1.00025,
+          "nominal_bearing_to_emitted_floor_mm": 6.20025
+        }
+      ]
+    }
+  ],
+  "object_separations": [
+    {
+      "a": "rc62-pocket-c1",
+      "b": "rc62-pocket-c2",
+      "minimum_box_gap_mm": 8.949999999999989
+    },
+    {
+      "a": "rc62-pocket-c1",
+      "b": "rc62-pocket-c3",
+      "minimum_box_gap_mm": 42.94999999999999
+    },
+    {
+      "a": "rc62-pocket-c1",
+      "b": "rc62-pocket-c4",
+      "minimum_box_gap_mm": 10.549999999999983
+    },
+    {
+      "a": "rc62-pocket-c1",
+      "b": "rc62-pocket-d1",
+      "minimum_box_gap_mm": 13.71577558871535
+    },
+    {
+      "a": "rc62-pocket-c1",
+      "b": "rc62-pocket-d2",
+      "minimum_box_gap_mm": 44.2456848178441
+    },
+    {
+      "a": "rc62-pocket-c1",
+      "b": "rc62-pocket-d3",
+      "minimum_box_gap_mm": 35.48799999999997
+    },
+    {
+      "a": "rc62-pocket-c1",
+      "b": "rc62-pocket-d4",
+      "minimum_box_gap_mm": 36.67154891738279
+    },
+    {
+      "a": "rc62-pocket-c1",
+      "b": "rc62-pocket-c0",
+      "minimum_box_gap_mm": 55.432891355223376
+    },
+    {
+      "a": "rc62-pocket-c1",
+      "b": "beduan-socket-v70",
+      "minimum_box_gap_mm": 14.560000000000002
+    },
+    {
+      "a": "rc62-pocket-c1",
+      "b": "beduan-socket-v69",
+      "minimum_box_gap_mm": 14.560000000000002
+    },
+    {
+      "a": "rc62-pocket-c1",
+      "b": "beduan-socket-v68",
+      "minimum_box_gap_mm": 55.614739278360354
+    },
+    {
+      "a": "rc62-pocket-c2",
+      "b": "rc62-pocket-c3",
+      "minimum_box_gap_mm": 8.949999999999989
+    },
+    {
+      "a": "rc62-pocket-c2",
+      "b": "rc62-pocket-c4",
+      "minimum_box_gap_mm": 13.892196550581906
+    },
+    {
+      "a": "rc62-pocket-c2",
+      "b": "rc62-pocket-d1",
+      "minimum_box_gap_mm": 10.425000000000011
+    },
+    {
+      "a": "rc62-pocket-c2",
+      "b": "rc62-pocket-d2",
+      "minimum_box_gap_mm": 13.82931668593933
+    },
+    {
+      "a": "rc62-pocket-c2",
+      "b": "rc62-pocket-d3",
+      "minimum_box_gap_mm": 36.684151468992695
+    },
+    {
+      "a": "rc62-pocket-c2",
+      "b": "rc62-pocket-d4",
+      "minimum_box_gap_mm": 35.625
+    },
+    {
+      "a": "rc62-pocket-c2",
+      "b": "rc62-pocket-c0",
+      "minimum_box_gap_mm": 36.42944233720851
+    },
+    {
+      "a": "rc62-pocket-c2",
+      "b": "beduan-socket-v70",
+      "minimum_box_gap_mm": 24.52119185520963
+    },
+    {
+      "a": "rc62-pocket-c2",
+      "b": "beduan-socket-v69",
+      "minimum_box_gap_mm": 14.634999999999991
+    },
+    {
+      "a": "rc62-pocket-c2",
+      "b": "beduan-socket-v68",
+      "minimum_box_gap_mm": 24.52119185520963
+    },
+    {
+      "a": "rc62-pocket-c3",
+      "b": "rc62-pocket-c4",
+      "minimum_box_gap_mm": 44.25962572141792
+    },
+    {
+      "a": "rc62-pocket-c3",
+      "b": "rc62-pocket-d1",
+      "minimum_box_gap_mm": 13.819448939809426
+    },
+    {
+      "a": "rc62-pocket-c3",
+      "b": "rc62-pocket-d2",
+      "minimum_box_gap_mm": 10.561999999999983
+    },
+    {
+      "a": "rc62-pocket-c3",
+      "b": "rc62-pocket-d3",
+      "minimum_box_gap_mm": 55.84031361838863
+    },
+    {
+      "a": "rc62-pocket-c3",
+      "b": "rc62-pocket-d4",
+      "minimum_box_gap_mm": 36.80437431882247
+    },
+    {
+      "a": "rc62-pocket-c3",
+      "b": "rc62-pocket-c0",
+      "minimum_box_gap_mm": 35.42499999999998
+    },
+    {
+      "a": "rc62-pocket-c3",
+      "b": "beduan-socket-v70",
+      "minimum_box_gap_mm": 55.651027205254685
+    },
+    {
+      "a": "rc62-pocket-c3",
+      "b": "beduan-socket-v69",
+      "minimum_box_gap_mm": 14.697999999999979
+    },
+    {
+      "a": "rc62-pocket-c3",
+      "b": "beduan-socket-v68",
+      "minimum_box_gap_mm": 14.697999999999979
+    },
+    {
+      "a": "rc62-pocket-c4",
+      "b": "rc62-pocket-d1",
+      "minimum_box_gap_mm": 9.0
+    },
+    {
+      "a": "rc62-pocket-c4",
+      "b": "rc62-pocket-d2",
+      "minimum_box_gap_mm": 43.0
+    },
+    {
+      "a": "rc62-pocket-c4",
+      "b": "rc62-pocket-d3",
+      "minimum_box_gap_mm": 10.687999999999988
+    },
+    {
+      "a": "rc62-pocket-c4",
+      "b": "rc62-pocket-d4",
+      "minimum_box_gap_mm": 14.020074892809953
+    },
+    {
+      "a": "rc62-pocket-c4",
+      "b": "rc62-pocket-c0",
+      "minimum_box_gap_mm": 44.0177310183067
+    },
+    {
+      "a": "rc62-pocket-c4",
+      "b": "beduan-socket-v70",
+      "minimum_box_gap_mm": 39.75999999999999
+    },
+    {
+      "a": "rc62-pocket-c4",
+      "b": "beduan-socket-v69",
+      "minimum_box_gap_mm": 39.75999999999999
+    },
+    {
+      "a": "rc62-pocket-c4",
+      "b": "beduan-socket-v68",
+      "minimum_box_gap_mm": 66.79717976831056
+    },
+    {
+      "a": "rc62-pocket-d1",
+      "b": "rc62-pocket-d2",
+      "minimum_box_gap_mm": 9.050000000000011
+    },
+    {
+      "a": "rc62-pocket-d1",
+      "b": "rc62-pocket-d3",
+      "minimum_box_gap_mm": 13.852820795780172
+    },
+    {
+      "a": "rc62-pocket-d1",
+      "b": "rc62-pocket-d4",
+      "minimum_box_gap_mm": 10.549999999999983
+    },
+    {
+      "a": "rc62-pocket-d1",
+      "b": "rc62-pocket-c0",
+      "minimum_box_gap_mm": 13.538203130401014
+    },
+    {
+      "a": "rc62-pocket-d1",
+      "b": "beduan-socket-v70",
+      "minimum_box_gap_mm": 44.204855219760645
+    },
+    {
+      "a": "rc62-pocket-d1",
+      "b": "beduan-socket-v69",
+      "minimum_box_gap_mm": 39.56
+    },
+    {
+      "a": "rc62-pocket-d1",
+      "b": "beduan-socket-v68",
+      "minimum_box_gap_mm": 44.204855219760645
+    },
+    {
+      "a": "rc62-pocket-d2",
+      "b": "rc62-pocket-d3",
+      "minimum_box_gap_mm": 44.32696097185099
+    },
+    {
+      "a": "rc62-pocket-d2",
+      "b": "rc62-pocket-d4",
+      "minimum_box_gap_mm": 13.956830764897889
+    },
+    {
+      "a": "rc62-pocket-d2",
+      "b": "rc62-pocket-c0",
+      "minimum_box_gap_mm": 10.363
+    },
+    {
+      "a": "rc62-pocket-d2",
+      "b": "beduan-socket-v70",
+      "minimum_box_gap_mm": 66.76307999186376
+    },
+    {
+      "a": "rc62-pocket-d2",
+      "b": "beduan-socket-v69",
+      "minimum_box_gap_mm": 39.63499999999999
+    },
+    {
+      "a": "rc62-pocket-d2",
+      "b": "beduan-socket-v68",
+      "minimum_box_gap_mm": 39.63499999999999
+    },
+    {
+      "a": "rc62-pocket-d3",
+      "b": "rc62-pocket-d4",
+      "minimum_box_gap_mm": 9.050000000000011
+    },
+    {
+      "a": "rc62-pocket-d3",
+      "b": "rc62-pocket-c0",
+      "minimum_box_gap_mm": 42.80000000000001
+    },
+    {
+      "a": "rc62-pocket-d3",
+      "b": "beduan-socket-v70",
+      "minimum_box_gap_mm": 64.69799999999998
+    },
+    {
+      "a": "rc62-pocket-d3",
+      "b": "beduan-socket-v69",
+      "minimum_box_gap_mm": 64.69799999999998
+    },
+    {
+      "a": "rc62-pocket-d3",
+      "b": "beduan-socket-v68",
+      "minimum_box_gap_mm": 84.09641388905949
+    },
+    {
+      "a": "rc62-pocket-d4",
+      "b": "rc62-pocket-c0",
+      "minimum_box_gap_mm": 8.800000000000011
+    },
+    {
+      "a": "rc62-pocket-d4",
+      "b": "beduan-socket-v70",
+      "minimum_box_gap_mm": 67.69736497826187
+    },
+    {
+      "a": "rc62-pocket-d4",
+      "b": "beduan-socket-v69",
+      "minimum_box_gap_mm": 64.75999999999999
+    },
+    {
+      "a": "rc62-pocket-d4",
+      "b": "beduan-socket-v68",
+      "minimum_box_gap_mm": 67.69736497826187
+    },
+    {
+      "a": "rc62-pocket-c0",
+      "b": "beduan-socket-v70",
+      "minimum_box_gap_mm": 83.7828599953475
+    },
+    {
+      "a": "rc62-pocket-c0",
+      "b": "beduan-socket-v69",
+      "minimum_box_gap_mm": 64.49799999999999
+    },
+    {
+      "a": "rc62-pocket-c0",
+      "b": "beduan-socket-v68",
+      "minimum_box_gap_mm": 64.49799999999999
+    },
+    {
+      "a": "beduan-socket-v70",
+      "b": "beduan-socket-v69",
+      "minimum_box_gap_mm": 10.399999999999977
+    },
+    {
+      "a": "beduan-socket-v70",
+      "b": "beduan-socket-v68",
+      "minimum_box_gap_mm": 64.39999999999998
+    },
+    {
+      "a": "beduan-socket-v69",
+      "b": "beduan-socket-v68",
+      "minimum_box_gap_mm": 10.399999999999977
+    }
+  ],
+  "settings": {
+    "wall_loops": "2",
+    "sparse_infill_density": "15%",
+    "filament_flow_ratio": [
+      "0.9555",
+      "1",
+      "1"
+    ],
+    "xy_contour_compensation": "0",
+    "xy_hole_compensation": "0",
+    "wall_sequence": "inner wall/outer wall",
+    "infill_wall_overlap": "15%"
+  },
+  "slicer_computed_settings_differences": {
+    "filament_map_2": {
+      "prepared": null,
+      "native": [
+        "1"
+      ]
+    },
+    "filament_prime_volume": {
+      "prepared": [
+        "30"
+      ],
+      "native": [
+        "45"
+      ]
+    }
+  },
+  "physical_fit_qualified": false,
+  "adhesion_visually_confirmed": false,
+  "scope": "Frozen sample geometry, exact native identities/orientation, deposited fit dimensions and centered bead footprints. Actual cooled insertion forces, first-layer adhesion and retention remain physical observations."
+}

@@ -1,0 +1,456 @@
+{
+  "project": ".cache/prints/2026-10-04-enclosure-front-top-display-strip-h2c-v19/2026-10-04-enclosure-front-top-display-strip-h2c-v19-input.3mf",
+  "settings_source": "hardware/printed-parts/petgf.3mf",
+  "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "settings_sha256": "60e5fb0ffaa67826a4a9bc33aac0c6040999569fa15db3b0e1639c9f3a3e2aa4",
+  "source_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "409b1516f0401361a02b18a34420c10ca83bc33615e8896cade2fea42edee871",
+      "requested_z_trim_mm": 0.18
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.18 Z trim"
+    }
+  },
+  "printer": "H2C",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 15.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "enclosure-front-top",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+      "stl_sha256": "cc2cfd8a490b52439d957aa082b0e4369c5602076740494298b3a954f0ba36ba",
+      "triangles": 529180,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        111.4000015258789,
+        257.5
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        162.5,
+        160.0,
+        97.5
+      ],
+      "plate_translation_mm": [
+        162.5,
+        160.0,
+        97.5
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          55.0,
+          53.599998474121094,
+          0.0
+        ],
+        [
+          270.0,
+          266.4000015258789,
+          195.0
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10,
+      "positive_material_body_count": 1,
+      "connected_closed_shell_components": 2
+    }
+  ],
+  "project_sha256": "710fda6dfef5a589d9b7e8afa0d7a9a68f0f2333eda5bbc1e1c149dbc1a9e9c3",
+  "settings_preserved_byte_for_byte": false,
+  "intentional_overrides": {
+    "support_bottom_z_distance": {
+      "from": "0.3",
+      "to": "0.3"
+    },
+    "support_object_xy_distance": {
+      "from": "0.4",
+      "to": "0.5"
+    },
+    "extruder_ams_count": {
+      "from": [
+        "1#0|4#1",
+        "1#0|4#0"
+      ],
+      "to": [
+        "1#0|4#0",
+        "1#0|4#0"
+      ]
+    },
+    "support_filament": {
+      "from": "0",
+      "to": "1"
+    },
+    "support_interface_filament": {
+      "from": "0",
+      "to": "1"
+    },
+    "flush_into_support": {
+      "from": "1",
+      "to": "0"
+    },
+    "filament_colour": {
+      "from": [
+        "#000000"
+      ],
+      "to": [
+        "#000000"
+      ]
+    }
+  },
+  "layer_ranges_mm": [
+    {
+      "min_z": 187.0,
+      "max_z": 195.0,
+      "layer_height": 0.08,
+      "reason": "Retained complete inward/top roof-side show rounds."
+    }
+  ],
+  "support_painted_facets": {
+    "exterior_roof_side": 33294,
+    "RC62_roof": 2,
+    "display_strip_enforcer": 68
+  },
+  "pause": {
+    "requested_top_z_mm": 36.440000000000005,
+    "pocket_roof_height_mm": 36.179,
+    "pocket_geometry_unchanged": true,
+    "pocket_fit_qualified": false
+  },
+  "solid_host_regions": [
+    {
+      "name": "Y seam socket and complete root +1/282.05",
+      "machine_bounds_mm": [
+        -107.5,
+        -90.5,
+        197.0,
+        217.8,
+        274.15000000000003,
+        355.0
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        -107.499,
+        -90.5,
+        197.0,
+        217.7990030517578,
+        274.15000000000003,
+        354.999
+      ]
+    },
+    {
+      "name": "Y seam socket and complete root -1/291.05",
+      "machine_bounds_mm": [
+        90.5,
+        107.5,
+        197.0,
+        217.8,
+        283.15000000000003,
+        355.0
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        90.5,
+        107.499,
+        197.0,
+        217.7990030517578,
+        283.15000000000003,
+        354.999
+      ]
+    },
+    {
+      "name": "Z rail, end stop and wall root -1",
+      "machine_bounds_mm": [
+        -107.5,
+        -90.0,
+        5.0,
+        200.0,
+        157.0,
+        177.8
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        -107.499,
+        -90.0,
+        5.001,
+        200.0,
+        160.001,
+        177.8
+      ]
+    },
+    {
+      "name": "Z rail, end stop and wall root +1",
+      "machine_bounds_mm": [
+        90.0,
+        107.5,
+        5.0,
+        200.0,
+        157.0,
+        177.8
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        90.0,
+        107.499,
+        5.001,
+        200.0,
+        160.001,
+        177.8
+      ]
+    },
+    {
+      "name": "Both pogo insert hosts, entry steps and blind caps",
+      "machine_bounds_mm": [
+        -15.0,
+        15.0,
+        79.515,
+        93.015,
+        275.7740001,
+        281.2740001
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        -15.0,
+        15.0,
+        79.515,
+        93.015,
+        275.7740001,
+        281.2740001
+      ]
+    }
+  ],
+  "solid_host_region_record_sha256": "84fb2efcb0eb2d9c475cf2c855a6f9d6d140aa5de9fe92a32668404320c8f08e",
+  "requested_z_trim_mm": 0.18,
+  "expected_textured_trim_mm": 0.16,
+  "source_step_sha256": "cb6f4ced20b8bf1ee719298b3e3c193c67e42ecb3aeaac271ccb79049775e007",
+  "source_stl_sha256": "cc2cfd8a490b52439d957aa082b0e4369c5602076740494298b3a954f0ba36ba",
+  "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "support_bottom_z_distance_mm": 0.3,
+  "support_object_xy_distance_mm": 0.5,
+  "support_top_z_distance_mm": 0.45,
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "cc2cfd8a490b52439d957aa082b0e4369c5602076740494298b3a954f0ba36ba",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "cb6f4ced20b8bf1ee719298b3e3c193c67e42ecb3aeaac271ccb79049775e007",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/prepare_prints.py": "2e7044989476ef573792af8bd9f798fd1eb9ce969d9e105c7cbd1a2acb82d7eb",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "020e0ae5ee3dcbe748d5b3ee994ac4975d9d81b8793a1f534a2ad97f7a80595c",
+    "hardware/printed-parts/enclosure/enclosure/_cartridge_retention.py": "a91b59bcf7c54120ee83e82a49d02164d155591c61d6725d702db3bc8b03c62a",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "e7283da22c69147d65418d1518e5b66247f8e7525409713909897fd8ceba2dbf",
+    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json": "84fb2efcb0eb2d9c475cf2c855a6f9d6d140aa5de9fe92a32668404320c8f08e",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/geometry-check.json": "7ffbbfe0cede5d72db75aa2aef1faeeb10cd23bc9a2af49a426f3a39062fc9e6",
+    "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/prepare_front_top.py": "dd9ba6608674f95571b5f8ebba09e057e0358b4eb19141fc576bbf0e9ee716dd",
+    ".cache/prints/2026-10-04-enclosure-front-top-flush-frame-h2c-v18/2026-10-04-enclosure-front-top-flush-frame-h2c-v18-input.3mf": "5723afde9b1ed915f5150d8659dbf128bb61a9e9debc76502940c0960793fe3b",
+    ".cache/prints/2026-10-04-enclosure-front-top-flush-frame-h2c-v18/preparation.json": "01c63754c7282a1c608ba47aeca78ba0bffd2f7d71e00d60cdfc444a1bbd60d9",
+    "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/prepare_display_strip.py": "59e838fcc46936eaf83cd91168cc0fd3c11ae1d64df849903ba9f17c84c05a27"
+  },
+  "production_print_pose_retained": true,
+  "submitted": false,
+  "closed_cavity_validation": {
+    "source_stl_sha256": "cc2cfd8a490b52439d957aa082b0e4369c5602076740494298b3a954f0ba36ba",
+    "watertight": true,
+    "winding_consistent": true,
+    "connected_closed_shell_components": 2,
+    "positive_material_body_count": 1,
+    "enclosed_inward_cavity_count": 1,
+    "cavity_bounds_mm": [
+      [
+        -9.725000381469727,
+        80.71499633789062,
+        176.6490020751953
+      ],
+      [
+        9.725000381469727,
+        84.29000091552734,
+        196.1790008544922
+      ]
+    ],
+    "total_material_volume_mm3": 1198026.7690913863,
+    "outer_volume_mm3": 1199239.5926781036,
+    "cavity_signed_volume_mm3": -1212.8235867174285,
+    "cavity_outside_positive_mm3": 0.0,
+    "manifold_status": "Error.NoError",
+    "scope": "Exactly this frozen front-top: one closed exterior and the fully contained sealed RC62 pocket. No automatic mesh repair or disconnected positive material is accepted."
+  },
+  "writer_validation_scope": {
+    "original_refresh_source_sha256": "32a15cb4384dee2870e8b75732d67f1c46861c979faacd1aa82e1a7ebca8a137",
+    "scoped_refresh_source_sha256": "3c778784f68e219f4668d3e001e83dafbcfc8f2847d899a2b2b9c17a3d2a9015",
+    "replaced_predicate": "mesh.body_count != 1",
+    "replacement": "not one_front_top_material(mesh, source_path)"
+  },
+  "revision": 19,
+  "stem": "2026-10-04-enclosure-front-top-display-strip-h2c-v19",
+  "baseline_project": ".cache/prints/2026-10-04-enclosure-front-top-flush-frame-h2c-v18/2026-10-04-enclosure-front-top-flush-frame-h2c-v18-input.3mf",
+  "baseline_project_sha256": "5723afde9b1ed915f5150d8659dbf128bb61a9e9debc76502940c0960793fe3b",
+  "baseline_preparation_sha256": "01c63754c7282a1c608ba47aeca78ba0bffd2f7d71e00d60cdfc444a1bbd60d9",
+  "changed_project_members": [
+    "3D/Objects/object_1.model"
+  ],
+  "unchanged_project_member_sha256": {
+    "3D/3dmodel.model": "5a538d0595f946f20ae0826db6a3b3e299c5cfa1697d1261e1caa0f15e73076e",
+    "3D/Objects/solid-host-3.model": "5c89eaf802d5fd937bc78d1be68280bf5d4320739b56fb55e872d447ce851bbc",
+    "3D/Objects/solid-host-4.model": "a08aa0d0a1f7c4e98f726ac049ea91ac3783a032c2c7fea6ad72475e740b4cd6",
+    "3D/Objects/solid-host-5.model": "856ea67eb78b9a73e19925ec0827be3dc1f6bb370dbd3231bcb1839cc081de91",
+    "3D/Objects/solid-host-6.model": "189fc67632dcf1fd21bafacde0b94c3b6fe9bcbb96eae8ea2bf94371d71bab3a",
+    "3D/Objects/solid-host-7.model": "9687230c0b0de0d1e79fc7f8420099e91735bb13ace108b1e04d252c6c5826f5",
+    "3D/_rels/3dmodel.model.rels": "f5718bf8e91a3b73f64fd74c523bcf995e2affac54309fbe6663b5b403e81b6f",
+    "Metadata/custom_gcode_per_layer.xml": "69843651cb1d88bb2df81e0e21c4197bd66771a4a53fd208ff75e5c9821eb985",
+    "Metadata/filament_settings_1.config": "b85db92ec8fd2a85a7c576f289a5e2d7605e208c746774ecda90bc24fad0b5d9",
+    "Metadata/layer_config_ranges.xml": "d80926a721d2fe74ea26fbf3e3e34268b1defa235fe75ac0e8574a3dd967b797",
+    "Metadata/model_settings.config": "26cc87f670b86beb3db570668a222ddece6e3207c92ca162a0ac520fa16dacec",
+    "Metadata/project_settings.config": "60e5fb0ffaa67826a4a9bc33aac0c6040999569fa15db3b0e1639c9f3a3e2aa4",
+    "[Content_Types].xml": "6bf55895a798afef551f69e890dad382c7416511cc7793f218e319ac1defdeb8",
+    "_rels/.rels": "37b6cfd6d6a714abcff71667a6e4c471001ae1db4e97e69f0db7e5e3c5ca057c"
+  },
+  "display_strip_support_enforcer": {
+    "native_face_z_mm": 349.25,
+    "machine_xy_bounds_mm": [
+      -96.878444663164,
+      93.158492076719,
+      96.878444663167,
+      95.208492076719
+    ],
+    "painted_triangle_indices": [
+      127237,
+      127238,
+      127239,
+      127240,
+      127241,
+      127242,
+      127243,
+      127244,
+      127245,
+      127246,
+      127247,
+      127248,
+      127249,
+      127250,
+      127251,
+      127252,
+      127253,
+      127254,
+      127255,
+      127256,
+      127257,
+      127258,
+      127259,
+      131728,
+      131729,
+      131730,
+      131731,
+      131732,
+      131733,
+      131734,
+      131735,
+      131736,
+      131737,
+      147730,
+      316249,
+      396203,
+      396204,
+      396205,
+      396206,
+      396207,
+      396208,
+      396209,
+      396210,
+      396211,
+      396212,
+      396213,
+      396214,
+      396215,
+      396216,
+      399143,
+      399144,
+      399145,
+      399146,
+      399147,
+      399148,
+      399149,
+      399150,
+      399151,
+      399152,
+      399153,
+      399154,
+      399155,
+      399156,
+      399157,
+      399158,
+      399159,
+      399160,
+      399161
+    ],
+    "painted_triangle_count": 68,
+    "painted_area_mm2": 391.355229627468,
+    "native_paint_value": "4",
+    "existing_blocker_count_retained": 33296,
+    "scope": "Only the downward display-strip underside. No vertices, triangle indices or other facet attributes change.",
+    "serialization_source": "https://github.com/bambulab/BambuStudio/blob/v02.08.02.61/src/libslic3r/TriangleSelector.cpp"
+  },
+  "geometry_exports_changed": false,
+  "source_pose_bands_settings_modifiers_and_pause_unchanged": true,
+  "launch_state": "awaiting_full_bead_backing_and_support_access_review"
+}

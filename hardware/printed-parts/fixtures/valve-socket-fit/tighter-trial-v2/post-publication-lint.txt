@@ -1,0 +1,69 @@
+beduan-socket-v72.stl · 18094 printed facets · 0 findings · 2 answered
+
+  [step · answered] Raised socket-diameter legend: the glyph top is 0.72 mm above the rear label foot so each fit sample can be identified. It prints upward in three ordinary layers.
+    Δ0.720 mm between parallel planes · footprint met 2.9 × 1.9 mm
+    faceA: plane · n x=0.000 y=0.000 z=1.000 · thru x=0.000 y=-7.500 z=1.400
+    faceB: plane · n x=0.000 y=0.000 z=1.000 · thru x=2.766 y=-7.408 z=2.120
+    click: x=3.312 y=-7.476 z=2.120
+
+  [sliver · answered] The 1.4 mm rear label foot prints flat on the bed and extends the standing panel's bed contact. Its complete bottom face is supported during printing.
+    1.400 mm strip, 43.6 mm long
+    face: plane · n x=0.000 y=-1.000 z=0.000 · thru x=0.000 y=-11.000 z=0.700
+    edge: x=21.800 y=-11.000 z=0.700 → x=-21.800 y=-11.000 z=0.700 · len 43.600 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=0.000 y=-11.000 z=0.700
+
+beduan-socket-v71.stl · 13064 printed facets · 0 findings · 2 answered
+
+  [step · answered] Raised socket-diameter legend: the glyph top is 0.72 mm above the rear label foot so each fit sample can be identified. It prints upward in three ordinary layers.
+    Δ0.720 mm between parallel planes · footprint met 2.9 × 1.9 mm
+    faceA: plane · n x=0.000 y=0.000 z=1.000 · thru x=0.000 y=-7.500 z=1.400
+    faceB: plane · n x=0.000 y=0.000 z=1.000 · thru x=2.766 y=-7.408 z=2.120
+    click: x=3.312 y=-7.476 z=2.120
+
+  [sliver · answered] The 1.4 mm rear label foot prints flat on the bed and extends the standing panel's bed contact. Its complete bottom face is supported during printing.
+    1.400 mm strip, 43.6 mm long
+    face: plane · n x=0.000 y=-1.000 z=0.000 · thru x=0.000 y=-11.000 z=0.700
+    edge: x=21.800 y=-11.000 z=0.700 → x=-21.800 y=-11.000 z=0.700 · len 43.600 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=0.000 y=-11.000 z=0.700
+
+beduan-socket-v70.stl · 21092 printed facets · 0 findings · 2 answered
+
+  [step · answered] Raised socket-diameter legend: the glyph top is 0.72 mm above the rear label foot so each fit sample can be identified. It prints upward in three ordinary layers.
+    Δ0.720 mm between parallel planes · footprint met 2.9 × 1.9 mm
+    faceA: plane · n x=0.000 y=0.000 z=1.000 · thru x=0.000 y=-7.500 z=1.400
+    faceB: plane · n x=0.000 y=0.000 z=1.000 · thru x=2.766 y=-7.408 z=2.120
+    click: x=3.312 y=-7.476 z=2.120
+
+  [sliver · answered] The 1.4 mm rear label foot prints flat on the bed and extends the standing panel's bed contact. Its complete bottom face is supported during printing.
+    1.400 mm strip, 43.6 mm long
+    face: plane · n x=0.000 y=-1.000 z=0.000 · thru x=0.000 y=-11.000 z=0.700
+    edge: x=21.800 y=-11.000 z=0.700 → x=-21.800 y=-11.000 z=0.700 · len 43.600 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=0.000 y=-11.000 z=0.700
+
+beduan-socket-v69.stl · 37948 printed facets · 0 findings · 2 answered
+
+  [step · answered] Raised socket-diameter legend: the glyph top is 0.72 mm above the rear label foot so each fit sample can be identified. It prints upward in three ordinary layers.
+    Δ0.720 mm between parallel planes · footprint met 2.9 × 1.9 mm
+    faceA: plane · n x=0.000 y=0.000 z=1.000 · thru x=0.000 y=-7.500 z=1.400
+    faceB: plane · n x=0.000 y=0.000 z=1.000 · thru x=0.526 y=-7.409 z=2.120
+    click: x=0.562 y=-7.574 z=2.120
+
+  [sliver · answered] The 1.4 mm rear label foot prints flat on the bed and extends the standing panel's bed contact. Its complete bottom face is supported during printing.
+    1.400 mm strip, 43.6 mm long
+    face: plane · n x=0.000 y=-1.000 z=0.000 · thru x=0.000 y=-11.000 z=0.700
+    edge: x=21.800 y=-11.000 z=0.700 → x=-21.800 y=-11.000 z=0.700 · len 43.600 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=0.000 y=-11.000 z=0.700
+
+beduan-socket-v68.stl · 43454 printed facets · 0 findings · 2 answered
+
+  [step · answered] Raised socket-diameter legend: the glyph top is 0.72 mm above the rear label foot so each fit sample can be identified. It prints upward in three ordinary layers.
+    Δ0.720 mm between parallel planes · footprint met 2.9 × 1.9 mm
+    faceA: plane · n x=0.000 y=0.000 z=1.000 · thru x=0.000 y=-7.500 z=1.400
+    faceB: plane · n x=0.000 y=0.000 z=1.000 · thru x=0.547 y=-7.409 z=2.120
+    click: x=0.547 y=-7.409 z=2.120
+
+  [sliver · answered] The 1.4 mm rear label foot prints flat on the bed and extends the standing panel's bed contact. Its complete bottom face is supported during printing.
+    1.400 mm strip, 43.6 mm long
+    face: plane · n x=0.000 y=-1.000 z=0.000 · thru x=0.000 y=-11.000 z=0.700
+    edge: x=21.800 y=-11.000 z=0.700 → x=-21.800 y=-11.000 z=0.700 · len 43.600 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=0.000 y=-11.000 z=0.700

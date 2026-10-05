@@ -1,0 +1,941 @@
+{
+  "schema": 1,
+  "printer": "Mark2",
+  "object_count": 12,
+  "preparation_sha256": "657a636fbd918fa74362ad888d5396c3761a021b9215793ffa4ea2511e7cb716",
+  "native_record_sha256": "39c6125bf7bc1f2a534812bbebbdf3d36a14e354cce13b0f09e12f6ee9d7531f",
+  "archive": ".cache/prints/2026-10-04-centered-rc62-valve-mark2-v4/ready/2026-10-04-centered-rc62-valve-mark2-v4.gcode.3mf",
+  "archive_sha256": "b2b407d87a82a09ce364d84d21626274ba74c7e19c15f68f0ab7a168a02ed8a1",
+  "project": ".cache/prints/2026-10-04-centered-rc62-valve-mark2-v4/2026-10-04-centered-rc62-valve-mark2-v4-input.3mf",
+  "project_sha256": "d76392a304804b9a52876d8f137971662b37cbef8a9d464e5b09303db6b09bfe",
+  "gcode_sha256": "540f8390287ed2a273beb8b1ddaaa5d6fb18831d04e31edcfb1f8c40bc91d1f0",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "required_minimum_bead_edge_margin_mm": 60.0,
+  "full_plate_bead_bounds_xy_mm": [
+    [
+      86.7,
+      112.256
+    ],
+    [
+      238.3,
+      207.744
+    ]
+  ],
+  "full_plate_envelope_center_mm": [
+    162.5,
+    160.0
+  ],
+  "usable_bed_center_mm": [
+    162.5,
+    160.0
+  ],
+  "minimum_bead_edge_margin_mm": 86.69999999999999,
+  "closest_full_bead_envelopes": {
+    "a": "rc62-pocket-a1",
+    "b": "rc62-pocket-a2",
+    "full_bead_envelope_gap_mm": 8.649999999999977
+  },
+  "fixed_left_extrusion_tool_counts": {
+    "0": 98890
+  },
+  "invalid_paths": [],
+  "parts": [
+    {
+      "name": "rc62-pocket-a1",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-a1.stl",
+      "source_stl_sha256": "191657b4afa4828665b966f58e0c514ff243a91a8273dc859cea5f2e52bd3db8",
+      "full_bead_bounds_xy_mm": [
+        [
+          115.825,
+          143.031
+        ],
+        [
+          141.175,
+          157.681
+        ]
+      ],
+      "edge_margins_mm": {
+        "left_mm": 115.825,
+        "right_mm": 183.825,
+        "front_mm": 143.031,
+        "rear_mm": 162.319
+      },
+      "minimum_edge_margin_mm": 115.825,
+      "first_two_layers": [
+        {
+          "top_z_mm": 0.2,
+          "height_mm": 0.2
+        },
+        {
+          "top_z_mm": 0.44,
+          "height_mm": 0.24
+        }
+      ],
+      "first_layer_raw_components": 1,
+      "first_layer_components_at_2um_roundoff": 1,
+      "first_layer_printed_area_mm2": 370.1520395899172,
+      "min_second_layer_overlap_fraction": 0.8297608284438776,
+      "min_second_layer_outer_wall_overlap_fraction": 0.9987073502032167,
+      "weakest_second_layer_road": {
+        "line": 5539,
+        "feature": "Internal solid infill",
+        "overlap_fraction": 0.8297608284438776
+      },
+      "model_layers": 84,
+      "support_roads": 0,
+      "pass": true
+    },
+    {
+      "name": "rc62-pocket-a2",
+      "identify_id": 1902,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-a2.stl",
+      "source_stl_sha256": "57d8df2108c36993714263e4ec5d347e4c75af1f29c30929ed98c76bbabc34a6",
+      "full_bead_bounds_xy_mm": [
+        [
+          149.825,
+          143.106
+        ],
+        [
+          175.175,
+          157.606
+        ]
+      ],
+      "edge_margins_mm": {
+        "left_mm": 149.825,
+        "right_mm": 149.825,
+        "front_mm": 143.106,
+        "rear_mm": 162.394
+      },
+      "minimum_edge_margin_mm": 143.106,
+      "first_two_layers": [
+        {
+          "top_z_mm": 0.2,
+          "height_mm": 0.2
+        },
+        {
+          "top_z_mm": 0.44,
+          "height_mm": 0.24
+        }
+      ],
+      "first_layer_raw_components": 1,
+      "first_layer_components_at_2um_roundoff": 1,
+      "first_layer_printed_area_mm2": 366.37379806281075,
+      "min_second_layer_overlap_fraction": 0.7875653835503488,
+      "min_second_layer_outer_wall_overlap_fraction": 0.9986938938268716,
+      "weakest_second_layer_road": {
+        "line": 4663,
+        "feature": "Internal solid infill",
+        "overlap_fraction": 0.7875653835503488
+      },
+      "model_layers": 84,
+      "support_roads": 0,
+      "pass": true
+    },
+    {
+      "name": "rc62-pocket-a3",
+      "identify_id": 1903,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-a3.stl",
+      "source_stl_sha256": "98e27d41d35c81b6710aed64cf85e43cc4d162297744da481e69a70ebbc5c22c",
+      "full_bead_bounds_xy_mm": [
+        [
+          183.825,
+          143.16899999999998
+        ],
+        [
+          209.175,
+          157.544
+        ]
+      ],
+      "edge_margins_mm": {
+        "left_mm": 183.825,
+        "right_mm": 115.82499999999999,
+        "front_mm": 143.16899999999998,
+        "rear_mm": 162.456
+      },
+      "minimum_edge_margin_mm": 115.82499999999999,
+      "first_two_layers": [
+        {
+          "top_z_mm": 0.2,
+          "height_mm": 0.2
+        },
+        {
+          "top_z_mm": 0.44,
+          "height_mm": 0.24
+        }
+      ],
+      "first_layer_raw_components": 1,
+      "first_layer_components_at_2um_roundoff": 1,
+      "first_layer_printed_area_mm2": 363.2077813709607,
+      "min_second_layer_overlap_fraction": 0.8252321179580707,
+      "min_second_layer_outer_wall_overlap_fraction": 0.9986824642964081,
+      "weakest_second_layer_road": {
+        "line": 3866,
+        "feature": "Internal solid infill",
+        "overlap_fraction": 0.8252321179580707
+      },
+      "model_layers": 84,
+      "support_roads": 0,
+      "pass": true
+    },
+    {
+      "name": "rc62-pocket-a4",
+      "identify_id": 1904,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-a4.stl",
+      "source_stl_sha256": "a4fc21f527d148e9df03c035e4ccc58db9689f62120ba777587e4156083fdf54",
+      "full_bead_bounds_xy_mm": [
+        [
+          115.825,
+          168.231
+        ],
+        [
+          141.175,
+          182.481
+        ]
+      ],
+      "edge_margins_mm": {
+        "left_mm": 115.825,
+        "right_mm": 183.825,
+        "front_mm": 168.231,
+        "rear_mm": 137.519
+      },
+      "minimum_edge_margin_mm": 115.825,
+      "first_two_layers": [
+        {
+          "top_z_mm": 0.2,
+          "height_mm": 0.2
+        },
+        {
+          "top_z_mm": 0.44,
+          "height_mm": 0.24
+        }
+      ],
+      "first_layer_raw_components": 1,
+      "first_layer_components_at_2um_roundoff": 1,
+      "first_layer_printed_area_mm2": 359.97942634441904,
+      "min_second_layer_overlap_fraction": 0.8157994997752819,
+      "min_second_layer_outer_wall_overlap_fraction": 0.9986708329639483,
+      "weakest_second_layer_road": {
+        "line": 5352,
+        "feature": "Internal solid infill",
+        "overlap_fraction": 0.8157994997752819
+      },
+      "model_layers": 84,
+      "support_roads": 0,
+      "pass": true
+    },
+    {
+      "name": "rc62-pocket-b1",
+      "identify_id": 1905,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-b1.stl",
+      "source_stl_sha256": "79cf207a6191fa0a560f6d22e95ba9d692fbcf4de16b6dd672243644ac9d4347",
+      "full_bead_bounds_xy_mm": [
+        [
+          149.92499999999998,
+          168.031
+        ],
+        [
+          175.07500000000002,
+          182.681
+        ]
+      ],
+      "edge_margins_mm": {
+        "left_mm": 149.92499999999998,
+        "right_mm": 149.92499999999998,
+        "front_mm": 168.031,
+        "rear_mm": 137.319
+      },
+      "minimum_edge_margin_mm": 137.319,
+      "first_two_layers": [
+        {
+          "top_z_mm": 0.2,
+          "height_mm": 0.2
+        },
+        {
+          "top_z_mm": 0.44,
+          "height_mm": 0.24
+        }
+      ],
+      "first_layer_raw_components": 1,
+      "first_layer_components_at_2um_roundoff": 1,
+      "first_layer_printed_area_mm2": 367.2208884797883,
+      "min_second_layer_overlap_fraction": 0.7532476608647003,
+      "min_second_layer_outer_wall_overlap_fraction": 0.9987073502031487,
+      "weakest_second_layer_road": {
+        "line": 4845,
+        "feature": "Internal solid infill",
+        "overlap_fraction": 0.7532476608647003
+      },
+      "model_layers": 84,
+      "support_roads": 0,
+      "pass": true
+    },
+    {
+      "name": "rc62-pocket-b2",
+      "identify_id": 1906,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-b2.stl",
+      "source_stl_sha256": "8ae80e0313d64f7eeb7b4ce6aa50167f6213355eaf47769b0eb1a70ab77bd997",
+      "full_bead_bounds_xy_mm": [
+        [
+          183.92499999999998,
+          168.106
+        ],
+        [
+          209.07500000000002,
+          182.606
+        ]
+      ],
+      "edge_margins_mm": {
+        "left_mm": 183.92499999999998,
+        "right_mm": 115.92499999999998,
+        "front_mm": 168.106,
+        "rear_mm": 137.394
+      },
+      "minimum_edge_margin_mm": 115.92499999999998,
+      "first_two_layers": [
+        {
+          "top_z_mm": 0.2,
+          "height_mm": 0.2
+        },
+        {
+          "top_z_mm": 0.44,
+          "height_mm": 0.24
+        }
+      ],
+      "first_layer_raw_components": 1,
+      "first_layer_components_at_2um_roundoff": 1,
+      "first_layer_printed_area_mm2": 363.47631727996463,
+      "min_second_layer_overlap_fraction": 0.7607351861194233,
+      "min_second_layer_outer_wall_overlap_fraction": 0.9986938938268033,
+      "weakest_second_layer_road": {
+        "line": 3683,
+        "feature": "Internal solid infill",
+        "overlap_fraction": 0.7607351861194233
+      },
+      "model_layers": 84,
+      "support_roads": 0,
+      "pass": true
+    },
+    {
+      "name": "rc62-pocket-b3",
+      "identify_id": 1907,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-b3.stl",
+      "source_stl_sha256": "845c2c3c82e0445335da61e0525e0e70be9b15ce429af778ef573d33b60b655e",
+      "full_bead_bounds_xy_mm": [
+        [
+          115.925,
+          193.16899999999998
+        ],
+        [
+          141.07500000000002,
+          207.544
+        ]
+      ],
+      "edge_margins_mm": {
+        "left_mm": 115.925,
+        "right_mm": 183.92499999999998,
+        "front_mm": 193.16899999999998,
+        "rear_mm": 112.45599999999999
+      },
+      "minimum_edge_margin_mm": 112.45599999999999,
+      "first_two_layers": [
+        {
+          "top_z_mm": 0.2,
+          "height_mm": 0.2
+        },
+        {
+          "top_z_mm": 0.44,
+          "height_mm": 0.24
+        }
+      ],
+      "first_layer_raw_components": 1,
+      "first_layer_components_at_2um_roundoff": 1,
+      "first_layer_printed_area_mm2": 360.3169622800092,
+      "min_second_layer_overlap_fraction": 0.792467948980928,
+      "min_second_layer_outer_wall_overlap_fraction": 0.9986824642964088,
+      "weakest_second_layer_road": {
+        "line": 5211,
+        "feature": "Internal solid infill",
+        "overlap_fraction": 0.792467948980928
+      },
+      "model_layers": 84,
+      "support_roads": 0,
+      "pass": true
+    },
+    {
+      "name": "rc62-pocket-b4",
+      "identify_id": 1908,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-b4.stl",
+      "source_stl_sha256": "6daff650b1c54249572c9512f4ce698e104919df7f971c389218204f9444721c",
+      "full_bead_bounds_xy_mm": [
+        [
+          149.92499999999998,
+          193.231
+        ],
+        [
+          175.07500000000002,
+          207.481
+        ]
+      ],
+      "edge_margins_mm": {
+        "left_mm": 149.92499999999998,
+        "right_mm": 149.92499999999998,
+        "front_mm": 193.231,
+        "rear_mm": 112.519
+      },
+      "minimum_edge_margin_mm": 112.519,
+      "first_two_layers": [
+        {
+          "top_z_mm": 0.2,
+          "height_mm": 0.2
+        },
+        {
+          "top_z_mm": 0.44,
+          "height_mm": 0.24
+        }
+      ],
+      "first_layer_raw_components": 1,
+      "first_layer_components_at_2um_roundoff": 1,
+      "first_layer_printed_area_mm2": 357.1498969164388,
+      "min_second_layer_overlap_fraction": 0.7640787871709936,
+      "min_second_layer_outer_wall_overlap_fraction": 0.99867083296388,
+      "weakest_second_layer_road": {
+        "line": 4987,
+        "feature": "Internal solid infill",
+        "overlap_fraction": 0.7640787871709936
+      },
+      "model_layers": 84,
+      "support_roads": 0,
+      "pass": true
+    },
+    {
+      "name": "rc62-pocket-c0",
+      "identify_id": 1909,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-c0.stl",
+      "source_stl_sha256": "bab4710828206eef7a5f9de4495cc9adc6d5b866eeefc18839ae892912d3f614",
+      "full_bead_bounds_xy_mm": [
+        [
+          183.775,
+          192.969
+        ],
+        [
+          209.225,
+          207.744
+        ]
+      ],
+      "edge_margins_mm": {
+        "left_mm": 183.775,
+        "right_mm": 115.775,
+        "front_mm": 192.969,
+        "rear_mm": 112.256
+      },
+      "minimum_edge_margin_mm": 112.256,
+      "first_two_layers": [
+        {
+          "top_z_mm": 0.2,
+          "height_mm": 0.2
+        },
+        {
+          "top_z_mm": 0.44,
+          "height_mm": 0.24
+        }
+      ],
+      "first_layer_raw_components": 1,
+      "first_layer_components_at_2um_roundoff": 1,
+      "first_layer_printed_area_mm2": 374.78311838227313,
+      "min_second_layer_overlap_fraction": 0.8272693436911787,
+      "min_second_layer_outer_wall_overlap_fraction": 0.99871835384731,
+      "weakest_second_layer_road": {
+        "line": 3498,
+        "feature": "Internal solid infill",
+        "overlap_fraction": 0.8272693436911787
+      },
+      "model_layers": 84,
+      "support_roads": 0,
+      "pass": true
+    },
+    {
+      "name": "beduan-socket-v72",
+      "identify_id": 1910,
+      "source": "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v72.stl",
+      "source_stl_sha256": "607d75723a8370deac99cf5aa80ff25bf5e5b6a974be63a2e73e9bcdaab92cfe",
+      "full_bead_bounds_xy_mm": [
+        [
+          86.7,
+          112.256
+        ],
+        [
+          130.3,
+          128.471
+        ]
+      ],
+      "edge_margins_mm": {
+        "left_mm": 86.7,
+        "right_mm": 194.7,
+        "front_mm": 112.256,
+        "rear_mm": 191.529
+      },
+      "minimum_edge_margin_mm": 86.7,
+      "first_two_layers": [
+        {
+          "top_z_mm": 0.2,
+          "height_mm": 0.2
+        },
+        {
+          "top_z_mm": 0.44,
+          "height_mm": 0.24
+        }
+      ],
+      "first_layer_raw_components": 1,
+      "first_layer_components_at_2um_roundoff": 1,
+      "first_layer_printed_area_mm2": 680.4411561918258,
+      "min_second_layer_overlap_fraction": 0.6577195169696466,
+      "min_second_layer_outer_wall_overlap_fraction": 0.9930742874499207,
+      "weakest_second_layer_road": {
+        "line": 5869,
+        "feature": "Internal solid infill",
+        "overlap_fraction": 0.6577195169696466
+      },
+      "model_layers": 184,
+      "support_roads": 0,
+      "pass": true
+    },
+    {
+      "name": "beduan-socket-v71",
+      "identify_id": 1911,
+      "source": "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v71.stl",
+      "source_stl_sha256": "042303cd3c5d71d48bbcc820788345d5cd15dd08cd57de60f90c8e819af6442e",
+      "full_bead_bounds_xy_mm": [
+        [
+          140.7,
+          112.256
+        ],
+        [
+          184.3,
+          128.471
+        ]
+      ],
+      "edge_margins_mm": {
+        "left_mm": 140.7,
+        "right_mm": 140.7,
+        "front_mm": 112.256,
+        "rear_mm": 191.529
+      },
+      "minimum_edge_margin_mm": 112.256,
+      "first_two_layers": [
+        {
+          "top_z_mm": 0.2,
+          "height_mm": 0.2
+        },
+        {
+          "top_z_mm": 0.44,
+          "height_mm": 0.24
+        }
+      ],
+      "first_layer_raw_components": 1,
+      "first_layer_components_at_2um_roundoff": 1,
+      "first_layer_printed_area_mm2": 680.4414227604053,
+      "min_second_layer_overlap_fraction": 0.6577195169696148,
+      "min_second_layer_outer_wall_overlap_fraction": 0.993074287449915,
+      "weakest_second_layer_road": {
+        "line": 4466,
+        "feature": "Internal solid infill",
+        "overlap_fraction": 0.6577195169696148
+      },
+      "model_layers": 184,
+      "support_roads": 0,
+      "pass": true
+    },
+    {
+      "name": "beduan-socket-v70",
+      "identify_id": 1912,
+      "source": "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v70.stl",
+      "source_stl_sha256": "ce4469a1d590cc26ed603aac6530a5d64be8fe45964ffcfc1f3b5f108e494cf8",
+      "full_bead_bounds_xy_mm": [
+        [
+          194.7,
+          112.256
+        ],
+        [
+          238.3,
+          128.471
+        ]
+      ],
+      "edge_margins_mm": {
+        "left_mm": 194.7,
+        "right_mm": 86.69999999999999,
+        "front_mm": 112.256,
+        "rear_mm": 191.529
+      },
+      "minimum_edge_margin_mm": 86.69999999999999,
+      "first_two_layers": [
+        {
+          "top_z_mm": 0.2,
+          "height_mm": 0.2
+        },
+        {
+          "top_z_mm": 0.44,
+          "height_mm": 0.24
+        }
+      ],
+      "first_layer_raw_components": 1,
+      "first_layer_components_at_2um_roundoff": 1,
+      "first_layer_printed_area_mm2": 680.4408796778147,
+      "min_second_layer_overlap_fraction": 0.6577195169696148,
+      "min_second_layer_outer_wall_overlap_fraction": 0.993074287449915,
+      "weakest_second_layer_road": {
+        "line": 4160,
+        "feature": "Internal solid infill",
+        "overlap_fraction": 0.6577195169696148
+      },
+      "model_layers": 184,
+      "support_roads": 0,
+      "pass": true
+    }
+  ],
+  "pair_envelope_gaps": [
+    {
+      "a": "rc62-pocket-a1",
+      "b": "rc62-pocket-a2",
+      "full_bead_envelope_gap_mm": 8.649999999999977
+    },
+    {
+      "a": "rc62-pocket-a1",
+      "b": "rc62-pocket-a3",
+      "full_bead_envelope_gap_mm": 42.64999999999997
+    },
+    {
+      "a": "rc62-pocket-a1",
+      "b": "rc62-pocket-a4",
+      "full_bead_envelope_gap_mm": 10.549999999999983
+    },
+    {
+      "a": "rc62-pocket-a1",
+      "b": "rc62-pocket-b1",
+      "full_bead_envelope_gap_mm": 13.55304393854013
+    },
+    {
+      "a": "rc62-pocket-a1",
+      "b": "rc62-pocket-b2",
+      "full_bead_envelope_gap_mm": 44.00276269735796
+    },
+    {
+      "a": "rc62-pocket-a1",
+      "b": "rc62-pocket-b3",
+      "full_bead_envelope_gap_mm": 35.48799999999997
+    },
+    {
+      "a": "rc62-pocket-a1",
+      "b": "rc62-pocket-b4",
+      "full_bead_envelope_gap_mm": 36.610995616071385
+    },
+    {
+      "a": "rc62-pocket-a1",
+      "b": "rc62-pocket-c0",
+      "full_bead_envelope_gap_mm": 55.31729335388707
+    },
+    {
+      "a": "rc62-pocket-a1",
+      "b": "beduan-socket-v72",
+      "full_bead_envelope_gap_mm": 14.560000000000004
+    },
+    {
+      "a": "rc62-pocket-a1",
+      "b": "beduan-socket-v71",
+      "full_bead_envelope_gap_mm": 14.560000000000004
+    },
+    {
+      "a": "rc62-pocket-a1",
+      "b": "beduan-socket-v70",
+      "full_bead_envelope_gap_mm": 55.46998490174662
+    },
+    {
+      "a": "rc62-pocket-a2",
+      "b": "rc62-pocket-a3",
+      "full_bead_envelope_gap_mm": 8.649999999999977
+    },
+    {
+      "a": "rc62-pocket-a2",
+      "b": "rc62-pocket-a4",
+      "full_bead_envelope_gap_mm": 13.70084395210746
+    },
+    {
+      "a": "rc62-pocket-a2",
+      "b": "rc62-pocket-b1",
+      "full_bead_envelope_gap_mm": 10.425000000000011
+    },
+    {
+      "a": "rc62-pocket-a2",
+      "b": "rc62-pocket-b2",
+      "full_bead_envelope_gap_mm": 13.667936932836627
+    },
+    {
+      "a": "rc62-pocket-a2",
+      "b": "rc62-pocket-b3",
+      "full_bead_envelope_gap_mm": 36.623619004680556
+    },
+    {
+      "a": "rc62-pocket-a2",
+      "b": "rc62-pocket-b4",
+      "full_bead_envelope_gap_mm": 35.625
+    },
+    {
+      "a": "rc62-pocket-a2",
+      "b": "rc62-pocket-c0",
+      "full_bead_envelope_gap_mm": 36.393705073817365
+    },
+    {
+      "a": "rc62-pocket-a2",
+      "b": "beduan-socket-v72",
+      "full_bead_envelope_gap_mm": 24.401001004057168
+    },
+    {
+      "a": "rc62-pocket-a2",
+      "b": "beduan-socket-v71",
+      "full_bead_envelope_gap_mm": 14.63499999999999
+    },
+    {
+      "a": "rc62-pocket-a2",
+      "b": "beduan-socket-v70",
+      "full_bead_envelope_gap_mm": 24.401001004057168
+    },
+    {
+      "a": "rc62-pocket-a3",
+      "b": "rc62-pocket-a4",
+      "full_bead_envelope_gap_mm": 43.96856228033841
+    },
+    {
+      "a": "rc62-pocket-a3",
+      "b": "rc62-pocket-b1",
+      "full_bead_envelope_gap_mm": 13.657952591805236
+    },
+    {
+      "a": "rc62-pocket-a3",
+      "b": "rc62-pocket-b2",
+      "full_bead_envelope_gap_mm": 10.561999999999983
+    },
+    {
+      "a": "rc62-pocket-a3",
+      "b": "rc62-pocket-b3",
+      "full_bead_envelope_gap_mm": 55.64802894083487
+    },
+    {
+      "a": "rc62-pocket-a3",
+      "b": "rc62-pocket-b4",
+      "full_bead_envelope_gap_mm": 36.74403991125633
+    },
+    {
+      "a": "rc62-pocket-a3",
+      "b": "rc62-pocket-c0",
+      "full_bead_envelope_gap_mm": 35.42499999999998
+    },
+    {
+      "a": "rc62-pocket-a3",
+      "b": "beduan-socket-v72",
+      "full_bead_envelope_gap_mm": 55.506367463562206
+    },
+    {
+      "a": "rc62-pocket-a3",
+      "b": "beduan-socket-v71",
+      "full_bead_envelope_gap_mm": 14.697999999999979
+    },
+    {
+      "a": "rc62-pocket-a3",
+      "b": "beduan-socket-v70",
+      "full_bead_envelope_gap_mm": 14.697999999999979
+    },
+    {
+      "a": "rc62-pocket-a4",
+      "b": "rc62-pocket-b1",
+      "full_bead_envelope_gap_mm": 8.749999999999972
+    },
+    {
+      "a": "rc62-pocket-a4",
+      "b": "rc62-pocket-b2",
+      "full_bead_envelope_gap_mm": 42.74999999999997
+    },
+    {
+      "a": "rc62-pocket-a4",
+      "b": "rc62-pocket-b3",
+      "full_bead_envelope_gap_mm": 10.687999999999988
+    },
+    {
+      "a": "rc62-pocket-a4",
+      "b": "rc62-pocket-b4",
+      "full_bead_envelope_gap_mm": 13.860916275629092
+    },
+    {
+      "a": "rc62-pocket-a4",
+      "b": "rc62-pocket-c0",
+      "full_bead_envelope_gap_mm": 43.872065645465106
+    },
+    {
+      "a": "rc62-pocket-a4",
+      "b": "beduan-socket-v72",
+      "full_bead_envelope_gap_mm": 39.75999999999999
+    },
+    {
+      "a": "rc62-pocket-a4",
+      "b": "beduan-socket-v71",
+      "full_bead_envelope_gap_mm": 39.759999999999984
+    },
+    {
+      "a": "rc62-pocket-a4",
+      "b": "beduan-socket-v70",
+      "full_bead_envelope_gap_mm": 66.67670676480654
+    },
+    {
+      "a": "rc62-pocket-b1",
+      "b": "rc62-pocket-b2",
+      "full_bead_envelope_gap_mm": 8.849999999999966
+    },
+    {
+      "a": "rc62-pocket-b1",
+      "b": "rc62-pocket-b3",
+      "full_bead_envelope_gap_mm": 13.722996903009152
+    },
+    {
+      "a": "rc62-pocket-b1",
+      "b": "rc62-pocket-b4",
+      "full_bead_envelope_gap_mm": 10.549999999999983
+    },
+    {
+      "a": "rc62-pocket-b1",
+      "b": "rc62-pocket-c0",
+      "full_bead_envelope_gap_mm": 13.473416196347511
+    },
+    {
+      "a": "rc62-pocket-b1",
+      "b": "beduan-socket-v72",
+      "full_bead_envelope_gap_mm": 44.160324104336
+    },
+    {
+      "a": "rc62-pocket-b1",
+      "b": "beduan-socket-v71",
+      "full_bead_envelope_gap_mm": 39.559999999999995
+    },
+    {
+      "a": "rc62-pocket-b1",
+      "b": "beduan-socket-v70",
+      "full_bead_envelope_gap_mm": 44.160324104336
+    },
+    {
+      "a": "rc62-pocket-b2",
+      "b": "rc62-pocket-b3",
+      "full_bead_envelope_gap_mm": 44.13274826022052
+    },
+    {
+      "a": "rc62-pocket-b2",
+      "b": "rc62-pocket-b4",
+      "full_bead_envelope_gap_mm": 13.82798340322982
+    },
+    {
+      "a": "rc62-pocket-b2",
+      "b": "rc62-pocket-c0",
+      "full_bead_envelope_gap_mm": 10.363
+    },
+    {
+      "a": "rc62-pocket-b2",
+      "b": "beduan-socket-v72",
+      "full_bead_envelope_gap_mm": 66.68263529585492
+    },
+    {
+      "a": "rc62-pocket-b2",
+      "b": "beduan-socket-v71",
+      "full_bead_envelope_gap_mm": 39.63499999999999
+    },
+    {
+      "a": "rc62-pocket-b2",
+      "b": "beduan-socket-v70",
+      "full_bead_envelope_gap_mm": 39.63499999999999
+    },
+    {
+      "a": "rc62-pocket-b3",
+      "b": "rc62-pocket-b4",
+      "full_bead_envelope_gap_mm": 8.849999999999966
+    },
+    {
+      "a": "rc62-pocket-b3",
+      "b": "rc62-pocket-c0",
+      "full_bead_envelope_gap_mm": 42.69999999999998
+    },
+    {
+      "a": "rc62-pocket-b3",
+      "b": "beduan-socket-v72",
+      "full_bead_envelope_gap_mm": 64.69799999999998
+    },
+    {
+      "a": "rc62-pocket-b3",
+      "b": "beduan-socket-v71",
+      "full_bead_envelope_gap_mm": 64.69799999999998
+    },
+    {
+      "a": "rc62-pocket-b3",
+      "b": "beduan-socket-v70",
+      "full_bead_envelope_gap_mm": 84.03256409868733
+    },
+    {
+      "a": "rc62-pocket-b4",
+      "b": "rc62-pocket-c0",
+      "full_bead_envelope_gap_mm": 8.699999999999989
+    },
+    {
+      "a": "rc62-pocket-b4",
+      "b": "beduan-socket-v72",
+      "full_bead_envelope_gap_mm": 67.6682955674221
+    },
+    {
+      "a": "rc62-pocket-b4",
+      "b": "beduan-socket-v71",
+      "full_bead_envelope_gap_mm": 64.75999999999999
+    },
+    {
+      "a": "rc62-pocket-b4",
+      "b": "beduan-socket-v70",
+      "full_bead_envelope_gap_mm": 67.6682955674221
+    },
+    {
+      "a": "rc62-pocket-c0",
+      "b": "beduan-socket-v72",
+      "full_bead_envelope_gap_mm": 83.7828599953475
+    },
+    {
+      "a": "rc62-pocket-c0",
+      "b": "beduan-socket-v71",
+      "full_bead_envelope_gap_mm": 64.49799999999999
+    },
+    {
+      "a": "rc62-pocket-c0",
+      "b": "beduan-socket-v70",
+      "full_bead_envelope_gap_mm": 64.49799999999999
+    },
+    {
+      "a": "beduan-socket-v72",
+      "b": "beduan-socket-v71",
+      "full_bead_envelope_gap_mm": 10.399999999999977
+    },
+    {
+      "a": "beduan-socket-v72",
+      "b": "beduan-socket-v70",
+      "full_bead_envelope_gap_mm": 64.39999999999998
+    },
+    {
+      "a": "beduan-socket-v71",
+      "b": "beduan-socket-v70",
+      "full_bead_envelope_gap_mm": 10.399999999999977
+    }
+  ],
+  "reviewer": "flush_funnel_frame",
+  "source_sha256": "21135597a43f7f7a03aee6ce0e979af6033a76b949aaa9a140acb650df8e349c",
+  "scope": "Independent reading of actual object extrusion envelopes, connected first-layer roots and every second-layer model bead. Native paths do not establish physical adhesion, friction fit, dimensional accuracy or strength.",
+  "pass": true
+}

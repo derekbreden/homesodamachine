@@ -1,0 +1,5731 @@
+{
+  "schema": 1,
+  "source_stl_sha256": "cc2cfd8a490b52439d957aa082b0e4369c5602076740494298b3a954f0ba36ba",
+  "native_project_sha256": "710fda6dfef5a589d9b7e8afa0d7a9a68f0f2333eda5bbc1e1c149dbc1a9e9c3",
+  "archive_sha256": "808c1796396d4aa3bf821ff4c11a637bd219a5f86bd867facb4089f018b28319",
+  "gcode_sha256": "ca93c9ae2919bc853a5bbfea44b2eec4d11aef76bf073619e94e77aa3d6bd975",
+  "strip_bounds_machine_xy_mm": [
+    -96.878444663164,
+    93.158492076719,
+    96.878444663167,
+    95.208492076719
+  ],
+  "native_face_z_mm": 349.25,
+  "current_machine_z_mm": 349.32,
+  "previous_machine_z_mm": 349.24,
+  "previous_printed_footprint_count": 383,
+  "highest_local_support_top_machine_z_mm": 348.78999999999996,
+  "local_support_tip_roads": [
+    {
+      "line": 4588005,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588006,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588007,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588008,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588009,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588052,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588054,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588055,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588056,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588057,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588059,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588060,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588061,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588063,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588064,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588065,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588067,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588068,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588069,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588071,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588072,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588073,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588075,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588076,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588077,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588079,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588080,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588081,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588083,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588084,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588085,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588087,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588088,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588089,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588091,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588092,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588093,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588095,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588096,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588097,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588099,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588100,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588101,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588103,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588104,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588105,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588107,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588108,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588109,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588111,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588112,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588113,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588115,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588116,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588117,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588119,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588120,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588121,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588123,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588124,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588125,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588127,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588128,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588129,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588131,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588132,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588133,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588135,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588136,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588137,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588139,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588140,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588141,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588143,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588144,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588145,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588147,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588148,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588149,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588151,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588152,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588153,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588155,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588156,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588157,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588159,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588160,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588161,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588163,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588164,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588165,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588167,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588168,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588169,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588171,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588172,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588173,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588175,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588176,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588177,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588179,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588180,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588181,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588183,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588184,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588185,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588187,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588188,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588189,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588191,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588192,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588193,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588195,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588196,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588197,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588199,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588200,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588201,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588203,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588204,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588205,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588207,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588208,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588209,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588211,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588212,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588213,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588215,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588216,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588217,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588219,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588220,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588221,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588223,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588224,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588225,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588227,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588228,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588229,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588231,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588232,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588233,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588235,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588236,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588237,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588239,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588240,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588241,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588243,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588244,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588245,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588247,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588248,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588249,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588251,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588252,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588253,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588255,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588256,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588257,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588259,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588260,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588261,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588263,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588264,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588265,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588267,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588268,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588269,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588271,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588272,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588273,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588275,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588276,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588277,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588279,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588280,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588281,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588283,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588284,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588285,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588287,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588288,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588289,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588291,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588292,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588293,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588295,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588296,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588297,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588299,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588300,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588301,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588303,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588304,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588305,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588307,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588308,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588309,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588311,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588312,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588313,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588315,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588316,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588317,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588319,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588320,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588321,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588323,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588324,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588325,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588327,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588328,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588329,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588331,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588332,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588333,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588335,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588336,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588337,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588339,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588340,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588341,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588343,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588344,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588345,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588347,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588348,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588349,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588351,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588352,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588353,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588355,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588356,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588357,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588359,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588360,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588361,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588363,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588364,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588365,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588367,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588368,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588369,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588371,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588372,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588373,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588375,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588376,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588377,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588379,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588380,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588381,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588383,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588384,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588385,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588387,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588388,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588389,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588391,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588392,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588393,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588395,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588396,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588397,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588399,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588400,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588401,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588403,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588404,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588405,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588407,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588408,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    },
+    {
+      "line": 4588409,
+      "feature": "Support interface",
+      "machine_z_mm": 348.78999999999996,
+      "width_mm": 0.62,
+      "height_mm": 0.26375
+    }
+  ],
+  "roads": [
+    {
+      "line": 4600536,
+      "feature": "Overhang wall",
+      "road_length_mm": 191.79700012773927,
+      "start_machine_xy_mm": [
+        95.90300000000002,
+        94.5880015258789
+      ],
+      "end_machine_xy_mm": [
+        -95.894,
+        94.58100152587892
+      ],
+      "width_mm": 0.45,
+      "height_mm": 0.0800018,
+      "machine_top_z_mm": 349.32,
+      "machine_bottom_z_mm": 349.2399982,
+      "support_tip_vertical_gap_mm": 0.44999820000003865,
+      "previous_layer": {
+        "centerline_backed_mm": 0.0,
+        "longest_unbacked_centerline_mm": 191.79700012773927,
+        "full_bead_contact_area_mm2": 0.008977884625856804,
+        "full_bead_area_mm2": 86.4674378248196,
+        "full_bead_contact_fraction": 0.00010382965948459958,
+        "any_bead_contact_projected_x_intervals_mm": [
+          [
+            -96.10130826062532,
+            -95.92896202110231
+          ],
+          [
+            95.93166611738138,
+            96.11414811416046
+          ]
+        ],
+        "free_centerline_segments_machine_xy_mm": [
+          [
+            [
+              95.90300000000002,
+              94.5880015258789
+            ],
+            [
+              -95.894,
+              94.58100152587892
+            ]
+          ]
+        ]
+      },
+      "support_tip": {
+        "centerline_backed_mm": 151.55136876060206,
+        "longest_unbacked_centerline_mm": 0.6882518157395046,
+        "full_bead_contact_area_mm2": 67.88141596153214,
+        "full_bead_area_mm2": 86.4674378248196,
+        "full_bead_contact_fraction": 0.7850517798278911,
+        "any_bead_contact_projected_x_intervals_mm": [
+          [
+            -95.51685266750532,
+            -91.815
+          ],
+          [
+            -91.376,
+            -89.697
+          ],
+          [
+            -89.258,
+            -87.579
+          ],
+          [
+            -87.14,
+            -85.461
+          ],
+          [
+            -85.022,
+            -83.343
+          ],
+          [
+            -82.904,
+            -81.225
+          ],
+          [
+            -80.787,
+            -79.108
+          ],
+          [
+            -78.669,
+            -76.99
+          ],
+          [
+            -76.551,
+            -74.872
+          ],
+          [
+            -74.433,
+            -72.75399999999999
+          ],
+          [
+            -72.315,
+            -70.636
+          ],
+          [
+            -70.197,
+            -68.51899999999999
+          ],
+          [
+            -68.08,
+            -66.401
+          ],
+          [
+            -65.962,
+            -64.283
+          ],
+          [
+            -63.84400000000001,
+            -62.16499999999999
+          ],
+          [
+            -61.726,
+            -60.047
+          ],
+          [
+            -59.608000000000004,
+            -57.929
+          ],
+          [
+            -57.491,
+            -55.812
+          ],
+          [
+            -55.373000000000005,
+            -53.694
+          ],
+          [
+            -53.254999999999995,
+            -51.57599999999999
+          ],
+          [
+            -51.137,
+            -49.458
+          ],
+          [
+            -49.019000000000005,
+            -47.34
+          ],
+          [
+            -46.900999999999996,
+            -45.223
+          ],
+          [
+            -44.784000000000006,
+            -43.105000000000004
+          ],
+          [
+            -42.666,
+            -40.986999999999995
+          ],
+          [
+            -40.548,
+            -38.869
+          ],
+          [
+            -38.43000000000001,
+            -36.751000000000005
+          ],
+          [
+            -36.312,
+            -34.632999999999996
+          ],
+          [
+            -34.19499999999999,
+            -32.51599999999999
+          ],
+          [
+            -32.077,
+            -30.397999999999996
+          ],
+          [
+            -29.959000000000003,
+            -28.28
+          ],
+          [
+            -27.841000000000008,
+            -26.162000000000006
+          ],
+          [
+            -25.723000000000013,
+            -24.04400000000001
+          ],
+          [
+            -23.60499999999999,
+            -21.925999999999988
+          ],
+          [
+            -21.488,
+            -19.808999999999997
+          ],
+          [
+            -19.370000000000005,
+            -17.691000000000003
+          ],
+          [
+            -17.25200000000001,
+            -15.573000000000008
+          ],
+          [
+            -15.134000000000015,
+            -13.454999999999984
+          ],
+          [
+            -13.015999999999991,
+            -11.336999999999989
+          ],
+          [
+            -10.898260810633815,
+            -9.219999999999999
+          ],
+          [
+            -8.781000000000006,
+            -7.102000000000004
+          ],
+          [
+            -6.663000000000011,
+            -4.984000000000009
+          ],
+          [
+            -4.545000000000016,
+            -2.8659999999999854
+          ],
+          [
+            -2.4269999999999925,
+            -0.7479999999999905
+          ],
+          [
+            -0.3089999999999975,
+            1.3700000000000045
+          ],
+          [
+            1.8079999999999927,
+            3.4869999999999948
+          ],
+          [
+            3.9259999999999877,
+            5.60499999999999
+          ],
+          [
+            6.044000000000011,
+            7.723000000000013
+          ],
+          [
+            8.162000000000006,
+            9.841000000000008
+          ],
+          [
+            10.280000000000001,
+            11.959000000000003
+          ],
+          [
+            12.397739093041054,
+            14.075999999999993
+          ],
+          [
+            14.514999999999986,
+            16.19399999999999
+          ],
+          [
+            16.63300000000001,
+            18.312000000000012
+          ],
+          [
+            18.751000000000005,
+            20.430000000000007
+          ],
+          [
+            20.869,
+            22.548000000000002
+          ],
+          [
+            22.986999999999995,
+            24.665999999999997
+          ],
+          [
+            25.103999999999985,
+            26.783000000000015
+          ],
+          [
+            27.22200000000001,
+            28.90100000000001
+          ],
+          [
+            29.340000000000003,
+            31.019000000000005
+          ],
+          [
+            31.458,
+            33.137
+          ],
+          [
+            33.57599999999999,
+            35.254999999999995
+          ],
+          [
+            35.69399999999999,
+            37.372000000000014
+          ],
+          [
+            37.81100000000001,
+            39.49000000000001
+          ],
+          [
+            39.929,
+            41.608000000000004
+          ],
+          [
+            42.047,
+            43.726
+          ],
+          [
+            44.16499999999999,
+            45.843999999999994
+          ],
+          [
+            46.28299999999999,
+            47.96199999999999
+          ],
+          [
+            48.400000000000006,
+            50.07900000000001
+          ],
+          [
+            50.518,
+            52.197
+          ],
+          [
+            52.635999999999996,
+            54.315
+          ],
+          [
+            54.75399999999999,
+            56.43299999999999
+          ],
+          [
+            56.871999999999986,
+            58.551000000000016
+          ],
+          [
+            58.99000000000001,
+            60.668000000000006
+          ],
+          [
+            61.107,
+            62.786
+          ],
+          [
+            63.224999999999994,
+            64.904
+          ],
+          [
+            65.34299999999999,
+            67.02199999999999
+          ],
+          [
+            67.46099999999998,
+            69.14000000000001
+          ],
+          [
+            69.57900000000001,
+            71.25800000000001
+          ],
+          [
+            71.696,
+            73.375
+          ],
+          [
+            73.814,
+            75.493
+          ],
+          [
+            75.93199999999999,
+            77.61099999999999
+          ],
+          [
+            78.05000000000001,
+            79.72900000000001
+          ],
+          [
+            80.168,
+            81.84700000000001
+          ],
+          [
+            82.286,
+            83.965
+          ],
+          [
+            84.40299999999999,
+            86.082
+          ],
+          [
+            86.52099999999999,
+            88.19999999999999
+          ],
+          [
+            88.63900000000001,
+            90.31800000000001
+          ],
+          [
+            90.757,
+            92.436
+          ],
+          [
+            92.81466002267749,
+            95.57490587997626
+          ]
+        ],
+        "free_centerline_segments_machine_xy_mm": [
+          [
+            [
+              95.90300000000002,
+              94.5880015258789
+            ],
+            [
+              95.27808307864365,
+              94.58797871833525
+            ]
+          ],
+          [
+            [
+              92.90561137087283,
+              94.58789213042223
+            ],
+            [
+              92.436,
+              94.58787499105301
+            ]
+          ],
+          [
+            [
+              90.757,
+              94.58781371272227
+            ],
+            [
+              90.31800000000001,
+              94.58779769057386
+            ]
+          ],
+          [
+            [
+              88.63900000000001,
+              94.58773641224312
+            ],
+            [
+              88.19999999999999,
+              94.58772039009472
+            ]
+          ],
+          [
+            [
+              86.52099999999999,
+              94.58765911176397
+            ],
+            [
+              86.082,
+              94.58764308961557
+            ]
+          ],
+          [
+            [
+              84.40299999999999,
+              94.58758181128482
+            ],
+            [
+              83.964933654732,
+              94.58756582321192
+            ]
+          ],
+          [
+            [
+              82.286,
+              94.58750454730259
+            ],
+            [
+              81.84700000000001,
+              94.58748852515419
+            ]
+          ],
+          [
+            [
+              80.168,
+              94.58742724682344
+            ],
+            [
+              79.72900000000001,
+              94.58741122467501
+            ]
+          ],
+          [
+            [
+              78.05000000000001,
+              94.58734994634429
+            ],
+            [
+              77.61099999999999,
+              94.58733392419586
+            ]
+          ],
+          [
+            [
+              75.93199999999999,
+              94.58727264586514
+            ],
+            [
+              75.493,
+              94.58725662371671
+            ]
+          ],
+          [
+            [
+              73.814,
+              94.587195345386
+            ],
+            [
+              73.375,
+              94.58717932323756
+            ]
+          ],
+          [
+            [
+              71.696,
+              94.58711804490682
+            ],
+            [
+              71.25800000000001,
+              94.58710205925533
+            ]
+          ],
+          [
+            [
+              69.57900000000001,
+              94.58704078092461
+            ],
+            [
+              69.14000000000001,
+              94.58702475877618
+            ]
+          ],
+          [
+            [
+              67.46099999999998,
+              94.58696348044543
+            ],
+            [
+              67.02199999999999,
+              94.58694745829703
+            ]
+          ],
+          [
+            [
+              65.34299999999999,
+              94.58688617996629
+            ],
+            [
+              64.904,
+              94.58687015781788
+            ]
+          ],
+          [
+            [
+              63.224999999999994,
+              94.58680887948714
+            ],
+            [
+              62.786,
+              94.58679285733874
+            ]
+          ],
+          [
+            [
+              61.107,
+              94.58673157900799
+            ],
+            [
+              60.668000000000006,
+              94.58671555685956
+            ]
+          ],
+          [
+            [
+              58.99000000000001,
+              94.58665431502575
+            ],
+            [
+              58.551000000000016,
+              94.58663829287735
+            ]
+          ],
+          [
+            [
+              56.871999999999986,
+              94.5865770145466
+            ],
+            [
+              56.43299999999999,
+              94.58656099239818
+            ]
+          ],
+          [
+            [
+              54.75399999999999,
+              94.58649971406746
+            ],
+            [
+              54.315,
+              94.58648369191903
+            ]
+          ],
+          [
+            [
+              52.635999999999996,
+              94.58642241358831
+            ],
+            [
+              52.197,
+              94.58640639143988
+            ]
+          ],
+          [
+            [
+              50.518,
+              94.58634511310916
+            ],
+            [
+              50.07900000000001,
+              94.58632909096073
+            ]
+          ],
+          [
+            [
+              48.400000000000006,
+              94.58626781262998
+            ],
+            [
+              47.96199999999999,
+              94.5862518269785
+            ]
+          ],
+          [
+            [
+              46.28299999999999,
+              94.58619054864778
+            ],
+            [
+              45.843999999999994,
+              94.58617452649935
+            ]
+          ],
+          [
+            [
+              44.16499999999999,
+              94.5861132481686
+            ],
+            [
+              43.726,
+              94.5860972260202
+            ]
+          ],
+          [
+            [
+              42.047,
+              94.58603594768945
+            ],
+            [
+              41.608000000000004,
+              94.58601992554105
+            ]
+          ],
+          [
+            [
+              39.929,
+              94.5859586472103
+            ],
+            [
+              39.49000000000001,
+              94.5859426250619
+            ]
+          ],
+          [
+            [
+              37.81100000000001,
+              94.58588134673116
+            ],
+            [
+              37.372000000000014,
+              94.58586532458273
+            ]
+          ],
+          [
+            [
+              35.69399999999999,
+              94.58580408274892
+            ],
+            [
+              35.254999999999995,
+              94.58578806060052
+            ]
+          ],
+          [
+            [
+              33.57599999999999,
+              94.58572678226977
+            ],
+            [
+              33.137,
+              94.58571076012134
+            ]
+          ],
+          [
+            [
+              31.458,
+              94.58564948179063
+            ],
+            [
+              31.019000000000005,
+              94.5856334596422
+            ]
+          ],
+          [
+            [
+              29.340000000000003,
+              94.58557218131148
+            ],
+            [
+              28.90100000000001,
+              94.58555615916305
+            ]
+          ],
+          [
+            [
+              27.22200000000001,
+              94.58549488083233
+            ],
+            [
+              26.783000000000015,
+              94.5854788586839
+            ]
+          ],
+          [
+            [
+              25.103999999999985,
+              94.58541758035315
+            ],
+            [
+              24.66593391182755,
+              94.58540159228966
+            ]
+          ],
+          [
+            [
+              22.986999999999995,
+              94.58534031637095
+            ],
+            [
+              22.548000000000002,
+              94.58532429422252
+            ]
+          ],
+          [
+            [
+              20.869,
+              94.58526301589177
+            ],
+            [
+              20.430000000000007,
+              94.58524699374337
+            ]
+          ],
+          [
+            [
+              18.751000000000005,
+              94.58518571541262
+            ],
+            [
+              18.312000000000012,
+              94.58516969326422
+            ]
+          ],
+          [
+            [
+              16.63300000000001,
+              94.58510841493347
+            ],
+            [
+              16.19399999999999,
+              94.58509239278507
+            ]
+          ],
+          [
+            [
+              14.514999999999986,
+              94.58503111445432
+            ],
+            [
+              14.075999999999993,
+              94.5850150923059
+            ]
+          ],
+          [
+            [
+              12.397934067038477,
+              94.58495384806574
+            ],
+            [
+              11.959000000000003,
+              94.58493782832369
+            ]
+          ],
+          [
+            [
+              10.280000000000001,
+              94.58487654999294
+            ],
+            [
+              9.841000000000008,
+              94.58486052784451
+            ]
+          ],
+          [
+            [
+              8.162000000000006,
+              94.5847992495138
+            ],
+            [
+              7.723000000000013,
+              94.58478322736536
+            ]
+          ],
+          [
+            [
+              6.044000000000011,
+              94.58472194903464
+            ],
+            [
+              5.60499999999999,
+              94.58470592688622
+            ]
+          ],
+          [
+            [
+              3.9259999999999877,
+              94.5846446485555
+            ],
+            [
+              3.4869999999999948,
+              94.58462862640707
+            ]
+          ],
+          [
+            [
+              1.8079999999999927,
+              94.58456734807632
+            ],
+            [
+              1.3699338392770528,
+              94.58455136001018
+            ]
+          ],
+          [
+            [
+              -0.3089999999999975,
+              94.58449008409411
+            ],
+            [
+              -0.7479999999999905,
+              94.58447406194568
+            ]
+          ],
+          [
+            [
+              -2.4269999999999925,
+              94.58441278361494
+            ],
+            [
+              -2.8659999999999854,
+              94.58439676146654
+            ]
+          ],
+          [
+            [
+              -4.545000000000016,
+              94.58433548313579
+            ],
+            [
+              -4.984000000000009,
+              94.58431946098739
+            ]
+          ],
+          [
+            [
+              -6.663000000000011,
+              94.58425818265664
+            ],
+            [
+              -7.102000000000004,
+              94.58424216050824
+            ]
+          ],
+          [
+            [
+              -8.781000000000006,
+              94.58418088217749
+            ],
+            [
+              -9.219999999999999,
+              94.58416486002906
+            ]
+          ],
+          [
+            [
+              -10.898066005445031,
+              94.58410361578626
+            ],
+            [
+              -11.336999999999989,
+              94.58408759604686
+            ]
+          ],
+          [
+            [
+              -13.015999999999991,
+              94.58402631771611
+            ],
+            [
+              -13.454999999999984,
+              94.58401029556768
+            ]
+          ],
+          [
+            [
+              -15.134000000000015,
+              94.58394901723696
+            ],
+            [
+              -15.573000000000008,
+              94.58393299508853
+            ]
+          ],
+          [
+            [
+              -17.25200000000001,
+              94.58387171675781
+            ],
+            [
+              -17.691000000000003,
+              94.58385569460938
+            ]
+          ],
+          [
+            [
+              -19.370000000000005,
+              94.58379441627866
+            ],
+            [
+              -19.808999999999997,
+              94.58377839413023
+            ]
+          ],
+          [
+            [
+              -21.488,
+              94.58371711579952
+            ],
+            [
+              -21.926065424591116,
+              94.58370112776021
+            ]
+          ],
+          [
+            [
+              -23.60499999999999,
+              94.58363985181728
+            ],
+            [
+              -24.04400000000001,
+              94.58362382966885
+            ]
+          ],
+          [
+            [
+              -25.723000000000013,
+              94.5835625513381
+            ],
+            [
+              -26.162000000000006,
+              94.5835465291897
+            ]
+          ],
+          [
+            [
+              -27.841000000000008,
+              94.58348525085896
+            ],
+            [
+              -28.28,
+              94.58346922871056
+            ]
+          ],
+          [
+            [
+              -29.959000000000003,
+              94.58340795037981
+            ],
+            [
+              -30.397999999999996,
+              94.5833919282314
+            ]
+          ],
+          [
+            [
+              -32.077,
+              94.58333064990066
+            ],
+            [
+              -32.51599999999999,
+              94.58331462775226
+            ]
+          ],
+          [
+            [
+              -34.19499999999999,
+              94.58325334942151
+            ],
+            [
+              -34.632999999999996,
+              94.58323736377002
+            ]
+          ],
+          [
+            [
+              -36.312,
+              94.58317608543928
+            ],
+            [
+              -36.751000000000005,
+              94.58316006329088
+            ]
+          ],
+          [
+            [
+              -38.43000000000001,
+              94.58309878496013
+            ],
+            [
+              -38.869,
+              94.5830827628117
+            ]
+          ],
+          [
+            [
+              -40.548,
+              94.58302148448098
+            ],
+            [
+              -40.986999999999995,
+              94.58300546233255
+            ]
+          ],
+          [
+            [
+              -42.666,
+              94.58294418400183
+            ],
+            [
+              -43.105000000000004,
+              94.5829281618534
+            ]
+          ],
+          [
+            [
+              -44.784000000000006,
+              94.58286688352268
+            ],
+            [
+              -45.223,
+              94.58285086137425
+            ]
+          ],
+          [
+            [
+              -46.900999999999996,
+              94.58278961954045
+            ],
+            [
+              -47.34,
+              94.58277359739202
+            ]
+          ],
+          [
+            [
+              -49.019000000000005,
+              94.5827123190613
+            ],
+            [
+              -49.458,
+              94.58269629691287
+            ]
+          ],
+          [
+            [
+              -51.137,
+              94.58263501858212
+            ],
+            [
+              -51.57599999999999,
+              94.58261899643372
+            ]
+          ],
+          [
+            [
+              -53.254999999999995,
+              94.58255771810298
+            ],
+            [
+              -53.694,
+              94.58254169595457
+            ]
+          ],
+          [
+            [
+              -55.373000000000005,
+              94.58248041762383
+            ],
+            [
+              -55.812,
+              94.58246439547543
+            ]
+          ],
+          [
+            [
+              -57.491,
+              94.58240311714468
+            ],
+            [
+              -57.929,
+              94.58238713149319
+            ]
+          ],
+          [
+            [
+              -59.608000000000004,
+              94.58232585316244
+            ],
+            [
+              -60.047,
+              94.58230983101404
+            ]
+          ],
+          [
+            [
+              -61.726,
+              94.5822485526833
+            ],
+            [
+              -62.16499999999999,
+              94.58223253053487
+            ]
+          ],
+          [
+            [
+              -63.84400000000001,
+              94.58217125220415
+            ],
+            [
+              -64.283,
+              94.58215523005572
+            ]
+          ],
+          [
+            [
+              -65.962,
+              94.582093951725
+            ],
+            [
+              -66.401,
+              94.58207792957657
+            ]
+          ],
+          [
+            [
+              -68.08,
+              94.58201665124585
+            ],
+            [
+              -68.51899999999999,
+              94.58200062909742
+            ]
+          ],
+          [
+            [
+              -70.197,
+              94.58193938726362
+            ],
+            [
+              -70.636,
+              94.58192336511519
+            ]
+          ],
+          [
+            [
+              -72.315,
+              94.58186208678447
+            ],
+            [
+              -72.75399999999999,
+              94.58184606463604
+            ]
+          ],
+          [
+            [
+              -74.433,
+              94.58178478630529
+            ],
+            [
+              -74.872,
+              94.58176876415689
+            ]
+          ],
+          [
+            [
+              -76.551,
+              94.58170748582614
+            ],
+            [
+              -76.99,
+              94.58169146367774
+            ]
+          ],
+          [
+            [
+              -78.669,
+              94.581630185347
+            ],
+            [
+              -79.108,
+              94.5816141631986
+            ]
+          ],
+          [
+            [
+              -80.787,
+              94.58155288486785
+            ],
+            [
+              -81.22506516975267,
+              94.58153689683786
+            ]
+          ],
+          [
+            [
+              -82.904,
+              94.58147562088561
+            ],
+            [
+              -83.343,
+              94.58145959873721
+            ]
+          ],
+          [
+            [
+              -85.022,
+              94.58139832040646
+            ],
+            [
+              -85.461,
+              94.58138229825803
+            ]
+          ],
+          [
+            [
+              -87.14,
+              94.58132101992732
+            ],
+            [
+              -87.579,
+              94.58130499777889
+            ]
+          ],
+          [
+            [
+              -89.258,
+              94.58124371944817
+            ],
+            [
+              -89.697,
+              94.58122769729974
+            ]
+          ],
+          [
+            [
+              -91.376,
+              94.58116641896902
+            ],
+            [
+              -91.815,
+              94.58115039682059
+            ]
+          ],
+          [
+            [
+              -93.4618870068558,
+              94.58109029051525
+            ],
+            [
+              -93.7405409895783,
+              94.58108012050278
+            ]
+          ],
+          [
+            [
+              -95.20574818471889,
+              94.58102664495121
+            ],
+            [
+              -95.894,
+              94.58100152587892
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "line": 4601083,
+      "feature": "Overhang wall",
+      "road_length_mm": 192.78600012708392,
+      "start_machine_xy_mm": [
+        96.39699999999999,
+        95.0060015258789
+      ],
+      "end_machine_xy_mm": [
+        -96.389,
+        94.9990015258789
+      ],
+      "width_mm": 0.45,
+      "height_mm": 0.0800018,
+      "machine_top_z_mm": 349.32,
+      "machine_bottom_z_mm": 349.2399982,
+      "support_tip_vertical_gap_mm": 0.44999820000003865,
+      "previous_layer": {
+        "centerline_backed_mm": 0.0,
+        "longest_unbacked_centerline_mm": 192.78600012708392,
+        "full_bead_contact_area_mm2": 0.00797662778706882,
+        "full_bead_area_mm2": 86.91248782452517,
+        "full_bead_contact_fraction": 9.177769485983987e-05,
+        "any_bead_contact_projected_x_intervals_mm": [
+          [
+            -96.60451508712923,
+            -96.4534990459185
+          ],
+          [
+            96.45891293969584,
+            96.61302917687055
+          ]
+        ],
+        "free_centerline_segments_machine_xy_mm": [
+          [
+            [
+              96.39699999999999,
+              95.0060015258789
+            ],
+            [
+              -96.389,
+              94.9990015258789
+            ]
+          ]
+        ]
+      },
+      "support_tip": {
+        "centerline_backed_mm": 113.50331628359281,
+        "longest_unbacked_centerline_mm": 0.6052639984862266,
+        "full_bead_contact_area_mm2": 52.663409079679425,
+        "full_bead_area_mm2": 86.91248782452517,
+        "full_bead_contact_fraction": 0.6059360443807102,
+        "any_bead_contact_projected_x_intervals_mm": [
+          [
+            -96.09484056523624,
+            -93.932
+          ],
+          [
+            -93.49353671468664,
+            -91.815
+          ],
+          [
+            -91.376,
+            -89.697
+          ],
+          [
+            -89.258,
+            -87.579
+          ],
+          [
+            -87.14,
+            -85.461
+          ],
+          [
+            -85.022,
+            -83.343
+          ],
+          [
+            -82.904,
+            -81.22523199362529
+          ],
+          [
+            -80.787,
+            -79.108
+          ],
+          [
+            -78.669,
+            -76.99
+          ],
+          [
+            -76.551,
+            -74.872
+          ],
+          [
+            -74.433,
+            -72.75399999999999
+          ],
+          [
+            -72.315,
+            -70.636
+          ],
+          [
+            -70.197,
+            -68.51899999999999
+          ],
+          [
+            -68.08,
+            -66.401
+          ],
+          [
+            -65.962,
+            -64.283
+          ],
+          [
+            -63.84400000000001,
+            -62.16499999999999
+          ],
+          [
+            -61.726,
+            -60.047
+          ],
+          [
+            -59.608000000000004,
+            -57.929
+          ],
+          [
+            -57.491,
+            -55.812
+          ],
+          [
+            -55.373000000000005,
+            -53.694
+          ],
+          [
+            -53.254999999999995,
+            -51.57599999999999
+          ],
+          [
+            -51.137,
+            -49.458
+          ],
+          [
+            -49.019000000000005,
+            -47.34
+          ],
+          [
+            -46.900999999999996,
+            -45.223
+          ],
+          [
+            -44.784000000000006,
+            -43.105000000000004
+          ],
+          [
+            -42.666,
+            -40.986999999999995
+          ],
+          [
+            -40.548,
+            -38.869
+          ],
+          [
+            -38.43000000000001,
+            -36.751000000000005
+          ],
+          [
+            -36.312,
+            -34.632999999999996
+          ],
+          [
+            -34.19499999999999,
+            -32.51599999999999
+          ],
+          [
+            -32.077,
+            -30.397999999999996
+          ],
+          [
+            -29.959000000000003,
+            -28.28
+          ],
+          [
+            -27.841000000000008,
+            -26.162000000000006
+          ],
+          [
+            -25.723000000000013,
+            -24.04400000000001
+          ],
+          [
+            -23.60499999999999,
+            -21.926232527723613
+          ],
+          [
+            -21.488,
+            -19.808999999999997
+          ],
+          [
+            -19.370000000000005,
+            -17.691000000000003
+          ],
+          [
+            -17.25200000000001,
+            -15.573000000000008
+          ],
+          [
+            -15.134000000000015,
+            -13.454999999999984
+          ],
+          [
+            -13.015999999999991,
+            -11.336999999999989
+          ],
+          [
+            -10.898622717167456,
+            -9.219999999999999
+          ],
+          [
+            -8.781000000000006,
+            -7.102000000000004
+          ],
+          [
+            -6.663000000000011,
+            -4.984000000000009
+          ],
+          [
+            -4.545000000000016,
+            -2.8659999999999854
+          ],
+          [
+            -2.4269999999999925,
+            -0.7479999999999905
+          ],
+          [
+            -0.3089999999999975,
+            1.3697667399209479
+          ],
+          [
+            1.8079999999999927,
+            3.4869999999999948
+          ],
+          [
+            3.9259999999999877,
+            5.60499999999999
+          ],
+          [
+            6.044000000000011,
+            7.723000000000013
+          ],
+          [
+            8.162000000000006,
+            9.841000000000008
+          ],
+          [
+            10.280000000000001,
+            11.959000000000003
+          ],
+          [
+            12.39737687667656,
+            14.075999999999993
+          ],
+          [
+            14.514999999999986,
+            16.19399999999999
+          ],
+          [
+            16.63300000000001,
+            18.312000000000012
+          ],
+          [
+            18.751000000000005,
+            20.430000000000007
+          ],
+          [
+            20.869,
+            22.548000000000002
+          ],
+          [
+            22.986999999999995,
+            24.665766671450996
+          ],
+          [
+            25.103999999999985,
+            26.783000000000015
+          ],
+          [
+            27.22200000000001,
+            28.90100000000001
+          ],
+          [
+            29.340000000000003,
+            31.019000000000005
+          ],
+          [
+            31.458,
+            33.137
+          ],
+          [
+            33.57599999999999,
+            35.254999999999995
+          ],
+          [
+            35.69399999999999,
+            37.372000000000014
+          ],
+          [
+            37.81100000000001,
+            39.49000000000001
+          ],
+          [
+            39.929,
+            41.608000000000004
+          ],
+          [
+            42.047,
+            43.726
+          ],
+          [
+            44.16499999999999,
+            45.843999999999994
+          ],
+          [
+            46.28299999999999,
+            47.96199999999999
+          ],
+          [
+            48.400000000000006,
+            50.07900000000001
+          ],
+          [
+            50.518,
+            52.197
+          ],
+          [
+            52.635999999999996,
+            54.315
+          ],
+          [
+            54.75399999999999,
+            56.43299999999999
+          ],
+          [
+            56.871999999999986,
+            58.551000000000016
+          ],
+          [
+            58.99000000000001,
+            60.668000000000006
+          ],
+          [
+            61.107,
+            62.786
+          ],
+          [
+            63.224999999999994,
+            64.904
+          ],
+          [
+            65.34299999999999,
+            67.02199999999999
+          ],
+          [
+            67.46099999999998,
+            69.14000000000001
+          ],
+          [
+            69.57900000000001,
+            71.25800000000001
+          ],
+          [
+            71.696,
+            73.375
+          ],
+          [
+            73.814,
+            75.493
+          ],
+          [
+            75.93199999999999,
+            77.61099999999999
+          ],
+          [
+            78.05000000000001,
+            79.72900000000001
+          ],
+          [
+            80.168,
+            81.84700000000001
+          ],
+          [
+            82.286,
+            83.96476613364521
+          ],
+          [
+            84.40299999999999,
+            86.082
+          ],
+          [
+            86.52099999999999,
+            88.19999999999999
+          ],
+          [
+            88.63900000000001,
+            90.31800000000001
+          ],
+          [
+            90.757,
+            92.436
+          ],
+          [
+            92.875,
+            96.12631296600608
+          ]
+        ],
+        "free_centerline_segments_machine_xy_mm": [
+          [
+            [
+              96.39699999999999,
+              95.0060015258789
+            ],
+            [
+              95.82949023798983,
+              95.00598091977506
+            ]
+          ],
+          [
+            [
+              94.80312964071896,
+              95.00594365293941
+            ],
+            [
+              94.55400000000003,
+              95.00593460711923
+            ]
+          ],
+          [
+            [
+              92.875,
+              95.00587364314882
+            ],
+            [
+              92.436,
+              95.00585770319469
+            ]
+          ],
+          [
+            [
+              91.816,
+              95.00583519118655
+            ],
+            [
+              91.37700000000001,
+              95.0058192512324
+            ]
+          ],
+          [
+            [
+              90.757,
+              95.00579673922428
+            ],
+            [
+              90.31800000000001,
+              95.00578079927013
+            ]
+          ],
+          [
+            [
+              89.69800000000001,
+              95.00575828726198
+            ],
+            [
+              89.25900000000001,
+              95.00574234730783
+            ]
+          ],
+          [
+            [
+              88.63900000000001,
+              95.00571983529971
+            ],
+            [
+              88.19999999999999,
+              95.00570389534556
+            ]
+          ],
+          [
+            [
+              87.57999999999998,
+              95.00568138333742
+            ],
+            [
+              87.14099999999999,
+              95.0056654433833
+            ]
+          ],
+          [
+            [
+              86.52099999999999,
+              95.00564293137515
+            ],
+            [
+              86.082,
+              95.005626991421
+            ]
+          ],
+          [
+            [
+              85.46199999999999,
+              95.00560447941288
+            ],
+            [
+              85.023,
+              95.00558853945873
+            ]
+          ],
+          [
+            [
+              84.40299999999999,
+              95.00556602745058
+            ],
+            [
+              83.96457082115126,
+              95.00555010822279
+            ]
+          ],
+          [
+            [
+              83.34457060710164,
+              95.00552759620689
+            ],
+            [
+              82.906,
+              95.00551167184386
+            ]
+          ],
+          [
+            [
+              82.286,
+              95.00548915983572
+            ],
+            [
+              81.84700000000001,
+              95.00547321988157
+            ]
+          ],
+          [
+            [
+              81.227,
+              95.00545070787345
+            ],
+            [
+              80.78800000000001,
+              95.0054347679193
+            ]
+          ],
+          [
+            [
+              80.168,
+              95.00541225591115
+            ],
+            [
+              79.72900000000001,
+              95.00539631595703
+            ]
+          ],
+          [
+            [
+              79.10900000000001,
+              95.00537380394888
+            ],
+            [
+              78.67000000000002,
+              95.00535786399473
+            ]
+          ],
+          [
+            [
+              78.05000000000001,
+              95.00533535198662
+            ],
+            [
+              77.61099999999999,
+              95.00531941203246
+            ]
+          ],
+          [
+            [
+              76.99099999999999,
+              95.00529690002432
+            ],
+            [
+              76.55199999999999,
+              95.00528096007017
+            ]
+          ],
+          [
+            [
+              75.93199999999999,
+              95.00525844806205
+            ],
+            [
+              75.493,
+              95.0052425081079
+            ]
+          ],
+          [
+            [
+              74.87299999999999,
+              95.00521999609975
+            ],
+            [
+              74.434,
+              95.00520405614563
+            ]
+          ],
+          [
+            [
+              73.814,
+              95.00518154413749
+            ],
+            [
+              73.375,
+              95.00516560418333
+            ]
+          ],
+          [
+            [
+              72.755,
+              95.00514309217522
+            ],
+            [
+              72.316,
+              95.00512715222106
+            ]
+          ],
+          [
+            [
+              71.696,
+              95.00510464021292
+            ],
+            [
+              71.25800000000001,
+              95.00508873656847
+            ]
+          ],
+          [
+            [
+              70.638,
+              95.00506622456035
+            ],
+            [
+              70.19900000000001,
+              95.0050502846062
+            ]
+          ],
+          [
+            [
+              69.57900000000001,
+              95.00502777259805
+            ],
+            [
+              69.14000000000001,
+              95.0050118326439
+            ]
+          ],
+          [
+            [
+              68.52000000000001,
+              95.00498932063579
+            ],
+            [
+              68.08099999999999,
+              95.00497338068163
+            ]
+          ],
+          [
+            [
+              67.46099999999998,
+              95.00495086867349
+            ],
+            [
+              67.02199999999999,
+              95.00493492871936
+            ]
+          ],
+          [
+            [
+              66.40199999999999,
+              95.00491241671122
+            ],
+            [
+              65.963,
+              95.00489647675707
+            ]
+          ],
+          [
+            [
+              65.34299999999999,
+              95.00487396474895
+            ],
+            [
+              64.904,
+              95.0048580247948
+            ]
+          ],
+          [
+            [
+              64.28399999999999,
+              95.00483551278666
+            ],
+            [
+              63.845,
+              95.00481957283253
+            ]
+          ],
+          [
+            [
+              63.224999999999994,
+              95.00479706082439
+            ],
+            [
+              62.786,
+              95.00478112087023
+            ]
+          ],
+          [
+            [
+              62.166,
+              95.00475860886209
+            ],
+            [
+              61.727000000000004,
+              95.00474266890797
+            ]
+          ],
+          [
+            [
+              61.107,
+              95.00472015689982
+            ],
+            [
+              60.668000000000006,
+              95.00470421694567
+            ]
+          ],
+          [
+            [
+              60.048,
+              95.00468170493755
+            ],
+            [
+              59.610000000000014,
+              95.0046658012931
+            ]
+          ],
+          [
+            [
+              58.99000000000001,
+              95.00464328928496
+            ],
+            [
+              58.551000000000016,
+              95.0046273493308
+            ]
+          ],
+          [
+            [
+              57.93100000000001,
+              95.00460483732269
+            ],
+            [
+              57.49199999999999,
+              95.00458889736854
+            ]
+          ],
+          [
+            [
+              56.871999999999986,
+              95.00456638536039
+            ],
+            [
+              56.43299999999999,
+              95.00455044540624
+            ]
+          ],
+          [
+            [
+              55.81299999999999,
+              95.00452793339812
+            ],
+            [
+              55.373999999999995,
+              95.00451199344397
+            ]
+          ],
+          [
+            [
+              54.75399999999999,
+              95.00448948143583
+            ],
+            [
+              54.315,
+              95.0044735414817
+            ]
+          ],
+          [
+            [
+              53.69499999999999,
+              95.00445102947356
+            ],
+            [
+              53.256,
+              95.0044350895194
+            ]
+          ],
+          [
+            [
+              52.635999999999996,
+              95.00441257751129
+            ],
+            [
+              52.197,
+              95.00439663755714
+            ]
+          ],
+          [
+            [
+              51.577,
+              95.00437412554899
+            ],
+            [
+              51.138000000000005,
+              95.00435818559487
+            ]
+          ],
+          [
+            [
+              50.518,
+              95.00433567358672
+            ],
+            [
+              50.07900000000001,
+              95.00431973363257
+            ]
+          ],
+          [
+            [
+              49.459,
+              95.00429722162446
+            ],
+            [
+              49.02000000000001,
+              95.0042812816703
+            ]
+          ],
+          [
+            [
+              48.400000000000006,
+              95.00425876966216
+            ],
+            [
+              47.96199999999999,
+              95.0042428660177
+            ]
+          ],
+          [
+            [
+              47.341999999999985,
+              95.00422035400956
+            ],
+            [
+              46.90299999999999,
+              95.00420441405544
+            ]
+          ],
+          [
+            [
+              46.28299999999999,
+              95.00418190204729
+            ],
+            [
+              45.843999999999994,
+              95.00416596209314
+            ]
+          ],
+          [
+            [
+              45.22399999999999,
+              95.00414345008502
+            ],
+            [
+              44.785,
+              95.00412751013087
+            ]
+          ],
+          [
+            [
+              44.16499999999999,
+              95.00410499812273
+            ],
+            [
+              43.726,
+              95.00408905816857
+            ]
+          ],
+          [
+            [
+              43.105999999999995,
+              95.00406654616046
+            ],
+            [
+              42.667,
+              95.0040506062063
+            ]
+          ],
+          [
+            [
+              42.047,
+              95.00402809419816
+            ],
+            [
+              41.608000000000004,
+              95.00401215424404
+            ]
+          ],
+          [
+            [
+              40.988,
+              95.0039896422359
+            ],
+            [
+              40.54900000000001,
+              95.00397370228174
+            ]
+          ],
+          [
+            [
+              39.929,
+              95.00395119027363
+            ],
+            [
+              39.49000000000001,
+              95.00393525031947
+            ]
+          ],
+          [
+            [
+              38.870000000000005,
+              95.00391273831133
+            ],
+            [
+              38.43100000000001,
+              95.0038967983572
+            ]
+          ],
+          [
+            [
+              37.81100000000001,
+              95.00387428634906
+            ],
+            [
+              37.372000000000014,
+              95.0038583463949
+            ]
+          ],
+          [
+            [
+              36.75200000000001,
+              95.00383583438679
+            ],
+            [
+              36.31399999999999,
+              95.00381993074231
+            ]
+          ],
+          [
+            [
+              35.69399999999999,
+              95.0037974187342
+            ],
+            [
+              35.254999999999995,
+              95.00378147878004
+            ]
+          ],
+          [
+            [
+              34.63499999999999,
+              95.0037589667719
+            ],
+            [
+              34.196,
+              95.00374302681777
+            ]
+          ],
+          [
+            [
+              33.57599999999999,
+              95.00372051480963
+            ],
+            [
+              33.137,
+              95.00370457485548
+            ]
+          ],
+          [
+            [
+              32.516999999999996,
+              95.00368206284736
+            ],
+            [
+              32.078,
+              95.00366612289321
+            ]
+          ],
+          [
+            [
+              31.458,
+              95.00364361088506
+            ],
+            [
+              31.019000000000005,
+              95.00362767093094
+            ]
+          ],
+          [
+            [
+              30.399,
+              95.0036051589228
+            ],
+            [
+              29.960000000000008,
+              95.00358921896864
+            ]
+          ],
+          [
+            [
+              29.340000000000003,
+              95.00356670696053
+            ],
+            [
+              28.90100000000001,
+              95.00355076700637
+            ]
+          ],
+          [
+            [
+              28.281000000000006,
+              95.00352825499823
+            ],
+            [
+              27.842000000000013,
+              95.00351231504408
+            ]
+          ],
+          [
+            [
+              27.22200000000001,
+              95.00348980303596
+            ],
+            [
+              26.783000000000015,
+              95.00347386308181
+            ]
+          ],
+          [
+            [
+              26.16300000000001,
+              95.00345135107366
+            ],
+            [
+              25.72399999999999,
+              95.00343541111954
+            ]
+          ],
+          [
+            [
+              25.103999999999985,
+              95.0034128991114
+            ],
+            [
+              24.665571697453515,
+              95.00339697991541
+            ]
+          ],
+          [
+            [
+              24.045571484178993,
+              95.00337446789953
+            ],
+            [
+              23.607,
+              95.00335854350465
+            ]
+          ],
+          [
+            [
+              22.986999999999995,
+              95.00333603149653
+            ],
+            [
+              22.548000000000002,
+              95.00332009154238
+            ]
+          ],
+          [
+            [
+              21.927999999999997,
+              95.00329757953423
+            ],
+            [
+              21.489000000000004,
+              95.00328163958011
+            ]
+          ],
+          [
+            [
+              20.869,
+              95.00325912757197
+            ],
+            [
+              20.430000000000007,
+              95.00324318761781
+            ]
+          ],
+          [
+            [
+              19.810000000000002,
+              95.0032206756097
+            ],
+            [
+              19.37100000000001,
+              95.00320473565554
+            ]
+          ],
+          [
+            [
+              18.751000000000005,
+              95.0031822236474
+            ],
+            [
+              18.312000000000012,
+              95.00316628369328
+            ]
+          ],
+          [
+            [
+              17.692000000000007,
+              95.00314377168513
+            ],
+            [
+              17.253000000000014,
+              95.00312783173098
+            ]
+          ],
+          [
+            [
+              16.63300000000001,
+              95.00310531972286
+            ],
+            [
+              16.19399999999999,
+              95.00308937976871
+            ]
+          ],
+          [
+            [
+              15.573999999999984,
+              95.00306686776057
+            ],
+            [
+              15.134999999999991,
+              95.00305092780641
+            ]
+          ],
+          [
+            [
+              14.514999999999986,
+              95.0030284157983
+            ],
+            [
+              14.075999999999993,
+              95.00301247584414
+            ]
+          ],
+          [
+            [
+              13.455999999999989,
+              95.002989963836
+            ],
+            [
+              13.017572063948563,
+              95.00297404465334
+            ]
+          ],
+          [
+            [
+              12.397571850674012,
+              95.00295153263744
+            ],
+            [
+              11.959000000000003,
+              95.00293560822928
+            ]
+          ],
+          [
+            [
+              11.338999999999999,
+              95.00291309622114
+            ],
+            [
+              10.900000000000006,
+              95.00289715626701
+            ]
+          ],
+          [
+            [
+              10.280000000000001,
+              95.00287464425887
+            ],
+            [
+              9.841000000000008,
+              95.00285870430471
+            ]
+          ],
+          [
+            [
+              9.221000000000004,
+              95.0028361922966
+            ],
+            [
+              8.78200000000001,
+              95.00282025234245
+            ]
+          ],
+          [
+            [
+              8.162000000000006,
+              95.0027977403343
+            ],
+            [
+              7.723000000000013,
+              95.00278180038015
+            ]
+          ],
+          [
+            [
+              7.103000000000009,
+              95.00275928837203
+            ],
+            [
+              6.664000000000016,
+              95.00274334841788
+            ]
+          ],
+          [
+            [
+              6.044000000000011,
+              95.00272083640974
+            ],
+            [
+              5.60499999999999,
+              95.00270489645561
+            ]
+          ],
+          [
+            [
+              4.984999999999985,
+              95.00268238444747
+            ],
+            [
+              4.545999999999992,
+              95.00266644449331
+            ]
+          ],
+          [
+            [
+              3.9259999999999877,
+              95.0026439324852
+            ],
+            [
+              3.4869999999999948,
+              95.00262799253105
+            ]
+          ],
+          [
+            [
+              2.8669999999999902,
+              95.0026054805229
+            ],
+            [
+              2.4279999999999973,
+              95.00258954056875
+            ]
+          ],
+          [
+            [
+              1.8079999999999927,
+              95.00256702856063
+            ],
+            [
+              1.3695719347321358,
+              95.00255110937326
+            ]
+          ],
+          [
+            [
+              0.7495717218436369,
+              95.00252859735738
+            ],
+            [
+              0.31100000000000705,
+              95.00251267295388
+            ]
+          ],
+          [
+            [
+              -0.3089999999999975,
+              95.00249016094577
+            ],
+            [
+              -0.7479999999999905,
+              95.00247422099162
+            ]
+          ],
+          [
+            [
+              -1.367999999999995,
+              95.00245170898347
+            ],
+            [
+              -1.806999999999988,
+              95.00243576902935
+            ]
+          ],
+          [
+            [
+              -2.4269999999999925,
+              95.0024132570212
+            ],
+            [
+              -2.8659999999999854,
+              95.00239731706705
+            ]
+          ],
+          [
+            [
+              -3.48599999999999,
+              95.00237480505893
+            ],
+            [
+              -3.9250000000000114,
+              95.00235886510478
+            ]
+          ],
+          [
+            [
+              -4.545000000000016,
+              95.00233635309664
+            ],
+            [
+              -4.984000000000009,
+              95.00232041314248
+            ]
+          ],
+          [
+            [
+              -5.604000000000013,
+              95.00229790113437
+            ],
+            [
+              -6.043000000000006,
+              95.00228196118022
+            ]
+          ],
+          [
+            [
+              -6.663000000000011,
+              95.00225944917207
+            ],
+            [
+              -7.102000000000004,
+              95.00224350921795
+            ]
+          ],
+          [
+            [
+              -7.722000000000008,
+              95.0022209972098
+            ],
+            [
+              -8.161000000000001,
+              95.00220505725565
+            ]
+          ],
+          [
+            [
+              -8.781000000000006,
+              95.00218254524754
+            ],
+            [
+              -9.219999999999999,
+              95.00216660529338
+            ]
+          ],
+          [
+            [
+              -9.840000000000003,
+              95.00214409328524
+            ],
+            [
+              -10.278427699090116,
+              95.00212817411116
+            ]
+          ],
+          [
+            [
+              -10.898427911978644,
+              95.00210566209532
+            ],
+            [
+              -11.336999999999989,
+              95.00208973767852
+            ]
+          ],
+          [
+            [
+              -11.956999999999994,
+              95.00206722567037
+            ],
+            [
+              -12.395999999999987,
+              95.00205128571622
+            ]
+          ],
+          [
+            [
+              -13.015999999999991,
+              95.0020287737081
+            ],
+            [
+              -13.454999999999984,
+              95.00201283375395
+            ]
+          ],
+          [
+            [
+              -14.074999999999989,
+              95.00199032174581
+            ],
+            [
+              -14.51400000000001,
+              95.00197438179168
+            ]
+          ],
+          [
+            [
+              -15.134000000000015,
+              95.00195186978354
+            ],
+            [
+              -15.573000000000008,
+              95.00193592982939
+            ]
+          ],
+          [
+            [
+              -16.193000000000012,
+              95.00191341782127
+            ],
+            [
+              -16.632000000000005,
+              95.00189747786712
+            ]
+          ],
+          [
+            [
+              -17.25200000000001,
+              95.00187496585897
+            ],
+            [
+              -17.691000000000003,
+              95.00185902590482
+            ]
+          ],
+          [
+            [
+              -18.311000000000007,
+              95.0018365138967
+            ],
+            [
+              -18.75,
+              95.00182057394255
+            ]
+          ],
+          [
+            [
+              -19.370000000000005,
+              95.00179806193441
+            ],
+            [
+              -19.808999999999997,
+              95.00178212198028
+            ]
+          ],
+          [
+            [
+              -20.429000000000002,
+              95.00175960997214
+            ],
+            [
+              -20.867999999999995,
+              95.00174367001799
+            ]
+          ],
+          [
+            [
+              -21.488,
+              95.00172115800987
+            ],
+            [
+              -21.926427332912425,
+              95.00170523884907
+            ]
+          ],
+          [
+            [
+              -22.546427545800924,
+              95.00168272683322
+            ],
+            [
+              -22.984999999999985,
+              95.00166680240312
+            ]
+          ],
+          [
+            [
+              -23.60499999999999,
+              95.001644290395
+            ],
+            [
+              -24.04400000000001,
+              95.00162835044085
+            ]
+          ],
+          [
+            [
+              -24.664000000000016,
+              95.00160583843271
+            ],
+            [
+              -25.10300000000001,
+              95.00158989847856
+            ]
+          ],
+          [
+            [
+              -25.723000000000013,
+              95.00156738647044
+            ],
+            [
+              -26.162000000000006,
+              95.00155144651629
+            ]
+          ],
+          [
+            [
+              -26.78200000000001,
+              95.00152893450814
+            ],
+            [
+              -27.221000000000004,
+              95.00151299455402
+            ]
+          ],
+          [
+            [
+              -27.841000000000008,
+              95.00149048254588
+            ],
+            [
+              -28.28,
+              95.00147454259172
+            ]
+          ],
+          [
+            [
+              -28.900000000000006,
+              95.00145203058361
+            ],
+            [
+              -29.339,
+              95.00143609062945
+            ]
+          ],
+          [
+            [
+              -29.959000000000003,
+              95.00141357862131
+            ],
+            [
+              -30.397999999999996,
+              95.00139763866716
+            ]
+          ],
+          [
+            [
+              -31.018,
+              95.00137512665904
+            ],
+            [
+              -31.456999999999994,
+              95.00135918670489
+            ]
+          ],
+          [
+            [
+              -32.077,
+              95.00133667469674
+            ],
+            [
+              -32.51599999999999,
+              95.00132073474262
+            ]
+          ],
+          [
+            [
+              -33.135999999999996,
+              95.00129822273448
+            ],
+            [
+              -33.57499999999999,
+              95.00128228278032
+            ]
+          ],
+          [
+            [
+              -34.19499999999999,
+              95.00125977077221
+            ],
+            [
+              -34.632999999999996,
+              95.00124386712776
+            ]
+          ],
+          [
+            [
+              -35.253,
+              95.00122135511961
+            ],
+            [
+              -35.69199999999999,
+              95.00120541516546
+            ]
+          ],
+          [
+            [
+              -36.312,
+              95.00118290315734
+            ],
+            [
+              -36.751000000000005,
+              95.00116696320319
+            ]
+          ],
+          [
+            [
+              -37.37100000000001,
+              95.00114445119505
+            ],
+            [
+              -37.81,
+              95.00112851124089
+            ]
+          ],
+          [
+            [
+              -38.43000000000001,
+              95.00110599923278
+            ],
+            [
+              -38.869,
+              95.00109005927862
+            ]
+          ],
+          [
+            [
+              -39.489000000000004,
+              95.00106754727048
+            ],
+            [
+              -39.928,
+              95.00105160731636
+            ]
+          ],
+          [
+            [
+              -40.548,
+              95.00102909530821
+            ],
+            [
+              -40.986999999999995,
+              95.00101315535406
+            ]
+          ],
+          [
+            [
+              -41.607,
+              95.00099064334594
+            ],
+            [
+              -42.04599999999999,
+              95.00097470339179
+            ]
+          ],
+          [
+            [
+              -42.666,
+              95.00095219138365
+            ],
+            [
+              -43.105000000000004,
+              95.0009362514295
+            ]
+          ],
+          [
+            [
+              -43.72500000000001,
+              95.00091373942138
+            ],
+            [
+              -44.164,
+              95.00089779946723
+            ]
+          ],
+          [
+            [
+              -44.784000000000006,
+              95.00087528745908
+            ],
+            [
+              -45.223,
+              95.00085934750496
+            ]
+          ],
+          [
+            [
+              -45.843,
+              95.00083683549681
+            ],
+            [
+              -46.28099999999999,
+              95.00082093185236
+            ]
+          ],
+          [
+            [
+              -46.900999999999996,
+              95.00079841984422
+            ],
+            [
+              -47.34,
+              95.00078247989009
+            ]
+          ],
+          [
+            [
+              -47.96000000000001,
+              95.00075996788195
+            ],
+            [
+              -48.399,
+              95.0007440279278
+            ]
+          ],
+          [
+            [
+              -49.019000000000005,
+              95.00072151591968
+            ],
+            [
+              -49.458,
+              95.00070557596553
+            ]
+          ],
+          [
+            [
+              -50.078,
+              95.00068306395738
+            ],
+            [
+              -50.516999999999996,
+              95.00066712400323
+            ]
+          ],
+          [
+            [
+              -51.137,
+              95.00064461199511
+            ],
+            [
+              -51.57599999999999,
+              95.00062867204096
+            ]
+          ],
+          [
+            [
+              -52.196,
+              95.00060616003282
+            ],
+            [
+              -52.63499999999999,
+              95.00059022007869
+            ]
+          ],
+          [
+            [
+              -53.254999999999995,
+              95.00056770807055
+            ],
+            [
+              -53.694,
+              95.0005517681164
+            ]
+          ],
+          [
+            [
+              -54.31400000000001,
+              95.00052925610828
+            ],
+            [
+              -54.753,
+              95.00051331615413
+            ]
+          ],
+          [
+            [
+              -55.373000000000005,
+              95.00049080414598
+            ],
+            [
+              -55.812,
+              95.00047486419186
+            ]
+          ],
+          [
+            [
+              -56.432,
+              95.00045235218371
+            ],
+            [
+              -56.870999999999995,
+              95.00043641222956
+            ]
+          ],
+          [
+            [
+              -57.491,
+              95.00041390022145
+            ],
+            [
+              -57.929,
+              95.00039799657696
+            ]
+          ],
+          [
+            [
+              -58.54900000000001,
+              95.00037548456885
+            ],
+            [
+              -58.988,
+              95.0003595446147
+            ]
+          ],
+          [
+            [
+              -59.608000000000004,
+              95.00033703260655
+            ],
+            [
+              -60.047,
+              95.00032109265243
+            ]
+          ],
+          [
+            [
+              -60.667,
+              95.00029858064428
+            ],
+            [
+              -61.105999999999995,
+              95.00028264069013
+            ]
+          ],
+          [
+            [
+              -61.726,
+              95.00026012868202
+            ],
+            [
+              -62.16499999999999,
+              95.00024418872786
+            ]
+          ],
+          [
+            [
+              -62.785,
+              95.00022167671972
+            ],
+            [
+              -63.224000000000004,
+              95.00020573676557
+            ]
+          ],
+          [
+            [
+              -63.84400000000001,
+              95.00018322475745
+            ],
+            [
+              -64.283,
+              95.0001672848033
+            ]
+          ],
+          [
+            [
+              -64.903,
+              95.00014477279515
+            ],
+            [
+              -65.342,
+              95.00012883284103
+            ]
+          ],
+          [
+            [
+              -65.962,
+              95.00010632083288
+            ],
+            [
+              -66.401,
+              95.00009038087873
+            ]
+          ],
+          [
+            [
+              -67.021,
+              95.00006786887062
+            ],
+            [
+              -67.46,
+              95.00005192891646
+            ]
+          ],
+          [
+            [
+              -68.08,
+              95.00002941690832
+            ],
+            [
+              -68.51899999999999,
+              95.0000134769542
+            ]
+          ],
+          [
+            [
+              -69.139,
+              94.99999096494605
+            ],
+            [
+              -69.577,
+              94.9999750613016
+            ]
+          ],
+          [
+            [
+              -70.197,
+              94.99995254929345
+            ],
+            [
+              -70.636,
+              94.9999366093393
+            ]
+          ],
+          [
+            [
+              -71.256,
+              94.99991409733119
+            ],
+            [
+              -71.695,
+              94.99989815737703
+            ]
+          ],
+          [
+            [
+              -72.315,
+              94.99987564536889
+            ],
+            [
+              -72.75399999999999,
+              94.99985970541476
+            ]
+          ],
+          [
+            [
+              -73.374,
+              94.99983719340662
+            ],
+            [
+              -73.813,
+              94.99982125345247
+            ]
+          ],
+          [
+            [
+              -74.433,
+              94.99979874144435
+            ],
+            [
+              -74.872,
+              94.9997828014902
+            ]
+          ],
+          [
+            [
+              -75.492,
+              94.99976028948205
+            ],
+            [
+              -75.931,
+              94.99974434952793
+            ]
+          ],
+          [
+            [
+              -76.551,
+              94.99972183751979
+            ],
+            [
+              -76.99,
+              94.99970589756563
+            ]
+          ],
+          [
+            [
+              -77.61,
+              94.99968338555752
+            ],
+            [
+              -78.04899999999999,
+              94.99966744560336
+            ]
+          ],
+          [
+            [
+              -78.669,
+              94.99964493359522
+            ],
+            [
+              -79.108,
+              94.99962899364107
+            ]
+          ],
+          [
+            [
+              -79.72800000000001,
+              94.99960648163295
+            ],
+            [
+              -80.167,
+              94.9995905416788
+            ]
+          ],
+          [
+            [
+              -80.787,
+              94.99956802967066
+            ],
+            [
+              -81.2254264620722,
+              94.99955211054152
+            ]
+          ],
+          [
+            [
+              -81.84542667419167,
+              94.99952959852567
+            ],
+            [
+              -82.28399999999999,
+              94.99951367406393
+            ]
+          ],
+          [
+            [
+              -82.904,
+              94.99949116205579
+            ],
+            [
+              -83.343,
+              94.99947522210164
+            ]
+          ],
+          [
+            [
+              -83.96300000000001,
+              94.99945271009352
+            ],
+            [
+              -84.402,
+              94.99943677013937
+            ]
+          ],
+          [
+            [
+              -85.022,
+              94.99941425813122
+            ],
+            [
+              -85.461,
+              94.9993983181771
+            ]
+          ],
+          [
+            [
+              -86.081,
+              94.99937580616896
+            ],
+            [
+              -86.52,
+              94.9993598662148
+            ]
+          ],
+          [
+            [
+              -87.14,
+              94.99933735420669
+            ],
+            [
+              -87.579,
+              94.99932141425253
+            ]
+          ],
+          [
+            [
+              -88.199,
+              94.99929890224439
+            ],
+            [
+              -88.63799999999999,
+              94.99928296229027
+            ]
+          ],
+          [
+            [
+              -89.258,
+              94.99926045028212
+            ],
+            [
+              -89.697,
+              94.99924451032797
+            ]
+          ],
+          [
+            [
+              -90.31700000000001,
+              94.99922199831985
+            ],
+            [
+              -90.756,
+              94.9992060583657
+            ]
+          ],
+          [
+            [
+              -91.376,
+              94.99918354635756
+            ],
+            [
+              -91.815,
+              94.9991676064034
+            ]
+          ],
+          [
+            [
+              -92.435,
+              94.99914509439529
+            ],
+            [
+              -92.87329880040053,
+              94.99912917990147
+            ]
+          ],
+          [
+            [
+              -93.49329912229855,
+              94.99910666788165
+            ],
+            [
+              -93.932,
+              94.99909073878854
+            ]
+          ],
+          [
+            [
+              -94.552,
+              94.99906822678042
+            ],
+            [
+              -94.72578220369458,
+              94.99906191680239
+            ]
+          ],
+          [
+            [
+              -95.78373600191276,
+              94.99902350282736
+            ],
+            [
+              -96.389,
+              94.9990015258789
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "line": 4601853,
+      "feature": "Bridge",
+      "road_length_mm": 191.1770001281535,
+      "start_machine_xy_mm": [
+        95.60300000000001,
+        93.3630015258789
+      ],
+      "end_machine_xy_mm": [
+        -95.574,
+        93.3560015258789
+      ],
+      "width_mm": 0.445458,
+      "height_mm": 0.0800018,
+      "machine_top_z_mm": 349.32,
+      "machine_bottom_z_mm": 349.2399982,
+      "support_tip_vertical_gap_mm": 0.44999820000003865,
+      "previous_layer": {
+        "centerline_backed_mm": 3.58353416776509,
+        "longest_unbacked_centerline_mm": 187.59346596038841,
+        "full_bead_contact_area_mm2": 6.139600304181534,
+        "full_bead_area_mm2": 85.31692267125158,
+        "full_bead_contact_fraction": 0.07196228030679236,
+        "any_bead_contact_projected_x_intervals_mm": [
+          [
+            -95.7967289998507,
+            95.8257289998507
+          ]
+        ],
+        "free_centerline_segments_machine_xy_mm": [
+          [
+            [
+              93.80879358704084,
+              93.36293583050295
+            ],
+            [
+              -93.78467224759626,
+              93.35606704262133
+            ]
+          ]
+        ]
+      },
+      "support_tip": {
+        "centerline_backed_mm": 0.0,
+        "longest_unbacked_centerline_mm": 191.1770001281535,
+        "full_bead_contact_area_mm2": 0.0,
+        "full_bead_area_mm2": 85.31692267125158,
+        "full_bead_contact_fraction": 0.0,
+        "any_bead_contact_projected_x_intervals_mm": [],
+        "free_centerline_segments_machine_xy_mm": [
+          [
+            [
+              95.60300000000001,
+              93.3630015258789
+            ],
+            [
+              -95.574,
+              93.3560015258789
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "line": 4601856,
+      "feature": "Bridge",
+      "road_length_mm": 192.54500012724301,
+      "start_machine_xy_mm": [
+        -96.266,
+        93.7850015258789
+      ],
+      "end_machine_xy_mm": [
+        96.279,
+        93.7920015258789
+      ],
+      "width_mm": 0.445458,
+      "height_mm": 0.0800018,
+      "machine_top_z_mm": 349.32,
+      "machine_bottom_z_mm": 349.2399982,
+      "support_tip_vertical_gap_mm": 0.44999820000003865,
+      "previous_layer": {
+        "centerline_backed_mm": 2.6141361092583293,
+        "longest_unbacked_centerline_mm": 189.93086401798467,
+        "full_bead_contact_area_mm2": 1.319719998749546,
+        "full_bead_area_mm2": 85.92630921485275,
+        "full_bead_contact_fraction": 0.015358741819687357,
+        "any_bead_contact_projected_x_intervals_mm": [
+          [
+            -96.48872899985281,
+            -94.43871677600214
+          ],
+          [
+            94.45675656879962,
+            96.50172899985279
+          ]
+        ],
+        "free_centerline_segments_machine_xy_mm": [
+          [
+            [
+              -94.95596815349943,
+              93.78504915226713
+            ],
+            [
+              94.97489573896979,
+              93.79195411498884
+            ]
+          ]
+        ]
+      },
+      "support_tip": {
+        "centerline_backed_mm": 186.10598562487553,
+        "longest_unbacked_centerline_mm": 3.2411229681503655,
+        "full_bead_contact_area_mm2": 70.12634591500218,
+        "full_bead_area_mm2": 85.92630921485275,
+        "full_bead_contact_fraction": 0.8161219369920351,
+        "any_bead_contact_projected_x_intervals_mm": [
+          [
+            -94.0175433667671,
+            93.92797322138051
+          ]
+        ],
+        "free_centerline_segments_machine_xy_mm": [
+          [
+            [
+              -96.266,
+              93.7850015258789
+            ],
+            [
+              -93.02487703399153,
+              93.78511935735082
+            ]
+          ],
+          [
+            [
+              93.08110846789623,
+              93.7918852660917
+            ],
+            [
+              96.279,
+              93.7920015258789
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "line": 4601858,
+      "feature": "Bridge",
+      "road_length_mm": 193.90800012634858,
+      "start_machine_xy_mm": [
+        96.815,
+        94.2200015258789
+      ],
+      "end_machine_xy_mm": [
+        -97.093,
+        94.2130015258789
+      ],
+      "width_mm": 0.445458,
+      "height_mm": 0.0800018,
+      "machine_top_z_mm": 349.32,
+      "machine_bottom_z_mm": 349.2399982,
+      "support_tip_vertical_gap_mm": 0.44999820000003865,
+      "previous_layer": {
+        "centerline_backed_mm": 2.4685060093776334,
+        "longest_unbacked_centerline_mm": 191.43469234184388,
+        "full_bead_contact_area_mm2": 1.1688983921905582,
+        "full_bead_area_mm2": 86.53346846844826,
+        "full_bead_contact_fraction": 0.013508049693128396,
+        "any_bead_contact_projected_x_intervals_mm": [
+          [
+            -97.26091679960565,
+            -95.3523633485545
+          ],
+          [
+            95.37160707509275,
+            97.03772899985489
+          ]
+        ],
+        "free_centerline_segments_machine_xy_mm": [
+          [
+            [
+              95.72444575658466,
+              94.21996215731389
+            ],
+            [
+              -95.71024646052224,
+              94.21305144271975
+            ]
+          ],
+          [
+            [
+              -97.08819822487608,
+              94.21300169922102
+            ],
+            [
+              -97.093,
+              94.2130015258789
+            ]
+          ]
+        ]
+      },
+      "support_tip": {
+        "centerline_backed_mm": 189.4053655980899,
+        "longest_unbacked_centerline_mm": 2.3960212919077066,
+        "full_bead_contact_area_mm2": 75.48097435810098,
+        "full_bead_area_mm2": 86.53346846844826,
+        "full_bead_contact_fraction": 0.8722749208373957,
+        "any_bead_contact_projected_x_intervals_mm": [
+          [
+            -95.00494328037867,
+            95.08639676290943
+          ]
+        ],
+        "free_centerline_segments_machine_xy_mm": [
+          [
+            [
+              96.815,
+              94.2200015258789
+            ],
+            [
+              94.70838676502166,
+              94.21992547799721
+            ]
+          ],
+          [
+            [
+              -94.69697870965352,
+              94.21308802127379
+            ],
+            [
+              -97.093,
+              94.2130015258789
+            ]
+          ]
+        ]
+      }
+    }
+  ],
+  "scope": "Full-width emitted model beads versus previous-layer model/support material and the highest local support-tip footprints. A projected support tip is separated by the recorded Z gap; it is not direct previous-layer bead overlap. Physical underside finish and removal effort remain unqualified.",
+  "source_sha256": "136a6f9036f776f01cc85fba37283a579dc6a89f40e38ed366256d5e658f69f1"
+}

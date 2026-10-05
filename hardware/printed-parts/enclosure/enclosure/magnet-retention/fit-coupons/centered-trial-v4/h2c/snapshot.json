@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "status": "native_reviews_pass",
+  "source_cache_directory": ".cache/prints/2026-10-04-centered-rc62-valve-h2c-v4",
+  "public_project": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/centered-trial-v4/h2c/2026-10-04-centered-rc62-valve-h2c-v4-input.3mf",
+  "project_sha256": "54d0bc0135b31a69d886dbf013339f300215f42e1403c1676ae99b477713562d",
+  "archive": ".cache/prints/2026-10-04-centered-rc62-valve-h2c-v4/ready/2026-10-04-centered-rc62-valve-h2c-v4.gcode.3mf",
+  "archive_sha256": "a3bac5c7429c3b142ef2fe1e4a87d04d73f45b314bc1b0b6aac49a01cf75552b",
+  "gcode_sha256": "d941eedf6115e0ed0a1bc5668b6b0b7c12cfca0bfe20adfb8f7da65ef1c7445b",
+  "files": [
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/centered-trial-v4/h2c/2026-10-04-centered-rc62-valve-h2c-v4-input.3mf",
+      "sha256": "54d0bc0135b31a69d886dbf013339f300215f42e1403c1676ae99b477713562d",
+      "size_bytes": 2505183
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/centered-trial-v4/h2c/README.md",
+      "sha256": "2b50d34dbf039adccbe2b0015e25b6f07934c7158115c82bc792502e29c96bc5",
+      "size_bytes": 1899
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/centered-trial-v4/h2c/independent-coupon-review.json",
+      "sha256": "7e61ceaecbb9b339ac5a32be48a6002a5ffa012676ee88833134f236eda8f684",
+      "size_bytes": 49304
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/centered-trial-v4/h2c/native-constraints-review.json",
+      "sha256": "75faf91569a5c28a2219e607b0b3af42901f620e3e88da49de6f5e752555fcf5",
+      "size_bytes": 18951
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/centered-trial-v4/h2c/native-slice.json",
+      "sha256": "07b7623be77aba923f810053c320c4f73dc7955324a3a654bbb33a77888a1c11",
+      "size_bytes": 4027
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/centered-trial-v4/h2c/placement-first-layer-review.json",
+      "sha256": "ab3a13dc1b88e156881e5d02deca3e13bc9bbc78af1bc48081271ae84cd132f1",
+      "size_bytes": 26079
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/centered-trial-v4/h2c/preparation.json",
+      "sha256": "37ef555cff66709be7a8c1194dff121799c2f51ec03b8129ef693fc6892c2c12",
+      "size_bytes": 33768
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/centered-trial-v4/h2c/preview.png",
+      "sha256": "3d3ef6c2b1ab46b3107eb9b0aac8e4f6cdbf14cee8329d5bca6b0d81254a5a57",
+      "size_bytes": 9705
+    }
+  ],
+  "estimate_seconds": 5911.9482421875,
+  "estimated_mass_g": 51.19,
+  "minimum_full_bead_edge_margin_mm": 86.69999999999999,
+  "independent_fit_review": "independent-coupon-review.json",
+  "independent_placement_review": "placement-first-layer-review.json",
+  "preparation_is_frozen_snapshot": true,
+  "submitted": false,
+  "physical_fit_and_visual_adhesion_qualified": false,
+  "reader_source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/centered-trial-v4/review.py": "b34340dfad061d36a5a90ca0ba188b5ad0d5a91bd7ed47d3abcbd7c2ed62cefc",
+    "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/read_roads.py": "ab12ecba1874040c6c24838432bdeda825857c38abc01f18d7fadc85ed1d0a31"
+  },
+  "current_job_status": "../launch-plan.json"
+}

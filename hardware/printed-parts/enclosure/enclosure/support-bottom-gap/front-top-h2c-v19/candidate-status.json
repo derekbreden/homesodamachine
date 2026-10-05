@@ -1,0 +1,28 @@
+{
+  "status": "held_failed_native_support_review",
+  "launchable": false,
+  "full_part_next_start_authorized": false,
+  "archive": ".cache/prints/2026-10-04-enclosure-front-top-display-strip-h2c-v19/ready/2026-10-04-enclosure-front-top-display-strip-h2c-v19.gcode.3mf",
+  "archive_sha256": "808c1796396d4aa3bf821ff4c11a637bd219a5f86bd867facb4089f018b28319",
+  "gcode_sha256": "ca93c9ae2919bc853a5bbfea44b2eec4d11aef76bf073619e94e77aa3d6bd975",
+  "project_sha256": "710fda6dfef5a589d9b7e8afa0d7a9a68f0f2333eda5bbc1e1c149dbc1a9e9c3",
+  "source_stl_sha256": "cc2cfd8a490b52439d957aa082b0e4369c5602076740494298b3a954f0ba36ba",
+  "strip_painted_facet_count": 68,
+  "changed_project_members": [
+    "3D/Objects/object_1.model"
+  ],
+  "geometry_exports_changed": false,
+  "existing_blocker_count_retained": 33296,
+  "native_retention_checks_pass": true,
+  "removed_front_roof_window_support_road_count": 71010,
+  "tee_cover_slot_support_road_count": 0,
+  "picked_seam_support_contact_mm2": [
+    0.02275397640947041,
+    0.0
+  ],
+  "local_support_removal_access_review_complete": false,
+  "remaining_unbacked_bridge_centerline_mm": 191.1770001281535,
+  "remaining_bridge_without_projected_support_tip_full_bead_contact_fraction": 0.0,
+  "reason": "The enforcer routes branches through the open frame bay. One first-layer strip bridge has no projected support-tip backing beneath its center.",
+  "physical_cleanup_and_finish_qualified": false
+}

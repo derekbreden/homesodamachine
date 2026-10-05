@@ -43,25 +43,26 @@ be a separate support trial if the remaining residue matters.
 reviewed archives. The H2C front-top retains its functional ceilings, current
 solid-host density boxes, complete fine show-round band, nominal RC62 pocket
 and one insertion pause. Its 0.50 mm XY correction is separate from the
-combined Mark2 plate's production frame trees. That plate places the frame
-aft, seventeen open RC62 pockets in the middle and five upright valve-socket
-panels fore; fit samples have supports disabled individually and no pause.
-The frame alone carries the new roof-side six-wall range.
+funnel-frame's production tree settings. The frame carries the roof-side
+six-wall range. Full-part starts are deferred.
 
 The [combined Mark2 project and review](mark2-v2/README.md) pass all twenty-two
 fit-object checks and the frame's native perimeter, support-contact and
 removal-route checks. Its native estimate is 9 h 37 m 50 s / 357.43 g; the
 [launch receipt](mark2-v2-launch.json) records its current status.
 
-The [fresh H2C front-top project and review](front-top-h2c-v18/README.md) pass
-the RC62 insertion pause and sealing paths, complete dense host/root regions,
-retained fine show-round band and remaining support topology. Actual native
-support roads are absent from the removed roof opening and both tee-window
-cover slots. Five automatic tree bodies remain for separate functional
-ceilings, without normal/snug object overrides. Its native estimate is
-21 h 56 m 43 s / 749.06 g; the [launch receipt](h2c-v18-launch.json) records
-current status. The frozen source input and reviewed archive are separate
-from printer acceptance records.
+The [H2C v18 archive](front-top-h2c-v18/README.md) is cancelled after first-layer
+progress. Its RC62 pause, dense regions and roof-opening checks pass, but the
+[display-strip witness](../../../zone-c/funnel/flush-roof-review/display-strip-backing-v18.json)
+finds approximately 190 mm unsupported roads beneath the retained narrow
+display ceiling. The [launch receipt](h2c-v18-launch.json) records the verified
+stop. A separate v19 local support preparation retains the frozen front-top
+and frame geometry. The Mark2 [sample/frame receipt](mark2-v2-launch.json)
+records a cancellation observed before that H2C stop; Derek reports deliberately stopping both jobs and poor Mark2 edge adhesion.
+The accepted [centered fit-coupon jobs](../magnet-retention/fit-coupons/centered-trial-v4/launch-plan.json)
+contain nine RC62 pockets and three valve panels on each printer, with
+86.7 mm minimum edge clearance, ordinary layers, no supports and no pauses.
+C0 and V70 repeat on both printers. Physical preferred fit is pending.
 
 [Picked-root reader](check_picked_roots.py) and
 [combined native reader](review_combined.py) read archives without printer

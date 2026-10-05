@@ -1,0 +1,198 @@
+{
+  "schema_version": 1,
+  "status": "current_default_policy_pass_full_part_native_work_deferred",
+  "geometry_exports_changed": false,
+  "first_bed_layer_height_mm": 0.2,
+  "ordinary_layer_height_mm": 0.24,
+  "nominal_extrusion_width_mm": 0.42,
+  "source_scope": [
+    {
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "source_sha256": "020e0ae5ee3dcbe748d5b3ee994ac4975d9d81b8793a1f534a2ad97f7a80595c",
+      "functions": [
+        {
+          "function": "_handhold_levels",
+          "start_line": 3859,
+          "end_line": 3863,
+          "function_ast_sha256": "5640da89982f6f5e8c0934b8331403cececa879790e158a9004d648f81d2f1a8"
+        },
+        {
+          "function": "_handholds",
+          "start_line": 4260,
+          "end_line": 4287,
+          "function_ast_sha256": "ee9c3af9b27231d7fe0e7debf6b6cc6ae682456a04af77151563b3607613b1f3"
+        },
+        {
+          "function": "_round_cradle_pull_rims",
+          "start_line": 5633,
+          "end_line": 5654,
+          "function_ast_sha256": "1d6b746ae214f296f7ea1d414760a108a9ffcfd17c59235af7c973dd6516c802"
+        }
+      ]
+    },
+    {
+      "source": "hardware/printed-parts/cadlib/overhang_round.py",
+      "source_sha256": "491daabeaab5b3d11cd1415daeeaa73871b1951522adcca82ad81f7030c8cb66",
+      "functions": [
+        {
+          "function": "transition",
+          "start_line": 13,
+          "end_line": 17,
+          "function_ast_sha256": "e27985652f121262bccac21c9c967a8722a8e9894a8fa341516b8213d56aae51"
+        },
+        {
+          "function": "roof_rim",
+          "start_line": 20,
+          "end_line": 56,
+          "function_ast_sha256": "bcf41828c3ea56e23b440b33c573e146b45904b1a6126d24a5044ff0a0af201d"
+        }
+      ]
+    },
+    {
+      "source": "hardware/printed-parts/cadlib/flute_skin.py",
+      "source_sha256": "34b4a2e1a301be1947869f3e17e2f658757623b7cfbeaf658c7c5e68f42c3f56",
+      "functions": [
+        {
+          "function": "_depth_field",
+          "start_line": 291,
+          "end_line": 312,
+          "function_ast_sha256": "3d344a1e6e5a25c278d067e7febcc58ec5f93da8da9fbc67368221e0045964bc"
+        }
+      ]
+    }
+  ],
+  "interface_source": {
+    "source": "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+    "sha256": "0999d5d2a4e54a546e5d1759ff24611ef988eeed74bbb94bbdbf5af470774356",
+    "show_edge_radius_mm": 6.0,
+    "flute_depth_mm": 1.2,
+    "flute_rise_mm": 5.0
+  },
+  "flute_fade": {
+    "law": "t*t*(3-2*t), t=distance_from_edge/flute_rise, clipped to [0,1]",
+    "maximum_nominal_inward_change_per_024_mm": 0.0864,
+    "classification": "Gentle decorative relief fade; ordinary layers.",
+    "mesh_section_evidence": "current-bottom-sections.json"
+  },
+  "parts": [
+    {
+      "part": "pump-cartridge",
+      "orientation": "Production +Z upright cartridge",
+      "current_stl_sha256": "d8f6b9a9e12b0594f958b14a6bd8ca9d348471c73f02b28cfe488711be9e5a16",
+      "saved_project": "hardware/printed-parts/enclosure/enclosure/magnet-retention/v4/pump-cartridge-cap-pause.3mf",
+      "saved_project_sha256": "1fcd2933cfd4db0bf9e1f3e010d0944e37b8ed68f390ca06ba792e4010ae5d96",
+      "bands": [
+        {
+          "print_z_mm": [
+            6.0,
+            18.4
+          ],
+          "layer_height_mm": 0.08,
+          "classification": "Real inward/top lower hand-pocket rim",
+          "wall_loops": "ordinary production setting"
+        },
+        {
+          "print_z_mm": [
+            100.3,
+            113.2
+          ],
+          "layer_height_mm": 0.24,
+          "wall_loops": 6,
+          "classification": "Additive expanding upper hand-pocket chamfer/taper"
+        }
+      ],
+      "preserve": "RC62 pause at printZ31.16, all mesh/support/modifier/pose/global settings members."
+    },
+    {
+      "part": "front-bottom",
+      "orientation": "Production +Z, floor on bed; source-to-print Z shift +6 mm",
+      "current_stl_sha256": "51c521848a0569907e6811869add3afa95062f072f01f2157f52982794ecba64",
+      "band_declaration_source": "hardware/printed-parts/enclosure/bottom-grip-print/prepare.py",
+      "bands": [
+        {
+          "print_z_mm": [
+            35.0,
+            41.5
+          ],
+          "layer_height_mm": 0.24,
+          "wall_loops": 6,
+          "classification": "Additive upper handhold chamfer/taper"
+        }
+      ],
+      "decorative_flute_runout_print_z_mm": [
+        41.5,
+        44.3
+      ],
+      "decorative_flute_runout_layer_height_mm": 0.24,
+      "preserve": "Functional flat lifting ceilings, grip bridge support lanes and current complete insert-host modifiers."
+    },
+    {
+      "part": "back-bottom",
+      "orientation": "Production +Z, floor on bed; source-to-print Z shift +6 mm",
+      "current_stl_sha256": "67a03fadfafb7a6c654f20524add78cecb8e2f6740d215d5fe79d56555495e88",
+      "band_declaration_source": "hardware/printed-parts/enclosure/bottom-grip-print/prepare.py",
+      "bands": [
+        {
+          "print_z_mm": [
+            35.0,
+            41.5
+          ],
+          "layer_height_mm": 0.24,
+          "wall_loops": 6,
+          "classification": "Additive upper handhold chamfer/taper"
+        }
+      ],
+      "decorative_flute_runout_print_z_mm": [
+        41.5,
+        44.3
+      ],
+      "decorative_flute_runout_layer_height_mm": 0.24,
+      "preserve": "Functional flat lifting ceilings, grip bridge support lanes and current complete insert-host modifiers."
+    }
+  ],
+  "native_review_required": [
+    "Exact project/archive/Gcode identity and current source mesh binding",
+    "First/second wall layer .20/.24 and bead overlap",
+    "Ordinary additive transition layers and local six-wall scope",
+    "Cartridge lower rim .08 preserved; cap orientation and solid hosts preserved",
+    "No support interface or terminating tip on exterior transition, including unlabelled support bodies",
+    "Bottom grip slot bridge coverage and no support trapped in slot mouths"
+  ],
+  "physical_qualification": false,
+  "launch_state": "deferred_by_centered_coupon_only_next_print_scope",
+  "submitted": false,
+  "preparation_source_hashes_at_initial_audit": {
+    "hardware/printed-parts/enclosure/bottom-grip-print/prepare.py": "45e2efa89ff9f8e4064c8f2c632744d9a76e8cea0e6b7a493fa0b24006a20927",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/prepare_prints.py": "6ebfdab3d5601e9c3c9e931fe71e1fb7e6c801b15f19484cb8b82f6f62b5798a",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/prepare_cartridge_pair.py": "a63aad213fbc67a5f0b7a653b2c6215059a2b9325f09fef69416de7bf689ad94",
+    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json": "84fb2efcb0eb2d9c475cf2c855a6f9d6d140aa5de9fe92a32668404320c8f08e"
+  },
+  "initial_audit_hash_scope": "Sources observed while tracing archived layer-band inheritance; these are historical audit bindings, not the current default preparation code.",
+  "current_preparation_and_validator_sha256": {
+    "hardware/printed-parts/enclosure/bottom-grip-print/prepare.py": "0d43b805a9831a068ffa694d7fe54861bf2e6d78d9f16c776a78703e2623c08f",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/prepare_prints.py": "fe1411ba54a9fab8d23fe16c8876d16d28a801148cd36764abf0e6a86d50063d",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/prepare_cartridge_pair.py": "1d76a4467e98b15af3d7115bf3d4d45cae5e8fc572aa29fa0b7cb375785aebdf",
+    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json": "84fb2efcb0eb2d9c475cf2c855a6f9d6d140aa5de9fe92a32668404320c8f08e",
+    "hardware/printed-parts/enclosure/bottom-grip-print/verify.py": "aedfa19c08a900de128d1d0dbdf066e4870b75349c8da67d5c8db70d0812f75e",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/audit_prints.py": "3fb6c926c5afc097864f8a2aef279dcbc09165038983017743cd9ed066296a6c",
+    "hardware/printed-parts/enclosure/enclosure/layer-policy-correction/prepare.py": "3fb9b4cd8c9f069e5e802113a4a6408f42249e3d80384f540ea94193745279be",
+    "hardware/printed-parts/enclosure/enclosure/layer-policy-correction/review_bottom.py": "bc4bf50f844150db29aef6b5d0b202d2793159234305f27598d82d1604c4086e",
+    "hardware/printed-parts/enclosure/enclosure/layer-policy-correction/review_pump.py": "562210f212d654e5c32c7a75f4b373db0d0d8b484f83a0356371369c72b35c05"
+  },
+  "current_entry_point": "hardware/printed-parts/enclosure/enclosure/layer-policy-correction/prepare.py",
+  "canonical_default_policy": "Bottom preparation has only the 35.0\u201341.5 mm ordinary six-wall band. Single/paired cartridge preparation normalizes inherited upper grip ranges to 0.24 mm and retains the lower 0.08 mm range.",
+  "native_revisions": {
+    "pump-cartridge-cap": {
+      "status": "native_review_pass",
+      "record": "pump-cartridge-cap/native-check.json"
+    },
+    "front-bottom": {
+      "status": "native_slice_success_full_review_deferred",
+      "local_first_layer_review": "front-bottom/first-layer-scarf-check.json"
+    },
+    "back-bottom": {
+      "status": "preparation_and_native_slice_deferred"
+    }
+  },
+  "current_next_print_scope": "Centered RC62 magnet and Beduan valve socket coupons only, split across Mark2 and H2C; no full enclosure or frame parts."
+}
