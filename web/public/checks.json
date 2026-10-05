@@ -42,7 +42,7 @@
     },
     {
       "check": "hardware/scripts/check_payloads.py",
-      "note": "re-run tools/bazel/trace_inputs.py hardware/printed-parts/zone-c/funnel-mold/forming_mandrel.py, then gen_build.py",
+      "note": "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v72.step.mesh — declared by nobody",
       "status": "red"
     },
     {
@@ -57,8 +57,8 @@
     },
     {
       "check": "hardware/scripts/check_purchase_evidence.py",
-      "note": "Project ledger integrity ✓; historical evidence coverage is reported separately.",
-      "status": "ok"
+      "note": "Project ledger integrity FAILED; historical evidence coverage is reported separately.",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_show_faces.py",
@@ -77,8 +77,8 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 6090 tracked, 1115 fetched solids, 57 tags, 39 site routes",
-      "status": "ok"
+      "note": "12 reference(s) name a path nothing holds.",
+      "status": "red"
     },
     {
       "check": "tools/check_release_room.py",
@@ -102,19 +102,20 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 5 staged source(s)",
+      "note": "check_declared_imports: every step holds what it imports, over 262 source(s) the graph names",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 2754 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 1027 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 2767 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 992 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was measured off a different enclosure-assembly.step — it holds 987ba8ea6e72100358e30a2751035502, enclosure-assembly.step here is 76cb174077ac1258bcd6c6d4151f2494",
-      "  enclosure-assembly.facts.json was taken from a different tree — it holds 32b34630c2e0f80a93e3147cf8058a0b for the 258 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 109154857e6fffbeefb529f432233d1d here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken beside a different enclosure-assembly.scorecard.json — it holds 55a93c0c115cd66c1831e14ee5cca859, enclosure-assembly.scorecard.json here is f7830f5c73454fa29723e414b0000228",
+      "  enclosure-assembly.facts.json was measured off a different enclosure-assembly.step — it holds 987ba8ea6e72100358e30a2751035502, enclosure-assembly.step here is 4bfb4a0db0e86d6656043bba73feba64",
+      "  enclosure-assembly.facts.json was taken from a different tree — it holds 32b34630c2e0f80a93e3147cf8058a0b for the 258 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at fcb035dcb2203345bda0192f5bcb3b88 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
@@ -126,6 +127,9 @@
       "  ✗ procedure with no doc-sync driver — every number and part name in it is a bare literal: hardware/assembly/weld-position.md (expected hardware/assembly/_weld_position_sync.py)"
     ],
     "hardware/scripts/check_payloads.py": [
+      "    hardware/printed-parts/fixtures/gun-positioner/step/test-output-arm.step.mesh — declared by nobody",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/test-output-bridge.step.mesh — declared by nobody",
+      "    hardware/printed-parts/fixtures/gun-positioner/step/thrust-angle-pad.step.mesh — declared by nobody",
       "    hardware/printed-parts/fixtures/gun-positioner/step/thrust-support-leg.step.mesh — declared by nobody",
       "    hardware/printed-parts/fixtures/gun-positioner/step/torque-cord-pulley.step.mesh — declared by nobody",
       "    hardware/printed-parts/fixtures/gun-positioner/step/torque-redirect-bracket.step.mesh — declared by nobody",
@@ -147,13 +151,36 @@
       "    hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v69.step.mesh — declared by nobody",
       "    hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v70.step.mesh — declared by nobody",
       "    hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v71.step.mesh — declared by nobody",
-      "    hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v72.step.mesh — declared by nobody",
-      "    hardware/printed-parts/zone-c/funnel-mold/forming-mandrel-finished.step.mesh — declared by nobody",
-      "      name it in tools/bazel/inventory.py IMPLICIT_SOLIDS under hardware/printed-parts/zone-c/funnel-mold/forming_mandrel.py,",
-      "      re-run tools/bazel/trace_inputs.py hardware/printed-parts/zone-c/funnel-mold/forming_mandrel.py, then gen_build.py"
+      "    hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v72.step.mesh — declared by nobody"
+    ],
+    "hardware/scripts/check_purchase_evidence.py": [
+      "WARNING: coverage-88c04aa68db042feb287051cb5e01375: evidence coverage is partial",
+      "WARNING: coverage-89028646dee6480680bf381570c72830: evidence coverage is unknown",
+      "WARNING: coverage-96556d699c7b46f4978a3888d3d375db: evidence coverage is partial",
+      "WARNING: coverage-a33332d2ccf041f787551b215425fdbb: evidence coverage is unknown",
+      "WARNING: coverage-a71252470d6e40c4b10bc82bd951d28b: evidence coverage is unknown",
+      "WARNING: coverage-a7c1d71c0a38472580eea22c396eafd5: evidence coverage is unknown",
+      "WARNING: coverage-a914738fc688438f8d509e94711f1e9c: evidence coverage is unknown",
+      "WARNING: coverage-ac29a3ee87b742d2b8bd7ee14edcae46: evidence coverage is partial",
+      "WARNING: coverage-b9b06230952f4f6795765fbb8e7c1222: evidence coverage is unknown",
+      "WARNING: coverage-bd073659d99f4c38b20c1d9fac3c8155: evidence coverage is unknown",
+      "WARNING: coverage-c57ca481544248138b803bc112966160: evidence coverage is partial",
+      "WARNING: coverage-c7f0244fd78749e6a3eda6f37122dba0: evidence coverage is unknown",
+      "WARNING: coverage-d4baf4542f40450189a7fdcacc197039: evidence coverage is partial",
+      "WARNING: coverage-dad019e8b30b485e9203a063ea3654ba: evidence coverage is partial",
+      "WARNING: coverage-dc497fe458424d6e96f59f91a9cd428e: evidence coverage is unknown",
+      "WARNING: coverage-e361f03c5b404f3f92334c4f92bab5f8: evidence coverage is unknown",
+      "WARNING: coverage-f000ac62945a4ef1b60842f89aa45a31: evidence coverage is unknown",
+      "WARNING: coverage-f18d82d4491b433d80956e513f0c3242: evidence coverage is unknown",
+      "WARNING: coverage-f40e66eb69164069b4f0418f0859ba19: evidence coverage is unknown",
+      "WARNING: coverage-f622e58e83ff4673a617ac4d519ec225: evidence coverage is unknown",
+      "WARNING: coverage-f9613b999fd5422a8f49b9032ec3f7d7: evidence coverage is unknown",
+      "WARNING: Legacy order 112-0019658-3684217: row valuation USD 139.80, preserved project invoice USD 139.81; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
+      "WARNING: Legacy order 112-0066205-0960237: row valuation USD 423.94, preserved project invoice USD 423.95; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
+      "WARNING: 1 preserved potentially project order(s) have no named Markdown row",
+      "Project ledger integrity FAILED; historical evidence coverage is reported separately."
     ],
     "hardware/scripts/check_step_colours.py": [
-      "    hardware/printed-parts/fixtures/gun-positioner/step/shaft-capture-tube-5p50.step",
       "    hardware/printed-parts/fixtures/gun-positioner/step/shaft-capture-tube-9p50.step",
       "    hardware/printed-parts/fixtures/gun-positioner/step/shaft-hub.step",
       "    hardware/printed-parts/fixtures/gun-positioner/step/test-output-arm.step",
@@ -176,6 +203,7 @@
       "    hardware/printed-parts/fixtures/gun-positioner/step/z-bed.step",
       "    hardware/printed-parts/fixtures/gun-positioner/step/z-carriage.step",
       "    hardware/printed-parts/fixtures/gun-positioner/step/z-head-diagonal.step",
+      "    hardware/reference/g-ganen-pump/g-ganen-pump.step",
       "    hardware/reference/wellbom-regulator/wellbom-regulator.step",
       "  A generator hands its solid to `_materials.one_body` and exports the assembly."
     ],
@@ -184,15 +212,32 @@
       "  git add hardware/printed-parts/cold-core/magnetic-float/petg-bench-reference.figures.json",
       "71/72 artifacts have their record in the index"
     ],
+    "tools/check_paths.py": [
+      "hardware/concerns.md:95 — tools/quickstart-codex/fill_scene.py is held nowhere, and no tag is named for it",
+      "  hardware/ledger/purchases.md:569 — hardware/quickstart/README.md is held nowhere, and no tag is named for it",
+      "  hardware/ledger/tools.md:232 — hardware/quickstart-codex/README.md is held nowhere, and no tag is named for it",
+      "  hardware/printed-parts/enclosure/y-wall-of-back-top/README.md:54 — hardware/quickstart/README.md is held nowhere, and no tag is named for it",
+      "  hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-03-centred-short-block/README.md:15 — hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-03-centred-short-block/../../forming-mandrel-check.json is held nowhere, and no tag is named for it",
+      "  hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-03-forming-mandrel-petg088-v1/README.md:50 — hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-03-forming-mandrel-petg088-v1/../../forming-mandrel-design.json is held nowhere, and no tag is named for it",
+      "  hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-03-forming-mandrel-petg088-v1/README.md:58 — hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-03-forming-mandrel-petg088-v1/../../forming-mandrel-check.json is held nowhere, and no tag is named for it",
+      "  hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-04-short-pin/README.md:9 — hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-04-short-pin/../../forming-mandrel.3mf is held nowhere, and no tag is named for it",
+      "  hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-04-short-pin/README.md:56 — hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-04-short-pin/../../forming-mandrel-check.json is held nowhere, and no tag is named for it",
+      "  marketing/target-market.md:7 — hardware/quickstart/README.md is held nowhere, and no tag is named for it",
+      "  marketing/target-market.md:44 — hardware/quickstart-codex/README.md is held nowhere, and no tag is named for it",
+      "  marketing/target-market.md:396 — marketing/unboxing-and-quickstart.md is held nowhere, and no tag is named for it",
+      "12 reference(s) name a path nothing holds."
+    ],
     "tools/check_release_room.py": [
-      "the release holds 127 of 1000 and the next cut wants 989; 5 asset(s) may be retired for it",
+      "the release holds 127 of 1000 and the next cut wants 984; 7 asset(s) may be retired for it",
       "check_release_room: 1 thing(s) stand between a cut and the site",
       "    tools/cad-venv/bin/python tools/cad-artifacts/pack.py --room"
     ],
     "tools/check_web_tests.py": [
-      "2 test(s) in web/ fail:",
+      "4 test(s) in web/ fail:",
+      "    the sourced plan covers the current BOM, including shared parts and unpriced requirements",
       "    nothing in the hardware tree is unseated",
       "    EXCLUDED_DIRS is every out/ .gitignore holds under hardware",
+      "    a nested assembly is a node its parent's model actually holds",
       "  cd web && npm test"
     ]
   },
