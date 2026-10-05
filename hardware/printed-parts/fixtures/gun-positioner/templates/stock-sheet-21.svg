@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="304.8mm" height="304.8mm" viewBox="0 0 304.8 304.8">
+<rect width="100%" height="100%" fill="white"/>
+<rect x="1.0" y="1.0" width="150" height="150" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="2.0" y="5.0" font-family="sans-serif" font-size="2.5">linear-drive-support #6</text>
+<text x="2.0" y="9.0" font-family="sans-serif" font-size="2.5">150 x 150 mm</text>
+<rect x="154.0" y="1.0" width="140" height="40" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="155.0" y="5.0" font-family="sans-serif" font-size="2.5">test-output-bridge #1</text>
+<text x="155.0" y="9.0" font-family="sans-serif" font-size="2.5">140 x 40 mm</text>
+<rect x="154.0" y="44.0" width="70" height="100" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="155.0" y="48.0" font-family="sans-serif" font-size="2.5">crash-output-wall #2</text>
+<text x="155.0" y="52.0" font-family="sans-serif" font-size="2.5">70 x 100 mm</text>
+<rect x="227.0" y="44.0" width="70" height="100" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="228.0" y="48.0" font-family="sans-serif" font-size="2.5">crash-output-wall #1</text>
+<text x="228.0" y="52.0" font-family="sans-serif" font-size="2.5">70 x 100 mm</text>
+<rect x="1.0" y="154.0" width="220" height="30" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="2.0" y="158.0" font-family="sans-serif" font-size="2.5">brake-torque-lever #1</text>
+<text x="2.0" y="162.0" font-family="sans-serif" font-size="2.5">220 x 30 mm</text>
+<rect x="1.0" y="187.0" width="38" height="110" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="2.0" y="191.0" font-family="sans-serif" font-size="2.5">force-link-shoulder #8</text>
+<text x="2.0" y="195.0" font-family="sans-serif" font-size="2.5">38 x 110 mm</text>
+<rect x="42.0" y="187.0" width="38" height="110" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="43.0" y="191.0" font-family="sans-serif" font-size="2.5">force-link-shuttle #6</text>
+<text x="43.0" y="195.0" font-family="sans-serif" font-size="2.5">38 x 110 mm</text>
+<rect x="83.0" y="187.0" width="60" height="100" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="84.0" y="191.0" font-family="sans-serif" font-size="2.5">shaft-capture-interface #1</text>
+<text x="84.0" y="195.0" font-family="sans-serif" font-size="2.5">60 x 100 mm</text>
+<rect x="146.0" y="187.0" width="38" height="110" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="147.0" y="191.0" font-family="sans-serif" font-size="2.5">force-link-end #8</text>
+<text x="147.0" y="195.0" font-family="sans-serif" font-size="2.5">38 x 110 mm</text>
+<rect x="187.0" y="187.0" width="110" height="38" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="188.0" y="191.0" font-family="sans-serif" font-size="2.5">force-link-end #4</text>
+<text x="188.0" y="195.0" font-family="sans-serif" font-size="2.5">110 x 38 mm</text>
+<rect x="187.0" y="228.0" width="110" height="38" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="188.0" y="232.0" font-family="sans-serif" font-size="2.5">force-link-end #5</text>
+<text x="188.0" y="236.0" font-family="sans-serif" font-size="2.5">110 x 38 mm</text>
+<rect x="187.0" y="269.0" width="100" height="25" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="188.0" y="273.0" font-family="sans-serif" font-size="2.5">motor-support-leg #9</text>
+<text x="188.0" y="277.0" font-family="sans-serif" font-size="2.5">100 x 25 mm</text>
+<rect x="224.0" y="154.0" width="60" height="30" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="225.0" y="158.0" font-family="sans-serif" font-size="2.5">bench-tether-anchor #2</text>
+<text x="225.0" y="162.0" font-family="sans-serif" font-size="2.5">60 x 30 mm</text>
+</svg>

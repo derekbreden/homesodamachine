@@ -1,0 +1,183 @@
+{
+  "schema": 1,
+  "checked_date": "2026-10-04",
+  "scope": "Dry-development six-axis controller; exact Prime products and inventory reconciliation live in sourcing/.",
+  "items": [
+    {
+      "id": "pico",
+      "quantity": 1,
+      "purchase_requirement": "Headered Raspberry Pi Pico RP2040, soldered 2\u00d720 headers, Micro-USB data cable; selected module B0D4V1S1SK",
+      "purpose": "USB host controller; Pico H/WH or standard RP2040 Pico with soldered headers use the same firmware target."
+    },
+    {
+      "id": "drivers",
+      "quantity": 6,
+      "purchase_requirement": "BIGTREETECH TMC2209 V1.3 removable modules, heatsinks, two R110 current-sense resistors per module",
+      "purpose": "Six-pack B08WZFK9KT is study anchor; exact received module schematic/pin labels must agree with manifest."
+    },
+    {
+      "id": "driver_carriers",
+      "quantity": 6,
+      "purchase_requirement": "Home-built covered isolated-pad protoboard/socket terminal backplane: twelve eight-position female sockets, matching received BTT module spacing, insulated jumpers and labeled screw terminals; VM electrolytics listed separately.",
+      "purpose": "Six removable drivers with separately accessible VIO, VM, ENN, STEP, DIR, MS1, MS2 and PDN_UART. Follow the BTT P1A net map; commercial A4988 carriers without exposed UART/address nets do not implement this backplane."
+    },
+    {
+      "id": "pico_terminal_adapter",
+      "quantity": 1,
+      "purchase_requirement": "40-pin Pico screw-terminal breakout, all GP0..22,GP26..28,3V3 and GND accessible",
+      "purpose": "Avoid Dupont connections for moving/stop wiring."
+    },
+    {
+      "id": "logic_buck",
+      "quantity": 1,
+      "purchase_requirement": "Regulated24V-to-5V DC buck converter, input \u226530V rated, output\u22650.5A, fixed5V preferred; enclosed or covered terminals",
+      "purpose": "Keeps Pico/VIO/ENN powered after host USB unplug; fed before motor cutoff relay, through500mA input branch fuse."
+    },
+    {
+      "id": "logic_power_diode",
+      "quantity": 1,
+      "purchase_requirement": "1N5819 Schottky diode\u22651A,\u226540V",
+      "purpose": "External5V\u2192diode\u2192PicoVSYS; band towardVSYS, blocks backfeeding the external supply when USB also powers Pico."
+    },
+    {
+      "id": "motor_supply",
+      "quantity": 1,
+      "purchase_requirement": "Regulated enclosed 24V DC supply, \u22655A, correct mating output connector; no exposed mains terminals",
+      "purpose": "Dedicated supply for six drivers, motor cutoff relay, logic buck and fan; independent of the existing rotator supply."
+    },
+    {
+      "id": "stop",
+      "quantity": 1,
+      "purchase_requirement": "Latching twist-release mushroom stop, two independent normally-closed contact blocks, \u226524V DC 0.2A control rating",
+      "purpose": "NC1 interrupts only relay coil; NC2 carries3.3V logic loop."
+    },
+    {
+      "id": "motor_cutoff_relay",
+      "quantity": 1,
+      "purchase_requirement": "24V DC coil relay with normally-open power contact rated \u226524V DC 6A resistive, socket/terminal cover",
+      "purpose": "Requires manufacturer DC contact rating, not an AC-only rating; coil current \u22640.2A."
+    },
+    {
+      "id": "stop_reset_switch",
+      "quantity": 1,
+      "purchase_requirement": "Maintained MOTOR POWER toggle, DC24V0.2A or better",
+      "purpose": "In series with NC1 and relay coil; OFF for wiring/USB flash."
+    },
+    {
+      "id": "limit_switches",
+      "quantity": 24,
+      "purchase_requirement": "SPDT lever microswitches with COM and NC contacts accessible, positive mounting holes",
+      "purpose": "Two travel ends and two opposing force-link overload switches per axis; four NC contacts in series on each existing input. Metal capture bounds the link independently."
+    },
+    {
+      "id": "breakaway_switches",
+      "quantity": 4,
+      "purchase_requirement": "Four separate SPDT mechanical switches, positive mounting and verified DC24V0.2A-or-better coil-control rating; COM/NC/NO accessible",
+      "purpose": "Two independent gun-release channels, each axial COM\u2013NC plus seated-plate COM\u2013NO in series; one channel interrupts relay coil, the other opens STOP sense. Both closed when healthy. Total axis/crash microswitch count28."
+    },
+    {
+      "id": "fuse_distribution",
+      "quantity": 1,
+      "purchase_requirement": "One 5A main + six 1A motor branches + one 500mA logic-buck input + one 500mA relay-coil branch + one 500mA fan branch; DC-rated inline fuse holders and spare fuses, \u226532V DC",
+      "purpose": "Ratings are starting protection choices. Selected fuse/buck/VM-capacitor combination must pass the cold-start and MOTOR POWER cycle acceptance; no inrush margin is assumed from catalog ratings."
+    },
+    {
+      "id": "capacitors",
+      "quantity": 7,
+      "purchase_requirement": "Six100uF\u226535V + one470uF\u226535V electrolytics; polarity visible",
+      "purpose": "Local VM bypass if carriers lack it; main bus bypass near carrier group."
+    },
+    {
+      "id": "resistors",
+      "quantity": 1,
+      "purchase_requirement": "10k\u03a9 \u00d7 9, 1.8k\u03a9 \u00d7 2, 330\u03a9 \u00d7 2, 100k\u03a9 \u00d7 1, 1% quarter-watt axial assortment",
+      "purpose": "Seven NC input pull-ups, ENN pull-up and VM-divider lower leg use 10k; two UART bus pull-ups use 1.8k; two TX series resistors use 330\u03a9; divider upper leg uses 100k. TX is released during driver replies."
+    },
+    {
+      "id": "adc_filter",
+      "quantity": 1,
+      "purchase_requirement": "100nF ceramic capacitor\u226525V",
+      "purpose": "GP27 supply-sense divider filtering."
+    },
+    {
+      "id": "relay_flyback",
+      "quantity": 1,
+      "purchase_requirement": "1N4007 or equivalent diode rated\u22651A,\u226550V",
+      "purpose": "Across24V relay coil, banded cathode at coil+; omit only if socket has verified equivalent diode/polarity."
+    },
+    {
+      "id": "wire_harness",
+      "quantity": 1,
+      "purchase_requirement": "18AWG stranded red/black motor distribution;22AWG paired switch/signal wire; ferrules, labeled terminal blocks, strain-relief glands",
+      "purpose": "Common0V motor/logic at distributionstar; switches twist signal withGND; no motor wire through Pico terminals."
+    },
+    {
+      "id": "motor_connectors",
+      "quantity": 7,
+      "purchase_requirement": "Seven GX16-4 four-pole locking plug/socket pairs, \u22652A/contact: six motor pairs and one crash CH1 pair",
+      "purpose": "Motor pins1/2=A1/A2,3/4=B1/B2. Crash CH1 uses only pins1/2 in the24V coil chain;3/4 unused. Different family from GX12-2 sense connectors prevents24V/GPIO cross-mating. Map actual numbered contact views; mate only with24Voff."
+    },
+    {
+      "id": "switch_connectors",
+      "quantity": 8,
+      "purchase_requirement": "Eight GX12-2 locking plug/socket pairs: six axis NC loops, STOP sense and crash CH2",
+      "purpose": "Loop pin1=input-side, pin2=GND return; crash CH2 contains axial COM\u2013NC and seated plate COM\u2013NO. Crash CH1 uses a GX16-4 pair instead. Label every connector at both ends."
+    },
+    {
+      "id": "driver_cooling_fan",
+      "quantity": 1,
+      "purchase_requirement": "24V DC fan, 80mm frame, \u22640.2A, two finger guards and fixed mount; wired through its own 500mA fuse from switched VM",
+      "purpose": "Cross-flow across all six heatsinks during enabled hold and loaded development; verify the 50\u00b0C surface/temperature-trend gates with this fan installed."
+    },
+    {
+      "id": "controller_mounting_hardware",
+      "quantity": 1,
+      "purchase_requirement": "36 M3\u00d725 bolts +36 M3 locking nuts +72 M3 flat washers;4 M4\u00d750 bolts +4 M4 locking nuts +8 M4 flat washers;4 M6\u00d716 bolts +4 slot8 M6 T-nuts +4 M6 flat washers. Include this additional allocation when merging mechanism/camera packs.",
+      "purpose": "24 carrier,4 Pico-adapter,2 DIN-rail,4 fuse-block and2 fan-stand M3 points;4 fan M4 points;4 fixed-backplane M6 points. Ready printed backplane/28 insulating spacers/fan stand and exact fitting manifest are in mounting/. Uses owned SunTop unfilled PETG reservoir-candidate stock."
+    }
+  ],
+  "current_profiles": {
+    "bench": {
+      "current_scales": [
+        10,
+        10,
+        10,
+        10,
+        10,
+        10
+      ],
+      "configured_vsense": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "loaded-development": {
+      "current_scales": [
+        10,
+        10,
+        22,
+        10,
+        14,
+        10
+      ],
+      "configured_vsense": [
+        1,
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "Z_nominal_current_rms_A": 1.2705824974445774,
+      "Z_nominal_current_peak_A": 1.796875,
+      "Z_design_screen_peak_A": 1.9700677710843375,
+      "sense_resistor_tolerance_assumption_fraction": 0.05,
+      "internal_reference_tolerance_fraction": 0.05,
+      "scope": "Nominal digital configuration and explicit tolerance assumption only; actual coil current, loaded motion and thermal behavior unqualified."
+    }
+  }
+}

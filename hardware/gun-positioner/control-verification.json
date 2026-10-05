@@ -1,0 +1,64 @@
+{
+  "schema": 1,
+  "checked_date": "2026-10-04",
+  "source": "native_policy_safety_protocol_and_host_tests",
+  "physical_result": null,
+  "requested_counts": [
+    640,
+    -321,
+    16,
+    -7,
+    63,
+    -640
+  ],
+  "emitted_edges_per_axis": [
+    640,
+    321,
+    16,
+    7,
+    63,
+    640
+  ],
+  "signed_completed_count": [
+    640,
+    -321,
+    16,
+    -7,
+    63,
+    -640
+  ],
+  "complete_time_us": 1010000,
+  "event_records": 967,
+  "raw_simulation_sha256": "f6a5d7288e961de8a7fed4a2c874f1d37169d3529c2f49638ddfdf793cce0422",
+  "checks": [
+    "passed bench and loaded rate configurations with -DNDEBUG and always-evaluating checks: synchronized exact totals, all6 soft and NC faults, genuine acceleration/rate bounds, state/health/sequence refusal, mid-move latched faults, disarm, catch-up refusal, heartbeat boundary and sequence exhaustion",
+    "passed VM cycle/reference invalidation in all5 states, same-epoch scan qualification, all6 driver reset/config/read/warning and per-axis VSENSE rejection in both profiles, SpreadCycle diagnostic check and tick-qualified watchdog liveness/wrap",
+    "passed permissive STOP prefix, immediate invalid-input/overflow inhibit events, CRC vector, echoed/partial/corrupt/wrong-register UART frame rejection",
+    "passed5 geometry/quantization/host-firmware parity/dot-compensation/segmentation/local-response cases and7 fake-serial Client cases for late acknowledgments, ambiguity STOP/resync, boot reset, heartbeat recovery and profile mismatch including recovery after reset and configured/actual VSENSE mismatch",
+    "passed wiring-manifest resistor-network design-envelope calculation; physical UART waveform/turnaround remains unqualified"
+  ],
+  "evidence_limit": "Computer tests and DC-envelope arithmetic do not verify physical motion, UART waveform/timing, stopping distance, startup transients/inrush margin, thermal behavior, passive retention or camera uncertainty.",
+  "UF2_sha256": {
+    "bench": "2c775bee1ff47620d32791f48a8fc5bb5ab112bde01de77259e94c6b2ff657b2",
+    "loaded-development": "2222f22bb52b0216abc84059925f17e5f34d6f49578d4c774334a381853c597b"
+  },
+  "UART_DC_envelope": {
+    "idle_V": 2.316238785863894,
+    "idle_high_margin_V": 0.12173878586389453,
+    "request_low_margin_V": 0.055551842843669985,
+    "request_high_margin_V": 0.23332491193926153,
+    "reply_sink_upper_A": 0.0019764444444444443,
+    "reply_low_V": 0.2,
+    "reply_high_lower_V": 2.9349999999999996
+  },
+  "hardware_connections_opened": false,
+  "current_estimate_scope": {
+    "sense_resistor_nominal_ohm": 0.11,
+    "internal_sense_resistance_ohm": 0.02,
+    "sense_resistor_tolerance_assumption_fraction": 0.05,
+    "internal_reference_tolerance_fraction": 0.05,
+    "loaded_Z_design_screen_peak_A": 1.9700677710843375,
+    "scope": "BTT schematic specifies0.11ohm but does not establish resistor tolerance. Digital readback/current formula and tolerance screen do not calibrate actual coil current; loaded response and50C guarded-fan thermal acceptance remain physical gates.",
+    "source": "https://www.analog.com/media/en/technical-documentation/data-sheets/TMC2209_datasheet_rev1.09.pdf"
+  }
+}

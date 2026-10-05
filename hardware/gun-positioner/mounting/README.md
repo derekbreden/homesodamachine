@@ -51,7 +51,10 @@ meter, fuse and plug access before drilling.
 
 Drill component holes 3.4 mm, and the four fixed-frame holes 6.5 mm with at
 least 12 mm panel edge distance. Place carrier/Pico mounting holes on clear
-lands; preserve copper isolation and at least 6 mm beneath solder pins.
+lands; preserve copper isolation. The 6 mm spacers set the PCB-to-panel
+standoff. Every actual solder pin and joint must remain visibly clear of the
+panel and all mounting metal. Trim only excess leads with USB and 24 V
+unplugged, then inspect and verify continuity/isolation before power.
 Never drill a populated module or cut an unmapped carrier trace. Meter every
 mounted carrier again using the control guide's VM/VIO/STEP/DIR/ground
 isolation checks. The nominal PCB/spacer/panel/two-washer/nut stack is

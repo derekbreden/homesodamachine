@@ -4,10 +4,12 @@ Research checked **2026-10-04**. Build **one permanently bench-mounted,
 six-axis gun positioner: XYZ screw slides carrying a screw-driven yaw/pitch/roll
 gimbal**. The gun stays on it during calibration, dry rotation and welding.
 The existing rotator supplies circumferential travel; the positioner adjusts
-the gun throughout that rotation. Budget approximately **$750–$1,300 for the
-positioner**, or **$2,000–$2,700 including the two-camera dry-run observation setup**,
-before tax and development spares. These are concept materials allowances,
-not a completed CAD design or a qualified shopping cart.
+the gun throughout that rotation. The
+[fabrication plan](../../hardware/gun-positioner/README.md),
+[Prime purchase lists](../../hardware/gun-positioner/purchases.md) and
+[illustrated assembly guide](../../hardware/gun-positioner-guide/README.md)
+govern the build. This study supplies application requirements, donor research
+and nominal arithmetic; its materials allowances are not a shopping list.
 
 The design objective is **observed, correctable local motion**. Software commands
 an adjustment, measures what actually happened, and commands another adjustment
@@ -198,38 +200,37 @@ smaller offset reduces translation consumed by angular experiments.
 
 ### A concrete starting geometry
 
-Use **200 mm usable mechanical travel on each XYZ axis** and **±20° on each
-gimbal axis** as a provisional CAD envelope. These are design assumptions,
+Use **170 mm commanded travel on each XYZ axis**, **±20° yaw/roll** and
+**−20°…+10° pitch** within the fabrication envelope. These are design bounds,
 not recovered mandatory ranges or demonstrated collision-free travel. Size
 rails longer than usable travel to accommodate two blocks, supports and limits.
 The model in [calculations.json](calculations.json) uses an illustrative neutral
-tool vector `[200, 0, 0]` mm and samples `Rz Ry Rx` at one-degree spacing.
-Holding the dot while sweeping all angles through ±20° consumes approximately
-24 mm X and ±69 mm Y/Z relative to neutral. A ±100 mm slide envelope leaves
-about 31 mm additional Y/Z adjustment in this geometry; it does not offer
-200 mm of dot translation at every angle. The actual gun transform, virtual
-axes, sightlines and cable envelope must be included before fixing CAD.
+tool vector `[200, 0, 47.35]` mm and samples `Rz Ry Rx` at one-degree spacing.
+Angular compensation consumes part of the XYZ travel; the illustrative extrema
+and remaining translation are in that file. A ±85 mm slide envelope does not
+offer 170 mm of dot translation at every angle. The actual gun transform,
+virtual axes, sightlines and cable envelope require observation and clearance
+qualification. Fabrication dimensions are owned by the linked build plan.
 
 Drive each axis with a 200-full-step NEMA17, a **4:1 belt reduction** and a
-**1 mm-lead steel screw**, initially a common M6×1 screw with paired metal nuts
-in an adjustable preload carrier. The nominal linear increment is 1.25 µm per
-full motor step. On a 120 mm angular lever, it is about 2.15 arcseconds, equivalent
-to 2.08 µm at a 200 mm tool offset near neutral. These are command spacings,
-not predictions of attained accuracy. A 0.5 mm lead or greater belt ratio is
-available if the observed motion demonstrates a useful reason to change it.
+**TR8×2 screw with a verified 2 mm lead** and a single metal driving nut in a
+captured overload carrier. The nominal linear increment is 2.5 µm per full motor step. On a
+150 mm angular lever, it is about 3.44 arcseconds, equivalent to 3.33 µm at a
+perpendicular 200 mm tool offset near neutral. These are command spacings,
+not predictions of attained accuracy.
 
 For each rotary axis, use a screw actuator with **single-plane clevis pivots
 at both ends**. In its local plane, place the base pivot at `A = (r, −L0)` and
-the lever pin at `P = (r cos(angle), r sin(angle))`, with `r = L0 = 120 mm`.
+the lever pin at `P = (r cos(angle), r sin(angle))`, with `r = 150 mm` and
+`L0 = 180 mm`.
 The screw assembly pivots as it extends; the nut-side clevis prevents nut
 co-rotation through a rigid nut carrier and a genuine one-axis pin parallel
 to the gimbal shaft. Spherical ends would require another anti-rotation
 constraint. This avoids side-loading a rigidly mounted screw as the lever
 arcs. The exact geometry gives
 `L² = L0² + 2 L0 r sin(angle) + 2 r² (1 − cos(angle))`.
-Across ±20° it needs about 82 mm total length change, or 90–100 mm actuator
-travel with margins. Base/lever-side hinges need approximately 6°/26° freedom
-relative to their neutral bodies, plus clearance margin. Use metal pins and
+Across ±20° it needs about 102.5 mm total length change. The linked geometry
+checks own soft/switch/stop extensions and clevis articulation margins. Use metal pins and
 preloaded bearing/contact arrangements in printed carriers. Prototype friction
 and reversal behavior; the arithmetic does not establish their loaded motion.
 
@@ -241,7 +242,7 @@ the complete screw, including the overhang beyond its nut at minimum actuator
 length. The packaged prototype determines whether extra radial guidance is
 useful; any added sleeve must follow the pivoting assembly without binding.
 Print carriers, motor mounts, large pulleys, housings, guards, assembly locators and the gun
-shell. Buy screws, paired nuts, bearings, small pinions and shafts. Short cut
+shell. Buy screws, nuts, bearings, small pinions and shafts. Short cut
 metal plates/backbones and through-bolts carry the bending and preload paths.
 This keeps fabrication inexpensive without requiring every rubbing or heavily
 preloaded surface to be printed.
@@ -252,19 +253,20 @@ The gun/feed/umbilical figure is reported as **1.3118 kg**. A **0.250 kg**
 shell/mount allowance gives **1.5618 kg**; the allowance is unmeasured. The
 illustrative gimbal calculation adds **2.0 kg** of carried motors/structure,
 both at an assumed 100 mm worst gravity lever, plus an assumed **3 Nm cable
-moment**. It produces a **6.49 Nm** moment and about **54 N** angular-screw
-force at neutral, rising to approximately **60 N** at the sampled range's
+moment**. It produces a **6.49 Nm** moment and about **43 N** angular-screw
+force at neutral, rising to approximately **49 N** at the sampled range's
 least favorable lever geometry, before nut preload and friction.
 These assumptions need the actual CAD mass/CG and cable
 routing; the 3 Nm value is not a measurement or certified disturbance bound.
 
-A separate **8 kg** moving-stack assumption produces about 79 N vertical load.
-Screen screw drives at **200 N normal axial force**, allowing for guide friction
-and preload. With assumed 20% screw and 90% belt efficiency, nominal motor
-torque is approximately **0.0442 Nm**. This is a reduction calculation; motor
+A separate **300 N** vertical screening case corresponds to approximately
+30.6 kg of moving load. The fabrication model's mass properties and loaded
+acceptance govern the assembled mechanism. With assumed 20% screw and 90% belt
+efficiency, nominal motor torque is approximately **0.1326 Nm**, before passive
+brake drag. This is a reduction calculation; motor
 holding torque is not a continuous running/thermal rating. Size rails, bearings,
 mounts and screws for moments, buckling and wear as well as axial force.
-Counterbalance gravity axes and provide retention whose capacity does not
+Provide verified passive retention on gravity axes whose capacity does not
 depend on assuming the threads are self-locking.
 
 The screw reduction can generate damaging force during a jam. Current limiting
@@ -375,41 +377,24 @@ chosen from measured disturbances and frame/motion delay, rather than a factory
 throughput target. Thermal changes and unknown wire/cable behavior remain
 subjects for observation and iteration.
 
-## Materials estimate and development deliverables
+## Purchase and fabrication sources
 
-[materials.json](materials.json) contains every cost row; running
-`python3 future/robot-arm-study/calculate.py` reproduces
-[calculations.json](calculations.json). Only rows marked **Prime price observed**
-are verified price anchors. Other values are engineering/fabrication allowances,
-including supports and electrical interfaces. They are not selected precision
-components or proposed purchases.
+The [Prime purchase lists](../../hardware/gun-positioner/purchases.md) contain
+the selected products, exact pack quantities, observed prices and complete
+new-purchase total. Shared stock and fastener packs cover both the mechanism
+and camera stages. The linked inventory reconciliation assigns owned tools
+without borrowing components from the working rotator.
 
-| Scope | Calculated materials allowance, USD |
-|---|---:|
-| Complete single six-axis positioner, including six motors/drivers, base, retention and overload development | $749.98–$1,284.98 |
-| Two cameras/lenses, rigid mounts, lighting/connections and cable support | $1,200–$1,350 |
-| Positioner plus dry-run observation setup | $1,958.98–$2,633.98 |
-| Separate independent measurement/reference fixture allowance | $250–$500 |
-| Combined scope including that reference allowance | $2,208.98–$3,133.98 |
+The [fabrication package](../../hardware/gun-positioner/README.md) contains the
+CAD, print files, metal drawings, stock nests, controller images and host tools.
+The [assembly guide](../../hardware/gun-positioner-guide/README.md) consumes
+those sources and specifies fit checks and staged commissioning. Fabricate and
+qualify one drive before duplicating the remaining axes; load the completed
+fixture before purchasing the optical stage of development.
 
-The six motors cost **$69.99** using a
-[five-motor Prime pack](https://www.amazon.com/dp/B00QEYADRQ) and
-[one matching Prime motor](https://www.amazon.com/dp/B00PNEQKC0).
-The [six-driver Prime pack](https://www.amazon.com/dp/B08WZFK9KT) is **$29.99**.
-Two [Prime cameras](https://www.amazon.com/dp/B0DK1BXJWY) at $449 and two
-[Prime lenses](https://www.amazon.com/dp/B000A1SZ2Y) at $75.50 total **$1,049**.
-Prices/Prime status were observed on the review date. Nothing has been ordered.
-Tax, development replacements, labor, computer, welding equipment, existing
-rotator and formal calibration service are excluded. Optional shaft encoders
-are costed separately; they are useful fault diagnostics, not substitutes for
-camera-observed output.
-
-Proceed by producing the single-positioner CAD, six-channel motion/observation
-interface and one loaded screw/clevis prototype before fabricating every
-axis. The first prototype addresses a specific decision: whether this cheap
-drive's observed, settled, reversible motion is useful for the feedback loop.
-Its results set the remaining axis details. Assemble the complete positioner,
-automate calibration and repeated dry rotations, then develop live observation
-and weld corrections. Long software iteration and low production volume are
-part of this plan. Success is the gun's observed relationship to the moving
-seam and the accepted weld outcome.
+[materials.json](materials.json) records research allowances. It does not
+govern purchases or imply the selected build fits those allowances. Running
+`python3 future/robot-arm-study/calculate.py` reproduces the nominal geometry
+and screening arithmetic in [calculations.json](calculations.json). Actual
+loaded motion, live observation and accepted weld results are commissioning
+evidence, independent of these calculations.

@@ -1,0 +1,106 @@
+{
+  "scope": "Mechanism plus temporary fixtures; camera hardware remains in its own BOM. Counts are consumption, excluding purchase-pack rounding and included collar/motor/pinion screws.",
+  "bolts": {
+    "M3x20": 164,
+    "M5x16": 51,
+    "M5x70": 4,
+    "M5x45": 28,
+    "M4x50 grade12.9": 14,
+    "M6x25": 80,
+    "M4x35": 12,
+    "M4x30": 6,
+    "M3x12": 24,
+    "M5x90": 52,
+    "M3x30": 56,
+    "M8x90 partly threaded grade8.8": 12,
+    "M6x80 finished72.5": 12,
+    "M3x50": 6,
+    "M8x50 partly threaded grade8.8": 15,
+    "M3x14": 24,
+    "M5x25": 89,
+    "M5x35": 4,
+    "M5x80": 12,
+    "M5x20": 266,
+    "M3x25": 24,
+    "M8x16": 84,
+    "M6x16": 15,
+    "M8x75": 8,
+    "M3x100": 8,
+    "M3x40": 8,
+    "M5x25 countersunk": 3,
+    "M6x30": 8,
+    "M6x40 grade8.8": 1,
+    "M4x25 finish-to-depth": 8,
+    "M6x80": 1,
+    "M5x12": 8,
+    "M6x40 grade12.9": 4
+  },
+  "nuts": {
+    "M3 locking nut": 284,
+    "M5 locking nut": 455,
+    "M4 locking nut": 32,
+    "M6 locking nut": 80,
+    "M8 locking nut": 35,
+    "M6 nut": 40,
+    "M3 nut": 12,
+    "M5 nut": 12,
+    "M8 slot8 T-nut": 84,
+    "M6 slot8 T-nut": 26,
+    "M6x1 coupling nut": 1
+  },
+  "flat_washers": {
+    "M3": 512,
+    "M5": 972,
+    "M4": 76,
+    "M6": 215,
+    "M8": 154
+  },
+  "large_M3_washer_requirements": {
+    "moving_nut_slots": {
+      "quantity": 48,
+      "minimum_OD_mm": 10,
+      "maximum_ID_mm": 3.4
+    },
+    "hinge_bearing_flange_retention": {
+      "quantity": 24,
+      "minimum_OD_mm": 12,
+      "maximum_ID_mm": 3.4,
+      "thickness_mm": 1
+    },
+    "scope": "These are subsets of the M3 washer total and need a separate large-OD source; ordinary7 mm M3 washers cannot substitute."
+  },
+  "large_M4_riser_washers": {
+    "quantity": 36,
+    "minimum_OD_mm": 10,
+    "maximum_ID_mm": 4.5
+  },
+  "large_M4_proof_gauge_washers": {
+    "quantity": 8,
+    "minimum_OD_mm": 12,
+    "maximum_ID_mm": 4.5,
+    "thickness_mm": 1
+  },
+  "metal_M3_standoffs": {
+    "belt_shield": {
+      "quantity": 12,
+      "length_mm": 7,
+      "OD_mm": 8,
+      "ID_mm": 6
+    },
+    "V_seat_keeper": {
+      "quantity": 12,
+      "length_mm": 4,
+      "OD_mm": 8,
+      "ID_mm": 6
+    }
+  },
+  "other_washers": {
+    "M10_ID10.5_OD20_x2mm": 60,
+    "M8_ID8.5_OD32_x1.5mm": 28,
+    "M12_ID13_OD37_x3mm": 3,
+    "M6_ID6_OD25_x2mm_carbon_steel": 6,
+    "M6_ID6_OD20_x2mm_304_shaft_end": 8
+  },
+  "metal_angle_slices": 149,
+  "corner_brackets_4040": 40
+}

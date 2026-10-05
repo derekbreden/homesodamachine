@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="304.8mm" height="304.8mm" viewBox="0 0 304.8 304.8">
+<rect width="100%" height="100%" fill="white"/>
+<rect x="1.0" y="1.0" width="230" height="250" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="2.0" y="5.0" font-family="sans-serif" font-size="2.5">yaw-base-web #2</text>
+<text x="2.0" y="9.0" font-family="sans-serif" font-size="2.5">230 x 250 mm</text>
+<rect x="234.0" y="1.0" width="60" height="216" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="235.0" y="5.0" font-family="sans-serif" font-size="2.5">roll-cradle-side #2</text>
+<text x="235.0" y="9.0" font-family="sans-serif" font-size="2.5">60 x 216 mm</text>
+<rect x="1.0" y="254.0" width="200" height="40" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="2.0" y="258.0" font-family="sans-serif" font-size="2.5">crash-ground-crossbar #1</text>
+<text x="2.0" y="262.0" font-family="sans-serif" font-size="2.5">200 x 40 mm</text>
+<rect x="234.0" y="220.0" width="40" height="80" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="235.0" y="224.0" font-family="sans-serif" font-size="2.5">angular-clevis-cheek #4</text>
+<text x="235.0" y="228.0" font-family="sans-serif" font-size="2.5">40 x 80 mm</text>
+<rect x="277.0" y="220.0" width="25" height="60" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="278.0" y="224.0" font-family="sans-serif" font-size="2.5">overload-switch-tab #2</text>
+<text x="278.0" y="228.0" font-family="sans-serif" font-size="2.5">25 x 60 mm</text>
+</svg>

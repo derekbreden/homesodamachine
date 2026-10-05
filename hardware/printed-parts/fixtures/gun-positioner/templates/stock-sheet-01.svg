@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="304.8mm" height="457.2mm" viewBox="0 0 304.8 457.2">
+<rect width="100%" height="100%" fill="white"/>
+<rect x="1.0" y="1.0" width="199" height="450" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="2.0" y="5.0" font-family="sans-serif" font-size="2.5">x-bed #1</text>
+<text x="2.0" y="9.0" font-family="sans-serif" font-size="2.5">199 x 450 mm</text>
+<rect x="203.0" y="1.0" width="100" height="380" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="204.0" y="5.0" font-family="sans-serif" font-size="2.5">yaw-crossbar #1</text>
+<text x="204.0" y="9.0" font-family="sans-serif" font-size="2.5">100 x 380 mm</text>
+<rect x="203.0" y="384.0" width="100" height="60" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="204.0" y="388.0" font-family="sans-serif" font-size="2.5">shaft-capture-bridge #1</text>
+<text x="204.0" y="392.0" font-family="sans-serif" font-size="2.5">100 x 60 mm</text>
+</svg>

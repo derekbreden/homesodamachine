@@ -1,0 +1,2179 @@
+{
+  "source_sha256": "e219feaa319f2aee19c1792522d69dd337b2e27ffdb0eaa46ce5978469bfab08",
+  "tube_parts": [
+    {
+      "part": "deck-metal-spacer",
+      "quantity": 4,
+      "outer_diameter_mm": 10,
+      "finished_ID_mm": 8.0,
+      "finished_length_mm": 40,
+      "notes": "Four 10 OD / 8 ID metal tube spacers, 40 mm long, between X carriage and Y bed on180 x180 mm centers. M5x70 through-bolts; no 40 mm square spacer obscuring block screws."
+    },
+    {
+      "part": "proof-gauge-rear-spacer",
+      "quantity": 4,
+      "outer_diameter_mm": 10,
+      "finished_ID_mm": 8.0,
+      "finished_length_mm": 7,
+      "notes": "Four 7 mm metal spacers keep the gauge rear case clear of proof quill-cap screws. Use four separately allocated M4x25 screws finished to the actual socket depth and at least 4 mm engagement; two dedicated large M4 washers per screw. The normal gauge screws are a separate set."
+    },
+    {
+      "part": "proof-bearing-riser",
+      "quantity": 2,
+      "outer_diameter_mm": 10,
+      "finished_ID_mm": 8.0,
+      "finished_length_mm": 10,
+      "notes": "Two 10 mm metal risers lift the temporary KP001 support above the reaction plate lower edge. ID8 / OD10; M6x40 through bolts, original bearing nuts and washers reused."
+    },
+    {
+      "part": "capture-bridge-spacer",
+      "quantity": 4,
+      "outer_diameter_mm": 8,
+      "finished_ID_mm": 6.0,
+      "finished_length_mm": 75,
+      "notes": "Four symmetric metal tubes between capture interface and closed bridge. No contact with shaft, keeper or bearing housing."
+    },
+    {
+      "part": "capture-catch-spacer",
+      "quantity": 2,
+      "outer_diameter_mm": 8,
+      "finished_ID_mm": 6.0,
+      "finished_length_mm": 7.85,
+      "notes": "Two far-end metal spacers join the independently mounted catch plates; not in the measured force path."
+    },
+    {
+      "part": "capture-gauge-guide-spacer",
+      "quantity": 2,
+      "outer_diameter_mm": 10,
+      "finished_ID_mm": 8.0,
+      "finished_length_mm": 9.825,
+      "notes": "Column-to-gauge-back guide offset. Guide screws retain laterally with sliding axial clearance and must not clamp the backing."
+    },
+    {
+      "part": "capture-bearing-riser",
+      "quantity": 2,
+      "outer_diameter_mm": 10,
+      "finished_ID_mm": 8.0,
+      "finished_length_mm": 12.825,
+      "notes": "Temporary axial-proof bearing risers place the shaft axis 78.175 mm from the column rear datum, coaxial with the positive gauge connection and manual jack."
+    },
+    {
+      "part": "installed-Z-gauge-spacer",
+      "quantity": 2,
+      "outer_diameter_mm": 10,
+      "finished_ID_mm": 8.0,
+      "finished_length_mm": 10,
+      "notes": "Ten millimetre metal10OD/8ID spacers offset70x160 gauge backing from4040 test column so rearM4 gauge screw heads remain clear."
+    },
+    {
+      "part": "kp08-fixed-riser",
+      "quantity": 12,
+      "outer_diameter_mm": 10,
+      "finished_ID_mm": 8.0,
+      "finished_length_mm": 11.35,
+      "notes": "Two metal11.35 mm risers per fixedKP08 bearing; finishactualheight fromreceivedcenterheight to keep screwaxis26.35 mm abovefloor. ID8/OD10; M4 washers at least10 OD bridge the bore. M4x35 through floor."
+    },
+    {
+      "part": "kp08-floating-riser",
+      "quantity": 6,
+      "outer_diameter_mm": 10,
+      "finished_ID_mm": 8.0,
+      "finished_length_mm": 5,
+      "notes": "Two metal5 mm risers perXYZ floatingKP08 bearing; finishactualheight forselectedcenterheight, noaxialnutoutsidebearing. M4x30 throughbed."
+    },
+    {
+      "part": "pitch-web-left-spacer",
+      "quantity": 4,
+      "outer_diameter_mm": 8,
+      "finished_ID_mm": 6.0,
+      "finished_length_mm": 31.35,
+      "notes": "Metal tube spacer8 OD/6 ID; finished length is a load-path dimension. No printed substitute."
+    },
+    {
+      "part": "pitch-web-right-spacer",
+      "quantity": 4,
+      "outer_diameter_mm": 8,
+      "finished_ID_mm": 6.0,
+      "finished_length_mm": 28.65,
+      "notes": "Metal tube spacer8 OD/6 ID; finished length is a load-path dimension. No printed substitute."
+    },
+    {
+      "part": "angular-output-spacer",
+      "quantity": 12,
+      "outer_diameter_mm": 8,
+      "finished_ID_mm": 6.0,
+      "finished_length_mm": 23.65,
+      "notes": "Metal tube spacer8 OD/6 ID; finished length is a load-path dimension. No printed substitute."
+    },
+    {
+      "part": "crash-force-outer-spacer",
+      "quantity": 16,
+      "outer_diameter_mm": 8,
+      "finished_ID_mm": 6.0,
+      "finished_length_mm": 23.82905982905983,
+      "notes": "8 OD/6 ID metal crash-cage tie spacer. Outer length is nominal for12.5 N per spring and must be finished from actual directional spring grading; center8.35 mm sets independent+/-1 mm capture."
+    },
+    {
+      "part": "crash-force-center-spacer",
+      "quantity": 8,
+      "outer_diameter_mm": 8,
+      "finished_ID_mm": 6.0,
+      "finished_length_mm": 8.35,
+      "notes": "8 OD/6 ID metal crash-cage tie spacer. Outer length is nominal for12.5 N per spring and must be finished from actual directional spring grading; center8.35 mm sets independent+/-1 mm capture."
+    },
+    {
+      "part": "roll-foot-metal-spacer",
+      "quantity": 4,
+      "outer_diameter_mm": 8,
+      "finished_ID_mm": 6.0,
+      "finished_length_mm": 6.95,
+      "notes": "Four metal 6.95 mm spacers bridge anchor top Z-32.30 to roll bearing-foot underside Z-25.35."
+    },
+    {
+      "part": "fiber-base-metal-spacer",
+      "quantity": 8,
+      "outer_diameter_mm": 10,
+      "finished_ID_mm": 8.0,
+      "finished_length_mm": 10,
+      "notes": "Metal tube in swivel clamp stack; fixed axle inner-race tubes never contact rotating saddle or bearing outer race. Grade free rotation with actual cable, cold and warm."
+    },
+    {
+      "part": "fiber-axle-lower-tube",
+      "quantity": 2,
+      "outer_diameter_mm": 10,
+      "finished_ID_mm": 8.5,
+      "finished_length_mm": 13,
+      "notes": "Metal tube in swivel clamp stack; fixed axle inner-race tubes never contact rotating saddle or bearing outer race. Grade free rotation with actual cable, cold and warm."
+    },
+    {
+      "part": "fiber-axle-upper-tube",
+      "quantity": 2,
+      "outer_diameter_mm": 10,
+      "finished_ID_mm": 8.5,
+      "finished_length_mm": 4,
+      "notes": "Metal tube in swivel clamp stack; fixed axle inner-race tubes never contact rotating saddle or bearing outer race. Grade free rotation with actual cable, cold and warm."
+    },
+    {
+      "part": "redirect-lower-contact-tube",
+      "quantity": 1,
+      "outer_diameter_mm": 10,
+      "finished_ID_mm": 8.5,
+      "finished_length_mm": 3,
+      "notes": "Metal inner-race contact tube,10 OD/8.5 ID. Redirect axle clamps bracket and inner race only; wheel and outer-race cap rotate freely."
+    },
+    {
+      "part": "redirect-upper-contact-tube",
+      "quantity": 1,
+      "outer_diameter_mm": 10,
+      "finished_ID_mm": 8.5,
+      "finished_length_mm": 7.15,
+      "notes": "Metal inner-race contact tube,10 OD/8.5 ID. Redirect axle clamps bracket and inner race only; wheel and outer-race cap rotate freely."
+    },
+    {
+      "part": "shaft-capture-tube-35p15",
+      "quantity": 1,
+      "outer_diameter_mm": 20,
+      "finished_ID_mm": 12.5,
+      "finished_length_mm": 35.15,
+      "notes": "Metal axial-capture tube from20 OD /12 ID stock, bored12.5 mm. Face only the delivered bearing inner race or metal hub/plate, never outer race/seal. Finish actual stack for0.5 mm maximum one-side free motion; chamfer/relieve OD to the measured inner-race face. No rubbing during free rotation, cold or warm."
+    },
+    {
+      "part": "shaft-capture-tube-16p00",
+      "quantity": 1,
+      "outer_diameter_mm": 20,
+      "finished_ID_mm": 12.5,
+      "finished_length_mm": 16,
+      "notes": "Metal axial-capture tube from20 OD /12 ID stock, bored12.5 mm. Face only the delivered bearing inner race or metal hub/plate, never outer race/seal. Finish actual stack for0.5 mm maximum one-side free motion; chamfer/relieve OD to the measured inner-race face. No rubbing during free rotation, cold or warm."
+    },
+    {
+      "part": "shaft-capture-tube-14p65",
+      "quantity": 1,
+      "outer_diameter_mm": 20,
+      "finished_ID_mm": 12.5,
+      "finished_length_mm": 14.65,
+      "notes": "Metal axial-capture tube from20 OD /12 ID stock, bored12.5 mm. Face only the delivered bearing inner race or metal hub/plate, never outer race/seal. Finish actual stack for0.5 mm maximum one-side free motion; chamfer/relieve OD to the measured inner-race face. No rubbing during free rotation, cold or warm."
+    },
+    {
+      "part": "shaft-capture-tube-11p50",
+      "quantity": 2,
+      "outer_diameter_mm": 20,
+      "finished_ID_mm": 12.5,
+      "finished_length_mm": 11.5,
+      "notes": "Metal axial-capture tube from20 OD /12 ID stock, bored12.5 mm. Face only the delivered bearing inner race or metal hub/plate, never outer race/seal. Finish actual stack for0.5 mm maximum one-side free motion; chamfer/relieve OD to the measured inner-race face. No rubbing during free rotation, cold or warm."
+    },
+    {
+      "part": "shaft-capture-tube-9p50",
+      "quantity": 1,
+      "outer_diameter_mm": 20,
+      "finished_ID_mm": 12.5,
+      "finished_length_mm": 9.5,
+      "notes": "Metal axial-capture tube from20 OD /12 ID stock, bored12.5 mm. Face only the delivered bearing inner race or metal hub/plate, never outer race/seal. Finish actual stack for0.5 mm maximum one-side free motion; chamfer/relieve OD to the measured inner-race face. No rubbing during free rotation, cold or warm."
+    },
+    {
+      "part": "shaft-capture-tube-15p15",
+      "quantity": 1,
+      "outer_diameter_mm": 20,
+      "finished_ID_mm": 12.5,
+      "finished_length_mm": 15.15,
+      "notes": "Metal axial-capture tube from20 OD /12 ID stock, bored12.5 mm. Face only the delivered bearing inner race or metal hub/plate, never outer race/seal. Finish actual stack for0.5 mm maximum one-side free motion; chamfer/relieve OD to the measured inner-race face. No rubbing during free rotation, cold or warm."
+    },
+    {
+      "part": "shaft-capture-tube-25p15",
+      "quantity": 2,
+      "outer_diameter_mm": 20,
+      "finished_ID_mm": 12.5,
+      "finished_length_mm": 25.15,
+      "notes": "Metal axial-capture tube from20 OD /12 ID stock, bored12.5 mm. Face only the delivered bearing inner race or metal hub/plate, never outer race/seal. Finish actual stack for0.5 mm maximum one-side free motion; chamfer/relieve OD to the measured inner-race face. No rubbing during free rotation, cold or warm."
+    },
+    {
+      "part": "shaft-capture-tube-21p50",
+      "quantity": 1,
+      "outer_diameter_mm": 20,
+      "finished_ID_mm": 12.5,
+      "finished_length_mm": 21.5,
+      "notes": "Metal axial-capture tube from20 OD /12 ID stock, bored12.5 mm. Face only the delivered bearing inner race or metal hub/plate, never outer race/seal. Finish actual stack for0.5 mm maximum one-side free motion; chamfer/relieve OD to the measured inner-race face. No rubbing during free rotation, cold or warm."
+    },
+    {
+      "part": "shaft-capture-tube-12p00",
+      "quantity": 1,
+      "outer_diameter_mm": 20,
+      "finished_ID_mm": 12.5,
+      "finished_length_mm": 12,
+      "notes": "Metal axial-capture tube from20 OD /12 ID stock, bored12.5 mm. Face only the delivered bearing inner race or metal hub/plate, never outer race/seal. Finish actual stack for0.5 mm maximum one-side free motion; chamfer/relieve OD to the measured inner-race face. No rubbing during free rotation, cold or warm."
+    },
+    {
+      "part": "shaft-capture-tube-27p15",
+      "quantity": 1,
+      "outer_diameter_mm": 20,
+      "finished_ID_mm": 12.5,
+      "finished_length_mm": 27.15,
+      "notes": "Metal axial-capture tube from20 OD /12 ID stock, bored12.5 mm. Face only the delivered bearing inner race or metal hub/plate, never outer race/seal. Finish actual stack for0.5 mm maximum one-side free motion; chamfer/relieve OD to the measured inner-race face. No rubbing during free rotation, cold or warm."
+    },
+    {
+      "part": "shaft-capture-tube-1p15",
+      "quantity": 1,
+      "outer_diameter_mm": 20,
+      "finished_ID_mm": 12.5,
+      "finished_length_mm": 1.15,
+      "notes": "Metal axial-capture tube from20 OD /12 ID stock, bored12.5 mm. Face only the delivered bearing inner race or metal hub/plate, never outer race/seal. Finish actual stack for0.5 mm maximum one-side free motion; chamfer/relieve OD to the measured inner-race face. No rubbing during free rotation, cold or warm."
+    },
+    {
+      "part": "shaft-capture-tube-5p50",
+      "quantity": 1,
+      "outer_diameter_mm": 20,
+      "finished_ID_mm": 12.5,
+      "finished_length_mm": 5.5,
+      "notes": "Metal axial-capture tube from20 OD /12 ID stock, bored12.5 mm. Face only the delivered bearing inner race or metal hub/plate, never outer race/seal. Finish actual stack for0.5 mm maximum one-side free motion; chamfer/relieve OD to the measured inner-race face. No rubbing during free rotation, cold or warm."
+    },
+    {
+      "part": "nut-outer-angular-metal-spacer",
+      "quantity": 16,
+      "outer_diameter_mm": 8,
+      "finished_ID_mm": 6.0,
+      "finished_length_mm": 9.5122093023,
+      "notes": "Metal 8 OD / 6 ID tube spacer. Set spring preload by measured rates and matched metal shims; the fixed 8.35 mm center spacer sets +/-1.0 mm capture independently of preload."
+    },
+    {
+      "part": "nut-outer-pitch-metal-spacer",
+      "quantity": 8,
+      "outer_diameter_mm": 8,
+      "finished_ID_mm": 6.0,
+      "finished_length_mm": 9.163372093,
+      "notes": "Metal 8 OD / 6 ID tube spacer. Set spring preload by measured rates and matched metal shims; the fixed 8.35 mm center spacer sets +/-1.0 mm capture independently of preload."
+    },
+    {
+      "part": "nut-outer-XYZ-metal-spacer",
+      "quantity": 20,
+      "outer_diameter_mm": 8,
+      "finished_ID_mm": 6.0,
+      "finished_length_mm": 7.7680232558,
+      "notes": "Metal 8 OD / 6 ID tube spacer. Set spring preload by measured rates and matched metal shims; the fixed 8.35 mm center spacer sets +/-1.0 mm capture independently of preload."
+    },
+    {
+      "part": "nut-outer-Z-down-metal-spacer",
+      "quantity": 4,
+      "outer_diameter_mm": 8,
+      "finished_ID_mm": 6.0,
+      "finished_length_mm": 6.0238372093,
+      "notes": "Metal 8 OD / 6 ID tube spacer. Set spring preload by measured rates and matched metal shims; the fixed 8.35 mm center spacer sets +/-1.0 mm capture independently of preload."
+    },
+    {
+      "part": "force-outer-angular-metal-spacer",
+      "quantity": 16,
+      "outer_diameter_mm": 8,
+      "finished_ID_mm": 6.0,
+      "finished_length_mm": 20.3372093023,
+      "notes": "Metal 8 OD / 6 ID tube spacer. Set spring preload by measured rates and matched metal shims; the fixed 8.35 mm center spacer sets +/-1.0 mm capture independently of preload."
+    },
+    {
+      "part": "force-outer-pitch-metal-spacer",
+      "quantity": 8,
+      "outer_diameter_mm": 8,
+      "finished_ID_mm": 6.0,
+      "finished_length_mm": 19.988372093,
+      "notes": "Metal 8 OD / 6 ID tube spacer. Set spring preload by measured rates and matched metal shims; the fixed 8.35 mm center spacer sets +/-1.0 mm capture independently of preload."
+    },
+    {
+      "part": "force-outer-XYZ-metal-spacer",
+      "quantity": 20,
+      "outer_diameter_mm": 8,
+      "finished_ID_mm": 6.0,
+      "finished_length_mm": 18.5930232558,
+      "notes": "Metal 8 OD / 6 ID tube spacer. Set spring preload by measured rates and matched metal shims; the fixed 8.35 mm center spacer sets +/-1.0 mm capture independently of preload."
+    },
+    {
+      "part": "force-outer-Z-down-metal-spacer",
+      "quantity": 4,
+      "outer_diameter_mm": 8,
+      "finished_ID_mm": 6.0,
+      "finished_length_mm": 16.8488372093,
+      "notes": "Metal 8 OD / 6 ID tube spacer. Set spring preload by measured rates and matched metal shims; the fixed 8.35 mm center spacer sets +/-1.0 mm capture independently of preload."
+    },
+    {
+      "part": "force-center-metal-spacer",
+      "quantity": 24,
+      "outer_diameter_mm": 8,
+      "finished_ID_mm": 6.0,
+      "finished_length_mm": 8.35,
+      "notes": "Metal 8 OD / 6 ID tube spacer. Set spring preload by measured rates and matched metal shims; the fixed 8.35 mm center spacer sets +/-1.0 mm capture independently of preload."
+    },
+    {
+      "part": "guard-metal-spacer",
+      "quantity": 12,
+      "outer_diameter_mm": 8,
+      "finished_ID_mm": 6.0,
+      "finished_length_mm": 7,
+      "notes": "Metal7 mm shield stand-off. ID6/OD8; use metal washers covering the 6 mm bore, M3x25 through2 mm shield and6.35 mm bulkhead. No clamp load through air."
+    },
+    {
+      "part": "V-keeper-metal-spacer",
+      "quantity": 12,
+      "outer_diameter_mm": 8,
+      "finished_ID_mm": 6.0,
+      "finished_length_mm": 4,
+      "notes": "Metal4 mm stand-off under hardened-dowel end keeper; finishagainstactual4 mm dowel crest. Not a printedload spacer."
+    },
+    {
+      "part": "hinge-contact-tube",
+      "quantity": 12,
+      "outer_diameter_mm": 10,
+      "finished_ID_mm": 8.5,
+      "finished_length_mm": 1,
+      "notes": "Inner-race contact ring,10 OD/8.5 ID/1 mm length; clears outerraceandseal. Drill10x8 stocktube to8.5 ID before cutting. No M8 washerdirectlycontactsbearingouterrace."
+    },
+    {
+      "part": "hinge-thread-start-spacer",
+      "quantity": 12,
+      "outer_diameter_mm": 10,
+      "finished_ID_mm": 8.5,
+      "finished_length_mm": 9.65,
+      "notes": "Nominal 9.65 mm for the sourced 22 mm smooth shank minus 6.35 mm ear, 5 mm bearing and 1 mm contact ring. Finish to the actual thread start; nut clamps the metal stack without bottoming."
+    },
+    {
+      "part": "nut-metal-spacer",
+      "quantity": 24,
+      "outer_diameter_mm": 8,
+      "finished_ID_mm": 6.0,
+      "finished_length_mm": 30,
+      "notes": "Metal spacer 30 mm long, 8 mm OD, 6 mm ID. Four per single-nut metal-face assembly. No axial preload through plastic."
+    }
+  ],
+  "tube_stock": {
+    "8": {
+      "stock_OD_mm": 8,
+      "stock_ID_mm": 6,
+      "stock_length_mm": 400,
+      "kerf_mm": 3.0,
+      "pieces": 222,
+      "finished_length_mm": 3697.281236332957,
+      "sticks_needed": 11,
+      "two_packs_to_buy": 6,
+      "sticks_supplied": 12,
+      "layouts": [
+        {
+          "used_mm": 393.21220930230004,
+          "cuts": [
+            {
+              "part": "capture-bridge-spacer",
+              "instance": 1,
+              "length_mm": 75
+            },
+            {
+              "part": "capture-bridge-spacer",
+              "instance": 2,
+              "length_mm": 75
+            },
+            {
+              "part": "capture-bridge-spacer",
+              "instance": 3,
+              "length_mm": 75
+            },
+            {
+              "part": "capture-bridge-spacer",
+              "instance": 4,
+              "length_mm": 75
+            },
+            {
+              "part": "pitch-web-left-spacer",
+              "instance": 1,
+              "length_mm": 31.35
+            },
+            {
+              "part": "pitch-web-left-spacer",
+              "instance": 2,
+              "length_mm": 31.35
+            },
+            {
+              "part": "nut-outer-angular-metal-spacer",
+              "instance": 2,
+              "length_mm": 9.5122093023
+            }
+          ],
+          "stick": 1,
+          "offcut_mm": 6.787790697699961
+        },
+        {
+          "used_mm": 398.7,
+          "cuts": [
+            {
+              "part": "pitch-web-left-spacer",
+              "instance": 3,
+              "length_mm": 31.35
+            },
+            {
+              "part": "pitch-web-left-spacer",
+              "instance": 4,
+              "length_mm": 31.35
+            },
+            {
+              "part": "nut-metal-spacer",
+              "instance": 1,
+              "length_mm": 30
+            },
+            {
+              "part": "nut-metal-spacer",
+              "instance": 2,
+              "length_mm": 30
+            },
+            {
+              "part": "nut-metal-spacer",
+              "instance": 3,
+              "length_mm": 30
+            },
+            {
+              "part": "nut-metal-spacer",
+              "instance": 4,
+              "length_mm": 30
+            },
+            {
+              "part": "nut-metal-spacer",
+              "instance": 5,
+              "length_mm": 30
+            },
+            {
+              "part": "nut-metal-spacer",
+              "instance": 6,
+              "length_mm": 30
+            },
+            {
+              "part": "nut-metal-spacer",
+              "instance": 7,
+              "length_mm": 30
+            },
+            {
+              "part": "nut-metal-spacer",
+              "instance": 8,
+              "length_mm": 30
+            },
+            {
+              "part": "nut-metal-spacer",
+              "instance": 9,
+              "length_mm": 30
+            },
+            {
+              "part": "nut-metal-spacer",
+              "instance": 10,
+              "length_mm": 30
+            }
+          ],
+          "stick": 2,
+          "offcut_mm": 1.3000000000000114
+        },
+        {
+          "used_mm": 396.0,
+          "cuts": [
+            {
+              "part": "nut-metal-spacer",
+              "instance": 11,
+              "length_mm": 30
+            },
+            {
+              "part": "nut-metal-spacer",
+              "instance": 12,
+              "length_mm": 30
+            },
+            {
+              "part": "nut-metal-spacer",
+              "instance": 13,
+              "length_mm": 30
+            },
+            {
+              "part": "nut-metal-spacer",
+              "instance": 14,
+              "length_mm": 30
+            },
+            {
+              "part": "nut-metal-spacer",
+              "instance": 15,
+              "length_mm": 30
+            },
+            {
+              "part": "nut-metal-spacer",
+              "instance": 16,
+              "length_mm": 30
+            },
+            {
+              "part": "nut-metal-spacer",
+              "instance": 17,
+              "length_mm": 30
+            },
+            {
+              "part": "nut-metal-spacer",
+              "instance": 18,
+              "length_mm": 30
+            },
+            {
+              "part": "nut-metal-spacer",
+              "instance": 19,
+              "length_mm": 30
+            },
+            {
+              "part": "nut-metal-spacer",
+              "instance": 20,
+              "length_mm": 30
+            },
+            {
+              "part": "nut-metal-spacer",
+              "instance": 21,
+              "length_mm": 30
+            },
+            {
+              "part": "nut-metal-spacer",
+              "instance": 22,
+              "length_mm": 30
+            }
+          ],
+          "stick": 3,
+          "offcut_mm": 4.0
+        },
+        {
+          "used_mm": 399.9156281057187,
+          "cuts": [
+            {
+              "part": "nut-metal-spacer",
+              "instance": 23,
+              "length_mm": 30
+            },
+            {
+              "part": "nut-metal-spacer",
+              "instance": 24,
+              "length_mm": 30
+            },
+            {
+              "part": "pitch-web-right-spacer",
+              "instance": 1,
+              "length_mm": 28.65
+            },
+            {
+              "part": "pitch-web-right-spacer",
+              "instance": 2,
+              "length_mm": 28.65
+            },
+            {
+              "part": "pitch-web-right-spacer",
+              "instance": 3,
+              "length_mm": 28.65
+            },
+            {
+              "part": "pitch-web-right-spacer",
+              "instance": 4,
+              "length_mm": 28.65
+            },
+            {
+              "part": "crash-force-outer-spacer",
+              "instance": 1,
+              "length_mm": 23.82905982905983
+            },
+            {
+              "part": "crash-force-outer-spacer",
+              "instance": 2,
+              "length_mm": 23.82905982905983
+            },
+            {
+              "part": "crash-force-outer-spacer",
+              "instance": 3,
+              "length_mm": 23.82905982905983
+            },
+            {
+              "part": "crash-force-outer-spacer",
+              "instance": 4,
+              "length_mm": 23.82905982905983
+            },
+            {
+              "part": "crash-force-outer-spacer",
+              "instance": 5,
+              "length_mm": 23.82905982905983
+            },
+            {
+              "part": "crash-force-outer-spacer",
+              "instance": 6,
+              "length_mm": 23.82905982905983
+            },
+            {
+              "part": "crash-force-outer-spacer",
+              "instance": 7,
+              "length_mm": 23.82905982905983
+            },
+            {
+              "part": "nut-outer-angular-metal-spacer",
+              "instance": 3,
+              "length_mm": 9.5122093023
+            },
+            {
+              "part": "V-keeper-metal-spacer",
+              "instance": 1,
+              "length_mm": 4
+            }
+          ],
+          "stick": 4,
+          "offcut_mm": 0.08437189428127567
+        },
+        {
+          "used_mm": 398.04874776383826,
+          "cuts": [
+            {
+              "part": "crash-force-outer-spacer",
+              "instance": 8,
+              "length_mm": 23.82905982905983
+            },
+            {
+              "part": "crash-force-outer-spacer",
+              "instance": 9,
+              "length_mm": 23.82905982905983
+            },
+            {
+              "part": "crash-force-outer-spacer",
+              "instance": 10,
+              "length_mm": 23.82905982905983
+            },
+            {
+              "part": "crash-force-outer-spacer",
+              "instance": 11,
+              "length_mm": 23.82905982905983
+            },
+            {
+              "part": "crash-force-outer-spacer",
+              "instance": 12,
+              "length_mm": 23.82905982905983
+            },
+            {
+              "part": "crash-force-outer-spacer",
+              "instance": 13,
+              "length_mm": 23.82905982905983
+            },
+            {
+              "part": "crash-force-outer-spacer",
+              "instance": 14,
+              "length_mm": 23.82905982905983
+            },
+            {
+              "part": "crash-force-outer-spacer",
+              "instance": 15,
+              "length_mm": 23.82905982905983
+            },
+            {
+              "part": "crash-force-outer-spacer",
+              "instance": 16,
+              "length_mm": 23.82905982905983
+            },
+            {
+              "part": "angular-output-spacer",
+              "instance": 1,
+              "length_mm": 23.65
+            },
+            {
+              "part": "angular-output-spacer",
+              "instance": 2,
+              "length_mm": 23.65
+            },
+            {
+              "part": "angular-output-spacer",
+              "instance": 3,
+              "length_mm": 23.65
+            },
+            {
+              "part": "angular-output-spacer",
+              "instance": 4,
+              "length_mm": 23.65
+            },
+            {
+              "part": "angular-output-spacer",
+              "instance": 5,
+              "length_mm": 23.65
+            },
+            {
+              "part": "force-outer-angular-metal-spacer",
+              "instance": 1,
+              "length_mm": 20.3372093023
+            }
+          ],
+          "stick": 5,
+          "offcut_mm": 1.9512522361617357
+        },
+        {
+          "used_mm": 396.5848837206999,
+          "cuts": [
+            {
+              "part": "angular-output-spacer",
+              "instance": 6,
+              "length_mm": 23.65
+            },
+            {
+              "part": "angular-output-spacer",
+              "instance": 7,
+              "length_mm": 23.65
+            },
+            {
+              "part": "angular-output-spacer",
+              "instance": 8,
+              "length_mm": 23.65
+            },
+            {
+              "part": "angular-output-spacer",
+              "instance": 9,
+              "length_mm": 23.65
+            },
+            {
+              "part": "angular-output-spacer",
+              "instance": 10,
+              "length_mm": 23.65
+            },
+            {
+              "part": "angular-output-spacer",
+              "instance": 11,
+              "length_mm": 23.65
+            },
+            {
+              "part": "angular-output-spacer",
+              "instance": 12,
+              "length_mm": 23.65
+            },
+            {
+              "part": "force-outer-angular-metal-spacer",
+              "instance": 2,
+              "length_mm": 20.3372093023
+            },
+            {
+              "part": "force-outer-angular-metal-spacer",
+              "instance": 3,
+              "length_mm": 20.3372093023
+            },
+            {
+              "part": "force-outer-angular-metal-spacer",
+              "instance": 4,
+              "length_mm": 20.3372093023
+            },
+            {
+              "part": "force-outer-angular-metal-spacer",
+              "instance": 5,
+              "length_mm": 20.3372093023
+            },
+            {
+              "part": "force-outer-angular-metal-spacer",
+              "instance": 6,
+              "length_mm": 20.3372093023
+            },
+            {
+              "part": "force-outer-angular-metal-spacer",
+              "instance": 7,
+              "length_mm": 20.3372093023
+            },
+            {
+              "part": "force-outer-angular-metal-spacer",
+              "instance": 8,
+              "length_mm": 20.3372093023
+            },
+            {
+              "part": "force-outer-angular-metal-spacer",
+              "instance": 9,
+              "length_mm": 20.3372093023
+            },
+            {
+              "part": "force-outer-angular-metal-spacer",
+              "instance": 10,
+              "length_mm": 20.3372093023
+            }
+          ],
+          "stick": 6,
+          "offcut_mm": 3.4151162793000935
+        },
+        {
+          "used_mm": 399.5593023252001,
+          "cuts": [
+            {
+              "part": "force-outer-angular-metal-spacer",
+              "instance": 11,
+              "length_mm": 20.3372093023
+            },
+            {
+              "part": "force-outer-angular-metal-spacer",
+              "instance": 12,
+              "length_mm": 20.3372093023
+            },
+            {
+              "part": "force-outer-angular-metal-spacer",
+              "instance": 13,
+              "length_mm": 20.3372093023
+            },
+            {
+              "part": "force-outer-angular-metal-spacer",
+              "instance": 14,
+              "length_mm": 20.3372093023
+            },
+            {
+              "part": "force-outer-angular-metal-spacer",
+              "instance": 15,
+              "length_mm": 20.3372093023
+            },
+            {
+              "part": "force-outer-angular-metal-spacer",
+              "instance": 16,
+              "length_mm": 20.3372093023
+            },
+            {
+              "part": "force-outer-pitch-metal-spacer",
+              "instance": 1,
+              "length_mm": 19.988372093
+            },
+            {
+              "part": "force-outer-pitch-metal-spacer",
+              "instance": 2,
+              "length_mm": 19.988372093
+            },
+            {
+              "part": "force-outer-pitch-metal-spacer",
+              "instance": 3,
+              "length_mm": 19.988372093
+            },
+            {
+              "part": "force-outer-pitch-metal-spacer",
+              "instance": 4,
+              "length_mm": 19.988372093
+            },
+            {
+              "part": "force-outer-pitch-metal-spacer",
+              "instance": 5,
+              "length_mm": 19.988372093
+            },
+            {
+              "part": "force-outer-pitch-metal-spacer",
+              "instance": 6,
+              "length_mm": 19.988372093
+            },
+            {
+              "part": "force-outer-pitch-metal-spacer",
+              "instance": 7,
+              "length_mm": 19.988372093
+            },
+            {
+              "part": "force-outer-pitch-metal-spacer",
+              "instance": 8,
+              "length_mm": 19.988372093
+            },
+            {
+              "part": "force-outer-XYZ-metal-spacer",
+              "instance": 1,
+              "length_mm": 18.5930232558
+            },
+            {
+              "part": "force-outer-XYZ-metal-spacer",
+              "instance": 2,
+              "length_mm": 18.5930232558
+            },
+            {
+              "part": "force-outer-XYZ-metal-spacer",
+              "instance": 3,
+              "length_mm": 18.5930232558
+            },
+            {
+              "part": "capture-catch-spacer",
+              "instance": 1,
+              "length_mm": 7.85
+            }
+          ],
+          "stick": 7,
+          "offcut_mm": 0.4406976747998783
+        },
+        {
+          "used_mm": 399.4424418602,
+          "cuts": [
+            {
+              "part": "force-outer-XYZ-metal-spacer",
+              "instance": 4,
+              "length_mm": 18.5930232558
+            },
+            {
+              "part": "force-outer-XYZ-metal-spacer",
+              "instance": 5,
+              "length_mm": 18.5930232558
+            },
+            {
+              "part": "force-outer-XYZ-metal-spacer",
+              "instance": 6,
+              "length_mm": 18.5930232558
+            },
+            {
+              "part": "force-outer-XYZ-metal-spacer",
+              "instance": 7,
+              "length_mm": 18.5930232558
+            },
+            {
+              "part": "force-outer-XYZ-metal-spacer",
+              "instance": 8,
+              "length_mm": 18.5930232558
+            },
+            {
+              "part": "force-outer-XYZ-metal-spacer",
+              "instance": 9,
+              "length_mm": 18.5930232558
+            },
+            {
+              "part": "force-outer-XYZ-metal-spacer",
+              "instance": 10,
+              "length_mm": 18.5930232558
+            },
+            {
+              "part": "force-outer-XYZ-metal-spacer",
+              "instance": 11,
+              "length_mm": 18.5930232558
+            },
+            {
+              "part": "force-outer-XYZ-metal-spacer",
+              "instance": 12,
+              "length_mm": 18.5930232558
+            },
+            {
+              "part": "force-outer-XYZ-metal-spacer",
+              "instance": 13,
+              "length_mm": 18.5930232558
+            },
+            {
+              "part": "force-outer-XYZ-metal-spacer",
+              "instance": 14,
+              "length_mm": 18.5930232558
+            },
+            {
+              "part": "force-outer-XYZ-metal-spacer",
+              "instance": 15,
+              "length_mm": 18.5930232558
+            },
+            {
+              "part": "force-outer-XYZ-metal-spacer",
+              "instance": 16,
+              "length_mm": 18.5930232558
+            },
+            {
+              "part": "force-outer-XYZ-metal-spacer",
+              "instance": 17,
+              "length_mm": 18.5930232558
+            },
+            {
+              "part": "force-outer-XYZ-metal-spacer",
+              "instance": 18,
+              "length_mm": 18.5930232558
+            },
+            {
+              "part": "force-outer-XYZ-metal-spacer",
+              "instance": 19,
+              "length_mm": 18.5930232558
+            },
+            {
+              "part": "force-outer-XYZ-metal-spacer",
+              "instance": 20,
+              "length_mm": 18.5930232558
+            },
+            {
+              "part": "force-outer-Z-down-metal-spacer",
+              "instance": 1,
+              "length_mm": 16.8488372093
+            },
+            {
+              "part": "nut-outer-angular-metal-spacer",
+              "instance": 1,
+              "length_mm": 9.5122093023
+            }
+          ],
+          "stick": 8,
+          "offcut_mm": 0.557558139799994
+        },
+        {
+          "used_mm": 398.96220930180016,
+          "cuts": [
+            {
+              "part": "force-outer-Z-down-metal-spacer",
+              "instance": 2,
+              "length_mm": 16.8488372093
+            },
+            {
+              "part": "force-outer-Z-down-metal-spacer",
+              "instance": 3,
+              "length_mm": 16.8488372093
+            },
+            {
+              "part": "force-outer-Z-down-metal-spacer",
+              "instance": 4,
+              "length_mm": 16.8488372093
+            },
+            {
+              "part": "nut-outer-angular-metal-spacer",
+              "instance": 4,
+              "length_mm": 9.5122093023
+            },
+            {
+              "part": "nut-outer-angular-metal-spacer",
+              "instance": 5,
+              "length_mm": 9.5122093023
+            },
+            {
+              "part": "nut-outer-angular-metal-spacer",
+              "instance": 6,
+              "length_mm": 9.5122093023
+            },
+            {
+              "part": "nut-outer-angular-metal-spacer",
+              "instance": 7,
+              "length_mm": 9.5122093023
+            },
+            {
+              "part": "nut-outer-angular-metal-spacer",
+              "instance": 8,
+              "length_mm": 9.5122093023
+            },
+            {
+              "part": "nut-outer-angular-metal-spacer",
+              "instance": 9,
+              "length_mm": 9.5122093023
+            },
+            {
+              "part": "nut-outer-angular-metal-spacer",
+              "instance": 10,
+              "length_mm": 9.5122093023
+            },
+            {
+              "part": "nut-outer-angular-metal-spacer",
+              "instance": 11,
+              "length_mm": 9.5122093023
+            },
+            {
+              "part": "nut-outer-angular-metal-spacer",
+              "instance": 12,
+              "length_mm": 9.5122093023
+            },
+            {
+              "part": "nut-outer-angular-metal-spacer",
+              "instance": 13,
+              "length_mm": 9.5122093023
+            },
+            {
+              "part": "nut-outer-angular-metal-spacer",
+              "instance": 14,
+              "length_mm": 9.5122093023
+            },
+            {
+              "part": "nut-outer-angular-metal-spacer",
+              "instance": 15,
+              "length_mm": 9.5122093023
+            },
+            {
+              "part": "nut-outer-angular-metal-spacer",
+              "instance": 16,
+              "length_mm": 9.5122093023
+            },
+            {
+              "part": "nut-outer-pitch-metal-spacer",
+              "instance": 1,
+              "length_mm": 9.163372093
+            },
+            {
+              "part": "nut-outer-pitch-metal-spacer",
+              "instance": 2,
+              "length_mm": 9.163372093
+            },
+            {
+              "part": "nut-outer-pitch-metal-spacer",
+              "instance": 3,
+              "length_mm": 9.163372093
+            },
+            {
+              "part": "nut-outer-pitch-metal-spacer",
+              "instance": 4,
+              "length_mm": 9.163372093
+            },
+            {
+              "part": "nut-outer-pitch-metal-spacer",
+              "instance": 5,
+              "length_mm": 9.163372093
+            },
+            {
+              "part": "nut-outer-pitch-metal-spacer",
+              "instance": 6,
+              "length_mm": 9.163372093
+            },
+            {
+              "part": "nut-outer-pitch-metal-spacer",
+              "instance": 7,
+              "length_mm": 9.163372093
+            },
+            {
+              "part": "nut-outer-pitch-metal-spacer",
+              "instance": 8,
+              "length_mm": 9.163372093
+            },
+            {
+              "part": "crash-force-center-spacer",
+              "instance": 1,
+              "length_mm": 8.35
+            },
+            {
+              "part": "crash-force-center-spacer",
+              "instance": 2,
+              "length_mm": 8.35
+            },
+            {
+              "part": "crash-force-center-spacer",
+              "instance": 3,
+              "length_mm": 8.35
+            },
+            {
+              "part": "crash-force-center-spacer",
+              "instance": 4,
+              "length_mm": 8.35
+            },
+            {
+              "part": "crash-force-center-spacer",
+              "instance": 5,
+              "length_mm": 8.35
+            },
+            {
+              "part": "crash-force-center-spacer",
+              "instance": 6,
+              "length_mm": 8.35
+            },
+            {
+              "part": "crash-force-center-spacer",
+              "instance": 7,
+              "length_mm": 8.35
+            }
+          ],
+          "stick": 9,
+          "offcut_mm": 1.0377906981998422
+        },
+        {
+          "used_mm": 398.5122093022001,
+          "cuts": [
+            {
+              "part": "crash-force-center-spacer",
+              "instance": 8,
+              "length_mm": 8.35
+            },
+            {
+              "part": "force-center-metal-spacer",
+              "instance": 1,
+              "length_mm": 8.35
+            },
+            {
+              "part": "force-center-metal-spacer",
+              "instance": 2,
+              "length_mm": 8.35
+            },
+            {
+              "part": "force-center-metal-spacer",
+              "instance": 3,
+              "length_mm": 8.35
+            },
+            {
+              "part": "force-center-metal-spacer",
+              "instance": 4,
+              "length_mm": 8.35
+            },
+            {
+              "part": "force-center-metal-spacer",
+              "instance": 5,
+              "length_mm": 8.35
+            },
+            {
+              "part": "force-center-metal-spacer",
+              "instance": 6,
+              "length_mm": 8.35
+            },
+            {
+              "part": "force-center-metal-spacer",
+              "instance": 7,
+              "length_mm": 8.35
+            },
+            {
+              "part": "force-center-metal-spacer",
+              "instance": 8,
+              "length_mm": 8.35
+            },
+            {
+              "part": "force-center-metal-spacer",
+              "instance": 9,
+              "length_mm": 8.35
+            },
+            {
+              "part": "force-center-metal-spacer",
+              "instance": 10,
+              "length_mm": 8.35
+            },
+            {
+              "part": "force-center-metal-spacer",
+              "instance": 11,
+              "length_mm": 8.35
+            },
+            {
+              "part": "force-center-metal-spacer",
+              "instance": 12,
+              "length_mm": 8.35
+            },
+            {
+              "part": "force-center-metal-spacer",
+              "instance": 13,
+              "length_mm": 8.35
+            },
+            {
+              "part": "force-center-metal-spacer",
+              "instance": 14,
+              "length_mm": 8.35
+            },
+            {
+              "part": "force-center-metal-spacer",
+              "instance": 15,
+              "length_mm": 8.35
+            },
+            {
+              "part": "force-center-metal-spacer",
+              "instance": 16,
+              "length_mm": 8.35
+            },
+            {
+              "part": "force-center-metal-spacer",
+              "instance": 17,
+              "length_mm": 8.35
+            },
+            {
+              "part": "force-center-metal-spacer",
+              "instance": 18,
+              "length_mm": 8.35
+            },
+            {
+              "part": "force-center-metal-spacer",
+              "instance": 19,
+              "length_mm": 8.35
+            },
+            {
+              "part": "force-center-metal-spacer",
+              "instance": 20,
+              "length_mm": 8.35
+            },
+            {
+              "part": "force-center-metal-spacer",
+              "instance": 21,
+              "length_mm": 8.35
+            },
+            {
+              "part": "force-center-metal-spacer",
+              "instance": 22,
+              "length_mm": 8.35
+            },
+            {
+              "part": "force-center-metal-spacer",
+              "instance": 23,
+              "length_mm": 8.35
+            },
+            {
+              "part": "force-center-metal-spacer",
+              "instance": 24,
+              "length_mm": 8.35
+            },
+            {
+              "part": "capture-catch-spacer",
+              "instance": 2,
+              "length_mm": 7.85
+            },
+            {
+              "part": "nut-outer-XYZ-metal-spacer",
+              "instance": 1,
+              "length_mm": 7.7680232558
+            },
+            {
+              "part": "nut-outer-XYZ-metal-spacer",
+              "instance": 2,
+              "length_mm": 7.7680232558
+            },
+            {
+              "part": "nut-outer-XYZ-metal-spacer",
+              "instance": 3,
+              "length_mm": 7.7680232558
+            },
+            {
+              "part": "nut-outer-XYZ-metal-spacer",
+              "instance": 4,
+              "length_mm": 7.7680232558
+            },
+            {
+              "part": "nut-outer-XYZ-metal-spacer",
+              "instance": 5,
+              "length_mm": 7.7680232558
+            },
+            {
+              "part": "nut-outer-XYZ-metal-spacer",
+              "instance": 6,
+              "length_mm": 7.7680232558
+            },
+            {
+              "part": "nut-outer-XYZ-metal-spacer",
+              "instance": 7,
+              "length_mm": 7.7680232558
+            },
+            {
+              "part": "nut-outer-XYZ-metal-spacer",
+              "instance": 8,
+              "length_mm": 7.7680232558
+            },
+            {
+              "part": "nut-outer-XYZ-metal-spacer",
+              "instance": 9,
+              "length_mm": 7.7680232558
+            },
+            {
+              "part": "V-keeper-metal-spacer",
+              "instance": 2,
+              "length_mm": 4
+            }
+          ],
+          "stick": 10,
+          "offcut_mm": 1.4877906977998805
+        },
+        {
+          "used_mm": 384.3436046509999,
+          "cuts": [
+            {
+              "part": "nut-outer-XYZ-metal-spacer",
+              "instance": 10,
+              "length_mm": 7.7680232558
+            },
+            {
+              "part": "nut-outer-XYZ-metal-spacer",
+              "instance": 11,
+              "length_mm": 7.7680232558
+            },
+            {
+              "part": "nut-outer-XYZ-metal-spacer",
+              "instance": 12,
+              "length_mm": 7.7680232558
+            },
+            {
+              "part": "nut-outer-XYZ-metal-spacer",
+              "instance": 13,
+              "length_mm": 7.7680232558
+            },
+            {
+              "part": "nut-outer-XYZ-metal-spacer",
+              "instance": 14,
+              "length_mm": 7.7680232558
+            },
+            {
+              "part": "nut-outer-XYZ-metal-spacer",
+              "instance": 15,
+              "length_mm": 7.7680232558
+            },
+            {
+              "part": "nut-outer-XYZ-metal-spacer",
+              "instance": 16,
+              "length_mm": 7.7680232558
+            },
+            {
+              "part": "nut-outer-XYZ-metal-spacer",
+              "instance": 17,
+              "length_mm": 7.7680232558
+            },
+            {
+              "part": "nut-outer-XYZ-metal-spacer",
+              "instance": 18,
+              "length_mm": 7.7680232558
+            },
+            {
+              "part": "nut-outer-XYZ-metal-spacer",
+              "instance": 19,
+              "length_mm": 7.7680232558
+            },
+            {
+              "part": "nut-outer-XYZ-metal-spacer",
+              "instance": 20,
+              "length_mm": 7.7680232558
+            },
+            {
+              "part": "guard-metal-spacer",
+              "instance": 1,
+              "length_mm": 7
+            },
+            {
+              "part": "guard-metal-spacer",
+              "instance": 2,
+              "length_mm": 7
+            },
+            {
+              "part": "guard-metal-spacer",
+              "instance": 3,
+              "length_mm": 7
+            },
+            {
+              "part": "guard-metal-spacer",
+              "instance": 4,
+              "length_mm": 7
+            },
+            {
+              "part": "guard-metal-spacer",
+              "instance": 5,
+              "length_mm": 7
+            },
+            {
+              "part": "guard-metal-spacer",
+              "instance": 6,
+              "length_mm": 7
+            },
+            {
+              "part": "guard-metal-spacer",
+              "instance": 7,
+              "length_mm": 7
+            },
+            {
+              "part": "guard-metal-spacer",
+              "instance": 8,
+              "length_mm": 7
+            },
+            {
+              "part": "guard-metal-spacer",
+              "instance": 9,
+              "length_mm": 7
+            },
+            {
+              "part": "guard-metal-spacer",
+              "instance": 10,
+              "length_mm": 7
+            },
+            {
+              "part": "guard-metal-spacer",
+              "instance": 11,
+              "length_mm": 7
+            },
+            {
+              "part": "guard-metal-spacer",
+              "instance": 12,
+              "length_mm": 7
+            },
+            {
+              "part": "roll-foot-metal-spacer",
+              "instance": 1,
+              "length_mm": 6.95
+            },
+            {
+              "part": "roll-foot-metal-spacer",
+              "instance": 2,
+              "length_mm": 6.95
+            },
+            {
+              "part": "roll-foot-metal-spacer",
+              "instance": 3,
+              "length_mm": 6.95
+            },
+            {
+              "part": "roll-foot-metal-spacer",
+              "instance": 4,
+              "length_mm": 6.95
+            },
+            {
+              "part": "nut-outer-Z-down-metal-spacer",
+              "instance": 1,
+              "length_mm": 6.0238372093
+            },
+            {
+              "part": "nut-outer-Z-down-metal-spacer",
+              "instance": 2,
+              "length_mm": 6.0238372093
+            },
+            {
+              "part": "nut-outer-Z-down-metal-spacer",
+              "instance": 3,
+              "length_mm": 6.0238372093
+            },
+            {
+              "part": "nut-outer-Z-down-metal-spacer",
+              "instance": 4,
+              "length_mm": 6.0238372093
+            },
+            {
+              "part": "V-keeper-metal-spacer",
+              "instance": 3,
+              "length_mm": 4
+            },
+            {
+              "part": "V-keeper-metal-spacer",
+              "instance": 4,
+              "length_mm": 4
+            },
+            {
+              "part": "V-keeper-metal-spacer",
+              "instance": 5,
+              "length_mm": 4
+            },
+            {
+              "part": "V-keeper-metal-spacer",
+              "instance": 6,
+              "length_mm": 4
+            },
+            {
+              "part": "V-keeper-metal-spacer",
+              "instance": 7,
+              "length_mm": 4
+            },
+            {
+              "part": "V-keeper-metal-spacer",
+              "instance": 8,
+              "length_mm": 4
+            },
+            {
+              "part": "V-keeper-metal-spacer",
+              "instance": 9,
+              "length_mm": 4
+            },
+            {
+              "part": "V-keeper-metal-spacer",
+              "instance": 10,
+              "length_mm": 4
+            },
+            {
+              "part": "V-keeper-metal-spacer",
+              "instance": 11,
+              "length_mm": 4
+            },
+            {
+              "part": "V-keeper-metal-spacer",
+              "instance": 12,
+              "length_mm": 4
+            }
+          ],
+          "stick": 11,
+          "offcut_mm": 15.656395349000093
+        }
+      ]
+    },
+    "10": {
+      "stock_OD_mm": 10,
+      "stock_ID_mm": 8,
+      "stock_length_mm": 250,
+      "kerf_mm": 3.0,
+      "pieces": 72,
+      "finished_length_mm": 691.4499999999999,
+      "sticks_needed": 4,
+      "two_packs_to_buy": 2,
+      "sticks_supplied": 4,
+      "layouts": [
+        {
+          "used_mm": 249.99999999999997,
+          "cuts": [
+            {
+              "part": "deck-metal-spacer",
+              "instance": 1,
+              "length_mm": 40
+            },
+            {
+              "part": "deck-metal-spacer",
+              "instance": 2,
+              "length_mm": 40
+            },
+            {
+              "part": "deck-metal-spacer",
+              "instance": 3,
+              "length_mm": 40
+            },
+            {
+              "part": "deck-metal-spacer",
+              "instance": 4,
+              "length_mm": 40
+            },
+            {
+              "part": "fiber-axle-lower-tube",
+              "instance": 1,
+              "length_mm": 13
+            },
+            {
+              "part": "fiber-axle-lower-tube",
+              "instance": 2,
+              "length_mm": 13
+            },
+            {
+              "part": "capture-bearing-riser",
+              "instance": 1,
+              "length_mm": 12.825
+            },
+            {
+              "part": "capture-bearing-riser",
+              "instance": 2,
+              "length_mm": 12.825
+            },
+            {
+              "part": "kp08-fixed-riser",
+              "instance": 1,
+              "length_mm": 11.35
+            }
+          ],
+          "stick": 1,
+          "offcut_mm": 2.842170943040401e-14
+        },
+        {
+          "used_mm": 248.84999999999997,
+          "cuts": [
+            {
+              "part": "kp08-fixed-riser",
+              "instance": 2,
+              "length_mm": 11.35
+            },
+            {
+              "part": "kp08-fixed-riser",
+              "instance": 3,
+              "length_mm": 11.35
+            },
+            {
+              "part": "kp08-fixed-riser",
+              "instance": 4,
+              "length_mm": 11.35
+            },
+            {
+              "part": "kp08-fixed-riser",
+              "instance": 5,
+              "length_mm": 11.35
+            },
+            {
+              "part": "kp08-fixed-riser",
+              "instance": 6,
+              "length_mm": 11.35
+            },
+            {
+              "part": "kp08-fixed-riser",
+              "instance": 7,
+              "length_mm": 11.35
+            },
+            {
+              "part": "kp08-fixed-riser",
+              "instance": 8,
+              "length_mm": 11.35
+            },
+            {
+              "part": "kp08-fixed-riser",
+              "instance": 9,
+              "length_mm": 11.35
+            },
+            {
+              "part": "kp08-fixed-riser",
+              "instance": 10,
+              "length_mm": 11.35
+            },
+            {
+              "part": "kp08-fixed-riser",
+              "instance": 11,
+              "length_mm": 11.35
+            },
+            {
+              "part": "kp08-fixed-riser",
+              "instance": 12,
+              "length_mm": 11.35
+            },
+            {
+              "part": "proof-bearing-riser",
+              "instance": 1,
+              "length_mm": 10
+            },
+            {
+              "part": "proof-bearing-riser",
+              "instance": 2,
+              "length_mm": 10
+            },
+            {
+              "part": "installed-Z-gauge-spacer",
+              "instance": 1,
+              "length_mm": 10
+            },
+            {
+              "part": "installed-Z-gauge-spacer",
+              "instance": 2,
+              "length_mm": 10
+            },
+            {
+              "part": "fiber-base-metal-spacer",
+              "instance": 1,
+              "length_mm": 10
+            },
+            {
+              "part": "fiber-base-metal-spacer",
+              "instance": 2,
+              "length_mm": 10
+            },
+            {
+              "part": "fiber-base-metal-spacer",
+              "instance": 3,
+              "length_mm": 10
+            }
+          ],
+          "stick": 2,
+          "offcut_mm": 1.150000000000034
+        },
+        {
+          "used_mm": 249.45000000000007,
+          "cuts": [
+            {
+              "part": "fiber-base-metal-spacer",
+              "instance": 4,
+              "length_mm": 10
+            },
+            {
+              "part": "fiber-base-metal-spacer",
+              "instance": 5,
+              "length_mm": 10
+            },
+            {
+              "part": "fiber-base-metal-spacer",
+              "instance": 6,
+              "length_mm": 10
+            },
+            {
+              "part": "fiber-base-metal-spacer",
+              "instance": 7,
+              "length_mm": 10
+            },
+            {
+              "part": "fiber-base-metal-spacer",
+              "instance": 8,
+              "length_mm": 10
+            },
+            {
+              "part": "capture-gauge-guide-spacer",
+              "instance": 1,
+              "length_mm": 9.825
+            },
+            {
+              "part": "capture-gauge-guide-spacer",
+              "instance": 2,
+              "length_mm": 9.825
+            },
+            {
+              "part": "hinge-thread-start-spacer",
+              "instance": 1,
+              "length_mm": 9.65
+            },
+            {
+              "part": "hinge-thread-start-spacer",
+              "instance": 2,
+              "length_mm": 9.65
+            },
+            {
+              "part": "hinge-thread-start-spacer",
+              "instance": 3,
+              "length_mm": 9.65
+            },
+            {
+              "part": "hinge-thread-start-spacer",
+              "instance": 4,
+              "length_mm": 9.65
+            },
+            {
+              "part": "hinge-thread-start-spacer",
+              "instance": 5,
+              "length_mm": 9.65
+            },
+            {
+              "part": "hinge-thread-start-spacer",
+              "instance": 6,
+              "length_mm": 9.65
+            },
+            {
+              "part": "hinge-thread-start-spacer",
+              "instance": 7,
+              "length_mm": 9.65
+            },
+            {
+              "part": "hinge-thread-start-spacer",
+              "instance": 8,
+              "length_mm": 9.65
+            },
+            {
+              "part": "hinge-thread-start-spacer",
+              "instance": 9,
+              "length_mm": 9.65
+            },
+            {
+              "part": "hinge-thread-start-spacer",
+              "instance": 10,
+              "length_mm": 9.65
+            },
+            {
+              "part": "hinge-thread-start-spacer",
+              "instance": 11,
+              "length_mm": 9.65
+            },
+            {
+              "part": "hinge-thread-start-spacer",
+              "instance": 12,
+              "length_mm": 9.65
+            },
+            {
+              "part": "fiber-axle-upper-tube",
+              "instance": 1,
+              "length_mm": 4
+            }
+          ],
+          "stick": 3,
+          "offcut_mm": 0.5499999999999261
+        },
+        {
+          "used_mm": 159.15,
+          "cuts": [
+            {
+              "part": "redirect-upper-contact-tube",
+              "instance": 1,
+              "length_mm": 7.15
+            },
+            {
+              "part": "proof-gauge-rear-spacer",
+              "instance": 1,
+              "length_mm": 7
+            },
+            {
+              "part": "proof-gauge-rear-spacer",
+              "instance": 2,
+              "length_mm": 7
+            },
+            {
+              "part": "proof-gauge-rear-spacer",
+              "instance": 3,
+              "length_mm": 7
+            },
+            {
+              "part": "proof-gauge-rear-spacer",
+              "instance": 4,
+              "length_mm": 7
+            },
+            {
+              "part": "kp08-floating-riser",
+              "instance": 1,
+              "length_mm": 5
+            },
+            {
+              "part": "kp08-floating-riser",
+              "instance": 2,
+              "length_mm": 5
+            },
+            {
+              "part": "kp08-floating-riser",
+              "instance": 3,
+              "length_mm": 5
+            },
+            {
+              "part": "kp08-floating-riser",
+              "instance": 4,
+              "length_mm": 5
+            },
+            {
+              "part": "kp08-floating-riser",
+              "instance": 5,
+              "length_mm": 5
+            },
+            {
+              "part": "kp08-floating-riser",
+              "instance": 6,
+              "length_mm": 5
+            },
+            {
+              "part": "fiber-axle-upper-tube",
+              "instance": 2,
+              "length_mm": 4
+            },
+            {
+              "part": "redirect-lower-contact-tube",
+              "instance": 1,
+              "length_mm": 3
+            },
+            {
+              "part": "hinge-contact-tube",
+              "instance": 1,
+              "length_mm": 1
+            },
+            {
+              "part": "hinge-contact-tube",
+              "instance": 2,
+              "length_mm": 1
+            },
+            {
+              "part": "hinge-contact-tube",
+              "instance": 3,
+              "length_mm": 1
+            },
+            {
+              "part": "hinge-contact-tube",
+              "instance": 4,
+              "length_mm": 1
+            },
+            {
+              "part": "hinge-contact-tube",
+              "instance": 5,
+              "length_mm": 1
+            },
+            {
+              "part": "hinge-contact-tube",
+              "instance": 6,
+              "length_mm": 1
+            },
+            {
+              "part": "hinge-contact-tube",
+              "instance": 7,
+              "length_mm": 1
+            },
+            {
+              "part": "hinge-contact-tube",
+              "instance": 8,
+              "length_mm": 1
+            },
+            {
+              "part": "hinge-contact-tube",
+              "instance": 9,
+              "length_mm": 1
+            },
+            {
+              "part": "hinge-contact-tube",
+              "instance": 10,
+              "length_mm": 1
+            },
+            {
+              "part": "hinge-contact-tube",
+              "instance": 11,
+              "length_mm": 1
+            },
+            {
+              "part": "hinge-contact-tube",
+              "instance": 12,
+              "length_mm": 1
+            }
+          ],
+          "stick": 4,
+          "offcut_mm": 90.85
+        }
+      ]
+    },
+    "20": {
+      "stock_OD_mm": 20,
+      "stock_ID_mm": 12,
+      "stock_length_mm": 300,
+      "kerf_mm": 3.0,
+      "pieces": 14,
+      "finished_length_mm": 231.04999999999998,
+      "sticks_needed": 1,
+      "two_packs_to_buy": 1,
+      "sticks_supplied": 2,
+      "layouts": [
+        {
+          "used_mm": 273.04999999999995,
+          "cuts": [
+            {
+              "part": "shaft-capture-tube-35p15",
+              "instance": 1,
+              "length_mm": 35.15
+            },
+            {
+              "part": "shaft-capture-tube-27p15",
+              "instance": 1,
+              "length_mm": 27.15
+            },
+            {
+              "part": "shaft-capture-tube-25p15",
+              "instance": 1,
+              "length_mm": 25.15
+            },
+            {
+              "part": "shaft-capture-tube-25p15",
+              "instance": 2,
+              "length_mm": 25.15
+            },
+            {
+              "part": "shaft-capture-tube-21p50",
+              "instance": 1,
+              "length_mm": 21.5
+            },
+            {
+              "part": "shaft-capture-tube-16p00",
+              "instance": 1,
+              "length_mm": 16
+            },
+            {
+              "part": "shaft-capture-tube-15p15",
+              "instance": 1,
+              "length_mm": 15.15
+            },
+            {
+              "part": "shaft-capture-tube-14p65",
+              "instance": 1,
+              "length_mm": 14.65
+            },
+            {
+              "part": "shaft-capture-tube-12p00",
+              "instance": 1,
+              "length_mm": 12
+            },
+            {
+              "part": "shaft-capture-tube-11p50",
+              "instance": 1,
+              "length_mm": 11.5
+            },
+            {
+              "part": "shaft-capture-tube-11p50",
+              "instance": 2,
+              "length_mm": 11.5
+            },
+            {
+              "part": "shaft-capture-tube-9p50",
+              "instance": 1,
+              "length_mm": 9.5
+            },
+            {
+              "part": "shaft-capture-tube-5p50",
+              "instance": 1,
+              "length_mm": 5.5
+            },
+            {
+              "part": "shaft-capture-tube-1p15",
+              "instance": 1,
+              "length_mm": 1.15
+            }
+          ],
+          "stick": 1,
+          "offcut_mm": 26.950000000000045
+        }
+      ]
+    }
+  },
+  "angle_slices": [
+    {
+      "profile_mm": [
+        25.4,
+        25.4,
+        3.175
+      ],
+      "cut_length_mm": 25.4,
+      "quantity": 149
+    },
+    {
+      "profile_mm": [
+        50.8,
+        50.8,
+        6.35
+      ],
+      "cut_length_mm": 40,
+      "quantity": 7,
+      "fits_spare_304p8mm_stick_with_3mm_kerf": true,
+      "used_length_mm": 301
+    },
+    {
+      "profile_mm": [
+        50.8,
+        50.8,
+        6.35
+      ],
+      "cut_length_mm": 70,
+      "quantity": 1,
+      "separate_stock_required": true,
+      "purpose": "proof-gauge-quill-cap"
+    }
+  ],
+  "square_bar_cuts": [
+    {
+      "size_mm": [
+        38.1,
+        38.1,
+        25
+      ],
+      "quantity": 7
+    },
+    {
+      "size_mm": [
+        25.4,
+        25.4,
+        7.35
+      ],
+      "quantity": 28
+    },
+    {
+      "size_mm": [
+        25.4,
+        25.4,
+        15
+      ],
+      "quantity": 4
+    }
+  ],
+  "shaft_stock": {
+    "diameter_mm": 12,
+    "material": "304 stainless",
+    "sticks_mm": [
+      356,
+      356
+    ],
+    "kerf_mm": 3,
+    "layouts": [
+      [
+        175,
+        165
+      ],
+      [
+        130,
+        85
+      ]
+    ],
+    "no_transverse_holes": true,
+    "end_threads": "M5x0.8 at all eight ends",
+    "usable_thread_mm": 10,
+    "pilot_mm": [
+      4.2,
+      16
+    ]
+  },
+  "screw_stock": {
+    "quantity": 8,
+    "stock_length_mm": 400,
+    "finished_main_lengths_mm": [
+      400,
+      400,
+      400,
+      300,
+      300,
+      300
+    ],
+    "test_spare_length_mm": 200
+  },
+  "ground_rods": {
+    "diameter_mm": 8,
+    "length_mm": 100,
+    "quantity": 4,
+    "cutting": "uncut purchased hardened stock"
+  },
+  "scope": "Nominal finished cuts. Grade delivered bores, faces and spring rates before finishing precision spacer lengths. Kerf is charged for every separated piece, including its final cut; listed offcuts are trim reserve."
+}

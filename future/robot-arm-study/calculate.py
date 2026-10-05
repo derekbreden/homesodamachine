@@ -15,19 +15,17 @@ from pathlib import Path
 G = 9.81
 GUN_CABLE_MASS = 1.3118  # Reported measurement from the Rebot conversation.
 SHELL_MOUNT_MASS = 0.250  # Unmeasured fabrication allowance.
-GIMBAL_MOVING_MASS = 2.0  # Unmeasured motors/structure allowance.
-GRAVITY_LEVER = 0.100  # Assumed worst lever for both carried masses.
-CABLE_MOMENT = 3.0  # Engineering scenario, NOT a measurement or bound.
-VERTICAL_MOVING_MASS = 8.0  # Unmeasured complete moving-stack allowance.
-LEAD = 0.001
+ANGULAR_MOMENT_SCENARIO = 15.0  # Shaft/hub screening scenario, not a measured load.
+VERTICAL_MOVING_MASS = 300.0 / G  # Screening mass equivalent; not a measured assembly mass.
+LEAD = 0.002
 MOTOR_STEPS = 200  # Full-step equivalents; driver pulse mode is separate.
 BELT_RATIO = 4
-LEVER = 0.120
-NEUTRAL_ACTUATOR_LENGTH = 0.120
+LEVER = 0.150
+NEUTRAL_ACTUATOR_LENGTH = 0.180
 ANGLE_LIMIT_DEG = 20
-SLIDE_HALF_TRAVEL = 0.100
-TOOL_OFFSET = (0.200, 0.0, 0.0)
-NORMAL_FORCE_SCENARIO = 200.0
+SLIDE_HALF_TRAVEL = 0.085
+TOOL_OFFSET = (0.200, 0.0, 0.04735)
+NORMAL_FORCE_SCENARIO = 300.0
 SCREW_EFFICIENCY = 0.20  # Assumed only, not a manufacturer rating.
 BELT_EFFICIENCY = 0.90  # Assumed only, not a manufacturer rating.
 
@@ -69,8 +67,8 @@ def sample_geometry():
     maximum = [-math.inf] * 3
     worst_norm = 0.0
     count = 0
-    angles = range(-ANGLE_LIMIT_DEG, ANGLE_LIMIT_DEG + 1)
-    for degrees in product(angles, repeat=3):
+    angles = (range(-20, 21), range(-20, 11), range(-20, 21))
+    for degrees in product(*angles):
         rotation = rotation_xyz(*(math.radians(value) for value in degrees))
         delta = dot_centered_translation(rotation, TOOL_OFFSET)
         for axis in range(3):
@@ -81,7 +79,7 @@ def sample_geometry():
     return {
         "orientation_model": "Rz Ry Rx, ideal intersecting axes",
         "tool_vector_at_neutral_mm": [x * 1e3 for x in TOOL_OFFSET],
-        "each_angular_limit_plus_minus_deg": ANGLE_LIMIT_DEG,
+        "angular_limits_deg": {"yaw": [-20, 20], "pitch": [-20, 10], "roll": [-20, 20]},
         "sampling_spacing_deg": 1,
         "sampled_poses": count,
         "minimum_compensating_XYZ_mm": [x * 1e3 for x in minimum],
@@ -91,7 +89,7 @@ def sample_geometry():
             (SLIDE_HALF_TRAVEL - max(abs(minimum[i]), abs(maximum[i]))) * 1e3
             for i in range(3)
         ],
-        "scope_limit": "Pose arithmetic only. Does not establish physical clearance, actual tool transform, separated axis centers, reachability under load or a 200 mm dot-translation range at every angle.",
+        "scope_limit": "Illustrative pose arithmetic with zero neutral orientation. The fabrication geometry owns its actual mounting transform and correlated reach. Does not establish physical clearance, actual tool transform, reachability under load or a 170 mm dot-translation range at every angle.",
     }
 
 
@@ -118,7 +116,7 @@ def budget_totals():
 def main():
     nominal_step = LEAD / MOTOR_STEPS / BELT_RATIO
     payload = GUN_CABLE_MASS + SHELL_MOUNT_MASS
-    angular_moment = G * (payload + GIMBAL_MOVING_MASS) * GRAVITY_LEVER + CABLE_MOMENT
+    angular_moment = ANGULAR_MOMENT_SCENARIO
     samples = [angular_actuator(math.radians(i / 10))
                for i in range(-ANGLE_LIMIT_DEG * 10, ANGLE_LIMIT_DEG * 10 + 1)]
     lengths = [p[0] for p in samples]
@@ -132,9 +130,7 @@ def main():
             "reported_gun_feed_4ft_umbilical_mass_kg": GUN_CABLE_MASS,
             "assumed_shell_mount_mass_kg": SHELL_MOUNT_MASS,
             "planned_gun_package_mass_kg": payload,
-            "assumed_gimbal_motors_structure_mass_kg": GIMBAL_MOVING_MASS,
-            "assumed_common_worst_gravity_lever_mm": GRAVITY_LEVER * 1e3,
-            "assumed_cable_moment_Nm": CABLE_MOMENT,
+            "angular_shaft_hub_screening_moment_Nm": ANGULAR_MOMENT_SCENARIO,
             "assumed_vertical_moving_stack_mass_kg": VERTICAL_MOVING_MASS,
             "normal_axial_force_sizing_scenario_N": NORMAL_FORCE_SCENARIO,
             "assumed_screw_efficiency": SCREW_EFFICIENCY,
@@ -173,7 +169,7 @@ def main():
             "max_angular_actuator_force_before_preload_friction_in_sampled_range_N": angular_moment / smallest_derivative,
             "vertical_gravity_force_N": VERTICAL_MOVING_MASS * G,
             "nominal_motor_torque_Nm_for_normal_force_scenario": NORMAL_FORCE_SCENARIO * LEAD / (2 * math.pi * SCREW_EFFICIENCY * BELT_RATIO * BELT_EFFICIENCY),
-            "scope_limit": "Unmeasured loads and assumed efficiencies. Does not qualify motor duty, guide/bearing moments, screw buckling, jam forces, stiffness, retention or lifetime.",
+            "scope_limit": "Separate screening scenarios and assumed efficiencies. The governing fabrication requirements and measured actual loads accept the build. These calculations do not qualify motor duty, guide/bearing moments, screw buckling, jam forces, stiffness, retention or lifetime.",
         },
         "dot_centered_rotation": sample_geometry(),
         "materials_USD": budget_totals(),
