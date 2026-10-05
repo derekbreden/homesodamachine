@@ -228,8 +228,8 @@ para('From below, slide the steel plate <b>above the retained washer and nut.</b
 x=476
 step(2,'Add the cold-water tee',x,y)
 rect(x,214,416,49,ICE,r=5)
-para('<b>1/4 in plastic tube?</b> Use the black tee below.<br/><b>Braided hose?</b> See install guide pp. 9-11,<br/>then return at <b>Step 3.</b>',x+10,220,396,11.5,13.5,NAVY,limit=40.5)
-c.linkURL('https://homesodamachine.com/docs/install-guide/install-guide.pdf#page=9',(x,H-263,x+416,H-214),relative=0)
+para('<b>1/4 in plastic tube?</b> Use the black tee below.<br/><b>Braided hose?</b> See install guide pp. 13-16,<br/>then return at <b>Step 3.</b>',x+10,220,396,11.5,13.5,NAVY,limit=40.5)
+c.linkURL('https://homesodamachine.com/docs/install-guide/install-guide.pdf#page=14',(x,H-263,x+416,H-214),relative=0)
 p=pic('modern-water-off.png',x+3,279,116,51,crop=(170,190,1100,635))
 text('Closed',x+49,330,8.5,'Semibold',MUTED)
 para('<b>Close the cold-water shutoff.</b> Run the tap or dispenser on that line until flow stops. Put a cup and towel under the fitting.',x+136,275,280,12.1,15,limit=60)
@@ -295,8 +295,8 @@ p=pic('insertion-actions/power-ready.png',x+5,558,258,78,crop=(0,160,1800,1140))
 arrow(*p(491.16,602.56),*p(1089.73,470.79),head=7)
 para('Seat the cord in the <b>top-left rear socket.</b> Plug into grounded 120 V. <b>It chimes.</b>',x,646,268,12.4,16,limit=48)
 rect(36,688,416,26,'#FFF0E6',r=5)
-text('Leak or hiss? Close water and cylinder. See guide, p. 23.',46,697,11.3,'Semibold','#8B381B')
-c.linkURL('https://homesodamachine.com/docs/install-guide/install-guide.pdf#page=23',(36,H-714,452,H-688),relative=0)
+text('Leak or hiss? Close water and cylinder. See guide, pp. 31-32.',46,697,11.3,'Semibold','#8B381B')
+c.linkURL('https://homesodamachine.com/docs/install-guide/install-guide.pdf#page=32',(36,H-714,452,H-688),relative=0)
 
 # The display, bottle and faucet show the controls and the first glass.
 phase('YOUR FIRST GLASS',734)
