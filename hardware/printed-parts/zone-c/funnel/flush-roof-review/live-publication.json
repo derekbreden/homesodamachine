@@ -1,72 +1,72 @@
 {
   "schema": 1,
-  "verified_at_utc": "2026-10-05T03:54:26.682855+00:00",
+  "verified_at_utc": "2026-10-05T05:57:15.297088+00:00",
   "site": "https://homesodamachine.com",
-  "method": "Live object map and SHA256 of streamed decompressed object bytes match the frozen local outputs and current published pointers.",
+  "method": "Live object map and SHA256 of streamed decompressed object bytes match the local outputs and current published pointers.",
   "checks": [
     {
       "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
-      "current_sha256": "cb6f4ced20b8bf1ee719298b3e3c193c67e42ecb3aeaac271ccb79049775e007",
-      "pointer_sha256": "cb6f4ced20b8bf1ee719298b3e3c193c67e42ecb3aeaac271ccb79049775e007",
-      "live_sha256": "cb6f4ced20b8bf1ee719298b3e3c193c67e42ecb3aeaac271ccb79049775e007",
-      "pass": true,
-      "served_bytes_sha256": "cb6f4ced20b8bf1ee719298b3e3c193c67e42ecb3aeaac271ccb79049775e007"
+      "current_sha256": "a35f0dc6d127ca234965d67be0385f138e9b00630ad7f117a584ad07a3276aac",
+      "pointer_sha256": "a35f0dc6d127ca234965d67be0385f138e9b00630ad7f117a584ad07a3276aac",
+      "live_sha256": "a35f0dc6d127ca234965d67be0385f138e9b00630ad7f117a584ad07a3276aac",
+      "served_bytes_sha256": "a35f0dc6d127ca234965d67be0385f138e9b00630ad7f117a584ad07a3276aac",
+      "pass": true
     },
     {
       "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
-      "current_sha256": "2bc4be854c8530229723777a7b2c9edaf4e86882d7a85f21bb69c84852687712",
-      "pointer_sha256": "2bc4be854c8530229723777a7b2c9edaf4e86882d7a85f21bb69c84852687712",
-      "live_sha256": "2bc4be854c8530229723777a7b2c9edaf4e86882d7a85f21bb69c84852687712",
-      "pass": true,
-      "served_bytes_sha256": "2bc4be854c8530229723777a7b2c9edaf4e86882d7a85f21bb69c84852687712"
+      "current_sha256": "d2f42070bbd354af0bdb65b55ae0c9fadbe70f663742f4026acc3fba759783f7",
+      "pointer_sha256": "d2f42070bbd354af0bdb65b55ae0c9fadbe70f663742f4026acc3fba759783f7",
+      "live_sha256": "d2f42070bbd354af0bdb65b55ae0c9fadbe70f663742f4026acc3fba759783f7",
+      "served_bytes_sha256": "d2f42070bbd354af0bdb65b55ae0c9fadbe70f663742f4026acc3fba759783f7",
+      "pass": true
     },
     {
       "path": "hardware/printed-parts/zone-c/funnel/funnel-frame.step",
-      "current_sha256": "410db1305d0600cef79d62b9d91299ac444c487a3d7cb9a5470e5a16dd8b3244",
-      "pointer_sha256": "410db1305d0600cef79d62b9d91299ac444c487a3d7cb9a5470e5a16dd8b3244",
-      "live_sha256": "410db1305d0600cef79d62b9d91299ac444c487a3d7cb9a5470e5a16dd8b3244",
-      "pass": true,
-      "served_bytes_sha256": "410db1305d0600cef79d62b9d91299ac444c487a3d7cb9a5470e5a16dd8b3244"
+      "current_sha256": "5da1c15d6526467fa4c53978608c5467d1647f0f8a6f9aa99754c65a4de8ef93",
+      "pointer_sha256": "5da1c15d6526467fa4c53978608c5467d1647f0f8a6f9aa99754c65a4de8ef93",
+      "live_sha256": "5da1c15d6526467fa4c53978608c5467d1647f0f8a6f9aa99754c65a4de8ef93",
+      "served_bytes_sha256": "5da1c15d6526467fa4c53978608c5467d1647f0f8a6f9aa99754c65a4de8ef93",
+      "pass": true
     },
     {
       "path": "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh",
-      "current_sha256": "66f9f5761afbf842f8a6e0752be6918fbc1210c0926b176b8ec2a7b1074762e5",
-      "pointer_sha256": "66f9f5761afbf842f8a6e0752be6918fbc1210c0926b176b8ec2a7b1074762e5",
-      "live_sha256": "66f9f5761afbf842f8a6e0752be6918fbc1210c0926b176b8ec2a7b1074762e5",
-      "pass": true,
-      "served_bytes_sha256": "66f9f5761afbf842f8a6e0752be6918fbc1210c0926b176b8ec2a7b1074762e5"
+      "current_sha256": "2c0a231107b156090071ce1945ac063eb1362aad44dcb267a0aad97bca8473a1",
+      "pointer_sha256": "2c0a231107b156090071ce1945ac063eb1362aad44dcb267a0aad97bca8473a1",
+      "live_sha256": "2c0a231107b156090071ce1945ac063eb1362aad44dcb267a0aad97bca8473a1",
+      "served_bytes_sha256": "2c0a231107b156090071ce1945ac063eb1362aad44dcb267a0aad97bca8473a1",
+      "pass": true
     },
     {
       "path": "hardware/printed-parts/enclosure/enclosure/enclosure.step",
-      "current_sha256": "2019dad30e071a2669a4f9cdad1aa92d4c68f511fefb7735decda0ce6ca926a8",
-      "pointer_sha256": "2019dad30e071a2669a4f9cdad1aa92d4c68f511fefb7735decda0ce6ca926a8",
-      "live_sha256": "2019dad30e071a2669a4f9cdad1aa92d4c68f511fefb7735decda0ce6ca926a8",
-      "pass": true,
-      "served_bytes_sha256": "2019dad30e071a2669a4f9cdad1aa92d4c68f511fefb7735decda0ce6ca926a8"
+      "current_sha256": "c2bf02bfbb4d31907058d79848ad10f0de3a276e5f718dd290907d0c34ff6600",
+      "pointer_sha256": "c2bf02bfbb4d31907058d79848ad10f0de3a276e5f718dd290907d0c34ff6600",
+      "live_sha256": "c2bf02bfbb4d31907058d79848ad10f0de3a276e5f718dd290907d0c34ff6600",
+      "served_bytes_sha256": "c2bf02bfbb4d31907058d79848ad10f0de3a276e5f718dd290907d0c34ff6600",
+      "pass": true
     },
     {
       "path": "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
-      "current_sha256": "3663fd714b4fb9b6be66b309501194d87e8e7b9c3e805676c76dce530ab3ee9f",
-      "pointer_sha256": "3663fd714b4fb9b6be66b309501194d87e8e7b9c3e805676c76dce530ab3ee9f",
-      "live_sha256": "3663fd714b4fb9b6be66b309501194d87e8e7b9c3e805676c76dce530ab3ee9f",
-      "pass": true,
-      "served_bytes_sha256": "3663fd714b4fb9b6be66b309501194d87e8e7b9c3e805676c76dce530ab3ee9f"
+      "current_sha256": "1613375a1ef8972a26995894e496e16a6574da39af3b778aa17135b81bcfae71",
+      "pointer_sha256": "1613375a1ef8972a26995894e496e16a6574da39af3b778aa17135b81bcfae71",
+      "live_sha256": "1613375a1ef8972a26995894e496e16a6574da39af3b778aa17135b81bcfae71",
+      "served_bytes_sha256": "1613375a1ef8972a26995894e496e16a6574da39af3b778aa17135b81bcfae71",
+      "pass": true
     },
     {
       "path": "hardware/manifold-layout/enclosure-assembly.step",
-      "current_sha256": "c6a1dd96cb251c7aa2875bfafc3ee93e58099a8e29065e16f4464be19c934fcd",
-      "pointer_sha256": "c6a1dd96cb251c7aa2875bfafc3ee93e58099a8e29065e16f4464be19c934fcd",
-      "live_sha256": "c6a1dd96cb251c7aa2875bfafc3ee93e58099a8e29065e16f4464be19c934fcd",
-      "pass": true,
-      "served_bytes_sha256": "c6a1dd96cb251c7aa2875bfafc3ee93e58099a8e29065e16f4464be19c934fcd"
+      "current_sha256": "b7644dd6afeb928bca814b60f8bfc1416ab2258be43f0f7a28d67c4c96c521bb",
+      "pointer_sha256": "b7644dd6afeb928bca814b60f8bfc1416ab2258be43f0f7a28d67c4c96c521bb",
+      "live_sha256": "b7644dd6afeb928bca814b60f8bfc1416ab2258be43f0f7a28d67c4c96c521bb",
+      "served_bytes_sha256": "b7644dd6afeb928bca814b60f8bfc1416ab2258be43f0f7a28d67c4c96c521bb",
+      "pass": true
     },
     {
       "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
-      "current_sha256": "28ec50fee1a9553f13e382391d48d91d52a4444b5b3858d77a705a5a728d3847",
-      "pointer_sha256": "28ec50fee1a9553f13e382391d48d91d52a4444b5b3858d77a705a5a728d3847",
-      "live_sha256": "28ec50fee1a9553f13e382391d48d91d52a4444b5b3858d77a705a5a728d3847",
-      "pass": true,
-      "served_bytes_sha256": "28ec50fee1a9553f13e382391d48d91d52a4444b5b3858d77a705a5a728d3847"
+      "current_sha256": "ec7cbbb6b28efd927fd9d07c342cd55545bdde9a63a6ac68feb1553af336d755",
+      "pointer_sha256": "ec7cbbb6b28efd927fd9d07c342cd55545bdde9a63a6ac68feb1553af336d755",
+      "live_sha256": "ec7cbbb6b28efd927fd9d07c342cd55545bdde9a63a6ac68feb1553af336d755",
+      "served_bytes_sha256": "ec7cbbb6b28efd927fd9d07c342cd55545bdde9a63a6ac68feb1553af336d755",
+      "pass": true
     }
   ],
   "pass": true
