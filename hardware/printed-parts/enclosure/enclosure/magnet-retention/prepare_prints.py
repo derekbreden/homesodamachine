@@ -42,6 +42,18 @@ def members(path):
         return {n: z.read(n) for n in z.namelist()}
 
 
+def cartridge_layer_ranges(payload):
+    """Keep the real lower rim fine and the additive upper grip ordinary."""
+    root = ET.fromstring(payload)
+    bands = root.findall('./object[@id="1"]/range')
+    lower = next(r for r in bands if float(r.get('min_z')) == 6. and float(r.get('max_z')) == 18.4)
+    upper = next(r for r in bands if float(r.get('min_z')) == 100.3 and float(r.get('max_z')) == 113.2)
+    assert float(lower.find('option[@opt_key="layer_height"]').text) == .08
+    assert upper.find('option[@opt_key="wall_loops"]').text == '6'
+    upper.find('option[@opt_key="layer_height"]').text = '0.24'
+    return ET.tostring(root, encoding='UTF-8', xml_declaration=True)
+
+
 def grip_ceiling_paint(points, depth=0):
     """Keep the production interface inside the flat ceiling's inset rectangle."""
     xy = points[:, :2].copy()
@@ -213,7 +225,8 @@ def prepare(name, pocket, revision):
         ET.register_namespace('',CORE)
     revised[SETTING] = json.dumps(selected).encode()
     revised["Metadata/filament_settings_1.config"] = base["Metadata/filament_settings_1.config"]
-    revised["Metadata/layer_config_ranges.xml"] = base["Metadata/layer_config_ranges.xml"]
+    revised["Metadata/layer_config_ranges.xml"] = (cartridge_layer_ranges(base["Metadata/layer_config_ranges.xml"])
+        if name == "pump-cartridge" else base["Metadata/layer_config_ranges.xml"])
     for n, data in [("3D/3dmodel.model", model), (member, geometry),
                     ("Metadata/model_settings.config", config), ("Metadata/custom_gcode_per_layer.xml", pauses)]:
         revised[n] = ET.tostring(data, encoding="UTF-8", xml_declaration=True)

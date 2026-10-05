@@ -41,6 +41,14 @@ use face-specific blockers on the show transitions. Inspect all emitted support 
 interfaces, against the rounded surfaces before sending a slice. Previously prepared archives
 also require this check; their 0.08 mm layer-band checks alone do not establish it.
 
+The current [cartridge and bottom preparation policy](enclosure/layer-policy-correction/README.md)
+uses 0.24 mm through the cartridge's additive upper hand-pocket transition and
+the front-bottom/back-bottom flute runouts. Their shallow decorative fade does
+not require fine layers. The cartridge's genuine lower inward/top rim retains
+its 0.08 mm span. Each new native revision binds the frozen mesh, local wall
+bands, required support paths and complete dense fastener hosts; preferred
+magnet grip remains pending the open-pocket samples.
+
 Measure each retained inward/top curve's print-Z span on the STEP, then run
 `hardware/scripts/verify_round_layer_band.py` on the exported `.gcode.3mf` for that object and
 span. The emitted wall layers must cover the full span at 0.08 mm; the range setting in the

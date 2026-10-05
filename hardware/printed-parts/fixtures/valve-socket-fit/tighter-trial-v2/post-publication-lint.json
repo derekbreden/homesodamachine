@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "status": "pass",
+  "publication_handoff_received_before_lint": true,
+  "publication_scope": "Parent verified central viewer/native artifacts LIVE with streamed byte hashes and confirmed all 22 fit samples are included in the published pack.",
+  "geometry_exports_changed": false,
+  "physical_fit_or_strength_qualification": false,
+  "lint_tool": "hardware/scripts/geometry_lint.py",
+  "lint_tool_sha256": "79914fb4ca91a5620956c1d4d95fd6fe253fcae1b5f26bac0fafc43edffb4f53",
+  "output": "post-publication-lint.txt",
+  "output_sha256": "983f0840b013f3b3508dcbc8766e7f288d3d2646e4de669b3d5d669754e93daa",
+  "samples": [
+    {
+      "sample": "V72",
+      "stl_sha256": "607d75723a8370deac99cf5aa80ff25bf5e5b6a974be63a2e73e9bcdaab92cfe",
+      "printed_facets": 18094,
+      "unanswered_findings": 0,
+      "answered_findings": 2,
+      "answer_file": "beduan-socket-v72.lint-answers",
+      "answer_file_sha256": "85481de910b7e813918b7448feaa06ddeb749583be3616b40eb41a2b91970176",
+      "intended_features": [
+        "Raised socket-diameter legend",
+        "Rear bed-contact label foot"
+      ]
+    },
+    {
+      "sample": "V71",
+      "stl_sha256": "042303cd3c5d71d48bbcc820788345d5cd15dd08cd57de60f90c8e819af6442e",
+      "printed_facets": 13064,
+      "unanswered_findings": 0,
+      "answered_findings": 2,
+      "answer_file": "beduan-socket-v71.lint-answers",
+      "answer_file_sha256": "79de824090ff3297026a0380ecbf7ef6fac48de8e859f4be27d483d5078a022f",
+      "intended_features": [
+        "Raised socket-diameter legend",
+        "Rear bed-contact label foot"
+      ]
+    },
+    {
+      "sample": "V70",
+      "stl_sha256": "ce4469a1d590cc26ed603aac6530a5d64be8fe45964ffcfc1f3b5f108e494cf8",
+      "printed_facets": 21092,
+      "unanswered_findings": 0,
+      "answered_findings": 2,
+      "answer_file": "beduan-socket-v70.lint-answers",
+      "answer_file_sha256": "3694fa75240d47c3a0b5a49c82c42351c55e8650d534aa044143a75da2a98d94",
+      "intended_features": [
+        "Raised socket-diameter legend",
+        "Rear bed-contact label foot"
+      ]
+    },
+    {
+      "sample": "V69",
+      "stl_sha256": "d228dc8eb7ef364b52a22b58ad2c170e13d23c84517a5afd0b213ab950a47885",
+      "printed_facets": 37948,
+      "unanswered_findings": 0,
+      "answered_findings": 2,
+      "answer_file": "beduan-socket-v69.lint-answers",
+      "answer_file_sha256": "b7f4b48bccd757c5fd46db2dc40e275d13c6af89d7d08f0785b66365aa25ce8c",
+      "intended_features": [
+        "Raised socket-diameter legend",
+        "Rear bed-contact label foot"
+      ]
+    },
+    {
+      "sample": "V68",
+      "stl_sha256": "c01d4b985ba53402daa248d2f305d059158c2839da5a9ac6ce565f1cf543d131",
+      "printed_facets": 43454,
+      "unanswered_findings": 0,
+      "answered_findings": 2,
+      "answer_file": "beduan-socket-v68.lint-answers",
+      "answer_file_sha256": "191c5825a41d2b94a6f81ea1086e66653bb1e6f00033d5e6bd56bf65ee39795a",
+      "intended_features": [
+        "Raised socket-diameter legend",
+        "Rear bed-contact label foot"
+      ]
+    }
+  ]
+}

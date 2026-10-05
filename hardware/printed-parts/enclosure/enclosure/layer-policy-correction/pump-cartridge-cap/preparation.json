@@ -1,0 +1,201 @@
+{
+  "baseline_project": "hardware/printed-parts/enclosure/enclosure/magnet-retention/v4/pump-cartridge-cap-pause.3mf",
+  "baseline_project_sha256": "1fcd2933cfd4db0bf9e1f3e010d0944e37b8ed68f390ca06ba792e4010ae5d96",
+  "baseline_preparation": "hardware/printed-parts/enclosure/enclosure/magnet-retention/v4/preparation.json",
+  "baseline_preparation_sha256": "34d22c6a157c1ac6e046146bcc0b333ccec004658368c7e9c3fdb75bf97ce5d5",
+  "components": [
+    {
+      "part": "pump-cartridge",
+      "source_stl_sha256": "d8f6b9a9e12b0594f958b14a6bd8ca9d348471c73f02b28cfe488711be9e5a16",
+      "source_step_sha256": "105c18eed6b10dfab5de7bc12a66174972546a984f2b966e9edc546c7bce285c",
+      "machine_to_bed_translation_mm": [
+        162.5,
+        167.8655014038086,
+        -165.19500732421875
+      ],
+      "requested_pause_height_mm": 31.159999999999997,
+      "pocket_roof_height_mm": 30.983992675781252,
+      "roof_support_blocked_facets": 2,
+      "inherited_show_support_blocks": 0,
+      "grip_support_blocked_facets": 233178,
+      "solid_host_regions": [
+        {
+          "name": "Clamp insert and complete spine root 27.7575",
+          "machine_bounds_mm": [
+            -25.475,
+            25.475,
+            22.7575,
+            32.7575,
+            165.19500000000002,
+            214.925
+          ],
+          "sparse_infill_density": "100%",
+          "sparse_infill_pattern": "zig-zag",
+          "applied_machine_bounds_mm": [
+            -25.475,
+            25.475,
+            22.7575,
+            32.7575,
+            165.19600732421875,
+            214.925
+          ]
+        },
+        {
+          "name": "Clamp insert and complete spine root 63.7575",
+          "machine_bounds_mm": [
+            -25.475,
+            25.475,
+            58.7575,
+            68.7575,
+            165.19500000000002,
+            214.925
+          ],
+          "sparse_infill_density": "100%",
+          "sparse_infill_pattern": "zig-zag",
+          "applied_machine_bounds_mm": [
+            -25.475,
+            25.475,
+            58.7575,
+            68.7575,
+            165.19600732421875,
+            214.925
+          ]
+        }
+      ],
+      "solid_host_region_record_sha256": "e58c536fc33b4ed5b3721f67ea222b44671ec4eda22f499dce74eae07493ffa6",
+      "native_object_name": "enclosure-pump-cartridge-RC62",
+      "machine_to_bed_rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "part": "pump-cap",
+      "native_object_name": "enclosure-pump-cap",
+      "source_stl_sha256": "f203266270189d1faff853fd66749bbc1a53c0cd3a4824292a313d26936d1e16",
+      "source_step_sha256": "26df3e161efb02ead136abd3de9b6631a9d57d388ba1692cc693c6db42a82bf3",
+      "machine_to_bed_rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ]
+      ],
+      "machine_to_bed_translation_mm": [
+        162.5,
+        155.06399869918823,
+        284.17401123046875
+      ],
+      "solid_host_regions": [
+        {
+          "name": "Both pogo insert hosts, entry steps and blind caps",
+          "machine_bounds_mm": [
+            -15.0,
+            15.0,
+            65.769,
+            79.269,
+            275.7740001,
+            281.2740001
+          ],
+          "sparse_infill_density": "100%",
+          "sparse_infill_pattern": "zig-zag",
+          "applied_machine_bounds_mm": [
+            -15.0,
+            15.0,
+            65.769,
+            79.26799719238281,
+            275.7740001,
+            281.2740001
+          ]
+        }
+      ]
+    }
+  ],
+  "settings_sha256": "678ddc7b0329343ed9658d09695f01e1b803ea7e4ec37254dcd383c5ead5e408",
+  "changed_project_members": [
+    "Metadata/layer_config_ranges.xml"
+  ],
+  "unchanged_project_member_sha256": {
+    "3D/3dmodel.model": "34448d2ea6cc9b996807d61fc3e819ddf6096311a8a45a567b3c69a0e4f2a909",
+    "3D/Objects/object_1.model": "dbf7c785f403f7608d7e5520f232054aa10754bb12b6a45a66dbe35e7048ad36",
+    "3D/_rels/3dmodel.model.rels": "26c3acfe29771c67bd1d866c22807b0f4da80b862802a0522ef9940cef05008b",
+    "Metadata/filament_settings_1.config": "b85db92ec8fd2a85a7c576f289a5e2d7605e208c746774ecda90bc24fad0b5d9",
+    "Metadata/model_settings.config": "2b08da0cb1a8adbbd71b2be3d52085d503d4385f6feaa13b2f6780d349bf3cd6",
+    "Metadata/project_settings.config": "678ddc7b0329343ed9658d09695f01e1b803ea7e4ec37254dcd383c5ead5e408",
+    "[Content_Types].xml": "6bf55895a798afef551f69e890dad382c7416511cc7793f218e319ac1defdeb8",
+    "_rels/.rels": "37b6cfd6d6a714abcff71667a6e4c471001ae1db4e97e69f0db7e5e3c5ca057c",
+    "3D/Objects/solid-host-3.model": "dafdcefa75d18ba037638b5711d661931efc00619ae9b101d8a0e6698b7c7de0",
+    "3D/Objects/solid-host-4.model": "2af71d025df84692f78876bbc1f6e21f11586d763d39ff85f1239d07878a2e56",
+    "Metadata/custom_gcode_per_layer.xml": "ba44601fdc4bae2363e9f72cc9afaddeeaf005647311f8eeef1d47e685678b60",
+    "3D/Objects/pump-cap.model": "bfa558932584c3ededf4b4c2ab490ae4db9a8a5aa69ef0cef91ff51cc9785846",
+    "3D/Objects/cap-solid-host-7.model": "f7f031b69465cdcf7cf6a1b0e5fa64236329d6c8fdc30bb277f7d4682bb6decf"
+  },
+  "layer_ranges_mm": [
+    {
+      "object_index": 1,
+      "min_z": 6.0,
+      "max_z": 18.4,
+      "layer_height": 0.08,
+      "reason": "Real inward/top lower hand-pocket rim."
+    },
+    {
+      "object_index": 1,
+      "min_z": 100.3,
+      "max_z": 113.2,
+      "layer_height": 0.24,
+      "wall_loops": 6,
+      "reason": "Additive expanding upper hand-pocket chamfer/taper."
+    }
+  ],
+  "requested_pause_height_mm": 31.159999999999997,
+  "magnet_count_to_insert": 1,
+  "magnet_model": "K&J RC62",
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/v4/pump-cartridge-cap-pause.3mf": "1fcd2933cfd4db0bf9e1f3e010d0944e37b8ed68f390ca06ba792e4010ae5d96",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/v4/preparation.json": "34d22c6a157c1ac6e046146bcc0b333ccec004658368c7e9c3fdb75bf97ce5d5",
+    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json": "84fb2efcb0eb2d9c475cf2c855a6f9d6d140aa5de9fe92a32668404320c8f08e",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "020e0ae5ee3dcbe748d5b3ee994ac4975d9d81b8793a1f534a2ad97f7a80595c",
+    "hardware/printed-parts/enclosure/enclosure/_cartridge_retention.py": "a91b59bcf7c54120ee83e82a49d02164d155591c61d6725d702db3bc8b03c62a",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl": "d8f6b9a9e12b0594f958b14a6bd8ca9d348471c73f02b28cfe488711be9e5a16",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "105c18eed6b10dfab5de7bc12a66174972546a984f2b966e9edc546c7bce285c",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl": "f203266270189d1faff853fd66749bbc1a53c0cd3a4824292a313d26936d1e16",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "26df3e161efb02ead136abd3de9b6631a9d57d388ba1692cc693c6db42a82bf3"
+  },
+  "schema_version": 1,
+  "part": "pump-cartridge-cap",
+  "revision": 5,
+  "printer": "Mark2",
+  "stem": "2026-10-04-pump-cartridge-cap-normal-transition-mark2-v5",
+  "project": "2026-10-04-pump-cartridge-cap-normal-transition-mark2-v5-input.3mf",
+  "project_path": ".cache/prints/2026-10-04-pump-cartridge-cap-normal-transition-mark2-v5/2026-10-04-pump-cartridge-cap-normal-transition-mark2-v5-input.3mf",
+  "project_sha256": "670dcefc55a4ecc74631decacda20dc6d5ad2d421cfb9da7c7dab1dab795ad5d",
+  "requested_trim_mm": 0.04,
+  "preparation_script_sha256": "3fb9b4cd8c9f069e5e802113a4a6408f42249e3d80384f540ea94193745279be",
+  "geometry_exports_changed": false,
+  "submitted": false,
+  "physical_surface_qualification": false,
+  "launch_state": "queued_awaiting_printer_availability_and_fresh_preflight"
+}

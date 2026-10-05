@@ -1,10 +1,6 @@
-[ceiling] These four square rail bearings retain the frame against vertical lift and preserve the enclosure's production sliding profile. Each groove opens along its outer flank and Y entrance for support removal before assembly. The current native slice in integration-review/native-slice-reviews/2026-10-03-funnel-frame-h2c-v1/ retains four bed-rooted supports. Every emitted support bead has a clear outward removal sweep after its contact and branch junctions are detached. Physical removal effort, bearing finish and installed fit remain unqualified.
+[ceiling] These four square rail bearings retain the frame against vertical lift and preserve the enclosure's production sliding profile. Each groove opens along its outer flank and Y entrance for support removal before assembly. The native combined Mark2 review in ../../enclosure/enclosure/support-bottom-gap/mark2-v2/emitted-path-review.json retains four bed-rooted supports and verifies each full-width outward X removal sweep at its supported layers. Release the interface contacts and cut sacrificial branch junctions before pushing a support outward. Physical removal effort, bearing finish and installed fit remain unqualified.
 file: hardware/printed-parts/zone-c/funnel/funnel-frame.step
 click: x=100.875 y=-10.571 z=16.200
 click: x=-100.875 y=-10.571 z=16.200
 click: x=100.875 y=47.074 z=16.450
 click: x=-100.875 y=47.074 z=16.450
-
-[step] The 0.3 mm recess below the frame top gives the silicone brim its assembly clearance. The brim bears on the recessed enclosure ledge at Z349; this recess follows the bowl clearance.
-file: hardware/printed-parts/zone-c/funnel/funnel-frame.step
-click: x=-20.833 y=-61.375 z=48.800

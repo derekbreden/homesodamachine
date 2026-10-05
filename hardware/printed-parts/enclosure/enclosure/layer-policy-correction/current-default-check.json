@@ -1,0 +1,56 @@
+{
+  "status": "pass",
+  "scope": "Canonical current cartridge range normalizer applied in memory to two retained production projects; no project was written. New native reviews separately bind emitted paths.",
+  "current_source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/prepare_prints.py",
+  "current_source_sha256": "fe1411ba54a9fab8d23fe16c8876d16d28a801148cd36764abf0e6a86d50063d",
+  "current_function_ast_sha256": "6b432c1df1552b9db6f90c5c721bfe8ff0c8a746a4dba78ab2addfbfb5e08edf",
+  "checks": [
+    {
+      "inherited_project": "hardware/printed-parts/enclosure/enclosure/magnet-retention/v3/pump-cartridge-pause.3mf",
+      "inherited_project_sha256": "24613382139f0ecd4939f56a7e9521ec9dd0e2ffb27aeaa29f6f248c4ecd6975",
+      "in_memory_current_policy_ranges": [
+        {
+          "min_z": 6.0,
+          "max_z": 18.4,
+          "options": {
+            "layer_height": "0.08"
+          }
+        },
+        {
+          "min_z": 100.3,
+          "max_z": 113.2,
+          "options": {
+            "layer_height": "0.24",
+            "wall_loops": "6"
+          }
+        }
+      ],
+      "idempotent": true,
+      "frozen_source_project_unchanged": true
+    },
+    {
+      "inherited_project": "hardware/printed-parts/enclosure/enclosure/magnet-retention/v4/pump-cartridge-cap-pause.3mf",
+      "inherited_project_sha256": "1fcd2933cfd4db0bf9e1f3e010d0944e37b8ed68f390ca06ba792e4010ae5d96",
+      "in_memory_current_policy_ranges": [
+        {
+          "min_z": 6.0,
+          "max_z": 18.4,
+          "options": {
+            "layer_height": "0.08"
+          }
+        },
+        {
+          "min_z": 100.3,
+          "max_z": 113.2,
+          "options": {
+            "layer_height": "0.24",
+            "wall_loops": "6"
+          }
+        }
+      ],
+      "idempotent": true,
+      "frozen_source_project_unchanged": true
+    }
+  ],
+  "current_reproduction_route": "layer-policy-correction/prepare.py uses the retained v4 project; legacy v8 local cache is not a required input."
+}

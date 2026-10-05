@@ -1,0 +1,373 @@
+{
+  "schema": 1,
+  "source_stl_sha256": "cc2cfd8a490b52439d957aa082b0e4369c5602076740494298b3a954f0ba36ba",
+  "archive_sha256": "3d31f00a0a0649627514a02a07f4ce28e42d657ccffcd6369549075532c23702",
+  "gcode_sha256": "91e21a113b8448485918e9409e939836a0cd61b774b02ff4c5476cb00f4d39ac",
+  "current_machine_z_mm": 349.32,
+  "previous_machine_z_mm": 349.24,
+  "previous_printed_footprint_count": 383,
+  "scope": "Each full-width emitted bridge/overhang bead versus the union of model and support footprints at the immediately preceding 0.08 mm layer. Classification labels do not determine backing. Full bead contact projection includes any edge overlap.",
+  "roads": [
+    {
+      "line": 4225089,
+      "feature": "Overhang wall",
+      "start_machine_xy_mm": [
+        95.90300000000002,
+        94.5880015258789
+      ],
+      "end_machine_xy_mm": [
+        -95.894,
+        94.58100152587892
+      ],
+      "width_mm": 0.45,
+      "height_mm": 0.0800018,
+      "road_length_mm": 191.79700012773927,
+      "centerline_backed_mm": 0.0,
+      "longest_unbacked_centerline_mm": 191.79700012773927,
+      "full_bead_contact_area_mm2": 0.008977884625856804,
+      "full_bead_area_mm2": 86.4674378248196,
+      "any_bead_contact_projected_x_intervals_mm": [
+        [
+          -96.10130826062532,
+          -95.92896202110231
+        ],
+        [
+          95.93166611738138,
+          96.11414811416046
+        ]
+      ],
+      "free_centerline_segments_plate_xy_mm": [
+        [
+          [
+            258.403,
+            143.188
+          ],
+          [
+            66.606,
+            143.181
+          ]
+        ]
+      ],
+      "free_centerline_segments_machine_xy_mm": [
+        [
+          [
+            95.90300000000002,
+            94.5880015258789
+          ],
+          [
+            -95.894,
+            94.58100152587892
+          ]
+        ]
+      ],
+      "full_bead_contact_fraction": 0.00010382965948459958,
+      "bead_backing_continuous_along_x": false
+    },
+    {
+      "line": 4225636,
+      "feature": "Overhang wall",
+      "start_machine_xy_mm": [
+        96.39699999999999,
+        95.0060015258789
+      ],
+      "end_machine_xy_mm": [
+        -96.389,
+        94.9990015258789
+      ],
+      "width_mm": 0.45,
+      "height_mm": 0.0800018,
+      "road_length_mm": 192.78600012708392,
+      "centerline_backed_mm": 0.0,
+      "longest_unbacked_centerline_mm": 192.78600012708392,
+      "full_bead_contact_area_mm2": 0.00797662778706882,
+      "full_bead_area_mm2": 86.91248782452517,
+      "any_bead_contact_projected_x_intervals_mm": [
+        [
+          -96.60451508712923,
+          -96.4534990459185
+        ],
+        [
+          96.45891293969584,
+          96.61302917687055
+        ]
+      ],
+      "free_centerline_segments_plate_xy_mm": [
+        [
+          [
+            258.897,
+            143.606
+          ],
+          [
+            66.111,
+            143.599
+          ]
+        ]
+      ],
+      "free_centerline_segments_machine_xy_mm": [
+        [
+          [
+            96.39699999999999,
+            95.0060015258789
+          ],
+          [
+            -96.389,
+            94.9990015258789
+          ]
+        ]
+      ],
+      "full_bead_contact_fraction": 9.177769485983987e-05,
+      "bead_backing_continuous_along_x": false
+    },
+    {
+      "line": 4226398,
+      "feature": "Bridge",
+      "start_machine_xy_mm": [
+        93.887,
+        92.5070015258789
+      ],
+      "end_machine_xy_mm": [
+        -92.484,
+        92.5000015258789
+      ],
+      "width_mm": 0.445458,
+      "height_mm": 0.0800018,
+      "road_length_mm": 186.3710001314582,
+      "centerline_backed_mm": 186.3710001314582,
+      "longest_unbacked_centerline_mm": 0.0,
+      "full_bead_contact_area_mm2": 78.91459580745348,
+      "full_bead_area_mm2": 83.17605152472824,
+      "any_bead_contact_projected_x_intervals_mm": [
+        [
+          -92.7067289998429,
+          94.1097289998429
+        ]
+      ],
+      "free_centerline_segments_plate_xy_mm": [
+        []
+      ],
+      "free_centerline_segments_machine_xy_mm": [
+        []
+      ],
+      "full_bead_contact_fraction": 0.9487658329632559,
+      "bead_backing_continuous_along_x": true
+    },
+    {
+      "line": 4226403,
+      "feature": "Bridge",
+      "start_machine_xy_mm": [
+        -94.642,
+        92.9280015258789
+      ],
+      "end_machine_xy_mm": [
+        94.66000000000003,
+        92.9350015258789
+      ],
+      "width_mm": 0.445458,
+      "height_mm": 0.0800018,
+      "road_length_mm": 189.30200012942285,
+      "centerline_backed_mm": 189.30200012942285,
+      "longest_unbacked_centerline_mm": 0.0,
+      "full_bead_contact_area_mm2": 84.47037187445757,
+      "full_bead_area_mm2": 84.48168892182329,
+      "any_bead_contact_projected_x_intervals_mm": [
+        [
+          -94.86472899984771,
+          94.88272899984776
+        ]
+      ],
+      "free_centerline_segments_plate_xy_mm": [
+        []
+      ],
+      "free_centerline_segments_machine_xy_mm": [
+        []
+      ],
+      "full_bead_contact_fraction": 0.9998660414166649,
+      "bead_backing_continuous_along_x": true
+    },
+    {
+      "line": 4226406,
+      "feature": "Bridge",
+      "start_machine_xy_mm": [
+        95.60300000000001,
+        93.3630015258789
+      ],
+      "end_machine_xy_mm": [
+        -95.574,
+        93.3560015258789
+      ],
+      "width_mm": 0.445458,
+      "height_mm": 0.0800018,
+      "road_length_mm": 191.1770001281535,
+      "centerline_backed_mm": 3.58353416776509,
+      "longest_unbacked_centerline_mm": 187.59346596038841,
+      "full_bead_contact_area_mm2": 6.139600304181534,
+      "full_bead_area_mm2": 85.31692267125158,
+      "any_bead_contact_projected_x_intervals_mm": [
+        [
+          -95.7967289998507,
+          95.8257289998507
+        ]
+      ],
+      "free_centerline_segments_plate_xy_mm": [
+        [
+          [
+            256.30879358704084,
+            141.96293430462404
+          ],
+          [
+            68.71532775240374,
+            141.95606551674243
+          ]
+        ]
+      ],
+      "free_centerline_segments_machine_xy_mm": [
+        [
+          [
+            93.80879358704084,
+            93.36293583050295
+          ],
+          [
+            -93.78467224759626,
+            93.35606704262133
+          ]
+        ]
+      ],
+      "full_bead_contact_fraction": 0.07196228030679236,
+      "bead_backing_continuous_along_x": true
+    },
+    {
+      "line": 4226410,
+      "feature": "Bridge",
+      "start_machine_xy_mm": [
+        -96.266,
+        93.7850015258789
+      ],
+      "end_machine_xy_mm": [
+        96.279,
+        93.7920015258789
+      ],
+      "width_mm": 0.445458,
+      "height_mm": 0.0800018,
+      "road_length_mm": 192.54500012724301,
+      "centerline_backed_mm": 2.6141361092583293,
+      "longest_unbacked_centerline_mm": 189.93086401798467,
+      "full_bead_contact_area_mm2": 1.319719998749546,
+      "full_bead_area_mm2": 85.92630921485275,
+      "any_bead_contact_projected_x_intervals_mm": [
+        [
+          -96.48872899985281,
+          -94.43871677600214
+        ],
+        [
+          94.45675656879962,
+          96.50172899985279
+        ]
+      ],
+      "free_centerline_segments_plate_xy_mm": [
+        [
+          [
+            67.54403184650057,
+            142.38504762638823
+          ],
+          [
+            257.4748957389698,
+            142.39195258910993
+          ]
+        ]
+      ],
+      "free_centerline_segments_machine_xy_mm": [
+        [
+          [
+            -94.95596815349943,
+            93.78504915226713
+          ],
+          [
+            94.97489573896979,
+            93.79195411498884
+          ]
+        ]
+      ],
+      "full_bead_contact_fraction": 0.015358741819687357,
+      "bead_backing_continuous_along_x": false
+    },
+    {
+      "line": 4226412,
+      "feature": "Bridge",
+      "start_machine_xy_mm": [
+        96.815,
+        94.2200015258789
+      ],
+      "end_machine_xy_mm": [
+        -97.093,
+        94.2130015258789
+      ],
+      "width_mm": 0.445458,
+      "height_mm": 0.0800018,
+      "road_length_mm": 193.90800012634858,
+      "centerline_backed_mm": 2.4685060093776334,
+      "longest_unbacked_centerline_mm": 191.43469234184388,
+      "full_bead_contact_area_mm2": 1.1688983921905582,
+      "full_bead_area_mm2": 86.53346846844826,
+      "any_bead_contact_projected_x_intervals_mm": [
+        [
+          -97.26091679960565,
+          -95.3523633485545
+        ],
+        [
+          95.37160707509275,
+          97.03772899985489
+        ]
+      ],
+      "free_centerline_segments_plate_xy_mm": [
+        [
+          [
+            258.22444575658466,
+            142.81996063143498
+          ],
+          [
+            66.78975353947776,
+            142.81304991684084
+          ]
+        ],
+        [
+          [
+            65.41180177512392,
+            142.81300017334212
+          ],
+          [
+            65.407,
+            142.813
+          ]
+        ]
+      ],
+      "free_centerline_segments_machine_xy_mm": [
+        [
+          [
+            95.72444575658466,
+            94.21996215731389
+          ],
+          [
+            -95.71024646052224,
+            94.21305144271975
+          ]
+        ],
+        [
+          [
+            -97.08819822487608,
+            94.21300169922102
+          ],
+          [
+            -97.093,
+            94.2130015258789
+          ]
+        ]
+      ],
+      "full_bead_contact_fraction": 0.013508049693128396,
+      "bead_backing_continuous_along_x": false
+    }
+  ],
+  "conclusion": "Two overhang walls and two bridge roads have only end contact and approximately 190 mm unsupported spans. One other bridge has narrow continuous edge contact. Two Bridge-labelled roads ahead of the ceiling strip have complete centerline backing.",
+  "fully_or_edge_continuously_backed_long_road_count": 3,
+  "long_roads_without_continuous_edge_or_center_backing": 4,
+  "sent_archive_or_geometry_changed": false
+}

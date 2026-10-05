@@ -1,0 +1,67 @@
+{
+  "status": "held_failed_native_support_review",
+  "archive_sha256": "808c1796396d4aa3bf821ff4c11a637bd219a5f86bd867facb4089f018b28319",
+  "project_sha256": "710fda6dfef5a589d9b7e8afa0d7a9a68f0f2333eda5bbc1e1c149dbc1a9e9c3",
+  "gcode_sha256": "ca93c9ae2919bc853a5bbfea44b2eec4d11aef76bf073619e94e77aa3d6bd975",
+  "source_cache_directory": ".cache/prints/2026-10-04-enclosure-front-top-display-strip-h2c-v19",
+  "files": [
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/front-top-h2c-v19/2026-10-04-enclosure-front-top-display-strip-h2c-v19-input.3mf",
+      "sha256": "710fda6dfef5a589d9b7e8afa0d7a9a68f0f2333eda5bbc1e1c149dbc1a9e9c3",
+      "size_bytes": 5093911
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/front-top-h2c-v19/README.md",
+      "sha256": "ccf435fcb762d37b17068211cad4dc4054c5177990e9131a0df99eb54d8fea5f",
+      "size_bytes": 1342
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/front-top-h2c-v19/candidate-status.json",
+      "sha256": "ee7d02be0f4e4e344efdecd01616c62598924e58b0e0e52b0034c01fdedc2765",
+      "size_bytes": 1437
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/front-top-h2c-v19/display-strip-backing.json",
+      "sha256": "ea5da49432844df8c5823f3ae35f59bf90f43e146077e628a3655080a13e5089",
+      "size_bytes": 126948
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/front-top-h2c-v19/native-slice.json",
+      "sha256": "9bffdfffa964258ec335c50e372e091d33427aafdb4ed12996ee936f742dcdea",
+      "size_bytes": 1111
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/front-top-h2c-v19/picked-roots.json",
+      "sha256": "255f81ebe3136e9063bc73fd5426f1f32c08a9d428cf2b438d2684e775064c33",
+      "size_bytes": 2056
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/front-top-h2c-v19/preparation.json",
+      "sha256": "2a2e4e3d5ed77b1622b06b42937faa2e81034e4521d1c5abc3fbf9b4a2aeab68",
+      "size_bytes": 14168
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/front-top-h2c-v19/preview.png",
+      "sha256": "31cf21091cb7ee4961aef9392413df6765dd38dcf970e3cb53dc6b503c447d3a",
+      "size_bytes": 13416
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/front-top-h2c-v19/retention-native-check.json",
+      "sha256": "8e88849e96af1d032522456c7cc1a874209012b6ecd8572081b8db1ff1124a2a",
+      "size_bytes": 38134
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/front-top-h2c-v19/support-audit.json",
+      "sha256": "15a7c9eaa45c3c5d1912c47251da185b9ab9091a501c0e8ce6ca730e76d3f41e",
+      "size_bytes": 7141
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/front-top-h2c-v19/verification.json",
+      "sha256": "7d67087444901c9f4653357679b6d062e3d5bfd7bdc864131691f8b17f2b3746",
+      "size_bytes": 1159
+    }
+  ],
+  "reader_source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/review_front_top.py": "4cc96fa5fec2f61804d2b8b1e8b1fa2f6d127a5675bd6f9c43904ab40054286a"
+  }
+}

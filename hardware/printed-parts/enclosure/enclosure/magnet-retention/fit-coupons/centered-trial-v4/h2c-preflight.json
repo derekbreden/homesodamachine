@@ -1,0 +1,109 @@
+{
+  "schema": 1,
+  "printer": "H2C",
+  "authorization_quotes": [
+    "I don't want the full front-top or funnel tray printed next. What I want next (on both printers) is the test prints I asked for, for both magnet fitting and valve leg hole fitting.",
+    "Both beds are clear.",
+    "On mark2 you had pieces close to the edge that did not get a good first layer, so that plate is not well seasoned there yet. We could keep printing until it works, or you could avoid going that far to the edge here."
+  ],
+  "both_beds_clear_confirmed": true,
+  "readings": [
+    {
+      "printer": "Mark2",
+      "observed_at": "2026-10-05T04:36:08.323980+00:00",
+      "task_id": "1310167480",
+      "job_id": "1310167480",
+      "subtask_name": "2026-10-04-centered-rc62-valve-mark2-v4.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "layer_num": 0,
+      "total_layer_num": 184,
+      "mc_percent": 0,
+      "mc_remaining_time": 99,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": 4,
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "161616FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "F72323FF"
+        }
+      ],
+      "extruders": {
+        "0": {
+          "actual_c": 43,
+          "target_c": 0
+        },
+        "1": {
+          "actual_c": 247,
+          "target_c": 265
+        }
+      },
+      "bed_actual_c": 45.0,
+      "bed_target_c": 45.0,
+      "chamber": {
+        "actual_c": 33,
+        "target_c": 0
+      }
+    },
+    {
+      "printer": "H2C",
+      "observed_at": "2026-10-05T04:36:08.295623+00:00",
+      "task_id": "1310109574",
+      "job_id": "1310109574",
+      "subtask_name": "2026-10-04-enclosure-front-top-flush-frame-h2c-v18.gcode.3mf",
+      "gcode_state": "FAILED",
+      "layer_num": 0,
+      "total_layer_num": 1346,
+      "mc_percent": 0,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [],
+      "stg_cur": -1,
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_info_idx": "GFT01",
+          "tray_color": "000000FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "TPU",
+          "tray_info_idx": "GFU04",
+          "tray_color": "161616FF"
+        }
+      ],
+      "extruders": {
+        "0": {
+          "actual_c": 43,
+          "target_c": 0
+        },
+        "1": {
+          "actual_c": 39,
+          "target_c": 0
+        }
+      },
+      "bed_actual_c": 43.0,
+      "bed_target_c": 0.0,
+      "chamber": {
+        "actual_c": 35,
+        "target_c": 0
+      }
+    }
+  ],
+  "target_read_only_listener_ready_at_utc": "2026-10-05T04:36:16.589138+00:00",
+  "shared_circuit_minimum_start_spacing_seconds": 180,
+  "other_printer_start_acceptance_observed_at_utc": "2026-10-05T04:33:13.858077+00:00",
+  "earliest_authorized_send_at_utc": "2026-10-05T04:36:13.858077+00:00",
+  "pre_send_clock_observed_utc": "2026-10-05T04:36:28+00:00",
+  "archive_sha256": "a3bac5c7429c3b142ef2fe1e4a87d04d73f45b314bc1b0b6aac49a01cf75552b",
+  "scope": "Both printers were read before the one foreground Send. H2C left slot 254 matches the frozen archive. These readings do not establish physical adhesion or fit."
+}

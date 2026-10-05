@@ -1,0 +1,436 @@
+{
+  "project": "2026-10-04-enclosure-front-bottom-normal-grip-h2c-v6-input.3mf",
+  "settings_source": "hardware/printed-parts/petgf.3mf",
+  "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "settings_sha256": "1017301458a31e05602896efcf3fd0171bdb9e8cb53175042006d824d3166f51",
+  "source_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "409b1516f0401361a02b18a34420c10ca83bc33615e8896cade2fea42edee871",
+      "requested_z_trim_mm": 0.18
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.18 Z trim"
+    }
+  },
+  "printer": "H2C",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 15.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "enclosure-front-bottom",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+      "stl_sha256": "51c521848a0569907e6811869add3afa95062f072f01f2157f52982794ecba64",
+      "triangles": 331110,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        111.4000015258789,
+        84.4000015258789
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        162.5,
+        160.0,
+        90.4000015258789
+      ],
+      "plate_translation_mm": [
+        162.5,
+        160.0,
+        90.4000015258789
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          55.0,
+          53.599998474121094,
+          0.0
+        ],
+        [
+          270.0,
+          266.4000015258789,
+          180.8000030517578
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    }
+  ],
+  "project_sha256": "7ce0996e97ea5b33e7e7aedb1fcd9386339de66ec0118ffca064f060d9f79263",
+  "settings_preserved_byte_for_byte": false,
+  "piece": "front",
+  "slot_bounds_cad_xy_mm": [
+    [
+      -102.0801019662497,
+      170.99,
+      -96.77810196624968,
+      174.01
+    ],
+    [
+      96.77810196624968,
+      170.99,
+      102.0801019662497,
+      174.01
+    ]
+  ],
+  "slot_roof_cad_z_mm": 29.25,
+  "slot_floor_cad_z_mm": 26.87,
+  "support_review_geometry_sha256": "a9626a5601b4e6a55505532077060bb4ac69afe539bd752529f9c2884543c5f0",
+  "blocked_slot_area_mm2": 31.977640337657096,
+  "blocked_ceiling_edge_area_mm2": 190.44360178188262,
+  "painted_exterior_triangles": 54967,
+  "painted_flat_triangles": 797,
+  "six_wall_print_z_mm": [
+    35.0,
+    41.5
+  ],
+  "fine_flute_runout_print_z_mm": null,
+  "layer_ranges_mm": [
+    {
+      "object_index": 1,
+      "min_z": 35.0,
+      "max_z": 41.5,
+      "layer_height": 0.24,
+      "wall_loops": 6,
+      "reason": "Additive expanding upper handhold transition."
+    }
+  ],
+  "flat_ceiling_support_inset_mm": 0.8,
+  "slot_support_halo_mm": 1.0,
+  "solid_host_regions": [
+    {
+      "name": "Y seam socket and complete root +1/48.9",
+      "machine_bounds_mm": [
+        -107.5,
+        -90.5,
+        197.0,
+        217.8,
+        29.25,
+        160.0
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        -107.499,
+        -90.5,
+        197.0,
+        217.79900305187888,
+        29.25,
+        160.0
+      ]
+    },
+    {
+      "name": "Y seam socket and complete root +1/152.1",
+      "machine_bounds_mm": [
+        -107.5,
+        -90.5,
+        197.0,
+        217.8,
+        29.25,
+        160.0
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        -107.499,
+        -90.5,
+        197.0,
+        217.79900305187888,
+        29.25,
+        160.0
+      ]
+    },
+    {
+      "name": "Y seam socket and complete root -1/48.9",
+      "machine_bounds_mm": [
+        90.5,
+        107.5,
+        197.0,
+        217.8,
+        29.25,
+        160.0
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        90.5,
+        107.499,
+        197.0,
+        217.79900305187888,
+        29.25,
+        160.0
+      ]
+    },
+    {
+      "name": "Y seam socket and complete root -1/152.1",
+      "machine_bounds_mm": [
+        90.5,
+        107.5,
+        197.0,
+        217.8,
+        29.25,
+        160.0
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        90.5,
+        107.499,
+        197.0,
+        217.79900305187888,
+        29.25,
+        160.0
+      ]
+    },
+    {
+      "name": "Z rail, end stop and wall root -1",
+      "machine_bounds_mm": [
+        -107.5,
+        -90.0,
+        5.0,
+        200.0,
+        157.0,
+        177.8
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        -107.499,
+        -90.0,
+        5.00099999987891,
+        200.0,
+        157.0,
+        174.79900305187888
+      ]
+    },
+    {
+      "name": "Z rail, end stop and wall root +1",
+      "machine_bounds_mm": [
+        90.0,
+        107.5,
+        5.0,
+        200.0,
+        157.0,
+        177.8
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        90.0,
+        107.499,
+        5.00099999987891,
+        200.0,
+        157.0,
+        174.79900305187888
+      ]
+    },
+    {
+      "name": "Compressor post and floor -54.6/25.5",
+      "machine_bounds_mm": [
+        -60.400000000000006,
+        -48.8,
+        19.7,
+        31.3,
+        -6.0,
+        14.6
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        -60.400000000000006,
+        -48.8,
+        19.7,
+        31.3,
+        -5.99900000012109,
+        14.6
+      ]
+    },
+    {
+      "name": "Compressor post and floor -54.6/156.5",
+      "machine_bounds_mm": [
+        -60.400000000000006,
+        -48.8,
+        150.7,
+        162.3,
+        -6.0,
+        14.6
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        -60.400000000000006,
+        -48.8,
+        150.7,
+        162.3,
+        -5.99900000012109,
+        14.6
+      ]
+    },
+    {
+      "name": "Compressor post and floor 12.4/25.5",
+      "machine_bounds_mm": [
+        6.600000000000001,
+        18.200000000000003,
+        19.7,
+        31.3,
+        -6.0,
+        14.6
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        6.600000000000001,
+        18.200000000000003,
+        19.7,
+        31.3,
+        -5.99900000012109,
+        14.6
+      ]
+    },
+    {
+      "name": "Compressor post and floor 12.4/156.5",
+      "machine_bounds_mm": [
+        6.599999999999994,
+        18.199999999999996,
+        150.7,
+        162.3,
+        -6.0,
+        14.6
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        6.599999999999994,
+        18.199999999999996,
+        150.7,
+        162.3,
+        -5.99900000012109,
+        14.6
+      ]
+    },
+    {
+      "name": "Condenser host and supporting finger 70.5/153",
+      "machine_bounds_mm": [
+        65.49999999999999,
+        75.49999999999999,
+        148.0,
+        158.0,
+        -6.0,
+        8.999999999999998
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        65.49999999999999,
+        75.49999999999999,
+        148.0,
+        158.0,
+        -5.99900000012109,
+        8.999999999999998
+      ]
+    },
+    {
+      "name": "Condenser host and supporting finger 70.5/153",
+      "machine_bounds_mm": [
+        65.49999999999999,
+        75.49999999999999,
+        148.0,
+        158.0,
+        -6.0,
+        145.59999999999994
+      ],
+      "sparse_infill_density": "100%",
+      "sparse_infill_pattern": "zig-zag",
+      "applied_machine_bounds_mm": [
+        65.49999999999999,
+        75.49999999999999,
+        148.0,
+        158.0,
+        -5.99900000012109,
+        145.59999999999994
+      ]
+    }
+  ],
+  "solid_host_region_record_sha256": "84fb2efcb0eb2d9c475cf2c855a6f9d6d140aa5de9fe92a32668404320c8f08e",
+  "source_sha256": {
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "51c521848a0569907e6811869add3afa95062f072f01f2157f52982794ecba64",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "750f04515540bc00743bd39cc345c95ac2ed69ca0ac3460244dcd11c09a4b9d2",
+    "hardware/printed-parts/enclosure/enclosure/_grip_interface.py": "0d23d8d966cdafb8e54fab031a7ba06724d1240d583d695dfe58418cc7676d0d",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "020e0ae5ee3dcbe748d5b3ee994ac4975d9d81b8793a1f534a2ad97f7a80595c",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "0999d5d2a4e54a546e5d1759ff24611ef988eeed74bbb94bbdbf5af470774356",
+    "hardware/printed-parts/cadlib/overhang_round.py": "491daabeaab5b3d11cd1415daeeaa73871b1951522adcca82ad81f7030c8cb66",
+    "hardware/printed-parts/cadlib/flute_skin.py": "34b4a2e1a301be1947869f3e17e2f658757623b7cfbeaf658c7c5e68f42c3f56",
+    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json": "84fb2efcb0eb2d9c475cf2c855a6f9d6d140aa5de9fe92a32668404320c8f08e",
+    "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/prepare_prints.py": "2e7044989476ef573792af8bd9f798fd1eb9ce969d9e105c7cbd1a2acb82d7eb",
+    "hardware/printed-parts/enclosure/bottom-grip-print/prepare.py": "0d43b805a9831a068ffa694d7fe54861bf2e6d78d9f16c776a78703e2623c08f"
+  },
+  "schema_version": 1,
+  "part": "front-bottom",
+  "revision": 6,
+  "stem": "2026-10-04-enclosure-front-bottom-normal-grip-h2c-v6",
+  "project_path": ".cache/prints/2026-10-04-enclosure-front-bottom-normal-grip-h2c-v6/2026-10-04-enclosure-front-bottom-normal-grip-h2c-v6-input.3mf",
+  "requested_trim_mm": 0.18,
+  "preparation_script_sha256": "3fb9b4cd8c9f069e5e802113a4a6408f42249e3d80384f540ea94193745279be",
+  "geometry_exports_changed": false,
+  "submitted": false,
+  "physical_surface_qualification": false,
+  "launch_state": "queued_awaiting_printer_availability_and_fresh_preflight"
+}

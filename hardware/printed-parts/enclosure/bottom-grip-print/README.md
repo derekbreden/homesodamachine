@@ -14,7 +14,9 @@ The shared [`petgf.3mf`](../../petgf.3mf) provides the temperatures, speeds,
 wall order, 15% infill overlap, and automatic tree supports. The first layer is
 0.20 mm. Ordinary layers and the expanding grip transitions are 0.24 mm. Six
 walls are scoped to print Z 35.0–41.5 mm; the normal two walls apply elsewhere.
-The inward flute runouts use 0.08 mm layers at print Z 41.5–44.3 mm.
+The decorative flute-depth fades use ordinary 0.24 mm layers. Current immutable
+preparations and emitted reviews are in
+[the enclosure layer policy](../enclosure/layer-policy-correction/README.md).
 
 Native support paint excludes both grip-wing slots in each bottom and the
 exterior expanding transitions. Each slot's support exclusion extends 1 mm

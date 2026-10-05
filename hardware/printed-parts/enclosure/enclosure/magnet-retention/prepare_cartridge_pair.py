@@ -17,7 +17,7 @@ import zipfile
 import numpy as np
 import trimesh
 
-from prepare_prints import CORE, PROD, TAG, HERE, ENC, ROOT, SETTING, STUDIO, members, sha
+from prepare_prints import CORE, PROD, TAG, HERE, ENC, ROOT, SETTING, STUDIO, members, sha, cartridge_layer_ranges
 
 
 def xml_mesh(mesh, ident):
@@ -65,6 +65,7 @@ def main():
     center = cap.bounds.mean(axis=0)
     height = float(np.ptp(cap.bounds[:, 2]))
     revised = members(original)
+    revised['Metadata/layer_config_ranges.xml'] = cartridge_layer_ranges(revised['Metadata/layer_config_ranges.xml'])
     model = ET.fromstring(revised['3D/3dmodel.model'])
     config = ET.fromstring(revised['Metadata/model_settings.config'])
     # Same production layout: cartridge aft, cap fore. Both model envelopes

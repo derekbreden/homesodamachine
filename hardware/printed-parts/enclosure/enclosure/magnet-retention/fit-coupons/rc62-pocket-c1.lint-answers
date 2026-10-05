@@ -1,0 +1,7 @@
+[step] Raised identification glyph projects 0.72 mm above its label tab and stays outside the functional RC62 pocket. This deliberate identification feature is printed on the bed-supported tab.
+file: hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-c1.step
+click: x=-1.859 y=-4.609 z=2.120
+
+[sliver] The 1.4 mm identification tab is attached to the coupon base and lies directly on the bed. It carries the sample label; the magnet bearing walls, backing and floor use their declared 3 mm sections.
+file: hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-c1.step
+click: x=0.000 y=-8.200 z=0.700
