@@ -47,6 +47,18 @@ serialization that changes only spline integration readings receives a
 native Boolean equivalence check as well as the geometry fingerprints.
 This scoped refresh is not a fresh full-machine motion scorecard.
 
+[`geometry-lint.json`](geometry-lint.json) binds the mesh review run after the
+[`live publication check`](live-publication.json). The frame has four
+square rail-bearing ceilings and no step, sliver or slope findings. The
+shell retains a 2.05 mm deep display-side underside strip at Z349.25 above
+the frame's fore edge. Its
+[`v18 bead-backing record`](display-strip-backing-v18.json) measures long
+roads with only end contact against the immediately preceding layer.
+The local support candidate for this functional ceiling requires a separate
+native backing and removal-access review. Full-part printing is deferred
+while the centered magnet and valve fit samples are evaluated. The frame
+and source geometry stay bound to their frozen hashes.
+
 The relevant physical failure is recorded in the
 [`front-top v17 result`](../../../enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/physical-result.json).
 The revised geometry and native slice are print candidates. Support
@@ -70,6 +82,13 @@ tools/cad-venv/bin/python tools/publish_now.py
 Run geometry lint on the changed pieces after the publication is live,
 following the printed-parts publish loop. Physical print qualification
 remains separate from those lint results.
+
+Read the display strip's previous-layer and support-tip footprints from a
+frozen native review directory with:
+
+```sh
+tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/flush-roof-review/check_display_strip.py <native-review-directory> --output <backing-record.json>
+```
 
 The retained-baseline comparisons use the immutable STEP/STL snapshots
 in `.cache/flush-funnel-roof/baseline`, identified by the SHA256 values

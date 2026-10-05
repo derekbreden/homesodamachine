@@ -1,0 +1,32 @@
+{
+  "status": "pass",
+  "scope": "Local translated floor-scarf road vectors, width, height, first-layer overlap and preceding inner-wall contact. This does not establish visual adhesion or whole mesh parity.",
+  "current_gcode_sha256": "88ab05c75db2f2af82aa787790bb621d6806570977c1a06dfe2008b2992d62eb",
+  "retained_reference_gcode_prefix_sha256": "343f0ba525e14a9740944a79eb8486b56f6969ca633daa078f7b6d0afc45c5b9",
+  "retained_archive": ".cache/prints/enclosure-front-bottom-grip-bridges-h2c-v3/ready/enclosure-front-bottom-grip-bridges-h2c-v3.gcode.3mf",
+  "retained_archive_sha256": "f64e85a9c71df200b929f634f0d61f50b4d3d739f0fd5cb900a707ec293ad8cb",
+  "low_overlap_roads": [
+    {
+      "a_mm": [
+        253.169,
+        260.157
+      ],
+      "b_mm": [
+        71.831,
+        260.157
+      ],
+      "first_layer_overlap_fraction": 0.12082893499658892,
+      "retained_local_overlap_fraction": 0.12082893499645389,
+      "reference_translation_xy_mm": [
+        0.0,
+        2.6259999999999764
+      ],
+      "preceding_same_layer_inner_wall_contact_fraction": 0.12135870105102173
+    }
+  ],
+  "nominal_first_and_second_layers_mm": [
+    0.2,
+    0.24
+  ],
+  "whole_native_review_pending": true
+}

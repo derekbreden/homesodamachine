@@ -375,9 +375,9 @@ def read_job(job, geom):
     second_area = sum(LineString(((x1,y1),(x2,y2))).buffer(w/2).area for x1,y1,x2,y2,w in second_model_layer)
     unsupported_second = sum(not LineString(((x1,y1),(x2,y2))).buffer(w/2).intersects(first)
                              for x1,y1,x2,y2,w in second_model_layer)
-    fine_spans = [("grip-floor-rounds", 6.23, 18.23), ("grip-ceiling-rounds", 100.999, 112.999)] \
-                 if job["part"] == "pump-cartridge" else [("roof-corner-rounds", 187.392, 195.)]
-    fine_checks = [check_span(sorted(wall_layers), *span, 0.08, 0.001) for span in fine_spans]
+    spans = [("grip-floor-rounds", 6.23, 18.23, .08), ("additive-upper-grip-transition", 100.999, 112.999, .24)] \
+                 if job["part"] == "pump-cartridge" else [("roof-corner-rounds", 187.392, 195., .08)]
+    layer_checks = [check_span(sorted(wall_layers), *span, 0.001) for span in spans]
     checks = [
         {'check':'whole host/root modifiers retained at 100% with exact native placement',
          'pass':bool(regions) and len(native_modifier_rows)==len(regions) and all(r['pass_check'] for r in native_modifier_rows),
@@ -405,7 +405,7 @@ def read_job(job, geom):
         {"check": "first-to-second wall beads overlap", "pass": bool(second_model_layer) and unsupported_second == 0,
          "second_layer_roads": len(second_model_layer), "roads_without_overlap": unsupported_second,
          "area_overlap_fraction": overlap_area/second_area if second_area else 0.},
-        {"check": "emitted fine show-round layer bands", "pass": all(c["pass"] for c in fine_checks), "bands": fine_checks},
+        {"check": "emitted geometry-specific layer bands", "pass": all(c["pass"] for c in layer_checks), "bands": layer_checks},
         show_contact_check(job["part"], show_support),
     ]
     return {"part": job["part"], "native_checks_pass": all(c["pass"] for c in checks),

@@ -1,0 +1,7 @@
+[step] Raised socket-diameter legend: the glyph top is 0.72 mm above the rear label foot so each fit sample can be identified. It prints upward in three ordinary layers.
+file: hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v71.step
+click: x=3.312 y=-7.476 z=2.120
+
+[sliver] The 1.4 mm rear label foot prints flat on the bed and extends the standing panel's bed contact. Its complete bottom face is supported during printing.
+file: hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v71.step
+click: x=0.000 y=-11.000 z=0.700

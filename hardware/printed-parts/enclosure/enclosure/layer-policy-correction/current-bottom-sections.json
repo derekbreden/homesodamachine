@@ -1,0 +1,515 @@
+{
+  "schema_version": 1,
+  "geometry_changed": false,
+  "parts": [
+    {
+      "part": "front-bottom",
+      "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+      "stl_triangle_count": 331110,
+      "section_source_y_mm": 185.0,
+      "source_to_print_z_shift_mm": 6,
+      "section_segment_count": 141,
+      "outer_surface_section": [
+        {
+          "print_z_mm": 35.25,
+          "source_z_mm": 29.25,
+          "source_x_mm": 105.20820617675781
+        },
+        {
+          "print_z_mm": 35.49,
+          "source_z_mm": 29.49,
+          "source_x_mm": 105.34033080200912
+        },
+        {
+          "print_z_mm": 35.73,
+          "source_z_mm": 29.73,
+          "source_x_mm": 105.43952001904782
+        },
+        {
+          "print_z_mm": 35.97,
+          "source_z_mm": 29.97,
+          "source_x_mm": 105.56820650937351
+        },
+        {
+          "print_z_mm": 36.21,
+          "source_z_mm": 30.21,
+          "source_x_mm": 105.68820699764315
+        },
+        {
+          "print_z_mm": 36.45,
+          "source_z_mm": 30.45,
+          "source_x_mm": 105.80820621088688
+        },
+        {
+          "print_z_mm": 36.69,
+          "source_z_mm": 30.69,
+          "source_x_mm": 105.92820542413061
+        },
+        {
+          "print_z_mm": 36.93,
+          "source_z_mm": 30.93,
+          "source_x_mm": 106.0482052230835
+        },
+        {
+          "print_z_mm": 37.17,
+          "source_z_mm": 31.17,
+          "source_x_mm": 106.1682052230835
+        },
+        {
+          "print_z_mm": 37.41,
+          "source_z_mm": 31.41,
+          "source_x_mm": 106.28820545607577
+        },
+        {
+          "print_z_mm": 37.65,
+          "source_z_mm": 31.65,
+          "source_x_mm": 106.40820592097762
+        },
+        {
+          "print_z_mm": 37.89,
+          "source_z_mm": 31.89,
+          "source_x_mm": 106.52820524892944
+        },
+        {
+          "print_z_mm": 38.13,
+          "source_z_mm": 32.13,
+          "source_x_mm": 106.64820318625863
+        },
+        {
+          "print_z_mm": 38.37,
+          "source_z_mm": 32.37,
+          "source_x_mm": 106.76820236206055
+        },
+        {
+          "print_z_mm": 38.61,
+          "source_z_mm": 32.61,
+          "source_x_mm": 106.8870041736485
+        },
+        {
+          "print_z_mm": 38.85,
+          "source_z_mm": 32.85,
+          "source_x_mm": 106.99759993445511
+        },
+        {
+          "print_z_mm": 39.09,
+          "source_z_mm": 33.09,
+          "source_x_mm": 107.09456663059423
+        },
+        {
+          "print_z_mm": 39.33,
+          "source_z_mm": 33.33,
+          "source_x_mm": 107.18108255871415
+        },
+        {
+          "print_z_mm": 39.57,
+          "source_z_mm": 33.57,
+          "source_x_mm": 107.25906514675563
+        },
+        {
+          "print_z_mm": 39.81,
+          "source_z_mm": 33.81,
+          "source_x_mm": 107.32344424922191
+        },
+        {
+          "print_z_mm": 40.05,
+          "source_z_mm": 34.05,
+          "source_x_mm": 107.37725886226286
+        },
+        {
+          "print_z_mm": 40.29,
+          "source_z_mm": 34.29,
+          "source_x_mm": 107.4195753892689
+        },
+        {
+          "print_z_mm": 40.53,
+          "source_z_mm": 34.53,
+          "source_x_mm": 107.37483686355611
+        },
+        {
+          "print_z_mm": 40.77,
+          "source_z_mm": 34.77,
+          "source_x_mm": 107.31718792530658
+        },
+        {
+          "print_z_mm": 41.01,
+          "source_z_mm": 35.01,
+          "source_x_mm": 107.25176723257577
+        },
+        {
+          "print_z_mm": 41.25,
+          "source_z_mm": 35.25,
+          "source_x_mm": 107.18007481299176
+        },
+        {
+          "print_z_mm": 41.49,
+          "source_z_mm": 35.49,
+          "source_x_mm": 107.10364617334112
+        },
+        {
+          "print_z_mm": 41.73,
+          "source_z_mm": 35.73,
+          "source_x_mm": 107.02409315373957
+        },
+        {
+          "print_z_mm": 41.97,
+          "source_z_mm": 35.97,
+          "source_x_mm": 106.94291337979288
+        },
+        {
+          "print_z_mm": 42.21,
+          "source_z_mm": 36.21,
+          "source_x_mm": 106.8614286996171
+        },
+        {
+          "print_z_mm": 42.45,
+          "source_z_mm": 36.45,
+          "source_x_mm": 106.78127588155823
+        },
+        {
+          "print_z_mm": 42.69,
+          "source_z_mm": 36.69,
+          "source_x_mm": 106.70397902650747
+        },
+        {
+          "print_z_mm": 42.93,
+          "source_z_mm": 36.93,
+          "source_x_mm": 106.63103457875135
+        },
+        {
+          "print_z_mm": 43.17,
+          "source_z_mm": 37.17,
+          "source_x_mm": 106.56394390477281
+        },
+        {
+          "print_z_mm": 43.41,
+          "source_z_mm": 37.41,
+          "source_x_mm": 106.50420894202246
+        },
+        {
+          "print_z_mm": 43.65,
+          "source_z_mm": 37.65,
+          "source_x_mm": 106.4533297181284
+        },
+        {
+          "print_z_mm": 43.89,
+          "source_z_mm": 37.89,
+          "source_x_mm": 106.41280389808031
+        },
+        {
+          "print_z_mm": 44.13,
+          "source_z_mm": 38.13,
+          "source_x_mm": 106.38413258256925
+        },
+        {
+          "print_z_mm": 44.37,
+          "source_z_mm": 38.37,
+          "source_x_mm": 106.3727415804733
+        },
+        {
+          "print_z_mm": 44.61,
+          "source_z_mm": 38.61,
+          "source_x_mm": 106.3727415804733
+        },
+        {
+          "print_z_mm": 44.85,
+          "source_z_mm": 38.85,
+          "source_x_mm": 106.3727415804733
+        },
+        {
+          "print_z_mm": 45.09,
+          "source_z_mm": 39.09,
+          "source_x_mm": 106.3727415804733
+        },
+        {
+          "print_z_mm": 45.33,
+          "source_z_mm": 39.33,
+          "source_x_mm": 106.3727415804733
+        },
+        {
+          "print_z_mm": 45.57,
+          "source_z_mm": 39.57,
+          "source_x_mm": 106.3727415804733
+        },
+        {
+          "print_z_mm": 45.81,
+          "source_z_mm": 39.81,
+          "source_x_mm": 106.3727415804733
+        },
+        {
+          "print_z_mm": 46.05,
+          "source_z_mm": 40.05,
+          "source_x_mm": 106.3727415804733
+        },
+        {
+          "print_z_mm": 46.29,
+          "source_z_mm": 40.29,
+          "source_x_mm": 106.3727415804733
+        },
+        {
+          "print_z_mm": 46.53,
+          "source_z_mm": 40.53,
+          "source_x_mm": 106.3727415804733
+        }
+      ],
+      "maximum_sampled_outward_x_step_per_024_mm": 0.13212462525130775,
+      "maximum_sampled_inward_x_step_per_024_mm": 0.08148468017579091,
+      "scope": "A straight handhold station of the current emitted STL; corners and full paths require the subsequent native review.",
+      "stl_sha256": "51c521848a0569907e6811869add3afa95062f072f01f2157f52982794ecba64"
+    },
+    {
+      "part": "back-bottom",
+      "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+      "stl_triangle_count": 1402962,
+      "section_source_y_mm": 235.0,
+      "source_to_print_z_shift_mm": 6,
+      "section_segment_count": 141,
+      "outer_surface_section": [
+        {
+          "print_z_mm": 35.25,
+          "source_z_mm": 29.25,
+          "source_x_mm": 105.20820617675781
+        },
+        {
+          "print_z_mm": 35.49,
+          "source_z_mm": 29.49,
+          "source_x_mm": 105.33767960357187
+        },
+        {
+          "print_z_mm": 35.73,
+          "source_z_mm": 29.73,
+          "source_x_mm": 105.44067245204705
+        },
+        {
+          "print_z_mm": 35.97,
+          "source_z_mm": 29.97,
+          "source_x_mm": 105.56912712074275
+        },
+        {
+          "print_z_mm": 36.21,
+          "source_z_mm": 30.21,
+          "source_x_mm": 105.69012340486412
+        },
+        {
+          "print_z_mm": 36.45,
+          "source_z_mm": 30.45,
+          "source_x_mm": 105.80963748843108
+        },
+        {
+          "print_z_mm": 36.69,
+          "source_z_mm": 30.69,
+          "source_x_mm": 105.92908671563036
+        },
+        {
+          "print_z_mm": 36.93,
+          "source_z_mm": 30.93,
+          "source_x_mm": 106.04840831668483
+        },
+        {
+          "print_z_mm": 37.17,
+          "source_z_mm": 31.17,
+          "source_x_mm": 106.16822393664836
+        },
+        {
+          "print_z_mm": 37.41,
+          "source_z_mm": 31.41,
+          "source_x_mm": 106.28820289312631
+        },
+        {
+          "print_z_mm": 37.65,
+          "source_z_mm": 31.65,
+          "source_x_mm": 106.40820464600299
+        },
+        {
+          "print_z_mm": 37.89,
+          "source_z_mm": 31.89,
+          "source_x_mm": 106.52820542654477
+        },
+        {
+          "print_z_mm": 38.13,
+          "source_z_mm": 32.13,
+          "source_x_mm": 106.6481947430247
+        },
+        {
+          "print_z_mm": 38.37,
+          "source_z_mm": 32.37,
+          "source_x_mm": 106.76818114197907
+        },
+        {
+          "print_z_mm": 38.61,
+          "source_z_mm": 32.61,
+          "source_x_mm": 106.88617521281759
+        },
+        {
+          "print_z_mm": 38.85,
+          "source_z_mm": 32.85,
+          "source_x_mm": 106.99827914535273
+        },
+        {
+          "print_z_mm": 39.09,
+          "source_z_mm": 33.09,
+          "source_x_mm": 107.09664670964962
+        },
+        {
+          "print_z_mm": 39.33,
+          "source_z_mm": 33.33,
+          "source_x_mm": 107.17977925956504
+        },
+        {
+          "print_z_mm": 39.57,
+          "source_z_mm": 33.57,
+          "source_x_mm": 107.25901904897421
+        },
+        {
+          "print_z_mm": 39.81,
+          "source_z_mm": 33.81,
+          "source_x_mm": 107.3237173882975
+        },
+        {
+          "print_z_mm": 40.05,
+          "source_z_mm": 34.05,
+          "source_x_mm": 107.37671631076748
+        },
+        {
+          "print_z_mm": 40.29,
+          "source_z_mm": 34.29,
+          "source_x_mm": 107.42238736634164
+        },
+        {
+          "print_z_mm": 40.53,
+          "source_z_mm": 34.53,
+          "source_x_mm": 107.37381807322177
+        },
+        {
+          "print_z_mm": 40.77,
+          "source_z_mm": 34.77,
+          "source_x_mm": 107.315788412236
+        },
+        {
+          "print_z_mm": 41.01,
+          "source_z_mm": 35.01,
+          "source_x_mm": 107.24994404556533
+        },
+        {
+          "print_z_mm": 41.25,
+          "source_z_mm": 35.25,
+          "source_x_mm": 107.1777918536139
+        },
+        {
+          "print_z_mm": 41.49,
+          "source_z_mm": 35.49,
+          "source_x_mm": 107.10042882749197
+        },
+        {
+          "print_z_mm": 41.73,
+          "source_z_mm": 35.73,
+          "source_x_mm": 107.01989186149626
+        },
+        {
+          "print_z_mm": 41.97,
+          "source_z_mm": 35.97,
+          "source_x_mm": 106.93770431552316
+        },
+        {
+          "print_z_mm": 42.21,
+          "source_z_mm": 36.21,
+          "source_x_mm": 106.85564102206612
+        },
+        {
+          "print_z_mm": 42.45,
+          "source_z_mm": 36.45,
+          "source_x_mm": 106.77499308790941
+        },
+        {
+          "print_z_mm": 42.69,
+          "source_z_mm": 36.69,
+          "source_x_mm": 106.69724790818033
+        },
+        {
+          "print_z_mm": 42.93,
+          "source_z_mm": 36.93,
+          "source_x_mm": 106.62390217782304
+        },
+        {
+          "print_z_mm": 43.17,
+          "source_z_mm": 37.17,
+          "source_x_mm": 106.55646586721927
+        },
+        {
+          "print_z_mm": 43.41,
+          "source_z_mm": 37.41,
+          "source_x_mm": 106.49644089752125
+        },
+        {
+          "print_z_mm": 43.65,
+          "source_z_mm": 37.65,
+          "source_x_mm": 106.44534212192318
+        },
+        {
+          "print_z_mm": 43.89,
+          "source_z_mm": 37.89,
+          "source_x_mm": 106.40467844240051
+        },
+        {
+          "print_z_mm": 44.13,
+          "source_z_mm": 38.13,
+          "source_x_mm": 106.3759508645781
+        },
+        {
+          "print_z_mm": 44.37,
+          "source_z_mm": 38.37,
+          "source_x_mm": 106.36445420736469
+        },
+        {
+          "print_z_mm": 44.61,
+          "source_z_mm": 38.61,
+          "source_x_mm": 106.36398114900072
+        },
+        {
+          "print_z_mm": 44.85,
+          "source_z_mm": 38.85,
+          "source_x_mm": 106.36350809063674
+        },
+        {
+          "print_z_mm": 45.09,
+          "source_z_mm": 39.09,
+          "source_x_mm": 106.36303503227278
+        },
+        {
+          "print_z_mm": 45.33,
+          "source_z_mm": 39.33,
+          "source_x_mm": 106.36256197390881
+        },
+        {
+          "print_z_mm": 45.57,
+          "source_z_mm": 39.57,
+          "source_x_mm": 106.36208891554483
+        },
+        {
+          "print_z_mm": 45.81,
+          "source_z_mm": 39.81,
+          "source_x_mm": 106.36161585718087
+        },
+        {
+          "print_z_mm": 46.05,
+          "source_z_mm": 40.05,
+          "source_x_mm": 106.36114279881689
+        },
+        {
+          "print_z_mm": 46.29,
+          "source_z_mm": 40.29,
+          "source_x_mm": 106.36066974045292
+        },
+        {
+          "print_z_mm": 46.53,
+          "source_z_mm": 40.53,
+          "source_x_mm": 106.36019668208895
+        }
+      ],
+      "maximum_sampled_outward_x_step_per_024_mm": 0.1294734268140587,
+      "maximum_sampled_inward_x_step_per_024_mm": 0.08218754597309896,
+      "scope": "A straight handhold station of the current emitted STL; corners and full paths require the subsequent native review.",
+      "stl_sha256": "67a03fadfafb7a6c654f20524add78cecb8e2f6740d215d5fe79d56555495e88"
+    }
+  ],
+  "generation_method": "Streamed binary STL sections without geometry regeneration; source hashes bind the measured section."
+}

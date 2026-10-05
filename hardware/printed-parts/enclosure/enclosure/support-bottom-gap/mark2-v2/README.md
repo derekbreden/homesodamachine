@@ -4,7 +4,10 @@ The [input project](2026-10-04-rc62-valve-frame-fit-mark2-v2-input.3mf)
 contains one flush-ceiling funnel frame, seventeen labeled open RC62 pockets
 and five upright four-socket valve panels. The
 [snapshot](snapshot.json) binds the input, native archive and every review by
-SHA-256. The [launch receipt](../mark2-v2-launch.json) records the accepted job.
+SHA-256. The [launch receipt](../mark2-v2-launch.json) records one accepted job
+and a cancellation observed after layer 2. Derek confirms stopping it for poor edge adhesion;
+the agent sent no Mark2 stop. Its [physical record](physical-result.json) binds
+the observation. The next authorized plates contain centered fit coupons only.
 
 The frame retains four bed-rooted rail supports. Its roof-side expansion has
 six walls and no support contacts. The fit objects retain two walls, 15% infill,

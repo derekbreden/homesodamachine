@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-10-05T04:20:24.118915+00:00",
+  "printer": "Mark2",
+  "task_id": "1310076386",
+  "archive_name": "2026-10-04-rc62-valve-frame-fit-mark2-v2.gcode.3mf",
+  "archive_sha256": "fdd433d6c86d911e236158bfd0f5b611c4ffad7f0dcc78150aed89a632363123",
+  "source": "Derek",
+  "quotes": [
+    "I stopped both prints.",
+    "On mark2 you had pieces close to the edge that did not get a good first layer, so that plate is not well seasoned there yet. We could keep printing until it works, or you could avoid going that far to the edge here.",
+    "I don't want the full front-top or funnel tray printed next. What I want next (on both printers) is the test prints I asked for, for both magnet fitting and valve leg hole fitting.",
+    "Both beds are clear."
+  ],
+  "observations": {
+    "edge_first_layer_accepted": false,
+    "poor_first_layer_at_plate_edge": true,
+    "specific_object_labels_reported": false,
+    "unseasoned_plate_edge_reported": true,
+    "sample_fit_results_available": false
+  },
+  "requested_correction": "Coupon-only plates on both printers with the pieces kept near the bed center. Full front-top and frame printing is deferred.",
+  "physical_fit_accepted": false,
+  "scope": "User observations establish poor edge adhesion and deliberate cancellation. Prior native bed containment checks did not establish adhesion of the unseasoned bed regions."
+}

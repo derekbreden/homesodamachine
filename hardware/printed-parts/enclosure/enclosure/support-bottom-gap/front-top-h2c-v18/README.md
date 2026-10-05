@@ -1,12 +1,20 @@
 # Front-top flush-ceiling print
 
+This exact v18 job is cancelled after first-layer progress. The
+[display-strip backing check](../../../../zone-c/funnel/flush-roof-review/display-strip-backing-v18.json)
+finds approximately 190 mm unsupported spans under the narrow display ceiling.
+The archive is retained as measured evidence and is not approved for another
+start. A separate v19 support preparation addresses that ceiling. Full front-top and
+frame printing is deferred; the next authorized jobs are centered fit samples.
+
 The [input project](2026-10-04-enclosure-front-top-flush-frame-h2c-v18-input.3mf)
 contains the front-top with an open front roof for the removable frame's
 flush-ceiling surround. The existing back-top is retained. The
 [snapshot](snapshot.json) binds this project and its reviewed native archive;
 the [launch receipt](../h2c-v18-launch.json) carries current printer status.
 
-[Native verification](verification.json) passes. The
+[Native verification](verification.json) passes its recorded checks; it does
+not cover the unsupported display-strip roads identified above. The
 [roof and cover-holder reading](roof-holder-support-review.json) finds zero
 support roads in the removed roof opening, both tee-window cover slots and
 both cover-post windows. Each post has native model roads on 183 layers.

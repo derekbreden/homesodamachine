@@ -89,7 +89,7 @@ def main(printer,revision):
         assert hashlib.sha256(z.read('Metadata/project_settings.config')).hexdigest()==prep['settings_sha256']
         ranges=ET.fromstring(z.read('Metadata/layer_config_ranges.xml'))
         native_ranges=[(float(r.get('min_z')),float(r.get('max_z')),{o.get('opt_key'):o.text for o in r}) for r in ranges.findall('./object/range')]
-    assert native_ranges==[(35.,41.5,{'layer_height':'0.24','wall_loops':'6'}),(41.5,44.3,{'layer_height':'0.08'})]
+    assert native_ranges==[(35.,41.5,{'layer_height':'0.24','wall_loops':'6'})]
     trims=[float(x) for x in re.findall(rb'^\s*G29\.1 Z([-+\d.]+)',gc,re.M)]
     assert np.allclose(trims,[0.,trim-.02]),trims
     path=job/'ready/plate_1.gcode';path.write_bytes(gc)
@@ -151,7 +151,17 @@ def main(printer,revision):
         # rather than changing the shared elephant-foot setting for it.
         assert printer=='H2C'
         reference=ROOT/'.cache/prints/2026-09-24-enclosure-front-bottom-h2c-v7/ready/plate_1.gcode'
-        assert sha(reference)=='55fffac067cb1df96931f5fd8af9e8483a314cf482372d726780c307268091a8'
+        reference_archive=None
+        if reference.exists():
+            assert sha(reference)=='55fffac067cb1df96931f5fd8af9e8483a314cf482372d726780c307268091a8'
+        else:
+            reference_archive=ROOT/'.cache/prints/enclosure-front-bottom-grip-bridges-h2c-v3/ready/enclosure-front-bottom-grip-bridges-h2c-v3.gcode.3mf'
+            assert sha(reference_archive)=='f64e85a9c71df200b929f634f0d61f50b4d3d739f0fd5cb900a707ec293ad8cb'
+            reference=job/'ready/retained-front-v3-first-layers.gcode'
+            with zipfile.ZipFile(reference_archive) as archive_source, archive_source.open('Metadata/plate_1.gcode') as stream, reference.open('wb') as target:
+                for raw in stream:
+                    if raw.startswith(b'; Z_HEIGHT:') and float(raw.split(b':',1)[1])>.45:break
+                    target.write(raw)
         old_first=[];old_second=[]
         for r in roads(reference):
             if r['layer']>.45:break
@@ -160,16 +170,37 @@ def main(printer,revision):
             if abs(r['layer']-.44)<.001:old_second.append(r)
         old_shape=unary_union([bead(r) for r in old_first])
         low=[r for r,f in wall_support if f<=.40]
+        from shapely.affinity import translate
+        scarf_rows=[]
         for r in low:
-            matches=[v for v in old_second if v==r]
-            assert matches,('changed low-overlap second-layer road',r)
+            vector=np.array(r['b'])-r['a']
+            candidates=[v for v in old_second if all(v[k]==r[k] for k in ('width','height','layer','feature','object'))
+                        and np.allclose(np.array(v['b'])-v['a'],vector,atol=.002,rtol=0)]
+            assert candidates,('changed local low-overlap floor-scarf road',r)
             current=bead(r).intersection(firstshape).area/bead(r).area
-            previous=bead(r).intersection(old_shape).area/bead(r).area
-            assert current>0 and abs(current-previous)<.002,(current,previous)
+            matched=None
+            for prior in candidates:
+                delta=np.array(r['a'])-prior['a']
+                aligned=translate(old_shape,xoff=delta[0],yoff=delta[1])
+                previous=bead(r).intersection(aligned).area/bead(r).area
+                if current>0 and abs(current-previous)<.002:
+                    matched=(prior,delta,previous);break
+            assert matched is not None,('changed local first-to-second scarf overlap',r,current)
+            prior,delta,previous=matched
+            earlier=second[:second.index(r)]
+            inner=unary_union([bead(q) for q in earlier if q['feature']=='Inner wall'])
+            side_bond=bead(r).intersection(inner).area/bead(r).area
+            assert side_bond>0,('outer scarf wall lacks preceding inner-wall contact',r)
+            scarf_rows.append({'a_mm':r['a'],'b_mm':r['b'],'reference_translation_xy_mm':delta.tolist(),
+                               'current_first_layer_overlap_fraction':current,'reference_first_layer_overlap_fraction':previous,
+                               'preceding_same_layer_inner_wall_contact_fraction':side_bond})
         reference_foot={'gcode':str(reference.relative_to(ROOT)), 'sha256':sha(reference),
-                        'identical_low_overlap_second_layer_roads':len(low)}
+                        'matching_local_floor_scarf_roads':len(low),'local_bead_checks':scarf_rows,
+                        'scope':'Same local road vector, width, height and first-layer bead overlap under translation; preceding inner-wall contact is required. This is not whole current mesh parity.'}
+        if reference_archive is not None:
+            reference_foot.update(retained_archive=str(reference_archive.relative_to(ROOT)),retained_archive_sha256=sha(reference_archive),retained_scope='Local translated floor-scarf bead section; not whole current mesh parity.')
     layers=wall_layers(archive,1901);assert layers[:2]==[(.2,.2),(.44,.24)],layers[:3]
-    spans=[check_span(layers,'expanding-grip-transition',35.25,41.25,.24,.001),check_span(layers,'inward-flute-runout',41.65,44.25,.08,.001)]
+    spans=[check_span(layers,'expanding-grip-transition',35.25,41.25,.24,.001),check_span(layers,'decorative-flute-fade',41.5,44.3,.24,.001)]
     assert all(s['pass'] for s in spans),spans
     samples=[]
     # This station is in the open handhold below its roof; compare the thick

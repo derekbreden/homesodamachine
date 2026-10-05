@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "status": "saved_and_emitted_bands_confirmed",
+  "archive_read_only": true,
+  "parts": [
+    {
+      "part": "pump-cartridge",
+      "archive": ".cache/prints/cartridge-rc62-retention-v4/pump-cartridge-cap/enclosure-pump-cartridge-cap-rc62-mark2-v4.gcode.3mf",
+      "model_object_id": 1901,
+      "first_two_wall_layers": [
+        [
+          0.2,
+          [
+            0.2
+          ]
+        ],
+        [
+          0.44,
+          [
+            0.24
+          ]
+        ]
+      ],
+      "band_layer_histograms": [
+        {
+          "min_print_z_mm": 6,
+          "max_print_z_mm": 18.4,
+          "wall_layer_count": 155,
+          "emitted_layer_heights_counts": {
+            "0.0799999": 100,
+            "0.08": 44,
+            "0.0800004": 3,
+            "0.0800009": 7,
+            "0.0800018": 1
+          }
+        },
+        {
+          "min_print_z_mm": 100.3,
+          "max_print_z_mm": 113.2,
+          "wall_layer_count": 161,
+          "emitted_layer_heights_counts": {
+            "0.0799942": 35,
+            "0.08": 23,
+            "0.0800018": 103
+          }
+        }
+      ],
+      "programmed_pauses": [
+        {
+          "line": 1015406,
+          "layer_z_mm": 31.16,
+          "command": "M400 U1"
+        }
+      ],
+      "archive_sha256": "562d743bff86768011c2986764c0dc0165a8f119fc7d5a8bfbcddb95f3ba4e82"
+    },
+    {
+      "part": "front-bottom",
+      "archive": ".cache/prints/enclosure-front-bottom-grip-bridges-h2c-v3/ready/enclosure-front-bottom-grip-bridges-h2c-v3.gcode.3mf",
+      "model_object_id": 1901,
+      "first_two_wall_layers": [
+        [
+          0.2,
+          [
+            0.2
+          ]
+        ],
+        [
+          0.44,
+          [
+            0.24
+          ]
+        ]
+      ],
+      "band_layer_histograms": [
+        {
+          "min_print_z_mm": 35,
+          "max_print_z_mm": 41.5,
+          "wall_layer_count": 27,
+          "emitted_layer_heights_counts": {
+            "0.239998": 1,
+            "0.24": 23,
+            "0.240002": 3
+          }
+        },
+        {
+          "min_print_z_mm": 41.5,
+          "max_print_z_mm": 44.3,
+          "wall_layer_count": 35,
+          "emitted_layer_heights_counts": {
+            "0.079998": 13,
+            "0.08": 10,
+            "0.0800018": 12
+          }
+        }
+      ],
+      "programmed_pauses": [],
+      "archive_sha256": "f64e85a9c71df200b929f634f0d61f50b4d3d739f0fd5cb900a707ec293ad8cb"
+    },
+    {
+      "part": "back-bottom",
+      "archive": ".cache/prints/enclosure-back-bottom-grip-bridges-mark2-v3/ready/enclosure-back-bottom-grip-bridges-mark2-v3.gcode.3mf",
+      "model_object_id": 1901,
+      "first_two_wall_layers": [
+        [
+          0.2,
+          [
+            0.2
+          ]
+        ],
+        [
+          0.44,
+          [
+            0.24
+          ]
+        ]
+      ],
+      "band_layer_histograms": [
+        {
+          "min_print_z_mm": 35,
+          "max_print_z_mm": 41.5,
+          "wall_layer_count": 27,
+          "emitted_layer_heights_counts": {
+            "0.239998": 1,
+            "0.24": 23,
+            "0.240002": 3
+          }
+        },
+        {
+          "min_print_z_mm": 41.5,
+          "max_print_z_mm": 44.3,
+          "wall_layer_count": 35,
+          "emitted_layer_heights_counts": {
+            "0.079998": 13,
+            "0.08": 10,
+            "0.0800018": 12
+          }
+        }
+      ],
+      "programmed_pauses": [],
+      "archive_sha256": "c8f0f2f759144e0bfa052238780a5de5590c6b058d26ac6c3e17c8f63c0a644d"
+    }
+  ],
+  "scope": "Historical native wall layer heights are recorded for settings inheritance. Current bottom exports have separate current mesh bindings and require new native slices."
+}

@@ -40,7 +40,7 @@ def main(printer, revision):
     assert settings['infill_wall_overlap']=='15%' and settings['is_infill_first']=='0'
     members[writer.SETTINGS_MEMBER]=json.dumps(settings,indent=2).encode()
     ranges=ET.Element('objects');obj=ET.SubElement(ranges,'object',id='1')
-    for lo,hi,height,walls in [(35.,41.5,.24,6),(41.5,44.3,.08,None)]:
+    for lo,hi,height,walls in [(35.,41.5,.24,6)]:
         band=ET.SubElement(obj,'range',min_z=str(lo),max_z=str(hi))
         ET.SubElement(band,'option',opt_key='layer_height').text=str(height)
         if walls: ET.SubElement(band,'option',opt_key='wall_loops').text=str(walls)
@@ -90,7 +90,7 @@ def main(printer, revision):
         support_review_geometry_sha256=sha(job/"support-review-geometry.npz"),
         blocked_slot_area_mm2=slot_area,blocked_ceiling_edge_area_mm2=blocked_area-slot_area,
         painted_exterior_triangles=int(exterior.sum()),painted_flat_triangles=int(flat.sum()),
-        six_wall_print_z_mm=[35.,41.5],fine_flute_runout_print_z_mm=[41.5,44.3],
+        six_wall_print_z_mm=[35.,41.5],fine_flute_runout_print_z_mm=None,
         flat_ceiling_support_inset_mm=.8,submitted=False,
         slot_support_halo_mm=slot_support_halo,
         source_sha256={str(p.relative_to(ROOT)):sha(p) for p in [Path(__file__),profile,ENC/f'{name}.stl',ENC/f'{name}.step',ENC/'_grip_interface.py',ENC/'enclosure.py']})

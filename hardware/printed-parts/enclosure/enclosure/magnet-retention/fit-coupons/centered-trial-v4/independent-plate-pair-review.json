@@ -1,0 +1,476 @@
+{
+  "schema_version": 1,
+  "checked_utc": "2026-10-05T04:32:43.158359+00:00",
+  "status": "pair_pass",
+  "checks_pass": true,
+  "plate_count": 2,
+  "physical_coupon_count": 24,
+  "unique_fit_sample_count": 22,
+  "rc62_matrix_complete": true,
+  "valve_diameter_matrix_complete": true,
+  "repeated_reference_checks": [
+    {
+      "label": "C0",
+      "stl_sha256": "bab4710828206eef7a5f9de4495cc9adc6d5b866eeefc18839ae892912d3f614",
+      "native_measured_fit_sections_identical": true
+    },
+    {
+      "label": "V70",
+      "stl_sha256": "ce4469a1d590cc26ed603aac6530a5d64be8fe45964ffcfc1f3b5f108e494cf8",
+      "native_measured_fit_sections_identical": true
+    }
+  ],
+  "actual_model_road_checks": [
+    {
+      "printer": "Mark2",
+      "archive_sha256": "b2b407d87a82a09ce364d84d21626274ba74c7e19c15f68f0ab7a168a02ed8a1",
+      "all_model_roads_fixed_left": true,
+      "actual_first_layer_road_height_mm": 0.2,
+      "nominal_other_wall_and_model_road_height_mm": 0.24,
+      "maximum_serialized_height_rounding_error_mm": 2.000000000002e-06,
+      "circular_bridge_road_cross_section_height_mm": 0.4,
+      "circular_bridge_road_count": 1245,
+      "bridge_height_scope": "Native circular bridge flow; layer Z increments remain 0.24 mm.",
+      "no_per_object_wall_overrides": true,
+      "representative_emitted_wall_count": 2,
+      "stations": [
+        {
+          "label": "A1",
+          "source_y_mm": 1.725,
+          "print_z_mm": 14.12,
+          "wall_crossings": [
+            {
+              "source_x_mm": 12.082,
+              "width_mm": 0.45,
+              "feature": "Inner wall"
+            },
+            {
+              "source_x_mm": 12.465,
+              "width_mm": 0.42,
+              "feature": "Outer wall"
+            }
+          ]
+        },
+        {
+          "label": "A2",
+          "source_y_mm": 1.65,
+          "print_z_mm": 14.12,
+          "wall_crossings": [
+            {
+              "source_x_mm": 12.082,
+              "width_mm": 0.45,
+              "feature": "Inner wall"
+            },
+            {
+              "source_x_mm": 12.465,
+              "width_mm": 0.42,
+              "feature": "Outer wall"
+            }
+          ]
+        },
+        {
+          "label": "A3",
+          "source_y_mm": 1.5875,
+          "print_z_mm": 14.12,
+          "wall_crossings": [
+            {
+              "source_x_mm": 12.082,
+              "width_mm": 0.45,
+              "feature": "Inner wall"
+            },
+            {
+              "source_x_mm": 12.465,
+              "width_mm": 0.42,
+              "feature": "Outer wall"
+            }
+          ]
+        },
+        {
+          "label": "A4",
+          "source_y_mm": 1.525,
+          "print_z_mm": 14.12,
+          "wall_crossings": [
+            {
+              "source_x_mm": 12.082,
+              "width_mm": 0.45,
+              "feature": "Inner wall"
+            },
+            {
+              "source_x_mm": 12.465,
+              "width_mm": 0.42,
+              "feature": "Outer wall"
+            }
+          ]
+        },
+        {
+          "label": "B1",
+          "source_y_mm": 1.725,
+          "print_z_mm": 14.12,
+          "wall_crossings": [
+            {
+              "source_x_mm": 11.982,
+              "width_mm": 0.45,
+              "feature": "Inner wall"
+            },
+            {
+              "source_x_mm": 12.365,
+              "width_mm": 0.42,
+              "feature": "Outer wall"
+            }
+          ]
+        },
+        {
+          "label": "B2",
+          "source_y_mm": 1.65,
+          "print_z_mm": 14.12,
+          "wall_crossings": [
+            {
+              "source_x_mm": 11.982,
+              "width_mm": 0.45,
+              "feature": "Inner wall"
+            },
+            {
+              "source_x_mm": 12.365,
+              "width_mm": 0.42,
+              "feature": "Outer wall"
+            }
+          ]
+        },
+        {
+          "label": "B3",
+          "source_y_mm": 1.5875,
+          "print_z_mm": 14.12,
+          "wall_crossings": [
+            {
+              "source_x_mm": 11.982,
+              "width_mm": 0.45,
+              "feature": "Inner wall"
+            },
+            {
+              "source_x_mm": 12.365,
+              "width_mm": 0.42,
+              "feature": "Outer wall"
+            }
+          ]
+        },
+        {
+          "label": "B4",
+          "source_y_mm": 1.525,
+          "print_z_mm": 14.12,
+          "wall_crossings": [
+            {
+              "source_x_mm": 11.982,
+              "width_mm": 0.45,
+              "feature": "Inner wall"
+            },
+            {
+              "source_x_mm": 12.365,
+              "width_mm": 0.42,
+              "feature": "Outer wall"
+            }
+          ]
+        },
+        {
+          "label": "C0",
+          "source_y_mm": 1.7875,
+          "print_z_mm": 14.12,
+          "wall_crossings": [
+            {
+              "source_x_mm": 12.132,
+              "width_mm": 0.45,
+              "feature": "Inner wall"
+            },
+            {
+              "source_x_mm": 12.515,
+              "width_mm": 0.42,
+              "feature": "Outer wall"
+            }
+          ]
+        },
+        {
+          "label": "V72",
+          "source_y_mm": 0.0,
+          "print_z_mm": 39.08,
+          "wall_crossings": [
+            {
+              "source_x_mm": 21.207,
+              "width_mm": 0.45,
+              "feature": "Inner wall"
+            },
+            {
+              "source_x_mm": 21.59,
+              "width_mm": 0.42,
+              "feature": "Outer wall"
+            }
+          ]
+        },
+        {
+          "label": "V71",
+          "source_y_mm": 0.0,
+          "print_z_mm": 39.08,
+          "wall_crossings": [
+            {
+              "source_x_mm": 21.207,
+              "width_mm": 0.45,
+              "feature": "Inner wall"
+            },
+            {
+              "source_x_mm": 21.59,
+              "width_mm": 0.42,
+              "feature": "Outer wall"
+            }
+          ]
+        },
+        {
+          "label": "V70",
+          "source_y_mm": 0.0,
+          "print_z_mm": 39.08,
+          "wall_crossings": [
+            {
+              "source_x_mm": 21.207,
+              "width_mm": 0.45,
+              "feature": "Inner wall"
+            },
+            {
+              "source_x_mm": 21.59,
+              "width_mm": 0.42,
+              "feature": "Outer wall"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "printer": "H2C",
+      "archive_sha256": "a3bac5c7429c3b142ef2fe1e4a87d04d73f45b314bc1b0b6aac49a01cf75552b",
+      "all_model_roads_fixed_left": true,
+      "actual_first_layer_road_height_mm": 0.2,
+      "nominal_other_wall_and_model_road_height_mm": 0.24,
+      "maximum_serialized_height_rounding_error_mm": 2.000000000002e-06,
+      "circular_bridge_road_cross_section_height_mm": 0.4,
+      "circular_bridge_road_count": 1275,
+      "bridge_height_scope": "Native circular bridge flow; layer Z increments remain 0.24 mm.",
+      "no_per_object_wall_overrides": true,
+      "representative_emitted_wall_count": 2,
+      "stations": [
+        {
+          "label": "C1",
+          "source_y_mm": 1.725,
+          "print_z_mm": 14.12,
+          "wall_crossings": [
+            {
+              "source_x_mm": 11.932,
+              "width_mm": 0.45,
+              "feature": "Inner wall"
+            },
+            {
+              "source_x_mm": 12.315,
+              "width_mm": 0.42,
+              "feature": "Outer wall"
+            }
+          ]
+        },
+        {
+          "label": "C2",
+          "source_y_mm": 1.65,
+          "print_z_mm": 14.12,
+          "wall_crossings": [
+            {
+              "source_x_mm": 11.932,
+              "width_mm": 0.45,
+              "feature": "Inner wall"
+            },
+            {
+              "source_x_mm": 12.315,
+              "width_mm": 0.42,
+              "feature": "Outer wall"
+            }
+          ]
+        },
+        {
+          "label": "C3",
+          "source_y_mm": 1.5875,
+          "print_z_mm": 14.12,
+          "wall_crossings": [
+            {
+              "source_x_mm": 11.932,
+              "width_mm": 0.45,
+              "feature": "Inner wall"
+            },
+            {
+              "source_x_mm": 12.315,
+              "width_mm": 0.42,
+              "feature": "Outer wall"
+            }
+          ]
+        },
+        {
+          "label": "C4",
+          "source_y_mm": 1.525,
+          "print_z_mm": 14.12,
+          "wall_crossings": [
+            {
+              "source_x_mm": 11.932,
+              "width_mm": 0.45,
+              "feature": "Inner wall"
+            },
+            {
+              "source_x_mm": 12.315,
+              "width_mm": 0.42,
+              "feature": "Outer wall"
+            }
+          ]
+        },
+        {
+          "label": "D1",
+          "source_y_mm": 1.725,
+          "print_z_mm": 14.12,
+          "wall_crossings": [
+            {
+              "source_x_mm": 11.882,
+              "width_mm": 0.45,
+              "feature": "Inner wall"
+            },
+            {
+              "source_x_mm": 12.265,
+              "width_mm": 0.42,
+              "feature": "Outer wall"
+            }
+          ]
+        },
+        {
+          "label": "D2",
+          "source_y_mm": 1.65,
+          "print_z_mm": 14.12,
+          "wall_crossings": [
+            {
+              "source_x_mm": 11.882,
+              "width_mm": 0.45,
+              "feature": "Inner wall"
+            },
+            {
+              "source_x_mm": 12.265,
+              "width_mm": 0.42,
+              "feature": "Outer wall"
+            }
+          ]
+        },
+        {
+          "label": "D3",
+          "source_y_mm": 1.5875,
+          "print_z_mm": 14.12,
+          "wall_crossings": [
+            {
+              "source_x_mm": 11.882,
+              "width_mm": 0.45,
+              "feature": "Inner wall"
+            },
+            {
+              "source_x_mm": 12.265,
+              "width_mm": 0.42,
+              "feature": "Outer wall"
+            }
+          ]
+        },
+        {
+          "label": "D4",
+          "source_y_mm": 1.525,
+          "print_z_mm": 14.12,
+          "wall_crossings": [
+            {
+              "source_x_mm": 11.882,
+              "width_mm": 0.45,
+              "feature": "Inner wall"
+            },
+            {
+              "source_x_mm": 12.265,
+              "width_mm": 0.42,
+              "feature": "Outer wall"
+            }
+          ]
+        },
+        {
+          "label": "C0",
+          "source_y_mm": 1.7875,
+          "print_z_mm": 14.12,
+          "wall_crossings": [
+            {
+              "source_x_mm": 12.132,
+              "width_mm": 0.45,
+              "feature": "Inner wall"
+            },
+            {
+              "source_x_mm": 12.515,
+              "width_mm": 0.42,
+              "feature": "Outer wall"
+            }
+          ]
+        },
+        {
+          "label": "V70",
+          "source_y_mm": 0.0,
+          "print_z_mm": 39.08,
+          "wall_crossings": [
+            {
+              "source_x_mm": 21.207,
+              "width_mm": 0.45,
+              "feature": "Inner wall"
+            },
+            {
+              "source_x_mm": 21.59,
+              "width_mm": 0.42,
+              "feature": "Outer wall"
+            }
+          ]
+        },
+        {
+          "label": "V69",
+          "source_y_mm": 0.0,
+          "print_z_mm": 39.08,
+          "wall_crossings": [
+            {
+              "source_x_mm": 21.207,
+              "width_mm": 0.45,
+              "feature": "Inner wall"
+            },
+            {
+              "source_x_mm": 21.59,
+              "width_mm": 0.42,
+              "feature": "Outer wall"
+            }
+          ]
+        },
+        {
+          "label": "V68",
+          "source_y_mm": 0.0,
+          "print_z_mm": 39.08,
+          "wall_crossings": [
+            {
+              "source_x_mm": 21.207,
+              "width_mm": 0.45,
+              "feature": "Inner wall"
+            },
+            {
+              "source_x_mm": 21.59,
+              "width_mm": 0.42,
+              "feature": "Outer wall"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "reviewer_source_sha256": "f8c3ba7a6c07d673de8a33eab35c4813b4e42c8b644fdf58efe2f935e766fa27",
+  "road_reader_source_sha256": "ab12ecba1874040c6c24838432bdeda825857c38abc01f18d7fadc85ed1d0a31",
+  "reviews": {
+    "mark2": {
+      "record": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/centered-trial-v4/mark2/independent-coupon-review.json",
+      "sha256": "143ff68885013b379fce3519c902b2af8388896e292d64932322d4dd2c5d4982"
+    },
+    "h2c": {
+      "record": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/centered-trial-v4/h2c/independent-coupon-review.json",
+      "sha256": "7e61ceaecbb9b339ac5a32be48a6002a5ffa012676ee88833134f236eda8f684"
+    }
+  },
+  "scope": "All frozen fit variants are covered by the two centered plates; repeated controls have identical measured native sections. Actual model-road heights and representative two-wall sections were read from both exact archives. Physical cooled fit and adhesion remain unqualified."
+}

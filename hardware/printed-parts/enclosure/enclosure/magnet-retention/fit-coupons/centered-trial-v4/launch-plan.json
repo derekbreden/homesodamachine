@@ -1,0 +1,110 @@
+{
+  "schema": 1,
+  "session": "Printer 2",
+  "state": "both_centered_coupon_jobs_accepted",
+  "recorded_at_utc": "2026-10-05T04:24:50.947892+00:00",
+  "timezone": "America/Chicago",
+  "authorization_quotes": [
+    "I don't want the full front-top or funnel tray printed next. What I want next (on both printers) is the test prints I asked for, for both magnet fitting and valve leg hole fitting.",
+    "Both beds are clear.",
+    "On mark2 you had pieces close to the edge that did not get a good first layer, so that plate is not well seasoned there yet. We could keep printing until it works, or you could avoid going that far to the edge here."
+  ],
+  "both_beds_clear_confirmed": true,
+  "automatic_resume": false,
+  "maximum_send_count_per_archive": 1,
+  "shared_circuit_minimum_start_spacing_seconds": 180,
+  "required_fresh_readings": [
+    "Mark2",
+    "H2C"
+  ],
+  "coupon_only": true,
+  "full_front_top_or_frame_included": false,
+  "full_front_top_or_frame_start_authorized": false,
+  "minimum_full_bead_bed_edge_clearance_mm": 60,
+  "expected_cluster_size_mm": [
+    152,
+    98
+  ],
+  "allocation": {
+    "Mark2": {
+      "rc62_labels": [
+        "A1",
+        "A2",
+        "A3",
+        "A4",
+        "B1",
+        "B2",
+        "B3",
+        "B4",
+        "C0"
+      ],
+      "valve_labels": [
+        "V72",
+        "V71",
+        "V70"
+      ],
+      "requested_z_trim_mm": 0.04,
+      "emitted_z_trim_mm": 0.02
+    },
+    "H2C": {
+      "rc62_labels": [
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "C0"
+      ],
+      "valve_labels": [
+        "V70",
+        "V69",
+        "V68"
+      ],
+      "requested_z_trim_mm": 0.18,
+      "emitted_z_trim_mm": 0.16
+    }
+  },
+  "repeated_reference_labels": [
+    "C0",
+    "V70"
+  ],
+  "unique_rc62_sample_count": 17,
+  "unique_valve_sample_count": 5,
+  "prior_print_physical_record": "../../../support-bottom-gap/mark2-v2/physical-result.json",
+  "launches": [
+    {
+      "printer": "Mark2",
+      "task_id": "1310167480",
+      "archive_name": "2026-10-04-centered-rc62-valve-mark2-v4.gcode.3mf",
+      "archive_sha256": "b2b407d87a82a09ce364d84d21626274ba74c7e19c15f68f0ab7a168a02ed8a1",
+      "receipt": "mark2-launch.json",
+      "preflight": "mark2-preflight.json",
+      "acceptance_observed_at_utc": "2026-10-05T04:33:13.858077+00:00",
+      "send_count": 1
+    },
+    {
+      "printer": "H2C",
+      "task_id": "1310172582",
+      "archive_name": "2026-10-04-centered-rc62-valve-h2c-v4.gcode.3mf",
+      "archive_sha256": "a3bac5c7429c3b142ef2fe1e4a87d04d73f45b314bc1b0b6aac49a01cf75552b",
+      "receipt": "h2c-launch.json",
+      "preflight": "h2c-preflight.json",
+      "acceptance_observed_at_utc": "2026-10-05T04:36:41.399896+00:00",
+      "send_count": 1
+    }
+  ],
+  "automation_id": "monitor-flush-roof-and-fit-trials",
+  "monitor_status": "ACTIVE",
+  "physical_adhesion_and_fit_qualified": false,
+  "scope": "Only the centered fit samples are authorized as the next jobs. The full-part prepared candidates remain held. Native containment does not establish plate adhesion or physical fit.",
+  "h2c_earliest_start_at_utc": "2026-10-05T04:36:13.858077+00:00",
+  "native_reviews_status": "both_plates_pass_all_three_reviews",
+  "minimum_measured_full_bead_edge_margin_mm": 86.7,
+  "shared_circuit_observed_start_spacing_seconds": 207.541819,
+  "mark2_monitor_active": true,
+  "h2c_monitor_active": true,
+  "monitor_updated_at_utc": "2026-10-05T04:39:33.459075+00:00"
+}

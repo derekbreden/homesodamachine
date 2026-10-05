@@ -1,0 +1,27 @@
+{
+  "native_checks_pass": false,
+  "archive": ".cache/prints/2026-10-04-enclosure-front-top-display-strip-h2c-v19/ready/2026-10-04-enclosure-front-top-display-strip-h2c-v19.gcode.3mf",
+  "archive_sha256": "808c1796396d4aa3bf821ff4c11a637bd219a5f86bd867facb4089f018b28319",
+  "project": ".cache/prints/2026-10-04-enclosure-front-top-display-strip-h2c-v19/2026-10-04-enclosure-front-top-display-strip-h2c-v19-input.3mf",
+  "project_sha256": "710fda6dfef5a589d9b7e8afa0d7a9a68f0f2333eda5bbc1e1c149dbc1a9e9c3",
+  "gcode_sha256": "ca93c9ae2919bc853a5bbfea44b2eec4d11aef76bf073619e94e77aa3d6bd975",
+  "estimated_seconds": 85403.0390625,
+  "support_summary": {
+    "support_bodies": 2,
+    "interface_islands": 11,
+    "bed_rooted_bodies": 2,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 63.83,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 11,
+    "shortest_labelled_build_up_mm": 63.83
+  },
+  "picked_seam_contact_mm2": [
+    0.02275397640947041,
+    0.0
+  ],
+  "front_roof_support_roads": 71010,
+  "tee_cover_slot_support_roads": 0,
+  "submitted": false,
+  "physical_fit_retention_cleanup_and_finish_qualified": false
+}

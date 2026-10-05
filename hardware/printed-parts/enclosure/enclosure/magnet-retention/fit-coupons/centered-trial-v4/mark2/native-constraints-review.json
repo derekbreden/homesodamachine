@@ -1,0 +1,957 @@
+{
+  "checks_pass": true,
+  "status": "centered_coupon_constraints_pass",
+  "printer": "Mark2",
+  "archive": ".cache/prints/2026-10-04-centered-rc62-valve-mark2-v4/ready/2026-10-04-centered-rc62-valve-mark2-v4.gcode.3mf",
+  "archive_sha256": "b2b407d87a82a09ce364d84d21626274ba74c7e19c15f68f0ab7a168a02ed8a1",
+  "gcode_sha256": "540f8390287ed2a273beb8b1ddaaa5d6fb18831d04e31edcfb1f8c40bc91d1f0",
+  "project_sha256": "d76392a304804b9a52876d8f137971662b37cbef8a9d464e5b09303db6b09bfe",
+  "preparation_sha256": "657a636fbd918fa74362ad888d5396c3761a021b9215793ffa4ea2511e7cb716",
+  "reviewer_sha256": "b34340dfad061d36a5a90ca0ba188b5ad0d5a91bd7ed47d3abcbd7c2ed62cefc",
+  "selected_labels": {
+    "magnets": [
+      "A1",
+      "A2",
+      "A3",
+      "A4",
+      "B1",
+      "B2",
+      "B3",
+      "B4",
+      "C0"
+    ],
+    "valves": [
+      "V72",
+      "V71",
+      "V70"
+    ]
+  },
+  "fit_object_count": 12,
+  "frame_count": 0,
+  "full_enclosure_count": 0,
+  "support_road_count": 0,
+  "pause_count": 0,
+  "local_modifier_count": 0,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "estimated_seconds": 5960.25927734375,
+  "estimated_mass_g": null,
+  "minimum_full_bead_edge_margin_mm": 86.69999999999999,
+  "minimum_full_bead_box_gap_mm": 8.649999999999977,
+  "shared_fit_settings": {
+    "wall_loops": "2",
+    "sparse_infill_density": "15%",
+    "filament_flow_ratio": [
+      "0.9555",
+      "1",
+      "1"
+    ],
+    "xy_contour_compensation": "0",
+    "xy_hole_compensation": "0",
+    "filament_colour": [
+      "#161616"
+    ]
+  },
+  "objects": [
+    {
+      "name": "rc62-pocket-a1",
+      "identify_id": 1901,
+      "model_road_count": 4083,
+      "model_layer_count": 84,
+      "model_tools": [
+        0
+      ],
+      "full_bead_xy_bounds_mm": [
+        [
+          115.825,
+          143.031
+        ],
+        [
+          141.175,
+          157.681
+        ]
+      ],
+      "edge_margins_left_front_right_back_mm": [
+        115.825,
+        143.031,
+        183.825,
+        162.319
+      ],
+      "minimum_full_bead_edge_margin_mm": 115.825,
+      "first_two_model_layers_z_and_height_mm": [
+        [
+          0.2,
+          0.2
+        ],
+        [
+          0.44,
+          0.24
+        ]
+      ]
+    },
+    {
+      "name": "rc62-pocket-a2",
+      "identify_id": 1902,
+      "model_road_count": 4146,
+      "model_layer_count": 84,
+      "model_tools": [
+        0
+      ],
+      "full_bead_xy_bounds_mm": [
+        [
+          149.825,
+          143.106
+        ],
+        [
+          175.175,
+          157.606
+        ]
+      ],
+      "edge_margins_left_front_right_back_mm": [
+        149.825,
+        143.106,
+        149.825,
+        162.394
+      ],
+      "minimum_full_bead_edge_margin_mm": 143.106,
+      "first_two_model_layers_z_and_height_mm": [
+        [
+          0.2,
+          0.2
+        ],
+        [
+          0.44,
+          0.24
+        ]
+      ]
+    },
+    {
+      "name": "rc62-pocket-a3",
+      "identify_id": 1903,
+      "model_road_count": 4211,
+      "model_layer_count": 84,
+      "model_tools": [
+        0
+      ],
+      "full_bead_xy_bounds_mm": [
+        [
+          183.825,
+          143.16899999999998
+        ],
+        [
+          209.175,
+          157.544
+        ]
+      ],
+      "edge_margins_left_front_right_back_mm": [
+        183.825,
+        143.16899999999998,
+        115.82499999999999,
+        162.456
+      ],
+      "minimum_full_bead_edge_margin_mm": 115.82499999999999,
+      "first_two_model_layers_z_and_height_mm": [
+        [
+          0.2,
+          0.2
+        ],
+        [
+          0.44,
+          0.24
+        ]
+      ]
+    },
+    {
+      "name": "rc62-pocket-a4",
+      "identify_id": 1904,
+      "model_road_count": 4062,
+      "model_layer_count": 84,
+      "model_tools": [
+        0
+      ],
+      "full_bead_xy_bounds_mm": [
+        [
+          115.825,
+          168.231
+        ],
+        [
+          141.175,
+          182.481
+        ]
+      ],
+      "edge_margins_left_front_right_back_mm": [
+        115.825,
+        168.231,
+        183.825,
+        137.519
+      ],
+      "minimum_full_bead_edge_margin_mm": 115.825,
+      "first_two_model_layers_z_and_height_mm": [
+        [
+          0.2,
+          0.2
+        ],
+        [
+          0.44,
+          0.24
+        ]
+      ]
+    },
+    {
+      "name": "rc62-pocket-b1",
+      "identify_id": 1905,
+      "model_road_count": 4181,
+      "model_layer_count": 84,
+      "model_tools": [
+        0
+      ],
+      "full_bead_xy_bounds_mm": [
+        [
+          149.92499999999998,
+          168.031
+        ],
+        [
+          175.07500000000002,
+          182.681
+        ]
+      ],
+      "edge_margins_left_front_right_back_mm": [
+        149.92499999999998,
+        168.031,
+        149.92499999999998,
+        137.319
+      ],
+      "minimum_full_bead_edge_margin_mm": 137.319,
+      "first_two_model_layers_z_and_height_mm": [
+        [
+          0.2,
+          0.2
+        ],
+        [
+          0.44,
+          0.24
+        ]
+      ]
+    },
+    {
+      "name": "rc62-pocket-b2",
+      "identify_id": 1906,
+      "model_road_count": 4234,
+      "model_layer_count": 84,
+      "model_tools": [
+        0
+      ],
+      "full_bead_xy_bounds_mm": [
+        [
+          183.92499999999998,
+          168.106
+        ],
+        [
+          209.07500000000002,
+          182.606
+        ]
+      ],
+      "edge_margins_left_front_right_back_mm": [
+        183.92499999999998,
+        168.106,
+        115.92499999999998,
+        137.394
+      ],
+      "minimum_full_bead_edge_margin_mm": 115.92499999999998,
+      "first_two_model_layers_z_and_height_mm": [
+        [
+          0.2,
+          0.2
+        ],
+        [
+          0.44,
+          0.24
+        ]
+      ]
+    },
+    {
+      "name": "rc62-pocket-b3",
+      "identify_id": 1907,
+      "model_road_count": 4301,
+      "model_layer_count": 84,
+      "model_tools": [
+        0
+      ],
+      "full_bead_xy_bounds_mm": [
+        [
+          115.925,
+          193.16899999999998
+        ],
+        [
+          141.07500000000002,
+          207.544
+        ]
+      ],
+      "edge_margins_left_front_right_back_mm": [
+        115.925,
+        193.16899999999998,
+        183.92499999999998,
+        112.45599999999999
+      ],
+      "minimum_full_bead_edge_margin_mm": 112.45599999999999,
+      "first_two_model_layers_z_and_height_mm": [
+        [
+          0.2,
+          0.2
+        ],
+        [
+          0.44,
+          0.24
+        ]
+      ]
+    },
+    {
+      "name": "rc62-pocket-b4",
+      "identify_id": 1908,
+      "model_road_count": 4152,
+      "model_layer_count": 84,
+      "model_tools": [
+        0
+      ],
+      "full_bead_xy_bounds_mm": [
+        [
+          149.92499999999998,
+          193.231
+        ],
+        [
+          175.07500000000002,
+          207.481
+        ]
+      ],
+      "edge_margins_left_front_right_back_mm": [
+        149.92499999999998,
+        193.231,
+        149.92499999999998,
+        112.519
+      ],
+      "minimum_full_bead_edge_margin_mm": 112.519,
+      "first_two_model_layers_z_and_height_mm": [
+        [
+          0.2,
+          0.2
+        ],
+        [
+          0.44,
+          0.24
+        ]
+      ]
+    },
+    {
+      "name": "rc62-pocket-c0",
+      "identify_id": 1909,
+      "model_road_count": 4342,
+      "model_layer_count": 84,
+      "model_tools": [
+        0
+      ],
+      "full_bead_xy_bounds_mm": [
+        [
+          183.775,
+          192.969
+        ],
+        [
+          209.225,
+          207.744
+        ]
+      ],
+      "edge_margins_left_front_right_back_mm": [
+        183.775,
+        192.969,
+        115.775,
+        112.256
+      ],
+      "minimum_full_bead_edge_margin_mm": 112.256,
+      "first_two_model_layers_z_and_height_mm": [
+        [
+          0.2,
+          0.2
+        ],
+        [
+          0.44,
+          0.24
+        ]
+      ]
+    },
+    {
+      "name": "beduan-socket-v72",
+      "identify_id": 1910,
+      "model_road_count": 20486,
+      "model_layer_count": 184,
+      "model_tools": [
+        0
+      ],
+      "full_bead_xy_bounds_mm": [
+        [
+          86.7,
+          112.256
+        ],
+        [
+          130.3,
+          128.471
+        ]
+      ],
+      "edge_margins_left_front_right_back_mm": [
+        86.7,
+        112.256,
+        194.7,
+        191.529
+      ],
+      "minimum_full_bead_edge_margin_mm": 86.7,
+      "first_two_model_layers_z_and_height_mm": [
+        [
+          0.2,
+          0.2
+        ],
+        [
+          0.44,
+          0.24
+        ]
+      ]
+    },
+    {
+      "name": "beduan-socket-v71",
+      "identify_id": 1911,
+      "model_road_count": 20299,
+      "model_layer_count": 184,
+      "model_tools": [
+        0
+      ],
+      "full_bead_xy_bounds_mm": [
+        [
+          140.7,
+          112.256
+        ],
+        [
+          184.3,
+          128.471
+        ]
+      ],
+      "edge_margins_left_front_right_back_mm": [
+        140.7,
+        112.256,
+        140.7,
+        191.529
+      ],
+      "minimum_full_bead_edge_margin_mm": 112.256,
+      "first_two_model_layers_z_and_height_mm": [
+        [
+          0.2,
+          0.2
+        ],
+        [
+          0.44,
+          0.24
+        ]
+      ]
+    },
+    {
+      "name": "beduan-socket-v70",
+      "identify_id": 1912,
+      "model_road_count": 20393,
+      "model_layer_count": 184,
+      "model_tools": [
+        0
+      ],
+      "full_bead_xy_bounds_mm": [
+        [
+          194.7,
+          112.256
+        ],
+        [
+          238.3,
+          128.471
+        ]
+      ],
+      "edge_margins_left_front_right_back_mm": [
+        194.7,
+        112.256,
+        86.69999999999999,
+        191.529
+      ],
+      "minimum_full_bead_edge_margin_mm": 86.69999999999999,
+      "first_two_model_layers_z_and_height_mm": [
+        [
+          0.2,
+          0.2
+        ],
+        [
+          0.44,
+          0.24
+        ]
+      ]
+    }
+  ],
+  "object_separations": [
+    {
+      "parts": [
+        "rc62-pocket-a2",
+        "rc62-pocket-a1"
+      ],
+      "full_bead_box_gap_mm": 8.649999999999977
+    },
+    {
+      "parts": [
+        "rc62-pocket-a3",
+        "rc62-pocket-a1"
+      ],
+      "full_bead_box_gap_mm": 42.64999999999998
+    },
+    {
+      "parts": [
+        "rc62-pocket-a3",
+        "rc62-pocket-a2"
+      ],
+      "full_bead_box_gap_mm": 8.649999999999977
+    },
+    {
+      "parts": [
+        "rc62-pocket-a4",
+        "rc62-pocket-a1"
+      ],
+      "full_bead_box_gap_mm": 10.549999999999983
+    },
+    {
+      "parts": [
+        "rc62-pocket-a4",
+        "rc62-pocket-a2"
+      ],
+      "full_bead_box_gap_mm": 13.70084395210746
+    },
+    {
+      "parts": [
+        "rc62-pocket-a4",
+        "rc62-pocket-a3"
+      ],
+      "full_bead_box_gap_mm": 43.96856228033841
+    },
+    {
+      "parts": [
+        "rc62-pocket-b1",
+        "rc62-pocket-a1"
+      ],
+      "full_bead_box_gap_mm": 13.55304393854013
+    },
+    {
+      "parts": [
+        "rc62-pocket-b1",
+        "rc62-pocket-a2"
+      ],
+      "full_bead_box_gap_mm": 10.425000000000011
+    },
+    {
+      "parts": [
+        "rc62-pocket-b1",
+        "rc62-pocket-a3"
+      ],
+      "full_bead_box_gap_mm": 13.657952591805236
+    },
+    {
+      "parts": [
+        "rc62-pocket-b1",
+        "rc62-pocket-a4"
+      ],
+      "full_bead_box_gap_mm": 8.749999999999972
+    },
+    {
+      "parts": [
+        "rc62-pocket-b2",
+        "rc62-pocket-a1"
+      ],
+      "full_bead_box_gap_mm": 44.00276269735796
+    },
+    {
+      "parts": [
+        "rc62-pocket-b2",
+        "rc62-pocket-a2"
+      ],
+      "full_bead_box_gap_mm": 13.667936932836627
+    },
+    {
+      "parts": [
+        "rc62-pocket-b2",
+        "rc62-pocket-a3"
+      ],
+      "full_bead_box_gap_mm": 10.561999999999983
+    },
+    {
+      "parts": [
+        "rc62-pocket-b2",
+        "rc62-pocket-a4"
+      ],
+      "full_bead_box_gap_mm": 42.74999999999997
+    },
+    {
+      "parts": [
+        "rc62-pocket-b2",
+        "rc62-pocket-b1"
+      ],
+      "full_bead_box_gap_mm": 8.849999999999966
+    },
+    {
+      "parts": [
+        "rc62-pocket-b3",
+        "rc62-pocket-a1"
+      ],
+      "full_bead_box_gap_mm": 35.48799999999997
+    },
+    {
+      "parts": [
+        "rc62-pocket-b3",
+        "rc62-pocket-a2"
+      ],
+      "full_bead_box_gap_mm": 36.623619004680556
+    },
+    {
+      "parts": [
+        "rc62-pocket-b3",
+        "rc62-pocket-a3"
+      ],
+      "full_bead_box_gap_mm": 55.64802894083487
+    },
+    {
+      "parts": [
+        "rc62-pocket-b3",
+        "rc62-pocket-a4"
+      ],
+      "full_bead_box_gap_mm": 10.687999999999988
+    },
+    {
+      "parts": [
+        "rc62-pocket-b3",
+        "rc62-pocket-b1"
+      ],
+      "full_bead_box_gap_mm": 13.722996903009152
+    },
+    {
+      "parts": [
+        "rc62-pocket-b3",
+        "rc62-pocket-b2"
+      ],
+      "full_bead_box_gap_mm": 44.13274826022052
+    },
+    {
+      "parts": [
+        "rc62-pocket-b4",
+        "rc62-pocket-a1"
+      ],
+      "full_bead_box_gap_mm": 36.610995616071385
+    },
+    {
+      "parts": [
+        "rc62-pocket-b4",
+        "rc62-pocket-a2"
+      ],
+      "full_bead_box_gap_mm": 35.625
+    },
+    {
+      "parts": [
+        "rc62-pocket-b4",
+        "rc62-pocket-a3"
+      ],
+      "full_bead_box_gap_mm": 36.74403991125633
+    },
+    {
+      "parts": [
+        "rc62-pocket-b4",
+        "rc62-pocket-a4"
+      ],
+      "full_bead_box_gap_mm": 13.860916275629092
+    },
+    {
+      "parts": [
+        "rc62-pocket-b4",
+        "rc62-pocket-b1"
+      ],
+      "full_bead_box_gap_mm": 10.549999999999983
+    },
+    {
+      "parts": [
+        "rc62-pocket-b4",
+        "rc62-pocket-b2"
+      ],
+      "full_bead_box_gap_mm": 13.82798340322982
+    },
+    {
+      "parts": [
+        "rc62-pocket-b4",
+        "rc62-pocket-b3"
+      ],
+      "full_bead_box_gap_mm": 8.849999999999966
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-a1"
+      ],
+      "full_bead_box_gap_mm": 55.31729335388707
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-a2"
+      ],
+      "full_bead_box_gap_mm": 36.393705073817365
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-a3"
+      ],
+      "full_bead_box_gap_mm": 35.42499999999998
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-a4"
+      ],
+      "full_bead_box_gap_mm": 43.872065645465106
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-b1"
+      ],
+      "full_bead_box_gap_mm": 13.473416196347511
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-b2"
+      ],
+      "full_bead_box_gap_mm": 10.363
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-b3"
+      ],
+      "full_bead_box_gap_mm": 42.69999999999999
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-b4"
+      ],
+      "full_bead_box_gap_mm": 8.699999999999989
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-a1"
+      ],
+      "full_bead_box_gap_mm": 14.560000000000002
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-a2"
+      ],
+      "full_bead_box_gap_mm": 24.401001004057168
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-a3"
+      ],
+      "full_bead_box_gap_mm": 55.506367463562206
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-a4"
+      ],
+      "full_bead_box_gap_mm": 39.75999999999999
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-b1"
+      ],
+      "full_bead_box_gap_mm": 44.160324104336
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-b2"
+      ],
+      "full_bead_box_gap_mm": 66.68263529585492
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-b3"
+      ],
+      "full_bead_box_gap_mm": 64.69799999999998
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-b4"
+      ],
+      "full_bead_box_gap_mm": 67.6682955674221
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-c0"
+      ],
+      "full_bead_box_gap_mm": 83.7828599953475
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-a1"
+      ],
+      "full_bead_box_gap_mm": 14.560000000000002
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-a2"
+      ],
+      "full_bead_box_gap_mm": 14.634999999999991
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-a3"
+      ],
+      "full_bead_box_gap_mm": 14.697999999999979
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-a4"
+      ],
+      "full_bead_box_gap_mm": 39.75999999999999
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-b1"
+      ],
+      "full_bead_box_gap_mm": 39.56
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-b2"
+      ],
+      "full_bead_box_gap_mm": 39.63499999999999
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-b3"
+      ],
+      "full_bead_box_gap_mm": 64.69799999999998
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-b4"
+      ],
+      "full_bead_box_gap_mm": 64.75999999999999
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-c0"
+      ],
+      "full_bead_box_gap_mm": 64.49799999999999
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "beduan-socket-v72"
+      ],
+      "full_bead_box_gap_mm": 10.399999999999977
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-a1"
+      ],
+      "full_bead_box_gap_mm": 55.46998490174662
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-a2"
+      ],
+      "full_bead_box_gap_mm": 24.401001004057168
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-a3"
+      ],
+      "full_bead_box_gap_mm": 14.697999999999979
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-a4"
+      ],
+      "full_bead_box_gap_mm": 66.67670676480654
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-b1"
+      ],
+      "full_bead_box_gap_mm": 44.160324104336
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-b2"
+      ],
+      "full_bead_box_gap_mm": 39.63499999999999
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-b3"
+      ],
+      "full_bead_box_gap_mm": 84.03256409868733
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-b4"
+      ],
+      "full_bead_box_gap_mm": 67.6682955674221
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-c0"
+      ],
+      "full_bead_box_gap_mm": 64.49799999999999
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "beduan-socket-v72"
+      ],
+      "full_bead_box_gap_mm": 64.39999999999998
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "beduan-socket-v71"
+      ],
+      "full_bead_box_gap_mm": 10.399999999999977
+    }
+  ],
+  "submitted": false,
+  "physical_fit_and_visual_adhesion_qualified": false
+}

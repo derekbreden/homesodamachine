@@ -1,0 +1,497 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-10-05T04:10:34.403998+00:00",
+  "live_publication": "live-publication.json",
+  "live_verified_at_utc": "2026-10-05T03:54:26.682855+00:00",
+  "lint_source": "hardware/scripts/geometry_lint.py",
+  "lint_source_sha256": "79914fb4ca91a5620956c1d4d95fd6fe253fcae1b5f26bac0fafc43edffb4f53",
+  "classes": [
+    "step",
+    "sliver",
+    "ceiling",
+    "slope"
+  ],
+  "models": [
+    {
+      "piece": "funnel-frame",
+      "model": "hardware/printed-parts/zone-c/funnel/funnel-frame.stl",
+      "model_sha256": "ca1427026349939176275b3cdffc5c4c2dd8b5317e30fa08fabf112aa7362ef8",
+      "facet_count": 41560,
+      "lint_run_at_utc": "2026-10-05T03:55:23.851722+00:00",
+      "findings_by_class": {
+        "step": 0,
+        "sliver": 0,
+        "ceiling": 4,
+        "slope": 0
+      },
+      "open_by_class": {
+        "step": 0,
+        "sliver": 0,
+        "ceiling": 0,
+        "slope": 0
+      },
+      "open": {
+        "step": [],
+        "sliver": [],
+        "ceiling": [],
+        "slope": []
+      },
+      "answered": {
+        "step": [],
+        "sliver": [],
+        "ceiling": [
+          [
+            {
+              "class": "ceiling",
+              "score": 192.85644420623711,
+              "line": "439 mm\u00b2 flat print-down face at z=16.200 \u00b7 84.5 \u00d7 5.2 mm \u00b7 drop 9.2\u20139.2 mm to material below",
+              "pick": [
+                "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=100.875 y=-10.571 z=16.200",
+                "click: x=100.875 y=-10.571 z=16.200"
+              ]
+            },
+            "These four square rail bearings retain the frame against vertical lift and preserve the enclosure's production sliding profile. Each groove opens along its outer flank and Y entrance for support removal before assembly. The native combined Mark2 review in ../../enclosure/enclosure/support-bottom-gap/mark2-v2/emitted-path-review.json retains four bed-rooted supports and verifies each full-width outward X removal sweep at its supported layers. Release the interface contacts and cut sacrificial branch junctions before pushing a support outward. Physical removal effort, bearing finish and installed fit remain unqualified."
+          ],
+          [
+            {
+              "class": "ceiling",
+              "score": 192.85644420623711,
+              "line": "439 mm\u00b2 flat print-down face at z=16.200 \u00b7 84.5 \u00d7 5.2 mm \u00b7 drop 9.2\u20139.2 mm to material below",
+              "pick": [
+                "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-100.875 y=-10.571 z=16.200",
+                "click: x=-100.875 y=-10.571 z=16.200"
+              ]
+            },
+            "These four square rail bearings retain the frame against vertical lift and preserve the enclosure's production sliding profile. Each groove opens along its outer flank and Y entrance for support removal before assembly. The native combined Mark2 review in ../../enclosure/enclosure/support-bottom-gap/mark2-v2/emitted-path-review.json retains four bed-rooted supports and verifies each full-width outward X removal sweep at its supported layers. Release the interface contacts and cut sacrificial branch junctions before pushing a support outward. Physical removal effort, bearing finish and installed fit remain unqualified."
+          ],
+          [
+            {
+              "class": "ceiling",
+              "score": 85.92431137924432,
+              "line": "83 mm\u00b2 flat print-down face at z=16.450 \u00b7 15.7 \u00d7 5.2 mm \u00b7 drop 9.5\u20139.5 mm to material below",
+              "pick": [
+                "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=100.875 y=47.074 z=16.450",
+                "click: x=100.875 y=47.074 z=16.450"
+              ]
+            },
+            "These four square rail bearings retain the frame against vertical lift and preserve the enclosure's production sliding profile. Each groove opens along its outer flank and Y entrance for support removal before assembly. The native combined Mark2 review in ../../enclosure/enclosure/support-bottom-gap/mark2-v2/emitted-path-review.json retains four bed-rooted supports and verifies each full-width outward X removal sweep at its supported layers. Release the interface contacts and cut sacrificial branch junctions before pushing a support outward. Physical removal effort, bearing finish and installed fit remain unqualified."
+          ],
+          [
+            {
+              "class": "ceiling",
+              "score": 85.92431137924432,
+              "line": "83 mm\u00b2 flat print-down face at z=16.450 \u00b7 15.7 \u00d7 5.2 mm \u00b7 drop 9.5\u20139.5 mm to material below",
+              "pick": [
+                "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-100.875 y=47.074 z=16.450",
+                "click: x=-100.875 y=47.074 z=16.450"
+              ]
+            },
+            "These four square rail bearings retain the frame against vertical lift and preserve the enclosure's production sliding profile. Each groove opens along its outer flank and Y entrance for support removal before assembly. The native combined Mark2 review in ../../enclosure/enclosure/support-bottom-gap/mark2-v2/emitted-path-review.json retains four bed-rooted supports and verifies each full-width outward X removal sweep at its supported layers. Release the interface contacts and cut sacrificial branch junctions before pushing a support outward. Physical removal effort, bearing finish and installed fit remain unqualified."
+          ]
+        ],
+        "slope": []
+      },
+      "errors": "",
+      "answers": "hardware/printed-parts/zone-c/funnel/funnel-frame.lint-answers",
+      "answers_sha256": "ada39d1f1c371483fb1614fbcceb1215934ac8b5d88f9470e0b046786218ba67"
+    },
+    {
+      "piece": "enclosure-front-top",
+      "model": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+      "model_sha256": "cc2cfd8a490b52439d957aa082b0e4369c5602076740494298b3a954f0ba36ba",
+      "facet_count": 529180,
+      "lint_run_at_utc": "2026-10-05T03:56:02.955394+00:00",
+      "findings_by_class": {
+        "step": 1,
+        "sliver": 13,
+        "ceiling": 9,
+        "slope": 0
+      },
+      "open_by_class": {
+        "step": 0,
+        "sliver": 0,
+        "ceiling": 1,
+        "slope": 0
+      },
+      "open": {
+        "step": [],
+        "sliver": [],
+        "ceiling": [
+          {
+            "class": "ceiling",
+            "score": 138.48990739920845,
+            "line": "391 mm\u00b2 flat print-down face at z=349.250 \u00b7 193.8 \u00d7 2.0 mm \u00b7 drop 4.9\u20137.0 mm to material below",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=0.000 y=94.183 z=349.250",
+              "click: x=0.000 y=94.183 z=349.250"
+            ]
+          }
+        ],
+        "slope": []
+      },
+      "answered": {
+        "step": [
+          [
+            {
+              "class": "step",
+              "score": 105.74670936700326,
+              "line": "\u03940.498 mm between parallel planes \u00b7 footprint met 52.7 \u00d7 4.2 mm",
+              "pick": [
+                "faceA: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=-64.775 y=80.013 z=314.462",
+                "faceB: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=0.000 y=79.515 z=251.135",
+                "click: x=-64.775 y=80.013 z=310.750"
+              ]
+            },
+            "The print-down display-wing exits meet the existing storey floor and bay wall at this offset. This is an open support-removal lane through otherwise continuous housing stock; the two parallel planes do not form a separate thin wall."
+          ]
+        ],
+        "sliver": [
+          [
+            {
+              "class": "sliver",
+              "score": 34.57728576660156,
+              "line": "1.350 mm strip, 34.6 mm long",
+              "pick": [
+                "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=-99.175 y=151.152 z=253.100",
+                "edge: x=-99.175 y=151.152 z=270.389 \u2192 x=-99.175 y=151.152 z=235.811 \u00b7 len 34.577 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+                "click: x=-99.175 y=151.152 z=253.100"
+              ]
+            },
+            "The outer valve yoke-entry pocket enters the 9 mm flank by 1.35 mm, from |X|98.50 to |X|99.85. These narrow Y-normal faces are the aft ends of the open pockets, not freestanding strips. The nominal smooth flank backing is 7.65 mm; the 1.2 mm exterior flutes leave at least 6.45 mm. Native full-stock probes retain 7.639 mm of continuous smooth-body X stock behind both complete pocket lengths. The 45-degree roofs in _front_top_flank_pockets preserve that backing."
+          ],
+          [
+            {
+              "class": "sliver",
+              "score": 34.57728576660156,
+              "line": "1.350 mm strip, 34.6 mm long",
+              "pick": [
+                "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=99.175 y=150.882 z=253.100",
+                "edge: x=99.175 y=150.882 z=270.389 \u2192 x=99.175 y=150.882 z=235.811 \u00b7 len 34.577 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+                "click: x=99.175 y=150.882 z=253.100"
+              ]
+            },
+            "The outer valve yoke-entry pocket enters the 9 mm flank by 1.35 mm, from |X|98.50 to |X|99.85. These narrow Y-normal faces are the aft ends of the open pockets, not freestanding strips. The nominal smooth flank backing is 7.65 mm; the 1.2 mm exterior flutes leave at least 6.45 mm. Native full-stock probes retain 7.639 mm of continuous smooth-body X stock behind both complete pocket lengths. The 45-degree roofs in _front_top_flank_pockets preserve that backing."
+          ],
+          [
+            {
+              "class": "sliver",
+              "score": 34.57728576660156,
+              "line": "1.350 mm strip, 34.6 mm long",
+              "pick": [
+                "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=-99.175 y=117.540 z=253.100",
+                "edge: x=-99.175 y=117.540 z=270.389 \u2192 x=-99.175 y=117.540 z=235.811 \u00b7 len 34.577 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+                "click: x=-99.175 y=117.540 z=253.100"
+              ]
+            },
+            "The outer valve yoke-entry pocket enters the 9 mm flank by 1.35 mm, from |X|98.50 to |X|99.85. These narrow Y-normal faces are the aft ends of the open pockets, not freestanding strips. The nominal smooth flank backing is 7.65 mm; the 1.2 mm exterior flutes leave at least 6.45 mm. Native full-stock probes retain 7.639 mm of continuous smooth-body X stock behind both complete pocket lengths. The 45-degree roofs in _front_top_flank_pockets preserve that backing."
+          ],
+          [
+            {
+              "class": "sliver",
+              "score": 34.57728576660156,
+              "line": "1.350 mm strip, 34.6 mm long",
+              "pick": [
+                "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=99.175 y=117.540 z=253.100",
+                "edge: x=99.175 y=117.540 z=270.389 \u2192 x=99.175 y=117.540 z=235.811 \u00b7 len 34.577 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+                "click: x=99.175 y=117.540 z=253.100"
+              ]
+            },
+            "The outer valve yoke-entry pocket enters the 9 mm flank by 1.35 mm, from |X|98.50 to |X|99.85. These narrow Y-normal faces are the aft ends of the open pockets, not freestanding strips. The nominal smooth flank backing is 7.65 mm; the 1.2 mm exterior flutes leave at least 6.45 mm. Native full-stock probes retain 7.639 mm of continuous smooth-body X stock behind both complete pocket lengths. The 45-degree roofs in _front_top_flank_pockets preserve that backing."
+          ],
+          [
+            {
+              "class": "sliver",
+              "score": 33.612464904785156,
+              "line": "1.350 mm strip, 33.6 mm long",
+              "pick": [
+                "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-99.175 y=134.346 z=235.811",
+                "edge: x=-99.175 y=117.540 z=235.811 \u2192 x=-99.175 y=151.152 z=235.811 \u00b7 len 33.612 \u00b7 straight \u00b7 dir x=0.000 y=1.000 z=0.000",
+                "click: x=-99.175 y=134.346 z=235.811"
+              ]
+            },
+            "The outer valve yoke-entry pocket's floor at Z235.811. Above this plane the pocket steps the flank's inner face from |X|98.50 to |X|99.85; below it the complete 6 mm flank section continues down to the recess roof at Z229.619. The 1.35 mm is the pocket's depth, not a strip's thickness."
+          ],
+          [
+            {
+              "class": "sliver",
+              "score": 33.34239959716797,
+              "line": "1.350 mm strip, 33.3 mm long",
+              "pick": [
+                "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=99.175 y=134.211 z=235.811",
+                "edge: x=99.175 y=117.540 z=235.811 \u2192 x=99.175 y=150.882 z=235.811 \u00b7 len 33.342 \u00b7 straight \u00b7 dir x=0.000 y=1.000 z=0.000",
+                "click: x=99.175 y=134.211 z=235.811"
+              ]
+            },
+            "The outer valve yoke-entry pocket's floor at Z235.811. Above this plane the pocket steps the flank's inner face from |X|98.50 to |X|99.85; below it the complete 6 mm flank section continues down to the recess roof at Z229.619. The 1.35 mm is the pocket's depth, not a strip's thickness."
+          ],
+          [
+            {
+              "class": "sliver",
+              "score": 14.70001220703125,
+              "line": "0.150 mm strip, 14.7 mm long",
+              "pick": [
+                "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=95.275 y=169.000 z=264.400",
+                "edge: x=95.275 y=161.650 z=264.400 \u2192 x=95.275 y=176.350 z=264.400 \u00b7 len 14.700 \u00b7 straight \u00b7 dir x=0.000 y=1.000 z=0.000",
+                "click: x=95.275 y=169.000 z=264.400"
+              ]
+            },
+            "The manifold-B well's top land at Z264.4 spans X95.20..95.35 and Y161.65..176.35. Its 0.15 mm exposed width comes from the lower well's 9.30 mm reach meeting the upper manifold-A well's 9.15 mm reach. Native sections at X95.275 through the land's ends and middle retain at least 3.00 mm of continuous Z stock beneath the face. The lower connector's complete retention lid carries this land."
+          ],
+          [
+            {
+              "class": "sliver",
+              "score": 9.199996948242188,
+              "line": "0.500 mm strip, 9.2 mm long",
+              "pick": [
+                "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-98.500 y=176.690 z=180.550",
+                "edge: x=-98.500 y=172.090 z=180.550 \u2192 x=-98.500 y=181.290 z=180.550 \u00b7 len 9.200 \u00b7 straight \u00b7 dir x=0.000 y=1.000 z=0.000",
+                "click: x=-98.500 y=176.690 z=180.550"
+              ]
+            },
+            "The aft flavour-valve tray's end lands expose its solid plate-to-flank root. The plate is 9.2 mm deep at Y172.09..181.29 and finishes on the flank's 45-degree bedding plane. The 0.5 mm exposed height is the end of that intersection, backed by the complete plate depth and the adjoining wall. The lower band stays inset from the lip; each wall root begins at Z177.9."
+          ],
+          [
+            {
+              "class": "sliver",
+              "score": 9.199996948242188,
+              "line": "0.500 mm strip, 9.2 mm long",
+              "pick": [
+                "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=98.500 y=176.690 z=180.550",
+                "edge: x=98.500 y=181.290 z=180.550 \u2192 x=98.500 y=172.090 z=180.550 \u00b7 len 9.200 \u00b7 straight \u00b7 dir x=0.000 y=-1.000 z=0.000",
+                "click: x=98.500 y=176.690 z=180.550"
+              ]
+            },
+            "The aft flavour-valve tray's end lands expose its solid plate-to-flank root. The plate is 9.2 mm deep at Y172.09..181.29 and finishes on the flank's 45-degree bedding plane. The 0.5 mm exposed height is the end of that intersection, backed by the complete plate depth and the adjoining wall. The lower band stays inset from the lip; each wall root begins at Z177.9."
+          ],
+          [
+            {
+              "class": "sliver",
+              "score": 8.98638916015625,
+              "line": "0.250 mm strip, 9.0 mm long",
+              "pick": [
+                "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-102.993 y=199.875 z=330.450",
+                "edge: x=-98.500 y=199.875 z=330.450 \u2192 x=-107.486 y=199.875 z=330.450 \u00b7 len 8.986 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+                "click: x=-102.993 y=199.875 z=330.450"
+              ]
+            },
+            "The 0.25 mm seam-end strips are the running clearance above the rear receiver's roof. Each is backed by the full front shell from Z330.45 to Z355 and approximately 9 mm in X; no 0.25 mm-thick ligament stands alone. The actual shell-closing sweep is recorded in the funnel integration review."
+          ],
+          [
+            {
+              "class": "sliver",
+              "score": 8.98638916015625,
+              "line": "0.250 mm strip, 9.0 mm long",
+              "pick": [
+                "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=102.993 y=199.875 z=330.450",
+                "edge: x=107.486 y=199.875 z=330.450 \u2192 x=98.500 y=199.875 z=330.450 \u00b7 len 8.986 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+                "click: x=102.993 y=199.875 z=330.450"
+              ]
+            },
+            "The 0.25 mm seam-end strips are the running clearance above the rear receiver's roof. Each is backed by the full front shell from Z330.45 to Z355 and approximately 9 mm in X; no 0.25 mm-thick ligament stands alone. The actual shell-closing sweep is recorded in the funnel integration review."
+          ],
+          [
+            {
+              "class": "sliver",
+              "score": 4.25,
+              "line": "0.498 mm strip, 4.2 mm long",
+              "pick": [
+                "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-64.775 y=79.764 z=284.424",
+                "edge: x=-62.650 y=79.764 z=284.424 \u2192 x=-66.900 y=79.764 z=284.424 \u00b7 len 4.250 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+                "click: x=-64.775 y=79.764 z=284.424"
+              ]
+            },
+            "These are narrow patches on the existing thick lintel floor at the mouths of the vertical wing-support exits. The 0.498 mm measurement is the exposed surface width, not wall thickness; the full lintel remains below and the tee/bay geometry is unchanged."
+          ],
+          [
+            {
+              "class": "sliver",
+              "score": 4.25,
+              "line": "0.498 mm strip, 4.2 mm long",
+              "pick": [
+                "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=64.775 y=79.764 z=284.424",
+                "edge: x=66.900 y=79.764 z=284.424 \u2192 x=62.650 y=79.764 z=284.424 \u00b7 len 4.250 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+                "click: x=64.775 y=79.764 z=284.424"
+              ]
+            },
+            "These are narrow patches on the existing thick lintel floor at the mouths of the vertical wing-support exits. The 0.498 mm measurement is the exposed surface width, not wall thickness; the full lintel remains below and the tee/bay geometry is unchanged."
+          ]
+        ],
+        "ceiling": [
+          [
+            {
+              "class": "ceiling",
+              "score": 7234.518874250219,
+              "line": "3666 mm\u00b2 flat print-down face at z=284.674 \u00b7 215.0 \u00d7 74.5 mm \u00b7 drop 119.5\u2013119.5 mm to material below",
+              "pick": [
+                "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=0.000 y=42.257 z=284.674",
+                "click: x=0.000 y=42.257 z=284.674"
+              ]
+            },
+            "The pump-bay lintel is the complete fixed roof at Z284.674, joining the front opening to the planar bay bulkhead and carrying the display/ridge storey. Its flat underside includes the 0.25 mm supported-face allowance and preserves the cartridge withdrawal envelope. The bay floor remains below this roof. Support is exposed in the empty cartridge bay and leaves through the front opening before assembly."
+          ],
+          [
+            {
+              "class": "ceiling",
+              "score": 1072.049549317623,
+              "line": "318 mm\u00b2 flat print-down face at z=224.796 \u00b7 35.4 \u00d7 9.0 mm \u00b7 drop 60.1\u201360.1 mm to material below",
+              "pick": [
+                "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-103.000 y=111.511 z=224.796",
+                "click: x=-103.000 y=111.511 z=224.796"
+              ]
+            },
+            "The tee carrier's flank window roofs, on the root plane of the fore valve tray's corbel. Each is a 9 mm flank section over the window, which is open to the outside and to the interior, so its support stands on the window's floor and comes out through either side in one piece. The carrier's column keeps a supported face's allowance under it (`tee-carrier/README.md`)."
+          ],
+          [
+            {
+              "class": "ceiling",
+              "score": 1072.0495468826225,
+              "line": "318 mm\u00b2 flat print-down face at z=224.796 \u00b7 35.4 \u00d7 9.0 mm \u00b7 drop 60.1\u201360.1 mm to material below",
+              "pick": [
+                "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=103.000 y=111.511 z=224.796",
+                "click: x=103.000 y=111.511 z=224.796"
+              ]
+            },
+            "The tee carrier's flank window roofs, on the root plane of the fore valve tray's corbel. Each is a 9 mm flank section over the window, which is open to the outside and to the interior, so its support stands on the window's floor and comes out through either side in one piece. The carrier's column keeps a supported face's allowance under it (`tee-carrier/README.md`)."
+          ],
+          [
+            {
+              "class": "ceiling",
+              "score": 274.7973356152426,
+              "line": "81 mm\u00b2 flat print-down face at z=261.400 \u00b7 9.3 \u00d7 8.7 mm \u00b7 drop 30.5\u201330.5 mm to material below",
+              "pick": [
+                "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=99.850 y=169.000 z=261.400",
+                "click: x=99.850 y=169.000 z=261.400"
+              ]
+            },
+            "The manifold-B Wago pocket keeps its complete flat retention lid. Its native underside at Z261.4 spans X95.20..104.50 and Y164.65..173.35, with at least 3.00 mm of stock above it. Support stands on the empty pocket's Z230.85 floor and leaves through its open inboard X-negative mouth before the connector is installed. This part requires its own native slice and physical support-removal review."
+          ],
+          [
+            {
+              "class": "ceiling",
+              "score": 158.21065896259756,
+              "line": "70 mm\u00b2 flat print-down face at z=196.179 \u00b7 19.5 \u00d7 3.6 mm \u00b7 drop 19.0\u201319.0 mm to material below",
+              "pick": [
+                "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=0.000 y=82.502 z=196.179",
+                "click: x=0.000 y=82.502 z=196.179"
+              ]
+            },
+            "This is the sealed RC62 retention pocket's flat roof. Its closing beads bridge the 3.575 mm Y depth after the native insertion pause; the ring is fully below the completed rim. The maximum-tolerance ring has 0.38 mm nominal CAD roof air. magnet-retention/native-check.json verifies the pause and absence of support beads inside the pocket. Roof quality, magnet heat exposure and assembled retention remain unmeasured."
+          ],
+          [
+            {
+              "class": "ceiling",
+              "score": 149.71875953196553,
+              "line": "426 mm\u00b2 flat print-down face at z=306.900 \u00b7 81.2 \u00d7 5.2 mm \u00b7 drop 7.2\u20137.2 mm to material below",
+              "pick": [
+                "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-101.125 y=155.385 z=306.900",
+                "click: x=-101.125 y=155.385 z=306.900"
+              ]
+            },
+            "These two flat lower faces retain the production funnel rail's full foot section across Y114.770..196.000. Each native face is 426.458 mm2, 5.25 mm wide in X, with 8.70 mm of continuous Z stock at its lint pick. Supports are accessible from the open interior and Y sliding entrance before the frame is installed. The receiver requires its own native slice and physical removal review."
+          ],
+          [
+            {
+              "class": "ceiling",
+              "score": 149.71875953196553,
+              "line": "426 mm\u00b2 flat print-down face at z=306.900 \u00b7 81.2 \u00d7 5.2 mm \u00b7 drop 7.2\u20137.2 mm to material below",
+              "pick": [
+                "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=101.125 y=155.385 z=306.900",
+                "click: x=101.125 y=155.385 z=306.900"
+              ]
+            },
+            "These two flat lower faces retain the production funnel rail's full foot section across Y114.770..196.000. Each native face is 426.458 mm2, 5.25 mm wide in X, with 8.70 mm of continuous Z stock at its lint pick. Supports are accessible from the open interior and Y sliding entrance before the frame is installed. The receiver requires its own native slice and physical removal review."
+          ],
+          [
+            {
+              "class": "ceiling",
+              "score": 66.91389964402231,
+              "line": "73 mm\u00b2 flat print-down face at z=280.924 \u00b7 19.4 \u00d7 4.2 mm \u00b7 drop 4.6\u20137.8 mm to material below",
+              "pick": [
+                "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=0.000 y=81.590 z=280.924",
+                "click: x=0.000 y=81.590 z=280.924"
+              ]
+            },
+            "The contact pair's male seat roof, one plane over the mouth and the body, 0.25 mm above the seat for the supported-face allowance. It bridges between the mouth's round ends, at most 23.7 mm, and carries no load: the half bears on its ear-plate datum and is held by its two screws. Behind the body the lead bore's teardrop roof takes over. Support placed here stands 4.6 mm in the open seat and leaves through the mouth on the bay face before the half goes in."
+          ]
+        ],
+        "slope": []
+      },
+      "errors": "",
+      "answers": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.lint-answers",
+      "answers_sha256": "848b6db87f88af7a06b714978009c93c06e320642bdc4b0378ca01189bf446d4"
+    }
+  ],
+  "display_strip_native": {
+    "faces": [
+      {
+        "area_mm2": 391.35936624383936,
+        "bounds_mm": {
+          "xmin": -96.87844466316389,
+          "xmax": 96.87844466316706,
+          "ymin": 93.158492076719,
+          "ymax": 95.208492076719,
+          "zmin": 349.25,
+          "zmax": 349.25
+        },
+        "centroid": [
+          -1.0515130999312632e-15,
+          94.18994435556408,
+          349.25000000000006
+        ]
+      }
+    ],
+    "vertical_stock_probes": [
+      {
+        "x": -90,
+        "y": 94.183,
+        "z_min": 349.25,
+        "z_max": 355.0,
+        "missing_mm3": 0.00029462094327449567,
+        "sampled_full_stock_height_mm": 5.712487696431574
+      },
+      {
+        "x": -50,
+        "y": 94.183,
+        "z_min": 349.25,
+        "z_max": 355.0,
+        "missing_mm3": 0.0002946209432744355,
+        "sampled_full_stock_height_mm": 5.712487696431581
+      },
+      {
+        "x": 0,
+        "y": 94.183,
+        "z_min": 349.25,
+        "z_max": 355.0,
+        "missing_mm3": 0.00029462094327445897,
+        "sampled_full_stock_height_mm": 5.7124876964315785
+      },
+      {
+        "x": 50,
+        "y": 94.183,
+        "z_min": 349.25,
+        "z_max": 355.0,
+        "missing_mm3": 0.00029462094327439446,
+        "sampled_full_stock_height_mm": 5.7124876964315865
+      },
+      {
+        "x": 90,
+        "y": 94.183,
+        "z_min": 349.25,
+        "z_max": 355.0,
+        "missing_mm3": 0.0002946209432744054,
+        "sampled_full_stock_height_mm": 5.712487696431586
+      }
+    ]
+  },
+  "display_strip_v18_emitted_backing": "display-strip-backing-v18.json",
+  "remaining_print_finding": {
+    "status": "support_candidate_review_deferred_for_centered_fit_samples",
+    "native_face_z_mm": 349.25,
+    "geometry_function": "Retained display roof underside and clearance over the removable frame fore edge.",
+    "v18_native_risk": "Two long overhang walls and two bridge roads have only end backing against the immediately preceding emitted layer.",
+    "required_resolution": "Local native support or short-span bridge strategy preserving the frozen frame interface. Verify actual full bead backing, vertical support gap and support-removal access before a future full-part launch.",
+    "frozen_sent_geometry_and_archives_changed": false
+  },
+  "scope": "Post-publication printed-mesh lint and exact backing review. Existing functional faces retain their scoped answers; native geometry and supported-face intent do not qualify physical finish or support removal.",
+  "pass": false
+}
