@@ -62,7 +62,7 @@ export function optimizePurchase(required, options) {
 }
 
 export function calculateBatch(data, units, labor) {
-  if (![10, 20].includes(units)) throw new RangeError("Forecast supports batches of 10 or 20");
+  if (![5, 10, 20].includes(units)) throw new RangeError("Forecast supports batches of 5, 10 or 20");
   if (!Number.isFinite(data.taxRate) || data.taxRate < 0 || data.taxRate > 1) throw new RangeError("Invalid tax reserve");
   const suppliers = data.suppliers.map(supplier => ({ ...supplier, rows: [], costCents: 0, shippingCents: supplier.shippingCents[String(units)] }));
   if (suppliers.some(supplier => !Number.isInteger(supplier.shippingCents) || supplier.shippingCents < 0)) throw new RangeError("Invalid freight reserve");
@@ -136,7 +136,7 @@ export function readBatchForecast(hardwareDir, labor) {
   for (const item of data.items) {
     item.category = item.bomLines.map(line => bomLines[line - 1]?.match(/<!--@([a-z][a-z-]*)-->/)?.[1]).find(Boolean) || "supplies";
   }
-  return { data, bomChanged, batches: [10, 20].map(units => calculateBatch(data, units, labor)) };
+  return { data, bomChanged, batches: [5, 10, 20].map(units => calculateBatch(data, units, labor)) };
 }
 
 export { renderBatchForecast, BATCH_FORECAST_CSS } from "./batch-forecast-view.js";

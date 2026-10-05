@@ -574,7 +574,7 @@ function renderTopline(total, labor) {
       <a class="cost-top-leg" href="#parts"><i class="cost-key"></i>Parts <b>${money(total)}</b></a>
       <a class="cost-top-leg" href="#labor"><i class="cost-key l"></i>Labor <b>${money(labour)}</b> ${hm(labor.minutes)} at ${rateStr(labor.rate)}/h</a>
     </div>
-    <p class="cost-top-context">Parts plus planned batch labor. Our early builds take substantially longer. <a href="#assumptions">What we&rsquo;re assuming</a> · <a href="#batch-forecast">Purchases for 10 &amp; 20 machines</a></p>
+    <p class="cost-top-context">Parts plus planned batch labor. Our early builds take substantially longer. <a href="#assumptions">What we&rsquo;re assuming</a> · <a href="#batch-forecast">Purchases for 5, 10 &amp; 20 machines</a></p>
   </section>
 `;
 }
@@ -735,7 +735,7 @@ ${labor ? renderLaborSection(labor) : ""}${mach ? renderMachineSection(mach) : "
     body: renderRecovery(unitCost, labor, investment),
   }];
   if (forecast) panels.push({
-    id: "forecast-panel", anchor: "batch-forecast", title: "First 10 & 20 machines",
+    id: "forecast-panel", anchor: "batch-forecast", title: "First 5, 10 & 20 machines",
     caption: "Additional cash from current stock · supplies & delivery included",
     metrics: forecast.batches.map(batch => metric(`${money(batch.cashCents / 100)}<sup aria-label="estimate">*</sup>`, `First ${batch.units} machines`)).join(""),
     body: renderBatchForecast(forecast),
