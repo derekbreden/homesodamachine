@@ -78,3 +78,7 @@ click: x=99.850 y=169.000 z=261.400
 [ceiling] This is the sealed RC62 retention pocket's flat roof. Its closing beads bridge the 3.575 mm Y depth after the native insertion pause; the ring is fully below the completed rim. The maximum-tolerance ring has 0.38 mm nominal CAD roof air. magnet-retention/native-check.json verifies the pause and absence of support beads inside the pocket. Roof quality, magnet heat exposure and assembled retention remain unmeasured.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=0.000 y=82.502 z=196.179
+
+[step] This is the fore entrance of the existing flank cable channel at Y95.000, beside the flat display wall at Y95.208. The 0.208 mm value is the offset between those endpoint planes, not a wall or fin thickness. The clip retains its complete 39 mm profile rooted in the 9 mm flank. Its full channel cutter is clear in the current native front-top; the broad display-wall witness excludes this declared channel. Preserve the functional cable entrance and assess its print/removal finish in the part's own native slice.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=96.500 y=95.000 z=296.000
