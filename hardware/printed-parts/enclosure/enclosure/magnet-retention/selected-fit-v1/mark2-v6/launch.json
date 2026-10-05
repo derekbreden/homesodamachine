@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "printer": "Mark2",
-  "state": "waiting_for_timed_start",
-  "send_attempted": false,
-  "submitted": false,
-  "task_id": null,
-  "job_id": null,
+  "state": "accepted_monitoring_insertion",
+  "send_attempted": true,
+  "submitted": true,
+  "task_id": "1310615503",
+  "job_id": "1310615503",
   "archive_name": "2026-10-05-pump-cradle-c3-mark2-v6.gcode.3mf",
   "archive_sha256": "37646924eca2ca480b595857f9d8e6aa247130b155952cd2ee3027a40969676d",
   "gcode_sha256": "752c1dbdcc0232ffea5eba9782826c83fd6bf3b53a9366740a3cf73a2fdcd42b",
@@ -18,9 +18,49 @@
   "launch_authorized": true,
   "automatic_resume_authorized": false,
   "insertion_pause_reported": false,
-  "start_reported": false,
-  "scope": "Pending the authorized timed start. No import or Send has occurred for this archive.",
+  "start_reported": true,
+  "scope": "One foreground Send accepted as an independently verified matching new task/job and exact archive name. Native project_file reply is not retained by this sender receipt. Startup telemetry can retain the previous job totals until initialized; it does not establish first-layer adhesion, magnet fit, roof quality or strength.",
   "coordinator_plan": "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/timed-launch-plan.json",
-  "monitoring_branch_state": "waiting_for_timed_start",
-  "fault_reported": false
+  "monitoring_branch_state": "accepted_monitoring_insertion",
+  "fault_reported": false,
+  "transaction_invoked_at_utc": "2026-10-05T09:46:57.038812+00:00",
+  "acceptance_observed_at_utc": "2026-10-05T09:47:21.983150+00:00",
+  "acceptance_observed_at_local": "2026-10-05T04:47:21.983150-05:00",
+  "foreground_send_announced_at_utc": "2026-10-05T09:47:08.557269+00:00",
+  "foreground_send_count": 1,
+  "foreground_sender_exit_code": 0,
+  "estimated_insertion_pause_utc": "2026-10-05T14:34:21.983150+00:00",
+  "estimated_insertion_pause_local": "2026-10-05T09:34:21.983150-05:00",
+  "acceptance_telemetry": {
+    "gcode_state": "RUNNING",
+    "layer_num": 0,
+    "total_layer_num": 980,
+    "mc_percent": 0,
+    "mc_remaining_time": 593,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": 13,
+    "observed_at_utc": "2026-10-05T09:48:01.653823+00:00",
+    "totals_initialized_for_this_slice": false,
+    "left_nozzle": {
+      "actual_c": 198,
+      "target_c": 200
+    },
+    "bed": {
+      "actual_c": 25.0,
+      "target_c": 25.0
+    },
+    "chamber": {
+      "actual_c": 26,
+      "target_c": 0
+    }
+  },
+  "project_file_reply_observed": false,
+  "standing_send_options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "start_reported_at_utc": "2026-10-05T09:48:32.074332+00:00"
 }
