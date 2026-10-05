@@ -1,0 +1,280 @@
+{
+  "schema": 1,
+  "reviewed_utc": "2026-10-05T20:45:59.737857+00:00",
+  "order": "Live publication was verified before geometry lint.",
+  "geometry_commit": "4d584d29f",
+  "pointer_commit": "12620435adcec736932ad169b7b6ed2602e39fdb",
+  "live_verification": {
+    "live_hash_map": {
+      "printed-parts/zone-c/funnel-mold/core.step.mesh": true,
+      "printed-parts/zone-c/funnel-mold/cavity.step.mesh": true,
+      "printed-parts/zone-c/funnel-mold/rod.step.mesh": true,
+      "printed-parts/zone-c/funnel/funnel.step.mesh": true,
+      "manifold-layout/enclosure-assembly.step.mesh": true
+    },
+    "mesh_bytes_equal": true,
+    "forming_tool_retired": true
+  },
+  "command": "tools/cad-venv/bin/python hardware/scripts/geometry_lint.py hardware/printed-parts/zone-c/funnel-mold/cavity.stl hardware/printed-parts/zone-c/funnel-mold/core.stl --all --top 100",
+  "annotation_verification": "All findings from the full report were matched against the current lint-answers with geometry_lint.split_answered. Only annotations changed after the geometry reading.",
+  "pieces": [
+    {
+      "piece": "cavity",
+      "print_up": 1.0,
+      "open_findings": 0,
+      "answered_findings": 17,
+      "inputs_sha256": {
+        "hardware/printed-parts/zone-c/funnel-mold/cavity.stl": "ac74c7c87a51fb6ab492296ddeccc67bc1834c28354de0674a3641b231fb1ac7",
+        "hardware/printed-parts/zone-c/funnel-mold/cavity.step": "54ac665069d8e3ae282c45c9f464448beabfb85fd9e32abf3bd4ccee2893d22d",
+        "hardware/printed-parts/zone-c/funnel-mold/cavity.step.mesh": "5efa2697d997a474038d8e503c5b3452960cfba512e8faa32eb8f28ef9f3e8da",
+        "hardware/printed-parts/zone-c/funnel-mold/cavity.lint-answers": "5a12554dc7ad49e9bb5302afe832c9187849b4838e3b9bd3fa36f37725413dfc"
+      },
+      "findings": [
+        {
+          "class": "sliver",
+          "line": "1.000 mm strip, 16.0 mm long",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=0.000 y=-76.844 z=55.650",
+            "edge: x=8.000 y=-76.844 z=55.650 \u2192 x=-8.000 y=-76.844 z=55.650 \u00b7 len 16.000 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+            "click: x=0.000 y=-76.844 z=55.650"
+          ],
+          "reason": "These are the vertical backs and sides of the four 1 mm high, 16 mm wide opening notches. Each recess retains a 4 mm flange floor and opens through the outer edge; the strip dimension is the recess height."
+        },
+        {
+          "class": "sliver",
+          "line": "1.000 mm strip, 16.0 mm long",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=0.000 y=76.844 z=55.650",
+            "edge: x=-8.000 y=76.844 z=55.650 \u2192 x=8.000 y=76.844 z=55.650 \u00b7 len 16.000 \u00b7 straight \u00b7 dir x=1.000 y=0.000 z=0.000",
+            "click: x=0.000 y=76.844 z=55.650"
+          ],
+          "reason": "These are the vertical backs and sides of the four 1 mm high, 16 mm wide opening notches. Each recess retains a 4 mm flange floor and opens through the outer edge; the strip dimension is the recess height."
+        },
+        {
+          "class": "sliver",
+          "line": "1.000 mm strip, 5.0 mm long",
+          "pick": [
+            "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=8.000 y=-79.342 z=55.650",
+            "edge: x=8.000 y=-81.842 z=55.650 \u2192 x=8.000 y=-76.842 z=55.650 \u00b7 len 5.000 \u00b7 straight \u00b7 dir x=0.000 y=1.000 z=0.000",
+            "click: x=8.000 y=-79.342 z=55.650"
+          ],
+          "reason": "These are the vertical backs and sides of the four 1 mm high, 16 mm wide opening notches. Each recess retains a 4 mm flange floor and opens through the outer edge; the strip dimension is the recess height."
+        },
+        {
+          "class": "sliver",
+          "line": "1.000 mm strip, 5.0 mm long",
+          "pick": [
+            "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=8.000 y=79.342 z=55.650",
+            "edge: x=8.000 y=76.842 z=55.650 \u2192 x=8.000 y=81.842 z=55.650 \u00b7 len 5.000 \u00b7 straight \u00b7 dir x=0.000 y=1.000 z=0.000",
+            "click: x=8.000 y=79.342 z=55.650"
+          ],
+          "reason": "These are the vertical backs and sides of the four 1 mm high, 16 mm wide opening notches. Each recess retains a 4 mm flange floor and opens through the outer edge; the strip dimension is the recess height."
+        },
+        {
+          "class": "sliver",
+          "line": "1.000 mm strip, 5.0 mm long",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=-103.000 y=-7.997 z=55.650",
+            "edge: x=-105.500 y=-7.997 z=55.650 \u2192 x=-100.500 y=-7.997 z=55.650 \u00b7 len 5.000 \u00b7 straight \u00b7 dir x=1.000 y=0.000 z=0.000",
+            "click: x=-103.000 y=-7.997 z=55.650"
+          ],
+          "reason": "These are the vertical backs and sides of the four 1 mm high, 16 mm wide opening notches. Each recess retains a 4 mm flange floor and opens through the outer edge; the strip dimension is the recess height."
+        },
+        {
+          "class": "sliver",
+          "line": "1.000 mm strip, 5.0 mm long",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=103.000 y=-7.997 z=55.650",
+            "edge: x=100.500 y=-7.997 z=55.650 \u2192 x=105.500 y=-7.997 z=55.650 \u00b7 len 5.000 \u00b7 straight \u00b7 dir x=1.000 y=0.000 z=0.000",
+            "click: x=103.000 y=-7.997 z=55.650"
+          ],
+          "reason": "These are the vertical backs and sides of the four 1 mm high, 16 mm wide opening notches. Each recess retains a 4 mm flange floor and opens through the outer edge; the strip dimension is the recess height."
+        },
+        {
+          "class": "sliver",
+          "line": "1.000 mm strip, 5.0 mm long",
+          "pick": [
+            "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-8.000 y=-79.342 z=55.650",
+            "edge: x=-8.000 y=-76.842 z=55.650 \u2192 x=-8.000 y=-81.842 z=55.650 \u00b7 len 5.000 \u00b7 straight \u00b7 dir x=0.000 y=-1.000 z=0.000",
+            "click: x=-8.000 y=-79.342 z=55.650"
+          ],
+          "reason": "These are the vertical backs and sides of the four 1 mm high, 16 mm wide opening notches. Each recess retains a 4 mm flange floor and opens through the outer edge; the strip dimension is the recess height."
+        },
+        {
+          "class": "sliver",
+          "line": "1.000 mm strip, 5.0 mm long",
+          "pick": [
+            "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-8.000 y=79.342 z=55.650",
+            "edge: x=-8.000 y=81.842 z=55.650 \u2192 x=-8.000 y=76.842 z=55.650 \u00b7 len 5.000 \u00b7 straight \u00b7 dir x=0.000 y=-1.000 z=0.000",
+            "click: x=-8.000 y=79.342 z=55.650"
+          ],
+          "reason": "These are the vertical backs and sides of the four 1 mm high, 16 mm wide opening notches. Each recess retains a 4 mm flange floor and opens through the outer edge; the strip dimension is the recess height."
+        },
+        {
+          "class": "step",
+          "line": "\u03941.000 mm between parallel planes \u00b7 footprint met 16.0 \u00d7 5.0 mm",
+          "pick": [
+            "faceA: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-103.000 y=0.000 z=55.150",
+            "faceB: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=0.000 y=0.000 z=56.150",
+            "click: x=-103.000 y=0.000 z=55.150"
+          ],
+          "reason": "The opening notch is recessed 1 mm into the bare parting land and opens through the flange edge. Its 4 mm floor carries a blunt opening tool; the 1 mm level change is the pry recess."
+        },
+        {
+          "class": "sliver",
+          "line": "1.000 mm strip, 16.0 mm long",
+          "pick": [
+            "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-100.500 y=0.000 z=55.650",
+            "edge: x=-100.500 y=-8.000 z=55.650 \u2192 x=-100.500 y=8.000 z=55.650 \u00b7 len 16.000 \u00b7 straight \u00b7 dir x=0.000 y=1.000 z=0.000",
+            "click: x=-100.500 y=0.000 z=55.650"
+          ],
+          "reason": "These are the vertical backs and sides of the four 1 mm high, 16 mm wide opening notches. Each recess retains a 4 mm flange floor and opens through the outer edge; the strip dimension is the recess height."
+        },
+        {
+          "class": "sliver",
+          "line": "1.000 mm strip, 16.0 mm long",
+          "pick": [
+            "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=100.500 y=0.000 z=55.650",
+            "edge: x=100.500 y=8.000 z=55.650 \u2192 x=100.500 y=-8.000 z=55.650 \u00b7 len 16.000 \u00b7 straight \u00b7 dir x=0.000 y=-1.000 z=0.000",
+            "click: x=100.500 y=0.000 z=55.650"
+          ],
+          "reason": "These are the vertical backs and sides of the four 1 mm high, 16 mm wide opening notches. Each recess retains a 4 mm flange floor and opens through the outer edge; the strip dimension is the recess height."
+        },
+        {
+          "class": "sliver",
+          "line": "1.000 mm strip, 5.0 mm long",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=-103.000 y=7.998 z=55.650",
+            "edge: x=-100.500 y=7.998 z=55.650 \u2192 x=-105.500 y=7.998 z=55.650 \u00b7 len 5.000 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+            "click: x=-103.000 y=7.998 z=55.650"
+          ],
+          "reason": "These are the vertical backs and sides of the four 1 mm high, 16 mm wide opening notches. Each recess retains a 4 mm flange floor and opens through the outer edge; the strip dimension is the recess height."
+        },
+        {
+          "class": "sliver",
+          "line": "1.000 mm strip, 5.0 mm long",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=103.000 y=7.998 z=55.650",
+            "edge: x=105.500 y=7.998 z=55.650 \u2192 x=100.500 y=7.998 z=55.650 \u00b7 len 5.000 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+            "click: x=103.000 y=7.998 z=55.650"
+          ],
+          "reason": "These are the vertical backs and sides of the four 1 mm high, 16 mm wide opening notches. Each recess retains a 4 mm flange floor and opens through the outer edge; the strip dimension is the recess height."
+        },
+        {
+          "class": "ceiling",
+          "line": "7799 mm\u00b2 flat print-down face at z=51.150 \u00b7 211.0 \u00d7 163.7 mm \u00b7 open to the bed (51.2 mm up)",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=0.000 y=0.000 z=51.150",
+            "click: x=0.000 y=0.000 z=51.150"
+          ],
+          "reason": "The 5 mm clamping flange provides the bare closing land and room for M4 washers and clamps. Its 16 mm margin surrounds the silicone brim on both axes. The 2026-10-05 native Snug slice records bed-rooted interface-5 at print Z50.602\u201350.880 beneath this band. Cut and detach support at the exposed outer edges before finishing."
+        },
+        {
+          "class": "ceiling",
+          "line": "963 mm\u00b2 flat print-down face at z=44.840 \u00b7 179.0 \u00d7 131.7 mm \u00b7 open to the bed (44.8 mm up)",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=0.000 y=0.000 z=44.840",
+            "click: x=0.000 y=0.000 z=44.840"
+          ],
+          "reason": "This underside backs the silicone brim with at least 5 mm shell stock. The 2026-10-05 native Snug slice records bed-rooted interface-4 at print Z44.362\u201345.600 in the brim band. Cut and detach support through the open dry back before finishing the forming face."
+        },
+        {
+          "class": "ceiling",
+          "line": "1266 mm\u00b2 flat print-down face at z=1.890 \u00b7 41.0 \u00d7 36.0 mm \u00b7 open to the bed (1.9 mm up)",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=1.850 y=0.000 z=1.890",
+            "click: x=1.850 y=0.000 z=1.890"
+          ],
+          "reason": "This flat underside backs the silicone block with 5 mm shell stock. The 2026-10-05 native Snug slice records bed-rooted interface-2 at print Z1.440\u20132.640 in the block band. Cut and detach support from the open underside between the three mold feet."
+        },
+        {
+          "class": "ceiling",
+          "line": "211 mm\u00b2 flat print-down face at z=0.700 \u00b7 16.4 \u00d7 16.4 mm \u00b7 open to the bed (0.7 mm up)",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=1.850 y=0.000 z=0.700",
+            "click: x=1.850 y=0.000 z=0.700"
+          ],
+          "reason": "This is the dry underside of the lower rod socket. Its 5 mm floor stops the steel rod below the silicone block; it sits 0.7 mm above the feet datum. The 2026-10-05 native Snug slice records bed-rooted interface-1 at print Z0.200\u20130.480 beneath it. Cut and detach support through the open underside before fitting the rod."
+        }
+      ]
+    },
+    {
+      "piece": "core",
+      "print_up": -1.0,
+      "open_findings": 0,
+      "answered_findings": 6,
+      "inputs_sha256": {
+        "hardware/printed-parts/zone-c/funnel-mold/core.stl": "7572a70da0f59e03c7b06a9af29b2939942c88382fb9bfc11bda49fc9aac12b9",
+        "hardware/printed-parts/zone-c/funnel-mold/core.step": "118a3800cf6435d9747936e000ca671cef853b58aa722dc09dcafabe05b5d424",
+        "hardware/printed-parts/zone-c/funnel-mold/core.step.mesh": "4b77685c87d01b01da103d3fa408bedf80e793e13236d1c787d245dc5c063b0b",
+        "hardware/printed-parts/zone-c/funnel-mold/core.lint-answers": "b2cf9b636c834c1033993f00bb6e21b06dfa113be14b7502c999961b2670675c"
+      },
+      "findings": [
+        {
+          "class": "sliver",
+          "line": "0.300 mm strip, 125.0 mm long",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=0.000 y=66.137 z=56.300",
+            "edge: x=62.500 y=66.137 z=56.300 \u2192 x=-62.500 y=66.137 z=56.300 \u00b7 len 125.000 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+            "click: x=0.000 y=66.137 z=56.300"
+          ],
+          "reason": "These four vertical faces are the 0.30 mm edge of the finishing pocket over the silicone brim. The 4.70 mm flange behind the pocket supports its forming face; the thin strip is a surface-level change. Keep the surrounding lands bare."
+        },
+        {
+          "class": "ceiling",
+          "line": "179 mm\u00b2 flat print-down face at z=26.465 \u00b7 16.4 \u00d7 16.4 mm \u00b7 open to the bed (34.7 mm up)",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=1.850 y=0.000 z=26.465",
+            "click: x=1.850 y=0.000 z=26.465"
+          ],
+          "reason": "This annulus is the top of the straight rod guide: 16.4 mm outside diameter and an open 6.4 mm passage. Its surrounding 5 mm radial stock holds the 7.7 mm guide bearing. With the core inverted, the annulus lies at print Z34.685 within the 2026-10-05 bed-rooted Snug interface-1 region (print Z22.040\u201335.280). Cut and detach support through the open dry back and clear the passage before dropping in the steel rod."
+        },
+        {
+          "class": "step",
+          "line": "\u03940.300 mm between parallel planes \u00b7 footprint met 179.6 \u00d7 132.3 mm",
+          "pick": [
+            "faceA: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=0.000 y=0.000 z=56.450",
+            "faceB: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=0.000 y=0.000 z=56.150",
+            "click: x=20.833 y=-57.075 z=56.450"
+          ],
+          "reason": "The forming pocket over the silicone brim reserves 0.30 mm of coating growth. The surrounding bare lands set closure height. This face prints upward with the core inverted; the 4.70 mm stock behind it supports the forming face."
+        },
+        {
+          "class": "sliver",
+          "line": "0.300 mm strip, 125.0 mm long",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=0.000 y=-66.142 z=56.300",
+            "edge: x=-62.500 y=-66.142 z=56.300 \u2192 x=62.500 y=-66.142 z=56.300 \u00b7 len 125.000 \u00b7 straight \u00b7 dir x=1.000 y=0.000 z=0.000",
+            "click: x=0.000 y=-66.142 z=56.300"
+          ],
+          "reason": "These four vertical faces are the 0.30 mm edge of the finishing pocket over the silicone brim. The 4.70 mm flange behind the pocket supports its forming face; the thin strip is a surface-level change. Keep the surrounding lands bare."
+        },
+        {
+          "class": "sliver",
+          "line": "0.300 mm strip, 77.7 mm long",
+          "pick": [
+            "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=89.800 y=0.000 z=56.300",
+            "edge: x=89.800 y=-38.842 z=56.300 \u2192 x=89.800 y=38.842 z=56.300 \u00b7 len 77.683 \u00b7 straight \u00b7 dir x=0.000 y=1.000 z=0.000",
+            "click: x=89.800 y=0.000 z=56.300"
+          ],
+          "reason": "These four vertical faces are the 0.30 mm edge of the finishing pocket over the silicone brim. The 4.70 mm flange behind the pocket supports its forming face; the thin strip is a surface-level change. Keep the surrounding lands bare."
+        },
+        {
+          "class": "sliver",
+          "line": "0.300 mm strip, 77.7 mm long",
+          "pick": [
+            "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-89.800 y=0.000 z=56.300",
+            "edge: x=-89.800 y=38.842 z=56.300 \u2192 x=-89.800 y=-38.842 z=56.300 \u00b7 len 77.683 \u00b7 straight \u00b7 dir x=0.000 y=-1.000 z=0.000",
+            "click: x=-89.800 y=0.000 z=56.300"
+          ],
+          "reason": "These four vertical faces are the 0.30 mm edge of the finishing pocket over the silicone brim. The 4.70 mm flange behind the pocket supports its forming face; the thin strip is a surface-level change. Keep the surrounding lands bare."
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "open_findings": 0,
+    "answered_findings": 23
+  },
+  "scope": "Printed geometry and stated support access. The native slice records emitted supports; cast release and sealing behavior are observed in use."
+}

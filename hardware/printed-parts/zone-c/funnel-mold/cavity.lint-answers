@@ -5,30 +5,30 @@ click: x=-103.000 y=0.000 z=55.150
 [sliver] These are the vertical backs and sides of the four 1 mm high, 16 mm wide opening notches. Each recess retains a 4 mm flange floor and opens through the outer edge; the strip dimension is the recess height.
 file: hardware/printed-parts/zone-c/funnel-mold/cavity.step
 click: x=-100.500 y=0.000 z=55.650
-click: x=0.000 y=-100.502 z=55.650
-click: x=0.000 y=100.500 z=55.650
+click: x=0.000 y=-76.844 z=55.650
+click: x=0.000 y=76.844 z=55.650
 click: x=100.500 y=0.000 z=55.650
-click: x=8.000 y=-103.000 z=55.650
-click: x=8.000 y=103.000 z=55.650
+click: x=8.000 y=-79.342 z=55.650
+click: x=8.000 y=79.342 z=55.650
 click: x=-103.000 y=7.998 z=55.650
 click: x=103.000 y=7.998 z=55.650
-click: x=-103.000 y=-8.000 z=55.650
-click: x=103.000 y=-8.000 z=55.650
-click: x=-8.000 y=-103.000 z=55.650
-click: x=-8.000 y=103.000 z=55.650
+click: x=-103.000 y=-7.997 z=55.650
+click: x=103.000 y=-7.997 z=55.650
+click: x=-8.000 y=-79.342 z=55.650
+click: x=-8.000 y=79.342 z=55.650
 
-[ceiling] The 5 mm clamping flange overhangs the shell. The current native Snug slice records bed-rooted support and labelled interface-5 at print Z50.602–50.880 beneath this band. Its exposed outer edges permit cutting and detaching support before finishing. Clean physical removal remains unqualified.
+[ceiling] The 5 mm clamping flange provides the bare closing land and room for M4 washers and clamps. Its 16 mm margin surrounds the silicone brim on both axes. The 2026-10-05 native Snug slice records bed-rooted interface-5 at print Z50.602–50.880 beneath this band. Cut and detach support at the exposed outer edges before finishing.
 file: hardware/printed-parts/zone-c/funnel-mold/cavity.step
 click: x=0.000 y=0.000 z=51.150
 
-[ceiling] This underside of the brim shell has at least 5 mm backing. The current native Snug slice records bed-rooted support and labelled interface-4 in the brim band. Cut and detach it through the open dry back before finishing the forming face; connected supports need not withdraw intact. Native paths do not establish physical adhesion or clean release.
+[ceiling] This underside backs the silicone brim with at least 5 mm shell stock. The 2026-10-05 native Snug slice records bed-rooted interface-4 at print Z44.362–45.600 in the brim band. Cut and detach support through the open dry back before finishing the forming face.
 file: hardware/printed-parts/zone-c/funnel-mold/cavity.step
 click: x=0.000 y=0.000 z=44.840
 
-[ceiling] This flat underside backs the silicone block with the checked 5 mm shell stock. The current native Snug slice records bed-rooted support and labelled interface-2 in the block band, beginning at print Z1.440. The underside is exposed between the three mold feet for cutting and removal; no enclosed support passage is required. Clean physical removal remains unqualified.
+[ceiling] This flat underside backs the silicone block with 5 mm shell stock. The 2026-10-05 native Snug slice records bed-rooted interface-2 at print Z1.440–2.640 in the block band. Cut and detach support from the open underside between the three mold feet.
 file: hardware/printed-parts/zone-c/funnel-mold/cavity.step
 click: x=1.850 y=0.000 z=1.890
 
-[ceiling] This is the dry bottom of the blind pilot-seat boss. It leaves 5 mm of axial stock below the seat floor, with 0.7 mm clearance above the mold's feet datum. Native Snug interface-1 occupies print Z0.200–0.480 beneath the boss and is bed-rooted. Cut and detach it from the open underside between the feet before fitting the pin; support quality and physical cleanout remain unqualified.
+[ceiling] This is the dry underside of the lower rod socket. Its 5 mm floor stops the steel rod below the silicone block; it sits 0.7 mm above the feet datum. The 2026-10-05 native Snug slice records bed-rooted interface-1 at print Z0.200–0.480 beneath it. Cut and detach support through the open underside before fitting the rod.
 file: hardware/printed-parts/zone-c/funnel-mold/cavity.step
 click: x=1.850 y=0.000 z=0.700
