@@ -64,13 +64,18 @@ It has 878 model layers and estimates **25 h 44 min 45 sec**. All actual model s
 have finite left-tool roads and every native stock section component receives
 model walls. The full roof-round span has 0.08 mm walls and first-layer overlap
 passes. All 1,526,926 support roads clear the protected
-native exterior show faces. The 76 support bodies have removal routes
+native exterior show faces. The native review assigns the 76 support bodies routes
 through the empty bay, display storey, exposed flanks and aft opening.
 The complete flank jaw retains 3 mm tip stock and 2.532 mm frame clearance;
 its local DC5 entry lane remains clear. Exact source/road records name the
 retained pogo seat, display recess and funnel receiver mating transitions.
-Printed receiver/rail fit, cleanup, show finish, loom retention, load capacity
-and lifetime keep their separate evidence scope.
+The [physical result](tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/physical-result.json)
+is rejected: top-rim support removal is nearly impossible, supported 0.08 mm
+material has extreme spaghettification, normal snug and tree supports are
+fused into masses too large for their cavities, and one embedded tee-carrier
+window-cover holder broke. The proposed flush sliding funnel frame removes
+the fixed overhang; its geometry and physical result are pending. Printed
+receiver/rail fit, loom retention, load capacity and lifetime remain unqualified.
 
 ## Reviewed back-top v9 native archive
 
@@ -93,6 +98,7 @@ the v9 support review supplies no load-capacity or drop result.
 
 | Part or interface | Established result and current use |
 | --- | --- |
+| Front-top v17 rim and support cleanup | Rejected for nearly impossible cleanup, fused normal/tree support masses, extreme supported fine-layer spaghettification and a broken tee-carrier window-cover holder. Removing the fixed overhang and seating the sliding funnel frame flush with the ceiling is a pending design proposal. [Physical result](tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/physical-result.json). |
 | Tee-carrier visible rounds | The additive bottom chamfer/taper is physically accepted. It uses a 0.20 mm first layer, 0.24 mm bottom/body, 0.08 mm top R6, six walls in the lower 6.1 mm, and saved wall-first order, speeds and 15% overlap. No supports. Sliding is accepted with 1.00 mm above and 0.25 mm below against the existing front-top, with less tilt reported. Spring return and other parts remain separate checks. [Surface record](tee-carrier/physical-acceptance.json); [sliding-fit record](tee-carrier/low-force-trial/physical-acceptance.json). |
 | Kamoer cartridge and cap | Derek confirms both pumps are firmly held with screws tightened and no vertical play. The current cap keeps the broad fitted holder geometry; its surrounding crown reaches the cartridge top while motor ends and spade-terminal wells remain open. This holder result does not qualify the cap's pogo connector. Raised-crown fit and four-tube operation remain full-assembly observations. [Physical record](../../reference/kamoer-kphm400/physical-fit.json). |
 | Pump cartridge magnetic contacts | The YYFKGCP halves mount in pump-cap and front-top seats. Current exported seats and nominal mating pass the [mounting audit](../../reference/yyfkgcp-pogo-4p/mounting-audit.md). A separate [RC62 pair](enclosure/magnet-retention/README.md) has one paused-in ring in the lower cradle and one in front-top, centered on the tube axes. Its native geometry and independent paused sources are reviewed; physical seating force, heat exposure and cover quality remain unmeasured. The founder accepts connector fit and mating/compression in the printed test piece, reported 2026-10-04. Numerical full-enclosure compression, insert retention, continuity, magnetic retention, operating resistance and lifetime remain unmeasured. [Physical scope](../../reference/yyfkgcp-pogo-4p/physical-observations.json). |
