@@ -97,8 +97,11 @@ confirms the ring is sealed in but rattles, and its first covering layer is a bi
 wonky. The [current open-pocket hand-fit selection](../printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/physical-fit-selection.json)
 sets **C3**, 19.05 mm in X and 3.175 mm in Y, for the two production pockets.
 The closed pocket keeps 19.53 mm in Z: 0.48 mm nominal headroom and 0.38 mm
-at the specified maximum magnet diameter. The hand-fit result does not qualify
-the closed roof or eliminate the need to observe its printed result.
+at the specified maximum magnet diameter. The
+[H2C C3/V69 front-top result](../printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/h2c-v20/physical-acceptance.json)
+accepts the first layer above the inserted magnet, with two supplied photos.
+Finished roof behavior, rattle and the Mark2 cradle’s first covering layer remain
+separate observations.
 Installed seating force, magnet heat exposure and retention remain unmeasured. Current-export
 checks establish nominal mating and clear passages. H2C reported the two seat
 coupons completed; [the physical record](../reference/yyfkgcp-pogo-4p/physical-observations.json)

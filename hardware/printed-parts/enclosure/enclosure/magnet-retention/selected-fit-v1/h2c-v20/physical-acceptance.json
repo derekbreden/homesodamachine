@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "session": "Printer 2",
+  "part": "enclosure-front-top",
+  "printer": "H2C",
+  "reported_by": "Derek",
+  "reported_date": "2026-10-05",
+  "reported_timezone": "America/Chicago",
+  "recorded_at_utc": "2026-10-05T14:46:36.623916+00:00",
+  "status": "first_over_magnet_layer_appearance_accepted",
+  "user_observation_quote": "Also the first layer on top of the magnet on front top turned out beautiful and perfect this time.",
+  "printer_task_id": "1310609527",
+  "printer_job_id": "1310609527",
+  "archive_name": "2026-10-05-enclosure-front-top-c3-v69-h2c-v20.gcode.3mf",
+  "archive_sha256": "aa076477c54fdc97fb9b14507dbbd7c75f1b182135780be094757105e728505d",
+  "gcode_sha256": "b5051ccbd52185a55bd7002c79944d1a0ceca2ccd39a105dc447456f80be1e34",
+  "source_stl_sha256": "af13c3ab421d2a7b5d0a60cb334c3f4c1e1f94e96a407b99c77379486e55ed4f",
+  "source_step_sha256": "93f232f35f27c5da071132c7332d10e5ff58efac6d2ae02921859b14a07eec4b",
+  "preparation_record": "preparation.json",
+  "launch_record": "launch.json",
+  "magnet_label": "C3",
+  "valve_label": "V69",
+  "material": "black PET-GF",
+  "first_over_magnet_layer_appearance_accepted": true,
+  "photos": [
+    {
+      "file": "first-over-magnet-layer-1.jpg",
+      "sha256": "f5d36b40fa3d55b890db587f0b1fc8881a1374d31ac2d98a43e5906c7d025dae",
+      "source_attachment": "Photo 1.jpg",
+      "source_attachment_sha256": "ad42650b909b18f3587be3afecb1c6fb6710ad87bfca17e159e2227176a86240",
+      "metadata_handling": "EXIF/XMP, Photoshop metadata and comments removed; compressed image scan preserved."
+    },
+    {
+      "file": "first-over-magnet-layer-2.jpg",
+      "sha256": "8ffd64c9956979b2c8e885baa614e7d86f45fbe3cfe6f605939adfdd5774a047",
+      "source_attachment": "Photo 2.jpg",
+      "source_attachment_sha256": "29a95512ded77a5352afdce086c44171928b06d6b8c16e8ce719c26c14311fc8",
+      "metadata_handling": "EXIF/XMP, Photoshop metadata and comments removed; compressed image scan preserved."
+    }
+  ],
+  "visual_observation": "The supplied close-up photos show a continuous, orderly covering strip across the front-top retention pocket. Derek accepts the first layer above the inserted magnet.",
+  "pause_observation": {
+    "programmed_pause_observed_by_agent": false,
+    "insertion_pause_notice_sent": false,
+    "actual_pause_time_utc": null,
+    "actual_resume_time_utc": null,
+    "scope": "The operator’s overprinting report establishes the reported insertion outcome. The scheduled readings did not observe the intervening programmed pause or resume."
+  },
+  "telemetry_after_report": {
+    "observed_at": "2026-10-05T14:42:50.755669+00:00",
+    "task_id": "1310609527",
+    "job_id": "1310609527",
+    "subtask_name": "2026-10-05-enclosure-front-top-c3-v69-h2c-v20.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 287,
+    "total_layer_num": 1346,
+    "mc_percent": 22,
+    "mc_remaining_time": 1028,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": 0,
+    "left_nozzle": {
+      "actual_c": 280,
+      "target_c": 280
+    },
+    "chamber": {
+      "actual_c": 35,
+      "target_c": 0
+    }
+  },
+  "scope": "Physical appearance of the first layer above the magnet in this H2C C3/V69 front-top print. Finished roof behavior, rattle, magnetic retention, heat exposure, full-part cleanup and assembled fit have no acceptance result in this record."
+}

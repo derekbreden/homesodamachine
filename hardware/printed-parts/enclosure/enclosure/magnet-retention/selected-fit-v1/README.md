@@ -63,13 +63,15 @@ current hosts, left nozzle, color, trim and one `M400 U1` pause. The retention
 option also checks the emitted open rim, pocket support exclusion, closing
 paths, dense hosts and layer bands. It does not qualify physical grip, roof
 quality or strength. Preparation and review perform no printer action.
-The [shared timed launch plan](timed-launch-plan.json) authorizes exactly the
-reviewed H2C v20 front top and standalone Mark2 v6 cradle for October 5, 2026.
-It targets H2C acceptance near 4:40 am and Mark2 near 4:43 am America/Chicago,
-giving insertion forecasts near 9:29 am and 9:30 am within the requested
-9:10–9:50 am window. Mark2 must wait at least 180 seconds after actual H2C
-acceptance, with fresh readings of both printers immediately before each Send.
-Each branch has one Send allowance and requires separate authorization to resume.
-Frozen preparation records retain their captured scope; the current launch
-authorization is in the separate launch plans. The existing cap and funnel frame
-are excluded.
+The [shared timed launch record](timed-launch-plan.json) binds the accepted H2C
+front-top task 1310609527 and Mark2 cradle task 1310615503, with one Send per
+archive. Scheduled checks are stopped at Derek’s request. The
+[manual Mark2 forecast](mark2-v6/launch.json) uses its 9:42 am CDT reading and
+the frozen pause remainder to estimate insertion near **1:20 pm CDT** on
+October 5, 2026. This is an estimate, not a pause observation. No additional
+Send or automatic resume is authorized.
+
+Derek accepts the [first covering layer above the front-top magnet](h2c-v20/physical-acceptance.json),
+with two close-up photos. The result applies to this H2C C3/V69 print’s initial
+over-magnet surface. Finished pocket rattle, magnetic retention and full-assembly
+fit remain separate observations.
