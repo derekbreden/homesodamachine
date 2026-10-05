@@ -61,6 +61,7 @@ services:
         # rather than in that pointer file, so a clone is what carries them and a deploy is what makes a
         # clone. It changes when a person redraws it, which is rarely.
         - hardware/weld-rotator-guide/**
+        - hardware/gun-positioner-guide/**
         - hardware/guide-assets/**
         - hardware/assembly-letter-guide/**
         - hardware/drill-and-cut-guide/**

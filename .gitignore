@@ -124,6 +124,8 @@ hardware/quickstart/out/
 # of the build (hardware/weld-rotator-guide/README.md). `tools/cad-artifacts/pack.py`'s
 # NOT_BUNDLED_DIRS names this directory too.
 hardware/weld-rotator-guide/out/
+hardware/gun-positioner-guide/out/
+output/gun-positioner/
 
 # Two hand-drawn quick start sheets with words, frozen the same way as the weld-rotator guide:
 # page renders here, and the HTML, `art/*.png`, bound PDF, cover and `.pdf.json` in the index

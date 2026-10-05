@@ -74,6 +74,7 @@ NOT_BUNDLED_DIRS = (
     # a hand-run guide's page renders and its art pass's staged STEPs; the walk above reaches
     # every `.step` under `hardware/` (hardware/weld-rotator-guide/README.md)
     "hardware/weld-rotator-guide/out",
+    "hardware/gun-positioner-guide/out",
     "hardware/magnetic-float-guide/out",
     # the two hand-drawn quick start sheets' page renders, held out the same way
     "hardware/quickstart-claude/out",
@@ -172,6 +173,8 @@ BUNDLED_MESH_DIRS = (
     "hardware/printed-parts/fixtures/faucet-display-snap",
     "hardware/printed-parts/fixtures/faucet-cover-retention",
     "hardware/printed-parts/fixtures/valve-socket-fit",
+    "hardware/printed-parts/fixtures/gun-positioner",
+    "hardware/printed-parts/fixtures/gun-positioner-observation",
 )
 
 #: Scene meshes the parts viewer opens as themselves. `web/public/js/viewer/parts.js` names `glb`
@@ -224,6 +227,8 @@ BUNDLED_PAYLOAD_DIRS = (
     "hardware/faucet-layout",
     "hardware/printed-parts/fixtures/faucet-cover-retention",
     "hardware/printed-parts/fixtures/valve-socket-fit",
+    "hardware/printed-parts/fixtures/gun-positioner",
+    "hardware/printed-parts/fixtures/gun-positioner-observation",
 )
 
 # The fit-trial assembly has a viewer payload. Its two separately printable
