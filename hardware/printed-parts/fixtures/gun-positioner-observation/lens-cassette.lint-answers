@@ -1,0 +1,6 @@
+[ceiling] Captive M3 hex-nut pockets have intentional flat roofs at Z 2.8 mm. Local supports enter and leave through the open rear pockets; remove them and verify flat nut seating before assembly. This is a fabrication instruction, not an accepted print result.
+file: hardware/printed-parts/fixtures/gun-positioner-observation/lens-cassette.step
+click: x=-32.000 y=-32.000 z=2.800
+click: x=32.000 y=-32.000 z=2.800
+click: x=-32.000 y=32.000 z=2.800
+click: x=32.000 y=32.000 z=2.800

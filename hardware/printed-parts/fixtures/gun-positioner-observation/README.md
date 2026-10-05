@@ -23,7 +23,7 @@ without duplicating metal stock or fastener packs with the gun fixture.
 | 4040 riser | 4 | 300 mm length, 40-series slot 8 |
 | lens-cassette | 2 | PET-GF, flat rear lip on bed |
 | lens-retainer | 2 | PET-GF, flat on bed |
-| lens-shim | 4 | PET-GF, two 0.20 mm layers |
+| lens-shim | 4 | PET-GF, one 0.20 mm layer each; two shims per stage |
 
 The metal plates have STEP and millimeter DXF files. The two angle faces have
 separate drilling projections. The forked rail stop is a three-dimensional
@@ -86,7 +86,9 @@ length, and a 3 mm rear-thread projection; the body excluding that projection
 is 15.5 mm long. The cassette has a 53.4 mm pocket, a 2 mm rear lip and a
 43.6 mm rear opening. The rear thread passes the lip; the metal body shoulder
 rests on it. The 18 mm cassette leaves 0.5 mm axial clearance before the
-retainer. Use M3 × 20 cover screws with no head washer. The captive hex nuts
+retainer. Use M3 × 20 cover screws with no head washer. Support the four rear
+nut-pocket roofs locally; remove those supports through the open rear pockets
+and check flat seating before fitting the nuts. The captive hex nuts
 seat at the back of their 2.8 mm pockets; verify full nut engagement and that
 the screw tips remain clear of the aluminum upright. Use the 0.4 mm shim
 where needed and adjust cover screws to retain
