@@ -52,7 +52,10 @@
       "estimated_insertion_pause_utc": "2026-10-05T14:32:45.785828+00:00",
       "estimated_insertion_pause_local": "2026-10-05T09:32:45.785828-05:00",
       "start_reported_at_utc": "2026-10-05T09:46:03.641723+00:00",
-      "forecast_at_target_acceptance_local": "2026-10-05T09:29:00-05:00"
+      "forecast_at_target_acceptance_local": "2026-10-05T09:29:00-05:00",
+      "initial_print_progress_recorded": true,
+      "first_layer_progress_recorded": true,
+      "initial_print_progress_observed_at_utc": "2026-10-05T09:59:36.502502+00:00"
     },
     "Mark2": {
       "launch_plan": "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/mark2-v6/launch-plan.json",
@@ -80,7 +83,10 @@
       "estimated_insertion_pause_utc": "2026-10-05T14:34:21.983150+00:00",
       "estimated_insertion_pause_local": "2026-10-05T09:34:21.983150-05:00",
       "start_reported_at_utc": "2026-10-05T09:48:32.074332+00:00",
-      "forecast_at_target_acceptance_local": "2026-10-05T09:30:00-05:00"
+      "forecast_at_target_acceptance_local": "2026-10-05T09:30:00-05:00",
+      "initial_print_progress_recorded": true,
+      "first_layer_progress_recorded": true,
+      "initial_print_progress_observed_at_utc": "2026-10-05T09:59:36.339151+00:00"
     }
   },
   "launch_protocol": [
