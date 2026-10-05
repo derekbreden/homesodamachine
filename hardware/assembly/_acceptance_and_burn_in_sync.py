@@ -43,16 +43,23 @@ bench_water_temp_max_c = 20             # bench water temperature, upper bound
 # ─── Bench test rig — CO2 source ───────────────────────────────────────
 co2_cyl_small_lb = 5                    # small bench cylinder
 co2_cyl_large_lb = 10                   # large bench cylinder
-co2_primary_min_psi = 70                # primary regulator setpoint, low end
-co2_primary_max_psi = 95                # primary regulator setpoint, high end
-                                        # (the Wellbom outlet dial's green band)
+co2_primary_set_psi = 75                # the unit's own Taprite 3741 primary, set and
+co2_primary_set_tol_psi = 5             # locked in step 1; it ships at this setting
+co2_primary_relief_psi = 130            # its safety blow-off, 130 ± 4 PSI on Taprite's
+co2_primary_relief_tol_psi = 4          # 3741 drawing
+secondary_listed_psi = 50               # Interstate's listing for the WR1105, whose
+                                        # barrel reads 3 bar
 
 # Centerline: the in-appliance WR1105 secondary regulator's preset, which holds the
-# gas feed from anywhere in the primary band above it.
+# gas feed from the primary's factory setting above it.
 co2_centerline_psi = secondary_regulator_pressure_psi
-assert co2_centerline_psi < co2_primary_min_psi, (
-    f"the {co2_centerline_psi:g} PSI secondary sits inside the {co2_primary_min_psi}–"
-    f"{co2_primary_max_psi} PSI primary band — the primary must feed it from above")
+assert (co2_primary_set_psi - co2_primary_set_tol_psi
+        > max(co2_centerline_psi, secondary_listed_psi)), (
+    f"the primary's {co2_primary_set_psi:g} ± {co2_primary_set_tol_psi:g} PSI factory "
+    f"setting does not clear the WR1105's preset — the primary must feed it from above")
+assert (co2_primary_set_psi + co2_primary_set_tol_psi
+        < co2_primary_relief_psi - co2_primary_relief_tol_psi), (
+    f"the primary's factory setting reaches its own {co2_primary_relief_psi:g} PSI blow-off")
 
 # The pressure vessel states its carbonation at the wall setpoint and the top of its band.
 assert carbonation_basis_c == (carbonator_wall_setpoint_c,
@@ -128,7 +135,8 @@ def main():
         # Bench CO2 rig.
         "CO2_CYL_SMALL": f"{co2_cyl_small_lb:.4g} lb",
         "CO2_CYL_LARGE": f"{co2_cyl_large_lb:.4g} lb",
-        "CO2_PRIMARY_RANGE": f"{co2_primary_min_psi:.4g}–{co2_primary_max_psi:.4g} PSI",
+        "CO2_PRIMARY_SET": f"{co2_primary_set_psi:.4g} PSI",
+        "CO2_PRIMARY_TOL": f"± {co2_primary_set_tol_psi:.4g} PSI",
         "CO2_CENTERLINE": f"{co2_centerline_psi:.4g} PSI",
 
         # Bench measurement tooling.

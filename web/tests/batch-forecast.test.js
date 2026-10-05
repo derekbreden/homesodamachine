@@ -65,16 +65,16 @@ test("the sourced plan covers the current BOM, including shared parts and unpric
     assert.equal(batch.rows.filter(row => row.bomLines.includes(53)).length, 1);
     const copper = batch.rows.find(row => row.id === "B0DKSW5VL9");
     assert.equal(copper.packages[0].count, { 5: 1, 10: 3, 20: 6 }[batch.units]);
-    const rod = batch.rows.find(row => row.bomLines.includes(267));
+    const rod = batch.rows.find(row => row.bomLines.includes(265));
     assert.equal(rod.packages[0].count, { 5: 2, 10: 5, 20: 10 }[batch.units]);
-    const foam = batch.rows.find(row => row.bomLines.includes(202));
+    const foam = batch.rows.find(row => row.bomLines.includes(200));
     assert.equal(foam.packages[0].count, { 5: 5, 10: 11, 20: 23 }[batch.units]);
-    const keystones = batch.rows.find(row => row.bomLines.includes(226));
+    const keystones = batch.rows.find(row => row.bomLines.includes(224));
     assert.equal(keystones.quantity, batch.units === 20 ? 10 : 0);
     const red = batch.rows.find(row => row.bomLines.includes(79));
     assert.equal(red.required, batch.units * 2.5);
     assert.equal(red.quantity, 0);
-    assert.equal(batch.rows.find(row => row.bomLines.includes(92)).costCents, 1340 * batch.units);
+    assert.equal(batch.rows.find(row => row.bomLines.includes(90)).costCents, 1340 * batch.units);
   }
 });
 
@@ -141,7 +141,7 @@ test("current stock changes the actual PCB, filament and pending-order purchase 
   assert.equal(row(twenty, "B0DFYKBQ2S").quantity, 50);
   assert.equal(ten.suppliers.find(supplier => supplier.id === "lcsc").shippingCents, 0);
   assert.equal(twenty.suppliers.find(supplier => supplier.id === "lcsc").shippingCents, 4000);
-  assert.equal(ten.pendingCents, 15563);
+  assert.equal(ten.pendingCents, 23126);
   assert.equal(twenty.pendingCents, ten.pendingCents, "same opening orders, not doubled for twenty");
   assert.equal(row(ten, "16awg-kit").packages[0].count, 2);
   assert.equal(row(twenty, "16awg-kit").packages[0].count, 4);
@@ -168,22 +168,22 @@ test("five machines use opening stock and whole packs, with small-order reserves
   }
   assert.equal(five.suppliers.find(supplier => supplier.id === "bambu").shippingCents, 1000);
   assert.equal(five.pendingCents, ten.pendingCents, "same existing-order reserve, not half the ten-machine balance");
-  assert.equal(five.partsCents, 358663);
-  assert.equal(five.inboundCents, 3500);
-  assert.equal(five.taxCents, 24039);
+  assert.equal(five.partsCents, 365047);
+  assert.equal(five.inboundCents, 6000);
+  assert.equal(five.taxCents, 24683);
   assert.equal(five.allowances.find(allowance => allowance.id === "shop").costCents, 12500);
-  assert.equal(five.cashCents, 474265);
+  assert.equal(five.cashCents, 491356);
   assert.equal(five.laborHours, 51.25);
   assert.equal(five.laborCents, 512500);
-  assert.equal(five.totalCents, 986765);
+  assert.equal(five.totalCents, 1003856);
   assert.ok(five.cashCents < ten.cashCents / 2, "inventory makes this a separate calculation");
-  assert.equal(ten.cashCents, 1156174);
-  assert.equal(twenty.cashCents, 2792377);
+  assert.equal(ten.cashCents, 1184145);
+  assert.equal(twenty.cashCents, 2835963);
   const html = renderBatchForecast(forecast);
   assert.match(html, /value="5" checked/);
   assert.match(html, /data-units="5" open/);
   assert.match(html, /<th scope="col">5 machines<\/th>/);
-  assert.match(html, /\$4,742.65/);
+  assert.match(html, /\$4,913.56/);
 });
 
 test("delivered historical invoices are not taxed twice; paid labor remains separate", () => {
