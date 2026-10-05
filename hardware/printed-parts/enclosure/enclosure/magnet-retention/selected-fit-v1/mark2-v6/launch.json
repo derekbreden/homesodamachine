@@ -62,5 +62,37 @@
     "Flow dynamic calibration": "Auto",
     "Nozzle Offset Calibration": "Auto"
   },
-  "start_reported_at_utc": "2026-10-05T09:48:32.074332+00:00"
+  "start_reported_at_utc": "2026-10-05T09:48:32.074332+00:00",
+  "initial_print_progress_recorded": true,
+  "first_layer_progress_recorded": true,
+  "initial_print_progress_observed_at_utc": "2026-10-05T09:59:36.339151+00:00",
+  "initial_print_progress": {
+    "observed_at_utc": "2026-10-05T09:59:36.339151+00:00",
+    "observed_at_local": "2026-10-05T04:59:36.339151-05:00",
+    "event": "first_layer_in_progress",
+    "task_id": "1310615503",
+    "job_id": "1310615503",
+    "archive_name": "2026-10-05-pump-cradle-c3-mark2-v6.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 1,
+    "total_layer_num": 980,
+    "mc_percent": 1,
+    "mc_remaining_time": 587,
+    "stg_cur": 0,
+    "print_error": 0,
+    "hms": [],
+    "left_nozzle": {
+      "actual_c": 265,
+      "target_c": 265
+    },
+    "bed": {
+      "actual_c": 80.0,
+      "target_c": 80.0
+    },
+    "chamber": {
+      "actual_c": 34,
+      "target_c": 0
+    },
+    "scope": "Matching-task telemetry confirms progression into the first print layer. It does not establish completion of that layer, visual adhesion, fit, magnet seating, roof quality, density or strength."
+  }
 }
