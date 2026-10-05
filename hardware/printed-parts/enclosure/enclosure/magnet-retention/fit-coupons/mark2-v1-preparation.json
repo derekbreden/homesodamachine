@@ -1,0 +1,1056 @@
+{
+  "project": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/mark2-v1.3mf",
+  "settings_source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/v4/pump-cartridge-cap-pause.3mf",
+  "settings_source_sha256": "1fcd2933cfd4db0bf9e1f3e010d0944e37b8ed68f390ca06ba792e4010ae5d96",
+  "settings_sha256": "6b3504b4898b5f579cd6970c335955cf204c56fc935fe6d9fd137ddc23fd7651",
+  "source_settings_sha256": "678ddc7b0329343ed9658d09695f01e1b803ea7e4ec37254dcd383c5ead5e408",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 Standard +0.04 Z trim",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    }
+  },
+  "printer": "Mark2",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 15,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "rc62-pocket-a1",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-a1.stl",
+      "stl_sha256": "191657b4afa4828665b966f58e0c514ff243a91a8273dc859cea5f2e52bd3db8",
+      "triangles": 1120,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -0.875,
+        10.0600004196167
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        98.5,
+        125.5,
+        10.0600004196167
+      ],
+      "plate_translation_mm": [
+        98.5,
+        125.5,
+        10.0600004196167
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          85.82499980926514,
+          118.17500019073486,
+          0.0
+        ],
+        [
+          111.17500019073486,
+          132.82499980926514,
+          20.1200008392334
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    },
+    {
+      "name": "rc62-pocket-a2",
+      "plate": 1,
+      "object_id": "4",
+      "part_id": "3",
+      "member": "3D/Objects/object_2.model",
+      "identify_id": 1902,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-a2.stl",
+      "stl_sha256": "57d8df2108c36993714263e4ec5d347e4c75af1f29c30929ed98c76bbabc34a6",
+      "triangles": 6174,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -0.9499998092651367,
+        10.0600004196167
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        130.5,
+        125.5,
+        10.0600004196167
+      ],
+      "plate_translation_mm": [
+        130.5,
+        125.5,
+        10.0600004196167
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          117.82499980926514,
+          118.25,
+          0.0
+        ],
+        [
+          143.17500019073486,
+          132.75,
+          20.1200008392334
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    },
+    {
+      "name": "rc62-pocket-a3",
+      "plate": 1,
+      "object_id": "6",
+      "part_id": "5",
+      "member": "3D/Objects/object_3.model",
+      "identify_id": 1903,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-a3.stl",
+      "stl_sha256": "98e27d41d35c81b6710aed64cf85e43cc4d162297744da481e69a70ebbc5c22c",
+      "triangles": 13692,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -1.0124998092651367,
+        10.0600004196167
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        162.5,
+        125.5,
+        10.0600004196167
+      ],
+      "plate_translation_mm": [
+        162.5,
+        125.5,
+        10.0600004196167
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          149.82499980926514,
+          118.3125,
+          0.0
+        ],
+        [
+          175.17500019073486,
+          132.6875,
+          20.1200008392334
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    },
+    {
+      "name": "rc62-pocket-a4",
+      "plate": 1,
+      "object_id": "8",
+      "part_id": "7",
+      "member": "3D/Objects/object_4.model",
+      "identify_id": 1904,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-a4.stl",
+      "stl_sha256": "a4fc21f527d148e9df03c035e4ccc58db9689f62120ba777587e4156083fdf54",
+      "triangles": 636,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -1.0749998092651367,
+        10.0600004196167
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        194.5,
+        125.5,
+        10.0600004196167
+      ],
+      "plate_translation_mm": [
+        194.5,
+        125.5,
+        10.0600004196167
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          181.82499980926514,
+          118.375,
+          0.0
+        ],
+        [
+          207.17500019073486,
+          132.625,
+          20.1200008392334
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    },
+    {
+      "name": "rc62-pocket-b1",
+      "plate": 1,
+      "object_id": "10",
+      "part_id": "9",
+      "member": "3D/Objects/object_5.model",
+      "identify_id": 1905,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-b1.stl",
+      "stl_sha256": "79cf207a6191fa0a560f6d22e95ba9d692fbcf4de16b6dd672243644ac9d4347",
+      "triangles": 9804,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -0.875,
+        10.0600004196167
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        226.5,
+        125.5,
+        10.0600004196167
+      ],
+      "plate_translation_mm": [
+        226.5,
+        125.5,
+        10.0600004196167
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          213.92500019073486,
+          118.17500019073486,
+          0.0
+        ],
+        [
+          239.07499980926514,
+          132.82499980926514,
+          20.1200008392334
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    },
+    {
+      "name": "rc62-pocket-b2",
+      "plate": 1,
+      "object_id": "12",
+      "part_id": "11",
+      "member": "3D/Objects/object_6.model",
+      "identify_id": 1906,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-b2.stl",
+      "stl_sha256": "8ae80e0313d64f7eeb7b4ce6aa50167f6213355eaf47769b0eb1a70ab77bd997",
+      "triangles": 14918,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -0.9499998092651367,
+        10.0600004196167
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        98.5,
+        148.5,
+        10.0600004196167
+      ],
+      "plate_translation_mm": [
+        98.5,
+        148.5,
+        10.0600004196167
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          85.92500019073486,
+          141.25,
+          0.0
+        ],
+        [
+          111.07499980926514,
+          155.75,
+          20.1200008392334
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    },
+    {
+      "name": "rc62-pocket-b3",
+      "plate": 1,
+      "object_id": "14",
+      "part_id": "13",
+      "member": "3D/Objects/object_7.model",
+      "identify_id": 1907,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-b3.stl",
+      "stl_sha256": "845c2c3c82e0445335da61e0525e0e70be9b15ce429af778ef573d33b60b655e",
+      "triangles": 22494,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -1.0124998092651367,
+        10.0600004196167
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        130.5,
+        148.5,
+        10.0600004196167
+      ],
+      "plate_translation_mm": [
+        130.5,
+        148.5,
+        10.0600004196167
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          117.92500019073486,
+          141.3125,
+          0.0
+        ],
+        [
+          143.07499980926514,
+          155.6875,
+          20.1200008392334
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    },
+    {
+      "name": "rc62-pocket-b4",
+      "plate": 1,
+      "object_id": "16",
+      "part_id": "15",
+      "member": "3D/Objects/object_8.model",
+      "identify_id": 1908,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-b4.stl",
+      "stl_sha256": "6daff650b1c54249572c9512f4ce698e104919df7f971c389218204f9444721c",
+      "triangles": 9364,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -1.0749998092651367,
+        10.0600004196167
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        162.5,
+        148.5,
+        10.0600004196167
+      ],
+      "plate_translation_mm": [
+        162.5,
+        148.5,
+        10.0600004196167
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          149.92500019073486,
+          141.375,
+          0.0
+        ],
+        [
+          175.07499980926514,
+          155.625,
+          20.1200008392334
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    },
+    {
+      "name": "rc62-pocket-c1",
+      "plate": 1,
+      "object_id": "18",
+      "part_id": "17",
+      "member": "3D/Objects/object_9.model",
+      "identify_id": 1909,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-c1.stl",
+      "stl_sha256": "fc0e3a6f2ee89bd39bd1b692de6442393b54a5dc5a258313696d60357c1b6adf",
+      "triangles": 7200,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -0.875,
+        10.0600004196167
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        194.5,
+        148.5,
+        10.0600004196167
+      ],
+      "plate_translation_mm": [
+        194.5,
+        148.5,
+        10.0600004196167
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          181.97500038146973,
+          141.17500019073486,
+          0.0
+        ],
+        [
+          207.02499961853027,
+          155.82499980926514,
+          20.1200008392334
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    },
+    {
+      "name": "rc62-pocket-c2",
+      "plate": 1,
+      "object_id": "20",
+      "part_id": "19",
+      "member": "3D/Objects/object_10.model",
+      "identify_id": 1910,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-c2.stl",
+      "stl_sha256": "471e9b95555cea8ddee029096170e7b120d1c8c96afb1b361d52ec35c5d1f7c0",
+      "triangles": 12298,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -0.9499998092651367,
+        10.0600004196167
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        226.5,
+        148.5,
+        10.0600004196167
+      ],
+      "plate_translation_mm": [
+        226.5,
+        148.5,
+        10.0600004196167
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          213.97500038146973,
+          141.25,
+          0.0
+        ],
+        [
+          239.02499961853027,
+          155.75,
+          20.1200008392334
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    },
+    {
+      "name": "rc62-pocket-c3",
+      "plate": 1,
+      "object_id": "22",
+      "part_id": "21",
+      "member": "3D/Objects/object_11.model",
+      "identify_id": 1911,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-c3.stl",
+      "stl_sha256": "11a96301b6b47d375dbc7d31eaef39b89c10013568cd8dc9f71bf8c5cd8ca80d",
+      "triangles": 19812,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -1.0124998092651367,
+        10.0600004196167
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        98.5,
+        171.5,
+        10.0600004196167
+      ],
+      "plate_translation_mm": [
+        98.5,
+        171.5,
+        10.0600004196167
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          85.97500038146973,
+          164.3125,
+          0.0
+        ],
+        [
+          111.02499961853027,
+          178.6875,
+          20.1200008392334
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    },
+    {
+      "name": "rc62-pocket-c4",
+      "plate": 1,
+      "object_id": "24",
+      "part_id": "23",
+      "member": "3D/Objects/object_12.model",
+      "identify_id": 1912,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-c4.stl",
+      "stl_sha256": "9b82102bc9fcfc8ab6af76c6602bd8134119721f002a74f0e63f64f97169b23c",
+      "triangles": 6706,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -1.0749998092651367,
+        10.0600004196167
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        130.5,
+        171.5,
+        10.0600004196167
+      ],
+      "plate_translation_mm": [
+        130.5,
+        171.5,
+        10.0600004196167
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          117.97500038146973,
+          164.375,
+          0.0
+        ],
+        [
+          143.02499961853027,
+          178.625,
+          20.1200008392334
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    },
+    {
+      "name": "rc62-pocket-d1",
+      "plate": 1,
+      "object_id": "26",
+      "part_id": "25",
+      "member": "3D/Objects/object_13.model",
+      "identify_id": 1913,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-d1.stl",
+      "stl_sha256": "a0787ae86bd3e8b9226e17582e2fe510020e94b066dac657504c1efd7a8423bb",
+      "triangles": 3912,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -0.875,
+        10.0600004196167
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        162.5,
+        171.5,
+        10.0600004196167
+      ],
+      "plate_translation_mm": [
+        162.5,
+        171.5,
+        10.0600004196167
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          150.02499961853027,
+          164.17500019073486,
+          0.0
+        ],
+        [
+          174.97500038146973,
+          178.82499980926514,
+          20.1200008392334
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    },
+    {
+      "name": "rc62-pocket-d2",
+      "plate": 1,
+      "object_id": "28",
+      "part_id": "27",
+      "member": "3D/Objects/object_14.model",
+      "identify_id": 1914,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-d2.stl",
+      "stl_sha256": "d8039c36ad66932171ba0944683eee049867265c7a886a4a129689eed256bfa1",
+      "triangles": 9062,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -0.9499998092651367,
+        10.0600004196167
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        194.5,
+        171.5,
+        10.0600004196167
+      ],
+      "plate_translation_mm": [
+        194.5,
+        171.5,
+        10.0600004196167
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          182.02499961853027,
+          164.25,
+          0.0
+        ],
+        [
+          206.97500038146973,
+          178.75,
+          20.1200008392334
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    },
+    {
+      "name": "rc62-pocket-d3",
+      "plate": 1,
+      "object_id": "30",
+      "part_id": "29",
+      "member": "3D/Objects/object_15.model",
+      "identify_id": 1915,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-d3.stl",
+      "stl_sha256": "98e5993023803b1ec73e3ae5da5a506bce9a8883ec7e1f028b536af2abb80392",
+      "triangles": 16534,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -1.0124998092651367,
+        10.0600004196167
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        226.5,
+        171.5,
+        10.0600004196167
+      ],
+      "plate_translation_mm": [
+        226.5,
+        171.5,
+        10.0600004196167
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          214.02499961853027,
+          164.3125,
+          0.0
+        ],
+        [
+          238.97500038146973,
+          178.6875,
+          20.1200008392334
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    },
+    {
+      "name": "rc62-pocket-d4",
+      "plate": 1,
+      "object_id": "32",
+      "part_id": "31",
+      "member": "3D/Objects/object_16.model",
+      "identify_id": 1916,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-d4.stl",
+      "stl_sha256": "d233a2d0ed5d8664d92ff58771dc027cf1914f4041f12eea2498febb0cc4c756",
+      "triangles": 3446,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -1.0749998092651367,
+        10.0600004196167
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        98.5,
+        194.5,
+        10.0600004196167
+      ],
+      "plate_translation_mm": [
+        98.5,
+        194.5,
+        10.0600004196167
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          86.02499961853027,
+          187.375,
+          0.0
+        ],
+        [
+          110.97500038146973,
+          201.625,
+          20.1200008392334
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    },
+    {
+      "name": "rc62-pocket-c0",
+      "plate": 1,
+      "object_id": "34",
+      "part_id": "33",
+      "member": "3D/Objects/object_17.model",
+      "identify_id": 1917,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-c0.stl",
+      "stl_sha256": "bab4710828206eef7a5f9de4495cc9adc6d5b866eeefc18839ae892912d3f614",
+      "triangles": 15270,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -0.8125,
+        10.0600004196167
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        130.5,
+        194.5,
+        10.0600004196167
+      ],
+      "plate_translation_mm": [
+        130.5,
+        194.5,
+        10.0600004196167
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          117.77499961853027,
+          187.11250019073486,
+          0.0
+        ],
+        [
+          143.22500038146973,
+          201.88749980926514,
+          20.1200008392334
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    }
+  ],
+  "project_sha256": "e2e25583edf935745a27d91652658c62a8fe79f5118f9813fd84b9a0c9cdde0f",
+  "settings_preserved_byte_for_byte": false,
+  "revision": 1,
+  "submitted": false,
+  "pause_count": 0,
+  "included_labels": [
+    "A1",
+    "A2",
+    "A3",
+    "A4",
+    "B1",
+    "B2",
+    "B3",
+    "B4",
+    "C1",
+    "C2",
+    "C3",
+    "C4",
+    "D1",
+    "D2",
+    "D3",
+    "D4",
+    "C0"
+  ],
+  "fit_geometry_record_sha256": "a42224fad6b23fe08d9d72e9a779e6a3bee2313b85d9735df85bd4855826fda7",
+  "settings_changes_for_open_coupons": {
+    "enable_support": "0",
+    "brim_type": "no_brim",
+    "filament_colour": [
+      "#161616"
+    ]
+  },
+  "expected_left_external_spool": {
+    "slot": 254,
+    "type": "PET-CF",
+    "profile": "GFT01",
+    "colour": "161616"
+  },
+  "requested_z_trim_mm": 0.04,
+  "nozzle": "fixed left hardened standard-flow 0.4 mm",
+  "native_archive": ".cache/prints/rc62-pocket-fit-mark2-v1/rc62-pocket-fit-mark2-v1.gcode.3mf",
+  "native_archive_sha256": "d00e016cfd07f31d5a0992dce8f55a1a0bc5963e705416a31f00d711e0192849",
+  "gcode_sha256": "1d3b4415656864111a78e013232a0f2daff528015548eb3967fdd8aa6bbb4dea",
+  "preparation_script_sha256": "a2d8a070cf5eea13ad14fe088f5e222801b4a6600a15d2ed4ba21ee13f128792"
+}

@@ -1,0 +1,57 @@
+{
+  "schema": 1,
+  "reported_by": "Derek",
+  "reported_date": "2026-10-04",
+  "reported_timezone": "America/Chicago",
+  "recorded_at_utc": "2026-10-05T02:46:54.756246+00:00",
+  "part": "pump-cartridge lower cradle",
+  "printer": "Mark2",
+  "printer_task_id": "1307633211",
+  "printer_job_id": "1307633211",
+  "archive_name": "enclosure-pump-cartridge-cap-rc62-mark2-v4.gcode.3mf",
+  "native_archive_sha256": "562d743bff86768011c2986764c0dc0165a8f119fc7d5a8bfbcddb95f3ba4e82",
+  "gcode_sha256": "3cd2155201e864a2eed2a89e65d3acd310f49bbf00a868dcda83698f8c486706",
+  "user_observation_quote": "On the pump cartridge, we have moderate success where the magent is sealed in, but it rattles, and also the very first layer on top of the magnet got a bit wonky.",
+  "user_hypothesis_quote": "I think in this case, the cause of both is that the magnet was not gripped tightly enough in the X axis or Y axis, that it was too easy to \"drop the magnet in\" instead of \"push the magnet in\" as had happened with the aero that worked even better.",
+  "test_request_quote": "I'd like you to give me some test prints for finding the right friction fit for a pocket for a magnet. We don't need paused prints or large prints, just some small samples in sufficient size in the right orientation that I can try pressing magnents into them and tell you which I like best.",
+  "magnet_sealed_in_reported": true,
+  "magnet_rattle_reported": true,
+  "first_over_magnet_layer_quality": "A bit wonky",
+  "physical_grip_accepted": false,
+  "loose_xy_fit_cause_established": false,
+  "fit_trial": "../fit-coupons/README.md",
+  "printer_completion": {
+    "printer": "Mark2",
+    "observed_at": "2026-10-05T02:33:56.945729+00:00",
+    "task_id": "1307633211",
+    "job_id": "1307633211",
+    "subtask_name": "enclosure-pump-cartridge-cap-rc62-mark2-v4.gcode.3mf",
+    "gcode_file": "/data/Metadata/plate_1.gcode",
+    "print_type": "cloud",
+    "gcode_state": "FINISH",
+    "layer_num": 1088,
+    "total_layer_num": 1088,
+    "mc_percent": 100,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": -1,
+    "extruders": {
+      "0": {
+        "actual_c": 39,
+        "target_c": 0
+      },
+      "1": {
+        "actual_c": 34,
+        "target_c": 0
+      }
+    },
+    "bed_actual_c": 33.0,
+    "bed_target_c": 0.0,
+    "chamber": {
+      "actual_c": 30,
+      "target_c": 0
+    }
+  },
+  "scope": "User-reported sealing, rattle and initial roof-layer quality. The proposed X/Y grip cause has not been isolated; open coupons select preferred hand fit without qualifying roof deposition, magnet temperature, strength, assembly retention or lifetime."
+}
