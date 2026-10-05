@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "session": "Printer 2",
-  "state": "both_centered_coupon_jobs_cooling",
+  "state": "mark2_centered_samples_ready_h2c_cooling",
   "recorded_at_utc": "2026-10-05T04:24:50.947892+00:00",
   "timezone": "America/Chicago",
   "authorization_quotes": [
@@ -104,9 +104,9 @@
   "native_reviews_status": "both_plates_pass_all_three_reviews",
   "minimum_measured_full_bead_edge_margin_mm": 86.7,
   "shared_circuit_observed_start_spacing_seconds": 207.541819,
-  "mark2_monitor_active": true,
+  "mark2_monitor_active": false,
   "h2c_monitor_active": true,
-  "monitor_updated_at_utc": "2026-10-05T06:25:42.001338+00:00",
+  "monitor_updated_at_utc": "2026-10-05T07:18:29.304984+00:00",
   "early_layer_milestones": {
     "Mark2": {
       "first_layer_printer_progress": true,
@@ -119,10 +119,12 @@
   },
   "completion_milestones": {
     "Mark2": {
-      "state": "completed_cooling",
+      "state": "completed_cooled",
       "completion_observed_at_utc": "2026-10-05T06:20:44.295130+00:00",
-      "completion_cooled": false,
-      "completion_reported": false
+      "completion_cooled": true,
+      "completion_reported": true,
+      "cooled_observed_at_utc": "2026-10-05T07:16:52.273296+00:00",
+      "completion_reported_at_utc": "2026-10-05T07:18:29.304984+00:00"
     },
     "H2C": {
       "state": "completed_cooling",
