@@ -35,12 +35,12 @@ function renderPart(row, suppliers) {
   </details>`;
 }
 
-function renderGroup({ id, name, rows, note, shippingCents }, batch, kind, maximum, open) {
+function renderGroup({ id, name, rows, note, shippingCents }, batch, kind, maximum, open, includeRows = false) {
   const cents = rows.reduce((sum, row) => sum + row.costCents, 0);
   const buying = rows.filter(row => row.quantity).length;
   return `<details class="forecast-group${kind === "supplier" ? " forecast-supplier" : ""}" data-group-id="${escape(id)}"${open ? " open" : ""}${buying ? "" : " hidden"}>
     <summary><span class="forecast-group-name">${escape(name)}</span><span class="cost-bt" aria-hidden="true"><span class="cost-bf" style="width:${(cents / maximum * 100).toFixed(1)}%"></span></span><span class="forecast-group-cost">${money(cents)}</span><span class="forecast-group-percent">${batch.partsCents ? (cents / batch.partsCents * 100).toFixed(1) : "0.0"}%</span><span class="forecast-marker" aria-hidden="true"></span></summary>
-    <div class="forecast-item-scroll" tabindex="0" role="region" aria-label="${escape(name)} items for ${batch.units} machines"><div class="forecast-group-items">${kind === "supplier" ? rows.map(row => renderPart(row, batch.suppliers)).join("") : ""}</div></div>
+    <div class="forecast-item-scroll" tabindex="0" role="region" aria-label="${escape(name)} items for ${batch.units} machines"><div class="forecast-group-items">${includeRows ? rows.map(row => renderPart(row, batch.suppliers)).join("") : ""}</div></div>
     ${note ? `<details class="forecast-source-note"><summary>Supplier pricing &amp; availability</summary><p>${escape(note)}</p><p>New inbound freight / import reserve: ${money(shippingCents)}${star}.</p></details>` : ""}
   </details>`;
 }
@@ -49,12 +49,16 @@ function renderPurchasePlan(batch) {
   const ranked = [...batch.rows].sort((a, b) => b.costCents - a.costCents || a.name.localeCompare(b.name));
   const suppliers = batch.suppliers.map(supplier => ({ ...supplier, rows: ranked.filter(row => row.supplier === supplier.id) })).sort((a, b) => b.costCents - a.costCents);
   const categoryIds = [...new Set(ranked.map(row => row.category || "supplies"))];
-  const categories = categoryIds.map(id => ({ id, name: categoryName(id), rows: ranked.filter(row => (row.category || "supplies") === id) }));
-  const maximum = Math.max(...suppliers.map(supplier => supplier.costCents), 1);
+  const categories = categoryIds.map(id => {
+    const rows = ranked.filter(row => (row.category || "supplies") === id);
+    return { id, name: categoryName(id), rows, costCents: rows.reduce((sum, row) => sum + row.costCents, 0) };
+  }).sort((a, b) => b.costCents - a.costCents);
+  const maximum = Math.max(...categories.map(category => category.costCents), 1);
+  const supplierMaximum = Math.max(...suppliers.map(supplier => supplier.costCents), 1);
   return `<details class="forecast-plan" data-units="${batch.units}"${batch.units === 10 ? " open" : ""}>
     <summary>First ${batch.units} machines · ${money(batch.partsCents)} in new parts &amp; materials${star}</summary>
-    <div class="forecast-groups" data-group-by="supplier">${suppliers.map((supplier, index) => renderGroup(supplier, batch, "supplier", maximum, index === 0)).join("")}</div>
-    <div class="forecast-groups" data-group-by="category" hidden>${categories.map(category => renderGroup(category, batch, "category", maximum, false)).join("")}</div>
+    <div class="forecast-groups" data-group-by="category">${categories.map((category, index) => renderGroup(category, batch, "category", maximum, index === 0, true)).join("")}</div>
+    <div class="forecast-groups" data-group-by="supplier" hidden>${suppliers.map(supplier => renderGroup(supplier, batch, "supplier", supplierMaximum, false)).join("")}</div>
   </details>`;
 }
 
@@ -77,13 +81,13 @@ export function renderBatchForecast(forecast) {
     <p class="cost-note forecast-intro">Bars and items are ranked by cost. Expand an item for stock and source details. The cash budget and paid labor breakdown are below.</p>
     <div class="forecast-controls" hidden>
       <fieldset class="forecast-units"><legend>Batch</legend><label><input type="radio" name="forecast-units" value="10" checked><span>10 machines</span></label><label><input type="radio" name="forecast-units" value="20"><span>20 machines</span></label></fieldset>
-      <label class="forecast-select">Group by<select id="forecast-group"><option value="supplier">Supplier</option><option value="category">Part category</option></select></label>
+      <label class="forecast-select">Group by<select id="forecast-group"><option value="category">Parts category</option><option value="supplier">Supplier</option></select></label>
       <label class="forecast-select">Supplier<select id="forecast-supplier"><option value="all">All suppliers</option>${data.suppliers.map(supplier => `<option value="${escape(supplier.id)}">${escape(supplier.name)}</option>`).join("")}</select></label>
       <label class="forecast-show-stock"><input type="checkbox" id="forecast-show-stock"> Include parts covered by stock</label>
     </div>
     <p class="forecast-result" role="status" aria-live="polite" hidden></p>
     ${[ten, twenty].map(renderPurchasePlan).join("")}
-    <noscript><style>.forecast-groups[data-group-by="supplier"] .forecast-group[hidden], .forecast-part[hidden] { display: block !important; }</style></noscript>
+    <noscript><style>.forecast-groups[data-group-by="category"] .forecast-group[hidden], .forecast-part[hidden] { display: block !important; }</style></noscript>
     <p class="cost-note forecast-footnote">${star} Estimated stock, pricing or supply. Prices and quantities checked ${date}; availability details are below.</p>
     <details class="forecast-assumptions forecast-budget"><summary>Cash budget, delivery &amp; paid labor</summary>
       <div class="forecast-scroll"><table class="forecast-comparison"><caption class="cost-sr-only">Batch expense forecast</caption><thead><tr><th scope="col">Expense</th><th scope="col">10 machines</th><th scope="col">20 machines</th></tr></thead><tbody>
