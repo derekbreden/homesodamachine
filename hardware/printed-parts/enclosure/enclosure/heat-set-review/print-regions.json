@@ -2,7 +2,7 @@
   "scope": "Local 100% infill modifiers in existing native material; complete insert hosts, blind caps, roots and seam load paths. No load capacity or lifetime qualification.",
   "source_sha256": {
     "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "47bfbdcd3fb501b394616338e8f0c3c82b457e6e6b0e2fad72f288765b8a3f9c",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "020e0ae5ee3dcbe748d5b3ee994ac4975d9d81b8793a1f534a2ad97f7a80595c",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "6b9d93bb8dfccff08b6b831f33c11bc14b445ee7c2b14902720417b4368f9ddf",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "0999d5d2a4e54a546e5d1759ff24611ef988eeed74bbb94bbdbf5af470774356",
     "hardware/manifold-layout/enclosure-box.json": "4879e690f9e139856fddb3c5d918be5792e3eff13b5a26cc627e201df7ad0819"
   },
@@ -12,8 +12,8 @@
       ".stl": "51c521848a0569907e6811869add3afa95062f072f01f2157f52982794ecba64"
     },
     "front-top": {
-      ".step": "cb6f4ced20b8bf1ee719298b3e3c193c67e42ecb3aeaac271ccb79049775e007",
-      ".stl": "cc2cfd8a490b52439d957aa082b0e4369c5602076740494298b3a954f0ba36ba"
+      ".step": "a35f0dc6d127ca234965d67be0385f138e9b00630ad7f117a584ad07a3276aac",
+      ".stl": "b9a902360673a932f4f26b8f58fcec3c3fe4649be43fc3d6caef01ce245842aa"
     },
     "back-bottom": {
       ".step": "cd2aea4170503e5ab0decd929f902b74c6f8e56a7007ed794f216e06dc291a74",

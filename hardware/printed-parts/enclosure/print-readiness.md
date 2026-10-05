@@ -82,7 +82,8 @@ is rejected: top-rim support removal is nearly impossible, supported 0.08 mm
 material has extreme spaghettification, normal snug and tree supports are
 fused into masses too large for their cavities, and one embedded tee-carrier
 window-cover holder broke. The [front-only flush sliding funnel frame](../zone-c/funnel/flush-roof-review/README.md)
-removes the fixed inward roof ledge and passes native bearing, shell clearance
+has a flat display backing and complete 9 mm roof flanks, removes the fixed inward
+roof ledge and passes native bearing, shell clearance
 and insertion checks against the retained back-top. Its physical result is pending. Printed
 receiver/rail fit, loom retention, load capacity and lifetime remain unqualified.
 

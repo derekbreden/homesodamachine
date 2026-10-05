@@ -421,14 +421,13 @@ display_pcb_x = 106.0 + 2.0 * fits.slip   # PCB body through-hole, lateral (X)
 display_pcb_slope = 69.0 + 2.0 * fits.slip  # PCB body through-hole, up the display slope
 display_pcb_cut_through = display_bezel_depth + 17.0 + 1.0 - display_facet_thickness
 # The 17 mm module starts at the glass back. Keep 1 mm behind its rear envelope.
-# _ridge_aft_start retains a full wall below the extended opening.
+# The flat display backing retains at least one wall behind the opening.
 # THAT HOLE LEAVES A RIDGE, AND THE RIDGE IS CARRIED. Where the hole's up-slope end wall breaks
 # out of the slab's back the two planes meet in a line `display_pcb_x` long, and BOTH face down
 # off it — the bottom vertex of a wedge, inside a closed cavity, which is the one line on this
-# piece a nozzle would have to lay in air. `_ridge_wall` stands under it, `pcb_ridge` is where,
-# and `ridge-carried` is the reading. Its section is the thickness of a rib and nothing more:
-# what it carries is one bead's start, not a load.
-ridge_wall_t = 3.0               # the rib under `pcb_ridge`, measured across it
+# piece a nozzle would have to lay in air. `_ridge_wall` carries that opening in
+# solid stock rooted on the bay lintel, with one flat cavity-facing plane.
+ridge_wall_t = 3.0               # minimum backing behind the display pocket
 # THE RIB RUNS WALL TO WALL, so the loom that crosses it is bored through it. SIG-7 is the
 # enclosure display's own run — four 22 AWG in ONE flat ribbon, in the 1/2" PET expandable braid
 # `ledger/bom.md` §11 buys (`assembly/cable-assemblies.md`). AN EXPANDABLE BRAID OPENS OVER WHAT
@@ -3310,7 +3309,7 @@ def display_storey_cavities(box):
             _yz_prism(o.x + flex, outer[1] - side, section)]
 
 
-def _shell_with_facet(inner, outer, fill=None):
+def _shell_with_facet(inner, outer, fill=None, housing_back=None):
     """The curved exterior and display housing around the cavity, and `fill` (`housing_fill`)
     kept out of the cavity as well."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
@@ -3326,7 +3325,7 @@ def _shell_with_facet(inner, outer, fill=None):
                    origin[2] - display_facet_thickness * normal[2])
     keepout = _halfspace(back_origin, normal, extent).intersect(
         _ybox(ox0 - extent, ox1 + extent,
-              oy0 - extent, housing_back_y(outer),
+              oy0 - extent, housing_back_y(outer) if housing_back is None else housing_back,
               oz0 - extent, oz1 + extent))
     inner_clipped = inner_box.cut(keepout)
     if fill is not None:
@@ -5915,77 +5914,46 @@ def _tee_wall(inner, y_joint, plate, bay):
 
 
 def _ridge_wall(inner, outer, plate, bay, funnel):
-    """A wall-width rib joins the bay bulkhead to the display housing and funnel seat.
+    """Solid display backing with one flat cavity face rooted on the bay lintel.
 
-    Its straight lower section carries the machine-display loom passage and the fixed
-    pump-lead clip. The crown follows a 45° rise to the display pocket;
-    the aft face continues to the underside of the funnel bearing. Display and
-    retention-pocket cuts pass through the completed rib. Its cavity-facing roof
-    can take slicer support through the open display and funnel apertures.
+    The slipped frame front and this wall share one vertical plane. Display
+    pockets cut only the fore side; the loom passes through the full wall and
+    its retaining clip stands on the accessible cavity face.
     """
-    ry, rz = pcb_ridge(outer)
-    fore, foot, t = plate["aft_y"], bay[2], ridge_wall_t
-    jog, aft_crown = _ridge_join(outer, fore)
-    funnel_front = _funnel_cut_plan(funnel)[2]
-    housing_back = housing_back_y(outer)
-    ceiling = funnel_seat_z(outer) - funnel_seat_thickness
-    aft_start = (fore + t, _ridge_aft_start(outer, fore + t, foot, aft_crown[1],
-                                            (funnel_front, ceiling)))
-    slab = _yz_prism(
-        inner[0], inner[1],
-        [(fore, foot),                                          # the bay's back, on the crown
-         (fore, jog),                                           # where it meets the end wall
-         (ry, rz),                                              # the ridge
-         (housing_back, ceiling),                               # closes into the housing
-         (funnel_front, ceiling),                               # the opening's front underside
-         aft_start,                                             # the one roof's aft foot
-         (fore + t, foot)])
+    fore, foot = plate["aft_y"], bay[2]
+    face = _funnel_frame_part.roof_datums(
+        inner, funnel, funnel_seat_z(outer), y_seam)['front'] - slide_slip
+    t = face - fore
+    # The tee bulkhead ends just before the wall's cavity face. Grow that
+    # 1.37 mm over a 45-degree foot, then carry one plane to the roof.
+    root = min(face, plate["wall_aft_y"])
+    rise = face - root
+    slab = _yz_prism(inner[0], inner[1], [
+        (fore, foot), (root, foot), (face, foot + rise),
+        (face, outer[5]), (fore, outer[5])])
+    slab = slab.intersect(_rounded_outer(outer))
     loom = _ridge_loom_station(outer, plate, bay)
     slab = slab.cut(_teardrop_y(cable_bore_dia / 2.0, loom[0], loom[2],
-                                fore - 1.0, fore + t + 1.0))
+                                fore - 1.0, face + 1.0))
 
-    clip_end = inner[1] - pump_lead_clip_edge_land
+    clip_end = front_top_flank_face()[1] - pump_lead_clip_edge_land
     clip_start = clip_end - _cable_clip.RUN
     # The seat follows the loom's height while keeping a full wall thickness below
     # the ridge crown. The lead reaches down into the seat where the crown sets its height.
-    clip_z = min(loom[2] - _cable_clip.seat_top(),
-                 aft_crown[1] - wall - _cable_clip.HEIGHT)
+    clip_z = max(foot + rise, loom[2] - _cable_clip.seat_top())
+    assert clip_z + _cable_clip.seat_top() - _cable_clip.seat_height() <= loom[2]
+    assert loom[2] <= clip_z + _cable_clip.seat_top()
     slab = _cable_clip.apply(
         slab,
-        origin=(clip_start, fore + t, clip_z),
+        origin=(clip_start, face, clip_z),
         outward=(0.0, 1.0, 0.0),
         along=(1.0, 0.0, 0.0),
         embed=0.0,
         wall_thickness=t,
     ).val()
-    # THE CLIP'S LOWER JAW STANDS ON THE TEE WALL'S CROWN: one block from the crown up into the
-    # jaw, over the clip's run and back to the tee wall's aft face.
-    return slab.fuse(_ybox(clip_start, clip_end, fore + t, plate["wall_aft_y"],
-                           foot, clip_z + _cable_clip.DEPTH))
-
-
-def _ridge_aft_start(outer, y0, foot, crown, end):
-    """The Z at `y0` where the rib's aft face leaves the vertical for its straight run to `end`
-    (the funnel opening's front underside): `crown`, or lower by as much as keeps one
-    `ridge_wall_t` of rib between that run and the up-slope corner of the display's PCB hole,
-    which `display_pcb_cut_through` carries past the housing's back."""
-    p = display_plane(outer)
-    corner = (p.origin + p.yDir * (display_body_offset_slope + display_pcb_slope / 2.0)
-              - p.zDir * (display_facet_thickness + display_pcb_cut_through))
-
-    def cover(z0):
-        dy, dz = end[0] - y0, end[1] - z0
-        return ((corner.z - z0) * dy - (corner.y - y0) * dz) / math.hypot(dy, dz)
-
-    if cover(crown) >= ridge_wall_t:
-        return crown
-    lo, hi = foot, crown
-    if cover(lo) < ridge_wall_t:
-        raise ValueError("the rib's aft face cannot keep a wall under the PCB hole's corner")
-    for _ in range(60):
-        mid = (lo + hi) / 2.0
-        lo, hi = (mid, hi) if cover(mid) >= ridge_wall_t else (lo, mid)
-    return lo
+    # Its lower arm grows at 45 degrees from the completed flat wall, above
+    # the short wall-foot transition. Both channel entrances remain open.
+    return slab
 
 
 def _flank_cable_clips(piece, box):
@@ -5999,13 +5967,17 @@ def _flank_cable_clips(piece, box):
     fx = front_top_flank_face()[1]
     z_origin = flank_clip_floor_z
     z_band = (z_origin, z_origin + _cable_clip.HEIGHT)
-    corner = plate["aft_y"] + ridge_wall_t + _cable_clip.DEPTH
+    wall_face = _funnel_frame_part.roof_datums(
+        box.inner, box.pack.funnel, funnel_seat_z(box.outer), box.y_joint)['front'] - slide_slip
+    corner = wall_face + _cable_clip.DEPTH
+    ridge_end = fx - pump_lead_clip_edge_land
+    ridge_reaches_flank = ridge_end > fx - _cable_clip.DEPTH
     towers = [(st[1] - wago_half(st[3])[0], st[1] + wago_half(st[3])[0],
                st[2] - wago_half(st[3])[1], st[2] + wago_half(st[3])[1])
               for st in box.pack.side_wells if st[0] > 0]
     for y0, run in flank_clip_stations:
         y1 = y0 + run
-        if y0 < corner - 1e-9:
+        if ridge_reaches_flank and y0 < corner - 1e-9:
             raise ValueError(
                 f"a flank cable clip at y {y0:.2f} stands in the ridge clip's own body, which "
                 f"ends at {corner:.2f} — the corner turn has nowhere to happen")
@@ -6398,7 +6370,11 @@ def build_pump_cap(box, halves_cache=None):
 def build_front_half(box):
     """The whole front column, both pieces still joined at its Z seam."""
     inner, outer, y_joint = box.inner, box.outer, box.y_joint
-    shell = _shell_with_facet(inner, outer, housing_fill(box)).val()
+    housing_back = None
+    if box.pump_bay and box.pack.collet_plate and box.pack.funnel:
+        housing_back = _funnel_frame_part.roof_datums(
+            inner, box.pack.funnel, funnel_seat_z(outer), y_joint)['front'] - slide_slip
+    shell = _shell_with_facet(inner, outer, housing_fill(box), housing_back).val()
     front = shell.intersect(_ybox(outer[0], outer[1], outer[2], y_joint, outer[4], outer[5]))
     # The fixed front wall's refrigeration reliefs, out of the section before anything stands
     # on it. The pump storey is the removable cartridge's complete full-width opening; its
@@ -9298,21 +9274,12 @@ def _report_bay_sill(front_top, box):
 
 
 def _report_ridge_roof(half, box):
-    """The supporting roof is planar, the finished solid valid and funnel air clear.
-
-    Display and skirt pockets can interrupt the roof across its width.
-    """
+    """The display backing has one broad flat face and clears the funnel."""
     if not (box.pump_bay and box.pack.collet_plate and box.pack.funnel):
         return
     inner, outer = box.inner, box.outer
-    ry, rz = pcb_ridge(outer)
-    fore, t = box.pack.collet_plate["aft_y"], ridge_wall_t
-    _jog, aft_crown = _ridge_join(outer, fore)
-    hx0, hx1, opening_y, _hy1 = _funnel_cut_plan(box.pack.funnel)
-    opening = cq.Vector(0.0, opening_y, funnel_seat_z(outer) - funnel_seat_thickness)
-    crown = cq.Vector(0.0, fore + t, _ridge_aft_start(outer, fore + t, box.pump_bay[2],
-                                                      aft_crown[1], (opening.y, opening.z)))
-    roof_normal = cq.Vector(0.0, opening.z - crown.z, crown.y - opening.y).normalized()
+    wall_y = _funnel_frame_part.roof_datums(
+        inner, box.pack.funnel, funnel_seat_z(outer), box.y_joint)['front'] - slide_slip
     tol = 1e-4
 
     roof_faces = []
@@ -9320,8 +9287,8 @@ def _report_ridge_roof(half, box):
         if face.geomType() != "PLANE":
             continue
         normal = face.normalAt()
-        if (abs(abs(normal.dot(roof_normal)) - 1.0) <= tol
-                and abs((face.Center() - crown).dot(roof_normal)) <= tol):
+        if (normal.y >= 1.0 - tol
+                and abs(face.Center().y - wall_y) <= tol):
             roof_faces.append(face)
 
     grown = front_top_flank_t - wall
@@ -9329,15 +9296,62 @@ def _report_ridge_roof(half, box):
 
     funnel_foul = half.val().intersect(
         _funnel_keepout(outer, box.pack.funnel)).Volume()
-    whole = (len(roof_faces) >= 1 and half.val().isValid()
-             and funnel_foul <= stated_bound_tol)
+    p = display_plane(outer)
+    corner = (p.origin + p.yDir * (display_body_offset_slope + display_pcb_slope / 2.0)
+              - p.zDir * (display_facet_thickness + display_pcb_cut_through))
+    backing = wall_y - corner.y
+    foot = box.pump_bay[2]
+    flat_root = foot + wall_y - box.pack.collet_plate['wall_aft_y']
+    loom = _ridge_loom_station(outer, box.pack.collet_plate, box.pump_bay)
+    clip_end = lower_x1 - pump_lead_clip_edge_land
+    clip_z = max(flat_root, loom[2] - _cable_clip.seat_top())
+    additions, channels = [], []
+    def clip_geometry(origin, outward, along, embed, thickness, run):
+        add, cut = _cable_clip.local_geometry(
+            embed=embed, wall_thickness=thickness, run=run)
+        location = cq.Location(cq.Plane(origin=origin, xDir=outward, normal=along))
+        if add is not None:
+            additions.append(add.moved(location))
+        channels.append(cut.moved(location))
+    clip_geometry((clip_end - _cable_clip.RUN, wall_y, clip_z),
+                  (0, 1, 0), (1, 0, 0), 0,
+                  wall_y - box.pack.collet_plate['aft_y'], _cable_clip.RUN)
+    for y0, run in flank_clip_stations:
+        clip_geometry((lower_x1, y0, flank_clip_floor_z),
+                      (-1, 0, 0), (0, 1, 0), flank_clip_embed, front_top_flank_t, run)
+    witness = _rounded_outer(outer).intersect(_ybox(
+        lower_x0, lower_x1, wall_y - .05, wall_y, flat_root, outer[5]))
+    witness = witness.cut(_teardrop_y(cable_bore_dia / 2, loom[0], loom[2],
+                                    wall_y - 1, wall_y + 1))
+    for channel in channels:
+        witness = witness.cut(channel)
+    missing = abs(witness.cut(half.val()).Volume())
+    unexpected_witness = abs(half.val().intersect(_ybox(
+        lower_x0, lower_x1, wall_y - .05, wall_y, flat_root, outer[5])).cut(witness).Volume())
+    air = _ybox(lower_x0, lower_x1, wall_y,
+                wall_y + .05, flat_root, outer[5]).intersect(_rounded_outer(outer))
+    for addition in additions:
+        air = air.cut(addition)
+    extra = abs(air.intersect(half.val()).Volume())
+    largest_area = max((face.Area() for face in roof_faces), default=0.0)
+    whole = (len(roof_faces) == 1 and missing <= stated_bound_tol
+             and unexpected_witness <= stated_bound_tol and extra <= stated_bound_tol
+             and backing >= ridge_wall_t and half.val().isValid() and funnel_foul <= stated_bound_tol)
     if not whole:
         raise ValueError(
-            "the front-top ridge roof is not one clear plane between its stated datums: "
-            f"found {len(roof_faces)} coplanar faces, solid valid={half.val().isValid()}, "
+            "the front-top display backing lacks its broad flat face or required stock: "
+            f"flat faces {len(roof_faces)}, face {largest_area:.1f} mm², backing {backing:.3f} mm, "
+            f"missing witness {missing:.6f} mm³, unexpected witness {unexpected_witness:.6f} mm³, "
+            f"unexpected aft stock {extra:.6f} mm³, "
+            f"solid valid={half.val().isValid()}, "
             f"funnel keepout intersection {funnel_foul:.6f} mm³")
-    print(f"  ridge roof:       {len(roof_faces)} coplanar faces, {lower_x1 - lower_x0:.1f} mm span to "
-          f"{hx1 - hx0:.1f} mm funnel opening, keepout clear")
+    print(f"  front wall:       Y{wall_y:.3f}, {largest_area:.1f} mm² flat face, "
+          f"{backing:.3f} mm display backing, funnel keepout clear")
+    return dict(face_y_mm=wall_y,flat_root_z_mm=flat_root,flat_face_count=len(roof_faces),
+                flat_face_area_mm2=largest_area,minimum_display_backing_mm=backing,
+                missing_flat_wall_witness_mm3=missing,unexpected_aft_stock_mm3=extra,
+                unexpected_flat_wall_witness_mm3=unexpected_witness,
+                witness_thickness_mm=.05,clip_origin_mm=[clip_end-_cable_clip.RUN,wall_y,clip_z])
 
 
 def _report_facet(half, box):

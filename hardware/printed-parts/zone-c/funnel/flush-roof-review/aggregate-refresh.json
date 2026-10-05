@@ -4,9 +4,9 @@
   "source_sha256": "b5529415859adbb44639d9ee48a592f1d2f94b5d4dc1d4e84735afcdc68ce747",
   "aggregates": {
     "hardware/printed-parts/enclosure/enclosure/enclosure.step": {
-      "input_step_sha256": "e0b0e64c3db200958de4768b3713cd56279e4e2e32a5509358fb270c1efb4306",
-      "output_step_sha256": "2019dad30e071a2669a4f9cdad1aa92d4c68f511fefb7735decda0ce6ca926a8",
-      "output_payload_sha256": "3663fd714b4fb9b6be66b309501194d87e8e7b9c3e805676c76dce530ab3ee9f",
+      "input_step_sha256": "2019dad30e071a2669a4f9cdad1aa92d4c68f511fefb7735decda0ce6ca926a8",
+      "output_step_sha256": "c2bf02bfbb4d31907058d79848ad10f0de3a276e5f718dd290907d0c34ff6600",
+      "output_payload_sha256": "1613375a1ef8972a26995894e496e16a6574da39af3b778aa17135b81bcfae71",
       "replaced_members": [
         "enclosure_front_top"
       ],
@@ -81,13 +81,13 @@
           "max_bounds_error_mm": 0.0,
           "topology": [
             1,
-            621,
-            1664,
-            1088
+            605,
+            1643,
+            1082
           ],
           "valid": true,
-          "source_fingerprint": "db2cd6bf57d05f0ce65de62339b5e48fd84e8f5cf9dd93ea29052885fc7efc17",
-          "exported_fingerprint": "db2cd6bf57d05f0ce65de62339b5e48fd84e8f5cf9dd93ea29052885fc7efc17"
+          "source_fingerprint": "fa4f9f902b73a3943477dd5805e49055ef677ccb77ce6c2212209fdb598cc7a6",
+          "exported_fingerprint": "fa4f9f902b73a3943477dd5805e49055ef677ccb77ce6c2212209fdb598cc7a6"
         }
       },
       "native_component_placements": {
@@ -217,9 +217,9 @@
       "all_unrelated_native_names_geometry_placements_colors_and_viewer_arrays_preserved": true
     },
     "hardware/manifold-layout/enclosure-assembly.step": {
-      "input_step_sha256": "6074dc6a542d0ae514f4a30a0d19945d85c9031e774a62cbc548c62defbb929e",
-      "output_step_sha256": "c6a1dd96cb251c7aa2875bfafc3ee93e58099a8e29065e16f4464be19c934fcd",
-      "output_payload_sha256": "28ec50fee1a9553f13e382391d48d91d52a4444b5b3858d77a705a5a728d3847",
+      "input_step_sha256": "c6a1dd96cb251c7aa2875bfafc3ee93e58099a8e29065e16f4464be19c934fcd",
+      "output_step_sha256": "b7644dd6afeb928bca814b60f8bfc1416ab2258be43f0f7a28d67c4c96c521bb",
+      "output_payload_sha256": "ec7cbbb6b28efd927fd9d07c342cd55545bdde9a63a6ac68feb1553af336d755",
       "replaced_members": [
         "enclosure-front-top",
         "funnel-frame"
@@ -271,15 +271,13 @@
           ]
         },
         "valve-v-a": {
-          "geometry_sha256": "999b9cacd134e769e6a9b915145250f70c691120137aa6c1409e7102672b39be",
+          "geometry_sha256": "f3f14fb6ed366b0542f222654c4ef22398253c4da1727abc8e4450998b0dd056",
           "color": [
             0.8480882612794323,
             0.8480882612794323,
             0.8073459372815501,
             1.0
-          ],
-          "serialization_equivalence_mm3": 0.0,
-          "exported_geometry_sha256": "f3f14fb6ed366b0542f222654c4ef22398253c4da1727abc8e4450998b0dd056"
+          ]
         },
         "coil-v-a": {
           "geometry_sha256": "c1390923de5230f4788d95ea055ebe89054338ed3e8e9c619e0bedee793b595c",
@@ -300,15 +298,13 @@
           ]
         },
         "valve-v-c": {
-          "geometry_sha256": "c6fd0d9dadfd032ae8aa4ed1c47c88bdc577ae424a2e80993f3a90124a84af05",
+          "geometry_sha256": "f745a22dac06462ed881ff34be4e76cb96e5f381df4a35f266f33898b6661648",
           "color": [
             0.8480882612794323,
             0.8480882612794323,
             0.8073459372815501,
             1.0
-          ],
-          "serialization_equivalence_mm3": 0.0,
-          "exported_geometry_sha256": "f745a22dac06462ed881ff34be4e76cb96e5f381df4a35f266f33898b6661648"
+          ]
         },
         "coil-v-c": {
           "geometry_sha256": "7af1fb2521305b6dd0562be544a4568d645701992efb46d86ebabffc433e4207",
@@ -329,15 +325,13 @@
           ]
         },
         "valve-v-e": {
-          "geometry_sha256": "cc7c60385321a36f5da1b3c65dbe3ae1ccc316180ea3c2d4dc02a0709ee86f00",
+          "geometry_sha256": "d15d322fda808ee619292a469998c315cd103adeb330d2b0aa225ffb9556b981",
           "color": [
             0.8480882612794323,
             0.8480882612794323,
             0.8073459372815501,
             1.0
-          ],
-          "serialization_equivalence_mm3": 0.0,
-          "exported_geometry_sha256": "d15d322fda808ee619292a469998c315cd103adeb330d2b0aa225ffb9556b981"
+          ]
         },
         "coil-v-e": {
           "geometry_sha256": "2b723e84acdbf5b0186040e3de51ed2f446a298148161df25b8287fdd6046a89",
@@ -349,15 +343,13 @@
           ]
         },
         "valve-v-g": {
-          "geometry_sha256": "a85109237fd073940dd4387a3fd89ffeb2d9cbcc80a1a7ee53b3d29c4724ed1b",
+          "geometry_sha256": "5191d0e4f0dfbc333db14ae7e8ca7f8a767a1904266a016bb1bb7504a7e277b9",
           "color": [
             0.8480882612794323,
             0.8480882612794323,
             0.8073459372815501,
             1.0
-          ],
-          "serialization_equivalence_mm3": 0.0,
-          "exported_geometry_sha256": "5191d0e4f0dfbc333db14ae7e8ca7f8a767a1904266a016bb1bb7504a7e277b9"
+          ]
         },
         "coil-v-g": {
           "geometry_sha256": "3b97d331883c831e9819677a440d4f2f68137f8b12ccc68e2030c8adf303a433",
@@ -378,15 +370,13 @@
           ]
         },
         "valve-v-f": {
-          "geometry_sha256": "99e7e01d68bc32f4dd1b3bc32a192c2928b91d143d1324a6cd9118b1617a7dd0",
+          "geometry_sha256": "2411a094d9e68f23520f1a70835449b63ec8ce2e981e6448b847d712342e0fbd",
           "color": [
             0.8480882612794323,
             0.8480882612794323,
             0.8073459372815501,
             1.0
-          ],
-          "serialization_equivalence_mm3": 0.0,
-          "exported_geometry_sha256": "2411a094d9e68f23520f1a70835449b63ec8ce2e981e6448b847d712342e0fbd"
+          ]
         },
         "coil-v-f": {
           "geometry_sha256": "40c18a1b3e7185bcfff01c121d24a3a9d07822f24b9f997ab630a9c80976e2c6",
@@ -398,15 +388,13 @@
           ]
         },
         "valve-v-b": {
-          "geometry_sha256": "e750bc1b41d6dc25f22e5d3f1e27c08c8bef25baa894f0762fe47b4a0b32dc86",
+          "geometry_sha256": "687345ae80cd17c94f465af7507462746e3863e04ba9216f25f24cb08065f391",
           "color": [
             0.8480882612794323,
             0.8480882612794323,
             0.8073459372815501,
             1.0
-          ],
-          "serialization_equivalence_mm3": 0.0,
-          "exported_geometry_sha256": "687345ae80cd17c94f465af7507462746e3863e04ba9216f25f24cb08065f391"
+          ]
         },
         "coil-v-b": {
           "geometry_sha256": "bafe6d2bb25ca760c0a71368fc3707f20418af43c23dca4c16f3b8125dea2bbc",
@@ -427,15 +415,13 @@
           ]
         },
         "valve-v-d": {
-          "geometry_sha256": "6b09c04d4265169bf3bdaa2eff546f9b40e1de365f5e5f7a224a78cf24da9bf4",
+          "geometry_sha256": "17aa8e22efcec8ac43ac7e37a00d7998a789257284e341f85f8e8c8078a3b59b",
           "color": [
             0.8480882612794323,
             0.8480882612794323,
             0.8073459372815501,
             1.0
-          ],
-          "serialization_equivalence_mm3": 0.0,
-          "exported_geometry_sha256": "17aa8e22efcec8ac43ac7e37a00d7998a789257284e341f85f8e8c8078a3b59b"
+          ]
         },
         "coil-v-d": {
           "geometry_sha256": "9a62ade0ec7ca5bebc11cc7720d09d10a605f87b5ce26b981454b34b506dd8f0",
@@ -456,15 +442,13 @@
           ]
         },
         "valve-v-h": {
-          "geometry_sha256": "924f21b55666c2cfbcb60cda0b7b3db79cf5aa275c2e9e4281e0b21acd2046b0",
+          "geometry_sha256": "65c375579915c43159f803460de700bc257ce46041a4c7432e7f2626052f8e4e",
           "color": [
             0.8480882612794323,
             0.8480882612794323,
             0.8073459372815501,
             1.0
-          ],
-          "serialization_equivalence_mm3": 0.0,
-          "exported_geometry_sha256": "65c375579915c43159f803460de700bc257ce46041a4c7432e7f2626052f8e4e"
+          ]
         },
         "coil-v-h": {
           "geometry_sha256": "932f4d945f5946e98c2c15b7985f73a27d450463a589249edd941e36a5786473",
@@ -476,15 +460,13 @@
           ]
         },
         "valve-v-j": {
-          "geometry_sha256": "5dcc56ed491538b0076e42cac27ae7c2536fa3e6ac3875a64a3c295d8989e2be",
+          "geometry_sha256": "f7af99a58863439b979b19a8124f4a762ace2364651108b5217b831e8f2bf3bd",
           "color": [
             0.8480882612794323,
             0.8480882612794323,
             0.8073459372815501,
             1.0
-          ],
-          "serialization_equivalence_mm3": 0.0,
-          "exported_geometry_sha256": "f7af99a58863439b979b19a8124f4a762ace2364651108b5217b831e8f2bf3bd"
+          ]
         },
         "coil-v-j": {
           "geometry_sha256": "61d238271064d6d1ca88c77b0b868f694216240753e56d740f6cf785d8b9133f",
@@ -505,15 +487,13 @@
           ]
         },
         "valve-v-i": {
-          "geometry_sha256": "e697c57ddebe0c084301522f3e46028c7c382fe93a6ced47019008f7597f13fe",
+          "geometry_sha256": "9e7b944fe6ccc283379c7952569294a8595364214fd09ea1899720f6eb4ba905",
           "color": [
             0.8480882612794323,
             0.8480882612794323,
             0.8073459372815501,
             1.0
-          ],
-          "serialization_equivalence_mm3": 0.0,
-          "exported_geometry_sha256": "9e7b944fe6ccc283379c7952569294a8595364214fd09ea1899720f6eb4ba905"
+          ]
         },
         "coil-v-i": {
           "geometry_sha256": "51aa81282cc7c7c94c00de12926f40b44d9e484d73033933269e5c703849cd95",
@@ -1425,15 +1405,13 @@
           ]
         },
         "vk-solenoid": {
-          "geometry_sha256": "96790e388d271a55b99ffd6482ee64f16991d50308adace048c84ec9dbe5af3c",
+          "geometry_sha256": "db511d639867ff1ba650b5094fecb38b4b6a64cb75bb66f86d09a9573f1b875a",
           "color": [
             0.8480882612794323,
             0.8480882612794323,
             0.8073459372815501,
             1.0
-          ],
-          "serialization_equivalence_mm3": 0.0,
-          "exported_geometry_sha256": "db511d639867ff1ba650b5094fecb38b4b6a64cb75bb66f86d09a9573f1b875a"
+          ]
         },
         "keystone-jack": {
           "geometry_sha256": "36acf25842834687767508b9ad004edcf5999f68e0f97a21fc1c9e883c721223",
@@ -1958,7 +1936,7 @@
           ]
         },
         "funnel": {
-          "geometry_sha256": "3c2c871100b414bd79502008124f0946d5a29d4039ac8fae818509f01211d375",
+          "geometry_sha256": "4cc22776244d647cb9d2a2867526cab2eb373d89e96db0eb362620589671a979",
           "color": [
             0.007194409382063896,
             0.007194409382063896,
@@ -1966,7 +1944,7 @@
             1.0
           ],
           "serialization_equivalence_mm3": 0.0,
-          "exported_geometry_sha256": "4cc22776244d647cb9d2a2867526cab2eb373d89e96db0eb362620589671a979"
+          "exported_geometry_sha256": "36e676195aac7538b28ac0024df277b2f722ec041683534ff0ced27ed4286290"
         },
         "funnel-cover": {
           "geometry_sha256": "a7829f33f41984577c58cd061a0932a0cbf2dd330c4d178a1c78e2446369353d",
@@ -2041,7 +2019,7 @@
           ]
         },
         "pump-contact-male": {
-          "geometry_sha256": "b2b24d7034a6f4b739935b24bf85b91785ca9844fe3e2dc4ee64470369e3421a",
+          "geometry_sha256": "c2232b20da621562f662de6677f8f1d4060d1a817308fd472b036e851c030fcd",
           "color": [
             0.008540381311904639,
             0.008540381311904639,
@@ -2049,10 +2027,10 @@
             1.0
           ],
           "serialization_equivalence_mm3": 0.0,
-          "exported_geometry_sha256": "c2232b20da621562f662de6677f8f1d4060d1a817308fd472b036e851c030fcd"
+          "exported_geometry_sha256": "b2b24d7034a6f4b739935b24bf85b91785ca9844fe3e2dc4ee64470369e3421a"
         },
         "pump-contact-female": {
-          "geometry_sha256": "3ca74e9eed79c4df6a9127289ade4ebfb48196957757001bde960509668aa4e9",
+          "geometry_sha256": "f85f733cd230a582c1600ad606ad024ee6fcd33a8a4d915d0ea15d517ec19318",
           "color": [
             0.008540381311904639,
             0.008540381311904639,
@@ -2060,7 +2038,7 @@
             1.0
           ],
           "serialization_equivalence_mm3": 0.0,
-          "exported_geometry_sha256": "f85f733cd230a582c1600ad606ad024ee6fcd33a8a4d915d0ea15d517ec19318"
+          "exported_geometry_sha256": "3ca74e9eed79c4df6a9127289ade4ebfb48196957757001bde960509668aa4e9"
         },
         "enclosure-front-bottom": {
           "geometry_sha256": "fe5c939f492182040d57f4d2f55e3714b9de97bd617843a88d2c0942ffcd8bd5",
@@ -2195,26 +2173,26 @@
           "max_bounds_error_mm": 0.0,
           "topology": [
             1,
-            621,
-            1664,
-            1088
+            605,
+            1643,
+            1082
           ],
           "valid": true,
-          "source_fingerprint": "db2cd6bf57d05f0ce65de62339b5e48fd84e8f5cf9dd93ea29052885fc7efc17",
-          "exported_fingerprint": "db2cd6bf57d05f0ce65de62339b5e48fd84e8f5cf9dd93ea29052885fc7efc17"
+          "source_fingerprint": "fa4f9f902b73a3943477dd5805e49055ef677ccb77ce6c2212209fdb598cc7a6",
+          "exported_fingerprint": "fa4f9f902b73a3943477dd5805e49055ef677ccb77ce6c2212209fdb598cc7a6"
         },
         "funnel-frame": {
           "native_symmetric_difference_mm3": 0.0,
           "max_bounds_error_mm": 9.947598300641403e-13,
           "topology": [
             1,
-            154,
-            397,
-            243
+            140,
+            359,
+            219
           ],
           "valid": true,
-          "source_fingerprint": "88d3968479947bb39e49eea36828de40fa5fac6710ff28b5dc3f50c04fcdcb33",
-          "exported_fingerprint": "8af01e89c478b01205874e5ece33788aa10def78561907d2d2b9de7044150514"
+          "source_fingerprint": "ec64dbd5d8f5917986af1c0e8cfb8caa16cc514329565a20c206ae3c85c9f121",
+          "exported_fingerprint": "21095c2af08fe09f2a02b497af75da2071c253bf1b7680a5f7a9ba3508fcff56"
         }
       },
       "native_component_placements": {

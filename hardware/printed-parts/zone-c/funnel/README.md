@@ -52,18 +52,21 @@ the elbow cradle's wings, so no strip of web stands between a slot and a wall.
 
 Both end corbels are 30° from vertical, across the complete X width, including
 the rail wings. The lower footprint runs from Y119.1 to Y210. The body widens
-upward to Y93.408 and Y235.692. The rail datum is Z306.9 and its top is Z321.7.
+upward to its flat front at Y95.458 and its rear at Y235.692. The rail datum
+is Z306.9 and its top is Z321.7.
 The broad body fills the stock between its bowl clearance and rails.
 The removable frame carries the complete brim bearing at Z349, with 3 mm of
 material beneath the slipped collar footprint. The front roof surround finishes
 flush with the enclosure at Z355 and ends at Y199.75, one running clearance
 before the Y200 seam. The rear frame envelope remains at Z349 beneath the
-existing back-top roof. The 208.5 mm front surround grows from the 196.5 mm
-body over Z334–346 at 0.5 mm outward per millimetre of build rise, approaching
-both vertical shell walls with 0.25 mm air. Its display-side roof landing is
-3 mm wide. Front-top's opening clears the surround and its roof tongue, with
+existing back-top roof. The front surround and body are both 196.5 mm wide,
+fitting front-top's complete 9 mm flanks with 0.25 mm air on each side.
+The frame's front has square plan corners and 0.25 mm air from the solid
+display wall at Y95.208. The display-side roof landing is 3 mm wide.
+Front-top's opening clears the surround and its roof tongue, with
 no fixed inward brim-bearing ledge above the frame. Existing rail, socket
 and drain datums are retained.
+The silicone funnel retains its complete 455.44 mL nominal capacity.
 [`Flush-roof geometry`](flush-roof-review/README.md) records the exported parts
 and their integration checks.
 
@@ -128,8 +131,8 @@ and fit review. The retained
 input meshes named in that record: a 0.20 mm first layer, 0.24 mm subsequent
 layers, six walls through its 44.499 mm corbel band and four bed-rooted support
 bodies at the rail bearings. That slice does not qualify the current roof
-surround. Its side-expansion band is print Z34.1–46.1; use six walls there
-and keep supports off that additive slope. The flat rails retain accessible
+surround. The current surround and body share one width and require no
+side-expansion band. The flat rails retain accessible
 supports. Physical fit, brim support under load and surface finish remain
 separate observations.
 

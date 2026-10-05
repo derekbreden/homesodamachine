@@ -1,14 +1,14 @@
 {
   "outputs": {
     "front-top": {
-      "enclosure-front-top.step": "cb6f4ced20b8bf1ee719298b3e3c193c67e42ecb3aeaac271ccb79049775e007",
-      "enclosure-front-top.stl": "cc2cfd8a490b52439d957aa082b0e4369c5602076740494298b3a954f0ba36ba",
-      "enclosure-front-top.step.mesh": "2bc4be854c8530229723777a7b2c9edaf4e86882d7a85f21bb69c84852687712"
+      "enclosure-front-top.step": "a35f0dc6d127ca234965d67be0385f138e9b00630ad7f117a584ad07a3276aac",
+      "enclosure-front-top.stl": "b9a902360673a932f4f26b8f58fcec3c3fe4649be43fc3d6caef01ce245842aa",
+      "enclosure-front-top.step.mesh": "d2f42070bbd354af0bdb65b55ae0c9fadbe70f663742f4026acc3fba759783f7"
     },
     "funnel-frame": {
-      "funnel-frame.step": "410db1305d0600cef79d62b9d91299ac444c487a3d7cb9a5470e5a16dd8b3244",
-      "funnel-frame.stl": "ca1427026349939176275b3cdffc5c4c2dd8b5317e30fa08fabf112aa7362ef8",
-      "funnel-frame.step.mesh": "66f9f5761afbf842f8a6e0752be6918fbc1210c0926b176b8ec2a7b1074762e5"
+      "funnel-frame.step": "5da1c15d6526467fa4c53978608c5467d1647f0f8a6f9aa99754c65a4de8ef93",
+      "funnel-frame.stl": "6cdc42d501fe8f420939bdcc3532ad3a0cc57fef6d79234e7c853230345c8606",
+      "funnel-frame.step.mesh": "2c0a231107b156090071ce1945ac063eb1362aad44dcb267a0aad97bca8473a1"
     }
   },
   "source_sha256": {
@@ -29,7 +29,7 @@
     "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py": "fb290e6f377fc5f33790b7e6532c59ff0fdab0472b2f519d808b17106e8629fc",
     "hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py": "301e9a2a291e5c43c6e885d869e74d2f600204ba0041e70979a1c7d5c6203bbc",
     "hardware/printed-parts/enclosure/enclosure/_swept_top.py": "347f941b2b2aed2aa5af26373fc4dcfb852390bab61f8d60cb2d538926221a22",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "020e0ae5ee3dcbe748d5b3ee994ac4975d9d81b8793a1f534a2ad97f7a80595c",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "6b9d93bb8dfccff08b6b831f33c11bc14b445ee7c2b14902720417b4368f9ddf",
     "hardware/printed-parts/enclosure/pump-tray/pump_case.py": "833b311abdc3e7187940bb7bbe3461a4a5245f30d1e54c703429cc78d16c1358",
     "hardware/printed-parts/enclosure/pump-tray/pump_tray.py": "30cc79f35ca0553b5014fb1c4eba51a4396325c5d76882e7c1df9f75533ee3bf",
     "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py": "f95e15933f29da47f44f2fdaee765954d29c184cad90945c3cb6ee2b87c8fcfc",
@@ -37,9 +37,9 @@
     "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py": "e749a254cf0dcdb8b2751003ed9f3af51cb0dbb6ed498c2957557c0a1a7eb3b8",
     "hardware/printed-parts/valve-seat/valve_seat.py": "fd058e64f8e0b8c843007d255d58a450ca2e17e799c183ebb89098c96f52efc1",
     "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": "08c0f5cd3373c6ea0a6d2f24b2d1d5cc5da704691fbbbaa6eda94910c84403b0",
-    "hardware/printed-parts/zone-c/funnel/flush-roof-review/prepare_geometry.py": "7b714592d309e07fce0b083f89bccc9c5f108df99e6d757a0acb922e2cb9f17f",
+    "hardware/printed-parts/zone-c/funnel/flush-roof-review/prepare_geometry.py": "0b3dee336ea83b3156369531b7960f0b14a021e785d07132140c80c4878b6985",
     "hardware/printed-parts/zone-c/funnel/funnel.py": "7e224d80c14b8bb089405d3c98964201a6df5141aaf3d1a10177808117df97e1",
-    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "e7283da22c69147d65418d1518e5b66247f8e7525409713909897fd8ceba2dbf",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "2955c7a0b27ef43d914dfb3e277285a3745fba8917018a103d0bfeba8d8efad9",
     "hardware/reference/beduan-solenoid/beduan_solenoid.py": "640acf974256bbfff88546cbef5672b870a2ceb21d34c128487bf1aa286ab498",
     "hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py": "ca6ff8cd43074132835169682cd05876b6cdcf120540da4cfc056a572685bb43",
     "hardware/reference/g-ganen-pump/g_ganen_pump.py": "5a071188f84296c38c84e7d6eebfa961d8ba0917070ca0b5cddcdce841dc68fd",
@@ -76,13 +76,29 @@
     "enclosure-back-top.step.mesh": "0e2e43d328eeb34023a82d2c98ca3f36a2d071cdef04ee9f811484bdff80b5ca"
   },
   "roof_datums_mm": {
-    "width": 208.5,
+    "width": 196.5,
     "front": 95.45849207671873,
     "back": 199.75,
     "floor": 346.0,
     "top": 355.0,
-    "taper_floor": 334.0,
-    "side_reach": 6.0
+    "taper_floor": 346.0,
+    "side_reach": 0.0
+  },
+  "flat_front_wall": {
+    "face_y_mm": 95.20849207671873,
+    "flat_root_z_mm": 285.79649217671874,
+    "flat_face_count": 1,
+    "flat_face_area_mm2": 12928.241773602094,
+    "minimum_display_backing_mm": 5.4746321747492885,
+    "missing_flat_wall_witness_mm3": 0.0,
+    "unexpected_aft_stock_mm3": 0.0,
+    "unexpected_flat_wall_witness_mm3": 0.0,
+    "witness_thickness_mm": 0.05,
+    "clip_origin_mm": [
+      68.5,
+      95.20849207671873,
+      285.79649217671874
+    ]
   },
   "scope": "Only front-top and funnel frame materialized. The raised removable front roof ends one running clearance before the Y seam. Back-top exports and the rear frame envelope are retained. Existing lower rails, socket, drain, silicone seat and installed component stations retain their datums."
 }

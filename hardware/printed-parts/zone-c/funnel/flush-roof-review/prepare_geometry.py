@@ -23,7 +23,7 @@ def main():
         assert s.isValid() and len(s.Solids())==1,name
         print(name,'built',round(time.monotonic()-started,1),'seconds',flush=True)
     e._report_bay_sill(pieces['front-top'],box)
-    e._report_ridge_roof(pieces['front-top'],box)
+    flat_wall=e._report_ridge_roof(pieces['front-top'],box)
     for name in e.PIECE_COLORS:
         if name not in pieces:
             pieces[name]=cq.importers.importStep(str(ENC/f'enclosure-{name}.step'))
@@ -60,6 +60,7 @@ def main():
         'box':str(box_path.relative_to(ROOT)),
         'retained_back_top_sha256':{f'enclosure-back-top.{s}':sha(ENC/f'enclosure-back-top.{s}') for s in ('step','stl','step.mesh')},
         'roof_datums_mm':ff.roof_datums(box.inner,box.pack.funnel,e.funnel_seat_z(box.outer),box.y_joint),
+        'flat_front_wall':flat_wall,
         'scope':'Only front-top and funnel frame materialized. The raised removable front roof ends one running clearance before the Y seam. Back-top exports and the rear frame envelope are retained. Existing lower rails, socket, drain, silicone seat and installed component stations retain their datums.'},indent=2)+'\n')
 
 if __name__=='__main__':main()
