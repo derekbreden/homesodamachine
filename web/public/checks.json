@@ -77,7 +77,7 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 6090 tracked, 1114 fetched solids, 57 tags, 39 site routes",
+      "note": "paths: every reference lands — 6090 tracked, 1115 fetched solids, 57 tags, 39 site routes",
       "status": "ok"
     },
     {
@@ -102,18 +102,18 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 264 source(s) the graph names",
+      "note": "check_declared_imports: every step holds what it imports, over 5 staged source(s)",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 2765 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 1028 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 2793 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 1028 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was measured off a different enclosure-assembly.step — it holds 987ba8ea6e72100358e30a2751035502, enclosure-assembly.step here is 36caf162013c7093c1dc7a5a9501a6ac",
+      "enclosure-assembly.facts.json was measured off a different enclosure-assembly.step — it holds 987ba8ea6e72100358e30a2751035502, enclosure-assembly.step here is 76cb174077ac1258bcd6c6d4151f2494",
       "  enclosure-assembly.facts.json was taken from a different tree — it holds 32b34630c2e0f80a93e3147cf8058a0b for the 258 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 0837328668f648a2e51984c53e963d7c here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
@@ -185,7 +185,7 @@
       "71/72 artifacts have their record in the index"
     ],
     "tools/check_release_room.py": [
-      "the release holds 127 of 1000 and the next cut wants 987; 5 asset(s) may be retired for it",
+      "the release holds 127 of 1000 and the next cut wants 989; 5 asset(s) may be retired for it",
       "check_release_room: 1 thing(s) stand between a cut and the site",
       "    tools/cad-venv/bin/python tools/cad-artifacts/pack.py --room"
     ],
