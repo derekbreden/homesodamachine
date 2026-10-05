@@ -19,12 +19,56 @@ after(async () => {
   if (server) await new Promise(resolve => server.close(resolve));
 });
 
+test("cost overview reverses the section order, opens one card and follows direct links", async () => {
+  const page = await browser.newPage();
+  const errors = [];
+  page.on("pageerror", error => errors.push(error.message));
+  try {
+    for (const width of [320, 390, 1440]) {
+      await page.setViewport({ width, height: 950, deviceScaleFactor: 1 });
+      await page.goto(baseUrl + "/cost", { waitUntil: "networkidle0" });
+      assert.deepEqual(await page.$$eval(".cost-panel", panels => panels.map(panel => panel.id)), ["unit-cost-panel", "investment-panel", "forecast-panel"]);
+      assert.deepEqual(await page.$$eval(".cost-panel", panels => panels.map(panel => panel.open)), [false, false, false]);
+      assert.match(await page.$eval("#unit-cost-panel > summary", el => el.textContent), /\$2,420.98.*Per finished machine/s);
+      assert.match(await page.$eval("#forecast-panel > summary", el => el.textContent), /\$11,561.74.*First 10 machines.*\$27,923.77.*First 20 machines/s);
+      assert.equal(await page.$eval("#forecast-group", el => el.value), "category");
+      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
+
+      await page.click('.cost-contents a[href="#batch-forecast"]');
+      assert.deepEqual(await page.$$eval(".cost-panel", panels => panels.map(panel => panel.open)), [false, false, true]);
+      assert.equal(await page.$eval('.cost-contents a[href="#batch-forecast"]', el => el.getAttribute("aria-expanded")), "true");
+      await page.focus("#forecast-panel > summary");
+      await page.keyboard.press("Enter");
+      await page.waitForFunction(() => document.querySelector('.cost-contents a[href="#batch-forecast"]').getAttribute("aria-expanded") === "false");
+      assert.equal(await page.$eval("#forecast-panel", el => el.open), false);
+      await page.click('.cost-contents a[href="#batch-forecast"]');
+      assert.equal(await page.$eval("#forecast-panel", el => el.open), true, "a repeated jump link reopens a collapsed card");
+
+      await page.click('.cost-contents a[href="#parts"]');
+      assert.deepEqual(await page.$$eval(".cost-panel", panels => panels.map(panel => panel.open)), [true, false, false]);
+      await page.goBack();
+      await page.waitForFunction(() => location.hash === "#batch-forecast" && document.querySelector("#forecast-panel").open);
+      assert.deepEqual(await page.$$eval(".cost-panel", panels => panels.map(panel => panel.open)), [false, false, true]);
+
+      await page.goto(baseUrl + "/cost#labor", { waitUntil: "networkidle0" });
+      assert.deepEqual(await page.$$eval(".cost-panel", panels => panels.map(panel => panel.open)), [true, false, false]);
+      await page.goto(baseUrl + "/cost#batch-forecast", { waitUntil: "networkidle0" });
+      assert.deepEqual(await page.$$eval(".cost-panel", panels => panels.map(panel => panel.open)), [false, false, true]);
+      assert.equal(await page.$eval('#forecast-group option', el => el.textContent), "Parts category");
+      assert.equal(await page.$eval('.forecast-plan:not([hidden]) .forecast-groups:not([hidden])', el => el.dataset.groupBy), "category");
+      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
+    }
+    assert.deepEqual(errors, []);
+  } finally { await page.close(); }
+});
+
 test("keyboard controls update the recovery figure, sales balance and accessible chart", async () => {
   const page = await browser.newPage();
   const errors = [];
   page.on("pageerror", error => errors.push(error.message));
   try {
     await page.goto(baseUrl + "/cost", { waitUntil: "networkidle0" });
+    await page.click('.cost-contents a[href="#recovery"]');
     assert.equal(await page.$eval(".recovery-controls", el => el.hidden), false);
     const contribution = () => page.$eval('[data-recovery="contribution"]', el => Number(el.textContent.replace(/[^\d.-]/g, "")));
     const initial = await contribution();
@@ -45,6 +89,7 @@ test("keyboard controls update the recovery figure, sales balance and accessible
     await page.focus("#machine-cost");
     await page.keyboard.press("End");
     assert.equal(await page.$eval('[data-recovery="range"]', el => el.textContent), "No recovery");
+    assert.equal(await page.$eval('[data-recovery-overview="range"]', el => el.textContent), "No recovery");
     assert.deepEqual(errors, []);
   } finally { await page.close(); }
 });
@@ -65,19 +110,27 @@ test("price, chart and cost disclosures work without JavaScript and fit phone wi
       const cash = readBatchForecast(hardware, readLaborRollup(hardware)).batches[0].cashCents / 100;
       assert.ok((await page.$eval(".forecast-cards", el => el.textContent)).includes("$" + cash.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })));
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `page at ${width}px`);
+      assert.deepEqual(await page.$$eval(".cost-panel", panels => panels.map(panel => panel.open)), [false, false, false]);
+      await page.click('.cost-contents a[href="#recovery"]');
+      assert.equal(await page.$eval("#investment-panel", el => el.open), true, "contents link opens the investment without JavaScript");
       await page.click("#recovery details summary");
       assert.equal(await page.$eval("#recovery details", el => el.open), true);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `investment at ${width}px`);
-      await page.click("main > details.cost-cat summary");
-      assert.equal(await page.$eval("main > details.cost-cat", el => el.open), true);
+      await page.click('.cost-contents a[href="#parts"]');
+      assert.equal(await page.$eval("#unit-cost-panel", el => el.open), true, "contents link opens unit cost without JavaScript");
+      await page.click("#unit-cost-panel details.cost-cat summary");
+      assert.equal(await page.$eval("#unit-cost-panel details.cost-cat", el => el.open), true);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `parts at ${width}px`);
       assert.equal(await page.$eval(".forecast-controls", el => el.hidden), true);
+      await page.click('.cost-contents a[href="#batch-forecast"]');
+      assert.equal(await page.$eval("#forecast-panel", el => el.open), true, "contents link opens the forecast without JavaScript");
       assert.equal(await page.$eval('.forecast-plan[data-units="10"]', el => el.open), true);
       await page.click('.forecast-plan[data-units="20"] > summary');
       assert.equal(await page.$eval('.forecast-plan[data-units="20"]', el => el.open), true);
-      assert.equal(await page.$eval(".forecast-supplier", el => el.open), true);
+      assert.equal(await page.$eval('.forecast-plan[data-units="10"] .forecast-groups[data-group-by="category"]', el => el.hidden), false);
+      assert.equal(await page.$eval('.forecast-plan[data-units="10"] .forecast-group', el => el.open), true);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `supplier quantities at ${width}px`);
-      assert.match(await page.$eval(".forecast-supplier", el => el.textContent), /11[0]? pieces|110/);
+      assert.match(await page.$eval("#batch-forecast", el => el.textContent), /110 pieces/);
       await page.click('.forecast-plan[data-units="10"] .forecast-part > summary');
       assert.equal(await page.$eval('.forecast-plan[data-units="10"] .forecast-part', el => el.open), true);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `stock details at ${width}px`);
@@ -98,8 +151,13 @@ test("batch purchases rank by cost, filter Prime, regroup categories and preserv
     for (const width of [320, 390, 1440]) {
       await page.setViewport({ width, height: 950, deviceScaleFactor: 1 });
       await page.goto(baseUrl + "/cost", { waitUntil: "networkidle0" });
+      await page.click('.cost-contents a[href="#batch-forecast"]');
       assert.equal(await page.$eval(".forecast-controls", el => el.hidden), false);
       assert.equal(await page.$eval(active, el => el.dataset.units), "10");
+      assert.equal(await page.$eval("#forecast-group", el => el.value), "category");
+      assert.equal(await page.$eval("#forecast-group option", el => el.textContent), "Parts category");
+      assert.equal(await page.$eval(current, el => el.dataset.groupBy), "category");
+      await page.select("#forecast-group", "supplier");
       const prime = current + ' [data-group-id="amazon"]';
       assert.equal(await page.$eval(prime, el => el.open), true);
       const firstRows = await page.$$eval(prime + " .forecast-part:not([hidden])", rows => rows.map(row => ({ id: row.dataset.partId, cents: Number(row.dataset.cents) })));
