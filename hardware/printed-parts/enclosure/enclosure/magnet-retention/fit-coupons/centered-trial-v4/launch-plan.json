@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "session": "Printer 2",
-  "state": "mark2_centered_samples_ready_h2c_cooling",
+  "state": "both_centered_samples_ready",
   "recorded_at_utc": "2026-10-05T04:24:50.947892+00:00",
   "timezone": "America/Chicago",
   "authorization_quotes": [
@@ -97,7 +97,7 @@
     }
   ],
   "automation_id": "monitor-flush-roof-and-fit-trials",
-  "monitor_status": "ACTIVE",
+  "monitor_status": "PAUSED",
   "physical_adhesion_and_fit_qualified": false,
   "scope": "Only the centered fit samples are authorized as the next jobs. The full-part prepared candidates remain held. Native containment does not establish plate adhesion or physical fit.",
   "h2c_earliest_start_at_utc": "2026-10-05T04:36:13.858077+00:00",
@@ -105,8 +105,8 @@
   "minimum_measured_full_bead_edge_margin_mm": 86.7,
   "shared_circuit_observed_start_spacing_seconds": 207.541819,
   "mark2_monitor_active": false,
-  "h2c_monitor_active": true,
-  "monitor_updated_at_utc": "2026-10-05T07:18:29.304984+00:00",
+  "h2c_monitor_active": false,
+  "monitor_updated_at_utc": "2026-10-05T07:24:59.966145+00:00",
   "early_layer_milestones": {
     "Mark2": {
       "first_layer_printer_progress": true,
@@ -127,10 +127,13 @@
       "completion_reported_at_utc": "2026-10-05T07:18:29.304984+00:00"
     },
     "H2C": {
-      "state": "completed_cooling",
+      "state": "completed_cooled",
       "completion_observed_at_utc": "2026-10-05T06:25:42.001338+00:00",
-      "completion_cooled": false,
-      "completion_reported": false
+      "completion_cooled": true,
+      "completion_reported": true,
+      "cooled_observed_at_utc": "2026-10-05T07:23:49.479637+00:00",
+      "completion_reported_at_utc": "2026-10-05T07:24:59.966145+00:00"
     }
-  }
+  },
+  "monitor_paused_at_utc": "2026-10-05T07:25:41.223097+00:00"
 }
