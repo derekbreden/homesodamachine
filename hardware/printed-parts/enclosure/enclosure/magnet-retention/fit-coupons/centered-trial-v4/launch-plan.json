@@ -114,7 +114,7 @@
     },
     "H2C": {
       "first_layer_printer_progress": true,
-      "past_first_layer_printer_progress": false
+      "past_first_layer_printer_progress": true
     }
   }
 }
