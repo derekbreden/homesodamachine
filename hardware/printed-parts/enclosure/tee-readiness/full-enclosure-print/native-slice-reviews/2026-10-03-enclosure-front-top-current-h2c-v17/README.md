@@ -6,6 +6,14 @@ records the single Send, printer acceptance and subsequent progress. The
 [manifest](manifest.json) binds the native STEP/STL, frozen source/profile, exact
 native archive and every review. Physical assembled fit has its own evidence scope.
 
+The [physical result](physical-result.json) is rejected. Derek reports nearly
+impossible top-rim support removal, extreme spaghettification in the supported
+0.08 mm region, tall normal snug supports fused with tree supports into masses
+too large for their cavities, and one broken tee-carrier window-cover holder
+embedded in that support mass. The proposed correction removes the fixed
+overhang and lets the funnel frame slide in flush with the ceiling. That
+proposal has no implemented geometry or physical qualification in this review.
+
 It prints mouth-down at 215 × 207.55 × 195 mm on the fixed left 0.4 mm Standard
 hardened nozzle. The saved PET-GF recipe uses a 0.20 mm bed layer, normal 0.24 mm
 layers and two walls, wall-first order, 15% infill/wall overlap and `auto_brim`.
@@ -48,14 +56,13 @@ All **1,526,926 support roads**, including short bodies
 without interface labels, clear the 119 protected native exterior show faces
 under conservative actual-width/height bead envelopes. The
 [support-removal review](support-removal-review.json) assigns all **76
-support bodies** and **11 labelled contacts** to current removal routes;
+support bodies** and **11 labelled contacts** to geometric removal routes;
 67 bodies retain an unknown unlabelled
 contact count. Functional rail, pocket and interior ceiling contacts remain
-supported. Release contacts through the empty bay, display storey, exposed
-flanks and aft funnel opening; break connected sacrificial branches where
-needed. Remove every branch and loose fragment before installing hardware,
-frame, tubes or loom. Native straight access lines are geometric examples;
-physical removal effort remains an observation of the print.
+supported. The native straight access examples use the empty bay, display
+storey, exposed flanks and aft funnel opening. The reported fused support
+masses and holder breakage establish failed physical cleanup on this print;
+the geometric examples do not qualify its support-removal process.
 
 Every emitted road has at least **24.220 mm**
 shared-bed border, and the model has **55 mm**

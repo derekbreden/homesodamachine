@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "reported_date": "2026-10-04",
+  "reported_timezone": "America/Chicago",
+  "recorded_at_utc": "2026-10-05T02:32:33.954322+00:00",
+  "reported_by": "Derek",
+  "part": "enclosure-front-top",
+  "printer": "H2C",
+  "printer_task_id": "1305315362",
+  "printer_job_id": "1305315362",
+  "archive_name": "enclosure-front-top-current-black-z018-h2c-v17.gcode.3mf",
+  "native_archive_sha256": "feaba430dd2856f35d296345b4edae03f66ee36199d1a672cfb2bccf805f5a65",
+  "gcode_sha256": "c36cdbf25e44a187b635de5ba59ad412aaa69107511b7f56daf4532df944b7f4",
+  "source_step_sha256": "cb45044df359205d55dafe6ad3a8f5e8f332eccb2cfe6ac708f3c913672541b6",
+  "source_stl_sha256": "b9a330b868dde6cdab0278fecb023b4b3dc01a993e9070fa2828605237fded88",
+  "status": "rejected_support_removal_and_supported_rim_finish",
+  "user_report": "That enclosure front top print did not turn out great, it had a few problems, some of which are deal breakers:",
+  "user_observation_quotes": [
+    "The supports around the top rim were nearly impossible to remove",
+    "There was extreme spaghettification from the 0.08 mm layers we use there on the material being supported",
+    "The were several tall normal snug supports fused with tree supports and it is the fusion between things combined with the sheer size of the supports relative to the cavities they were being removed from that made removal impossible",
+    "One of the holders for the covers for the hole for the tee carrier snapped because it got embedded within this large impossible to remove support"
+  ],
+  "physical_observations": {
+    "top_rim_support_removal": "Nearly impossible",
+    "supported_fine_layer_material": "Extreme spaghettification reported in the 0.08 mm region",
+    "support_topology": "Tall normal snug supports fused with tree supports; connected support mass too large to remove through the surrounding cavities",
+    "damage": "One tee-carrier window-cover holder snapped while embedded in the support mass"
+  },
+  "physical_support_removal_successful": false,
+  "physical_finish_accepted": false,
+  "proposal": {
+    "user_quote": "All that said, I think all of these problems go away if we simply don't have an overhang here, and allow the funnel frame to slide in flush with the ceiling - can you see what I mean?",
+    "status": "design_proposal",
+    "interface": "Funnel frame and front-top ceiling/rim",
+    "intended_change": "Remove the fixed overhang and let the removable funnel frame slide in flush with the ceiling",
+    "customer_outcome": "A removable funnel frame and an enclosure that can be cleaned of printing supports without trapped support masses or broken cover holders",
+    "implemented": false,
+    "physical_result_verified": false
+  },
+  "scope": "User-reported support-removal difficulty, supported fine-layer failure and cover-holder breakage on this print. The reported attribution to 0.08 mm layers is not an independently isolated cause. Native access-line and emitted-path checks do not establish successful physical cleanup. The flush-frame proposal has no changed geometry, native slice or physical qualification in this record.",
+  "preserved_accepted_evidence": [
+    "hardware/printed-parts/enclosure/tee-carrier/physical-acceptance.json",
+    "hardware/printed-parts/enclosure/tee-carrier/low-force-trial/physical-acceptance.json"
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "status": "accepted by H2C; native geometry, emitted paths and accessible support lanes reviewed",
+  "status": "H2C accepted print; physical result rejected for support removal, supported rim finish and cover-holder breakage",
   "submitted": true,
   "printer": "H2C",
   "part": "enclosure-front-top",
@@ -63,7 +63,8 @@
     "preview.png": "2731c46e8526825934c8e6fdd2f6053fcab2849e77ddb69619139869d4333543",
     "final-roof-corner-beads.png": "be08b7f35935ca10e4a5298c58ac26c55c42476031323a0e821278ab1f091afd",
     "native-result.json": "cd11dc4d7676e3d0f944a02dc4eaa11a3012d358f79aa6f45b5e01ea60a705d6",
-    "native-slice.log": "2868aa273088e609494279d1a4f2a32e9eaf2353b82132af260bf5c283d35a05"
+    "native-slice.log": "2868aa273088e609494279d1a4f2a32e9eaf2353b82132af260bf5c283d35a05",
+    "physical-result.json": "c1eb606c9aff718d2db331969830e1ab58950de0579fba314750bee947b261a5"
   },
   "private_detailed_support_reading": {
     "file": ".cache/prints/2026-10-03-enclosure-front-top-current-h2c-v17/show-support-clearance.json",
@@ -83,5 +84,8 @@
     "seconds_since_other_printer_acceptance": 267.488201
   },
   "layer_count_scope": "model-feature layers",
-  "total_gcode_layer_changes": 1354
+  "total_gcode_layer_changes": 1354,
+  "physical_result": "physical-result.json",
+  "physical_result_status": "rejected_support_removal_and_supported_rim_finish",
+  "physical_support_removal_successful": false
 }
