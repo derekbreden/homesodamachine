@@ -271,6 +271,46 @@ const COST_CSS = `
 .cost-title { font-size: 1.5rem; font-weight: 700; margin: 0.25rem 0 1.25rem; letter-spacing: -0.01em; scroll-margin-top: 5rem; }
 .cost-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .cost-wrap a:focus-visible, .cost-wrap summary:focus-visible, .cost-wrap input:focus-visible { outline: 2px solid var(--action); outline-offset: 4px; }
+.cost-contents { margin: 1.75rem 0 1rem; }
+.cost-contents ol { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: .6rem; list-style: none; margin: .6rem 0 0; padding: 0; }
+.cost-contents a { display: flex; align-items: baseline; gap: .5rem; padding: .65rem .5rem; height: 100%; box-sizing: border-box; border-bottom: 2px solid var(--border); text-decoration: none; color: var(--text-2); font-size: .8rem; line-height: 1.4; }
+.cost-contents a:hover, .cost-contents a[aria-expanded="true"] { border-color: var(--accent); color: var(--text); }
+.cost-contents a > span { color: var(--text-3); font-size: .7rem; }
+.cost-panel { border: 1px solid var(--border); border-radius: 12px; margin: .8rem 0; background: var(--surface); scroll-margin-top: 5rem; }
+.cost-panel > summary { display: grid; grid-template-columns: minmax(0,1fr) auto .8rem; gap: 1rem; align-items: center; padding: 1.15rem 1.25rem; cursor: pointer; list-style: none; border-radius: 12px; }
+.cost-panel > summary::-webkit-details-marker { display: none; }
+.cost-panel > summary:hover { background: var(--surface-2); }
+.cost-panel-heading { display: block; font-size: 1.05rem; font-weight: 600; }
+.cost-panel-caption { display: block; margin-top: .35rem; font-size: .75rem; color: var(--text-2); line-height: 1.5; }
+.cost-panel-metrics { display: flex; gap: 1.25rem; text-align: right; }
+.cost-panel-value strong { display: block; font-size: clamp(1.15rem,3vw,1.6rem); color: var(--accent); line-height: 1.3; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.cost-panel-value small { display: block; font-size: .68rem; color: var(--text-2); margin-top: .25rem; }
+.cost-panel-value sup { font-size: .6em; }
+.cost-panel-marker { color: var(--text-2); }
+.cost-panel-marker::after { content: "+"; }
+.cost-panel[open] > summary .cost-panel-marker::after { content: "−"; }
+.cost-panel-content { border-top: 1px solid var(--border); padding: 1.25rem; background: var(--bg); border-radius: 0 0 12px 12px; }
+.cost-panel-content > .cost-recovery, .cost-panel-content > .cost-forecast { margin: 0; }
+.cost-panel-content .cost-title { font-size: 1.25rem; }
+@media (max-width: 560px) {
+  .cost-contents a { padding: .5rem .2rem; gap: .3rem; font-size: .72rem; }
+  .cost-panel > summary { grid-template-columns: minmax(0,1fr) .8rem; gap: .75rem; padding: 1rem; }
+  .cost-panel-metrics { grid-column: 1; grid-row: 2; text-align: left; flex-wrap: wrap; gap: .75rem 1.5rem; }
+  .cost-panel-value strong { font-size: 1.3rem; }
+  .cost-panel-marker { grid-column: 2; grid-row: 1 / 3; }
+  .cost-panel-content { padding: 1rem .7rem; }
+  .cost-panel-content .forecast-cards > div { padding: .85rem .5rem; }
+  .cost-panel-content .forecast-cards strong { font-size: clamp(1rem,4.8vw,1.8rem); }
+  .cost-panel-content .cost-items tbody { display: block; }
+  .cost-panel-content .cost-items tr { display: grid; grid-template-columns: minmax(0,1fr) 5rem; grid-template-areas: "name cost" "qty qty"; border-top: 1px solid var(--border); }
+  .cost-panel-content .cost-items td { min-width: 0; border-top: 0; padding: .45rem .55rem; }
+  .cost-panel-content .cost-items td:first-child { grid-area: name; padding-bottom: .2rem; }
+  .cost-panel-content .cost-items td.cost-qty { grid-area: qty; width: auto; text-align: left; padding-top: 0; }
+  .cost-panel-content .cost-items td.cost-num { grid-area: cost; width: auto; }
+}
+@media (max-width: 380px) {
+  .cost-panel-content .forecast-controls:not([hidden]) { grid-template-columns: 1fr; }
+}
 .cost-hero {
   display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 1.5rem;
   background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
@@ -612,6 +652,13 @@ function renderRecovery(unitCost, labor, investment) {
   </section>`;
 }
 
+function renderCostPanel(panel) {
+  return `<details class="cost-panel" id="${panel.id}" name="cost-sections">
+    <summary><span><span class="cost-panel-heading">${escape(panel.title)}</span><span class="cost-panel-caption">${panel.caption}</span></span><span class="cost-panel-metrics">${panel.metrics}</span><span class="cost-panel-marker" aria-hidden="true"></span></summary>
+    <div class="cost-panel-content">${panel.body}</div>
+  </details>`;
+}
+
 function renderCostBody(rollup, labor, mach, investment, forecast) {
   const { total, rowCount, cats } = rollup;
   const mx = Math.max(...cats.map((c) => c.sum), 1);
@@ -658,12 +705,8 @@ function renderCostBody(rollup, labor, mach, investment, forecast) {
       <table class="cost-items"><tbody>${rows}</tbody></table></details>`;
   }).join("\n");
 
-  return `<main class="cost-wrap">
-  <h1 class="cost-sr-only">Price, cost &amp; investment</h1>
-${renderPrice(unitCost)}
+  const unitBody = `
 ${unitCost !== null ? renderTopline(total, labor) : ""}
-${renderBatchForecast(forecast)}
-${renderRecovery(unitCost, labor, investment)}
   <h2 class="cost-title" id="parts">Parts by category</h2>
   <div class="cost-hero">
     <div class="cost-big">${money(total)}</div>
@@ -677,7 +720,32 @@ ${bars}
   <h3 class="cost-h2">Full itemization</h3>
 ${details}
   <div class="cost-total"><span>Per-unit total</span><span class="v">${money(total)}</span></div>
-${labor ? renderLaborSection(labor) : ""}${mach ? renderMachineSection(mach) : ""}</main>
+${labor ? renderLaborSection(labor) : ""}${mach ? renderMachineSection(mach) : ""}`;
+  const metric = (value, label) => `<span class="cost-panel-value"><strong>${value}</strong><small>${label}</small></span>`;
+  const plan = unitCost !== null && investment ? recoveryPlan({ unitCost, investment: investment.total }) : null;
+  const panels = [{
+    id: "unit-cost-panel", anchor: "parts", title: "Cost per unit",
+    caption: unitCost !== null ? `${money(total)} parts + ${money(unitCost - total)} planned labor` : "Parts only; build labor estimate unavailable",
+    metrics: metric(money(unitCost ?? total), unitCost !== null ? "Per finished machine" : "Parts per machine"),
+    body: unitBody,
+  }, {
+    id: "investment-panel", anchor: "recovery", title: "Investment recovery",
+    caption: investment ? `${money(investment.total)} recorded procurement value` : "Recorded investment estimate unavailable",
+    metrics: metric(`<span data-recovery-overview="range">${plan ? recoveryRange(plan) : "Unavailable"}</span>`, `<span data-recovery-overview="label">${plan?.recordedUnits === null ? "At the planned build cost" : "Machines to recover investment"}</span>`),
+    body: renderRecovery(unitCost, labor, investment),
+  }];
+  if (forecast) panels.push({
+    id: "forecast-panel", anchor: "batch-forecast", title: "First 10 & 20 machines",
+    caption: "Additional cash from current stock · supplies & delivery included",
+    metrics: forecast.batches.map(batch => metric(`${money(batch.cashCents / 100)}<sup aria-label="estimate">*</sup>`, `First ${batch.units} machines`)).join(""),
+    body: renderBatchForecast(forecast),
+  });
+  return `<main class="cost-wrap">
+  <h1 class="cost-sr-only">Price, cost &amp; investment</h1>
+${renderPrice(unitCost)}
+  <nav class="cost-contents" aria-label="Cost sections"><div class="cost-top-cap">On this page</div><ol>${panels.map((panel, index) => `<li><a href="#${panel.anchor}" aria-controls="${panel.id}"><span aria-hidden="true">${index + 1}</span>${escape(panel.title)}</a></li>`).join("")}</ol></nav>
+  <div class="cost-sections">${panels.map(renderCostPanel).join("")}</div>
+</main>
 <script type="module" src="/cost.js"></script>
 `;
 }
