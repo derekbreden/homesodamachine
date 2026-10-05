@@ -169,9 +169,7 @@ export function relatedSteps(file, allFiles, exclude = []) {
   return out;
 }
 
-// What the rail writes above each run of chips. KEY ORDER IS RENDER ORDER —
-// related-nav.js walks these keys, so a kind added here draws itself and a kind
-// added without a caption draws nothing.
+// Relationship descriptions for the model links' tooltips.
 export const KIND_CAPTIONS = {
   "used-with": "Used with",
   beside: "Beside it",
