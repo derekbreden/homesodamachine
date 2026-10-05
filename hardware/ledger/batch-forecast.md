@@ -1,6 +1,6 @@
-# Remaining purchases for the first 10 and 20 machines
+# Remaining purchases for the first 5, 10 and 20 machines
 
-[`batch-forecast.json`](batch-forecast.json) supplies the inventory-based forecast on [the cost page](https://homesodamachine.com/cost#batch-forecast). Prices, availability and opening inventory are dated October 4, 2026. The columns are alternatives for the first ten or first twenty total integrated machines, including unit 1 under development. Both start with the same stock. Twenty is not an additional twenty after the first ten.
+[`batch-forecast.json`](batch-forecast.json) supplies the inventory-based forecast on [the cost page](https://homesodamachine.com/cost#batch-forecast). Prices, availability and opening inventory are dated October 4, 2026. The columns are alternatives for five, ten or twenty total integrated machines, including unit 1 under development. Each starts with the same stock; the columns are not cumulative.
 
 The forecast subtracts usable on-hand stock and quantities already ordered before calculating new purchases. Existing paid parts, printers, tools, fixtures and reusable filament spools have no new acquisition expense. Each tagged BOM row has a purchase allocation or an explicit exclusion; shared SKUs are combined before supplier lots are rounded. Reed columns use the separately purchased reeds and wires. PCB assembly includes on-board components. The build uses a White faucet and both install-kit tees.
 
@@ -32,29 +32,29 @@ Already-ordered quantities are separate from on hand and are deducted to prevent
 | M1.4 inserts | 0 | 200 | Ordered; estimated October 7 arrival. |
 | M1.4 × 8 screws | 0 | 50 | Ordered; estimated October 7 arrival. |
 
-Both alternatives include a **$155.63 possible-payment reserve** for the PI450822S shipment ($94.54), six pending pogo pairs ($43.74), insert pack ($8.57) and screw pack ($8.78). Merchant payment confirmation is incomplete. This is a conservative allowance for a possible remaining balance, not a verified amount owed. Release it when those orders are confirmed paid. Tax is not added again to these delivered order amounts.
+All three alternatives include a **$155.63 possible-payment reserve** for the PI450822S shipment ($94.54), six pending pogo pairs ($43.74), insert pack ($8.57) and screw pack ($8.78). Merchant payment confirmation is incomplete. This is a conservative allowance for a possible remaining balance, not a verified amount owed. Release it when those orders are confirmed paid. Tax is not added again to these delivered order amounts.
 
 Delivery is required before assembly. A delayed order is not physically available stock, and an acquired status alone does not prove payment.
 
 ## Supplier quantities
 
-The lot calculation minimizes new purchase cash among the sourced options. It can buy more than the net shortfall when a bag or discounted tier costs less. A lower unit price does not justify an expensive case of unneeded stock. The JSON supplies the exact purchase options, units, per-machine requirements, price basis, inventory credits and uncertainty notes; the website calculates and displays both order lists.
+The lot calculation minimizes new purchase cash among the sourced options. It can buy more than the net shortfall when a bag or discounted tier costs less. A lower unit price does not justify an expensive case of unneeded stock. The JSON supplies the exact purchase options, units, per-machine requirements, price basis, inventory credits and uncertainty notes; the website calculates and displays all three order lists.
 
-- Black PET-GF material is planned at 6.00 kg per machine, rounded from the 6.0001 kg BOM colour split, plus a provisional 15% allowance for supports, purge and rejects. After the 12 kg stock credit, new orders are **nineteen 3 kg spools for ten machines** and **forty-two 3 kg spools for twenty**. White, Blue and Red have separate requirements and credits.
-- Clear PETG needs **seven / seventeen new 1 kg refills** after its 4 kg credit. The manufacturer tier is calculated from the replenishment order: seven uses the 6+ tier; seventeen uses the 10+ tier. Existing 10 kg Black PETG covers both alternatives without a new refill order.
-- A 50 ft copper coil yields three complete 15.92 ft evaporator cuts. The provisional remaining two usable cuts reduce new coil orders to three / six. Offcuts cannot be joined to make another evaporator.
+- Black PET-GF material is planned at 6.00 kg per machine, rounded from the 6.0001 kg BOM colour split, plus a provisional 15% allowance for supports, purge and rejects. After the 12 kg stock credit, new orders are **seven 3 kg spools plus two 1 kg spools for five machines**, **nineteen 3 kg spools for ten** and **forty-two 3 kg spools for twenty**. The five-machine mix buys 23 kg for $584.91, less than eight 3 kg spools at $599.92. White, Blue and Red have separate requirements and credits.
+- Clear PETG needs **two / seven / seventeen new 1 kg refills** for five / ten / twenty machines after its 4 kg credit. The manufacturer tier is calculated from the replenishment order: two uses the 2+ tier; seven uses the 6+ tier; seventeen uses the 10+ tier. The two-refill order carries a provisional $10 freight allowance pending checkout. Existing 10 kg Black PETG covers all three alternatives without a new refill order.
+- A 50 ft copper coil yields three complete 15.92 ft evaporator cuts. The provisional remaining two usable cuts reduce new coil orders to one / three / six for five / ten / twenty machines. Offcuts cannot be joined to make another evaporator.
 - Reservoir rod blanks use one 12-inch rod each; two carbonator blanks share a rod. The selected 316 five-pack is rounded after the usable-equivalent stock allowance. Shorter or different-diameter rods are not assumed interchangeable.
-- Soda umbilicals use one 24-inch and five 12-inch insulation cuts per machine. Each six-foot roll is cut into those discrete lengths; the provisional five-foot stock credit reduces new orders to eleven / twenty-three rolls.
-- Red gas tubing includes the external tether and three internal segments, about two feet total per machine. A provisional 25% cut/slack reserve is applied before crediting the acquired red tubing. It covers both batches without a new order.
+- Soda umbilicals use one 24-inch and five 12-inch insulation cuts per machine. Each six-foot roll is cut into those discrete lengths; the provisional five-foot stock credit reduces new orders to five / eleven / twenty-three rolls for five / ten / twenty machines.
+- Red gas tubing includes the external tether and three internal segments, about two feet total per machine. A provisional 25% cut/slack reserve is applied before crediting the acquired red tubing. It covers all three batches without a new order.
 - Each silicone funnel uses a provisional 273 g mixed-material allowance. Kits contain approximately 1,098 g. Stock and process yield remain estimates.
-- Ribbon cable is purchased by conductor count. The provisional three/five gross 16 AWG colour kits become two/four new kits after the existing kit credit. Terminal and ferrule refills use conservative size-specific allowances while the width/gauge map remains open.
-- The acquired reusable bath container serves either batch. Fluids, welding wire, pigment, mold release, foam and refrigerant use explicitly provisional remaining quantities and production yields, rounded to whole containers only when replenishment is required.
+- Ribbon cable is purchased by conductor count. The provisional two/three/five gross 16 AWG colour kits for five/ten/twenty machines become one/two/four new kits after the existing kit credit. Terminal and ferrule refills use conservative size-specific allowances while the width/gauge map remains open.
+- The acquired reusable bath container serves any batch. Fluids, welding wire, pigment, mold release, foam and refrigerant use explicitly provisional remaining quantities and production yields, rounded to whole containers only when replenishment is required.
 
 Amazon prices come from signed-in Prime-filtered results; conditional coupons and multi-item promotions are not deducted. Other suppliers use their current catalog or marked historical delivered allowances. Supplier availability is a dated observation, not a reservation of the full order.
 
 ## Supply and quote limits
 
-Bambu ASA Aero White 46100 is out of stock. The provisional 1 kg on hand covers the approximately 0.485 / 0.971 kg float-feed requirement including the 15% allowance, so no replenishment is budgeted. If the actual remainder is below the requirement, a source is needed. No interchangeable foaming filament is assumed.
+Bambu ASA Aero White 46100 is out of stock. The provisional 1 kg on hand covers the approximately 0.243 / 0.485 / 0.971 kg float-feed requirements for five / ten / twenty machines including the 15% allowance, so no replenishment is budgeted. If the actual remainder is below the requirement, a source is needed. No interchangeable foaming filament is assumed.
 
 Ten relief valves are listed; after one credited valve, the twenty-machine plan needs nineteen new valves and exceeds listed stock by nine. The ten credited silicone washers reduce the twenty-machine requirement to three new ten-packs, within the observed stock. The candidate R2031-NL-62 faucet has twelve listed; nineteen new faucets for twenty machines exceed that by seven. Its $52.40 price is an allowance pending confirmation of the handle/body interfaces against the accepted A2031-NL-62.
 
@@ -68,7 +68,7 @@ Filter-drier selection, permanent refrigerant-circuit closure/access and some el
 
 New parts/materials, new inbound freight/import reserves and tax form the delivered replenishment budget. A supplier with no new purchase incurs no new freight. The 7.25% tax reserve, drawn from recorded orders, applies only to merchandise-priced purchases and new inbound reserves; historical delivered allowances are not taxed twice.
 
-The headline additional-cash budget adds the possible pending-payment reserve, $40 per machine for cartons/protective packing/customer guides, $80 per machine for customer delivery and $200 / $350 per batch for shop gases, auxiliary solder/cleaning supplies and production electricity. Packing and delivery are unquoted estimates. Shop allowances cover additional usage beyond the explicitly credited BOM supplies; remaining gas and electricity usage are unmeasured.
+The headline additional-cash budget adds the possible pending-payment reserve, $40 per machine for cartons/protective packing/customer guides, $80 per machine for customer delivery and $125 / $200 / $350 per five / ten / twenty-machine batch for shop gases, auxiliary solder/cleaning supplies and production electricity. Packing and delivery are unquoted estimates. Shop allowances use a provisional $50 per batch plus $15 per machine and cover additional usage beyond the explicitly credited BOM supplies; remaining gas and electricity usage are unmeasured.
 
 Build labor uses the existing practiced-operator estimate and rate, shown separately. Paying an operator adds that amount to cash required; owner labor is not automatically a cash payment. Prior development time is excluded. Early-build labor and attended work already completed on unit 1 are not fully quantified, so the labor line is a forward planning allowance rather than an actual unpaid-hours balance. Extra tooling, rent, payment fees, installation, warranty/support and business taxes are outside this forecast.
 
