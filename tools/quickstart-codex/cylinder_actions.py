@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """The cylinder connection and startup controls, in the regulator's world frame.
 
-+Y faces the customer, +Z is up, and the cylinder stands at -X. The PM4508F4S
-flare connector and PI061008S reducer remain assembled on the red tether.
++Y faces the customer, +Z is up, and the cylinder stands at -X. The red tether is
+pushed into the regulator's PI010822S at the factory, so the customer's one joint here is
+the big nut onto the cylinder valve.
 """
 from __future__ import annotations
 
@@ -20,11 +21,8 @@ import startup
 
 OUT = scenes.HARDWARE / 'quickstart-codex/out/cylinder-actions'
 ART = scenes.HARDWARE / 'quickstart-codex/art/cylinder-actions'
-READY_RETREAT = 29.0
-TETHER_BEND_RADIUS = 28.0
-TETHER_CORNER_DROP = 69.0
-TETHER_RUN_X = 160.0
-CONNECTION_POSE = dict(cam=(.12, 1, .15), target=(-34, 0, -58), span=150,
+READY_STANDOFF = 30.0
+CONNECTION_POSE = dict(cam=(.12, 1, .15), target=(-34, 0, -50), span=150,
                        size=(1600, 1500))
 STARTUP_EXTRA_HEIGHT = 300
 reg = scenes.reg
@@ -70,52 +68,31 @@ def pixel(point, pose):
             height / 2 - sum(value * axis for value, axis in zip(delta, up)) * scale)
 
 
-def adapter_stations(retreat):
-    x, y, tip_z = reg.outlet()[0]
-    front = tip_z + install.CO2_FLARE_HEX_LENGTH - retreat
-    back = front - install.CO2_FLARE_LENGTH
-    hex_back = front - install.CO2_FLARE_HEX_LENGTH
-    body_middle = (back + 1.5 + hex_back) / 2
-    reducer_end = back - (install.CO2_REDUCER_LENGTH - install.CO2_FLARE_INSERTION)
+def outlet_stations(stand_off):
+    """The outlet push-fit and the tube leaving it, and the big nut's face."""
+    x, y, mouth_z = reg.outlet()[0]
+    x += stand_off
     return {
-        'male-outlet-tip': (x, y, tip_z),
-        'connector-mouth': (x, y, front),
-        'connector-hex-front': (x, y + install.CO2_FLARE_HEX_FLATS / 2,
-                                front - install.CO2_FLARE_HEX_LENGTH / 2),
-        'connector-turn-axis': (x, y, body_middle),
-        'connector-hand-turn': (x, y + install.CO2_FLARE_BODY_D / 2, body_middle),
-        'connector-bottom': (x, y, back),
-        'reducer-body-front': (x, y + install.CO2_REDUCER_BODY_D / 2,
-                               (back + reducer_end) / 2),
-        'red-tube-exit': (x, y, reducer_end),
+        'outlet-connector': (x, y + reg.PTC_COLLET_D / 2, (reg.OUTLET_HEX_Z + mouth_z) / 2),
+        'red-tube-exit': (x, y, mouth_z),
+        'cga-nut': (reg.inlet()[0][0] + stand_off, y + reg.CGA320_NUT_FLATS / 2, 0.0),
     }
 
 
-def assembly(retreat=0, pressurised=False):
-    """The fitted regulator, cylinder and complete factory-assembled tether."""
-    result = cq.Assembly(name='cylinder-actions')
-    source = startup.assembly() if pressurised else scenes.cylinder()
-    for child in source.children:
-        if child.name not in {'tether-nut', 'red-tether'}:
-            result.add(child)
-    tip = reg.outlet()[0]
-    exit_point = install._co2_tether_adapter(result, tip, retreat)
-    corner_z = min(tip[2] - TETHER_CORNER_DROP - retreat,
-                   exit_point[2] - TETHER_BEND_RADIUS)
-    result.add(install._bend([exit_point, (tip[0], tip[1], corner_z),
-                              (TETHER_RUN_X, tip[1], corner_z)],
-                             radius=TETHER_BEND_RADIUS),
-               name='red-tether', color=install.RED_TUBE)
-    return result
+def assembly(stand_off=0, pressurised=False):
+    """The regulator, its factory-fitted tether and the top of the customer's cylinder."""
+    return startup.assembly() if pressurised else scenes.cylinder(stand_off)
 
 
-def points(retreat, pressurised):
-    result = adapter_stations(retreat)
+def points(stand_off, pressurised):
+    def held(point):
+        return (point[0] + stand_off, point[1], point[2])
+
+    result = outlet_stations(stand_off)
     result.update({
-        'upper-gauge': reg.outlet_dial()[0],
-        'cylinder-gauge': reg.tank_dial()[0],
-        'big-pressure-knob': reg.adjustment()[0],
-        'small-gas-knob': reg.shutoff()[0],
+        'upper-gauge': held(reg.outlet_dial()[0]),
+        'cylinder-gauge': held(reg.tank_dial()[0]),
+        'factory-screw': held(reg.adjustment()[0]),
         'cylinder-handwheel': (-115, 0, 33),
         'cylinder-valve': (-115, 12, -7.5),
     })
@@ -124,22 +101,19 @@ def points(retreat, pressurised):
     return result
 
 
-def anchor_metadata(retreat, pressurised, pose):
+def anchor_metadata(stand_off, pressurised, pose):
     anchors = {name: dict(world=point, pixel=pixel(point, pose))
-               for name, point in points(retreat, pressurised).items()}
+               for name, point in points(stand_off, pressurised).items()}
     for name, anchor in anchors.items():
-        if name.startswith(('connector-', 'reducer-', 'red-tube-')):
-            anchor['source'] = 'hardware/install-guide/_install_art.py:_co2_tether_adapter'
-        elif name in {'cylinder-handwheel', 'cylinder-valve'}:
+        if name in {'cylinder-handwheel', 'cylinder-valve'}:
             anchor['source'] = 'tools/quickstart-codex/scenes.py:cylinder'
         elif name == 'upper-needle-tip':
             anchor['source'] = 'tools/quickstart-codex/startup.py:points'
         else:
-            anchor['source'] = 'hardware/reference/wellbom-regulator/wellbom_regulator.py:stations'
-    mouth = adapter_stations(retreat)['connector-mouth']
-    seated_mouth = adapter_stations(0)['connector-mouth']
-    lift_start = (mouth[0] + 26, mouth[1], mouth[2])
-    lift_end = (seated_mouth[0] + 26, seated_mouth[1], seated_mouth[2])
+            anchor['source'] = ('hardware/reference/taprite-3741-regulator/'
+                                'taprite_3741_regulator.py:stations')
+    nut = outlet_stations(stand_off)['cga-nut']
+    seated_nut = outlet_stations(0)['cga-nut']
     return dict(
         cam=pose['cam'], target=pose['target'], span=pose['span'], size=pose['size'],
         projection='orthographic', up=(0, 0, 1), trim=False,
@@ -149,19 +123,13 @@ def anchor_metadata(retreat, pressurised, pose):
                     connector_detail=(485, 950, 905, 1360)) if pressurised else
                dict(overview=(80, 0, 1600, 1500),
                     connector_detail=(420, 775, 830, 1335))),
-        retreat_mm=retreat, outlet_psi=startup.OUTLET_PSI if pressurised else 0,
+        stand_off_mm=stand_off, outlet_psi=startup.OUTLET_PSI if pressurised else 0,
         cylinder_psi=startup.CYLINDER_PSI if pressurised else 0,
         points=anchors,
-        insertion=dict(axis=(0, 0, 1), distance_mm=retreat,
-                       from_world=mouth, to_world=seated_mouth,
-                       from_pixel=pixel(mouth, pose), to_pixel=pixel(seated_mouth, pose),
-                       offset_arrow=dict(from_world=lift_start, to_world=lift_end,
-                                         from_pixel=pixel(lift_start, pose),
-                                         to_pixel=pixel(lift_end, pose))),
-        turn_axes={'connector-hand-turn': (0, 0, 1),
-                   'big-pressure-knob': reg.adjustment()[1],
-                   'small-gas-knob': reg.shutoff()[1],
-                   'cylinder-handwheel': (0, 0, 1)},
+        approach=dict(axis=(-1, 0, 0), distance_mm=stand_off,
+                      from_world=nut, to_world=seated_nut,
+                      from_pixel=pixel(nut, pose), to_pixel=pixel(seated_nut, pose)),
+        turn_axes={'cylinder-handwheel': (0, 0, 1)},
     )
 
 
@@ -177,29 +145,29 @@ def main():
     jobs = []
     metadata = dict(
         geometry_sources={
-            'regulator': 'hardware/reference/wellbom-regulator/wellbom_regulator.py',
+            'regulator': 'hardware/reference/taprite-3741-regulator/taprite_3741_regulator.py',
             'cylinder': 'tools/quickstart-codex/scenes.py:cylinder',
-            'connector': 'hardware/install-guide/_install_art.py:_co2_tether_adapter',
+            'tether': 'hardware/install-guide/_install_art.py:_co2_tether',
             'startup-dials': 'tools/quickstart-codex/startup.py:assembly',
         },
-        fittings=['PM4508F4S', 'PI061008S'],
-        connector_seating='Illustrative seating depth from _co2_tether_adapter.',
+        fittings=['PI010822S'],
+        tether_seating='Pushed in at the factory; the drawn depth past the mouth is illustrative.',
         scenes={},
     )
-    states = [('co2-ready', READY_RETREAT, False, CONNECTION_POSE),
+    states = [('co2-ready', READY_STANDOFF, False, CONNECTION_POSE),
               ('co2-connected', 0, False, CONNECTION_POSE),
               ('startup-gas', 0, True, startup_pose())]
-    for name, retreat, pressurised, pose in states:
+    for name, stand_off, pressurised, pose in states:
         if wanted and name not in wanted:
             continue
         path = OUT / f'{name}.step'
-        scenes.original._export_colored(assembly(retreat, pressurised), path, mesh=True)
+        scenes.original._export_colored(assembly(stand_off, pressurised), path, mesh=True)
         jobs.append(dict(step=str(path.relative_to(scenes.HARDWARE)),
                          out=str(ART / f'{name}.png'), cam=pose['cam'], target=pose['target'],
                          span=pose['span'], size=f"{pose['size'][0]}x{pose['size'][1]}",
                          up=(0, 0, 1), bg='#f2eee8', transparent=True, solid=True,
                          ortho=True, trim=False, ground=False, fog=False))
-        metadata['scenes'][name] = anchor_metadata(retreat, pressurised, pose)
+        metadata['scenes'][name] = anchor_metadata(stand_off, pressurised, pose)
         if name == 'startup-gas':
             metadata['scenes'][name]['registered_source_pose'] = dict(
                 cam=startup.CAM, target=startup.TARGET, span=startup.SPAN,

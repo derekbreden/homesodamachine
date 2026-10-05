@@ -23,7 +23,7 @@ def load(path,name):
     module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
     return module
 
-reg=load(HARDWARE/'reference/wellbom-regulator/wellbom_regulator.py','quickstart_regulator')
+reg=load(HARDWARE/'reference/taprite-3741-regulator/taprite_3741_regulator.py','quickstart_regulator')
 SILVER=cq.Color(.63,.66,.70)
 BLACK=cq.Color(.07,.075,.085)
 GLASS=cq.Color(.58,.70,.74,.30)
@@ -39,9 +39,13 @@ def stage(name,assembly,cam,target,span,size='1600x1500',flutes=False):
         transparent=True,solid=True,ortho=True,trim=False,ground=False,fog=False))
     print('Staged',name,flush=True)
 
-def cylinder(gap=0):
+def cylinder(stand_off=0):
+    """The regulator on the customer's cylinder, its red tether in the outlet from the factory.
+    `stand_off` holds the regulator out along its inlet axis, its big nut short of the valve."""
     a=cq.Assembly(name='cylinder-connection')
-    for child in reg.build_assembly().children:a.add(child)
+    move=cq.Location(cq.Vector(stand_off,0,0))
+    for child in reg.build_assembly().children:
+        a.add(child.obj.moved(move) if stand_off else child.obj,name=child.name,color=child.color)
     cx=-115.0
     body=(cq.Workplane('XZ',origin=(cx,0,-468))
           .moveTo(0,0).lineTo(54,0).threePointArc((64,6),(66.5,17))
@@ -52,9 +56,8 @@ def cylinder(gap=0):
     a.add(install._cyl(cx,0,14,8,12),name='cylinder-valve-stem',color=install.BRASS)
     a.add(install._cyl(cx,0,25,48,8),name='cylinder-handwheel',color=BLACK)
     a.add(install._cyl(cx,0,-1,18,115-reg.INLET_NUT_FACE,axis='X'),name='valve-outlet',color=install.BRASS)
-    tip,_=reg.outlet();nut_len=14
-    a.add(install._hex(tip[0],tip[1],tip[2]-nut_len-gap,reg.OUTLET_HEX_FLATS,nut_len),name='tether-nut',color=install.BRASS)
-    a.add(install._bend([(0,0,tip[2]-nut_len-gap),(0,0,tip[2]-69-gap),(160,0,tip[2]-69-gap)],radius=28),name='red-tether',color=install.RED_TUBE)
+    mouth,_=reg.outlet()
+    a.add(install._co2_tether((mouth[0]+stand_off,mouth[1],mouth[2]),69,160,28),name='red-tether',color=install.RED_TUBE)
     return a
 
 def fill(gap=0):
@@ -158,7 +161,7 @@ def main():
     OUT.mkdir(parents=True,exist_ok=True);ART.mkdir(exist_ok=True)
     wanted=set(sys.argv[1:])
     if not wanted or 'gas' in wanted:
-        stage('co2-ready',cylinder(29),(.12,1,.15),(-34,0,-58),150)
+        stage('co2-ready',cylinder(30),(.12,1,.15),(-34,0,-58),150)
         stage('co2-connected',cylinder(),(.12,1,.15),(-34,0,-58),150)
     if not wanted or 'power' in wanted:
         paths=original._build_connection_steps(OUT)
