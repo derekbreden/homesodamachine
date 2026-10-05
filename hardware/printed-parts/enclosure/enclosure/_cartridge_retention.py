@@ -16,8 +16,9 @@ OD = 19.05
 ID = 9.525
 THICKNESS = 3.175
 TOLERANCE = 0.1
-RADIAL_AIR = 0.2
-AXIAL_AIR = 0.4
+FIT_COUPON = "C3"
+RADIAL_AIR = 0.0
+AXIAL_AIR = 0.0
 FACE_COVER = 1.2
 BACKING = 3.0
 ROOF_AIR = 0.48
@@ -46,6 +47,10 @@ def dimensions(xz, face_y, into):
             "roof_z_mm": z + OD / 2.0 + ROOF_AIR,
             "face_cover_mm": FACE_COVER, "backing_minimum_mm": BACKING,
             "width_mm": 2 * radius, "depth_mm": depth,
+            "fit_coupon": FIT_COUPON,
+            "maximum_od_x_interference_mm": max(0.0, OD + TOLERANCE - 2 * radius),
+            "maximum_thickness_y_interference_mm": max(0.0, THICKNESS + TOLERANCE - depth),
+            "nominal_roof_clearance_mm": ROOF_AIR,
             "minimum_roof_clearance_at_maximum_od_mm": ROOF_AIR - TOLERANCE}
 
 
@@ -54,8 +59,9 @@ def pocket(xz, face_y, into):
 
     Both owning parts print in +Z. A closed circular or annular pocket would
     narrow above its equator before an upright ring could enter. This D-shaped
-    cavity keeps the whole diameter clear up to the flat roof. There is no post
-    through the ring's centre to obstruct its downward insertion.
+    cavity keeps the selected C3 width up to the flat roof. A maximum-size ring
+    has intentional lateral interference; the roof air is independent of that
+    hand-fit choice. There is no post through the ring's centre.
     """
     d = dimensions(xz, face_y, into)
     x, _z = xz

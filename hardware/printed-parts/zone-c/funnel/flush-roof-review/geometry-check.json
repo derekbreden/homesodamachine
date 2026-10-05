@@ -1,20 +1,31 @@
 {
-  "schema": 1,
+  "schema": 2,
   "checks": [
+    {
+      "check": "retained native witnesses and bounded corner proof bind current sources",
+      "pass": true,
+      "retained_native_proof_sha256": "fe1d56813052753f024f024746c966a9c06979d07c6a9c84b27897680a8f3448",
+      "bounded_corner_proof_sha256": "c3398eb43ad28188b404cc7bf8814ec460f74f93d8c7a8f844c66e2f37f0f64c"
+    },
+    {
+      "check": "fresh producer binds all reviewed leaf outputs and loaded geometry sources",
+      "pass": true,
+      "generation_sha256": "f210d86b3e422e0ea8a61b852963f220ed5534c21528f7430493fe3f0331d4da"
+    },
     {
       "check": "funnel-frame one valid solid",
       "pass": true,
-      "volume_mm3": 622661.3659671312
+      "volume_mm3": 622753.3120184717
     },
     {
       "check": "front-top one valid solid",
       "pass": true,
-      "volume_mm3": 1319283.9084546643
+      "volume_mm3": 1320119.0799312326
     },
     {
       "check": "back-top one valid solid",
       "pass": true,
-      "volume_mm3": 1595711.7850253328
+      "volume_mm3": 1595711.7850712012
     },
     {
       "check": "frame roof flush with shell exterior",
@@ -34,7 +45,8 @@
       "check": "complete slipped brim footprint has 3 mm of frame bearing",
       "pass": true,
       "missing_volume_mm3": 0.0,
-      "bearing_volume_mm3": 11134.663620579251
+      "bearing_volume_mm3": 11134.663620579195,
+      "basis": "Exact retained native witness plus source-bound upper-corner additions; no stock is removed and the complete added footprint below Z349 was already present."
     },
     {
       "check": "display-side roof landing retains 3 mm",
@@ -48,21 +60,45 @@
       "air_mm": 0.1142819474725627
     },
     {
-      "check": "frame seated in front-top",
-      "pass": true,
-      "overlap_mm3": 0.0
-    },
-    {
-      "check": "frame seated in back-top",
-      "pass": true,
-      "overlap_mm3": 0.0
-    },
-    {
       "check": "front roof stops before existing back-top",
       "pass": true,
       "roof_back_y_mm": 199.75,
       "y_seam_mm": 200.0,
       "running_air_mm": 0.25
+    },
+    {
+      "check": "square rear roof corner -1 is backed and clears both shells",
+      "pass": true,
+      "missing_corner_stock_mm3": 0.0,
+      "missing_backing_mm3": 0.0,
+      "removed_corner_stock_mm3": 0.0,
+      "unexpected_corner_delta_mm3": 0.0,
+      "added_corner_stock_mm3": 46.353996706136854,
+      "shell_clearance_mm": {
+        "front-top": 0.25,
+        "back-top": 0.25
+      },
+      "corner_z_mm": [
+        349.0,
+        355.0
+      ]
+    },
+    {
+      "check": "square rear roof corner +1 is backed and clears both shells",
+      "pass": true,
+      "missing_corner_stock_mm3": 0.0,
+      "missing_backing_mm3": 0.0,
+      "removed_corner_stock_mm3": 0.0,
+      "unexpected_corner_delta_mm3": 0.0,
+      "added_corner_stock_mm3": 46.35399670614436,
+      "shell_clearance_mm": {
+        "front-top": 0.25,
+        "back-top": 0.25
+      },
+      "corner_z_mm": [
+        349.0,
+        355.0
+      ]
     },
     {
       "check": "rear frame stays beneath existing back-top ceiling",
@@ -81,15 +117,16 @@
     {
       "check": "frame retains complete brim-bearing stock",
       "pass": true,
-      "baseline_frame_mm3": 608280.355536004,
-      "current_frame_mm3": 622661.3659671312,
-      "added_fraction": 0.023642076059574583
+      "baseline_frame_mm3": 608279.7415835938,
+      "current_frame_mm3": 622753.3120184717,
+      "added_fraction": 0.023794266758247494
     },
     {
       "check": "frame socket, rails and lower corbels equal retained baseline",
       "pass": true,
       "delta_mm3": 0.0,
-      "below_z_mm": 330.2
+      "below_z_mm": 330.2,
+      "basis": "Exact bound native baseline witness and the corner proof: the only frame source change adds stock at Z349..355, above the complete retained socket/rail/corbel band."
     },
     {
       "check": "one continuous flat display wall with declared cable openings",
@@ -110,20 +147,1480 @@
       ]
     },
     {
-      "check": "front-top retained outside display wall, clip and roof clearance",
+      "check": "operator C3 and V69 selections are the current production geometry",
       "pass": true,
-      "delta_outside_declared_change_regions_mm3": 0.0
+      "magnet_label": "C3",
+      "valve_socket_diameter_mm": 6.9,
+      "front_top_magnet_pocket_count": 1,
+      "front_top_valve_socket_count": 32
+    },
+    {
+      "check": "C3 front-top RC62 pocket retains the selected opening and exact fit stock",
+      "pass": true,
+      "previous_radial_air_mm": 0.2,
+      "previous_axial_air_mm": 0.4,
+      "selected_radial_air_mm": 0.0,
+      "selected_axial_air_mm": 0.0,
+      "dimensions_mm": {
+        "axis_xz_mm": [
+          0.0,
+          186.174
+        ],
+        "magnet_axis": [
+          0,
+          1,
+          0
+        ],
+        "mating_face_y_mm": 79.515,
+        "into": 1.0,
+        "pocket_y_mm": [
+          80.715,
+          83.89
+        ],
+        "pocket_radius_mm": 9.525,
+        "arc_center_z_mm": 186.174,
+        "seat_floor_z_mm": 176.649,
+        "roof_z_mm": 196.179,
+        "face_cover_mm": 1.2,
+        "backing_minimum_mm": 3.0,
+        "width_mm": 19.05,
+        "depth_mm": 3.175,
+        "fit_coupon": "C3",
+        "maximum_od_x_interference_mm": 0.10000000000000142,
+        "maximum_thickness_y_interference_mm": 0.10000000000000009,
+        "nominal_roof_clearance_mm": 0.48,
+        "minimum_roof_clearance_at_maximum_od_mm": 0.38
+      },
+      "allowed_region_bounds_mm": {
+        "x": [
+          -9.725,
+          9.725
+        ],
+        "y": [
+          80.7149994,
+          84.29
+        ],
+        "z": [
+          176.649,
+          196.179
+        ]
+      },
+      "allowed_change_volume_mm3": 155.26307185632643,
+      "selected_fit_added_stock_mm3": 155.26307185629682,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "check": "V69 tray 0 seat 0 post 0 retains the selected opening and exact fit stock",
+      "pass": true,
+      "axis_xz_mm": [
+        10.150000000000002,
+        178.0
+      ],
+      "socket_y_mm": [
+        171.09,
+        178.29
+      ],
+      "bearing_y_mm": 172.09,
+      "grip_y_mm": [
+        172.09,
+        178.29
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          6.5500000000000025,
+          13.750000000000002
+        ],
+        "y": [
+          171.09,
+          178.29
+        ],
+        "z": [
+          174.4,
+          182.44984471899923
+        ]
+      },
+      "allowed_change_volume_mm3": 24.667963979776133,
+      "selected_fit_added_stock_mm3": 21.241857871562903,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "check": "V69 tray 0 seat 0 post 1 retains the selected opening and exact fit stock",
+      "pass": true,
+      "axis_xz_mm": [
+        10.150000000000002,
+        202.85000000000002
+      ],
+      "socket_y_mm": [
+        171.09,
+        178.29
+      ],
+      "bearing_y_mm": 172.09,
+      "grip_y_mm": [
+        172.09,
+        178.29
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          6.5500000000000025,
+          13.750000000000002
+        ],
+        "y": [
+          171.09,
+          178.29
+        ],
+        "z": [
+          199.25000000000003,
+          207.29984471899925
+        ]
+      },
+      "allowed_change_volume_mm3": 24.667963979776083,
+      "selected_fit_added_stock_mm3": 21.241857871556142,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "check": "V69 tray 0 seat 0 post 2 retains the selected opening and exact fit stock",
+      "pass": true,
+      "axis_xz_mm": [
+        34.55,
+        178.0
+      ],
+      "socket_y_mm": [
+        171.09,
+        178.29
+      ],
+      "bearing_y_mm": 172.09,
+      "grip_y_mm": [
+        172.09,
+        178.29
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          30.949999999999996,
+          38.15
+        ],
+        "y": [
+          171.09,
+          178.29
+        ],
+        "z": [
+          174.4,
+          182.44984471899923
+        ]
+      },
+      "allowed_change_volume_mm3": 24.667963979776278,
+      "selected_fit_added_stock_mm3": 21.24185787156282,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "check": "V69 tray 0 seat 0 post 3 retains the selected opening and exact fit stock",
+      "pass": true,
+      "axis_xz_mm": [
+        34.55,
+        202.85000000000002
+      ],
+      "socket_y_mm": [
+        171.09,
+        178.29
+      ],
+      "bearing_y_mm": 172.09,
+      "grip_y_mm": [
+        172.09,
+        178.29
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          30.949999999999996,
+          38.15
+        ],
+        "y": [
+          171.09,
+          178.29
+        ],
+        "z": [
+          199.25000000000003,
+          207.29984471899925
+        ]
+      },
+      "allowed_change_volume_mm3": 24.667963979776168,
+      "selected_fit_added_stock_mm3": 21.2418578715562,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "check": "V69 tray 0 seat 1 post 0 retains the selected opening and exact fit stock",
+      "pass": true,
+      "axis_xz_mm": [
+        -34.55,
+        178.0
+      ],
+      "socket_y_mm": [
+        171.09,
+        178.29
+      ],
+      "bearing_y_mm": 172.09,
+      "grip_y_mm": [
+        172.09,
+        178.29
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          -38.15,
+          -30.949999999999996
+        ],
+        "y": [
+          171.09,
+          178.29
+        ],
+        "z": [
+          174.4,
+          182.44984471899923
+        ]
+      },
+      "allowed_change_volume_mm3": 24.667963979776193,
+      "selected_fit_added_stock_mm3": 21.24185787157011,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "check": "V69 tray 0 seat 1 post 1 retains the selected opening and exact fit stock",
+      "pass": true,
+      "axis_xz_mm": [
+        -34.55,
+        202.85000000000002
+      ],
+      "socket_y_mm": [
+        171.09,
+        178.29
+      ],
+      "bearing_y_mm": 172.09,
+      "grip_y_mm": [
+        172.09,
+        178.29
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          -38.15,
+          -30.949999999999996
+        ],
+        "y": [
+          171.09,
+          178.29
+        ],
+        "z": [
+          199.25000000000003,
+          207.29984471899925
+        ]
+      },
+      "allowed_change_volume_mm3": 24.66796397977617,
+      "selected_fit_added_stock_mm3": 21.241857871559628,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "check": "V69 tray 0 seat 1 post 2 retains the selected opening and exact fit stock",
+      "pass": true,
+      "axis_xz_mm": [
+        -10.150000000000002,
+        178.0
+      ],
+      "socket_y_mm": [
+        171.09,
+        178.29
+      ],
+      "bearing_y_mm": 172.09,
+      "grip_y_mm": [
+        172.09,
+        178.29
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          -13.750000000000002,
+          -6.5500000000000025
+        ],
+        "y": [
+          171.09,
+          178.29
+        ],
+        "z": [
+          174.4,
+          182.44984471899923
+        ]
+      },
+      "allowed_change_volume_mm3": 24.667963979776104,
+      "selected_fit_added_stock_mm3": 21.24185787157488,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "check": "V69 tray 0 seat 1 post 3 retains the selected opening and exact fit stock",
+      "pass": true,
+      "axis_xz_mm": [
+        -10.150000000000002,
+        202.85000000000002
+      ],
+      "socket_y_mm": [
+        171.09,
+        178.29
+      ],
+      "bearing_y_mm": 172.09,
+      "grip_y_mm": [
+        172.09,
+        178.29
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          -13.750000000000002,
+          -6.5500000000000025
+        ],
+        "y": [
+          171.09,
+          178.29
+        ],
+        "z": [
+          199.25000000000003,
+          207.29984471899925
+        ]
+      },
+      "allowed_change_volume_mm3": 24.66796397977614,
+      "selected_fit_added_stock_mm3": 21.241857871568246,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "check": "V69 tray 0 seat 2 post 0 retains the selected opening and exact fit stock",
+      "pass": true,
+      "axis_xz_mm": [
+        61.61999999999999,
+        187.5
+      ],
+      "socket_y_mm": [
+        171.09,
+        178.29
+      ],
+      "bearing_y_mm": 172.09,
+      "grip_y_mm": [
+        172.09,
+        178.29
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          58.01999999999999,
+          65.21999999999998
+        ],
+        "y": [
+          171.09,
+          178.29
+        ],
+        "z": [
+          183.9,
+          191.94984471899923
+        ]
+      },
+      "allowed_change_volume_mm3": 24.66796397977619,
+      "selected_fit_added_stock_mm3": 21.24185787156279,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "check": "V69 tray 0 seat 2 post 1 retains the selected opening and exact fit stock",
+      "pass": true,
+      "axis_xz_mm": [
+        61.61999999999999,
+        212.35000000000002
+      ],
+      "socket_y_mm": [
+        171.09,
+        178.29
+      ],
+      "bearing_y_mm": 172.09,
+      "grip_y_mm": [
+        172.09,
+        178.29
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          58.01999999999999,
+          65.21999999999998
+        ],
+        "y": [
+          171.09,
+          178.29
+        ],
+        "z": [
+          208.75000000000003,
+          216.79984471899925
+        ]
+      },
+      "allowed_change_volume_mm3": 24.66796397977612,
+      "selected_fit_added_stock_mm3": 21.24185787155622,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "check": "V69 tray 0 seat 2 post 2 retains the selected opening and exact fit stock",
+      "pass": true,
+      "axis_xz_mm": [
+        86.02,
+        187.5
+      ],
+      "socket_y_mm": [
+        171.09,
+        178.29
+      ],
+      "bearing_y_mm": 172.09,
+      "grip_y_mm": [
+        172.09,
+        178.29
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          82.42,
+          89.61999999999999
+        ],
+        "y": [
+          171.09,
+          178.29
+        ],
+        "z": [
+          183.9,
+          191.94984471899923
+        ]
+      },
+      "allowed_change_volume_mm3": 24.667963979776058,
+      "selected_fit_added_stock_mm3": 21.24185787156286,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "check": "V69 tray 0 seat 2 post 3 retains the selected opening and exact fit stock",
+      "pass": true,
+      "axis_xz_mm": [
+        86.02,
+        212.35000000000002
+      ],
+      "socket_y_mm": [
+        171.09,
+        178.29
+      ],
+      "bearing_y_mm": 172.09,
+      "grip_y_mm": [
+        172.09,
+        178.29
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          82.42,
+          89.61999999999999
+        ],
+        "y": [
+          171.09,
+          178.29
+        ],
+        "z": [
+          208.75000000000003,
+          216.79984471899925
+        ]
+      },
+      "allowed_change_volume_mm3": 24.667963979776207,
+      "selected_fit_added_stock_mm3": 21.241857871556096,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "check": "V69 tray 0 seat 3 post 0 retains the selected opening and exact fit stock",
+      "pass": true,
+      "axis_xz_mm": [
+        -86.02,
+        187.5
+      ],
+      "socket_y_mm": [
+        171.09,
+        178.29
+      ],
+      "bearing_y_mm": 172.09,
+      "grip_y_mm": [
+        172.09,
+        178.29
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          -89.61999999999999,
+          -82.42
+        ],
+        "y": [
+          171.09,
+          178.29
+        ],
+        "z": [
+          183.9,
+          191.94984471899923
+        ]
+      },
+      "allowed_change_volume_mm3": 24.667963979776083,
+      "selected_fit_added_stock_mm3": 21.24185787157,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "check": "V69 tray 0 seat 3 post 1 retains the selected opening and exact fit stock",
+      "pass": true,
+      "axis_xz_mm": [
+        -86.02,
+        212.35000000000002
+      ],
+      "socket_y_mm": [
+        171.09,
+        178.29
+      ],
+      "bearing_y_mm": 172.09,
+      "grip_y_mm": [
+        172.09,
+        178.29
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          -89.61999999999999,
+          -82.42
+        ],
+        "y": [
+          171.09,
+          178.29
+        ],
+        "z": [
+          208.75000000000003,
+          216.79984471899925
+        ]
+      },
+      "allowed_change_volume_mm3": 24.667963979776182,
+      "selected_fit_added_stock_mm3": 21.241857871559493,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "check": "V69 tray 0 seat 3 post 2 retains the selected opening and exact fit stock",
+      "pass": true,
+      "axis_xz_mm": [
+        -61.61999999999999,
+        187.5
+      ],
+      "socket_y_mm": [
+        171.09,
+        178.29
+      ],
+      "bearing_y_mm": 172.09,
+      "grip_y_mm": [
+        172.09,
+        178.29
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          -65.21999999999998,
+          -58.01999999999999
+        ],
+        "y": [
+          171.09,
+          178.29
+        ],
+        "z": [
+          183.9,
+          191.94984471899923
+        ]
+      },
+      "allowed_change_volume_mm3": 24.667963979776218,
+      "selected_fit_added_stock_mm3": 21.241857871570076,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "check": "V69 tray 0 seat 3 post 3 retains the selected opening and exact fit stock",
+      "pass": true,
+      "axis_xz_mm": [
+        -61.61999999999999,
+        212.35000000000002
+      ],
+      "socket_y_mm": [
+        171.09,
+        178.29
+      ],
+      "bearing_y_mm": 172.09,
+      "grip_y_mm": [
+        172.09,
+        178.29
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          -65.21999999999998,
+          -58.01999999999999
+        ],
+        "y": [
+          171.09,
+          178.29
+        ],
+        "z": [
+          208.75000000000003,
+          216.79984471899925
+        ]
+      },
+      "allowed_change_volume_mm3": 24.667963979776232,
+      "selected_fit_added_stock_mm3": 21.241857871559525,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "check": "V69 tray 1 seat 0 post 0 retains the selected opening and exact fit stock",
+      "pass": true,
+      "axis_xz_mm": [
+        10.150000000000002,
+        264.85
+      ],
+      "socket_y_mm": [
+        93.24,
+        100.44
+      ],
+      "bearing_y_mm": 99.44,
+      "grip_y_mm": [
+        93.24,
+        99.44
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          6.5500000000000025,
+          13.750000000000002
+        ],
+        "y": [
+          93.24,
+          100.44
+        ],
+        "z": [
+          261.25,
+          269.2998447189993
+        ]
+      },
+      "allowed_change_volume_mm3": 24.667963979776033,
+      "selected_fit_added_stock_mm3": 21.241857871557293,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "check": "V69 tray 1 seat 0 post 1 retains the selected opening and exact fit stock",
+      "pass": true,
+      "axis_xz_mm": [
+        10.150000000000002,
+        240.0
+      ],
+      "socket_y_mm": [
+        93.24,
+        100.44
+      ],
+      "bearing_y_mm": 99.44,
+      "grip_y_mm": [
+        93.24,
+        99.44
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          6.5500000000000025,
+          13.750000000000002
+        ],
+        "y": [
+          93.24,
+          100.44
+        ],
+        "z": [
+          236.4,
+          244.44984471899923
+        ]
+      },
+      "allowed_change_volume_mm3": 24.66796397977621,
+      "selected_fit_added_stock_mm3": 21.24185787156293,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "check": "V69 tray 1 seat 0 post 2 retains the selected opening and exact fit stock",
+      "pass": true,
+      "axis_xz_mm": [
+        34.55,
+        264.85
+      ],
+      "socket_y_mm": [
+        93.24,
+        100.44
+      ],
+      "bearing_y_mm": 99.44,
+      "grip_y_mm": [
+        93.24,
+        99.44
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          30.949999999999996,
+          38.15
+        ],
+        "y": [
+          93.24,
+          100.44
+        ],
+        "z": [
+          261.25,
+          269.2998447189993
+        ]
+      },
+      "allowed_change_volume_mm3": 24.66796397977624,
+      "selected_fit_added_stock_mm3": 21.241857871557322,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "check": "V69 tray 1 seat 0 post 3 retains the selected opening and exact fit stock",
+      "pass": true,
+      "axis_xz_mm": [
+        34.55,
+        240.0
+      ],
+      "socket_y_mm": [
+        93.24,
+        100.44
+      ],
+      "bearing_y_mm": 99.44,
+      "grip_y_mm": [
+        93.24,
+        99.44
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          30.949999999999996,
+          38.15
+        ],
+        "y": [
+          93.24,
+          100.44
+        ],
+        "z": [
+          236.4,
+          244.44984471899923
+        ]
+      },
+      "allowed_change_volume_mm3": 24.66796397977633,
+      "selected_fit_added_stock_mm3": 21.241857871562864,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "check": "V69 tray 1 seat 1 post 0 retains the selected opening and exact fit stock",
+      "pass": true,
+      "axis_xz_mm": [
+        69.89999999999999,
+        264.85
+      ],
+      "socket_y_mm": [
+        93.24,
+        100.44
+      ],
+      "bearing_y_mm": 99.44,
+      "grip_y_mm": [
+        93.24,
+        99.44
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          66.3,
+          73.49999999999999
+        ],
+        "y": [
+          93.24,
+          100.44
+        ],
+        "z": [
+          261.25,
+          269.2998447189993
+        ]
+      },
+      "allowed_change_volume_mm3": 24.66796397977603,
+      "selected_fit_added_stock_mm3": 21.241857871557382,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "check": "V69 tray 1 seat 1 post 1 retains the selected opening and exact fit stock",
+      "pass": true,
+      "axis_xz_mm": [
+        69.89999999999999,
+        240.0
+      ],
+      "socket_y_mm": [
+        93.24,
+        100.44
+      ],
+      "bearing_y_mm": 99.44,
+      "grip_y_mm": [
+        93.24,
+        99.44
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          66.3,
+          73.49999999999999
+        ],
+        "y": [
+          93.24,
+          100.44
+        ],
+        "z": [
+          236.4,
+          244.44984471899923
+        ]
+      },
+      "allowed_change_volume_mm3": 24.667963979776196,
+      "selected_fit_added_stock_mm3": 21.241857871562953,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "check": "V69 tray 1 seat 1 post 2 retains the selected opening and exact fit stock",
+      "pass": true,
+      "axis_xz_mm": [
+        94.3,
+        264.85
+      ],
+      "socket_y_mm": [
+        93.24,
+        100.44
+      ],
+      "bearing_y_mm": 99.44,
+      "grip_y_mm": [
+        93.24,
+        99.44
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          90.7,
+          97.89999999999999
+        ],
+        "y": [
+          93.24,
+          100.44
+        ],
+        "z": [
+          261.25,
+          269.2998447189993
+        ]
+      },
+      "allowed_change_volume_mm3": 24.66796397977603,
+      "selected_fit_added_stock_mm3": 21.241857871557283,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "check": "V69 tray 1 seat 1 post 3 retains the selected opening and exact fit stock",
+      "pass": true,
+      "axis_xz_mm": [
+        94.3,
+        240.0
+      ],
+      "socket_y_mm": [
+        93.24,
+        100.44
+      ],
+      "bearing_y_mm": 99.44,
+      "grip_y_mm": [
+        93.24,
+        99.44
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          90.7,
+          97.89999999999999
+        ],
+        "y": [
+          93.24,
+          100.44
+        ],
+        "z": [
+          236.4,
+          244.44984471899923
+        ]
+      },
+      "allowed_change_volume_mm3": 24.66796397977614,
+      "selected_fit_added_stock_mm3": 21.241857871562903,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "check": "V69 tray 1 seat 2 post 0 retains the selected opening and exact fit stock",
+      "pass": true,
+      "axis_xz_mm": [
+        -34.55,
+        264.85
+      ],
+      "socket_y_mm": [
+        93.24,
+        100.44
+      ],
+      "bearing_y_mm": 99.44,
+      "grip_y_mm": [
+        93.24,
+        99.44
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          -38.15,
+          -30.949999999999996
+        ],
+        "y": [
+          93.24,
+          100.44
+        ],
+        "z": [
+          261.25,
+          269.2998447189993
+        ]
+      },
+      "allowed_change_volume_mm3": 24.667963979776243,
+      "selected_fit_added_stock_mm3": 21.241857871560924,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "check": "V69 tray 1 seat 2 post 1 retains the selected opening and exact fit stock",
+      "pass": true,
+      "axis_xz_mm": [
+        -34.55,
+        240.0
+      ],
+      "socket_y_mm": [
+        93.24,
+        100.44
+      ],
+      "bearing_y_mm": 99.44,
+      "grip_y_mm": [
+        93.24,
+        99.44
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          -38.15,
+          -30.949999999999996
+        ],
+        "y": [
+          93.24,
+          100.44
+        ],
+        "z": [
+          236.4,
+          244.44984471899923
+        ]
+      },
+      "allowed_change_volume_mm3": 24.667963979776243,
+      "selected_fit_added_stock_mm3": 21.241857871570218,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "check": "V69 tray 1 seat 2 post 2 retains the selected opening and exact fit stock",
+      "pass": true,
+      "axis_xz_mm": [
+        -10.150000000000002,
+        264.85
+      ],
+      "socket_y_mm": [
+        93.24,
+        100.44
+      ],
+      "bearing_y_mm": 99.44,
+      "grip_y_mm": [
+        93.24,
+        99.44
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          -13.750000000000002,
+          -6.5500000000000025
+        ],
+        "y": [
+          93.24,
+          100.44
+        ],
+        "z": [
+          261.25,
+          269.2998447189993
+        ]
+      },
+      "allowed_change_volume_mm3": 24.66796397977606,
+      "selected_fit_added_stock_mm3": 21.241857871569383,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "check": "V69 tray 1 seat 2 post 3 retains the selected opening and exact fit stock",
+      "pass": true,
+      "axis_xz_mm": [
+        -10.150000000000002,
+        240.0
+      ],
+      "socket_y_mm": [
+        93.24,
+        100.44
+      ],
+      "bearing_y_mm": 99.44,
+      "grip_y_mm": [
+        93.24,
+        99.44
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          -13.750000000000002,
+          -6.5500000000000025
+        ],
+        "y": [
+          93.24,
+          100.44
+        ],
+        "z": [
+          236.4,
+          244.44984471899923
+        ]
+      },
+      "allowed_change_volume_mm3": 24.667963979776133,
+      "selected_fit_added_stock_mm3": 21.24185787157494,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "check": "V69 tray 1 seat 3 post 0 retains the selected opening and exact fit stock",
+      "pass": true,
+      "axis_xz_mm": [
+        -94.3,
+        264.85
+      ],
+      "socket_y_mm": [
+        93.24,
+        100.44
+      ],
+      "bearing_y_mm": 99.44,
+      "grip_y_mm": [
+        93.24,
+        99.44
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          -97.89999999999999,
+          -90.7
+        ],
+        "y": [
+          93.24,
+          100.44
+        ],
+        "z": [
+          261.25,
+          269.2998447189993
+        ]
+      },
+      "allowed_change_volume_mm3": 24.667963979776058,
+      "selected_fit_added_stock_mm3": 21.24185787156068,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "check": "V69 tray 1 seat 3 post 1 retains the selected opening and exact fit stock",
+      "pass": true,
+      "axis_xz_mm": [
+        -94.3,
+        240.0
+      ],
+      "socket_y_mm": [
+        93.24,
+        100.44
+      ],
+      "bearing_y_mm": 99.44,
+      "grip_y_mm": [
+        93.24,
+        99.44
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          -97.89999999999999,
+          -90.7
+        ],
+        "y": [
+          93.24,
+          100.44
+        ],
+        "z": [
+          236.4,
+          244.44984471899923
+        ]
+      },
+      "allowed_change_volume_mm3": 24.667963979776253,
+      "selected_fit_added_stock_mm3": 21.24185787157008,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "check": "V69 tray 1 seat 3 post 2 retains the selected opening and exact fit stock",
+      "pass": true,
+      "axis_xz_mm": [
+        -69.89999999999999,
+        264.85
+      ],
+      "socket_y_mm": [
+        93.24,
+        100.44
+      ],
+      "bearing_y_mm": 99.44,
+      "grip_y_mm": [
+        93.24,
+        99.44
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          -73.49999999999999,
+          -66.3
+        ],
+        "y": [
+          93.24,
+          100.44
+        ],
+        "z": [
+          261.25,
+          269.2998447189993
+        ]
+      },
+      "allowed_change_volume_mm3": 24.667963979776026,
+      "selected_fit_added_stock_mm3": 21.241857871560615,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "check": "V69 tray 1 seat 3 post 3 retains the selected opening and exact fit stock",
+      "pass": true,
+      "axis_xz_mm": [
+        -69.89999999999999,
+        240.0
+      ],
+      "socket_y_mm": [
+        93.24,
+        100.44
+      ],
+      "bearing_y_mm": 99.44,
+      "grip_y_mm": [
+        93.24,
+        99.44
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          -73.49999999999999,
+          -66.3
+        ],
+        "y": [
+          93.24,
+          100.44
+        ],
+        "z": [
+          236.4,
+          244.44984471899923
+        ]
+      },
+      "allowed_change_volume_mm3": 24.667963979776225,
+      "selected_fit_added_stock_mm3": 21.241857871570037,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "check": "front-top equals the bound flat-wall export outside exact selected fit regions",
+      "pass": true,
+      "previous_flat_front_top_step_sha256": "a35f0dc6d127ca234965d67be0385f138e9b00630ad7f117a584ad07a3276aac",
+      "added_stock_outside_fit_regions_mm3": 0.0,
+      "removed_stock_mm3": 0.0,
+      "fit_stock_volume_mm3": 835.0025237463226,
+      "comparison_added_stock_mm3": 835.0023849738805
+    },
+    {
+      "check": "frame seated in front-top",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "basis": "Bound full seated native witness, direct current-shell difference restricted to the 33 exact fit regions, and direct upper-corner shell clearance checks.",
+      "selected_fit_stock_overlap_mm3": 0.0
+    },
+    {
+      "check": "frame seated in back-top",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "basis": "Bound full seated native witness, direct current-shell difference restricted to the 33 exact fit regions, and direct upper-corner shell clearance checks.",
+      "selected_fit_stock_overlap_mm3": 0.0
+    },
+    {
+      "check": "front-top retained outside display wall, clip, roof and exact selected fit regions",
+      "pass": true,
+      "delta_outside_declared_change_regions_mm3": 0.0,
+      "added_stock_outside_declared_regions_mm3": 0.0,
+      "removed_stock_outside_structural_regions_mm3": 0.0,
+      "named_fit_regions": [
+        "C3 front-top RC62 pocket",
+        "V69 tray 0 seat 0 post 0",
+        "V69 tray 0 seat 0 post 1",
+        "V69 tray 0 seat 0 post 2",
+        "V69 tray 0 seat 0 post 3",
+        "V69 tray 0 seat 1 post 0",
+        "V69 tray 0 seat 1 post 1",
+        "V69 tray 0 seat 1 post 2",
+        "V69 tray 0 seat 1 post 3",
+        "V69 tray 0 seat 2 post 0",
+        "V69 tray 0 seat 2 post 1",
+        "V69 tray 0 seat 2 post 2",
+        "V69 tray 0 seat 2 post 3",
+        "V69 tray 0 seat 3 post 0",
+        "V69 tray 0 seat 3 post 1",
+        "V69 tray 0 seat 3 post 2",
+        "V69 tray 0 seat 3 post 3",
+        "V69 tray 1 seat 0 post 0",
+        "V69 tray 1 seat 0 post 1",
+        "V69 tray 1 seat 0 post 2",
+        "V69 tray 1 seat 0 post 3",
+        "V69 tray 1 seat 1 post 0",
+        "V69 tray 1 seat 1 post 1",
+        "V69 tray 1 seat 1 post 2",
+        "V69 tray 1 seat 1 post 3",
+        "V69 tray 1 seat 2 post 0",
+        "V69 tray 1 seat 2 post 1",
+        "V69 tray 1 seat 2 post 2",
+        "V69 tray 1 seat 2 post 3",
+        "V69 tray 1 seat 3 post 0",
+        "V69 tray 1 seat 3 post 1",
+        "V69 tray 1 seat 3 post 2",
+        "V69 tray 1 seat 3 post 3"
+      ],
+      "structural_region_bounds_mm": {
+        "display_wall": {
+          "x": [
+            -120.0,
+            120.0
+          ],
+          "y": [
+            82.689,
+            104.20949207671873
+          ],
+          "z": [
+            284.4230001,
+            356.0
+          ]
+        },
+        "roof_clearance": {
+          "x": [
+            -120.0,
+            120.0
+          ],
+          "y": [
+            95.20849207671873,
+            218.8
+          ],
+          "z": [
+            333.749,
+            356.0
+          ]
+        },
+        "relocated_clip": {
+          "x": [
+            73.5,
+            93.5
+          ],
+          "y": [
+            84.69,
+            105.20849207671873
+          ],
+          "z": [
+            283.5045573971231,
+            325.79649217671874
+          ]
+        }
+      },
+      "basis": "The fit regions permit only exact old-minus-selected cutter additions; no selected-fit stock removal is excused."
     },
     {
       "check": "display wall stock and occupied enclosure air quantified",
       "pass": true,
-      "added_front_top_stock_mm3": 91746.45761345787,
-      "removed_front_top_stock_mm3": 4229.015736725629,
-      "front_top_air_occupied_ml": 87.51744187673224,
+      "added_front_top_stock_mm3": 92581.4599641458,
+      "removed_front_top_stock_mm3": 4229.015736725826,
+      "front_top_air_occupied_ml": 88.35244489611732,
+      "selected_magnet_fit_stock_mm3": 155.26307185629682,
+      "selected_valve_fit_stock_mm3": 679.7394518900257,
+      "selected_fit_air_occupied_ml": 0.8350025237463226,
+      "display_wall_and_roof_front_top_air_occupied_ml": 87.517442372371,
       "added_frame_stock_mm3": 25.15917639190527,
-      "removed_frame_stock_mm3": 20974.20597664511,
-      "net_enclosure_air_occupied_ml": 66.56839507647902,
-      "scope": "Combined rigid front-top and frame solid volume change; this is enclosure air, not liquid funnel capacity."
+      "removed_frame_stock_mm3": 20881.497983232828,
+      "frame_air_occupied_ml": -20.856336353562305,
+      "square_rear_corner_added_stock_mm3": 92.70799341228121,
+      "wall_and_frame_air_occupied_ml": 66.66110601880868,
+      "net_enclosure_air_occupied_ml": 67.496108542555,
+      "native_volume_integration_relative_tolerance": 1e-09,
+      "difference_witness_mass_closure_residual_mm3": -0.003121975954854861,
+      "scope": "Combined rigid front-top and frame native solid volume relative to the hash-bound wide flush-roof baseline. Selected-fit stock is quantified separately; this is enclosure air, not liquid funnel capacity."
     },
     {
       "check": "relocated clip is complete and its channel is open",
@@ -178,23 +1675,268 @@
     {
       "check": "silicone capacity retained",
       "pass": true,
-      "native_capacity_ml": 455.437155060864,
+      "native_capacity_ml": 455.4371550608631,
       "nominal_capacity_ml": 455.44,
       "capacity_loss_ml": 0,
       "basis": "Silicone source and cavity geometry retained; only rigid wall and frame boundaries changed."
     },
     {
-      "check": "added frame stock clears funnel",
+      "check": "added front-top stock clears tee-y-a",
       "pass": true,
       "overlap_mm3": 0.0
     },
     {
-      "check": "added frame stock clears funnel-cover",
+      "check": "added front-top stock clears valve-v-c",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears coil-v-c",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears tee-y-c",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears valve-v-e",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears coil-v-e",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears valve-v-g",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears coil-v-g",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears tee-y-d",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears valve-v-f",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears coil-v-f",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears tee-y-b",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears valve-v-d",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears coil-v-d",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears tee-y-f",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears valve-v-h",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears coil-v-h",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears valve-v-j",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears coil-v-j",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears tee-y-g",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears valve-v-i",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears coil-v-i",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears tube-fluid-10",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears tube-fluid-11",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears tube-fluid-12",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears tube-fluid-13",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears tube-fluid-20",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears tube-fluid-21",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears tube-fluid-22",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears tube-fluid-23",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears turn-fluid-3",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears turn-fluid-5",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears step-fluid-3",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears step-fluid-5",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears cold-core/foam-shell",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears cold-core/foam-cap-top",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears cold-core/foam-cap-lid-top",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears cold-core/reservoir-b",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears cold-core/reservoir-b-cap",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears cold-core/copper-plug-west",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears cold-core/copper-plug-port",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears cold-core/evap-tail-outlet",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears cold-core/reed-b-4",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears cold-core/line-reservoir-a",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears cold-core/line-reservoir-b",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears cold-core/line-water-in",
       "pass": true,
       "overlap_mm3": 0.0
     },
     {
       "check": "added front-top stock clears wago-mana",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears wago-manb",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears tube-water-5",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears tube-water-3",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears tube-fluid-28",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears tube-fluid-18",
       "pass": true,
       "overlap_mm3": 0.0
     },
@@ -244,6 +1986,11 @@
       "overlap_mm3": 0.0
     },
     {
+      "check": "added front-top stock clears tube-fluid-4",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
       "check": "added front-top stock clears display",
       "pass": true,
       "overlap_mm3": 0.0
@@ -252,6 +1999,48 @@
       "check": "added front-top stock clears display-cover",
       "pass": true,
       "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears display-gasket",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears pump-contact-male",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears tee-carrier-spring-west-lower",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears tee-carrier-spring-west-upper",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears tee-carrier-spring-east-lower",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added front-top stock clears tee-carrier-spring-east-upper",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "retained added frame stock clears funnel",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "basis": "Retained native added-stock witness; silicone source is unchanged and current added corners receive separate current-assembly checks."
+    },
+    {
+      "check": "retained added frame stock clears funnel-cover",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "basis": "Retained native added-stock witness; silicone source is unchanged and current added corners receive separate current-assembly checks."
     }
   ],
   "roof_datums_mm": {
@@ -263,10 +2052,1743 @@
     "taper_floor": 346.0,
     "side_reach": 0.0
   },
+  "selected_fit_change_regions": [
+    {
+      "name": "C3 front-top RC62 pocket",
+      "kind": "magnet",
+      "previous_radial_air_mm": 0.2,
+      "previous_axial_air_mm": 0.4,
+      "selected_radial_air_mm": 0.0,
+      "selected_axial_air_mm": 0.0,
+      "dimensions_mm": {
+        "axis_xz_mm": [
+          0.0,
+          186.174
+        ],
+        "magnet_axis": [
+          0,
+          1,
+          0
+        ],
+        "mating_face_y_mm": 79.515,
+        "into": 1.0,
+        "pocket_y_mm": [
+          80.715,
+          83.89
+        ],
+        "pocket_radius_mm": 9.525,
+        "arc_center_z_mm": 186.174,
+        "seat_floor_z_mm": 176.649,
+        "roof_z_mm": 196.179,
+        "face_cover_mm": 1.2,
+        "backing_minimum_mm": 3.0,
+        "width_mm": 19.05,
+        "depth_mm": 3.175,
+        "fit_coupon": "C3",
+        "maximum_od_x_interference_mm": 0.10000000000000142,
+        "maximum_thickness_y_interference_mm": 0.10000000000000009,
+        "nominal_roof_clearance_mm": 0.48,
+        "minimum_roof_clearance_at_maximum_od_mm": 0.38
+      },
+      "allowed_region_bounds_mm": {
+        "x": [
+          -9.725,
+          9.725
+        ],
+        "y": [
+          80.7149994,
+          84.29
+        ],
+        "z": [
+          176.649,
+          196.179
+        ]
+      },
+      "region": "Exact previous cutter minus selected cutter, including the tangent teardrop roof where applicable.",
+      "allowed_change_volume_mm3": 155.26307185632643,
+      "selected_fit_added_stock_mm3": 155.26307185629682,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "name": "V69 tray 0 seat 0 post 0",
+      "kind": "valve",
+      "axis_xz_mm": [
+        10.150000000000002,
+        178.0
+      ],
+      "socket_y_mm": [
+        171.09,
+        178.29
+      ],
+      "bearing_y_mm": 172.09,
+      "grip_y_mm": [
+        172.09,
+        178.29
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          6.5500000000000025,
+          13.750000000000002
+        ],
+        "y": [
+          171.09,
+          178.29
+        ],
+        "z": [
+          174.4,
+          182.44984471899923
+        ]
+      },
+      "region": "Exact previous cutter minus selected cutter, including the tangent teardrop roof where applicable.",
+      "allowed_change_volume_mm3": 24.667963979776133,
+      "selected_fit_added_stock_mm3": 21.241857871562903,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "name": "V69 tray 0 seat 0 post 1",
+      "kind": "valve",
+      "axis_xz_mm": [
+        10.150000000000002,
+        202.85000000000002
+      ],
+      "socket_y_mm": [
+        171.09,
+        178.29
+      ],
+      "bearing_y_mm": 172.09,
+      "grip_y_mm": [
+        172.09,
+        178.29
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          6.5500000000000025,
+          13.750000000000002
+        ],
+        "y": [
+          171.09,
+          178.29
+        ],
+        "z": [
+          199.25000000000003,
+          207.29984471899925
+        ]
+      },
+      "region": "Exact previous cutter minus selected cutter, including the tangent teardrop roof where applicable.",
+      "allowed_change_volume_mm3": 24.667963979776083,
+      "selected_fit_added_stock_mm3": 21.241857871556142,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "name": "V69 tray 0 seat 0 post 2",
+      "kind": "valve",
+      "axis_xz_mm": [
+        34.55,
+        178.0
+      ],
+      "socket_y_mm": [
+        171.09,
+        178.29
+      ],
+      "bearing_y_mm": 172.09,
+      "grip_y_mm": [
+        172.09,
+        178.29
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          30.949999999999996,
+          38.15
+        ],
+        "y": [
+          171.09,
+          178.29
+        ],
+        "z": [
+          174.4,
+          182.44984471899923
+        ]
+      },
+      "region": "Exact previous cutter minus selected cutter, including the tangent teardrop roof where applicable.",
+      "allowed_change_volume_mm3": 24.667963979776278,
+      "selected_fit_added_stock_mm3": 21.24185787156282,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "name": "V69 tray 0 seat 0 post 3",
+      "kind": "valve",
+      "axis_xz_mm": [
+        34.55,
+        202.85000000000002
+      ],
+      "socket_y_mm": [
+        171.09,
+        178.29
+      ],
+      "bearing_y_mm": 172.09,
+      "grip_y_mm": [
+        172.09,
+        178.29
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          30.949999999999996,
+          38.15
+        ],
+        "y": [
+          171.09,
+          178.29
+        ],
+        "z": [
+          199.25000000000003,
+          207.29984471899925
+        ]
+      },
+      "region": "Exact previous cutter minus selected cutter, including the tangent teardrop roof where applicable.",
+      "allowed_change_volume_mm3": 24.667963979776168,
+      "selected_fit_added_stock_mm3": 21.2418578715562,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "name": "V69 tray 0 seat 1 post 0",
+      "kind": "valve",
+      "axis_xz_mm": [
+        -34.55,
+        178.0
+      ],
+      "socket_y_mm": [
+        171.09,
+        178.29
+      ],
+      "bearing_y_mm": 172.09,
+      "grip_y_mm": [
+        172.09,
+        178.29
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          -38.15,
+          -30.949999999999996
+        ],
+        "y": [
+          171.09,
+          178.29
+        ],
+        "z": [
+          174.4,
+          182.44984471899923
+        ]
+      },
+      "region": "Exact previous cutter minus selected cutter, including the tangent teardrop roof where applicable.",
+      "allowed_change_volume_mm3": 24.667963979776193,
+      "selected_fit_added_stock_mm3": 21.24185787157011,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "name": "V69 tray 0 seat 1 post 1",
+      "kind": "valve",
+      "axis_xz_mm": [
+        -34.55,
+        202.85000000000002
+      ],
+      "socket_y_mm": [
+        171.09,
+        178.29
+      ],
+      "bearing_y_mm": 172.09,
+      "grip_y_mm": [
+        172.09,
+        178.29
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          -38.15,
+          -30.949999999999996
+        ],
+        "y": [
+          171.09,
+          178.29
+        ],
+        "z": [
+          199.25000000000003,
+          207.29984471899925
+        ]
+      },
+      "region": "Exact previous cutter minus selected cutter, including the tangent teardrop roof where applicable.",
+      "allowed_change_volume_mm3": 24.66796397977617,
+      "selected_fit_added_stock_mm3": 21.241857871559628,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "name": "V69 tray 0 seat 1 post 2",
+      "kind": "valve",
+      "axis_xz_mm": [
+        -10.150000000000002,
+        178.0
+      ],
+      "socket_y_mm": [
+        171.09,
+        178.29
+      ],
+      "bearing_y_mm": 172.09,
+      "grip_y_mm": [
+        172.09,
+        178.29
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          -13.750000000000002,
+          -6.5500000000000025
+        ],
+        "y": [
+          171.09,
+          178.29
+        ],
+        "z": [
+          174.4,
+          182.44984471899923
+        ]
+      },
+      "region": "Exact previous cutter minus selected cutter, including the tangent teardrop roof where applicable.",
+      "allowed_change_volume_mm3": 24.667963979776104,
+      "selected_fit_added_stock_mm3": 21.24185787157488,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "name": "V69 tray 0 seat 1 post 3",
+      "kind": "valve",
+      "axis_xz_mm": [
+        -10.150000000000002,
+        202.85000000000002
+      ],
+      "socket_y_mm": [
+        171.09,
+        178.29
+      ],
+      "bearing_y_mm": 172.09,
+      "grip_y_mm": [
+        172.09,
+        178.29
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          -13.750000000000002,
+          -6.5500000000000025
+        ],
+        "y": [
+          171.09,
+          178.29
+        ],
+        "z": [
+          199.25000000000003,
+          207.29984471899925
+        ]
+      },
+      "region": "Exact previous cutter minus selected cutter, including the tangent teardrop roof where applicable.",
+      "allowed_change_volume_mm3": 24.66796397977614,
+      "selected_fit_added_stock_mm3": 21.241857871568246,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "name": "V69 tray 0 seat 2 post 0",
+      "kind": "valve",
+      "axis_xz_mm": [
+        61.61999999999999,
+        187.5
+      ],
+      "socket_y_mm": [
+        171.09,
+        178.29
+      ],
+      "bearing_y_mm": 172.09,
+      "grip_y_mm": [
+        172.09,
+        178.29
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          58.01999999999999,
+          65.21999999999998
+        ],
+        "y": [
+          171.09,
+          178.29
+        ],
+        "z": [
+          183.9,
+          191.94984471899923
+        ]
+      },
+      "region": "Exact previous cutter minus selected cutter, including the tangent teardrop roof where applicable.",
+      "allowed_change_volume_mm3": 24.66796397977619,
+      "selected_fit_added_stock_mm3": 21.24185787156279,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "name": "V69 tray 0 seat 2 post 1",
+      "kind": "valve",
+      "axis_xz_mm": [
+        61.61999999999999,
+        212.35000000000002
+      ],
+      "socket_y_mm": [
+        171.09,
+        178.29
+      ],
+      "bearing_y_mm": 172.09,
+      "grip_y_mm": [
+        172.09,
+        178.29
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          58.01999999999999,
+          65.21999999999998
+        ],
+        "y": [
+          171.09,
+          178.29
+        ],
+        "z": [
+          208.75000000000003,
+          216.79984471899925
+        ]
+      },
+      "region": "Exact previous cutter minus selected cutter, including the tangent teardrop roof where applicable.",
+      "allowed_change_volume_mm3": 24.66796397977612,
+      "selected_fit_added_stock_mm3": 21.24185787155622,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "name": "V69 tray 0 seat 2 post 2",
+      "kind": "valve",
+      "axis_xz_mm": [
+        86.02,
+        187.5
+      ],
+      "socket_y_mm": [
+        171.09,
+        178.29
+      ],
+      "bearing_y_mm": 172.09,
+      "grip_y_mm": [
+        172.09,
+        178.29
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          82.42,
+          89.61999999999999
+        ],
+        "y": [
+          171.09,
+          178.29
+        ],
+        "z": [
+          183.9,
+          191.94984471899923
+        ]
+      },
+      "region": "Exact previous cutter minus selected cutter, including the tangent teardrop roof where applicable.",
+      "allowed_change_volume_mm3": 24.667963979776058,
+      "selected_fit_added_stock_mm3": 21.24185787156286,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "name": "V69 tray 0 seat 2 post 3",
+      "kind": "valve",
+      "axis_xz_mm": [
+        86.02,
+        212.35000000000002
+      ],
+      "socket_y_mm": [
+        171.09,
+        178.29
+      ],
+      "bearing_y_mm": 172.09,
+      "grip_y_mm": [
+        172.09,
+        178.29
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          82.42,
+          89.61999999999999
+        ],
+        "y": [
+          171.09,
+          178.29
+        ],
+        "z": [
+          208.75000000000003,
+          216.79984471899925
+        ]
+      },
+      "region": "Exact previous cutter minus selected cutter, including the tangent teardrop roof where applicable.",
+      "allowed_change_volume_mm3": 24.667963979776207,
+      "selected_fit_added_stock_mm3": 21.241857871556096,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "name": "V69 tray 0 seat 3 post 0",
+      "kind": "valve",
+      "axis_xz_mm": [
+        -86.02,
+        187.5
+      ],
+      "socket_y_mm": [
+        171.09,
+        178.29
+      ],
+      "bearing_y_mm": 172.09,
+      "grip_y_mm": [
+        172.09,
+        178.29
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          -89.61999999999999,
+          -82.42
+        ],
+        "y": [
+          171.09,
+          178.29
+        ],
+        "z": [
+          183.9,
+          191.94984471899923
+        ]
+      },
+      "region": "Exact previous cutter minus selected cutter, including the tangent teardrop roof where applicable.",
+      "allowed_change_volume_mm3": 24.667963979776083,
+      "selected_fit_added_stock_mm3": 21.24185787157,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "name": "V69 tray 0 seat 3 post 1",
+      "kind": "valve",
+      "axis_xz_mm": [
+        -86.02,
+        212.35000000000002
+      ],
+      "socket_y_mm": [
+        171.09,
+        178.29
+      ],
+      "bearing_y_mm": 172.09,
+      "grip_y_mm": [
+        172.09,
+        178.29
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          -89.61999999999999,
+          -82.42
+        ],
+        "y": [
+          171.09,
+          178.29
+        ],
+        "z": [
+          208.75000000000003,
+          216.79984471899925
+        ]
+      },
+      "region": "Exact previous cutter minus selected cutter, including the tangent teardrop roof where applicable.",
+      "allowed_change_volume_mm3": 24.667963979776182,
+      "selected_fit_added_stock_mm3": 21.241857871559493,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "name": "V69 tray 0 seat 3 post 2",
+      "kind": "valve",
+      "axis_xz_mm": [
+        -61.61999999999999,
+        187.5
+      ],
+      "socket_y_mm": [
+        171.09,
+        178.29
+      ],
+      "bearing_y_mm": 172.09,
+      "grip_y_mm": [
+        172.09,
+        178.29
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          -65.21999999999998,
+          -58.01999999999999
+        ],
+        "y": [
+          171.09,
+          178.29
+        ],
+        "z": [
+          183.9,
+          191.94984471899923
+        ]
+      },
+      "region": "Exact previous cutter minus selected cutter, including the tangent teardrop roof where applicable.",
+      "allowed_change_volume_mm3": 24.667963979776218,
+      "selected_fit_added_stock_mm3": 21.241857871570076,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "name": "V69 tray 0 seat 3 post 3",
+      "kind": "valve",
+      "axis_xz_mm": [
+        -61.61999999999999,
+        212.35000000000002
+      ],
+      "socket_y_mm": [
+        171.09,
+        178.29
+      ],
+      "bearing_y_mm": 172.09,
+      "grip_y_mm": [
+        172.09,
+        178.29
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          -65.21999999999998,
+          -58.01999999999999
+        ],
+        "y": [
+          171.09,
+          178.29
+        ],
+        "z": [
+          208.75000000000003,
+          216.79984471899925
+        ]
+      },
+      "region": "Exact previous cutter minus selected cutter, including the tangent teardrop roof where applicable.",
+      "allowed_change_volume_mm3": 24.667963979776232,
+      "selected_fit_added_stock_mm3": 21.241857871559525,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "name": "V69 tray 1 seat 0 post 0",
+      "kind": "valve",
+      "axis_xz_mm": [
+        10.150000000000002,
+        264.85
+      ],
+      "socket_y_mm": [
+        93.24,
+        100.44
+      ],
+      "bearing_y_mm": 99.44,
+      "grip_y_mm": [
+        93.24,
+        99.44
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          6.5500000000000025,
+          13.750000000000002
+        ],
+        "y": [
+          93.24,
+          100.44
+        ],
+        "z": [
+          261.25,
+          269.2998447189993
+        ]
+      },
+      "region": "Exact previous cutter minus selected cutter, including the tangent teardrop roof where applicable.",
+      "allowed_change_volume_mm3": 24.667963979776033,
+      "selected_fit_added_stock_mm3": 21.241857871557293,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "name": "V69 tray 1 seat 0 post 1",
+      "kind": "valve",
+      "axis_xz_mm": [
+        10.150000000000002,
+        240.0
+      ],
+      "socket_y_mm": [
+        93.24,
+        100.44
+      ],
+      "bearing_y_mm": 99.44,
+      "grip_y_mm": [
+        93.24,
+        99.44
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          6.5500000000000025,
+          13.750000000000002
+        ],
+        "y": [
+          93.24,
+          100.44
+        ],
+        "z": [
+          236.4,
+          244.44984471899923
+        ]
+      },
+      "region": "Exact previous cutter minus selected cutter, including the tangent teardrop roof where applicable.",
+      "allowed_change_volume_mm3": 24.66796397977621,
+      "selected_fit_added_stock_mm3": 21.24185787156293,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "name": "V69 tray 1 seat 0 post 2",
+      "kind": "valve",
+      "axis_xz_mm": [
+        34.55,
+        264.85
+      ],
+      "socket_y_mm": [
+        93.24,
+        100.44
+      ],
+      "bearing_y_mm": 99.44,
+      "grip_y_mm": [
+        93.24,
+        99.44
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          30.949999999999996,
+          38.15
+        ],
+        "y": [
+          93.24,
+          100.44
+        ],
+        "z": [
+          261.25,
+          269.2998447189993
+        ]
+      },
+      "region": "Exact previous cutter minus selected cutter, including the tangent teardrop roof where applicable.",
+      "allowed_change_volume_mm3": 24.66796397977624,
+      "selected_fit_added_stock_mm3": 21.241857871557322,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "name": "V69 tray 1 seat 0 post 3",
+      "kind": "valve",
+      "axis_xz_mm": [
+        34.55,
+        240.0
+      ],
+      "socket_y_mm": [
+        93.24,
+        100.44
+      ],
+      "bearing_y_mm": 99.44,
+      "grip_y_mm": [
+        93.24,
+        99.44
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          30.949999999999996,
+          38.15
+        ],
+        "y": [
+          93.24,
+          100.44
+        ],
+        "z": [
+          236.4,
+          244.44984471899923
+        ]
+      },
+      "region": "Exact previous cutter minus selected cutter, including the tangent teardrop roof where applicable.",
+      "allowed_change_volume_mm3": 24.66796397977633,
+      "selected_fit_added_stock_mm3": 21.241857871562864,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "name": "V69 tray 1 seat 1 post 0",
+      "kind": "valve",
+      "axis_xz_mm": [
+        69.89999999999999,
+        264.85
+      ],
+      "socket_y_mm": [
+        93.24,
+        100.44
+      ],
+      "bearing_y_mm": 99.44,
+      "grip_y_mm": [
+        93.24,
+        99.44
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          66.3,
+          73.49999999999999
+        ],
+        "y": [
+          93.24,
+          100.44
+        ],
+        "z": [
+          261.25,
+          269.2998447189993
+        ]
+      },
+      "region": "Exact previous cutter minus selected cutter, including the tangent teardrop roof where applicable.",
+      "allowed_change_volume_mm3": 24.66796397977603,
+      "selected_fit_added_stock_mm3": 21.241857871557382,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "name": "V69 tray 1 seat 1 post 1",
+      "kind": "valve",
+      "axis_xz_mm": [
+        69.89999999999999,
+        240.0
+      ],
+      "socket_y_mm": [
+        93.24,
+        100.44
+      ],
+      "bearing_y_mm": 99.44,
+      "grip_y_mm": [
+        93.24,
+        99.44
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          66.3,
+          73.49999999999999
+        ],
+        "y": [
+          93.24,
+          100.44
+        ],
+        "z": [
+          236.4,
+          244.44984471899923
+        ]
+      },
+      "region": "Exact previous cutter minus selected cutter, including the tangent teardrop roof where applicable.",
+      "allowed_change_volume_mm3": 24.667963979776196,
+      "selected_fit_added_stock_mm3": 21.241857871562953,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "name": "V69 tray 1 seat 1 post 2",
+      "kind": "valve",
+      "axis_xz_mm": [
+        94.3,
+        264.85
+      ],
+      "socket_y_mm": [
+        93.24,
+        100.44
+      ],
+      "bearing_y_mm": 99.44,
+      "grip_y_mm": [
+        93.24,
+        99.44
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          90.7,
+          97.89999999999999
+        ],
+        "y": [
+          93.24,
+          100.44
+        ],
+        "z": [
+          261.25,
+          269.2998447189993
+        ]
+      },
+      "region": "Exact previous cutter minus selected cutter, including the tangent teardrop roof where applicable.",
+      "allowed_change_volume_mm3": 24.66796397977603,
+      "selected_fit_added_stock_mm3": 21.241857871557283,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "name": "V69 tray 1 seat 1 post 3",
+      "kind": "valve",
+      "axis_xz_mm": [
+        94.3,
+        240.0
+      ],
+      "socket_y_mm": [
+        93.24,
+        100.44
+      ],
+      "bearing_y_mm": 99.44,
+      "grip_y_mm": [
+        93.24,
+        99.44
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          90.7,
+          97.89999999999999
+        ],
+        "y": [
+          93.24,
+          100.44
+        ],
+        "z": [
+          236.4,
+          244.44984471899923
+        ]
+      },
+      "region": "Exact previous cutter minus selected cutter, including the tangent teardrop roof where applicable.",
+      "allowed_change_volume_mm3": 24.66796397977614,
+      "selected_fit_added_stock_mm3": 21.241857871562903,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "name": "V69 tray 1 seat 2 post 0",
+      "kind": "valve",
+      "axis_xz_mm": [
+        -34.55,
+        264.85
+      ],
+      "socket_y_mm": [
+        93.24,
+        100.44
+      ],
+      "bearing_y_mm": 99.44,
+      "grip_y_mm": [
+        93.24,
+        99.44
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          -38.15,
+          -30.949999999999996
+        ],
+        "y": [
+          93.24,
+          100.44
+        ],
+        "z": [
+          261.25,
+          269.2998447189993
+        ]
+      },
+      "region": "Exact previous cutter minus selected cutter, including the tangent teardrop roof where applicable.",
+      "allowed_change_volume_mm3": 24.667963979776243,
+      "selected_fit_added_stock_mm3": 21.241857871560924,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "name": "V69 tray 1 seat 2 post 1",
+      "kind": "valve",
+      "axis_xz_mm": [
+        -34.55,
+        240.0
+      ],
+      "socket_y_mm": [
+        93.24,
+        100.44
+      ],
+      "bearing_y_mm": 99.44,
+      "grip_y_mm": [
+        93.24,
+        99.44
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          -38.15,
+          -30.949999999999996
+        ],
+        "y": [
+          93.24,
+          100.44
+        ],
+        "z": [
+          236.4,
+          244.44984471899923
+        ]
+      },
+      "region": "Exact previous cutter minus selected cutter, including the tangent teardrop roof where applicable.",
+      "allowed_change_volume_mm3": 24.667963979776243,
+      "selected_fit_added_stock_mm3": 21.241857871570218,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "name": "V69 tray 1 seat 2 post 2",
+      "kind": "valve",
+      "axis_xz_mm": [
+        -10.150000000000002,
+        264.85
+      ],
+      "socket_y_mm": [
+        93.24,
+        100.44
+      ],
+      "bearing_y_mm": 99.44,
+      "grip_y_mm": [
+        93.24,
+        99.44
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          -13.750000000000002,
+          -6.5500000000000025
+        ],
+        "y": [
+          93.24,
+          100.44
+        ],
+        "z": [
+          261.25,
+          269.2998447189993
+        ]
+      },
+      "region": "Exact previous cutter minus selected cutter, including the tangent teardrop roof where applicable.",
+      "allowed_change_volume_mm3": 24.66796397977606,
+      "selected_fit_added_stock_mm3": 21.241857871569383,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "name": "V69 tray 1 seat 2 post 3",
+      "kind": "valve",
+      "axis_xz_mm": [
+        -10.150000000000002,
+        240.0
+      ],
+      "socket_y_mm": [
+        93.24,
+        100.44
+      ],
+      "bearing_y_mm": 99.44,
+      "grip_y_mm": [
+        93.24,
+        99.44
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          -13.750000000000002,
+          -6.5500000000000025
+        ],
+        "y": [
+          93.24,
+          100.44
+        ],
+        "z": [
+          236.4,
+          244.44984471899923
+        ]
+      },
+      "region": "Exact previous cutter minus selected cutter, including the tangent teardrop roof where applicable.",
+      "allowed_change_volume_mm3": 24.667963979776133,
+      "selected_fit_added_stock_mm3": 21.24185787157494,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "name": "V69 tray 1 seat 3 post 0",
+      "kind": "valve",
+      "axis_xz_mm": [
+        -94.3,
+        264.85
+      ],
+      "socket_y_mm": [
+        93.24,
+        100.44
+      ],
+      "bearing_y_mm": 99.44,
+      "grip_y_mm": [
+        93.24,
+        99.44
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          -97.89999999999999,
+          -90.7
+        ],
+        "y": [
+          93.24,
+          100.44
+        ],
+        "z": [
+          261.25,
+          269.2998447189993
+        ]
+      },
+      "region": "Exact previous cutter minus selected cutter, including the tangent teardrop roof where applicable.",
+      "allowed_change_volume_mm3": 24.667963979776058,
+      "selected_fit_added_stock_mm3": 21.24185787156068,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "name": "V69 tray 1 seat 3 post 1",
+      "kind": "valve",
+      "axis_xz_mm": [
+        -94.3,
+        240.0
+      ],
+      "socket_y_mm": [
+        93.24,
+        100.44
+      ],
+      "bearing_y_mm": 99.44,
+      "grip_y_mm": [
+        93.24,
+        99.44
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          -97.89999999999999,
+          -90.7
+        ],
+        "y": [
+          93.24,
+          100.44
+        ],
+        "z": [
+          236.4,
+          244.44984471899923
+        ]
+      },
+      "region": "Exact previous cutter minus selected cutter, including the tangent teardrop roof where applicable.",
+      "allowed_change_volume_mm3": 24.667963979776253,
+      "selected_fit_added_stock_mm3": 21.24185787157008,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "name": "V69 tray 1 seat 3 post 2",
+      "kind": "valve",
+      "axis_xz_mm": [
+        -69.89999999999999,
+        264.85
+      ],
+      "socket_y_mm": [
+        93.24,
+        100.44
+      ],
+      "bearing_y_mm": 99.44,
+      "grip_y_mm": [
+        93.24,
+        99.44
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          -73.49999999999999,
+          -66.3
+        ],
+        "y": [
+          93.24,
+          100.44
+        ],
+        "z": [
+          261.25,
+          269.2998447189993
+        ]
+      },
+      "region": "Exact previous cutter minus selected cutter, including the tangent teardrop roof where applicable.",
+      "allowed_change_volume_mm3": 24.667963979776026,
+      "selected_fit_added_stock_mm3": 21.241857871560615,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    },
+    {
+      "name": "V69 tray 1 seat 3 post 3",
+      "kind": "valve",
+      "axis_xz_mm": [
+        -69.89999999999999,
+        240.0
+      ],
+      "socket_y_mm": [
+        93.24,
+        100.44
+      ],
+      "bearing_y_mm": 99.44,
+      "grip_y_mm": [
+        93.24,
+        99.44
+      ],
+      "previous_socket_diameter_mm": 7.2,
+      "selected_socket_diameter_mm": 6.9,
+      "teardrop_roof_angle_degrees": 36.0,
+      "allowed_region_bounds_mm": {
+        "x": [
+          -73.49999999999999,
+          -66.3
+        ],
+        "y": [
+          93.24,
+          100.44
+        ],
+        "z": [
+          236.4,
+          244.44984471899923
+        ]
+      },
+      "region": "Exact previous cutter minus selected cutter, including the tangent teardrop roof where applicable.",
+      "allowed_change_volume_mm3": 24.667963979776225,
+      "selected_fit_added_stock_mm3": 21.241857871570037,
+      "missing_expected_fit_stock_mm3": 0.0,
+      "unexpected_fit_stock_mm3": 0.0,
+      "selected_opening_blocked_mm3": 0.0,
+      "previous_fit_stock_mm3": 0.0
+    }
+  ],
+  "retained_native_proof": {
+    "artifact_sha256": "fe1d56813052753f024f024746c966a9c06979d07c6a9c84b27897680a8f3448",
+    "record": {
+      "schema": 1,
+      "checks": [
+        {
+          "check": "funnel-frame one valid solid",
+          "pass": true,
+          "volume_mm3": 622661.3659671312
+        },
+        {
+          "check": "front-top one valid solid",
+          "pass": true,
+          "volume_mm3": 1319283.9084546643
+        },
+        {
+          "check": "back-top one valid solid",
+          "pass": true,
+          "volume_mm3": 1595711.7850253328
+        },
+        {
+          "check": "frame roof flush with shell exterior",
+          "pass": true,
+          "frame_top_z_mm": 355.0,
+          "roof_z_mm": 355.0
+        },
+        {
+          "check": "existing outlet socket and rail datums retained",
+          "pass": true,
+          "underside_z_mm": 299.9,
+          "socket_floor_z_mm": 302.9,
+          "rail_z_mm": 306.9,
+          "silicone_seat_z_mm": 349.0
+        },
+        {
+          "check": "complete slipped brim footprint has 3 mm of frame bearing",
+          "pass": true,
+          "missing_volume_mm3": 0.0,
+          "bearing_volume_mm3": 11134.663620579251
+        },
+        {
+          "check": "display-side roof landing retains 3 mm",
+          "pass": true,
+          "roof_front_y_mm": 95.45849207671873,
+          "landing_mm": 3
+        },
+        {
+          "check": "frame roof stays behind display roof arris",
+          "pass": true,
+          "air_mm": 0.1142819474725627
+        },
+        {
+          "check": "frame seated in front-top",
+          "pass": true,
+          "overlap_mm3": 0.0
+        },
+        {
+          "check": "frame seated in back-top",
+          "pass": true,
+          "overlap_mm3": 0.0
+        },
+        {
+          "check": "front roof stops before existing back-top",
+          "pass": true,
+          "roof_back_y_mm": 199.75,
+          "y_seam_mm": 200.0,
+          "running_air_mm": 0.25
+        },
+        {
+          "check": "rear frame stays beneath existing back-top ceiling",
+          "pass": true,
+          "rear_frame_above_seat_mm3": 0.0
+        },
+        {
+          "check": "existing back-top export triplet retained exactly",
+          "pass": true,
+          "sha256": {
+            "enclosure-back-top.step": "7de724435d621c63f80916991f9c8d0a38c224705d1e9dbaf5b1c6f2f959950a",
+            "enclosure-back-top.stl": "cc3fa8d2544fc768e03006edf9757d57c1b2895b5903eb2b0d56167ec2c6dbc7",
+            "enclosure-back-top.step.mesh": "0e2e43d328eeb34023a82d2c98ca3f36a2d071cdef04ee9f811484bdff80b5ca"
+          }
+        },
+        {
+          "check": "frame retains complete brim-bearing stock",
+          "pass": true,
+          "baseline_frame_mm3": 608280.355536004,
+          "current_frame_mm3": 622661.3659671312,
+          "added_fraction": 0.023642076059574583
+        },
+        {
+          "check": "frame socket, rails and lower corbels equal retained baseline",
+          "pass": true,
+          "delta_mm3": 0.0,
+          "below_z_mm": 330.2
+        },
+        {
+          "check": "one continuous flat display wall with declared cable openings",
+          "pass": true,
+          "face_y_mm": 95.20849207671873,
+          "flat_root_z_mm": 285.79649217671874,
+          "flat_face_count": 1,
+          "flat_face_area_mm2": 12928.241773603499,
+          "minimum_display_backing_mm": 5.4746321747492885,
+          "missing_flat_wall_witness_mm3": 0.0,
+          "unexpected_aft_stock_mm3": 0.0,
+          "unexpected_flat_wall_witness_mm3": 0.0,
+          "witness_thickness_mm": 0.05,
+          "clip_origin_mm": [
+            68.5,
+            95.20849207671873,
+            285.79649217671874
+          ]
+        },
+        {
+          "check": "front-top retained outside display wall, clip and roof clearance",
+          "pass": true,
+          "delta_outside_declared_change_regions_mm3": 0.0
+        },
+        {
+          "check": "display wall stock and occupied enclosure air quantified",
+          "pass": true,
+          "added_front_top_stock_mm3": 91746.45761345787,
+          "removed_front_top_stock_mm3": 4229.015736725629,
+          "front_top_air_occupied_ml": 87.51744187673224,
+          "added_frame_stock_mm3": 25.15917639190527,
+          "removed_frame_stock_mm3": 20974.20597664511,
+          "net_enclosure_air_occupied_ml": 66.56839507647902,
+          "scope": "Combined rigid front-top and frame solid volume change; this is enclosure air, not liquid funnel capacity."
+        },
+        {
+          "check": "relocated clip is complete and its channel is open",
+          "pass": true,
+          "missing_clip_stock_mm3": 0.0,
+          "blocked_channel_mm3": 0.0
+        },
+        {
+          "check": "frame clears relocated cable clip",
+          "pass": true,
+          "overlap_mm3": 0.0
+        },
+        {
+          "check": "frame clears relocated cable channel",
+          "pass": true,
+          "overlap_mm3": 0.0
+        },
+        {
+          "check": "frame leaves clearance to clip and channel",
+          "pass": true,
+          "clip_distance_mm": 3.046254285226391,
+          "channel_distance_mm": 4.546254285226959
+        },
+        {
+          "check": "complete 9 mm roof flank -1",
+          "pass": true,
+          "nominal_section_mm": 9.0,
+          "missing_stock_mm3": 0.0,
+          "witness_y_mm": [
+            105.45849207671873,
+            199.75
+          ],
+          "witness_z_mm": [
+            346.25,
+            355.0
+          ]
+        },
+        {
+          "check": "complete 9 mm roof flank +1",
+          "pass": true,
+          "nominal_section_mm": 9.0,
+          "missing_stock_mm3": 0.0,
+          "witness_y_mm": [
+            105.45849207671873,
+            199.75
+          ],
+          "witness_z_mm": [
+            346.25,
+            355.0
+          ]
+        },
+        {
+          "check": "silicone capacity retained",
+          "pass": true,
+          "native_capacity_ml": 455.437155060864,
+          "nominal_capacity_ml": 455.44,
+          "capacity_loss_ml": 0,
+          "basis": "Silicone source and cavity geometry retained; only rigid wall and frame boundaries changed."
+        },
+        {
+          "check": "added frame stock clears funnel",
+          "pass": true,
+          "overlap_mm3": 0.0
+        },
+        {
+          "check": "added frame stock clears funnel-cover",
+          "pass": true,
+          "overlap_mm3": 0.0
+        },
+        {
+          "check": "added front-top stock clears wago-mana",
+          "pass": true,
+          "overlap_mm3": 0.0
+        },
+        {
+          "check": "added front-top stock clears tube-fluid-24",
+          "pass": true,
+          "overlap_mm3": 0.0
+        },
+        {
+          "check": "added front-top stock clears tube-fluid-26",
+          "pass": true,
+          "overlap_mm3": 0.0
+        },
+        {
+          "check": "added front-top stock clears tube-fluid-14",
+          "pass": true,
+          "overlap_mm3": 0.0
+        },
+        {
+          "check": "added front-top stock clears tube-fluid-16",
+          "pass": true,
+          "overlap_mm3": 0.0
+        },
+        {
+          "check": "added front-top stock clears funnel",
+          "pass": true,
+          "overlap_mm3": 0.0
+        },
+        {
+          "check": "added front-top stock clears funnel-cover",
+          "pass": true,
+          "overlap_mm3": 0.0
+        },
+        {
+          "check": "added front-top stock clears elbow-cradle",
+          "pass": true,
+          "overlap_mm3": 0.0
+        },
+        {
+          "check": "added front-top stock clears funnel-drain-union",
+          "pass": true,
+          "overlap_mm3": 0.0
+        },
+        {
+          "check": "added front-top stock clears funnel-drain-stub",
+          "pass": true,
+          "overlap_mm3": 0.0
+        },
+        {
+          "check": "added front-top stock clears display",
+          "pass": true,
+          "overlap_mm3": 0.0
+        },
+        {
+          "check": "added front-top stock clears display-cover",
+          "pass": true,
+          "overlap_mm3": 0.0
+        }
+      ],
+      "roof_datums_mm": {
+        "width": 196.5,
+        "front": 95.45849207671873,
+        "back": 199.75,
+        "floor": 346.0,
+        "top": 355.0,
+        "taper_floor": 346.0,
+        "side_reach": 0.0
+      },
+      "nearby_installed_members_checked": [
+        "frame/funnel",
+        "frame/funnel-cover",
+        "front-top/wago-mana",
+        "front-top/tube-fluid-24",
+        "front-top/tube-fluid-26",
+        "front-top/tube-fluid-14",
+        "front-top/tube-fluid-16",
+        "front-top/funnel",
+        "front-top/funnel-cover",
+        "front-top/elbow-cradle",
+        "front-top/funnel-drain-union",
+        "front-top/funnel-drain-stub",
+        "front-top/display",
+        "front-top/display-cover"
+      ],
+      "source_sha256": {
+        "hardware/printed-parts/zone-c/funnel/flush-roof-review/check_geometry.py": "8415414a2c23a7845a396efb304ef28b1df96dba7e027d81255bf1e7177cf960",
+        "hardware/manifold-layout/enclosure-box.json": "4879e690f9e139856fddb3c5d918be5792e3eff13b5a26cc627e201df7ad0819",
+        "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "5da1c15d6526467fa4c53978608c5467d1647f0f8a6f9aa99754c65a4de8ef93",
+        "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "6cdc42d501fe8f420939bdcc3532ad3a0cc57fef6d79234e7c853230345c8606",
+        "hardware/manifold-layout/enclosure-assembly.step": "b7644dd6afeb928bca814b60f8bfc1416ab2258be43f0f7a28d67c4c96c521bb",
+        "hardware/printed-parts/enclosure/enclosure/enclosure.py": "6b9d93bb8dfccff08b6b831f33c11bc14b445ee7c2b14902720417b4368f9ddf",
+        "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "2955c7a0b27ef43d914dfb3e277285a3745fba8917018a103d0bfeba8d8efad9",
+        "hardware/printed-parts/zone-c/funnel/funnel.py": "7e224d80c14b8bb089405d3c98964201a6df5141aaf3d1a10177808117df97e1",
+        "hardware/printed-parts/cadlib/cable_clip.py": "bddddf78c5daa97106c781964ad152ac61b28916f3c2e00eff4a527461a1aa7f",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "a35f0dc6d127ca234965d67be0385f138e9b00630ad7f117a584ad07a3276aac",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "b9a902360673a932f4f26b8f58fcec3c3fe4649be43fc3d6caef01ce245842aa",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "7de724435d621c63f80916991f9c8d0a38c224705d1e9dbaf5b1c6f2f959950a",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "cc3fa8d2544fc768e03006edf9757d57c1b2895b5903eb2b0d56167ec2c6dbc7"
+      },
+      "retained_baseline_sha256": {
+        "enclosure-back-top.step": "7de724435d621c63f80916991f9c8d0a38c224705d1e9dbaf5b1c6f2f959950a",
+        "enclosure-front-top.step": "69ef530764b2f237acc27cc05be36db875d87f88b6836bad521c2bf3f9ac093e",
+        "funnel-frame.step": "011cba0d23badd7f0bc31ddffee6b55f68ac8b6cec8044aeb9d457e9b34be089"
+      },
+      "flat_wall_baseline_sha256": {
+        "enclosure-front-top.step": "cb6f4ced20b8bf1ee719298b3e3c193c67e42ecb3aeaac271ccb79049775e007",
+        "funnel-frame.step": "410db1305d0600cef79d62b9d91299ac444c487a3d7cb9a5470e5a16dd8b3244"
+      },
+      "scope": "Native roof, flat wall and retained mating geometry. Added rigid stock checked against installed bodies from the named assembly export; full motion, load capacity, physical fit, print finish and support removal remain separate qualifications.",
+      "pass": true
+    }
+  },
   "nearby_installed_members_checked": [
-    "frame/funnel",
-    "frame/funnel-cover",
+    "front-top/tee-y-a",
+    "front-top/valve-v-c",
+    "front-top/coil-v-c",
+    "front-top/tee-y-c",
+    "front-top/valve-v-e",
+    "front-top/coil-v-e",
+    "front-top/valve-v-g",
+    "front-top/coil-v-g",
+    "front-top/tee-y-d",
+    "front-top/valve-v-f",
+    "front-top/coil-v-f",
+    "front-top/tee-y-b",
+    "front-top/valve-v-d",
+    "front-top/coil-v-d",
+    "front-top/tee-y-f",
+    "front-top/valve-v-h",
+    "front-top/coil-v-h",
+    "front-top/valve-v-j",
+    "front-top/coil-v-j",
+    "front-top/tee-y-g",
+    "front-top/valve-v-i",
+    "front-top/coil-v-i",
+    "front-top/tube-fluid-10",
+    "front-top/tube-fluid-11",
+    "front-top/tube-fluid-12",
+    "front-top/tube-fluid-13",
+    "front-top/tube-fluid-20",
+    "front-top/tube-fluid-21",
+    "front-top/tube-fluid-22",
+    "front-top/tube-fluid-23",
+    "front-top/turn-fluid-3",
+    "front-top/turn-fluid-5",
+    "front-top/step-fluid-3",
+    "front-top/step-fluid-5",
+    "front-top/cold-core/foam-shell",
+    "front-top/cold-core/foam-cap-top",
+    "front-top/cold-core/foam-cap-lid-top",
+    "front-top/cold-core/reservoir-b",
+    "front-top/cold-core/reservoir-b-cap",
+    "front-top/cold-core/copper-plug-west",
+    "front-top/cold-core/copper-plug-port",
+    "front-top/cold-core/evap-tail-outlet",
+    "front-top/cold-core/reed-b-4",
+    "front-top/cold-core/line-reservoir-a",
+    "front-top/cold-core/line-reservoir-b",
+    "front-top/cold-core/line-water-in",
     "front-top/wago-mana",
+    "front-top/wago-manb",
+    "front-top/tube-water-5",
+    "front-top/tube-water-3",
+    "front-top/tube-fluid-28",
+    "front-top/tube-fluid-18",
     "front-top/tube-fluid-24",
     "front-top/tube-fluid-26",
     "front-top/tube-fluid-14",
@@ -276,21 +3798,33 @@
     "front-top/elbow-cradle",
     "front-top/funnel-drain-union",
     "front-top/funnel-drain-stub",
+    "front-top/tube-fluid-4",
     "front-top/display",
-    "front-top/display-cover"
+    "front-top/display-cover",
+    "front-top/display-gasket",
+    "front-top/pump-contact-male",
+    "front-top/tee-carrier-spring-west-lower",
+    "front-top/tee-carrier-spring-west-upper",
+    "front-top/tee-carrier-spring-east-lower",
+    "front-top/tee-carrier-spring-east-upper"
   ],
   "source_sha256": {
-    "hardware/printed-parts/zone-c/funnel/flush-roof-review/check_geometry.py": "8415414a2c23a7845a396efb304ef28b1df96dba7e027d81255bf1e7177cf960",
+    "hardware/printed-parts/zone-c/funnel/flush-roof-review/check_geometry.py": "25e2675f47775bb25d6db36069889d09b2093610696b60c93b8fa9c95e9c4f66",
     "hardware/manifold-layout/enclosure-box.json": "4879e690f9e139856fddb3c5d918be5792e3eff13b5a26cc627e201df7ad0819",
-    "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "5da1c15d6526467fa4c53978608c5467d1647f0f8a6f9aa99754c65a4de8ef93",
-    "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "6cdc42d501fe8f420939bdcc3532ad3a0cc57fef6d79234e7c853230345c8606",
-    "hardware/manifold-layout/enclosure-assembly.step": "b7644dd6afeb928bca814b60f8bfc1416ab2258be43f0f7a28d67c4c96c521bb",
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "811028ad961ad698759bda54181370aedf090a53fe1af116ec9390a67b918163",
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "a2c10ea55fdedfcea8d512f2637db2399e6f02e5571d92e04db8b0cb54520185",
+    "hardware/manifold-layout/enclosure-assembly.step": "10e4ac9e16a2ecf7b0e0c9da3ba9a8943f6333c931bd4de971c5c4ae7aba081b",
     "hardware/printed-parts/enclosure/enclosure/enclosure.py": "6b9d93bb8dfccff08b6b831f33c11bc14b445ee7c2b14902720417b4368f9ddf",
-    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "2955c7a0b27ef43d914dfb3e277285a3745fba8917018a103d0bfeba8d8efad9",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "c192657634e58f38cbd239f31438ca722d17f8f7d73b03cd495952f3723540e1",
     "hardware/printed-parts/zone-c/funnel/funnel.py": "7e224d80c14b8bb089405d3c98964201a6df5141aaf3d1a10177808117df97e1",
     "hardware/printed-parts/cadlib/cable_clip.py": "bddddf78c5daa97106c781964ad152ac61b28916f3c2e00eff4a527461a1aa7f",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "a35f0dc6d127ca234965d67be0385f138e9b00630ad7f117a584ad07a3276aac",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "b9a902360673a932f4f26b8f58fcec3c3fe4649be43fc3d6caef01ce245842aa",
+    "hardware/printed-parts/enclosure/enclosure/_cartridge_retention.py": "559e877a79dc1a92342526898049b6d0bb929bdb5212b9ba5c02de5654fbd7c1",
+    "hardware/printed-parts/valve-seat/valve_seat.py": "47720a332721b2676643e38d94fa9326f07609f420bb9ac59bce304d1ac1e31d",
+    "hardware/printed-parts/zone-c/funnel/flush-roof-review/rear-corner-check.json": "c3398eb43ad28188b404cc7bf8814ec460f74f93d8c7a8f844c66e2f37f0f64c",
+    "hardware/printed-parts/zone-c/funnel/flush-roof-review/generation.json": "f210d86b3e422e0ea8a61b852963f220ed5534c21528f7430493fe3f0331d4da",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/physical-fit-selection.json": "e301449fe6ef2d6901333bedbd0073e7544a325bf73d2d3dc91b1864cf287dbd",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "93f232f35f27c5da071132c7332d10e5ff58efac6d2ae02921859b14a07eec4b",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "af13c3ab421d2a7b5d0a60cb334c3f4c1e1f94e96a407b99c77379486e55ed4f",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "7de724435d621c63f80916991f9c8d0a38c224705d1e9dbaf5b1c6f2f959950a",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "cc3fa8d2544fc768e03006edf9757d57c1b2895b5903eb2b0d56167ec2c6dbc7"
   },
@@ -303,6 +3837,10 @@
     "enclosure-front-top.step": "cb6f4ced20b8bf1ee719298b3e3c193c67e42ecb3aeaac271ccb79049775e007",
     "funnel-frame.step": "410db1305d0600cef79d62b9d91299ac444c487a3d7cb9a5470e5a16dd8b3244"
   },
-  "scope": "Native roof, flat wall and retained mating geometry. Added rigid stock checked against installed bodies from the named assembly export; full motion, load capacity, physical fit, print finish and support removal remain separate qualifications.",
+  "selected_fit_baseline_sha256": {
+    "front_top_step": "a35f0dc6d127ca234965d67be0385f138e9b00630ad7f117a584ad07a3276aac",
+    "funnel_frame_step": "5da1c15d6526467fa4c53978608c5467d1647f0f8a6f9aa99754c65a4de8ef93"
+  },
+  "scope": "Native roof, flat wall, exact selected C3/V69 fit changes and retained mating geometry. Seated/lower/bearing witnesses are explicitly hash-bound and extended by bounded native corner and current fit-region comparisons. Current added front-top and corner stock is checked against installed bodies from the named assembly; full motion, load capacity, physical fit, print finish and support removal remain separate qualifications.",
   "pass": true
 }

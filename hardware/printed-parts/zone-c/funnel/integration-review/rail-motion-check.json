@@ -1,7 +1,7 @@
 {
   "source_sha256": {
-    "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "6cdc42d501fe8f420939bdcc3532ad3a0cc57fef6d79234e7c853230345c8606",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "b9a902360673a932f4f26b8f58fcec3c3fe4649be43fc3d6caef01ce245842aa",
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "a2c10ea55fdedfcea8d512f2637db2399e6f02e5571d92e04db8b0cb54520185",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "af13c3ab421d2a7b5d0a60cb334c3f4c1e1f94e96a407b99c77379486e55ed4f",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "cc3fa8d2544fc768e03006edf9757d57c1b2895b5903eb2b0d56167ec2c6dbc7"
   },
   "method": "Closed STL solids; sampled relative straight Y insertion. Other installed components are outside this mating-joint check.",
@@ -570,13 +570,13 @@
       "axis": "X",
       "direction": -1,
       "displacement_mm": 2,
-      "bearing_intersection_mm3": 10410.04317917813
+      "bearing_intersection_mm3": 10442.429117559546
     },
     {
       "axis": "X",
       "direction": 1,
       "displacement_mm": 2,
-      "bearing_intersection_mm3": 10410.068507570955
+      "bearing_intersection_mm3": 10442.454445952364
     },
     {
       "axis": "Y",
@@ -588,7 +588,7 @@
       "axis": "Y",
       "direction": 1,
       "displacement_mm": 2,
-      "bearing_intersection_mm3": 2426.9676264046684
+      "bearing_intersection_mm3": 2489.0406832623817
     },
     {
       "axis": "Z",
@@ -600,7 +600,7 @@
       "axis": "Z",
       "direction": 1,
       "displacement_mm": 2,
-      "bearing_intersection_mm3": 5556.703328906209
+      "bearing_intersection_mm3": 5556.703328906214
     }
   ],
   "clear": true

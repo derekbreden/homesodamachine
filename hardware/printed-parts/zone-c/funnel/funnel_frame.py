@@ -122,9 +122,13 @@ def roof_blank(inner, centre, seat, air=0.0, y_joint=200.0,
     import enclosure as enc
     cx, cy = centre
     r = roof_datums(inner, centre, seat, y_joint, full_front_opening)
-    outline = _front_square_blank(r['width'] + 2 * air,
-        r['front'] - air, r['back'] + air,
-        r['taper_floor'] - air, r['top'] + air, cx, corner_radius + air)
+    # The raised surround meets the straight rear roof seam with square
+    # corners. The lower body keeps its separate rear corner rounds.
+    outline = cq.Solid.makeBox(r['width'] + 2 * air,
+        r['back'] - r['front'] + 2 * air,
+        r['top'] - r['taper_floor'] + 2 * air,
+        cq.Vector(cx - r['width'] / 2 - air,
+                  r['front'] - air, r['taper_floor'] - air))
     if r['side_reach'] <= 1e-9:
         # With a full-thickness shell, the roof and lower body have equal
         # width. A rectangular surround needs no zero-area side polygons.

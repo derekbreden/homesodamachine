@@ -6,6 +6,9 @@ air to each complete 9 mm shell flank. That surround ends at Y199.75 before the
 Y200 seam. The rear frame envelope remains beneath Z349 and fits the
 existing back-top roof; back-top's STEP, STL and viewer payload are retained
 exactly.
+The upper surround's rear plan corners are square against that flat seam.
+The [focused corner check](rear-corner-check.json) binds the exported corner
+stock, complete backing and 0.25 mm shell gaps; geometry below Z349 is retained.
 
 The complete silicone brim bears on 3 mm of frame stock ending at Z349.
 The silicone brim top and the removable front surround finish at Z355.
@@ -22,14 +25,18 @@ through the full wall; the proud cable clip occupies X68.5–86.5 above
 Z285.796 and leaves its channel entrances open. The frame's lower 30° corbel
 clears that clip. The silicone funnel and its 455.44 mL nominal capacity are
 retained; capacity loss is 0 mL.
-The combined rigid wall/frame boundary costs 66.57 mL of enclosure interior
-air, measured against the bound geometry snapshot in `geometry-check.json`.
+The combined rigid wall/frame boundary occupies **66.66 mL** of enclosure
+air against the bound geometry snapshot in `geometry-check.json`. The selected
+C3 and V69 fit stock adds **0.84 mL**, for **67.50 mL** total. This enclosure
+air quantity is separate from silicone liquid capacity.
 
 The front surround has the same width as the lower body. The frame has
 no inward/top show round that needs a fine layer band. Functional
-rail bearings retain accessible supports. Front-top keeps its existing
-RC62 sealed-pocket dimensions pending the separate friction-fit sample
-results.
+rail bearings retain accessible supports. Front-top uses the
+[selected C3 RC62 pocket](../../../enclosure/enclosure/magnet-retention/fit-coupons/physical-fit-selection.json),
+19.05 mm X by 3.175 mm Y, with 19.53 mm total closed Z. The V69 valve sockets
+use Ø6.90 mm; V70 / Ø7.00 mm is the conditional alternate. These hand-fit
+preferences do not qualify the closed magnet roof or the complete shell.
 
 ## Exports and review
 
@@ -48,7 +55,7 @@ reads the printable meshes at sampled front/rear insertion and shell
 closing poses, with capture against 2 mm translations along all axes.
 
 [`refresh_aggregate.py`](refresh_aggregate.py) replaces only the named
-front-top and funnel-frame prototypes in each original STEP document using
+front-top, pump-cartridge and funnel-frame prototypes in each original STEP document using
 the native XCAF API, the repository's assembly reader and viewer graft. Its
 [`aggregate-refresh.json`](aggregate-refresh.json) verifies retained
 names, native geometry and placements, colors and viewer arrays. A STEP
@@ -62,7 +69,9 @@ bearing or supported ceiling has an answer beside its STL.
 The [`v18 bead-backing record`](display-strip-backing-v18.json) binds only
 its frozen native archive. Current geometry requires a fresh native slice
 and support-removal review before a full-part print. Full-part printing is
-deferred while the centered magnet and valve fit samples are evaluated.
+deferred. The [selected-fit timing preparations](../../../enclosure/enclosure/magnet-retention/selected-fit-v1/README.md)
+bind current front-top and standalone cradle slices; timing preparation does not
+authorize their launch.
 
 The relevant physical failure is recorded in the
 [`front-top v17 result`](../../../enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/physical-result.json).

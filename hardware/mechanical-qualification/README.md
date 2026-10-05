@@ -75,8 +75,11 @@ Derek requests a tighter hand fit in the front-top valve sockets. The
 [upright four-post samples](../printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/README.md)
 compare Ø7.20, 7.10, 7.00, 6.90 and 6.80 mm holes in the production print
 orientation. The earlier [Ø7.20 coupon acceptance](../printed-parts/fixtures/valve-socket-fit/physical-acceptance.json)
-covers easy insertion with zip ties for positive retention. Production socket
-dimensions retain that scope until a sample selects the preferred fit. The
+covers easy insertion with zip ties for positive retention. The
+[current hand-fit selection](../printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/physical-fit-selection.json)
+sets **V69 / Ø6.90 mm** as the production socket. **V70 / Ø7.00 mm** is the
+conditional alternate for a valve or print orientation that does not fit V69 well.
+The shared seat keeps its exterior envelope and tie passages. The
 [request record](../printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/physical-request.json)
 records the intended tighter grip; retention force and endurance remain
 unmeasured.
@@ -91,8 +94,11 @@ places one paused-in ring in the lower cradle and one in front-top at tube heigh
 Its insertion sweep, covers and surrounding stock pass the native geometry checks;
 the [completed Mark2 cartridge report](../printed-parts/enclosure/enclosure/magnet-retention/v4/physical-result.json)
 confirms the ring is sealed in but rattles, and its first covering layer is a bit
-wonky. Preferred X/Y hand grip is pending the
-[open pocket comparison](../printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/README.md).
+wonky. The [current open-pocket hand-fit selection](../printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/physical-fit-selection.json)
+sets **C3**, 19.05 mm in X and 3.175 mm in Y, for the two production pockets.
+The closed pocket keeps 19.53 mm in Z: 0.48 mm nominal headroom and 0.38 mm
+at the specified maximum magnet diameter. The hand-fit result does not qualify
+the closed roof or eliminate the need to observe its printed result.
 Installed seating force, magnet heat exposure and retention remain unmeasured. Current-export
 checks establish nominal mating and clear passages. H2C reported the two seat
 coupons completed; [the physical record](../reference/yyfkgcp-pogo-4p/physical-observations.json)

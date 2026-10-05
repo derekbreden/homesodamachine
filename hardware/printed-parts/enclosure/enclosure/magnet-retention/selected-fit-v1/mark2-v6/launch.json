@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "printer": "Mark2",
+  "state": "waiting_for_timed_start",
+  "send_attempted": false,
+  "submitted": false,
+  "task_id": null,
+  "job_id": null,
+  "archive_name": "2026-10-05-pump-cradle-c3-mark2-v6.gcode.3mf",
+  "archive_sha256": "37646924eca2ca480b595857f9d8e6aa247130b155952cd2ee3027a40969676d",
+  "gcode_sha256": "752c1dbdcc0232ffea5eba9782826c83fd6bf3b53a9366740a3cf73a2fdcd42b",
+  "cap_included": false,
+  "launch_authorization_quotes": [
+    "Give me the pump cradle pause at 9:30 am at best and 09:10 am to 9:50 am at worst.",
+    "Both beds are clear."
+  ],
+  "launch_authorized": true,
+  "automatic_resume_authorized": false,
+  "insertion_pause_reported": false,
+  "start_reported": false,
+  "scope": "Pending the authorized timed start. No import or Send has occurred for this archive."
+}

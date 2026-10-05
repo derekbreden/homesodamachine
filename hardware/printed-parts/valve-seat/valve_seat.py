@@ -35,13 +35,16 @@ corner_post_radius = valve.corner_boss_radius
 seat_top_z = valve.boss_z_range[0]
 
 # --- what the seat adds ------------------------------------------------------
-socket_clearance = fits.slip  # radial, post to its static socket
+socket_diameter = 6.9     # V69 hand-fit selection in the front-top orientation
+alternate_socket_diameter = 7.0  # V70, explicitly selected only after a poor V69 fit
+socket_radius = socket_diameter / 2.0
+socket_clearance = socket_radius - corner_post_radius
 wall = 3.0               # minimum material outside a socket
 socket_floor_z = -1.0    # the socket floor, under the post tips at z = 0, so a post bottoms out
                          # on nothing and the round boss alone sets the valve's height
 
-socket_radius = corner_post_radius + socket_clearance
-boss_radius = socket_radius + wall
+# The holder's stock and placement envelope stay independent of the selected bore.
+boss_radius = corner_post_radius + fits.slip + wall
 
 seat_half_x = corner_inset_x + boss_radius
 seat_half_y = corner_inset_y + boss_radius

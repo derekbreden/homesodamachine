@@ -418,7 +418,8 @@ def read_job(job, geom):
                 "initial_layer_print_height", "wall_loops", "nozzle_temperature",
                 "nozzle_temperature_initial_layer", "chamber_temperatures", "support_type")},
             "native_archive_sha256": job["native_archive_sha256"], "gcode_sha256": job["gcode_sha256"],
-            "project_sha256": job["project_sha256"], "source_stl_sha256": job["source_stl_sha256"]}
+            "project_sha256": job["project_sha256"], "source_stl_sha256": job["source_stl_sha256"],
+            "fit_scope": "Rim and closing-bead checks establish vertical headroom for a fully seated ring. The selected X/Y press fit is not a zero-interference or universal-fit gate."}
 
 
 def main():
@@ -430,7 +431,7 @@ def main():
     geometry = json.loads((HERE / "geometry-check.json").read_text())
     readings = [read_job(job, geometry["pieces"][job["part"]]) for job in preparation["jobs"]]
     report = {"submitted": False, "native_checks_pass": all(r["native_checks_pass"] for r in readings),
-              "scope": "Native emitted pause, ring insertion clearance, pocket support exclusion and sealing paths. Physical ring retention, roof quality, heat exposure and assembled seating remain unmeasured.",
+              "scope": "Native emitted pause, fully seated ring headroom, pocket support exclusion and sealing paths. Selected X/Y press-fit interference is intentional. Physical sealed-pocket retention, roof quality, heat exposure and assembled seating remain unmeasured.",
               "jobs": readings, "audit_script_sha256": sha(Path(__file__))}
     (destination / "native-check.json").write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps({"native_checks_pass": report["native_checks_pass"],

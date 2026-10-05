@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "status": "current_native_pause_forecast_verified",
+  "checked_utc": "2026-10-05T08:14:08.409912+00:00",
+  "part": "pump-cartridge",
+  "printer": "Mark2",
+  "quantity": 1,
+  "cap_included": false,
+  "archive": ".cache/prints/2026-10-05-pump-cradle-c3-mark2-v6/ready/2026-10-05-pump-cradle-c3-mark2-v6.gcode.3mf",
+  "archive_sha256": "37646924eca2ca480b595857f9d8e6aa247130b155952cd2ee3027a40969676d",
+  "gcode_sha256": "752c1dbdcc0232ffea5eba9782826c83fd6bf3b53a9366740a3cf73a2fdcd42b",
+  "project": "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/mark2-v6/pump-cartridge-pause.3mf",
+  "project_sha256": "3e2655bac032feafa69bc7b8e4c0be33dbbd01e08940ae87168db5f67c272be4",
+  "source_stl_sha256": "d1302278cfeb56c39d52d060f3ad28c48cd39d9d8657c912005b023b9f9fdfae",
+  "source_step_sha256": "ef786ae6bb32e35ed915494fc459ae20420ce28a02073a2bd5b1ad8a9b177aa2",
+  "preparation": "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/mark2-v6/preparation.json",
+  "native_result": ".cache/prints/2026-10-05-pump-cradle-c3-mark2-v6/ready/result.json",
+  "native_result_sha256": "6e369659169fbcfb28c969727e9818d890875b9ac6857a96451f7aeaef7de104",
+  "preparation_sha256": "839dd4a66010bcef66ba9aac546d3653f422916acff3997401a91853aceafc3e",
+  "review_script_sha256": "d3b3c779cd825f0fec1ebf5c0967e06bf2ecf2a1bc9e43f9d144f6a4f67b306d",
+  "programmed_pause": {
+    "command": "M400 U1",
+    "count": 1,
+    "gcode_line_1_based": 750197,
+    "before_layer": 344,
+    "total_native_layers": 981,
+    "before_print_z_mm": 31.16,
+    "preceding_layer_boundary_z_mm": 30.9855,
+    "last_progress": "M73 P48 R307",
+    "last_countdown": "M73 C0",
+    "custom_top_z_mm": 31.16,
+    "pause_list_remaining_minutes": 307,
+    "pause_list_percent": 48
+  },
+  "native_forecast": {
+    "approximate_elapsed_from_native_start_minutes": 287,
+    "approximate_elapsed_text": "about 4 hours 47 minutes",
+    "native_total_prediction_seconds": 35615.65625,
+    "initial_native_pause_countdown_minutes": 286,
+    "approximate_two_method_elapsed_minutes": [
+      286,
+      287
+    ],
+    "method": "Round native total prediction minus the minute-rounded pause-list remainder to the nearest elapsed minute; compare with the initial emitted M73 C countdown.",
+    "resolution": "Native remainder and countdown are rounded to minutes. Startup heating/calibration and physical printing can shift the actual pause; this is not an exact clock deadline."
+  },
+  "binding_checks": {
+    "native_crc_and_gcode_md5": true,
+    "exact_current_mesh_and_project": true,
+    "single_expected_model_no_cap": true,
+    "current_host_modifiers_only": true,
+    "one_left_standard_nozzle": true,
+    "exact_printer_colour_and_trim": true,
+    "one_custom_and_emitted_pause_at_current_roof": true
+  },
+  "preferred_magnet_label": "C3",
+  "preferred_valve_label": "V69",
+  "submitted": false,
+  "launch_authorized": false,
+  "printer_task_id": null,
+  "retention_path_review": {
+    "record": "retention-native-check.json",
+    "sha256": "82b207318bf2e4a5bf34bc15664fab0cf9eee6a5029509ec4abda946f0b4cbfb",
+    "native_checks_pass": true,
+    "reviewer_source_sha256": "b15381c7ffc808862483dbd30f40443b18a27a97eaf70b719b28dd23ec71b2d3"
+  },
+  "physical_fit_roof_or_strength_qualified": false,
+  "scope": "Current single-object native timing and identity only. Actual insertion requires a separately observed matching programmed printer pause. No printer command or archive edit was performed."
+}
