@@ -75,3 +75,9 @@ Derek accepts the [first covering layer above the front-top magnet](h2c-v20/phys
 with two close-up photos. The result applies to this H2C C3/V69 print’s initial
 over-magnet surface. Finished pocket rattle, magnetic retention and full-assembly
 fit remain separate observations.
+
+The [pair polarity record](polarity-record.json) tracks these two inserted RC62
+rings separately from the C3 fit label. Their actual installed polarities have
+no verification result. The [MASTER-dot procedure](../README.md#pole-marking-and-pair-tracking)
+defines a fixed reference ring, a check through the mating covers and the CR/FT
+marking rule for subsequent insertions.
