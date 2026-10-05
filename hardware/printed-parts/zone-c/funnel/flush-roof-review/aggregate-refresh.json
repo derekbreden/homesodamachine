@@ -1,14 +1,15 @@
 {
   "schema": 1,
   "scope": "Scoped XCAF named-prototype replacement in each original STEP document and canonical viewer graft. Unrelated native geometry uses normalized analytic-face/edge/vertex fingerprints at 0.00001 mm; any serialization-only integration differences receive a native Boolean equivalence check. Existing hierarchy, placements and colors are retained. This is not a fresh full-machine motion scorecard.",
-  "source_sha256": "b5529415859adbb44639d9ee48a592f1d2f94b5d4dc1d4e84735afcdc68ce747",
+  "source_sha256": "df0291253d6ae5de864a8f51cede26f236d4eb15f2402d6a7753ff772c5c10d0",
   "aggregates": {
     "hardware/printed-parts/enclosure/enclosure/enclosure.step": {
-      "input_step_sha256": "2019dad30e071a2669a4f9cdad1aa92d4c68f511fefb7735decda0ce6ca926a8",
-      "output_step_sha256": "c2bf02bfbb4d31907058d79848ad10f0de3a276e5f718dd290907d0c34ff6600",
-      "output_payload_sha256": "1613375a1ef8972a26995894e496e16a6574da39af3b778aa17135b81bcfae71",
+      "input_step_sha256": "c2bf02bfbb4d31907058d79848ad10f0de3a276e5f718dd290907d0c34ff6600",
+      "output_step_sha256": "8ef2d4ed78fa1c60d28f43cfdffd8a2d2189beefdf08211645d44248d6aeafa7",
+      "output_payload_sha256": "1ffb93f30e6d4487785463216348ac884af8e50d3a36088b1a1006503ac28ca3",
       "replaced_members": [
-        "enclosure_front_top"
+        "enclosure_front_top",
+        "enclosure_pump_cartridge"
       ],
       "retained_members": {
         "enclosure_front_bottom": {
@@ -31,15 +32,6 @@
         },
         "enclosure_back_top": {
           "geometry_sha256": "58fab767cd6f85d447d5d1e739525864ba1807bac4e8f05dab0167914415a681",
-          "color": [
-            0.03310476648621261,
-            0.03310476648621261,
-            0.03630648418329656,
-            1.0
-          ]
-        },
-        "enclosure_pump_cartridge": {
-          "geometry_sha256": "a9839aa160ec190d2252d8b4d585c956ecf76ef77386e0949367dabe4a0b7e54",
           "color": [
             0.03310476648621261,
             0.03310476648621261,
@@ -77,7 +69,7 @@
       },
       "replacement_geometry_checks": {
         "enclosure_front_top": {
-          "native_symmetric_difference_mm3": 0.0,
+          "native_symmetric_difference_mm3": null,
           "max_bounds_error_mm": 0.0,
           "topology": [
             1,
@@ -86,8 +78,23 @@
             1082
           ],
           "valid": true,
-          "source_fingerprint": "fa4f9f902b73a3943477dd5805e49055ef677ccb77ce6c2212209fdb598cc7a6",
-          "exported_fingerprint": "fa4f9f902b73a3943477dd5805e49055ef677ccb77ce6c2212209fdb598cc7a6"
+          "source_fingerprint": "270ede4d64d984e99ca7b93511bd418bfa077149a0b558d17683aa5c639f5a13",
+          "exported_fingerprint": "270ede4d64d984e99ca7b93511bd418bfa077149a0b558d17683aa5c639f5a13",
+          "comparison": "Matching normalized analytic face, edge, vertex and solid fingerprints; native Boolean equivalence only for serialization differences."
+        },
+        "enclosure_pump_cartridge": {
+          "native_symmetric_difference_mm3": null,
+          "max_bounds_error_mm": 0.0,
+          "topology": [
+            1,
+            156,
+            418,
+            268
+          ],
+          "valid": true,
+          "source_fingerprint": "7dfed4bd161916b2536df23166f376bba70173de1854e73fe908587884969d9d",
+          "exported_fingerprint": "7dfed4bd161916b2536df23166f376bba70173de1854e73fe908587884969d9d",
+          "comparison": "Matching normalized analytic face, edge, vertex and solid fingerprints; native Boolean equivalence only for serialization differences."
         }
       },
       "native_component_placements": {
@@ -208,20 +215,20 @@
         "enclosure_front_bottom": "a1b2b6f7a589495e52af1e90ab5b982236832d4df5c5067f01dda21fdf655750",
         "enclosure_back_bottom": "a4c7a4b304e8475b61f6c974edd1347560b8ac90e166cef946519eb0b956b462",
         "enclosure_back_top": "62ae494685bceee9031a126049adb85f445b56420eb71c560e42ff7155b904c5",
-        "enclosure_pump_cartridge": "9bfbbcb50b1dad1a368ae3f7f63f5688ed59a7b442afcd50bc19f858b1474c41",
         "enclosure_pump_cap": "6174b20a65bde9ebf41ab98968a21197873fe43b0b3bf6f5e38151485fe7bfdf",
         "grip-cover-west": "bed9f5c355151bc2748a88f4a20d70c9c749a576a4187a8f3b456cf610f6b0fa",
         "grip-cover-east": "051d92c8085f401410de9c9733c68a1b1775947189a3c525754a6ca37406dd62"
       },
-      "retained_member_count": 7,
+      "retained_member_count": 6,
       "all_unrelated_native_names_geometry_placements_colors_and_viewer_arrays_preserved": true
     },
     "hardware/manifold-layout/enclosure-assembly.step": {
-      "input_step_sha256": "c6a1dd96cb251c7aa2875bfafc3ee93e58099a8e29065e16f4464be19c934fcd",
-      "output_step_sha256": "b7644dd6afeb928bca814b60f8bfc1416ab2258be43f0f7a28d67c4c96c521bb",
-      "output_payload_sha256": "ec7cbbb6b28efd927fd9d07c342cd55545bdde9a63a6ac68feb1553af336d755",
+      "input_step_sha256": "f4fba9c7d93e696554972ba7d7cde6184e921bd9edd183e4d6bcd358a86be13a",
+      "output_step_sha256": "10e4ac9e16a2ecf7b0e0c9da3ba9a8943f6333c931bd4de971c5c4ae7aba081b",
+      "output_payload_sha256": "574d1201434d73aff863ea35a537e593f061b746f32b404bc2608044c4abe93b",
       "replaced_members": [
         "enclosure-front-top",
+        "enclosure-pump-cartridge",
         "funnel-frame"
       ],
       "retained_members": {
@@ -1936,15 +1943,13 @@
           ]
         },
         "funnel": {
-          "geometry_sha256": "4cc22776244d647cb9d2a2867526cab2eb373d89e96db0eb362620589671a979",
+          "geometry_sha256": "36e676195aac7538b28ac0024df277b2f722ec041683534ff0ced27ed4286290",
           "color": [
             0.007194409382063896,
             0.007194409382063896,
             0.007194409382063896,
             1.0
-          ],
-          "serialization_equivalence_mm3": 0.0,
-          "exported_geometry_sha256": "36e676195aac7538b28ac0024df277b2f722ec041683534ff0ced27ed4286290"
+          ]
         },
         "funnel-cover": {
           "geometry_sha256": "a7829f33f41984577c58cd061a0932a0cbf2dd330c4d178a1c78e2446369353d",
@@ -2067,15 +2072,6 @@
             1.0
           ]
         },
-        "enclosure-pump-cartridge": {
-          "geometry_sha256": "a9839aa160ec190d2252d8b4d585c956ecf76ef77386e0949367dabe4a0b7e54",
-          "color": [
-            0.03310476648621261,
-            0.03310476648621261,
-            0.03630648418329656,
-            1.0
-          ]
-        },
         "enclosure-pump-cap": {
           "geometry_sha256": "5eebce689a6fce996bec3dd5371a068c7b4a8bcab5a53c39c4b602f1e2988f33",
           "color": [
@@ -2169,7 +2165,7 @@
       },
       "replacement_geometry_checks": {
         "enclosure-front-top": {
-          "native_symmetric_difference_mm3": 0.0,
+          "native_symmetric_difference_mm3": null,
           "max_bounds_error_mm": 0.0,
           "topology": [
             1,
@@ -2178,21 +2174,37 @@
             1082
           ],
           "valid": true,
-          "source_fingerprint": "fa4f9f902b73a3943477dd5805e49055ef677ccb77ce6c2212209fdb598cc7a6",
-          "exported_fingerprint": "fa4f9f902b73a3943477dd5805e49055ef677ccb77ce6c2212209fdb598cc7a6"
+          "source_fingerprint": "270ede4d64d984e99ca7b93511bd418bfa077149a0b558d17683aa5c639f5a13",
+          "exported_fingerprint": "270ede4d64d984e99ca7b93511bd418bfa077149a0b558d17683aa5c639f5a13",
+          "comparison": "Matching normalized analytic face, edge, vertex and solid fingerprints; native Boolean equivalence only for serialization differences."
+        },
+        "enclosure-pump-cartridge": {
+          "native_symmetric_difference_mm3": null,
+          "max_bounds_error_mm": 0.0,
+          "topology": [
+            1,
+            156,
+            418,
+            268
+          ],
+          "valid": true,
+          "source_fingerprint": "7dfed4bd161916b2536df23166f376bba70173de1854e73fe908587884969d9d",
+          "exported_fingerprint": "7dfed4bd161916b2536df23166f376bba70173de1854e73fe908587884969d9d",
+          "comparison": "Matching normalized analytic face, edge, vertex and solid fingerprints; native Boolean equivalence only for serialization differences."
         },
         "funnel-frame": {
           "native_symmetric_difference_mm3": 0.0,
           "max_bounds_error_mm": 9.947598300641403e-13,
           "topology": [
             1,
-            140,
-            359,
-            219
+            138,
+            353,
+            215
           ],
           "valid": true,
-          "source_fingerprint": "ec64dbd5d8f5917986af1c0e8cfb8caa16cc514329565a20c206ae3c85c9f121",
-          "exported_fingerprint": "21095c2af08fe09f2a02b497af75da2071c253bf1b7680a5f7a9ba3508fcff56"
+          "source_fingerprint": "9f510a7ab7b1f08f63ebaa55913ce6ce82016ca39da5945ac3121843f89875d0",
+          "exported_fingerprint": "a618a7434f4d849b6abf2ac346518c7d35e483b402f6430363fca042318f6879",
+          "comparison": "Matching normalized analytic face, edge, vertex and solid fingerprints; native Boolean equivalence only for serialization differences."
         }
       },
       "native_component_placements": {
@@ -7525,7 +7537,6 @@
         "enclosure-front-bottom": "6a9aecea1ecd7e73e15a893331a6abfbc913efe84c87cbff7ee14fe2bba227a0",
         "enclosure-back-bottom": "98eb4a41850006bdeb66e93e3d20f36916af371ba1d9c8e28ac32eb047780a8b",
         "enclosure-back-top": "3406dfadc65c45cce828945b05f59a3ea851d33ca62c7463d9d602f46bc4fc7b",
-        "enclosure-pump-cartridge": "dbb39b1d14894c9534edc76765d000117863b1a0a253aa3dcc7c82318c443585",
         "enclosure-pump-cap": "340b46b39027f04b4d104b7edbab31b5456855e1b993d5d1bd8023f5a933a104",
         "grip-cover-west": "bed9f5c355151bc2748a88f4a20d70c9c749a576a4187a8f3b456cf610f6b0fa",
         "grip-cover-east": "051d92c8085f401410de9c9733c68a1b1775947189a3c525754a6ca37406dd62",
@@ -7537,7 +7548,7 @@
         "tee-carrier-spring-east-lower": "c26810312f7f78289f3f0037695bbf28bf79cbb78839bcd8ba5a62429e28cacc",
         "tee-carrier-spring-east-upper": "cfc72f2cc35f1423dac1f89fe6ad378d7dcf2f8764f1a54dbd0c5ee2279ed165"
       },
-      "retained_member_count": 215,
+      "retained_member_count": 214,
       "all_unrelated_native_names_geometry_placements_colors_and_viewer_arrays_preserved": true
     }
   }

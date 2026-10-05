@@ -61,8 +61,10 @@ flush with the enclosure at Z355 and ends at Y199.75, one running clearance
 before the Y200 seam. The rear frame envelope remains at Z349 beneath the
 existing back-top roof. The front surround and body are both 196.5 mm wide,
 fitting front-top's complete 9 mm flanks with 0.25 mm air on each side.
-The frame's front has square plan corners and 0.25 mm air from the solid
-display wall at Y95.208. The display-side roof landing is 3 mm wide.
+The upper front surround has square plan corners, including its rear edge at
+the flat back-top seam, and keeps 0.25 mm air to the shell. Its flat front
+clears the solid display wall at Y95.208 by 0.25 mm. The lower body's rear
+curves remain beneath Z349. The display-side roof landing is 3 mm wide.
 Front-top's opening clears the surround and its roof tongue, with
 no fixed inward brim-bearing ledge above the frame. Existing rail, socket
 and drain datums are retained.

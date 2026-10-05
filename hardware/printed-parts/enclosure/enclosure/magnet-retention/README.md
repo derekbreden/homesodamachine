@@ -8,23 +8,39 @@ The existing tube stops, guide datums and pogo seats set its final position.
 The pump cap contains the female pogo half; this retention ring belongs to the
 lower cradle.
 
-The [native geometry check](geometry-check.json) verifies both pockets, the
-maximum-tolerance ring fit, a vertical insertion sweep, surrounding stock and
-unchanged tube/pogo placement. [Section view](https://homesodamachine.com/3d?file=printed-parts/enclosure/enclosure/magnet-retention/section.step)
+The [native geometry check](geometry-check.json) verifies both pockets, nominal
+seating, intentional maximum-size X/Y interference, independent roof headroom,
+the vertical insertion route, surrounding stock and tube/pogo placement.
+[Section view](https://homesodamachine.com/3d?file=printed-parts/enclosure/enclosure/magnet-retention/section.step)
 shows the pair and its covers in the assembled machine frame.
 
 ## Pocket and load path
 
 The [RC62 manufacturer specification](https://www.kjmagnetics.com/rc62-neodymium-ring-magnet)
 is 19.05 mm OD, 9.525 mm ID and 3.175 mm thick, axially magnetized N42, with
-±0.1 mm dimensional tolerance. Each cavity is 19.45 mm wide and 3.575 mm deep.
-Its lower half is a circular seat; its upper mouth keeps the full diameter clear
-until the printed roof closes. There is no center post obstructing insertion.
+±0.1 mm dimensional tolerance. The selected **C3** cavity is **19.05 mm wide and
+3.175 mm deep**, with zero nominal X and Y air. Its lower seat is R9.525 mm,
+centered on the magnet station; its upper mouth retains that width until the
+printed roof closes. There is no center post obstructing insertion.
+
+The [printed coupon selection](fit-coupons/physical-fit-selection.json) records
+the preferred tight hand grip with easier extraction. At the manufacturer's
+maximum dimensions, the nominal model has 0.10 mm diametral X interference
+and 0.10 mm thickness interference in Y. Those contacts are intentional;
+they do not establish universal fit across magnet or printer tolerance.
+The floor is station Z−9.525 mm and the roof is station Z+10.005 mm:
+**19.53 mm total closed Z**, with **0.48 mm nominal headroom** and **0.38 mm
+for a fully seated maximum-diameter ring**. The Z allowance is independent
+of the selected lateral grip.
+
+The [selected leaf geometry check](fit-coupons/selected-geometry-check.json)
+binds these dimensions to the frozen C3 coupon and verifies the ring helper's
+3.175 mm thickness and independent vertical headroom.
 
 Each mating face has a continuous **1.20 mm PET-GF cover**, supported around its
 perimeter by the ordinary stock. This is a local cover section chosen to limit
 magnetic separation. Backing remains at least 3 mm and the nearest tube/collar
-bore retains 4.125 mm of web. At the nominal 0.246 mm frame gap the attracting
+bore retains 4.325 mm of web. At the nominal 0.246 mm frame gap the attracting
 ring faces are **2.646 mm apart**. The pair's installed force and the printed
 cover's capacity are unmeasured; the manufacturer's pull-to-steel figure does
 not specify this covered magnet-to-magnet arrangement.
@@ -39,23 +55,23 @@ does not establish correct contact compression or tube insertion depth.
 ## Print and insertion
 
 Both magnet-owning parts print in their production +Z orientation using black
-PET-GF on the fixed left hardened standard-flow 0.4 mm nozzle. Mark2's
-[combined source](v4/pump-cartridge-cap-pause.3mf) prints the lower cartridge
-cradle and its current pump cap together on one plate. The cap prints
+PET-GF on the fixed left hardened standard-flow 0.4 mm nozzle. The retained Mark2
+[combined source](v4/pump-cartridge-cap-pause.3mf) binds the completed lower
+cartridge cradle and pump cap on one plate. The cap prints
 crown-down, with its recessed female pogo seat and complete solid insert hosts.
 The independent H2C [front-top source](v3/front-top-pause.3mf) remains
 unsubmitted. The [front-top v18 record](../support-bottom-gap/front-top-h2c-v18/README.md)
 binds the flush sliding-frame roof and its native retention review; that job
-is cancelled for a separate unsupported display-strip defect. Its replacement
-uses a separate local support preparation.
-Each job has one native `M400 U1` insertion pause before its centered pocket's
-closing layer. They retain each printer's saved trim, tree supports and
-show-surface exclusions. The current
+is cancelled for a separate unsupported display-strip defect.
+Each fresh magnet-owning job requires one native `M400 U1` insertion pause before
+its centered pocket's closing layer. Preparations retain each printer's saved
+trim, tree supports and show-surface exclusions. The current
 [normal-layer preparation policy](../layer-policy-correction/README.md) uses
 0.24 mm with six local walls on the cartridge upper additive transition,
-while retaining 0.08 mm on its real lower inward/top rim. Its new combined
-Mark2 candidate retains the nominal pocket dimensions pending the
-[open X/Y fit samples](fit-coupons/README.md).
+while retaining 0.08 mm on its real lower inward/top rim. The current
+production pocket uses C3 from the [open X/Y fit samples](fit-coupons/README.md).
+Fresh candidates bind that fit to their own exported geometry and native paths.
+Retained archives keep the dimensions and hashes in their preparation records.
 The pocket roof has a local support blocker; functional seats and lifting
 ceilings elsewhere retain their accessible supports.
 
@@ -87,9 +103,17 @@ motor-terminal wells, screw counterbores and open pogo mouth; clear those
 supports before installing any hardware.
 [Queue](queue.json) keeps the two jobs independent. The insertion follow-up is
 paused, automatic resume is disabled, and the old H2C source has no start
-authorization. The [open fit samples](fit-coupons/README.md) compare X and Y
-grip before selecting a tighter production pocket. Their preferred fit and
-the cartridge's roof quality remain unqualified.
+authorization. The [open fit samples](fit-coupons/README.md) establish the selected
+C3 hand fit. The closed production pocket's rattle, roof quality, thermal exposure
+and finished magnetic retention remain unqualified.
+
+The [current selected-fit preparations](selected-fit-v1/README.md) bind the
+standalone C3 cradle on Mark2 and C3/V69 front-top on H2C. Their native insertion
+forecasts are **4 h 47 min** and **4 h 49 min** from start respectively. The
+standalone cradle excludes the existing cap. Its
+[timed launch plan](selected-fit-v1/mark2-v6/launch-plan.json) targets a
+9:30 am America/Chicago insertion pause on October 5, 2026, within the requested
+9:10–9:50 am forecast window. The H2C preparation has no launch authorization.
 
 | Part / printer | Pause before print Z | Completed open rim | First closing layer |
 | --- | --- | --- | --- |
@@ -144,7 +168,6 @@ from CAD or printer completion alone.
 
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/magnet-retention/audit.py
-tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/magnet-retention/audit_cartridge_pair.py --revision 4
 ```
 
 The preparation reads saved local production projects identified in its record.

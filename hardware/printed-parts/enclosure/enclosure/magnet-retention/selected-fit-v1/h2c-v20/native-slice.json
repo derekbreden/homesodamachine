@@ -1,0 +1,15 @@
+{
+  "status": "native_slice_awaiting_timing_review",
+  "part": "front-top",
+  "printer": "H2C",
+  "quantity": 1,
+  "cap_included": false,
+  "archive": ".cache/prints/2026-10-05-enclosure-front-top-c3-v69-h2c-v20/ready/2026-10-05-enclosure-front-top-c3-v69-h2c-v20.gcode.3mf",
+  "archive_sha256": "aa076477c54fdc97fb9b14507dbbd7c75f1b182135780be094757105e728505d",
+  "gcode_sha256": "b5051ccbd52185a55bd7002c79944d1a0ceca2ccd39a105dc447456f80be1e34",
+  "project": "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/h2c-v20/2026-10-05-enclosure-front-top-c3-v69-h2c-v20-input.3mf",
+  "project_sha256": "cf7691ccb19e1e29ea97629c84a31f3e173373877de674d3dc1a896f87af4caa",
+  "estimated_seconds": 79308.7578125,
+  "submitted": false,
+  "launch_authorized": false
+}
