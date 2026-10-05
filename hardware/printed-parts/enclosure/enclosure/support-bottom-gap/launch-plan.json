@@ -1,0 +1,78 @@
+{
+  "schema": 1,
+  "state": "both_new_prints_accepted",
+  "session": "Printer 2",
+  "timezone": "America/Chicago",
+  "recorded_at_utc": "2026-10-05T03:01:10.767745+00:00",
+  "authorization_quotes": [
+    "For all of this stuff, spawn all the help you need to ensure all fixes are implemented and prints started most expediently, thanks.",
+    "I also need the valves legs to be much tighter in these holes, so I need some test prints to help me choose tighter holes for those as well. I'd like printed in an orientation similar to those in front top here. At least a few variations of tighter, ready for me to press valves into and see which tighter fit I like best.",
+    "Both beds are clear btw."
+  ],
+  "bed_clear_confirmed": true,
+  "automatic_resume": false,
+  "maximum_send_count_per_archive": 1,
+  "shared_circuit_minimum_start_spacing_seconds": 180,
+  "required_fresh_readings": [
+    "Mark2",
+    "H2C"
+  ],
+  "intended_allocation": {
+    "Mark2": [
+      "revised funnel-frame",
+      "17 labeled open RC62 X/Y pocket samples",
+      "5 labeled tighter four-post valve panels"
+    ],
+    "H2C": [
+      "revised enclosure-front-top"
+    ]
+  },
+  "launches": [
+    {
+      "printer": "Mark2",
+      "task_id": "1310076386",
+      "archive_name": "2026-10-04-rc62-valve-frame-fit-mark2-v2.gcode.3mf",
+      "archive_sha256": "fdd433d6c86d911e236158bfd0f5b611c4ffad7f0dcc78150aed89a632363123",
+      "acceptance_observed_at_utc": "2026-10-05T03:26:34.632431+00:00",
+      "receipt": "mark2-v2-launch.json",
+      "send_count": 1
+    },
+    {
+      "printer": "H2C",
+      "task_id": "1310109574",
+      "archive_name": "2026-10-04-enclosure-front-top-flush-frame-h2c-v18.gcode.3mf",
+      "archive_sha256": "3d31f00a0a0649627514a02a07f4ce28e42d657ccffcd6369549075532c23702",
+      "acceptance_observed_at_utc": "2026-10-05T03:50:01.145614+00:00",
+      "receipt": "h2c-v18-launch.json",
+      "send_count": 1,
+      "peer_acceptance_spacing_seconds": 1406.513183
+    }
+  ],
+  "preferred_friction_dimensions_pending_user_choice": true,
+  "original_retention_monitor_status": "PAUSED",
+  "scope": "New user-authorized prints only. Each archive requires native validation and exact printer acceptance identity. Current production valve sockets and RC62 pocket clearances are retained until the samples select a preferred hand fit; no automatic printer resume is authorized.",
+  "prepared_archives": {
+    "Mark2": {
+      "archive": ".cache/prints/2026-10-04-rc62-valve-frame-fit-mark2-v2/ready/2026-10-04-rc62-valve-frame-fit-mark2-v2.gcode.3mf",
+      "archive_name": "2026-10-04-rc62-valve-frame-fit-mark2-v2.gcode.3mf",
+      "archive_sha256": "fdd433d6c86d911e236158bfd0f5b611c4ffad7f0dcc78150aed89a632363123",
+      "gcode_sha256": "d4d9a8bfafb7108c1281f70becc962a62bf4635d9632c25ce7a12a3cb56c405d",
+      "estimated_seconds": 34669.7,
+      "coupon_native_review": "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/combined-mark2-native-check.json",
+      "frame_native_review_pending": false,
+      "send_count": 1,
+      "frame_native_review": ".cache/prints/2026-10-04-rc62-valve-frame-fit-mark2-v2/emitted-path-review.json"
+    },
+    "H2C": {
+      "archive": ".cache/prints/2026-10-04-enclosure-front-top-flush-frame-h2c-v18/ready/2026-10-04-enclosure-front-top-flush-frame-h2c-v18.gcode.3mf",
+      "archive_name": "2026-10-04-enclosure-front-top-flush-frame-h2c-v18.gcode.3mf",
+      "archive_sha256": "3d31f00a0a0649627514a02a07f4ce28e42d657ccffcd6369549075532c23702",
+      "gcode_sha256": "91e21a113b8448485918e9409e939836a0cd61b774b02ff4c5476cb00f4d39ac",
+      "estimated_seconds": 79003.0546875,
+      "native_review": ".cache/prints/2026-10-04-enclosure-front-top-flush-frame-h2c-v18/verification.json",
+      "native_checks_pass": true,
+      "send_count": 1
+    }
+  },
+  "earliest_h2c_start_utc": "2026-10-05T03:29:34.632431+00:00"
+}

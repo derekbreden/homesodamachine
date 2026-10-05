@@ -1,0 +1,353 @@
+{
+  "schema": 1,
+  "physical_baseline": "../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/physical-result.json",
+  "official_sources": [
+    "https://github.com/bambulab/BambuStudio/blob/master/src/libslic3r/PrintConfig.cpp",
+    "https://github.com/bambulab/BambuStudio/blob/master/src/libslic3r/Support/TreeSupport.cpp"
+  ],
+  "findings": "These contacts are bed-rooted trunks grazing the seam-land edge. Bottom-interface Z separation does not prevent the side contact. XY0.50 is a bounded part-specific correction with a residual-contact limit; larger XY re-routes trees and is not a monotonic guarantee.",
+  "selected_front_top_settings": {
+    "support_bottom_z_distance_mm": 0.3,
+    "support_object_xy_distance_mm": 0.5
+  },
+  "shared_profile_changed": false,
+  "probes": [
+    {
+      "schema": 1,
+      "gcode_sha256": "c36cdbf25e44a187b635de5ba59ad412aaa69107511b7f56daf4532df944b7f4",
+      "source_stl_sha256": "b9a330b868dde6cdab0278fecb023b4b3dc01a993e9070fa2828605237fded88",
+      "machine_to_bed_translation_mm": [
+        162.5,
+        51.224998474,
+        -160
+      ],
+      "picks": [
+        {
+          "pick_cad_xyz_mm": [
+            105.69,
+            34.793,
+            165.194
+          ],
+          "native_surface_z_mm": 165.195,
+          "window_radius_mm": 7.0,
+          "first_overlying_support": {
+            "line": 103281,
+            "z": 5.51917,
+            "bottom_z": 5.239214,
+            "height": 0.279956,
+            "width": 0.62,
+            "feature": "Support",
+            "a": [
+              270.302,
+              97.146
+            ],
+            "b": [
+              270.303,
+              72.241
+            ],
+            "overlap_native_land_mm2": 0.03314166107273323,
+            "gap_above_native_surface_mm": 0.044214000000006415
+          },
+          "last_model_top_surface_z_mm": 5.24,
+          "support_gap_above_emitted_top_mm": -0.0007860000000006195,
+          "support_absent_over_window": false,
+          "touching_support_emitted_model_overlap_mm2": 0.03314166107273242,
+          "emitted_xy_gap_at_top_mm": 0.0,
+          "touching_support_absent_over_window": false
+        },
+        {
+          "pick_cad_xyz_mm": [
+            82.129,
+            7.118,
+            165.194
+          ],
+          "native_surface_z_mm": 165.195,
+          "window_radius_mm": 7.0,
+          "first_overlying_support": {
+            "line": 103362,
+            "z": 5.51917,
+            "bottom_z": 5.239214,
+            "height": 0.279956,
+            "width": 0.62,
+            "feature": "Support",
+            "a": [
+              244.914,
+              55.922
+            ],
+            "b": [
+              207.779,
+              55.922
+            ],
+            "overlap_native_land_mm2": 0.011163157124111589,
+            "gap_above_native_surface_mm": 0.044214000000006415
+          },
+          "last_model_top_surface_z_mm": 5.24,
+          "support_gap_above_emitted_top_mm": -0.0007860000000006195,
+          "support_absent_over_window": false,
+          "touching_support_emitted_model_overlap_mm2": 0.0054563251651297716,
+          "emitted_xy_gap_at_top_mm": 0.0,
+          "touching_support_absent_over_window": false
+        }
+      ],
+      "method": "Actual support slab bottom (emitted Z minus emitted road height) and full road-width footprints against native +Z seam land and all actual model beads at its emitted top within each picked window.",
+      "scope": "Emitted separation or absence at the reported locations only; no physical support-removal or surface-finish qualification.",
+      "name": "baseline",
+      "support_bottom_z_distance_mm": 0.3,
+      "support_object_xy_distance_mm": 0.4,
+      "archive_sha256": "feaba430dd2856f35d296345b4edae03f66ee36199d1a672cfb2bccf805f5a65"
+    },
+    {
+      "schema": 1,
+      "gcode_sha256": "18069e336dea6bc6d633c1f986622f8a637ce111b55b6f3708e2e7af9ee46174",
+      "source_stl_sha256": "b9a330b868dde6cdab0278fecb023b4b3dc01a993e9070fa2828605237fded88",
+      "machine_to_bed_translation_mm": [
+        162.5,
+        51.224998474,
+        -160
+      ],
+      "picks": [
+        {
+          "pick_cad_xyz_mm": [
+            105.69,
+            34.793,
+            165.194
+          ],
+          "native_surface_z_mm": 165.195,
+          "window_radius_mm": 7.0,
+          "first_overlying_support": {
+            "line": 103279,
+            "z": 5.51917,
+            "bottom_z": 5.239214,
+            "height": 0.279956,
+            "width": 0.62,
+            "feature": "Support",
+            "a": [
+              270.302,
+              97.146
+            ],
+            "b": [
+              270.303,
+              72.241
+            ],
+            "overlap_native_land_mm2": 0.03314166107273323,
+            "gap_above_native_surface_mm": 0.044214000000006415
+          },
+          "last_model_top_surface_z_mm": 5.24,
+          "support_gap_above_emitted_top_mm": -0.0007860000000006195,
+          "support_absent_over_window": false,
+          "touching_support_emitted_model_overlap_mm2": 0.03314166107273242,
+          "emitted_xy_gap_at_top_mm": 0.0,
+          "touching_support_absent_over_window": false
+        },
+        {
+          "pick_cad_xyz_mm": [
+            82.129,
+            7.118,
+            165.194
+          ],
+          "native_surface_z_mm": 165.195,
+          "window_radius_mm": 7.0,
+          "first_overlying_support": {
+            "line": 103360,
+            "z": 5.51917,
+            "bottom_z": 5.239214,
+            "height": 0.279956,
+            "width": 0.62,
+            "feature": "Support",
+            "a": [
+              244.914,
+              55.922
+            ],
+            "b": [
+              207.779,
+              55.922
+            ],
+            "overlap_native_land_mm2": 0.011163157124111589,
+            "gap_above_native_surface_mm": 0.044214000000006415
+          },
+          "last_model_top_surface_z_mm": 5.24,
+          "support_gap_above_emitted_top_mm": -0.0007860000000006195,
+          "support_absent_over_window": false,
+          "touching_support_emitted_model_overlap_mm2": 0.0054563251651297716,
+          "emitted_xy_gap_at_top_mm": 0.0,
+          "touching_support_absent_over_window": false
+        }
+      ],
+      "method": "Actual support slab bottom (emitted Z minus emitted road height) and full road-width footprints against native +Z seam land and all actual model beads at its emitted top within each picked window.",
+      "scope": "Emitted separation or absence at the reported locations only; no physical support-removal or surface-finish qualification.",
+      "name": "bottom048",
+      "support_bottom_z_distance_mm": 0.48,
+      "support_object_xy_distance_mm": 0.4,
+      "archive_sha256": "63b24b1eee12894c33b5377398ba3585d6166adf2354c0a6ae081a2d15fe7e32"
+    },
+    {
+      "schema": 1,
+      "gcode_sha256": "77ddd1abe41744128c69cf6682c66f9644b217585d83760b3a43c400bc3e7e4d",
+      "source_stl_sha256": "b9a330b868dde6cdab0278fecb023b4b3dc01a993e9070fa2828605237fded88",
+      "machine_to_bed_translation_mm": [
+        162.5,
+        51.224998474,
+        -160
+      ],
+      "picks": [
+        {
+          "pick_cad_xyz_mm": [
+            105.69,
+            34.793,
+            165.194
+          ],
+          "native_surface_z_mm": 165.195,
+          "window_radius_mm": 7.0,
+          "first_overlying_support": {
+            "line": 103284,
+            "z": 5.51917,
+            "bottom_z": 5.239214,
+            "height": 0.279956,
+            "width": 0.62,
+            "feature": "Support",
+            "a": [
+              270.306,
+              100.703
+            ],
+            "b": [
+              270.309,
+              79.382
+            ],
+            "overlap_native_land_mm2": 0.004597314682977,
+            "gap_above_native_surface_mm": 0.044214000000006415
+          },
+          "last_model_top_surface_z_mm": 5.24,
+          "support_gap_above_emitted_top_mm": -0.0007860000000006195,
+          "support_absent_over_window": false,
+          "touching_support_emitted_model_overlap_mm2": 0.004599453358558972,
+          "emitted_xy_gap_at_top_mm": 0.0,
+          "touching_support_absent_over_window": false
+        },
+        {
+          "pick_cad_xyz_mm": [
+            82.129,
+            7.118,
+            165.194
+          ],
+          "native_surface_z_mm": 165.195,
+          "window_radius_mm": 7.0,
+          "first_overlying_support": {
+            "line": 125830,
+            "z": 7.47886,
+            "bottom_z": 7.198904,
+            "height": 0.279956,
+            "width": 0.62,
+            "feature": "Support",
+            "a": [
+              237.749,
+              56.006
+            ],
+            "b": [
+              235.445,
+              59.177
+            ],
+            "overlap_native_land_mm2": 0.00012459415597086863,
+            "gap_above_native_surface_mm": 2.0039040000000066
+          },
+          "last_model_top_surface_z_mm": 5.24,
+          "support_gap_above_emitted_top_mm": 1.9589039999999995,
+          "support_absent_over_window": false,
+          "touching_support_emitted_model_overlap_mm2": 0.0,
+          "emitted_xy_gap_at_top_mm": null,
+          "touching_support_absent_over_window": true
+        }
+      ],
+      "method": "Actual support slab bottom (emitted Z minus emitted road height) and full road-width footprints against native +Z seam land and all actual model beads at its emitted top within each picked window.",
+      "scope": "Emitted separation or absence at the reported locations only; no physical support-removal or surface-finish qualification.",
+      "name": "xy050",
+      "support_bottom_z_distance_mm": 0.3,
+      "support_object_xy_distance_mm": 0.5,
+      "archive_sha256": "dbeacd699a926c54259f5d1e8674c09201b6e81f77ace9593df81795cb0ed046"
+    },
+    {
+      "schema": 1,
+      "gcode_sha256": "57df42bb709acaafa668b322d55786701c284a5998c9e3ad982b3995e6713293",
+      "source_stl_sha256": "b9a330b868dde6cdab0278fecb023b4b3dc01a993e9070fa2828605237fded88",
+      "machine_to_bed_translation_mm": [
+        162.5,
+        51.224998474,
+        -160
+      ],
+      "picks": [
+        {
+          "pick_cad_xyz_mm": [
+            105.69,
+            34.793,
+            165.194
+          ],
+          "native_surface_z_mm": 165.195,
+          "window_radius_mm": 7.0,
+          "first_overlying_support": {
+            "line": 103407,
+            "z": 5.51917,
+            "bottom_z": 5.239214,
+            "height": 0.279956,
+            "width": 0.62,
+            "feature": "Support",
+            "a": [
+              270.302,
+              101.922
+            ],
+            "b": [
+              270.31,
+              89.141
+            ],
+            "overlap_native_land_mm2": 0.00018635502115289609,
+            "gap_above_native_surface_mm": 0.044214000000006415
+          },
+          "last_model_top_surface_z_mm": 5.24,
+          "support_gap_above_emitted_top_mm": -0.0007860000000006195,
+          "support_absent_over_window": false,
+          "touching_support_emitted_model_overlap_mm2": 0.00018635502115289606,
+          "emitted_xy_gap_at_top_mm": 0.0,
+          "touching_support_absent_over_window": false
+        },
+        {
+          "pick_cad_xyz_mm": [
+            82.129,
+            7.118,
+            165.194
+          ],
+          "native_surface_z_mm": 165.195,
+          "window_radius_mm": 7.0,
+          "first_overlying_support": {
+            "line": 103484,
+            "z": 5.51917,
+            "bottom_z": 5.239214,
+            "height": 0.279956,
+            "width": 0.62,
+            "feature": "Support",
+            "a": [
+              254.457,
+              55.923
+            ],
+            "b": [
+              197.371,
+              55.922
+            ],
+            "overlap_native_land_mm2": 0.029157682615289754,
+            "gap_above_native_surface_mm": 0.044214000000006415
+          },
+          "last_model_top_surface_z_mm": 5.24,
+          "support_gap_above_emitted_top_mm": -0.0007860000000006195,
+          "support_absent_over_window": false,
+          "touching_support_emitted_model_overlap_mm2": 0.017273964119616216,
+          "emitted_xy_gap_at_top_mm": 0.0,
+          "touching_support_absent_over_window": false
+        }
+      ],
+      "method": "Actual support slab bottom (emitted Z minus emitted road height) and full road-width footprints against native +Z seam land and all actual model beads at its emitted top within each picked window.",
+      "scope": "Emitted separation or absence at the reported locations only; no physical support-removal or surface-finish qualification.",
+      "name": "xy060",
+      "support_bottom_z_distance_mm": 0.3,
+      "support_object_xy_distance_mm": 0.6,
+      "archive_sha256": "5265f1b43f4af3ab7cd782505b9e296404b18cba33265e820a196057950302ee"
+    }
+  ],
+  "scope": "Offline settings probes against the exact rejected v17 geometry. No print submission or physical surface-cleanup qualification."
+}

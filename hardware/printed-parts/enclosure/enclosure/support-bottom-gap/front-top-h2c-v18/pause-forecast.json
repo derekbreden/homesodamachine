@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "checked_utc": "2026-10-05T03:36:03.447018+00:00",
+  "status": "programmed_pause_and_native_forecast_verified",
+  "archive": ".cache/prints/2026-10-04-enclosure-front-top-flush-frame-h2c-v18/ready/2026-10-04-enclosure-front-top-flush-frame-h2c-v18.gcode.3mf",
+  "archive_sha256": "3d31f00a0a0649627514a02a07f4ce28e42d657ccffcd6369549075532c23702",
+  "gcode_sha256": "91e21a113b8448485918e9409e939836a0cd61b774b02ff4c5476cb00f4d39ac",
+  "zip_crc_checks_pass": true,
+  "gcode_md5_checks_pass": true,
+  "native_result": ".cache/prints/2026-10-04-enclosure-front-top-flush-frame-h2c-v18/ready/result.json",
+  "native_result_sha256": "e3e4d866fbd1e817133b1340108c81088a66f8f4e48bfacd45d4537b21bc4710",
+  "accepted_task_id": "1310109574",
+  "observed_acceptance_utc": "2026-10-05T03:50:01.145614+00:00",
+  "programmed_pause": {
+    "count": 1,
+    "command": "M400 U1",
+    "gcode_line_1_based": 600996,
+    "before_layer": 281,
+    "total_native_layers": 1346,
+    "before_model_print_z_mm": 36.44,
+    "last_completed_layer": 280,
+    "last_completed_model_print_z_mm": 36.3144,
+    "custom_gcode_layer_top_z_mm": 36.44,
+    "pause_list_layer": 281,
+    "pause_list_percent": 22,
+    "pause_list_remaining_minutes": 1023,
+    "last_progress_before_pause": "M73 P22 R1023",
+    "last_countdown_before_pause": "M73 C0"
+  },
+  "native_forecast": {
+    "approximate_elapsed_from_native_start_minutes": 294,
+    "approximate_elapsed_text": "about 4 hours 54 minutes",
+    "native_total_prediction_seconds": 79003.0546875,
+    "remaining_at_programmed_pause_minutes": 1023,
+    "method": "Round native total prediction minus the minute-rounded pause-list remainder to the nearest elapsed minute.",
+    "initial_native_pause_countdown": "M73 C292",
+    "initial_countdown_minutes": 292,
+    "estimate_resolution": "Native progress, remainder and countdown are minute-rounded estimates. The initial emitted countdown is about 4 hours 52 minutes; the total-minus-remainder method gives about 4 hours 54 minutes. Neither establishes an exact pause time. Heating, calibration, transfer and physical printing can shift the actual event."
+  },
+  "scope": "Programmed RC62 insertion boundary and approximate native start-to-pause forecast only. Attribution to a printer task requires the separately observed matching new acceptance. No printer command, geometry edit or archive replacement was performed.",
+  "estimated_pause_window_local": [
+    "2026-10-05T03:42:01.145614-05:00",
+    "2026-10-05T03:44:01.145614-05:00"
+  ],
+  "estimate_scope": "Approximate native forecast from observed acceptance; startup heating and calibration can shift the actual programmed pause. User action requires an observed matching pause, not the clock estimate."
+}

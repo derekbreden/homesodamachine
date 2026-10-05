@@ -39,10 +39,12 @@ reads the printable meshes at sampled front/rear insertion and shell
 closing poses, with capture against 2 mm translations along all axes.
 
 [`refresh_aggregate.py`](refresh_aggregate.py) replaces only the named
-front-top and funnel-frame members using the repository's assembly
-import/export and viewer graft APIs. Its
+front-top and funnel-frame prototypes in each original STEP document using
+the native XCAF API, the repository's assembly reader and viewer graft. Its
 [`aggregate-refresh.json`](aggregate-refresh.json) verifies retained
-names, native geometry and placements, colors and viewer arrays.
+names, native geometry and placements, colors and viewer arrays. A STEP
+serialization that changes only spline integration readings receives a
+native Boolean equivalence check as well as the geometry fingerprints.
 This scoped refresh is not a fresh full-machine motion scorecard.
 
 The relevant physical failure is recorded in the
@@ -68,3 +70,8 @@ tools/cad-venv/bin/python tools/publish_now.py
 Run geometry lint on the changed pieces after the publication is live,
 following the printed-parts publish loop. Physical print qualification
 remains separate from those lint results.
+
+The retained-baseline comparisons use the immutable STEP/STL snapshots
+in `.cache/flush-funnel-roof/baseline`, identified by the SHA256 values
+in the check records. The scoped generator and current mating-joint check
+do not depend on those comparison snapshots.

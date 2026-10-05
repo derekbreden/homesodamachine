@@ -1,0 +1,5402 @@
+{
+  "schema": 1,
+  "native_checks_pass": true,
+  "archive_sha256": "fdd433d6c86d911e236158bfd0f5b611c4ffad7f0dcc78150aed89a632363123",
+  "gcode_sha256": "d4d9a8bfafb7108c1281f70becc962a62bf4635d9632c25ce7a12a3cb56c405d",
+  "fixed_left_model_and_support_tools": {
+    "0": 514991
+  },
+  "emitted_trim_mm": [
+    0.0,
+    0.02
+  ],
+  "no_insertion_pause": true,
+  "object_count": 23,
+  "support_roads_by_owner": {
+    "1901": 76784
+  },
+  "native_frame_layer_count": 230,
+  "native_frame_components_missing_walls": [],
+  "invalid_emitted_paths": [],
+  "perimeter_diagnostics": [],
+  "all_frame_layers": [
+    {
+      "print_z_mm": 0.2,
+      "height_mm": 0.2,
+      "components": [
+        {
+          "area_mm2": 18386.146716528958,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.05315258771413878
+        }
+      ]
+    },
+    {
+      "print_z_mm": 0.44,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18438.731342148345,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.0051647208261836886
+        }
+      ]
+    },
+    {
+      "print_z_mm": 0.68,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18496.096839566926,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.015507138236630691
+        }
+      ]
+    },
+    {
+      "print_z_mm": 0.92,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18553.46233695884,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.049365807867940564
+        }
+      ]
+    },
+    {
+      "print_z_mm": 1.16,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18610.827834455133,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.027852954098051302
+        }
+      ]
+    },
+    {
+      "print_z_mm": 1.4,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18668.19292384546,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.0004900000000214177
+        }
+      ]
+    },
+    {
+      "print_z_mm": 1.64,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18725.55842219857,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.03349757421994648
+        }
+      ]
+    },
+    {
+      "print_z_mm": 1.88,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18782.923920249865,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.0004900000000214177
+        }
+      ]
+    },
+    {
+      "print_z_mm": 2.12,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18840.28941550177,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.08407461623040366
+        }
+      ]
+    },
+    {
+      "print_z_mm": 2.36,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18897.6549107382,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.08668311625612099
+        }
+      ]
+    },
+    {
+      "print_z_mm": 2.6,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18955.020405974235,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.0004900000000214177
+        }
+      ]
+    },
+    {
+      "print_z_mm": 2.84,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 19012.385899715897,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.08210886568605322
+        }
+      ]
+    },
+    {
+      "print_z_mm": 3.08,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 19069.751599238352,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.085401944870271
+        }
+      ]
+    },
+    {
+      "print_z_mm": 3.32,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18057.783698985557,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.00012099999998665956
+        }
+      ]
+    },
+    {
+      "print_z_mm": 3.56,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18115.149194550686,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.00012099999998665956
+        }
+      ]
+    },
+    {
+      "print_z_mm": 3.8,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18172.51469020952,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.08343288714695876
+        }
+      ]
+    },
+    {
+      "print_z_mm": 4.04,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18229.88018575687,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.08601562285487577
+        }
+      ]
+    },
+    {
+      "print_z_mm": 4.28,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18287.24568134496,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.00028679299334385955
+        }
+      ]
+    },
+    {
+      "print_z_mm": 4.52,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18344.611176953793,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.00012099999998665956
+        }
+      ]
+    },
+    {
+      "print_z_mm": 4.76,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18401.976672494657,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.08475271859893055
+        }
+      ]
+    },
+    {
+      "print_z_mm": 5.0,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18459.342168044604,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.0010011658153908642
+        }
+      ]
+    },
+    {
+      "print_z_mm": 5.24,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18516.70766367495,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.00012099999998665956
+        }
+      ]
+    },
+    {
+      "print_z_mm": 5.48,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18574.07357046787,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.08280023641421899
+        }
+      ]
+    },
+    {
+      "print_z_mm": 5.72,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18631.439066473566,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.08535758915246486
+        }
+      ]
+    },
+    {
+      "print_z_mm": 5.96,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18688.80456244853,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.00023500000001147603
+        }
+      ]
+    },
+    {
+      "print_z_mm": 6.2,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18746.1700584454,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.00012099999998665956
+        }
+      ]
+    },
+    {
+      "print_z_mm": 6.44,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18803.53555286258,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.08411265384983416
+        }
+      ]
+    },
+    {
+      "print_z_mm": 6.68,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18860.90104666611,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.08667118378160846
+        }
+      ]
+    },
+    {
+      "print_z_mm": 6.92,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18918.266540451164,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.00047099999998409525
+        }
+      ]
+    },
+    {
+      "print_z_mm": 7.16,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18014.576589396263,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.07698220197856112
+        }
+      ]
+    },
+    {
+      "print_z_mm": 7.4,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18069.03223943219,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.052266483615953235
+        }
+      ]
+    },
+    {
+      "print_z_mm": 7.64,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18123.48788944937,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.06441464699599994
+        }
+      ]
+    },
+    {
+      "print_z_mm": 7.88,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18177.94372740837,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.050898730749406124
+        }
+      ]
+    },
+    {
+      "print_z_mm": 8.12,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18232.399377700196,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.058783783962278374
+        }
+      ]
+    },
+    {
+      "print_z_mm": 8.36,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18286.855224599734,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.07217814717845919
+        }
+      ]
+    },
+    {
+      "print_z_mm": 8.6,
+      "height_mm": 0.240001,
+      "components": [
+        {
+          "area_mm2": 18341.31049037066,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.005089118025366934
+        }
+      ]
+    },
+    {
+      "print_z_mm": 8.84,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18395.766533668284,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.0037486108594008416
+        }
+      ]
+    },
+    {
+      "print_z_mm": 9.08,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18450.222184155893,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.08269710859562254
+        }
+      ]
+    },
+    {
+      "print_z_mm": 9.32,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18504.67783470244,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.0004909999999904435
+        }
+      ]
+    },
+    {
+      "print_z_mm": 9.56,
+      "height_mm": 0.240001,
+      "components": [
+        {
+          "area_mm2": 18559.13328094436,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.027145827768403852
+        }
+      ]
+    },
+    {
+      "print_z_mm": 9.8,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18613.589135971302,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.08347489318522702
+        }
+      ]
+    },
+    {
+      "print_z_mm": 10.04,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18668.04478660401,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.07799061285248457
+        }
+      ]
+    },
+    {
+      "print_z_mm": 10.28,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18722.500437361374,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.06907609945634083
+        }
+      ]
+    },
+    {
+      "print_z_mm": 10.52,
+      "height_mm": 0.240001,
+      "components": [
+        {
+          "area_mm2": 18776.95608087634,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.07368220035944936
+        }
+      ]
+    },
+    {
+      "print_z_mm": 10.76,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18831.411739141608,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.065168936439746
+        }
+      ]
+    },
+    {
+      "print_z_mm": 11.0,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18885.867579532965,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.05142107530081311
+        }
+      ]
+    },
+    {
+      "print_z_mm": 11.24,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18940.323230718175,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.03730665299332209
+        }
+      ]
+    },
+    {
+      "print_z_mm": 11.48,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18994.778881856313,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.0704961191860087
+        }
+      ]
+    },
+    {
+      "print_z_mm": 11.72,
+      "height_mm": 0.240001,
+      "components": [
+        {
+          "area_mm2": 19049.23453321258,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.07322462983714548
+        }
+      ]
+    },
+    {
+      "print_z_mm": 11.96,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 19103.690184565497,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.031136416981480536
+        }
+      ]
+    },
+    {
+      "print_z_mm": 12.2,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 19158.145836039723,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.023222834867280856
+        }
+      ]
+    },
+    {
+      "print_z_mm": 12.44,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 19212.601487488475,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.07676982582639016
+        }
+      ]
+    },
+    {
+      "print_z_mm": 12.68,
+      "height_mm": 0.240001,
+      "components": [
+        {
+          "area_mm2": 19267.05713901831,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.06174307792465042
+        }
+      ]
+    },
+    {
+      "print_z_mm": 12.92,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 19321.51279066547,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.06621215201365863
+        }
+      ]
+    },
+    {
+      "print_z_mm": 13.16,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 19375.968638925457,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.06773686485931643
+        }
+      ]
+    },
+    {
+      "print_z_mm": 13.4,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 19430.424290640975,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.06347247647657625
+        }
+      ]
+    },
+    {
+      "print_z_mm": 13.64,
+      "height_mm": 0.240001,
+      "components": [
+        {
+          "area_mm2": 19484.879746020444,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.03441303869660331
+        }
+      ]
+    },
+    {
+      "print_z_mm": 13.88,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 19539.335785043426,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.02162735445803468
+        }
+      ]
+    },
+    {
+      "print_z_mm": 14.12,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 19580.594025935177,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.060731400995482215
+        }
+      ]
+    },
+    {
+      "print_z_mm": 14.36,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 19577.737858491688,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.0856592516576812
+        }
+      ]
+    },
+    {
+      "print_z_mm": 14.6,
+      "height_mm": 0.240001,
+      "components": [
+        {
+          "area_mm2": 19559.24507335837,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.028660408160057438
+        }
+      ]
+    },
+    {
+      "print_z_mm": 14.84,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 19529.579528865077,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.0066288088193124095
+        }
+      ]
+    },
+    {
+      "print_z_mm": 15.08,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 19490.155520801094,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.05594319745588308
+        }
+      ]
+    },
+    {
+      "print_z_mm": 15.32,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 19441.649482621036,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.030666682626888625
+        }
+      ]
+    },
+    {
+      "print_z_mm": 15.56,
+      "height_mm": 0.240001,
+      "components": [
+        {
+          "area_mm2": 19384.417274045496,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.056347312813347844
+        }
+      ]
+    },
+    {
+      "print_z_mm": 15.8,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 19318.486633601875,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.010161416911488336
+        }
+      ]
+    },
+    {
+      "print_z_mm": 16.04,
+      "height_mm": 0.240001,
+      "components": [
+        {
+          "area_mm2": 19242.78165700977,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.07645513802516166
+        }
+      ]
+    },
+    {
+      "print_z_mm": 16.28,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 19106.12428968866,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.04950268930632232
+        }
+      ]
+    },
+    {
+      "print_z_mm": 16.52,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 19830.60820513256,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.04286271002403522
+        }
+      ]
+    },
+    {
+      "print_z_mm": 16.76,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 19834.416684299646,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.06805757202835397
+        }
+      ]
+    },
+    {
+      "print_z_mm": 17.0,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 19664.702460650078,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.04259284961177354
+        }
+      ]
+    },
+    {
+      "print_z_mm": 17.24,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 19486.767353368417,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.043188053409665056
+        }
+      ]
+    },
+    {
+      "print_z_mm": 17.48,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 19300.54600866227,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.05576298084662465
+        }
+      ]
+    },
+    {
+      "print_z_mm": 17.72,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 19105.88766587768,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.0856194217849314
+        }
+      ]
+    },
+    {
+      "print_z_mm": 17.96,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18902.920537312268,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.08578668498515504
+        }
+      ]
+    },
+    {
+      "print_z_mm": 18.2,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 18691.54735722943,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.04919240034167824
+        }
+      ]
+    },
+    {
+      "print_z_mm": 18.44,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18471.914557069173,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.035872348319862246
+        }
+      ]
+    },
+    {
+      "print_z_mm": 18.68,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18243.83851611821,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.08271627221246122
+        }
+      ]
+    },
+    {
+      "print_z_mm": 18.92,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 18007.537604161414,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.05496246001419822
+        }
+      ]
+    },
+    {
+      "print_z_mm": 19.16,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 17762.814611238984,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.06688989654057623
+        }
+      ]
+    },
+    {
+      "print_z_mm": 19.4,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 17509.7695070892,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.006974112645591557
+        }
+      ]
+    },
+    {
+      "print_z_mm": 19.64,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 17248.39434689229,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.045555413346712065
+        }
+      ]
+    },
+    {
+      "print_z_mm": 19.88,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 16978.563624352642,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.012560899645605333
+        }
+      ]
+    },
+    {
+      "print_z_mm": 20.12,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 16700.46550590918,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.038125924323060056
+        }
+      ]
+    },
+    {
+      "print_z_mm": 20.36,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 16413.990888910714,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.010481486009872087
+        }
+      ]
+    },
+    {
+      "print_z_mm": 20.6,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 16119.279704913353,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.07252697640784864
+        }
+      ]
+    },
+    {
+      "print_z_mm": 20.84,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 15816.087100424003,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.026305025619530797
+        }
+      ]
+    },
+    {
+      "print_z_mm": 21.08,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 15504.669304219717,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.00645691188808642
+        }
+      ]
+    },
+    {
+      "print_z_mm": 21.32,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 15184.800230165036,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.026092962226949817
+        }
+      ]
+    },
+    {
+      "print_z_mm": 21.56,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 14856.562753113796,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.031089115982543686
+        }
+      ]
+    },
+    {
+      "print_z_mm": 21.8,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 14520.030716010886,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.07069368874666762
+        }
+      ]
+    },
+    {
+      "print_z_mm": 22.04,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 13019.0099576536,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.0021695822235592577
+        }
+      ]
+    },
+    {
+      "print_z_mm": 22.28,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 12664.285423874806,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.011323335625375242
+        }
+      ]
+    },
+    {
+      "print_z_mm": 22.52,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 12301.261230723541,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.012546421231958621
+        }
+      ]
+    },
+    {
+      "print_z_mm": 22.76,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 11929.93116024423,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.002155313784550389
+        }
+      ]
+    },
+    {
+      "print_z_mm": 23.0,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 11550.1001258259,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.023981607675140987
+        }
+      ]
+    },
+    {
+      "print_z_mm": 23.24,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 11162.144080384001,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.07142017791400015
+        }
+      ]
+    },
+    {
+      "print_z_mm": 23.48,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 10765.841982867163,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.04326621197808231
+        }
+      ]
+    },
+    {
+      "print_z_mm": 23.72,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 10360.981957143164,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.01545175961432077
+        }
+      ]
+    },
+    {
+      "print_z_mm": 23.96,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 9947.79337551972,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.006628232401272721
+        }
+      ]
+    },
+    {
+      "print_z_mm": 24.2,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 9526.453213162757,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.0772913435919261
+        }
+      ]
+    },
+    {
+      "print_z_mm": 24.44,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 9096.794579797002,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.04345684960871374
+        }
+      ]
+    },
+    {
+      "print_z_mm": 24.68,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 8658.567034059433,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.007023438835607548
+        }
+      ]
+    },
+    {
+      "print_z_mm": 24.92,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 8212.271919581055,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.030860062815176448
+        }
+      ]
+    },
+    {
+      "print_z_mm": 25.16,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 7757.366072525008,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.002717049183059983
+        }
+      ]
+    },
+    {
+      "print_z_mm": 25.4,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 7294.026566208366,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.006521626466607228
+        }
+      ]
+    },
+    {
+      "print_z_mm": 25.64,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 6849.002535301148,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.011487568649498764
+        }
+      ]
+    },
+    {
+      "print_z_mm": 25.88,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 6542.232082796432,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.05082110826220185
+        }
+      ]
+    },
+    {
+      "print_z_mm": 26.12,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 6326.59316801446,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.06309197267326508
+        }
+      ]
+    },
+    {
+      "print_z_mm": 26.36,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 6158.608033438784,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.01828038026257428
+        }
+      ]
+    },
+    {
+      "print_z_mm": 26.6,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 6027.66321287557,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.009316506802308777
+        }
+      ]
+    },
+    {
+      "print_z_mm": 26.84,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 5917.889431837808,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.05364180290406631
+        }
+      ]
+    },
+    {
+      "print_z_mm": 27.08,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 5828.095286852909,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.010860917242388718
+        }
+      ]
+    },
+    {
+      "print_z_mm": 27.32,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 5751.710961968638,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.031561493762159804
+        }
+      ]
+    },
+    {
+      "print_z_mm": 27.56,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 5690.561947179511,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.048625659092391554
+        }
+      ]
+    },
+    {
+      "print_z_mm": 27.8,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 5637.893344469674,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.011575753905257724
+        }
+      ]
+    },
+    {
+      "print_z_mm": 28.04,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 5597.614752378635,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.011423045604950666
+        }
+      ]
+    },
+    {
+      "print_z_mm": 28.28,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 5565.031505563744,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.010877334496349117
+        }
+      ]
+    },
+    {
+      "print_z_mm": 28.52,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 5539.897999578585,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.03277648212139653
+        }
+      ]
+    },
+    {
+      "print_z_mm": 28.76,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 5524.04542423517,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.08621391946863602
+        }
+      ]
+    },
+    {
+      "print_z_mm": 29.0,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 5512.988923685523,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.03343108509560222
+        }
+      ]
+    },
+    {
+      "print_z_mm": 29.24,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 5509.882636579703,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.06316577500617684
+        }
+      ]
+    },
+    {
+      "print_z_mm": 29.48,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 5513.177861398341,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.020460781970694175
+        }
+      ]
+    },
+    {
+      "print_z_mm": 29.72,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 5520.468702107617,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.02397834706435026
+        }
+      ]
+    },
+    {
+      "print_z_mm": 29.96,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 5535.521761787084,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.06833725773885888
+        }
+      ]
+    },
+    {
+      "print_z_mm": 30.2,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 5555.7832871789,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.06939666033781175
+        }
+      ]
+    },
+    {
+      "print_z_mm": 30.44,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 5579.163892153883,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.020409206687000497
+        }
+      ]
+    },
+    {
+      "print_z_mm": 30.68,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 5609.775612945072,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.011197050561734728
+        }
+      ]
+    },
+    {
+      "print_z_mm": 30.92,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 5646.324109844827,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.010858576833305572
+        }
+      ]
+    },
+    {
+      "print_z_mm": 31.16,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 5685.339656532746,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.06395427089208713
+        }
+      ]
+    },
+    {
+      "print_z_mm": 31.4,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 5729.064468792629,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.06332772209295842
+        }
+      ]
+    },
+    {
+      "print_z_mm": 31.64,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 5780.634502787994,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.051635036525853634
+        }
+      ]
+    },
+    {
+      "print_z_mm": 31.88,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 5834.44280877,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.02696944758649905
+        }
+      ]
+    },
+    {
+      "print_z_mm": 32.12,
+      "height_mm": 0.24,
+      "components": [
+        {
+          "area_mm2": 5888.86784143341,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.002093606068798798
+        }
+      ]
+    },
+    {
+      "print_z_mm": 32.36,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 5943.321544534378,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.059116610674713105
+        }
+      ]
+    },
+    {
+      "print_z_mm": 32.6,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 5997.776320489767,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.061781763269716544
+        }
+      ]
+    },
+    {
+      "print_z_mm": 32.84,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 6052.230222526243,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.08199672251662984
+        }
+      ]
+    },
+    {
+      "print_z_mm": 33.08,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 6106.684629679847,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.03662982776842047
+        }
+      ]
+    },
+    {
+      "print_z_mm": 33.32,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 6161.139719934108,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.0002127967270998954
+        }
+      ]
+    },
+    {
+      "print_z_mm": 33.56,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 6215.593940485738,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.05457118207664849
+        }
+      ]
+    },
+    {
+      "print_z_mm": 33.8,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 6270.049054481908,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.06648244994272492
+        }
+      ]
+    },
+    {
+      "print_z_mm": 34.04,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 6324.503489717674,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.0435444067215042
+        }
+      ]
+    },
+    {
+      "print_z_mm": 34.28,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 6384.981252738922,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.06656232472626047
+        }
+      ]
+    },
+    {
+      "print_z_mm": 34.52,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 6463.563959321065,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.0649219487633815
+        }
+      ]
+    },
+    {
+      "print_z_mm": 34.76,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 6542.210827244322,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.06173804880504066
+        }
+      ]
+    },
+    {
+      "print_z_mm": 35.0,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 6620.918546593446,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.036818914963240884
+        }
+      ]
+    },
+    {
+      "print_z_mm": 35.24,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 6699.686524336583,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.0006553269366153247
+        }
+      ]
+    },
+    {
+      "print_z_mm": 35.48,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 6778.511444869753,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.02212875329219277
+        }
+      ]
+    },
+    {
+      "print_z_mm": 35.72,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 6857.388467175882,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.06927425705358128
+        }
+      ]
+    },
+    {
+      "print_z_mm": 35.96,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 6936.319573873185,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.06349408260505476
+        }
+      ]
+    },
+    {
+      "print_z_mm": 36.2,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 7015.298501324152,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.04469187905303032
+        }
+      ]
+    },
+    {
+      "print_z_mm": 36.44,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 7094.325654494602,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.059488151340114676
+        }
+      ]
+    },
+    {
+      "print_z_mm": 36.68,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 7173.39656999318,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.028324864745574413
+        }
+      ]
+    },
+    {
+      "print_z_mm": 36.92,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 7252.50954534749,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.050384166058554364
+        }
+      ]
+    },
+    {
+      "print_z_mm": 37.16,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 7331.661352759002,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.04913669629085163
+        }
+      ]
+    },
+    {
+      "print_z_mm": 37.4,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 7410.851715656092,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.046632407921631897
+        }
+      ]
+    },
+    {
+      "print_z_mm": 37.64,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 7490.07588444334,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.02581274680716747
+        }
+      ]
+    },
+    {
+      "print_z_mm": 37.88,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 7569.329920220531,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.009555276415607328
+        }
+      ]
+    },
+    {
+      "print_z_mm": 38.12,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 7648.6152359031585,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.04801524605061394
+        }
+      ]
+    },
+    {
+      "print_z_mm": 38.36,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 7727.924015039207,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.06398933284115191
+        }
+      ]
+    },
+    {
+      "print_z_mm": 38.6,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 7807.257254815355,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.02216212231640516
+        }
+      ]
+    },
+    {
+      "print_z_mm": 38.84,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 7886.60899119679,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.012140613783292953
+        }
+      ]
+    },
+    {
+      "print_z_mm": 39.08,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 7965.977685970647,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.02071591526290134
+        }
+      ]
+    },
+    {
+      "print_z_mm": 39.32,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 8045.360294069851,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.03227221059747998
+        }
+      ]
+    },
+    {
+      "print_z_mm": 39.56,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 8124.75145243061,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.07090862899613734
+        }
+      ]
+    },
+    {
+      "print_z_mm": 39.8,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 8204.150791929464,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.02012130299059786
+        }
+      ]
+    },
+    {
+      "print_z_mm": 40.04,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 8283.502627202899,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.05523412129956087
+        }
+      ]
+    },
+    {
+      "print_z_mm": 40.28,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 8362.696193080119,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.010616193384732936
+        }
+      ]
+    },
+    {
+      "print_z_mm": 40.52,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 8441.706298477904,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.015861388729303566
+        }
+      ]
+    },
+    {
+      "print_z_mm": 40.76,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 8520.508433272607,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.08332974063177315
+        }
+      ]
+    },
+    {
+      "print_z_mm": 41.0,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 8599.04853230267,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.01199999999999421
+        }
+      ]
+    },
+    {
+      "print_z_mm": 41.24,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 8677.210981230408,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.05064823951028394
+        }
+      ]
+    },
+    {
+      "print_z_mm": 41.48,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 8755.226499746052,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.010870486480990343
+        }
+      ]
+    },
+    {
+      "print_z_mm": 41.72,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 8833.12256031948,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.017565361489755515
+        }
+      ]
+    },
+    {
+      "print_z_mm": 41.96,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 8910.893450772779,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.07004054007190777
+        }
+      ]
+    },
+    {
+      "print_z_mm": 42.2,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 8988.529441795163,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.010684669015550263
+        }
+      ]
+    },
+    {
+      "print_z_mm": 42.44,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 9066.023061208707,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.010629401943988537
+        }
+      ]
+    },
+    {
+      "print_z_mm": 42.68,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 9143.362499684303,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.034998589342425
+        }
+      ]
+    },
+    {
+      "print_z_mm": 42.92,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 9220.538218950918,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.011964913286704848
+        }
+      ]
+    },
+    {
+      "print_z_mm": 43.16,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 9297.535131415018,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.011099972050209517
+        }
+      ]
+    },
+    {
+      "print_z_mm": 43.4,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 9374.338860384942,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.07903493289771776
+        }
+      ]
+    },
+    {
+      "print_z_mm": 43.64,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 9450.930090975558,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.011446319138909478
+        }
+      ]
+    },
+    {
+      "print_z_mm": 43.88,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 9527.282536041486,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.01652259641918677
+        }
+      ]
+    },
+    {
+      "print_z_mm": 44.12,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 9603.364268373003,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.011717245553194755
+        }
+      ]
+    },
+    {
+      "print_z_mm": 44.36,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 9679.117611296053,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.03315394062739929
+        }
+      ]
+    },
+    {
+      "print_z_mm": 44.6,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 9754.416304734637,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.03812571041095006
+        }
+      ]
+    },
+    {
+      "print_z_mm": 44.84,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 9782.021081224873,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.011713709591747806
+        }
+      ]
+    },
+    {
+      "print_z_mm": 45.08,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 9805.459165258613,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.011604855172261536
+        }
+      ]
+    },
+    {
+      "print_z_mm": 45.32,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 9828.774627642088,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.026945292459340298
+        }
+      ]
+    },
+    {
+      "print_z_mm": 45.56,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 9851.948791165789,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.01151864206328787
+        }
+      ]
+    },
+    {
+      "print_z_mm": 45.8,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 9874.955391399395,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.08672421144850953
+        }
+      ]
+    },
+    {
+      "print_z_mm": 46.04,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 9897.744675627866,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.013950177960355803
+        }
+      ]
+    },
+    {
+      "print_z_mm": 46.28,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 9918.307454360056,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.01431223050325528
+        }
+      ]
+    },
+    {
+      "print_z_mm": 46.52,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 9918.312032298047,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.011936404857993604
+        }
+      ]
+    },
+    {
+      "print_z_mm": 46.76,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 9918.316642788111,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.010746560234130675
+        }
+      ]
+    },
+    {
+      "print_z_mm": 47.0,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 9918.32129101087,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.009801485702061824
+        }
+      ]
+    },
+    {
+      "print_z_mm": 47.24,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 9918.325971504117,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.011337936755581701
+        }
+      ]
+    },
+    {
+      "print_z_mm": 47.48,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 9918.330700998878,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.01202519105311306
+        }
+      ]
+    },
+    {
+      "print_z_mm": 47.72,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 9918.335461236802,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.011438712344314483
+        }
+      ]
+    },
+    {
+      "print_z_mm": 47.96,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 9918.340253326805,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.011643606442679838
+        }
+      ]
+    },
+    {
+      "print_z_mm": 48.2,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 9918.345087698875,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.011688544118413913
+        }
+      ]
+    },
+    {
+      "print_z_mm": 48.44,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 9918.349958560822,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.011943622163118534
+        }
+      ]
+    },
+    {
+      "print_z_mm": 48.68,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 9918.354871156,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.011904108374530098
+        }
+      ]
+    },
+    {
+      "print_z_mm": 48.92,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 9918.359569242712,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.01106163479256611
+        }
+      ]
+    },
+    {
+      "print_z_mm": 49.16,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 9918.358691157398,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.010294965706028225
+        }
+      ]
+    },
+    {
+      "print_z_mm": 49.4,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 3851.0387230837814,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.011934166804110885
+        }
+      ]
+    },
+    {
+      "print_z_mm": 49.64,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 3851.038702436646,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.011940410982564625
+        }
+      ]
+    },
+    {
+      "print_z_mm": 49.88,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 3851.0386641078862,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.011946332397211518
+        }
+      ]
+    },
+    {
+      "print_z_mm": 50.12,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 3851.0386055839995,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.011244698058090113
+        }
+      ]
+    },
+    {
+      "print_z_mm": 50.36,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 3851.0385232281214,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.011970202955292164
+        }
+      ]
+    },
+    {
+      "print_z_mm": 50.6,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 3851.0384234312883,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.011596111685553884
+        }
+      ]
+    },
+    {
+      "print_z_mm": 50.84,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 3851.0382993376647,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.01160014600415088
+        }
+      ]
+    },
+    {
+      "print_z_mm": 51.08,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 3851.0381522050106,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.011604084495926786
+        }
+      ]
+    },
+    {
+      "print_z_mm": 51.32,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 3851.037984142506,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.011233226630093324
+        }
+      ]
+    },
+    {
+      "print_z_mm": 51.56,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 3851.0377974326398,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.011220949144033682
+        }
+      ]
+    },
+    {
+      "print_z_mm": 51.8,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 3851.037591690682,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.011782513851599785
+        }
+      ]
+    },
+    {
+      "print_z_mm": 52.04,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 3851.0373578774165,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.011886012439300264
+        }
+      ]
+    },
+    {
+      "print_z_mm": 52.28,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 3851.0371072715966,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.011947777286199668
+        }
+      ]
+    },
+    {
+      "print_z_mm": 52.52,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 3851.0368363673156,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.011546487408011064
+        }
+      ]
+    },
+    {
+      "print_z_mm": 52.76,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 3851.036542748091,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.011142041901501643
+        }
+      ]
+    },
+    {
+      "print_z_mm": 53.0,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 3851.036227708653,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.011237290206438683
+        }
+      ]
+    },
+    {
+      "print_z_mm": 53.24,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 3851.0358887404172,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.011248510043245952
+        }
+      ]
+    },
+    {
+      "print_z_mm": 53.48,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 3851.035528316068,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.01109824820519062
+        }
+      ]
+    },
+    {
+      "print_z_mm": 53.72,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 3851.035152017432,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.010533201108348711
+        }
+      ]
+    },
+    {
+      "print_z_mm": 53.96,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 3851.0347499466616,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.010446110390766039
+        }
+      ]
+    },
+    {
+      "print_z_mm": 54.2,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 3851.0343266849177,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.010341600716772176
+        }
+      ]
+    },
+    {
+      "print_z_mm": 54.44,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 3851.033883903362,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.009845365005996726
+        }
+      ]
+    },
+    {
+      "print_z_mm": 54.68,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 3851.0334198976916,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.009811775903054876
+        }
+      ]
+    },
+    {
+      "print_z_mm": 54.92,
+      "height_mm": 0.239998,
+      "components": [
+        {
+          "area_mm2": 3851.0329351852583,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.009911082972902885
+        }
+      ]
+    },
+    {
+      "print_z_mm": 55.16,
+      "height_mm": 0.240002,
+      "components": [
+        {
+          "area_mm2": 3851.0324267730552,
+          "receives_model_walls": true,
+          "max_boundary_air_mm": 0.009560238489299377
+        }
+      ]
+    }
+  ],
+  "object_layer_and_first_overlap": [
+    {
+      "name": "funnel-frame",
+      "layers": 230,
+      "min_second_bead_overlap_fraction": 0.6974157406332513,
+      "min_second_outer_wall_overlap_fraction": 0.6974157406332513
+    },
+    {
+      "name": "rc62-pocket-a1",
+      "layers": 84,
+      "min_second_bead_overlap_fraction": 0.830774981889012,
+      "min_second_outer_wall_overlap_fraction": 0.9987074389820514
+    },
+    {
+      "name": "rc62-pocket-a2",
+      "layers": 84,
+      "min_second_bead_overlap_fraction": 0.7875653835503226,
+      "min_second_outer_wall_overlap_fraction": 0.9986939844636225
+    },
+    {
+      "name": "rc62-pocket-a3",
+      "layers": 84,
+      "min_second_bead_overlap_fraction": 0.8260717289268638,
+      "min_second_outer_wall_overlap_fraction": 0.9986824642964092
+    },
+    {
+      "name": "rc62-pocket-a4",
+      "layers": 84,
+      "min_second_bead_overlap_fraction": 0.8165386674226176,
+      "min_second_outer_wall_overlap_fraction": 0.9986709268294393
+    },
+    {
+      "name": "rc62-pocket-b1",
+      "layers": 84,
+      "min_second_bead_overlap_fraction": 0.7533512165711596,
+      "min_second_outer_wall_overlap_fraction": 0.9987074389819828
+    },
+    {
+      "name": "rc62-pocket-b2",
+      "layers": 84,
+      "min_second_bead_overlap_fraction": 0.7607351861194215,
+      "min_second_outer_wall_overlap_fraction": 0.9986939844636226
+    },
+    {
+      "name": "rc62-pocket-b3",
+      "layers": 84,
+      "min_second_bead_overlap_fraction": 0.792950397573234,
+      "min_second_outer_wall_overlap_fraction": 0.99868246429641
+    },
+    {
+      "name": "rc62-pocket-b4",
+      "layers": 84,
+      "min_second_bead_overlap_fraction": 0.7653142175614536,
+      "min_second_outer_wall_overlap_fraction": 0.9986709268293709
+    },
+    {
+      "name": "rc62-pocket-c1",
+      "layers": 84,
+      "min_second_bead_overlap_fraction": 0.7509544664510247,
+      "min_second_outer_wall_overlap_fraction": 0.9987074389820507
+    },
+    {
+      "name": "rc62-pocket-c2",
+      "layers": 84,
+      "min_second_bead_overlap_fraction": 0.7498815295385648,
+      "min_second_outer_wall_overlap_fraction": 0.9986939844636219
+    },
+    {
+      "name": "rc62-pocket-c3",
+      "layers": 84,
+      "min_second_bead_overlap_fraction": 0.7777902487445938,
+      "min_second_outer_wall_overlap_fraction": 0.99868246429641
+    },
+    {
+      "name": "rc62-pocket-c4",
+      "layers": 84,
+      "min_second_bead_overlap_fraction": 0.779046269957071,
+      "min_second_outer_wall_overlap_fraction": 0.9986709268294395
+    },
+    {
+      "name": "rc62-pocket-d1",
+      "layers": 84,
+      "min_second_bead_overlap_fraction": 0.7627976438095597,
+      "min_second_outer_wall_overlap_fraction": 0.9987074389820507
+    },
+    {
+      "name": "rc62-pocket-d2",
+      "layers": 84,
+      "min_second_bead_overlap_fraction": 0.7498482379344246,
+      "min_second_outer_wall_overlap_fraction": 0.9986939844636219
+    },
+    {
+      "name": "rc62-pocket-d3",
+      "layers": 84,
+      "min_second_bead_overlap_fraction": 0.8275132177991408,
+      "min_second_outer_wall_overlap_fraction": 0.998682464296409
+    },
+    {
+      "name": "rc62-pocket-d4",
+      "layers": 84,
+      "min_second_bead_overlap_fraction": 0.7946296203219004,
+      "min_second_outer_wall_overlap_fraction": 0.9986709268294389
+    },
+    {
+      "name": "rc62-pocket-c0",
+      "layers": 84,
+      "min_second_bead_overlap_fraction": 0.8280219074603927,
+      "min_second_outer_wall_overlap_fraction": 0.9987183538473097
+    },
+    {
+      "name": "beduan-socket-v72",
+      "layers": 184,
+      "min_second_bead_overlap_fraction": 0.6564410625953733,
+      "min_second_outer_wall_overlap_fraction": 0.9937472500543744
+    },
+    {
+      "name": "beduan-socket-v71",
+      "layers": 184,
+      "min_second_bead_overlap_fraction": 0.6564410625953907,
+      "min_second_outer_wall_overlap_fraction": 0.99374725005437
+    },
+    {
+      "name": "beduan-socket-v70",
+      "layers": 184,
+      "min_second_bead_overlap_fraction": 0.6564410625953571,
+      "min_second_outer_wall_overlap_fraction": 0.9937472500543775
+    },
+    {
+      "name": "beduan-socket-v69",
+      "layers": 184,
+      "min_second_bead_overlap_fraction": 0.6564410625953571,
+      "min_second_outer_wall_overlap_fraction": 0.9937472500543775
+    },
+    {
+      "name": "beduan-socket-v68",
+      "layers": 184,
+      "min_second_bead_overlap_fraction": 0.6564410625954129,
+      "min_second_outer_wall_overlap_fraction": 0.9937472500543775
+    }
+  ],
+  "full_bead_extents": [
+    {
+      "name": "funnel-frame",
+      "full_bead_bounds_xy_mm": [
+        [
+          49.412,
+          162.21699999999998
+        ],
+        [
+          275.602,
+          304.5
+        ]
+      ],
+      "minimum_bed_margin_mm": 15.5
+    },
+    {
+      "name": "rc62-pocket-a1",
+      "full_bead_bounds_xy_mm": [
+        [
+          81.825,
+          41.762
+        ],
+        [
+          107.175,
+          56.413000000000004
+        ]
+      ],
+      "minimum_bed_margin_mm": 41.762
+    },
+    {
+      "name": "rc62-pocket-a2",
+      "full_bead_bounds_xy_mm": [
+        [
+          115.825,
+          41.836999999999996
+        ],
+        [
+          141.175,
+          56.338
+        ]
+      ],
+      "minimum_bed_margin_mm": 41.836999999999996
+    },
+    {
+      "name": "rc62-pocket-a3",
+      "full_bead_bounds_xy_mm": [
+        [
+          149.825,
+          41.9
+        ],
+        [
+          175.175,
+          56.275
+        ]
+      ],
+      "minimum_bed_margin_mm": 41.9
+    },
+    {
+      "name": "rc62-pocket-a4",
+      "full_bead_bounds_xy_mm": [
+        [
+          183.825,
+          41.961999999999996
+        ],
+        [
+          209.175,
+          56.213
+        ]
+      ],
+      "minimum_bed_margin_mm": 41.961999999999996
+    },
+    {
+      "name": "rc62-pocket-b1",
+      "full_bead_bounds_xy_mm": [
+        [
+          217.92499999999998,
+          41.762
+        ],
+        [
+          243.07500000000002,
+          56.413000000000004
+        ]
+      ],
+      "minimum_bed_margin_mm": 41.762
+    },
+    {
+      "name": "rc62-pocket-b2",
+      "full_bead_bounds_xy_mm": [
+        [
+          81.925,
+          66.837
+        ],
+        [
+          107.075,
+          81.338
+        ]
+      ],
+      "minimum_bed_margin_mm": 66.837
+    },
+    {
+      "name": "rc62-pocket-b3",
+      "full_bead_bounds_xy_mm": [
+        [
+          115.925,
+          66.9
+        ],
+        [
+          141.07500000000002,
+          81.275
+        ]
+      ],
+      "minimum_bed_margin_mm": 66.9
+    },
+    {
+      "name": "rc62-pocket-b4",
+      "full_bead_bounds_xy_mm": [
+        [
+          149.92499999999998,
+          66.962
+        ],
+        [
+          175.07500000000002,
+          81.213
+        ]
+      ],
+      "minimum_bed_margin_mm": 66.962
+    },
+    {
+      "name": "rc62-pocket-c1",
+      "full_bead_bounds_xy_mm": [
+        [
+          183.975,
+          66.762
+        ],
+        [
+          209.025,
+          81.413
+        ]
+      ],
+      "minimum_bed_margin_mm": 66.762
+    },
+    {
+      "name": "rc62-pocket-c2",
+      "full_bead_bounds_xy_mm": [
+        [
+          217.975,
+          66.837
+        ],
+        [
+          243.025,
+          81.338
+        ]
+      ],
+      "minimum_bed_margin_mm": 66.837
+    },
+    {
+      "name": "rc62-pocket-c3",
+      "full_bead_bounds_xy_mm": [
+        [
+          81.975,
+          91.9
+        ],
+        [
+          107.025,
+          106.275
+        ]
+      ],
+      "minimum_bed_margin_mm": 81.975
+    },
+    {
+      "name": "rc62-pocket-c4",
+      "full_bead_bounds_xy_mm": [
+        [
+          115.975,
+          91.962
+        ],
+        [
+          141.025,
+          106.213
+        ]
+      ],
+      "minimum_bed_margin_mm": 91.962
+    },
+    {
+      "name": "rc62-pocket-d1",
+      "full_bead_bounds_xy_mm": [
+        [
+          150.025,
+          91.762
+        ],
+        [
+          174.975,
+          106.413
+        ]
+      ],
+      "minimum_bed_margin_mm": 91.762
+    },
+    {
+      "name": "rc62-pocket-d2",
+      "full_bead_bounds_xy_mm": [
+        [
+          184.025,
+          91.837
+        ],
+        [
+          208.975,
+          106.338
+        ]
+      ],
+      "minimum_bed_margin_mm": 91.837
+    },
+    {
+      "name": "rc62-pocket-d3",
+      "full_bead_bounds_xy_mm": [
+        [
+          218.025,
+          91.9
+        ],
+        [
+          242.975,
+          106.275
+        ]
+      ],
+      "minimum_bed_margin_mm": 82.025
+    },
+    {
+      "name": "rc62-pocket-d4",
+      "full_bead_bounds_xy_mm": [
+        [
+          133.025,
+          116.962
+        ],
+        [
+          157.975,
+          131.213
+        ]
+      ],
+      "minimum_bed_margin_mm": 116.962
+    },
+    {
+      "name": "rc62-pocket-c0",
+      "full_bead_bounds_xy_mm": [
+        [
+          166.775,
+          116.7
+        ],
+        [
+          192.225,
+          131.475
+        ]
+      ],
+      "minimum_bed_margin_mm": 116.7
+    },
+    {
+      "name": "beduan-socket-v72",
+      "full_bead_bounds_xy_mm": [
+        [
+          32.699999999999996,
+          15.5
+        ],
+        [
+          76.3,
+          31.715
+        ]
+      ],
+      "minimum_bed_margin_mm": 15.5
+    },
+    {
+      "name": "beduan-socket-v71",
+      "full_bead_bounds_xy_mm": [
+        [
+          86.7,
+          15.5
+        ],
+        [
+          130.3,
+          31.715
+        ]
+      ],
+      "minimum_bed_margin_mm": 15.5
+    },
+    {
+      "name": "beduan-socket-v70",
+      "full_bead_bounds_xy_mm": [
+        [
+          140.7,
+          15.5
+        ],
+        [
+          184.3,
+          31.715
+        ]
+      ],
+      "minimum_bed_margin_mm": 15.5
+    },
+    {
+      "name": "beduan-socket-v69",
+      "full_bead_bounds_xy_mm": [
+        [
+          194.7,
+          15.5
+        ],
+        [
+          238.3,
+          31.715
+        ]
+      ],
+      "minimum_bed_margin_mm": 15.5
+    },
+    {
+      "name": "beduan-socket-v68",
+      "full_bead_bounds_xy_mm": [
+        [
+          248.7,
+          15.5
+        ],
+        [
+          292.3,
+          31.715
+        ]
+      ],
+      "minimum_bed_margin_mm": 15.5
+    }
+  ],
+  "full_bead_gaps": [
+    {
+      "parts": [
+        "rc62-pocket-a1",
+        "funnel-frame"
+      ],
+      "full_bead_bounding_box_gap_mm": 105.80399999999997
+    },
+    {
+      "parts": [
+        "rc62-pocket-a2",
+        "funnel-frame"
+      ],
+      "full_bead_bounding_box_gap_mm": 105.87899999999999
+    },
+    {
+      "parts": [
+        "rc62-pocket-a2",
+        "rc62-pocket-a1"
+      ],
+      "full_bead_bounding_box_gap_mm": 8.650000000000006
+    },
+    {
+      "parts": [
+        "rc62-pocket-a3",
+        "funnel-frame"
+      ],
+      "full_bead_bounding_box_gap_mm": 105.94199999999998
+    },
+    {
+      "parts": [
+        "rc62-pocket-a3",
+        "rc62-pocket-a1"
+      ],
+      "full_bead_bounding_box_gap_mm": 42.64999999999999
+    },
+    {
+      "parts": [
+        "rc62-pocket-a3",
+        "rc62-pocket-a2"
+      ],
+      "full_bead_bounding_box_gap_mm": 8.649999999999977
+    },
+    {
+      "parts": [
+        "rc62-pocket-a4",
+        "funnel-frame"
+      ],
+      "full_bead_bounding_box_gap_mm": 106.00399999999999
+    },
+    {
+      "parts": [
+        "rc62-pocket-a4",
+        "rc62-pocket-a1"
+      ],
+      "full_bead_bounding_box_gap_mm": 76.64999999999999
+    },
+    {
+      "parts": [
+        "rc62-pocket-a4",
+        "rc62-pocket-a2"
+      ],
+      "full_bead_bounding_box_gap_mm": 42.64999999999998
+    },
+    {
+      "parts": [
+        "rc62-pocket-a4",
+        "rc62-pocket-a3"
+      ],
+      "full_bead_bounding_box_gap_mm": 8.649999999999977
+    },
+    {
+      "parts": [
+        "rc62-pocket-b1",
+        "funnel-frame"
+      ],
+      "full_bead_bounding_box_gap_mm": 105.80399999999997
+    },
+    {
+      "parts": [
+        "rc62-pocket-b1",
+        "rc62-pocket-a1"
+      ],
+      "full_bead_bounding_box_gap_mm": 110.74999999999999
+    },
+    {
+      "parts": [
+        "rc62-pocket-b1",
+        "rc62-pocket-a2"
+      ],
+      "full_bead_bounding_box_gap_mm": 76.74999999999997
+    },
+    {
+      "parts": [
+        "rc62-pocket-b1",
+        "rc62-pocket-a3"
+      ],
+      "full_bead_bounding_box_gap_mm": 42.74999999999997
+    },
+    {
+      "parts": [
+        "rc62-pocket-b1",
+        "rc62-pocket-a4"
+      ],
+      "full_bead_bounding_box_gap_mm": 8.749999999999972
+    },
+    {
+      "parts": [
+        "rc62-pocket-b2",
+        "funnel-frame"
+      ],
+      "full_bead_bounding_box_gap_mm": 80.87899999999999
+    },
+    {
+      "parts": [
+        "rc62-pocket-b2",
+        "rc62-pocket-a1"
+      ],
+      "full_bead_bounding_box_gap_mm": 10.424
+    },
+    {
+      "parts": [
+        "rc62-pocket-b2",
+        "rc62-pocket-a2"
+      ],
+      "full_bead_bounding_box_gap_mm": 13.667168726550502
+    },
+    {
+      "parts": [
+        "rc62-pocket-b2",
+        "rc62-pocket-a3"
+      ],
+      "full_bead_bounding_box_gap_mm": 44.03542146953971
+    },
+    {
+      "parts": [
+        "rc62-pocket-b2",
+        "rc62-pocket-a4"
+      ],
+      "full_bead_bounding_box_gap_mm": 77.48181642166114
+    },
+    {
+      "parts": [
+        "rc62-pocket-b2",
+        "rc62-pocket-b1"
+      ],
+      "full_bead_bounding_box_gap_mm": 111.33904201132681
+    },
+    {
+      "parts": [
+        "rc62-pocket-b3",
+        "funnel-frame"
+      ],
+      "full_bead_bounding_box_gap_mm": 80.94199999999998
+    },
+    {
+      "parts": [
+        "rc62-pocket-b3",
+        "rc62-pocket-a1"
+      ],
+      "full_bead_bounding_box_gap_mm": 13.65795259180526
+    },
+    {
+      "parts": [
+        "rc62-pocket-b3",
+        "rc62-pocket-a2"
+      ],
+      "full_bead_bounding_box_gap_mm": 10.562000000000005
+    },
+    {
+      "parts": [
+        "rc62-pocket-b3",
+        "rc62-pocket-a3"
+      ],
+      "full_bead_bounding_box_gap_mm": 13.764197215965764
+    },
+    {
+      "parts": [
+        "rc62-pocket-b3",
+        "rc62-pocket-a4"
+      ],
+      "full_bead_bounding_box_gap_mm": 44.06557010864602
+    },
+    {
+      "parts": [
+        "rc62-pocket-b3",
+        "rc62-pocket-b1"
+      ],
+      "full_bead_bounding_box_gap_mm": 77.56223094393299
+    },
+    {
+      "parts": [
+        "rc62-pocket-b3",
+        "rc62-pocket-b2"
+      ],
+      "full_bead_bounding_box_gap_mm": 8.849999999999994
+    },
+    {
+      "parts": [
+        "rc62-pocket-b4",
+        "funnel-frame"
+      ],
+      "full_bead_bounding_box_gap_mm": 81.00399999999999
+    },
+    {
+      "parts": [
+        "rc62-pocket-b4",
+        "rc62-pocket-a1"
+      ],
+      "full_bead_bounding_box_gap_mm": 44.03230519743429
+    },
+    {
+      "parts": [
+        "rc62-pocket-b4",
+        "rc62-pocket-a2"
+      ],
+      "full_bead_bounding_box_gap_mm": 13.763425300411214
+    },
+    {
+      "parts": [
+        "rc62-pocket-b4",
+        "rc62-pocket-a3"
+      ],
+      "full_bead_bounding_box_gap_mm": 10.687000000000005
+    },
+    {
+      "parts": [
+        "rc62-pocket-b4",
+        "rc62-pocket-a4"
+      ],
+      "full_bead_bounding_box_gap_mm": 13.86014072800127
+    },
+    {
+      "parts": [
+        "rc62-pocket-b4",
+        "rc62-pocket-b1"
+      ],
+      "full_bead_bounding_box_gap_mm": 44.129399508717505
+    },
+    {
+      "parts": [
+        "rc62-pocket-b4",
+        "rc62-pocket-b2"
+      ],
+      "full_bead_bounding_box_gap_mm": 42.84999999999998
+    },
+    {
+      "parts": [
+        "rc62-pocket-b4",
+        "rc62-pocket-b3"
+      ],
+      "full_bead_bounding_box_gap_mm": 8.849999999999966
+    },
+    {
+      "parts": [
+        "rc62-pocket-c1",
+        "funnel-frame"
+      ],
+      "full_bead_bounding_box_gap_mm": 80.80399999999999
+    },
+    {
+      "parts": [
+        "rc62-pocket-c1",
+        "rc62-pocket-a1"
+      ],
+      "full_bead_bounding_box_gap_mm": 77.49414043009962
+    },
+    {
+      "parts": [
+        "rc62-pocket-c1",
+        "rc62-pocket-a2"
+      ],
+      "full_bead_bounding_box_gap_mm": 44.05110414053203
+    },
+    {
+      "parts": [
+        "rc62-pocket-c1",
+        "rc62-pocket-a3"
+      ],
+      "full_bead_bounding_box_gap_mm": 13.690039043041468
+    },
+    {
+      "parts": [
+        "rc62-pocket-c1",
+        "rc62-pocket-a4"
+      ],
+      "full_bead_bounding_box_gap_mm": 10.549
+    },
+    {
+      "parts": [
+        "rc62-pocket-c1",
+        "rc62-pocket-b1"
+      ],
+      "full_bead_bounding_box_gap_mm": 13.649608089611933
+    },
+    {
+      "parts": [
+        "rc62-pocket-c1",
+        "rc62-pocket-b2"
+      ],
+      "full_bead_bounding_box_gap_mm": 76.89999999999999
+    },
+    {
+      "parts": [
+        "rc62-pocket-c1",
+        "rc62-pocket-b3"
+      ],
+      "full_bead_bounding_box_gap_mm": 42.89999999999998
+    },
+    {
+      "parts": [
+        "rc62-pocket-c1",
+        "rc62-pocket-b4"
+      ],
+      "full_bead_bounding_box_gap_mm": 8.899999999999977
+    },
+    {
+      "parts": [
+        "rc62-pocket-c2",
+        "funnel-frame"
+      ],
+      "full_bead_bounding_box_gap_mm": 80.87899999999999
+    },
+    {
+      "parts": [
+        "rc62-pocket-c2",
+        "rc62-pocket-a1"
+      ],
+      "full_bead_bounding_box_gap_mm": 111.28926172816494
+    },
+    {
+      "parts": [
+        "rc62-pocket-c2",
+        "rc62-pocket-a2"
+      ],
+      "full_bead_bounding_box_gap_mm": 77.5143148134588
+    },
+    {
+      "parts": [
+        "rc62-pocket-c2",
+        "rc62-pocket-a3"
+      ],
+      "full_bead_bounding_box_gap_mm": 44.08396356953398
+    },
+    {
+      "parts": [
+        "rc62-pocket-c2",
+        "rc62-pocket-a4"
+      ],
+      "full_bead_bounding_box_gap_mm": 13.795266434541949
+    },
+    {
+      "parts": [
+        "rc62-pocket-c2",
+        "rc62-pocket-b1"
+      ],
+      "full_bead_bounding_box_gap_mm": 10.424
+    },
+    {
+      "parts": [
+        "rc62-pocket-c2",
+        "rc62-pocket-b2"
+      ],
+      "full_bead_bounding_box_gap_mm": 110.89999999999999
+    },
+    {
+      "parts": [
+        "rc62-pocket-c2",
+        "rc62-pocket-b3"
+      ],
+      "full_bead_bounding_box_gap_mm": 76.89999999999998
+    },
+    {
+      "parts": [
+        "rc62-pocket-c2",
+        "rc62-pocket-b4"
+      ],
+      "full_bead_bounding_box_gap_mm": 42.89999999999998
+    },
+    {
+      "parts": [
+        "rc62-pocket-c2",
+        "rc62-pocket-c1"
+      ],
+      "full_bead_bounding_box_gap_mm": 8.949999999999989
+    },
+    {
+      "parts": [
+        "rc62-pocket-c3",
+        "funnel-frame"
+      ],
+      "full_bead_bounding_box_gap_mm": 55.94199999999998
+    },
+    {
+      "parts": [
+        "rc62-pocket-c3",
+        "rc62-pocket-a1"
+      ],
+      "full_bead_bounding_box_gap_mm": 35.487
+    },
+    {
+      "parts": [
+        "rc62-pocket-c3",
+        "rc62-pocket-a2"
+      ],
+      "full_bead_bounding_box_gap_mm": 36.63462629808035
+    },
+    {
+      "parts": [
+        "rc62-pocket-c3",
+        "rc62-pocket-a3"
+      ],
+      "full_bead_bounding_box_gap_mm": 55.686449204451876
+    },
+    {
+      "parts": [
+        "rc62-pocket-c3",
+        "rc62-pocket-a4"
+      ],
+      "full_bead_bounding_box_gap_mm": 84.68649224640254
+    },
+    {
+      "parts": [
+        "rc62-pocket-c3",
+        "rc62-pocket-b1"
+      ],
+      "full_bead_bounding_box_gap_mm": 116.43941415603221
+    },
+    {
+      "parts": [
+        "rc62-pocket-c3",
+        "rc62-pocket-b2"
+      ],
+      "full_bead_bounding_box_gap_mm": 10.562000000000012
+    },
+    {
+      "parts": [
+        "rc62-pocket-c3",
+        "rc62-pocket-b3"
+      ],
+      "full_bead_bounding_box_gap_mm": 13.860036976862647
+    },
+    {
+      "parts": [
+        "rc62-pocket-c3",
+        "rc62-pocket-b4"
+      ],
+      "full_bead_bounding_box_gap_mm": 44.211106851106976
+    },
+    {
+      "parts": [
+        "rc62-pocket-c3",
+        "rc62-pocket-c1"
+      ],
+      "full_bead_bounding_box_gap_mm": 77.661313850591
+    },
+    {
+      "parts": [
+        "rc62-pocket-c3",
+        "rc62-pocket-c2"
+      ],
+      "full_bead_bounding_box_gap_mm": 111.45159641745828
+    },
+    {
+      "parts": [
+        "rc62-pocket-c4",
+        "funnel-frame"
+      ],
+      "full_bead_bounding_box_gap_mm": 56.00399999999999
+    },
+    {
+      "parts": [
+        "rc62-pocket-c4",
+        "rc62-pocket-a1"
+      ],
+      "full_bead_bounding_box_gap_mm": 36.62200705859798
+    },
+    {
+      "parts": [
+        "rc62-pocket-c4",
+        "rc62-pocket-a2"
+      ],
+      "full_bead_bounding_box_gap_mm": 35.624
+    },
+    {
+      "parts": [
+        "rc62-pocket-c4",
+        "rc62-pocket-a3"
+      ],
+      "full_bead_bounding_box_gap_mm": 36.75597868374613
+    },
+    {
+      "parts": [
+        "rc62-pocket-c4",
+        "rc62-pocket-a4"
+      ],
+      "full_bead_bounding_box_gap_mm": 55.765858739913604
+    },
+    {
+      "parts": [
+        "rc62-pocket-c4",
+        "rc62-pocket-b1"
+      ],
+      "full_bead_bounding_box_gap_mm": 84.7191914562456
+    },
+    {
+      "parts": [
+        "rc62-pocket-c4",
+        "rc62-pocket-b2"
+      ],
+      "full_bead_bounding_box_gap_mm": 13.859270399267057
+    },
+    {
+      "parts": [
+        "rc62-pocket-c4",
+        "rc62-pocket-b3"
+      ],
+      "full_bead_bounding_box_gap_mm": 10.686999999999998
+    },
+    {
+      "parts": [
+        "rc62-pocket-c4",
+        "rc62-pocket-b4"
+      ],
+      "full_bead_bounding_box_gap_mm": 13.955321601453683
+    },
+    {
+      "parts": [
+        "rc62-pocket-c4",
+        "rc62-pocket-c1"
+      ],
+      "full_bead_bounding_box_gap_mm": 44.2265067691311
+    },
+    {
+      "parts": [
+        "rc62-pocket-c4",
+        "rc62-pocket-c2"
+      ],
+      "full_bead_bounding_box_gap_mm": 77.67993226052658
+    },
+    {
+      "parts": [
+        "rc62-pocket-c4",
+        "rc62-pocket-c3"
+      ],
+      "full_bead_bounding_box_gap_mm": 8.949999999999989
+    },
+    {
+      "parts": [
+        "rc62-pocket-d1",
+        "funnel-frame"
+      ],
+      "full_bead_bounding_box_gap_mm": 55.80399999999999
+    },
+    {
+      "parts": [
+        "rc62-pocket-d1",
+        "rc62-pocket-a1"
+      ],
+      "full_bead_bounding_box_gap_mm": 55.54884608162442
+    },
+    {
+      "parts": [
+        "rc62-pocket-d1",
+        "rc62-pocket-a2"
+      ],
+      "full_bead_bounding_box_gap_mm": 36.512768670699295
+    },
+    {
+      "parts": [
+        "rc62-pocket-d1",
+        "rc62-pocket-a3"
+      ],
+      "full_bead_bounding_box_gap_mm": 35.487
+    },
+    {
+      "parts": [
+        "rc62-pocket-d1",
+        "rc62-pocket-a4"
+      ],
+      "full_bead_bounding_box_gap_mm": 36.63405384338457
+    },
+    {
+      "parts": [
+        "rc62-pocket-d1",
+        "rc62-pocket-b1"
+      ],
+      "full_bead_bounding_box_gap_mm": 55.626021797356664
+    },
+    {
+      "parts": [
+        "rc62-pocket-d1",
+        "rc62-pocket-b2"
+      ],
+      "full_bead_bounding_box_gap_mm": 44.19685821413102
+    },
+    {
+      "parts": [
+        "rc62-pocket-d1",
+        "rc62-pocket-b3"
+      ],
+      "full_bead_bounding_box_gap_mm": 13.786938347581007
+    },
+    {
+      "parts": [
+        "rc62-pocket-d1",
+        "rc62-pocket-b4"
+      ],
+      "full_bead_bounding_box_gap_mm": 10.549000000000007
+    },
+    {
+      "parts": [
+        "rc62-pocket-d1",
+        "rc62-pocket-c1"
+      ],
+      "full_bead_bounding_box_gap_mm": 13.715020998890234
+    },
+    {
+      "parts": [
+        "rc62-pocket-d1",
+        "rc62-pocket-c2"
+      ],
+      "full_bead_bounding_box_gap_mm": 44.24544921232013
+    },
+    {
+      "parts": [
+        "rc62-pocket-d1",
+        "rc62-pocket-c3"
+      ],
+      "full_bead_bounding_box_gap_mm": 43.0
+    },
+    {
+      "parts": [
+        "rc62-pocket-d1",
+        "rc62-pocket-c4"
+      ],
+      "full_bead_bounding_box_gap_mm": 9.0
+    },
+    {
+      "parts": [
+        "rc62-pocket-d2",
+        "funnel-frame"
+      ],
+      "full_bead_bounding_box_gap_mm": 55.87899999999999
+    },
+    {
+      "parts": [
+        "rc62-pocket-d2",
+        "rc62-pocket-a1"
+      ],
+      "full_bead_bounding_box_gap_mm": 84.62140554256943
+    },
+    {
+      "parts": [
+        "rc62-pocket-d2",
+        "rc62-pocket-a2"
+      ],
+      "full_bead_bounding_box_gap_mm": 55.64442021442941
+    },
+    {
+      "parts": [
+        "rc62-pocket-d2",
+        "rc62-pocket-a3"
+      ],
+      "full_bead_bounding_box_gap_mm": 36.64666893457031
+    },
+    {
+      "parts": [
+        "rc62-pocket-d2",
+        "rc62-pocket-a4"
+      ],
+      "full_bead_bounding_box_gap_mm": 35.624
+    },
+    {
+      "parts": [
+        "rc62-pocket-d2",
+        "rc62-pocket-b1"
+      ],
+      "full_bead_bounding_box_gap_mm": 36.53713557464514
+    },
+    {
+      "parts": [
+        "rc62-pocket-d2",
+        "rc62-pocket-b2"
+      ],
+      "full_bead_bounding_box_gap_mm": 77.66293518146222
+    },
+    {
+      "parts": [
+        "rc62-pocket-d2",
+        "rc62-pocket-b3"
+      ],
+      "full_bead_bounding_box_gap_mm": 44.22960935843769
+    },
+    {
+      "parts": [
+        "rc62-pocket-d2",
+        "rc62-pocket-b4"
+      ],
+      "full_bead_bounding_box_gap_mm": 13.891431747663738
+    },
+    {
+      "parts": [
+        "rc62-pocket-d2",
+        "rc62-pocket-c1"
+      ],
+      "full_bead_bounding_box_gap_mm": 10.424000000000007
+    },
+    {
+      "parts": [
+        "rc62-pocket-d2",
+        "rc62-pocket-c2"
+      ],
+      "full_bead_bounding_box_gap_mm": 13.828557444650553
+    },
+    {
+      "parts": [
+        "rc62-pocket-d2",
+        "rc62-pocket-c3"
+      ],
+      "full_bead_bounding_box_gap_mm": 77.0
+    },
+    {
+      "parts": [
+        "rc62-pocket-d2",
+        "rc62-pocket-c4"
+      ],
+      "full_bead_bounding_box_gap_mm": 43.0
+    },
+    {
+      "parts": [
+        "rc62-pocket-d2",
+        "rc62-pocket-d1"
+      ],
+      "full_bead_bounding_box_gap_mm": 9.050000000000011
+    },
+    {
+      "parts": [
+        "rc62-pocket-d3",
+        "funnel-frame"
+      ],
+      "full_bead_bounding_box_gap_mm": 55.94199999999998
+    },
+    {
+      "parts": [
+        "rc62-pocket-d3",
+        "rc62-pocket-a1"
+      ],
+      "full_bead_bounding_box_gap_mm": 116.39179382155773
+    },
+    {
+      "parts": [
+        "rc62-pocket-d3",
+        "rc62-pocket-a2"
+      ],
+      "full_bead_bounding_box_gap_mm": 84.67926749801276
+    },
+    {
+      "parts": [
+        "rc62-pocket-d3",
+        "rc62-pocket-a3"
+      ],
+      "full_bead_bounding_box_gap_mm": 55.72488784196878
+    },
+    {
+      "parts": [
+        "rc62-pocket-d3",
+        "rc62-pocket-a4"
+      ],
+      "full_bead_bounding_box_gap_mm": 36.76798157364639
+    },
+    {
+      "parts": [
+        "rc62-pocket-d3",
+        "rc62-pocket-b1"
+      ],
+      "full_bead_bounding_box_gap_mm": 35.487
+    },
+    {
+      "parts": [
+        "rc62-pocket-d3",
+        "rc62-pocket-b2"
+      ],
+      "full_bead_bounding_box_gap_mm": 111.45159641745829
+    },
+    {
+      "parts": [
+        "rc62-pocket-d3",
+        "rc62-pocket-b3"
+      ],
+      "full_bead_bounding_box_gap_mm": 77.68006903318249
+    },
+    {
+      "parts": [
+        "rc62-pocket-d3",
+        "rc62-pocket-b4"
+      ],
+      "full_bead_bounding_box_gap_mm": 44.259625721417926
+    },
+    {
+      "parts": [
+        "rc62-pocket-d3",
+        "rc62-pocket-c1"
+      ],
+      "full_bead_bounding_box_gap_mm": 13.819448939809437
+    },
+    {
+      "parts": [
+        "rc62-pocket-d3",
+        "rc62-pocket-c2"
+      ],
+      "full_bead_bounding_box_gap_mm": 10.562000000000012
+    },
+    {
+      "parts": [
+        "rc62-pocket-d3",
+        "rc62-pocket-c3"
+      ],
+      "full_bead_bounding_box_gap_mm": 111.0
+    },
+    {
+      "parts": [
+        "rc62-pocket-d3",
+        "rc62-pocket-c4"
+      ],
+      "full_bead_bounding_box_gap_mm": 77.0
+    },
+    {
+      "parts": [
+        "rc62-pocket-d3",
+        "rc62-pocket-d1"
+      ],
+      "full_bead_bounding_box_gap_mm": 43.05000000000001
+    },
+    {
+      "parts": [
+        "rc62-pocket-d3",
+        "rc62-pocket-d2"
+      ],
+      "full_bead_bounding_box_gap_mm": 9.050000000000011
+    },
+    {
+      "parts": [
+        "rc62-pocket-d4",
+        "funnel-frame"
+      ],
+      "full_bead_bounding_box_gap_mm": 31.00399999999999
+    },
+    {
+      "parts": [
+        "rc62-pocket-d4",
+        "rc62-pocket-a1"
+      ],
+      "full_bead_bounding_box_gap_mm": 65.83618990342622
+    },
+    {
+      "parts": [
+        "rc62-pocket-d4",
+        "rc62-pocket-a2"
+      ],
+      "full_bead_bounding_box_gap_mm": 60.624
+    },
+    {
+      "parts": [
+        "rc62-pocket-d4",
+        "rc62-pocket-a3"
+      ],
+      "full_bead_bounding_box_gap_mm": 60.687000000000005
+    },
+    {
+      "parts": [
+        "rc62-pocket-d4",
+        "rc62-pocket-a4"
+      ],
+      "full_bead_bounding_box_gap_mm": 66.0201749543274
+    },
+    {
+      "parts": [
+        "rc62-pocket-d4",
+        "rc62-pocket-b1"
+      ],
+      "full_bead_bounding_box_gap_mm": 85.20671276959344
+    },
+    {
+      "parts": [
+        "rc62-pocket-d4",
+        "rc62-pocket-b2"
+      ],
+      "full_bead_bounding_box_gap_mm": 44.07348268517024
+    },
+    {
+      "parts": [
+        "rc62-pocket-d4",
+        "rc62-pocket-b3"
+      ],
+      "full_bead_bounding_box_gap_mm": 35.687
+    },
+    {
+      "parts": [
+        "rc62-pocket-d4",
+        "rc62-pocket-b4"
+      ],
+      "full_bead_bounding_box_gap_mm": 35.74900000000001
+    },
+    {
+      "parts": [
+        "rc62-pocket-d4",
+        "rc62-pocket-c1"
+      ],
+      "full_bead_bounding_box_gap_mm": 44.042381872464624
+    },
+    {
+      "parts": [
+        "rc62-pocket-d4",
+        "rc62-pocket-c2"
+      ],
+      "full_bead_bounding_box_gap_mm": 69.77871721377515
+    },
+    {
+      "parts": [
+        "rc62-pocket-d4",
+        "rc62-pocket-c3"
+      ],
+      "full_bead_bounding_box_gap_mm": 28.110709151495982
+    },
+    {
+      "parts": [
+        "rc62-pocket-d4",
+        "rc62-pocket-c4"
+      ],
+      "full_bead_bounding_box_gap_mm": 10.74900000000001
+    },
+    {
+      "parts": [
+        "rc62-pocket-d4",
+        "rc62-pocket-d1"
+      ],
+      "full_bead_bounding_box_gap_mm": 10.549000000000007
+    },
+    {
+      "parts": [
+        "rc62-pocket-d4",
+        "rc62-pocket-d2"
+      ],
+      "full_bead_bounding_box_gap_mm": 28.13310995961877
+    },
+    {
+      "parts": [
+        "rc62-pocket-d4",
+        "rc62-pocket-d3"
+      ],
+      "full_bead_bounding_box_gap_mm": 60.993560881457
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "funnel-frame"
+      ],
+      "full_bead_bounding_box_gap_mm": 30.74199999999999
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-a1"
+      ],
+      "full_bead_bounding_box_gap_mm": 84.7743025273579
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-a2"
+      ],
+      "full_bead_bounding_box_gap_mm": 65.56623402331417
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-a3"
+      ],
+      "full_bead_bounding_box_gap_mm": 60.425000000000004
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-a4"
+      ],
+      "full_bead_bounding_box_gap_mm": 60.487
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-b1"
+      ],
+      "full_bead_bounding_box_gap_mm": 65.53634387879751
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-b2"
+      ],
+      "full_bead_bounding_box_gap_mm": 69.38703801143267
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-b3"
+      ],
+      "full_bead_bounding_box_gap_mm": 43.765518676236425
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-b4"
+      ],
+      "full_bead_bounding_box_gap_mm": 35.48700000000001
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-c1"
+      ],
+      "full_bead_bounding_box_gap_mm": 35.287000000000006
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-c2"
+      ],
+      "full_bead_bounding_box_gap_mm": 43.74395437086136
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-c3"
+      ],
+      "full_bead_bounding_box_gap_mm": 60.65264318230492
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-c4"
+      ],
+      "full_bead_bounding_box_gap_mm": 27.80359093714336
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-d1"
+      ],
+      "full_bead_bounding_box_gap_mm": 10.287000000000006
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-d2"
+      ],
+      "full_bead_bounding_box_gap_mm": 10.362000000000009
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-d3"
+      ],
+      "full_bead_bounding_box_gap_mm": 27.826617203677497
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-d4"
+      ],
+      "full_bead_bounding_box_gap_mm": 8.800000000000011
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "funnel-frame"
+      ],
+      "full_bead_bounding_box_gap_mm": 130.50199999999998
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-a1"
+      ],
+      "full_bead_bounding_box_gap_mm": 11.465942351154574
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-a2"
+      ],
+      "full_bead_bounding_box_gap_mm": 40.80049643080339
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-a3"
+      ],
+      "full_bead_bounding_box_gap_mm": 74.22708299535958
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-a4"
+      ],
+      "full_bead_bounding_box_gap_mm": 108.01215965806811
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-b1"
+      ],
+      "full_bead_bounding_box_gap_mm": 141.98092419054046
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-b2"
+      ],
+      "full_bead_bounding_box_gap_mm": 35.56958685450254
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-b3"
+      ],
+      "full_bead_bounding_box_gap_mm": 52.9917432247704
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-b4"
+      ],
+      "full_bead_bounding_box_gap_mm": 81.62715010338165
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-c1"
+      ],
+      "full_bead_bounding_box_gap_mm": 113.23514398807465
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-c2"
+      ],
+      "full_bead_bounding_box_gap_mm": 145.96355883918426
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-c3"
+      ],
+      "full_bead_bounding_box_gap_mm": 60.45196316084367
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-c4"
+      ],
+      "full_bead_bounding_box_gap_mm": 72.13741493843538
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-d1"
+      ],
+      "full_bead_bounding_box_gap_mm": 95.08426701615784
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-d2"
+      ],
+      "full_bead_bounding_box_gap_mm": 123.366650716472
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-d3"
+      ],
+      "full_bead_bounding_box_gap_mm": 153.9747052278393
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-d4"
+      ],
+      "full_bead_bounding_box_gap_mm": 102.39519829562323
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-c0"
+      ],
+      "full_bead_bounding_box_gap_mm": 124.12967352732385
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "funnel-frame"
+      ],
+      "full_bead_bounding_box_gap_mm": 130.50199999999998
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-a1"
+      ],
+      "full_bead_bounding_box_gap_mm": 10.047
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-a2"
+      ],
+      "full_bead_bounding_box_gap_mm": 10.121999999999996
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-a3"
+      ],
+      "full_bead_bounding_box_gap_mm": 22.02180396788599
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-a4"
+      ],
+      "full_bead_bounding_box_gap_mm": 54.49703325870132
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-b1"
+      ],
+      "full_bead_bounding_box_gap_mm": 88.19910903178102
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-b2"
+      ],
+      "full_bead_bounding_box_gap_mm": 35.122
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-b3"
+      ],
+      "full_bead_bounding_box_gap_mm": 35.185
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-b4"
+      ],
+      "full_bead_bounding_box_gap_mm": 40.34218182002554
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-c1"
+      ],
+      "full_bead_bounding_box_gap_mm": 64.10380514446858
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-c2"
+      ],
+      "full_bead_bounding_box_gap_mm": 94.44818954855619
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-c3"
+      ],
+      "full_bead_bounding_box_gap_mm": 60.185
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-c4"
+      ],
+      "full_bead_bounding_box_gap_mm": 60.247
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-d1"
+      ],
+      "full_bead_bounding_box_gap_mm": 63.20378021922423
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-d2"
+      ],
+      "full_bead_bounding_box_gap_mm": 80.62896817521603
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-d3"
+      ],
+      "full_bead_bounding_box_gap_mm": 106.38566562277082
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-d4"
+      ],
+      "full_bead_bounding_box_gap_mm": 85.2905424651526
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-c0"
+      ],
+      "full_bead_bounding_box_gap_mm": 92.48175955289777
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "beduan-socket-v72"
+      ],
+      "full_bead_bounding_box_gap_mm": 10.400000000000006
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "funnel-frame"
+      ],
+      "full_bead_bounding_box_gap_mm": 130.50199999999998
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-a1"
+      ],
+      "full_bead_bounding_box_gap_mm": 34.99811186335628
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-a2"
+      ],
+      "full_bead_bounding_box_gap_mm": 10.121999999999996
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-a3"
+      ],
+      "full_bead_bounding_box_gap_mm": 10.184999999999999
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-a4"
+      ],
+      "full_bead_bounding_box_gap_mm": 10.246999999999996
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-b1"
+      ],
+      "full_bead_bounding_box_gap_mm": 35.09391448670265
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-b2"
+      ],
+      "full_bead_bounding_box_gap_mm": 48.622993624416004
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-b3"
+      ],
+      "full_bead_bounding_box_gap_mm": 35.185
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-b4"
+      ],
+      "full_bead_bounding_box_gap_mm": 35.247
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-c1"
+      ],
+      "full_bead_bounding_box_gap_mm": 35.047
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-c2"
+      ],
+      "full_bead_bounding_box_gap_mm": 48.65758429063242
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-c3"
+      ],
+      "full_bead_bounding_box_gap_mm": 68.96549753318683
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-c4"
+      ],
+      "full_bead_bounding_box_gap_mm": 60.247
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-d1"
+      ],
+      "full_bead_bounding_box_gap_mm": 60.047
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-d2"
+      ],
+      "full_bead_bounding_box_gap_mm": 60.122
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-d3"
+      ],
+      "full_bead_bounding_box_gap_mm": 68.98992571383158
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-d4"
+      ],
+      "full_bead_bounding_box_gap_mm": 85.247
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-c0"
+      ],
+      "full_bead_bounding_box_gap_mm": 84.985
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "beduan-socket-v72"
+      ],
+      "full_bead_bounding_box_gap_mm": 64.39999999999999
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "beduan-socket-v71"
+      ],
+      "full_bead_bounding_box_gap_mm": 10.399999999999977
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "funnel-frame"
+      ],
+      "full_bead_bounding_box_gap_mm": 130.50199999999998
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "rc62-pocket-a1"
+      ],
+      "full_bead_bounding_box_gap_mm": 88.09976069206998
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "rc62-pocket-a2"
+      ],
+      "full_bead_bounding_box_gap_mm": 54.473668033280056
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "rc62-pocket-a3"
+      ],
+      "full_bead_bounding_box_gap_mm": 22.02180396788599
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "rc62-pocket-a4"
+      ],
+      "full_bead_bounding_box_gap_mm": 10.246999999999996
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "rc62-pocket-b1"
+      ],
+      "full_bead_bounding_box_gap_mm": 10.047
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "rc62-pocket-b2"
+      ],
+      "full_bead_bounding_box_gap_mm": 94.40177704365526
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "rc62-pocket-b3"
+      ],
+      "full_bead_bounding_box_gap_mm": 64.13754633598012
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "rc62-pocket-b4"
+      ],
+      "full_bead_bounding_box_gap_mm": 40.34218182002554
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "rc62-pocket-c1"
+      ],
+      "full_bead_bounding_box_gap_mm": 35.047
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "rc62-pocket-c2"
+      ],
+      "full_bead_bounding_box_gap_mm": 35.122
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "rc62-pocket-c3"
+      ],
+      "full_bead_bounding_box_gap_mm": 106.34443967598868
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "rc62-pocket-c4"
+      ],
+      "full_bead_bounding_box_gap_mm": 80.6889498878254
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "rc62-pocket-d1"
+      ],
+      "full_bead_bounding_box_gap_mm": 63.20378021922423
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "rc62-pocket-d2"
+      ],
+      "full_bead_bounding_box_gap_mm": 60.122
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "rc62-pocket-d3"
+      ],
+      "full_bead_bounding_box_gap_mm": 60.185
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "rc62-pocket-d4"
+      ],
+      "full_bead_bounding_box_gap_mm": 92.82120788914568
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "rc62-pocket-c0"
+      ],
+      "full_bead_bounding_box_gap_mm": 85.02103180978222
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "beduan-socket-v72"
+      ],
+      "full_bead_bounding_box_gap_mm": 118.39999999999999
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "beduan-socket-v71"
+      ],
+      "full_bead_bounding_box_gap_mm": 64.39999999999998
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "beduan-socket-v70"
+      ],
+      "full_bead_bounding_box_gap_mm": 10.399999999999977
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "funnel-frame"
+      ],
+      "full_bead_bounding_box_gap_mm": 130.50199999999998
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "rc62-pocket-a1"
+      ],
+      "full_bead_bounding_box_gap_mm": 141.88117505151976
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "rc62-pocket-a2"
+      ],
+      "full_bead_bounding_box_gap_mm": 108.00037272620867
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "rc62-pocket-a3"
+      ],
+      "full_bead_bounding_box_gap_mm": 74.22708299535957
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "rc62-pocket-a4"
+      ],
+      "full_bead_bounding_box_gap_mm": 40.831686641626725
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "rc62-pocket-b1"
+      ],
+      "full_bead_bounding_box_gap_mm": 11.514461950086929
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "rc62-pocket-b2"
+      ],
+      "full_bead_bounding_box_gap_mm": 145.91502838638658
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "rc62-pocket-b3"
+      ],
+      "full_bead_bounding_box_gap_mm": 113.23040603124231
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "rc62-pocket-b4"
+      ],
+      "full_bead_bounding_box_gap_mm": 81.62715010338162
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "rc62-pocket-c1"
+      ],
+      "full_bead_bounding_box_gap_mm": 52.93767877419635
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "rc62-pocket-c2"
+      ],
+      "full_bead_bounding_box_gap_mm": 35.57752814628919
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "rc62-pocket-c3"
+      ],
+      "full_bead_bounding_box_gap_mm": 153.92868429893107
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "rc62-pocket-c4"
+      ],
+      "full_bead_bounding_box_gap_mm": 123.38398045937728
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "rc62-pocket-d1"
+      ],
+      "full_bead_bounding_box_gap_mm": 95.08426701615782
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "rc62-pocket-d2"
+      ],
+      "full_bead_bounding_box_gap_mm": 72.06060302967218
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "rc62-pocket-d3"
+      ],
+      "full_bead_bounding_box_gap_mm": 60.45667746411475
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "rc62-pocket-d4"
+      ],
+      "full_bead_bounding_box_gap_mm": 124.49127131650636
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "rc62-pocket-c0"
+      ],
+      "full_bead_bounding_box_gap_mm": 102.03859980419173
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "beduan-socket-v72"
+      ],
+      "full_bead_bounding_box_gap_mm": 172.39999999999998
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "beduan-socket-v71"
+      ],
+      "full_bead_bounding_box_gap_mm": 118.39999999999998
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "beduan-socket-v70"
+      ],
+      "full_bead_bounding_box_gap_mm": 64.39999999999998
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "beduan-socket-v69"
+      ],
+      "full_bead_bounding_box_gap_mm": 10.399999999999977
+    }
+  ],
+  "six_wall_native_crossing_stations": [
+    {
+      "print_z_mm": 38.12,
+      "y_source_mm": 0.0,
+      "crossings": [
+        {
+          "source_x_mm": 98.01299999999998,
+          "width_mm": 0.45,
+          "feature": "Inner wall"
+        },
+        {
+          "source_x_mm": 98.411,
+          "width_mm": 0.45,
+          "feature": "Inner wall"
+        },
+        {
+          "source_x_mm": 98.81,
+          "width_mm": 0.45,
+          "feature": "Inner wall"
+        },
+        {
+          "source_x_mm": 99.20800000000003,
+          "width_mm": 0.45,
+          "feature": "Inner wall"
+        },
+        {
+          "source_x_mm": 99.60700000000003,
+          "width_mm": 0.45,
+          "feature": "Inner wall"
+        },
+        {
+          "source_x_mm": 99.99000000000001,
+          "width_mm": 0.42,
+          "feature": "Outer wall"
+        }
+      ]
+    }
+  ],
+  "coupon_two_wall_crossing_stations": [
+    {
+      "name": "beduan-socket-v68",
+      "print_z_mm": 39.08,
+      "source_y_mm": 0.0,
+      "crossings": [
+        {
+          "source_x_mm": 21.206999999999994,
+          "width_mm": 0.45,
+          "feature": "Inner wall"
+        },
+        {
+          "source_x_mm": 21.589999999999975,
+          "width_mm": 0.42,
+          "feature": "Outer wall"
+        }
+      ]
+    },
+    {
+      "name": "beduan-socket-v69",
+      "print_z_mm": 39.08,
+      "source_y_mm": 0.0,
+      "crossings": [
+        {
+          "source_x_mm": 21.206999999999994,
+          "width_mm": 0.45,
+          "feature": "Inner wall"
+        },
+        {
+          "source_x_mm": 21.590000000000003,
+          "width_mm": 0.42,
+          "feature": "Outer wall"
+        }
+      ]
+    },
+    {
+      "name": "beduan-socket-v70",
+      "print_z_mm": 39.08,
+      "source_y_mm": 0.0,
+      "crossings": [
+        {
+          "source_x_mm": 21.206999999999994,
+          "width_mm": 0.45,
+          "feature": "Inner wall"
+        },
+        {
+          "source_x_mm": 21.590000000000003,
+          "width_mm": 0.42,
+          "feature": "Outer wall"
+        }
+      ]
+    },
+    {
+      "name": "beduan-socket-v71",
+      "print_z_mm": 39.08,
+      "source_y_mm": 0.0,
+      "crossings": [
+        {
+          "source_x_mm": 21.206999999999994,
+          "width_mm": 0.45,
+          "feature": "Inner wall"
+        },
+        {
+          "source_x_mm": 21.590000000000003,
+          "width_mm": 0.42,
+          "feature": "Outer wall"
+        }
+      ]
+    },
+    {
+      "name": "beduan-socket-v72",
+      "print_z_mm": 39.08,
+      "source_y_mm": 0.0,
+      "crossings": [
+        {
+          "source_x_mm": 21.206999999999994,
+          "width_mm": 0.45,
+          "feature": "Inner wall"
+        },
+        {
+          "source_x_mm": 21.590000000000003,
+          "width_mm": 0.42,
+          "feature": "Outer wall"
+        }
+      ]
+    }
+  ],
+  "frame_only_layer_range_index": 1,
+  "expanding_roof_transition_support_contacts": [],
+  "all_support_layer_sweeps": [
+    {
+      "print_z_mm": 0.2,
+      "section_z_mm": 0.1,
+      "roads": 1148,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 0.44,
+      "section_z_mm": 0.32,
+      "roads": 1630,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 0.68,
+      "section_z_mm": 0.56,
+      "roads": 1754,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 0.92,
+      "section_z_mm": 0.8,
+      "roads": 1760,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 1.16,
+      "section_z_mm": 1.04,
+      "roads": 1658,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 1.4,
+      "section_z_mm": 1.28,
+      "roads": 1515,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 1.64,
+      "section_z_mm": 1.52,
+      "roads": 1000,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 1.88,
+      "section_z_mm": 1.76,
+      "roads": 972,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 2.12,
+      "section_z_mm": 2.0,
+      "roads": 915,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 2.36,
+      "section_z_mm": 2.24,
+      "roads": 894,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 2.6,
+      "section_z_mm": 2.48,
+      "roads": 904,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 2.84,
+      "section_z_mm": 2.72,
+      "roads": 821,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 3.08,
+      "section_z_mm": 2.96,
+      "roads": 814,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 3.32,
+      "section_z_mm": 3.2,
+      "roads": 825,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 3.56,
+      "section_z_mm": 3.44,
+      "roads": 829,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 3.8,
+      "section_z_mm": 3.68,
+      "roads": 827,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 4.04,
+      "section_z_mm": 3.92,
+      "roads": 829,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 4.28,
+      "section_z_mm": 4.16,
+      "roads": 844,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 4.52,
+      "section_z_mm": 4.4,
+      "roads": 859,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 4.76,
+      "section_z_mm": 4.64,
+      "roads": 863,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 5.0,
+      "section_z_mm": 4.88,
+      "roads": 890,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 5.24,
+      "section_z_mm": 5.12,
+      "roads": 915,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 5.48,
+      "section_z_mm": 5.36,
+      "roads": 925,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 5.72,
+      "section_z_mm": 5.6,
+      "roads": 924,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 5.96,
+      "section_z_mm": 5.84,
+      "roads": 919,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 6.2,
+      "section_z_mm": 6.08,
+      "roads": 931,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 6.44,
+      "section_z_mm": 6.32,
+      "roads": 936,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 6.68,
+      "section_z_mm": 6.56,
+      "roads": 942,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 6.92,
+      "section_z_mm": 6.8,
+      "roads": 940,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 7.16,
+      "section_z_mm": 7.04,
+      "roads": 957,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 7.4,
+      "section_z_mm": 7.28,
+      "roads": 957,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 7.64,
+      "section_z_mm": 7.52,
+      "roads": 969,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 7.88,
+      "section_z_mm": 7.76,
+      "roads": 974,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 8.12,
+      "section_z_mm": 8.0,
+      "roads": 980,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 8.36,
+      "section_z_mm": 8.24,
+      "roads": 980,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 8.6,
+      "section_z_mm": 8.4799995,
+      "roads": 984,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 8.84,
+      "section_z_mm": 8.72,
+      "roads": 1003,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 9.08,
+      "section_z_mm": 8.96,
+      "roads": 1003,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 9.32,
+      "section_z_mm": 9.2,
+      "roads": 1025,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 9.56,
+      "section_z_mm": 9.4399995,
+      "roads": 1046,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 9.8,
+      "section_z_mm": 9.68,
+      "roads": 1062,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 10.04,
+      "section_z_mm": 9.92,
+      "roads": 1073,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 10.28,
+      "section_z_mm": 10.16,
+      "roads": 1078,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 10.52,
+      "section_z_mm": 10.3999995,
+      "roads": 1096,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 10.76,
+      "section_z_mm": 10.64,
+      "roads": 1123,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 11.0,
+      "section_z_mm": 10.88,
+      "roads": 1171,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 11.24,
+      "section_z_mm": 11.12,
+      "roads": 1208,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 11.48,
+      "section_z_mm": 11.36,
+      "roads": 1221,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 11.72,
+      "section_z_mm": 11.5999995,
+      "roads": 1254,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 11.96,
+      "section_z_mm": 11.84,
+      "roads": 1294,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 12.2,
+      "section_z_mm": 12.08,
+      "roads": 1311,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 12.44,
+      "section_z_mm": 12.32,
+      "roads": 1358,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 12.68,
+      "section_z_mm": 12.5599995,
+      "roads": 1401,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 12.92,
+      "section_z_mm": 12.8,
+      "roads": 1459,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 13.16,
+      "section_z_mm": 13.04,
+      "roads": 1488,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 13.4,
+      "section_z_mm": 13.28,
+      "roads": 1543,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 13.64,
+      "section_z_mm": 13.5199995,
+      "roads": 1640,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 13.88,
+      "section_z_mm": 13.76,
+      "roads": 1799,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 14.12,
+      "section_z_mm": 14.0,
+      "roads": 1930,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 14.36,
+      "section_z_mm": 14.24,
+      "roads": 2070,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 14.6,
+      "section_z_mm": 14.4799995,
+      "roads": 2137,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 14.84,
+      "section_z_mm": 14.72,
+      "roads": 2212,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 15.08,
+      "section_z_mm": 14.96,
+      "roads": 2205,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 15.32,
+      "section_z_mm": 15.2,
+      "roads": 884,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 15.56,
+      "section_z_mm": 15.4399995,
+      "roads": 586,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 15.8,
+      "section_z_mm": 15.68,
+      "roads": 274,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    },
+    {
+      "print_z_mm": 16.04,
+      "section_z_mm": 15.9199995,
+      "roads": 46,
+      "swept_native_stock_overlap_mm2": 0.0,
+      "centre_crossing_roads": []
+    }
+  ],
+  "support_sweep_flags": [],
+  "support_topology": {
+    "support_bodies": 4,
+    "interface_islands": 4,
+    "bed_rooted_bodies": 4,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 15.12,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 4,
+    "shortest_labelled_build_up_mm": 15.12
+  },
+  "submitted": false,
+  "scope": "Native source geometry, emitted paths, full-width support footprints and mid-slab outward removal lanes. Geometric overlap does not establish adhesion, physical surface quality, hand fit, load or retention."
+}
