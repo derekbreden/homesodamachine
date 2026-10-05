@@ -30,13 +30,16 @@ test("cost overview reverses the section order, opens one card and follows direc
       assert.deepEqual(await page.$$eval(".cost-panel", panels => panels.map(panel => panel.id)), ["unit-cost-panel", "investment-panel", "forecast-panel"]);
       assert.deepEqual(await page.$$eval(".cost-panel", panels => panels.map(panel => panel.open)), [false, false, false]);
       assert.match(await page.$eval("#unit-cost-panel > summary", el => el.textContent), /\$2,420.98.*Per finished machine/s);
-      assert.match(await page.$eval("#forecast-panel > summary", el => el.textContent), /\$11,561.74.*First 10 machines.*\$27,923.77.*First 20 machines/s);
+      assert.match(await page.$eval("#forecast-panel > summary", el => el.textContent), /\$4,742.65.*First 5 machines.*\$11,561.74.*First 10 machines.*\$27,923.77.*First 20 machines/s);
       assert.equal(await page.$eval("#forecast-group", el => el.value), "category");
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
 
       await page.click('.cost-contents a[href="#batch-forecast"]');
       assert.deepEqual(await page.$$eval(".cost-panel", panels => panels.map(panel => panel.open)), [false, false, true]);
       assert.equal(await page.$eval('.cost-contents a[href="#batch-forecast"]', el => el.getAttribute("aria-expanded")), "true");
+      await page.waitForFunction(() => location.hash === "#batch-forecast");
+      // Let native hash navigation settle before focusing the summary.
+      await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
       await page.focus("#forecast-panel > summary");
       await page.keyboard.press("Enter");
       await page.waitForFunction(() => document.querySelector('.cost-contents a[href="#batch-forecast"]').getAttribute("aria-expanded") === "false");
@@ -105,7 +108,7 @@ test("price, chart and cost disclosures work without JavaScript and fit phone wi
       assert.match(await page.$eval(".cost-price", el => el.textContent), /\$4,495/);
       assert.equal(await page.$eval("main > section", el => el.classList.contains("cost-price")), true);
       assert.ok(await page.$(".recovery-svg"));
-      assert.match(await page.$eval("#batch-forecast", el => el.textContent), /From today’s stock to 10 & 20 machines/);
+      assert.match(await page.$eval("#batch-forecast", el => el.textContent), /From today’s stock to 5, 10 & 20 machines/);
       const hardware = fileURLToPath(new URL("../../../hardware", import.meta.url));
       const cash = readBatchForecast(hardware, readLaborRollup(hardware)).batches[0].cashCents / 100;
       assert.ok((await page.$eval(".forecast-cards", el => el.textContent)).includes("$" + cash.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })));
@@ -124,6 +127,8 @@ test("price, chart and cost disclosures work without JavaScript and fit phone wi
       assert.equal(await page.$eval(".forecast-controls", el => el.hidden), true);
       await page.click('.cost-contents a[href="#batch-forecast"]');
       assert.equal(await page.$eval("#forecast-panel", el => el.open), true, "contents link opens the forecast without JavaScript");
+      assert.equal(await page.$eval('.forecast-plan[data-units="5"]', el => el.open), true);
+      await page.click('.forecast-plan[data-units="10"] > summary');
       assert.equal(await page.$eval('.forecast-plan[data-units="10"]', el => el.open), true);
       await page.click('.forecast-plan[data-units="20"] > summary');
       assert.equal(await page.$eval('.forecast-plan[data-units="20"]', el => el.open), true);
@@ -134,6 +139,9 @@ test("price, chart and cost disclosures work without JavaScript and fit phone wi
       await page.click('.forecast-plan[data-units="10"] .forecast-part > summary');
       assert.equal(await page.$eval('.forecast-plan[data-units="10"] .forecast-part', el => el.open), true);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `stock details at ${width}px`);
+      await page.click('.forecast-budget > summary');
+      assert.deepEqual(await page.$$eval('.forecast-comparison thead th', headings => headings.map(heading => heading.textContent)), ["Expense", "5 machines", "10 machines", "20 machines"]);
+      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `cash comparison at ${width}px`);
     }
   } finally { await page.close(); }
 });
@@ -144,6 +152,7 @@ test("batch purchases rank by cost, filter Prime, regroup categories and preserv
   page.on("pageerror", error => errors.push(error.message));
   const hardware = fileURLToPath(new URL("../../../hardware", import.meta.url));
   const forecast = readBatchForecast(hardware, readLaborRollup(hardware));
+  const [five, ten, twenty] = forecast.batches;
   const dollars = cents => "$" + (cents / 100).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const active = '.forecast-plan:not([hidden])';
   const current = active + ' .forecast-groups:not([hidden])';
@@ -153,6 +162,13 @@ test("batch purchases rank by cost, filter Prime, regroup categories and preserv
       await page.goto(baseUrl + "/cost", { waitUntil: "networkidle0" });
       await page.click('.cost-contents a[href="#batch-forecast"]');
       assert.equal(await page.$eval(".forecast-controls", el => el.hidden), false);
+      assert.equal(await page.$eval(active, el => el.dataset.units), "5");
+      assert.equal(await page.$eval(current, el => el.dataset.groupBy), "category");
+      assert.equal(await page.$eval('[data-card-units="5"]', el => el.dataset.selected), "true");
+      assert.ok((await page.$eval(".forecast-result", el => el.textContent)).includes(dollars(five.partsCents)));
+      assert.equal(await page.$$eval(current + " .forecast-part:not([hidden])", rows => rows.length), five.rows.filter(row => row.quantity).length);
+      await page.focus('input[name="forecast-units"][value="5"]');
+      await page.keyboard.press("ArrowRight");
       assert.equal(await page.$eval(active, el => el.dataset.units), "10");
       assert.equal(await page.$eval("#forecast-group", el => el.value), "category");
       assert.equal(await page.$eval("#forecast-group option", el => el.textContent), "Parts category");
@@ -161,7 +177,7 @@ test("batch purchases rank by cost, filter Prime, regroup categories and preserv
       const prime = current + ' [data-group-id="amazon"]';
       assert.equal(await page.$eval(prime, el => el.open), true);
       const firstRows = await page.$$eval(prime + " .forecast-part:not([hidden])", rows => rows.map(row => ({ id: row.dataset.partId, cents: Number(row.dataset.cents) })));
-      const expected = forecast.batches[0].rows.filter(row => row.supplier === "amazon" && row.quantity).sort((a, b) => b.costCents - a.costCents);
+      const expected = ten.rows.filter(row => row.supplier === "amazon" && row.quantity).sort((a, b) => b.costCents - a.costCents);
       assert.equal(firstRows[0].id, "petgf-black");
       assert.equal(firstRows.length, expected.length);
       assert.deepEqual(firstRows.map(row => row.cents), expected.map(row => row.costCents));
@@ -189,10 +205,10 @@ test("batch purchases rank by cost, filter Prime, regroup categories and preserv
       assert.equal(await page.$eval('[data-card-units="20"]', el => el.dataset.selected), "true");
       await page.select("#forecast-group", "supplier");
       await page.select("#forecast-supplier", "all");
-      assert.ok((await page.$eval(".forecast-result", el => el.textContent)).includes(dollars(forecast.batches[1].partsCents)));
+      assert.ok((await page.$eval(".forecast-result", el => el.textContent)).includes(dollars(twenty.partsCents)));
       await page.click("#forecast-show-stock");
-      assert.equal(await page.$$eval(current + " .forecast-part:not([hidden])", rows => rows.length), forecast.batches[1].rows.length);
-      assert.ok((await page.$eval(".forecast-result", el => el.textContent)).includes(dollars(forecast.batches[1].partsCents)), "stock credits do not alter the cash total");
+      assert.equal(await page.$$eval(current + " .forecast-part:not([hidden])", rows => rows.length), twenty.rows.length);
+      assert.ok((await page.$eval(".forecast-result", el => el.textContent)).includes(dollars(twenty.partsCents)), "stock credits do not alter the cash total");
 
       await page.select("#forecast-supplier", "jlc");
       await page.focus('input[name="forecast-units"][value="20"]');
@@ -206,6 +222,13 @@ test("batch purchases rank by cost, filter Prime, regroup categories and preserv
       await page.click("#forecast-show-stock");
       assert.match(await page.$eval(current, el => el.textContent), /No new purchases for this supplier/);
       assert.equal(await page.$$eval(current + " .forecast-group:not([hidden])", groups => groups.length), 0);
+      if (width === 320) {
+        await page.click('.forecast-budget > summary');
+        await page.focus('.forecast-scroll');
+        await page.keyboard.press("ArrowRight");
+        await page.waitForFunction(() => document.querySelector('.forecast-scroll').scrollLeft > 0);
+        assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, "the comparison scrolls within its panel");
+      }
     }
     assert.deepEqual(errors, []);
   } finally { await page.close(); }

@@ -3,7 +3,7 @@
   "checkedAt": "2026-10-04",
   "bomSha256": "ed952bc4e2b51e235d08c725ae2248c655966b12c1f381118f5a4a836f4a742e",
   "bomRowCount": 170,
-  "scope": "Additional spending from October 4 inventory for the first 10 or 20 complete integrated machines, with a White faucet and both install-kit tees. Both alternatives begin with the same stock; twenty means twenty total, not twenty more after ten. Credit usable reusable parts already allocated to unit 1, exclude defective/obsolete stock, and deduct existing orders before calculating new purchases.",
+  "scope": "Additional spending from October 4 inventory for 5, 10 or 20 complete integrated machines, with a White faucet and both install-kit tees. Each alternative begins with the same stock and represents that many total machines. Credit usable reusable parts already allocated to unit 1, exclude defective/obsolete stock, and deduct existing orders before calculating new purchases.",
   "taxRate": 0.0725,
   "roundingNote": "7.25% sales-tax reserve drawn from recorded orders, applied only to merchandise-priced rows and inbound freight allowances; delivered historical allowances are not taxed again.",
   "excludedBomLines": [
@@ -17,6 +17,7 @@
       "id": "amazon",
       "name": "Amazon Prime",
       "shippingCents": {
+        "5": 0,
         "10": 0,
         "20": 0
       },
@@ -26,6 +27,7 @@
       "id": "fws",
       "name": "Fresh Water Systems",
       "shippingCents": {
+        "5": 1500,
         "10": 1500,
         "20": 1500
       },
@@ -35,15 +37,17 @@
       "id": "bambu",
       "name": "Bambu Lab",
       "shippingCents": {
+        "5": 1000,
         "10": 0,
         "20": 0
       },
-      "note": "Exact Clear 32101 and Black 30105 refills listed in stock. Replenishment uses current 2/4/6/10-roll tiers. ASA Aero White 46100 is out of stock, but estimated on-hand stock covers both batches. Freight applies only to a new order; existing printers/spools retained."
+      "note": "Exact Clear 32101 and Black 30105 refills listed in stock. Replenishment uses current 2/4/6/10-roll tiers. The five-machine order buys only two clear refills, below the free-shipping threshold; $10 freight is a provisional reserve pending checkout. ASA Aero White 46100 is out of stock, but estimated on-hand stock covers all three batches. Freight applies only to a new order; existing printers/spools retained."
     },
     {
       "id": "jlc",
       "name": "JLCPCB",
       "shippingCents": {
+        "5": 0,
         "10": 0,
         "20": 0
       },
@@ -53,6 +57,7 @@
       "id": "metals",
       "name": "OnlineMetals",
       "shippingCents": {
+        "5": 0,
         "10": 0,
         "20": 0
       },
@@ -62,15 +67,17 @@
       "id": "scs",
       "name": "SendCutSend",
       "shippingCents": {
+        "5": 0,
         "10": 0,
         "20": 0
       },
-      "note": "Delivered allowances from recorded endcap and under-counter-plate orders. Quote the current DXFs at 20/40 endcaps and 10/20 mounting plates. No unquoted bulk saving assumed."
+      "note": "Delivered allowances from recorded endcap and under-counter-plate orders. Quote current DXFs for the replenishment quantities after stock credits. No unquoted bulk saving assumed."
     },
     {
       "id": "midwest",
       "name": "Midwest Beverage",
       "shippingCents": {
+        "5": 1500,
         "10": 1500,
         "20": 2500
       },
@@ -80,6 +87,7 @@
       "id": "kj",
       "name": "K&J Magnetics",
       "shippingCents": {
+        "5": 1050,
         "10": 1050,
         "20": 1050
       },
@@ -89,6 +97,7 @@
       "id": "riteav",
       "name": "RiteAV",
       "shippingCents": {
+        "5": 1208,
         "10": 1208,
         "20": 1208
       },
@@ -98,6 +107,7 @@
       "id": "lcsc",
       "name": "LCSC",
       "shippingCents": {
+        "5": 3000,
         "10": 3000,
         "20": 4000
       },
@@ -107,6 +117,7 @@
       "id": "waveshare",
       "name": "Waveshare",
       "shippingCents": {
+        "5": 7500,
         "10": 7500,
         "20": 12000
       },
@@ -116,15 +127,17 @@
       "id": "mouser",
       "name": "Mouser",
       "shippingCents": {
+        "5": 1000,
         "10": 1000,
         "20": 1000
       },
-      "note": "MDSR-7-10-15: 100/200 loose switches, not a 40-piece purchase pack. $1.45 each is a conservative ledger allowance; current USD price and stock could not be verified."
+      "note": "MDSR-7-10-15: 50/100/200 loose switches for 5/10/20 machines, not a 40-piece purchase pack. $1.45 each is a conservative ledger allowance; current USD price and stock could not be verified."
     },
     {
       "id": "allowances",
       "name": "Unquoted supplies",
       "shippingCents": {
+        "5": 0,
         "10": 0,
         "20": 0
       },
@@ -803,7 +816,7 @@
       "supplier": "amazon",
       "priceBasis": "merchandise",
       "status": "estimate",
-      "note": "One reusable 6 QT bath container for either batch. Current Prime result names translucent polypropylene rather than the ledger polycarbonate variant; temperature/use compatibility and precise variant remain to be confirmed. Budget $19.75/container.",
+      "note": "One reusable 6 QT bath container for any batch. Current Prime result names translucent polypropylene rather than the ledger polycarbonate variant; temperature/use compatibility and precise variant remain to be confirmed. Budget $19.75/container.",
       "options": [
         {
           "quantity": 1,
@@ -825,7 +838,7 @@
             "line": 37
           }
         ],
-        "note": "The acquired reusable 6 QT bath container supplies either batch. It is retained as shop equipment, with no new purchase."
+        "note": "The acquired reusable 6 QT bath container supplies any batch. It is retained as shop equipment, with no new purchase."
       }
     },
     {
@@ -5195,7 +5208,7 @@
       "supplier": "amazon",
       "priceBasis": "merchandise",
       "status": "estimate",
-      "note": "Prime $37.98/kit. Three kits for 10, five for 20 reserve 75/125 ft of EACH colour. The 14 ft total per machine is from the BOM; the limiting colour remains unmeasured. Allocation is provisional rather than dividing total feet by 125.",
+      "note": "Prime $37.98/kit. Two kits for 5, three for 10 and five for 20 reserve 50/75/125 ft of EACH colour before deducting the existing kit. The 14 ft total per machine is from the BOM; the limiting colour remains unmeasured. Allocation is provisional rather than dividing total feet by 125.",
       "options": [
         {
           "quantity": 125,
@@ -5206,6 +5219,7 @@
       ],
       "sourceUrl": "https://www.amazon.com/dp/B06Y557TCL",
       "packageCounts": {
+        "5": 2,
         "10": 3,
         "20": 5
       },
@@ -5904,7 +5918,7 @@
             "line": 631
           }
         ],
-        "note": "Remaining quantity is provisional: one of the two acquired 1 kg White 46100 spools credited; the other is reserved for development. This covers both batches if at least 0.971 kg remains. No replacement is assumed."
+        "note": "Remaining quantity is provisional: one of the two acquired 1 kg White 46100 spools credited; the other is reserved for development. This covers all three batches if at least 0.971 kg remains. No replacement is assumed."
       }
     },
     {
@@ -6013,15 +6027,16 @@
       "id": "shop",
       "name": "Shop gases, cleaning/solder supplies and electricity",
       "batchCents": {
+        "5": 12500,
         "10": 20000,
         "20": 35000
       },
-      "note": "Provisional delivered batch allowance for argon/nitrogen, brazing fuel, solder/IPA and printer/cure/burn-in electricity; measured production usage is not recorded."
+      "note": "Provisional delivered allowance of $50 per batch plus $15 per machine for argon/nitrogen, brazing fuel, solder/IPA and printer/cure/burn-in electricity; measured production usage is not recorded."
     }
   ],
   "notes": [
     "New purchase requirement = batch consumption (including stated process reserve) minus usable stock and already-ordered quantities, floored at zero. Combine shared SKUs, then round only the shortfall to economical whole supplier lots.",
-    "The 10- and 20-machine alternatives use the same opening inventory; do not add the columns or treat twenty as an extra batch after ten. Both include the current integrated unit under development.",
+    "The 5-, 10- and 20-machine alternatives use the same opening inventory; do not add the columns. Each includes the current integrated unit under development.",
     "Existing paid parts, printers, tools, fixtures and reusable spools incur no new acquisition expense. Ten defective batch-1 PCBAs and incompatible/abandoned inventory receive no production credit. Already-ordered stock is shown separately from on hand.",
     "The possible-payment reserve covers only identified pending component orders whose remaining merchant charge is unresolved. The confirmed $91.56 WR1105 charge and $21.87 received-pogo charge are excluded. Release the reserve when payment is confirmed; do not pay the same order twice.",
     "Acquired receipt totals alone do not establish remaining stock. Uncounted credits and provisional one-build consumption reserves are marked *. ASA Aero is credited at a provisional 1 kg from 2 kg acquired; a lower actual balance could require unavailable replacement filament.",

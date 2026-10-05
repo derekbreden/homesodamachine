@@ -45,7 +45,7 @@ function renderGroup({ id, name, rows, note, shippingCents }, batch, kind, maxim
   </details>`;
 }
 
-function renderPurchasePlan(batch) {
+function renderPurchasePlan(batch, defaultUnits) {
   const ranked = [...batch.rows].sort((a, b) => b.costCents - a.costCents || a.name.localeCompare(b.name));
   const suppliers = batch.suppliers.map(supplier => ({ ...supplier, rows: ranked.filter(row => row.supplier === supplier.id) })).sort((a, b) => b.costCents - a.costCents);
   const categoryIds = [...new Set(ranked.map(row => row.category || "supplies"))];
@@ -55,7 +55,7 @@ function renderPurchasePlan(batch) {
   }).sort((a, b) => b.costCents - a.costCents);
   const maximum = Math.max(...categories.map(category => category.costCents), 1);
   const supplierMaximum = Math.max(...suppliers.map(supplier => supplier.costCents), 1);
-  return `<details class="forecast-plan" data-units="${batch.units}"${batch.units === 10 ? " open" : ""}>
+  return `<details class="forecast-plan" data-units="${batch.units}"${batch.units === defaultUnits ? " open" : ""}>
     <summary>First ${batch.units} machines · ${money(batch.partsCents)} in new parts &amp; materials${star}</summary>
     <div class="forecast-groups" data-group-by="category">${categories.map((category, index) => renderGroup(category, batch, "category", maximum, index === 0, true)).join("")}</div>
     <div class="forecast-groups" data-group-by="supplier" hidden>${suppliers.map(supplier => renderGroup(supplier, batch, "supplier", supplierMaximum, false)).join("")}</div>
@@ -64,49 +64,53 @@ function renderPurchasePlan(batch) {
 
 export function renderBatchForecast(forecast) {
   if (!forecast) return "";
-  const { data, batches: [ten, twenty], bomChanged } = forecast;
-  const tableRow = (label, key) => `<tr><th scope="row">${escape(label)}</th><td>${money(ten[key])}${star}</td><td>${money(twenty[key])}${star}</td></tr>`;
+  const { data, batches, bomChanged } = forecast;
+  const first = batches[0];
+  const largest = batches.at(-1);
+  const cells = value => batches.map(batch => `<td>${money(value(batch))}${star}</td>`).join("");
+  const tableRow = (label, key, className = "") => `<tr${className ? ` class="${className}"` : ""}><th scope="row">${escape(label)}</th>${cells(batch => batch[key])}</tr>`;
   const date = new Date(data.checkedAt + "T12:00:00Z").toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
-  const unavailable = ten.rows.filter(row => row.status === "unavailable").map(row => {
-    const other = twenty.rows.find(other => other.id === row.id);
-    return `<p><strong>${escape(row.name)} replenishment is out of stock${star}.</strong> ${row.quantity || other.quantity ? `The new-purchase budget includes ${money(row.costCents)} / ${money(other.costCents)} pending replenishment.` : `The provisional ${count(row.onHand)} ${escape(row.unit)} on hand covers both batches; no new purchase is budgeted. Twenty machines need ${count(other.required)} ${escape(row.unit)} including the print allowance. If less remains, replenishment needs a source.`}</p>`;
+  const unavailable = first.rows.filter(row => row.status === "unavailable").map(row => {
+    const rows = batches.map(batch => batch.rows.find(other => other.id === row.id));
+    return `<p><strong>${escape(row.name)} replenishment is out of stock${star}.</strong> ${rows.some(other => other.quantity) ? `The new-purchase budgets include ${rows.map(other => money(other.costCents)).join(" / ")} pending replenishment.` : `The provisional ${count(row.onHand)} ${escape(row.unit)} on hand covers all three batches; no new purchase is budgeted. ${largest.units} machines need ${count(rows.at(-1).required)} ${escape(row.unit)} including the print allowance. If less remains, replenishment needs a source.`}</p>`;
   }).join("");
-  const shortages = twenty.rows.filter(row => row.packages.some(pack => pack.option.listedPackages !== undefined && pack.count > pack.option.listedPackages)).map(row => `${row.name}: ${row.issues.find(issue => /more lot/.test(issue))}`).join(" ");
+  const shortages = largest.rows.filter(row => row.packages.some(pack => pack.option.listedPackages !== undefined && pack.count > pack.option.listedPackages)).map(row => `${row.name}: ${row.issues.find(issue => /more lot/.test(issue))}`).join(" ");
   return `<section class="cost-forecast" id="batch-forecast" aria-labelledby="forecast-heading" data-checked-at="${data.checkedAt}">
-    <h2 class="cost-title" id="forecast-heading">From today&rsquo;s stock to 10 &amp; 20 machines</h2>
+    <h2 class="cost-title" id="forecast-heading">From today&rsquo;s stock to 5, 10 &amp; 20 machines</h2>
     <p class="cost-prose">Additional spending from ${date} inventory. Each plan starts with the same stock and buys the shortfall in whole supplier packs.</p>
     ${bomChanged ? `<p class="forecast-alert">${star} The BOM has changed since these supplier quantities were checked. This dated forecast needs a quantity review.</p>` : ""}
-    <div class="forecast-cards">${[ten, twenty].map(batch => `<div data-card-units="${batch.units}"><div class="cost-top-cap">First ${batch.units} machines</div><strong>${money(batch.cashCents)}${star}</strong><p>Additional cash from current stock</p><small>${money(batch.cashCents / batch.units)} per machine · supplies &amp; delivery included</small></div>`).join("")}</div>
+    <div class="forecast-cards">${batches.map(batch => `<div data-card-units="${batch.units}"><div class="cost-top-cap">First ${batch.units} machines</div><strong>${money(batch.cashCents)}${star}</strong><p>Additional cash from current stock</p><small>${money(batch.cashCents / batch.units)} per machine · supplies &amp; delivery included</small></div>`).join("")}</div>
     <h3 class="cost-h2">What we still need to buy</h3>
     <p class="cost-note forecast-intro">Bars and items are ranked by cost. Expand an item for stock and source details. The cash budget and paid labor breakdown are below.</p>
     <div class="forecast-controls" hidden>
-      <fieldset class="forecast-units"><legend>Batch</legend><label><input type="radio" name="forecast-units" value="10" checked><span>10 machines</span></label><label><input type="radio" name="forecast-units" value="20"><span>20 machines</span></label></fieldset>
+      <fieldset class="forecast-units"><legend>Batch</legend>${batches.map(batch => `<label><input type="radio" name="forecast-units" value="${batch.units}"${batch === first ? " checked" : ""}><span>${batch.units} machines</span></label>`).join("")}</fieldset>
       <label class="forecast-select">Group by<select id="forecast-group"><option value="category">Parts category</option><option value="supplier">Supplier</option></select></label>
       <label class="forecast-select">Supplier<select id="forecast-supplier"><option value="all">All suppliers</option>${data.suppliers.map(supplier => `<option value="${escape(supplier.id)}">${escape(supplier.name)}</option>`).join("")}</select></label>
       <label class="forecast-show-stock"><input type="checkbox" id="forecast-show-stock"> Include parts covered by stock</label>
     </div>
     <p class="forecast-result" role="status" aria-live="polite" hidden></p>
-    ${[ten, twenty].map(renderPurchasePlan).join("")}
+    ${batches.map(batch => renderPurchasePlan(batch, first.units)).join("")}
     <noscript><style>.forecast-groups[data-group-by="category"] .forecast-group[hidden], .forecast-part[hidden] { display: block !important; }</style></noscript>
     <p class="cost-note forecast-footnote">${star} Estimated stock, pricing or supply. Prices and quantities checked ${date}; availability details are below.</p>
     <details class="forecast-assumptions forecast-budget"><summary>Cash budget, delivery &amp; paid labor</summary>
-      <div class="forecast-scroll"><table class="forecast-comparison"><caption class="cost-sr-only">Batch expense forecast</caption><thead><tr><th scope="col">Expense</th><th scope="col">10 machines</th><th scope="col">20 machines</th></tr></thead><tbody>
+      <p class="forecast-table-help">Scroll sideways to compare all three plans.</p>
+      <div class="forecast-scroll" tabindex="0" role="region" aria-label="Batch expense comparison"><table class="forecast-comparison"><caption class="cost-sr-only">Batch expense forecast</caption><thead><tr><th scope="col">Expense</th>${batches.map(batch => `<th scope="col">${batch.units} machines</th>`).join("")}</tr></thead><tbody>
         ${tableRow("New whole parts & material purchases", "partsCents")}${tableRow("New inbound freight / import reserve", "inboundCents")}${tableRow(`Tax reserve on new purchases (${count(data.taxRate * 100)}%)`, "taxCents")}
-        <tr class="forecast-subtotal"><th scope="row">New delivered purchases</th><td>${money(ten.procurementCents)}${star}</td><td>${money(twenty.procurementCents)}${star}</td></tr>
+        ${tableRow("New delivered purchases", "procurementCents", "forecast-subtotal")}
         ${tableRow("Possible unpaid balance on orders already placed", "pendingCents")}
-        ${ten.allowances.map((allowance, index) => `<tr><th scope="row">${escape(allowance.name)}</th><td>${money(allowance.costCents)}${star}</td><td>${money(twenty.allowances[index].costCents)}${star}</td></tr>`).join("")}
-        <tr class="forecast-total"><th scope="row">Additional cash, supplies &amp; delivery</th><td>${money(ten.cashCents)}${star}</td><td>${money(twenty.cashCents)}${star}</td></tr>
-        ${ten.laborCents !== null ? `<tr><th scope="row">Planned labor at ${money(Math.round(ten.laborCents / ten.laborHours))}/h<span>${count(ten.laborHours)} / ${count(twenty.laborHours)} attended hours</span></th><td>${money(ten.laborCents)}${star}</td><td>${money(twenty.laborCents)}${star}</td></tr><tr class="forecast-total"><th scope="row">Including paid build labor</th><td>${money(ten.totalCents)}${star}</td><td>${money(twenty.totalCents)}${star}</td></tr>` : `<tr><th colspan="3">Labor estimate unavailable; add build labor to the purchase budget.</th></tr>`}
+        ${data.allowances.map(allowance => `<tr><th scope="row">${escape(allowance.name)}</th>${cells(batch => batch.allowances.find(other => other.id === allowance.id).costCents)}</tr>`).join("")}
+        ${tableRow("Additional cash, supplies & delivery", "cashCents", "forecast-total")}
+        ${first.laborCents !== null ? `<tr><th scope="row">Planned labor at ${money(Math.round(first.laborCents / first.laborHours))}/h<span>${batches.map(batch => count(batch.laborHours)).join(" / ")} attended hours</span></th>${cells(batch => batch.laborCents)}</tr>${tableRow("Including paid build labor", "totalCents", "forecast-total")}` : `<tr><th colspan="${batches.length + 1}">Labor estimate unavailable; add build labor to the purchase budget.</th></tr>`}
       </tbody></table></div>
-      <p>New purchases include approximately ${money(ten.leftoverCents)} / ${money(twenty.leftoverCents)} of excess stock, before freight and tax; it remains part of the cash outlay. The possible-payment reserve is released when those existing orders are confirmed paid. Paying for build labor adds the amount shown above.</p>
+      <p>New purchases include approximately ${batches.map(batch => `${money(batch.leftoverCents)} (${batch.units} machines)`).join(", ")} of excess stock, before freight and tax; it remains part of the cash outlay. The possible-payment reserve is released when those existing orders are confirmed paid. Paying for build labor adds the amount shown above.</p>
     </details>
     <details class="forecast-assumptions"><summary>Availability &amp; supply gaps${star}</summary>
-      <div class="forecast-alert">${unavailable}${shortages ? `<p><strong>Stock limits for 20 machines${star}.</strong> ${escape(shortages)}</p>` : ""}<p>Exact Prime sources remain unresolved for several plumbing/refrigeration parts, the flow meter and short M3 inserts. Custom fabrication, PCB assembly and some harness/refrigeration selections use explicit allowances. Expand the relevant purchase for the item, quantity and source.</p></div>
+      <div class="forecast-alert">${unavailable}${shortages ? `<p><strong>Stock limits for ${largest.units} machines${star}.</strong> ${escape(shortages)}</p>` : ""}<p>Exact Prime sources remain unresolved for several plumbing/refrigeration parts, the flow meter and short M3 inserts. Custom fabrication, PCB assembly and some harness/refrigeration selections use explicit allowances. Expand the relevant purchase for the item, quantity and source.</p></div>
     </details>
     <details class="forecast-assumptions"><summary>Inventory credits, pending orders &amp; allowances</summary>
       <p><b>Opening filament stock${star}:</b> approximately 12 kg Black PET-GF15, 4 kg Clear PETG and 10 kg Black PETG. Ten usable batch-2 boards, ten carbonator tube cuts, twenty endcaps and other credited parts reduce new orders. Remaining quantities from older purchase records are estimates; include parts covered by stock to see every credit.</p>
       <p>${escape(data.scope)}</p><p>${escape(data.inventoryNote)}</p><p>${escape(data.roundingNote)}</p>
-      ${ten.pendingPayments.map(payment => `<p><b>${escape(payment.name)} · ${money(payment.costCents)}${star}.</b> ${escape(payment.note)}</p>`).join("")}
+      ${first.pendingPayments.map(payment => `<p><b>${escape(payment.name)} · ${money(payment.costCents)}${star}.</b> ${escape(payment.note)}</p>`).join("")}
       ${data.allowances.map(allowance => `<p><b>${escape(allowance.name)}${star}.</b> ${escape(allowance.note)}</p>`).join("")}
       <ul>${data.notes.map(note => `<li>${escape(note)}</li>`).join("")}</ul>
       <p>Filament includes a provisional 15% allowance for supports, purge and rejected prints. Finished printed parts without a counted usable balance receive no additional credit. Printed material totals and small colour splits require production-yield confirmation. Incomplete cuts and colour/size-specific stock may not supply another complete machine. ${data.bomRowCount} BOM lines are covered.</p>
@@ -116,10 +120,10 @@ export function renderBatchForecast(forecast) {
 
 export const BATCH_FORECAST_CSS = `
 .cost-forecast { margin: 2.8rem 0 3rem; scroll-margin-top: 4.5rem; }
-.forecast-cards { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1rem; margin: 1.5rem 0; }
+.forecast-cards { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1rem; margin: 1.5rem 0; }
 .forecast-cards > div { border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; background: var(--surface); }
 .forecast-cards [data-selected="true"] { border-color: var(--accent); }
-.forecast-cards strong { display: block; font-size: clamp(1.5rem,4vw,2.3rem); color: var(--accent); font-variant-numeric: tabular-nums; margin-top: .3rem; }
+.forecast-cards strong { display: block; font-size: clamp(1.15rem,3.2vw,2rem); color: var(--accent); font-variant-numeric: tabular-nums; margin-top: .3rem; }
 .forecast-cards p { font-size: .85rem; margin: .6rem 0; }
 .forecast-cards small, .forecast-comparison th span { color: var(--text-3); font-size: .75rem; }
 .forecast-star { font-size: .75em; color: var(--accent); margin-left: .1em; }
@@ -132,7 +136,8 @@ export const BATCH_FORECAST_CSS = `
 .forecast-units input { position: absolute; opacity: 0; width: 1px; height: 1px; }
 .forecast-units span { display: block; padding: .55rem .65rem; border: 1px solid var(--border); background: var(--surface); font-size: .78rem; }
 .forecast-units label:first-of-type span { border-radius: 6px 0 0 6px; }
-.forecast-units label:last-of-type span { border-radius: 0 6px 6px 0; border-left: 0; }
+.forecast-units label + label span { border-left: 0; }
+.forecast-units label:last-of-type span { border-radius: 0 6px 6px 0; }
 .forecast-units input:checked + span { background: var(--accent); color: var(--on-action); }
 .forecast-units input:focus-visible + span { outline: 2px solid var(--action); outline-offset: 3px; }
 .forecast-select { display: grid; gap: .3rem; min-width: 0; }
@@ -175,11 +180,15 @@ export const BATCH_FORECAST_CSS = `
 .forecast-source-note > summary { cursor: pointer; padding: .5rem .8rem; }
 .forecast-source-note p { margin: .6rem .8rem; line-height: 1.6; }
 .forecast-scroll { overflow-x: auto; max-width: 100%; padding: 0 .8rem; }
-.forecast-comparison { width: 100%; border-collapse: collapse; font-size: .8rem; }
+.forecast-scroll:focus-visible { outline: 2px solid var(--action); outline-offset: -2px; }
+.forecast-table-help { display: none; }
+.forecast-comparison { width: 100%; min-width: 28rem; border-collapse: collapse; font-size: .8rem; }
 .forecast-comparison th { text-align: left; font-weight: 500; }
+.forecast-comparison th:first-child { width: 35%; }
 .forecast-comparison td, .forecast-comparison th { padding: .7rem .45rem; border-bottom: 1px solid var(--border); vertical-align: top; }
 .forecast-comparison td { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .forecast-comparison thead th:not(:first-child) { text-align: right; }
+.forecast-comparison thead th { white-space: nowrap; }
 .forecast-comparison th span { display: block; margin-top: .3rem; }
 .forecast-subtotal, .forecast-total { background: var(--surface); }
 .forecast-total td, .forecast-total th { font-weight: 700; }
@@ -190,7 +199,8 @@ export const BATCH_FORECAST_CSS = `
 .forecast-assumptions > p, .forecast-assumptions > ul { font-size: .78rem; line-height: 1.65; color: var(--text-2); margin: .8rem; }
 .forecast-assumptions li { margin: .5rem 0; }
 @media (max-width: 560px) {
-  .forecast-cards { gap: .6rem; }
+  .forecast-cards { grid-template-columns: repeat(2,minmax(0,1fr)); gap: .6rem; }
+  .forecast-cards > div:first-child { grid-column: 1 / -1; }
   .forecast-cards > div { padding: .85rem .65rem; }
   .forecast-cards strong { font-size: clamp(1.15rem,5.5vw,1.8rem); }
   .forecast-cards p { font-size: .75rem; }
@@ -212,6 +222,7 @@ export const BATCH_FORECAST_CSS = `
   .forecast-stock { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .forecast-part-evidence { margin: .3rem .6rem .7rem; padding: .65rem; }
   .forecast-comparison { font-size: .7rem; }
+  .forecast-table-help { display: block; }
   .forecast-comparison th, .forecast-comparison td { padding: .65rem .15rem; }
   .forecast-scroll { padding: 0 .4rem; }
 }
