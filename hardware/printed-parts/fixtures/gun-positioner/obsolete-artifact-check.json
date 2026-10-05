@@ -1,0 +1,40 @@
+{
+  "obsolete_names_before_replacement_export": [],
+  "replacement_cleanup_count": 0,
+  "scope": "Current STEP/STL/payload and plate/catalog-washer/stock templates match the final registry exactly. Superseded exports were pruned in earlier build passes; this final replacement pass had zero obsolete names.",
+  "status": "passed current-registry artifact reconciliation",
+  "source_sha256": "e219feaa319f2aee19c1792522d69dd337b2e27ffdb0eaa46ce5978469bfab08",
+  "artifact_sets": {
+    "STEP": {
+      "expected": 139,
+      "actual": 139,
+      "missing": [],
+      "obsolete": []
+    },
+    "STL": {
+      "expected": 139,
+      "actual": 139,
+      "missing": [],
+      "obsolete": []
+    },
+    "part_payload": {
+      "expected": 139,
+      "actual": 139,
+      "missing": [],
+      "obsolete": []
+    },
+    "SVG": {
+      "expected": 96,
+      "actual": 96,
+      "missing": [],
+      "obsolete": []
+    },
+    "DXF": {
+      "expected": 96,
+      "actual": 96,
+      "missing": [],
+      "obsolete": []
+    }
+  },
+  "obsolete_remaining": []
+}

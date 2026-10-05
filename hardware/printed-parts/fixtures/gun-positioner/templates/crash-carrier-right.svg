@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240mm" height="120mm" viewBox="0 0 240 120">
+<rect width="100%" height="100%" fill="white"/>
+<rect x="20" y="20" width="200" height="60" fill="none" stroke="#999" stroke-width=".15"/>
+<polygon points="20.0,77.35 20.0,52.35 170.0,22.65 220.0,22.65 220.0,47.85 180.0,47.85" fill="none" stroke="black" stroke-width=".25"/>
+<text x="20" y="91" font-family="sans-serif" font-size="4">crash-carrier-right: 200 x 60 x 6.35 mm - 100% scale</text>
+<path d="M20,100h50 M20,97v6 M70,97v6" stroke="black" stroke-width=".25"/>
+<text x="80" y="101" font-family="sans-serif" font-size="3.5">50 mm scale check; +X right / +Y up</text>
+</svg>

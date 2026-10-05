@@ -1,0 +1,65 @@
+{
+  "status": "Finite correlated-pose proxy screen, not continuous sweep or physical-gun acceptance.",
+  "checked_angle_grid_deg": {
+    "yaw": [
+      -5,
+      0,
+      5
+    ],
+    "pitch": [
+      -10,
+      -5,
+      0,
+      5,
+      10
+    ],
+    "roll": [
+      -5,
+      0,
+      5
+    ]
+  },
+  "endpoint_offset_corner_mm": [
+    -0.25,
+    0.25
+  ],
+  "poses_checked": 360,
+  "gun_surface_sample_points": 1022763,
+  "mesh_maximum_edge_mm": 0.9934829236662904,
+  "tessellation_allowance_mm": 0.1,
+  "minimum_sampled_proxy_vessel_distance_mm": 5.555327509400897,
+  "conservative_sampled_surface_lower_bound_mm": 4.461844585734607,
+  "worst_sample": {
+    "yaw_deg": -5,
+    "pitch_deg": -10,
+    "roll_deg": 0,
+    "endpoint_offset_mm": [
+      -0.25,
+      -0.25,
+      -0.25
+    ],
+    "surface_point_mm": [
+      -58.402076484618505,
+      -21.2219664031199,
+      290.3053275094009
+    ]
+  },
+  "vessel_envelope": {
+    "axis": "world Z",
+    "radius_mm": 63.5,
+    "bottom_z_mm": 132.35,
+    "top_z_mm": 284.75
+  },
+  "excluded_collision_pairs": [
+    "Consumable wire X177..200 versus seam: intended contact; endpoint must be observed.",
+    "Gun versus its own TPU pads and jaws: intended clamped contact."
+  ],
+  "checked_collision_pairs": [
+    "Gun body/nozzle/handle proxy versus conservative complete127 mm vessel cylinder."
+  ],
+  "limitations": [
+    "The gun is an unscanned dimensional proxy, not vendor CAD. Actual gun shell, protruding wire, clamps, released tray, all mechanism bodies, lenses, camera stages and cables require a physical static sweep.",
+    "Angles between grid samples are not cleared by this finite test. Full independent XYZ and angular travel contains collision poses; tube is absent for unrestricted dry commissioning.",
+    "The actual seam is at inner wall radius61.85 mm; the complete63.5 mm outer vessel cylinder is deliberately conservative for solid gun clearance."
+  ]
+}

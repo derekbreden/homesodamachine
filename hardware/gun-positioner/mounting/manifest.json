@@ -87,7 +87,7 @@
       }
     }
   },
-  "spacer_use": "Four6mm insulating spacers per carrier plus four under Pico adapter;28 total. Verify clear pads for all metal washers/bolts and>=6mm clearance below solder pins.",
+  "spacer_use": "Four 6 mm insulating spacers per carrier plus four under the Pico adapter;28 total. The 6 mm dimension is the PCB-to-panel standoff. Every actual solder pin/joint must remain visibly clear of the panel and all mounting metal. Trim only excess leads with USB and24 V unplugged, then inspect and verify continuity/isolation before power.",
   "fan": {
     "frame_mm": 80,
     "opening_mm": 76,

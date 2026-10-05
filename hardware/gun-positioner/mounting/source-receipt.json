@@ -4,11 +4,12 @@
   "cadquery_version": "2.7.0",
   "trimesh_version": "5.0.0",
   "source_sha256": {
-    "hardware/gun-positioner/mounting/generate.py": "7dfd709435db2023628cdaf15f2b2fab682c9e29850653ac5394607bddf17728",
+    "hardware/gun-positioner/mounting/generate.py": "e1142e06947ec6c3c468f08122d8d07a835978af9cdaf81f5d3b3a9b51f434aa",
     "hardware/scripts/_cadq_export.py": "ea4d494df422de3c17baac56b3e8d5f510635985fd72ee327ccaaffc2e1e611e",
     "hardware/scripts/_mesh_payload.py": "1e1cee55690e125f45b846b183227ea59391adb798d01ee9aeaa69d1d5e44e72",
     "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-all-ink-raised-mark2-v4/effective-settings.json": "25e752fc8bd4c89363a9117cef9338ed068d07f7d45ae1d0c2b86322bb147915",
-    "hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py": "3f6e442f840306d98038e843f284792fbdbce7260c2243bd72947a1072a55982"
+    "hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py": "3f6e442f840306d98038e843f284792fbdbce7260c2243bd72947a1072a55982",
+    "hardware/gun-positioner/mounting/README.md": "10251a410b13c265c5d7fabedb5ea5580fb393ab7c115bb036a71855f3b5584c"
   },
   "output_sha256": {
     "controller-backplane.step": "f8df52c17a9d067af1984480b5503465d5bfa8e098f4d89fbf99c8c51eab02a7",
@@ -20,6 +21,7 @@
     "m3-insulating-spacer-6mm.step": "6151bf25407d69ec04576b146e9cc77ba43a3ff41023545c0392dc8111eb8863",
     "m3-insulating-spacer-6mm.step.mesh": "89cef0c080ee08f0bc964ac0a1b78fa149502fb12f18ebaee9773648a96ac3b9",
     "m3-insulating-spacer-6mm.stl": "1e327389bc3b9da45449d0263bafb22abb27fbc2733eb01a6875ea8a352d8718",
-    "manifest.json": "4f4a2095ea03bfed588c70685b89c153a458d83a2866ef213294d3ff38b97114"
-  }
+    "manifest.json": "4e81de4b417eaa357c8f7874448f00b4d35009532b0c789cd34b9f0b0b759625"
+  },
+  "scope": "Binds CAD/export geometry and current assembly instructions. CAD/mesh checks do not establish physical fit, print, insulation, temperature or creep acceptance."
 }

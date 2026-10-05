@@ -1,0 +1,314 @@
+{
+  "status": "Geometry and conservative assumed-load arithmetic, not loaded accuracy, lifetime or physical acceptance.",
+  "catalog_envelope_uncertainties": [
+    "Selected SBR12 base-to-deck40 mm and block28x26 M5 interface are bound to listing drawing; transfer actual railfoot holes.",
+    "Selected KP001 centerheight19 mm/71 mm body/56 mm boltcenters are catalog envelopes; verify matingparts without forcing bolts.",
+    "TR8nut flange22x3.5 mm/body10.2/length15/PCD16 mm are selectedlistinginterfaces; verify before finishing seats.",
+    "Switch roller travel and friction spring rate require physical grading."
+  ],
+  "axis_names": [
+    "x",
+    "y",
+    "z",
+    "yaw",
+    "pitch",
+    "roll"
+  ],
+  "linear_limits_mm": {
+    "soft": [
+      -85,
+      85
+    ],
+    "switch": [
+      -89,
+      89
+    ],
+    "metal_stop": [
+      -94,
+      94
+    ]
+  },
+  "angular_limits_deg": {
+    "soft": [
+      -20,
+      20
+    ],
+    "soft_by_axis": {
+      "yaw": [
+        -20,
+        20
+      ],
+      "pitch": [
+        -20,
+        10
+      ],
+      "roll": [
+        -20,
+        20
+      ]
+    },
+    "switch": [
+      -21,
+      21
+    ],
+    "switch_by_axis": {
+      "yaw": [
+        -21,
+        21
+      ],
+      "pitch": [
+        -21,
+        11
+      ],
+      "roll": [
+        -21,
+        21
+      ]
+    },
+    "metal_stop": [
+      -22,
+      22
+    ],
+    "metal_stop_by_axis": {
+      "yaw": [
+        -22,
+        22
+      ],
+      "pitch": [
+        -22,
+        12
+      ],
+      "roll": [
+        -22,
+        22
+      ]
+    }
+  },
+  "angular_actuator": {
+    "r_mm": 150.0,
+    "L0_mm": 180.0,
+    "soft_length_mm": [
+      129.01451207150308,
+      231.47984751208955
+    ],
+    "hard_length_mm": [
+      124.28986483231574,
+      236.44340250671792
+    ],
+    "minimum_effective_lever_mm": 133.6015268895758
+  },
+  "rail_block_end_margin_at_hard_stop_mm": 22.5,
+  "XYZ_stop_stack_mm": {
+    "carriage_half_length": 105,
+    "stationary_contact_face_from_bed_center": 199,
+    "metal_travel": 94,
+    "backing_leg_inner_face": 205.35,
+    "backing_leg_outer_face": 211.7,
+    "foot_bolt_local_X": [
+      -171,
+      171
+    ],
+    "foot_bolt_local_Y": [
+      -10,
+      10
+    ],
+    "minimum_X_frame_to_12mm_foot_washer_clearance": 3,
+    "switch_travel": 89,
+    "switch_to_metal_margin": 5
+  },
+  "nominal_motion": {
+    "lead_mm": 2.0,
+    "ratio": 4,
+    "full_step_um": 2.5,
+    "sixteen_microstep_command_pulses_per_mm": 6400.0,
+    "minimum_fullstep_tool_increment_um_at_200mm": 3.3333333333333335
+  },
+  "tool_proxy": {
+    "v_mm": [
+      200.0,
+      0.0,
+      47.35
+    ],
+    "reference_dot_mm": [
+      -61.85,
+      0.0,
+      278.4
+    ],
+    "gimbal_center_mm": [
+      -25.354883337958576,
+      -136.20162961089204,
+      427.9300807568877
+    ],
+    "orientation_deg": [
+      105,
+      60,
+      0
+    ],
+    "scope": "Gun proxy is unscanned; actual tool transform must be observed and calibrated. Nominal mechanical axes are Rz Ry Rx."
+  },
+  "dot_compensation_hard_angle_sample": {
+    "poses": 9522,
+    "minimum_mm": [
+      -76.60138607394724,
+      -50.534732773642816,
+      -63.71009487503434
+    ],
+    "maximum_mm": [
+      88.78449779185735,
+      64.1722354142129,
+      27.114710358706333
+    ],
+    "fits_soft_xyz": false,
+    "sampling_deg": 2,
+    "scope": "Reach arithmetic; it does not establish body, camera, cable or tube clearance."
+  },
+  "load_scenario": {
+    "assumed_maximum_Z_axial_force_N": 300,
+    "assumed_pitch_shaft_output_moment_Nm": 15,
+    "yaw_roll_normal_moment_Nm": 10,
+    "normal_pitch_actuator_force_N": 100,
+    "angular_force_at_minimum_effective_lever_N": 112.27416594121551,
+    "TR8_efficiency_assumption": 0.2,
+    "screw_torque_Nm_at_300N": 0.477464829275686,
+    "motor_torque_Nm_at_4to1_and_90pct_belt": 0.1326291192432461,
+    "shaft_nominal_torsion_MPa": 44.20970641441537,
+    "shaft_no_transverse_holes": true,
+    "shaft_end_threads": "M5x0.8",
+    "shaft_end_section_conservative_bore_mm": 5,
+    "shaft_torsion_MPa_at_25Nm": 73.68284402402563,
+    "shaft_torsion_MPa_at_32p5Nm_with_5mm_end_bore": 98.76454128520977,
+    "nominal_304_yield_MPa_assumption": 205,
+    "nominal_304_shear_yield_MPa_assumption": 118.35680518387329,
+    "hub_clamp_bolts_per_hub": 2,
+    "hub_high_pitch_path_proof_interval_Nm": [
+      30,
+      32.5
+    ],
+    "hub_other_path_proof_interval_Nm": [
+      25.2,
+      27.5
+    ],
+    "hub_capacity_scope": "No friction capacity follows from clamp bolt grade or CAD. Every hub must pass the measured two-sign proof and warm/cycled recheck before loaded use.",
+    "TR8_pinned_400mm_Euler_buckling_N": 554.153926850915,
+    "buckling_factor_at_upward_compression_ceiling_350N": 1.5832969338597571,
+    "conservative4040_180mm_cantilever_deflection_mm": 0.1152066450054996,
+    "scope": "Assumed loads and sections only. Supplier moment ratings, actual mass, cable forces, jam forces, preload, duty temperature and creep capacity are not established by this arithmetic."
+  },
+  "retention": {
+    "metal_bounds": true,
+    "gun_tether_required": true,
+    "pose_retention_on_power_loss": "Spring-loaded friction washers on Z/pitch/roll. No accepted loaded result. Single243-locked nut each side:24h cure and witness marks.",
+    "breakaway_windows_Nm": {
+      "z": [
+        0.2,
+        0.23
+      ],
+      "pitch": [
+        0.06,
+        0.08
+      ],
+      "roll": [
+        0.02,
+        0.04
+      ]
+    },
+    "loaded_tube_sweep": "Independent travel box contains vessel-collision poses. Dry commissioning removes the tube; loaded seam work is restricted to physically accepted correlated paths."
+  },
+  "force_links": {
+    "spring_free_mm": 20,
+    "spring_nominal_k_N_per_mm": 43,
+    "spring_source": "B0B771L8G8",
+    "springs_per_axis": 4,
+    "seated_preload_N": {
+      "yaw_roll": 100,
+      "pitch": 130,
+      "X_Y": 250,
+      "Z_up_negative_length": 250,
+      "Z_down_positive_length": 400
+    },
+    "trip_displacement_mm": {
+      "angular": 0.3,
+      "XYZ": 0.75
+    },
+    "captured_displacement_mm": 1.0,
+    "nominal_trip_force_N": {
+      "yaw_roll": 125.8,
+      "pitch": 155.8,
+      "X_Y_Z_up": 314.5,
+      "Z_down": 464.5
+    },
+    "accept_trip_force_N": {
+      "yaw_roll": [
+        100,
+        140
+      ],
+      "pitch": [
+        148,
+        165
+      ],
+      "X_Y_Z_up": [
+        250,
+        350
+      ],
+      "Z_down": [
+        440,
+        500
+      ]
+    },
+    "powered_peak_ceiling_N": {
+      "yaw_roll": 140,
+      "pitch": 165,
+      "X_Y_Z_up": 350,
+      "Z_down": 500
+    },
+    "switch_required_overtravel_mm": {
+      "angular": 0.8,
+      "XYZ": 0.35
+    },
+    "switches_per_axis_loop": 4,
+    "scope": "Measure both directions and peak force with hardware loop active. Motor current is not a calibrated force limiter."
+  },
+  "manufacturing_clearances_mm": {
+    "XYZ_cage_to_bed": 1.0,
+    "XYZ_cage_to_carriage": 1.0,
+    "XYZ_cage_to_rail_support": 2.0,
+    "spring_maximum_compression_at_capture_yaw_roll": 2.162790697674419,
+    "spring_maximum_compression_at_capture_pitch": 2.511627906976744,
+    "spring_maximum_compression_at_capture_X_Y_Z_up": 3.9069767441860463,
+    "spring_maximum_compression_at_capture_Z_down": 5.651162790697675
+  },
+  "drive_directions": {
+    "x": "positiveX lengthens",
+    "y": "positiveY lengthens",
+    "z": "positiveZ shortens; fixed thrust atTOP",
+    "yaw": "positive angle lengthens",
+    "pitch": "positive angle lengthens",
+    "roll": "positive angle lengthens"
+  },
+  "work_subset_candidate": {
+    "yaw_deg": [
+      -5,
+      5
+    ],
+    "pitch_deg": [
+      -10,
+      10
+    ],
+    "roll_deg": [
+      -5,
+      5
+    ],
+    "endpoint_offset_each_axis_mm": [
+      -0.25,
+      0.25
+    ],
+    "XYZ": "correlated inverse geometry keeps actual calibrated endpoint at the seam",
+    "acceptance": "Proxy clearance screening plus physical-gun/rotator/cable static sweep before motion; missing evidence limits approval."
+  },
+  "fiber": {
+    "independent_boom": true,
+    "minimum_active_radius_mm": 350,
+    "no_twist": true,
+    "full_routing_sweep": "Preserve at least350 mm radius throughout the accepted working path. Boom dimensions alone do not qualify cable routing."
+  }
+}
