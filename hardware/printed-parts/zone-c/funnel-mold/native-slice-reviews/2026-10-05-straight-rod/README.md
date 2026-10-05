@@ -31,6 +31,11 @@ paths. The [cavity](cavity-support-topology.json) and
 [core](core-support-topology.json) topology records read every emitted support
 path. Supports are accessible from the open dry backs and outer flanges.
 
+The [geometry review](geometry-lint.json) follows verified live publication.
+All 23 findings are anchored in the current shell annotations: opening
+notches, the finishing pocket and supported flat backs. The core guide's
+print-down face is an annulus around its open 6.4 mm passage.
+
 The [rod check](../../rod-check.json) reads the exported straight cylinder,
 open guide, free axial movement, complete casting equality and installed
 drain-tube contact. The [closure check](../../containment-review.json) caps
