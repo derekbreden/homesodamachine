@@ -2,7 +2,7 @@
   "schema_version": 1,
   "article": "Timed C3/V69 front top insertion on H2C",
   "session": "Printer 2",
-  "state": "accepted_monitoring_insertion",
+  "state": "monitoring_stopped_by_user",
   "timezone": "America/Chicago",
   "clock_choice": "Local Central clock, CDT UTC-05:00 on 2026-10-05",
   "authorization_quotes": [
@@ -125,14 +125,14 @@
   "launch_record": "launch.json",
   "preflight_record": "preflight.json",
   "automation_id": "c3-cradle-timed-insertion",
-  "automation_status": "ACTIVE",
-  "monitoring_branch_state": "accepted_monitoring_insertion",
+  "automation_status": "PAUSED",
+  "monitoring_branch_state": "stopped_by_user",
   "start_reported": true,
   "insertion_pause_reported": false,
   "fault_reported": false,
   "insertion_action": "Insert the labeled attracting K&J RC62 upright, axis along Y, in the front-top retention pocket. Seat it at the bottom against the cover toward its future cradle mate, fully below both completed open rims, with the toolhead clear. Resume only after separate authorization.",
   "scope": "Exactly one reviewed C3/V69 H2C v20 front-top start under the shared morning plan. Frozen preparation and native-review files document their captured preparation scope; this plan is the current launch authorization for their exact hashes. No funnel frame, cap, other archive or automatic resume is authorized.",
-  "automation_schedule": "Monitor the two exact accepted tasks every five minutes. Both start reports are complete; notify only new actionable faults or actual programmed insertion pauses.",
+  "automation_schedule": "Scheduled printer checks stopped at Derek’s request.",
   "initial_preflight_completed_at_utc": "2026-10-05T08:56:26.334770+00:00",
   "transaction_invoked_at_utc": "2026-10-05T09:43:15.971175+00:00",
   "task_id": "1310609527",
@@ -147,5 +147,39 @@
   "start_reported_at_utc": "2026-10-05T09:46:03.641723+00:00",
   "initial_print_progress_recorded": true,
   "first_layer_progress_recorded": true,
-  "initial_print_progress_observed_at_utc": "2026-10-05T09:59:36.502502+00:00"
+  "initial_print_progress_observed_at_utc": "2026-10-05T09:59:36.502502+00:00",
+  "monitoring_stop": {
+    "requested_by": "Derek",
+    "request_quote": "Stop your annoying scheduled task that is doing nothing here.",
+    "automation_id": "c3-cradle-timed-insertion",
+    "automation_status": "PAUSED",
+    "stopped_at_utc": "2026-10-05T14:41:53.564000+00:00",
+    "stopped_at_local": "2026-10-05T09:41:53.564000-05:00",
+    "printer_control_action_performed": false,
+    "automatic_resume_authorized": false
+  },
+  "latest_manual_telemetry": {
+    "observed_at": "2026-10-05T14:42:50.755669+00:00",
+    "task_id": "1310609527",
+    "job_id": "1310609527",
+    "subtask_name": "2026-10-05-enclosure-front-top-c3-v69-h2c-v20.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 287,
+    "total_layer_num": 1346,
+    "mc_percent": 22,
+    "mc_remaining_time": 1028,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": 0,
+    "left_nozzle": {
+      "actual_c": 280,
+      "target_c": 280
+    },
+    "chamber": {
+      "actual_c": 35,
+      "target_c": 0
+    }
+  },
+  "operator_reported_first_covering_layer_accepted": true,
+  "physical_result": "physical-acceptance.json"
 }

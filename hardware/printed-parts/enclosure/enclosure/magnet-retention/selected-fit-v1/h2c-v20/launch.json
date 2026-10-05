@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "printer": "H2C",
-  "state": "accepted_monitoring_insertion",
-  "monitoring_branch_state": "accepted_monitoring_insertion",
+  "state": "monitoring_stopped_by_user",
+  "monitoring_branch_state": "stopped_by_user",
   "send_attempted": true,
   "submitted": true,
   "task_id": "1310609527",
@@ -95,5 +95,40 @@
       "target_c": 0
     },
     "scope": "Matching-task telemetry confirms progression into the first print layer. It does not establish completion of that layer, visual adhesion, fit, magnet seating, roof quality, density or strength."
-  }
+  },
+  "automation_status": "PAUSED",
+  "monitoring_stop": {
+    "requested_by": "Derek",
+    "request_quote": "Stop your annoying scheduled task that is doing nothing here.",
+    "automation_id": "c3-cradle-timed-insertion",
+    "automation_status": "PAUSED",
+    "stopped_at_utc": "2026-10-05T14:41:53.564000+00:00",
+    "stopped_at_local": "2026-10-05T09:41:53.564000-05:00",
+    "printer_control_action_performed": false,
+    "automatic_resume_authorized": false
+  },
+  "latest_manual_telemetry": {
+    "observed_at": "2026-10-05T14:42:50.755669+00:00",
+    "task_id": "1310609527",
+    "job_id": "1310609527",
+    "subtask_name": "2026-10-05-enclosure-front-top-c3-v69-h2c-v20.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 287,
+    "total_layer_num": 1346,
+    "mc_percent": 22,
+    "mc_remaining_time": 1028,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": 0,
+    "left_nozzle": {
+      "actual_c": 280,
+      "target_c": 280
+    },
+    "chamber": {
+      "actual_c": 35,
+      "target_c": 0
+    }
+  },
+  "operator_reported_first_covering_layer_accepted": true,
+  "physical_result": "physical-acceptance.json"
 }
