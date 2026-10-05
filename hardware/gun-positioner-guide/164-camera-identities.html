@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Identify camera A, then camera B</title><link rel="stylesheet" href="style.css"></head>
+<body><article class="card compact">
+<header><div class="eyebrow"><b>Dry commissioning / camera identity</b><span>164 / 179</span></div><h1>Identify camera A, then camera B</h1><i class="rule"></i><p class="lede">The two cameras can share a product name. Identify each by the inventory change when its labeled USB cable is connected.</p></header>
+<main><figure class="short"><img src="art/camera-startup.png" alt="Startup is done with both complete lens modules set aside. Keep each camera on its assigned USB port."><figcaption>Startup is done with both complete lens modules set aside. Keep each camera on its assigned USB port.</figcaption></figure><ol class="actions"><li>Unplug both camera USB cables and run the first inventory command.</li><li>Plug in only A and run the second command. Record the one new unique_id and name.</li><li>Plug in B and run the third command. Record its one new unique_id and name; label both cables/ports.</li></ol><pre>$GP_PY $GP_OBS/observe.py cameras --save &quot;$GP_SETUP/cams-none.json&quot;
+$GP_PY $GP_OBS/observe.py cameras --new-since &quot;$GP_SETUP/cams-none.json&quot; --save &quot;$GP_SETUP/cams-a.json&quot;
+$GP_PY $GP_OBS/observe.py cameras --new-since &quot;$GP_SETUP/cams-a.json&quot;</pre><div class="gate"><strong>Ready when</strong><p>Each connection introduces exactly its intended device, with a distinct recorded unique ID. <span class="fail">Multiple new devices or a reused ID makes assignment ambiguous. Repeat that connection/inventory step before capturing frames.</span></p></div></main>
+<footer><span>Gun positioner · assembly guide</span><span>LETTER / 164</span></footer>
+</article></body></html>

@@ -12,6 +12,7 @@ sequence of actions, and a visible check before the next operation.
 | [Refrigeration](../../refrigeration-guide/README.md) | Coil and probes, donor circuit, opening and joining, leak and vacuum work, charge and commissioning |
 | [Drill and weld bench sheets](../letter/README.md) | The endcap register, closure weld setup, pedal and trigger sequence |
 | [Weld rotator](../../weld-rotator-guide/README.md) | Building, checking and operating the rotation fixture |
+| [Gun positioner](../../gun-positioner-guide/README.md) | Six-axis fixture, passive retention, dry-development controller, two-camera mounts and measured commissioning |
 
 The [document shelf](https://homesodamachine.com/drawings) carries each complete
 PDF. Fabrication procedures under `hardware/assembly/` and physical qualification

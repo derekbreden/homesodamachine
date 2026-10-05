@@ -59,8 +59,8 @@ The category tables below describe one complete build. Splitting a shared pack a
 |---|---:|---:|---:|---:|---:|
 | [KP001 (KP12) pillow block, 12 mm bore, two per gimbal axis](https://www.amazon.com/dp/B0CZNMJ7BY) | 6 | 4 | **2** | $9.99 | **$19.98** |
 | [12 mm round 304 shaft, plain, with centered M5 tapped ends: 175 + 165 + 130 + 85 mm cuts](https://www.amazon.com/dp/B0DKXSXP4V) | 2 | 2 | **1** | $21.59 | **$21.59** |
-| [M4 x 50 grade 12.9: hub split clamps and cross-bolts (14) + controller panel (4)](https://www.amazon.com/dp/B015A37OKA) | 18 | 20 | **1** | $9.11 | **$9.11** |
-| [M4 nylon-insert lock nuts: hub bolts (32) + controller panel (4)](https://www.amazon.com/dp/B0FJ8TRT4W) | 36 | 100 | **1** | $9.34 | **$9.34** |
+| [M4 x 50 grade 12.9: two split-clamp bolts per shaft hub (14) + controller panel (4)](https://www.amazon.com/dp/B015A37OKA) | 18 | 20 | **1** | $9.11 | **$9.11** |
+| [M4 nylon-insert lock nuts: hub clamps and proof fixtures (32) + controller panel (4)](https://www.amazon.com/dp/B0FJ8TRT4W) | 36 | 100 | **1** | $9.34 | **$9.34** |
 | [M4 flat washers 9 OD: hub bolts (28), force-gauge mount (4) + controller panel (8)](https://www.amazon.com/dp/B07WZ7BQYM) | 40 | 100 | **1** | $9.94 | **$9.94** |
 
 ## Plate
@@ -84,7 +84,7 @@ The category tables below describe one complete build. Splitting a shared pack a
 |---|---:|---:|---:|---:|---:|
 | [Cobalt jobber drills 1.0-13.0 mm in 0.5 mm steps: clearance holes (3.5/5.5/6.5/8.5/10.5) and opening the 20 mm spacer tube to 12.5 mm](https://www.amazon.com/dp/B0C2TQ3961) | 1 | 1 | **1** | $65.98 | **$65.98** |
 | [4 in drill-press vise for plate and shaft drilling (WEN 4208T on hand; no vise recorded)](https://www.amazon.com/dp/B0GY8RY3JM) | 1 | 1 | **1** | $29.99 | **$29.99** |
-| [Metric transfer punches for transfer-drilling rail, KP08, KP12 and caliper holes from the actual parts](https://www.amazon.com/dp/B0973MPLNF) | 1 | 1 | **1** | $28.59 | **$28.59** |
+| [Metric transfer punches for transfer-drilling rail, KP08 and KP12 mounting holes from the actual parts](https://www.amazon.com/dp/B0973MPLNF) | 1 | 1 | **1** | $28.59 | **$28.59** |
 | [Automatic center punch for marking from the 1:1 templates](https://www.amazon.com/dp/B008DXYOLC) | 1 | 1 | **1** | $11.19 | **$11.19** |
 | [Metric hex keys 1.5-10 mm (the ledger records no 3, 5 or 6 mm keys)](https://www.amazon.com/dp/B0D486B4CT) | 1 | 1 | **1** | $14.98 | **$14.98** |
 | [Metric feeler gauges 0.02-1.00 mm (clearance and brake pad gap checks; none recorded)](https://www.amazon.com/dp/B08GLN7K1R) | 1 | 1 | **1** | $8.99 | **$8.99** |
@@ -101,7 +101,7 @@ The category tables below describe one complete build. Splitting a shared pack a
 
 | Purchase link and exact specification | Needed | Pieces per pack | Buy packs | Pack price | Subtotal |
 |---|---:|---:|---:|---:|---:|
-| [Medium-strength threadlocker for jam pairs and set screws (none recorded)](https://www.amazon.com/dp/B004L439FE) | 1 | 1 | **1** | $9.17 | **$9.17** |
+| [Loctite 243 medium-strength threadlocker for fixed-end nuts, shaft-end keepers and bearing set screws](https://www.amazon.com/dp/B004L439FE) | 1 | 1 | **1** | $9.17 | **$9.17** |
 | [PTFE synthetic grease for the TR8 brass nuts (none recorded)](https://www.amazon.com/dp/B000XBH9HI) | 1 | 1 | **1** | $10.99 | **$10.99** |
 | [Cutting fluid for drilling and tapping aluminum and 304](https://www.amazon.com/dp/B00065VEP4) | 1 | 1 | **1** | $4.60 | **$4.60** |
 
@@ -124,7 +124,7 @@ The category tables below describe one complete build. Splitting a shared pack a
 | [1.5 in square 6061 bar: seven shaft hubs 38.1 x 38.1 x 25 mm (199 mm with kerf)](https://www.amazon.com/dp/B09MH8Q6BT) | 1 | 1 | **1** | $24.99 | **$24.99** |
 | [8 OD x 6 ID aluminum tube: 222 cut spacers (force-link and crash-cage ties, nut frames, pitch webs, angular outputs, roll feet, guard and V-keeper stand-offs)](https://www.amazon.com/dp/B0F93J6J6W) | 12 | 2 | **6** | $8.16 | **$48.96** |
 | [10 OD x 8 ID aluminum tube: KP08 risers, X-Y deck spacers, fiber bases and axle tubes, redirect and hinge contacts drilled 8.5, gauge spacers (72 spacers)](https://www.amazon.com/dp/B0B4W3PC8K) | 4 | 2 | **2** | $6.59 | **$13.18** |
-| [20 OD x 12 ID aluminum tube, opened to 12.5 mm: fourteen rotating axial spacers on the gimbal shafts (231.55 mm finished)](https://www.amazon.com/dp/B0CX48Z33G) | 1 | 2 | **1** | $10.29 | **$10.29** |
+| [20 OD x 12 ID aluminum tube, opened to 12.5 mm: fourteen rotating axial spacers on the gimbal shafts (231.05 mm finished)](https://www.amazon.com/dp/B0CX48Z33G) | 1 | 2 | **1** | $10.29 | **$10.29** |
 
 ## Force links
 
@@ -132,7 +132,7 @@ The category tables below describe one complete build. Splitting a shared pack a
 |---|---:|---:|---:|---:|---:|
 | [M8 x 90 partly threaded guide bolts, two per force link (12)](https://www.amazon.com/dp/B0GFF7KVNX) | 12 | 8 | **2** | $9.99 | **$19.98** |
 | [8 x 12 x 10 bronze bushings: force-link shuttles (12) + crash lower guide blocks (4)](https://www.amazon.com/dp/B0FM8QSVBS) | 16 | 10 | **2** | $8.99 | **$17.98** |
-| [Force instrument for spring grading and bilateral trip tests, 100-150 N angular and 250-350 N XYZ](https://www.amazon.com/dp/B08YJNGVKM) | 1 | 1 | **1** | $51.43 | **$51.43** |
+| [500 N push/pull instrument for spring grading, bilateral force-link trips and supported shaft proofs](https://www.amazon.com/dp/B08YJNGVKM) | 1 | 1 | **1** | $51.43 | **$51.43** |
 | [Seated-detent springs, two per direction per link (24): 16 OD / 8.5 ID / 20 mm free](https://www.amazon.com/dp/B0B771L8G8) | 24 | 5 | **5** | $7.46 | **$37.30** |
 | [M8 fender washers 8.5 x 32 x 1.5: force-link spring seats (24) + crash pods (4)](https://www.amazon.com/dp/B0GSLW9F7G) | 28 | 50 | **1** | $8.99 | **$8.99** |
 
@@ -155,7 +155,7 @@ The category tables below describe one complete build. Splitting a shared pack a
 | [80 mm metal finger guards, both faces of the driver fan (2)](https://www.amazon.com/dp/B0G51CPGHZ) | 2 | 6 | **1** | $7.64 | **$7.64** |
 | [1.8 kΩ UART pull-ups (2)](https://www.amazon.com/dp/B08QRBHYCQ) | 2 | 100 | **1** | $5.49 | **$5.49** |
 | [330 Ω UART TX series resistors (2)](https://www.amazon.com/dp/B08QRWFC4T) | 2 | 100 | **1** | $5.49 | **$5.49** |
-| [Raspberry Pi Pico H or Pico WH, RP2040, soldered 2x20 headers, Micro-USB data cable (qty 1)](https://www.amazon.com/dp/B0D4V1S1SK) | 1 | 1 | **1** | $9.99 | **$9.99** |
+| [RP2040 Raspberry Pi Pico with soldered 2x20 headers; Micro-USB data cable purchased separately](https://www.amazon.com/dp/B0D4V1S1SK) | 1 | 1 | **1** | $9.99 | **$9.99** |
 | [ACCESSORY of pico: Micro-USB data cable; variant: 6 Feet / 1 Pack](https://www.amazon.com/dp/B07232M876) | 1 | 1 | **1** | $8.92 | **$8.92** |
 | [BIGTREETECH TMC2209 V1.3 removable modules, heatsinks, two R110 current-sense resistors per module (qty 6); variant: 6*TMC2209](https://www.amazon.com/dp/B08WZFK9KT) | 6 | 6 | **1** | $29.99 | **$29.99** |
 | [STEPstick carrier with separate VM, GND, VIO, STEP, DIR, EN, MS1, MS2 and accessible PDN_UART; >=35 V electrolytic at VM (qty 6)](https://www.amazon.com/dp/B0DQBXGP88) | 6 | 10 | **1** | $6.99 | **$6.99** |

@@ -1,0 +1,47 @@
+{
+  "title": "Gun positioner assembly guide",
+  "pages": 179,
+  "page_inches": [
+    8.5,
+    11
+  ],
+  "canvas_pixels": [
+    2550,
+    3300
+  ],
+  "print_scaling": "100% / actual size",
+  "artwork": "CAD assemblies plus vector wiring and measurement schematics",
+  "source_sha256": {
+    "firmware/src_gun_positioner/assets/build-manifest.json": "e16383926ffadc5b883ffa344246804e36f68fa41ce435b6354dd0a9ca055893",
+    "hardware/gun-positioner-guide/art/scene-receipt.json": "c98f07689abbf0e8c80b0018c2f3af07a44a793c68e4a7a948f56d9ec12144b2",
+    "hardware/gun-positioner-guide/art/schematic-receipt.json": "c80f29b46b0d523196c4a49fa68c9deae0aff6a1b7171416e3be41f2fb3975af",
+    "hardware/gun-positioner-guide/drill-template-receipt.json": "583184d30e21383390de05db83d2372cdc055ea557ffcd37fa4fc1a2f12d52b7",
+    "hardware/gun-positioner-guide/page-manifest.json": "ce03242a02fa9ffb60042154151f3c1c25e8f539084b8bc658493387d2e939ab",
+    "hardware/gun-positioner-guide/style.css": "9864a8b9aa572064016a7d26c3b43d364edb307e1d82eaef80e40430e00047ad",
+    "hardware/gun-positioner/commissioning.md": "7d3b2c183446a9792eae9985b27e3a288a6dbf34b2cd0bddd3ef63c446e838c8",
+    "hardware/gun-positioner/control.md": "647a9ce7c3c4b6e312f178ad7d3e42424f5af30ff7d254aedfd4d975bce4e1fb",
+    "hardware/gun-positioner/mounting/generate.py": "e1142e06947ec6c3c468f08122d8d07a835978af9cdaf81f5d3b3a9b51f434aa",
+    "hardware/gun-positioner/mounting/manifest.json": "4e81de4b417eaa357c8f7874448f00b4d35009532b0c789cd34b9f0b0b759625",
+    "hardware/gun-positioner/observation.md": "69b43c50a91111d3d6e50a49cea3d58a0fd42f33f004cb48cb4ff1f39bc3b2a7",
+    "hardware/gun-positioner/wiring-manifest.json": "1ff5044b6729188442d750ac52e335e43906bab39b851b03f509cedbcbe4b046",
+    "hardware/printed-parts/fixtures/gun-positioner-observation/manifest.json": "c923dd7c07d2612aac24e64f6a6d9db3ea7aaa43a9e81dc1c33b0e6a994e5b53",
+    "hardware/printed-parts/fixtures/gun-positioner/fasteners.json": "431e22bf5ba47aa9fdbe64f6b8a070854fb0dbdbc20384b6382fc866dfc27adc",
+    "hardware/printed-parts/fixtures/gun-positioner/gun_positioner.py": "e219feaa319f2aee19c1792522d69dd337b2e27ffdb0eaa46ce5978469bfab08",
+    "hardware/printed-parts/fixtures/gun-positioner/requirements.json": "736446b1b3de2b8c7d358d2e223928c157248925106409a17354a2f07036d91a",
+    "tools/gun-positioner-guide/art.py": "5910dab2d26404e664da7275c8fede80d9737bb4c7fa1317aa9b1ab65452201b",
+    "tools/gun-positioner-guide/author.py": "35769a7e33e839dde58cef26dcf4ef41a55f14ee524b76ae09942e4a51d78a44",
+    "tools/gun-positioner-guide/build.py": "05a11d4de3d8f8ad0071357820f1fd42a74c2e1daa46ad235a6c4d2ba58aa418",
+    "tools/gun-positioner-guide/clamp_art.py": "fdfb026eb5ce85a51ec2c7e95b127dac634d6ab15057a1efffc1118ec2902385",
+    "tools/gun-positioner-guide/schematic_detail.py": "93c5eb298f9adf5fcb6105326646cad38a775aac92bf703adb2e8a5fad258293",
+    "tools/gun-positioner-guide/templates.py": "09ea8c6d246d37de03712622892d385eeb1a96ac7293007a181d339469e966db",
+    "tools/gun-positioner-observation/README.md": "7bccb5df518468cfd0c4b2671111a631d4d7d902e3877649a8720dc12368c640",
+    "tools/gun-positioner-observation/examples/cameras.example.json": "ecaeffa4d119a34741dc64d1e422d223750f7442ff576d04be1295f7682ea3da",
+    "tools/gun-positioner-observation/examples/features.example.json": "f7a788a277fe2481c2853af9a59a1de9e2c5985f4af4cafe8fa6b7bc50f062d2",
+    "tools/gun-positioner-observation/examples/operator-optics.example.json": "f8a1b92aca71467455913f689a127710f8ce7cde7366b19236dcf027e61e117f",
+    "tools/gun-positioner-observation/examples/target.example.json": "daf9e9cc2686013ece7c4dd2ca5ae1826785d65451a0a9626242fc08796d6943",
+    "tools/gun-positioner-observation/gpobs/learn.py": "f8acbc781fe1643faba073f692fbe4c3cd897735854ea236a2450b7b400ce5ad",
+    "tools/gun-positioner-observation/observe.py": "1dcc562c5193c25d536503a8944a7638b4c8d1606ab30ffe2eb2bb69622855df",
+    "tools/gun-positioner-optics/mounts.py": "0e13a0a34b58bc6dcbdd858fd9d80e809630ea8d8a5b296134fbf0a5ee085c9c"
+  },
+  "pdf_sha256": "0fe79da7bd937ffde8e632d3d69bf65ffa875d44f4911ba3ea7fba4719746406"
+}

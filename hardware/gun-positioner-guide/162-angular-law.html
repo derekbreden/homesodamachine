@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Screen the three clevis laws</title><link rel="stylesheet" href="style.css"></head>
+<body><article class="card compact">
+<header><div class="eyebrow"><b>Dry commissioning / nominal geometry</b><span>162 / 179</span></div><h1>Screen the three clevis laws</h1><i class="rule"></i><p class="lede">Measure pin-coordinate changes in each local lever plane. At 150 mm radius, a 5° probe changes the tangential coordinate by about 13 mm.</p></header>
+<main><div class="tray"><div><strong>Add</strong>No new parts</div><div><strong>Tools / setup</strong>Caliper · fixed datum faces · neutral vector record · supported collision-free path</div></div><figure class="short"><img src="art/angular-law.svg" alt=""><figcaption></figcaption></figure><ol class="actions"><li>Record each shaft center, neutral lever vector and measured radius from fixed metal datums.</li><li>Issue +5°, restore 0, issue −5° and restore 0 on U; repeat separately on V/W.</li><li>Measure the lever-pin coordinate changes rather than an 180 mm span beyond the six-inch caliper.</li><li>Calculate angle from atan2 of the measured vector; record setup repetition and sign.</li></ol><pre>angle U 5 1000
+angle U 0 1000
+angle U -5 1000
+angle U 0 1000</pre><div class="gate"><strong>Ready when</strong><p>Residual is ≤0.20° with demonstrated setup uncertainty ≤0.05°. The combined 0.25° allocation is within the 1° soft-to-switch margin. <span class="fail">If the setup cannot support 0.05°, record the law as unverified and improve its datum fixture. A different measured law requires explicit calibration before using angular limits.</span></p></div></main>
+<footer><span>Gun positioner · assembly guide</span><span>LETTER / 162</span></footer>
+</article></body></html>

@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Recover an ambiguous session explicitly</title><link rel="stylesheet" href="style.css"></head>
+<body><article class="card compact">
+<header><div class="eyebrow"><b>Controller / recovery</b><span>138 / 179</span></div><h1>Recover an ambiguous session explicitly</h1><i class="rule"></i><p class="lede">An ambiguous mutating reply triggers the client's STOP/STATUS resynchronization and a latched host failure. Explicit recovery clears that failure; it never retries the movement.</p></header>
+<main><div class="tray"><div><strong>Add</strong>No new parts</div><div><strong>Tools / setup</strong>Supported load · MOTOR POWER access · actual physical datum · log</div></div><figure class="short"><img src="art/software-banner.svg" alt=""><figcaption></figcaption></figure><ol class="actions"><li>Support the load, remove motor power and inspect the logged ambiguous command and observed position.</li><li>Issue <code>recover</code> to stop/resynchronize the link; preserve the ambiguous record and do not resend its movement.</li><li>Correct the cause and physically restore the central datum. Restore motor power and run the sequence below.</li><li>Check profile, six driver readbacks and zero counts; accept fresh observations before another bounded request.</li></ol><pre>recover
+clear
+reference central
+arm
+status</pre><div class="gate"><strong>Ready when</strong><p>Recovery has an explicit stop record, the actual datum is restored and arming completes fresh six-driver checks without moving. <span class="fail">A command replay, arbitrary zero or automatic restart fails recovery. Leave motor power off until the uncertain outcome and fault are resolved.</span></p></div></main>
+<footer><span>Gun positioner · assembly guide</span><span>LETTER / 138</span></footer>
+</article></body></html>

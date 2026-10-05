@@ -1,0 +1,1940 @@
+fiber-swivel-base.stl · 2552 printed facets · 0 findings
+
+fiber-bearing-cap.stl · 2024 printed facets · 0 findings
+
+torque-cord-pulley.stl · 3536 printed facets · 2 findings
+
+  [ceiling] 405 mm² flat print-down face at z=9.000 · 46.0 × 46.0 mm · drop 8.0–8.0 mm to material below
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/torque-cord-pulley.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=0.000 y=0.000 z=9.000
+    click: x=0.000 y=0.000 z=9.000
+
+  [ceiling] 300 mm² flat print-down face at z=7.300 · 22.2 × 22.2 mm · open to the bed (7.3 mm up)
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/torque-cord-pulley.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=0.000 y=0.000 z=7.300
+    click: x=0.000 y=0.000 z=7.300
+
+pulley-80t.stl · 5464 printed facets · 241 findings
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.943 y=-0.334 z=0.000 · thru x=-12.633 y=21.377 z=3.500
+    edge: x=-12.633 y=21.377 z=7.000 → x=-12.633 y=21.377 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-12.633 y=21.377 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.943 y=0.334 z=0.000 · thru x=-12.633 y=-21.377 z=3.500
+    edge: x=-12.633 y=-21.377 z=7.000 → x=-12.633 y=-21.377 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-12.633 y=-21.377 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.334 y=-0.943 z=0.000 · thru x=21.377 y=-12.633 z=3.500
+    edge: x=21.377 y=-12.633 z=7.000 → x=21.377 y=-12.633 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=21.377 y=-12.633 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.334 y=0.943 z=0.000 · thru x=21.377 y=12.633 z=3.500
+    edge: x=21.377 y=12.633 z=7.000 → x=21.377 y=12.633 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=21.377 y=12.633 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.334 y=-0.943 z=0.000 · thru x=-21.377 y=-12.633 z=3.500
+    edge: x=-21.377 y=-12.633 z=7.000 → x=-21.377 y=-12.633 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-21.377 y=-12.633 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.334 y=0.943 z=0.000 · thru x=-21.377 y=12.633 z=3.500
+    edge: x=-21.377 y=12.633 z=7.000 → x=-21.377 y=12.633 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-21.377 y=12.633 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.943 y=-0.334 z=0.000 · thru x=12.633 y=21.377 z=3.500
+    edge: x=12.633 y=21.377 z=7.000 → x=12.633 y=21.377 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=12.633 y=21.377 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.943 y=0.334 z=0.000 · thru x=12.633 y=-21.377 z=3.500
+    edge: x=12.633 y=-21.377 z=7.000 → x=12.633 y=-21.377 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=12.633 y=-21.377 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.951 y=-0.309 z=0.000 · thru x=-23.252 y=-7.555 z=3.500
+    edge: x=-23.252 y=-7.555 z=7.000 → x=-23.252 y=-7.555 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-23.252 y=-7.555 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.951 y=0.309 z=0.000 · thru x=-23.252 y=7.555 z=3.500
+    edge: x=-23.252 y=7.555 z=7.000 → x=-23.252 y=7.555 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-23.252 y=7.555 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.309 y=-0.951 z=0.000 · thru x=-7.555 y=-23.252 z=3.500
+    edge: x=-7.555 y=-23.252 z=7.000 → x=-7.555 y=-23.252 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-7.555 y=-23.252 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.309 y=0.951 z=0.000 · thru x=-7.555 y=23.252 z=3.500
+    edge: x=-7.555 y=23.252 z=7.000 → x=-7.555 y=23.252 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-7.555 y=23.252 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.309 y=-0.951 z=0.000 · thru x=7.555 y=-23.252 z=3.500
+    edge: x=7.555 y=-23.252 z=7.000 → x=7.555 y=-23.252 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=7.555 y=-23.252 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.309 y=0.951 z=0.000 · thru x=7.555 y=23.252 z=3.500
+    edge: x=7.555 y=23.252 z=7.000 → x=7.555 y=23.252 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=7.555 y=23.252 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.951 y=-0.309 z=0.000 · thru x=23.252 y=-7.555 z=3.500
+    edge: x=23.252 y=-7.555 z=7.000 → x=23.252 y=-7.555 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=23.252 y=-7.555 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.951 y=0.309 z=0.000 · thru x=23.252 y=7.555 z=3.500
+    edge: x=23.252 y=7.555 z=7.000 → x=23.252 y=7.555 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=23.252 y=7.555 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.988 y=-0.156 z=0.000 · thru x=-24.148 y=-3.825 z=3.500
+    edge: x=-24.148 y=-3.825 z=7.000 → x=-24.148 y=-3.825 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-24.148 y=-3.825 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.988 y=0.156 z=0.000 · thru x=-24.148 y=3.825 z=3.500
+    edge: x=-24.148 y=3.825 z=7.000 → x=-24.148 y=3.825 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-24.148 y=3.825 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.156 y=-0.988 z=0.000 · thru x=-3.825 y=-24.148 z=3.500
+    edge: x=-3.825 y=-24.148 z=7.000 → x=-3.825 y=-24.148 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-3.825 y=-24.148 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.156 y=0.988 z=0.000 · thru x=-3.825 y=24.148 z=3.500
+    edge: x=-3.825 y=24.148 z=7.000 → x=-3.825 y=24.148 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-3.825 y=24.148 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.156 y=-0.988 z=0.000 · thru x=3.825 y=-24.148 z=3.500
+    edge: x=3.825 y=-24.148 z=7.000 → x=3.825 y=-24.148 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=3.825 y=-24.148 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.156 y=0.988 z=0.000 · thru x=3.825 y=24.148 z=3.500
+    edge: x=3.825 y=24.148 z=7.000 → x=3.825 y=24.148 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=3.825 y=24.148 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.988 y=-0.156 z=0.000 · thru x=24.148 y=-3.825 z=3.500
+    edge: x=24.148 y=-3.825 z=7.000 → x=24.148 y=-3.825 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=24.148 y=-3.825 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.988 y=0.156 z=0.000 · thru x=24.148 y=3.825 z=3.500
+    edge: x=24.148 y=3.825 z=7.000 → x=24.148 y=3.825 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=24.148 y=3.825 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-1.000 y=-0.026 z=0.000 · thru x=-5.408 y=24.235 z=3.500
+    edge: x=-5.408 y=24.235 z=7.000 → x=-5.408 y=24.235 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-5.408 y=24.235 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-1.000 y=0.026 z=0.000 · thru x=-5.408 y=-24.235 z=3.500
+    edge: x=-5.408 y=-24.235 z=7.000 → x=-5.408 y=-24.235 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-5.408 y=-24.235 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.026 y=-1.000 z=0.000 · thru x=24.235 y=-5.408 z=3.500
+    edge: x=24.235 y=-5.408 z=7.000 → x=24.235 y=-5.408 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=24.235 y=-5.408 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.026 y=1.000 z=0.000 · thru x=24.235 y=5.408 z=3.500
+    edge: x=24.235 y=5.408 z=7.000 → x=24.235 y=5.408 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=24.235 y=5.408 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.026 y=-1.000 z=0.000 · thru x=-24.235 y=-5.408 z=3.500
+    edge: x=-24.235 y=-5.408 z=7.000 → x=-24.235 y=-5.408 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-24.235 y=-5.408 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.026 y=1.000 z=0.000 · thru x=-24.235 y=5.408 z=3.500
+    edge: x=-24.235 y=5.408 z=7.000 → x=-24.235 y=5.408 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-24.235 y=5.408 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=1.000 y=-0.026 z=0.000 · thru x=5.408 y=24.235 z=3.500
+    edge: x=5.408 y=24.235 z=7.000 → x=5.408 y=24.235 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=5.408 y=24.235 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=1.000 y=0.026 z=0.000 · thru x=5.408 y=-24.235 z=3.500
+    edge: x=5.408 y=-24.235 z=7.000 → x=5.408 y=-24.235 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=5.408 y=-24.235 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.839 y=-0.545 z=0.000 · thru x=-17.274 y=17.837 z=3.500
+    edge: x=-17.274 y=17.837 z=7.000 → x=-17.274 y=17.837 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-17.274 y=17.837 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.839 y=0.545 z=0.000 · thru x=-17.274 y=-17.837 z=3.500
+    edge: x=-17.274 y=-17.837 z=7.000 → x=-17.274 y=-17.837 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-17.274 y=-17.837 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.545 y=-0.839 z=0.000 · thru x=17.837 y=-17.274 z=3.500
+    edge: x=17.837 y=-17.274 z=7.000 → x=17.837 y=-17.274 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=17.837 y=-17.274 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.545 y=0.839 z=0.000 · thru x=17.837 y=17.274 z=3.500
+    edge: x=17.837 y=17.274 z=7.000 → x=17.837 y=17.274 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=17.837 y=17.274 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.545 y=-0.839 z=0.000 · thru x=-17.837 y=-17.274 z=3.500
+    edge: x=-17.837 y=-17.274 z=7.000 → x=-17.837 y=-17.274 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-17.837 y=-17.274 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.545 y=0.839 z=0.000 · thru x=-17.837 y=17.274 z=3.500
+    edge: x=-17.837 y=17.274 z=7.000 → x=-17.837 y=17.274 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-17.837 y=17.274 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.839 y=-0.545 z=0.000 · thru x=17.274 y=17.837 z=3.500
+    edge: x=17.274 y=17.837 z=7.000 → x=17.274 y=17.837 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=17.274 y=17.837 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.839 y=0.545 z=0.000 · thru x=17.274 y=-17.837 z=3.500
+    edge: x=17.274 y=-17.837 z=7.000 → x=17.274 y=-17.837 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=17.274 y=-17.837 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.725 y=-0.688 z=0.000 · thru x=13.312 y=-20.961 z=3.500
+    edge: x=13.312 y=-20.961 z=7.000 → x=13.312 y=-20.961 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=13.312 y=-20.961 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.725 y=0.688 z=0.000 · thru x=13.312 y=20.961 z=3.500
+    edge: x=13.312 y=20.961 z=7.000 → x=13.312 y=20.961 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=13.312 y=20.961 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.688 y=-0.725 z=0.000 · thru x=-20.961 y=13.312 z=3.500
+    edge: x=-20.961 y=13.312 z=7.000 → x=-20.961 y=13.312 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-20.961 y=13.312 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.688 y=0.725 z=0.000 · thru x=-20.961 y=-13.312 z=3.500
+    edge: x=-20.961 y=-13.312 z=7.000 → x=-20.961 y=-13.312 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-20.961 y=-13.312 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.688 y=-0.725 z=0.000 · thru x=20.961 y=13.312 z=3.500
+    edge: x=20.961 y=13.312 z=7.000 → x=20.961 y=13.312 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=20.961 y=13.312 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.688 y=0.725 z=0.000 · thru x=20.961 y=-13.312 z=3.500
+    edge: x=20.961 y=-13.312 z=7.000 → x=20.961 y=-13.312 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=20.961 y=-13.312 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.725 y=-0.688 z=0.000 · thru x=-13.312 y=-20.961 z=3.500
+    edge: x=-13.312 y=-20.961 z=7.000 → x=-13.312 y=-20.961 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-13.312 y=-20.961 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.725 y=0.688 z=0.000 · thru x=-13.312 y=20.961 z=3.500
+    edge: x=-13.312 y=20.961 z=7.000 → x=-13.312 y=20.961 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-13.312 y=20.961 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.793 y=-0.609 z=0.000 · thru x=-18.620 y=16.427 z=3.500
+    edge: x=-18.620 y=16.427 z=7.000 → x=-18.620 y=16.427 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-18.620 y=16.427 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.793 y=0.609 z=0.000 · thru x=-18.620 y=-16.427 z=3.500
+    edge: x=-18.620 y=-16.427 z=7.000 → x=-18.620 y=-16.427 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-18.620 y=-16.427 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.609 y=-0.793 z=0.000 · thru x=16.427 y=-18.620 z=3.500
+    edge: x=16.427 y=-18.620 z=7.000 → x=16.427 y=-18.620 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=16.427 y=-18.620 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.609 y=0.793 z=0.000 · thru x=16.427 y=18.620 z=3.500
+    edge: x=16.427 y=18.620 z=7.000 → x=16.427 y=18.620 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=16.427 y=18.620 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.609 y=-0.793 z=0.000 · thru x=-16.427 y=-18.620 z=3.500
+    edge: x=-16.427 y=-18.620 z=7.000 → x=-16.427 y=-18.620 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-16.427 y=-18.620 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.609 y=0.793 z=0.000 · thru x=-16.427 y=18.620 z=3.500
+    edge: x=-16.427 y=18.620 z=7.000 → x=-16.427 y=18.620 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-16.427 y=18.620 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.793 y=-0.609 z=0.000 · thru x=18.620 y=16.427 z=3.500
+    edge: x=18.620 y=16.427 z=7.000 → x=18.620 y=16.427 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=18.620 y=16.427 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.793 y=0.609 z=0.000 · thru x=18.620 y=-16.427 z=3.500
+    edge: x=18.620 y=-16.427 z=7.000 → x=18.620 y=-16.427 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=18.620 y=-16.427 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.809 y=-0.588 z=0.000 · thru x=-19.779 y=-14.371 z=3.500
+    edge: x=-19.779 y=-14.371 z=7.000 → x=-19.779 y=-14.371 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-19.779 y=-14.371 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.809 y=0.588 z=0.000 · thru x=-19.779 y=14.371 z=3.500
+    edge: x=-19.779 y=14.371 z=7.000 → x=-19.779 y=14.371 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-19.779 y=14.371 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.588 y=-0.809 z=0.000 · thru x=-14.371 y=-19.779 z=3.500
+    edge: x=-14.371 y=-19.779 z=7.000 → x=-14.371 y=-19.779 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-14.371 y=-19.779 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.588 y=0.809 z=0.000 · thru x=-14.371 y=19.779 z=3.500
+    edge: x=-14.371 y=19.779 z=7.000 → x=-14.371 y=19.779 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-14.371 y=19.779 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.588 y=-0.809 z=0.000 · thru x=14.371 y=-19.779 z=3.500
+    edge: x=14.371 y=-19.779 z=7.000 → x=14.371 y=-19.779 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=14.371 y=-19.779 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.588 y=0.809 z=0.000 · thru x=14.371 y=19.779 z=3.500
+    edge: x=14.371 y=19.779 z=7.000 → x=14.371 y=19.779 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=14.371 y=19.779 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.809 y=-0.588 z=0.000 · thru x=19.779 y=-14.371 z=3.500
+    edge: x=19.779 y=-14.371 z=7.000 → x=19.779 y=-14.371 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=19.779 y=-14.371 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.809 y=0.588 z=0.000 · thru x=19.779 y=14.371 z=3.500
+    edge: x=19.779 y=14.371 z=7.000 → x=19.779 y=14.371 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=19.779 y=14.371 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.914 y=-0.407 z=0.000 · thru x=-14.271 y=20.320 z=3.500
+    edge: x=-14.271 y=20.320 z=7.000 → x=-14.271 y=20.320 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-14.271 y=20.320 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.914 y=0.407 z=0.000 · thru x=-14.271 y=-20.320 z=3.500
+    edge: x=-14.271 y=-20.320 z=7.000 → x=-14.271 y=-20.320 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-14.271 y=-20.320 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.407 y=-0.914 z=0.000 · thru x=20.320 y=-14.271 z=3.500
+    edge: x=20.320 y=-14.271 z=7.000 → x=20.320 y=-14.271 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=20.320 y=-14.271 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.407 y=0.914 z=0.000 · thru x=20.320 y=14.271 z=3.500
+    edge: x=20.320 y=14.271 z=7.000 → x=20.320 y=14.271 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=20.320 y=14.271 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.407 y=-0.914 z=0.000 · thru x=-20.320 y=-14.271 z=3.500
+    edge: x=-20.320 y=-14.271 z=7.000 → x=-20.320 y=-14.271 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-20.320 y=-14.271 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.407 y=0.914 z=0.000 · thru x=-20.320 y=14.271 z=3.500
+    edge: x=-20.320 y=14.271 z=7.000 → x=-20.320 y=14.271 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-20.320 y=14.271 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.914 y=-0.407 z=0.000 · thru x=14.271 y=20.320 z=3.500
+    edge: x=14.271 y=20.320 z=7.000 → x=14.271 y=20.320 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=14.271 y=20.320 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.914 y=0.407 z=0.000 · thru x=14.271 y=-20.320 z=3.500
+    edge: x=14.271 y=-20.320 z=7.000 → x=14.271 y=-20.320 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=14.271 y=-20.320 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.959 y=-0.284 z=0.000 · thru x=2.345 y=-24.720 z=3.500
+    edge: x=2.345 y=-24.720 z=7.000 → x=2.345 y=-24.720 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=2.345 y=-24.720 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.959 y=0.284 z=0.000 · thru x=2.345 y=24.720 z=3.500
+    edge: x=2.345 y=24.720 z=7.000 → x=2.345 y=24.720 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=2.345 y=24.720 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.284 y=-0.959 z=0.000 · thru x=-24.720 y=2.345 z=3.500
+    edge: x=-24.720 y=2.345 z=7.000 → x=-24.720 y=2.345 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-24.720 y=2.345 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.284 y=0.959 z=0.000 · thru x=-24.720 y=-2.345 z=3.500
+    edge: x=-24.720 y=-2.345 z=7.000 → x=-24.720 y=-2.345 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-24.720 y=-2.345 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.284 y=-0.959 z=0.000 · thru x=24.720 y=2.345 z=3.500
+    edge: x=24.720 y=2.345 z=7.000 → x=24.720 y=2.345 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=24.720 y=2.345 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.284 y=0.959 z=0.000 · thru x=24.720 y=-2.345 z=3.500
+    edge: x=24.720 y=-2.345 z=7.000 → x=24.720 y=-2.345 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=24.720 y=-2.345 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.959 y=-0.284 z=0.000 · thru x=-2.345 y=-24.720 z=3.500
+    edge: x=-2.345 y=-24.720 z=7.000 → x=-2.345 y=-24.720 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-2.345 y=-24.720 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.959 y=0.284 z=0.000 · thru x=-2.345 y=24.720 z=3.500
+    edge: x=-2.345 y=24.720 z=7.000 → x=-2.345 y=24.720 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-2.345 y=24.720 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.500 y=-0.866 z=0.000 · thru x=-23.489 y=8.051 z=3.500
+    edge: x=-23.489 y=8.051 z=7.000 → x=-23.489 y=8.051 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-23.489 y=8.051 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.500 y=0.866 z=0.000 · thru x=-23.489 y=-8.051 z=3.500
+    edge: x=-23.489 y=-8.051 z=7.000 → x=-23.489 y=-8.051 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-23.489 y=-8.051 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.500 y=-0.866 z=0.000 · thru x=23.489 y=8.051 z=3.500
+    edge: x=23.489 y=8.051 z=7.000 → x=23.489 y=8.051 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=23.489 y=8.051 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.500 y=0.866 z=0.000 · thru x=23.489 y=-8.051 z=3.500
+    edge: x=23.489 y=-8.051 z=7.000 → x=23.489 y=-8.051 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=23.489 y=-8.051 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-24.449 y=0.000 z=3.500
+    edge: x=-24.449 y=0.000 z=7.000 → x=-24.449 y=0.000 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-24.449 y=0.000 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.000 y=-1.000 z=0.000 · thru x=0.000 y=-24.449 z=3.500
+    edge: x=0.000 y=-24.449 z=7.000 → x=0.000 y=-24.449 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=0.000 y=-24.449 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.000 y=1.000 z=0.000 · thru x=0.000 y=24.449 z=3.500
+    edge: x=0.000 y=24.449 z=7.000 → x=0.000 y=24.449 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=0.000 y=24.449 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=1.000 y=0.000 z=0.000 · thru x=24.449 y=0.000 z=3.500
+    edge: x=24.449 y=0.000 z=7.000 → x=24.449 y=0.000 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=24.449 y=0.000 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.891 y=-0.454 z=0.000 · thru x=-21.784 y=-11.099 z=3.500
+    edge: x=-21.784 y=-11.099 z=7.000 → x=-21.784 y=-11.099 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-21.784 y=-11.099 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.891 y=0.454 z=0.000 · thru x=-21.784 y=11.099 z=3.500
+    edge: x=-21.784 y=11.099 z=7.000 → x=-21.784 y=11.099 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-21.784 y=11.099 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.454 y=-0.891 z=0.000 · thru x=-11.099 y=-21.784 z=3.500
+    edge: x=-11.099 y=-21.784 z=7.000 → x=-11.099 y=-21.784 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-11.099 y=-21.784 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.454 y=0.891 z=0.000 · thru x=-11.099 y=21.784 z=3.500
+    edge: x=-11.099 y=21.784 z=7.000 → x=-11.099 y=21.784 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-11.099 y=21.784 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.454 y=-0.891 z=0.000 · thru x=11.099 y=-21.784 z=3.500
+    edge: x=11.099 y=-21.784 z=7.000 → x=11.099 y=-21.784 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=11.099 y=-21.784 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.454 y=0.891 z=0.000 · thru x=11.099 y=21.784 z=3.500
+    edge: x=11.099 y=21.784 z=7.000 → x=11.099 y=21.784 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=11.099 y=21.784 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.891 y=-0.454 z=0.000 · thru x=21.784 y=-11.099 z=3.500
+    edge: x=21.784 y=-11.099 z=7.000 → x=21.784 y=-11.099 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=21.784 y=-11.099 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.891 y=0.454 z=0.000 · thru x=21.784 y=11.099 z=3.500
+    edge: x=21.784 y=11.099 z=7.000 → x=21.784 y=11.099 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=21.784 y=11.099 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.978 y=-0.208 z=0.000 · thru x=0.398 y=-24.827 z=3.500
+    edge: x=0.398 y=-24.827 z=7.000 → x=0.398 y=-24.827 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=0.398 y=-24.827 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.978 y=0.208 z=0.000 · thru x=0.398 y=24.827 z=3.500
+    edge: x=0.398 y=24.827 z=7.000 → x=0.398 y=24.827 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=0.398 y=24.827 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.208 y=-0.978 z=0.000 · thru x=-24.827 y=0.398 z=3.500
+    edge: x=-24.827 y=0.398 z=7.000 → x=-24.827 y=0.398 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-24.827 y=0.398 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.208 y=0.978 z=0.000 · thru x=-24.827 y=-0.398 z=3.500
+    edge: x=-24.827 y=-0.398 z=7.000 → x=-24.827 y=-0.398 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-24.827 y=-0.398 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.208 y=-0.978 z=0.000 · thru x=24.827 y=0.398 z=3.500
+    edge: x=24.827 y=0.398 z=7.000 → x=24.827 y=0.398 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=24.827 y=0.398 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.208 y=0.978 z=0.000 · thru x=24.827 y=-0.398 z=3.500
+    edge: x=24.827 y=-0.398 z=7.000 → x=24.827 y=-0.398 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=24.827 y=-0.398 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.978 y=-0.208 z=0.000 · thru x=-0.398 y=-24.827 z=3.500
+    edge: x=-0.398 y=-24.827 z=7.000 → x=-0.398 y=-24.827 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-0.398 y=-24.827 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.978 y=0.208 z=0.000 · thru x=-0.398 y=24.827 z=3.500
+    edge: x=-0.398 y=24.827 z=7.000 → x=-0.398 y=24.827 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-0.398 y=24.827 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.777 y=-0.629 z=0.000 · thru x=11.626 y=-21.941 z=3.500
+    edge: x=11.626 y=-21.941 z=7.000 → x=11.626 y=-21.941 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=11.626 y=-21.941 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.777 y=0.629 z=0.000 · thru x=11.626 y=21.941 z=3.500
+    edge: x=11.626 y=21.941 z=7.000 → x=11.626 y=21.941 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=11.626 y=21.941 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.629 y=-0.777 z=0.000 · thru x=-21.941 y=11.626 z=3.500
+    edge: x=-21.941 y=11.626 z=7.000 → x=-21.941 y=11.626 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-21.941 y=11.626 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.629 y=0.777 z=0.000 · thru x=-21.941 y=-11.626 z=3.500
+    edge: x=-21.941 y=-11.626 z=7.000 → x=-21.941 y=-11.626 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-21.941 y=-11.626 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.629 y=-0.777 z=0.000 · thru x=21.941 y=11.626 z=3.500
+    edge: x=21.941 y=11.626 z=7.000 → x=21.941 y=11.626 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=21.941 y=11.626 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.629 y=0.777 z=0.000 · thru x=21.941 y=-11.626 z=3.500
+    edge: x=21.941 y=-11.626 z=7.000 → x=21.941 y=-11.626 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=21.941 y=-11.626 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.777 y=-0.629 z=0.000 · thru x=-11.626 y=-21.941 z=3.500
+    edge: x=-11.626 y=-21.941 z=7.000 → x=-11.626 y=-21.941 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-11.626 y=-21.941 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.777 y=0.629 z=0.000 · thru x=-11.626 y=21.941 z=3.500
+    edge: x=-11.626 y=21.941 z=7.000 → x=-11.626 y=21.941 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-11.626 y=21.941 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.995 y=-0.104 z=0.000 · thru x=-7.293 y=23.735 z=3.500
+    edge: x=-7.293 y=23.735 z=7.000 → x=-7.293 y=23.735 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-7.293 y=23.735 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.995 y=0.104 z=0.000 · thru x=-7.293 y=-23.735 z=3.500
+    edge: x=-7.293 y=-23.735 z=7.000 → x=-7.293 y=-23.735 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-7.293 y=-23.735 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.104 y=-0.995 z=0.000 · thru x=23.735 y=-7.293 z=3.500
+    edge: x=23.735 y=-7.293 z=7.000 → x=23.735 y=-7.293 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=23.735 y=-7.293 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.104 y=0.995 z=0.000 · thru x=23.735 y=7.293 z=3.500
+    edge: x=23.735 y=7.293 z=7.000 → x=23.735 y=7.293 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=23.735 y=7.293 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.104 y=-0.995 z=0.000 · thru x=-23.735 y=-7.293 z=3.500
+    edge: x=-23.735 y=-7.293 z=7.000 → x=-23.735 y=-7.293 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-23.735 y=-7.293 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.104 y=0.995 z=0.000 · thru x=-23.735 y=7.293 z=3.500
+    edge: x=-23.735 y=7.293 z=7.000 → x=-23.735 y=7.293 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-23.735 y=7.293 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.995 y=-0.104 z=0.000 · thru x=7.293 y=23.735 z=3.500
+    edge: x=7.293 y=23.735 z=7.000 → x=7.293 y=23.735 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=7.293 y=23.735 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.995 y=0.104 z=0.000 · thru x=7.293 y=-23.735 z=3.500
+    edge: x=7.293 y=-23.735 z=7.000 → x=7.293 y=-23.735 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=7.293 y=-23.735 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.879 y=-0.477 z=0.000 · thru x=-15.821 y=19.138 z=3.500
+    edge: x=-15.821 y=19.138 z=7.000 → x=-15.821 y=19.138 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-15.821 y=19.138 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.879 y=0.477 z=0.000 · thru x=-15.821 y=-19.138 z=3.500
+    edge: x=-15.821 y=-19.138 z=7.000 → x=-15.821 y=-19.138 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-15.821 y=-19.138 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.477 y=-0.879 z=0.000 · thru x=19.138 y=-15.821 z=3.500
+    edge: x=19.138 y=-15.821 z=7.000 → x=19.138 y=-15.821 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=19.138 y=-15.821 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.477 y=0.879 z=0.000 · thru x=19.138 y=15.821 z=3.500
+    edge: x=19.138 y=15.821 z=7.000 → x=19.138 y=15.821 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=19.138 y=15.821 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.477 y=-0.879 z=0.000 · thru x=-19.138 y=-15.821 z=3.500
+    edge: x=-19.138 y=-15.821 z=7.000 → x=-19.138 y=-15.821 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-19.138 y=-15.821 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.477 y=0.879 z=0.000 · thru x=-19.138 y=15.821 z=3.500
+    edge: x=-19.138 y=15.821 z=7.000 → x=-19.138 y=15.821 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-19.138 y=15.821 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.879 y=-0.477 z=0.000 · thru x=15.821 y=19.138 z=3.500
+    edge: x=15.821 y=19.138 z=7.000 → x=15.821 y=19.138 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=15.821 y=19.138 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.879 y=0.477 z=0.000 · thru x=15.821 y=-19.138 z=3.500
+    edge: x=15.821 y=-19.138 z=7.000 → x=15.821 y=-19.138 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=15.821 y=-19.138 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.903 y=-0.431 z=0.000 · thru x=6.183 y=-24.048 z=3.500
+    edge: x=6.183 y=-24.048 z=7.000 → x=6.183 y=-24.048 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=6.183 y=-24.048 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.903 y=0.431 z=0.000 · thru x=6.183 y=24.048 z=3.500
+    edge: x=6.183 y=24.048 z=7.000 → x=6.183 y=24.048 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=6.183 y=24.048 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.431 y=-0.903 z=0.000 · thru x=-24.048 y=6.183 z=3.500
+    edge: x=-24.048 y=6.183 z=7.000 → x=-24.048 y=6.183 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-24.048 y=6.183 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.431 y=0.903 z=0.000 · thru x=-24.048 y=-6.183 z=3.500
+    edge: x=-24.048 y=-6.183 z=7.000 → x=-24.048 y=-6.183 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-24.048 y=-6.183 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.431 y=-0.903 z=0.000 · thru x=24.048 y=6.183 z=3.500
+    edge: x=24.048 y=6.183 z=7.000 → x=24.048 y=6.183 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=24.048 y=6.183 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.431 y=0.903 z=0.000 · thru x=24.048 y=-6.183 z=3.500
+    edge: x=24.048 y=-6.183 z=7.000 → x=24.048 y=-6.183 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=24.048 y=-6.183 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.903 y=-0.431 z=0.000 · thru x=-6.183 y=-24.048 z=3.500
+    edge: x=-6.183 y=-24.048 z=7.000 → x=-6.183 y=-24.048 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-6.183 y=-24.048 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.903 y=0.431 z=0.000 · thru x=-6.183 y=24.048 z=3.500
+    edge: x=-6.183 y=24.048 z=7.000 → x=-6.183 y=24.048 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-6.183 y=24.048 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.966 y=-0.259 z=0.000 · thru x=-10.916 y=22.302 z=3.500
+    edge: x=-10.916 y=22.302 z=7.000 → x=-10.916 y=22.302 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-10.916 y=22.302 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.966 y=0.259 z=0.000 · thru x=-10.916 y=-22.302 z=3.500
+    edge: x=-10.916 y=-22.302 z=7.000 → x=-10.916 y=-22.302 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-10.916 y=-22.302 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.259 y=-0.966 z=0.000 · thru x=22.302 y=-10.916 z=3.500
+    edge: x=22.302 y=-10.916 z=7.000 → x=22.302 y=-10.916 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=22.302 y=-10.916 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.259 y=0.966 z=0.000 · thru x=22.302 y=10.916 z=3.500
+    edge: x=22.302 y=10.916 z=7.000 → x=22.302 y=10.916 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=22.302 y=10.916 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.259 y=-0.966 z=0.000 · thru x=-22.302 y=-10.916 z=3.500
+    edge: x=-22.302 y=-10.916 z=7.000 → x=-22.302 y=-10.916 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-22.302 y=-10.916 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.259 y=0.966 z=0.000 · thru x=-22.302 y=10.916 z=3.500
+    edge: x=-22.302 y=10.916 z=7.000 → x=-22.302 y=10.916 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-22.302 y=10.916 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.966 y=-0.259 z=0.000 · thru x=10.916 y=22.302 z=3.500
+    edge: x=10.916 y=22.302 z=7.000 → x=10.916 y=22.302 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=10.916 y=22.302 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.966 y=0.259 z=0.000 · thru x=10.916 y=-22.302 z=3.500
+    edge: x=10.916 y=-22.302 z=7.000 → x=10.916 y=-22.302 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=10.916 y=-22.302 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.824 y=-0.567 z=0.000 · thru x=9.869 y=-22.785 z=3.500
+    edge: x=9.869 y=-22.785 z=7.000 → x=9.869 y=-22.785 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=9.869 y=-22.785 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.824 y=0.567 z=0.000 · thru x=9.869 y=22.785 z=3.500
+    edge: x=9.869 y=22.785 z=7.000 → x=9.869 y=22.785 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=9.869 y=22.785 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.567 y=-0.824 z=0.000 · thru x=-22.785 y=9.869 z=3.500
+    edge: x=-22.785 y=9.869 z=7.000 → x=-22.785 y=9.869 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-22.785 y=9.869 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.567 y=0.824 z=0.000 · thru x=-22.785 y=-9.869 z=3.500
+    edge: x=-22.785 y=-9.869 z=7.000 → x=-22.785 y=-9.869 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-22.785 y=-9.869 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.567 y=-0.824 z=0.000 · thru x=22.785 y=9.869 z=3.500
+    edge: x=22.785 y=9.869 z=7.000 → x=22.785 y=9.869 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=22.785 y=9.869 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.567 y=0.824 z=0.000 · thru x=22.785 y=-9.869 z=3.500
+    edge: x=22.785 y=-9.869 z=7.000 → x=22.785 y=-9.869 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=22.785 y=-9.869 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.824 y=-0.567 z=0.000 · thru x=-9.869 y=-22.785 z=3.500
+    edge: x=-9.869 y=-22.785 z=7.000 → x=-9.869 y=-22.785 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-9.869 y=-22.785 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.824 y=0.567 z=0.000 · thru x=-9.869 y=22.785 z=3.500
+    edge: x=-9.869 y=22.785 z=7.000 → x=-9.869 y=22.785 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-9.869 y=22.785 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.972 y=-0.233 z=0.000 · thru x=-23.773 y=-5.707 z=3.500
+    edge: x=-23.773 y=-5.707 z=7.000 → x=-23.773 y=-5.707 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-23.773 y=-5.707 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.972 y=0.233 z=0.000 · thru x=-23.773 y=5.707 z=3.500
+    edge: x=-23.773 y=5.707 z=7.000 → x=-23.773 y=5.707 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-23.773 y=5.707 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.233 y=-0.972 z=0.000 · thru x=-5.707 y=-23.773 z=3.500
+    edge: x=-5.707 y=-23.773 z=7.000 → x=-5.707 y=-23.773 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-5.707 y=-23.773 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.233 y=0.972 z=0.000 · thru x=-5.707 y=23.773 z=3.500
+    edge: x=-5.707 y=23.773 z=7.000 → x=-5.707 y=23.773 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-5.707 y=23.773 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.233 y=-0.972 z=0.000 · thru x=5.707 y=-23.773 z=3.500
+    edge: x=5.707 y=-23.773 z=7.000 → x=5.707 y=-23.773 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=5.707 y=-23.773 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.233 y=0.972 z=0.000 · thru x=5.707 y=23.773 z=3.500
+    edge: x=5.707 y=23.773 z=7.000 → x=5.707 y=23.773 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=5.707 y=23.773 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.972 y=-0.233 z=0.000 · thru x=23.773 y=-5.707 z=3.500
+    edge: x=23.773 y=-5.707 z=7.000 → x=23.773 y=-5.707 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=23.773 y=-5.707 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.972 y=0.233 z=0.000 · thru x=23.773 y=5.707 z=3.500
+    edge: x=23.773 y=5.707 z=7.000 → x=23.773 y=5.707 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=23.773 y=5.707 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.743 y=-0.669 z=0.000 · thru x=-19.852 y=14.916 z=3.500
+    edge: x=-19.852 y=14.916 z=7.000 → x=-19.852 y=14.916 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-19.852 y=14.916 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.743 y=0.669 z=0.000 · thru x=-19.852 y=-14.916 z=3.500
+    edge: x=-19.852 y=-14.916 z=7.000 → x=-19.852 y=-14.916 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-19.852 y=-14.916 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.669 y=-0.743 z=0.000 · thru x=14.916 y=-19.852 z=3.500
+    edge: x=14.916 y=-19.852 z=7.000 → x=14.916 y=-19.852 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=14.916 y=-19.852 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.669 y=0.743 z=0.000 · thru x=14.916 y=19.852 z=3.500
+    edge: x=14.916 y=19.852 z=7.000 → x=14.916 y=19.852 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=14.916 y=19.852 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.669 y=-0.743 z=0.000 · thru x=-14.916 y=-19.852 z=3.500
+    edge: x=-14.916 y=-19.852 z=7.000 → x=-14.916 y=-19.852 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-14.916 y=-19.852 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.669 y=0.743 z=0.000 · thru x=-14.916 y=19.852 z=3.500
+    edge: x=-14.916 y=19.852 z=7.000 → x=-14.916 y=19.852 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-14.916 y=19.852 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.743 y=-0.669 z=0.000 · thru x=19.852 y=14.916 z=3.500
+    edge: x=19.852 y=14.916 z=7.000 → x=19.852 y=14.916 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=19.852 y=14.916 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.743 y=0.669 z=0.000 · thru x=19.852 y=-14.916 z=3.500
+    edge: x=19.852 y=-14.916 z=7.000 → x=19.852 y=-14.916 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=19.852 y=-14.916 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.760 y=-0.649 z=0.000 · thru x=-18.591 y=-15.878 z=3.500
+    edge: x=-18.591 y=-15.878 z=7.000 → x=-18.591 y=-15.878 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-18.591 y=-15.878 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.760 y=0.649 z=0.000 · thru x=-18.591 y=15.878 z=3.500
+    edge: x=-18.591 y=15.878 z=7.000 → x=-18.591 y=15.878 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-18.591 y=15.878 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.649 y=-0.760 z=0.000 · thru x=-15.878 y=-18.591 z=3.500
+    edge: x=-15.878 y=-18.591 z=7.000 → x=-15.878 y=-18.591 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-15.878 y=-18.591 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.649 y=0.760 z=0.000 · thru x=-15.878 y=18.591 z=3.500
+    edge: x=-15.878 y=18.591 z=7.000 → x=-15.878 y=18.591 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-15.878 y=18.591 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.649 y=-0.760 z=0.000 · thru x=15.878 y=-18.591 z=3.500
+    edge: x=15.878 y=-18.591 z=7.000 → x=15.878 y=-18.591 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=15.878 y=-18.591 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.649 y=0.760 z=0.000 · thru x=15.878 y=18.591 z=3.500
+    edge: x=15.878 y=18.591 z=7.000 → x=15.878 y=18.591 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=15.878 y=18.591 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.760 y=-0.649 z=0.000 · thru x=18.591 y=-15.878 z=3.500
+    edge: x=18.591 y=-15.878 z=7.000 → x=18.591 y=-15.878 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=18.591 y=-15.878 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.760 y=0.649 z=0.000 · thru x=18.591 y=15.878 z=3.500
+    edge: x=18.591 y=15.878 z=7.000 → x=18.591 y=15.878 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=18.591 y=15.878 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.866 y=-0.500 z=0.000 · thru x=8.048 y=-23.491 z=3.500
+    edge: x=8.048 y=-23.491 z=7.000 → x=8.048 y=-23.491 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=8.048 y=-23.491 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.866 y=0.500 z=0.000 · thru x=8.048 y=23.491 z=3.500
+    edge: x=8.048 y=23.491 z=7.000 → x=8.048 y=23.491 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=8.048 y=23.491 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.866 y=-0.500 z=0.000 · thru x=-8.048 y=-23.491 z=3.500
+    edge: x=-8.048 y=-23.491 z=7.000 → x=-8.048 y=-23.491 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-8.048 y=-23.491 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.866 y=0.500 z=0.000 · thru x=-8.048 y=23.491 z=3.500
+    edge: x=-8.048 y=23.491 z=7.000 → x=-8.048 y=23.491 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-8.048 y=23.491 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.707 y=-0.707 z=0.000 · thru x=-17.288 y=-17.288 z=3.500
+    edge: x=-17.288 y=-17.288 z=7.000 → x=-17.288 y=-17.288 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-17.288 y=-17.288 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.707 y=0.707 z=0.000 · thru x=-17.288 y=17.288 z=3.500
+    edge: x=-17.288 y=17.288 z=7.000 → x=-17.288 y=17.288 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-17.288 y=17.288 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.707 y=-0.707 z=0.000 · thru x=17.288 y=-17.288 z=3.500
+    edge: x=17.288 y=-17.288 z=7.000 → x=17.288 y=-17.288 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=17.288 y=-17.288 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.707 y=0.707 z=0.000 · thru x=17.288 y=17.288 z=3.500
+    edge: x=17.288 y=17.288 z=7.000 → x=17.288 y=17.288 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=17.288 y=17.288 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.999 y=-0.052 z=0.000 · thru x=-3.490 y=-24.584 z=3.500
+    edge: x=-3.490 y=-24.584 z=7.000 → x=-3.490 y=-24.584 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-3.490 y=-24.584 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.999 y=0.052 z=0.000 · thru x=-3.490 y=24.584 z=3.500
+    edge: x=-3.490 y=24.584 z=7.000 → x=-3.490 y=24.584 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-3.490 y=24.584 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.052 y=-0.999 z=0.000 · thru x=-24.584 y=-3.490 z=3.500
+    edge: x=-24.584 y=-3.490 z=7.000 → x=-24.584 y=-3.490 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-24.584 y=-3.490 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.052 y=0.999 z=0.000 · thru x=-24.584 y=3.490 z=3.500
+    edge: x=-24.584 y=3.490 z=7.000 → x=-24.584 y=3.490 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-24.584 y=3.490 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.052 y=-0.999 z=0.000 · thru x=24.584 y=-3.490 z=3.500
+    edge: x=24.584 y=-3.490 z=7.000 → x=24.584 y=-3.490 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=24.584 y=-3.490 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.052 y=0.999 z=0.000 · thru x=24.584 y=3.490 z=3.500
+    edge: x=24.584 y=3.490 z=7.000 → x=24.584 y=3.490 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=24.584 y=3.490 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.999 y=-0.052 z=0.000 · thru x=3.490 y=-24.584 z=3.500
+    edge: x=3.490 y=-24.584 z=7.000 → x=3.490 y=-24.584 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=3.490 y=-24.584 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.999 y=0.052 z=0.000 · thru x=3.490 y=24.584 z=3.500
+    edge: x=3.490 y=24.584 z=7.000 → x=3.490 y=24.584 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=3.490 y=24.584 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.853 y=-0.522 z=0.000 · thru x=-20.846 y=-12.774 z=3.500
+    edge: x=-20.846 y=-12.774 z=7.000 → x=-20.846 y=-12.774 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-20.846 y=-12.774 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.853 y=0.522 z=0.000 · thru x=-20.846 y=12.774 z=3.500
+    edge: x=-20.846 y=12.774 z=7.000 → x=-20.846 y=12.774 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-20.846 y=12.774 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.522 y=-0.853 z=0.000 · thru x=-12.774 y=-20.846 z=3.500
+    edge: x=-12.774 y=-20.846 z=7.000 → x=-12.774 y=-20.846 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-12.774 y=-20.846 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.522 y=0.853 z=0.000 · thru x=-12.774 y=20.846 z=3.500
+    edge: x=-12.774 y=20.846 z=7.000 → x=-12.774 y=20.846 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-12.774 y=20.846 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.522 y=-0.853 z=0.000 · thru x=12.774 y=-20.846 z=3.500
+    edge: x=12.774 y=-20.846 z=7.000 → x=12.774 y=-20.846 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=12.774 y=-20.846 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.522 y=0.853 z=0.000 · thru x=12.774 y=20.846 z=3.500
+    edge: x=12.774 y=20.846 z=7.000 → x=12.774 y=20.846 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=12.774 y=20.846 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.853 y=-0.522 z=0.000 · thru x=20.846 y=-12.774 z=3.500
+    edge: x=20.846 y=-12.774 z=7.000 → x=20.846 y=-12.774 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=20.846 y=-12.774 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.853 y=0.522 z=0.000 · thru x=20.846 y=12.774 z=3.500
+    edge: x=20.846 y=12.774 z=7.000 → x=20.846 y=12.774 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=20.846 y=12.774 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.991 y=-0.131 z=0.000 · thru x=-1.551 y=-24.782 z=3.500
+    edge: x=-1.551 y=-24.782 z=7.000 → x=-1.551 y=-24.782 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-1.551 y=-24.782 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.991 y=0.131 z=0.000 · thru x=-1.551 y=24.782 z=3.500
+    edge: x=-1.551 y=24.782 z=7.000 → x=-1.551 y=24.782 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-1.551 y=24.782 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.131 y=-0.991 z=0.000 · thru x=-24.782 y=-1.551 z=3.500
+    edge: x=-24.782 y=-1.551 z=7.000 → x=-24.782 y=-1.551 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-24.782 y=-1.551 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.131 y=0.991 z=0.000 · thru x=-24.782 y=1.551 z=3.500
+    edge: x=-24.782 y=1.551 z=7.000 → x=-24.782 y=1.551 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-24.782 y=1.551 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.131 y=-0.991 z=0.000 · thru x=24.782 y=-1.551 z=3.500
+    edge: x=24.782 y=-1.551 z=7.000 → x=24.782 y=-1.551 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=24.782 y=-1.551 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.131 y=0.991 z=0.000 · thru x=24.782 y=1.551 z=3.500
+    edge: x=24.782 y=1.551 z=7.000 → x=24.782 y=1.551 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=24.782 y=1.551 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.991 y=-0.131 z=0.000 · thru x=1.551 y=-24.782 z=3.500
+    edge: x=1.551 y=-24.782 z=7.000 → x=1.551 y=-24.782 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=1.551 y=-24.782 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.991 y=0.131 z=0.000 · thru x=1.551 y=24.782 z=3.500
+    edge: x=1.551 y=24.782 z=7.000 → x=1.551 y=24.782 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=1.551 y=24.782 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.934 y=-0.358 z=0.000 · thru x=4.277 y=-24.459 z=3.500
+    edge: x=4.277 y=-24.459 z=7.000 → x=4.277 y=-24.459 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=4.277 y=-24.459 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.934 y=0.358 z=0.000 · thru x=4.277 y=24.459 z=3.500
+    edge: x=4.277 y=24.459 z=7.000 → x=4.277 y=24.459 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=4.277 y=24.459 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.358 y=-0.934 z=0.000 · thru x=-24.459 y=4.277 z=3.500
+    edge: x=-24.459 y=4.277 z=7.000 → x=-24.459 y=4.277 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-24.459 y=4.277 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.358 y=0.934 z=0.000 · thru x=-24.459 y=-4.277 z=3.500
+    edge: x=-24.459 y=-4.277 z=7.000 → x=-24.459 y=-4.277 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-24.459 y=-4.277 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.358 y=-0.934 z=0.000 · thru x=24.459 y=4.277 z=3.500
+    edge: x=24.459 y=4.277 z=7.000 → x=24.459 y=4.277 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=24.459 y=4.277 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.358 y=0.934 z=0.000 · thru x=24.459 y=-4.277 z=3.500
+    edge: x=24.459 y=-4.277 z=7.000 → x=24.459 y=-4.277 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=24.459 y=-4.277 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.934 y=-0.358 z=0.000 · thru x=-4.277 y=-24.459 z=3.500
+    edge: x=-4.277 y=-24.459 z=7.000 → x=-4.277 y=-24.459 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-4.277 y=-24.459 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.934 y=0.358 z=0.000 · thru x=-4.277 y=24.459 z=3.500
+    edge: x=-4.277 y=24.459 z=7.000 → x=-4.277 y=24.459 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-4.277 y=24.459 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.983 y=-0.182 z=0.000 · thru x=-9.133 y=23.090 z=3.500
+    edge: x=-9.133 y=23.090 z=7.000 → x=-9.133 y=23.090 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-9.133 y=23.090 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.983 y=0.182 z=0.000 · thru x=-9.133 y=-23.090 z=3.500
+    edge: x=-9.133 y=-23.090 z=7.000 → x=-9.133 y=-23.090 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-9.133 y=-23.090 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.182 y=-0.983 z=0.000 · thru x=23.090 y=-9.133 z=3.500
+    edge: x=23.090 y=-9.133 z=7.000 → x=23.090 y=-9.133 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=23.090 y=-9.133 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.182 y=0.983 z=0.000 · thru x=23.090 y=9.133 z=3.500
+    edge: x=23.090 y=9.133 z=7.000 → x=23.090 y=9.133 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=23.090 y=9.133 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.182 y=-0.983 z=0.000 · thru x=-23.090 y=-9.133 z=3.500
+    edge: x=-23.090 y=-9.133 z=7.000 → x=-23.090 y=-9.133 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-23.090 y=-9.133 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.182 y=0.983 z=0.000 · thru x=-23.090 y=9.133 z=3.500
+    edge: x=-23.090 y=9.133 z=7.000 → x=-23.090 y=9.133 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-23.090 y=9.133 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.983 y=-0.182 z=0.000 · thru x=9.133 y=23.090 z=3.500
+    edge: x=9.133 y=23.090 z=7.000 → x=9.133 y=23.090 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=9.133 y=23.090 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.983 y=0.182 z=0.000 · thru x=9.133 y=-23.090 z=3.500
+    edge: x=9.133 y=-23.090 z=7.000 → x=9.133 y=-23.090 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=9.133 y=-23.090 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.997 y=-0.078 z=0.000 · thru x=-24.373 y=-1.918 z=3.500
+    edge: x=-24.373 y=-1.918 z=7.000 → x=-24.373 y=-1.918 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-24.373 y=-1.918 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.997 y=0.078 z=0.000 · thru x=-24.373 y=1.918 z=3.500
+    edge: x=-24.373 y=1.918 z=7.000 → x=-24.373 y=1.918 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-24.373 y=1.918 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.078 y=-0.997 z=0.000 · thru x=-1.918 y=-24.373 z=3.500
+    edge: x=-1.918 y=-24.373 z=7.000 → x=-1.918 y=-24.373 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-1.918 y=-24.373 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.078 y=0.997 z=0.000 · thru x=-1.918 y=24.373 z=3.500
+    edge: x=-1.918 y=24.373 z=7.000 → x=-1.918 y=24.373 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-1.918 y=24.373 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.078 y=-0.997 z=0.000 · thru x=1.918 y=-24.373 z=3.500
+    edge: x=1.918 y=-24.373 z=7.000 → x=1.918 y=-24.373 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=1.918 y=-24.373 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.078 y=0.997 z=0.000 · thru x=1.918 y=24.373 z=3.500
+    edge: x=1.918 y=24.373 z=7.000 → x=1.918 y=24.373 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=1.918 y=24.373 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.997 y=-0.078 z=0.000 · thru x=24.373 y=-1.918 z=3.500
+    edge: x=24.373 y=-1.918 z=7.000 → x=24.373 y=-1.918 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=24.373 y=-1.918 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.997 y=0.078 z=0.000 · thru x=24.373 y=1.918 z=3.500
+    edge: x=24.373 y=1.918 z=7.000 → x=24.373 y=1.918 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=24.373 y=1.918 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.924 y=-0.383 z=0.000 · thru x=-22.588 y=-9.356 z=3.500
+    edge: x=-22.588 y=-9.356 z=7.000 → x=-22.588 y=-9.356 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-22.588 y=-9.356 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.924 y=0.383 z=0.000 · thru x=-22.588 y=9.356 z=3.500
+    edge: x=-22.588 y=9.356 z=7.000 → x=-22.588 y=9.356 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-22.588 y=9.356 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.383 y=-0.924 z=0.000 · thru x=-9.356 y=-22.588 z=3.500
+    edge: x=-9.356 y=-22.588 z=7.000 → x=-9.356 y=-22.588 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-9.356 y=-22.588 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=-0.383 y=0.924 z=0.000 · thru x=-9.356 y=22.588 z=3.500
+    edge: x=-9.356 y=22.588 z=7.000 → x=-9.356 y=22.588 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-9.356 y=22.588 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.383 y=-0.924 z=0.000 · thru x=9.356 y=-22.588 z=3.500
+    edge: x=9.356 y=-22.588 z=7.000 → x=9.356 y=-22.588 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=9.356 y=-22.588 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.383 y=0.924 z=0.000 · thru x=9.356 y=22.588 z=3.500
+    edge: x=9.356 y=22.588 z=7.000 → x=9.356 y=22.588 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=9.356 y=22.588 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.924 y=-0.383 z=0.000 · thru x=22.588 y=-9.356 z=3.500
+    edge: x=22.588 y=-9.356 z=7.000 → x=22.588 y=-9.356 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=22.588 y=-9.356 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.924 y=0.383 z=0.000 · thru x=22.588 y=9.356 z=3.500
+    edge: x=22.588 y=9.356 z=7.000 → x=22.588 y=9.356 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=22.588 y=9.356 z=3.500
+
+  [ceiling] 377 mm² flat print-down face at z=7.000 · 54.4 × 54.4 mm · drop 7.0–7.0 mm to material below
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-80t.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=0.000 y=0.000 z=7.000
+    click: x=0.000 y=0.000 z=7.000
+
+pulley-sector-coupon.stl · 948 printed facets · 76 findings
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=-0.943 y=-0.334 z=0.000 · thru x=-12.633 y=21.377 z=3.500
+    edge: x=-12.633 y=21.377 z=7.000 → x=-12.633 y=21.377 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-12.633 y=21.377 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.943 y=-0.334 z=0.000 · thru x=12.633 y=21.377 z=3.500
+    edge: x=12.633 y=21.377 z=7.000 → x=12.633 y=21.377 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=12.633 y=21.377 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=-0.309 y=0.951 z=0.000 · thru x=-7.555 y=23.252 z=3.500
+    edge: x=-7.555 y=23.252 z=7.000 → x=-7.555 y=23.252 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-7.555 y=23.252 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.309 y=0.951 z=0.000 · thru x=7.555 y=23.252 z=3.500
+    edge: x=7.555 y=23.252 z=7.000 → x=7.555 y=23.252 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=7.555 y=23.252 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=-0.156 y=0.988 z=0.000 · thru x=-3.825 y=24.148 z=3.500
+    edge: x=-3.825 y=24.148 z=7.000 → x=-3.825 y=24.148 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-3.825 y=24.148 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.156 y=0.988 z=0.000 · thru x=3.825 y=24.148 z=3.500
+    edge: x=3.825 y=24.148 z=7.000 → x=3.825 y=24.148 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=3.825 y=24.148 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=-1.000 y=-0.026 z=0.000 · thru x=-5.408 y=24.235 z=3.500
+    edge: x=-5.408 y=24.235 z=7.000 → x=-5.408 y=24.235 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-5.408 y=24.235 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=1.000 y=-0.026 z=0.000 · thru x=5.408 y=24.235 z=3.500
+    edge: x=5.408 y=24.235 z=7.000 → x=5.408 y=24.235 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=5.408 y=24.235 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=-0.839 y=-0.545 z=0.000 · thru x=-17.274 y=17.837 z=3.500
+    edge: x=-17.274 y=17.837 z=7.000 → x=-17.274 y=17.837 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-17.274 y=17.837 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=-0.545 y=0.839 z=0.000 · thru x=17.837 y=17.274 z=3.500
+    edge: x=17.837 y=17.274 z=7.000 → x=17.837 y=17.274 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=17.837 y=17.274 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.545 y=0.839 z=0.000 · thru x=-17.837 y=17.274 z=3.500
+    edge: x=-17.837 y=17.274 z=7.000 → x=-17.837 y=17.274 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-17.837 y=17.274 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.839 y=-0.545 z=0.000 · thru x=17.274 y=17.837 z=3.500
+    edge: x=17.274 y=17.837 z=7.000 → x=17.274 y=17.837 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=17.274 y=17.837 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=-0.725 y=0.688 z=0.000 · thru x=13.312 y=20.961 z=3.500
+    edge: x=13.312 y=20.961 z=7.000 → x=13.312 y=20.961 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=13.312 y=20.961 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.725 y=0.688 z=0.000 · thru x=-13.312 y=20.961 z=3.500
+    edge: x=-13.312 y=20.961 z=7.000 → x=-13.312 y=20.961 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-13.312 y=20.961 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=-0.793 y=-0.609 z=0.000 · thru x=-18.620 y=16.427 z=3.500
+    edge: x=-18.620 y=16.427 z=7.000 → x=-18.620 y=16.427 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-18.620 y=16.427 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=-0.609 y=0.793 z=0.000 · thru x=16.427 y=18.620 z=3.500
+    edge: x=16.427 y=18.620 z=7.000 → x=16.427 y=18.620 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=16.427 y=18.620 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.609 y=0.793 z=0.000 · thru x=-16.427 y=18.620 z=3.500
+    edge: x=-16.427 y=18.620 z=7.000 → x=-16.427 y=18.620 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-16.427 y=18.620 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.793 y=-0.609 z=0.000 · thru x=18.620 y=16.427 z=3.500
+    edge: x=18.620 y=16.427 z=7.000 → x=18.620 y=16.427 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=18.620 y=16.427 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=-0.809 y=0.588 z=0.000 · thru x=-19.779 y=14.371 z=3.500
+    edge: x=-19.779 y=14.371 z=7.000 → x=-19.779 y=14.371 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-19.779 y=14.371 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=-0.588 y=0.809 z=0.000 · thru x=-14.371 y=19.779 z=3.500
+    edge: x=-14.371 y=19.779 z=7.000 → x=-14.371 y=19.779 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-14.371 y=19.779 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.588 y=0.809 z=0.000 · thru x=14.371 y=19.779 z=3.500
+    edge: x=14.371 y=19.779 z=7.000 → x=14.371 y=19.779 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=14.371 y=19.779 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.809 y=0.588 z=0.000 · thru x=19.779 y=14.371 z=3.500
+    edge: x=19.779 y=14.371 z=7.000 → x=19.779 y=14.371 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=19.779 y=14.371 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=-0.914 y=-0.407 z=0.000 · thru x=-14.271 y=20.320 z=3.500
+    edge: x=-14.271 y=20.320 z=7.000 → x=-14.271 y=20.320 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-14.271 y=20.320 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=-0.407 y=0.914 z=0.000 · thru x=20.320 y=14.271 z=3.500
+    edge: x=20.320 y=14.271 z=7.000 → x=20.320 y=14.271 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=20.320 y=14.271 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.407 y=0.914 z=0.000 · thru x=-20.320 y=14.271 z=3.500
+    edge: x=-20.320 y=14.271 z=7.000 → x=-20.320 y=14.271 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-20.320 y=14.271 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.914 y=-0.407 z=0.000 · thru x=14.271 y=20.320 z=3.500
+    edge: x=14.271 y=20.320 z=7.000 → x=14.271 y=20.320 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=14.271 y=20.320 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=-0.959 y=0.284 z=0.000 · thru x=2.345 y=24.720 z=3.500
+    edge: x=2.345 y=24.720 z=7.000 → x=2.345 y=24.720 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=2.345 y=24.720 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.959 y=0.284 z=0.000 · thru x=-2.345 y=24.720 z=3.500
+    edge: x=-2.345 y=24.720 z=7.000 → x=-2.345 y=24.720 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-2.345 y=24.720 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=-0.866 y=0.500 z=0.000 · thru x=8.051 y=23.489 z=3.500
+    edge: x=8.051 y=23.489 z=7.000 → x=8.051 y=23.489 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=8.051 y=23.489 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.866 y=0.500 z=0.000 · thru x=-8.051 y=23.489 z=3.500
+    edge: x=-8.051 y=23.489 z=7.000 → x=-8.051 y=23.489 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-8.051 y=23.489 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.000 y=1.000 z=0.000 · thru x=0.000 y=24.449 z=3.500
+    edge: x=0.000 y=24.449 z=7.000 → x=0.000 y=24.449 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=0.000 y=24.449 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=-0.454 y=0.891 z=0.000 · thru x=-11.099 y=21.784 z=3.500
+    edge: x=-11.099 y=21.784 z=7.000 → x=-11.099 y=21.784 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-11.099 y=21.784 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.454 y=0.891 z=0.000 · thru x=11.099 y=21.784 z=3.500
+    edge: x=11.099 y=21.784 z=7.000 → x=11.099 y=21.784 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=11.099 y=21.784 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=-0.978 y=0.208 z=0.000 · thru x=0.398 y=24.827 z=3.500
+    edge: x=0.398 y=24.827 z=7.000 → x=0.398 y=24.827 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=0.398 y=24.827 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.978 y=0.208 z=0.000 · thru x=-0.398 y=24.827 z=3.500
+    edge: x=-0.398 y=24.827 z=7.000 → x=-0.398 y=24.827 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-0.398 y=24.827 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=-0.777 y=0.629 z=0.000 · thru x=11.626 y=21.941 z=3.500
+    edge: x=11.626 y=21.941 z=7.000 → x=11.626 y=21.941 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=11.626 y=21.941 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.777 y=0.629 z=0.000 · thru x=-11.626 y=21.941 z=3.500
+    edge: x=-11.626 y=21.941 z=7.000 → x=-11.626 y=21.941 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-11.626 y=21.941 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=-0.995 y=-0.104 z=0.000 · thru x=-7.293 y=23.735 z=3.500
+    edge: x=-7.293 y=23.735 z=7.000 → x=-7.293 y=23.735 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-7.293 y=23.735 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.995 y=-0.104 z=0.000 · thru x=7.293 y=23.735 z=3.500
+    edge: x=7.293 y=23.735 z=7.000 → x=7.293 y=23.735 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=7.293 y=23.735 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=-0.879 y=-0.477 z=0.000 · thru x=-15.821 y=19.138 z=3.500
+    edge: x=-15.821 y=19.138 z=7.000 → x=-15.821 y=19.138 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-15.821 y=19.138 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=-0.477 y=0.879 z=0.000 · thru x=19.138 y=15.821 z=3.500
+    edge: x=19.138 y=15.821 z=7.000 → x=19.138 y=15.821 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=19.138 y=15.821 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.477 y=0.879 z=0.000 · thru x=-19.138 y=15.821 z=3.500
+    edge: x=-19.138 y=15.821 z=7.000 → x=-19.138 y=15.821 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-19.138 y=15.821 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.879 y=-0.477 z=0.000 · thru x=15.821 y=19.138 z=3.500
+    edge: x=15.821 y=19.138 z=7.000 → x=15.821 y=19.138 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=15.821 y=19.138 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=-0.903 y=0.431 z=0.000 · thru x=6.183 y=24.048 z=3.500
+    edge: x=6.183 y=24.048 z=7.000 → x=6.183 y=24.048 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=6.183 y=24.048 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.903 y=0.431 z=0.000 · thru x=-6.183 y=24.048 z=3.500
+    edge: x=-6.183 y=24.048 z=7.000 → x=-6.183 y=24.048 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-6.183 y=24.048 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=-0.966 y=-0.259 z=0.000 · thru x=-10.916 y=22.302 z=3.500
+    edge: x=-10.916 y=22.302 z=7.000 → x=-10.916 y=22.302 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-10.916 y=22.302 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.966 y=-0.259 z=0.000 · thru x=10.916 y=22.302 z=3.500
+    edge: x=10.916 y=22.302 z=7.000 → x=10.916 y=22.302 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=10.916 y=22.302 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=-0.824 y=0.567 z=0.000 · thru x=9.869 y=22.785 z=3.500
+    edge: x=9.869 y=22.785 z=7.000 → x=9.869 y=22.785 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=9.869 y=22.785 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.824 y=0.567 z=0.000 · thru x=-9.869 y=22.785 z=3.500
+    edge: x=-9.869 y=22.785 z=7.000 → x=-9.869 y=22.785 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-9.869 y=22.785 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=-0.233 y=0.972 z=0.000 · thru x=-5.707 y=23.773 z=3.500
+    edge: x=-5.707 y=23.773 z=7.000 → x=-5.707 y=23.773 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-5.707 y=23.773 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.233 y=0.972 z=0.000 · thru x=5.707 y=23.773 z=3.500
+    edge: x=5.707 y=23.773 z=7.000 → x=5.707 y=23.773 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=5.707 y=23.773 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=-0.743 y=-0.669 z=0.000 · thru x=-19.852 y=14.916 z=3.500
+    edge: x=-19.852 y=14.916 z=7.000 → x=-19.852 y=14.916 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-19.852 y=14.916 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=-0.669 y=0.743 z=0.000 · thru x=14.916 y=19.852 z=3.500
+    edge: x=14.916 y=19.852 z=7.000 → x=14.916 y=19.852 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=14.916 y=19.852 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.669 y=0.743 z=0.000 · thru x=-14.916 y=19.852 z=3.500
+    edge: x=-14.916 y=19.852 z=7.000 → x=-14.916 y=19.852 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-14.916 y=19.852 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.743 y=-0.669 z=0.000 · thru x=19.852 y=14.916 z=3.500
+    edge: x=19.852 y=14.916 z=7.000 → x=19.852 y=14.916 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=19.852 y=14.916 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=-0.760 y=0.649 z=0.000 · thru x=-18.591 y=15.878 z=3.500
+    edge: x=-18.591 y=15.878 z=7.000 → x=-18.591 y=15.878 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-18.591 y=15.878 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=-0.649 y=0.760 z=0.000 · thru x=-15.878 y=18.591 z=3.500
+    edge: x=-15.878 y=18.591 z=7.000 → x=-15.878 y=18.591 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-15.878 y=18.591 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.649 y=0.760 z=0.000 · thru x=15.878 y=18.591 z=3.500
+    edge: x=15.878 y=18.591 z=7.000 → x=15.878 y=18.591 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=15.878 y=18.591 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.760 y=0.649 z=0.000 · thru x=18.591 y=15.878 z=3.500
+    edge: x=18.591 y=15.878 z=7.000 → x=18.591 y=15.878 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=18.591 y=15.878 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=-0.707 y=0.707 z=0.000 · thru x=-17.288 y=17.288 z=3.500
+    edge: x=-17.288 y=17.288 z=7.000 → x=-17.288 y=17.288 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-17.288 y=17.288 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.707 y=0.707 z=0.000 · thru x=17.288 y=17.288 z=3.500
+    edge: x=17.288 y=17.288 z=7.000 → x=17.288 y=17.288 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=17.288 y=17.288 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=-0.999 y=0.052 z=0.000 · thru x=-3.490 y=24.584 z=3.500
+    edge: x=-3.490 y=24.584 z=7.000 → x=-3.490 y=24.584 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-3.490 y=24.584 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.999 y=0.052 z=0.000 · thru x=3.490 y=24.584 z=3.500
+    edge: x=3.490 y=24.584 z=7.000 → x=3.490 y=24.584 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=3.490 y=24.584 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=-0.522 y=0.853 z=0.000 · thru x=-12.774 y=20.846 z=3.500
+    edge: x=-12.774 y=20.846 z=7.000 → x=-12.774 y=20.846 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-12.774 y=20.846 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.522 y=0.853 z=0.000 · thru x=12.774 y=20.846 z=3.500
+    edge: x=12.774 y=20.846 z=7.000 → x=12.774 y=20.846 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=12.774 y=20.846 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=-0.991 y=0.131 z=0.000 · thru x=-1.551 y=24.782 z=3.500
+    edge: x=-1.551 y=24.782 z=7.000 → x=-1.551 y=24.782 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-1.551 y=24.782 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.991 y=0.131 z=0.000 · thru x=1.551 y=24.782 z=3.500
+    edge: x=1.551 y=24.782 z=7.000 → x=1.551 y=24.782 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=1.551 y=24.782 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=-0.934 y=0.358 z=0.000 · thru x=4.277 y=24.459 z=3.500
+    edge: x=4.277 y=24.459 z=7.000 → x=4.277 y=24.459 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=4.277 y=24.459 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.934 y=0.358 z=0.000 · thru x=-4.277 y=24.459 z=3.500
+    edge: x=-4.277 y=24.459 z=7.000 → x=-4.277 y=24.459 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-4.277 y=24.459 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=-0.983 y=-0.182 z=0.000 · thru x=-9.133 y=23.090 z=3.500
+    edge: x=-9.133 y=23.090 z=7.000 → x=-9.133 y=23.090 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-9.133 y=23.090 z=3.500
+
+  [sliver] 0.774 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.983 y=-0.182 z=0.000 · thru x=9.133 y=23.090 z=3.500
+    edge: x=9.133 y=23.090 z=7.000 → x=9.133 y=23.090 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=9.133 y=23.090 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=-0.078 y=0.997 z=0.000 · thru x=-1.918 y=24.373 z=3.500
+    edge: x=-1.918 y=24.373 z=7.000 → x=-1.918 y=24.373 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-1.918 y=24.373 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.078 y=0.997 z=0.000 · thru x=1.918 y=24.373 z=3.500
+    edge: x=1.918 y=24.373 z=7.000 → x=1.918 y=24.373 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=1.918 y=24.373 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=-0.383 y=0.924 z=0.000 · thru x=-9.356 y=22.588 z=3.500
+    edge: x=-9.356 y=22.588 z=7.000 → x=-9.356 y=22.588 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-9.356 y=22.588 z=3.500
+
+  [sliver] 0.636 mm strip, 7.0 mm long
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.383 y=0.924 z=0.000 · thru x=9.356 y=22.588 z=3.500
+    edge: x=9.356 y=22.588 z=7.000 → x=9.356 y=22.588 z=0.000 · len 7.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=9.356 y=22.588 z=3.500
+
+  [ceiling] 120 mm² flat print-down face at z=7.000 · 46.7 × 13.2 mm · drop 7.0–7.0 mm to material below
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/pulley-sector-coupon.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=0.000 y=20.605 z=7.000
+    click: x=0.000 y=20.605 z=7.000
+
+motor-tension-plate.stl · 3584 printed facets · 0 findings
+
+paired-nut-spacer.stl · 1704 printed facets · 0 findings
+
+limit-switch-bracket.stl · 1544 printed facets · 0 findings
+
+belt-guard.stl · 1028 printed facets · 0 findings
+
+gun-jaw-pad.stl · 12 printed facets · 0 findings
+
+service-load-jaw-pad.stl · 12 printed facets · 0 findings
+
+hub-drilling-locator.stl · 28 printed facets · 0 findings
+
+fiber-saddle.stl · 2056 printed facets · 1 findings
+
+  [ceiling] 300 mm² flat print-down face at z=7.000 · 22.2 × 22.2 mm · open to the bed (7.0 mm up)
+    file: hardware/printed-parts/fixtures/gun-positioner/stl/fiber-saddle.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=0.000 y=0.000 z=7.000
+    click: x=0.000 y=0.000 z=7.000

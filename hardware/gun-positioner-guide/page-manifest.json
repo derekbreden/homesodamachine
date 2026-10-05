@@ -1,0 +1,1103 @@
+{
+  "title": "Gun positioner assembly guide",
+  "pages": 179,
+  "input_sha256": {
+    "hardware/printed-parts/fixtures/gun-positioner/gun_positioner.py": "e219feaa319f2aee19c1792522d69dd337b2e27ffdb0eaa46ce5978469bfab08",
+    "hardware/printed-parts/fixtures/gun-positioner/fasteners.json": "431e22bf5ba47aa9fdbe64f6b8a070854fb0dbdbc20384b6382fc866dfc27adc",
+    "hardware/printed-parts/fixtures/gun-positioner/requirements.json": "736446b1b3de2b8c7d358d2e223928c157248925106409a17354a2f07036d91a",
+    "tools/gun-positioner-optics/mounts.py": "0e13a0a34b58bc6dcbdd858fd9d80e809630ea8d8a5b296134fbf0a5ee085c9c",
+    "hardware/printed-parts/fixtures/gun-positioner-observation/manifest.json": "c923dd7c07d2612aac24e64f6a6d9db3ea7aaa43a9e81dc1c33b0e6a994e5b53",
+    "hardware/gun-positioner/wiring-manifest.json": "1ff5044b6729188442d750ac52e335e43906bab39b851b03f509cedbcbe4b046",
+    "hardware/gun-positioner/mounting/generate.py": "e1142e06947ec6c3c468f08122d8d07a835978af9cdaf81f5d3b3a9b51f434aa",
+    "hardware/gun-positioner/mounting/manifest.json": "4e81de4b417eaa357c8f7874448f00b4d35009532b0c789cd34b9f0b0b759625",
+    "hardware/gun-positioner/control.md": "647a9ce7c3c4b6e312f178ad7d3e42424f5af30ff7d254aedfd4d975bce4e1fb",
+    "hardware/gun-positioner/commissioning.md": "7d3b2c183446a9792eae9985b27e3a288a6dbf34b2cd0bddd3ef63c446e838c8",
+    "hardware/gun-positioner/observation.md": "69b43c50a91111d3d6e50a49cea3d58a0fd42f33f004cb48cb4ff1f39bc3b2a7",
+    "tools/gun-positioner-observation/README.md": "7bccb5df518468cfd0c4b2671111a631d4d7d902e3877649a8720dc12368c640",
+    "tools/gun-positioner-observation/observe.py": "1dcc562c5193c25d536503a8944a7638b4c8d1606ab30ffe2eb2bb69622855df",
+    "tools/gun-positioner-observation/gpobs/learn.py": "f8acbc781fe1643faba073f692fbe4c3cd897735854ea236a2450b7b400ce5ad",
+    "tools/gun-positioner-observation/examples/cameras.example.json": "ecaeffa4d119a34741dc64d1e422d223750f7442ff576d04be1295f7682ea3da",
+    "tools/gun-positioner-observation/examples/operator-optics.example.json": "f8a1b92aca71467455913f689a127710f8ce7cde7366b19236dcf027e61e117f",
+    "tools/gun-positioner-observation/examples/features.example.json": "f7a788a277fe2481c2853af9a59a1de9e2c5985f4af4cafe8fa6b7bc50f062d2",
+    "tools/gun-positioner-observation/examples/target.example.json": "daf9e9cc2686013ece7c4dd2ca5ae1826785d65451a0a9626242fc08796d6943",
+    "firmware/src_gun_positioner/assets/build-manifest.json": "e16383926ffadc5b883ffa344246804e36f68fa41ce435b6354dd0a9ca055893",
+    "tools/gun-positioner-guide/author.py": "35769a7e33e839dde58cef26dcf4ef41a55f14ee524b76ae09942e4a51d78a44",
+    "hardware/gun-positioner-guide/style.css": "9864a8b9aa572064016a7d26c3b43d364edb307e1d82eaef80e40430e00047ad"
+  },
+  "leaves": [
+    {
+      "file": "01-cover.html",
+      "title": "Gun positioner assembly guide",
+      "art": "hero.png",
+      "section": "Home Soda Machine / Bench instructions"
+    },
+    {
+      "file": "02-what-you-build.html",
+      "title": "One gun, six axes",
+      "art": "hero.png",
+      "section": "Before assembly"
+    },
+    {
+      "file": "03-read-the-pictures.html",
+      "title": "Read the pictures",
+      "art": "visual-key.svg",
+      "section": "Before assembly"
+    },
+    {
+      "file": "04-contents.html",
+      "title": "Find the next operation",
+      "art": "visual-key.svg",
+      "section": "Before assembly"
+    },
+    {
+      "file": "05-whole-build.html",
+      "title": "Build in this order",
+      "art": "whole-exploded.png",
+      "section": "Before assembly"
+    },
+    {
+      "file": "06-print-inventory.html",
+      "title": "Print the named parts",
+      "art": "print-parts.png",
+      "section": "Kit / printed parts"
+    },
+    {
+      "file": "07-metal-inventory-1.html",
+      "title": "Metal kit / 1",
+      "art": "metal-kit-1.png",
+      "section": "Kit / fabrication"
+    },
+    {
+      "file": "08-metal-inventory-2.html",
+      "title": "Metal kit / 2",
+      "art": "metal-kit-2.png",
+      "section": "Kit / fabrication"
+    },
+    {
+      "file": "09-metal-inventory-3.html",
+      "title": "Metal kit / 3",
+      "art": "metal-kit-3.png",
+      "section": "Kit / fabrication"
+    },
+    {
+      "file": "10-metal-inventory-4.html",
+      "title": "Metal kit / 4",
+      "art": "metal-kit-4.png",
+      "section": "Kit / fabrication"
+    },
+    {
+      "file": "11-metal-inventory-5.html",
+      "title": "Metal kit / 5",
+      "art": "metal-kit-5.png",
+      "section": "Kit / fabrication"
+    },
+    {
+      "file": "12-metal-inventory-6.html",
+      "title": "Metal kit / 6",
+      "art": "metal-kit-6.png",
+      "section": "Kit / fabrication"
+    },
+    {
+      "file": "13-metal-inventory-7.html",
+      "title": "Metal kit / 7",
+      "art": "metal-kit-7.png",
+      "section": "Kit / fabrication"
+    },
+    {
+      "file": "14-metal-inventory-8.html",
+      "title": "Metal kit / 8",
+      "art": "metal-kit-8.png",
+      "section": "Kit / fabrication"
+    },
+    {
+      "file": "15-metal-inventory-9.html",
+      "title": "Metal kit / 9",
+      "art": "metal-kit-9.png",
+      "section": "Kit / fabrication"
+    },
+    {
+      "file": "16-metal-inventory-10.html",
+      "title": "Metal kit / 10",
+      "art": "metal-kit-10.png",
+      "section": "Kit / fabrication"
+    },
+    {
+      "file": "17-metal-inventory-11.html",
+      "title": "Metal kit / 11",
+      "art": "metal-kit-11.png",
+      "section": "Kit / fabrication"
+    },
+    {
+      "file": "18-fastener-inventory-1.html",
+      "title": "Mechanism fasteners / 1",
+      "art": "visual-key.svg",
+      "section": "Kit / joint hardware"
+    },
+    {
+      "file": "19-fastener-inventory-2.html",
+      "title": "Mechanism fasteners / 2",
+      "art": "visual-key.svg",
+      "section": "Kit / joint hardware"
+    },
+    {
+      "file": "20-fastener-inventory-3.html",
+      "title": "Mechanism fasteners / 3",
+      "art": "visual-key.svg",
+      "section": "Kit / joint hardware"
+    },
+    {
+      "file": "21-fastener-inventory-4.html",
+      "title": "Mechanism fasteners / 4",
+      "art": "visual-key.svg",
+      "section": "Kit / joint hardware"
+    },
+    {
+      "file": "22-fastener-inventory-5.html",
+      "title": "Mechanism fasteners / 5",
+      "art": "visual-key.svg",
+      "section": "Kit / joint hardware"
+    },
+    {
+      "file": "23-fastener-inventory-6.html",
+      "title": "Mechanism fasteners / 6",
+      "art": "visual-key.svg",
+      "section": "Kit / joint hardware"
+    },
+    {
+      "file": "24-purchase-kits.html",
+      "title": "Sort the purchased kits",
+      "art": "gimbal.png",
+      "section": "Kit / purchases"
+    },
+    {
+      "file": "25-tools.html",
+      "title": "Put the tools at the bench",
+      "art": "hub.png",
+      "section": "Kit / tools"
+    },
+    {
+      "file": "26-coupon.html",
+      "title": "Start with the pulley sector",
+      "art": "coupon.png",
+      "section": "Preparation / print"
+    },
+    {
+      "file": "27-print-recipe.html",
+      "title": "Print the carriers and guards",
+      "art": "print-parts.png",
+      "section": "Preparation / print"
+    },
+    {
+      "file": "28-controller-print-kit.html",
+      "title": "Print the fixed controller mounts",
+      "art": "controller-print-parts.png",
+      "section": "Preparation / controller prints"
+    },
+    {
+      "file": "29-prepare-blanks.html",
+      "title": "Prepare the metal blanks",
+      "art": "metal-preparation.png",
+      "section": "Preparation / metal"
+    },
+    {
+      "file": "30-prepare-hubs.html",
+      "title": "Make seven clamping hubs",
+      "art": "hub.png",
+      "section": "Preparation / metal"
+    },
+    {
+      "file": "31-hub-clamps.html",
+      "title": "Close the split hub clamps",
+      "art": "hub-clamps-exploded.png",
+      "section": "Preparation / metal"
+    },
+    {
+      "file": "32-hub-tightening.html",
+      "title": "Set both clamp bolts with the torque tool",
+      "art": "hub-clamps-fitted.png",
+      "section": "Preparation / metal"
+    },
+    {
+      "file": "33-shaft-end-taps.html",
+      "title": "Tap eight centered shaft ends",
+      "art": "shaft-end-threads.svg",
+      "section": "Preparation / shaft ends"
+    },
+    {
+      "file": "34-shaft-capture-tubes.html",
+      "title": "Finish fourteen metal capture tubes",
+      "art": "yaw-shaft-capture.png",
+      "section": "Preparation / shaft capture"
+    },
+    {
+      "file": "35-hub-proof-support.html",
+      "title": "Build the supported hub proof fixture",
+      "art": "hub-clamp-proof.png",
+      "section": "Preparation / hub qualification"
+    },
+    {
+      "file": "36-hub-proof-seats.html",
+      "title": "Place each hub on its actual final seat",
+      "art": "hub-proof-joint.png",
+      "section": "Preparation / hub qualification"
+    },
+    {
+      "file": "37-hub-proof-lever.html",
+      "title": "Attach the dedicated 140 mm proof lever",
+      "art": "hub-proof-joint.png",
+      "section": "Preparation / hub qualification"
+    },
+    {
+      "file": "38-hub-proof-gauge.html",
+      "title": "Mount the proof gauge under the quill",
+      "art": "hub-proof-gauge.png",
+      "section": "Preparation / hub qualification"
+    },
+    {
+      "file": "39-hub-proof-acceptance.html",
+      "title": "Prove each clamp in both torque signs",
+      "art": "hub-clamp-proof.png",
+      "section": "Preparation / hub qualification"
+    },
+    {
+      "file": "40-shaft-capture-proof-seats.html",
+      "title": "Choose the capture interface face",
+      "art": "shaft-capture-joint.png",
+      "section": "Preparation / shaft qualification"
+    },
+    {
+      "file": "41-shaft-capture-proof-support.html",
+      "title": "Build the axial capture proof fixture",
+      "art": "shaft-capture-proof.png",
+      "section": "Preparation / shaft qualification"
+    },
+    {
+      "file": "42-shaft-capture-proof-bridge.html",
+      "title": "Fit the symmetric capture bridge",
+      "art": "shaft-capture-joint.png",
+      "section": "Preparation / shaft qualification"
+    },
+    {
+      "file": "43-shaft-capture-proof-gauge.html",
+      "title": "Guide the gauge for push and pull",
+      "art": "shaft-capture-gauge.png",
+      "section": "Preparation / shaft qualification"
+    },
+    {
+      "file": "44-shaft-capture-proof-load.html",
+      "title": "Prove both axial capture directions",
+      "art": "shaft-capture-proof.png",
+      "section": "Preparation / shaft qualification"
+    },
+    {
+      "file": "45-drive-metal-floor.html",
+      "title": "Build the metal drive foundation",
+      "art": "drive-foundation.png",
+      "section": "Screw drives / six copies"
+    },
+    {
+      "file": "46-drive-thrust.html",
+      "title": "Build the metal thrust stack",
+      "art": "drive-thrust.png",
+      "section": "Screw drives / six copies"
+    },
+    {
+      "file": "47-drive-supports.html",
+      "title": "Support the fixed cartridge on metal",
+      "art": "drive-radial.png",
+      "section": "Screw drives / six copies"
+    },
+    {
+      "file": "48-drive-nuts.html",
+      "title": "Build the single driving-nut cartridge",
+      "art": "drive-nuts.png",
+      "section": "Screw drives / six copies"
+    },
+    {
+      "file": "49-drive-pulley.html",
+      "title": "Bolt the pulley to its hub",
+      "art": "drive-pulley.png",
+      "section": "Screw drives / six copies"
+    },
+    {
+      "file": "50-drive-motor.html",
+      "title": "Mount the motor and pinion",
+      "art": "drive-motor.png",
+      "section": "Screw drives / six copies"
+    },
+    {
+      "file": "51-drive-belt.html",
+      "title": "Seat and tension the belt",
+      "art": "drive-belt.png",
+      "section": "Screw drives / six copies"
+    },
+    {
+      "file": "52-force-fixture.html",
+      "title": "Mount the gauge vertically under the quill",
+      "art": "force-fixture.svg",
+      "section": "Screw drives / calibration fixture"
+    },
+    {
+      "file": "53-force-load-path.html",
+      "title": "Separate the two force-link reactions",
+      "art": "force-calibration.png",
+      "section": "Screw drives / calibration fixture"
+    },
+    {
+      "file": "54-grade-springs.html",
+      "title": "Grade the actual spring pairs",
+      "art": "spring-grade.svg",
+      "section": "Screw drives / spring grading"
+    },
+    {
+      "file": "55-force-settings.html",
+      "title": "Use the measured force bands by direction",
+      "art": "spring-grade.svg",
+      "section": "Screw drives / force settings"
+    },
+    {
+      "file": "56-force-spacers.html",
+      "title": "Finish the measured preload spacers",
+      "art": "force-cage.png",
+      "section": "Screw drives / spring grading"
+    },
+    {
+      "file": "57-force-cage.html",
+      "title": "Build the captured nut-side cage",
+      "art": "force-cage.png",
+      "section": "Screw drives / six force links"
+    },
+    {
+      "file": "58-force-shuttle.html",
+      "title": "Fit the guided spring shuttle",
+      "art": "force-shuttle.png",
+      "section": "Screw drives / six force links"
+    },
+    {
+      "file": "59-force-calibration.html",
+      "title": "Calibrate each overload trip by force",
+      "art": "force-calibration.png",
+      "section": "Screw drives / six force links"
+    },
+    {
+      "file": "60-station.html",
+      "title": "Square the common station",
+      "art": "station.png",
+      "section": "Structure / base"
+    },
+    {
+      "file": "61-x-bed.html",
+      "title": "Install the X bed",
+      "art": "x-bed.png",
+      "section": "Structure / X"
+    },
+    {
+      "file": "62-x-rails.html",
+      "title": "Align the X guide pair",
+      "art": "x-rails.png",
+      "section": "Structure / X"
+    },
+    {
+      "file": "63-x-carriage.html",
+      "title": "Attach the X carriage",
+      "art": "x-carriage.png",
+      "section": "Structure / X"
+    },
+    {
+      "file": "64-x-screw.html",
+      "title": "Fit the X screw drive",
+      "art": "x-complete.png",
+      "section": "Structure / X"
+    },
+    {
+      "file": "65-y-bed.html",
+      "title": "Build the raised Y deck",
+      "art": "y-bed.png",
+      "section": "Structure / Y"
+    },
+    {
+      "file": "66-y-rails.html",
+      "title": "Align the Y guide pair",
+      "art": "y-rails.png",
+      "section": "Structure / Y"
+    },
+    {
+      "file": "67-y-carriage.html",
+      "title": "Attach the Y carriage",
+      "art": "y-carriage.png",
+      "section": "Structure / Y"
+    },
+    {
+      "file": "68-y-screw.html",
+      "title": "Fit the Y screw drive",
+      "art": "xy-complete.png",
+      "section": "Structure / Y"
+    },
+    {
+      "file": "69-z-mast.html",
+      "title": "Brace the metal Z mast",
+      "art": "z-mast.png",
+      "section": "Structure / Z"
+    },
+    {
+      "file": "70-z-rails.html",
+      "title": "Align the Z guide pair",
+      "art": "z-rails.png",
+      "section": "Structure / Z"
+    },
+    {
+      "file": "71-z-carriage.html",
+      "title": "Attach the Z carriage",
+      "art": "z-carriage.png",
+      "section": "Structure / Z"
+    },
+    {
+      "file": "72-z-screw.html",
+      "title": "Fit the Z screw drive",
+      "art": "z-complete.png",
+      "section": "Structure / Z"
+    },
+    {
+      "file": "73-z-head.html",
+      "title": "Join the head support",
+      "art": "z-head.png",
+      "section": "Structure / head"
+    },
+    {
+      "file": "74-yaw-bearings.html",
+      "title": "Build the yaw bearing support",
+      "art": "yaw-bearings.png",
+      "section": "Gimbal / yaw"
+    },
+    {
+      "file": "75-yaw-frame.html",
+      "title": "Bolt the yaw frame",
+      "art": "yaw-frame.png",
+      "section": "Gimbal / yaw"
+    },
+    {
+      "file": "76-yaw-shaft-capture.html",
+      "title": "Capture the yaw shaft axially",
+      "art": "yaw-shaft-capture.png",
+      "section": "Gimbal / yaw capture"
+    },
+    {
+      "file": "77-pitch-bearings.html",
+      "title": "Install the pitch bearing pair",
+      "art": "pitch-bearings.png",
+      "section": "Gimbal / pitch"
+    },
+    {
+      "file": "78-pitch-frame.html",
+      "title": "Join the pitch frame",
+      "art": "pitch-frame.png",
+      "section": "Gimbal / pitch"
+    },
+    {
+      "file": "79-pitch-shaft-capture.html",
+      "title": "Capture the pitch shaft axially",
+      "art": "pitch-shaft-capture.png",
+      "section": "Gimbal / pitch capture"
+    },
+    {
+      "file": "80-roll-bearings.html",
+      "title": "Install the roll spindle",
+      "art": "roll-bearings.png",
+      "section": "Gimbal / roll"
+    },
+    {
+      "file": "81-roll-frame.html",
+      "title": "Build the open roll cradle",
+      "art": "roll-cradle.png",
+      "section": "Gimbal / roll"
+    },
+    {
+      "file": "82-roll-shaft-capture.html",
+      "title": "Capture the roll shaft axially",
+      "art": "roll-shaft-capture.png",
+      "section": "Gimbal / roll capture"
+    },
+    {
+      "file": "83-angular-anchors.html",
+      "title": "Tie each base clevis to its parent frame",
+      "art": "angular-anchors.png",
+      "section": "Gimbal / actuator anchors"
+    },
+    {
+      "file": "84-angular-drives.html",
+      "title": "Pin the three screw actuators",
+      "art": "angular-clevis.png",
+      "section": "Gimbal / actuators"
+    },
+    {
+      "file": "85-linear-stops.html",
+      "title": "Install the linear stop pairs",
+      "art": "limits-linear.png",
+      "section": "Travel / X Y Z"
+    },
+    {
+      "file": "86-angular-stops.html",
+      "title": "Set the angular stop pairs",
+      "art": "limits-angular.png",
+      "section": "Travel / U V W"
+    },
+    {
+      "file": "87-friction-washers.html",
+      "title": "Fit three independent friction retainers",
+      "art": "friction-washer.png",
+      "section": "Retention / metal assembly"
+    },
+    {
+      "file": "88-friction-preload.html",
+      "title": "Set and lock the spring seats",
+      "art": "friction-preload.png",
+      "section": "Retention / preload"
+    },
+    {
+      "file": "89-torque-redirect.html",
+      "title": "Characterize the cord redirect first",
+      "art": "torque-redirect.png",
+      "section": "Retention / torque fixture"
+    },
+    {
+      "file": "90-brake-torque.html",
+      "title": "Measure each axis around a full turn",
+      "art": "brake-torque.png",
+      "section": "Retention / torque"
+    },
+    {
+      "file": "91-crash-guides.html",
+      "title": "Install the four ground guide rods",
+      "art": "crash-guides.png",
+      "section": "Payload / captured crash mount"
+    },
+    {
+      "file": "92-crash-pods.html",
+      "title": "Close the two captured axial pods",
+      "art": "crash-pods.png",
+      "section": "Payload / captured crash mount"
+    },
+    {
+      "file": "93-crash-carriers.html",
+      "title": "Join the tapered output carriers",
+      "art": "crash-carriers.png",
+      "section": "Payload / captured crash mount"
+    },
+    {
+      "file": "94-crash-seats.html",
+      "title": "Register three hardened V seats",
+      "art": "crash-seats.png",
+      "section": "Payload / transverse release"
+    },
+    {
+      "file": "95-crash-magnets.html",
+      "title": "Fit the three magnetic retainers",
+      "art": "crash-magnets.png",
+      "section": "Payload / transverse release"
+    },
+    {
+      "file": "96-crash-contacts.html",
+      "title": "Mount the two independent crash channels",
+      "art": "crash-contacts.png",
+      "section": "Payload / crash detection"
+    },
+    {
+      "file": "97-umbilical-boom.html",
+      "title": "Support the umbilical independently",
+      "art": "fiber-boom.png",
+      "section": "Payload / independent support"
+    },
+    {
+      "file": "98-umbilical-swivels.html",
+      "title": "Fit the two free-turning saddles",
+      "art": "fiber-swivel.png",
+      "section": "Payload / independent support"
+    },
+    {
+      "file": "99-gun-jaws.html",
+      "title": "Pad the metal jaw bars",
+      "art": "metal-jaws.png",
+      "section": "Payload / clamp"
+    },
+    {
+      "file": "100-gun-clamp.html",
+      "title": "Seat the adjustable gun clamp",
+      "art": "gun-clamp.png",
+      "section": "Payload / clamp"
+    },
+    {
+      "file": "101-scale-reference.html",
+      "title": "Check the scale with reference weights",
+      "art": "weighed-loads.svg",
+      "section": "Payload / release-force fixture"
+    },
+    {
+      "file": "102-crash-load-fork.html",
+      "title": "Build the temporary nozzle loading fork",
+      "art": "crash-loading.png",
+      "section": "Payload / release-force fixture"
+    },
+    {
+      "file": "103-crash-load-fixture.html",
+      "title": "Apply load at the calibrated nozzle datum",
+      "art": "crash-loading.png",
+      "section": "Payload / release-force fixture"
+    },
+    {
+      "file": "104-crash-release-force.html",
+      "title": "Grade release in every used direction",
+      "art": "weighed-loads.svg",
+      "section": "Payload / release qualification"
+    },
+    {
+      "file": "105-installed-z-load-fixture.html",
+      "title": "Brace the installed Z load fixture",
+      "art": "installed-z-load-bound.png",
+      "section": "Retention / actual load"
+    },
+    {
+      "file": "106-installed-z-feed-jack.html",
+      "title": "Fit the metal feed jack",
+      "art": "installed-z-jack.png",
+      "section": "Retention / actual load"
+    },
+    {
+      "file": "107-actual-z-load.html",
+      "title": "Bound the actual carried Z load",
+      "art": "installed-z-load-bound.png",
+      "section": "Retention / actual load"
+    },
+    {
+      "file": "108-actual-angular-load.html",
+      "title": "Measure signed gravity and cable moments",
+      "art": "angular-load-lever.png",
+      "section": "Retention / actual load"
+    },
+    {
+      "file": "109-actual-backdrive-bound.html",
+      "title": "Compare measured load with passive holding",
+      "art": "angular-law.svg",
+      "section": "Retention / actual load"
+    },
+    {
+      "file": "110-loaded-retention.html",
+      "title": "Prove retention with the real load",
+      "art": "hero.png",
+      "section": "Retention / loaded check"
+    },
+    {
+      "file": "111-control-backplane.html",
+      "title": "Lay out the fixed control backplane",
+      "art": "control-backplane.svg",
+      "section": "Controller / preparation"
+    },
+    {
+      "file": "112-controller-board-mounts.html",
+      "title": "Mount the boards above the blank",
+      "art": "controller-mounts.png",
+      "section": "Controller / mounting"
+    },
+    {
+      "file": "113-controller-fan-mount.html",
+      "title": "Fit the fan and both guards",
+      "art": "controller-fan-stand.png",
+      "section": "Controller / mounting"
+    },
+    {
+      "file": "114-controller-fixed-mount.html",
+      "title": "Attach the backplane to fixed metal",
+      "art": "control-backplane.svg",
+      "section": "Controller / mounting"
+    },
+    {
+      "file": "115-driver-pin-map.html",
+      "title": "Map the received driver pins",
+      "art": "driver-map.svg",
+      "section": "Controller / received parts"
+    },
+    {
+      "file": "116-driver-socket-table.html",
+      "title": "Verify the BTT V1.3 socket map",
+      "art": "driver-map.svg",
+      "section": "Controller / received socket map"
+    },
+    {
+      "file": "117-harness-connectors.html",
+      "title": "Separate motor power from logic plugs",
+      "art": "harness-connectors.svg",
+      "section": "Controller / harness"
+    },
+    {
+      "file": "118-motor-pairs.html",
+      "title": "Identify the two motor windings",
+      "art": "motor-pairs.svg",
+      "section": "Controller / motor harness"
+    },
+    {
+      "file": "119-local-bypass.html",
+      "title": "Fit the local motor capacitors",
+      "art": "local-bypass.svg",
+      "section": "Controller / bypass"
+    },
+    {
+      "file": "120-motor-power.html",
+      "title": "Switch the motor bus",
+      "art": "stop-power.svg",
+      "section": "Controller / power"
+    },
+    {
+      "file": "121-logic-power.html",
+      "title": "Keep the controller alive",
+      "art": "logic-power.svg",
+      "section": "Controller / power"
+    },
+    {
+      "file": "122-step-direction.html",
+      "title": "Route STEP and DIR",
+      "art": "step-dir.svg",
+      "section": "Controller / motion"
+    },
+    {
+      "file": "123-uart-buses.html",
+      "title": "Make two readable buses",
+      "art": "uart-buses.svg",
+      "section": "Controller / diagnostics"
+    },
+    {
+      "file": "124-travel-loops.html",
+      "title": "Wire six closed loops",
+      "art": "limit-loop.svg",
+      "section": "Controller / limits"
+    },
+    {
+      "file": "125-logic-stop.html",
+      "title": "Land the logic stop",
+      "art": "logic-stop.svg",
+      "section": "Controller / stop"
+    },
+    {
+      "file": "126-motor-bus-sense.html",
+      "title": "Measure switched voltage",
+      "art": "voltage-divider.svg",
+      "section": "Controller / sensing"
+    },
+    {
+      "file": "127-driver-fan.html",
+      "title": "Add guarded cross-flow cooling",
+      "art": "fan-power.svg",
+      "section": "Controller / cooling"
+    },
+    {
+      "file": "128-continuity-gate.html",
+      "title": "Meter before connecting power",
+      "art": "driver-map.svg",
+      "section": "Controller / cold checks"
+    },
+    {
+      "file": "129-insert-drivers.html",
+      "title": "Seat the six verified modules",
+      "art": "driver-map.svg",
+      "section": "Controller / module installation"
+    },
+    {
+      "file": "130-flash-bench.html",
+      "title": "Load the bench controller image",
+      "art": "software-banner.svg",
+      "section": "Controller / firmware"
+    },
+    {
+      "file": "131-host-client.html",
+      "title": "Install and inspect the host client",
+      "art": "software-banner.svg",
+      "section": "Controller / host"
+    },
+    {
+      "file": "132-first-voltage.html",
+      "title": "Check both supply paths",
+      "art": "logic-power.svg",
+      "section": "Controller / first power"
+    },
+    {
+      "file": "133-fuse-startup.html",
+      "title": "Qualify the selected cold-start fuses",
+      "art": "fan-power.svg",
+      "section": "Controller / inrush screen"
+    },
+    {
+      "file": "134-reset-current.html",
+      "title": "Check reset fallback and ENN",
+      "art": "driver-map.svg",
+      "section": "Controller / reset behavior"
+    },
+    {
+      "file": "135-isolated-motors.html",
+      "title": "Test one uncoupled motor at a time",
+      "art": "drive-motor.png",
+      "section": "Controller / bench motion"
+    },
+    {
+      "file": "136-all-six-motors.html",
+      "title": "Verify all six channels and UART",
+      "art": "uart-buses.svg",
+      "section": "Controller / bench motion"
+    },
+    {
+      "file": "137-unarmed-vm-cycle.html",
+      "title": "Test power loss before arming",
+      "art": "stop-power.svg",
+      "section": "Controller / reset interlock"
+    },
+    {
+      "file": "138-recover-session.html",
+      "title": "Recover an ambiguous session explicitly",
+      "art": "software-banner.svg",
+      "section": "Controller / recovery"
+    },
+    {
+      "file": "139-fit-drive-guards.html",
+      "title": "Couple the belts and fit guards",
+      "art": "drive-guard.png",
+      "section": "Controller / mechanical closure"
+    },
+    {
+      "file": "140-flash-loaded.html",
+      "title": "Load the fixed loaded-development image",
+      "art": "software-banner.svg",
+      "section": "Controller / loaded configuration"
+    },
+    {
+      "file": "141-physical-reference.html",
+      "title": "Establish the physical central datum",
+      "art": "gimbal.png",
+      "section": "Controller / referencing"
+    },
+    {
+      "file": "142-camera-height-base.html",
+      "title": "Build two adjustable metal camera bases",
+      "art": "camera-base.png",
+      "section": "Observation / two stages"
+    },
+    {
+      "file": "143-camera-rails.html",
+      "title": "Align the manual camera rails",
+      "art": "camera-rails.png",
+      "section": "Observation / two stages"
+    },
+    {
+      "file": "144-camera-carriage.html",
+      "title": "Attach the level camera carriage",
+      "art": "camera-carriage.png",
+      "section": "Observation / two stages"
+    },
+    {
+      "file": "145-camera-stop-fabrication.html",
+      "title": "Cut eight forked metal stops",
+      "art": "camera-stop-detail.png",
+      "section": "Observation / fabrication"
+    },
+    {
+      "file": "146-camera-stops.html",
+      "title": "Install four metal camera stops",
+      "art": "camera-stops.png",
+      "section": "Observation / two stages"
+    },
+    {
+      "file": "147-camera-return.html",
+      "title": "Fit the two forward clamp bolts",
+      "art": "camera-return.png",
+      "section": "Observation / two stages"
+    },
+    {
+      "file": "148-camera-mount.html",
+      "title": "Mount each camera by its tripod base",
+      "art": "camera-only.png",
+      "section": "Observation / cameras"
+    },
+    {
+      "file": "149-lens-cassette.html",
+      "title": "Capture the lens by its metal rim",
+      "art": "lens-cassette.png",
+      "section": "Observation / lens modules"
+    },
+    {
+      "file": "150-lens-stand.html",
+      "title": "Assemble the removable lens stand",
+      "art": "lens-stand.png",
+      "section": "Observation / lens modules"
+    },
+    {
+      "file": "151-camera-startup.html",
+      "title": "Start the PTZ with its path clear",
+      "art": "camera-startup.png",
+      "section": "Observation / startup"
+    },
+    {
+      "file": "152-camera-align.html",
+      "title": "Raise the level stages to the seam",
+      "art": "camera-forward.png",
+      "section": "Observation / physical alignment"
+    },
+    {
+      "file": "153-camera-retract.html",
+      "title": "Retract cameras by hand",
+      "art": "camera-retracted.png",
+      "section": "Observation / handling"
+    },
+    {
+      "file": "154-powered-force-fixture.html",
+      "title": "Build the powered force fixture",
+      "art": "powered-force-fixture.png",
+      "section": "Dry commissioning / powered force"
+    },
+    {
+      "file": "155-powered-force-ceiling.html",
+      "title": "Measure the powered force ceiling",
+      "art": "powered-force-fixture.png",
+      "section": "Dry commissioning / powered force"
+    },
+    {
+      "file": "156-loaded-small-motion.html",
+      "title": "Observe the first loaded correction",
+      "art": "gun-clamp.png",
+      "section": "Dry commissioning / response"
+    },
+    {
+      "file": "157-fault-loops.html",
+      "title": "Trip every travel and stop loop",
+      "art": "limit-loop.svg",
+      "section": "Dry commissioning / fault response"
+    },
+    {
+      "file": "158-fault-supplies.html",
+      "title": "Test USB loss and motor-power loss",
+      "art": "stop-power.svg",
+      "section": "Dry commissioning / fault response"
+    },
+    {
+      "file": "159-thermal-hold.html",
+      "title": "Measure loaded motion and hold temperatures",
+      "art": "drive-motor.png",
+      "section": "Dry commissioning / thermal"
+    },
+    {
+      "file": "160-warm-hub-proof.html",
+      "title": "Recheck hub grip after settling",
+      "art": "hub-clamp-proof.png",
+      "section": "Dry commissioning / joint settling"
+    },
+    {
+      "file": "161-linear-scale.html",
+      "title": "Screen the three linear scales",
+      "art": "linear-gauge.svg",
+      "section": "Dry commissioning / nominal geometry"
+    },
+    {
+      "file": "162-angular-law.html",
+      "title": "Screen the three clevis laws",
+      "art": "angular-law.svg",
+      "section": "Dry commissioning / nominal geometry"
+    },
+    {
+      "file": "163-observation-install.html",
+      "title": "Prepare the native observation kit",
+      "art": "software-banner.svg",
+      "section": "Dry commissioning / observation setup"
+    },
+    {
+      "file": "164-camera-identities.html",
+      "title": "Identify camera A, then camera B",
+      "art": "camera-startup.png",
+      "section": "Dry commissioning / camera identity"
+    },
+    {
+      "file": "165-camera-config.html",
+      "title": "Make the two-camera configuration",
+      "art": "software-banner.svg",
+      "section": "Dry commissioning / camera configuration"
+    },
+    {
+      "file": "166-camera-format.html",
+      "title": "Measure the native capture format",
+      "art": "camera-forward.png",
+      "section": "Dry commissioning / camera format"
+    },
+    {
+      "file": "167-optics-clock-gate.html",
+      "title": "Validate optics and the host clock",
+      "art": "software-banner.svg",
+      "section": "Dry commissioning / measurement gate"
+    },
+    {
+      "file": "168-native-observation.html",
+      "title": "Record native paired observations",
+      "art": "software-banner.svg",
+      "section": "Dry commissioning / observation"
+    },
+    {
+      "file": "169-learning-files.html",
+      "title": "Define the actual image features",
+      "art": "software-banner.svg",
+      "section": "Dry commissioning / learning setup"
+    },
+    {
+      "file": "170-learning-targets.html",
+      "title": "Check the target and feature files",
+      "art": "software-banner.svg",
+      "section": "Dry commissioning / learning setup"
+    },
+    {
+      "file": "171-learning-rehearsal.html",
+      "title": "Rehearse one-axis probing",
+      "art": "software-banner.svg",
+      "section": "Dry commissioning / rehearsal"
+    },
+    {
+      "file": "172-learning-hardware-jogs.html",
+      "title": "Run observed controller jog trials",
+      "art": "software-banner.svg",
+      "section": "Dry commissioning / local probes"
+    },
+    {
+      "file": "173-learn-response.html",
+      "title": "Fit and validate the loaded local response",
+      "art": "software-banner.svg",
+      "section": "Dry commissioning / local model"
+    },
+    {
+      "file": "174-learning-proposal.html",
+      "title": "Review a fresh correction proposal",
+      "art": "software-banner.svg",
+      "section": "Dry commissioning / correction review"
+    },
+    {
+      "file": "175-learning-execute.html",
+      "title": "Confirm each observed correction",
+      "art": "software-banner.svg",
+      "section": "Dry commissioning / correction trial"
+    },
+    {
+      "file": "176-dry-laps.html",
+      "title": "Track repeated dry rotator laps",
+      "art": "station.png",
+      "section": "Dry commissioning / rotation"
+    },
+    {
+      "file": "177-start-and-finish.html",
+      "title": "Use the same start and shutdown order",
+      "art": "software-banner.svg",
+      "section": "Use / per session"
+    },
+    {
+      "file": "178-numbers.html",
+      "title": "Keep these numbers at the bench",
+      "art": "angular-law.svg",
+      "section": "Reference / nominal settings"
+    },
+    {
+      "file": "179-asset-index.html",
+      "title": "Keep the complete build kit together",
+      "art": "visual-key.svg",
+      "section": "Reference / files"
+    }
+  ]
+}

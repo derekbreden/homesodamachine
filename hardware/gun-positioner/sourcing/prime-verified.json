@@ -361,7 +361,7 @@
     {
       "id": "transfer-punches",
       "category": "Shop tools",
-      "requirement": "Metric transfer punches for transfer-drilling rail, KP08, KP12 and caliper holes from the actual parts",
+      "requirement": "Metric transfer punches for transfer-drilling rail, KP08 and KP12 mounting holes from the actual parts",
       "asin": "B0973MPLNF",
       "title": "HHIP 8600-0043 25 Piece 1-13mm Metric Transfer Punch Set",
       "pack": 1,
@@ -449,7 +449,7 @@
     {
       "id": "loctite-243",
       "category": "Consumables",
-      "requirement": "Medium-strength threadlocker for jam pairs and set screws (none recorded)",
+      "requirement": "Loctite 243 medium-strength threadlocker for fixed-end nuts, shaft-end keepers and bearing set screws",
       "asin": "B004L439FE",
       "title": "Loctite 1330799 243 Blue Oil Resistant Threadlocker Tube - 6 ml",
       "pack": 1,
@@ -735,7 +735,7 @@
     {
       "id": "m4x50-12.9",
       "category": "Gimbal",
-      "requirement": "M4 x 50 grade 12.9: hub split clamps and cross-bolts (14) + controller panel (4)",
+      "requirement": "M4 x 50 grade 12.9: two split-clamp bolts per shaft hub (14) + controller panel (4)",
       "asin": "B015A37OKA",
       "title": "M4 x 50mm 12.9 Alloy Steel Hex Socket Head Cap Screws Bolt Black 20pcs",
       "pack": 20,
@@ -757,7 +757,7 @@
     {
       "id": "m4-nylock",
       "category": "Gimbal",
-      "requirement": "M4 nylon-insert lock nuts: hub bolts (32) + controller panel (4)",
+      "requirement": "M4 nylon-insert lock nuts: hub clamps and proof fixtures (32) + controller panel (4)",
       "asin": "B0FJ8TRT4W",
       "title": "M4 x 0.7mm Nylon Insert Lock Nuts (100pcs) DIN 985 Locknuts 304 Stainless Steel",
       "pack": 100,
@@ -845,7 +845,7 @@
     {
       "id": "force-gauge",
       "category": "Force links",
-      "requirement": "Force instrument for spring grading and bilateral trip tests, 100-150 N angular and 250-350 N XYZ",
+      "requirement": "500 N push/pull instrument for spring grading, bilateral force-link trips and supported shaft proofs",
       "asin": "B08YJNGVKM",
       "title": "500N Digital Force Gauge Push Pull Tester Portable with Case",
       "pack": 1,
@@ -1395,7 +1395,7 @@
     {
       "id": "pico",
       "category": "Controls",
-      "requirement": "Raspberry Pi Pico H or Pico WH, RP2040, soldered 2x20 headers, Micro-USB data cable (qty 1)",
+      "requirement": "RP2040 Raspberry Pi Pico with soldered 2x20 headers; Micro-USB data cable purchased separately",
       "asin": "B0D4V1S1SK",
       "title": "KEYESTUDIO Raspberry Pi Pico Microcontroller Board Pre-soldered, with Header, Based on RP2040 Chip",
       "pack": 1,
@@ -1407,7 +1407,7 @@
       "ships_from": "Amazon",
       "stock": "In Stock",
       "evidence": "Listing: Raspberry Pi Pico on RP2040 with headers pre-soldered; package is the board only. Same RP2040 pinout the firmware's pins.h uses (GP0-22, GP26-27).",
-      "gaps": "No Prime Pico H or Pico WH found; this is a standard Pico with soldered 2x20 headers (no 3-pin JST-SH SWD connector; UF2 over USB does not need it). control.md and build-manifest name Pico H/WH. Genuine-board status not stated beyond the title. Cable not included (pico__usb_cable).",
+      "gaps": "Standard Pico with soldered 2x20 headers; no 3-pin JST-SH SWD connector. UF2 installation uses USB. Genuine-board status is not stated beyond the title. Cable is purchased separately (pico__usb_cable).",
       "on_hand": false,
       "variant": null,
       "in_the_box": null,
@@ -3578,7 +3578,7 @@
     {
       "id": "tube-20x12",
       "category": "Bar, angle and tube",
-      "requirement": "20 OD x 12 ID aluminum tube, opened to 12.5 mm: fourteen rotating axial spacers on the gimbal shafts (231.55 mm finished)",
+      "requirement": "20 OD x 12 ID aluminum tube, opened to 12.5 mm: fourteen rotating axial spacers on the gimbal shafts (231.05 mm finished)",
       "asin": "B0CX48Z33G",
       "title": "DMiotech 2Pack (20mm OD x 12mm ID) 6063 Aluminum Round Tube 300mm Length",
       "pack": 2,
