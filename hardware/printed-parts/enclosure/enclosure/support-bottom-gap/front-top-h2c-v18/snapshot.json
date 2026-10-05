@@ -1,0 +1,71 @@
+{
+  "status": "native_review_pass",
+  "source_cache_directory": ".cache/prints/2026-10-04-enclosure-front-top-flush-frame-h2c-v18",
+  "public_project": "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/front-top-h2c-v18/2026-10-04-enclosure-front-top-flush-frame-h2c-v18-input.3mf",
+  "project_sha256": "5723afde9b1ed915f5150d8659dbf128bb61a9e9debc76502940c0960793fe3b",
+  "archive": ".cache/prints/2026-10-04-enclosure-front-top-flush-frame-h2c-v18/ready/2026-10-04-enclosure-front-top-flush-frame-h2c-v18.gcode.3mf",
+  "archive_sha256": "3d31f00a0a0649627514a02a07f4ce28e42d657ccffcd6369549075532c23702",
+  "gcode_sha256": "91e21a113b8448485918e9409e939836a0cd61b774b02ff4c5476cb00f4d39ac",
+  "accepted_job_record": "../h2c-v18-launch.json",
+  "files": [
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/front-top-h2c-v18/2026-10-04-enclosure-front-top-flush-frame-h2c-v18-input.3mf",
+      "sha256": "5723afde9b1ed915f5150d8659dbf128bb61a9e9debc76502940c0960793fe3b",
+      "size_bytes": 5093702
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/front-top-h2c-v18/2026-10-04-enclosure-front-top-flush-frame-h2c-v18-input.print.json",
+      "sha256": "496d08421c87e87fa8c9f018d54b9c4174593f95227dbf741b98ece529fd4f39",
+      "size_bytes": 3016
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/front-top-h2c-v18/native-slice.json",
+      "sha256": "4bd9ec757cc80abb63c81f1d47bc3071bd3004aed878e9f12f290424890f9c9d",
+      "size_bytes": 1103
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/front-top-h2c-v18/picked-roots.json",
+      "sha256": "bf56463036eb3034e0bb21c3679c0152812066fe8fc62dfa37cd03f9b269055e",
+      "size_bytes": 2499
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/front-top-h2c-v18/preparation.json",
+      "sha256": "01c63754c7282a1c608ba47aeca78ba0bffd2f7d71e00d60cdfc444a1bbd60d9",
+      "size_bytes": 9846
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/front-top-h2c-v18/preview.png",
+      "sha256": "31cf21091cb7ee4961aef9392413df6765dd38dcf970e3cb53dc6b503c447d3a",
+      "size_bytes": 13416
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/front-top-h2c-v18/retention-native-check.json",
+      "sha256": "aa1d7a0e270b1f96a2cd803163c928a72080cbf81ca791758493dd58f06ee1e7",
+      "size_bytes": 38130
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/front-top-h2c-v18/roof-holder-support-review.json",
+      "sha256": "f1e0240dbdcf2248abc163376e16b7a3ce0bf43d8ebc8f489bc58ebb2b061dd2",
+      "size_bytes": 54482
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/front-top-h2c-v18/support-audit.json",
+      "sha256": "8f24878b6b2d3e5c9c15743c2665a90adedc73d8e0c7af6aacd05cd7433384f9",
+      "size_bytes": 8164
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/front-top-h2c-v18/verification.json",
+      "sha256": "16a761a85a840b0748b4c129be26fa064144c3916a0a17e8107c4bb7760740d4",
+      "size_bytes": 1165
+    }
+  ],
+  "independent_native_pause_forecast": "pause-forecast.json",
+  "estimate_seconds": 79003.0546875,
+  "estimated_mass_g": 749.06,
+  "physical_qualification": false,
+  "reader_source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/review_front_top.py": "4cc96fa5fec2f61804d2b8b1e8b1fa2f6d127a5675bd6f9c43904ab40054286a",
+    "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/read_roads.py": "ab12ecba1874040c6c24838432bdeda825857c38abc01f18d7fadc85ed1d0a31",
+    "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/check_picked_roots.py": "abc21f92cc981d9cdfd551915451aedb651ebef40b56fde1d32630555aa3cf30"
+  }
+}

@@ -1,0 +1,3272 @@
+{
+  "project": ".cache/prints/2026-10-04-rc62-valve-frame-fit-mark2-v2/2026-10-04-rc62-valve-frame-fit-mark2-v2-input.3mf",
+  "settings_source": "hardware/printed-parts/petgf.3mf",
+  "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "settings_sha256": "9526b0d4cea9a4d3505a12b3bcc8e810bf5e3f0e32f51079fe4153a8325ade08",
+  "source_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    }
+  },
+  "printer": "Mark2",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 15.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "funnel-frame",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/zone-c/funnel/funnel-frame.stl",
+      "stl_sha256": "ca1427026349939176275b3cdffc5c4c2dd8b5317e30fa08fabf112aa7362ef8",
+      "triangles": 41560,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        27.54999923706046
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        162.5,
+        233.35848999023438,
+        27.549999237060632
+      ],
+      "plate_translation_mm": [
+        162.5,
+        233.35848999023438,
+        27.549999237060632
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          58.25,
+          162.21697998046875,
+          0.0
+        ],
+        [
+          266.75,
+          304.5,
+          55.099998474121264
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10,
+      "supports_enabled": true
+    },
+    {
+      "name": "rc62-pocket-a1",
+      "plate": 1,
+      "object_id": "4",
+      "part_id": "3",
+      "member": "3D/Objects/object_2.model",
+      "identify_id": 1902,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-a1.stl",
+      "stl_sha256": "191657b4afa4828665b966f58e0c514ff243a91a8273dc859cea5f2e52bd3db8",
+      "triangles": 1120,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -0.875,
+        10.0600004196167
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        94.5,
+        49.087500000000006,
+        10.0600004196167
+      ],
+      "plate_translation_mm": [
+        94.5,
+        49.087500000000006,
+        10.0600004196167
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          81.82499980926514,
+          41.76250019073487,
+          0.0
+        ],
+        [
+          107.17500019073486,
+          56.41249980926514,
+          20.1200008392334
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10,
+      "supports_enabled": false
+    },
+    {
+      "name": "rc62-pocket-a2",
+      "plate": 1,
+      "object_id": "6",
+      "part_id": "5",
+      "member": "3D/Objects/object_3.model",
+      "identify_id": 1903,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-a2.stl",
+      "stl_sha256": "57d8df2108c36993714263e4ec5d347e4c75af1f29c30929ed98c76bbabc34a6",
+      "triangles": 6174,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -0.9499998092651367,
+        10.0600004196167
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        128.5,
+        49.087500000000006,
+        10.0600004196167
+      ],
+      "plate_translation_mm": [
+        128.5,
+        49.087500000000006,
+        10.0600004196167
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          115.82499980926514,
+          41.837500000000006,
+          0.0
+        ],
+        [
+          141.17500019073486,
+          56.337500000000006,
+          20.1200008392334
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10,
+      "supports_enabled": false
+    },
+    {
+      "name": "rc62-pocket-a3",
+      "plate": 1,
+      "object_id": "8",
+      "part_id": "7",
+      "member": "3D/Objects/object_4.model",
+      "identify_id": 1904,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-a3.stl",
+      "stl_sha256": "98e27d41d35c81b6710aed64cf85e43cc4d162297744da481e69a70ebbc5c22c",
+      "triangles": 13692,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -1.0124998092651367,
+        10.0600004196167
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        162.5,
+        49.087500000000006,
+        10.0600004196167
+      ],
+      "plate_translation_mm": [
+        162.5,
+        49.087500000000006,
+        10.0600004196167
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          149.82499980926514,
+          41.900000000000006,
+          0.0
+        ],
+        [
+          175.17500019073486,
+          56.275000000000006,
+          20.1200008392334
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10,
+      "supports_enabled": false
+    },
+    {
+      "name": "rc62-pocket-a4",
+      "plate": 1,
+      "object_id": "10",
+      "part_id": "9",
+      "member": "3D/Objects/object_5.model",
+      "identify_id": 1905,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-a4.stl",
+      "stl_sha256": "a4fc21f527d148e9df03c035e4ccc58db9689f62120ba777587e4156083fdf54",
+      "triangles": 636,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -1.0749998092651367,
+        10.0600004196167
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        196.5,
+        49.087500000000006,
+        10.0600004196167
+      ],
+      "plate_translation_mm": [
+        196.5,
+        49.087500000000006,
+        10.0600004196167
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          183.82499980926514,
+          41.962500000000006,
+          0.0
+        ],
+        [
+          209.17500019073486,
+          56.212500000000006,
+          20.1200008392334
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10,
+      "supports_enabled": false
+    },
+    {
+      "name": "rc62-pocket-b1",
+      "plate": 1,
+      "object_id": "12",
+      "part_id": "11",
+      "member": "3D/Objects/object_6.model",
+      "identify_id": 1906,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-b1.stl",
+      "stl_sha256": "79cf207a6191fa0a560f6d22e95ba9d692fbcf4de16b6dd672243644ac9d4347",
+      "triangles": 9804,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -0.875,
+        10.0600004196167
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        230.5,
+        49.087500000000006,
+        10.0600004196167
+      ],
+      "plate_translation_mm": [
+        230.5,
+        49.087500000000006,
+        10.0600004196167
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          217.92500019073486,
+          41.76250019073487,
+          0.0
+        ],
+        [
+          243.07499980926514,
+          56.41249980926514,
+          20.1200008392334
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10,
+      "supports_enabled": false
+    },
+    {
+      "name": "rc62-pocket-b2",
+      "plate": 1,
+      "object_id": "14",
+      "part_id": "13",
+      "member": "3D/Objects/object_7.model",
+      "identify_id": 1907,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-b2.stl",
+      "stl_sha256": "8ae80e0313d64f7eeb7b4ce6aa50167f6213355eaf47769b0eb1a70ab77bd997",
+      "triangles": 14918,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -0.9499998092651367,
+        10.0600004196167
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        94.5,
+        74.0875,
+        10.0600004196167
+      ],
+      "plate_translation_mm": [
+        94.5,
+        74.0875,
+        10.0600004196167
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          81.92500019073486,
+          66.8375,
+          0.0
+        ],
+        [
+          107.07499980926514,
+          81.3375,
+          20.1200008392334
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10,
+      "supports_enabled": false
+    },
+    {
+      "name": "rc62-pocket-b3",
+      "plate": 1,
+      "object_id": "16",
+      "part_id": "15",
+      "member": "3D/Objects/object_8.model",
+      "identify_id": 1908,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-b3.stl",
+      "stl_sha256": "845c2c3c82e0445335da61e0525e0e70be9b15ce429af778ef573d33b60b655e",
+      "triangles": 22494,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -1.0124998092651367,
+        10.0600004196167
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        128.5,
+        74.0875,
+        10.0600004196167
+      ],
+      "plate_translation_mm": [
+        128.5,
+        74.0875,
+        10.0600004196167
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          115.92500019073486,
+          66.9,
+          0.0
+        ],
+        [
+          141.07499980926514,
+          81.275,
+          20.1200008392334
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10,
+      "supports_enabled": false
+    },
+    {
+      "name": "rc62-pocket-b4",
+      "plate": 1,
+      "object_id": "18",
+      "part_id": "17",
+      "member": "3D/Objects/object_9.model",
+      "identify_id": 1909,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-b4.stl",
+      "stl_sha256": "6daff650b1c54249572c9512f4ce698e104919df7f971c389218204f9444721c",
+      "triangles": 9364,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -1.0749998092651367,
+        10.0600004196167
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        162.5,
+        74.0875,
+        10.0600004196167
+      ],
+      "plate_translation_mm": [
+        162.5,
+        74.0875,
+        10.0600004196167
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          149.92500019073486,
+          66.9625,
+          0.0
+        ],
+        [
+          175.07499980926514,
+          81.2125,
+          20.1200008392334
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10,
+      "supports_enabled": false
+    },
+    {
+      "name": "rc62-pocket-c1",
+      "plate": 1,
+      "object_id": "20",
+      "part_id": "19",
+      "member": "3D/Objects/object_10.model",
+      "identify_id": 1910,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-c1.stl",
+      "stl_sha256": "fc0e3a6f2ee89bd39bd1b692de6442393b54a5dc5a258313696d60357c1b6adf",
+      "triangles": 7200,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -0.875,
+        10.0600004196167
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        196.5,
+        74.0875,
+        10.0600004196167
+      ],
+      "plate_translation_mm": [
+        196.5,
+        74.0875,
+        10.0600004196167
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          183.97500038146973,
+          66.76250019073487,
+          0.0
+        ],
+        [
+          209.02499961853027,
+          81.41249980926514,
+          20.1200008392334
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10,
+      "supports_enabled": false
+    },
+    {
+      "name": "rc62-pocket-c2",
+      "plate": 1,
+      "object_id": "22",
+      "part_id": "21",
+      "member": "3D/Objects/object_11.model",
+      "identify_id": 1911,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-c2.stl",
+      "stl_sha256": "471e9b95555cea8ddee029096170e7b120d1c8c96afb1b361d52ec35c5d1f7c0",
+      "triangles": 12298,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -0.9499998092651367,
+        10.0600004196167
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        230.5,
+        74.0875,
+        10.0600004196167
+      ],
+      "plate_translation_mm": [
+        230.5,
+        74.0875,
+        10.0600004196167
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          217.97500038146973,
+          66.8375,
+          0.0
+        ],
+        [
+          243.02499961853027,
+          81.3375,
+          20.1200008392334
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10,
+      "supports_enabled": false
+    },
+    {
+      "name": "rc62-pocket-c3",
+      "plate": 1,
+      "object_id": "24",
+      "part_id": "23",
+      "member": "3D/Objects/object_12.model",
+      "identify_id": 1912,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-c3.stl",
+      "stl_sha256": "11a96301b6b47d375dbc7d31eaef39b89c10013568cd8dc9f71bf8c5cd8ca80d",
+      "triangles": 19812,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -1.0124998092651367,
+        10.0600004196167
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        94.5,
+        99.0875,
+        10.0600004196167
+      ],
+      "plate_translation_mm": [
+        94.5,
+        99.0875,
+        10.0600004196167
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          81.97500038146973,
+          91.9,
+          0.0
+        ],
+        [
+          107.02499961853027,
+          106.275,
+          20.1200008392334
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10,
+      "supports_enabled": false
+    },
+    {
+      "name": "rc62-pocket-c4",
+      "plate": 1,
+      "object_id": "26",
+      "part_id": "25",
+      "member": "3D/Objects/object_13.model",
+      "identify_id": 1913,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-c4.stl",
+      "stl_sha256": "9b82102bc9fcfc8ab6af76c6602bd8134119721f002a74f0e63f64f97169b23c",
+      "triangles": 6706,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -1.0749998092651367,
+        10.0600004196167
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        128.5,
+        99.0875,
+        10.0600004196167
+      ],
+      "plate_translation_mm": [
+        128.5,
+        99.0875,
+        10.0600004196167
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          115.97500038146973,
+          91.9625,
+          0.0
+        ],
+        [
+          141.02499961853027,
+          106.2125,
+          20.1200008392334
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10,
+      "supports_enabled": false
+    },
+    {
+      "name": "rc62-pocket-d1",
+      "plate": 1,
+      "object_id": "28",
+      "part_id": "27",
+      "member": "3D/Objects/object_14.model",
+      "identify_id": 1914,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-d1.stl",
+      "stl_sha256": "a0787ae86bd3e8b9226e17582e2fe510020e94b066dac657504c1efd7a8423bb",
+      "triangles": 3912,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -0.875,
+        10.0600004196167
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        162.5,
+        99.0875,
+        10.0600004196167
+      ],
+      "plate_translation_mm": [
+        162.5,
+        99.0875,
+        10.0600004196167
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          150.02499961853027,
+          91.76250019073487,
+          0.0
+        ],
+        [
+          174.97500038146973,
+          106.41249980926514,
+          20.1200008392334
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10,
+      "supports_enabled": false
+    },
+    {
+      "name": "rc62-pocket-d2",
+      "plate": 1,
+      "object_id": "30",
+      "part_id": "29",
+      "member": "3D/Objects/object_15.model",
+      "identify_id": 1915,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-d2.stl",
+      "stl_sha256": "d8039c36ad66932171ba0944683eee049867265c7a886a4a129689eed256bfa1",
+      "triangles": 9062,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -0.9499998092651367,
+        10.0600004196167
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        196.5,
+        99.0875,
+        10.0600004196167
+      ],
+      "plate_translation_mm": [
+        196.5,
+        99.0875,
+        10.0600004196167
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          184.02499961853027,
+          91.8375,
+          0.0
+        ],
+        [
+          208.97500038146973,
+          106.3375,
+          20.1200008392334
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10,
+      "supports_enabled": false
+    },
+    {
+      "name": "rc62-pocket-d3",
+      "plate": 1,
+      "object_id": "32",
+      "part_id": "31",
+      "member": "3D/Objects/object_16.model",
+      "identify_id": 1916,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-d3.stl",
+      "stl_sha256": "98e5993023803b1ec73e3ae5da5a506bce9a8883ec7e1f028b536af2abb80392",
+      "triangles": 16534,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -1.0124998092651367,
+        10.0600004196167
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        230.5,
+        99.0875,
+        10.0600004196167
+      ],
+      "plate_translation_mm": [
+        230.5,
+        99.0875,
+        10.0600004196167
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          218.02499961853027,
+          91.9,
+          0.0
+        ],
+        [
+          242.97500038146973,
+          106.275,
+          20.1200008392334
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10,
+      "supports_enabled": false
+    },
+    {
+      "name": "rc62-pocket-d4",
+      "plate": 1,
+      "object_id": "34",
+      "part_id": "33",
+      "member": "3D/Objects/object_17.model",
+      "identify_id": 1917,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-d4.stl",
+      "stl_sha256": "d233a2d0ed5d8664d92ff58771dc027cf1914f4041f12eea2498febb0cc4c756",
+      "triangles": 3446,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -1.0749998092651367,
+        10.0600004196167
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        145.5,
+        124.0875,
+        10.0600004196167
+      ],
+      "plate_translation_mm": [
+        145.5,
+        124.0875,
+        10.0600004196167
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          133.02499961853027,
+          116.9625,
+          0.0
+        ],
+        [
+          157.97500038146973,
+          131.2125,
+          20.1200008392334
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10,
+      "supports_enabled": false
+    },
+    {
+      "name": "rc62-pocket-c0",
+      "plate": 1,
+      "object_id": "36",
+      "part_id": "35",
+      "member": "3D/Objects/object_18.model",
+      "identify_id": 1918,
+      "source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-c0.stl",
+      "stl_sha256": "bab4710828206eef7a5f9de4495cc9adc6d5b866eeefc18839ae892912d3f614",
+      "triangles": 15270,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -0.8125,
+        10.0600004196167
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        179.5,
+        124.0875,
+        10.0600004196167
+      ],
+      "plate_translation_mm": [
+        179.5,
+        124.0875,
+        10.0600004196167
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          166.77499961853027,
+          116.70000019073487,
+          0.0
+        ],
+        [
+          192.22500038146973,
+          131.47499980926514,
+          20.1200008392334
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10,
+      "supports_enabled": false
+    },
+    {
+      "name": "beduan-socket-v72",
+      "plate": 1,
+      "object_id": "38",
+      "part_id": "37",
+      "member": "3D/Objects/object_19.model",
+      "identify_id": 1919,
+      "source": "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v72.stl",
+      "stl_sha256": "607d75723a8370deac99cf5aa80ff25bf5e5b6a974be63a2e73e9bcdaab92cfe",
+      "triangles": 18094,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -2.9000000953674316,
+        22.024999618530273
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        54.5,
+        23.599999999999994,
+        22.024999618530273
+      ],
+      "plate_translation_mm": [
+        54.5,
+        23.599999999999994,
+        22.024999618530273
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          32.70000076293945,
+          15.500000095367426,
+          0.0
+        ],
+        [
+          76.29999923706055,
+          31.699999904632563,
+          44.04999923706055
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10,
+      "supports_enabled": false
+    },
+    {
+      "name": "beduan-socket-v71",
+      "plate": 1,
+      "object_id": "40",
+      "part_id": "39",
+      "member": "3D/Objects/object_20.model",
+      "identify_id": 1920,
+      "source": "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v71.stl",
+      "stl_sha256": "042303cd3c5d71d48bbcc820788345d5cd15dd08cd57de60f90c8e819af6442e",
+      "triangles": 13064,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -2.9000000953674316,
+        22.024999618530273
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        108.5,
+        23.599999999999994,
+        22.024999618530273
+      ],
+      "plate_translation_mm": [
+        108.5,
+        23.599999999999994,
+        22.024999618530273
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          86.70000076293945,
+          15.500000095367426,
+          0.0
+        ],
+        [
+          130.29999923706055,
+          31.699999904632563,
+          44.04999923706055
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10,
+      "supports_enabled": false
+    },
+    {
+      "name": "beduan-socket-v70",
+      "plate": 1,
+      "object_id": "42",
+      "part_id": "41",
+      "member": "3D/Objects/object_21.model",
+      "identify_id": 1921,
+      "source": "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v70.stl",
+      "stl_sha256": "ce4469a1d590cc26ed603aac6530a5d64be8fe45964ffcfc1f3b5f108e494cf8",
+      "triangles": 21092,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -2.9000000953674316,
+        22.024999618530273
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        162.5,
+        23.599999999999994,
+        22.024999618530273
+      ],
+      "plate_translation_mm": [
+        162.5,
+        23.599999999999994,
+        22.024999618530273
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          140.70000076293945,
+          15.500000095367426,
+          0.0
+        ],
+        [
+          184.29999923706055,
+          31.699999904632563,
+          44.04999923706055
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10,
+      "supports_enabled": false
+    },
+    {
+      "name": "beduan-socket-v69",
+      "plate": 1,
+      "object_id": "44",
+      "part_id": "43",
+      "member": "3D/Objects/object_22.model",
+      "identify_id": 1922,
+      "source": "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v69.stl",
+      "stl_sha256": "d228dc8eb7ef364b52a22b58ad2c170e13d23c84517a5afd0b213ab950a47885",
+      "triangles": 37948,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -2.9000000953674316,
+        22.024999618530273
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        216.5,
+        23.599999999999994,
+        22.024999618530273
+      ],
+      "plate_translation_mm": [
+        216.5,
+        23.599999999999994,
+        22.024999618530273
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          194.70000076293945,
+          15.500000095367426,
+          0.0
+        ],
+        [
+          238.29999923706055,
+          31.699999904632563,
+          44.04999923706055
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10,
+      "supports_enabled": false
+    },
+    {
+      "name": "beduan-socket-v68",
+      "plate": 1,
+      "object_id": "46",
+      "part_id": "45",
+      "member": "3D/Objects/object_23.model",
+      "identify_id": 1923,
+      "source": "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v68.stl",
+      "stl_sha256": "c01d4b985ba53402daa248d2f305d059158c2839da5a9ac6ce565f1cf543d131",
+      "triangles": 43454,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -2.9000000953674316,
+        22.024999618530273
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        270.5,
+        23.599999999999994,
+        22.024999618530273
+      ],
+      "plate_translation_mm": [
+        270.5,
+        23.599999999999994,
+        22.024999618530273
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          248.70000076293945,
+          15.500000095367426,
+          0.0
+        ],
+        [
+          292.29999923706055,
+          31.699999904632563,
+          44.04999923706055
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10,
+      "supports_enabled": false
+    }
+  ],
+  "project_sha256": "02ada53aaa550bf97de28397df581cb24b40333ad9f0efb2033d3e83f4e43d4a",
+  "settings_preserved_byte_for_byte": false,
+  "intentional_overrides": {
+    "extruder_ams_count": {
+      "from": [
+        "1#0|4#1",
+        "1#0|4#0"
+      ],
+      "to": [
+        "1#0|4#0",
+        "1#0|4#0"
+      ]
+    },
+    "support_filament": {
+      "from": "0",
+      "to": "1"
+    },
+    "support_interface_filament": {
+      "from": "0",
+      "to": "1"
+    },
+    "flush_into_support": {
+      "from": "1",
+      "to": "0"
+    },
+    "filament_colour": {
+      "from": [
+        "#000000"
+      ],
+      "to": [
+        "#161616"
+      ]
+    },
+    "elefant_foot_compensation": {
+      "from": "0.15",
+      "to": "0"
+    },
+    "brim_type": {
+      "from": "auto_brim",
+      "to": "no_brim"
+    },
+    "brim_width": {
+      "from": "5",
+      "to": "0"
+    }
+  },
+  "layer_ranges_mm": [
+    {
+      "min_z": 34.0,
+      "max_z": 46.3,
+      "layer_height": 0.24,
+      "wall_loops": 6,
+      "object": "funnel-frame",
+      "reason": "Complete additive expanding roof-side transition, print Z34.1..46.1."
+    }
+  ],
+  "support_painted_facets": {
+    "additive_roof_side_expansion": 233
+  },
+  "pause": null,
+  "requested_z_trim_mm": 0.04,
+  "expected_textured_trim_mm": 0.02,
+  "source_sha256": {
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/prepare_prints.py": "2e7044989476ef573792af8bd9f798fd1eb9ce969d9e105c7cbd1a2acb82d7eb",
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "ca1427026349939176275b3cdffc5c4c2dd8b5317e30fa08fabf112aa7362ef8",
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "410db1305d0600cef79d62b9d91299ac444c487a3d7cb9a5470e5a16dd8b3244",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "e7283da22c69147d65418d1518e5b66247f8e7525409713909897fd8ceba2dbf",
+    "hardware/printed-parts/zone-c/funnel/flush-roof-review/geometry-check.json": "6f2186179b251fe0d704db59aecdcaa58b8d649e9e8f2055b9cfef6f3e0b8edf",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/geometry.json": "a42224fad6b23fe08d9d72e9a779e6a3bee2313b85d9735df85bd4855826fda7",
+    "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/geometry.json": "80ef3e6f2b8a4b7511527bbddadb0fea76219ba8eb2ee3afb5cb16581f08121f",
+    "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/generate.py": "67ea40944453a14ace52fe99bbc074aff8fe858ce7211a2b0b8bba1544957960",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/generate.py": "a2d8a070cf5eea13ad14fe088f5e222801b4a6600a15d2ed4ba21ee13f128792",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-a1.stl": "191657b4afa4828665b966f58e0c514ff243a91a8273dc859cea5f2e52bd3db8",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-a1.step": "eb4111f0cab60560f83922ad9d21529fe8b3d69185bc8f14581cbcdafb02a82d",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-a2.stl": "57d8df2108c36993714263e4ec5d347e4c75af1f29c30929ed98c76bbabc34a6",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-a2.step": "83b9433b18ccd911ce13d7aa04e06ab46214dd65260de5d7eecf994c2df5c729",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-a3.stl": "98e27d41d35c81b6710aed64cf85e43cc4d162297744da481e69a70ebbc5c22c",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-a3.step": "07925ff281c1c8f3f32b2e113e1667f3a15d7bfb451494c1a3cbb276531e757b",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-a4.stl": "a4fc21f527d148e9df03c035e4ccc58db9689f62120ba777587e4156083fdf54",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-a4.step": "a1edf625b796b4963c04c40eef8ba88734de38fc0a88ee51218a0f802aae759d",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-b1.stl": "79cf207a6191fa0a560f6d22e95ba9d692fbcf4de16b6dd672243644ac9d4347",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-b1.step": "4f5a24b3de376be2dcda0275563334b597210a2e56b2aece0f9d8ec3a9b648d3",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-b2.stl": "8ae80e0313d64f7eeb7b4ce6aa50167f6213355eaf47769b0eb1a70ab77bd997",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-b2.step": "005a0c227c3cd931934543ec0dc0fde322c97daee936f13abe40958b57b8410f",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-b3.stl": "845c2c3c82e0445335da61e0525e0e70be9b15ce429af778ef573d33b60b655e",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-b3.step": "a9a560678078192ea7f4262a943d9004929e47f8c1b21a556db5a4469a215001",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-b4.stl": "6daff650b1c54249572c9512f4ce698e104919df7f971c389218204f9444721c",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-b4.step": "803f6dbe11d81a6e0067bed1a88017fad2bc427f57ad46b7da6b042d7fea8036",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-c1.stl": "fc0e3a6f2ee89bd39bd1b692de6442393b54a5dc5a258313696d60357c1b6adf",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-c1.step": "6411c8ecba51ea93719b6ac5b2281ebc8e9d7dac5c25c2de6c1ac28d2e2eb1b1",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-c2.stl": "471e9b95555cea8ddee029096170e7b120d1c8c96afb1b361d52ec35c5d1f7c0",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-c2.step": "ca0942764428378867972ef03548e9744b0844f7f95608d353ab90b0240acd29",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-c3.stl": "11a96301b6b47d375dbc7d31eaef39b89c10013568cd8dc9f71bf8c5cd8ca80d",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-c3.step": "2bea517a535e696171174b08b55b7d6eb1ccd6af74ea0d3004a830eec0113483",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-c4.stl": "9b82102bc9fcfc8ab6af76c6602bd8134119721f002a74f0e63f64f97169b23c",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-c4.step": "9aac97830a7b73c78f3f97998695992ab4f8ab3b433d17c2c6158c8d2fa51851",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-d1.stl": "a0787ae86bd3e8b9226e17582e2fe510020e94b066dac657504c1efd7a8423bb",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-d1.step": "0b23240daa8a554693165b9192467ddd51ffde00bbae48a6dc569c07c1fed263",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-d2.stl": "d8039c36ad66932171ba0944683eee049867265c7a886a4a129689eed256bfa1",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-d2.step": "bd4b17fc20367338a0c6d6a108d144c216e55967785ef62ce9ff9ead1ccc4579",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-d3.stl": "98e5993023803b1ec73e3ae5da5a506bce9a8883ec7e1f028b536af2abb80392",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-d3.step": "5fb1e19c8f2be9d874cba4ead480410960f53052caf2667af3b80dce550c5209",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-d4.stl": "d233a2d0ed5d8664d92ff58771dc027cf1914f4041f12eea2498febb0cc4c756",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-d4.step": "dbd0b4dfccfa4dcfc3ccc3ccd79ac9089218947d52655dc783ef554f9146c3d2",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-c0.stl": "bab4710828206eef7a5f9de4495cc9adc6d5b866eeefc18839ae892912d3f614",
+    "hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/rc62-pocket-c0.step": "44cc7b38621888767a755464fc07503528111eadf47a2cfd81196ca9002589bc",
+    "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v72.stl": "607d75723a8370deac99cf5aa80ff25bf5e5b6a974be63a2e73e9bcdaab92cfe",
+    "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v72.step": "7d1f0816a9f79e110311a329aa77cf45b35877d5d67db0b6dfc3d9bf99265295",
+    "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v71.stl": "042303cd3c5d71d48bbcc820788345d5cd15dd08cd57de60f90c8e819af6442e",
+    "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v71.step": "90c27084a855c62e574308b3cb228744c3c719b18d5080d20ca6c7323700234b",
+    "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v70.stl": "ce4469a1d590cc26ed603aac6530a5d64be8fe45964ffcfc1f3b5f108e494cf8",
+    "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v70.step": "9761709bba80098628fdb65f34579f722b90edf09e98b3dc7bd362de177d2491",
+    "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v69.stl": "d228dc8eb7ef364b52a22b58ad2c170e13d23c84517a5afd0b213ab950a47885",
+    "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v69.step": "52c4442ee1c7be802625d42079b0e9ea44f398fbadd7fbc24c707c2627741ec3",
+    "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v68.stl": "c01d4b985ba53402daa248d2f305d059158c2839da5a9ac6ce565f1cf543d131",
+    "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v68.step": "6ad1aa5994f9747424b5698ab648288d506121ee26c4e44ce2d1acc18761ebde"
+  },
+  "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "support_bottom_z_distance_mm": 0.3,
+  "support_object_xy_distance_mm": 0.4,
+  "support_top_z_distance_mm": 0.45,
+  "support_policy": "Production trees only on the frame; support-free fit samples have support disabled per object.",
+  "object_separations": [
+    {
+      "parts": [
+        "rc62-pocket-a1",
+        "funnel-frame"
+      ],
+      "native_bounding_box_gap_mm": 105.80448017120361
+    },
+    {
+      "parts": [
+        "rc62-pocket-a2",
+        "funnel-frame"
+      ],
+      "native_bounding_box_gap_mm": 105.87947998046874
+    },
+    {
+      "parts": [
+        "rc62-pocket-a2",
+        "rc62-pocket-a1"
+      ],
+      "native_bounding_box_gap_mm": 8.649999618530273
+    },
+    {
+      "parts": [
+        "rc62-pocket-a3",
+        "funnel-frame"
+      ],
+      "native_bounding_box_gap_mm": 105.94197998046874
+    },
+    {
+      "parts": [
+        "rc62-pocket-a3",
+        "rc62-pocket-a1"
+      ],
+      "native_bounding_box_gap_mm": 42.64999961853027
+    },
+    {
+      "parts": [
+        "rc62-pocket-a3",
+        "rc62-pocket-a2"
+      ],
+      "native_bounding_box_gap_mm": 8.649999618530273
+    },
+    {
+      "parts": [
+        "rc62-pocket-a4",
+        "funnel-frame"
+      ],
+      "native_bounding_box_gap_mm": 106.00447998046874
+    },
+    {
+      "parts": [
+        "rc62-pocket-a4",
+        "rc62-pocket-a1"
+      ],
+      "native_bounding_box_gap_mm": 76.64999961853027
+    },
+    {
+      "parts": [
+        "rc62-pocket-a4",
+        "rc62-pocket-a2"
+      ],
+      "native_bounding_box_gap_mm": 42.64999961853027
+    },
+    {
+      "parts": [
+        "rc62-pocket-a4",
+        "rc62-pocket-a3"
+      ],
+      "native_bounding_box_gap_mm": 8.649999618530273
+    },
+    {
+      "parts": [
+        "rc62-pocket-b1",
+        "funnel-frame"
+      ],
+      "native_bounding_box_gap_mm": 105.80448017120361
+    },
+    {
+      "parts": [
+        "rc62-pocket-b1",
+        "rc62-pocket-a1"
+      ],
+      "native_bounding_box_gap_mm": 110.75
+    },
+    {
+      "parts": [
+        "rc62-pocket-b1",
+        "rc62-pocket-a2"
+      ],
+      "native_bounding_box_gap_mm": 76.75
+    },
+    {
+      "parts": [
+        "rc62-pocket-b1",
+        "rc62-pocket-a3"
+      ],
+      "native_bounding_box_gap_mm": 42.75
+    },
+    {
+      "parts": [
+        "rc62-pocket-b1",
+        "rc62-pocket-a4"
+      ],
+      "native_bounding_box_gap_mm": 8.75
+    },
+    {
+      "parts": [
+        "rc62-pocket-b2",
+        "funnel-frame"
+      ],
+      "native_bounding_box_gap_mm": 80.87947998046874
+    },
+    {
+      "parts": [
+        "rc62-pocket-b2",
+        "rc62-pocket-a1"
+      ],
+      "native_bounding_box_gap_mm": 10.425000190734863
+    },
+    {
+      "parts": [
+        "rc62-pocket-b2",
+        "rc62-pocket-a2"
+      ],
+      "native_bounding_box_gap_mm": 13.667936932836644
+    },
+    {
+      "parts": [
+        "rc62-pocket-b2",
+        "rc62-pocket-a3"
+      ],
+      "native_bounding_box_gap_mm": 44.035541398397726
+    },
+    {
+      "parts": [
+        "rc62-pocket-b2",
+        "rc62-pocket-a4"
+      ],
+      "native_bounding_box_gap_mm": 77.48195354403501
+    },
+    {
+      "parts": [
+        "rc62-pocket-b2",
+        "rc62-pocket-b1"
+      ],
+      "native_bounding_box_gap_mm": 111.33913603737304
+    },
+    {
+      "parts": [
+        "rc62-pocket-b3",
+        "funnel-frame"
+      ],
+      "native_bounding_box_gap_mm": 80.94197998046874
+    },
+    {
+      "parts": [
+        "rc62-pocket-b3",
+        "rc62-pocket-a1"
+      ],
+      "native_bounding_box_gap_mm": 13.65833665753864
+    },
+    {
+      "parts": [
+        "rc62-pocket-b3",
+        "rc62-pocket-a2"
+      ],
+      "native_bounding_box_gap_mm": 10.5625
+    },
+    {
+      "parts": [
+        "rc62-pocket-b3",
+        "rc62-pocket-a3"
+      ],
+      "native_bounding_box_gap_mm": 13.764197215965776
+    },
+    {
+      "parts": [
+        "rc62-pocket-b3",
+        "rc62-pocket-a4"
+      ],
+      "native_bounding_box_gap_mm": 44.065691373788745
+    },
+    {
+      "parts": [
+        "rc62-pocket-b3",
+        "rc62-pocket-b1"
+      ],
+      "native_bounding_box_gap_mm": 77.56229895305168
+    },
+    {
+      "parts": [
+        "rc62-pocket-b3",
+        "rc62-pocket-b2"
+      ],
+      "native_bounding_box_gap_mm": 8.850000381469727
+    },
+    {
+      "parts": [
+        "rc62-pocket-b4",
+        "funnel-frame"
+      ],
+      "native_bounding_box_gap_mm": 81.00447998046874
+    },
+    {
+      "parts": [
+        "rc62-pocket-b4",
+        "rc62-pocket-a1"
+      ],
+      "native_bounding_box_gap_mm": 44.032544827939546
+    },
+    {
+      "parts": [
+        "rc62-pocket-b4",
+        "rc62-pocket-a2"
+      ],
+      "native_bounding_box_gap_mm": 13.764197215965776
+    },
+    {
+      "parts": [
+        "rc62-pocket-b4",
+        "rc62-pocket-a3"
+      ],
+      "native_bounding_box_gap_mm": 10.6875
+    },
+    {
+      "parts": [
+        "rc62-pocket-b4",
+        "rc62-pocket-a4"
+      ],
+      "native_bounding_box_gap_mm": 13.860916275629112
+    },
+    {
+      "parts": [
+        "rc62-pocket-b4",
+        "rc62-pocket-b1"
+      ],
+      "native_bounding_box_gap_mm": 44.129638982394376
+    },
+    {
+      "parts": [
+        "rc62-pocket-b4",
+        "rc62-pocket-b2"
+      ],
+      "native_bounding_box_gap_mm": 42.85000038146973
+    },
+    {
+      "parts": [
+        "rc62-pocket-b4",
+        "rc62-pocket-b3"
+      ],
+      "native_bounding_box_gap_mm": 8.850000381469727
+    },
+    {
+      "parts": [
+        "rc62-pocket-c1",
+        "funnel-frame"
+      ],
+      "native_bounding_box_gap_mm": 80.80448017120361
+    },
+    {
+      "parts": [
+        "rc62-pocket-c1",
+        "rc62-pocket-a1"
+      ],
+      "native_bounding_box_gap_mm": 77.49427422199203
+    },
+    {
+      "parts": [
+        "rc62-pocket-c1",
+        "rc62-pocket-a2"
+      ],
+      "native_bounding_box_gap_mm": 44.05134101595235
+    },
+    {
+      "parts": [
+        "rc62-pocket-c1",
+        "rc62-pocket-a3"
+      ],
+      "native_bounding_box_gap_mm": 13.69042233123571
+    },
+    {
+      "parts": [
+        "rc62-pocket-c1",
+        "rc62-pocket-a4"
+      ],
+      "native_bounding_box_gap_mm": 10.550000190734863
+    },
+    {
+      "parts": [
+        "rc62-pocket-c1",
+        "rc62-pocket-b1"
+      ],
+      "native_bounding_box_gap_mm": 13.650366957765844
+    },
+    {
+      "parts": [
+        "rc62-pocket-c1",
+        "rc62-pocket-b2"
+      ],
+      "native_bounding_box_gap_mm": 76.90000057220459
+    },
+    {
+      "parts": [
+        "rc62-pocket-c1",
+        "rc62-pocket-b3"
+      ],
+      "native_bounding_box_gap_mm": 42.90000057220459
+    },
+    {
+      "parts": [
+        "rc62-pocket-c1",
+        "rc62-pocket-b4"
+      ],
+      "native_bounding_box_gap_mm": 8.90000057220459
+    },
+    {
+      "parts": [
+        "rc62-pocket-c2",
+        "funnel-frame"
+      ],
+      "native_bounding_box_gap_mm": 80.87947998046874
+    },
+    {
+      "parts": [
+        "rc62-pocket-c2",
+        "rc62-pocket-a1"
+      ],
+      "native_bounding_box_gap_mm": 111.28935560620192
+    },
+    {
+      "parts": [
+        "rc62-pocket-c2",
+        "rc62-pocket-a2"
+      ],
+      "native_bounding_box_gap_mm": 77.51445045471763
+    },
+    {
+      "parts": [
+        "rc62-pocket-c2",
+        "rc62-pocket-a3"
+      ],
+      "native_bounding_box_gap_mm": 44.08408355151442
+    },
+    {
+      "parts": [
+        "rc62-pocket-c2",
+        "rc62-pocket-a4"
+      ],
+      "native_bounding_box_gap_mm": 13.796036690185106
+    },
+    {
+      "parts": [
+        "rc62-pocket-c2",
+        "rc62-pocket-b1"
+      ],
+      "native_bounding_box_gap_mm": 10.425000190734863
+    },
+    {
+      "parts": [
+        "rc62-pocket-c2",
+        "rc62-pocket-b2"
+      ],
+      "native_bounding_box_gap_mm": 110.90000057220459
+    },
+    {
+      "parts": [
+        "rc62-pocket-c2",
+        "rc62-pocket-b3"
+      ],
+      "native_bounding_box_gap_mm": 76.90000057220459
+    },
+    {
+      "parts": [
+        "rc62-pocket-c2",
+        "rc62-pocket-b4"
+      ],
+      "native_bounding_box_gap_mm": 42.90000057220459
+    },
+    {
+      "parts": [
+        "rc62-pocket-c2",
+        "rc62-pocket-c1"
+      ],
+      "native_bounding_box_gap_mm": 8.950000762939453
+    },
+    {
+      "parts": [
+        "rc62-pocket-c3",
+        "funnel-frame"
+      ],
+      "native_bounding_box_gap_mm": 55.941979980468744
+    },
+    {
+      "parts": [
+        "rc62-pocket-c3",
+        "rc62-pocket-a1"
+      ],
+      "native_bounding_box_gap_mm": 35.48750019073486
+    },
+    {
+      "parts": [
+        "rc62-pocket-c3",
+        "rc62-pocket-a2"
+      ],
+      "native_bounding_box_gap_mm": 36.63511170457835
+    },
+    {
+      "parts": [
+        "rc62-pocket-c3",
+        "rc62-pocket-a3"
+      ],
+      "native_bounding_box_gap_mm": 55.68644935104863
+    },
+    {
+      "parts": [
+        "rc62-pocket-c3",
+        "rc62-pocket-a4"
+      ],
+      "native_bounding_box_gap_mm": 84.68670312125083
+    },
+    {
+      "parts": [
+        "rc62-pocket-c3",
+        "rc62-pocket-b1"
+      ],
+      "native_bounding_box_gap_mm": 116.43956714408716
+    },
+    {
+      "parts": [
+        "rc62-pocket-c3",
+        "rc62-pocket-b2"
+      ],
+      "native_bounding_box_gap_mm": 10.5625
+    },
+    {
+      "parts": [
+        "rc62-pocket-c3",
+        "rc62-pocket-b3"
+      ],
+      "native_bounding_box_gap_mm": 13.860037344294641
+    },
+    {
+      "parts": [
+        "rc62-pocket-c3",
+        "rc62-pocket-b4"
+      ],
+      "native_bounding_box_gap_mm": 44.21122827229701
+    },
+    {
+      "parts": [
+        "rc62-pocket-c3",
+        "rc62-pocket-c1"
+      ],
+      "native_bounding_box_gap_mm": 77.66138215140809
+    },
+    {
+      "parts": [
+        "rc62-pocket-c3",
+        "rc62-pocket-c2"
+      ],
+      "native_bounding_box_gap_mm": 111.45164456187385
+    },
+    {
+      "parts": [
+        "rc62-pocket-c4",
+        "funnel-frame"
+      ],
+      "native_bounding_box_gap_mm": 56.004479980468744
+    },
+    {
+      "parts": [
+        "rc62-pocket-c4",
+        "rc62-pocket-a1"
+      ],
+      "native_bounding_box_gap_mm": 36.62297799084862
+    },
+    {
+      "parts": [
+        "rc62-pocket-c4",
+        "rc62-pocket-a2"
+      ],
+      "native_bounding_box_gap_mm": 35.625
+    },
+    {
+      "parts": [
+        "rc62-pocket-c4",
+        "rc62-pocket-a3"
+      ],
+      "native_bounding_box_gap_mm": 36.75646418804363
+    },
+    {
+      "parts": [
+        "rc62-pocket-c4",
+        "rc62-pocket-a4"
+      ],
+      "native_bounding_box_gap_mm": 55.76649994689378
+    },
+    {
+      "parts": [
+        "rc62-pocket-c4",
+        "rc62-pocket-b1"
+      ],
+      "native_bounding_box_gap_mm": 84.71961167029932
+    },
+    {
+      "parts": [
+        "rc62-pocket-c4",
+        "rc62-pocket-b2"
+      ],
+      "native_bounding_box_gap_mm": 13.860037344294641
+    },
+    {
+      "parts": [
+        "rc62-pocket-c4",
+        "rc62-pocket-b3"
+      ],
+      "native_bounding_box_gap_mm": 10.6875
+    },
+    {
+      "parts": [
+        "rc62-pocket-c4",
+        "rc62-pocket-b4"
+      ],
+      "native_bounding_box_gap_mm": 13.956092224732611
+    },
+    {
+      "parts": [
+        "rc62-pocket-c4",
+        "rc62-pocket-c1"
+      ],
+      "native_bounding_box_gap_mm": 44.22674608832313
+    },
+    {
+      "parts": [
+        "rc62-pocket-c4",
+        "rc62-pocket-c2"
+      ],
+      "native_bounding_box_gap_mm": 77.68006978895154
+    },
+    {
+      "parts": [
+        "rc62-pocket-c4",
+        "rc62-pocket-c3"
+      ],
+      "native_bounding_box_gap_mm": 8.950000762939453
+    },
+    {
+      "parts": [
+        "rc62-pocket-d1",
+        "funnel-frame"
+      ],
+      "native_bounding_box_gap_mm": 55.80448017120361
+    },
+    {
+      "parts": [
+        "rc62-pocket-d1",
+        "rc62-pocket-a1"
+      ],
+      "native_bounding_box_gap_mm": 55.5494822471999
+    },
+    {
+      "parts": [
+        "rc62-pocket-d1",
+        "rc62-pocket-a2"
+      ],
+      "native_bounding_box_gap_mm": 36.51373889901641
+    },
+    {
+      "parts": [
+        "rc62-pocket-d1",
+        "rc62-pocket-a3"
+      ],
+      "native_bounding_box_gap_mm": 35.48750019073486
+    },
+    {
+      "parts": [
+        "rc62-pocket-d1",
+        "rc62-pocket-a4"
+      ],
+      "native_bounding_box_gap_mm": 36.63502427231662
+    },
+    {
+      "parts": [
+        "rc62-pocket-d1",
+        "rc62-pocket-b1"
+      ],
+      "native_bounding_box_gap_mm": 55.626657373832785
+    },
+    {
+      "parts": [
+        "rc62-pocket-d1",
+        "rc62-pocket-b2"
+      ],
+      "native_bounding_box_gap_mm": 44.197093938320165
+    },
+    {
+      "parts": [
+        "rc62-pocket-d1",
+        "rc62-pocket-b3"
+      ],
+      "native_bounding_box_gap_mm": 13.787318696414825
+    },
+    {
+      "parts": [
+        "rc62-pocket-d1",
+        "rc62-pocket-b4"
+      ],
+      "native_bounding_box_gap_mm": 10.550000190734863
+    },
+    {
+      "parts": [
+        "rc62-pocket-d1",
+        "rc62-pocket-c1"
+      ],
+      "native_bounding_box_gap_mm": 13.715775876574519
+    },
+    {
+      "parts": [
+        "rc62-pocket-d1",
+        "rc62-pocket-c2"
+      ],
+      "native_bounding_box_gap_mm": 44.24568486278432
+    },
+    {
+      "parts": [
+        "rc62-pocket-d1",
+        "rc62-pocket-c3"
+      ],
+      "native_bounding_box_gap_mm": 43.0
+    },
+    {
+      "parts": [
+        "rc62-pocket-d1",
+        "rc62-pocket-c4"
+      ],
+      "native_bounding_box_gap_mm": 9.0
+    },
+    {
+      "parts": [
+        "rc62-pocket-d2",
+        "funnel-frame"
+      ],
+      "native_bounding_box_gap_mm": 55.879479980468744
+    },
+    {
+      "parts": [
+        "rc62-pocket-d2",
+        "rc62-pocket-a1"
+      ],
+      "native_bounding_box_gap_mm": 84.62182372512258
+    },
+    {
+      "parts": [
+        "rc62-pocket-d2",
+        "rc62-pocket-a2"
+      ],
+      "native_bounding_box_gap_mm": 55.645057740666125
+    },
+    {
+      "parts": [
+        "rc62-pocket-d2",
+        "rc62-pocket-a3"
+      ],
+      "native_bounding_box_gap_mm": 36.647153997575025
+    },
+    {
+      "parts": [
+        "rc62-pocket-d2",
+        "rc62-pocket-a4"
+      ],
+      "native_bounding_box_gap_mm": 35.625
+    },
+    {
+      "parts": [
+        "rc62-pocket-d2",
+        "rc62-pocket-b1"
+      ],
+      "native_bounding_box_gap_mm": 36.53810524780138
+    },
+    {
+      "parts": [
+        "rc62-pocket-d2",
+        "rc62-pocket-b2"
+      ],
+      "native_bounding_box_gap_mm": 77.66307018555155
+    },
+    {
+      "parts": [
+        "rc62-pocket-d2",
+        "rc62-pocket-b3"
+      ],
+      "native_bounding_box_gap_mm": 44.22972857553927
+    },
+    {
+      "parts": [
+        "rc62-pocket-d2",
+        "rc62-pocket-b4"
+      ],
+      "native_bounding_box_gap_mm": 13.892196427701633
+    },
+    {
+      "parts": [
+        "rc62-pocket-d2",
+        "rc62-pocket-c1"
+      ],
+      "native_bounding_box_gap_mm": 10.425000190734863
+    },
+    {
+      "parts": [
+        "rc62-pocket-d2",
+        "rc62-pocket-c2"
+      ],
+      "native_bounding_box_gap_mm": 13.82931668593933
+    },
+    {
+      "parts": [
+        "rc62-pocket-d2",
+        "rc62-pocket-c3"
+      ],
+      "native_bounding_box_gap_mm": 77.0
+    },
+    {
+      "parts": [
+        "rc62-pocket-d2",
+        "rc62-pocket-c4"
+      ],
+      "native_bounding_box_gap_mm": 43.0
+    },
+    {
+      "parts": [
+        "rc62-pocket-d2",
+        "rc62-pocket-d1"
+      ],
+      "native_bounding_box_gap_mm": 9.049999237060547
+    },
+    {
+      "parts": [
+        "rc62-pocket-d3",
+        "funnel-frame"
+      ],
+      "native_bounding_box_gap_mm": 55.941979980468744
+    },
+    {
+      "parts": [
+        "rc62-pocket-d3",
+        "rc62-pocket-a1"
+      ],
+      "native_bounding_box_gap_mm": 116.39194578204133
+    },
+    {
+      "parts": [
+        "rc62-pocket-d3",
+        "rc62-pocket-a2"
+      ],
+      "native_bounding_box_gap_mm": 84.67947696048999
+    },
+    {
+      "parts": [
+        "rc62-pocket-d3",
+        "rc62-pocket-a3"
+      ],
+      "native_bounding_box_gap_mm": 55.724887401968495
+    },
+    {
+      "parts": [
+        "rc62-pocket-d3",
+        "rc62-pocket-a4"
+      ],
+      "native_bounding_box_gap_mm": 36.768466736076704
+    },
+    {
+      "parts": [
+        "rc62-pocket-d3",
+        "rc62-pocket-b1"
+      ],
+      "native_bounding_box_gap_mm": 35.48750019073486
+    },
+    {
+      "parts": [
+        "rc62-pocket-d3",
+        "rc62-pocket-b2"
+      ],
+      "native_bounding_box_gap_mm": 111.45164361249202
+    },
+    {
+      "parts": [
+        "rc62-pocket-d3",
+        "rc62-pocket-b3"
+      ],
+      "native_bounding_box_gap_mm": 77.68006884424025
+    },
+    {
+      "parts": [
+        "rc62-pocket-d3",
+        "rc62-pocket-b4"
+      ],
+      "native_bounding_box_gap_mm": 44.25974626978645
+    },
+    {
+      "parts": [
+        "rc62-pocket-d3",
+        "rc62-pocket-c1"
+      ],
+      "native_bounding_box_gap_mm": 13.819828517411633
+    },
+    {
+      "parts": [
+        "rc62-pocket-d3",
+        "rc62-pocket-c2"
+      ],
+      "native_bounding_box_gap_mm": 10.5625
+    },
+    {
+      "parts": [
+        "rc62-pocket-d3",
+        "rc62-pocket-c3"
+      ],
+      "native_bounding_box_gap_mm": 111.0
+    },
+    {
+      "parts": [
+        "rc62-pocket-d3",
+        "rc62-pocket-c4"
+      ],
+      "native_bounding_box_gap_mm": 77.0
+    },
+    {
+      "parts": [
+        "rc62-pocket-d3",
+        "rc62-pocket-d1"
+      ],
+      "native_bounding_box_gap_mm": 43.04999923706055
+    },
+    {
+      "parts": [
+        "rc62-pocket-d3",
+        "rc62-pocket-d2"
+      ],
+      "native_bounding_box_gap_mm": 9.049999237060547
+    },
+    {
+      "parts": [
+        "rc62-pocket-d4",
+        "funnel-frame"
+      ],
+      "native_bounding_box_gap_mm": 31.004479980468744
+    },
+    {
+      "parts": [
+        "rc62-pocket-d4",
+        "rc62-pocket-a1"
+      ],
+      "native_bounding_box_gap_mm": 65.8371095470861
+    },
+    {
+      "parts": [
+        "rc62-pocket-d4",
+        "rc62-pocket-a2"
+      ],
+      "native_bounding_box_gap_mm": 60.625
+    },
+    {
+      "parts": [
+        "rc62-pocket-d4",
+        "rc62-pocket-a3"
+      ],
+      "native_bounding_box_gap_mm": 60.6875
+    },
+    {
+      "parts": [
+        "rc62-pocket-d4",
+        "rc62-pocket-a4"
+      ],
+      "native_bounding_box_gap_mm": 66.02109488956559
+    },
+    {
+      "parts": [
+        "rc62-pocket-d4",
+        "rc62-pocket-b1"
+      ],
+      "native_bounding_box_gap_mm": 85.20742338686743
+    },
+    {
+      "parts": [
+        "rc62-pocket-d4",
+        "rc62-pocket-b2"
+      ],
+      "native_bounding_box_gap_mm": 44.07429086327834
+    },
+    {
+      "parts": [
+        "rc62-pocket-d4",
+        "rc62-pocket-b3"
+      ],
+      "native_bounding_box_gap_mm": 35.6875
+    },
+    {
+      "parts": [
+        "rc62-pocket-d4",
+        "rc62-pocket-b4"
+      ],
+      "native_bounding_box_gap_mm": 35.75
+    },
+    {
+      "parts": [
+        "rc62-pocket-d4",
+        "rc62-pocket-c1"
+      ],
+      "native_bounding_box_gap_mm": 44.04318918472241
+    },
+    {
+      "parts": [
+        "rc62-pocket-d4",
+        "rc62-pocket-c2"
+      ],
+      "native_bounding_box_gap_mm": 69.77922774723149
+    },
+    {
+      "parts": [
+        "rc62-pocket-d4",
+        "rc62-pocket-c3"
+      ],
+      "native_bounding_box_gap_mm": 28.110899242998258
+    },
+    {
+      "parts": [
+        "rc62-pocket-d4",
+        "rc62-pocket-c4"
+      ],
+      "native_bounding_box_gap_mm": 10.75
+    },
+    {
+      "parts": [
+        "rc62-pocket-d4",
+        "rc62-pocket-d1"
+      ],
+      "native_bounding_box_gap_mm": 10.550000190734863
+    },
+    {
+      "parts": [
+        "rc62-pocket-d4",
+        "rc62-pocket-d2"
+      ],
+      "native_bounding_box_gap_mm": 28.133486901748512
+    },
+    {
+      "parts": [
+        "rc62-pocket-d4",
+        "rc62-pocket-d3"
+      ],
+      "native_bounding_box_gap_mm": 60.9936477399161
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "funnel-frame"
+      ],
+      "native_bounding_box_gap_mm": 30.741980171203608
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-a1"
+      ],
+      "native_bounding_box_gap_mm": 84.77465797063958
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-a2"
+      ],
+      "native_bounding_box_gap_mm": 65.56669428894209
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-a3"
+      ],
+      "native_bounding_box_gap_mm": 60.42500019073486
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-a4"
+      ],
+      "native_bounding_box_gap_mm": 60.48750019073486
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-b1"
+      ],
+      "native_bounding_box_gap_mm": 65.53680410610468
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-b2"
+      ],
+      "native_bounding_box_gap_mm": 69.38729276291143
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-b3"
+      ],
+      "native_bounding_box_gap_mm": 43.765518718619035
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-b4"
+      ],
+      "native_bounding_box_gap_mm": 35.48750019073486
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-c1"
+      ],
+      "native_bounding_box_gap_mm": 35.28750038146973
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-c2"
+      ],
+      "native_bounding_box_gap_mm": 43.744358719036256
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-c3"
+      ],
+      "native_bounding_box_gap_mm": 60.65264321508851
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-c4"
+      ],
+      "native_bounding_box_gap_mm": 27.803779603691723
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-d1"
+      ],
+      "native_bounding_box_gap_mm": 10.287500381469727
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-d2"
+      ],
+      "native_bounding_box_gap_mm": 10.362500190734863
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-d3"
+      ],
+      "native_bounding_box_gap_mm": 27.826616567760205
+    },
+    {
+      "parts": [
+        "rc62-pocket-c0",
+        "rc62-pocket-d4"
+      ],
+      "native_bounding_box_gap_mm": 8.799999237060547
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "funnel-frame"
+      ],
+      "native_bounding_box_gap_mm": 130.5169800758362
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-a1"
+      ],
+      "native_bounding_box_gap_mm": 11.47952713880977
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-a2"
+      ],
+      "native_bounding_box_gap_mm": 40.80434509235932
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-a3"
+      ],
+      "native_bounding_box_gap_mm": 74.22914327330055
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-a4"
+      ],
+      "native_bounding_box_gap_mm": 108.01363180756405
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-b1"
+      ],
+      "native_bounding_box_gap_mm": 141.9820228308361
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-b2"
+      ],
+      "native_bounding_box_gap_mm": 35.58489214091823
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-b3"
+      ],
+      "native_bounding_box_gap_mm": 53.00170475836186
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-b4"
+      ],
+      "native_bounding_box_gap_mm": 81.6338451771343
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-c1"
+      ],
+      "native_bounding_box_gap_mm": 113.23994347297
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-c2"
+      ],
+      "native_bounding_box_gap_mm": 145.96729038459367
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-c3"
+      ],
+      "native_bounding_box_gap_mm": 60.46689713778346
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-c4"
+      ],
+      "native_bounding_box_gap_mm": 72.15036128497924
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-d1"
+      ],
+      "native_bounding_box_gap_mm": 95.09405671158294
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-d2"
+      ],
+      "native_bounding_box_gap_mm": 123.37420567082883
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-d3"
+      ],
+      "native_bounding_box_gap_mm": 153.98056937357336
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-d4"
+      ],
+      "native_bounding_box_gap_mm": 102.40810315004508
+    },
+    {
+      "parts": [
+        "beduan-socket-v72",
+        "rc62-pocket-c0"
+      ],
+      "native_bounding_box_gap_mm": 124.13994418664905
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "funnel-frame"
+      ],
+      "native_bounding_box_gap_mm": 130.5169800758362
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-a1"
+      ],
+      "native_bounding_box_gap_mm": 10.062500286102306
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-a2"
+      ],
+      "native_bounding_box_gap_mm": 10.137500095367443
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-a3"
+      ],
+      "native_bounding_box_gap_mm": 22.028745976339312
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-a4"
+      ],
+      "native_bounding_box_gap_mm": 54.499950407884945
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-b1"
+      ],
+      "native_bounding_box_gap_mm": 88.20087700323185
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-b2"
+      ],
+      "native_bounding_box_gap_mm": 35.13750009536744
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-b3"
+      ],
+      "native_bounding_box_gap_mm": 35.20000009536744
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-b4"
+      ],
+      "native_bounding_box_gap_mm": 40.35572543527754
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-c1"
+      ],
+      "native_bounding_box_gap_mm": 64.11228177319265
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-c2"
+      ],
+      "native_bounding_box_gap_mm": 94.4539556536628
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-c3"
+      ],
+      "native_bounding_box_gap_mm": 60.20000009536744
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-c4"
+      ],
+      "native_bounding_box_gap_mm": 60.26250009536744
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-d1"
+      ],
+      "native_bounding_box_gap_mm": 63.21850663110463
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-d2"
+      ],
+      "native_bounding_box_gap_mm": 80.64052693099941
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-d3"
+      ],
+      "native_bounding_box_gap_mm": 106.39415258091539
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-d4"
+      ],
+      "native_bounding_box_gap_mm": 85.30603466104577
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "rc62-pocket-c0"
+      ],
+      "native_bounding_box_gap_mm": 92.49554422492798
+    },
+    {
+      "parts": [
+        "beduan-socket-v71",
+        "beduan-socket-v72"
+      ],
+      "native_bounding_box_gap_mm": 10.400001525878906
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "funnel-frame"
+      ],
+      "native_bounding_box_gap_mm": 130.5169800758362
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-a1"
+      ],
+      "native_bounding_box_gap_mm": 35.002565268478925
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-a2"
+      ],
+      "native_bounding_box_gap_mm": 10.137500095367443
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-a3"
+      ],
+      "native_bounding_box_gap_mm": 10.200000095367443
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-a4"
+      ],
+      "native_bounding_box_gap_mm": 10.262500095367443
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-b1"
+      ],
+      "native_bounding_box_gap_mm": 35.09835610313406
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-b2"
+      ],
+      "native_bounding_box_gap_mm": 48.63419169767855
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-b3"
+      ],
+      "native_bounding_box_gap_mm": 35.20000009536744
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-b4"
+      ],
+      "native_bounding_box_gap_mm": 35.26250009536744
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-c1"
+      ],
+      "native_bounding_box_gap_mm": 35.062500286102306
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-c2"
+      ],
+      "native_bounding_box_gap_mm": 48.66877453797154
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-c3"
+      ],
+      "native_bounding_box_gap_mm": 68.9785888052097
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-c4"
+      ],
+      "native_bounding_box_gap_mm": 60.26250009536744
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-d1"
+      ],
+      "native_bounding_box_gap_mm": 60.062500286102306
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-d2"
+      ],
+      "native_bounding_box_gap_mm": 60.13750009536744
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-d3"
+      ],
+      "native_bounding_box_gap_mm": 69.00301197927793
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-d4"
+      ],
+      "native_bounding_box_gap_mm": 85.26250009536744
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "rc62-pocket-c0"
+      ],
+      "native_bounding_box_gap_mm": 85.0000002861023
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "beduan-socket-v72"
+      ],
+      "native_bounding_box_gap_mm": 64.4000015258789
+    },
+    {
+      "parts": [
+        "beduan-socket-v70",
+        "beduan-socket-v71"
+      ],
+      "native_bounding_box_gap_mm": 10.400001525878906
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "funnel-frame"
+      ],
+      "native_bounding_box_gap_mm": 130.5169800758362
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "rc62-pocket-a1"
+      ],
+      "native_bounding_box_gap_mm": 88.10153027713096
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "rc62-pocket-a2"
+      ],
+      "native_bounding_box_gap_mm": 54.4765508676722
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "rc62-pocket-a3"
+      ],
+      "native_bounding_box_gap_mm": 22.028745976339312
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "rc62-pocket-a4"
+      ],
+      "native_bounding_box_gap_mm": 10.262500095367443
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "rc62-pocket-b1"
+      ],
+      "native_bounding_box_gap_mm": 10.062500286102306
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "rc62-pocket-b2"
+      ],
+      "native_bounding_box_gap_mm": 94.40754580584844
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "rc62-pocket-b3"
+      ],
+      "native_bounding_box_gap_mm": 64.14577721093914
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "rc62-pocket-b4"
+      ],
+      "native_bounding_box_gap_mm": 40.35572543527754
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "rc62-pocket-c1"
+      ],
+      "native_bounding_box_gap_mm": 35.062500286102306
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "rc62-pocket-c2"
+      ],
+      "native_bounding_box_gap_mm": 35.13750009536744
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "rc62-pocket-c3"
+      ],
+      "native_bounding_box_gap_mm": 106.35293055273273
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "rc62-pocket-c4"
+      ],
+      "native_bounding_box_gap_mm": 80.70052456828573
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "rc62-pocket-d1"
+      ],
+      "native_bounding_box_gap_mm": 63.21850663110463
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "rc62-pocket-d2"
+      ],
+      "native_bounding_box_gap_mm": 60.13750009536744
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "rc62-pocket-d3"
+      ],
+      "native_bounding_box_gap_mm": 60.20000009536744
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "rc62-pocket-d4"
+      ],
+      "native_bounding_box_gap_mm": 92.83544353064451
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "rc62-pocket-c0"
+      ],
+      "native_bounding_box_gap_mm": 85.03602575100548
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "beduan-socket-v72"
+      ],
+      "native_bounding_box_gap_mm": 118.4000015258789
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "beduan-socket-v71"
+      ],
+      "native_bounding_box_gap_mm": 64.4000015258789
+    },
+    {
+      "parts": [
+        "beduan-socket-v69",
+        "beduan-socket-v70"
+      ],
+      "native_bounding_box_gap_mm": 10.400001525878906
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "funnel-frame"
+      ],
+      "native_bounding_box_gap_mm": 130.5169800758362
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "rc62-pocket-a1"
+      ],
+      "native_bounding_box_gap_mm": 141.8822740830239
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "rc62-pocket-a2"
+      ],
+      "native_bounding_box_gap_mm": 108.00182709674948
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "rc62-pocket-a3"
+      ],
+      "native_bounding_box_gap_mm": 74.22914327330055
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "rc62-pocket-a4"
+      ],
+      "native_bounding_box_gap_mm": 40.83557981026093
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "rc62-pocket-b1"
+      ],
+      "native_bounding_box_gap_mm": 11.527989752625823
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "rc62-pocket-b2"
+      ],
+      "native_bounding_box_gap_mm": 145.9187609873391
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "rc62-pocket-b3"
+      ],
+      "native_bounding_box_gap_mm": 113.23506893622782
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "rc62-pocket-b4"
+      ],
+      "native_bounding_box_gap_mm": 81.6338451771343
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "rc62-pocket-c1"
+      ],
+      "native_bounding_box_gap_mm": 52.94794275627519
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "rc62-pocket-c2"
+      ],
+      "native_bounding_box_gap_mm": 35.59283004961803
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "rc62-pocket-c3"
+      ],
+      "native_bounding_box_gap_mm": 153.93455089988922
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "rc62-pocket-c4"
+      ],
+      "native_bounding_box_gap_mm": 123.39155072043093
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "rc62-pocket-d1"
+      ],
+      "native_bounding_box_gap_mm": 95.09405671158294
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "rc62-pocket-d2"
+      ],
+      "native_bounding_box_gap_mm": 72.07353587155336
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "rc62-pocket-d3"
+      ],
+      "native_bounding_box_gap_mm": 60.471610205534205
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "rc62-pocket-d4"
+      ],
+      "native_bounding_box_gap_mm": 124.50188599667965
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "rc62-pocket-c0"
+      ],
+      "native_bounding_box_gap_mm": 102.05109365765954
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "beduan-socket-v72"
+      ],
+      "native_bounding_box_gap_mm": 172.4000015258789
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "beduan-socket-v71"
+      ],
+      "native_bounding_box_gap_mm": 118.4000015258789
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "beduan-socket-v70"
+      ],
+      "native_bounding_box_gap_mm": 64.4000015258789
+    },
+    {
+      "parts": [
+        "beduan-socket-v68",
+        "beduan-socket-v69"
+      ],
+      "native_bounding_box_gap_mm": 10.400001525878906
+    }
+  ],
+  "production_print_pose_retained": true,
+  "fit_sample_quantity": 22,
+  "frame_quantity": 1,
+  "submitted": false,
+  "physical_fit_retention_and_surface_qualified": false
+}
