@@ -2,7 +2,7 @@
   "schema_version": 1,
   "article": "C3 front top and standalone cradle morning insertion",
   "session": "Printer 2",
-  "state": "monitoring_insertions",
+  "state": "monitoring_stopped_by_user",
   "timezone": "America/Chicago",
   "clock_choice": "Local Central clock, CDT UTC-05:00 on October 5, 2026",
   "authorization_quotes": [
@@ -34,7 +34,7 @@
       "archive_sha256": "aa076477c54fdc97fb9b14507dbbd7c75f1b182135780be094757105e728505d",
       "target_acceptance_local": "2026-10-05T04:40:00-05:00",
       "forecast_pause_local": "2026-10-05T09:32:45.785828-05:00",
-      "state": "accepted_monitoring_insertion",
+      "state": "monitoring_stopped_by_user",
       "send_attempted": true,
       "submitted": true,
       "task_id": "1310609527",
@@ -43,7 +43,7 @@
       "insertion_pause_reported": false,
       "fault_reported": false,
       "transaction_invoked_at_utc": "2026-10-05T09:43:15.971175+00:00",
-      "monitoring_branch_state": "accepted_monitoring_insertion",
+      "monitoring_branch_state": "stopped_by_user",
       "acceptance_observed_at_utc": "2026-10-05T09:43:45.785828+00:00",
       "acceptance_observed_at_local": "2026-10-05T04:43:45.785828-05:00",
       "foreground_send_announced_at_utc": "2026-10-05T09:43:31.135741+00:00",
@@ -55,7 +55,41 @@
       "forecast_at_target_acceptance_local": "2026-10-05T09:29:00-05:00",
       "initial_print_progress_recorded": true,
       "first_layer_progress_recorded": true,
-      "initial_print_progress_observed_at_utc": "2026-10-05T09:59:36.502502+00:00"
+      "initial_print_progress_observed_at_utc": "2026-10-05T09:59:36.502502+00:00",
+      "monitoring_stop": {
+        "requested_by": "Derek",
+        "request_quote": "Stop your annoying scheduled task that is doing nothing here.",
+        "automation_id": "c3-cradle-timed-insertion",
+        "automation_status": "PAUSED",
+        "stopped_at_utc": "2026-10-05T14:41:53.564000+00:00",
+        "stopped_at_local": "2026-10-05T09:41:53.564000-05:00",
+        "printer_control_action_performed": false,
+        "automatic_resume_authorized": false
+      },
+      "latest_manual_telemetry": {
+        "observed_at": "2026-10-05T14:42:50.755669+00:00",
+        "task_id": "1310609527",
+        "job_id": "1310609527",
+        "subtask_name": "2026-10-05-enclosure-front-top-c3-v69-h2c-v20.gcode.3mf",
+        "gcode_state": "RUNNING",
+        "layer_num": 287,
+        "total_layer_num": 1346,
+        "mc_percent": 22,
+        "mc_remaining_time": 1028,
+        "print_error": 0,
+        "hms": [],
+        "stg_cur": 0,
+        "left_nozzle": {
+          "actual_c": 280,
+          "target_c": 280
+        },
+        "chamber": {
+          "actual_c": 35,
+          "target_c": 0
+        }
+      },
+      "operator_reported_first_covering_layer_accepted": true,
+      "physical_result": "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/h2c-v20/physical-acceptance.json"
     },
     "Mark2": {
       "launch_plan": "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/mark2-v6/launch-plan.json",
@@ -65,7 +99,7 @@
       "archive_sha256": "37646924eca2ca480b595857f9d8e6aa247130b155952cd2ee3027a40969676d",
       "target_acceptance_local": "2026-10-05T04:43:00-05:00",
       "forecast_pause_local": "2026-10-05T09:34:21.983150-05:00",
-      "state": "suspended_for_required_action",
+      "state": "monitoring_stopped_by_user",
       "send_attempted": true,
       "submitted": true,
       "task_id": "1310615503",
@@ -74,7 +108,7 @@
       "insertion_pause_reported": false,
       "fault_reported": true,
       "transaction_invoked_at_utc": "2026-10-05T09:46:57.038812+00:00",
-      "monitoring_branch_state": "suspended_for_required_action",
+      "monitoring_branch_state": "stopped_by_user",
       "acceptance_observed_at_utc": "2026-10-05T09:47:21.983150+00:00",
       "acceptance_observed_at_local": "2026-10-05T04:47:21.983150-05:00",
       "foreground_send_announced_at_utc": "2026-10-05T09:47:08.557269+00:00",
@@ -97,6 +131,54 @@
         "print_error_hex": "07FE8010",
         "hms_code": "07FE-6000-0002-0001",
         "required_action": "Check and clear binding or tangling of the left external black PET-GF spool and filament path. Keep the print paused pending separate resume authorization."
+      },
+      "monitoring_stop": {
+        "requested_by": "Derek",
+        "request_quote": "Stop your annoying scheduled task that is doing nothing here.",
+        "automation_id": "c3-cradle-timed-insertion",
+        "automation_status": "PAUSED",
+        "stopped_at_utc": "2026-10-05T14:41:53.564000+00:00",
+        "stopped_at_local": "2026-10-05T09:41:53.564000-05:00",
+        "printer_control_action_performed": false,
+        "automatic_resume_authorized": false
+      },
+      "latest_manual_telemetry": {
+        "observed_at": "2026-10-05T14:42:49.366620+00:00",
+        "task_id": "1310615503",
+        "job_id": "1310615503",
+        "subtask_name": "2026-10-05-pump-cradle-c3-mark2-v6.gcode.3mf",
+        "gcode_state": "RUNNING",
+        "layer_num": 76,
+        "total_layer_num": 980,
+        "mc_percent": 11,
+        "mc_remaining_time": 523,
+        "print_error": 0,
+        "hms": [],
+        "stg_cur": 0,
+        "left_nozzle": {
+          "actual_c": 265,
+          "target_c": 265
+        },
+        "chamber": {
+          "actual_c": 37,
+          "target_c": 0
+        }
+      },
+      "revised_pause_forecast": {
+        "observed_at_utc": "2026-10-05T14:42:49.366620+00:00",
+        "observed_at_local": "2026-10-05T09:42:49.366620-05:00",
+        "task_id": "1310615503",
+        "job_id": "1310615503",
+        "archive_name": "2026-10-05-pump-cradle-c3-mark2-v6.gcode.3mf",
+        "layer_num": 76,
+        "printer_remaining_minutes": 523,
+        "native_remaining_minutes_at_pause": 307,
+        "estimated_minutes_until_pause": 216,
+        "estimated_pause_utc": "2026-10-05T18:18:49.366620+00:00",
+        "estimated_pause_local": "2026-10-05T13:18:49.366620-05:00",
+        "method": "Fresh printer remaining time minus frozen native remaining time at the single programmed pause. Minute-rounded estimate, not an observed pause or resume timestamp.",
+        "request_quote": "Tell me when mark2’s new pause time will likely be.",
+        "last_emitted_native_countdown_before_observed_layer": "M73 C216"
       }
     }
   },
@@ -122,10 +204,20 @@
     "automation_stop_condition": "Pause this follow-up only after both branches have reported actual insertion pauses or are suspended for required action. Never resume either printer automatically."
   },
   "automation_id": "c3-cradle-timed-insertion",
-  "automation_status": "ACTIVE",
-  "automation_schedule": "Monitor the two exact accepted tasks every five minutes. Both start reports are complete; notify only new actionable faults or actual programmed insertion pauses.",
+  "automation_status": "PAUSED",
+  "automation_schedule": "Scheduled printer checks stopped at Derek’s request.",
   "last_preparation_check_utc": "2026-10-05T08:56:26.334770+00:00",
   "scope": "Authorization is limited to the exact H2C v20 C3/V69 front top and Mark2 v6 standalone C3 cradle. Keep all older monitors paused and all older queues unchanged, including false authorization of the H2C retention job. Later estimate drift does not authorize stopping an accepted print.",
   "launch_phase_completed_at_utc": "2026-10-05T09:48:32.074332+00:00",
-  "shared_circuit_observed_interval_seconds": 202.771441
+  "shared_circuit_observed_interval_seconds": 202.771441,
+  "monitoring_stop": {
+    "requested_by": "Derek",
+    "request_quote": "Stop your annoying scheduled task that is doing nothing here.",
+    "automation_id": "c3-cradle-timed-insertion",
+    "automation_status": "PAUSED",
+    "stopped_at_utc": "2026-10-05T14:41:53.564000+00:00",
+    "stopped_at_local": "2026-10-05T09:41:53.564000-05:00",
+    "printer_control_action_performed": false,
+    "automatic_resume_authorized": false
+  }
 }

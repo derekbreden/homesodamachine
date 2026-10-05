@@ -104,20 +104,19 @@ supports before installing any hardware.
 [Queue](queue.json) keeps the two jobs independent. The insertion follow-up is
 paused, automatic resume is disabled, and the old H2C source has no start
 authorization. The [open fit samples](fit-coupons/README.md) establish the selected
-C3 hand fit. The closed production pocket's rattle, roof quality, thermal exposure
-and finished magnetic retention remain unqualified.
+C3 hand fit. Derek accepts the [first over-magnet layer on the H2C C3/V69 front top](selected-fit-v1/h2c-v20/physical-acceptance.json),
+supported by two photos. Finished pocket rattle, complete roof behavior, thermal
+exposure and magnetic retention remain unqualified.
 
 The [current selected-fit preparations](selected-fit-v1/README.md) bind the
 standalone C3 cradle on Mark2 and C3/V69 front-top on H2C. Their native insertion
 forecasts are **4 h 47 min** and **4 h 49 min** from start respectively. The
 standalone cradle excludes the existing cap. The
-[shared timed launch plan](selected-fit-v1/timed-launch-plan.json) authorizes
-exactly these two reviewed archives for October 5, 2026, targeting insertion
-forecasts near 9:29 am on H2C and 9:30 am on Mark2, America/Chicago, within the
-requested 9:10–9:50 am window. Start H2C first near 4:40 am, then Mark2 near
-4:43 am subject to at least 180 seconds after actual H2C acceptance and fresh
-both-printer readings. Each actual insertion pause is reported independently;
-either resume needs separate authorization.
+[shared timed launch record](selected-fit-v1/timed-launch-plan.json) binds
+the two accepted October 5, 2026 tasks and their single Send transactions.
+Scheduled checks are stopped at Derek’s request. Mark2’s
+[manual pause forecast](selected-fit-v1/mark2-v6/launch.json) is near **1:20 pm CDT**
+from the 9:42 am reading. No additional Send or automatic resume is authorized.
 
 | Part / printer | Pause before print Z | Completed open rim | First closing layer |
 | --- | --- | --- | --- |
