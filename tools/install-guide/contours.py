@@ -4,6 +4,7 @@ import hashlib
 import json
 import math
 import subprocess
+import xml.etree.ElementTree as ET
 
 from PIL import Image
 
@@ -54,6 +55,31 @@ class Contours:
         raw = f'<image x="{x}" y="{y}" width="{w}" height="{h}" href="{source.as_uri()}"/>'
         silhouette = raw
         lip = ''
+        source_digest = hashlib.sha256(source.read_bytes()).hexdigest()
+        component_outline = ''
+        component_defs = ''
+        if source.name == 'opening.png':
+            overlay = ET.parse(source.with_name('opening-faucet-outline.svg')).getroot()
+            if overlay.attrib['data-source-sha256'] != source_digest:
+                raise ValueError('Opening artwork no longer matches its component outline')
+            if tuple(map(float, overlay.attrib['viewBox'].split())) != (0, 0, *source_size):
+                raise ValueError('Opening component outline uses a different coordinate frame')
+            paths = ''.join(f'<path d="{node.attrib["d"]}"/>' for node in
+                            overlay.iter('{http://www.w3.org/2000/svg}path'))
+            # The scene's alpha contour already covers the exposed perimeter.
+            # Restrict the component stroke to the scene interior to avoid doubling it.
+            component_defs = f'''<filter id="component-interior" color-interpolation-filters="sRGB">
+              <feComponentTransfer in="SourceAlpha" result="solid"><feFuncA type="linear" slope="40"/></feComponentTransfer>
+              <feMorphology in="solid" operator="erode" radius="{self.width}" result="inside"/>
+              <feFlood flood-color="white"/><feComposite in2="inside" operator="in"/>
+            </filter>
+            <mask id="component-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="{pw}" height="{ph}">
+              <g filter="url(#component-interior)">{raw}</g>
+            </mask>'''
+            component_outline = (f'<g mask="url(#component-mask)"><svg x="{x}" y="{y}" width="{w}" height="{h}" '
+                                 f'viewBox="{overlay.attrib["viewBox"]}"><g fill="none" '
+                                 f'stroke="{self.color}" stroke-width="{self.width/scale}" '
+                                 f'stroke-linejoin="round" stroke-linecap="round">{paths}</g></svg></g>')
         if source.name == 'pour-base.png':
             mask = source.parent / 'pour-glass-mask.png'
             silhouette += f'<image x="{x}" y="{y}" width="{w}" height="{h}" href="{mask.as_uri()}"/>'
@@ -73,7 +99,7 @@ class Contours:
         def stops(values):
             return ''.join(f'<stop offset="{offset}" stop-color="{color}"/>' for offset,color in values)
         body = f'''<!doctype html><html><head><style>html,body{{margin:0;width:100%;height:100%;background:transparent}}svg{{display:block;width:100vw;height:100vh}}</style></head><body>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {pw} {ph}"><defs>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {pw} {ph}"><defs>{component_defs}
         <filter id="contour" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
           <feComponentTransfer in="SourceAlpha" result="solid"><feFuncA type="linear" slope="40"/></feComponentTransfer>
           <feMorphology operator="dilate" radius="{self.width}" result="outside"/>
@@ -88,9 +114,9 @@ class Contours:
         <mask id="my" maskUnits="userSpaceOnUse" x="0" y="0" width="{pw}" height="{ph}">
           <rect x="0" y="{my0}" width="{pw}" height="{my1-my0}" fill="url(#fade-y)"/>
         </mask>
-        </defs><g mask="url(#mx)"><g mask="url(#my)"><g filter="url(#contour)">{silhouette}</g>{raw}{lip}</g></g>
+        </defs><g mask="url(#mx)"><g mask="url(#my)"><g filter="url(#contour)">{silhouette}</g>{raw}{lip}{component_outline}</g></g>
         </svg></body></html>'''
-        digest = hashlib.sha256((body+hashlib.sha256(source.read_bytes()).hexdigest()).encode()).hexdigest()[:20]
+        digest = hashlib.sha256((body+source_digest).encode()).hexdigest()[:20]
         target = OUT / f'{digest}.png'
         if not target.exists():
             page = OUT / f'{digest}.html'

@@ -20,7 +20,8 @@ on [Drawings](https://homesodamachine.com/drawings) and at
 The booklet covers installation and care. Braided-hose instructions begin on numbered page 13
 (PDF page 14). Connection checks begin on numbered page 31 (PDF page 32).
 Numbered page 3 shows every supplied kit item as a vector line drawing, with a compact
-customer-supplied checklist in the sidebar. A towel catches residual water at a loosened fitting.
+customer-supplied checklist in the sidebar. Each item sits inside a light panel with its caption
+centered just beneath the drawing. A towel catches residual water at a loosened fitting.
 The Fill pages show the Big Blue screen inside the machine display's frame, with its
 **Start filling** control. The same screen appears on the machine in the bottle illustration.
 The owner lifts the funnel cover by its front edge before the bottle goes in and presses it
@@ -56,6 +57,9 @@ from their registered cameras; each entry identifies its native coordinate refer
 [`kit_art.py`](../../tools/install-guide/kit_art.py) exports hidden-line views of the component
 models with a common 0.68 pt pen at page size. Small machine surface details and dial lettering
 are suppressed; the cord, washer, bag and booklet are illustration props.
+`assets/opening-faucet-outline.svg` supplies the faucet shank and tube silhouette in the
+counter-opening scene. Its dimensions and source hash register it to `opening.png`; the contour
+compositor adds the component boundary where it meets the counter.
 Manual page composition lives in [`landscape.py`](../../tools/install-guide/landscape.py),
 with the build entry point and print exporter in [`tools/install-guide/`](../../tools/install-guide/).
 `_install_art.py` supplies shared CAD scene builders used by illustration tools; its output is
