@@ -1,24 +1,24 @@
 {
   "source_sha256": {
-    "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "ca1427026349939176275b3cdffc5c4c2dd8b5317e30fa08fabf112aa7362ef8",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "cc2cfd8a490b52439d957aa082b0e4369c5602076740494298b3a954f0ba36ba",
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "6cdc42d501fe8f420939bdcc3532ad3a0cc57fef6d79234e7c853230345c8606",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "b9a902360673a932f4f26b8f58fcec3c3fe4649be43fc3d6caef01ce245842aa",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "cc3fa8d2544fc768e03006edf9757d57c1b2895b5903eb2b0d56167ec2c6dbc7"
   },
   "method": "Closed STL solids; sampled relative straight Y insertion. Other installed components are outside this mating-joint check.",
-  "flat_floor_z_mm": 299.8999999999998,
+  "flat_floor_z_mm": 299.9,
   "plug_web_probe_radius_mm": 8.0,
   "plug_web_samples_mm": [
-    3.0000000000001705,
-    3.0000000000001705,
-    3.0000000000001705,
-    3.0000000000001705,
-    3.0000000000001705,
-    3.0000000000001705,
-    3.0000000000001705,
-    3.0000000000001705
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
   ],
   "full_width_corbel_plane_max_excess_mm": [
-    4.33592143167516e-06,
+    7.629394502828291e-07,
     4.33592143167516e-06
   ],
   "joints": [
@@ -27,131 +27,131 @@
       "poses": [
         {
           "travel_mm": 0.0,
-          "overlap_mm3": -1.1368683772161603e-13
+          "overlap_mm3": -2.8421709430404007e-12
         },
         {
           "travel_mm": 0.25,
-          "overlap_mm3": 1.8189894035458565e-12
+          "overlap_mm3": 6.821210263296962e-13
         },
         {
           "travel_mm": 0.5,
-          "overlap_mm3": 2.2737367544323206e-13
+          "overlap_mm3": -2.7284841053187847e-12
         },
         {
           "travel_mm": 1.0,
-          "overlap_mm3": 2.0463630789890885e-12
+          "overlap_mm3": -3.183231456205249e-12
         },
         {
           "travel_mm": 2.0,
-          "overlap_mm3": 5.684341886080802e-14
+          "overlap_mm3": 2.8421709430404007e-13
         },
         {
           "travel_mm": 3.0,
-          "overlap_mm3": -5.4569682106375694e-12
+          "overlap_mm3": -4.320099833421409e-12
         },
         {
           "travel_mm": 4.0,
-          "overlap_mm3": 1.5916157281026244e-12
+          "overlap_mm3": -1.5347723092418164e-12
         },
         {
           "travel_mm": 5.0,
-          "overlap_mm3": -3.865352482534945e-12
-        },
-        {
-          "travel_mm": 6.0,
-          "overlap_mm3": 1.2505552149377763e-12
-        },
-        {
-          "travel_mm": 8.0,
-          "overlap_mm3": 1.1937117960769683e-12
-        },
-        {
-          "travel_mm": 10.0,
-          "overlap_mm3": -3.353761712787673e-12
-        },
-        {
-          "travel_mm": 12.0,
-          "overlap_mm3": -1.3073986337985843e-12
-        },
-        {
-          "travel_mm": 14.0,
-          "overlap_mm3": -2.0463630789890885e-12
-        },
-        {
-          "travel_mm": 16.0,
-          "overlap_mm3": -1.5916157281026244e-12
-        },
-        {
-          "travel_mm": 18.0,
-          "overlap_mm3": -1.8189894035458565e-12
-        },
-        {
-          "travel_mm": 20.0,
-          "overlap_mm3": 6.252776074688882e-13
-        },
-        {
-          "travel_mm": 22.0,
-          "overlap_mm3": -5.684341886080802e-14
-        },
-        {
-          "travel_mm": 24.0,
           "overlap_mm3": 5.684341886080802e-14
         },
         {
+          "travel_mm": 6.0,
+          "overlap_mm3": 4.831690603168681e-12
+        },
+        {
+          "travel_mm": 8.0,
+          "overlap_mm3": 1.6484591469634324e-12
+        },
+        {
+          "travel_mm": 10.0,
+          "overlap_mm3": -1.9895196601282805e-12
+        },
+        {
+          "travel_mm": 12.0,
+          "overlap_mm3": 8.526512829121202e-13
+        },
+        {
+          "travel_mm": 14.0,
+          "overlap_mm3": -5.684341886080801e-13
+        },
+        {
+          "travel_mm": 16.0,
+          "overlap_mm3": -2.0463630789890885e-12
+        },
+        {
+          "travel_mm": 18.0,
+          "overlap_mm3": 7.673861546209082e-13
+        },
+        {
+          "travel_mm": 20.0,
+          "overlap_mm3": -9.663381206337363e-13
+        },
+        {
+          "travel_mm": 22.0,
+          "overlap_mm3": 1.5347723092418164e-12
+        },
+        {
+          "travel_mm": 24.0,
+          "overlap_mm3": 5.684341886080801e-13
+        },
+        {
           "travel_mm": 26.0,
-          "overlap_mm3": 1.7053025658242404e-13
+          "overlap_mm3": 2.2737367544323206e-12
         },
         {
           "travel_mm": 28.0,
-          "overlap_mm3": 1.5347723092418164e-12
+          "overlap_mm3": 1.5916157281026244e-12
         },
         {
           "travel_mm": 30.0,
-          "overlap_mm3": -2.8421709430404007e-13
+          "overlap_mm3": -2.4442670110147446e-12
         },
         {
           "travel_mm": 32.0,
-          "overlap_mm3": 1.5347723092418164e-12
+          "overlap_mm3": 5.400124791776761e-13
         },
         {
           "travel_mm": 34.0,
-          "overlap_mm3": -2.2168933355715126e-12
+          "overlap_mm3": -1.1652900866465643e-12
         },
         {
           "travel_mm": 36.0,
-          "overlap_mm3": 1.8189894035458565e-12
+          "overlap_mm3": 3.183231456205249e-12
         },
         {
           "travel_mm": 38.0,
-          "overlap_mm3": 0.0
+          "overlap_mm3": 1.7053025658242404e-12
         },
         {
           "travel_mm": 40.0,
-          "overlap_mm3": 7.389644451905042e-13
+          "overlap_mm3": -1.0800249583553523e-12
         },
         {
           "travel_mm": 42.0,
-          "overlap_mm3": -8.242295734817162e-13
+          "overlap_mm3": -1.6768808563938364e-12
         },
         {
           "travel_mm": 44.0,
-          "overlap_mm3": 3.694822225952521e-13
+          "overlap_mm3": -8.810729923425242e-13
         },
         {
           "travel_mm": 46.0,
-          "overlap_mm3": -5.684341886080802e-14
+          "overlap_mm3": -1.7053025658242404e-13
         },
         {
           "travel_mm": 48.0,
-          "overlap_mm3": -2.842170943040401e-14
+          "overlap_mm3": -1.1652900866465643e-12
         },
         {
           "travel_mm": 50.0,
-          "overlap_mm3": 9.947598300641403e-14
+          "overlap_mm3": 2.1316282072803006e-13
         },
         {
           "travel_mm": 52.0,
-          "overlap_mm3": -3.552713678800501e-14
+          "overlap_mm3": 3.055333763768431e-13
         },
         {
           "travel_mm": 54.0,
@@ -190,34 +190,34 @@
           "overlap_mm3": 4.547473508864641e-13
         }
       ],
-      "max_overlap_mm3": 2.0463630789890885e-12
+      "max_overlap_mm3": 4.831690603168681e-12
     },
     {
       "joint": "frame / back-top",
       "poses": [
         {
           "travel_mm": 0.0,
-          "overlap_mm3": -2.1760371282653068e-13
+          "overlap_mm3": -7.673861546209082e-13
         },
         {
           "travel_mm": 0.25,
-          "overlap_mm3": 5.3290705182007514e-14
-        },
-        {
-          "travel_mm": 0.5,
           "overlap_mm3": -2.5579538487363607e-13
         },
         {
+          "travel_mm": 0.5,
+          "overlap_mm3": 2.842170943040401e-14
+        },
+        {
           "travel_mm": 1.0,
-          "overlap_mm3": 2.2382096176443156e-13
+          "overlap_mm3": 2.842170943040401e-14
         },
         {
           "travel_mm": 1.4285714285714286,
-          "overlap_mm3": -3.659295089164516e-13
+          "overlap_mm3": -4.263256414560601e-13
         },
         {
           "travel_mm": 2.0,
-          "overlap_mm3": -2.2737367544323206e-13
+          "overlap_mm3": -1.9895196601282805e-13
         },
         {
           "travel_mm": 2.857142857142857,
@@ -225,11 +225,11 @@
         },
         {
           "travel_mm": 3.0,
-          "overlap_mm3": 2.2737367544323206e-13
+          "overlap_mm3": 0.0
         },
         {
           "travel_mm": 4.0,
-          "overlap_mm3": -1.1368683772161603e-13
+          "overlap_mm3": 0.0
         },
         {
           "travel_mm": 4.285714285714286,
@@ -241,11 +241,11 @@
         },
         {
           "travel_mm": 5.714285714285714,
-          "overlap_mm3": 5.684341886080802e-14
+          "overlap_mm3": 1.1368683772161603e-13
         },
         {
           "travel_mm": 6.0,
-          "overlap_mm3": -4.085620730620576e-14
+          "overlap_mm3": 0.0
         },
         {
           "travel_mm": 7.142857142857143,
@@ -376,14 +376,14 @@
           "overlap_mm3": 0.0
         }
       ],
-      "max_overlap_mm3": 2.2737367544323206e-13
+      "max_overlap_mm3": 1.1368683772161603e-13
     },
     {
       "joint": "front-top / back-top",
       "poses": [
         {
           "travel_mm": 0.0,
-          "overlap_mm3": -7.247024396379252e-13
+          "overlap_mm3": -5.669237016465376e-13
         },
         {
           "travel_mm": 0.25,
@@ -570,37 +570,37 @@
       "axis": "X",
       "direction": -1,
       "displacement_mm": 2,
-      "bearing_intersection_mm3": 10130.773497428921
+      "bearing_intersection_mm3": 10410.04317917813
     },
     {
       "axis": "X",
       "direction": 1,
       "displacement_mm": 2,
-      "bearing_intersection_mm3": 10130.803207247978
+      "bearing_intersection_mm3": 10410.068507570955
     },
     {
       "axis": "Y",
       "direction": -1,
       "displacement_mm": 2,
-      "bearing_intersection_mm3": 7788.54753821486
+      "bearing_intersection_mm3": 5716.416687830822
     },
     {
       "axis": "Y",
       "direction": 1,
       "displacement_mm": 2,
-      "bearing_intersection_mm3": 2656.9890022274662
+      "bearing_intersection_mm3": 2426.9676264046684
     },
     {
       "axis": "Z",
       "direction": -1,
       "displacement_mm": 2,
-      "bearing_intersection_mm3": 6273.3785225883
+      "bearing_intersection_mm3": 3268.881768266149
     },
     {
       "axis": "Z",
       "direction": 1,
       "displacement_mm": 2,
-      "bearing_intersection_mm3": 6156.482979129896
+      "bearing_intersection_mm3": 5556.703328906209
     }
   ],
   "clear": true

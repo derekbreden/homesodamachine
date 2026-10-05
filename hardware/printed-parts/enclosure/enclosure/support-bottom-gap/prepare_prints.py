@@ -88,6 +88,11 @@ def add_solid_hosts(members, model, config, part, center, bounds):
 
 def frame_rules(members, report, bands, source):
     """Keep only the complete additive roof-side transition at six walls."""
+    sys.path.insert(0, str(ROOT / 'hardware/printed-parts/zone-c/funnel'))
+    import funnel_frame as frame
+    if frame.roof_datums()['side_reach'] <= 1e-9:
+        report['support_painted_facets'] = dict(additive_roof_side_expansion=0)
+        return
     root = ET.SubElement(bands, 'object', id='1')
     span = ET.SubElement(root, 'range', min_z='34.0000', max_z='46.3000')
     ET.SubElement(span, 'option', opt_key='layer_height').text = '0.24'

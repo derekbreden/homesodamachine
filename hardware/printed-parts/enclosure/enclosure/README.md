@@ -1610,7 +1610,8 @@ Its 107.5 × 71 mm window laps the glass through the 1 mm TPU gasket. The glass
 face is 4.84 mm below the display plane and its back is 5.84 mm below it. The
 106 × 69 × 17 mm module is offset 0.5 mm laterally and 1 mm down the slope.
 The PCB opening is 23.84 mm deep, retaining 1 mm behind the module's rear face.
-The supporting rib keeps its 3 mm stock.
+The flat display backing keeps at least 5.47 mm of stock behind the deepest
+PCB-pocket corner.
 
 Each horizontal wing is 1.44 mm thick, projects 3.60 mm and spans 70 mm. It has
 0.60 mm clearance below the retaining roof and at least 3.00 mm of capture at
@@ -1632,7 +1633,11 @@ its inboard plane out to 6 mm inside the side wall's flute valleys, and from the
 back to the plane of the pump bay's aft wall, straight up to the ceiling. It opens into
 the bay across its whole floor, and its ceiling is 10.02 mm behind the display plane. Between the two walls the opening continues down to
 the bay as one room, which holds the display's back and SIG-7's run to the ridge bore.
-The ridge's cavity-side roof is one plane around the funnel's rounded clearance envelope.
+The display backing presents one broad vertical cavity face at Y95.208 up
+to Z355, with 0.25 mm air to the frame's flat front. A 1.37 mm rise at its
+foot joins it to the bay bulkhead at 45°. The front-top flanks carry their
+complete 9 mm section to the roof opening. The wall and frame keep the
+silicone funnel's 455.44 mL nominal capacity.
 Supports carry the lintel's flat underside, the room's short housing strips and the two
 cavity ceilings from the bay; their geometry preserves the display seats and the catches.
 
@@ -1650,8 +1655,10 @@ it: over a single 4P ribbon the 1/2" sleeve lies at or under the
 opens to, so the teardrop bore is that nominal with air all round — Ø[14.7 mm](CABLE_BORE). It
 locates nothing and carries nothing; the display loom is dressed after it is through.
 
-On the same rib's cavity face, one unembedded [9 mm](CABLE_CLIP_DEPTH)-deep cable clip runs toward
-+X and stops [12 mm](PUMP_LEAD_CLIP_LAND) short of that edge. It guides and strain-relieves the
+On the same wall's cavity face, one unembedded [9 mm](CABLE_CLIP_DEPTH)-deep cable clip runs toward
++X from X68.5 to X86.5 and stops [12 mm](PUMP_LEAD_CLIP_LAND) short of the
+flank's inboard face. Its base is Z285.796, above the wall's foot transition.
+It guides and strain-relieves the
 **fixed J13-to-contact lead**. From the clip's west end the lead lies along the bay bulkhead's
 crown behind the rib to the centreline, then drops down the bulkhead's aft face into the contact
 pair's lead bore ([Cartridge contacts](#cartridge-contacts)). Nothing on the cartridge is clipped

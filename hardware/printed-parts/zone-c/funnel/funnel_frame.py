@@ -81,34 +81,54 @@ def roof_datums(inner=DEFAULT_INNER, centre=(0.0, center_y), seat=349.0,
     """The removable roof surround and its complete 3 mm brim bearing."""
     import enclosure as enc
     cx, cy = centre
-    roof_width = inner[1] - inner[0] - 2 * enc.slide_slip
+    # Front-top carries its 9 mm flank section through the roof. Its inner
+    # faces stand 6 mm inboard of the nominal cavity on each side; the
+    # removable surround fits those faces with the normal running air.
+    flank_growth = enc.front_top_flank_t - enc.wall
+    roof_width = inner[1] - inner[0] - 2 * (flank_growth + enc.slide_slip)
     front = (cy - funnel.collar_d / 2 - funnel.brim_overhang
              - enc.funnel_collar_air - web)
     back = (cy + depth / 2 if full_front_opening else
             min(cy + depth / 2, y_joint - enc.slide_slip))
     floor = seat - web
     reach = (roof_width - body_width) / 2
+    assert reach >= -1e-9, 'The roof opening is narrower than the frame body.'
+    reach = max(0.0, reach)
     return dict(width=roof_width, front=front, back=back, floor=floor,
                 top=seat + funnel.brim_thickness,
                 taper_floor=floor - reach / 0.5,
                 side_reach=reach)
 
 
+def _front_square_blank(width, front, back, z0, z1, cx, radius):
+    """One flat front and two retained rear corner rounds."""
+    blank = cq.Solid.makeBox(width, back - front, z1 - z0,
+                            cq.Vector(cx - width / 2, front, z0))
+    rear_edges = [edge for edge in blank.Edges()
+                  if abs(edge.BoundingBox().ymin - back) < 1e-7
+                  and abs(edge.BoundingBox().ymax - back) < 1e-7
+                  and edge.BoundingBox().zlen > z1 - z0 - 1e-7]
+    return blank.fillet(radius, rear_edges)
+
+
 def roof_blank(inner, centre, seat, air=0.0, y_joint=200.0,
                full_front_opening=False):
-    """Flush roof surround, with model-rooted 0.5:1 side expansions.
+    """Flush roof surround inside front-top's complete flank section.
 
     The lower frame and production rails retain their own width. Only the roof
-    approaches the vertical shell walls, so there is no fixed inward roof ledge
+    meets the vertical shell walls, so there is no fixed inward roof ledge
     above the removable frame.
     """
     import enclosure as enc
     cx, cy = centre
     r = roof_datums(inner, centre, seat, y_joint, full_front_opening)
-    outline = funnel._rounded_box(r['width'] + 2 * air,
-        r['back'] - r['front'] + 2 * air, corner_radius + air,
-        r['taper_floor'] - air, r['top'] + air,
-        cx, (r['front'] + r['back']) / 2)
+    outline = _front_square_blank(r['width'] + 2 * air,
+        r['front'] - air, r['back'] + air,
+        r['taper_floor'] - air, r['top'] + air, cx, corner_radius + air)
+    if r['side_reach'] <= 1e-9:
+        # With a full-thickness shell, the roof and lower body have equal
+        # width. A rectangular surround needs no zero-area side polygons.
+        return outline
     # Keep the outer clearance face parallel to the nominal taper, and extend
     # its inboard root beneath the rounded ends of the original frame body.
     half = body_width / 2 - air
@@ -133,10 +153,12 @@ def roof_blank(inner, centre, seat, air=0.0, y_joint=200.0,
 def body_blank(centre, seat, air=0.0, inner=DEFAULT_INNER, y_joint=200.0):
     cx, cy = centre
     floor, _plug, rail = datums(seat)
-    body = funnel._rounded_box(body_width + 2 * air, depth + 2 * air,
-                               corner_radius + air, floor - air, seat + air, cx, cy)
-    foot = funnel._rounded_box(width + 2 * air, depth + 2 * air,
-                               corner_radius + air, floor - air, rail, cx, cy)
+    front = roof_datums(inner, centre, seat, y_joint)['front']
+    back = cy + depth / 2
+    body = _front_square_blank(body_width + 2 * air, front - air, back + air,
+                               floor - air, seat + air, cx, corner_radius + air)
+    foot = _front_square_blank(width + 2 * air, front - air, back + air,
+                               floor - air, rail, cx, corner_radius + air)
     roof = roof_blank(inner, centre, seat, air, y_joint)
     return body.fuse(foot).fuse(roof).cut(corbel_cut(centre, floor, air)).clean()
 
