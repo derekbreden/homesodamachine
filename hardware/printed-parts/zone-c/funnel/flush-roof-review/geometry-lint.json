@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "recorded_at_utc": "2026-10-05T05:58:34.359097+00:00",
+  "recorded_at_utc": "2026-10-05T08:38:02.064364+00:00",
   "live_publication": "live-publication.json",
-  "live_verified_at_utc": "2026-10-05T05:57:15.297088+00:00",
+  "live_verified_at_utc": "2026-10-05T08:36:20.182271+00:00",
   "lint_source": "hardware/scripts/geometry_lint.py",
   "lint_source_sha256": "79914fb4ca91a5620956c1d4d95fd6fe253fcae1b5f26bac0fafc43edffb4f53",
   "classes": [
@@ -15,9 +15,9 @@
     {
       "piece": "funnel-frame",
       "model": "hardware/printed-parts/zone-c/funnel/funnel-frame.stl",
-      "model_sha256": "6cdc42d501fe8f420939bdcc3532ad3a0cc57fef6d79234e7c853230345c8606",
-      "facet_count": 40720,
-      "lint_run_at_utc": "2026-10-05T05:58:14.989537+00:00",
+      "model_sha256": "a2c10ea55fdedfcea8d512f2637db2399e6f02e5571d92e04db8b0cb54520185",
+      "facet_count": 40400,
+      "lint_run_at_utc": "2026-10-05T08:37:26.293336+00:00",
       "findings_by_class": {
         "step": 0,
         "sliver": 0,
@@ -38,6 +38,49 @@
       },
       "answers": "hardware/printed-parts/zone-c/funnel/funnel-frame.lint-answers",
       "answers_sha256": "ada39d1f1c371483fb1614fbcceb1215934ac8b5d88f9470e0b046786218ba67",
+      "findings": {
+        "step": [],
+        "sliver": [],
+        "ceiling": [
+          {
+            "class": "ceiling",
+            "score": 192.85644420623711,
+            "line": "439 mm\u00b2 flat print-down face at z=16.200 \u00b7 84.5 \u00d7 5.2 mm \u00b7 drop 9.2\u20139.2 mm to material below",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-100.875 y=-10.571 z=16.200",
+              "click: x=-100.875 y=-10.571 z=16.200"
+            ]
+          },
+          {
+            "class": "ceiling",
+            "score": 192.85644420623711,
+            "line": "439 mm\u00b2 flat print-down face at z=16.200 \u00b7 84.5 \u00d7 5.2 mm \u00b7 drop 9.2\u20139.2 mm to material below",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=100.875 y=-10.571 z=16.200",
+              "click: x=100.875 y=-10.571 z=16.200"
+            ]
+          },
+          {
+            "class": "ceiling",
+            "score": 85.92431137924432,
+            "line": "83 mm\u00b2 flat print-down face at z=16.450 \u00b7 15.7 \u00d7 5.2 mm \u00b7 drop 9.5\u20139.5 mm to material below",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-100.875 y=47.074 z=16.450",
+              "click: x=-100.875 y=47.074 z=16.450"
+            ]
+          },
+          {
+            "class": "ceiling",
+            "score": 85.92431137924432,
+            "line": "83 mm\u00b2 flat print-down face at z=16.450 \u00b7 15.7 \u00d7 5.2 mm \u00b7 drop 9.5\u20139.5 mm to material below",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=100.875 y=47.074 z=16.450",
+              "click: x=100.875 y=47.074 z=16.450"
+            ]
+          }
+        ],
+        "slope": []
+      },
       "open_findings": {
         "step": [],
         "sliver": [],
@@ -98,14 +141,15 @@
           ]
         ],
         "slope": []
-      }
+      },
+      "answers_reviewed_at_utc": "2026-10-05T08:39:13.149522+00:00"
     },
     {
       "piece": "enclosure-front-top",
       "model": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
-      "model_sha256": "b9a902360673a932f4f26b8f58fcec3c3fe4649be43fc3d6caef01ce245842aa",
+      "model_sha256": "af13c3ab421d2a7b5d0a60cb334c3f4c1e1f94e96a407b99c77379486e55ed4f",
       "facet_count": 528162,
-      "lint_run_at_utc": "2026-10-05T05:58:16.993695+00:00",
+      "lint_run_at_utc": "2026-10-05T08:37:27.813361+00:00",
       "findings_by_class": {
         "step": 2,
         "sliver": 13,
@@ -125,7 +169,238 @@
         "slope": 0
       },
       "answers": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.lint-answers",
-      "answers_sha256": "c1510dde4f42299c78e2254f2c264a134e18b7a31b5dfd70dca0acc9182e1da9",
+      "answers_sha256": "965c9387191b7196ad9ce628579222fb537a70664364978762271c43fa2075ad",
+      "findings": {
+        "step": [
+          {
+            "class": "step",
+            "score": 105.74670936700326,
+            "line": "\u03940.498 mm between parallel planes \u00b7 footprint met 52.7 \u00d7 4.2 mm",
+            "pick": [
+              "faceA: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=-64.775 y=80.013 z=314.462",
+              "faceB: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=0.000 y=79.515 z=251.135",
+              "click: x=-64.775 y=80.013 z=310.750"
+            ]
+          },
+          {
+            "class": "step",
+            "score": 92.10831778094925,
+            "line": "\u03940.208 mm between parallel planes \u00b7 footprint met 19.2 \u00d7 9.0 mm",
+            "pick": [
+              "faceA: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=94.000 y=95.000 z=295.294",
+              "faceB: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=0.000 y=95.208 z=320.398",
+              "click: x=96.500 y=95.000 z=296.000"
+            ]
+          }
+        ],
+        "sliver": [
+          {
+            "class": "sliver",
+            "score": 34.57728576660156,
+            "line": "1.350 mm strip, 34.6 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=-99.175 y=151.152 z=253.100",
+              "edge: x=-99.175 y=151.152 z=270.389 \u2192 x=-99.175 y=151.152 z=235.811 \u00b7 len 34.577 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=-99.175 y=151.152 z=253.100"
+            ]
+          },
+          {
+            "class": "sliver",
+            "score": 34.57728576660156,
+            "line": "1.350 mm strip, 34.6 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=99.175 y=150.882 z=253.100",
+              "edge: x=99.175 y=150.882 z=270.389 \u2192 x=99.175 y=150.882 z=235.811 \u00b7 len 34.577 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=99.175 y=150.882 z=253.100"
+            ]
+          },
+          {
+            "class": "sliver",
+            "score": 34.57728576660156,
+            "line": "1.350 mm strip, 34.6 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=-99.175 y=117.540 z=253.100",
+              "edge: x=-99.175 y=117.540 z=270.389 \u2192 x=-99.175 y=117.540 z=235.811 \u00b7 len 34.577 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=-99.175 y=117.540 z=253.100"
+            ]
+          },
+          {
+            "class": "sliver",
+            "score": 34.57728576660156,
+            "line": "1.350 mm strip, 34.6 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=99.175 y=117.540 z=253.100",
+              "edge: x=99.175 y=117.540 z=270.389 \u2192 x=99.175 y=117.540 z=235.811 \u00b7 len 34.577 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=99.175 y=117.540 z=253.100"
+            ]
+          },
+          {
+            "class": "sliver",
+            "score": 33.612464904785156,
+            "line": "1.350 mm strip, 33.6 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-99.175 y=134.346 z=235.811",
+              "edge: x=-99.175 y=117.540 z=235.811 \u2192 x=-99.175 y=151.152 z=235.811 \u00b7 len 33.612 \u00b7 straight \u00b7 dir x=0.000 y=1.000 z=0.000",
+              "click: x=-99.175 y=134.346 z=235.811"
+            ]
+          },
+          {
+            "class": "sliver",
+            "score": 33.34239959716797,
+            "line": "1.350 mm strip, 33.3 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=99.175 y=134.211 z=235.811",
+              "edge: x=99.175 y=117.540 z=235.811 \u2192 x=99.175 y=150.882 z=235.811 \u00b7 len 33.342 \u00b7 straight \u00b7 dir x=0.000 y=1.000 z=0.000",
+              "click: x=99.175 y=134.211 z=235.811"
+            ]
+          },
+          {
+            "class": "sliver",
+            "score": 14.70001220703125,
+            "line": "0.150 mm strip, 14.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=95.275 y=169.000 z=264.400",
+              "edge: x=95.275 y=161.650 z=264.400 \u2192 x=95.275 y=176.350 z=264.400 \u00b7 len 14.700 \u00b7 straight \u00b7 dir x=0.000 y=1.000 z=0.000",
+              "click: x=95.275 y=169.000 z=264.400"
+            ]
+          },
+          {
+            "class": "sliver",
+            "score": 9.199996948242188,
+            "line": "0.500 mm strip, 9.2 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-98.500 y=176.690 z=180.550",
+              "edge: x=-98.500 y=172.090 z=180.550 \u2192 x=-98.500 y=181.290 z=180.550 \u00b7 len 9.200 \u00b7 straight \u00b7 dir x=0.000 y=1.000 z=0.000",
+              "click: x=-98.500 y=176.690 z=180.550"
+            ]
+          },
+          {
+            "class": "sliver",
+            "score": 9.199996948242188,
+            "line": "0.500 mm strip, 9.2 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=98.500 y=176.690 z=180.550",
+              "edge: x=98.500 y=181.290 z=180.550 \u2192 x=98.500 y=172.090 z=180.550 \u00b7 len 9.200 \u00b7 straight \u00b7 dir x=0.000 y=-1.000 z=0.000",
+              "click: x=98.500 y=176.690 z=180.550"
+            ]
+          },
+          {
+            "class": "sliver",
+            "score": 8.98638916015625,
+            "line": "0.250 mm strip, 9.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-102.993 y=199.875 z=330.450",
+              "edge: x=-98.500 y=199.875 z=330.450 \u2192 x=-107.486 y=199.875 z=330.450 \u00b7 len 8.986 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+              "click: x=-102.993 y=199.875 z=330.450"
+            ]
+          },
+          {
+            "class": "sliver",
+            "score": 8.98638916015625,
+            "line": "0.250 mm strip, 9.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=102.993 y=199.875 z=330.450",
+              "edge: x=107.486 y=199.875 z=330.450 \u2192 x=98.500 y=199.875 z=330.450 \u00b7 len 8.986 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+              "click: x=102.993 y=199.875 z=330.450"
+            ]
+          },
+          {
+            "class": "sliver",
+            "score": 4.25,
+            "line": "0.498 mm strip, 4.2 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-64.775 y=79.764 z=284.424",
+              "edge: x=-62.650 y=79.764 z=284.424 \u2192 x=-66.900 y=79.764 z=284.424 \u00b7 len 4.250 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+              "click: x=-64.775 y=79.764 z=284.424"
+            ]
+          },
+          {
+            "class": "sliver",
+            "score": 4.25,
+            "line": "0.498 mm strip, 4.2 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=64.775 y=79.764 z=284.424",
+              "edge: x=66.900 y=79.764 z=284.424 \u2192 x=62.650 y=79.764 z=284.424 \u00b7 len 4.250 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+              "click: x=64.775 y=79.764 z=284.424"
+            ]
+          }
+        ],
+        "ceiling": [
+          {
+            "class": "ceiling",
+            "score": 7234.518874250219,
+            "line": "3666 mm\u00b2 flat print-down face at z=284.674 \u00b7 215.0 \u00d7 74.5 mm \u00b7 drop 119.5\u2013119.5 mm to material below",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=0.000 y=42.257 z=284.674",
+              "click: x=0.000 y=42.257 z=284.674"
+            ]
+          },
+          {
+            "class": "ceiling",
+            "score": 1072.049549317623,
+            "line": "318 mm\u00b2 flat print-down face at z=224.796 \u00b7 35.4 \u00d7 9.0 mm \u00b7 drop 60.1\u201360.1 mm to material below",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-103.000 y=111.511 z=224.796",
+              "click: x=-103.000 y=111.511 z=224.796"
+            ]
+          },
+          {
+            "class": "ceiling",
+            "score": 1072.0495468826225,
+            "line": "318 mm\u00b2 flat print-down face at z=224.796 \u00b7 35.4 \u00d7 9.0 mm \u00b7 drop 60.1\u201360.1 mm to material below",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=103.000 y=111.511 z=224.796",
+              "click: x=103.000 y=111.511 z=224.796"
+            ]
+          },
+          {
+            "class": "ceiling",
+            "score": 274.7973356152426,
+            "line": "81 mm\u00b2 flat print-down face at z=261.400 \u00b7 9.3 \u00d7 8.7 mm \u00b7 drop 30.5\u201330.5 mm to material below",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=99.850 y=169.000 z=261.400",
+              "click: x=99.850 y=169.000 z=261.400"
+            ]
+          },
+          {
+            "class": "ceiling",
+            "score": 149.71875953196553,
+            "line": "426 mm\u00b2 flat print-down face at z=306.900 \u00b7 81.2 \u00d7 5.2 mm \u00b7 drop 7.2\u20137.2 mm to material below",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-101.125 y=155.385 z=306.900",
+              "click: x=-101.125 y=155.385 z=306.900"
+            ]
+          },
+          {
+            "class": "ceiling",
+            "score": 149.71875953196553,
+            "line": "426 mm\u00b2 flat print-down face at z=306.900 \u00b7 81.2 \u00d7 5.2 mm \u00b7 drop 7.2\u20137.2 mm to material below",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=101.125 y=155.385 z=306.900",
+              "click: x=101.125 y=155.385 z=306.900"
+            ]
+          },
+          {
+            "class": "ceiling",
+            "score": 147.64516746935686,
+            "line": "60 mm\u00b2 flat print-down face at z=196.179 \u00b7 19.0 \u00d7 3.2 mm \u00b7 drop 19.0\u201319.0 mm to material below",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=0.000 y=82.302 z=196.179",
+              "click: x=0.000 y=82.302 z=196.179"
+            ]
+          },
+          {
+            "class": "ceiling",
+            "score": 66.91389964402231,
+            "line": "73 mm\u00b2 flat print-down face at z=280.924 \u00b7 19.4 \u00d7 4.2 mm \u00b7 drop 4.6\u20137.8 mm to material below",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=0.000 y=81.590 z=280.924",
+              "click: x=0.000 y=81.590 z=280.924"
+            ]
+          }
+        ],
+        "slope": []
+      },
       "open_findings": {
         "step": [],
         "sliver": [],
@@ -384,18 +659,6 @@
           [
             {
               "class": "ceiling",
-              "score": 158.21065896259756,
-              "line": "70 mm\u00b2 flat print-down face at z=196.179 \u00b7 19.5 \u00d7 3.6 mm \u00b7 drop 19.0\u201319.0 mm to material below",
-              "pick": [
-                "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=0.000 y=82.502 z=196.179",
-                "click: x=0.000 y=82.502 z=196.179"
-              ]
-            },
-            "This is the sealed RC62 retention pocket's flat roof. Its closing beads bridge the 3.575 mm Y depth after the native insertion pause; the ring is fully below the completed rim. The maximum-tolerance ring has 0.38 mm nominal CAD roof air. magnet-retention/native-check.json verifies the pause and absence of support beads inside the pocket. Roof quality, magnet heat exposure and assembled retention remain unmeasured."
-          ],
-          [
-            {
-              "class": "ceiling",
               "score": 149.71875953196553,
               "line": "426 mm\u00b2 flat print-down face at z=306.900 \u00b7 81.2 \u00d7 5.2 mm \u00b7 drop 7.2\u20137.2 mm to material below",
               "pick": [
@@ -420,6 +683,18 @@
           [
             {
               "class": "ceiling",
+              "score": 147.64516746935686,
+              "line": "60 mm\u00b2 flat print-down face at z=196.179 \u00b7 19.0 \u00d7 3.2 mm \u00b7 drop 19.0\u201319.0 mm to material below",
+              "pick": [
+                "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=0.000 y=82.302 z=196.179",
+                "click: x=0.000 y=82.302 z=196.179"
+              ]
+            },
+            "This is the sealed C3 RC62 retention pocket's flat roof. Its closing beads bridge the 3.175 mm Y depth after the programmed insertion pause; the inserted ring must be fully below both completed rims. The maximum-tolerance ring has 0.38 mm CAD roof air, independent of the X/Y press fit. magnet-retention/selected-fit-v1/h2c-v20/retention-native-check.json verifies the emitted pause, closing paths and absence of support beads inside the pocket. Current C3 roof quality, magnet heat exposure and assembled retention remain unqualified."
+          ],
+          [
+            {
+              "class": "ceiling",
               "score": 66.91389964402231,
               "line": "73 mm\u00b2 flat print-down face at z=280.924 \u00b7 19.4 \u00d7 4.2 mm \u00b7 drop 4.6\u20137.8 mm to material below",
               "pick": [
@@ -431,23 +706,172 @@
           ]
         ],
         "slope": []
-      }
-    }
-  ],
-  "scope": "Printed-mesh findings reviewed after confirmed live publication. Intentional mating and support-access geometry is answered beside each STL; native slice and physical qualification remain separate.",
-  "answers_reviewed_at_utc": "2026-10-05T06:00:54.486830+00:00",
-  "functional_flank_channel_check": [
+      },
+      "answers_reviewed_at_utc": "2026-10-05T08:39:13.179663+00:00"
+    },
     {
-      "origin_mm": [
-        98.5,
-        95.0,
-        269.0
-      ],
-      "channel_blocked_mm3": 0.0,
-      "profile_height_mm": 39.0,
-      "flank_section_mm": 9.0
+      "piece": "enclosure-pump-cartridge",
+      "model": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
+      "model_sha256": "d1302278cfeb56c39d52d060f3ad28c48cd39d9d8657c912005b023b9f9fdfae",
+      "facet_count": 372832,
+      "lint_run_at_utc": "2026-10-05T08:37:41.167617+00:00",
+      "findings_by_class": {
+        "step": 0,
+        "sliver": 4,
+        "ceiling": 1,
+        "slope": 0
+      },
+      "open_by_class": {
+        "step": 0,
+        "sliver": 0,
+        "ceiling": 0,
+        "slope": 0
+      },
+      "answered_by_class": {
+        "step": 0,
+        "sliver": 4,
+        "ceiling": 1,
+        "slope": 0
+      },
+      "answers": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.lint-answers",
+      "answers_sha256": "1d695cd2e0f5ed7b33d53af70a64869c810fe9bd837db4eeeb2dad992f852641",
+      "findings": {
+        "step": [],
+        "sliver": [
+          {
+            "class": "sliver",
+            "score": NaN,
+            "line": "nan mm strip, nan mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=0.000 \u00b7 thru x=-105.196 y=33.176 z=272.142",
+              "edge: x=nan y=nan z=nan \u2192 x=nan y=nan z=nan \u00b7 len nan \u00b7 straight \u00b7 dir x=nan y=nan z=nan",
+              "click: x=-105.196 y=33.176 z=272.142"
+            ]
+          },
+          {
+            "class": "sliver",
+            "score": NaN,
+            "line": "nan mm strip, nan mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=0.000 \u00b7 thru x=-105.180 y=33.204 z=272.145",
+              "edge: x=nan y=nan z=nan \u2192 x=nan y=nan z=nan \u00b7 len nan \u00b7 straight \u00b7 dir x=nan y=nan z=nan",
+              "click: x=-105.180 y=33.204 z=272.145"
+            ]
+          },
+          {
+            "class": "sliver",
+            "score": NaN,
+            "line": "nan mm strip, nan mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=0.000 \u00b7 thru x=105.180 y=33.204 z=272.145",
+              "edge: x=nan y=nan z=nan \u2192 x=nan y=nan z=nan \u00b7 len nan \u00b7 straight \u00b7 dir x=nan y=nan z=nan",
+              "click: x=105.180 y=33.204 z=272.145"
+            ]
+          },
+          {
+            "class": "sliver",
+            "score": NaN,
+            "line": "nan mm strip, nan mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=0.000 \u00b7 thru x=105.196 y=33.176 z=272.142",
+              "edge: x=nan y=nan z=nan \u2192 x=nan y=nan z=nan \u00b7 len nan \u00b7 straight \u00b7 dir x=nan y=nan z=nan",
+              "click: x=105.196 y=33.176 z=272.142"
+            ]
+          }
+        ],
+        "ceiling": [
+          {
+            "class": "ceiling",
+            "score": 147.64516746935686,
+            "line": "60 mm\u00b2 flat print-down face at z=196.179 \u00b7 19.0 \u00d7 3.2 mm \u00b7 drop 19.0\u201319.0 mm to material below",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=0.000 y=76.481 z=196.179",
+              "click: x=0.000 y=76.481 z=196.179"
+            ]
+          }
+        ],
+        "slope": []
+      },
+      "open_findings": {
+        "step": [],
+        "sliver": [],
+        "ceiling": [],
+        "slope": []
+      },
+      "answered": {
+        "step": [],
+        "sliver": [
+          [
+            {
+              "class": "sliver",
+              "score": NaN,
+              "line": "nan mm strip, nan mm long",
+              "pick": [
+                "face: plane \u00b7 n x=0.000 y=0.000 z=0.000 \u00b7 thru x=-105.196 y=33.176 z=272.142",
+                "edge: x=nan y=nan z=nan \u2192 x=nan y=nan z=nan \u00b7 len nan \u00b7 straight \u00b7 dir x=nan y=nan z=nan",
+                "click: x=-105.196 y=33.176 z=272.142"
+              ]
+            },
+            "These collinear STL triangles have exactly zero area and zero normal. Their strip dimensions are undefined; they do not represent a thin wall. The unmodified print mesh is watertight and consistently wound. The native STEP has no face below 0.00001 square mm. See overhang-treatment/geometry-check.json for facet measurements."
+          ],
+          [
+            {
+              "class": "sliver",
+              "score": NaN,
+              "line": "nan mm strip, nan mm long",
+              "pick": [
+                "face: plane \u00b7 n x=0.000 y=0.000 z=0.000 \u00b7 thru x=-105.180 y=33.204 z=272.145",
+                "edge: x=nan y=nan z=nan \u2192 x=nan y=nan z=nan \u00b7 len nan \u00b7 straight \u00b7 dir x=nan y=nan z=nan",
+                "click: x=-105.180 y=33.204 z=272.145"
+              ]
+            },
+            "These collinear STL triangles have exactly zero area and zero normal. Their strip dimensions are undefined; they do not represent a thin wall. The unmodified print mesh is watertight and consistently wound. The native STEP has no face below 0.00001 square mm. See overhang-treatment/geometry-check.json for facet measurements."
+          ],
+          [
+            {
+              "class": "sliver",
+              "score": NaN,
+              "line": "nan mm strip, nan mm long",
+              "pick": [
+                "face: plane \u00b7 n x=0.000 y=0.000 z=0.000 \u00b7 thru x=105.180 y=33.204 z=272.145",
+                "edge: x=nan y=nan z=nan \u2192 x=nan y=nan z=nan \u00b7 len nan \u00b7 straight \u00b7 dir x=nan y=nan z=nan",
+                "click: x=105.180 y=33.204 z=272.145"
+              ]
+            },
+            "These collinear STL triangles have exactly zero area and zero normal. Their strip dimensions are undefined; they do not represent a thin wall. The unmodified print mesh is watertight and consistently wound. The native STEP has no face below 0.00001 square mm. See overhang-treatment/geometry-check.json for facet measurements."
+          ],
+          [
+            {
+              "class": "sliver",
+              "score": NaN,
+              "line": "nan mm strip, nan mm long",
+              "pick": [
+                "face: plane \u00b7 n x=0.000 y=0.000 z=0.000 \u00b7 thru x=105.196 y=33.176 z=272.142",
+                "edge: x=nan y=nan z=nan \u2192 x=nan y=nan z=nan \u00b7 len nan \u00b7 straight \u00b7 dir x=nan y=nan z=nan",
+                "click: x=105.196 y=33.176 z=272.142"
+              ]
+            },
+            "These collinear STL triangles have exactly zero area and zero normal. Their strip dimensions are undefined; they do not represent a thin wall. The unmodified print mesh is watertight and consistently wound. The native STEP has no face below 0.00001 square mm. See overhang-treatment/geometry-check.json for facet measurements."
+          ]
+        ],
+        "ceiling": [
+          [
+            {
+              "class": "ceiling",
+              "score": 147.64516746935686,
+              "line": "60 mm\u00b2 flat print-down face at z=196.179 \u00b7 19.0 \u00d7 3.2 mm \u00b7 drop 19.0\u201319.0 mm to material below",
+              "pick": [
+                "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=0.000 y=76.481 z=196.179",
+                "click: x=0.000 y=76.481 z=196.179"
+              ]
+            },
+            "This is the sealed C3 RC62 retention pocket's flat roof. Its closing beads bridge the 3.175 mm Y depth after the programmed insertion pause; the inserted ring must be fully below both completed rims. The maximum-tolerance ring has 0.38 mm CAD roof air, independent of the X/Y press fit. magnet-retention/selected-fit-v1/mark2-v6/retention-native-check.json verifies the emitted pause, closing paths and absence of support beads inside the pocket. Current C3 roof quality, magnet heat exposure and assembled retention remain unqualified."
+          ]
+        ],
+        "slope": []
+      },
+      "answers_reviewed_at_utc": "2026-10-05T08:39:13.197540+00:00"
     }
   ],
-  "functional_flank_channel_native_step_sha256": "a35f0dc6d127ca234965d67be0385f138e9b00630ad7f117a584ad07a3276aac",
-  "functional_flank_channel_source_sha256": "6b9d93bb8dfccff08b6b831f33c11bc14b445ee7c2b14902720417b4368f9ddf"
+  "scope": "Printed-mesh findings reviewed after confirmed live publication. Intentional mating and support-access geometry is answered beside each STL; native slice and physical qualification remain separate."
 }

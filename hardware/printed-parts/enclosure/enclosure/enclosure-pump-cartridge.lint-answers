@@ -9,6 +9,6 @@ click: x=-105.180 y=33.204 z=272.145
 click: x=105.180 y=33.204 z=272.145
 click: x=105.196 y=33.176 z=272.142
 
-[ceiling] This is the sealed RC62 retention pocket's flat roof. Its closing beads bridge the 3.575 mm Y depth after the native insertion pause; the ring is fully below the completed rim. The maximum-tolerance ring has 0.38 mm nominal CAD roof air. magnet-retention/native-check.json verifies the pause and absence of support beads inside the pocket. Roof quality, magnet heat exposure and assembled retention remain unmeasured.
+[ceiling] This is the sealed C3 RC62 retention pocket's flat roof. Its closing beads bridge the 3.175 mm Y depth after the programmed insertion pause; the inserted ring must be fully below both completed rims. The maximum-tolerance ring has 0.38 mm CAD roof air, independent of the X/Y press fit. magnet-retention/selected-fit-v1/mark2-v6/retention-native-check.json verifies the emitted pause, closing paths and absence of support beads inside the pocket. Current C3 roof quality, magnet heat exposure and assembled retention remain unqualified.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step
-click: x=0.000 y=76.282 z=196.179
+click: x=0.000 y=76.481 z=196.179
