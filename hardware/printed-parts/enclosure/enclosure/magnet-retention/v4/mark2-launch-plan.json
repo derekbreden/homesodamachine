@@ -1,6 +1,6 @@
 {
   "article": "Timed Mark2 cartridge and cap RC62 insertion trial",
-  "state": "running",
+  "state": "finished_physical_grip_pending",
   "submitted": true,
   "send_attempted": true,
   "auto_advance": false,
@@ -224,5 +224,6 @@
   },
   "monitor_active": false,
   "monitor_completion_reason": "User confirmed magnet insertion and manual resume.",
-  "monitor_paused_at": "2026-10-04T17:24:58.839000+00:00"
+  "monitor_paused_at": "2026-10-04T17:24:58.839000+00:00",
+  "physical_result": "v4/physical-result.json"
 }

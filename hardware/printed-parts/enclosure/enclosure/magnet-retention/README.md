@@ -69,12 +69,18 @@ The [Mark2 native check](v4/native-check.json) and
 completed open rims, short closing bridges and exclusion of internal supports.
 The [Mark2 preparation](v4/preparation.json) and
 [H2C preparation](v3/preparation.json) bind the source, native archive and G-code
-hashes. These jobs have not been submitted. The Mark2
+hashes. The combined Mark2 job 1307633211 is complete; Derek confirmed magnet
+insertion and manual resume. Its [physical result](v4/physical-result.json)
+reports a sealed ring that rattles and a wonky first layer above it. The
+independent reviewed H2C retention job remains unsubmitted. The Mark2
 [support review](v4/support-lanes.json) includes the cap's crown grooves,
 motor-terminal wells, screw counterbores and open pogo mouth; clear those
 supports before installing any hardware.
-[Queue](queue.json) keeps the two jobs independent and requires a new start
-request for either printer.
+[Queue](queue.json) keeps the two jobs independent. The insertion follow-up is
+paused, automatic resume is disabled, and the old H2C source has no start
+authorization. The [open fit samples](fit-coupons/README.md) compare X and Y
+grip before selecting a tighter production pocket. Their preferred fit and
+the cartridge's roof quality remain unqualified.
 
 | Part / printer | Pause before print Z | Completed open rim | First closing layer |
 | --- | --- | --- | --- |

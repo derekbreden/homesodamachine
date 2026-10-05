@@ -4,9 +4,9 @@
   "customer_outcome": "Seat all four tubes to their insertion stops and retain reliable pogo contact without cartridge creep",
   "geometry_record": "geometry-check.json",
   "native_print_record": "native-check.json",
-  "submitted": false,
-  "reported_ring_pocket_fit": null,
-  "reported_roof_quality": null,
+  "submitted": true,
+  "reported_ring_pocket_fit": "Magnet is sealed in but rattles; preferred press fit pending",
+  "reported_roof_quality": "First layer on top of the magnet reported a bit wonky",
   "reported_magnet_temperature_during_print_c": null,
   "reported_magnet_strength_after_print": null,
   "reported_full_tube_insertion": null,
@@ -22,5 +22,9 @@
   "accepted_pump_holder_fit": {
     "evidence": "../../../../reference/kamoer-kphm400/physical-fit.json",
     "scope": "Both pumps held firmly with holder screws tightened and no vertical play. This does not establish the RC62 pair's force or pogo contact behavior."
-  }
+  },
+  "submitted_scope": "Mark2 combined cartridge and cap v4 completed; independent H2C retention source remains unsubmitted.",
+  "physical_grip_accepted": false,
+  "cartridge_result": "v4/physical-result.json",
+  "fit_trial": "fit-coupons/README.md"
 }

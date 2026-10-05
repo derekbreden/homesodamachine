@@ -1,0 +1,517 @@
+{
+  "article": "Open upright RC62 X/Y pocket grip comparison",
+  "revision": 1,
+  "magnet": {
+    "model": "K&J RC62",
+    "od_mm": 19.05,
+    "thickness_mm": 3.175,
+    "tolerance_mm": 0.1,
+    "source": "https://www.kjmagnetics.com/rc62-neodymium-ring-magnet"
+  },
+  "print_build_axis": [
+    0,
+    0,
+    1
+  ],
+  "magnet_axis": [
+    0,
+    1,
+    0
+  ],
+  "insertion_axis": [
+    0,
+    0,
+    -1
+  ],
+  "dimensions_mm": {
+    "face_cover": 1.2,
+    "backing": 3.0,
+    "side_wall": 3.0,
+    "pocket_floor": 3.0,
+    "open_rim": 20.12,
+    "nominal_ring_exposed_above_rim": 1.93
+  },
+  "control": "C0: current production clearances",
+  "roof": false,
+  "pause": false,
+  "samples": [
+    {
+      "label": "A1",
+      "name": "rc62-pocket-a1",
+      "pocket_width_x_mm": 19.35,
+      "pocket_depth_y_mm": 3.45,
+      "nominal_diametral_clearance_mm": 0.3,
+      "nominal_axial_clearance_mm": 0.275,
+      "lower_arc_radius_mm": 9.675,
+      "lower_arc_center_z_mm": 12.675,
+      "bounds_mm": [
+        [
+          -12.675000190734863,
+          -8.199999809265137,
+          0.0
+        ],
+        [
+          12.675000190734863,
+          6.449999809265137,
+          20.1200008392334
+        ]
+      ],
+      "volume_mm3": 3150.0114793768735,
+      "stl": "rc62-pocket-a1.stl",
+      "step": "rc62-pocket-a1.step",
+      "stl_sha256": "191657b4afa4828665b966f58e0c514ff243a91a8273dc859cea5f2e52bd3db8",
+      "step_sha256": "eb4111f0cab60560f83922ad9d21529fe8b3d69185bc8f14581cbcdafb02a82d",
+      "payload_sha256": "5d649255b32a7be50bb82bd26303a1796fde2de4f365bb5f6203c76d4a372895"
+    },
+    {
+      "label": "A2",
+      "name": "rc62-pocket-a2",
+      "pocket_width_x_mm": 19.35,
+      "pocket_depth_y_mm": 3.3,
+      "nominal_diametral_clearance_mm": 0.3,
+      "nominal_axial_clearance_mm": 0.125,
+      "lower_arc_radius_mm": 9.675,
+      "lower_arc_center_z_mm": 12.675,
+      "bounds_mm": [
+        [
+          -12.675000190734863,
+          -8.199999809265137,
+          0.0
+        ],
+        [
+          12.675000190734863,
+          6.300000190734863,
+          20.1200008392334
+        ]
+      ],
+      "volume_mm3": 3117.937375256728,
+      "stl": "rc62-pocket-a2.stl",
+      "step": "rc62-pocket-a2.step",
+      "stl_sha256": "57d8df2108c36993714263e4ec5d347e4c75af1f29c30929ed98c76bbabc34a6",
+      "step_sha256": "83b9433b18ccd911ce13d7aa04e06ab46214dd65260de5d7eecf994c2df5c729",
+      "payload_sha256": "a737655f4c8c1f367e7bb5a551f79967761681f4126c8f45d5d8067f8ce41831"
+    },
+    {
+      "label": "A3",
+      "name": "rc62-pocket-a3",
+      "pocket_width_x_mm": 19.35,
+      "pocket_depth_y_mm": 3.175,
+      "nominal_diametral_clearance_mm": 0.3,
+      "nominal_axial_clearance_mm": 0.0,
+      "lower_arc_radius_mm": 9.675,
+      "lower_arc_center_z_mm": 12.675,
+      "bounds_mm": [
+        [
+          -12.675000190734863,
+          -8.199999809265137,
+          0.0
+        ],
+        [
+          12.675000190734863,
+          6.175000190734863,
+          20.1200008392334
+        ]
+      ],
+      "volume_mm3": 3090.3988560282733,
+      "stl": "rc62-pocket-a3.stl",
+      "step": "rc62-pocket-a3.step",
+      "stl_sha256": "98e27d41d35c81b6710aed64cf85e43cc4d162297744da481e69a70ebbc5c22c",
+      "step_sha256": "07925ff281c1c8f3f32b2e113e1667f3a15d7bfb451494c1a3cbb276531e757b",
+      "payload_sha256": "2cd4aca16b39837ab6faf1c9588b27b86d07e92f90940120b4129a0981330e75"
+    },
+    {
+      "label": "A4",
+      "name": "rc62-pocket-a4",
+      "pocket_width_x_mm": 19.35,
+      "pocket_depth_y_mm": 3.05,
+      "nominal_diametral_clearance_mm": 0.3,
+      "nominal_axial_clearance_mm": -0.125,
+      "lower_arc_radius_mm": 9.675,
+      "lower_arc_center_z_mm": 12.675,
+      "bounds_mm": [
+        [
+          -12.675000190734863,
+          -8.199999809265137,
+          0.0
+        ],
+        [
+          12.675000190734863,
+          6.050000190734863,
+          20.1200008392334
+        ]
+      ],
+      "volume_mm3": 3063.1520804104143,
+      "stl": "rc62-pocket-a4.stl",
+      "step": "rc62-pocket-a4.step",
+      "stl_sha256": "a4fc21f527d148e9df03c035e4ccc58db9689f62120ba777587e4156083fdf54",
+      "step_sha256": "a1edf625b796b4963c04c40eef8ba88734de38fc0a88ee51218a0f802aae759d",
+      "payload_sha256": "075b608d0f8e9e6e94edbffa4a49ebfc4a1a195787d238c068c97f588cbd7f67"
+    },
+    {
+      "label": "B1",
+      "name": "rc62-pocket-b1",
+      "pocket_width_x_mm": 19.15,
+      "pocket_depth_y_mm": 3.45,
+      "nominal_diametral_clearance_mm": 0.1,
+      "nominal_axial_clearance_mm": 0.275,
+      "lower_arc_radius_mm": 9.575,
+      "lower_arc_center_z_mm": 12.575,
+      "bounds_mm": [
+        [
+          -12.574999809265137,
+          -8.199999809265137,
+          0.0
+        ],
+        [
+          12.574999809265137,
+          6.449999809265137,
+          20.1200008392334
+        ]
+      ],
+      "volume_mm3": 3126.9563022474267,
+      "stl": "rc62-pocket-b1.stl",
+      "step": "rc62-pocket-b1.step",
+      "stl_sha256": "79cf207a6191fa0a560f6d22e95ba9d692fbcf4de16b6dd672243644ac9d4347",
+      "step_sha256": "4f5a24b3de376be2dcda0275563334b597210a2e56b2aece0f9d8ec3a9b648d3",
+      "payload_sha256": "008cd684d33992859d284051c48b4b87c4949d1b0f095dd57468ab2e95d5dcd1"
+    },
+    {
+      "label": "B2",
+      "name": "rc62-pocket-b2",
+      "pocket_width_x_mm": 19.15,
+      "pocket_depth_y_mm": 3.3,
+      "nominal_diametral_clearance_mm": 0.1,
+      "nominal_axial_clearance_mm": 0.125,
+      "lower_arc_radius_mm": 9.575,
+      "lower_arc_center_z_mm": 12.575,
+      "bounds_mm": [
+        [
+          -12.574999809265137,
+          -8.199999809265137,
+          0.0
+        ],
+        [
+          12.574999809265137,
+          6.300000190734863,
+          20.1200008392334
+        ]
+      ],
+      "volume_mm3": 3095.0961316184407,
+      "stl": "rc62-pocket-b2.stl",
+      "step": "rc62-pocket-b2.step",
+      "stl_sha256": "8ae80e0313d64f7eeb7b4ce6aa50167f6213355eaf47769b0eb1a70ab77bd997",
+      "step_sha256": "005a0c227c3cd931934543ec0dc0fde322c97daee936f13abe40958b57b8410f",
+      "payload_sha256": "3a0ffeb0d8879a1168e385d37b3a91587364700ef43e2613e2a60f85b9231fa8"
+    },
+    {
+      "label": "B3",
+      "name": "rc62-pocket-b3",
+      "pocket_width_x_mm": 19.15,
+      "pocket_depth_y_mm": 3.175,
+      "nominal_diametral_clearance_mm": 0.1,
+      "nominal_axial_clearance_mm": 0.0,
+      "lower_arc_radius_mm": 9.575,
+      "lower_arc_center_z_mm": 12.575,
+      "bounds_mm": [
+        [
+          -12.574999809265137,
+          -8.199999809265137,
+          0.0
+        ],
+        [
+          12.574999809265137,
+          6.175000190734863,
+          20.1200008392334
+        ]
+      ],
+      "volume_mm3": 3067.735888149801,
+      "stl": "rc62-pocket-b3.stl",
+      "step": "rc62-pocket-b3.step",
+      "stl_sha256": "845c2c3c82e0445335da61e0525e0e70be9b15ce429af778ef573d33b60b655e",
+      "step_sha256": "a9a560678078192ea7f4262a943d9004929e47f8c1b21a556db5a4469a215001",
+      "payload_sha256": "0ef6edb9b92cf987fe3ca3cb9686696076a17ae4f5c06522580e64607c1a6f64"
+    },
+    {
+      "label": "B4",
+      "name": "rc62-pocket-b4",
+      "pocket_width_x_mm": 19.15,
+      "pocket_depth_y_mm": 3.05,
+      "nominal_diametral_clearance_mm": 0.1,
+      "nominal_axial_clearance_mm": -0.125,
+      "lower_arc_radius_mm": 9.575,
+      "lower_arc_center_z_mm": 12.575,
+      "bounds_mm": [
+        [
+          -12.574999809265137,
+          -8.199999809265137,
+          0.0
+        ],
+        [
+          12.574999809265137,
+          6.050000190734863,
+          20.1200008392334
+        ]
+      ],
+      "volume_mm3": 3040.667390079435,
+      "stl": "rc62-pocket-b4.stl",
+      "step": "rc62-pocket-b4.step",
+      "stl_sha256": "6daff650b1c54249572c9512f4ce698e104919df7f971c389218204f9444721c",
+      "step_sha256": "803f6dbe11d81a6e0067bed1a88017fad2bc427f57ad46b7da6b042d7fea8036",
+      "payload_sha256": "948662a60e40c2c2537d707773d059755ab4226461bf03b038d802edaa54478c"
+    },
+    {
+      "label": "C1",
+      "name": "rc62-pocket-c1",
+      "pocket_width_x_mm": 19.05,
+      "pocket_depth_y_mm": 3.45,
+      "nominal_diametral_clearance_mm": 0.0,
+      "nominal_axial_clearance_mm": 0.275,
+      "lower_arc_radius_mm": 9.525,
+      "lower_arc_center_z_mm": 12.525,
+      "bounds_mm": [
+        [
+          -12.524999618530273,
+          -8.199999809265137,
+          0.0
+        ],
+        [
+          12.524999618530273,
+          6.449999809265137,
+          20.1200008392334
+        ]
+      ],
+      "volume_mm3": 3114.108526554395,
+      "stl": "rc62-pocket-c1.stl",
+      "step": "rc62-pocket-c1.step",
+      "stl_sha256": "fc0e3a6f2ee89bd39bd1b692de6442393b54a5dc5a258313696d60357c1b6adf",
+      "step_sha256": "6411c8ecba51ea93719b6ac5b2281ebc8e9d7dac5c25c2de6c1ac28d2e2eb1b1",
+      "payload_sha256": "f0d6791b8abb3a4e45c12db3a622dbdd08af59e233d03c1c330ca3711c4c0e4a"
+    },
+    {
+      "label": "C2",
+      "name": "rc62-pocket-c2",
+      "pocket_width_x_mm": 19.05,
+      "pocket_depth_y_mm": 3.3,
+      "nominal_diametral_clearance_mm": 0.0,
+      "nominal_axial_clearance_mm": 0.125,
+      "lower_arc_radius_mm": 9.525,
+      "lower_arc_center_z_mm": 12.525,
+      "bounds_mm": [
+        [
+          -12.524999618530273,
+          -8.199999809265137,
+          0.0
+        ],
+        [
+          12.524999618530273,
+          6.300000190734863,
+          20.1200008392334
+        ]
+      ],
+      "volume_mm3": 3082.3548386684056,
+      "stl": "rc62-pocket-c2.stl",
+      "step": "rc62-pocket-c2.step",
+      "stl_sha256": "471e9b95555cea8ddee029096170e7b120d1c8c96afb1b361d52ec35c5d1f7c0",
+      "step_sha256": "ca0942764428378867972ef03548e9744b0844f7f95608d353ab90b0240acd29",
+      "payload_sha256": "e758aafd24e7a16b40b845427721955c26a355f150397469243812f4cec01508"
+    },
+    {
+      "label": "C3",
+      "name": "rc62-pocket-c3",
+      "pocket_width_x_mm": 19.05,
+      "pocket_depth_y_mm": 3.175,
+      "nominal_diametral_clearance_mm": 0.0,
+      "nominal_axial_clearance_mm": 0.0,
+      "lower_arc_radius_mm": 9.525,
+      "lower_arc_center_z_mm": 12.525,
+      "bounds_mm": [
+        [
+          -12.524999618530273,
+          -8.199999809265137,
+          0.0
+        ],
+        [
+          12.524999618530273,
+          6.175000190734863,
+          20.1200008392334
+        ]
+      ],
+      "volume_mm3": 3055.083332098876,
+      "stl": "rc62-pocket-c3.stl",
+      "step": "rc62-pocket-c3.step",
+      "stl_sha256": "11a96301b6b47d375dbc7d31eaef39b89c10013568cd8dc9f71bf8c5cd8ca80d",
+      "step_sha256": "2bea517a535e696171174b08b55b7d6eb1ccd6af74ea0d3004a830eec0113483",
+      "payload_sha256": "215ee2274d306f284ca5b706e0f1ab963cd0ee12c5580ef68cabbaf7ba9e80e3"
+    },
+    {
+      "label": "C4",
+      "name": "rc62-pocket-c4",
+      "pocket_width_x_mm": 19.05,
+      "pocket_depth_y_mm": 3.05,
+      "nominal_diametral_clearance_mm": 0.0,
+      "nominal_axial_clearance_mm": -0.125,
+      "lower_arc_radius_mm": 9.525,
+      "lower_arc_center_z_mm": 12.525,
+      "bounds_mm": [
+        [
+          -12.524999618530273,
+          -8.199999809265137,
+          0.0
+        ],
+        [
+          12.524999618530273,
+          6.050000190734863,
+          20.1200008392334
+        ]
+      ],
+      "volume_mm3": 3028.1035701135647,
+      "stl": "rc62-pocket-c4.stl",
+      "step": "rc62-pocket-c4.step",
+      "stl_sha256": "9b82102bc9fcfc8ab6af76c6602bd8134119721f002a74f0e63f64f97169b23c",
+      "step_sha256": "9aac97830a7b73c78f3f97998695992ab4f8ab3b433d17c2c6158c8d2fa51851",
+      "payload_sha256": "a0119c76a91d81ad6b5ecfeed857418e2c759d833ccba0cee29496c6bf861a03"
+    },
+    {
+      "label": "D1",
+      "name": "rc62-pocket-d1",
+      "pocket_width_x_mm": 18.95,
+      "pocket_depth_y_mm": 3.45,
+      "nominal_diametral_clearance_mm": -0.1,
+      "nominal_axial_clearance_mm": 0.275,
+      "lower_arc_radius_mm": 9.475,
+      "lower_arc_center_z_mm": 12.475,
+      "bounds_mm": [
+        [
+          -12.475000381469727,
+          -8.199999809265137,
+          0.0
+        ],
+        [
+          12.475000381469727,
+          6.449999809265137,
+          20.1200008392334
+        ]
+      ],
+      "volume_mm3": 3102.8067142355094,
+      "stl": "rc62-pocket-d1.stl",
+      "step": "rc62-pocket-d1.step",
+      "stl_sha256": "a0787ae86bd3e8b9226e17582e2fe510020e94b066dac657504c1efd7a8423bb",
+      "step_sha256": "0b23240daa8a554693165b9192467ddd51ffde00bbae48a6dc569c07c1fed263",
+      "payload_sha256": "8fdf05aac74b41b1b9133115d37a224d4875435e6ef3fcf0316e66ff8b63124d"
+    },
+    {
+      "label": "D2",
+      "name": "rc62-pocket-d2",
+      "pocket_width_x_mm": 18.95,
+      "pocket_depth_y_mm": 3.3,
+      "nominal_diametral_clearance_mm": -0.1,
+      "nominal_axial_clearance_mm": 0.125,
+      "lower_arc_radius_mm": 9.475,
+      "lower_arc_center_z_mm": 12.475,
+      "bounds_mm": [
+        [
+          -12.475000381469727,
+          -8.199999809265137,
+          0.0
+        ],
+        [
+          12.475000381469727,
+          6.300000190734863,
+          20.1200008392334
+        ]
+      ],
+      "volume_mm3": 3071.1591882112234,
+      "stl": "rc62-pocket-d2.stl",
+      "step": "rc62-pocket-d2.step",
+      "stl_sha256": "d8039c36ad66932171ba0944683eee049867265c7a886a4a129689eed256bfa1",
+      "step_sha256": "bd4b17fc20367338a0c6d6a108d144c216e55967785ef62ce9ff9ead1ccc4579",
+      "payload_sha256": "9c6b81b051fa8a24038f7f6b83b88f691fdb77f9089a8c43739c16fba18138be"
+    },
+    {
+      "label": "D3",
+      "name": "rc62-pocket-d3",
+      "pocket_width_x_mm": 18.95,
+      "pocket_depth_y_mm": 3.175,
+      "nominal_diametral_clearance_mm": -0.1,
+      "nominal_axial_clearance_mm": 0.0,
+      "lower_arc_radius_mm": 9.475,
+      "lower_arc_center_z_mm": 12.475,
+      "bounds_mm": [
+        [
+          -12.475000381469727,
+          -8.199999809265137,
+          0.0
+        ],
+        [
+          12.475000381469727,
+          6.175000190734863,
+          20.1200008392334
+        ]
+      ],
+      "volume_mm3": 3043.976149364155,
+      "stl": "rc62-pocket-d3.stl",
+      "step": "rc62-pocket-d3.step",
+      "stl_sha256": "98e5993023803b1ec73e3ae5da5a506bce9a8883ec7e1f028b536af2abb80392",
+      "step_sha256": "5fb1e19c8f2be9d874cba4ead480410960f53052caf2667af3b80dce550c5209",
+      "payload_sha256": "526c12e352a51481f2d7de4bd7b2d726f8076bbadcb7523985039cd461a1225a"
+    },
+    {
+      "label": "D4",
+      "name": "rc62-pocket-d4",
+      "pocket_width_x_mm": 18.95,
+      "pocket_depth_y_mm": 3.05,
+      "nominal_diametral_clearance_mm": -0.1,
+      "nominal_axial_clearance_mm": -0.125,
+      "lower_arc_radius_mm": 9.475,
+      "lower_arc_center_z_mm": 12.475,
+      "bounds_mm": [
+        [
+          -12.475000381469727,
+          -8.199999809265137,
+          0.0
+        ],
+        [
+          12.475000381469727,
+          6.050000190734863,
+          20.1200008392334
+        ]
+      ],
+      "volume_mm3": 3017.0848552723064,
+      "stl": "rc62-pocket-d4.stl",
+      "step": "rc62-pocket-d4.step",
+      "stl_sha256": "d233a2d0ed5d8664d92ff58771dc027cf1914f4041f12eea2498febb0cc4c756",
+      "step_sha256": "dbd0b4dfccfa4dcfc3ccc3ccd79ac9089218947d52655dc783ef554f9146c3d2",
+      "payload_sha256": "daa3266aee5e000dbca12ce97106c2e70af362a46efc11725c22e56c23203f84"
+    },
+    {
+      "label": "C0",
+      "name": "rc62-pocket-c0",
+      "pocket_width_x_mm": 19.45,
+      "pocket_depth_y_mm": 3.575,
+      "nominal_diametral_clearance_mm": 0.4,
+      "nominal_axial_clearance_mm": 0.4,
+      "lower_arc_radius_mm": 9.725,
+      "lower_arc_center_z_mm": 12.725,
+      "bounds_mm": [
+        [
+          -12.725000381469727,
+          -8.199999809265137,
+          0.0
+        ],
+        [
+          12.725000381469727,
+          6.574999809265137,
+          20.1200008392334
+        ]
+      ],
+      "volume_mm3": 3190.1085952893927,
+      "stl": "rc62-pocket-c0.stl",
+      "step": "rc62-pocket-c0.step",
+      "stl_sha256": "bab4710828206eef7a5f9de4495cc9adc6d5b866eeefc18839ae892912d3f614",
+      "step_sha256": "44cc7b38621888767a755464fc07503528111eadf47a2cfd81196ca9002589bc",
+      "payload_sha256": "de6043d0418bc672ebe262530127d4c8ddbda92d48e6d0936feff29f470e8323"
+    }
+  ],
+  "physical_grip_qualified": false,
+  "scope": "Comparative hand insertion and rattle screen. The open rim differs from encapsulated stiffness; no over-magnet layer or retention-force qualification."
+}
