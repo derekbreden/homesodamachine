@@ -1,0 +1,170 @@
+{
+  "schema_version": 1,
+  "session": "Printer 2",
+  "pair_id": "RET-C3-20261005-01",
+  "recorded_at_utc": "2026-10-05T18:40:58.124523+00:00",
+  "reported_date": "2026-10-05",
+  "reported_timezone": "America/Chicago",
+  "status": "pair_polarity_unverified",
+  "customer_outcome": "The cradle and front-top rings attract in their assembled orientation, with pole identity preserved across separate paused insertions.",
+  "user_observation_quote": "I really need some way to keep track of magnet orientation. I've no idea if the magnet I just inserted is going to be flipped the correct direction to mate with the one I inserted earlier this morning.",
+  "magnet": "K&J RC62",
+  "fit_label": "C3",
+  "fit_label_scope": "C3 identifies cavity fit; it does not identify a pole or a physically marked ring.",
+  "geometry_record": "../geometry-check.json",
+  "procedure_record": "../README.md#pole-marking-and-pair-tracking",
+  "manufacturer_sources": [
+    "https://www.kjmagnetics.com/rc62-neodymium-ring-magnet",
+    "https://www.kjmagnetics.com/blog/which-pole-is-north"
+  ],
+  "reference_ring": {
+    "reference_id": "RC62-MASTER-01",
+    "physical_reference_label_applied": null,
+    "calibration_status": "not_reported",
+    "calibrated_at_utc": null,
+    "dot_definition": "The reference-ring flat face that attracts the current front-top mating face; the opposite reference face must repel at the same centered position.",
+    "dot_mark_applied": null,
+    "absolute_north_or_south": null,
+    "front_top_response_to_dot_face": null,
+    "front_top_response_to_other_face": null,
+    "calibration_photo": null
+  },
+  "marking_convention": {
+    "status": "defined_physical_marks_not_verified",
+    "all_ring_dots_identify_same_pole": true,
+    "mark_same_pole_by": "Mark the candidate ring face that repels MASTER dot-to-dot with centers aligned and both rings held against turning over.",
+    "required_dot_face_direction_machine": [
+      0,
+      1,
+      0
+    ],
+    "cradle_dot_faces": "Toward the thin mating cover and front top.",
+    "front_top_dot_faces": "Toward backing, away from the cradle.",
+    "outside_part_labels": {
+      "pump-cradle": "CR DOT TOWARD FT",
+      "enclosure-front-top": "FT DOT AWAY FROM CR"
+    },
+    "photo_before_closure_required": true
+  },
+  "parts": [
+    {
+      "tracking_id": "FT-C3-20261005-01",
+      "tracking_id_scope": "Record identity; physical label application is unverified.",
+      "part": "enclosure-front-top",
+      "printer": "H2C",
+      "task_id": "1310609527",
+      "job_id": "1310609527",
+      "archive_name": "2026-10-05-enclosure-front-top-c3-v69-h2c-v20.gcode.3mf",
+      "archive_sha256": "aa076477c54fdc97fb9b14507dbbd7c75f1b182135780be094757105e728505d",
+      "gcode_sha256": "b5051ccbd52185a55bd7002c79944d1a0ceca2ccd39a105dc447456f80be1e34",
+      "launch_record": "h2c-v20/launch.json",
+      "operator_reported_inserted": true,
+      "insertion_report_scope": "The current conversation identifies the recently inserted ring as the Mark2 cradle mate of the front-top ring inserted earlier that morning; it does not identify either pole.",
+      "actual_insertion_time_utc": null,
+      "closure_state": "first_covering_layer_reported_and_appearance_accepted",
+      "physical_result_record": "h2c-v20/physical-acceptance.json",
+      "physical_ring_label_applied": null,
+      "physical_pole_dot_applied": null,
+      "actual_installed_dot_direction": null,
+      "actual_mating_face_pole": null,
+      "geometry": {
+        "ring_axis_machine": [
+          0,
+          1,
+          0
+        ],
+        "ring_center_xz_mm": [
+          0.0,
+          186.174
+        ],
+        "mating_face_y_mm": 79.515,
+        "pocket_y_mm": [
+          80.715,
+          83.89
+        ],
+        "mating_cover_mm": 1.2,
+        "direction_from_ring_toward_mate_machine": [
+          0,
+          -1,
+          0
+        ]
+      },
+      "probe_check": {
+        "reference_id": "RC62-MASTER-01",
+        "observed_at_utc": null,
+        "reference_dot_face_response": null,
+        "reference_other_face_response": null,
+        "verified": false,
+        "photo": null
+      }
+    },
+    {
+      "tracking_id": "CR-C3-20261005-01",
+      "tracking_id_scope": "Record identity; physical label application is unverified.",
+      "part": "pump-cradle",
+      "printer": "Mark2",
+      "task_id": "1310615503",
+      "job_id": "1310615503",
+      "archive_name": "2026-10-05-pump-cradle-c3-mark2-v6.gcode.3mf",
+      "archive_sha256": "37646924eca2ca480b595857f9d8e6aa247130b155952cd2ee3027a40969676d",
+      "gcode_sha256": "752c1dbdcc0232ffea5eba9782826c83fd6bf3b53a9366740a3cf73a2fdcd42b",
+      "launch_record": "mark2-v6/launch.json",
+      "operator_reported_inserted": true,
+      "insertion_report_scope": "The current conversation identifies the recently inserted ring as the Mark2 cradle mate of the front-top ring inserted earlier that morning; it does not identify either pole.",
+      "actual_insertion_time_utc": null,
+      "closure_state": "not_reported",
+      "physical_result_record": null,
+      "physical_ring_label_applied": null,
+      "physical_pole_dot_applied": null,
+      "actual_installed_dot_direction": null,
+      "actual_mating_face_pole": null,
+      "geometry": {
+        "ring_axis_machine": [
+          0,
+          1,
+          0
+        ],
+        "ring_center_xz_mm": [
+          0.0,
+          186.174
+        ],
+        "mating_face_y_mm": 79.269,
+        "pocket_y_mm": [
+          74.894,
+          78.069
+        ],
+        "mating_cover_mm": 1.2,
+        "direction_from_ring_toward_mate_machine": [
+          0,
+          1,
+          0
+        ]
+      },
+      "probe_check": {
+        "reference_id": "RC62-MASTER-01",
+        "observed_at_utc": null,
+        "reference_dot_face_response": null,
+        "reference_other_face_response": null,
+        "verified": false,
+        "photo": null
+      }
+    }
+  ],
+  "pair_verification": {
+    "status": "not_performed_or_reported",
+    "verified_at_utc": null,
+    "same_reference_dot_face_expected_responses": {
+      "enclosure-front-top": "attract",
+      "pump-cradle": "repel"
+    },
+    "reference_other_face_expected_responses": {
+      "enclosure-front-top": "repel",
+      "pump-cradle": "attract"
+    },
+    "acceptance": "The fixed reference dot face attracts the front-top mating surface and repels the cradle mating surface, with both responses reversing when the reference ring is turned over. Test through the thin mating covers, face-on and centered on the embedded rings. Unclear responses leave polarity unverified.",
+    "pair_attracting_in_assembled_orientation_verified": false,
+    "direct_pair_attraction_report": null,
+    "photos": []
+  },
+  "scope": "Operator-reported insertion and a defined pole-tracking method. The actual installed poles, physical marks and reference calibration have no verification result. No installed retention force, heat exposure, magnet strength or full-assembly acceptance is established."
+}
