@@ -68,7 +68,7 @@ def inspect(verify_sources=True):
 def render(result):
     if not POPPLER.exists():raise RuntimeError(f'Missing Poppler: {POPPLER}')
     OUT.mkdir(parents=True,exist_ok=True)
-    font=ImageFont.truetype(str(ROOT/'hardware/quickstart-codex/fonts/Plex-Regular.ttf'),18)
+    font=ImageFont.truetype(str(ROOT/'hardware/install-guide/fonts/Plex-Regular.ttf'),18)
     for key,data in result.items():
         folder=OUT/key;folder.mkdir(exist_ok=True)
         for p in folder.glob('*.png'):p.unlink()

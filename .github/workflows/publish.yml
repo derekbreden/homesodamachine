@@ -22,7 +22,7 @@ on:
         default: false
         type: boolean
       source_only:
-        description: Advance a zero-CAD source while preserving unpaid Quick Start debt
+        description: Advance a source with no pending CAD artifact work
         required: false
         default: false
         type: boolean
@@ -130,7 +130,7 @@ jobs:
             .cache/puppeteer
           key: cadenv-macos-arm64-v2-${{ hashFiles('tools/cad-requirements.txt', 'tools/cad-venv-site/**', 'tools/render/package-lock.json', 'web/package-lock.json') }}
 
-      # rsvg-convert IS NOT AN OPTIONAL TOOL, IT IS A SILENT ONE. `appliance_quickstart.py`
+      # rsvg-convert IS NOT AN OPTIONAL TOOL, IT IS A SILENT ONE. `installation_art.py`
       # shells out to it and catches the missing binary — "rsvg-convert not found on PATH;
       # skipping PDF generation." A runner without it does not fail, it produces less and
       # reports green, which is the worse of the two.
@@ -194,9 +194,7 @@ jobs:
             git --no-pager diff --stat -- BUILD.bazel
           fi
 
-      # The CAD pointer file source and the Quick Start sidecar provenance are independent accumulation
-      # points. A canceled producer loses no debt, and an unrelated source can advance without
-      # falsely claiming that an unrendered guide was published.
+      # Accumulate artifact work from the last reconciled source.
       - name: The affected artifact rules
         id: scope
         env:
@@ -210,30 +208,11 @@ jobs:
               sort -u > /tmp/cad-requested
           fi
 
-          quickstart=false
-          quickstart_art=false
           source_only=${SOURCE_ONLY:-false}
-          # `everything` is the normal aggregate rdep beside concrete targets. The selector
-          # emits it alone only when a risky input cannot be scoped to a producer.
-          only_aggregate() {
-            [ "$(sed '/^[[:space:]]*$/d')" = '//:everything' ]
-          }
           if [ "$source_only" = true ] && \
              { [ -n "$REQUESTED" ] || [ "${{ inputs.all }}" = true ]; }; then
             echo "source_only cannot request build targets or a full rebuild" >&2
             exit 1
-          fi
-          if grep -qx '//:quickstart-build' /tmp/cad-requested; then
-            quickstart=true
-            grep -vx '//:quickstart-build' /tmp/cad-requested \
-              > /tmp/cad-requested.without-quickstart || true
-            mv /tmp/cad-requested.without-quickstart /tmp/cad-requested
-          fi
-          if grep -qx '//:cad-art' /tmp/cad-requested; then
-            quickstart_art=true
-            grep -vx '//:cad-art' /tmp/cad-requested \
-              > /tmp/cad-requested.without-quickstart-art || true
-            mv /tmp/cad-requested.without-quickstart-art /tmp/cad-requested
           fi
 
           base=$(tools/cad-venv/bin/python -c \
@@ -242,91 +221,6 @@ jobs:
             git cat-file -e "$base^{commit}" 2>/dev/null || \
               git fetch --no-tags --depth=1 origin "$base"
             git cat-file -e "$base^{commit}"
-          fi
-          quickstart_base=""
-          quickstart_art_base=""
-          if [ "$source_only" != true ]; then
-            quickstart_base=$(tools/cad-venv/bin/python -c \
-              'import json; d=json.load(open("hardware/quickstart/quick-start.pdf.json")); print(d.get("provenance", {}).get("sheet", {}).get("commit", ""))')
-            quickstart_art_base=$(tools/cad-venv/bin/python -c \
-              'import json; d=json.load(open("hardware/quickstart/quick-start.pdf.json")); print(d.get("provenance", {}).get("art", {}).get("commit", ""))')
-            if [ -z "$quickstart_base" ]; then
-              # Bootstrap the independent producer marker from the last committed canonical
-              # PDF. Once the first migrated bind lands, the sidecar carries this directly.
-              git fetch --deepen=100 origin main
-              quickstart_base=$(git log -1 --format=%H -- \
-                hardware/quickstart/quick-start.pdf)
-            fi
-            if [ -n "$quickstart_base" ]; then
-              git cat-file -e "$quickstart_base^{commit}" 2>/dev/null || \
-                git fetch --no-tags --depth=1 origin "$quickstart_base"
-              git cat-file -e "$quickstart_base^{commit}"
-            fi
-            if [ -n "$quickstart_art_base" ]; then
-              git cat-file -e "$quickstart_art_base^{commit}" 2>/dev/null || \
-                git fetch --no-tags --depth=1 origin "$quickstart_art_base"
-              git cat-file -e "$quickstart_art_base^{commit}"
-            fi
-          fi
-
-          : > /tmp/quickstart-sources
-          if [ "$source_only" != true ] && [ -n "$quickstart_base" ]; then
-            git diff --name-only --no-renames "$quickstart_base" "$GITHUB_SHA" | while IFS= read -r path; do
-              case "$path" in
-                hardware/quickstart/studies/*|hardware/quickstart/art/*|\
-                hardware/quickstart/README.md|\
-                hardware/quickstart/quick-start.cover.png|\
-                hardware/quickstart/quick-start.pdf|\
-                hardware/quickstart/quick-start.pdf.json) ;;
-                hardware/quickstart/*) printf '%s\n' "$path" ;;
-              esac
-            done > /tmp/quickstart-sources
-            if [ -s /tmp/quickstart-sources ]; then
-              quickstart=true
-            fi
-          fi
-          # The tracked artwork is the materialized boundary between product CAD and the
-          # sheets. Once the migration run refreshes it explicitly, this source range proves
-          # whether its real producer inputs moved. Layout-only work reaches quickstart-build,
-          # never cad-art, and therefore binds the current bytes without recutting CAD.
-          : > /tmp/quickstart-debt
-          : > /tmp/quickstart-art-debt
-          if [ "$source_only" != true ]; then
-            if [ -z "$quickstart_base" ]; then
-              quickstart=true
-            else
-              tools/cad-venv/bin/python tools/bazel/affected.py \
-                --base "$quickstart_base" --head "$GITHUB_SHA" > /tmp/quickstart-debt
-              # `//:everything` is the repository aggregate and is an rdep of every
-              # declared source. It is not evidence that either Quick Start producer
-              # moved. The concrete label preserves the sheet/art boundary.
-              if grep -qx '//:quickstart-build' /tmp/quickstart-debt; then
-                quickstart=true
-              fi
-              if only_aggregate < /tmp/quickstart-debt; then
-                echo "ambiguous Quick Start dependency change; rebuilding both producers" >&2
-                quickstart=true
-                quickstart_art=true
-              fi
-            fi
-            if [ -z "$quickstart_art_base" ]; then
-              # One migration refresh establishes the independently tracked artwork cut.
-              quickstart_art=true
-            else
-              tools/cad-venv/bin/python tools/bazel/affected.py \
-                --base "$quickstart_art_base" --head "$GITHUB_SHA" \
-                > /tmp/quickstart-art-debt
-              if grep -qx '//:cad-art' /tmp/quickstart-art-debt; then
-                quickstart_art=true
-              fi
-              if only_aggregate < /tmp/quickstart-art-debt; then
-                echo "ambiguous Quick Start artwork dependency change; rebuilding art" >&2
-                quickstart_art=true
-              fi
-            fi
-          fi
-          if [ "$quickstart_art" = true ]; then
-            quickstart=true
           fi
           if [ -z "$base" ] || [ "${{ inputs.all }}" = "true" ]; then
             tools/cad-venv/bin/python tools/bazel/affected.py --all-artifacts \
@@ -350,24 +244,15 @@ jobs:
           fi
           {
             echo "count=$count"
-            echo "quickstart=$quickstart"
-            echo "quickstart_art=$quickstart_art"
             echo 'targets<<CAD_TARGETS'
             cat /tmp/cad-targets
             echo 'CAD_TARGETS'
           } >> "$GITHUB_OUTPUT"
           echo "$count artifact target(s)"
           sed 's/^/  /' /tmp/cad-targets
-          if [ "$quickstart" = true ]; then
-            echo "canonical Quick Start owed by:"
-            sed 's/^/  /' /tmp/quickstart-sources
-          fi
-          if [ "$quickstart_art" = true ]; then
-            echo "canonical Quick Start artwork is owed"
-          fi
 
       - name: Restore the drawn solids
-        if: steps.scope.outputs.count != '0' || steps.scope.outputs.quickstart == 'true'
+        if: steps.scope.outputs.count != '0'
         continue-on-error: true
         uses: actions/cache/restore@v4
         with:
@@ -379,7 +264,7 @@ jobs:
           restore-keys: realized-macos-arm64-${{ hashFiles('tools/cad-requirements.txt', '.bazelversion') }}-
 
       - name: Restore the Bazel disk cache
-        if: steps.scope.outputs.count != '0' || steps.scope.outputs.quickstart == 'true'
+        if: steps.scope.outputs.count != '0'
         continue-on-error: true
         uses: actions/cache/restore@v4
         with:
@@ -396,27 +281,6 @@ jobs:
           [ "${#targets[@]}" -gt 0 ] || exit 0
           bazel build "${targets[@]}"
 
-      - name: Build the canonical Quick Start artwork
-        if: steps.scope.outputs.quickstart_art == 'true'
-        run: bazel build //:cad-art
-
-      - name: Carry the canonical Quick Start artwork
-        if: steps.scope.outputs.quickstart_art == 'true'
-        run: |
-          tools/cad-venv/bin/python tools/bazel/sync_tree.py --write \
-            --targets //:cad-art
-          # NAMED, NOT REFUSED. The commit step below stages the artwork by its declared
-          # `writes`, so a file outside them is reported here and reaches no commit either
-          # way — and holding the whole publish over it kept the bundle, the pointer file and every
-          # solid in this cut off the site.
-          unexpected=$(git diff --name-only -- hardware/quickstart | \
-            grep -Ev '^hardware/quickstart/art/' || true)
-          if [ -n "$unexpected" ]; then
-            echo "the Quick Start artwork carry moved files outside its declared directory:" >&2
-            sed 's/^/  /' <<< "$unexpected" >&2
-            echo "::warning title=quickstart-art-carry::the artwork carry moved files outside hardware/quickstart/art/; they are not staged"
-          fi
-
       - name: Verify and carry the complete cut
         if: steps.scope.outputs.count != '0'
         env:
@@ -431,103 +295,7 @@ jobs:
           tools/cad-venv/bin/python tools/bazel/sync_tree.py --write --runtime-only \
             --targets "$TARGETS"
 
-      - name: Bind only the canonical Quick Start
-        if: steps.scope.outputs.quickstart == 'true'
-        run: |
-          bind_root=$(mktemp -d)
-          trap 'rm -rf "$bind_root"' EXIT
-          HSM_BIND_ROOT="$bind_root" tools/cad-venv/bin/python - <<'PY'
-          import json
-          import os
-          import shutil
-          from pathlib import Path
 
-          source = Path.cwd()
-          target = Path(os.environ["HSM_BIND_ROOT"])
-          node = json.loads((source / "tools/bazel/graph.json").read_text())[
-              "hardware/quickstart/_build.py"
-          ]
-          outputs = set(node["writes"])
-          for rel in node["reads"]:
-              if rel in outputs:
-                  continue
-              src = source / rel
-              if not src.is_file():
-                  raise SystemExit(f"declared Quick Start input is absent: {rel}")
-              dst = target / rel
-              dst.parent.mkdir(parents=True, exist_ok=True)
-              shutil.copy2(src, dst)
-          PY
-          for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-            mkdir -p "$bind_root/$(dirname "$d")"
-            ln -sfn "$GITHUB_WORKSPACE/$d" "$bind_root/$d"
-          done
-          (
-            cd "$bind_root"
-            HSM_REPO_ROOT="$bind_root" HSM_NO_BUILD_LOCK=1 \
-              "$GITHUB_WORKSPACE/tools/cad-venv/bin/python" \
-              hardware/quickstart/_build.py
-          )
-          art_source=$(tools/cad-venv/bin/python -c \
-            'import json; d=json.load(open("hardware/quickstart/quick-start.pdf.json")); print(d.get("provenance", {}).get("art", {}).get("commit", ""))')
-          if [ "${{ steps.scope.outputs.quickstart_art }}" = true ]; then
-            art_source="$GITHUB_SHA"
-          fi
-          # RECOVERED FROM HISTORY BEFORE IT IS CALLED MISSING. The art commit accumulates in the
-          # tracked sidecar, and `_build.py` declares that sidecar among its writes — so a carry
-          # of a sandbox build, which has no git and writes no provenance, lands a copy without
-          # it. Anyone who then commits that has armed this step to stop the next publish over a
-          # fact still sitting in the previous commit. Read it from there instead.
-          if [ -z "$art_source" ]; then
-            art_source=$(git show HEAD:hardware/quickstart/quick-start.pdf.json 2>/dev/null | \
-              tools/cad-venv/bin/python -c \
-              'import json,sys; print(json.load(sys.stdin).get("provenance", {}).get("art", {}).get("commit", ""))' \
-              2>/dev/null || true)
-            if [ -n "$art_source" ]; then
-              echo "::warning title=quickstart-provenance::the working sidecar names no artwork provenance; recovered ${art_source} from HEAD"
-            fi
-          fi
-          if [ -z "$art_source" ]; then
-            echo "the canonical Quick Start bind has no artwork provenance, and HEAD names none either" >&2
-            exit 1
-          fi
-          HSM_BIND_ROOT="$bind_root" HSM_SHEET_SOURCE="$GITHUB_SHA" \
-            HSM_ART_SOURCE="$art_source" tools/cad-venv/bin/python - <<'PY'
-          import json
-          import os
-          from pathlib import Path
-
-          sidecar = Path(os.environ["HSM_BIND_ROOT"]) / \
-              "hardware/quickstart/quick-start.pdf.json"
-          data = json.loads(sidecar.read_text())
-          data["provenance"] = {
-              "sheet": {"commit": os.environ["HSM_SHEET_SOURCE"]},
-              "art": {"commit": os.environ["HSM_ART_SOURCE"]},
-          }
-          sidecar.write_text(json.dumps(data, indent=2) + "\n")
-          PY
-          cp "$bind_root/hardware/quickstart/quick-start.cover.png" \
-            hardware/quickstart/quick-start.cover.png
-          cp "$bind_root/hardware/quickstart/quick-start.pdf" \
-            hardware/quickstart/quick-start.pdf
-          cp "$bind_root/hardware/quickstart/quick-start.pdf.json" \
-            hardware/quickstart/quick-start.pdf.json
-          allowed='^(hardware/quickstart/quick-start\.cover\.png|hardware/quickstart/quick-start\.pdf|hardware/quickstart/quick-start\.pdf\.json)$'
-          if [ "${{ steps.scope.outputs.quickstart_art }}" = true ]; then
-            allowed='^(hardware/quickstart/art/.*|hardware/quickstart/quick-start\.cover\.png|hardware/quickstart/quick-start\.pdf|hardware/quickstart/quick-start\.pdf\.json)$'
-          fi
-          # NAMED, NOT REFUSED, for the same reason as the artwork carry above: the commit
-          # step stages this bind's three outputs by name, so an extra file is reported and
-          # committed by nothing, and the pointer file still reaches the site.
-          unexpected=$(git diff --name-only -- hardware/quickstart | grep -Ev "$allowed" || true)
-          if [ -n "$unexpected" ]; then
-            echo "the Quick Start bind moved files outside its declared outputs:" >&2
-            sed 's/^/  /' <<< "$unexpected" >&2
-            echo "::warning title=quickstart-bind::the bind moved files outside its declared outputs; they are not staged"
-          fi
-
-      # This also advances source.commit on a zero-artifact hardware change, so Render can
-      # deploy served hardware only after the artifact pointer file covers its source.
       - name: Publish the bundle
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -557,19 +325,6 @@ jobs:
               'import json; [print(path) for path in json.load(open("hardware/cad-artifacts.json")).get("sidecars", {})]'
           )
           sidecar_targets=(//:cold-core-assembly //:enclosure-assembly)
-
-          quickstart_sources_between() {
-            git diff --name-only --no-renames "$1" "$2" | while IFS= read -r path; do
-              case "$path" in
-                hardware/quickstart/studies/*|hardware/quickstart/art/*|\
-                hardware/quickstart/README.md|\
-                hardware/quickstart/quick-start.cover.png|\
-                hardware/quickstart/quick-start.pdf|\
-                hardware/quickstart/quick-start.pdf.json) ;;
-                hardware/quickstart/*) printf '%s\n' "$path" ;;
-              esac
-            done
-          }
 
           queue_latest() {
             echo "queueing publication from the current main tip"
@@ -614,11 +369,8 @@ jobs:
           if [ "${#retired_sidecar_outputs[@]}" -gt 0 ]; then
             git add -u -- "${retired_sidecar_outputs[@]}"
           fi
-          # The Quick Start's sheet and pictures are members of the bundle `pack.py --write`
-          # just uploaded, and `.gitignore` holds them out of the index. Staging them here is
-          # `git add` against an ignored path.
           if git diff --cached --quiet; then
-            echo "the pointer file and canonical Quick Start already cover this source"
+            echo "the pointer file already covers this source"
             exit 0
           fi
           git commit -m "Publish ${GITHUB_SHA:0:8}"
@@ -659,27 +411,11 @@ jobs:
                 exit 0
               fi
 
-              newer_quickstart=$(quickstart_sources_between "$base" "$tip")
-              if [ -n "$newer_quickstart" ]; then
-                echo "newer Quick Start sources reached main:"
-                sed 's/^/  /' <<< "$newer_quickstart"
-                queue_latest
-                exit 0
-              fi
-
               newer_affected=$(tools/cad-venv/bin/python tools/bazel/affected.py \
                 --base "$base" --head "$tip")
-              newer_quickstart=$(grep -E '^//:(quickstart-build|cad-art)$' \
-                <<< "$newer_affected" || true)
-              if [ -n "$newer_quickstart" ]; then
-                echo "newer Quick Start producer inputs reached main"
-                mapfile -t newer_quickstart_targets <<< "$newer_quickstart"
-                queue_latest "${newer_quickstart_targets[@]}"
-                exit 0
-              fi
               if [ "$(sed '/^[[:space:]]*$/d' <<< "$newer_affected")" = \
                    '//:everything' ]; then
-                echo "newer inputs cannot be scoped to a concrete Quick Start producer"
+                echo "newer inputs cannot be scoped to a concrete artifact producer"
                 queue_latest
                 exit 0
               fi
@@ -702,7 +438,7 @@ jobs:
 
       # Persistence starts after the pointer file push, outside the public stale-window critical path.
       - name: Save the drawn solids
-        if: always() && (steps.scope.outputs.count != '0' || steps.scope.outputs.quickstart == 'true')
+        if: always() && (steps.scope.outputs.count != '0')
         continue-on-error: true
         uses: actions/cache/save@v4
         with:
@@ -713,7 +449,7 @@ jobs:
           key: realized-macos-arm64-${{ hashFiles('tools/cad-requirements.txt', '.bazelversion') }}-${{ github.run_id }}-${{ github.run_attempt }}
 
       - name: Save the Bazel disk cache
-        if: always() && (steps.scope.outputs.count != '0' || steps.scope.outputs.quickstart == 'true')
+        if: always() && (steps.scope.outputs.count != '0')
         continue-on-error: true
         uses: actions/cache/save@v4
         with:
@@ -725,7 +461,6 @@ jobs:
         env:
           EXPECTED: ${{ steps.commit.outputs.published }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VERIFY_QUICKSTART: ${{ steps.scope.outputs.quickstart }}
         run: |
           published_mesh=$(git show "$EXPECTED:hardware/cad-artifacts.json" | \
             tools/cad-venv/bin/python -c \
@@ -733,12 +468,6 @@ jobs:
           published_scorecard=$(git show "$EXPECTED:hardware/cad-artifacts.json" | \
             tools/cad-venv/bin/python -c \
               'import json,sys; print(json.load(sys.stdin)["sidecars"]["hardware/manifold-layout/enclosure-assembly.scorecard.json"])')
-          published_quickstart=""
-          if [ "$VERIFY_QUICKSTART" = true ]; then
-            published_quickstart=$(git show "$EXPECTED:hardware/cad-artifacts.json" | \
-              tools/cad-venv/bin/python -c \
-                'import json,sys; print(json.load(sys.stdin)["solids"]["hardware/quickstart/quick-start.pdf"])')
-          fi
           for attempt in $(seq 1 90); do
             live=$(curl -fsS https://homesodamachine.com/api/version 2>/dev/null | \
               tools/cad-venv/bin/python -c \
@@ -755,7 +484,6 @@ jobs:
             if [ "$covered" = true ]; then
               expected_mesh="$published_mesh"
               expected_scorecard="$published_scorecard"
-              expected_quickstart="$published_quickstart"
               if [ "$live" != "$EXPECTED" ]; then
                 rm -f /tmp/live-pointers.json
                 gh api -H 'Accept: application/vnd.github.raw+json' \
@@ -769,12 +497,6 @@ jobs:
                   tools/cad-venv/bin/python -c \
                     'import json; print(json.load(open("/tmp/live-pointers.json"))["sidecars"]["hardware/manifold-layout/enclosure-assembly.scorecard.json"])' \
                   2>/dev/null || true)
-                if [ "$VERIFY_QUICKSTART" = true ]; then
-                  expected_quickstart=$( \
-                    tools/cad-venv/bin/python -c \
-                      'import json; print(json.load(open("/tmp/live-pointers.json"))["solids"]["hardware/quickstart/quick-start.pdf"])' \
-                    2>/dev/null || true)
-                fi
               fi
               mesh=""
               if curl -fsS \
@@ -782,7 +504,6 @@ jobs:
                 -o /tmp/live-enclosure-assembly.step.mesh; then
                 mesh=$(sha256sum /tmp/live-enclosure-assembly.step.mesh | awk '{print $1}')
               fi
-              quickstart=""
               scorecard=""
               if curl -fsS \
                 https://homesodamachine.com/api/step-scorecard/manifold-layout/enclosure-assembly.scorecard.json \
@@ -790,32 +511,13 @@ jobs:
                 scorecard=$(sha256sum /tmp/live-enclosure-assembly.scorecard.json | \
                   awk '{print $1}')
               fi
-              quickstart_ok=true
-              if [ "$VERIFY_QUICKSTART" = true ]; then
-                quickstart_ok=false
-                if curl -fsS https://homesodamachine.com/docs/quickstart/quick-start.pdf \
-                  -o /tmp/live-quick-start.pdf; then
-                  quickstart=$(sha256sum /tmp/live-quick-start.pdf | awk '{print $1}')
-                fi
-                if [ -n "$expected_quickstart" ] && \
-                   [ "$quickstart" = "$expected_quickstart" ]; then
-                  quickstart_ok=true
-                fi
-              fi
               if [ -n "$expected_mesh" ] && [ "$mesh" = "$expected_mesh" ] && \
-                 [ -n "$expected_scorecard" ] && [ "$scorecard" = "$expected_scorecard" ] && \
-                 [ "$quickstart_ok" = true ]; then
+                 [ -n "$expected_scorecard" ] && [ "$scorecard" = "$expected_scorecard" ]; then
                 echo "production serves $live with pointed-at assembly mesh $mesh and scorecard $scorecard"
-                if [ "$VERIFY_QUICKSTART" = true ]; then
-                  echo "production serves canonical Quick Start PDF $quickstart"
-                fi
                 exit 0
               fi
               echo "production version is covered; waiting for assembly mesh (expected ${expected_mesh:-unavailable}; got ${mesh:-unavailable})"
               echo "waiting for current assembly scorecard (expected ${expected_scorecard:-unavailable}; got ${scorecard:-unavailable})"
-              if [ "$VERIFY_QUICKSTART" = true ]; then
-                echo "waiting for canonical Quick Start PDF (expected ${expected_quickstart:-unavailable}; got ${quickstart:-unavailable})"
-              fi
             else
               echo "waiting for Render ($attempt/90; live ${live:-unavailable})"
             fi

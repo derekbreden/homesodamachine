@@ -44,7 +44,7 @@ path's check valve.
 - **Outlet pressure**, above: 0–160 psi in black outside, 0–11 bar in red inside. It reads the
   factory's 75 psi when gas is on.
 
-Both needles are drawn at rest on zero, which is the state the part ships in. The quick start's
+Both needles are drawn at rest on zero, which is the state the part ships in. The install guide's
 startup scene redraws them at 75 and 800 psi.
 
 ## Where each figure comes from

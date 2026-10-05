@@ -5,7 +5,7 @@ occupied. This is the physical bound on the enclosure's silhouette. The cabinet 
 customer and does not change with which machine goes into it, so it is stated once, here.
 
 Who that customer is, is in [`target-market.md`](/marketing/target-market.md); what they do
-on install day is in [`unboxing-and-quickstart.md`](/marketing/unboxing-and-quickstart.md).
+on install day is in [`unboxing-and-installation.md`](/marketing/unboxing-and-installation.md).
 
 ## The cabinet
 

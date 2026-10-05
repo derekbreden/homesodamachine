@@ -67,18 +67,17 @@ TAG = "cad-artifacts"
 NOT_BUNDLED_DIRS = (
     "hardware/pcb/pcba/.cad-cache",          # manufacturer downloads, keyed by LCSC
     "hardware/assembly/scenes/out",          # local bench-service view intermediates
-    "hardware/quickstart/out",               # where a mount study lands; no rule declares one
-    "hardware/quickstart/plumbing/out",      # the scene renderer's workings beside its STEPs
-    "hardware/quickstart/studies",           # drawn by hand; the graph declares none of it
+    "hardware/quickstart",                 # retired owner document and local studies
+    "hardware/quickstart-codex",           # retired owner document and local studies
+    "hardware/quickstart-claude",          # retired owner document and local studies
+    "hardware/install-guide/plumbing/out",
+    "hardware/install-guide/plumbing/modern/out",
     "hardware/install-guide/out",            # a leaf's own two renders; no route serves one
     # a hand-run guide's page renders and its art pass's staged STEPs; the walk above reaches
     # every `.step` under `hardware/` (hardware/weld-rotator-guide/README.md)
     "hardware/weld-rotator-guide/out",
     "hardware/gun-positioner-guide/out",
     "hardware/magnetic-float-guide/out",
-    # the two hand-drawn quick start sheets' page renders, held out the same way
-    "hardware/quickstart-claude/out",
-    "hardware/quickstart-codex/out",
     # the G Ganen reference's working folder, which its own .gitignore holds out; nothing
     # declares a file in it
     "hardware/reference/g-ganen-pump/_scratch",
@@ -244,24 +243,18 @@ BUNDLED_PAYLOAD_FILES = (
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh",
 )
 
-#: Generated quick-start sheets and the shared installation scene renders. The owner
-#: quick start and install guide are committed documents; their PDF, cover and sidecar
-#: reach the site in its checkout. `_install_art.py` still supplies scenes used by manual
-#: authoring tools, so its art directory travels with the generated pictures.
+#: Shared installation scene renders travel with generated pictures. The committed
+#: install-guide PDF, cover and sidecar reach the site directly in its checkout.
 BUNDLED_ART_DIRS = (
-    "hardware/quickstart",
     "hardware/install-guide/art",
+    "hardware/install-guide/plumbing",
 )
 
-#: What a drawn page is made of. `.png.scene.json` rides beside the picture it describes and
-#: moves with it.
+#: Scene metadata rides beside the picture it describes.
 BUNDLED_ART_SUFFIXES = (".png", ".pdf", ".png.scene.json")
 
-#: What `quickstart-build` writes beside those that is not a picture, named one at a time: the
-#: `style.css` in the same directory is written by hand, so a suffix cannot tell them apart.
 BUNDLED_ART_FILES = (
-    "hardware/quickstart/art/colors.css",
-    "hardware/quickstart/quick-start.pdf.json",
+    "hardware/install-guide/art/colors.css",
 )
 
 #: A board's rendered set — the fab pack, the copper and mask views, the 3D assembly.

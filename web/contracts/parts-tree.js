@@ -67,6 +67,8 @@
 export const EXCLUDED_DIRS = [
   "assembly/scenes/out",
   "install-guide/out",
+  "install-guide/plumbing/out",
+  "install-guide/plumbing/modern/out",
   "magnetic-float-guide/out",
   "pcb/pcba/out",
   "quickstart-claude/out",
