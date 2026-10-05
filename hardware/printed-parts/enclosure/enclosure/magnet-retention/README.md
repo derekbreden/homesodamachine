@@ -134,10 +134,64 @@ The emitted first closing beads leave at least 0.316 mm and 0.401 mm respectivel
 above the conservative maximum-size ring. These are native path clearances;
 printed sag and magnet seating error remain physical observations.
 
-Before either print, pair the two rings in their attracting orientation and mark
-the mating faces. The installed faces must present opposite poles to each other;
-both rings' north vectors then point along the same machine Y direction. Keep
-the cartridge and front-top labels with the pair when separating it.
+### Pole marking and pair tracking
+
+The RC62's two flat faces are its opposite poles. A dot identifies one consistent
+pole across the rings; **C3 identifies pocket fit, not polarity**. Keep one spare
+RC62 as the physical reference, labeled **MASTER** on its storage container.
+The [K&J pole-identification guidance](https://www.kjmagnetics.com/blog/which-pole-is-north)
+supports using a marked reference magnet to identify another magnet's pole.
+
+Calibrate MASTER to the current inserted front-top ring when its mating surface
+is accessible and the toolhead is clear. Hold the spare upright, with its flat
+face parallel to the front-top's thin mating cover and its center aligned with
+the embedded ring. Start several millimetres away and keep it firmly held so it
+cannot turn over or snap against the part. Test both faces. Mark with a permanent
+ink dot the spare face that attracts the front-top ring; the other face must
+repel at the same position. The dot therefore identifies the pole that a cradle
+must present toward this front top. Absolute north/south identification is not
+required. An unclear response, or attraction with both faces, leaves calibration
+unverified.
+
+Use that same dotted MASTER face toward each part's **intended mating surface**,
+centered on its ring. The field is accessible through the 1.20 mm plastic cover.
+Do not test at the pocket roof, ring edge or backing side. A compatible pair has
+these responses, with the response reversing when MASTER is turned over:
+
+| Part tested | MASTER dot facing the part | MASTER other face facing the part |
+| --- | --- | --- |
+| Front top | Attracts | Repels |
+| Lower cradle | Repels | Attracts |
+
+The same response on both mating surfaces means their poles match and the pair
+will repel in its assembled orientation. This check decides whether an exposed
+cradle ring needs flipping before closure. A covered ring can be checked without
+opening its pocket. Ambiguous force leaves the pair unverified; it does not
+establish installed retention force or magnet strength.
+
+For each future ring, hold it coaxially with MASTER and mark the flat face that
+**repels MASTER's dotted face**. All dots then identify the same pole. Label the
+two rings **CR** and **FT** on their separate storage containers and use this
+insertion rule:
+
+| Ring | Dotted face during insertion |
+| --- | --- |
+| CR — lower cradle | Toward its thin mating cover, facing the front top |
+| FT — front top | Toward its backing, away from the cradle |
+
+Before a paired print, prepare both labeled rings and confirm their intended
+mating faces attract while held in their insertion orientations.
+Both dotted faces point along machine +Y; the opposing mating faces present
+opposite poles. Photograph each mark and the part label before closing the
+pocket, and copy the verified **CR DOT TOWARD FT** or **FT DOT AWAY FROM CR**
+label onto accessible exterior plastic. Keep ink as the pole mark; tape and
+paper labels stay outside the fitted pocket.
+
+The [October 5 pair record](selected-fit-v1/polarity-record.json) binds the
+front-top and cradle print identities, their reported insertion and the physical
+verification fields. Both installed polarities and MASTER calibration remain
+unverified. Update the record with actual probe responses and photos before
+claiming a matched pair.
 
 At the print's pause, insert its labeled ring upright from above, with its axis
 along Y. Seat it at the bottom of the D-shaped cavity, against the cover toward
