@@ -535,9 +535,5 @@
     "support_layer_link_mm": 0.85,
     "interface_layer_link_mm": 1.25,
     "scope": "Quantized connectivity of emitted extrusion centrelines. It identifies support groups and labelled interface regions; it does not reconstruct solid support volumes or prove their complete withdrawal."
-  },
-  "saved_editable_project": "funnel-mold.3mf",
-  "saved_editable_project_sha256": "3e9f6e7118e015dec727523575d6ce8546f240ca46edd6857c4bee1d3d66ce22",
-  "source_to_saved_project_bytes_identical": true,
-  "rod_check_sha256": "1f1d0084ed188a0292604b5be6831cac04a9d4a372aea58b9f439fde43e79db9"
+  }
 }

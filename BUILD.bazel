@@ -7419,70 +7419,14 @@ cp hardware/printed-parts/zone-c/funnel-cover/README.md $$O7
 )
 
 genrule(
-    name = "forming-mandrel",
-    srcs = [
-        "pysrc/hardware/printed-parts/cadlib/fits.py",
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/printed-parts/zone-c/funnel-mold/forming_mandrel.py",
-        "pysrc/hardware/printed-parts/zone-c/funnel/elbow_cradle.py",
-        "pysrc/hardware/printed-parts/zone-c/funnel/funnel.py",
-        "pysrc/hardware/reference/jg-pp0308e-elbow/elbow.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/hardware/scripts/_stated_bounds.py",
-        "pysrc/hardware/scripts/flute_payload.py",
-        "pysrc/tools/docgen/__init__.py",
-    ],
-    outs = [
-        "out/forming-mandrel/hardware/printed-parts/zone-c/funnel-mold/forming-mandrel-design.json",
-        "out/forming-mandrel/hardware/printed-parts/zone-c/funnel-mold/forming-mandrel-finished.step",
-        "out/forming-mandrel/hardware/printed-parts/zone-c/funnel-mold/forming-mandrel.step",
-        "out/forming-mandrel/hardware/printed-parts/zone-c/funnel-mold/forming-mandrel.step.mesh",
-        "out/forming-mandrel/hardware/printed-parts/zone-c/funnel-mold/forming-mandrel.stl",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/forming-mandrel/hardware/printed-parts/zone-c/funnel-mold/forming-mandrel-design.json)
-O1=$$PWD/$(location out/forming-mandrel/hardware/printed-parts/zone-c/funnel-mold/forming-mandrel-finished.step)
-O2=$$PWD/$(location out/forming-mandrel/hardware/printed-parts/zone-c/funnel-mold/forming-mandrel.step)
-O3=$$PWD/$(location out/forming-mandrel/hardware/printed-parts/zone-c/funnel-mold/forming-mandrel.step.mesh)
-O4=$$PWD/$(location out/forming-mandrel/hardware/printed-parts/zone-c/funnel-mold/forming-mandrel.stl)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-mold/forming_mandrel.py > /dev/null
-cp hardware/printed-parts/zone-c/funnel-mold/forming-mandrel-design.json $$O0
-cp hardware/printed-parts/zone-c/funnel-mold/forming-mandrel-finished.step $$O1
-cp hardware/printed-parts/zone-c/funnel-mold/forming-mandrel.step $$O2
-cp hardware/printed-parts/zone-c/funnel-mold/forming-mandrel.step.mesh $$O3
-cp hardware/printed-parts/zone-c/funnel-mold/forming-mandrel.stl $$O4
-""",
-)
-
-genrule(
     name = "funnel-mold",
     srcs = [
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/printed-parts/zone-c/funnel-mold/forming_mandrel.py",
         "pysrc/hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py",
         "pysrc/hardware/printed-parts/zone-c/funnel/elbow_cradle.py",
         "pysrc/hardware/printed-parts/zone-c/funnel/funnel.py",
+        ":out/elbow-cradle/hardware/printed-parts/zone-c/funnel/funnel.step",
         "pysrc/hardware/reference/jg-pp0308e-elbow/elbow.py",
         "hardware/reference/jg-pp0308e-elbow/scan-measurements.json",
         "pysrc/hardware/scripts/_cadq_export.py",
@@ -12105,14 +12049,6 @@ genrule(
     name = "pysrc-4cf4e20a8e9c",
     srcs = ["hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py"],
     outs = ["pysrc/hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
-    name = "pysrc-dc5ff86e56f2",
-    srcs = ["hardware/printed-parts/zone-c/funnel-mold/forming_mandrel.py"],
-    outs = ["pysrc/hardware/printed-parts/zone-c/funnel-mold/forming_mandrel.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -29804,7 +29740,6 @@ filegroup(
         ":holders",
         ":valve-seat",
         ":funnel-cover",
-        ":forming-mandrel",
         ":funnel-mold",
         ":cradle-trial",
         ":elbow-cradle",

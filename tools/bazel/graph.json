@@ -5262,35 +5262,6 @@
       "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.mesh"
     ]
   },
-  "hardware/printed-parts/zone-c/funnel-mold/forming_mandrel.py": {
-    "reads": [
-      "hardware/printed-parts/cadlib/fits.py",
-      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-      "hardware/printed-parts/zone-c/funnel-mold/forming-mandrel-finished.step",
-      "hardware/printed-parts/zone-c/funnel-mold/forming-mandrel.step",
-      "hardware/printed-parts/zone-c/funnel-mold/forming-mandrel.stl",
-      "hardware/printed-parts/zone-c/funnel-mold/forming_mandrel.py",
-      "hardware/printed-parts/zone-c/funnel/elbow_cradle.py",
-      "hardware/printed-parts/zone-c/funnel/funnel.py",
-      "hardware/reference/jg-pp0308e-elbow/elbow.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_material_base.py",
-      "hardware/scripts/_materials.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_run_lock.py",
-      "hardware/scripts/_stated_bounds.py",
-      "hardware/scripts/flute_payload.py",
-      "tools/docgen/__init__.py"
-    ],
-    "rewritten": [],
-    "writes": [
-      "hardware/printed-parts/zone-c/funnel-mold/forming-mandrel-design.json",
-      "hardware/printed-parts/zone-c/funnel-mold/forming-mandrel-finished.step",
-      "hardware/printed-parts/zone-c/funnel-mold/forming-mandrel.step",
-      "hardware/printed-parts/zone-c/funnel-mold/forming-mandrel.step.mesh",
-      "hardware/printed-parts/zone-c/funnel-mold/forming-mandrel.stl"
-    ]
-  },
   "hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py": {
     "reads": [
       "hardware/printed-parts/cadlib/fits.py",
@@ -5300,10 +5271,11 @@
       "hardware/printed-parts/zone-c/funnel-mold/backs.step",
       "hardware/printed-parts/zone-c/funnel-mold/backs.step.mesh",
       "hardware/printed-parts/zone-c/funnel-mold/cavity.step",
+      "hardware/printed-parts/zone-c/funnel-mold/cavity.step.mesh",
       "hardware/printed-parts/zone-c/funnel-mold/cavity.stl",
       "hardware/printed-parts/zone-c/funnel-mold/core.step",
+      "hardware/printed-parts/zone-c/funnel-mold/core.step.mesh",
       "hardware/printed-parts/zone-c/funnel-mold/core.stl",
-      "hardware/printed-parts/zone-c/funnel-mold/forming_mandrel.py",
       "hardware/printed-parts/zone-c/funnel-mold/funnel.step",
       "hardware/printed-parts/zone-c/funnel-mold/funnel.step.mesh",
       "hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py",
@@ -5315,6 +5287,7 @@
       "hardware/printed-parts/zone-c/funnel-mold/section.step.mesh",
       "hardware/printed-parts/zone-c/funnel/elbow_cradle.py",
       "hardware/printed-parts/zone-c/funnel/funnel.py",
+      "hardware/printed-parts/zone-c/funnel/funnel.step",
       "hardware/reference/jg-pp0308e-elbow/elbow.py",
       "hardware/reference/jg-pp0308e-elbow/scan-measurements.json",
       "hardware/scripts/_cadq_export.py",

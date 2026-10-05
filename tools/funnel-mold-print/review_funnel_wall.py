@@ -175,13 +175,10 @@ def region_readings(cast, exported, metadata, brim_thickness, spout_wall, tolera
                 measure(f"brim-{axis}-{side}-{station}", point, [0, 0, 1],
                         brim_thickness)
     bottom, top = metadata["end_z"], metadata["spout_land_z"]
-    seal_bottom = top - metadata["sealing_land"]
-    lead_top = bottom + metadata["lead_height"]
     stations = (
-        ("lead", (bottom + lead_top) / 2,
-         (metadata["lead_radius"] + metadata["relief_radius"]) / 2),
-        ("relief", (lead_top + seal_bottom) / 2, metadata["relief_radius"]),
-        ("seal", (seal_bottom + top) / 2, metadata["sealing_radius"]),
+        ("lower-bore", bottom+0.5, metadata["sealing_radius"]),
+        ("mid-bore", (bottom+top)/2, metadata["sealing_radius"]),
+        ("upper-bore", top-0.5, metadata["sealing_radius"]),
     )
     for index, direction in enumerate(DIRECTIONS):
         angle = math.radians(index * 45)
