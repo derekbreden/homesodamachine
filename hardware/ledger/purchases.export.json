@@ -5210,7 +5210,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:f17f5a900de42ba2dd38516a569bb0a5355dfca53b9aa046c4e3fd1cdf301c6e",
+  "input_fingerprint": "sha256:82629168c73e8dc6b019af5742c7bcb996d19b96de754ddf9bb649de2425f150",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -37944,7 +37944,7 @@
         "precision": "day",
         "value": "2026-08-26"
       },
-      "description": "POWERTEC 71476 hardened steel dowel pins, 1/4\" × 2\" (10-pk) — the funnel mould's bore rod: it hangs from the core's open V cradle, its end standing in an 11 mm socket in the cavity floor, and forms the plug blank's whole Ø6.35 bore (funnel-mold/README.md). Ground to 0.0001\"–0.0005\" on diameter against ASME dimensional standard. Stock, so it is tooling and not a per-unit line: a bent one is replaced from the drawer with the core untouched. $16.99 + $1.23 NE tax",
+      "description": "POWERTEC 71476 hardened steel dowel pins, 1/4\" × 2\" (10-pk) — shop dowel stock. The funnel mould uses a straight 6 × 25 mm steel rod to form its 6 mm bore. Ground to 0.0001\"–0.0005\" on diameter against ASME dimensional standard. Stock, so it is tooling and not a per-unit line: a bent one is replaced from the drawer with the core untouched. $16.99 + $1.23 NE tax",
       "event_ids": [],
       "fulfillment": "ACQUIRED",
       "invoice_date": null,
