@@ -237,7 +237,7 @@ it is now on the abrasive path, so **the left hotend is the bottleneck hotend**
 
 ## Tools total
 
-Total tooling, acquired and on order: **[$17,117.47](TOOLS_TOTAL)**
+Total tooling, acquired and on order: **[$17,127.48](TOOLS_TOTAL)**
 
 ## Open items
 

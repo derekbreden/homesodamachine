@@ -3,7 +3,7 @@
   "source_sha256": {
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "750f04515540bc00743bd39cc345c95ac2ed69ca0ac3460244dcd11c09a4b9d2",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "cd2aea4170503e5ab0decd929f902b74c6f8e56a7007ed794f216e06dc291a74",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "69ef530764b2f237acc27cc05be36db875d87f88b6836bad521c2bf3f9ac093e",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "93f232f35f27c5da071132c7332d10e5ff58efac6d2ae02921859b14a07eec4b",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "7de724435d621c63f80916991f9c8d0a38c224705d1e9dbaf5b1c6f2f959950a"
   },
   "scope": "Opposed parallel planar patches above 0.05 mm2, gaps up to 0.751 mm, on four finished quadrant STEP solids. Excludes curved/nonparallel contacts, insertion sweeps, accessories and physical support quality.",
@@ -782,7 +782,7 @@
       ],
       "face_indices": [
         1188,
-        82
+        65
       ],
       "gap_mm": 0.5,
       "minimum_mm": 0.5,
@@ -816,7 +816,7 @@
       ],
       "face_indices": [
         1203,
-        96
+        79
       ],
       "gap_mm": 0.5,
       "minimum_mm": 0.5,
@@ -850,7 +850,7 @@
       ],
       "face_indices": [
         1098,
-        233
+        206
       ],
       "gap_mm": 0.2500000000000284,
       "minimum_mm": 0.25,
@@ -884,7 +884,7 @@
       ],
       "face_indices": [
         1185,
-        317
+        281
       ],
       "gap_mm": 0.5,
       "minimum_mm": 0.25,
@@ -952,7 +952,7 @@
       ],
       "face_indices": [
         1086,
-        94
+        77
       ],
       "gap_mm": 0.2500000000000284,
       "minimum_mm": 0.25,
@@ -986,7 +986,7 @@
       ],
       "face_indices": [
         1097,
-        95
+        78
       ],
       "gap_mm": 0.2500000000000284,
       "minimum_mm": 0.25,
@@ -1054,7 +1054,7 @@
       ],
       "face_indices": [
         1085,
-        81
+        64
       ],
       "gap_mm": 0.2500000000000284,
       "minimum_mm": 0.25,
@@ -1088,7 +1088,7 @@
       ],
       "face_indices": [
         1201,
-        318
+        282
       ],
       "gap_mm": 0.5,
       "minimum_mm": 0.25,
@@ -1665,7 +1665,7 @@
         "back-top"
       ],
       "face_indices": [
-        237,
+        210,
         40
       ],
       "gap_mm": 0.25,
@@ -1699,7 +1699,7 @@
         "back-top"
       ],
       "face_indices": [
-        313,
+        277,
         21
       ],
       "gap_mm": 0.0,
@@ -1733,7 +1733,7 @@
         "back-top"
       ],
       "face_indices": [
-        367,
+        352,
         162
       ],
       "gap_mm": 0.25,
@@ -1767,7 +1767,7 @@
         "back-top"
       ],
       "face_indices": [
-        368,
+        353,
         41
       ],
       "gap_mm": 0.25,
@@ -1809,9 +1809,9 @@
       "pass": true,
       "classification": "Y seam closure end face",
       "rough_faces_counted": 0,
-      "area_mm2": 635.1375000000002,
+      "area_mm2": 635.1374999999999,
       "center_mm": [
-        -105.00532119029343,
+        -105.00532119029344,
         200.0,
         252.68892218220464
       ],
@@ -1877,11 +1877,11 @@
       "pass": true,
       "classification": "Y seam closure end face",
       "rough_faces_counted": 0,
-      "area_mm2": 265.85738055499326,
+      "area_mm2": 215.54488055499326,
       "center_mm": [
-        -101.24411676997443,
+        -102.90586146818801,
         200.0,
-        344.2871888809012
+        342.4576865010985
       ],
       "normal_from_first": [
         0.0,
@@ -1892,7 +1892,7 @@
         -107.5,
         200.0,
         330.45,
-        -89.75,
+        -98.5,
         200.0,
         355.0
       ]
@@ -1911,11 +1911,11 @@
       "pass": true,
       "classification": "Y seam closure end face",
       "rough_faces_counted": 0,
-      "area_mm2": 581.1374999999995,
+      "area_mm2": 581.1374999999999,
       "center_mm": [
         105.3310398786862,
         200.0,
-        249.9745934697038
+        249.97459346970382
       ],
       "normal_from_first": [
         0.0,
@@ -1937,7 +1937,7 @@
         "back-top"
       ],
       "face_indices": [
-        84,
+        67,
         29
       ],
       "gap_mm": 0.25,
@@ -1971,7 +1971,7 @@
         "back-top"
       ],
       "face_indices": [
-        86,
+        69,
         29
       ],
       "gap_mm": 0.0,
@@ -1979,11 +1979,11 @@
       "pass": true,
       "classification": "Y seam closure end face",
       "rough_faces_counted": 0,
-      "area_mm2": 265.8573805568205,
+      "area_mm2": 215.54488055682046,
       "center_mm": [
-        101.24411677001214,
+        102.90586146822045,
         200.0,
-        344.28718888089287
+        342.45768650110364
       ],
       "normal_from_first": [
         0.0,
@@ -1991,7 +1991,7 @@
         0.0
       ],
       "bounds_mm": [
-        89.75,
+        98.5,
         200.0,
         330.45,
         107.5,
@@ -2005,7 +2005,7 @@
         "back-top"
       ],
       "face_indices": [
-        236,
+        209,
         28
       ],
       "gap_mm": 0.25,
@@ -2013,7 +2013,7 @@
       "pass": true,
       "classification": "Assembly sliding clearance",
       "rough_faces_counted": 0,
-      "area_mm2": 1819.1600000000005,
+      "area_mm2": 1819.1600000000003,
       "center_mm": [
         104.25,
         208.64165035877366,
@@ -2039,7 +2039,7 @@
         "back-top"
       ],
       "face_indices": [
-        366,
+        351,
         26
       ],
       "gap_mm": 0.0,

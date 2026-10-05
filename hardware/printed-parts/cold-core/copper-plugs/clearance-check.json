@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "reading_utc": "2026-10-04T14:01:28.911405+00:00",
+  "reading_utc": "2026-10-05T23:42:09.029284+00:00",
   "scope": "Both finished copper-plug STEPs against the finished front-top and foam assembly, using production placement transforms. Other cold-core bodies, routed tubing, print meshes and physical prints are outside this reading.",
   "nominal_cad_only": true,
   "minimum_front_top_clearance_mm": 0.15,
@@ -8,10 +8,10 @@
   "overlap_tolerance_mm3": 1e-06,
   "front_top_valid": true,
   "foam_assembly_valid": true,
-  "front_top_sha256": "69ef530764b2f237acc27cc05be36db875d87f88b6836bad521c2bf3f9ac093e",
+  "front_top_sha256": "93f232f35f27c5da071132c7332d10e5ff58efac6d2ae02921859b14a07eec4b",
   "geometry_input_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "69ef530764b2f237acc27cc05be36db875d87f88b6836bad521c2bf3f9ac093e",
-    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "e0ff911b066398e82e27e4f0bb4aab3557ce395efcf852fbd7d78eb94fee273f",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "93f232f35f27c5da071132c7332d10e5ff58efac6d2ae02921859b14a07eec4b",
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "bb5b7a8c806c87c2156b582ed1fe7dfc6de2d354615394d91eb673cc215341ee",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.step": "ffaf6c36da12bd2a3232ef8274baebeadb86de629da63a68c57479a6c468c28b",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step": "bd45e743447c9bcc0d5346fd19de77c0987f4fd2e9d778f8f471f9c6bc6af45e"
   },
@@ -20,8 +20,8 @@
     "hardware/manifold-layout/enclosure_assembly.py": "eb25f9e3746ef2cb6fac56e45c8fceb849168871f3a5e7e1fe50626dcc5a66aa",
     "hardware/cold-core-layout/cold_core_assembly.py": "2618da32aee9b3a0b242e779928de2850232c5b9dbf5aa6237c791282e244c4b",
     "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py": "a89cffe69231aa3410cad08a25e036486ee49095016efba334168092870af194",
-    "hardware/printed-parts/cold-core/_cold_core_interface.py": "97ea4bc285ee8e3e08c4d1999877a17db1b6198ce81ecdd8a1dce9a8d08b76ee",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "963a7359e65b2019b3108d950ea701a2d223c469375059e6989fe38294c34542",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "9f8c15c30d29f0740afd506fde805c703bec6d4bb4b01feb2ce4a8bec42c87ed",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "6b9d93bb8dfccff08b6b831f33c11bc14b445ee7c2b14902720417b4368f9ddf",
     "hardware/printed-parts/cadlib/fits.py": "3821989044c5bc3ae99cc6912538b8a34bd75a6b0a081aefc8e4c5a0ce714191"
   },
   "west": {
