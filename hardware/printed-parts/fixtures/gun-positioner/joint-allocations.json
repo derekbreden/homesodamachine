@@ -1,0 +1,92 @@
+{
+  "metal_angle_25": {
+    "quantity": 149,
+    "cut_length_mm": 25.4,
+    "profile_mm": [
+      25.4,
+      25.4,
+      3.175
+    ],
+    "operations": [
+      {
+        "operation": "yaw-head",
+        "quantity": 3
+      },
+      {
+        "operation": "yaw-crossbar-to-sides",
+        "quantity": 4
+      },
+      {
+        "operation": "pitch-bearing-feet-to-yaw-sides",
+        "quantity": 4
+      },
+      {
+        "operation": "pitch-crossbars-to-sides",
+        "quantity": 8
+      },
+      {
+        "operation": "roll-cradle-back-to-sides",
+        "quantity": 4
+      },
+      {
+        "operation": "motor-supports",
+        "quantity": 24
+      },
+      {
+        "operation": "bulkhead-supports",
+        "quantity": 36
+      },
+      {
+        "operation": "XYZ-shuttle-outputs",
+        "quantity": 6
+      },
+      {
+        "operation": "angular-inner-ear-joints",
+        "quantity": 24
+      },
+      {
+        "operation": "yaw-and-roll-base-web-anchors",
+        "quantity": 8
+      },
+      {
+        "operation": "crash-fixed-crossbars",
+        "quantity": 8
+      },
+      {
+        "operation": "crash-shuttle-to-output-walls",
+        "quantity": 4
+      },
+      {
+        "operation": "crash-walls-to-carriers",
+        "quantity": 4
+      },
+      {
+        "operation": "crash-carriers-to-magnetic-back",
+        "quantity": 2
+      },
+      {
+        "operation": "released-tray-to-back",
+        "quantity": 2
+      },
+      {
+        "operation": "powered-test-fork",
+        "quantity": 4
+      },
+      {
+        "operation": "nozzle-test-fork",
+        "quantity": 4
+      }
+    ]
+  },
+  "4040_corner_brackets": {
+    "quantity": 40,
+    "operations": {
+      "six_crossbeam_ends": 24,
+      "two_mast_feet": 4,
+      "head_column_and_beam": 4,
+      "fiber_bench_foot": 4,
+      "fiber_arm_to_post": 2,
+      "temporary_installed_Z_column": 2
+    }
+  }
+}

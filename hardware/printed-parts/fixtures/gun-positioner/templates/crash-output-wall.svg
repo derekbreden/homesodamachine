@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="140mm" height="130mm" viewBox="0 0 140 130">
+<rect width="100%" height="100%" fill="white"/>
+<rect x="20" y="20" width="100" height="70" fill="none" stroke="#999" stroke-width=".15"/>
+<polygon points="20.0,90.0 120.0,90.0 120.0,20.0 20.0,20.0" fill="none" stroke="black" stroke-width=".25"/>
+<circle cx="57.5" cy="84.35" r="1.7" fill="none" stroke="black" stroke-width=".2"/>
+<path d="M55.5,84.35h4 M57.5,82.35v4" stroke="#b33" stroke-width=".15"/>
+<circle cx="57.5" cy="68.35" r="1.7" fill="none" stroke="black" stroke-width=".2"/>
+<path d="M55.5,68.35h4 M57.5,66.35v4" stroke="#b33" stroke-width=".15"/>
+<circle cx="97.5" cy="84.35" r="1.7" fill="none" stroke="black" stroke-width=".2"/>
+<path d="M95.5,84.35h4 M97.5,82.35v4" stroke="#b33" stroke-width=".15"/>
+<circle cx="97.5" cy="68.35" r="1.7" fill="none" stroke="black" stroke-width=".2"/>
+<path d="M95.5,68.35h4 M97.5,66.35v4" stroke="#b33" stroke-width=".15"/>
+<text x="20" y="101" font-family="sans-serif" font-size="4">crash-output-wall: 100 x 70 x 6.35 mm - 100% scale</text>
+<path d="M20,110h50 M20,107v6 M70,107v6" stroke="black" stroke-width=".25"/>
+<text x="80" y="111" font-family="sans-serif" font-size="3.5">50 mm scale check; +X right / +Y up</text>
+</svg>

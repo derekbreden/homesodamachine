@@ -1,0 +1,1647 @@
+[
+  {
+    "part": "x-bed",
+    "instance": 1,
+    "x": 450,
+    "y": 199,
+    "t": 6.35
+  },
+  {
+    "part": "x-carriage",
+    "instance": 1,
+    "x": 210,
+    "y": 199,
+    "t": 6.35
+  },
+  {
+    "part": "y-bed",
+    "instance": 1,
+    "x": 450,
+    "y": 199,
+    "t": 6.35
+  },
+  {
+    "part": "y-carriage",
+    "instance": 1,
+    "x": 210,
+    "y": 199,
+    "t": 6.35
+  },
+  {
+    "part": "z-bed",
+    "instance": 1,
+    "x": 450,
+    "y": 199,
+    "t": 6.35
+  },
+  {
+    "part": "z-carriage",
+    "instance": 1,
+    "x": 210,
+    "y": 199,
+    "t": 6.35
+  },
+  {
+    "part": "force-gauge-backing",
+    "instance": 1,
+    "x": 70,
+    "y": 110,
+    "t": 6.35
+  },
+  {
+    "part": "installed-Z-gauge-back",
+    "instance": 1,
+    "x": 70,
+    "y": 160,
+    "t": 6.35
+  },
+  {
+    "part": "shaft-capture-interface",
+    "instance": 1,
+    "x": 100,
+    "y": 60,
+    "t": 6.35
+  },
+  {
+    "part": "shaft-capture-bridge",
+    "instance": 1,
+    "x": 100,
+    "y": 60,
+    "t": 6.35
+  },
+  {
+    "part": "capture-catch-upper",
+    "instance": 1,
+    "x": 120,
+    "y": 80,
+    "t": 6.35
+  },
+  {
+    "part": "installed-Z-load-platen",
+    "instance": 1,
+    "x": 60,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "test-output-bridge",
+    "instance": 1,
+    "x": 140,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "test-output-arm",
+    "instance": 1,
+    "x": 70,
+    "y": 25,
+    "t": 6.35
+  },
+  {
+    "part": "test-output-arm",
+    "instance": 2,
+    "x": 70,
+    "y": 25,
+    "t": 6.35
+  },
+  {
+    "part": "drive-test-foot",
+    "instance": 1,
+    "x": 120,
+    "y": 80,
+    "t": 6.35
+  },
+  {
+    "part": "force-test-platen",
+    "instance": 1,
+    "x": 120,
+    "y": 80,
+    "t": 6.35
+  },
+  {
+    "part": "torque-redirect-bracket",
+    "instance": 1,
+    "x": 60,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "yaw-head-adapter",
+    "instance": 1,
+    "x": 120,
+    "y": 120,
+    "t": 6.35
+  },
+  {
+    "part": "z-head-diagonal",
+    "instance": 1,
+    "x": 275,
+    "y": 25,
+    "t": 6.35
+  },
+  {
+    "part": "rotator-platform",
+    "instance": 1,
+    "x": 325,
+    "y": 300,
+    "t": 6.35
+  },
+  {
+    "part": "yaw-bearing-back",
+    "instance": 1,
+    "x": 180,
+    "y": 90,
+    "t": 6.35
+  },
+  {
+    "part": "yaw-crossbar",
+    "instance": 1,
+    "x": 100,
+    "y": 380,
+    "t": 6.35
+  },
+  {
+    "part": "yaw-side",
+    "instance": 1,
+    "x": 100,
+    "y": 180,
+    "t": 6.35
+  },
+  {
+    "part": "yaw-side",
+    "instance": 2,
+    "x": 100,
+    "y": 180,
+    "t": 6.35
+  },
+  {
+    "part": "pitch-bearing-foot",
+    "instance": 1,
+    "x": 90,
+    "y": 60,
+    "t": 6.35
+  },
+  {
+    "part": "pitch-bearing-foot",
+    "instance": 2,
+    "x": 90,
+    "y": 60,
+    "t": 6.35
+  },
+  {
+    "part": "pitch-side",
+    "instance": 1,
+    "x": 280,
+    "y": 100,
+    "t": 6.35
+  },
+  {
+    "part": "pitch-side",
+    "instance": 2,
+    "x": 280,
+    "y": 100,
+    "t": 6.35
+  },
+  {
+    "part": "pitch-rear-crossbar",
+    "instance": 1,
+    "x": 190,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "pitch-rear-crossbar",
+    "instance": 2,
+    "x": 190,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "roll-bearing-foot",
+    "instance": 1,
+    "x": 150,
+    "y": 120,
+    "t": 6.35
+  },
+  {
+    "part": "roll-cradle-side",
+    "instance": 1,
+    "x": 216,
+    "y": 60,
+    "t": 6.35
+  },
+  {
+    "part": "roll-cradle-side",
+    "instance": 2,
+    "x": 216,
+    "y": 60,
+    "t": 6.35
+  },
+  {
+    "part": "roll-cradle-back",
+    "instance": 1,
+    "x": 120,
+    "y": 70,
+    "t": 6.35
+  },
+  {
+    "part": "gun-jaw",
+    "instance": 1,
+    "x": 25,
+    "y": 130,
+    "t": 6.35
+  },
+  {
+    "part": "gun-jaw",
+    "instance": 2,
+    "x": 25,
+    "y": 130,
+    "t": 6.35
+  },
+  {
+    "part": "gun-jaw",
+    "instance": 3,
+    "x": 25,
+    "y": 130,
+    "t": 6.35
+  },
+  {
+    "part": "gun-jaw",
+    "instance": 4,
+    "x": 25,
+    "y": 130,
+    "t": 6.35
+  },
+  {
+    "part": "service-load-jaw",
+    "instance": 1,
+    "x": 35,
+    "y": 160,
+    "t": 6.35
+  },
+  {
+    "part": "service-load-jaw",
+    "instance": 2,
+    "x": 35,
+    "y": 160,
+    "t": 6.35
+  },
+  {
+    "part": "angular-lever",
+    "instance": 1,
+    "x": 190,
+    "y": 50,
+    "t": 6.35
+  },
+  {
+    "part": "angular-lever",
+    "instance": 2,
+    "x": 190,
+    "y": 50,
+    "t": 6.35
+  },
+  {
+    "part": "angular-lever",
+    "instance": 3,
+    "x": 190,
+    "y": 50,
+    "t": 6.35
+  },
+  {
+    "part": "drive-bulkhead",
+    "instance": 1,
+    "x": 38,
+    "y": 60,
+    "t": 6.35
+  },
+  {
+    "part": "drive-bulkhead",
+    "instance": 2,
+    "x": 38,
+    "y": 60,
+    "t": 6.35
+  },
+  {
+    "part": "drive-bulkhead",
+    "instance": 3,
+    "x": 38,
+    "y": 60,
+    "t": 6.35
+  },
+  {
+    "part": "drive-bulkhead",
+    "instance": 4,
+    "x": 38,
+    "y": 60,
+    "t": 6.35
+  },
+  {
+    "part": "drive-bulkhead",
+    "instance": 5,
+    "x": 38,
+    "y": 60,
+    "t": 6.35
+  },
+  {
+    "part": "drive-bulkhead",
+    "instance": 6,
+    "x": 38,
+    "y": 60,
+    "t": 6.35
+  },
+  {
+    "part": "linear-drive-support",
+    "instance": 1,
+    "x": 150,
+    "y": 150,
+    "t": 6.35
+  },
+  {
+    "part": "linear-drive-support",
+    "instance": 2,
+    "x": 150,
+    "y": 150,
+    "t": 6.35
+  },
+  {
+    "part": "linear-drive-support",
+    "instance": 3,
+    "x": 150,
+    "y": 150,
+    "t": 6.35
+  },
+  {
+    "part": "linear-drive-support",
+    "instance": 4,
+    "x": 150,
+    "y": 150,
+    "t": 6.35
+  },
+  {
+    "part": "linear-drive-support",
+    "instance": 5,
+    "x": 150,
+    "y": 150,
+    "t": 6.35
+  },
+  {
+    "part": "linear-drive-support",
+    "instance": 6,
+    "x": 150,
+    "y": 150,
+    "t": 6.35
+  },
+  {
+    "part": "motor-support-leg",
+    "instance": 1,
+    "x": 100,
+    "y": 25,
+    "t": 6.35
+  },
+  {
+    "part": "motor-support-leg",
+    "instance": 2,
+    "x": 100,
+    "y": 25,
+    "t": 6.35
+  },
+  {
+    "part": "motor-support-leg",
+    "instance": 3,
+    "x": 100,
+    "y": 25,
+    "t": 6.35
+  },
+  {
+    "part": "motor-support-leg",
+    "instance": 4,
+    "x": 100,
+    "y": 25,
+    "t": 6.35
+  },
+  {
+    "part": "motor-support-leg",
+    "instance": 5,
+    "x": 100,
+    "y": 25,
+    "t": 6.35
+  },
+  {
+    "part": "motor-support-leg",
+    "instance": 6,
+    "x": 100,
+    "y": 25,
+    "t": 6.35
+  },
+  {
+    "part": "motor-support-leg",
+    "instance": 7,
+    "x": 100,
+    "y": 25,
+    "t": 6.35
+  },
+  {
+    "part": "motor-support-leg",
+    "instance": 8,
+    "x": 100,
+    "y": 25,
+    "t": 6.35
+  },
+  {
+    "part": "motor-support-leg",
+    "instance": 9,
+    "x": 100,
+    "y": 25,
+    "t": 6.35
+  },
+  {
+    "part": "motor-support-leg",
+    "instance": 10,
+    "x": 100,
+    "y": 25,
+    "t": 6.35
+  },
+  {
+    "part": "motor-support-leg",
+    "instance": 11,
+    "x": 100,
+    "y": 25,
+    "t": 6.35
+  },
+  {
+    "part": "motor-support-leg",
+    "instance": 12,
+    "x": 100,
+    "y": 25,
+    "t": 6.35
+  },
+  {
+    "part": "thrust-support-leg",
+    "instance": 1,
+    "x": 42.65,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "thrust-support-leg",
+    "instance": 2,
+    "x": 42.65,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "thrust-support-leg",
+    "instance": 3,
+    "x": 42.65,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "thrust-support-leg",
+    "instance": 4,
+    "x": 42.65,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "thrust-support-leg",
+    "instance": 5,
+    "x": 42.65,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "thrust-support-leg",
+    "instance": 6,
+    "x": 42.65,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "thrust-support-leg",
+    "instance": 7,
+    "x": 42.65,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "thrust-support-leg",
+    "instance": 8,
+    "x": 42.65,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "thrust-support-leg",
+    "instance": 9,
+    "x": 42.65,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "thrust-support-leg",
+    "instance": 10,
+    "x": 42.65,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "thrust-support-leg",
+    "instance": 11,
+    "x": 42.65,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "thrust-support-leg",
+    "instance": 12,
+    "x": 42.65,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "thrust-angle-pad",
+    "instance": 1,
+    "x": 25.4,
+    "y": 25.4,
+    "t": 6.35
+  },
+  {
+    "part": "thrust-angle-pad",
+    "instance": 2,
+    "x": 25.4,
+    "y": 25.4,
+    "t": 6.35
+  },
+  {
+    "part": "thrust-angle-pad",
+    "instance": 3,
+    "x": 25.4,
+    "y": 25.4,
+    "t": 6.35
+  },
+  {
+    "part": "thrust-angle-pad",
+    "instance": 4,
+    "x": 25.4,
+    "y": 25.4,
+    "t": 6.35
+  },
+  {
+    "part": "thrust-angle-pad",
+    "instance": 5,
+    "x": 25.4,
+    "y": 25.4,
+    "t": 6.35
+  },
+  {
+    "part": "thrust-angle-pad",
+    "instance": 6,
+    "x": 25.4,
+    "y": 25.4,
+    "t": 6.35
+  },
+  {
+    "part": "nut-face",
+    "instance": 1,
+    "x": 46,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "nut-face",
+    "instance": 2,
+    "x": 46,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "nut-face",
+    "instance": 3,
+    "x": 46,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "nut-face",
+    "instance": 4,
+    "x": 46,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "nut-face",
+    "instance": 5,
+    "x": 46,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "nut-face",
+    "instance": 6,
+    "x": 46,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "nut-face",
+    "instance": 7,
+    "x": 46,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "nut-face",
+    "instance": 8,
+    "x": 46,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "nut-face",
+    "instance": 9,
+    "x": 46,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "nut-face",
+    "instance": 10,
+    "x": 46,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "nut-face",
+    "instance": 11,
+    "x": 46,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "nut-face",
+    "instance": 12,
+    "x": 46,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "force-link-end",
+    "instance": 1,
+    "x": 110,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "force-link-end",
+    "instance": 2,
+    "x": 110,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "force-link-end",
+    "instance": 3,
+    "x": 110,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "force-link-end",
+    "instance": 4,
+    "x": 110,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "force-link-end",
+    "instance": 5,
+    "x": 110,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "force-link-end",
+    "instance": 6,
+    "x": 110,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "force-link-end",
+    "instance": 7,
+    "x": 110,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "force-link-end",
+    "instance": 8,
+    "x": 110,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "force-link-end",
+    "instance": 9,
+    "x": 110,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "force-link-end",
+    "instance": 10,
+    "x": 110,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "force-link-end",
+    "instance": 11,
+    "x": 110,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "force-link-end",
+    "instance": 12,
+    "x": 110,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "force-link-shuttle",
+    "instance": 1,
+    "x": 110,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "force-link-shuttle",
+    "instance": 2,
+    "x": 110,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "force-link-shuttle",
+    "instance": 3,
+    "x": 110,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "force-link-shuttle",
+    "instance": 4,
+    "x": 110,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "force-link-shuttle",
+    "instance": 5,
+    "x": 110,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "force-link-shuttle",
+    "instance": 6,
+    "x": 110,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "force-link-shoulder",
+    "instance": 1,
+    "x": 110,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "force-link-shoulder",
+    "instance": 2,
+    "x": 110,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "force-link-shoulder",
+    "instance": 3,
+    "x": 110,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "force-link-shoulder",
+    "instance": 4,
+    "x": 110,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "force-link-shoulder",
+    "instance": 5,
+    "x": 110,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "force-link-shoulder",
+    "instance": 6,
+    "x": 110,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "force-link-shoulder",
+    "instance": 7,
+    "x": 110,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "force-link-shoulder",
+    "instance": 8,
+    "x": 110,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "force-link-shoulder",
+    "instance": 9,
+    "x": 110,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "force-link-shoulder",
+    "instance": 10,
+    "x": 110,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "force-link-shoulder",
+    "instance": 11,
+    "x": 110,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "force-link-shoulder",
+    "instance": 12,
+    "x": 110,
+    "y": 38,
+    "t": 6.35
+  },
+  {
+    "part": "force-output-ear",
+    "instance": 1,
+    "x": 60,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "force-output-ear",
+    "instance": 2,
+    "x": 60,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "force-output-ear",
+    "instance": 3,
+    "x": 60,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "force-output-ear",
+    "instance": 4,
+    "x": 60,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "force-output-ear",
+    "instance": 5,
+    "x": 60,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "force-output-ear",
+    "instance": 6,
+    "x": 60,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "force-output-ear",
+    "instance": 7,
+    "x": 60,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "force-output-ear",
+    "instance": 8,
+    "x": 60,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "force-output-ear",
+    "instance": 9,
+    "x": 60,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "force-output-ear",
+    "instance": 10,
+    "x": 60,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "force-output-ear",
+    "instance": 11,
+    "x": 60,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "force-output-ear",
+    "instance": 12,
+    "x": 60,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "overload-switch-tab",
+    "instance": 1,
+    "x": 60,
+    "y": 25,
+    "t": 6.35
+  },
+  {
+    "part": "overload-switch-tab",
+    "instance": 2,
+    "x": 60,
+    "y": 25,
+    "t": 6.35
+  },
+  {
+    "part": "overload-switch-tab",
+    "instance": 3,
+    "x": 60,
+    "y": 25,
+    "t": 6.35
+  },
+  {
+    "part": "overload-switch-tab",
+    "instance": 4,
+    "x": 60,
+    "y": 25,
+    "t": 6.35
+  },
+  {
+    "part": "overload-switch-tab",
+    "instance": 5,
+    "x": 60,
+    "y": 25,
+    "t": 6.35
+  },
+  {
+    "part": "overload-switch-tab",
+    "instance": 6,
+    "x": 60,
+    "y": 25,
+    "t": 6.35
+  },
+  {
+    "part": "friction-spring-seat",
+    "instance": 1,
+    "x": 38,
+    "y": 60,
+    "t": 6.35
+  },
+  {
+    "part": "friction-spring-seat",
+    "instance": 2,
+    "x": 38,
+    "y": 60,
+    "t": 6.35
+  },
+  {
+    "part": "friction-spring-seat",
+    "instance": 3,
+    "x": 38,
+    "y": 60,
+    "t": 6.35
+  },
+  {
+    "part": "angular-clevis-cheek",
+    "instance": 1,
+    "x": 80,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "angular-clevis-cheek",
+    "instance": 2,
+    "x": 80,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "angular-clevis-cheek",
+    "instance": 3,
+    "x": 80,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "angular-clevis-cheek",
+    "instance": 4,
+    "x": 80,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "angular-clevis-cheek",
+    "instance": 5,
+    "x": 80,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "angular-clevis-cheek",
+    "instance": 6,
+    "x": 80,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "angular-clevis-cheek",
+    "instance": 7,
+    "x": 80,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "angular-clevis-cheek",
+    "instance": 8,
+    "x": 80,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "angular-clevis-cheek",
+    "instance": 9,
+    "x": 80,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "angular-clevis-cheek",
+    "instance": 10,
+    "x": 80,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "angular-clevis-cheek",
+    "instance": 11,
+    "x": 80,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "angular-clevis-cheek",
+    "instance": 12,
+    "x": 80,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "trunnion-inner-ear",
+    "instance": 1,
+    "x": 40,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "trunnion-inner-ear",
+    "instance": 2,
+    "x": 40,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "trunnion-inner-ear",
+    "instance": 3,
+    "x": 40,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "trunnion-inner-ear",
+    "instance": 4,
+    "x": 40,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "trunnion-inner-ear",
+    "instance": 5,
+    "x": 40,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "trunnion-inner-ear",
+    "instance": 6,
+    "x": 40,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "trunnion-inner-ear",
+    "instance": 7,
+    "x": 40,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "trunnion-inner-ear",
+    "instance": 8,
+    "x": 40,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "trunnion-inner-ear",
+    "instance": 9,
+    "x": 40,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "trunnion-inner-ear",
+    "instance": 10,
+    "x": 40,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "trunnion-inner-ear",
+    "instance": 11,
+    "x": 40,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "trunnion-inner-ear",
+    "instance": 12,
+    "x": 40,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "limit-stop",
+    "instance": 1,
+    "x": 40,
+    "y": 30,
+    "t": 6.35
+  },
+  {
+    "part": "limit-stop",
+    "instance": 2,
+    "x": 40,
+    "y": 30,
+    "t": 6.35
+  },
+  {
+    "part": "limit-stop",
+    "instance": 3,
+    "x": 40,
+    "y": 30,
+    "t": 6.35
+  },
+  {
+    "part": "limit-stop",
+    "instance": 4,
+    "x": 40,
+    "y": 30,
+    "t": 6.35
+  },
+  {
+    "part": "limit-stop",
+    "instance": 5,
+    "x": 40,
+    "y": 30,
+    "t": 6.35
+  },
+  {
+    "part": "limit-stop",
+    "instance": 6,
+    "x": 40,
+    "y": 30,
+    "t": 6.35
+  },
+  {
+    "part": "limit-stop",
+    "instance": 7,
+    "x": 40,
+    "y": 30,
+    "t": 6.35
+  },
+  {
+    "part": "limit-stop",
+    "instance": 8,
+    "x": 40,
+    "y": 30,
+    "t": 6.35
+  },
+  {
+    "part": "limit-stop",
+    "instance": 9,
+    "x": 40,
+    "y": 30,
+    "t": 6.35
+  },
+  {
+    "part": "limit-stop",
+    "instance": 10,
+    "x": 40,
+    "y": 30,
+    "t": 6.35
+  },
+  {
+    "part": "limit-stop",
+    "instance": 11,
+    "x": 40,
+    "y": 30,
+    "t": 6.35
+  },
+  {
+    "part": "limit-stop",
+    "instance": 12,
+    "x": 40,
+    "y": 30,
+    "t": 6.35
+  },
+  {
+    "part": "bench-tether-anchor",
+    "instance": 1,
+    "x": 60,
+    "y": 30,
+    "t": 6.35
+  },
+  {
+    "part": "bench-tether-anchor",
+    "instance": 2,
+    "x": 60,
+    "y": 30,
+    "t": 6.35
+  },
+  {
+    "part": "brake-torque-lever",
+    "instance": 1,
+    "x": 220,
+    "y": 30,
+    "t": 6.35
+  },
+  {
+    "part": "angular-load-lever",
+    "instance": 1,
+    "x": 220,
+    "y": 30,
+    "t": 6.35
+  },
+  {
+    "part": "hub-proof-lever",
+    "instance": 1,
+    "x": 300,
+    "y": 30,
+    "t": 6.35
+  },
+  {
+    "part": "hub-proof-load-saddle",
+    "instance": 1,
+    "x": 40,
+    "y": 50,
+    "t": 6.35
+  },
+  {
+    "part": "yaw-base-web",
+    "instance": 1,
+    "x": 230,
+    "y": 250,
+    "t": 6.35
+  },
+  {
+    "part": "yaw-base-web",
+    "instance": 2,
+    "x": 230,
+    "y": 250,
+    "t": 6.35
+  },
+  {
+    "part": "pitch-base-web",
+    "instance": 1,
+    "x": 280,
+    "y": 100,
+    "t": 6.35
+  },
+  {
+    "part": "pitch-base-web",
+    "instance": 2,
+    "x": 280,
+    "y": 100,
+    "t": 6.35
+  },
+  {
+    "part": "roll-base-web",
+    "instance": 1,
+    "x": 220,
+    "y": 203.1,
+    "t": 6.35
+  },
+  {
+    "part": "roll-base-web",
+    "instance": 2,
+    "x": 220,
+    "y": 203.1,
+    "t": 6.35
+  },
+  {
+    "part": "roll-base-anchor",
+    "instance": 1,
+    "x": 160,
+    "y": 190,
+    "t": 6.35
+  },
+  {
+    "part": "angular-output-bridge",
+    "instance": 1,
+    "x": 100,
+    "y": 60,
+    "t": 6.35
+  },
+  {
+    "part": "angular-output-bridge",
+    "instance": 2,
+    "x": 100,
+    "y": 60,
+    "t": 6.35
+  },
+  {
+    "part": "angular-output-bridge",
+    "instance": 3,
+    "x": 100,
+    "y": 60,
+    "t": 6.35
+  },
+  {
+    "part": "crash-pod-end",
+    "instance": 1,
+    "x": 40,
+    "y": 80,
+    "t": 6.35
+  },
+  {
+    "part": "crash-pod-end",
+    "instance": 2,
+    "x": 40,
+    "y": 80,
+    "t": 6.35
+  },
+  {
+    "part": "crash-pod-end",
+    "instance": 3,
+    "x": 40,
+    "y": 80,
+    "t": 6.35
+  },
+  {
+    "part": "crash-pod-end",
+    "instance": 4,
+    "x": 40,
+    "y": 80,
+    "t": 6.35
+  },
+  {
+    "part": "crash-pod-shoulder",
+    "instance": 1,
+    "x": 40,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "crash-pod-shoulder",
+    "instance": 2,
+    "x": 40,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "crash-pod-shoulder",
+    "instance": 3,
+    "x": 40,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "crash-pod-shoulder",
+    "instance": 4,
+    "x": 40,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "crash-pod-shuttle",
+    "instance": 1,
+    "x": 40,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "crash-pod-shuttle",
+    "instance": 2,
+    "x": 40,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "crash-carrier-left",
+    "instance": 1,
+    "x": 200,
+    "y": 60,
+    "t": 6.35
+  },
+  {
+    "part": "crash-carrier-right",
+    "instance": 1,
+    "x": 200,
+    "y": 60,
+    "t": 6.35
+  },
+  {
+    "part": "crash-magnet-back",
+    "instance": 1,
+    "x": 120,
+    "y": 90,
+    "t": 6.35
+  },
+  {
+    "part": "gun-release-tray",
+    "instance": 1,
+    "x": 200,
+    "y": 80,
+    "t": 6.35
+  },
+  {
+    "part": "gun-release-back",
+    "instance": 1,
+    "x": 120,
+    "y": 70,
+    "t": 6.35
+  },
+  {
+    "part": "crash-output-wall",
+    "instance": 1,
+    "x": 100,
+    "y": 70,
+    "t": 6.35
+  },
+  {
+    "part": "crash-output-wall",
+    "instance": 2,
+    "x": 100,
+    "y": 70,
+    "t": 6.35
+  },
+  {
+    "part": "crash-ground-crossbar",
+    "instance": 1,
+    "x": 200,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "crash-ground-crossbar",
+    "instance": 2,
+    "x": 200,
+    "y": 40,
+    "t": 6.35
+  },
+  {
+    "part": "vee-seat-keeper",
+    "instance": 1,
+    "x": 24,
+    "y": 8,
+    "t": 6.35
+  },
+  {
+    "part": "vee-seat-keeper",
+    "instance": 2,
+    "x": 24,
+    "y": 8,
+    "t": 6.35
+  },
+  {
+    "part": "vee-seat-keeper",
+    "instance": 3,
+    "x": 24,
+    "y": 8,
+    "t": 6.35
+  },
+  {
+    "part": "vee-seat-keeper",
+    "instance": 4,
+    "x": 24,
+    "y": 8,
+    "t": 6.35
+  },
+  {
+    "part": "vee-seat-keeper",
+    "instance": 5,
+    "x": 24,
+    "y": 8,
+    "t": 6.35
+  },
+  {
+    "part": "vee-seat-keeper",
+    "instance": 6,
+    "x": 24,
+    "y": 8,
+    "t": 6.35
+  },
+  {
+    "part": "nozzle-test-fork-arm",
+    "instance": 1,
+    "x": 210,
+    "y": 30,
+    "t": 6.35
+  },
+  {
+    "part": "nozzle-test-fork-arm",
+    "instance": 2,
+    "x": 210,
+    "y": 30,
+    "t": 6.35
+  },
+  {
+    "part": "nozzle-test-bridge",
+    "instance": 1,
+    "x": 180,
+    "y": 30,
+    "t": 6.35
+  },
+  {
+    "part": "optics-camera-fixed-plate",
+    "instance": 1,
+    "x": 400,
+    "y": 300,
+    "t": 6.35
+  },
+  {
+    "part": "optics-camera-fixed-plate",
+    "instance": 2,
+    "x": 400,
+    "y": 300,
+    "t": 6.35
+  },
+  {
+    "part": "optics-camera-carriage-plate",
+    "instance": 1,
+    "x": 300,
+    "y": 300,
+    "t": 6.35
+  },
+  {
+    "part": "optics-camera-carriage-plate",
+    "instance": 2,
+    "x": 300,
+    "y": 300,
+    "t": 6.35
+  },
+  {
+    "part": "optics-lens-upright",
+    "instance": 1,
+    "x": 100,
+    "y": 200,
+    "t": 6.35
+  },
+  {
+    "part": "optics-lens-upright",
+    "instance": 2,
+    "x": 100,
+    "y": 200,
+    "t": 6.35
+  }
+]

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="304.8mm" height="406.4mm" viewBox="0 0 304.8 406.4">
+<rect width="100%" height="100%" fill="white"/>
+<rect x="1.0" y="1.0" width="300" height="325" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="2.0" y="5.0" font-family="sans-serif" font-size="2.5">rotator-platform #1</text>
+<text x="2.0" y="9.0" font-family="sans-serif" font-size="2.5">300 x 325 mm</text>
+<rect x="1.0" y="329.0" width="160" height="70" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="2.0" y="333.0" font-family="sans-serif" font-size="2.5">installed-Z-gauge-back #1</text>
+<text x="2.0" y="337.0" font-family="sans-serif" font-size="2.5">160 x 70 mm</text>
+<rect x="164.0" y="329.0" width="110" height="70" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="165.0" y="333.0" font-family="sans-serif" font-size="2.5">force-gauge-backing #1</text>
+<text x="165.0" y="337.0" font-family="sans-serif" font-size="2.5">110 x 70 mm</text>
+<rect x="277.0" y="329.0" width="25" height="60" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="278.0" y="333.0" font-family="sans-serif" font-size="2.5">overload-switch-tab #6</text>
+<text x="278.0" y="337.0" font-family="sans-serif" font-size="2.5">25 x 60 mm</text>
+</svg>

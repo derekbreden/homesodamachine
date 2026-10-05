@@ -1,0 +1,980 @@
+{
+  "status": "Successful export checks; no physical or post-publication lint acceptance.",
+  "source_sha256": "e219feaa319f2aee19c1792522d69dd337b2e27ffdb0eaa46ce5978469bfab08",
+  "fabrication_parts": [
+    {
+      "part": "x-bed",
+      "triangles": 4076,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "x-carriage",
+      "triangles": 11188,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "y-bed",
+      "triangles": 4076,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "y-carriage",
+      "triangles": 11188,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "z-bed",
+      "triangles": 4076,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "z-carriage",
+      "triangles": 12204,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "force-gauge-backing",
+      "triangles": 3060,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "deck-metal-spacer",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "proof-gauge-rear-spacer",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "proof-bearing-riser",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "installed-Z-gauge-back",
+      "triangles": 4092,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "shaft-capture-interface",
+      "triangles": 4584,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "shaft-capture-bridge",
+      "triangles": 2552,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "capture-catch-upper",
+      "triangles": 2044,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "capture-bridge-spacer",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "capture-catch-spacer",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "capture-gauge-guide-spacer",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "capture-bearing-riser",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "installed-Z-load-platen",
+      "triangles": 12,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "installed-Z-gauge-spacer",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "test-output-bridge",
+      "triangles": 2552,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "test-output-arm",
+      "triangles": 1028,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "drive-test-foot",
+      "triangles": 2044,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "force-test-platen",
+      "triangles": 2552,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "torque-redirect-bracket",
+      "triangles": 1536,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "yaw-head-adapter",
+      "triangles": 1536,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "z-head-diagonal",
+      "triangles": 1044,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "rotator-platform",
+      "triangles": 2044,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "yaw-bearing-back",
+      "triangles": 3568,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "yaw-crossbar",
+      "triangles": 4584,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "yaw-side",
+      "triangles": 2044,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "pitch-bearing-foot",
+      "triangles": 4076,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "pitch-side",
+      "triangles": 4344,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "pitch-rear-crossbar",
+      "triangles": 2044,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "roll-bearing-foot",
+      "triangles": 4076,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "roll-cradle-side",
+      "triangles": 3060,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "roll-cradle-back",
+      "triangles": 4584,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "gun-jaw",
+      "triangles": 2044,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "service-load-jaw",
+      "triangles": 2044,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "angular-lever",
+      "triangles": 5092,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "drive-bulkhead",
+      "triangles": 3568,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "linear-drive-support",
+      "triangles": 2084,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "motor-support-leg",
+      "triangles": 1028,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "thrust-support-leg",
+      "triangles": 1536,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "thrust-angle-pad",
+      "triangles": 520,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "kp08-fixed-riser",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "kp08-floating-riser",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "nut-face",
+      "triangles": 4616,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "force-link-end",
+      "triangles": 5600,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "force-link-shuttle",
+      "triangles": 7936,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "force-link-shoulder",
+      "triangles": 1952,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "force-shuttle-boss",
+      "triangles": 3056,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "force-output-ear",
+      "triangles": 1536,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "overload-switch-tab",
+      "triangles": 1028,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "friction-spring-seat",
+      "triangles": 3568,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "angular-clevis-cheek",
+      "triangles": 2552,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "trunnion-inner-ear",
+      "triangles": 1536,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "limit-stop",
+      "triangles": 1028,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "bench-tether-anchor",
+      "triangles": 1536,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "brake-torque-lever",
+      "triangles": 3568,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "angular-load-lever",
+      "triangles": 3568,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "hub-proof-lever",
+      "triangles": 3568,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "hub-proof-load-saddle",
+      "triangles": 1028,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "yaw-base-web",
+      "triangles": 2560,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "pitch-base-web",
+      "triangles": 3568,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "roll-base-web",
+      "triangles": 2560,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "roll-base-anchor",
+      "triangles": 2076,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "angular-output-bridge",
+      "triangles": 3568,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "pitch-web-left-spacer",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "pitch-web-right-spacer",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "angular-output-spacer",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "crash-force-outer-spacer",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "crash-force-center-spacer",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "crash-pod-end",
+      "triangles": 4076,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "crash-pod-shoulder",
+      "triangles": 2064,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "crash-pod-shuttle",
+      "triangles": 4584,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "crash-carrier-left",
+      "triangles": 20,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "crash-carrier-right",
+      "triangles": 20,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "crash-magnet-back",
+      "triangles": 3568,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "gun-release-tray",
+      "triangles": 4096,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "gun-release-back",
+      "triangles": 5600,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "crash-output-wall",
+      "triangles": 2044,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "crash-ground-crossbar",
+      "triangles": 2044,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "vee-seat-keeper",
+      "triangles": 1028,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "nozzle-test-fork-arm",
+      "triangles": 1028,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "nozzle-test-bridge",
+      "triangles": 1536,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "roll-foot-metal-spacer",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "fiber-swivel-base",
+      "triangles": 2552,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "fiber-bearing-cap",
+      "triangles": 2024,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "fiber-base-metal-spacer",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "fiber-axle-lower-tube",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "fiber-axle-upper-tube",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "redirect-lower-contact-tube",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "redirect-upper-contact-tube",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "torque-cord-pulley",
+      "triangles": 3536,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "crash-guide-block",
+      "triangles": 1536,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "shaft-hub",
+      "triangles": 4572,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "shaft-capture-tube-35p15",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "shaft-capture-tube-16p00",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "shaft-capture-tube-14p65",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "shaft-capture-tube-11p50",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "shaft-capture-tube-9p50",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "shaft-capture-tube-15p15",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "shaft-capture-tube-25p15",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "shaft-capture-tube-21p50",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "shaft-capture-tube-12p00",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "shaft-capture-tube-27p15",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "shaft-capture-tube-1p15",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "shaft-capture-tube-5p50",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "nut-outer-angular-metal-spacer",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "nut-outer-pitch-metal-spacer",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "nut-outer-XYZ-metal-spacer",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "nut-outer-Z-down-metal-spacer",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "force-outer-angular-metal-spacer",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "force-outer-pitch-metal-spacer",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "force-outer-XYZ-metal-spacer",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "force-outer-Z-down-metal-spacer",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "force-center-metal-spacer",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "guard-metal-spacer",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "V-keeper-metal-spacer",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "hinge-contact-tube",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "hinge-thread-start-spacer",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "nut-metal-spacer",
+      "triangles": 1008,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "metal-angle-25",
+      "triangles": 1032,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "guard-thrust-angle-minus",
+      "triangles": 1540,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "guard-thrust-angle-plus",
+      "triangles": 1540,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "linear-stop-angle",
+      "triangles": 2052,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "installed-Z-jack-angle",
+      "triangles": 1544,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "proof-gauge-quill-cap",
+      "triangles": 1036,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "pulley-80t",
+      "triangles": 5464,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "pulley-sector-coupon",
+      "triangles": 948,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "motor-tension-plate",
+      "triangles": 3584,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "paired-nut-spacer",
+      "triangles": 1704,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "limit-switch-bracket",
+      "triangles": 1544,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "belt-guard",
+      "triangles": 1028,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "gun-jaw-pad",
+      "triangles": 12,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "service-load-jaw-pad",
+      "triangles": 12,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "hub-drilling-locator",
+      "triangles": 28,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    },
+    {
+      "part": "fiber-saddle",
+      "triangles": 2056,
+      "watertight": true,
+      "winding_consistent": true,
+      "payload_preserves_STL_triangles": true
+    }
+  ],
+  "assembly_instances": 1240
+}

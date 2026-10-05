@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="304.8mm" height="304.8mm" viewBox="0 0 304.8 304.8">
+<rect width="100%" height="100%" fill="white"/>
+<rect x="1.0" y="1.0" width="150" height="150" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="2.0" y="5.0" font-family="sans-serif" font-size="2.5">linear-drive-support #4</text>
+<text x="2.0" y="9.0" font-family="sans-serif" font-size="2.5">150 x 150 mm</text>
+<rect x="154.0" y="1.0" width="120" height="70" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="155.0" y="5.0" font-family="sans-serif" font-size="2.5">gun-release-back #1</text>
+<text x="155.0" y="9.0" font-family="sans-serif" font-size="2.5">120 x 70 mm</text>
+<rect x="154.0" y="74.0" width="120" height="70" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="155.0" y="78.0" font-family="sans-serif" font-size="2.5">roll-cradle-back #1</text>
+<text x="155.0" y="82.0" font-family="sans-serif" font-size="2.5">120 x 70 mm</text>
+<rect x="1.0" y="154.0" width="38" height="110" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="2.0" y="158.0" font-family="sans-serif" font-size="2.5">force-link-shoulder #1</text>
+<text x="2.0" y="162.0" font-family="sans-serif" font-size="2.5">38 x 110 mm</text>
+<rect x="42.0" y="154.0" width="38" height="110" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="43.0" y="158.0" font-family="sans-serif" font-size="2.5">force-link-shuttle #2</text>
+<text x="43.0" y="162.0" font-family="sans-serif" font-size="2.5">38 x 110 mm</text>
+<rect x="83.0" y="154.0" width="38" height="110" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="84.0" y="158.0" font-family="sans-serif" font-size="2.5">force-link-shuttle #4</text>
+<text x="84.0" y="162.0" font-family="sans-serif" font-size="2.5">38 x 110 mm</text>
+<rect x="124.0" y="154.0" width="38" height="110" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="125.0" y="158.0" font-family="sans-serif" font-size="2.5">force-link-shoulder #2</text>
+<text x="125.0" y="162.0" font-family="sans-serif" font-size="2.5">38 x 110 mm</text>
+<rect x="165.0" y="154.0" width="110" height="38" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="166.0" y="158.0" font-family="sans-serif" font-size="2.5">force-link-end #1</text>
+<text x="166.0" y="162.0" font-family="sans-serif" font-size="2.5">110 x 38 mm</text>
+<rect x="165.0" y="195.0" width="110" height="38" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="166.0" y="199.0" font-family="sans-serif" font-size="2.5">force-link-end #11</text>
+<text x="166.0" y="203.0" font-family="sans-serif" font-size="2.5">110 x 38 mm</text>
+<rect x="165.0" y="236.0" width="110" height="38" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="166.0" y="240.0" font-family="sans-serif" font-size="2.5">force-link-shoulder #4</text>
+<text x="166.0" y="244.0" font-family="sans-serif" font-size="2.5">110 x 38 mm</text>
+<rect x="165.0" y="277.0" width="130" height="25" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="166.0" y="281.0" font-family="sans-serif" font-size="2.5">gun-jaw #4</text>
+<text x="166.0" y="285.0" font-family="sans-serif" font-size="2.5">130 x 25 mm</text>
+<rect x="277.0" y="1.0" width="25" height="60" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="278.0" y="5.0" font-family="sans-serif" font-size="2.5">overload-switch-tab #4</text>
+<text x="278.0" y="9.0" font-family="sans-serif" font-size="2.5">25 x 60 mm</text>
+<rect x="277.0" y="74.0" width="25" height="60" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="278.0" y="78.0" font-family="sans-serif" font-size="2.5">overload-switch-tab #1</text>
+<text x="278.0" y="82.0" font-family="sans-serif" font-size="2.5">25 x 60 mm</text>
+<rect x="278.0" y="154.0" width="25.4" height="25.4" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="279.0" y="158.0" font-family="sans-serif" font-size="2.5">thrust-angle-pad #4</text>
+<text x="279.0" y="162.0" font-family="sans-serif" font-size="2.5">25.4 x 25.4 mm</text>
+<rect x="278.0" y="195.0" width="25.4" height="25.4" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="279.0" y="199.0" font-family="sans-serif" font-size="2.5">thrust-angle-pad #3</text>
+<text x="279.0" y="203.0" font-family="sans-serif" font-size="2.5">25.4 x 25.4 mm</text>
+<rect x="278.0" y="236.0" width="25.4" height="25.4" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="279.0" y="240.0" font-family="sans-serif" font-size="2.5">thrust-angle-pad #2</text>
+<text x="279.0" y="244.0" font-family="sans-serif" font-size="2.5">25.4 x 25.4 mm</text>
+<rect x="278.0" y="182.4" width="24" height="8" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="279.0" y="186.4" font-family="sans-serif" font-size="2.5">vee-seat-keeper #5</text>
+<text x="279.0" y="190.4" font-family="sans-serif" font-size="2.5">24 x 8 mm</text>
+<rect x="278.0" y="223.4" width="24" height="8" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="279.0" y="227.4" font-family="sans-serif" font-size="2.5">vee-seat-keeper #2</text>
+<text x="279.0" y="231.4" font-family="sans-serif" font-size="2.5">24 x 8 mm</text>
+<rect x="278.0" y="264.4" width="24" height="8" fill="#e0e5e8" stroke="black" stroke-width=".25"/>
+<text x="279.0" y="268.4" font-family="sans-serif" font-size="2.5">vee-seat-keeper #4</text>
+<text x="279.0" y="272.4" font-family="sans-serif" font-size="2.5">24 x 8 mm</text>
+</svg>

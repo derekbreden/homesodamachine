@@ -104,7 +104,7 @@ def main():
         "schema": 1,
         "scope": "Fixed controller mounting only; no gravity, gun or motor reaction load. CAD/mesh checks are not physical fit, temperature, creep or print qualification.",
         "parts": records, "mounting_hardware": mounting,
-        "spacer_use": "Four6mm insulating spacers per carrier plus four under Pico adapter;28 total. Verify clear pads for all metal washers/bolts and>=6mm clearance below solder pins.",
+        "spacer_use": "Four 6 mm insulating spacers per carrier plus four under the Pico adapter;28 total. The 6 mm dimension is the PCB-to-panel standoff. Every actual solder pin/joint must remain visibly clear of the panel and all mounting metal. Trim only excess leads with USB and24 V unplugged, then inspect and verify continuity/isolation before power.",
         "fan": {"frame_mm": 80, "opening_mm": 76, "guards": 2,
                 "holes": "Transfer actual four fan holes after centering its opening; drill4.5mm only where the measured fan pattern leaves sound wall outside the76mm opening. Do not drill the fan.",
                 "base_holes_mm": [[-32, 20], [32, 20]],
@@ -129,10 +129,12 @@ def main():
     (OUT / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
     sources = [Path(__file__), ROOT / "hardware/scripts/_cadq_export.py",
                ROOT / "hardware/scripts/_mesh_payload.py", PROFILE,
-               ROOT / "hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py"]
+               ROOT / "hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py",
+               OUT / "README.md"]
     outputs = [p for p in OUT.iterdir() if p.suffix in (".step", ".stl", ".mesh")]
     outputs.append(OUT / "manifest.json")
     receipt = {"schema": 1, "generator_command": "tools/cad-venv/bin/python hardware/gun-positioner/mounting/generate.py",
+               "scope": "Binds CAD/export geometry and current assembly instructions. CAD/mesh checks do not establish physical fit, print, insulation, temperature or creep acceptance.",
                "cadquery_version": cq.__version__, "trimesh_version": trimesh.__version__,
                "source_sha256": {str(p.relative_to(ROOT)): digest(p) for p in sources},
                "output_sha256": {p.name: digest(p) for p in sorted(outputs)}}

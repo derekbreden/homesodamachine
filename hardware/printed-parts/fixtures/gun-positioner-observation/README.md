@@ -23,7 +23,7 @@ without duplicating metal stock or fastener packs with the gun fixture.
 | 4040 riser | 4 | 300 mm length, 40-series slot 8 |
 | lens-cassette | 2 | PET-GF, flat rear lip on bed |
 | lens-retainer | 2 | PET-GF, flat on bed |
-| lens-shim | 4 | PET-GF, one 0.20 mm layer each; two shims per stage |
+| lens-shim | 4 | PET-GF, 0.40 mm each, printed as two 0.20 mm layers; fit spares |
 
 The metal plates have STEP and millimeter DXF files. The two angle faces have
 separate drilling projections. The forked rail stop is a three-dimensional

@@ -1,0 +1,36 @@
+{
+  "status": "successful CAD/template export; no physical acceptance",
+  "units": "mm",
+  "sources_sha256": {
+    "hardware/printed-parts/fixtures/gun-positioner/gun_positioner.py": "e219feaa319f2aee19c1792522d69dd337b2e27ffdb0eaa46ce5978469bfab08",
+    "tools/gun-positioner/requirements.py": "5e9d9ba551bb71d61dbd9dd7827162eac543866b76233e8f91cf0bb71d26bf5a",
+    "tools/gun-positioner/fasteners.py": "e24e9166e97d22d7dc5e21a9709823f4ec14fb5606883ae2f117e431055427b1",
+    "tools/gun-positioner/nest.py": "85a7a31e0f3b5b68c21262062e4e126df9c785e9493e0eab7133ea1dcb4c86bc",
+    "tools/gun-positioner/clearance.py": "f84eff24755babac9e3468fa48437aae38c0c2436dc2595e7013215e1a6864b8",
+    "tools/gun-positioner/profiles.py": "4ee63803f5a2ebf1e61b9b6a07b841be80b77be66e74779a42dae07bf51763e4",
+    "tools/gun-positioner/check_fabrication.py": "2b08ce33fe1e91491e9a754393ffedad36857a31c9ad7d11d26b3e52739a8202",
+    "tools/gun-positioner-optics/mounts.py": "0e13a0a34b58bc6dcbdd858fd9d80e809630ea8d8a5b296134fbf0a5ee085c9c",
+    "tools/gun-positioner/payloads.py": "63c6967dce23f8d96c6f99d6dc3233f970062582aa6822a34cdb1c369cbf5986",
+    "hardware/scripts/flute_payload.py": "d93dcb92f176cc963148cf56c0d7fcd113bbd2798227b3b71cb483a20733a6c2",
+    "hardware/scripts/_mesh_payload.py": "1e1cee55690e125f45b846b183227ea59391adb798d01ee9aeaa69d1d5e44e72"
+  },
+  "assembly_STEP_sha256": "cf5baaa97d33c31d0a2786432229647d95dc2c0ad4f050d3d4aaf622bbbaa4cb",
+  "exported_fabrication_parts": 139,
+  "assembly_instances": 1240,
+  "fixture_instances": {
+    "powered-force-fixture": 155,
+    "nozzle-loading-fork": 12,
+    "torque-redirect": 7,
+    "installed-torque-lever": 4,
+    "installed-z-load-bound": 8,
+    "hub-clamp-proof": 55,
+    "shaft-capture-proof": 68
+  },
+  "asset_hash_index": "asset-hashes.json",
+  "clearance_receipt": "working-subset-clearance.json",
+  "scope": "Catalog envelopes and assumed load arithmetic are not load, fit, accuracy or lifetime acceptance.",
+  "payload_status": "Successful source-bound viewer payload export",
+  "fabrication_payloads": 139,
+  "assembly_payload_sha256": "99447f620821aaa6946bc972101c7598408e4e298f142e204dbc085b5b408cb7",
+  "mesh_check_receipt": "mesh-export-check.json"
+}

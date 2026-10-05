@@ -1,0 +1,217 @@
+{
+  "source_sha256": "e219feaa319f2aee19c1792522d69dd337b2e27ffdb0eaa46ce5978469bfab08",
+  "fabrication_parts": 139,
+  "registered_parts": 172,
+  "assembly_instances": 1240,
+  "fixture_instances": {
+    "powered-force-fixture": 155,
+    "nozzle-loading-fork": 12,
+    "torque-redirect": 7,
+    "installed-torque-lever": 4,
+    "installed-z-load-bound": 8,
+    "hub-clamp-proof": 55,
+    "shaft-capture-proof": 68
+  },
+  "invalid_solids": [],
+  "same_face_drill_circle_overlaps": [],
+  "bore_ligaments_below3mm": [
+    {
+      "part": "shaft-capture-interface",
+      "face": "registered_XY",
+      "a": [
+        0,
+        0,
+        22
+      ],
+      "b": [
+        -13.0,
+        -10.0,
+        5.5
+      ],
+      "center_distance_mm": 16.401219466856727,
+      "bore_ligament_mm": 2.651219466856727
+    },
+    {
+      "part": "shaft-capture-interface",
+      "face": "registered_XY",
+      "a": [
+        0,
+        0,
+        22
+      ],
+      "b": [
+        -13.0,
+        10.0,
+        5.5
+      ],
+      "center_distance_mm": 16.401219466856727,
+      "bore_ligament_mm": 2.651219466856727
+    },
+    {
+      "part": "shaft-capture-interface",
+      "face": "registered_XY",
+      "a": [
+        0,
+        0,
+        22
+      ],
+      "b": [
+        13.0,
+        -10.0,
+        5.5
+      ],
+      "center_distance_mm": 16.401219466856727,
+      "bore_ligament_mm": 2.651219466856727
+    },
+    {
+      "part": "shaft-capture-interface",
+      "face": "registered_XY",
+      "a": [
+        0,
+        0,
+        22
+      ],
+      "b": [
+        13.0,
+        10.0,
+        5.5
+      ],
+      "center_distance_mm": 16.401219466856727,
+      "bore_ligament_mm": 2.651219466856727
+    },
+    {
+      "part": "brake-torque-lever",
+      "face": "registered_XY",
+      "a": [
+        0,
+        0,
+        10.5
+      ],
+      "b": [
+        8.0,
+        0.0,
+        3.4
+      ],
+      "center_distance_mm": 8.0,
+      "bore_ligament_mm": 1.0499999999999998
+    },
+    {
+      "part": "brake-torque-lever",
+      "face": "registered_XY",
+      "a": [
+        0,
+        0,
+        10.5
+      ],
+      "b": [
+        4.898587196589413e-16,
+        8.0,
+        3.4
+      ],
+      "center_distance_mm": 8.0,
+      "bore_ligament_mm": 1.0499999999999998
+    },
+    {
+      "part": "brake-torque-lever",
+      "face": "registered_XY",
+      "a": [
+        0,
+        0,
+        10.5
+      ],
+      "b": [
+        -8.0,
+        9.797174393178826e-16,
+        3.4
+      ],
+      "center_distance_mm": 8.0,
+      "bore_ligament_mm": 1.0499999999999998
+    },
+    {
+      "part": "brake-torque-lever",
+      "face": "registered_XY",
+      "a": [
+        0,
+        0,
+        10.5
+      ],
+      "b": [
+        -1.4695761589768238e-15,
+        -8.0,
+        3.4
+      ],
+      "center_distance_mm": 8.0,
+      "bore_ligament_mm": 1.0499999999999998
+    }
+  ],
+  "head_clearance_checks": [
+    {
+      "joint": "SBR block and carriage attachment",
+      "centers": [
+        [
+          77,
+          84
+        ],
+        [
+          90,
+          90
+        ]
+      ],
+      "distance_mm": 14.317821063276353,
+      "two10mm_washer_clearance_mm": 4.317821063276353
+    },
+    {
+      "joint": "gauge cap and rear M4",
+      "centers": [
+        [
+          28,
+          48.2
+        ],
+        [
+          20.5,
+          36.5
+        ]
+      ],
+      "distance_mm": 13.897481786280563,
+      "OD12_plus_OD10_clearance_mm": 2.8974817862805633
+    },
+    {
+      "joint": "hub end keeper and M5 mounts",
+      "keeper_OD_mm": 20,
+      "mount_pattern_mm": [
+        26,
+        20
+      ],
+      "M5_washer_OD_mm": 10,
+      "radial_clearance_mm": 1.4012194668567268
+    },
+    {
+      "joint": "belt guard M3 and upper M6 washers",
+      "centers": [
+        [
+          5,
+          13
+        ],
+        [
+          12,
+          22
+        ]
+      ],
+      "distance_mm": 11.40175425099138,
+      "OD7_plus_OD12_clearance_mm": 1.9017542509913792,
+      "guard_spacer_to_thrust_radial_clearance_mm": 1.9283882771841192
+    },
+    {
+      "joint": "thrust support leg foot heads",
+      "distance_mm": 12.887590930814028,
+      "two10mm_washer_clearance_mm": 2.887590930814028
+    },
+    {
+      "joint": "service clamp and fork head",
+      "distance_mm": 17.59334035935189,
+      "two10mm_washer_clearance_mm": 7.593340359351888
+    }
+  ],
+  "status": "pass",
+  "scope": "Analytic solid validity and registered same-face drill/head geometry only. This is not mesh lint, physical fit, strength, clearance of the complete moving assembly, print acceptance or accuracy acceptance."
+}

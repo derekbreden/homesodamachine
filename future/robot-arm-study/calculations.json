@@ -4,76 +4,87 @@
     "reported_gun_feed_4ft_umbilical_mass_kg": 1.3118,
     "assumed_shell_mount_mass_kg": 0.25,
     "planned_gun_package_mass_kg": 1.5618,
-    "assumed_gimbal_motors_structure_mass_kg": 2.0,
-    "assumed_common_worst_gravity_lever_mm": 100.0,
-    "assumed_cable_moment_Nm": 3.0,
-    "assumed_vertical_moving_stack_mass_kg": 8.0,
-    "normal_axial_force_sizing_scenario_N": 200.0,
+    "angular_shaft_hub_screening_moment_Nm": 15.0,
+    "assumed_vertical_moving_stack_mass_kg": 30.581039755351682,
+    "normal_axial_force_sizing_scenario_N": 300.0,
     "assumed_screw_efficiency": 0.2,
     "assumed_belt_efficiency": 0.9
   },
   "nominal_commands": {
-    "screw_lead_mm": 1.0,
+    "screw_lead_mm": 2.0,
     "motor_full_steps_per_revolution": 200,
     "motor_to_screw_belt_ratio": 4,
-    "linear_travel_um_per_full_step_equivalent": 1.25,
-    "full_step_equivalents_for_nominal_0_5mm_move": 400.0,
-    "angular_increment_at_neutral_arcsec": 2.1485917317405874,
-    "maximum_angular_increment_arcsec_in_sampled_range": 2.375307344015704,
-    "endpoint_increment_at_perpendicular_200mm_lever_neutral_um": 2.083333333333334,
-    "maximum_endpoint_increment_at_perpendicular_200mm_lever_um": 2.303162994437537,
+    "linear_travel_um_per_full_step_equivalent": 2.5,
+    "full_step_equivalents_for_nominal_0_5mm_move": 200.0,
+    "angular_increment_at_neutral_arcsec": 3.437746770784939,
+    "maximum_angular_increment_arcsec_in_sampled_range": 3.76368814714563,
+    "endpoint_increment_at_perpendicular_200mm_lever_neutral_um": 3.3333333333333344,
+    "maximum_endpoint_increment_at_perpendicular_200mm_lever_um": 3.6493750103320037,
     "scope_limit": "Nominal command spacing. Actual increments, friction, preload, reversal, settling and current effects must be observed; microstep settings do not establish attained resolution."
   },
   "pivoted_angular_actuator": {
-    "lever_radius_mm": 120.0,
-    "neutral_pivot_to_pivot_length_mm": 120.0,
+    "lever_radius_mm": 150.0,
+    "neutral_pivot_to_pivot_length_mm": 180.0,
     "angle_plus_minus_deg": 20,
     "sample_spacing_deg": 0.1,
-    "minimum_length_mm": 79.28853885390106,
-    "maximum_length_mm": 161.20493990304732,
-    "required_total_length_change_mm": 81.91640104914627,
-    "stroke_below_neutral_mm": -40.71146114609894,
-    "stroke_above_neutral_mm": 41.204939903047325,
-    "minimum_dlength_dangle_mm_per_rad": 108.5463775702307,
-    "max_base_hinge_articulation_deg": 5.236833517229653,
-    "max_lever_hinge_articulation_deg": 25.236833517229652,
+    "minimum_length_mm": 129.01451207150308,
+    "maximum_length_mm": 231.47984751208952,
+    "required_total_length_change_mm": 102.46533544058644,
+    "stroke_below_neutral_mm": -50.985487928496916,
+    "stroke_above_neutral_mm": 51.479847512089535,
+    "minimum_dlength_dangle_mm_per_rad": 137.00976155764062,
+    "max_base_hinge_articulation_deg": 4.020705706582976,
+    "max_lever_hinge_articulation_deg": 24.020705706582977,
     "scope_limit": "Planar ideal geometry; excludes motor/belt/bearing/nut packages, hinge preload, interference and screw extension clearance."
   },
   "load_scenarios": {
-    "angular_output_moment_Nm": 6.4941258,
-    "angular_actuator_force_before_preload_friction_at_neutral_N": 54.117715000000004,
-    "max_angular_actuator_force_before_preload_friction_in_sampled_range_N": 59.828120895128244,
-    "vertical_gravity_force_N": 78.48,
-    "nominal_motor_torque_Nm_for_normal_force_scenario": 0.04420970641441537,
-    "scope_limit": "Unmeasured loads and assumed efficiencies. Does not qualify motor duty, guide/bearing moments, screw buckling, jam forces, stiffness, retention or lifetime."
+    "angular_output_moment_Nm": 15.0,
+    "angular_actuator_force_before_preload_friction_at_neutral_N": 100.0,
+    "max_angular_actuator_force_before_preload_friction_in_sampled_range_N": 109.4812503099601,
+    "vertical_gravity_force_N": 300.0,
+    "nominal_motor_torque_Nm_for_normal_force_scenario": 0.1326291192432461,
+    "scope_limit": "Separate screening scenarios and assumed efficiencies. The governing fabrication requirements and measured actual loads accept the build. These calculations do not qualify motor duty, guide/bearing moments, screw buckling, jam forces, stiffness, retention or lifetime."
   },
   "dot_centered_rotation": {
     "orientation_model": "Rz Ry Rx, ideal intersecting axes",
     "tool_vector_at_neutral_mm": [
       200.0,
       0.0,
-      0.0
+      47.35
     ],
-    "each_angular_limit_plus_minus_deg": 20,
+    "angular_limits_deg": {
+      "yaw": [
+        -20,
+        20
+      ],
+      "pitch": [
+        -20,
+        10
+      ],
+      "roll": [
+        -20,
+        20
+      ]
+    },
     "sampling_spacing_deg": 1,
-    "sampled_poses": 68921,
+    "sampled_poses": 52111,
     "minimum_compensating_XYZ_mm": [
-      0.0,
-      -68.40402866513375,
-      -68.40402866513375
+      -5.3204877048669,
+      -85.22539181365573,
+      -65.5484742593465
     ],
     "maximum_compensating_XYZ_mm": [
-      23.3955556881022,
-      68.40402866513375,
-      68.40402866513375
+      43.2346926611763,
+      85.22539181365573,
+      38.261160546225454
     ],
-    "maximum_compensation_vector_norm_mm": 96.73790505919011,
+    "maximum_compensation_vector_norm_mm": 106.49201459456776,
     "symmetric_additional_dot_translation_each_axis_mm": [
-      76.60444431189781,
-      31.59597133486626,
-      31.59597133486626
+      41.7653073388237,
+      -0.22539181365573147,
+      19.451525740653494
     ],
-    "scope_limit": "Pose arithmetic only. Does not establish physical clearance, actual tool transform, separated axis centers, reachability under load or a 200 mm dot-translation range at every angle."
+    "scope_limit": "Illustrative pose arithmetic with zero neutral orientation. The fabrication geometry owns its actual mounting transform and correlated reach. Does not establish physical clearance, actual tool transform, reachability under load or a 170 mm dot-translation range at every angle."
   },
   "materials_USD": {
     "positioner": {

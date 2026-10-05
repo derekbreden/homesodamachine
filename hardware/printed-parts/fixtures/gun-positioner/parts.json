@@ -1,0 +1,5230 @@
+[
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      450,
+      199,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -200.0,
+        -80.0,
+        6.5
+      ],
+      [
+        -200.0,
+        80.0,
+        6.5
+      ],
+      [
+        200.0,
+        -80.0,
+        6.5
+      ],
+      [
+        200.0,
+        80.0,
+        6.5
+      ],
+      [
+        -171,
+        -10,
+        6.5
+      ],
+      [
+        -171,
+        10,
+        6.5
+      ],
+      [
+        171,
+        -10,
+        6.5
+      ],
+      [
+        171,
+        10,
+        6.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Rail bases are transfer-drilled from the received rails. Keep rail centers 140mm apart. The four 6.5mm holes attach to the common metal frame.",
+    "print_orientation": "XY, flat underside down",
+    "name": "x-bed",
+    "step": "step/x-bed.step",
+    "stl": "stl/x-bed.stl",
+    "svg": "templates/x-bed.svg",
+    "dxf": "templates/x-bed.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      210,
+      199,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -77.0,
+        -84.0,
+        5.5
+      ],
+      [
+        -77.0,
+        -56.0,
+        5.5
+      ],
+      [
+        -51.0,
+        -84.0,
+        5.5
+      ],
+      [
+        -51.0,
+        -56.0,
+        5.5
+      ],
+      [
+        -77.0,
+        56.0,
+        5.5
+      ],
+      [
+        -77.0,
+        84.0,
+        5.5
+      ],
+      [
+        -51.0,
+        56.0,
+        5.5
+      ],
+      [
+        -51.0,
+        84.0,
+        5.5
+      ],
+      [
+        51.0,
+        -84.0,
+        5.5
+      ],
+      [
+        51.0,
+        -56.0,
+        5.5
+      ],
+      [
+        77.0,
+        -84.0,
+        5.5
+      ],
+      [
+        77.0,
+        -56.0,
+        5.5
+      ],
+      [
+        51.0,
+        56.0,
+        5.5
+      ],
+      [
+        51.0,
+        84.0,
+        5.5
+      ],
+      [
+        77.0,
+        56.0,
+        5.5
+      ],
+      [
+        77.0,
+        84.0,
+        5.5
+      ],
+      [
+        -90.0,
+        -90.0,
+        5.5
+      ],
+      [
+        -90.0,
+        90.0,
+        5.5
+      ],
+      [
+        90.0,
+        -90.0,
+        5.5
+      ],
+      [
+        90.0,
+        90.0,
+        5.5
+      ],
+      [
+        14.175,
+        -51,
+        5.5
+      ],
+      [
+        14.175,
+        51,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "",
+    "print_orientation": "XY, flat underside down",
+    "name": "x-carriage",
+    "step": "step/x-carriage.step",
+    "stl": "stl/x-carriage.stl",
+    "svg": "templates/x-carriage.svg",
+    "dxf": "templates/x-carriage.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      450,
+      199,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -90.0,
+        -90.0,
+        5.5
+      ],
+      [
+        -90.0,
+        90.0,
+        5.5
+      ],
+      [
+        90.0,
+        -90.0,
+        5.5
+      ],
+      [
+        90.0,
+        90.0,
+        5.5
+      ],
+      [
+        -171,
+        -10,
+        6.5
+      ],
+      [
+        -171,
+        10,
+        6.5
+      ],
+      [
+        171,
+        -10,
+        6.5
+      ],
+      [
+        171,
+        10,
+        6.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Turn this blank 90 degrees. Rail bases are transfer-drilled; holes at the center attach to the X carriage with four 40 mm long, 10 OD / 8 ID metal tube standoffs on a 180 x 180 mm pattern.",
+    "print_orientation": "XY, flat underside down",
+    "name": "y-bed",
+    "step": "step/y-bed.step",
+    "stl": "stl/y-bed.stl",
+    "svg": "templates/y-bed.svg",
+    "dxf": "templates/y-bed.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      210,
+      199,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -77.0,
+        -84.0,
+        5.5
+      ],
+      [
+        -77.0,
+        -56.0,
+        5.5
+      ],
+      [
+        -51.0,
+        -84.0,
+        5.5
+      ],
+      [
+        -51.0,
+        -56.0,
+        5.5
+      ],
+      [
+        -77.0,
+        56.0,
+        5.5
+      ],
+      [
+        -77.0,
+        84.0,
+        5.5
+      ],
+      [
+        -51.0,
+        56.0,
+        5.5
+      ],
+      [
+        -51.0,
+        84.0,
+        5.5
+      ],
+      [
+        51.0,
+        -84.0,
+        5.5
+      ],
+      [
+        51.0,
+        -56.0,
+        5.5
+      ],
+      [
+        77.0,
+        -84.0,
+        5.5
+      ],
+      [
+        77.0,
+        -56.0,
+        5.5
+      ],
+      [
+        51.0,
+        56.0,
+        5.5
+      ],
+      [
+        51.0,
+        84.0,
+        5.5
+      ],
+      [
+        77.0,
+        56.0,
+        5.5
+      ],
+      [
+        77.0,
+        84.0,
+        5.5
+      ],
+      [
+        -90.0,
+        -90.0,
+        5.5
+      ],
+      [
+        -90.0,
+        90.0,
+        5.5
+      ],
+      [
+        90.0,
+        -90.0,
+        5.5
+      ],
+      [
+        90.0,
+        90.0,
+        5.5
+      ],
+      [
+        14.175,
+        -51,
+        5.5
+      ],
+      [
+        14.175,
+        51,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "",
+    "print_orientation": "XY, flat underside down",
+    "name": "y-carriage",
+    "step": "step/y-carriage.step",
+    "stl": "stl/y-carriage.stl",
+    "svg": "templates/y-carriage.svg",
+    "dxf": "templates/y-carriage.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      450,
+      199,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -200.0,
+        -80.0,
+        6.5
+      ],
+      [
+        -200.0,
+        80.0,
+        6.5
+      ],
+      [
+        200.0,
+        -80.0,
+        6.5
+      ],
+      [
+        200.0,
+        80.0,
+        6.5
+      ],
+      [
+        -171,
+        -10,
+        6.5
+      ],
+      [
+        -171,
+        10,
+        6.5
+      ],
+      [
+        171,
+        -10,
+        6.5
+      ],
+      [
+        171,
+        10,
+        6.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Turn blank vertical. Rail bases are transfer-drilled. Back onto two continuous 4040 uprights.",
+    "print_orientation": "XY, flat underside down",
+    "name": "z-bed",
+    "step": "step/z-bed.step",
+    "stl": "stl/z-bed.stl",
+    "svg": "templates/z-bed.svg",
+    "dxf": "templates/z-bed.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      210,
+      199,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -77.0,
+        -84.0,
+        5.5
+      ],
+      [
+        -77.0,
+        -56.0,
+        5.5
+      ],
+      [
+        -51.0,
+        -84.0,
+        5.5
+      ],
+      [
+        -51.0,
+        -56.0,
+        5.5
+      ],
+      [
+        -77.0,
+        56.0,
+        5.5
+      ],
+      [
+        -77.0,
+        84.0,
+        5.5
+      ],
+      [
+        -51.0,
+        56.0,
+        5.5
+      ],
+      [
+        -51.0,
+        84.0,
+        5.5
+      ],
+      [
+        51.0,
+        -84.0,
+        5.5
+      ],
+      [
+        51.0,
+        -56.0,
+        5.5
+      ],
+      [
+        77.0,
+        -84.0,
+        5.5
+      ],
+      [
+        77.0,
+        -56.0,
+        5.5
+      ],
+      [
+        51.0,
+        56.0,
+        5.5
+      ],
+      [
+        51.0,
+        84.0,
+        5.5
+      ],
+      [
+        77.0,
+        56.0,
+        5.5
+      ],
+      [
+        77.0,
+        84.0,
+        5.5
+      ],
+      [
+        -90.0,
+        -90.0,
+        5.5
+      ],
+      [
+        -90.0,
+        90.0,
+        5.5
+      ],
+      [
+        90.0,
+        -90.0,
+        5.5
+      ],
+      [
+        90.0,
+        90.0,
+        5.5
+      ],
+      [
+        -14.175,
+        -51,
+        5.5
+      ],
+      [
+        -14.175,
+        51,
+        5.5
+      ],
+      [
+        -20,
+        0,
+        6.5
+      ],
+      [
+        80,
+        0,
+        6.5
+      ]
+    ],
+    "slots": [],
+    "notes": "",
+    "print_orientation": "XY, flat underside down",
+    "name": "z-carriage",
+    "step": "step/z-carriage.step",
+    "stl": "stl/z-carriage.stl",
+    "svg": "templates/z-carriage.svg",
+    "dxf": "templates/z-carriage.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      70,
+      110,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -20.5,
+        -36.5,
+        4.5
+      ],
+      [
+        -20.5,
+        36.5,
+        4.5
+      ],
+      [
+        20.5,
+        -36.5,
+        4.5
+      ],
+      [
+        20.5,
+        36.5,
+        4.5
+      ],
+      [
+        -28,
+        48.2,
+        5.5
+      ],
+      [
+        28,
+        48.2,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Gauge is vertical in drill vise, load axis up. Included rear M4 screws only: verify socket depth and engagement before tightening.",
+    "print_orientation": "XY, flat underside down",
+    "name": "force-gauge-backing",
+    "step": "step/force-gauge-backing.step",
+    "stl": "stl/force-gauge-backing.stl",
+    "svg": "templates/force-gauge-backing.svg",
+    "dxf": "templates/force-gauge-backing.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 4,
+    "blank_mm": [
+      10,
+      10,
+      40
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Four 10 OD / 8 ID metal tube spacers, 40 mm long, between X carriage and Y bed on180 x180 mm centers. M5x70 through-bolts; no 40 mm square spacer obscuring block screws.",
+    "print_orientation": "XY, flat underside down",
+    "name": "deck-metal-spacer",
+    "step": "step/deck-metal-spacer.step",
+    "stl": "stl/deck-metal-spacer.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 4,
+    "blank_mm": [
+      10,
+      10,
+      7
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Four 7 mm metal spacers keep the gauge rear case clear of proof quill-cap screws. Use four separately allocated M4x25 screws finished to the actual socket depth and at least 4 mm engagement; two dedicated large M4 washers per screw. The normal gauge screws are a separate set.",
+    "print_orientation": "XY, flat underside down",
+    "name": "proof-gauge-rear-spacer",
+    "step": "step/proof-gauge-rear-spacer.step",
+    "stl": "stl/proof-gauge-rear-spacer.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 2,
+    "blank_mm": [
+      10,
+      10,
+      10
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Two 10 mm metal risers lift the temporary KP001 support above the reaction plate lower edge. ID8 / OD10; M6x40 through bolts, original bearing nuts and washers reused.",
+    "print_orientation": "XY, flat underside down",
+    "name": "proof-bearing-riser",
+    "step": "step/proof-bearing-riser.step",
+    "stl": "stl/proof-bearing-riser.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      70,
+      160,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -20.5,
+        -36.5,
+        4.5
+      ],
+      [
+        -20.5,
+        36.5,
+        4.5
+      ],
+      [
+        20.5,
+        -36.5,
+        4.5
+      ],
+      [
+        20.5,
+        36.5,
+        4.5
+      ],
+      [
+        -28,
+        48.2,
+        5.5
+      ],
+      [
+        28,
+        48.2,
+        5.5
+      ]
+    ],
+    "slots": [
+      [
+        0,
+        -72,
+        12,
+        6.5,
+        90
+      ],
+      [
+        0,
+        72,
+        12,
+        6.5,
+        90
+      ]
+    ],
+    "notes": "Temporary installed-load gauge mount on independently braced500 mm4040 test column. Two M6x25 slot8 screws and10 mm metal spacers clear rear M4 screw heads. Gauge axis upward under the retained Z-head foot; measured force bounds weight, cable and rail drag.",
+    "print_orientation": "XY, flat underside down",
+    "name": "installed-Z-gauge-back",
+    "step": "step/installed-Z-gauge-back.step",
+    "stl": "stl/installed-Z-gauge-back.stl",
+    "svg": "templates/installed-Z-gauge-back.svg",
+    "dxf": "templates/installed-Z-gauge-back.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      100,
+      60,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        0,
+        0,
+        22
+      ],
+      [
+        -13.0,
+        -10.0,
+        5.5
+      ],
+      [
+        -13.0,
+        10.0,
+        5.5
+      ],
+      [
+        13.0,
+        -10.0,
+        5.5
+      ],
+      [
+        13.0,
+        10.0,
+        5.5
+      ],
+      [
+        -30.0,
+        -20.0,
+        3.4
+      ],
+      [
+        -30.0,
+        20.0,
+        3.4
+      ],
+      [
+        30.0,
+        -20.0,
+        3.4
+      ],
+      [
+        30.0,
+        20.0,
+        3.4
+      ]
+    ],
+    "slots": [],
+    "notes": "Temporary metal interface on the hub face nearest a shaft end. The 22 mm aperture clears the complete 20 mm keeper and end-bolt head. Four M5x80 temporarily retain the actual output plate, hub and this interface; four separate M3 tie stations carry the symmetric 75 mm bridge spacers. Actual hub clamps and bearing setscrews are loose during axial proof.",
+    "print_orientation": "XY, flat underside down",
+    "name": "shaft-capture-interface",
+    "step": "step/shaft-capture-interface.step",
+    "stl": "stl/shaft-capture-interface.stl",
+    "svg": "templates/shaft-capture-interface.svg",
+    "dxf": "templates/shaft-capture-interface.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      100,
+      60,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        0,
+        0,
+        6.5
+      ],
+      [
+        -30.0,
+        -20.0,
+        3.4
+      ],
+      [
+        -30.0,
+        20.0,
+        3.4
+      ],
+      [
+        30.0,
+        -20.0,
+        3.4
+      ],
+      [
+        30.0,
+        20.0,
+        3.4
+      ]
+    ],
+    "slots": [],
+    "notes": "Closed coaxial force bridge beyond the complete shaft keeper. Four 75 mm metal tubes and four borrowed M3x100 ties connect the separate interface. A captured M6x16 bolt, one 1 mm washer and a 20 mm steel M6 coupling nut connect directly to the gauge load shaft. At least 6 mm measured engagement at both ends, no bottoming and no hook or cord load connection.",
+    "print_orientation": "XY, flat underside down",
+    "name": "shaft-capture-bridge",
+    "step": "step/shaft-capture-bridge.step",
+    "stl": "stl/shaft-capture-bridge.stl",
+    "svg": "templates/shaft-capture-bridge.svg",
+    "dxf": "templates/shaft-capture-bridge.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      120,
+      80,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -50.0,
+        -20.0,
+        6.5
+      ],
+      [
+        -50.0,
+        20.0,
+        6.5
+      ],
+      [
+        50.0,
+        -20.0,
+        6.5
+      ],
+      [
+        50.0,
+        20.0,
+        6.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Upper plate of a temporary independent catch. The lower plate is the borrowed drive-test-foot. Two 7.85 mm tube spacers and two borrowed M5x35 joints at the far X=-50 stations join the catch plates; nearer holes remain unused, clear of the moving interface. Vise grips only joined far-end metal and is positively bench mounted. Set 0.75 mm nominal clearance above and below the moving interface, verify no contact during proof.",
+    "print_orientation": "XY, flat underside down",
+    "name": "capture-catch-upper",
+    "step": "step/capture-catch-upper.step",
+    "stl": "stl/capture-catch-upper.stl",
+    "svg": "templates/capture-catch-upper.svg",
+    "dxf": "templates/capture-catch-upper.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 4,
+    "blank_mm": [
+      8,
+      8,
+      75
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Four symmetric metal tubes between capture interface and closed bridge. No contact with shaft, keeper or bearing housing.",
+    "print_orientation": "XY, flat underside down",
+    "name": "capture-bridge-spacer",
+    "step": "step/capture-bridge-spacer.step",
+    "stl": "stl/capture-bridge-spacer.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 2,
+    "blank_mm": [
+      8,
+      8,
+      7.85
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Two far-end metal spacers join the independently mounted catch plates; not in the measured force path.",
+    "print_orientation": "XY, flat underside down",
+    "name": "capture-catch-spacer",
+    "step": "step/capture-catch-spacer.step",
+    "stl": "stl/capture-catch-spacer.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 2,
+    "blank_mm": [
+      10,
+      10,
+      9.825
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Column-to-gauge-back guide offset. Guide screws retain laterally with sliding axial clearance and must not clamp the backing.",
+    "print_orientation": "XY, flat underside down",
+    "name": "capture-gauge-guide-spacer",
+    "step": "step/capture-gauge-guide-spacer.step",
+    "stl": "stl/capture-gauge-guide-spacer.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 2,
+    "blank_mm": [
+      10,
+      10,
+      12.825
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Temporary axial-proof bearing risers place the shaft axis 78.175 mm from the column rear datum, coaxial with the positive gauge connection and manual jack.",
+    "print_orientation": "XY, flat underside down",
+    "name": "capture-bearing-riser",
+    "step": "step/capture-bearing-riser.step",
+    "stl": "stl/capture-bearing-riser.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      60,
+      40,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [],
+    "slots": [],
+    "notes": "Horizontal metal platen under the40 mm hollow Z-head upright. Gauge probe contacts only its center; independent support remains within1 mm below the load. No contact with fixed mast or actuator. Do not detach actuator until gauge and support restrain the complete carried load.",
+    "print_orientation": "XY, flat underside down",
+    "name": "installed-Z-load-platen",
+    "step": "step/installed-Z-load-platen.step",
+    "stl": "stl/installed-Z-load-platen.stl",
+    "svg": "templates/installed-Z-load-platen.svg",
+    "dxf": "templates/installed-Z-load-platen.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 2,
+    "blank_mm": [
+      10,
+      10,
+      10
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Ten millimetre metal10OD/8ID spacers offset70x160 gauge backing from4040 test column so rearM4 gauge screw heads remain clear.",
+    "print_orientation": "XY, flat underside down",
+    "name": "installed-Z-gauge-spacer",
+    "step": "step/installed-Z-gauge-spacer.step",
+    "stl": "stl/installed-Z-gauge-spacer.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      140,
+      40,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        0,
+        0,
+        6.5
+      ],
+      [
+        -65.0,
+        -10.0,
+        5.5
+      ],
+      [
+        -65.0,
+        10.0,
+        5.5
+      ],
+      [
+        65.0,
+        -10.0,
+        5.5
+      ],
+      [
+        65.0,
+        10.0,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Symmetric bridgeahead ofthetestrodtip. GaugeM6compressionbuttoncontactscenter; metalforkarmstouchonlyshuttle, neverfixedcage.",
+    "print_orientation": "XY, flat underside down",
+    "name": "test-output-bridge",
+    "step": "step/test-output-bridge.step",
+    "stl": "stl/test-output-bridge.stl",
+    "svg": "templates/test-output-bridge.svg",
+    "dxf": "templates/test-output-bridge.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 2,
+    "blank_mm": [
+      70,
+      25,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -25,
+        0,
+        5.5
+      ],
+      [
+        25,
+        0,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Two symmetricmetaloutputforkarmsoutsidefixedcage.Boltonlytoshuttle andfrontbridge throughmetalangles; preventsloadbypass.",
+    "print_orientation": "XY, flat underside down",
+    "name": "test-output-arm",
+    "step": "step/test-output-arm.step",
+    "stl": "stl/test-output-arm.stl",
+    "svg": "templates/test-output-arm.svg",
+    "dxf": "templates/test-output-arm.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      120,
+      80,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -50.0,
+        -20.0,
+        6.5
+      ],
+      [
+        -50.0,
+        20.0,
+        6.5
+      ],
+      [
+        50.0,
+        -20.0,
+        6.5
+      ],
+      [
+        50.0,
+        20.0,
+        6.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Clampmetaltestcartridgefootontodrilltable/bench.Spare200 mmtestleadpermitscoaxialgaugecontactahead ofrodtip.No drillpower; motorsonly.",
+    "print_orientation": "XY, flat underside down",
+    "name": "drive-test-foot",
+    "step": "step/drive-test-foot.step",
+    "stl": "stl/drive-test-foot.stl",
+    "svg": "templates/drive-test-foot.svg",
+    "dxf": "templates/drive-test-foot.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      120,
+      80,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        0,
+        0,
+        10.5
+      ],
+      [
+        -50.0,
+        -15.0,
+        5.5
+      ],
+      [
+        -50.0,
+        15.0,
+        5.5
+      ],
+      [
+        50.0,
+        -15.0,
+        5.5
+      ],
+      [
+        50.0,
+        15.0,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Test platen reacts only on fixed cage outer ties. Gauge M6 load stud bears itscenter through a spherical suppliedbutton; pusher touches only the output shuttle. Reversible loose-link test, drill unplugged.",
+    "print_orientation": "XY, flat underside down",
+    "name": "force-test-platen",
+    "step": "step/force-test-platen.step",
+    "stl": "stl/force-test-platen.stl",
+    "svg": "templates/force-test-platen.svg",
+    "dxf": "templates/force-test-platen.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      60,
+      40,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        0,
+        0,
+        8.5
+      ],
+      [
+        -20,
+        -10,
+        6.5
+      ],
+      [
+        20,
+        -10,
+        6.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Vise-held metal support for a608ZZ redirectwheel. M8 smoothshank axle clamps only innerrace; characterize cordloss withtwoequal200 g cups and<=5 g imbalance inbothdirections.",
+    "print_orientation": "XY, flat underside down",
+    "name": "torque-redirect-bracket",
+    "step": "step/torque-redirect-bracket.step",
+    "stl": "stl/torque-redirect-bracket.stl",
+    "svg": "templates/torque-redirect-bracket.svg",
+    "dxf": "templates/torque-redirect-bracket.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      120,
+      120,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -11,
+        -30,
+        5.5
+      ],
+      [
+        -11,
+        0,
+        5.5
+      ],
+      [
+        -11,
+        30,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Horizontal adapter on metalheadbeam. Two M6 T-slot holes transfer frombeamtop at100 mm spacing. Three metalangles connectyawback verticalplane to thisflatplate; rotated105 degreesaroundZ.",
+    "print_orientation": "XY, flat underside down",
+    "name": "yaw-head-adapter",
+    "step": "step/yaw-head-adapter.step",
+    "stl": "stl/yaw-head-adapter.stl",
+    "svg": "templates/yaw-head-adapter.svg",
+    "dxf": "templates/yaw-head-adapter.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      275,
+      25,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [],
+    "slots": [
+      [
+        -122.5,
+        0,
+        10,
+        6.5,
+        0
+      ],
+      [
+        122.5,
+        0,
+        10,
+        6.5,
+        0
+      ]
+    ],
+    "notes": "Flat metal diagonalbrace toextrusionYface. Hole span245 mm, two10 mm slots accommodate frameplacement. M6 screwsinto slot8 Tnuts; no printedbrace loadpath.",
+    "print_orientation": "XY, flat underside down",
+    "name": "z-head-diagonal",
+    "step": "step/z-head-diagonal.step",
+    "stl": "stl/z-head-diagonal.stl",
+    "svg": "templates/z-head-diagonal.svg",
+    "dxf": "templates/z-head-diagonal.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      325,
+      300,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -105.0,
+        -100.0,
+        8.5
+      ],
+      [
+        -105.0,
+        100.0,
+        8.5
+      ],
+      [
+        105.0,
+        -100.0,
+        8.5
+      ],
+      [
+        105.0,
+        100.0,
+        8.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Common metal frame top40mm; platform6.35mm; rotator foot24mm. Four through-bolts attach to the rotator's base bench holes after direct transfer. Existing six-inch tube/endcap reference seam height278.40mm.",
+    "print_orientation": "XY, flat underside down",
+    "name": "rotator-platform",
+    "step": "step/rotator-platform.step",
+    "stl": "stl/rotator-platform.stl",
+    "svg": "templates/rotator-platform.svg",
+    "dxf": "templates/rotator-platform.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      180,
+      90,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -40,
+        -28.0,
+        7
+      ],
+      [
+        -40,
+        28.0,
+        7
+      ],
+      [
+        40,
+        -28.0,
+        7
+      ],
+      [
+        40,
+        28.0,
+        7
+      ],
+      [
+        -58.85,
+        -30,
+        5.5
+      ],
+      [
+        -58.85,
+        0,
+        5.5
+      ],
+      [
+        -58.85,
+        30,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "KP12 feet: drawing is a catalog envelope. Transfer the selected housing holes; the selected bolt stations are 56 mm apart; transfer actual housing holes.",
+    "print_orientation": "XY, flat underside down",
+    "name": "yaw-bearing-back",
+    "step": "step/yaw-bearing-back.step",
+    "stl": "stl/yaw-bearing-back.stl",
+    "svg": "templates/yaw-bearing-back.svg",
+    "dxf": "templates/yaw-bearing-back.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      100,
+      380,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        0,
+        0,
+        12.5
+      ],
+      [
+        -13.0,
+        -10.0,
+        5.5
+      ],
+      [
+        -13.0,
+        10.0,
+        5.5
+      ],
+      [
+        13.0,
+        -10.0,
+        5.5
+      ],
+      [
+        13.0,
+        10.0,
+        5.5
+      ],
+      [
+        -30,
+        -177,
+        5.5
+      ],
+      [
+        -30,
+        177,
+        5.5
+      ],
+      [
+        30,
+        -177,
+        5.5
+      ],
+      [
+        30,
+        177,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "",
+    "print_orientation": "XY, flat underside down",
+    "name": "yaw-crossbar",
+    "step": "step/yaw-crossbar.step",
+    "stl": "stl/yaw-crossbar.stl",
+    "svg": "templates/yaw-crossbar.svg",
+    "dxf": "templates/yaw-crossbar.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 2,
+    "blank_mm": [
+      100,
+      180,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -30,
+        -70,
+        5.5
+      ],
+      [
+        -30,
+        50,
+        5.5
+      ],
+      [
+        30,
+        -70,
+        5.5
+      ],
+      [
+        30,
+        50,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "",
+    "print_orientation": "XY, flat underside down",
+    "name": "yaw-side",
+    "step": "step/yaw-side.step",
+    "stl": "stl/yaw-side.stl",
+    "svg": "templates/yaw-side.svg",
+    "dxf": "templates/yaw-side.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 2,
+    "blank_mm": [
+      90,
+      60,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -28,
+        0,
+        7
+      ],
+      [
+        28,
+        0,
+        7
+      ],
+      [
+        0,
+        -20,
+        8.5
+      ],
+      [
+        0,
+        20,
+        8.5
+      ],
+      [
+        -30.0,
+        -20.0,
+        5.5
+      ],
+      [
+        -30.0,
+        20.0,
+        5.5
+      ],
+      [
+        30.0,
+        -20.0,
+        5.5
+      ],
+      [
+        30.0,
+        20.0,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Transfer housing bolt centers if the selected KP12 differs. The outer 60 x 40 pattern attaches metal angles. Two centerline 8.5 mm holes at Y +/-20 are used only for temporary proof-beam M8 slot8 mounts.",
+    "print_orientation": "XY, flat underside down",
+    "name": "pitch-bearing-foot",
+    "step": "step/pitch-bearing-foot.step",
+    "stl": "stl/pitch-bearing-foot.stl",
+    "svg": "templates/pitch-bearing-foot.svg",
+    "dxf": "templates/pitch-bearing-foot.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 2,
+    "blank_mm": [
+      280,
+      100,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        125,
+        15,
+        12.5
+      ],
+      [
+        112.0,
+        5.0,
+        5.5
+      ],
+      [
+        112.0,
+        25.0,
+        5.5
+      ],
+      [
+        138.0,
+        5.0,
+        5.5
+      ],
+      [
+        138.0,
+        25.0,
+        5.5
+      ],
+      [
+        -110,
+        -30,
+        5.5
+      ],
+      [
+        -110,
+        10,
+        5.5
+      ],
+      [
+        -10,
+        -30,
+        5.5
+      ],
+      [
+        -10,
+        10,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "",
+    "print_orientation": "XY, flat underside down",
+    "name": "pitch-side",
+    "step": "step/pitch-side.step",
+    "stl": "stl/pitch-side.stl",
+    "svg": "templates/pitch-side.svg",
+    "dxf": "templates/pitch-side.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 2,
+    "blank_mm": [
+      190,
+      40,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -90.0,
+        -10.0,
+        5.5
+      ],
+      [
+        -90.0,
+        10.0,
+        5.5
+      ],
+      [
+        90.0,
+        -10.0,
+        5.5
+      ],
+      [
+        90.0,
+        10.0,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "",
+    "print_orientation": "XY, flat underside down",
+    "name": "pitch-rear-crossbar",
+    "step": "step/pitch-rear-crossbar.step",
+    "stl": "stl/pitch-rear-crossbar.stl",
+    "svg": "templates/pitch-rear-crossbar.svg",
+    "dxf": "templates/pitch-rear-crossbar.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      150,
+      120,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -45,
+        -28,
+        7
+      ],
+      [
+        -45,
+        28,
+        7
+      ],
+      [
+        43,
+        -28,
+        7
+      ],
+      [
+        43,
+        28,
+        7
+      ],
+      [
+        -70,
+        -50,
+        5.5
+      ],
+      [
+        -70,
+        50,
+        5.5
+      ],
+      [
+        30,
+        -50,
+        5.5
+      ],
+      [
+        30,
+        50,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "KP12 housings are at 90mm span. Front center is X=-122 mm; housing bolt holes transfer from parts if needed.",
+    "print_orientation": "XY, flat underside down",
+    "name": "roll-bearing-foot",
+    "step": "step/roll-bearing-foot.step",
+    "stl": "stl/roll-bearing-foot.stl",
+    "svg": "templates/roll-bearing-foot.svg",
+    "dxf": "templates/roll-bearing-foot.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 2,
+    "blank_mm": [
+      216,
+      60,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -85,
+        -20,
+        5.5
+      ],
+      [
+        -85,
+        10,
+        5.5
+      ],
+      [
+        15,
+        -20,
+        5.5
+      ],
+      [
+        15,
+        10,
+        5.5
+      ],
+      [
+        75,
+        -20,
+        5.5
+      ],
+      [
+        75,
+        10,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "",
+    "print_orientation": "XY, flat underside down",
+    "name": "roll-cradle-side",
+    "step": "step/roll-cradle-side.step",
+    "stl": "stl/roll-cradle-side.stl",
+    "svg": "templates/roll-cradle-side.svg",
+    "dxf": "templates/roll-cradle-side.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      120,
+      70,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        0,
+        0,
+        12.5
+      ],
+      [
+        -13.0,
+        -10.0,
+        5.5
+      ],
+      [
+        -13.0,
+        10.0,
+        5.5
+      ],
+      [
+        13.0,
+        -10.0,
+        5.5
+      ],
+      [
+        13.0,
+        10.0,
+        5.5
+      ],
+      [
+        -50.0,
+        -20.0,
+        5.5
+      ],
+      [
+        -50.0,
+        20.0,
+        5.5
+      ],
+      [
+        50.0,
+        -20.0,
+        5.5
+      ],
+      [
+        50.0,
+        20.0,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "",
+    "print_orientation": "XY, flat underside down",
+    "name": "roll-cradle-back",
+    "step": "step/roll-cradle-back.step",
+    "stl": "stl/roll-cradle-back.stl",
+    "svg": "templates/roll-cradle-back.svg",
+    "dxf": "templates/roll-cradle-back.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 4,
+    "blank_mm": [
+      25,
+      130,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        0,
+        -56,
+        5.5
+      ],
+      [
+        0,
+        56,
+        5.5
+      ],
+      [
+        0,
+        -32,
+        5.5
+      ],
+      [
+        0,
+        32,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Two lower and two upper metal bars. Adjustable spacing along the cradle; clamp only unobstructed gun-body areas. Top bars slide on four M5x80 through-bolts.",
+    "print_orientation": "XY, flat underside down",
+    "name": "gun-jaw",
+    "step": "step/gun-jaw.step",
+    "stl": "stl/gun-jaw.stl",
+    "svg": "templates/gun-jaw.svg",
+    "dxf": "templates/gun-jaw.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 2,
+    "blank_mm": [
+      35,
+      160,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        0,
+        -56,
+        5.5
+      ],
+      [
+        0,
+        56,
+        5.5
+      ],
+      [
+        10,
+        -70.475,
+        5.5
+      ],
+      [
+        10,
+        70.475,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Temporary nozzle force fork jaws. Two M5x80 clamp bolts use Y +/-56; single angle bolts use local X10,Y +/-70.475. Minimum simultaneous M5 washer-center separation 17.59 mm. Working gun jaws are separate parts.",
+    "print_orientation": "XY, flat underside down",
+    "name": "service-load-jaw",
+    "step": "step/service-load-jaw.step",
+    "stl": "stl/service-load-jaw.stl",
+    "svg": "templates/service-load-jaw.svg",
+    "dxf": "templates/service-load-jaw.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 3,
+    "blank_mm": [
+      190,
+      50,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -75,
+        0,
+        12.5
+      ],
+      [
+        -88.0,
+        -10.0,
+        5.5
+      ],
+      [
+        -88.0,
+        10.0,
+        5.5
+      ],
+      [
+        -62.0,
+        -10.0,
+        5.5
+      ],
+      [
+        -62.0,
+        10.0,
+        5.5
+      ],
+      [
+        75,
+        0,
+        8.5
+      ],
+      [
+        66.0,
+        -9.0,
+        5.5
+      ],
+      [
+        66.0,
+        9.0,
+        5.5
+      ],
+      [
+        84.0,
+        -9.0,
+        5.5
+      ],
+      [
+        84.0,
+        9.0,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Pivot datum is at X=-75mm. Output clevis datum is at X=+75mm; exactly 150mm apart.",
+    "print_orientation": "XY, flat underside down",
+    "name": "angular-lever",
+    "step": "step/angular-lever.step",
+    "stl": "stl/angular-lever.stl",
+    "svg": "templates/angular-lever.svg",
+    "dxf": "templates/angular-lever.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 6,
+    "blank_mm": [
+      38,
+      60,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        0,
+        0,
+        10.5
+      ],
+      [
+        -12.0,
+        -22.0,
+        6.5
+      ],
+      [
+        -12.0,
+        22.0,
+        6.5
+      ],
+      [
+        12.0,
+        -22.0,
+        6.5
+      ],
+      [
+        12.0,
+        22.0,
+        6.5
+      ],
+      [
+        -5,
+        13,
+        3.4
+      ],
+      [
+        5,
+        13,
+        3.4
+      ]
+    ],
+    "slots": [],
+    "notes": "Metal thrust stack, F8-16M on both sides. Four M6 posts are the shared metal-angle mounting fasteners; there is no overlapping M5 pattern. Plastic only locates the cover.",
+    "print_orientation": "XY, flat underside down",
+    "name": "drive-bulkhead",
+    "step": "step/drive-bulkhead.step",
+    "stl": "stl/drive-bulkhead.stl",
+    "svg": "templates/drive-bulkhead.svg",
+    "dxf": "templates/drive-bulkhead.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 6,
+    "blank_mm": [
+      150,
+      150,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -50.0,
+        -60.0,
+        5.5
+      ],
+      [
+        -50.0,
+        10.0,
+        5.5
+      ],
+      [
+        50.0,
+        -60.0,
+        5.5
+      ],
+      [
+        50.0,
+        10.0,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Universal fixed-drive floor, top26.35 mm below screw datum. XYZ floorslapunderbedand useonlythefronttwoholes;angularfloor attaches toitsmetalbulkheadlegs. Pulleyandfrontshieldslots clearrotatingparts.",
+    "print_orientation": "XY, flat underside down",
+    "cutouts": [
+      [
+        1.8,
+        -55,
+        10,
+        60
+      ],
+      [
+        20,
+        -57,
+        4,
+        104
+      ]
+    ],
+    "name": "linear-drive-support",
+    "step": "step/linear-drive-support.step",
+    "stl": "stl/linear-drive-support.stl",
+    "svg": "templates/linear-drive-support.svg",
+    "dxf": "templates/linear-drive-support.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 12,
+    "blank_mm": [
+      100,
+      25,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        36.35,
+        0,
+        5.5
+      ],
+      [
+        -37.3,
+        0,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Two metal stanchions per motor. LocalX isvertical; bottomfloor=-26.35 relativetoscrew, top73.65. Upperandlower25.4 mmanglesconnectmotorplateandfloor. No floatingprintedmotorbracket.",
+    "print_orientation": "XY, flat underside down",
+    "name": "motor-support-leg",
+    "step": "step/motor-support-leg.step",
+    "stl": "stl/motor-support-leg.stl",
+    "svg": "templates/motor-support-leg.svg",
+    "dxf": "templates/motor-support-leg.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 12,
+    "blank_mm": [
+      42.65,
+      38,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        9.675,
+        0,
+        5.5
+      ],
+      [
+        -14.325,
+        0,
+        5.5
+      ],
+      [
+        -9.625,
+        12,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Two metalstanchions perbulkhead. SharedM6 mountinganglesattachbothpoststations; lowerangleattachesatfloor+6.35 mm. Lower foot datum is X41.05 mm, giving 12.89 mm minimum M5 head/washer separation. XYZ bed provides that pad; angularflooruses6.35 mmmetalpad.",
+    "print_orientation": "XY, flat underside down",
+    "name": "thrust-support-leg",
+    "step": "step/thrust-support-leg.step",
+    "stl": "stl/thrust-support-leg.stl",
+    "svg": "templates/thrust-support-leg.svg",
+    "dxf": "templates/thrust-support-leg.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 6,
+    "blank_mm": [
+      25.4,
+      25.4,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        0,
+        0,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "6.35 mm metalpad undertwo thrustfootangles per angularfloor; matchesXYZ bedthickness. No printedload spacer.",
+    "print_orientation": "XY, flat underside down",
+    "name": "thrust-angle-pad",
+    "step": "step/thrust-angle-pad.step",
+    "stl": "stl/thrust-angle-pad.stl",
+    "svg": "templates/thrust-angle-pad.svg",
+    "dxf": "templates/thrust-angle-pad.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 12,
+    "blank_mm": [
+      10,
+      10,
+      11.35
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Two metal11.35 mm risers per fixedKP08 bearing; finishactualheight fromreceivedcenterheight to keep screwaxis26.35 mm abovefloor. ID8/OD10; M4 washers at least10 OD bridge the bore. M4x35 through floor.",
+    "print_orientation": "XY, flat underside down",
+    "name": "kp08-fixed-riser",
+    "step": "step/kp08-fixed-riser.step",
+    "stl": "stl/kp08-fixed-riser.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 6,
+    "blank_mm": [
+      10,
+      10,
+      5
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Two metal5 mm risers perXYZ floatingKP08 bearing; finishactualheight forselectedcenterheight, noaxialnutoutsidebearing. M4x30 throughbed.",
+    "print_orientation": "XY, flat underside down",
+    "name": "kp08-floating-riser",
+    "step": "step/kp08-floating-riser.step",
+    "stl": "stl/kp08-floating-riser.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 12,
+    "blank_mm": [
+      46,
+      38,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        0,
+        0,
+        10.5
+      ],
+      [
+        -17.0,
+        -12.0,
+        5.5
+      ],
+      [
+        -17.0,
+        12.0,
+        5.5
+      ],
+      [
+        17.0,
+        -12.0,
+        5.5
+      ],
+      [
+        17.0,
+        12.0,
+        5.5
+      ]
+    ],
+    "slots": [
+      [
+        8.0,
+        0.0,
+        8,
+        4.2,
+        90
+      ],
+      [
+        4.898587196589413e-16,
+        8.0,
+        8,
+        4.2,
+        180
+      ],
+      [
+        -8.0,
+        9.797174393178826e-16,
+        8,
+        4.2,
+        270
+      ],
+      [
+        -1.4695761589768238e-15,
+        -8.0,
+        8,
+        4.2,
+        360
+      ]
+    ],
+    "notes": "TR8 flange sits against this metal face; four M3x20 through-bolts with large washers and locking nuts. Tangential slots permit mountingthe singlemovingnut without forcingthe sourceflange. Four metal 30 mm spacers carry the frame load; the printed locator is 0.5 mm short at each side. There is one driving nut per axis.",
+    "print_orientation": "XY, flat underside down",
+    "name": "nut-face",
+    "step": "step/nut-face.step",
+    "stl": "stl/nut-face.stl",
+    "svg": "templates/nut-face.svg",
+    "dxf": "templates/nut-face.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 12,
+    "blank_mm": [
+      110,
+      38,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        0,
+        0,
+        10.5
+      ],
+      [
+        -36,
+        0,
+        8.5
+      ],
+      [
+        36,
+        0,
+        8.5
+      ],
+      [
+        -17.0,
+        -12.0,
+        5.5
+      ],
+      [
+        -17.0,
+        12.0,
+        5.5
+      ],
+      [
+        17.0,
+        -12.0,
+        5.5
+      ],
+      [
+        17.0,
+        12.0,
+        5.5
+      ],
+      [
+        -50.0,
+        -15.0,
+        5.5
+      ],
+      [
+        -50.0,
+        15.0,
+        5.5
+      ],
+      [
+        50.0,
+        -15.0,
+        5.5
+      ],
+      [
+        50.0,
+        15.0,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Two per axis. Four inner M5x90 ties join nut faces to end plates. Four outer M5x90 ties connect shoulder plates through metal spacers. Two M8x90 smooth-shank guide bolts carry four 20 mm free springs. Set preload by measured force.",
+    "print_orientation": "XY, flat underside down",
+    "name": "force-link-end",
+    "step": "step/force-link-end.step",
+    "stl": "stl/force-link-end.stl",
+    "svg": "templates/force-link-end.svg",
+    "dxf": "templates/force-link-end.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 6,
+    "blank_mm": [
+      110,
+      38,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -36,
+        0,
+        12.1
+      ],
+      [
+        36,
+        0,
+        12.1
+      ],
+      [
+        -50.0,
+        -15.0,
+        8.5
+      ],
+      [
+        -50.0,
+        15.0,
+        8.5
+      ],
+      [
+        50.0,
+        -15.0,
+        8.5
+      ],
+      [
+        50.0,
+        15.0,
+        8.5
+      ],
+      [
+        -51,
+        0,
+        5.5
+      ],
+      [
+        51,
+        0,
+        5.5
+      ],
+      [
+        -44.0,
+        -8.0,
+        3.4
+      ],
+      [
+        -44.0,
+        8.0,
+        3.4
+      ],
+      [
+        -28.0,
+        -8.0,
+        3.4
+      ],
+      [
+        -28.0,
+        8.0,
+        3.4
+      ],
+      [
+        28.0,
+        -8.0,
+        3.4
+      ],
+      [
+        28.0,
+        8.0,
+        3.4
+      ],
+      [
+        44.0,
+        -8.0,
+        3.4
+      ],
+      [
+        44.0,
+        8.0,
+        3.4
+      ]
+    ],
+    "slots": [],
+    "notes": "Central opening 50 x 28 mm. Four M3x30 bolts clamp each pair of metal boss halves to this plate. Bronze8 ID/12 OD/10 mm bushings guide smooth M8 shanks. Outer8.5 mm holes clear stationary metal tie spacers; four5.5 mm holes attach metal output angles.",
+    "print_orientation": "XY, flat underside down",
+    "cutouts": [
+      [
+        -25,
+        -14,
+        50,
+        28
+      ]
+    ],
+    "name": "force-link-shuttle",
+    "step": "step/force-link-shuttle.step",
+    "stl": "stl/force-link-shuttle.stl",
+    "svg": "templates/force-link-shuttle.svg",
+    "dxf": "templates/force-link-shuttle.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 12,
+    "blank_mm": [
+      110,
+      38,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -50.0,
+        -15.0,
+        5.5
+      ],
+      [
+        -50.0,
+        15.0,
+        5.5
+      ],
+      [
+        50.0,
+        -15.0,
+        5.5
+      ],
+      [
+        50.0,
+        15.0,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Fixed shoulder retains spring pressure washer at neutral. Its26 mm square windows clear 25.4 mm shuttle bosses. Inner faces are at+/-4.175 mm from shuttle center, so metal capture is+/-1.0 mm.",
+    "print_orientation": "XY, flat underside down",
+    "cutouts": [
+      [
+        -25,
+        -14,
+        50,
+        28
+      ],
+      [
+        -49,
+        -13,
+        26,
+        26
+      ],
+      [
+        23,
+        -13,
+        26,
+        26
+      ]
+    ],
+    "name": "force-link-shoulder",
+    "step": "step/force-link-shoulder.step",
+    "stl": "stl/force-link-shoulder.stl",
+    "svg": "templates/force-link-shoulder.svg",
+    "dxf": "templates/force-link-shoulder.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 28,
+    "blank_mm": [
+      25.4,
+      25.4,
+      7.35
+    ],
+    "template_type": "bar",
+    "holes": [
+      [
+        0,
+        0,
+        8.5
+      ],
+      [
+        -8.0,
+        -8.0,
+        3.4
+      ],
+      [
+        -8.0,
+        8.0,
+        3.4
+      ],
+      [
+        8.0,
+        -8.0,
+        3.4
+      ],
+      [
+        8.0,
+        8.0,
+        3.4
+      ]
+    ],
+    "slots": [],
+    "notes": "Cut from 25.4 mm square bar. Counterbore inward face12.1 mm diameter2 mm deep to clear bronze bushing projection. Pair bolts through6.35 mm shuttle with four M3x30; finished boss contact separation21.05 mm.",
+    "print_orientation": "XY, flat underside down",
+    "name": "force-shuttle-boss",
+    "step": "step/force-shuttle-boss.step",
+    "stl": "stl/force-shuttle-boss.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 12,
+    "blank_mm": [
+      60,
+      40,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -20,
+        -10,
+        5.5
+      ],
+      [
+        -20,
+        10,
+        5.5
+      ],
+      [
+        20,
+        0,
+        8.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Two per angular or linear link. Attach to shuttle with metal angles; hinge plane is clear of both guide bolts. Output joint carries force downstream of the overload springs.",
+    "print_orientation": "XY, flat underside down",
+    "name": "force-output-ear",
+    "step": "step/force-output-ear.step",
+    "stl": "stl/force-output-ear.stl",
+    "svg": "templates/force-output-ear.svg",
+    "dxf": "templates/force-output-ear.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 6,
+    "blank_mm": [
+      60,
+      25,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -20,
+        0,
+        5.5
+      ],
+      [
+        20,
+        0,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Metal moving flag on the shuttle. Opposed NC switches trip nominally at +/-0.30 mm angular or +/-0.75 mm XYZ before +/-1.0 mm metal capture. Transfer the switch holes and adjust by measured trip force.",
+    "print_orientation": "XY, flat underside down",
+    "name": "overload-switch-tab",
+    "step": "step/overload-switch-tab.step",
+    "stl": "stl/overload-switch-tab.stl",
+    "svg": "templates/overload-switch-tab.svg",
+    "dxf": "templates/overload-switch-tab.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 3,
+    "blank_mm": [
+      38,
+      60,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        0,
+        0,
+        12.5
+      ],
+      [
+        -15,
+        0,
+        3.4
+      ],
+      [
+        15,
+        0,
+        3.4
+      ],
+      [
+        -12.0,
+        -22.0,
+        6.5
+      ],
+      [
+        -12.0,
+        22.0,
+        6.5
+      ],
+      [
+        12.0,
+        -22.0,
+        6.5
+      ],
+      [
+        12.0,
+        22.0,
+        6.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Four M6x80 posts and paired jam nuts set a soft spring's preload. Two M3x50 guide pins prevent the steel washer rotating. Spring ID >=12 mm, OD <=30 mm, free length 25 mm, measured k20-40 N/mm; adjust by measured torque, not thread count.",
+    "print_orientation": "XY, flat underside down",
+    "name": "friction-spring-seat",
+    "step": "step/friction-spring-seat.step",
+    "stl": "stl/friction-spring-seat.stl",
+    "svg": "templates/friction-spring-seat.svg",
+    "dxf": "templates/friction-spring-seat.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 12,
+    "blank_mm": [
+      80,
+      40,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -20,
+        0,
+        16.0
+      ],
+      [
+        -20,
+        -13,
+        3.4
+      ],
+      [
+        -20,
+        13,
+        3.4
+      ],
+      [
+        20,
+        -10,
+        5.5
+      ],
+      [
+        20,
+        10,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "F688ZZ bearing body16mm/flange18mm/width5mm. Two8mm hinge stubs per joint leave the screw's central passage open. Metal cheeks and bearing flanges carry pin load; twoM3 retainers keep the bearing seated.",
+    "print_orientation": "XY, flat underside down",
+    "name": "angular-clevis-cheek",
+    "step": "step/angular-clevis-cheek.step",
+    "stl": "stl/angular-clevis-cheek.stl",
+    "svg": "templates/angular-clevis-cheek.svg",
+    "dxf": "templates/angular-clevis-cheek.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 12,
+    "blank_mm": [
+      40,
+      40,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        0,
+        0,
+        8.5
+      ],
+      [
+        -12,
+        12,
+        5.5
+      ],
+      [
+        12,
+        12,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Bolts to metal bulkhead/nut-face angles. M8 shoulder region forms thehingestub; lockingnut clamps this ear, independently of the bearing's outerrace.",
+    "print_orientation": "XY, flat underside down",
+    "name": "trunnion-inner-ear",
+    "step": "step/trunnion-inner-ear.step",
+    "stl": "stl/trunnion-inner-ear.stl",
+    "svg": "templates/trunnion-inner-ear.svg",
+    "dxf": "templates/trunnion-inner-ear.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 12,
+    "blank_mm": [
+      40,
+      30,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -10,
+        0,
+        6.5
+      ],
+      [
+        10,
+        0,
+        6.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Aluminum stationary stops backed by extrusion/metal angle. They bound motion only; full travel can enter a loaded vessel.",
+    "print_orientation": "XY, flat underside down",
+    "name": "limit-stop",
+    "step": "step/limit-stop.step",
+    "stl": "stl/limit-stop.stl",
+    "svg": "templates/limit-stop.svg",
+    "dxf": "templates/limit-stop.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 2,
+    "blank_mm": [
+      60,
+      30,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -20,
+        0,
+        6.5
+      ],
+      [
+        20,
+        0,
+        6.5
+      ],
+      [
+        0,
+        0,
+        6.5
+      ]
+    ],
+    "slots": [],
+    "notes": "",
+    "print_orientation": "XY, flat underside down",
+    "name": "bench-tether-anchor",
+    "step": "step/bench-tether-anchor.step",
+    "stl": "stl/bench-tether-anchor.stl",
+    "svg": "templates/bench-tether-anchor.svg",
+    "dxf": "templates/bench-tether-anchor.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      220,
+      30,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        0,
+        0,
+        10.5
+      ],
+      [
+        -100,
+        0,
+        5.5
+      ],
+      [
+        100,
+        0,
+        5.5
+      ],
+      [
+        8.0,
+        0.0,
+        3.4
+      ],
+      [
+        4.898587196589413e-16,
+        8.0,
+        3.4
+      ],
+      [
+        -8.0,
+        9.797174393178826e-16,
+        3.4
+      ],
+      [
+        -1.4695761589768238e-15,
+        -8.0,
+        3.4
+      ]
+    ],
+    "slots": [],
+    "notes": "Balanced service tool: pivot at center, load holes at +/-100 mm. Four PCD16 M3 holes attach to TR8 flange for retainer grading. Use the separate angular-load-lever at the12 mm hub. Remove before powered motion.",
+    "print_orientation": "XY, flat underside down",
+    "name": "brake-torque-lever",
+    "step": "step/brake-torque-lever.step",
+    "stl": "stl/brake-torque-lever.stl",
+    "svg": "templates/brake-torque-lever.svg",
+    "dxf": "templates/brake-torque-lever.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      220,
+      30,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        0,
+        0,
+        12.5
+      ],
+      [
+        -100,
+        0,
+        5.5
+      ],
+      [
+        100,
+        0,
+        5.5
+      ],
+      [
+        -13.0,
+        -10.0,
+        5.5
+      ],
+      [
+        -13.0,
+        10.0,
+        5.5
+      ],
+      [
+        13.0,
+        -10.0,
+        5.5
+      ],
+      [
+        13.0,
+        10.0,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Balanced100 mm load lever for the separate angular drive-lever hub. Four M5x45 bolts are reused; output hub retains the real carried mass. No small-radius M3 flange holes in this12.5 mm shaft-bore variant.",
+    "print_orientation": "XY, flat underside down",
+    "name": "angular-load-lever",
+    "step": "step/angular-load-lever.step",
+    "stl": "stl/angular-load-lever.stl",
+    "svg": "templates/angular-load-lever.svg",
+    "dxf": "templates/angular-load-lever.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      300,
+      30,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        0,
+        0,
+        12.5
+      ],
+      [
+        -140,
+        0,
+        5.5
+      ],
+      [
+        140,
+        0,
+        5.5
+      ],
+      [
+        -13.0,
+        -10.0,
+        5.5
+      ],
+      [
+        -13.0,
+        10.0,
+        5.5
+      ],
+      [
+        13.0,
+        -10.0,
+        5.5
+      ],
+      [
+        13.0,
+        10.0,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Balanced temporary hub proof lever, measured140 mm arm. Four M5x45 attach only the ungripped specimen hub. Complete measured torque interval30-32.5 Nm in both signs, terminal end washers removed and independent noncontact catch installed. No gauge-force assumption from motor current.",
+    "print_orientation": "XY, flat underside down",
+    "name": "hub-proof-lever",
+    "step": "step/hub-proof-lever.step",
+    "stl": "stl/hub-proof-lever.stl",
+    "svg": "templates/hub-proof-lever.svg",
+    "dxf": "templates/hub-proof-lever.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      40,
+      50,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        0,
+        -15.875,
+        5.5
+      ],
+      [
+        0,
+        15.875,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Horizontal metal gauge contact bridge across two borrowed25.4 mm angle legs. Force axis lies at the proof lever midplane, avoiding an additional axial overhang. Two M5x20 bridge ties and one M5x25 through the lever140 mm hole; transfer the two angles from the unpowered-force-test fork.",
+    "print_orientation": "XY, flat underside down",
+    "name": "hub-proof-load-saddle",
+    "step": "step/hub-proof-load-saddle.step",
+    "stl": "stl/hub-proof-load-saddle.stl",
+    "svg": "templates/hub-proof-load-saddle.svg",
+    "dxf": "templates/hub-proof-load-saddle.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 2,
+    "blank_mm": [
+      230,
+      250,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        85,
+        -90,
+        18.5
+      ],
+      [
+        75,
+        -50,
+        5.5
+      ],
+      [
+        95,
+        -50,
+        5.5
+      ],
+      [
+        -90,
+        70,
+        5.5
+      ],
+      [
+        -90,
+        110,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Paired stationary webs at Z162.3/235 mm. Two metal angles per web attach to the yaw-bearing back. Bearing aperture18.5 mm clears the outer clevis bearing; two M5 bolts attach each base cheek.",
+    "print_orientation": "XY, flat underside down",
+    "outline": [
+      [
+        -115,
+        55
+      ],
+      [
+        -115,
+        125
+      ],
+      [
+        -65,
+        125
+      ],
+      [
+        115,
+        -30
+      ],
+      [
+        115,
+        -125
+      ],
+      [
+        55,
+        -125
+      ]
+    ],
+    "name": "yaw-base-web",
+    "step": "step/yaw-base-web.step",
+    "stl": "stl/yaw-base-web.stl",
+    "svg": "templates/yaw-base-web.svg",
+    "dxf": "templates/yaw-base-web.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 2,
+    "blank_mm": [
+      280,
+      100,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -130.0,
+        -20.0,
+        5.5
+      ],
+      [
+        -130.0,
+        20.0,
+        5.5
+      ],
+      [
+        -90.0,
+        -20.0,
+        5.5
+      ],
+      [
+        -90.0,
+        20.0,
+        5.5
+      ],
+      [
+        120.88457268119896,
+        -0.09618943233421362,
+        18.5
+      ],
+      [
+        91.24355652982143,
+        28.56406460551017,
+        5.5
+      ],
+      [
+        81.24355652982143,
+        11.243556529821404,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Parallel XZ webs outside the fixed pitch clevis. Four M5x90 ties clamp both webs to the negative-Y yaw side through31.35/28.65 mm metal spacers. Two M5x20 bolts attach each base cheek.",
+    "print_orientation": "XY, flat underside down",
+    "name": "pitch-base-web",
+    "step": "step/pitch-base-web.step",
+    "stl": "stl/pitch-base-web.stl",
+    "svg": "templates/pitch-base-web.svg",
+    "dxf": "templates/pitch-base-web.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 2,
+    "blank_mm": [
+      220,
+      203.1,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        80,
+        -71.55,
+        18.5
+      ],
+      [
+        70,
+        -31.55,
+        5.5
+      ],
+      [
+        90,
+        -31.55,
+        5.5
+      ],
+      [
+        0,
+        88.85,
+        5.5
+      ],
+      [
+        20,
+        88.85,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Paired YZ webs atX-206.70/-134 mm. UpperearsatY60.5..180 clearrollbearingfoot. Shortanchorslots letwebs passthrough sharedplate; twoangles perweb mountonanchortop. Aperture clearsclevisbearing.",
+    "print_orientation": "XY, flat underside down",
+    "outline": [
+      [
+        -110,
+        -101.55
+      ],
+      [
+        110,
+        -101.55
+      ],
+      [
+        110,
+        101.55
+      ],
+      [
+        -9.5,
+        101.55
+      ],
+      [
+        -9.5,
+        69.80000000000001
+      ],
+      [
+        -110,
+        69.80000000000001
+      ]
+    ],
+    "name": "roll-base-web",
+    "step": "step/roll-base-web.step",
+    "stl": "stl/roll-base-web.stl",
+    "svg": "templates/roll-base-web.svg",
+    "dxf": "templates/roll-base-web.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      160,
+      190,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -50,
+        -50,
+        5.5
+      ],
+      [
+        -50,
+        50,
+        5.5
+      ],
+      [
+        50,
+        -50,
+        5.5
+      ],
+      [
+        50,
+        50,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Sharedroll-driveanchor onpitchcrossbars; fourM5x35 bolts passthroughcrossbar,anchor,6.95 mmspacersandbearingfoot. Shortslotsclearthesupportwebeartabs; four metalangles joinwebs atopplate.",
+    "print_orientation": "XY, flat underside down",
+    "cutouts": [
+      [
+        -22.0,
+        60.5,
+        6.95,
+        34.5
+      ],
+      [
+        50.7,
+        60.5,
+        6.95,
+        34.5
+      ]
+    ],
+    "name": "roll-base-anchor",
+    "step": "step/roll-base-anchor.step",
+    "stl": "stl/roll-base-anchor.stl",
+    "svg": "templates/roll-base-anchor.svg",
+    "dxf": "templates/roll-base-anchor.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 3,
+    "blank_mm": [
+      100,
+      60,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -20,
+        0,
+        8.5
+      ],
+      [
+        -29.0,
+        -9.0,
+        5.5
+      ],
+      [
+        -29.0,
+        9.0,
+        5.5
+      ],
+      [
+        -11.0,
+        -9.0,
+        5.5
+      ],
+      [
+        -11.0,
+        9.0,
+        5.5
+      ],
+      [
+        20,
+        -10,
+        5.5
+      ],
+      [
+        20,
+        10,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Bolts under angular lever at the150 mm output datum with four M5x25. Two M5x80 cross ties carry outer clevis cheeks through four23.65 mm metal spacers, keeping the screw passage open.",
+    "print_orientation": "XY, flat underside down",
+    "name": "angular-output-bridge",
+    "step": "step/angular-output-bridge.step",
+    "stl": "stl/angular-output-bridge.stl",
+    "svg": "templates/angular-output-bridge.svg",
+    "dxf": "templates/angular-output-bridge.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 4,
+    "blank_mm": [
+      8,
+      8,
+      31.35
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Metal tube spacer8 OD/6 ID; finished length is a load-path dimension. No printed substitute.",
+    "print_orientation": "XY, flat underside down",
+    "name": "pitch-web-left-spacer",
+    "step": "step/pitch-web-left-spacer.step",
+    "stl": "stl/pitch-web-left-spacer.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 4,
+    "blank_mm": [
+      8,
+      8,
+      28.65
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Metal tube spacer8 OD/6 ID; finished length is a load-path dimension. No printed substitute.",
+    "print_orientation": "XY, flat underside down",
+    "name": "pitch-web-right-spacer",
+    "step": "step/pitch-web-right-spacer.step",
+    "stl": "stl/pitch-web-right-spacer.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 12,
+    "blank_mm": [
+      8,
+      8,
+      23.65
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Metal tube spacer8 OD/6 ID; finished length is a load-path dimension. No printed substitute.",
+    "print_orientation": "XY, flat underside down",
+    "name": "angular-output-spacer",
+    "step": "step/angular-output-spacer.step",
+    "stl": "stl/angular-output-spacer.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 16,
+    "blank_mm": [
+      8,
+      8,
+      23.82905982905983
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "8 OD/6 ID metal crash-cage tie spacer. Outer length is nominal for12.5 N per spring and must be finished from actual directional spring grading; center8.35 mm sets independent+/-1 mm capture.",
+    "print_orientation": "XY, flat underside down",
+    "name": "crash-force-outer-spacer",
+    "step": "step/crash-force-outer-spacer.step",
+    "stl": "stl/crash-force-outer-spacer.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 8,
+    "blank_mm": [
+      8,
+      8,
+      8.35
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "8 OD/6 ID metal crash-cage tie spacer. Outer length is nominal for12.5 N per spring and must be finished from actual directional spring grading; center8.35 mm sets independent+/-1 mm capture.",
+    "print_orientation": "XY, flat underside down",
+    "name": "crash-force-center-spacer",
+    "step": "step/crash-force-center-spacer.step",
+    "stl": "stl/crash-force-center-spacer.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 4,
+    "blank_mm": [
+      40,
+      80,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        0,
+        20,
+        8.1
+      ],
+      [
+        0,
+        -10,
+        8.1
+      ],
+      [
+        -16.0,
+        4.0,
+        3.4
+      ],
+      [
+        -16.0,
+        36.0,
+        3.4
+      ],
+      [
+        16.0,
+        4.0,
+        3.4
+      ],
+      [
+        16.0,
+        36.0,
+        3.4
+      ],
+      [
+        -12,
+        -31,
+        5.5
+      ],
+      [
+        12,
+        -31,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Two integrated end/guide-support plates per 8 mm guide pod. Two ground guides separated 30 mm. Upper guide datum is local Y=20 mm; Four M3x100 tie bolts andmetalspacers retainfixedshoulders. Four4.68 N/mm springs totalinbothpods; preload setwithrealgun/cable.",
+    "print_orientation": "XY, flat underside down",
+    "name": "crash-pod-end",
+    "step": "step/crash-pod-end.step",
+    "stl": "stl/crash-pod-end.stl",
+    "svg": "templates/crash-pod-end.svg",
+    "dxf": "templates/crash-pod-end.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 4,
+    "blank_mm": [
+      40,
+      40,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -16.0,
+        -16.0,
+        3.4
+      ],
+      [
+        -16.0,
+        16.0,
+        3.4
+      ],
+      [
+        16.0,
+        -16.0,
+        3.4
+      ],
+      [
+        16.0,
+        16.0,
+        3.4
+      ]
+    ],
+    "slots": [],
+    "notes": "26 mm shoulderwindow,40 mm fixedplate. Neutralshuttlecapture+/-1.0 mm; flatcam dwellafter0.25 mm axialtrip.",
+    "print_orientation": "XY, flat underside down",
+    "cutouts": [
+      [
+        -13,
+        -13,
+        26,
+        26
+      ]
+    ],
+    "name": "crash-pod-shoulder",
+    "step": "step/crash-pod-shoulder.step",
+    "stl": "stl/crash-pod-shoulder.stl",
+    "svg": "templates/crash-pod-shoulder.svg",
+    "dxf": "templates/crash-pod-shoulder.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 2,
+    "blank_mm": [
+      40,
+      40,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        0,
+        0,
+        12.1
+      ],
+      [
+        -8.0,
+        -8.0,
+        3.4
+      ],
+      [
+        -8.0,
+        8.0,
+        3.4
+      ],
+      [
+        8.0,
+        -8.0,
+        3.4
+      ],
+      [
+        8.0,
+        8.0,
+        3.4
+      ],
+      [
+        -16.0,
+        -16.0,
+        6
+      ],
+      [
+        -16.0,
+        16.0,
+        6
+      ],
+      [
+        16.0,
+        -16.0,
+        6
+      ],
+      [
+        16.0,
+        16.0,
+        6
+      ]
+    ],
+    "slots": [],
+    "notes": "Bolted25.4 mm boss halves liftseatedpressurewashers. Smooth8 mm guiderod runsinbronze bushing. Twooutputcarrier holes transferonitsouteredge; no printedaxialloadpath.",
+    "print_orientation": "XY, flat underside down",
+    "name": "crash-pod-shuttle",
+    "step": "step/crash-pod-shuttle.step",
+    "stl": "stl/crash-pod-shuttle.stl",
+    "svg": "templates/crash-pod-shuttle.svg",
+    "dxf": "templates/crash-pod-shuttle.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      200,
+      60,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [],
+    "slots": [],
+    "notes": "Taperedmetal carrierabovefixedcradle atZ32.7 mm. Rearinsidepitchsideplates; forwardoutboardofgunclamp. TransferM3/M5 outputpodandrearmagneticplateangleholes.",
+    "print_orientation": "XY, flat underside down",
+    "outline": [
+      [
+        -95,
+        27.349999999999994
+      ],
+      [
+        -95,
+        2.3499999999999943
+      ],
+      [
+        55,
+        -27.35000000000001
+      ],
+      [
+        105,
+        -27.35000000000001
+      ],
+      [
+        105,
+        -2.1500000000000057
+      ],
+      [
+        65,
+        -2.1500000000000057
+      ]
+    ],
+    "name": "crash-carrier-left",
+    "step": "step/crash-carrier-left.step",
+    "stl": "stl/crash-carrier-left.stl",
+    "svg": "templates/crash-carrier-left.svg",
+    "dxf": "templates/crash-carrier-left.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      200,
+      60,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [],
+    "slots": [],
+    "notes": "Taperedmetal carrierabovefixedcradle atZ32.7 mm. Rearinsidepitchsideplates; forwardoutboardofgunclamp. TransferM3/M5 outputpodandrearmagneticplateangleholes.",
+    "print_orientation": "XY, flat underside down",
+    "outline": [
+      [
+        -95,
+        -27.349999999999994
+      ],
+      [
+        -95,
+        -2.3499999999999943
+      ],
+      [
+        55,
+        27.35000000000001
+      ],
+      [
+        105,
+        27.35000000000001
+      ],
+      [
+        105,
+        2.1500000000000057
+      ],
+      [
+        65,
+        2.1500000000000057
+      ]
+    ],
+    "name": "crash-carrier-right",
+    "step": "step/crash-carrier-right.step",
+    "stl": "stl/crash-carrier-right.stl",
+    "svg": "templates/crash-carrier-right.svg",
+    "dxf": "templates/crash-carrier-right.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      120,
+      90,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -50.0,
+        -30.0,
+        5.5
+      ],
+      [
+        -50.0,
+        30.0,
+        5.5
+      ],
+      [
+        50.0,
+        -30.0,
+        5.5
+      ],
+      [
+        50.0,
+        30.0,
+        5.5
+      ],
+      [
+        -30,
+        15,
+        5.5
+      ],
+      [
+        30,
+        15,
+        5.5
+      ],
+      [
+        0,
+        -25,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Fixedtothreeballseats. Three countersunk steel cup magnets 25 OD x 7.7 high, M5 mounts; metalfasteners andshimmedairgapsadjustrelease. Catalogpullisnotthereleaseforce.",
+    "print_orientation": "XY, flat underside down",
+    "name": "crash-magnet-back",
+    "step": "step/crash-magnet-back.step",
+    "stl": "stl/crash-magnet-back.stl",
+    "svg": "templates/crash-magnet-back.svg",
+    "dxf": "templates/crash-magnet-back.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      200,
+      80,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        25,
+        -32,
+        5.5
+      ],
+      [
+        25,
+        32,
+        5.5
+      ],
+      [
+        65,
+        -32,
+        5.5
+      ],
+      [
+        65,
+        32,
+        5.5
+      ],
+      [
+        -57.759,
+        -25,
+        5.5
+      ],
+      [
+        -57.759,
+        25,
+        5.5
+      ],
+      [
+        85,
+        -30,
+        5.5
+      ],
+      [
+        85,
+        30,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Releasedguncradle base,handleopening55x36 mmcenterX-36. LowerjawboltsatX25/65,Y+/-32; throughM5x20. Ball/magnetback andtwo shortsteelcatchtethersretainreleasedgun.",
+    "print_orientation": "XY, flat underside down",
+    "outline": [
+      [
+        -70.459,
+        -40
+      ],
+      [
+        100,
+        -40
+      ],
+      [
+        100,
+        40
+      ],
+      [
+        -70.459,
+        40
+      ]
+    ],
+    "cutouts": [
+      [
+        -63.5,
+        -18,
+        55,
+        36
+      ]
+    ],
+    "name": "gun-release-tray",
+    "step": "step/gun-release-tray.step",
+    "stl": "stl/gun-release-tray.stl",
+    "svg": "templates/gun-release-tray.svg",
+    "dxf": "templates/gun-release-tray.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      120,
+      70,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -35,
+        26.35,
+        5.5
+      ],
+      [
+        35,
+        26.35,
+        5.5
+      ],
+      [
+        -40,
+        -20,
+        8.1
+      ],
+      [
+        40,
+        -20,
+        8.1
+      ],
+      [
+        0,
+        25,
+        8.1
+      ],
+      [
+        -49,
+        -20,
+        3.4
+      ],
+      [
+        -31,
+        -20,
+        3.4
+      ],
+      [
+        31,
+        -20,
+        3.4
+      ],
+      [
+        49,
+        -20,
+        3.4
+      ],
+      [
+        -9,
+        25,
+        3.4
+      ],
+      [
+        9,
+        25,
+        3.4
+      ]
+    ],
+    "slots": [],
+    "notes": "Three 8 mm hardened steel balls contacting six hardened 4 x 20 mm dowels in three registered V seats; retainingcompoundonlylocatesballs,magnetforceandmetalcontactscarryworkingload. Qualifyactualrelease20-30 Naddednozzleforceinaxial/transversedirections withrealgun,cableandgravitybaseline.",
+    "print_orientation": "XY, flat underside down",
+    "name": "gun-release-back",
+    "step": "step/gun-release-back.step",
+    "stl": "stl/gun-release-back.stl",
+    "svg": "templates/gun-release-back.svg",
+    "dxf": "templates/gun-release-back.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 2,
+    "blank_mm": [
+      100,
+      70,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -12.5,
+        -29.35,
+        3.4
+      ],
+      [
+        -12.5,
+        -13.35,
+        3.4
+      ],
+      [
+        27.5,
+        -29.35,
+        3.4
+      ],
+      [
+        27.5,
+        -13.35,
+        3.4
+      ]
+    ],
+    "slots": [],
+    "notes": "Metal wall from lower guide blocks to upper axial shuttle and carrier. Block M3 holes transfer through side faces at Z+/-8 from rod, clear of the12.1 mm guide bore; M3x40 crosses25.4 mm block and6.35 mm wall.",
+    "print_orientation": "XY, flat underside down",
+    "name": "crash-output-wall",
+    "step": "step/crash-output-wall.step",
+    "stl": "stl/crash-output-wall.stl",
+    "svg": "templates/crash-output-wall.svg",
+    "dxf": "templates/crash-output-wall.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 2,
+    "blank_mm": [
+      200,
+      40,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -80.0,
+        -10.0,
+        5.5
+      ],
+      [
+        -80.0,
+        10.0,
+        5.5
+      ],
+      [
+        80.0,
+        -10.0,
+        5.5
+      ],
+      [
+        80.0,
+        10.0,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Fixed metal crossbars under the cradle support integrated pod end plates; eight metal angles connect to the fixed cradle and the four end plates. Transfer holes after alignment.",
+    "print_orientation": "XY, flat underside down",
+    "name": "crash-ground-crossbar",
+    "step": "step/crash-ground-crossbar.step",
+    "stl": "stl/crash-ground-crossbar.stl",
+    "svg": "templates/crash-ground-crossbar.svg",
+    "dxf": "templates/crash-ground-crossbar.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 6,
+    "blank_mm": [
+      24,
+      8,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -9,
+        0,
+        3.4
+      ],
+      [
+        9,
+        0,
+        3.4
+      ]
+    ],
+    "slots": [],
+    "notes": "One metal clamp across each paired-dowel end. Four millimetre metal stand-off pack from fixed seat plate puts keeper back face against dowel crest. Two M3x25 ties per keeper; retaining compound only locates dowels.",
+    "print_orientation": "XY, flat underside down",
+    "name": "vee-seat-keeper",
+    "step": "step/vee-seat-keeper.step",
+    "stl": "stl/vee-seat-keeper.stl",
+    "svg": "templates/vee-seat-keeper.svg",
+    "dxf": "templates/vee-seat-keeper.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 2,
+    "blank_mm": [
+      210,
+      30,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -45,
+        0,
+        5.5
+      ],
+      [
+        92.3,
+        -8.3,
+        5.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Temporary dry-test load fork: rigid arms outside gun at Y+/-80. Two spare jaw bars and TPU pads clamp a safe body surface, four metal angle joints. Rear angle hole is X55 at Z55.65; bridge mountsatX192.3,Z47.35 andstandsatX205. Retract wire before installing.",
+    "print_orientation": "XY, flat underside down",
+    "name": "nozzle-test-fork-arm",
+    "step": "step/nozzle-test-fork-arm.step",
+    "stl": "stl/nozzle-test-fork-arm.stl",
+    "svg": "templates/nozzle-test-fork-arm.svg",
+    "dxf": "templates/nozzle-test-fork-arm.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      180,
+      30,
+      6.35
+    ],
+    "template_type": "plate",
+    "holes": [
+      [
+        -60.95,
+        0,
+        5.5
+      ],
+      [
+        60.95,
+        0,
+        5.5
+      ],
+      [
+        0,
+        0,
+        6.5
+      ]
+    ],
+    "slots": [],
+    "notes": "Vertical bridge at X205, Z47.35. Center M6x40 grade8.8 crossdrilled3.5 mm cord studhasheadatX195 andholeatX200, lockedbytwoM6 nutsagainstbothbridgefaces. Itprojects5 mm backward to the calibrated X200 virtual endpoint after consumable wire is removed. No load on nozzle, wire guide or optics. Measure actual eye position and include alignment uncertainty.",
+    "print_orientation": "XY, flat underside down",
+    "name": "nozzle-test-bridge",
+    "step": "step/nozzle-test-bridge.step",
+    "stl": "stl/nozzle-test-bridge.stl",
+    "svg": "templates/nozzle-test-bridge.svg",
+    "dxf": "templates/nozzle-test-bridge.dxf"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 4,
+    "blank_mm": [
+      8,
+      8,
+      6.95
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Four metal 6.95 mm spacers bridge anchor top Z-32.30 to roll bearing-foot underside Z-25.35.",
+    "print_orientation": "XY, flat underside down",
+    "name": "roll-foot-metal-spacer",
+    "step": "step/roll-foot-metal-spacer.step",
+    "stl": "stl/roll-foot-metal-spacer.stl"
+  },
+  {
+    "material": "PET-GF",
+    "kind": "print",
+    "quantity": 2,
+    "blank_mm": null,
+    "template_type": null,
+    "holes": [],
+    "slots": [],
+    "notes": "Fixed base mounted on four 10 mm metal spacers with M6x30 slot8 fasteners. A separate M8 axle clamps only metal tubes and the 608 inner race; its head remains above the beam. Rotating saddle carries the outer race.",
+    "print_orientation": "XY, flat underside down",
+    "name": "fiber-swivel-base",
+    "step": "step/fiber-swivel-base.step",
+    "stl": "stl/fiber-swivel-base.stl"
+  },
+  {
+    "material": "PET-GF",
+    "kind": "print",
+    "quantity": 3,
+    "blank_mm": null,
+    "template_type": null,
+    "holes": [],
+    "slots": [],
+    "notes": "Two M3x20 through-bolts retain the 608 outer race in the rotating saddle. Center14.5 mm aperture clears fixed inner race; no screw clamping load on the inner race.",
+    "print_orientation": "XY, flat underside down",
+    "name": "fiber-bearing-cap",
+    "step": "step/fiber-bearing-cap.step",
+    "stl": "stl/fiber-bearing-cap.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 8,
+    "blank_mm": [
+      10,
+      10,
+      10
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Metal tube in swivel clamp stack; fixed axle inner-race tubes never contact rotating saddle or bearing outer race. Grade free rotation with actual cable, cold and warm.",
+    "print_orientation": "XY, flat underside down",
+    "name": "fiber-base-metal-spacer",
+    "step": "step/fiber-base-metal-spacer.step",
+    "stl": "stl/fiber-base-metal-spacer.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 2,
+    "blank_mm": [
+      10,
+      10,
+      13
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Metal tube in swivel clamp stack; fixed axle inner-race tubes never contact rotating saddle or bearing outer race. Grade free rotation with actual cable, cold and warm.",
+    "print_orientation": "XY, flat underside down",
+    "name": "fiber-axle-lower-tube",
+    "step": "step/fiber-axle-lower-tube.step",
+    "stl": "stl/fiber-axle-lower-tube.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 2,
+    "blank_mm": [
+      10,
+      10,
+      4
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Metal tube in swivel clamp stack; fixed axle inner-race tubes never contact rotating saddle or bearing outer race. Grade free rotation with actual cable, cold and warm.",
+    "print_orientation": "XY, flat underside down",
+    "name": "fiber-axle-upper-tube",
+    "step": "step/fiber-axle-upper-tube.step",
+    "stl": "stl/fiber-axle-upper-tube.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      10,
+      10,
+      3
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Metal inner-race contact tube,10 OD/8.5 ID. Redirect axle clamps bracket and inner race only; wheel and outer-race cap rotate freely.",
+    "print_orientation": "XY, flat underside down",
+    "name": "redirect-lower-contact-tube",
+    "step": "step/redirect-lower-contact-tube.step",
+    "stl": "stl/redirect-lower-contact-tube.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      10,
+      10,
+      7.15
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Metal inner-race contact tube,10 OD/8.5 ID. Redirect axle clamps bracket and inner race only; wheel and outer-race cap rotate freely.",
+    "print_orientation": "XY, flat underside down",
+    "name": "redirect-upper-contact-tube",
+    "step": "step/redirect-upper-contact-tube.step",
+    "stl": "stl/redirect-upper-contact-tube.stl"
+  },
+  {
+    "material": "PET-GF",
+    "kind": "print",
+    "quantity": 1,
+    "blank_mm": null,
+    "template_type": null,
+    "holes": [],
+    "slots": [],
+    "notes": "608 bearinginside40 mm cordwheel. Onlyunloadedservicetest; guardhangingcontainers. Characterize<=5 g imbalanceusingequal200 g cups beforeinstalledZtest.",
+    "print_orientation": "XY, flat underside down",
+    "name": "torque-cord-pulley",
+    "step": "step/torque-cord-pulley.step",
+    "stl": "stl/torque-cord-pulley.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 4,
+    "blank_mm": [
+      25.4,
+      25.4,
+      15
+    ],
+    "template_type": "bar",
+    "holes": [
+      [
+        0,
+        0,
+        12.1
+      ]
+    ],
+    "slots": [],
+    "notes": "Bronze8x12x10 mmguidebushinginside25.4 mm squaremetalblock. Two perlowerguide,40 mmcenterseparationparalleltonozzle. MounttometaloutputcarrierthroughM3/M5metalangles.",
+    "print_orientation": "XY, flat underside down",
+    "name": "crash-guide-block",
+    "step": "step/crash-guide-block.step",
+    "stl": "stl/crash-guide-block.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 7,
+    "blank_mm": [
+      38.1,
+      38.1,
+      25
+    ],
+    "template_type": "hub",
+    "holes": [
+      [
+        -13.0,
+        -10.0,
+        5.5
+      ],
+      [
+        -13.0,
+        10.0,
+        5.5
+      ],
+      [
+        13.0,
+        -10.0,
+        5.5
+      ],
+      [
+        13.0,
+        10.0,
+        5.5
+      ],
+      [
+        0,
+        0,
+        12.0
+      ]
+    ],
+    "slots": [],
+    "notes": "12 mm 304 shaft with centered M5 end threads and no transverse hole. Ream the hub bore to 12 mm; saw the 1.5 mm slit from bore to +Y. Two 4.2 mm clamp bores run along X at Y16, Z6/19. Two grade 12.9 M4x50 bolts, four washers and two locking nuts clamp the split hub. Torque transmission requires measured proof in both signs: pitch drive and negative pitch output 30-32.5 Nm; other hubs 25.2-27.5 Nm, full uncertainty interval, no slip or permanent set. Independent metal end capture retains the shaft and hubs; bearing setscrews alone are not positive capture.",
+    "print_orientation": "XY, flat underside down",
+    "drilling_faces": {
+      "YZ_clamp_bores": {
+        "face_X_mm": -19.05,
+        "holes_mm": [
+          [
+            16,
+            6,
+            4.2
+          ],
+          [
+            16,
+            19,
+            4.2
+          ]
+        ]
+      },
+      "XY_mounting": {
+        "holes_mm": [
+          [
+            -13.0,
+            -10.0,
+            5.5
+          ],
+          [
+            -13.0,
+            10.0,
+            5.5
+          ],
+          [
+            13.0,
+            -10.0,
+            5.5
+          ],
+          [
+            13.0,
+            10.0,
+            5.5
+          ],
+          [
+            0,
+            0,
+            12.0
+          ]
+        ]
+      },
+      "slit_mm": {
+        "width": 1.5,
+        "X": 0,
+        "from_Y": 4,
+        "to_Y": 20
+      }
+    },
+    "name": "shaft-hub",
+    "step": "step/shaft-hub.step",
+    "stl": "stl/shaft-hub.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      20,
+      20,
+      35.15
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Metal axial-capture tube from20 OD /12 ID stock, bored12.5 mm. Face only the delivered bearing inner race or metal hub/plate, never outer race/seal. Finish actual stack for0.5 mm maximum one-side free motion; chamfer/relieve OD to the measured inner-race face. No rubbing during free rotation, cold or warm.",
+    "print_orientation": "XY, flat underside down",
+    "name": "shaft-capture-tube-35p15",
+    "step": "step/shaft-capture-tube-35p15.step",
+    "stl": "stl/shaft-capture-tube-35p15.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      20,
+      20,
+      16
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Metal axial-capture tube from20 OD /12 ID stock, bored12.5 mm. Face only the delivered bearing inner race or metal hub/plate, never outer race/seal. Finish actual stack for0.5 mm maximum one-side free motion; chamfer/relieve OD to the measured inner-race face. No rubbing during free rotation, cold or warm.",
+    "print_orientation": "XY, flat underside down",
+    "name": "shaft-capture-tube-16p00",
+    "step": "step/shaft-capture-tube-16p00.step",
+    "stl": "stl/shaft-capture-tube-16p00.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      20,
+      20,
+      14.65
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Metal axial-capture tube from20 OD /12 ID stock, bored12.5 mm. Face only the delivered bearing inner race or metal hub/plate, never outer race/seal. Finish actual stack for0.5 mm maximum one-side free motion; chamfer/relieve OD to the measured inner-race face. No rubbing during free rotation, cold or warm.",
+    "print_orientation": "XY, flat underside down",
+    "name": "shaft-capture-tube-14p65",
+    "step": "step/shaft-capture-tube-14p65.step",
+    "stl": "stl/shaft-capture-tube-14p65.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 2,
+    "blank_mm": [
+      20,
+      20,
+      11.5
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Metal axial-capture tube from20 OD /12 ID stock, bored12.5 mm. Face only the delivered bearing inner race or metal hub/plate, never outer race/seal. Finish actual stack for0.5 mm maximum one-side free motion; chamfer/relieve OD to the measured inner-race face. No rubbing during free rotation, cold or warm.",
+    "print_orientation": "XY, flat underside down",
+    "name": "shaft-capture-tube-11p50",
+    "step": "step/shaft-capture-tube-11p50.step",
+    "stl": "stl/shaft-capture-tube-11p50.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      20,
+      20,
+      9.5
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Metal axial-capture tube from20 OD /12 ID stock, bored12.5 mm. Face only the delivered bearing inner race or metal hub/plate, never outer race/seal. Finish actual stack for0.5 mm maximum one-side free motion; chamfer/relieve OD to the measured inner-race face. No rubbing during free rotation, cold or warm.",
+    "print_orientation": "XY, flat underside down",
+    "name": "shaft-capture-tube-9p50",
+    "step": "step/shaft-capture-tube-9p50.step",
+    "stl": "stl/shaft-capture-tube-9p50.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      20,
+      20,
+      15.15
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Metal axial-capture tube from20 OD /12 ID stock, bored12.5 mm. Face only the delivered bearing inner race or metal hub/plate, never outer race/seal. Finish actual stack for0.5 mm maximum one-side free motion; chamfer/relieve OD to the measured inner-race face. No rubbing during free rotation, cold or warm.",
+    "print_orientation": "XY, flat underside down",
+    "name": "shaft-capture-tube-15p15",
+    "step": "step/shaft-capture-tube-15p15.step",
+    "stl": "stl/shaft-capture-tube-15p15.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 2,
+    "blank_mm": [
+      20,
+      20,
+      25.15
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Metal axial-capture tube from20 OD /12 ID stock, bored12.5 mm. Face only the delivered bearing inner race or metal hub/plate, never outer race/seal. Finish actual stack for0.5 mm maximum one-side free motion; chamfer/relieve OD to the measured inner-race face. No rubbing during free rotation, cold or warm.",
+    "print_orientation": "XY, flat underside down",
+    "name": "shaft-capture-tube-25p15",
+    "step": "step/shaft-capture-tube-25p15.step",
+    "stl": "stl/shaft-capture-tube-25p15.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      20,
+      20,
+      21.5
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Metal axial-capture tube from20 OD /12 ID stock, bored12.5 mm. Face only the delivered bearing inner race or metal hub/plate, never outer race/seal. Finish actual stack for0.5 mm maximum one-side free motion; chamfer/relieve OD to the measured inner-race face. No rubbing during free rotation, cold or warm.",
+    "print_orientation": "XY, flat underside down",
+    "name": "shaft-capture-tube-21p50",
+    "step": "step/shaft-capture-tube-21p50.step",
+    "stl": "stl/shaft-capture-tube-21p50.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      20,
+      20,
+      12
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Metal axial-capture tube from20 OD /12 ID stock, bored12.5 mm. Face only the delivered bearing inner race or metal hub/plate, never outer race/seal. Finish actual stack for0.5 mm maximum one-side free motion; chamfer/relieve OD to the measured inner-race face. No rubbing during free rotation, cold or warm.",
+    "print_orientation": "XY, flat underside down",
+    "name": "shaft-capture-tube-12p00",
+    "step": "step/shaft-capture-tube-12p00.step",
+    "stl": "stl/shaft-capture-tube-12p00.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      20,
+      20,
+      27.15
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Metal axial-capture tube from20 OD /12 ID stock, bored12.5 mm. Face only the delivered bearing inner race or metal hub/plate, never outer race/seal. Finish actual stack for0.5 mm maximum one-side free motion; chamfer/relieve OD to the measured inner-race face. No rubbing during free rotation, cold or warm.",
+    "print_orientation": "XY, flat underside down",
+    "name": "shaft-capture-tube-27p15",
+    "step": "step/shaft-capture-tube-27p15.step",
+    "stl": "stl/shaft-capture-tube-27p15.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      20,
+      20,
+      1.15
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Metal axial-capture tube from20 OD /12 ID stock, bored12.5 mm. Face only the delivered bearing inner race or metal hub/plate, never outer race/seal. Finish actual stack for0.5 mm maximum one-side free motion; chamfer/relieve OD to the measured inner-race face. No rubbing during free rotation, cold or warm.",
+    "print_orientation": "XY, flat underside down",
+    "name": "shaft-capture-tube-1p15",
+    "step": "step/shaft-capture-tube-1p15.step",
+    "stl": "stl/shaft-capture-tube-1p15.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      20,
+      20,
+      5.5
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Metal axial-capture tube from20 OD /12 ID stock, bored12.5 mm. Face only the delivered bearing inner race or metal hub/plate, never outer race/seal. Finish actual stack for0.5 mm maximum one-side free motion; chamfer/relieve OD to the measured inner-race face. No rubbing during free rotation, cold or warm.",
+    "print_orientation": "XY, flat underside down",
+    "name": "shaft-capture-tube-5p50",
+    "step": "step/shaft-capture-tube-5p50.step",
+    "stl": "stl/shaft-capture-tube-5p50.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 16,
+    "blank_mm": [
+      8,
+      8,
+      9.5122093023
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Metal 8 OD / 6 ID tube spacer. Set spring preload by measured rates and matched metal shims; the fixed 8.35 mm center spacer sets +/-1.0 mm capture independently of preload.",
+    "print_orientation": "XY, flat underside down",
+    "name": "nut-outer-angular-metal-spacer",
+    "step": "step/nut-outer-angular-metal-spacer.step",
+    "stl": "stl/nut-outer-angular-metal-spacer.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 8,
+    "blank_mm": [
+      8,
+      8,
+      9.163372093
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Metal 8 OD / 6 ID tube spacer. Set spring preload by measured rates and matched metal shims; the fixed 8.35 mm center spacer sets +/-1.0 mm capture independently of preload.",
+    "print_orientation": "XY, flat underside down",
+    "name": "nut-outer-pitch-metal-spacer",
+    "step": "step/nut-outer-pitch-metal-spacer.step",
+    "stl": "stl/nut-outer-pitch-metal-spacer.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 20,
+    "blank_mm": [
+      8,
+      8,
+      7.7680232558
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Metal 8 OD / 6 ID tube spacer. Set spring preload by measured rates and matched metal shims; the fixed 8.35 mm center spacer sets +/-1.0 mm capture independently of preload.",
+    "print_orientation": "XY, flat underside down",
+    "name": "nut-outer-XYZ-metal-spacer",
+    "step": "step/nut-outer-XYZ-metal-spacer.step",
+    "stl": "stl/nut-outer-XYZ-metal-spacer.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 4,
+    "blank_mm": [
+      8,
+      8,
+      6.0238372093
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Metal 8 OD / 6 ID tube spacer. Set spring preload by measured rates and matched metal shims; the fixed 8.35 mm center spacer sets +/-1.0 mm capture independently of preload.",
+    "print_orientation": "XY, flat underside down",
+    "name": "nut-outer-Z-down-metal-spacer",
+    "step": "step/nut-outer-Z-down-metal-spacer.step",
+    "stl": "stl/nut-outer-Z-down-metal-spacer.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 16,
+    "blank_mm": [
+      8,
+      8,
+      20.3372093023
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Metal 8 OD / 6 ID tube spacer. Set spring preload by measured rates and matched metal shims; the fixed 8.35 mm center spacer sets +/-1.0 mm capture independently of preload.",
+    "print_orientation": "XY, flat underside down",
+    "name": "force-outer-angular-metal-spacer",
+    "step": "step/force-outer-angular-metal-spacer.step",
+    "stl": "stl/force-outer-angular-metal-spacer.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 8,
+    "blank_mm": [
+      8,
+      8,
+      19.988372093
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Metal 8 OD / 6 ID tube spacer. Set spring preload by measured rates and matched metal shims; the fixed 8.35 mm center spacer sets +/-1.0 mm capture independently of preload.",
+    "print_orientation": "XY, flat underside down",
+    "name": "force-outer-pitch-metal-spacer",
+    "step": "step/force-outer-pitch-metal-spacer.step",
+    "stl": "stl/force-outer-pitch-metal-spacer.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 20,
+    "blank_mm": [
+      8,
+      8,
+      18.5930232558
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Metal 8 OD / 6 ID tube spacer. Set spring preload by measured rates and matched metal shims; the fixed 8.35 mm center spacer sets +/-1.0 mm capture independently of preload.",
+    "print_orientation": "XY, flat underside down",
+    "name": "force-outer-XYZ-metal-spacer",
+    "step": "step/force-outer-XYZ-metal-spacer.step",
+    "stl": "stl/force-outer-XYZ-metal-spacer.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 4,
+    "blank_mm": [
+      8,
+      8,
+      16.8488372093
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Metal 8 OD / 6 ID tube spacer. Set spring preload by measured rates and matched metal shims; the fixed 8.35 mm center spacer sets +/-1.0 mm capture independently of preload.",
+    "print_orientation": "XY, flat underside down",
+    "name": "force-outer-Z-down-metal-spacer",
+    "step": "step/force-outer-Z-down-metal-spacer.step",
+    "stl": "stl/force-outer-Z-down-metal-spacer.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 24,
+    "blank_mm": [
+      8,
+      8,
+      8.35
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Metal 8 OD / 6 ID tube spacer. Set spring preload by measured rates and matched metal shims; the fixed 8.35 mm center spacer sets +/-1.0 mm capture independently of preload.",
+    "print_orientation": "XY, flat underside down",
+    "name": "force-center-metal-spacer",
+    "step": "step/force-center-metal-spacer.step",
+    "stl": "stl/force-center-metal-spacer.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 12,
+    "blank_mm": [
+      8,
+      8,
+      7
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Metal7 mm shield stand-off. ID6/OD8; use metal washers covering the 6 mm bore, M3x25 through2 mm shield and6.35 mm bulkhead. No clamp load through air.",
+    "print_orientation": "XY, flat underside down",
+    "name": "guard-metal-spacer",
+    "step": "step/guard-metal-spacer.step",
+    "stl": "stl/guard-metal-spacer.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 12,
+    "blank_mm": [
+      8,
+      8,
+      4
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Metal4 mm stand-off under hardened-dowel end keeper; finishagainstactual4 mm dowel crest. Not a printedload spacer.",
+    "print_orientation": "XY, flat underside down",
+    "name": "V-keeper-metal-spacer",
+    "step": "step/V-keeper-metal-spacer.step",
+    "stl": "stl/V-keeper-metal-spacer.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 12,
+    "blank_mm": [
+      10,
+      10,
+      1
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Inner-race contact ring,10 OD/8.5 ID/1 mm length; clears outerraceandseal. Drill10x8 stocktube to8.5 ID before cutting. No M8 washerdirectlycontactsbearingouterrace.",
+    "print_orientation": "XY, flat underside down",
+    "name": "hinge-contact-tube",
+    "step": "step/hinge-contact-tube.step",
+    "stl": "stl/hinge-contact-tube.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 12,
+    "blank_mm": [
+      10,
+      10,
+      9.65
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Nominal 9.65 mm for the sourced 22 mm smooth shank minus 6.35 mm ear, 5 mm bearing and 1 mm contact ring. Finish to the actual thread start; nut clamps the metal stack without bottoming.",
+    "print_orientation": "XY, flat underside down",
+    "name": "hinge-thread-start-spacer",
+    "step": "step/hinge-thread-start-spacer.step",
+    "stl": "stl/hinge-thread-start-spacer.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 24,
+    "blank_mm": [
+      8,
+      8,
+      30
+    ],
+    "template_type": "tube",
+    "holes": [],
+    "slots": [],
+    "notes": "Metal spacer 30 mm long, 8 mm OD, 6 mm ID. Four per single-nut metal-face assembly. No axial preload through plastic.",
+    "print_orientation": "XY, flat underside down",
+    "name": "nut-metal-spacer",
+    "step": "step/nut-metal-spacer.step",
+    "stl": "stl/nut-metal-spacer.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 137,
+    "blank_mm": [
+      25.4,
+      25.4,
+      3.175
+    ],
+    "template_type": "angle",
+    "holes": [],
+    "slots": [],
+    "notes": "Cut 25.4 mm slices from 25.4 x 25.4 x 3.175 mm angle. Both legs drilled 5.5 mm; metal through-bolts connect plates. Not a printable bracket.",
+    "print_orientation": "XY, flat underside down",
+    "name": "metal-angle-25",
+    "step": "step/metal-angle-25.step",
+    "stl": "stl/metal-angle-25.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 6,
+    "blank_mm": [
+      25.4,
+      25.4,
+      3.175
+    ],
+    "template_type": "angle",
+    "holes": [
+      [
+        0,
+        0,
+        6.5
+      ],
+      [
+        7,
+        9,
+        3.4
+      ]
+    ],
+    "slots": [],
+    "notes": "One right-side upper thrust angle per drive. Transfer the registered 3.4 mm guard passage from the bulkhead after fitting the shared 6.5 mm M6 post hole. The M3 washer is 7 mm OD and remains within the foot. This is a cut from the same small-angle stock; total137 plain plus6 of each variant remains149 slices.",
+    "print_orientation": "XY, flat underside down",
+    "drilling_faces": {
+      "foot_XY": [
+        [
+          0,
+          0,
+          6.5
+        ],
+        [
+          7,
+          9,
+          3.4
+        ]
+      ],
+      "upright_XZ": [
+        [
+          0,
+          12.7,
+          5.5
+        ]
+      ]
+    },
+    "name": "guard-thrust-angle-minus",
+    "step": "step/guard-thrust-angle-minus.step",
+    "stl": "stl/guard-thrust-angle-minus.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 6,
+    "blank_mm": [
+      25.4,
+      25.4,
+      3.175
+    ],
+    "template_type": "angle",
+    "holes": [
+      [
+        0,
+        0,
+        6.5
+      ],
+      [
+        -7,
+        9,
+        3.4
+      ]
+    ],
+    "slots": [],
+    "notes": "One right-side upper thrust angle per drive. Transfer the registered 3.4 mm guard passage from the bulkhead after fitting the shared 6.5 mm M6 post hole. The M3 washer is 7 mm OD and remains within the foot. This is a cut from the same small-angle stock; total137 plain plus6 of each variant remains149 slices.",
+    "print_orientation": "XY, flat underside down",
+    "drilling_faces": {
+      "foot_XY": [
+        [
+          0,
+          0,
+          6.5
+        ],
+        [
+          -7,
+          9,
+          3.4
+        ]
+      ],
+      "upright_XZ": [
+        [
+          0,
+          12.7,
+          5.5
+        ]
+      ]
+    },
+    "name": "guard-thrust-angle-plus",
+    "step": "step/guard-thrust-angle-plus.step",
+    "stl": "stl/guard-thrust-angle-plus.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 6,
+    "blank_mm": [
+      50.8,
+      40,
+      6.35
+    ],
+    "template_type": "angle",
+    "holes": [],
+    "slots": [],
+    "notes": "Cut40 mm slices from50.8 x50.8 x6.35 mm angle. Verticallegheight50.8 mm; stationary contact face is6.35mmplate. Foot holes areM6 atlocalX-40.7,Y+/-10; uprightM6 holesatY0,Z25/45. Foot centers arebedX+/-171,Y+/-10, clearingX-bed frameby3 mm. Backing upright sitsbehindcontactplate at+/-205.35 mm. No printed stop reaction path.",
+    "print_orientation": "XY, flat underside down",
+    "drilling_faces": {
+      "foot_XY": [
+        [
+          -40.7,
+          -10,
+          6.5
+        ],
+        [
+          -40.7,
+          10,
+          6.5
+        ]
+      ],
+      "upright_YZ": [
+        [
+          0,
+          25,
+          6.5
+        ],
+        [
+          0,
+          45,
+          6.5
+        ]
+      ]
+    },
+    "name": "linear-stop-angle",
+    "step": "step/linear-stop-angle.step",
+    "stl": "stl/linear-stop-angle.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      50.8,
+      40,
+      6.35
+    ],
+    "template_type": "angle",
+    "holes": [],
+    "slots": [],
+    "notes": "Seventh40 mm slice of50.8x50.8x6.35 angle. Two M6x16 slot8 mounts in vertical leg atZ15/35. Foot M6 clearance is13 mm behind the vertical face. A fully threaded M6x80 screw bears on gauge-back lower edge; hold lower working nut with10 mm wrench while feeding, then lock upper nut against angle. Advance at most1/12 turn,0.0833 mm per increment.",
+    "print_orientation": "XY, flat underside down",
+    "name": "installed-Z-jack-angle",
+    "step": "step/installed-Z-jack-angle.step",
+    "stl": "stl/installed-Z-jack-angle.stl"
+  },
+  {
+    "material": "aluminum",
+    "kind": "metal",
+    "quantity": 1,
+    "blank_mm": [
+      50.8,
+      70,
+      6.35
+    ],
+    "template_type": "angle",
+    "holes": [],
+    "slots": [],
+    "notes": "One 70 mm wide slice of 50.8 x 50.8 x 6.35 mm angle. The quill presses only the horizontal metal leg, centered on the gauge axis. Two M5x25 mount the vertical leg to the gauge backplate at X +/-28, backplate Y48.2. The nearest M4/M5 washer centers are 13.897 mm apart, exceeding their 11 mm summed radii. Four 7 mm rear spacers clear screw heads from the case; finish actual M4 engagement. Drill motor unplugged throughout proof.",
+    "print_orientation": "XY, flat underside down",
+    "drilling_faces": {
+      "upright_XZ": [
+        [
+          -28,
+          -26.8,
+          5.5
+        ],
+        [
+          28,
+          -26.8,
+          5.5
+        ]
+      ]
+    },
+    "name": "proof-gauge-quill-cap",
+    "step": "step/proof-gauge-quill-cap.step",
+    "stl": "stl/proof-gauge-quill-cap.stl"
+  },
+  {
+    "material": "PET-GF",
+    "kind": "print",
+    "quantity": 6,
+    "blank_mm": null,
+    "template_type": null,
+    "holes": [],
+    "slots": [],
+    "notes": "GT2/2mm pitch/6mm belt,80 teeth. Four M3x20 bolt to the rotating TR8 metal flange. Nut is the hub; plastic never clamps the shaft.",
+    "print_orientation": "XY, flat underside down",
+    "name": "pulley-80t",
+    "step": "step/pulley-80t.step",
+    "stl": "stl/pulley-80t.stl"
+  },
+  {
+    "material": "PET-GF",
+    "kind": "print",
+    "quantity": 1,
+    "blank_mm": null,
+    "template_type": null,
+    "holes": [],
+    "slots": [],
+    "notes": "Print first, mesh with the purchased6mm GT2 belt. Groove tolerance is a fitting allowance, not certified belt geometry.",
+    "print_orientation": "XY, flat underside down",
+    "name": "pulley-sector-coupon",
+    "step": "step/pulley-sector-coupon.step",
+    "stl": "stl/pulley-sector-coupon.stl"
+  },
+  {
+    "material": "PET-GF",
+    "kind": "print",
+    "quantity": 6,
+    "blank_mm": null,
+    "template_type": null,
+    "holes": [],
+    "slots": [],
+    "notes": "Motor bolts fourM3x12 into its face; twoM5 through-bolts fix the slotted plate to metal angles. Slot gives8mm tension adjustment.",
+    "print_orientation": "XY, flat underside down",
+    "name": "motor-tension-plate",
+    "step": "step/motor-tension-plate.step",
+    "stl": "stl/motor-tension-plate.stl"
+  },
+  {
+    "material": "PET-GF",
+    "kind": "print",
+    "quantity": 6,
+    "blank_mm": null,
+    "template_type": null,
+    "holes": [],
+    "slots": [],
+    "notes": "Open cavity for one metal driving nut. Four metal30mm spacers hold metal faces; the29mm printed shell locates/guards and does not carry axial preload.",
+    "print_orientation": "XY, flat underside down",
+    "name": "paired-nut-spacer",
+    "step": "step/paired-nut-spacer.step",
+    "stl": "stl/paired-nut-spacer.stl"
+  },
+  {
+    "material": "PET-GF",
+    "kind": "print",
+    "quantity": 28,
+    "blank_mm": null,
+    "template_type": null,
+    "holes": [],
+    "slots": [],
+    "notes": "Two M3 switch bolts; one M6 slot to metal frame. Transfer switch holes from selected body. Twelve travel plus twelve opposed overload switches. All four NC contacts per axis are in series.",
+    "print_orientation": "XY, flat underside down",
+    "name": "limit-switch-bracket",
+    "step": "step/limit-switch-bracket.step",
+    "stl": "stl/limit-switch-bracket.stl"
+  },
+  {
+    "material": "PET-GF",
+    "kind": "print",
+    "quantity": 6,
+    "blank_mm": null,
+    "template_type": null,
+    "holes": [],
+    "slots": [],
+    "notes": "Print flat, open side up. Two M3x25 bolts at localX +/-5,Y-7 pass through 7 mm metal spacers, bulkhead holes (+/-5,13) and the matched right-side thrust-angle feet. Metal grip23.525 mm leaves1.475 mm beyond the nut. Top M6 and M3 washer centers are11.402 mm apart; guard-tube/thrust radial clearance is1.928 mm. Front shield passes through its floor-clearance slot; open edges require guarded supervised commissioning.",
+    "print_orientation": "XY, flat underside down",
+    "name": "belt-guard",
+    "step": "step/belt-guard.step",
+    "stl": "stl/belt-guard.stl"
+  },
+  {
+    "material": "TPU",
+    "kind": "print",
+    "quantity": 4,
+    "blank_mm": null,
+    "template_type": null,
+    "holes": [],
+    "slots": [],
+    "notes": "Flat TPU pad between gun body and metal bar. No trigger, vents, nozzle, guide or cable boot contact.",
+    "print_orientation": "XY, flat underside down",
+    "name": "gun-jaw-pad",
+    "step": "step/gun-jaw-pad.step",
+    "stl": "stl/gun-jaw-pad.stl"
+  },
+  {
+    "material": "TPU",
+    "kind": "print",
+    "quantity": 2,
+    "blank_mm": null,
+    "template_type": null,
+    "holes": [],
+    "slots": [],
+    "notes": "Temporary 35 mm wide force-fork jaw pad. Safe rigid gun-body contact only; retract wire and observe nozzle datum before loading.",
+    "print_orientation": "XY, flat underside down",
+    "name": "service-load-jaw-pad",
+    "step": "step/service-load-jaw-pad.step",
+    "stl": "stl/service-load-jaw-pad.stl"
+  },
+  {
+    "material": "PET-GF",
+    "kind": "print",
+    "quantity": 1,
+    "blank_mm": null,
+    "template_type": null,
+    "holes": [],
+    "slots": [],
+    "notes": "Locates hub blank at drill press for marking, not a bushing. Clamp metal stock independently; do not drill while handheld.",
+    "print_orientation": "XY, flat underside down",
+    "name": "hub-drilling-locator",
+    "step": "step/hub-drilling-locator.step",
+    "stl": "stl/hub-drilling-locator.stl"
+  },
+  {
+    "material": "PET-GF",
+    "kind": "print",
+    "quantity": 2,
+    "blank_mm": null,
+    "template_type": null,
+    "holes": [],
+    "slots": [],
+    "notes": "Broad padded support on the independent boom, with a loose fabric sling. Never tighten onto optical cable; cable arc radius350mm minimum in use.",
+    "print_orientation": "XY, flat underside down",
+    "name": "fiber-saddle",
+    "step": "step/fiber-saddle.step",
+    "stl": "stl/fiber-saddle.stl"
+  }
+]

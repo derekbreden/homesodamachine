@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="110mm" height="170mm" viewBox="0 0 110 170">
+<rect width="100%" height="100%" fill="white"/>
+<rect x="20" y="20" width="70" height="110" fill="none" stroke="#999" stroke-width=".15"/>
+<polygon points="20.0,130.0 90.0,130.0 90.0,20.0 20.0,20.0" fill="none" stroke="black" stroke-width=".25"/>
+<circle cx="34.5" cy="111.5" r="2.25" fill="none" stroke="black" stroke-width=".2"/>
+<path d="M32.5,111.5h4 M34.5,109.5v4" stroke="#b33" stroke-width=".15"/>
+<circle cx="34.5" cy="38.5" r="2.25" fill="none" stroke="black" stroke-width=".2"/>
+<path d="M32.5,38.5h4 M34.5,36.5v4" stroke="#b33" stroke-width=".15"/>
+<circle cx="75.5" cy="111.5" r="2.25" fill="none" stroke="black" stroke-width=".2"/>
+<path d="M73.5,111.5h4 M75.5,109.5v4" stroke="#b33" stroke-width=".15"/>
+<circle cx="75.5" cy="38.5" r="2.25" fill="none" stroke="black" stroke-width=".2"/>
+<path d="M73.5,38.5h4 M75.5,36.5v4" stroke="#b33" stroke-width=".15"/>
+<circle cx="27.0" cy="26.799999999999997" r="2.75" fill="none" stroke="black" stroke-width=".2"/>
+<path d="M25.0,26.799999999999997h4 M27.0,24.799999999999997v4" stroke="#b33" stroke-width=".15"/>
+<circle cx="83.0" cy="26.799999999999997" r="2.75" fill="none" stroke="black" stroke-width=".2"/>
+<path d="M81.0,26.799999999999997h4 M83.0,24.799999999999997v4" stroke="#b33" stroke-width=".15"/>
+<text x="20" y="141" font-family="sans-serif" font-size="4">force-gauge-backing: 70 x 110 x 6.35 mm - 100% scale</text>
+<path d="M20,150h50 M20,147v6 M70,147v6" stroke="black" stroke-width=".25"/>
+<text x="80" y="151" font-family="sans-serif" font-size="3.5">50 mm scale check; +X right / +Y up</text>
+</svg>
