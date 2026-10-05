@@ -1,0 +1,54 @@
+{
+  "status": "native_review_pass",
+  "source_cache_directory": ".cache/prints/2026-10-04-rc62-valve-frame-fit-mark2-v2",
+  "public_project": "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/mark2-v2/2026-10-04-rc62-valve-frame-fit-mark2-v2-input.3mf",
+  "project_sha256": "02ada53aaa550bf97de28397df581cb24b40333ad9f0efb2033d3e83f4e43d4a",
+  "archive": ".cache/prints/2026-10-04-rc62-valve-frame-fit-mark2-v2/ready/2026-10-04-rc62-valve-frame-fit-mark2-v2.gcode.3mf",
+  "archive_sha256": "fdd433d6c86d911e236158bfd0f5b611c4ffad7f0dcc78150aed89a632363123",
+  "files": [
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/mark2-v2/2026-10-04-rc62-valve-frame-fit-mark2-v2-input.3mf",
+      "sha256": "02ada53aaa550bf97de28397df581cb24b40333ad9f0efb2033d3e83f4e43d4a",
+      "size_bytes": 4514528
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/mark2-v2/preparation.json",
+      "sha256": "03eb4a15c1d9599428814d0345264fa202f902f1d8e453239cdb865d3af13321",
+      "size_bytes": 78694
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/mark2-v2/native-slice.json",
+      "sha256": "f9eca073c104127ff48226ed1b33c783c3f02aa6b0688cd673b71514c15b1bff",
+      "size_bytes": 6958
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/mark2-v2/emitted-path-review.json",
+      "sha256": "7a5b4179ad4fa99cea1099075baff5b9e7c86082573d11b73fd307d1df99061e",
+      "size_bytes": 120526
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/mark2-v2/support-audit.json",
+      "sha256": "79e8c4d6095668bbf9aa13210631dd65ab0f76ed0122eccd0d4a1c6b8d95c4c1",
+      "size_bytes": 5353
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/mark2-v2/preview.png",
+      "sha256": "e32b34bb65b68402ca66dd50ccd20ea3394355e5d00478fa3526171ed8bde1e1",
+      "size_bytes": 12529
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/mark2-v2/2026-10-04-rc62-valve-frame-fit-mark2-v2-input.print.json",
+      "sha256": "882450f5b8192f577cb6654b736e7292cb5ab893f4d16c867a50ab2d8ac39aac",
+      "size_bytes": 30946
+    }
+  ],
+  "independent_coupon_review": "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/combined-mark2-native-check.json",
+  "accepted_job_record": "../mark2-v2-launch.json",
+  "estimate_seconds": 34669.70703125,
+  "estimated_mass_g": 357.43,
+  "physical_qualification": false,
+  "reader_source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/review_combined.py": "9358765c168c3ab80f241ad73b88ed781c1b44318be1779a4540bf35af1de75d",
+    "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/read_roads.py": "ab12ecba1874040c6c24838432bdeda825857c38abc01f18d7fadc85ed1d0a31"
+  }
+}

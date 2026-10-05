@@ -344,7 +344,9 @@ def prepare_dialog(ui, path, printer, details):
         return [node for node in ns if node["role"] == "AXLink"
                 and (node["label"] == printer or node["label"].startswith(printer + " "))]
     nodes = ui.wait(lambda ns: len(device_links(ns)) == 1)
-    ui.click(device_links(nodes)[0]["label"], "AXLink")
+    # The card includes live temperatures that can change after the snapshot.
+    # Resolve its unique printer-name prefix in the input process at click time.
+    ui.click(printer, "AXLink", prefix=True)
     ui.wait(lambda ns: matching(ns, "Printing Progress", "AXStaticText"))
     ui.click("Print", "AXLink")
     ui.wait(lambda ns: matching(ns, "Import Gcode 3MF", "AXButton"))

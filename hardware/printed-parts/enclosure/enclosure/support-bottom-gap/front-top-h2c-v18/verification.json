@@ -1,0 +1,27 @@
+{
+  "native_checks_pass": true,
+  "archive": ".cache/prints/2026-10-04-enclosure-front-top-flush-frame-h2c-v18/ready/2026-10-04-enclosure-front-top-flush-frame-h2c-v18.gcode.3mf",
+  "archive_sha256": "3d31f00a0a0649627514a02a07f4ce28e42d657ccffcd6369549075532c23702",
+  "project": ".cache/prints/2026-10-04-enclosure-front-top-flush-frame-h2c-v18/2026-10-04-enclosure-front-top-flush-frame-h2c-v18-input.3mf",
+  "project_sha256": "5723afde9b1ed915f5150d8659dbf128bb61a9e9debc76502940c0960793fe3b",
+  "gcode_sha256": "91e21a113b8448485918e9409e939836a0cd61b774b02ff4c5476cb00f4d39ac",
+  "estimated_seconds": 79003.0546875,
+  "support_summary": {
+    "support_bodies": 5,
+    "interface_islands": 10,
+    "bed_rooted_bodies": 5,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 63.83,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 10,
+    "shortest_labelled_build_up_mm": 63.83
+  },
+  "picked_seam_contact_mm2": [
+    0.0008747434228266605,
+    0.000377059162692955
+  ],
+  "front_roof_support_roads": 0,
+  "tee_cover_slot_support_roads": 0,
+  "submitted": false,
+  "physical_fit_retention_cleanup_and_finish_qualified": false
+}

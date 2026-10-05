@@ -132,7 +132,7 @@
     "hardware/manifold-layout/enclosure-box.json": "4879e690f9e139856fddb3c5d918be5792e3eff13b5a26cc627e201df7ad0819",
     "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "410db1305d0600cef79d62b9d91299ac444c487a3d7cb9a5470e5a16dd8b3244",
     "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "ca1427026349939176275b3cdffc5c4c2dd8b5317e30fa08fabf112aa7362ef8",
-    "hardware/manifold-layout/enclosure-assembly.step": "6074dc6a542d0ae514f4a30a0d19945d85c9031e774a62cbc548c62defbb929e",
+    "hardware/manifold-layout/enclosure-assembly.step": "c6a1dd96cb251c7aa2875bfafc3ee93e58099a8e29065e16f4464be19c934fcd",
     "hardware/printed-parts/enclosure/enclosure/enclosure.py": "020e0ae5ee3dcbe748d5b3ee994ac4975d9d81b8793a1f534a2ad97f7a80595c",
     "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "e7283da22c69147d65418d1518e5b66247f8e7525409713909897fd8ceba2dbf",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "cb6f4ced20b8bf1ee719298b3e3c193c67e42ecb3aeaac271ccb79049775e007",

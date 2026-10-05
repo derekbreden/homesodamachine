@@ -1,0 +1,156 @@
+{
+  "printer": "Mark2",
+  "observed_at": "2026-10-05T03:26:34.632431+00:00",
+  "archive": {
+    "name": "2026-10-04-rc62-valve-frame-fit-mark2-v2.gcode.3mf",
+    "sha256": "fdd433d6c86d911e236158bfd0f5b611c4ffad7f0dcc78150aed89a632363123",
+    "gcode_sha256": "d4d9a8bfafb7108c1281f70becc962a62bf4635d9632c25ce7a12a3cb56c405d",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "161616"
+      }
+    },
+    "objects": [
+      "funnel-frame",
+      "rc62-pocket-a1",
+      "rc62-pocket-a2",
+      "rc62-pocket-a3",
+      "rc62-pocket-a4",
+      "rc62-pocket-b1",
+      "rc62-pocket-b2",
+      "rc62-pocket-b3",
+      "rc62-pocket-b4",
+      "rc62-pocket-c1",
+      "rc62-pocket-c2",
+      "rc62-pocket-c3",
+      "rc62-pocket-c4",
+      "rc62-pocket-d1",
+      "rc62-pocket-d2",
+      "rc62-pocket-d3",
+      "rc62-pocket-d4",
+      "rc62-pocket-c0",
+      "beduan-socket-v72",
+      "beduan-socket-v71",
+      "beduan-socket-v70",
+      "beduan-socket-v69",
+      "beduan-socket-v68"
+    ]
+  },
+  "printer_task_id": "1310076386",
+  "gcode_state": "RUNNING",
+  "subtask_name": "2026-10-04-rc62-valve-frame-fit-mark2-v2.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 230,
+  "mc_remaining_time": 577,
+  "schema": 1,
+  "send_count": 1,
+  "project_file_result": "SUCCESS",
+  "acceptance_observed_at_utc": "2026-10-05T03:26:34.632431+00:00",
+  "acceptance_observed_local": "2026-10-04T22:26:34.632431-05:00",
+  "timezone": "America/Chicago",
+  "automatic_resume": false,
+  "physical_fit_and_adhesion_qualified": false,
+  "native_duration_seconds": 34669.707,
+  "scope": "Exact new Mark2 task and archive accepted after one foreground Send. Printer startup telemetry does not establish visual adhesion, support cleanup, fit, grip or strength.",
+  "first_layer_printer_progress": true,
+  "first_layer_observed_at": "2026-10-05T03:48:47.272397+00:00",
+  "events": [
+    {
+      "event": "first_layer_printer_progress",
+      "status": {
+        "printer": "Mark2",
+        "observed_at": "2026-10-05T03:48:47.272397+00:00",
+        "task_id": "1310076386",
+        "job_id": "1310076386",
+        "subtask_name": "2026-10-04-rc62-valve-frame-fit-mark2-v2.gcode.3mf",
+        "gcode_state": "RUNNING",
+        "layer_num": 1,
+        "total_layer_num": 230,
+        "mc_percent": 2,
+        "mc_remaining_time": 564,
+        "print_error": 0,
+        "hms": [],
+        "stg_cur": 0,
+        "external_spools": [
+          {
+            "id": "254",
+            "tray_type": "PET-CF",
+            "tray_info_idx": "GFT01",
+            "tray_color": "161616FF"
+          },
+          {
+            "id": "255",
+            "tray_type": "PET-CF",
+            "tray_info_idx": "GFT01",
+            "tray_color": "F72323FF"
+          }
+        ],
+        "extruders": {
+          "0": {
+            "actual_c": 49,
+            "target_c": 0
+          },
+          "1": {
+            "actual_c": 265,
+            "target_c": 265
+          }
+        },
+        "bed_actual_c": 80.0,
+        "bed_target_c": 80.0,
+        "chamber": {
+          "actual_c": 34,
+          "target_c": 0
+        }
+      },
+      "scope": "Telemetry reports layer 1 without a fault. Visual adhesion and physical quality are unqualified."
+    }
+  ],
+  "latest_status": {
+    "printer": "Mark2",
+    "observed_at": "2026-10-05T03:48:47.272397+00:00",
+    "task_id": "1310076386",
+    "job_id": "1310076386",
+    "subtask_name": "2026-10-04-rc62-valve-frame-fit-mark2-v2.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 1,
+    "total_layer_num": 230,
+    "mc_percent": 2,
+    "mc_remaining_time": 564,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": 0,
+    "external_spools": [
+      {
+        "id": "254",
+        "tray_type": "PET-CF",
+        "tray_info_idx": "GFT01",
+        "tray_color": "161616FF"
+      },
+      {
+        "id": "255",
+        "tray_type": "PET-CF",
+        "tray_info_idx": "GFT01",
+        "tray_color": "F72323FF"
+      }
+    ],
+    "extruders": {
+      "0": {
+        "actual_c": 49,
+        "target_c": 0
+      },
+      "1": {
+        "actual_c": 265,
+        "target_c": 265
+      }
+    },
+    "bed_actual_c": 80.0,
+    "bed_target_c": 80.0,
+    "chamber": {
+      "actual_c": 34,
+      "target_c": 0
+    }
+  }
+}

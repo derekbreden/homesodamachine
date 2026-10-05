@@ -78,7 +78,11 @@ func snapshot() -> [[String: Any]] {
 func resolve(_ request: [String: Any]) throws -> Node {
     _ = snapshot()
     guard let label = request["label"] as? String else { try refuse("label is required") }
-    let matches = nodes.filter { $0.label == label && (request["role"] == nil || $0.role == request["role"] as? String) }
+    let prefix = request["prefix"] as? Bool ?? false
+    let matches = nodes.filter {
+        ($0.label == label || (prefix && $0.label.hasPrefix(label + " ")))
+        && (request["role"] == nil || $0.role == request["role"] as? String)
+    }
     if let occurrence = request["nth"] as? Int, matches.indices.contains(occurrence) { return matches[occurrence] }
     guard matches.count == 1 else { try refuse("Expected one \(request["role"] ?? "element") named \(label), found \(matches.count)") }
     return matches[0]

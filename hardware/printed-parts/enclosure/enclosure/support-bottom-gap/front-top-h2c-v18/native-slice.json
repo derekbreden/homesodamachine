@@ -1,0 +1,23 @@
+{
+  "status": "native_slice_awaiting_emitted_review",
+  "printer": "H2C",
+  "part": "enclosure-front-top",
+  "quantity": 1,
+  "archive": ".cache/prints/2026-10-04-enclosure-front-top-flush-frame-h2c-v18/ready/2026-10-04-enclosure-front-top-flush-frame-h2c-v18.gcode.3mf",
+  "archive_sha256": "3d31f00a0a0649627514a02a07f4ce28e42d657ccffcd6369549075532c23702",
+  "project": ".cache/prints/2026-10-04-enclosure-front-top-flush-frame-h2c-v18/2026-10-04-enclosure-front-top-flush-frame-h2c-v18-input.3mf",
+  "project_sha256": "5723afde9b1ed915f5150d8659dbf128bb61a9e9debc76502940c0960793fe3b",
+  "gcode_sha256": "91e21a113b8448485918e9409e939836a0cd61b774b02ff4c5476cb00f4d39ac",
+  "estimated_seconds": 79003.0546875,
+  "parts": [
+    {
+      "name": "enclosure-front-top",
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+      "stl_sha256": "cc2cfd8a490b52439d957aa082b0e4369c5602076740494298b3a954f0ba36ba",
+      "identify_id": 1901
+    }
+  ],
+  "production_print_pose_retained": true,
+  "submitted": false,
+  "physical_fit_retention_and_surface_qualified": false
+}
