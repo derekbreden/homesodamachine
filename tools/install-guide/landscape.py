@@ -84,9 +84,10 @@ def text(s, x, y, size=13, font='Regular', color=INK):
 
 
 def para(s, x, y, w=CW, size=13, leading=18, color=INK,
-         font='Regular', limit=None):
+         font='Regular', limit=None, alignment=0):
     p = Paragraph(s, ParagraphStyle('body', fontName=font, fontSize=size,
-                                    leading=leading, textColor=HexColor(color)))
+                                    leading=leading, textColor=HexColor(color),
+                                    alignment=alignment))
     _, h = p.wrap(w, 1000)
     if limit is not None and h > limit+.1:
         raise ValueError(f'Page {page_no}: paragraph {h}>{limit}: {s[:80]}')
@@ -190,7 +191,7 @@ def kit_picture(name, x, y, w, h):
     left, right = min(p[1] for p in points), max(p[1] for p in points)
     top, bottom = min(p[2] for p in points), max(p[2] for p in points)
     scale = min(w/(right-left), h/(bottom-top))
-    ox, oy = x+(w-(right-left)*scale)/2, y+(h-(bottom-top)*scale)/2
+    ox, oy = x+(w-(right-left)*scale)/2, y+h-(bottom-top)*scale
     c.saveState()
     c.setLineWidth(.68)
     c.setStrokeColor(HexColor('#46515b'))
@@ -325,7 +326,7 @@ end()
 
 # Interior 3
 header('Have everything ready', sub='Unpack the kit. Have your own supplies ready before opening a water connection.')
-label('IN THE BOX', M, 150)
+label('IN THE BOX', M, 134)
 kit = [('machine', 'Soda machine'),
        ('faucet-and-plate', 'Faucet +<br/>mounting plate'),
        ('filtered-line', 'Filtered water line'),
@@ -336,11 +337,17 @@ kit = [('machine', 'Soda machine'),
        ('install-guide', 'Install guide'),
        ('cold-kit', 'Cold kit')]
 for i, (art, title) in enumerate(kit):
-    x, y = M+(i%3)*134, 168+(i//3)*90
-    kit_picture(art, x+3, y, 120, 61)
-    para(title, x, y+65, 128, 10.5, 12.5, INK, 'Semibold', limit=25)
+    x, y = M+(i%3)*136, 149+(i//3)*99
+    title_height = 25 if '<br/>' in title else 12.5
+    caption_height = title_height + (13 if art == 'cold-kit' else 0)
+    caption_y = y+90-7-caption_height
+    rect(x, y, 128, 90, '#FFFFFF', RULE, r=4)
+    kit_picture(art, x+8, y+5, 112, caption_y-y-10)
+    para(title, x+8, caption_y, 112, 10.5, 12.5, INK, 'Semibold',
+         limit=title_height, alignment=1)
     if art == 'cold-kit':
-        para('Keep bagged for later.', x, y+80, 128, 9, 12, MUTED)
+        para('Keep bagged for later.', x+8, caption_y+title_height+1,
+             112, 9, 12, MUTED, alignment=1)
 rect(459, 144, 145, 295, '#F2F5FB', r=6)
 label('YOU SUPPLY', 473, 159, NAVY, 8)
 supplies = ['Filled 5 lb CO2 cylinder<br/>(CGA-320)',
