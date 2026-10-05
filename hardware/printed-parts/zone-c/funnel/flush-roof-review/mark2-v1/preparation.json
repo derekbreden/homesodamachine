@@ -1,0 +1,210 @@
+{
+  "project": ".cache/prints/2026-10-05-funnel-frame-mark2-v1/2026-10-05-funnel-frame-mark2-v1-input.3mf",
+  "settings_source": "hardware/printed-parts/petgf.3mf",
+  "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "settings_sha256": "7f1084183316c427c199b51dd2205cf3f2e6352c2720ff03a00f0f2bcf2517aa",
+  "source_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    }
+  },
+  "printer": "Mark2",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 15.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "funnel-frame",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/zone-c/funnel/funnel-frame.stl",
+      "stl_sha256": "a2c10ea55fdedfcea8d512f2637db2399e6f02e5571d92e04db8b0cb54520185",
+      "triangles": 40400,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        1.0250015258789062,
+        27.549999237060547
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        162.5,
+        160.0,
+        27.549999237060547
+      ],
+      "plate_translation_mm": [
+        162.5,
+        160.0,
+        27.549999237060547
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          59.0,
+          89.88349151611328,
+          0.0
+        ],
+        [
+          266.0,
+          230.11650848388672,
+          55.099998474121094
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    }
+  ],
+  "project_sha256": "ac43898d1c60cd38813ac78bca875e8b117c8d7ad5fa6bde78223cd6313dd44a",
+  "settings_preserved_byte_for_byte": false,
+  "intentional_overrides": {
+    "support_bottom_z_distance": {
+      "from": "0.3",
+      "to": "0.3"
+    },
+    "support_object_xy_distance": {
+      "from": "0.4",
+      "to": "0.5"
+    },
+    "extruder_ams_count": {
+      "from": [
+        "1#0|4#1",
+        "1#0|4#0"
+      ],
+      "to": [
+        "1#0|4#0",
+        "1#0|4#0"
+      ]
+    },
+    "support_filament": {
+      "from": "0",
+      "to": "1"
+    },
+    "support_interface_filament": {
+      "from": "0",
+      "to": "1"
+    },
+    "flush_into_support": {
+      "from": "1",
+      "to": "0"
+    },
+    "filament_colour": {
+      "from": [
+        "#000000"
+      ],
+      "to": [
+        "#161616"
+      ]
+    },
+    "elefant_foot_compensation": {
+      "from": "0.15",
+      "to": "0"
+    },
+    "brim_type": {
+      "from": "auto_brim",
+      "to": "no_brim"
+    },
+    "brim_width": {
+      "from": "5",
+      "to": "0"
+    }
+  },
+  "layer_ranges_mm": [],
+  "support_painted_facets": {
+    "additive_roof_side_expansion": 0
+  },
+  "pause": null,
+  "requested_z_trim_mm": 0.04,
+  "expected_textured_trim_mm": 0.02,
+  "source_step_sha256": "811028ad961ad698759bda54181370aedf090a53fe1af116ec9390a67b918163",
+  "source_stl_sha256": "a2c10ea55fdedfcea8d512f2637db2399e6f02e5571d92e04db8b0cb54520185",
+  "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "support_bottom_z_distance_mm": 0.3,
+  "support_object_xy_distance_mm": 0.5,
+  "support_top_z_distance_mm": 0.45,
+  "source_sha256": {
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "a2c10ea55fdedfcea8d512f2637db2399e6f02e5571d92e04db8b0cb54520185",
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "811028ad961ad698759bda54181370aedf090a53fe1af116ec9390a67b918163",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/prepare_prints.py": "30cb8cc563da4909813f228bcd74c714bcb371f6543f018936687f0bb92f89aa",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "6b9d93bb8dfccff08b6b831f33c11bc14b445ee7c2b14902720417b4368f9ddf",
+    "hardware/printed-parts/enclosure/enclosure/_cartridge_retention.py": "559e877a79dc1a92342526898049b6d0bb929bdb5212b9ba5c02de5654fbd7c1",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "c192657634e58f38cbd239f31438ca722d17f8f7d73b03cd495952f3723540e1",
+    "hardware/printed-parts/zone-c/funnel/flush-roof-review/geometry-check.json": "7f23db614e837afaa7356e013b34423412392ef0582bcd7cf29873c3144e7e36",
+    "hardware/printed-parts/zone-c/funnel/flush-roof-review/rear-corner-check.json": "c3398eb43ad28188b404cc7bf8814ec460f74f93d8c7a8f844c66e2f37f0f64c",
+    "hardware/printed-parts/zone-c/funnel/flush-roof-review/generation.json": "f210d86b3e422e0ea8a61b852963f220ed5534c21528f7430493fe3f0331d4da",
+    "hardware/printed-parts/faucet/refresh_print_project.py": "78ec647cba763ef165e8e4f5c7f9d96e236254490c7636774d217e96c480853c",
+    ".cache/printer-control/prepare-funnel-frame-mark2-20261005.py": "ba72e954ca746c30f0d400e35d9941af08f867072a1514f49225f28fce55a8ac"
+  },
+  "production_print_pose_retained": true,
+  "submitted": false,
+  "part": "funnel-frame",
+  "quantity": 1,
+  "preparation_wrapper_sha256": "ba72e954ca746c30f0d400e35d9941af08f867072a1514f49225f28fce55a8ac",
+  "geometry_review": "hardware/printed-parts/zone-c/funnel/flush-roof-review/geometry-check.json",
+  "geometry_scope": "Exact exported frame STEP/STL hashes match the geometry review. No geometry regeneration or full assembly rebuild is performed.",
+  "physical_material": "black PET-GF",
+  "external_slot": 254,
+  "fixed_nozzle": "left hardened standard-flow 0.4 mm",
+  "launch_authorization_quote": "Mark2 bed is clear, please start funnel frame there unless you have a better suggestion",
+  "automatic_resume_authorized": false,
+  "scheduled_monitoring_authorized": false
+}
