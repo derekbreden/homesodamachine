@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "article": "Timed C3/V69 front top insertion on H2C",
+  "session": "Printer 2",
+  "state": "waiting_for_timed_start",
+  "timezone": "America/Chicago",
+  "clock_choice": "Local Central clock, CDT UTC-05:00 on 2026-10-05",
+  "authorization_quotes": [
+    "Give me the pump cradle pause at 9:30 am at best and 09:10 am to 9:50 am at worst.",
+    "Both beds are clear.",
+    "Oh, if its the same time, then yeah have front top pause at the very same time please, or close to it, within that window, thanks."
+  ],
+  "coordinator_plan": "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/timed-launch-plan.json",
+  "launch_order": 1,
+  "printer": "H2C",
+  "parts": [
+    "enclosure-front-top"
+  ],
+  "cap_included": false,
+  "funnel_frame_included": false,
+  "preferred_magnet": "C3",
+  "preferred_valve": "V69",
+  "conditional_valve_alternate": "V70",
+  "operator_readiness": {
+    "bed_clear": true,
+    "bed_type": "Textured PEI",
+    "material": "physical black PET-GF labelled PET-CF/GFT01, external left slot 254",
+    "fixed_nozzle": "left hardened standard-flow 0.4 mm",
+    "requested_z_trim_mm": 0.18,
+    "emitted_z_trim_mm": 0.16
+  },
+  "timing": {
+    "target_pause_local": "2026-10-05T09:30:00-05:00",
+    "target_pause_utc": "2026-10-05T14:30:00+00:00",
+    "earliest_allowed_pause_local": "2026-10-05T09:10:00-05:00",
+    "earliest_allowed_pause_utc": "2026-10-05T14:10:00+00:00",
+    "latest_allowed_pause_local": "2026-10-05T09:50:00-05:00",
+    "latest_allowed_pause_utc": "2026-10-05T14:50:00+00:00",
+    "estimated_start_to_pause_minutes": 289,
+    "initial_native_countdown_minutes": 288,
+    "target_acceptance_local": "2026-10-05T04:40:00-05:00",
+    "target_acceptance_utc": "2026-10-05T09:40:00+00:00",
+    "forecast_pause_if_target_acceptance_local": "2026-10-05T09:29:00-05:00",
+    "wake_local": "2026-10-05T04:39:00-05:00",
+    "not_before_send_utc": "2026-10-05T09:39:40+00:00",
+    "latest_send_utc": "2026-10-05T09:54:00+00:00",
+    "latest_acceptance_utc": "2026-10-05T09:57:00+00:00",
+    "acceptance_allowance_seconds": 180,
+    "joint_timing_reserve": "The H2C deadline reserves 180 seconds after acceptance before the Mark2 Send, plus 180 seconds for Mark2 acceptance, to keep its forecast within the same morning window.",
+    "scope": "Minute-rounded native forecast includes modeled startup. The requested pause window controls the start decision; later estimate drift does not authorize stopping the accepted print."
+  },
+  "bindings": {
+    "archive": ".cache/prints/2026-10-05-enclosure-front-top-c3-v69-h2c-v20/ready/2026-10-05-enclosure-front-top-c3-v69-h2c-v20.gcode.3mf",
+    "archive_sha256": "aa076477c54fdc97fb9b14507dbbd7c75f1b182135780be094757105e728505d",
+    "gcode_sha256": "b5051ccbd52185a55bd7002c79944d1a0ceca2ccd39a105dc447456f80be1e34",
+    "project": "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/h2c-v20/2026-10-05-enclosure-front-top-c3-v69-h2c-v20-input.3mf",
+    "project_sha256": "cf7691ccb19e1e29ea97629c84a31f3e173373877de674d3dc1a896f87af4caa",
+    "source_stl_sha256": "af13c3ab421d2a7b5d0a60cb334c3f4c1e1f94e96a407b99c77379486e55ed4f",
+    "source_step_sha256": "93f232f35f27c5da071132c7332d10e5ff58efac6d2ae02921859b14a07eec4b"
+  },
+  "review_records": {
+    "preparation.json": {
+      "path": "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/h2c-v20/preparation.json",
+      "sha256": "dc27cb1eec945a3406ac1972e5be207ddb76c2432c34f24f818d8c2f7b81a22c"
+    },
+    "native-slice.json": {
+      "path": "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/h2c-v20/native-slice.json",
+      "sha256": "d0e8c52cff080d65e6025ad6262a40e038e10a4a69912a670b4ee8b7c1a14f26"
+    },
+    "pause-forecast.json": {
+      "path": "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/h2c-v20/pause-forecast.json",
+      "sha256": "c647314eb5c117a9c3deb34e7598d898844fd7bb39f75e8082fbd94de5e08907"
+    },
+    "retention-native-check.json": {
+      "path": "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/h2c-v20/retention-native-check.json",
+      "sha256": "8cfa4073dcff9b0b73e79973a69e092f809e9497d5ca1af8b7a6bb38d8d49008"
+    }
+  },
+  "recipe": {
+    "first_layer_mm": 0.2,
+    "ordinary_layer_mm": 0.24,
+    "wall_loops": 2,
+    "normal_infill_percent": 15,
+    "inward_top_show_round_layer_mm": 0.08,
+    "inward_top_show_round_band_mm": [
+      187.392,
+      195.0
+    ],
+    "support_bottom_z_distance_mm": 0.3,
+    "support_object_xy_distance_mm": 0.5,
+    "pause_before_layer": 281,
+    "pause_before_print_z_mm": 36.44,
+    "completed_open_rim_mm": 36.2,
+    "magnet_count": 1,
+    "magnet_model": "K&J RC62",
+    "pocket_x_mm": 19.05,
+    "pocket_y_mm": 3.175,
+    "closed_pocket_z_mm": 19.53,
+    "nominal_z_clearance_mm": 0.48,
+    "maximum_diameter_z_clearance_mm": 0.38,
+    "valve_leg_hole_diameter_mm": 6.9,
+    "dense_host_count": 5
+  },
+  "shared_circuit_spacing_seconds": 180,
+  "maximum_send_count": 1,
+  "send_attempted": false,
+  "submitted": false,
+  "launch_authorized": true,
+  "automatic_resume_authorized": false,
+  "other_job_launch_authorized": false,
+  "authorized_peer": {
+    "printer": "Mark2",
+    "launch_plan": "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/mark2-v6/launch-plan.json",
+    "archive_name": "2026-10-05-pump-cradle-c3-mark2-v6.gcode.3mf",
+    "archive_sha256": "37646924eca2ca480b595857f9d8e6aa247130b155952cd2ee3027a40969676d"
+  },
+  "launch_command": [
+    "tools/cad-venv/bin/python",
+    "tools/bambu_print.py",
+    ".cache/prints/2026-10-05-enclosure-front-top-c3-v69-h2c-v20/ready/2026-10-05-enclosure-front-top-c3-v69-h2c-v20.gcode.3mf",
+    "H2C",
+    "--attempts",
+    "1"
+  ],
+  "launch_record": "launch.json",
+  "preflight_record": "preflight.json",
+  "automation_id": "c3-cradle-timed-insertion",
+  "automation_status": "ACTIVE",
+  "monitoring_branch_state": "waiting_for_timed_start",
+  "start_reported": false,
+  "insertion_pause_reported": false,
+  "fault_reported": false,
+  "insertion_action": "Insert the labeled attracting K&J RC62 upright, axis along Y, in the front-top retention pocket. Seat it at the bottom against the cover toward its future cradle mate, fully below both completed open rims, with the toolhead clear. Resume only after separate authorization.",
+  "scope": "Exactly one reviewed C3/V69 H2C v20 front-top start under the shared morning plan. Frozen preparation and native-review files document their captured preparation scope; this plan is the current launch authorization for their exact hashes. No funnel frame, cap, other archive or automatic resume is authorized.",
+  "automation_schedule": "Wake at 4:39 am America/Chicago. Start H2C first near 4:40 am; aim for Mark2 acceptance near 4:43 am, subject to 180 seconds after actual H2C acceptance. Monitor both accepted branches every five minutes.",
+  "initial_preflight_completed_at_utc": "2026-10-05T08:56:26.334770+00:00"
+}

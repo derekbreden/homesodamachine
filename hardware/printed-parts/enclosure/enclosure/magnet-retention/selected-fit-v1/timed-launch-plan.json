@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "article": "C3 front top and standalone cradle morning insertion",
+  "session": "Printer 2",
+  "state": "waiting_for_timed_starts",
+  "timezone": "America/Chicago",
+  "clock_choice": "Local Central clock, CDT UTC-05:00 on October 5, 2026",
+  "authorization_quotes": [
+    "Give me the pump cradle pause at 9:30 am at best and 09:10 am to 9:50 am at worst.",
+    "Both beds are clear.",
+    "Oh, if its the same time, then yeah have front top pause at the very same time please, or close to it, within that window, thanks."
+  ],
+  "launch_authorized": true,
+  "launch_order": [
+    "H2C",
+    "Mark2"
+  ],
+  "target_pause_local": "2026-10-05T09:30:00-05:00",
+  "allowed_pause_window_local": [
+    "2026-10-05T09:10:00-05:00",
+    "2026-10-05T09:50:00-05:00"
+  ],
+  "wake_local": "2026-10-05T04:39:00-05:00",
+  "shared_circuit_spacing_seconds": 180,
+  "spacing_reference": "Actual peer acceptance, not import time, Send time or planned start time. Immediately before each Send freshly read both printers and the peer launch receipt.",
+  "maximum_total_send_count": 2,
+  "maximum_send_count_per_printer": 1,
+  "branches": {
+    "H2C": {
+      "launch_plan": "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/h2c-v20/launch-plan.json",
+      "launch_record": "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/h2c-v20/launch.json",
+      "preflight_record": "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/h2c-v20/preflight.json",
+      "archive_name": "2026-10-05-enclosure-front-top-c3-v69-h2c-v20.gcode.3mf",
+      "archive_sha256": "aa076477c54fdc97fb9b14507dbbd7c75f1b182135780be094757105e728505d",
+      "target_acceptance_local": "2026-10-05T04:40:00-05:00",
+      "forecast_pause_local": "2026-10-05T09:29:00-05:00",
+      "state": "waiting_for_timed_start",
+      "send_attempted": false,
+      "submitted": false,
+      "task_id": null,
+      "job_id": null,
+      "start_reported": false,
+      "insertion_pause_reported": false,
+      "fault_reported": false
+    },
+    "Mark2": {
+      "launch_plan": "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/mark2-v6/launch-plan.json",
+      "launch_record": "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/mark2-v6/launch.json",
+      "preflight_record": "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/mark2-v6/preflight.json",
+      "archive_name": "2026-10-05-pump-cradle-c3-mark2-v6.gcode.3mf",
+      "archive_sha256": "37646924eca2ca480b595857f9d8e6aa247130b155952cd2ee3027a40969676d",
+      "target_acceptance_local": "2026-10-05T04:43:00-05:00",
+      "forecast_pause_local": "2026-10-05T09:30:00-05:00",
+      "state": "waiting_for_timed_start",
+      "send_attempted": false,
+      "submitted": false,
+      "task_id": null,
+      "job_id": null,
+      "start_reported": false,
+      "insertion_pause_reported": false,
+      "fault_reported": false
+    }
+  },
+  "launch_protocol": [
+    "Read both branch plans and receipts first. Never import or Send again if any record or private sender receipt shows an attempted, accepted or ambiguous transaction for that branch.",
+    "Validate exact frozen archive, project, current source and native-review hashes without editing geometry or archive bytes.",
+    "For H2C first, wait until its not-before time, freshly read both printers, verify readiness and spacing, then durably mark send_attempted in coordinator, branch plan and receipt before the one foreground sender with --attempts 1.",
+    "Require a matching new task/job ID and exact archive name for acceptance; record actual acceptance UTC and Central time in all owned launch records.",
+    "For Mark2 wait until the later of its not-before time and actual H2C acceptance plus 180 seconds. Freshly read both printers again immediately before the single Send, enforce its latest deadline, then use the same attempt and acceptance protocol.",
+    "When one branch cannot safely start inside its deadline, suspend and report that branch once. Continue the peer only when its own readiness, exact-file and timing gates pass. No repeated ambiguous transaction.",
+    "After the launch phase update this same heartbeat to every five minutes. Monitor only exact accepted task/job/archive identities; maintain each branch independently until actual insertion is reported or required action suspends it."
+  ],
+  "automatic_resume_authorized": false,
+  "other_jobs_launch_authorized": false,
+  "cap_included": false,
+  "funnel_frame_included": false,
+  "monitoring": {
+    "normal_progress_notifications": false,
+    "record_past_first_layer_once": true,
+    "actual_insertion_pause_required": true,
+    "insertion_confirmation": "A matching programmed pause near the reviewed boundary, with no unresolved fault. Layer/progress forecasts alone do not establish insertion readiness.",
+    "fault_behavior": "Record and report a new fault requiring user action once; suspend that printer branch while continuing the peer.",
+    "automation_stop_condition": "Pause this follow-up only after both branches have reported actual insertion pauses or are suspended for required action. Never resume either printer automatically."
+  },
+  "automation_id": "c3-cradle-timed-insertion",
+  "automation_status": "ACTIVE",
+  "automation_schedule": "Wake at 4:39 am America/Chicago, then every five minutes after the launch phase.",
+  "last_preparation_check_utc": "2026-10-05T08:56:26.334770+00:00",
+  "scope": "Authorization is limited to the exact H2C v20 C3/V69 front top and Mark2 v6 standalone C3 cradle. Keep all older monitors paused and all older queues unchanged, including false authorization of the H2C retention job. Later estimate drift does not authorize stopping an accepted print."
+}
