@@ -6,7 +6,7 @@ or measurements to the founder. It covers
 the printed enclosure, cold-core caps, reservoir closures and attached hardware. Reviewed
 2026-10-04 against the generators, saved print projects and linked physical records.
 
-Reported bench issues are addressed. The accepted results below retain their stated scope.
+Bench issues and accepted results retain the scope of their linked physical records.
 An accepted fit establishes that fit; a geometric clearance establishes that clearance.
 Neither supplies an unmeasured load capacity or endurance result.
 
@@ -52,6 +52,18 @@ linked here are the authority for each observation, including their print bindin
 | [Tee-carrier surface](../printed-parts/enclosure/tee-carrier/physical-acceptance.json) and [sliding fit](../printed-parts/enclosure/tee-carrier/low-force-trial/physical-acceptance.json) | Expanding show transition accepted with additive chamfer/taper and six local walls. Sliding and observed tilt accepted with the existing front-top. | Spring return, actuation force and simultaneous release of all four collets remain separate observations. Preserve the accepted surface treatment in structural profile trials. |
 | [Faucet lever](../printed-parts/faucet/lever-replica/physical-acceptance.json) | Fit and functional operation accepted for the identified print. | Operating force and endurance are unmeasured. |
 | [Reservoir water hold](../printed-parts/cold-core/reservoir/print-log.md) | The identified earlier reservoir assembly held water for several hours with its bulkhead and TPU gaskets. | This result belongs to that geometry and recipe. The current 0.8 mm nozzle trials have no recorded water-test result; warm aging and retained sealing load remain unmeasured. |
+
+## Front-top support removal and rim finish
+
+The [front-top v17 physical result](../printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/physical-result.json)
+is rejected. Top-rim supports are nearly impossible to remove, supported 0.08 mm
+material has extreme spaghettification, normal snug supports are fused with tree
+supports into masses too large for their cavities, and one tee-carrier
+window-cover holder broke while embedded in the support mass. Native access
+lines do not qualify cleanup. Removing the fixed overhang and allowing the
+funnel frame to slide flush with the ceiling is a pending design proposal;
+no revised geometry, slice or physical result is established by this report.
+The accepted tee-carrier surface and sliding-fit results retain their scope.
 
 ## Pump cartridge magnetic contacts
 
