@@ -60,10 +60,26 @@ is rejected. Top-rim supports are nearly impossible to remove, supported 0.08 mm
 material has extreme spaghettification, normal snug supports are fused with tree
 supports into masses too large for their cavities, and one tee-carrier
 window-cover holder broke while embedded in the support mass. Native access
-lines do not qualify cleanup. Removing the fixed overhang and allowing the
-funnel frame to slide flush with the ceiling is a pending design proposal;
-no revised geometry, slice or physical result is established by this report.
+lines do not qualify cleanup. The [front-only flush roof and sliding frame](../printed-parts/zone-c/funnel/flush-roof-review/README.md)
+remove the fixed inward roof ledge, retain complete silicone brim bearing and
+clear the existing back-top in the native seated and insertion checks.
+Revised print cleanup, surface finish and assembled fit remain unqualified.
+The [front-top tree-clearance trial](../printed-parts/enclosure/enclosure/support-bottom-gap/README.md)
+uses a modest part-specific XY increase for trunk side contact; a Bottom Z
+increase does not separate those contacts in the reference native slice.
 The accepted tee-carrier surface and sliding-fit results retain their scope.
+
+## Front-top valve post fit
+
+Derek requests a tighter hand fit in the front-top valve sockets. The
+[upright four-post samples](../printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/README.md)
+compare Ø7.20, 7.10, 7.00, 6.90 and 6.80 mm holes in the production print
+orientation. The earlier [Ø7.20 coupon acceptance](../printed-parts/fixtures/valve-socket-fit/physical-acceptance.json)
+covers easy insertion with zip ties for positive retention. Production socket
+dimensions retain that scope until a sample selects the preferred fit. The
+[request record](../printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/physical-request.json)
+records the intended tighter grip; retention force and endurance remain
+unmeasured.
 
 ## Pump cartridge magnetic contacts
 

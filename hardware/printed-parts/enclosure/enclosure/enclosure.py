@@ -3714,7 +3714,7 @@ def _funnel_cut(inner, outer, centre):
         _funnel.collar_corner_r + funnel_collar_air,
         inner[5] - wall - 1.0, seat + 0.01, cx, cy)
     return (pocket.fuse(throat).fuse(_funnel_keepout(outer, centre))
-            .fuse(_funnel_frame_part.shell_clearance(centre, seat)))
+            .fuse(_funnel_frame_part.shell_clearance(centre, seat, inner)))
 
 
 def _funnel_safe_seam_bosses(box):
@@ -9190,8 +9190,8 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         cx, cy = box.pack.funnel
         brim_front = cy - _funnel.collar_d / 2.0 - _funnel.brim_overhang
         brim_back = cy + _funnel.collar_d / 2.0 + _funnel.brim_overhang
-        # The fore roof joins the ridge crown as solid stock. A closed pocket
-        # between that crown and the roof would trap its printing supports.
+        # The display roof joins the ridge crown. The removable frame's roof
+        # surround is cleared through this stock after the side receivers join it.
         seat_front = (housing_back_y(outer) if y_side == 'front' else
                       brim_front - funnel_seat_thickness)
         seat_stock = _ybox(inner[0], inner[1],
@@ -9220,6 +9220,9 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         piece = piece.fuse(_funnel_frame_part.receivers(
             inner, outer, y_joint, box.pack.funnel, funnel_seat_z(outer), y_side))
         piece = piece.cut(_funnel_cut(inner, outer, box.pack.funnel))
+        if y_side == 'front':
+            piece = piece.cut(_funnel_frame_part.front_roof_clearance(
+                inner, box.pack.funnel, funnel_seat_z(outer), y_joint))
         rail = _funnel_frame_part.datums(funnel_seat_z(outer))[2]
         piece = piece.cut(_z_rail_channels(
             inner, y_joint, rail, y_side, None,

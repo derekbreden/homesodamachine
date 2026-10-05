@@ -1,0 +1,150 @@
+{
+  "schema": 1,
+  "checks": [
+    {
+      "check": "funnel-frame one valid solid",
+      "pass": true,
+      "volume_mm3": 643610.3992641218
+    },
+    {
+      "check": "front-top one valid solid",
+      "pass": true,
+      "volume_mm3": 1231766.4575391384
+    },
+    {
+      "check": "back-top one valid solid",
+      "pass": true,
+      "volume_mm3": 1595711.7850253328
+    },
+    {
+      "check": "frame roof flush with shell exterior",
+      "pass": true,
+      "frame_top_z_mm": 355.0,
+      "roof_z_mm": 355.0
+    },
+    {
+      "check": "existing outlet socket and rail datums retained",
+      "pass": true,
+      "underside_z_mm": 299.9,
+      "socket_floor_z_mm": 302.9,
+      "rail_z_mm": 306.9,
+      "silicone_seat_z_mm": 349.0
+    },
+    {
+      "check": "complete slipped brim footprint has 3 mm of frame bearing",
+      "pass": true,
+      "missing_volume_mm3": 0.0,
+      "bearing_volume_mm3": 11134.663620579251
+    },
+    {
+      "check": "display-side roof landing retains 3 mm",
+      "pass": true,
+      "roof_front_y_mm": 95.45849207671873,
+      "landing_mm": 3
+    },
+    {
+      "check": "frame roof stays behind display roof arris",
+      "pass": true,
+      "air_mm": 0.1142819474725627
+    },
+    {
+      "check": "frame seated in front-top",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "frame seated in back-top",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "front roof stops before existing back-top",
+      "pass": true,
+      "roof_back_y_mm": 199.75,
+      "y_seam_mm": 200.0,
+      "running_air_mm": 0.25
+    },
+    {
+      "check": "rear frame stays beneath existing back-top ceiling",
+      "pass": true,
+      "rear_frame_above_seat_mm3": 0.0
+    },
+    {
+      "check": "existing back-top export triplet retained exactly",
+      "pass": true,
+      "sha256": {
+        "enclosure-back-top.step": "7de724435d621c63f80916991f9c8d0a38c224705d1e9dbaf5b1c6f2f959950a",
+        "enclosure-back-top.stl": "cc3fa8d2544fc768e03006edf9757d57c1b2895b5903eb2b0d56167ec2c6dbc7",
+        "enclosure-back-top.step.mesh": "0e2e43d328eeb34023a82d2c98ca3f36a2d071cdef04ee9f811484bdff80b5ca"
+      }
+    },
+    {
+      "check": "frame stock addition is confined to roof and complete brim bearing",
+      "pass": true,
+      "baseline_frame_mm3": 608280.355536004,
+      "current_frame_mm3": 643610.3992641218,
+      "added_fraction": 0.05808184237182168
+    },
+    {
+      "check": "lower frame equals retained baseline",
+      "pass": true,
+      "delta_mm3": 0.0,
+      "below_z_mm": 333.999
+    },
+    {
+      "check": "front-top below roof equals retained baseline",
+      "pass": true,
+      "delta_mm3": 0.0,
+      "below_z_mm": 333.749
+    },
+    {
+      "check": "back-top below roof equals retained baseline",
+      "pass": true,
+      "delta_mm3": 0.0,
+      "below_z_mm": 333.749
+    },
+    {
+      "check": "added frame stock clears funnel",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "added frame stock clears funnel-cover",
+      "pass": true,
+      "overlap_mm3": 0.0
+    }
+  ],
+  "roof_datums_mm": {
+    "width": 208.5,
+    "front": 95.45849207671873,
+    "back": 199.75,
+    "floor": 346.0,
+    "top": 355.0,
+    "taper_floor": 334.0,
+    "side_reach": 6.0
+  },
+  "nearby_installed_members_checked": [
+    "funnel",
+    "funnel-cover"
+  ],
+  "source_sha256": {
+    "hardware/printed-parts/zone-c/funnel/flush-roof-review/check_geometry.py": "14e94ec93db815504e38a6a07e694df38df3d89efcc695a403bef69015e5475a",
+    "hardware/manifold-layout/enclosure-box.json": "4879e690f9e139856fddb3c5d918be5792e3eff13b5a26cc627e201df7ad0819",
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "410db1305d0600cef79d62b9d91299ac444c487a3d7cb9a5470e5a16dd8b3244",
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "ca1427026349939176275b3cdffc5c4c2dd8b5317e30fa08fabf112aa7362ef8",
+    "hardware/manifold-layout/enclosure-assembly.step": "6074dc6a542d0ae514f4a30a0d19945d85c9031e774a62cbc548c62defbb929e",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "020e0ae5ee3dcbe748d5b3ee994ac4975d9d81b8793a1f534a2ad97f7a80595c",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "e7283da22c69147d65418d1518e5b66247f8e7525409713909897fd8ceba2dbf",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "cb6f4ced20b8bf1ee719298b3e3c193c67e42ecb3aeaac271ccb79049775e007",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "cc2cfd8a490b52439d957aa082b0e4369c5602076740494298b3a954f0ba36ba",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "7de724435d621c63f80916991f9c8d0a38c224705d1e9dbaf5b1c6f2f959950a",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "cc3fa8d2544fc768e03006edf9757d57c1b2895b5903eb2b0d56167ec2c6dbc7"
+  },
+  "retained_baseline_sha256": {
+    "enclosure-back-top.step": "7de724435d621c63f80916991f9c8d0a38c224705d1e9dbaf5b1c6f2f959950a",
+    "enclosure-front-top.step": "69ef530764b2f237acc27cc05be36db875d87f88b6836bad521c2bf3f9ac093e",
+    "funnel-frame.step": "011cba0d23badd7f0bc31ddffee6b55f68ac8b6cec8044aeb9d457e9b34be089"
+  },
+  "scope": "Native roof and retained mating geometry. Added frame stock checked against installed bodies from the named assembly export; full motion, load capacity, physical fit, print finish and support removal remain separate qualifications.",
+  "pass": true
+}
