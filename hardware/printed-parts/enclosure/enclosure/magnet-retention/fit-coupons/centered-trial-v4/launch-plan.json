@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "session": "Printer 2",
-  "state": "centered_coupon_jobs_printing_and_cooling",
+  "state": "both_centered_coupon_jobs_cooling",
   "recorded_at_utc": "2026-10-05T04:24:50.947892+00:00",
   "timezone": "America/Chicago",
   "authorization_quotes": [
@@ -106,7 +106,7 @@
   "shared_circuit_observed_start_spacing_seconds": 207.541819,
   "mark2_monitor_active": true,
   "h2c_monitor_active": true,
-  "monitor_updated_at_utc": "2026-10-05T06:20:44.295130+00:00",
+  "monitor_updated_at_utc": "2026-10-05T06:25:42.001338+00:00",
   "early_layer_milestones": {
     "Mark2": {
       "first_layer_printer_progress": true,
@@ -121,6 +121,12 @@
     "Mark2": {
       "state": "completed_cooling",
       "completion_observed_at_utc": "2026-10-05T06:20:44.295130+00:00",
+      "completion_cooled": false,
+      "completion_reported": false
+    },
+    "H2C": {
+      "state": "completed_cooling",
+      "completion_observed_at_utc": "2026-10-05T06:25:42.001338+00:00",
       "completion_cooled": false,
       "completion_reported": false
     }
