@@ -1,0 +1,279 @@
+{
+  "schema": 1,
+  "built_date": "2026-10-04",
+  "board": "RP2040 Raspberry Pi Pico, including standard modules with soldered headers",
+  "sdk_release": "2.2.0",
+  "sdk_commit": "a1438dff1d38bd9c65dbd693f0e5db4b9ae91779",
+  "compiler": "Arm GNU14.3.0",
+  "source_sha256": {
+    "main.cpp": "7be9abfbd533f6a140a7f27a3203fb30c21b26535e9f308eb6fc15e05a5ab5da",
+    "motion_policy.h": "597a5153c76e1d4c436370b435b67247a3d0d61b80d3ac8067c88e869b9b5424",
+    "safety_policy.h": "52dedcf7e759adf9cf47d180ef58a5bdf4ec74700c6314bf7c28ebe78b27dc04",
+    "command_input.h": "5c6c5fd7ba0123aa86df46407c3257a58bede21424f2d4fd1a68be2c9fa55df3",
+    "pins.h": "7358e8d186f0ecb78f5e340003ef4f90f97e9dd720caea4762f679eb620371ee",
+    "tmc_uart.h": "9b1668404e34985c12fd33987673baf96a3e8f0063e86cd5149d2af9ae0c3af6",
+    "tmc_protocol.h": "58f56d10fa94cde7360c8e029c3c75ea4d9123684c7c7d807ba5abf85b0a61dc",
+    "geometry_generated.h": "56c8bf3df52605eba98b21abe06bf3d0bf87da7152c72c94c981b28f5c4e87d7",
+    "CMakeLists.txt": "084d3f2593a880fd7dc9736c8ba7eb81359e2d8d651d08388c753489f89c78d2",
+    "make_geometry.py": "03ff1d5275ef8e48dcdd7c867b4179e33e7384b161b25467125e6f253dc958d8",
+    "make_uf2.py": "27598a23548b3901b140c8a80ac9576aa5ecd8919ac5d4d9aad5d91b3b4a4e8a",
+    "verify_assets.py": "c301042d05547b46884f51143056d923d13f9d749b8ba3bbb2f8ab619afc338b",
+    "host/positioner.py": "a3abb7c6aa6cabdfc4817198ddabcb78125c8d80205d77f3ceb1878dc65816f7",
+    "host/kinematics.py": "683cd84315cf965052c4c86ced6e1a817873751a0fc7fa3e9dae0f489d1e3cb6",
+    "host/visual_servo.py": "35dc85c482370b0a09a208bad5001b41efce3f17ccb62155b14c0ee87ef6c8a6",
+    "host/requirements.txt": "0b81718d1cbe8a7696e45a9388c9205272b5e345cd79d0cf1ccfb7a9fd1925e9",
+    "tests/check.h": "f31208e5bf2903ea5bba4aafec8e63db520df4ce10dee0c6a34dbf75ceac5965",
+    "tests/policy_test.cpp": "299c9ca9751028536f935a8b90e0f2581261cadb4717cfea5dfe3d603a416389",
+    "tests/safety_test.cpp": "97bec1ea2a03d592ce5a52c96d565a9983a84760695d8b6c13c5d62436492202",
+    "tests/protocol_test.cpp": "f201370e414ce4846901d019771a0482143e07cccca9d3199295d12b8d3373ca",
+    "tests/host_test.py": "07aa7c58c3581b772b4aae22d67c23f37da0fe8afb8a16764835647cd8e4420e",
+    "tests/client_test.py": "c05323ba10f2807dc4c0e94aa4501efd2962922a6878fa705af63b652191bc46",
+    "tests/wiring_test.py": "bbf0b13aefba1d044c2c0630dbf5a1fef107d9bac35af3c7305419eb27da2640",
+    "tests/simulator.cpp": "5c2650f6ca93772f57e85dd71da0a7c3a3db5d5d83a8ae90fe1fbc789e8e8c25",
+    "driver_profile.h": "900d5802461c10ae6cda5ee1b8e8db8c209520e056eb2368c555cadd0b591371"
+  },
+  "geometry_source": "hardware/printed-parts/fixtures/gun-positioner/geometry-check.json",
+  "geometry_parameters": {
+    "linear_limits_mm": {
+      "soft": [
+        -85,
+        85
+      ],
+      "switch": [
+        -89,
+        89
+      ],
+      "metal_stop": [
+        -94,
+        94
+      ]
+    },
+    "angular_limits_deg": {
+      "soft": [
+        -20,
+        20
+      ],
+      "soft_by_axis": {
+        "yaw": [
+          -20,
+          20
+        ],
+        "pitch": [
+          -20,
+          10
+        ],
+        "roll": [
+          -20,
+          20
+        ]
+      },
+      "switch": [
+        -21,
+        21
+      ],
+      "switch_by_axis": {
+        "yaw": [
+          -21,
+          21
+        ],
+        "pitch": [
+          -21,
+          11
+        ],
+        "roll": [
+          -21,
+          21
+        ]
+      },
+      "metal_stop": [
+        -22,
+        22
+      ],
+      "metal_stop_by_axis": {
+        "yaw": [
+          -22,
+          22
+        ],
+        "pitch": [
+          -22,
+          12
+        ],
+        "roll": [
+          -22,
+          22
+        ]
+      }
+    },
+    "angular_actuator": {
+      "r_mm": 150.0,
+      "L0_mm": 180.0,
+      "soft_length_mm": [
+        129.01451207150308,
+        231.47984751208955
+      ],
+      "hard_length_mm": [
+        124.28986483231574,
+        236.44340250671792
+      ],
+      "minimum_effective_lever_mm": 133.6015268895758
+    },
+    "nominal_motion": {
+      "lead_mm": 2.0,
+      "ratio": 4,
+      "full_step_um": 2.5,
+      "sixteen_microstep_command_pulses_per_mm": 6400.0,
+      "minimum_fullstep_tool_increment_um_at_200mm": 3.3333333333333335
+    },
+    "tool_proxy": {
+      "v_mm": [
+        200.0,
+        0.0,
+        47.35
+      ],
+      "reference_dot_mm": [
+        -61.85,
+        0.0,
+        278.4
+      ],
+      "gimbal_center_mm": [
+        -25.354883337958576,
+        -136.20162961089204,
+        427.9300807568877
+      ],
+      "orientation_deg": [
+        105,
+        60,
+        0
+      ],
+      "scope": "Gun proxy is unscanned; actual tool transform must be observed and calibrated. Nominal mechanical axes are Rz Ry Rx."
+    }
+  },
+  "profiles": [
+    {
+      "name": "bench",
+      "file": "gun-positioner-bench.uf2",
+      "sha256": "2c775bee1ff47620d32791f48a8fc5bb5ab112bde01de77259e94c6b2ff657b2",
+      "bytes": 112128,
+      "current_scales": [
+        10,
+        10,
+        10,
+        10,
+        10,
+        10
+      ],
+      "nominal_R110_current_rms_A": [
+        0.336556,
+        0.336556,
+        0.336556,
+        0.336556,
+        0.336556,
+        0.336556
+      ],
+      "max_rate_count_s": 2000,
+      "microsteps": 16,
+      "build_definitions": {
+        "POSITIONER_LOADED_PROFILE": 0,
+        "POSITIONER_MAX_RATE": 2000
+      },
+      "hardware_scope": "Unqualified; no board upload or powered positioner test performed",
+      "configured_vsense": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "nominal_VFS_V": [
+        0.18,
+        0.18,
+        0.18,
+        0.18,
+        0.18,
+        0.18
+      ],
+      "nominal_current_peak_A": [
+        0.475962,
+        0.475962,
+        0.475962,
+        0.475962,
+        0.475962,
+        0.475962
+      ]
+    },
+    {
+      "name": "loaded-development",
+      "file": "gun-positioner-loaded-development.uf2",
+      "sha256": "2222f22bb52b0216abc84059925f17e5f34d6f49578d4c774334a381853c597b",
+      "bytes": 112128,
+      "current_scales": [
+        10,
+        10,
+        22,
+        10,
+        14,
+        10
+      ],
+      "nominal_R110_current_rms_A": [
+        0.336556,
+        0.336556,
+        1.270582,
+        0.336556,
+        0.458939,
+        0.336556
+      ],
+      "max_rate_count_s": 1000,
+      "microsteps": 16,
+      "build_definitions": {
+        "POSITIONER_LOADED_PROFILE": 1,
+        "POSITIONER_MAX_RATE": 1000
+      },
+      "hardware_scope": "Unqualified; no board upload or powered positioner test performed",
+      "configured_vsense": [
+        1,
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "nominal_VFS_V": [
+        0.18,
+        0.18,
+        0.325,
+        0.18,
+        0.18,
+        0.18
+      ],
+      "nominal_current_peak_A": [
+        0.475962,
+        0.475962,
+        1.796875,
+        0.475962,
+        0.649038,
+        0.475962
+      ]
+    }
+  ],
+  "computer_verification": {
+    "compiler": "passed both named SDK2.2.0 RP2040 profiles, Release, -Wall -Wextra -Werror",
+    "native_policy": "passed bench and loaded rate configurations with -DNDEBUG and always-evaluating checks: synchronized exact totals, all6 soft and NC faults, genuine acceleration/rate bounds, state/health/sequence refusal, mid-move latched faults, disarm, catch-up refusal, heartbeat boundary and sequence exhaustion",
+    "native_safety": "passed VM cycle/reference invalidation in all5 states, same-epoch scan qualification, all6 driver reset/config/read/warning and per-axis VSENSE rejection in both profiles, SpreadCycle diagnostic check and tick-qualified watchdog liveness/wrap",
+    "native_protocol": "passed permissive STOP prefix, immediate invalid-input/overflow inhibit events, CRC vector, echoed/partial/corrupt/wrong-register UART frame rejection",
+    "host_tests": "passed5 geometry/quantization/host-firmware parity/dot-compensation/segmentation/local-response cases and7 fake-serial Client cases for late acknowledgments, ambiguity STOP/resync, boot reset, heartbeat recovery and profile mismatch including recovery after reset and configured/actual VSENSE mismatch",
+    "UART_DC": "passed wiring-manifest resistor-network design-envelope calculation; physical UART waveform/turnaround remains unqualified",
+    "UF2": "all block headers, addresses, family IDs, footers, named-profile marker and source/geometry binding checked",
+    "hardware_connections_opened": false,
+    "physical_positioning_accuracy": "unqualified"
+  },
+  "current_estimate_scope": {
+    "sense_resistor_nominal_ohm": 0.11,
+    "internal_sense_resistance_ohm": 0.02,
+    "sense_resistor_tolerance_assumption_fraction": 0.05,
+    "internal_reference_tolerance_fraction": 0.05,
+    "loaded_Z_design_screen_peak_A": 1.9700677710843375,
+    "scope": "BTT schematic specifies0.11ohm but does not establish resistor tolerance. Digital readback/current formula and tolerance screen do not calibrate actual coil current; loaded response and50C guarded-fan thermal acceptance remain physical gates.",
+    "source": "https://www.analog.com/media/en/technical-documentation/data-sheets/TMC2209_datasheet_rev1.09.pdf"
+  }
+}
