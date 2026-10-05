@@ -2,7 +2,7 @@
   "project": "mark2-v1.3mf",
   "settings_source": "hardware/printed-parts/enclosure/enclosure/magnet-retention/v4/pump-cartridge-cap-pause.3mf",
   "settings_source_sha256": "1fcd2933cfd4db0bf9e1f3e010d0944e37b8ed68f390ca06ba792e4010ae5d96",
-  "settings_sha256": "4abb51da216d16711660642cf245c1e9af2582cb19bc0786cfb92f71cfa865c6",
+  "settings_sha256": "6b3504b4898b5f579cd6970c335955cf204c56fc935fe6d9fd137ddc23fd7651",
   "source_settings_sha256": "678ddc7b0329343ed9658d09695f01e1b803ea7e4ec37254dcd383c5ead5e408",
   "settings_changes": {
     "machine_start_gcode": {
@@ -15,7 +15,7 @@
       "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
     }
   },
-  "printer": "Bambu Lab H2C 0.4 Standard +0.04 Z trim",
+  "printer": "Mark2",
   "process": "0.24mm PET-GF faucet",
   "filament": [
     "Polymaker PET-GF @BBL H2C"
@@ -1009,6 +1009,6 @@
       "embedded_vertex_error_mm": 5.000000413701855e-10
     }
   ],
-  "project_sha256": "b4f9fd2ab82c3496dec0b5507efe8f0d8ce759afa9bc664d5aba91d0f32f6270",
+  "project_sha256": "e2e25583edf935745a27d91652658c62a8fe79f5118f9813fd84b9a0c9cdde0f",
   "settings_preserved_byte_for_byte": false
 }

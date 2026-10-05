@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "reported_by": "Derek",
+  "reported_date": "2026-10-04",
+  "reported_timezone": "America/Chicago",
+  "recorded_at_utc": "2026-10-05T02:58:01.563493+00:00",
+  "part": "front-top valve-leg sockets",
+  "quote": "I also need the valves legs to be much tighter in these holes, so I need some test prints to help me choose tighter holes for those as well. I'd like printed in an orientation similar to those in front top here. At least a few variations of tighter, ready for me to press valves into and see which tighter fit I like best.",
+  "requested_outcome": "A tighter hand press fit chosen with the actual valve in production orientation",
+  "production_socket_profile_changed": false,
+  "preferred_sample": null,
+  "fit_qualified": false,
+  "earlier_accepted_coupon": "../physical-acceptance.json",
+  "scope": "The tighter-hole request applies to the front-top sockets. The earlier acceptance of a 7.20mm coupon with zip ties retains its stated scope. These open panels compare hand fit; no measured retention force or lifetime is supplied."
+}

@@ -32,14 +32,14 @@ dry retention and sealing performance have not been physically qualified.
 The intended cleaning motion is lifting the whole silicone funnel out by hand.
 Its sealing land slides off the raw 1/4-inch LLDPE drain stub, which stays standing in the drain
 elbow's collet under the frame. To refit, press the plug into the frame's socket
-until its flat bottom bears on the cradle's hook tops and the brim seats on the roof ledge.
+until its flat bottom bears on the cradle's hook tops and the brim seats in the frame's roof recess.
 The [mold shells and contoured mandrel](../funnel-mold/README.md) form the complete
 plug and staged bore. Their native geometry and slice checks do not establish
 the finished silicone's wet seal, dry retention or removal force.
 
 ## PET-GF frame
 
-The frame is 207 mm wide and 142.283 mm long. Its entire underside is flat at
+The frame's lower rail footprint is 207 mm wide and 142.283 mm long. Its entire underside is flat at
 Z299.9. Its socket floor is Z302.9, with a 3 mm web beneath it and 3.15 mm air to the
 silicone block's lower face between the hook tops. An [11.25 mm](FRAME_HOLE) hole at
 X1.85, Y164.55 passes the drain elbow's collet. Its fixed nose face stands 0.65 mm
@@ -54,7 +54,18 @@ Both end corbels are 30° from vertical, across the complete X width, including
 the rail wings. The lower footprint runs from Y119.1 to Y210. The body widens
 upward to Y93.408 and Y235.692. The rail datum is Z306.9 and its top is Z321.7.
 The broad body fills the stock between its bowl clearance and rails.
-The funnel's brim bears on the enclosure's recessed roof ledge around its collar.
+The removable frame carries the complete brim bearing at Z349, with 3 mm of
+material beneath the slipped collar footprint. The front roof surround finishes
+flush with the enclosure at Z355 and ends at Y199.75, one running clearance
+before the Y200 seam. The rear frame envelope remains at Z349 beneath the
+existing back-top roof. The 208.5 mm front surround grows from the 196.5 mm
+body over Z334–346 at 0.5 mm outward per millimetre of build rise, approaching
+both vertical shell walls with 0.25 mm air. Its display-side roof landing is
+3 mm wide. Front-top's opening clears the surround and its roof tongue, with
+no fixed inward brim-bearing ledge above the frame. Existing rail, socket
+and drain datums are retained.
+[`Flush-roof geometry`](flush-roof-review/README.md) records the exported parts
+and their integration checks.
 
 The frame prints on its underside. The exported individual STEP and STL place
 that face at Z0 and the funnel's plan center at X0, Y0. Functional rail catches
@@ -111,12 +122,16 @@ records sampled insertion of the exported frame through both actual upper shells
 their closing motion, and capture against 2 mm translations on all three axes.
 Run `integration-review/check_fit.py` from the CAD environment to refresh it.
 
-The current frame requires its own native slice and physical support-removal and fit review.
-The stored native slice uses a 0.20 mm first layer, 0.24 mm subsequent layers,
-and six walls through the 44.499 mm corbel band. Its four support bodies reach
-only the four rail bearing regions; none start on the model. The
-[`support audit`](integration-review/frame-support-audit.json) includes unlabelled
-support bodies. These records describe the slice, not a physical fit test.
+The current frame requires its own native slice and physical support-removal
+and fit review. The retained
+[`support audit`](integration-review/frame-support-audit.json) describes the
+input meshes named in that record: a 0.20 mm first layer, 0.24 mm subsequent
+layers, six walls through its 44.499 mm corbel band and four bed-rooted support
+bodies at the rail bearings. That slice does not qualify the current roof
+surround. Its side-expansion band is print Z34.1–46.1; use six walls there
+and keep supports off that additive slope. The flat rails retain accessible
+supports. Physical fit, brim support under load and surface finish remain
+separate observations.
 
 ## Sources
 [value](NAME) texts are updated by:

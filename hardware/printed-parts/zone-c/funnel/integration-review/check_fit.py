@@ -15,7 +15,10 @@ F=ROOT/'hardware/printed-parts/zone-c/funnel/funnel-frame.stl'
 def solid(path,translation=(0,0,0)):
     m=trimesh.load_mesh(path)
     m.apply_translation(translation)
-    assert m.is_watertight and m.is_winding_consistent and m.body_count==1,str(path)
+    # A programmed insertion pocket leaves a separate closed, inward-wound
+    # cavity shell in the complete mesh; it is not a second printed part.
+    positive_bodies=sum(s.volume>0 for s in m.split(only_watertight=False))
+    assert m.is_watertight and m.is_winding_consistent and positive_bodies==1,str(path)
     a=mf.Manifold(mf.Mesh(np.asarray(m.vertices,np.float32),np.asarray(m.faces,np.uint32)))
     assert a.status()==mf.Error.NoError,str(path)
     return a,m

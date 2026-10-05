@@ -1677,12 +1677,16 @@ captures its rear rails in back-top. `funnel_frame.py` uses the production
 Z-seam heads and channels with the same section and fit allowances. The
 receiving bands are part of the corresponding enclosure solids.
 
-The frame's top is Z349, its flat underside is Z299.9, and its two full-width
+The frame's brim bearing is Z349, its flat underside is Z299.9, and its two full-width
 end corbels are 30° from vertical. Its socket has a 3 mm floor, pierced by an 11.25 mm
 elbow-collet hole and the cradle's two wing slots. The silicone block rests on the carrier's
 hook tops 3.15 mm above that socket floor.
-The shell opening clears the
-frame body, while the rail channels retain their separate functional profile.
+The front surround reaches the flush Z355 roof plane and ends at Y199.75,
+one running clearance before the seam. The rear frame retains its Z349
+envelope beneath the existing back-top roof. Front-top's opening clears the
+removable surround and roof tongue, leaving no fixed inward brim-bearing
+ledge above the frame. The complete brim footprint retains 3 mm of frame
+bearing beneath Z349. The rail channels retain their separate functional profile.
 See [`../../zone-c/funnel/`](../../zone-c/funnel/) for dimensions and the drain joint.
 
 ## back-top's ceiling

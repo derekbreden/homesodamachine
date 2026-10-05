@@ -27,6 +27,7 @@ width = 207.0
 body_width = 196.5
 depth = funnel.collar_d + 24.6
 corner_radius = 6.0
+forming_air = 0.3
 rail_below_seat = 42.1
 receiver_height = 23.3
 corbel_foot_half_depth = 27.5 + funnel.forward_extension / 2.0
@@ -75,19 +76,74 @@ def corbel_cut(centre, floor, air=0.0):
     return cq.Compound.makeCompound(cuts)
 
 
-def body_blank(centre, seat, air=0.0):
+def roof_datums(inner=DEFAULT_INNER, centre=(0.0, center_y), seat=349.0,
+                y_joint=200.0, full_front_opening=False):
+    """The removable roof surround and its complete 3 mm brim bearing."""
+    import enclosure as enc
+    cx, cy = centre
+    roof_width = inner[1] - inner[0] - 2 * enc.slide_slip
+    front = (cy - funnel.collar_d / 2 - funnel.brim_overhang
+             - enc.funnel_collar_air - web)
+    back = (cy + depth / 2 if full_front_opening else
+            min(cy + depth / 2, y_joint - enc.slide_slip))
+    floor = seat - web
+    reach = (roof_width - body_width) / 2
+    return dict(width=roof_width, front=front, back=back, floor=floor,
+                top=seat + funnel.brim_thickness,
+                taper_floor=floor - reach / 0.5,
+                side_reach=reach)
+
+
+def roof_blank(inner, centre, seat, air=0.0, y_joint=200.0,
+               full_front_opening=False):
+    """Flush roof surround, with model-rooted 0.5:1 side expansions.
+
+    The lower frame and production rails retain their own width. Only the roof
+    approaches the vertical shell walls, so there is no fixed inward roof ledge
+    above the removable frame.
+    """
+    import enclosure as enc
+    cx, cy = centre
+    r = roof_datums(inner, centre, seat, y_joint, full_front_opening)
+    outline = funnel._rounded_box(r['width'] + 2 * air,
+        r['back'] - r['front'] + 2 * air, corner_radius + air,
+        r['taper_floor'] - air, r['top'] + air,
+        cx, (r['front'] + r['back']) / 2)
+    # Keep the outer clearance face parallel to the nominal taper, and extend
+    # its inboard root beneath the rounded ends of the original frame body.
+    half = body_width / 2 - air
+    roof_half = r['width'] / 2 + air
+    strips = [funnel._box(body_width + 2 * air, 400,
+                         r['floor'] - air, r['top'] + air, cx, cy)]
+    for sign in (-1, 1):
+        points = [(cx + sign * half, r['taper_floor'] - air)]
+        if air:
+            points.append((cx + sign * (body_width / 2 + air),
+                           r['taper_floor'] - air))
+        points += [(cx + sign * roof_half, r['floor'] - air),
+                   (cx + sign * roof_half, r['top'] + air),
+                   (cx + sign * half, r['top'] + air)]
+        strips.append(enc._xz_prism(cy - 200, cy + 200, points))
+    blank = strips[0]
+    for strip in strips[1:]:
+        blank = blank.fuse(strip)
+    return blank.intersect(outline)
+
+
+def body_blank(centre, seat, air=0.0, inner=DEFAULT_INNER, y_joint=200.0):
     cx, cy = centre
     floor, _plug, rail = datums(seat)
     body = funnel._rounded_box(body_width + 2 * air, depth + 2 * air,
                                corner_radius + air, floor - air, seat + air, cx, cy)
     foot = funnel._rounded_box(width + 2 * air, depth + 2 * air,
                                corner_radius + air, floor - air, rail, cx, cy)
-    return body.fuse(foot).cut(corbel_cut(centre, floor, air)).clean()
+    roof = roof_blank(inner, centre, seat, air, y_joint)
+    return body.fuse(foot).fuse(roof).cut(corbel_cut(centre, floor, air)).clean()
 
 
 @functools.cache
 def forming_clearance():
-    return funnel.build_solids(outer_air=0.3)[0]
+    return funnel.build_solids(outer_air=forming_air)[0]
 
 
 def merge_edges(shape):
@@ -104,19 +160,35 @@ def build(inner=DEFAULT_INNER, y_joint=200.0, centre=(0.0, center_y), seat=349.0
     floor, plug, rail = datums(seat)
     assert abs(web + funnel.plug_lift -
                (elbow_cradle.stations()['hook_top'] - elbow_cradle.CATCH_GAP)) < 1e-6
-    body = body_blank(centre, seat)
+    body = body_blank(centre, seat, inner=inner, y_joint=y_joint)
     for col in ('front', 'back'):
         body = body.fuse(enc._z_rail_heads(
             inner, y_joint, rail, col, None, runs=rail_runs(inner, y_joint, col, centre)))
     body = body.cut(corbel_cut(centre, floor))
     # The drain hole and the elbow cradle's two wing slots are all that pierce the 3 mm web.
     clear = forming_clearance().translate((cx, cy, seat))
-    clear = clear.intersect(funnel._box(400, 400, plug, seat + 10, cx, cy))
+    clear = clear.intersect(funnel._box(400, 400, plug, seat, cx, cy))
+    # Forming air expands the silicone brim below its underside. Keep that
+    # expansion in the collar opening, so it cannot shave the brim's bearing.
+    collar_limit = funnel._rounded_box(
+        funnel.collar_w + 2 * forming_air, funnel.collar_d + 2 * forming_air,
+        funnel.collar_corner_r + forming_air,
+        seat - forming_air - 0.01, seat + 0.01, cx, cy)
+    brim_air = funnel._box(400, 400, seat - forming_air - 0.01,
+                          seat + 0.01, cx, cy).cut(collar_limit)
+    clear = clear.cut(brim_air)
+    # The silicone's complete brim bears on the removable frame at the existing
+    # seat datum; its top and the frame's surround finish on the same roof plane.
+    brim = funnel._rounded_box(
+        funnel.collar_w + 2 * (funnel.brim_overhang + enc.funnel_collar_air),
+        funnel.collar_d + 2 * (funnel.brim_overhang + enc.funnel_collar_air),
+        funnel.brim_corner_r + enc.funnel_collar_air,
+        seat, seat + funnel.brim_thickness + 1, cx, cy)
     place = cq.Vector(cx + funnel.neck_dx, cy + funnel.neck_dy, floor)
     half, gap = funnel.plug_width / 2, (socket_width - funnel.plug_width) / 2
     socket = elbow_cradle.socket(half, gap, socket_depth, *socket_flare).translate(place)
     pierce = [c.translate(place) for c in elbow_cradle.web_cuts()]
-    body = body.cut(clear.fuse(socket))
+    body = body.cut(clear.fuse(socket).fuse(brim))
     for c in pierce:
         body = body.cut(c)
     body = merge_edges(body)
@@ -149,10 +221,23 @@ def receivers(inner, outer, y_joint, centre, seat, col):
     return cq.Compound.makeCompound([b.cut(channel) for b in bands])
 
 
-def shell_clearance(centre, seat):
+def shell_clearance(centre, seat, inner=DEFAULT_INNER, y_joint=200.0):
     """Body clearance through shell furniture; rail clearance has its own exact cutter."""
     import enclosure as enc
-    return body_blank(centre, seat, enc.slide_slip)
+    return body_blank(centre, seat, enc.slide_slip, inner, y_joint)
+
+
+def front_roof_clearance(inner, centre, seat, y_joint):
+    """Open front-top's roof tongue over the frame and existing rear ceiling.
+
+    Back-top retains its complete roof. The frame's raised front surround stops
+    one running clearance before that rear roof, while the front shell gives up
+    the fixed inward ledge and roof tongue above the rear frame envelope.
+    """
+    import enclosure as enc
+    floor = datums(seat)[0]
+    return roof_blank(inner, centre, seat, enc.slide_slip, y_joint,
+                      full_front_opening=True).cut(corbel_cut(centre, floor, enc.slide_slip))
 
 
 def front_seam_relief(outer, y_joint, centre, seat):
