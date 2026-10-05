@@ -135,7 +135,7 @@ def geometry_figures(info):
         'ROD_EXPOSED': f"{info['dimensions_mm']['rod'][2]-info['rod_support']['engagement_mm']:g} mm",
         'ROD_CLEARANCE': f"{info['rod_support']['guide_diametral_clearance_mm']:g} mm",
         'ROD_GUIDE_D': f"{info['rod_support']['guide_diameter_mm']:g} mm",
-        'ROD_ROOF_GAP': f"{info['rod_support']['axial_roof_clearance_mm']:.2f} mm",
+        'ROD_PROJECT': f"{info['rod_support']['rod_projection_above_guide_mm']:.2f} mm",
         'SOCKET_D': f"{info['rod_socket']['diameter_mm']:g} mm",
         'SOCKET_DEPTH': f"{info['rod_socket']['depth_mm']:g} mm",
         'ROD_END_DEPTH': f"{info['rod_socket']['rod_end_depth_mm']:g} mm",
@@ -169,7 +169,7 @@ def write_figures(models, figures, merge=False):
     held = json.loads(sidecar.read_text()).get(key, {}) if merge and sidecar.exists() else {}
     held.update(figures)
     for retired in ('SOCKET', 'SOCKET_VENT', 'SPOUT_WALL', 'SPOUT_OD', 'SPOUT_LAND',
-                    'TIP_LENGTH', 'TIP_CAP', 'ROD_MIN_WALL', 'ROD_TIE_WIDTH', 'ROD_SEAL_DEPTH', 'ROD_EXTRA'):
+                    'TIP_LENGTH', 'TIP_CAP', 'ROD_MIN_WALL', 'ROD_TIE_WIDTH', 'ROD_SEAL_DEPTH', 'ROD_EXTRA', 'ROD_ROOF_GAP'):
         held.pop(retired, None)
     substitute_md(models/'README.md', variables=figures)
     sidecar.write_text(json.dumps({key: held}, indent=2, sort_keys=True)+'\n')

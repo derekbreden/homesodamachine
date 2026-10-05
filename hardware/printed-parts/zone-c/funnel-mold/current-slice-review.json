@@ -1,37 +1,37 @@
 {
-  "checked_date": "2026-10-04",
+  "checked_date": "2026-10-05",
   "method": "Current native STEP/STL reads, hash-exact containment binding and separate mesh-refreshed copy of frozen project settings.",
   "native_geometry": {
     "cavity": {
-      "sha256": "e534dc1cdc309e88210e29f66d7f9cf25f5056a0fee2499bdf2c220c35c7bb43",
+      "sha256": "54ac665069d8e3ae282c45c9f464448beabfb85fd9e32abf3bd4ccee2893d22d",
       "valid": true,
       "solids": 1,
       "bounds_mm": [
-        -105.5,
-        105.5,
-        -105.5,
-        105.5,
+        -105.5000001,
+        105.5000001,
+        -81.84150802328,
+        81.841508023281,
         -1e-07,
         59.15
       ],
-      "volume_mm3": 302193.1936499078
+      "volume_mm3": 252277.49847158467
     },
     "core": {
-      "sha256": "cc9f9c3b034ac5cfced8f26c867b364e0a2673510838cf6aaed556fb5950d3ec",
+      "sha256": "118a3800cf6435d9747936e000ca671cef853b58aa722dc09dcafabe05b5d424",
       "valid": true,
       "solids": 1,
       "bounds_mm": [
         -105.5000000000014,
         105.5,
-        -105.5,
-        105.5,
-        18.938381173584904,
+        -81.84150792328,
+        81.841507923281,
+        18.797960837516868,
         61.15
       ],
-      "volume_mm3": 293427.57334624394
+      "volume_mm3": 242376.12127900688
     },
     "funnel": {
-      "sha256": "af2a72a429d67d3d78349a8675643448f401f42d28f95d408765dc10ce73760e",
+      "sha256": "50f81124d0fa3428278da0b07bbf4bca9b0c0e99131d5f293c24dce4c18f2e24",
       "valid": true,
       "solids": 1,
       "bounds_mm": [
@@ -39,33 +39,33 @@
         89.5000001,
         -65.84150802328,
         65.841508023281,
-        7.199999899999999,
+        7.1999999,
         56.1500001
       ],
-      "volume_mm3": 219292.91810217878
+      "volume_mm3": 219378.81279452879
     },
     "rod": {
-      "sha256": "70f3ae0a66697d1b28589f200b32625fd2346e2b0449cb596cd4c73e7575d461",
+      "sha256": "d5051c69e615125e2c73af27569c4d4d4cfeffa5e8978184135d30ae2a52a054",
       "valid": true,
       "solids": 1,
       "bounds_mm": [
-        -2.35,
-        6.050000000000001,
-        -4.2,
-        4.2,
+        -1.15,
+        4.85,
+        -3.0,
+        3.0,
         5.7,
-        26.464820645285
+        30.7
       ],
-      "volume_mm3": 672.3509691029282
+      "volume_mm3": 706.8583470577034
     }
   },
-  "design_sha256": "62078e93a48f8262eae2c1bc999ca3b3fe1b6ced564ddccc1b16781cf3940115",
-  "containment_review_sha256": "5069eeb0ba32d1b0c0efcbdcaceb7a02535f030339b6d4f088f4711a9be79507",
+  "design_sha256": "6f965387e71276cc565d429b8eac7d36534a72e7c595ca800e1475cc9ec7ef82",
+  "containment_review_sha256": "d4d0436da9a598af18ce65988f9ae0dd64ba62e6a6c17fb0364083ebae1ba95a",
   "all_containment_bindings_current": true,
   "containment_pass": true,
-  "minimum_cavity_backing_mm": 5.00486472199034,
+  "minimum_cavity_backing_mm": 5.004878288547443,
   "minimum_core_backing_mm": 4.9999999975185245,
-  "finished_funnel_step_sha256": "fd0143ed0caeef95d80b2a2c7bf4b4ce089c03da6ad39554f6f4e736f1cebc7a",
+  "finished_funnel_step_sha256": "61530e0ae8c5e99e542d4ffa85399bf9736628df3c85ba54d20719188100742b",
   "mould_z_translation_mm": 50.150000000000006,
   "casting_vs_finished": {
     "actual_minus_reference_mm3": 0.0,
@@ -73,55 +73,85 @@
   },
   "bore_probe_rows": [
     {
-      "feature": "lead-in",
+      "feature": "lower-bore",
       "probe_xyz_mm": [
-        5.45,
+        4.84,
         0.0,
-        -42.050000100000005
+        -42.450000100000004
       ],
       "finished_silicone_at_point": false,
-      "casting_blank_silicone_at_point": false
+      "casting_silicone_at_point": false
     },
     {
-      "feature": "relief",
-      "probe_xyz_mm": [
-        5.1,
-        0.0,
-        -40.950000100000004
-      ],
-      "finished_silicone_at_point": false,
-      "casting_blank_silicone_at_point": false
-    },
-    {
-      "feature": "sealing-land",
+      "feature": "lower-bore",
       "probe_xyz_mm": [
         4.95,
         0.0,
-        -39.43517935471506
+        -42.450000100000004
       ],
       "finished_silicone_at_point": true,
-      "casting_blank_silicone_at_point": true
+      "casting_silicone_at_point": true
+    },
+    {
+      "feature": "middle-bore",
+      "probe_xyz_mm": [
+        4.84,
+        0.0,
+        -37.31758972735753
+      ],
+      "finished_silicone_at_point": false,
+      "casting_silicone_at_point": false
+    },
+    {
+      "feature": "middle-bore",
+      "probe_xyz_mm": [
+        4.95,
+        0.0,
+        -37.31758972735753
+      ],
+      "finished_silicone_at_point": true,
+      "casting_silicone_at_point": true
+    },
+    {
+      "feature": "upper-bore",
+      "probe_xyz_mm": [
+        4.84,
+        0.0,
+        -32.18517935471506
+      ],
+      "finished_silicone_at_point": false,
+      "casting_silicone_at_point": false
+    },
+    {
+      "feature": "upper-bore",
+      "probe_xyz_mm": [
+        4.95,
+        0.0,
+        -32.18517935471506
+      ],
+      "finished_silicone_at_point": true,
+      "casting_silicone_at_point": true
     }
   ],
-  "casting_scope": "whole finished funnel, including the rectangular block, flat lower bearing face and complete staged sealing bore",
-  "ready_to_cast_finished_funnel": false,
-  "production_tooling_limitation": "The short contoured PETG pin supplies the finished staged bore. Measured finished profile, loose printed-seat fit and physical casting remain unqualified.",
-  "template_project_sha256": "da09a13449d6ce902eb929e8dec0ab64e1c8cfb434498aab72dbf79d2527df2a",
+  "casting_scope": "whole finished funnel with rectangular block, flat bearing face and straight 6 mm outlet",
+  "complete_tooling": true,
+  "tooling": "Two PETG shells and a stock straight 6 x 25 mm stainless steel rod.",
+  "template_project_sha256": "8847f34c92a7befdc808581ff90e98468f2721c884e69f978b9f9b5f6b288898",
   "template_project": "hardware/printed-parts/zone-c/funnel-mold/funnel-mold.3mf",
-  "current_project": ".cache/funnel-short-pin-2026-10-04/shells/current-funnel-mould-petg088.3mf",
-  "current_project_sha256": "8847f34c92a7befdc808581ff90e98468f2721c884e69f978b9f9b5f6b288898",
+  "current_project": ".cache/funnel-simple-2026-10-05/shells/current-funnel-mould-petg088.3mf",
+  "current_project_sha256": "3e9f6e7118e015dec727523575d6ce8546f240ca46edd6857c4bee1d3d66ce22",
   "project_settings_payload_sha256": "7f8fcc15f36ecfd52e855147153c927676f5362d50ac0eba8ad2005c44da4abc",
   "settings_byte_identical_to_frozen_template": true,
   "prepared_plates": [
     {
       "part": "cavity",
       "plate": 1,
-      "stl_sha256": "a675a0603ba632e947ef514b470556562a84bde2011c42381bceec77ef333cc2",
+      "stl_sha256": "ac74c7c87a51fb6ab492296ddeccc67bc1834c28354de0674a3641b231fb1ac7",
       "mesh_watertight": true,
       "winding_consistent": true,
       "mesh_bodies": 1,
-      "triangles": 88238,
-      "embedded_maximum_vertex_distance_mm": 8.581419670570025e-10,
+      "triangles": 120478,
+      "embedded_maximum_vertex_distance_mm": 8.502626487766897e-10,
       "transform": [
         1.0,
         0.0,
@@ -144,12 +174,12 @@
       "local_bed_bounds_mm": [
         [
           44.0,
-          54.5,
+          78.15849304199219,
           0.0
         ],
         [
           255.0,
-          265.5,
+          241.8415069580078,
           59.150001525878906
         ]
       ],
@@ -159,12 +189,12 @@
     {
       "part": "core",
       "plate": 2,
-      "stl_sha256": "d20ea2c8ca0b6385325f5bc74f7554cd019a4bc8a5d4294a37576f69dca07818",
+      "stl_sha256": "7572a70da0f59e03c7b06a9af29b2939942c88382fb9bfc11bda49fc9aac12b9",
       "mesh_watertight": true,
       "winding_consistent": true,
       "mesh_bodies": 1,
-      "triangles": 61234,
-      "embedded_maximum_vertex_distance_mm": 8.572928942844559e-10,
+      "triangles": 61322,
+      "embedded_maximum_vertex_distance_mm": 8.572973634383e-10,
       "transform": [
         1.0,
         0.0,
@@ -177,23 +207,23 @@
         -1.0,
         545.5,
         160.0,
-        21.10580348968506
+        21.174086570739746
       ],
       "source_center_mm": [
         0.0,
         0.0,
-        40.04419803619385
+        39.97591495513916
       ],
       "local_bed_bounds_mm": [
         [
           44.0,
-          54.5,
+          78.15849304199219,
           0.0
         ],
         [
           255.0,
-          265.5,
-          42.21160697937012
+          241.8415069580078,
+          42.34817314147949
         ]
       ],
       "model_within_bed": true,
@@ -238,12 +268,12 @@
       "6"
     ]
   },
-  "physical_scope": "The September 18 square-mouth cavity printed with these settings showed improved remaining roughness. No current tooling print, coated closure, vacuum cycle, sealing or casting is physically qualified.",
+  "physical_scope": "The September 18 cavity print supports the retained PETG recipe and its remaining roughness. Geometry and slice checks cover the current two shells; they do not measure cast release or the silicone seal.",
   "native_slice_pending": false,
   "native_slice_success": true,
   "native_slice": {
-    "slice_sha256": "25c12e6846d5fc050f8da58f26da4c5a6d79c72c2b9dce3595a087a743d8496c",
-    "slice_file": ".cache/funnel-short-pin-2026-10-04/shells/slice/current-funnel-mould-petg088.gcode.3mf",
+    "slice_sha256": "a57c796c9eb9940467ebd616fae0ea9405414690d3c40584daccb0d6c807d6e0",
+    "slice_file": ".cache/funnel-simple-2026-10-05/shells/slice/current-funnel-mould-petg088.gcode.3mf",
     "cli_return_code": 0,
     "slicer_version": "02.08.02.61",
     "plates": [
@@ -253,10 +283,10 @@
         "orientation": "upright",
         "mesh": {
           "matches_stl": true,
-          "triangles": 88238,
-          "maximum_vertex_distance_mm": 1.005568132412528e-06
+          "triangles": 120478,
+          "maximum_vertex_distance_mm": 1.0045352580231406e-06
         },
-        "gcode_sha256": "1327cdc7abe0a677cf4c7aeb8fc63a05fcaf3da9ae0e2ba5b6199d231cdb110a",
+        "gcode_sha256": "2695454af2503734e5fb270c8dca24a64c32be2a3ded491cdf0081e1d3ff5d5c",
         "nozzle": [
           {
             "id": "0",
@@ -272,16 +302,16 @@
         "support_present": true,
         "slice_warning": "",
         "layers": 439,
-        "estimated_seconds": 103006.4375,
-        "estimated_filament_g": 568.5279541015625,
+        "estimated_seconds": 81995.234375,
+        "estimated_filament_g": 440.32952880859375,
         "all_deposited_feature_bounds_xy_mm": [
           [
             42.0,
-            52.50168821862255
+            76.14721786625226
           ],
           [
-            256.99946728739735,
-            267.488
+            257.0,
+            243.84700576655254
           ]
         ],
         "left_nozzle_printable_polygon_mm": [
@@ -305,22 +335,22 @@
         "within_printable_area": true,
         "minimum_bed_edge_margin_mm": 42.0,
         "first_layer_height_mm": 0.2,
-        "first_layer_model_segments": 1186,
-        "first_layer_support_segments": 8629,
+        "first_layer_model_segments": 1189,
+        "first_layer_support_segments": 9145,
         "extrusion_feature_segment_counts": {
-          "Support": 461298,
-          "Support interface": 70499,
-          "Inner wall": 397834,
-          "Outer wall": 384527,
+          "Support interface": 73494,
+          "Support": 516326,
+          "Inner wall": 429920,
+          "Outer wall": 398263,
           "Bottom surface": 269,
-          "Internal solid infill": 167175,
-          "Sparse infill": 483935,
-          "Overhang wall": 84593,
-          "Bridge": 53232,
-          "Support transition": 67912,
-          "Floating vertical shell": 410147,
-          "Top surface": 28439,
-          "Gap infill": 3025
+          "Internal solid infill": 191717,
+          "Sparse infill": 484503,
+          "Overhang wall": 88478,
+          "Bridge": 55810,
+          "Support transition": 71605,
+          "Floating vertical shell": 415175,
+          "Top surface": 28262,
+          "Gap infill": 3077
         },
         "support_topology_summary": {
           "support_bodies": 1,
@@ -332,7 +362,7 @@
           "explicit_interface_islands": 5,
           "shortest_labelled_build_up_mm": 0.0
         },
-        "support_topology_record_sha256": "d6156523f0284366d5345a87aca4a3b1e9d3b056239aa1a13fca312bb67974d1",
+        "support_topology_record_sha256": "f0ef08a09af50c6a0df5c13ebb0965624c7e03dd6eebd7b3065373f0a0c6cbc5",
         "support_removal_scope": "Every emitted support body is retained in the topology record, including bodies lacking interface labels. Open dry backs and exposed outer flanges provide access to cut and detach supports. A collision-free withdrawal of complete connected support bodies, adhesion, clean release and finished casting are not established by this reading."
       },
       {
@@ -341,10 +371,10 @@
         "orientation": "inverted",
         "mesh": {
           "matches_stl": true,
-          "triangles": 61234,
-          "maximum_vertex_distance_mm": 1.0728123869256865e-06
+          "triangles": 61322,
+          "maximum_vertex_distance_mm": 1.1094386120768577e-06
         },
-        "gcode_sha256": "a465f10ffae41d5baa414d15d91150885a004227baeb2d56b1c404a13527a0a4",
+        "gcode_sha256": "1de35f699ec9059dd9c7d64220e2ba952f181085725759bf83b5eae4dce9161c",
         "nozzle": [
           {
             "id": "0",
@@ -360,16 +390,16 @@
         "support_present": true,
         "slice_warning": "",
         "layers": 296,
-        "estimated_seconds": 69481.4609375,
-        "estimated_filament_g": 383.0355529785156,
+        "estimated_seconds": 60350.0859375,
+        "estimated_filament_g": 326.9549255371094,
         "all_deposited_feature_bounds_xy_mm": [
           [
-            43.99117307688047,
-            54.499999999999986
+            43.99101158767845,
+            78.158
           ],
           [
-            255.0007898775962,
-            265.50099981085634
+            255.00105267997773,
+            241.842
           ]
         ],
         "left_nozzle_printable_polygon_mm": [
@@ -391,36 +421,36 @@
           ]
         ],
         "within_printable_area": true,
-        "minimum_bed_edge_margin_mm": 43.99117307688047,
+        "minimum_bed_edge_margin_mm": 43.99101158767845,
         "first_layer_height_mm": 0.2,
-        "first_layer_model_segments": 9704,
-        "first_layer_support_segments": 917,
+        "first_layer_model_segments": 9518,
+        "first_layer_support_segments": 995,
         "extrusion_feature_segment_counts": {
-          "Support": 46699,
-          "Outer wall": 181979,
-          "Inner wall": 199827,
-          "Gap infill": 3659,
-          "Bottom surface": 3577,
-          "Internal solid infill": 98324,
-          "Sparse infill": 335618,
-          "Floating vertical shell": 346702,
-          "Top surface": 27902,
-          "Support transition": 47998,
-          "Support interface": 46181,
-          "Overhang wall": 61758,
-          "Bridge": 45114
+          "Support": 55327,
+          "Outer wall": 174381,
+          "Inner wall": 191908,
+          "Gap infill": 3686,
+          "Bottom surface": 3375,
+          "Internal solid infill": 99547,
+          "Sparse infill": 328457,
+          "Floating vertical shell": 340237,
+          "Top surface": 27772,
+          "Support transition": 47559,
+          "Support interface": 45688,
+          "Overhang wall": 61360,
+          "Bridge": 44691
         },
         "support_topology_summary": {
           "support_bodies": 1,
-          "interface_islands": 2,
+          "interface_islands": 1,
           "bed_rooted_bodies": 1,
           "model_rooted_bodies": 0,
           "shortest_build_up_mm": 21.84,
           "bodies_without_interface_labels": 0,
-          "explicit_interface_islands": 2,
+          "explicit_interface_islands": 1,
           "shortest_labelled_build_up_mm": 21.84
         },
-        "support_topology_record_sha256": "2c8efd00aec9a996938429f9546d082b67fe22968ade4aa4d299113a6f079139",
+        "support_topology_record_sha256": "68d22ed5d9ee192bb6b372f06c567929c6896f4473104117125c08e3a2b1812a",
         "support_removal_scope": "Every emitted support body is retained in the topology record, including bodies lacking interface labels. Open dry backs and exposed outer flanges provide access to cut and detach supports. A collision-free withdrawal of complete connected support bodies, adhesion, clean release and finished casting are not established by this reading."
       }
     ],
@@ -443,6 +473,12 @@
           "45"
         ]
       },
+      "filament_map_2": {
+        "input": null,
+        "sliced": [
+          "1"
+        ]
+      },
       "extruder_nozzle_stats_new": {
         "input": [
           "Standard#1",
@@ -451,12 +487,6 @@
         "sliced": [
           "Standard#1",
           "Standard#0"
-        ]
-      },
-      "filament_map_2": {
-        "input": null,
-        "sliced": [
-          "1"
         ]
       }
     },
@@ -480,12 +510,12 @@
     "figures": [
       {
         "file": "cavity-native-supports.png",
-        "sha256": "2877d22b16bd4da672858ab78e09a7acbb3429fca471d3a79cc9a6140b6a3986",
+        "sha256": "328fe84a22ca1b2fd65515e0dce882cce38affcbff1fc6076d585f3160a2814a",
         "scope": "First layer complete; all-layer support/interface drawing is subsampled. Topology record reads every emitted path."
       },
       {
         "file": "core-native-supports.png",
-        "sha256": "d42533e7f82f4d52308dd6c4c26d9f3f3e9b332e0f430f5f47d7112723d0e06f",
+        "sha256": "8ebe051dcc076b0c520679efd1eda71ea8a4474561de697c50e8e521dc00b284",
         "scope": "First layer complete; all-layer support/interface drawing is subsampled. Topology record reads every emitted path."
       }
     ]
@@ -493,13 +523,12 @@
   "physical_recipe_binding": {
     "print_source": "git:59e088d8d:hardware/printed-parts/zone-c/funnel-mold/funnel-mold.3mf",
     "print_source_sha256": "2bc6a358dbfb74c94d9388bf4abd166ab243182298f45768c0dff9d928182c68",
-    "expected_recorded_source_sha256": "2bc6a358dbfb74c94d9388bf4abd166ab243182298f45768c0dff9d928182c68",
-    "current_template_sha256": "da09a13449d6ce902eb929e8dec0ab64e1c8cfb434498aab72dbf79d2527df2a",
+    "current_template_sha256": "8847f34c92a7befdc808581ff90e98468f2721c884e69f978b9f9b5f6b288898",
     "project_setting_changes_from_physical_input": {},
     "exact_physical_gcode_archive_currently_available": false,
-    "physical_result_scope": "Printed September 18 square-mouth cavity showed improved remaining roughness. Current mould geometry is unprinted."
+    "physical_result_scope": "The September 18 cavity print supports the retained PETG recipe and its remaining roughness."
   },
-  "scope": "Current short-pin tooling and hash-exact editable shell project with retained PETG recipe, native slice and accessible support topology. Complete nominal casting matches current native/source funnel. Physical finished fit, coating, vacuum cycle, seal, release and casting remain unqualified. No print submitted.",
+  "scope": "Complete funnel tooling: two PETG shells and a stock straight 6 x 25 mm stainless steel rod. This record checks the exported geometry and native slice; print and casting behavior remain ordinary physical design outcomes to observe in use. No print was submitted.",
   "native_support_tool_sha256": "3dd14a091d92aabde9b20d65bbe84acb15262e2bdb3f615722b2623cabd396f1",
   "support_topology_method": {
     "grid_mm": 0.4,
@@ -508,18 +537,7 @@
     "scope": "Quantized connectivity of emitted extrusion centrelines. It identifies support groups and labelled interface regions; it does not reconstruct solid support volumes or prove their complete withdrawal."
   },
   "saved_editable_project": "funnel-mold.3mf",
-  "saved_editable_project_sha256": "8847f34c92a7befdc808581ff90e98468f2721c884e69f978b9f9b5f6b288898",
+  "saved_editable_project_sha256": "3e9f6e7118e015dec727523575d6ce8546f240ca46edd6857c4bee1d3d66ce22",
   "source_to_saved_project_bytes_identical": true,
-  "casting_match": {
-    "method": "Whole native casting after translation against the current native funnel and independent full source CSG.",
-    "native_complete_csg": {
-      "actual_minus_reference_mm3": 0.0,
-      "reference_minus_actual_mm3": 0.0
-    },
-    "source_complete_csg": {
-      "actual_minus_reference_mm3": 0.0,
-      "reference_minus_actual_mm3": 0.0
-    },
-    "forming_tool_check_sha256": "f645f2d3d4a47a4df30eb7721161313817e96143dac9a2bed409c70d7b15cf5d"
-  }
+  "rod_check_sha256": "1f1d0084ed188a0292604b5be6831cac04a9d4a372aea58b9f439fde43e79db9"
 }

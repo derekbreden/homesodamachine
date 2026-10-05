@@ -1,8 +1,8 @@
 """Read the liquid spaces in the funnel mold's STEP and exported STL.
 
 The cavity mouth is capped for the open-cavity reading. The assembled reading
-caps the fill and vent mouths. Both loose pin seats are blind. In each case the
-liquid must occupy one closed region separate from the surrounding air.
+caps the fill, vent and open rod-guide mouths. These caps are analysis tools,
+not printed seals. The reading checks closure everywhere outside those mouths.
 """
 
 import argparse
@@ -60,6 +60,11 @@ def read_geometry(models):
     openings += [(xy, ports["vent_diameter_mm"]) for xy in ports["vent_xy_mm"]]
     port_caps = [cylinder(diameter/2+EPS, parting+flange-EPS,
                           parting+flange+1, *xy) for xy, diameter in openings]
+    guide = info["rod_support"]
+    if guide.get("guide_open"):
+        port_caps.append(cylinder(guide["guide_diameter_mm"]/2+EPS,
+                                  guide["guide_top_mm"]-EPS,
+                                  guide["guide_top_mm"]+1, x, y))
     return shapes, surrounding, mouth_cap, port_caps, witness
 
 
@@ -136,7 +141,7 @@ def review(models):
     return {
         "models": str(models.resolve()),
         "method": "Exact B-rep and manifold mesh complements; capped intended openings; no layer-height sampling.",
-        "pin_seats": "Closed native seats; no artificial entry-seal mesh or exterior leakage cap.",
+        "rod_guide": "Open upper guide is an intended overflow mouth, capped only for this closure reading; the lower seat has a native closed floor.",
         "witness_mm": list(witness),
         "sha256": {name: hashlib.sha256((models/name).read_bytes()).hexdigest()
                    for name in ("cavity.step", "cavity.stl", "core.step", "core.stl", "rod.step", "funnel.step", "assembly.step", "design.json")},

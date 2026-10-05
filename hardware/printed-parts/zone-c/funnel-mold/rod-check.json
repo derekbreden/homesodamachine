@@ -1,0 +1,121 @@
+{
+  "checked_date": "2026-10-05",
+  "method": "Independent exported STEP reads: analytic rod faces, full guide passage, axial movement and complete casting CSG comparison.",
+  "tooling": "Two printed PETG shells and one stock straight 6 x 25 mm stainless steel rod.",
+  "rod": {
+    "diameter_mm": 6.0,
+    "length_mm": 25.0,
+    "faces": [
+      "CYLINDER",
+      "PLANE",
+      "PLANE"
+    ]
+  },
+  "open_core_guide_overlap_mm3": 0.0,
+  "rod_motion": [
+    {
+      "upward_travel_mm": 0,
+      "interference_mm3": {
+        "core": 0.0,
+        "cavity": 0.0,
+        "funnel": 0.0
+      }
+    },
+    {
+      "upward_travel_mm": 0.5,
+      "interference_mm3": {
+        "core": 0.0,
+        "cavity": 0.0,
+        "funnel": 0.0
+      }
+    },
+    {
+      "upward_travel_mm": 2,
+      "interference_mm3": {
+        "core": 0.0,
+        "cavity": 0.0,
+        "funnel": 0.0
+      }
+    },
+    {
+      "upward_travel_mm": 5,
+      "interference_mm3": {
+        "core": 0.0,
+        "cavity": 0.0,
+        "funnel": 0.0
+      }
+    },
+    {
+      "upward_travel_mm": 8,
+      "interference_mm3": {
+        "core": 0.0,
+        "cavity": 0.0,
+        "funnel": 0.0
+      }
+    },
+    {
+      "upward_travel_mm": 25,
+      "interference_mm3": {
+        "core": 0.0,
+        "cavity": 0.0,
+        "funnel": 0.0
+      }
+    },
+    {
+      "upward_travel_mm": 50,
+      "interference_mm3": {
+        "core": 0.0,
+        "cavity": 0.0,
+        "funnel": 0.0
+      }
+    }
+  ],
+  "straight_bore_probes": [
+    {
+      "z_mm": 7.3,
+      "radius_2_99_is_silicone": false,
+      "radius_3_01_is_silicone": true
+    },
+    {
+      "z_mm": 12.832410322642472,
+      "radius_2_99_is_silicone": false,
+      "radius_3_01_is_silicone": true
+    },
+    {
+      "z_mm": 18.364820645284944,
+      "radius_2_99_is_silicone": false,
+      "radius_3_01_is_silicone": true
+    }
+  ],
+  "whole_casting_difference": {
+    "casting_minus_finished_mm3": 0.0,
+    "finished_minus_casting_mm3": 0.0
+  },
+  "flange_plan_mm": [
+    211.0,
+    163.68301584656257
+  ],
+  "tube_od_mm": 6.35,
+  "bore_diameter_mm": 6.0,
+  "nominal_diametral_interference_mm": 0.35,
+  "tube_engagement_mm": 5.014820745280019,
+  "installed_drain_joint": {
+    "nominal_contact_volume_mm3": 17.024732171455355,
+    "contact_outside_bore_mm3": 0.0,
+    "frame_interference_mm3": 0.0
+  },
+  "scope": "Geometry and tooling completeness; cast release and seal behavior are physical outcomes.",
+  "sha256": {
+    "hardware/printed-parts/zone-c/funnel-mold/rod.step": "d5051c69e615125e2c73af27569c4d4d4cfeffa5e8978184135d30ae2a52a054",
+    "hardware/printed-parts/zone-c/funnel-mold/core.step": "118a3800cf6435d9747936e000ca671cef853b58aa722dc09dcafabe05b5d424",
+    "hardware/printed-parts/zone-c/funnel-mold/cavity.step": "54ac665069d8e3ae282c45c9f464448beabfb85fd9e32abf3bd4ccee2893d22d",
+    "hardware/printed-parts/zone-c/funnel-mold/funnel.step": "50f81124d0fa3428278da0b07bbf4bca9b0c0e99131d5f293c24dce4c18f2e24",
+    "hardware/printed-parts/zone-c/funnel-mold/design.json": "6f965387e71276cc565d429b8eac7d36534a72e7c595ca800e1475cc9ec7ef82",
+    "hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py": "4ace6263b75c08e1d1936d0f1be11598935254e83b0ff40c8e6dd79531aac25f",
+    "hardware/printed-parts/zone-c/funnel/funnel.step": "61530e0ae8c5e99e542d4ffa85399bf9736628df3c85ba54d20719188100742b",
+    "hardware/printed-parts/zone-c/funnel/funnel.py": "185b06eef8600c0ad326594ef52fef46e91dac01ca9aec1f549a3340a6e67738",
+    "hardware/manifold-layout/enclosure-assembly.step": "ca604aa31beb41be9d8e3783da772d8fb6c2fed71a5a8a014a1025baa705cf2c",
+    "tools/funnel-mold-print/review_rod.py": "070a99747a81da247d7ee5268002e9f63d80cf751a2ebbb2e5645c94d295eec7"
+  },
+  "passed": true
+}

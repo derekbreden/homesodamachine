@@ -62,16 +62,16 @@ The carbonator receives dye penetrant and hydro before foaming, the refrigerant 
 
 ## 4. Silicone casting
 
-One cast part per unit: the funnel, [219.3](FUNNEL_VOLUME_ML) mL of finished CAD volume, estimated at [248](FUNNEL_FINISHED_G) g using an assumed [1.13](FUNNEL_DENSITY_G_ML) g/mL density. The batch allocation is [273](FUNNEL_MIXED_G) g of 1:1 platinum silicone, including a provisional [10%](FUNNEL_MIX_ALLOWANCE) mixing and port-flash allowance. The printed two-part mold and contoured forming mandrel make the entry, relief and sealing land for the raw drain tube. Room-temperature cure and the post-cure bake are equipment time; the attended work is preparation, pouring, release and flash trim. Casting yield, finishing compatibility and these handwork allowances remain unmeasured.
+One cast part per unit: the funnel, [219.4](FUNNEL_VOLUME_ML) mL of finished CAD volume, estimated at [248](FUNNEL_FINISHED_G) g using an assumed [1.13](FUNNEL_DENSITY_G_ML) g/mL density. The batch allocation is [273](FUNNEL_MIXED_G) g of 1:1 platinum silicone, including a provisional [10%](FUNNEL_MIX_ALLOWANCE) mixing and port-flash allowance. Two printed mold shells and a straight 6 × 25 mm steel rod form the complete funnel and its cylindrical bore for the drain tube. Room-temperature cure and the post-cure bake are equipment time; the attended work is preparation, pouring, release and flash trim. Casting yield, finishing compatibility and these handwork allowances remain unmeasured.
 
 | Operation | Procedure | Notes | Minutes |
 |---|---|---|---:|
-| Release both forming faces and the finished mandrel; seat it in the cradle, seal the forming entry and clamp the shells | — | Compatible finishing/release stack, mandrel against the axial stop, bare mold lands closed; [mold procedure](/hardware/printed-parts/zone-c/funnel-mold/README.md) | 5 |
+| Release both forming faces and the steel rod; drop it in the lower seat and clamp the shells | — | Compatible finishing/release stack, rod resting on the lower floor, bare mold lands closed; [mold procedure](/hardware/printed-parts/zone-c/funnel-mold/README.md) | 5 |
 | Weigh, pigment, mix and vacuum-degas [273](FUNNEL_MIXED_G) g of silicone | — | 1:1 by weight, ≤2 % black pigment, chamber until it falls back | 10 |
 | Pour the open cavity, lower the core, vacuum and top up, rack to cure | — | The cure and the vacuum hold are unattended | 5 |
-| Demold, trim the socket's collar at the bore exit and the port and vent flash | — | Peel the brim first to admit air; trim the sacrificial collar before withdrawing the 8.4 mm mandrel entry | 5 |
+| Demold, pull the straight rod and trim outlet, port and vent flash | — | Peel the brim first to admit air; pull the rod through the bowl, then trim flash flush | 5 |
 | Post-cure bake — load and unload the oven | — | Bake is unattended | 5 |
-| Maintain the mold and mandrel's finishing/release surfaces | — | Amortized across casting pulls; preserve the mandrel's short relief and cylindrical 6.0 × 3.0 mm sealing land | 5 |
+| Maintain the shell forming faces and clean the steel rod | — | Amortized across casting pulls; preserve the shell finish and smooth cylindrical rod | 5 |
 | **Silicone casting** | | | **[35](LAB_SEC4)** |
 
 ## 5. Foam pouring
