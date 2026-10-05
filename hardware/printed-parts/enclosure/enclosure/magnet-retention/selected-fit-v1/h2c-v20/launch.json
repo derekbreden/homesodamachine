@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "printer": "H2C",
+  "state": "waiting_for_timed_start",
+  "monitoring_branch_state": "waiting_for_timed_start",
+  "send_attempted": false,
+  "submitted": false,
+  "task_id": null,
+  "job_id": null,
+  "archive_name": "2026-10-05-enclosure-front-top-c3-v69-h2c-v20.gcode.3mf",
+  "archive_sha256": "aa076477c54fdc97fb9b14507dbbd7c75f1b182135780be094757105e728505d",
+  "gcode_sha256": "b5051ccbd52185a55bd7002c79944d1a0ceca2ccd39a105dc447456f80be1e34",
+  "cap_included": false,
+  "funnel_frame_included": false,
+  "launch_authorization_quotes": [
+    "Give me the pump cradle pause at 9:30 am at best and 09:10 am to 9:50 am at worst.",
+    "Both beds are clear.",
+    "Oh, if its the same time, then yeah have front top pause at the very same time please, or close to it, within that window, thanks."
+  ],
+  "coordinator_plan": "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/timed-launch-plan.json",
+  "launch_authorized": true,
+  "automatic_resume_authorized": false,
+  "insertion_pause_reported": false,
+  "start_reported": false,
+  "fault_reported": false,
+  "scope": "Pending the authorized timed start. No import or Send has occurred for this archive."
+}

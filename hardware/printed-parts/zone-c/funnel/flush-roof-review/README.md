@@ -67,11 +67,13 @@ This scoped refresh is not a fresh full-machine motion scorecard.
 [`live publication check`](live-publication.json). Each intentional functional
 bearing or supported ceiling has an answer beside its STL.
 The [`v18 bead-backing record`](display-strip-backing-v18.json) binds only
-its frozen native archive. Current geometry requires a fresh native slice
-and support-removal review before a full-part print. Full-part printing is
-deferred. The [selected-fit timing preparations](../../../enclosure/enclosure/magnet-retention/selected-fit-v1/README.md)
-bind current front-top and standalone cradle slices; timing preparation does not
-authorize their launch.
+its frozen native archive. The
+[selected-fit preparations](../../../enclosure/enclosure/magnet-retention/selected-fit-v1/README.md)
+bind the current front-top and standalone cradle slices and their native
+retention, support and first-layer reviews. Their
+[shared timed launch plan](../../../enclosure/enclosure/magnet-retention/selected-fit-v1/timed-launch-plan.json)
+authorizes exactly H2C front-top v20 and Mark2 cradle v6 for the October 5 morning
+insertion window. The funnel frame and other full-part prints remain deferred.
 
 The relevant physical failure is recorded in the
 [`front-top v17 result`](../../../enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/physical-result.json).

@@ -12,11 +12,15 @@
   "cap_included": false,
   "launch_authorization_quotes": [
     "Give me the pump cradle pause at 9:30 am at best and 09:10 am to 9:50 am at worst.",
-    "Both beds are clear."
+    "Both beds are clear.",
+    "Oh, if its the same time, then yeah have front top pause at the very same time please, or close to it, within that window, thanks."
   ],
   "launch_authorized": true,
   "automatic_resume_authorized": false,
   "insertion_pause_reported": false,
   "start_reported": false,
-  "scope": "Pending the authorized timed start. No import or Send has occurred for this archive."
+  "scope": "Pending the authorized timed start. No import or Send has occurred for this archive.",
+  "coordinator_plan": "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/timed-launch-plan.json",
+  "monitoring_branch_state": "waiting_for_timed_start",
+  "fault_reported": false
 }

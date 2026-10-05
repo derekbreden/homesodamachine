@@ -41,7 +41,7 @@ Their native timing results are recorded after slicing:
 | Piece | Printer | Native pause forecast | Record and launch scope |
 | --- | --- | --- | --- |
 | Pump cradle alone | Mark2 | About 4 h 47 m | [Forecast](mark2-v6/pause-forecast.json); [separately scheduled launch](mark2-v6/launch-plan.json) |
-| Enclosure front top | H2C | About 4 h 49 m | [Forecast](h2c-v20/pause-forecast.json); timing only |
+| Enclosure front top | H2C | About 4 h 49 m | [Forecast](h2c-v20/pause-forecast.json); [separately scheduled launch](h2c-v20/launch-plan.json) |
 
 The cradle pauses before print Z31.16 mm and the front top before Z36.44 mm.
 The initial emitted countdowns are 4 h 46 m and 4 h 48 m respectively, one
@@ -63,5 +63,13 @@ current hosts, left nozzle, color, trim and one `M400 U1` pause. The retention
 option also checks the emitted open rim, pocket support exclusion, closing
 paths, dense hosts and layer bands. It does not qualify physical grip, roof
 quality or strength. Preparation and review perform no printer action.
-The standalone Mark2 cradle has a [separate timed launch authorization](mark2-v6/launch-plan.json).
-The H2C front-top revision remains timing only, with no launch authorization.
+The [shared timed launch plan](timed-launch-plan.json) authorizes exactly the
+reviewed H2C v20 front top and standalone Mark2 v6 cradle for October 5, 2026.
+It targets H2C acceptance near 4:40 am and Mark2 near 4:43 am America/Chicago,
+giving insertion forecasts near 9:29 am and 9:30 am within the requested
+9:10–9:50 am window. Mark2 must wait at least 180 seconds after actual H2C
+acceptance, with fresh readings of both printers immediately before each Send.
+Each branch has one Send allowance and requires separate authorization to resume.
+Frozen preparation records retain their captured scope; the current launch
+authorization is in the separate launch plans. The existing cap and funnel frame
+are excluded.

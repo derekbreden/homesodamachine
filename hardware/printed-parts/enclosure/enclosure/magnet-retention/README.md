@@ -110,10 +110,14 @@ and finished magnetic retention remain unqualified.
 The [current selected-fit preparations](selected-fit-v1/README.md) bind the
 standalone C3 cradle on Mark2 and C3/V69 front-top on H2C. Their native insertion
 forecasts are **4 h 47 min** and **4 h 49 min** from start respectively. The
-standalone cradle excludes the existing cap. Its
-[timed launch plan](selected-fit-v1/mark2-v6/launch-plan.json) targets a
-9:30 am America/Chicago insertion pause on October 5, 2026, within the requested
-9:10–9:50 am forecast window. The H2C preparation has no launch authorization.
+standalone cradle excludes the existing cap. The
+[shared timed launch plan](selected-fit-v1/timed-launch-plan.json) authorizes
+exactly these two reviewed archives for October 5, 2026, targeting insertion
+forecasts near 9:29 am on H2C and 9:30 am on Mark2, America/Chicago, within the
+requested 9:10–9:50 am window. Start H2C first near 4:40 am, then Mark2 near
+4:43 am subject to at least 180 seconds after actual H2C acceptance and fresh
+both-printer readings. Each actual insertion pause is reported independently;
+either resume needs separate authorization.
 
 | Part / printer | Pause before print Z | Completed open rim | First closing layer |
 | --- | --- | --- | --- |
