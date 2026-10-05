@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "files": 1125,
+  "archive": "output/gun-positioner/gun-positioner-build-kit.zip",
+  "archive_bytes": 46092475,
+  "archive_sha256": "0b1035768c31dd09dccde5aa56f7f068cd9ae1eaf2b0c6743293d30c1a312ad2",
+  "archive_crc": "passed",
+  "member_hashes": "passed",
+  "guide_source_binding": "passed",
+  "final_pdf_visual_review_binding": "passed",
+  "fabrication_export_hashes": "passed",
+  "template_source_binding": "passed",
+  "complete_fabrication_and_viewer_asset_set": "passed",
+  "mechanism_source_and_assembly_binding": "passed",
+  "controller_mounting_source_and_export_hashes": "passed",
+  "firmware_integrity_and_source_binding": "passed",
+  "purchase_verification_source_binding": "passed",
+  "shared_purchase_quantity_coverage": "passed",
+  "post_publication_print_review_binding": "passed",
+  "exact_served_fabrication_and_document_bytes": "passed",
+  "physical_acceptance": "Unbuilt; follow commissioning gates."
+}
