@@ -1,0 +1,4 @@
+[ceiling] The z=7 mm annular shoulder closes the downward-open 22.2 mm 608 pocket around the 10.5 mm fixed-axle clearance. Support can leave through the full pocket mouth after removal from the bed. Use accessible support as required by the native slice, remove it through that opening, inspect the bearing-contact surface and grade actual bearing fit/free swivel cold and warm. The separate outer-race cap remains removable.
+file: hardware/printed-parts/fixtures/gun-positioner/step/fiber-saddle.step
+click: x=0.000 y=0.000 z=7.000
+

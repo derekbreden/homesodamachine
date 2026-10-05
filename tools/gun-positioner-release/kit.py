@@ -113,6 +113,13 @@ def check_bound_inputs():
     for rel, digest in json.loads((mechanism / "asset-hashes.json").read_text()).items():
         if sha((mechanism / rel).read_bytes()) != digest:
             raise ValueError(f"Changed mechanism fabrication asset: {rel}")
+    lint = json.loads((mechanism / "post-live-lint.json").read_text())
+    if (lint["source_sha256"] != sha((mechanism / "gun_positioner.py").read_bytes()) or
+            lint["unanswered_findings"] != 0):
+        raise ValueError("The post-publication print review is incomplete or stale")
+    for record in lint["parts"]:
+        if record.get("answer_file") and sha((mechanism / record["answer_file"]).read_bytes()) != record["answer_sha256"]:
+            raise ValueError(f"Changed print-review answers: {record['part']}")
     optics = ROOT / "hardware/printed-parts/fixtures/gun-positioner-observation"
     for rel, digest in json.loads((optics / "manifest.json").read_text())["sha256"].items():
         if sha((optics / rel).read_bytes()) != digest:
@@ -151,6 +158,21 @@ def check_bound_inputs():
         raise ValueError("The mechanism STL exports are missing")
     if not list((ROOT / "hardware/printed-parts/fixtures/gun-positioner").rglob("*.dxf")):
         raise ValueError("The mechanism metal drawings are missing")
+    publication = json.loads((PLAN / "publication-verification.json").read_text())
+    fabrication = publication["fabrication"]
+    documents = publication["documents"]
+    if fabrication["status"] != "pass" or documents["status"] != "pass":
+        raise ValueError("The served fabrication files or documents have not passed verification")
+    for record in fabrication["files"]:
+        local = ROOT / "hardware" / record["file"]
+        if (sha(local.read_bytes()) != record["expected_sha256"] or
+                record["served_sha256"] != record["expected_sha256"] or not record["served_matches"]):
+            raise ValueError(f"Publication verification is stale: {record['file']}")
+    for record in documents["documents"]:
+        local = ROOT / "hardware" / record["file"]
+        if (not record["pass"] or sha(local.read_bytes()) != record["expected_sha256"] or
+                record["served_sha256"] != record["expected_sha256"] or not record["cover_matches"]):
+            raise ValueError(f"Document publication verification is stale: {record['file']}")
 
 
 def build():
@@ -211,6 +233,8 @@ release-manifest.json records the SHA-256 and size of every delivered file.
         "firmware_integrity_and_source_binding": "passed",
         "purchase_verification_source_binding": "passed",
         "shared_purchase_quantity_coverage": "passed",
+        "post_publication_print_review_binding": "passed",
+        "exact_served_fabrication_and_document_bytes": "passed",
         "physical_acceptance": "Unbuilt; follow commissioning gates.",
     }
     (PLAN / "release-verification.json").write_text(json.dumps(result, indent=2) + "\n")

@@ -1,0 +1,8 @@
+[ceiling] The z=9 mm shoulder is the underside of the upper cord-retaining flange, extending 3 mm radially beyond the 40 mm wheel. Keep the functional rim. Native slicing must provide accessible external support where needed; remove support outward from the rim and inspect the cord surface. Qualify free rotation and load-dependent redirect loss with the actual bearing and cord. No printed surface acceptance is implied.
+file: hardware/printed-parts/fixtures/gun-positioner/step/torque-cord-pulley.step
+click: x=0.000 y=0.000 z=9.000
+
+[ceiling] The z=7.3 mm annular shoulder closes the 22.2 mm diameter bearing pocket around the 10.5 mm through aperture. The pocket opens downward through its full 22.2 mm mouth. Use removable support under the shoulder as required by the native slice; remove it through that open mouth, deburr and qualify the actual 608 seat/free rotation before assembly. Retain the required shoulder geometry.
+file: hardware/printed-parts/fixtures/gun-positioner/step/torque-cord-pulley.step
+click: x=0.000 y=0.000 z=7.300
+

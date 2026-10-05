@@ -1,0 +1,185 @@
+{
+  "status": "completed after live publication; all findings answered",
+  "checked_utc": "2026-10-05T03:56:50.309968+00:00",
+  "source_sha256": "e219feaa319f2aee19c1792522d69dd337b2e27ffdb0eaa46ce5978469bfab08",
+  "publication_precondition": {
+    "status": "pass",
+    "host": "https://homesodamachine.com",
+    "checked_utc": "2026-10-05T03:51:54.134456+00:00",
+    "exact_served_files": 327,
+    "verification_sha256": "83a0f8e4f0add01a95d4fcfc299e7b1ba6ace11a6ed62e7585ddd3763673fb33"
+  },
+  "checker": {
+    "file": "hardware/scripts/geometry_lint.py",
+    "sha256": "79914fb4ca91a5620956c1d4d95fd6fe253fcae1b5f26bac0fafc43edffb4f53",
+    "classes": [
+      "step",
+      "sliver",
+      "ceiling",
+      "slope"
+    ],
+    "exit_code_initial": 0,
+    "exit_code_answer_validation": 0
+  },
+  "raw_report": "post-live-lint.txt",
+  "raw_report_sha256": "471275d2125442caf9142cca78ef2dc1a511a9375d8d8d1e087bf5090a64abdd",
+  "answer_validation_report": "post-live-lint-answered.txt",
+  "answer_validation_report_sha256": "13643b6e4fb5becfe0e5edb7bf4a7e8db4e4ac53ab9cca2d8d1878ade3fc6059",
+  "print_varieties": 13,
+  "original_findings": 320,
+  "intentional_answered": 320,
+  "unanswered_findings": 0,
+  "governing_geometry_changes": false,
+  "finding_scope": "315 vertical root/flank surfaces of the pulley tooth profile and five required flange/bearing-pocket ceiling surfaces. Exact per-instance anchors are recorded beside the STL; accessible support removal and physical belt/bearing qualification remain required.",
+  "parts": [
+    {
+      "part": "fiber-swivel-base",
+      "STL_sha256": "00f900b02a40a6a7ab6c7885ad62a8337af5239d83ce9e1d92389b4d219b5b8c",
+      "STEP_sha256": "597c226992607bc6630037062f9013d68d56e8c80381959e0ddd6a9f9df92847",
+      "viewer_payload_sha256": "e5f473539ff6aaa0a7ac85a6edf1658fdce43a05f22cb37de415cb21f0a30c0c",
+      "facets": 2552,
+      "original_findings_by_class": {},
+      "intentional_answered": 0,
+      "unanswered": 0
+    },
+    {
+      "part": "fiber-bearing-cap",
+      "STL_sha256": "c8e2a1d765f4e3c41d8062cfaaca975463870ea3839c2ff10d689d5be6e5f0db",
+      "STEP_sha256": "b71be5459ef637058cbecdedd64a365730bd4dd67c05248352f505d3e7846775",
+      "viewer_payload_sha256": "e7566015aae9a460379ebedcd6e8bdc78167fb175dd391dd4cb7feb32fb3cf85",
+      "facets": 2024,
+      "original_findings_by_class": {},
+      "intentional_answered": 0,
+      "unanswered": 0
+    },
+    {
+      "part": "torque-cord-pulley",
+      "STL_sha256": "4520680615fe4d3b763b13a9a9cbe3c45fa08d326e239bde1883548def451e24",
+      "STEP_sha256": "c60df2e96f420fbc3cfe60c31de68edd880879f04f91018227c912ea56a1646e",
+      "viewer_payload_sha256": "251e0b9d68a4347a3a666752b8181003fb6f145f5cf6d1dc2414871b5352677b",
+      "facets": 3536,
+      "original_findings_by_class": {
+        "ceiling": 2
+      },
+      "intentional_answered": 2,
+      "unanswered": 0,
+      "answer_file": "stl/torque-cord-pulley.lint-answers",
+      "answer_sha256": "fefb9ec635635b25e8935ddb928eb44fa976ee0632f2006dcd249e7d095dec74"
+    },
+    {
+      "part": "pulley-80t",
+      "STL_sha256": "c299d46370f5f99e0d3602effb4ba95312f7e897723146b8f22a87e6aaf7b76c",
+      "STEP_sha256": "23055c3533a1a5d0ede4e21fb64192b27e4e04dafd917c3573a84e1555bc0d78",
+      "viewer_payload_sha256": "998b631b98e02dcaaca470d54ef6f99ae6409f5cc7d07154461910a64bc9ca1c",
+      "facets": 5464,
+      "original_findings_by_class": {
+        "sliver": 240,
+        "ceiling": 1
+      },
+      "intentional_answered": 241,
+      "unanswered": 0,
+      "answer_file": "stl/pulley-80t.lint-answers",
+      "answer_sha256": "0b993ab70e18b5d5601e31dd6c1d8cd4534329fb6eae7bc026e0fb8d3ab220f7"
+    },
+    {
+      "part": "pulley-sector-coupon",
+      "STL_sha256": "011a38b12a29740aeb2768f0e13ba270d61ce54c46c187736896772ce4fcab0e",
+      "STEP_sha256": "aeea9cd62de589ea91c2ec99ed22c890e74e71068156093a51a889a53249fc47",
+      "viewer_payload_sha256": "4bfe4ce707774ddb1a5290aaae73f4f1069c41554617149d29284f698303a397",
+      "facets": 948,
+      "original_findings_by_class": {
+        "sliver": 75,
+        "ceiling": 1
+      },
+      "intentional_answered": 76,
+      "unanswered": 0,
+      "answer_file": "stl/pulley-sector-coupon.lint-answers",
+      "answer_sha256": "c076bbc353e5553965e2badf86a0a4c64df03e18f81db059b2024c3e189fbfc4"
+    },
+    {
+      "part": "motor-tension-plate",
+      "STL_sha256": "1f425faf96411ef522b91f343dc9027e5c575d6b036fb076d6aa89b54467c799",
+      "STEP_sha256": "ad22b0a36e811b6a0642a8ae4148e6290066d1564bb59cb39851e4f2102ca36a",
+      "viewer_payload_sha256": "94cc517714501db00e727e93ed3850df1c3542ad68fa28a30d7fdc88ef3d5bc0",
+      "facets": 3584,
+      "original_findings_by_class": {},
+      "intentional_answered": 0,
+      "unanswered": 0
+    },
+    {
+      "part": "paired-nut-spacer",
+      "STL_sha256": "581ee947ccafea82e027b4442daeefb9f3374a3fb2883352852e0436633e5e49",
+      "STEP_sha256": "8592031869877c4ba98bbe6371905bd2695ebf31a23e2c23aa292d221b02cef0",
+      "viewer_payload_sha256": "842ac5834f55907bb0bf6fd295b890a89bde0b6e9258a90c4e1a1dde2e9d7340",
+      "facets": 1704,
+      "original_findings_by_class": {},
+      "intentional_answered": 0,
+      "unanswered": 0
+    },
+    {
+      "part": "limit-switch-bracket",
+      "STL_sha256": "7ea1e7b314ac007fa08323cd42e3ae4ea25fdff3084fd6c461bdc981c80aa5da",
+      "STEP_sha256": "70b0c27890804e597f0aa86961106187d871f74f94631c0a8d34d094cd53e25a",
+      "viewer_payload_sha256": "85f99a36c5b8eaeb2439b5d60ae30e025d899637054ebdc45b8efe5698e63591",
+      "facets": 1544,
+      "original_findings_by_class": {},
+      "intentional_answered": 0,
+      "unanswered": 0
+    },
+    {
+      "part": "belt-guard",
+      "STL_sha256": "0380076a6ff6da0de3261c73288fc85128e23dddcb998fe1051c32f79df615ab",
+      "STEP_sha256": "6653aebc6fd382db3882a8f5076e1358367f8678fe53f9444e1957fae4ce6885",
+      "viewer_payload_sha256": "c840c45b84a1cd161e57e77569216a5090a279b89fb70f182e9c7ca1efedca94",
+      "facets": 1028,
+      "original_findings_by_class": {},
+      "intentional_answered": 0,
+      "unanswered": 0
+    },
+    {
+      "part": "gun-jaw-pad",
+      "STL_sha256": "38310e1be6a58765914d2bcd9bff034844aed6fff4ce1d3defef3e7a126a853b",
+      "STEP_sha256": "69bd0be67dd2efd1be5a0a7654a39d92aac2b63d9eef6db613d69fe6c7bc22fc",
+      "viewer_payload_sha256": "f280d5e70464270c9d7b46756e0238068fffee5b489dfb7eaf5c90fd8b7277ee",
+      "facets": 12,
+      "original_findings_by_class": {},
+      "intentional_answered": 0,
+      "unanswered": 0
+    },
+    {
+      "part": "service-load-jaw-pad",
+      "STL_sha256": "6e62f707a20b082c3d0b957b3f0adfb673a95c0c66d851d570f2ffd94a024f34",
+      "STEP_sha256": "4098efc11742b9a7e3e0fbc4f2e0d2bdfffcb4bb3854924163a2c232df66cb7b",
+      "viewer_payload_sha256": "57b7834a2d9fcb5ca5a32b98f5ce353ef96c4e0695a65057d45b3ddab49b5ed1",
+      "facets": 12,
+      "original_findings_by_class": {},
+      "intentional_answered": 0,
+      "unanswered": 0
+    },
+    {
+      "part": "hub-drilling-locator",
+      "STL_sha256": "db238de4c77ff9f0b248e9ac2ac7d66006cfab26daba75b5146d2a1fb1d94e25",
+      "STEP_sha256": "6862270f36147c6b005c4a33b5bd73dda81397dfc9fe39d095458158130e1f2d",
+      "viewer_payload_sha256": "81be91a0d0537a5af9187293faf73fd030da1223539eb787a32ec07ce2fec9cd",
+      "facets": 28,
+      "original_findings_by_class": {},
+      "intentional_answered": 0,
+      "unanswered": 0
+    },
+    {
+      "part": "fiber-saddle",
+      "STL_sha256": "fdc2a724a66701b774a56bf2e99157f7b393a6fae3011d57fdb34442314a8e9d",
+      "STEP_sha256": "ff8e443c7199ae4d4ff994814c765ba51036ad492d376a4e9e4c26e214b625e5",
+      "viewer_payload_sha256": "ea26188b291197f604d20e56eca8402fb88290629df1144a6f440cd3613872de",
+      "facets": 2056,
+      "original_findings_by_class": {
+        "ceiling": 1
+      },
+      "intentional_answered": 1,
+      "unanswered": 0,
+      "answer_file": "stl/fiber-saddle.lint-answers",
+      "answer_sha256": "250b6ac46d33d542aeaf489b878c20dba3b3b55e52427964b430b6e78e558b89"
+    }
+  ],
+  "scope": "This completes the required post-live mesh review. It does not accept a physical print, native slice, strength, creep, fit, transmission margin, wear, accuracy or lifetime. The frozen fabrication and commissioning requirements remain governing."
+}
