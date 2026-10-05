@@ -130,13 +130,13 @@ test("walkDocuments returns the shelf in title order", (t) => {
   };
   // Directory order is the reverse of title order, so a walk that returned what
   // it found would fail this.
-  shelve("quickstart-codex", "quick-start-codex", "Quick start");
+  shelve("install-guide", "install-guide", "Install guide");
   shelve("guide", "casting", "Funnel casting guide");
   shelve("drill-and-cut-guide", "drill-and-cut-guide", "Drill and cut guide");
 
   assert.deepEqual(
     walkDocuments(root).map((d) => d.title),
-    ["Drill and cut guide", "Funnel casting guide", "Quick start"],
+    ["Drill and cut guide", "Funnel casting guide", "Install guide"],
   );
 });
 

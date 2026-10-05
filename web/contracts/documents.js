@@ -12,7 +12,7 @@
 //
 // The sidecar is what makes a PDF a document. A `.pdf` under `hardware/` with
 // none — a datasheet a board vendored, a generator's own output — is not in the
-// listing and is not reachable through `/docs`. Superseded quick starts are
+// listing and is not reachable through `/docs`. Retired owner documents are
 // excluded even when a scene build restores their PDF and sidecar.
 export const DOC_SIDECAR_SUFFIX = ".pdf.json";
 
@@ -35,7 +35,8 @@ export function isArchivedDocumentFile(repoRel) {
   return repoRel.startsWith("hardware/assembly/cards/");
 }
 
-const SUPERSEDED_QUICK_STARTS = new Set([
+const RETIRED_OWNER_DOCUMENTS = new Set([
+  "quickstart-codex/quick-start-codex.pdf",
   "quickstart/quick-start.pdf",
   "quickstart-claude/quick-start-claude.pdf",
   "quickstart-codex/edge-study.pdf",
@@ -43,7 +44,7 @@ const SUPERSEDED_QUICK_STARTS = new Set([
 ]);
 
 export function isPublishedDocument(pdfRel) {
-  return !isArchivedDocumentFile("hardware/" + pdfRel) && !SUPERSEDED_QUICK_STARTS.has(pdfRel);
+  return !isArchivedDocumentFile("hardware/" + pdfRel) && !RETIRED_OWNER_DOCUMENTS.has(pdfRel);
 }
 
 // The cover beside a document, as a path relative to the same root. Covers are

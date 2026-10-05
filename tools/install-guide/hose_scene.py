@@ -17,7 +17,7 @@ HARDWARE = ROOT / "hardware"
 OUT = HARDWARE / "install-guide/out/hose-scene"
 ART = HARDWARE / "install-guide/assets"
 sys.path.insert(0, str(HARDWARE / "scripts"))
-sys.path.insert(0, str(HARDWARE / "quickstart/plumbing"))
+sys.path.insert(0, str(HARDWARE / "install-guide/plumbing"))
 from _cadq_export import _per_solid_color
 import plumbing_scenes as plumbing
 

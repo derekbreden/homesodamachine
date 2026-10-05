@@ -59,10 +59,9 @@ SELFTESTS = _HERE.parent / "selftests.json"
 #: entrypoints retain the broad group and fail closed rather than losing an input edge.
 _NODE = ("tools/render/", "web/")
 _NODE_RUNTIME_CONSUMERS = {
-    "hardware/quickstart/_build.py": ":render-card-runtime",
-    "hardware/quickstart/quickstart_art.py": ":render-step-posed-runtime",
-    "hardware/quickstart/plumbing/modern/render_modern_tee.py": ":render-step-posed-runtime",
-    "hardware/quickstart/plumbing/plumbing_scenes.py": ":render-step-posed-runtime",
+    "hardware/install-guide/installation_art.py": ":render-step-posed-runtime",
+    "hardware/install-guide/plumbing/modern/render_modern_tee.py": ":render-step-posed-runtime",
+    "hardware/install-guide/plumbing/plumbing_scenes.py": ":render-step-posed-runtime",
 }
 _NODE_RUNTIME_SUPPORT = {
     ":render-card-runtime": {
@@ -180,13 +179,13 @@ def _node_runtimes(gens: tuple, srcs: list) -> tuple[str, ...]:
 
 def _check_node_runtime_map() -> None:
     cases = (
-        (("hardware/quickstart/_build.py",),
-         ["tools/render/browser.js", "tools/render/render-card.js"],
-         (":render-card-runtime",)),
-        (("hardware/quickstart/_build.py",),
-         ["tools/render/browser.js", "tools/render/render-card.js",
+        (("hardware/install-guide/installation_art.py",),
+         ["tools/render/browser.js", "tools/render/render-step-posed.js"],
+         (":render-step-posed-runtime",)),
+        (("hardware/install-guide/installation_art.py",),
+         ["tools/render/browser.js", "tools/render/render-step-posed.js",
           "tools/render/future-entrypoint.cjs"],
-         (":node-packages", ":render-card-runtime")),
+         (":node-packages", ":render-step-posed-runtime")),
         (("hardware/unknown.py",), ["tools/render/future-entrypoint.js"],
          (":node-packages",)),
     )

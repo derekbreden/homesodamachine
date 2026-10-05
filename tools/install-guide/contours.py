@@ -1,4 +1,4 @@
-"""Fixed-width page silhouettes for the quick-start illustrations."""
+"""Fixed-width page silhouettes for the installation illustrations."""
 from pathlib import Path
 import hashlib
 import json

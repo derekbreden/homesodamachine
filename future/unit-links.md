@@ -81,7 +81,7 @@ mount, so it matches four digits and nothing else rather than as a catch-all.
 `web/lib/unit.js` serves registered serials. `/0001` opens the machine overview, including
 the soda machine, faucet, install kit, and customer-supplied equipment. `/0001/get-started`
 holds the preparation checklist and the seven installation steps, linked to the matching
-pages of the install guide. `/0001/guides` opens the quick start, install guide, and care pages.
+pages of the install guide. `/0001/guides` opens the install guide and its care pages.
 The checklist's checkmarks are stored in the browser under the serial. Unregistered serials
 return 404. `web/tests/unit.test.js` checks the route and its links, and
 `web/tests/browser/unit.browser.js` checks navigation, the checklist, and phone layouts.

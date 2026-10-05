@@ -107,7 +107,7 @@ for requirement in ["through two dry revolutions", "Start at **[8 mm/s](SPEED_NO
 if not 0 < D["register_depth"] < D["disc_thickness"]:
     raise ValueError("Register must leave an intact plate")
 
-FONT_DIR = ROOT / "hardware/quickstart-codex/fonts"
+FONT_DIR = ROOT / "hardware/install-guide/fonts"
 for face_name, filename in [("Plex", "Plex-Regular.ttf"),
                             ("PlexSemi", "Plex-Semibold.ttf"),
                             ("PlexBold", "Plex-Bold.ttf")]:

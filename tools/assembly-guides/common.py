@@ -25,7 +25,7 @@ BAND_INSET = 24
 INK, BLUE, ORANGE = "#202337", "#1749D1", "#E95A2C"
 PAPER, ICE, STEEL = "#FCFCFA", "#EAF0FC", "#E4E8EE"
 MUTED, RULE, COPPER, GLOVE = "#606A78", "#DCE2EB", "#B8722C", "#ECD5AA"
-FONT_DIR = ROOT / "hardware/quickstart-codex/fonts"
+FONT_DIR = ROOT / "hardware/install-guide/fonts"
 for face_name, filename in [("Plex", "Plex-Regular.ttf"),
                             ("PlexSemi", "Plex-Semibold.ttf"),
                             ("PlexBold", "Plex-Bold.ttf")]:
