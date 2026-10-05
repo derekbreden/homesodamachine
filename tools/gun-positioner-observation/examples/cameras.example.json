@@ -1,0 +1,113 @@
+{
+  "_about": [
+    "Camera configuration for tools/gun-positioner-observation, format_version 1.",
+    "Copy it outside the repository (for example to ~/gpo-setup/cameras.json) and replace every FILL_ME and every null.",
+    "Check it with: tools/cad-venv/bin/python tools/gun-positioner-observation/observe.py validate-config ~/gpo-setup/cameras.json --measurement",
+    "Measurement capture refuses this file while any FILL_ME or required null remains. A dry capture needs only the unique IDs.",
+    "Keys starting with _ are notes and are ignored. Relative paths are resolved from the directory holding this file.",
+    "The commands below are run from the repository root, with OBS=tools/gun-positioner-observation and PY=tools/cad-venv/bin/python."
+  ],
+  "format_version": 1,
+  "receipt_max_age_hours": 12,
+  "clock_check": {
+    "_what": [
+      "Every session record carries mono_ns, from time.monotonic_ns(), which orders frames, moves and probe samples and never steps, and wall_ns, from time.time_ns(), which is for people and can step when the clock is set.",
+      "On macOS time.monotonic_ns() counts mach_absolute_time ticks. The capture helper stamps each frame with CLOCK_UPTIME_RAW and with AVFoundation's presentation time on the CoreMedia host clock; both count the same ticks.",
+      "The check reads both helper clocks between two time.monotonic_ns() readings. It passes when both readings lie inside that bracket.",
+      "The receipt names this Python's monotonic clock and the helper build's SHA-256. Rebuilding the helper or changing Python requires a new check."
+    ],
+    "_run": "$PY $OBS/observe.py clock-check --out ~/gpo-setup/clock-check.json",
+    "receipt": "FILL_ME: clock-check.json, written by the command above"
+  },
+  "cameras": [
+    {
+      "_identify": [
+        "Find camera A's unique ID with only camera A newly connected:",
+        "1. Unplug the USB cables of both K20UH cameras, then run: $PY $OBS/observe.py cameras --save ~/gpo-setup/cams-none.json",
+        "2. Plug in camera A only, then run: $PY $OBS/observe.py cameras --new-since ~/gpo-setup/cams-none.json --save ~/gpo-setup/cams-a.json",
+        "   The device it prints is camera A; copy its unique_id and name below. If it prints more than one device (a phone can appear at any time), repeat step 2.",
+        "The unique ID includes the USB port. Label the cable and port, and find the ID again if the camera moves to another port."
+      ],
+      "camera_id": "cam_a",
+      "unique_id": "FILL_ME: unique_id printed for camera A",
+      "name": "FILL_ME: name printed for camera A",
+      "position": "FILL_ME: physical position label, e.g. which camera stage and which view",
+      "require_native_4k": true,
+      "verified_format": {
+        "_fill": [
+          "Measured on this Mac with this camera, never copied from the manual.",
+          "After a dry capture with the unique IDs filled, run $PY $OBS/observe.py format-report SESSION_DIR and copy camera A's verified_format block here.",
+          "require_native_4k true refuses any measured size other than 3840 x 2160."
+        ],
+        "width": null,
+        "height": null,
+        "fps": null,
+        "pixel_format": null,
+        "chroma": null,
+        "measured_at": null,
+        "measured_with": null
+      },
+      "optics": {
+        "_fill": [
+          "source operator: receipt names this camera's filled copy of operator-optics.example.json; set visca to null.",
+          "source visca: the toolkit reads the optical settings back over VISCA at the start and end of every measurement window. Fill visca for one transport, set the other transport's fields to null, and set receipt to null.",
+          "The manual names network VISCA ports 1259 and 52381 but not their framing; network VISCA on this camera is unverified."
+        ],
+        "source": "FILL_ME: operator or visca",
+        "receipt": "FILL_ME: cam_a-optics.json for operator, or null for visca",
+        "visca": {
+          "transport": "FILL_ME: serial, tcp or udp; or replace this whole visca block with null for operator",
+          "serial_port": "FILL_ME: /dev/cu.<adapter> for serial, else null",
+          "baud": "FILL_ME: 2400, 4800, 9600, 38400 or 115200 for serial, else null",
+          "host": "FILL_ME: camera A's IP address for tcp or udp, else null",
+          "port": "FILL_ME: VISCA port for tcp or udp (the manual's IP Visca port is 1259), else null",
+          "address": "FILL_ME: camera A's VISCA address, 1-7 (the manual's factory default is 1)"
+        }
+      }
+    },
+    {
+      "_identify": [
+        "Find camera B's unique ID after camera A's:",
+        "3. Plug in camera B as well, then run: $PY $OBS/observe.py cameras --new-since ~/gpo-setup/cams-a.json",
+        "   The device it prints is camera B; copy its unique_id and name below.",
+        "The unique ID includes the USB port. Label the cable and port, and find the ID again if the camera moves to another port."
+      ],
+      "camera_id": "cam_b",
+      "unique_id": "FILL_ME: unique_id printed for camera B",
+      "name": "FILL_ME: name printed for camera B",
+      "position": "FILL_ME: physical position label, e.g. which camera stage and which view",
+      "require_native_4k": true,
+      "verified_format": {
+        "_fill": [
+          "Measured on this Mac with this camera, never copied from the manual.",
+          "After a dry capture with the unique IDs filled, run $PY $OBS/observe.py format-report SESSION_DIR and copy camera B's verified_format block here.",
+          "require_native_4k true refuses any measured size other than 3840 x 2160."
+        ],
+        "width": null,
+        "height": null,
+        "fps": null,
+        "pixel_format": null,
+        "chroma": null,
+        "measured_at": null,
+        "measured_with": null
+      },
+      "optics": {
+        "_fill": [
+          "source operator: receipt names this camera's filled copy of operator-optics.example.json; set visca to null.",
+          "source visca: the toolkit reads the optical settings back over VISCA at the start and end of every measurement window. Fill visca for one transport, set the other transport's fields to null, and set receipt to null.",
+          "The manual names network VISCA ports 1259 and 52381 but not their framing; network VISCA on this camera is unverified."
+        ],
+        "source": "FILL_ME: operator or visca",
+        "receipt": "FILL_ME: cam_b-optics.json for operator, or null for visca",
+        "visca": {
+          "transport": "FILL_ME: serial, tcp or udp; or replace this whole visca block with null for operator",
+          "serial_port": "FILL_ME: /dev/cu.<adapter> for serial, else null",
+          "baud": "FILL_ME: 2400, 4800, 9600, 38400 or 115200 for serial, else null",
+          "host": "FILL_ME: camera B's IP address for tcp or udp, else null",
+          "port": "FILL_ME: VISCA port for tcp or udp (the manual's IP Visca port is 1259), else null",
+          "address": "FILL_ME: camera B's VISCA address, 1-7 (the manual's factory default is 1)"
+        }
+      }
+    }
+  ]
+}

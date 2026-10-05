@@ -1,0 +1,27 @@
+{
+  "_about": [
+    "Optics receipt for one camera, format_version 1. Make one per camera whose optics source is operator,",
+    "for example ~/gpo-setup/cam_a-optics.json and ~/gpo-setup/cam_b-optics.json, and fill it from that camera's own readout.",
+    "Over VISCA, observe.py optics inquire --camera-id cam_a ... --out ~/gpo-setup/cam_a-optics.json --recorded-by NAME writes the read-back values; fill lens_attachment afterwards.",
+    "Check it with: tools/cad-venv/bin/python tools/gun-positioner-observation/observe.py optics check ~/gpo-setup/cam_a-optics.json --camera-id cam_a",
+    "Measurement is refused unless focus_mode is manual, exposure_mode is manual and tracking is off, and once the receipt is older than receipt_max_age_hours in cameras.json.",
+    "Write each value as the camera displays it or VISCA reads it back; write not_available for a value the camera does not show.",
+    "Never copy values from another camera, another day or this example. Keys starting with _ are notes and are ignored."
+  ],
+  "format_version": 1,
+  "camera_id": "FILL_ME: cam_a or cam_b, as in cameras.json",
+  "recorded_at": "FILL_ME: when the settings were read, ISO 8601 with UTC offset, e.g. 2026-10-05T09:30:00-05:00",
+  "recorded_by": "FILL_ME: who read the settings",
+  "method": "FILL_ME: camera_menu, web_interface or visca_inquiry",
+  "focus_mode": "FILL_ME: manual, auto or one_push",
+  "exposure_mode": "FILL_ME: manual, full_auto, shutter_priority, iris_priority or bright",
+  "tracking": "FILL_ME: off or on",
+  "zoom": "FILL_ME: zoom as displayed or read back, or not_available",
+  "focus": "FILL_ME: focus position as displayed or read back, or not_available",
+  "shutter": "FILL_ME: shutter as displayed (e.g. a 1/250 setting) or read back, or not_available",
+  "iris": "FILL_ME: iris as displayed or read back, or not_available",
+  "gain": "FILL_ME: gain or gain limit as displayed or read back, or not_available",
+  "white_balance": "FILL_ME: white balance as displayed or read back, or not_available",
+  "lens_attachment": "FILL_ME: attached close-up lens, e.g. Raynox DCR-250, or none",
+  "notes": ""
+}

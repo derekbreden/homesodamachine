@@ -1,0 +1,1386 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "gpobs/1",
+ "title": "Gun-positioner observation session record (events.jsonl line)",
+ "description": "Record kinds written to a session's `events.jsonl`: the observation schema.\n\nEvery record carries `kind`, `rec` (the writer's sequence number), `mono_ns`\n(host `time.monotonic_ns()` of the event) and `wall_ns`. Frames, moves, probe\nchannels and observations therefore sort onto one monotonic timeline.\n`validate()` checks a record against its kind's required fields and the types\nof any documented optional fields present; unknown kinds and missing or\nmistyped fields are errors. `json_schema()` renders the same definitions as a\nJSON Schema document (observation-schema.json beside this package).\n\nMove receipts map the controls `Client.move()` call as follows (see\n`controls.receipt_from_client_move`): move_command.issued_mono_ns is stamped\nbefore the call; move_ack.ack_mono_ns is the Client log's host receipt of the\n`ack` reply whose `op` is MOVE6 and whose sequence is the move's;\nmove_complete.complete_mono_ns is the host receipt of the first later reply\nwhose `completed_seq` is that sequence (the stamp after `move()` returned when\nno log is available); status `unverified` marks a move the Client completed\nwhose log lacks that command, ack or completion; controller_time_us is\nthe device's `completed_us`; completion_mapped_mono_ns is that device time on\nthe host clock through the clock map fitted from `clock_exchange` records,\nwith its uncertainty; reported_counts is the returned status `count`;\ndriver_state is the `drivers()` rows read after the move; controller holds\nevery other field of the returned status (state, fault, health, profile,\ncurrent_scales, configured_vsense, vsense, microsteps, max_rate, vm_epoch,\ntimer_ticks). move_ack.vm_epoch and\nmove_complete.vm_epoch carry the controller's supply epoch, so a supply cycle\nbetween two receipts, and therefore between the frames around them, is visible.",
+ "oneOf": [
+  {
+   "$ref": "#/$defs/session_note"
+  },
+  {
+   "$ref": "#/$defs/camera"
+  },
+  {
+   "$ref": "#/$defs/source_event"
+  },
+  {
+   "$ref": "#/$defs/optics"
+  },
+  {
+   "$ref": "#/$defs/frame"
+  },
+  {
+   "$ref": "#/$defs/frame_gap"
+  },
+  {
+   "$ref": "#/$defs/measurement_start"
+  },
+  {
+   "$ref": "#/$defs/measurement_end"
+  },
+  {
+   "$ref": "#/$defs/measurement_refused"
+  },
+  {
+   "$ref": "#/$defs/move_command"
+  },
+  {
+   "$ref": "#/$defs/move_ack"
+  },
+  {
+   "$ref": "#/$defs/move_complete"
+  },
+  {
+   "$ref": "#/$defs/controller_status"
+  },
+  {
+   "$ref": "#/$defs/clock_exchange"
+  },
+  {
+   "$ref": "#/$defs/trial_start"
+  },
+  {
+   "$ref": "#/$defs/trial_end"
+  },
+  {
+   "$ref": "#/$defs/observation"
+  },
+  {
+   "$ref": "#/$defs/proposal"
+  },
+  {
+   "$ref": "#/$defs/probe_sample"
+  },
+  {
+   "$ref": "#/$defs/table_encoder"
+  },
+  {
+   "$ref": "#/$defs/cool_reference"
+  }
+ ],
+ "$defs": {
+  "session_note": {
+   "type": "object",
+   "properties": {
+    "kind": {
+     "const": "session_note"
+    },
+    "rec": {
+     "type": "integer"
+    },
+    "mono_ns": {
+     "type": "integer"
+    },
+    "wall_ns": {
+     "type": "integer"
+    },
+    "text": {
+     "type": "string"
+    },
+    "author": {
+     "type": "string"
+    }
+   },
+   "required": [
+    "author",
+    "kind",
+    "mono_ns",
+    "rec",
+    "text",
+    "wall_ns"
+   ],
+   "additionalProperties": true
+  },
+  "camera": {
+   "type": "object",
+   "properties": {
+    "kind": {
+     "const": "camera"
+    },
+    "rec": {
+     "type": "integer"
+    },
+    "mono_ns": {
+     "type": "integer"
+    },
+    "wall_ns": {
+     "type": "integer"
+    },
+    "camera_id": {
+     "type": "string"
+    },
+    "unique_id": {
+     "type": "string"
+    },
+    "name": {
+     "type": "string"
+    },
+    "role": {
+     "type": "string"
+    },
+    "requested_format": {
+     "type": "object"
+    },
+    "source_info": {
+     "type": "object"
+    }
+   },
+   "required": [
+    "camera_id",
+    "kind",
+    "mono_ns",
+    "name",
+    "rec",
+    "requested_format",
+    "role",
+    "source_info",
+    "unique_id",
+    "wall_ns"
+   ],
+   "additionalProperties": true
+  },
+  "source_event": {
+   "type": "object",
+   "properties": {
+    "kind": {
+     "const": "source_event"
+    },
+    "rec": {
+     "type": "integer"
+    },
+    "mono_ns": {
+     "type": "integer"
+    },
+    "wall_ns": {
+     "type": "integer"
+    },
+    "camera_id": {
+     "type": "string"
+    },
+    "event": {
+     "type": "string"
+    },
+    "detail": {
+     "type": "object"
+    }
+   },
+   "required": [
+    "camera_id",
+    "detail",
+    "event",
+    "kind",
+    "mono_ns",
+    "rec",
+    "wall_ns"
+   ],
+   "additionalProperties": true
+  },
+  "optics": {
+   "type": "object",
+   "properties": {
+    "kind": {
+     "const": "optics"
+    },
+    "rec": {
+     "type": "integer"
+    },
+    "mono_ns": {
+     "type": "integer"
+    },
+    "wall_ns": {
+     "type": "integer"
+    },
+    "camera_id": {
+     "type": "string"
+    },
+    "optics_id": {
+     "type": "string"
+    },
+    "source": {
+     "type": "string",
+     "enum": [
+      "none",
+      "operator",
+      "visca_inquiry"
+     ]
+    },
+    "state": {
+     "type": "object"
+    },
+    "gate_ok": {
+     "type": "boolean"
+    },
+    "gate_reasons": {
+     "type": "array"
+    },
+    "warnings": {
+     "type": "array"
+    },
+    "context": {
+     "type": "string"
+    }
+   },
+   "required": [
+    "camera_id",
+    "context",
+    "gate_ok",
+    "gate_reasons",
+    "kind",
+    "mono_ns",
+    "optics_id",
+    "rec",
+    "source",
+    "state",
+    "wall_ns",
+    "warnings"
+   ],
+   "additionalProperties": true
+  },
+  "frame": {
+   "type": "object",
+   "properties": {
+    "kind": {
+     "const": "frame"
+    },
+    "rec": {
+     "type": "integer"
+    },
+    "mono_ns": {
+     "type": "integer"
+    },
+    "wall_ns": {
+     "type": "integer"
+    },
+    "camera_id": {
+     "type": "string"
+    },
+    "seq": {
+     "type": "integer"
+    },
+    "source_seq": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ]
+    },
+    "recv_mono_ns": {
+     "type": "integer"
+    },
+    "recv_wall_ns": {
+     "type": "integer"
+    },
+    "device_pts_ns": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ]
+    },
+    "source_host_ns": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ]
+    },
+    "codec": {
+     "type": "string",
+     "enum": [
+      "gray16",
+      "gray8",
+      "jpeg",
+      "nv12"
+     ]
+    },
+    "width": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ]
+    },
+    "height": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ]
+    },
+    "bytes": {
+     "type": "integer"
+    },
+    "dims_verified": {
+     "type": "boolean"
+    },
+    "native_4k": {
+     "type": "boolean"
+    },
+    "stored": {
+     "type": "boolean"
+    },
+    "file": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ]
+    },
+    "measurement": {
+     "type": "boolean"
+    },
+    "window_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ]
+    },
+    "optics_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ]
+    },
+    "excluded_reasons": {
+     "type": "array"
+    },
+    "subtype": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ]
+    }
+   },
+   "required": [
+    "bytes",
+    "camera_id",
+    "codec",
+    "device_pts_ns",
+    "dims_verified",
+    "excluded_reasons",
+    "file",
+    "height",
+    "kind",
+    "measurement",
+    "mono_ns",
+    "native_4k",
+    "optics_id",
+    "rec",
+    "recv_mono_ns",
+    "recv_wall_ns",
+    "seq",
+    "source_host_ns",
+    "source_seq",
+    "stored",
+    "wall_ns",
+    "width",
+    "window_id"
+   ],
+   "additionalProperties": true
+  },
+  "frame_gap": {
+   "type": "object",
+   "properties": {
+    "kind": {
+     "const": "frame_gap"
+    },
+    "rec": {
+     "type": "integer"
+    },
+    "mono_ns": {
+     "type": "integer"
+    },
+    "wall_ns": {
+     "type": "integer"
+    },
+    "camera_id": {
+     "type": "string"
+    },
+    "after_seq": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ]
+    },
+    "missing_estimate": {
+     "type": "integer"
+    },
+    "evidence": {
+     "type": "string"
+    },
+    "detail": {
+     "type": "object"
+    }
+   },
+   "required": [
+    "after_seq",
+    "camera_id",
+    "detail",
+    "evidence",
+    "kind",
+    "missing_estimate",
+    "mono_ns",
+    "rec",
+    "wall_ns"
+   ],
+   "additionalProperties": true
+  },
+  "measurement_start": {
+   "type": "object",
+   "properties": {
+    "kind": {
+     "const": "measurement_start"
+    },
+    "rec": {
+     "type": "integer"
+    },
+    "mono_ns": {
+     "type": "integer"
+    },
+    "wall_ns": {
+     "type": "integer"
+    },
+    "window_id": {
+     "type": "string"
+    },
+    "trial_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ]
+    },
+    "purpose": {
+     "type": "string"
+    },
+    "cameras": {
+     "type": "array"
+    },
+    "optics_ids": {
+     "type": "object"
+    },
+    "measurement": {
+     "type": "boolean"
+    },
+    "reasons": {
+     "type": "object"
+    }
+   },
+   "required": [
+    "cameras",
+    "kind",
+    "measurement",
+    "mono_ns",
+    "optics_ids",
+    "purpose",
+    "reasons",
+    "rec",
+    "trial_id",
+    "wall_ns",
+    "window_id"
+   ],
+   "additionalProperties": true
+  },
+  "measurement_end": {
+   "type": "object",
+   "properties": {
+    "kind": {
+     "const": "measurement_end"
+    },
+    "rec": {
+     "type": "integer"
+    },
+    "mono_ns": {
+     "type": "integer"
+    },
+    "wall_ns": {
+     "type": "integer"
+    },
+    "window_id": {
+     "type": "string"
+    },
+    "frames": {
+     "type": "object"
+    },
+    "optics_unchanged": {
+     "anyOf": [
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ]
+    },
+    "changed_fields": {
+     "type": "object"
+    },
+    "valid": {
+     "type": "boolean"
+    },
+    "reasons": {
+     "type": "array"
+    },
+    "gaps": {
+     "type": "object"
+    },
+    "pairing": {
+     "type": "object"
+    }
+   },
+   "required": [
+    "changed_fields",
+    "frames",
+    "kind",
+    "mono_ns",
+    "optics_unchanged",
+    "reasons",
+    "rec",
+    "valid",
+    "wall_ns",
+    "window_id"
+   ],
+   "additionalProperties": true
+  },
+  "measurement_refused": {
+   "type": "object",
+   "properties": {
+    "kind": {
+     "const": "measurement_refused"
+    },
+    "rec": {
+     "type": "integer"
+    },
+    "mono_ns": {
+     "type": "integer"
+    },
+    "wall_ns": {
+     "type": "integer"
+    },
+    "trial_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ]
+    },
+    "purpose": {
+     "type": "string"
+    },
+    "reasons": {
+     "type": "object"
+    }
+   },
+   "required": [
+    "kind",
+    "mono_ns",
+    "purpose",
+    "reasons",
+    "rec",
+    "trial_id",
+    "wall_ns"
+   ],
+   "additionalProperties": true
+  },
+  "move_command": {
+   "type": "object",
+   "properties": {
+    "kind": {
+     "const": "move_command"
+    },
+    "rec": {
+     "type": "integer"
+    },
+    "mono_ns": {
+     "type": "integer"
+    },
+    "wall_ns": {
+     "type": "integer"
+    },
+    "cmd_id": {
+     "type": "string"
+    },
+    "counts": {
+     "type": "array",
+     "items": {
+      "type": "integer"
+     },
+     "minItems": 6,
+     "maxItems": 6
+    },
+    "duration_us": {
+     "type": "integer"
+    },
+    "purpose": {
+     "type": "string",
+     "enum": [
+      "correction",
+      "engage",
+      "probe_jog",
+      "return",
+      "reversal_takeup"
+     ]
+    },
+    "trial_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ]
+    },
+    "backend": {
+     "type": "string"
+    },
+    "issued_mono_ns": {
+     "type": "integer"
+    },
+    "issued_wall_ns": {
+     "type": "integer"
+    },
+    "max_rate": {
+     "type": "integer"
+    }
+   },
+   "required": [
+    "backend",
+    "cmd_id",
+    "counts",
+    "duration_us",
+    "issued_mono_ns",
+    "issued_wall_ns",
+    "kind",
+    "mono_ns",
+    "purpose",
+    "rec",
+    "trial_id",
+    "wall_ns"
+   ],
+   "additionalProperties": true
+  },
+  "move_ack": {
+   "type": "object",
+   "properties": {
+    "kind": {
+     "const": "move_ack"
+    },
+    "rec": {
+     "type": "integer"
+    },
+    "mono_ns": {
+     "type": "integer"
+    },
+    "wall_ns": {
+     "type": "integer"
+    },
+    "cmd_id": {
+     "type": "string"
+    },
+    "accepted": {
+     "type": "boolean"
+    },
+    "reason": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ]
+    },
+    "ack_mono_ns": {
+     "type": "integer"
+    },
+    "controller_time_us": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ]
+    },
+    "vm_epoch": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ]
+    }
+   },
+   "required": [
+    "accepted",
+    "ack_mono_ns",
+    "cmd_id",
+    "controller_time_us",
+    "kind",
+    "mono_ns",
+    "reason",
+    "rec",
+    "wall_ns"
+   ],
+   "additionalProperties": true
+  },
+  "move_complete": {
+   "type": "object",
+   "properties": {
+    "kind": {
+     "const": "move_complete"
+    },
+    "rec": {
+     "type": "integer"
+    },
+    "mono_ns": {
+     "type": "integer"
+    },
+    "wall_ns": {
+     "type": "integer"
+    },
+    "cmd_id": {
+     "type": "string"
+    },
+    "status": {
+     "type": "string",
+     "enum": [
+      "done",
+      "fault",
+      "not_executed",
+      "rejected",
+      "stopped",
+      "timeout",
+      "unverified"
+     ]
+    },
+    "complete_mono_ns": {
+     "type": "integer"
+    },
+    "controller_time_us": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ]
+    },
+    "reported_counts": {
+     "anyOf": [
+      {
+       "type": "array"
+      },
+      {
+       "type": "null"
+      }
+     ]
+    },
+    "driver_state": {
+     "anyOf": [
+      {
+       "type": "array"
+      },
+      {
+       "type": "null"
+      }
+     ]
+    },
+    "fault": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ]
+    },
+    "error": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ]
+    },
+    "controller": {
+     "anyOf": [
+      {
+       "type": "object"
+      },
+      {
+       "type": "null"
+      }
+     ]
+    },
+    "seq": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ]
+    },
+    "backend_issued_mono_ns": {
+     "type": "integer"
+    },
+    "returned_mono_ns": {
+     "type": "integer"
+    },
+    "vm_epoch": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ]
+    },
+    "completion_mapped_mono_ns": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ]
+    },
+    "completion_mapping_uncertainty_ns": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ]
+    }
+   },
+   "required": [
+    "cmd_id",
+    "complete_mono_ns",
+    "controller_time_us",
+    "driver_state",
+    "fault",
+    "kind",
+    "mono_ns",
+    "rec",
+    "reported_counts",
+    "status",
+    "wall_ns"
+   ],
+   "additionalProperties": true
+  },
+  "controller_status": {
+   "type": "object",
+   "properties": {
+    "kind": {
+     "const": "controller_status"
+    },
+    "rec": {
+     "type": "integer"
+    },
+    "mono_ns": {
+     "type": "integer"
+    },
+    "wall_ns": {
+     "type": "integer"
+    },
+    "detail": {
+     "type": "object"
+    }
+   },
+   "required": [
+    "detail",
+    "kind",
+    "mono_ns",
+    "rec",
+    "wall_ns"
+   ],
+   "additionalProperties": true
+  },
+  "clock_exchange": {
+   "type": "object",
+   "properties": {
+    "kind": {
+     "const": "clock_exchange"
+    },
+    "rec": {
+     "type": "integer"
+    },
+    "mono_ns": {
+     "type": "integer"
+    },
+    "wall_ns": {
+     "type": "integer"
+    },
+    "host_send_ns": {
+     "type": "integer"
+    },
+    "host_recv_ns": {
+     "type": "integer"
+    },
+    "controller_us": {
+     "type": "integer"
+    },
+    "boot": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ]
+    }
+   },
+   "required": [
+    "controller_us",
+    "host_recv_ns",
+    "host_send_ns",
+    "kind",
+    "mono_ns",
+    "rec",
+    "wall_ns"
+   ],
+   "additionalProperties": true
+  },
+  "trial_start": {
+   "type": "object",
+   "properties": {
+    "kind": {
+     "const": "trial_start"
+    },
+    "rec": {
+     "type": "integer"
+    },
+    "mono_ns": {
+     "type": "integer"
+    },
+    "wall_ns": {
+     "type": "integer"
+    },
+    "trial_id": {
+     "type": "string"
+    },
+    "purpose": {
+     "type": "string"
+    },
+    "plan": {
+     "type": "object"
+    },
+    "direction_state": {
+     "type": "array",
+     "items": {
+      "enum": [
+       -1,
+       0,
+       1
+      ]
+     },
+     "minItems": 6,
+     "maxItems": 6
+    }
+   },
+   "required": [
+    "direction_state",
+    "kind",
+    "mono_ns",
+    "plan",
+    "purpose",
+    "rec",
+    "trial_id",
+    "wall_ns"
+   ],
+   "additionalProperties": true
+  },
+  "trial_end": {
+   "type": "object",
+   "properties": {
+    "kind": {
+     "const": "trial_end"
+    },
+    "rec": {
+     "type": "integer"
+    },
+    "mono_ns": {
+     "type": "integer"
+    },
+    "wall_ns": {
+     "type": "integer"
+    },
+    "trial_id": {
+     "type": "string"
+    },
+    "outcome": {
+     "type": "string",
+     "enum": [
+      "aborted",
+      "completed",
+      "failed",
+      "fault"
+     ]
+    },
+    "reason": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ]
+    }
+   },
+   "required": [
+    "kind",
+    "mono_ns",
+    "outcome",
+    "reason",
+    "rec",
+    "trial_id",
+    "wall_ns"
+   ],
+   "additionalProperties": true
+  },
+  "observation": {
+   "type": "object",
+   "properties": {
+    "kind": {
+     "const": "observation"
+    },
+    "rec": {
+     "type": "integer"
+    },
+    "mono_ns": {
+     "type": "integer"
+    },
+    "wall_ns": {
+     "type": "integer"
+    },
+    "obs_id": {
+     "type": "string"
+    },
+    "trial_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ]
+    },
+    "prev_obs_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ]
+    },
+    "cmd_ids": {
+     "type": "array"
+    },
+    "t_start_ns": {
+     "type": "integer"
+    },
+    "t_end_ns": {
+     "type": "integer"
+    },
+    "values": {
+     "type": "object"
+    },
+    "sigma": {
+     "type": "object"
+    },
+    "confidence": {
+     "type": "object"
+    },
+    "n_frames": {
+     "type": "object"
+    },
+    "frames": {
+     "type": "object"
+    },
+    "source": {
+     "type": "string"
+    },
+    "extractors": {
+     "type": "object"
+    },
+    "window_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ]
+    },
+    "window_valid": {
+     "anyOf": [
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ]
+    },
+    "frames_before_settle": {
+     "type": "object"
+    }
+   },
+   "required": [
+    "cmd_ids",
+    "confidence",
+    "extractors",
+    "frames",
+    "kind",
+    "mono_ns",
+    "n_frames",
+    "obs_id",
+    "prev_obs_id",
+    "rec",
+    "sigma",
+    "source",
+    "t_end_ns",
+    "t_start_ns",
+    "trial_id",
+    "values",
+    "wall_ns"
+   ],
+   "additionalProperties": true
+  },
+  "proposal": {
+   "type": "object",
+   "properties": {
+    "kind": {
+     "const": "proposal"
+    },
+    "rec": {
+     "type": "integer"
+    },
+    "mono_ns": {
+     "type": "integer"
+    },
+    "wall_ns": {
+     "type": "integer"
+    },
+    "proposal": {
+     "type": "object"
+    }
+   },
+   "required": [
+    "kind",
+    "mono_ns",
+    "proposal",
+    "rec",
+    "wall_ns"
+   ],
+   "additionalProperties": true
+  },
+  "probe_sample": {
+   "type": "object",
+   "properties": {
+    "kind": {
+     "const": "probe_sample"
+    },
+    "rec": {
+     "type": "integer"
+    },
+    "mono_ns": {
+     "type": "integer"
+    },
+    "wall_ns": {
+     "type": "integer"
+    },
+    "channel": {
+     "type": "string",
+     "enum": [
+      "axial",
+      "radial"
+     ]
+    },
+    "value": {
+     "type": "number"
+    },
+    "units": {
+     "type": "string"
+    },
+    "sample_mono_ns": {
+     "type": "integer"
+    },
+    "source": {
+     "type": "string"
+    }
+   },
+   "required": [
+    "channel",
+    "kind",
+    "mono_ns",
+    "rec",
+    "sample_mono_ns",
+    "source",
+    "units",
+    "value",
+    "wall_ns"
+   ],
+   "additionalProperties": true
+  },
+  "table_encoder": {
+   "type": "object",
+   "properties": {
+    "kind": {
+     "const": "table_encoder"
+    },
+    "rec": {
+     "type": "integer"
+    },
+    "mono_ns": {
+     "type": "integer"
+    },
+    "wall_ns": {
+     "type": "integer"
+    },
+    "counts": {
+     "type": "integer"
+    },
+    "counts_per_rev": {
+     "type": "integer"
+    },
+    "sample_mono_ns": {
+     "type": "integer"
+    },
+    "source": {
+     "type": "string",
+     "enum": [
+      "camera_fiducial",
+      "encoder"
+     ]
+    }
+   },
+   "required": [
+    "counts",
+    "counts_per_rev",
+    "kind",
+    "mono_ns",
+    "rec",
+    "sample_mono_ns",
+    "source",
+    "wall_ns"
+   ],
+   "additionalProperties": true
+  },
+  "cool_reference": {
+   "type": "object",
+   "properties": {
+    "kind": {
+     "const": "cool_reference"
+    },
+    "rec": {
+     "type": "integer"
+    },
+    "mono_ns": {
+     "type": "integer"
+    },
+    "wall_ns": {
+     "type": "integer"
+    },
+    "channel": {
+     "type": "string"
+    },
+    "value": {
+     "type": "number"
+    },
+    "units": {
+     "type": "string"
+    },
+    "sample_mono_ns": {
+     "type": "integer"
+    },
+    "source": {
+     "type": "string"
+    }
+   },
+   "required": [
+    "channel",
+    "kind",
+    "mono_ns",
+    "rec",
+    "sample_mono_ns",
+    "source",
+    "units",
+    "value",
+    "wall_ns"
+   ],
+   "additionalProperties": true
+  }
+ }
+}
