@@ -2,7 +2,7 @@
   "schema_version": 1,
   "article": "Timed C3 pump cradle insertion on Mark2",
   "session": "Printer 2",
-  "state": "accepted_monitoring_insertion",
+  "state": "suspended_for_required_action",
   "timezone": "America/Chicago",
   "clock_choice": "Local Central clock, CDT UTC-05:00 on 2026-10-05",
   "authorization_quotes": [
@@ -119,8 +119,8 @@
     "archive_name": "2026-10-05-enclosure-front-top-c3-v69-h2c-v20.gcode.3mf",
     "archive_sha256": "aa076477c54fdc97fb9b14507dbbd7c75f1b182135780be094757105e728505d"
   },
-  "monitoring_branch_state": "accepted_monitoring_insertion",
-  "fault_reported": false,
+  "monitoring_branch_state": "suspended_for_required_action",
+  "fault_reported": true,
   "transaction_invoked_at_utc": "2026-10-05T09:46:57.038812+00:00",
   "task_id": "1310615503",
   "job_id": "1310615503",
@@ -134,5 +134,16 @@
   "start_reported_at_utc": "2026-10-05T09:48:32.074332+00:00",
   "initial_print_progress_recorded": true,
   "first_layer_progress_recorded": true,
-  "initial_print_progress_observed_at_utc": "2026-10-05T09:59:36.339151+00:00"
+  "initial_print_progress_observed_at_utc": "2026-10-05T09:59:36.339151+00:00",
+  "fault_reported_at_utc": "2026-10-05T10:37:38.632726+00:00",
+  "fault_observed_at_utc": "2026-10-05T10:34:28.696545+00:00",
+  "fault_summary": {
+    "event": "left_external_filament_tangled_or_jammed",
+    "observed_at_utc": "2026-10-05T10:34:28.696545+00:00",
+    "observed_at_local": "2026-10-05T05:34:28.696545-05:00",
+    "print_error": 134119440,
+    "print_error_hex": "07FE8010",
+    "hms_code": "07FE-6000-0002-0001",
+    "required_action": "Check and clear binding or tangling of the left external black PET-GF spool and filament path. Keep the print paused pending separate resume authorization."
+  }
 }
