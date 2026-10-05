@@ -107,14 +107,14 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 2793 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 1028 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 2754 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 1027 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
       "enclosure-assembly.facts.json was measured off a different enclosure-assembly.step — it holds 987ba8ea6e72100358e30a2751035502, enclosure-assembly.step here is 76cb174077ac1258bcd6c6d4151f2494",
-      "  enclosure-assembly.facts.json was taken from a different tree — it holds 32b34630c2e0f80a93e3147cf8058a0b for the 258 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 0837328668f648a2e51984c53e963d7c here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "  enclosure-assembly.facts.json was taken from a different tree — it holds 32b34630c2e0f80a93e3147cf8058a0b for the 258 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 109154857e6fffbeefb529f432233d1d here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
@@ -153,7 +153,6 @@
       "      re-run tools/bazel/trace_inputs.py hardware/printed-parts/zone-c/funnel-mold/forming_mandrel.py, then gen_build.py"
     ],
     "hardware/scripts/check_step_colours.py": [
-      "    hardware/printed-parts/fixtures/gun-positioner/step/shaft-capture-tube-35p15.step",
       "    hardware/printed-parts/fixtures/gun-positioner/step/shaft-capture-tube-5p50.step",
       "    hardware/printed-parts/fixtures/gun-positioner/step/shaft-capture-tube-9p50.step",
       "    hardware/printed-parts/fixtures/gun-positioner/step/shaft-hub.step",
@@ -177,6 +176,7 @@
       "    hardware/printed-parts/fixtures/gun-positioner/step/z-bed.step",
       "    hardware/printed-parts/fixtures/gun-positioner/step/z-carriage.step",
       "    hardware/printed-parts/fixtures/gun-positioner/step/z-head-diagonal.step",
+      "    hardware/reference/wellbom-regulator/wellbom-regulator.step",
       "  A generator hands its solid to `_materials.one_body` and exports the assembly."
     ],
     "hardware/scripts/check_tracked.py": [
