@@ -124,12 +124,16 @@ records sampled insertion of the exported frame through both actual upper shells
 their closing motion, and capture against 2 mm translations on all three axes.
 Run `integration-review/check_fit.py` from the CAD environment to refresh it.
 
-The current frame requires its own native slice and physical support-removal
-and fit review. The retained
+The [current Mark2 frame job](flush-roof-review/mark2-v1/README.md) binds the
+exported STEP/STL to one accepted print, all 230 native model layers and complete
+support-slab removal sweeps. Its four bed-rooted supports reach the external
+rail bearings and have outward removal paths after contacts and branch
+junctions are detached. Physical support-removal effort and fit remain
+unqualified. The retained
 [`support audit`](integration-review/frame-support-audit.json) describes the
 input meshes named in that record: a 0.20 mm first layer, 0.24 mm subsequent
 layers, six walls through its 44.499 mm corbel band and four bed-rooted support
-bodies at the rail bearings. That slice does not qualify the current roof
+bodies at the rail bearings. That retained slice does not qualify the current roof
 surround. The current surround and body share one width and require no
 side-expansion band. The flat rails retain accessible
 supports. Physical fit, brim support under load and surface finish remain
