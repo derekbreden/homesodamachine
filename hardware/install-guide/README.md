@@ -1,27 +1,30 @@
 # Home Soda Machine install guide
 
-A 24-page, 6.625 x 10.25 inch booklet following the owner quick start's seven steps. Published on
-[Drawings](https://homesodamachine.com/drawings) and at
+A 9 × 7 inch landscape booklet with **32 numbered interior pages**, following the owner
+quick start's seven steps. The 34-page reading PDF includes the front and back covers. Published
+on [Drawings](https://homesodamachine.com/drawings) and at
 [install-guide.pdf](https://homesodamachine.com/docs/install-guide/install-guide.pdf).
 
-| Pages | Content |
+| Numbered interior pages | Content |
 | --- | --- |
-| 2-4 | Route, kit, counter opening and cabinet space |
-| 5-6 | 1. Mount the faucet |
-| 7-11 | 2. Add the cold-water tee: plastic tube or braided hose |
-| 12-13 | 3. Match the rear connections |
-| 14-15 | 4. Prepare the cylinder |
-| 16-18 | 5. Water, then gas, then power |
-| 19-20 | 6. Fill both flavors |
-| 21 | 7. Chill. Choose. Pour. |
-| 22-24 | Care, connection checks, flow and power checks, machine information |
+| 1–4 | Welcome, route, kit and cabinet space |
+| 5–8 | 1. Prepare the opening and mount the faucet |
+| 9–16 | 2. Add the cold-water tee: plastic tube or braided hose |
+| 17–18 | 3. Match the rear connections |
+| 19–21 | 4. Prepare the cylinder |
+| 22–24 | 5. Water, then gas, then power |
+| 25–27 | 6. Fill both flavors |
+| 28–29 | 7. Chill. Choose. Pour. |
+| 30–32 | Care, water connections, gas and first-pour checks |
 
 The booklet is complete on its own. Its step numbers match the
-[quick start](../quickstart-codex/README.md), whose braided-hose link opens pages 9-11.
-The Fill spread shows the Big Blue screen inside the machine display's frame, with its
+[quick start](../quickstart-codex/README.md), whose braided-hose link opens numbered page 13
+(PDF page 14). The connection-check link opens numbered page 31 (PDF page 32).
+The Fill pages show the Big Blue screen inside the machine display's frame, with its
 **Start filling** control. The same screen appears on the machine in the bottle illustration.
-Its steps lift the funnel cover off by its front edge before the bottle goes in and press it
-back down after **Filled**. Page 22 has the funnel and both faces of its cover washed by hand.
+The owner lifts the funnel cover by its front edge before the bottle goes in and presses it
+back down after **Filled**. Page 30 has the funnel and both faces of its cover washed by hand.
+The cabinet dimensions include the seated 3 mm funnel-cover plate.
 
 ## Artwork
 
@@ -48,7 +51,8 @@ booklet's artwork, including its Fill-screen illustration and hose-removal scene
 `assets/print-resolution.json` registers crop and arrow coordinates against the native artwork
 dimensions. The back face, rear connections and bottle scene are the quick start's snapshots drawn
 again at twice the resolution from the same cameras; each entry names its quick-start reference
-by hash. Manual page composition lives in [`tools/install-guide/`](../../tools/install-guide/).
+by hash. Manual page composition lives in [`landscape.py`](../../tools/install-guide/landscape.py),
+with the build entry point and print exporter in [`tools/install-guide/`](../../tools/install-guide/).
 `_install_art.py` supplies shared CAD scene builders used by illustration tools; its output is
 in `art/`.
 
@@ -60,8 +64,8 @@ From the repository root:
 tools/cad-venv/bin/python tools/quickstart-codex/fill_scene.py --publish
 tools/cad-venv/bin/python tools/quickstart-codex/fill_scene.py --scale 2 --publish
 tools/cad-venv/bin/python tools/install-guide/build.py
-tools/cad-venv/bin/python tools/install-guide/preflight.py
-pdftoppm -scale-to 1000 -png hardware/install-guide/install-guide.pdf hardware/install-guide/out/page
+tools/cad-venv/bin/python tools/install-guide/preflight.py --json hardware/install-guide/out/landscape/preflight.json
+pdftoppm -scale-to 1000 -png hardware/install-guide/install-guide.pdf hardware/install-guide/out/landscape/page
 ```
 
 The composer writes the reading PDF, print PDFs, thumbnail and document metadata. Copies for
@@ -76,29 +80,31 @@ pdfplumber, plus Poppler's `pdftoppm` and `pdfimages` commands.
 
 ## Print
 
-`install-guide.pdf` is the reading copy: 24 pages at 6.625 x 10.25 inches, in reading order,
-trimmed without bleed. It is what the site publishes. Its page numbers and links match the print
-edition.
+`install-guide.pdf` is the reading copy: front cover, interiors numbered 1–32, then back cover,
+all trimmed to 9 × 7 inches without bleed. PDF page labels match the printed interior numbers;
+bookmarks and the route page link to each installation step.
 
-`press/` is what a printer is sent, and the composer writes it on every run:
+`press/` holds the two Lulu upload files, written on each build:
 
-| File | Size | Holds |
+| File | Size including bleed | Holds |
 | --- | --- | --- |
-| `press/cover.pdf` | 13.5 x 10.5 in, 2 spreads | Outside: back cover left, front cover right. Inside: page 2 left, page 23 right |
-| `press/interior.pdf` | 6.875 x 10.5 in, 20 pages | Reading pages 3-22 |
+| `press/interior.pdf` | 9.25 × 7.25 in, 32 pages | Numbered interiors 1–32, one page per PDF page |
+| `press/cover.pdf` | 18.382072 × 7.25 in, one spread | Back cover left, 0.132072 in spine, front cover right |
 
-Both carry Lulu's 0.125 in bleed on every outside edge; the cobalt ground and the band at each
-page's head run out into it. The cover has no spine: saddle stitch folds the cover around the
-interior. Lulu settings are **Comic Book, Paperback Saddle Stitch, Premium Color, 70# White -
-Coated, Glossy**, with printed inside covers. The 20 interior pages and four cover faces make the
-complete 24-page guide.
+The full-bleed interiors and outside cover have Lulu's 0.125 in bleed on every outer edge. The
+cobalt ground and each page's head band extend through it. The plain cobalt spine uses Lulu's
+perfect-bound formula `(32 / 444) + 0.06` inches and carries no small text. Inside covers are blank.
 
-The interior retains embedded vector text and flattened RGB illustrations. The two cover
-spreads are flattened at 600 PPI. An embedded sRGB profile calibrates both PDFs. Critical text
-is at least 0.5 in from the trim; print files contain no links or printer marks.
+Lulu settings are **Print Book, Small Landscape 9 × 7, Paperback Perfect Bound, Premium Color,
+80# White — Coated, Matte**, quantity **3**. Lulu uses a fixed 100# laminated paperback cover.
+The 32-page count is the interior upload count; the outside cover is uploaded separately.
 
-[Order instructions](press/ORDER.md) identify the two upload files, the configured Lulu project
-link, the page arrangement and the proof-copy check. The order bundle in `output/pdf/` includes
+The interior retains embedded vector text and flattened RGB illustrations. The outside cover
+is flattened at 600 PPI. An embedded sRGB profile calibrates both PDFs. Critical text is at
+least 0.5 in from the trim; print files contain no links or printer marks.
+
+[Order instructions](press/ORDER.md) identify the two upload files, configured Lulu project,
+page arrangement and production-preview checks. The order bundle in `output/pdf/` includes
 those instructions, both upload PDFs, the reading copy and SHA-256 checksums.
 
 The whole booklet cannot be printed on the ET-8550: its driver offers no borderless pass with
@@ -106,10 +112,10 @@ two-sided printing, and offers two-sided printing for plain paper only.
 
 ## Installation coverage
 
-The guide describes the physical installation and the current Fill controls. First-use flavor-line
-priming remains unresolved in machine firmware: the Prime hold drives a pump without applying
-a dispensing valve plan. The guide makes no automatic-priming claim. The controller path is
-`firmware/src_appliance/machine.cpp` (`beginPrimePump`, `claimPump`, `pumpDrive`).
+The guide describes physical installation and the current Fill controls. It makes no
+automatic-priming claim. The Prime controller path is in
+`firmware/src_appliance/machine.cpp`; controller checks are documented in
+[`firmware/test/README.md`](../../firmware/test/README.md).
 
 No owner support phone number, email address or dedicated support URL is configured.
 
