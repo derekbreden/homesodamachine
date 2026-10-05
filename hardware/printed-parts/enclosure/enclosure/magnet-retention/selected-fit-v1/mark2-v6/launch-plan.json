@@ -7,7 +7,8 @@
   "clock_choice": "Local Central clock, CDT UTC-05:00 on 2026-10-05",
   "authorization_quotes": [
     "Give me the pump cradle pause at 9:30 am at best and 09:10 am to 9:50 am at worst.",
-    "Both beds are clear."
+    "Both beds are clear.",
+    "Oh, if its the same time, then yeah have front top pause at the very same time please, or close to it, within that window, thanks."
   ],
   "printer": "Mark2",
   "parts": [
@@ -34,12 +35,14 @@
     "initial_native_countdown_minutes": 286,
     "target_acceptance_local": "2026-10-05T04:43:00-05:00",
     "target_acceptance_utc": "2026-10-05T09:43:00+00:00",
-    "wake_local": "2026-10-05T04:42:00-05:00",
+    "wake_local": "2026-10-05T04:39:00-05:00",
     "not_before_send_utc": "2026-10-05T09:42:40+00:00",
     "latest_send_utc": "2026-10-05T10:00:00+00:00",
     "latest_acceptance_utc": "2026-10-05T10:03:00+00:00",
     "acceptance_allowance_seconds": 180,
-    "scope": "Minute-rounded native forecast includes modeled startup. The requested pause window controls the start decision; later estimate drift does not authorize stopping the accepted print."
+    "scope": "Minute-rounded native forecast includes modeled startup. The requested pause window controls the start decision; later estimate drift does not authorize stopping the accepted print.",
+    "peer_spacing_gate": "Do not Send before the later of not_before_send_utc and actual H2C acceptance plus 180 seconds. Freshly read both printers immediately before Send. If H2C did not start, retain the not-before time and apply spacing to any other observed peer start or resume.",
+    "forecast_pause_if_target_acceptance_local": "2026-10-05T09:30:00-05:00"
   },
   "bindings": {
     "archive": ".cache/prints/2026-10-05-pump-cradle-c3-mark2-v6/ready/2026-10-05-pump-cradle-c3-mark2-v6.gcode.3mf",
@@ -89,7 +92,7 @@
   "launch_authorized": true,
   "automatic_resume_authorized": false,
   "other_job_launch_authorized": false,
-  "front_top_launch_authorized": false,
+  "front_top_launch_authorized": true,
   "launch_command": [
     "tools/cad-venv/bin/python",
     "tools/bambu_print.py",
@@ -105,7 +108,17 @@
   "start_reported": false,
   "insertion_pause_reported": false,
   "insertion_action": "Insert one labeled attracting K&J RC62 upright in the lower cradle, fully below both open rims, with tube passages and the toolhead clear. The existing pump cap needs no retention ring. Resume only after separate authorization.",
-  "scope": "Exactly one fresh standalone C3 cradle start for the requested Central morning insertion window. Existing reviewed archive bytes remain immutable. Fresh both-printer readings and at least 180 seconds after the peer accepted a start or resume are required immediately before Send. Older monitors and queues remain untouched.",
-  "automation_schedule": "Wake at 4:42 am America/Chicago; aim for acceptance at 4:43 am, then monitor every five minutes after acceptance.",
-  "initial_preflight_completed_at_utc": "2026-10-05T08:22:03.350628+00:00"
+  "scope": "Exactly one standalone C3 cradle start on Mark2 under the shared timed plan. The separately authorized peer is exactly the C3/V69 front top H2C v20 archive. Existing reviewed archive bytes remain immutable. Fresh both-printer readings and at least 180 seconds after the peer accepted a start or resume are required immediately before each Send. All other jobs, older monitors and queues remain outside this authorization.",
+  "automation_schedule": "Wake at 4:39 am America/Chicago. Start H2C first near 4:40 am; aim for Mark2 acceptance near 4:43 am, subject to 180 seconds after actual H2C acceptance. Monitor both accepted branches every five minutes.",
+  "initial_preflight_completed_at_utc": "2026-10-05T08:56:26.334770+00:00",
+  "coordinator_plan": "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/timed-launch-plan.json",
+  "launch_order": 2,
+  "authorized_peer": {
+    "printer": "H2C",
+    "launch_plan": "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/h2c-v20/launch-plan.json",
+    "archive_name": "2026-10-05-enclosure-front-top-c3-v69-h2c-v20.gcode.3mf",
+    "archive_sha256": "aa076477c54fdc97fb9b14507dbbd7c75f1b182135780be094757105e728505d"
+  },
+  "monitoring_branch_state": "waiting_for_timed_start",
+  "fault_reported": false
 }
