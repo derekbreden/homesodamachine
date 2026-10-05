@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "printer": "Mark2",
-  "state": "accepted_monitoring_insertion",
+  "state": "suspended_for_required_action",
   "send_attempted": true,
   "submitted": true,
   "task_id": "1310615503",
@@ -21,8 +21,8 @@
   "start_reported": true,
   "scope": "One foreground Send accepted as an independently verified matching new task/job and exact archive name. Native project_file reply is not retained by this sender receipt. Startup telemetry can retain the previous job totals until initialized; it does not establish first-layer adhesion, magnet fit, roof quality or strength.",
   "coordinator_plan": "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/timed-launch-plan.json",
-  "monitoring_branch_state": "accepted_monitoring_insertion",
-  "fault_reported": false,
+  "monitoring_branch_state": "suspended_for_required_action",
+  "fault_reported": true,
   "transaction_invoked_at_utc": "2026-10-05T09:46:57.038812+00:00",
   "acceptance_observed_at_utc": "2026-10-05T09:47:21.983150+00:00",
   "acceptance_observed_at_local": "2026-10-05T04:47:21.983150-05:00",
@@ -94,5 +94,73 @@
       "target_c": 0
     },
     "scope": "Matching-task telemetry confirms progression into the first print layer. It does not establish completion of that layer, visual adhesion, fit, magnet seating, roof quality, density or strength."
+  },
+  "fault_reported_at_utc": "2026-10-05T10:37:38.632726+00:00",
+  "fault_observed_at_utc": "2026-10-05T10:34:28.696545+00:00",
+  "fault_summary": {
+    "event": "left_external_filament_tangled_or_jammed",
+    "observed_at_utc": "2026-10-05T10:34:28.696545+00:00",
+    "observed_at_local": "2026-10-05T05:34:28.696545-05:00",
+    "print_error": 134119440,
+    "print_error_hex": "07FE8010",
+    "hms_code": "07FE-6000-0002-0001",
+    "required_action": "Check and clear binding or tangling of the left external black PET-GF spool and filament path. Keep the print paused pending separate resume authorization."
+  },
+  "fault": {
+    "event": "left_external_filament_tangled_or_jammed",
+    "observed_at_utc": "2026-10-05T10:34:28.696545+00:00",
+    "observed_at_local": "2026-10-05T05:34:28.696545-05:00",
+    "task_id": "1310615503",
+    "job_id": "1310615503",
+    "archive_name": "2026-10-05-pump-cradle-c3-mark2-v6.gcode.3mf",
+    "gcode_state": "PAUSE",
+    "layer_num": 41,
+    "total_layer_num": 980,
+    "mc_percent": 6,
+    "mc_remaining_time": 552,
+    "print_error": 134119440,
+    "print_error_hex": "07FE8010",
+    "hms": [
+      {
+        "attr": 134111232,
+        "code": 131073
+      }
+    ],
+    "hms_code": "07FE-6000-0002-0001",
+    "stg_cur": 0,
+    "left_nozzle": {
+      "actual_c": 251,
+      "target_c": 42
+    },
+    "bed": {
+      "actual_c": 80.0,
+      "target_c": 80.0
+    },
+    "chamber": {
+      "actual_c": 37,
+      "target_c": 0
+    },
+    "diagnostic_source": {
+      "catalog": "Bambu Studio bundled English HMS catalog hms_en_31B.json",
+      "sha256": "dcf63657bff5451f0715ea3c032efe482279bc8cbc28cb9b8ae51c7354826574",
+      "07FE8010": "Check if the left external filament spool or filament is stuck.",
+      "07FE600000020001": "External spool connected to left extruder may be tangled or jammed."
+    },
+    "required_action": "Check and clear binding or tangling of the left external black PET-GF spool and filament path. Keep the print paused pending separate resume authorization.",
+    "programmed_insertion_pause_observed": false,
+    "scope": "The printer reports a left external filament feed fault on this exact accepted task. Telemetry does not identify the physical obstruction or establish part quality.",
+    "reported": true,
+    "reported_at_utc": "2026-10-05T10:37:38.632726+00:00"
+  },
+  "peer_at_fault": {
+    "observed_at": "2026-10-05T10:34:28.575539+00:00",
+    "task_id": "1310609527",
+    "job_id": "1310609527",
+    "subtask_name": "2026-10-05-enclosure-front-top-c3-v69-h2c-v20.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 10,
+    "total_layer_num": 1346,
+    "print_error": 0,
+    "hms": []
   }
 }
