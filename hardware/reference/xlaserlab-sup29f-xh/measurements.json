@@ -1,0 +1,70 @@
+{
+  "units": "mm",
+  "frame": "X forward along barrel; Y transverse; Z toward housing knobs; front housing face X=0; symmetry Y=0",
+  "scan_fit": {
+    "barrel_stem_diameter": 12.074273060894527,
+    "silver_sleeve_diameter": 17.89931039540452,
+    "silver_sleeve_straight_length": 30.7,
+    "grip_rearward_angle_degrees": 29.91
+  },
+  "cad_proxy": {
+    "head_length": 134.4,
+    "head_y_width": 33.9,
+    "head_height": 36.7,
+    "grip_section": [
+      38.0,
+      34.0
+    ],
+    "grip_length_to_boot": 83.0,
+    "grip_corner_radius": 4.5,
+    "purpose": "Idealized editable layout; detailed STL is the contact reference."
+  },
+  "photo_estimates": {
+    "copper_nozzle": {
+      "exposed_length": 25.0,
+      "collar_diameter": 17.9,
+      "taper_base_diameter": 14.6,
+      "nose_diameter": 8.4,
+      "mouth_recess_diameter": 6.4,
+      "mouth_recess_depth": 3.5,
+      "rough_length_allowance": 2.0,
+      "rough_diameter_allowance": 1.0,
+      "reference": "photo-measurements.json; adjacent scanned sleeve for local scale"
+    },
+    "umbilical_boot": {
+      "cuff_length": 31.0,
+      "maximum_section": [
+        40.5,
+        35.8
+      ],
+      "initial_section": [
+        38.0,
+        34.0
+      ],
+      "neck_section": [
+        29.0,
+        28.5
+      ],
+      "modeled_total_length": 80.0,
+      "rough_cuff_length_allowance": 6.0,
+      "rough_section_allowance": 2.0,
+      "basis": "Grip-sized initial section reported by the operator; cuff/shoulder/neck shape in supplied photos. The far cut is a modeling boundary."
+    },
+    "trigger": {
+      "paddle_length": 38.0,
+      "paddle_width": 10.0,
+      "paddle_projection": 4.3,
+      "button_diameter": 7.6,
+      "button_projection": 2.1,
+      "position": "released",
+      "basis": "Photo silhouette; front grip face is not directly scanned."
+    },
+    "wire_feed": {
+      "guide_pose": "captured scan pose",
+      "forward_thread_envelope_diameter": 9.9,
+      "fine_wire_included": false,
+      "hidden_hollows": "Inferred; external scan distances are in validation.json."
+    }
+  },
+  "allowance_scope": "Rough modeling allowances describe uncertain photo-derived geometry. They are not statistical confidence intervals, scanner tolerances, print clearances or physical qualification."
+}

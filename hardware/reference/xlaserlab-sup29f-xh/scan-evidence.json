@@ -1,0 +1,111 @@
+{
+  "part": "XLaserLab SUP29F-XH welding gun with attached wire feed",
+  "capture_date": "2026-10-05",
+  "scanner": "Revopoint MINI 2",
+  "application": "Revo Scan 6.3.2",
+  "project": "x1laserlab handle",
+  "archive": "/Users/derekbredensteiner/Documents/3D Scans/2026-10-05-xlaserlab-sup29f-xh",
+  "capture_manifest_sha256": "145f0e967cc4310860650f4604efefc55290dc6a51de58ebeee8f6b0f5197dbf",
+  "cloud": {
+    "original_file": "native-project/pointclouds/Fused 1005_1 (0.26mm).ply",
+    "original_sha256": "e8279ba6e69f065c95983f9c90d59479f347dd003852a0f7e41e7a599b26d611",
+    "points": 378299,
+    "fusion_point_spacing_mm": 0.26,
+    "scan_mode": "High Accuracy, Feature, Normal",
+    "recorded_frames": 633,
+    "committed_file": "source/fused-scan.npz",
+    "committed_sha256": "d668d3b3ecca3f6486a2e21d795629837107590a3de4c3192758e6f6bc038c4c",
+    "array": "xyz_normals: native x,y,z,nx,ny,nz, float32; coordinates in mm"
+  },
+  "photos": {
+    "originals": "/Users/derekbredensteiner/Documents/3D Scans/2026-10-05-xlaserlab-sup29f-xh/photos",
+    "files": [
+      {
+        "file": "photos/IMG_7909.jpg",
+        "sha256": "14d4d1a637c97bb97d321c1549237d63980734a91bb06caaf1343e97e1adba5a",
+        "resolution": [
+          1824,
+          1368
+        ]
+      },
+      {
+        "file": "photos/IMG_7910.jpg",
+        "sha256": "0d5df25fa12e28f5b00610d5e40ffa7d022ec8e9f2873430e5f0a04e81e874ae",
+        "resolution": [
+          1824,
+          1368
+        ]
+      },
+      {
+        "file": "photos/IMG_7911.jpg",
+        "sha256": "ce8be190ab8184abe853aea1189d806e89bb6b96bf535afef0b30a19be041683",
+        "resolution": [
+          1824,
+          1368
+        ]
+      },
+      {
+        "file": "photos/IMG_7912.jpg",
+        "sha256": "612222bce58d746dbfc065eb79db6f7a1b868fae96e43538bf35d33d2ca1bef5",
+        "resolution": [
+          1824,
+          1368
+        ]
+      },
+      {
+        "file": "photos/IMG_7913.jpg",
+        "sha256": "5f9ef2c0cf8fd5f5331c97685f7786e4c0c8def0fc011342fa0bd42641e50fd6",
+        "resolution": [
+          1824,
+          1368
+        ]
+      },
+      {
+        "file": "photos/IMG_7914.jpg",
+        "sha256": "b077f560025bccbdd42cbb3f17897464c90544ca3111931b634b885d7c267c77",
+        "resolution": [
+          1824,
+          1368
+        ]
+      },
+      {
+        "file": "photos/IMG_7915.jpg",
+        "sha256": "f1b080cd567a4e8bb258eed7216afb0903a156b3e4a1b88b4627fed5e436855c",
+        "resolution": [
+          1824,
+          1368
+        ]
+      },
+      {
+        "file": "photos/IMG_7916.jpg",
+        "sha256": "199786ef895c62ccc26f1994f60dbe03db4c33f3b5d5370029f0f6940a585f88",
+        "resolution": [
+          1824,
+          1368
+        ]
+      }
+    ],
+    "source_resolution": [
+      4032,
+      3024
+    ],
+    "export": "Photos JPEG, original size, High quality; location and caption export disabled. Committed derivatives have no EXIF."
+  },
+  "operator_observations": [
+    "The supplied scan captures approximately one side of the gun with the wire feed attached.",
+    "Only a corner of the umbilical wrap is captured. Its initial size is essentially the full grip section.",
+    "The tip did not retain the scan coating well and is missing from the scan."
+  ],
+  "reconstruction": {
+    "frame": "alignment.json; X forward along the barrel, Y transverse, Z up; front housing face at X=0; reflection across Y=0",
+    "method": "Shared axis fit to the stem and silver sleeve sets the midpoint. The broad housing-side plane fixes roll. Retained Y>=0 samples and normals are reflected. Housing and feeder are separately reconstructed by screened Poisson and closed with explicit end/face constraints. The observed bracket openings are cut through the feeder. Analytic solids reconstruct the barrel and missing end features.",
+    "pinned_surfaces": "source/reconstructed-surfaces.npz",
+    "pinned_surfaces_sha256": "7f4238a38f42f251f2b9665de6eefa4d805abcead8c1ba930f69a2a5c37d0bf8"
+  },
+  "limits": [
+    "Fusion spacing and model-to-scan residuals do not establish absolute accuracy. Coating thickness and scanner calibration error are unmeasured.",
+    "Opposite-side details are reflected as requested; any actual side-specific features are not independently observed.",
+    "The photos estimate the nozzle, front grip face, released trigger and boot. The guide pose is the captured pose; the remaining flexible umbilical is outside the model.",
+    "No physical mount fit, load capacity or lifetime is established by this reference."
+  ]
+}
