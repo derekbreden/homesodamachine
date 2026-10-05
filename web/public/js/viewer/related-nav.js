@@ -5,7 +5,8 @@
 // beside it. A funnel's mold is not carried by any assembly, so opening the
 // enclosure and clicking down through it arrives everywhere except the two
 // halves that cast the part you are looking at. The rule for what counts is
-// contracts/related-steps.js; this file is only the chips it draws.
+// contracts/related-steps.js; this file presents those models in one compact
+// disclosure with a scrollable list.
 //
 // Taking one is a drill: the model you came from goes on the trail, so the
 // breadcrumb and the browser's Back both walk back through it.
@@ -15,7 +16,7 @@
 
 import { state } from "./state.js";
 import { relatedSteps, KIND_CAPTIONS, label } from "/contracts/related-steps.js";
-import { makeToolGroup } from "./tool-rail.js";
+import { iconSvg } from "/contracts/icons.js";
 import { drillTo } from "./step-nav.js";
 import { faucetStyleFor } from "/contracts/faucet-options.js";
 
@@ -29,13 +30,26 @@ function chip(rel) {
   const btn = document.createElement("button");
   btn.type = "button";
   btn.className = "tool-chip related-chip";
-  btn.title = rel.file;
+  btn.title = `${KIND_CAPTIONS[rel.kind]}: ${rel.file}`;
   const text = document.createElement("span");
   text.className = "tool-label";
   text.textContent = label(rel.file);
   btn.appendChild(text);
-  btn.addEventListener("click", () => drillTo(rel.file));
+  btn.addEventListener("click", () => {
+    closeRelated(btn.closest(".cad-wrapper"));
+    drillTo(rel.file);
+  });
   return btn;
+}
+
+// Escape returns focus to the disclosure; a pointer outside it just dismisses
+// the list and leaves that pointer free to operate the model or another tool.
+export function closeRelated(wrapper, focus = false) {
+  const group = wrapper?.querySelector(`.${GROUP_CLASS}[open]`);
+  if (!group) return false;
+  group.open = false;
+  if (focus) group.querySelector("summary").focus();
+  return true;
 }
 
 /**
@@ -58,17 +72,17 @@ export function mountRelated(wrapper, file, trail = []) {
     .filter((rel) => !(faucetStyleFor(file) && faucetStyleFor(rel.file)));
   if (!related.length) return;
 
-  // One captioned group per kind, in the order the contract sorts them. The
-  // kinds are read off KIND_CAPTIONS rather than repeated here, so a kind the
-  // contract gains cannot go undrawn for want of an edit in this file.
-  for (const kind of Object.keys(KIND_CAPTIONS)) {
-    const run = related.filter((r) => r.kind === kind);
-    if (!run.length) continue;
-    const row = document.createElement("div");
-    row.className = "tool-chips";
-    for (const rel of run) row.appendChild(chip(rel));
-    const group = makeToolGroup(KIND_CAPTIONS[kind], row);
-    group.classList.add(GROUP_CLASS);
-    rail.appendChild(group);
-  }
+  const group = document.createElement("details");
+  group.className = GROUP_CLASS;
+  const summary = document.createElement("summary");
+  summary.className = "tool-btn";
+  summary.textContent = `Related (${related.length})`;
+  summary.title = "Related models";
+  summary.insertAdjacentHTML("beforeend", iconSvg("chevron", "tool-icon"));
+  group.appendChild(summary);
+  const list = document.createElement("div");
+  list.className = "related-menu";
+  for (const rel of related) list.appendChild(chip(rel));
+  group.appendChild(list);
+  rail.appendChild(group);
 }
