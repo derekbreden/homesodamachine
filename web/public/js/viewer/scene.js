@@ -28,8 +28,8 @@ import { syncEdgeResolution } from "./xray.js";
 // --- Detail view: Three.js setup ---
 export const canvasHost = document.getElementById("cad-canvas-host");
 
-// Exposure the filmic curve is driven at, shared with step.js's thumbnail renderer.
-export const TONE_EXPOSURE = 1.25;
+// Exposure shared with the owner-guide Fill artwork and step.js's thumbnails.
+export const TONE_EXPOSURE = 0.6;
 // What every 3D surface in the app clears to, and what distance fades toward.
 export const BG_COLOR = 0x10319c;
 
