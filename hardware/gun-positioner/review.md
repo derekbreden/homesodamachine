@@ -6,6 +6,9 @@ parameters, numerical checks, compiled controller and current shop guide.
 and software checks. [Publication verification](publication-verification.json)
 records actual served bytes after publication.
 
+The [guide inspection](../gun-positioner-guide/qa-receipt.json) covers all 35
+rendered pages, intact command blocks, contents links and PDF bookmarks.
+
 The [print geometry review](../printed-parts/fixtures/pgfun-positioner/geometry-lint-review.json)
 records all 60 STLs checked after publication. Exact-point answers beside the
 parts describe the required fits, support access and short bridges. The
