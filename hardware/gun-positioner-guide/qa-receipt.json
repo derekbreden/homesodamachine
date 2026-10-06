@@ -1,6 +1,6 @@
 {
-  "pdf_sha256": "632e28db448bfcd4aba2dcc655958fa63cb12dee406927348fe8674ae09b399d",
-  "pages_rendered": 31,
+  "pdf_sha256": "14e1b8f7c5a41ffbfa2875d15a57321d35ce19356849ff80ba55eddf215bd06e",
+  "pages_rendered": 35,
   "pages_visually_inspected": [
     1,
     2,
@@ -32,16 +32,39 @@
     28,
     29,
     30,
-    31
+    31,
+    32,
+    33,
+    34,
+    35
   ],
   "renderer": "Poppler pdftoppm 100dpi",
   "result": "pass",
   "checks": [
-    "CAD figures and callouts",
-    "text and code wrapping",
-    "table continuation headers",
-    "heading and footer placement",
-    "part/support manifest"
+    "Shared IBM Plex typography and cobalt/coral page furniture",
+    "CAD callouts and operation pictures",
+    "Screw-cutting, wiring and learning diagrams",
+    "Numbered actions and ready checks",
+    "Continued-operation headers, folios and footer placement",
+    "Table headers, wrapping and part/support manifest",
+    "All command blocks remain on one page",
+    "Clickable contents and PDF bookmark destinations",
+    "Source digests and current geometry binding"
   ],
-  "scope": "Document layout inspection; not physical acceptance"
+  "structural_checks": {
+    "outline_destinations": 16,
+    "contents_links": 16,
+    "manifest_parts": 60,
+    "source_digests": "pass",
+    "nonempty_pages": "pass",
+    "raw_markup": "absent",
+    "intact_command_blocks": 10
+  },
+  "embedded_fonts": [
+    "IBM Plex Sans Regular",
+    "IBM Plex Sans Semibold",
+    "IBM Plex Sans Bold",
+    "IBM Plex Mono Regular"
+  ],
+  "scope": "Document layout and source inspection; physical acceptance uses commissioning.md and observation.md"
 }

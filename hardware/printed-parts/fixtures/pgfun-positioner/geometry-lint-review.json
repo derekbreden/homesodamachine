@@ -1,0 +1,491 @@
+{
+  "geometry_sha256": "09f3665148688bdbd9795258021a0ef286fc9b484ecf4db4f7ca0f8d2c31727b",
+  "reviewed_after_publication": true,
+  "parts_checked": 60,
+  "unanswered_findings": 0,
+  "answered_findings": 165,
+  "lint_source_sha256": "79914fb4ca91a5620956c1d4d95fd6fe253fcae1b5f26bac0fafc43edffb4f53",
+  "scope": "STL feature review in each print frame; exact-point answers describe named fits and accessible fabrication. Native slicing and physical acceptance remain the assembly/commissioning checks.",
+  "parts": [
+    {
+      "part": "axle-collet-spacer",
+      "stl_sha256": "5abdc9e42ec43638bce1371d90e87efe68dd949d55e6e3bda2dbf8a71950e97e",
+      "facets": 840,
+      "unanswered": 0,
+      "answered": 0,
+      "answers_sha256": null
+    },
+    {
+      "part": "axle-end-spacer",
+      "stl_sha256": "66a37e61d193328dd2414484929e6e6b3ba799b8a842728bc606d52d07c940e2",
+      "facets": 840,
+      "unanswered": 0,
+      "answered": 0,
+      "answers_sha256": null
+    },
+    {
+      "part": "axle-front-stop-spacer",
+      "stl_sha256": "0d59772858dde5f1040342b67d782326e25203e26cf549d48385006876dc582a",
+      "facets": 840,
+      "unanswered": 0,
+      "answered": 0,
+      "answers_sha256": null
+    },
+    {
+      "part": "axle-keeper",
+      "stl_sha256": "b64d9ed4304bc01454619e5dae61c6d729a0551906fbbb8b40be2d777d3a6be5",
+      "facets": 840,
+      "unanswered": 0,
+      "answered": 0,
+      "answers_sha256": null
+    },
+    {
+      "part": "axle-middle-spacer",
+      "stl_sha256": "d07013355bcc5274af14868469171a5023927c9f6383a62eb459bb7f340a5761",
+      "facets": 840,
+      "unanswered": 0,
+      "answered": 0,
+      "answers_sha256": null
+    },
+    {
+      "part": "bench-toe-1",
+      "stl_sha256": "a320d9911e0a5b6c73e617abfd1f0695bdc924040c69d838ad87b5430d5be6b6",
+      "facets": 1740,
+      "unanswered": 0,
+      "answered": 1,
+      "answers_sha256": "b7e3afd08ac27022352cf08485db79d33dc1e1e3b5ebaa62dd57379031a1b301"
+    },
+    {
+      "part": "bench-toe-2",
+      "stl_sha256": "a320d9911e0a5b6c73e617abfd1f0695bdc924040c69d838ad87b5430d5be6b6",
+      "facets": 1740,
+      "unanswered": 0,
+      "answered": 1,
+      "answers_sha256": "096e38a2bed4b953175d9cda7803985d466f3e9fe3c88c8a676f31f294f61876"
+    },
+    {
+      "part": "bottom-frame-tie",
+      "stl_sha256": "5323f5521cc2f034ea77829f70cc0b3034bb31082c266374c7a69ea394c462d0",
+      "facets": 2700,
+      "unanswered": 0,
+      "answered": 0,
+      "answers_sha256": null
+    },
+    {
+      "part": "bridge",
+      "stl_sha256": "bd9f85a9a39d9d075a35d59f6584c4d18da1be7fa2eaf9732e2851e4b8c1f002",
+      "facets": 4908,
+      "unanswered": 0,
+      "answered": 0,
+      "answers_sha256": null
+    },
+    {
+      "part": "camera-lens-cassette",
+      "stl_sha256": "2f94ec18156d6f4eed4c2da52fb44485c79c4c8ad908d325454507eb3bb3ef78",
+      "facets": 6024,
+      "unanswered": 0,
+      "answered": 4,
+      "answers_sha256": "9629dd95493fc378ec030bb3329e37efe9e0a7e2774febd213c1c5163bda6cf8"
+    },
+    {
+      "part": "camera-lens-front-pad",
+      "stl_sha256": "dbfa698efdab371ec8fa3f06f44f70603bac01220227fc6dc09b218d6035e0bc",
+      "facets": 840,
+      "unanswered": 0,
+      "answered": 0,
+      "answers_sha256": null
+    },
+    {
+      "part": "camera-lens-retainer",
+      "stl_sha256": "18dce666d83443f88db35500b56a0a12914c2fed35a545521437b880f8a4a039",
+      "facets": 2132,
+      "unanswered": 0,
+      "answered": 0,
+      "answers_sha256": null
+    },
+    {
+      "part": "camera-lens-shim-0.4",
+      "stl_sha256": "8d495e8b8db0dfd2c8ee4e6c8379fb829ce966a7f3bf359d074e39faf7a437ab",
+      "facets": 768,
+      "unanswered": 0,
+      "answered": 0,
+      "answers_sha256": null
+    },
+    {
+      "part": "camera-lens-upright",
+      "stl_sha256": "9eab61bc7dca070d118510b13db89b8c2661d8e5ebd61baeec184ff2ab1aaff8",
+      "facets": 2340,
+      "unanswered": 0,
+      "answered": 3,
+      "answers_sha256": "a73c35e4db537681bd1ce67ddd4073fc34bcc10eda6a7980e9cb270f9ccb4368"
+    },
+    {
+      "part": "camera-riser-base",
+      "stl_sha256": "ca6a6ba9dbca7ca3c948c0e778755ea074d0d9ebaaa51c44dbbf37606347af76",
+      "facets": 7012,
+      "unanswered": 0,
+      "answered": 16,
+      "answers_sha256": "d902f5480d25d8e1e6f2f23f47b2df4ad47b2579b1683037c67405ec306ed5bb"
+    },
+    {
+      "part": "camera-riser-top",
+      "stl_sha256": "e8dbce6c99e04825fb42629ccfc82f49c5207d39f61a04c825bf860e02710cdc",
+      "facets": 6080,
+      "unanswered": 0,
+      "answered": 5,
+      "answers_sha256": "d26804714f4e549e64ad2e3973b18d9102ffb2b91e23ddc110cdede763633b01"
+    },
+    {
+      "part": "controller-case",
+      "stl_sha256": "1c0760cb78b09a5db2357a068913eec26fd7a930b575313d7386951121c8593f",
+      "facets": 10156,
+      "unanswered": 0,
+      "answered": 4,
+      "answers_sha256": "286ab5dec413106da7594fa42eafec113fda290b2b2492a6d5b1d9ce7a41bc1a"
+    },
+    {
+      "part": "controller-lid",
+      "stl_sha256": "37b70297995a8919458d64bad7dc5b568135689005da1eec78fb19d4a1fc6db6",
+      "facets": 4252,
+      "unanswered": 0,
+      "answered": 0,
+      "answers_sha256": null
+    },
+    {
+      "part": "fan-guard",
+      "stl_sha256": "51c87602e0eb4cbdbb674e09098db0b075c536eb8e599d6348132ea85b173576",
+      "facets": 764,
+      "unanswered": 0,
+      "answered": 0,
+      "answers_sha256": null
+    },
+    {
+      "part": "fork",
+      "stl_sha256": "2721c51998a809888e8a5802d86c3a6b3a72b25e114a47658b778c4c24ececc9",
+      "facets": 17834,
+      "unanswered": 0,
+      "answered": 24,
+      "answers_sha256": "479c85352ddd8434a825021077f00f8ff54264ddc13304ddf70edb84eb1a7c4d"
+    },
+    {
+      "part": "gun-retainer-1",
+      "stl_sha256": "74e060be588e0c1e2b40904f94bf69fcf235e6c2076154749967993567d5afbe",
+      "facets": 1756,
+      "unanswered": 0,
+      "answered": 1,
+      "answers_sha256": "686a2793a776c76adfcfa42b97d4b386afcb0f0c8794a074ee5a4e92faba0955"
+    },
+    {
+      "part": "gun-retainer-2",
+      "stl_sha256": "b57fca96984972ea2f21cb78f058941048eb4fef07d9ebb27619353d6944e88a",
+      "facets": 1764,
+      "unanswered": 0,
+      "answered": 1,
+      "answers_sha256": "52d4a03162453d318bc01619932195350ee014cc835f4c1db97c7b9e6fd203ee"
+    },
+    {
+      "part": "housing-fit-52.00",
+      "stl_sha256": "69bca373e19310d9dd546bbcf111bfa074391ac28eb87d54c578fdb4dca47ef4",
+      "facets": 6734,
+      "unanswered": 0,
+      "answered": 0,
+      "answers_sha256": null
+    },
+    {
+      "part": "housing-fit-52.03",
+      "stl_sha256": "97ca7d795a152bcbd87908abb002d03270e1f68138ba4a7dcb07cfda166dfcf4",
+      "facets": 7298,
+      "unanswered": 0,
+      "answered": 0,
+      "answers_sha256": null
+    },
+    {
+      "part": "housing-fit-52.08",
+      "stl_sha256": "8a7dba19e6dc2ec4acb7b9afa1dc965c36a92a7f2de0845929810316a8beaecf",
+      "facets": 7904,
+      "unanswered": 0,
+      "answered": 0,
+      "answers_sha256": null
+    },
+    {
+      "part": "journal-fit-39.98",
+      "stl_sha256": "6c4520fdb8c8aac101a694979949b4afdc0aabe22ef55a742f609abbc39f5bce",
+      "facets": 9890,
+      "unanswered": 0,
+      "answered": 1,
+      "answers_sha256": "684c68d94e101ca6d1cbc6237d56f98dc056fb47633dd645f71ec449d9a29ae4"
+    },
+    {
+      "part": "journal-fit-40.04",
+      "stl_sha256": "74fa4a19fd2e44592897ad988061a5fa09fe6b979f9f765aabc010def8538ca8",
+      "facets": 4042,
+      "unanswered": 0,
+      "answered": 1,
+      "answers_sha256": "dd3e2039e5a432b02c74e0beeebf33398c81d26b6cf277ac41d72be544471023"
+    },
+    {
+      "part": "journal-fit-40.06",
+      "stl_sha256": "f509d22f2d2be1b7ffb6d4544510a29491c64d7a017648862d95534881367df4",
+      "facets": 6064,
+      "unanswered": 0,
+      "answered": 1,
+      "answers_sha256": "f177cc548a8226dcddab3305bc54bb430404aabb778ea464be6615ddb1ae4503"
+    },
+    {
+      "part": "left-cheek",
+      "stl_sha256": "10d0fca383df0bc673faff582a58b382dc3fbb88acb783f8f99e3bcb16918493",
+      "facets": 7544,
+      "unanswered": 0,
+      "answered": 7,
+      "answers_sha256": "e772f625749004cea105ac737380a1008126f8fb37cc45d085d276f676256426"
+    },
+    {
+      "part": "liner-1-lower",
+      "stl_sha256": "5500d04b7a653875635a64f7c8a824adb4290969f6a284a33a3d36ba734131ca",
+      "facets": 140,
+      "unanswered": 0,
+      "answered": 2,
+      "answers_sha256": "86020dc0d88d042736bdcbc6f1ab6677b1316c2da2845e9484fe5a9346b6210b"
+    },
+    {
+      "part": "liner-1-upper",
+      "stl_sha256": "78bc4af1bd48865bab8bcc3e090ca8c6139af68cf0f9cac41791694e2f8e8b1f",
+      "facets": 108,
+      "unanswered": 0,
+      "answered": 2,
+      "answers_sha256": "5b737b19922013da3e685c2eb2a03ed18093dacfb82c748b35fb81d2d691921f"
+    },
+    {
+      "part": "liner-2-lower",
+      "stl_sha256": "748b3eb0494d367d23cfe3bc23ddf56dfd78bb71aafacd9638a67d86b7a4f405",
+      "facets": 132,
+      "unanswered": 0,
+      "answered": 2,
+      "answers_sha256": "12df5d8ef866174b225e376ad4901ce8a06ab466ff9719bcdefe7a65e27a92c7"
+    },
+    {
+      "part": "liner-2-upper",
+      "stl_sha256": "70983b3e82140691101084e004334ed486283d9618e9ba7ff24038ac64d67540",
+      "facets": 124,
+      "unanswered": 0,
+      "answered": 2,
+      "answers_sha256": "ca00b82f69f47c294e318a99acc642d2dabb25cbfcea5187f99bddbabe19efc7"
+    },
+    {
+      "part": "lower-cradle",
+      "stl_sha256": "ea869c951033d668cad791068b0e5781a3c69ae1ec08a19997b4a5e638e94078",
+      "facets": 5672,
+      "unanswered": 0,
+      "answered": 6,
+      "answers_sha256": "bf45eb7097c1e079f6d4a3d681879f5f58a5cd729e86b9ee8cb74664210e156b"
+    },
+    {
+      "part": "motor-pedestal",
+      "stl_sha256": "6b342b7438c43a2da89af54e65586109949b4cdced189a3cbc16d18115e28eb0",
+      "facets": 9156,
+      "unanswered": 0,
+      "answered": 10,
+      "answers_sha256": "a6e8a6264c4d8f2121bd105ccb178d20a54da7705edec01bad9ad349313bee33"
+    },
+    {
+      "part": "opposite-bearing-cap",
+      "stl_sha256": "3744b4642f22ec0eac4a3b4d483675daa304ec03c5107dfbf2202c5bbf84f812",
+      "facets": 2536,
+      "unanswered": 0,
+      "answered": 0,
+      "answers_sha256": null
+    },
+    {
+      "part": "opposite-inner-spacer",
+      "stl_sha256": "5abdc9e42ec43638bce1371d90e87efe68dd949d55e6e3bda2dbf8a71950e97e",
+      "facets": 840,
+      "unanswered": 0,
+      "answered": 0,
+      "answers_sha256": null
+    },
+    {
+      "part": "pitch-bearing-cap",
+      "stl_sha256": "6cd6ef14f6430aca5588c8519e96b74727d31453dec7822067fe66591abcd5c3",
+      "facets": 2536,
+      "unanswered": 0,
+      "answered": 0,
+      "answers_sha256": null
+    },
+    {
+      "part": "pitch-inner-spacer",
+      "stl_sha256": "bc5a3ad622290e22470ff9da24bbd7e299efe0366997722e1724633fab60a761",
+      "facets": 840,
+      "unanswered": 0,
+      "answered": 0,
+      "answers_sha256": null
+    },
+    {
+      "part": "pitch-journal",
+      "stl_sha256": "54862b070e368dd0899139dea8fc34d4ec01c5258a1e730de03e353b389d7190",
+      "facets": 12066,
+      "unanswered": 0,
+      "answered": 6,
+      "answers_sha256": "6289b8ca0b903b2bebee0eef35e9d7fc4a67e187d35c22083ef943cdec68723f"
+    },
+    {
+      "part": "pitch-limit-holder--1",
+      "stl_sha256": "1e90c30359156c39bcd65905983d91a9bca4cbf67c8a12043d3154398ddf9f03",
+      "facets": 840,
+      "unanswered": 0,
+      "answered": 4,
+      "answers_sha256": "8b110d5c062436eabad7adb796935c6e680f78693d5c3be7f502626d77cd307e"
+    },
+    {
+      "part": "pitch-limit-holder-1",
+      "stl_sha256": "9f3c469d656db4694cd0b87d4cec91e249ddfe62044950f33ddd929d689d42b6",
+      "facets": 840,
+      "unanswered": 0,
+      "answered": 4,
+      "answers_sha256": "0aaa4085b8885cad1921c8f8ebe22191a02af4a275c0b47b9e7254989a221f8a"
+    },
+    {
+      "part": "pitch-outer-spacer",
+      "stl_sha256": "8217a5761c8722d5f4b5a59be8b707cb5c48a1dcfc7885d6315e9f3d09a27913",
+      "facets": 840,
+      "unanswered": 0,
+      "answered": 0,
+      "answers_sha256": null
+    },
+    {
+      "part": "pitch-output-adapter",
+      "stl_sha256": "22e5427bb54bb7246256deb87c581f7af8e69e0618d9315b2e2e6ca2c8974d98",
+      "facets": 9070,
+      "unanswered": 0,
+      "answered": 1,
+      "answers_sha256": "8697b3628be329864a461d82ae040b5d6312e727b3fbe5fe398d409a0dfc79f5"
+    },
+    {
+      "part": "pitch-stop-sector",
+      "stl_sha256": "f709be4669ab1baafede9ac3a30a79646172a22557052c43c1f3fd1fd8faa537",
+      "facets": 3040,
+      "unanswered": 0,
+      "answered": 0,
+      "answers_sha256": null
+    },
+    {
+      "part": "pitch-switch-standoff--1",
+      "stl_sha256": "f9d39e020208d4f3bffbd3d896b16cfbe43e8a305d1b0202ea7f2ae7701f94c6",
+      "facets": 436,
+      "unanswered": 0,
+      "answered": 0,
+      "answers_sha256": null
+    },
+    {
+      "part": "pitch-switch-standoff-1",
+      "stl_sha256": "f9d39e020208d4f3bffbd3d896b16cfbe43e8a305d1b0202ea7f2ae7701f94c6",
+      "facets": 436,
+      "unanswered": 0,
+      "answered": 0,
+      "answers_sha256": null
+    },
+    {
+      "part": "right-cheek",
+      "stl_sha256": "6b70ae3f32946f3340128abcfc835ec78b66bc5f2b455f3b7adaf67da2bd406e",
+      "facets": 5274,
+      "unanswered": 0,
+      "answered": 4,
+      "answers_sha256": "d258ba6790bf4554aa23ab4c3799ad857d48b848852f97e2cf1016d00a854c5c"
+    },
+    {
+      "part": "umbilical-post-base",
+      "stl_sha256": "5ff097e483c4fdba37eee5f8c9b5ccff2b3cc40b3c134430565737adabba35aa",
+      "facets": 2296,
+      "unanswered": 0,
+      "answered": 12,
+      "answers_sha256": "b2a073d5e07595fc16c1f1c683dd95652c9201936dcbbb8259db10eca7a8cb67"
+    },
+    {
+      "part": "umbilical-post-top",
+      "stl_sha256": "57389add8b02ed028890babc54fe0a931c0ccb792af62ba0ffc7aa9566e65c03",
+      "facets": 2296,
+      "unanswered": 0,
+      "answered": 12,
+      "answers_sha256": "75b7b185ecb20c39fef66509a7dbac9a341742dcbfc13a99e5dfc38b4e85846f"
+    },
+    {
+      "part": "umbilical-saddle",
+      "stl_sha256": "f79435ddc10ed3d5e3ed053fc776384d3dda200a3820d7f54975c3e7d1c9a120",
+      "facets": 1540,
+      "unanswered": 0,
+      "answered": 2,
+      "answers_sha256": "c3fcbc052ced18cc32ad7004bef43daf3b4cdeaaef5df954217c50dd6d10ff77"
+    },
+    {
+      "part": "yaw-bearing-cap",
+      "stl_sha256": "6cd6ef14f6430aca5588c8519e96b74727d31453dec7822067fe66591abcd5c3",
+      "facets": 2536,
+      "unanswered": 0,
+      "answered": 0,
+      "answers_sha256": null
+    },
+    {
+      "part": "yaw-bearing-cartridge",
+      "stl_sha256": "549caaf88c682c8669a40d95c21de4318277cb973d87bf1baeff9aed279b08f8",
+      "facets": 9350,
+      "unanswered": 0,
+      "answered": 11,
+      "answers_sha256": "dbb1719e8c91426be5806f2d97310d7480e6580b3448be806c26e8e4e5f4bdc9"
+    },
+    {
+      "part": "yaw-inner-spacer",
+      "stl_sha256": "bc5a3ad622290e22470ff9da24bbd7e299efe0366997722e1724633fab60a761",
+      "facets": 840,
+      "unanswered": 0,
+      "answered": 0,
+      "answers_sha256": null
+    },
+    {
+      "part": "yaw-journal",
+      "stl_sha256": "54862b070e368dd0899139dea8fc34d4ec01c5258a1e730de03e353b389d7190",
+      "facets": 12066,
+      "unanswered": 0,
+      "answered": 6,
+      "answers_sha256": "0cf2c4d3a283f853c5950d61f63eb90553f6a6a56a81eb6f8fa58f5ec7badcee"
+    },
+    {
+      "part": "yaw-limit-holder--1",
+      "stl_sha256": "1e90c30359156c39bcd65905983d91a9bca4cbf67c8a12043d3154398ddf9f03",
+      "facets": 840,
+      "unanswered": 0,
+      "answered": 4,
+      "answers_sha256": "62f9bfc24ebdfb574cfc9a312cfb8a26b0f414f05007b2bdc0eee0f291ae79c0"
+    },
+    {
+      "part": "yaw-limit-holder-1",
+      "stl_sha256": "9f3c469d656db4694cd0b87d4cec91e249ddfe62044950f33ddd929d689d42b6",
+      "facets": 840,
+      "unanswered": 0,
+      "answered": 4,
+      "answers_sha256": "d3885d95b9bc95d8e983efa814625a201f3c27474dbe754f530616ca358bd626"
+    },
+    {
+      "part": "yaw-outer-spacer",
+      "stl_sha256": "8217a5761c8722d5f4b5a59be8b707cb5c48a1dcfc7885d6315e9f3d09a27913",
+      "facets": 840,
+      "unanswered": 0,
+      "answered": 0,
+      "answers_sha256": null
+    },
+    {
+      "part": "yaw-output-adapter",
+      "stl_sha256": "22e5427bb54bb7246256deb87c581f7af8e69e0618d9315b2e2e6ca2c8974d98",
+      "facets": 9070,
+      "unanswered": 0,
+      "answered": 1,
+      "answers_sha256": "b49cd3707fca245fbf1012063ea7ff64fb6b32f079bbe760bf61baea4fc91573"
+    },
+    {
+      "part": "yaw-stop-sector",
+      "stl_sha256": "f709be4669ab1baafede9ac3a30a79646172a22557052c43c1f3fd1fd8faa537",
+      "facets": 3040,
+      "unanswered": 0,
+      "answered": 0,
+      "answers_sha256": null
+    }
+  ]
+}
