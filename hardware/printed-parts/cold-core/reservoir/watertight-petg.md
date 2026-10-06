@@ -1,16 +1,26 @@
 # Printing the reservoir watertight in PETG
 
-The starting point is the **physically successful Bambu PETG Basic recipe**.
+The starting point is the **physically successful May 30 Bambu PETG clear recipe**.
 [Print attempt 3](print-log.md) records hours of water retention with the
-gaskets installed. Its archived project and extracted active-nozzle settings
-are identified in [petg-water-recipe.json](../magnetic-float/petg-water-recipe.json).
-This result establishes water holding at reservoir head; it supplies no measured
-pressure rating. Later PETG Translucent projects have a different material and
-recipe and no success result recorded in that log.
+gaskets installed. The exact native project is
+[`reservoir-water-hold-2026-05-30.3mf`](reservoir-water-hold-2026-05-30.3mf);
+its extracted active-nozzle settings are in
+[petg-water-recipe.json](../magnetic-float/petg-water-recipe.json).
+The saved `Bambu PETG Water` preset carries PETG Basic's `GFG00` identity;
+Derek confirms the actual filament was **Bambu PETG clear**. A saved preset
+identity does not establish which filament was physically loaded.
+
+Both September [0.8 mm recipes](seal-trial.md), at 0.18 and 0.24 mm layer
+height, also held water, confirmed by Derek on 2026-10-05. Their recovered
+Mark2 slices and the May project are identified in
+[water-hold-acceptance.json](water-hold-acceptance.json).
+These results establish water holding at reservoir head; they supply no measured
+pressure rating. The May hold lasted several hours; the September report
+specifies no duration, temperature or fill height.
 
 ## Proven printing basis
 
-| Parameter | Successful PETG Basic reservoir |
+| Parameter | Successful May 30 Bambu PETG clear reservoir |
 | --- | --- |
 | Printer / active nozzle | H2C / left 0.6 mm standard flow |
 | Nozzle temperature, first / subsequent | 255 / 260 °C |
@@ -31,6 +41,17 @@ floor. These are observed settings, not a universal PETG preset. The
 [separate PETG-shell bench float](../magnetic-float/petg-shell.md) specifies its own slower paths,
 zero seam gap, unconditional scarf and lower overhang cooling for a roof backed
 by an insert. Its adaptations are separate from the physical reservoir result.
+
+## Accepted 0.8 mm recipes
+
+Both September projects use PETG Translucent settings, 255 °C throughout,
+flow 0.97, a 6 mm³/s volumetric limit and 30 mm/s requested wall/fill speeds.
+They use six requested Arachne walls at 0.80 mm width, 100% zig-zag fill,
+12-layer / 2 mm top and bottom shells, 20% normal cooling, aligned
+unconditional scarf seams and zero seam gap. The first layer is 0.30 mm.
+Normal layers are **0.18 or 0.24 mm**; the recovered printer slices estimate
+**26 h 8 min or 20 h 7 min**, respectively. Both recipes have reported
+water holds. [Complete settings and projects](seal-trial.md).
 
 ## The part and its seal
 
@@ -55,13 +76,14 @@ Inspect the wall, corners, seam closures, floor/wall junction and bulkhead seat.
 Arachne changes widths to fit the actual geometry; requested wall count is a
 limit. Wall thickness need not be a whole multiple of requested line width.
 The [0.8 mm seal trial](seal-trial.md), for example, has four nominally
-overlapping paths across a straight 3 mm wall. That path description is not
-a physical seal result.
+overlapping paths across a straight 3 mm wall. Its physical water-holding
+result is recorded separately from the nominal path description.
 
 **Flow is a principal sealing variable.** The successful 1.02 ratio is 5.15%
 above its 0.97 stock baseline. Published experiments show large leakage changes
 with extrusion amount; multiplier values do not transfer directly between
-printers/materials. Use the successful local value for this PETG Basic recipe.
+printers/materials. Use 1.02 when repeating the May 30 clear recipe; the
+accepted September recipes use their own 0.97 flow.
 There is no evidence-based universal limit of a 2% adjustment.
 
 Line width, infill overlap and flow are distinct. The slicer generally changes
@@ -77,7 +99,8 @@ water-holding work and independent leakage experiments support low layers.
 Preserve solid floor thickness when changing layer height; a fixed layer count
 does not preserve the amount of sealing material.
 
-For **Bambu PETG Basic here, use 255/260 °C**. No retrieved evidence establishes
+For **the May 30 Bambu PETG clear recipe, use 255/260 °C**; both accepted
+September recipes use 255/255 °C. No retrieved evidence establishes
 a universal PETG adhesion peak at 245–250 °C or a universal decline above
 260 °C. Welding depends on material, actual melt temperature, extrusion rate,
 cooling and the temperature of the receiving layer. Gloss is a surface
@@ -101,7 +124,7 @@ new geometry, inspect both the perimeter/fill junction and the region above
 supports. Neither an all-perimeter wall nor a particular fill pattern is
 universally leak-proof; successful published prints use several arrangements.
 
-Dry PETG Basic using the [shop drying table](/hardware/ledger/tools.md) and keep
+Dry the actual PETG stock using the [shop drying table](/hardware/ledger/tools.md) and keep
 it dry during printing. A dry-box humidity reading measures its air rather
 than residual moisture inside the filament. Popping, bubbles or rough extrusion
 merit investigation; visual quality alone cannot qualify a seal.
@@ -112,7 +135,8 @@ Assemble the intended washers/gaskets and fill to the maximum service level.
 Use a dry exterior and an absorbent witness beneath the seams and bulkhead to
 localize any seepage. Record water level, temperature, duration and leak
 location. A full, cold 24-hour hold is a useful acceptance observation; the
-existing success record states **hours**, not a documented 24-hour hold.
+May success record states **hours**; neither September result specifies a
+duration. No reported result establishes a documented cold 24-hour hold.
 
 The reservoir is vented and has no assigned pneumatic proof pressure. Pressure
 vessel results belong to the [separate float pressure investigation](../magnetic-float/pressure-printing-research.md).

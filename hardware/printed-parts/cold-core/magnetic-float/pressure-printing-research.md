@@ -23,8 +23,8 @@ walls, 100% solid fill and 10–20% part cooling. Use the float's slow wall spee
 zero seam gap, unconditional scarf seams and fully backed roof. ASA Aero keeps
 the [manufacturer-based printing recipe](asa-aero-research.md).
 
-The sealing process draws on the repository's PETG Basic water-holding result
-and the process variables supported by the studies below. The selected material
+The sealing process draws on the repository's May 30 Bambu PETG clear
+water-holding result and the process variables supported by the studies below. The selected material
 is the reservoirs' PETG Translucent Clear; it retains the native Translucent
 density and 16 mm³/s volumetric ceiling. Its pressure endurance is
 unknown. The incomplete sphere record establishes no limit for an unpierced
@@ -158,9 +158,10 @@ uncoated PETG/270 °C-printed ASA Aero float result at 180 psi external pressure
 
 ## Flow, thickness and buoyancy together
 
-The local **1.02** flow is the successful PETG Basic recipe. Against its **0.97**
-stock baseline it is already **5.15% more extrusion**. Multiplier values depend
-on the slicer, material and printer; a published 1.15 is not a portable target.
+The local **1.02** flow is the successful May 30 clear recipe. Against its saved
+preset's **0.97** stock baseline it is already **5.15% more extrusion**.
+Multiplier values depend on the slicer, material and printer; a published
+1.15 is not a portable target.
 Keeping the proven local value is the strongest available starting point.
 
 The [native slice](verification.json) predicts 31.50 g of PETG and 5.43 g of

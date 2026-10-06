@@ -2,11 +2,19 @@
 
 [Print project: reservoir-08-seal-trial.3mf](reservoir-08-seal-trial.3mf)
 
-One current left reservoir body, mouth up, and its matching cap, exterior face down
+One reference left reservoir body, mouth up, and its matching cap, exterior face down
 and gasket rim up, for the **H2C with a 0.8 mm nozzle and PETG Translucent**.
-The project contains both meshes, editable settings and sliced G-code.
-Bambu Studio 02.08.02.61 estimates **26 h 12 min, 417.16 g, 984 layers**.
-Physical print and water-test results are pending.
+The project contains both meshes and editable settings. The inspected reference
+slice from Bambu Studio 02.08.02.61 estimates **26 h 12 min, 417.16 g, 984 layers**.
+The recovered Mark2 printer slice estimates **26 h 8 min, 416.86 g, 984 layers**;
+its complete project settings match this saved project.
+
+**Both the 0.18 and 0.24 mm recipes held water**, reported by Derek on
+2026-10-05. [Water-hold acceptance](water-hold-acceptance.json) identifies the
+printer files and verified G-code hashes. The reported holds have no specified
+duration, temperature or fill height. These results belong to the printed
+reference geometry; use the [current bodies and caps](README.md#current-print-geometry)
+when preparing a new native project.
 
 ## Printer Z trim
 
@@ -26,24 +34,28 @@ These values add lift to the stock plate compensation. On textured PEI with the
 0.8 mm nozzle, +0.04 emits `G29.1 Z0.02`; +0.18 emits `G29.1 Z0.16`.
 The first layer remains 0.30 mm in both projects. Both nozzle slots use Standard flow.
 All four combinations of layer height and trim slice successfully, with an early
-zero reset and exactly one final trim command. Body and cap meshes match the
-inspection meshes. The executable G-code for the saved projects matches the
-inspected slices except for `G29.1`.
+zero reset and exactly one final trim command. The September 4 inspection
+meshes are identified in [seal-trial.json](seal-trial.json). Each native project
+retains its own reference meshes and placement. The recovered printer slices
+emit the +0.04 trim as `G29.1 Z0.02` after their initial zero reset.
 
 ## 0.24 mm comparison
 
 [Print project: reservoir-08-seal-trial-024.3mf](reservoir-08-seal-trial-024.3mf)
 
-The same body and cap, in the same placement, with **0.24 mm layers** and a
-0.30 mm first layer. Every other process, filament and machine setting matches the
-0.18 mm project. The profile name identifies the layer height. The fixed 12-layer
-shell count spans more thickness at 0.24 mm; infill remains 100% in both projects.
+The recorded body and cap with **0.24 mm layers** and a 0.30 mm first layer.
+The sealing process, filament and machine settings match the 0.18 mm project
+apart from normal layer height. The profile name identifies the layer height.
+The fixed 12-layer shell count spans more thickness at 0.24 mm; infill remains
+100% in both projects.
 
 Bambu Studio 02.08.02.61 estimates **20 h 8 min, 414.76 g, 738 layers**. Slicing
 returns success with an empty plate-warning field. The embedded G-code checksum
 matches. Floor, cap, wall and insert-boss paths are inspected at plate Z 0.30,
 2.22, 5.10, 10.14, 20.22, 50.22, 100.14, 170.22 and 176.22 mm.
-Physical print and water-test results are pending.
+The recovered Mark2 printer slice estimates **20 h 7 min, 414.76 g, 738 layers**.
+Its complete project settings match this saved project. Derek reports that
+this recipe held water; [acceptance and scope](water-hold-acceptance.json).
 
 ## 0.18 mm settings
 
@@ -118,5 +130,6 @@ Use dried PETG Translucent and the 0.8 mm nozzle. Check the dry bulkhead recess 
 support removal and the wet washer seat for raised ridges. Fill the assembled body
 to its operating depth over a dry absorbent pad; record the first wet spot's location
 and elapsed time, or the dry result at 24 hours. Repeat at operating temperature.
-The existing filled reservoir remains the physical reference. A successful trial
-establishes this profile's result; repeated prints establish its repeatability.
+The May 30 reservoir and both September recipes have reported water-holding
+results. Repeated prints and specified hold conditions establish repeatability
+for a new article.

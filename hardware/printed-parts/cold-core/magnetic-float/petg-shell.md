@@ -12,18 +12,21 @@ filament, using the researched 0.6 mm sealing process. Its 36 × 60.06 mm envelo
 [petg-translucent-recipe.json](petg-translucent-recipe.json) records material
 GFG01, transparent color `#00000000`, the current reservoir project's identity,
 the native Translucent preset and the material-specific limits. The print uses
-the successful PETG Basic recipe's sealing controls with Translucent's
+the successful May 30 clear reservoir recipe's sealing controls with Translucent's
 1.25 g/cm³ density and 16 mm³/s volumetric ceiling.
 
 ## Physical evidence in this repository
 
 The [reservoir print log, attempt 3](../reservoir/print-log.md)
 records hours of water retention with the gaskets installed. The exact printed
-project is at [f25975cd045cc835eccf1a207cb12fe48dc63ada](https://github.com/derekbreden/homesodamachine/blob/f25975cd045cc835eccf1a207cb12fe48dc63ada/hardware/printed-parts/cold-core/reservoir/reservoir.3mf).
-Its active PETG is **GFG00, PETG Basic**, custom-named `Bambu PETG Water`.
+project is [reservoir-water-hold-2026-05-30.3mf](../reservoir/reservoir-water-hold-2026-05-30.3mf),
+identified by [f25975cd045cc835eccf1a207cb12fe48dc63ada](https://github.com/derekbreden/homesodamachine/blob/f25975cd045cc835eccf1a207cb12fe48dc63ada/hardware/printed-parts/cold-core/reservoir/reservoir.3mf).
+Its saved preset is `Bambu PETG Water`, using **GFG00, PETG Basic** settings.
+The actual filament was **Bambu PETG clear**, confirmed by Derek on 2026-10-05.
 [petg-water-recipe.json](petg-water-recipe.json) extracts the active left-nozzle
-settings and records the source file's SHA-256. Later Translucent reservoir
-projects have different settings and no success result recorded in that log.
+settings and records the source file's SHA-256. Both September 0.8 mm reservoir
+recipes also held water; their settings and reported scope are in
+[water-hold-acceptance.json](../reservoir/water-hold-acceptance.json).
 
 The [archived water-test cup log](https://github.com/derekbreden/homesodamachine/blob/archive-water-test-cup/hardware/reference/water-test-cup/print-log.md)
 records a successful first water-holding print with the same PETG Water recipe
@@ -59,7 +62,7 @@ collapse pressure or a service life.
 | --- | --- | --- |
 | Left nozzle | 0.6 mm standard flow | Successful reservoir |
 | PETG temperature, first / subsequent | 255 / 260 °C | Successful reservoir |
-| Flow | 1.02 | Successful PETG Basic reservoir sealing recipe |
+| Flow | 1.02 | Successful May 30 clear reservoir sealing recipe |
 | Maximum volumetric speed | 16 mm³/s | Native PETG Translucent preset |
 | Textured bed | 70 °C | Successful reservoir |
 | Layer, first / subsequent | 0.30 / 0.18 mm | Successful reservoir |
