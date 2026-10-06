@@ -1,0 +1,162 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-10-06T07:28:42.228178+00:00",
+  "customer_outcome": "Continuous fore X+ wall beside the display backing, with no inaccessible cable hook or embedded cable channel.",
+  "operator_observation": "There's a cable hook on the X+ wall near the Y- extremity that is totally pointless and just needs deleted, not least of all because it is also inaccessible from its fore (Y-) side.",
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "c73b5fbc41305e91bf944cfad644ae4d6aa7e83499a0868e0b9210bc1e5ad3d0",
+    "hardware/manifold-layout/enclosure-box.json": "4879e690f9e139856fddb3c5d918be5792e3eff13b5a26cc627e201df7ad0819",
+    "hardware/printed-parts/cadlib/cable_clip.py": "bddddf78c5daa97106c781964ad152ac61b28916f3c2e00eff4a527461a1aa7f",
+    "hardware/scripts/materialize_pump_cartridge.py": "825423739d133a66f1eb4a0351a4e71f149c792d5f5c45b2ccf86b96563f14fa"
+  },
+  "geometry_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "58879724ded23117448db9da0b345c72b337d3f535cff6732287316e653ee244",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "4cf2a1e2639500a019604584faf2829d5b28d2f2d975e9cc1111d3c3dc8be96f",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "0955c7154efced7fd110cfde84946ccb1b43ca1f8a4c41b19075b1e32a1564b3"
+  },
+  "stock": {
+    "inner_face_x_mm": 98.5,
+    "wall_thickness_mm": 9.0,
+    "y_mm": [
+      95.0,
+      111.5
+    ],
+    "z_mm": [
+      269.0,
+      308.0
+    ],
+    "complete_wall_witness_mm3": 5791.5,
+    "missing_wall_mm3": 0.0,
+    "retained_cavity_stock_mm3": 175.1283309052786,
+    "added_cavity_stock_mm3": 0.0
+  },
+  "native_solid": {
+    "valid": true,
+    "solids": 1,
+    "bounds_mm": [
+      -107.5,
+      107.5,
+      5.0,
+      217.8,
+      160.0,
+      355.0
+    ]
+  },
+  "comparison": {
+    "reference_step_sha256": "93f232f35f27c5da071132c7332d10e5ff58efac6d2ae02921859b14a07eec4b",
+    "tolerance_mm3": 1e-05,
+    "changed_region_bounds_mm": [
+      89.499,
+      99.901,
+      94.999,
+      111.501,
+      268.999,
+      308.001
+    ],
+    "removed_material_mm3": 2242.0339453922343,
+    "filled_channel_mm3": 291.3864014732685,
+    "removed_material_outside_region_mm3": 0.0,
+    "added_material_outside_region_mm3": 0.0,
+    "method": "Boolean differences between the complete analytic solids lie wholly within the cable profile and its embedded channel; the complete 9 mm wall witness is solid."
+  },
+  "display_backing": {
+    "face_y_mm": 95.20849207671873,
+    "flat_root_z_mm": 285.79649217671874,
+    "flat_face_count": 1,
+    "flat_face_area_mm2": 13079.96724973918,
+    "minimum_display_backing_mm": 5.4746321747492885,
+    "missing_flat_wall_witness_mm3": 0.0,
+    "unexpected_aft_stock_mm3": 0.0,
+    "unexpected_flat_wall_witness_mm3": 0.0,
+    "witness_thickness_mm": 0.05,
+    "clip_origin_mm": [
+      68.5,
+      95.20849207671873,
+      285.79649217671874
+    ]
+  },
+  "aggregates": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step": {
+      "output_step_sha256": "d496fce0a5fae3b914d3da7f4d2011b7fdfc3b01652e78f7cbfc0944953a8745",
+      "output_payload_sha256": "d3efdc487c52022187037fdbdf0034f010c5e9c2c4c3daf37922b5515011f963",
+      "replaced_members": [
+        "enclosure_front_top"
+      ],
+      "replacement_geometry_checks": {
+        "enclosure_front_top": {
+          "native_symmetric_difference_mm3": null,
+          "max_bounds_error_mm": 0.0,
+          "topology": [
+            1,
+            574,
+            1556,
+            1028
+          ],
+          "valid": true,
+          "color_linear_rgb": [
+            0.03310476616024971,
+            0.03310476616024971,
+            0.036306485533714294
+          ],
+          "source_fingerprint": "5282fcf327a6cc9b95c85a073b89fac4469e34fe0452585b847a9ffbfb2c7e23",
+          "exported_fingerprint": "5282fcf327a6cc9b95c85a073b89fac4469e34fe0452585b847a9ffbfb2c7e23",
+          "comparison": "Matching normalized analytic face, edge, vertex and solid fingerprints; native Boolean equivalence only for serialization differences.",
+          "viewer_color_linear_rgb": [
+            0.03310476616024971,
+            0.03310476616024971,
+            0.036306485533714294
+          ]
+        }
+      },
+      "retained_member_count": 7,
+      "all_unrelated_native_names_geometry_placements_colors_and_viewer_arrays_preserved": true
+    },
+    "hardware/manifold-layout/enclosure-assembly.step": {
+      "output_step_sha256": "6aa6fb8773460c8c8e0192f633f351395844cb3ee1fcb612148ce65b0f89a062",
+      "output_payload_sha256": "c309a0c1aa0f3c280bd9701e36e9b1d92d92eb4a28abb4a66bc7ecac57d51f0e",
+      "replaced_members": [
+        "enclosure-front-top"
+      ],
+      "replacement_geometry_checks": {
+        "enclosure-front-top": {
+          "native_symmetric_difference_mm3": null,
+          "max_bounds_error_mm": 0.0,
+          "topology": [
+            1,
+            574,
+            1556,
+            1028
+          ],
+          "valid": true,
+          "color_linear_rgb": [
+            0.03310476616024971,
+            0.03310476616024971,
+            0.036306485533714294
+          ],
+          "source_fingerprint": "5282fcf327a6cc9b95c85a073b89fac4469e34fe0452585b847a9ffbfb2c7e23",
+          "exported_fingerprint": "5282fcf327a6cc9b95c85a073b89fac4469e34fe0452585b847a9ffbfb2c7e23",
+          "comparison": "Matching normalized analytic face, edge, vertex and solid fingerprints; native Boolean equivalence only for serialization differences.",
+          "viewer_color_linear_rgb": [
+            0.03310476616024971,
+            0.03310476616024971,
+            0.036306485533714294
+          ]
+        }
+      },
+      "retained_member_count": 216,
+      "all_unrelated_native_names_geometry_placements_colors_and_viewer_arrays_preserved": true
+    }
+  },
+  "scope": "Analytic geometry, printed mesh and aggregate preservation. This record supplies no physical cable-retention, strength, lifetime or new native-slice qualification.",
+  "pass": true,
+  "materializer": {
+    "path": "hardware/scripts/materialize_pump_cartridge.py",
+    "pieces": [
+      "front-top"
+    ],
+    "printed_mesh_facets": 528050,
+    "viewer_surface_deviation_mm": 0.2,
+    "viewer_surface_budget_mm": 0.208,
+    "mesh_watertight": true
+  }
+}
