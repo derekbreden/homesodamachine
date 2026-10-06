@@ -733,18 +733,20 @@ Industrial-supply orders direct from McMaster-Carr (mcmaster.com). First McMaste
 
 ## 21. Silicone molding — Zone C funnel
 
-Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C funnel ([printed-parts/zone-c/](/hardware/printed-parts/zone-c/README.md)): a printed two-part mold on a 1/4" dowel, poured with food-grade platinum silicone (BBDINO 40A — ~178 mL / ~201 g per funnel, ~5.5 funnels per kit), vacuum-degassed in a chamber driven by the §6 Orion 4 CFM vacuum pump (B08P1WRZ1S) + 1/4" SAE manifold, then oven post-cured. Pigmented black to hide concentrate staining; food contact (fat-free) qualified by the wetted-surface screen, not a cert. The printed core's food-contact face is sealed with a clear-acrylic coat that releases the silicone without inhibiting cure; release runs on it and the cavity.
+Vacuum-degassed silicone casting for the removable Zone C [funnel](/hardware/printed-parts/zone-c/funnel/README.md). Tooling is two printed PETG mold bodies, one straight 6 × 25 mm stainless rod, and eight M4 × 20 bolts with nuts and flat washers. The [mold procedure](/hardware/printed-parts/zone-c/funnel-mold/README.md) governs batch allocation, forming-face finishing, release and casting. The acquired chamber uses the §6 Orion 4 CFM vacuum pump (B08P1WRZ1S) and 1/4" SAE manifold. The [material record](/hardware/printed-parts/zone-c/funnel-mold/silicone.md) and [wetted-surface screen](/hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md) govern cure and food-contact qualification.
 
 | Part | ASIN link | Qty | $ | Order # | Ordered | Delivered | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | <!--purchase:pur-32156ab6ed504d49912a70643ac7648f--> PB Motor Tech 5-gallon stainless vacuum chamber, 18.9 L, 11.8" × 11.8" interior, tempered-glass lid + glycerin gauge + shutoff valve + hose — degassing chamber for the silicone funnel pours; mates the §6 Orion 4 CFM vacuum pump via 1/4" SAE flare | [B0D78ZM928](https://www.amazon.com/dp/B0D78ZM928) | 1 | $102.95 | 112-7063184-8235469 | 2026-06-22 | 2026-06-24 | ACQUIRED |
 | <!--purchase:pur-231e62f4d5184efe8dea6ec5f44a1a7a--> Nuwave Bravo 30-QT 12-in-1 convection toaster oven, 50–500 °F, top/bottom heater control — silicone post-cure bake (drives off volatiles + completes the platinum cure for the food-contact funnel) | [B00IXBMS6M](https://www.amazon.com/dp/B00IXBMS6M) | 1 | $139.41 | 112-7063184-8235469 | 2026-06-22 | 2026-06-24 | ACQUIRED |
 | <!--purchase:pur-336e07bc67a84844b311d58e52364d25--> Rubbermaid Commercial stainless monitoring thermometer, 60–580 °F — post-cure oven-temperature verification | [B005KDEIZ0](https://www.amazon.com/dp/B005KDEIZ0) | 1 | $10.21 | 112-0401256-3893007 | 2026-06-22 | 2026-06-22 | ACQUIRED |
-| <!--purchase:pur-a1316f2f48b34bd58a54999b032db5ac--> BBDINO 40A food-contact platinum silicone mold-making kit, 2.42 lb, 1:1 by weight — base silicone for the cast funnel (~201 g/funnel ≈ ~5.5 funnels per kit) | [B0FHHBGSQK](https://www.amazon.com/dp/B0FHHBGSQK) | 1 kit | $37.71 | 112-8255970-7923460 | 2026-06-22 | 2026-06-23 | ACQUIRED |
+| <!--purchase:pur-a1316f2f48b34bd58a54999b032db5ac--> BBDINO 40A food-contact platinum silicone mold-making kit, 2.42 lb, 1:1 by weight — base silicone for the cast funnel; batch allocation follows the current [mold procedure](/hardware/printed-parts/zone-c/funnel-mold/README.md) | [B0FHHBGSQK](https://www.amazon.com/dp/B0FHHBGSQK) | 1 kit | $37.71 | 112-8255970-7923460 | 2026-06-22 | 2026-06-23 | ACQUIRED |
 | <!--purchase:pur-07cd53bf07be4b54aeb9a57890d0e55c--> BBDINO black silicone pigment, high-concentrated platinum-cure, 150 g — colorant for the cast funnel at ≤2% by weight (carbon-black, hides concentrate staining; food-contact qualified by the wetted-surface screen per [reservoir/wetted-surface-test.md](/hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md), not a cert) | [B0BVR3R58V](https://www.amazon.com/dp/B0BVR3R58V) | 1 | $20.35 | 112-7063184-8235469 | 2026-06-22 | 2026-06-24 | ACQUIRED |
 | <!--purchase:pur-166cdca002154df79294d1a5524f844d--> Mann Ease Release 200, 14 oz aerosol — addition-cure-compatible mold release for the printed funnel mold; used on the cavity and on the core's clear-acrylic seal (it is a release film, not a silicone fluid, so it does not add siloxane to the food face — any trace is cleared by the funnel's post-cure bake + wetted-surface screen) | [B002YEBO1O](https://www.amazon.com/dp/B002YEBO1O) | 1 | $23.58 | 112-0411698-8891425 | 2026-06-22 | 2026-06-23 | ACQUIRED |
-| <!--purchase:pur-5a3379046a7f4f088cbbaffd3bf643d8--> TCP Global 32 oz / 1000 mL graduated mixing cups (25-pk) — silicone-degassing batch cups, sized for the 3–4× vacuum rise of a ~178 mL pour | [B08HNCGY4N](https://www.amazon.com/dp/B08HNCGY4N) | 1 pk (25) | $19.29 | 112-0401256-3893007 | 2026-06-22 | 2026-06-22 | ACQUIRED |
-| <!--purchase:pur-cdbdfd1ceedb4bc9b29c087b510af56b--> POWERTEC 71476 hardened steel dowel pins, 1/4" × 2" (10-pk) — **shop dowel stock**. The [funnel mould](/hardware/printed-parts/zone-c/funnel-mold/README.md) uses a straight 6 × 25 mm steel rod to form its 6 mm bore. Ground to 0.0001"–0.0005" on diameter against ASME dimensional standard. Stock, so it is tooling and not a per-unit line: a bent one is replaced from the drawer with the core untouched. $16.99 + $1.23 NE tax | [B086DCHYQK](https://www.amazon.com/dp/B086DCHYQK) | 1 pk (10) | $18.22 | 112-8827949-5565840 | 2026-08-24 | 2026-08-26 | ACQUIRED |
+| <!--purchase:pur-5a3379046a7f4f088cbbaffd3bf643d8--> TCP Global 32 oz / 1000 mL graduated mixing cups (25-pk) — silicone-degassing batch cups; retain expansion room above the actual mixed batch | [B08HNCGY4N](https://www.amazon.com/dp/B08HNCGY4N) | 1 pk (25) | $19.29 | 112-0401256-3893007 | 2026-06-22 | 2026-06-22 | ACQUIRED |
+| <!--purchase:pur-cdbdfd1ceedb4bc9b29c087b510af56b--> POWERTEC 71476 hardened steel dowel pins, 1/4" × 2" (10-pk) — shop dowel stock, 6.35 × 50.8 mm. Ground to 0.0001"–0.0005" on diameter against ASME dimensional standard; reusable tooling. $16.99 + $1.23 NE tax | [B086DCHYQK](https://www.amazon.com/dp/B086DCHYQK) | 1 pk (10) | $18.22 | 112-8827949-5565840 | 2026-08-24 | 2026-08-26 | ACQUIRED |
+| <!--purchase:pur-1394610e499a45c08ba665ed1200053c--> SVLING 516-piece M4 socket-head screw kit, 304 stainless steel — reusable funnel-mold closure hardware: eight M4 × 20 bolts, eight M4 nuts and sixteen flat washers. Kit contains twelve M4 × 20 bolts, 129 nuts, 129 flat washers and a hex key; $8.99 item + $0.65 estimated tax, free shipping | [B0GHMMCZKM](https://www.amazon.com/dp/B0GHMMCZKM) | 1 kit (516) | $9.64 | 114-5418576-5300228 | 2026-10-05 | — | ON-ORDER (Amazon estimate 2026-10-06; order details verified 2026-10-05) |
+| <!--purchase:pur-f24cd0a88f4b4a8ca76f3abc490f81b3--> uxcell 6 × 25 mm smooth 304 stainless dowel pins, 25-pack — one reusable straight rod forms the funnel mold’s 6 mm cylindrical outlet; $8.99 item + $0.65 estimated tax, free shipping | [B07Z18CKCY](https://www.amazon.com/dp/B07Z18CKCY) | 1 pk (25) | $9.64 | 112-5477760-5177827 | 2026-10-05 | — | ON-ORDER (Amazon estimate 2026-10-07; order details verified 2026-10-05) |
 | <!--purchase:pur-596e9bea6dc34d0a8cdeffee03c59b70--> Krylon K01303 Crystal Clear Acrylic, 11 oz gloss — clear-acrylic seal for the printed core's food-contact face: seals the print porosity and releases the platinum silicone without inhibiting the cure (acrylic, not enamel); finished + coupon-tested per [funnel-mold/README.md](/hardware/printed-parts/zone-c/funnel-mold/README.md) "Measure the finish" | [B00023JE7K](https://www.amazon.com/dp/B00023JE7K) | 1 | $10.61 | 112-5591371-7092233 | 2026-06-23 | 2026-06-25 | ACQUIRED |
 
 ---
@@ -776,17 +778,17 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | Acquired hardware valuation — includes replaced/returned originals | [$37,674.65](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,479.39](LEDGER_LABOR) |
 | Acquired procurement valuation (combined) | [$44,154.04](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$1,140.28](LEDGER_ON_ORDER) |
+| ON-ORDER | [$1,159.56](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Recorded procurement valuation — includes commitments** | [$45,347.39](LEDGER_GRAND_TOTAL) |
+| **Recorded procurement valuation — includes commitments** | [$45,366.67](LEDGER_GRAND_TOTAL) |
 
 Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
 | Final vendor amounts | [$9,312.35](LEDGER_FINAL_VENDOR) |
-| Estimated amounts | [$2,816.05](LEDGER_ESTIMATES) |
+| Estimated amounts | [$2,835.33](LEDGER_ESTIMATES) |
 | Legacy / unverified amounts | [$33,218.99](LEDGER_LEGACY_UNVERIFIED) |
 
 Merchant-evidenced payments (project shares; includes the undated bucket):

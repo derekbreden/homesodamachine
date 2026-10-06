@@ -441,6 +441,14 @@
       "purchase_id": "pur-5115a2519bc844fbb88ba530f41d4b5f"
     },
     {
+      "allocation_id": "alloc-8fba04191fa7449da1520d639fccb677",
+      "amount_minor": 964,
+      "currency": "USD",
+      "event_id": "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9",
+      "order_id": "amazon:114-5418576-5300228",
+      "purchase_id": "pur-1394610e499a45c08ba665ed1200053c"
+    },
+    {
       "allocation_id": "alloc-8fe9e8f96ada4785bf98819bc36a7612",
       "amount_minor": 6457,
       "currency": "USD",
@@ -575,6 +583,14 @@
       "event_id": "evt-859aaf61508e423492ba56484ab9f2df",
       "order_id": "amazon:112-4198441-3661019",
       "purchase_id": "pur-87565d390bcc451a9fbfb44dc871d585"
+    },
+    {
+      "allocation_id": "alloc-af5bec4281844814b9c44e31fe83058f",
+      "amount_minor": 964,
+      "currency": "USD",
+      "event_id": "evt-5a6637d18fab4dbaa2c3a7428c33273f",
+      "order_id": "amazon:112-5477760-5177827",
+      "purchase_id": "pur-f24cd0a88f4b4a8ca76f3abc490f81b3"
     },
     {
       "allocation_id": "alloc-b1cf13fb336640e886232cf564cae84c",
@@ -1399,6 +1415,28 @@
       "source_ids": [],
       "stream": "project merchant charges and refunds",
       "vendor": "Polymaker"
+    },
+    {
+      "checked_at": "2026-10-05",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-8baffc08a77545f1b1273b8f3fac5b68",
+      "evidence_type": "order_details",
+      "examined_period": {
+        "end": "2026-10-05",
+        "start": "2026-10-05"
+      },
+      "note": "Scoped review of the two named funnel-tooling purchases and their individual order summaries. No claim of complete Amazon account coverage, completed payment or physical delivery.",
+      "order_ids": [
+        "amazon:112-5477760-5177827",
+        "amazon:114-5418576-5300228"
+      ],
+      "source_ids": [
+        "src-9e46e329e03f4adeab99ed97e39b5839",
+        "src-aa79e0fc10164b8086dd556b9cdec6fb"
+      ],
+      "stream": "funnel-mold hardware orders",
+      "vendor": "Amazon"
     },
     {
       "checked_at": "2026-10-04",
@@ -2637,6 +2675,30 @@
       "unallocated_to_purchase_minor": 0,
       "vendor": "Anthropic",
       "verified_at": "2026-10-04"
+    },
+    {
+      "allocation_ids": [
+        "alloc-af5bec4281844814b9c44e31fe83058f"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 964,
+      "confirmation": "expected",
+      "currency": "USD",
+      "event_date": null,
+      "event_id": "evt-5a6637d18fab4dbaa2c3a7428c33273f",
+      "event_type": "charge",
+      "order_ids": [
+        "amazon:112-5477760-5177827"
+      ],
+      "purchase_ids": [
+        "pur-f24cd0a88f4b4a8ca76f3abc490f81b3"
+      ],
+      "source_ids": [
+        "src-aa79e0fc10164b8086dd556b9cdec6fb"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Amazon",
+      "verified_at": "2026-10-05"
     },
     {
       "allocation_ids": [
@@ -4183,6 +4245,30 @@
     },
     {
       "allocation_ids": [
+        "alloc-8fba04191fa7449da1520d639fccb677"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 964,
+      "confirmation": "expected",
+      "currency": "USD",
+      "event_date": null,
+      "event_id": "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9",
+      "event_type": "charge",
+      "order_ids": [
+        "amazon:114-5418576-5300228"
+      ],
+      "purchase_ids": [
+        "pur-1394610e499a45c08ba665ed1200053c"
+      ],
+      "source_ids": [
+        "src-9e46e329e03f4adeab99ed97e39b5839"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Amazon",
+      "verified_at": "2026-10-05"
+    },
+    {
+      "allocation_ids": [
         "alloc-f9c0423bdb1a4e74becff41fd1deb8ed"
       ],
       "allocation_status": "all_project",
@@ -5281,7 +5367,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:495331107fc5e803566c0c8281a71bfb1531f0b44bd6bb1820610eecd5112204",
+  "input_fingerprint": "sha256:dd8d4d2de2cf4312bcf07597c9ada66fafefebbead542dc8444169ecc58772f2",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -7821,6 +7907,25 @@
       "reference": "112-5463509-3741018",
       "source_ids": [
         "saved-amazon:112-5463509-3741018"
+      ],
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [
+        "evt-5a6637d18fab4dbaa2c3a7428c33273f"
+      ],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-05"
+      },
+      "order_id": "amazon:112-5477760-5177827",
+      "purchase_ids": [
+        "pur-f24cd0a88f4b4a8ca76f3abc490f81b3"
+      ],
+      "reference": "112-5477760-5177827",
+      "source_ids": [
+        "src-aa79e0fc10164b8086dd556b9cdec6fb"
       ],
       "vendor": "Amazon"
     },
@@ -10407,6 +10512,25 @@
       "reference": "114-5322942-5213821",
       "source_ids": [
         "saved-amazon:114-5322942-5213821"
+      ],
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [
+        "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9"
+      ],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-05"
+      },
+      "order_id": "amazon:114-5418576-5300228",
+      "purchase_ids": [
+        "pur-1394610e499a45c08ba665ed1200053c"
+      ],
+      "reference": "114-5418576-5300228",
+      "source_ids": [
+        "src-9e46e329e03f4adeab99ed97e39b5839"
       ],
       "vendor": "Amazon"
     },
@@ -15811,6 +15935,52 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-amazon:112-6764112-7787443"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 964,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "SVLING 516-piece M4 socket-head screw kit, 304 stainless steel — reusable funnel-mold closure hardware: eight M4 × 20 bolts, eight M4 nuts and sixteen flat washers. Kit contains twelve M4 × 20 bolts, 129 nuts, 129 flat washers and a hex key; $8.99 item + $0.65 estimated tax, free shipping",
+      "event_ids": [
+        "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-1394610e499a45c08ba665ed1200053c",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-05"
+      },
+      "order_ids": [
+        "amazon:114-5418576-5300228"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-1394610e499a45c08ba665ed1200053c",
+      "purpose": "equipment_tooling",
+      "quantity": 1,
+      "quantity_text": "1 kit (516)",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-05"
+      },
+      "row_date_basis": "order_date",
+      "section": "21. Silicone molding — Zone C funnel",
+      "service_period": null,
+      "source_ids": [
+        "src-9e46e329e03f4adeab99ed97e39b5839"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -23624,7 +23794,7 @@
         "precision": "day",
         "value": "2026-06-22"
       },
-      "description": "TCP Global 32 oz / 1000 mL graduated mixing cups (25-pk) — silicone-degassing batch cups, sized for the 3–4× vacuum rise of a 178 mL pour",
+      "description": "TCP Global 32 oz / 1000 mL graduated mixing cups (25-pk) — silicone-degassing batch cups; retain expansion room above the actual mixed batch",
       "event_ids": [],
       "fulfillment": "ACQUIRED",
       "invoice_date": null,
@@ -33153,7 +33323,7 @@
         "precision": "day",
         "value": "2026-06-23"
       },
-      "description": "BBDINO 40A food-contact platinum silicone mold-making kit, 2.42 lb, 1:1 by weight — base silicone for the cast funnel (201 g/funnel ≈ 5.5 funnels per kit)",
+      "description": "BBDINO 40A food-contact platinum silicone mold-making kit, 2.42 lb, 1:1 by weight — base silicone for the cast funnel; batch allocation follows the current mold procedure",
       "event_ids": [],
       "fulfillment": "ACQUIRED",
       "invoice_date": null,
@@ -38080,7 +38250,7 @@
         "precision": "day",
         "value": "2026-08-26"
       },
-      "description": "POWERTEC 71476 hardened steel dowel pins, 1/4\" × 2\" (10-pk) — shop dowel stock. The funnel mould uses a straight 6 × 25 mm steel rod to form its 6 mm bore. Ground to 0.0001\"–0.0005\" on diameter against ASME dimensional standard. Stock, so it is tooling and not a per-unit line: a bent one is replaced from the drawer with the core untouched. $16.99 + $1.23 NE tax",
+      "description": "POWERTEC 71476 hardened steel dowel pins, 1/4\" × 2\" (10-pk) — shop dowel stock, 6.35 × 50.8 mm. Ground to 0.0001\"–0.0005\" on diameter against ASME dimensional standard; reusable tooling. $16.99 + $1.23 NE tax",
       "event_ids": [],
       "fulfillment": "ACQUIRED",
       "invoice_date": null,
@@ -42605,6 +42775,52 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-amazon:112-5463509-3741018"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 964,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "uxcell 6 × 25 mm smooth 304 stainless dowel pins, 25-pack — one reusable straight rod forms the funnel mold’s 6 mm cylindrical outlet; $8.99 item + $0.65 estimated tax, free shipping",
+      "event_ids": [
+        "evt-5a6637d18fab4dbaa2c3a7428c33273f"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-f24cd0a88f4b4a8ca76f3abc490f81b3",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-05"
+      },
+      "order_ids": [
+        "amazon:112-5477760-5177827"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-f24cd0a88f4b4a8ca76f3abc490f81b3",
+      "purpose": "equipment_tooling",
+      "quantity": 1,
+      "quantity_text": "1 pk (25)",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-05"
+      },
+      "row_date_basis": "order_date",
+      "section": "21. Silicone molding — Zone C funnel",
+      "service_period": null,
+      "source_ids": [
+        "src-aa79e0fc10164b8086dd556b9cdec6fb"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -52491,6 +52707,22 @@
     {
       "document_date": {
         "precision": "day",
+        "value": "2026-10-05"
+      },
+      "document_type": "order_details",
+      "note": "Signed-in Amazon order history and individual order details: one pack, $8.99 item subtotal, $0.00 shipping, $0.65 estimated tax and $9.64 grand total; ordered 2026-10-05, estimated delivery 2026-10-06. M4 socket-head screw kit; the selected SS M4 516PCS Socket Cap listing was Prime-verified on 2026-10-05. Contains twelve M4 × 20 screws, 129 hex nuts, 129 flat washers and a hex key. Delivery is pending; the order summary does not establish a completed merchant charge or its date.",
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "reference": "114-5418576-5300228",
+      "source_id": "src-9e46e329e03f4adeab99ed97e39b5839",
+      "vendor": "Amazon",
+      "verified_at": "2026-10-05"
+    },
+    {
+      "document_date": {
+        "precision": "day",
         "value": "2026-04-30"
       },
       "document_type": "delivery_notification",
@@ -52607,6 +52839,22 @@
       "source_id": "src-a885b9dd509144b1805496693ee479ab",
       "vendor": "Midwest Beverage",
       "verified_at": "2026-10-04"
+    },
+    {
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-05"
+      },
+      "document_type": "order_details",
+      "note": "Signed-in Amazon order history and individual order details: one pack, $8.99 item subtotal, $0.00 shipping, $0.65 estimated tax and $9.64 grand total; ordered 2026-10-05, estimated delivery 2026-10-07. uxcell 25-piece 6 × 25 mm 304 stainless dowel-pin pack; the selected 6mm X 25mm listing was Prime-verified on 2026-10-05. Delivery is pending; the order summary does not establish a completed merchant charge or its date.",
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "reference": "112-5477760-5177827",
+      "source_id": "src-aa79e0fc10164b8086dd556b9cdec6fb",
+      "vendor": "Amazon",
+      "verified_at": "2026-10-05"
     },
     {
       "document_date": {
@@ -54445,11 +54693,12 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 114028,
+          "amount_minor": 115956,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
             "pur-0d4eaf3ef27646a8b8f77ea46d4f2d44",
+            "pur-1394610e499a45c08ba665ed1200053c",
             "pur-375429e1cb9c4b95bb3584b04f7284da",
             "pur-406788001c4d41f39213bbd4ec7a35ad",
             "pur-6bc71f4f15b34503ac9bf8beea6ef815",
@@ -54460,6 +54709,7 @@
             "pur-c08cee116c73400bae488deb2d2015f4",
             "pur-cfc338b991f7400a851a0ea5a018e44e",
             "pur-d36058a2086244bb96897635d4ec352a",
+            "pur-f24cd0a88f4b4a8ca76f3abc490f81b3",
             "pur-f98feadd5dec4c1cba460dd7c74baa09"
           ],
           "unknown_amount_ids": []
@@ -54478,6 +54728,7 @@
       "expected_refund_event_ids": [],
       "outstanding_purchase_ids": [
         "pur-0d4eaf3ef27646a8b8f77ea46d4f2d44",
+        "pur-1394610e499a45c08ba665ed1200053c",
         "pur-375429e1cb9c4b95bb3584b04f7284da",
         "pur-406788001c4d41f39213bbd4ec7a35ad",
         "pur-6bc71f4f15b34503ac9bf8beea6ef815",
@@ -54490,6 +54741,7 @@
         "pur-c887374045604177851c4a81cc779f0e",
         "pur-cfc338b991f7400a851a0ea5a018e44e",
         "pur-d36058a2086244bb96897635d4ec352a",
+        "pur-f24cd0a88f4b4a8ca76f3abc490f81b3",
         "pur-f98feadd5dec4c1cba460dd7c74baa09"
       ],
       "returned_without_evidenced_refund_purchase_ids": []
@@ -54498,8 +54750,10 @@
       "basis": "Confirmed merchant-evidenced project charges and issued monetary refunds by merchant event calendar month; bank posting is outside this ledger. Expected events, authorizations, noncash credits and unresolved project shares are excluded from charges/refunds/net.",
       "expected_event_ids": [
         "evt-1399a1a835ce4be3a489628c06225b33",
+        "evt-5a6637d18fab4dbaa2c3a7428c33273f",
         "evt-859aaf61508e423492ba56484ab9f2df",
-        "evt-c0203246ff88423a9af71d1977ede6c4"
+        "evt-c0203246ff88423a9af71d1977ede6c4",
+        "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9"
       ],
       "monthly": [
         {
@@ -54784,10 +55038,12 @@
             "evt-0447af18f1f34778b9cd0f9facee2d40",
             "evt-1399a1a835ce4be3a489628c06225b33",
             "evt-1bead24454464c688dab3d4b9f2bc2bc",
+            "evt-5a6637d18fab4dbaa2c3a7428c33273f",
             "evt-66df2a83d9084e9d984fb5305fa95c49",
             "evt-69d186cf3c4c436788b6706105b50532",
             "evt-903eedfb26fd4f999dda301c34468ee4",
-            "evt-a44b7291eb25461f97cd8d045faebd4e"
+            "evt-a44b7291eb25461f97cd8d045faebd4e",
+            "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9"
           ],
           "net_minor": 57998,
           "noncash_credits_minor": 0,
@@ -55441,13 +55697,14 @@
         },
         {
           "currency": "USD",
-          "estimate_minor": 11612,
+          "estimate_minor": 13540,
           "evidence_scope": "retrieved_records_only",
           "final_vendor_amount_minor": 24261,
           "legacy_unverified_minor": 30634,
           "month": "2026-10",
           "purchase_ids": [
             "pur-0d4eaf3ef27646a8b8f77ea46d4f2d44",
+            "pur-1394610e499a45c08ba665ed1200053c",
             "pur-406788001c4d41f39213bbd4ec7a35ad",
             "pur-45f46a866eb640d0be16bab2fd7493b3",
             "pur-633abd30f0524d80a397fcee998a7658",
@@ -55459,10 +55716,11 @@
             "pur-c08cee116c73400bae488deb2d2015f4",
             "pur-cfc338b991f7400a851a0ea5a018e44e",
             "pur-d22466e29dac4d8ca46fdc5c575dde2c",
+            "pur-f24cd0a88f4b4a8ca76f3abc490f81b3",
             "pur-f7d7511ce9394cae80352c28342d27fd",
             "pur-f98feadd5dec4c1cba460dd7c74baa09"
           ],
-          "total_minor": 66507,
+          "total_minor": 68435,
           "unknown_amount_ids": []
         },
         {
@@ -55510,7 +55768,7 @@
           "purpose": "engineering_software_services"
         },
         {
-          "amount_minor": 2152316,
+          "amount_minor": 2154244,
           "currency": "USD",
           "purpose": "equipment_tooling"
         },
@@ -55528,10 +55786,10 @@
       "totals": [
         {
           "currency": "USD",
-          "estimate_minor": 281605,
+          "estimate_minor": 283533,
           "final_vendor_amount_minor": 931235,
           "legacy_unverified_minor": 3321899,
-          "total_minor": 4534739
+          "total_minor": 4536667
         }
       ],
       "undated_unallocated": [
@@ -55681,11 +55939,11 @@
       "by_currency": [
         {
           "currency": "USD",
-          "estimated_purchase_minor": 281605,
+          "estimated_purchase_minor": 283533,
           "legacy_unverified_purchase_minor": 3321899,
           "order_only_charge_allocation_minor": 2187,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 3826504,
+          "purchases_without_merchant_charge_minor": 3828432,
           "undated_charge_minor": 57998,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 1031234,
@@ -55697,6 +55955,7 @@
       ],
       "estimated_purchase_ids": [
         "pur-0d4eaf3ef27646a8b8f77ea46d4f2d44",
+        "pur-1394610e499a45c08ba665ed1200053c",
         "pur-406788001c4d41f39213bbd4ec7a35ad",
         "pur-5090fe33ed404b20b5f3401171bf8565",
         "pur-5da1ea9540d44a8897b0c2774fe1ff35",
@@ -55707,6 +55966,7 @@
         "pur-c08cee116c73400bae488deb2d2015f4",
         "pur-cfc338b991f7400a851a0ea5a018e44e",
         "pur-d0a38d1d52934be7866d5286a6a8271e",
+        "pur-f24cd0a88f4b4a8ca76f3abc490f81b3",
         "pur-f34a0cbf6ba74d11887b5ec0c8206984"
       ],
       "incomplete_coverage_ids": [
@@ -55738,6 +55998,7 @@
         "coverage-81ef2f676a514df7997a2840a4a7986d",
         "coverage-88c04aa68db042feb287051cb5e01375",
         "coverage-89028646dee6480680bf381570c72830",
+        "coverage-8baffc08a77545f1b1273b8f3fac5b68",
         "coverage-96556d699c7b46f4978a3888d3d375db",
         "coverage-a33332d2ccf041f787551b215425fdbb",
         "coverage-a71252470d6e40c4b10bc82bd951d28b",
@@ -56333,6 +56594,7 @@
         "pur-10c6bae3f22747bd8e39995de225ace6",
         "pur-117f94ad4c0841b5926cf516605014d9",
         "pur-1327a2747f4747ab9fdf49a2a275bc3c",
+        "pur-1394610e499a45c08ba665ed1200053c",
         "pur-13edb378f91f4c0096a5acc8e7b4f47f",
         "pur-1418475befc24e8d84276f0630a162d0",
         "pur-15aa744ac25044dfbfa60c8ba73be920",
@@ -56809,6 +57071,7 @@
         "pur-f188d872f1ce4d45a3f6f96d2fdb36cf",
         "pur-f1d06a71515947a6bc0e1a2515602816",
         "pur-f1d4b8acb6c84ea08eea6c8722eea66a",
+        "pur-f24cd0a88f4b4a8ca76f3abc490f81b3",
         "pur-f2837bd0bd16455988b931fefbefdc61",
         "pur-f327ab43abf34b7089fb74f6bfa7a5bf",
         "pur-f343ca60f649486eba45fe1cf7c796f8",
@@ -56847,10 +57110,12 @@
         "evt-0447af18f1f34778b9cd0f9facee2d40",
         "evt-1399a1a835ce4be3a489628c06225b33",
         "evt-1bead24454464c688dab3d4b9f2bc2bc",
+        "evt-5a6637d18fab4dbaa2c3a7428c33273f",
         "evt-66df2a83d9084e9d984fb5305fa95c49",
         "evt-69d186cf3c4c436788b6706105b50532",
         "evt-903eedfb26fd4f999dda301c34468ee4",
-        "evt-a44b7291eb25461f97cd8d045faebd4e"
+        "evt-a44b7291eb25461f97cd8d045faebd4e",
+        "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9"
       ],
       "undated_unallocated_purchase_ids": [
         "pur-039f49fc6eef49008dd6a93defa86b27",
@@ -57007,6 +57272,7 @@
       "coverage-81ef2f676a514df7997a2840a4a7986d: evidence coverage is unknown",
       "coverage-88c04aa68db042feb287051cb5e01375: evidence coverage is partial",
       "coverage-89028646dee6480680bf381570c72830: evidence coverage is unknown",
+      "coverage-8baffc08a77545f1b1273b8f3fac5b68: evidence coverage is partial",
       "coverage-96556d699c7b46f4978a3888d3d375db: evidence coverage is partial",
       "coverage-a33332d2ccf041f787551b215425fdbb: evidence coverage is unknown",
       "coverage-a71252470d6e40c4b10bc82bd951d28b: evidence coverage is unknown",
