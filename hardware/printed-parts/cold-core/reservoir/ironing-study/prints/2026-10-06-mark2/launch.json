@@ -152,8 +152,9 @@
     "ironing_seconds": 438.312
   },
   "physical_results": {
-    "status": "pending",
+    "status": "stopped_by_user_due_to_edge_placement",
+    "record": "physical-result.json",
     "finish_and_sealing_observations": null,
-    "scope": "The launch receipt and telemetry establish job acceptance and startup, not surface quality or watertightness."
+    "scope": "Derek stopped this job and cleared the bed for a centered retry. This job supplies no accepted ironing comparison."
   }
 }

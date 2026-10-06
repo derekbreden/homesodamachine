@@ -34,6 +34,29 @@ VARIANTS = (
 )
 IDENTITY = "1 0 0 0 1 0 0 0 1 0 0 0"
 MATRIX = "1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1"
+BED_BOUNDS = np.array([[0.0, 0.0], [325.0, 320.0]])  # Left nozzle's usable area.
+MIN_EDGE_MARGIN = 70.0
+PART_GAP = 2.0
+LAYOUT_ROWS = (
+    ("G1C", "G1I", "G2C", "G2I", "B1C", "B1I"),
+    ("G3C", "G3I", "B2C", "B2I", "B3C", "B3I"),
+    ("G4C", "G4I", "B4C", "B4I", "S1C", "S1I"),
+)
+
+
+def centered_layout():
+    """Keep every C/I pair adjacent, with unchanged XY and Z orientation."""
+    centers = {}
+    row_height = 47.5
+    low_y = (BED_BOUNDS[1, 1] - (3*row_height + 2*PART_GAP))/2
+    for row, labels in enumerate(LAYOUT_ROWS):
+        widths = [24.0 if label.startswith("G") else 30.0 for label in labels]
+        x = (BED_BOUNDS[1, 0] - (sum(widths) + (len(labels)-1)*PART_GAP))/2
+        y = low_y + row*(row_height+PART_GAP) + 28.5
+        for label, width in zip(labels, widths):
+            centers[label] = [x+width/2, y, 0]
+            x += width + PART_GAP
+    return centers
 
 
 def box(low, high):
@@ -88,8 +111,9 @@ def main():
     recipe = json.loads((RESERVOIR / "print-settings.json").read_text())
     baseline = recipe["project_settings"]
     settings = copy.deepcopy(baseline)
-    settings.update(ironing_type="no ironing", print_settings_id="Reservoir ironing comparison - 0.24mm")
-    overrides = {k: {"from": baseline[k], "to": v} for k, v in settings.items() if baseline[k] != v}
+    settings.update(ironing_type="no ironing", print_settings_id="Reservoir ironing comparison - 0.24mm",
+                    filament_map_mode="Manual", filament_map=["1"], filament_nozzle_map=["0"])
+    overrides = {k: {"from": baseline.get(k), "to": v} for k, v in settings.items() if baseline.get(k) != v}
     body = cq.importers.importStep(str(source))
     top = body.val().BoundingBox().zmax
     bottom = body.val().BoundingBox().zmin
@@ -115,18 +139,20 @@ def main():
     masks = {"G": solid_mesh(gasket_mask, "gasket-mask"),
              "B": solid_mesh(seat_mask, "seat-mask"),
              "S": solid_mesh(slope_mask, "slope-mask")}
+    centers = centered_layout()
     entries = []
-    for row, (number, title, flow, speed, spacing) in enumerate(VARIANTS):
-        for feature, centers in (("G", (35, 76)), ("B", (180, 225))):
-            for test, x in enumerate(centers):
+    for number, title, flow, speed, spacing in VARIANTS:
+        for feature in ("G", "B"):
+            for test in range(2):
                 entries.append(dict(label=f"{feature}{number}{'I' if test else 'C'}", feature=feature,
                                     condition=number, condition_title=title, ironed=bool(test),
                                     flow_percent=flow, speed_mm_s=speed, spacing_mm=spacing,
-                                    center=[x, 46+row*58, 0]))
-    for test, x in enumerate((150, 195)):
+                                    center=centers[f"{feature}{number}{'I' if test else 'C'}"]))
+    for test in range(2):
         entries.append(dict(label=f"S1{'I' if test else 'C'}", feature="S", condition="1",
                             condition_title="September; includes sloped floor", ironed=bool(test),
-                            flow_percent=10, speed_mm_s=30, spacing_mm=0.15, center=[x, 282, 0]))
+                            flow_percent=10, speed_mm_s=30, spacing_mm=0.15,
+                            center=centers[f"S1{'I' if test else 'C'}"]))
 
     model = ET.Element(writer.qn("model"), unit="millimeter", requiredextensions="p",
                        **{"xmlns:BambuStudio": "http://schemas.bambulab.com/package/2021"})
@@ -138,7 +164,7 @@ def main():
     config = ET.Element("config")
     plate = ET.SubElement(config, "plate")
     for key, value in dict(plater_id=1, plater_name="Sealing faces and slope comparison", locked="false",
-                           bed_type=settings["curr_bed_type"], filament_map_mode="Auto For Flush",
+                           bed_type=settings["curr_bed_type"], filament_map_mode="Manual",
                            filament_maps="1", filament_volume_maps="0").items():
         writer.metadata(plate, key, value)
     assembled = ET.Element("assemble")
@@ -153,6 +179,10 @@ def main():
                   retained_sealing_face_area_mm2={"G": gasket_area, "B": seat_area},
                   bulkhead_seat=dict(outer_diameter_mm=24.3, inner_diameter_mm=15.8, print_z_mm=4.65),
                   floor_slope_degrees=math.degrees(math.atan(6/(67.25-14))),
+                  layout=dict(left_nozzle_usable_bed_bounds_mm=BED_BOUNDS.tolist(),
+                              minimum_emitted_bead_edge_margin_mm=MIN_EDGE_MARGIN,
+                              model_bounding_box_gap_mm=PART_GAP, rows=LAYOUT_ROWS,
+                              placement_only=True, xy_rotation_degrees=0),
                   scope="Cropped surface-finish comparison; physical results pending. Cropping changes layer time and thermal history.",
                   parts=[])
     for index, item in enumerate(entries, 1):
@@ -202,7 +232,7 @@ def main():
         ET.SubElement(relations, f"{{{writer.REL}}}Relationship", Target="/"+member, Id=f"rel-{index}",
                       Type="http://schemas.microsoft.com/3dmanufacturing/2013/01/3dmodel")
         placed = mesh.bounds + np.array(item["center"])
-        if np.any(placed[0, :2] < [15, 15]) or np.any(placed[1, :2] > [310, 305]):
+        if np.any(placed[0, :2] < BED_BOUNDS[0]+MIN_EDGE_MARGIN) or np.any(placed[1, :2] > BED_BOUNDS[1]-MIN_EDGE_MARGIN):
             raise ValueError(f"{label}: plate clearance")
         item.update(object_id=object_id, identify_id=5000+index, bounds_mm=placed.tolist(),
                     cad_volume_mm3=shape.val().Volume(), mesh_volume_mm3=float(mesh.volume),
@@ -231,6 +261,11 @@ def main():
         if archive.testzip() or json.loads(archive.read("Metadata/project_settings.config")) != settings:
             raise ValueError("Saved project differs from requested settings")
     report["project_sha256"] = writer.sha(project.read_bytes())
+    bounds = np.array([part["bounds_mm"] for part in report["parts"]])
+    envelope = np.array([bounds[:, 0, :2].min(axis=0), bounds[:, 1, :2].max(axis=0)])
+    report["layout"]["model_xy_bounds_mm"] = envelope.tolist()
+    report["layout"]["model_edge_margins_left_front_right_back_mm"] = np.concatenate(
+        (envelope[0]-BED_BOUNDS[0], BED_BOUNDS[1]-envelope[1])).tolist()
     (HERE / "study.json").write_text(json.dumps(report, indent=2)+"\n")
     print(json.dumps(dict(project=str(project), specimens=len(entries)), indent=2))
 

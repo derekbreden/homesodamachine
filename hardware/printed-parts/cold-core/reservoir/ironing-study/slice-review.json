@@ -1,17 +1,26 @@
 {
   "project": "ironing-study.3mf",
-  "project_sha256": "2af606036089b123abf95495862f7558722551f9767585285ec4a6c29f492202",
+  "project_sha256": "9cd440c5aa7d303b2c1d1edbff099cbb0da3ebb94ef6e38c2b44d6d32230406b",
   "slicer_version": "02.08.02.61",
   "return_code": 0,
   "plate_count": 1,
   "specimen_count": 18,
-  "estimated_seconds": 17290.215,
+  "estimated_seconds": 17280.016,
   "estimated_mass_g": 84.845,
   "ironing_estimated_seconds": 438.312,
   "warning_message": "",
   "embedded_gcode_md5_verified": true,
-  "gcode_sha256": "e2ab678b5dbf281e00689afad6408a61b6397b0cfc3b4aaa2a8457ef77d2ac65",
+  "gcode_sha256": "f4493c2b0e7962634d98aab7768d55f20d345c10bec121b584ffed9dfd58b523",
   "physical_settings_match_saved_project": true,
+  "emitted_nozzle_assignment": {
+    "filament_map": "1",
+    "filament_nozzle_map": "0",
+    "nozzle_diameter": "0.8,0.8"
+  },
+  "emitted_z_trim_commands": [
+    "G29.1 Z0 ; clear z-trim value first",
+    "G29.1 Z0.02"
+  ],
   "slicer_added_metadata": {
     "filament_map_2": [
       "1"
@@ -40,10 +49,10 @@
       "shortest_build_up_mm": null,
       "top_z_mm": 1.5,
       "bbox_xy_mm": [
-        141.6,
-        273.6,
-        158.4,
-        290.4
+        132.0,
+        156.0,
+        149.2,
+        173.2
       ],
       "interfaces": [],
       "interface_reading": "unlabelled"
@@ -56,10 +65,10 @@
       "shortest_build_up_mm": null,
       "top_z_mm": 1.5,
       "bbox_xy_mm": [
-        171.6,
-        37.6,
-        188.4,
-        54.4
+        132.0,
+        205.6,
+        149.2,
+        222.8
       ],
       "interfaces": [],
       "interface_reading": "unlabelled"
@@ -72,10 +81,10 @@
       "shortest_build_up_mm": null,
       "top_z_mm": 1.5,
       "bbox_xy_mm": [
-        171.6,
-        95.6,
-        188.4,
-        112.4
+        164.0,
+        156.0,
+        181.2,
+        173.2
       ],
       "interfaces": [],
       "interface_reading": "unlabelled"
@@ -88,10 +97,10 @@
       "shortest_build_up_mm": null,
       "top_z_mm": 1.5,
       "bbox_xy_mm": [
-        171.6,
-        153.6,
-        188.4,
-        170.4
+        164.0,
+        205.6,
+        181.2,
+        222.8
       ],
       "interfaces": [],
       "interface_reading": "unlabelled"
@@ -104,10 +113,10 @@
       "shortest_build_up_mm": null,
       "top_z_mm": 1.5,
       "bbox_xy_mm": [
-        171.6,
-        211.6,
-        188.4,
-        228.4
+        190.0,
+        106.8,
+        207.2,
+        124.0
       ],
       "interfaces": [],
       "interface_reading": "unlabelled"
@@ -120,10 +129,10 @@
       "shortest_build_up_mm": null,
       "top_z_mm": 1.5,
       "bbox_xy_mm": [
-        186.4,
-        273.6,
-        203.6,
-        290.4
+        196.0,
+        156.0,
+        213.2,
+        173.2
       ],
       "interfaces": [],
       "interface_reading": "unlabelled"
@@ -136,10 +145,10 @@
       "shortest_build_up_mm": null,
       "top_z_mm": 1.5,
       "bbox_xy_mm": [
-        216.4,
-        37.6,
-        233.6,
-        54.4
+        196.0,
+        205.6,
+        213.2,
+        222.8
       ],
       "interfaces": [],
       "interface_reading": "unlabelled"
@@ -152,10 +161,10 @@
       "shortest_build_up_mm": null,
       "top_z_mm": 1.5,
       "bbox_xy_mm": [
-        216.4,
-        95.6,
-        233.6,
-        112.4
+        222.0,
+        106.8,
+        239.2,
+        124.0
       ],
       "interfaces": [],
       "interface_reading": "unlabelled"
@@ -168,10 +177,10 @@
       "shortest_build_up_mm": null,
       "top_z_mm": 1.5,
       "bbox_xy_mm": [
-        216.4,
-        153.6,
-        233.6,
-        170.4
+        228.0,
+        156.0,
+        245.2,
+        173.2
       ],
       "interfaces": [],
       "interface_reading": "unlabelled"
@@ -184,15 +193,240 @@
       "shortest_build_up_mm": null,
       "top_z_mm": 1.5,
       "bbox_xy_mm": [
-        216.4,
-        211.6,
-        233.6,
-        228.4
+        228.0,
+        205.6,
+        245.2,
+        222.8
       ],
       "interfaces": [],
       "interface_reading": "unlabelled"
     }
   ],
+  "placement": {
+    "left_nozzle_usable_bed_bounds_mm": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        325.0,
+        320.0
+      ]
+    ],
+    "model_support_brim_xy_bounds_mm": [
+      [
+        73.500003,
+        86.750003
+      ],
+      [
+        251.583483,
+        233.249997
+      ]
+    ],
+    "edge_margins_left_front_right_back_mm": [
+      73.500003,
+      86.750003,
+      73.416517,
+      86.75000299999999
+    ],
+    "minimum_full_bead_edge_margin_mm": 73.416517,
+    "deposited_move_count": 382142,
+    "support_move_count": 18700,
+    "support_xy_bounds_mm": [
+      [
+        131.45700000000002,
+        106.21
+      ],
+      [
+        245.54299999999998,
+        223.298
+      ]
+    ],
+    "per_specimen_full_bead_xy_bounds_mm": {
+      "G1C": [
+        [
+          79.500003,
+          89.750003
+        ],
+        [
+          103.499997,
+          131.249997
+        ]
+      ],
+      "G1I": [
+        [
+          105.500003,
+          89.750003
+        ],
+        [
+          129.499997,
+          131.249997
+        ]
+      ],
+      "B1C": [
+        [
+          183.500003,
+          86.750003
+        ],
+        [
+          213.499997,
+          134.249997
+        ]
+      ],
+      "B1I": [
+        [
+          215.500003,
+          86.750003
+        ],
+        [
+          245.499997,
+          134.249997
+        ]
+      ],
+      "G2C": [
+        [
+          131.500003,
+          89.750003
+        ],
+        [
+          155.499997,
+          131.249997
+        ]
+      ],
+      "G2I": [
+        [
+          157.500003,
+          89.750003
+        ],
+        [
+          181.499997,
+          131.249997
+        ]
+      ],
+      "B2C": [
+        [
+          125.500003,
+          136.250003
+        ],
+        [
+          155.499997,
+          183.749997
+        ]
+      ],
+      "B2I": [
+        [
+          157.500003,
+          136.250003
+        ],
+        [
+          187.499997,
+          183.749997
+        ]
+      ],
+      "G3C": [
+        [
+          73.500003,
+          139.250003
+        ],
+        [
+          97.499997,
+          180.749997
+        ]
+      ],
+      "G3I": [
+        [
+          99.500003,
+          139.250003
+        ],
+        [
+          123.499997,
+          180.749997
+        ]
+      ],
+      "B3C": [
+        [
+          189.500003,
+          136.250003
+        ],
+        [
+          219.499997,
+          183.749997
+        ]
+      ],
+      "B3I": [
+        [
+          221.500003,
+          136.250003
+        ],
+        [
+          251.499997,
+          183.749997
+        ]
+      ],
+      "G4C": [
+        [
+          73.500003,
+          188.750003
+        ],
+        [
+          97.499997,
+          230.249997
+        ]
+      ],
+      "G4I": [
+        [
+          99.500003,
+          188.750003
+        ],
+        [
+          123.499997,
+          230.249997
+        ]
+      ],
+      "B4C": [
+        [
+          125.500003,
+          185.750003
+        ],
+        [
+          155.499997,
+          233.249997
+        ]
+      ],
+      "B4I": [
+        [
+          157.500003,
+          185.750003
+        ],
+        [
+          187.499997,
+          233.249997
+        ]
+      ],
+      "S1C": [
+        [
+          189.500003,
+          185.750003
+        ],
+        [
+          219.499997,
+          233.249997
+        ]
+      ],
+      "S1I": [
+        [
+          221.416517,
+          185.750003
+        ],
+        [
+          251.583483,
+          233.249997
+        ]
+      ]
+    },
+    "minimum_specimen_full_bead_box_gap_mm": 1.9165199999999913,
+    "scope": "All native deposited specimen, support and brim beads, including arc extrema and half-width. Vendor startup purge/calibration paths are excluded. Placement does not establish adhesion."
+  },
   "parts": [
     {
       "label": "G1C",
@@ -207,7 +441,7 @@
     {
       "label": "G1I",
       "ironing_extrusion_moves": 503,
-      "ironing_length_mm": 799.36929,
+      "ironing_length_mm": 799.36873,
       "deposited_filament_mm": 1.16133,
       "speed_mm_s": [
         30.0
@@ -231,7 +465,7 @@
     {
       "label": "B1I",
       "ironing_extrusion_moves": 531,
-      "ironing_length_mm": 1678.16974,
+      "ironing_length_mm": 1678.17245,
       "deposited_filament_mm": 2.43641,
       "speed_mm_s": [
         30.0
@@ -255,7 +489,7 @@
     {
       "label": "G2I",
       "ironing_extrusion_moves": 503,
-      "ironing_length_mm": 799.36929,
+      "ironing_length_mm": 799.36873,
       "deposited_filament_mm": 0.58074,
       "speed_mm_s": [
         30.0
@@ -279,7 +513,7 @@
     {
       "label": "B2I",
       "ironing_extrusion_moves": 531,
-      "ironing_length_mm": 1678.16974,
+      "ironing_length_mm": 1678.17173,
       "deposited_filament_mm": 1.21824,
       "speed_mm_s": [
         30.0
@@ -327,7 +561,7 @@
     {
       "label": "B3I",
       "ironing_extrusion_moves": 531,
-      "ironing_length_mm": 1678.17173,
+      "ironing_length_mm": 1678.17245,
       "deposited_filament_mm": 2.43641,
       "speed_mm_s": [
         60.0
@@ -351,7 +585,7 @@
     {
       "label": "G4I",
       "ironing_extrusion_moves": 255,
-      "ironing_length_mm": 398.49234,
+      "ironing_length_mm": 398.49172,
       "deposited_filament_mm": 1.15698,
       "speed_mm_s": [
         30.0
@@ -399,7 +633,7 @@
     {
       "label": "S1I",
       "ironing_extrusion_moves": 2732,
-      "ironing_length_mm": 5221.47232,
+      "ironing_length_mm": 5221.47479,
       "deposited_filament_mm": 7.58044,
       "speed_mm_s": [
         30.0
