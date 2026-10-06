@@ -488,7 +488,7 @@ thumbRenderer.toneMapping = THREE.ACESFilmicToneMapping;
 thumbRenderer.toneMappingExposure = TONE_EXPOSURE;
 const thumbScene = new THREE.Scene();
 const thumbCam = new THREE.PerspectiveCamera(45, 1, 1, 1000);
-addStudioLighting(thumbScene);
+addStudioLighting(thumbScene, thumbRenderer);
 
 // Frame a group front-iso in the offscreen scene, snap it, and tear it down.
 // Shared with glb.js so every 3D thumbnail is composed the same way.

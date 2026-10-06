@@ -306,14 +306,19 @@ function studioRoom() {
 // Blurred at 0.03 rather than convolved to nothing: the softbox has to keep an edge, because a
 // highlight with no edge is the uniform grey this replaces. Roughness does the rest of the
 // blurring per material, off the mip chain PMREM builds.
-//
-// THE WHOLE COST IS HERE, AT MODULE LOAD, AND IT IS 16 ms — measured cold, on a renderer whose
-// program cache is empty, which is the state this one runs in. Five plain boxes bake faster
-// than the thirteen meshes, seven of them area lights, that three's own RoomEnvironment is
-// made of: that reads 39 ms on the same machine. What the frame pays is one prefiltered cube
-// sampled per fragment, and that is what a uniform environment costs too.
-const pmrem = new THREE.PMREMGenerator(renderer);
-export const studioEnvironment = pmrem.fromScene(studioRoom(), 0.03).texture;
+// The prefiltered texture lives in the renderer's WebGL context. Each renderer
+// bakes the same room into its own texture when its scene is initialized.
+function studioEnvironmentFor(targetRenderer) {
+  const room = studioRoom();
+  const pmrem = new THREE.PMREMGenerator(targetRenderer);
+  const texture = pmrem.fromScene(room, 0.03).texture;
+  pmrem.dispose();
+  room.traverse((object) => {
+    object.geometry?.dispose();
+    object.material?.dispose();
+  });
+  return texture;
+}
 
 // Where the key stands, as a direction from the model. The contact shadow below is thrown off
 // this same vector, so the dark on the floor and the bright on the panels cannot disagree.
@@ -328,7 +333,7 @@ export const KEY_DIR = new THREE.Vector3(1, -1.2, 2);
 // small: an ambient floor and a hemisphere are a value added to every fragment alike, and a
 // surface shaded mostly by them has no shape in it. The environment above is what carries the
 // omnidirectional half of the light, and it carries a direction with it.
-export function addStudioLighting(target) {
+export function addStudioLighting(target, targetRenderer) {
   target.add(new THREE.AmbientLight(0xffffff, 0.12));
   const key = new THREE.DirectionalLight(0xffffff, 1.1);
   key.position.copy(KEY_DIR);
@@ -341,7 +346,7 @@ export function addStudioLighting(target) {
   const hemi = new THREE.HemisphereLight(0xffffff, 0x333340, 0.35);
   hemi.position.set(0, 0, 1);
   target.add(hemi);
-  target.environment = studioEnvironment;
+  target.environment = studioEnvironmentFor(targetRenderer);
   // Distance fades a surface and an edge toward the background. The x-ray ghost
   // carries every solid's feature edges at once — 48,000 segments on the
   // enclosure assembly, the near ones and the far ones at one brightness — and a
@@ -361,7 +366,7 @@ export function fitFog(target, distance, radius) {
   target.fog.far = distance + radius * FOG_BACK;
 }
 
-addStudioLighting(scene);
+addStudioLighting(scene, renderer);
 
 // --- Contact shadow ---
 // A MACHINE WITH NOTHING UNDER IT IS FLOATING, and floating is the loudest thing left in the
