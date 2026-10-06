@@ -1,8 +1,8 @@
-"""Two open-backed PETG shells following the silicone funnel's forming faces.
+"""Two PETG mold bodies with flat print bases and steep corbels.
 
-Frame: funnel brim centred in XY, cavity feet at Z=0, +Z is closure lift.
-The cavity prints upright; the core prints inverted, open dry back on the bed.
-Slicer normal supports carry the dry faces. Both modeled skins print solid.
+Frame: funnel brim centred in XY, cavity base at Z=0, +Z is closure lift.
+The cavity prints upright; the core prints inverted on its flat dry back.
+Six walls and 15% gyroid fill the solid stock. Bolt pockets have open side access.
 """
 
 import argparse
@@ -34,7 +34,10 @@ finish_allowance = 0.30
 # Dry-backing margin for the forming ramp's rounded offset joins.
 forming_join_allowance = 0.01
 shell_thickness = 5.0
-dry_ramp_lift = 6.0
+corbel_run_per_rise = 0.5
+base_thickness = 5.0
+bolt_pocket_height = 8.0
+bolt_pocket_width = 12.0
 flange_thickness = 5.0
 flange_margin = 16.0
 flange_radius = 24.0
@@ -62,9 +65,7 @@ rod_axial_allowance = 0.1
 rod_tilt_allowance = 0.3
 vent_diameter = 4.0
 pour_diameter = 11.0
-foot_diameter = 10.0
-foot_clearance = 0.7
-feet_xy = ((-55.0, -40.0), (55.0, -40.0), (0.0, 40.0))
+floor_reserve = 0.7
 pry_width = 16.0
 pry_depth = 5.0
 pry_height = 1.0
@@ -207,7 +208,7 @@ def build():
     exterior, bore, m = funnel.build_solids()
     top, neck, end = m['top_z'], m['neck_z'], m['end_z']
     x, y = m['ncx'], m['ncy']
-    floor = end-rod_socket_depth-shell_thickness-foot_clearance
+    floor = end-rod_socket_depth-shell_thickness-floor_reserve
     flange_width = m['out_w']+2*flange_margin
     flange_depth = m['out_d']+2*flange_margin
     bolt_x = flange_width/2-bolt_edge_margin
@@ -219,7 +220,7 @@ def build():
     locator_xy = [(bolt_x, locator_y[0]), (-bolt_x, locator_y[1])]
 
     nominal_exterior = one(exterior, 'casting envelope')
-    print('Offsetting cavity forming face and dry back', flush=True)
+    print('Constructing forming faces and solid print bases', flush=True)
     forming_void = one(funnel.build_solids(outer_air=finish_allowance)[0], 'forming void')
     # Carry the forming ramp's rounded-join margin into its dry backing.
     backing_allowance = finish_allowance+shell_thickness+forming_join_allowance
@@ -247,9 +248,24 @@ def build():
     minimum_backing = forming_boundary.distance(backing_boundary)
     assert minimum_backing >= shell_thickness-0.001, minimum_backing
     cavity_flange = rounded(flange_width, flange_depth, flange_radius, top-flange_thickness, top)
-    feet = [cylinder(foot_diameter/2, floor, m['ramp_top_z'], *xy) for xy in feet_xy]
-    cavity = one(cavity_outer.fuse(cavity_flange, *feet).cut(forming_void)
-                 .intersect(box(flange_width+2, flange_depth+2, floor, top)), 'cavity shell')
+    corbel_bottom = floor+base_thickness
+    corbel_top = top-flange_thickness
+    corbel_run = (corbel_top-corbel_bottom)*corbel_run_per_rise
+    base_width, base_depth = flange_width-2*corbel_run, flange_depth-2*corbel_run
+    base_radius = flange_radius-corbel_run
+    assert base_radius > 0
+    # Parallel rounded rectangles retain fixed corner centres. Their entire
+    # outward boundary, including the curved corners, advances 0.5 mm/mm.
+    base = rounded(base_width, base_depth, base_radius, floor, corbel_bottom)
+    corbel = cq.Solid.makeLoft([
+        funnel._rounded_wire(base_width, base_depth, base_radius, corbel_bottom),
+        funnel._rounded_wire(flange_width, flange_depth, flange_radius, corbel_top),
+    ], ruled=True)
+    blank = one(base.fuse(corbel, cavity_flange), 'cavity stock')
+    backing_reference = cavity_outer.intersect(
+        box(flange_width+2, flange_depth+2, floor, top))
+    assert backing_reference.cut(blank).Volume() < tolerance, 'corbel must retain forming backing'
+    cavity = one(blank.cut(forming_void), 'cavity body')
     socket = cylinder(rod_socket_diameter/2, end-rod_socket_depth, end, x, y)
     cavity = one(cavity.cut(socket), 'cavity rod socket')
 
@@ -260,23 +276,19 @@ def build():
     # Explicit spline surfaces let the rod-guide booleans trim these
     # contracted lofts without relying on an OFFSET surface's continuation.
     plug = contracted(nominal_plug, finish_allowance, back+1).toNURBS()
-    inset = finish_allowance + shell_thickness
-    dry_w, dry_d = m['bore_w'] - 2*inset, m['bore_d'] - 2*inset
-    dry_r = funnel.mouth_corner_r - inset
-    dry_ramp_top = m['ramp_top_z'] + dry_ramp_lift
-    # The dry back has its own simple loft. Its complete boundary is checked
-    # against the casting below; its sides and floor retain at least 5 mm.
-    dry_void = one(funnel._loft_rc(dry_w, dry_d, 0, 0, dry_ramp_top,
-        m['spout_id']/2, x, y, neck+dry_ramp_lift, dry_r).fuse(
-        funnel._rounded_box(dry_w, dry_d, dry_r, dry_ramp_top, back+1)),
-        'core dry opening')
+    guide_radius = (rod_diameter+rod_clearance)/2
+    guide_top = neck+rod_guide_length
+    dry_radius = guide_radius+(back-guide_top)*corbel_run_per_rise
+    # In the inverted print, this circular opening contracts at 0.5 mm/mm
+    # until it meets the open straight rod guide; it has no flat ceiling.
+    dry_void = cq.Solid.makeCone(guide_radius,
+        dry_radius+corbel_run_per_rise, back+1-guide_top,
+        cq.Vector(x, y, guide_top))
     plate = rounded(flange_width, flange_depth, flange_radius, top, back)
     # The brim's top face grows downward by the measured finishing thickness.
     plate = plate.cut(funnel._rounded_box(m['out_w']+2*finish_allowance,
         m['out_d']+2*finish_allowance, funnel.brim_corner_r+finish_allowance,
         top-1, top+finish_allowance))
-    core = one(plug.fuse(plate).cut(dry_void)
-               .intersect(box(flange_width+2, flange_depth+2, neck, back)), 'core shell')
 
     rod_bottom = end-rod_end_depth
     rod_top = rod_bottom+rod_length
@@ -284,14 +296,10 @@ def build():
     rod = cylinder(rod_diameter/2, rod_bottom, rod_top, x, y)
     assert abs(rod.BoundingBox().zmin-rod_bottom) < tolerance
     assert abs(rod.BoundingBox().zmax-rod_top) < tolerance
-    guide_radius = (rod_diameter+rod_clearance)/2
-    guide_top = neck+rod_guide_length
     seat = cylinder(guide_radius, neck-1, back+1, x, y)
-    boss = cylinder(guide_radius+rod_seat_wall, neck+finish_allowance,
-                    guide_top, x, y)
     # An open straight guide admits the stock rod from the dry back. Its small
     # annular overflow and the lower-seat collar are accessible trim stock.
-    core = one(plug.fuse(plate).cut(dry_void.cut(boss), seat)
+    core = one(plug.fuse(plate).cut(dry_void, seat)
                .intersect(box(flange_width+2, flange_depth+2, neck, back)),
                'core with open straight rod guide')
 
@@ -317,6 +325,23 @@ def build():
     core = one(core.cut(*locator_holes), 'core locator holes')
 
     bolts = [cylinder(bolt_diameter/2, floor-1, back+1, *xy) for xy in bolt_xy]
+    bolt_pockets = []
+    for px, py in bolt_xy:
+        if abs(px) == bolt_x:
+            sign = 1 if px > 0 else -1
+            inner, outer = bolt_x-4.6, flange_width/2+1
+            pocket = box(outer-inner, bolt_pocket_width,
+                corbel_top-bolt_pocket_height, corbel_top,
+                sign*(inner+outer)/2, py)
+        else:
+            sign = 1 if py > 0 else -1
+            inner, outer = bolt_y-4.6, flange_depth/2+1
+            pocket = box(bolt_pocket_width, outer-inner,
+                corbel_top-bolt_pocket_height, corbel_top,
+                px, sign*(inner+outer)/2)
+        assert pocket.intersect(backing_reference).Volume() < tolerance
+        bolt_pockets.append(pocket)
+    cavity = one(cavity.cut(*bolt_pockets), 'cavity bolt head access')
     cavity = one(cavity.cut(*bolts), 'cavity clamp holes')
     core = one(core.cut(*bolts), 'core clamp holes')
     port_radius = m['out_w']/2-m['rim_ring']/2
@@ -395,11 +420,7 @@ def build():
         assert washer.intersect(cavity).Volume() < tolerance
     for xy in [pour, *vents]:
         assert core.intersect(cylinder(0.5, top-0.5, back+1, *xy)).Volume() < tolerance
-    # A straight lift through the large dry opening keeps support removal accessible.
-    dry_mouth = funnel._rounded_box(m['bore_w']-2*(shell_thickness+finish_allowance),
-                    m['bore_d']-2*(shell_thickness+finish_allowance),
-                    funnel.mouth_corner_r-shell_thickness-finish_allowance, back-1, back+1)
-    assert core.intersect(dry_mouth).Volume() < tolerance
+    assert core.intersect(cylinder(dry_radius-0.01, back-0.01, back+1, x, y)).Volume() < tolerance
     shift = (0, 0, -floor)
     parts = {name: shape.translate(shift) for name, shape in
              [('cavity', cavity), ('core', core), ('funnel', cast), ('rod', rod)]}
@@ -454,36 +475,49 @@ def build():
                      'fastener': 'M4 x 20 with 9 mm OD washers and nuts; or small clamps on flange'},
         'ports': {'fill_diameter_mm': pour_diameter, 'vent_diameter_mm': vent_diameter,
                   'fill_xy_mm': pour, 'vent_xy_mm': vents},
-        'feet': {'diameter_mm': foot_diameter, 'centres_xy_mm': feet_xy,
-                 'plug_backing_clearance_mm': foot_clearance},
-        'dry_opening_mm': m['bore_w']-2*(shell_thickness+finish_allowance),
-        'dry_opening_depth_mm': m['bore_d']-2*(shell_thickness+finish_allowance),
+        'print_bases': {'cavity_plan_mm': [base_width, base_depth],
+            'cavity_corner_radius_mm': base_radius, 'base_thickness_mm': base_thickness,
+            'corbel_run_per_rise': corbel_run_per_rise,
+            'corbel_angle_from_bed_deg': math.degrees(math.atan(1/corbel_run_per_rise)),
+            'corbel_print_z_mm': [base_thickness, corbel_top-floor],
+            'bolt_access_pocket_width_mm': bolt_pocket_width,
+            'bolt_access_pocket_height_mm': bolt_pocket_height,
+            'core': 'flat dry back with one circular tapered access hole'},
+        'dry_opening_mm': 2*dry_radius,
+        'dry_opening_depth_mm': 2*dry_radius,
+        'dry_opening_shape': 'circular conical access to straight rod guide',
+        'postprint_breathers': breathers(base_width, back-floor),
         'ramp_print_z_mm': {'cavity': [neck-floor, m['ramp_top_z']-floor],
                             'core': [back-m['ramp_top_z'], back-neck]},
         'nominal_chamber_diameter_mm': chamber_diameter,
         'load_screen': load_screen(m, end),
-        'status': 'Complete two-shell tooling with straight stock steel rod; native geometry verified'}
+        'status': 'Complete two-body tooling with flat print bases and straight stock steel rod; native geometry verified'}
     return parts, info
 
 
+def breathers(base_width, core_back):
+    return {'diameter_mm': 1.5,
+        'cavity': {'entry_xyz_mm': [[-base_width/2, -30, 2.5], [base_width/2, 30, 2.5]],
+            'drill_axes': [[1, 0, 0], [-1, 0, 0]], 'depth_mm': 3.2,
+            'face': 'vertical sides of the flat base, clear of the catch tray'},
+        'core': {'entry_xyz_mm': [[-40, -30, core_back], [40, 30, core_back]],
+            'drill_axes': [[0, 0, -1], [0, 0, -1]], 'depth_mm': 1.8,
+            'face': 'flat outer dry back'},
+        'method': 'Drill through the printed skins into sparse infill after printing with a depth stop; keep dry faces and holes uncoated. CAD blind holes would receive sealed slicer walls.'}
+
+
 def load_screen(m, bottom):
-    # Simply supported flat-square screening surrogate; q is uniform at the maximum head.
     span = m['w']
     pressure = 0.001  # N/mm² = 1 kPa, including head and a modest process allowance.
-    modulus = 1000.0  # MPa assumption for an untested solid PETG print at room temperature.
-    poisson = 0.4
-    rigidity = modulus*shell_thickness**3/(12*(1-poisson**2))
-    deflection = 0.00406*pressure*span**4/rigidity
     head = m['top_z']+flange_thickness-bottom
-    return {'model': 'simply supported flat square under uniform load; screening, not FEA or a pressure rating',
+    return {'model': 'silicone hydrostatic head and conservative uniform process-load screen',
             'span_mm': span, 'pressure_kpa': pressure*1000,
-            'assumed_modulus_mpa': modulus, 'assumed_poisson_ratio': poisson,
             'silicone_density_assumption_kg_m3': 1130,
             'maximum_silicone_head_mm': head, 'head_pressure_kpa': 1130*9.81*(head/1000)/1000,
-            'screen_deflection_mm': deflection,
             'pressure_force_n': pressure*span**2,
-            'condition': 'fill, vents and both dry backs open to the same chamber; no sealed pressure differential',
-            'material_reference': 'https://store.bblcdn.eu/s8/default/71ca815e70e74afc96ff5883f003235f/Bambu_PETG_Translucent_Technical_Data_Sheet.pdf'}
+            'condition': 'complete mold inside chamber; fill, vents, rod guide and drilled dry-side infill breathers open to chamber air',
+            'process': 'six walls, six top/bottom layers and 15% gyroid; slow evacuation and venting while silicone is fluid',
+            'scope': 'Applied liquid load only. No stiffness, lifetime or pressure rating is inferred from infill percentage.'}
 
 
 def write_parts(parts, info, output, *, preserve_native_shells=False):
