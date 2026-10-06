@@ -112,7 +112,7 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 180 of 3191 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 1165 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 2874 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 1165 member(s) keep their provenance",
       "status": "ok"
     }
   ],
@@ -243,7 +243,7 @@
       "12 reference(s) name a path nothing holds."
     ],
     "tools/check_release_room.py": [
-      "the release holds 440 of 1000 and the next cut wants 913; 1 asset(s) may be retired for it",
+      "the release holds 440 of 1000 and the next cut wants 913; 8 asset(s) may be retired for it",
       "check_release_room: 1 thing(s) stand between a cut and the site",
       "    tools/cad-venv/bin/python tools/cad-artifacts/pack.py --room"
     ],
