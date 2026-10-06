@@ -1,7 +1,7 @@
 {
-  "geometry_sha256": "e90884a44104933991afa9be4f863ae3caa2037177d9af127f1f4e5e2485c297",
+  "geometry_sha256": "09f3665148688bdbd9795258021a0ef286fc9b484ecf4db4f7ca0f8d2c31727b",
   "firmware_source_receipt": "../../firmware/src_pgfun_positioner/assets/build-receipt.json",
-  "uf2_sha256": "8a9700438a028df73e1741e7f48068c734c5046296eabb12541084ac8b454a40",
+  "uf2_sha256": "2fd8bdaa22d43ec7d1f8393ef8996c20ab462d15adc7b8913d1c59f45a044054",
   "compiled": true,
   "policy_tests": "pass",
   "image_and_source_binding": "pass",

@@ -1,0 +1,27 @@
+[ceiling] This is the outward-facing underside of a 28 mm camera-post pad around the 20 mm post. The support-required recipe supports these external pad projections; support removes between and outside the posts. Block the internal 14 mm bore and use its separate bridge instruction.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/camera-riser-base.step
+click: x=253.000 y=147.000 z=150.000
+click: x=17.000 y=147.000 z=150.000
+click: x=253.000 y=15.000 z=150.000
+click: x=17.000 y=15.000 z=150.000
+
+[ceiling] This is the 14 mm hollow post closing roof beneath its bolted pad. Specify bridge paths across the 14 mm bore and block internal supports, which would be enclosed by the pad. Inspect the bridge in the native slice and the M5 seat before assembly; no transferred print acceptance is asserted.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/camera-riser-base.step
+click: x=17.002 y=147.000 z=150.000
+click: x=253.002 y=147.000 z=150.000
+click: x=17.002 y=15.000 z=150.000
+click: x=253.002 y=15.000 z=150.000
+
+[ceiling] The hollow post projects slightly beyond the lower rectangular frame. Accessible support from the bed carries these outward-facing post shoulders; it removes at the outside of the frame. Keep the 14 mm hollow interior free of support.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/camera-riser-base.step
+click: x=22.500 y=144.525 z=9.000
+click: x=247.500 y=144.525 z=9.000
+click: x=247.730 y=21.475 z=9.000
+click: x=22.270 y=21.475 z=9.000
+
+[ceiling] This is a side-loaded M5 nut lane in the camera-post pad. Keep the short nut-seat roof as a bridge and remove any exposed loading-lane support through its open side. Verify flat nut seating before joining the upper stand.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/camera-riser-base.step
+click: x=12.367 y=15.000 z=155.200
+click: x=12.367 y=147.000 z=155.200
+click: x=257.633 y=15.000 z=155.200
+click: x=257.633 y=147.000 z=155.200

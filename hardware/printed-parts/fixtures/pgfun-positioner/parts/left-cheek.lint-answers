@@ -1,0 +1,12 @@
+[ceiling] The parking cam projects 2.7 mm below the broad cheek face in its specified print orientation. Support the broad face from the bed around the cam, with an open perimeter for removal. Remove that support and inspect the six journal bolts and both rail mounting faces.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/left-cheek.step
+click: x=123.485 y=79.942 z=2.700
+
+[ceiling] This is a required counterbore or captured follower-nut shoulder in the driven cheek. Short annular/captive-seat roofs bridge; the broad cheek face receives accessible support. Keep screw passages free, remove exposed support through the open wells, and verify every head/nut sits flat.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/left-cheek.step
+click: x=222.970 y=25.000 z=7.900
+click: x=222.972 y=109.000 z=7.700
+click: x=222.972 y=81.000 z=7.700
+click: x=222.972 y=66.000 z=13.700
+click: x=244.878 y=80.500 z=13.700
+click: x=201.063 y=80.500 z=13.700

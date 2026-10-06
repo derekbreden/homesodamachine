@@ -63,12 +63,12 @@
     "camera_lens_distance_mm": 109.0,
     "camera_stage_source": "FoMaKo published external envelope; Raynox manufacturer dimensions; optical center has adjustment travel",
     "mechanical_sources": {
-      "hardware/printed-parts/fixtures/pgfun-positioner/build.py": "5e927fa7f4c32ddcc5f2485b292028edf6a46e8b17e3cc1c7d3fb0e4182282b3",
+      "hardware/printed-parts/fixtures/pgfun-positioner/build.py": "7d50458349f687f769a944212e166572841ae49740f978b17111c6fab4e0fa68",
       "hardware/reference/xlaserlab-sup29f-xh/source/reconstructed-surfaces.npz": "7f4238a38f42f251f2b9665de6eefa4d805abcead8c1ba930f69a2a5c37d0bf8",
       "hardware/reference/xlaserlab-sup29f-xh/xlaserlab_sup29f_xh.py": "337e9cd63a1b1b8d85c5d4bdb65304df518b243f395489282115977a253a9d2a",
       "hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py": "3f6e442f840306d98038e843f284792fbdbce7260c2243bd72947a1072a55982",
       "hardware/printed-parts/fixtures/weld-rotator/_rotator_interface.py": "f311ff6b36b0ad61d928c46109adaf6bcdf31e767baee5cb8433c1d29ffff584"
     }
   },
-  "sha256": "e90884a44104933991afa9be4f863ae3caa2037177d9af127f1f4e5e2485c297"
+  "sha256": "09f3665148688bdbd9795258021a0ef286fc9b484ecf4db4f7ca0f8d2c31727b"
 }

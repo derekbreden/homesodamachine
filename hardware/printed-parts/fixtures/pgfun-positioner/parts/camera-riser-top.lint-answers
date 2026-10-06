@@ -1,0 +1,10 @@
+[ceiling] The inverted upper stand has a bed-facing platform and an elevated annular frame. Support the frame from the open exterior and the spaces between posts. Keep post interiors blocked, remove the accessible support, and inspect the four mounting faces before bolting the stand together.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/camera-riser-top.step
+click: x=135.000 y=85.000 z=42.102
+
+[ceiling] This is a 14 mm post closing bridge in the inverted print pose. Block internal supports and inspect bridge paths across the bore in the native slice. The external frame uses accessible support; the post interior does not enclose a support structure.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/camera-riser-top.step
+click: x=17.002 y=155.000 z=42.102
+click: x=253.002 y=155.000 z=42.102
+click: x=17.002 y=23.000 z=42.102
+click: x=253.002 y=23.000 z=42.102
