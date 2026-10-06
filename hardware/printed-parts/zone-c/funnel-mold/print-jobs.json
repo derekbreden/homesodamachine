@@ -521,9 +521,14 @@
       ]
     },
     "outcome": {
-      "result": "in_progress",
+      "result": "failed",
       "observed_date": "2026-10-06",
-      "observation": "Printer accepted the cavity job and reports RUNNING with no errors; physical print and casting results are pending."
+      "evidence_kind": "Derek physical report",
+      "observation": "Derek reports that the complete print was swept onto the extruder, continued accumulating filament around it, and damaged the induction heating assembly. The spare assembly and a new 0.4 mm nozzle are installed; filament is drying.",
+      "physical_record": "native-slice-reviews/2026-10-06-h2c-right-gyroid15/physical-result.json",
+      "failure_layer": null,
+      "initiating_cause": "not established",
+      "retry_preparation": "native-slice-reviews/2026-10-06-mark1-retry-v1/README.md"
     }
   }
 ]

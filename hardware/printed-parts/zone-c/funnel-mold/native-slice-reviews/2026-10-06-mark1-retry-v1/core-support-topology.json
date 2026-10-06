@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "piece": "funnel-mold/core",
+  "inputs": {
+    "gcode": "plate_2.gcode",
+    "gcode_sha256": "cde339e6a6f8f51c2970803fe160531efa1366172a0eb4d584f61e217bad5362",
+    "model": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/zone-c/funnel-mold/core.stl",
+    "model_sha256": "097dfc585db89ad59b5349c7537fdb412d2c4a450256fd58954a92bc7ed3a2a6",
+    "profile": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-v1/funnel-mold-mark1-retry.3mf",
+    "profile_sha256": "76cfd1ae322feaab87c0a59eb13629437f229594ca5eb90aed11f3a453367807"
+  },
+  "slicer": "BambuStudio 02.08.02.61",
+  "first_layer_z_mm": 0.2,
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      -1.0,
+      0.0,
+      0.0,
+      0.0,
+      -1.0,
+      -177.5,
+      160.0,
+      61.150001526
+    ]
+  },
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.2",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.48",
+    "support_on_build_plate_only": "0",
+    "support_style": "snug",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.2",
+    "support_type": "normal(auto)"
+  },
+  "summary": {
+    "support_bodies": 0,
+    "interface_islands": 0,
+    "bed_rooted_bodies": 0,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 0,
+    "shortest_labelled_build_up_mm": null
+  },
+  "trees": [],
+  "interfaces": [],
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up."
+}
