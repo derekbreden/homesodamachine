@@ -1,0 +1,222 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-06",
+  "printer": "Mark2",
+  "job_id": "1314288755",
+  "archive_name": "2026-10-06-petg-ironing-squares-mark2-z004-v1.gcode.3mf",
+  "authorization": {
+    "calibration": "Derek requests a simple set of squares to select ironing settings, without a repeated control for each item.",
+    "bed_clear_quote": "Mark2 bed is clear",
+    "left_hotend": "The established installed left hotend is 0.8 mm Standard-flow."
+  },
+  "source": {
+    "editable_project": "hardware/printed-parts/cold-core/reservoir/ironing-study/ironing-study.3mf",
+    "editable_project_sha256": "e15724ed0197bf279a9b57bc50f08f8fc1fb08a20271c092457818ad4bfbe858",
+    "native_slice_review": "hardware/printed-parts/cold-core/reservoir/ironing-study/slice-review.json",
+    "reviewed_print_archive": ".cache/reservoir-ironing-squares/slice/2026-10-06-petg-ironing-squares-mark2-z004-v1.gcode.3mf",
+    "archive_sha256": "1b6fc3009692cb1789901824294fbc3751fdb692e870ae805864690ae57c1a84",
+    "imported_copy_sha256_after_send": "1b6fc3009692cb1789901824294fbc3751fdb692e870ae805864690ae57c1a84",
+    "gcode_sha256": "30c6c02a58bfa20bd203b0f4cd8786eb8c0727434984da4cba6faa08bf9938f3",
+    "gcode_bytes_unchanged": true,
+    "resliced_for_launch": true
+  },
+  "submission": {
+    "application": "Bambu Connect",
+    "version": "2.5.0-beta.15",
+    "ui_driver": "cua_repl",
+    "send_clicks": 1,
+    "standing_options": {
+      "timelapse": "On",
+      "auto_bed_leveling": "On",
+      "flow_dynamic_calibration": "Auto",
+      "nozzle_offset_calibration": "Auto"
+    },
+    "command_reply": {
+      "command": "project_file",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "err_code": 0
+    }
+  },
+  "machine": {
+    "printer_preset": "Bambu Lab H2C 0.8 Standard +0.04 Z trim",
+    "active_nozzle": "left",
+    "diameter_mm": 0.8,
+    "flow_type": "Standard",
+    "bed_type": "Textured PEI Plate",
+    "expected_user_z_trim_mm": 0.04,
+    "emitted_z_trim_mm": 0.02,
+    "gcode_z_commands": [
+      "G29.1 Z0 ; clear z-trim value first",
+      "G29.1 Z0.02"
+    ],
+    "filament_map_mode": "Manual",
+    "emitted_nozzle_assignment": {
+      "filament_map": "1",
+      "filament_nozzle_map": "0",
+      "nozzle_diameter": "0.8,0.8"
+    }
+  },
+  "filament": {
+    "material": "Bambu PETG Translucent Clear",
+    "bambu_profile_id": "GFG01",
+    "colour": "00000000",
+    "starting_slot": "A4",
+    "ams_unit_id": 0,
+    "ams_tray_id": 3,
+    "ui_mapping_verified": "Left Nozzle: A4 PETG; Right Nozzle unused.",
+    "preferred_consumption_order": [
+      "A4",
+      "A3",
+      "A1"
+    ],
+    "age_order": "oldest to newest",
+    "loaded_slots": [
+      {
+        "ams_id": "0",
+        "tray_id": "0",
+        "tray_type": "PETG",
+        "tray_sub_brands": "PETG Translucent",
+        "tray_info_idx": "GFG01",
+        "tray_color": "00000000"
+      },
+      {
+        "ams_id": "0",
+        "tray_id": "1",
+        "tray_type": null,
+        "tray_sub_brands": null,
+        "tray_info_idx": null,
+        "tray_color": null
+      },
+      {
+        "ams_id": "0",
+        "tray_id": "2",
+        "tray_type": "PETG",
+        "tray_sub_brands": "PETG Translucent",
+        "tray_info_idx": "GFG01",
+        "tray_color": "00000000"
+      },
+      {
+        "ams_id": "0",
+        "tray_id": "3",
+        "tray_type": "PETG",
+        "tray_sub_brands": "PETG Translucent",
+        "tray_info_idx": "GFG01",
+        "tray_color": "00000000"
+      }
+    ],
+    "use_each_spool_fully": true,
+    "remaining_quantity_is_launch_condition": false,
+    "ams_auto_refill_enabled": true,
+    "automatic_backup_order": null,
+    "backup_priority_ui": "Bambu Connect exposes a starting-slot selector and an AMS Auto-Refill checkbox; no backup sequence or priority editor is displayed.",
+    "replacement_selection": "Use A3 before A1 when choosing a replacement or a later job starting slot."
+  },
+  "calibration": {
+    "square_count": 10,
+    "ironed_square_count": 9,
+    "un_ironed_reference_count": 1,
+    "square_side_mm": 35,
+    "square_height_mm": 1.5,
+    "speed_rows_mm_s": [
+      15,
+      30,
+      60
+    ],
+    "flow_columns_percent": [
+      10,
+      20,
+      30
+    ],
+    "spacing_mm": 0.15,
+    "label_format": "speed in mm/s / flow in percent; OFF = no ironing",
+    "lower_label_tabs_ironed": false,
+    "supports": 0
+  },
+  "placement": {
+    "left_nozzle_usable_bed_bounds_mm": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        325.0,
+        320.0
+      ]
+    ],
+    "model_support_brim_xy_bounds_mm": [
+      [
+        84.98451700000001,
+        90.500003
+      ],
+      [
+        239.999997,
+        229.499997
+      ]
+    ],
+    "edge_margins_left_front_right_back_mm": [
+      84.98451700000001,
+      90.500003,
+      85.00000299999999,
+      90.50000299999999
+    ],
+    "minimum_full_bead_edge_margin_mm": 84.98451700000001,
+    "minimum_specimen_full_bead_box_gap_mm": 4.900551500000006,
+    "deposited_move_count": 23410,
+    "support_move_count": 0,
+    "scope": "Native deposited model/brim beads, including arc extrema and half-width. Vendor startup purge/calibration paths are excluded. Placement does not establish adhesion."
+  },
+  "preflight": {
+    "mark2_prior_job_id": "1313441289",
+    "mark2_prior_state": "FINISH",
+    "mark2_print_error": 0,
+    "mark2_hms": [],
+    "shared_circuit": {
+      "required_start_spacing_seconds": 180,
+      "other_printer": "H2C",
+      "other_status": "Offline",
+      "other_status_source": "Bambu Connect Devices page via cua_repl",
+      "other_status_observed_at_utc": "2026-10-06T14:48:32.003Z",
+      "most_recent_known_other_acceptance_at_utc": "2026-10-06T07:26:55.559743+00:00",
+      "other_launch_record": "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-h2c-right-gyroid15/launch.json",
+      "seconds_since_most_recent_known_other_acceptance": 26606.696,
+      "spacing_satisfied": true,
+      "other_printer_start_or_resume_by_this_session": false
+    }
+  },
+  "acceptance": {
+    "observed_at_utc": "2026-10-06T14:50:22.255852+00:00",
+    "observed_at_local": "2026-10-06T09:50:22.255852-05:00",
+    "job_id": "1314288755",
+    "archive_name": "2026-10-06-petg-ironing-squares-mark2-z004-v1.gcode.3mf",
+    "state": "PREPARE",
+    "print_error": 0,
+    "hms": []
+  },
+  "startup": {
+    "observed_at_utc": "2026-10-06T14:51:23.347789+00:00",
+    "job_id": "1314288755",
+    "subtask_name": "2026-10-06-petg-ironing-squares-mark2-z004-v1.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 0,
+    "total_layer_num": 6,
+    "print_error": 0,
+    "hms": [],
+    "ams": {
+      "tray_now": "255",
+      "tray_tar": "255",
+      "ams_status": null
+    }
+  },
+  "native_estimate": {
+    "filament_g": 25.533,
+    "total_seconds": 6909.796,
+    "total_layers": 6,
+    "ironing_seconds": 2758.486
+  },
+  "physical_results": {
+    "status": "pending",
+    "preferred_condition": null,
+    "scope": "The square-calibration job is accepted. First-layer adhesion, surface finish and sealing performance have not been assessed."
+  }
+}

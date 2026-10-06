@@ -27,10 +27,9 @@ seams, zero seam gap, top ironing and the accepted support settings.
 [Native slice review](slice-review.json). Each current body/cap plate estimates
 about **20 h 20 min and 420 g** in Bambu Studio 02.08.02.61.
 
-The [ironing comparison plate](ironing-study/README.md) tests the actual gasket
-rim and bulkhead washer seat beside un-ironed controls, with a separate pair
-covering the adjacent sloped floor. It is a surface-finish study with physical
-observations pending.
+The [ironing calibration plate](ironing-study/README.md) uses broad flat squares
+to compare ironing flow and speed, with one un-ironed reference. The selected
+calibration setting requires a physical finish assessment.
 
 The printer configuration carries the accepted Mark2 **+0.04 mm user Z trim**
 over stock plate compensation. Retain the destination printer's own calibrated

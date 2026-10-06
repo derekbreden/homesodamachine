@@ -12,7 +12,7 @@
   "source": {
     "editable_project": "hardware/printed-parts/cold-core/reservoir/ironing-study/ironing-study.3mf",
     "editable_project_sha256": "9cd440c5aa7d303b2c1d1edbff099cbb0da3ebb94ef6e38c2b44d6d32230406b",
-    "native_slice_review": "hardware/printed-parts/cold-core/reservoir/ironing-study/slice-review.json",
+    "native_slice_review": "hardware/printed-parts/cold-core/reservoir/ironing-study/prints/2026-10-06-mark2-centered-v3/slice-review.json",
     "reviewed_print_archive": ".cache/reservoir-ironing-study/slice/2026-10-06-reservoir-ironing-study-centered-mark2-z004-v3.gcode.3mf",
     "archive_sha256": "bd19f3d761a5788f9886cf8c4c69df00ce17b846f37d1bfc04cf209e34a515f0",
     "imported_copy_sha256_after_send": "bd19f3d761a5788f9886cf8c4c69df00ce17b846f37d1bfc04cf209e34a515f0",
@@ -20,7 +20,8 @@
     "gcode_bytes_unchanged": true,
     "resliced_for_launch": true,
     "prior_launch_record": "../2026-10-06-mark2/launch.json",
-    "prior_placement_observation": "../2026-10-06-mark2/physical-result.json"
+    "prior_placement_observation": "../2026-10-06-mark2/physical-result.json",
+    "repository_snapshot_commit": "464f0465c188e804c3d1acc9797f0971092c55b5"
   },
   "submission": {
     "application": "Bambu Connect",
@@ -388,8 +389,19 @@
     "ironing_seconds": 438.312
   },
   "physical_results": {
-    "status": "pending",
-    "finish_and_sealing_observations": null,
-    "scope": "The printer accepted the centered job. First-layer adhesion, surface finish and sealing performance have not been assessed."
+    "status": "operator_report_received",
+    "record": "physical-result.json",
+    "finish_and_sealing_observations": "Derek reports it is difficult to see or feel any difference on the specimens.",
+    "scope": "The comparison does not identify a preferred ironing condition or establish sealing performance."
+  },
+  "completion": {
+    "observed_at_utc": "2026-10-06T14:41:57.500062+00:00",
+    "job_id": "1313441289",
+    "subtask_name": "2026-10-06-reservoir-ironing-study-centered-mark2-z004-v3.gcode.3mf",
+    "gcode_state": "FINISH",
+    "layer_num": 42,
+    "total_layer_num": 42,
+    "print_error": 0,
+    "hms": []
   }
 }

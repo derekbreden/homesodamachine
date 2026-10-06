@@ -1,10 +1,13 @@
 {
   "project": "ironing-study.3mf",
-  "source": "hardware/printed-parts/cold-core/reservoir/reservoir-left.step",
-  "source_sha256": "7d9f472c45d59da17742dd3daec0810a697185790511b9ccf3c7622eb26b24ac",
+  "geometry": "flat squares",
   "recipe": "../print-settings.json",
   "recipe_settings_sha256": "241d74ab94950c0f1ce07466ce6abeabe307ee2a596b7939776981950b8c4b08",
   "project_overrides": {
+    "enable_support": {
+      "from": "1",
+      "to": "0"
+    },
     "filament_map_mode": {
       "from": "Auto For Flush",
       "to": "Manual"
@@ -15,61 +18,29 @@
     },
     "print_settings_id": {
       "from": "Reservoir PETG 0.8 - 0.24mm",
-      "to": "Reservoir ironing comparison - 0.24mm"
+      "to": "PETG flat-square ironing calibration - 0.24mm"
     }
   },
   "plate_count": 1,
-  "layer_height_mm": 0.24,
+  "square_side_mm": 35.0,
+  "square_height_mm": 1.5,
+  "unobstructed_top_face_area_mm2": 1225.0,
+  "label_tab_top_mm": 1.02,
   "first_layer_mm": 0.3,
-  "layer_phase_removed_from_gasket_mm": 167.51999999999998,
-  "crops_in_source_frame_mm": {
-    "G": [
-      [
-        -131,
-        -16,
-        192.11999999999998
-      ],
-      [
-        -116,
-        16,
-        203.15
-      ]
-    ],
-    "B": [
-      [
-        -120,
-        -19,
-        24.599999999999994
-      ],
-      [
-        -90,
-        19,
-        36.599999999999994
-      ]
-    ]
-  },
-  "source_origins_mm": {
-    "G": [
-      -123.75,
-      0,
-      192.11999999999998
-    ],
-    "B": [
-      -105,
-      0,
-      24.599999999999994
-    ]
-  },
-  "retained_sealing_face_area_mm2": {
-    "G": 150.79106527534532,
-    "B": 267.70296399402014
-  },
-  "bulkhead_seat": {
-    "outer_diameter_mm": 24.3,
-    "inner_diameter_mm": 15.8,
-    "print_z_mm": 4.65
-  },
-  "floor_slope_degrees": 6.428747748829855,
+  "layer_height_mm": 0.24,
+  "speeds_mm_s": [
+    15,
+    30,
+    60
+  ],
+  "flows_percent": [
+    10,
+    20,
+    30
+  ],
+  "spacing_mm": 0.15,
+  "un_ironed_reference_count": 1,
+  "label_format": "speed in mm/s / flow in percent; OFF = no ironing",
   "layout": {
     "left_nozzle_usable_bed_bounds_mm": [
       [
@@ -81,685 +52,379 @@
         320.0
       ]
     ],
-    "minimum_emitted_bead_edge_margin_mm": 70.0,
-    "model_bounding_box_gap_mm": 2.0,
-    "rows": [
-      [
-        "G1C",
-        "G1I",
-        "G2C",
-        "G2I",
-        "B1C",
-        "B1I"
-      ],
-      [
-        "G3C",
-        "G3I",
-        "B2C",
-        "B2I",
-        "B3C",
-        "B3I"
-      ],
-      [
-        "G4C",
-        "G4I",
-        "B4C",
-        "B4I",
-        "S1C",
-        "S1I"
-      ]
+    "minimum_emitted_bead_edge_margin_mm": 80.0,
+    "model_bounding_box_gap_mm": 5.0,
+    "speed_rows_front_to_back": [
+      15,
+      30,
+      60
     ],
-    "placement_only": true,
-    "xy_rotation_degrees": 0,
+    "flow_columns_left_to_right": [
+      10,
+      20,
+      30
+    ],
+    "reference_row": 1,
+    "reference_column": 3,
     "model_xy_bounds_mm": [
       [
-        73.5,
-        86.75
+        85.0,
+        90.5
       ],
       [
-        251.5,
-        233.25
+        240.0,
+        229.5
       ]
     ],
     "model_edge_margins_left_front_right_back_mm": [
-      73.5,
-      86.75,
-      73.5,
-      86.75
+      85.0,
+      90.5,
+      85.0,
+      90.5
     ]
   },
-  "scope": "Cropped surface-finish comparison; physical results pending. Cropping changes layer time and thermal history.",
+  "scope": "Flat top-surface ironing calibration. Physical finish selection is pending; sealing and sloped surfaces are outside this test.",
   "parts": [
     {
-      "label": "G1C",
-      "feature": "G",
-      "condition": "1",
-      "condition_title": "September",
-      "ironed": false,
+      "label": "15/10",
+      "ironed": true,
+      "speed_mm_s": 15,
       "flow_percent": 10,
-      "speed_mm_s": 30,
       "spacing_mm": 0.15,
+      "row": 0,
+      "column": 0,
       "center": [
-        91.5,
-        115.25,
+        102.5,
+        116.0,
         0
       ],
       "object_id": 10001,
-      "identify_id": 5001,
+      "identify_id": 6001,
       "bounds_mm": [
         [
-          79.5,
-          89.75,
+          85.0,
+          90.5,
           0.0
         ],
         [
-          103.5,
-          131.25,
-          10.029999732971191
+          120.0,
+          133.5,
+          1.5
         ]
       ],
-      "cad_volume_mm3": 1837.915676359724,
-      "mesh_volume_mm3": 1837.8390117501722,
-      "triangles": 4434,
-      "mesh_sha256": "5b414c8ebbebd84d5497e2c19ee642682909ab6f9cddbff6d4f9a842b5ec258e",
+      "cad_volume_mm3": 2046.9133114564418,
+      "mesh_volume_mm3": 2046.9131141224188,
+      "triangles": 4154,
+      "mesh_sha256": "dc2cc3c7ef647eebe1ce2724005c3926ebe021d89a9c5ecd766d9897defe7d41",
       "closed_mesh": true,
       "connected_solids": 1
     },
     {
-      "label": "G1I",
-      "feature": "G",
-      "condition": "1",
-      "condition_title": "September",
+      "label": "15/20",
       "ironed": true,
-      "flow_percent": 10,
-      "speed_mm_s": 30,
+      "speed_mm_s": 15,
+      "flow_percent": 20,
       "spacing_mm": 0.15,
+      "row": 0,
+      "column": 1,
       "center": [
-        117.5,
-        115.25,
+        142.5,
+        116.0,
         0
       ],
       "object_id": 10002,
-      "identify_id": 5002,
+      "identify_id": 6002,
       "bounds_mm": [
         [
-          105.5,
-          89.75,
+          125.0,
+          90.5,
           0.0
         ],
         [
-          129.5,
-          131.25,
-          10.029999732971191
+          160.0,
+          133.5,
+          1.5
         ]
       ],
-      "cad_volume_mm3": 1835.7874347841694,
-      "mesh_volume_mm3": 1835.7113287783143,
-      "triangles": 2798,
-      "mesh_sha256": "115299b9e5a428370b9f9a270ff09b972607ead0435d629f76f07d582bf76b9a",
+      "cad_volume_mm3": 2047.2372189331054,
+      "mesh_volume_mm3": 2047.2369199225457,
+      "triangles": 5350,
+      "mesh_sha256": "1cc56833d99c8c528a95a2b0ab97e161b26d129958e790f1587dc6729959e445",
       "closed_mesh": true,
       "connected_solids": 1
     },
     {
-      "label": "B1C",
-      "feature": "B",
-      "condition": "1",
-      "condition_title": "September",
-      "ironed": false,
-      "flow_percent": 10,
-      "speed_mm_s": 30,
+      "label": "15/30",
+      "ironed": true,
+      "speed_mm_s": 15,
+      "flow_percent": 30,
       "spacing_mm": 0.15,
+      "row": 0,
+      "column": 2,
       "center": [
-        198.5,
-        115.25,
+        182.5,
+        116.0,
         0
       ],
       "object_id": 10003,
-      "identify_id": 5003,
+      "identify_id": 6003,
       "bounds_mm": [
         [
-          183.5,
-          86.75,
+          165.0,
+          90.5,
           0.0
         ],
         [
-          213.5,
-          134.25,
-          6.363380432128906
+          200.0,
+          133.5,
+          1.5
         ]
       ],
-      "cad_volume_mm3": 5447.11787785793,
-      "mesh_volume_mm3": 5447.523799600039,
-      "triangles": 6770,
-      "mesh_sha256": "3f0da9af0b4727ca16c5cfaf466b6ce3daa86ca47d7161bd432163f59a134b37",
+      "cad_volume_mm3": 2047.1653781640534,
+      "mesh_volume_mm3": 2047.1649278065722,
+      "triangles": 6908,
+      "mesh_sha256": "032bc199b18448f972d03ea10b3bd98de60a433df3509374ca9f19a239acb48f",
       "closed_mesh": true,
       "connected_solids": 1
     },
     {
-      "label": "B1I",
-      "feature": "B",
-      "condition": "1",
-      "condition_title": "September",
+      "label": "30/10",
       "ironed": true,
-      "flow_percent": 10,
       "speed_mm_s": 30,
+      "flow_percent": 10,
       "spacing_mm": 0.15,
+      "row": 1,
+      "column": 0,
       "center": [
-        230.5,
-        115.25,
+        102.5,
+        164.0,
         0
       ],
       "object_id": 10004,
-      "identify_id": 5004,
+      "identify_id": 6004,
       "bounds_mm": [
         [
-          215.5,
-          86.75,
+          85.0,
+          138.5,
           0.0
         ],
         [
-          245.5,
-          134.25,
-          6.363380432128906
+          120.0,
+          181.5,
+          1.5
         ]
       ],
-      "cad_volume_mm3": 5444.989636290318,
-      "mesh_volume_mm3": 5445.39624342006,
-      "triangles": 5120,
-      "mesh_sha256": "0979b6a8838fdd37a7c16043e3390f4dbd0262b6ce16841283373a394e48609e",
+      "cad_volume_mm3": 2047.2264278268808,
+      "mesh_volume_mm3": 2047.2259996075036,
+      "triangles": 7458,
+      "mesh_sha256": "9a331e5e6c797ae1f58ec8bded978475a6dd5c97b6170a1c6dae223cda84d581",
       "closed_mesh": true,
       "connected_solids": 1
     },
     {
-      "label": "G2C",
-      "feature": "G",
-      "condition": "2",
-      "condition_title": "Half flow",
-      "ironed": false,
-      "flow_percent": 5,
+      "label": "30/20",
+      "ironed": true,
       "speed_mm_s": 30,
+      "flow_percent": 20,
       "spacing_mm": 0.15,
+      "row": 1,
+      "column": 1,
       "center": [
-        143.5,
-        115.25,
+        142.5,
+        164.0,
         0
       ],
       "object_id": 10005,
-      "identify_id": 5005,
+      "identify_id": 6005,
       "bounds_mm": [
         [
-          131.5,
-          89.75,
+          125.0,
+          138.5,
           0.0
         ],
         [
-          155.5,
-          131.25,
-          10.029999732971191
+          160.0,
+          181.5,
+          1.5
         ]
       ],
-      "cad_volume_mm3": 1839.267290289827,
-      "mesh_volume_mm3": 1839.1881617811216,
-      "triangles": 5866,
-      "mesh_sha256": "d902a3cf83b14cff1122dd382fe1f6c8d117a874989770ef5ad12e928b3bf41b",
+      "cad_volume_mm3": 2047.550335303545,
+      "mesh_volume_mm3": 2047.5498054076304,
+      "triangles": 8654,
+      "mesh_sha256": "f5f0e027ea5c5146daaf928bff8b5e83259581c03fcaa192b7e22dd5525064b4",
       "closed_mesh": true,
       "connected_solids": 1
     },
     {
-      "label": "G2I",
-      "feature": "G",
-      "condition": "2",
-      "condition_title": "Half flow",
+      "label": "30/30",
       "ironed": true,
-      "flow_percent": 5,
       "speed_mm_s": 30,
+      "flow_percent": 30,
       "spacing_mm": 0.15,
+      "row": 1,
+      "column": 2,
       "center": [
-        169.5,
-        115.25,
+        182.5,
+        164.0,
         0
       ],
       "object_id": 10006,
-      "identify_id": 5006,
+      "identify_id": 6006,
       "bounds_mm": [
         [
-          157.5,
-          89.75,
+          165.0,
+          138.5,
           0.0
         ],
         [
+          200.0,
           181.5,
-          131.25,
-          10.029999732971191
+          1.5
         ]
       ],
-      "cad_volume_mm3": 1837.139048696133,
-      "mesh_volume_mm3": 1837.0604788154367,
-      "triangles": 4230,
-      "mesh_sha256": "5b4bf284256196bf2dc3725e620a69635e8c7c89cc01c841ff3b8e1798ea3d8e",
+      "cad_volume_mm3": 2047.4784945344916,
+      "mesh_volume_mm3": 2047.4778132916572,
+      "triangles": 10212,
+      "mesh_sha256": "d1188b0995d3ef509b31800cda09b698161389ec960f704f0970b3056ab13cc3",
       "closed_mesh": true,
       "connected_solids": 1
     },
     {
-      "label": "B2C",
-      "feature": "B",
-      "condition": "2",
-      "condition_title": "Half flow",
-      "ironed": false,
-      "flow_percent": 5,
-      "speed_mm_s": 30,
+      "label": "60/10",
+      "ironed": true,
+      "speed_mm_s": 60,
+      "flow_percent": 10,
       "spacing_mm": 0.15,
+      "row": 2,
+      "column": 0,
       "center": [
-        140.5,
-        164.75,
+        102.5,
+        212.0,
         0
       ],
       "object_id": 10007,
-      "identify_id": 5007,
+      "identify_id": 6007,
       "bounds_mm": [
         [
-          125.5,
-          136.25,
+          85.0,
+          186.5,
           0.0
         ],
         [
-          155.5,
-          183.75,
-          6.363380432128906
+          120.0,
+          229.5,
+          1.5
         ]
       ],
-      "cad_volume_mm3": 5448.469491772902,
-      "mesh_volume_mm3": 5448.872949627036,
-      "triangles": 8202,
-      "mesh_sha256": "f98914f416e8ddb7c56c44aa27e8d571a220e87c3612c12b327f45cbed2b4997",
+      "cad_volume_mm3": 2047.4132430839556,
+      "mesh_volume_mm3": 2047.4127362721838,
+      "triangles": 7352,
+      "mesh_sha256": "da25e26d520b4589567308c456ea025d00843cdbf6dd344fc0d16774a26c5386",
       "closed_mesh": true,
       "connected_solids": 1
     },
     {
-      "label": "B2I",
-      "feature": "B",
-      "condition": "2",
-      "condition_title": "Half flow",
+      "label": "60/20",
       "ironed": true,
-      "flow_percent": 5,
-      "speed_mm_s": 30,
+      "speed_mm_s": 60,
+      "flow_percent": 20,
       "spacing_mm": 0.15,
+      "row": 2,
+      "column": 1,
       "center": [
-        172.5,
-        164.75,
+        142.5,
+        212.0,
         0
       ],
       "object_id": 10008,
-      "identify_id": 5008,
+      "identify_id": 6008,
       "bounds_mm": [
         [
-          157.5,
-          136.25,
+          125.0,
+          186.5,
           0.0
         ],
         [
-          187.5,
-          183.75,
-          6.363380432128906
+          160.0,
+          229.5,
+          1.5
         ]
       ],
-      "cad_volume_mm3": 5446.3412502052915,
-      "mesh_volume_mm3": 5446.745393458395,
-      "triangles": 6552,
-      "mesh_sha256": "3f07a20c4698a243691d5fc7b6bf54b6dc4c2fb79af42e289a311ca38b3124a2",
+      "cad_volume_mm3": 2047.737150560617,
+      "mesh_volume_mm3": 2047.7365420723106,
+      "triangles": 8548,
+      "mesh_sha256": "0f174525976c3fb51da545d8f90a62cc2c85404aa78c0b2f9bfa4fd9852b838d",
       "closed_mesh": true,
       "connected_solids": 1
     },
     {
-      "label": "G3C",
-      "feature": "G",
-      "condition": "3",
-      "condition_title": "Twice speed",
-      "ironed": false,
-      "flow_percent": 10,
+      "label": "60/30",
+      "ironed": true,
       "speed_mm_s": 60,
+      "flow_percent": 30,
       "spacing_mm": 0.15,
+      "row": 2,
+      "column": 2,
       "center": [
-        85.5,
-        164.75,
+        182.5,
+        212.0,
         0
       ],
       "object_id": 10009,
-      "identify_id": 5009,
+      "identify_id": 6009,
       "bounds_mm": [
         [
-          73.5,
-          139.25,
+          165.0,
+          186.5,
           0.0
         ],
         [
-          97.5,
-          180.75,
-          10.029999732971191
+          200.0,
+          229.5,
+          1.5
         ]
       ],
-      "cad_volume_mm3": 1838.9675103021812,
-      "mesh_volume_mm3": 1838.8867027909894,
-      "triangles": 7794,
-      "mesh_sha256": "fadf669c8764e9d46ff3b86552eb9c3f23660d12e405ed96857b37b65c37e3c0",
+      "cad_volume_mm3": 2047.6653097915655,
+      "mesh_volume_mm3": 2047.6645499563376,
+      "triangles": 10106,
+      "mesh_sha256": "662f04067f5350d6df1571acae4969543ff56bd99f15c5f7da0feb0a94ca3a27",
       "closed_mesh": true,
       "connected_solids": 1
     },
     {
-      "label": "G3I",
-      "feature": "G",
-      "condition": "3",
-      "condition_title": "Twice speed",
-      "ironed": true,
-      "flow_percent": 10,
-      "speed_mm_s": 60,
+      "label": "OFF",
+      "ironed": false,
+      "speed_mm_s": null,
+      "flow_percent": 0,
       "spacing_mm": 0.15,
+      "row": 1,
+      "column": 3,
       "center": [
-        111.5,
-        164.75,
+        222.5,
+        164.0,
         0
       ],
       "object_id": 10010,
-      "identify_id": 5010,
+      "identify_id": 6010,
       "bounds_mm": [
         [
-          99.5,
-          139.25,
+          205.0,
+          138.5,
           0.0
         ],
         [
-          123.5,
-          180.75,
-          10.029999732971191
+          240.0,
+          181.5,
+          1.5
         ]
       ],
-      "cad_volume_mm3": 1836.8392687021887,
-      "mesh_volume_mm3": 1836.759018272938,
-      "triangles": 6184,
-      "mesh_sha256": "0f61558ba47c9d3bdb7dfdddcbb41365d0544c935d265cfa578aa5e562ce9081",
-      "closed_mesh": true,
-      "connected_solids": 1
-    },
-    {
-      "label": "B3C",
-      "feature": "B",
-      "condition": "3",
-      "condition_title": "Twice speed",
-      "ironed": false,
-      "flow_percent": 10,
-      "speed_mm_s": 60,
-      "spacing_mm": 0.15,
-      "center": [
-        204.5,
-        164.75,
-        0
-      ],
-      "object_id": 10011,
-      "identify_id": 5011,
-      "bounds_mm": [
-        [
-          189.5,
-          136.25,
-          0.0
-        ],
-        [
-          219.5,
-          183.75,
-          6.363380432128906
-        ]
-      ],
-      "cad_volume_mm3": 5448.169711773641,
-      "mesh_volume_mm3": 5448.5714699284135,
-      "triangles": 10150,
-      "mesh_sha256": "18c29caee4c281626d399d0d67221b45983926ac2bd39e9eb0b8c2dfc8b63df7",
-      "closed_mesh": true,
-      "connected_solids": 1
-    },
-    {
-      "label": "B3I",
-      "feature": "B",
-      "condition": "3",
-      "condition_title": "Twice speed",
-      "ironed": true,
-      "flow_percent": 10,
-      "speed_mm_s": 60,
-      "spacing_mm": 0.15,
-      "center": [
-        236.5,
-        164.75,
-        0
-      ],
-      "object_id": 10012,
-      "identify_id": 5012,
-      "bounds_mm": [
-        [
-          221.5,
-          136.25,
-          0.0
-        ],
-        [
-          251.5,
-          183.75,
-          6.363380432128906
-        ]
-      ],
-      "cad_volume_mm3": 5446.041470206035,
-      "mesh_volume_mm3": 5446.444056833025,
-      "triangles": 8490,
-      "mesh_sha256": "d00aa18075196a9dc7cc5b90541298c388e40952912ab01911b218e8f8759962",
-      "closed_mesh": true,
-      "connected_solids": 1
-    },
-    {
-      "label": "G4C",
-      "feature": "G",
-      "condition": "4",
-      "condition_title": "Twice spacing",
-      "ironed": false,
-      "flow_percent": 10,
-      "speed_mm_s": 30,
-      "spacing_mm": 0.3,
-      "center": [
-        85.5,
-        214.25,
-        0
-      ],
-      "object_id": 10013,
-      "identify_id": 5013,
-      "bounds_mm": [
-        [
-          73.5,
-          188.75,
-          0.0
-        ],
-        [
-          97.5,
-          230.25,
-          10.029999732971191
-        ]
-      ],
-      "cad_volume_mm3": 1839.181331771042,
-      "mesh_volume_mm3": 1839.1042658599229,
-      "triangles": 4304,
-      "mesh_sha256": "59bcee072a408e6084f7bf2124d6c5a91998a2a1f1a357127becce238a6a8d32",
-      "closed_mesh": true,
-      "connected_solids": 1
-    },
-    {
-      "label": "G4I",
-      "feature": "G",
-      "condition": "4",
-      "condition_title": "Twice spacing",
-      "ironed": true,
-      "flow_percent": 10,
-      "speed_mm_s": 30,
-      "spacing_mm": 0.3,
-      "center": [
-        111.5,
-        214.25,
-        0
-      ],
-      "object_id": 10014,
-      "identify_id": 5014,
-      "bounds_mm": [
-        [
-          99.5,
-          188.75,
-          0.0
-        ],
-        [
-          123.5,
-          230.25,
-          10.029999732971191
-        ]
-      ],
-      "cad_volume_mm3": 1837.0530901875568,
-      "mesh_volume_mm3": 1836.976582891105,
-      "triangles": 2668,
-      "mesh_sha256": "b34f6b9e70225e24000e9025115347c1a5ab35ac1f26bdff2b1e154184b49643",
-      "closed_mesh": true,
-      "connected_solids": 1
-    },
-    {
-      "label": "B4C",
-      "feature": "B",
-      "condition": "4",
-      "condition_title": "Twice spacing",
-      "ironed": false,
-      "flow_percent": 10,
-      "speed_mm_s": 30,
-      "spacing_mm": 0.3,
-      "center": [
-        140.5,
-        214.25,
-        0
-      ],
-      "object_id": 10015,
-      "identify_id": 5015,
-      "bounds_mm": [
-        [
-          125.5,
-          185.75,
-          0.0
-        ],
-        [
-          155.5,
-          233.25,
-          6.363380432128906
-        ]
-      ],
-      "cad_volume_mm3": 5448.383533256305,
-      "mesh_volume_mm3": 5448.789053709159,
-      "triangles": 6640,
-      "mesh_sha256": "ab1422f651aa2cbf2ce8d15a2b41a37d3f5de12e3a98fc47d8fa3def95b25283",
-      "closed_mesh": true,
-      "connected_solids": 1
-    },
-    {
-      "label": "B4I",
-      "feature": "B",
-      "condition": "4",
-      "condition_title": "Twice spacing",
-      "ironed": true,
-      "flow_percent": 10,
-      "speed_mm_s": 30,
-      "spacing_mm": 0.3,
-      "center": [
-        172.5,
-        214.25,
-        0
-      ],
-      "object_id": 10016,
-      "identify_id": 5016,
-      "bounds_mm": [
-        [
-          157.5,
-          185.75,
-          0.0
-        ],
-        [
-          187.5,
-          233.25,
-          6.363380432128906
-        ]
-      ],
-      "cad_volume_mm3": 5446.25529168869,
-      "mesh_volume_mm3": 5446.661497531114,
-      "triangles": 4990,
-      "mesh_sha256": "f986e457028f5925aa96ac98f44681a1e43a347b789b3b6d59cc6d8189f1e174",
-      "closed_mesh": true,
-      "connected_solids": 1
-    },
-    {
-      "label": "S1C",
-      "feature": "S",
-      "condition": "1",
-      "condition_title": "September; includes sloped floor",
-      "ironed": false,
-      "flow_percent": 10,
-      "speed_mm_s": 30,
-      "spacing_mm": 0.15,
-      "center": [
-        204.5,
-        214.25,
-        0
-      ],
-      "object_id": 10017,
-      "identify_id": 5017,
-      "bounds_mm": [
-        [
-          189.5,
-          185.75,
-          0.0
-        ],
-        [
-          219.5,
-          233.25,
-          6.363380432128906
-        ]
-      ],
-      "cad_volume_mm3": 5446.071415971768,
-      "mesh_volume_mm3": 5446.47636501099,
-      "triangles": 7542,
-      "mesh_sha256": "be785a5d62f1c5838c3bae89a18d1a49df55177029e68d880d12fce610023513",
-      "closed_mesh": true,
-      "connected_solids": 1
-    },
-    {
-      "label": "S1I",
-      "feature": "S",
-      "condition": "1",
-      "condition_title": "September; includes sloped floor",
-      "ironed": true,
-      "flow_percent": 10,
-      "speed_mm_s": 30,
-      "spacing_mm": 0.15,
-      "center": [
-        236.5,
-        214.25,
-        0
-      ],
-      "object_id": 10018,
-      "identify_id": 5018,
-      "bounds_mm": [
-        [
-          221.5,
-          185.75,
-          0.0
-        ],
-        [
-          251.5,
-          233.25,
-          6.363380432128906
-        ]
-      ],
-      "cad_volume_mm3": 5443.943174404152,
-      "mesh_volume_mm3": 5444.348750534263,
-      "triangles": 5926,
-      "mesh_sha256": "c69c4291d30641c674b32cda75366a59430894f4b1d8345e08e5d37c900b7aaf",
+      "cad_volume_mm3": 2046.4435375893108,
+      "mesh_volume_mm3": 2046.4434072373017,
+      "triangles": 1632,
+      "mesh_sha256": "2747aea4577424297256d982ccf216a32bba624053d0150c916d47056934a5a4",
       "closed_mesh": true,
       "connected_solids": 1
     }
   ],
-  "project_sha256": "9cd440c5aa7d303b2c1d1edbff099cbb0da3ebb94ef6e38c2b44d6d32230406b"
+  "project_sha256": "e15724ed0197bf279a9b57bc50f08f8fc1fb08a20271c092457818ad4bfbe858"
 }
