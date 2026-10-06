@@ -1,5 +1,5 @@
 {
-  "geometry_sha256": "e90884a44104933991afa9be4f863ae3caa2037177d9af127f1f4e5e2485c297",
+  "geometry_sha256": "09f3665148688bdbd9795258021a0ef286fc9b484ecf4db4f7ca0f8d2c31727b",
   "closed_positive_prints": 60,
   "h2c_bounds_checked": true,
   "sampled_poses": 25,
@@ -14,10 +14,10 @@
   },
   "scope": "Numerical CAD and executable software checks; not physical motion, strength, camera or weld evidence",
   "sources": {
-    "hardware/printed-parts/fixtures/pgfun-positioner/build.py": "5e927fa7f4c32ddcc5f2485b292028edf6a46e8b17e3cc1c7d3fb0e4182282b3",
+    "hardware/printed-parts/fixtures/pgfun-positioner/build.py": "7d50458349f687f769a944212e166572841ae49740f978b17111c6fab4e0fa68",
     "hardware/printed-parts/fixtures/pgfun-positioner/check.py": "a58c7d5bf593423331147c92f6d9774fba17966666f4c41e0a01e048b1f3f62a",
     "hardware/printed-parts/fixtures/pgfun-positioner/design.json": "240e932ceb9028dde6329810739310d5602c16fbe9a7f46e07f610218e37b2c3",
-    "hardware/printed-parts/fixtures/pgfun-positioner/motion-geometry.json": "4f0f57380613c784a6bd4730f6979399c61b2f0a958478a13a2f9cac8027fdc7",
-    "firmware/src_pgfun_positioner/assets/build-receipt.json": "9072d991f3f82459fa00e735f16fb6a952b48c0627d5324e9d403b066536ee8b"
+    "hardware/printed-parts/fixtures/pgfun-positioner/motion-geometry.json": "ebf5a7c0eb204d2dcf30eeb4225b991b15516466062fd50896fb8c475eff798e",
+    "firmware/src_pgfun_positioner/assets/build-receipt.json": "daafbd262eb2b37072e2656bdb0b2db086b586749dd736a79825f8ce14ef8bd3"
   }
 }

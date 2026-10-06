@@ -1,20 +1,20 @@
 {
-  "geometry_sha256": "e90884a44104933991afa9be4f863ae3caa2037177d9af127f1f4e5e2485c297",
+  "geometry_sha256": "09f3665148688bdbd9795258021a0ef286fc9b484ecf4db4f7ca0f8d2c31727b",
   "sources": {
-    "hardware/gun-positioner/assembly.md": "74a69724972a9b416dce8c0bff52da2c20956d58c13fa99ed76062bc8ed7fbc8",
+    "hardware/gun-positioner/assembly.md": "192d5f55909dce67869370844b821da50bf793402e3e955ceb6c8b7928123be3",
     "hardware/gun-positioner/purchases.md": "f90513d3c17f4c8992ed1f5b38126dc2b4a60293c9aa0ef5312a3e4f3696d41e",
     "hardware/gun-positioner/control.md": "05909349bfb585a460824063d9b781e52eb515ef0134f582f09c7df8d52b8dbe",
     "hardware/gun-positioner/commissioning.md": "a7953be90a89df3e666c2ac3f15b65973ebdaae82692910878e33a2629030337",
     "hardware/gun-positioner/observation.md": "1fff428757c60cca1cc469a03e9743e339230c06fc8097411abed4ba4d11a078",
     "hardware/gun-positioner/engineering.md": "b2dc633b3b245d5b5f8e95da7ff40ab41f4341a9bb8a4d100c1f60a39b9a0f3d",
     "firmware/src_pgfun_positioner/README.md": "fcca1ae058dd60a570b6cc3380ed8e2f03a47e2a8667d4247a5b2969d4bf45e8",
-    "hardware/printed-parts/fixtures/pgfun-positioner/motion-geometry.json": "4f0f57380613c784a6bd4730f6979399c61b2f0a958478a13a2f9cac8027fdc7",
-    "hardware/printed-parts/fixtures/pgfun-positioner/print-manifest.json": "5b8d5d77e00f3a739d106f69ea6239736f7c967123254e8e990b21f4d21aa2aa",
-    "hardware/printed-parts/fixtures/pgfun-positioner/assembly-meshes.npz": "5ab3e93fee2d1e0f1cce44789ef390c1506fbef794ee88e0a0759eb25461f7a8",
+    "hardware/printed-parts/fixtures/pgfun-positioner/motion-geometry.json": "ebf5a7c0eb204d2dcf30eeb4225b991b15516466062fd50896fb8c475eff798e",
+    "hardware/printed-parts/fixtures/pgfun-positioner/print-manifest.json": "ae44023d7d483d3ecc9bc1afb43b212827037a23f9cd7980d152e32bbda24357",
+    "hardware/printed-parts/fixtures/pgfun-positioner/assembly-meshes.npz": "af05e3b005ce304e3510eb0b014e1f37c135a1947db4ead8d714a5141001e158",
     "hardware/printed-parts/fixtures/pgfun-positioner/reference-meshes.npz": "4b9e4651bc799bdb67ef6e4fbceb42a4f97c36fe26d12b26cfbbc66090ffe205",
     "tools/gun-positioner-guide/build.py": "15e170b7ecb08305b87e540d901a8de36bb33cfc09a761e311de00de6f99cbbb"
   },
-  "pdf_sha256": "e678eeee778bf49059cf8e58570a4a20bd29cec9847f7b63f7d2f433d8608ff4",
+  "pdf_sha256": "632e28db448bfcd4aba2dcc655958fa63cb12dee406927348fe8674ae09b399d",
   "pages": 31,
   "scope": "Generated instructions and CAD figures; physical results recorded separately."
 }

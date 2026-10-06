@@ -422,6 +422,9 @@ def bench_post(height):
         s=nut(s,x,0,height-.1,8.2,4.1)
         s=s.cut(box(20,10,4.1,(x+(8 if x>0 else -8),0,height-.1)))
     s=holes(s,[(-20,0),(20,0)],5.4,-1,12)
+    # Keep the central service bore open at both ends. The two off-axis
+    # bolt seats remain solid; no inaccessible support is enclosed here.
+    s=s.cut(box(22,22,height+12,(0,0,-1)))
     return s
 
 def electronics_case():
@@ -639,7 +642,9 @@ def exports():
             print_bounds_mm=dimensions,support_required=name in ('fork','left-cheek','right-cheek',
                 'motor-pedestal','yaw-bearing-cartridge','yaw-journal','pitch-journal',
                 'camera-riser-base','camera-riser-top','camera-lens-upright',
-                'umbilical-post-base','umbilical-post-top','umbilical-saddle')or name.startswith('gun-retainer-'),
+                'umbilical-post-base','umbilical-post-top','umbilical-saddle',
+                'lower-cradle','controller-case')or name.startswith(('gun-retainer-','bench-toe-',
+                    'yaw-limit-holder-','pitch-limit-holder-')),
             watertight=True,sha256=hashlib.sha256((OUT/f'{name}.stl').read_bytes()).hexdigest()))
         if p['group']!='coupon':
             assy.add(world,name=name,color=cq.Color(.18,.28,.31))

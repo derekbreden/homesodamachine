@@ -1,0 +1,12 @@
+[sliver] This is the 1.2 mm clearance slit in the split 12 mm axle-clamp hub. The reported strip is the end face across an intentional air gap; the hub surrounds the shaft with its full wall and M4 clamp. Keep the slit open after support removal and verify shaft clamping during loaded commissioning.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/right-cheek.step
+click: x=242.970 y=34.000 z=20.000
+
+[ceiling] Rail mounting pads place the broad opposite-cheek face above the bed in its specified orientation. The support-required recipe supports the face from its open perimeter. Remove support before fitting the shaft and preserve the clamp slit.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/right-cheek.step
+click: x=123.485 y=44.992 z=15.000
+
+[ceiling] This is the M4 axle-clamp nut seat at the split hub. Bridge the short seat shoulder and remove any exposed support through the open nut well. Keep the hub slit and screw passage open; verify clamp grip during loaded commissioning.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/right-cheek.step
+click: x=222.970 y=45.565 z=26.000
+click: x=222.970 y=22.435 z=26.000

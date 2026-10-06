@@ -1,0 +1,12 @@
+[step] The 1 mm step joins the switch clip starting at Z3 to the 4 mm mounting foot; the hollow clip begins at Z5. This overlap creates one continuous clip/foot solid and keeps its mounting slot separate from the switch-body cavity.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/pitch-limit-holder-1.step
+click: x=13.000 y=8.800 z=5.000
+
+[ceiling] This is a required roof/lip of the open-sided KW12 switch-body cavity. The support-required recipe supports it through the cavity opening. Remove support through the open side and verify the body slides through its 16 mm adjustment range before clamping.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/pitch-limit-holder-1.step
+click: x=13.000 y=6.000 z=41.000
+click: x=16.750 y=6.000 z=39.000
+
+[ceiling] This is the lower lip of the face-clamped switch-body clip outside its mounting foot. The support-required recipe supports the lip from the bed; it is accessible at the open side of the clip.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/pitch-limit-holder-1.step
+click: x=13.000 y=4.000 z=3.000

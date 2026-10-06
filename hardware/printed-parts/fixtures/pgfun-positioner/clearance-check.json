@@ -1,6 +1,6 @@
 {
-  "geometry_sha256": "e90884a44104933991afa9be4f863ae3caa2037177d9af127f1f4e5e2485c297",
-  "assembly_mesh_sha256": "5ab3e93fee2d1e0f1cce44789ef390c1506fbef794ee88e0a0759eb25461f7a8",
+  "geometry_sha256": "09f3665148688bdbd9795258021a0ef286fc9b484ecf4db4f7ca0f8d2c31727b",
+  "assembly_mesh_sha256": "af05e3b005ce304e3510eb0b014e1f37c135a1947db4ead8d714a5141001e158",
   "reference_mesh_sha256": "4b9e4651bc799bdb67ef6e4fbceb42a4f97c36fe26d12b26cfbbc66090ffe205",
   "poses_deg": [
     [

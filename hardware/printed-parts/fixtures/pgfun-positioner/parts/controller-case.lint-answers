@@ -1,0 +1,6 @@
+[ceiling] This is the roof of an open controller harness window in a 3 mm wall. The support-required recipe supports each roof from the window opening, including the 90 mm windows. Remove support through the open case/window before installing the board or wiring.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/controller-case.step
+click: x=62.000 y=88.500 z=22.000
+click: x=62.000 y=1.500 z=20.000
+click: x=122.500 y=65.000 z=22.000
+click: x=122.500 y=30.000 z=22.000

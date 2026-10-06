@@ -90,7 +90,7 @@
         20.0,
         36.0
       ],
-      "support_required": false,
+      "support_required": true,
       "watertight": true,
       "sha256": "a320d9911e0a5b6c73e617abfd1f0695bdc924040c69d838ad87b5430d5be6b6"
     },
@@ -105,7 +105,7 @@
         20.0,
         36.0
       ],
-      "support_required": false,
+      "support_required": true,
       "watertight": true,
       "sha256": "a320d9911e0a5b6c73e617abfd1f0695bdc924040c69d838ad87b5430d5be6b6"
     },
@@ -405,7 +405,7 @@
         62.0,
         30.0
       ],
-      "support_required": false,
+      "support_required": true,
       "watertight": true,
       "sha256": "ea869c951033d668cad791068b0e5781a3c69ae1ec08a19997b4a5e638e94078"
     },
@@ -570,7 +570,7 @@
         26.0,
         43.0
       ],
-      "support_required": false,
+      "support_required": true,
       "watertight": true,
       "sha256": "1e90c30359156c39bcd65905983d91a9bca4cbf67c8a12043d3154398ddf9f03"
     },
@@ -585,7 +585,7 @@
         26.0,
         43.0
       ],
-      "support_required": false,
+      "support_required": true,
       "watertight": true,
       "sha256": "9f3c469d656db4694cd0b87d4cec91e249ddfe62044950f33ddd929d689d42b6"
     },
@@ -600,7 +600,7 @@
         26.0,
         43.0
       ],
-      "support_required": false,
+      "support_required": true,
       "watertight": true,
       "sha256": "1e90c30359156c39bcd65905983d91a9bca4cbf67c8a12043d3154398ddf9f03"
     },
@@ -630,7 +630,7 @@
         26.0,
         43.0
       ],
-      "support_required": false,
+      "support_required": true,
       "watertight": true,
       "sha256": "9f3c469d656db4694cd0b87d4cec91e249ddfe62044950f33ddd929d689d42b6"
     },
@@ -653,8 +653,8 @@
       "name": "umbilical-post-base",
       "material": "PET-CF17",
       "quantity": 1,
-      "volume_cm3": 302.275,
-      "solid_mass_g": 405.05,
+      "volume_cm3": 292.595,
+      "solid_mass_g": 392.08,
       "print_bounds_mm": [
         90.0,
         80.0,
@@ -662,14 +662,14 @@
       ],
       "support_required": true,
       "watertight": true,
-      "sha256": "e708e6f14e47c33e77e1556aed251f10c78b82fc0f1ff06ee0645c431e12830b"
+      "sha256": "5ff097e483c4fdba37eee5f8c9b5ccff2b3cc40b3c134430565737adabba35aa"
     },
     {
       "name": "umbilical-post-top",
       "material": "PET-CF17",
       "quantity": 1,
-      "volume_cm3": 313.435,
-      "solid_mass_g": 420.0,
+      "volume_cm3": 303.755,
+      "solid_mass_g": 407.03,
       "print_bounds_mm": [
         90.0,
         80.0,
@@ -677,7 +677,7 @@
       ],
       "support_required": true,
       "watertight": true,
-      "sha256": "c26c7752df34d8dd64142896d431f2744da4a52cf830f7f0a93e3999a787748a"
+      "sha256": "57389add8b02ed028890babc54fe0a931c0ccb792af62ba0ffc7aa9566e65c03"
     },
     {
       "name": "umbilical-saddle",
@@ -735,7 +735,7 @@
         90.0,
         34.0
       ],
-      "support_required": false,
+      "support_required": true,
       "watertight": true,
       "sha256": "1c0760cb78b09a5db2357a068913eec26fd7a930b575313d7386951121c8593f"
     },

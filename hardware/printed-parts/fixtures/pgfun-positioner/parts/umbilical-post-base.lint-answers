@@ -1,0 +1,20 @@
+[sliver] These short boundary facets join an 8.2 mm across-flats captive-nut cavity to its 10 mm wide side-loading lane. The 0.367/0.9 mm dimension is the length of a pocket-boundary face, not a freestanding wall thickness: solid top-pad stock continues behind the face. Remove accessible lane support, then confirm a hex nut seats flat and enters from the side.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/umbilical-post-base.step
+click: x=27.000 y=35.450 z=181.950
+click: x=27.000 y=44.550 z=181.950
+click: x=62.816 y=44.100 z=181.950
+click: x=27.184 y=44.100 z=181.950
+click: x=62.816 y=35.900 z=181.950
+click: x=27.184 y=35.900 z=181.950
+click: x=63.000 y=35.450 z=181.950
+click: x=63.000 y=44.550 z=181.950
+
+[ceiling] These are the external shoulders of the bolted cable-post flange beyond its 40 mm tube. Support them from outside the post, leaving the central service bore open. Both ends of that 22 mm bore are open for cleanup and inspection; no internal support is enclosed.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/umbilical-post-base.step
+click: x=45.000 y=22.500 z=180.000
+click: x=45.000 y=57.500 z=180.000
+
+[ceiling] This is a side-loading M5 nut-lane roof in the cable-post flange. Bridge the short captured-nut seat and support the exposed lane where needed; remove support through its open side and service bore before bolting the post sections.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/umbilical-post-base.step
+click: x=70.633 y=40.000 z=184.000
+click: x=19.367 y=40.000 z=184.000

@@ -1,0 +1,4 @@
+[ceiling] These are the roofs of the two 6 mm wide nylon-tie slots. The support-required recipe includes removable support through the open slots; remove it from either end and smooth the tie contact edges before routing the cable.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/umbilical-saddle.step
+click: x=8.000 y=17.000 z=9.000
+click: x=52.000 y=17.000 z=9.000

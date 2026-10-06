@@ -1,0 +1,8 @@
+[ceiling] These six recess roofs are M5 flange-nut seats in the flange-down print pose. Bridge the short shoulders around the 5.4 mm screw passages, with support excluded from those passages and the bearing journal surface. The open underside wells remain accessible for cleanup and nut loading before insertion into the bearing stack.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/pitch-journal.step
+click: x=41.107 y=49.591 z=24.200
+click: x=26.410 y=34.894 z=24.200
+click: x=34.895 y=26.409 z=24.200
+click: x=29.516 y=46.485 z=24.200
+click: x=49.592 y=41.106 z=24.200
+click: x=46.486 y=29.515 z=24.200

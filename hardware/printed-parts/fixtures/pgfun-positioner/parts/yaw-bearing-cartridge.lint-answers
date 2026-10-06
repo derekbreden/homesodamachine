@@ -1,0 +1,22 @@
+[ceiling] The cartridge plate underside lies above four mounting legs in this inverted print pose. Support the external plate through the open spaces between legs. Remove that support from the open perimeter; keep the central bearing bore blocked.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/yaw-bearing-cartridge.step
+click: x=43.000 y=43.000 z=22.000
+
+[ceiling] This annular bearing-seat shoulder runs from the 52.03 mm outer-race bore to the 48.4 mm clearance, a radial ledge of about 1.82 mm. Bridge the ledge with the bore blocked against supports. Preserve the outer-race seat and verify the received bearing stack turns freely.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/yaw-bearing-cartridge.step
+click: x=43.006 y=43.000 z=22.000
+
+[ceiling] This is the external stop-sector mounting ear underside in the inverted print pose. Accessible bed support carries the ear and removes from the outside; preserve the two stop mounting faces after cleanup.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/yaw-bearing-cartridge.step
+click: x=43.000 y=93.000 z=4.000
+
+[ceiling] These are M5 head-well or M4 captive-nut shoulders in the cartridge. Their short annular/captive-seat roofs bridge; screw tunnels and bearing bore remain blocked against support. Remove exposed lane support from the side windows and verify flat seating before closing the bearing cap.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/yaw-bearing-cartridge.step
+click: x=77.001 y=77.000 z=74.700
+click: x=9.001 y=77.000 z=74.700
+click: x=77.001 y=9.000 z=74.700
+click: x=9.001 y=9.000 z=74.700
+click: x=19.033 y=19.033 z=13.000
+click: x=19.033 y=66.967 z=13.000
+click: x=66.967 y=19.033 z=13.000
+click: x=66.967 y=66.967 z=13.000

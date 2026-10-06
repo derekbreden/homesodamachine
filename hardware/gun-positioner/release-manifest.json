@@ -1,6 +1,6 @@
 {
   "revision": "pgfun-two-axis-r1",
-  "geometry_sha256": "e90884a44104933991afa9be4f863ae3caa2037177d9af127f1f4e5e2485c297",
+  "geometry_sha256": "09f3665148688bdbd9795258021a0ef286fc9b484ecf4db4f7ca0f8d2c31727b",
   "mechanism": "Coaxial vertical swivel and horizontal pivot; housing supported from below",
   "soft_limits_deg": [
     1,
@@ -12,7 +12,7 @@
   ],
   "printed_parts": 60,
   "material_solid_equivalent_g": {
-    "PET-CF17": 3569.18,
+    "PET-CF17": 3543.24,
     "TPU": 4.32,
     "PETG": 1361.34
   },
@@ -24,14 +24,14 @@
     "before_tax": true
   },
   "artifacts": {
-    "hardware/printed-parts/fixtures/pgfun-positioner/print-pack.zip": "d3411012b1ced1238c2fbae6efee9a77cf3de3251bd79adf8ffdcd9ff9a5d2a9",
-    "hardware/printed-parts/fixtures/pgfun-positioner/print-manifest.json": "5b8d5d77e00f3a739d106f69ea6239736f7c967123254e8e990b21f4d21aa2aa",
-    "hardware/printed-parts/fixtures/pgfun-positioner/motion-geometry.json": "4f0f57380613c784a6bd4730f6979399c61b2f0a958478a13a2f9cac8027fdc7",
-    "hardware/printed-parts/fixtures/pgfun-positioner/clearance-check.json": "7622efbacf63afa9df4fe714c69a52156e5e10ff611b79e6e3a2bd34f883a5f0",
+    "hardware/printed-parts/fixtures/pgfun-positioner/print-pack.zip": "608c197e74083711c601c8a928bbf93e98bb5dcbccd5016a3897a5918d9b56dd",
+    "hardware/printed-parts/fixtures/pgfun-positioner/print-manifest.json": "ae44023d7d483d3ecc9bc1afb43b212827037a23f9cd7980d152e32bbda24357",
+    "hardware/printed-parts/fixtures/pgfun-positioner/motion-geometry.json": "ebf5a7c0eb204d2dcf30eeb4225b991b15516466062fd50896fb8c475eff798e",
+    "hardware/printed-parts/fixtures/pgfun-positioner/clearance-check.json": "5f7baeb1c58097dab1d4fa4ea156ca727710d32e3a096ed750bd71b44dd73015",
     "hardware/printed-parts/fixtures/pgfun-positioner/load-screen.json": "cca80c89e2f2d4476a27a41b05d40eb05262f3933f90bd8858826a97a87e7c14",
-    "firmware/src_pgfun_positioner/assets/pgfun-positioner-r1.uf2": "8a9700438a028df73e1741e7f48068c734c5046296eabb12541084ac8b454a40",
-    "firmware/src_pgfun_positioner/assets/build-receipt.json": "9072d991f3f82459fa00e735f16fb6a952b48c0627d5324e9d403b066536ee8b",
-    "hardware/gun-positioner-guide/gun-positioner-guide.pdf": "e678eeee778bf49059cf8e58570a4a20bd29cec9847f7b63f7d2f433d8608ff4"
+    "firmware/src_pgfun_positioner/assets/pgfun-positioner-r1.uf2": "2fd8bdaa22d43ec7d1f8393ef8996c20ab462d15adc7b8913d1c59f45a044054",
+    "firmware/src_pgfun_positioner/assets/build-receipt.json": "daafbd262eb2b37072e2656bdb0b2db086b586749dd736a79825f8ce14ef8bd3",
+    "hardware/gun-positioner-guide/gun-positioner-guide.pdf": "632e28db448bfcd4aba2dcc655958fa63cb12dee406927348fe8674ae09b399d"
   },
   "physical_qualification": "Required according to commissioning.md; no unperformed results asserted",
   "laser_control": "Factory trigger during accepted periodic replay; automatic emission protocol not established"
