@@ -10,13 +10,17 @@ const auxiliary = root.querySelector("#positioner-aux");
 const detail = root.querySelector("#positioner-selection");
 
 function decode(value, Type) {
-  return new Type(Uint8Array.from(atob(value), (c) => c.charCodeAt(0)).buffer);
+  const binary = atob(value);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+  return new Type(bytes.buffer);
 }
 
 try {
   const response = await fetch("/assemblies/pgfun-positioner.json.gz");
   if (!response.ok) throw new Error(`Assembly download failed (${response.status})`);
   const data = await new Response(response.body.pipeThrough(new DecompressionStream("gzip"))).json();
+  if (data.meshFormat !== "creased-f32-v1") throw new Error("Unsupported assembly mesh format");
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
   renderer.setClearColor(0, 0);
@@ -52,12 +56,10 @@ try {
   const tokens = { print: "--action", metal: "--text-3", motor: "--text-3", liner: "--text", reference: "--text-2" };
 
   for (const part of data.parts) {
-    const vertices = decode(part.v, Int16Array);
-    const positions = Float32Array.from(vertices, (v) => v * data.coordinateScale);
     const geometry = new THREE.BufferGeometry();
-    geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-    geometry.setIndex(new THREE.BufferAttribute(decode(part.f, Uint16Array), 1));
-    geometry.computeVertexNormals();
+    geometry.setAttribute("position", new THREE.BufferAttribute(decode(part.v, Float32Array), 3));
+    geometry.setAttribute("normal", new THREE.BufferAttribute(decode(part.n, Int16Array), 3, true));
+    geometry.setIndex(new THREE.BufferAttribute(decode(part.f, part.indexType === "uint32" ? Uint32Array : Uint16Array), 1));
     const token = part.name.startsWith("rotator:") ? "--text-3" : tokens[part.category];
     const material = new THREE.MeshStandardMaterial({
       color: color(token), roughness: 0.65,

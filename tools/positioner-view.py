@@ -3,13 +3,15 @@
 
 Run tools/cad-venv/bin/python tools/positioner-view.py after the PGFUN build
 and check have produced assembly-meshes.npz and reference-meshes.npz.
-Display tessellation is reduced; the linked STEP files retain precise geometry.
+Retains every source triangle and coordinate, with normals split at CAD creases.
+Float32 positions match the renderer's precision; normals use normalized Int16.
 """
 import base64
 import gzip
 import hashlib
 import importlib.util
 import json
+import sys
 from pathlib import Path
 
 import numpy as np
@@ -18,6 +20,37 @@ import trimesh
 ROOT = Path(__file__).resolve().parents[1]
 CAD = ROOT / "hardware/printed-parts/fixtures/pgfun-positioner"
 OUTPUT = ROOT / "web/public/assemblies/pgfun-positioner.json.gz"
+sys.path.insert(0, str(ROOT / "hardware/scripts"))
+from flute_payload import creased
+
+
+def canonical_faces(faces):
+    """Triangle identities independent of ordering, preserving winding."""
+    first = np.argmin(faces, axis=1)
+    rows = np.arange(len(faces))[:, None]
+    ordered = faces[rows, (first[:, None] + np.arange(3)) % 3]
+    return ordered[np.lexsort(ordered.T[::-1])]
+
+
+def display_mesh(mesh):
+    positions, normals, faces, _ = creased(mesh)
+    assert len(faces) == len(mesh.faces), "Display export lost triangles"
+    # Splitting normal regions duplicates vertices without changing a triangle.
+    source_ids = {tuple(point): i for i, point in enumerate(mesh.vertices)}
+    mapped = np.fromiter((source_ids[tuple(point)] for point in positions), dtype=np.int64)
+    assert np.array_equal(canonical_faces(mapped[faces]), canonical_faces(mesh.faces)), "Display export changed a source triangle or its winding"
+    packed_positions = positions.astype("<f4")
+    assert np.abs(packed_positions - positions).max() < 0.0001, "Float32 position error exceeds 0.1 micron"
+    packed_normals = np.rint(normals * 32767).astype("<i2")
+    index_type = "uint32" if len(positions) > 65536 else "uint16"
+    packed_faces = faces.astype("<u4" if index_type == "uint32" else "<u2")
+    return dict(
+        v=base64.b64encode(packed_positions.tobytes()).decode(),
+        n=base64.b64encode(packed_normals.tobytes()).decode(),
+        f=base64.b64encode(packed_faces.tobytes()).decode(),
+        indexType=index_type, sourceFaceCount=len(mesh.faces),
+        sourceVolumeMm3=float(mesh.volume), sourceClosed=bool(mesh.is_watertight),
+    )
 
 
 def build():
@@ -46,26 +79,13 @@ def build():
                     vertices = vertices @ transform[:3, :3].T + transform[:3, 3]
                 if item["group"] in ("pitch", "yaw"):
                     vertices = vertices - pivot
-                mesh = trimesh.Trimesh(vertices, faces, process=True)
-                mesh.vertices = np.round(mesh.vertices / 0.4) * 0.4
-                mesh.merge_vertices(digits_vertex=2)
-                mesh.update_faces(mesh.nondegenerate_faces())
-                target = 900 if name in ("fork", "left-cheek", "lower-cradle", "camera-riser-base", "camera-riser-top") or name.startswith(("gun:housing", "rotator:")) else 250
-                if len(mesh.faces) > target:
-                    center, scale = mesh.vertices.mean(axis=0), max(mesh.extents)
-                    mesh.vertices = (mesh.vertices - center) / scale
-                    mesh = mesh.simplify_quadric_decimation(face_count=target, aggression=7)
-                    mesh.vertices = mesh.vertices * scale + center
-                quantized = np.rint(mesh.vertices / 0.02)
-                assert np.max(np.abs(quantized)) < 32768 and len(mesh.vertices) <= 65536, name
-                parts.append(dict(
-                    name=name, group=item["group"], category=item["category"],
-                    v=base64.b64encode(quantized.astype("<i2").tobytes()).decode(),
-                    f=base64.b64encode(mesh.faces.astype("<u2").tobytes()).decode(),
-                ))
+                mesh = trimesh.Trimesh(vertices, faces, process=False)
+                if item["category"] in ("print", "liner"):
+                    assert mesh.is_volume, f"{name}: source print is not a closed positive volume"
+                parts.append(dict(name=name, group=item["group"], category=item["category"], **display_mesh(mesh)))
     payload = dict(
         revision=check.D["revision"], geometrySha256=binding["sha256"],
-        coordinateScale=0.02, pivot=pivot.tolist(), softLimitDeg=check.D["soft_limit_deg"], parts=parts,
+        meshFormat="creased-f32-v1", pivot=pivot.tolist(), softLimitDeg=check.D["soft_limit_deg"], parts=parts,
     )
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_bytes(gzip.compress(json.dumps(payload, separators=(",", ":")).encode(), mtime=0))
