@@ -57,8 +57,8 @@
     },
     {
       "check": "hardware/scripts/check_purchase_evidence.py",
-      "note": "Project ledger integrity FAILED; historical evidence coverage is reported separately.",
-      "status": "red"
+      "note": "Project ledger integrity ✓; historical evidence coverage is reported separately.",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_show_faces.py",
@@ -153,33 +153,6 @@
       "    hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v71.step.mesh — declared by nobody",
       "    hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v72.step.mesh — declared by nobody"
     ],
-    "hardware/scripts/check_purchase_evidence.py": [
-      "WARNING: coverage-88c04aa68db042feb287051cb5e01375: evidence coverage is partial",
-      "WARNING: coverage-89028646dee6480680bf381570c72830: evidence coverage is unknown",
-      "WARNING: coverage-96556d699c7b46f4978a3888d3d375db: evidence coverage is partial",
-      "WARNING: coverage-a33332d2ccf041f787551b215425fdbb: evidence coverage is unknown",
-      "WARNING: coverage-a71252470d6e40c4b10bc82bd951d28b: evidence coverage is unknown",
-      "WARNING: coverage-a7c1d71c0a38472580eea22c396eafd5: evidence coverage is unknown",
-      "WARNING: coverage-a914738fc688438f8d509e94711f1e9c: evidence coverage is unknown",
-      "WARNING: coverage-ac29a3ee87b742d2b8bd7ee14edcae46: evidence coverage is partial",
-      "WARNING: coverage-b9b06230952f4f6795765fbb8e7c1222: evidence coverage is unknown",
-      "WARNING: coverage-bd073659d99f4c38b20c1d9fac3c8155: evidence coverage is unknown",
-      "WARNING: coverage-c57ca481544248138b803bc112966160: evidence coverage is partial",
-      "WARNING: coverage-c7f0244fd78749e6a3eda6f37122dba0: evidence coverage is unknown",
-      "WARNING: coverage-d4baf4542f40450189a7fdcacc197039: evidence coverage is partial",
-      "WARNING: coverage-dad019e8b30b485e9203a063ea3654ba: evidence coverage is partial",
-      "WARNING: coverage-dc497fe458424d6e96f59f91a9cd428e: evidence coverage is unknown",
-      "WARNING: coverage-e361f03c5b404f3f92334c4f92bab5f8: evidence coverage is unknown",
-      "WARNING: coverage-f000ac62945a4ef1b60842f89aa45a31: evidence coverage is unknown",
-      "WARNING: coverage-f18d82d4491b433d80956e513f0c3242: evidence coverage is unknown",
-      "WARNING: coverage-f40e66eb69164069b4f0418f0859ba19: evidence coverage is unknown",
-      "WARNING: coverage-f622e58e83ff4673a617ac4d519ec225: evidence coverage is unknown",
-      "WARNING: coverage-f9613b999fd5422a8f49b9032ec3f7d7: evidence coverage is unknown",
-      "WARNING: Legacy order 112-0019658-3684217: row valuation USD 139.80, preserved project invoice USD 139.81; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
-      "WARNING: Legacy order 112-0066205-0960237: row valuation USD 423.94, preserved project invoice USD 423.95; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
-      "WARNING: 1 preserved potentially project order(s) have no named Markdown row",
-      "Project ledger integrity FAILED; historical evidence coverage is reported separately."
-    ],
     "hardware/scripts/check_step_colours.py": [
       "    hardware/printed-parts/fixtures/gun-positioner/step/shaft-capture-tube-9p50.step",
       "    hardware/printed-parts/fixtures/gun-positioner/step/shaft-hub.step",
@@ -233,10 +206,8 @@
       "    tools/cad-venv/bin/python tools/cad-artifacts/pack.py --room"
     ],
     "tools/check_web_tests.py": [
-      "4 test(s) in web/ fail:",
+      "2 test(s) in web/ fail:",
       "    the sourced plan covers the current BOM, including shared parts and unpriced requirements",
-      "    nothing in the hardware tree is unseated",
-      "    EXCLUDED_DIRS is every out/ .gitignore holds under hardware",
       "    a nested assembly is a node its parent's model actually holds",
       "  cd web && npm test"
     ]
