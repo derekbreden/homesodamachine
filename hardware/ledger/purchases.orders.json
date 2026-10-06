@@ -1,8 +1,8 @@
 {
   "_meta": {
     "source": "amazon.com order history, year-2026 filter: full scrape 2026-08-15 plus individually verified orders through 2026-09-24. The 2026-09-21 walk read the list pages back to 2026-08-27 and opened the invoices for the three orders no earlier pass held \u2014 112-7997113-5902601 (PET-GF15 Dark Grey), 114-4531838-9243459 (two DUROZZLE 0.4 PCD) and 112-4818896-3446652 (the single ASVPP1LF) \u2014 plus the cancelled 114-8422321-4073051. The 2026-09-24 passes read the list's first page back to that PET-GF15 order, the newest one already held, and added the five placed since; the WR1105 order placed 2026-10-03 was read from its detail page on 2026-10-04; the three Polymaker orders placed 2026-10-01 (114-2631637-5080268, 114-3202733-4767455, 114-4680955-8473844) and the 112-7997113-5902601 delivery read from their Gmail order, shipment and delivery emails, 2026-10-04",
-    "orders": 390,
-    "ordered/total": "ordered present for all 390; total absent only on the four cancelled orders, which were never charged",
+    "orders": 392,
+    "ordered/total": "ordered present for all 392; total absent only on the four cancelled orders, which were never charged",
     "delivered": "present only where Amazon still shows a shipment banner \u2014 orders from roughly mid-April 2026 on; Amazon stops exposing it for older orders, and their detail pages do not carry it either",
     "subtotal/shipping/tax": "present only for the 17 invoices opened during the 2026-08-15 reconciliation, the four orders verified individually on 2026-08-29 and 2026-08-31, and the four invoices opened during the 2026-09-02 update, the M5 \u00d7 50 invoice verified 2026-09-08, and the two DUROZZLE 0.4 PCD invoices opened 2026-09-11; not scraped for the rest; the September 13 sensor and September 15 jet/pump invoices verified 2026-09-16, and the five September 16 orders (two spring, three filament) read from their own invoices; the September 16 Revopoint MINI 2 and AESUB Orange orders read from their own invoices; the two September 17 BNTECHGO ribbon orders read from their own invoices; the five September 18 fastener orders (M3 \u00d7 60, M3 \u00d7 20 and the three washer ODs) read from their own invoices; the 2026-09-21 walk added the PET-GF15 Dark Grey, the two-nozzle DUROZZLE and the single ASVPP1LF invoices; the 2026-09-24 passes added the flap-wheel and Knipex 70 11 110 invoices and the $0.00 Revopoint replacement; the 2026-10-03 WR1105 order from its detail page, 2026-10-04",
     "project": "true = a purchases.md row names this order. false = household/pet/yard/garage/cancelled, with `why`. null = flagged for a human call.",
@@ -29,6 +29,14 @@
       "orders": [
         "112-5001639-8705857",
         "112-8546983-6242641"
+      ]
+    },
+    "funnel_hardware_verification": {
+      "date": "2026-10-05",
+      "source": "Signed-in Amazon order history and individual order details; selected Prime listings verified 2026-10-05",
+      "orders": [
+        "114-5418576-5300228",
+        "112-5477760-5177827"
       ]
     }
   },
@@ -2705,6 +2713,46 @@
         {
           "asin": "B0DRZ15WW8",
           "title": "MECCANIXITY DB9 male/female screw-terminal breakout kit, 4 pcs",
+          "quantity": 1
+        }
+      ]
+    },
+    "114-5418576-5300228": {
+      "ordered": "2026-10-05",
+      "subtotal": 8.99,
+      "shipping": 0.0,
+      "tax": 0.65,
+      "tax_estimated": true,
+      "total": 9.64,
+      "status": "Ordered; arriving 2026-10-06",
+      "project": true,
+      "verified": "2026-10-05",
+      "expected_delivery": "2026-10-06",
+      "prime_verified": "2026-10-05",
+      "items": [
+        {
+          "asin": "B0GHMMCZKM",
+          "title": "SVLING 516PCS M4 screw assortment kit, 304 stainless steel, socket-head cap screws, nuts and washers",
+          "quantity": 1
+        }
+      ]
+    },
+    "112-5477760-5177827": {
+      "ordered": "2026-10-05",
+      "subtotal": 8.99,
+      "shipping": 0.0,
+      "tax": 0.65,
+      "tax_estimated": true,
+      "total": 9.64,
+      "status": "Ordered; arriving 2026-10-07",
+      "project": true,
+      "verified": "2026-10-05",
+      "expected_delivery": "2026-10-07",
+      "prime_verified": "2026-10-05",
+      "items": [
+        {
+          "asin": "B07Z18CKCY",
+          "title": "uxcell 25Pcs 6mm X 25mm dowel pins, 304 stainless steel",
           "quantity": 1
         }
       ]
