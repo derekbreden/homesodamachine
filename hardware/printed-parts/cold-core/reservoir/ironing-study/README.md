@@ -1,146 +1,105 @@
-# Reservoir ironing comparison
+# PETG ironing calibration
 
-[ironing-study.3mf](ironing-study.3mf) contains **18 labelled specimens on one
-plate**, cut from the current left reservoir's sealing features. Use Bambu PETG
-Translucent Clear, the **left 0.8 mm Standard-flow nozzle** and textured PEI.
-Bambu Studio 02.08.02.61 estimates **84.85 g** including supports and
-**4 h 48 min** total; about **7 min 18 sec** is ironing.
+[ironing-study.3mf](ironing-study.3mf) contains **nine flat 35 × 35 mm squares**
+with varied ironing settings and **one un-ironed OFF reference**. Every square
+has an uninterrupted top face. Its label sits on a lower tab outside that face.
+The plate uses Bambu PETG Translucent Clear, Mark2's **left 0.8 mm Standard-flow
+hotend** and textured PEI.
 
-The customer outcome is a sealing face that lets its rubber seal sit evenly
-without raised lines, edge beads or loose PETG. This comparison assesses whether
-ironing improves those faces and whether it damages the adjacent sloped floor.
-Physical observations are pending.
+Bambu Studio 02.08.02.61 estimates **25.53 g and 1 h 55 min** for the complete
+plate, including **46 min of ironing**. Each square is 1.50 mm thick: one
+0.30 mm first layer and five 0.24 mm layers. There are no supports.
 
-The plate is centered in three compact rows, with every ironed specimen beside
-its control. The native model/support bead envelope is **178.08 × 146.50 mm**,
-at least **73.42 mm from every usable bed edge**; front/back clearance is
-86.75 mm. The closest specimen bead envelopes remain **1.92 mm apart**. Meshes,
-XY/Z orientation, layer phase and process settings are retained. Follow the
-[unseasoned-plate guidance](../../../../../tools/bambu-printers.md#placement-on-unseasoned-plates).
+## Settings and labels
 
-The [centered Mark2 launch record](prints/2026-10-06-mark2-centered-v3/launch.json) identifies the
-submitted slice, printer task and print options. Its starting spool is **A4**;
-the current clear PETG consumption preference is **A4 → A3 → A1**, oldest first.
-Mark2's expected user Z trim is **+0.04 mm** over stock compensation. The native
-0.8 mm textured-PEI job emits **`G29.1 Z0.02`** after clearing the trim with
-`G29.1 Z0`. Bambu Connect does not expose a backup-priority editor; automatic
-A3-before-A1 refill is unverified.
+Labels read **speed in mm/s / ironing flow in percent**. For example,
+**30/10** means 30 mm/s and 10% flow. All nine conditions use **0.15 mm line
+spacing**, the same 0.31 mm inset and zig-zag ironing pattern.
 
-The [edge-placement observation](prints/2026-10-06-mark2/physical-result.json)
-records the operator's cancellation of task 1313339571 and clearance of the bed.
+| Speed | 10% flow | 20% flow | 30% flow |
+| --- | --- | --- | --- |
+| 15 mm/s | 15/10 | 15/20 | 15/30 |
+| 30 mm/s | 30/10 | 30/20 | 30/30 |
+| 60 mm/s | 60/10 | 60/20 | 60/30 |
 
-## Specimens and settings
+**OFF** has no ironing. It is the plate's single reference. Ironing applies only
+to each square's highest face at Z = 1.50 mm; the lower label tabs stay un-ironed.
+The 30/10 square uses the September recipe's ironing flow, speed and spacing.
 
-**G** copies 32 mm of the body's upper gasket rim around one blind insert boss.
-It retains the complete 7 mm blind insert pocket and prints mouth up. Its lower
-body is cropped; the coupon is 10.03 mm tall. Removing 698 complete 0.24 mm
-layers retains the full body's layer phase at the gasket face.
+The underlying process uses **255 °C** nozzle, **70 °C** bed, **0.97** filament
+flow ratio, **6 mm³/s** ceiling, six requested Arachne walls, 100% fill and the
+September cooling and seam settings. [study.json](study.json) records the
+calibration overrides and geometry. The full reservoir's official print
+settings remain the [September 0.24 mm recipe](../README.md#next-print).
 
-**B** copies the complete wet bulkhead washer seat and a **30 × 38 mm** patch of
-the floor around it. The 24.3 mm counterbore, 15.8 mm through bore, dry underside
-recess and local floor thickness come directly from the current STEP. The patch
-includes 5 mm of the real **6.43° slope** on each side of the flat trough.
-Ironing is restricted to the flat annular washer seat.
+## Mark2 placement and filament
 
-Each condition has adjacent **C** (un-ironed control) and **I** (ironed) copies of
-both features. Low identification tabs sit outside the contact surfaces and
-outside the ironing masks.
+The compact central envelope, including every native model/brim bead, stays
+**84.98 mm from the nearest usable bed edge** and 90.50 mm from the front and
+back. The closest specimen bead envelopes are **4.90 mm apart**. Follow the
+[unseasoned-plate placement guidance](../../../../../tools/bambu-printers.md#placement-on-unseasoned-plates).
 
-| Condition | Ironing flow | Speed | Spacing | Labels |
-| --- | ---: | ---: | ---: | --- |
-| 1 — September | 10% | 30 mm/s | 0.15 mm | G1C/G1I, B1C/B1I |
-| 2 — Half flow | 5% | 30 mm/s | 0.15 mm | G2C/G2I, B2C/B2I |
-| 3 — Twice speed | 10% | 60 mm/s | 0.15 mm | G3C/G3I, B3C/B3I |
-| 4 — Twice spacing | 10% | 30 mm/s | 0.30 mm | G4C/G4I, B4C/B4I |
+Use **A4 → A3 → A1**, oldest first, starting on A4. Filament assignment is
+**Manual, left nozzle**. Bambu Connect exposes the starting-slot selector and
+AMS Auto-Refill, but its automatic backup order is unverified.
 
-**S1C/S1I** is an additional floor pair. S1I applies September ironing to the
-washer seat, trough, raised lip and adjacent slopes. It shows the broad ironing
-behavior for comparison. The native slice emits horizontal passes at Z = 4.62,
-5.82, 6.06 and 6.30 mm; these follow layer terraces rather than the CAD slope.
-
-All specimens use the September recipe's 0.30 mm first layer / 0.24 mm normal
-layers, 255 °C nozzle, 70 °C bed, 0.97 flow, 6 mm³/s ceiling, six requested
-Arachne walls, 100% fill, scarf seams and cooling/support settings. Global ironing
-is off; saved modifiers enable it on the named test faces. The tests retain the
-recipe's 0.31 mm ironing inset and zig-zag pattern. Twice the spacing produces
-about half the path length while retaining nearly the same total ironing
-extrusion; the slicer increases extrusion per pass.
-
-Filament assignment is **Manual, left nozzle**. The native review checks both
-the emitted `filament_map = 1` and `filament_nozzle_map = 0`, the 0.8 mm diameter
-and the resolved Mark2 trim before packaging the print.
-
-The saved machine profile carries Mark2's accepted +0.04 mm trim. Preserve the
-destination printer's own calibrated trim when assigning the job, following
+Mark2 expects **+0.04 mm user Z trim** over stock compensation. The verified
+0.8 mm textured-PEI slice clears the trim with `G29.1 Z0` and then emits
+**`G29.1 Z0.02`**. Preserve the destination printer's calibrated trim following
 [printer profiles](../../../../../tools/bambu-printers.md).
 
-![Comparison plate with the actual emitted ironing paths](plate-layout.png)
+![Flat square calibration with native ironing paths](plate-layout.png)
 
-## Read the physical comparison
+## Read the finish
 
-1. Let the plate cool and keep each labelled pair together. Remove the small
-   supports from the underside of the bulkhead bores. Leave the sealing faces
-   as printed for the first inspection.
-2. Photograph each pair together under light coming from the side. Inspect the
-   contact face and its inner/outer edges for grooves, dragged plastic, lifted
-   ridges, blobs and loose strands. Compare those features with its C control;
-   gloss alone is not the selection criterion.
-3. Place the existing silicone bulkhead washer in each B seat. Apply the same
-   gentle finger pressure around the washer and inspect for rocking, a lifted
-   edge or debris. Lay the existing reservoir gasket across each G rim section
-   and check whether raised lines or edge beads interfere with even seating.
-   These are contact/finish observations, not a clamped leak test.
-4. Compare S1C with S1I under the same side lighting. Record any additional
-   ridges, smeared steps or loose plastic on either sloped strip, and whether
-   the transition onto the flat trough is better or worse.
-5. Record the labels, photographs and observed differences beside this study.
-   A useful ironing candidate must improve the contact face relative to its
-   control without adding raised edges, loose material or seating interference.
+After cooling, inspect the **top** of each labelled square under the same side
+lighting and lightly run a fingertip across it. Compare the broad middle and
+then the edges. Record the smoothest labels and any visible grooves, raised
+ridges, dragged plastic or edge buildup. Gloss is a separate observation.
+Prefer a face that feels smooth and even without loose material or raised
+edges; among comparable finishes, the faster setting saves ironing time. If
+none is clearly better than OFF, record that result.
 
-The paired coupons preserve local shape, orientation and layer phase. Cropping
-changes layer time and thermal history, and this plate does not reproduce the
-full body's height. A finish improvement does not establish water holding,
-long-term gasket sealing or insert strength. The full reservoir's official
-process is the [September 0.24 mm recipe](../README.md#next-print).
+This is a flat-surface calibration. It does not assess sloped faces, gasket
+sealing or water holding. The customer outcome is a contact face that lets a
+rubber seal sit evenly without raised lines or loose PETG; selecting a setting
+from these squares alone does not establish that outcome on a reservoir.
 
 ## Verification and reproduction
 
-[study.json](study.json) records source hashes, crop coordinates, labels,
-placement and settings. [slice-review.json](slice-review.json) records the native
-G-code hash and measurements: all nine controls have zero ironing extrusion;
-all G/B test passes remain on the specified flat faces; 60 mm/s, half flow and
-wider spacing are verified in the emitted paths. S1I includes about 1.47 m of
-ironing over the adjacent sloped strips. The slice contains ten bed-rooted bore
-support bodies, all without explicit interface labels; their contact buildup
-and removal finish are unmeasured.
-
-The same review checks deposited model, support and brim paths against the left
-nozzle's **325 × 320 mm** usable area, including native bead widths and exact arc
-extrema. It enforces at least 70 mm edge clearance and 1.5 mm specimen envelope
-separation. Vendor startup purge/calibration paths are outside this specimen
-placement check. The measured inset establishes placement, not bed adhesion.
+[slice-review.json](slice-review.json) verifies the actual native flow, speed,
+spacing and ironing height for all nine conditions, zero ironing on OFF and
+zero supports. It checks emitted left-nozzle assignment, 0.8 mm diameter and
+Mark2's resolved Z trim. Native full-bead placement includes arc extrema and
+bead width; vendor startup purge/calibration paths are excluded. The review
+enforces an 80 mm edge inset and 4 mm specimen envelope separation.
 
 From the repository root:
 
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/cold-core/reservoir/ironing-study/prepare_print.py
-mkdir -p .cache/reservoir-ironing-study/slice
+mkdir -p .cache/reservoir-ironing-squares/slice
 /Applications/BambuStudio.app/Contents/MacOS/BambuStudio \
-  --arrange 0 --orient 0 --slice 0 --export-3mf ironing-study-review.3mf \
-  --outputdir "$PWD/.cache/reservoir-ironing-study/slice" \
+  --arrange 0 --orient 0 --slice 0 --export-3mf ironing-squares-review.3mf \
+  --outputdir "$PWD/.cache/reservoir-ironing-squares/slice" \
   "$PWD/hardware/printed-parts/cold-core/reservoir/ironing-study/ironing-study.3mf"
 tools/cad-venv/bin/python hardware/printed-parts/cold-core/reservoir/ironing-study/review_slice.py
 ```
 
-The editable study project is the only 3MF in this directory. Derived sliced
-archives and meshes live in ignored `.cache/reservoir-ironing-study/`.
+The editable calibration is the only 3MF in this directory. Derived native
+archives and meshes live in ignored `.cache/reservoir-ironing-squares/`.
 
-## Guidance supporting the comparison
+## Physical records
 
-Prusa's [watertight printing guide, part 2](https://blog.prusa3d.com/watertight-3d-printing-part-2_53638/)
-recommends smooth rubber-seal contact surfaces and gives ironing as one way to
-achieve them. Its [ironing documentation](https://help.prusa3d.com/article/ironing_177488)
-describes ironing of flat top surfaces, limited benefit on slopes, and the risk
-of PETG collecting on the nozzle or material accumulating at edges. Those
-mechanisms support a comparison of local sealing faces and a separate slope
-diagnostic; they do not establish that this reservoir benefits from ironing.
+[Current square-calibration launch](prints/2026-10-06-mark2-squares-v1/launch.json),
+Mark2 task **1314288755**.
+
+[Feature-crop comparison observation](prints/2026-10-06-mark2-centered-v3/physical-result.json) ·
+[Centered feature-crop launch](prints/2026-10-06-mark2-centered-v3/launch.json) ·
+[Stopped edge-placement job](prints/2026-10-06-mark2/physical-result.json).
+Historical projects are retained in Git, identified by the launch records.
+
+Prusa's [ironing documentation](https://help.prusa3d.com/article/ironing_177488)
+describes smoothing flat top faces and tuning flow, speed and spacing. The
+ranges on this plate are calibration candidates; they are not a selected PETG
+recipe.
