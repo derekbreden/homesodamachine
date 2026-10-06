@@ -440,5 +440,90 @@
       ],
       "scope": "This is the square-mouth cavity submitted on 2026-09-18, identified by this job\u2019s file hashes. The current 600 mL rounded-mouth mold is a separate, unprinted geometry."
     }
+  },
+  {
+    "printer": "H2C",
+    "part": "cavity",
+    "plate": 1,
+    "submission": "Bambu Connect",
+    "project": "2026-10-06-funnel-cavity-h2c-right-z018-v3.gcode.3mf",
+    "project_sha256": "55c3ef171995591b0d4cf21d20aa07cf85f093baed4cf85ffd89b2ac0845937b",
+    "gcode_sha256": "dc513865c301efe20b9fc87714ac2c52057225e06ab2b4de5bbfdad9eefdb358",
+    "stl_sha256": "06440677138d0246a52959824507adbeb106c288d319dd35647430c744696048",
+    "launch_record": "native-slice-reviews/2026-10-06-h2c-right-gyroid15/launch.json",
+    "settings": {
+      "printer_preset": "Bambu Lab H2C 0.4 Standard +0.18 Z trim",
+      "active_nozzle": "right",
+      "diameter_mm": 0.4,
+      "flow_type": "Standard",
+      "induction_rack_slot": 3,
+      "hotend_serial": "20D06A5C2914711",
+      "bed_type": "Textured PEI Plate",
+      "expected_user_z_trim_mm": 0.18,
+      "emitted_z_trim_mm": 0.16,
+      "gcode_z_commands": [
+        "G29.1 Z0 ; clear z-trim value first",
+        "G29.1 Z0.16"
+      ],
+      "wall_loops": 6,
+      "sparse_infill_density_percent": 15,
+      "sparse_infill_pattern": "gyroid",
+      "top_shell_layers": 6,
+      "bottom_shell_layers": 6,
+      "first_layer_mm": 0.2,
+      "normal_layers_mm": 0.24,
+      "support_style": "Snug normal",
+      "support_top_z_distance_mm": 0.2,
+      "support_bottom_z_distance_mm": 0.2,
+      "support_object_xy_distance_mm": 0.48,
+      "support_bodies": 8,
+      "filament_slot": "AMS HT-A",
+      "filament_flow_ratio": 0.88,
+      "volumetric_limit_mm3_s": 5.61702,
+      "nozzle_first_layer_c": 250,
+      "nozzle_other_layers_c": 245,
+      "bed_c": 70
+    },
+    "send_options": {
+      "timelapse": "off",
+      "bed_leveling": "on",
+      "flow_dynamic_calibration": "auto",
+      "nozzle_offset_calibration": "auto"
+    },
+    "estimated_seconds": 61396.25390625,
+    "estimated_filament_g": 355.61456298828125,
+    "printer_observation": {
+      "observed_at_utc": "2026-10-06T07:29:32.525368+00:00",
+      "job_id": "1313390974",
+      "subtask_name": "2026-10-06-funnel-cavity-h2c-right-z018-v3.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "layer_num": 0,
+      "total_layer_num": 404,
+      "mc_percent": 0,
+      "mc_remaining_time": 1023,
+      "print_error": 0,
+      "hms": [],
+      "nozzle_temper": 37.0,
+      "nozzle_target_temper": 0.0,
+      "bed_temper": 37.0,
+      "bed_target_temper": 37.0,
+      "ams": {
+        "tray_now": "255",
+        "tray_tar": "0"
+      },
+      "mounted_right_nozzle": [
+        {
+          "id": 0,
+          "type": "HS01",
+          "diameter_mm": 0.4,
+          "serial": "20D06A5C2914711"
+        }
+      ]
+    },
+    "outcome": {
+      "result": "in_progress",
+      "observed_date": "2026-10-06",
+      "observation": "Printer accepted the cavity job and reports RUNNING with no errors; physical print and casting results are pending."
+    }
   }
 ]

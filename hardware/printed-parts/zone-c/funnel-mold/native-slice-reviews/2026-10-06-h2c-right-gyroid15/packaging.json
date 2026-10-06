@@ -1,0 +1,24 @@
+{
+  "source_archive": ".cache/funnel-h2c-right-2026-10-06/cavity-native-only.gcode.3mf",
+  "source_archive_sha256": "2d13d82fee8f3ed148c9746837c427734b6ad4d6e84d806101423d7e5564a221",
+  "print_only_archive": ".cache/funnel-h2c-right-2026-10-06/2026-10-06-funnel-cavity-h2c-right-z018-v3.gcode.3mf",
+  "print_only_archive_sha256": "55c3ef171995591b0d4cf21d20aa07cf85f093baed4cf85ffd89b2ac0845937b",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "dc513865c301efe20b9fc87714ac2c52057225e06ab2b4de5bbfdad9eefdb358"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/Objects/object_2.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ],
+  "native_two_plate_archive": ".cache/funnel-h2c-right-2026-10-06/slice-v3/2026-10-06-funnel-cavity-h2c-right-z018-v3.gcode.3mf",
+  "native_two_plate_archive_sha256": "cacd74a32869f9494c32405abd46e3042f885aefab7717a45a9ef70b48ed5b45",
+  "submitted_plate": 1,
+  "other_plates_omitted": true
+}
