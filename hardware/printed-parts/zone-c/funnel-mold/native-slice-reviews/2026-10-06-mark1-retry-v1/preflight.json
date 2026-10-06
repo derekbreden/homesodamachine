@@ -1,0 +1,143 @@
+{
+  "recorded_at_utc": "2026-10-06T16:48:12.804274+00:00",
+  "scope": "Preparation observation only; all launch gates must be freshly checked before a separately authorized Send.",
+  "both_printers": [
+    {
+      "observed_at": "2026-10-06T16:46:12.665696+00:00",
+      "gcode_state": "RUNNING",
+      "job_id": "1314288755",
+      "task_id": "1314288755",
+      "subtask_name": "2026-10-06-petg-ironing-squares-mark2-z004-v1.gcode.3mf",
+      "layer_num": 6,
+      "total_layer_num": 6,
+      "mc_percent": 95,
+      "mc_remaining_time": 5,
+      "print_error": 0,
+      "hms": [],
+      "extruders": {
+        "0": {
+          "actual_c": 48,
+          "target_c": 0
+        },
+        "1": {
+          "actual_c": 255,
+          "target_c": 255
+        }
+      },
+      "bed_actual_c": 70.0,
+      "bed_target_c": 70.0,
+      "chamber": {
+        "actual_c": 36,
+        "target_c": 0
+      },
+      "printer": "Mark2",
+      "configured_read_alias": "Mark2"
+    },
+    {
+      "observed_at": "2026-10-06T16:46:13.351919+00:00",
+      "gcode_state": "IDLE",
+      "job_id": "",
+      "task_id": "",
+      "subtask_name": "",
+      "layer_num": 0,
+      "total_layer_num": 0,
+      "mc_percent": 0,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [],
+      "extruders": {
+        "0": {
+          "actual_c": 29,
+          "target_c": 0
+        },
+        "1": {
+          "actual_c": 22,
+          "target_c": 0
+        }
+      },
+      "bed_actual_c": 24.0,
+      "bed_target_c": 0.0,
+      "chamber": {
+        "actual_c": 24,
+        "target_c": 0
+      },
+      "printer": "Mark1",
+      "configured_read_alias": "H2C"
+    }
+  ],
+  "right_nozzle_observation": {
+    "observed_at_utc": "2026-10-06T16:26:41.975307+00:00",
+    "mounted_slot": 0,
+    "diameter_mm": 0.4,
+    "type": "HS01",
+    "assembly_and_nozzle_replacement": "reported by Derek"
+  },
+  "filament_observation": {
+    "observed_at_utc": "2026-10-06T16:26:41.975307+00:00",
+    "ams_name": "HT-A",
+    "unit": 128,
+    "tray": 0,
+    "tray_type": "PETG",
+    "material_id": "GFG01",
+    "sub_brand": "PETG Translucent",
+    "color": "00000000",
+    "drying_active": true,
+    "dryer_setting_c": 65,
+    "dryer_setting_hours": 12,
+    "dryer_reported_remaining_minutes": 704,
+    "humidity_percent": 18,
+    "drying_complete": false
+  },
+  "recording_observation": {
+    "observed_at_utc": "2026-10-06T16:26:41.975307+00:00",
+    "removable_storage_present": true,
+    "timelapse": "disable",
+    "auto_record": "disable",
+    "changes_performed": false
+  },
+  "camera_detection": {
+    "observed_date": "2026-10-06",
+    "method": "Bambu Studio Device > Mark1 > Print Options, read-only",
+    "spaghetti_detection": {
+      "enabled": true,
+      "sensitivity": "Low"
+    },
+    "purge_chute_pile_up_detection": {
+      "enabled": true,
+      "sensitivity": "Medium"
+    },
+    "camera_nozzle_clumping_detection": {
+      "enabled": false,
+      "stored_sensitivity": "Low"
+    },
+    "air_printing_detection": {
+      "enabled": true,
+      "sensitivity": "Medium"
+    },
+    "build_plate_type_and_alignment_detection": {
+      "enabled": true
+    },
+    "settings_changed_by_this_preparation": false,
+    "historical_scope": "These are current per-detector settings. They do not establish which detector could have caught the failed job or its exact state at the moment of failure."
+  },
+  "native_studio_archive_check": {
+    "observed_date": "2026-10-06",
+    "archive_name": "2026-10-06-funnel-cavity-mark1-right-retry-v1.gcode.3mf",
+    "inspection_copy": ".cache/funnel-retry-mark1-20261006/inspection/2026-10-06-funnel-cavity-mark1-right-retry-v1.gcode.3mf",
+    "preview_open": true,
+    "single_plate": true,
+    "layers": 404,
+    "visible_estimated_time": "17h24m",
+    "visible_filament_g": 356.56,
+    "active_nozzle_side": "right",
+    "diameter_mm": 0.4,
+    "flow_type": "Standard",
+    "print_plate_button_enabled": true,
+    "send_invoked": false
+  },
+  "pending": [
+    "Filament drying completion.",
+    "Separate user authorization to start the cavity retry.",
+    "Fresh device, AMS mapping, archive/hash and peer-start/resume checks at Send time."
+  ]
+}

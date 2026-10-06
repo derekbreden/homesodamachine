@@ -1,0 +1,480 @@
+{
+  "checked_date": "2026-10-06",
+  "scope": "Prepared retry only; no Send. Complete funnel tooling: two PETG mold bodies and a stock straight 6 x 25 mm stainless steel rod. This record checks the exported geometry and native slice. Print and casting behavior have no retry result; launch-plan.json records preparation and later submission requirements.",
+  "selected_recipe": {
+    "bottom_shell_layers": "6",
+    "brim_object_gap": "0.1",
+    "brim_type": "outer_only",
+    "brim_width": "8",
+    "curr_bed_type": "Textured PEI Plate",
+    "enable_wrapping_detection": "0",
+    "filament_flow_ratio": [
+      "0.88",
+      "0.97",
+      "0.97"
+    ],
+    "filament_max_volumetric_speed": [
+      "5.61702",
+      "6",
+      "6"
+    ],
+    "filament_settings_id": [
+      "Funnel mold PETG Translucent - 0.4 Standard - flow 0.88"
+    ],
+    "filament_volume_map": [
+      "0"
+    ],
+    "initial_layer_acceleration": [
+      "500",
+      "500",
+      "500",
+      "500",
+      "500"
+    ],
+    "initial_layer_infill_speed": [
+      "30",
+      "30",
+      "30",
+      "30",
+      "30"
+    ],
+    "initial_layer_print_height": "0.2",
+    "initial_layer_speed": [
+      "20",
+      "20",
+      "20",
+      "20",
+      "20"
+    ],
+    "layer_height": "0.24",
+    "nozzle_diameter": [
+      "0.4",
+      "0.4"
+    ],
+    "nozzle_volume_type": [
+      "Standard",
+      "Standard"
+    ],
+    "print_settings_id": "Funnel mold - six walls - 15% gyroid - PETG088",
+    "printer_settings_id": "Bambu Lab H2C 0.4 Standard +0.18 Z trim",
+    "sparse_infill_density": "15%",
+    "sparse_infill_pattern": "gyroid",
+    "support_bottom_z_distance": "0.2",
+    "support_object_xy_distance": "0.48",
+    "support_style": "snug",
+    "support_top_z_distance": "0.2",
+    "support_type": "normal(auto)",
+    "timelapse_type": "0",
+    "top_one_wall_type": "not apply",
+    "top_shell_layers": "6",
+    "wall_loops": "6"
+  },
+  "preparation": {
+    "source": "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-h2c-right-gyroid15/funnel-mold-h2c-right.3mf",
+    "source_sha256": "60cd9a0e48a51edcec2fc5f2310e64e5232d6c0a903b6fb0606312f3d2f1fb57",
+    "prepared_project": "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-v1/funnel-mold-mark1-retry.3mf",
+    "prepared_project_sha256": "76cfd1ae322feaab87c0a59eb13629437f229594ca5eb90aed11f3a453367807",
+    "setting_changes": {
+      "brim_type": {
+        "source": "auto_brim",
+        "prepared": "outer_only"
+      },
+      "brim_width": {
+        "source": "5",
+        "prepared": "8"
+      },
+      "initial_layer_infill_speed": {
+        "source": [
+          "105",
+          "105",
+          "105",
+          "105",
+          "105"
+        ],
+        "prepared": [
+          "30",
+          "30",
+          "30",
+          "30",
+          "30"
+        ]
+      },
+      "initial_layer_speed": {
+        "source": [
+          "50",
+          "50",
+          "50",
+          "50",
+          "50"
+        ],
+        "prepared": [
+          "20",
+          "20",
+          "20",
+          "20",
+          "20"
+        ]
+      }
+    },
+    "placements": [
+      {
+        "object_id": "2",
+        "source_transform": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          149.5,
+          160.0,
+          29.5750007629
+        ],
+        "prepared_transform": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          177.5,
+          160.0,
+          29.5750007629
+        ],
+        "local_plate_center_xy_mm": [
+          177.5,
+          160.0
+        ]
+      },
+      {
+        "object_id": "4",
+        "source_transform": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          0.0,
+          0.0,
+          -1.0,
+          545.5,
+          160.0,
+          21.1740865707
+        ],
+        "prepared_transform": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          0.0,
+          0.0,
+          -1.0,
+          573.5,
+          160.0,
+          21.1740865707
+        ],
+        "local_plate_center_xy_mm": [
+          177.5,
+          160.0
+        ]
+      }
+    ],
+    "changed_container_entries": [
+      "3D/3dmodel.model",
+      "Metadata/project_settings.config"
+    ],
+    "embedded_geometry_byte_identical": true,
+    "embedded_geometry_sha256": {
+      "3D/Objects/object_2.model": "115d35c62b7ead68c1644068edb97edaf61acc19b6720040592714e7f467f89b",
+      "3D/Objects/object_1.model": "52e6c5356d249d62faca3814b690350c43591f02eabc1f2a4d54e080ebe4d08d"
+    },
+    "all_other_payloads_identical": true
+  },
+  "send_options_required": {
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_dynamic_calibration": "On",
+    "nozzle_offset_calibration": "On",
+    "reason_for_calibration": "Replacement induction heating assembly and new right 0.4 mm nozzle reported by Derek."
+  },
+  "detection": {
+    "probing_enabled": false,
+    "camera_settings_changed": false,
+    "user_direction": "No, we've had problems with that too - do not enable that.",
+    "timelapse_send_checkbox_required": true
+  },
+  "reference_geometry_and_bead_review": "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-h2c-right-gyroid15/readiness-review.json",
+  "native_slice_pending": false,
+  "native_slice_success": true,
+  "native_slice": {
+    "slice_sha256": "3bd314d84e52c2adc05172a5bb25d4a8b04dc251264fff903273e00f6fbc2f47",
+    "slice_file": ".cache/funnel-retry-mark1-20261006/slice/2026-10-06-funnel-cavity-mark1-right-retry-v1.gcode.3mf",
+    "cli_return_code": 0,
+    "slicer_version": "02.08.02.61",
+    "plates": [
+      {
+        "part": "cavity",
+        "plate": 1,
+        "orientation": "upright",
+        "mesh": {
+          "matches_stl": true,
+          "triangles": 55096,
+          "maximum_vertex_distance_mm": 1.0042487708516276e-06
+        },
+        "gcode_sha256": "e3b9ec793eef7b910244726f00a83d20bddd68b1401cd518dd6294724497e631",
+        "nozzle": [
+          {
+            "id": "1",
+            "extruder_id": "2",
+            "nozzle_diameter": "0.4",
+            "volume_type": "Standard"
+          }
+        ],
+        "z_trim_commands": [
+          "G29.1 Z0 ; clear z-trim value first",
+          "G29.1 Z0.16"
+        ],
+        "support_present": true,
+        "slice_warning": "",
+        "layers": 404,
+        "estimated_seconds": 62653.96875,
+        "estimated_filament_g": 356.5584411621094,
+        "all_deposited_feature_bounds_xy_mm": [
+          [
+            70.0,
+            76.159
+          ],
+          [
+            285.0,
+            243.842
+          ]
+        ],
+        "right_nozzle_printable_polygon_mm": [
+          [
+            25.0,
+            0.0
+          ],
+          [
+            330.0,
+            0.0
+          ],
+          [
+            330.0,
+            320.0
+          ],
+          [
+            25.0,
+            320.0
+          ]
+        ],
+        "within_printable_area": true,
+        "minimum_bed_edge_margin_mm": 45.0,
+        "required_bed_edge_margin_mm": 20.0,
+        "edge_inset_passed": true,
+        "probing_enabled": false,
+        "executable_G39_probe_count": 0,
+        "timelapse_camera_blocks": 404,
+        "timelapse_requires_send_checkbox_on": true,
+        "first_layer_max_emitted_speed_mm_s_by_feature": {
+          "Support": 20.0,
+          "Brim": 20.0,
+          "Outer wall": 20.0,
+          "Inner wall": 20.0,
+          "Bottom surface": 30.0
+        },
+        "first_layer_height_mm": 0.2,
+        "first_layer_model_segments": 1732,
+        "first_layer_support_segments": 1551,
+        "extrusion_feature_segment_counts": {
+          "Support": 71889,
+          "Brim": 852,
+          "Outer wall": 300113,
+          "Inner wall": 1377523,
+          "Bottom surface": 833,
+          "Internal solid infill": 205644,
+          "Sparse infill": 4235649,
+          "Bridge": 31678,
+          "Floating vertical shell": 130241,
+          "Top surface": 2996,
+          "Gap infill": 2875,
+          "Support interface": 2698,
+          "Support transition": 799,
+          "Overhang wall": 5754
+        },
+        "support_topology_summary": {
+          "support_bodies": 8,
+          "interface_islands": 16,
+          "bed_rooted_bodies": 8,
+          "model_rooted_bodies": 0,
+          "shortest_build_up_mm": 43.4,
+          "bodies_without_interface_labels": 0,
+          "explicit_interface_islands": 16,
+          "shortest_labelled_build_up_mm": 43.4
+        },
+        "support_topology_record_sha256": "e334c6ac780f779944cae0527f68ea25a96eaf09b2f40e318f98dd704c4905f8",
+        "support_removal_scope": "Every emitted support body is retained in the topology record, including bodies lacking interface labels. Open side bolt pockets provide access to cut and detach any cavity support; the core has an open tapered rod access hole. A collision-free withdrawal of complete connected support bodies, adhesion, clean release and finished casting are not established by this reading."
+      },
+      {
+        "part": "core",
+        "plate": 2,
+        "orientation": "inverted",
+        "mesh": {
+          "matches_stl": true,
+          "triangles": 38574,
+          "maximum_vertex_distance_mm": 1.1094386120768577e-06
+        },
+        "gcode_sha256": "cde339e6a6f8f51c2970803fe160531efa1366172a0eb4d584f61e217bad5362",
+        "nozzle": [
+          {
+            "id": "1",
+            "extruder_id": "2",
+            "nozzle_diameter": "0.4",
+            "volume_type": "Standard"
+          }
+        ],
+        "z_trim_commands": [
+          "G29.1 Z0 ; clear z-trim value first",
+          "G29.1 Z0.16"
+        ],
+        "support_present": false,
+        "slice_warning": "",
+        "layers": 176,
+        "estimated_seconds": 41711.21875,
+        "estimated_filament_g": 233.22898864746094,
+        "all_deposited_feature_bounds_xy_mm": [
+          [
+            64.565,
+            70.724
+          ],
+          [
+            290.435,
+            249.276
+          ]
+        ],
+        "right_nozzle_printable_polygon_mm": [
+          [
+            25.0,
+            0.0
+          ],
+          [
+            330.0,
+            0.0
+          ],
+          [
+            330.0,
+            320.0
+          ],
+          [
+            25.0,
+            320.0
+          ]
+        ],
+        "within_printable_area": true,
+        "minimum_bed_edge_margin_mm": 39.565,
+        "required_bed_edge_margin_mm": 20.0,
+        "edge_inset_passed": true,
+        "probing_enabled": false,
+        "executable_G39_probe_count": 0,
+        "timelapse_camera_blocks": 176,
+        "timelapse_requires_send_checkbox_on": true,
+        "first_layer_max_emitted_speed_mm_s_by_feature": {
+          "Brim": 20.0,
+          "Outer wall": 20.0,
+          "Inner wall": 20.0,
+          "Gap infill": 20.0,
+          "Bottom surface": 30.0
+        },
+        "first_layer_height_mm": 0.2,
+        "first_layer_model_segments": 28879,
+        "first_layer_support_segments": 0,
+        "extrusion_feature_segment_counts": {
+          "Brim": 3144,
+          "Outer wall": 204649,
+          "Inner wall": 960195,
+          "Gap infill": 3724,
+          "Bottom surface": 3054,
+          "Internal solid infill": 205561,
+          "Sparse infill": 3405321,
+          "Floating vertical shell": 8691,
+          "Bridge": 23661,
+          "Top surface": 2267
+        },
+        "support_topology_summary": {
+          "support_bodies": 0,
+          "interface_islands": 0,
+          "bed_rooted_bodies": 0,
+          "model_rooted_bodies": 0,
+          "shortest_build_up_mm": null,
+          "bodies_without_interface_labels": 0,
+          "explicit_interface_islands": 0,
+          "shortest_labelled_build_up_mm": null
+        },
+        "support_topology_record_sha256": "6df5ef0f86e6ce9a08f1c4553d9403a8a6374ac28959584feb007f3080f5a333",
+        "support_removal_scope": "Every emitted support body is retained in the topology record, including bodies lacking interface labels. Open side bolt pockets provide access to cut and detach any cavity support; the core has an open tapered rod access hole. A collision-free withdrawal of complete connected support bodies, adhesion, clean release and finished casting are not established by this reading."
+      }
+    ],
+    "all_settings_changes": {
+      "filament_prime_volume": {
+        "input": [
+          "30"
+        ],
+        "sliced": [
+          "45"
+        ]
+      }
+    },
+    "nontrivial_setting_changes": {
+      "filament_prime_volume": {
+        "input": [
+          "30"
+        ],
+        "sliced": [
+          "45"
+        ]
+      }
+    },
+    "selected_recipe_retained": true,
+    "sparse_process": "six walls, 15% gyroid, six top/bottom layers",
+    "figures": [
+      {
+        "file": "cavity-native-supports.png",
+        "sha256": "55158a8ed011cda785f0f50b2c4c64f20942404d70344cbdac92d07dfb39eae5",
+        "scope": "First layer complete; all-layer support/interface drawing is subsampled. Topology record reads every emitted path."
+      },
+      {
+        "file": "core-native-supports.png",
+        "sha256": "01dc928fdce1995d3c77abf66c0dc8b6f064a0f92dcea49edf866584a126fafd",
+        "scope": "First layer complete; all-layer support/interface drawing is subsampled. Topology record reads every emitted path."
+      }
+    ]
+  },
+  "physical_recipe_binding": {
+    "reference_log": "hardware/printed-parts/zone-c/funnel-mold/print-log.md",
+    "sparse_support_result": "September 16 reports successful 15% infill with Snug supports.",
+    "flow_result": "September 18/20 support the left 0.4 mm Standard nozzle at 0.88 flow and 5.61702 mm3/s.",
+    "current_nozzle": "Mark1 right 0.4 mm Standard induction hotend; new nozzle and replacement heating assembly reported by Derek.",
+    "first_layer_recipe": "20 mm/s walls and 30 mm/s solid infill; 8 mm outer brim; full deposited footprint centred on the right-nozzle usable bed.",
+    "physical_scope": "The sparse recipe has a reported successful predecessor. This geometry, new nozzle, replacement assembly and prepared first-layer settings have no completed retry result."
+  },
+  "native_support_tool_sha256": "3dd14a091d92aabde9b20d65bbe84acb15262e2bdb3f615722b2623cabd396f1",
+  "support_topology_method": {
+    "grid_mm": 0.4,
+    "support_layer_link_mm": 0.85,
+    "interface_layer_link_mm": 1.25,
+    "scope": "Quantized connectivity of emitted extrusion centrelines. It identifies support groups and labelled interface regions; it does not reconstruct solid support volumes or prove their complete withdrawal."
+  },
+  "printer_name": "Mark1",
+  "printer_model": "Bambu Lab H2C",
+  "active_nozzle_side": "right",
+  "native_project": "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-v1/funnel-mold-mark1-retry.3mf",
+  "native_project_sha256": "76cfd1ae322feaab87c0a59eb13629437f229594ca5eb90aed11f3a453367807"
+}

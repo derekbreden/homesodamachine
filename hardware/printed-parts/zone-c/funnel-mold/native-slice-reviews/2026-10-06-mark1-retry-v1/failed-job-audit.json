@@ -1,0 +1,185 @@
+{
+  "recorded_at_utc": "2026-10-06T16:48:12.804274+00:00",
+  "job": {
+    "job_id": "1313390974",
+    "archive_name": "2026-10-06-funnel-cavity-h2c-right-z018-v3.gcode.3mf",
+    "archive_sha256": "55c3ef171995591b0d4cf21d20aa07cf85f093baed4cf85ffd89b2ac0845937b",
+    "gcode_sha256": "dc513865c301efe20b9fc87714ac2c52057225e06ab2b4de5bbfdad9eefdb358",
+    "accepted_at_utc": "2026-10-06T07:26:55.559743+00:00",
+    "accepted_at_central": "2026-10-06T02:26:55.559743-05:00",
+    "editable_project_sha256": "60cd9a0e48a51edcec2fc5f2310e64e5232d6c0a903b6fb0606312f3d2f1fb57",
+    "cavity_stl_sha256": "06440677138d0246a52959824507adbeb106c288d319dd35647430c744696048",
+    "launch_receipt": "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-h2c-right-gyroid15/launch.json"
+  },
+  "submitted_settings": {
+    "initial_layer_speed": [
+      "50",
+      "50",
+      "50",
+      "50",
+      "50"
+    ],
+    "initial_layer_infill_speed": [
+      "105",
+      "105",
+      "105",
+      "105",
+      "105"
+    ],
+    "initial_layer_acceleration": [
+      "500",
+      "500",
+      "500",
+      "500",
+      "500"
+    ],
+    "brim_type": "auto_brim",
+    "brim_width": "5",
+    "brim_object_gap": "0.1",
+    "enable_wrapping_detection": "0",
+    "timelapse_type": "0",
+    "wall_loops": "6",
+    "sparse_infill_density": "15%",
+    "sparse_infill_pattern": "gyroid",
+    "top_shell_layers": "6",
+    "bottom_shell_layers": "6",
+    "initial_layer_print_height": "0.2",
+    "layer_height": "0.24",
+    "curr_bed_type": "Textured PEI Plate",
+    "filament_flow_ratio": [
+      "0.88",
+      "0.97",
+      "0.97"
+    ],
+    "filament_max_volumetric_speed": [
+      "5.61702",
+      "6",
+      "6"
+    ],
+    "nozzle_temperature_initial_layer": [
+      "250",
+      "250",
+      "250"
+    ],
+    "nozzle_temperature": [
+      "245",
+      "245",
+      "245"
+    ],
+    "textured_plate_temp_initial_layer": [
+      "70"
+    ],
+    "textured_plate_temp": [
+      "70"
+    ],
+    "support_type": "normal(auto)",
+    "support_style": "snug",
+    "support_top_z_distance": "0.2",
+    "support_bottom_z_distance": "0.2",
+    "support_object_xy_distance": "0.48",
+    "filament_map": [
+      "2"
+    ],
+    "filament_volume_map": [
+      "0"
+    ],
+    "nozzle_diameter": [
+      "0.4",
+      "0.4"
+    ],
+    "nozzle_volume_type": [
+      "Standard",
+      "Standard"
+    ]
+  },
+  "physical_configuration": {
+    "active_nozzle_side": "right",
+    "diameter_mm": 0.4,
+    "flow_type": "Standard",
+    "induction_rack_slot": 3,
+    "filament": "Bambu PETG Translucent Clear",
+    "feed": "AMS HT-A unit 128, tray 0",
+    "bed": "Textured PEI Plate",
+    "requested_z_trim_mm": 0.18,
+    "emitted_z_trim_mm": 0.16
+  },
+  "original_send_options": {
+    "timelapse": "Off",
+    "bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "recording": {
+    "original_preflight_ipcam": {
+      "ipcam_record": "disable",
+      "timelapse": "disable"
+    },
+    "native_timelapse_mode": "Traditional",
+    "timelapse_camera_blocks_in_submitted_gcode": 404,
+    "runtime_flag": "timelapse_record_flag",
+    "missing_timelapse_explanation": "The launch receipt explicitly records Timelapse Off. The native layer camera code is conditional on the runtime timelapse flag.",
+    "chamber_auto_record": "disabled in the saved preflight",
+    "storage_read_at_utc": "2026-10-06T16:27:12.674756+00:00",
+    "timelapse_clip_count": 128,
+    "latest_timelapse_clip": {
+      "name": "video_2026-10-05_18-03-48.mp4",
+      "modified_utc": "2026-10-06T06:42:48+00:00"
+    },
+    "latest_clip_predates_accepted_start": true,
+    "ipcam_clip_count": 0,
+    "operation": "Read-only FTPS directory listing; no files removed"
+  },
+  "probing": {
+    "saved_enable_wrapping_detection": "0",
+    "executable_bare_G39_probe_count": 0,
+    "retained_startup": "Stock G39.1 startup calibration; no periodic G39 probing checks"
+  },
+  "current_camera_detection": {
+    "observed_date": "2026-10-06",
+    "method": "Bambu Studio Device > Mark1 > Print Options, read-only",
+    "spaghetti_detection": {
+      "enabled": true,
+      "sensitivity": "Low"
+    },
+    "purge_chute_pile_up_detection": {
+      "enabled": true,
+      "sensitivity": "Medium"
+    },
+    "camera_nozzle_clumping_detection": {
+      "enabled": false,
+      "stored_sensitivity": "Low"
+    },
+    "air_printing_detection": {
+      "enabled": true,
+      "sensitivity": "Medium"
+    },
+    "build_plate_type_and_alignment_detection": {
+      "enabled": true
+    },
+    "settings_changed_by_this_preparation": false,
+    "historical_scope": "These are current per-detector settings. They do not establish which detector could have caught the failed job or its exact state at the moment of failure."
+  },
+  "original_complete_deposited_footprint": {
+    "bounds_xy_mm": [
+      [
+        42.0,
+        76.159
+      ],
+      [
+        257.0,
+        243.842
+      ]
+    ],
+    "minimum_usable_bed_edge_margin_mm": 17.0
+  },
+  "physical_result": "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-h2c-right-gyroid15/physical-result.json",
+  "limits": [
+    "No failed-job video was found in the printer folders.",
+    "The exact failure layer/time and initiating cause are not independently recorded.",
+    "Timelapse provides a record; it does not detect or stop a failed print."
+  ],
+  "sources": [
+    "https://csm.bblcdn.com/hub/eff78da43720461787dc8bbe5fa0372d.pdf",
+    "https://us.store.bambulab.com/products/petg-translucent?id=42479468281992"
+  ]
+}

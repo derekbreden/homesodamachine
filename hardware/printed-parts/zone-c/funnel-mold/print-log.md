@@ -1,11 +1,19 @@
 # Funnel mold print log
 
-## Six-wall, 15% gyroid cavity on H2C — 2026-10-06
+## Six-wall cavity failure and Mark1 retry preparation — 2026-10-06
 
 H2C accepted the flat-base cavity at **02:26:55 CDT**, task **1313390974**,
-through Bambu Connect. The right **0.4 mm Standard** induction hotend in rack
-slot **3** uses **AMS HT-A PETG Translucent Clear**. The machine reports
-RUNNING, 404 total layers and no print error or HMS alert.
+through Bambu Connect. The job used the right **0.4 mm Standard** induction
+hotend in rack slot **3** and **AMS HT-A PETG Translucent Clear**. Its startup
+receipt records RUNNING at layer 0/404 without an error or HMS alert.
+
+Derek reports that the complete print was swept onto the extruder and
+continued accumulating filament around it, with loss of the induction heating
+assembly. He reports the spare assembly and a new 0.4 mm nozzle are installed,
+and the filament is drying. The printer's current name is **Mark1**. The
+[physical result](native-slice-reviews/2026-10-06-h2c-right-gyroid15/physical-result.json)
+records this failure and the replacement order confirmation. The exact
+failure layer/time and initiating cause are not established.
 
 The process uses **six walls, 15% gyroid, six top/bottom layers**, 0.88 flow,
 5.61702 mm³/s, a 0.20 mm first layer and 0.24 mm normal layers. Nozzle
@@ -21,8 +29,19 @@ The [right-nozzle native review](native-slice-reviews/2026-10-06-h2c-right-gyroi
 checks the current meshes, deposited-path bed limits, supports, nozzle and
 trim. The cavity estimate is **355.61 g / 17 h 03 min**. The
 [launch receipt](native-slice-reviews/2026-10-06-h2c-right-gyroid15/launch.json)
-records the exact archive/G-code hashes and printer observations. Physical
-print, finishing and casting results are pending.
+records the exact archive/G-code hashes and startup observations. The
+[settings audit](native-slice-reviews/2026-10-06-mark1-retry-v1/failed-job-audit.json)
+confirms Timelapse Off, chamber auto-record disabled in the preflight, and no
+failed-job video found in a read-only directory inspection.
+
+The [prepared retry](native-slice-reviews/2026-10-06-mark1-retry-v1/README.md)
+contains the same geometry and right-nozzle recipe, 20/30 mm/s first-layer
+walls/infill, an 8 mm outer brim and 45 mm minimum deposited-footprint bed
+clearance. Its native cavity estimate is **356.56 g / 17 h 24 min**. Probing
+clump detection remains Off and camera detection preferences are untouched.
+The launch plan requires Timelapse On and explicit leveling/flow/nozzle offset
+calibration for the replacement assembly. No retry Send has been performed;
+the prepared process has no physical result.
 
 ## 0.88-flow print result and 600 mL mold readiness — 2026-09-20
 

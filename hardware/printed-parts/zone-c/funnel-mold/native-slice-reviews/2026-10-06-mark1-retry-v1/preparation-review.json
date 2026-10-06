@@ -1,0 +1,216 @@
+{
+  "checked_date": "2026-10-06",
+  "scope": "Preparation only. No print submission, device preference change or calibration is performed.",
+  "selected_recipe": {
+    "bottom_shell_layers": "6",
+    "brim_object_gap": "0.1",
+    "brim_type": "outer_only",
+    "brim_width": "8",
+    "curr_bed_type": "Textured PEI Plate",
+    "enable_wrapping_detection": "0",
+    "filament_flow_ratio": [
+      "0.88",
+      "0.97",
+      "0.97"
+    ],
+    "filament_max_volumetric_speed": [
+      "5.61702",
+      "6",
+      "6"
+    ],
+    "filament_settings_id": [
+      "Funnel mold PETG Translucent - 0.4 Standard - flow 0.88"
+    ],
+    "filament_volume_map": [
+      "0"
+    ],
+    "initial_layer_acceleration": [
+      "500",
+      "500",
+      "500",
+      "500",
+      "500"
+    ],
+    "initial_layer_infill_speed": [
+      "30",
+      "30",
+      "30",
+      "30",
+      "30"
+    ],
+    "initial_layer_print_height": "0.2",
+    "initial_layer_speed": [
+      "20",
+      "20",
+      "20",
+      "20",
+      "20"
+    ],
+    "layer_height": "0.24",
+    "nozzle_diameter": [
+      "0.4",
+      "0.4"
+    ],
+    "nozzle_volume_type": [
+      "Standard",
+      "Standard"
+    ],
+    "print_settings_id": "Funnel mold - six walls - 15% gyroid - PETG088",
+    "printer_settings_id": "Bambu Lab H2C 0.4 Standard +0.18 Z trim",
+    "sparse_infill_density": "15%",
+    "sparse_infill_pattern": "gyroid",
+    "support_bottom_z_distance": "0.2",
+    "support_object_xy_distance": "0.48",
+    "support_style": "snug",
+    "support_top_z_distance": "0.2",
+    "support_type": "normal(auto)",
+    "timelapse_type": "0",
+    "top_one_wall_type": "not apply",
+    "top_shell_layers": "6",
+    "wall_loops": "6"
+  },
+  "preparation": {
+    "source": "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-h2c-right-gyroid15/funnel-mold-h2c-right.3mf",
+    "source_sha256": "60cd9a0e48a51edcec2fc5f2310e64e5232d6c0a903b6fb0606312f3d2f1fb57",
+    "prepared_project": "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-v1/funnel-mold-mark1-retry.3mf",
+    "prepared_project_sha256": "76cfd1ae322feaab87c0a59eb13629437f229594ca5eb90aed11f3a453367807",
+    "setting_changes": {
+      "brim_type": {
+        "source": "auto_brim",
+        "prepared": "outer_only"
+      },
+      "brim_width": {
+        "source": "5",
+        "prepared": "8"
+      },
+      "initial_layer_infill_speed": {
+        "source": [
+          "105",
+          "105",
+          "105",
+          "105",
+          "105"
+        ],
+        "prepared": [
+          "30",
+          "30",
+          "30",
+          "30",
+          "30"
+        ]
+      },
+      "initial_layer_speed": {
+        "source": [
+          "50",
+          "50",
+          "50",
+          "50",
+          "50"
+        ],
+        "prepared": [
+          "20",
+          "20",
+          "20",
+          "20",
+          "20"
+        ]
+      }
+    },
+    "placements": [
+      {
+        "object_id": "2",
+        "source_transform": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          149.5,
+          160.0,
+          29.5750007629
+        ],
+        "prepared_transform": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          177.5,
+          160.0,
+          29.5750007629
+        ],
+        "local_plate_center_xy_mm": [
+          177.5,
+          160.0
+        ]
+      },
+      {
+        "object_id": "4",
+        "source_transform": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          0.0,
+          0.0,
+          -1.0,
+          545.5,
+          160.0,
+          21.1740865707
+        ],
+        "prepared_transform": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          0.0,
+          0.0,
+          -1.0,
+          573.5,
+          160.0,
+          21.1740865707
+        ],
+        "local_plate_center_xy_mm": [
+          177.5,
+          160.0
+        ]
+      }
+    ],
+    "changed_container_entries": [
+      "3D/3dmodel.model",
+      "Metadata/project_settings.config"
+    ],
+    "embedded_geometry_byte_identical": true,
+    "embedded_geometry_sha256": {
+      "3D/Objects/object_2.model": "115d35c62b7ead68c1644068edb97edaf61acc19b6720040592714e7f467f89b",
+      "3D/Objects/object_1.model": "52e6c5356d249d62faca3814b690350c43591f02eabc1f2a4d54e080ebe4d08d"
+    },
+    "all_other_payloads_identical": true
+  },
+  "send_options_required": {
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_dynamic_calibration": "On",
+    "nozzle_offset_calibration": "On",
+    "reason_for_calibration": "Replacement induction heating assembly and new right 0.4 mm nozzle reported by Derek."
+  },
+  "detection": {
+    "probing_enabled": false,
+    "camera_settings_changed": false,
+    "user_direction": "No, we've had problems with that too - do not enable that.",
+    "timelapse_send_checkbox_required": true
+  },
+  "reference_geometry_and_bead_review": "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-h2c-right-gyroid15/readiness-review.json"
+}

@@ -1,0 +1,99 @@
+{
+  "created_at_utc": "2026-10-06T16:48:12.804274+00:00",
+  "scope": "Prepared cavity retry only; no printer start or resume authorized.",
+  "start_authorized": false,
+  "send_attempted": false,
+  "accepted_job_id": null,
+  "printer": {
+    "display_name": "Mark1",
+    "configured_read_alias": "H2C",
+    "model": "Bambu Lab H2C",
+    "active_nozzle_side": "right",
+    "diameter_mm": 0.4,
+    "flow_type": "Standard"
+  },
+  "part": "funnel mold cavity",
+  "plate": 1,
+  "editable_project": {
+    "path": "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-v1/funnel-mold-mark1-retry.3mf",
+    "sha256": "76cfd1ae322feaab87c0a59eb13629437f229594ca5eb90aed11f3a453367807",
+    "contains_core_plate": true
+  },
+  "allowed_cavity_archive": {
+    "path": ".cache/funnel-retry-mark1-20261006/ready/2026-10-06-funnel-cavity-mark1-right-retry-v1.gcode.3mf",
+    "name": "2026-10-06-funnel-cavity-mark1-right-retry-v1.gcode.3mf",
+    "sha256": "f2d88a8a3fabf199defa37185d39fffe129936571aa72afbff637d85a0b8e02a",
+    "gcode_sha256": "e3b9ec793eef7b910244726f00a83d20bddd68b1401cd518dd6294724497e631",
+    "layers": 404
+  },
+  "review_records": {
+    "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-v1/preparation-review.json": "9aa443a86f0bcc07e03d452cf0f6c7864717cf90091ed119793a38b75668dc72",
+    "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-v1/readiness-review.json": "2b232347ca26d2f98071a1bd19f5cc001ccaafc7277148e5857d3091f0e675f7",
+    "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-v1/physical-recipe-binding.json": "bbd30cac5f24dd1d4481a9107734066a0b68f0877e9eaaaeae2719c5c0728f81",
+    "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-v1/packaging.json": "18ceb286b672310ac284fb76d8b2eb479ceed1794c89aeeb5218199db66a8e21",
+    "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-v1/failed-job-audit.json": "9b75688ed16fec15e1217208c3352a731649b69bc5d5f9be1b0e6746d4aedead"
+  },
+  "estimate": {
+    "seconds": 62653.96875,
+    "filament_g": 356.5584411621094
+  },
+  "material": {
+    "physical_spool": "Bambu PETG Translucent Clear",
+    "ams_name": "HT-A",
+    "unit": 128,
+    "tray": 0,
+    "material_id": "GFG01",
+    "right_nozzle": true,
+    "external_spool_allowed": false
+  },
+  "send_options_required": {
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_dynamic_calibration": "On",
+    "nozzle_offset_calibration": "On",
+    "reason_for_calibration": "Replacement induction heating assembly and new right 0.4 mm nozzle reported by Derek."
+  },
+  "detection": {
+    "nozzle_clumping_detection_by_probing": "Off",
+    "camera_ai_settings": "Retain current user settings",
+    "device_preferences_changed": false,
+    "periodic_G39_checks": 0
+  },
+  "calibration": {
+    "performed_by_this_preparation": false,
+    "reason": "Replacement induction heating assembly and new nozzle",
+    "required_at_authorized_launch": [
+      "bed leveling",
+      "flow dynamic calibration",
+      "nozzle offset calibration"
+    ]
+  },
+  "launch_requirements": [
+    "Obtain separate start authorization after filament drying is complete.",
+    "Freshly read Mark1 and Mark2 through tools/bambu_printer.py immediately before Send.",
+    "Require Mark1 idle, no unresolved fault, replacement assembly/new right 0.4 mm Standard nozzle, and matching AMS HT-A PETG Translucent Clear.",
+    "Verify the exact allowed archive and G-code hashes, the recorded geometry/source bindings, and the right-nozzle native review.",
+    "Wait at least 180 seconds after the peer printer's most recent accepted start or resume; import/Send timestamps do not satisfy this gate.",
+    "Use native Studio/Connect AMS mapping. tools/bambu_print.py is external-spool-only and is not appropriate for this archive's HT-A feed.",
+    "At the final native Send dialog verify Timelapse On, Bed Leveling On, Flow Dynamic Calibration On and Nozzle Offset Calibration On.",
+    "Durably record send_attempted true before one foreground Send. Never retry an attempted or ambiguous transaction.",
+    "Attribute acceptance only to a new matching task/job ID, exact archive name and PREPARE/RUNNING state; save acceptance timestamps and hashes.",
+    "After acceptance verify the runtime timelapse status is enabled; keep all scheduled monitors paused unless separately requested."
+  ],
+  "physical_setup": [
+    "Finish the active drying cycle. Bambu recommends PETG Translucent drying at 65 C for 8 hours and storage below 20% RH.",
+    "Use a clean Textured PEI plate and the manufacturer-recommended compatible adhesive.",
+    "Observe the first layer and complete brim before leaving the print unattended."
+  ],
+  "scope_limits": [
+    "No completed physical result for this retry.",
+    "The core is preserved in the editable project for review; no core start is authorized.",
+    "Timelapse is evidence capture and does not stop a failure."
+  ],
+  "preflight_record": "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-v1/preflight.json",
+  "authorization_quotes": [
+    "I'd like you to check the settings used for that last print, and prepare for our retry. I am drying the filament now, and a brand new 0.4 mm nozzle is on our brand new induction heating assembly on H2C.",
+    "No, we've had problems with that too - do not enable that.",
+    "Oh, I need to rename this guy Mark1 ... let me do that during this interim period"
+  ]
+}
