@@ -577,5 +577,7 @@
     "saved_executable_gcode_unchanged_except_g29_1": true,
     "first_layer_height_mm": 0.3,
     "nozzle_flow": "Standard"
-  }
+  },
+  "historical_source_commit": "67994c7efaed7589ff26db350b90eea089fbd3e8",
+  "scope": "September reference-geometry inspection. Project and preset-bundle filenames identify historical Git artifacts."
 }

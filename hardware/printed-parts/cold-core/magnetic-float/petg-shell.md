@@ -10,7 +10,7 @@ filament, using the researched 0.6 mm sealing process. Its 36 × 60.06 mm envelo
 0.55 g/cm³ Aero density.
 
 [petg-translucent-recipe.json](petg-translucent-recipe.json) records material
-GFG01, transparent color `#00000000`, the current reservoir project's identity,
+GFG01, transparent color `#00000000`, the historical June reservoir project's identity,
 the native Translucent preset and the material-specific limits. The print uses
 the successful May 30 clear reservoir recipe's sealing controls with Translucent's
 1.25 g/cm³ density and 16 mm³/s volumetric ceiling.
@@ -19,8 +19,7 @@ the successful May 30 clear reservoir recipe's sealing controls with Translucent
 
 The [reservoir print log, attempt 3](../reservoir/print-log.md)
 records hours of water retention with the gaskets installed. The exact printed
-project is [reservoir-water-hold-2026-05-30.3mf](../reservoir/reservoir-water-hold-2026-05-30.3mf),
-identified by [f25975cd045cc835eccf1a207cb12fe48dc63ada](https://github.com/derekbreden/homesodamachine/blob/f25975cd045cc835eccf1a207cb12fe48dc63ada/hardware/printed-parts/cold-core/reservoir/reservoir.3mf).
+project is retained in Git at [f25975cd045cc835eccf1a207cb12fe48dc63ada](https://github.com/derekbreden/homesodamachine/blob/f25975cd045cc835eccf1a207cb12fe48dc63ada/hardware/printed-parts/cold-core/reservoir/reservoir.3mf).
 Its saved preset is `Bambu PETG Water`, using **GFG00, PETG Basic** settings.
 The actual filament was **Bambu PETG clear**, confirmed by Derek on 2026-10-05.
 [petg-water-recipe.json](petg-water-recipe.json) extracts the active left-nozzle

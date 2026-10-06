@@ -1,0 +1,116 @@
+{
+  "project": "reservoir.3mf",
+  "recipe": "print-settings.json",
+  "accepted_result_id": "september-08-024",
+  "settings_sha256": "241d74ab94950c0f1ce07466ce6abeabe307ee2a596b7939776981950b8c4b08",
+  "physical_settings_match_accepted_recipe": true,
+  "identity_changes": {
+    "filament_settings_id": {
+      "from": [
+        "Reservoir PETG Translucent 255C(reservoir-08-seal-trial-024.3mf)"
+      ],
+      "to": [
+        "Reservoir Bambu PETG Clear 255C"
+      ]
+    },
+    "print_settings_id": {
+      "from": "Reservoir PETG 0.8 - 0.24mm seal trial(reservoir-08-seal-trial-024.3mf)",
+      "to": "Reservoir PETG 0.8 - 0.24mm"
+    }
+  },
+  "plate_count": 2,
+  "mesh_tolerance_mm": 0.025,
+  "mesh_angular_tolerance_rad": 0.08,
+  "parts": [
+    {
+      "name": "reservoir-left",
+      "plate": 1,
+      "source": "hardware/printed-parts/cold-core/reservoir/reservoir-left.step",
+      "step_sha256": "7d9f472c45d59da17742dd3daec0810a697185790511b9ccf3c7622eb26b24ac",
+      "triangles": 11782,
+      "watertight": true,
+      "body_count": 1,
+      "print_orientation": "mouth up",
+      "plate_bounds_mm": [
+        [
+          136.5190944671631,
+          89.75,
+          0.0
+        ],
+        [
+          213.4809055328369,
+          230.25,
+          177.54999351501465
+        ]
+      ]
+    },
+    {
+      "name": "reservoir-cap-left",
+      "plate": 1,
+      "source": "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step",
+      "step_sha256": "fad889ee9bc0ee0118c13c7ca64e2688c2ac0fd0a7d51a3a2b103f6ccde53667",
+      "triangles": 15002,
+      "watertight": true,
+      "body_count": 1,
+      "print_orientation": "exterior face down",
+      "plate_bounds_mm": [
+        [
+          31.519094467163086,
+          89.75,
+          0.0
+        ],
+        [
+          108.48090553283691,
+          230.25,
+          11.0
+        ]
+      ]
+    },
+    {
+      "name": "reservoir-right",
+      "plate": 2,
+      "source": "hardware/printed-parts/cold-core/reservoir/reservoir-right.step",
+      "step_sha256": "1bbf0e57b592503969b0884f0c4fc56b18e8bccf4f2880af9924298bb3925ea4",
+      "triangles": 11788,
+      "watertight": true,
+      "body_count": 1,
+      "print_orientation": "mouth up",
+      "plate_bounds_mm": [
+        [
+          136.5190944671631,
+          89.75,
+          0.0
+        ],
+        [
+          213.4809055328369,
+          230.25,
+          177.54999351501465
+        ]
+      ]
+    },
+    {
+      "name": "reservoir-cap-right",
+      "plate": 2,
+      "source": "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step",
+      "step_sha256": "2870ee10b68830ae5cab1cbbc09188296b16a0243aabaa7c638fc0f356a6e94c",
+      "triangles": 15002,
+      "watertight": true,
+      "body_count": 1,
+      "print_orientation": "exterior face down",
+      "plate_bounds_mm": [
+        [
+          31.519094467163086,
+          89.75,
+          0.0
+        ],
+        [
+          108.48090553283691,
+          230.25,
+          11.0
+        ]
+      ]
+    }
+  ],
+  "scope": "Current CAD and saved settings; the physical water hold belongs to the September article.",
+  "project_sha256": "78325359202a4562bea0fbbf838a0d23826316ccbbc7a7a64fdfb35691b36261"
+}

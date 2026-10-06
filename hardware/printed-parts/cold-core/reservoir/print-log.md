@@ -2,11 +2,37 @@
 
 Format: facts only. Direct quotes from Derek where applicable. Settings observed in committed `.3mf` snapshots. No interpretation, no hypothesis.
 
-The accepted reservoir recipes and process guidance live in [`watertight-petg.md`](/hardware/printed-parts/cold-core/reservoir/watertight-petg.md); this file is the per-attempt record. [Water-hold acceptance](water-hold-acceptance.json) identifies the tested articles and reported results.
+The current next-print recipe is in [watertight-petg.md](watertight-petg.md) and
+[reservoir.3mf](reservoir.3mf). This file records historical settings and observations. [Water-hold acceptance](water-hold-acceptance.json) identifies the tested articles and reported results.
 
 Geometry: the left flavor reservoir — `reservoir-left.step` (body) + `reservoir-cap-left.step` (cap). Plate composition and settings are recorded per attempt below.
 
-## PETG print attempt 3 (2026-05-30, settings per [`reservoir-water-hold-2026-05-30.3mf`](reservoir-water-hold-2026-05-30.3mf))
+## PETG print attempt 1 (2026-05-22, settings per history-only `git:8c9128a94:hardware/printed-parts/cold-core/reservoir/reservoir-left-body-and-cap.3mf`)
+
+SunTop PETG, left body and cap, 0.8 mm High Flow nozzle. The active Generic
+PETG slot carried `nozzle_temperature` **240 °C** (initial 240),
+`layer_height` **0.40 mm** (initial 0.40), flow 1.00 and a 22 mm³/s
+volumetric limit. The process requested 100 walls and 15% grid infill.
+Normal cooling was 40–90%.
+
+### Result — leaked
+
+The May 25 attempt-2 record reports that attempt 1 leaked. Its original
+settings and observations are retained in Git at the source above.
+
+## PETG print attempt 2 (2026-05-25, settings per history-only `git:f0b560736:hardware/printed-parts/cold-core/reservoir/reservoir-left-body-and-cap.3mf`)
+
+SunTop PETG, left body and cap, 0.6 mm nozzle. The active slot carried
+`nozzle_temperature` **255 °C** (initial 255), `layer_height` **0.30 mm**
+(initial 0.30), flow 1.00 and a 12 mm³/s volumetric limit. The process
+requested 100 walls, 0.62 mm lines and 15% grid infill. Normal cooling was
+40–90%.
+
+### Result — not recorded
+
+The record documents the print start and saved settings, without a water-hold outcome.
+
+## PETG print attempt 3 (2026-05-30, settings per history-only `git:f25975cd045cc835eccf1a207cb12fe48dc63ada:hardware/printed-parts/cold-core/reservoir/reservoir.3mf`)
 
 First print of the watertight recipe (developed on the water-test-cup coupon, which held water; the cup, its print log and its `.3mf` stand at the `archive-water-test-cup` tag) carried onto the actual reservoir body. First reservoir print to carry supports for the slanted floor.
 
@@ -50,9 +76,21 @@ Derek said:
 - "It did work. None of the floor pulled off."
 - "It did allow me to test with that foam shell print. It's holding water for a few hours now. First successfully done so, and done so with gaskets and all."
 
-First watertight reservoir. The slanted-floor supports (normal(auto), 0.25 mm top z-gap, interface top layers 2) released cleanly — no tear-out of the floor underside. Assembled into the printed foam shell with the bulkhead + TPU gaskets and held water for several hours with no weep. Leak-tightness gate (per [`watertight-petg.md`](/hardware/printed-parts/cold-core/reservoir/watertight-petg.md)) passed at fill-and-hold; this is the first reservoir to pass.
+First watertight reservoir. The slanted-floor supports (normal(auto), 0.25 mm top z-gap, interface top layers 2) released cleanly — no tear-out of the floor underside. Assembled into the printed foam shell with the bulkhead + TPU gaskets and held water for several hours with no weep. The reported fill-and-hold result passed; this was the first reservoir reported to hold water.
 
-## PETG print attempt 4 (2026-06-10, settings per [`reservoir.3mf`](reservoir.3mf))
+## Saved project dated 2026-05-31 (settings per history-only `git:7ba87d399:hardware/printed-parts/cold-core/reservoir/reservoir.3mf`)
+
+PETG Translucent preset, 0.6 mm nozzle, `layer_height` **0.18 mm**
+(initial 0.30), `nozzle_temperature` **245 °C** (initial 250), flow 0.97
+and a 16 mm³/s volumetric limit. Normal cooling was 20–60%. The saved project
+used tree supports with a 0.18 mm top gap.
+
+### Result — not recorded
+
+This saved recipe differs from the May 30 water-holding recipe. No physical
+water-hold outcome is recorded for this saved project.
+
+## PETG print attempt 4 (2026-06-10, settings per history-only `git:7436a1c92:hardware/printed-parts/cold-core/reservoir/reservoir.3mf`)
 
 Full plate carrying both flavor reservoirs and both caps — four objects, four cut records. Bodies `reservoir-left.step` + `reservoir-right.step` placed mouth-up; caps `reservoir-cap-left.step` + `reservoir-cap-right.step` laid flat. Plate bbox ≈ 262 × 231 mm; `first_layer_time` ≈ 1107 s; `slice_info.config` header-only (no per-plate estimate written). Sliced with BambuStudio 02.07.01.57.
 
@@ -82,7 +120,7 @@ Watertight recipe (carried from attempt 3):
 
 ### Result — not yet recorded (slice committed 2026-06-10)
 
-## PETG print attempt 5 (2026-06-14, settings per [`reservoir.3mf`](reservoir.3mf))
+## PETG print attempt 5 (2026-06-14, settings per history-only `git:8ace13398:hardware/printed-parts/cold-core/reservoir/reservoir.3mf`)
 
 Full plate carrying both flavor reservoirs and both caps — four objects (`reservoir-left.step`, `reservoir-right.step`, `reservoir-cap-left.step`, `reservoir-cap-right.step`). Plate bbox ≈ 262 × 231 mm; `first_layer_time` ≈ 1097 s; `slice_info.config` header-only (no per-plate estimate written). Sliced with BambuStudio 02.07.01.57.
 
@@ -114,13 +152,13 @@ Watertight recipe (carried from attempt 4):
 
 ### Result — not yet recorded (slice committed 2026-06-14)
 
-## PETG seal trial prepared (2026-09-04, settings per [`reservoir-08-seal-trial.3mf`](reservoir-08-seal-trial.3mf))
+## PETG seal trial prepared (2026-09-04, settings per history-only `git:67994c7efaed7589ff26db350b90eea089fbd3e8:hardware/printed-parts/cold-core/reservoir/reservoir-08-seal-trial.3mf`)
 
-One current left reservoir body, mouth up, and matching left cap, exterior face down
+One September reference left reservoir body, mouth up, and matching left cap, exterior face down
 and gasket rim up. H2C, 0.8 mm nozzle, PETG Translucent.
 Bambu Studio 02.08.02.61. Estimated 26 h 12 min, 417.16 g, 984 layers.
 
-- Printer: 0.8 mm Standard, +0.04 mm over stock Z trim; +0.18 preset available in the [bundle](reservoir-08-z-trim-presets.bbscfg).
+- Printer: 0.8 mm Standard, +0.04 mm over stock Z trim; the archived trial bundle also contained a +0.18 mm preset.
 - `nozzle_temperature` **255 °C** (initial 255)
 - `layer_height` **0.18 mm** (initial 0.30)
 - Arachne, six requested wall loops, 0.80 mm wall width.
@@ -129,7 +167,7 @@ Bambu Studio 02.08.02.61. Estimated 26 h 12 min, 417.16 g, 984 layers.
 - Aligned scarf seams, inner walls included, conditional scarf disabled, seam gap 0%.
 - Top and bottom shells: 12 layers / 2 mm; 100% infill; top-surface ironing.
 
-[Settings and toolpath inspection](seal-trial.md).
+[Settings and toolpath inspection](history/seal-trial.md).
 
 ### Result — held water (reported 2026-10-05)
 
@@ -143,16 +181,16 @@ The [acceptance record](water-hold-acceptance.json) identifies the archive and
 G-code hashes. The reported water hold has no specified duration, temperature
 or fill height.
 
-## PETG 0.24 mm seal trial prepared (2026-09-04, settings per [`reservoir-08-seal-trial-024.3mf`](reservoir-08-seal-trial-024.3mf))
+## PETG 0.24 mm seal trial prepared (2026-09-04, settings per history-only `git:67994c7efaed7589ff26db350b90eea089fbd3e8:hardware/printed-parts/cold-core/reservoir/reservoir-08-seal-trial-024.3mf`)
 
-One current left reservoir body and matching left cap. Body mouth up; cap exterior
+One September reference left reservoir body and matching left cap. Body mouth up; cap exterior
 face down and gasket rim up. H2C, 0.8 mm nozzle, PETG Translucent.
 Bambu Studio 02.08.02.61. Estimated 20 h 8 min, 414.76 g, 738 layers.
 
-- Printer: 0.8 mm Standard, +0.04 mm over stock Z trim; +0.18 preset available in the [bundle](reservoir-08-z-trim-presets.bbscfg).
+- Printer: 0.8 mm Standard, +0.04 mm over stock Z trim; the archived trial bundle also contained a +0.18 mm preset.
 - `nozzle_temperature` **255 °C** (initial 255)
 - `layer_height` **0.24 mm** (initial 0.30)
-- All other machine, filament and process settings match `reservoir-08-seal-trial.3mf`.
+- Other physical machine, filament and process settings match the September 0.18 mm recipe. The saved 0.18 mm project received a later mesh/placement refresh; it is not geometrically identical to this 0.24 mm project.
 - Inspection basis: both object meshes and their placement match the September 4 0.18 mm reference slice.
 
 ### Result — held water (reported 2026-10-05)

@@ -20,7 +20,9 @@
       "filament_density": [
         "1.25"
       ]
-    }
+    },
+    "source_commit": "f8a227a0cc2c6474809e46623c5f48070b51065f",
+    "scope": "Historical June reservoir project used to identify the filament for this separate bench float."
   },
   "sources": {
     "product": "https://bambulab-us.myshopify.com/products/petg-translucent",
@@ -39,7 +41,7 @@
   },
   "sealing_process_source": {
     "path": "petg-water-recipe.json",
-    "sha256": "6a0951d262f8abaf71df299ebbac262ebf03954ea5815c03348d6f90a0c441ce",
+    "sha256": "65a3db890723aeb119093c99d376bdf74507a4b55b13c989521100aca2085d32",
     "material": "Bambu PETG clear, confirmed by Derek 2026-10-05; saved preset uses GFG00",
     "evidence_scope": "May 30 reservoir held water for hours with gaskets installed. Both September 0.8 mm reservoir recipes also held water; no float pressure result is established."
   },
