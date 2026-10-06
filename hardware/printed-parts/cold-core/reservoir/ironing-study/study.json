@@ -1,0 +1,703 @@
+{
+  "project": "ironing-study.3mf",
+  "source": "hardware/printed-parts/cold-core/reservoir/reservoir-left.step",
+  "source_sha256": "7d9f472c45d59da17742dd3daec0810a697185790511b9ccf3c7622eb26b24ac",
+  "recipe": "../print-settings.json",
+  "recipe_settings_sha256": "241d74ab94950c0f1ce07466ce6abeabe307ee2a596b7939776981950b8c4b08",
+  "project_overrides": {
+    "ironing_type": {
+      "from": "top",
+      "to": "no ironing"
+    },
+    "print_settings_id": {
+      "from": "Reservoir PETG 0.8 - 0.24mm",
+      "to": "Reservoir ironing comparison - 0.24mm"
+    }
+  },
+  "plate_count": 1,
+  "layer_height_mm": 0.24,
+  "first_layer_mm": 0.3,
+  "layer_phase_removed_from_gasket_mm": 167.51999999999998,
+  "crops_in_source_frame_mm": {
+    "G": [
+      [
+        -131,
+        -16,
+        192.11999999999998
+      ],
+      [
+        -116,
+        16,
+        203.15
+      ]
+    ],
+    "B": [
+      [
+        -120,
+        -19,
+        24.599999999999994
+      ],
+      [
+        -90,
+        19,
+        36.599999999999994
+      ]
+    ]
+  },
+  "source_origins_mm": {
+    "G": [
+      -123.75,
+      0,
+      192.11999999999998
+    ],
+    "B": [
+      -105,
+      0,
+      24.599999999999994
+    ]
+  },
+  "retained_sealing_face_area_mm2": {
+    "G": 150.79106527534532,
+    "B": 267.70296399402014
+  },
+  "bulkhead_seat": {
+    "outer_diameter_mm": 24.3,
+    "inner_diameter_mm": 15.8,
+    "print_z_mm": 4.65
+  },
+  "floor_slope_degrees": 6.428747748829855,
+  "scope": "Cropped surface-finish comparison; physical results pending. Cropping changes layer time and thermal history.",
+  "parts": [
+    {
+      "label": "G1C",
+      "feature": "G",
+      "condition": "1",
+      "condition_title": "September",
+      "ironed": false,
+      "flow_percent": 10,
+      "speed_mm_s": 30,
+      "spacing_mm": 0.15,
+      "center": [
+        35,
+        46,
+        0
+      ],
+      "object_id": 10001,
+      "identify_id": 5001,
+      "bounds_mm": [
+        [
+          23.0,
+          20.5,
+          0.0
+        ],
+        [
+          47.0,
+          62.0,
+          10.029999732971191
+        ]
+      ],
+      "cad_volume_mm3": 1837.915676359724,
+      "mesh_volume_mm3": 1837.8390117501722,
+      "triangles": 4434,
+      "mesh_sha256": "5b414c8ebbebd84d5497e2c19ee642682909ab6f9cddbff6d4f9a842b5ec258e",
+      "closed_mesh": true,
+      "connected_solids": 1
+    },
+    {
+      "label": "G1I",
+      "feature": "G",
+      "condition": "1",
+      "condition_title": "September",
+      "ironed": true,
+      "flow_percent": 10,
+      "speed_mm_s": 30,
+      "spacing_mm": 0.15,
+      "center": [
+        76,
+        46,
+        0
+      ],
+      "object_id": 10002,
+      "identify_id": 5002,
+      "bounds_mm": [
+        [
+          64.0,
+          20.5,
+          0.0
+        ],
+        [
+          88.0,
+          62.0,
+          10.029999732971191
+        ]
+      ],
+      "cad_volume_mm3": 1835.7874347841694,
+      "mesh_volume_mm3": 1835.7113287783143,
+      "triangles": 2798,
+      "mesh_sha256": "115299b9e5a428370b9f9a270ff09b972607ead0435d629f76f07d582bf76b9a",
+      "closed_mesh": true,
+      "connected_solids": 1
+    },
+    {
+      "label": "B1C",
+      "feature": "B",
+      "condition": "1",
+      "condition_title": "September",
+      "ironed": false,
+      "flow_percent": 10,
+      "speed_mm_s": 30,
+      "spacing_mm": 0.15,
+      "center": [
+        180,
+        46,
+        0
+      ],
+      "object_id": 10003,
+      "identify_id": 5003,
+      "bounds_mm": [
+        [
+          165.0,
+          17.5,
+          0.0
+        ],
+        [
+          195.0,
+          65.0,
+          6.363380432128906
+        ]
+      ],
+      "cad_volume_mm3": 5447.11787785793,
+      "mesh_volume_mm3": 5447.523799600039,
+      "triangles": 6770,
+      "mesh_sha256": "3f0da9af0b4727ca16c5cfaf466b6ce3daa86ca47d7161bd432163f59a134b37",
+      "closed_mesh": true,
+      "connected_solids": 1
+    },
+    {
+      "label": "B1I",
+      "feature": "B",
+      "condition": "1",
+      "condition_title": "September",
+      "ironed": true,
+      "flow_percent": 10,
+      "speed_mm_s": 30,
+      "spacing_mm": 0.15,
+      "center": [
+        225,
+        46,
+        0
+      ],
+      "object_id": 10004,
+      "identify_id": 5004,
+      "bounds_mm": [
+        [
+          210.0,
+          17.5,
+          0.0
+        ],
+        [
+          240.0,
+          65.0,
+          6.363380432128906
+        ]
+      ],
+      "cad_volume_mm3": 5444.989636290318,
+      "mesh_volume_mm3": 5445.39624342006,
+      "triangles": 5120,
+      "mesh_sha256": "0979b6a8838fdd37a7c16043e3390f4dbd0262b6ce16841283373a394e48609e",
+      "closed_mesh": true,
+      "connected_solids": 1
+    },
+    {
+      "label": "G2C",
+      "feature": "G",
+      "condition": "2",
+      "condition_title": "Half flow",
+      "ironed": false,
+      "flow_percent": 5,
+      "speed_mm_s": 30,
+      "spacing_mm": 0.15,
+      "center": [
+        35,
+        104,
+        0
+      ],
+      "object_id": 10005,
+      "identify_id": 5005,
+      "bounds_mm": [
+        [
+          23.0,
+          78.5,
+          0.0
+        ],
+        [
+          47.0,
+          120.0,
+          10.029999732971191
+        ]
+      ],
+      "cad_volume_mm3": 1839.267290289827,
+      "mesh_volume_mm3": 1839.1881617811216,
+      "triangles": 5866,
+      "mesh_sha256": "d902a3cf83b14cff1122dd382fe1f6c8d117a874989770ef5ad12e928b3bf41b",
+      "closed_mesh": true,
+      "connected_solids": 1
+    },
+    {
+      "label": "G2I",
+      "feature": "G",
+      "condition": "2",
+      "condition_title": "Half flow",
+      "ironed": true,
+      "flow_percent": 5,
+      "speed_mm_s": 30,
+      "spacing_mm": 0.15,
+      "center": [
+        76,
+        104,
+        0
+      ],
+      "object_id": 10006,
+      "identify_id": 5006,
+      "bounds_mm": [
+        [
+          64.0,
+          78.5,
+          0.0
+        ],
+        [
+          88.0,
+          120.0,
+          10.029999732971191
+        ]
+      ],
+      "cad_volume_mm3": 1837.139048696133,
+      "mesh_volume_mm3": 1837.0604788154367,
+      "triangles": 4230,
+      "mesh_sha256": "5b4bf284256196bf2dc3725e620a69635e8c7c89cc01c841ff3b8e1798ea3d8e",
+      "closed_mesh": true,
+      "connected_solids": 1
+    },
+    {
+      "label": "B2C",
+      "feature": "B",
+      "condition": "2",
+      "condition_title": "Half flow",
+      "ironed": false,
+      "flow_percent": 5,
+      "speed_mm_s": 30,
+      "spacing_mm": 0.15,
+      "center": [
+        180,
+        104,
+        0
+      ],
+      "object_id": 10007,
+      "identify_id": 5007,
+      "bounds_mm": [
+        [
+          165.0,
+          75.5,
+          0.0
+        ],
+        [
+          195.0,
+          123.0,
+          6.363380432128906
+        ]
+      ],
+      "cad_volume_mm3": 5448.469491772902,
+      "mesh_volume_mm3": 5448.872949627036,
+      "triangles": 8202,
+      "mesh_sha256": "f98914f416e8ddb7c56c44aa27e8d571a220e87c3612c12b327f45cbed2b4997",
+      "closed_mesh": true,
+      "connected_solids": 1
+    },
+    {
+      "label": "B2I",
+      "feature": "B",
+      "condition": "2",
+      "condition_title": "Half flow",
+      "ironed": true,
+      "flow_percent": 5,
+      "speed_mm_s": 30,
+      "spacing_mm": 0.15,
+      "center": [
+        225,
+        104,
+        0
+      ],
+      "object_id": 10008,
+      "identify_id": 5008,
+      "bounds_mm": [
+        [
+          210.0,
+          75.5,
+          0.0
+        ],
+        [
+          240.0,
+          123.0,
+          6.363380432128906
+        ]
+      ],
+      "cad_volume_mm3": 5446.3412502052915,
+      "mesh_volume_mm3": 5446.745393458395,
+      "triangles": 6552,
+      "mesh_sha256": "3f07a20c4698a243691d5fc7b6bf54b6dc4c2fb79af42e289a311ca38b3124a2",
+      "closed_mesh": true,
+      "connected_solids": 1
+    },
+    {
+      "label": "G3C",
+      "feature": "G",
+      "condition": "3",
+      "condition_title": "Twice speed",
+      "ironed": false,
+      "flow_percent": 10,
+      "speed_mm_s": 60,
+      "spacing_mm": 0.15,
+      "center": [
+        35,
+        162,
+        0
+      ],
+      "object_id": 10009,
+      "identify_id": 5009,
+      "bounds_mm": [
+        [
+          23.0,
+          136.5,
+          0.0
+        ],
+        [
+          47.0,
+          178.0,
+          10.029999732971191
+        ]
+      ],
+      "cad_volume_mm3": 1838.9675103021812,
+      "mesh_volume_mm3": 1838.8867027909894,
+      "triangles": 7794,
+      "mesh_sha256": "fadf669c8764e9d46ff3b86552eb9c3f23660d12e405ed96857b37b65c37e3c0",
+      "closed_mesh": true,
+      "connected_solids": 1
+    },
+    {
+      "label": "G3I",
+      "feature": "G",
+      "condition": "3",
+      "condition_title": "Twice speed",
+      "ironed": true,
+      "flow_percent": 10,
+      "speed_mm_s": 60,
+      "spacing_mm": 0.15,
+      "center": [
+        76,
+        162,
+        0
+      ],
+      "object_id": 10010,
+      "identify_id": 5010,
+      "bounds_mm": [
+        [
+          64.0,
+          136.5,
+          0.0
+        ],
+        [
+          88.0,
+          178.0,
+          10.029999732971191
+        ]
+      ],
+      "cad_volume_mm3": 1836.8392687021887,
+      "mesh_volume_mm3": 1836.759018272938,
+      "triangles": 6184,
+      "mesh_sha256": "0f61558ba47c9d3bdb7dfdddcbb41365d0544c935d265cfa578aa5e562ce9081",
+      "closed_mesh": true,
+      "connected_solids": 1
+    },
+    {
+      "label": "B3C",
+      "feature": "B",
+      "condition": "3",
+      "condition_title": "Twice speed",
+      "ironed": false,
+      "flow_percent": 10,
+      "speed_mm_s": 60,
+      "spacing_mm": 0.15,
+      "center": [
+        180,
+        162,
+        0
+      ],
+      "object_id": 10011,
+      "identify_id": 5011,
+      "bounds_mm": [
+        [
+          165.0,
+          133.5,
+          0.0
+        ],
+        [
+          195.0,
+          181.0,
+          6.363380432128906
+        ]
+      ],
+      "cad_volume_mm3": 5448.169711773641,
+      "mesh_volume_mm3": 5448.5714699284135,
+      "triangles": 10150,
+      "mesh_sha256": "18c29caee4c281626d399d0d67221b45983926ac2bd39e9eb0b8c2dfc8b63df7",
+      "closed_mesh": true,
+      "connected_solids": 1
+    },
+    {
+      "label": "B3I",
+      "feature": "B",
+      "condition": "3",
+      "condition_title": "Twice speed",
+      "ironed": true,
+      "flow_percent": 10,
+      "speed_mm_s": 60,
+      "spacing_mm": 0.15,
+      "center": [
+        225,
+        162,
+        0
+      ],
+      "object_id": 10012,
+      "identify_id": 5012,
+      "bounds_mm": [
+        [
+          210.0,
+          133.5,
+          0.0
+        ],
+        [
+          240.0,
+          181.0,
+          6.363380432128906
+        ]
+      ],
+      "cad_volume_mm3": 5446.041470206035,
+      "mesh_volume_mm3": 5446.444056833025,
+      "triangles": 8490,
+      "mesh_sha256": "d00aa18075196a9dc7cc5b90541298c388e40952912ab01911b218e8f8759962",
+      "closed_mesh": true,
+      "connected_solids": 1
+    },
+    {
+      "label": "G4C",
+      "feature": "G",
+      "condition": "4",
+      "condition_title": "Twice spacing",
+      "ironed": false,
+      "flow_percent": 10,
+      "speed_mm_s": 30,
+      "spacing_mm": 0.3,
+      "center": [
+        35,
+        220,
+        0
+      ],
+      "object_id": 10013,
+      "identify_id": 5013,
+      "bounds_mm": [
+        [
+          23.0,
+          194.5,
+          0.0
+        ],
+        [
+          47.0,
+          236.0,
+          10.029999732971191
+        ]
+      ],
+      "cad_volume_mm3": 1839.181331771042,
+      "mesh_volume_mm3": 1839.1042658599229,
+      "triangles": 4304,
+      "mesh_sha256": "59bcee072a408e6084f7bf2124d6c5a91998a2a1f1a357127becce238a6a8d32",
+      "closed_mesh": true,
+      "connected_solids": 1
+    },
+    {
+      "label": "G4I",
+      "feature": "G",
+      "condition": "4",
+      "condition_title": "Twice spacing",
+      "ironed": true,
+      "flow_percent": 10,
+      "speed_mm_s": 30,
+      "spacing_mm": 0.3,
+      "center": [
+        76,
+        220,
+        0
+      ],
+      "object_id": 10014,
+      "identify_id": 5014,
+      "bounds_mm": [
+        [
+          64.0,
+          194.5,
+          0.0
+        ],
+        [
+          88.0,
+          236.0,
+          10.029999732971191
+        ]
+      ],
+      "cad_volume_mm3": 1837.0530901875568,
+      "mesh_volume_mm3": 1836.976582891105,
+      "triangles": 2668,
+      "mesh_sha256": "b34f6b9e70225e24000e9025115347c1a5ab35ac1f26bdff2b1e154184b49643",
+      "closed_mesh": true,
+      "connected_solids": 1
+    },
+    {
+      "label": "B4C",
+      "feature": "B",
+      "condition": "4",
+      "condition_title": "Twice spacing",
+      "ironed": false,
+      "flow_percent": 10,
+      "speed_mm_s": 30,
+      "spacing_mm": 0.3,
+      "center": [
+        180,
+        220,
+        0
+      ],
+      "object_id": 10015,
+      "identify_id": 5015,
+      "bounds_mm": [
+        [
+          165.0,
+          191.5,
+          0.0
+        ],
+        [
+          195.0,
+          239.0,
+          6.363380432128906
+        ]
+      ],
+      "cad_volume_mm3": 5448.383533256305,
+      "mesh_volume_mm3": 5448.789053709159,
+      "triangles": 6640,
+      "mesh_sha256": "ab1422f651aa2cbf2ce8d15a2b41a37d3f5de12e3a98fc47d8fa3def95b25283",
+      "closed_mesh": true,
+      "connected_solids": 1
+    },
+    {
+      "label": "B4I",
+      "feature": "B",
+      "condition": "4",
+      "condition_title": "Twice spacing",
+      "ironed": true,
+      "flow_percent": 10,
+      "speed_mm_s": 30,
+      "spacing_mm": 0.3,
+      "center": [
+        225,
+        220,
+        0
+      ],
+      "object_id": 10016,
+      "identify_id": 5016,
+      "bounds_mm": [
+        [
+          210.0,
+          191.5,
+          0.0
+        ],
+        [
+          240.0,
+          239.0,
+          6.363380432128906
+        ]
+      ],
+      "cad_volume_mm3": 5446.25529168869,
+      "mesh_volume_mm3": 5446.661497531114,
+      "triangles": 4990,
+      "mesh_sha256": "f986e457028f5925aa96ac98f44681a1e43a347b789b3b6d59cc6d8189f1e174",
+      "closed_mesh": true,
+      "connected_solids": 1
+    },
+    {
+      "label": "S1C",
+      "feature": "S",
+      "condition": "1",
+      "condition_title": "September; includes sloped floor",
+      "ironed": false,
+      "flow_percent": 10,
+      "speed_mm_s": 30,
+      "spacing_mm": 0.15,
+      "center": [
+        150,
+        282,
+        0
+      ],
+      "object_id": 10017,
+      "identify_id": 5017,
+      "bounds_mm": [
+        [
+          135.0,
+          253.5,
+          0.0
+        ],
+        [
+          165.0,
+          301.0,
+          6.363380432128906
+        ]
+      ],
+      "cad_volume_mm3": 5446.071415971768,
+      "mesh_volume_mm3": 5446.47636501099,
+      "triangles": 7542,
+      "mesh_sha256": "be785a5d62f1c5838c3bae89a18d1a49df55177029e68d880d12fce610023513",
+      "closed_mesh": true,
+      "connected_solids": 1
+    },
+    {
+      "label": "S1I",
+      "feature": "S",
+      "condition": "1",
+      "condition_title": "September; includes sloped floor",
+      "ironed": true,
+      "flow_percent": 10,
+      "speed_mm_s": 30,
+      "spacing_mm": 0.15,
+      "center": [
+        195,
+        282,
+        0
+      ],
+      "object_id": 10018,
+      "identify_id": 5018,
+      "bounds_mm": [
+        [
+          180.0,
+          253.5,
+          0.0
+        ],
+        [
+          210.0,
+          301.0,
+          6.363380432128906
+        ]
+      ],
+      "cad_volume_mm3": 5443.943174404152,
+      "mesh_volume_mm3": 5444.348750534263,
+      "triangles": 5926,
+      "mesh_sha256": "c69c4291d30641c674b32cda75366a59430894f4b1d8345e08e5d37c900b7aaf",
+      "closed_mesh": true,
+      "connected_solids": 1
+    }
+  ],
+  "project_sha256": "2af606036089b123abf95495862f7558722551f9767585285ec4a6c29f492202"
+}
