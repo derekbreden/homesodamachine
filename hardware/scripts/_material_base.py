@@ -10,10 +10,10 @@ import cadquery as cq
 
 
 # Polymaker Fiberon PET-GF15 black, the stock every surface a customer sees
-# prints in (`ledger/bom.md` §7). The RGB sample is the median of the wound
-# filament in Polymaker's FL02001 product photograph, shared with the black
-# wayfinding parts. STEP carries color; the finish catalog carries roughness.
-M_PETGF_BLACK = cq.Color(31 / 255.0, 34 / 255.0, 35 / 255.0)
+# prints in (`ledger/bom.md` §7). This is the shared sRGB appearance in the
+# install guide's source artwork (`install-guide/assets/fill-scene-inputs.json`).
+# STEP carries color; the finish catalog carries roughness.
+M_PETGF_BLACK = cq.Color(0.20, 0.20, 0.21)
 
 # Bambu TPU 90A black, the one spool every soft seal on this machine prints off
 # (`ledger/bom.md` §8).
