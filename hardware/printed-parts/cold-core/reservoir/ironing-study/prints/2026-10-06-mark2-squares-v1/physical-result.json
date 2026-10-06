@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-06",
+  "printer": "Mark2",
+  "job_id": "1314288755",
+  "archive_name": "2026-10-06-petg-ironing-squares-mark2-z004-v1.gcode.3mf",
+  "source": "Derek",
+  "quote_excerpts": [
+    "the \"OFF\" one is the best result by a long shot, smoothest and feels best.",
+    "If I had to choose an ironed one, it would probably be the entire right hand column of \"30%\" flow ones. The 60/30 feels more papery than the other two.",
+    "But, just make a note of that and turn *off* ironing and start us a new print of a reservoir and cap on mark2. bed is clear."
+  ],
+  "observations": {
+    "best_overall_label": "OFF",
+    "best_overall_finish": "Smoothest and feels best by a long shot.",
+    "preferred_ironed_group": {
+      "flow_percent": 30,
+      "labels": [
+        "15/30",
+        "30/30",
+        "60/30"
+      ],
+      "selection_is_tentative": true
+    },
+    "relative_texture": {
+      "label": "60/30",
+      "observation": "Feels more papery than 15/30 and 30/30."
+    },
+    "ranking_between_15_30_and_30_30": null
+  },
+  "selected_reservoir_ironing": "no ironing",
+  "scope": "Visual and tactile operator assessment of flat PETG squares on Mark2 with the left 0.8 mm Standard hotend. This is a finish selection; it supplies no reservoir water-hold, seal-compression or lifetime result."
+}

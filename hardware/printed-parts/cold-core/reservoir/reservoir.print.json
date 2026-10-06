@@ -2,8 +2,8 @@
   "project": "reservoir.3mf",
   "recipe": "print-settings.json",
   "accepted_result_id": "september-08-024",
-  "settings_sha256": "241d74ab94950c0f1ce07466ce6abeabe307ee2a596b7939776981950b8c4b08",
-  "physical_settings_match_accepted_recipe": true,
+  "settings_sha256": "f881a2e4722eca5a8079c1220649b25191afddf38d44ad5f2fbf1c95195f4e1b",
+  "physical_settings_match_accepted_recipe_except_declared_changes": true,
   "identity_changes": {
     "filament_settings_id": {
       "from": [
@@ -18,6 +18,21 @@
       "to": "Reservoir PETG 0.8 - 0.24mm"
     }
   },
+  "process_changes": {
+    "ironing_type": {
+      "from": "top",
+      "to": "no ironing",
+      "evidence": "ironing-study/prints/2026-10-06-mark2-squares-v1/physical-result.json"
+    }
+  },
+  "assignment_changes": {
+    "filament_map_mode": {
+      "from": "Auto For Flush",
+      "to": "Manual",
+      "scope": "Explicit left-nozzle assignment in both project and plate metadata."
+    }
+  },
+  "minimum_emitted_bead_edge_margin_mm": 80.0,
   "plate_count": 2,
   "mesh_tolerance_mm": 0.025,
   "mesh_angular_tolerance_rad": 0.08,
@@ -33,12 +48,12 @@
       "print_orientation": "mouth up",
       "plate_bounds_mm": [
         [
-          136.5190944671631,
+          167.5190944671631,
           89.75,
           0.0
         ],
         [
-          213.4809055328369,
+          244.4809055328369,
           230.25,
           177.54999351501465
         ]
@@ -55,12 +70,12 @@
       "print_orientation": "exterior face down",
       "plate_bounds_mm": [
         [
-          31.519094467163086,
+          80.51909446716309,
           89.75,
           0.0
         ],
         [
-          108.48090553283691,
+          157.4809055328369,
           230.25,
           11.0
         ]
@@ -77,12 +92,12 @@
       "print_orientation": "mouth up",
       "plate_bounds_mm": [
         [
-          136.5190944671631,
+          167.5190944671631,
           89.75,
           0.0
         ],
         [
-          213.4809055328369,
+          244.4809055328369,
           230.25,
           177.54999351501465
         ]
@@ -99,18 +114,18 @@
       "print_orientation": "exterior face down",
       "plate_bounds_mm": [
         [
-          31.519094467163086,
+          80.51909446716309,
           89.75,
           0.0
         ],
         [
-          108.48090553283691,
+          157.4809055328369,
           230.25,
           11.0
         ]
       ]
     }
   ],
-  "scope": "Current CAD and saved settings; the physical water hold belongs to the September article.",
-  "project_sha256": "78325359202a4562bea0fbbf838a0d23826316ccbbc7a7a64fdfb35691b36261"
+  "scope": "Current CAD and no-ironing recipe. Coupon finish selection is recorded separately; the physical water hold belongs to the September article.",
+  "project_sha256": "b2ea21a4878f32b1b51d9503e544029a583de7460bb26e30a32e1818a324179b"
 }

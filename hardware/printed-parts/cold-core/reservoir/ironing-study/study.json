@@ -1,7 +1,7 @@
 {
   "project": "ironing-study.3mf",
   "geometry": "flat squares",
-  "recipe": "../print-settings.json",
+  "recipe": "git:ee5270c53cd4cfda339ffc97352cf9a16bc392d9:hardware/printed-parts/cold-core/reservoir/print-settings.json",
   "recipe_settings_sha256": "241d74ab94950c0f1ce07466ce6abeabe307ee2a596b7939776981950b8c4b08",
   "project_overrides": {
     "enable_support": {
@@ -83,7 +83,7 @@
       90.5
     ]
   },
-  "scope": "Flat top-surface ironing calibration. Physical finish selection is pending; sealing and sloped surfaces are outside this test.",
+  "scope": "Flat top-surface calibration record. OFF is the selected visual/tactile finish; the physical observation is recorded separately. This test supplies no sloped-surface, gasket-sealing or water-hold result.",
   "parts": [
     {
       "label": "15/10",
@@ -426,5 +426,7 @@
       "connected_solids": 1
     }
   ],
-  "project_sha256": "e15724ed0197bf279a9b57bc50f08f8fc1fb08a20271c092457818ad4bfbe858"
+  "project_sha256": "e15724ed0197bf279a9b57bc50f08f8fc1fb08a20271c092457818ad4bfbe858",
+  "project_source": "git:ee5270c53cd4cfda339ffc97352cf9a16bc392d9:hardware/printed-parts/cold-core/reservoir/ironing-study/ironing-study.3mf",
+  "physical_result": "prints/2026-10-06-mark2-squares-v1/physical-result.json"
 }

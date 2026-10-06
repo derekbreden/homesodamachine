@@ -1,0 +1,169 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-06",
+  "printer": "Mark2",
+  "submission_method": "Bambu Connect via cua_repl; Send clicked once.",
+  "send_clicked_at_utc": "2026-10-06T17:17:22.550Z",
+  "source_project": "hardware/printed-parts/cold-core/reservoir/reservoir.3mf",
+  "source_project_sha256": "b2ea21a4878f32b1b51d9503e544029a583de7460bb26e30a32e1818a324179b",
+  "settings_sha256": "f881a2e4722eca5a8079c1220649b25191afddf38d44ad5f2fbf1c95195f4e1b",
+  "source_plate": 1,
+  "parts": [
+    "reservoir-left",
+    "reservoir-cap-left"
+  ],
+  "print_archive": ".cache/reservoir-no-ironing/slice/2026-10-06-reservoir-left-no-ironing-mark2-z004-v1.gcode.3mf",
+  "print_archive_sha256": "242e855454f24aeb3ce8b1169f32d6b8dcea85549a6b232e096d0a664359361e",
+  "gcode_sha256": "08701ad39faccb97a578498de68cc2300a4e3a0cd51e40f3e1afebba0ce20a60",
+  "native_gcode_byte_identical": true,
+  "connect_import_gcode_byte_identical": true,
+  "container_preparation": {
+    "editable_geometry_removed": true,
+    "other_plate_removed": true,
+    "selected_plate": 1,
+    "sliced_toolpaths_modified": false
+  },
+  "nozzle": {
+    "side": "left",
+    "diameter_mm": 0.8,
+    "flow_type": "Standard"
+  },
+  "z_trim": {
+    "requested_user_offset_mm": 0.04,
+    "resolved_textured_plate_gcode_mm": 0.02,
+    "emitted_commands": [
+      "G29.1 Z0 ; clear z-trim value first",
+      "G29.1 Z0.02"
+    ]
+  },
+  "filament": {
+    "material": "Bambu PETG Translucent Clear",
+    "identity": "GFG01",
+    "color": "00000000",
+    "start_slot": "A4",
+    "ams_unit": 0,
+    "tray_index": 3,
+    "preferred_consumption_order": [
+      "A4",
+      "A3",
+      "A1"
+    ],
+    "auto_refill_enabled": true,
+    "automatic_backup_priority_verified": false
+  },
+  "print_options": {
+    "timelapse": "On",
+    "auto_bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "process": {
+    "baseline_water_hold_result_id": "september-08-024",
+    "ironing_type": "no ironing",
+    "support_ironing": false,
+    "first_layer_mm": 0.3,
+    "normal_layer_mm": 0.24,
+    "nozzle_celsius": 255,
+    "bed_celsius": 70,
+    "flow_ratio": 0.97,
+    "maximum_volumetric_speed_mm3_s": 6,
+    "requested_wall_fill_top_speed_mm_s": 30
+  },
+  "placement": {
+    "left_nozzle_usable_bed_bounds_mm": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        325.0,
+        320.0
+      ]
+    ],
+    "model_support_brim_xy_bounds_mm": [
+      [
+        80.519003,
+        89.750003
+      ],
+      [
+        244.476997,
+        230.249997
+      ]
+    ],
+    "edge_margins_left_front_right_back_mm": [
+      80.519003,
+      89.750003,
+      80.52300299999999,
+      89.75000299999999
+    ],
+    "minimum_full_bead_edge_margin_mm": 80.519003,
+    "minimum_body_cap_full_bead_box_gap_mm": 10.042005999999986,
+    "deposited_move_count": 988229,
+    "support_move_count": 7146,
+    "scope": "Native deposited model, support and brim beads, including arc extrema and half-width. Vendor startup purge/calibration paths are excluded. Placement does not establish adhesion."
+  },
+  "preflight": {
+    "bed_clear_source": "Derek: bed is clear.",
+    "mark2_prior_job_id": "1314288755",
+    "mark2_prior_state": "FINISH",
+    "mark2_print_error": 0,
+    "mark2_hms": [],
+    "shared_circuit": {
+      "required_start_spacing_seconds": 180,
+      "other_printer": "H2C",
+      "other_printer_status": {
+        "printer": "H2C",
+        "observed_at_utc": "2026-10-06T17:17:06.506756+00:00",
+        "job_id": "",
+        "subtask_name": "",
+        "gcode_state": "IDLE",
+        "print_error": 0,
+        "hms": [],
+        "layer_num": 0,
+        "total_layer_num": 0,
+        "bed_target_temper": 0.0,
+        "nozzle_target_temper": 0.0
+      },
+      "most_recent_known_other_acceptance_at_utc": "2026-10-06T07:26:55.559743+00:00",
+      "other_launch_record": "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-h2c-right-gyroid15/launch.json",
+      "seconds_since_most_recent_known_other_acceptance": 35434.116,
+      "spacing_satisfied": true,
+      "other_printer_start_or_resume_by_this_session": false
+    }
+  },
+  "acceptance": {
+    "observed_at_utc": "2026-10-06T17:17:29.676030+00:00",
+    "observed_at_local": "2026-10-06T12:17:29.676030-05:00",
+    "job_id": "1314692596",
+    "archive_name": "2026-10-06-reservoir-left-no-ironing-mark2-z004-v1.gcode.3mf",
+    "state": "PREPARE",
+    "print_error": 0,
+    "hms": []
+  },
+  "startup": {
+    "observed_at_utc": "2026-10-06T17:23:29.514399+00:00",
+    "job_id": "1314692596",
+    "subtask_name": "2026-10-06-reservoir-left-no-ironing-mark2-z004-v1.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 0,
+    "total_layer_num": 740,
+    "mc_remaining_time": 1162,
+    "stg_cur": 14,
+    "ams": {
+      "tray_now": "3",
+      "tray_tar": "3"
+    }
+  },
+  "native_estimate": {
+    "filament_g": 419.089,
+    "total_seconds": 69805.047,
+    "total_layers": 740,
+    "ironing_seconds": 0
+  },
+  "physical_results": {
+    "status": "unassessed",
+    "scope": "This launch supplies no completed reservoir or cap finish, water-hold, seal-compression or lifetime result."
+  }
+}

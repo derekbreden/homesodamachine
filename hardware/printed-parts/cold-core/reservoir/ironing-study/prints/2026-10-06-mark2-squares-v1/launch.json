@@ -215,8 +215,20 @@
     "ironing_seconds": 2758.486
   },
   "physical_results": {
-    "status": "pending",
-    "preferred_condition": null,
-    "scope": "The square-calibration job is accepted. First-layer adhesion, surface finish and sealing performance have not been assessed."
-  }
+    "status": "operator_finish_selection_recorded",
+    "record": "physical-result.json",
+    "preferred_condition": "OFF",
+    "scope": "Visual and tactile operator assessment of flat PETG squares on Mark2 with the left 0.8 mm Standard hotend. This is a finish selection; it supplies no reservoir water-hold, seal-compression or lifetime result."
+  },
+  "completion": {
+    "observed_at_utc": "2026-10-06T17:00:49.301060+00:00",
+    "job_id": "1314288755",
+    "subtask_name": "2026-10-06-petg-ironing-squares-mark2-z004-v1.gcode.3mf",
+    "gcode_state": "FINISH",
+    "layer_num": 6,
+    "total_layer_num": 6,
+    "print_error": 0,
+    "hms": []
+  },
+  "source_project_history": "git:ee5270c53cd4cfda339ffc97352cf9a16bc392d9:hardware/printed-parts/cold-core/reservoir/ironing-study/ironing-study.3mf"
 }

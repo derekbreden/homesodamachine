@@ -372,7 +372,7 @@
     "filament_map": [
       "1"
     ],
-    "filament_map_mode": "Auto For Flush",
+    "filament_map_mode": "Manual",
     "filament_max_volumetric_speed": [
       "6",
       "6"
@@ -745,7 +745,7 @@
     "ironing_pattern": "zig-zag",
     "ironing_spacing": "0.15",
     "ironing_speed": "30",
-    "ironing_type": "top",
+    "ironing_type": "no ironing",
     "is_infill_first": "0",
     "layer_change_gcode": "; layer num/total_layer_count: {layer_num+1}/[total_layer_count]\n; update layer progress\nM73 L{layer_num+1}\nM991 S0 P{layer_num} ;notify layer change",
     "layer_height": "0.24",
@@ -1533,5 +1533,20 @@
       "Auto Lift",
       "Auto Lift"
     ]
-  }
+  },
+  "process_changes": {
+    "ironing_type": {
+      "from": "top",
+      "to": "no ironing",
+      "evidence": "ironing-study/prints/2026-10-06-mark2-squares-v1/physical-result.json"
+    }
+  },
+  "assignment_changes": {
+    "filament_map_mode": {
+      "from": "Auto For Flush",
+      "to": "Manual",
+      "scope": "Explicit left-nozzle assignment in both project and plate metadata."
+    }
+  },
+  "accepted_result_scope": "September 0.24 mm recipe baseline. The current no-ironing recipe has a flat-coupon finish selection and awaits its own reservoir water-hold result."
 }

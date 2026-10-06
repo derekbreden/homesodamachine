@@ -203,3 +203,33 @@ Its timelapse thumbnail shows a full-height reservoir body and separate cap.
 The [acceptance record](water-hold-acceptance.json) identifies the archive and
 G-code hashes. The reported water hold has no specified duration, temperature
 or fill height.
+
+
+## Flat-square ironing calibration (2026-10-06, Mark2 task 1314288755)
+
+Nine 35 × 35 mm flat squares compared 15/30/60 mm/s ironing speed and
+10/20/30% flow at 0.15 mm spacing, alongside one OFF square. All used clear
+Bambu PETG, the left 0.8 mm Standard hotend, 255 °C nozzle, 70 °C bed and
+0.30/0.24 mm layers. [Launch and completion](ironing-study/prints/2026-10-06-mark2-squares-v1/launch.json).
+
+Derek said:
+
+> the "OFF" one is the best result by a long shot, smoothest and feels best.
+
+He tentatively preferred the entire 30% flow column among the ironed squares.
+The 60/30 square felt more papery than 15/30 and 30/30; no ranking between
+15/30 and 30/30 was reported. [Physical observation](ironing-study/prints/2026-10-06-mark2-squares-v1/physical-result.json).
+This was a flat-finish assessment, with no water-hold or gasket-seal result.
+
+## Left reservoir and cap, ironing off (2026-10-06, Mark2 task 1314692596)
+
+One current left reservoir body, mouth up, and matching cap, exterior face
+down, used the September 0.24 mm baseline with model and support ironing
+disabled. The left 0.8 mm Standard hotend used Bambu PETG Translucent Clear
+from A4, +0.04 mm user Z trim (emitted `G29.1 Z0.02`), 255 °C nozzle and
+70 °C bed. The native model/support/brim footprint had an 80.5 mm minimum
+bed-edge inset. The native estimate was 419.09 g, 19 h 23 min and 740 layers.
+
+[Launch record](prints/2026-10-06-mark2-no-ironing-v1/launch.json) records the
+new job accepted without errors. Finished-part and water-hold outcomes are
+unassessed.

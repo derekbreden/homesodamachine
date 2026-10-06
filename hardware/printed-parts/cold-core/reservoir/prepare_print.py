@@ -1,4 +1,4 @@
-"""Build the current body/cap pairs with the accepted September PETG settings.
+"""Build current body/cap pairs with the September PETG base and ironing off.
 
 Run with tools/cad-venv/bin/python. STEP geometry must match the float integration
 record. Slicing belongs in an ignored review directory, not a second repo 3MF.
@@ -20,6 +20,7 @@ import trimesh
 HERE = Path(__file__).resolve().parent
 ROOT = next(path for path in HERE.parents if (path / "tools/cad-venv").is_dir())
 CACHE = ROOT / ".cache/reservoir-current-print"
+MIN_EDGE_MARGIN = 80.0
 CORE = "http://schemas.microsoft.com/3dmanufacturing/core/2015/02"
 PROD = "http://schemas.microsoft.com/3dmanufacturing/production/2015/06"
 REL = "http://schemas.openxmlformats.org/package/2006/relationships"
@@ -67,12 +68,19 @@ def main():
     recipe = json.loads((HERE / "print-settings.json").read_text())
     settings = recipe["project_settings"]
     restored = settings.copy()
-    for key, change in recipe["identity_changes"].items():
-        if settings[key] != change["to"]:
-            raise ValueError(f"Unexpected profile identity: {key}")
-        restored[key] = change["from"]
+    for changes in (recipe["identity_changes"], recipe.get("process_changes", {}),
+                    recipe.get("assignment_changes", {})):
+        for key, change in changes.items():
+            if settings[key] != change["to"]:
+                raise ValueError(f"Unexpected declared setting: {key}")
+            restored[key] = change["from"]
     if sha(canonical(restored)) != recipe["historical_source"]["project_settings_sha256"]:
-        raise ValueError("Settings differ from the accepted September recipe")
+        raise ValueError("Undeclared settings differ from the accepted September recipe")
+    if settings["ironing_type"] != "no ironing" or settings["enable_support_ironing"] != "0":
+        raise ValueError("The current reservoir recipe must disable model and support ironing")
+    if (settings["filament_map_mode"] != "Manual" or settings["filament_map"] != ["1"]
+            or settings["filament_nozzle_map"] != ["0"]):
+        raise ValueError("The current reservoir recipe must select the left nozzle manually")
     integration = json.loads((HERE.parent / "magnetic-float/all-aero/integration-check.json").read_text())
     area = np.array([[float(v) for v in point.split("x")]
                      for point in settings["extruder_printable_area"][0].split(",")])
@@ -92,18 +100,21 @@ def main():
         "project": "reservoir.3mf", "recipe": "print-settings.json",
         "accepted_result_id": recipe["accepted_result_id"],
         "settings_sha256": sha(canonical(settings)),
-        "physical_settings_match_accepted_recipe": True,
+        "physical_settings_match_accepted_recipe_except_declared_changes": True,
         "identity_changes": recipe["identity_changes"],
+        "process_changes": recipe.get("process_changes", {}),
+        "assignment_changes": recipe.get("assignment_changes", {}),
+        "minimum_emitted_bead_edge_margin_mm": MIN_EDGE_MARGIN,
         "plate_count": 2, "mesh_tolerance_mm": 0.025,
         "mesh_angular_tolerance_rad": 0.08, "parts": [],
-        "scope": "Current CAD and saved settings; the physical water hold belongs to the September article.",
+        "scope": "Current CAD and no-ironing recipe. Coupon finish selection is recorded separately; the physical water hold belongs to the September article.",
     }
     number = 0
     for plate_id, side in enumerate(("left", "right"), 1):
         plate = ET.SubElement(config, "plate")
         for key, value in {"plater_id": plate_id, "plater_name": f"{side.title()} body and cap",
                            "locked": "false", "bed_type": settings["curr_bed_type"],
-                           "filament_map_mode": "Auto For Flush", "filament_maps": "1",
+                           "filament_map_mode": "Manual", "filament_maps": "1",
                            "filament_volume_maps": "0"}.items():
             metadata(plate, key, value)
         # Bambu Studio's horizontal plate spacing is 1.2 times the 330 mm bed.
@@ -127,10 +138,11 @@ def main():
             rotation = np.diag([1.0, -1.0, -1.0]) if cap else np.eye(3)
             rotated = local_vertices @ rotation.T
             low, high = rotated.min(axis=0), rotated.max(axis=0)
-            translation = np.array([70.0 if cap else 175.0, 160.0, -low[2]])
+            # Center the matching pair with a 10 mm gap between 77 mm envelopes.
+            translation = np.array([119.0 if cap else 206.0, 160.0, -low[2]])
             placed = rotated + translation
-            if (np.any(placed[:, :2].min(axis=0) < usable_low + 15) or
-                    np.any(placed[:, :2].max(axis=0) > usable_high - 15) or
+            if (np.any(placed[:, :2].min(axis=0) < usable_low + MIN_EDGE_MARGIN) or
+                    np.any(placed[:, :2].max(axis=0) > usable_high - MIN_EDGE_MARGIN) or
                     placed[:, 2].max() > float(settings["printable_height"])):
                 raise ValueError(f"{name} exceeds the left nozzle's usable bed/height")
             part_id, object_id = str(number * 2 - 1), str(number * 2)
