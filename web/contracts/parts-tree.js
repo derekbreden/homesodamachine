@@ -66,6 +66,7 @@
 // entry naming nothing is the normal state and not a stale line.
 export const EXCLUDED_DIRS = [
   "assembly/scenes/out",
+  "gun-positioner-guide/out",
   "install-guide/out",
   "install-guide/plumbing/out",
   "install-guide/plumbing/modern/out",
@@ -165,6 +166,7 @@ export const TOOLING = [
   "printed-parts/cold-core/magnetic-float",
   "assembly/scenes/glb",
   "printed-parts/fixtures",
+  "gun-positioner/mounting",
   "printed-parts/shop-storage",
   "printed-parts/calibration",
   "printed-parts/cold-core/coil-mandrel",
