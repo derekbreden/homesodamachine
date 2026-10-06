@@ -1,0 +1,98 @@
+{
+  "project": "reservoir.3mf",
+  "project_sha256": "78325359202a4562bea0fbbf838a0d23826316ccbbc7a7a64fdfb35691b36261",
+  "recipe": "print-settings.json",
+  "slicer_version": "02.08.02.61",
+  "return_code": 0,
+  "plates": [
+    {
+      "plate": 1,
+      "parts": [
+        "reservoir-left",
+        "reservoir-cap-left"
+      ],
+      "estimated_seconds": 73243.219,
+      "estimated_mass_g": 419.524,
+      "ironing_estimated_seconds": 3393.708,
+      "layer_count": 740,
+      "first_layer_height_mm": 0.3,
+      "normal_layer_height_mm": 0.24,
+      "warning_message": "",
+      "gcode_sha256": "c9de08df9dce253d94d2794600e61f176f843140734cc6f1ed34bf66f0d5b389",
+      "embedded_gcode_md5_verified": true,
+      "z_trim_commands": [
+        "G29.1 Z0 ; clear z-trim value first",
+        "G29.1 Z0.02"
+      ],
+      "model_support_extrusion_centerline_bounds_xy_mm": [
+        31.919,
+        90.135,
+        213.095,
+        229.865
+      ],
+      "wall_cooling_above_cap_pwm_values": [
+        51.0,
+        229.5
+      ],
+      "support_summary": {
+        "support_bodies": 8,
+        "interface_islands": null,
+        "bed_rooted_bodies": 8,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": null,
+        "bodies_without_interface_labels": 7,
+        "explicit_interface_islands": 1,
+        "shortest_labelled_build_up_mm": 1.68
+      },
+      "support_scope": "All eight detected support bodies start at the bed. Seven lack explicit interface labels; their contact build-up is not inferred."
+    },
+    {
+      "plate": 2,
+      "parts": [
+        "reservoir-right",
+        "reservoir-cap-right"
+      ],
+      "estimated_seconds": 73217.742,
+      "estimated_mass_g": 419.565,
+      "ironing_estimated_seconds": 3393.692,
+      "layer_count": 740,
+      "first_layer_height_mm": 0.3,
+      "normal_layer_height_mm": 0.24,
+      "warning_message": "",
+      "gcode_sha256": "2853e125dbcae1ec8dc16ec2270c7adbacdd6d3f5765531d0aafa2c5ebd0eb24",
+      "embedded_gcode_md5_verified": true,
+      "z_trim_commands": [
+        "G29.1 Z0 ; clear z-trim value first",
+        "G29.1 Z0.02"
+      ],
+      "model_support_extrusion_centerline_bounds_xy_mm": [
+        31.925,
+        90.135,
+        213.163,
+        229.932
+      ],
+      "wall_cooling_above_cap_pwm_values": [
+        51.0,
+        229.5
+      ],
+      "support_summary": {
+        "support_bodies": 8,
+        "interface_islands": null,
+        "bed_rooted_bodies": 8,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": null,
+        "bodies_without_interface_labels": 7,
+        "explicit_interface_islands": 1,
+        "shortest_labelled_build_up_mm": 1.68
+      },
+      "support_scope": "All eight detected support bodies start at the bed. Seven lack explicit interface labels; their contact build-up is not inferred."
+    }
+  ],
+  "scope": "Native slice of current body/cap geometry. Settings and G-code verification do not establish a new physical water-hold result.",
+  "physical_settings_match_saved_project": true,
+  "slicer_added_metadata": {
+    "filament_map_2": [
+      "1"
+    ]
+  }
+}

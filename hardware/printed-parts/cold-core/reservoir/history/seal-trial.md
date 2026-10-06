@@ -1,8 +1,10 @@
-# Reservoir PETG seal trial
+# September reservoir PETG inspection record
 
-[Print project: reservoir-08-seal-trial.3mf](reservoir-08-seal-trial.3mf)
+Historical settings and toolpath observations. The current next-print project is
+[reservoir.3mf](../reservoir.3mf). The September source projects are identified
+by immutable Git references in the [print log](../print-log.md).
 
-One reference left reservoir body, mouth up, and its matching cap, exterior face down
+One September reference left reservoir body, mouth up, and its matching cap, exterior face down
 and gasket rim up, for the **H2C with a 0.8 mm nozzle and PETG Translucent**.
 The project contains both meshes and editable settings. The inspected reference
 slice from Bambu Studio 02.08.02.61 estimates **26 h 12 min, 417.16 g, 984 layers**.
@@ -10,42 +12,28 @@ The recovered Mark2 printer slice estimates **26 h 8 min, 416.86 g, 984 layers**
 its complete project settings match this saved project.
 
 **Both the 0.18 and 0.24 mm recipes held water**, reported by Derek on
-2026-10-05. [Water-hold acceptance](water-hold-acceptance.json) identifies the
+2026-10-05. [Water-hold acceptance](../water-hold-acceptance.json) identifies the
 printer files and verified G-code hashes. The reported holds have no specified
 duration, temperature or fill height. These results belong to the printed
-reference geometry; use the [current bodies and caps](README.md#current-print-geometry)
-when preparing a new native project.
+reference geometry. The [current bodies and caps](../README.md#current-print-geometry)
+have their own project and native slice review.
 
-## Printer Z trim
+## Recorded printer Z trim
 
-Both projects open with **Bambu Lab H2C 0.8 Standard +0.04 Z trim** active.
-The two selectable printer presets are:
-
-- `Bambu Lab H2C 0.8 Standard +0.04 Z trim`
-- `Bambu Lab H2C 0.8 Standard +0.18 Z trim`
-
-Choose the required preset in Bambu Studio's **Printer** dropdown and **slice the
-plate again**. Both presets are installed locally. On another installation, use
-File → Import → Import Configs with the
-[preset bundle](reservoir-08-z-trim-presets.bbscfg) to add both choices.
-A 3MF carries its active printer configuration; the bundle supplies the second choice.
-
-These values add lift to the stock plate compensation. On textured PEI with the
-0.8 mm nozzle, +0.04 emits `G29.1 Z0.02`; +0.18 emits `G29.1 Z0.16`.
-The first layer remains 0.30 mm in both projects. Both nozzle slots use Standard flow.
-All four combinations of layer height and trim slice successfully, with an early
-zero reset and exactly one final trim command. The September 4 inspection
-meshes are identified in [seal-trial.json](seal-trial.json). Each native project
-retains its own reference meshes and placement. The recovered printer slices
-emit the +0.04 trim as `G29.1 Z0.02` after their initial zero reset.
+Both saved trial projects used the H2C machine-family profile with a left
+0.8 mm Standard nozzle and +0.04 mm user trim over stock plate compensation.
+The archived trial bundle contained +0.04 and +0.18 mm variants. The recovered
+Mark2 printer slices emitted `G29.1 Z0.02` after the initial zero reset.
+[Inspection readings](seal-trial.json) identify the meshes and emitted G-code.
 
 ## 0.24 mm comparison
 
-[Print project: reservoir-08-seal-trial-024.3mf](reservoir-08-seal-trial-024.3mf)
+Source: `git:67994c7efaed7589ff26db350b90eea089fbd3e8:hardware/printed-parts/cold-core/reservoir/reservoir-08-seal-trial-024.3mf`.
 
 The recorded body and cap with **0.24 mm layers** and a 0.30 mm first layer.
-The sealing process, filament and machine settings match the 0.18 mm project
-apart from normal layer height. The profile name identifies the layer height.
+The physical process, filament and machine settings match the 0.18 mm recipe
+apart from normal layer height. The September 4 comparison used matching meshes;
+the saved 0.18 mm project received a later mesh/placement refresh. The profile name identifies the layer height.
 The fixed 12-layer shell count spans more thickness at 0.24 mm; infill remains
 100% in both projects.
 
@@ -55,7 +43,7 @@ matches. Floor, cap, wall and insert-boss paths are inspected at plate Z 0.30,
 2.22, 5.10, 10.14, 20.22, 50.22, 100.14, 170.22 and 176.22 mm.
 The recovered Mark2 printer slice estimates **20 h 7 min, 414.76 g, 738 layers**.
 Its complete project settings match this saved project. Derek reports that
-this recipe held water; [acceptance and scope](water-hold-acceptance.json).
+this recipe held water; [acceptance and scope](../water-hold-acceptance.json).
 
 ## 0.18 mm settings
 
@@ -84,8 +72,8 @@ overhang cooling remains a separate override.
 
 ## Toolpath inspection
 
-The comparison uses the same current body and 0.18 mm layers. The baseline carries
-the settings from `reservoir.3mf`; the 0.8 mm nozzle candidates share the trial's
+The September 4 comparison used the same reference body and 0.18 mm layers. The baseline carried
+the June settings from historical `reservoir.3mf`; the 0.8 mm nozzle candidates share the trial's
 thermal, flow and seam settings. At plate Z 100.02 mm, a cut across a straight 3 mm
 wall reads:
 
@@ -93,7 +81,7 @@ wall reads:
 |---|---|
 | 0.6 / 0.60 | 0.60 / 0.60 / 0.757 / 0.60 / 0.60 |
 | 0.8 / 0.75 | 0.75 / 0.809 / 0.809 / 0.75 |
-| 0.8 / 0.80 — print candidate | 0.80 / 0.759 / 0.759 / 0.80 |
+| 0.8 / 0.80 — September candidate | 0.80 / 0.759 / 0.759 / 0.80 |
 | 0.8 / 0.90 | 0.90 / 1.28 / 0.90 |
 
 Widths are G-code annotations, with centerline positions read from extrusion moves.
@@ -124,12 +112,10 @@ returns success with an empty plate-warning field. The embedded G-code checksum
 matches its 3MF checksum entry. [Inspection readings](seal-trial.json) identify the
 mesh and G-code by SHA-256.
 
-## Print reading
+## Reported physical result
 
-Use dried PETG Translucent and the 0.8 mm nozzle. Check the dry bulkhead recess after
-support removal and the wet washer seat for raised ridges. Fill the assembled body
-to its operating depth over a dry absorbent pad; record the first wet spot's location
-and elapsed time, or the dry result at 24 hours. Repeat at operating temperature.
-The May 30 reservoir and both September recipes have reported water-holding
-results. Repeated prints and specified hold conditions establish repeatability
-for a new article.
+Derek reported that both September recipes held water. The recovered printer
+thumbnails show completed full-height bodies and separate caps. No hold
+duration, temperature or fill height was supplied. The accepted result belongs
+to each printed article; the [acceptance record](../water-hold-acceptance.json)
+retains its exact settings and printer-file fingerprints.
