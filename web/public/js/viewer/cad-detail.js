@@ -25,6 +25,7 @@ import {
   resetCamera,
   camera,
   controls,
+  clearSurfaceTouches,
 } from "./scene.js";
 import { resetDxfCamera } from "./dxf.js";
 import { getLoader } from "./loaders.js";
@@ -34,7 +35,7 @@ import { clearEdgePicker } from "./edge-picker.js";
 import { clearComponentPicker } from "./component-picker.js";
 import { clearComponentEdit } from "./component-edit.js";
 import { makePickFindToggle, closePickFind, closeTopPickFind } from "./pick-find.js";
-import { makeToolRail, makeToolGroup, makeChipRow, makeToolButton } from "./tool-rail.js";
+import { makeToolRail, makeToolGroup, makeChipRow, makeToolButton, mountToolDrawer, closeToolDrawer } from "./tool-rail.js";
 import { makePickModeControl } from "./pick-mode.js";
 import { setTrail, stepHash, walkDepth } from "./step-nav.js";
 import { mountScorecard } from "./scorecard-3d.js";
@@ -172,6 +173,7 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
   }
   chips.appendChild(makeRulerToggle());
   rail.appendChild(makeToolGroup("Show", chips)).classList.add("tool-group-show");
+  const clearToolDrawer = mountToolDrawer(rail);
   wrapper.appendChild(rail);
   // Related models open from a compact disclosure under the tools.
   if (type === "step") mountRelated(wrapper, file, (path || []).slice(0, -1));
@@ -198,12 +200,21 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
     const checks = wrapper.querySelector(".sc-modal");
     if (checks) { checks.remove(); e.preventDefault(); e.stopPropagation(); return; }
     if (closeRelated(wrapper, true)) { e.preventDefault(); e.stopPropagation(); }
-    else if (closeTopPickFind()) { e.preventDefault(); e.stopPropagation(); }
-    else if (closeTubeTool()) { e.preventDefault(); e.stopPropagation(); }
+    else if (closeToolDrawer(wrapper, true)) { e.preventDefault(); e.stopPropagation(); }
+    else if (closeTopPickFind() || closeTubeTool()) {
+      wrapper.querySelector(".tool-drawer.compact > summary")?.focus();
+      e.preventDefault(); e.stopPropagation();
+    }
   };
   document.addEventListener("keydown", onEscape, true);
   wrapper.addEventListener("pointerdown", (e) => {
     if (!e.target.closest(".tool-group-related")) closeRelated(wrapper);
+    if (!e.target.closest(".tool-drawer")) closeToolDrawer(wrapper);
+  }, true);
+  wrapper.addEventListener("toggle", (e) => {
+    if (!e.target.open) return;
+    if (e.target.matches(".tool-group-related")) closeToolDrawer(wrapper);
+    else if (e.target.matches(".tool-drawer.compact")) closeRelated(wrapper);
   }, true);
 
   // Re-fit the renderer whenever the wrapper's content box changes
@@ -240,7 +251,9 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
       // the modal stays the same UI surface.
       const wasUiDriven = state.currentDetail && state.currentDetail.type === type;
       document.removeEventListener("keydown", onEscape, true);
+      clearToolDrawer();
       clearFaucetOptions();
+      clearSurfaceTouches();
       stopAnimate();
       // Disconnect ResizeObserver before moving canvases (otherwise it
       // fires once more for the move into the hidden host).
