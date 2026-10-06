@@ -1,56 +1,30 @@
 #!/usr/bin/env python3
-"""
-Garbage-collect the Bambu Lab H2C's USB timelapse drive over the network.
+"""Rotate Bambu timelapses by count over implicit FTPS (port 990).
 
-The H2C writes per-print timelapses to the SanDisk Ultra Fit in its front USB
-port (folder /timelapse, *.mp4; thumbnails in /thumbnail). Bambu firmware does
-NOT loop or auto-overwrite on *external* USB storage -- the "overwrite oldest
-when full" feature exists only on the P2S/X2D internal storage -- so when the
-drive fills, the printer silently stops recording new timelapses.
+The default dry run retains the newest 96 clips. Applying a plan requires a
+local archive directory: every removed clip is downloaded, checked for stable
+remote size/mtime, and verified with SHA-256 before deletion. Active temp
+recordings, zero-byte clips, clips newer than two hours, and unknown timestamps are
+protected and count toward the retention limit.
 
-This connects to the printer's LAN file service (FTPS, implicit TLS on port 990,
-user `bblp`, password = the printer's Access Code) and deletes the OLDEST
-timelapse clips so the newest keep rolling in. It can archive each clip to your
-Mac before deleting, and prune the matching thumbnail.
-
-Nothing is deleted unless you pass --apply. The default is a dry run.
-
-Finding the credentials (do not hardcode the Access Code -- pass it in):
-    On the printer: Settings -> WLAN -> LAN Only Mode shows the IP + Access Code.
-    You can read the code without toggling LAN-Only ON, so cloud/Handy stays up.
-
-    --host        / $H2C_HOST          printer IP on your LAN
-    --access-code / $H2C_ACCESS_CODE   the 8-char Access Code
-
-Usage:
-    # First run: just see what's on the drive (deletes nothing).
-    H2C_HOST=192.168.1.50 H2C_ACCESS_CODE=12345678 \
-        python3 tools/h2c_timelapse_gc.py --list
-
-    # Dry run: show what a 190 GB keep-budget would prune (oldest first).
-    ... python3 tools/h2c_timelapse_gc.py --keep-gb 190
-
-    # Do it for real, archiving clips first and pruning thumbnails.
-    ... python3 tools/h2c_timelapse_gc.py --keep-gb 190 \
-        --archive-dir ~/H2C-timelapses --prune-thumbnails --apply
-
-Retention is "keep the newest, delete the oldest." A clip is kept only if it
-fits within every limit you set (--keep-gb total size, --keep file count) and is
-not older than --max-age-days. The currently-recording clip (temp*.mp4) and
-anything newer than --min-age-hours are never touched.
-
-GB here means 1000^3 bytes, to match how the drive's capacity is labeled.
-Requires only the Python standard library.
+Pass credentials with --host/--access-code or H2C_HOST/H2C_ACCESS_CODE; never
+commit them. See h2c-timelapse-gc.md for usage and the private launchd runner.
+Requires only the Python standard library on macOS or Linux.
 """
 
 import argparse
+import contextlib
 import datetime
+import fcntl
 import ftplib
 import fnmatch
+import hashlib
 import os
+from pathlib import Path
 import posixpath
 import ssl
 import sys
+import tempfile
 
 GB = 1000 ** 3
 
@@ -186,7 +160,8 @@ def plan_deletions(clips, now, keep_gb, keep_count, max_age_days, min_age_hours)
     """Decide which clips to delete. Newest are kept; oldest are dropped.
 
     A clip is protected (never deleted) if it is the in-progress recording
-    (temp*) or younger than min_age_hours. Of the rest, anything older than
+    (temp*), is empty, has an unknown timestamp, or is younger than min_age_hours.
+    Protected clips count toward both limits. Of the rest, anything older than
     max_age_days is dropped; then, walking newest-first, clips are kept while
     they fit under both keep_gb and keep_count, and the older remainder dropped.
     """
@@ -194,18 +169,17 @@ def plan_deletions(clips, now, keep_gb, keep_count, max_age_days, min_age_hours)
     for c in clips:
         age_h = None if c.mtime is None else (now - c.mtime).total_seconds() / 3600.0
         too_new = age_h is not None and age_h < min_age_hours
-        if c.name.lower().startswith("temp") or too_new:
+        if c.name.lower().startswith("temp") or c.size <= 0 or c.mtime is None or too_new:
             protected.append(c)
         else:
             candidates.append(c)
 
-    # Unknown mtimes sort as oldest so they fall out first under a tight budget.
     epoch = datetime.datetime.min.replace(tzinfo=datetime.timezone.utc)
     candidates.sort(key=lambda c: c.mtime or epoch, reverse=True)  # newest first
 
     delete, keep = [], list(protected)
     kept_bytes = sum(c.size for c in protected)
-    kept_count = 0
+    kept_count = len(protected)
     budget = None if keep_gb is None else keep_gb * GB
     for c in candidates:
         age_d = c.age_days(now)
@@ -223,9 +197,108 @@ def plan_deletions(clips, now, keep_gb, keep_count, max_age_days, min_age_hours)
     return delete, keep
 
 
+def remote_metadata(ftp, path):
+    """Require exact remote size and UTC mtime before an archive/delete."""
+    size = ftp.size(path)
+    mtime = parse_ftp_time(ftp.sendcmd("MDTM " + path).split(maxsplit=1)[-1])
+    if size is None or size <= 0 or mtime is None:
+        raise RuntimeError(f"Cannot verify remote clip metadata: {path}")
+    return size, mtime
+
+
+def file_digest(path):
+    digest = hashlib.sha256()
+    with open(path, "rb") as fh:
+        for block in iter(lambda: fh.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+@contextlib.contextmanager
+def archive_lock(directory):
+    """Serialize scheduled and manual rotations sharing an archive directory."""
+    directory = Path(directory).expanduser()
+    directory.mkdir(parents=True, exist_ok=True)
+    with open(directory / ".rotation.lock", "a") as lock:
+        try:
+            fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError as exc:
+            raise RuntimeError("Another rotation is using this archive directory") from exc
+        try:
+            yield
+        finally:
+            fcntl.flock(lock, fcntl.LOCK_UN)
+
+
+def archive_clip(ftp, clip, directory):
+    """Durably archive a stable clip; reject partial transfers and collisions."""
+    if clip.name != posixpath.basename(clip.name) or clip.name in ("", ".", ".."):
+        raise RuntimeError("Clip must have a plain filename")
+    expected = (clip.size, clip.mtime)
+    if remote_metadata(ftp, clip.path) != expected:
+        raise RuntimeError(f"Remote clip changed since listing: {clip.name}")
+    directory = Path(directory).expanduser()
+    directory.mkdir(parents=True, exist_ok=True)
+    dest = directory / clip.name
+    tmp = None
+    checksum_tmp = None
+    try:
+        with tempfile.NamedTemporaryFile(dir=directory, prefix=".clip-", suffix=".part",
+                                         delete=False) as fh:
+            tmp = Path(fh.name)
+            digest = hashlib.sha256()
+            transferred = 0
+
+            def receive(block):
+                nonlocal transferred
+                fh.write(block)
+                digest.update(block)
+                transferred += len(block)
+
+            ftp.retrbinary("RETR " + clip.path, receive)
+            fh.flush()
+            os.fsync(fh.fileno())
+        if transferred != clip.size or tmp.stat().st_size != clip.size:
+            raise RuntimeError(f"Incomplete archive download: {clip.name}")
+        if remote_metadata(ftp, clip.path) != expected:
+            raise RuntimeError(f"Remote clip changed during download: {clip.name}")
+        sha256 = digest.hexdigest()
+        if file_digest(tmp) != sha256:
+            raise RuntimeError(f"Archive checksum verification failed: {clip.name}")
+        if dest.exists() and (dest.stat().st_size != clip.size or file_digest(dest) != sha256):
+            raise RuntimeError(f"Archive filename collision: {clip.name}; remote clip retained")
+        os.replace(tmp, dest)
+        with tempfile.NamedTemporaryFile(mode="w", dir=directory, prefix=".checksum-",
+                                         suffix=".part", delete=False) as fh:
+            checksum_tmp = Path(fh.name)
+            fh.write(f"{sha256}  {clip.name}\n")
+            fh.flush()
+            os.fsync(fh.fileno())
+        os.replace(checksum_tmp, dest.with_name(dest.name + ".sha256"))
+        directory_fd = os.open(directory, os.O_RDONLY)
+        try:
+            os.fsync(directory_fd)
+        finally:
+            os.close(directory_fd)
+        return dest, sha256
+    finally:
+        for path in (tmp, checksum_tmp):
+            if path is not None:
+                path.unlink(missing_ok=True)
+
+
+def archive_and_delete(ftp, clip, directory):
+    """Delete only after a verified durable archive and a final metadata check."""
+    dest, sha256 = archive_clip(ftp, clip, directory)
+    if remote_metadata(ftp, clip.path) != (clip.size, clip.mtime):
+        raise RuntimeError(f"Remote clip changed before deletion: {clip.name}")
+    ftp.delete(clip.path)
+    return dest, sha256
+
+
 def main():
     p = argparse.ArgumentParser(
-        description="Delete the oldest H2C timelapses over FTPS so the drive keeps recording.",
+        description="Archive oldest Bambu timelapses over FTPS; retain the newest 96 clips.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     p.add_argument("--host", default=os.environ.get("H2C_HOST"),
@@ -236,18 +309,19 @@ def main():
     p.add_argument("--port", type=int, default=990, help="FTPS port (default: 990)")
     p.add_argument("--timeout", type=float, default=30.0, help="socket timeout seconds")
     p.add_argument("--folder", default="timelapse", help="timelapse folder (default: timelapse)")
-    p.add_argument("--thumb-folder", default="thumbnail", help="thumbnail folder (default: thumbnail)")
+    p.add_argument("--thumb-folder", default=None,
+                   help="thumbnail folder (default: <folder>/thumbnail)")
     p.add_argument("--pattern", default="*.mp4", help="filename glob to manage (default: *.mp4)")
-    p.add_argument("--keep-gb", type=float, default=190.0,
-                   help="keep at most this many GB of newest clips (default: 190; 0 disables)")
-    p.add_argument("--keep", type=int, default=None,
-                   help="also cap to this many newest clips")
+    p.add_argument("--keep-gb", type=float, default=0,
+                   help="optional GB limit in addition to count (default: 0, disabled)")
+    p.add_argument("--keep", type=int, default=96,
+                   help="retain this many clips, including protected clips (default: 96)")
     p.add_argument("--max-age-days", type=float, default=None,
                    help="also delete clips older than this many days")
     p.add_argument("--min-age-hours", type=float, default=2.0,
                    help="never delete clips younger than this (default: 2)")
     p.add_argument("--archive-dir", default=None,
-                   help="download each clip here before deleting it")
+                   help="verified local backup destination (required with --apply)")
     p.add_argument("--prune-thumbnails", action="store_true",
                    help="also delete the matching .jpg in the thumbnail folder")
     p.add_argument("--list", action="store_true",
@@ -258,14 +332,26 @@ def main():
 
     if not args.host or not args.access_code:
         p.error("need --host/$H2C_HOST and --access-code/$H2C_ACCESS_CODE")
+    if args.apply and not args.archive_dir:
+        p.error("--apply requires --archive-dir; clips must be backed up before removal")
+    if args.keep < 0 or args.keep_gb < 0 or args.min_age_hours < 0:
+        p.error("retention count, GB limit, and minimum age must be nonnegative")
+    if args.max_age_days is not None and args.max_age_days < 0:
+        p.error("--max-age-days must be nonnegative")
     keep_gb = None if not args.keep_gb else args.keep_gb
 
     now = datetime.datetime.now(datetime.timezone.utc)
+    lock = archive_lock(args.archive_dir) if args.apply else contextlib.nullcontext()
+    with lock:
+        return rotate(args, now, keep_gb)
+
+
+def rotate(args, now, keep_gb):
     ftp = connect(args.host, args.port, args.user, args.access_code, args.timeout)
     try:
         clips = list_clips(ftp, args.folder, args.pattern)
         total = sum(c.size for c in clips)
-        print(f"H2C {args.host}  /{args.folder.strip('/')}: "
+        print(f"Bambu /{args.folder.strip('/')}: "
               f"{len(clips)} clip(s), {human(total)} total")
 
         if args.list or not clips:
@@ -288,21 +374,13 @@ def main():
             if not args.apply:
                 print(f"  would delete  {when}  {human(c.size):>9}  {c.name}")
                 continue
-            if args.archive_dir:
-                dest_dir = os.path.expanduser(args.archive_dir)
-                os.makedirs(dest_dir, exist_ok=True)
-                dest = os.path.join(dest_dir, c.name)
-                if not os.path.exists(dest):
-                    tmp = dest + ".part"
-                    with open(tmp, "wb") as fh:
-                        ftp.retrbinary("RETR " + c.path, fh.write)
-                    os.replace(tmp, dest)
-                    print(f"  archived      {c.name} -> {dest}")
-            ftp.delete(c.path)
+            dest, sha256 = archive_and_delete(ftp, c, args.archive_dir)
+            print(f"  archived      {c.name} -> {dest}  sha256={sha256}")
             print(f"  deleted       {when}  {human(c.size):>9}  {c.name}")
             if args.prune_thumbnails:
                 stem = os.path.splitext(c.name)[0]
-                thumb = "/" + args.thumb_folder.strip("/") + "/" + stem + ".jpg"
+                thumb_folder = args.thumb_folder or posixpath.join(args.folder, "thumbnail")
+                thumb = "/" + thumb_folder.strip("/") + "/" + stem + ".jpg"
                 try:
                     ftp.delete(thumb)
                     print(f"  deleted thumb {stem}.jpg")
