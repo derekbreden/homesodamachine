@@ -77,7 +77,7 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "12 reference(s) name a path nothing holds.",
+      "note": "13 reference(s) name a path nothing holds.",
       "status": "red"
     },
     {
@@ -107,7 +107,7 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 2767 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 992 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 3 of 2800 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 992 member(s) keep their provenance",
       "status": "ok"
     }
   ],
@@ -190,6 +190,7 @@
       "  hardware/ledger/purchases.md:569 — hardware/quickstart/README.md is held nowhere, and no tag is named for it",
       "  hardware/ledger/tools.md:232 — hardware/quickstart-codex/README.md is held nowhere, and no tag is named for it",
       "  hardware/printed-parts/enclosure/y-wall-of-back-top/README.md:54 — hardware/quickstart/README.md is held nowhere, and no tag is named for it",
+      "  hardware/printed-parts/zone-c/funnel-mold/README.md:100 — hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-05-gyroid15-six-walls/README.md is held nowhere, and no tag is named for it",
       "  hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-03-centred-short-block/README.md:15 — hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-03-centred-short-block/../../forming-mandrel-check.json is held nowhere, and no tag is named for it",
       "  hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-03-forming-mandrel-petg088-v1/README.md:50 — hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-03-forming-mandrel-petg088-v1/../../forming-mandrel-design.json is held nowhere, and no tag is named for it",
       "  hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-03-forming-mandrel-petg088-v1/README.md:58 — hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-03-forming-mandrel-petg088-v1/../../forming-mandrel-check.json is held nowhere, and no tag is named for it",
@@ -198,7 +199,7 @@
       "  marketing/target-market.md:7 — hardware/quickstart/README.md is held nowhere, and no tag is named for it",
       "  marketing/target-market.md:44 — hardware/quickstart-codex/README.md is held nowhere, and no tag is named for it",
       "  marketing/target-market.md:396 — marketing/unboxing-and-quickstart.md is held nowhere, and no tag is named for it",
-      "12 reference(s) name a path nothing holds."
+      "13 reference(s) name a path nothing holds."
     ],
     "tools/check_release_room.py": [
       "the release holds 127 of 1000 and the next cut wants 984; 7 asset(s) may be retired for it",
