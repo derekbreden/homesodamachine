@@ -1,9 +1,10 @@
 {
   "project": "reservoir.3mf",
-  "project_sha256": "78325359202a4562bea0fbbf838a0d23826316ccbbc7a7a64fdfb35691b36261",
+  "project_sha256": "b2ea21a4878f32b1b51d9503e544029a583de7460bb26e30a32e1818a324179b",
   "recipe": "print-settings.json",
   "slicer_version": "02.08.02.61",
   "return_code": 0,
+  "physical_settings_match_saved_project": true,
   "plates": [
     {
       "plate": 1,
@@ -11,40 +12,74 @@
         "reservoir-left",
         "reservoir-cap-left"
       ],
-      "estimated_seconds": 73243.219,
-      "estimated_mass_g": 419.524,
-      "ironing_estimated_seconds": 3393.708,
+      "estimated_seconds": 69805.047,
+      "estimated_mass_g": 419.089,
+      "ironing_estimated_seconds": 0,
+      "ironing_enable_commands": 0,
+      "ironing_feature_paths": 0,
       "layer_count": 740,
       "first_layer_height_mm": 0.3,
       "normal_layer_height_mm": 0.24,
       "warning_message": "",
-      "gcode_sha256": "c9de08df9dce253d94d2794600e61f176f843140734cc6f1ed34bf66f0d5b389",
+      "gcode_sha256": "08701ad39faccb97a578498de68cc2300a4e3a0cd51e40f3e1afebba0ce20a60",
       "embedded_gcode_md5_verified": true,
+      "emitted_nozzle_assignment": {
+        "filament_map": "1",
+        "filament_nozzle_map": "0",
+        "nozzle_diameter": "0.8,0.8"
+      },
       "z_trim_commands": [
         "G29.1 Z0 ; clear z-trim value first",
         "G29.1 Z0.02"
       ],
-      "model_support_extrusion_centerline_bounds_xy_mm": [
-        31.919,
-        90.135,
-        213.095,
-        229.865
-      ],
+      "placement": {
+        "left_nozzle_usable_bed_bounds_mm": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            325.0,
+            320.0
+          ]
+        ],
+        "model_support_brim_xy_bounds_mm": [
+          [
+            80.519003,
+            89.750003
+          ],
+          [
+            244.476997,
+            230.249997
+          ]
+        ],
+        "edge_margins_left_front_right_back_mm": [
+          80.519003,
+          89.750003,
+          80.52300299999999,
+          89.75000299999999
+        ],
+        "minimum_full_bead_edge_margin_mm": 80.519003,
+        "minimum_body_cap_full_bead_box_gap_mm": 10.042005999999986,
+        "deposited_move_count": 988229,
+        "support_move_count": 7146,
+        "scope": "Native deposited model, support and brim beads, including arc extrema and half-width. Vendor startup purge/calibration paths are excluded. Placement does not establish adhesion."
+      },
       "wall_cooling_above_cap_pwm_values": [
         51.0,
         229.5
       ],
       "support_summary": {
-        "support_bodies": 8,
-        "interface_islands": null,
         "bed_rooted_bodies": 8,
-        "model_rooted_bodies": 0,
-        "shortest_build_up_mm": null,
         "bodies_without_interface_labels": 7,
         "explicit_interface_islands": 1,
-        "shortest_labelled_build_up_mm": 1.68
+        "interface_islands": null,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": null,
+        "shortest_labelled_build_up_mm": 1.68,
+        "support_bodies": 8
       },
-      "support_scope": "All eight detected support bodies start at the bed. Seven lack explicit interface labels; their contact build-up is not inferred."
+      "support_scope": "All detected support bodies start at the bed. Bodies without explicit interface labels have no inferred contact build-up."
     },
     {
       "plate": 2,
@@ -52,44 +87,77 @@
         "reservoir-right",
         "reservoir-cap-right"
       ],
-      "estimated_seconds": 73217.742,
-      "estimated_mass_g": 419.565,
-      "ironing_estimated_seconds": 3393.692,
+      "estimated_seconds": 69787.492,
+      "estimated_mass_g": 419.13,
+      "ironing_estimated_seconds": 0,
+      "ironing_enable_commands": 0,
+      "ironing_feature_paths": 0,
       "layer_count": 740,
       "first_layer_height_mm": 0.3,
       "normal_layer_height_mm": 0.24,
       "warning_message": "",
-      "gcode_sha256": "2853e125dbcae1ec8dc16ec2270c7adbacdd6d3f5765531d0aafa2c5ebd0eb24",
+      "gcode_sha256": "37c8b9d7f6f34c9e6c37b8e8344cb8c2e10b866aa15ca39d686ece3757ee5fd0",
       "embedded_gcode_md5_verified": true,
+      "emitted_nozzle_assignment": {
+        "filament_map": "1",
+        "filament_nozzle_map": "0",
+        "nozzle_diameter": "0.8,0.8"
+      },
       "z_trim_commands": [
         "G29.1 Z0 ; clear z-trim value first",
         "G29.1 Z0.02"
       ],
-      "model_support_extrusion_centerline_bounds_xy_mm": [
-        31.925,
-        90.135,
-        213.163,
-        229.932
-      ],
+      "placement": {
+        "left_nozzle_usable_bed_bounds_mm": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            325.0,
+            320.0
+          ]
+        ],
+        "model_support_brim_xy_bounds_mm": [
+          [
+            80.525003,
+            89.750003
+          ],
+          [
+            244.480997,
+            230.249997
+          ]
+        ],
+        "edge_margins_left_front_right_back_mm": [
+          80.525003,
+          89.750003,
+          80.519003,
+          89.75000299999999
+        ],
+        "minimum_full_bead_edge_margin_mm": 80.519003,
+        "minimum_body_cap_full_bead_box_gap_mm": 10.042005999999986,
+        "deposited_move_count": 984795,
+        "support_move_count": 7117,
+        "scope": "Native deposited model, support and brim beads, including arc extrema and half-width. Vendor startup purge/calibration paths are excluded. Placement does not establish adhesion."
+      },
       "wall_cooling_above_cap_pwm_values": [
         51.0,
         229.5
       ],
       "support_summary": {
-        "support_bodies": 8,
-        "interface_islands": null,
         "bed_rooted_bodies": 8,
-        "model_rooted_bodies": 0,
-        "shortest_build_up_mm": null,
         "bodies_without_interface_labels": 7,
         "explicit_interface_islands": 1,
-        "shortest_labelled_build_up_mm": 1.68
+        "interface_islands": null,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": null,
+        "shortest_labelled_build_up_mm": 1.68,
+        "support_bodies": 8
       },
-      "support_scope": "All eight detected support bodies start at the bed. Seven lack explicit interface labels; their contact build-up is not inferred."
+      "support_scope": "All detected support bodies start at the bed. Bodies without explicit interface labels have no inferred contact build-up."
     }
   ],
-  "scope": "Native slice of current body/cap geometry. Settings and G-code verification do not establish a new physical water-hold result.",
-  "physical_settings_match_saved_project": true,
+  "scope": "Native slice of current body/cap geometry with ironing off. Coupon finish selection and the historical water-hold acceptance apply to their tested articles; this slice supplies no new physical sealing result.",
   "slicer_added_metadata": {
     "filament_map_2": [
       "1"
