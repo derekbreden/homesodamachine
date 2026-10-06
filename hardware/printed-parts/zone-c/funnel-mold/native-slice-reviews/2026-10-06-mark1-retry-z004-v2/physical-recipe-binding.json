@@ -1,0 +1,9 @@
+{
+  "reference_log": "hardware/printed-parts/zone-c/funnel-mold/print-log.md",
+  "sparse_support_result": "September 16 reports successful 15% infill with Snug supports.",
+  "flow_result": "September 18/20 support the left 0.4 mm Standard nozzle at 0.88 flow and 5.61702 mm3/s.",
+  "current_nozzle": "Mark1 right 0.4 mm Standard induction hotend; new nozzle and replacement heating assembly reported by Derek.",
+  "first_layer_recipe": "20 mm/s walls and 30 mm/s solid infill; 8 mm outer brim; full deposited footprint centred on the right-nozzle usable bed.",
+  "physical_scope": "The sparse recipe has a reported successful predecessor. This geometry, replacement assembly, new right nozzle and +0.04 mm trim have no completed retry result.",
+  "requested_z_trim_mm": 0.04
+}

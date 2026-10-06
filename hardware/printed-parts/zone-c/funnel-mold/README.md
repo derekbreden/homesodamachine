@@ -95,24 +95,29 @@ and the acquired chamber record; physical insertion is not recorded.
 
 ## Print files and checks
 
-[Mark1 editable two-plate Bambu project](native-slice-reviews/2026-10-06-mark1-retry-v1/funnel-mold-mark1-retry.3mf) ·
+[Mark1 editable two-plate Bambu project](native-slice-reviews/2026-10-06-mark1-retry-z004-v2/funnel-mold-mark1-retry-z004.3mf) ·
 [Cavity STL](cavity.stl) · [Core STL](core.stl) ·
-[Current native slice and cavity retry](native-slice-reviews/2026-10-06-mark1-retry-v1/README.md)
+[Current native slice and cavity retry](native-slice-reviews/2026-10-06-mark1-retry-z004-v2/README.md)
 
 PETG Translucent Clear through Mark1's AMS HT-A, right 0.4 mm Standard nozzle, 0.88 flow,
 5.61702 mm³/s maximum volumetric speed, 0.20 mm first layer, 0.24 mm layers
 above, **six walls, 15% gyroid infill, six top/bottom layers** and Snug normal
 supports for the bolt pockets. The cavity
 prints upright; the core prints inverted on its dry back. The Textured PEI
-recipe uses the recorded +0.18 mm requested trim (`G29.1 Z0.16`). The native
+recipe uses **+0.04 mm requested trim** (`G29.1 Z0.02`). The native
 slice estimates **28.99 hours and 589.79 g** for both pieces; the cavity is
 **17 h 24 min / 356.56 g**. The core has no
 supports; the cavity has eight accessible support columns at the bolt pockets.
 First-layer walls/infill run at 20/30 mm/s with an 8 mm outer brim. The full
 deposited footprint clears the usable bed edges by at least 45 mm on the
 cavity and 39.565 mm on the core. Probing clump checks remain Off. The retry
-launch plan requires Timelapse On and calibration for the replacement
-assembly and new nozzle. The cavity is prepared; no retry start is authorized.
+launch receipt records Timelapse On and leveling, flow dynamic and nozzle offset
+calibration On for the replacement assembly and new nozzle. Mark1 accepted
+the cavity at **15:03:59 CDT on October 6**, task **1315124888**. The core is
+retained for review; only the cavity was submitted. Physical print and casting
+results for this retry are pending.
+The [runtime/storage inspection](native-slice-reviews/2026-10-06-mark1-retry-z004-v2/timelapse-storage-review.json)
+reports timelapse disabled despite the Send setting; recording is unconfirmed.
 
 [Rod and casting check](rod-check.json) verifies the straight stock profile,
 open guide, drop-in and withdrawal paths, and complete casting equality with
