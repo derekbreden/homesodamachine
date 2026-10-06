@@ -32,12 +32,17 @@
     },
     {
       "check": "hardware/scripts/check_finishes.py",
-      "note": "finishes: 63 materials, and every colour this tree draws has one",
+      "note": "finishes: 62 materials, and every colour this tree draws has one",
       "status": "ok"
     },
     {
       "check": "hardware/scripts/check_ledger.py",
       "note": "✗ procedure with no doc-sync driver — every number and part name in it is a bare literal: hardware/assembly/weld-position.md (expected hardware/assembly/_weld_position_sync.py)",
+      "status": "red"
+    },
+    {
+      "check": "hardware/scripts/check_payload_colours.py",
+      "note": "A payload colour is `_materials.linear` of the body's constant; a colour read back from XCAF or a payload is linear already, and is rebuilt with `cq.Color(r, g, b, a, False)`.",
       "status": "red"
     },
     {
@@ -77,7 +82,7 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "13 reference(s) name a path nothing holds.",
+      "note": "12 reference(s) name a path nothing holds.",
       "status": "red"
     },
     {
@@ -92,8 +97,8 @@
     },
     {
       "check": "tools/bazel/check_build_file.py",
-      "note": "check_build_file: BUILD.bazel is what the graph writes; 3MFs are build-inert",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python tools/bazel/gen_build.py",
+      "status": "red"
     },
     {
       "check": "tools/bazel/check_ci_targets.py",
@@ -107,24 +112,51 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 3 of 2800 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 992 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 2842 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 1045 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
       "enclosure-assembly.facts.json was taken beside a different enclosure-assembly.scorecard.json — it holds 55a93c0c115cd66c1831e14ee5cca859, enclosure-assembly.scorecard.json here is f7830f5c73454fa29723e414b0000228",
-      "  enclosure-assembly.facts.json was measured off a different enclosure-assembly.step — it holds 987ba8ea6e72100358e30a2751035502, enclosure-assembly.step here is 4bfb4a0db0e86d6656043bba73feba64",
-      "  enclosure-assembly.facts.json was taken from a different tree — it holds 32b34630c2e0f80a93e3147cf8058a0b for the 258 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at fcb035dcb2203345bda0192f5bcb3b88 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "  enclosure-assembly.facts.json was measured off a different enclosure-assembly.step — it holds 987ba8ea6e72100358e30a2751035502, enclosure-assembly.step here is 529bd3a6b75fa0d2d1db2508e9c5eea5",
+      "  enclosure-assembly.facts.json was taken from a different tree — it holds 32b34630c2e0f80a93e3147cf8058a0b for the 258 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at f9babd79069e4c9786ff8c8cc95d7810 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
     "hardware/scripts/check_ledger.py": [
-      "instructions: 17 files (17 procedures + 0 cards + cover) | ledger brands: 601 | waived: 1 ASIN + 4 brand",
+      "instructions: 17 files (17 procedures + 0 cards + cover) | ledger brands: 600 | waived: 1 ASIN + 4 brand",
       "DRIFT: 3 instruction(s) out of step with the ledger:",
       "  ✗ instruction names a purchased brand the ledger no longer carries: Lillium (hardware/assembly/lillium-cutover.md:1)",
       "  ✗ procedure with no doc-sync driver — every number and part name in it is a bare literal: hardware/assembly/lillium-cutover.md (expected hardware/assembly/_lillium_cutover_sync.py)",
       "  ✗ procedure with no doc-sync driver — every number and part name in it is a bare literal: hardware/assembly/weld-position.md (expected hardware/assembly/_weld_position_sync.py)"
+    ],
+    "hardware/scripts/check_payload_colours.py": [
+      "    1 carry no colour, so the viewer draws them at its pale default: fan-stand-80mm",
+      "  hardware/gun-positioner/mounting/m3-insulating-spacer-6mm.step.mesh (published 89cef0c080ee, read from this disk):",
+      "    1 carry no colour, so the viewer draws them at its pale default: m3-insulating-spacer-6mm",
+      "  hardware/manifold-layout/enclosure-assembly.step.mesh (published e427d5863638, read from this disk):",
+      "    251 are a finish row converted from sRGB to linear a second time: compressor/1 (C_COMP), compressor/2 (C_COMP), condenser+fan (C_COND), mq6-sensor (C_MQ6), thermal-fuse (M_TINNED_STEEL), fuse-clamp (M_PETG_BLACK), and 245 more",
+      "  hardware/printed-parts/fixtures/gun-positioner-observation/camera-carriage-plate.step.mesh (published 19cfa48cb4dc, read from this disk):",
+      "    1 carry no colour, so the viewer draws them at its pale default: camera-carriage-plate",
+      "  hardware/printed-parts/fixtures/gun-positioner-observation/camera-fixed-plate.step.mesh (published 3706a7dbbf0c, read from this disk):",
+      "    1 carry no colour, so the viewer draws them at its pale default: camera-fixed-plate",
+      "  hardware/printed-parts/fixtures/gun-positioner-observation/camera-rail-stop.step.mesh (published 12f926757a4c, read from this disk):",
+      "    1 carry no colour, so the viewer draws them at its pale default: camera-rail-stop",
+      "  hardware/printed-parts/fixtures/gun-positioner-observation/lens-angle.step.mesh (published f7a274cdcca9, read from this disk):",
+      "    1 carry no colour, so the viewer draws them at its pale default: lens-angle",
+      "  hardware/printed-parts/fixtures/gun-positioner-observation/lens-cassette.step.mesh (published 2676b13595cb, read from this disk):",
+      "    1 carry no colour, so the viewer draws them at its pale default: lens-cassette",
+      "  hardware/printed-parts/fixtures/gun-positioner-observation/lens-retainer.step.mesh (published 026cf07a0036, read from this disk):",
+      "    1 carry no colour, so the viewer draws them at its pale default: lens-retainer",
+      "  hardware/printed-parts/fixtures/gun-positioner-observation/lens-shim.step.mesh (published 85ab184c9971, read from this disk):",
+      "    1 carry no colour, so the viewer draws them at its pale default: lens-shim",
+      "  hardware/printed-parts/fixtures/gun-positioner-observation/lens-upright.step.mesh (published 776819d637c9, read from this disk):",
+      "    1 carry no colour, so the viewer draws them at its pale default: lens-upright",
+      "  hardware/printed-parts/fixtures/gun-positioner/gun-positioner-assembly.step.mesh (published c3a0b4daafed, read from this disk):",
+      "    12 carry no colour, so the viewer draws them at its pale default: x-rail--1, x-rail--1, x-rail-1, x-rail-1, y-rail--1, y-rail--1, and 6 more",
+      "  1532 body(ies) in 158 payload(s) carry a colour no finish row names and draw at DEFAULT_FINISH, which is counted and not failed: hardware/printed-parts/fixtures/gun-positioner/gun-positioner-assembly.step.mesh (1176), hardware/printed-parts/fixtures/gun-positioner-observation/camera-stage-assembly.step.mesh (40), hardware/printed-parts/fixtures/gun-positioner-observation/camera-stage-retracted.step.mesh (38), ...",
+      "  A payload colour is `_materials.linear` of the body's constant; a colour read back from XCAF or a payload is linear already, and is rebuilt with `cq.Color(r, g, b, a, False)`."
     ],
     "hardware/scripts/check_payloads.py": [
       "    hardware/printed-parts/fixtures/gun-positioner/step/test-output-arm.step.mesh — declared by nobody",
@@ -185,12 +217,21 @@
       "  git add hardware/printed-parts/cold-core/magnetic-float/petg-bench-reference.figures.json",
       "71/72 artifacts have their record in the index"
     ],
+    "tools/bazel/check_build_file.py": [
+      "BUILD.bazel is not what the graph would write now:",
+      "  hardware/printed-parts/zone-c/funnel/flush-roof-review/refresh_aggregate.py answers to selftest and selftests.json does not name it",
+      "      tools/cad-venv/bin/python tools/bazel/trace_inputs.py --selftests hardware/printed-parts/zone-c/funnel/flush-roof-review/refresh_aggregate.py",
+      "    hardware/scripts/check_payload_colours.py answers to selftest and selftests.json does not name it",
+      "      tools/cad-venv/bin/python tools/bazel/trace_inputs.py --selftests hardware/scripts/check_payload_colours.py",
+      "    hardware/scripts/materialize_material_colors.py answers to selftest and selftests.json does not name it",
+      "      tools/cad-venv/bin/python tools/bazel/trace_inputs.py --selftests hardware/scripts/materialize_material_colors.py",
+      "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
+    ],
     "tools/check_paths.py": [
       "hardware/concerns.md:95 — tools/quickstart-codex/fill_scene.py is held nowhere, and no tag is named for it",
       "  hardware/ledger/purchases.md:569 — hardware/quickstart/README.md is held nowhere, and no tag is named for it",
       "  hardware/ledger/tools.md:232 — hardware/quickstart-codex/README.md is held nowhere, and no tag is named for it",
       "  hardware/printed-parts/enclosure/y-wall-of-back-top/README.md:54 — hardware/quickstart/README.md is held nowhere, and no tag is named for it",
-      "  hardware/printed-parts/zone-c/funnel-mold/README.md:100 — hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-05-gyroid15-six-walls/README.md is held nowhere, and no tag is named for it",
       "  hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-03-centred-short-block/README.md:15 — hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-03-centred-short-block/../../forming-mandrel-check.json is held nowhere, and no tag is named for it",
       "  hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-03-forming-mandrel-petg088-v1/README.md:50 — hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-03-forming-mandrel-petg088-v1/../../forming-mandrel-design.json is held nowhere, and no tag is named for it",
       "  hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-03-forming-mandrel-petg088-v1/README.md:58 — hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-03-forming-mandrel-petg088-v1/../../forming-mandrel-check.json is held nowhere, and no tag is named for it",
@@ -199,16 +240,17 @@
       "  marketing/target-market.md:7 — hardware/quickstart/README.md is held nowhere, and no tag is named for it",
       "  marketing/target-market.md:44 — hardware/quickstart-codex/README.md is held nowhere, and no tag is named for it",
       "  marketing/target-market.md:396 — marketing/unboxing-and-quickstart.md is held nowhere, and no tag is named for it",
-      "13 reference(s) name a path nothing holds."
+      "12 reference(s) name a path nothing holds."
     ],
     "tools/check_release_room.py": [
-      "the release holds 127 of 1000 and the next cut wants 984; 7 asset(s) may be retired for it",
+      "the release holds 128 of 1000 and the next cut wants 1010; 7 asset(s) may be retired for it",
       "check_release_room: 1 thing(s) stand between a cut and the site",
       "    tools/cad-venv/bin/python tools/cad-artifacts/pack.py --room"
     ],
     "tools/check_web_tests.py": [
-      "2 test(s) in web/ fail:",
+      "3 test(s) in web/ fail:",
       "    the sourced plan covers the current BOM, including shared parts and unpriced requirements",
+      "    short basenames don't substring-match longer step names (collision regression)",
       "    a nested assembly is a node its parent's model actually holds",
       "  cd web && npm test"
     ]
