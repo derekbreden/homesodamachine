@@ -7776,6 +7776,30 @@
       "source_ids": [
         "src-ccd1ebed5d7d44ebb2226e8312d0e8a8"
       ]
+    },
+    "pur-1394610e499a45c08ba665ed1200053c": {
+      "vendor": "Amazon",
+      "purpose": "equipment_tooling",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:114-5418576-5300228"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-9e46e329e03f4adeab99ed97e39b5839"
+      ]
+    },
+    "pur-f24cd0a88f4b4a8ca76f3abc490f81b3": {
+      "vendor": "Amazon",
+      "purpose": "equipment_tooling",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:112-5477760-5177827"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-aa79e0fc10164b8086dd556b9cdec6fb"
+      ]
     }
   },
   "orders": {
@@ -13248,6 +13272,30 @@
       "source_ids": [
         "src-ccd1ebed5d7d44ebb2226e8312d0e8a8"
       ]
+    },
+    "amazon:114-5418576-5300228": {
+      "vendor": "Amazon",
+      "reference": "114-5418576-5300228",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-05"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-9e46e329e03f4adeab99ed97e39b5839"
+      ]
+    },
+    "amazon:112-5477760-5177827": {
+      "vendor": "Amazon",
+      "reference": "112-5477760-5177827",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-05"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-aa79e0fc10164b8086dd556b9cdec6fb"
+      ]
     }
   },
   "events": [
@@ -15849,6 +15897,40 @@
       "order_ids": [
         "lulu:USD-C4516450"
       ]
+    },
+    {
+      "event_id": "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9",
+      "vendor": "Amazon",
+      "event_type": "charge",
+      "confirmation": "expected",
+      "event_date": null,
+      "amount_minor": 964,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-9e46e329e03f4adeab99ed97e39b5839"
+      ],
+      "verified_at": "2026-10-05",
+      "order_ids": [
+        "amazon:114-5418576-5300228"
+      ]
+    },
+    {
+      "event_id": "evt-5a6637d18fab4dbaa2c3a7428c33273f",
+      "vendor": "Amazon",
+      "event_type": "charge",
+      "confirmation": "expected",
+      "event_date": null,
+      "amount_minor": 964,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-aa79e0fc10164b8086dd556b9cdec6fb"
+      ],
+      "verified_at": "2026-10-05",
+      "order_ids": [
+        "amazon:112-5477760-5177827"
+      ]
     }
   ],
   "allocations": [
@@ -16682,6 +16764,22 @@
       "purchase_id": "pur-6bc71f4f15b34503ac9bf8beea6ef815",
       "order_id": "lulu:USD-C4516450",
       "amount_minor": 7542,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-8fba04191fa7449da1520d639fccb677",
+      "event_id": "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9",
+      "purchase_id": "pur-1394610e499a45c08ba665ed1200053c",
+      "order_id": "amazon:114-5418576-5300228",
+      "amount_minor": 964,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-af5bec4281844814b9c44e31fe83058f",
+      "event_id": "evt-5a6637d18fab4dbaa2c3a7428c33273f",
+      "purchase_id": "pur-f24cd0a88f4b4a8ca76f3abc490f81b3",
+      "order_id": "amazon:112-5477760-5177827",
+      "amount_minor": 964,
       "currency": "USD"
     }
   ],
@@ -25543,6 +25641,36 @@
       ],
       "verified_at": "2026-10-05",
       "note": "Gmail order confirmation: three Install Guide copies at USD 9.03 each (USD 27.09), USD 43.24 shipping and handling by FedEx Standard Overnight, USD 5.09 tax, USD 75.42 total. Lulu states an order date of 2026-10-06; reviewed on 2026-10-05 in America/Chicago. No dispatch, delivery date or completed merchant charge is stated."
+    },
+    "src-9e46e329e03f4adeab99ed97e39b5839": {
+      "vendor": "Amazon",
+      "document_type": "order_details",
+      "reference": "114-5418576-5300228",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-05"
+      },
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "verified_at": "2026-10-05",
+      "note": "Signed-in Amazon order history and individual order details: one pack, $8.99 item subtotal, $0.00 shipping, $0.65 estimated tax and $9.64 grand total; ordered 2026-10-05, estimated delivery 2026-10-06. M4 socket-head screw kit; the selected SS M4 516PCS Socket Cap listing was Prime-verified on 2026-10-05. Contains twelve M4 × 20 screws, 129 hex nuts, 129 flat washers and a hex key. Delivery is pending; the order summary does not establish a completed merchant charge or its date."
+    },
+    "src-aa79e0fc10164b8086dd556b9cdec6fb": {
+      "vendor": "Amazon",
+      "document_type": "order_details",
+      "reference": "112-5477760-5177827",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-05"
+      },
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "verified_at": "2026-10-05",
+      "note": "Signed-in Amazon order history and individual order details: one pack, $8.99 item subtotal, $0.00 shipping, $0.65 estimated tax and $9.64 grand total; ordered 2026-10-05, estimated delivery 2026-10-07. uxcell 25-piece 6 × 25 mm 304 stainless dowel-pin pack; the selected 6mm X 25mm listing was Prime-verified on 2026-10-05. Delivery is pending; the order summary does not establish a completed merchant charge or its date."
     }
   },
   "coverage": [
@@ -26459,6 +26587,28 @@
         "lulu:USD-C4516450"
       ],
       "note": "Scoped Gmail search and review of the named install-guide order confirmation; no claim of complete Lulu account coverage or completed payment/fulfillment evidence."
+    },
+    {
+      "coverage_id": "coverage-8baffc08a77545f1b1273b8f3fac5b68",
+      "vendor": "Amazon",
+      "stream": "funnel-mold hardware orders",
+      "evidence_type": "order_details",
+      "checked_at": "2026-10-05",
+      "examined_period": {
+        "start": "2026-10-05",
+        "end": "2026-10-05"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-9e46e329e03f4adeab99ed97e39b5839",
+        "src-aa79e0fc10164b8086dd556b9cdec6fb"
+      ],
+      "order_ids": [
+        "amazon:114-5418576-5300228",
+        "amazon:112-5477760-5177827"
+      ],
+      "note": "Scoped review of the two named funnel-tooling purchases and their individual order summaries. No claim of complete Amazon account coverage, completed payment or physical delivery."
     }
   ],
   "gaps": [
