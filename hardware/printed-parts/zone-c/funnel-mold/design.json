@@ -3,12 +3,12 @@
     "cavity": [
       211.0000002,
       163.68301604656256,
-      59.15000010000001
+      59.150000000000006
     ],
     "core": [
       211.00000000000009,
       163.68301584656257,
-      42.35204664395903
+      42.352046643958424
     ],
     "funnel": [
       179.0000002,
@@ -22,23 +22,23 @@
     ]
   },
   "volume_ml": {
-    "cavity": 252.27749847158466,
-    "core": 242.3761212790069,
-    "funnel": 219.37881279452878,
+    "cavity": 792.2316320397781,
+    "core": 593.8436990906712,
+    "funnel": 219.3788127945286,
     "rod": 0.7068583470577035
   },
   "shell_thickness_mm": 5.0,
   "flange_thickness_mm": 5.0,
   "minimum_cavity_backing_mm": 5.004878288547443,
   "backing_join_allowance_mm": 0.01,
-  "minimum_core_backing_mm": 4.9999999975185245,
+  "minimum_core_backing_mm": 7.338948143675221,
   "liquid_containment": {
     "cavity": {
-      "retained_volume_ml": 686.0958340660719,
+      "retained_volume_ml": 686.0958340660717,
       "casting_outside_retained_mm3": 0.0
     },
     "assembled": {
-      "retained_volume_ml": 242.63556802206202,
+      "retained_volume_ml": 242.63556513762114,
       "casting_outside_retained_mm3": 0.0
     }
   },
@@ -129,7 +129,7 @@
           "cavity": 0.0,
           "core": 0.0
         },
-        "core_clearance_mm": 0.11999999999878774,
+        "core_clearance_mm": 0.120000000000001,
         "whole_pilot_end_depth_mm": 1.5
       },
       {
@@ -141,7 +141,7 @@
           "cavity": 0.0,
           "core": 0.0
         },
-        "core_clearance_mm": 0.11999999999878774,
+        "core_clearance_mm": 0.120000000000001,
         "whole_pilot_end_depth_mm": 1.4500000000000028
       },
       {
@@ -153,7 +153,7 @@
           "cavity": 0.0,
           "core": 0.0
         },
-        "core_clearance_mm": 0.11999999999878774,
+        "core_clearance_mm": 0.120000000000001,
         "whole_pilot_end_depth_mm": 1.3999999999999986
       },
       {
@@ -561,7 +561,7 @@
           "cavity": 0.0,
           "core": 0.0
         },
-        "core_clearance_mm": 0.1200000000000001,
+        "core_clearance_mm": 0.11999999999999944,
         "whole_pilot_end_depth_mm": 1.5
       },
       {
@@ -573,7 +573,7 @@
           "cavity": 0.0,
           "core": 0.0
         },
-        "core_clearance_mm": 0.11999999999999975,
+        "core_clearance_mm": 0.11999999999999944,
         "whole_pilot_end_depth_mm": 1.4500000000000028
       },
       {
@@ -585,7 +585,7 @@
           "cavity": 0.0,
           "core": 0.0
         },
-        "core_clearance_mm": 0.11999999999999975,
+        "core_clearance_mm": 0.11999999999999944,
         "whole_pilot_end_depth_mm": 1.3999999999999986
       },
       {
@@ -1046,26 +1046,26 @@
       ]
     ]
   },
-  "feet": {
-    "diameter_mm": 10.0,
-    "centres_xy_mm": [
-      [
-        -55.0,
-        -40.0
-      ],
-      [
-        55.0,
-        -40.0
-      ],
-      [
-        0.0,
-        40.0
-      ]
+  "print_bases": {
+    "cavity_plan_mm": [
+      164.85,
+      117.53301584656256
     ],
-    "plug_backing_clearance_mm": 0.7
+    "cavity_corner_radius_mm": 0.9249999999999972,
+    "base_thickness_mm": 5.0,
+    "corbel_run_per_rise": 0.5,
+    "corbel_angle_from_bed_deg": 63.43494882292202,
+    "corbel_print_z_mm": [
+      5.0,
+      51.150000000000006
+    ],
+    "bolt_access_pocket_width_mm": 12.0,
+    "bolt_access_pocket_height_mm": 8.0,
+    "core": "flat dry back with one circular tapered access hole"
   },
-  "dry_opening_mm": 142.4,
-  "dry_opening_depth_mm": 95.08301584656257,
+  "dry_opening_mm": 41.08517935471506,
+  "dry_opening_depth_mm": 41.08517935471506,
+  "dry_opening_shape": "circular conical access to straight rod guide",
   "ramp_print_z_mm": {
     "cavity": [
       18.464820645284945,
@@ -1078,29 +1078,87 @@
   },
   "nominal_chamber_diameter_mm": 299.72,
   "load_screen": {
-    "model": "simply supported flat square under uniform load; screening, not FEA or a pressure rating",
+    "model": "silicone hydrostatic head and conservative uniform process-load screen",
     "span_mm": 165.0,
     "pressure_kpa": 1.0,
-    "assumed_modulus_mpa": 1000.0,
-    "assumed_poisson_ratio": 0.4,
     "silicone_density_assumption_kg_m3": 1130,
     "maximum_silicone_head_mm": 53.95,
     "head_pressure_kpa": 0.5980519350000001,
-    "screen_deflection_mm": 0.24266789870400002,
     "pressure_force_n": 27.225,
-    "condition": "fill, vents and both dry backs open to the same chamber; no sealed pressure differential",
-    "material_reference": "https://store.bblcdn.eu/s8/default/71ca815e70e74afc96ff5883f003235f/Bambu_PETG_Translucent_Technical_Data_Sheet.pdf"
+    "condition": "complete mold inside chamber; fill, vents, rod guide and drilled dry-side infill breathers open to chamber air",
+    "process": "six walls, six top/bottom layers and 15% gyroid; slow evacuation and venting while silicone is fluid",
+    "scope": "Applied liquid load only. No stiffness, lifetime or pressure rating is inferred from infill percentage."
   },
-  "status": "Complete two-shell tooling with straight stock steel rod; native geometry verified",
+  "status": "Complete two-body tooling with flat print bases and straight stock steel rod; native geometry verified",
   "enclosing_diameter_mm": 247.87647539831306,
   "chamber_radial_clearance_mm": 25.921762300843483,
   "volume_measurement_scope": "Numerical integration of the final native STEP solids; whole-shape equality is established by complete CSG, separately from spline volume integration.",
   "native_shell_sha256": {
-    "cavity.step": "54ac665069d8e3ae282c45c9f464448beabfb85fd9e32abf3bd4ccee2893d22d",
-    "cavity.stl": "ac74c7c87a51fb6ab492296ddeccc67bc1834c28354de0674a3641b231fb1ac7",
-    "cavity.step.mesh": "5efa2697d997a474038d8e503c5b3452960cfba512e8faa32eb8f28ef9f3e8da",
-    "core.step": "118a3800cf6435d9747936e000ca671cef853b58aa722dc09dcafabe05b5d424",
-    "core.stl": "7572a70da0f59e03c7b06a9af29b2939942c88382fb9bfc11bda49fc9aac12b9",
-    "core.step.mesh": "4b77685c87d01b01da103d3fa408bedf80e793e13236d1c787d245dc5c063b0b"
+    "cavity.step": "49089931459e3eba18da7f737da7dcd72c86a758e204c382ba8ef615c540b027",
+    "cavity.stl": "06440677138d0246a52959824507adbeb106c288d319dd35647430c744696048",
+    "cavity.step.mesh": "83a9033f1a0f14685ecbdb54d66a2cb6a67d607932c0546c126bde222d686b99",
+    "core.step": "b086cc4ebaecf842e5875f1a85c40ab8de11b52fc540d25c658371a4e16fe4be",
+    "core.stl": "097dfc585db89ad59b5349c7537fdb412d2c4a450256fd58954a92bc7ed3a2a6",
+    "core.step.mesh": "9efd4039b497a59ff4795c94f4e519ac63a5253f0ca0d1a82882cca564c646de"
+  },
+  "postprint_breathers": {
+    "diameter_mm": 1.5,
+    "cavity": {
+      "entry_xyz_mm": [
+        [
+          -82.425,
+          -30,
+          2.5
+        ],
+        [
+          82.425,
+          30,
+          2.5
+        ]
+      ],
+      "drill_axes": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          -1,
+          0,
+          0
+        ]
+      ],
+      "depth_mm": 3.2,
+      "face": "vertical sides of the flat base, clear of the catch tray"
+    },
+    "core": {
+      "entry_xyz_mm": [
+        [
+          -40,
+          -30,
+          61.150000000000006
+        ],
+        [
+          40,
+          30,
+          61.150000000000006
+        ]
+      ],
+      "drill_axes": [
+        [
+          0,
+          0,
+          -1
+        ],
+        [
+          0,
+          0,
+          -1
+        ]
+      ],
+      "depth_mm": 1.8,
+      "face": "flat outer dry back"
+    },
+    "method": "Drill through the printed skins into sparse infill after printing with a depth stop; keep dry faces and holes uncoated. CAD blind holes would receive sealed slicer walls."
   }
 }
