@@ -54,6 +54,8 @@ services:
         - web/**
         - updates/**
         - render.yaml
+        # The cost page reads the ledgers from the deployed clone.
+        - hardware/ledger/**
         # THE HARDWARE PATHS THAT DEPLOY, AND WHY THEY ARE THE ONLY ONES. Everything else under
         # `hardware/` reaches a running container as data — the artifact pointer file moves and
         # `web/lib/artifacts-live.js` brings its members down without a restart. This
