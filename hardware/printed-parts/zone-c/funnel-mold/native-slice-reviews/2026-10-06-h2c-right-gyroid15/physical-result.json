@@ -1,0 +1,44 @@
+{
+  "recorded_at_utc": "2026-10-06T16:48:12.804274+00:00",
+  "reported_date": "2026-10-06",
+  "printer_model": "Bambu Lab H2C",
+  "printer_current_name": "Mark1",
+  "job": {
+    "job_id": "1313390974",
+    "archive_name": "2026-10-06-funnel-cavity-h2c-right-z018-v3.gcode.3mf",
+    "archive_sha256": "55c3ef171995591b0d4cf21d20aa07cf85f093baed4cf85ffd89b2ac0845937b",
+    "gcode_sha256": "dc513865c301efe20b9fc87714ac2c52057225e06ab2b4de5bbfdad9eefdb358",
+    "accepted_at_utc": "2026-10-06T07:26:55.559743+00:00",
+    "accepted_at_central": "2026-10-06T02:26:55.559743-05:00",
+    "editable_project_sha256": "60cd9a0e48a51edcec2fc5f2310e64e5232d6c0a903b6fb0606312f3d2f1fb57",
+    "cavity_stl_sha256": "06440677138d0246a52959824507adbeb106c288d319dd35647430c744696048",
+    "launch_receipt": "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-h2c-right-gyroid15/launch.json"
+  },
+  "outcome": "failed",
+  "evidence_kind": "Derek physical report; accepted-job identity from immutable launch receipt",
+  "observations": [
+    "Derek reports the complete print was swept onto the extruder and continued accumulating filament around it.",
+    "Derek reports loss of another H2C induction heating assembly.",
+    "Derek reports the spare assembly is installed with a new 0.4 mm nozzle and the filament is drying."
+  ],
+  "failure_layer": null,
+  "failure_time_utc": null,
+  "initiating_cause": "not established",
+  "recording_audit": "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-v1/failed-job-audit.json",
+  "replacement_order": {
+    "verification": "Read-only Gmail order confirmation and shipment notice, October 6, 2026",
+    "merchant": "INNOADDI",
+    "item": "Induction Heating Assembly - Right",
+    "compatible_model": "Bambu Lab H2C / H2C Laser",
+    "quantity": 1,
+    "currency": "USD",
+    "item_total": 58.99,
+    "shipping": 7.99,
+    "total": 66.98,
+    "order_confirmed_at_utc": "2026-10-06T14:19:04+00:00",
+    "shipment_notice_at_utc": "2026-10-06T15:36:04+00:00",
+    "status": "shipment notice received"
+  },
+  "retry_preparation": "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-v1/README.md",
+  "scope": "The failure report does not establish the initiating adhesion defect, a failure layer, a detector malfunction, or the properties of a completed mold."
+}
