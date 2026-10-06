@@ -2,17 +2,23 @@
 
 Format: facts only. Direct quotes from Derek where applicable. Settings observed in committed `.3mf` snapshots. No interpretation, no hypothesis.
 
-The proven PETG Basic baseline and process guidance live in [`watertight-petg.md`](/hardware/printed-parts/cold-core/reservoir/watertight-petg.md); this file is the per-attempt record.
+The accepted reservoir recipes and process guidance live in [`watertight-petg.md`](/hardware/printed-parts/cold-core/reservoir/watertight-petg.md); this file is the per-attempt record. [Water-hold acceptance](water-hold-acceptance.json) identifies the tested articles and reported results.
 
 Geometry: the left flavor reservoir — `reservoir-left.step` (body) + `reservoir-cap-left.step` (cap). Plate composition and settings are recorded per attempt below.
 
-## PETG print attempt 3 (2026-05-30, settings per [`reservoir.3mf`](reservoir.3mf))
+## PETG print attempt 3 (2026-05-30, settings per [`reservoir-water-hold-2026-05-30.3mf`](reservoir-water-hold-2026-05-30.3mf))
 
 First print of the watertight recipe (developed on the water-test-cup coupon, which held water; the cup, its print log and its `.3mf` stand at the `archive-water-test-cup` tag) carried onto the actual reservoir body. First reservoir print to carry supports for the slanted floor.
 
 Geometry: one object, `reservoir-left.step` (body only; no cap on the plate). Printed mouth-up; the floor underside sits raised over the open bag-pocket space, so supports rise from the plate to the floor underside. Plate bbox ≈ 90 × 145 mm; `first_layer_time` ≈ 393 s.
 
 Printer / nozzle: Bambu Lab H2C, `printer_variant` 0.6, `nozzle_diameter` `[0.6, 0.6]`. `print_settings_id` `0.18mm Balanced Quality @BBL H2C 0.6 nozzle`. Textured plate. Active PETG slot `Bambu PETG Water`, nozzle pair (260 °C, 250 °C), `filament_flow_ratio` (1.02, 0.97), `filament_max_volumetric_speed` (21, 28). The 3mf is saved + printed-from; `slice_info.config` header-only (no per-plate estimate written).
+
+Actual filament: **Bambu PETG clear**, confirmed by Derek on 2026-10-05.
+The saved custom preset carries PETG Basic's `GFG00` identity. The active
+left nozzle uses 255 °C initially, 260 °C subsequently, flow 1.02 and a
+21 mm³/s volumetric limit. The paired right-nozzle values do not describe
+this print's extrusion.
 
 Support settings (this print's purpose):
 - `enable_support`: 1
@@ -124,7 +130,18 @@ Bambu Studio 02.08.02.61. Estimated 26 h 12 min, 417.16 g, 984 layers.
 - Top and bottom shells: 12 layers / 2 mm; 100% infill; top-surface ironing.
 
 [Settings and toolpath inspection](seal-trial.md).
-Physical print and water-test results are not yet recorded.
+
+### Result — held water (reported 2026-10-05)
+
+Derek said: "The September slower recipes did hold water (both of them) literally, so at least we have something usable there, even if a bit slow."
+
+The recovered Mark2 file is `reservoir-08-seal-trial.gcode.3mf`, printer file
+timestamp `20260907175322`. Its complete project settings match the saved
+0.18 mm project. The printer slice estimates 26 h 8 min and 416.86 g.
+Its timelapse thumbnail shows a full-height reservoir body and separate cap.
+The [acceptance record](water-hold-acceptance.json) identifies the archive and
+G-code hashes. The reported water hold has no specified duration, temperature
+or fill height.
 
 ## PETG 0.24 mm seal trial prepared (2026-09-04, settings per [`reservoir-08-seal-trial-024.3mf`](reservoir-08-seal-trial-024.3mf))
 
@@ -136,6 +153,15 @@ Bambu Studio 02.08.02.61. Estimated 20 h 8 min, 414.76 g, 738 layers.
 - `nozzle_temperature` **255 °C** (initial 255)
 - `layer_height` **0.24 mm** (initial 0.30)
 - All other machine, filament and process settings match `reservoir-08-seal-trial.3mf`.
-- Both object meshes and their placement match the 0.18 mm project.
+- Inspection basis: both object meshes and their placement match the September 4 0.18 mm reference slice.
 
-Physical print and water-test results are not yet recorded.
+### Result — held water (reported 2026-10-05)
+
+Derek's statement above applies to this 0.24 mm recipe as well.
+The recovered Mark2 file is `reservoir-08-seal-trial-024.gcode.3mf`, printer
+file timestamp `20260905022656`. Its complete project settings match the
+saved 0.24 mm project. The printer slice estimates 20 h 7 min and 414.76 g.
+Its timelapse thumbnail shows a full-height reservoir body and separate cap.
+The [acceptance record](water-hold-acceptance.json) identifies the archive and
+G-code hashes. The reported water hold has no specified duration, temperature
+or fill height.

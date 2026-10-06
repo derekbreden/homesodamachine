@@ -3,7 +3,7 @@
   "source_path": "hardware/printed-parts/cold-core/reservoir/reservoir.3mf",
   "source_project_sha256": "498f70012f0c83ea7200c1d4c31c85be4daeb6cb8a7be9ab3228a765eb9c74c1",
   "physical_evidence": "reservoir/print-log.md attempt 3, 2026-05-30: holding water for hours, with gaskets installed. No numeric pressure hold recorded.",
-  "material": "Bambu PETG Basic, GFG00; custom preset Bambu PETG Water",
+  "material": "Bambu PETG clear",
   "active_extruder": "left",
   "nozzle_mm": 0.6,
   "filament": {
@@ -101,5 +101,15 @@
     "sparse_infill_pattern": "zig-zag",
     "top_surface_pattern": "zig-zag",
     "bottom_surface_pattern": "zig-zag"
+  },
+  "saved_project_path": "hardware/printed-parts/cold-core/reservoir/reservoir-water-hold-2026-05-30.3mf",
+  "material_confirmed_by": "Derek",
+  "material_confirmed_date": "2026-10-05",
+  "material_evidence": "../reservoir/water-hold-acceptance.json",
+  "saved_preset_identity": {
+    "name": "Bambu PETG Water",
+    "filament_id": "GFG00",
+    "base_preset": "Bambu PETG Basic",
+    "scope": "Saved preset identity; actual filament confirmed as Bambu PETG clear."
   }
 }

@@ -73,7 +73,7 @@ material; there are no supports or prime towers.
 
 ASA uses Bambu's unmodified filament preset and its guide's process speeds and
 widths. PETG Translucent uses the sealing controls from the
-[successful PETG Basic reservoir recipe](petg-water-recipe.json), with the
+[successful May 30 Bambu PETG clear reservoir recipe](petg-water-recipe.json), with the
 Translucent preset's density and 16 mm³/s flow ceiling. The material selection
 is recorded in [petg-translucent-recipe.json](petg-translucent-recipe.json), and
 the float's process adaptations are in [petg-shell.md](petg-shell.md).

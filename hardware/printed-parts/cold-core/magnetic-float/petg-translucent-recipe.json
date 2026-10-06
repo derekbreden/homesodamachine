@@ -39,9 +39,9 @@
   },
   "sealing_process_source": {
     "path": "petg-water-recipe.json",
-    "sha256": "91abd1755f1755fbcd6afbee4416e99d1f27b9675aedbb51417075a4b8a84c0c",
-    "material": "Bambu PETG Basic GFG00",
-    "evidence_scope": "Recorded successful water-holding reservoir recipe; this source does not establish a Translucent pressure result."
+    "sha256": "6a0951d262f8abaf71df299ebbac262ebf03954ea5815c03348d6f90a0c441ce",
+    "material": "Bambu PETG clear, confirmed by Derek 2026-10-05; saved preset uses GFG00",
+    "evidence_scope": "May 30 reservoir held water for hours with gaskets installed. Both September 0.8 mm reservoir recipes also held water; no float pressure result is established."
   },
   "selected_filament_overrides": {
     "nozzle_temperature": [
