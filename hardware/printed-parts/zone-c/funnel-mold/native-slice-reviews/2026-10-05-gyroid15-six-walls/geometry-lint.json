@@ -1,0 +1,294 @@
+{
+  "method": "Post-publication printed-orientation mesh lint, with one explicit current-face answer per finding.",
+  "parts": {
+    "cavity": {
+      "stl_sha256": "06440677138d0246a52959824507adbeb106c288d319dd35647430c744696048",
+      "finding_counts": {
+        "step": 1,
+        "sliver": 12,
+        "ceiling": 8,
+        "slope": 0
+      },
+      "unanswered": 0,
+      "findings": {
+        "step": [
+          {
+            "class": "step",
+            "score": 16.0,
+            "line": "\u03941.000 mm between parallel planes \u00b7 footprint met 16.0 \u00d7 5.0 mm",
+            "pick": [
+              "faceA: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-103.000 y=0.000 z=55.150",
+              "faceB: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=0.000 y=0.000 z=56.150",
+              "click: x=-103.000 y=0.000 z=55.150"
+            ]
+          }
+        ],
+        "sliver": [
+          {
+            "class": "sliver",
+            "score": 16.0,
+            "line": "1.000 mm strip, 16.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-100.500 y=0.000 z=55.650",
+              "edge: x=-100.500 y=-8.000 z=55.650 \u2192 x=-100.500 y=8.000 z=55.650 \u00b7 len 16.000 \u00b7 straight \u00b7 dir x=0.000 y=1.000 z=0.000",
+              "click: x=-100.500 y=0.000 z=55.650"
+            ]
+          },
+          {
+            "class": "sliver",
+            "score": 16.0,
+            "line": "1.000 mm strip, 16.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=0.000 y=-76.842 z=55.650",
+              "edge: x=8.000 y=-76.842 z=55.650 \u2192 x=-8.000 y=-76.842 z=55.650 \u00b7 len 16.000 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+              "click: x=0.000 y=-76.842 z=55.650"
+            ]
+          },
+          {
+            "class": "sliver",
+            "score": 16.0,
+            "line": "1.000 mm strip, 16.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=100.500 y=0.000 z=55.650",
+              "edge: x=100.500 y=8.000 z=55.650 \u2192 x=100.500 y=-8.000 z=55.650 \u00b7 len 16.000 \u00b7 straight \u00b7 dir x=0.000 y=-1.000 z=0.000",
+              "click: x=100.500 y=0.000 z=55.650"
+            ]
+          },
+          {
+            "class": "sliver",
+            "score": 15.999999999839389,
+            "line": "1.000 mm strip, 16.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=0.000 y=76.832 z=55.650",
+              "edge: x=-8.000 y=76.831 z=55.650 \u2192 x=8.000 y=76.832 z=55.650 \u00b7 len 16.000 \u00b7 straight \u00b7 dir x=1.000 y=0.000 z=0.000",
+              "click: x=0.000 y=76.832 z=55.650"
+            ]
+          },
+          {
+            "class": "sliver",
+            "score": 5.0,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=8.000 y=79.342 z=55.650",
+              "edge: x=8.000 y=76.842 z=55.650 \u2192 x=8.000 y=81.842 z=55.650 \u00b7 len 5.000 \u00b7 straight \u00b7 dir x=0.000 y=1.000 z=0.000",
+              "click: x=8.000 y=79.342 z=55.650"
+            ]
+          },
+          {
+            "class": "sliver",
+            "score": 5.0,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=8.000 y=-79.342 z=55.650",
+              "edge: x=8.000 y=-81.842 z=55.650 \u2192 x=8.000 y=-76.842 z=55.650 \u00b7 len 5.000 \u00b7 straight \u00b7 dir x=0.000 y=1.000 z=0.000",
+              "click: x=8.000 y=-79.342 z=55.650"
+            ]
+          },
+          {
+            "class": "sliver",
+            "score": 5.0,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=-103.000 y=8.000 z=55.650",
+              "edge: x=-100.500 y=8.000 z=55.650 \u2192 x=-105.500 y=8.000 z=55.650 \u00b7 len 5.000 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+              "click: x=-103.000 y=8.000 z=55.650"
+            ]
+          },
+          {
+            "class": "sliver",
+            "score": 5.0,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=103.000 y=8.000 z=55.650",
+              "edge: x=105.500 y=8.000 z=55.650 \u2192 x=100.500 y=8.000 z=55.650 \u00b7 len 5.000 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+              "click: x=103.000 y=8.000 z=55.650"
+            ]
+          },
+          {
+            "class": "sliver",
+            "score": 5.0,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-8.000 y=79.342 z=55.650",
+              "edge: x=-8.000 y=81.842 z=55.650 \u2192 x=-8.000 y=76.842 z=55.650 \u00b7 len 5.000 \u00b7 straight \u00b7 dir x=0.000 y=-1.000 z=0.000",
+              "click: x=-8.000 y=79.342 z=55.650"
+            ]
+          },
+          {
+            "class": "sliver",
+            "score": 5.0,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-8.000 y=-79.342 z=55.650",
+              "edge: x=-8.000 y=-76.842 z=55.650 \u2192 x=-8.000 y=-81.842 z=55.650 \u00b7 len 5.000 \u00b7 straight \u00b7 dir x=0.000 y=-1.000 z=0.000",
+              "click: x=-8.000 y=-79.342 z=55.650"
+            ]
+          },
+          {
+            "class": "sliver",
+            "score": 4.999999999949807,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=-103.000 y=-8.011 z=55.650",
+              "edge: x=-105.500 y=-8.011 z=55.650 \u2192 x=-100.500 y=-8.011 z=55.650 \u00b7 len 5.000 \u00b7 straight \u00b7 dir x=1.000 y=0.000 z=0.000",
+              "click: x=-103.000 y=-8.011 z=55.650"
+            ]
+          },
+          {
+            "class": "sliver",
+            "score": 4.999999999949807,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=103.000 y=-8.010 z=55.650",
+              "edge: x=100.500 y=-8.010 z=55.650 \u2192 x=105.500 y=-8.010 z=55.650 \u00b7 len 5.000 \u00b7 straight \u00b7 dir x=1.000 y=0.000 z=0.000",
+              "click: x=103.000 y=-8.010 z=55.650"
+            ]
+          }
+        ],
+        "ceiling": [
+          {
+            "class": "ceiling",
+            "score": 82.972846105547,
+            "line": "108 mm\u00b2 flat print-down face at z=51.150 \u00b7 12.0 \u00d7 10.6 mm \u00b7 drop 8.0\u20138.0 mm to material below",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-100.200 y=50.000 z=51.150",
+              "click: x=-100.200 y=50.000 z=51.150"
+            ]
+          },
+          {
+            "class": "ceiling",
+            "score": 82.972846105547,
+            "line": "108 mm\u00b2 flat print-down face at z=51.150 \u00b7 12.0 \u00d7 10.6 mm \u00b7 drop 8.0\u20138.0 mm to material below",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-100.200 y=-50.000 z=51.150",
+              "click: x=-100.200 y=-50.000 z=51.150"
+            ]
+          },
+          {
+            "class": "ceiling",
+            "score": 82.972846105547,
+            "line": "108 mm\u00b2 flat print-down face at z=51.150 \u00b7 12.0 \u00d7 10.6 mm \u00b7 drop 8.0\u20138.0 mm to material below",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=100.200 y=50.000 z=51.150",
+              "click: x=100.200 y=50.000 z=51.150"
+            ]
+          },
+          {
+            "class": "ceiling",
+            "score": 82.972846105547,
+            "line": "108 mm\u00b2 flat print-down face at z=51.150 \u00b7 12.0 \u00d7 10.6 mm \u00b7 drop 8.0\u20138.0 mm to material below",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=100.200 y=-50.000 z=51.150",
+              "click: x=100.200 y=-50.000 z=51.150"
+            ]
+          },
+          {
+            "class": "ceiling",
+            "score": 82.97284517891451,
+            "line": "108 mm\u00b2 flat print-down face at z=51.150 \u00b7 12.0 \u00d7 10.6 mm \u00b7 drop 8.0\u20138.0 mm to material below",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-50.000 y=76.542 z=51.150",
+              "click: x=-50.000 y=76.542 z=51.150"
+            ]
+          },
+          {
+            "class": "ceiling",
+            "score": 82.97284517891451,
+            "line": "108 mm\u00b2 flat print-down face at z=51.150 \u00b7 12.0 \u00d7 10.6 mm \u00b7 drop 8.0\u20138.0 mm to material below",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=50.000 y=76.542 z=51.150",
+              "click: x=50.000 y=76.542 z=51.150"
+            ]
+          },
+          {
+            "class": "ceiling",
+            "score": 82.97284517891451,
+            "line": "108 mm\u00b2 flat print-down face at z=51.150 \u00b7 12.0 \u00d7 10.6 mm \u00b7 drop 8.0\u20138.0 mm to material below",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-50.000 y=-76.542 z=51.150",
+              "click: x=-50.000 y=-76.542 z=51.150"
+            ]
+          },
+          {
+            "class": "ceiling",
+            "score": 82.97284517891451,
+            "line": "108 mm\u00b2 flat print-down face at z=51.150 \u00b7 12.0 \u00d7 10.6 mm \u00b7 drop 8.0\u20138.0 mm to material below",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=50.000 y=-76.542 z=51.150",
+              "click: x=50.000 y=-76.542 z=51.150"
+            ]
+          }
+        ],
+        "slope": []
+      }
+    },
+    "core": {
+      "stl_sha256": "097dfc585db89ad59b5349c7537fdb412d2c4a450256fd58954a92bc7ed3a2a6",
+      "finding_counts": {
+        "step": 1,
+        "sliver": 4,
+        "ceiling": 0,
+        "slope": 0
+      },
+      "unanswered": 0,
+      "findings": {
+        "step": [
+          {
+            "class": "step",
+            "score": 598.6682095037066,
+            "line": "\u03940.300 mm between parallel planes \u00b7 footprint met 179.6 \u00d7 132.3 mm",
+            "pick": [
+              "faceA: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=0.000 y=0.000 z=56.450",
+              "faceB: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=0.000 y=0.000 z=56.150",
+              "click: x=20.833 y=-57.075 z=56.450"
+            ]
+          }
+        ],
+        "sliver": [
+          {
+            "class": "sliver",
+            "score": 125.0,
+            "line": "0.300 mm strip, 125.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=0.000 y=66.137 z=56.300",
+              "edge: x=62.500 y=66.137 z=56.300 \u2192 x=-62.500 y=66.137 z=56.300 \u00b7 len 125.000 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+              "click: x=0.000 y=66.137 z=56.300"
+            ]
+          },
+          {
+            "class": "sliver",
+            "score": 125.0,
+            "line": "0.300 mm strip, 125.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=0.000 y=-66.142 z=56.300",
+              "edge: x=-62.500 y=-66.142 z=56.300 \u2192 x=62.500 y=-66.142 z=56.300 \u00b7 len 125.000 \u00b7 straight \u00b7 dir x=1.000 y=0.000 z=0.000",
+              "click: x=0.000 y=-66.142 z=56.300"
+            ]
+          },
+          {
+            "class": "sliver",
+            "score": 77.68301391601562,
+            "line": "0.300 mm strip, 77.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=89.800 y=0.000 z=56.300",
+              "edge: x=89.800 y=-38.842 z=56.300 \u2192 x=89.800 y=38.842 z=56.300 \u00b7 len 77.683 \u00b7 straight \u00b7 dir x=0.000 y=1.000 z=0.000",
+              "click: x=89.800 y=0.000 z=56.300"
+            ]
+          },
+          {
+            "class": "sliver",
+            "score": 77.68301391601562,
+            "line": "0.300 mm strip, 77.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-89.800 y=0.000 z=56.300",
+              "edge: x=-89.800 y=38.842 z=56.300 \u2192 x=-89.800 y=-38.842 z=56.300 \u00b7 len 77.683 \u00b7 straight \u00b7 dir x=0.000 y=-1.000 z=0.000",
+              "click: x=-89.800 y=0.000 z=56.300"
+            ]
+          }
+        ],
+        "ceiling": [],
+        "slope": []
+      }
+    }
+  }
+}

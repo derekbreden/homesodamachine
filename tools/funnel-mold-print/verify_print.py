@@ -67,7 +67,7 @@ def audit(project, provenance_path, models):
                 assert equivalent(key, supplied, value), (key, supplied, value)
                 if supplied != value:
                     normalized.append(key)
-        assert settings['sparse_infill_density'] == '100%'
+        assert settings['sparse_infill_density'] == recipe['process_settings']['sparse_infill_density']['value']
         assert settings['enable_support'] == '1'
         assert settings['support_type'] == 'tree(auto)'
         assert settings['enable_prime_tower'] == '0'
@@ -124,8 +124,8 @@ def geometry_figures(info):
     return {
         'SKIN': f"{info['shell_thickness_mm']:g} mm",
         'FLANGE': f"{info['flange_thickness_mm']:g} mm",
-        'DRY_MOUTH': (f"{info['dry_opening_mm']:.1f} × "
-                      f"{info.get('dry_opening_depth_mm', info['dry_opening_mm']):.1f} mm"),
+        'DRY_MOUTH': (f"Ø{info['dry_opening_mm']:.1f} mm" if info.get('dry_opening_shape', '').startswith('circular')
+                      else f"{info['dry_opening_mm']:.1f} × {info.get('dry_opening_depth_mm', info['dry_opening_mm']):.1f} mm"),
         'BOLT_D': f"{info['clamping']['hole_diameter_mm']:g} mm",
         'LOCATOR_HEIGHT': f"{info['locators']['height_mm']:g} mm",
         'LOCATOR_CLEARANCE': f"{info['locators']['radial_clearance_mm']:.2f} mm",
@@ -156,8 +156,6 @@ def geometry_figures(info):
         'CHAMBER_GAP': f"{info['chamber_radial_clearance_mm']:.1f} mm",
         'LOAD_SPAN': f"{info['load_screen']['span_mm']:g} mm",
         'LOAD_PRESSURE': f"{info['load_screen']['pressure_kpa']:.2f} kPa",
-        'LOAD_MODULUS': f"{info['load_screen']['assumed_modulus_mpa']:g} MPa",
-        'LOAD_DEFLECTION': f"{info['load_screen']['screen_deflection_mm']:.3f} mm",
         'HEAD_PRESSURE': f"{info['load_screen']['head_pressure_kpa']:.3f} kPa"}
 
 
@@ -169,7 +167,8 @@ def write_figures(models, figures, merge=False):
     held = json.loads(sidecar.read_text()).get(key, {}) if merge and sidecar.exists() else {}
     held.update(figures)
     for retired in ('SOCKET', 'SOCKET_VENT', 'SPOUT_WALL', 'SPOUT_OD', 'SPOUT_LAND',
-                    'TIP_LENGTH', 'TIP_CAP', 'ROD_MIN_WALL', 'ROD_TIE_WIDTH', 'ROD_SEAL_DEPTH', 'ROD_EXTRA', 'ROD_ROOF_GAP'):
+                    'TIP_LENGTH', 'TIP_CAP', 'ROD_MIN_WALL', 'ROD_TIE_WIDTH', 'ROD_SEAL_DEPTH', 'ROD_EXTRA', 'ROD_ROOF_GAP',
+                    'LOAD_MODULUS', 'LOAD_DEFLECTION'):
         held.pop(retired, None)
     substitute_md(models/'README.md', variables=figures)
     sidecar.write_text(json.dumps({key: held}, indent=2, sort_keys=True)+'\n')

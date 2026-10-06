@@ -1,0 +1,70 @@
+{
+  "project_sha256": "d6fbae57417e59d87ec60ca1a634505aec170fb1179c078fe4da73b547c5141d",
+  "method": "Native deposited model paths buffered by half emitted line width, including arcs; support excluded.",
+  "scope": "Nominal first/second layer and steep-transition bead overlap, plus open air at specified breather depths in the native sparse slice. Extrusion adhesion and finished print leakage are physical observations.",
+  "plates": [
+    {
+      "part": "cavity",
+      "gcode_sha256": "39c7623e0762af63907fbc414fbcef72c4ccfc941a816487a597e13559c71972",
+      "first_layer_z_mm": 0.2,
+      "second_layer_z_mm": 0.44,
+      "second_layer_nominal_bead_overlap_fraction": 0.9970886940334452,
+      "base_overlap_tolerance_mm": 0.05,
+      "corbel_layers_z_mm": [
+        5.24,
+        5.48
+      ],
+      "corbel_outer_bead_overlap_fraction": 0.7142857142857143,
+      "breather_windows": [
+        {
+          "tip_bed_xy_mm": [
+            70.275,
+            130
+          ],
+          "nearby_layer_z_mm": 2.6,
+          "unfilled_tip_window_area_mm2": 1.1521669991313455
+        },
+        {
+          "tip_bed_xy_mm": [
+            228.725,
+            190
+          ],
+          "nearby_layer_z_mm": 2.6,
+          "unfilled_tip_window_area_mm2": 1.4996627794594766
+        }
+      ]
+    },
+    {
+      "part": "core",
+      "gcode_sha256": "2841476addcde7c16a5e31fb8398d3e31db9495c79decdbc7fd0598f10aeb152",
+      "first_layer_z_mm": 0.2,
+      "second_layer_z_mm": 0.44,
+      "second_layer_nominal_bead_overlap_fraction": 0.9960605324762736,
+      "base_overlap_tolerance_mm": 0.05,
+      "corbel_layers_z_mm": [
+        5.24,
+        5.48
+      ],
+      "corbel_outer_bead_overlap_fraction": 0.7164895536535503,
+      "breather_windows": [
+        {
+          "tip_bed_xy_mm": [
+            109.5,
+            190
+          ],
+          "nearby_layer_z_mm": 1.88,
+          "unfilled_tip_window_area_mm2": 1.2477191453295722
+        },
+        {
+          "tip_bed_xy_mm": [
+            189.5,
+            130
+          ],
+          "nearby_layer_z_mm": 1.88,
+          "unfilled_tip_window_area_mm2": 1.7643085259320859
+        }
+      ]
+    }
+  ],
+  "passed": true
+}
