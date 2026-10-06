@@ -169,10 +169,6 @@ function openModal(wrapper, sc, title) {
   wrapper.appendChild(modal);
 }
 
-// Watches the mounted badge's height for the phone layout; one at a time, since
-// one wrapper carries one badge.
-let badgeSize = null;
-
 // The verdict in one word, and the count when it is a bad one. Everything behind it —
 // each gate, each goal's score, the sizes — is a click away in the modal.
 //
@@ -191,27 +187,13 @@ function buildBadge(wrapper, sc, title) {
       : "✓ checks");
   badge.type = "button";
   badge.addEventListener("click", (e) => { e.stopPropagation(); openModal(wrapper, sc, title); });
-  wrapper.appendChild(badge);
-  // How much room the badge takes at the bottom of the wrapper, published for the
-  // phone layout to stand the rail and Reset view on top of (viewer.css).
-  //
-  // Measured here and again on every resize. The first reading is taken inline
-  // because offsetHeight forces the layout it reads, which holds in a tab that
-  // is not being painted — a ResizeObserver in that tab does not run until the
-  // tab is looked at, and the rail would stand over the badge until then.
-  const publish = () => {
-    wrapper.style.setProperty("--sc-badge-lift", `${Math.ceil(badge.offsetHeight) + 8}px`);
-  };
-  publish();
-  badgeSize = new ResizeObserver(publish);
-  badgeSize.observe(badge);
+  const footer = wrapper.querySelector(".cad-footer") || wrapper;
+  footer.insertBefore(badge, footer.querySelector(".reset-view"));
 }
 
 // Remove the badge and any open modal — used before a re-mount (live reload) and by teardown.
 export function removeScorecard(wrapper) {
   if (!wrapper) return;
-  if (badgeSize) { try { badgeSize.disconnect(); } catch {} badgeSize = null; }
-  wrapper.style.removeProperty("--sc-badge-lift");
   const b = wrapper.querySelector(".sc-badge");
   if (b) b.remove();
   closeModal(wrapper);
