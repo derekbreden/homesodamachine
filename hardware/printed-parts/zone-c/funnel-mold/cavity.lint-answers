@@ -1,34 +1,29 @@
-[step] The opening notch is recessed 1 mm into the bare parting land and opens through the flange edge. Its 4 mm floor carries a blunt opening tool; the 1 mm level change is the pry recess.
+[step] The four 1 mm opening notches retain a 4 mm flange floor and open through the edge for a blunt tool.
 file: hardware/printed-parts/zone-c/funnel-mold/cavity.step
 click: x=-103.000 y=0.000 z=55.150
 
-[sliver] These are the vertical backs and sides of the four 1 mm high, 16 mm wide opening notches. Each recess retains a 4 mm flange floor and opens through the outer edge; the strip dimension is the recess height.
+[sliver] The narrow vertical faces are backs and sides of the four 1 mm opening notches. Their width is the recess height; the retained flange floor is 4 mm.
 file: hardware/printed-parts/zone-c/funnel-mold/cavity.step
 click: x=-100.500 y=0.000 z=55.650
-click: x=0.000 y=-76.844 z=55.650
-click: x=0.000 y=76.844 z=55.650
+click: x=0.000 y=-76.842 z=55.650
 click: x=100.500 y=0.000 z=55.650
-click: x=8.000 y=-79.342 z=55.650
+click: x=0.000 y=76.832 z=55.650
 click: x=8.000 y=79.342 z=55.650
-click: x=-103.000 y=7.998 z=55.650
-click: x=103.000 y=7.998 z=55.650
-click: x=-103.000 y=-7.997 z=55.650
-click: x=103.000 y=-7.997 z=55.650
-click: x=-8.000 y=-79.342 z=55.650
+click: x=8.000 y=-79.342 z=55.650
+click: x=-103.000 y=8.000 z=55.650
+click: x=103.000 y=8.000 z=55.650
 click: x=-8.000 y=79.342 z=55.650
+click: x=-8.000 y=-79.342 z=55.650
+click: x=-103.000 y=-8.011 z=55.650
+click: x=103.000 y=-8.010 z=55.650
 
-[ceiling] The 5 mm clamping flange provides the bare closing land and room for M4 washers and clamps. Its 16 mm margin surrounds the silicone brim on both axes. The 2026-10-05 native Snug slice records bed-rooted interface-5 at print Z50.602–50.880 beneath this band. Cut and detach support at the exposed outer edges before finishing.
+[ceiling] These eight 12 mm wide open side pockets give access to M4 bolt heads and 9 mm washers beneath the 5 mm flange. The current six-wall/15% gyroid native slice has eight bed-rooted Snug support bodies and accessible interfaces up to print Z50.88. Cut and detach each exposed support column through the pocket opening.
 file: hardware/printed-parts/zone-c/funnel-mold/cavity.step
-click: x=0.000 y=0.000 z=51.150
-
-[ceiling] This underside backs the silicone brim with at least 5 mm shell stock. The 2026-10-05 native Snug slice records bed-rooted interface-4 at print Z44.362–45.600 in the brim band. Cut and detach support through the open dry back before finishing the forming face.
-file: hardware/printed-parts/zone-c/funnel-mold/cavity.step
-click: x=0.000 y=0.000 z=44.840
-
-[ceiling] This flat underside backs the silicone block with 5 mm shell stock. The 2026-10-05 native Snug slice records bed-rooted interface-2 at print Z1.440–2.640 in the block band. Cut and detach support from the open underside between the three mold feet.
-file: hardware/printed-parts/zone-c/funnel-mold/cavity.step
-click: x=1.850 y=0.000 z=1.890
-
-[ceiling] This is the dry underside of the lower rod socket. Its 5 mm floor stops the steel rod below the silicone block; it sits 0.7 mm above the feet datum. The 2026-10-05 native Snug slice records bed-rooted interface-1 at print Z0.200–0.480 beneath it. Cut and detach support through the open underside before fitting the rod.
-file: hardware/printed-parts/zone-c/funnel-mold/cavity.step
-click: x=1.850 y=0.000 z=0.700
+click: x=-100.200 y=50.000 z=51.150
+click: x=-100.200 y=-50.000 z=51.150
+click: x=100.200 y=50.000 z=51.150
+click: x=100.200 y=-50.000 z=51.150
+click: x=-50.000 y=76.542 z=51.150
+click: x=50.000 y=76.542 z=51.150
+click: x=-50.000 y=-76.542 z=51.150
+click: x=50.000 y=-76.542 z=51.150

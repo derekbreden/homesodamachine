@@ -8,10 +8,14 @@ drain stub over its full 5.015 mm insertion depth; the funnel lifts off for clea
 ![The two pieces in their print orientations](overview.png)
 
 The clamping flanges are **211 × 163.683 mm**, with 16 mm margin around the
-179 × 131.683 mm silicone brim. Both shells have 5 mm minimum ramp backing
-and 5 mm flange thickness. The core's 0.30 mm brim-finishing pocket retains
+179 × 131.683 mm silicone brim. The cavity has a flat 164.85 × 117.533 mm base and a **63.4° corbel**
+supporting its flange. The core has a flat dry back and one **41.085 mm
+circular tapered access hole** leading to the straight rod guide. Both bodies
+retain at least 5 mm ramp backing and 5 mm flange thickness. The core's 0.30 mm brim-finishing pocket retains
 4.70 mm backing. Eight 5 mm holes take M4 × 20 bolts, 9 mm OD washers and nuts;
-small clamps can also reach the flange backs. Two locating pegs orient the halves.
+Eight shallow pockets give side access to the cavity bolt heads. Their short
+ceilings receive removable Snug support; the corbel and core access taper
+print without support. Two locating pegs orient the halves.
 Four edge notches admit a blunt opening tool.
 
 ## Rod and guides
@@ -32,11 +36,19 @@ The open guide lets air and small amounts of silicone enter the accessible dry
 back. Trim cured guide overflow at the bowl throat and lower-seat flash flush
 with the block bottom. Keep the guide clear during filling and vacuum cycling.
 
-![Open dry backs and straight rod guide](backs.png)
+![Flat backs and the tapered rod access hole](backs.png)
 
 ## Finish and cast
 
-1. Remove supports. Sand and seal the shell forming faces, using their 0.30 mm
+1. Remove the accessible bolt-pocket supports. Drill two **1.5 mm infill
+   breather holes** in each body's bare dry side, using a depth stop:
+   cavity side walls at **X = ±82.425 mm, Y = ±30 mm, Z = 2.5 mm**,
+   drilling **3.2 mm horizontally inward**; core flat back at
+   **XY = (−40, −30) and (40, 30)**, drilling **1.8 mm inward**.
+   XY is relative to the brim centre and Z is above the cavity bottom.
+   The side entries keep cavity breathers clear of a flat tray. These holes
+   pierce the six-wall or six-layer skins into the gyroid; leave them uncoated.
+   Sand and seal the mold forming faces, using their 0.30 mm
    net finishing reserve. Keep the parting lands, locating features, clamp holes,
    rod guides and lower stop bare. Dry-close on the lands and check the rod's
    drop-in fit. Clean the steel rod; apply a light release film to it and both
@@ -50,7 +62,8 @@ with the block bottom. Keep the guide clear during filling and vacuum cycling.
    stations gradually. Top up through the 11 mm fill hole; keep all five 4 mm
    vents and the open rod guide clear. Use a catch tray.
 4. If vacuum cycling the filled mold, put the complete mold and tray inside the
-   chamber. Keep fill, vents, guide and dry backs connected to chamber air.
+   chamber. Keep fill, vents, rod guide and infill breathers connected to chamber air.
+   Keep the side breathers clear of silicone overflow.
    Evacuate and vent slowly while the silicone is fluid, then top up and cure
    at ambient pressure. Follow the material record's five-hour demold hold and
    24-hour full-use hold at 23 °C, and the actual container instructions.
@@ -63,22 +76,37 @@ with the block bottom. Keep the guide clear during filling and vacuum cycling.
    seated. Check the normal filling, lift-out and refitting operation. Clean
    the rod and tooling before another cast.
 
-![Section through the two shells, silicone and steel rod](section.png)
+![Section through the two mold bodies, silicone and steel rod](section.png)
 
 The [illustrated Letter guide](../../../mold-guide/README.md) follows this
-procedure. The tooling uses equalized chamber pressure and gravity filling.
+procedure. The tooling uses equalized chamber pressure and gravity filling. The maximum
+54 mm silicone head produces about **0.60 kPa**. The sparse interior breathes
+through the drilled dry-side holes; wall count and infill percentage do not
+establish a stiffness or lifetime rating. The [print log](print-log.md) records
+a successful 15% infill mold with Snug supports on September 16.
+
+The acquired [5-gallon chamber](../../../ledger/tools.md) is recorded with a
+**299.72 mm interior diameter and height**. The rounded mold fits within a
+**247.88 mm circle**, leaving **25.92 mm radial clearance**. With the specified
+M4 × 20 closure hardware it is about **70.35 mm high**. Use a catch tray no
+larger than 260 mm across and keep it clear of the breathers. The
+[chamber check](chamber-check.json) binds these dimensions to the native parts
+and the acquired chamber record; physical insertion is not recorded.
 
 ## Print files and checks
 
 [Editable two-plate Bambu project](funnel-mold.3mf) ·
 [Cavity STL](cavity.stl) · [Core STL](core.stl) ·
-[Current native slice](native-slice-reviews/2026-10-05-straight-rod/README.md)
+[Current native slice](native-slice-reviews/2026-10-05-gyroid15-six-walls/README.md)
 
 PETG Translucent, left 0.4 mm Standard nozzle, 0.88 flow,
 5.61702 mm³/s maximum volumetric speed, 0.20 mm first layer, 0.24 mm layers
-above, two walls, solid zig-zag infill and Snug normal supports. The cavity
+above, **six walls, 15% gyroid infill, six top/bottom layers** and Snug normal
+supports for the bolt pockets. The cavity
 prints upright; the core prints inverted on its dry back. The Textured PEI
-recipe uses the recorded +0.18 mm requested trim (`G29.1 Z0.16`).
+recipe uses the recorded +0.18 mm requested trim (`G29.1 Z0.16`). The native
+slice estimates **28.14 hours and 587.65 g** for both pieces. The core has no
+supports; the cavity has eight accessible support columns at the bolt pockets.
 
 [Rod and casting check](rod-check.json) verifies the straight stock profile,
 open guide, drop-in and withdrawal paths, and complete casting equality with
@@ -95,6 +123,7 @@ tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-mold/funnel_mold.
 tools/cad-venv/bin/python tools/funnel-mold-print/review_rod.py
 tools/cad-venv/bin/python tools/funnel-mold-print/review_containment.py \
   --output hardware/printed-parts/zone-c/funnel-mold/containment-review.json
+tools/cad-venv/bin/python tools/funnel-mold-print/review_chamber.py
 ```
 
 After publication, run `tools/funnel-mold-print/review_geometry.py` in the

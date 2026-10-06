@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "piece": "funnel-mold/core",
+  "inputs": {
+    "gcode": "plate_2.gcode",
+    "gcode_sha256": "2841476addcde7c16a5e31fb8398d3e31db9495c79decdbc7fd0598f10aeb152",
+    "model": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/zone-c/funnel-mold/core.stl",
+    "model_sha256": "097dfc585db89ad59b5349c7537fdb412d2c4a450256fd58954a92bc7ed3a2a6",
+    "profile": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/funnel-gyroid-2026-10-05/current-funnel-mould-petg088.3mf",
+    "profile_sha256": "89c0addd01a9905ab26bf972fc000a278bc34864ddfc9c06369ddee0931cd829"
+  },
+  "slicer": "BambuStudio 02.08.02.61",
+  "first_layer_z_mm": 0.2,
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      -1.0,
+      0.0,
+      0.0,
+      0.0,
+      -1.0,
+      -149.5,
+      160.0,
+      61.150001526
+    ]
+  },
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.2",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.48",
+    "support_on_build_plate_only": "0",
+    "support_style": "snug",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.2",
+    "support_type": "normal(auto)"
+  },
+  "summary": {
+    "support_bodies": 0,
+    "interface_islands": 0,
+    "bed_rooted_bodies": 0,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 0,
+    "shortest_labelled_build_up_mm": null
+  },
+  "trees": [],
+  "interfaces": [],
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up."
+}

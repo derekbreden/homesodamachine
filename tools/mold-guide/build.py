@@ -35,6 +35,7 @@ SOURCES = [
     "hardware/mechanical-qualification/core-and-faucet-heatsets.json",
     "hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md",
     "hardware/printed-parts/zone-c/funnel-mold/containment-review.json",
+    "hardware/printed-parts/zone-c/funnel-mold/chamber-check.json",
 ]
 F = json.loads((ROOT / SOURCES[2]).read_text())
 if not math.isclose(F["finish_allowance_mm"], .30):
@@ -178,12 +179,9 @@ def mold_section(a, x=15, y=110, width=465, include_core=True, liquid=False,
                     (nc+3.2, 50.45), (nc+3.2, 48.95),
                     (nc+18, 48.95), (nc+18, 42), (81.5, 29.5),
                     (82.5, 23.486), (82.5, 6), (89.5, 6), (89.5, 0)]
-    cavity_outer = [(105.5, 0), (105.5, 5), (94.5, 5), (94.5, 11),
-                    (87.5, 11), (87.5, 23.486), (86.5, 34.5),
-                    (nc+23, 47), (nc+23, 55.45),
-                    (nc-23, 55.45), (nc-23, 47), (-86.5, 34.5),
-                    (-87.5, 23.486), (-87.5, 11), (-94.5, 11),
-                    (-94.5, 5), (-105.5, 5), (-105.5, 0)]
+    cavity_outer = [(105.5, 0), (105.5, 5), (82.425, 51.15),
+                    (82.425, 56.15), (-82.425, 56.15),
+                    (-82.425, 51.15), (-105.5, 5), (-105.5, 0)]
     shape([(-105.5, 0), *cavity_inner, *cavity_outer], TEAL)
     # This pale band is the casting space; coral is liquid silicone on pour pages.
     shape(cavity_inner, ORANGE if liquid else ICE, None)
@@ -194,12 +192,10 @@ def mold_section(a, x=15, y=110, width=465, include_core=True, liquid=False,
                (76.5, 23.486), (76.5, -.3), (89.5, -.3)]
         shape([(-105.5, -5), (105.5, -5), (105.5, 0),
                (89.5, 0), *reversed(wet), (-89.5, 0), (-105.5, 0)], GOLD)
-        dry = [(-71.5, -5), (71.5, -5), (71.5, 17.486),
-               (nc+3.0, 31.685179), (nc-3.0, 31.685179), (-71.5, 17.486)]
+        dry = [(nc-20.5425, -5), (nc+20.5425, -5),
+               (nc+3.2, 29.685179), (nc-3.2, 29.685179)]
         shape(dry, PAPER, None)
         # Straight open guide: the stock rod is accessible from the dry back.
-        bx, by = point(nc-8.2, 29.685179)
-        a.rect(bx, by, 16.4*s, 7.7*s, GOLD)
         shape([(nc-3.2, 29.685179), (nc+3.2, 29.685179),
                (nc+3.2, 37.685179), (nc-3.2, 37.685179)],
               ORANGE if liquid else PAPER)
@@ -321,7 +317,7 @@ def pages(c):
         a.label("mask holes",481,38,11,BLUE,align="right")
         a.label("also mask: locators, rod guides and axial stops",258,289,11,BLUE,align="center")
     figure(c,finish_faces)
-    actions(c,[("Remove every support", "Clear the dry backs, neck and rod guides. Remove loose plastic and smooth the forming slopes before applying the finish."),
+    actions(c,[("Clear supports and open infill", "Remove bolt-pocket supports. Drill 1.5 mm dry-side breathers: cavity sides 3.2 mm deep, core flat back 1.8 mm deep. Positions: mold README."),
                ("Measure a witness", "Use the actual PETG, sanding and finish stack on a sample. Measure net growth; the shell reserve is 0.30 mm normal to the face."),
                ("Mask closure datums", "Keep lands, pegs/holes, bolt bores, rod guides and end stops bare. Coated lands change closure height.")])
     gate(c,"Before continuing", "The finish is dry and coherent, and the coated halves still close on the bare lands. Coating compatibility and closure need a physical check.")
@@ -498,7 +494,7 @@ def pages(c):
     figure(c,casting,height=355)
     actions(c,[("Seat the rod, then fill", "Set the steel rod on the lower seat floor. Fill around the rod and drain block while the degassed silicone still flows."),
                ("Seat the core evenly", "Lower slowly over the rod. Let air escape through the open rod guide; close the bare flange lands without force."),
-               ("Top up through the fill hole", "Use the 11 mm fill opening. The five 4 mm vents remain clear for air; catch overflow and keep the dry backs open.")],y=527)
+               ("Top up through the fill hole", "Use the 11 mm fill opening. The five 4 mm vents, rod access and dry-side infill breathers remain open; catch overflow.")],y=527)
     gate(c,"Check", "The parting lands remain closed, the rod stays seated, and liquid reaches the block and continuous 6 mm ramp space. No pressure injection.",tone=BLUE)
     finish(c,n,"Funnel-mold/README.md: cast and open, steps 2-3", "printed-parts/zone-c/funnel-mold/README.md")
 
@@ -516,13 +512,13 @@ def pages(c):
         a.arrow(218,119,218,80,BLUE)
         a.arrow(313,118,336,80,BLUE)
         a.arrow(86,194,51,209,BLUE)
-        a.label("fill + vents + both dry backs open",268,299,12,BLUE,"PlexSemi","center")
+        a.label("fill + vents + rod access + infill breathers open",268,299,11,BLUE,"PlexSemi","center")
         a.label("catch tray / overflow clear of pressure paths",268,321,10,INK,align="center")
     figure(c,mold_vacuum,height=350)
-    actions(c,[("Keep openings connected", "Place the complete mold inside the chamber. Fill, vents and dry backs must communicate with chamber air; overflow cannot seal them."),
+    actions(c,[("Keep openings connected", "The mold with bolts is 248 mm across and 71 mm high; chamber interior is 300 x 300 mm. Keep fill, vents, rod access and drilled breathers open."),
                ("Evacuate and vent slowly", "Perform any cycle while silicone is fluid. Observe tool/overflow behavior, vent gently, then recheck and top up the fill level."),
                ("Return to ambient for cure", "Keep the flanges held together through room-temperature cure. The tooling is not rated for a sealed atmosphere differential.")],y=526)
-    gate(c,"Keep pressure paths open", "Fill, vents, dry backs and the rod guide share the chamber pressure. Stop on seam opening, distortion or a blocked air path.")
+    gate(c,"Keep pressure paths open", "Liquid head is about 0.6 kPa. Six walls and 15% gyroid rely on open infill breathers during slow vacuum cycling. Stop on distortion or a blocked path.")
     finish(c,n,"Funnel-mold/README.md: load and vacuum; cast and open step 4", "printed-parts/zone-c/funnel-mold/README.md")
 
     n=13

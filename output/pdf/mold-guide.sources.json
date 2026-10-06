@@ -15,10 +15,10 @@
   },
   "artwork": "vector schematic; dimensions govern; not a full-size template",
   "source_sha256": {
-    "hardware/printed-parts/zone-c/funnel-mold/README.md": "530b43bfc61a25e8d9a288f95488368911c83bf284f8201999cd0806ff54d9c2",
+    "hardware/printed-parts/zone-c/funnel-mold/README.md": "eda79144587de6e6ca4230899c4da9fbc210a4be993b71cd0002ce14aee24a9d",
     "hardware/printed-parts/zone-c/funnel-mold/silicone.md": "5e0bc66c84b08b438b492c7825b81f437c17ce64fb0d3258e71ba03c470d35a8",
-    "hardware/printed-parts/zone-c/funnel-mold/design.json": "6f965387e71276cc565d429b8eac7d36534a72e7c595ca800e1475cc9ec7ef82",
-    "hardware/printed-parts/zone-c/funnel-mold/rod-check.json": "1f1d0084ed188a0292604b5be6831cac04a9d4a372aea58b9f439fde43e79db9",
+    "hardware/printed-parts/zone-c/funnel-mold/design.json": "d8488d5dee3b7f2f5e1d240b301cad4867f42831715e63a934b5eb3a4579127c",
+    "hardware/printed-parts/zone-c/funnel-mold/rod-check.json": "87bede87f33ed0eb13176cee86d0471b0d2de7a391aafc18d8e32210d8e8ca5c",
     "hardware/printed-parts/zone-c/funnel-mold/print-log.md": "3edf021035baf9fe9bd73f394feacc7304ea7befa65e3eb65e26044fb4535613",
     "hardware/printed-parts/zone-c/funnel/wall-review.json": "4fcf0de5662fda77e5c30e5dad90da7ccd7a578010c3e00b968b07663480e568",
     "hardware/assembly/cold-core.md": "2ee8fe235e23cc40cfabbae5197dcddcddd64c31b1a3896df46780c9efa4d174",
@@ -26,9 +26,10 @@
     "hardware/printed-parts/cold-core/copper-plugs/README.md": "f87987ee5ec4284f92f725d4cb87e7449a87acc637d9c24f15d3124fb8a97ecb",
     "hardware/mechanical-qualification/core-and-faucet-heatsets.json": "de86b94aca6f76372528ff1d06798641104e39f8efa485b484d59c17ecbc236a",
     "hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md": "8f50ef31c91e3220b8bd79261263a35ef21ee710256be557eccd8e8111ce79de",
-    "hardware/printed-parts/zone-c/funnel-mold/containment-review.json": "d4d0436da9a598af18ce65988f9ae0dd64ba62e6a6c17fb0364083ebae1ba95a"
+    "hardware/printed-parts/zone-c/funnel-mold/containment-review.json": "bbb711f0bcff5e70d7953f1f0a32d1c6f6c84cae36b674411058d92e7e954c63",
+    "hardware/printed-parts/zone-c/funnel-mold/chamber-check.json": "78eb717fec0ea4dd895c14daefff2def8663464be7c092932de3262b8e8904bb"
   },
-  "pdf_sha256": "1f7c69831789756ce52dc331a99e090bd0a8507ef24239e420c3f1cd88abc9b4",
+  "pdf_sha256": "b007e77184c414e5403d72ebac1c57101ac94af05835217cb731c73a7acc64fe",
   "manufacturer_sources": {
     "BBDINO 40A": "https://bbdino.com/products/bbdino-40a-clear-silicone-mold-making-trial-kit-gp-platinum-cure-high-hardness",
     "Ease Release 200": "https://www.smooth-on.com/products/ease-release-200/",
