@@ -87,6 +87,11 @@ their own physical observations; these checks do not qualify them.
 
 ## Reproduce
 
+The aggregate refresh takes each replacement's material color from its
+individual payload and checks both the exported STEP style and viewer color.
+Its color and placement regression check runs with
+`HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/flush-roof-review/refresh_aggregate.py --selftest`.
+
 Run the scoped generator with the CAD environment, then refresh the
 integration checks and aggregate members:
 
