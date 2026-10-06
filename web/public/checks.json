@@ -112,15 +112,15 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 2842 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 1045 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 2852 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 1052 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
       "enclosure-assembly.facts.json was taken beside a different enclosure-assembly.scorecard.json — it holds 55a93c0c115cd66c1831e14ee5cca859, enclosure-assembly.scorecard.json here is f7830f5c73454fa29723e414b0000228",
-      "  enclosure-assembly.facts.json was measured off a different enclosure-assembly.step — it holds 987ba8ea6e72100358e30a2751035502, enclosure-assembly.step here is 529bd3a6b75fa0d2d1db2508e9c5eea5",
-      "  enclosure-assembly.facts.json was taken from a different tree — it holds 32b34630c2e0f80a93e3147cf8058a0b for the 258 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at f9babd79069e4c9786ff8c8cc95d7810 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "  enclosure-assembly.facts.json was measured off a different enclosure-assembly.step — it holds 987ba8ea6e72100358e30a2751035502, enclosure-assembly.step here is d42baf12a36aa8152819807abb5a0096",
+      "  enclosure-assembly.facts.json was taken from a different tree — it holds 32b34630c2e0f80a93e3147cf8058a0b for the 258 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 7620064d4d678c28e43acff86a3da037 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
@@ -186,30 +186,30 @@
       "    hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v72.step.mesh — declared by nobody"
     ],
     "hardware/scripts/check_step_colours.py": [
-      "    hardware/printed-parts/fixtures/gun-positioner/step/shaft-capture-tube-9p50.step",
-      "    hardware/printed-parts/fixtures/gun-positioner/step/shaft-hub.step",
-      "    hardware/printed-parts/fixtures/gun-positioner/step/test-output-arm.step",
-      "    hardware/printed-parts/fixtures/gun-positioner/step/test-output-bridge.step",
-      "    hardware/printed-parts/fixtures/gun-positioner/step/thrust-angle-pad.step",
-      "    hardware/printed-parts/fixtures/gun-positioner/step/thrust-support-leg.step",
-      "    hardware/printed-parts/fixtures/gun-positioner/step/torque-cord-pulley.step",
-      "    hardware/printed-parts/fixtures/gun-positioner/step/torque-redirect-bracket.step",
-      "    hardware/printed-parts/fixtures/gun-positioner/step/trunnion-inner-ear.step",
-      "    hardware/printed-parts/fixtures/gun-positioner/step/vee-seat-keeper.step",
-      "    hardware/printed-parts/fixtures/gun-positioner/step/x-bed.step",
-      "    hardware/printed-parts/fixtures/gun-positioner/step/x-carriage.step",
-      "    hardware/printed-parts/fixtures/gun-positioner/step/y-bed.step",
-      "    hardware/printed-parts/fixtures/gun-positioner/step/y-carriage.step",
-      "    hardware/printed-parts/fixtures/gun-positioner/step/yaw-base-web.step",
-      "    hardware/printed-parts/fixtures/gun-positioner/step/yaw-bearing-back.step",
-      "    hardware/printed-parts/fixtures/gun-positioner/step/yaw-crossbar.step",
-      "    hardware/printed-parts/fixtures/gun-positioner/step/yaw-head-adapter.step",
-      "    hardware/printed-parts/fixtures/gun-positioner/step/yaw-side.step",
-      "    hardware/printed-parts/fixtures/gun-positioner/step/z-bed.step",
-      "    hardware/printed-parts/fixtures/gun-positioner/step/z-carriage.step",
-      "    hardware/printed-parts/fixtures/gun-positioner/step/z-head-diagonal.step",
-      "    hardware/reference/g-ganen-pump/g-ganen-pump.step",
-      "    hardware/reference/wellbom-regulator/wellbom-regulator.step",
+      "    hardware/printed-parts/fixtures/pgfun-positioner/parts/opposite-inner-spacer.step",
+      "    hardware/printed-parts/fixtures/pgfun-positioner/parts/pitch-bearing-cap.step",
+      "    hardware/printed-parts/fixtures/pgfun-positioner/parts/pitch-inner-spacer.step",
+      "    hardware/printed-parts/fixtures/pgfun-positioner/parts/pitch-journal.step",
+      "    hardware/printed-parts/fixtures/pgfun-positioner/parts/pitch-limit-holder--1.step",
+      "    hardware/printed-parts/fixtures/pgfun-positioner/parts/pitch-limit-holder-1.step",
+      "    hardware/printed-parts/fixtures/pgfun-positioner/parts/pitch-outer-spacer.step",
+      "    hardware/printed-parts/fixtures/pgfun-positioner/parts/pitch-output-adapter.step",
+      "    hardware/printed-parts/fixtures/pgfun-positioner/parts/pitch-stop-arm.step",
+      "    hardware/printed-parts/fixtures/pgfun-positioner/parts/pitch-stop-sector.step",
+      "    hardware/printed-parts/fixtures/pgfun-positioner/parts/right-cheek.step",
+      "    hardware/printed-parts/fixtures/pgfun-positioner/parts/umbilical-post-base.step",
+      "    hardware/printed-parts/fixtures/pgfun-positioner/parts/umbilical-post-top.step",
+      "    hardware/printed-parts/fixtures/pgfun-positioner/parts/umbilical-post.step",
+      "    hardware/printed-parts/fixtures/pgfun-positioner/parts/umbilical-saddle.step",
+      "    hardware/printed-parts/fixtures/pgfun-positioner/parts/yaw-bearing-cap.step",
+      "    hardware/printed-parts/fixtures/pgfun-positioner/parts/yaw-bearing-cartridge.step",
+      "    hardware/printed-parts/fixtures/pgfun-positioner/parts/yaw-inner-spacer.step",
+      "    hardware/printed-parts/fixtures/pgfun-positioner/parts/yaw-journal.step",
+      "    hardware/printed-parts/fixtures/pgfun-positioner/parts/yaw-limit-holder--1.step",
+      "    hardware/printed-parts/fixtures/pgfun-positioner/parts/yaw-limit-holder-1.step",
+      "    hardware/printed-parts/fixtures/pgfun-positioner/parts/yaw-outer-spacer.step",
+      "    hardware/printed-parts/fixtures/pgfun-positioner/parts/yaw-output-adapter.step",
+      "    hardware/printed-parts/fixtures/pgfun-positioner/parts/yaw-stop-sector.step",
       "  A generator hands its solid to `_materials.one_body` and exports the assembly."
     ],
     "hardware/scripts/check_tracked.py": [
@@ -243,7 +243,7 @@
       "12 reference(s) name a path nothing holds."
     ],
     "tools/check_release_room.py": [
-      "the release holds 128 of 1000 and the next cut wants 1010; 7 asset(s) may be retired for it",
+      "the release holds 335 of 1000 and the next cut wants 742; 1 asset(s) may be retired for it",
       "check_release_room: 1 thing(s) stand between a cut and the site",
       "    tools/cad-venv/bin/python tools/cad-artifacts/pack.py --room"
     ],
