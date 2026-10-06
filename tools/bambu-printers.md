@@ -50,18 +50,39 @@ external-spool mapping. Derek's display confirms a Standard Hardened 0.4 mm left
 hotend and a Standard Stainless 0.2 mm right hotend; selecting Ext PET-CF enables
 the reviewed 0.4 mm cover job without a nozzle mismatch.
 
+## Mark2 clear PETG spool order
+
+Mark2's current AMS A load is Bambu PETG Translucent Clear (`GFG01`, transparent
+`00000000`) in **A4, A3 and A1**; A2 is empty. The preferred consumption order is
+**A4 → A3 → A1**, oldest to newest, as specified by Derek. Start this group on A4
+and use A3 before A1 when selecting a replacement or the next spool. Use each
+spool fully; remaining quantity is not a launch condition.
+
+The AMS telemetry addresses are unit `0`, tray `3` for A4, tray `2` for A3 and
+tray `0` for A1. AMS Auto-Refill is enabled. Bambu Connect's send dialog selects
+the starting slot but does not display a backup sequence or priority editor.
+Automatic **A4 → A3 → A1** priority is unverified; apply the preferred order when
+selecting a replacement or a later job's starting slot.
+The current left hotend is **0.8 mm Standard-flow**, confirmed
+by Derek for the [reservoir ironing comparison](../hardware/printed-parts/cold-core/reservoir/ironing-study/README.md).
+
+That comparison expects Mark2's **+0.04 mm user Z trim** over stock plate
+compensation. Its verified native G-code clears the trim with `G29.1 Z0` and
+then emits **`G29.1 Z0.02`** on textured PEI with the 0.8 mm nozzle.
+
 ## Z trim
 
 Each printer keeps its own first-layer trim in its printer preset's start G-code. Job
 names carry the requested value (`z004`, `z018`).
 
-| printer | requested | emitted on Textured PEI, 0.4 mm | preset on current jobs |
-| --- | --- | --- | --- |
-| Mark2 | +0.04 mm | `G29.1 Z0.02` | `Bambu Lab H2C 0.4 Standard +0.04 Z trim` |
-| H2C | +0.18 mm | `G29.1 Z0.16` | `Bambu Lab H2C 0.4 Standard +0.18 Z trim` |
+| printer | nozzle | requested | emitted on Textured PEI | preset on current jobs |
+| --- | --- | --- | --- | --- |
+| Mark2 | 0.4 mm | +0.04 mm | `G29.1 Z0.02` | `Bambu Lab H2C 0.4 Standard +0.04 Z trim` |
+| Mark2 | 0.8 mm | +0.04 mm | `G29.1 Z0.02` | `Bambu Lab H2C 0.8 Standard +0.04 Z trim` |
+| H2C | 0.4 mm | +0.18 mm | `G29.1 Z0.16` | `Bambu Lab H2C 0.4 Standard +0.18 Z trim` |
 
-Bambu's Textured PEI compensation subtracts 0.02 mm from the requested trim with a
-0.4 mm nozzle; other plates emit the requested value. The shared
+Bambu's Textured PEI compensation subtracts 0.02 mm from the requested trim with
+the 0.4 and 0.8 mm nozzles above; other plates emit the requested value. The shared
 [`petgf.3mf`](../hardware/printed-parts/petgf.3mf) working profile carries Mark2's +0.04.
 A sliced archive holds `G29.1 Z0` and exactly one trim line; read that line before
 sending. [z-trim.md](../hardware/printed-parts/z-trim.md) describes the mechanism.
@@ -272,9 +293,9 @@ that costs the screen says so. Accessibility trust comes from the calling proces
    opened in step 1 does not decide it:
    on 2026-09-20 the dialog offered H2C three times after Mark2's page was opened and
    settled.
-4. **Read the filament tile.** The `AXGroup` under `Left Nozzle` reads `Ext PET-CF`
-   when the dialog resolved the mapping itself (Mark2, which has no AMS, does) and
-   `? ?` when it did not (H2C, with an AMS, does not). A `? ?` tile is one call:
+4. **Read the filament tile.** The `AXGroup` under `Left Nozzle` reads the selected
+   AMS slot (for example `A4 PETG`) or the external source (`Ext PET-CF`). A `? ?`
+   tile requires mapping to the intended source. For an external spool it is one call:
    `click <x+47> <y+30> <x-245> <y+282>` from the tile's `@x,y` — its centre, then the
    External spool tile in the popover that opens under it. The popover is not in the
    tree; the tile afterwards is, and it must read `Ext PET-CF`. The offsets are H2C's

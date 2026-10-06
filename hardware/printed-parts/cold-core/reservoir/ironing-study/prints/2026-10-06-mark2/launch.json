@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-06",
+  "printer": "Mark2",
+  "job_id": "1313339571",
+  "archive_name": "2026-10-06-reservoir-ironing-study-mark2-z004-v1.gcode.3mf",
+  "authorization": {
+    "bed_clear": "Derek confirms the bed is clear in the print request.",
+    "left_hotend": "Derek confirms the installed left hotend is 0.8 mm."
+  },
+  "source": {
+    "editable_project": "hardware/printed-parts/cold-core/reservoir/ironing-study/ironing-study.3mf",
+    "editable_project_sha256": "2af606036089b123abf95495862f7558722551f9767585285ec4a6c29f492202",
+    "native_slice_review": "hardware/printed-parts/cold-core/reservoir/ironing-study/slice-review.json",
+    "reviewed_print_archive": ".cache/reservoir-ironing-study/slice/2026-10-06-reservoir-ironing-study-mark2-z004-v1.gcode.3mf",
+    "archive_sha256": "9b5ad0ffcc1a421f485b52e636ddfe944d84ae4a4311e415d90a69475113587c",
+    "imported_copy_sha256_after_send": "9b5ad0ffcc1a421f485b52e636ddfe944d84ae4a4311e415d90a69475113587c",
+    "gcode_sha256": "e2ab678b5dbf281e00689afad6408a61b6397b0cfc3b4aaa2a8457ef77d2ac65",
+    "gcode_bytes_unchanged": true,
+    "resliced_for_launch": false
+  },
+  "submission": {
+    "application": "Bambu Connect",
+    "version": "2.5.0-beta.15",
+    "ui_driver": "cua_repl",
+    "send_clicks": 1,
+    "standing_options": {
+      "timelapse": "On",
+      "auto_bed_leveling": "On",
+      "flow_dynamic_calibration": "Auto",
+      "nozzle_offset_calibration": "Auto"
+    },
+    "command_reply": {
+      "command": "project_file",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "err_code": 0
+    }
+  },
+  "machine": {
+    "printer_preset": "Bambu Lab H2C 0.8 Standard +0.04 Z trim",
+    "active_nozzle": "left",
+    "diameter_mm": 0.8,
+    "flow_type": "Standard",
+    "bed_type": "Textured PEI Plate",
+    "expected_user_z_trim_mm": 0.04,
+    "emitted_z_trim_mm": 0.02,
+    "gcode_z_commands": [
+      "G29.1 Z0 ; clear z-trim value first",
+      "G29.1 Z0.02"
+    ]
+  },
+  "filament": {
+    "material": "Bambu PETG Translucent Clear",
+    "bambu_profile_id": "GFG01",
+    "colour": "00000000",
+    "starting_slot": "A4",
+    "ams_unit_id": 0,
+    "ams_tray_id": 3,
+    "ui_mapping_verified": "Left Nozzle: A4 PETG; Right Nozzle unused.",
+    "preferred_consumption_order": [
+      "A4",
+      "A3",
+      "A1"
+    ],
+    "age_order": "oldest to newest",
+    "loaded_slots": [
+      {
+        "ams_id": "0",
+        "tray_id": "0",
+        "tray_type": "PETG",
+        "tray_sub_brands": "PETG Translucent",
+        "tray_info_idx": "GFG01",
+        "tray_color": "00000000"
+      },
+      {
+        "ams_id": "0",
+        "tray_id": "1",
+        "tray_type": null,
+        "tray_sub_brands": null,
+        "tray_info_idx": null,
+        "tray_color": null
+      },
+      {
+        "ams_id": "0",
+        "tray_id": "2",
+        "tray_type": "PETG",
+        "tray_sub_brands": "PETG Translucent",
+        "tray_info_idx": "GFG01",
+        "tray_color": "00000000"
+      },
+      {
+        "ams_id": "0",
+        "tray_id": "3",
+        "tray_type": "PETG",
+        "tray_sub_brands": "PETG Translucent",
+        "tray_info_idx": "GFG01",
+        "tray_color": "00000000"
+      }
+    ],
+    "use_each_spool_fully": true,
+    "remaining_quantity_is_launch_condition": false,
+    "ams_auto_refill_enabled": true,
+    "automatic_backup_order": null,
+    "backup_priority_ui": "Bambu Connect exposes a starting-slot selector and an AMS Auto-Refill checkbox; no backup sequence or priority editor is displayed.",
+    "replacement_selection": "Use A3 before A1 when choosing a replacement or a later job starting slot."
+  },
+  "preflight": {
+    "mark2_prior_job_id": "1312579244",
+    "mark2_prior_state": "FINISH",
+    "mark2_print_error": 0,
+    "mark2_hms": [],
+    "shared_circuit": {
+      "required_start_spacing_seconds": 180,
+      "other_printer": "H2C",
+      "other_job_id": "1310609527",
+      "other_state": "FINISH",
+      "other_status_observed_at_utc": "2026-10-06T06:50:57.903916+00:00",
+      "other_acceptance_at_utc": "2026-10-05T09:43:45.785828+00:00",
+      "other_launch_record": "hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/h2c-v20/launch.json",
+      "spacing_satisfied": true
+    }
+  },
+  "acceptance": {
+    "observed_at_utc": "2026-10-06T06:51:41.263254+00:00",
+    "observed_at_local": "2026-10-06T01:51:41.263254-05:00",
+    "job_id": "1313339571",
+    "archive_name": "2026-10-06-reservoir-ironing-study-mark2-z004-v1.gcode.3mf",
+    "state": "PREPARE",
+    "print_error": 0,
+    "hms": []
+  },
+  "startup": {
+    "observed_at_utc": "2026-10-06T06:54:44.792179+00:00",
+    "job_id": "1313339571",
+    "subtask_name": "2026-10-06-reservoir-ironing-study-mark2-z004-v1.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 0,
+    "total_layer_num": 42,
+    "print_error": 0,
+    "hms": [],
+    "ams": {
+      "tray_now": "3",
+      "tray_tar": "3",
+      "ams_status": null
+    }
+  },
+  "native_estimate": {
+    "filament_g": 84.845,
+    "total_seconds": 17290.215,
+    "total_layers": 42,
+    "ironing_seconds": 438.312
+  },
+  "physical_results": {
+    "status": "pending",
+    "finish_and_sealing_observations": null,
+    "scope": "The launch receipt and telemetry establish job acceptance and startup, not surface quality or watertightness."
+  }
+}
