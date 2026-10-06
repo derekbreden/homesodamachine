@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-06",
+  "printer": "H2C",
+  "serial": "31B8AP612000452",
+  "job_id": "1313390974",
+  "part": "cavity",
+  "plate": 1,
+  "archive_name": "2026-10-06-funnel-cavity-h2c-right-z018-v3.gcode.3mf",
+  "source": {
+    "editable_project": "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-h2c-right-gyroid15/funnel-mold-h2c-right.3mf",
+    "editable_project_sha256": "60cd9a0e48a51edcec2fc5f2310e64e5232d6c0a903b6fb0606312f3d2f1fb57",
+    "geometry_stl": "hardware/printed-parts/zone-c/funnel-mold/cavity.stl",
+    "geometry_stl_sha256": "06440677138d0246a52959824507adbeb106c288d319dd35647430c744696048",
+    "native_review": "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-h2c-right-gyroid15/readiness-review.json",
+    "native_slice_archive": ".cache/funnel-h2c-right-2026-10-06/slice-v3/2026-10-06-funnel-cavity-h2c-right-z018-v3.gcode.3mf",
+    "native_slice_sha256": "cacd74a32869f9494c32405abd46e3042f885aefab7717a45a9ef70b48ed5b45",
+    "submitted_archive": ".cache/funnel-h2c-right-2026-10-06/send/2026-10-06-funnel-cavity-h2c-right-z018-v3.gcode.3mf",
+    "submitted_archive_sha256": "55c3ef171995591b0d4cf21d20aa07cf85f093baed4cf85ffd89b2ac0845937b",
+    "gcode_sha256": "dc513865c301efe20b9fc87714ac2c52057225e06ab2b4de5bbfdad9eefdb358",
+    "gcode_bytes_unchanged_by_packaging": true,
+    "imported_copy_sha256_after_send": "55c3ef171995591b0d4cf21d20aa07cf85f093baed4cf85ffd89b2ac0845937b"
+  },
+  "submission": {
+    "application": "Bambu Connect",
+    "ui_driver": "cua_repl",
+    "send_clicks": 1,
+    "send_options": {
+      "timelapse": "off",
+      "bed_leveling": "on",
+      "flow_dynamic_calibration": "auto",
+      "nozzle_offset_calibration": "auto"
+    },
+    "command_replies": [
+      {
+        "command": "project_file",
+        "result": "SUCCESS",
+        "reason": "SUCCESS",
+        "err_code": 0,
+        "sequence_id": "0"
+      }
+    ]
+  },
+  "machine": {
+    "printer_preset": "Bambu Lab H2C 0.4 Standard +0.18 Z trim",
+    "active_nozzle": "right",
+    "diameter_mm": 0.4,
+    "flow_type": "Standard",
+    "induction_rack_slot": 3,
+    "hotend_serial": "20D06A5C2914711",
+    "bed_type": "Textured PEI Plate",
+    "expected_user_z_trim_mm": 0.18,
+    "emitted_z_trim_mm": 0.16,
+    "gcode_z_commands": [
+      "G29.1 Z0 ; clear z-trim value first",
+      "G29.1 Z0.16"
+    ]
+  },
+  "filament": {
+    "material": "Bambu PETG Translucent Clear",
+    "bambu_profile_id": "GFG01",
+    "colour": "00000000",
+    "source": "AMS HT-A",
+    "ams_unit_id": 128,
+    "ams_tray_id": 0,
+    "ui_mapping_verified": "Right Nozzle: HT - A PETG 3; hotend 3 is 0.4 mm Standard.",
+    "flow_ratio": 0.88,
+    "maximum_volumetric_speed_mm3_s": 5.61702,
+    "nozzle_first_layer_c": 250,
+    "nozzle_other_layers_c": 245,
+    "bed_c": 70
+  },
+  "process": {
+    "wall_loops": 6,
+    "sparse_infill_density_percent": 15,
+    "sparse_infill_pattern": "gyroid",
+    "top_shell_layers": 6,
+    "bottom_shell_layers": 6,
+    "first_layer_mm": 0.2,
+    "normal_layers_mm": 0.24,
+    "support_style": "Snug normal",
+    "support_top_z_distance_mm": 0.2,
+    "support_bottom_z_distance_mm": 0.2,
+    "support_object_xy_distance_mm": 0.48,
+    "support_bodies": 8
+  },
+  "preflight": {
+    "bed_clear_authorization": "Derek confirms the bed is clear in the print request.",
+    "printer_before": {
+      "job_id": "1310609527",
+      "task_id": "1310609527",
+      "subtask_name": "2026-10-05-enclosure-front-top-c3-v69-h2c-v20.gcode.3mf",
+      "gcode_state": "FINISH",
+      "layer_num": 1346,
+      "total_layer_num": 1346,
+      "mc_percent": 100,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [],
+      "nozzle_temper": 37.0,
+      "nozzle_target_temper": 0.0,
+      "bed_temper": 37.0,
+      "bed_target_temper": 0.0
+    },
+    "other_printer": "Mark2",
+    "other_printer_job_id": "1313339571",
+    "other_printer_state": "RUNNING",
+    "other_printer_accepted_at_utc": "2026-10-06T06:51:41.263254+00:00",
+    "required_start_spacing_seconds": 180,
+    "observed_start_spacing_seconds": 2114.296489,
+    "spacing_satisfied": true
+  },
+  "acceptance": {
+    "observed_at_utc": "2026-10-06T07:26:55.559743+00:00",
+    "observed_at_local": "2026-10-06T02:26:55.559743-05:00",
+    "job_id": "1313390974",
+    "task_id": "1313390974",
+    "subtask_name": "2026-10-06-funnel-cavity-h2c-right-z018-v3.gcode.3mf",
+    "gcode_state": "PREPARE",
+    "layer_num": 1346,
+    "total_layer_num": 1346,
+    "mc_percent": 0,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [],
+    "nozzle_temper": 37.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 37.0,
+    "bed_target_temper": 0.0
+  },
+  "startup": {
+    "observed_at_utc": "2026-10-06T07:29:32.525368+00:00",
+    "job_id": "1313390974",
+    "subtask_name": "2026-10-06-funnel-cavity-h2c-right-z018-v3.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 0,
+    "total_layer_num": 404,
+    "mc_percent": 0,
+    "mc_remaining_time": 1023,
+    "print_error": 0,
+    "hms": [],
+    "nozzle_temper": 37.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 37.0,
+    "bed_target_temper": 37.0,
+    "ams": {
+      "tray_now": "255",
+      "tray_tar": "0"
+    },
+    "mounted_right_nozzle": [
+      {
+        "id": 0,
+        "type": "HS01",
+        "diameter_mm": 0.4,
+        "serial": "20D06A5C2914711"
+      }
+    ]
+  },
+  "native_estimate": {
+    "filament_g": 355.61456298828125,
+    "total_seconds": 61396.25390625,
+    "total_layers": 404
+  },
+  "physical_results": {
+    "status": "in_progress",
+    "finished_print_and_casting": null
+  }
+}

@@ -1,5 +1,29 @@
 # Funnel mold print log
 
+## Six-wall, 15% gyroid cavity on H2C — 2026-10-06
+
+H2C accepted the flat-base cavity at **02:26:55 CDT**, task **1313390974**,
+through Bambu Connect. The right **0.4 mm Standard** induction hotend in rack
+slot **3** uses **AMS HT-A PETG Translucent Clear**. The machine reports
+RUNNING, 404 total layers and no print error or HMS alert.
+
+The process uses **six walls, 15% gyroid, six top/bottom layers**, 0.88 flow,
+5.61702 mm³/s, a 0.20 mm first layer and 0.24 mm normal layers. Nozzle
+temperatures are 250/245 °C and the bed is 70 °C. H2C's +0.18 mm requested
+trim emits **`G29.1 Z0.16`** on Textured PEI. Snug normal supports form eight
+bed-rooted columns beneath the open bolt pockets.
+
+Bed leveling is on, timelapse is off, and flow dynamic/nozzle offset
+calibration use Auto. Mark2 accepted its running reservoir study at
+01:51:41 CDT; the two launches are over 35 minutes apart.
+
+The [right-nozzle native review](native-slice-reviews/2026-10-06-h2c-right-gyroid15/README.md)
+checks the current meshes, deposited-path bed limits, supports, nozzle and
+trim. The cavity estimate is **355.61 g / 17 h 03 min**. The
+[launch receipt](native-slice-reviews/2026-10-06-h2c-right-gyroid15/launch.json)
+records the exact archive/G-code hashes and printer observations. Physical
+print, finishing and casting results are pending.
+
 ## 0.88-flow print result and 600 mL mold readiness — 2026-09-20
 
 Derek reports: “Last print worked okay. Certainly less of ‘the problem’ that
