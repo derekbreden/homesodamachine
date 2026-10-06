@@ -727,7 +727,8 @@ def import_assembly(path):
         for kind in (XCAFDoc_ColorType.XCAFDoc_ColorSurf,
                      XCAFDoc_ColorType.XCAFDoc_ColorGen):
             if colors.GetColor(shape, kind, shade):
-                return cq.Color(shade.Red(), shade.Green(), shade.Blue())
+                # XCAF returns linear RGB; keep it linear through the CQ wrapper.
+                return cq.Color(shade.Red(), shade.Green(), shade.Blue(), 1.0, False)
         return None
 
     # A COMPONENT CARRIES THE PLACEMENT AND THE PROTOTYPE CARRIES THE SHAPE. The name is on
