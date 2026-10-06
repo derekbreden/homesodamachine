@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-10-04",
+  "as_of": "2026-10-05",
   "reporting_period": {
     "start": "2026-01-01",
     "end": "2026-12-31"
@@ -7764,6 +7764,18 @@
       "source_ids": [
         "src-6698dae129114345b350a05a4a1294d3"
       ]
+    },
+    "pur-6bc71f4f15b34503ac9bf8beea6ef815": {
+      "vendor": "Lulu",
+      "purpose": "documentation_marketing",
+      "amount_evidence": "final_vendor_amount",
+      "order_ids": [
+        "lulu:USD-C4516450"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-ccd1ebed5d7d44ebb2226e8312d0e8a8"
+      ]
     }
   },
   "orders": {
@@ -13224,6 +13236,18 @@
       "source_ids": [
         "src-6698dae129114345b350a05a4a1294d3"
       ]
+    },
+    "lulu:USD-C4516450": {
+      "vendor": "Lulu",
+      "reference": "USD-C4516450",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-06"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-ccd1ebed5d7d44ebb2226e8312d0e8a8"
+      ]
     }
   },
   "events": [
@@ -15808,6 +15832,23 @@
       "order_ids": [
         "amazon:112-5001639-8705857"
       ]
+    },
+    {
+      "event_id": "evt-1399a1a835ce4be3a489628c06225b33",
+      "vendor": "Lulu",
+      "event_type": "charge",
+      "confirmation": "expected",
+      "event_date": null,
+      "amount_minor": 7542,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-ccd1ebed5d7d44ebb2226e8312d0e8a8"
+      ],
+      "verified_at": "2026-10-05",
+      "order_ids": [
+        "lulu:USD-C4516450"
+      ]
     }
   ],
   "allocations": [
@@ -16633,6 +16674,14 @@
       "purchase_id": "pur-c08cee116c73400bae488deb2d2015f4",
       "order_id": "amazon:112-5001639-8705857",
       "amount_minor": 3645,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-0bff2066ef144d7399fb2586d335089a",
+      "event_id": "evt-1399a1a835ce4be3a489628c06225b33",
+      "purchase_id": "pur-6bc71f4f15b34503ac9bf8beea6ef815",
+      "order_id": "lulu:USD-C4516450",
+      "amount_minor": 7542,
       "currency": "USD"
     }
   ],
@@ -25479,6 +25528,21 @@
       ],
       "verified_at": "2026-10-05",
       "note": "Vendor order confirmation: one Taprite 3741 at $61.95, UPS Ground $13.68, tax $0.00, total $75.63. It does not establish a completed charge."
+    },
+    "src-ccd1ebed5d7d44ebb2226e8312d0e8a8": {
+      "vendor": "Lulu",
+      "document_type": "email_order_confirmation",
+      "reference": "USD-C4516450",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-06"
+      },
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "verified_at": "2026-10-05",
+      "note": "Gmail order confirmation: three Install Guide copies at USD 9.03 each (USD 27.09), USD 43.24 shipping and handling by FedEx Standard Overnight, USD 5.09 tax, USD 75.42 total. Lulu states an order date of 2026-10-06; reviewed on 2026-10-05 in America/Chicago. No dispatch, delivery date or completed merchant charge is stated."
     }
   },
   "coverage": [
@@ -26375,6 +26439,26 @@
       "coverage": "unknown",
       "source_ids": [],
       "note": "Preserved procurement values alone do not establish charge/refund events. Missing merchant payment evidence remains explicit in the exports."
+    },
+    {
+      "coverage_id": "coverage-a9a30503bf134e929097ac22eefffcbf",
+      "vendor": "Lulu",
+      "stream": "install-guide print order",
+      "evidence_type": "order_confirmation",
+      "checked_at": "2026-10-05",
+      "examined_period": {
+        "start": "2026-10-04",
+        "end": "2026-10-06"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-ccd1ebed5d7d44ebb2226e8312d0e8a8"
+      ],
+      "order_ids": [
+        "lulu:USD-C4516450"
+      ],
+      "note": "Scoped Gmail search and review of the named install-guide order confirmation; no claim of complete Lulu account coverage or completed payment/fulfillment evidence."
     }
   ],
   "gaps": [
@@ -26602,6 +26686,25 @@
       "missing_fact": "Preserved line allocations total USD 423.94; saved project invoice amount is USD 423.95. The one-cent allocation residual is unresolved; line values are preserved and no balancing payment is invented.",
       "sources_checked": [
         "Preserved project rows and vendor order/invoice archive"
+      ]
+    },
+    {
+      "gap_id": "gap-1e07a981739e40449539bd05770fafdc",
+      "purchase_ids": [
+        "pur-6bc71f4f15b34503ac9bf8beea6ef815"
+      ],
+      "order_ids": [
+        "lulu:USD-C4516450"
+      ],
+      "event_ids": [
+        "evt-1399a1a835ce4be3a489628c06225b33"
+      ],
+      "source_ids": [
+        "src-ccd1ebed5d7d44ebb2226e8312d0e8a8"
+      ],
+      "missing_fact": "A completed merchant charge and its event date are not established by the order confirmation; the USD 75.42 charge remains expected.",
+      "sources_checked": [
+        "Lulu order confirmation USD-C4516450"
       ]
     }
   ],
