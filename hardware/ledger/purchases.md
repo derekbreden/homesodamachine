@@ -648,6 +648,7 @@ Receipts grouped by order; itemized orders separate equipment, filament and tax.
 | <!--purchase:pur-0d0b0e9007bf4a16ae24e69262e40c0c--> 2026-09-16 | us776951289157341185 | TPU Feed Assist Module ×1 (H2 Series / X1 Series / P1 Series / P2S / X2D) | $49.99 | ACQUIRED (delivery confirmed; exact day unknown) |
 | <!--purchase:pur-8dda604c8c6b4c4581077a554a7667a6--> 2026-09-16 | us776951289157341185 | Filament — TPU 90A White 51105, 1 kg ×1 | $41.99 | ACQUIRED (delivery confirmed; exact day unknown) |
 | <!--purchase:pur-870e9ad9da324c92bdac254c7fb54fa7--> 2026-09-16 | us776951289157341185 | NE sales tax; shipping waived | $6.66 | ACQUIRED (delivery confirmed; exact day unknown) |
+| <!--purchase:pur-27bb6c07598243e390e2ca407e908695--> 2026-10-05 | us783865986561351681 | PETG Translucent Clear 32101 refill ×10 (1 kg each, bulk; $159.90, Filament Bulk Sale −$47.97) + NE tax $8.12; shipping waived | $120.05 | ON-ORDER (preparing for shipment; Gmail order confirmation verified 2026-10-05) |
 | **§15 acquired valuation — 21 orders** | | | **[$9,229.31](LEDGER_SEC15)** | |
 
 ## 16. Laser welding / cleaning / cutting
@@ -778,16 +779,16 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | Acquired hardware valuation — includes replaced/returned originals | [$37,674.65](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,479.39](LEDGER_LABOR) |
 | Acquired procurement valuation (combined) | [$44,154.04](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$1,159.56](LEDGER_ON_ORDER) |
+| ON-ORDER | [$1,279.61](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Recorded procurement valuation — includes commitments** | [$45,366.67](LEDGER_GRAND_TOTAL) |
+| **Recorded procurement valuation — includes commitments** | [$45,486.72](LEDGER_GRAND_TOTAL) |
 
 Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
-| Final vendor amounts | [$9,312.35](LEDGER_FINAL_VENDOR) |
+| Final vendor amounts | [$9,432.40](LEDGER_FINAL_VENDOR) |
 | Estimated amounts | [$2,835.33](LEDGER_ESTIMATES) |
 | Legacy / unverified amounts | [$33,218.99](LEDGER_LEGACY_UNVERIFIED) |
 

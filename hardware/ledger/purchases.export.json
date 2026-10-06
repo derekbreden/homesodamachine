@@ -433,6 +433,14 @@
       "purchase_id": "pur-51cad0064ff44d83871965e7765a65c9"
     },
     {
+      "allocation_id": "alloc-8da317f20c364ce8938979fbefcd28e8",
+      "amount_minor": 12005,
+      "currency": "USD",
+      "event_id": "evt-d1da698db2c940a09ec686643f142b0d",
+      "order_id": "bambu:us783865986561351681",
+      "purchase_id": "pur-27bb6c07598243e390e2ca407e908695"
+    },
+    {
       "allocation_id": "alloc-8eb528f3439840ebb69055d7971df143",
       "amount_minor": 5041,
       "currency": "USD",
@@ -1710,6 +1718,26 @@
       "source_ids": [],
       "stream": "project merchant charges and refunds",
       "vendor": "Fresh Water Systems"
+    },
+    {
+      "checked_at": "2026-10-05",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-f3f98441b0e444bc9a4b46e0e90093fe",
+      "evidence_type": "order_confirmation",
+      "examined_period": {
+        "end": "2026-10-05",
+        "start": "2026-10-03"
+      },
+      "note": "Scoped Gmail search and review of the named Bambu order confirmation; no claim of complete Bambu account coverage or completed payment/fulfillment evidence.",
+      "order_ids": [
+        "bambu:us783865986561351681"
+      ],
+      "source_ids": [
+        "src-5b11f53981d74149bcc6a2119c6eddc8"
+      ],
+      "stream": "filament order",
+      "vendor": "Bambu Lab"
     },
     {
       "checked_at": "2026-10-04",
@@ -4365,6 +4393,30 @@
     },
     {
       "allocation_ids": [
+        "alloc-8da317f20c364ce8938979fbefcd28e8"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 12005,
+      "confirmation": "expected",
+      "currency": "USD",
+      "event_date": null,
+      "event_id": "evt-d1da698db2c940a09ec686643f142b0d",
+      "event_type": "charge",
+      "order_ids": [
+        "bambu:us783865986561351681"
+      ],
+      "purchase_ids": [
+        "pur-27bb6c07598243e390e2ca407e908695"
+      ],
+      "source_ids": [
+        "src-5b11f53981d74149bcc6a2119c6eddc8"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Bambu Lab",
+      "verified_at": "2026-10-05"
+    },
+    {
+      "allocation_ids": [
         "alloc-78a9afb09fff40239f9f739944614e56"
       ],
       "allocation_status": "all_project",
@@ -5254,6 +5306,25 @@
       ]
     },
     {
+      "event_ids": [
+        "evt-d1da698db2c940a09ec686643f142b0d"
+      ],
+      "gap_id": "gap-b1f53214b3d74f37ac28c35ac094f60e",
+      "missing_fact": "A completed merchant charge and its event date are not established by the order confirmation; the USD 120.05 charge remains expected.",
+      "order_ids": [
+        "bambu:us783865986561351681"
+      ],
+      "purchase_ids": [
+        "pur-27bb6c07598243e390e2ca407e908695"
+      ],
+      "source_ids": [
+        "src-5b11f53981d74149bcc6a2119c6eddc8"
+      ],
+      "sources_checked": [
+        "Bambu Lab order confirmation us783865986561351681"
+      ]
+    },
+    {
       "gap_id": "gap-b513fdee8791439ca43d36cdba1179f2",
       "missing_fact": "exact placed date; merchant payment evidence; exact delivery date. 1129.00 order confirmation retrieved, but only notification dates and shipment-status update supplied.",
       "order_ids": [
@@ -5367,7 +5438,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:dd8d4d2de2cf4312bcf07597c9ada66fafefebbead542dc8444169ecc58772f2",
+  "input_fingerprint": "sha256:4b4e5b0c6c00a0b17eb56328b990e7fb323b2314b82fbaa80b4b82ea0e707464",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -12866,6 +12937,25 @@
     },
     {
       "allocation_status": "all_project",
+      "event_ids": [
+        "evt-d1da698db2c940a09ec686643f142b0d"
+      ],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-05"
+      },
+      "order_id": "bambu:us783865986561351681",
+      "purchase_ids": [
+        "pur-27bb6c07598243e390e2ca407e908695"
+      ],
+      "reference": "us783865986561351681",
+      "source_ids": [
+        "src-5b11f53981d74149bcc6a2119c6eddc8"
+      ],
+      "vendor": "Bambu Lab"
+    },
+    {
+      "allocation_status": "all_project",
       "event_ids": [],
       "order_date": {
         "precision": "day",
@@ -17863,6 +17953,52 @@
       "stream": "purchase",
       "unit_amount_minor": null,
       "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "final_vendor_amount",
+      "amount_minor": 12005,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "PETG Translucent Clear 32101 refill ×10 (1 kg each, bulk; $159.90, Filament Bulk Sale −$47.97) + NE tax $8.12; shipping waived",
+      "event_ids": [
+        "evt-d1da698db2c940a09ec686643f142b0d"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-27bb6c07598243e390e2ca407e908695",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-05"
+      },
+      "order_ids": [
+        "bambu:us783865986561351681"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-27bb6c07598243e390e2ca407e908695",
+      "purpose": "consumables_materials",
+      "quantity": null,
+      "quantity_text": "",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-05"
+      },
+      "row_date_basis": "order_date",
+      "section": "15. 3D printing equipment and filaments (Bambu Lab direct)",
+      "service_period": null,
+      "source_ids": [
+        "src-5b11f53981d74149bcc6a2119c6eddc8"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Bambu Lab"
     },
     {
       "allocation_status": "all_project",
@@ -51835,6 +51971,22 @@
     {
       "document_date": {
         "precision": "day",
+        "value": "2026-10-05"
+      },
+      "document_type": "email_order_confirmation",
+      "note": "Gmail order confirmation: ten PETG Translucent Clear 32101 1 kg refills, USD 159.90 less a USD 47.97 Filament Bulk Sale discount (USD 111.93), USD 0.00 shipping, USD 8.12 tax (state 5.5% USD 6.16 + city 1.75% USD 1.96), USD 120.05 grand total; no store credit applied. The email prints no order date; it was received 2026-10-05 at 23:56 America/Chicago, the local-date basis of the other Bambu rows. Bambu states the order is being prepared for shipment. No shipment, delivery date or completed merchant charge is stated.",
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "reference": "us783865986561351681",
+      "source_id": "src-5b11f53981d74149bcc6a2119c6eddc8",
+      "vendor": "Bambu Lab",
+      "verified_at": "2026-10-05"
+    },
+    {
+      "document_date": {
+        "precision": "day",
         "value": "2026-03-16"
       },
       "document_type": "merchant_monetary_receipt",
@@ -54693,12 +54845,13 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 115956,
+          "amount_minor": 127961,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
             "pur-0d4eaf3ef27646a8b8f77ea46d4f2d44",
             "pur-1394610e499a45c08ba665ed1200053c",
+            "pur-27bb6c07598243e390e2ca407e908695",
             "pur-375429e1cb9c4b95bb3584b04f7284da",
             "pur-406788001c4d41f39213bbd4ec7a35ad",
             "pur-6bc71f4f15b34503ac9bf8beea6ef815",
@@ -54729,6 +54882,7 @@
       "outstanding_purchase_ids": [
         "pur-0d4eaf3ef27646a8b8f77ea46d4f2d44",
         "pur-1394610e499a45c08ba665ed1200053c",
+        "pur-27bb6c07598243e390e2ca407e908695",
         "pur-375429e1cb9c4b95bb3584b04f7284da",
         "pur-406788001c4d41f39213bbd4ec7a35ad",
         "pur-6bc71f4f15b34503ac9bf8beea6ef815",
@@ -54753,7 +54907,8 @@
         "evt-5a6637d18fab4dbaa2c3a7428c33273f",
         "evt-859aaf61508e423492ba56484ab9f2df",
         "evt-c0203246ff88423a9af71d1977ede6c4",
-        "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9"
+        "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9",
+        "evt-d1da698db2c940a09ec686643f142b0d"
       ],
       "monthly": [
         {
@@ -55043,7 +55198,8 @@
             "evt-69d186cf3c4c436788b6706105b50532",
             "evt-903eedfb26fd4f999dda301c34468ee4",
             "evt-a44b7291eb25461f97cd8d045faebd4e",
-            "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9"
+            "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9",
+            "evt-d1da698db2c940a09ec686643f142b0d"
           ],
           "net_minor": 57998,
           "noncash_credits_minor": 0,
@@ -55699,12 +55855,13 @@
           "currency": "USD",
           "estimate_minor": 13540,
           "evidence_scope": "retrieved_records_only",
-          "final_vendor_amount_minor": 24261,
+          "final_vendor_amount_minor": 36266,
           "legacy_unverified_minor": 30634,
           "month": "2026-10",
           "purchase_ids": [
             "pur-0d4eaf3ef27646a8b8f77ea46d4f2d44",
             "pur-1394610e499a45c08ba665ed1200053c",
+            "pur-27bb6c07598243e390e2ca407e908695",
             "pur-406788001c4d41f39213bbd4ec7a35ad",
             "pur-45f46a866eb640d0be16bab2fd7493b3",
             "pur-633abd30f0524d80a397fcee998a7658",
@@ -55720,7 +55877,7 @@
             "pur-f7d7511ce9394cae80352c28342d27fd",
             "pur-f98feadd5dec4c1cba460dd7c74baa09"
           ],
-          "total_minor": 68435,
+          "total_minor": 80440,
           "unknown_amount_ids": []
         },
         {
@@ -55753,7 +55910,7 @@
           "purpose": "components"
         },
         {
-          "amount_minor": 560508,
+          "amount_minor": 572513,
           "currency": "USD",
           "purpose": "consumables_materials"
         },
@@ -55787,9 +55944,9 @@
         {
           "currency": "USD",
           "estimate_minor": 283533,
-          "final_vendor_amount_minor": 931235,
+          "final_vendor_amount_minor": 943240,
           "legacy_unverified_minor": 3321899,
-          "total_minor": 4536667
+          "total_minor": 4548672
         }
       ],
       "undated_unallocated": [
@@ -55929,6 +56086,7 @@
         "gap-38ca1f93f2114c089bad2a7e9cfa41f4",
         "gap-404bcade77c84fc880a7330c6f6ebfc9",
         "gap-8703c8fb55124412b9d51de641020ca7",
+        "gap-b1f53214b3d74f37ac28c35ac094f60e",
         "gap-b513fdee8791439ca43d36cdba1179f2",
         "gap-c87a74d7ef6a438d84bd3470c16b1c88",
         "gap-ea9234a1f7fe467ba032c78c31fe270e",
@@ -55943,7 +56101,7 @@
           "legacy_unverified_purchase_minor": 3321899,
           "order_only_charge_allocation_minor": 2187,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 3828432,
+          "purchases_without_merchant_charge_minor": 3840437,
           "undated_charge_minor": 57998,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 1031234,
@@ -56016,6 +56174,7 @@
         "coverage-e361f03c5b404f3f92334c4f92bab5f8",
         "coverage-f000ac62945a4ef1b60842f89aa45a31",
         "coverage-f18d82d4491b433d80956e513f0c3242",
+        "coverage-f3f98441b0e444bc9a4b46e0e90093fe",
         "coverage-f40e66eb69164069b4f0418f0859ba19",
         "coverage-f622e58e83ff4673a617ac4d519ec225",
         "coverage-f9613b999fd5422a8f49b9032ec3f7d7"
@@ -56627,6 +56786,7 @@
         "pur-2652d8ca1192405996c3cbee93805c40",
         "pur-26a055757240455891e7ea95c995df3e",
         "pur-278cde3de6144b749c07b867ca90ec3d",
+        "pur-27bb6c07598243e390e2ca407e908695",
         "pur-282830cd6af447a48756484207c3d6b2",
         "pur-2833c10788ff489fbcdfebb7972b7522",
         "pur-2850d5f759ee4578bc347281154850c5",
@@ -57115,7 +57275,8 @@
         "evt-69d186cf3c4c436788b6706105b50532",
         "evt-903eedfb26fd4f999dda301c34468ee4",
         "evt-a44b7291eb25461f97cd8d045faebd4e",
-        "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9"
+        "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9",
+        "evt-d1da698db2c940a09ec686643f142b0d"
       ],
       "undated_unallocated_purchase_ids": [
         "pur-039f49fc6eef49008dd6a93defa86b27",
@@ -57243,7 +57404,7 @@
   "validation": {
     "errors": [],
     "warnings": [
-      "12 authored evidence gap(s) remain",
+      "13 authored evidence gap(s) remain",
       "coverage-008d521abab24498bf9db4a8c5993e38: evidence coverage is unknown",
       "coverage-013f6586dbf840c8836ae7289d9827b3: evidence coverage is partial",
       "coverage-17d84ca75543489fb09003261546862a: evidence coverage is unknown",
@@ -57290,6 +57451,7 @@
       "coverage-e361f03c5b404f3f92334c4f92bab5f8: evidence coverage is unknown",
       "coverage-f000ac62945a4ef1b60842f89aa45a31: evidence coverage is unknown",
       "coverage-f18d82d4491b433d80956e513f0c3242: evidence coverage is unknown",
+      "coverage-f3f98441b0e444bc9a4b46e0e90093fe: evidence coverage is partial",
       "coverage-f40e66eb69164069b4f0418f0859ba19: evidence coverage is unknown",
       "coverage-f622e58e83ff4673a617ac4d519ec225: evidence coverage is unknown",
       "coverage-f9613b999fd5422a8f49b9032ec3f7d7: evidence coverage is unknown",
