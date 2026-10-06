@@ -1,14 +1,10 @@
-[step] The forming pocket over the silicone brim reserves 0.30 mm of coating growth. The surrounding bare lands set closure height. This face prints upward with the core inverted; the 4.70 mm stock behind it supports the forming face.
+[step] The brim forming pocket reserves 0.30 mm net finishing growth. Its 4.70 mm backing prints upward in the inverted core; keep surrounding closure lands bare.
 file: hardware/printed-parts/zone-c/funnel-mold/core.step
 click: x=20.833 y=-57.075 z=56.450
 
-[sliver] These four vertical faces are the 0.30 mm edge of the finishing pocket over the silicone brim. The 4.70 mm flange behind the pocket supports its forming face; the thin strip is a surface-level change. Keep the surrounding lands bare.
+[sliver] The four 0.30 mm vertical edges belong to the brim finishing pocket. The 4.70 mm flange backs the forming face; surrounding lands remain bare.
 file: hardware/printed-parts/zone-c/funnel-mold/core.step
 click: x=0.000 y=66.137 z=56.300
 click: x=0.000 y=-66.142 z=56.300
 click: x=89.800 y=0.000 z=56.300
 click: x=-89.800 y=0.000 z=56.300
-
-[ceiling] This annulus is the top of the straight rod guide: 16.4 mm outside diameter and an open 6.4 mm passage. Its surrounding 5 mm radial stock holds the 7.7 mm guide bearing. With the core inverted, the annulus lies at print Z34.685 within the 2026-10-05 bed-rooted Snug interface-1 region (print Z22.040–35.280). Cut and detach support through the open dry back and clear the passage before dropping in the steel rod.
-file: hardware/printed-parts/zone-c/funnel-mold/core.step
-click: x=1.850 y=0.000 z=26.465
