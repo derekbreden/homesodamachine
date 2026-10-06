@@ -50,6 +50,22 @@ external-spool mapping. Derek's display confirms a Standard Hardened 0.4 mm left
 hotend and a Standard Stainless 0.2 mm right hotend; selecting Ext PET-CF enables
 the reviewed 0.4 mm cover job without a nozzle mismatch.
 
+## Placement on unseasoned plates
+
+Keep deposited model, support and brim beads **at least 20 mm inside the usable
+bed boundary** when its outer regions have not been seasoned. Center small test
+plates and aim for **80 mm** where the complete comparison fits. Choose the
+inset for the part and occupied footprint; preserve adjacent test/control pairs.
+Verify the emitted bead envelope, including bead width and arc extrema, before
+sending. CAD containment alone does not establish adhesion.
+
+Mark2's [edge-adhesion report](../hardware/printed-parts/enclosure/enclosure/support-bottom-gap/mark2-v2/physical-result.json)
+records poor first layers near unseasoned edges. The
+[centered fit trial](../hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/centered-trial-v4/README.md)
+uses at least 86.7 mm of full-bead edge clearance. The
+[reservoir comparison placement record](../hardware/printed-parts/cold-core/reservoir/ironing-study/prints/2026-10-06-mark2/physical-result.json)
+records Derek's requirement to move that complete test plate toward the center.
+
 ## Mark2 clear PETG spool order
 
 Mark2's current AMS A load is Bambu PETG Translucent Clear (`GFG01`, transparent

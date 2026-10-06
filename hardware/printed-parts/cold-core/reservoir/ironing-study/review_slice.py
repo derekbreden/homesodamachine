@@ -13,6 +13,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.collections import LineCollection
+from matplotlib.patches import Rectangle
 import numpy as np
 import trimesh
 
@@ -24,6 +25,23 @@ import enclosure_support_audit as support_reader
 
 WORDS = re.compile(r"([A-Z])([-+]?(?:\d+(?:\.\d*)?|\.\d+))")
 sha = lambda data: hashlib.sha256(data).hexdigest()
+
+
+def arc_extrema(start, end, words, clockwise):
+    """Include the exact XY cardinal extrema of the emitted I/J arc."""
+    center = np.array(start)+[words.get("I", 0), words.get("J", 0)]
+    radius = np.linalg.norm(np.array(start)-center)
+    first = np.arctan2(start[1]-center[1], start[0]-center[0])
+    last = np.arctan2(end[1]-center[1], end[0]-center[0])
+    sweep = ((first-last) if clockwise else (last-first)) % (2*np.pi)
+    if np.linalg.norm(np.array(end)-start) < 1e-7:
+        sweep = 2*np.pi
+    points = [start, end]
+    for angle in (0, np.pi/2, np.pi, 3*np.pi/2):
+        offset = ((first-angle) if clockwise else (angle-first)) % (2*np.pi)
+        if offset <= sweep+1e-8:
+            points.append(center+radius*np.array([np.cos(angle), np.sin(angle)]))
+    return np.array(points)
 
 
 def main():
@@ -49,6 +67,18 @@ def main():
         expected_md5 = archive.read("Metadata/plate_1.gcode.md5").decode().strip().lower()
         if hashlib.md5(data).hexdigest() != expected_md5:
             raise ValueError("Embedded G-code checksum")
+        text = data.decode()
+        emitted_map = {}
+        for key, expected in (("filament_map", "1"), ("filament_nozzle_map", "0"),
+                              ("nozzle_diameter", "0.8,0.8")):
+            match = re.search(r"^; "+key+r" = (.+)$", text, re.MULTILINE)
+            actual = match[1].strip() if match else None
+            if actual != expected:
+                raise ValueError(f"Native {key} is {actual!r}; expected {expected!r} for the left 0.8 mm nozzle")
+            emitted_map[key] = actual
+        trims = [line.strip() for line in text.splitlines() if line.strip().startswith("G29.1 Z")]
+        if trims != ["G29.1 Z0 ; clear z-trim value first", "G29.1 Z0.02"]:
+            raise ValueError(f"Native Mark2 Z trim differs: {trims}")
         (directory / "plate_1.gcode").write_bytes(data)
         (directory / "plate_1.png").write_bytes(archive.read("Metadata/plate_1.png"))
     paths = {p["label"]: [] for p in study["parts"]}
@@ -63,6 +93,13 @@ def main():
     z = None
     obj = None
     ironing = False
+    feature = ""
+    width = 0.0
+    bead_low, bead_high = np.full(2, np.inf), np.full(2, -np.inf)
+    support_low, support_high = np.full(2, np.inf), np.full(2, -np.inf)
+    deposited_moves = 0
+    support_moves = 0
+    bead_boxes = {p["label"]: [np.full(2, np.inf), np.full(2, -np.inf)] for p in study["parts"]}
     layers = []
     for line in data.decode().splitlines():
         match = re.match(r"; start printing object, unique label id: (\d+)", line)
@@ -72,6 +109,10 @@ def main():
             obj = None
         if line.startswith("; Z_HEIGHT:"):
             z = float(line.split(":")[1])
+        if line.startswith("; FEATURE:"):
+            feature = line.split(":", 1)[1].strip()
+        if line.startswith("; LINE_WIDTH:"):
+            width = float(line.split(":", 1)[1])
         if line.startswith("; LAYER_HEIGHT:") and not ironing:
             # Ironing pseudo-heights are extrusion metadata, not new layers.
             height = float(line.split(":")[1])
@@ -100,6 +141,21 @@ def main():
                               if command in ("G2", "G3") and ("I" in words or "J" in words)
                               else [(nx, ny)])
         length = sum(np.linalg.norm(np.array(b)-a) for a, b in zip(points, points[1:]))
+        if z is not None and feature and feature != "Custom" and delta_e > 0 and length > 0.001:
+            if width <= 0:
+                raise ValueError("Deposited path has no native bead width")
+            extrema = (arc_extrema((x, y), (nx, ny), words, command == "G2")
+                       if command in ("G2", "G3") and ("I" in words or "J" in words)
+                       else np.array([(x, y), (nx, ny)]))
+            low, high = extrema.min(axis=0)-width/2, extrema.max(axis=0)+width/2
+            bead_low, bead_high = np.minimum(bead_low, low), np.maximum(bead_high, high)
+            deposited_moves += 1
+            if feature.startswith("Support"):
+                support_low, support_high = np.minimum(support_low, low), np.maximum(support_high, high)
+                support_moves += 1
+            if obj is not None:
+                box = bead_boxes[obj["label"]]
+                box[0], box[1] = np.minimum(box[0], low), np.maximum(box[1], high)
         if ironing and obj is not None and delta_e > 0 and length > 0.001:
             row = records[obj["label"]]
             row["ironing_extrusion_moves"] += 1
@@ -152,6 +208,31 @@ def main():
             raise ValueError(f"{feature}: wider spacing condition was not emitted")
     support = support_reader.audit(directory / "plate_1.gcode", "reservoir-ironing-study",
                                    include_unlabelled_support=True)
+    bed = np.array(study["layout"]["left_nozzle_usable_bed_bounds_mm"])
+    margins = np.concatenate((bead_low-bed[0], bed[1]-bead_high))
+    if not deposited_moves or min(margins) < study["layout"]["minimum_emitted_bead_edge_margin_mm"]:
+        raise ValueError(f"Emitted model/support/brim paths approach the bed edges: {margins}")
+    separations = []
+    labels = list(bead_boxes)
+    for index, first in enumerate(labels):
+        a = np.array(bead_boxes[first])
+        if not np.isfinite(a).all():
+            raise ValueError(f"{first}: no deposited specimen paths")
+        for second in labels[:index]:
+            b = np.array(bead_boxes[second])
+            gaps = np.maximum(np.maximum(a[0]-b[1], b[0]-a[1]), 0)
+            separations.append(dict(labels=[first, second], full_bead_box_gap_mm=float(np.linalg.norm(gaps))))
+    if min(p["full_bead_box_gap_mm"] for p in separations) < 1.5:
+        raise ValueError("The compact layout does not retain specimen separation")
+    placement = dict(left_nozzle_usable_bed_bounds_mm=bed.tolist(),
+                     model_support_brim_xy_bounds_mm=[bead_low.tolist(), bead_high.tolist()],
+                     edge_margins_left_front_right_back_mm=margins.tolist(),
+                     minimum_full_bead_edge_margin_mm=float(min(margins)),
+                     deposited_move_count=deposited_moves, support_move_count=support_moves,
+                     support_xy_bounds_mm=[support_low.tolist(), support_high.tolist()] if support_moves else None,
+                     per_specimen_full_bead_xy_bounds_mm={label: [v.tolist() for v in box] for label, box in bead_boxes.items()},
+                     minimum_specimen_full_bead_box_gap_mm=min(p["full_bead_box_gap_mm"] for p in separations),
+                     scope="All native deposited specimen, support and brim beads, including arc extrema and half-width. Vendor startup purge/calibration paths are excluded. Placement does not establish adhesion.")
     report = dict(project=source.name, project_sha256=sha(source.read_bytes()),
                   slicer_version="02.08.02.61", return_code=0, plate_count=1, specimen_count=18,
                   estimated_seconds=round(plate["total_predication"], 3),
@@ -159,9 +240,11 @@ def main():
                   ironing_estimated_seconds=round(plate["feature_type_times"]["Ironing"], 3),
                   warning_message=plate["warning_message"], embedded_gcode_md5_verified=True,
                   gcode_sha256=sha(data), physical_settings_match_saved_project=True,
+                  emitted_nozzle_assignment=emitted_map, emitted_z_trim_commands=trims,
                   slicer_added_metadata=added_metadata,
                   first_layer_height_mm=layers[0], normal_layer_heights_mm=sorted(set(layers[1:])),
                   support_summary=support["summary"], support_bodies=support["trees"],
+                  placement=placement,
                   parts=list(records.values()),
                   scope="Native path verification. Surface finish and contact performance await the physical print.")
     (HERE / "slice-review.json").write_text(json.dumps(report, indent=2)+"\n")
@@ -179,23 +262,24 @@ def main():
         color = "#b63b37" if part["feature"] == "S" else "#d57b16"
         if paths[part["label"]]:
             ax.add_collection(LineCollection(paths[part["label"]], colors=color, linewidths=0.45))
-        ax.text(part["center"][0], part["center"][1]-33, part["label"], ha="center", va="center", fontsize=9,
-                color=color if part["ironed"] else "#234e70", fontweight="bold")
-    for row, (number, title, flow, speed, spacing) in enumerate((("1", "September", 10, 30, .15),
-                                                               ("2", "Half flow", 5, 30, .15),
-                                                               ("3", "Twice speed", 10, 60, .15),
-                                                               ("4", "Twice spacing", 10, 30, .30))):
-        ax.text(275, 46+row*58, f"{number}. {title}\n{flow}% / {speed} mm/s\n{spacing:.2f} mm spacing", ha="center", va="center", fontsize=9)
-    ax.text(55.5, 315, "G: gasket rim", ha="center", fontsize=11, fontweight="bold")
-    ax.text(202.5, 315, "B: washer seat", ha="center", fontsize=11, fontweight="bold")
-    ax.text(278, 283, "S: slope diagnostic\nSeptember ironing\non the adjacent floor", ha="center", va="center", fontsize=9, color="#b63b37")
-    ax.set(xlim=(0, 325), ylim=(0, 325), aspect="equal", xlabel="Plate X (mm)", ylabel="Plate Y (mm)")
-    ax.set_title("Reservoir ironing comparison — actual native paths\nC = un-ironed control     I = ironed     orange/red = ironing", pad=16)
+        ax.text(part["center"][0], part["center"][1]-(20.5 if part["feature"] == "G" else 23.5),
+                part["label"], ha="center", va="center", fontsize=9,
+                color=color if part["ironed"] else "#234e70", fontweight="bold",
+                bbox=dict(facecolor="white", edgecolor="none", alpha=0.85, pad=0.8))
+    inset = study["layout"]["minimum_emitted_bead_edge_margin_mm"]
+    ax.add_patch(Rectangle((inset, inset), bed[1, 0]-2*inset, bed[1, 1]-2*inset,
+                           fill=False, edgecolor="#39758a", linestyle="--", linewidth=1,
+                           label=f"{inset:g} mm inset from usable bed edges"))
+    ax.text(162.5, 278, f"Minimum full-bead edge clearance: {min(margins):.2f} mm\n"
+            "G: gasket rim    B: washer seat    S: slope diagnostic", ha="center", fontsize=10)
+    ax.legend(loc="lower center", frameon=False, bbox_to_anchor=(0.5, 0.02))
+    ax.set(xlim=(0, 325), ylim=(0, 320), aspect="equal", xlabel="Plate X (mm)", ylabel="Plate Y (mm)")
+    ax.set_title("Centered reservoir ironing comparison — actual native paths\nC = un-ironed control     I = ironed     orange/red = ironing", pad=16)
     ax.grid(alpha=0.15)
     fig.tight_layout()
     fig.savefig(HERE / "plate-layout.png", dpi=150)
     plt.close(fig)
-    print(json.dumps({k: report[k] for k in ("estimated_seconds", "estimated_mass_g", "support_summary")}, indent=2))
+    print(json.dumps({k: report[k] for k in ("estimated_seconds", "estimated_mass_g", "support_summary", "placement")}, indent=2))
 
 
 if __name__ == "__main__":

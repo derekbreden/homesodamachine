@@ -11,13 +11,23 @@ without raised lines, edge beads or loose PETG. This comparison assesses whether
 ironing improves those faces and whether it damages the adjacent sloped floor.
 Physical observations are pending.
 
-The [Mark2 launch record](prints/2026-10-06-mark2/launch.json) identifies the
+The plate is centered in three compact rows, with every ironed specimen beside
+its control. The native model/support bead envelope is **178.08 × 146.50 mm**,
+at least **73.42 mm from every usable bed edge**; front/back clearance is
+86.75 mm. The closest specimen bead envelopes remain **1.92 mm apart**. Meshes,
+XY/Z orientation, layer phase and process settings are retained. Follow the
+[unseasoned-plate guidance](../../../../../tools/bambu-printers.md#placement-on-unseasoned-plates).
+
+The [centered Mark2 launch record](prints/2026-10-06-mark2-centered-v3/launch.json) identifies the
 submitted slice, printer task and print options. Its starting spool is **A4**;
 the current clear PETG consumption preference is **A4 → A3 → A1**, oldest first.
 Mark2's expected user Z trim is **+0.04 mm** over stock compensation. The native
 0.8 mm textured-PEI job emits **`G29.1 Z0.02`** after clearing the trim with
 `G29.1 Z0`. Bambu Connect does not expose a backup-priority editor; automatic
 A3-before-A1 refill is unverified.
+
+The [edge-placement observation](prints/2026-10-06-mark2/physical-result.json)
+records the operator's cancellation of task 1313339571 and clearance of the bed.
 
 ## Specimens and settings
 
@@ -55,6 +65,10 @@ is off; saved modifiers enable it on the named test faces. The tests retain the
 recipe's 0.31 mm ironing inset and zig-zag pattern. Twice the spacing produces
 about half the path length while retaining nearly the same total ironing
 extrusion; the slicer increases extrusion per pass.
+
+Filament assignment is **Manual, left nozzle**. The native review checks both
+the emitted `filament_map = 1` and `filament_nozzle_map = 0`, the 0.8 mm diameter
+and the resolved Mark2 trim before packaging the print.
 
 The saved machine profile carries Mark2's accepted +0.04 mm trim. Preserve the
 destination printer's own calibrated trim when assigning the job, following
@@ -99,6 +113,12 @@ wider spacing are verified in the emitted paths. S1I includes about 1.47 m of
 ironing over the adjacent sloped strips. The slice contains ten bed-rooted bore
 support bodies, all without explicit interface labels; their contact buildup
 and removal finish are unmeasured.
+
+The same review checks deposited model, support and brim paths against the left
+nozzle's **325 × 320 mm** usable area, including native bead widths and exact arc
+extrema. It enforces at least 70 mm edge clearance and 1.5 mm specimen envelope
+separation. Vendor startup purge/calibration paths are outside this specimen
+placement check. The measured inset establishes placement, not bed adhesion.
 
 From the repository root:
 
