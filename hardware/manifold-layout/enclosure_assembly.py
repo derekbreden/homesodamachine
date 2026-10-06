@@ -326,7 +326,7 @@ C_STUB = _routing.tube_color("fluid-4")
 # drawn as the metal that is most of it.
 C_SUCT = M_STAINLESS
 # The border over that glass, in the enclosure's own black stock.
-C_COVER = M_PETG_BLACK
+C_COVER = M_PETGF_BLACK
 # And the soft ring under its lap, in the same TPU 90A as every other seal here.
 C_DGASKET = M_TPU_BLACK
 # `pcb/pcba/order.md` places the main board at "black mask / white silk".
