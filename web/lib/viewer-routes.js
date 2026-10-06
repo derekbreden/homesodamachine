@@ -8,6 +8,7 @@ import { VIEW_REQUEST_RE, PICKS_REQUEST_RE } from "../contracts/pcb-out.js";
 import { sidecarFields } from "../contracts/sidecar.js";
 import { SCORECARD_SUFFIX } from "../contracts/scorecard-sidecar.js";
 import { mountTubeRoutes } from "./tube-routes.js";
+import { mountPdfjsAssets, renderDocumentReader } from "./document-reader.js";
 
 const relOf = (req) => req.params.splat.join("/");
 
@@ -44,6 +45,7 @@ function readSidecar(rootDir, rel) {
 // Endpoints + response shapes: web/contracts/api-shapes.js.
 export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
   mountTubeRoutes(app, { hardwareDir });
+  mountPdfjsAssets(app);
 
   // WHERE THE PAGE FETCHES A MODEL'S BYTES, when the store has a public address. Every member
   // the pointer file names is on the store under the hash of its own bytes, so a URL built
@@ -238,24 +240,44 @@ export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
     streamFile(res, abs);
   });
 
-  // A document, opened in a tab rather than downloaded — the guide a bench
-  // builds from, the manual that ships in the carton. What makes a `.pdf` here
-  // reachable is its `<name>.pdf.json` sidecar, which is the same thing that
-  // puts it in the listing above; every other PDF under hardware/ belongs to
-  // whatever wrote it and is not offered. `inline` so a click reads it instead
-  // of filling a downloads folder, and no-cache so a rebuilt document is not
-  // served stale off a tab opened before it.
-  app.get("/docs/*splat", (req, res) => {
+  // Reading and downloading share the publication gate: only a PDF with its
+  // document sidecar is reachable, and retired documents stay retired.
+  function documentFile(req, res) {
     const rel = relOf(req);
     const abs = safeFile(hardwareDir, rel, ".pdf");
-    if (!abs) return res.status(400).send("Invalid path");
-    if (!isPublishedDocument(rel)) return res.status(410).send("Document no longer published");
+    if (!abs) { res.status(400).send("Invalid path"); return null; }
+    if (!isPublishedDocument(rel)) { res.status(410).send("Document no longer published"); return null; }
     if (!fs.existsSync(path.join(hardwareDir, rel.slice(0, -4) + DOC_SIDECAR_SUFFIX))) {
-      return res.status(400).send("Not a document");
+      res.status(400).send("Not a document"); return null;
     }
-    if (!fs.existsSync(abs)) return res.status(404).send("Not found");
+    if (!fs.existsSync(abs)) { res.status(404).send("Not found"); return null; }
+    return { rel, abs };
+  }
+
+  app.get("/read/*splat", (req, res) => {
+    const doc = documentFile(req, res);
+    if (!doc) return;
+    const meta = readSidecar(hardwareDir, doc.rel);
     res.set("Cache-Control", "no-cache");
-    res.set("Content-Disposition", `inline; filename="${path.basename(abs)}"`);
+    res.type("html").send(renderDocumentReader({
+      file: doc.rel, title: meta?.title || path.basename(doc.rel, ".pdf"),
+    }));
+  });
+
+  // HTML navigations (including saved /docs links and notification links) go
+  // to the in-app reader. PDF.js and API clients still receive the PDF bytes,
+  // with byte ranges available. An explicit download is an attachment.
+  app.get("/docs/*splat", (req, res) => {
+    const doc = documentFile(req, res);
+    if (!doc) return;
+    const { rel, abs } = doc;
+    res.set("Cache-Control", "no-cache");
+    res.vary("Accept");
+    if (req.query.raw !== "1" && req.query.download !== "1" && req.get("Accept")?.includes("text/html")) {
+      return res.redirect(302, `/read/${rel.split("/").map(encodeURIComponent).join("/")}`);
+    }
+    if (req.query.download === "1") res.attachment(path.basename(abs));
+    else res.set("Content-Disposition", `inline; filename="${path.basename(abs)}"`);
     res.type("application/pdf").sendFile(abs, SEND_OPTS, (err) => {
       if (!err || res.headersSent) return;
       if (err.code === "ENOENT" || err.status === 404) return res.status(404).send("Not found");
