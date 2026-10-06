@@ -198,9 +198,10 @@ def payload_colors(data, src, previous_src):
     source_changed = head.get('src') == previous_src and src != previous_src
     if source_changed:
         head['src'] = src
-    if not changed and not source_changed:
+    if not changed and not source_changed and length % 4 == 0:
         return data, changed, sha(body)
     packed = json.dumps(head, separators=(',', ':')).encode()
+    packed += b' ' * (-(len(packed) + 4) % 4)
     result = struct.pack('<I', len(packed)) + packed + body
     assert result[4+len(packed):] == body, 'Viewer geometry bytes changed'
     return result, changed, sha(body)
@@ -250,6 +251,15 @@ def selftest():
         assert len(report['changed_viewer_members']) == 2
         probe = """
 const fs = require('fs');
+const packed = fs.readFileSync(process.argv[1] + '.mesh');
+const bytes = packed.buffer.slice(packed.byteOffset, packed.byteOffset + packed.byteLength);
+const length = new DataView(bytes).getUint32(0, true);
+const head = JSON.parse(new TextDecoder().decode(new Uint8Array(bytes, 4, length)));
+for (const mesh of head.meshes) for (const key of ['pos','nrm','idx','fac']) {
+  const [offset, count] = mesh[key];
+  const View = key === 'pos' || key === 'nrm' ? Float32Array : Uint32Array;
+  new View(bytes, 4 + length + offset, count);
+}
 require(process.argv[2])().then(occt => {
   const result = occt.ReadStepFile(new Uint8Array(fs.readFileSync(process.argv[1])), null);
   console.log(JSON.stringify(result.meshes.map(m => ({name:m.name, color:m.color}))));
