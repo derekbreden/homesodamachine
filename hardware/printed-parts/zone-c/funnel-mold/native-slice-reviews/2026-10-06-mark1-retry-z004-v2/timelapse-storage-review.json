@@ -1,0 +1,74 @@
+{
+  "printer": "Mark1",
+  "accepted_job_id": "1315124888",
+  "archive_name": "2026-10-06-funnel-cavity-mark1-right-z004-retry-v2.gcode.3mf",
+  "scope": "Read-only storage inspection and runtime timelapse verification for the accepted cavity retry.",
+  "runtime_observation": {
+    "printer": "Mark1",
+    "observed_at_utc": "2026-10-06T20:20:39.734291+00:00",
+    "task_id": "1315124888",
+    "job_id": "1315124888",
+    "subtask_name": "2026-10-06-funnel-cavity-mark1-right-z004-retry-v2.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 1,
+    "total_layer_num": 404,
+    "mc_percent": 1,
+    "mc_remaining_time": 1031,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": 0,
+    "sdcard": true,
+    "timelapse": "disable",
+    "chamber_auto_record": "disable",
+    "timelapse_cfg_bit5": false,
+    "storage_state_code": 1,
+    "storage_space_kb": {}
+  },
+  "storage": {
+    "remote_file_access": "Implicit FTPS over the existing LAN service; successful read-only listings.",
+    "directory_listing_observed_at_utc": "2026-10-06T20:12:17.209826+00:00",
+    "timelapse_mp4_count": 128,
+    "timelapse_bytes": 793284586,
+    "chamber_recording_bytes": 4,
+    "root_file_bytes": 328708910,
+    "free_bytes": null,
+    "total_bytes": null,
+    "reported_state": "Normal (print.aux bits 12-13 = 1).",
+    "free_space_limit": "Current push telemetry omits tl_external_free_kb and tl_external_total_kb. FTPS AVBL and SITE FREE are unsupported; the media-space query returns -3 without a space count.",
+    "conclusion": "No reported storage fault or large visible video accumulation; exact remaining capacity is not established.",
+    "files_archived": 0,
+    "files_deleted": 0
+  },
+  "existing_rotation": {
+    "schedule": "macOS LaunchAgent every 21600 seconds",
+    "retained_timelapse_budget_gb": 180,
+    "archive_before_delete_enabled": false,
+    "last_matching_run_date_local": "2026-10-06",
+    "last_matching_run_clip_count": 128,
+    "last_matching_run_total_mb": 793.3,
+    "last_matching_run_deleted_count": 0,
+    "configuration_changed": false,
+    "implementation": "tools/h2c_timelapse_gc.py",
+    "documentation": "tools/h2c-timelapse-gc.md"
+  },
+  "timelapse": {
+    "native_send_option": "On",
+    "runtime_status": "Disabled; recording not confirmed.",
+    "remote_enable_attempt": {
+      "command": "camera.ipcam_timelapse",
+      "control": "enable",
+      "result": "FAILURE",
+      "reason": "unsupport common",
+      "print_start_or_resume_sent": false
+    },
+    "native_control_limit": "Bambu Studio custom Device toolbar coordinate input repeatedly fails with windowNotFoundAtPosition; native window/menu recovery does not expose the device controls.",
+    "runtime_override_succeeded": false,
+    "camera_ai_settings_changed": false,
+    "scheduled_followup_created": false
+  },
+  "primary_protocol_sources": [
+    "https://github.com/bambulab/BambuStudio/blob/master/src/slic3r/GUI/DeviceManager.cpp",
+    "https://github.com/bambulab/BambuStudio/blob/master/src/slic3r/GUI/DeviceCore/DevStorage.cpp",
+    "https://github.com/bambulab/BambuStudio/blob/master/src/slic3r/GUI/DeviceCore/DevStorage.h"
+  ]
+}

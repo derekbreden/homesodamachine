@@ -1,0 +1,35 @@
+{
+  "source_archive": ".cache/funnel-retry-mark1-z004-20261006/cavity-native-only.gcode.3mf",
+  "source_archive_sha256": "94035411882fd4a04825ad6429ab3ca329295951f2a9560939ef2495164ab87d",
+  "print_only_archive": ".cache/funnel-retry-mark1-z004-20261006/ready/2026-10-06-funnel-cavity-mark1-right-z004-retry-v2.gcode.3mf",
+  "print_only_archive_sha256": "4f0c0be666595f73d7e31042cd877da61e8503554f25cd143734bf1a86b8bfb1",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "a4c24daaf566e185dd8239e2e9beb7736f43cc23ea9d3db6e90419fe1c7136ba"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/Objects/object_2.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ],
+  "native_two_plate_archive": ".cache/funnel-retry-mark1-z004-20261006/slice/2026-10-06-funnel-cavity-mark1-right-z004-retry-v2.gcode.3mf",
+  "native_two_plate_archive_sha256": "2e07c346cf171745c1852b02b77997b856baab92bdc620e8e5613ce9d50d7e0b",
+  "submitted_plate": 1,
+  "other_plates_omitted": true,
+  "omitted_second_plate_entries": [
+    "Metadata/plate_2.png",
+    "Metadata/plate_2_small.png",
+    "Metadata/plate_no_light_2.png",
+    "Metadata/top_2.png",
+    "Metadata/pick_2.png",
+    "Metadata/plate_2.json",
+    "Metadata/plate_2.gcode.md5",
+    "Metadata/plate_2.gcode"
+  ],
+  "scope": "Prepared print-only cavity archive. No import or Send performed by this script."
+}
