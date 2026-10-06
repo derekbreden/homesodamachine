@@ -17,7 +17,8 @@
     "imported_copy_sha256_after_send": "9b5ad0ffcc1a421f485b52e636ddfe944d84ae4a4311e415d90a69475113587c",
     "gcode_sha256": "e2ab678b5dbf281e00689afad6408a61b6397b0cfc3b4aaa2a8457ef77d2ac65",
     "gcode_bytes_unchanged": true,
-    "resliced_for_launch": false
+    "resliced_for_launch": false,
+    "repository_snapshot_commit": "6cc45a11fa6e73c7167f9caa712b1c676ff276d4"
   },
   "submission": {
     "application": "Bambu Connect",

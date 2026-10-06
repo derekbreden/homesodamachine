@@ -1,15 +1,10 @@
-"""Build one labelled ironing comparison plate from the current reservoir STEP.
-
-Run with tools/cad-venv/bin/python. The appliance geometry and official reservoir
-recipe remain inputs. This produces finish coupons, not water-hold articles.
-"""
+"""Build a centered plate of flat PETG squares for ironing calibration."""
 
 from __future__ import annotations
 
 import copy
 import importlib.util
 import json
-import math
 from pathlib import Path
 import xml.etree.ElementTree as ET
 import zipfile
@@ -21,64 +16,47 @@ import trimesh
 HERE = Path(__file__).resolve().parent
 RESERVOIR = HERE.parent
 ROOT = next(p for p in HERE.parents if (p / "tools/cad-venv").is_dir())
-CACHE = ROOT / ".cache/reservoir-ironing-study"
+CACHE = ROOT / ".cache/reservoir-ironing-squares"
 spec = importlib.util.spec_from_file_location("reservoir_project_writer", RESERVOIR / "prepare_print.py")
 writer = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(writer)
 
-VARIANTS = (
-    ("1", "September", 10, 30, 0.15),
-    ("2", "Half flow", 5, 30, 0.15),
-    ("3", "Twice speed", 10, 60, 0.15),
-    ("4", "Twice spacing", 10, 30, 0.30),
-)
+SPEEDS = (15, 30, 60)
+FLOWS = (10, 20, 30)
+SPACING = 0.15
+SIDE = 35.0
+HEIGHT = 1.50  # One 0.30 mm layer and five 0.24 mm layers.
+TAB_HEIGHT = 0.78
+LABEL_HEIGHT = 1.02
+BED = np.array([[0.0, 0.0], [325.0, 320.0]])
+MIN_MARGIN = 80.0
+GAP = 5.0
 IDENTITY = "1 0 0 0 1 0 0 0 1 0 0 0"
 MATRIX = "1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1"
-BED_BOUNDS = np.array([[0.0, 0.0], [325.0, 320.0]])  # Left nozzle's usable area.
-MIN_EDGE_MARGIN = 70.0
-PART_GAP = 2.0
-LAYOUT_ROWS = (
-    ("G1C", "G1I", "G2C", "G2I", "B1C", "B1I"),
-    ("G3C", "G3I", "B2C", "B2I", "B3C", "B3I"),
-    ("G4C", "G4I", "B4C", "B4I", "S1C", "S1I"),
-)
 
 
-def centered_layout():
-    """Keep every C/I pair adjacent, with unchanged XY and Z orientation."""
-    centers = {}
-    row_height = 47.5
-    low_y = (BED_BOUNDS[1, 1] - (3*row_height + 2*PART_GAP))/2
-    for row, labels in enumerate(LAYOUT_ROWS):
-        widths = [24.0 if label.startswith("G") else 30.0 for label in labels]
-        x = (BED_BOUNDS[1, 0] - (sum(widths) + (len(labels)-1)*PART_GAP))/2
-        y = low_y + row*(row_height+PART_GAP) + 28.5
-        for label, width in zip(labels, widths):
-            centers[label] = [x+width/2, y, 0]
-            x += width + PART_GAP
-    return centers
-
-
-def box(low, high):
-    low, high = np.array(low), np.array(high)
-    return cq.Workplane("XY").box(*(high-low)).translate(tuple((high+low)/2))
-
-
-def solid_mesh(shape, name):
-    target = CACHE / (name + ".stl")
+def mesh_for(label):
+    square = cq.Workplane("XY").box(SIDE, SIDE, HEIGHT, centered=(True, True, False))
+    # Labels lie on a lower tab, outside the uninterrupted square test face.
+    tab = cq.Workplane("XY").box(33, 9, TAB_HEIGHT, centered=(True, True, False)).translate((0, -21, 0))
+    text = cq.Workplane("XY").text(label, 4.5, LABEL_HEIGHT-TAB_HEIGHT,
+                                   font="Arial", kind="bold", combine=False).translate((0, -21, TAB_HEIGHT))
+    shape = square.union(tab).union(text).clean()
+    if len(shape.solids().vals()) != 1:
+        raise ValueError(f"{label}: disconnected label or tab")
+    face_area = sum(face.Area() for face in shape.faces().vals()
+                    if abs(face.BoundingBox().zmin-HEIGHT) < 1e-6
+                    and abs(face.BoundingBox().zmax-HEIGHT) < 1e-6)
+    if abs(face_area-SIDE**2) > 1e-6:
+        raise ValueError(f"{label}: interrupted square top face")
+    target = CACHE / (label.replace("/", "-")+".stl")
     cq.exporters.export(shape, str(target), tolerance=0.025, angularTolerance=0.08)
     mesh = trimesh.load(target, force="mesh", process=True)
     if not (mesh.is_watertight and mesh.is_winding_consistent and mesh.volume > 0 and mesh.body_count == 1):
-        raise ValueError(f"{name}: expected one closed, consistently oriented solid")
+        raise ValueError(f"{label}: expected one closed solid")
     if abs(mesh.volume-shape.val().Volume()) > max(0.5, shape.val().Volume()*0.003):
-        raise ValueError(f"{name}: excessive tessellation volume error")
-    return mesh
-
-
-def horizontal_area(shape, z):
-    return sum(face.Area() for face in shape.faces().vals()
-               if face.geomType() == "PLANE" and abs(face.BoundingBox().zmin-z) < 1e-5
-               and abs(face.BoundingBox().zmax-z) < 1e-5)
+        raise ValueError(f"{label}: tessellation volume error")
+    return mesh, shape.val().Volume(), writer.sha(target.read_bytes())
 
 
 def add_mesh(resources, mesh, ident):
@@ -92,155 +70,105 @@ def add_mesh(resources, mesh, ident):
         ET.SubElement(triangles, writer.qn("triangle"), **dict(zip(("v1", "v2", "v3"), map(str, triangle))))
 
 
-def labelled(shape, feature, label):
-    # These low tabs never overlap a sealing face or the ironing height masks.
-    y = -20.5 if feature == "G" else -23.5
-    tab = cq.Workplane("XY").box(24, 10, 1.26, centered=(True, True, False)).translate((0, y, 0))
-    text = cq.Workplane("XY").text(label, 6.5, 0.48, font="Arial", kind="bold", combine=False)
-    text = text.translate((0, y, 1.26))
-    return shape.union(tab).union(text).clean()
-
-
 def main():
     CACHE.mkdir(parents=True, exist_ok=True)
-    source = RESERVOIR / "reservoir-left.step"
-    source_hash = writer.sha(source.read_bytes())
-    integration = json.loads((RESERVOIR.parent / "magnetic-float/all-aero/integration-check.json").read_text())
-    if integration["files_sha256"][str(source.relative_to(ROOT))] != source_hash:
-        raise ValueError("Current reservoir STEP differs from the integration record")
-    recipe = json.loads((RESERVOIR / "print-settings.json").read_text())
-    baseline = recipe["project_settings"]
+    baseline = json.loads((RESERVOIR / "print-settings.json").read_text())["project_settings"]
     settings = copy.deepcopy(baseline)
-    settings.update(ironing_type="no ironing", print_settings_id="Reservoir ironing comparison - 0.24mm",
+    settings.update(ironing_type="no ironing", enable_support="0",
+                    print_settings_id="PETG flat-square ironing calibration - 0.24mm",
                     filament_map_mode="Manual", filament_map=["1"], filament_nozzle_map=["0"])
-    overrides = {k: {"from": baseline.get(k), "to": v} for k, v in settings.items() if baseline.get(k) != v}
-    body = cq.importers.importStep(str(source))
-    top = body.val().BoundingBox().zmax
-    bottom = body.val().BoundingBox().zmin
-    # Removing 698 complete 0.24 mm layers retains the production layer phase.
-    gasket_bottom = bottom + 698*0.24
-    gasket_crop = [[-131, -16, gasket_bottom], [-116, 16, top+1]]
-    bulkhead_crop = [[-120, -19, bottom], [-90, 19, bottom+12]]
-    gasket_origin = [-123.75, 0, gasket_bottom]
-    bulkhead_origin = [-105, 0, bottom]
-    gasket = body.intersect(box(*gasket_crop)).translate(tuple(-np.array(gasket_origin)))
-    bulkhead = body.intersect(box(*bulkhead_crop)).translate(tuple(-np.array(bulkhead_origin)))
-    if len(gasket.solids().vals()) != 1 or len(bulkhead.solids().vals()) != 1:
-        raise ValueError("Each cropped sealing feature must be connected")
-    seat_area = horizontal_area(bulkhead, 4.65)
-    if not math.isclose(seat_area, math.pi*(12.15**2-7.9**2), abs_tol=1e-4):
-        raise ValueError("The crop does not retain the complete wet washer annulus")
-    gasket_area = horizontal_area(gasket, top-gasket_bottom)
-    if not math.isclose(gasket_area, 150.79106527534532, abs_tol=1e-4):
-        raise ValueError("The gasket rim or blind-pocket opening differs from the reviewed feature")
-    gasket_mask = box([-5.6, -16.1, top-gasket_bottom-0.6], [5.6, 16.1, top-gasket_bottom+1])
-    seat_mask = cq.Workplane("XY").circle(12.15).extrude(0.9).translate((0, 0, 4.15))
-    slope_mask = box([-15.1, -19.1, 2.0], [15.1, 19.1, 8.0])
-    masks = {"G": solid_mesh(gasket_mask, "gasket-mask"),
-             "B": solid_mesh(seat_mask, "seat-mask"),
-             "S": solid_mesh(slope_mask, "slope-mask")}
-    centers = centered_layout()
+    changes = {k: {"from": baseline.get(k), "to": v} for k, v in settings.items() if baseline.get(k) != v}
     entries = []
-    for number, title, flow, speed, spacing in VARIANTS:
-        for feature in ("G", "B"):
-            for test in range(2):
-                entries.append(dict(label=f"{feature}{number}{'I' if test else 'C'}", feature=feature,
-                                    condition=number, condition_title=title, ironed=bool(test),
-                                    flow_percent=flow, speed_mm_s=speed, spacing_mm=spacing,
-                                    center=centers[f"{feature}{number}{'I' if test else 'C'}"]))
-    for test in range(2):
-        entries.append(dict(label=f"S1{'I' if test else 'C'}", feature="S", condition="1",
-                            condition_title="September; includes sloped floor", ironed=bool(test),
-                            flow_percent=10, speed_mm_s=30, spacing_mm=0.15,
-                            center=centers[f"S1{'I' if test else 'C'}"]))
+    # Three speed rows, three flow columns; a single OFF reference in column 4.
+    for row, speed in enumerate(SPEEDS):
+        for column, flow in enumerate(FLOWS):
+            entries.append(dict(label=f"{speed}/{flow}", ironed=True, speed_mm_s=speed,
+                                flow_percent=flow, spacing_mm=SPACING, row=row, column=column))
+    entries.append(dict(label="OFF", ironed=False, speed_mm_s=None, flow_percent=0,
+                        spacing_mm=SPACING, row=1, column=3))
+    width, depth = 4*SIDE+3*GAP, 3*43+2*GAP
+    low_x, low_y = (BED[1]-np.array([width, depth]))/2
+    for item in entries:
+        item["center"] = [float(low_x+SIDE/2+item["column"]*(SIDE+GAP)),
+                          float(low_y+25.5+item["row"]*(43+GAP)), 0]
 
     model = ET.Element(writer.qn("model"), unit="millimeter", requiredextensions="p",
                        **{"xmlns:BambuStudio": "http://schemas.bambulab.com/package/2021"})
     for name, value in (("Application", "BambuStudio-02.08.02.61"), ("BambuStudio:3mfVersion", "1"),
-                        ("Title", "Reservoir sealing faces and sloped floor - ironing comparison")):
+                        ("Title", "PETG flat-square ironing calibration")):
         ET.SubElement(model, writer.qn("metadata"), name=name).text = value
     resources = ET.SubElement(model, writer.qn("resources"))
-    build = ET.SubElement(model, writer.qn("build"), **{f"{{{writer.PROD}}}UUID": writer.uid("ironing-study/build")})
+    build = ET.SubElement(model, writer.qn("build"), **{f"{{{writer.PROD}}}UUID": writer.uid("ironing-squares/build")})
     config = ET.Element("config")
     plate = ET.SubElement(config, "plate")
-    for key, value in dict(plater_id=1, plater_name="Sealing faces and slope comparison", locked="false",
+    for key, value in dict(plater_id=1, plater_name="PETG ironing squares", locked="false",
                            bed_type=settings["curr_bed_type"], filament_map_mode="Manual",
                            filament_maps="1", filament_volume_maps="0").items():
         writer.metadata(plate, key, value)
-    assembled = ET.Element("assemble")
+    assembled = ET.SubElement(config, "assemble")
     relations = ET.Element(f"{{{writer.REL}}}Relationships")
     members = {"Metadata/project_settings.config": (json.dumps(settings, indent=2)+"\n").encode()}
-    report = dict(project="ironing-study.3mf", source=str(source.relative_to(ROOT)), source_sha256=source_hash,
-                  recipe="../print-settings.json", recipe_settings_sha256=writer.sha(writer.canonical(baseline)),
-                  project_overrides=overrides, plate_count=1, layer_height_mm=0.24, first_layer_mm=0.30,
-                  layer_phase_removed_from_gasket_mm=698*0.24,
-                  crops_in_source_frame_mm={"G": gasket_crop, "B": bulkhead_crop},
-                  source_origins_mm={"G": gasket_origin, "B": bulkhead_origin},
-                  retained_sealing_face_area_mm2={"G": gasket_area, "B": seat_area},
-                  bulkhead_seat=dict(outer_diameter_mm=24.3, inner_diameter_mm=15.8, print_z_mm=4.65),
-                  floor_slope_degrees=math.degrees(math.atan(6/(67.25-14))),
-                  layout=dict(left_nozzle_usable_bed_bounds_mm=BED_BOUNDS.tolist(),
-                              minimum_emitted_bead_edge_margin_mm=MIN_EDGE_MARGIN,
-                              model_bounding_box_gap_mm=PART_GAP, rows=LAYOUT_ROWS,
-                              placement_only=True, xy_rotation_degrees=0),
-                  scope="Cropped surface-finish comparison; physical results pending. Cropping changes layer time and thermal history.",
+    report = dict(project="ironing-study.3mf", geometry="flat squares", recipe="../print-settings.json",
+                  recipe_settings_sha256=writer.sha(writer.canonical(baseline)), project_overrides=changes,
+                  plate_count=1, square_side_mm=SIDE, square_height_mm=HEIGHT,
+                  unobstructed_top_face_area_mm2=SIDE**2, label_tab_top_mm=LABEL_HEIGHT,
+                  first_layer_mm=0.30, layer_height_mm=0.24,
+                  speeds_mm_s=SPEEDS, flows_percent=FLOWS, spacing_mm=SPACING,
+                  un_ironed_reference_count=1, label_format="speed in mm/s / flow in percent; OFF = no ironing",
+                  layout=dict(left_nozzle_usable_bed_bounds_mm=BED.tolist(),
+                              minimum_emitted_bead_edge_margin_mm=MIN_MARGIN,
+                              model_bounding_box_gap_mm=GAP, speed_rows_front_to_back=SPEEDS,
+                              flow_columns_left_to_right=FLOWS, reference_row=1, reference_column=3),
+                  scope="Flat top-surface ironing calibration. Physical finish selection is pending; sealing and sloped surfaces are outside this test.",
                   parts=[])
     for index, item in enumerate(entries, 1):
-        label, feature = item["label"], item["feature"]
-        shape = labelled(gasket if feature == "G" else bulkhead, feature, label)
-        mesh = solid_mesh(shape, label)
-        part_id, mask_id, object_id = index*100+1, index*100+2, 10000+index
+        label = item["label"]
+        mesh, volume, mesh_sha = mesh_for(label)
+        part_id, object_id = index*100+1, 10000+index
         member = f"3D/Objects/object_{index}.model"
         child = ET.Element(writer.qn("model"), unit="millimeter")
         child_resources = ET.SubElement(child, writer.qn("resources"))
         add_mesh(child_resources, mesh, part_id)
-        if item["ironed"]:
-            add_mesh(child_resources, masks[feature], mask_id)
         members[member] = writer.xml(child)
         parent = ET.SubElement(resources, writer.qn("object"), id=str(object_id), type="model",
-                               **{f"{{{writer.PROD}}}UUID": writer.uid("ironing-study/"+label)})
+                               **{f"{{{writer.PROD}}}UUID": writer.uid("ironing-squares/"+label)})
         components = ET.SubElement(parent, writer.qn("components"))
-        for ident in ([part_id, mask_id] if item["ironed"] else [part_id]):
-            ET.SubElement(components, writer.qn("component"), objectid=str(ident), transform=IDENTITY,
-                          **{f"{{{writer.PROD}}}path": "/"+member,
-                             f"{{{writer.PROD}}}UUID": writer.uid(f"ironing-study/{label}/{ident}")})
+        ET.SubElement(components, writer.qn("component"), objectid=str(part_id), transform=IDENTITY,
+                      **{f"{{{writer.PROD}}}path": "/"+member,
+                         f"{{{writer.PROD}}}UUID": writer.uid(f"ironing-squares/{label}/{part_id}")})
         transform = " ".join(map(str, [1, 0, 0, 0, 1, 0, 0, 0, 1, *item["center"]]))
         ET.SubElement(build, writer.qn("item"), objectid=str(object_id), transform=transform, printable="1",
-                      **{f"{{{writer.PROD}}}UUID": writer.uid("ironing-study/"+label+"/item")})
+                      **{f"{{{writer.PROD}}}UUID": writer.uid("ironing-squares/"+label+"/item")})
         obj = ET.SubElement(config, "object", id=str(object_id))
-        for key, value in dict(name=label, extruder=1, ironing_speed=item["speed_mm_s"]).items():
+        for key, value in dict(name=label, extruder=1,
+                               ironing_type="topmost" if item["ironed"] else "no ironing").items():
             writer.metadata(obj, key, value)
+        if item["ironed"]:
+            for key, value in dict(ironing_speed=item["speed_mm_s"],
+                                   ironing_flow=f"{item['flow_percent']}%", ironing_spacing=SPACING).items():
+                writer.metadata(obj, key, value)
         ET.SubElement(obj, "metadata", face_count=str(len(mesh.faces)))
-        for ident, kind in [(part_id, "normal_part")] + ([(mask_id, "modifier_part")] if item["ironed"] else []):
-            part = ET.SubElement(obj, "part", id=str(ident), subtype=kind,
-                                 uuid=writer.uid(f"ironing-study/{label}/{ident}"))
-            writer.metadata(part, "name", label if kind == "normal_part" else label+" ironing region")
-            writer.metadata(part, "matrix", MATRIX)
-            if kind == "normal_part":
-                writer.metadata(part, "source_file", label+".stl")
-            else:
-                for key, value in dict(ironing_type="top", ironing_flow=f"{item['flow_percent']}%",
-                                       ironing_speed=item["speed_mm_s"], ironing_spacing=item["spacing_mm"]).items():
-                    writer.metadata(part, key, value)
-            count = len(mesh.faces) if kind == "normal_part" else len(masks[feature].faces)
-            ET.SubElement(part, "mesh_stat", face_count=str(count), edges_fixed="0", degenerate_facets="0",
-                          facets_removed="0", facets_reversed="0", backwards_edges="0")
+        part = ET.SubElement(obj, "part", id=str(part_id), subtype="normal_part",
+                             uuid=writer.uid(f"ironing-squares/{label}/{part_id}"))
+        writer.metadata(part, "name", label)
+        writer.metadata(part, "matrix", MATRIX)
+        writer.metadata(part, "source_file", label.replace("/", "-")+".stl")
+        ET.SubElement(part, "mesh_stat", face_count=str(len(mesh.faces)), edges_fixed="0",
+                      degenerate_facets="0", facets_removed="0", facets_reversed="0", backwards_edges="0")
         instance = ET.SubElement(plate, "model_instance")
-        for key, value in dict(object_id=object_id, instance_id=0, identify_id=5000+index).items():
+        for key, value in dict(object_id=object_id, instance_id=0, identify_id=6000+index).items():
             writer.metadata(instance, key, value)
         ET.SubElement(assembled, "assemble_item", object_id=str(object_id), instance_id="0", transform=transform, offset="0 0 0")
         ET.SubElement(relations, f"{{{writer.REL}}}Relationship", Target="/"+member, Id=f"rel-{index}",
                       Type="http://schemas.microsoft.com/3dmanufacturing/2013/01/3dmodel")
-        placed = mesh.bounds + np.array(item["center"])
-        if np.any(placed[0, :2] < BED_BOUNDS[0]+MIN_EDGE_MARGIN) or np.any(placed[1, :2] > BED_BOUNDS[1]-MIN_EDGE_MARGIN):
+        placed = mesh.bounds+np.array(item["center"])
+        if np.any(placed[0, :2] < BED[0]+MIN_MARGIN) or np.any(placed[1, :2] > BED[1]-MIN_MARGIN):
             raise ValueError(f"{label}: plate clearance")
-        item.update(object_id=object_id, identify_id=5000+index, bounds_mm=placed.tolist(),
-                    cad_volume_mm3=shape.val().Volume(), mesh_volume_mm3=float(mesh.volume),
-                    triangles=len(mesh.faces), mesh_sha256=writer.sha((CACHE / (label+".stl")).read_bytes()),
-                    closed_mesh=True, connected_solids=1)
+        item.update(object_id=object_id, identify_id=6000+index, bounds_mm=placed.tolist(),
+                    cad_volume_mm3=volume, mesh_volume_mm3=float(mesh.volume), triangles=len(mesh.faces),
+                    mesh_sha256=mesh_sha, closed_mesh=True, connected_solids=1)
         report["parts"].append(item)
         print(f"Prepared {label}", flush=True)
-    config.append(assembled)
     package = ET.Element(f"{{{writer.REL}}}Relationships")
     ET.SubElement(package, f"{{{writer.REL}}}Relationship", Target="/3D/3dmodel.model", Id="rel-1",
                   Type="http://schemas.microsoft.com/3dmanufacturing/2013/01/3dmodel")
@@ -261,11 +189,11 @@ def main():
         if archive.testzip() or json.loads(archive.read("Metadata/project_settings.config")) != settings:
             raise ValueError("Saved project differs from requested settings")
     report["project_sha256"] = writer.sha(project.read_bytes())
-    bounds = np.array([part["bounds_mm"] for part in report["parts"]])
+    bounds = np.array([p["bounds_mm"] for p in report["parts"]])
     envelope = np.array([bounds[:, 0, :2].min(axis=0), bounds[:, 1, :2].max(axis=0)])
     report["layout"]["model_xy_bounds_mm"] = envelope.tolist()
     report["layout"]["model_edge_margins_left_front_right_back_mm"] = np.concatenate(
-        (envelope[0]-BED_BOUNDS[0], BED_BOUNDS[1]-envelope[1])).tolist()
+        (envelope[0]-BED[0], BED[1]-envelope[1])).tolist()
     (HERE / "study.json").write_text(json.dumps(report, indent=2)+"\n")
     print(json.dumps(dict(project=str(project), specimens=len(entries)), indent=2))
 

@@ -55,7 +55,7 @@ the reviewed 0.4 mm cover job without a nozzle mismatch.
 Keep deposited model, support and brim beads **at least 20 mm inside the usable
 bed boundary** when its outer regions have not been seasoned. Center small test
 plates and aim for **80 mm** where the complete comparison fits. Choose the
-inset for the part and occupied footprint; preserve adjacent test/control pairs.
+inset for the part and occupied footprint; keep calibration conditions together.
 Verify the emitted bead envelope, including bead width and arc extrema, before
 sending. CAD containment alone does not establish adhesion.
 

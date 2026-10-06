@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-06",
+  "printer": "Mark2",
+  "job_id": "1313441289",
+  "archive_name": "2026-10-06-reservoir-ironing-study-centered-mark2-z004-v3.gcode.3mf",
+  "repository_snapshot_commit": "464f0465c188e804c3d1acc9797f0971092c55b5",
+  "source": "Derek",
+  "quote": "Honestly it is pretty difficult to see or feel any difference on any of these. Please do a simple set of squares, a calibration, something like most people do when picking ironing settings.\n\nThere's also no need for that \"every item has a control\" thing, I think you misunderstood what I was asking for when you added that.",
+  "observations": {
+    "visual_or_tactile_differences_difficult_to_distinguish": true,
+    "preferred_ironing_condition_identified": false,
+    "specific_labels_with_observed_differences": null,
+    "photographs_reviewed": false
+  },
+  "requested_next_calibration": "Simple flat squares with varied ironing settings; no duplicate un-ironed specimen for every condition.",
+  "scope": "Operator assessment of the completed feature-crop comparison. The report does not establish equal roughness, a preferred recipe, or water-holding performance."
+}
