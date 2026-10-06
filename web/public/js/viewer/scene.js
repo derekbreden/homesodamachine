@@ -189,6 +189,7 @@ renderer.domElement.addEventListener("pointerdown", (e) => {
   if (e.pointerType === "touch") {
     surfaceTouches.set(e.pointerId, { x: e.clientX, y: e.clientY });
     if (surfaceTouches.size >= 2) {
+      renderer.domElement.parentElement?.classList.add("cad-gesturing");
       const pair = [...surfaceTouches.values()].slice(0, 2);
       beginSurfaceZoom((pair[0].x + pair[1].x) / 2, (pair[0].y + pair[1].y) / 2);
     }
@@ -208,9 +209,23 @@ renderer.domElement.addEventListener("pointermove", (e) => {
     beginSurfaceZoom(e.clientX, e.clientY);
   }
 }, true);
-function forgetSurfaceTouch(e) { surfaceTouches.delete(e.pointerId); }
-renderer.domElement.addEventListener("pointerup", forgetSurfaceTouch, true);
-renderer.domElement.addEventListener("pointercancel", forgetSurfaceTouch, true);
+function forgetSurfaceTouch(e) {
+  if (!surfaceTouches.delete(e.pointerId)) return;
+  if (surfaceTouches.size) return;
+  const wrapper = renderer.domElement.parentElement;
+  // Keep the gate through the final pointerup so a pinch cannot become a pick.
+  requestAnimationFrame(() => {
+    if (!surfaceTouches.size) wrapper?.classList.remove("cad-gesturing");
+  });
+}
+document.addEventListener("pointerup", forgetSurfaceTouch, true);
+document.addEventListener("pointercancel", forgetSurfaceTouch, true);
+export function clearSurfaceTouches() {
+  surfaceTouches.clear();
+  renderer.domElement.parentElement?.classList.remove("cad-gesturing");
+}
+window.addEventListener("blur", clearSurfaceTouches);
+document.addEventListener("visibilitychange", () => { if (document.hidden) clearSurfaceTouches(); });
 
 // --- Gesture gate ---
 // occt's wasm STEP reader holds the main thread for the length of a parse — ~10 s
@@ -578,6 +593,7 @@ let hoveredFaceIndex = -1;
 let armedAtPointerDown = false;          // true when pointerdown landed on the cube
 
 function gizmoRaycastFromEvent(e) {
+  if (renderer.domElement.parentElement?.classList.contains("cad-gesturing")) return null;
   const rect = gizmoCanvas.getBoundingClientRect();
   if (
     e.clientX < rect.left || e.clientX > rect.right ||
@@ -629,6 +645,8 @@ document.addEventListener("mousemove", (e) => {
 // gesture and keep OrbitControls from seeing it. Otherwise the event flows
 // through normally to OrbitControls / drag-to-orbit.
 document.addEventListener("pointerdown", (e) => {
+  // A second finger joins the viewport gesture, including over the cube.
+  if (e.pointerType === "touch" && surfaceTouches.size) { armedAtPointerDown = false; return; }
   const hit = overCanvas(e) ? gizmoRaycastFromEvent(e) : null;
   if (!hit) { armedAtPointerDown = false; return; }
   armedAtPointerDown = true;

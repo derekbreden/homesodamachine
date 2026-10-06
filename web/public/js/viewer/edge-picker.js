@@ -917,6 +917,7 @@ renderer.domElement.addEventListener("pointerdown", (e) => {
 });
 renderer.domElement.addEventListener("pointerup", (e) => {
   if (!active()) return;
+  if (renderer.domElement.parentElement?.classList.contains("cad-gesturing")) return;
   if (Math.hypot(e.clientX - downX, e.clientY - downY) > 6) return; // a drag, not a click
   // Edge picking is screen-space and ignores occlusion, so on a busy
   // model some hidden edge is almost always within the pick threshold.

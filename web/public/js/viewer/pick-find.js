@@ -223,9 +223,12 @@ function setPanelOpen(open) {
   if (panelOpen) textarea.focus();
   // Closing hides the element holding focus, which drops focus to the document
   // — outside the <dialog>, where Escape stops reaching it. Hand focus back to
-  // the control the box was opened from, so the key that dismissed the box
+  // a visible control for the box, so the key that dismissed the box
   // dismisses the viewer next.
-  else if (toggleBtn && panel.contains(document.activeElement)) toggleBtn.focus();
+  else if (toggleBtn && panel.contains(document.activeElement)) {
+    const drawer = toggleBtn.closest(".tool-drawer.compact:not([open])");
+    (drawer?.querySelector("summary") || toggleBtn).focus();
+  }
 }
 
 // What the name half of a run turned up: the parts it lit, then whatever it
