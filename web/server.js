@@ -12,6 +12,7 @@ import { mountUnitRoutes } from "./lib/unit.js";
 import { mountViewerPages } from "./lib/viewer-pages.js";
 import { mountSpinRoutes } from "./lib/spin.js";
 import { mountWeldPositionRoutes } from "./lib/weld-position.js";
+import { mountPositionerRoutes } from "./lib/positioner.js";
 import { mountCostRoutes } from "./lib/cost.js";
 import { mountUpdatesRoutes } from "./lib/updates.js";
 import { mountSettingsRoutes } from "./lib/settings.js";
@@ -292,6 +293,7 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   mountViewerPages(app);
   mountSpinRoutes(app);
   mountWeldPositionRoutes(app);
+  mountPositionerRoutes(app);
   mountCostRoutes(app, { hardwareDir: HARDWARE_DIR });
   mountUpdatesRoutes(app, { updatesDir: UPDATES_DIR, publicDir: LANDING_PUBLIC });
   mountSettingsRoutes(app);

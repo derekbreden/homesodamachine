@@ -72,7 +72,27 @@ export const FIXTURES = {
     "cut-parts/carbonation/carbonator-tube/carbonator-tube.step",
     "cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step",
   ],
+  "printed-parts/fixtures/pgfun-positioner/assembly.step": [
+    "cut-parts/carbonation/carbonator-tube/carbonator-tube.step",
+    "cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step",
+  ],
 };
+
+// A moving assembly view accompanies the individual models in its setup.
+const POSITIONER_MODELS = [
+  "printed-parts/fixtures/pgfun-positioner/",
+  "printed-parts/fixtures/weld-rotator/",
+  "reference/xlaserlab-sup29f-xh/",
+  "cut-parts/carbonation/carbonator-tube/",
+  "cut-parts/carbonation/endcaps-circular/",
+];
+
+export function relatedAssemblyLinks(file) {
+  return typeof file === "string" && /\.step$/i.test(file) &&
+    POSITIONER_MODELS.some((prefix) => file.startsWith(prefix))
+    ? [{ href: "/positioner", label: "PGFUN positioner · Swivel and pivot" }]
+    : [];
+}
 
 export const COLLET_PRESS = "printed-parts/collet-press/collet-press.step";
 export const MAGNETIC_FLOAT = "printed-parts/cold-core/magnetic-float/all-aero/assembly.step";
@@ -92,8 +112,9 @@ const COLLET_PRESS_TUBES = [
   /^soda_umbilical_tube$/,
 ];
 
-export const label = (file) =>
-  file.slice(file.lastIndexOf("/") + 1).replace(/\.step$/i, "");
+export const label = (file) => file === "printed-parts/fixtures/pgfun-positioner/assembly.step"
+  ? "PGFUN positioner CAD"
+  : file.slice(file.lastIndexOf("/") + 1).replace(/\.step$/i, "");
 
 /**
  * Models related to a named assembly component.

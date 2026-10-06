@@ -15,7 +15,7 @@
 // same as the scorecard — the rail itself is built once and outlives both.
 
 import { state } from "./state.js";
-import { relatedSteps, KIND_CAPTIONS, label } from "/contracts/related-steps.js";
+import { relatedSteps, relatedAssemblyLinks, KIND_CAPTIONS, label } from "/contracts/related-steps.js";
 import { iconSvg } from "/contracts/icons.js";
 import { drillTo } from "./step-nav.js";
 import { faucetStyleFor } from "/contracts/faucet-options.js";
@@ -40,6 +40,14 @@ function chip(rel) {
     drillTo(rel.file);
   });
   return btn;
+}
+
+function assemblyLink(rel) {
+  const link = document.createElement("a");
+  link.className = "tool-chip related-chip";
+  link.href = rel.href;
+  link.textContent = rel.label;
+  return link;
 }
 
 // Escape returns focus to the disclosure; a pointer outside it just dismisses
@@ -70,18 +78,20 @@ export function mountRelated(wrapper, file, trail = []) {
 
   const related = relatedSteps(file, state.allFiles || [], trail)
     .filter((rel) => !(faucetStyleFor(file) && faucetStyleFor(rel.file)));
-  if (!related.length) return;
+  const assemblies = relatedAssemblyLinks(file);
+  if (!related.length && !assemblies.length) return;
 
   const group = document.createElement("details");
   group.className = GROUP_CLASS;
   const summary = document.createElement("summary");
   summary.className = "tool-btn";
-  summary.textContent = `Related (${related.length})`;
+  summary.textContent = `Related (${related.length + assemblies.length})`;
   summary.title = "Related models";
   summary.insertAdjacentHTML("beforeend", iconSvg("chevron", "tool-icon"));
   group.appendChild(summary);
   const list = document.createElement("div");
   list.className = "related-menu";
+  for (const rel of assemblies) list.appendChild(assemblyLink(rel));
   for (const rel of related) list.appendChild(chip(rel));
   group.appendChild(list);
   rail.appendChild(group);
