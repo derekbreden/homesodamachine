@@ -11,6 +11,14 @@ without raised lines, edge beads or loose PETG. This comparison assesses whether
 ironing improves those faces and whether it damages the adjacent sloped floor.
 Physical observations are pending.
 
+The [Mark2 launch record](prints/2026-10-06-mark2/launch.json) identifies the
+submitted slice, printer task and print options. Its starting spool is **A4**;
+the current clear PETG consumption preference is **A4 → A3 → A1**, oldest first.
+Mark2's expected user Z trim is **+0.04 mm** over stock compensation. The native
+0.8 mm textured-PEI job emits **`G29.1 Z0.02`** after clearing the trim with
+`G29.1 Z0`. Bambu Connect does not expose a backup-priority editor; automatic
+A3-before-A1 refill is unverified.
+
 ## Specimens and settings
 
 **G** copies 32 mm of the body's upper gasket rim around one blind insert boss.
