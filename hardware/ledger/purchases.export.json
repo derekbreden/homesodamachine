@@ -25,6 +25,14 @@
       "purchase_id": "pur-d92c92ee98974e94a6c1c0e8aff69fcf"
     },
     {
+      "allocation_id": "alloc-0bff2066ef144d7399fb2586d335089a",
+      "amount_minor": 7542,
+      "currency": "USD",
+      "event_id": "evt-1399a1a835ce4be3a489628c06225b33",
+      "order_id": "lulu:USD-C4516450",
+      "purchase_id": "pur-6bc71f4f15b34503ac9bf8beea6ef815"
+    },
+    {
       "allocation_id": "alloc-0c3ccb3238814a2c849f4dd0f2561764",
       "amount_minor": 5028,
       "currency": "USD",
@@ -825,7 +833,7 @@
       "purchase_id": "pur-e09e5d28db894792aef087da03caea51"
     }
   ],
-  "as_of": "2026-10-04",
+  "as_of": "2026-10-05",
   "coverage": [
     {
       "checked_at": "2026-10-04",
@@ -1466,6 +1474,26 @@
       "vendor": "Polymaker"
     },
     {
+      "checked_at": "2026-10-05",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-a9a30503bf134e929097ac22eefffcbf",
+      "evidence_type": "order_confirmation",
+      "examined_period": {
+        "end": "2026-10-06",
+        "start": "2026-10-04"
+      },
+      "note": "Scoped Gmail search and review of the named install-guide order confirmation; no claim of complete Lulu account coverage or completed payment/fulfillment evidence.",
+      "order_ids": [
+        "lulu:USD-C4516450"
+      ],
+      "source_ids": [
+        "src-ccd1ebed5d7d44ebb2226e8312d0e8a8"
+      ],
+      "stream": "install-guide print order",
+      "vendor": "Lulu"
+    },
+    {
       "checked_at": "2026-10-04",
       "complete_period": null,
       "coverage": "partial",
@@ -1881,6 +1909,30 @@
       "unallocated_to_purchase_minor": 0,
       "vendor": "Anthropic",
       "verified_at": "2026-10-04"
+    },
+    {
+      "allocation_ids": [
+        "alloc-0bff2066ef144d7399fb2586d335089a"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 7542,
+      "confirmation": "expected",
+      "currency": "USD",
+      "event_date": null,
+      "event_id": "evt-1399a1a835ce4be3a489628c06225b33",
+      "event_type": "charge",
+      "order_ids": [
+        "lulu:USD-C4516450"
+      ],
+      "purchase_ids": [
+        "pur-6bc71f4f15b34503ac9bf8beea6ef815"
+      ],
+      "source_ids": [
+        "src-ccd1ebed5d7d44ebb2226e8312d0e8a8"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Lulu",
+      "verified_at": "2026-10-05"
     },
     {
       "allocation_ids": [
@@ -5017,6 +5069,25 @@
       ]
     },
     {
+      "event_ids": [
+        "evt-1399a1a835ce4be3a489628c06225b33"
+      ],
+      "gap_id": "gap-1e07a981739e40449539bd05770fafdc",
+      "missing_fact": "A completed merchant charge and its event date are not established by the order confirmation; the USD 75.42 charge remains expected.",
+      "order_ids": [
+        "lulu:USD-C4516450"
+      ],
+      "purchase_ids": [
+        "pur-6bc71f4f15b34503ac9bf8beea6ef815"
+      ],
+      "source_ids": [
+        "src-ccd1ebed5d7d44ebb2226e8312d0e8a8"
+      ],
+      "sources_checked": [
+        "Lulu order confirmation USD-C4516450"
+      ]
+    },
+    {
       "gap_id": "gap-27cbc75a60d0482493e9ec246cda4795",
       "missing_fact": "exact placed date; merchant payment evidence. 145.80 confirmation and Apr30 delivery verified; printed placed date not present.",
       "order_ids": [
@@ -5210,7 +5281,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:82629168c73e8dc6b019af5742c7bcb996d19b96de754ddf9bb649de2425f150",
+  "input_fingerprint": "sha256:495331107fc5e803566c0c8281a71bfb1531f0b44bd6bb1820610eecd5112204",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -13070,6 +13141,25 @@
       "reference": "USD-C4432578",
       "source_ids": [
         "saved-lulu:USD-C4432578"
+      ],
+      "vendor": "Lulu"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [
+        "evt-1399a1a835ce4be3a489628c06225b33"
+      ],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-06"
+      },
+      "order_id": "lulu:USD-C4516450",
+      "purchase_ids": [
+        "pur-6bc71f4f15b34503ac9bf8beea6ef815"
+      ],
+      "reference": "USD-C4516450",
+      "source_ids": [
+        "src-ccd1ebed5d7d44ebb2226e8312d0e8a8"
       ],
       "vendor": "Lulu"
     },
@@ -26021,6 +26111,52 @@
       "stream": "purchase",
       "unit_amount_minor": null,
       "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "final_vendor_amount",
+      "amount_minor": 7542,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "Install Guide — Small Landscape 9 × 7 in, 32 interior pages, Perfect Bound, Premium Color, 80# white coated paper, matte cover",
+      "event_ids": [
+        "evt-1399a1a835ce4be3a489628c06225b33"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-6bc71f4f15b34503ac9bf8beea6ef815",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-06"
+      },
+      "order_ids": [
+        "lulu:USD-C4516450"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-6bc71f4f15b34503ac9bf8beea6ef815",
+      "purpose": "documentation_marketing",
+      "quantity": 3,
+      "quantity_text": "3",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-06"
+      },
+      "row_date_basis": "order_date",
+      "section": "22. Printed documentation",
+      "service_period": null,
+      "source_ids": [
+        "src-ccd1ebed5d7d44ebb2226e8312d0e8a8"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Lulu"
     },
     {
       "allocation_status": "all_project",
@@ -52818,6 +52954,22 @@
     {
       "document_date": {
         "precision": "day",
+        "value": "2026-10-06"
+      },
+      "document_type": "email_order_confirmation",
+      "note": "Gmail order confirmation: three Install Guide copies at USD 9.03 each (USD 27.09), USD 43.24 shipping and handling by FedEx Standard Overnight, USD 5.09 tax, USD 75.42 total. Lulu states an order date of 2026-10-06; reviewed on 2026-10-05 in America/Chicago. No dispatch, delivery date or completed merchant charge is stated.",
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "reference": "USD-C4516450",
+      "source_id": "src-ccd1ebed5d7d44ebb2226e8312d0e8a8",
+      "vendor": "Lulu",
+      "verified_at": "2026-10-05"
+    },
+    {
+      "document_date": {
+        "precision": "day",
         "value": "2026-04-17"
       },
       "document_type": "merchant_monetary_receipt",
@@ -54293,13 +54445,14 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 106486,
+          "amount_minor": 114028,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
             "pur-0d4eaf3ef27646a8b8f77ea46d4f2d44",
             "pur-375429e1cb9c4b95bb3584b04f7284da",
             "pur-406788001c4d41f39213bbd4ec7a35ad",
+            "pur-6bc71f4f15b34503ac9bf8beea6ef815",
             "pur-87565d390bcc451a9fbfb44dc871d585",
             "pur-8c01bda97e5f42a49e5b956f6f1a46c9",
             "pur-99a0644333ed4c5a8e5d5514098319fa",
@@ -54327,6 +54480,7 @@
         "pur-0d4eaf3ef27646a8b8f77ea46d4f2d44",
         "pur-375429e1cb9c4b95bb3584b04f7284da",
         "pur-406788001c4d41f39213bbd4ec7a35ad",
+        "pur-6bc71f4f15b34503ac9bf8beea6ef815",
         "pur-87565d390bcc451a9fbfb44dc871d585",
         "pur-8c01bda97e5f42a49e5b956f6f1a46c9",
         "pur-99a0644333ed4c5a8e5d5514098319fa",
@@ -54343,6 +54497,7 @@
     "merchant_payments": {
       "basis": "Confirmed merchant-evidenced project charges and issued monetary refunds by merchant event calendar month; bank posting is outside this ledger. Expected events, authorizations, noncash credits and unresolved project shares are excluded from charges/refunds/net.",
       "expected_event_ids": [
+        "evt-1399a1a835ce4be3a489628c06225b33",
         "evt-859aaf61508e423492ba56484ab9f2df",
         "evt-c0203246ff88423a9af71d1977ede6c4"
       ],
@@ -54627,6 +54782,7 @@
           "currency": "USD",
           "event_ids": [
             "evt-0447af18f1f34778b9cd0f9facee2d40",
+            "evt-1399a1a835ce4be3a489628c06225b33",
             "evt-1bead24454464c688dab3d4b9f2bc2bc",
             "evt-66df2a83d9084e9d984fb5305fa95c49",
             "evt-69d186cf3c4c436788b6706105b50532",
@@ -55287,7 +55443,7 @@
           "currency": "USD",
           "estimate_minor": 11612,
           "evidence_scope": "retrieved_records_only",
-          "final_vendor_amount_minor": 16719,
+          "final_vendor_amount_minor": 24261,
           "legacy_unverified_minor": 30634,
           "month": "2026-10",
           "purchase_ids": [
@@ -55295,6 +55451,7 @@
             "pur-406788001c4d41f39213bbd4ec7a35ad",
             "pur-45f46a866eb640d0be16bab2fd7493b3",
             "pur-633abd30f0524d80a397fcee998a7658",
+            "pur-6bc71f4f15b34503ac9bf8beea6ef815",
             "pur-6fb9cbd2160040c983dc0055e58d4de1",
             "pur-87565d390bcc451a9fbfb44dc871d585",
             "pur-8c01bda97e5f42a49e5b956f6f1a46c9",
@@ -55305,7 +55462,7 @@
             "pur-f7d7511ce9394cae80352c28342d27fd",
             "pur-f98feadd5dec4c1cba460dd7c74baa09"
           ],
-          "total_minor": 58965,
+          "total_minor": 66507,
           "unknown_amount_ids": []
         },
         {
@@ -55343,7 +55500,7 @@
           "purpose": "consumables_materials"
         },
         {
-          "amount_minor": 7526,
+          "amount_minor": 15068,
           "currency": "USD",
           "purpose": "documentation_marketing"
         },
@@ -55372,9 +55529,9 @@
         {
           "currency": "USD",
           "estimate_minor": 281605,
-          "final_vendor_amount_minor": 923693,
+          "final_vendor_amount_minor": 931235,
           "legacy_unverified_minor": 3321899,
-          "total_minor": 4527197
+          "total_minor": 4534739
         }
       ],
       "undated_unallocated": [
@@ -55508,6 +55665,7 @@
     "uncertainty": {
       "authored_gap_ids": [
         "gap-139e9a25137a44468a9921f622868bfa",
+        "gap-1e07a981739e40449539bd05770fafdc",
         "gap-27cbc75a60d0482493e9ec246cda4795",
         "gap-2e0c753bea0943db858dcaadb275439f",
         "gap-38ca1f93f2114c089bad2a7e9cfa41f4",
@@ -55527,7 +55685,7 @@
           "legacy_unverified_purchase_minor": 3321899,
           "order_only_charge_allocation_minor": 2187,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 3818962,
+          "purchases_without_merchant_charge_minor": 3826504,
           "undated_charge_minor": 57998,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 1031234,
@@ -55585,6 +55743,7 @@
         "coverage-a71252470d6e40c4b10bc82bd951d28b",
         "coverage-a7c1d71c0a38472580eea22c396eafd5",
         "coverage-a914738fc688438f8d509e94711f1e9c",
+        "coverage-a9a30503bf134e929097ac22eefffcbf",
         "coverage-ac29a3ee87b742d2b8bd7ee14edcae46",
         "coverage-b9b06230952f4f6795765fbb8e7c1222",
         "coverage-bd073659d99f4c38b20c1d9fac3c8155",
@@ -56358,6 +56517,7 @@
         "pur-6a849c894f134e6083a0e7f4946b948c",
         "pur-6b2a8bfdb28140f9b07113a2d70f70e6",
         "pur-6b52fe7813d94d5c8363ae1f8d1c2f74",
+        "pur-6bc71f4f15b34503ac9bf8beea6ef815",
         "pur-6ca49f0166df4dd881f118acf01886aa",
         "pur-6d136060e78f4ab9877bbeaf77913f5e",
         "pur-6d61fa395ba8421f929f02abeafee73e",
@@ -56685,6 +56845,7 @@
       ],
       "undated_unallocated_event_ids": [
         "evt-0447af18f1f34778b9cd0f9facee2d40",
+        "evt-1399a1a835ce4be3a489628c06225b33",
         "evt-1bead24454464c688dab3d4b9f2bc2bc",
         "evt-66df2a83d9084e9d984fb5305fa95c49",
         "evt-69d186cf3c4c436788b6706105b50532",
@@ -56817,7 +56978,7 @@
   "validation": {
     "errors": [],
     "warnings": [
-      "11 authored evidence gap(s) remain",
+      "12 authored evidence gap(s) remain",
       "coverage-008d521abab24498bf9db4a8c5993e38: evidence coverage is unknown",
       "coverage-013f6586dbf840c8836ae7289d9827b3: evidence coverage is partial",
       "coverage-17d84ca75543489fb09003261546862a: evidence coverage is unknown",
@@ -56851,6 +57012,7 @@
       "coverage-a71252470d6e40c4b10bc82bd951d28b: evidence coverage is unknown",
       "coverage-a7c1d71c0a38472580eea22c396eafd5: evidence coverage is unknown",
       "coverage-a914738fc688438f8d509e94711f1e9c: evidence coverage is unknown",
+      "coverage-a9a30503bf134e929097ac22eefffcbf: evidence coverage is partial",
       "coverage-ac29a3ee87b742d2b8bd7ee14edcae46: evidence coverage is partial",
       "coverage-b9b06230952f4f6795765fbb8e7c1222: evidence coverage is unknown",
       "coverage-bd073659d99f4c38b20c1d9fac3c8155: evidence coverage is unknown",

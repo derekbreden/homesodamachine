@@ -751,11 +751,12 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C funne
 
 ## 22. Printed documentation
 
-Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu order details verified in Chrome on 2026-09-16: three copies at $8.98 each ($26.94), $43.24 Express Shipping, and $5.08 sales tax; payment total $75.26. The project is Comic Book 6.625 × 10.25 in, 20 interior pages plus the printed cover, Premium Color, 70# white coated paper, saddle stitch, glossy cover.
+Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu order details verified in Chrome on 2026-09-16: three copies at $8.98 each ($26.94), $43.24 Express Shipping, and $5.08 sales tax; payment total $75.26. The 2026-09-16 order is Comic Book 6.625 × 10.25 in, 20 interior pages plus the printed cover, Premium Color, 70# white coated paper, saddle stitch, glossy cover.
 
 | Order date | Vendor / order # | Item | Qty | $ | Status |
 |---|---|---|---|---|---|
 | <!--purchase:pur-632f8bde24194213bf964e7383e422b0--> 2026-09-16 | [Lulu USD-C4432578](https://www.lulu.com/account/orders/22409450) | Install Guide — Comic Book, project 84q5zeq-1 | 3 | $75.26 | ACQUIRED (FedEx 877667456069, delivered 2026-09-25) |
+| <!--purchase:pur-6bc71f4f15b34503ac9bf8beea6ef815--> 2026-10-06 | [Lulu USD-C4516450](https://www.lulu.com/account/orders/22503919) | Install Guide — Small Landscape 9 × 7 in, 32 interior pages, Perfect Bound, Premium Color, 80# white coated paper, matte cover | 3 | $75.42 | ON-ORDER (FedEx Standard Overnight; 3 × $9.03 printing = $27.09, $43.24 shipping and handling, $5.09 tax. Gmail order confirmation verified 2026-10-05; order date follows Lulu’s stated 2026-10-06 date) |
 
 ---
 
@@ -775,16 +776,16 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | Acquired hardware valuation — includes replaced/returned originals | [$37,674.65](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,479.39](LEDGER_LABOR) |
 | Acquired procurement valuation (combined) | [$44,154.04](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$1,064.86](LEDGER_ON_ORDER) |
+| ON-ORDER | [$1,140.28](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Recorded procurement valuation — includes commitments** | [$45,271.97](LEDGER_GRAND_TOTAL) |
+| **Recorded procurement valuation — includes commitments** | [$45,347.39](LEDGER_GRAND_TOTAL) |
 
 Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
-| Final vendor amounts | [$9,236.93](LEDGER_FINAL_VENDOR) |
+| Final vendor amounts | [$9,312.35](LEDGER_FINAL_VENDOR) |
 | Estimated amounts | [$2,816.05](LEDGER_ESTIMATES) |
 | Legacy / unverified amounts | [$33,218.99](LEDGER_LEGACY_UNVERIFIED) |
 
