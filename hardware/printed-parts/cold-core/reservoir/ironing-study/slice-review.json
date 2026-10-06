@@ -1,0 +1,418 @@
+{
+  "project": "ironing-study.3mf",
+  "project_sha256": "2af606036089b123abf95495862f7558722551f9767585285ec4a6c29f492202",
+  "slicer_version": "02.08.02.61",
+  "return_code": 0,
+  "plate_count": 1,
+  "specimen_count": 18,
+  "estimated_seconds": 17290.215,
+  "estimated_mass_g": 84.845,
+  "ironing_estimated_seconds": 438.312,
+  "warning_message": "",
+  "embedded_gcode_md5_verified": true,
+  "gcode_sha256": "e2ab678b5dbf281e00689afad6408a61b6397b0cfc3b4aaa2a8457ef77d2ac65",
+  "physical_settings_match_saved_project": true,
+  "slicer_added_metadata": {
+    "filament_map_2": [
+      "1"
+    ]
+  },
+  "first_layer_height_mm": 0.3,
+  "normal_layer_heights_mm": [
+    0.24
+  ],
+  "support_summary": {
+    "support_bodies": 10,
+    "interface_islands": null,
+    "bed_rooted_bodies": 10,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "bodies_without_interface_labels": 10,
+    "explicit_interface_islands": 0,
+    "shortest_labelled_build_up_mm": null
+  },
+  "support_bodies": [
+    {
+      "id": "tree-1",
+      "root": "bed",
+      "base_z_mm": 0.3,
+      "first_interface_z_mm": null,
+      "shortest_build_up_mm": null,
+      "top_z_mm": 1.5,
+      "bbox_xy_mm": [
+        141.6,
+        273.6,
+        158.4,
+        290.4
+      ],
+      "interfaces": [],
+      "interface_reading": "unlabelled"
+    },
+    {
+      "id": "tree-2",
+      "root": "bed",
+      "base_z_mm": 0.3,
+      "first_interface_z_mm": null,
+      "shortest_build_up_mm": null,
+      "top_z_mm": 1.5,
+      "bbox_xy_mm": [
+        171.6,
+        37.6,
+        188.4,
+        54.4
+      ],
+      "interfaces": [],
+      "interface_reading": "unlabelled"
+    },
+    {
+      "id": "tree-3",
+      "root": "bed",
+      "base_z_mm": 0.3,
+      "first_interface_z_mm": null,
+      "shortest_build_up_mm": null,
+      "top_z_mm": 1.5,
+      "bbox_xy_mm": [
+        171.6,
+        95.6,
+        188.4,
+        112.4
+      ],
+      "interfaces": [],
+      "interface_reading": "unlabelled"
+    },
+    {
+      "id": "tree-4",
+      "root": "bed",
+      "base_z_mm": 0.3,
+      "first_interface_z_mm": null,
+      "shortest_build_up_mm": null,
+      "top_z_mm": 1.5,
+      "bbox_xy_mm": [
+        171.6,
+        153.6,
+        188.4,
+        170.4
+      ],
+      "interfaces": [],
+      "interface_reading": "unlabelled"
+    },
+    {
+      "id": "tree-5",
+      "root": "bed",
+      "base_z_mm": 0.3,
+      "first_interface_z_mm": null,
+      "shortest_build_up_mm": null,
+      "top_z_mm": 1.5,
+      "bbox_xy_mm": [
+        171.6,
+        211.6,
+        188.4,
+        228.4
+      ],
+      "interfaces": [],
+      "interface_reading": "unlabelled"
+    },
+    {
+      "id": "tree-6",
+      "root": "bed",
+      "base_z_mm": 0.3,
+      "first_interface_z_mm": null,
+      "shortest_build_up_mm": null,
+      "top_z_mm": 1.5,
+      "bbox_xy_mm": [
+        186.4,
+        273.6,
+        203.6,
+        290.4
+      ],
+      "interfaces": [],
+      "interface_reading": "unlabelled"
+    },
+    {
+      "id": "tree-7",
+      "root": "bed",
+      "base_z_mm": 0.3,
+      "first_interface_z_mm": null,
+      "shortest_build_up_mm": null,
+      "top_z_mm": 1.5,
+      "bbox_xy_mm": [
+        216.4,
+        37.6,
+        233.6,
+        54.4
+      ],
+      "interfaces": [],
+      "interface_reading": "unlabelled"
+    },
+    {
+      "id": "tree-8",
+      "root": "bed",
+      "base_z_mm": 0.3,
+      "first_interface_z_mm": null,
+      "shortest_build_up_mm": null,
+      "top_z_mm": 1.5,
+      "bbox_xy_mm": [
+        216.4,
+        95.6,
+        233.6,
+        112.4
+      ],
+      "interfaces": [],
+      "interface_reading": "unlabelled"
+    },
+    {
+      "id": "tree-9",
+      "root": "bed",
+      "base_z_mm": 0.3,
+      "first_interface_z_mm": null,
+      "shortest_build_up_mm": null,
+      "top_z_mm": 1.5,
+      "bbox_xy_mm": [
+        216.4,
+        153.6,
+        233.6,
+        170.4
+      ],
+      "interfaces": [],
+      "interface_reading": "unlabelled"
+    },
+    {
+      "id": "tree-10",
+      "root": "bed",
+      "base_z_mm": 0.3,
+      "first_interface_z_mm": null,
+      "shortest_build_up_mm": null,
+      "top_z_mm": 1.5,
+      "bbox_xy_mm": [
+        216.4,
+        211.6,
+        233.6,
+        228.4
+      ],
+      "interfaces": [],
+      "interface_reading": "unlabelled"
+    }
+  ],
+  "parts": [
+    {
+      "label": "G1C",
+      "ironing_extrusion_moves": 0,
+      "ironing_length_mm": 0.0,
+      "deposited_filament_mm": 0.0,
+      "speed_mm_s": [],
+      "heights_mm": [],
+      "slope_ironing_length_mm": 0.0,
+      "outside_target_length_mm": 0.0
+    },
+    {
+      "label": "G1I",
+      "ironing_extrusion_moves": 503,
+      "ironing_length_mm": 799.36929,
+      "deposited_filament_mm": 1.16133,
+      "speed_mm_s": [
+        30.0
+      ],
+      "heights_mm": [
+        10.14
+      ],
+      "slope_ironing_length_mm": 0.0,
+      "outside_target_length_mm": 0.0
+    },
+    {
+      "label": "B1C",
+      "ironing_extrusion_moves": 0,
+      "ironing_length_mm": 0.0,
+      "deposited_filament_mm": 0.0,
+      "speed_mm_s": [],
+      "heights_mm": [],
+      "slope_ironing_length_mm": 0.0,
+      "outside_target_length_mm": 0.0
+    },
+    {
+      "label": "B1I",
+      "ironing_extrusion_moves": 531,
+      "ironing_length_mm": 1678.16974,
+      "deposited_filament_mm": 2.43641,
+      "speed_mm_s": [
+        30.0
+      ],
+      "heights_mm": [
+        4.62
+      ],
+      "slope_ironing_length_mm": 0.0,
+      "outside_target_length_mm": 0.0
+    },
+    {
+      "label": "G2C",
+      "ironing_extrusion_moves": 0,
+      "ironing_length_mm": 0.0,
+      "deposited_filament_mm": 0.0,
+      "speed_mm_s": [],
+      "heights_mm": [],
+      "slope_ironing_length_mm": 0.0,
+      "outside_target_length_mm": 0.0
+    },
+    {
+      "label": "G2I",
+      "ironing_extrusion_moves": 503,
+      "ironing_length_mm": 799.36929,
+      "deposited_filament_mm": 0.58074,
+      "speed_mm_s": [
+        30.0
+      ],
+      "heights_mm": [
+        10.14
+      ],
+      "slope_ironing_length_mm": 0.0,
+      "outside_target_length_mm": 0.0
+    },
+    {
+      "label": "B2C",
+      "ironing_extrusion_moves": 0,
+      "ironing_length_mm": 0.0,
+      "deposited_filament_mm": 0.0,
+      "speed_mm_s": [],
+      "heights_mm": [],
+      "slope_ironing_length_mm": 0.0,
+      "outside_target_length_mm": 0.0
+    },
+    {
+      "label": "B2I",
+      "ironing_extrusion_moves": 531,
+      "ironing_length_mm": 1678.16974,
+      "deposited_filament_mm": 1.21824,
+      "speed_mm_s": [
+        30.0
+      ],
+      "heights_mm": [
+        4.62
+      ],
+      "slope_ironing_length_mm": 0.0,
+      "outside_target_length_mm": 0.0
+    },
+    {
+      "label": "G3C",
+      "ironing_extrusion_moves": 0,
+      "ironing_length_mm": 0.0,
+      "deposited_filament_mm": 0.0,
+      "speed_mm_s": [],
+      "heights_mm": [],
+      "slope_ironing_length_mm": 0.0,
+      "outside_target_length_mm": 0.0
+    },
+    {
+      "label": "G3I",
+      "ironing_extrusion_moves": 503,
+      "ironing_length_mm": 799.36873,
+      "deposited_filament_mm": 1.16133,
+      "speed_mm_s": [
+        60.0
+      ],
+      "heights_mm": [
+        10.14
+      ],
+      "slope_ironing_length_mm": 0.0,
+      "outside_target_length_mm": 0.0
+    },
+    {
+      "label": "B3C",
+      "ironing_extrusion_moves": 0,
+      "ironing_length_mm": 0.0,
+      "deposited_filament_mm": 0.0,
+      "speed_mm_s": [],
+      "heights_mm": [],
+      "slope_ironing_length_mm": 0.0,
+      "outside_target_length_mm": 0.0
+    },
+    {
+      "label": "B3I",
+      "ironing_extrusion_moves": 531,
+      "ironing_length_mm": 1678.17173,
+      "deposited_filament_mm": 2.43641,
+      "speed_mm_s": [
+        60.0
+      ],
+      "heights_mm": [
+        4.62
+      ],
+      "slope_ironing_length_mm": 0.0,
+      "outside_target_length_mm": 0.0
+    },
+    {
+      "label": "G4C",
+      "ironing_extrusion_moves": 0,
+      "ironing_length_mm": 0.0,
+      "deposited_filament_mm": 0.0,
+      "speed_mm_s": [],
+      "heights_mm": [],
+      "slope_ironing_length_mm": 0.0,
+      "outside_target_length_mm": 0.0
+    },
+    {
+      "label": "G4I",
+      "ironing_extrusion_moves": 255,
+      "ironing_length_mm": 398.49234,
+      "deposited_filament_mm": 1.15698,
+      "speed_mm_s": [
+        30.0
+      ],
+      "heights_mm": [
+        10.14
+      ],
+      "slope_ironing_length_mm": 0.0,
+      "outside_target_length_mm": 0.0
+    },
+    {
+      "label": "B4C",
+      "ironing_extrusion_moves": 0,
+      "ironing_length_mm": 0.0,
+      "deposited_filament_mm": 0.0,
+      "speed_mm_s": [],
+      "heights_mm": [],
+      "slope_ironing_length_mm": 0.0,
+      "outside_target_length_mm": 0.0
+    },
+    {
+      "label": "B4I",
+      "ironing_extrusion_moves": 266,
+      "ironing_length_mm": 837.65886,
+      "deposited_filament_mm": 2.43217,
+      "speed_mm_s": [
+        30.0
+      ],
+      "heights_mm": [
+        4.62
+      ],
+      "slope_ironing_length_mm": 0.0,
+      "outside_target_length_mm": 0.0
+    },
+    {
+      "label": "S1C",
+      "ironing_extrusion_moves": 0,
+      "ironing_length_mm": 0.0,
+      "deposited_filament_mm": 0.0,
+      "speed_mm_s": [],
+      "heights_mm": [],
+      "slope_ironing_length_mm": 0.0,
+      "outside_target_length_mm": 0.0
+    },
+    {
+      "label": "S1I",
+      "ironing_extrusion_moves": 2732,
+      "ironing_length_mm": 5221.47232,
+      "deposited_filament_mm": 7.58044,
+      "speed_mm_s": [
+        30.0
+      ],
+      "heights_mm": [
+        4.62,
+        5.82,
+        6.06,
+        6.3
+      ],
+      "slope_ironing_length_mm": 1469.964,
+      "outside_target_length_mm": 0.0
+    }
+  ],
+  "scope": "Native path verification. Surface finish and contact performance await the physical print."
+}
