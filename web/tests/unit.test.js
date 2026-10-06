@@ -29,7 +29,7 @@ test("the nameplate opens a machine page with working navigation, artwork and gu
   for (const link of localLinks) {
     const response = await fetch(baseUrl + link, { method: "HEAD" });
     assert.equal(response.status, 200, `unit page links to ${link}`);
-    if (link.endsWith(".pdf")) assert.match(response.headers.get("content-type"), /^application\/pdf/);
+    if (link.startsWith("/read/")) assert.match(response.headers.get("content-type"), /^text\/html/);
     if (link.endsWith(".webp")) assert.match(response.headers.get("content-type"), /^image\/webp/);
   }
 });

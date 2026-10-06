@@ -1,0 +1,33 @@
+body:has(.pdf-reader) { height: 100svh; min-height: 0; overflow: hidden; }
+.pdf-reader { display: flex; flex: 1; flex-direction: column; min-height: 0; }
+.pdf-heading {
+  display: flex; align-items: center; gap: 1rem; padding: 0.75rem 1rem;
+  padding-inline: max(1rem, env(safe-area-inset-left)) max(1rem, env(safe-area-inset-right));
+}
+.pdf-heading h1 { font-size: 1rem; line-height: 1.3; margin: 0; min-width: 0; flex: 1; overflow-wrap: anywhere; }
+.pdf-heading a { color: var(--text); font-size: 0.8rem; flex-shrink: 0; }
+.pdf-toolbar { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem 1rem; padding: 0 0.75rem 0.5rem; }
+.pdf-control-group { display: flex; align-items: center; gap: 0.4rem; font-size: 0.875rem; }
+.pdf-reader button, .pdf-reader input {
+  color: var(--text); background: var(--bg); border: 1px solid var(--border);
+  border-radius: 6px; min-width: 44px; min-height: 44px; font: inherit;
+}
+.pdf-reader button { padding: 0.4rem 0.65rem; cursor: pointer; touch-action: manipulation; }
+.pdf-reader button:disabled { opacity: 0.4; cursor: default; }
+.pdf-reader :focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+#pdf-page { width: 3.5rem; text-align: center; font-size: 16px; }
+#pdf-status { margin: 0; padding: 0.25rem 0.75rem 0.5rem; text-align: center; font-size: 0.8rem; }
+#pdf-retry { align-self: center; margin-bottom: 0.5rem; }
+.pdf-viewport {
+  flex: 1; min-height: 0; overflow: auto; background: #dedede;
+  padding: 12px max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+  overscroll-behavior: contain;
+}
+.pdf-paper { position: relative; margin-inline: auto; background: white; box-shadow: 0 1px 6px #0003; }
+#pdf-canvas { display: block; }
+.pdf-paper .textLayer { --total-scale-factor: var(--scale-factor); }
+.pdf-reader [hidden] { display: none; }
+@media (max-width: 390px) {
+  .pdf-heading { gap: 0.6rem; padding-block: 0.5rem; }
+  .pdf-heading h1 { font-size: 0.875rem; }
+}

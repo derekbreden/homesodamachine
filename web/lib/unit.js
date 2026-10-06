@@ -2,7 +2,7 @@ import { renderHead, renderFooter } from "./shell.js";
 import { iconSvg } from "../contracts/icons.js";
 
 const UNITS = new Set(["0001"]);
-const INSTALL_GUIDE = "/docs/install-guide/install-guide.pdf";
+const INSTALL_GUIDE = "/read/install-guide/install-guide.pdf";
 const PAGES = { "": "Your machine", "get-started": "Get started", guides: "Guides" };
 const STEPS = [
   ["Mount the faucet", 6],
@@ -66,9 +66,9 @@ function setup() {
         <label class="unit-check"><input type="checkbox" name="kit"><span>The kit is unpacked<small>Machine, faucet, and install kit</small></span></label>
         <label class="unit-check"><input type="checkbox" name="supplies"><span>My supplies are ready<small>Filled cylinder, concentrate, wrenches, towel</small></span></label>
         <label class="unit-check"><input type="checkbox" name="location"><span>The location is prepared<small>Counter opening, cabinet space, water, and outlet</small></span></label>
-        <a class="unit-link" href="${INSTALL_GUIDE}#page=4" target="_blank" rel="noopener">See the complete preparation list ${iconSvg("arrow-up-right")}</a>
+        <a class="unit-link" href="${INSTALL_GUIDE}#page=4">See the complete preparation list ${iconSvg("arrow-up-right")}</a>
       </fieldset>
-      <ol class="unit-route">${STEPS.map(([title, page], i) => `<li><a href="${INSTALL_GUIDE}#page=${page}" target="_blank" rel="noopener"><span class="unit-num" aria-hidden="true">${i + 1}</span><span>${title}</span>${iconSvg("arrow-up-right")}</a></li>`).join("")}</ol>
+      <ol class="unit-route">${STEPS.map(([title, page], i) => `<li><a href="${INSTALL_GUIDE}#page=${page}"><span class="unit-num" aria-hidden="true">${i + 1}</span><span>${title}</span>${iconSvg("arrow-up-right")}</a></li>`).join("")}</ol>
     </div>
   </main>`;
 }
@@ -82,7 +82,7 @@ function guides() {
         ${[
           [INSTALL_GUIDE, "book", "Install guide", "32 pages · Both water connections · Care"],
           [`${INSTALL_GUIDE}#page=31`, "droplets", "After installation", "Refilling, cleaning, and first checks"],
-        ].map(([href, icon, title, detail]) => `<a class="unit-document" href="${href}" target="_blank" rel="noopener">${iconSvg(icon)}<span>${title}<span class="unit-small unit-muted">${detail}</span></span>${iconSvg("arrow-up-right", "unit-arrow")}</a>`).join("")}
+        ].map(([href, icon, title, detail]) => `<a class="unit-document" href="${href}">${iconSvg(icon)}<span>${title}<span class="unit-small unit-muted">${detail}</span></span>${iconSvg("arrow-up-right", "unit-arrow")}</a>`).join("")}
       </div>
     </div>
   </main>`;

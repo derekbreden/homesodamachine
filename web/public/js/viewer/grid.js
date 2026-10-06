@@ -136,7 +136,7 @@ function renderGroupedCards({ files, ext, type, thumbnailHtml, onClick }) {
 
 // Documents — the PDFs this site hands over whole (/api/documents,
 // web/contracts/documents.js). One card each: the cover, the title, the page
-// and byte count, and an href that opens the PDF in a tab.
+// and byte count, and an href that opens the in-app document reader.
 //
 // The cover is a committed PNG beside the PDF, served by the same `/thumbs/`
 // route every other picture under hardware/ comes through — no thumbnail to
@@ -169,9 +169,7 @@ function buildDocumentsSection() {
     // middle-click, cmd-click and "copy link" all mean what they look like.
     const el = document.createElement("a");
     el.className = "card card-doc";
-    el.href = `/docs/${doc.path}`;
-    el.target = "_blank";
-    el.rel = "noopener";
+    el.href = `/read/${doc.path.split("/").map(encodeURIComponent).join("/")}`;
     // The cover's own pixel size, off the sidecar, so the card reserves its box
     // before the picture lands and the shelf does not jump under the reader.
     const size = doc.coverSize ? ` width="${doc.coverSize[0]}" height="${doc.coverSize[1]}"` : "";
