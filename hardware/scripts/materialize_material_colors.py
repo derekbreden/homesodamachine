@@ -48,7 +48,7 @@ def legacy_black(rgb, native=False):
     The separate black-chip appearance is the same Fiberon black stock. Neither
     neutral black PETG nor any bought-in black material has these triples.
     """
-    source = [M_PETGF_BLACK, cq.Color(.2, .2, .21), cq.Color(.12, .14, .17)]
+    source = [M_PETGF_BLACK, cq.Color(31 / 255, 34 / 255, 35 / 255), cq.Color(.12, .14, .17)]
     candidates = []
     for color in source:
         candidates += [color.toTuple()[:3], linear(color)] if native else [linear(color), linear(cq.Color(*linear(color)))]
