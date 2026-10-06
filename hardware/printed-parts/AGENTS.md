@@ -76,6 +76,12 @@ ask for reloading only when an actual runout requires it.
 
 ## Printer allocation
 
+Read [bed placement guidance](../../tools/bambu-printers.md#placement-on-unseasoned-plates)
+before laying out a plate. On unseasoned outer regions, keep model/support/brim
+beads at least 20 mm inside the usable bed boundary; center small coupon plates
+and aim for 80 mm where the complete test fits. Verify the native full-bead
+envelope, not only the CAD bounds.
+
 Derek's request to start a print on a printer confirms that its bed is clear.
 Do not ask for a separate bed-clear confirmation.
 

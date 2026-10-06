@@ -1,0 +1,395 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-06",
+  "printer": "Mark2",
+  "job_id": "1313441289",
+  "archive_name": "2026-10-06-reservoir-ironing-study-centered-mark2-z004-v3.gcode.3mf",
+  "authorization": {
+    "bed_clear": "Derek reports the prior job stopped, the bed clear and Mark2 available for a centered retry.",
+    "left_hotend": "Derek confirms the installed left hotend is 0.8 mm.",
+    "placement": "Keep specimens away from unseasoned bed edges: at least 20 mm in, aiming for 80 mm where the plate fits."
+  },
+  "source": {
+    "editable_project": "hardware/printed-parts/cold-core/reservoir/ironing-study/ironing-study.3mf",
+    "editable_project_sha256": "9cd440c5aa7d303b2c1d1edbff099cbb0da3ebb94ef6e38c2b44d6d32230406b",
+    "native_slice_review": "hardware/printed-parts/cold-core/reservoir/ironing-study/slice-review.json",
+    "reviewed_print_archive": ".cache/reservoir-ironing-study/slice/2026-10-06-reservoir-ironing-study-centered-mark2-z004-v3.gcode.3mf",
+    "archive_sha256": "bd19f3d761a5788f9886cf8c4c69df00ce17b846f37d1bfc04cf209e34a515f0",
+    "imported_copy_sha256_after_send": "bd19f3d761a5788f9886cf8c4c69df00ce17b846f37d1bfc04cf209e34a515f0",
+    "gcode_sha256": "f4493c2b0e7962634d98aab7768d55f20d345c10bec121b584ffed9dfd58b523",
+    "gcode_bytes_unchanged": true,
+    "resliced_for_launch": true,
+    "prior_launch_record": "../2026-10-06-mark2/launch.json",
+    "prior_placement_observation": "../2026-10-06-mark2/physical-result.json"
+  },
+  "submission": {
+    "application": "Bambu Connect",
+    "version": "2.5.0-beta.15",
+    "ui_driver": "cua_repl",
+    "send_clicks": 1,
+    "standing_options": {
+      "timelapse": "On",
+      "auto_bed_leveling": "On",
+      "flow_dynamic_calibration": "Auto",
+      "nozzle_offset_calibration": "Auto"
+    },
+    "command_reply": {
+      "command": "project_file",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "err_code": 0
+    }
+  },
+  "machine": {
+    "printer_preset": "Bambu Lab H2C 0.8 Standard +0.04 Z trim",
+    "active_nozzle": "left",
+    "diameter_mm": 0.8,
+    "flow_type": "Standard",
+    "bed_type": "Textured PEI Plate",
+    "expected_user_z_trim_mm": 0.04,
+    "emitted_z_trim_mm": 0.02,
+    "gcode_z_commands": [
+      "G29.1 Z0 ; clear z-trim value first",
+      "G29.1 Z0.02"
+    ],
+    "filament_map_mode": "Manual",
+    "emitted_nozzle_assignment": {
+      "filament_map": "1",
+      "filament_nozzle_map": "0",
+      "nozzle_diameter": "0.8,0.8"
+    }
+  },
+  "filament": {
+    "material": "Bambu PETG Translucent Clear",
+    "bambu_profile_id": "GFG01",
+    "colour": "00000000",
+    "starting_slot": "A4",
+    "ams_unit_id": 0,
+    "ams_tray_id": 3,
+    "ui_mapping_verified": "Left Nozzle: A4 PETG; Right Nozzle unused.",
+    "preferred_consumption_order": [
+      "A4",
+      "A3",
+      "A1"
+    ],
+    "age_order": "oldest to newest",
+    "loaded_slots": [
+      {
+        "ams_id": "0",
+        "tray_id": "0",
+        "tray_type": "PETG",
+        "tray_sub_brands": "PETG Translucent",
+        "tray_info_idx": "GFG01",
+        "tray_color": "00000000"
+      },
+      {
+        "ams_id": "0",
+        "tray_id": "1",
+        "tray_type": null,
+        "tray_sub_brands": null,
+        "tray_info_idx": null,
+        "tray_color": null
+      },
+      {
+        "ams_id": "0",
+        "tray_id": "2",
+        "tray_type": "PETG",
+        "tray_sub_brands": "PETG Translucent",
+        "tray_info_idx": "GFG01",
+        "tray_color": "00000000"
+      },
+      {
+        "ams_id": "0",
+        "tray_id": "3",
+        "tray_type": "PETG",
+        "tray_sub_brands": "PETG Translucent",
+        "tray_info_idx": "GFG01",
+        "tray_color": "00000000"
+      }
+    ],
+    "use_each_spool_fully": true,
+    "remaining_quantity_is_launch_condition": false,
+    "ams_auto_refill_enabled": true,
+    "automatic_backup_order": null,
+    "backup_priority_ui": "Bambu Connect exposes a starting-slot selector and an AMS Auto-Refill checkbox; no backup sequence or priority editor is displayed.",
+    "replacement_selection": "Use A3 before A1 when choosing a replacement or a later job starting slot."
+  },
+  "placement": {
+    "left_nozzle_usable_bed_bounds_mm": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        325.0,
+        320.0
+      ]
+    ],
+    "model_support_brim_xy_bounds_mm": [
+      [
+        73.500003,
+        86.750003
+      ],
+      [
+        251.583483,
+        233.249997
+      ]
+    ],
+    "edge_margins_left_front_right_back_mm": [
+      73.500003,
+      86.750003,
+      73.416517,
+      86.75000299999999
+    ],
+    "minimum_full_bead_edge_margin_mm": 73.416517,
+    "deposited_move_count": 382142,
+    "support_move_count": 18700,
+    "support_xy_bounds_mm": [
+      [
+        131.45700000000002,
+        106.21
+      ],
+      [
+        245.54299999999998,
+        223.298
+      ]
+    ],
+    "per_specimen_full_bead_xy_bounds_mm": {
+      "G1C": [
+        [
+          79.500003,
+          89.750003
+        ],
+        [
+          103.499997,
+          131.249997
+        ]
+      ],
+      "G1I": [
+        [
+          105.500003,
+          89.750003
+        ],
+        [
+          129.499997,
+          131.249997
+        ]
+      ],
+      "B1C": [
+        [
+          183.500003,
+          86.750003
+        ],
+        [
+          213.499997,
+          134.249997
+        ]
+      ],
+      "B1I": [
+        [
+          215.500003,
+          86.750003
+        ],
+        [
+          245.499997,
+          134.249997
+        ]
+      ],
+      "G2C": [
+        [
+          131.500003,
+          89.750003
+        ],
+        [
+          155.499997,
+          131.249997
+        ]
+      ],
+      "G2I": [
+        [
+          157.500003,
+          89.750003
+        ],
+        [
+          181.499997,
+          131.249997
+        ]
+      ],
+      "B2C": [
+        [
+          125.500003,
+          136.250003
+        ],
+        [
+          155.499997,
+          183.749997
+        ]
+      ],
+      "B2I": [
+        [
+          157.500003,
+          136.250003
+        ],
+        [
+          187.499997,
+          183.749997
+        ]
+      ],
+      "G3C": [
+        [
+          73.500003,
+          139.250003
+        ],
+        [
+          97.499997,
+          180.749997
+        ]
+      ],
+      "G3I": [
+        [
+          99.500003,
+          139.250003
+        ],
+        [
+          123.499997,
+          180.749997
+        ]
+      ],
+      "B3C": [
+        [
+          189.500003,
+          136.250003
+        ],
+        [
+          219.499997,
+          183.749997
+        ]
+      ],
+      "B3I": [
+        [
+          221.500003,
+          136.250003
+        ],
+        [
+          251.499997,
+          183.749997
+        ]
+      ],
+      "G4C": [
+        [
+          73.500003,
+          188.750003
+        ],
+        [
+          97.499997,
+          230.249997
+        ]
+      ],
+      "G4I": [
+        [
+          99.500003,
+          188.750003
+        ],
+        [
+          123.499997,
+          230.249997
+        ]
+      ],
+      "B4C": [
+        [
+          125.500003,
+          185.750003
+        ],
+        [
+          155.499997,
+          233.249997
+        ]
+      ],
+      "B4I": [
+        [
+          157.500003,
+          185.750003
+        ],
+        [
+          187.499997,
+          233.249997
+        ]
+      ],
+      "S1C": [
+        [
+          189.500003,
+          185.750003
+        ],
+        [
+          219.499997,
+          233.249997
+        ]
+      ],
+      "S1I": [
+        [
+          221.416517,
+          185.750003
+        ],
+        [
+          251.583483,
+          233.249997
+        ]
+      ]
+    },
+    "minimum_specimen_full_bead_box_gap_mm": 1.9165199999999913,
+    "scope": "All native deposited specimen, support and brim beads, including arc extrema and half-width. Vendor startup purge/calibration paths are excluded. Placement does not establish adhesion."
+  },
+  "preflight": {
+    "mark2_prior_job_id": "1313339571",
+    "mark2_prior_state": "FAILED",
+    "mark2_print_error": 0,
+    "mark2_hms": [],
+    "shared_circuit": {
+      "required_start_spacing_seconds": 180,
+      "other_printer": "H2C",
+      "other_job_id": "1313390974",
+      "other_state": "RUNNING",
+      "other_layer": 2,
+      "other_status_observed_at_utc": "2026-10-06T08:01:05.807742+00:00",
+      "other_acceptance_at_utc": "2026-10-06T07:26:55.559743+00:00",
+      "other_launch_record": "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-h2c-right-gyroid15/launch.json",
+      "observed_start_spacing_seconds": 2077.684,
+      "spacing_satisfied": true
+    }
+  },
+  "acceptance": {
+    "observed_at_utc": "2026-10-06T08:01:33.243735+00:00",
+    "observed_at_local": "2026-10-06T03:01:33.243735-05:00",
+    "job_id": "1313441289",
+    "archive_name": "2026-10-06-reservoir-ironing-study-centered-mark2-z004-v3.gcode.3mf",
+    "state": "PREPARE",
+    "print_error": 0,
+    "hms": []
+  },
+  "startup": {
+    "observed_at_utc": "2026-10-06T08:04:46.976024+00:00",
+    "job_id": "1313441289",
+    "subtask_name": "2026-10-06-reservoir-ironing-study-centered-mark2-z004-v3.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 0,
+    "total_layer_num": 42,
+    "print_error": 0,
+    "hms": [],
+    "ams": {
+      "tray_now": "3",
+      "tray_tar": "3",
+      "ams_status": null
+    }
+  },
+  "native_estimate": {
+    "filament_g": 84.845,
+    "total_seconds": 17280.016,
+    "total_layers": 42,
+    "ironing_seconds": 438.312
+  },
+  "physical_results": {
+    "status": "pending",
+    "finish_and_sealing_observations": null,
+    "scope": "The printer accepted the centered job. First-layer adhesion, surface finish and sealing performance have not been assessed."
+  }
+}
