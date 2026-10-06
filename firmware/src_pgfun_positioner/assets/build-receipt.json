@@ -4,12 +4,12 @@
   "sdk_version": "2.2.0",
   "sdk_commit": "a1438dff1d38bd9c65dbd693f0e5db4b9ae91779",
   "compiler": "Arm GNU 14.2.rel1",
-  "geometry_sha256": "e90884a44104933991afa9be4f863ae3caa2037177d9af127f1f4e5e2485c297",
+  "geometry_sha256": "09f3665148688bdbd9795258021a0ef286fc9b484ecf4db4f7ca0f8d2c31727b",
   "sources": {
     "firmware/src_pgfun_positioner/CMakeLists.txt": "90b529ee98521167ce950e0f5f1486c0f4de4256f456da9895a10446e1ae7801",
     "firmware/src_pgfun_positioner/command_input.h": "c9057b038c71355e8ca4292de507d122efcb2cf3794e9cad8be76e5bc6aa37d9",
     "firmware/src_pgfun_positioner/driver_profile.h": "b2598985733d3f43db00ad8cee55993c8d095512f4d2a579b988983254c9610d",
-    "firmware/src_pgfun_positioner/geometry_generated.h": "641043f1e0d84f5b1a83dd56b1ba1ad9d56b439ac1a9648944c97a2bc6ee05de",
+    "firmware/src_pgfun_positioner/geometry_generated.h": "50f172dfb5f7b766c2db79024a6bbb01ee75a3965a3e715195a52a588748d626",
     "firmware/src_pgfun_positioner/host/kinematics.py": "8c3b44a36cb34cdda1059e1ab09b2f67591022925b2737b43008ce8d2483bd15",
     "firmware/src_pgfun_positioner/host/noise.py": "2ccc6e90630258980c0c9c10bd747fc1d4bef6e7e954719b7b2761d0889edcc9",
     "firmware/src_pgfun_positioner/host/observe.py": "619ad1a84239e1ae3f5e79db77feb015ba7508ce928a8ecc9ab1732fce550503",
@@ -31,8 +31,8 @@
     "firmware/src_pgfun_positioner/verify_assets.py": "aa89ed12f80805bc6957063f5feb8c622a1da98153681688ca8d96bceee75de8"
   },
   "binary_bytes": 60480,
-  "binary_sha256": "c345af1f578474f03c9cd7aaf664aa7a5536351eccdf8b9911105d83d2557ae3",
-  "uf2_sha256": "8a9700438a028df73e1741e7f48068c734c5046296eabb12541084ac8b454a40",
+  "binary_sha256": "970102d1484362a0c54b5bab740284260a2d951d1aa453ee009bb41073af61cc",
+  "uf2_sha256": "2fd8bdaa22d43ec7d1f8393ef8996c20ab462d15adc7b8913d1c59f45a044054",
   "uf2_bytes": 121344,
   "flashed": false,
   "scope": "Compiled image and source binding; physical controller behaviour requires commissioning."

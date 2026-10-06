@@ -1,0 +1,4 @@
+[sliver] The 0.8 mm edge is the specified compliant TPU sleeve wall, continuous around the housing contact profile. It is a liner backed by the rigid cradle, with no rigid load-carrying tab at this edge. Use solid variable-width extrusion paths and inspect continuity before clamping the housing.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/liner-1-upper.step
+click: x=18.395 y=0.400 z=8.000
+click: x=18.395 y=35.682 z=8.000

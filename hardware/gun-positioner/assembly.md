@@ -25,11 +25,17 @@ do not establish these parts' strength.
 The STL files already have their print orientation and bed Z=0. Do not use
 automatic reorientation. Use accessible supports on every part marked in the
 manifest: fork, cheeks, motor pedestal, yaw bearing cartridge, both journals,
-gun retainers, cable post sections/saddle and camera risers/upright. Support
-the elevated plates, flange/key projections, band cavities and horizontal
-shoulders. Keep support contacts out of the bearing bores, screw tunnels and
-captured-nut pockets; their small internal shoulders bridge. Use manual
-support painting and blockers to keep removal paths open. Remove all support
+cradle/retainers, bench toes, all four switch holders, controller case,
+cable post sections/saddle and camera risers/upright. Support the elevated
+plates, flange/key projections, band cavities, front cradle shoulders,
+switch-clip roofs and controller cable-window roofs. Support the toes'
+12 mm nut-loading lanes from their open sides. Keep support contacts out of
+bearing bores, screw tunnels and the short internal nut-seat shoulders;
+these bridge. The camera-post bores have 14 mm closing bridges; the lens
+bolt wells have 2.6 mm radial shoulders. Inspect those bridge toolpaths in
+the slicer and their printed seats before installing hardware. Use manual
+support painting and blockers to keep removal paths open. The cable-post
+service bores open at both ends for inspection and cleanup. Remove all support
 material without rounding seats or changing housing contact profiles.
 PETG camera/control pieces use the established PETG profile, four walls and
 25% infill; the thin walls remain solid. TPU liners use three walls and 100%

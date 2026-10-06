@@ -1,0 +1,3 @@
+[step] The 0.3 mm step is the 44 mm diameter inner-race support land above the 48 mm adapter body. It keeps the rotating inner bearing ring on its own axial seat, separate from the stationary outer-race shoulder. Preserve both levels; check the assembled race/spacer stack for smooth rotation and no axial play.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/pitch-output-adapter.step
+click: x=10.387 y=6.250 z=7.700

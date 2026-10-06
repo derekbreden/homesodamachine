@@ -1,0 +1,6 @@
+[ceiling] This is the annular head seat where a 10.6 mm bolt well reduces to its 5.4 mm screw passage. Its radial overhang is 2.6 mm, rather than a solid 10.6 mm unsupported disc. Bridge the shoulder, keep support out of the screw tunnel, and inspect flat head seating through the open rear well.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/camera-lens-cassette.step
+click: x=102.001 y=73.000 z=7.700
+click: x=6.001 y=73.000 z=7.700
+click: x=102.001 y=13.000 z=7.700
+click: x=6.001 y=13.000 z=7.700

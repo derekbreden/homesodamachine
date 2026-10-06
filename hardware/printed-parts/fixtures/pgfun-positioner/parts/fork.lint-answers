@@ -1,0 +1,41 @@
+[step] The 0.5 mm step is the motor/reducer clearance lead-in adjacent to the 4.4 mm square flange seat. It prevents deck stock from entering the supplier flange envelope. Preserve that named hardware clearance; the continuous fork deck and webs carry the mount.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/fork.step
+click: x=64.220 y=70.556 z=3.200
+
+[step] The 0.7 mm step terminates the opposite bearing-cap clearance adjacent to the cartridge end. These are separate axial hardware clearance planes; no 0.7 mm web carries the bearing load. The 29 mm cartridge, retained bearings and deck webs provide the load path.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/fork.step
+click: x=61.089 y=82.272 z=232.000
+
+[ceiling] This is an elevated reducer plate, bearing-cartridge web, deck crossmember or stop-mount face of the one-piece fork in its specified side-down pose. The support-required recipe supports these external faces through the open frame. Use manual blockers on bearing bores and bolt tunnels; remove support from the front/rear open spaces before assembly and inspect the mounting faces.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/fork.step
+click: x=42.875 y=95.000 z=198.000
+click: x=32.375 y=95.000 z=70.800
+click: x=66.750 y=95.000 z=120.400
+click: x=81.375 y=95.000 z=70.800
+click: x=66.750 y=57.722 z=120.400
+click: x=66.750 y=95.000 z=67.300
+click: x=66.750 y=20.750 z=139.000
+click: x=66.750 y=122.778 z=120.400
+click: x=66.750 y=95.000 z=190.400
+click: x=47.000 y=95.000 z=8.100
+click: x=47.000 y=45.000 z=81.000
+
+[ceiling] This is the parking cam underside on the fork rear extension. Accessible support from the bed carries that projection in the specified side-down pose; remove it from the outside while retaining the datum face.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/fork.step
+click: x=74.150 y=7.000 z=145.500
+
+[ceiling] This is the annular opposite 6001 bearing shoulder from the 28.03 mm outer-race seat to the 18.4 mm inner-spacer clearance. Keep the small radial ledge as a bridge and the bearing bore blocked against support. Preserve both seats and check the assembled opposite bearing stack for free rotation.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/fork.step
+click: x=47.003 y=95.000 z=211.110
+
+[ceiling] This is a captured fastener/retainer pocket roof in the fork. Its short seat shoulder bridges; exposed lane support removes through the open side-loading window before fitting nuts. Keep the screw tunnels and bearing seats blocked against support, then verify flat head/nut seating.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/fork.step
+click: x=64.970 y=95.000 z=231.300
+click: x=33.000 y=28.800 z=87.300
+click: x=61.000 y=28.800 z=87.300
+click: x=23.033 y=118.967 z=87.100
+click: x=23.033 y=71.308 z=87.100
+click: x=62.389 y=110.556 z=222.600
+click: x=62.389 y=79.444 z=222.600
+click: x=33.456 y=108.711 z=222.600
+click: x=33.456 y=81.289 z=222.600

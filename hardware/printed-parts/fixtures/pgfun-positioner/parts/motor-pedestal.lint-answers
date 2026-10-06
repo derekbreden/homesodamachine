@@ -1,0 +1,18 @@
+[step] The M5 mounting hole starts 1 mm below the reducer plate to remain open through the plate/post union. The two nearby plane levels are the cut endpoint and plate underside, not a 1 mm load-carrying sheet. Preserve the 8 mm plate and the full post section around the hole.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/motor-pedestal.step
+click: x=84.001 y=81.000 z=53.400
+
+[ceiling] This is the reducer input-flange plate underside above four posts. Support the plate through the open spaces between posts; remove support through those spaces and the central motor clearance before fitting the motor/reducer.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/motor-pedestal.step
+click: x=50.000 y=47.000 z=54.400
+
+[ceiling] These are M5 fastener head/nut shoulders at the plate and feet. The short radial or captive-seat shoulders bridge; keep screw tunnels blocked against supports. Inspect flat bolt/nut seating through the accessible wells before fastening the pedestal.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/motor-pedestal.step
+click: x=84.000 y=13.000 z=58.600
+click: x=16.000 y=13.000 z=58.600
+click: x=84.000 y=81.000 z=58.600
+click: x=16.000 y=81.000 z=58.600
+click: x=11.150 y=12.000 z=7.000
+click: x=11.150 y=82.000 z=7.000
+click: x=88.851 y=12.000 z=7.000
+click: x=88.851 y=82.000 z=7.000

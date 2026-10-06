@@ -1,0 +1,5 @@
+[ceiling] This is an underside of the angled macro-carrier rail/foot in the specified side-down print pose. The support-required recipe supports the elevated rails from their open sides. Remove support through the open frame and keep the adjustment slots and bolted foot faces unobstructed.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/camera-lens-upright.step
+click: x=58.683 y=34.336 z=96.000
+click: x=64.787 y=34.336 z=8.700
+click: x=64.787 y=34.336 z=104.700

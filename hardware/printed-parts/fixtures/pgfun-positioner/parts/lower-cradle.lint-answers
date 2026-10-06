@@ -1,0 +1,11 @@
+[ceiling] This is the underside of the forward housing shoulder stop projecting beyond the lower cradle. The support-required recipe supports that accessible projection from the bed. Remove support from the front and preserve the stop face before installing the gun.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/lower-cradle.step
+click: x=144.000 y=10.000 z=6.000
+click: x=144.000 y=52.000 z=6.000
+
+[ceiling] This is a short M4 nut-seat roof above a side-loading lane in a cradle rail. Keep the screw tunnel free of support and bridge the short roof; remove any lane support through the open side. Load the nut before joining the upper band and verify flat seating.
+file: hardware/printed-parts/fixtures/pgfun-positioner/parts/lower-cradle.step
+click: x=24.000 y=4.800 z=18.300
+click: x=111.000 y=4.800 z=18.300
+click: x=24.000 y=57.200 z=18.300
+click: x=111.000 y=57.200 z=18.300
