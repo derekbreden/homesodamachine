@@ -486,6 +486,7 @@ renderer.domElement.addEventListener("pointerdown", (e) => {
 });
 renderer.domElement.addEventListener("pointerup", (e) => {
   if (!active()) return;
+  if (renderer.domElement.parentElement?.classList.contains("cad-gesturing")) return;
   if (Math.hypot(e.clientX - downX, e.clientY - downY) > 6) return; // a drag, not a click
   const name = pickComponent(e.clientX, e.clientY);
   if (name) selectComponent(name);

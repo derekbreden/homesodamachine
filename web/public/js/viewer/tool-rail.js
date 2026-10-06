@@ -22,6 +22,68 @@ export function makeToolRail() {
   return rail;
 }
 
+// Compact views keep their tools in a disclosure; wide mouse-driven views
+// keep the same controls open. The selected mode stays visible on the summary.
+export function mountToolDrawer(rail) {
+  const drawer = document.createElement("details");
+  drawer.className = "tool-drawer";
+  const summary = document.createElement("summary");
+  summary.className = "tool-btn";
+  const label = document.createElement("span");
+  label.textContent = "Tools";
+  summary.appendChild(label);
+  drawer.appendChild(summary);
+  const body = document.createElement("div");
+  body.className = "tool-drawer-body";
+  while (rail.firstChild) body.appendChild(rail.firstChild);
+  drawer.appendChild(body);
+  rail.appendChild(drawer);
+
+  const compactViewport = matchMedia("(max-width: 900px), (pointer: coarse)");
+  const fit = () => {
+    drawer.classList.toggle("compact", compactViewport.matches);
+    drawer.open = !compactViewport.matches;
+  };
+  compactViewport.addEventListener("change", fit);
+  fit();
+
+  let previousMode;
+  const sync = () => {
+    const selected = body.querySelector('.tool-seg-btn[aria-checked="true"]');
+    const mode = selected?.dataset.mode || "off";
+    if (mode === previousMode) return;
+    previousMode = mode;
+    summary.querySelector(".tool-icon")?.remove();
+    const hasSelection = mode !== "off";
+    summary.classList.toggle("has-selection", hasSelection);
+    if (hasSelection) summary.appendChild(selected.querySelector(".tool-icon").cloneNode(true));
+    else summary.insertAdjacentHTML("beforeend", iconSvg("chevron", "tool-icon"));
+    const selection = selected?.querySelector(".tool-label").textContent || "Off";
+    summary.title = `Viewer tools · Select: ${selection}`;
+    summary.setAttribute("aria-label", hasSelection ? `Tools: ${selection} selection enabled` : "Tools");
+  };
+  const observer = new MutationObserver(sync);
+  observer.observe(body, { subtree: true, childList: true, attributes: true, attributeFilter: ["aria-checked"] });
+  sync();
+  body.addEventListener("click", (e) => {
+    if (e.target.closest(".tool-seg-btn, .pick-find-toggle, .tube-toggle")) {
+      closeToolDrawer(rail.closest(".cad-wrapper"), !!e.target.closest(".tool-seg-btn"));
+    }
+  });
+  return () => {
+    compactViewport.removeEventListener("change", fit);
+    observer.disconnect();
+  };
+}
+
+export function closeToolDrawer(wrapper, focus = false) {
+  const drawer = wrapper?.querySelector(".tool-drawer.compact[open]");
+  if (!drawer) return false;
+  drawer.open = false;
+  if (focus) drawer.querySelector("summary").focus();
+  return true;
+}
+
 // An action pill: a label, its glyph, and a click.
 export function makeToolButton({ className, label, icon, title, onClick }) {
   const btn = document.createElement("button");
