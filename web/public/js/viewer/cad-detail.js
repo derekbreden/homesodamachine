@@ -174,10 +174,13 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
   chips.appendChild(makeRulerToggle());
   rail.appendChild(makeToolGroup("Show", chips)).classList.add("tool-group-show");
   const clearToolDrawer = mountToolDrawer(rail);
-  wrapper.appendChild(rail);
+  const footer = document.createElement("div");
+  footer.className = "cad-footer";
+  footer.appendChild(rail);
+  wrapper.appendChild(footer);
   // Related models open from a compact disclosure under the tools.
   if (type === "step") mountRelated(wrapper, file, (path || []).slice(0, -1));
-  wrapper.appendChild(makeResetViewButton());
+  footer.appendChild(makeResetViewButton());
 
   // A STEP model may carry a scorecard sidecar (<model>.scorecard.json) — mount its checks
   // badge + drill-down modal. Async fetch, fire-and-forget: no sidecar → no badge, and
