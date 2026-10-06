@@ -6,6 +6,11 @@ parameters, numerical checks, compiled controller and current shop guide.
 and software checks. [Publication verification](publication-verification.json)
 records actual served bytes after publication.
 
+The [print geometry review](../printed-parts/fixtures/pgfun-positioner/geometry-lint-review.json)
+records all 60 STLs checked after publication. Exact-point answers beside the
+parts describe the required fits, support access and short bridges. The
+support manifest and assembly instructions specify their fabrication.
+
 Physical results use [commissioning](commissioning.md) and
 [observation](observation.md). Received reducer fits, loaded print retention,
 useful small motion, thermal drift, camera noise and independent dry replay

@@ -12,9 +12,119 @@
     "hardware/printed-parts/fixtures/pgfun-positioner/print-manifest.json": "ae44023d7d483d3ecc9bc1afb43b212827037a23f9cd7980d152e32bbda24357",
     "hardware/printed-parts/fixtures/pgfun-positioner/assembly-meshes.npz": "af05e3b005ce304e3510eb0b014e1f37c135a1947db4ead8d714a5141001e158",
     "hardware/printed-parts/fixtures/pgfun-positioner/reference-meshes.npz": "4b9e4651bc799bdb67ef6e4fbceb42a4f97c36fe26d12b26cfbbc66090ffe205",
-    "tools/gun-positioner-guide/build.py": "15e170b7ecb08305b87e540d901a8de36bb33cfc09a761e311de00de6f99cbbb"
+    "tools/gun-positioner-guide/build.py": "9fbbf7cdee026007e36d757423eac4daf594d65481e346cac4e882f4652c59ce",
+    "tools/assembly-guides/common.py": "1ec932ef9dc4cae73205f3e9a3722a2c23710d08287aa03e9908a555ec0db885",
+    "hardware/guide-assets/fonts/IBMPlexMono-400-normal-latin.woff2": "c36f509c0a8f9f85f29cb44bc8701d8a9e0b14c499e77a884f789ead7093a7ac",
+    "hardware/install-guide/fonts/Plex-Bold.ttf": "f0140013596c67e52c6f004b46bf8b46e183511dc1885996c4e7ab174345938d",
+    "hardware/install-guide/fonts/Plex-Semibold.ttf": "8bc60fb0075e3b56a099e6355379e38049ea5251bcfda5228494b0bab9c6d02c",
+    "hardware/install-guide/fonts/Plex-Regular.ttf": "c16b158b219c947baf8b4e7be073f14b7870238d9904eebf4b8ebd0b66d0a971"
   },
-  "pdf_sha256": "632e28db448bfcd4aba2dcc655958fa63cb12dee406927348fe8674ae09b399d",
-  "pages": 31,
-  "scope": "Generated instructions and CAD figures; physical results recorded separately."
+  "pdf_sha256": "14e1b8f7c5a41ffbfa2875d15a57321d35ce19356849ff80ba55eddf215bd06e",
+  "pages": 35,
+  "theme": "Shared Letter shop-guide theme: IBM Plex, cobalt/coral bleed bands, ice panels",
+  "print_layout": {
+    "content_scale": 0.98,
+    "bleed_overhang_inches": 0.25,
+    "colored_band_inset_inches": 0.3333333333333333,
+    "print_scaling": "100% / none"
+  },
+  "outline": [
+    {
+      "title": "Build the positioner",
+      "page": 3,
+      "level": 0,
+      "key": "chapter-0"
+    },
+    {
+      "title": "1. Mount the bridge",
+      "page": 5,
+      "level": 1,
+      "key": "assembly-step-1"
+    },
+    {
+      "title": "2. Assemble the motor drives",
+      "page": 6,
+      "level": 1,
+      "key": "assembly-step-2"
+    },
+    {
+      "title": "3. Install the swivel",
+      "page": 7,
+      "level": 1,
+      "key": "assembly-step-3"
+    },
+    {
+      "title": "4. Install the horizontal pivot",
+      "page": 9,
+      "level": 1,
+      "key": "assembly-step-4"
+    },
+    {
+      "title": "5. Secure the gun from below",
+      "page": 11,
+      "level": 1,
+      "key": "assembly-step-5"
+    },
+    {
+      "title": "6. Set stops and switches",
+      "page": 12,
+      "level": 1,
+      "key": "assembly-step-6"
+    },
+    {
+      "title": "7. Support cables and controller",
+      "page": 13,
+      "level": 1,
+      "key": "assembly-step-7"
+    },
+    {
+      "title": "8. Set up the camera",
+      "page": 14,
+      "level": 1,
+      "key": "assembly-step-8"
+    },
+    {
+      "title": "Parts and fasteners",
+      "page": 16,
+      "level": 0,
+      "key": "chapter-1"
+    },
+    {
+      "title": "Wire the controller",
+      "page": 19,
+      "level": 0,
+      "key": "chapter-2"
+    },
+    {
+      "title": "Commission the fixture",
+      "page": 22,
+      "level": 0,
+      "key": "chapter-3"
+    },
+    {
+      "title": "Learn with one camera",
+      "page": 25,
+      "level": 0,
+      "key": "chapter-4"
+    },
+    {
+      "title": "Engineering reference",
+      "page": 29,
+      "level": 0,
+      "key": "chapter-5"
+    },
+    {
+      "title": "Firmware and host commands",
+      "page": 31,
+      "level": 0,
+      "key": "chapter-6"
+    },
+    {
+      "title": "Print manifest",
+      "page": 33,
+      "level": 0,
+      "key": "print-manifest"
+    }
+  ],
+  "scope": "Source-complete illustrated instructions and current CAD; physical results recorded separately."
 }
