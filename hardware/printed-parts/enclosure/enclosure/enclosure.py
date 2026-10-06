@@ -446,15 +446,6 @@ cable_bore_dia = cable_sleeve_nom + 2.0 * cable_bore_air   # [14.7 mm](CABLE_BOR
 # bore. Nothing on the removable pump cartridge is clipped to the enclosure.
 display_loom_x_offset = 32.0
 pump_lead_clip_edge_land = 12.0
-# AND THE FLANK CARRIES THE REST OF THAT RUN. What the ridge clip guides toward +X turns the
-# corner onto front-top's own +X face and runs aft to the main-board wall, so that face takes the
-# same complete clip profile embedded in the section `front_top_flank_t` provides.
-#
-# One complete clip sits ahead of V-F's coil and the funnel frame's front corbel.
-# Its arms root in the flank, and the loom continues aft along the wall.
-flank_clip_stations = ((95.0, 16.5),)
-flank_clip_floor_z = 269.0
-flank_clip_embed = 1.4
 display_cover_thickness = _interface.display_cover_thickness
 display_cover_slip = _interface.display_cover_slip
 
@@ -5956,51 +5947,6 @@ def _ridge_wall(inner, outer, plate, bay, funnel):
     return slab
 
 
-def _flank_cable_clips(piece, box):
-    """The complete wall-rooted clip between V-F's coil and the funnel frame.
-
-    Its 45° arms follow front-top's print-up. The bottom stands at
-    `flank_clip_floor_z`; the full profile ends ahead of the frame's front
-    corbel. The ridge clip, Wago wells and Y seam bound its run on the wall.
-    """
-    plate = box.pack.collet_plate
-    fx = front_top_flank_face()[1]
-    z_origin = flank_clip_floor_z
-    z_band = (z_origin, z_origin + _cable_clip.HEIGHT)
-    wall_face = _funnel_frame_part.roof_datums(
-        box.inner, box.pack.funnel, funnel_seat_z(box.outer), box.y_joint)['front'] - slide_slip
-    corner = wall_face + _cable_clip.DEPTH
-    ridge_end = fx - pump_lead_clip_edge_land
-    ridge_reaches_flank = ridge_end > fx - _cable_clip.DEPTH
-    towers = [(st[1] - wago_half(st[3])[0], st[1] + wago_half(st[3])[0],
-               st[2] - wago_half(st[3])[1], st[2] + wago_half(st[3])[1])
-              for st in box.pack.side_wells if st[0] > 0]
-    for y0, run in flank_clip_stations:
-        y1 = y0 + run
-        if ridge_reaches_flank and y0 < corner - 1e-9:
-            raise ValueError(
-                f"a flank cable clip at y {y0:.2f} stands in the ridge clip's own body, which "
-                f"ends at {corner:.2f} — the corner turn has nowhere to happen")
-        if y1 > box.y_joint + 1e-9:
-            raise ValueError(
-                f"a flank cable clip reaches y {y1:.2f}, past the Y seam at {box.y_joint:.2f}")
-        for ty0, ty1, tz0, tz1 in towers:
-            if y0 < ty1 and y1 > ty0 and z_band[0] < tz1 and z_band[1] > tz0:
-                raise ValueError(
-                    f"a flank cable clip over y {y0:.2f}..{y1:.2f} runs into the +X Wago tower "
-                    f"over y {ty0:.2f}..{ty1:.2f}")
-        piece = _cable_clip.apply(
-            piece,
-            origin=(fx, y0, z_origin),
-            outward=(-1.0, 0.0, 0.0),
-            along=(0.0, 1.0, 0.0),
-            embed=flank_clip_embed,
-            wall_thickness=front_top_flank_t,
-            run=run,
-        ).val()
-    return piece
-
-
 def _teardrop_y(r, x, z, y0, y1, up=1.0):
     """The cutter for a bore on Y, TEARDROPPED — a horizontal hole in a piece bedded on Z.
 
@@ -9084,10 +9030,6 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # it — and after the facet's own cuts, which the half took before it was split.
         piece = piece.fuse(_ridge_wall(
             inner, outer, box.pack.collet_plate, box.pump_bay, box.pack.funnel))
-        # And that clip's continuation round the corner, on the flank this piece's own section
-        # already put there. After `_side_wells`, whose tower is one of the two things bounding
-        # a station on that face — a clip fused before the well was cut would be cut by it.
-        piece = _flank_cable_clips(piece, box)
     piece = _valve_trays(
         piece, inner, box.pack.valve_trays, ylo, yhi, zlo, zhi,
         wall_aft_y=(box.pack.collet_plate["wall_aft_y"] if box.pack.collet_plate else None),
@@ -9316,9 +9258,6 @@ def _report_ridge_roof(half, box):
     clip_geometry((clip_end - _cable_clip.RUN, wall_y, clip_z),
                   (0, 1, 0), (1, 0, 0), 0,
                   wall_y - box.pack.collet_plate['aft_y'], _cable_clip.RUN)
-    for y0, run in flank_clip_stations:
-        clip_geometry((lower_x1, y0, flank_clip_floor_z),
-                      (-1, 0, 0), (0, 1, 0), flank_clip_embed, front_top_flank_t, run)
     witness = _rounded_outer(outer).intersect(_ybox(
         lower_x0, lower_x1, wall_y - .05, wall_y, flat_root, outer[5]))
     witness = witness.cut(_teardrop_y(cable_bore_dia / 2, loom[0], loom[2],
@@ -10357,10 +10296,6 @@ def main():
         "CABLE_SLEEVE_NOM": f"{cable_sleeve_nom:.4g} mm",
         "DISPLAY_LOOM_X": f"{display_loom_x_offset:+.4g} mm",
         "PUMP_LEAD_CLIP_LAND": f"{pump_lead_clip_edge_land:.4g} mm",
-        "FLANK_CLIPS": f"{len(flank_clip_stations)}",
-        "FLANK_CLIP_Y": ", ".join(
-            f"{y0:.4g}–{y0 + run:.4g}" for y0, run in flank_clip_stations) + " mm",
-        "FLANK_CLIP_Z": f"{flank_clip_floor_z:g} mm",
         "CABLE_CLIP_DEPTH": f"{_cable_clip.DEPTH:.4g} mm",
         "CABLE_CLIP_HEIGHT": f"{_cable_clip.HEIGHT:.4g} mm",
         "CABLE_CLIP_SEAT": f"{_cable_clip.seat_height():.4g} mm",
