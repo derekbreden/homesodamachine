@@ -1,5 +1,7 @@
 // Printable faucet styles, in the same assembly coordinate frame. Paths are
 // relative to hardware/, as in /api/steps and component-sources.js.
+import { PETGF_BLACK } from "./material-finishes.js";
+
 const SHARED_TIP = "printed-parts/faucet/faucet-shell/faucet-shell-tip.step";
 
 export const FAUCET_STYLES = [
@@ -31,7 +33,7 @@ export const FAUCET_STYLES = [
 
 // Linear RGB; both finishes have a matte, nonmetallic surface.
 export const FAUCET_FINISHES = [
-  { id: "black", label: "Black", rgb: [0.0331047666, 0.0331047666, 0.0363064840], roughness: 0.85, metalness: 0 },
+  { id: "black", label: "Black", ...PETGF_BLACK },
   { id: "white", label: "White", rgb: [0.8713671192, 0.8713671192, 0.8559926082], roughness: 0.85, metalness: 0 },
 ];
 
