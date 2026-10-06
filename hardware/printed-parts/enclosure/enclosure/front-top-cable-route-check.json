@@ -158,5 +158,118 @@
     "viewer_surface_deviation_mm": 0.2,
     "viewer_surface_budget_mm": 0.208,
     "mesh_watertight": true
+  },
+  "live_publication": {
+    "schema": 1,
+    "verified_at_utc": "2026-10-06T07:31:37.948532+00:00",
+    "site": "https://homesodamachine.com",
+    "method": "Live viewer object map for STEP/payload and hash-addressed object store for the printable STL; streamed decompressed bytes match local outputs and published pointers.",
+    "checks": [
+      {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+        "advertised_in_viewer_manifest": true,
+        "current_sha256": "58879724ded23117448db9da0b345c72b337d3f535cff6732287316e653ee244",
+        "pointer_sha256": "58879724ded23117448db9da0b345c72b337d3f535cff6732287316e653ee244",
+        "live_sha256": "58879724ded23117448db9da0b345c72b337d3f535cff6732287316e653ee244",
+        "served_bytes_sha256": "58879724ded23117448db9da0b345c72b337d3f535cff6732287316e653ee244",
+        "pass": true
+      },
+      {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+        "advertised_in_viewer_manifest": false,
+        "current_sha256": "4cf2a1e2639500a019604584faf2829d5b28d2f2d975e9cc1111d3c3dc8be96f",
+        "pointer_sha256": "4cf2a1e2639500a019604584faf2829d5b28d2f2d975e9cc1111d3c3dc8be96f",
+        "live_sha256": "4cf2a1e2639500a019604584faf2829d5b28d2f2d975e9cc1111d3c3dc8be96f",
+        "served_bytes_sha256": "4cf2a1e2639500a019604584faf2829d5b28d2f2d975e9cc1111d3c3dc8be96f",
+        "pass": true
+      },
+      {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
+        "advertised_in_viewer_manifest": true,
+        "current_sha256": "0955c7154efced7fd110cfde84946ccb1b43ca1f8a4c41b19075b1e32a1564b3",
+        "pointer_sha256": "0955c7154efced7fd110cfde84946ccb1b43ca1f8a4c41b19075b1e32a1564b3",
+        "live_sha256": "0955c7154efced7fd110cfde84946ccb1b43ca1f8a4c41b19075b1e32a1564b3",
+        "served_bytes_sha256": "0955c7154efced7fd110cfde84946ccb1b43ca1f8a4c41b19075b1e32a1564b3",
+        "pass": true
+      },
+      {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure.step",
+        "advertised_in_viewer_manifest": true,
+        "current_sha256": "d496fce0a5fae3b914d3da7f4d2011b7fdfc3b01652e78f7cbfc0944953a8745",
+        "pointer_sha256": "d496fce0a5fae3b914d3da7f4d2011b7fdfc3b01652e78f7cbfc0944953a8745",
+        "live_sha256": "d496fce0a5fae3b914d3da7f4d2011b7fdfc3b01652e78f7cbfc0944953a8745",
+        "served_bytes_sha256": "d496fce0a5fae3b914d3da7f4d2011b7fdfc3b01652e78f7cbfc0944953a8745",
+        "pass": true
+      },
+      {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
+        "advertised_in_viewer_manifest": true,
+        "current_sha256": "d3efdc487c52022187037fdbdf0034f010c5e9c2c4c3daf37922b5515011f963",
+        "pointer_sha256": "d3efdc487c52022187037fdbdf0034f010c5e9c2c4c3daf37922b5515011f963",
+        "live_sha256": "d3efdc487c52022187037fdbdf0034f010c5e9c2c4c3daf37922b5515011f963",
+        "served_bytes_sha256": "d3efdc487c52022187037fdbdf0034f010c5e9c2c4c3daf37922b5515011f963",
+        "pass": true
+      },
+      {
+        "path": "hardware/manifold-layout/enclosure-assembly.step",
+        "advertised_in_viewer_manifest": true,
+        "current_sha256": "6aa6fb8773460c8c8e0192f633f351395844cb3ee1fcb612148ce65b0f89a062",
+        "pointer_sha256": "6aa6fb8773460c8c8e0192f633f351395844cb3ee1fcb612148ce65b0f89a062",
+        "live_sha256": "6aa6fb8773460c8c8e0192f633f351395844cb3ee1fcb612148ce65b0f89a062",
+        "served_bytes_sha256": "6aa6fb8773460c8c8e0192f633f351395844cb3ee1fcb612148ce65b0f89a062",
+        "pass": true
+      },
+      {
+        "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+        "advertised_in_viewer_manifest": true,
+        "current_sha256": "c309a0c1aa0f3c280bd9701e36e9b1d92d92eb4a28abb4a66bc7ecac57d51f0e",
+        "pointer_sha256": "c309a0c1aa0f3c280bd9701e36e9b1d92d92eb4a28abb4a66bc7ecac57d51f0e",
+        "live_sha256": "c309a0c1aa0f3c280bd9701e36e9b1d92d92eb4a28abb4a66bc7ecac57d51f0e",
+        "served_bytes_sha256": "c309a0c1aa0f3c280bd9701e36e9b1d92d92eb4a28abb4a66bc7ecac57d51f0e",
+        "pass": true
+      }
+    ],
+    "pass": true
+  },
+  "post_publication_geometry_lint": {
+    "schema": 1,
+    "lint_run_at_utc": "2026-10-06T07:31:50.595195+00:00",
+    "live_verified_at_utc": "2026-10-06T07:31:37.948532+00:00",
+    "model": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+    "model_sha256": "4cf2a1e2639500a019604584faf2829d5b28d2f2d975e9cc1111d3c3dc8be96f",
+    "facet_count": 528050,
+    "mesh_watertight": true,
+    "mesh_winding_consistent": true,
+    "lint_source": "hardware/scripts/geometry_lint.py",
+    "lint_source_sha256": "79914fb4ca91a5620956c1d4d95fd6fe253fcae1b5f26bac0fafc43edffb4f53",
+    "findings_by_class": {
+      "step": 1,
+      "sliver": 13,
+      "ceiling": 8,
+      "slope": 0
+    },
+    "open_by_class": {
+      "step": 0,
+      "sliver": 0,
+      "ceiling": 0,
+      "slope": 0
+    },
+    "answered_by_class": {
+      "step": 1,
+      "sliver": 13,
+      "ceiling": 8,
+      "slope": 0
+    },
+    "answers": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.lint-answers",
+    "answers_sha256": "cc8e02d0b8609627ae04475bba55372556c296210c28de60ea0551b08d3e903f",
+    "open_findings": {
+      "step": [],
+      "sliver": [],
+      "ceiling": [],
+      "slope": []
+    },
+    "scope": "Printed-mesh findings read after confirmed live publication; remaining intentional features retain their own anchored answers.",
+    "topology_loader": "trimesh.load_mesh with STL vertex merging",
+    "mesh_nonmanifold_edges": 0
   }
 }
