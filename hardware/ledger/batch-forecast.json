@@ -41,7 +41,7 @@
         "10": 0,
         "20": 0
       },
-      "note": "Exact Clear 32101 and Black 30105 refills listed in stock. Replenishment uses current 2/4/6/10-roll tiers. The five-machine order buys only two clear refills, below the free-shipping threshold; $10 freight is a provisional reserve pending checkout. ASA Aero White 46100 is out of stock, but estimated on-hand stock covers all three batches. Freight applies only to a new order; existing printers/spools retained."
+      "note": "Exact Clear 32101 and Black 30105 refills listed in stock. Replenishment uses current 2/4/6/10-roll tiers. Ten Clear 32101 refills ordered October 5 are credited as incoming, so only the twenty-machine plan buys more. The $10 five-machine reserve covers an order below the free-shipping threshold and applies only if that plan buys from Bambu. ASA Aero White 46100 is out of stock, but estimated on-hand stock covers all three batches. Freight applies only to a new order; existing printers/spools retained."
     },
     {
       "id": "jlc",
@@ -3199,7 +3199,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 743
+            "line": 744
           }
         ],
         "note": "Recorded purchase supplies 1098 g. A provisional one-machine consumption reserve of 273 is deducted for development; the remaining stock is uncounted and marked *."
@@ -3234,7 +3234,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 744
+            "line": 745
           }
         ],
         "note": "Recorded purchase supplies 150 g. A provisional one-machine consumption reserve of 1.5 is deducted for development; the remaining stock is uncounted and marked *."
@@ -3269,7 +3269,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 745
+            "line": 746
           }
         ],
         "note": "Recorded purchase supplies 50 builds. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
@@ -3304,7 +3304,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 746
+            "line": 747
           }
         ],
         "note": "Recorded purchase supplies 25 pieces. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
@@ -5711,11 +5711,16 @@
       "materialAllowance": 0.15,
       "inventory": {
         "onHand": 4,
-        "incoming": 0,
+        "incoming": 10,
         "basis": "reported",
         "estimated": true,
-        "sources": [],
-        "note": "Approximately 4 kg remaining, reported October 4, 2026. This current balance replaces purchase totals as the forecast credit."
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 651
+          }
+        ],
+        "note": "Approximately 4 kg remaining, reported October 4, 2026. This current balance replaces purchase totals as the forecast credit. Ten 1 kg refills ordered October 5 (Bambu us783865986561351681) are incoming; delivery pending."
       }
     },
     {
@@ -5981,6 +5986,11 @@
       "name": "Taprite 3741 regulator already ordered",
       "costCents": 7563,
       "note": "Draft Warehouse order 244592, October 5: $61.95 + $13.68 UPS Ground + $0.00 tax. Payment confirmation absent from reviewed evidence."
+    },
+    {
+      "name": "Ten Clear PETG refills already ordered",
+      "costCents": 12005,
+      "note": "Bambu order us783865986561351681, October 5: ten 1 kg PETG Translucent Clear 32101 refills at the 10-roll tier ($111.93) + $8.12 tax, free shipping. Payment confirmation absent from reviewed evidence."
     }
   ]
 }

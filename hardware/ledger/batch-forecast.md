@@ -29,11 +29,12 @@ Already-ordered quantities are separate from on hand and are deducted to prevent
 | WR1105 regulator | 0 | 3 | Shipped; estimated October 7 arrival. Confirmed $91.56 charge excluded from future spend. |
 | PI450822S female adapter | 0 | 30 | Shipped October 1; delivery pending. |
 | Taprite 3741 primary regulator | 0 | 1 | Ordered October 5 (Draft Warehouse 244592); delivery pending. Its $75.63 is reserved until a charge is confirmed. |
+| Clear PETG 32101 1 kg refills | 0 | 10 | Ordered October 5 (Bambu us783865986561351681); preparing for shipment. Its $120.05 is reserved until a charge is confirmed. |
 | Four-pin pogo contact pairs | 4 | 6 | Six delayed and unshipped. Confirmed $21.87 charge for the received portion excluded. |
 | M1.4 inserts | 0 | 200 | Ordered; estimated October 7 arrival. |
 | M1.4 × 8 screws | 0 | 50 | Ordered; estimated October 7 arrival. |
 
-All three alternatives include a **$231.26 possible-payment reserve** for the PI450822S shipment ($94.54), the Taprite 3741 regulator ($75.63), six pending pogo pairs ($43.74), insert pack ($8.57) and screw pack ($8.78). Merchant payment confirmation is incomplete. This is a conservative allowance for a possible remaining balance, not a verified amount owed. Release it when those orders are confirmed paid. Tax is not added again to these delivered order amounts.
+All three alternatives include a **$351.31 possible-payment reserve** for the ten Clear PETG refills ($120.05), the PI450822S shipment ($94.54), the Taprite 3741 regulator ($75.63), six pending pogo pairs ($43.74), insert pack ($8.57) and screw pack ($8.78). Merchant payment confirmation is incomplete. This is a conservative allowance for a possible remaining balance, not a verified amount owed. Release it when those orders are confirmed paid. Tax is not added again to these delivered order amounts.
 
 Delivery is required before assembly. A delayed order is not physically available stock, and an acquired status alone does not prove payment.
 
@@ -42,7 +43,7 @@ Delivery is required before assembly. A delayed order is not physically availabl
 The lot calculation minimizes new purchase cash among the sourced options. It can buy more than the net shortfall when a bag or discounted tier costs less. A lower unit price does not justify an expensive case of unneeded stock. The JSON supplies the exact purchase options, units, per-machine requirements, price basis, inventory credits and uncertainty notes; the website calculates and displays all three order lists.
 
 - Black PET-GF material is planned at 6.00 kg per machine, rounded from the 6.0001 kg BOM colour split, plus a provisional 15% allowance for supports, purge and rejects. After the 12 kg stock credit, new orders are **seven 3 kg spools plus two 1 kg spools for five machines**, **nineteen 3 kg spools for ten** and **forty-two 3 kg spools for twenty**. The five-machine mix buys 23 kg for $584.91, less than eight 3 kg spools at $599.92. White, Blue and Red have separate requirements and credits.
-- Clear PETG needs **two / seven / seventeen new 1 kg refills** for five / ten / twenty machines after its 4 kg credit. The manufacturer tier is calculated from the replenishment order: two uses the 2+ tier; seven uses the 6+ tier; seventeen uses the 10+ tier. The two-refill order carries a provisional $10 freight allowance pending checkout. Existing 10 kg Black PETG covers all three alternatives without a new refill order.
+- Clear PETG needs **no new refills for five or ten machines and seven for twenty**, after its 4 kg credit and the ten refills already ordered. The manufacturer tier is calculated from the replenishment order, so the seven use the 6+ tier. Existing 10 kg Black PETG covers all three alternatives without a new refill order.
 - A 50 ft copper coil yields three complete 15.92 ft evaporator cuts. The provisional remaining two usable cuts reduce new coil orders to one / three / six for five / ten / twenty machines. Offcuts cannot be joined to make another evaporator.
 - Reservoir rod blanks use one 12-inch rod each; two carbonator blanks share a rod. The selected 316 five-pack is rounded after the usable-equivalent stock allowance. Shorter or different-diameter rods are not assumed interchangeable.
 - Soda umbilicals use one 24-inch and five 12-inch insulation cuts per machine. Each six-foot roll is cut into those discrete lengths; the provisional five-foot stock credit reduces new orders to five / eleven / twenty-three rolls for five / ten / twenty machines.

@@ -128,9 +128,10 @@ test("current stock changes the actual PCB, filament and pending-order purchase 
   assert.equal(twenty.rows.find(row => row.id === boards.id).quantity, 10);
   assert.equal(row(ten, "petgf-black").quantity, 57);
   assert.equal(row(twenty, "petgf-black").quantity, 126);
-  assert.equal(row(ten, "petg-clear").quantity, 7);
-  assert.equal(row(ten, "petg-clear").costCents, 9514, "seven new refills use the six-roll tier");
-  assert.equal(row(twenty, "petg-clear").quantity, 17);
+  assert.equal(row(ten, "petg-clear").incoming, 10);
+  assert.equal(row(ten, "petg-clear").quantity, 0, "ten ordered refills and the 4 kg balance cover ten machines");
+  assert.equal(row(twenty, "petg-clear").quantity, 7);
+  assert.equal(row(twenty, "petg-clear").costCents, 9514, "seven new refills use the six-roll tier");
   assert.equal(row(ten, "petg-black").quantity, 0);
   assert.equal(row(twenty, "petg-black").quantity, 0);
   assert.equal(row(ten, "B0GCBNTBT8").quantity, 0);
@@ -141,7 +142,7 @@ test("current stock changes the actual PCB, filament and pending-order purchase 
   assert.equal(row(twenty, "B0DFYKBQ2S").quantity, 50);
   assert.equal(ten.suppliers.find(supplier => supplier.id === "lcsc").shippingCents, 0);
   assert.equal(twenty.suppliers.find(supplier => supplier.id === "lcsc").shippingCents, 4000);
-  assert.equal(ten.pendingCents, 23126);
+  assert.equal(ten.pendingCents, 35131);
   assert.equal(twenty.pendingCents, ten.pendingCents, "same opening orders, not doubled for twenty");
   assert.equal(row(ten, "16awg-kit").packages[0].count, 2);
   assert.equal(row(twenty, "16awg-kit").packages[0].count, 4);
@@ -155,35 +156,33 @@ test("five machines use opening stock and whole packs, with small-order reserves
   assert.equal(row("petgf-black").quantity, 23);
   assert.deepEqual(row("petgf-black").packages.map(pack => [pack.count, pack.option.quantity]), [[7, 3], [2, 1]]);
   assert.equal(row("petgf-black").costCents, 58491);
-  assert.equal(row("petg-clear").quantity, 2);
-  assert.equal(row("petg-clear").costCents, 3038);
+  assert.equal(row("petg-clear").quantity, 0);
   assert.equal(row("petg-black").quantity, 0);
   assert.equal(row("16awg-kit").packages[0].count, 1, "reserve for the limiting colour after the existing kit credit");
   assert.equal(row("B07NWCQJK9").quantity, 41, "55 solenoids minus 14 credited");
   assert.equal(row("B01G2F6EMY").quantity, 4);
-  for (const id of ["jlc", "metals", "scs", "midwest", "kj", "waveshare", "lcsc", "riteav"]) {
+  for (const id of ["bambu", "jlc", "metals", "scs", "midwest", "kj", "waveshare", "lcsc", "riteav"]) {
     const supplier = five.suppliers.find(supplier => supplier.id === id);
     assert.equal(supplier.costCents, 0, id);
     assert.equal(supplier.shippingCents, 0, `${id}: no new shipment`);
   }
-  assert.equal(five.suppliers.find(supplier => supplier.id === "bambu").shippingCents, 1000);
   assert.equal(five.pendingCents, ten.pendingCents, "same existing-order reserve, not half the ten-machine balance");
-  assert.equal(five.partsCents, 365047);
-  assert.equal(five.inboundCents, 6000);
-  assert.equal(five.taxCents, 24683);
+  assert.equal(five.partsCents, 362009);
+  assert.equal(five.inboundCents, 5000);
+  assert.equal(five.taxCents, 24390);
   assert.equal(five.allowances.find(allowance => allowance.id === "shop").costCents, 12500);
-  assert.equal(five.cashCents, 491356);
+  assert.equal(five.cashCents, 499030);
   assert.equal(five.laborHours, 51.25);
   assert.equal(five.laborCents, 512500);
-  assert.equal(five.totalCents, 1003856);
+  assert.equal(five.totalCents, 1011530);
   assert.ok(five.cashCents < ten.cashCents / 2, "inventory makes this a separate calculation");
-  assert.equal(ten.cashCents, 1184145);
-  assert.equal(twenty.cashCents, 2835963);
+  assert.equal(ten.cashCents, 1185946);
+  assert.equal(twenty.cashCents, 2837764);
   const html = renderBatchForecast(forecast);
   assert.match(html, /value="5" checked/);
   assert.match(html, /data-units="5" open/);
   assert.match(html, /<th scope="col">5 machines<\/th>/);
-  assert.match(html, /\$4,913.56/);
+  assert.match(html, /\$4,990.30/);
 });
 
 test("delivered historical invoices are not taxed twice; paid labor remains separate", () => {

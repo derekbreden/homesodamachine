@@ -7800,6 +7800,18 @@
       "source_ids": [
         "src-aa79e0fc10164b8086dd556b9cdec6fb"
       ]
+    },
+    "pur-27bb6c07598243e390e2ca407e908695": {
+      "vendor": "Bambu Lab",
+      "purpose": "consumables_materials",
+      "amount_evidence": "final_vendor_amount",
+      "order_ids": [
+        "bambu:us783865986561351681"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-5b11f53981d74149bcc6a2119c6eddc8"
+      ]
     }
   },
   "orders": {
@@ -13296,6 +13308,18 @@
       "source_ids": [
         "src-aa79e0fc10164b8086dd556b9cdec6fb"
       ]
+    },
+    "bambu:us783865986561351681": {
+      "vendor": "Bambu Lab",
+      "reference": "us783865986561351681",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-05"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-5b11f53981d74149bcc6a2119c6eddc8"
+      ]
     }
   },
   "events": [
@@ -15931,6 +15955,23 @@
       "order_ids": [
         "amazon:112-5477760-5177827"
       ]
+    },
+    {
+      "event_id": "evt-d1da698db2c940a09ec686643f142b0d",
+      "vendor": "Bambu Lab",
+      "event_type": "charge",
+      "confirmation": "expected",
+      "event_date": null,
+      "amount_minor": 12005,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-5b11f53981d74149bcc6a2119c6eddc8"
+      ],
+      "verified_at": "2026-10-05",
+      "order_ids": [
+        "bambu:us783865986561351681"
+      ]
     }
   ],
   "allocations": [
@@ -16780,6 +16821,14 @@
       "purchase_id": "pur-f24cd0a88f4b4a8ca76f3abc490f81b3",
       "order_id": "amazon:112-5477760-5177827",
       "amount_minor": 964,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-8da317f20c364ce8938979fbefcd28e8",
+      "event_id": "evt-d1da698db2c940a09ec686643f142b0d",
+      "purchase_id": "pur-27bb6c07598243e390e2ca407e908695",
+      "order_id": "bambu:us783865986561351681",
+      "amount_minor": 12005,
       "currency": "USD"
     }
   ],
@@ -25671,6 +25720,21 @@
       ],
       "verified_at": "2026-10-05",
       "note": "Signed-in Amazon order history and individual order details: one pack, $8.99 item subtotal, $0.00 shipping, $0.65 estimated tax and $9.64 grand total; ordered 2026-10-05, estimated delivery 2026-10-07. uxcell 25-piece 6 × 25 mm 304 stainless dowel-pin pack; the selected 6mm X 25mm listing was Prime-verified on 2026-10-05. Delivery is pending; the order summary does not establish a completed merchant charge or its date."
+    },
+    "src-5b11f53981d74149bcc6a2119c6eddc8": {
+      "vendor": "Bambu Lab",
+      "document_type": "email_order_confirmation",
+      "reference": "us783865986561351681",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-05"
+      },
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "verified_at": "2026-10-05",
+      "note": "Gmail order confirmation: ten PETG Translucent Clear 32101 1 kg refills, USD 159.90 less a USD 47.97 Filament Bulk Sale discount (USD 111.93), USD 0.00 shipping, USD 8.12 tax (state 5.5% USD 6.16 + city 1.75% USD 1.96), USD 120.05 grand total; no store credit applied. The email prints no order date; it was received 2026-10-05 at 23:56 America/Chicago, the local-date basis of the other Bambu rows. Bambu states the order is being prepared for shipment. No shipment, delivery date or completed merchant charge is stated."
     }
   },
   "coverage": [
@@ -26609,6 +26673,26 @@
         "amazon:112-5477760-5177827"
       ],
       "note": "Scoped review of the two named funnel-tooling purchases and their individual order summaries. No claim of complete Amazon account coverage, completed payment or physical delivery."
+    },
+    {
+      "coverage_id": "coverage-f3f98441b0e444bc9a4b46e0e90093fe",
+      "vendor": "Bambu Lab",
+      "stream": "filament order",
+      "evidence_type": "order_confirmation",
+      "checked_at": "2026-10-05",
+      "examined_period": {
+        "start": "2026-10-03",
+        "end": "2026-10-05"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-5b11f53981d74149bcc6a2119c6eddc8"
+      ],
+      "order_ids": [
+        "bambu:us783865986561351681"
+      ],
+      "note": "Scoped Gmail search and review of the named Bambu order confirmation; no claim of complete Bambu account coverage or completed payment/fulfillment evidence."
     }
   ],
   "gaps": [
@@ -26855,6 +26939,25 @@
       "missing_fact": "A completed merchant charge and its event date are not established by the order confirmation; the USD 75.42 charge remains expected.",
       "sources_checked": [
         "Lulu order confirmation USD-C4516450"
+      ]
+    },
+    {
+      "gap_id": "gap-b1f53214b3d74f37ac28c35ac094f60e",
+      "purchase_ids": [
+        "pur-27bb6c07598243e390e2ca407e908695"
+      ],
+      "order_ids": [
+        "bambu:us783865986561351681"
+      ],
+      "event_ids": [
+        "evt-d1da698db2c940a09ec686643f142b0d"
+      ],
+      "source_ids": [
+        "src-5b11f53981d74149bcc6a2119c6eddc8"
+      ],
+      "missing_fact": "A completed merchant charge and its event date are not established by the order confirmation; the USD 120.05 charge remains expected.",
+      "sources_checked": [
+        "Bambu Lab order confirmation us783865986561351681"
       ]
     }
   ],
