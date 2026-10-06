@@ -1665,16 +1665,11 @@ pair's lead bore ([Cartridge contacts](#cartridge-contacts)). Nothing on the car
 here. The loom bore is teardropped because the piece beds on Z.
 
 The fixed pump lead turns onto front-top's +X flank, and SIG-7 follows the same
-wall toward the display. The flank carries [1](FLANK_CLIPS) complete clip for the two ribbons
-over Y[95–111.5 mm](FLANK_CLIP_Y), ahead of V-F's coil and the funnel frame's
-front corbel. Its bottom is Z[269 mm](FLANK_CLIP_Z), and its 39 mm profile ends
-at Z308. The clip keeps its 3 mm arms, S-shaped channel and ramped ends. It is
-embedded 1.4 mm into the 9 mm wall, leaving 7.6 mm of projection and 7.6 mm
-behind the recessed channel. Both arms root directly in the flank.
-
-The clip's arms follow front-top's print orientation. `_flank_cable_clips`
-checks the run against the ridge clip, Wago wells and Y seam. Additional
-loom supports elsewhere in the machine remain to be placed.
+wall toward the display. The fore end of this 9 mm flank presents a continuous
+inner wall beside the display backing. The ridge-wall clip retains DC-5 locally;
+the two ribbons run along the flank toward the electronics bay. The
+[front-top cable route check](front-top-cable-route-check.json) records the wall
+stock and the scope of the exported geometry.
 
 ## Funnel opening
 
