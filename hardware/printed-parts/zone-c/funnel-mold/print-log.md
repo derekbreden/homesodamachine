@@ -1,5 +1,43 @@
 # Funnel mold print log
 
+## Mark1 cavity retry at +0.04 trim — 2026-10-06
+
+Mark1 accepted **2026-10-06-funnel-cavity-mark1-right-z004-retry-v2.gcode.3mf**
+at **15:03:59 CDT**, task **1315124888**, through one native Bambu Connect Send.
+The acceptance reading is PREPARE with no print error or HMS alert; a later
+reading at 15:20:39 CDT is RUNNING at layer 1/404 without a fault. Mark2's reservoir task
+**1314692596** was freshly read before Send, running without a fault. Its
+accepted start was over 9,979 seconds earlier, exceeding the 180-second gate.
+
+Derek requested **+0.04 mm** first-layer Z trim for this retry. The submitted
+native G-code emits **`G29.1 Z0.02`** on Textured PEI, 0.14 mm below the
+printer's +0.18 requested / +0.16 emitted baseline. The same cavity geometry
+and centered placement use the replacement induction assembly, new **right
+0.4 mm Standard nozzle**, and **AMS HT-A PETG Translucent Clear**. HT-A was
+32.7 °C with drying off at the material check.
+
+The process uses 20/30 mm/s first-layer walls/infill, an 8 mm outer brim,
+0.88 flow, 5.61702 mm³/s, six walls, 15% gyroid and six top/bottom layers.
+The native estimate is **17 h 24 min / 356.56 g**. Timelapse, bed leveling,
+flow dynamic calibration and nozzle offset calibration were all **On** in
+the final Send dialog. Probing clump checks remain **Off**; camera AI
+preferences are untouched. Physical adhesion and finished-part results are
+not established by startup telemetry.
+
+The [timelapse/storage inspection](native-slice-reviews/2026-10-06-mark1-retry-z004-v2/timelapse-storage-review.json)
+records runtime timelapse disabled despite the Send option On. Remote enable
+is rejected, and the UI tool cannot operate Studio's custom Device toolbar.
+Recording is unconfirmed. The drive reports normal state; read-only FTPS
+lists 128 timelapses totaling 793.3 MB, with no chamber videos. Exact free
+space is unavailable from this printer's telemetry and file service. The
+existing six-hour, 180 GB rotation deletes no clips in its matching latest
+run and has no local archive option configured. This inspection moves or
+deletes no files.
+
+The [native review and launch](native-slice-reviews/2026-10-06-mark1-retry-z004-v2/README.md)
+bind the project, single-plate archive and G-code hashes to the preflight and
+acceptance. The core was not submitted. Scheduled monitors remain paused.
+
 ## Six-wall cavity failure and Mark1 retry preparation — 2026-10-06
 
 H2C accepted the flat-base cavity at **02:26:55 CDT**, task **1313390974**,
@@ -40,8 +78,8 @@ walls/infill, an 8 mm outer brim and 45 mm minimum deposited-footprint bed
 clearance. Its native cavity estimate is **356.56 g / 17 h 24 min**. Probing
 clump detection remains Off and camera detection preferences are untouched.
 The launch plan requires Timelapse On and explicit leveling/flow/nozzle offset
-calibration for the replacement assembly. No retry Send has been performed;
-the prepared process has no physical result.
+calibration for the replacement assembly. This v1 preparation performed no
+Send; the prepared process has no completed physical result.
 
 ## 0.88-flow print result and 600 mL mold readiness — 2026-09-20
 

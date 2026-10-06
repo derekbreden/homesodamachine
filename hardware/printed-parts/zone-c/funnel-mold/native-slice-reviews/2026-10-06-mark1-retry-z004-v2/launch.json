@@ -1,0 +1,110 @@
+{
+  "printer": "Mark1",
+  "part": "funnel mold cavity",
+  "plate": 1,
+  "start_authorized": true,
+  "authorization_quotes": [
+    "I'd like to try a lower first layer Z, let's use 0.04 on Mark1 this time.",
+    "Start the mark1 retry, with that 0.04 offset, thanks."
+  ],
+  "send_attempted": true,
+  "send_attempted_at_utc": "2026-10-06T20:03:49.621264+00:00",
+  "transaction": "One foreground Bambu Connect native Send; no retry after attempted or ambiguous submission.",
+  "archive": {
+    "path": ".cache/funnel-retry-mark1-z004-20261006/ready/2026-10-06-funnel-cavity-mark1-right-z004-retry-v2.gcode.3mf",
+    "name": "2026-10-06-funnel-cavity-mark1-right-z004-retry-v2.gcode.3mf",
+    "sha256": "4f0c0be666595f73d7e31042cd877da61e8503554f25cd143734bf1a86b8bfb1",
+    "gcode_sha256": "a4c24daaf566e185dd8239e2e9beb7736f43cc23ea9d3db6e90419fe1c7136ba",
+    "layers": 404
+  },
+  "project": {
+    "path": "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/funnel-mold-mark1-retry-z004.3mf",
+    "sha256": "c6cd113c6a54ca5b501ada5258d33baace7f3ed391ebdaca7b847b8019771246",
+    "contains_core_plate": true
+  },
+  "preflight_sha256": "9c1af0db1f7bb2efeab4c9bf342c8b8caaedc0d946a8bb178f27d93b5e3b4d78",
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_mm": 0.02,
+  "native_send_options": {
+    "destination": "Mark1",
+    "plate": "Textured PEI",
+    "right_filament": "AMS HT-A PETG",
+    "hotend": "mounted right 0.4 mm Standard",
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_dynamic_calibration": "On",
+    "nozzle_offset_calibration": "On",
+    "verified_by": "Native accessibility tree and screenshot"
+  },
+  "acceptance": {
+    "observed_at_utc": "2026-10-06T20:03:59.578568+00:00",
+    "observed_at_local": "2026-10-06T15:03:59.578568-05:00",
+    "task_id": "1315124888",
+    "job_id": "1315124888",
+    "archive_name": "2026-10-06-funnel-cavity-mark1-right-z004-retry-v2.gcode.3mf",
+    "state": "PREPARE",
+    "print_error": 0,
+    "hms": []
+  },
+  "accepted_job_id": "1315124888",
+  "status": "accepted",
+  "successful_foreground_send_count": 1,
+  "post_acceptance_observation": {
+    "task_id": "1315124888",
+    "job_id": "1315124888",
+    "subtask_name": "2026-10-06-funnel-cavity-mark1-right-z004-retry-v2.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 0,
+    "total_layer_num": 404,
+    "mc_percent": 0,
+    "mc_remaining_time": 1044,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": 13,
+    "bed_temper": 26.0,
+    "bed_target_temper": 26.0,
+    "sdcard": true,
+    "observed_at_utc": "2026-10-06T20:04:17.966896+00:00",
+    "timelapse": "disable",
+    "extruders": [
+      {
+        "id": 0,
+        "hnow": 0,
+        "temp": 10813605,
+        "snow": 32768
+      },
+      {
+        "id": 1,
+        "hnow": 1,
+        "temp": 28,
+        "snow": 65279
+      }
+    ]
+  },
+  "timelapse_runtime_verification_pending": false,
+  "scheduled_monitor": "None; existing monitors remain paused.",
+  "first_layer_observation": {
+    "printer": "Mark1",
+    "observed_at_utc": "2026-10-06T20:20:39.734291+00:00",
+    "task_id": "1315124888",
+    "job_id": "1315124888",
+    "subtask_name": "2026-10-06-funnel-cavity-mark1-right-z004-retry-v2.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 1,
+    "total_layer_num": 404,
+    "mc_percent": 1,
+    "mc_remaining_time": 1031,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": 0,
+    "sdcard": true,
+    "timelapse": "disable",
+    "chamber_auto_record": "disable",
+    "timelapse_cfg_bit5": false,
+    "storage_state_code": 1,
+    "storage_space_kb": {}
+  },
+  "timelapse_runtime_enabled": false,
+  "timelapse_record": "timelapse-storage-review.json",
+  "timelapse_verification_result": "Runtime disabled despite native Send option On; remote enable rejected and native Device controls unavailable through the UI tool."
+}

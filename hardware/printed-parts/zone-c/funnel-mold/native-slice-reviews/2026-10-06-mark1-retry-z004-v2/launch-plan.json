@@ -1,0 +1,121 @@
+{
+  "created_at_utc": "2026-10-06T19:50:35.875424+00:00",
+  "scope": "One authorized Mark1 cavity Send at +0.04 mm requested trim; no core launch.",
+  "start_authorized": true,
+  "send_attempted": true,
+  "accepted_job_id": "1315124888",
+  "printer": {
+    "display_name": "Mark1",
+    "configured_read_alias": "H2C",
+    "model": "Bambu Lab H2C",
+    "active_nozzle_side": "right",
+    "diameter_mm": 0.4,
+    "flow_type": "Standard"
+  },
+  "part": "funnel mold cavity",
+  "plate": 1,
+  "editable_project": {
+    "path": "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/funnel-mold-mark1-retry-z004.3mf",
+    "sha256": "c6cd113c6a54ca5b501ada5258d33baace7f3ed391ebdaca7b847b8019771246",
+    "contains_core_plate": true
+  },
+  "review_records": {
+    "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/preparation-review.json": "a4453d449df1ee98fe73686d7eac1c3132f01c3a5fa074154264cc27f9e72d9d",
+    "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/readiness-review.json": "088fdf21c53cb243cfa32b023246dba1be9a1d78f593024922b0f97b6850a413",
+    "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/physical-recipe-binding.json": "c519656aff663db097e1e0ac0002307fefba33b82fa12faa2c45c63322f09dde",
+    "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/packaging.json": "0d5f678f9e1e9e0b2cba0b48d3839e48de969d44edb2a532528cc831f7d1e21d"
+  },
+  "estimate": {
+    "seconds": 62667.1328125,
+    "filament_g": 356.5584411621094
+  },
+  "material": {
+    "physical_spool": "Bambu PETG Translucent Clear",
+    "ams_name": "HT-A",
+    "unit": 128,
+    "tray": 0,
+    "material_id": "GFG01",
+    "right_nozzle": true,
+    "external_spool_allowed": false
+  },
+  "send_options_required": {
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_dynamic_calibration": "On",
+    "nozzle_offset_calibration": "On",
+    "reason_for_calibration": "Replacement induction heating assembly and new right 0.4 mm nozzle reported by Derek."
+  },
+  "detection": {
+    "nozzle_clumping_detection_by_probing": "Off",
+    "camera_ai_settings": "Retain current user settings",
+    "device_preferences_changed": false,
+    "periodic_G39_checks": 0
+  },
+  "calibration": {
+    "performed_by_this_preparation": false,
+    "reason": "Replacement induction heating assembly and new nozzle",
+    "required_at_authorized_launch": [
+      "bed leveling",
+      "flow dynamic calibration",
+      "nozzle offset calibration"
+    ]
+  },
+  "launch_requirements": [
+    "Derek explicitly authorizes starting this cavity retry with +0.04 mm requested trim.",
+    "Freshly read Mark1 and Mark2 through tools/bambu_printer.py immediately before Send.",
+    "Require Mark1 idle, no unresolved fault, replacement assembly/new right 0.4 mm Standard nozzle, and matching AMS HT-A PETG Translucent Clear.",
+    "Verify the exact allowed archive and G-code hashes, the recorded geometry/source bindings, and the right-nozzle native review.",
+    "Wait at least 180 seconds after the peer printer's most recent accepted start or resume; import/Send timestamps do not satisfy this gate.",
+    "Use native Studio/Connect AMS mapping. tools/bambu_print.py is external-spool-only and is not appropriate for this archive's HT-A feed.",
+    "At the final native Send dialog verify Timelapse On, Bed Leveling On, Flow Dynamic Calibration On and Nozzle Offset Calibration On.",
+    "Durably record send_attempted true before one foreground Send. Never retry an attempted or ambiguous transaction.",
+    "Attribute acceptance only to a new matching task/job ID, exact archive name and PREPARE/RUNNING state; save acceptance timestamps and hashes.",
+    "After acceptance verify the runtime timelapse status is enabled; keep all scheduled monitors paused unless separately requested."
+  ],
+  "physical_setup": [
+    "Finish the active drying cycle. Bambu recommends PETG Translucent drying at 65 C for 8 hours and storage below 20% RH.",
+    "Use a clean Textured PEI plate and the manufacturer-recommended compatible adhesive.",
+    "Observe the first layer and complete brim before leaving the print unattended."
+  ],
+  "scope_limits": [
+    "No completed physical result for this retry.",
+    "The core is preserved in the editable project for review; no core start is authorized.",
+    "Timelapse is evidence capture and does not stop a failure."
+  ],
+  "preflight_record": "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/preflight.json",
+  "authorization_quotes": [
+    "I'd like to try a lower first layer Z, let's use 0.04 on Mark1 this time.",
+    "Start the mark1 retry, with that 0.04 offset, thanks."
+  ],
+  "requested_z_trim_mm": 0.04,
+  "expected_emitted_z_trim_mm": 0.02,
+  "archive_name": "2026-10-06-funnel-cavity-mark1-right-z004-retry-v2.gcode.3mf",
+  "native_review_pending": false,
+  "allowed_cavity_archive": {
+    "path": ".cache/funnel-retry-mark1-z004-20261006/ready/2026-10-06-funnel-cavity-mark1-right-z004-retry-v2.gcode.3mf",
+    "name": "2026-10-06-funnel-cavity-mark1-right-z004-retry-v2.gcode.3mf",
+    "sha256": "4f0c0be666595f73d7e31042cd877da61e8503554f25cd143734bf1a86b8bfb1",
+    "gcode_sha256": "a4c24daaf566e185dd8239e2e9beb7736f43cc23ea9d3db6e90419fe1c7136ba",
+    "layers": 404
+  },
+  "send_attempted_at_utc": "2026-10-06T20:03:49.621264+00:00",
+  "launch_record": "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/launch.json",
+  "preflight_sha256": "9c1af0db1f7bb2efeab4c9bf342c8b8caaedc0d946a8bb178f27d93b5e3b4d78",
+  "acceptance": {
+    "observed_at_utc": "2026-10-06T20:03:59.578568+00:00",
+    "observed_at_local": "2026-10-06T15:03:59.578568-05:00",
+    "task_id": "1315124888",
+    "job_id": "1315124888",
+    "archive_name": "2026-10-06-funnel-cavity-mark1-right-z004-retry-v2.gcode.3mf",
+    "state": "PREPARE",
+    "print_error": 0,
+    "hms": []
+  },
+  "accepted_at_utc": "2026-10-06T20:03:59.578568+00:00",
+  "accepted_at_local": "2026-10-06T15:03:59.578568-05:00",
+  "status": "accepted",
+  "successful_foreground_send_count": 1,
+  "send_allowed": false,
+  "timelapse_runtime_enabled": false,
+  "timelapse_record": "timelapse-storage-review.json"
+}
