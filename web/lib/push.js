@@ -492,7 +492,7 @@ export async function notifyFilesChanged({ files }) {
   else if (isPcbPath(firstFile)) basePath = "/pcb";
   else basePath = "/3d";
   const link = firstFile.endsWith(".pdf")
-    ? `/docs/${firstFile}`
+    ? `/read/${firstFile}`
     : `${basePath}?file=${encodeURIComponent(firstFile)}`;
   // Pick a kind for the notifications-list icon. Pure step / mermaid /
   // dxf / pcb / (mixed → "files"); inferred from the file list

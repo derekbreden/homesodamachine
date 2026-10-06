@@ -21,6 +21,7 @@
     "@aws-sdk/s3-request-presigner": "^3.1132.0",
     "express": "^5.2.1",
     "firebase-admin": "^14.2.0",
+    "pdfjs-dist": "6.4.299",
     "pg": "^8.23.0",
     "ws": "^8.21.3"
   },
