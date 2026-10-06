@@ -3,7 +3,7 @@
   "source_sha256": {
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "750f04515540bc00743bd39cc345c95ac2ed69ca0ac3460244dcd11c09a4b9d2",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "cd2aea4170503e5ab0decd929f902b74c6f8e56a7007ed794f216e06dc291a74",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "93f232f35f27c5da071132c7332d10e5ff58efac6d2ae02921859b14a07eec4b",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "58879724ded23117448db9da0b345c72b337d3f535cff6732287316e653ee244",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "7de724435d621c63f80916991f9c8d0a38c224705d1e9dbaf5b1c6f2f959950a"
   },
   "scope": "Opposed parallel planar patches above 0.05 mm2, gaps up to 0.751 mm, on four finished quadrant STEP solids. Excludes curved/nonparallel contacts, insertion sweeps, accessories and physical support quality.",
@@ -884,7 +884,7 @@
       ],
       "face_indices": [
         1185,
-        281
+        269
       ],
       "gap_mm": 0.5,
       "minimum_mm": 0.25,
@@ -1088,7 +1088,7 @@
       ],
       "face_indices": [
         1201,
-        282
+        270
       ],
       "gap_mm": 0.5,
       "minimum_mm": 0.25,
@@ -1699,7 +1699,7 @@
         "back-top"
       ],
       "face_indices": [
-        277,
+        265,
         21
       ],
       "gap_mm": 0.0,
@@ -1733,7 +1733,7 @@
         "back-top"
       ],
       "face_indices": [
-        352,
+        338,
         162
       ],
       "gap_mm": 0.25,
@@ -1767,7 +1767,7 @@
         "back-top"
       ],
       "face_indices": [
-        353,
+        339,
         41
       ],
       "gap_mm": 0.25,
@@ -2039,7 +2039,7 @@
         "back-top"
       ],
       "face_indices": [
-        351,
+        337,
         26
       ],
       "gap_mm": 0.0,
