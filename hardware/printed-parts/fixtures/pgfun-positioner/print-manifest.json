@@ -1,0 +1,968 @@
+{
+  "design": {
+    "revision": "pgfun-two-axis-r1",
+    "units": "mm",
+    "yaw_xy": [
+      61.849,
+      -145.0
+    ],
+    "pivot_z": 208.05,
+    "working_lever_mm": 145.0,
+    "aim": [
+      61.849,
+      0.0,
+      208.05
+    ],
+    "barrel_down_deg": 60.0,
+    "nozzle_gap": 16.0,
+    "pose_source": "Print parameters; working welding pose has not been recorded",
+    "yaw_input_z": 80.0,
+    "pitch_output_x": -81.2,
+    "reducer_length": 63.1,
+    "case_flange_thickness": 4.4,
+    "case_flange_size": 60.0,
+    "case_pcd": 70.0,
+    "output_pcd": 30.0,
+    "output_phase_deg": 15.0,
+    "reduction": 50,
+    "motor_full_steps": 200,
+    "external_microsteps": 64,
+    "soft_limit_deg": 1.0,
+    "hard_stop_deg": 1.5,
+    "bearing_bore": 52.03,
+    "journal_diameter": 40.04,
+    "shaft_bore": 12.05,
+    "opposite_bearing_bore": 28.03,
+    "adapter_thickness": 8.0,
+    "bearing_width": 7.0,
+    "bearing_spacer": 7.0,
+    "journal_length": 20.9,
+    "neck_length": 4.3,
+    "output_flange_thickness": 6.0,
+    "cradle_bands_x": [
+      -30.0,
+      -117.0
+    ],
+    "cradle_band_width": 16.0,
+    "liner_thickness": 0.8,
+    "contact_clearance": 0.15,
+    "cheek_thickness": 10.0,
+    "gun_supported_mass_kg": 1.3118,
+    "design_cable_force_N": 10.0,
+    "design_joint_torque_Nm": 7.0,
+    "structural_fault_torque_Nm": 18.0,
+    "print_density_g_cm3": 1.34,
+    "analysis_modulus_MPa": 1500.0,
+    "analysis_allowable_MPa": 5.0,
+    "gun_lateral_mm": 0.0,
+    "barrel_azimuth_deg": 0.0,
+    "gun_roll_deg": 0.0,
+    "stop_radius": 70.0,
+    "cheek_inner_x": 32.0,
+    "camera_view_down_deg": 29.0,
+    "camera_lens_distance_mm": 109.0,
+    "camera_stage_source": "FoMaKo published external envelope; Raynox manufacturer dimensions; optical center has adjustment travel"
+  },
+  "parts": [
+    {
+      "name": "bridge",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 490.351,
+      "solid_mass_g": 657.07,
+      "print_bounds_mm": [
+        302.0,
+        96.0,
+        28.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "bd9f85a9a39d9d075a35d59f6584c4d18da1be7fa2eaf9732e2851e4b8c1f002"
+    },
+    {
+      "name": "bench-toe-1",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 27.47,
+      "solid_mass_g": 36.81,
+      "print_bounds_mm": [
+        40.0,
+        20.0,
+        36.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "a320d9911e0a5b6c73e617abfd1f0695bdc924040c69d838ad87b5430d5be6b6"
+    },
+    {
+      "name": "bench-toe-2",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 27.47,
+      "solid_mass_g": 36.81,
+      "print_bounds_mm": [
+        40.0,
+        20.0,
+        36.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "a320d9911e0a5b6c73e617abfd1f0695bdc924040c69d838ad87b5430d5be6b6"
+    },
+    {
+      "name": "motor-pedestal",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 135.181,
+      "solid_mass_g": 181.14,
+      "print_bounds_mm": [
+        100.0,
+        94.0,
+        62.4
+      ],
+      "support_required": true,
+      "watertight": true,
+      "sha256": "6b342b7438c43a2da89af54e65586109949b4cdced189a3cbc16d18115e28eb0"
+    },
+    {
+      "name": "yaw-bearing-cartridge",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 126.384,
+      "solid_mass_g": 169.35,
+      "print_bounds_mm": [
+        86.0,
+        114.0,
+        80.7
+      ],
+      "support_required": true,
+      "watertight": true,
+      "sha256": "549caaf88c682c8669a40d95c21de4318277cb973d87bf1baeff9aed279b08f8"
+    },
+    {
+      "name": "yaw-output-adapter",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 9.282,
+      "solid_mass_g": 12.44,
+      "print_bounds_mm": [
+        47.989,
+        47.995,
+        8.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "22e5427bb54bb7246256deb87c581f7af8e69e0618d9315b2e2e6ca2c8974d98"
+    },
+    {
+      "name": "yaw-journal",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 47.118,
+      "solid_mass_g": 63.14,
+      "print_bounds_mm": [
+        75.983,
+        75.991,
+        37.2
+      ],
+      "support_required": true,
+      "watertight": true,
+      "sha256": "54862b070e368dd0899139dea8fc34d4ec01c5258a1e730de03e353b389d7190"
+    },
+    {
+      "name": "yaw-bearing-cap",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 5.272,
+      "solid_mass_g": 7.06,
+      "print_bounds_mm": [
+        75.983,
+        75.991,
+        2.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "6cd6ef14f6430aca5588c8519e96b74727d31453dec7822067fe66591abcd5c3"
+    },
+    {
+      "name": "fork",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 454.637,
+      "solid_mass_g": 609.21,
+      "print_bounds_mm": [
+        94.0,
+        154.0,
+        236.0
+      ],
+      "support_required": true,
+      "watertight": true,
+      "sha256": "2721c51998a809888e8a5802d86c3a6b3a72b25e114a47658b778c4c24ececc9"
+    },
+    {
+      "name": "pitch-output-adapter",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 9.282,
+      "solid_mass_g": 12.44,
+      "print_bounds_mm": [
+        47.989,
+        47.995,
+        8.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "22e5427bb54bb7246256deb87c581f7af8e69e0618d9315b2e2e6ca2c8974d98"
+    },
+    {
+      "name": "pitch-journal",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 47.118,
+      "solid_mass_g": 63.14,
+      "print_bounds_mm": [
+        75.983,
+        75.991,
+        37.2
+      ],
+      "support_required": true,
+      "watertight": true,
+      "sha256": "54862b070e368dd0899139dea8fc34d4ec01c5258a1e730de03e353b389d7190"
+    },
+    {
+      "name": "pitch-bearing-cap",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 5.272,
+      "solid_mass_g": 7.06,
+      "print_bounds_mm": [
+        75.983,
+        75.991,
+        2.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "6cd6ef14f6430aca5588c8519e96b74727d31453dec7822067fe66591abcd5c3"
+    },
+    {
+      "name": "yaw-outer-spacer",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 1.93,
+      "solid_mass_g": 2.59,
+      "print_bounds_mm": [
+        51.888,
+        51.894,
+        7.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "8217a5761c8722d5f4b5a59be8b707cb5c48a1dcfc7885d6315e9f3d09a27913"
+    },
+    {
+      "name": "yaw-inner-spacer",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 1.759,
+      "solid_mass_g": 2.36,
+      "print_bounds_mm": [
+        43.99,
+        43.995,
+        7.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "bc5a3ad622290e22470ff9da24bbd7e299efe0366997722e1724633fab60a761"
+    },
+    {
+      "name": "pitch-outer-spacer",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 1.93,
+      "solid_mass_g": 2.59,
+      "print_bounds_mm": [
+        51.888,
+        51.894,
+        7.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "8217a5761c8722d5f4b5a59be8b707cb5c48a1dcfc7885d6315e9f3d09a27913"
+    },
+    {
+      "name": "pitch-inner-spacer",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 1.759,
+      "solid_mass_g": 2.36,
+      "print_bounds_mm": [
+        43.99,
+        43.995,
+        7.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "bc5a3ad622290e22470ff9da24bbd7e299efe0366997722e1724633fab60a761"
+    },
+    {
+      "name": "gun-retainer-1",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 13.925,
+      "solid_mass_g": 18.66,
+      "print_bounds_mm": [
+        16.0,
+        62.0,
+        27.4
+      ],
+      "support_required": true,
+      "watertight": true,
+      "sha256": "74e060be588e0c1e2b40904f94bf69fcf235e6c2076154749967993567d5afbe"
+    },
+    {
+      "name": "liner-1-lower",
+      "material": "TPU",
+      "quantity": 1,
+      "volume_cm3": 0.871,
+      "solid_mass_g": 1.06,
+      "print_bounds_mm": [
+        20.694,
+        36.191,
+        16.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "5500d04b7a653875635a64f7c8a824adb4290969f6a284a33a3d36ba734131ca"
+    },
+    {
+      "name": "liner-1-upper",
+      "material": "TPU",
+      "quantity": 1,
+      "volume_cm3": 0.83,
+      "solid_mass_g": 1.01,
+      "print_bounds_mm": [
+        18.395,
+        36.082,
+        16.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "78bc4af1bd48865bab8bcc3e090ca8c6139af68cf0f9cac41791694e2f8e8b1f"
+    },
+    {
+      "name": "gun-retainer-2",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 14.255,
+      "solid_mass_g": 19.1,
+      "print_bounds_mm": [
+        16.0,
+        62.0,
+        27.4
+      ],
+      "support_required": true,
+      "watertight": true,
+      "sha256": "b57fca96984972ea2f21cb78f058941048eb4fef07d9ebb27619353d6944e88a"
+    },
+    {
+      "name": "liner-2-lower",
+      "material": "TPU",
+      "quantity": 1,
+      "volume_cm3": 0.87,
+      "solid_mass_g": 1.06,
+      "print_bounds_mm": [
+        20.252,
+        35.716,
+        16.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "748b3eb0494d367d23cfe3bc23ddf56dfd78bb71aafacd9638a67d86b7a4f405"
+    },
+    {
+      "name": "liner-2-upper",
+      "material": "TPU",
+      "quantity": 1,
+      "volume_cm3": 0.811,
+      "solid_mass_g": 0.99,
+      "print_bounds_mm": [
+        18.133,
+        35.688,
+        16.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "70983b3e82140691101084e004334ed486283d9618e9ba7ff24038ac64d67540"
+    },
+    {
+      "name": "lower-cradle",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 61.261,
+      "solid_mass_g": 82.09,
+      "print_bounds_mm": [
+        147.0,
+        62.0,
+        30.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "ea869c951033d668cad791068b0e5781a3c69ae1ec08a19997b4a5e638e94078"
+    },
+    {
+      "name": "left-cheek",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 202.895,
+      "solid_mass_g": 271.88,
+      "print_bounds_mm": [
+        246.97,
+        150.983,
+        27.7
+      ],
+      "support_required": true,
+      "watertight": true,
+      "sha256": "10d0fca383df0bc673faff582a58b382dc3fbb88acb783f8f99e3bcb16918493"
+    },
+    {
+      "name": "right-cheek",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 169.514,
+      "solid_mass_g": 227.15,
+      "print_bounds_mm": [
+        246.97,
+        89.983,
+        30.0
+      ],
+      "support_required": true,
+      "watertight": true,
+      "sha256": "6b70ae3f32946f3340128abcfc835ec78b66bc5f2b455f3b7adaf67da2bd406e"
+    },
+    {
+      "name": "bottom-frame-tie",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 42.813,
+      "solid_mass_g": 57.37,
+      "print_bounds_mm": [
+        64.0,
+        40.0,
+        18.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "5323f5521cc2f034ea77829f70cc0b3034bb31082c266374c7a69ea394c462d0"
+    },
+    {
+      "name": "opposite-bearing-cap",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 4.127,
+      "solid_mass_g": 5.53,
+      "print_bounds_mm": [
+        43.99,
+        43.995,
+        4.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "3744b4642f22ec0eac4a3b4d483675daa304ec03c5107dfbf2202c5bbf84f812"
+    },
+    {
+      "name": "axle-collet-spacer",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 1.101,
+      "solid_mass_g": 1.47,
+      "print_bounds_mm": [
+        17.996,
+        17.998,
+        8.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "5abdc9e42ec43638bce1371d90e87efe68dd949d55e6e3bda2dbf8a71950e97e"
+    },
+    {
+      "name": "opposite-inner-spacer",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 1.101,
+      "solid_mass_g": 1.47,
+      "print_bounds_mm": [
+        17.996,
+        17.998,
+        8.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "5abdc9e42ec43638bce1371d90e87efe68dd949d55e6e3bda2dbf8a71950e97e"
+    },
+    {
+      "name": "axle-front-stop-spacer",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 2.889,
+      "solid_mass_g": 3.87,
+      "print_bounds_mm": [
+        17.996,
+        17.998,
+        21.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "0d59772858dde5f1040342b67d782326e25203e26cf549d48385006876dc582a"
+    },
+    {
+      "name": "axle-middle-spacer",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 1.651,
+      "solid_mass_g": 2.21,
+      "print_bounds_mm": [
+        17.996,
+        17.998,
+        12.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "d07013355bcc5274af14868469171a5023927c9f6383a62eb459bb7f340a5761"
+    },
+    {
+      "name": "axle-end-spacer",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 2.476,
+      "solid_mass_g": 3.32,
+      "print_bounds_mm": [
+        17.996,
+        17.998,
+        18.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "66a37e61d193328dd2414484929e6e6b3ba799b8a842728bc606d52d07c940e2"
+    },
+    {
+      "name": "axle-keeper",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 0.843,
+      "solid_mass_g": 1.13,
+      "print_bounds_mm": [
+        19.996,
+        19.998,
+        3.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "b64d9ed4304bc01454619e5dae61c6d729a0551906fbbb8b40be2d777d3a6be5"
+    },
+    {
+      "name": "yaw-limit-holder--1",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 4.307,
+      "solid_mass_g": 5.77,
+      "print_bounds_mm": [
+        26.0,
+        26.0,
+        43.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "1e90c30359156c39bcd65905983d91a9bca4cbf67c8a12043d3154398ddf9f03"
+    },
+    {
+      "name": "yaw-limit-holder-1",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 4.307,
+      "solid_mass_g": 5.77,
+      "print_bounds_mm": [
+        26.0,
+        26.0,
+        43.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "9f3c469d656db4694cd0b87d4cec91e249ddfe62044950f33ddd929d689d42b6"
+    },
+    {
+      "name": "pitch-limit-holder--1",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 4.307,
+      "solid_mass_g": 5.77,
+      "print_bounds_mm": [
+        26.0,
+        26.0,
+        43.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "1e90c30359156c39bcd65905983d91a9bca4cbf67c8a12043d3154398ddf9f03"
+    },
+    {
+      "name": "pitch-switch-standoff--1",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 10.648,
+      "solid_mass_g": 14.27,
+      "print_bounds_mm": [
+        26.0,
+        14.0,
+        30.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "f9d39e020208d4f3bffbd3d896b16cfbe43e8a305d1b0202ea7f2ae7701f94c6"
+    },
+    {
+      "name": "pitch-limit-holder-1",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 4.307,
+      "solid_mass_g": 5.77,
+      "print_bounds_mm": [
+        26.0,
+        26.0,
+        43.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "9f3c469d656db4694cd0b87d4cec91e249ddfe62044950f33ddd929d689d42b6"
+    },
+    {
+      "name": "pitch-switch-standoff-1",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 10.648,
+      "solid_mass_g": 14.27,
+      "print_bounds_mm": [
+        26.0,
+        14.0,
+        30.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "f9d39e020208d4f3bffbd3d896b16cfbe43e8a305d1b0202ea7f2ae7701f94c6"
+    },
+    {
+      "name": "umbilical-post-base",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 302.275,
+      "solid_mass_g": 405.05,
+      "print_bounds_mm": [
+        90.0,
+        80.0,
+        190.0
+      ],
+      "support_required": true,
+      "watertight": true,
+      "sha256": "e708e6f14e47c33e77e1556aed251f10c78b82fc0f1ff06ee0645c431e12830b"
+    },
+    {
+      "name": "umbilical-post-top",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 313.435,
+      "solid_mass_g": 420.0,
+      "print_bounds_mm": [
+        90.0,
+        80.0,
+        200.0
+      ],
+      "support_required": true,
+      "watertight": true,
+      "sha256": "c26c7752df34d8dd64142896d431f2744da4a52cf830f7f0a93e3999a787748a"
+    },
+    {
+      "name": "umbilical-saddle",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 28.728,
+      "solid_mass_g": 38.5,
+      "print_bounds_mm": [
+        60.0,
+        34.0,
+        43.0
+      ],
+      "support_required": true,
+      "watertight": true,
+      "sha256": "f79435ddc10ed3d5e3ed053fc776384d3dda200a3820d7f54975c3e7d1c9a120"
+    },
+    {
+      "name": "yaw-stop-sector",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 8.709,
+      "solid_mass_g": 11.67,
+      "print_bounds_mm": [
+        46.0,
+        20.0,
+        12.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "f709be4669ab1baafede9ac3a30a79646172a22557052c43c1f3fd1fd8faa537"
+    },
+    {
+      "name": "pitch-stop-sector",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 8.709,
+      "solid_mass_g": 11.67,
+      "print_bounds_mm": [
+        46.0,
+        20.0,
+        12.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "f709be4669ab1baafede9ac3a30a79646172a22557052c43c1f3fd1fd8faa537"
+    },
+    {
+      "name": "controller-case",
+      "material": "PETG",
+      "quantity": 1,
+      "volume_cm3": 71.449,
+      "solid_mass_g": 90.74,
+      "print_bounds_mm": [
+        124.0,
+        90.0,
+        34.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "1c0760cb78b09a5db2357a068913eec26fd7a930b575313d7386951121c8593f"
+    },
+    {
+      "name": "controller-lid",
+      "material": "PETG",
+      "quantity": 1,
+      "volume_cm3": 29.016,
+      "solid_mass_g": 36.85,
+      "print_bounds_mm": [
+        124.0,
+        90.0,
+        3.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "37b70297995a8919458d64bad7dc5b568135689005da1eec78fb19d4a1fc6db6"
+    },
+    {
+      "name": "fan-guard",
+      "material": "PETG",
+      "quantity": 1,
+      "volume_cm3": 2.324,
+      "solid_mass_g": 2.95,
+      "print_bounds_mm": [
+        40.0,
+        38.0,
+        2.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "51c87602e0eb4cbdbb674e09098db0b075c536eb8e599d6348132ea85b173576"
+    },
+    {
+      "name": "camera-riser-base",
+      "material": "PETG",
+      "quantity": 1,
+      "volume_cm3": 263.211,
+      "solid_mass_g": 334.28,
+      "print_bounds_mm": [
+        270.0,
+        170.0,
+        160.0
+      ],
+      "support_required": true,
+      "watertight": true,
+      "sha256": "ca6a6ba9dbca7ca3c948c0e778755ea074d0d9ebaaa51c44dbbf37606347af76"
+    },
+    {
+      "name": "camera-riser-top",
+      "material": "PETG",
+      "quantity": 1,
+      "volume_cm3": 507.97,
+      "solid_mass_g": 645.12,
+      "print_bounds_mm": [
+        270.0,
+        255.0,
+        52.102
+      ],
+      "support_required": true,
+      "watertight": true,
+      "sha256": "e8dbce6c99e04825fb42629ccfc82f49c5207d39f61a04c825bf860e02710cdc"
+    },
+    {
+      "name": "camera-lens-upright",
+      "material": "PETG",
+      "quantity": 1,
+      "volume_cm3": 67.0,
+      "solid_mass_g": 85.09,
+      "print_bounds_mm": [
+        125.367,
+        68.673,
+        108.0
+      ],
+      "support_required": true,
+      "watertight": true,
+      "sha256": "9eab61bc7dca070d118510b13db89b8c2661d8e5ebd61baeec184ff2ab1aaff8"
+    },
+    {
+      "name": "camera-lens-cassette",
+      "material": "PETG",
+      "quantity": 1,
+      "volume_cm3": 121.778,
+      "solid_mass_g": 154.66,
+      "print_bounds_mm": [
+        108.0,
+        86.0,
+        17.7
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "2f94ec18156d6f4eed4c2da52fb44485c79c4c8ad908d325454507eb3bb3ef78"
+    },
+    {
+      "name": "camera-lens-retainer",
+      "material": "PETG",
+      "quantity": 1,
+      "volume_cm3": 9.175,
+      "solid_mass_g": 11.65,
+      "print_bounds_mm": [
+        76.0,
+        76.0,
+        2.4
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "18dce666d83443f88db35500b56a0a12914c2fed35a545521437b880f8a4a039"
+    },
+    {
+      "name": "camera-lens-front-pad",
+      "material": "TPU",
+      "quantity": 1,
+      "volume_cm3": 0.06,
+      "solid_mass_g": 0.07,
+      "print_bounds_mm": [
+        53.188,
+        53.194,
+        0.2
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "dbfa698efdab371ec8fa3f06f44f70603bac01220227fc6dc09b218d6035e0bc"
+    },
+    {
+      "name": "camera-lens-shim-0.4",
+      "material": "TPU",
+      "quantity": 1,
+      "volume_cm3": 0.108,
+      "solid_mass_g": 0.13,
+      "print_bounds_mm": [
+        53.185,
+        52.121,
+        0.4
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "8d495e8b8db0dfd2c8ee4e6c8379fb829ce966a7f3bf359d074e39faf7a437ab"
+    },
+    {
+      "name": "journal-fit-39.98",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 9.366,
+      "solid_mass_g": 12.55,
+      "print_bounds_mm": [
+        48.0,
+        42.988,
+        7.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "6c4520fdb8c8aac101a694979949b4afdc0aabe22ef55a742f609abbc39f5bce"
+    },
+    {
+      "name": "journal-fit-40.04",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 9.391,
+      "solid_mass_g": 12.58,
+      "print_bounds_mm": [
+        48.0,
+        43.018,
+        7.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "74fa4a19fd2e44592897ad988061a5fa09fe6b979f9f765aabc010def8538ca8"
+    },
+    {
+      "name": "journal-fit-40.06",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 9.399,
+      "solid_mass_g": 12.59,
+      "print_bounds_mm": [
+        48.0,
+        43.028,
+        7.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "f509d22f2d2be1b7ffb6d4544510a29491c64d7a017648862d95534881367df4"
+    },
+    {
+      "name": "housing-fit-52.00",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 8.012,
+      "solid_mass_g": 10.74,
+      "print_bounds_mm": [
+        63.99,
+        63.993,
+        7.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "69bca373e19310d9dd546bbcf111bfa074391ac28eb87d54c578fdb4dca47ef4"
+    },
+    {
+      "name": "housing-fit-52.03",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 7.996,
+      "solid_mass_g": 10.71,
+      "print_bounds_mm": [
+        63.99,
+        63.993,
+        7.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "97ca7d795a152bcbd87908abb002d03270e1f68138ba4a7dcb07cfda166dfcf4"
+    },
+    {
+      "name": "housing-fit-52.08",
+      "material": "PET-CF17",
+      "quantity": 1,
+      "volume_cm3": 7.968,
+      "solid_mass_g": 10.68,
+      "print_bounds_mm": [
+        63.99,
+        63.993,
+        7.0
+      ],
+      "support_required": false,
+      "watertight": true,
+      "sha256": "8a7dba19e6dc2ec4acb7b9afa1dc965c36a92a7f2de0845929810316a8beaecf"
+    }
+  ]
+}

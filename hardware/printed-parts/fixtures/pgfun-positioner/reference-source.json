@@ -1,0 +1,10 @@
+{
+  "sources": {
+    "hardware/reference/xlaserlab-sup29f-xh/xlaserlab_sup29f_xh.py": "337e9cd63a1b1b8d85c5d4bdb65304df518b243f395489282115977a253a9d2a",
+    "hardware/reference/xlaserlab-sup29f-xh/source/reconstructed-surfaces.npz": "7f4238a38f42f251f2b9665de6eefa4d805abcead8c1ba930f69a2a5c37d0bf8",
+    "hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py": "3f6e442f840306d98038e843f284792fbdbce7260c2243bd72947a1072a55982",
+    "hardware/printed-parts/fixtures/weld-rotator/_rotator_interface.py": "f311ff6b36b0ad61d928c46109adaf6bcdf31e767baee5cb8433c1d29ffff584"
+  },
+  "mesh_sha256": "4b9e4651bc799bdb67ef6e4fbceb42a4f97c36fe26d12b26cfbbc66090ffe205",
+  "scope": "Pinned exterior gun reconstruction, rotator CAD and nominal recessed cap; received fit is unmeasured."
+}

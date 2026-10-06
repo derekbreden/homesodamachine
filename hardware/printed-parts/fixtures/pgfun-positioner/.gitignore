@@ -1,0 +1,7 @@
+parts/*.stl
+parts/*.step.mesh
+assembly.step.mesh
+assembly-meshes.npz
+reference-meshes.npz
+display-meshes.json
+__pycache__/

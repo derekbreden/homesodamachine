@@ -1,0 +1,11 @@
+{
+  "manual_focus": false,
+  "manual_exposure": false,
+  "auto_tracking": true,
+  "mm_per_pixel": [null, null],
+  "stationary_sigma_px": null,
+  "noise_qualified": false,
+  "dot": {"roi": null, "channel": "red", "threshold_sigma": 6, "min_pixels": 3, "max_pixels": 20000},
+  "wire": {"roi": null, "approach_deg": 180, "polarity": "dark", "threshold_sigma": 5, "min_pixels": 30, "min_elongation": 3},
+  "seam": {"roi": null, "orientation": "horizontal", "inlier_px": 1, "min_inlier_fraction": 0.6, "min_edge_sigma": 5}
+}
