@@ -1,6 +1,934 @@
 {
   "revision": "pgfun-two-axis-r1",
   "geometry_sha256": "09f3665148688bdbd9795258021a0ef286fc9b484ecf4db4f7ca0f8d2c31727b",
-  "status": "awaiting_publication",
-  "scope": "Served-byte verification recorded after publication"
+  "status": "verified",
+  "checked_utc": "2026-10-06T06:22:00.312246+00:00",
+  "engineering_commit": "c9cd815236966d9185d3981eb987c98321f5ac78",
+  "guide_commit": "c70cfcf0ff39044672a8542d8a2403508060e132",
+  "guide_pages": 35,
+  "cad_files_verified": 122,
+  "cad_byte_downloads": [
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/assembly.step",
+      "url": "https://objects.homesodamachine.com/s-086168b1b0839e18bc128ceaa895df5d1dc89d03345c9790b4f5c2d90b498289.gz",
+      "sha256": "086168b1b0839e18bc128ceaa895df5d1dc89d03345c9790b4f5c2d90b498289",
+      "bytes": 10052868,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/assembly.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-1735eeac93c29bfcfa59c8aaf4c7e03953a37eaa1ba80d167a45cb98a16e4afb.gz",
+      "sha256": "1735eeac93c29bfcfa59c8aaf4c7e03953a37eaa1ba80d167a45cb98a16e4afb",
+      "bytes": 5887584,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/axle-collet-spacer.step",
+      "url": "https://objects.homesodamachine.com/s-85485c8fec15e4a683c562eb6fcadb1e92f7b336b7009803efeced4925179aae.gz",
+      "sha256": "85485c8fec15e4a683c562eb6fcadb1e92f7b336b7009803efeced4925179aae",
+      "bytes": 12390,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/axle-end-spacer.step",
+      "url": "https://objects.homesodamachine.com/s-c5ba92569be1d2c300d0f05bbcb8f608641d8556becabb0fa20c7cff7a83b143.gz",
+      "sha256": "c5ba92569be1d2c300d0f05bbcb8f608641d8556becabb0fa20c7cff7a83b143",
+      "bytes": 12388,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/axle-front-stop-spacer.step",
+      "url": "https://objects.homesodamachine.com/s-7d6f4106dc28171e8f19dcf6adff8f385341a1d0e379b8f66cfec5a62e9c91c3.gz",
+      "sha256": "7d6f4106dc28171e8f19dcf6adff8f385341a1d0e379b8f66cfec5a62e9c91c3",
+      "bytes": 12412,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/axle-keeper.step",
+      "url": "https://objects.homesodamachine.com/s-02dfbb657798f64a5ec34b4e38c5ee800e711760e4d274c200f7148e42f8f837.gz",
+      "sha256": "02dfbb657798f64a5ec34b4e38c5ee800e711760e4d274c200f7148e42f8f837",
+      "bytes": 12411,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/axle-middle-spacer.step",
+      "url": "https://objects.homesodamachine.com/s-36cc99cd2d74972af619ad3f4bf4715143a80c15cb6ac1764edca316a415515d.gz",
+      "sha256": "36cc99cd2d74972af619ad3f4bf4715143a80c15cb6ac1764edca316a415515d",
+      "bytes": 12397,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/bench-toe-1.step",
+      "url": "https://objects.homesodamachine.com/s-b3ea3238c582608c17dbd68c2d51c6e82b15b4eec6bbcf0889b8248857b72463.gz",
+      "sha256": "b3ea3238c582608c17dbd68c2d51c6e82b15b4eec6bbcf0889b8248857b72463",
+      "bytes": 70638,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/bench-toe-2.step",
+      "url": "https://objects.homesodamachine.com/s-a5de16c15f13257f35c3c1b9851611b79820fa47f8d8384ee2591bf2043b3482.gz",
+      "sha256": "a5de16c15f13257f35c3c1b9851611b79820fa47f8d8384ee2591bf2043b3482",
+      "bytes": 70638,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/bottom-frame-tie.step",
+      "url": "https://objects.homesodamachine.com/s-783993526fd530cb6b6405c3c5743a4218a191fade5f5428789faa26586ea8ec.gz",
+      "sha256": "783993526fd530cb6b6405c3c5743a4218a191fade5f5428789faa26586ea8ec",
+      "bytes": 175751,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/bridge.step",
+      "url": "https://objects.homesodamachine.com/s-fcbcaf4b14e5357e33ad3bbd7db3bfcad089c614cb10b08d36335cfdd75831fb.gz",
+      "sha256": "fcbcaf4b14e5357e33ad3bbd7db3bfcad089c614cb10b08d36335cfdd75831fb",
+      "bytes": 204836,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/camera-lens-cassette.step",
+      "url": "https://objects.homesodamachine.com/s-78a15d17e170447f725d27b23d0e280d80a8e13a3294f7b9502c40b33e4eb3c1.gz",
+      "sha256": "78a15d17e170447f725d27b23d0e280d80a8e13a3294f7b9502c40b33e4eb3c1",
+      "bytes": 175188,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/camera-lens-front-pad.step",
+      "url": "https://objects.homesodamachine.com/s-308ff82517893afcd0131626f365346701dbc8aa3e0fb490b3e05c13761b734b.gz",
+      "sha256": "308ff82517893afcd0131626f365346701dbc8aa3e0fb490b3e05c13761b734b",
+      "bytes": 12532,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/camera-lens-retainer.step",
+      "url": "https://objects.homesodamachine.com/s-59c926389c76c5bf44b0f8b39c706eb9eced91f506a7f40e989180ec4314f9ed.gz",
+      "sha256": "59c926389c76c5bf44b0f8b39c706eb9eced91f506a7f40e989180ec4314f9ed",
+      "bytes": 41153,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/camera-lens-shim-0.4.step",
+      "url": "https://objects.homesodamachine.com/s-9b22522f8e676234477b35e4cc837278770eddc3f4682206178028943a5da6f4.gz",
+      "sha256": "9b22522f8e676234477b35e4cc837278770eddc3f4682206178028943a5da6f4",
+      "bytes": 19593,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/camera-lens-upright.step",
+      "url": "https://objects.homesodamachine.com/s-cb5503dd41dadc0f9d5bae0da85996af0d2106c5a8a2f61cdb899074d5f0a8fa.gz",
+      "sha256": "cb5503dd41dadc0f9d5bae0da85996af0d2106c5a8a2f61cdb899074d5f0a8fa",
+      "bytes": 206097,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/camera-riser-base.step",
+      "url": "https://objects.homesodamachine.com/s-79fe19d1778dee2be4f44fe2fe8c5d61bf71645f08dcb653a0d07bcdf2666dfb.gz",
+      "sha256": "79fe19d1778dee2be4f44fe2fe8c5d61bf71645f08dcb653a0d07bcdf2666dfb",
+      "bytes": 330221,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/camera-riser-top.step",
+      "url": "https://objects.homesodamachine.com/s-62a3b781070109b55d93d6c14cca21f1ea62686594b0c37ded9a01043469b3b3.gz",
+      "sha256": "62a3b781070109b55d93d6c14cca21f1ea62686594b0c37ded9a01043469b3b3",
+      "bytes": 223776,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/controller-case.step",
+      "url": "https://objects.homesodamachine.com/s-6775d8491f0fc6f9b85b1c79ab3856b9b928b28bd06fed465b2ab1be352014ba.gz",
+      "sha256": "6775d8491f0fc6f9b85b1c79ab3856b9b928b28bd06fed465b2ab1be352014ba",
+      "bytes": 394677,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/controller-lid.step",
+      "url": "https://objects.homesodamachine.com/s-7729282cfb427af3c4af6d90ec89a953aefff2fdae510ea4676e4d47fc5ede12.gz",
+      "sha256": "7729282cfb427af3c4af6d90ec89a953aefff2fdae510ea4676e4d47fc5ede12",
+      "bytes": 65602,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/fan-guard.step",
+      "url": "https://objects.homesodamachine.com/s-6000cdfa9a1a528b2d743cb558602919172b4d105f1d1d3b01b40ec6649e5cfc.gz",
+      "sha256": "6000cdfa9a1a528b2d743cb558602919172b4d105f1d1d3b01b40ec6649e5cfc",
+      "bytes": 108565,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/fork.step",
+      "url": "https://objects.homesodamachine.com/s-4611d3df4c4aacfd3810beab79f1d2a5f7c13c049d1361acd785ec8943466525.gz",
+      "sha256": "4611d3df4c4aacfd3810beab79f1d2a5f7c13c049d1361acd785ec8943466525",
+      "bytes": 1201457,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/gun-retainer-1.step",
+      "url": "https://objects.homesodamachine.com/s-dd6165747dab7d469509e244df0bb4c5c57692e2854a0d1eeb89268bc2f80a0a.gz",
+      "sha256": "dd6165747dab7d469509e244df0bb4c5c57692e2854a0d1eeb89268bc2f80a0a",
+      "bytes": 89860,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/gun-retainer-2.step",
+      "url": "https://objects.homesodamachine.com/s-6904d0921f1385dd4c88e39a7194112bff07af91d5cd37f4071327f02ccc28e1.gz",
+      "sha256": "6904d0921f1385dd4c88e39a7194112bff07af91d5cd37f4071327f02ccc28e1",
+      "bytes": 97640,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/housing-fit-52.00.step",
+      "url": "https://objects.homesodamachine.com/s-4421db08c8cdc179c9d65a226cada91cd428d2b4053e2e04c273273e2bb116a9.gz",
+      "sha256": "4421db08c8cdc179c9d65a226cada91cd428d2b4053e2e04c273273e2bb116a9",
+      "bytes": 531520,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/housing-fit-52.03.step",
+      "url": "https://objects.homesodamachine.com/s-a9b19896a2e427fb4912e596e6bfde32c54989a976c84d395b13ab390b493028.gz",
+      "sha256": "a9b19896a2e427fb4912e596e6bfde32c54989a976c84d395b13ab390b493028",
+      "bytes": 578094,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/housing-fit-52.08.step",
+      "url": "https://objects.homesodamachine.com/s-0c3d22c7f6882b862f0048331960769bf4c062de3db0a95bd9205e8e7f663b2a.gz",
+      "sha256": "0c3d22c7f6882b862f0048331960769bf4c062de3db0a95bd9205e8e7f663b2a",
+      "bytes": 606801,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/journal-fit-39.98.step",
+      "url": "https://objects.homesodamachine.com/s-609aced9f53cba28f31787c9a8d3b9a4ad38b715011d79b3044237542289cef9.gz",
+      "sha256": "609aced9f53cba28f31787c9a8d3b9a4ad38b715011d79b3044237542289cef9",
+      "bytes": 743591,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/journal-fit-40.04.step",
+      "url": "https://objects.homesodamachine.com/s-91dd89e334112dd377c45e01ca4627dc486dfd386ca76e6e78f7847e522e5182.gz",
+      "sha256": "91dd89e334112dd377c45e01ca4627dc486dfd386ca76e6e78f7847e522e5182",
+      "bytes": 426862,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/journal-fit-40.06.step",
+      "url": "https://objects.homesodamachine.com/s-ee5de33e8475441b159daadc7094f399ccaeb10ee8bd4e04ed88da87aa32e67a.gz",
+      "sha256": "ee5de33e8475441b159daadc7094f399ccaeb10ee8bd4e04ed88da87aa32e67a",
+      "bytes": 529884,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/left-cheek.step",
+      "url": "https://objects.homesodamachine.com/s-7c3be53bf94828fd0ea9b3562b4f2cb2adcc5cb5d809a01cf2e9c8732aee6311.gz",
+      "sha256": "7c3be53bf94828fd0ea9b3562b4f2cb2adcc5cb5d809a01cf2e9c8732aee6311",
+      "bytes": 252460,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/liner-1-lower.step",
+      "url": "https://objects.homesodamachine.com/s-649bd4681f25c3b7b7a3b5dcfb7d467f45015314d46747fc6ab1ea060899f64c.gz",
+      "sha256": "649bd4681f25c3b7b7a3b5dcfb7d467f45015314d46747fc6ab1ea060899f64c",
+      "bytes": 145813,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/liner-1-upper.step",
+      "url": "https://objects.homesodamachine.com/s-dbb934d84e070dba41daa30d8a4fc48aec698b455abf86c27855f4c384c999a1.gz",
+      "sha256": "dbb934d84e070dba41daa30d8a4fc48aec698b455abf86c27855f4c384c999a1",
+      "bytes": 114700,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/liner-2-lower.step",
+      "url": "https://objects.homesodamachine.com/s-c5caee0a67e1930ec85482af8f41273fa7aac63659aeb18a6f858d06775ab40d.gz",
+      "sha256": "c5caee0a67e1930ec85482af8f41273fa7aac63659aeb18a6f858d06775ab40d",
+      "bytes": 137741,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/liner-2-upper.step",
+      "url": "https://objects.homesodamachine.com/s-b74c9e59211ed3654caee88bb488f0ab9a9933ccbdedfcae9a1b4133daaf6a61.gz",
+      "sha256": "b74c9e59211ed3654caee88bb488f0ab9a9933ccbdedfcae9a1b4133daaf6a61",
+      "bytes": 130914,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/lower-cradle.step",
+      "url": "https://objects.homesodamachine.com/s-262018dd50d51a76d8600658911b0725566b07f85698df439a481cb6017f61f1.gz",
+      "sha256": "262018dd50d51a76d8600658911b0725566b07f85698df439a481cb6017f61f1",
+      "bytes": 600883,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/motor-pedestal.step",
+      "url": "https://objects.homesodamachine.com/s-05356a571f588433dfcc4e855c734d65c53525821afb86eff5ac17a7932c46bc.gz",
+      "sha256": "05356a571f588433dfcc4e855c734d65c53525821afb86eff5ac17a7932c46bc",
+      "bytes": 370100,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/opposite-bearing-cap.step",
+      "url": "https://objects.homesodamachine.com/s-6d4135631f3326b5dc29b647b77a35ffba9aa906f04f7197cbdfec1b7d7b88c0.gz",
+      "sha256": "6d4135631f3326b5dc29b647b77a35ffba9aa906f04f7197cbdfec1b7d7b88c0",
+      "bytes": 32902,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/opposite-inner-spacer.step",
+      "url": "https://objects.homesodamachine.com/s-ec77a453061beb42fcf2cf699276139a1045685e9f81aa277139e9291c31f308.gz",
+      "sha256": "ec77a453061beb42fcf2cf699276139a1045685e9f81aa277139e9291c31f308",
+      "bytes": 12399,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/pitch-bearing-cap.step",
+      "url": "https://objects.homesodamachine.com/s-4f5379194ef54cf86c6e4dfb6edd82281f467384b6692d50c832fef34506463d.gz",
+      "sha256": "4f5379194ef54cf86c6e4dfb6edd82281f467384b6692d50c832fef34506463d",
+      "bytes": 32899,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/pitch-inner-spacer.step",
+      "url": "https://objects.homesodamachine.com/s-0d36678783ad93cb47b7336aa0142fabfdf9215bd271c6fc3ea5e530a7795d41.gz",
+      "sha256": "0d36678783ad93cb47b7336aa0142fabfdf9215bd271c6fc3ea5e530a7795d41",
+      "bytes": 12470,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/pitch-journal.step",
+      "url": "https://objects.homesodamachine.com/s-901df161d6da7dc29115e97d0d24a423478a41339e7f949f83d117f96979697e.gz",
+      "sha256": "901df161d6da7dc29115e97d0d24a423478a41339e7f949f83d117f96979697e",
+      "bytes": 409150,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/pitch-limit-holder--1.step",
+      "url": "https://objects.homesodamachine.com/s-0e1938b77d9129d146ab00391cb6274a20c4efd0477a4d1ef505b3334d360e75.gz",
+      "sha256": "0e1938b77d9129d146ab00391cb6274a20c4efd0477a4d1ef505b3334d360e75",
+      "bytes": 121775,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/pitch-limit-holder-1.step",
+      "url": "https://objects.homesodamachine.com/s-c2cbac5c63bd6170aa6214d441b4cb2e13993a25286134cb2119b633d22cf17a.gz",
+      "sha256": "c2cbac5c63bd6170aa6214d441b4cb2e13993a25286134cb2119b633d22cf17a",
+      "bytes": 122303,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/pitch-outer-spacer.step",
+      "url": "https://objects.homesodamachine.com/s-dc826697f73320424e90974623aacee8c6c461899c14b1b7459058950bde5efc.gz",
+      "sha256": "dc826697f73320424e90974623aacee8c6c461899c14b1b7459058950bde5efc",
+      "bytes": 12596,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/pitch-output-adapter.step",
+      "url": "https://objects.homesodamachine.com/s-fc288c8b4458e6934545a60ab684e56acd0fdf3f7dd23d24c6db11df959a39e3.gz",
+      "sha256": "fc288c8b4458e6934545a60ab684e56acd0fdf3f7dd23d24c6db11df959a39e3",
+      "bytes": 415490,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/pitch-stop-sector.step",
+      "url": "https://objects.homesodamachine.com/s-431d3f9dca671ef689fb22a48d7255c1f9e39aac2962a5a1c89cbd4644395609.gz",
+      "sha256": "431d3f9dca671ef689fb22a48d7255c1f9e39aac2962a5a1c89cbd4644395609",
+      "bytes": 110189,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/pitch-switch-standoff--1.step",
+      "url": "https://objects.homesodamachine.com/s-d169b49d0e3a0d4fe2befbb046adc1fe45e353f8c7de95eae636fb56cd6db7d9.gz",
+      "sha256": "d169b49d0e3a0d4fe2befbb046adc1fe45e353f8c7de95eae636fb56cd6db7d9",
+      "bytes": 22182,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/pitch-switch-standoff-1.step",
+      "url": "https://objects.homesodamachine.com/s-80b66486d0dbe552e99348f8ab4e217984e181d75aa9393d1f7170cf7bd63760.gz",
+      "sha256": "80b66486d0dbe552e99348f8ab4e217984e181d75aa9393d1f7170cf7bd63760",
+      "bytes": 22179,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/right-cheek.step",
+      "url": "https://objects.homesodamachine.com/s-53210613c890acb71a57f8b1c67a54ae30001a3e4d7d35620057911f43c489e7.gz",
+      "sha256": "53210613c890acb71a57f8b1c67a54ae30001a3e4d7d35620057911f43c489e7",
+      "bytes": 244986,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/umbilical-post-base.step",
+      "url": "https://objects.homesodamachine.com/s-286ca5e5df29b09de33eeabf4dfefc5a98efab7d0c3c75fdc71d2333351f7eaa.gz",
+      "sha256": "286ca5e5df29b09de33eeabf4dfefc5a98efab7d0c3c75fdc71d2333351f7eaa",
+      "bytes": 187051,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/umbilical-post-top.step",
+      "url": "https://objects.homesodamachine.com/s-86ca0c90b6649f7087acdd82cee3a7a9ded4f93e9d038ea95111c74d6bf00b14.gz",
+      "sha256": "86ca0c90b6649f7087acdd82cee3a7a9ded4f93e9d038ea95111c74d6bf00b14",
+      "bytes": 187048,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/umbilical-saddle.step",
+      "url": "https://objects.homesodamachine.com/s-d97b96bdb0d27663ccbff81533a3b73481661fd8f81aaecc52bee2ee10366bcc.gz",
+      "sha256": "d97b96bdb0d27663ccbff81533a3b73481661fd8f81aaecc52bee2ee10366bcc",
+      "bytes": 87939,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/yaw-bearing-cap.step",
+      "url": "https://objects.homesodamachine.com/s-d65ea7a6d987ea2cc0956fe46576d3864d7d04c001cb0e9610bd7deaa3473ad2.gz",
+      "sha256": "d65ea7a6d987ea2cc0956fe46576d3864d7d04c001cb0e9610bd7deaa3473ad2",
+      "bytes": 32890,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/yaw-bearing-cartridge.step",
+      "url": "https://objects.homesodamachine.com/s-5595b1d0dab97e8359709d81d4e7ce485a7297ee7a83f62592e44eb691dced20.gz",
+      "sha256": "5595b1d0dab97e8359709d81d4e7ce485a7297ee7a83f62592e44eb691dced20",
+      "bytes": 466477,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/yaw-inner-spacer.step",
+      "url": "https://objects.homesodamachine.com/s-93b963ab1b78bf484171db893a99f6a7fc3f222076192ea6854d79789e6e84cd.gz",
+      "sha256": "93b963ab1b78bf484171db893a99f6a7fc3f222076192ea6854d79789e6e84cd",
+      "bytes": 12464,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/yaw-journal.step",
+      "url": "https://objects.homesodamachine.com/s-fdeec48421b48e7091f2326d14636a640bc6a77e5bf7c32ad33277b84e839a11.gz",
+      "sha256": "fdeec48421b48e7091f2326d14636a640bc6a77e5bf7c32ad33277b84e839a11",
+      "bytes": 409138,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/yaw-limit-holder--1.step",
+      "url": "https://objects.homesodamachine.com/s-46953d4add456708efb4caec3a5eeda6c489c867eb0d40169916be7057a5d25f.gz",
+      "sha256": "46953d4add456708efb4caec3a5eeda6c489c867eb0d40169916be7057a5d25f",
+      "bytes": 121769,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/yaw-limit-holder-1.step",
+      "url": "https://objects.homesodamachine.com/s-438d5fed1c7f8d82cae30772b97ae043a7d0737478498ed5e5f5440f7a7bc24c.gz",
+      "sha256": "438d5fed1c7f8d82cae30772b97ae043a7d0737478498ed5e5f5440f7a7bc24c",
+      "bytes": 122297,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/yaw-outer-spacer.step",
+      "url": "https://objects.homesodamachine.com/s-22458c3e0c40486fe9ae4a5bd4743d238a7944e28e698afce98721c100596b5e.gz",
+      "sha256": "22458c3e0c40486fe9ae4a5bd4743d238a7944e28e698afce98721c100596b5e",
+      "bytes": 12590,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/yaw-output-adapter.step",
+      "url": "https://objects.homesodamachine.com/s-7fdc02ddb3fa88c6984f04a59c0be88ab312d83cf202ebbb9ef8d9fc7d4d8694.gz",
+      "sha256": "7fdc02ddb3fa88c6984f04a59c0be88ab312d83cf202ebbb9ef8d9fc7d4d8694",
+      "bytes": 415481,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/yaw-stop-sector.step",
+      "url": "https://objects.homesodamachine.com/s-2f0a1ac8f246726e3969c0500218f3e8fb2d1088fe74ebe44a2b5a8dfe27ab2c.gz",
+      "sha256": "2f0a1ac8f246726e3969c0500218f3e8fb2d1088fe74ebe44a2b5a8dfe27ab2c",
+      "bytes": 110183,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/axle-collet-spacer.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-c6c485173cc14f1acd5e764ab4f4c12fd6b038f42203aa14eff122df1bbc5ad1.gz",
+      "sha256": "c6c485173cc14f1acd5e764ab4f4c12fd6b038f42203aa14eff122df1bbc5ad1",
+      "bytes": 30572,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/axle-end-spacer.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-0f0ccf7d120e748dcd6ae0f0e8f14d2350f1d244340f7f590f1cee6db935476a.gz",
+      "sha256": "0f0ccf7d120e748dcd6ae0f0e8f14d2350f1d244340f7f590f1cee6db935476a",
+      "bytes": 30568,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/axle-front-stop-spacer.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-36b211f652c349438e48fad52077e5109800179ec0015d45a4e11bfc8a5db490.gz",
+      "sha256": "36b211f652c349438e48fad52077e5109800179ec0015d45a4e11bfc8a5db490",
+      "bytes": 30576,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/axle-keeper.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-80eef3f36e6d33f89063f996470f30d66e39753cc55cff2e14fdfd7bd18b85b5.gz",
+      "sha256": "80eef3f36e6d33f89063f996470f30d66e39753cc55cff2e14fdfd7bd18b85b5",
+      "bytes": 30564,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/axle-middle-spacer.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-fea7586cc1f874069a7aa85f661b810c3956297b45e319bdf4420415655a1eef.gz",
+      "sha256": "fea7586cc1f874069a7aa85f661b810c3956297b45e319bdf4420415655a1eef",
+      "bytes": 30572,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/bench-toe-1.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-7e24a077714fa2c4b4c12969306df1af8c7bbb0cd1d65d3a8b5348958da626b4.gz",
+      "sha256": "7e24a077714fa2c4b4c12969306df1af8c7bbb0cd1d65d3a8b5348958da626b4",
+      "bytes": 63692,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/bench-toe-2.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-45b85897e191720a8468feaeee4e968613e562d540ffb555feaa760504f765be.gz",
+      "sha256": "45b85897e191720a8468feaeee4e968613e562d540ffb555feaa760504f765be",
+      "bytes": 63692,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/bottom-frame-tie.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-30c1c21b4f295370bcc3f5d9848500f8b2da0577ee539fe19b95a3030ad1fd94.gz",
+      "sha256": "30c1c21b4f295370bcc3f5d9848500f8b2da0577ee539fe19b95a3030ad1fd94",
+      "bytes": 99356,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/bridge.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-3ca9ef1865c4cdb93f8439df96ae26f4adb0946a0450dca16cbd1170c6676bef.gz",
+      "sha256": "3ca9ef1865c4cdb93f8439df96ae26f4adb0946a0450dca16cbd1170c6676bef",
+      "bytes": 178692,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/camera-lens-cassette.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-a8e204b7b8cab117fe77702fa3caa1d041f5d1681348f74e51eb7b37937ae8e0.gz",
+      "sha256": "a8e204b7b8cab117fe77702fa3caa1d041f5d1681348f74e51eb7b37937ae8e0",
+      "bytes": 218172,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/camera-lens-front-pad.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-1fe2f7fbbf74f739981ea450c577ed8f5dc3d42ebd4b1429209f2a43e42cd196.gz",
+      "sha256": "1fe2f7fbbf74f739981ea450c577ed8f5dc3d42ebd4b1429209f2a43e42cd196",
+      "bytes": 30576,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/camera-lens-retainer.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-7ef495e7a8da6f510b76ddc32b777f8c0787c83f255872347ff3ef3195a78a09.gz",
+      "sha256": "7ef495e7a8da6f510b76ddc32b777f8c0787c83f255872347ff3ef3195a78a09",
+      "bytes": 76952,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/camera-lens-shim-0.4.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-ec8495880409049842010984861f14dba6da40bfcfb0ef5108191dc5e2fab8f4.gz",
+      "sha256": "ec8495880409049842010984861f14dba6da40bfcfb0ef5108191dc5e2fab8f4",
+      "bytes": 28284,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/camera-lens-upright.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-1a2c048c73842c9347064c0afb0570c82d1d7b64d26d613448ecb30b8b151083.gz",
+      "sha256": "1a2c048c73842c9347064c0afb0570c82d1d7b64d26d613448ecb30b8b151083",
+      "bytes": 86060,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/camera-riser-base.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-16d5dcd70b4600bfef3a2955bbc4753a02db64db5d175f603720b5c7f19ce453.gz",
+      "sha256": "16d5dcd70b4600bfef3a2955bbc4753a02db64db5d175f603720b5c7f19ce453",
+      "bytes": 255760,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/camera-riser-top.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-845e7000c1ac0e8b6aaadf17bf3a61de83f4e5796111faa18f550eacefa9305a.gz",
+      "sha256": "845e7000c1ac0e8b6aaadf17bf3a61de83f4e5796111faa18f550eacefa9305a",
+      "bytes": 220816,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/controller-case.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-d10e7edd25724f44c23d8720d8b45bf9240886ac4318a9dfe25d5e0f67991370.gz",
+      "sha256": "d10e7edd25724f44c23d8720d8b45bf9240886ac4318a9dfe25d5e0f67991370",
+      "bytes": 370104,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/controller-lid.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-225a52411d899123c3167afcc9329a92e94d1b3d13858a96abe63e9c73a7c1c6.gz",
+      "sha256": "225a52411d899123c3167afcc9329a92e94d1b3d13858a96abe63e9c73a7c1c6",
+      "bytes": 152828,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/fan-guard.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-2a6da9f3be74d784f6ca5cf665c77540b1e1eda9b98ea5cda8ef146a1eef86f3.gz",
+      "sha256": "2a6da9f3be74d784f6ca5cf665c77540b1e1eda9b98ea5cda8ef146a1eef86f3",
+      "bytes": 29284,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/fork.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-e8472645a75cfc9a5ab7e622879825b9217051314328211d4285f6ec97a42367.gz",
+      "sha256": "e8472645a75cfc9a5ab7e622879825b9217051314328211d4285f6ec97a42367",
+      "bytes": 653476,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/gun-retainer-1.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-001b162730864551bcb41e21a91923a11cdd7584b7b709afeda142d37185e520.gz",
+      "sha256": "001b162730864551bcb41e21a91923a11cdd7584b7b709afeda142d37185e520",
+      "bytes": 63816,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/gun-retainer-2.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-c8675e41cc87c8222e339bef32ccf1d4c5c844e7ea7c1c2f6804009fb37a62d3.gz",
+      "sha256": "c8675e41cc87c8222e339bef32ccf1d4c5c844e7ea7c1c2f6804009fb37a62d3",
+      "bytes": 64104,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/housing-fit-52.00.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-f77ddf2c377b2c5ea09d8b5125803cf216c97995352a0260c57c15625b669d87.gz",
+      "sha256": "f77ddf2c377b2c5ea09d8b5125803cf216c97995352a0260c57c15625b669d87",
+      "bytes": 219968,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/housing-fit-52.03.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-8f752c680a4c8f1c31b91dc8556bf2e6cff8831c33a95dd3545bf408c2c8a1b2.gz",
+      "sha256": "8f752c680a4c8f1c31b91dc8556bf2e6cff8831c33a95dd3545bf408c2c8a1b2",
+      "bytes": 238944,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/housing-fit-52.08.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-1a8ff75b7a6dcf26292f6599561af35780089db41603596c97a862bf38d22f44.gz",
+      "sha256": "1a8ff75b7a6dcf26292f6599561af35780089db41603596c97a862bf38d22f44",
+      "bytes": 258232,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/journal-fit-39.98.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-4c73834017e7034d42340342aa70d620069848b51b4c3636f41ce3a8ed9f29f9.gz",
+      "sha256": "4c73834017e7034d42340342aa70d620069848b51b4c3636f41ce3a8ed9f29f9",
+      "bytes": 321176,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/journal-fit-40.04.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-13514bdad23980f6a27568bd3529c58f5b756509cb9ba86c42c602446b8bdce5.gz",
+      "sha256": "13514bdad23980f6a27568bd3529c58f5b756509cb9ba86c42c602446b8bdce5",
+      "bytes": 132832,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/journal-fit-40.06.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-9702a73981792e749e7c076775c1537fdc59980b01a3f9359d5da3b38018195f.gz",
+      "sha256": "9702a73981792e749e7c076775c1537fdc59980b01a3f9359d5da3b38018195f",
+      "bytes": 197704,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/left-cheek.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-ab3fa9e8a26324b203a04d3f929a6d9d1922668c6573b07a100afdfa37e3dcd1.gz",
+      "sha256": "ab3fa9e8a26324b203a04d3f929a6d9d1922668c6573b07a100afdfa37e3dcd1",
+      "bytes": 273804,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/liner-1-lower.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-01f3a35f8e57a2ded050c6d533196426a8e7d7a6b238577b6fc9fc72665d7f3f.gz",
+      "sha256": "01f3a35f8e57a2ded050c6d533196426a8e7d7a6b238577b6fc9fc72665d7f3f",
+      "bytes": 5664,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/liner-1-upper.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-a8cd50a7c1dc52d8ce33996e8352a893e0068deb0e1fe8706d438980b9942ca2.gz",
+      "sha256": "a8cd50a7c1dc52d8ce33996e8352a893e0068deb0e1fe8706d438980b9942ca2",
+      "bytes": 4512,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/liner-2-lower.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-82e373460526916871d5b1a2a709c0b8be35dc4ae9dc8482823ba5d1d3fb9715.gz",
+      "sha256": "82e373460526916871d5b1a2a709c0b8be35dc4ae9dc8482823ba5d1d3fb9715",
+      "bytes": 5376,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/liner-2-upper.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-994a4463da4a02424396378ad6cb7fde68f94b07c10acb5c1624f28ac56e6a40.gz",
+      "sha256": "994a4463da4a02424396378ad6cb7fde68f94b07c10acb5c1624f28ac56e6a40",
+      "bytes": 5088,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/lower-cradle.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-dc6e04cb81375e49bca7ebb6821f469907f96f332e442db4517838368588740c.gz",
+      "sha256": "dc6e04cb81375e49bca7ebb6821f469907f96f332e442db4517838368588740c",
+      "bytes": 208884,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/motor-pedestal.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-11d944d5688158552217677f8b67257571d84bc473bca7f5b25628bf2aff83d5.gz",
+      "sha256": "11d944d5688158552217677f8b67257571d84bc473bca7f5b25628bf2aff83d5",
+      "bytes": 333096,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/opposite-bearing-cap.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-b072a5729a2b5f556c6810a9761aa0f33f2894077e1f9dc60609aeff39223f9a.gz",
+      "sha256": "b072a5729a2b5f556c6810a9761aa0f33f2894077e1f9dc60609aeff39223f9a",
+      "bytes": 91280,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/opposite-inner-spacer.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-b0e4b98734e851a1c40cfdbc9134fe26adcc3455ee762cc8fe3c35b929469ff3.gz",
+      "sha256": "b0e4b98734e851a1c40cfdbc9134fe26adcc3455ee762cc8fe3c35b929469ff3",
+      "bytes": 30576,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/pitch-bearing-cap.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-8306e6d70e00ba750ad8a7b9bc9701348f3dbcdeb94fa39ca09303ac86638581.gz",
+      "sha256": "8306e6d70e00ba750ad8a7b9bc9701348f3dbcdeb94fa39ca09303ac86638581",
+      "bytes": 91276,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/pitch-inner-spacer.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-751bc3d4e4e07e444b52717ff3e9741b54b623d4efa1e97cd44b49b86e8d7c3b.gz",
+      "sha256": "751bc3d4e4e07e444b52717ff3e9741b54b623d4efa1e97cd44b49b86e8d7c3b",
+      "bytes": 30572,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/pitch-journal.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-e4fa31c43b9919de8fb794c1dee4b70f2930132ba70d7988e5f3643e74e79f0d.gz",
+      "sha256": "e4fa31c43b9919de8fb794c1dee4b70f2930132ba70d7988e5f3643e74e79f0d",
+      "bytes": 437960,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/pitch-limit-holder--1.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-091447c6bdd409b561757ca1cf8cc44d3376dc88b7fb76c6c6a63ea1069da3c1.gz",
+      "sha256": "091447c6bdd409b561757ca1cf8cc44d3376dc88b7fb76c6c6a63ea1069da3c1",
+      "bytes": 32192,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/pitch-limit-holder-1.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-cda61605ef2faa918e5dc1320422383b2e83045d388e9a13048849e63899815e.gz",
+      "sha256": "cda61605ef2faa918e5dc1320422383b2e83045d388e9a13048849e63899815e",
+      "bytes": 32192,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/pitch-outer-spacer.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-787d3ee3985bfa438527f575ab5b6662c20dcaea21a132f4142143f0980e6cfa.gz",
+      "sha256": "787d3ee3985bfa438527f575ab5b6662c20dcaea21a132f4142143f0980e6cfa",
+      "bytes": 30572,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/pitch-output-adapter.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-9b73dd35227383f020dfd9b3cbdcfaff1e993384a16ee62a96038cd55936f2f0.gz",
+      "sha256": "9b73dd35227383f020dfd9b3cbdcfaff1e993384a16ee62a96038cd55936f2f0",
+      "bytes": 330276,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/pitch-stop-sector.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-e49f00254365438e8b367bf84494189a63a3e3642458102802f7d9c90f709558.gz",
+      "sha256": "e49f00254365438e8b367bf84494189a63a3e3642458102802f7d9c90f709558",
+      "bytes": 110484,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/pitch-switch-standoff--1.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-798ead724ecc951bc307461974f27b565c1d466d47572e2aa019266ad332adfb.gz",
+      "sha256": "798ead724ecc951bc307461974f27b565c1d466d47572e2aa019266ad332adfb",
+      "bytes": 16248,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/pitch-switch-standoff-1.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-4249acb9210681bef241c866a43f6c9c138f41e76a27fd768e76669026490b02.gz",
+      "sha256": "4249acb9210681bef241c866a43f6c9c138f41e76a27fd768e76669026490b02",
+      "bytes": 16248,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/right-cheek.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-91b7cf199d0e4634faafa0da1b8ae7ccc9952c1da20657b618a4309a74ead9ce.gz",
+      "sha256": "91b7cf199d0e4634faafa0da1b8ae7ccc9952c1da20657b618a4309a74ead9ce",
+      "bytes": 191908,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/umbilical-post-base.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-2a3a8290a0fe0c830ac3d250142a618af977f651fb97f17e290b08e5fbcfaf76.gz",
+      "sha256": "2a3a8290a0fe0c830ac3d250142a618af977f651fb97f17e290b08e5fbcfaf76",
+      "bytes": 85188,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/umbilical-post-top.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-882f9b5f3f9d9f4901cd0046cdc26e9d7e814eec68234830d75d1c88c8adade6.gz",
+      "sha256": "882f9b5f3f9d9f4901cd0046cdc26e9d7e814eec68234830d75d1c88c8adade6",
+      "bytes": 85188,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/umbilical-saddle.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-4ec64e11e8e2093b34ea2176235d2e4e08038047ac4e68076535cbc19f2c8f47.gz",
+      "sha256": "4ec64e11e8e2093b34ea2176235d2e4e08038047ac4e68076535cbc19f2c8f47",
+      "bytes": 56756,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/yaw-bearing-cap.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-c2f04cb53ef16777227c49f646a40dbcd052c76103fc52fa70ac29e35ed56631.gz",
+      "sha256": "c2f04cb53ef16777227c49f646a40dbcd052c76103fc52fa70ac29e35ed56631",
+      "bytes": 91272,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/yaw-bearing-cartridge.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-20766023fa5c8da55c838793008f825979267cce29c5ec30b3ff39bff99ef598.gz",
+      "sha256": "20766023fa5c8da55c838793008f825979267cce29c5ec30b3ff39bff99ef598",
+      "bytes": 341184,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/yaw-inner-spacer.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-b8ef790cf8fac22e1f67cb1b10b33df7460d72d8b7be17964da6bdd85d03a6c1.gz",
+      "sha256": "b8ef790cf8fac22e1f67cb1b10b33df7460d72d8b7be17964da6bdd85d03a6c1",
+      "bytes": 30568,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/yaw-journal.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-b83266948d5532af5ae2f42daa4820fc9e1133407e539dc0bbbc419f5855bc76.gz",
+      "sha256": "b83266948d5532af5ae2f42daa4820fc9e1133407e539dc0bbbc419f5855bc76",
+      "bytes": 437956,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/yaw-limit-holder--1.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-90d039473f6833a2a391a42295e8ea675b649389ede7c2d3fbb1f7511bfaabdd.gz",
+      "sha256": "90d039473f6833a2a391a42295e8ea675b649389ede7c2d3fbb1f7511bfaabdd",
+      "bytes": 32188,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/yaw-limit-holder-1.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-d64607d0c51693962770a4ef9514f50b3c286bdf66b8b40d9b670b020b8535d3.gz",
+      "sha256": "d64607d0c51693962770a4ef9514f50b3c286bdf66b8b40d9b670b020b8535d3",
+      "bytes": 32188,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/yaw-outer-spacer.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-96bf8f9ecb3ce288cd0b16e90186d0beed2c691986ac5aee837635b216539207.gz",
+      "sha256": "96bf8f9ecb3ce288cd0b16e90186d0beed2c691986ac5aee837635b216539207",
+      "bytes": 30568,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/yaw-output-adapter.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-970bb21dc5c343457cf295ad9c8e93dac878ca662121ff907b74b38d037acd4a.gz",
+      "sha256": "970bb21dc5c343457cf295ad9c8e93dac878ca662121ff907b74b38d037acd4a",
+      "bytes": 330276,
+      "matches": true
+    },
+    {
+      "path": "printed-parts/fixtures/pgfun-positioner/parts/yaw-stop-sector.step.mesh",
+      "url": "https://objects.homesodamachine.com/s-a85d6e0af4906679dde8ce45aac20a6922fe05c821440604041632ee1231888e.gz",
+      "sha256": "a85d6e0af4906679dde8ce45aac20a6922fe05c821440604041632ee1231888e",
+      "bytes": 110480,
+      "matches": true
+    }
+  ],
+  "build_downloads": [
+    {
+      "path": "hardware/printed-parts/fixtures/pgfun-positioner/print-pack.zip",
+      "url": "https://raw.githubusercontent.com/derekbreden/homesodamachine/main/hardware/printed-parts/fixtures/pgfun-positioner/print-pack.zip",
+      "http_status": 200,
+      "bytes": 2852345,
+      "sha256": "608c197e74083711c601c8a928bbf93e98bb5dcbccd5016a3897a5918d9b56dd",
+      "matches": true
+    },
+    {
+      "path": "firmware/src_pgfun_positioner/assets/pgfun-positioner-r1.uf2",
+      "url": "https://raw.githubusercontent.com/derekbreden/homesodamachine/main/firmware/src_pgfun_positioner/assets/pgfun-positioner-r1.uf2",
+      "http_status": 200,
+      "bytes": 121344,
+      "sha256": "2fd8bdaa22d43ec7d1f8393ef8996c20ab462d15adc7b8913d1c59f45a044054",
+      "matches": true
+    }
+  ],
+  "guide_and_current_object_map": [
+    {
+      "name": "guide",
+      "url": "https://homesodamachine.com/docs/gun-positioner-guide/gun-positioner-guide.pdf?verify=14e1b8f7c5a41ffb",
+      "http_status": 200,
+      "bytes": 2811464,
+      "sha256": "14e1b8f7c5a41ffbfa2875d15a57321d35ce19356849ff80ba55eddf215bd06e",
+      "path": "hardware/gun-positioner-guide/gun-positioner-guide.pdf",
+      "matches": true
+    },
+    {
+      "name": "cover",
+      "url": "https://homesodamachine.com/thumbs/gun-positioner-guide/gun-positioner-guide.cover.png?verify=e80c4edb0dfbf1d2",
+      "http_status": 200,
+      "bytes": 124816,
+      "sha256": "e80c4edb0dfbf1d21e72c19d5100410f64c8a020b833d06ccdc3b250097fc0ce",
+      "path": "hardware/gun-positioner-guide/gun-positioner-guide.cover.png",
+      "matches": true
+    },
+    {
+      "name": "documents",
+      "url": "https://homesodamachine.com/api/documents",
+      "http_status": 200,
+      "bytes": 2346,
+      "sha256": "1a9b65d57ebe9732b1c5b4c6cb0624e223a090f54966871e7b8a92a7cc1ad0a2",
+      "entry": {
+        "path": "gun-positioner-guide/gun-positioner-guide.pdf",
+        "title": "PGFUN two-axis weld positioner",
+        "subtitle": "Illustrated shop guide - 35 pages, Letter 8.5 x 11 in",
+        "pages": 35,
+        "cover": "gun-positioner-guide/gun-positioner-guide.cover.png",
+        "coverSize": [
+          800,
+          1036
+        ],
+        "bytes": 2811464
+      },
+      "matches": true
+    },
+    {
+      "name": "objects",
+      "url": "https://homesodamachine.com/api/objects",
+      "http_status": 200,
+      "bytes": 147386,
+      "sha256": "e8ae6ece9506837ee326aa652a812846be3b8ad61315dc3596504d9f6ac748f1",
+      "cad_objects_checked": 122,
+      "matches": true
+    }
+  ],
+  "scope": "Public CAD, print archive, controller image, guide and cover byte verification; document shelf and current CAD pointer verification. Physical fit, movement and welding results use commissioning.md and observation.md."
 }
