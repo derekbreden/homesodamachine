@@ -12,6 +12,7 @@ import argparse
 import hashlib
 import json
 import math
+import sys
 from collections import Counter
 from pathlib import Path
 
@@ -19,6 +20,8 @@ import cadquery as cq
 import numpy as np
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parents[2] / "scripts"))
+from _material_base import M_PETGF_BLACK  # noqa: E402
 T = 6.35
 LEAD = 2.0
 RATIO = 4
@@ -57,7 +60,7 @@ TOOL = np.array([200.0, 0.0, 47.35])
 DOT = np.array([-61.85, 0.0, 278.40])
 COLORS = {
     "aluminum": (0.68, 0.72, 0.75), "steel": (0.36, 0.39, 0.42),
-    "brass": (0.72, 0.57, 0.23), "PET-GF": (0.12, 0.14, 0.17),
+    "brass": (0.72, 0.57, 0.23), "PET-GF": M_PETGF_BLACK.toTuple()[:3],
     "TPU": (0.20, 0.24, 0.28), "motor": (0.16, 0.18, 0.20),
     "gun-proxy": (0.79, 0.24, 0.30), "fiber-proxy": (0.36, 0.52, 0.60),
 }

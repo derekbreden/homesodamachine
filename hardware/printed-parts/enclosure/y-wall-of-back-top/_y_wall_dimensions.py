@@ -13,6 +13,7 @@ sys.path.insert(0, str(_hw / "manifold-layout"))
 sys.path.insert(0, str(_hw / "scripts"))
 
 from docgen import substitute_md  # noqa: E402
+from _material_base import M_PETGF_BLACK  # noqa: E402
 
 
 # AC inlet recess: the bore the mating C13 cord housing enters, wall and inlet
@@ -61,14 +62,14 @@ port_colors = {
 # THE SPOOL EACH CHIP AND ITS TUBE COLLAR ARE CUT OFF, and it is not the tube's own colour.
 # `port_colors` is the IDENTIFICATION scheme — neoFlo LLDPE, what the customer's tube is — and a
 # chip printed to match one is Polymaker Fiberon PET-GF15, a different product that happens to
-# answer to the same name. These are the filaments themselves: each triple is the median of the
-# wound filament in Polymaker's own product photograph of that spool (FL02003, FL02006, FL02007,
-# FL02001), and `ledger/purchases.md` §13 buys all four.
+# answer to the same name. White, blue and red are the median of the wound filament in
+# Polymaker's product photographs (FL02003, FL02006, FL02007). Black uses the shared
+# PET-GF stock appearance. `ledger/purchases.md` §13 buys all four.
 chip_filaments = {
     "water": ("Fiberon PET-GF15 White", (235, 236, 234)),
     "carb": ("Fiberon PET-GF15 Blue", (105, 180, 247)),
     "co2": ("Fiberon PET-GF15 Red", (228, 83, 87)),
-    "flavor": ("Fiberon PET-GF15 Black", (31, 34, 35)),
+    "flavor": ("Fiberon PET-GF15 Black", tuple(c * 255 for c in M_PETGF_BLACK.toTuple()[:3])),
 }
 # Which of the black and the white spool a chip's word letters in, one entry per `chip_filaments`
 # spool.

@@ -300,7 +300,7 @@ FINISHES = [
     # module, so without these rows the rings, the collars and the nameplate are the one part
     # of the machine with no finish to find.
     # WALKED, NOT LISTED, so a sixth chip or a third lettering colour cannot arrive without one.
-    *[(cq.Color(*(c / 255.0 for c in rgb)), 0.45, _DIELECTRIC)
+    *[(cq.Color(*(c / 255.0 for c in rgb)), 0.85, _DIELECTRIC)
       for rgb in dict.fromkeys([_rear.chip_color(f) for f in _rear.chip_filaments]
                                + [_rear.word_color(f) for f in _rear.chip_word_colors])],
 ]
@@ -315,6 +315,40 @@ def linear(color) -> tuple:
     has to be found by. Reading it here through OCCT rather than converting by hand is what
     makes the two bit-identical instead of merely close."""
     return tuple(color.wrapped.GetRGB().Values(Quantity_TypeOfColor.Quantity_TOC_RGB))
+
+
+# Printed PET-GF component identities, shared by material repair and its checks.
+# Names are the native products and viewer members; an assembly prefix and a
+# per-solid index do not change a body's stock. Colored wayfinding stock reads
+# the same filament catalog as its generators.
+PETGF_BLACK_PARTS = {
+    *(f"enclosure-{name}" for name in WALL_COLORS),
+    "grip-cover-west", "grip-cover-east", "grip-cover-assembly",
+    "enclosure-tee-carrier-plate", "enclosure-window-cover-west",
+    "enclosure-window-cover-east", "display-cover", "funnel-frame", "elbow-cradle",
+    "foam-shell", "foam-cap-top", "foam-cap-lid-top", "foam-cap-bottom",
+    "foam-cap-lid-bottom", "collet-press", "nameplate-receiver",
+    "faucet-shell-base", "faucet-shell-tip", "shell-base", "shell-tip",
+    "above-counter-plate", "faucet-display-cover", "faucet-display-cover-seated",
+    "industrial-shell-base", "industrial-display-cover", "industrial-above-counter-plate",
+}
+
+
+def petgf_color(name):
+    """The catalog appearance for a PET-GF body, or None for other materials."""
+    import re
+    name = re.sub(r"/\d+$", "", name.replace("_", "-")).split("/")[-1]
+    if name in PETGF_BLACK_PARTS:
+        return M_PETGF_BLACK
+    if re.fullmatch(r"nameplate(?:-\d+)?(?:-ink)?", name):
+        rgb = _rear.word_color("flavor") if name.endswith("-ink") else _rear.chip_color("flavor")
+        return step_safe(cq.Color(*(c / 255 for c in rgb)))
+    match = re.fullmatch(r"(?:bulkhead-ring|tube-collar|collar)-(water|carb|co2|flavor(?:-[ab])?)(-word)?", name)
+    if match:
+        fluid = "flavor" if match[1].startswith("flavor") else match[1]
+        rgb = _rear.word_color(fluid) if match[2] else _rear.chip_color(fluid)
+        return step_safe(cq.Color(*(c / 255 for c in rgb)))
+    return None
 
 
 def finish_rows() -> list:
