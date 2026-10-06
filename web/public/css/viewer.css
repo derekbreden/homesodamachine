@@ -189,7 +189,7 @@
   white-space: nowrap;
 }
 /* The corner opposite the rail, on the 3D surface and the 2D ones alike. */
-.cad-wrapper > .reset-view,
+.cad-wrapper .reset-view,
 .pan-zoom-reset {
   position: absolute;
   bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
@@ -225,7 +225,8 @@
    segmented control holds the pick modes, which are mutually exclusive over
    HSM_EVENTS.STEP_TOOL — one lit at a time, or none. The chip row holds the
    overlays, in any combination. */
-.cad-wrapper > .tool-rail {
+.cad-footer { display: contents; }
+.cad-wrapper .tool-rail {
   position: absolute;
   bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
   left: calc(env(safe-area-inset-left, 0px) + 16px);
@@ -244,14 +245,29 @@
 .tool-drawer > summary.has-selection .tool-icon { color: var(--action); }
 .tool-drawer-body { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
 .tool-drawer:not([open]) > .tool-drawer-body { display: none; }
-.cad-wrapper > .tool-rail:has(> .tool-drawer.compact) {
+/* Compact controls share a footer; its gaps stay open to canvas gestures. */
+.cad-footer:has(.tool-drawer.compact) {
+  position: absolute;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+  left: calc(env(safe-area-inset-left, 0px) + 16px);
+  right: calc(env(safe-area-inset-right, 0px) + 16px);
+  z-index: 11;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px;
+  pointer-events: none;
+}
+.cad-footer:has(.tool-drawer.compact) > * { pointer-events: auto; }
+.cad-footer > .tool-rail:has(> .tool-drawer.compact) {
+  position: static;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-wrap: wrap-reverse;
   align-items: center;
   gap: 8px;
-  max-width: calc(100% - 84px);
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 16px + var(--sc-badge-lift, 0px));
+  min-width: 0;
+  max-width: none;
 }
 .tool-drawer.compact > summary,
 .tool-rail:has(> .tool-drawer.compact) > .tool-group-related > summary {
@@ -276,17 +292,29 @@
 }
 .tool-drawer.compact .tool-seg { max-width: 100%; box-sizing: border-box; }
 .tool-drawer.compact .tool-seg-btn { padding-left: 7px; padding-right: 7px; }
-.cad-wrapper:has(.tool-drawer.compact) > .reset-view {
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 16px + var(--sc-badge-lift, 0px));
+.cad-footer:has(.tool-drawer.compact) > .reset-view {
+  position: static;
+  flex-shrink: 0;
   width: 44px;
   min-height: 44px;
   box-sizing: border-box;
   justify-content: center;
   padding: 0;
 }
-.cad-wrapper:has(.tool-drawer.compact) > .reset-view .tool-label { display: none; }
+.cad-footer:has(.tool-drawer.compact) > .reset-view .tool-label { display: none; }
+.cad-footer:has(.tool-drawer.compact) > .sc-badge {
+  position: static;
+  transform: none;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
 /* Two-finger navigation keeps the model clear until both fingers lift. */
-.cad-wrapper.cad-gesturing > :not(.cad-viewport):not(.cad-loading) {
+.cad-wrapper.cad-gesturing > :not(.cad-viewport):not(.cad-loading),
+.cad-wrapper.cad-gesturing > .cad-footer > * {
   opacity: 0;
   pointer-events: none !important;
 }
@@ -1559,7 +1587,7 @@
 /* ── 3D-model scorecard: the enclosure requirements verdict as a badge at the bottom of the
    canvas + a drill-down modal, mirroring the PCB board-checks UI (.pcb-dims / .pcb-checks*)
    inside the STEP viewer's .cad-wrapper. Built by public/js/viewer/scorecard-3d.js. ── */
-.cad-wrapper > .sc-badge {
+.cad-wrapper .sc-badge {
   position: absolute;
   bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
   left: 50%;
@@ -1578,27 +1606,27 @@
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
 }
-.cad-wrapper > .sc-badge.has-issues {
+.cad-wrapper .sc-badge.has-issues {
   border-color: color-mix(in srgb, var(--err) 60%, transparent);
   background: color-mix(in srgb, var(--err) 20%, rgba(16, 49, 156, 0.85));
   color: var(--err);
 }
 /* A gate nobody has read yet: neither the green that says it passed nor the red that says it
    failed. `--text-2` is the bar's own quiet, which is what an outstanding verdict is. */
-.cad-wrapper > .sc-badge.unread {
+.cad-wrapper .sc-badge.unread {
   border-color: color-mix(in srgb, var(--text-2) 55%, transparent);
   background: color-mix(in srgb, var(--text-2) 14%, rgba(16, 49, 156, 0.85));
   color: var(--text-2);
 }
-.cad-wrapper > .sc-badge { transition: filter 0.12s; }
-.cad-wrapper > .sc-badge:hover { filter: brightness(1.2); }
+.cad-wrapper .sc-badge { transition: filter 0.12s; }
+.cad-wrapper .sc-badge:hover { filter: brightness(1.2); }
 /* Driven by a finger, at any width: every control in the modal is a target a thumb can land on.
    Keyed on the pointer rather than the viewport, so a phone held sideways — wide enough for the
    desktop layout below — still gets the sizes a finger needs. */
 @media (pointer: coarse) {
   .tool-btn,
   .tool-chip,
-  .cad-wrapper > .reset-view {
+  .cad-wrapper .reset-view {
     min-height: 40px;
     padding-top: 0;
     padding-bottom: 0;
@@ -1658,7 +1686,7 @@
     justify-content: center;
   }
   .sc-toggle { min-height: 36px; }
-  .cad-wrapper > .sc-badge { min-height: 40px; }
+  .cad-wrapper .sc-badge { min-height: 40px; }
 }
 
 /* Narrow readouts fit below the cube; their collapsed heads sit beside it. */
@@ -1786,7 +1814,7 @@
 @media (max-width: 600px) {
   .cad-wrapper > .tube-panel {
     top: calc(env(safe-area-inset-top, 0px) + var(--cube-size, 140px) + 28px);
-    max-height: calc(100% - var(--cube-size, 140px) - 195px - var(--sc-badge-lift, 0px));
+    max-height: calc(100% - var(--cube-size, 140px) - 195px);
     width: calc(100% - 32px);
   }
   .tube-panel select, .tube-panel button:not(.edge-panel-collapse):not(.edge-panel-close) { min-height: 38px; }
