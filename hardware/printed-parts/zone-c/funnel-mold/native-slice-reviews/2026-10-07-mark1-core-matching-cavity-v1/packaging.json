@@ -1,0 +1,64 @@
+{
+  "source_archive": ".cache/funnel-retry-mark1-z004-20261006/slice/2026-10-06-funnel-cavity-mark1-right-z004-retry-v2.gcode.3mf",
+  "source_archive_sha256": "2e07c346cf171745c1852b02b77997b856baab92bdc620e8e5613ce9d50d7e0b",
+  "print_only_archive": ".cache/second-halves-20261007/Mark1/2026-10-07-funnel-core-mark1-right-z004-matching-cavity-v1.gcode.3mf",
+  "print_only_archive_sha256": "d7d20293db3fec051a9ee1e0f38ccab365b87f974c91e70d70355da354ee6070",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "20e05fdcf529f4e5f42721c35c6b12e913d35fb8097a7d6f78404e1c18058961"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/Objects/object_2.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ],
+  "native_two_plate_archive": ".cache/funnel-retry-mark1-z004-20261006/slice/2026-10-06-funnel-cavity-mark1-right-z004-retry-v2.gcode.3mf",
+  "native_two_plate_archive_sha256": "2e07c346cf171745c1852b02b77997b856baab92bdc620e8e5613ce9d50d7e0b",
+  "frozen_editable_project": "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/funnel-mold-mark1-retry-z004.3mf",
+  "frozen_editable_project_sha256": "c6cd113c6a54ca5b501ada5258d33baace7f3ed391ebdaca7b847b8019771246",
+  "source_plate": 2,
+  "submitted_plate": 1,
+  "selected_parts": [
+    "Funnel mold core"
+  ],
+  "native_gcode_byte_identical": true,
+  "project_settings_byte_identical": true,
+  "other_plate_removed": true,
+  "renamed_container_entries": {
+    "Metadata/plate_2.png": "Metadata/plate_1.png",
+    "Metadata/plate_2_small.png": "Metadata/plate_1_small.png",
+    "Metadata/plate_no_light_2.png": "Metadata/plate_no_light_1.png",
+    "Metadata/top_2.png": "Metadata/top_1.png",
+    "Metadata/pick_2.png": "Metadata/pick_1.png",
+    "Metadata/plate_2.json": "Metadata/plate_1.json",
+    "Metadata/plate_2.gcode.md5": "Metadata/plate_1.gcode.md5",
+    "Metadata/plate_2.gcode": "Metadata/plate_1.gcode"
+  },
+  "omitted_other_plate_entries": [
+    "Metadata/plate_1.png",
+    "Metadata/plate_1_small.png",
+    "Metadata/plate_no_light_1.png",
+    "Metadata/top_1.png",
+    "Metadata/pick_1.png",
+    "Metadata/plate_1.json",
+    "Metadata/plate_1.gcode.md5",
+    "Metadata/plate_1.gcode"
+  ],
+  "selected_plate_container_changes": [
+    "Metadata/model_settings.config",
+    "Metadata/slice_info.config",
+    "Metadata/_rels/model_settings.config.rels",
+    "Metadata/filament_sequence.json"
+  ],
+  "native_review": "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/readiness-review.json",
+  "native_review_sha256": "088fdf21c53cb243cfa32b023246dba1be9a1d78f593024922b0f97b6850a413",
+  "probing_clump_checks_enabled": false,
+  "executable_bare_G39_count": 0,
+  "requested_trim_mm": 0.04,
+  "emitted_trim_mm": 0.02
+}

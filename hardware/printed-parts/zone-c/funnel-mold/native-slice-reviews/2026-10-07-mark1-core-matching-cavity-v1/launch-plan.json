@@ -1,0 +1,184 @@
+{
+  "created_at_utc": "2026-10-07T14:23:41.942953+00:00",
+  "printer": "Mark1",
+  "read_alias": "H2C",
+  "authorization_quotes": [
+    "Both print beds are clear. Ready for other half of funnel mold on mark1 and other reservor/cap on mark2.",
+    "Oh, you'll need a funnel mold prior to recent changes btw, a funnel mold to mate with the on we just printed, not the latest."
+  ],
+  "start_authorized": true,
+  "send_attempted": true,
+  "status": "accepted",
+  "allowed_archive": ".cache/second-halves-20261007/Mark1/2026-10-07-funnel-core-mark1-right-z004-matching-cavity-v1.gcode.3mf",
+  "archive_name": "2026-10-07-funnel-core-mark1-right-z004-matching-cavity-v1.gcode.3mf",
+  "archive_sha256": "d7d20293db3fec051a9ee1e0f38ccab365b87f974c91e70d70355da354ee6070",
+  "gcode_sha256": "20e05fdcf529f4e5f42721c35c6b12e913d35fb8097a7d6f78404e1c18058961",
+  "parts": [
+    "Funnel mold core"
+  ],
+  "geometry_binding": {
+    "frozen_project": "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/funnel-mold-mark1-retry-z004.3mf",
+    "frozen_project_sha256": "c6cd113c6a54ca5b501ada5258d33baace7f3ed391ebdaca7b847b8019771246",
+    "cavity_native_gcode_sha256": "a4c24daaf566e185dd8239e2e9beb7736f43cc23ea9d3db6e90419fe1c7136ba",
+    "core_native_gcode_sha256": "20e05fdcf529f4e5f42721c35c6b12e913d35fb8097a7d6f78404e1c18058961",
+    "source_plate": 2,
+    "current_generator_used": false,
+    "mating_fit_physically_assessed": false
+  },
+  "nozzle": {
+    "side": "right",
+    "diameter_mm": 0.4,
+    "flow_type": "Standard"
+  },
+  "material": {
+    "type": "PETG",
+    "sub_brand": "PETG Translucent",
+    "color": "00000000",
+    "material_id": "GFG01",
+    "ams_unit": 128,
+    "tray": 0,
+    "slot_label": "HT-A"
+  },
+  "recipe": {
+    "requested_z_trim_mm": 0.04,
+    "emitted_z_trim_mm": 0.02,
+    "probing_clump_detection": "Off",
+    "timelapse_send_option": "On",
+    "camera_AI_preferences": "Preserve current user settings"
+  },
+  "native_estimate": {
+    "seconds": 41711.21875,
+    "filament_g": 233.22898864746094,
+    "layers": 176
+  },
+  "print_options": {
+    "timelapse": "On",
+    "auto_bed_leveling": "On",
+    "flow_dynamic_calibration": "On",
+    "nozzle_offset_calibration": "On"
+  },
+  "shared_circuit": {
+    "required_spacing_seconds": 180,
+    "peer_printer": "Mark2"
+  },
+  "native_review": "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/readiness-review.json",
+  "native_review_sha256": "088fdf21c53cb243cfa32b023246dba1be9a1d78f593024922b0f97b6850a413",
+  "packaging": "packaging.json",
+  "requirements": [
+    "Freshly read both printers immediately before Send; destination idle and without unresolved faults.",
+    "Verify exact archive and G-code hashes, matching saved geometry, nozzle and AMS filament mapping.",
+    "Wait at least 180 seconds after the peer accepts its most recent start or resume.",
+    "Use one foreground native Bambu Connect Send. Durably record the attempt before clicking; no ambiguous retry.",
+    "Verify a new matching task/job identity and PREPARE/RUNNING state, then runtime timelapse status.",
+    "Keep existing scheduled chat monitors paused. No other parts or settings changes are authorized."
+  ],
+  "send_attempted_at_utc": "2026-10-07T14:30:39.846601+00:00",
+  "successful_foreground_send_count": 1,
+  "accepted_at_utc": "2026-10-07T14:30:52.058624+00:00",
+  "accepted_at_central": "2026-10-07T09:30:52.058624-05:00",
+  "task_id": "1317250748",
+  "job_id": "1317250748",
+  "acceptance_state": "PREPARE",
+  "acceptance_reading": {
+    "printer": "Mark1",
+    "read_alias": "H2C",
+    "observed_at_utc": "2026-10-07T14:30:52.048196+00:00",
+    "task_id": "1317250748",
+    "job_id": "1317250748",
+    "subtask_name": "2026-10-07-funnel-core-mark1-right-z004-matching-cavity-v1.gcode.3mf",
+    "gcode_state": "PREPARE",
+    "layer_num": 404,
+    "total_layer_num": 404,
+    "mc_percent": 0,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": -1,
+    "bed_temper": 40.0,
+    "bed_target_temper": 0.0,
+    "extruders": {
+      "0": {
+        "actual_c": 42,
+        "target_c": 0
+      },
+      "1": {
+        "actual_c": 39,
+        "target_c": 0
+      }
+    },
+    "chamber": {
+      "actual_c": 34,
+      "target_c": 0
+    },
+    "ams": [
+      {
+        "id": "128",
+        "trays": [
+          {
+            "id": "0",
+            "tray_type": "PETG",
+            "tray_info_idx": "GFG01",
+            "tray_color": "00000000",
+            "tray_sub_brands": "PETG Translucent"
+          }
+        ]
+      }
+    ],
+    "timelapse": "disable"
+  },
+  "runtime_verification": {
+    "task_id": "1317250748",
+    "job_id": "1317250748",
+    "subtask_name": "2026-10-07-funnel-core-mark1-right-z004-matching-cavity-v1.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "layer_num": 1,
+    "total_layer_num": 176,
+    "mc_remaining_time": 683,
+    "mc_percent": 1,
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": 0,
+    "bed_temper": 70.0,
+    "bed_target_temper": 70.0,
+    "printer": "Mark1",
+    "observed_at_utc": "2026-10-07T14:46:26.262829+00:00",
+    "timelapse": "disable",
+    "extruders": {
+      "0": {
+        "actual_c": 250,
+        "target_c": 250,
+        "active_hotend_id": 0
+      },
+      "1": {
+        "actual_c": 48,
+        "target_c": 0,
+        "active_hotend_id": 1
+      }
+    },
+    "nozzles": [
+      {
+        "id": 0,
+        "diameter": 0.4,
+        "type": "HS01"
+      },
+      {
+        "id": 1,
+        "diameter": 0.4,
+        "type": "HS01"
+      }
+    ]
+  },
+  "timelapse_enabled_verified": false,
+  "first_layer_telemetry_observed": {
+    "observed_at_utc": "2026-10-07T14:46:26.262829+00:00",
+    "layer": 1,
+    "of_layers": 176,
+    "print_error": 0,
+    "hms": [],
+    "visual_adhesion_assessed": false
+  },
+  "shared_circuit_acceptance_spacing_seconds": 233.389087,
+  "start_notification_reported": true,
+  "timelapse_discrepancy_reported": true,
+  "timelapse_review": "timelapse-review.json"
+}

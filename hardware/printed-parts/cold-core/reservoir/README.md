@@ -44,6 +44,9 @@ The September baseline's reported water hold is identified by `september-08-024`
 
 [Mark2 reservoir and cap launch](prints/2026-10-06-mark2-no-ironing-v1/launch.json),
 task **1314692596**, uses plate 1 with ironing off.
+The [right reservoir and cap launch](prints/2026-10-07-mark2-right-no-ironing-v1/README.md),
+task **1317261284**, uses the matching frozen plate 2, accepted at **09:34:45 CDT
+on October 7**. Finished-part and water-hold results are unassessed.
 
 ## Current print geometry
 
