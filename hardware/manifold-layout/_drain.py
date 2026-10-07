@@ -12,11 +12,10 @@ import cadquery as cq
 
 PVC_OD = 9.525
 PVC_ID = 6.35
-PVC_BEND_R = 25.0
-ADAPTER_AXIS_X = -56.0
-PVC_DROP = 13.0
-PVC_FORWARD_LEAD = 75.0
-WHITE_REAR_LEAD = 75.0
+BARB_GAP = 0.2019808375568
+WHITE_REAR_LEAD = 20.8496
+WHITE_LATERAL_FRACTION = 0.665
+WHITE_VERTICAL_LEAD = 13.0
 
 ADAPTER_NAMES = ("drain-barb-adapter", "drain-elbow", "drain-stem-reducer")
 OD = 4.0
@@ -32,9 +31,9 @@ REDUCER_D = .520 * 25.4
 REDUCER_OVERALL = 1.445 * 25.4
 REDUCER_BODY = .579 * 25.4
 
-def bodies(vent_tip, drain_mouth):
-    """Return bodies from the hose's free end and the bulkhead's inboard mouth."""
-    x, y, z = vent_tip
+def _adapters(root):
+    """The seated black barb, elbow and reducer, with the white-tube mouth."""
+    x, y, z = root.toTuple()
     def cylinder(d, point, axis, length):
         return cq.Solid.makeCylinder(d / 2, length, cq.Vector(*point), cq.Vector(*axis))
     stem_length = .709 * 25.4
@@ -55,67 +54,51 @@ def bodies(vent_tip, drain_mouth):
                .fuse(cylinder(6.35, (x, reducer_y + REDUCER_BODY, elbow_z),
                               (0, 1, 0), REDUCER_OVERALL - REDUCER_BODY))
                .cut(cylinder(ID, (x, reducer_y, elbow_z), (0, 1, 0), REDUCER_OVERALL)))
-    # Clock the black assembly from down/front to front/up. The clear hose
-    # reaches this station with two tangent bends, clear of the flavor-B lane.
-    dx = ADAPTER_AXIS_X - x
-    lo, hi = 0.0, math.pi / 2
-    for _ in range(60):
-        alpha = (lo + hi) / 2
-        if PVC_BEND_R * (math.sin(alpha) + 1 - math.cos(alpha)) < dx:
-            lo = alpha
-        else:
-            hi = alpha
-    alpha = (lo + hi) / 2
-    unit = cq.Vector(math.sin(alpha), -math.cos(alpha), 0)
-    vent = cq.Vector(x, y, z)
-    p0 = vent + cq.Vector(0, 0, -PVC_DROP)
-    p1 = p0 + unit.multiply(PVC_BEND_R) + cq.Vector(0, 0, -PVC_BEND_R)
-    m1 = p0 + unit.multiply(PVC_BEND_R * (1 - math.sqrt(.5))) + cq.Vector(0, 0, -PVC_BEND_R * math.sqrt(.5))
-    center = p1 - cq.Vector(PVC_BEND_R * math.cos(alpha), PVC_BEND_R * math.sin(alpha), 0)
-    p2 = center + cq.Vector(PVC_BEND_R, 0, 0)
-    m2 = center + cq.Vector(PVC_BEND_R * math.cos(alpha / 2), PVC_BEND_R * math.sin(alpha / 2), 0)
-    root = p2 + cq.Vector(0, -BARB_LENGTH - PVC_FORWARD_LEAD, 0)
-    hose_path = cq.Wire.assembleEdges([
-        cq.Edge.makeLine(vent, p0),
-        cq.Edge.makeThreePointArc(p0, m1, p1),
-        cq.Edge.makeThreePointArc(p1, m2, p2), cq.Edge.makeLine(p2, root)])
-    hose_profile = cq.Plane(origin=vent, xDir=(1, 0, 0), normal=(0, 0, -1))
-    hose = cq.Workplane(hose_profile).circle(PVC_OD / 2).circle(PVC_ID / 2).sweep(hose_path, transition="round").val()
-    def clock(shape):
-        return shape.translate((-x, -y, -z)).rotate((0, 0, 0), (1, 0, 0), -90).translate(root)
-    barb, elbow, reducer = (clock(s) for s in (barb, elbow, reducer))
-    source = root + cq.Vector(0, elbow_z - z, y - reducer_y)
-    # Rise above the regulator, return downward, then approach the wall on
-    # its own row. Every white-tube arc is at least R25.
-    apex1 = source + cq.Vector(0, MIN_R, MIN_R)
-    mid1 = source + cq.Vector(0, MIN_R * (1 - math.sqrt(.5)), MIN_R * math.sqrt(.5))
-    apex2 = apex1 + cq.Vector(0, WHITE_REAR_LEAD, 0)
-    end_u = apex2 + cq.Vector(0, MIN_R, -MIN_R)
-    mid2 = apex2 + cq.Vector(0, MIN_R * math.sqrt(.5), -MIN_R * (1 - math.sqrt(.5)))
-    end_q = end_u + cq.Vector(0, MIN_R, -MIN_R)
-    mid_q = end_u + cq.Vector(0, MIN_R * (1 - math.sqrt(.5)), -MIN_R * math.sqrt(.5))
-    edges = [cq.Edge.makeThreePointArc(source, mid1, apex1), cq.Edge.makeLine(apex1, apex2),
-             cq.Edge.makeThreePointArc(apex2, mid2, end_u), cq.Edge.makeThreePointArc(end_u, mid_q, end_q)]
-    def s_bend(start, side, displacement):
-        if abs(displacement) < 1e-8:
-            return start
-        sign = math.copysign(1, displacement)
-        angle = math.acos(1 - abs(displacement) / (2 * MIN_R))
-        run = 2 * MIN_R * math.sin(angle)
-        end = start + cq.Vector(0, run, 0) + side.multiply(displacement)
-        halfway = start + cq.Vector(0, MIN_R * math.sin(angle), 0) + side.multiply(displacement / 2)
-        first_mid = start + cq.Vector(0, MIN_R * math.sin(angle / 2), 0) + side.multiply(sign * MIN_R * (1 - math.cos(angle / 2)))
-        second_mid = end - cq.Vector(0, MIN_R * math.sin(angle / 2), 0) - side.multiply(sign * MIN_R * (1 - math.cos(angle / 2)))
-        edges.extend([cq.Edge.makeThreePointArc(start, first_mid, halfway), cq.Edge.makeThreePointArc(halfway, second_mid, end)])
-        return end
-    offset = cq.Vector(drain_mouth[0] - end_q.x, 0, drain_mouth[2] - end_q.z)
-    if offset.Length > 1e-8:
-        end_q = s_bend(end_q, offset.normalized(), offset.Length)
+    return barb, elbow, reducer, cq.Vector(x, reducer_y, elbow_z)
+
+
+def bodies(vent_tip, drain_mouth):
+    """A straight clear hose and tangent R25 white return to the DRAIN bulkhead."""
+    vent = cq.Vector(*vent_tip)
     target = cq.Vector(*drain_mouth)
-    if target.y < end_q.y:
-        raise ValueError("Drain return requires more rearward room")
-    edges.append(cq.Edge.makeLine(end_q, target))
-    path = cq.Wire.assembleEdges(edges)
-    profile = cq.Plane(origin=source, xDir=(1, 0, 0), normal=(0, 0, 1))
-    tube = cq.Workplane(profile).circle(OD / 2).circle(ID / 2).sweep(path, transition="round").val()
+    root = vent - cq.Vector(0, 0, BARB_LENGTH + BARB_GAP)
+    hose = (cq.Workplane(cq.Plane(origin=vent, xDir=(1, 0, 0), normal=(0, 0, -1)))
+            .circle(PVC_OD / 2).circle(PVC_ID / 2)
+            .sweep(cq.Edge.makeLine(vent, root)).val())
+    barb, elbow, reducer, source = _adapters(root)
+    radius = MIN_R
+    q = math.sqrt(.5)
+    forward = cq.Vector(0, -1, 0)
+    side = cq.Vector(WHITE_LATERAL_FRACTION, 0,
+                     math.sqrt(1 - WHITE_LATERAL_FRACTION ** 2))
+    p1 = source + forward.multiply(radius) + side.multiply(radius)
+    m1 = source + forward.multiply(radius * q) + side.multiply(radius * (1 - q))
+    theta = math.acos(side.z)
+    inward = (cq.Vector(0, 0, 1) - side.multiply(side.z)).normalized()
+    p2 = p1 + side.multiply(radius * math.sin(theta)) + inward.multiply(radius * (1 - math.cos(theta)))
+    m2 = p1 + side.multiply(radius * math.sin(theta / 2)) + inward.multiply(radius * (1 - math.cos(theta / 2)))
+    p3 = cq.Vector(p2.x, p2.y, root.z + WHITE_VERTICAL_LEAD)
+    if p3.z <= p2.z:
+        raise ValueError("Drain return requires a straight vertical lead")
+    p4 = p3 + cq.Vector(0, radius, radius)
+    m4 = p3 + cq.Vector(0, radius * (1 - q), radius * q)
+    p5 = p4 + cq.Vector(0, WHITE_REAR_LEAD, 0)
+    edges = [cq.Edge.makeThreePointArc(source, m1, p1),
+             cq.Edge.makeThreePointArc(p1, m2, p2), cq.Edge.makeLine(p2, p3),
+             cq.Edge.makeThreePointArc(p3, m4, p4), cq.Edge.makeLine(p4, p5)]
+    offset = cq.Vector(target.x - p5.x, 0, target.z - p5.z)
+    theta = math.acos(1 - offset.Length / (2 * radius))
+    side = offset.normalized()
+    run = 2 * radius * math.sin(theta)
+    end = p5 + cq.Vector(0, run, 0) + offset
+    half = p5 + cq.Vector(0, radius * math.sin(theta), 0) + offset.multiply(.5)
+    first_mid = p5 + cq.Vector(0, radius * math.sin(theta / 2), 0) + side.multiply(radius * (1 - math.cos(theta / 2)))
+    second_mid = end - cq.Vector(0, radius * math.sin(theta / 2), 0) - side.multiply(radius * (1 - math.cos(theta / 2)))
+    if target.y <= end.y:
+        raise ValueError("Drain return requires a straight rearward lead")
+    edges.extend([cq.Edge.makeThreePointArc(p5, first_mid, half),
+                  cq.Edge.makeThreePointArc(half, second_mid, end), cq.Edge.makeLine(end, target)])
+    tube = (cq.Workplane(cq.Plane(origin=source, xDir=(0, 0, 1), normal=forward))
+            .circle(OD / 2).circle(ID / 2)
+            .sweep(cq.Wire.assembleEdges(edges), transition="round").val())
     return dict(zip(ADAPTER_NAMES, (barb, elbow, reducer))) | {"hose-drain-vent": hose, "tube-drain-vent": tube}

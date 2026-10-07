@@ -303,6 +303,18 @@ def _generators(files: set) -> list:
 
 SELFTESTS = _HERE.parent / "selftests.json"
 
+# These modules expose their isolated fixture through an argparse-style flag.
+# Passing the default bare word reaches their production path instead.
+SELFTEST_ARGUMENTS = {
+    "hardware/printed-parts/zone-c/funnel/flush-roof-review/refresh_aggregate.py": ("--selftest",),
+    "hardware/scripts/check_payload_colours.py": ("--selftest",),
+    "hardware/scripts/materialize_material_colors.py": ("--selftest",),
+}
+
+
+def selftest_argv(generator):
+    return SELFTEST_ARGUMENTS.get(generator, ("selftest",))
+
 
 def _selftests(files: set) -> list:
     """Every module that answers to `selftest` on its own command line.
@@ -488,7 +500,7 @@ def main() -> int:
         held = json.loads(SELFTESTS.read_text()) if SELFTESTS.is_file() else {}
         gens = args.gen or _selftests(files)
         for i, gen in enumerate(gens, 1):
-            seen = trace(gen, files, argv=("selftest",))
+            seen = trace(gen, files, argv=selftest_argv(gen))
             held[gen] = sorted(set(seen["reads"]) | {gen})
             print(f"  [{i:3d}/{len(gens)}] {gen:60s} {len(held[gen]):3d} read")
             SELFTESTS.write_text(json.dumps(held, indent=2, sort_keys=True) + "\n")

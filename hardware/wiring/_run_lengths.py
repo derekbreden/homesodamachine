@@ -38,7 +38,6 @@ LEGS = {
                       ("COM → 221-415", 1, ["wago-manb"])],
     "J4 SENSORS": [("3V3, IO26 → 1-wire", 2, ["cold-core/probe-carbonator-ds18b20"]),
                    ("V5, IO25 → flow", 2, ["digiten-flow"]),
-                   ("IO27, IO23 → moisture", 2, ["moisture-plate"]),
                    ("GND → 221-415", 1, ["wago-sensors"])],
     "J5 RELAYS": [("all four", 4, ["relay-1", "relay-2"])],
     "J6 REEDS A": [("RA1–RA4", 4, [f"cold-core/reed-a-{i}" for i in (1, 2, 3, 4)]),

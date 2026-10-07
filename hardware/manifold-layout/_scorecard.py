@@ -159,7 +159,7 @@ REFRIGERANT_SEGMENTS = (
 # The tap water, from the +Y wall's bulkhead through the backflow preventer, the split and the
 # V-K fill/shutoff to the carbonator's own water inlet — `assembly/internal-plumbing.md` §2. All
 # 1/4" LLDPE, stepping back up to 3/8" only at the G Ganen's two measured barbs. The ASSE 1022's
-# vent is not here: it terminates to atmosphere over the ASSE drip pan.
+# vent has a separate 4 mm DRAIN return to the faucet outlet over the bowl.
 #
 # THERE IS NO `water-1`. The rear bulkhead's inboard collet and the ASSE chain's inlet collet
 # meet face to face, so the first tube in the machine is a length of stock cut to the two grips
@@ -306,12 +306,10 @@ MOUNTS = (
     # machined into — so keying it is what holds the drip over the pan. Two zip ties through the
     # anchor's lips shut its mouth; nothing about the chain's weight is theirs to carry.
     ("asse1022-assembly", "enclosure-back-top", "cradle"),
-    ("asse-drip-pan", "enclosure-back-top", "slot"),
-    # The probe plate lies loose in the pan the way the pan rides loose in its slot: what
-    # fastens it is the tray's own printed floor and coves, which fence it on four sides at
-    # `asse_drip_pan.PLATE_SLIP`. Nothing screws down — the pan draws until the plate is within
-    # reach, then the plate lifts completely clear before the empty pan finishes coming out.
-    ("moisture-plate", "asse-drip-pan", "basin"),
+    ("bulkhead-drain", "enclosure-back-top", "bulkhead"),
+    ("drain-barb-adapter", "asse1022-assembly", "hose"),
+    ("drain-elbow", "drain-barb-adapter", "push-fit"),
+    ("drain-stem-reducer", "drain-elbow", "push-fit"),
     # The gas sensor drops into two grooved posts printed on the floor of the bay it watches
     # (`enclosure._west_cradle`), and its can bottoms in a well cut back to the wall. The sensor
     # board carries no mounting hole, so a slot is the only way it is ever held — the same bargain
@@ -344,6 +342,7 @@ MOUNTS = (
     # draws up on the inside — so the printed material is the clamped member and the joint is a
     # thread made up on it.
     ("bulkhead-water", "enclosure-back-top", "wall-capture"),
+    ("bulkhead-drain", "enclosure-back-top", "wall-capture"),
     ("c14-inlet", "enclosure-back-top", "bosses"),
     ("keystone-jack", "enclosure-back-top", "snap-capture"),
     ("co2-inlet", "enclosure-back-top", "wall-capture"),
@@ -371,6 +370,7 @@ MOUNTS = (
     ("bulkhead-ring-co2", "enclosure-back-top", "well"),
     ("bulkhead-ring-flavor-a", "enclosure-back-top", "well"),
     ("bulkhead-ring-flavor-b", "enclosure-back-top", "well"),
+    ("bulkhead-ring-drain", "enclosure-back-top", "well"),
     # AND THE WORD LIES IN A RECESS OF THE CHIP, by the same bargain one step in. A two-colour
     # print is ONE part in two materials: `bulkhead_ring.build_ring` cuts the recess and
     # `bulkhead_ring.build_word` fills it in the same layers, so nothing joins the pair but the print
@@ -380,6 +380,7 @@ MOUNTS = (
     ("bulkhead-ring-co2-word", "bulkhead-ring-co2", "well"),
     ("bulkhead-ring-flavor-a-word", "bulkhead-ring-flavor-a", "well"),
     ("bulkhead-ring-flavor-b-word", "bulkhead-ring-flavor-b", "well"),
+    ("bulkhead-ring-drain-word", "bulkhead-ring-drain", "well"),
     # Two plate-owned PET-GF tabs catch the rear wall's rigid shoulders.
     ("nameplate", "enclosure-back-top", "snap"),
     ("nameplate-ink", "nameplate", "well"),
@@ -442,7 +443,7 @@ RIDES = {
     **{f"pump-{p}-{part}": f"pump-{p}-head"
        for p in ("a", "b") for part in ("boss", "motor")},
     **{f"bulkhead-ring-{w}-word": f"bulkhead-ring-{w}"
-       for w in ("water", "carb", "co2", "flavor-a", "flavor-b")},
+       for w in ("water", "carb", "co2", "flavor-a", "flavor-b", "drain")},
     "nameplate-ink": "nameplate",
     **{name: "wr1110" for name in _gas_chain.ADAPTER_NAMES[:2]},
     **{name: "gasher-co2" for name in _gas_chain.ADAPTER_NAMES[2:]},
@@ -680,12 +681,6 @@ TOUCHING_OK = {frozenset(p) for p in (
     # slip, and that reading IS the seat holding.
     ("foam-assembly", "discharge-chain"),
     ("foam-assembly", "suction-chain"),
-    # THE PROBE PLATE LIES ON THE PAN'S FLOOR, which is the whole of what it does: a plate
-    # standing a millimetre off the floor reads only once the pool is a millimetre deep, and the
-    # weep this watches for is a drip at a time. `enclosure_assembly.build_moisture_plate` seats
-    # its underside on that floor and `asse_drip_pan.check_plate` holds the floor wide enough to take
-    # it, so the pair reads 0 and it is the sensor working.
-    ("asse-drip-pan", "moisture-plate"),
     # THE CUTOFF LIES ON THE COMPRESSOR'S POWER BOX. A one-shot fuse opens on the temperature of
     # its own case, so a millimetre of air between the case and the cover is a millimetre that
     # puts it on cabinet air instead. `enclosure_assembly.build_thermal_fuse` seats it on its own
@@ -704,6 +699,10 @@ TOUCHING_OK = {frozenset(p) for p in (
     # holding.
     ("bulkhead-water", "bulkhead-ring-water"),
     ("bulkhead-carb", "bulkhead-ring-carb"),
+    ("bulkhead-drain", "bulkhead-ring-drain"),
+    ("asse1022-assembly", "drain-barb-adapter"),
+    ("drain-barb-adapter", "drain-elbow"),
+    ("drain-elbow", "drain-stem-reducer"),
     ("co2-inlet", "bulkhead-ring-co2"),
     # The RJ11 body snaps through the pocket and against the two catches printed in back-top.
     # Its host overlap is the capture working, not two unrelated bodies closing on each other.
@@ -714,7 +713,7 @@ TOUCHING_OK = {frozenset(p) for p in (
     # word fills it, so the pair reads 0 across the whole of its back and every flank — which is
     # not two bodies closing on each other but one printed part in two colours.
     *((f"bulkhead-ring-{w}", f"bulkhead-ring-{w}-word")
-      for w in ("water", "carb", "co2", "flavor-a", "flavor-b")),
+      for w in ("water", "carb", "co2", "flavor-a", "flavor-b", "drain")),
     # And the nameplate's lettering against the plate it is lettered into, the same print in the
     # same two filaments at another size.
     ("nameplate", "nameplate-ink"),
@@ -982,10 +981,8 @@ def bend_radii(runs) -> list[dict]:
 
 def _bounds(a) -> list:
     """One gate per bound the machine states about itself — every
-    leg of the refrigerant loop closing, the vent's drip landing on
-    the pan's flat, the ASSE drip pan's lip landing inside the −X wall, a through-wall body
-    standing under the ceiling, a printed valve cradle standing under its valve, the pan's
-    own flat floor taking the moisture plate, and the
+    leg of the refrigerant loop closing, the dedicated ASSE drain routing, a through-wall body
+    standing under the ceiling, a printed valve cradle standing under its valve, and the
     enclosure's own: the pack inside the stated width, depth and height, the two seam planes
     clear of the display housing and on the print bed, the funnel throat inside the frame the
     top wall has left. `enclosure_assembly.carry_enclosure_bounds` brings that group over.

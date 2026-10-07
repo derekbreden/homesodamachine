@@ -97,7 +97,7 @@ axis runs along X, so the pair shares one transform and still faces itself acros
 ### The source valves' step
 
 The flavour flow regulator sits aft of tube-water-2. Fluid-1 feeds it below the
-funnel frame. Fluid-2 turns ahead of the drip pan, rises west of the water pump,
+funnel frame. Fluid-2 turns through the rear service lane, rises west of the water pump,
 and crosses directly to V-A's vertical inlet approach. Both routes keep R14 bends.
 
 Y-A/B and V-C/D sit 9.5 mm below the outer limbs in the enclosure. Both source

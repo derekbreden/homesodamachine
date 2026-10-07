@@ -25,7 +25,7 @@ _ROOT = _HERE.parents[2]
 sys.path.insert(0, str(_HERE.parent))
 
 from inventory import inventory, tracked   # noqa: E402
-from trace_inputs import _selftests        # noqa: E402
+from trace_inputs import _selftests, selftest_argv        # noqa: E402
 
 #: WHERE THIS CHECKOUT IS, NAMED ONCE, BY THE CHECKOUT. An action runs in the execroot and the
 #: interpreter is not in the workspace, so the only way to it is an absolute path — and an
@@ -460,7 +460,9 @@ def render_build(only: str = None) -> tuple:
             f'sh_test(\n    name = "{target_name(gen, selftest_shared)}-selftest",\n'
             + '    srcs = ["tools/bazel/selftest.sh"],\n    data = [\n'
             + "".join(f'        "{s}",\n' for s in sorted(want & held))
-            + f'    ],\n    args = ["{gen}"],\n'
+            + f'    ],\n    args = ["{gen}"'
+            + (', "--selftest"' if selftest_argv(gen) == ("--selftest",) else '')
+            + '],\n'
             + '    size = "large",\n    tags = ["local"],\n)')
 
     head = (

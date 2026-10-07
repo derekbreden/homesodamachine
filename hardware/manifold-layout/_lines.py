@@ -61,6 +61,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "jg-bulkhead-union",
            _hw / "reference" / "jg-pp0308e-elbow",
            _hw / "reference" / "neofit-bulkhead",
+           _hw / "reference" / "neofit-drain-bulkhead",
            _hw / "reference" / "gasher-check-valve",
            _hw / "reference" / "wr1110-regulator",
            _hw / "reference" / "digiten-flow-sensor"):
@@ -76,6 +77,7 @@ import seaflo_discharge_chain as _dis                  # noqa: E402
 import beduan_solenoid as _beduan                      # noqa: E402
 import jg_bulkhead_union as _jg                        # noqa: E402
 import elbow as _elbow                                 # noqa: E402
+import neofit_drain_bulkhead as _drain_bulkhead
 import neofit_bulkhead as _neofit                      # noqa: E402
 import neofit_flow_control as _flowreg                 # noqa: E402
 import water_split as _split                           # noqa: E402
@@ -157,6 +159,8 @@ STATIONS = {
                     "outlet": (_beduan.outlet, _split.TUBE_D)},
     "flow-regulator": {"inlet": (_flowreg.inlet, _flowreg.TUBE_D),
                        "outlet": (_flowreg.outlet, _flowreg.TUBE_D)},
+    "bulkhead-drain": {"inboard": (lambda: _drain_bulkhead.port(-1.0), _drain_bulkhead.TUBE_OD),
+                       "outboard": (lambda: _drain_bulkhead.port(1.0), _drain_bulkhead.TUBE_OD)},
     "bulkhead-water": {"inboard": (lambda: _jg.port(-1.0), _jg.PORT_D),
                        "outboard": (lambda: _jg.port(1.0), _jg.PORT_D)},
     # The other inlet on that wall, and the same two mouths under the same names: the customer's
@@ -819,7 +823,7 @@ GATE_A_LOW_LEAN_RUN = 22.0
 # The west lane is outside the reservoir-B fill column and the discharge chain.
 # Its return begins behind the pump discharge, below the discharge hose.
 GATE_A_WEST_X = -76.5
-GATE_A_RETURN_START_Y = 345.0
+GATE_A_RETURN_START_Y = 320.0
 GATE_A_UNION_JOIN_Y = 375.0
 GATE_A_UNION_LEVEL_RUN = 10.0
 GATE_A_RISE_RUN = 20.0
@@ -869,28 +873,11 @@ def _gate_climb_under_cruise(F) -> float:
 
 
 def _fluid_28(F, solids):
-    """fluid-28 — the flavor-B gate to its rear union, and the line the manifold sends out of the
-    machine on the WEST side.
+    """Flavor B retains the front support and bypasses the drain fittings to the west.
 
-    V-J-O faces UP off the west outboard valve, under the funnel's bowl and behind the reservoir
-    stub that shares its column. So the run climbs what that stub leaves, comes about onto its
-    UNION'S OWN COLUMN in one jog, and holds that column the rest of the way — the cold core's
-    whole length, the panel deck, and into the collet on the collet's own axis.
-
-    IT CROSSES ONCE AND THE CROSSING IS A MILLIMETRE. Gate and union stand one millimetre apart
-    across the machine, so there is no lane to take and nothing to come back from: the run is on
-    its final column before the cold core's front face, and every station aft of the jog
-    reads the same X.
-
-    WHAT IT LEAVES BEHIND IS THE WEST FLANK. The tap-water lane stands outboard of this column —
-    the split's cap reaches x −85.1 and the wall's own cluster wells are outboard of that — and
-    none of it is under this tube. The one thing this run puts in that strip is the rib that
-    holds it, and `GATE_B_STEP_Y` stands that rib in the daylight between the two.
-
-    THE STEP DOWN IS TAKEN LAST. The union stands `enclosure_assembly.FLAVOR_STOREY_DROP` under
-    the plane the gate climbs to, which is what carries its inboard body under the ASSE drip pan's
-    sleeve — so the run cruises the gate's own plane the whole way aft and spends the fall in one
-    short lean before the collet."""
+    The return rises 6 mm, passes 13 mm west of the rear union's column and
+    reaches its collet on-axis. The new return corners hold R25.4.
+    """
     gate = F["valve-v-j"].at("outlet")
     tin = F["bulkhead-flavor-b"].at("tube-in")
     climb = _gate_climb_under_cruise(F)
@@ -898,12 +885,16 @@ def _fluid_28(F, solids):
         "fluid-28", "valve-v-j.outlet",
         (gate[0], gate[1], climb),                          # up what the reservoir stub leaves
         (tin[0], gate[1] + GATE_B_JOG_LEG, climb),          # the one jog, onto the union's column
-        (tin[0], GATE_B_STEP_Y, climb),                     # the cold core's whole length, one column
-        (tin[0], GATE_B_STEP_Y + GATE_B_RISE_RUN, tin[2]),  # one lean onto the union's own storey
-        "bulkhead-flavor-b.tube-in",                        # and straight aft into the collet
-        kind="fluid", bend=TUBE_BEND,
-        note="flavor B: V-J-O → rear union, up the gate's own bay and one jog onto the union's "
-             "own column, held to the wall")
+        (tin[0], 302.0, climb),
+        (tin[0], 340.0, climb + 6.0),
+        (tin[0] - 13.0, 365.0, climb + 6.0),
+        (tin[0] - 13.0, 398.0, climb + 6.0),
+        (tin[0], 435.0, tin[2]),
+        "bulkhead-flavor-b.tube-in",
+        kind="fluid", bend={1: TUBE_BEND, 2: TUBE_BEND,
+                            3: 25.4, 4: 25.4, 5: 25.4, 6: 25.4, 7: 25.4},
+        note="flavor B: V-J-O → rear union, through the front support and "
+             "a raised west return around the ASSE drain adapters")
 
 
 def _fluid_18(F, solids):
@@ -935,7 +926,9 @@ def _fluid_18(F, solids):
         (tin[0], rise_y, low_z),
         (tin[0], rise_y + GATE_A_RISE_RUN, tin[2]),
         "bulkhead-flavor-a.tube-in",
-        kind="fluid", bend=TUBE_BEND,
+        kind="fluid", bend={1: TUBE_BEND, 2: TUBE_BEND, 3: TUBE_BEND,
+                            4: TUBE_BEND, 5: TUBE_BEND,
+                            6: 25.4, 7: 25.4, 8: 25.4, 9: 25.4},
         note="flavor A: V-G-O → rear union, through the low fore cap post, "
              "aft along the west flank and below the pump discharge hose")
     if run.tightest < TUBE_BEND - 1e-6:
