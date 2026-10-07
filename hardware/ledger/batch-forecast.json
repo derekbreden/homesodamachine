@@ -3,7 +3,7 @@
   "checkedAt": "2026-10-04",
   "bomSha256": "56964029198c4374ebb374027f1b77ea2f22fad0acd616009c13a97c8cdf7491",
   "bomRowCount": 168,
-  "scope": "Additional spending from October 4 inventory for 5, 10 or 20 complete integrated machines, with a White faucet and both install-kit tees. Each alternative begins with the same stock and represents that many total machines. Credit usable reusable parts already allocated to unit 1, exclude defective/obsolete stock, and deduct existing orders before calculating new purchases.",
+  "scope": "Additional spending from current inventory (filament through October 6, other stock as of October 4) for 5, 10 or 20 complete integrated machines, with a White faucet and both install-kit tees. Each alternative begins with the same stock and represents that many total machines. Credit usable reusable parts already allocated to unit 1, exclude defective/obsolete stock, and deduct existing orders before calculating new purchases.",
   "taxRate": 0.0725,
   "roundingNote": "7.25% sales-tax reserve drawn from recorded orders, applied only to merchandise-priced rows and inbound freight allowances; delivered historical allowances are not taxed again.",
   "excludedBomLines": [
@@ -5441,12 +5441,12 @@
       "sourceUrl": "https://www.amazon.com/dp/B0FBWGTW9W",
       "materialAllowance": 0.15,
       "inventory": {
-        "onHand": 12,
+        "onHand": 10.4,
         "incoming": 0,
         "basis": "reported",
         "estimated": true,
         "sources": [],
-        "note": "Approximately 12 kg remaining, reported October 4, 2026. This current balance replaces purchase totals as the forecast credit."
+        "note": "Approximately 10.4 kg: the October 4 report of about 12 kg less about 1.6 kg in the nine Black PET-GF15 prints logged through October 6 (1,455 slicer grams at the profile's 1.29 g/cm\u00b3, 1.43 g/cm\u00b3 for Fiberon). This current balance replaces purchase totals as the forecast credit."
       }
     },
     {
@@ -5710,7 +5710,7 @@
       "sourceUrl": "https://us.store.bambulab.com/products/petg-translucent",
       "materialAllowance": 0.15,
       "inventory": {
-        "onHand": 4,
+        "onHand": 3,
         "incoming": 10,
         "basis": "reported",
         "estimated": true,
@@ -5720,7 +5720,7 @@
             "line": 651
           }
         ],
-        "note": "Approximately 4 kg remaining, reported October 4, 2026. This current balance replaces purchase totals as the forecast credit. Ten 1 kg refills ordered October 5 (Bambu us783865986561351681) are incoming; delivery pending."
+        "note": "Approximately 3 kg: the October 4 report of about 4 kg less about 1 kg used or committed by the six clear-PETG prints logged through October 6, counting the two still printing in full. This current balance replaces purchase totals as the forecast credit. Ten 1 kg refills ordered October 5 (Bambu us783865986561351681) are incoming; delivery pending."
       }
     },
     {
@@ -5797,7 +5797,7 @@
         "basis": "reported",
         "estimated": true,
         "sources": [],
-        "note": "Approximately 10 kg remaining, reported October 4, 2026. This current balance replaces purchase totals as the forecast credit."
+        "note": "Approximately 10 kg remaining, reported October 4, 2026; no print logged since uses it. This current balance replaces purchase totals as the forecast credit."
       }
     },
     {
@@ -5959,8 +5959,8 @@
     "No purchase is placed. Stock limits are dated observations, not reservations. Labor uses the existing experienced-operator estimate; early builds may take longer. Owner labor is not automatically a future cash payment.",
     "Development spend, extra tooling, rent, payment fees, installation, warranty/support and business taxes are outside the production-and-delivery forecast. Refrigeration selections and donor interfaces remain qualification items with positive purchase allowances."
   ],
-  "inventoryAsOf": "2026-10-04",
-  "inventoryNote": "Black PET-GF15 12 kg, Clear PETG 4 kg and Black PETG 10 kg are approximate current balances reported October 4. Other credits reconcile acquired packs, same-part supplier swaps and recorded in-transit orders. Usable remaining quantities and cut/consumable development use are generally estimated, not a completed stocktake; each affected row is marked *.",
+  "inventoryAsOf": "2026-10-06",
+  "inventoryNote": "Black PET-GF15 about 10.4 kg, Clear PETG about 3 kg and Black PETG about 10 kg are the approximate balances reported October 4 less the prints logged through October 6, counting jobs still printing in full. Other credits reconcile acquired packs, same-part supplier swaps and recorded in-transit orders as of October 4. Usable remaining quantities and cut/consumable development use are generally estimated, not a completed stocktake; each affected row is marked *.",
   "pendingPayments": [
     {
       "name": "PI450822S shipment already ordered",
