@@ -154,6 +154,7 @@ Feed-water inlet, filter, ASSE 1022 backflow preventer and its vent-line hardwar
 | <!--purchase:pur-1d1f4567c6c34e248390df7f295564d0--> Fresh Water Systems order WEBFWS100707201, shipment 2 of 2 — JG **PP1208E** black bulkhead union (bag of 10) | [FWS](https://www.freshwatersystems.com/), [Gmail confirmation](https://mail.google.com/mail/u/0/#search/WEBFWS100707201) | 1 bag (10) | $33.58 | WEBFWS100707201 | 2026-09-16 | — | ACQUIRED (delivery confirmed; exact day unknown) |
 | <!--purchase:pur-2adc38c7f40a47c0a7ce61c92ac8671d--> John Guest Speedfit **ASVPP1LF** angle stop adapter valve, 3/8" × 3/8" × 1/4", lead-free push-to-connect — one single of the same fitting the bag of ten on WEBFWS100707201 carries. $15.28 + $1.11 NE tax | [B003YKF2JC](https://www.amazon.com/dp/B003YKF2JC) | 1 | $16.39 | 112-4818896-3446652 | 2026-09-08 | 2026-09-09 | ACQUIRED |
 | <!--purchase:pur-65c979f1bb194148918426361d985f73--> Fresh Water Systems order WEBFWS100711469 — neoFit **ABU44M-E** acetal black bulkhead connector, 4 mm (5/32") tube (bag of 10) + neoFit **ARD4M4-E** stem reducer, 4 mm tube × 1/4" stem (bag of 10) + neoFlo **LLDPE4M-WHITE** white 4 mm OD LLDPE tubing (4 × 25 ft) | [FWS](https://www.freshwatersystems.com/), [Gmail confirmation](https://mail.google.com/mail/u/0/#search/WEBFWS100711469) | 3 line items | $109.98 | WEBFWS100711469 | 2026-10-07 | — | ON-ORDER (ground, 4–5 business days. Merchandise by line: ABU44M-E $27.58; ARD4M4-E $11.89; white 4 mm tubing $18.00 for 100 ft — $57.47 merchandise + $45.07 shipping + $7.44 tax. Hardware for the ASSE 1022 vent's DRAIN line to the faucet) |
+| <!--purchase:pur-03fa2eeee1cd4eae8e6991441f9f90ed--> Fresh Water Systems order WEBFWS100711471 — neoFit **AEU44-E** acetal black union elbow, 1/4" tube × 1/4" tube (bag of 10) + neoFit **ATBC44-E** stem barb connector, 1/4" stem × 1/4" barb (bag of 10) | [FWS](https://www.freshwatersystems.com/), [Gmail confirmation](https://mail.google.com/mail/u/0/#search/WEBFWS100711471) | 2 line items | $41.18 | WEBFWS100711471 | 2026-10-07 | — | ON-ORDER (2 business days. Merchandise by line: AEU44-E $16.14; ATBC44-E $9.00 — $25.14 merchandise + $13.25 shipping + $2.79 tax. The rest of the ASSE 1022 vent's DRAIN line, between the vent hose and the ARD4M4-E reducer on WEBFWS100711469) |
 
 ## 4. Carbonator plumbing (pressurized side)
 
@@ -780,16 +781,16 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | Acquired hardware valuation — includes replaced/returned originals | [$37,674.65](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,479.39](LEDGER_LABOR) |
 | Acquired procurement valuation (combined) | [$44,154.04](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$1,389.59](LEDGER_ON_ORDER) |
+| ON-ORDER | [$1,430.77](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Recorded procurement valuation — includes commitments** | [$45,596.70](LEDGER_GRAND_TOTAL) |
+| **Recorded procurement valuation — includes commitments** | [$45,637.88](LEDGER_GRAND_TOTAL) |
 
 Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
-| Final vendor amounts | [$9,542.38](LEDGER_FINAL_VENDOR) |
+| Final vendor amounts | [$9,583.56](LEDGER_FINAL_VENDOR) |
 | Estimated amounts | [$2,835.33](LEDGER_ESTIMATES) |
 | Legacy / unverified amounts | [$33,218.99](LEDGER_LEGACY_UNVERIFIED) |
 

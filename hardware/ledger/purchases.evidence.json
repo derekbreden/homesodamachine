@@ -7824,6 +7824,18 @@
       "source_ids": [
         "src-535edab39a23469dad7dadceae02fad6"
       ]
+    },
+    "pur-03fa2eeee1cd4eae8e6991441f9f90ed": {
+      "vendor": "Fresh Water Systems",
+      "purpose": "components",
+      "amount_evidence": "final_vendor_amount",
+      "order_ids": [
+        "fws:WEBFWS100711471"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-68c3c555ba354b03a40e08e8375f0c42"
+      ]
     }
   },
   "orders": {
@@ -13344,6 +13356,18 @@
       "source_ids": [
         "src-535edab39a23469dad7dadceae02fad6"
       ]
+    },
+    "fws:WEBFWS100711471": {
+      "vendor": "Fresh Water Systems",
+      "reference": "WEBFWS100711471",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-07"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-68c3c555ba354b03a40e08e8375f0c42"
+      ]
     }
   },
   "events": [
@@ -16013,6 +16037,23 @@
       "order_ids": [
         "fws:WEBFWS100711469"
       ]
+    },
+    {
+      "event_id": "evt-822df10968c94d009e356f29f845abc5",
+      "vendor": "Fresh Water Systems",
+      "event_type": "charge",
+      "confirmation": "expected",
+      "event_date": null,
+      "amount_minor": 4118,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-68c3c555ba354b03a40e08e8375f0c42"
+      ],
+      "verified_at": "2026-10-07",
+      "order_ids": [
+        "fws:WEBFWS100711471"
+      ]
     }
   ],
   "allocations": [
@@ -16878,6 +16919,14 @@
       "purchase_id": "pur-65c979f1bb194148918426361d985f73",
       "order_id": "fws:WEBFWS100711469",
       "amount_minor": 10998,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-135e60afd89a4e7eb8fe4457cb41e94f",
+      "event_id": "evt-822df10968c94d009e356f29f845abc5",
+      "purchase_id": "pur-03fa2eeee1cd4eae8e6991441f9f90ed",
+      "order_id": "fws:WEBFWS100711471",
+      "amount_minor": 4118,
       "currency": "USD"
     }
   ],
@@ -25799,6 +25848,21 @@
       ],
       "verified_at": "2026-10-07",
       "note": "Gmail order confirmation received 2026-10-07 00:46 America/Chicago: neoFit ABU44M-E bag of 10 at USD 27.58, neoFit ARD4M4-E bag of 10 at USD 11.89, white 4 mm OD LLDPE tubing 4 × 25 ft at USD 18.00; USD 57.47 subtotal, USD 45.07 shipping, USD 7.44 tax, USD 109.98 total; ground, 4–5 business days in transit. No shipment, delivery or completed merchant charge is stated."
+    },
+    "src-68c3c555ba354b03a40e08e8375f0c42": {
+      "vendor": "Fresh Water Systems",
+      "document_type": "email_order_confirmation",
+      "reference": "WEBFWS100711471",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-07"
+      },
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "verified_at": "2026-10-07",
+      "note": "Gmail order confirmation received 2026-10-07 00:57 America/Chicago: neoFit AEU44-E bag of 10 at USD 16.14, neoFit ATBC44-E bag of 10 at USD 9.00; USD 25.14 subtotal, USD 13.25 shipping, USD 2.79 tax, USD 41.18 total; shipping method 2 business days. No shipment, delivery or completed merchant charge is stated."
     }
   },
   "coverage": [
@@ -26777,6 +26841,26 @@
         "fws:WEBFWS100711469"
       ],
       "note": "Scoped Gmail search for Fresh Water Systems mail from the last two days and review of the named order confirmation; no claim of complete Fresh Water Systems account coverage or completed payment/fulfillment evidence."
+    },
+    {
+      "coverage_id": "coverage-4fe5fcc2ddd0488d9dd0d9097c272a17",
+      "vendor": "Fresh Water Systems",
+      "stream": "drain-line fittings order",
+      "evidence_type": "order_confirmation",
+      "checked_at": "2026-10-07",
+      "examined_period": {
+        "start": "2026-10-06",
+        "end": "2026-10-07"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-68c3c555ba354b03a40e08e8375f0c42"
+      ],
+      "order_ids": [
+        "fws:WEBFWS100711471"
+      ],
+      "note": "Scoped Gmail search for order mail from the last day and review of the named order confirmation; no claim of complete Fresh Water Systems account coverage or completed payment/fulfillment evidence."
     }
   ],
   "gaps": [
@@ -27062,6 +27146,26 @@
       "missing_fact": "A completed merchant charge and its event date are not established by the order confirmation; the USD 109.98 charge remains expected.",
       "sources_checked": [
         "Fresh Water Systems order confirmation WEBFWS100711469"
+      ]
+    },
+    {
+      "gap_id": "gap-3cd573a027fe4639b56f650860b96095",
+      "vendor": "Fresh Water Systems",
+      "purchase_ids": [
+        "pur-03fa2eeee1cd4eae8e6991441f9f90ed"
+      ],
+      "order_ids": [
+        "fws:WEBFWS100711471"
+      ],
+      "event_ids": [
+        "evt-822df10968c94d009e356f29f845abc5"
+      ],
+      "source_ids": [
+        "src-68c3c555ba354b03a40e08e8375f0c42"
+      ],
+      "missing_fact": "A completed merchant charge and its event date are not established by the order confirmation; the USD 41.18 charge remains expected.",
+      "sources_checked": [
+        "Fresh Water Systems order confirmation WEBFWS100711471"
       ]
     }
   ],
