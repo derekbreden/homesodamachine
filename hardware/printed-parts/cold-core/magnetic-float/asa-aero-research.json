@@ -1,7 +1,7 @@
 {
   "checked_date": "2026-09-28",
   "material": "Bambu ASA Aero White 46100",
-  "inventory_source": "hardware/ledger/purchases.md:633",
+  "inventory_source": "hardware/ledger/purchases.md:634",
   "manufacturer_sources": {
     "guide": "https://wiki.bambulab.com/en/filament-acc/filament/asa-aero-printing-guide",
     "product": "https://bambulab-us.myshopify.com/products/asa-aero",
