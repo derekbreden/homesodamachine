@@ -2715,6 +2715,7 @@ genrule(
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_seating.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
+        "pysrc/hardware/scripts/check_asse_drain.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/hardware/scripts/pick_text.py",
         "hardware/topology/fluid-topology.md",
@@ -2733,6 +2734,7 @@ genrule(
         "out/enclosure-assembly/hardware/assembly/scenes/glb/front-top.glb",
         "out/enclosure-assembly/hardware/assembly/scenes/glb/funnel-drain.glb",
         "out/enclosure-assembly/hardware/assembly/scenes/glb/pump-cartridge.glb",
+        "out/enclosure-assembly/hardware/manifold-layout/drain-clearance-check.json",
         "out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json",
         "out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scorecard.json",
         "out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step",
@@ -2751,10 +2753,11 @@ O7=$$PWD/$(location out/enclosure-assembly/hardware/assembly/scenes/glb/en07-ele
 O8=$$PWD/$(location out/enclosure-assembly/hardware/assembly/scenes/glb/front-top.glb)
 O9=$$PWD/$(location out/enclosure-assembly/hardware/assembly/scenes/glb/funnel-drain.glb)
 O10=$$PWD/$(location out/enclosure-assembly/hardware/assembly/scenes/glb/pump-cartridge.glb)
-O11=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json)
-O12=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scorecard.json)
-O13=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step)
-O14=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.mesh)
+O11=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/drain-clearance-check.json)
+O12=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json)
+O13=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scorecard.json)
+O14=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step)
+O15=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.mesh)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -2782,10 +2785,11 @@ cp hardware/assembly/scenes/glb/en07-electronics-bay.glb $$O7
 cp hardware/assembly/scenes/glb/front-top.glb $$O8
 cp hardware/assembly/scenes/glb/funnel-drain.glb $$O9
 cp hardware/assembly/scenes/glb/pump-cartridge.glb $$O10
-cp hardware/manifold-layout/enclosure-assembly.facts.json $$O11
-cp hardware/manifold-layout/enclosure-assembly.scorecard.json $$O12
-cp hardware/manifold-layout/enclosure-assembly.step $$O13
-cp hardware/manifold-layout/enclosure-assembly.step.mesh $$O14
+cp hardware/manifold-layout/drain-clearance-check.json $$O11
+cp hardware/manifold-layout/enclosure-assembly.facts.json $$O12
+cp hardware/manifold-layout/enclosure-assembly.scorecard.json $$O13
+cp hardware/manifold-layout/enclosure-assembly.step $$O14
+cp hardware/manifold-layout/enclosure-assembly.step.mesh $$O15
 """,
 )
 
@@ -6130,6 +6134,7 @@ genrule(
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
@@ -13051,6 +13056,14 @@ genrule(
 )
 
 genrule(
+    name = "pysrc-bee77aca4031",
+    srcs = ["hardware/scripts/check_asse_drain.py"],
+    outs = ["pysrc/hardware/scripts/check_asse_drain.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
     name = "pysrc-c7bbcf3d649e",
     srcs = ["hardware/scripts/check_faucet_geometry.py"],
     outs = ["pysrc/hardware/scripts/check_faucet_geometry.py"],
@@ -13690,6 +13703,7 @@ sh_test(
         "hardware/scripts/_run_lock.py",
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
+        "hardware/scripts/check_asse_drain.py",
         "hardware/scripts/flute_payload.py",
         "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
@@ -14221,6 +14235,7 @@ sh_test(
         "hardware/scripts/_run_lock.py",
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
+        "hardware/scripts/check_asse_drain.py",
         "hardware/scripts/flute_payload.py",
         "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
@@ -14752,6 +14767,7 @@ sh_test(
         "hardware/scripts/_run_lock.py",
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
+        "hardware/scripts/check_asse_drain.py",
         "hardware/scripts/flute_payload.py",
         "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
@@ -15280,6 +15296,7 @@ sh_test(
         "hardware/scripts/_run_lock.py",
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
+        "hardware/scripts/check_asse_drain.py",
         "hardware/scripts/flute_payload.py",
         "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
@@ -15819,6 +15836,7 @@ sh_test(
         "hardware/scripts/_run_lock.py",
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
+        "hardware/scripts/check_asse_drain.py",
         "hardware/scripts/flute_payload.py",
         "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
@@ -16347,6 +16365,7 @@ sh_test(
         "hardware/scripts/_run_lock.py",
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
+        "hardware/scripts/check_asse_drain.py",
         "hardware/scripts/flute_payload.py",
         "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
@@ -16875,6 +16894,7 @@ sh_test(
         "hardware/scripts/_run_lock.py",
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
+        "hardware/scripts/check_asse_drain.py",
         "hardware/scripts/flute_payload.py",
         "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
@@ -17403,6 +17423,7 @@ sh_test(
         "hardware/scripts/_run_lock.py",
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
+        "hardware/scripts/check_asse_drain.py",
         "hardware/scripts/flute_payload.py",
         "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
@@ -17933,6 +17954,7 @@ sh_test(
         "hardware/scripts/_run_lock.py",
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
+        "hardware/scripts/check_asse_drain.py",
         "hardware/scripts/flute_payload.py",
         "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
@@ -18472,6 +18494,7 @@ sh_test(
         "hardware/scripts/_run_lock.py",
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
+        "hardware/scripts/check_asse_drain.py",
         "hardware/scripts/flute_payload.py",
         "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
@@ -19000,6 +19023,7 @@ sh_test(
         "hardware/scripts/_run_lock.py",
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
+        "hardware/scripts/check_asse_drain.py",
         "hardware/scripts/flute_payload.py",
         "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
@@ -19528,6 +19552,7 @@ sh_test(
         "hardware/scripts/_run_lock.py",
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
+        "hardware/scripts/check_asse_drain.py",
         "hardware/scripts/flute_payload.py",
         "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
@@ -20079,6 +20104,7 @@ sh_test(
         "hardware/scripts/_run_lock.py",
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
+        "hardware/scripts/check_asse_drain.py",
         "hardware/scripts/flute_payload.py",
         "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
@@ -20680,6 +20706,7 @@ sh_test(
         "hardware/scripts/_run_lock.py",
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
+        "hardware/scripts/check_asse_drain.py",
         "hardware/scripts/flute_payload.py",
         "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
@@ -21220,6 +21247,7 @@ sh_test(
         "hardware/scripts/_run_lock.py",
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
+        "hardware/scripts/check_asse_drain.py",
         "hardware/scripts/flute_payload.py",
         "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
@@ -21748,6 +21776,7 @@ sh_test(
         "hardware/scripts/_run_lock.py",
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
+        "hardware/scripts/check_asse_drain.py",
         "hardware/scripts/flute_payload.py",
         "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
@@ -22291,6 +22320,7 @@ sh_test(
         "hardware/scripts/_run_lock.py",
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
+        "hardware/scripts/check_asse_drain.py",
         "hardware/scripts/flute_payload.py",
         "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
@@ -22845,6 +22875,7 @@ sh_test(
         "hardware/scripts/_run_lock.py",
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
+        "hardware/scripts/check_asse_drain.py",
         "hardware/scripts/flute_payload.py",
         "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
@@ -23396,6 +23427,7 @@ sh_test(
         "hardware/scripts/_run_lock.py",
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
+        "hardware/scripts/check_asse_drain.py",
         "hardware/scripts/flute_payload.py",
         "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
@@ -23935,6 +23967,7 @@ sh_test(
         "hardware/scripts/_run_lock.py",
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
+        "hardware/scripts/check_asse_drain.py",
         "hardware/scripts/flute_payload.py",
         "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
@@ -24463,6 +24496,7 @@ sh_test(
         "hardware/scripts/_run_lock.py",
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
+        "hardware/scripts/check_asse_drain.py",
         "hardware/scripts/flute_payload.py",
         "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
@@ -24991,6 +25025,7 @@ sh_test(
         "hardware/scripts/_run_lock.py",
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
+        "hardware/scripts/check_asse_drain.py",
         "hardware/scripts/flute_payload.py",
         "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
@@ -25519,6 +25554,7 @@ sh_test(
         "hardware/scripts/_run_lock.py",
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
+        "hardware/scripts/check_asse_drain.py",
         "hardware/scripts/flute_payload.py",
         "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
@@ -26047,6 +26083,7 @@ sh_test(
         "hardware/scripts/_run_lock.py",
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
+        "hardware/scripts/check_asse_drain.py",
         "hardware/scripts/flute_payload.py",
         "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
@@ -26618,6 +26655,7 @@ sh_test(
         "hardware/scripts/_run_lock.py",
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
+        "hardware/scripts/check_asse_drain.py",
         "hardware/scripts/flute_payload.py",
         "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
@@ -27191,6 +27229,7 @@ sh_test(
         "hardware/scripts/_run_lock.py",
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
+        "hardware/scripts/check_asse_drain.py",
         "hardware/scripts/flute_payload.py",
         "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
@@ -27747,6 +27786,7 @@ sh_test(
         "hardware/scripts/_run_lock.py",
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
+        "hardware/scripts/check_asse_drain.py",
         "hardware/scripts/flute_payload.py",
         "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
@@ -28340,6 +28380,7 @@ sh_test(
         "hardware/scripts/_run_lock.py",
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
+        "hardware/scripts/check_asse_drain.py",
         "hardware/scripts/check_show_faces.py",
         "hardware/scripts/flute_payload.py",
         "hardware/scripts/materialize_pump_cartridge.py",
@@ -28897,6 +28938,7 @@ sh_test(
         "hardware/scripts/_run_lock.py",
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
+        "hardware/scripts/check_asse_drain.py",
         "hardware/scripts/fit.py",
         "hardware/scripts/flute_payload.py",
         "hardware/scripts/materialize_pump_cartridge.py",
@@ -29443,6 +29485,7 @@ sh_test(
         "hardware/scripts/_run_lock.py",
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
+        "hardware/scripts/check_asse_drain.py",
         "hardware/scripts/flute_payload.py",
         "hardware/scripts/lanes.py",
         "hardware/scripts/materialize_pump_cartridge.py",
@@ -29972,6 +30015,7 @@ sh_test(
         "hardware/scripts/_run_lock.py",
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
+        "hardware/scripts/check_asse_drain.py",
         "hardware/scripts/flute_payload.py",
         "hardware/scripts/materialize_material_colors.py",
         "hardware/scripts/materialize_pump_cartridge.py",
@@ -30516,6 +30560,7 @@ sh_test(
         "hardware/scripts/_run_lock.py",
         "hardware/scripts/_seating.py",
         "hardware/scripts/_stated_bounds.py",
+        "hardware/scripts/check_asse_drain.py",
         "hardware/scripts/flute_payload.py",
         "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/pick_text.py",
