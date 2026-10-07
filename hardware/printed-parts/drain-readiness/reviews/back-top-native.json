@@ -1,0 +1,294 @@
+{
+  "native_archive": "hardware/printed-parts/drain-readiness/ready/back-top-black-z004-mark2.gcode.3mf",
+  "native_archive_sha256": "606f8a153363ac0a3ab1a5defbdea4821aa56f4d989673e6039e7356ee67d694",
+  "gcode_sha256": "c6ef3d9b2be16cc7fccdeb7d7c95d38be71fddb88e1fe109ce8900dbe24a2105",
+  "zip_crc_and_gcode_md5_pass": true,
+  "source_stl_sha256": "6f8b50646c7f35860b9900139cf43dec21cbf54e0e23ccb743cb64b1f8eae2b7",
+  "source_step_sha256": "7dd74665a0a81f99e5c358064d04777ccc1bcce7499b6a3756b892313a9e5b48",
+  "essential_native_settings_retained": true,
+  "settings": {
+    "initial_layer_print_height": "0.2",
+    "layer_height": "0.24",
+    "wall_loops": "2",
+    "support_type": "normal(auto)",
+    "support_style": "default",
+    "support_top_z_distance": "0.45",
+    "support_bottom_z_distance": "0.3",
+    "support_object_xy_distance": "0.4",
+    "filament_colour": [
+      "#000000"
+    ],
+    "filament_nozzle_map": [
+      "0"
+    ],
+    "nozzle_diameter": [
+      "0.4",
+      "0.4"
+    ],
+    "infill_wall_overlap": "15%",
+    "wall_sequence": "inner wall/outer wall",
+    "is_infill_first": "0",
+    "minimum_sparse_infill_area": "15",
+    "detect_narrow_internal_solid_infill": "0",
+    "top_one_wall_type": "not apply"
+  },
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_mm": [
+    0.0,
+    0.02
+  ],
+  "complete_additive_layer_band": {
+    "name": "additive exterior roof band",
+    "print_z_mm": [
+      0.2,
+      9.3
+    ],
+    "wall_layer_count": 38,
+    "first_wall_layer": [
+      0.44,
+      0.24
+    ],
+    "last_wall_layer": [
+      9.32,
+      0.24
+    ],
+    "wrong_height_layers": [],
+    "uncovered_intervals_mm": [],
+    "pass": true
+  },
+  "first_layer_overlap": [
+    {
+      "from_z_mm": 0.2,
+      "to_z_mm": 0.44,
+      "upper_outer_bead_area_supported_fraction": 0.7728099241135504,
+      "minimum_fraction": 0.5
+    },
+    {
+      "from_z_mm": 0.44,
+      "to_z_mm": 0.68,
+      "upper_outer_bead_area_supported_fraction": 0.753688047745555,
+      "minimum_fraction": 0.5
+    }
+  ],
+  "solid_host_modifier_count": 23,
+  "support_removal": [
+    {
+      "body": "tree-1",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-2",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-3",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-4",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-5",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-6",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-7",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-8",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-9",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-10",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-11",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-12",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-13",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-14",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-15",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-16",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-17",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-18",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-19",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-20",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-21",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-22",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-23",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-24",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-25",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-26",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-27",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-28",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-29",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-30",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-31",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-32",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-33",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-34",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-35",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-36",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-37",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-38",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    },
+    {
+      "body": "tree-39",
+      "route": "Release its contacts from the empty forebay, exposed flank or rear opening; cut connected sacrificial stock into fragments and remove it before any fittings, boards, loom or insulation enter.",
+      "physical_removal_effort_verified": false
+    }
+  ],
+  "full_native_bead_footprint": {
+    "minimum_shared_bed_margin_mm": 21.90431799999999,
+    "complete_layer_bead_bounds": {
+      "extrusion_bounds_xy_mm": [
+        [
+          21.905318,
+          52.231318
+        ],
+        [
+          303.095682,
+          267.768682
+        ]
+      ],
+      "maximum_line_width_mm": 0.757364,
+      "bounds_padding_mm": 0.47868200000000005
+    },
+    "complete_layer_bead_minimum_bed_margin_mm": 21.90431799999999,
+    "minimum_toolpath_separation_mm": null,
+    "pairwise_toolpath_separations": []
+  },
+  "submitted": false,
+  "scope": "Native mesh/archive/settings, complete footprint, additive roof layers and first-layer overlap. Dense region deposition and protected exterior contacts have separate readings. Physical cleanup, appearance, fit, load capacity and lifetime remain separate.",
+  "passed": true
+}

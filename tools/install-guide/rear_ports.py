@@ -20,10 +20,12 @@ SPAN = 70.5
 CROP = (565, 40, 1565, 855)
 REAR = {
     'c14-inlet', 'keystone-jack', 'co2-inlet', 'bulkhead-water', 'bulkhead-carb',
-    'bulkhead-flavor-a', 'bulkhead-flavor-b', 'funnel', 'nameplate', 'nameplate-ink',
+    'bulkhead-flavor-a', 'bulkhead-flavor-b', 'bulkhead-drain', 'funnel', 'nameplate', 'nameplate-ink',
     'enclosure-back-bottom', 'enclosure-back-top',
 }
-JACK = (-37.81, 467.0, 303.9502868652344)
+FACTS = json.loads((HARDWARE / 'manifold-layout/enclosure-assembly.facts.json').read_text())
+JACK = (FACTS['constants']['KEYSTONE_STATION'][0],
+        FACTS['box']['outer'][3], FACTS['constants']['KEYSTONE_STATION'][1])
 
 
 def pose(tilt):
@@ -36,7 +38,7 @@ def points():
     bounds = shared.mesh_bounds(SOURCE.with_suffix('.step.mesh'))
     result = {'jack-face': JACK, 'jack-port': (JACK[0], JACK[1], JACK[2] - 1)}
     for name in ('co2-inlet', 'bulkhead-water', 'bulkhead-carb',
-                 'bulkhead-flavor-a', 'bulkhead-flavor-b', 'c14-inlet'):
+                 'bulkhead-flavor-a', 'bulkhead-flavor-b', 'bulkhead-drain', 'c14-inlet'):
         lo, hi = bounds[name]
         result[name] = ((lo[0] + hi[0]) / 2, hi[1], (lo[2] + hi[2]) / 2)
     return result

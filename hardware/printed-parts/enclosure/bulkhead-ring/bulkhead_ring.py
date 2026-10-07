@@ -13,8 +13,8 @@ of it.
     THICK     the chip's thickness, the depth the pocket is cut to, and — because the wall keeps
               its own full stock under every chip — the height of the boss the wall stands inboard
 
-THE OUTLINE IS A D ON ITS BACK. Below the bore's axis it is a half circle, the shape the port
-itself is; above it a rectangle, and the corners that adds are the room the lettering stands in.
+THE OUTLINE IS RECTANGULAR. Its bottom edge meets the flange envelope; above the flange,
+a dedicated band carries the lettering.
 It is not a shape that turns — a pocket takes it one way up and no other, which is what puts the
 word level without anything holding it there.
 
@@ -63,7 +63,8 @@ for _p in (_hw / "scripts",
            _hw / "printed-parts" / "enclosure" / "enclosure",
            _hw / "printed-parts" / "enclosure" / "y-wall-of-back-top",
            _hw / "reference" / "jg-bulkhead-union",
-           _hw / "reference" / "neofit-bulkhead"):
+           _hw / "reference" / "neofit-bulkhead",
+           _hw / "reference" / "neofit-drain-bulkhead"):
     sys.path.insert(0, str(_p))
 sys.path.insert(0, str(next(p for p in _here.parents
                             if (p / "tools" / "docgen").is_dir()) / "tools"))
@@ -72,6 +73,7 @@ from _materials import step_safe
 from _measuring import bores  # noqa: E402
 import _y_wall_dimensions as _rear  # noqa: E402
 import jg_bulkhead_union as _jg  # noqa: E402
+import neofit_drain_bulkhead as _drain
 import neofit_bulkhead as _neo  # noqa: E402
 import fits  # noqa: E402
 import _enclosure_interface as _enc_interface  # noqa: E402
@@ -80,7 +82,7 @@ from docgen import substitute_md  # noqa: E402
 # TWO FAMILIES OF FITTING CROSS THIS WALL, and a chip is struck on the flange it hides under and
 # the barrel it passes — `union` for the PP1208E the water and umbilical ports use, `neofit` for
 # the ABU44 the CO2 inlet takes. `RING_W` and `THICK` are the same for both.
-FAMILIES = {"union": _jg, "neofit": _neo}
+FAMILIES = {"union": _jg, "neofit": _neo, "drain": _drain}
 
 # How far the chip stands past the fitting's own panel footprint — the width of colour that shows
 # once the flange is on. `enclosure_assembly.y_wall_field` strikes its pockets from it and
@@ -109,6 +111,7 @@ STATIONS = {
     "co2": Chip("neofit", "CO2", True),
     "flavor-a": Chip("union", "FLAVOR", False),
     "flavor-b": Chip("union", "FLAVOR", False),
+    "drain": Chip("drain", "DRAIN", False),
 }
 # ONE FILE PER STATION, AND IT HOLDS BOTH BODIES. The part is one print in two filaments — a chip
 # and the word standing in its recess — so the file is that pair, each body carrying the colour of
@@ -119,7 +122,7 @@ STEPS = {name: _here.parent / f"bulkhead-ring-{name}.step" for name in STATIONS}
 # The key each station reads its two filaments under in `_y_wall_dimensions` — both flavour
 # chips print off one spool and letter in one colour, so both answer to `flavor`.
 FLUIDS = {"water": "water", "carb": "carb", "co2": "co2",
-          "flavor-a": "flavor", "flavor-b": "flavor"}
+          "flavor-a": "flavor", "flavor-b": "flavor", "drain": "drain"}
 
 # Physical port labels use the typeface below. The cap-height and stroke-width
 # checks establish its printed fit on the identification ring.
@@ -153,7 +156,7 @@ WORD_BEAD = 0.42
 # — and the only thing that catches it is a figure carried here and read back off the solid.
 # `words_hold` is where that is read.
 WORD_CAP = 4.951
-WORD_WIDTHS = {"TAP": 12.657, "SODA": 18.411, "CO2": 12.813, "FLAVOR": 25.952}
+WORD_WIDTHS = {"TAP": 12.657, "SODA": 18.411, "CO2": 12.813, "FLAVOR": 25.952, "DRAIN": 19.671}
 # The narrowest stroke any of these words carries, taken off the built letterforms as twice a
 # glyph face's area over its perimeter.
 WORD_MIN_STROKE = 0.771
@@ -182,8 +185,15 @@ def family(which: str) -> str:
 
 
 def od(fam: str) -> float:
-    """One family's chip OD — its width, and the diameter of the half circle below the axis."""
-    return ring_od(FAMILIES[fam].flange_footprint())
+    """One family's rectangular chip width, sized for its flange and longest word."""
+    words = [WORD_WIDTHS[c.word] for c in STATIONS.values() if c.family == fam]
+    return max(FAMILIES[fam].flange_footprint() + 2.0 * WORD_MARGIN,
+               max(words) + 2.0 * WORD_MARGIN)
+
+
+def bottom(fam: str) -> float:
+    """The bottom edge, at the flange envelope with no extra band below it."""
+    return FAMILIES[fam].flange_footprint() / 2.0
 
 
 def bore_d(fam: str) -> float:
@@ -192,8 +202,8 @@ def bore_d(fam: str) -> float:
 
 
 def tall(which: str) -> float:
-    """One station's chip top to bottom: its own half circle below the axis and its rise above."""
-    return od(family(which)) / 2.0 + rise(which)
+    """One station's rectangular chip height."""
+    return bottom(family(which)) + rise(which)
 
 
 def rise(which: str) -> float:
@@ -215,18 +225,12 @@ def seat() -> tuple:
     return ((0.0, 0.0, 0.0), (0.0, -1.0, 0.0))
 
 
-def build_outline(diameter: float, top: float, thick: float, y0: float = 0.0):
-    """The D on its back, as a solid spanning `y0` to `y0 + thick`: a half circle of `diameter`
-    below the axis and a rectangle that wide standing `top` above it.
-
-    Struck from primitives rather than sketched, so no plane's own chirality reaches the shape —
-    the half circle is a cylinder with everything above the axis taken off it, and the rectangle is
-    a box standing on that same axis."""
-    r = diameter / 2.0
-    barrel = cq.Solid.makeCylinder(r, thick, cq.Vector(0.0, y0, 0.0), cq.Vector(0.0, 1.0, 0.0))
-    below = cq.Solid.makeBox(diameter, thick, r, cq.Vector(-r, y0, -r))
-    above = cq.Solid.makeBox(diameter, thick, top, cq.Vector(-r, y0, 0.0))
-    return barrel.intersect(below).fuse(above)
+def build_outline(diameter: float, top: float, thick: float, y0: float = 0.0,
+                  lower: float = None):
+    """Rectangular chip; only the top carries an additional text band."""
+    lower = diameter / 2.0 if lower is None else lower
+    return cq.Solid.makeBox(diameter, thick, top + lower,
+                            cq.Vector(-diameter / 2, y0, -lower))
 
 
 def word_band(which: str) -> tuple:
@@ -278,7 +282,7 @@ def build_word(which: str):
 def build_ring(which: str):
     """One station's chip: the outline, its bore, and the word's recess taken out of its face."""
     diameter, top = outline(which)
-    chip = build_outline(diameter, top, THICK)
+    chip = build_outline(diameter, top, THICK, lower=bottom(family(which)))
     chip = chip.cut(cq.Solid.makeCylinder(bore_d(family(which)) / 2.0, THICK,
                                           cq.Vector(0.0, 0.0, 0.0), cq.Vector(0.0, 1.0, 0.0)))
     return chip.cut(build_word(which))
@@ -342,7 +346,7 @@ def stations_hold():
         bb = solid.BoundingBox()
         diameter, top = outline(which)
         for what, claimed, actual in (("chip width", diameter, bb.xlen),
-                                      ("chip height", diameter / 2.0 + top, bb.zlen),
+                                      ("chip height", bottom(family(which)) + top, bb.zlen),
                                       ("chip thickness", THICK, bb.ylen)):
             if abs(claimed - actual) > 1e-6:
                 raise ValueError(
@@ -456,11 +460,6 @@ def selftest() -> int:
             fails.append(
                 f"'{chip.word}' runs {WORD_WIDTHS[chip.word]:.3f} mm across a {which} chip that "
                 f"leaves {room:.3f} mm between its own margins")
-        if rise(which) < od(chip.family) / 2.0 - 1e-9:
-            fails.append(
-                f"the {which} chip rises {rise(which):.3f} mm over an axis its own half circle reaches "
-                f"{od(chip.family) / 2.0:.3f} mm below — the rectangle does not close on the "
-                f"circle and the outline is not one shape")
     if THICK >= _jg.THREAD_LEN:
         fails.append(
             f"a chip {THICK:g} thick stands in the {_jg.THREAD_LEN:g} mm of thread the union "
@@ -521,7 +520,7 @@ def main():
         word_volumes[which] = word.Volume() / 1000.0
         bb = chip.BoundingBox()
         print(f"Bulkhead ring — {which} station, '{STATIONS[which].word}'")
-        print(f"  Ø{diameter:g} wide × {diameter / 2.0 + top:.3f} tall / "
+        print(f"  Ø{diameter:g} wide × {tall(which):.3f} tall / "
               f"bore Ø{bore_d(family(which)):g} / thickness {THICK:g}")
         print(f"  Colour showing past the flange: {RING_W:g} mm")
         print(f"  Canonical-frame bounding box: "

@@ -14,7 +14,7 @@ Out:
 
 - All three MCUs — the main board's ESP32-WROOM, the 4.3" enclosure display, the 1.47" faucet display — flashed with the current firmware on `main`.
 - First DC power-on under PSU control succeeds with no smoke, no breaker trip, no thermal-fuse open.
-- Sensor health passes: both 1-wire probes addressed on the bus — one DS18B20 (carbonator, family 0x28) + one DS18S20 (coil, family 0x10) — and reporting within [±2 °C](AMBIENT_TOL) of room ambient; all [10](REEDS_TOTAL) reed switches ([2](REEDS_CARB) carbonator + [4](REEDS_PER_RSVR) per flavor reservoir × [2](RSVR_COUNT) reservoirs) settled to their no-magnet "empty" baseline; the DIGITEN flow meter ticks pulses when its impeller is rotated by hand; the MQ-6 hydrocarbon sensor in the floor strip down the refrigeration bay's −X wall has reached operating temperature and reads its clean-air baseline; the ASSE drip pan's moisture sensor reads dry.
+- Sensor health passes: both 1-wire probes addressed on the bus — one DS18B20 (carbonator, family 0x28) + one DS18S20 (coil, family 0x10) — and reporting within [±2 °C](AMBIENT_TOL) of room ambient; all [10](REEDS_TOTAL) reed switches ([2](REEDS_CARB) carbonator + [4](REEDS_PER_RSVR) per flavor reservoir × [2](RSVR_COUNT) reservoirs) settled to their no-magnet "empty" baseline; the DIGITEN flow meter ticks pulses when its impeller is rotated by hand; the MQ-6 hydrocarbon sensor in the floor strip down the refrigeration bay's −X wall has reached operating temperature and reads its clean-air baseline.
 - Both MCP23017 GPIO expanders ACK on the I²C bus at [0x20](MCP_VALVES) and [0x21](MCP_RESERVOIRS), with the DS3231 RTC at [0x68](RTC_ADDR) also responsive.
 - Valve self-test pass: each of the [11](VALVE_COUNT) Beduan solenoids clicks once with audible / visual confirmation, and both Kamoer peristaltic pumps spin briefly under DRV8870 drive.
 - Relay #1 verified switching the compressor's AC leg under a deliberate firmware override: the suction-line probe (the DS18S20, family 0x10) reads a few degrees lower within a couple of minutes of the override starting (running dry, no water in the carbonator), confirming the relay is making AND that the DS18S20 is physically mounted on the suction line (its identity among the two probes is already fixed by family code, not by this test).
@@ -114,7 +114,6 @@ The default firmware periodically prints a sensor-health frame. Step through eac
 - **DIGITEN flow meter** ([GPIO 25](GPIO_FLOW)) — manually rotate the impeller with a clean implement; expect a pulse count increment per rotation in the serial output.
 - **Faucet display toggle** — touch the 1.47" faucet display; the selected flavor switches and the base ESP32 logs the change over the SIG-6 UART.
 - **MQ-6 hydrocarbon sensor** — needs ~60 s warm-up to reach operating temperature. After warm-up, expect a clean-air baseline reading on its analog input (verify the bench air is free of solvents or LPG nearby — wave clean air across the sensor or move the chassis briefly to a clean-air environment if needed). Architecture: the MQ-6 stands on edge low in the refrigeration bay, in the open floor strip down the -X wall beside the compressor, mesh horizontal and looking aft along that strip (the bare sensor's orientation is unconstrained per the Winsen datasheet; what the position is for is height -- the bay's floor is one connected pool that every dominant brazed-joint leak site drains into, and dense R-600a spreads over the slab as one layer) — the hardware-only backstop to the firmware-controlled cutoffs ([`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) "Safety").
-- **ASSE drip pan's moisture sensor** — reads dry (high impedance). Confirm by briefly bridging the sensor pads with a damp probe and watching the firmware reading swing.
 
 Record each reading in the per-serial commissioning log. Any out-of-bounds reading at this step blocks the unit from proceeding to step 7.
 
@@ -156,7 +155,6 @@ is standing in them. Expected:
 - Compressor minimum off-time: **[3 min](MIN_OFF_TIME_BARE)**; minimum on-time **[60 s](MIN_ON_TIME)**
 - A probe silent for **[30 s](READING_STALE)** is no reading, and parks the compressor
 - Carbonator refill threshold: low-level reed (MCP23017 [0x21 PB4](REED_LOW))
-- Backflow alarm: armed on the ASSE drip pan's moisture sensor
 - Sound volume: **70%**, quiet hours **off** (`volume` / `quiet` on the main board's console)
 
 Every figure above is read out of [`cold_policy.h`](/firmware/lib/machine_policy/cold_policy.h)
@@ -189,7 +187,7 @@ volume 70
 
 ### 10. Archive the per-serial commissioning log
 
-Snapshot the serial-monitor output from steps 6–9 into a per-serial log file. At minimum capture: firmware build ID (`fw_version.h`), I²C ACK list, 1-wire probe addresses + family codes (0x28 carbonator / 0x10 coil) + first-read temperatures, all [10](REEDS_TOTAL) reed baselines, flow-meter pulse count, MQ-6 baseline, drip-pan baseline, valve self-test pass/fail per channel, suction-line probe temperatures before/during/after the relay #1 verification, the DS3231 time as set, and the volume-0 alarm check from step 9.
+Snapshot the serial-monitor output from steps 6–9 into a per-serial log file. At minimum capture: firmware build ID (`fw_version.h`), I²C ACK list, 1-wire probe addresses + family codes (0x28 carbonator / 0x10 coil) + first-read temperatures, all [10](REEDS_TOTAL) reed baselines, flow-meter pulse count, MQ-6 baseline, valve self-test pass/fail per channel, suction-line probe temperatures before/during/after the relay #1 verification, the DS3231 time as set, and the volume-0 alarm check from step 9.
 
 Where this log lives — local file under `/commissioning/<serial>/`, uploaded to cloud, both — is an Open item below. Working position: keep the file locally on the build host until that decision lands.
 
@@ -202,7 +200,7 @@ A commissioned unit is:
 - Both MCP23017s ACK'd at [0x20](MCP_VALVES) + [0x21](MCP_RESERVOIRS), DS3231 ACK'd at [0x68](RTC_ADDR), both temperature probes addressed on the 1-wire bus (DS18B20 0x28 + DS18S20 0x10)
 - All [10](REEDS_TOTAL) reed switches verified at no-magnet baseline and verified pull-low under a bench magnet
 - DIGITEN flow meter pulses on hand rotation; the faucet display's touch toggle switches the selected flavor
-- MQ-6 warmed to operating temperature and reads clean-air baseline; the ASSE drip pan's moisture sensor reads dry
+- MQ-6 warmed to operating temperature and reads clean-air baseline
 - All [11](VALVE_COUNT) solenoid valves clicked individually under firmware self-test; both peristaltic pumps spun dry under DRV8870 drive; condenser fan spun briefly
 - Relay #1 verified switching the compressor's AC leg under firmware override; suction-line probe drops a few degrees within a couple of minutes; relay de-energizes cleanly and the [3-minute](MIN_OFF_TIME) guard re-arms
 - Factory-default setpoints ([2 °C](TANK_TARGET) target, [±2 °C](HYSTERESIS) hysteresis, [−8 °C](FREEZE_CUTOFF) freeze cutoff, [3-min](MIN_OFF_TIME_HYPHEN) minimum off-time, low-reed refill threshold) confirmed loaded
@@ -223,3 +221,5 @@ Procedure-level gaps that need answers before unit 1 ships:
 ## Sources
 [value](NAME) texts are updated by:
 - `/hardware/assembly/_firmware_and_commissioning_sync.py`
+
+The ASSE vent terminates visibly over the sink through the separate DRAIN circuit. J4 IO23/IO27 are reserved and unpopulated; commissioning records the open outlet and clear hose/tube route per [ASSE drain assembly](/hardware/assembly/asse-drain.md).

@@ -160,7 +160,7 @@ PARTS = {
     # drops into the 45° facet's inset and laps the glass all round. It is the display's whole
     # fastening, so it ships on every unit the screen does.
     "Display cover plate": ["enclosure/display-cover/display-cover.step"],
-    # ONE ROW, FIVE CHIPS AND THE FIVE WORDS THEY CARRY — one file per crossing the +Y wall of
+    # ONE ROW, SIX CHIPS AND THE SIX WORDS THEY CARRY — one file per crossing the +Y wall of
     # back-top passes a tube through, and each holds both bodies: the chip, and the word standing in the
     # recess cut into it. Two spools go on the plate and the row prices both.
     "Bulkhead ring — one per +Y-wall crossing": [
@@ -169,16 +169,18 @@ PARTS = {
         "enclosure/bulkhead-ring/bulkhead-ring-flavor-a.step",
         "enclosure/bulkhead-ring/bulkhead-ring-flavor-b.step",
         "enclosure/bulkhead-ring/bulkhead-ring-co2.step",
+        "enclosure/bulkhead-ring/bulkhead-ring-drain.step",
     ],
-    # AND ONE COLLAR PER CHIP, on the same five stations and off the same two spools — the tube
-    # carrying the word the ring it goes through carries. Three go on at the umbilical bench and
-    # two at the pack bench, onto the install kit's own runs, and the row prices all five.
+    # AND ONE COLLAR PER CHIP, on the same six stations and off the same two spools — the tube
+    # carrying the word the ring it goes through carries. Four go on at the umbilical bench and
+    # two at the pack bench, onto the install kit's own runs, and the row prices all six.
     "Tube collar — one per +Y-wall crossing": [
         "faucet/tube-collar/tube-collar-water.step",
         "faucet/tube-collar/tube-collar-carb.step",
         "faucet/tube-collar/tube-collar-flavor-a.step",
         "faucet/tube-collar/tube-collar-flavor-b.step",
         "faucet/tube-collar/tube-collar-co2.step",
+        "faucet/tube-collar/tube-collar-drain.step",
     ],
     "Collet press — install-kit customer tool": [
         "collet-press/collet-press.step",
@@ -188,9 +190,6 @@ PARTS = {
     # same plate with a unit-specific QR, so one mass estimates the run.
     "Nameplate — one per unit, serialized": [
         "enclosure/nameplate/nameplate-001.step",
-    ],
-    "ASSE drip pan": [
-        "enclosure/asse-drip-pan/asse-drip-pan.step",
     ],
     "Fuse clamp": ["refrigeration/fuse-clamp/fuse-clamp.step"],
     # NO VALVE TRAY ROW AND NO PUMP TRAY ROW. Every valve in the machine stands in four bosses
@@ -237,7 +236,6 @@ GROUP_OF = [
     ("Copper-plug stack",           "small"),
     ("PRV shroud",                  "small"),
     ("Carbonator reed bridge",      "small"),
-    ("ASSE drip pan",               "small"),
     ("Fuse clamp",                  "small"),
     ("Bulkhead ring",               "rings"),
     ("Tube collar",                 "rings"),

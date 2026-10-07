@@ -34,4 +34,9 @@ cd "$WORKSPACE"
 TMPDIR=$(mktemp -d "${TMPDIR:-/tmp}/hsm-selftest.XXXXXX")
 export TMPDIR
 trap 'rm -rf "$TMPDIR"' EXIT
-exec ./tools/cad-venv/bin/python "$1" selftest
+module=$1
+shift
+if [ "$#" -eq 0 ]; then
+  set -- selftest
+fi
+exec ./tools/cad-venv/bin/python "$module" "$@"

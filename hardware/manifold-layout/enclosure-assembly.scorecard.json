@@ -1,5 +1,5 @@
 {
- "gatesPass": true,
+ "gatesPass": false,
  "size": [
   {
    "id": "enclosure",
@@ -24,18 +24,18 @@
    "id": "assembly",
    "label": "every placed body, the box around them included",
    "min": [
-    -113.45,
+    -107.5,
     5.0,
     -6.0
    ],
    "max": [
     107.5,
-    536.191,
+    556.0,
     358.0
    ],
    "mm": [
-    220.95,
-    531.191,
+    215.0,
+    551.0,
     364.0
    ]
   }
@@ -45,10 +45,12 @@
    "id": "coverage",
    "label": "Every placed body is declared in the fastening table",
    "kind": "gate",
-   "status": "pass",
-   "value": "105/105 declared",
+   "status": "fail",
+   "value": "109/110 declared",
    "target": "all declared",
-   "detail": [],
+   "detail": [
+    "placed, undeclared: hose-drain-vent"
+   ],
    "active": true
   },
   {
@@ -64,7 +66,7 @@
     "bulkhead-carb: fall onto what stands under it \u2014 wants 6, has 10.992",
     "thermal-fuse: cover either side of the case \u2014 wants 0, has 5.250",
     "funnel-drain-union: the drop off the elbow `fluid-4` reaches V-B on \u2014 wants 6.35, has 17.360",
-    "digiten-flow: fall onto what stands under it \u2014 wants 6, has 20.630",
+    "digiten-flow: fall onto what stands under it \u2014 wants 6, has 21.725",
     "thermal-fuse: cover above and below the case \u2014 wants 0, has 20.400"
    ],
    "active": true
@@ -73,11 +75,12 @@
    "id": "pack-closes",
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
-   "status": "pass",
-   "value": "0 clash, 0 unanswered",
+   "status": "fail",
+   "value": "1 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
    "detail": [
-    "Drain stub in the straight bore: 17.02 mm\u00b3 in the push-on seal's ring, 0.000000 mm\u00b3 outside it"
+    "drain-barb-adapter \u2229 hose-drain-vent   94.9 mm\u00b3, x[  -82.83,  -73.31] y[  373.75,  383.27] z[  291.00,  309.01]",
+    "Drain stub in the plug's land: 17.02 mm\u00b3 in the push-on seal's ring, 0.000000 mm\u00b3 outside it"
    ],
    "active": true
   },
@@ -95,12 +98,13 @@
    "id": "port-leads",
    "label": "Every tube port has the straight a run off it needs",
    "kind": "gate",
-   "status": "pass",
-   "value": "67/67 clear",
+   "status": "fail",
+   "value": "68/69 clear",
    "target": "all clear",
    "detail": [
     "a port needs the reach of a quarter turn off it \u2014 one bend radius of its line plus the tube's own half-diameter \u2014 clear of every body but the one its line joins it to",
-    "asse1022-assembly.vent-tip: 14.40 mm to moisture-plate \u2014 opens to atmosphere, not gated"
+    "valve-v-f.outlet: 10.53 mm to enclosure-front-top, needs 17.18",
+    "asse1022-assembly.vent-tip: 0.00 mm to hose-drain-vent \u2014 opens to atmosphere, not gated"
    ],
    "active": true
   },
@@ -108,11 +112,16 @@
    "id": "clearance-floor",
    "label": "Two things the machine does not seat together stand a millimetre apart",
    "kind": "gate",
-   "status": "pass",
-   "value": "0 under, tightest 1.073 mm",
+   "status": "fail",
+   "value": "5 under, tightest 0.000 mm",
    "target": "\u2265 1 mm",
    "detail": [
     "every body pair, and every drawn run against what its own line does not join it to \u2014 the exact solid distance, with boxes only as a prefilter",
+    "asse1022-assembly \u2014 hose-drain-vent: 0.000 mm \u2014 \u2717 under the floor, and nothing seats them together",
+    "drain-barb-adapter \u2014 hose-drain-vent: 0.000 mm \u2014 \u2717 under the floor, and nothing seats them together",
+    "funnel-cover \u2014 funnel-frame: 0.000 mm \u2014 \u2717 under the floor, and nothing seats them together",
+    "water-6 \u2014 tube-drain-vent: 0.822 mm \u2014 \u2717 under the floor, and nothing seats them together",
+    "fluid-28 \u2014 tube-drain-vent: 0.901 mm \u2014 \u2717 under the floor, and nothing seats them together",
     "compressor \u2014 thermal-fuse: 0.000 mm \u2014 seated against it",
     "compressor \u2014 fuse-clamp: 0.000 mm \u2014 seated against it",
     "thermal-fuse \u2014 fuse-clamp: 0.000 mm \u2014 seated against it",
@@ -128,18 +137,22 @@
     "gasher-co2 \u2014 co2-adapter-check-in: 0.000 mm \u2014 seated against it",
     "gasher-co2 \u2014 co2-adapter-check-out: 0.000 mm \u2014 seated against it",
     "asse1022-assembly \u2014 bulkhead-water: 0.000 mm \u2014 seated against it",
-    "asse-drip-pan \u2014 moisture-plate: 0.000 mm \u2014 seated against it",
     "bulkhead-water \u2014 bulkhead-ring-water: 0.000 mm \u2014 seated against it",
     "bulkhead-flavor-b \u2014 bulkhead-ring-flavor-b: 0.000 mm \u2014 seated against it",
     "bulkhead-flavor-a \u2014 bulkhead-ring-flavor-a: 0.000 mm \u2014 seated against it",
     "bulkhead-carb \u2014 bulkhead-ring-carb: 0.000 mm \u2014 seated against it",
+    "bulkhead-drain \u2014 bulkhead-ring-drain: 0.000 mm \u2014 seated against it",
+    "drain-barb-adapter \u2014 drain-elbow: 0.000 mm \u2014 seated against it",
+    "drain-elbow \u2014 drain-stem-reducer: 0.000 mm \u2014 seated against it",
     "bulkhead-ring-water \u2014 bulkhead-ring-water-word: 0.000 mm \u2014 seated against it",
     "bulkhead-ring-carb \u2014 bulkhead-ring-carb-word: 0.000 mm \u2014 seated against it",
     "bulkhead-ring-flavor-a \u2014 bulkhead-ring-flavor-a-word: 0.000 mm \u2014 seated against it",
     "bulkhead-ring-flavor-b \u2014 bulkhead-ring-flavor-b-word: 0.000 mm \u2014 seated against it",
     "bulkhead-ring-co2 \u2014 bulkhead-ring-co2-word: 0.000 mm \u2014 seated against it",
+    "bulkhead-ring-drain \u2014 bulkhead-ring-drain-word: 0.000 mm \u2014 seated against it",
     "nameplate \u2014 nameplate-ink: 0.000 mm \u2014 seated against it",
     "funnel \u2014 funnel-cover: 0.000 mm \u2014 seated against it",
+    "funnel \u2014 funnel-frame: 0.000 mm \u2014 seated against it",
     "funnel \u2014 elbow-cradle: 0.000 mm \u2014 seated against it",
     "funnel \u2014 funnel-drain-stub: 0.000 mm \u2014 seated against it",
     "funnel-frame \u2014 elbow-cradle: 0.000 mm \u2014 seated against it",
@@ -155,17 +168,18 @@
     "carb-1 \u2014 enclosure-back-top: 0.149 mm \u2014 seated against it",
     "discharge-chain \u2014 foam-assembly: 0.150 mm \u2014 seated against it",
     "suction-chain \u2014 foam-assembly: 0.150 mm \u2014 seated against it",
-    "funnel \u2014 funnel-frame: 0.189 mm \u2014 seated against it",
+    "asse1022-assembly \u2014 drain-barb-adapter: 0.202 mm \u2014 seated against it",
     "funnel-frame \u2014 funnel-drain-union: 0.364 mm \u2014 seated against it",
     "display \u2014 display-cover: 1.000 mm \u2014 seated against it",
     "fluid-1 \u2014 enclosure-front-top: 1.073 mm",
-    "fluid-2 \u2014 g-ganen-pump: 1.093 mm",
+    "fluid-18 \u2014 tube-drain-vent: 1.083 mm",
     "co2-1 \u2014 enclosure-back-top: 1.101 mm",
     "fluid-14 \u2014 vk-solenoid: 1.125 mm",
     "fluid-14 \u2014 funnel-frame: 1.138 mm",
     "fluid-24 \u2014 funnel-frame: 1.150 mm",
     "fluid-26 \u2014 funnel-frame: 1.151 mm",
     "fluid-16 \u2014 funnel-frame: 1.213 mm",
+    "wago-sensors \u2014 drain-stem-reducer: 1.228 mm",
     "g-ganen-pump \u2014 bulkhead-flavor-a: 1.275 mm",
     "fluid-14 \u2014 valve-v-a: 1.305 mm",
     "fluid-18 \u2014 enclosure-back-top: 1.308 mm",
@@ -174,22 +188,24 @@
     "bulkhead-carb \u2014 bulkhead-ring-carb-word: 1.342 mm",
     "bulkhead-flavor-b \u2014 bulkhead-ring-flavor-b-word: 1.366 mm",
     "bulkhead-flavor-a \u2014 bulkhead-ring-flavor-a-word: 1.366 mm",
-    "water-7 \u2014 fluid-14: 1.370 mm",
+    "water-7 \u2014 fluid-14: 1.374 mm",
+    "fluid-28 \u2014 drain-elbow: 1.380 mm",
     "bulkhead-water \u2014 bulkhead-ring-water-word: 1.387 mm",
     "water-3 \u2014 fluid-18: 1.395 mm",
     "carb-1 \u2014 pcba: 1.453 mm",
     "vk-solenoid \u2014 funnel-frame: 1.456 mm",
+    "fluid-18 \u2014 drain-stem-reducer: 1.515 mm",
     "water-2 \u2014 fluid-1: 1.528 mm",
-    "fluid-18 \u2014 g-ganen-pump: 1.543 mm",
+    "bulkhead-drain \u2014 bulkhead-ring-drain-word: 1.555 mm",
     "co2-inlet \u2014 bulkhead-ring-co2-word: 1.571 mm",
     "water-5 \u2014 fluid-18: 1.589 mm",
     "wago-reeds-a \u2014 foam-assembly: 1.600 mm",
     "wago-sensors \u2014 foam-assembly: 1.600 mm",
     "elbow-cradle \u2014 funnel-drain-stub: 1.641 mm",
-    "fluid-2 \u2014 asse-drip-pan: 1.663 mm",
+    "fluid-18 \u2014 g-ganen-pump: 1.653 mm",
     "elbow-cradle \u2014 foam-assembly: 1.670 mm",
     "wago-reeds-b \u2014 foam-assembly: 1.700 mm",
-    "water-7 \u2014 co2-2: 1.732 mm",
+    "water-7 \u2014 co2-2: 1.739 mm",
     "water-3 \u2014 fluid-26: 1.751 mm",
     "co2-2 \u2014 pcba: 1.875 mm",
     "carb-1 \u2014 suction-chain: 1.911 mm",
@@ -247,21 +263,11 @@
    "active": false
   },
   {
-   "id": "plate-lies-flat",
-   "label": "The moisture plate lies flat on the pan's floor",
-   "kind": "gate",
-   "status": "pass",
-   "value": "flat floor 42.00 x 67.00",
-   "target": "42.00 x 56.00",
-   "detail": [],
-   "active": true
-  },
-  {
    "id": "nameplate-psu-clear",
    "label": "The nameplate's receiving bar stands clear of the PSU",
    "kind": "gate",
    "status": "pass",
-   "value": "1.000 mm",
+   "value": "1.038 mm",
    "target": "\u2265 1 mm",
    "detail": [
     "the bar and its corbel against the PSU's AC terminal block; the tabs' pitch `_nameplate_interface.TAB_X` sets the bar's ends"
@@ -793,7 +799,7 @@
    "label": "Every fitting's bare barrel takes the wall and the ring lying in it",
    "kind": "gate",
    "status": "pass",
-   "value": "5/5 hold",
+   "value": "6/6 hold",
    "target": "a stack of the wall at its own station, floored on `enclosure.wall` and 2 mm of boss",
    "detail": [],
    "active": true
@@ -812,10 +818,12 @@
    "id": "co2-relief",
    "label": "The CO2 station's wall relief stands on the neoFit's own column and storey",
    "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "x 2.45, z 335.96",
-   "detail": [],
+   "status": "fail",
+   "value": "open",
+   "target": "x -3.35, z 335.96",
+   "detail": [
+    "relief at x 2.45, z 335.961; the port is bored at x -3.3500, z 335.9606"
+   ],
    "active": true
   },
   {
@@ -863,7 +871,7 @@
    "label": "The removable funnel has a retained drain tube",
    "kind": "goal",
    "status": "pass",
-   "value": "PP0308E nose 0.65 mm below the web at Z299.250; stub top Z311.065 at the plug's 5.015 mm straight bore; fluid-4 199.0 mm to V-B",
+   "value": "PP0308E nose 0.65 mm below the web at Z299.250; stub top Z311.065 at the plug's 5.01482 mm land; fluid-4 199.0 mm to V-B",
    "target": "a fixed tube through the frame connected to V-B",
    "detail": [
     "The cradle's snap and the plug's push-on seal on the stub are not physically qualified; `zone-c/funnel/cradle-trial` tests the snap."
@@ -885,7 +893,7 @@
    "label": "Every print-down slope on a ceiling-down piece has its stated carry",
    "kind": "goal",
    "status": "fail",
-   "value": "41 print-down slope(s): 22 under a body, 5 within 1 mm of one, 5 in a kept room, 9 could be columns; 1 kept room(s) match nothing",
+   "value": "41 print-down slope(s): 25 under a body, 5 within 1 mm of one, 2 in a kept room, 9 could be columns; 1 kept room(s) match nothing",
    "target": "no unaccounted slope a column could replace, and every named room standing",
    "detail": [
     "enclosure-back-top: a 36\u00b0 face at x -107.50..-104.00 y 209.90..211.60 z 278.47..279.70: a column of 15 mm\u00b3 rising 5.2 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=-0.588 z=0.809 \u00b7 thru x=-105.750 y=210.752 z=279.085\nclick: x=-105.750 y=210.752 z=279.085",
@@ -1196,7 +1204,7 @@
    "label": "Every routed tube turns at or above its stock's minimum radius",
    "kind": "gate",
    "status": "pass",
-   "value": "B \u2014 73/73 corners at spec",
+   "value": "B \u2014 76/76 corners at spec",
    "target": "every corner \u2265 its stock's minimum (B)",
    "detail": [
     "grade = radius \u00f7 the stock's minimum \u2014 1/4\" LLDPE R14; 1/4\" soft ACR copper R12.7; 3/8\" braided PVC R15.9",
@@ -1210,7 +1218,7 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "gate",
    "status": "pass",
-   "value": "76/76 mounted, 24 part of another body, 5 nothing fastens",
+   "value": "80/80 mounted, 25 part of another body, 5 nothing fastens",
    "target": "a printed joint per body",
    "detail": [
     "funnel: wall-capture \u2014 nothing fastens it; The silicone brim rests on the roof ledge and its plug on the cradle's hook tops within the frame's socket, its sealing land on the drain stub. The funnel lifts out by hand for the dishwasher, the land sliding off the stub.",
@@ -1225,10 +1233,13 @@
    "id": "placed",
    "label": "Every placement is stated as a rule, and the solid lands on it",
    "kind": "goal",
-   "status": "pass",
-   "value": "105/105 stated",
+   "status": "fail",
+   "value": "109/110 stated",
    "target": "a stated rule per body, each landing on it",
-   "detail": [],
+   "detail": [
+    "hose-drain-vent: no seat states where it stands",
+    "funnel-frame: cy was asked for 164.5500 and reads 165.5750 \u2014 1.02e+00 mm off"
+   ],
    "active": false
   },
   {
@@ -1267,7 +1278,7 @@
    "label": "Every port a placed body declares is carried into world",
    "kind": "goal",
    "status": "pass",
-   "value": "68/68 located",
+   "value": "70/70 located",
    "target": "every declared port positioned and sized",
    "detail": [],
    "active": false
@@ -1281,10 +1292,10 @@
    "target": "200 mm between held points",
    "detail": [
     "fluid-14: 203.0 mm unheld, 3.0 over",
-    "carb-1: 146.1 mm, held at its anchor",
-    "co2-2: 174.4 mm, held at its anchor",
-    "fluid-28: 164.6 mm, held at its anchor",
-    "fluid-18: 366.7 mm unheld \u2014 left loose; Flavor A's line to its rear union. The low cap post grips the fore crossing (`_cold_core_interface.cap_side_anchors`). The remaining line follows the west flank, turns below the pump discharge hose and returns to the rear union. Those unretained spans need a support and relaxed-tube review. The authored centreline does not establish physical tube shape or its clearance to neighbouring parts."
+    "carb-1: 147.5 mm, held at its anchor",
+    "co2-2: 177.3 mm, held at its anchor",
+    "fluid-28: 170.3 mm, held at its anchor",
+    "fluid-18: 359.3 mm unheld \u2014 left loose; Flavor A's line to its rear union. The low cap post grips the fore crossing (`_cold_core_interface.cap_side_anchors`). The remaining line follows the west flank, turns below the pump discharge hose and returns to the rear union. Those unretained spans need a support and relaxed-tube review. The authored centreline does not establish physical tube shape or its clearance to neighbouring parts."
    ],
    "active": false
   },

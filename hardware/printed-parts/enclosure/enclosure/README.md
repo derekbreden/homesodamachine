@@ -756,7 +756,7 @@ inside its unrounded envelope, with a 0.5 outward/build-rise slope tangent to th
 retained circular taper. R6 has a 3.317 mm straight transition and a 2.292 mm initial
 inset; each 0.24 mm layer advances at most 0.12 mm on that section. It applies to
 the tee carrier, enclosure hand-pocket upper rims, pump-cartridge hand-pocket
-upper rims, roof side edges and the ASSE drip-pan pull's lower exterior rim.
+upper rims, roof side edges.
 Flat lifting ceilings and mating planes keep their required dimensions.
 
 Use a 0.20 mm first bed layer, six walls locally through the expanding band,
@@ -772,7 +772,7 @@ The face a feature works through keeps the shape its work requires, and support 
 The C14 inlet's flange pocket keeps its floor, because that floor is what the receptacle lands
 on; each handhold keeps its flat lifting ceiling, because that ceiling is the surface a hand
 pulls up on; the Z-seam catches are broad square planes because they bear against lift along the
-complete rails; the ASSE drip pan rides in the west wall's flat slot; a cross-pin keeps its square pass
+complete rails; a cross-pin keeps its square pass
 envelope; a pump boss lands on a flat shoulder. A corbel carries the material behind one of
 those faces. It does not replace the bearing, locating, sliding, sealing, clamping, insertion or
 access face with a slope.
@@ -873,7 +873,7 @@ with a face exposed down the whole run. Front-bottom's pair is printed and pulle
 support on the piece, off cleanly in one piece, reachable without going near the cavity.
 
 Back-top prints on its ceiling, so its supports reach separate functional faces:
-the drip-pan slot's bearing face, nameplate receiver rims and catch pockets,
+nameplate receiver rims and catch pockets,
 C14 and keystone pockets, tie-band and anchor ceilings, Z-seam feet, rear port
 lips, and the PRV chase crown and mouth. The
 [current native review](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-back-top-current-mark2-v9/README.md)
@@ -987,31 +987,9 @@ segments, vertical to the bed, are free. Back-top's upper corner blocks grow dir
 the ceiling slab. Their flat lower ends face print-up, and front-top's passages open around
 them through the ceiling tongue.
 
-The **ASSE drip pan** passes through one rectangular slot in back-top's 9 mm
-thick −X flank. The slot follows the pan body's YZ section, with 0.25 mm
-running room on both Y sides and above. Its print-down floor has a 0.25 mm
-supported-face allowance. The pan's floor bears on that slot floor, and its
-two end-wall rims bear against the slot roof. Its exterior pull face rests
-against the wall and stops the insertion. The space inside the wall is open
-around the pan.
+The −X flank is a continuous 9 mm wall in the rear service bay. The ASSE vent reaches its black adapters through a clear flexible hose, then a white 4 mm LLDPE return runs to the middle-row DRAIN bulkhead. [ASSE drain assembly](/hardware/assembly/asse-drain.md) gives the tube and fitting sequence.
 
-The moisture plate's **cable clip** lies below the slot on the dry inner face of
-the −X flank, with 9 mm between the slot floor and the clip and 3 mm between
-its rear end and the rear wall.
-The complete pan withdrawal path stays above it. The shared profile is [9 mm](CABLE_CLIP_DEPTH) deep; [6 mm](PAN_CLIP_EMBED) are embedded in this
-[9 mm](PAN_CLIP_WALL) wall, leaving [3 mm](PAN_CLIP_PROUD) proud in the cabinet and [3 mm](CABLE_CLIP_BACKING) of
-exterior backing. The profile is asymmetric in its own up, and that up follows the print's:
-back-top prints ceiling-down, so the run is laid along +Y and the profile's up is the box's −Z.
-Its two hooked sections grow from the wall on 45° faces toward the print's up, and the recessed
-channel ramps to the wall face over [6 mm](CABLE_CLIP_RAMP) at both ends of its [18 mm](CABLE_CLIP_RUN) run. It therefore
-adds no supported face to the ceiling-down back-top print. The seat that channel opens to — the
-run of the lower arm's face at full depth, against the wall, which is what decides the section a
-clip will take — is [9 mm](CABLE_CLIP_SEAT) of the profile's [39 mm](CABLE_CLIP_HEIGHT) height;
-the S above it is what a cable is pressed past to reach that seat, and it closes over whatever
-went in. The plate's continuous lead leaves a
-service loop between this fixed clip and the open pan.
-
-The **ASSE anchor** one storey above it looks print-down on its top. Outside the zip ties'
+The **ASSE anchor** looks print-down on its top. Outside the zip ties'
 span the block goes on up as a column, from the V's upper arris, or the bore's crossing of it,
 back to the wall and straight to the ceiling lane — the piece's own first layers — so nothing
 over it looks print-down; over the span the column is absent so the loop has

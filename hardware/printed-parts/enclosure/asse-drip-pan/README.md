@@ -1,8 +1,9 @@
-# ASSE drip pan
+# ASSE drip pan reference
 
-One PETG pan catches the ASSE 1022 atmospheric vent's drips. The Shutao moisture
-plate lies loose on its floor and trips the alarm when water pools there. The pan
-has no drain or cable opening; it draws out through the −X wall for emptying.
+This directory holds the standalone PETG tray geometry and its physical records.
+The production machine uses the [faucet drain](/hardware/assembly/asse-drain.md);
+this part is excluded from its assembly and published part library. The reference
+tray has no drain or cable opening and carries a recess for the Shutao moisture plate.
 
 | | Pan |
 | --- | --- |

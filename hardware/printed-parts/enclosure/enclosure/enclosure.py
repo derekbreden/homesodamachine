@@ -1265,7 +1265,7 @@ def c14_mount_half(bore_w, bore_h, screw_reach):
 # on a five-millimetre overlap over that foot. The complete back joint therefore carries the
 # grown section without moving an exterior face.
 #
-# WHAT STANDS ON A FLANK READS THE FACE THAT IS ACTUALLY THERE. Wago wells and the drip-pan
+# WHAT STANDS ON A FLANK READS THE FACE THAT IS ACTUALLY THERE. Wago wells and the tap-water
 # sleeve cut their own berths through the whole section; the two fitting anchors give their zip
 # tie lanes back to `interior_x`; and the +X electronics bay keeps its full insert-length boss datum
 # clear of this face.
@@ -1345,7 +1345,7 @@ front_bottom_flank_t = 9.0
 # lane each rises into is exactly the `wall` this would add — so the section begins past the one
 # and above the other, and neither telescope is ever asked about. The Wago wells bore from
 # `interior_x` as they always did, so a lever nut bottoms where it bottomed and simply sits in a
-# deeper pocket. The ASSE drip pan withdraws through one slot in this nine-millimetre flank.
+# deeper pocket. The west flank is continuous around the tap-water chain.
 
 # --- back-top's own ceiling ---------------------------------------------------
 #
@@ -1761,7 +1761,7 @@ def documented(box):
 #   placed        {name: (solid, colour)} — the same shape a CadQuery assembly reads
 #   front_ports   / back_ports   wall through-holes, in the pack's format
 #   east_ports    +X side-wall through-holes, (kind, y, z, *size)
-#   west_ports    −X side-wall through-holes, same shape — the ASSE drip pan's slot
+#   west_ports    optional −X side-wall through-holes, same shape
 #   funnel        the placed funnel's plan centre, or None for no throat
 #   c14           the mains inlet's heat-set stations on the +Y wall of back-top, (x, z)
 #   east_bosses   the +X wall's mounting bosses, (y, z, the plane the boss top reaches, the
@@ -3469,16 +3469,9 @@ def _nameplate(solid, plate, outer, y_outer, zlo, zhi, up=1.0):
     return _nameplate_fit.production_backing(pocket, plate, y_outer)
 
 
-def _port_chip(px, pz, width, rise, y0, y1):
-    """One station's outline as a solid spanning `y0..y1` — a D lying on its back: a half circle
-    of `width` below the bore's axis, and a rectangle that wide standing `rise` above it.
-
-    The pocket and the boss behind it are the same shape at two sizes, so both are struck here.
-    Built from primitives rather than sketched, so no plane's own chirality reaches the shape."""
-    r = width / 2.0
-    barrel = cq.Solid.makeCylinder(r, y1 - y0, cq.Vector(px, y0, pz), cq.Vector(0, 1, 0))
-    return (barrel.intersect(_ybox(px - r, px + r, y0, y1, pz - r, pz))
-            .fuse(_ybox(px - r, px + r, y0, y1, pz, pz + rise)))
+def _port_chip(px, pz, width, rise, bottom, y0, y1):
+    """Rectangular identification pocket with the text band above its fitting."""
+    return _ybox(px - width / 2, px + width / 2, y0, y1, pz - bottom, pz + rise)
 
 
 def _port_field(solid, field, ports, y_outer, wall_at=None, up=1.0):
@@ -3501,7 +3494,7 @@ def _port_field(solid, field, ports, y_outer, wall_at=None, up=1.0):
         return solid
     at = (lambda _x, _z: wall) if wall_at is None else wall_at
     deep = y_outer
-    for px, pz, _width, _rise in field.pockets:
+    for px, pz, *_size in field.pockets:
         # WHAT THIS LOOP OWES THE BORES BELOW IS ONLY HOW FAR INBOARD A LAND CAN STAND.
         # `proud` is what a chip's pocket costs a `wall`-thick face; a wall carrying more
         # section than that has already made it back and keeps its bare inner face. Read at
@@ -3509,9 +3502,9 @@ def _port_field(solid, field, ports, y_outer, wall_at=None, up=1.0):
         t = at(px, pz)
         proud = max(0.0, field.proud - (t - wall))
         deep = min(deep, (y_outer - t) - proud)
-    for px, pz, width, rise in field.pockets:
+    for px, pz, width, rise, bottom in field.pockets:
         solid = solid.cut(_supported_cut(
-            _port_chip(px, pz, width, rise, y_outer - field.proud, y_outer + 1.0), up))
+            _port_chip(px, pz, width, rise, bottom, y_outer - field.proud, y_outer + 1.0), up))
     for cutter in _port_cuts(ports, deep - 1.0, y_outer + 1.0, up):
         solid = solid.cut(cutter)
     return solid
@@ -5156,7 +5149,7 @@ def _back_top_wall_relief_cut(field, up=1.0):
         # The pocket's print-roof edge and its print-floor edge, in the machine's Z.
         roof, sill = rz + up * hz, rz - up * hz
         landed = any(abs(px - rx) <= hx and abs(pz - rz) <= hz
-                     for px, pz, _w, _r in pockets)
+                     for px, pz, *_size in pockets)
         if landed:
             land_y = floor - field.proud
             fall = land_y - face                # the retained stock's one millimetre
@@ -5246,7 +5239,7 @@ def _back_top_flanks(inner, outer, box, y_joint, zj, up=1.0):
     The channel cut runs last and opens exactly that moving profile. Every back plug reaches
     this Y plane, so its registration section roots directly in the full-thickness flank.
 
-    The ASSE drip pan crosses this flank through one rectangular wall slot."""
+    The continuous west flank supports the tap-water chain."""
     ix0, ix1, _iy0, iy1, _iz0, iz1 = inner
     fx0, fx1 = back_top_flank_face()
     y0 = back_flank_start(y_joint)
@@ -5271,7 +5264,6 @@ def _back_top_flanks(inner, outer, box, y_joint, zj, up=1.0):
         band = seg if band is None else band.fuse(seg)
     # The PRV chase stands its own share of this band later (`_vent_chase`): each piece
     # carries the height of the rib it owns, so neither crosses into the other's travel.
-    # The pan slot passes through this full nine-millimetre section.
     for cutter in _x_port_cuts(box.pack.west_ports, outer[0] - 5.0, fx0 + 5.0, up=up):
         band = band.cut(cutter)
     relief = _back_top_flank_tie_cut(box)
@@ -6396,7 +6388,7 @@ def build_back_half(box):
         back = back.cut(_screw_cut(x_ext, sx, z_boss, yb,
                                    up=print_up("back", "top" if z_boss > z_seam else "bottom")))
     # Wall through-holes for the appliance's external connections — the
-    # faucet umbilical (carb-water + two flavor), the tap-water inlet, and
+    # faucet umbilical (carb-water, two flavors and 4 mm DRAIN), the tap-water inlet, and
     # the C14 mains inlet, all through the +Y wall of back-top in the band above the
     # cold core; their bodies hang in the band's open rear half.
     # Each bore's roof follows the print of the piece that carries its station.
@@ -6405,67 +6397,13 @@ def build_back_half(box):
         for cutter in _port_cuts(ports, inner[3] - 5.0, outer[3] + 5.0,
                                  up=print_up("back", side)):
             back = back.cut(cutter)
-    # The ASSE drip pan enters through one rectangular slot in the −X wall.
+    # Optional west-wall connections follow their declared cutouts.
     for side in ("top", "bottom"):
         ports = [p for p in box.pack.west_ports if (p[2] > z_seam) == (side == "top")]
         for cutter in _x_port_cuts(ports, outer[0] - 5.0, inner[0] + 5.0,
                                    up=print_up("back", side)):
             back = back.cut(cutter)
     return cq.Workplane(obj=back)
-
-
-# The moisture plate's dry cable clip sits below the pan slot on the west flank.
-pan_cable_clip_embed = 6.0
-pan_cable_clip_rear_land = wall
-pan_cable_clip_slot_gap = 9.0
-
-
-def pan_cable_clip_bounds(box):
-    """The moisture lead's clip below the slot on the dry west flank."""
-    if not box.pack.west_ports:
-        return None
-    if len(box.pack.west_ports) != 1 or box.pack.west_ports[0][0] != "rect":
-        raise ValueError("the pan cable clip needs one rectangular west-wall slot")
-    _kind, _y, z, _width, height, *_radius = box.pack.west_ports[0]
-    face = back_top_flank_face()[0]
-    run_end = back_top_wall_face() - pan_cable_clip_rear_land
-    run_start = run_end - _cable_clip.RUN
-    slot_floor = z - height / 2.0 - fits.supported_surface
-    z_high = slot_floor - pan_cable_clip_slot_gap
-    z_low = z_high - _cable_clip.HEIGHT
-    if run_start < box.y_joint + wall or z_low < box.splits[1] + wall:
-        raise ValueError("the pan cable clip no longer fits on the dry back-top flank")
-    return (face - pan_cable_clip_embed, run_start, z_low,
-            face + _cable_clip.projection(pan_cable_clip_embed), run_end, z_high)
-
-
-def _pan_cable_clip(solid, box, up=1.0):
-    """The partially embedded SIG-9 service-loop clip beside the ASSE drip pan.
-
-    THE PROFILE'S UP IS THE PRINT'S. `cable_clip`'s section is asymmetric in its own up — its
-    two hooked arms grow off the wall on faces that print free only with that up along the
-    build axis — and `apply` derives that up from `along` and `outward`. `up` is the piece's
-    print up along the box's Z, ±1: the run is laid along −Y where it is positive and along +Y
-    where it is negative, and the origin is the profile's lower corner at the start of
-    whichever run that is, so the clip stands over the same Y run and the same Z band either
-    way."""
-    bounds = pan_cable_clip_bounds(box)
-    if bounds is None:
-        return solid
-    _x0, run_start, z_low, _x1, run_end, z_high = bounds
-    face = back_top_flank_face()[0]
-    if up > 0:
-        origin, along = (face, run_end, z_low), (0.0, -1.0, 0.0)
-    else:
-        origin, along = (face, run_start, z_high), (0.0, 1.0, 0.0)
-    return _cable_clip.apply(
-        solid,
-        origin=origin,
-        outward=(1.0, 0.0, 0.0),
-        along=along,
-        embed=pan_cable_clip_embed,
-        wall_thickness=back_top_flank_t,
-    ).val()
 
 
 def _floor_bosses(solid, inner, stations, y0, y1, z0, z1):
@@ -9163,9 +9101,6 @@ def build_piece(box, y_side, z_side, halves_cache=None):
                     ceiling=inner[5]))
     if y_side == "front" and z_side == "top" and plate:
         piece = _front_top_flank_pockets(piece, box.pack.front_flank_reliefs)
-    if y_side == "back" and z_side == "top":
-        # Last on the flank: the channel is air, and no later wall feature may fill it back in.
-        piece = _pan_cable_clip(piece, box, up=up)
     if z_side == "bottom":
         piece = _handholds(piece, inner, y_joint, y_side)
     if y_side == "front" and plate:
@@ -10303,8 +10238,6 @@ def main():
         "CABLE_CLIP_RAMP": f"{_cable_clip.RAMP:.4g} mm",
         "CABLE_CLIP_BACKING": f"{_cable_clip.BACKING:.4g} mm",
         "PAN_CLIP_WALL": f"{back_top_flank_t:.4g} mm",
-        "PAN_CLIP_EMBED": f"{pan_cable_clip_embed:.4g} mm",
-        "PAN_CLIP_PROUD": f"{_cable_clip.projection(pan_cable_clip_embed):.4g} mm",
         "TEARDROP_ROOF": f"{teardrop_roof_angle:.4g}°",
         "SOCKET_BORE": f"{socket_bore_dia:.4g} mm",
         "SOCKET_OD": f"{2.0 * socket_r:.4g} mm",

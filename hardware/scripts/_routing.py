@@ -598,6 +598,8 @@ class Spool:
 
 
 SPOOLS = {
+    "drain-white": Spool("white 4 mm OD / 2.5 mm ID LLDPE",
+                         _rear.port_colors["drain"], "ASSE vent discharge"),
     "white": Spool("neoFlo white 1/4\" LLDPE (LLDPE4-WHITE)",
                    _rear.port_colors["water"], "tap water"),
     "blue": Spool("neoFlo blue 1/4\" LLDPE (LLDPE4-BLUE)",

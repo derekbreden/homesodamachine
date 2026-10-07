@@ -129,10 +129,8 @@ def crossings(runs) -> dict:
 #
 # `later` IS WHAT THE PIECE HOLDS AND THE UNIT DOES NOT CARRY YET. A body named here goes with
 # its piece in the finished machine — the fastening table is right about it — and arrives after
-# the box is closed, through an opening in a wall: the ASSE drip pan slides east into its own
-# sleeve through the −X wall, and the funnel drops into its opening on nothing but its own brim
-# at final staging. Neither is on the bench unit, so neither is in its picture, and whatever
-# stands on one goes with it. A name here the roots do not hold is reported.
+# the box is closed, through an opening in a wall. The funnel drops into its opening on its
+# own brim at final staging, so it is absent from the bench-unit picture. A name here the roots do not hold is reported.
 #   A RUN CAN BE LATE. The cap's lid prints a rib for `fluid-14`, so the anchor table hands that
 # run to the cold core and every unit built on the core takes it — the cap and lid alone on a
 # bench among them, where the run's far end is a valve on a piece nobody has brought. The rib
@@ -160,7 +158,7 @@ SCENES = (
         # It is the longest run in the appliance and its far end is a valve on the front top,
         # which is why it is made up here rather than reached for down a closed box.
         also=("tube-fluid-18",),
-        later=("asse-drip-pan",),
+        later=(),
         cam=(0.6, -1.0, 0.5), up=(0, 0, 1), zoom=2.7, look="centre",
         note="Turned over, which is how it is worked: its ceiling is the bench, the Z seam "
              "looks up and the Y-seam mouth faces the room — the +X wall is seen from where a "
@@ -272,7 +270,7 @@ SCENES = (
         # and the three reservoir lines standing in the core's cap. All four are made up on
         # this half and all four leave it hanging, for the front half's valves to take.
         also=("tube-fluid-16", "tube-fluid-18", "tube-fluid-24", "tube-fluid-26"),
-        later=("asse-drip-pan",),
+        later=(),
         # High enough over the box to see down into the mouth AND across the top wall, which is
         # how the half is looked at with the front one still off the bench: the seam faces the
         # room and everything the front half must reach is under the eye at once.
@@ -418,8 +416,7 @@ def held_by(root, holder_map, stop=()):
     """Every body `root` carries, transitively, `root` itself included.
 
     A body in `stop` is not carried and neither is anything standing on it — the walk turns
-    round there. That is one reading and not two: the moisture plate lies in the ASSE drip pan, so
-    a unit the tray has not reached has no plate in it either."""
+    round there. A mounted child appears only once its supporting part is present."""
     out, queue, stop = set(), [root], set(stop)
     while queue:
         node = queue.pop()

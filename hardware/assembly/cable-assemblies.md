@@ -38,7 +38,7 @@ two 3P cover the one six-way wafer and reach four counts besides.
 | J1 MANIFOLD A | [9](J1_PINS) | 5P + 4P | `OUT1`–`OUT8` to the eight coils, `COM` to the 221-420 |
 | J2 MANIFOLD B | [6](J2_PINS) | 3P + 3P | five populated; the conductor that would land in contact 3 is trimmed at the housing, not crimped |
 | J3 FAUCET | [4](J3_PINS) | 4P | the inboard half only, board to the keystone on the +Y wall |
-| J4 SENSORS | [7](J4_PINS) | 4P + 3P | the 1-wire and flow pairs (`3V3`/`IO26`, `V5`/`IO25`) on the 4P; the moisture pair and the shared `GND` on the 3P |
+| J4 SENSORS | [7](J4_PINS) | 4P + 3P | the 1-wire and flow pairs (`3V3`/`IO26`, `V5`/`IO25`) on the 4P; the shared `GND` on the 3P, two reserved conductors trimmed at the housing |
 | J5 RELAYS | [4](J5_PINS) | 4P | both Teyleten modules |
 | J6 REEDS A | [5](J6_PINS) | 5P | reservoir A's column entire — four reeds and the common |
 | J7 REEDS B | [7](J7_PINS) | 5P + 3P | reservoir B's column on the 5P; `CLO`/`CHI` on the 3P, third conductor trimmed |
@@ -49,8 +49,7 @@ two 3P cover the one six-way wafer and reach four counts besides.
 A pair is two ribbons, not a spliced one: they are cut to the same length, laid edge to edge and
 dressed as one until the branch point. **Which ribbon carries which conductor is set by where the
 conductors part, not by the wafer's pin order** — J7's 5P is the five that climb reservoir B's reed
-channel together and J4's 3P is the three that end at the moisture board, so a ribbon is peeled at
-one place rather than unpicked at three. Where a pair overfills its wafer by one — J2 and J7 — the
+channel together; J4's reserved IO23/IO27 contacts are unpopulated and its shared ground is retained. Where a pair overfills its wafer by one — J2 and J7 — the
 spare conductor is trimmed back at the housing and never crimped.
 
 A loom is cut to its longest leg and the shorter legs are peeled off the web early and trimmed.
@@ -98,7 +97,7 @@ Conductor counts are the main board's connector pin counts (`pcba.tsx` J1–J11 
 | Manifold B | J2 | 5 of [6](J2_PINS) (2 OUT + FAN + COM + OUT3) | 22 AWG black 3P + 3P ribbon | **XHP-6 housing, contact 3 (`OUT4`) left empty** — see below; Fastons at 2 valves + fan; `OUT3` + a `COM` tap to V-K on the cold core's cap, beside the column (DC-9); COM → **221-415** | 1/2" |
 | Reservoir A reeds | J6 | [5](J6_PINS) (4 reed + GND) | 22 AWG black 5P ribbon | one ribbon board to column, a conductor given up at each reed height; GND → **221-415** at the reservoir | 1/4" |
 | Reservoir B + carb reeds | J7 | [7](J7_PINS) (6 reed + GND) | 22 AWG black 5P + 3P ribbon | reservoir B's column on the 5P, the two carbonator reeds on the 3P; female JST-XH housing (XHP-7) + XH contacts — the same 7P housing as SENSORS (J4), so **label both looms at the housing** (a swap would put J4's 3V3/5V on the MCP reed inputs); GND → **221-420** | 1/4" |
-| Sensors | J4 | [7](J4_PINS) | 22 AWG black 4P + 3P ribbon | the DS18B20 and flow pairs on the 4P; moisture (DO + switched VCC) and the shared GND on the 3P; GND → **221-415** on the −X wall aft, where all three land | 1/4" |
+| Sensors | J4 | [7](J4_PINS) | 22 AWG black 4P + 3P ribbon | the DS18B20 and flow pairs on the 4P; shared GND on the 3P with its reserved pair trimmed; GND → **221-415** on the −X wall aft | 1/4" |
 | Relays | J5 | [4](J5_PINS) (`IO19` / `IO2` / `V5` / GND) | 22 AWG black 4P ribbon | XH at J5; screw terminals at both relay modules, `V5`/GND teed to both at the relay end (LV-1/2/3 — lands in the column at [`electronics-bay.md`](/hardware/assembly/electronics-bay.md)) | 1/4" |
 | Faucet display | J3 / SIG-6 | [4](J3_PINS) (TX / RX / 5 V / GND) | 22 AWG black 4P ribbon | **Ends at the wall, not at the faucet** — XH on J3, 110 IDC on the back of the keystone jack the umbilical plugs into. The ribbon outboard of that jack is the umbilical's, built at [`faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md). **The TTL lines are ESD-clamped on the main board at U1** (D10/D11, 2× low-cap TVS — see the ESD note below); a faucet-end TVS is now optional | 1/2" |
 | Enclosure display | J9 / SIG-7 | [4](J9_PINS) (`B` / `A` / GND / `V12`) | 22 AWG black 4P ribbon | A/B pair to the 4.3B's RS485 terminals; `V12` + GND to its 7–36 V screw input on the same loom | 1/2" |

@@ -1,0 +1,317 @@
+{
+  "plates": [
+    {
+      "colour": "white",
+      "parts": [
+        {
+          "station": "water",
+          "kind": "chip",
+          "body_filament": 1,
+          "word_filament": 2,
+          "position_xy_mm": [
+            150,
+            155
+          ]
+        },
+        {
+          "station": "water",
+          "kind": "collar",
+          "body_filament": 1,
+          "word_filament": 2,
+          "position_xy_mm": [
+            200,
+            155
+          ]
+        },
+        {
+          "station": "drain",
+          "kind": "chip",
+          "body_filament": 1,
+          "word_filament": 2,
+          "position_xy_mm": [
+            150,
+            200
+          ]
+        },
+        {
+          "station": "drain",
+          "kind": "collar",
+          "body_filament": 1,
+          "word_filament": 2,
+          "position_xy_mm": [
+            200,
+            200
+          ]
+        }
+      ],
+      "emitted_objects": [
+        {
+          "identify_id": 2901,
+          "station": "water",
+          "kind": "chip",
+          "model_road_count": 4885,
+          "model_layer_count": 11,
+          "last_model_z_mm": 2.48,
+          "both_body_and_letter_tools_present": true
+        },
+        {
+          "identify_id": 2902,
+          "station": "water",
+          "kind": "collar",
+          "model_road_count": 6906,
+          "model_layer_count": 55,
+          "last_model_z_mm": 13.04,
+          "both_body_and_letter_tools_present": true
+        },
+        {
+          "identify_id": 2903,
+          "station": "drain",
+          "kind": "chip",
+          "model_road_count": 5662,
+          "model_layer_count": 11,
+          "last_model_z_mm": 2.48,
+          "both_body_and_letter_tools_present": true
+        },
+        {
+          "identify_id": 2904,
+          "station": "drain",
+          "kind": "collar",
+          "model_road_count": 8830,
+          "model_layer_count": 55,
+          "last_model_z_mm": 13.04,
+          "both_body_and_letter_tools_present": true
+        }
+      ],
+      "native_archive": "hardware/printed-parts/drain-readiness/ready/labels-white-z004-mark2.gcode.3mf",
+      "native_archive_sha256": "042861bbc0b1feadce6f2e988740dbf57a6461c972169fee93cc5597c35314fd",
+      "gcode_sha256": "1572cad81220e80899110bf397fa5884ff8c0f8ab8131ef74f13479546a0abe0",
+      "zip_crc_and_gcode_md5_pass": true,
+      "full_native_bead_margin_mm": 88.94500000000001,
+      "extruder_offset": [
+        "0x0",
+        "0.5x-0.7"
+      ],
+      "submitted": false,
+      "editable_project": {
+        "path": "hardware/printed-parts/drain-readiness/projects/labels-white-z004-mark2.3mf",
+        "sha256": "bc5677c4ce91451c809e96c48a05cc81473417f8273c83d8f6991f45be4f33e9"
+      }
+    },
+    {
+      "colour": "blue",
+      "parts": [
+        {
+          "station": "carb",
+          "kind": "chip",
+          "body_filament": 2,
+          "word_filament": 1,
+          "position_xy_mm": [
+            150,
+            155
+          ]
+        },
+        {
+          "station": "carb",
+          "kind": "collar",
+          "body_filament": 2,
+          "word_filament": 1,
+          "position_xy_mm": [
+            200,
+            155
+          ]
+        }
+      ],
+      "emitted_objects": [
+        {
+          "identify_id": 2901,
+          "station": "carb",
+          "kind": "chip",
+          "model_road_count": 7664,
+          "model_layer_count": 11,
+          "last_model_z_mm": 2.48,
+          "both_body_and_letter_tools_present": true
+        },
+        {
+          "identify_id": 2902,
+          "station": "carb",
+          "kind": "collar",
+          "model_road_count": 10714,
+          "model_layer_count": 55,
+          "last_model_z_mm": 13.04,
+          "both_body_and_letter_tools_present": true
+        }
+      ],
+      "native_archive": "hardware/printed-parts/drain-readiness/ready/labels-blue-z004-mark2.gcode.3mf",
+      "native_archive_sha256": "07e4300a306a1ea33a43903002c02f918fd04baa6a4b2f31097856f6a45f38a1",
+      "gcode_sha256": "067cc999b26b259d120aeca29cc9449975da44de22ac4aaf1945871f02a3f667",
+      "zip_crc_and_gcode_md5_pass": true,
+      "full_native_bead_margin_mm": 88.94500000000001,
+      "extruder_offset": [
+        "0x0",
+        "0.5x-0.7"
+      ],
+      "submitted": false,
+      "editable_project": {
+        "path": "hardware/printed-parts/drain-readiness/projects/labels-blue-z004-mark2.3mf",
+        "sha256": "d0a4250522de91bc14d8c0bd192a8608fd18c65061b8832554b7fded8270f5b6"
+      }
+    },
+    {
+      "colour": "red",
+      "parts": [
+        {
+          "station": "co2",
+          "kind": "chip",
+          "body_filament": 2,
+          "word_filament": 1,
+          "position_xy_mm": [
+            150,
+            155
+          ]
+        },
+        {
+          "station": "co2",
+          "kind": "collar",
+          "body_filament": 2,
+          "word_filament": 1,
+          "position_xy_mm": [
+            200,
+            155
+          ]
+        }
+      ],
+      "emitted_objects": [
+        {
+          "identify_id": 2901,
+          "station": "co2",
+          "kind": "chip",
+          "model_road_count": 7225,
+          "model_layer_count": 11,
+          "last_model_z_mm": 2.48,
+          "both_body_and_letter_tools_present": true
+        },
+        {
+          "identify_id": 2902,
+          "station": "co2",
+          "kind": "collar",
+          "model_road_count": 8910,
+          "model_layer_count": 55,
+          "last_model_z_mm": 13.04,
+          "both_body_and_letter_tools_present": true
+        }
+      ],
+      "native_archive": "hardware/printed-parts/drain-readiness/ready/labels-red-z004-mark2.gcode.3mf",
+      "native_archive_sha256": "dffabfbe2fe800c844186a57392ea8fbbfe38f97e3bdd9ba5efac8c1715e2dcc",
+      "gcode_sha256": "d9e246d85ff435fa21def22d120ecc4d9d2c90de61bdbcaa0de442d059467b6d",
+      "zip_crc_and_gcode_md5_pass": true,
+      "full_native_bead_margin_mm": 88.94500000000001,
+      "extruder_offset": [
+        "0x0",
+        "0.5x-0.7"
+      ],
+      "submitted": false,
+      "editable_project": {
+        "path": "hardware/printed-parts/drain-readiness/projects/labels-red-z004-mark2.3mf",
+        "sha256": "98581d74bc8099829c83aa2221e1f9ef4a111f1a590c12d172e7a08d85588d32"
+      }
+    },
+    {
+      "colour": "black",
+      "parts": [
+        {
+          "station": "flavor-a",
+          "kind": "chip",
+          "body_filament": 2,
+          "word_filament": 1,
+          "position_xy_mm": [
+            150,
+            155
+          ]
+        },
+        {
+          "station": "flavor-a",
+          "kind": "collar",
+          "body_filament": 2,
+          "word_filament": 1,
+          "position_xy_mm": [
+            200,
+            155
+          ]
+        },
+        {
+          "station": "flavor-b",
+          "kind": "chip",
+          "body_filament": 2,
+          "word_filament": 1,
+          "position_xy_mm": [
+            150,
+            200
+          ]
+        },
+        {
+          "station": "flavor-b",
+          "kind": "collar",
+          "body_filament": 2,
+          "word_filament": 1,
+          "position_xy_mm": [
+            200,
+            200
+          ]
+        }
+      ],
+      "emitted_objects": [
+        {
+          "identify_id": 2901,
+          "station": "flavor-a",
+          "kind": "chip",
+          "model_road_count": 6726,
+          "model_layer_count": 11,
+          "last_model_z_mm": 2.48,
+          "both_body_and_letter_tools_present": true
+        },
+        {
+          "identify_id": 2902,
+          "station": "flavor-a",
+          "kind": "collar",
+          "model_road_count": 10795,
+          "model_layer_count": 55,
+          "last_model_z_mm": 13.04,
+          "both_body_and_letter_tools_present": true
+        },
+        {
+          "identify_id": 2903,
+          "station": "flavor-b",
+          "kind": "chip",
+          "model_road_count": 6726,
+          "model_layer_count": 11,
+          "last_model_z_mm": 2.48,
+          "both_body_and_letter_tools_present": true
+        },
+        {
+          "identify_id": 2904,
+          "station": "flavor-b",
+          "kind": "collar",
+          "model_road_count": 11045,
+          "model_layer_count": 55,
+          "last_model_z_mm": 13.04,
+          "both_body_and_letter_tools_present": true
+        }
+      ],
+      "native_archive": "hardware/printed-parts/drain-readiness/ready/labels-black-z004-mark2.gcode.3mf",
+      "native_archive_sha256": "e404f484247f4fca45bdca799b2eff52e31e5e8c1135d1d46effa0e0b7af2a44",
+      "gcode_sha256": "a13416cffa097129b764f80ca0c44a68be7df02d16ea8c0964858e7a91106c73",
+      "zip_crc_and_gcode_md5_pass": true,
+      "full_native_bead_margin_mm": 88.94500000000001,
+      "extruder_offset": [
+        "0x0",
+        "0.5x-0.7"
+      ],
+      "submitted": false,
+      "editable_project": {
+        "path": "hardware/printed-parts/drain-readiness/projects/labels-black-z004-mark2.3mf",
+        "sha256": "52698acfc8954eaca83026ea7ffe01794cf71890a0d2d4770221f0789cc9a260"
+      }
+    }
+  ],
+  "passed": true
+}
