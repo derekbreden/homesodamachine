@@ -69,7 +69,10 @@ export function renderBatchForecast(forecast) {
   const largest = batches.at(-1);
   const cells = value => batches.map(batch => `<td>${money(value(batch))}${star}</td>`).join("");
   const tableRow = (label, key, className = "") => `<tr${className ? ` class="${className}"` : ""}><th scope="row">${escape(label)}</th>${cells(batch => batch[key])}</tr>`;
-  const date = new Date(data.checkedAt + "T12:00:00Z").toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
+  const day = iso => new Date(iso + "T12:00:00Z").toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
+  const date = day(data.checkedAt);
+  const stockDate = data.inventoryAsOf === data.checkedAt ? `${date} inventory` : `${day(data.inventoryAsOf)} filament balances and ${date} parts inventory`;
+  const onHand = id => count(data.items.find(item => item.id === id).inventory.onHand);
   const unavailable = first.rows.filter(row => row.status === "unavailable").map(row => {
     const rows = batches.map(batch => batch.rows.find(other => other.id === row.id));
     return `<p><strong>${escape(row.name)} replenishment is out of stock${star}.</strong> ${rows.some(other => other.quantity) ? `The new-purchase budgets include ${rows.map(other => money(other.costCents)).join(" / ")} pending replenishment.` : `The provisional ${count(row.onHand)} ${escape(row.unit)} on hand covers all three batches; no new purchase is budgeted. ${largest.units} machines need ${count(rows.at(-1).required)} ${escape(row.unit)} including the print allowance. If less remains, replenishment needs a source.`}</p>`;
@@ -77,7 +80,7 @@ export function renderBatchForecast(forecast) {
   const shortages = largest.rows.filter(row => row.packages.some(pack => pack.option.listedPackages !== undefined && pack.count > pack.option.listedPackages)).map(row => `${row.name}: ${row.issues.find(issue => /more lot/.test(issue))}`).join(" ");
   return `<section class="cost-forecast" id="batch-forecast" aria-labelledby="forecast-heading" data-checked-at="${data.checkedAt}">
     <h2 class="cost-title" id="forecast-heading">From today&rsquo;s stock to 5, 10 &amp; 20 machines</h2>
-    <p class="cost-prose">Additional spending from ${date} inventory. Each plan starts with the same stock and buys the shortfall in whole supplier packs.</p>
+    <p class="cost-prose">Additional spending from ${stockDate}. Each plan starts with the same stock and buys the shortfall in whole supplier packs.</p>
     ${bomChanged ? `<p class="forecast-alert">${star} The BOM has changed since these supplier quantities were checked. This dated forecast needs a quantity review.</p>` : ""}
     <div class="forecast-cards">${batches.map(batch => `<div data-card-units="${batch.units}"><div class="cost-top-cap">First ${batch.units} machines</div><strong>${money(batch.cashCents)}${star}</strong><p>Additional cash from current stock</p><small>${money(batch.cashCents / batch.units)} per machine · supplies &amp; delivery included</small></div>`).join("")}</div>
     <h3 class="cost-h2">What we still need to buy</h3>
@@ -108,7 +111,7 @@ export function renderBatchForecast(forecast) {
       <div class="forecast-alert">${unavailable}${shortages ? `<p><strong>Stock limits for ${largest.units} machines${star}.</strong> ${escape(shortages)}</p>` : ""}<p>Exact Prime sources remain unresolved for several plumbing/refrigeration parts, the flow meter and short M3 inserts. Custom fabrication, PCB assembly and some harness/refrigeration selections use explicit allowances. Expand the relevant purchase for the item, quantity and source.</p></div>
     </details>
     <details class="forecast-assumptions"><summary>Inventory credits, pending orders &amp; allowances</summary>
-      <p><b>Opening filament stock${star}:</b> approximately 12 kg Black PET-GF15, 4 kg Clear PETG and 10 kg Black PETG. Ten usable batch-2 boards, ten carbonator tube cuts, twenty endcaps and other credited parts reduce new orders. Remaining quantities from older purchase records are estimates; include parts covered by stock to see every credit.</p>
+      <p><b>Opening filament stock${star}:</b> approximately ${onHand("petgf-black")} kg Black PET-GF15, ${onHand("petg-clear")} kg Clear PETG and ${onHand("petg-black")} kg Black PETG. Ten usable batch-2 boards, ten carbonator tube cuts, twenty endcaps and other credited parts reduce new orders. Remaining quantities from older purchase records are estimates; include parts covered by stock to see every credit.</p>
       <p>${escape(data.scope)}</p><p>${escape(data.inventoryNote)}</p><p>${escape(data.roundingNote)}</p>
       ${first.pendingPayments.map(payment => `<p><b>${escape(payment.name)} · ${money(payment.costCents)}${star}.</b> ${escape(payment.note)}</p>`).join("")}
       ${data.allowances.map(allowance => `<p><b>${escape(allowance.name)}${star}.</b> ${escape(allowance.note)}</p>`).join("")}
