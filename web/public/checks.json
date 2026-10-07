@@ -112,7 +112,7 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 3113 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 1168 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 3114 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 1168 member(s) keep their provenance",
       "status": "ok"
     }
   ],
