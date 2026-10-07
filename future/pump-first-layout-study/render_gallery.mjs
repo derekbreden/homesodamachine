@@ -30,7 +30,7 @@ try{
       await page.addStyleTag({content:`#pump-bay-study .pb-label{font-size:${size==='large'?16:14}px}`});
       for(const [id,view,show,funnel,walls] of views){
         const layout=await page.evaluate(({id,view,show,funnel,walls,height})=>{
-          const s=window.pumpBayStudy;Object.assign(s.state,{arrangement:id==='front-closure'?'factory':id==='funnel-tooling'?'tooling':'candidate',view,show,funnel,walls,inspect:'',roof:'ghost',labels:true});
+          const s=window.pumpBayStudy;Object.assign(s.state,{arrangement:id==='front-closure'?'factory':id==='funnel-tooling'?'tooling':'candidate',view,show,tubes:false,wires:false,funnel,walls,inspect:'',roof:'ghost',labels:true});
           s.build();
           const stage=document.querySelector('.pb-stage');stage.style.height=height+'px';stage.style.background='transparent';
           s.orient();s.setSelection();s.resize();
@@ -55,7 +55,7 @@ try{
     errors.push('Native viewer changed during gallery rendering.');
   await fs.writeFile(path.join(out,'check.json'),JSON.stringify({pass:!errors.length,errors,
     viewer_sha256:viewerSHA,source_sha256:createHash('sha256').update(await fs.readFile(fileURLToPath(import.meta.url))).digest('hex'),
-    views:views.length,themes:2,sizes:2},null,2)+'\n');
+    views:views.length,themes:2,sizes:2,visibility:{tubes:false,wires:false}},null,2)+'\n');
   console.log(JSON.stringify({errors,images:views.length*4}));
 }finally{await closeBrowser(browser)}
 finish(errors.length?1:0);

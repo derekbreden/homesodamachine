@@ -1,27 +1,27 @@
 {
   "pass": true,
-  "viewer_sha256": "f19554c3871e7e0bfa85af6ca07335bb79f7b9e7c91def0fc203ffe7387a3030",
+  "viewer_sha256": "c662f4531419cb40215473a16086cf6239daa32ec941e0c4bda692a885436674",
   "errors": [],
   "checks": [
     {
       "name": "overview",
-      "visible": 323
+      "visible": 195
     },
     {
       "name": "top",
-      "visible": 317
+      "visible": 190
     },
     {
       "name": "pump-water",
-      "visible": 40
+      "visible": 20
     },
     {
       "name": "gas-water",
-      "visible": 27
+      "visible": 19
     },
     {
       "name": "electronics",
-      "visible": 114
+      "visible": 17
     },
     {
       "name": "mounts",
@@ -29,23 +29,23 @@
     },
     {
       "name": "rear",
-      "visible": 317
+      "visible": 190
     },
     {
       "name": "funnel",
-      "visible": 6
+      "visible": 5
     },
     {
       "name": "enclosure",
-      "visible": 326
+      "visible": 198
     },
     {
       "name": "water-side",
-      "visible": 317
+      "visible": 190
     },
     {
       "name": "electrical-side",
-      "visible": 317
+      "visible": 190
     },
     {
       "width": 320,
@@ -75,13 +75,23 @@
         },
         {
           "type": "checkbox",
-          "x": 107.15625,
-          "right": 120.15625
+          "x": 103.203125,
+          "right": 116.203125
         },
         {
           "type": "checkbox",
-          "x": 189.078125,
-          "right": 202.078125
+          "x": 183.921875,
+          "right": 196.921875
+        },
+        {
+          "type": "checkbox",
+          "x": 20,
+          "right": 33
+        },
+        {
+          "type": "checkbox",
+          "x": 101.921875,
+          "right": 114.921875
         },
         {
           "type": "select-one",
@@ -133,23 +143,33 @@
         },
         {
           "type": "checkbox",
-          "x": 115.15625,
-          "right": 128.15625
+          "x": 111.203125,
+          "right": 124.203125
         },
         {
           "type": "checkbox",
-          "x": 197.078125,
-          "right": 210.078125
+          "x": 191.921875,
+          "right": 204.921875
+        },
+        {
+          "type": "checkbox",
+          "x": 279.078125,
+          "right": 292.078125
+        },
+        {
+          "type": "checkbox",
+          "x": 361,
+          "right": 374
         },
         {
           "type": "select-one",
-          "x": 329.078125,
-          "right": 463.078125
+          "x": 493,
+          "right": 627
         },
         {
           "type": "checkbox",
-          "x": 485.078125,
-          "right": 498.078125
+          "x": 28,
+          "right": 41
         },
         {
           "type": "select-one",
@@ -499,8 +519,6 @@
         "bulkhead-flavor-a",
         "bulkhead-ring-flavor-a",
         "bulkhead-ring-flavor-b",
-        "tube-fluid-26",
-        "tube-fluid-16",
         "elbow-cradle",
         "funnel-drain-union",
         "funnel-drain-stub",
@@ -520,17 +538,10 @@
         "vk-cradle",
         "suction-chain",
         "discharge-chain",
-        "tube-water-4",
-        "tube-water-7",
-        "tube-water-6",
-        "tube-water-5",
         "valve-v-a",
         "source-a-cradle",
-        "tube-fluid-3",
         "valve-v-b",
         "source-b-cradle",
-        "tube-fluid-5",
-        "tube-fluid-4",
         "suction-chain-clip-screw-1",
         "suction-chain-clip-screw-2",
         "suction-chain-anchor",
@@ -539,13 +550,9 @@
         "discharge-chain-clip-screw-2",
         "discharge-chain-lower-key",
         "discharge-chain-anchor",
-        "hose-engagement-pump-suction",
         "hose-clamp-pump-suction",
-        "hose-engagement-pump-discharge",
         "hose-clamp-pump-discharge",
-        "hose-engagement-chain-suction",
         "hose-clamp-chain-suction",
-        "hose-engagement-chain-discharge",
         "hose-clamp-chain-discharge",
         "asse1022-assembly",
         "asse-drip-pan",
@@ -578,24 +585,10 @@
         "bulkhead-ring-carb-word",
         "bulkhead-ring-co2",
         "bulkhead-ring-co2-word",
-        "tube-customer-water",
-        "tube-customer-co2",
         "tube-collar-water",
         "tube-collar-water-word",
         "tube-collar-co2",
         "tube-collar-co2-word",
-        "tube-fluid-1",
-        "tube-fluid-2",
-        "tube-water-3",
-        "tube-carb-1",
-        "carb-foam-carb-1",
-        "tube-carb-2",
-        "carb-foam-carb-2",
-        "tube-co2-2",
-        "tube-water-2",
-        "tube-water-supply-link",
-        "tube-co2-1",
-        "tube-co2-0",
         "nameplate",
         "nameplate-ink",
         "keystone-jack",
@@ -640,98 +633,6 @@
         "relay-2-mount-screw-4",
         "relay-lid-platform",
         "west-junction-platform",
-        "control-service-reeds-A",
-        "control-service-fork-A",
-        "control-service-reeds-B",
-        "control-service-fork-B",
-        "control-ground-descent",
-        "control-ground-lower-fanout",
-        "control-ground-upper-A",
-        "control-ground-upper-B",
-        "control-ground-upper-merger",
-        "control-fixed-manifold-ribbon",
-        "control-manifold-aft-fanout",
-        "control-meter-pigtail",
-        "control-relay-logic-fork",
-        "control-loom-J1-coil-v-a-target",
-        "control-loom-J1-coil-v-b-target",
-        "control-loom-J2-vk-solenoid-target",
-        "control-loom-J3-keystone-jack-target",
-        "control-loom-wago-mana-coil-v-a-source",
-        "control-loom-wago-mana-coil-v-a-target",
-        "control-loom-wago-mana-coil-v-b-source",
-        "control-loom-wago-mana-coil-v-b-target",
-        "control-loom-wago-manb-vk-solenoid-source",
-        "control-loom-wago-manb-vk-solenoid-target",
-        "control-loom-J6-wago-reeds-a-target",
-        "control-loom-J7-wago-reeds-b-target",
-        "control-loom-J4-wago-sensors-target",
-        "control-loom-J7-retained-cold-core-service-leads-target",
-        "control-loom-J4-retained-cold-core-service-leads-target",
-        "control-loom-wago-reeds-b-retained-cold-core-service-leads-source",
-        "control-loom-wago-reeds-b-retained-cold-core-service-leads-target",
-        "control-loom-wago-sensors-retained-cold-core-service-leads-source",
-        "control-loom-wago-sensors-retained-cold-core-service-leads-target",
-        "control-loom-J4-moisture-comparator-reserve-target",
-        "control-loom-wago-sensors-digiten-flow-source",
-        "control-loom-wago-sensors-moisture-comparator-reserve-source",
-        "control-loom-wago-sensors-moisture-comparator-reserve-target",
-        "control-loom-J13-retained-cartridge-loom-target",
-        "control-loom-J11-retained-mq6-loom-target",
-        "control-header-J1-fanout",
-        "control-header-J11-fanout",
-        "control-header-J2-fanout",
-        "control-header-J3-fanout",
-        "control-header-J4-fanout",
-        "control-header-J5-fanout",
-        "control-header-J6-fanout",
-        "control-header-J7-fanout",
-        "control-loom-J1-coil-v-a",
-        "control-loom-J1-coil-v-b",
-        "control-loom-J2-vk-solenoid",
-        "control-loom-J1-retained-manifold-loom",
-        "control-loom-J2-retained-manifold-loom",
-        "control-loom-J3-keystone-jack",
-        "control-loom-J5-relay-logic-cluster",
-        "control-loom-wago-mana-coil-v-a",
-        "control-loom-wago-mana-coil-v-b",
-        "control-loom-wago-manb-vk-solenoid",
-        "control-loom-J6-reed-A",
-        "control-loom-J7-reed-B",
-        "control-loom-J6-wago-reeds-a",
-        "control-loom-J7-wago-reeds-b",
-        "control-loom-J4-wago-sensors",
-        "control-loom-J7-retained-cold-core-service-leads",
-        "control-loom-J4-retained-cold-core-service-leads",
-        "control-loom-wago-reeds-b-retained-cold-core-service-leads",
-        "control-loom-wago-sensors-retained-cold-core-service-leads",
-        "control-loom-J4-digiten-flow",
-        "control-loom-J4-moisture-comparator-reserve",
-        "control-loom-wago-sensors-digiten-flow",
-        "control-loom-wago-sensors-moisture-comparator-reserve",
-        "control-loom-J11-retained-mq6-loom",
-        "compressor-jacket-reserve",
-        "lower-carbonator-earth-reserve",
-        "lower-under-counter-earth-reserve",
-        "wire-AC4-H",
-        "wire-DC1-V12",
-        "wire-DC3-V12",
-        "wire-DC2-V12",
-        "wire-DC3-GND",
-        "wire-AC6-G",
-        "wire-PE-carbonator",
-        "wire-PE-under-counter",
-        "wire-AC1-H",
-        "wire-AC1-N",
-        "wire-AC1-G",
-        "wire-AC2-H",
-        "wire-AC2-N",
-        "wire-AC5-N",
-        "wire-PE-feed",
-        "wire-DC4-GND",
-        "wire-AC3-H",
-        "wire-DC1-GND",
-        "wire-DC4-V12",
         "asse-removable-carrier",
         "asse-roof-seat-1",
         "asse-roof-seat-2",
@@ -800,8 +701,7 @@
         "valve-v-h",
         "valve-v-i",
         "wago-mana",
-        "wago-manb",
-        "j13-front-stowed"
+        "wago-manb"
       ],
       "pass": true
     },

@@ -3,6 +3,8 @@
     <label class="form-label">Arrangement<select class="form-select" data-control="arrangement"><option value="candidate">Pump first · larger funnel</option><option value="current">Current bay</option><option value="factory">Front closure staging</option><option value="tooling">Funnel casting molds</option></select></label>
     <label class="form-label">View<select class="form-select" data-control="view"><option value="three">Above the core</option><option value="top">Top</option><option value="west">Water side</option><option value="east">Electronics side</option><option value="rear">Rear connections</option></select></label>
     <label class="form-label">Show<select class="form-select" data-control="show"><option value="all">Complete bay</option><option value="pump">Pump and water circuit</option><option value="gas">CO₂ and carbonated water</option><option value="electronics">Electronics and wiring</option><option value="structure">Structure and mounts</option><option value="funnel">Funnel and drain</option></select></label>
+    <label class="form-check"><input class="form-check-input" type="checkbox" data-control="tubes"><span class="form-check-label">Tubes</span></label>
+    <label class="form-check"><input class="form-check-input" type="checkbox" data-control="wires"><span class="form-check-label">Wires</span></label>
     <label class="form-check"><input class="form-check-input" type="checkbox" data-control="funnel" checked><span class="form-check-label">Funnel</span></label>
     <label class="form-check"><input class="form-check-input" type="checkbox" data-control="cover"><span class="form-check-label">Cover</span></label>
     <label class="form-check"><input class="form-check-input" type="checkbox" data-control="walls"><span class="form-check-label">Walls and roof</span></label>
@@ -44,7 +46,7 @@ const raw=await new Response(new Blob([binary]).stream().pipeThrough(new Decompr
 const hlen=new DataView(raw).getUint32(0,true);
 const data=JSON.parse(new TextDecoder().decode(new Uint8Array(raw,4,hlen)));
 const offset=(hlen+7)&~3;
-const state={arrangement:'candidate',view:'three',show:'all',funnel:true,cover:false,walls:false,roof:'ghost',labels:true,inspect:''};
+const state={arrangement:'candidate',view:'three',show:'all',tubes:false,wires:false,funnel:true,cover:false,walls:false,roof:'ghost',labels:true,inspect:''};
 const geometries=new Map(),parts=[];
 const saved=window.openai?.widgetState;
 if(saved?.modelContent)for(const k of Object.keys(state))if(typeof saved.modelContent[k]===typeof state[k])state[k]=saved.modelContent[k];
@@ -78,6 +80,8 @@ stage.addEventListener('pointerup',e=>{if(!down||Math.hypot(e.clientX-down[0],e.
 controls.addEventListener('change',()=>{renderer.render(scene,camera);updateLabels()});
 const wireTokens={line:'--viz-series-6','switched-line':'--viz-series-6',neutral:'--viz-series-1',earth:'--viz-series-3',positive:'--viz-series-2','switched-positive':'--viz-series-2',return:'--foreground'};
 function colorToken(p){return wireTokens[p.color_role]||(roles[p.role]||roles.structure)[1]}
+function tubePart(p){return /^tube-(water|fluid|carb|co2|customer)-/.test(p.id)||p.id?.startsWith('carb-foam-')||p.id?.startsWith('hose-engagement-')}
+function categoryVisible(p){return (!tubePart(p)||state.tubes)&&(p.role!=='wiring'||state.wires)}
 function floorPart(p){return p.id==='cold-core/foam-cap-top'||p.id==='cold-core/foam-cap-lid-top'}
 function funnelPart(p){return p.role==='funnel'||p.id==='funnel'||p.id?.startsWith('funnel-')||p.id==='elbow-cradle'||p.id==='tube-fluid-4'}
 function roofPart(p){return p.id==='pcba'||p.id==='ground-stack'||p.id==='west-junction-platform'||p.id?.startsWith('wago-')||p.id?.startsWith('controller-')||p.id==='ground-roof-boss'}
@@ -97,6 +101,7 @@ function build(){
   setSelection();
 }
 function visible(p){
+  if(!categoryVisible(p))return false;
   if(state.inspect&&(p.id||p.mesh)===state.inspect)return true;
   if(roofPart(p)&&state.roof==='hidden'&&['all','electronics'].includes(state.show))return false;
   if(p.id==='funnel-cover'&&!state.cover&&state.inspect!==p.id)return false;
@@ -112,6 +117,8 @@ function visible(p){
   return p.role===state.show;
 }
 function setSelection(){
+  const inspected=parts.find(p=>(p.id||p.mesh)===state.inspect);
+  if(inspected&&!categoryVisible(inspected))state.inspect='';
   for(const p of parts){
     p.object.visible=visible(p);
     const selected=state.inspect&&(p.id||p.mesh)===state.inspect;
@@ -124,7 +131,7 @@ function setSelection(){
   const inspect=root.querySelector('[data-control="inspect"]');inspect.value=state.inspect;
   const model=data.models[state.arrangement];const readout=root.querySelector('[data-readout]');readout.replaceChildren();
   for(const text of model.readouts){const span=document.createElement('span');span.textContent=text;readout.append(span)}
-  for(const k of ['arrangement','view','show','funnel','cover','walls','roof','labels']){const e=root.querySelector(`[data-control="${k}"]`);if(e.type==='checkbox')e.checked=state[k];else e.value=state[k]}
+  for(const k of ['arrangement','view','show','tubes','wires','funnel','cover','walls','roof','labels']){const e=root.querySelector(`[data-control="${k}"]`);if(e.type==='checkbox')e.checked=state[k];else e.value=state[k]}
   renderer.render(scene,camera);
   updateLabels();
 }
@@ -181,7 +188,7 @@ function resize(){
 }
 function frameSelection(){const p=parts.find(p=>(p.id||p.mesh)===state.inspect);if(!p){orient();return}const b=new THREE.Box3().setFromObject(p.object),center=b.getCenter(new THREE.Vector3()),size=b.getSize(new THREE.Vector3()).length();const direction=camera.position.clone().sub(controls.target).normalize();controls.target.copy(center);camera.position.copy(center).add(direction.multiplyScalar(800));camera.zoom=Math.min(12,Math.max(1,400/size));controls.update();camera.updateProjectionMatrix();renderer.render(scene,camera);updateLabels()}
 function save(){window.openai?.setWidgetState?.({modelContent:{...state},privateContent:null}).catch(()=>{})}
-for(const e of root.querySelectorAll('[data-control]'))e.addEventListener('change',()=>{const k=e.dataset.control;state[k]=e.type==='checkbox'?e.checked:e.value;if(k==='arrangement'){if(state.arrangement==='tooling'){state.show='funnel';state.funnel=true;state.walls=false}build()}if(['arrangement','view','show','funnel'].includes(k))orient();setSelection();save()});
+for(const e of root.querySelectorAll('[data-control]'))e.addEventListener('change',()=>{const k=e.dataset.control;state[k]=e.type==='checkbox'?e.checked:e.value;if(k==='inspect'){const p=parts.find(p=>(p.id||p.mesh)===state.inspect);if(p){if(tubePart(p))state.tubes=true;if(p.role==='wiring')state.wires=true}}if(k==='arrangement'){if(state.arrangement==='tooling'){state.show='funnel';state.funnel=true;state.walls=false}build()}if(['arrangement','view','show','funnel'].includes(k))orient();setSelection();save()});
 root.querySelector('[data-action="frame"]').addEventListener('click',frameSelection);
 new ResizeObserver(resize).observe(stage);
 const legend=root.querySelector('.pb-legend');for(const [role,[label,color]] of Object.entries(roles)){if(role==='context'||role==='wiring'||role==='pump')continue;const s=document.createElement('span'),swatch=document.createElement('i');swatch.className='pb-swatch';swatch.style.background=`var(${color})`;s.append(swatch,document.createTextNode(label));legend.append(s)}

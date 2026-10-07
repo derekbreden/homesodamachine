@@ -16,8 +16,8 @@
     "roof-hatch": "cada8ce9fb097aaf3217ae8d5d8d69159ee654349d37f2b61d6091225e2b4807",
     "scene-stock": "59cb9e0ab82aaf83b2f3e898c1aa488e9f75dd21517da2a4f41fa87fd8b607d0",
     "psu-clearance": "834369d2bcd49b4f5d3deb15c285b3d74d34da6b7ed30da08a147fd520529ff6",
-    "front-handling": "40f23f146943c31bb98948a3225044840abc05df746c0daa1d7b3e92851a34bf",
-    "front-closure": "4a93f244a4c1ea9ee897b105a087f0d770745d2a227bfedafbd0f47b42d6226e",
+    "front-handling": "b38799e4de7cf8e902af84635dd42cd00dc1ddfd0681beaeffafa2de3c84daff",
+    "front-closure": "b0c3e908e745a05eff99b2788b912b2587e8e64974fb06b69070f75bd27d5cfb",
     "funnel-tooling": "cd8ba07dc7eaf01d59b6868ea259d9f34f41834ba4b2f6d901781255bf7c9f11"
   },
   "manifest_content_sha256": {
@@ -1387,7 +1387,7 @@
   },
   "source_inputs": {
     "future/pump-first-layout-study/build_viewer.py": "46335158f83ddc5e0ab37b83d3a71909502389d166cd0fbacc460a4c11da9a91",
-    "future/pump-first-layout-study/viewer.template.html": "ee57bd6ba6e8bcb2589b904daa161c06dd2db5f7cf9e6b7f26a37a1ebf07b420",
+    "future/pump-first-layout-study/viewer.template.html": "93a22895106ddaaee05d3063bd8428bbb73dd4331c2faf02802748718f2a6e4e",
     "future/pump-first-layout-study/baseline.py": "af33e1a948eec0adc8f96daa8d6930f600112dfb404c2caf5d6f1bfbfa01e8c2",
     "future/pump-first-layout-study/evidence_binding.py": "8e6a97ccdd429d031101aa34608e314e43f36b07948b818e3b4b22557c50bcc0"
   },

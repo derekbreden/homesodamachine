@@ -1,9 +1,13 @@
 {
   "pass": true,
   "errors": [],
-  "viewer_sha256": "f19554c3871e7e0bfa85af6ca07335bb79f7b9e7c91def0fc203ffe7387a3030",
-  "source_sha256": "286aa5118c623316ffd1c2f0d3aa87824f2612404b0d1dd93a1f65b49fb04221",
+  "viewer_sha256": "c662f4531419cb40215473a16086cf6239daa32ec941e0c4bda692a885436674",
+  "source_sha256": "fb0c0352b7556303b77d12e958efcb04220bbd5496093c82a764133584541538",
   "views": 11,
   "themes": 2,
-  "sizes": 2
+  "sizes": 2,
+  "visibility": {
+    "tubes": false,
+    "wires": false
+  }
 }
