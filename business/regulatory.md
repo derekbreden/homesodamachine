@@ -79,6 +79,18 @@ An integrated in-appliance GFCI on the AC side is deferred from the current buil
 
 Federal Consumer Product Safety Commission applies to any consumer product sold in the US. Product must not be unreasonably dangerous. No listing or certification required — this is a general duty of care, independently honored by the project's design practice.
 
+## ASSE 1022 — backflow protection and vent discharge
+
+Simply having a 1022 already puts us ahead of most of these products. A 1022 that vents into the bowl at the faucet would be the only home arrangement I've found where the vent's discharge is defined, drained and visible.
+
+The U.S. home sparkling-water manual survey covers:
+
+- **No supply backflow preventer named:** Kohler Aquifer K-34113, Samsung SodaStream refrigerators, Lilium, Brio 630, SeltzaHub, Lifeplus ST02, Everpure Exubera and Waterlogic WL500.
+- **ASSE 1022 specified, with no vent discharge location described:** GROHE Blue includes it; Zip HydroTap requires the installer to add it on the supply.
+- **Office-product reference:** Bevi describes discharge over an internal carbonator tray with a leak-detection valve, or through a tube to a container in the cabinet.
+
+Open engineering items are tracked separately in the [hardware concerns register](/hardware/concerns.md).
+
 ## AIM Act — not applicable
 
 The American Innovation and Manufacturing Act regulates HFCs. R-600a is a hydrocarbon, not an HFC, and is outside the scope of AIM Act phase-down rules, leak-management thresholds (15 lb rule, Jan 2026), and refillable-cylinder requirements.
