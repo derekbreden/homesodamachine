@@ -60,13 +60,13 @@
     "complete_route_inputs_unchanged": false,
     "complete_route_binding": {
       "native_inputs": "hardware/printed-parts/faucet/vent-qualification/native-inputs.json",
-      "native_inputs_sha256": "17b58ac519b8861a1daa662b6307d08b6000d855344bd5b36f3d64374511f279",
+      "native_inputs_sha256": "d541caffb9082922e53054cc599adc6876cee6311514febd0876f6105ed0c351",
       "hydraulic_report": "hardware/printed-parts/faucet/vent-qualification/hydraulic-report.json",
-      "hydraulic_report_sha256": "97a0b8b123178912447a445d50e1445a17b32744e63bd065c90f23411e16606a",
+      "hydraulic_report_sha256": "a63dd5fab24145a4d42ed7b9a607e3271e2cbc628b25ecdc2b65639932acf406",
       "saved_appliance_step_sha256": "aa3b4669ab9cae8dd0884cd298019c1850dc9c493e58e55f65ed55a6f745065b",
       "clearance_report_sha256": "787730b1fcc6d2c65b81b85fa54ebc498c1fbea254a292ee89cb8d4e5a6061de",
       "nominal_installed_clearance_passed": true,
-      "bound_at_utc": "2026-10-07T12:06:05.497577+00:00",
+      "bound_at_utc": "2026-10-07T12:21:53.294877+00:00",
       "scope": "The source-verified complete appliance route supplies revised pipe lengths and volumes. These affect the separately regenerated conditional hydraulic calculations. The saved tip, gland dimensions, port area and sink envelope remain identical; original native witness-execution hashes are retained."
     }
   },
