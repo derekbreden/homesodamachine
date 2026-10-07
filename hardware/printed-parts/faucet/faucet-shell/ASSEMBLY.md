@@ -169,6 +169,11 @@ lower bundle sits toward the open side of the steel's rear channel and eases
 back to the centered gooseneck arrangement above the donor. Route the ribbon
 before either connector is fitted.
 
+Reserve the straight rear bundle through the steel below a 38 mm routing-envelope slab.
+Flavor-b's R30 return and the drain's R25 return begin below that plane.
+Flavor-a and the ribbon begin their R30 return 8 mm farther down. The drain
+bends forward between the flavors before gathering into the braid.
+
 The fixed stainless profile is the purchased SendCutSend S4177511 plate:
 Ø[54.45 mm](STEEL_PLATE_D), Ø[12.6 mm](STEEL_SHANK_HOLE_D) shank pocket and
 [13.4 mm](STEEL_PILL_L) × [7.05 mm](STEEL_PILL_W) rear pocket. Both channels open toward
@@ -189,9 +194,17 @@ bottom opening is above the bowl. This fixture is fixed when its nut is tightene
 installation orientation applies to both beverage and fault discharge.
 
 At the modeled 30 mm countertop, 12.476 mm of the 50 mm donor shank remains
-below the stainless plate. Confirm the actual retained washer, nut and
-thread engagement on the bench, including the intended countertop thickness.
-The donor washer and nut have not been dimensionally verified in CAD.
+below the stainless plate; at 38 mm only 4.476 mm remains. The guide's
+1.5 mm washer and 5 mm nut are illustration props, not measured donor hardware.
+They fit the nominal 30 mm geometric budget but exceed the 38 mm budget.
+The retained donor's usable thread length, complete washer stack, nut engagement
+and compression fitting determine the maximum clampable countertop thickness.
+The routing envelope does not establish that maximum. [Westbrass's current
+TF301 guidance](https://westbrass.com/product/8-touch-flo-style-pure-cold-water-dispenser-faucet/)
+limits its original fixture to 1-3/8-inch decks; that figure does not transfer
+to this custom plate/gasket stack or establish the harvested R2031's dimensions.
+The actual retained hardware and assembled mount require factory qualification
+before a countertop compatibility range is published.
 
 ## Verification
 

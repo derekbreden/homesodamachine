@@ -23,7 +23,7 @@ def geometry_approvals(project: Path, kind: str) -> dict:
     """Reject stale or incomplete whole-assembly evidence before finalization."""
     if kind not in ("rigid", "seals"):
         return {}
-    required = [(HERE / "faucet-shell/centered-vent-check.json", 159,
+    required = [(HERE / "faucet-shell/centered-vent-check.json", 164,
                  ("geometry_source_sha256",))]
     if "industrial" in project.stem:
         required.extend([
@@ -43,7 +43,11 @@ def geometry_approvals(project: Path, kind: str) -> dict:
             for name, expected in bindings.items():
                 assert preparation.sha(preparation.ROOT / name) == expected, (path, name)
         if path.name == "centered-vent-check.json":
-            assert len(evidence["geometry_source_sha256"]) == 18, path
+            assert len(evidence["geometry_source_sha256"]) == 22, path
+            for name in ("stock:under-counter-profile", "motion:stock-under-counter-plate-slide",
+                         "drain:clearance-union_a", "drain:clearance-union_b",
+                         "clearance:flavor-pair"):
+                assert evidence["checks"][name]["passed"] is True, (path, name)
         if path.name == "display-cover-check.json":
             assert evidence["validation_script_sha256"] == preparation.sha(HERE / "industrial/check_display_cover.py")
         approvals[preparation.relative(path)] = preparation.sha(path)
@@ -101,7 +105,7 @@ def finalize(project: Path, kind: str) -> dict:
         assert lower.get("geometry_access_review", {}).get("lower_relief_open_to_main_donor_flavor_passage")
         cleanup = [
             "Base: cut sacrificial trees into short pieces and withdraw through the counter-end, donor bay and lever opening. Clear all three insert pilots and pedestal sockets before installing brass.",
-            "Lower cable route: remove turn-roof fragments through the shared donor/flavor opening. The actual ribbon must pass freely before the mounting stack closes.",
+            "Lower cable route: remove supports through the common rear tube opening and open counter end. The flat ribbon must pass freely behind the flavor/drain bundle before the mounting stack closes.",
             "Tip: release the connected tree through the open neck joint, the 12 by 22 mm bottom discharge port and the open display pocket. Remove cavity fragments before either bung is installed. Clear both gland lips, body seats and flange grooves; preserve their modeled edge and radius.",
             "Continue through the dry S/F/ribbon guides from the joint and beverage/display ends. The source removes inaccessible interstice needles. Pass each actual tube freely before installing the bungs.",
             "Cover: remove supports through the open underside before the display is fitted; retain the bezel, broad snap wings and their lip-bearing faces.",
@@ -132,15 +136,29 @@ def finalize(project: Path, kind: str) -> dict:
         assert bearing["tool_step_sha256"] == preparation.sha(preparation.SEALS / "asse-vent-perimeter-tool.step")
         assert motion["source_sha256"]["tool_generator"] == preparation.sha(HERE / "vent_seals.py")
         assert motion["source_sha256"]["paths"] == preparation.sha(HERE / "faucet_paths.py")
-        # The current continuous casing witness preserves the earlier sampled
-        # pose sources separately. Its selected geometry signature verifies
-        # that unrelated factory display-motion changes leave that casing intact.
-        current = motion["continuous_bound_source_sha256"]
+        # A complete fresh pose/casing check binds all current inputs directly.
+        # A bounded refresh carries its independent current bindings alongside
+        # the original sampled-pose execution and geometry-equivalence proof.
+        refreshed = "continuous_bound_source_sha256" in motion
+        current = motion["continuous_bound_source_sha256"] if refreshed else motion["source_sha256"]
         assert current["shell"] == preparation.sha(HERE / "faucet-shell/faucet_shell.py")
         assert current["tool_generator"] == preparation.sha(HERE / "vent_seals.py")
         assert current["paths"] == preparation.sha(HERE / "faucet_paths.py")
-        assert motion["passed"] and motion["native_pose_paths_and_tool_match_current_sources"]
-        assert motion["continuous_bound_dependencies_unchanged_during_check"]
+        assert current["checker"] == preparation.sha(HERE / "asse-vent-seals/check_tool_motion.py")
+        assert current["assembly"] == preparation.sha(preparation.ROOT / "hardware/faucet-layout/faucet_assembly.py")
+        assert current["interface"] == preparation.sha(HERE / "_faucet_interface.py")
+        assert current["plate"] == preparation.sha(HERE / "above-counter-plate/above_counter_plate.py")
+        assert current["gasket"] == preparation.sha(HERE / "above-counter-gasket/above_counter_gasket.py")
+        assert motion["passed"]
+        if refreshed:
+            assert motion["native_pose_paths_and_tool_match_current_sources"]
+            assert motion["continuous_bound_dependencies_unchanged_during_check"]
+        else:
+            assert motion["source_unchanged_during_check"]
+        lower = motion["current_lower_ribbon_continuous_motion_witness"]
+        assert lower["source_sha256"] == current
+        assert lower["dependencies_unchanged_during_check"]
+        assert lower["passed"]
         assert all(row["casing_overlap_mm3"] == 0 for row in motion["continuous_bounds"])
         assert all(row["casing_overlap_mm3"] == 0 and all(value == 0 for value in row["tube_overlap_mm3"].values())
                    for row in motion["native_poses"])
