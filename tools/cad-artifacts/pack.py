@@ -68,6 +68,7 @@ NOT_BUNDLED_DIRS = (
     "hardware/pcb/pcba/.cad-cache",          # manufacturer downloads, keyed by LCSC
     "hardware/assembly/scenes/out",          # local bench-service view intermediates
     "hardware/quickstart",                 # retired owner document and local studies
+    "hardware/printed-parts/enclosure/asse-drip-pan",  # retained retired geometry
     "hardware/quickstart-codex",           # retired owner document and local studies
     "hardware/quickstart-claude",          # retired owner document and local studies
     "hardware/install-guide/plumbing/out",
@@ -144,8 +145,7 @@ def barren(root: Path, solid_hashes: dict) -> list:
 # WHERE A MESH IS CARRIED TOO. A directory named here has its `.stl` bundled beside the solids.
 # The enclosure's six pieces are what a slicer is handed, and their flutes are in the MESH and not
 # in the solid, so the STEP beside them does not carry the surface that gets printed
-# (`printed-parts/cadlib/flute_skin.py`). The separate ASSE drip pan ships as a printable STL
-# too. They are gitignored, so the bundle is the
+# (`printed-parts/cadlib/flute_skin.py`). Printable meshes are gitignored, so the bundle is the
 # route by which they leave the machine that cut them — for a reader with a printer, not for the
 # viewer, which serves `.step`. The cold core's shell and its two caps carry the same skin off the
 # same field (`cold-core/_show_skin.py`) and leave the same way, and so does the faucet's base
@@ -153,7 +153,6 @@ def barren(root: Path, solid_hashes: dict) -> list:
 BUNDLED_MESH_DIRS = (
     "hardware/printed-parts/fixtures/pgfun-positioner",
     "hardware/printed-parts/calibration/dual-nozzle-registration",
-    "hardware/printed-parts/enclosure/asse-drip-pan",
     "hardware/printed-parts/enclosure/display-cover",
     "hardware/printed-parts/enclosure/nameplate",
     "hardware/printed-parts/faucet/industrial",
@@ -170,6 +169,7 @@ BUNDLED_MESH_DIRS = (
     "hardware/printed-parts/faucet/faucet-display-cover",
     "hardware/printed-parts/faucet/above-counter-plate",
     "hardware/printed-parts/faucet/above-counter-gasket",
+    "hardware/printed-parts/faucet/asse-vent-seals",
     "hardware/printed-parts/fixtures/faucet-display-snap",
     "hardware/printed-parts/fixtures/faucet-cover-retention",
     "hardware/printed-parts/fixtures/valve-socket-fit",
@@ -225,6 +225,7 @@ BUNDLED_PAYLOAD_DIRS = (
     "hardware/printed-parts/faucet/faucet-display-cover",
     "hardware/printed-parts/faucet/above-counter-plate",
     "hardware/printed-parts/faucet/above-counter-gasket",
+    "hardware/printed-parts/faucet/asse-vent-seals",
     "hardware/manifold-layout",
     "hardware/faucet-layout",
     "hardware/printed-parts/fixtures/faucet-cover-retention",

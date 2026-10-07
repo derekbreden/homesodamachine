@@ -82,6 +82,8 @@ from _faucet_interface import (
     pill_length_x,
     pill_width_y,
     shank_hole_diameter,
+    bundle_slot_length_x,
+    bundle_slot_center_x,
 )
 from faucet_shell import westbrass_bore_diameter
 
@@ -105,18 +107,18 @@ shank_radius = shank_diameter / 2.0
 # [18.93 mm](FLAVOR_TUBE_X) DXF +X offset of pill center from the shank
 # (= depth magnitude shared with the shell / above-counter gasket / plate).
 pill_cx = flavor_tube_depth
-pill_cy = 0.0
-# [13.6 mm](PILL_L) pill long axis in DXF Y (= world-lateral X) —
+pill_cy = bundle_slot_center_x
+# [18.15 mm](PILL_L) pill long axis in DXF Y (= world-lateral X) —
 # matches the gasket's pill.
-pill_long_y = pill_length_x
+pill_long_y = bundle_slot_length_x
 # [7.25 mm](PILL_W) pill short axis in DXF X (= world-depth Y) —
 # matches the gasket's pill.
 pill_short_x = pill_width_y
-pill_half_long = pill_long_y / 2.0       # [6.8 mm](PILL_HALF_LONG)
+pill_half_long = pill_long_y / 2.0       # [9.075 mm](PILL_HALF_LONG)
 pill_half_short = pill_short_x / 2.0     # [3.625 mm](PILL_HALF_SHORT)
 pill_cap_radius = pill_half_short        # [3.625 mm](PILL_CAP_R)
-pill_top_cap_cy = pill_cy + (pill_half_long - pill_cap_radius)   # [3.175 mm](PILL_TOP_CAP_CY)
-pill_bot_cap_cy = pill_cy - (pill_half_long - pill_cap_radius)   # [-3.175 mm](PILL_BOT_CAP_CY)
+pill_top_cap_cy = pill_cy + (pill_half_long - pill_cap_radius)   # [5.45 mm](PILL_TOP_CAP_CY)
+pill_bot_cap_cy = pill_cy - (pill_half_long - pill_cap_radius)   # [-5.45 mm](PILL_BOT_CAP_CY)
 pill_left_x = pill_cx - pill_half_short     # [15.3 mm](PILL_LEFT_X)
 pill_right_x = pill_cx + pill_half_short    # [22.55 mm](PILL_RIGHT_X)
 
@@ -197,13 +199,13 @@ def make_dxf():
     shank_left_wall_top = (shank_left_wall_x, shank_cy)                # ([-6.3 mm](SHANK_LEFT_WALL_X), 0)
     shank_right_wall_top = (shank_right_wall_x, shank_cy)              # ([6.3 mm](SHANK_RIGHT_WALL_X), 0)
     # Pill channel — extends in -Y from the pill rectangle's bottom
-    # edge (Y = pill_bot_cap_cy = [-3.175 mm](PILL_BOT_CAP_CY)) to the rim,
+    # edge (Y = pill_bot_cap_cy = [-5.45 mm](PILL_BOT_CAP_CY)) to the rim,
     # width [7.25 mm](PILL_W) in X.
-    pill_left_wall_top = (pill_left_x, pill_bot_cap_cy)                # ([15.3 mm](PILL_LEFT_X), [-3.175 mm](PILL_BOT_CAP_CY))
-    pill_right_wall_top = (pill_right_x, pill_bot_cap_cy)              # ([22.55 mm](PILL_RIGHT_X), [-3.175 mm](PILL_BOT_CAP_CY))
+    pill_left_wall_top = (pill_left_x, pill_bot_cap_cy)                # ([15.3 mm](PILL_LEFT_X), [-5.45 mm](PILL_BOT_CAP_CY))
+    pill_right_wall_top = (pill_right_x, pill_bot_cap_cy)              # ([22.55 mm](PILL_RIGHT_X), [-5.45 mm](PILL_BOT_CAP_CY))
 
-    pill_rect_top_left = (pill_left_x, pill_top_cap_cy)                # ([15.3 mm](PILL_LEFT_X), [3.175 mm](PILL_TOP_CAP_CY))
-    pill_rect_top_right = (pill_right_x, pill_top_cap_cy)              # ([22.55 mm](PILL_RIGHT_X), [3.175 mm](PILL_TOP_CAP_CY))
+    pill_rect_top_left = (pill_left_x, pill_top_cap_cy)                # ([15.3 mm](PILL_LEFT_X), [5.45 mm](PILL_TOP_CAP_CY))
+    pill_rect_top_right = (pill_right_x, pill_top_cap_cy)              # ([22.55 mm](PILL_RIGHT_X), [5.45 mm](PILL_TOP_CAP_CY))
 
     disc_center = (disc_cx, disc_cy)
 

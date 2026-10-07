@@ -1,11 +1,11 @@
 {
   "/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": {
-    "BASE_PRINT_HEIGHT": "244.6 mm",
-    "MAX_PRINT_OVERHANG": "55\u00b0",
+    "BASE_PRINT_HEIGHT": "220.1 mm",
+    "MAX_PRINT_OVERHANG": "45\u00b0",
     "PRINT_LAYER": "0.24 mm",
     "SPLIT_PLUG_WALL": "2 mm",
     "SPLIT_SOCKET_WALL": "2 mm",
-    "TIP_PRINT_HEIGHT": "136.9 mm",
+    "TIP_PRINT_HEIGHT": "158.9 mm",
     "WALL_MIN": "2 mm"
   }
 }

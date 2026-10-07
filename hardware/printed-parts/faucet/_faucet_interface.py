@@ -22,11 +22,10 @@ import fits  # noqa: E402
 # pumps push the syrup through.
 flavor_tube_od = 6.35
 
-# Tubes touch each other at X = 0, so each tube's center sits one tube
-# radius out from X = 0 on the lateral axis. The pill cutout that
-# covers both tubes is centered at X = 0 and stretches X by ± this
-# offset + the per-tube hole radius.
-flavor_tube_x_offset = flavor_tube_od / 2.0  # [3.175 mm](FLAVOR_TUBE_X_OFFSET)
+# The mounting row is F1-D-F2. The flavor centers leave clearance around
+# the central 4 mm drain; the dispense face retains the tangent flavor pair.
+flavor_tube_x_offset = 5.45
+dispense_flavor_x_offset = flavor_tube_od / 2.0
 
 # Diametric (total) clearance around each flavor tube through the pill
 # cutout — i.e. hole_dia − tube_od. Set from tube fitment on printed
@@ -36,21 +35,27 @@ flavor_tube_hole_clearance = 0.9
 # Per-tube hole diameter, derived.
 flavor_tube_hole_dia = flavor_tube_od + flavor_tube_hole_clearance  # [7.25 mm](FLAVOR_TUBE_HOLE_DIA)
 
-# Pill cutout (rounded rectangle, X-oriented) that covers both flavor
-# tubes as a single opening. The two per-tube circles overlap by
-# (hole_dia − 2 × x_offset), so we model the combined opening as the
-# pill formed by sliding a circle of `flavor_tube_hole_dia` from
-# X = −x_offset to X = +x_offset.
-pill_length_x = 2.0 * flavor_tube_x_offset + flavor_tube_hole_dia  # [13.6 mm](PILL_LENGTH_X)
+# One rounded mounting opening spans the widened flavor centers and D.
+pill_length_x = 2.0 * flavor_tube_x_offset + flavor_tube_hole_dia  # [18.15 mm](PILL_LENGTH_X)
 pill_width_y = flavor_tube_hole_dia                                # [7.25 mm](PILL_WIDTH_Y)
 
-# Depth magnitude of the flavor-tube pill center from the Westbrass /
-# shank axis at world origin. The pill sits at world Y = +flavor_tube_depth
-# (BEHIND the Westbrass, opposite the −Y gooseneck-dispense direction),
-# tangent to its back face. Derived from the Westbrass's outer cylinder
-# radius (15.75) plus the flavor-tube radius — the pill is tangent to that
-# back face, so the flavor tubes butt up against the Westbrass wall.
-flavor_tube_depth = 15.75 + flavor_tube_x_offset  # [18.925 mm](FLAVOR_TUBE_DEPTH)
+# neoFlo LLDPE-4MM: 4 mm OD / 2.5 mm ID, R25 minimum.
+# https://assets.freshwatersystems.com/image/upload/s--N9disqrx--/gjtidjfc0tlprqbhb4ka.pdf
+drain_tube_od = 4.0
+drain_tube_id = 2.5
+drain_bend_min_radius = 25.0
+drain_tube_gap = 0.25
+drain_tube_x = 0.0
+drain_tube_hole_dia = drain_tube_od + flavor_tube_hole_clearance
+
+# The mounting slot is symmetric around the centered drain.
+bundle_slot_left_x = -pill_length_x / 2.0
+bundle_slot_right_x = pill_length_x / 2.0
+bundle_slot_length_x = bundle_slot_right_x - bundle_slot_left_x
+bundle_slot_center_x = (bundle_slot_right_x + bundle_slot_left_x) / 2.0
+
+# Lower row behind the donor: unchanged depth, widened lateral flavor spacing.
+flavor_tube_depth = 15.75 + flavor_tube_od / 2.0  # [18.925 mm](FLAVOR_TUBE_DEPTH)
 
 # Central pocket for the shank. Ø12.6 matches the donor's own factory
 # plate; the threaded shank is ~Ø11 nominal. Used by all four parts in the

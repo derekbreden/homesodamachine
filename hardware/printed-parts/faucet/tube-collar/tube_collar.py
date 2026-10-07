@@ -3,14 +3,14 @@
 `../../enclosure/bulkhead-ring/` marks the wall: a chip lying in a pocket of the back face, under a through-wall
 fitting's flange, in the colour of the tube that goes into it. This is that chip bored for the tube
 instead of for the fitting's barrel, run along it, and turned a quarter so the word reads down the
-run. Same four colours, same five words, same two-filament print.
+run. Same four colours, six stations and two-filament print.
 
-    THE OUTLINE IS THE CHIP'S — a half circle below the bore's axis and a rectangle above it,
+    THE COLLAR OUTLINE has a half circle below the bore's axis and a rectangle above it,
     `RISE` tall over an OD twice that. It is not a shape that turns: the flat lies one way up and
     the word stands level on it without anything holding it there.
 
 THE BORE IS CLOSED AND SLIPS OVER THE TUBE, and the collar threads on end-first, over a tail that
-is still bare. `assembly/faucet-and-umbilical.md` §1 cuts the umbilical's three tubes and §3 sleeves
+is still bare. `assembly/faucet-and-umbilical.md` §1 cuts the umbilical's four tubes and §3 sleeves
 them; the collars go on at §4, up to the braid's own end. The tap run and the CO2 tether ship
 made up in the install kit, and their collars go on at `assembly/finish-pack-ship.md` §6.
 
@@ -54,8 +54,8 @@ import _y_wall_dimensions as _rear  # noqa: E402
 import bulkhead_ring as _ring  # noqa: E402
 from docgen import substitute_md  # noqa: E402
 
-# THE ONE TUBE SIZE ON THIS MACHINE. Every line the customer meets is 1/4" OD LLDPE, off one of the
-# four neoFlo spools in `ledger/bom.md` §3. It is the nominal and not a bench figure: the tube on
+# THE BEVERAGE, TAP AND CO2 TUBE SIZE. Those lines are 1/4" OD LLDPE, off the
+# four colour-coded spools in `ledger/bom.md` §3. It is the nominal and not a bench figure: the tube on
 # the bench calipers Ø6.5, which is the top of the band below.
 TUBE_OD = 6.35
 # What 1/4" OD LLDPE holds its diameter to on the spool. THE BORE IS SIZED OFF THE TOP OF THAT BAND
@@ -85,7 +85,7 @@ OD = 12.0
 # `bulkhead_ring.RING_W` — the band a chip letters its own word in, between the flange's edge and the
 # top of the chip — so a word stands in one band whether it is read off the wall or off the tube.
 RISE = _ring.RING_W
-# THE RUN ALONG THE TUBE. It is the longest of the five words plus its margins, set at
+# THE RUN ALONG THE TUBE. It is the longest station word plus its margins, set at
 # `bulkhead_ring.WORD_SIZE` — the wall's lettering and the tube's are one size, and `selftest` holds
 # this to it.
 LENGTH = 30.0
@@ -94,7 +94,7 @@ LENGTH = 30.0
 WORD_DEPTH = _ring.WORD_DEPTH
 WORD_MARGIN = _ring.WORD_MARGIN
 
-# ONE COLLAR PER CHIP. The five keys are `bulkhead_ring.STATIONS`' own, and each takes its word and its
+# ONE COLLAR PER CHIP. The six keys are `bulkhead_ring.STATIONS`' own, and each takes its word and its
 # spool from the chip at that station — a word changed on the wall is changed on the tube by the
 # same edit.
 #
@@ -108,6 +108,7 @@ STATIONS = {
         ("co2", "the customer's red tether, +Y wall of back-top to regulator", "pack bench"),
         ("flavor-a", "the umbilical's first black flavour tail", "faucet bench"),
         ("flavor-b", "the umbilical's second black flavour tail", "faucet bench"),
+        ("drain", "the umbilical's white 4 mm vent tail", "faucet bench"),
     )
 }
 # ONE FILE PER STATION, AND IT HOLDS BOTH BODIES — `bulkhead_ring.STEPS`' construction. The part is one
@@ -228,7 +229,11 @@ def build_word(which: str):
         [letter for face in FACES for letter in _face_word(which, face).Solids()])
 
 
-def build_blank():
+def bore_d(which):
+    return (4.0 + 0.05 + BORE_SHRINK + SLIP) if which == "drain" else BORE
+
+
+def build_blank(which="water"):
     """The outline run along the tube and its bore, with no lettering taken out of it — what a
     station's own word is cut from, and what `letters_lie_in_it` weighs the cut against.
 
@@ -240,13 +245,13 @@ def build_blank():
     below = cq.Solid.makeBox(OD, LENGTH, r, cq.Vector(-r, 0.0, -r))
     above = cq.Solid.makeBox(OD, LENGTH, RISE, cq.Vector(-r, 0.0, 0.0))
     return (barrel.intersect(below).fuse(above)
-            .cut(cq.Solid.makeCylinder(BORE / 2.0, LENGTH,
+            .cut(cq.Solid.makeCylinder(bore_d(which) / 2.0, LENGTH,
                                        cq.Vector(0.0, 0.0, 0.0), cq.Vector(0.0, 1.0, 0.0))))
 
 
 def build_collar(which: str):
     """One station's collar: the blank, with the word's recess taken out of each of its flats."""
-    return build_blank().cut(build_word(which))
+    return build_blank(which).cut(build_word(which))
 
 
 def _filament(rgb) -> "cq.Color":
@@ -305,7 +310,7 @@ def stations_hold():
                     f"{actual:.4f} — a run drawn to the declared figure does not take the collar "
                     f"that is there.")
         radii = sorted({r for _axis, r in bores(solid)})
-        if not any(abs(2.0 * r - BORE) <= 1e-6 for r in radii):
+        if not any(abs(2.0 * r - bore_d(which)) <= 1e-6 for r in radii):
             raise ValueError(
                 f"the {which} collar's bore is declared Ø{BORE:g} and {step.name} turns no face at "
                 f"that diameter — it carries Ø{[round(2 * r, 3) for r in radii]}. A collar bored "
@@ -360,7 +365,7 @@ def letters_lie_in_it():
     the collar, which is a THIRD of it, or one letter, which is a twelfth of the shortest of these
     words — both of them three orders above the noise two booleans leave in a volume."""
     for which in STATIONS:
-        blank, word = build_blank(), build_word(which)
+        blank, word = build_blank(which), build_word(which)
         took = blank.Volume() - blank.cut(word).Volume()
         if abs(took - word.Volume()) > word.Volume() / 1000.0:
             outside = word.Volume() - took
