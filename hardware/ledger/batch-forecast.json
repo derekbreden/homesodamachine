@@ -1516,7 +1516,7 @@
       ],
       "sourceUrl": "https://www.freshwatersystems.com/products/john-guest-male-connector-nptf-black-polypropylene-1-4-x-1-4-nptf",
       "inventory": {
-        "onHand": 0,
+        "onHand": 10,
         "incoming": 0,
         "basis": "ledger_estimate",
         "estimated": true,
@@ -1526,7 +1526,7 @@
             "line": 123
           }
         ],
-        "note": "Ten 1/4-inch NPTF male connectors are recorded without the resin/SKU. Their PP010822E identity is unconfirmed, so no numerical production credit is taken."
+        "note": "Ten acquired in FWS order WEBFWS100675224. Its May 15 order confirmation lists a bag of 10 John Guest Male Connector NPTF Black Polypropylene 1/4 x 1/4 NPTF at $11.00, the PP010822E bag. Usable remainder after development is not separately counted. This is an inventory-credit estimate."
       }
     },
     {
@@ -3162,12 +3162,21 @@
       ],
       "sourceUrl": "https://www.freshwatersystems.com/products/john-guest-union-elbow-black-polypropylene-1-4",
       "inventory": {
-        "onHand": 0,
+        "onHand": 40,
         "incoming": 0,
-        "basis": "unknown",
+        "basis": "ledger_estimate",
         "estimated": true,
-        "sources": [],
-        "note": "No usable production stock quantified in the reviewed records; no stock credit taken."
+        "sources": [
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 123
+          },
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 233
+          }
+        ],
+        "note": "Forty elbows acquired: ten in FWS order WEBFWS100675224 and thirty in WEBFWS100684731. Usable remainder after development is not separately counted. This is an inventory-credit estimate."
       }
     },
     {
