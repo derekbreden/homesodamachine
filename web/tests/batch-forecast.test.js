@@ -65,16 +65,15 @@ test("the sourced plan covers the current BOM, including shared parts and unpric
     assert.equal(batch.rows.filter(row => row.bomLines.includes(53)).length, 1);
     const copper = batch.rows.find(row => row.id === "B0DKSW5VL9");
     assert.equal(copper.packages[0].count, { 5: 1, 10: 3, 20: 6 }[batch.units]);
-    const rod = batch.rows.find(row => row.bomLines.includes(265));
+    const rod = batch.rows.find(row => row.bomLines.includes(264));
     assert.equal(rod.packages[0].count, { 5: 2, 10: 5, 20: 10 }[batch.units]);
-    const foam = batch.rows.find(row => row.bomLines.includes(200));
+    const foam = batch.rows.find(row => row.bomLines.includes(199));
     assert.equal(foam.packages[0].count, { 5: 5, 10: 11, 20: 23 }[batch.units]);
-    const keystones = batch.rows.find(row => row.bomLines.includes(224));
+    const keystones = batch.rows.find(row => row.bomLines.includes(223));
     assert.equal(keystones.quantity, batch.units === 20 ? 10 : 0);
     const red = batch.rows.find(row => row.bomLines.includes(79));
     assert.equal(red.required, batch.units * 2.5);
     assert.equal(red.quantity, 0);
-    assert.equal(batch.rows.find(row => row.bomLines.includes(90)).costCents, 1340 * batch.units);
   }
 });
 
@@ -169,22 +168,22 @@ test("five machines use opening stock and whole packs, with small-order reserves
     assert.equal(supplier.shippingCents, 0, `${id}: no new shipment`);
   }
   assert.equal(five.pendingCents, ten.pendingCents, "same existing-order reserve, not half the ten-machine balance");
-  assert.equal(five.partsCents, 366509);
+  assert.equal(five.partsCents, 352309);
   assert.equal(five.inboundCents, 5000);
   assert.equal(five.taxCents, 24716);
   assert.equal(five.allowances.find(allowance => allowance.id === "shop").costCents, 12500);
-  assert.equal(five.cashCents, 503856);
+  assert.equal(five.cashCents, 489656);
   assert.equal(five.laborHours, 51.25);
   assert.equal(five.laborCents, 512500);
-  assert.equal(five.totalCents, 1016356);
+  assert.equal(five.totalCents, 1002156);
   assert.ok(five.cashCents < ten.cashCents / 2, "inventory makes this a separate calculation");
-  assert.equal(ten.cashCents, 1192379);
-  assert.equal(twenty.cashCents, 2845655);
+  assert.equal(ten.cashCents, 1163979);
+  assert.equal(twenty.cashCents, 2788855);
   const html = renderBatchForecast(forecast);
   assert.match(html, /value="5" checked/);
   assert.match(html, /data-units="5" open/);
   assert.match(html, /<th scope="col">5 machines<\/th>/);
-  assert.match(html, /\$5,038.56/);
+  assert.match(html, /\$4,896.56/);
 });
 
 test("delivered historical invoices are not taxed twice; paid labor remains separate", () => {

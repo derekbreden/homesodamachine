@@ -57,9 +57,9 @@ results for the custom evaporator and enclosure.
 
 Factory donor charges are 15 g (Unit A, Antarctic Star HZB-12/Q) and 23 g (Unit B,
 Frigidaire EFIC117-SS). The [assembly procedure](/hardware/assembly/refrigerant-loop.md)
-requires a qualified charge for the redesigned loop; donor charge and evaporator volume
-do not establish a final target or automatic overage. The finished charge must meet the
-applicable limit and belongs on the unit and in its measured record. No minimum-room-area or installation-height label is
+targets 5-15 g above the donor charge for the wound evaporator. The expected sub-40 g
+charge is below the household limit; the measured finished-unit charge belongs on
+the unit and in its record. No minimum-room-area or installation-height label is
 specified in the reviewed household marking clauses. Installation instructions still
 need the actual ventilation and clearance requirements.
 
@@ -97,8 +97,10 @@ The American Innovation and Manufacturing Act regulates HFCs. R-600a is a hydroc
 
 Applies only if the project pivots to an HFC refrigerant.
 
-## Assembly-time safety — hydrocarbon service and brazing
+## Assembly-time safety — argon purge during brazing
 
-The circuit work in [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) requires a technician trained for R-600a and equipment appropriate to flammable refrigerants. The donor charge is removed through a controlled handling route before opening; residual fuel can remain in oil after the pressure reaches atmospheric.
+Not a regulation, but load-bearing for the build path described in `hardware/reference/ice-maker/README.md` "Cold core architecture" — wherever the refrigerant loop is opened and brazed.
 
-[Secop's hydrocarbon service guidance](https://www.secop.com/sustainability/natural-refrigerants/compressor-service) calls for separate dry-nitrogen clearing of high and low branches and flowing nitrogen protection during brazing. The technician's setup specifies pressure/flow control, open discharge paths, ventilation and ignition control. The welder's argon cylinder and a pressure dial do not establish that setup. Drier replacement, final process closure, micron-gauge decay limits, finished-unit charge and printed-plug thermal protection have their own qualification hold points in the assembly procedure.
+After the factory R-600a charge is vented, residual hydrocarbon remains dissolved in the compressor oil and pooled in low points of the tubing. When a torch is applied to copper near an oil-soaked compressor pocket, the flame front pulls residual hydrocarbon into itself. Mitigation is to flow low-pressure argon (a few psi, flowing — not static) through the opened loop during and through the braze, sweeping residual fuel out ahead of the heat.
+
+The documented build path reuses the argon cylinder already present for laser welding, with the appropriate purge-side regulator / tubing setup for refrigeration brazing.

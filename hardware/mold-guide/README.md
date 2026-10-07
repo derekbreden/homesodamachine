@@ -26,11 +26,11 @@ one-picture-per-step approach and the approved Letter sheets' print calibration.
 | 14 | Remove flange fasteners and open the tooling in alternating small movements |
 | 15 | Pull the straight rod and trim outlet flash flush |
 | 16 | Inspect and clean the funnel; check its installation |
-| 17 | Record the actual foam-batch recipe for all three pours |
+| 17 | Stage the three 1:1 foam pours and the per-build quantity |
 | 18 | Prepare and clamp the labeled top and bottom cap stacks |
-| 19 | Mix/pour each cap shot, cure, trim and remove the fixture screws |
+| 19 | Mix each cap shot 1:1, pour, cure, trim and remove the fixture screws |
 | 20 | Prove buried components, seat copper plugs and protect open paths |
-| 21 | Mix/pour the body shot through the open top and connected foam zone |
+| 21 | Mix the body shot 1:1 and pour it all at once through the open top |
 | 22 | Trim after cure, fit reed columns/gaskets and close both caps |
 
 The two cap pours are separate operations, with different depths and lid details.
@@ -90,23 +90,18 @@ and cured witness, and supplies no unqualified heating schedule. The finished
 silicone/pigment/release/post-process mixture still needs the
 [wetted-surface qualification](../printed-parts/cold-core/reservoir/wetted-surface-test.md).
 
-### Foam recipe gate
+### Foam pours
 
-The acquired foam is FSD B08R7TX8QJ, two-part 2 lb density closed-cell PU.
-Its official product page describes equal parts but does not establish a
-complete batch-specific processing recipe. The
-[cold-core procedure](../assembly/cold-core.md) leaves mix details, pot life,
-cure, pour temperature and trim method open. No calibrated liquid shot sizes
-for the top cap, bottom cap and body are recorded.
-
-Before mixing, the batch record must identify its ratio and measurement basis,
-liquid/room temperature, measured A/B amounts for each pour, mixing and working
-window, expansion allowance, release/cure hold and trim method. The preparation
-and pour sequence is illustrated; mixing and pouring are held until this recipe
-is available. The nominal cavity volume or foam density alone does not select
-the liquid dose. The body surrounds sealed components; no foam enters the
-carbonator or reservoir liquid interiors. Reed channels, top conduits, vents
-and the relief outlet remain open.
+The acquired foam is FSD B08R7TX8QJ, two-part 2 lb density closed-cell PU,
+mixed 1:1 in measured shots. Each cap pours bolted mouth-up to the shell's top
+face, through its lid's 20 mm hole with air leaving by the two 6 mm vents. The
+body pours all at once through its open top. A build fills about 5 L of risen
+foam, about 4 L of cavity plus waste, which is about 1/7 of the 1 qt kit
+([BOM](../ledger/bom.md)). The [cold-core procedure](../assembly/cold-core.md)
+keeps the foam data-sheet details (pot life, cure time, pour temperature window)
+and the trim method as open items. The body surrounds sealed components; no foam
+enters the carbonator or reservoir liquid interiors. Reed channels, top conduits,
+vents and the relief outlet remain open.
 
 ## Manufacturer sources
 
