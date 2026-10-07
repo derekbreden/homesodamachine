@@ -657,47 +657,19 @@
     "accepted_at_central": "2026-10-07T09:30:52.058624-05:00",
     "physical_result": "Finished core, mating fit and casting behavior unassessed.",
     "printer_observation": {
+      "printer": "Mark1",
+      "observed_at_utc": "2026-10-07T14:50:36.439471+00:00",
       "task_id": "1317250748",
       "job_id": "1317250748",
       "subtask_name": "2026-10-07-funnel-core-mark1-right-z004-matching-cavity-v1.gcode.3mf",
       "gcode_state": "RUNNING",
       "layer_num": 1,
       "total_layer_num": 176,
-      "mc_remaining_time": 683,
-      "mc_percent": 1,
+      "mc_remaining_time": 678,
       "print_error": 0,
       "hms": [],
-      "stg_cur": 0,
-      "bed_temper": 70.0,
-      "bed_target_temper": 70.0,
-      "printer": "Mark1",
-      "observed_at_utc": "2026-10-07T14:46:26.262829+00:00",
-      "timelapse": "disable",
-      "extruders": {
-        "0": {
-          "actual_c": 250,
-          "target_c": 250,
-          "active_hotend_id": 0
-        },
-        "1": {
-          "actual_c": 48,
-          "target_c": 0,
-          "active_hotend_id": 1
-        }
-      },
-      "nozzles": [
-        {
-          "id": 0,
-          "diameter": 0.4,
-          "type": "HS01"
-        },
-        {
-          "id": 1,
-          "diameter": 0.4,
-          "type": "HS01"
-        }
-      ]
+      "timelapse": "enable"
     },
-    "timelapse_verification": "Printer reports Disabled at layer 1 despite Send On; see dated timelapse-review.json."
+    "timelapse_verification": "Runtime timelapse enabled at 09:50:36 CDT; see dated timelapse-review.json."
   }
 ]

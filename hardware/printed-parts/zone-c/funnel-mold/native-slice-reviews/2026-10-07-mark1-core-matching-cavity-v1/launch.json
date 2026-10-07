@@ -60,48 +60,20 @@
     "timelapse": "disable"
   },
   "runtime_verification": {
+    "printer": "Mark1",
+    "observed_at_utc": "2026-10-07T14:50:36.439471+00:00",
     "task_id": "1317250748",
     "job_id": "1317250748",
     "subtask_name": "2026-10-07-funnel-core-mark1-right-z004-matching-cavity-v1.gcode.3mf",
     "gcode_state": "RUNNING",
     "layer_num": 1,
     "total_layer_num": 176,
-    "mc_remaining_time": 683,
-    "mc_percent": 1,
+    "mc_remaining_time": 678,
     "print_error": 0,
     "hms": [],
-    "stg_cur": 0,
-    "bed_temper": 70.0,
-    "bed_target_temper": 70.0,
-    "printer": "Mark1",
-    "observed_at_utc": "2026-10-07T14:46:26.262829+00:00",
-    "timelapse": "disable",
-    "extruders": {
-      "0": {
-        "actual_c": 250,
-        "target_c": 250,
-        "active_hotend_id": 0
-      },
-      "1": {
-        "actual_c": 48,
-        "target_c": 0,
-        "active_hotend_id": 1
-      }
-    },
-    "nozzles": [
-      {
-        "id": 0,
-        "diameter": 0.4,
-        "type": "HS01"
-      },
-      {
-        "id": 1,
-        "diameter": 0.4,
-        "type": "HS01"
-      }
-    ]
+    "timelapse": "enable"
   },
-  "timelapse_enabled_verified": false,
+  "timelapse_enabled_verified": true,
   "first_layer_telemetry_observed": {
     "observed_at_utc": "2026-10-07T14:46:26.262829+00:00",
     "layer": 1,
@@ -113,5 +85,6 @@
   "shared_circuit_acceptance_spacing_seconds": 233.389087,
   "start_notification_reported": true,
   "timelapse_discrepancy_reported": true,
-  "timelapse_review": "timelapse-review.json"
+  "timelapse_review": "timelapse-review.json",
+  "timelapse_discrepancy_resolved": true
 }

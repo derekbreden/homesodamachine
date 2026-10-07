@@ -18,8 +18,8 @@ footprint clears the usable bed by at least 39.565 mm.
 
 [Bound project, native toolpaths and launch](native-slice-reviews/2026-10-07-mark1-core-matching-cavity-v1/README.md).
 Finished-core quality, assembled fit and casting results are unassessed.
-At 09:46:26 CDT, the core is RUNNING at layer 1/176 without faults.
-Timelapse reports disabled despite Send On; the card contains 97 clips.
+At 09:50:36 CDT, the core is RUNNING at layer 1/176 without faults.
+Runtime timelapse is enabled; the read-only card inventory contains 97 clips.
 [timelapse-review.json](native-slice-reviews/2026-10-07-mark1-core-matching-cavity-v1/timelapse-review.json) records the observation.
 
 ## Mark1 cavity retry at +0.04 trim — 2026-10-06

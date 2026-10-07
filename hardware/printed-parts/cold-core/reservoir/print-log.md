@@ -252,6 +252,6 @@ checks remain Off. Native estimates are **19 h 23 min, 419.13 g and 740 layers**
 [Project binding, preflight and accepted launch](prints/2026-10-07-mark2-right-no-ironing-v1/README.md).
 Finished-part, gasket seal and water-hold results are unassessed.
 
-At 09:46:26 CDT, the right pair is RUNNING at layer 1/740 without faults.
-Timelapse reports disabled despite Send On; the card contains 97 clips.
+At 09:50:35 CDT, the right pair is RUNNING at layer 1/740 without faults.
+Runtime timelapse is enabled; the read-only card inventory contains 97 clips.
 [Timelapse observation](prints/2026-10-07-mark2-right-no-ironing-v1/timelapse-review.json).
