@@ -27,8 +27,8 @@
     },
     {
       "check": "hardware/scripts/check_faucet_geometry.py",
-      "note": "PASS faucet geometry: 143 readings; /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
-      "status": "ok"
+      "note": "PASS seat:plate-gasket",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_finishes.py",
@@ -112,31 +112,59 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 3114 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 1168 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 2812 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 1171 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
       "enclosure-assembly.facts.json was taken beside a different enclosure-assembly.scorecard.json — it holds 55a93c0c115cd66c1831e14ee5cca859, enclosure-assembly.scorecard.json here is f7830f5c73454fa29723e414b0000228",
-      "  enclosure-assembly.facts.json was measured off a different enclosure-assembly.step — it holds 987ba8ea6e72100358e30a2751035502, enclosure-assembly.step here is 433849c5f12fdd92397f57568756bed9",
-      "  enclosure-assembly.facts.json was taken from a different tree — it holds 32b34630c2e0f80a93e3147cf8058a0b for the 258 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at fb3819d0084427b6ec33d9fc51c4ae55 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "  enclosure-assembly.facts.json was measured off a different enclosure-assembly.step — it holds 987ba8ea6e72100358e30a2751035502, enclosure-assembly.step here is 8c73f8d71cfa6e98b2c8bba87f64d157",
+      "  enclosure-assembly.facts.json was taken from a different tree — it holds 32b34630c2e0f80a93e3147cf8058a0b for the 258 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at fd21da07c1cdba00bac7b802fad89058 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
+    "hardware/scripts/check_faucet_geometry.py": [
+      "FAIL clearance:signal-shell_base",
+      "FAIL clearance:signal-shell_tip",
+      "FAIL clearance:signal-above_counter_plate",
+      "FAIL clearance:signal-above_counter_gasket",
+      "FAIL clearance:signal-display_cover",
+      "FAIL clearance:signal-tpu_thimble",
+      "FAIL clearance:signal-donor",
+      "PASS clearance:signal-soda-tube",
+      "FAIL clearance:signal-flavor-a",
+      "FAIL clearance:signal-flavor-b",
+      "FAIL clearance:signal-countertop",
+      "FAIL clearance:signal-under-counter-plate",
+      "FAIL clearance:signal-display-body",
+      "FAIL clearance:signal-display-usb",
+      "PASS fit:signal-lane-section",
+      "PASS wall:neck-signal-lane",
+      "PASS seat:plate-gasket",
+      "Traceback (most recent call last):",
+      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/check_faucet_geometry.py\", line 2184, in <module>",
+      "    \"scope\": \"Rigid fit references and independent wing-clearance demand; no elastic deformation or force prediction.\"},",
+      "    ^",
+      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/check_faucet_geometry.py\", line 2134, in main",
+      "    full = f.build_shell()",
+      "        ^^^^^^^^^^^^^^^^^^",
+      "RuntimeError: a faucet source changed during the reading; rerun after its build settles"
+    ],
     "hardware/scripts/check_ledger.py": [
-      "instructions: 17 files (17 procedures + 0 cards + cover) | ledger brands: 600 | waived: 1 ASIN + 4 brand",
-      "DRIFT: 3 instruction(s) out of step with the ledger:",
+      "instructions: 18 files (18 procedures + 0 cards + cover) | ledger brands: 607 | waived: 1 ASIN + 4 brand",
+      "DRIFT: 4 instruction(s) out of step with the ledger:",
       "  ✗ instruction names a purchased brand the ledger no longer carries: Lillium (hardware/assembly/lillium-cutover.md:1)",
+      "  ✗ procedure with no doc-sync driver — every number and part name in it is a bare literal: hardware/assembly/asse-drain.md (expected hardware/assembly/_asse_drain_sync.py)",
       "  ✗ procedure with no doc-sync driver — every number and part name in it is a bare literal: hardware/assembly/lillium-cutover.md (expected hardware/assembly/_lillium_cutover_sync.py)",
       "  ✗ procedure with no doc-sync driver — every number and part name in it is a bare literal: hardware/assembly/weld-position.md (expected hardware/assembly/_weld_position_sync.py)"
     ],
     "hardware/scripts/check_payload_colours.py": [
+      "    1 carry no colour, so the viewer draws them at its pale default: controller-backplane",
+      "  hardware/gun-positioner/mounting/fan-stand-80mm.step.mesh (published e4fc766b4b20, read from the store):",
       "    1 carry no colour, so the viewer draws them at its pale default: fan-stand-80mm",
       "  hardware/gun-positioner/mounting/m3-insulating-spacer-6mm.step.mesh (published 89cef0c080ee, read from the store):",
       "    1 carry no colour, so the viewer draws them at its pale default: m3-insulating-spacer-6mm",
-      "  hardware/manifold-layout/enclosure-assembly.step.mesh (published c309a0c1aa0f, read from this disk):",
-      "    251 are a finish row converted from sRGB to linear a second time: compressor/1 (C_COMP), compressor/2 (C_COMP), condenser+fan (C_COND), mq6-sensor (C_MQ6), thermal-fuse (M_TINNED_STEEL), fuse-clamp (M_PETG_BLACK), and 245 more",
       "  hardware/printed-parts/fixtures/gun-positioner-observation/camera-carriage-plate.step.mesh (published 19cfa48cb4dc, read from this disk):",
       "    1 carry no colour, so the viewer draws them at its pale default: camera-carriage-plate",
       "  hardware/printed-parts/fixtures/gun-positioner-observation/camera-fixed-plate.step.mesh (published 3706a7dbbf0c, read from this disk):",
@@ -229,9 +257,9 @@
     ],
     "tools/check_paths.py": [
       "hardware/concerns.md:95 — tools/quickstart-codex/fill_scene.py is held nowhere, and no tag is named for it",
-      "  hardware/ledger/purchases.md:569 — hardware/quickstart/README.md is held nowhere, and no tag is named for it",
+      "  hardware/ledger/purchases.md:571 — hardware/quickstart/README.md is held nowhere, and no tag is named for it",
       "  hardware/ledger/tools.md:232 — hardware/quickstart-codex/README.md is held nowhere, and no tag is named for it",
-      "  hardware/printed-parts/enclosure/y-wall-of-back-top/README.md:54 — hardware/quickstart/README.md is held nowhere, and no tag is named for it",
+      "  hardware/printed-parts/enclosure/y-wall-of-back-top/README.md:55 — hardware/quickstart/README.md is held nowhere, and no tag is named for it",
       "  hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-03-centred-short-block/README.md:15 — hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-03-centred-short-block/../../forming-mandrel-check.json is held nowhere, and no tag is named for it",
       "  hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-03-forming-mandrel-petg088-v1/README.md:50 — hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-03-forming-mandrel-petg088-v1/../../forming-mandrel-design.json is held nowhere, and no tag is named for it",
       "  hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-03-forming-mandrel-petg088-v1/README.md:58 — hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-03-forming-mandrel-petg088-v1/../../forming-mandrel-check.json is held nowhere, and no tag is named for it",
@@ -244,14 +272,14 @@
       "13 reference(s) name a path nothing holds."
     ],
     "tools/check_release_room.py": [
-      "the release holds 440 of 1000 and the next cut wants 915; 88 asset(s) may be retired for it",
+      "the release holds 440 of 1000 and the next cut wants 928; 144 asset(s) may be retired for it",
       "check_release_room: 1 thing(s) stand between a cut and the site",
       "    tools/cad-venv/bin/python tools/cad-artifacts/pack.py --room"
     ],
     "tools/check_web_tests.py": [
       "2 test(s) in web/ fail:",
+      "    every alias names a component an assembly carries",
       "    short basenames don't substring-match longer step names (collision regression)",
-      "    a nested assembly is a node its parent's model actually holds",
       "  cd web && npm test"
     ]
   },
