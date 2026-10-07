@@ -19,6 +19,10 @@ on [Drawings](https://homesodamachine.com/drawings) and at
 
 The booklet covers installation and care. Braided-hose instructions begin on numbered page 13
 (PDF page 14). Connection checks begin on numbered page 31 (PDF page 32).
+The faucet has four attached tubes, including the small white 4 mm DRAIN tail.
+The mounting-hole center sits at most 2 inches behind the bowl edge, with the faucet
+aimed within 10 degrees of straight into the bowl and its complete drain opening exposed
+above the bowl. DRAIN keeps its factory length and connects to its own labeled metric port.
 Numbered page 3 shows every supplied kit item as a vector line drawing, with a compact
 customer-supplied checklist in the sidebar. Each item sits inside a light panel with its caption
 centered just beneath the drawing. A towel catches residual water at a loosened fitting.

@@ -53,6 +53,7 @@ def c14_rim_inset():
 # manifold sorts them.
 port_colors = {
     "carb": (31, 111, 235),     # carbonated water — the umbilical riser
+    "drain": (255, 255, 255),   # 4 mm vent discharge, distinct from 1/4-inch TAP
     "water": (255, 255, 255),   # tap water — the customer's teed-in supply
     "co2": (214, 58, 58),       # CO2 — the customer's regulator tether
     "flavor": (38, 38, 41),     # flavour — both flavor tubes, one colour
@@ -66,6 +67,7 @@ port_colors = {
 # Polymaker's product photographs (FL02003, FL02006, FL02007). Black uses the shared
 # PET-GF stock appearance. `ledger/purchases.md` §13 buys all four.
 chip_filaments = {
+    "drain": ("Fiberon PET-GF15 White", (235, 236, 234)),
     "water": ("Fiberon PET-GF15 White", (235, 236, 234)),
     "carb": ("Fiberon PET-GF15 Blue", (105, 180, 247)),
     "co2": ("Fiberon PET-GF15 Red", (228, 83, 87)),
@@ -74,6 +76,7 @@ chip_filaments = {
 # Which of the black and the white spool a chip's word letters in, one entry per `chip_filaments`
 # spool.
 chip_word_colors = {
+    "drain": chip_filaments["flavor"][1],
     "water": chip_filaments["flavor"][1],
     "carb": chip_filaments["water"][1],
     "co2": chip_filaments["water"][1],

@@ -15,10 +15,7 @@ flowchart LR
   %%     the opto module's LED load holds it low, which download mode also wants.
   %%   GPIO 26 hosts the 1-wire temp bus: DS18B20 (0x28, carbonator wall) + DS18S20 (0x10, evap-suction), told apart by family code.
   %%   GPIO 25 reads the DIGITEN flow meter (pulse input).
-  %%   GPIO 27 reads the backflow drip-pan moisture sensor (SIG-9).
-  %%   GPIO 23 sources the moisture module's VCC (switched: driven only while sampling,
-  %%     so the always-wet drip-pan electrodes sit unpowered between samples — no
-  %%     electrolytic corrosion from a continuously energized probe).
+  %%   GPIO 27 and GPIO 23 reserve SIG-9 sense/supply on J4, unpopulated.
   %%   GPIO 13 drives the on-board buzzer (U8 magnetic transducer, PWM tone via
   %%     LEDC, low-side switched by Q1).
   %%   GPIO 39 reads the MQ-6 gas / refrigerant-leak sensor AOUT (analog, ADC1) and
@@ -82,8 +79,8 @@ flowchart LR
 
     subgraph Input_Pins["Sensor Inputs"]
       P25["GPIO 25  Flow Meter"]
-      P27["GPIO 27  Backflow moisture"]
-      P23["GPIO 23  Backflow moisture VCC (switched)"]
+      P27["GPIO 27  Reserved SIG-9 sense"]
+      P23["GPIO 23  Reserved SIG-9 supply"]
       P39["GPIO 39  Gas sensor AOUT (ADC1)"]
       P36["GPIO 36  Gas sensor DOUT (trip)"]
     end
@@ -122,7 +119,6 @@ flowchart LR
 
   FLOW["DIGITEN\nFlow Meter"]
 
-  MOIST["Backflow drip-pan\nmoisture sensor (SIG-9)"]
 
   GAS["MQ-6 combustible-gas /\nR-600a leak sensor\n(rear cabinet floor)"]
 
@@ -159,8 +155,6 @@ flowchart LR
   DS_PROBES -->|"1-wire data"| P26
 
   I2C_DEVICES -->|"MCP23017"| VALVE_CHAIN
-  MOIST -->|"INPUT"| P27
-  P23 -->|"switched VCC\n(powered only while sampling)"| MOIST
   P13 -->|"PWM tone"| BUZZER
   GAS -->|"AOUT (analog)"| P39
   GAS -->|"DOUT (trip)"| P36

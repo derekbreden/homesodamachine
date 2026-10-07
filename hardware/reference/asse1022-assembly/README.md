@@ -6,7 +6,7 @@ fittings that make it reachable from 1/4" tube on both sides.
 
 ```
 1/4" LLDPE → PP010822E → GAGIRA coupling → [ASSE 1022] → PI4512F6S + PP061208W → 1/4" LLDPE
-                                                 └ vent stub ↓ ASSE drip pan
+                                                 └ clear hose → black neoFit adapters → 4 mm DRAIN → faucet/bowl
 ```
 
 That is the chain `hardware/assembly/internal-plumbing.md` step 2 builds, in the
@@ -23,12 +23,7 @@ order it builds it. Parts and prices are in `hardware/ledger/bom.md` §3.
 ## The vent is the pose
 
 The assembly has an orientation rather than just an envelope because the
-atmospheric vent weeps to atmosphere and the internal ASSE drip pan over the moisture
-sensor has to be under it. That weeping is the mechanical telltale for a
-cross-contamination event (`hardware/README.md` "Safety"), and
-it drips — never plumbed into a drain. `port("vent-tip")` is the datum the pan
-catches, and the drip falls from there: the pan sits under the tip's column,
-wherever the pose leaves it pointing.
+atmospheric vent discharges through the separate 4 mm DRAIN circuit to its open faucet outlet over the sink bowl. [ASSE drain assembly](/hardware/assembly/asse-drain.md) specifies the FWS hose, clamps and black neoFit adapters.
 
 The machine lays it fore and aft in the −X lane west of the G Ganen, on the panel
 deck's own storey over the pump's casting
@@ -37,11 +32,7 @@ deck's own storey over the pump's casting
 cabinet's axes. The yaw turns the chain's flow onto the cabinet's −Y, its inlet aft
 at the tap-water bulkhead and its 1/4" PTC collet forward onto the 1/4" LLDPE run to
 the water-split; there is no roll, so the vent hangs as it is built, dropping its
-column straight into the ASSE drip pan under it. `enclosure_assembly.check_vent_lands` is where
-that landing is made: the pan's floor, rim and the chain's underside are struck on
-one set of numbers, so the drip falls exactly the gap the pan was drawn for. The pack seats the chain and
-reads all three terminals off that seat, so a length changed in any of the five parts
-moves the machine's ports with it.
+flexible clear hose into the black adapter stack. The continuation is authored in [`_drain.py`](/hardware/manifold-layout/_drain.py) and checked against the installed appliance in [`drain-clearance-check.json`](/hardware/manifold-layout/drain-clearance-check.json).
 
 ## Model
 

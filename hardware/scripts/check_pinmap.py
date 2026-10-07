@@ -111,7 +111,6 @@ for text, var, kw in SYNC_CHECKS:
 CROSS = [
     ("piezo buzzer",        r"U8\._NEG",         r"[Pp]iezo|[Bb]uzzer"),
     ("gas sensor",          r'label="GAS"',      r"MQ-6|combustible gas"),
-    ("moisture sensor",     r"backflow",         r"moisture|water sensor"),
     ("flow sensor",         r"\.IO25",           r"DIGITEN|flow sensor"),
     ("DS18B20 carbonator temp", r"\.IO26",       r"DS18B20"),
     ("DS18S20 coil temp",   r"\.IO26",           r"DS18S20"),

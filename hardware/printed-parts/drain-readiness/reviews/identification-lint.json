@@ -1,0 +1,2228 @@
+{
+  "scope": "Postpublication geometry lint of all 24 authored chip/collar body/word components. Findings retain their exact anchors in the saved print frame. The intentional glyph pockets and lettering faces are answered individually. Physical lettering finish and fit remain separate observations.",
+  "linter_sha256": "79914fb4ca91a5620956c1d4d95fd6fe253fcae1b5f26bac0fafc43edffb4f53",
+  "records": [
+    {
+      "source": ".cache/prints/2026-10-07-drain/labels-black-mark2/geometry/flavor-a-chip-body.stl",
+      "sha256": "6db517f0515a1fe4f6ee9586310d143a3b702de0bf980c46a4c1309129ed6e5f",
+      "print_frame": true,
+      "facets": 15724,
+      "findings": {
+        "step": [
+          {
+            "class": "step",
+            "score": 4.951172465225761,
+            "line": "\u03941.000 mm between parallel planes \u00b7 footprint met 5.0 \u00d7 4.5 mm",
+            "pick": [
+              "faceA: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=6.062 y=11.430 z=1.000",
+              "faceB: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=0.000 y=0.000 z=2.000",
+              "click: x=7.653 y=11.414 z=1.000"
+            ],
+            "answer": "The 1 mm-deep glyph pockets expose their floor and vertical glyph contours. The chip retains a continuous 1 mm floor below the lettering and a full 2 mm flange land. The separate word material fills the pockets and rises 0.48 mm above the show face. These steps and strips are lettering boundaries backed by the chip, with source placements and both filament tools verified in the native archive."
+          }
+        ],
+        "sliver": [
+          {
+            "class": "sliver",
+            "score": 4.9671697922853255,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.942 y=-0.336 z=0.000 \u00b7 thru x=-4.531 y=11.424 z=1.500",
+              "edge: x=-3.696 y=13.763 z=1.500 \u2192 x=-5.365 y=9.085 z=1.500 \u00b7 len 4.967 \u00b7 straight \u00b7 dir x=-0.336 y=-0.942 z=0.000",
+              "click: x=-4.531 y=11.424 z=1.500"
+            ],
+            "answer": "The 1 mm-deep glyph pockets expose their floor and vertical glyph contours. The chip retains a continuous 1 mm floor below the lettering and a full 2 mm flange land. The separate word material fills the pockets and rises 0.48 mm above the show face. These steps and strips are lettering boundaries backed by the chip, with source placements and both filament tools verified in the native archive."
+          },
+          {
+            "class": "sliver",
+            "score": 4.96291736345785,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=-0.943 y=-0.334 z=0.000 \u00b7 thru x=-1.763 y=11.424 z=1.500",
+              "edge: x=-0.935 y=9.085 z=1.500 \u2192 x=-2.591 y=13.763 z=1.500 \u00b7 len 4.963 \u00b7 straight \u00b7 dir x=-0.334 y=0.943 z=0.000",
+              "click: x=-1.763 y=11.424 z=1.500"
+            ],
+            "answer": "The 1 mm-deep glyph pockets expose their floor and vertical glyph contours. The chip retains a continuous 1 mm floor below the lettering and a full 2 mm flange land. The separate word material fills the pockets and rises 0.48 mm above the show face. These steps and strips are lettering boundaries backed by the chip, with source placements and both filament tools verified in the native archive."
+          },
+          {
+            "class": "sliver",
+            "score": 4.943113763284927,
+            "line": "1.000 mm strip, 4.9 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=-0.946 y=0.323 z=0.000 \u00b7 thru x=2.615 y=11.424 z=1.500",
+              "edge: x=1.817 y=9.085 z=1.500 \u2192 x=3.413 y=13.763 z=1.500 \u00b7 len 4.943 \u00b7 straight \u00b7 dir x=0.323 y=0.946 z=0.000",
+              "click: x=2.615 y=11.424 z=1.500"
+            ],
+            "answer": "The 1 mm-deep glyph pockets expose their floor and vertical glyph contours. The chip retains a continuous 1 mm floor below the lettering and a full 2 mm flange land. The separate word material fills the pockets and rises 0.48 mm above the show face. These steps and strips are lettering boundaries backed by the chip, with source placements and both filament tools verified in the native archive."
+          },
+          {
+            "class": "sliver",
+            "score": 4.9380113338528915,
+            "line": "1.000 mm strip, 4.9 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.947 y=0.320 z=0.000 \u00b7 thru x=0.105 y=11.424 z=1.500",
+              "edge: x=-0.685 y=13.764 z=1.500 \u2192 x=0.895 y=9.085 z=1.500 \u00b7 len 4.938 \u00b7 straight \u00b7 dir x=0.320 y=-0.947 z=0.000",
+              "click: x=0.105 y=11.424 z=1.500"
+            ],
+            "answer": "The 1 mm-deep glyph pockets expose their floor and vertical glyph contours. The chip retains a continuous 1 mm floor below the lettering and a full 2 mm flange land. The separate word material fills the pockets and rises 0.48 mm above the show face. These steps and strips are lettering boundaries backed by the chip, with source placements and both filament tools verified in the native archive."
+          },
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-9.006 y=11.424 z=1.500",
+              "edge: x=-9.006 y=13.763 z=1.500 \u2192 x=-9.006 y=9.085 z=1.500 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=-1.000 z=0.000",
+              "click: x=-9.006 y=11.424 z=1.500"
+            ],
+            "answer": "The 1 mm-deep glyph pockets expose their floor and vertical glyph contours. The chip retains a continuous 1 mm floor below the lettering and a full 2 mm flange land. The separate word material fills the pockets and rises 0.48 mm above the show face. These steps and strips are lettering boundaries backed by the chip, with source placements and both filament tools verified in the native archive."
+          },
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=9.072 y=11.424 z=1.500",
+              "edge: x=9.072 y=13.763 z=1.500 \u2192 x=9.072 y=9.085 z=1.500 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=-1.000 z=0.000",
+              "click: x=9.072 y=11.424 z=1.500"
+            ],
+            "answer": "The 1 mm-deep glyph pockets expose their floor and vertical glyph contours. The chip retains a continuous 1 mm floor below the lettering and a full 2 mm flange land. The separate word material fills the pockets and rises 0.48 mm above the show face. These steps and strips are lettering boundaries backed by the chip, with source placements and both filament tools verified in the native archive."
+          },
+          {
+            "class": "sliver",
+            "score": 4.671875,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-12.976 y=11.420 z=1.500",
+              "edge: x=-12.976 y=13.756 z=1.500 \u2192 x=-12.976 y=9.085 z=1.500 \u00b7 len 4.672 \u00b7 straight \u00b7 dir x=0.000 y=-1.000 z=0.000",
+              "click: x=-12.976 y=11.420 z=1.500"
+            ],
+            "answer": "The 1 mm-deep glyph pockets expose their floor and vertical glyph contours. The chip retains a continuous 1 mm floor below the lettering and a full 2 mm flange land. The separate word material fills the pockets and rises 0.48 mm above the show face. These steps and strips are lettering boundaries backed by the chip, with source placements and both filament tools verified in the native archive."
+          }
+        ],
+        "ceiling": [],
+        "slope": []
+      },
+      "source_mesh_scope": "Exact STL component used by the saved two-material project, in its authored print frame."
+    },
+    {
+      "source": ".cache/prints/2026-10-07-drain/labels-black-mark2/geometry/flavor-a-chip-word.stl",
+      "sha256": "3d2c30d0edf0c5b2a1083afbbbcc021db8a93572f1d883274306210f5b7e4388",
+      "print_frame": true,
+      "facets": 18548,
+      "findings": {
+        "step": [],
+        "sliver": [],
+        "ceiling": [],
+        "slope": []
+      },
+      "source_mesh_scope": "Exact STL component used by the saved two-material project, in its authored print frame."
+    },
+    {
+      "source": ".cache/prints/2026-10-07-drain/labels-black-mark2/geometry/flavor-a-collar-body.stl",
+      "sha256": "b2b11d9512c4a1ae475affc1d54c2e67f5bf3c376ff0374fc135a98449e22138",
+      "print_frame": true,
+      "facets": 45978,
+      "findings": {
+        "step": [
+          {
+            "class": "step",
+            "score": 4.9511719942092896,
+            "line": "\u03941.000 mm between parallel planes \u00b7 footprint met 5.0 \u00d7 4.5 mm",
+            "pick": [
+              "faceA: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-5.000 y=6.062 z=3.525",
+              "faceB: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-6.000 y=0.000 z=3.525",
+              "click: x=-5.000 y=7.653 z=3.541"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "step",
+            "score": 4.951171994209289,
+            "line": "\u03941.000 mm between parallel planes \u00b7 footprint met 5.0 \u00d7 4.5 mm",
+            "pick": [
+              "faceA: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=5.000 y=-6.062 z=3.525",
+              "faceB: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=6.000 y=0.000 z=3.525",
+              "click: x=5.000 y=-7.653 z=3.541"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          }
+        ],
+        "sliver": [
+          {
+            "class": "sliver",
+            "score": 4.967169792285326,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.336 y=-0.942 z=0.000 \u00b7 thru x=0.006 y=4.531 z=0.500",
+              "edge: x=2.345 y=5.365 z=0.500 \u2192 x=-2.333 y=3.696 z=0.500 \u00b7 len 4.967 \u00b7 straight \u00b7 dir x=-0.942 y=-0.336 z=0.000",
+              "click: x=0.006 y=4.531 z=0.500"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.9629173634578505,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.334 y=0.943 z=0.000 \u00b7 thru x=0.006 y=1.763 z=0.500",
+              "edge: x=-2.333 y=2.591 z=0.500 \u2192 x=2.345 y=0.935 z=0.500 \u00b7 len 4.963 \u00b7 straight \u00b7 dir x=0.943 y=-0.334 z=0.000",
+              "click: x=0.006 y=1.763 z=0.500"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.943113763284929,
+            "line": "1.000 mm strip, 4.9 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=-0.323 y=0.946 z=0.000 \u00b7 thru x=0.006 y=-2.615 z=0.500",
+              "edge: x=-2.333 y=-3.413 z=0.500 \u2192 x=2.345 y=-1.817 z=0.500 \u00b7 len 4.943 \u00b7 straight \u00b7 dir x=0.946 y=0.323 z=0.000",
+              "click: x=0.006 y=-2.615 z=0.500"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.938011480952312,
+            "line": "1.000 mm strip, 4.9 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=-0.320 y=-0.947 z=0.000 \u00b7 thru x=0.006 y=-0.103 z=0.500",
+              "edge: x=2.345 y=-0.893 z=0.500 \u2192 x=-2.333 y=0.687 z=0.500 \u00b7 len 4.938 \u00b7 straight \u00b7 dir x=-0.947 y=0.320 z=0.000",
+              "click: x=0.006 y=-0.103 z=0.500"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=5.500 y=9.006 z=3.531",
+              "edge: x=5.500 y=9.006 z=5.870 \u2192 x=5.500 y=9.006 z=1.192 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=5.500 y=9.006 z=3.531"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=5.500 y=-9.072 z=3.531",
+              "edge: x=5.500 y=-9.072 z=5.870 \u2192 x=5.500 y=-9.072 z=1.192 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=5.500 y=-9.072 z=3.531"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=-5.500 y=-9.006 z=3.531",
+              "edge: x=-5.500 y=-9.006 z=5.870 \u2192 x=-5.500 y=-9.006 z=1.192 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=-5.500 y=-9.006 z=3.531"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=-5.500 y=9.072 z=3.531",
+              "edge: x=-5.500 y=9.072 z=5.870 \u2192 x=-5.500 y=9.072 z=1.192 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=-5.500 y=9.072 z=3.531"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=0.006 y=9.006 z=0.500",
+              "edge: x=2.345 y=9.006 z=0.500 \u2192 x=-2.333 y=9.006 z=0.500 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+              "click: x=0.006 y=9.006 z=0.500"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=0.006 y=-9.072 z=0.500",
+              "edge: x=2.345 y=-9.072 z=0.500 \u2192 x=-2.333 y=-9.072 z=0.500 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+              "click: x=0.006 y=-9.072 z=0.500"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6718751192092896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=5.500 y=12.976 z=3.535",
+              "edge: x=5.500 y=12.976 z=5.870 \u2192 x=5.500 y=12.976 z=1.199 \u00b7 len 4.672 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=5.500 y=12.976 z=3.535"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6718751192092896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=-5.500 y=-12.976 z=3.535",
+              "edge: x=-5.500 y=-12.976 z=5.870 \u2192 x=-5.500 y=-12.976 z=1.199 \u00b7 len 4.672 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=-5.500 y=-12.976 z=3.535"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.671875,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=0.010 y=12.976 z=0.500",
+              "edge: x=2.345 y=12.976 z=0.500 \u2192 x=-2.326 y=12.976 z=0.500 \u00b7 len 4.672 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+              "click: x=0.010 y=12.976 z=0.500"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          }
+        ],
+        "ceiling": [],
+        "slope": []
+      },
+      "source_mesh_scope": "Exact STL component used by the saved two-material project, in its authored print frame."
+    },
+    {
+      "source": ".cache/prints/2026-10-07-drain/labels-black-mark2/geometry/flavor-a-collar-word.stl",
+      "sha256": "352520571705aabd598715b54d6dfd40988ee3579addba215c40e6a408cfc422",
+      "print_frame": true,
+      "facets": 44418,
+      "findings": {
+        "step": [],
+        "sliver": [
+          {
+            "class": "sliver",
+            "score": 4.9671697922853255,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=-0.336 y=0.942 z=0.000 \u00b7 thru x=0.006 y=4.531 z=0.500",
+              "edge: x=-2.333 y=3.696 z=0.500 \u2192 x=2.345 y=5.365 z=0.500 \u00b7 len 4.967 \u00b7 straight \u00b7 dir x=0.942 y=0.336 z=0.000",
+              "click: x=0.006 y=4.531 z=0.500"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.96291736345785,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=-0.334 y=-0.943 z=0.000 \u00b7 thru x=0.006 y=1.763 z=0.500",
+              "edge: x=2.345 y=0.935 z=0.500 \u2192 x=-2.333 y=2.591 z=0.500 \u00b7 len 4.963 \u00b7 straight \u00b7 dir x=-0.943 y=0.334 z=0.000",
+              "click: x=0.006 y=1.763 z=0.500"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.943113763284928,
+            "line": "1.000 mm strip, 4.9 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.323 y=-0.946 z=0.000 \u00b7 thru x=0.006 y=-2.615 z=0.500",
+              "edge: x=2.345 y=-1.817 z=0.500 \u2192 x=-2.333 y=-3.413 z=0.500 \u00b7 len 4.943 \u00b7 straight \u00b7 dir x=-0.946 y=-0.323 z=0.000",
+              "click: x=0.006 y=-2.615 z=0.500"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.938011480952312,
+            "line": "1.000 mm strip, 4.9 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.320 y=0.947 z=0.000 \u00b7 thru x=0.006 y=-0.103 z=0.500",
+              "edge: x=-2.333 y=0.687 z=0.500 \u2192 x=2.345 y=-0.893 z=0.500 \u00b7 len 4.938 \u00b7 straight \u00b7 dir x=0.947 y=-0.320 z=0.000",
+              "click: x=0.006 y=-0.103 z=0.500"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=-5.500 y=9.072 z=3.531",
+              "edge: x=-5.500 y=9.072 z=5.870 \u2192 x=-5.500 y=9.072 z=1.192 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=-5.500 y=9.072 z=3.531"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=-5.500 y=-9.006 z=3.531",
+              "edge: x=-5.500 y=-9.006 z=5.870 \u2192 x=-5.500 y=-9.006 z=1.192 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=-5.500 y=-9.006 z=3.531"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=5.500 y=-9.072 z=3.531",
+              "edge: x=5.500 y=-9.072 z=5.870 \u2192 x=5.500 y=-9.072 z=1.192 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=5.500 y=-9.072 z=3.531"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=5.500 y=9.006 z=3.531",
+              "edge: x=5.500 y=9.006 z=5.870 \u2192 x=5.500 y=9.006 z=1.192 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=5.500 y=9.006 z=3.531"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=0.006 y=-9.072 z=0.500",
+              "edge: x=-2.333 y=-9.072 z=0.500 \u2192 x=2.345 y=-9.072 z=0.500 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=1.000 y=0.000 z=0.000",
+              "click: x=0.006 y=-9.072 z=0.500"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=0.006 y=9.006 z=0.500",
+              "edge: x=-2.333 y=9.006 z=0.500 \u2192 x=2.345 y=9.006 z=0.500 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=1.000 y=0.000 z=0.000",
+              "click: x=0.006 y=9.006 z=0.500"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6718751192092896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=-5.500 y=-12.976 z=3.535",
+              "edge: x=-5.500 y=-12.976 z=5.870 \u2192 x=-5.500 y=-12.976 z=1.199 \u00b7 len 4.672 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=-5.500 y=-12.976 z=3.535"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6718751192092896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=5.500 y=12.976 z=3.535",
+              "edge: x=5.500 y=12.976 z=5.870 \u2192 x=5.500 y=12.976 z=1.199 \u00b7 len 4.672 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=5.500 y=12.976 z=3.535"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.671875,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=0.010 y=12.976 z=0.500",
+              "edge: x=-2.326 y=12.976 z=0.500 \u2192 x=2.345 y=12.976 z=0.500 \u00b7 len 4.672 \u00b7 straight \u00b7 dir x=1.000 y=0.000 z=0.000",
+              "click: x=0.010 y=12.976 z=0.500"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          }
+        ],
+        "ceiling": [],
+        "slope": []
+      },
+      "source_mesh_scope": "Exact STL component used by the saved two-material project, in its authored print frame."
+    },
+    {
+      "source": ".cache/prints/2026-10-07-drain/labels-black-mark2/geometry/flavor-b-chip-body.stl",
+      "sha256": "6db517f0515a1fe4f6ee9586310d143a3b702de0bf980c46a4c1309129ed6e5f",
+      "print_frame": true,
+      "facets": 15724,
+      "findings": {
+        "step": [
+          {
+            "class": "step",
+            "score": 4.951172465225761,
+            "line": "\u03941.000 mm between parallel planes \u00b7 footprint met 5.0 \u00d7 4.5 mm",
+            "pick": [
+              "faceA: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=6.062 y=11.430 z=1.000",
+              "faceB: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=0.000 y=0.000 z=2.000",
+              "click: x=7.653 y=11.414 z=1.000"
+            ],
+            "answer": "The 1 mm-deep glyph pockets expose their floor and vertical glyph contours. The chip retains a continuous 1 mm floor below the lettering and a full 2 mm flange land. The separate word material fills the pockets and rises 0.48 mm above the show face. These steps and strips are lettering boundaries backed by the chip, with source placements and both filament tools verified in the native archive."
+          }
+        ],
+        "sliver": [
+          {
+            "class": "sliver",
+            "score": 4.9671697922853255,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.942 y=-0.336 z=0.000 \u00b7 thru x=-4.531 y=11.424 z=1.500",
+              "edge: x=-3.696 y=13.763 z=1.500 \u2192 x=-5.365 y=9.085 z=1.500 \u00b7 len 4.967 \u00b7 straight \u00b7 dir x=-0.336 y=-0.942 z=0.000",
+              "click: x=-4.531 y=11.424 z=1.500"
+            ],
+            "answer": "The 1 mm-deep glyph pockets expose their floor and vertical glyph contours. The chip retains a continuous 1 mm floor below the lettering and a full 2 mm flange land. The separate word material fills the pockets and rises 0.48 mm above the show face. These steps and strips are lettering boundaries backed by the chip, with source placements and both filament tools verified in the native archive."
+          },
+          {
+            "class": "sliver",
+            "score": 4.96291736345785,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=-0.943 y=-0.334 z=0.000 \u00b7 thru x=-1.763 y=11.424 z=1.500",
+              "edge: x=-0.935 y=9.085 z=1.500 \u2192 x=-2.591 y=13.763 z=1.500 \u00b7 len 4.963 \u00b7 straight \u00b7 dir x=-0.334 y=0.943 z=0.000",
+              "click: x=-1.763 y=11.424 z=1.500"
+            ],
+            "answer": "The 1 mm-deep glyph pockets expose their floor and vertical glyph contours. The chip retains a continuous 1 mm floor below the lettering and a full 2 mm flange land. The separate word material fills the pockets and rises 0.48 mm above the show face. These steps and strips are lettering boundaries backed by the chip, with source placements and both filament tools verified in the native archive."
+          },
+          {
+            "class": "sliver",
+            "score": 4.943113763284927,
+            "line": "1.000 mm strip, 4.9 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=-0.946 y=0.323 z=0.000 \u00b7 thru x=2.615 y=11.424 z=1.500",
+              "edge: x=1.817 y=9.085 z=1.500 \u2192 x=3.413 y=13.763 z=1.500 \u00b7 len 4.943 \u00b7 straight \u00b7 dir x=0.323 y=0.946 z=0.000",
+              "click: x=2.615 y=11.424 z=1.500"
+            ],
+            "answer": "The 1 mm-deep glyph pockets expose their floor and vertical glyph contours. The chip retains a continuous 1 mm floor below the lettering and a full 2 mm flange land. The separate word material fills the pockets and rises 0.48 mm above the show face. These steps and strips are lettering boundaries backed by the chip, with source placements and both filament tools verified in the native archive."
+          },
+          {
+            "class": "sliver",
+            "score": 4.9380113338528915,
+            "line": "1.000 mm strip, 4.9 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.947 y=0.320 z=0.000 \u00b7 thru x=0.105 y=11.424 z=1.500",
+              "edge: x=-0.685 y=13.764 z=1.500 \u2192 x=0.895 y=9.085 z=1.500 \u00b7 len 4.938 \u00b7 straight \u00b7 dir x=0.320 y=-0.947 z=0.000",
+              "click: x=0.105 y=11.424 z=1.500"
+            ],
+            "answer": "The 1 mm-deep glyph pockets expose their floor and vertical glyph contours. The chip retains a continuous 1 mm floor below the lettering and a full 2 mm flange land. The separate word material fills the pockets and rises 0.48 mm above the show face. These steps and strips are lettering boundaries backed by the chip, with source placements and both filament tools verified in the native archive."
+          },
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-9.006 y=11.424 z=1.500",
+              "edge: x=-9.006 y=13.763 z=1.500 \u2192 x=-9.006 y=9.085 z=1.500 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=-1.000 z=0.000",
+              "click: x=-9.006 y=11.424 z=1.500"
+            ],
+            "answer": "The 1 mm-deep glyph pockets expose their floor and vertical glyph contours. The chip retains a continuous 1 mm floor below the lettering and a full 2 mm flange land. The separate word material fills the pockets and rises 0.48 mm above the show face. These steps and strips are lettering boundaries backed by the chip, with source placements and both filament tools verified in the native archive."
+          },
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=9.072 y=11.424 z=1.500",
+              "edge: x=9.072 y=13.763 z=1.500 \u2192 x=9.072 y=9.085 z=1.500 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=-1.000 z=0.000",
+              "click: x=9.072 y=11.424 z=1.500"
+            ],
+            "answer": "The 1 mm-deep glyph pockets expose their floor and vertical glyph contours. The chip retains a continuous 1 mm floor below the lettering and a full 2 mm flange land. The separate word material fills the pockets and rises 0.48 mm above the show face. These steps and strips are lettering boundaries backed by the chip, with source placements and both filament tools verified in the native archive."
+          },
+          {
+            "class": "sliver",
+            "score": 4.671875,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-12.976 y=11.420 z=1.500",
+              "edge: x=-12.976 y=13.756 z=1.500 \u2192 x=-12.976 y=9.085 z=1.500 \u00b7 len 4.672 \u00b7 straight \u00b7 dir x=0.000 y=-1.000 z=0.000",
+              "click: x=-12.976 y=11.420 z=1.500"
+            ],
+            "answer": "The 1 mm-deep glyph pockets expose their floor and vertical glyph contours. The chip retains a continuous 1 mm floor below the lettering and a full 2 mm flange land. The separate word material fills the pockets and rises 0.48 mm above the show face. These steps and strips are lettering boundaries backed by the chip, with source placements and both filament tools verified in the native archive."
+          }
+        ],
+        "ceiling": [],
+        "slope": []
+      },
+      "source_mesh_scope": "Exact STL component used by the saved two-material project, in its authored print frame."
+    },
+    {
+      "source": ".cache/prints/2026-10-07-drain/labels-black-mark2/geometry/flavor-b-chip-word.stl",
+      "sha256": "3d2c30d0edf0c5b2a1083afbbbcc021db8a93572f1d883274306210f5b7e4388",
+      "print_frame": true,
+      "facets": 18548,
+      "findings": {
+        "step": [],
+        "sliver": [],
+        "ceiling": [],
+        "slope": []
+      },
+      "source_mesh_scope": "Exact STL component used by the saved two-material project, in its authored print frame."
+    },
+    {
+      "source": ".cache/prints/2026-10-07-drain/labels-black-mark2/geometry/flavor-b-collar-body.stl",
+      "sha256": "b2b11d9512c4a1ae475affc1d54c2e67f5bf3c376ff0374fc135a98449e22138",
+      "print_frame": true,
+      "facets": 45978,
+      "findings": {
+        "step": [
+          {
+            "class": "step",
+            "score": 4.9511719942092896,
+            "line": "\u03941.000 mm between parallel planes \u00b7 footprint met 5.0 \u00d7 4.5 mm",
+            "pick": [
+              "faceA: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-5.000 y=6.062 z=3.525",
+              "faceB: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-6.000 y=0.000 z=3.525",
+              "click: x=-5.000 y=7.653 z=3.541"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "step",
+            "score": 4.951171994209289,
+            "line": "\u03941.000 mm between parallel planes \u00b7 footprint met 5.0 \u00d7 4.5 mm",
+            "pick": [
+              "faceA: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=5.000 y=-6.062 z=3.525",
+              "faceB: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=6.000 y=0.000 z=3.525",
+              "click: x=5.000 y=-7.653 z=3.541"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          }
+        ],
+        "sliver": [
+          {
+            "class": "sliver",
+            "score": 4.967169792285326,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.336 y=-0.942 z=0.000 \u00b7 thru x=0.006 y=4.531 z=0.500",
+              "edge: x=2.345 y=5.365 z=0.500 \u2192 x=-2.333 y=3.696 z=0.500 \u00b7 len 4.967 \u00b7 straight \u00b7 dir x=-0.942 y=-0.336 z=0.000",
+              "click: x=0.006 y=4.531 z=0.500"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.9629173634578505,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.334 y=0.943 z=0.000 \u00b7 thru x=0.006 y=1.763 z=0.500",
+              "edge: x=-2.333 y=2.591 z=0.500 \u2192 x=2.345 y=0.935 z=0.500 \u00b7 len 4.963 \u00b7 straight \u00b7 dir x=0.943 y=-0.334 z=0.000",
+              "click: x=0.006 y=1.763 z=0.500"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.943113763284929,
+            "line": "1.000 mm strip, 4.9 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=-0.323 y=0.946 z=0.000 \u00b7 thru x=0.006 y=-2.615 z=0.500",
+              "edge: x=-2.333 y=-3.413 z=0.500 \u2192 x=2.345 y=-1.817 z=0.500 \u00b7 len 4.943 \u00b7 straight \u00b7 dir x=0.946 y=0.323 z=0.000",
+              "click: x=0.006 y=-2.615 z=0.500"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.938011480952312,
+            "line": "1.000 mm strip, 4.9 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=-0.320 y=-0.947 z=0.000 \u00b7 thru x=0.006 y=-0.103 z=0.500",
+              "edge: x=2.345 y=-0.893 z=0.500 \u2192 x=-2.333 y=0.687 z=0.500 \u00b7 len 4.938 \u00b7 straight \u00b7 dir x=-0.947 y=0.320 z=0.000",
+              "click: x=0.006 y=-0.103 z=0.500"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=5.500 y=9.006 z=3.531",
+              "edge: x=5.500 y=9.006 z=5.870 \u2192 x=5.500 y=9.006 z=1.192 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=5.500 y=9.006 z=3.531"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=5.500 y=-9.072 z=3.531",
+              "edge: x=5.500 y=-9.072 z=5.870 \u2192 x=5.500 y=-9.072 z=1.192 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=5.500 y=-9.072 z=3.531"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=-5.500 y=-9.006 z=3.531",
+              "edge: x=-5.500 y=-9.006 z=5.870 \u2192 x=-5.500 y=-9.006 z=1.192 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=-5.500 y=-9.006 z=3.531"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=-5.500 y=9.072 z=3.531",
+              "edge: x=-5.500 y=9.072 z=5.870 \u2192 x=-5.500 y=9.072 z=1.192 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=-5.500 y=9.072 z=3.531"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=0.006 y=9.006 z=0.500",
+              "edge: x=2.345 y=9.006 z=0.500 \u2192 x=-2.333 y=9.006 z=0.500 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+              "click: x=0.006 y=9.006 z=0.500"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=0.006 y=-9.072 z=0.500",
+              "edge: x=2.345 y=-9.072 z=0.500 \u2192 x=-2.333 y=-9.072 z=0.500 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+              "click: x=0.006 y=-9.072 z=0.500"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6718751192092896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=5.500 y=12.976 z=3.535",
+              "edge: x=5.500 y=12.976 z=5.870 \u2192 x=5.500 y=12.976 z=1.199 \u00b7 len 4.672 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=5.500 y=12.976 z=3.535"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6718751192092896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=-5.500 y=-12.976 z=3.535",
+              "edge: x=-5.500 y=-12.976 z=5.870 \u2192 x=-5.500 y=-12.976 z=1.199 \u00b7 len 4.672 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=-5.500 y=-12.976 z=3.535"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.671875,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=0.010 y=12.976 z=0.500",
+              "edge: x=2.345 y=12.976 z=0.500 \u2192 x=-2.326 y=12.976 z=0.500 \u00b7 len 4.672 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+              "click: x=0.010 y=12.976 z=0.500"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          }
+        ],
+        "ceiling": [],
+        "slope": []
+      },
+      "source_mesh_scope": "Exact STL component used by the saved two-material project, in its authored print frame."
+    },
+    {
+      "source": ".cache/prints/2026-10-07-drain/labels-black-mark2/geometry/flavor-b-collar-word.stl",
+      "sha256": "352520571705aabd598715b54d6dfd40988ee3579addba215c40e6a408cfc422",
+      "print_frame": true,
+      "facets": 44418,
+      "findings": {
+        "step": [],
+        "sliver": [
+          {
+            "class": "sliver",
+            "score": 4.9671697922853255,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=-0.336 y=0.942 z=0.000 \u00b7 thru x=0.006 y=4.531 z=0.500",
+              "edge: x=-2.333 y=3.696 z=0.500 \u2192 x=2.345 y=5.365 z=0.500 \u00b7 len 4.967 \u00b7 straight \u00b7 dir x=0.942 y=0.336 z=0.000",
+              "click: x=0.006 y=4.531 z=0.500"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.96291736345785,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=-0.334 y=-0.943 z=0.000 \u00b7 thru x=0.006 y=1.763 z=0.500",
+              "edge: x=2.345 y=0.935 z=0.500 \u2192 x=-2.333 y=2.591 z=0.500 \u00b7 len 4.963 \u00b7 straight \u00b7 dir x=-0.943 y=0.334 z=0.000",
+              "click: x=0.006 y=1.763 z=0.500"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.943113763284928,
+            "line": "1.000 mm strip, 4.9 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.323 y=-0.946 z=0.000 \u00b7 thru x=0.006 y=-2.615 z=0.500",
+              "edge: x=2.345 y=-1.817 z=0.500 \u2192 x=-2.333 y=-3.413 z=0.500 \u00b7 len 4.943 \u00b7 straight \u00b7 dir x=-0.946 y=-0.323 z=0.000",
+              "click: x=0.006 y=-2.615 z=0.500"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.938011480952312,
+            "line": "1.000 mm strip, 4.9 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.320 y=0.947 z=0.000 \u00b7 thru x=0.006 y=-0.103 z=0.500",
+              "edge: x=-2.333 y=0.687 z=0.500 \u2192 x=2.345 y=-0.893 z=0.500 \u00b7 len 4.938 \u00b7 straight \u00b7 dir x=0.947 y=-0.320 z=0.000",
+              "click: x=0.006 y=-0.103 z=0.500"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=-5.500 y=9.072 z=3.531",
+              "edge: x=-5.500 y=9.072 z=5.870 \u2192 x=-5.500 y=9.072 z=1.192 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=-5.500 y=9.072 z=3.531"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=-5.500 y=-9.006 z=3.531",
+              "edge: x=-5.500 y=-9.006 z=5.870 \u2192 x=-5.500 y=-9.006 z=1.192 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=-5.500 y=-9.006 z=3.531"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=5.500 y=-9.072 z=3.531",
+              "edge: x=5.500 y=-9.072 z=5.870 \u2192 x=5.500 y=-9.072 z=1.192 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=5.500 y=-9.072 z=3.531"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=5.500 y=9.006 z=3.531",
+              "edge: x=5.500 y=9.006 z=5.870 \u2192 x=5.500 y=9.006 z=1.192 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=5.500 y=9.006 z=3.531"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=0.006 y=-9.072 z=0.500",
+              "edge: x=-2.333 y=-9.072 z=0.500 \u2192 x=2.345 y=-9.072 z=0.500 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=1.000 y=0.000 z=0.000",
+              "click: x=0.006 y=-9.072 z=0.500"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=0.006 y=9.006 z=0.500",
+              "edge: x=-2.333 y=9.006 z=0.500 \u2192 x=2.345 y=9.006 z=0.500 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=1.000 y=0.000 z=0.000",
+              "click: x=0.006 y=9.006 z=0.500"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6718751192092896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=-5.500 y=-12.976 z=3.535",
+              "edge: x=-5.500 y=-12.976 z=5.870 \u2192 x=-5.500 y=-12.976 z=1.199 \u00b7 len 4.672 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=-5.500 y=-12.976 z=3.535"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6718751192092896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=5.500 y=12.976 z=3.535",
+              "edge: x=5.500 y=12.976 z=5.870 \u2192 x=5.500 y=12.976 z=1.199 \u00b7 len 4.672 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=5.500 y=12.976 z=3.535"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.671875,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=0.010 y=12.976 z=0.500",
+              "edge: x=-2.326 y=12.976 z=0.500 \u2192 x=2.345 y=12.976 z=0.500 \u00b7 len 4.672 \u00b7 straight \u00b7 dir x=1.000 y=0.000 z=0.000",
+              "click: x=0.010 y=12.976 z=0.500"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          }
+        ],
+        "ceiling": [],
+        "slope": []
+      },
+      "source_mesh_scope": "Exact STL component used by the saved two-material project, in its authored print frame."
+    },
+    {
+      "source": ".cache/prints/2026-10-07-drain/labels-blue-mark2/geometry/carb-chip-body.stl",
+      "sha256": "5165fd8623b162106d384eb39616d6f892b815202b8a06dc0e5232012c4a035e",
+      "print_frame": true,
+      "facets": 25288,
+      "findings": {
+        "step": [
+          {
+            "class": "step",
+            "score": 4.95117246522576,
+            "line": "\u03941.000 mm between parallel planes \u00b7 footprint met 5.0 \u00d7 4.5 mm",
+            "pick": [
+              "faceA: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-2.577 y=11.430 z=1.000",
+              "faceB: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=0.000 y=0.000 z=2.000",
+              "click: x=-0.987 y=11.414 z=1.000"
+            ],
+            "answer": "The 1 mm-deep glyph pockets expose their floor and vertical glyph contours. The chip retains a continuous 1 mm floor below the lettering and a full 2 mm flange land. The separate word material fills the pockets and rises 0.48 mm above the show face. These steps and strips are lettering boundaries backed by the chip, with source placements and both filament tools verified in the native archive."
+          }
+        ],
+        "sliver": [
+          {
+            "class": "sliver",
+            "score": 4.967169792285327,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.942 y=-0.336 z=0.000 \u00b7 thru x=5.610 y=11.424 z=1.500",
+              "edge: x=6.444 y=13.763 z=1.500 \u2192 x=4.775 y=9.085 z=1.500 \u00b7 len 4.967 \u00b7 straight \u00b7 dir x=-0.336 y=-0.942 z=0.000",
+              "click: x=5.610 y=11.424 z=1.500"
+            ],
+            "answer": "The 1 mm-deep glyph pockets expose their floor and vertical glyph contours. The chip retains a continuous 1 mm floor below the lettering and a full 2 mm flange land. The separate word material fills the pockets and rises 0.48 mm above the show face. These steps and strips are lettering boundaries backed by the chip, with source placements and both filament tools verified in the native archive."
+          },
+          {
+            "class": "sliver",
+            "score": 4.96291738335528,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=-0.943 y=-0.334 z=0.000 \u00b7 thru x=8.377 y=11.424 z=1.500",
+              "edge: x=9.206 y=9.085 z=1.500 \u2192 x=7.549 y=13.763 z=1.500 \u00b7 len 4.963 \u00b7 straight \u00b7 dir x=-0.334 y=0.943 z=0.000",
+              "click: x=8.377 y=11.424 z=1.500"
+            ],
+            "answer": "The 1 mm-deep glyph pockets expose their floor and vertical glyph contours. The chip retains a continuous 1 mm floor below the lettering and a full 2 mm flange land. The separate word material fills the pockets and rises 0.48 mm above the show face. These steps and strips are lettering boundaries backed by the chip, with source placements and both filament tools verified in the native archive."
+          },
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=0.411 y=11.424 z=1.500",
+              "edge: x=0.411 y=13.763 z=1.500 \u2192 x=0.411 y=9.085 z=1.500 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=-1.000 z=0.000",
+              "click: x=0.411 y=11.424 z=1.500"
+            ],
+            "answer": "The 1 mm-deep glyph pockets expose their floor and vertical glyph contours. The chip retains a continuous 1 mm floor below the lettering and a full 2 mm flange land. The separate word material fills the pockets and rises 0.48 mm above the show face. These steps and strips are lettering boundaries backed by the chip, with source placements and both filament tools verified in the native archive."
+          }
+        ],
+        "ceiling": [],
+        "slope": []
+      },
+      "source_mesh_scope": "Exact STL component used by the saved two-material project, in its authored print frame."
+    },
+    {
+      "source": ".cache/prints/2026-10-07-drain/labels-blue-mark2/geometry/carb-chip-word.stl",
+      "sha256": "160eb0e8bc331e6adc6f183764f9707a0fb73912e4d7043c997ce4344af50f85",
+      "print_frame": true,
+      "facets": 31192,
+      "findings": {
+        "step": [],
+        "sliver": [],
+        "ceiling": [],
+        "slope": []
+      },
+      "source_mesh_scope": "Exact STL component used by the saved two-material project, in its authored print frame."
+    },
+    {
+      "source": ".cache/prints/2026-10-07-drain/labels-blue-mark2/geometry/carb-collar-body.stl",
+      "sha256": "b0088067e403a1fb589f14bd09ea02391330b609d09253404cba0152b90b0610",
+      "print_frame": true,
+      "facets": 75100,
+      "findings": {
+        "step": [
+          {
+            "class": "step",
+            "score": 4.9511719942092896,
+            "line": "\u03941.000 mm between parallel planes \u00b7 footprint met 5.0 \u00d7 4.5 mm",
+            "pick": [
+              "faceA: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-5.000 y=-2.577 z=3.525",
+              "faceB: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-6.000 y=0.000 z=3.525",
+              "click: x=-5.000 y=-0.987 z=3.541"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "step",
+            "score": 4.951171994209289,
+            "line": "\u03941.000 mm between parallel planes \u00b7 footprint met 5.0 \u00d7 4.5 mm",
+            "pick": [
+              "faceA: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=5.000 y=2.577 z=3.525",
+              "faceB: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=6.000 y=0.000 z=3.525",
+              "click: x=5.000 y=0.987 z=3.541"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "step",
+            "score": 4.951171910823525,
+            "line": "\u03941.000 mm between parallel planes \u00b7 footprint met 5.0 \u00d7 4.5 mm",
+            "pick": [
+              "faceA: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=0.000 y=2.577 z=1.000",
+              "faceB: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=0.000 y=0.000 z=0.000",
+              "click: x=0.016 y=0.987 z=1.000"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          }
+        ],
+        "sliver": [
+          {
+            "class": "sliver",
+            "score": 4.9671697922853255,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.336 y=-0.942 z=0.000 \u00b7 thru x=0.006 y=-5.610 z=0.500",
+              "edge: x=2.345 y=-4.775 z=0.500 \u2192 x=-2.333 y=-6.444 z=0.500 \u00b7 len 4.967 \u00b7 straight \u00b7 dir x=-0.942 y=-0.336 z=0.000",
+              "click: x=0.006 y=-5.610 z=0.500"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.962917372700461,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.334 y=0.943 z=0.000 \u00b7 thru x=0.006 y=-8.377 z=0.500",
+              "edge: x=-2.333 y=-7.549 z=0.500 \u2192 x=2.346 y=-9.205 z=0.500 \u00b7 len 4.963 \u00b7 straight \u00b7 dir x=0.943 y=-0.334 z=0.000",
+              "click: x=0.006 y=-8.377 z=0.500"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=5.500 y=-0.411 z=3.531",
+              "edge: x=5.500 y=-0.411 z=5.870 \u2192 x=5.500 y=-0.411 z=1.192 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=5.500 y=-0.411 z=3.531"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=-5.500 y=0.411 z=3.531",
+              "edge: x=-5.500 y=0.411 z=5.870 \u2192 x=-5.500 y=0.411 z=1.192 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=-5.500 y=0.411 z=3.531"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=0.006 y=-0.411 z=0.500",
+              "edge: x=2.345 y=-0.411 z=0.500 \u2192 x=-2.333 y=-0.411 z=0.500 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+              "click: x=0.006 y=-0.411 z=0.500"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          }
+        ],
+        "ceiling": [],
+        "slope": []
+      },
+      "source_mesh_scope": "Exact STL component used by the saved two-material project, in its authored print frame."
+    },
+    {
+      "source": ".cache/prints/2026-10-07-drain/labels-blue-mark2/geometry/carb-collar-word.stl",
+      "sha256": "21c020aeab5d0433b6bc73012c8c38246f7dd786198b9d44ff3eeaf8d80f848c",
+      "print_frame": true,
+      "facets": 73596,
+      "findings": {
+        "step": [],
+        "sliver": [
+          {
+            "class": "sliver",
+            "score": 4.9671697922853255,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=-0.336 y=0.942 z=0.000 \u00b7 thru x=0.006 y=-5.610 z=0.500",
+              "edge: x=-2.333 y=-6.444 z=0.500 \u2192 x=2.345 y=-4.775 z=0.500 \u00b7 len 4.967 \u00b7 straight \u00b7 dir x=0.942 y=0.336 z=0.000",
+              "click: x=0.006 y=-5.610 z=0.500"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.962917249414784,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=-0.334 y=-0.943 z=0.000 \u00b7 thru x=0.007 y=-8.377 z=0.500",
+              "edge: x=2.346 y=-9.205 z=0.500 \u2192 x=-2.333 y=-7.549 z=0.500 \u00b7 len 4.963 \u00b7 straight \u00b7 dir x=-0.943 y=0.334 z=0.000",
+              "click: x=0.007 y=-8.377 z=0.500"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=-5.500 y=0.411 z=3.531",
+              "edge: x=-5.500 y=0.411 z=5.870 \u2192 x=-5.500 y=0.411 z=1.192 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=-5.500 y=0.411 z=3.531"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=5.500 y=-0.411 z=3.531",
+              "edge: x=5.500 y=-0.411 z=5.870 \u2192 x=5.500 y=-0.411 z=1.192 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=5.500 y=-0.411 z=3.531"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=0.006 y=-0.411 z=0.500",
+              "edge: x=-2.333 y=-0.411 z=0.500 \u2192 x=2.345 y=-0.411 z=0.500 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=1.000 y=0.000 z=0.000",
+              "click: x=0.006 y=-0.411 z=0.500"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          }
+        ],
+        "ceiling": [],
+        "slope": []
+      },
+      "source_mesh_scope": "Exact STL component used by the saved two-material project, in its authored print frame."
+    },
+    {
+      "source": ".cache/prints/2026-10-07-drain/labels-red-mark2/geometry/co2-chip-body.stl",
+      "sha256": "ef4e97c529853b6eff8b066b8431e059b7e26a45deca860a7f6873f1e13b4b05",
+      "print_frame": true,
+      "facets": 20710,
+      "findings": {
+        "step": [
+          {
+            "class": "step",
+            "score": 4.951172465225756,
+            "line": "\u03941.000 mm between parallel planes \u00b7 footprint met 5.0 \u00d7 4.5 mm",
+            "pick": [
+              "faceA: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=0.559 y=10.969 z=1.000",
+              "faceB: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=0.000 y=0.000 z=2.000",
+              "click: x=2.149 y=10.953 z=1.000"
+            ],
+            "answer": "The 1 mm-deep glyph pockets expose their floor and vertical glyph contours. The chip retains a continuous 1 mm floor below the lettering and a full 2 mm flange land. The separate word material fills the pockets and rises 0.48 mm above the show face. These steps and strips are lettering boundaries backed by the chip, with source placements and both filament tools verified in the native archive."
+          }
+        ],
+        "sliver": [],
+        "ceiling": [],
+        "slope": []
+      },
+      "source_mesh_scope": "Exact STL component used by the saved two-material project, in its authored print frame."
+    },
+    {
+      "source": ".cache/prints/2026-10-07-drain/labels-red-mark2/geometry/co2-chip-word.stl",
+      "sha256": "eec16828fa73f88766a63eda21af5dd6f0c75108f95b07dac24e5b2118189ecd",
+      "print_frame": true,
+      "facets": 24552,
+      "findings": {
+        "step": [],
+        "sliver": [],
+        "ceiling": [],
+        "slope": []
+      },
+      "source_mesh_scope": "Exact STL component used by the saved two-material project, in its authored print frame."
+    },
+    {
+      "source": ".cache/prints/2026-10-07-drain/labels-red-mark2/geometry/co2-collar-body.stl",
+      "sha256": "9889c766838d7a994ed074d0784af4ee4b1a3f9da3c747bafdd1d1ec7c9674a3",
+      "print_frame": true,
+      "facets": 60928,
+      "findings": {
+        "step": [
+          {
+            "class": "step",
+            "score": 4.9511719942092896,
+            "line": "\u03941.000 mm between parallel planes \u00b7 footprint met 5.0 \u00d7 4.5 mm",
+            "pick": [
+              "faceA: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-5.000 y=0.559 z=3.525",
+              "faceB: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-6.000 y=0.000 z=3.525",
+              "click: x=-5.000 y=2.149 z=3.541"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "step",
+            "score": 4.9511719942092896,
+            "line": "\u03941.000 mm between parallel planes \u00b7 footprint met 5.0 \u00d7 4.5 mm",
+            "pick": [
+              "faceA: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=5.000 y=-0.559 z=3.525",
+              "faceB: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=6.000 y=0.000 z=3.525",
+              "click: x=5.000 y=-2.149 z=3.541"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "step",
+            "score": 4.951171919867359,
+            "line": "\u03941.000 mm between parallel planes \u00b7 footprint met 5.0 \u00d7 4.5 mm",
+            "pick": [
+              "faceA: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=0.000 y=-0.559 z=1.000",
+              "faceB: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=0.000 y=0.000 z=0.000",
+              "click: x=0.016 y=-2.149 z=1.000"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          }
+        ],
+        "sliver": [],
+        "ceiling": [],
+        "slope": []
+      },
+      "source_mesh_scope": "Exact STL component used by the saved two-material project, in its authored print frame."
+    },
+    {
+      "source": ".cache/prints/2026-10-07-drain/labels-red-mark2/geometry/co2-collar-word.stl",
+      "sha256": "ff7c63a1eb0ecb5cd47c5a43bdbd013ab9cb9457dd996a679a641907e4e39266",
+      "print_frame": true,
+      "facets": 59424,
+      "findings": {
+        "step": [],
+        "sliver": [],
+        "ceiling": [],
+        "slope": []
+      },
+      "source_mesh_scope": "Exact STL component used by the saved two-material project, in its authored print frame."
+    },
+    {
+      "source": ".cache/prints/2026-10-07-drain/labels-white-mark2/geometry/drain-chip-body.stl",
+      "sha256": "4d499463d8270822bea16334d24c06063a7b9c1f46213092542679d20d80b2cd",
+      "print_frame": true,
+      "facets": 12636,
+      "findings": {
+        "step": [
+          {
+            "class": "step",
+            "score": 4.678223213937674,
+            "line": "\u03941.000 mm between parallel planes \u00b7 footprint met 4.7 \u00d7 3.8 mm",
+            "pick": [
+              "faceA: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=7.936 y=11.000 z=1.000",
+              "faceB: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=0.000 y=0.000 z=2.000",
+              "click: x=7.936 y=11.000 z=1.000"
+            ],
+            "answer": "The 1 mm-deep glyph pockets expose their floor and vertical glyph contours. The chip retains a continuous 1 mm floor below the lettering and a full 2 mm flange land. The separate word material fills the pockets and rises 0.48 mm above the show face. These steps and strips are lettering boundaries backed by the chip, with source placements and both filament tools verified in the native archive."
+          }
+        ],
+        "sliver": [
+          {
+            "class": "sliver",
+            "score": 4.9671697922853255,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.942 y=-0.336 z=0.000 \u00b7 thru x=0.057 y=11.000 z=1.500",
+              "edge: x=0.892 y=13.339 z=1.500 \u2192 x=-0.778 y=8.661 z=1.500 \u00b7 len 4.967 \u00b7 straight \u00b7 dir x=-0.336 y=-0.942 z=0.000",
+              "click: x=0.057 y=11.000 z=1.500"
+            ],
+            "answer": "The 1 mm-deep glyph pockets expose their floor and vertical glyph contours. The chip retains a continuous 1 mm floor below the lettering and a full 2 mm flange land. The separate word material fills the pockets and rises 0.48 mm above the show face. These steps and strips are lettering boundaries backed by the chip, with source placements and both filament tools verified in the native archive."
+          },
+          {
+            "class": "sliver",
+            "score": 4.962917383355277,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=-0.943 y=-0.334 z=0.000 \u00b7 thru x=2.825 y=11.000 z=1.500",
+              "edge: x=3.653 y=8.661 z=1.500 \u2192 x=1.996 y=13.339 z=1.500 \u00b7 len 4.963 \u00b7 straight \u00b7 dir x=-0.334 y=0.943 z=0.000",
+              "click: x=2.825 y=11.000 z=1.500"
+            ],
+            "answer": "The 1 mm-deep glyph pockets expose their floor and vertical glyph contours. The chip retains a continuous 1 mm floor below the lettering and a full 2 mm flange land. The separate word material fills the pockets and rises 0.48 mm above the show face. These steps and strips are lettering boundaries backed by the chip, with source placements and both filament tools verified in the native archive."
+          },
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=9.836 y=11.000 z=1.500",
+              "edge: x=9.836 y=8.661 z=1.500 \u2192 x=9.836 y=13.339 z=1.500 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=1.000 z=0.000",
+              "click: x=9.836 y=11.000 z=1.500"
+            ],
+            "answer": "The 1 mm-deep glyph pockets expose their floor and vertical glyph contours. The chip retains a continuous 1 mm floor below the lettering and a full 2 mm flange land. The separate word material fills the pockets and rises 0.48 mm above the show face. These steps and strips are lettering boundaries backed by the chip, with source placements and both filament tools verified in the native archive."
+          },
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=5.142 y=11.000 z=1.500",
+              "edge: x=5.142 y=8.661 z=1.500 \u2192 x=5.142 y=13.339 z=1.500 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=1.000 z=0.000",
+              "click: x=5.142 y=11.000 z=1.500"
+            ],
+            "answer": "The 1 mm-deep glyph pockets expose their floor and vertical glyph contours. The chip retains a continuous 1 mm floor below the lettering and a full 2 mm flange land. The separate word material fills the pockets and rises 0.48 mm above the show face. These steps and strips are lettering boundaries backed by the chip, with source placements and both filament tools verified in the native archive."
+          },
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "0.971 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=4.656 y=11.000 z=1.000",
+              "edge: x=4.656 y=8.661 z=1.000 \u2192 x=4.656 y=13.339 z=1.000 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=1.000 z=0.000",
+              "click: x=4.656 y=11.000 z=1.000"
+            ],
+            "answer": "The 1 mm-deep glyph pockets expose their floor and vertical glyph contours. The chip retains a continuous 1 mm floor below the lettering and a full 2 mm flange land. The separate word material fills the pockets and rises 0.48 mm above the show face. These steps and strips are lettering boundaries backed by the chip, with source placements and both filament tools verified in the native archive."
+          },
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-9.836 y=11.000 z=1.500",
+              "edge: x=-9.836 y=13.339 z=1.500 \u2192 x=-9.836 y=8.661 z=1.500 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=-1.000 z=0.000",
+              "click: x=-9.836 y=11.000 z=1.500"
+            ],
+            "answer": "The 1 mm-deep glyph pockets expose their floor and vertical glyph contours. The chip retains a continuous 1 mm floor below the lettering and a full 2 mm flange land. The separate word material fills the pockets and rises 0.48 mm above the show face. These steps and strips are lettering boundaries backed by the chip, with source placements and both filament tools verified in the native archive."
+          },
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-5.119 y=11.000 z=1.500",
+              "edge: x=-5.119 y=13.339 z=1.500 \u2192 x=-5.119 y=8.661 z=1.500 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=-1.000 z=0.000",
+              "click: x=-5.119 y=11.000 z=1.500"
+            ],
+            "answer": "The 1 mm-deep glyph pockets expose their floor and vertical glyph contours. The chip retains a continuous 1 mm floor below the lettering and a full 2 mm flange land. The separate word material fills the pockets and rises 0.48 mm above the show face. These steps and strips are lettering boundaries backed by the chip, with source placements and both filament tools verified in the native archive."
+          },
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=4.170 y=11.000 z=1.500",
+              "edge: x=4.170 y=13.339 z=1.500 \u2192 x=4.170 y=8.661 z=1.500 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=-1.000 z=0.000",
+              "click: x=4.170 y=11.000 z=1.500"
+            ],
+            "answer": "The 1 mm-deep glyph pockets expose their floor and vertical glyph contours. The chip retains a continuous 1 mm floor below the lettering and a full 2 mm flange land. The separate word material fills the pockets and rises 0.48 mm above the show face. These steps and strips are lettering boundaries backed by the chip, with source placements and both filament tools verified in the native archive."
+          },
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=6.037 y=11.000 z=1.500",
+              "edge: x=6.037 y=13.339 z=1.500 \u2192 x=6.037 y=8.661 z=1.500 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=-1.000 z=0.000",
+              "click: x=6.037 y=11.000 z=1.500"
+            ],
+            "answer": "The 1 mm-deep glyph pockets expose their floor and vertical glyph contours. The chip retains a continuous 1 mm floor below the lettering and a full 2 mm flange land. The separate word material fills the pockets and rises 0.48 mm above the show face. These steps and strips are lettering boundaries backed by the chip, with source placements and both filament tools verified in the native archive."
+          }
+        ],
+        "ceiling": [],
+        "slope": []
+      },
+      "source_mesh_scope": "Exact STL component used by the saved two-material project, in its authored print frame."
+    },
+    {
+      "source": ".cache/prints/2026-10-07-drain/labels-white-mark2/geometry/drain-chip-word.stl",
+      "sha256": "57aafd8e55fb247890628e329aae175e95b738abcbd29989b2b9068efe2d1b39",
+      "print_frame": true,
+      "facets": 14532,
+      "findings": {
+        "step": [],
+        "sliver": [
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "0.971 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=4.656 y=11.000 z=2.480",
+              "edge: x=4.656 y=8.661 z=2.480 \u2192 x=4.656 y=13.339 z=2.480 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=1.000 z=0.000",
+              "click: x=4.656 y=11.000 z=2.480"
+            ],
+            "answer": "The narrow faces are individual Helvetica Bold glyph surfaces, 1 mm embedded into the matching chip pockets and 0.48 mm proud. They are supported by the continuous chip floor and belong to the separate word material, whose tool emits model roads in the saved native archive."
+          }
+        ],
+        "ceiling": [],
+        "slope": []
+      },
+      "source_mesh_scope": "Exact STL component used by the saved two-material project, in its authored print frame."
+    },
+    {
+      "source": ".cache/prints/2026-10-07-drain/labels-white-mark2/geometry/drain-collar-body.stl",
+      "sha256": "a4a9e95e0a37f5bc58c36d793a28451523ee39f9d1bf0e199b4839e1886933a5",
+      "print_frame": true,
+      "facets": 36818,
+      "findings": {
+        "step": [
+          {
+            "class": "step",
+            "score": 4.6782227754592896,
+            "line": "\u03941.000 mm between parallel planes \u00b7 footprint met 4.7 \u00d7 3.8 mm",
+            "pick": [
+              "faceA: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-5.000 y=7.936 z=3.525",
+              "faceB: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-6.000 y=0.000 z=3.525",
+              "click: x=-5.000 y=7.936 z=3.525"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "step",
+            "score": 4.6782227754592896,
+            "line": "\u03941.000 mm between parallel planes \u00b7 footprint met 4.7 \u00d7 3.8 mm",
+            "pick": [
+              "faceA: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=5.000 y=-7.936 z=3.525",
+              "faceB: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=6.000 y=0.000 z=3.525",
+              "click: x=5.000 y=-7.936 z=3.525"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "step",
+            "score": 4.67822272757179,
+            "line": "\u03941.000 mm between parallel planes \u00b7 footprint met 4.7 \u00d7 3.8 mm",
+            "pick": [
+              "faceA: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=0.000 y=-7.936 z=1.000",
+              "faceB: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=0.000 y=0.000 z=0.000",
+              "click: x=0.000 y=-7.936 z=1.000"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          }
+        ],
+        "sliver": [
+          {
+            "class": "sliver",
+            "score": 4.9671697922853255,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.336 y=-0.942 z=0.000 \u00b7 thru x=0.000 y=-0.057 z=0.500",
+              "edge: x=2.339 y=0.778 z=0.500 \u2192 x=-2.339 y=-0.892 z=0.500 \u00b7 len 4.967 \u00b7 straight \u00b7 dir x=-0.942 y=-0.336 z=0.000",
+              "click: x=0.000 y=-0.057 z=0.500"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.962917300352772,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.334 y=0.943 z=0.000 \u00b7 thru x=0.000 y=-2.825 z=0.500",
+              "edge: x=-2.339 y=-1.997 z=0.500 \u2192 x=2.339 y=-3.652 z=0.500 \u00b7 len 4.963 \u00b7 straight \u00b7 dir x=0.943 y=-0.334 z=0.000",
+              "click: x=0.000 y=-2.825 z=0.500"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "0.971 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-5.000 y=4.656 z=3.525",
+              "edge: x=-5.000 y=4.656 z=5.864 \u2192 x=-5.000 y=4.656 z=1.186 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=-5.000 y=4.656 z=3.525"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=-5.500 y=9.836 z=3.525",
+              "edge: x=-5.500 y=9.836 z=5.864 \u2192 x=-5.500 y=9.836 z=1.186 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=-5.500 y=9.836 z=3.525"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=5.500 y=9.836 z=3.525",
+              "edge: x=5.500 y=9.836 z=5.864 \u2192 x=5.500 y=9.836 z=1.186 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=5.500 y=9.836 z=3.525"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=-5.500 y=5.142 z=3.525",
+              "edge: x=-5.500 y=5.142 z=5.864 \u2192 x=-5.500 y=5.142 z=1.186 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=-5.500 y=5.142 z=3.525"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=5.500 y=5.119 z=3.525",
+              "edge: x=5.500 y=5.119 z=5.864 \u2192 x=5.500 y=5.119 z=1.186 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=5.500 y=5.119 z=3.525"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=5.500 y=-4.167 z=3.525",
+              "edge: x=5.500 y=-4.167 z=5.864 \u2192 x=5.500 y=-4.167 z=1.186 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=5.500 y=-4.167 z=3.525"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=5.500 y=-6.037 z=3.525",
+              "edge: x=5.500 y=-6.037 z=5.864 \u2192 x=5.500 y=-6.037 z=1.186 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=5.500 y=-6.037 z=3.525"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=-5.500 y=-9.836 z=3.525",
+              "edge: x=-5.500 y=-9.836 z=5.864 \u2192 x=-5.500 y=-9.836 z=1.186 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=-5.500 y=-9.836 z=3.525"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=5.500 y=-9.836 z=3.525",
+              "edge: x=5.500 y=-9.836 z=5.864 \u2192 x=5.500 y=-9.836 z=1.186 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=5.500 y=-9.836 z=3.525"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=5.500 y=-5.142 z=3.525",
+              "edge: x=5.500 y=-5.142 z=5.864 \u2192 x=5.500 y=-5.142 z=1.186 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=5.500 y=-5.142 z=3.525"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=-5.500 y=-5.119 z=3.525",
+              "edge: x=-5.500 y=-5.119 z=5.864 \u2192 x=-5.500 y=-5.119 z=1.186 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=-5.500 y=-5.119 z=3.525"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=-5.500 y=4.165 z=3.525",
+              "edge: x=-5.500 y=4.165 z=5.864 \u2192 x=-5.500 y=4.165 z=1.186 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=-5.500 y=4.165 z=3.525"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=-5.500 y=6.037 z=3.525",
+              "edge: x=-5.500 y=6.037 z=5.864 \u2192 x=-5.500 y=6.037 z=1.186 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=-5.500 y=6.037 z=3.525"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "0.971 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=5.000 y=-4.656 z=3.525",
+              "edge: x=5.000 y=-4.656 z=5.864 \u2192 x=5.000 y=-4.656 z=1.186 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=5.000 y=-4.656 z=3.525"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=0.000 y=9.836 z=0.500",
+              "edge: x=2.339 y=9.836 z=0.500 \u2192 x=-2.339 y=9.836 z=0.500 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+              "click: x=0.000 y=9.836 z=0.500"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=0.000 y=5.119 z=0.500",
+              "edge: x=2.339 y=5.119 z=0.500 \u2192 x=-2.339 y=5.119 z=0.500 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+              "click: x=0.000 y=5.119 z=0.500"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=0.000 y=-4.167 z=0.500",
+              "edge: x=2.339 y=-4.167 z=0.500 \u2192 x=-2.339 y=-4.167 z=0.500 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+              "click: x=0.000 y=-4.167 z=0.500"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=0.000 y=-6.037 z=0.500",
+              "edge: x=2.339 y=-6.037 z=0.500 \u2192 x=-2.339 y=-6.037 z=0.500 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+              "click: x=0.000 y=-6.037 z=0.500"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=0.000 y=-9.836 z=0.500",
+              "edge: x=-2.339 y=-9.836 z=0.500 \u2192 x=2.339 y=-9.836 z=0.500 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=1.000 y=0.000 z=0.000",
+              "click: x=0.000 y=-9.836 z=0.500"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=0.000 y=-5.142 z=0.500",
+              "edge: x=-2.339 y=-5.142 z=0.500 \u2192 x=2.339 y=-5.142 z=0.500 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=1.000 y=0.000 z=0.000",
+              "click: x=0.000 y=-5.142 z=0.500"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.678222656249998,
+            "line": "0.971 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=0.000 y=-4.656 z=1.000",
+              "edge: x=2.339 y=-4.656 z=1.000 \u2192 x=-2.339 y=-4.656 z=1.000 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+              "click: x=0.000 y=-4.656 z=1.000"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          }
+        ],
+        "ceiling": [],
+        "slope": []
+      },
+      "source_mesh_scope": "Exact STL component used by the saved two-material project, in its authored print frame."
+    },
+    {
+      "source": ".cache/prints/2026-10-07-drain/labels-white-mark2/geometry/drain-collar-word.stl",
+      "sha256": "9ba59c2e860870c300a20a68c1051703e577bac3bfdafe0c38e51161c54609db",
+      "print_frame": true,
+      "facets": 35270,
+      "findings": {
+        "step": [],
+        "sliver": [
+          {
+            "class": "sliver",
+            "score": 4.9671695121356905,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=-0.336 y=0.942 z=0.000 \u00b7 thru x=0.000 y=-0.057 z=0.500",
+              "edge: x=-2.339 y=-0.891 z=0.500 \u2192 x=2.339 y=0.777 z=0.500 \u00b7 len 4.967 \u00b7 straight \u00b7 dir x=0.942 y=0.336 z=0.000",
+              "click: x=0.000 y=-0.057 z=0.500"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.962917300352772,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=-0.334 y=-0.943 z=0.000 \u00b7 thru x=0.000 y=-2.825 z=0.500",
+              "edge: x=2.339 y=-3.652 z=0.500 \u2192 x=-2.339 y=-1.997 z=0.500 \u00b7 len 4.963 \u00b7 straight \u00b7 dir x=-0.943 y=0.334 z=0.000",
+              "click: x=0.000 y=-2.825 z=0.500"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "0.971 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=5.000 y=-4.656 z=3.525",
+              "edge: x=5.000 y=-4.656 z=5.864 \u2192 x=5.000 y=-4.656 z=1.186 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=5.000 y=-4.656 z=3.525"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "0.971 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-6.000 y=4.656 z=3.525",
+              "edge: x=-6.000 y=4.656 z=5.864 \u2192 x=-6.000 y=4.656 z=1.186 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=-6.000 y=4.656 z=3.525"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=-5.500 y=6.037 z=3.525",
+              "edge: x=-5.500 y=6.037 z=5.864 \u2192 x=-5.500 y=6.037 z=1.186 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=-5.500 y=6.037 z=3.525"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=-5.500 y=4.165 z=3.525",
+              "edge: x=-5.500 y=4.165 z=5.864 \u2192 x=-5.500 y=4.165 z=1.186 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=-5.500 y=4.165 z=3.525"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=-5.500 y=-5.119 z=3.525",
+              "edge: x=-5.500 y=-5.119 z=5.864 \u2192 x=-5.500 y=-5.119 z=1.186 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=-5.500 y=-5.119 z=3.525"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=5.500 y=-5.142 z=3.525",
+              "edge: x=5.500 y=-5.142 z=5.864 \u2192 x=5.500 y=-5.142 z=1.186 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=5.500 y=-5.142 z=3.525"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=5.500 y=-9.836 z=3.525",
+              "edge: x=5.500 y=-9.836 z=5.864 \u2192 x=5.500 y=-9.836 z=1.186 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=5.500 y=-9.836 z=3.525"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=-5.500 y=-9.836 z=3.525",
+              "edge: x=-5.500 y=-9.836 z=5.864 \u2192 x=-5.500 y=-9.836 z=1.186 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=-5.500 y=-9.836 z=3.525"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=5.500 y=-6.037 z=3.525",
+              "edge: x=5.500 y=-6.037 z=5.864 \u2192 x=5.500 y=-6.037 z=1.186 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=5.500 y=-6.037 z=3.525"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=5.500 y=-4.167 z=3.525",
+              "edge: x=5.500 y=-4.167 z=5.864 \u2192 x=5.500 y=-4.167 z=1.186 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=5.500 y=-4.167 z=3.525"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=5.500 y=5.119 z=3.525",
+              "edge: x=5.500 y=5.119 z=5.864 \u2192 x=5.500 y=5.119 z=1.186 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=5.500 y=5.119 z=3.525"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=-5.500 y=5.142 z=3.525",
+              "edge: x=-5.500 y=5.142 z=5.864 \u2192 x=-5.500 y=5.142 z=1.186 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=-5.500 y=5.142 z=3.525"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=5.500 y=9.836 z=3.525",
+              "edge: x=5.500 y=9.836 z=5.864 \u2192 x=5.500 y=9.836 z=1.186 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=5.500 y=9.836 z=3.525"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=-5.500 y=9.836 z=3.525",
+              "edge: x=-5.500 y=9.836 z=5.864 \u2192 x=-5.500 y=9.836 z=1.186 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=-5.500 y=9.836 z=3.525"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "0.971 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-5.000 y=4.656 z=3.525",
+              "edge: x=-5.000 y=4.656 z=5.864 \u2192 x=-5.000 y=4.656 z=1.186 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=-5.000 y=4.656 z=3.525"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "0.971 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=6.000 y=-4.656 z=3.525",
+              "edge: x=6.000 y=-4.656 z=5.864 \u2192 x=6.000 y=-4.656 z=1.186 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=6.000 y=-4.656 z=3.525"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=0.000 y=-5.142 z=0.500",
+              "edge: x=2.339 y=-5.142 z=0.500 \u2192 x=-2.339 y=-5.142 z=0.500 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+              "click: x=0.000 y=-5.142 z=0.500"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=0.000 y=-9.836 z=0.500",
+              "edge: x=2.339 y=-9.836 z=0.500 \u2192 x=-2.339 y=-9.836 z=0.500 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+              "click: x=0.000 y=-9.836 z=0.500"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=0.000 y=-6.037 z=0.500",
+              "edge: x=-2.339 y=-6.037 z=0.500 \u2192 x=2.339 y=-6.037 z=0.500 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=1.000 y=0.000 z=0.000",
+              "click: x=0.000 y=-6.037 z=0.500"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=0.000 y=-4.167 z=0.500",
+              "edge: x=-2.339 y=-4.167 z=0.500 \u2192 x=2.339 y=-4.167 z=0.500 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=1.000 y=0.000 z=0.000",
+              "click: x=0.000 y=-4.167 z=0.500"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=0.000 y=5.119 z=0.500",
+              "edge: x=-2.339 y=5.119 z=0.500 \u2192 x=2.339 y=5.119 z=0.500 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=1.000 y=0.000 z=0.000",
+              "click: x=0.000 y=5.119 z=0.500"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=0.000 y=9.836 z=0.500",
+              "edge: x=-2.339 y=9.836 z=0.500 \u2192 x=2.339 y=9.836 z=0.500 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=1.000 y=0.000 z=0.000",
+              "click: x=0.000 y=9.836 z=0.500"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.678222656249999,
+            "line": "0.971 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=0.000 y=-4.656 z=1.000",
+              "edge: x=2.339 y=-4.656 z=1.000 \u2192 x=-2.339 y=-4.656 z=1.000 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+              "click: x=0.000 y=-4.656 z=1.000"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          }
+        ],
+        "ceiling": [],
+        "slope": []
+      },
+      "source_mesh_scope": "Exact STL component used by the saved two-material project, in its authored print frame."
+    },
+    {
+      "source": ".cache/prints/2026-10-07-drain/labels-white-mark2/geometry/water-chip-body.stl",
+      "sha256": "b86c16b7ca59f5a6bb76b8790aa876faadaf435f1595cfd1ae2168cddef4fa60",
+      "print_frame": true,
+      "facets": 5894,
+      "findings": {
+        "step": [
+          {
+            "class": "step",
+            "score": 4.678223213937672,
+            "line": "\u03941.000 mm between parallel planes \u00b7 footprint met 4.7 \u00d7 4.4 mm",
+            "pick": [
+              "faceA: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-0.083 y=11.430 z=1.000",
+              "faceB: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=0.000 y=0.000 z=2.000",
+              "click: x=-0.381 y=10.590 z=1.000"
+            ],
+            "answer": "The 1 mm-deep glyph pockets expose their floor and vertical glyph contours. The chip retains a continuous 1 mm floor below the lettering and a full 2 mm flange land. The separate word material fills the pockets and rises 0.48 mm above the show face. These steps and strips are lettering boundaries backed by the chip, with source placements and both filament tools verified in the native archive."
+          }
+        ],
+        "sliver": [
+          {
+            "class": "sliver",
+            "score": 4.967169772252591,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.942 y=-0.336 z=0.000 \u00b7 thru x=-1.463 y=11.430 z=1.500",
+              "edge: x=-0.628 y=13.769 z=1.500 \u2192 x=-2.298 y=9.091 z=1.500 \u00b7 len 4.967 \u00b7 straight \u00b7 dir x=-0.336 y=-0.942 z=0.000",
+              "click: x=-1.463 y=11.430 z=1.500"
+            ],
+            "answer": "The 1 mm-deep glyph pockets expose their floor and vertical glyph contours. The chip retains a continuous 1 mm floor below the lettering and a full 2 mm flange land. The separate word material fills the pockets and rises 0.48 mm above the show face. These steps and strips are lettering boundaries backed by the chip, with source placements and both filament tools verified in the native archive."
+          },
+          {
+            "class": "sliver",
+            "score": 4.962917403252709,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=-0.943 y=-0.334 z=0.000 \u00b7 thru x=1.304 y=11.430 z=1.500",
+              "edge: x=2.133 y=9.091 z=1.500 \u2192 x=0.476 y=13.769 z=1.500 \u00b7 len 4.963 \u00b7 straight \u00b7 dir x=-0.334 y=0.943 z=0.000",
+              "click: x=1.304 y=11.430 z=1.500"
+            ],
+            "answer": "The 1 mm-deep glyph pockets expose their floor and vertical glyph contours. The chip retains a continuous 1 mm floor below the lettering and a full 2 mm flange land. The separate word material fills the pockets and rises 0.48 mm above the show face. These steps and strips are lettering boundaries backed by the chip, with source placements and both filament tools verified in the native archive."
+          },
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=2.749 y=11.430 z=1.500",
+              "edge: x=2.749 y=13.769 z=1.500 \u2192 x=2.749 y=9.091 z=1.500 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=-1.000 z=0.000",
+              "click: x=2.749 y=11.430 z=1.500"
+            ],
+            "answer": "The 1 mm-deep glyph pockets expose their floor and vertical glyph contours. The chip retains a continuous 1 mm floor below the lettering and a full 2 mm flange land. The separate word material fills the pockets and rises 0.48 mm above the show face. These steps and strips are lettering boundaries backed by the chip, with source placements and both filament tools verified in the native archive."
+          }
+        ],
+        "ceiling": [],
+        "slope": []
+      },
+      "source_mesh_scope": "Exact STL component used by the saved two-material project, in its authored print frame."
+    },
+    {
+      "source": ".cache/prints/2026-10-07-drain/labels-white-mark2/geometry/water-chip-word.stl",
+      "sha256": "bfded96d4ea310395df6b02f26c981b7a9e330f9bdf81839e9e1554548486a6a",
+      "print_frame": true,
+      "facets": 6128,
+      "findings": {
+        "step": [],
+        "sliver": [],
+        "ceiling": [],
+        "slope": []
+      },
+      "source_mesh_scope": "Exact STL component used by the saved two-material project, in its authored print frame."
+    },
+    {
+      "source": ".cache/prints/2026-10-07-drain/labels-white-mark2/geometry/water-collar-body.stl",
+      "sha256": "5a1627038c4ed69b14f4641653758612bee4ea35949ac502f0999da01c76e1fe",
+      "print_frame": true,
+      "facets": 16024,
+      "findings": {
+        "step": [
+          {
+            "class": "step",
+            "score": 4.6782227754592896,
+            "line": "\u03941.000 mm between parallel planes \u00b7 footprint met 4.7 \u00d7 4.4 mm",
+            "pick": [
+              "faceA: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-5.000 y=-0.083 z=3.525",
+              "faceB: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-6.000 y=0.000 z=3.525",
+              "click: x=-5.000 y=-0.381 z=4.365"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "step",
+            "score": 4.678222775459289,
+            "line": "\u03941.000 mm between parallel planes \u00b7 footprint met 4.7 \u00d7 4.4 mm",
+            "pick": [
+              "faceA: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=5.000 y=0.083 z=3.525",
+              "faceB: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=6.000 y=0.000 z=3.525",
+              "click: x=5.000 y=0.381 z=4.365"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          }
+        ],
+        "sliver": [
+          {
+            "class": "sliver",
+            "score": 4.967169772252591,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.336 y=-0.942 z=0.000 \u00b7 thru x=0.000 y=1.463 z=0.500",
+              "edge: x=2.339 y=2.298 z=0.500 \u2192 x=-2.339 y=0.628 z=0.500 \u00b7 len 4.967 \u00b7 straight \u00b7 dir x=-0.942 y=-0.336 z=0.000",
+              "click: x=0.000 y=1.463 z=0.500"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.962917403252709,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.334 y=0.943 z=0.000 \u00b7 thru x=0.000 y=-1.304 z=0.500",
+              "edge: x=-2.339 y=-0.476 z=0.500 \u2192 x=2.339 y=-2.133 z=0.500 \u00b7 len 4.963 \u00b7 straight \u00b7 dir x=0.943 y=-0.334 z=0.000",
+              "click: x=0.000 y=-1.304 z=0.500"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=5.500 y=-2.749 z=3.525",
+              "edge: x=5.500 y=-2.749 z=5.864 \u2192 x=5.500 y=-2.749 z=1.186 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=5.500 y=-2.749 z=3.525"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=-5.500 y=2.749 z=3.525",
+              "edge: x=-5.500 y=2.749 z=5.864 \u2192 x=-5.500 y=2.749 z=1.186 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=-5.500 y=2.749 z=3.525"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          },
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=0.000 y=-2.749 z=0.500",
+              "edge: x=2.339 y=-2.749 z=0.500 \u2192 x=-2.339 y=-2.749 z=0.500 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+              "click: x=0.000 y=-2.749 z=0.500"
+            ],
+            "answer": "The 1 mm steps and strips bound matching word pockets on the collar flag faces. The purchased tube bore and the continuous collar body retain their complete sections behind the pockets. Separate word solids fill each lettering recess. The saved flat-face-down print retains both body and lettering toolpaths, without supports."
+          }
+        ],
+        "ceiling": [],
+        "slope": []
+      },
+      "source_mesh_scope": "Exact STL component used by the saved two-material project, in its authored print frame."
+    },
+    {
+      "source": ".cache/prints/2026-10-07-drain/labels-white-mark2/geometry/water-collar-word.stl",
+      "sha256": "e5fb004f7de1fd671696044e4939b9550288656a7a10902e875c724e21fe4343",
+      "print_frame": true,
+      "facets": 14488,
+      "findings": {
+        "step": [],
+        "sliver": [
+          {
+            "class": "sliver",
+            "score": 4.967169772252591,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=-0.336 y=0.942 z=0.000 \u00b7 thru x=0.000 y=1.463 z=0.500",
+              "edge: x=-2.339 y=0.628 z=0.500 \u2192 x=2.339 y=2.298 z=0.500 \u00b7 len 4.967 \u00b7 straight \u00b7 dir x=0.942 y=0.336 z=0.000",
+              "click: x=0.000 y=1.463 z=0.500"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.962917403252709,
+            "line": "1.000 mm strip, 5.0 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=-0.334 y=-0.943 z=0.000 \u00b7 thru x=0.000 y=-1.304 z=0.500",
+              "edge: x=2.339 y=-2.133 z=0.500 \u2192 x=-2.339 y=-0.476 z=0.500 \u00b7 len 4.963 \u00b7 straight \u00b7 dir x=-0.943 y=0.334 z=0.000",
+              "click: x=0.000 y=-1.304 z=0.500"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=-5.500 y=2.749 z=3.525",
+              "edge: x=-5.500 y=2.749 z=5.864 \u2192 x=-5.500 y=2.749 z=1.186 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=-5.500 y=2.749 z=3.525"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.6782227754592896,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=5.500 y=-2.749 z=3.525",
+              "edge: x=5.500 y=-2.749 z=5.864 \u2192 x=5.500 y=-2.749 z=1.186 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+              "click: x=5.500 y=-2.749 z=3.525"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          },
+          {
+            "class": "sliver",
+            "score": 4.67822265625,
+            "line": "1.000 mm strip, 4.7 mm long",
+            "pick": [
+              "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=0.000 y=-2.749 z=0.500",
+              "edge: x=-2.339 y=-2.749 z=0.500 \u2192 x=2.339 y=-2.749 z=0.500 \u00b7 len 4.678 \u00b7 straight \u00b7 dir x=1.000 y=0.000 z=0.000",
+              "click: x=0.000 y=-2.749 z=0.500"
+            ],
+            "answer": "These narrow glyph faces belong to the separate lettering material seated in the collar flag pockets. The native source places each word 1 mm into its pocket with a 0.48 mm raised face; the collar body backs the letters. The flat-face-down native archive emits both body and word tools."
+          }
+        ],
+        "ceiling": [],
+        "slope": []
+      },
+      "source_mesh_scope": "Exact STL component used by the saved two-material project, in its authored print frame."
+    }
+  ],
+  "unanswered_findings": 0
+}

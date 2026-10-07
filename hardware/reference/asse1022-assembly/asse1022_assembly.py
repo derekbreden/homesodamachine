@@ -7,7 +7,7 @@ reachable from 1/4" tube on both sides — the chain
 in the order it builds them:
 
     1/4" LLDPE → PP010822E → GAGIRA coupling → [ASSE 1022] → flare38-14ptc → 1/4" LLDPE
-                                                     └ vent stub ↓ ASSE drip pan
+                                                     └ vent hose ↓ black adapters → 4 mm DRAIN → faucet bowl
 
 The outlet leaves at 1/4" OD — the flare38-14ptc turns the ASSE's 3/8" male flare
 straight onto 1/4" LLDPE, so no 3/8" tubing runs on toward the pump; the 1/4" line
@@ -21,11 +21,9 @@ A station is its module, its seat and its hue. The seat carries the fitting's me
 the ports that fitting's module declares ([`_seating.py`](/hardware/scripts/_seating.py)).
 This assembly's own terminals are its stations' ports, named.
 
-The vent is the assembly's reason for a pose rather than a bare envelope: it weeps
-to atmosphere, and that drip is the mechanical telltale for a cross-contamination
-event ([`hardware/README.md`](/hardware/README.md) "Safety"). The drip
-leaves the stub's tip and falls from there — the tip is the datum the ASSE drip pan and
-its moisture plate sit under.
+The vent hose covers the barb and continues from its tip to the black neoFit
+adapters, the 4 mm DRAIN bulkhead and the separate faucet outlet over the bowl
+([`asse-drain.md`](/hardware/assembly/asse-drain.md)).
 
 Frame: the ASSE 1022's own — +X = flow, inlet upstream at its X = 0, the vent
 running −Z. The upstream fittings therefore sit at negative X.
@@ -68,15 +66,11 @@ import multiplex_asse1022 as bfp
 from _materials import (M_BRASS, M_JG_BLACK_PP, M_JG_GREY_ACETAL,  # noqa: E402
                         M_PVC_CLEAR, M_STAINLESS)
 
-# The vent stub: Sealproof 1/4" ID × 3/8" OD clear PVC, bored to the barb it slips
-# over so the barb occupies the hose rather than its wall. It covers the barb to the
-# body's underside and overhangs the barb tip by the reach — the length the bench
-# cuts (~12" of stock, trimmed). The enclosure lays this body along −Y across the
-# service bay's aft strip, so the overhang is the room the strip leaves between the
-# +X wall of back-top's aft edge and the chain, and the drip falls off the tip onto
-# the foam-cap top, which is the pan's ground.
-VENT_STUB_OD = 9.53
-VENT_STUB_REACH = 2.0           # past the barb tip, along the vent axis
+# The neoPure PVCA-0406-FT-C hose's seated end covers the complete vent barb.
+# Its continuation is authored in manifold-layout/_drain.py. The seated-end
+# bore follows the barb envelope; the free hose retains its 1/4-inch ID.
+VENT_STUB_OD = 9.53  # Occupied envelope, rounded up from nominal 3/8-inch OD PVC.
+VENT_STUB_REACH = 0.0           # flexible continuation starts at the vent barb's tip
 
 # Where each fitting lands on the flow axis, each read off the part it threads into.
 # The barrel's two shoulders are what the female fittings butt against.
@@ -108,7 +102,7 @@ def vent_stub():
 
 def _stub_tip():
     """The stub's open end: (position, outward axis). It weeps to atmosphere — the drip
-    falls from here into the pan, and nothing plumbs into it."""
+    continues through the flexible hose to the drain adapters."""
     return (bfp.VENT_X, 0.0, -VENT_STUB_REACH), (0.0, 0.0, -1.0)
 
 

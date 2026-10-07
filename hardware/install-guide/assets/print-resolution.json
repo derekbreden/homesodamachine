@@ -4,34 +4,38 @@
     "steps/mount-under-slide-clean.png": {
       "reference_size": [
         1564,
-        650
+        791
       ],
       "render_size": [
-        3660,
-        1518
+        5328,
+        2696
       ],
       "scale": [
-        2.340153452685422,
-        2.335384615384615
+        3.4066496163682864,
+        3.4083438685208596
       ],
-      "coordinate_reference_sha256": "5e48dabccd31baca01b286805d2417ee3709310410c3f8bb32147b0a4fc6d4f9",
-      "render_sha256": "268cbf67b0b6f8bf5beaee0bc00115dba7f33d939c08a30b76bb94855d6e1d92"
+      "coordinate_reference_sha256": "79d597efdd7c3615afa7f4a904e654e7e36f3a18b1cafbf6ff1db6d08f4d63c3",
+      "render_sha256": "4de84fab4a13448c41ccf3b46a714581f349c5139c42b78711bddd52cf70adb6",
+      "source_sha256": "b8ff6ee9d3366a799e8ca34fb5b13baef8ba308b17c44dfb33036db34ca846ae",
+      "coordinate_reference_path": "reference/drain-mount-under-slide-clean.png"
     },
     "steps/mount-under-tighten-clean.png": {
       "reference_size": [
         1564,
-        650
+        791
       ],
       "render_size": [
-        3660,
-        1518
+        5328,
+        2696
       ],
       "scale": [
-        2.340153452685422,
-        2.335384615384615
+        3.4066496163682864,
+        3.4083438685208596
       ],
-      "coordinate_reference_sha256": "747f2ce009675b6bc94554fdf99adf8b284b4527922912f07789612725f8e6a9",
-      "render_sha256": "20e9eb9c4a17453283db141b4a43dc4cbc9ddcaa5dd0cf2f768657067aaaf3f5"
+      "coordinate_reference_sha256": "253cc17dd442031a8f631f2694973acd9559a8c6b795dfbf02304ad83ee5beac",
+      "render_sha256": "fc79650559cd42516c671a402a6912db420fc76603faeb47490c0a0bc3bad30c",
+      "source_sha256": "b8ff6ee9d3366a799e8ca34fb5b13baef8ba308b17c44dfb33036db34ca846ae",
+      "coordinate_reference_path": "reference/drain-mount-under-tighten-clean.png"
     },
     "steps/mount-drop.png": {
       "reference_size": [
@@ -39,15 +43,23 @@
         1404
       ],
       "render_size": [
-        1838,
-        3345
+        2135,
+        3905
       ],
       "scale": [
-        2.3808290155440415,
-        2.3824786324786325
+        2.7655440414507773,
+        2.7813390313390314
       ],
-      "coordinate_reference_sha256": "bee99bde7b27a45e2f916a96011b38ebc7815e15b62b72dc86429783f7a5ee00",
-      "render_sha256": "ed0c8fac141584be506c8aa9cd6aa9fd98c80e6ba11cff07bdfeed1aef7ff566"
+      "coordinate_reference_sha256": "73f288e227fcf8e25473b86f7ae3f262ac3ed2550eeb7a495a388d7e6c5c0c12",
+      "render_sha256": "0a45f6d6d77f0b10cecee14ee1e502aa1cc73f30731a89672130ecd598140a03",
+      "source_sha256": "b8ff6ee9d3366a799e8ca34fb5b13baef8ba308b17c44dfb33036db34ca846ae",
+      "frame_anchor_crop_native_pixels": [
+        55,
+        391,
+        2190,
+        4296
+      ],
+      "coordinate_reference_path": "reference/drain-mount-drop.png"
     },
     "steps/co2-connected.png": {
       "reference_size": [
@@ -94,8 +106,13 @@
         2.0,
         2.0
       ],
-      "coordinate_reference_sha256": "b8c45437ef9c5ff943eb21ee88911ae03fe21a00962ad772cccfd2777bef0f3b",
-      "render_sha256": "c3f23c7f813948c4dcc33af5c1d6bc6572164c39edbd0fd0778b054fdd14b727"
+      "coordinate_reference_path": "reference/drain-the-back-face.png",
+      "coordinate_reference_sha256": "4f8859bef65b9647e9336f2f5b538268a5aa5ffb9371056a2ecb08a291a9d91a",
+      "render_sha256": "2905fd55953e3c67131483bb3d0efb5d052966523dfbc43564f651a4222bf370",
+      "source_sha256": "b8ff6ee9d3366a799e8ca34fb5b13baef8ba308b17c44dfb33036db34ca846ae",
+      "scene_step_sha256": "88ac577d3ce93b6b50c3722bb5eecab78233ed1e1036060092e7eb1dcd383550",
+      "fixed_native_crop": null,
+      "lighting": "Default studio lighting; axial rear camera; native transparent background."
     },
     "hose-attached.png": {
       "reference_size": [
@@ -142,8 +159,17 @@
         2.0,
         2.0
       ],
-      "coordinate_reference_sha256": "133c6ca639535db8518d2dc3907cf2670cfd546ebc740be3a25444e471d56567",
-      "render_sha256": "d57e73ba59606450889391a17580fbeec1f5b47f8870e94432b2d7c631c227d2"
+      "coordinate_reference_path": "reference/drain-connect-rear-open.png",
+      "coordinate_reference_sha256": "4786bdfddaecf186f8240e51a6c3ee8f3e4e0e42be3143b2aaa3b5854f478073",
+      "render_sha256": "2e6907a4511235e548d2a0a8ca02dc0fa7f89ed74d28a64cced84cbcc51f4c1f",
+      "source_sha256": "b8ff6ee9d3366a799e8ca34fb5b13baef8ba308b17c44dfb33036db34ca846ae",
+      "scene_step_sha256": "88ac577d3ce93b6b50c3722bb5eecab78233ed1e1036060092e7eb1dcd383550",
+      "fixed_native_crop": [
+        0,
+        1300,
+        2700,
+        3600
+      ]
     },
     "steps/startup-gas.png": {
       "reference_size": [
@@ -192,6 +218,31 @@
       ],
       "coordinate_reference_sha256": "7254d9bc0ec89549951b62acfff2678d7d9b4c16f8d45cc14c11d133ff9cf1b5",
       "render_sha256": "e8345c98a953baf931d641d0cfe0ae759331284e3c971c58fe65ec14869022bd"
+    },
+    "steps/connect-rear-connected.png": {
+      "reference_size": [
+        1350,
+        1150
+      ],
+      "render_size": [
+        2700,
+        2300
+      ],
+      "scale": [
+        2.0,
+        2.0
+      ],
+      "coordinate_reference_path": "reference/drain-connect-rear-connected.png",
+      "coordinate_reference_sha256": "92f5ed26345439321685c100448877182b0b0b3cebeec1f0eb8ba2e858ae960e",
+      "render_sha256": "0279fa893300c0eb699eb6c64fde91cbff42582897288ce9104419377838548c",
+      "source_sha256": "b8ff6ee9d3366a799e8ca34fb5b13baef8ba308b17c44dfb33036db34ca846ae",
+      "scene_step_sha256": "88ac577d3ce93b6b50c3722bb5eecab78233ed1e1036060092e7eb1dcd383550",
+      "fixed_native_crop": [
+        0,
+        1300,
+        2700,
+        3600
+      ]
     }
   }
 }

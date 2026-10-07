@@ -175,6 +175,7 @@ def _build_steps(work: Path) -> dict[str, Path]:
 
     above_counter_names = (
         "westbrass",
+        "drain_tube",
         "soda_faucet_tube",
         "tpu_o_ring",
         "flavor_tube_pos_x",
@@ -194,7 +195,7 @@ def _build_steps(work: Path) -> dict[str, Path]:
         for part_name in above_counter_names:
             child = parts[part_name]
             obj = lever if part_name == "lever" else child.obj
-            if part_name in {"westbrass", "flavor_tube_pos_x", "flavor_tube_neg_x"}:
+            if part_name in {"westbrass", "drain_tube", "flavor_tube_pos_x", "flavor_tube_neg_x"}:
                 obj = _clip_z(obj, fa.countertop_top_z, 260.0)
             _add_child(above, child, obj=obj)
         return above
@@ -231,6 +232,7 @@ def _build_steps(work: Path) -> dict[str, Path]:
 
     mount_names = (
         "westbrass",
+        "drain_tube",
         "soda_faucet_tube",
         "tpu_o_ring",
         "flavor_tube_pos_x",
@@ -254,7 +256,7 @@ def _build_steps(work: Path) -> dict[str, Path]:
     flavor_lengths = {f"{body}_{side}": side
                       for body in ("flavor_tube", "flavor_tube_bridge", "flavor_umbilical_tube")
                       for side in ("pos_x", "neg_x")}
-    mount_tails = {*flavor_lengths, "soda_umbilical_tube"}
+    mount_tails = {*flavor_lengths, "soda_umbilical_tube", "drain_tube"}
     mount_clip = (-88.0, 380.0)
     washer_thickness = 1.5
     nut_height = 5.0
@@ -422,9 +424,9 @@ def _build_steps(work: Path) -> dict[str, Path]:
         out.add(countertop_window, name="under-countertop-window", color=countertop_stone)
 
     def add_under_mount_product(out: cq.Assembly, *, washer_top_z: float):
-        """Show only the real shank, three attached tubes and captive donor pair below the slab."""
+        """Show the real shank, four attached tubes and captive donor pair below the slab."""
         under_clip = (-86.0, -2.0)
-        for part_name in ("westbrass", *flavor_lengths, "soda_umbilical_tube"):
+        for part_name in ("westbrass", *flavor_lengths, "soda_umbilical_tube", "drain_tube"):
             child = parts[part_name]
             obj = _clip_z(child.obj, *under_clip)
             if not obj.solids().size():
@@ -539,7 +541,7 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
     """Build the two rear connection states as literal, fixed-camera CAD scenes.
 
     The appliance exterior and every connection station come from the current enclosure STEP and
-    its generated facts.  All five tube collars are production solids, including their recessed
+    its generated facts.  All six tube collars are production solids, including their recessed
     lettering.  Only the field-cut tube lengths, the flat SIG-6 ribbon, and its
     modular plug are constructed here because those flexible customer-routed bodies have no single
     installed pose in the product assembly.
@@ -552,6 +554,7 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
         "carb": "carb",
         "flavor-a": "flavor-a",
         "flavor-b": "flavor-b",
+        "drain": "drain",
     }
     for collar_step in collar_steps.values():
         note_read(TUBE_COLLAR_DIR / f"tube-collar-{collar_step}.step")
@@ -571,6 +574,7 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
         "bulkhead-flavor-a",
         "bulkhead-flavor-b",
         "bulkhead-carb",
+        "bulkhead-drain",
         "funnel",
         "nameplate",
         "nameplate-ink",
@@ -643,6 +647,7 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
         ),
         "flavor-a": tuple(card_ports["bulkhead-flavor-a"]["tube-out"]["pos"]),
         "flavor-b": tuple(card_ports["bulkhead-flavor-b"]["tube-out"]["pos"]),
+        "drain": tuple(card_ports["bulkhead-drain"]["outboard"]["pos"]),
     }
     tube_colors = {
         "tap": tube_white,
@@ -650,6 +655,7 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
         "co2": tube_red,
         "flavor-a": tube_black_a,
         "flavor-b": tube_black_b,
+        "drain": tube_white,
     }
     # Each collar and its word in the spools they print off — the ones the ring each tube leaves
     # through prints in.
@@ -659,6 +665,7 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
         "co2": "co2",
         "flavor-a": "flavor",
         "flavor-b": "flavor",
+        "drain": "drain",
     }
     collar_colors = {
         which: cq.Color(*(c / 255.0 for c in _rear.chip_color(fluid)), 1.0)
@@ -669,7 +676,7 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
         for which, fluid in collar_fluids.items()
     }
     # The bare tails stay straight through their collars, then flex into the compact end of the
-    # common umbilical.  These target points preserve five distinct solids all the way out of the
+    # common umbilical.  These target points preserve six distinct solids all the way out of the
     # picture instead of collapsing the tails into one illustrative stroke.
     pack_stations = {
         "tap": (-60.0, 322.0),
@@ -677,6 +684,7 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
         "carb": (-50.0, 312.0),
         "flavor-a": (-40.0, 302.0),
         "flavor-b": (-60.0, 302.0),
+        "drain": (-50.0, 292.0),
     }
 
     umbilical = cq.Assembly(name="customer-field-leads-wall-end")
@@ -688,12 +696,12 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
     # face.  In the detached state the only visible ends are therefore the six ends the customer
     # is about to insert; in the connected state there are no loose ends at all.
     tail_y = 940.0
-    # All five 30 mm collars use the insertion tip as their datum.  The near face sits 47.5 mm
+    # All six 30 mm collars use the insertion tip as their datum.  The near face sits 47.5 mm
     # behind that tip and the far face 77.5 mm behind it, matching the production bare-tail rule
     # despite CO2's port living on a slightly different Y plane from the four push-fit stations.
     collar_tip_setback = 47.5
     tube_radius = 6.35 / 2.0
-    for which in ("tap", "co2", "carb", "flavor-a", "flavor-b"):
+    for which in ("tap", "co2", "carb", "flavor-a", "flavor-b", "drain"):
         x, tube_start_y, z = stations[which]
         pack_x, pack_z = pack_stations[which]
         tube = round_sweep(
@@ -705,7 +713,7 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
                 (pack_x, pack_y, pack_z),
                 (pack_x, tail_y, pack_z),
             ),
-            tube_radius,
+            2.0 if which == "drain" else tube_radius,
         )
         umbilical.add(
             tube,

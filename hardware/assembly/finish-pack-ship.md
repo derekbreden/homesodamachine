@@ -52,7 +52,11 @@ Inspect every exposed surface against the following pass criteria:
 - The compressor sitting square on its four floor posts, every washer home on its post's crown with the grommet under it visibly taken up and not squashed flat; the green ring on the can's own earth screw, and the AC lead's jacket unbroken back to the electronics bay.
 - The foam-shell pour ports (see [`cold-core.md`](/hardware/assembly/cold-core.md)) trimmed flush with no overspray bloom protruding past the shell's outer surface.
 - The C14 inlet recessed cleanly into the +Y wall's printed shroud per [`/hardware/printed-parts/enclosure/y-wall-of-back-top/README.md`](/hardware/printed-parts/enclosure/y-wall-of-back-top/README.md); the bore's edge against the wall's outer face shows no gap, and the receptacle's rim stands square at the bottom of the cutout.
-- The umbilical-port PP1208E bulkheads on the +Y wall — three unions on one line, blue accent ring on the carbonated-water one at the east end of the row — all three finger-tight against the wall with no rotation play.
+- The +Y connection field has three rows. The TAP, SODA and two FLAVOR PP1208E
+  bulkheads and the black 4 mm DRAIN bulkhead sit square in their labelled chips,
+  with no rotation play. DRAIN carries its white 4 mm return; TAP carries its
+  larger white supply. The faucet's separate bottom vent opening remains exposed
+  and unobstructed over the bowl, as specified in [drain assembly](asse-drain.md).
 - Condenser intake + exhaust grilles clear of any print-process debris that could shed into the airflow path on first run.
 
 Failures at this step: cosmetic blemishes are repaired in place where possible (light scuff buff with the lint-free wipe, reseat a loose grommet, swap a marked seam screw, reflow a heat-set insert if a seam screw is reading proud). A unit with a defect that can't be repaired in place returns upstream to the relevant subsystem bench for re-fabrication or part swap; do not ship a Founder Edition unit with a known cosmetic defect that the customer will see at unboxing.

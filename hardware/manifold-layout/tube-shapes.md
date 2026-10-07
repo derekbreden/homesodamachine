@@ -57,9 +57,8 @@ the authored arc; the model holds the actual seat axis. That difference describe
 straightening the approach and does not by itself establish a misplaced post.
 
 For fluid-28, the retained straight-stock shape shifts 14.2 mm with no new sampled contact
-locations. Omitting its rib gives 27.0 mm and introduces contact at water-3, back-top and the
-ASSE drip pan. This is a clear example of a tie doing useful work without reproducing the
-drawn corners.
+locations. Omitting its rib gives 27.0 mm and introduces additional contacts in the
+source-bound sweep study. The rib limits that movement without reproducing the drawn corners.
 
 The co2-2 result is smaller in displacement but adjacent to the main board. All seven
 retained scenarios identify that contact. The free shapes of water-3 and fluid-18 also meet

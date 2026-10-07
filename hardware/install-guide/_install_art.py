@@ -215,9 +215,10 @@ def _floor(x0, y0, sx, sy):
 # --- the back face ----------------------------------------------------------
 #
 # The children of `enclosure-assembly.step` a customer standing behind the machine can see. Each
-# carries its own colour out of the STEP: the shell dark, the five bulkhead rings and their raised
+# carries its own colour out of the STEP: the shell dark, the six bulkhead chips and their raised
 # words in their spool colours, the nameplate's ink white, and the funnel under its seated cover.
 REAR_CHILDREN = frozenset({
+    "bulkhead-drain",
     "c14-inlet",
     "keystone-jack",
     "co2-inlet",
@@ -646,7 +647,7 @@ SCENES = {
     "regulator": (s_regulator, dict(cam=(0.10, 1.0, 0.16), size="1700x1500")),
     "collet-press": (s_collet_press, dict(cam=(-0.5, -0.9, 0.85), size="1700x1100")),
     # On the wall's own column, tilted down. Screen up is world up, so every row is level. The
-    # frame holds both port rows, the inlet, the jack, the nameplate, and a sliver of the top
+    # frame holds all three port rows, the inlet, the jack, the nameplate, and a sliver of the top
     # face over the wall's top edge.
     "the-back-face": (s_the_back_face, dict(cam=(0.0, 1.0, 0.16),
                                             target=(-3.0, REAR_FACE_Y, 292.0),

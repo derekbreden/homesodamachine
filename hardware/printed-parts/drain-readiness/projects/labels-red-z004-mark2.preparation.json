@@ -1,0 +1,44 @@
+{
+  "project_sha256": "98581d74bc8099829c83aa2221e1f9ef4a111f1a590c12d172e7a08d85588d32",
+  "parts": [
+    {
+      "station": "co2",
+      "kind": "chip",
+      "body_filament": 2,
+      "word_filament": 1,
+      "position_xy_mm": [
+        150,
+        155
+      ]
+    },
+    {
+      "station": "co2",
+      "kind": "collar",
+      "body_filament": 2,
+      "word_filament": 1,
+      "position_xy_mm": [
+        200,
+        155
+      ]
+    }
+  ],
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf": "84c5011c0be15dd9aab41a516abe85bf99b08e2c80d91375b5f2608a96bc0e72",
+    "hardware/printed-parts/calibration/dual-nozzle-registration/mark2-registration.json": "07ae8fcf4ea2fca75a5bcffd182d397475fc359bbae6cfed000482b5e7f3a4c9",
+    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py": "69516ebe4692a93918878f333cab6fbdd385a3476cdaf44e795546d1af6803d9",
+    "hardware/printed-parts/faucet/tube-collar/tube_collar.py": "b0b4f108e4ab0746cc4555179931efc9b5f65d6516ee8caebb9fada1597285c5"
+  },
+  "extruder_offset": [
+    "0x0",
+    "0.5x-0.7"
+  ],
+  "z_trim_mm": 0.04,
+  "first_layer_mm": 0.2,
+  "normal_layer_mm": 0.24,
+  "source_equivalence": {
+    "hardware/printed-parts/faucet/tube-collar/tube_collar.py": {
+      "method": "Complete AST equality after removing docstrings; comments and locations are excluded. Every executable source node is identical.",
+      "executable_ast_sha256": "80a139bb1656e4738d8882528621cc4479402f81db761a7b2326b1c2cb126db3"
+    }
+  }
+}

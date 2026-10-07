@@ -475,6 +475,13 @@
     "hardware/reference/jg-pp0308e-elbow/elbow.py",
     "hardware/reference/jg-pp0308e-elbow/scan-measurements.json"
   ],
+  "hardware/printed-parts/zone-c/funnel/flush-roof-review/refresh_aggregate.py": [
+    "hardware/printed-parts/zone-c/funnel/flush-roof-review/refresh_aggregate.py",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_mesh_payload.py",
+    "hardware/scripts/_run_lock.py",
+    "hardware/scripts/flute_payload.py"
+  ],
   "hardware/reference/compressor/compressor.py": [
     "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
     "hardware/reference/compressor/compressor.py",
@@ -765,6 +772,12 @@
     "hardware/scripts/_run_lock.py",
     "hardware/scripts/check_flutes.py",
     "hardware/scripts/flute_payload.py"
+  ],
+  "hardware/scripts/check_payload_colours.py": [
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_mesh_payload.py",
+    "hardware/scripts/_run_lock.py",
+    "hardware/scripts/check_payload_colours.py"
   ],
   "hardware/scripts/check_payloads.py": [
     "hardware/scripts/check_payloads.py",
@@ -1089,6 +1102,16 @@
     "hardware/scripts/_stated_bounds.py",
     "hardware/scripts/lanes.py",
     "tools/bazel/graph.json",
+    "tools/docgen/__init__.py"
+  ],
+  "hardware/scripts/materialize_material_colors.py": [
+    "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_material_base.py",
+    "hardware/scripts/_materials.py",
+    "hardware/scripts/_mesh_payload.py",
+    "hardware/scripts/_run_lock.py",
+    "hardware/scripts/materialize_material_colors.py",
     "tools/docgen/__init__.py"
   ],
   "hardware/scripts/pick_read.py": [

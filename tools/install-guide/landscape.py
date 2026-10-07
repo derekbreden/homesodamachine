@@ -378,7 +378,7 @@ end()
 header('Prepare the counter opening', 'INSTALL / MOUNT THE FAUCET', 1)
 pic('opening.png', M, 151, 264, 220)
 text('One 1-3/8 in opening', RIGHT, 158, 18, 'Bold', NAVY)
-para('Use one opening through the counter for the faucet, tubes and cable.<br/><br/>Counter thickness:<br/><b>3/4 to 1-1/2 in.</b>', RIGHT, 194, RW, 13, 19, limit=133)
+para('Counter thickness: <b>3/4 to 1-1/2 in.</b><br/><br/>Place the hole center <b>at most 2 in behind the bowl edge.</b> Aim the faucet into the bowl, within 10 degrees of straight ahead.', RIGHT, 194, RW, 12, 17, limit=133)
 note('STONE COUNTER', 'Use a spare 1-3/8 in sink or counter hole, or a 1-3/8 in diamond core bit kept wet.', 351, RIGHT, RW)
 caption('Prepare the opening before lowering the faucet.', 390)
 end()
@@ -388,24 +388,24 @@ header('Lower. Then push back.', 'INSTALL / MOUNT THE FAUCET', 1)
 p = pic('steps/mount-drop.png', M, 125, 274, 294, crop=(9, 33, 763, 1331))
 arrow(*p(190, 660), *p(190, 963), head=11)
 arrow(*p(382, 866), *p(585, 928), head=10)
-item('1 / LOWER', 'Feed the tails through', 'Pass all three attached tubes and the display cable through the opening. Lower the faucet onto the counter.', 151)
+item('1 / LOWER', 'Feed the tails through', 'Pass all four attached tubes and the display cable through the opening. The small white tube is DRAIN. Lower the faucet onto the counter.', 151)
 item('2 / POSITION', 'Push the faucet back', 'Push it away from you until the two black tubes beneath it meet the back edge of the hole. Hold that position for the plate.', 299)
 end()
 
 # Interior 7
 header('Slide the plate into place', 'INSTALL / MOUNT THE FAUCET', 1)
-p = pic('steps/mount-under-slide-clean.png', M, 167, 278, 177, crop=(205, 275, 960, 575))
-arrow(*p(295, 405), *p(720, 345), head=10)
+p = pic('steps/mount-under-slide-clean.png', M, 167, 278, 177, crop=(205, 280, 1090, 650))
+arrow(*p(430, 540), *p(870, 455), head=10)
 caption('The plate sits above the washer and nut.', 365)
 item('3 / FROM BELOW', 'Hold the plate flat', 'Hold the steel plate against the underside of the counter, above the washer and nut already on the shank.', 153)
-para('Slide its <b>wide slot around the shank</b> and its <b>narrow slot around the black tubes and cable.</b>', RIGHT, 318, RW, 13, 19, limit=95)
+para('Slide its <b>wide slot around the shank and cable</b> and its <b>narrow slot around the black tubes and white DRAIN tube.</b>', RIGHT, 318, RW, 13, 19, limit=95)
 end()
 
 # Interior 8
 header('Tighten the faucet nut', 'INSTALL / MOUNT THE FAUCET', 1)
-pic('steps/mount-under-tighten-clean.png', M, 156, 270, 228, crop=(670, 260, 900, 503))
+pic('steps/mount-under-tighten-clean.png', M, 156, 270, 228, crop=(850, 390, 1110, 680))
 item('4 / SECURE', 'Hand-tighten the nut', 'Keep the plate flat against the underside of the counter. The faucet stays seated above.', 158)
-note('CHECK THE POSITION', 'The faucet stays pushed back, with the black tubes against the back edge of the hole.', 323, RIGHT, RW)
+note('CHECK THE POSITION', 'Keep the faucet pushed back. Its separate bottom drain opening near the neck joint must be entirely over the bowl and remain uncovered.', 297, RIGHT, RW)
 end()
 
 # Interior 9
@@ -485,25 +485,26 @@ end()
 # Interior 17
 header('Match the rear connections', 'INSTALL / MATCH THE REAR CONNECTIONS', 3)
 p = pic('steps/the-back-face.png', M, 148, 282, 253, crop=(565, 40, 1565, 855))
-leader('Faucet cable', M, 414, p(1075, 465))
+leader('Faucet cable', M, 414, p(1099.540, 497.072))
 para('Pull off the <b>CO2 and TAP shipping caps.</b> They cover the fittings; leave the fittings mounted.', RIGHT, 136, RW, 12, 17, limit=68)
 rows = [('CO2', 'Red tube from the cylinder', '#D7333C', '#FFFFFF'),
         ('SODA', 'Blue tube from the faucet', '#1670DB', '#FFFFFF'),
-        ('TAP', 'White run from the filter', '#FFFFFF', INK),
+        ('TAP', 'Larger white tube from the filter', '#FFFFFF', INK),
+        ('DRAIN', 'Small white 4 mm tube from the faucet', '#FFFFFF', INK),
         ('FLAVOR', 'Two black tubes; either port', INK, '#FFFFFF')]
 for i, (name, desc, bg, fg) in enumerate(rows):
-    y = 231+i*49
+    y = 215+i*43
     rect(RIGHT, y, 71, 23, bg, RULE if bg == '#FFFFFF' else None, 3)
     text(name, RIGHT+8, y+6, 10, 'Bold', fg)
-    text(desc, RIGHT, y+29, 11.5, 'Regular', INK)
+    text(desc, RIGHT, y+29, 11, 'Regular', INK)
 end()
 
 # Interior 18
 header('Push home. Then tug.', 'INSTALL / MATCH THE REAR CONNECTIONS', 3)
 pic('steps/connect-rear-open.png', M, 155, 283, 183, crop=(195, 160, 1350, 880))
 caption('Push straight into the fitting, all the way to its stop.', 362)
-item('CHECK EVERY TUBE', 'A little over 1/2 in', 'A fitting can grip a tube before it reaches the seal. Push each tube to its internal stop, then tug gently.', 144)
-para('<b>Click the faucet cable into its jack.</b><br/><br/>Lay the filter flat. Keep its factory connections together and route the tails in loose curves, clear of things that slide in and out.', RIGHT, 303, RW, 12, 17, limit=136)
+item('CHECK EVERY TUBE', 'Push to its stop', 'Match each tube label to its port. A fitting can grip before the tube reaches the seal. Push fully home, then tug gently.', 144)
+para('<b>Click the faucet cable into its jack.</b><br/><br/>Leave the DRAIN tube at its factory length. Lay the filter flat and route all tails in loose curves, clear of things that slide in and out.', RIGHT, 303, RW, 12, 17, limit=136)
 end()
 
 # Interior 19
@@ -524,7 +525,7 @@ end()
 # Interior 21
 header('Connect the red tether', 'TURN IT ON / PREPARE THE CYLINDER', 4)
 p = pic('steps/connect-rear-open.png', M, 156, 278, 230, crop=(195, 160, 1350, 880))
-arrow(*p(730, 438), *p(386, 378), head=10)
+arrow(*p(818.366, 400.378), *p(422.677, 326.913), head=10)
 caption('Keep the regulator end of the tether assembled.', 402)
 item('3 / CO2 PORT', 'Red tube to red fitting', 'Push the free end of the red tether into the machine\'s red CO2 port. Push fully home, then tug gently.', 153)
 note('KEEP THE CYLINDER CLOSED', 'Finish all connections before opening water or gas. The next pages take you through water, gas and power in that order.', 319, RIGHT, RW)

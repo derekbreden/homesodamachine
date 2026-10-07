@@ -127,7 +127,7 @@ export const ASSEMBLIES = [
     model: "faucet-layout/faucet-assembly.step",
     note: "The one unit that leaves the box: the column the counter is clamped in — the " +
           "printed stack around the harvested Westbrass body and the display on its tip — and " +
-          "the three tubes running down past the cut plate into the braided umbilical.",
+          "the three beverage tubes and separate 4 mm drain running down past the cut plate into the braided umbilical.",
     holds: [
       "cut-parts/faucet",
       "faucet-layout",

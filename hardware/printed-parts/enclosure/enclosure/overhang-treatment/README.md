@@ -7,10 +7,8 @@ straight profile advances 0.12 mm per normal 0.24 mm layer. Top/inward rounds
 retain fine layers.
 
 The geometry applies to the tee carrier aft bed edges, upper exterior rims of
-the enclosure and pump-cartridge hand pockets, exterior roof side edges, and
-the ASSE drip-pan pull's lower rim. Hand-pocket fills leave their flat lifting
+the enclosure and pump-cartridge hand pockets, and exterior roof side edges. Hand-pocket fills leave their flat lifting
 ceilings and lower rims in place. Roof fills share the front/back silhouette.
-The pan keeps its basin and sliding seat.
 
 `geometry-check.json` records samples from the actual STL sections and the
 zero-area facets reported by lint. The largest sampled grip advance is

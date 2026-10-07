@@ -57,7 +57,9 @@ The run-by-run AC schedule is in [`/hardware/wiring/ac-wiring-schedule.md`](/har
 
 ### Safety
 
-Three hazards are designed around independently. The compressor's terminal block and clip-on PTC start relay remain under the R-600a donor's own moulded cover; the hydrocarbon refrigerant is watched by a gas sensor low in the cabinet that gates the remotely mounted compressor relay, and backstopped by a thermal fuse in the compressor's own AC primary. The carbonic-acid backflow path is held by a beverage backflow preventer whose vent weeps to the sensed ASSE drip pan as the mechanical telltale. The plumbed machine's mains and ground-fault posture, the refrigerant charge limits, and the unit markings are consolidated in one place.
+Simply having a 1022 already puts us ahead of most of these products. A 1022 that vents into the bowl at the faucet would be the only home arrangement I've found where the vent's discharge is defined, drained and visible.
+
+Three hazards are designed around independently. The compressor's terminal block and clip-on PTC start relay remain under the R-600a donor's own moulded cover; the hydrocarbon refrigerant is watched by a gas sensor low in the cabinet that gates the remotely mounted compressor relay, and backstopped by a thermal fuse in the compressor's own AC primary. The carbonic-acid backflow path is held by a beverage backflow preventer whose vent runs through a dedicated white 4 mm LLDPE line to a visible outlet over the sink bowl near the faucet joint. The plumbed machine's mains and ground-fault posture, the refrigerant charge limits, and the unit markings are consolidated in one place.
 
 The whole safety and regulatory posture is in [`/business/regulatory.md`](/business/regulatory.md), which carries the qualification still owed on the retained donor terminal cover; the refrigerant-handling and brazing safety in [`/hardware/assembly/refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) under "Safety". An integrated ground-fault (GFCI) module is a deferred desire, captured in [`/future/pie-in-the-sky/gfci.md`](/future/pie-in-the-sky/gfci.md).
 

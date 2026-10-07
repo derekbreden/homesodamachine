@@ -76,12 +76,12 @@ def pour(pressed):
     fa=original._load_faucet_module();parts=original._children_by_name(fa.build_assembly())
     rest,held=original._physical_levers(fa)
     a=cq.Assembly(name='first-pour')
-    names=['westbrass','soda_faucet_tube','tpu_o_ring','flavor_tube_pos_x','flavor_tube_neg_x','lever',
+    names=['westbrass','drain_tube','soda_faucet_tube','tpu_o_ring','flavor_tube_pos_x','flavor_tube_neg_x','lever',
         'above_counter_plate','above_counter_gasket','shell_base','shell_tip','faucet-display-cover-seated',
         'faucet_display','faucet_display_screen']
     for name in names:
         child=parts[name];obj=(held if pressed else rest) if name=='lever' else child.obj
-        if name in {'westbrass','flavor_tube_pos_x','flavor_tube_neg_x'}:obj=original._clip_z(obj,fa.countertop_top_z,260)
+        if name in {'westbrass','drain_tube','flavor_tube_pos_x','flavor_tube_neg_x'}:obj=original._clip_z(obj,fa.countertop_top_z,260)
         a.add(obj,name=name,color=child.color)
     a.add(install._box(-120,-280,-14,240,340,14),name='countertop',color=install.STONE)
     _,tip_vector=fa._tip_centerline_world()

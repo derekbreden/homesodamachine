@@ -104,8 +104,6 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "electronics" / "pcba-tray",
            _hw / "reference" / "asse1022-assembly",
            _hw / "reference" / "flare38-14ptc",
-           _hw / "printed-parts" / "enclosure" / "asse-drip-pan",
-           _hw / "reference" / "shutao-moisture-plate",
            _hw / "reference" / "mq6-gas-sensor",
            _hw / "reference" / "sf76e-thermal-fuse",
            _hw / "printed-parts" / "refrigeration" / "fuse-clamp",
@@ -117,6 +115,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "riteav-keystone",
            _hw / "reference" / "yyfkgcp-pogo-4p",
            _hw / "reference" / "neofit-bulkhead",
+           _hw / "reference" / "neofit-drain-bulkhead",
            _hw / "reference" / "gasher-check-valve",
            _hw / "reference" / "wr1110-regulator",
            _hw / "reference" / "digiten-flow-sensor",
@@ -168,8 +167,6 @@ import seaflo_discharge_chain as _dis                 # noqa: E402
 import waveshare_43b_display as _disp                 # noqa: E402
 import asse1022_assembly as _asse                     # noqa: E402
 import flare38_14ptc as _oad                          # noqa: E402
-import asse_drip_pan as _pan                          # noqa: E402
-import shutao_moisture_plate as _plate                # noqa: E402
 import mq6_gas_sensor as _mq6                         # noqa: E402
 import sf76e_thermal_fuse as _fuse                    # noqa: E402
 import fuse_clamp as _clamp                           # noqa: E402
@@ -197,6 +194,9 @@ import tee_carrier as _tee_carrier                    # noqa: E402
 import _y_wall_dimensions as _rear                    # noqa: E402
 import neofit_flow_control as _flowreg                # noqa: E402
 import water_split as _split                          # noqa: E402
+sys.path.insert(0, str(_hw / "reference" / "neofit-drain-bulkhead"))
+import neofit_drain_bulkhead as _drain_bulkhead
+import _drain
 import neofit_bulkhead as _neofit                      # noqa: E402
 import gasher_check_valve as _gasher                   # noqa: E402
 import wr1110_regulator as _wr1110                     # noqa: E402
@@ -248,8 +248,8 @@ WAGO_POLES = ("wago-h", "wago-n", "wago-g", "wago-v12", "wago-gnd")
 #                 directly below J1's fan-out on the +X flank
 #   wago-reeds-b  J7 REEDS B `GND` → reservoir B's four reeds plus the carbonator's two
 #   wago-reeds-a  J6 REEDS A `GND` → reservoir A's four reeds
-#   wago-sensors  J4 SENSORS `GND` → the 1-wire bus, the DIGITEN meter and the moisture
-#                 plate, all three of which land aft and west
+#   wago-sensors  J4 SENSORS `GND` → the 1-wire bus and the DIGITEN meter,
+#                 both of which land aft and west
 #
 # THE LAST THREE ARE ONE BLOCK, aft on the west wall on one storey, at the same `wago_pitch`
 # the five poles keep on the wall opposite. `wago-sensors` stands where its own cluster lands
@@ -847,8 +847,7 @@ def mq6_cradle(carry):
 
 # --- the bounds the machine states about itself -----------------------------
 #
-# A printed part may state a bound about itself: `asse_drip_pan.check_plate` measures the pan's
-# flat floor against the moisture plate it receives, and `build_pan` enters that reading here.
+# A printed part may state a bound about itself; those readings join the placed-machine ledger.
 # `enclosure` states more of them about the box it draws and keeps
 # its own ledger, which `carry_enclosure_bounds` reads into this one. Every one of them can be
 # opened by a move made somewhere else in the pack.
@@ -1400,8 +1399,7 @@ CORE_RIDERS = ("g-ganen-pump", "valve-v-a", "valve-v-b", "vk-solenoid",
 # internal-plumbing's, made up at the mouth. Everything else in the back — the chain,
 # the meter, the wall electronics, the bulkheads and their rings — rides back-top or
 # clamps its walls and is already standing, which is what the sweep is against.
-CORE_RIDE_LATER = ("foam-assembly", "moisture-plate",
-                   "funnel", "nameplate", "asse-drip-pan")
+CORE_RIDE_LATER = ("foam-assembly", "funnel", "nameplate")
 CORE_RIDE_RUNS = ("tube-", "turn-", "step-")
 
 
@@ -1564,9 +1562,8 @@ def cap_conduit(name: str):
 
 
 def water_pump_west_limit() -> float:
-    """The pump casting's west limit, clear of the pan's inserted east end."""
-    return (pan_west_x() + _pan.PULL_FACE_Y_OVERHANG + _pan.PAN_X
-            + PAN_PUMP_CLEAR)
+    """Retained pump mounting datum in the rear service bay."""
+    return -50.2
 
 
 def water_pump_port_lane_limit() -> float:
@@ -1600,7 +1597,7 @@ def build_water_pump(foam, gate: float):
     rigid_probe = pump.rigid_shape().moved(probe_carry.where)
     pb = box(rigid_probe)
     west = pump_west_face(rigid_probe, bearing_z + pump.observed_pad_upper_z(), pb.zmax,
-                          pan_front_y(probe_carry), pb.ymax)
+                          pump_rear_lane_front_y(probe_carry), pb.ymax)
     storey = flavor_storey(gate, probe_carry)
     lane = pump_west_face(rigid_probe, storey - _jg.BODY_D / 2.0, storey + _jg.BODY_D / 2.0,
                           bulkhead_mouth_y(), _enc.rear_plane_y)
@@ -1730,7 +1727,7 @@ def y_wall_ports(*bulkhead_carries):
 
 # EVERY CROSSING THE +Y WALL OF BACK-TOP PASSES A TUBE THROUGH, as `station -> (the module that states
 # that fitting's own panel figures, the ring station in `bulkhead_ring.STATIONS`, that ring's own
-# name, the fluid a colour names it by)`. Two families and one construction: each bears a flange
+# name, the fluid a colour names it by)`. Three fitting families and one construction: each bears a flange
 # on a ring of its own, each is bored one `PORT_HOLE_SLIP` over its own barrel, and each
 # fitting's own nut clamps it from inboard.
 #
@@ -1745,6 +1742,7 @@ Y_WALL_FITTINGS = {
     "bulkhead-flavor-a": (_jg, "union", "flavor-a", "flavor"),
     "bulkhead-flavor-b": (_jg, "union", "flavor-b", "flavor"),
     "co2-inlet": (_neofit, "neofit", "co2", "co2"),
+    "bulkhead-drain": (_drain_bulkhead, "drain", "drain", "drain"),
 }
 MARKED_UNIONS = {n: fluid for n, (_m, _r, _nm, fluid) in Y_WALL_FITTINGS.items() if fluid}
 
@@ -1805,14 +1803,14 @@ def port_pocket_rise(which=None) -> float:
     return (_ring.RISE if which is None else _ring.rise(which)) + BULKHEAD_RING_SLIP
 
 
-def wall_stations(bulkhead_carry, panel_carries, co2_carry) -> dict:
+def wall_stations(bulkhead_carry, panel_carries, co2_carry, drain_carry) -> dict:
     """Every `Y_WALL_FITTINGS` station on the wall, as
     `name -> (x, z, fitting, ring, ring name, fluid)`.
 
     Each column is read off the FITTING'S OWN INBOARD COLLET, which is what `y_wall_ports` and
     `co2_wall_port` bore from — so a pad, a ring and the hole through both cannot land on two
     different columns."""
-    carries = {"bulkhead-water": bulkhead_carry, **panel_carries, "co2-inlet": co2_carry}
+    carries = {"bulkhead-water": bulkhead_carry, **panel_carries, "co2-inlet": co2_carry, "bulkhead-drain": drain_carry}
     out = {}
     for name, (fitting, ring, which, fluid) in Y_WALL_FITTINGS.items():
         x, _y, z = carries[name](fitting.port(-1.0))[0]
@@ -1826,11 +1824,12 @@ def y_wall_field(stations):
     for its nut keeps the land under it as retained wall stock, and `BULKHEAD_RING_RIM` is the
     wall the field keeps round every chip (`port-field-web` reads the pitch against it)."""
     return _enc.PortField(PORT_BOSS_PROUD, BULKHEAD_RING_RIM,
-                          tuple((x, z, port_pocket_d(ring), port_pocket_rise(which))
+                          tuple((x, z, port_pocket_d(ring), port_pocket_rise(which),
+                                 _ring.bottom(ring) + BULKHEAD_RING_SLIP)
                                 for x, z, _fitting, ring, which, _fluid in stations.values()))
 
 
-# TWO OF THE FIVE CROSSINGS TAKE A TUBE OF THE CUSTOMER'S OWN PLUMBING: the tap-water run up to
+# TWO OF THE SIX CROSSINGS TAKE A TUBE OF THE CUSTOMER'S OWN PLUMBING: the tap-water run up to
 # their tee, and the tether back to the regulator on their cylinder. Each leaves by a collet on this wall and ends on hardware that carries no ring, so the
 # station's word goes out with it on a printed collar — `printed-parts/faucet/tube-collar/`, the
 # chip's own outline bored for the tube. The collar's frame is the fitting's, so it seats down the
@@ -1946,7 +1945,7 @@ def nameplate_station(stations, foam) -> tuple:
     west, east, _north = nameplate_field()
     _x, axis, _fitting, _family, which, _fluid = stations["bulkhead-flavor-a"]
     od, rise = _ring.outline(which)
-    chip_z = axis + (rise - od / 2) / 2
+    chip_z = axis + (rise - _ring.bottom(_family)) / 2
     receiver = _np.wing_interface
     pad_low = -(receiver.HEIGHT / 2 + receiver.FACE_SLIP + 2.0)
     mouth_low = -(receiver.HEIGHT / 2 + receiver.FACE_SLIP
@@ -2089,7 +2088,7 @@ def west_interior_face():
 
 def west_exterior_face():
     """And that wall's OUTER face — the machine's own skin on this flank, one `enclosure.wall`
-    further west. It is the plane the ASSE drip pan's pull stands proud of (`pan_west_x`)."""
+    further west. It is the machine's west exterior face."""
     return west_interior_face() - _enc.wall
 
 
@@ -2132,8 +2131,7 @@ PANEL_X = {"bulkhead-flavor-b": PORT_WEST_COLUMN,
            "bulkhead-carb": PORT_WEST_COLUMN + PORT_PITCH}
 # Clearance from a union's barrel to any rubber slider in its actual passage.
 PORT_FOOT_CLEAR = 1.0
-# HOW FAR THE FLAVOUR PAIR STANDS UNDER THE MANIFOLD GATE'S CRUISE. The west column runs under the
-# ASSE drip pan's open floor, and this carries that union's inboard body below the pan.
+# HOW FAR THE FLAVOUR PAIR STANDS UNDER THE MANIFOLD GATE'S CRUISE. The lower flavor row keeps its inboard body clear of the rear service lane.
 # The east union takes the same storey, so the lower row
 # is one level line across the wall and the four unions stand on a rectangle.
 FLAVOR_STOREY_DROP = 1.55
@@ -2662,9 +2660,8 @@ def deck_z(placed, gate: float):
     """The Z the panel deck lies on: the top of the band its own two bounds leave it.
 
     THE CEILING BINDS AND THE STOREY TAKES IT. Everything hanging off this storey wants the
-    height — the chain, the split and the regulator on the chain's own axis, and the ASSE drip pan
-    under the vent, which has the pump's bracket to clear — so the deck lies as high as the top
-    wall lets the chain's crown.
+    height — the chain, the split and the regulator on the chain's own axis — so the deck
+    lies as high as the top wall lets the chain's crown.
 
     `placed` is everything already standing, which is what the row would come down onto. The
     trial storey they are dropped from is that pack's own crown, one union half-section — the
@@ -2989,8 +2986,8 @@ STANDALONE = ("compressor", "condenser+fan", "foam-assembly", "g-ganen-pump",
               "funnel", "suction-chain", "discharge-chain", "display", "display-cover",
               "display-gasket", "pump-contact-male", "pump-contact-female",
               "psu", "pcba",
-              "relay-1", "relay-2", "ground-stack", "asse1022-assembly", "asse-drip-pan",
-              "moisture-plate",
+              "relay-1", "relay-2", "ground-stack", "asse1022-assembly",
+              "bulkhead-drain", *_drain.ADAPTER_NAMES,
               "mq6-sensor", "thermal-fuse", "fuse-clamp",
               ) + WAGO_POLES + tuple(CLUSTER_WAGOS) + (
               "water-split", "flow-regulator", "vk-solenoid", "bulkhead-water",
@@ -3737,7 +3734,7 @@ def wall_mounts(*mounted, blockers=()):
 # The backflow preventer and everything that threads or clamps onto it, made up as one chain.
 # Its own frame runs the flow down +X with the VENT ON −Z, so any turn that keeps the vent
 # pointing at the floor is a yaw and nothing else — and the vent has to point at the floor,
-# because it weeps to atmosphere and that drip is the machine's cross-contamination telltale.
+# because it weeps to atmosphere and that drip is the start of its separately routed atmospheric discharge.
 #
 # The yaw lays the 140 mm chain fore and aft in the lane west of the pump, INLET AFT: the tap
 # water comes in through the +Y wall of back-top, so the mouth that faces the bulkhead is the upstream
@@ -3750,20 +3747,6 @@ ASSE1022_YAW = -90.0
 # The lane beside the pump is measured through the room the chain and pan occupy.
 # Rubber sliders, lower cradle and port roots have distinct occupied sections.
 #
-PAN_PUMP_CLEAR = 8.25
-PAN_PROUD = _pan.PULL_FACE_DEPTH
-
-
-def pan_rim_z(asse):
-    """The pan's open rim, one splash gap below the ASSE chain."""
-    return box(asse).zmin - _pan.VENT_GAP
-
-
-def pan_floor(asse):
-    """The underside of the pan, one pan height below the rim."""
-    return pan_rim_z(asse) - _pan.PAN_Z
-
-
 def pump_west_face(water_pump, z0, z1, y0, y1):
     """Occupied pump extent inside the queried room, or None for an empty room.
 
@@ -3777,11 +3760,6 @@ def pump_west_face(water_pump, z0, z1, y0, y1):
     return band[0][0] if band else None
 
 
-def pan_west_x():
-    """The pull face's outside plane, `PAN_PROUD` west of the wall."""
-    return west_exterior_face() - PAN_PROUD
-
-
 def build_asse(deck):
     """The ASSE 1022 chain in the west lane, seated on its INLET COLLET at the tap-water union's
     own station on the +Y wall of back-top.
@@ -3792,8 +3770,7 @@ def build_asse(deck):
     tap-water one stands directly over — `bulkhead_mouth_y` in Y, and the panel deck's own storey
     in Z, the storey the row's other unions cross the wall on.
 
-    The ASSE drip pan then takes station under the vent, and the split and the regulator off the
-    chain's own outlet."""
+    The flexible vent hose reaches its drain adapters; the split and regulator take station off the chain's outlet."""
     chain = _asse.build()
     chain = chain.toCompound() if hasattr(chain, "toCompound") else chain
     chain = chain.val() if hasattr(chain, "val") else chain
@@ -3971,70 +3948,14 @@ def anchor_rows(foam_carry, bodies: dict) -> list:
     return rows
 
 
-# The pan keeps its core-relative withdrawal station. The pump stands fore of
-# the core rear by REAR_CLEARANCE, leaving that same additional air after the
-# measured discharge root; its mount clearance does not pull the pan forward.
-PAN_PORT_CLEAR = 10.0 + _lines._pump.REAR_CLEARANCE
+# Rear service-lane clearance follows the measured pump discharge root.
+PUMP_REAR_LANE_CLEAR = 10.0 + _lines._pump.REAR_CLEARANCE
 
 
-def pan_front_y(water_pump_carry):
-    """Core-relative pan station, with measured discharge-root running air."""
+def pump_rear_lane_front_y(water_pump_carry):
+    """Rear service-lane datum, with measured discharge-root running air."""
     return (_lines._pump.discharge_shape(water_pump_carry).BoundingBox().ymax
-            + PAN_PORT_CLEAR)
-
-
-def build_pan(asse, water_pump, water_pump_carry, asse_carry):
-    """The pan through the west wall, open beneath the ASSE vent."""
-    pan = _pan.build()
-    pan = pan.val() if hasattr(pan, "val") else pan
-    # The bound the PAN states about itself — its flat floor against the moisture plate it
-    # receives — read off `asse_drip_pan`'s own ledger and entered here, so it is a card row beside
-    # the two this module states about where the pan stands.
-    record_bound(Bound(*_pan.check_plate()))
-    placed, carry = seat_body(
-        pan, (), seat="asse-drip-pan", x0=pan_west_x(), z0=pan_floor(asse),
-        y0=pan_front_y(water_pump_carry) + _pan.PAN_SLIP - _pan.PULL_FACE_Y_OVERHANG)
-    return placed, carry
-
-
-# --- the moisture plate, lying in the ASSE drip pan ------------------------
-#
-# The Shutao module is two boards: the LM393 comparator, which mounts dry off elsewhere, and the
-# interdigitated probe plate, which is the half that has to be WET to read. This is that half.
-#
-# THE PLATE IS TURNED A QUARTER and `asse_drip_pan.check_plate` is the reason: its 54 mm runs down the
-# pan's Y, the axis the aft strip has depth to spare on, and its 40 mm across the X the west
-# lane has to buy from the pump. Sizing the floor and standing the body on it read ONE turn, so a
-# pan that passes its own bound is a pan this plate lies flat in.
-#
-# The quarter is +90, which carries the plate's own −X edge — the edge its two lead holes sit
-# behind — onto the pan's FORWARD end. That is the end away from the ASSE chain the tray hangs
-# under: the solder joints lie clear of the vent's fall and the continuous lead rises from the
-# open pan to the cable clip on the dry −X flank.
-PLATE_YAW = 90.0
-
-
-def build_moisture_plate(pan_carry, asse_carry):
-    """The probe plate lying flat on the pan's floor, centred on the flat inside the coves.
-
-    ITS ONE STATION IS ITS OWN UNDERSIDE CENTRE, seated on the flat floor's centre carried out of
-    the tray's frame — so the plate rides the tray. `build_pan` hangs the pan off the ASSE
-    chain and fences it off the pump's casting, and every one of those moves arrives here through
-    `pan_carry` rather than being struck again off a box.
-
-    Centred is the whole of the rule. The plate has no station of its own to answer to — nothing
-    threads it, nothing bolts it — so the only thing to say about where it lies is that it lies
-    in the middle of what receives it, which is also what leaves the drip the most margin on
-    every side."""
-    plate = _plate.build()
-    plate = plate.val() if hasattr(plate, "val") else plate
-    floor_centre = pan_carry((
-        (_pan.PULL_FACE_Y_OVERHANG + _pan.PAN_X / 2.0,
-         _pan.PULL_FACE_Y_OVERHANG + _pan.PAN_Y / 2.0,
-         _pan.FLOOR), (0.0, 0.0, 1.0)))[0]
-    placed, carry = seat_body(plate, (((0.0, 0.0, 1.0), PLATE_YAW),), seat="moisture-plate",
-                              station=(((0.0, 0.0, 0.0), (0.0, 0.0, 1.0)), floor_centre))
-    return placed, carry
+            + PUMP_REAR_LANE_CLEAR)
 
 
 # --- the split, on the chain's own flow axis --------------------------------
@@ -4115,10 +4036,10 @@ FLOWREG_RISE = 11.0
 
 
 def build_flowreg(split_carry):
-    """Seat the regulator aft of water-2, below the ASSE chain and ahead of its pan.
+    """Seat the regulator aft of water-2, below the ASSE chain and in the rear service lane.
 
     The split supplies the placement datum. The inward offset leaves room for
-    fluid-1's R14 inlet bend beside water-2; the outlet crosses ahead of the pan.
+    fluid-1's R14 inlet bend beside water-2; the outlet crosses the service lane.
     """
     hub, _axis = split_carry(((0.0, 0.0, 0.0), (0.0, 1.0, 0.0)))
     target = (hub[0] + FLOWREG_INBOARD,
@@ -4160,21 +4081,6 @@ def build_vk(chain_carry):
     body = _beduan.build_beduan_solenoid()
     body = body.val() if hasattr(body, "val") else body
     return seat_body(body, (), seat="vk-solenoid", station=(_beduan.outlet(), target))
-
-
-def west_wall_ports(pan):
-    """One rectangular through-slot on the pan body's YZ section.
-
-    Running room surrounds the sliding section. The enclosure's print-down
-    allowance opens the lower face a further 0.25 mm.
-    The pull face spans beyond the slot in Y and meets the exterior wall in X.
-    """
-    s = _pan.PAN_SLIP
-    y0 = pan.ymin + _pan.PULL_FACE_Y_OVERHANG - s
-    y1 = pan.ymax - _pan.PULL_FACE_Y_OVERHANG + s
-    z0, z1 = pan.zmin - s, pan.zmax + s
-    return [("rect", (y0 + y1) / 2.0, (z0 + z1) / 2.0,
-             y1 - y0, z1 - z0, 0.0)]
 
 
 def _whole(bodies):
@@ -4511,7 +4417,7 @@ def build_pack() -> cq.Assembly:
     # THE DECK COMES DOWN ONTO WHAT IS ALREADY STANDING, so its four bodies are struck against
     # the assembly as it is at this point. THE WEST LANE HANGS OFF IT and is not in the strike:
     # the tap-water union takes the deck's own storey, the chain butts that union, and the
-    # split, the regulator and the ASSE drip pan all take station off the chain. NEITHER IS THE GAS
+    # split and the regulator take station off the chain. NEITHER IS THE GAS
     # CHAIN: it takes that same storey rather than standing under it, so it goes up after the
     # strike and answers to `deck_storey` the way the union row does.
     a.gate_z = flavor_storey(gate_cruise, water_pump_carry)
@@ -4542,10 +4448,6 @@ def build_pack() -> cq.Assembly:
     a.co2_inlet_carry = co2in_carry
     asse, asse_carry = build_asse(a.deck_z)
     a.add(asse, name="asse1022-assembly", color=C_ASSE)
-    pan, pan_carry = build_pan(asse, water_pump, water_pump_carry, asse_carry)
-    a.add(pan, name="asse-drip-pan", color=C_PAN)
-    mplate, _mplate_carry = build_moisture_plate(pan_carry, asse_carry)
-    a.add(mplate, name="moisture-plate", color=C_PLATE)
     split, split_carry = build_split(asse_carry)
     a.add(split, name="water-split", color=C_SPLIT)
     flowreg, flowreg_carry = build_flowreg(split_carry)
@@ -4583,9 +4485,26 @@ def build_pack() -> cq.Assembly:
     trays = {n: s for n, s in deck_solids.items() if n != "digiten-flow"}
     meter = deck_solids["digiten-flow"]
     a.panel_carries = panel_carries
-    # The wall's five crossings, all placed by here. The field, the rings and the bores are all
+    drain_z = (a.deck_z + a.gate_z) / 2
+    drain, drain_carry = seat_body(_drain_bulkhead.build(), (), seat="bulkhead-drain",
+        station=(((0, 0, 0), (0, 1, 0)),
+                 (PANEL_X["bulkhead-flavor-b"], bulkhead_seat_y(), drain_z)))
+    a.add(drain, name="bulkhead-drain", color=C_BULKHEAD)
+    a.drain_carry = drain_carry
+    drain_members = _drain.bodies(asse_carry(_asse.port("vent-tip"))[0],
+                                 drain_carry(_drain_bulkhead.port(-1))[0])
+    for name, solid in drain_members.items():
+        a.add(solid, name=name, color=_routing.color("drain-white")
+              if name.startswith("tube-") else cq.Color(0.85, 0.92, 0.96, 0.55)
+              if name.startswith("hose-") else M_NEOFIT_ACETAL)
+    row = SEATS["asse1022-assembly"]
+    SEATS["asse1022-assembly"] = row._replace(members=row.members + _drain.ADAPTER_NAMES)
+    outlet = drain_carry(_drain_bulkhead.port(1))[0]
+    a.add(cq.Solid.makeCylinder(2.0, 70.0, cq.Vector(*outlet), cq.Vector(0, 1, 0)),
+          name="tube-drain-umbilical", color=_routing.color("drain-white"))
+    # The wall's six crossings, all placed by here. The field, the rings and the bores are all
     # struck off this one reading.
-    a.wall_stations = wall_stations(bulkhead_carry, panel_carries, co2in_carry)
+    a.wall_stations = wall_stations(bulkhead_carry, panel_carries, co2in_carry, drain_carry)
     # The rings go down after the fittings that trap them, on the same columns their pockets were
     # struck on. They lie OUTBOARD of the +Y wall of back-top's outer face, in the field the wall raises.
     for name, solid, colour in build_bulkhead_rings(a.wall_stations):
@@ -4617,6 +4536,7 @@ def build_pack() -> cq.Assembly:
                "asse1022-assembly": asse_carry, "water-split": split_carry,
                "flow-regulator": flowreg_carry, "vk-solenoid": vk_carry,
                "bulkhead-water": bulkhead_carry, "co2-inlet": co2in_carry,
+               "bulkhead-drain": drain_carry,
                "gasher-co2": gasher_carry,
                "wr1110": wr1110_carry, "digiten-flow": meter_carry, **panel_carries}
     solids = {"foam-assembly": foam, "g-ganen-pump": water_pump, "suction-chain": chain,
@@ -4624,7 +4544,7 @@ def build_pack() -> cq.Assembly:
               "compressor": comp, "condenser+fan": cond,
               "asse1022-assembly": asse, "water-split": split,
               "flow-regulator": flowreg, "vk-solenoid": vk,
-              "bulkhead-water": bulkhead, "co2-inlet": co2in, "gasher-co2": gasher,
+              "bulkhead-water": bulkhead, "co2-inlet": co2in, "bulkhead-drain": drain, "gasher-co2": gasher,
               "wr1110": wr1110, "digiten-flow": meter, **gas_adapters, **trays}
     # The pack's own bodies, so a run may anchor on one or measure off one. The stations answer
     # in `manifold_layout`'s world and ride the pose this module stood them in.
@@ -4715,9 +4635,8 @@ def _core_solids(a: cq.Assembly):
 
 
 # Bodies seated THROUGH a wall rather than standing inside it. Each one takes a hole in the skin
-# and reaches out the far side — the fittings clamped in theirs, the ASSE drip pan drawing in and
-# out of its slot with `PAN_PROUD` of tab standing outside, and the moisture plate lying in the
-# part of that pan inside the wall. So their boxes are not boxes the interior
+# and reaches out the far side, with each fitting clamped in its aperture.
+# Their boxes are not boxes the interior
 # has to hold: a pack sized to contain one is a pack built around its own skin. They come back as
 # stations on the wall instead, and the wall is cut for them.
 #
@@ -4725,7 +4644,7 @@ def _core_solids(a: cq.Assembly):
 # (`build_enclosure_assembly`) rather than to the pack.
 THROUGH_WALL = ("bulkhead-water", "c14-inlet", "keystone-jack", "co2-inlet",
                 "bulkhead-flavor-a", "bulkhead-flavor-b", "bulkhead-carb",
-                "asse-drip-pan", "moisture-plate")
+                "bulkhead-drain")
 # And the bodies seated IN a wall rather than inside the box. A chip and its word lie in a pocket
 # cut into the +Y wall of back-top's own outer face, so every millimetre of both is inside the wall's
 # thickness and none of it is in the room the pack stands in. They are left out of what the box is
@@ -4736,7 +4655,7 @@ IN_THE_WALL = (
       for _m, _r, which, _fluid in Y_WALL_FITTINGS.values()
       for name in (ring_name, word_name)),
 )
-# And the bodies standing OUTBOARD of it: on two of the five crossings, the customer's own tube
+# And the bodies standing OUTBOARD of it: the customer's supply tubes and DRAIN return,
 # and the collar that carries the station's word out along it. The wall's outer face is where the machine stops, so none of this is in the room the pack
 # stands in — it is the customer's own plumbing, drawn as far as the collar and no further
 # (`build_customer_tubes`). Left out of what the box is SIZED on for that reason: sized on it, the
@@ -4744,7 +4663,8 @@ IN_THE_WALL = (
 # and the +Y wall of back-top would be drawn out to enclose a tube that has to leave the box to be any use.
 OUTBOARD = tuple(name(Y_WALL_FITTINGS[station][2])
                  for station in CUSTOMER_TUBE_STATIONS
-                 for name in (customer_tube_name, collar_name, collar_word_name))
+                 for name in (customer_tube_name, collar_name, collar_word_name)) + (
+                     "tube-drain-umbilical",)
 
 
 # The bodies admitted into back-top's ceiling slab. A relief is derived from the named solid
@@ -5081,18 +5001,6 @@ KEPT_WEDGES = (
 )
 
 
-def pan_cable_clip_room(box) -> tuple:
-    """The SIG-9 clip's profile room, on the sleeve and wall that place the clip."""
-    bounds = _enc.pan_cable_clip_bounds(box)
-    if bounds is None:
-        return ()
-    return ((
-        "the SIG-9 cable clip's section", bounds,
-        "the clip is the stated profile, laid for the print by `cable_clip.apply`; its arms' "
-        "faces and its channel are the profile's own",
-    ),)
-
-
 def _touching(probe, bodies, skip=()):
     """The bodies `probe` overlaps, by name."""
     pb = box(probe)
@@ -5399,13 +5307,15 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
     not unfinished."""
     a = build_pack() if a is None else a
     placed = _solids(a)
-    pan = box(placed["asse-drip-pan"][0])
     outside = (set(THROUGH_WALL) | set(IN_THE_WALL) | set(OUTBOARD)
                | {NAMEPLATE, NAMEPLATE_INK})
     return _enc.Pack(placed={n: v for n, v in placed.items() if n not in outside},
-                     west_ports=west_wall_ports(pan),
+                     west_ports=(),
                      back_ports=(y_wall_ports(a.bulkhead_carry, *a.panel_carries.values())
                                  + [c14_cutout(), co2_wall_port(a.co2_inlet_carry),
+                                    ("round", a.wall_stations["bulkhead-drain"][0],
+                                     a.wall_stations["bulkhead-drain"][1],
+                                     _drain_bulkhead.panel_hole_d(PORT_HOLE_SLIP)),
                                     keystone_cutout(a.keystone_station)]),
                      c14=c14_stations(), east_bosses=a.east_bosses,
                      east_mount_fills=a.east_mount_fills,
@@ -5791,7 +5701,7 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
         _pump_contact_bound(contacts, pieces, box)
     placed_solids = _solids(a)
     wedge_fills(placed_solids,
-                authored_anchor_corbels(a.tube_anchors) + pan_cable_clip_room(box))
+                authored_anchor_corbels(a.tube_anchors))
     # And every anchored run against the rib its own site names.
     tubes = {n: s for n, (s, _c) in _solids(a).items() if n.startswith("tube-")}
     # The box's own group reads LAST on the card, under the pack's. `record_bound` carries an
@@ -5852,7 +5762,7 @@ def report(a: cq.Assembly, clashes=None) -> None:
     if "psu" in named:
         line("psu", box(named["psu"]))
     for n in ("pcba", "relay-1", "relay-2") + WAGO_POLES + (
-              "ground-stack", "asse1022-assembly", "asse-drip-pan",
+              "ground-stack", "asse1022-assembly", "bulkhead-drain",
               "water-split", "flow-regulator", "vk-solenoid", "bulkhead-water",
               "c14-inlet", "discharge-chain", "co2-inlet", "gasher-co2", "wr1110",
               "bulkhead-flavor-b", "bulkhead-flavor-a", "bulkhead-carb", "digiten-flow"):
@@ -6286,6 +6196,8 @@ def main():
     grafted = flute_payload.graft(mesh, flute_payload.surfaces())
     if grafted:
         print(f"-> {out.name}.mesh  ({grafted} fluted piece(s))")
+    import check_asse_drain
+    check_asse_drain.write(_solids(a))
     report(a, _card.pack_clashes(a))
     _card.report(a)
     print(f"-> {_card.write(a, out).name}")

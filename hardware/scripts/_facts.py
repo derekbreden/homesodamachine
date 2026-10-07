@@ -132,6 +132,7 @@ DECLARED_RUN_NEIGHBOURS = ()
 CARD_PORT_BODIES = (
     "asse1022-assembly",
     "bulkhead-carb",
+    "bulkhead-drain",
     "bulkhead-flavor-a",
     "bulkhead-flavor-b",
     "bulkhead-water",
@@ -241,6 +242,9 @@ def gather(whole=None, module=None):
 
     union = ea.y_wall_ports(a.bulkhead_carry, *a.panel_carries.values())
     co2 = ea.co2_wall_port(a.co2_inlet_carry)
+    drain_pos = a.frames["bulkhead-drain"].ports["inboard"][0]
+    drain = ("round", drain_pos[0], drain_pos[2],
+             ea._drain_bulkhead.panel_hole_d(ea.PORT_HOLE_SLIP))
 
     gaps = {}
     for x, y, horizon in DECLARED_GAPS:
@@ -283,7 +287,7 @@ def gather(whole=None, module=None):
     # The mouth a bulkhead presents, carried to where the machine stands it — the same station
     # `y_wall_ports` strikes its bore on, so a document and a hole cannot land on two columns.
     import jg_bulkhead_union as _jg
-    mouths = {}
+    mouths = {"bulkhead-drain": _plain(drain_pos)}
     if hasattr(a, "bulkhead_carry"):
         mouths["bulkhead-water"] = _plain(a.bulkhead_carry(_jg.port(-1.0))[0])
     for _n, _c in getattr(a, "panel_carries", {}).items():
@@ -374,7 +378,7 @@ def gather(whole=None, module=None):
         "card_ports": ports,
         "run_near": run_near,
         "runs": runs,
-        "wall_ports": {"union": _plain(union), "co2": _plain(co2)},
+        "wall_ports": {"union": _plain(union), "co2": _plain(co2), "drain": _plain(drain)},
         "pieces": piece_boxes,
         "faces": faces,
         "carried_points": carried,

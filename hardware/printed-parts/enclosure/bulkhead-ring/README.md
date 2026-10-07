@@ -5,22 +5,22 @@ through-wall fitting's own flange. The pocket is the chip's own thickness deep, 
 plane; the fitting's nut draws flange, chip and wall together. One at every crossing the wall
 passes a tube through, and each carries a raised word.
 
-The outline is a D on its back — a half circle below the bore's axis, the shape the port itself
-is, and a rectangle above it, which is where the word goes. It takes its pocket one way up and no
-other.
+The outline is rectangular. The bottom edge meets the flange envelope; the additional band above the flange carries the word. Its offset bore holds the text upright in the matching wall pocket.
 
 | | union station | CO2 station |
 |---|---|---|
 | fitting | John Guest PP1208E | neoFit ABU44 |
-| width | Ø[36.96](RING_OD) | Ø[36.04](CO2_RING_OD) |
+| width | [27.952](RING_OD) | [23.94](CO2_RING_OD) |
 | bore | Ø[17.44](RING_BORE) | Ø[17.3](CO2_RING_BORE) |
-| height | [37.27](RING_TALL) mm | [37.06](CO2_RING_TALL) mm |
-| volume | [1.92](RING_VOL) cm³ | [1.89](CO2_RING_VOL) cm³ |
+| height | [30.22](RING_TALL) mm | [30.01](CO2_RING_TALL) mm |
+| volume | [1.16](RING_VOL) cm³ | [0.94](CO2_RING_VOL) cm³ |
+
+The 4 mm DRAIN chip is 24 × 29.789 mm, with a Ø15.3 mm barrel opening and a 2 mm mounting thickness. Its bottom edge is 11 mm below the bore axis. The DRAIN word stands 0.48 mm proud, in black on white.
 
 | | |
 |---|---|
 | thickness | [2](RING_THICK) mm — the depth the pocket is cut to, so the two faces come out one plane, and how far the fitting's flange bears outboard of the wall's stock |
-| colour showing past the flange | [7.05](RING_W) mm |
+| additional text band above the flange | [7.05](RING_W) mm |
 | rectangle above the axis | [18.789](RING_RISE) mm on water/flavour stations; [19.039](CO2_RING_RISE) mm on CO2 |
 
 The top row stands close enough to the ceiling that a rectangle stopped on its own radius would
@@ -29,9 +29,9 @@ face instead: fenced left, right and below, open above.
 The CO2 inlet axis stands [0.25](CO2_AXIS_DROP) mm below the water row. Its chip and pocket
 carry that same extra height above the bore, keeping their tops on the enclosure's top face.
 Each word is centered between its fitting's flange and the chip's top. A chip's height is
-its rise plus its own half circle.
+its rise plus the fitting flange radius.
 
-The same outline bored for the tube instead of the fitting, and run along it, is [`../../faucet/tube-collar/`](../../faucet/tube-collar/README.md) — one collar per chip, carrying that station's word out to the end of the tube.
+The tube identification is [`../../faucet/tube-collar/`](../../faucet/tube-collar/README.md) — one collar per chip, carrying that station's word out to the end of the tube.
 
 ## Where each one goes
 
@@ -42,8 +42,9 @@ The same outline bored for the tube instead of the fitting, and run along it, is
 | `co2-inlet` | CO2 | ABU44 | red — the customer's regulator tether |
 | `bulkhead-flavor-a` | FLAVOR | union | black — flavour |
 | `bulkhead-flavor-b` | FLAVOR | union | black — flavour |
+| `bulkhead-drain` | DRAIN | neoFit ABU44M-E, 4 mm | white — ASSE vent discharge |
 
-A chip's colour is the colour of the tube that goes into it, and there are four of them. What a
+A chip's colour matches its tube. Six stations share four filament colours. What a
 colour means on the rear face is stated in
 [`../y-wall-of-back-top/_y_wall_dimensions.py`](../y-wall-of-back-top/_y_wall_dimensions.py); which
 fitting stands where is [`../y-wall-of-back-top/README.md`](../y-wall-of-back-top/README.md) §"Bulkhead array arrangement".
@@ -58,8 +59,8 @@ face and standing [0.48](WORD_RAISE) mm proud of it, [2.48](WORD_TOP) mm off the
 [Helvetica](WORD_FONT) [bold](WORD_KIND) at a [4.951](WORD_CAP) mm cap, set in the band between the
 flange's edge and the top of the chip — the face the build deck and the customer's quick start are
 already set in, so a customer holding that sheet beside the machine reads one typeface and not two.
-At their nearest the letters stand [1.32](WORD_FLANGE_CLEAR) mm off a union's flange and
-[1.58](CO2_WORD_FLANGE_CLEAR) mm off the ABU44's, so the flange lands on the chip alone.
+At their nearest the letters stand [1.34](WORD_FLANGE_CLEAR) mm off a union's flange and
+[1.57](CO2_WORD_FLANGE_CLEAR) mm off the ABU44's, so the flange lands on the chip alone.
 
 The letters are loose — six solids for FLAVOR, nothing joining them. Nothing needs to: the chip
 opens as one part carrying both bodies and the lettering is assigned the second filament, so there
@@ -78,7 +79,7 @@ scales with the em, which is what puts a floor under how small these words can b
 
 Which of black and white a chip's word letters in is
 [`_y_wall_dimensions.chip_word_colors`](../y-wall-of-back-top/_y_wall_dimensions.py), one entry per
-spool in `chip_filaments` beside it. The white chip takes **black**; the other three take
+spool in `chip_filaments` beside it. The two white chips take **black**; the other three take
 **white**.
 
 `bulkhead_ring.WORD_WIDTHS` carries what each word measures across. The face is the system's, not this
