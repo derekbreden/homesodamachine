@@ -107,13 +107,15 @@ westbrass_bore_y = 0.0
 # Flavor-tube pill — 1/4" OD LLDPE tubes ([6.35 mm](FLAVOR_TUBE_OD) OD), tangent to the
 # Westbrass's +Y face (Y=+[15.75 mm](WESTBRASS_RECT_LONG_HALF)); the mounting row is F1-D-F2.
 # [18.15 mm](PILL_L) long axis (X), [7.25 mm](PILL_W) short axis (Y).
-flavor_pill_center = (0.0, +flavor_tube_depth)
+flavor_pill_center = (_faucet_interface.bundle_slot_center_x, +flavor_tube_depth)
 
-# [13.18 mm](FLAVOR_PILL_Y_MINUS) — flat -Y edge of the flavor pill
+# [11.28 mm](FLAVOR_PILL_Y_MINUS) — flat -Y edge of the flavor pill
 # cutout in zones 1-4, on the Westbrass-bore +Y wall at the cutout's X corners.
 flavor_pill_y_minus_edge = min(
     +flavor_tube_depth - pill_width_y / 2.0,
-    +math.sqrt((westbrass_bore_diameter / 2.0) ** 2 - (pill_length_x / 2.0) ** 2),
+    +math.sqrt((westbrass_bore_diameter / 2.0) ** 2 - max(
+        abs(_faucet_interface.bundle_slot_left_x),
+        abs(_faucet_interface.bundle_slot_right_x)) ** 2),
 )
 
 
@@ -135,9 +137,10 @@ _westbrass_bore_farthest_from_shell_center = (
 # Read on the +Y edge alone the reach comes back 0.32 mm short, and the wall over the cap's
 # shoulder is that much thinner than the figure says.
 _pill_farthest_from_shell_center = (
-    math.hypot(flavor_tube_x_offset, flavor_tube_depth - shell_center_y) + pill_width_y / 2.0
-)  # = [20.29 mm](PILL_FARTHEST)
-# [24.49 mm](SHELL_OUTER_R) outer-cylinder radius.
+    math.hypot(abs(_faucet_interface.bundle_mount_x)+flavor_tube_x_offset,
+               flavor_tube_depth - shell_center_y) + pill_width_y / 2.0
+)  # = [21.17 mm](PILL_FARTHEST)
+# [25.37 mm](SHELL_OUTER_R) outer-cylinder radius.
 shell_outer_r = (
     max(_westbrass_bore_farthest_from_shell_center, _pill_farthest_from_shell_center)
     + show_wall
@@ -176,7 +179,7 @@ foot_center_y = 0.0
 base_pod_counterbore_dia = 6.15
 base_pod_shank_dia = 3.9
 base_pod_wall = wall_thickness_min
-# The lateral sockets clear the edge-on cable lane and keep two millimetres
+# The lateral sockets clear the rear bundle and keep two millimetres
 # of continuous stock around both their socket and installed brass envelopes.
 base_pod_center_x = 22.5
 base_pod_center_y = -2.0
@@ -230,12 +233,12 @@ lever_clearance_x_half = lever_x_half + lever_fit_clearance
 lever_clearance_y_back = lever_rest_back_y + lever_fit_clearance + lever_sweep_allowance
 lever_rest_top_z = zone2_z_top + 13.0
 
-shell_rect_y_half = shell_outer_r  # [24.49 mm](SHELL_OUTER_R)
+shell_rect_y_half = shell_outer_r  # [25.37 mm](SHELL_OUTER_R)
 shell_rect_x_half = westbrass_bore_rect_short_x / 2.0 + show_wall  # [12.95 mm](SHELL_RECT_X_HALF)
 shell_rect_y_width = 2.0 * shell_rect_y_half
 shell_rect_x_width = 2.0 * shell_rect_x_half
-shell_rect_y_max = shell_center_y + shell_rect_y_half  # [27.67 mm](SHELL_RECT_Y_MAX) (toward back)
-shell_rect_y_min = shell_center_y - shell_rect_y_half  # [-21.32 mm](SHELL_RECT_Y_MIN) (toward user)
+shell_rect_y_max = shell_center_y + shell_rect_y_half  # [28.54 mm](SHELL_RECT_Y_MAX) (toward back)
+shell_rect_y_min = shell_center_y - shell_rect_y_half  # [-22.19 mm](SHELL_RECT_Y_MIN) (toward user)
 
 # ZONE 3 — arch wraps (two wings at ±X)
 #
@@ -277,7 +280,7 @@ flavor_tube_post_bend_y = soda_faucet_tube_y + _paths.TIGHT_FLAVOR_N
 # https://assets.freshwatersystems.com/image/upload/s--N9disqrx--/gjtidjfc0tlprqbhb4ka.pdf
 flavor_bend_min_radius = 25.4
 flavor_bend_radius = 40.0
-flavor_bend_start_z = 42.0
+flavor_bend_start_z = _paths.LOWER_START_Z
 flavor_bend_angle_rad = math.acos(
     1.0 - (flavor_tube_depth - flavor_tube_post_bend_y) / (2.0 * flavor_bend_radius)
 )
@@ -483,7 +486,7 @@ max_print_overhang_rad = max(
 # ZONE 3 OUTER ARCH — single circular arc from the wing bottom
 # (zone3_z_bottom at the -Y end) up to zone4_z_top at Y=fill_y_min,
 # tangent-horizontal at the high end. Center is directly below the high end.
-_back_arch_dy = fill_y_min - shell_rect_y_min  # [31.78 mm](BACK_ARCH_DY) (positive depth span)
+_back_arch_dy = fill_y_min - shell_rect_y_min  # [32.65 mm](BACK_ARCH_DY) (positive depth span)
 back_arch_center_z = (
     (zone4_z_top + zone3_z_bottom) / 2.0
     - _back_arch_dy ** 2 / (2.0 * (zone4_z_top - zone3_z_bottom))
@@ -514,7 +517,7 @@ zone45_front_y = min(
 
 # Top sits 3 mm above zone 4's top on the back side (lid sits flat on
 # zone 4 top). The front bottom follows the back-arch curve down to
-# ≈ Z=[54.41 mm](ZONE45_Z_BOT_FRONT).
+# ≈ Z=[54.55 mm](ZONE45_Z_BOT_FRONT).
 zone45_z_top = zone4_z_top + 3.0  # [60.5 mm](ZONE45_Z_TOP)
 zone45_z_bottom_at_front = (
     back_arch_center_z
@@ -574,7 +577,7 @@ def _flavor_pill_flat_y_minus(z_bottom: float, z_height: float) -> cq.Workplane:
     fill_width = pill_center_y - flavor_pill_y_minus_edge
     fill_rect = (
         _horizontal_plane(z_bottom)
-        .moveTo((0.0, pill_center_y - fill_width / 2.0))
+        .moveTo((flavor_pill_center[0], pill_center_y - fill_width / 2.0))
         .rect(pill_length_x, fill_width)
         .extrude(z_height)
     ).unwrap()
@@ -628,22 +631,15 @@ def build_lower_outer() -> cq.Workplane:
     return cq.Workplane(obj=loft.fuse(neck_land)).clean()
 
 
-# The ribbon passes the donor's round foot edge-on, inside the 1-3/8-inch
-# counter hole. The metal plate's outer shank-channel relief admits it.
-signal_lower_exit_x = 16.35
-signal_lower_exit_y = 5.7
-signal_lower_exit_angle = 90.0
+# The flat ribbon shares the rear mounting channel with the F1-D-F2 row.
+signal_lower_exit_x = _paths.LOWER_BUNDLE_X
+signal_lower_exit_y = _paths.LOWER_RIBBON_Y
+signal_lower_exit_angle = 0.0
 
 
 def _lower_signal_stations():
-    top_y = flavor_tube_depth + _paths.TIGHT_RIBBON_N - _paths.TIGHT_FLAVOR_N
-    return ((14.0, signal_lower_exit_x, signal_lower_exit_y, signal_lower_exit_angle),
-            (18.0, 16.35, 10.0, 45.0),
-            (22.0, 14.0, 18.0, 0.0),
-            (27.0, 12.9, 21.0, 0.0),
-            (31.0, 9.0, 23.6, 0.0),
-            (36.0, 1.0, top_y, 0.0),
-            (39.0, 0.0, top_y, 0.0))
+    return ((14.0, signal_lower_exit_x, signal_lower_exit_y, 0.0),
+            (39.0, signal_lower_exit_x, signal_lower_exit_y, 0.0))
 
 
 def _lower_signal_profile(z, x, y, width, depth, rounded, angle=0.0):
@@ -680,42 +676,33 @@ def build_lower_signal_ribbon() -> cq.Workplane:
 
 
 def build_lower_signal_lane() -> cq.Workplane:
-    """Cable lane with a broad opening to the flavor passage, leaving no thin fin."""
-    from shapely.geometry import MultiPoint
+    """Flat rear cable passage and one open tube/cable transition.
 
-    # The edge-on vertical relief expands before the first cable turn.
-    # Oblique sections retain additional clearance around the complete ribbon.
-    lane = _lower_signal_solid(signal_lane_width, signal_lane_depth, True, -6.2,
-                               turn_clearance=0.15)
-    stations = _lower_signal_stations()
+    The centre polygon joins the tube bores to the cable capsule. All its
+    vertices lie inside those passages; their convex interior removes thin
+    trapped fins while preserving the outer wall of the lower shroud.
+    """
+    lane = _lower_signal_solid(signal_lane_width, signal_lane_depth, True, -6.2)
+    z0, z1 = zone3_z_bottom-0.5, _paths.LOWER_END_Z+0.2
+    count = math.ceil((z1-z0)/0.4)
     wires = []
-    for z, x, y, angle in stations:
-        # Join the existing flat-sided flavor opening to the capsule's
-        # interior. A convex bridge removes the material wedge between the
-        # pill side and the capsule end throughout the straight/turn handoff.
-        # Its cable-end rectangle stays 0.1 mm inside the capsule's flat
-        # sides so their union has positive overlap without coincident faces.
-        # Cross the shared pill boundary slightly so subtraction cannot leave
-        # a coincident face enclosing the very wedge this connector removes.
-        overlap = 0.02
-        pill_half_x = pill_length_x / 2.0 + overlap
-        lane_half_x = (signal_lane_width - signal_lane_depth) / 2.0
-        lane_half_y = signal_lane_depth / 2.0 - 0.1
-        points = [(px, py)
-                  for px in (-pill_half_x, pill_half_x)
-                  for py in (flavor_pill_y_minus_edge - overlap,
-                             flavor_tube_depth + overlap)]
-        theta = math.radians(angle)
-        points.extend((x + px * math.cos(theta) - py * math.sin(theta),
-                       y + px * math.sin(theta) + py * math.cos(theta))
-                      for px in (-lane_half_x, lane_half_x)
-                      for py in (-lane_half_y, lane_half_y))
-        outline = list(MultiPoint(points).convex_hull.exterior.coords)[:-1]
+    cable_half = (signal_lane_width-signal_lane_depth)/2.0
+    for i in range(count+1):
+        z = z0+(z1-z0)*i/count
+        left = _paths.lower_point(z,"flavor",-1)
+        right = _paths.lower_point(z,"flavor",1)
+        ribbon = _paths.lower_point(z,"ribbon")
+        points = [(0.0,soda_faucet_tube_y), (right[0],right[1]),
+                  (ribbon[0]+cable_half,ribbon[1]+signal_lane_depth/2.0-0.1),
+                  (ribbon[0]-cable_half,ribbon[1]+signal_lane_depth/2.0-0.1),
+                  (left[0],left[1])]
         wires.append(cq.Workplane("XY").workplane(offset=z)
-                     .polyline(outline).close().val())
-    upper = cq.Solid.makeLoft(wires, ruled=False)
-    lower = cq.Solid.extrudeLinear(wires[0].translate((0.0, 0.0, -20.2)), [], cq.Vector(0.0, 0.0, 20.4))
-    return lane.union(cq.Workplane(obj=upper.fuse(lower)))
+                     .polyline(points).close().val())
+    opening = cq.Solid.makeLoft(wires,ruled=True)
+    joined = lane.val().fuse(opening,tol=1e-6).clean()
+    if not joined.isValid() or len(joined.Solids()) != 1:
+        raise ValueError("the common lower bundle opening must be one valid native solid")
+    return cq.Workplane(obj=joined)
 
 
 def _rect_cove_cyl(
@@ -835,11 +822,11 @@ def _ribbon_section(point, tangent, width, clearance):
 
 
 def _ribbon_lower_frame(z):
-    _,fn,_=_paths.lower_positions(z)
-    n=fn+_paths.TIGHT_RIBBON_N-_paths.TIGHT_FLAVOR_N
     dz=0.001
-    derivative=(_paths.lower_positions(z+dz)[1]-_paths.lower_positions(z-dz)[1])/(2*dz)
-    return (0,_paths.WATER_Y+n,z),(0,derivative,1),signal_ribbon_max_width
+    a=_paths.lower_point(z-dz,"ribbon")
+    b=_paths.lower_point(z+dz,"ribbon")
+    tangent=tuple((v-u)/(2*dz) for u,v in zip(a,b))
+    return _paths.lower_point(z,"ribbon"),tangent,signal_ribbon_max_width
 
 
 def _ribbon_arc_frame(s):
