@@ -1,0 +1,2333 @@
+{
+  "schema": "pump-first-layout/pump/1",
+  "source_sha256": {
+    "future/pump-first-layout-study/pump/generate.py": "0156f884fba9a5183f6728fa94b38310a9abdc9735889c79b20fe281acb69110",
+    "hardware/reference/g-ganen-pump/reference-parameters.json": "b9058e123ab517284fe9506ddae86bc7ec4f88fe1e43c75faa5c80e946772a40",
+    "hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py": "ca6ff8cd43074132835169682cd05876b6cdcf120540da4cfc056a572685bb43",
+    "hardware/reference/g-ganen-pump/installation/g_ganen_installation.py": "7c0c1fb6c5d91b6a2ff38b01a5e50d014be5c6e930f5c92de13970debab1997c",
+    "hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py": "6705f235e34c6a2b1fa3451c9ff06f890f9ca4dab7768533021ca9a8c80b8585",
+    "hardware/reference/seaflo-suction-chain/seaflo_suction_chain.py": "e0c0c3867a5f001184aa4d69e8b84bfc6206822dbe25d2624d7ae80e6f242771",
+    "hardware/reference/beduan-solenoid/beduan_solenoid.py": "640acf974256bbfff88546cbef5672b870a2ceb21d34c128487bf1aa286ab498",
+    "hardware/reference/worm-clamp/worm_clamp.py": "0518fad8d86886811ed0b261eb7dbc97f20dbf819b018d9bed2ddcf8a3a4e8f9",
+    "hardware/scripts/_routing.py": "80ff9db49ad05b3c12cbf48f68bb4ca6af2ac9624919c27e89e0e0d0e068cf3e",
+    "future/pump-first-layout-study/pump/water5_route.py": "5ac009e8e7487a7bea49327d8b3621bb4e5b8b651ff0e39c3a226d07c72da43a"
+  },
+  "checks": [
+    {
+      "check": "Slider 30.0 full rail engagement",
+      "pass": true,
+      "interval_mm": [
+        21.0,
+        39.0
+      ],
+      "observed_rail_mm": [
+        0.5,
+        76.5
+      ]
+    },
+    {
+      "check": "Slider 62.5 full rail engagement",
+      "pass": true,
+      "interval_mm": [
+        53.5,
+        71.5
+      ],
+      "observed_rail_mm": [
+        0.5,
+        76.5
+      ]
+    },
+    {
+      "check": "Mount 1 screw stack",
+      "pass": true,
+      "insert_engagement_mm": 5.7,
+      "screw_penetration_mm": 6.8,
+      "tip_reserve_mm": 1.7,
+      "insert_bore_wall_mm": 2.0
+    },
+    {
+      "check": "Mount 2 screw stack",
+      "pass": true,
+      "insert_engagement_mm": 5.7,
+      "screw_penetration_mm": 6.8,
+      "tip_reserve_mm": 1.7,
+      "insert_bore_wall_mm": 2.0
+    },
+    {
+      "check": "Mount 3 screw stack",
+      "pass": true,
+      "insert_engagement_mm": 5.7,
+      "screw_penetration_mm": 6.8,
+      "tip_reserve_mm": 1.7,
+      "insert_bore_wall_mm": 2.0
+    },
+    {
+      "check": "Mount 4 screw stack",
+      "pass": true,
+      "insert_engagement_mm": 5.7,
+      "screw_penetration_mm": 6.8,
+      "tip_reserve_mm": 1.7,
+      "insert_bore_wall_mm": 2.0
+    },
+    {
+      "check": "Cap and four pump columns form one joined native solid",
+      "pass": true,
+      "solids": 1,
+      "native_floor_z_mm": 235.4000002,
+      "root_overlap_mm": 0.01,
+      "blind_floor_above_cap_floor_mm": 4.099999999999994
+    },
+    {
+      "check": "water-4 bend radius",
+      "pass": true,
+      "radius_mm": 14.0,
+      "minimum_mm": 14,
+      "lead_mm": 3.594140414877252,
+      "u_offset_mm": 28,
+      "corrective_s_lead_mm": 5.746394676559276
+    },
+    {
+      "check": "water-7 bend radius",
+      "pass": true,
+      "radius_mm": 15.9,
+      "minimum_mm": 15.9,
+      "endpoint_error_mm": 5.684341886080802e-14
+    },
+    {
+      "check": "water-6 bend radius",
+      "pass": true,
+      "radius_mm": 15.9,
+      "minimum_mm": 15.9,
+      "endpoint_error_mm": 8.04083576451566e-14
+    },
+    {
+      "check": "water-5 bend radius",
+      "pass": true,
+      "radius_mm": 14.0,
+      "minimum_mm": 14
+    },
+    {
+      "check": "fluid-3 bend radius",
+      "pass": true,
+      "radius_mm": 14.0,
+      "minimum_mm": 14.0
+    },
+    {
+      "check": "fluid-5 bend radius",
+      "pass": true,
+      "radius_mm": 14.0,
+      "minimum_mm": 14.0
+    },
+    {
+      "check": "fluid-4 bend radius",
+      "pass": true,
+      "radius_mm": 14.0,
+      "minimum_mm": 14.0
+    },
+    {
+      "check": "Gravity drain never rises",
+      "pass": true,
+      "maximum_centerline_z_mm": 280.41,
+      "mouth_z_mm": 280.41,
+      "fall_mm": 10.26
+    },
+    {
+      "check": "Gravity drain clears VK",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 17.475880556272422
+    },
+    {
+      "check": "Gravity drain clears suction chain",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 58.41246874570616
+    },
+    {
+      "check": "Gravity drain clears suction hose",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 108.60503745669786
+    },
+    {
+      "check": "Gravity drain clears water4",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 36.02881355361054
+    },
+    {
+      "check": "Source A clears pump",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 50.00015142967187
+    },
+    {
+      "check": "Source A clears VK",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 67.3
+    },
+    {
+      "check": "Source A clears suction chain",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 82.73927747620299
+    },
+    {
+      "check": "Source A clears gravity drain",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 43.40049879854868
+    },
+    {
+      "check": "Source A clears water4",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 84.36014133172328
+    },
+    {
+      "check": "Source A clears water5",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 3.55572887819844
+    },
+    {
+      "check": "Source A bearing host fits",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "Source A host clears water4",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 79.66394462988603
+    },
+    {
+      "check": "Source A host clears water5",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 22.799999999999983
+    },
+    {
+      "check": "Source A host clears gravity drain",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 41.694960955987135
+    },
+    {
+      "check": "Source A host clears pump",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 60.38294549094902
+    },
+    {
+      "check": "Source A clears fixed cap tube (77.5, 271.6)",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 15.122773615915923
+    },
+    {
+      "check": "Source A clears fixed cap tube (77.5, 322.3)",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 53.95313172280887
+    },
+    {
+      "check": "Source A clears fixed cap tube (-43.5, 233.3)",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 78.3551995911304
+    },
+    {
+      "check": "Source A clears fixed cap tube (57.5, 426.3)",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 152.91645323621705
+    },
+    {
+      "check": "Source B clears pump",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 52.9551422926687
+    },
+    {
+      "check": "Source B clears VK",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 4.9999999999999964
+    },
+    {
+      "check": "Source B clears suction chain",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 20.828688095150753
+    },
+    {
+      "check": "Source B clears gravity drain",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 0.024999999999977263
+    },
+    {
+      "check": "Source B clears water4",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 24.06343485857759
+    },
+    {
+      "check": "Source B clears water5",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 16.145571046714704
+    },
+    {
+      "check": "Source B bearing host fits",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "Source B host clears water4",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 19.0410654315603
+    },
+    {
+      "check": "Source B host clears water5",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 24.213532530158655
+    },
+    {
+      "check": "Source B host clears gravity drain",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 12.018995382310445
+    },
+    {
+      "check": "Source B host clears pump",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 66.19476793633983
+    },
+    {
+      "check": "Source B clears fixed cap tube (77.5, 271.6)",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 43.50540274033634
+    },
+    {
+      "check": "Source B clears fixed cap tube (77.5, 322.3)",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 69.8034214682669
+    },
+    {
+      "check": "Source B clears fixed cap tube (-43.5, 233.3)",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 16.07660209221582
+    },
+    {
+      "check": "Source B clears fixed cap tube (57.5, 426.3)",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 157.40223998126257
+    },
+    {
+      "check": "Suction root gas portal retains at least3mm stock",
+      "pass": true,
+      "fore_mm": 3.2499998999999775,
+      "aft_mm": 6.992449293355833,
+      "bottom_mm": 3.9238527192741515,
+      "upper_mm": 4.824999900000137,
+      "portal_diameter_mm": 8.35
+    },
+    {
+      "check": "Raised suction retainer 1 full screw stack",
+      "pass": true,
+      "insert_length_mm": 5.7,
+      "engagement_mm": 6,
+      "tip_reserve_mm": 2.5,
+      "radial_bore_wall_mm": 2
+    },
+    {
+      "check": "Raised suction retainer 2 full screw stack",
+      "pass": true,
+      "insert_length_mm": 5.7,
+      "engagement_mm": 6,
+      "tip_reserve_mm": 2.5,
+      "radial_bore_wall_mm": 2
+    },
+    {
+      "check": "Suction bridge retains a continuous3mm rear load rail",
+      "pass": true,
+      "missing_stock_mm3": 0.0,
+      "rail_y_mm": [
+        292,
+        295
+      ],
+      "rail_z_mm": [
+        270.5,
+        273.5
+      ]
+    },
+    {
+      "check": "Raised suction bridge and upper key are single valid solids",
+      "pass": true,
+      "host_solids": 1,
+      "key_solids": 1
+    },
+    {
+      "check": "Source B clears suction bridge",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 1.0
+    },
+    {
+      "check": "Source B jumper clears suction bridge",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 0.9999999720343032
+    },
+    {
+      "check": "VK clears pump",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 65.7202980102258
+    },
+    {
+      "check": "suction chain clears pump",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 14.01795035869361
+    },
+    {
+      "check": "discharge chain clears pump",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 65.65522472482046
+    },
+    {
+      "check": "suction hose clears pump",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 8.07184366257613e-12
+    },
+    {
+      "check": "discharge hose clears pump",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 1.1368683772161603e-13
+    },
+    {
+      "check": "water4 clears pump",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 68.42618137191128
+    },
+    {
+      "check": "water5 clears pump",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 49.883540876583425
+    },
+    {
+      "check": "VK clears lid outside intended bearing",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "suction chain clears lid outside intended bearing",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "discharge chain clears lid outside intended bearing",
+      "pass": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "A-fill fixed riser clears complete pump and sliders",
+      "pass": true,
+      "overlap_mm3": 0.0,
+      "distance_mm": 12.150346862891805
+    },
+    {
+      "check": "Rigid pump keeps global flank clearance",
+      "pass": true,
+      "west_air_mm": 2.350016251640767,
+      "east_air_mm": 34.38545827612201
+    },
+    {
+      "check": "Suction bridge over pan with at least1mm air",
+      "pass": true,
+      "air_mm": 4.100000000000023
+    },
+    {
+      "check": "Suction chain above pan rim",
+      "pass": true,
+      "chain_bottom_z_mm": 273.65,
+      "pan_rim_z_mm": 266.4,
+      "pan_keepout_top_z_mm": 269.4
+    },
+    {
+      "check": "Discharge chain aft of complete pump",
+      "pass": true,
+      "air_mm": 30.100000000000023
+    },
+    {
+      "check": "cap solid validity",
+      "pass": true,
+      "solids": 1
+    },
+    {
+      "check": "lid solid validity",
+      "pass": true,
+      "solids": 1
+    },
+    {
+      "check": "VK seat solid validity",
+      "pass": true,
+      "solids": 1
+    },
+    {
+      "check": "suction support solid validity",
+      "pass": true,
+      "solids": 1
+    },
+    {
+      "check": "discharge support solid validity",
+      "pass": true,
+      "solids": 3
+    },
+    {
+      "check": "A source seat solid validity",
+      "pass": true,
+      "solids": 1
+    },
+    {
+      "check": "B source seat solid validity",
+      "pass": true,
+      "solids": 1
+    }
+  ],
+  "poses": {
+    "g-ganen-pump": {
+      "yaw_degrees": 0,
+      "origin_mm": [
+        -18.25,
+        367.4,
+        253.4
+      ],
+      "slider_local_x_mm": [
+        30.0,
+        62.5
+      ],
+      "suction": [
+        [
+          -51.538434858577574,
+          330.1389642574108,
+          280.1243022039962
+        ],
+        [
+          0.004651362946762452,
+          -0.999986748620726,
+          0.0022062197729691684
+        ]
+      ],
+      "discharge": [
+        [
+          -51.50896980395272,
+          404.41739757984567,
+          280.1688222682448
+        ],
+        [
+          0.002533638544009382,
+          0.9999421767690463,
+          0.010451018807260161
+        ]
+      ]
+    },
+    "pump-mounts": {
+      "axes_xy_mm": [
+        [
+          11.75,
+          327.4
+        ],
+        [
+          11.75,
+          407.4
+        ],
+        [
+          44.25,
+          327.4
+        ],
+        [
+          44.25,
+          407.4
+        ]
+      ],
+      "washer": "\u00d89 \u00d70.8mm",
+      "screw": "M3 \u00d720mm",
+      "insert": "ruthex RX-M3x5.7",
+      "boss_od_mm": 8,
+      "bore_d_mm": 4,
+      "blind_depth_mm": 8.5,
+      "lid_thickness_mm": 5.4
+    },
+    "cap-native-floor": {
+      "z_mm": 235.4000002,
+      "face_area_mm2": 46932.95253186642,
+      "external_bottom_z_mm": 233.4000002,
+      "retained_floor_stock_mm": 2.0,
+      "source": "Largest upward horizontal planar face below the cap rim in baseline native cap."
+    },
+    "vk-solenoid": {
+      "rotations_degrees": {
+        "Y": 90,
+        "X": 180
+      },
+      "origin_mm": [
+        -86.6,
+        236.75,
+        288.5
+      ],
+      "inlet": [
+        [
+          -75.55,
+          266.5,
+          288.5
+        ],
+        [
+          0.0,
+          1.0,
+          -1.2246467991473532e-16
+        ]
+      ],
+      "outlet": [
+        [
+          -75.55,
+          207.0,
+          288.5
+        ],
+        [
+          0.0,
+          -1.0,
+          1.2246467991473532e-16
+        ]
+      ]
+    },
+    "suction-chain": {
+      "barb_tip_mm": [
+        -51.538434858577574,
+        316.1,
+        282.15
+      ],
+      "tube_port": [
+        [
+          -51.538434858577574,
+          261.70000000000005,
+          282.15
+        ],
+        [
+          0.0,
+          -1.0,
+          -1.1102230246251565e-16
+        ]
+      ]
+    },
+    "discharge-chain": {
+      "barb_tip_mm": [
+        -15.0,
+        453.5,
+        342.0
+      ],
+      "tube_port": [
+        [
+          68.4,
+          453.5,
+          342.0
+        ],
+        [
+          1.0,
+          0.0,
+          -1.1102230246251565e-16
+        ]
+      ]
+    },
+    "valve-v-a": {
+      "origin_mm": [
+        38.0,
+        240.5,
+        270.15
+      ],
+      "flow_axis": [
+        0,
+        -1,
+        0
+      ],
+      "coil_axis": [
+        1,
+        0,
+        0
+      ],
+      "inlet": [
+        [
+          49.05,
+          270.25,
+          270.15
+        ],
+        [
+          0.0,
+          1.0,
+          -1.2246467991473532e-16
+        ]
+      ],
+      "outlet": [
+        [
+          49.05,
+          210.75,
+          270.15
+        ],
+        [
+          0.0,
+          -1.0,
+          1.2246467991473532e-16
+        ]
+      ]
+    },
+    "valve-v-b": {
+      "origin_mm": [
+        -24.3,
+        241.3,
+        270.15
+      ],
+      "flow_axis": [
+        0,
+        1,
+        0
+      ],
+      "coil_axis": [
+        1,
+        0,
+        0
+      ],
+      "inlet": [
+        [
+          -13.25,
+          211.55,
+          270.15
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ]
+      ],
+      "outlet": [
+        [
+          -13.25,
+          271.05,
+          270.15
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ]
+      ]
+    },
+    "suction-chain-retainer": {
+      "screw_axes_xy_mm": [
+        [
+          5.0,
+          271.90000000000003
+        ],
+        [
+          5.0,
+          294.5
+        ]
+      ],
+      "seat_radius_mm": 8.65,
+      "length_mm": 18.6,
+      "bridge_bottom_z_mm": 270.5,
+      "pan_rim_z_mm": 266.4,
+      "pan_air_mm": 4.100000000000023,
+      "root_xy_mm": [
+        1,
+        9.0,
+        267.90000000000003,
+        298.5
+      ],
+      "rear_load_rail_mm": [
+        3,
+        3
+      ],
+      "gas_portal_stock_mm": {
+        "fore_mm": 3.2499998999999775,
+        "aft_mm": 6.992449293355833,
+        "bottom_mm": 3.9238527192741515,
+        "upper_mm": 4.824999900000137
+      },
+      "screw_length_mm": 10,
+      "pilot_depth_mm": 8.5,
+      "insert_length_mm": 5.7,
+      "tip_reserve_mm": 2.5,
+      "qualification": "Joined stock and fit are geometric. Bridge bending, retention and long-term creep remain physical qualifications.",
+      "pan_keepout_top_z_mm": 269.4,
+      "pan_keepout_air_mm": 1.1000000000000227
+    },
+    "discharge-chain-retainer": {
+      "screw_axes_xy_mm": [
+        [
+          23.4,
+          438.35
+        ],
+        [
+          43.4,
+          438.35
+        ]
+      ],
+      "boss_od_mm": 8,
+      "pilot_d_mm": 4,
+      "pilot_depth_mm": 8.5,
+      "insert_length_mm": 5.7,
+      "end_cover_mm": 4.5,
+      "clip_stock_mm": 3,
+      "screw_length_mm": 10,
+      "screw_tip_reserve_mm": 1.5
+    }
+  },
+  "routes": {
+    "water-4": {
+      "from": "vk-solenoid.outlet",
+      "to": "suction-chain.tube-port",
+      "points_mm": [
+        [
+          -75.55,
+          207.0,
+          288.5
+        ],
+        [
+          -71.53560542084168,
+          197.10050506338834,
+          289.33592938559286
+        ],
+        [
+          -61.843999583120606,
+          193.0,
+          291.35404144547726
+        ],
+        [
+          -61.843999583120606,
+          193.0,
+          291.35404144547726
+        ],
+        [
+          -52.15239374539954,
+          197.10050506338834,
+          293.3721535053617
+        ],
+        [
+          -48.137999166241215,
+          207.0,
+          294.20808289095453
+        ],
+        [
+          -48.56985726908334,
+          216.23305751279506,
+          294.11815578701555
+        ],
+        [
+          -49.838217012409395,
+          219.5,
+          293.85404144547726
+        ],
+        [
+          -51.106576755735446,
+          222.76694248720494,
+          293.589927103939
+        ],
+        [
+          -51.538434858577574,
+          232.0,
+          293.5
+        ],
+        [
+          -51.538434858577574,
+          235.59414041487724,
+          293.5
+        ],
+        [
+          -51.538434858577574,
+          241.89691758054002,
+          292.0009999600032
+        ],
+        [
+          -51.538434858577574,
+          246.85000000000002,
+          287.825
+        ],
+        [
+          -51.538434858577574,
+          251.80308241946003,
+          283.6490000399968
+        ],
+        [
+          -51.538434858577574,
+          258.1058595851228,
+          282.15
+        ],
+        [
+          -51.538434858577574,
+          261.70000000000005,
+          282.15
+        ]
+      ],
+      "diameter_mm": 6.35,
+      "radii_mm": [
+        14.0,
+        14.0,
+        14.0,
+        14.0,
+        14.0,
+        14.0
+      ],
+      "tightest_mm": 14.0,
+      "developed_length_mm": 102.9096693520773,
+      "note": "VK fore outlet returns through an exact diagonal R14 U, a corrective R14 S and a descending R14 S to the suction reducer, below the frame underside.",
+      "curve": "six exact tangent circular arcs",
+      "straight_end_leads_mm": [
+        0,
+        5.746394676559276,
+        3.594140414877252
+      ],
+      "u_transverse_mm": 28,
+      "correction_offset_mm": 3.4733764953108057
+    },
+    "water-7": {
+      "from": "g-ganen-pump.suction",
+      "to": "suction-chain.barb-tip",
+      "points_mm": [
+        [
+          -51.538434858577574,
+          330.1389642574108,
+          280.1243022039962
+        ],
+        [
+          -51.52913213268405,
+          328.13899076016935,
+          280.12871464354214
+        ],
+        [
+          -51.52898935663497,
+          328.09806377151193,
+          280.12878236462655
+        ],
+        [
+          -51.528941764513505,
+          328.0571365116827,
+          280.12880493837116
+        ],
+        [
+          -51.5301379819972,
+          325.2226455545685,
+          280.383494173974
+        ],
+        [
+          -51.53368831154554,
+          322.4789624336486,
+          281.1394024691856
+        ],
+        [
+          -51.53723864109388,
+          319.73527931272866,
+          281.89531076439715
+        ],
+        [
+          -51.538434858577574,
+          316.90078835561445,
+          282.15000000000003
+        ],
+        [
+          -51.538434858577574,
+          316.1,
+          282.15
+        ]
+      ],
+      "diameter_mm": 15.1,
+      "radii_mm": [
+        15.9,
+        15.9,
+        15.9
+      ],
+      "tightest_mm": 15.9,
+      "developed_length_mm": 14.281535925108109,
+      "note": "Measured pump suction to raised reducer: a short exact R15.9 heading correction and two R15.9 opposing arcs preserve both actual terminal axes.",
+      "curve": "three exact tangent circular arcs with measured terminal headings",
+      "arc_degrees": [
+        0.294963754056998,
+        20.538001814388696,
+        20.538001814388696
+      ],
+      "straight_end_leads_mm": [
+        2.0,
+        0.8007883556144293
+      ],
+      "actual_barb_axis": [
+        0.004651362946762452,
+        -0.999986748620726,
+        0.0022062197729691684
+      ]
+    },
+    "water-6": {
+      "from": "g-ganen-pump.discharge",
+      "to": "discharge-chain.barb-tip",
+      "points_mm": [
+        [
+          -51.50896980395272,
+          404.41739757984567,
+          280.1688222682448
+        ],
+        [
+          -51.50770298468072,
+          404.9173686682302,
+          280.17404777764847
+        ],
+        [
+          -55.72945266903339,
+          416.22910978485334,
+          278.2979730152219
+        ],
+        [
+          -65.95868745004516,
+          420.9238602590528,
+          273.54188346802124
+        ],
+        [
+          -69.25269975241643,
+          420.9238602590528,
+          272.4171704346619
+        ],
+        [
+          -72.7125180611,
+          420.9238602590528,
+          272.0361799800839
+        ],
+        [
+          -83.95551588196611,
+          420.9238602590528,
+          276.69318215921777
+        ],
+        [
+          -88.6125180611,
+          420.9238602590528,
+          287.93617998008386
+        ],
+        [
+          -88.6125180611,
+          420.9238602590528,
+          308.5579124116245
+        ],
+        [
+          -88.6125180611,
+          421.5976544109193,
+          313.1375036019236
+        ],
+        [
+          -88.6125180611,
+          423.5619301295264,
+          317.3289562058123
+        ],
+        [
+          -88.6125180611,
+          425.5262058481335,
+          321.52040880970094
+        ],
+        [
+          -88.6125180611,
+          426.2,
+          326.1000000000001
+        ],
+        [
+          -83.95551588196611,
+          426.2,
+          337.3429978208662
+        ],
+        [
+          -72.71251806110001,
+          426.2,
+          342.00000000000006
+        ],
+        [
+          -46.47999364675921,
+          426.2,
+          342.00000000000006
+        ],
+        [
+          -36.06282032574741,
+          430.08781868268716,
+          342.00000000000006
+        ],
+        [
+          -30.739996823379606,
+          439.84999999999997,
+          342.00000000000006
+        ],
+        [
+          -25.417173321011802,
+          449.61218131731283,
+          342.00000000000006
+        ],
+        [
+          -15.000000000000002,
+          453.49999999999994,
+          342.00000000000006
+        ]
+      ],
+      "diameter_mm": 15.1,
+      "radii_mm": [
+        15.9,
+        15.9,
+        15.9,
+        15.9,
+        15.9,
+        15.9,
+        15.9,
+        15.9
+      ],
+      "tightest_mm": 15.9,
+      "developed_length_mm": 193.38149602492808,
+      "note": "Actual pump discharge axis: exact R15.9 west/down arcs, low span under PSU, west riser with gentle aft shift, then high return fore of C14 to the check-chain barb.",
+      "curve": "eight exact tangent circular arcs",
+      "arc_degrees": [
+        90.3857741557044,
+        25.136056719062122,
+        90.0,
+        33.47945758731522,
+        33.47945758731522,
+        90.0,
+        81.86479989689877,
+        81.86479989689877
+      ],
+      "straight_end_leads_mm": [
+        0.5,
+        0
+      ],
+      "low_span_crown_mm": 279.5861799800839,
+      "low_span_psu_base_air_mm": 10.163820019916102,
+      "west_riser_mm": [
+        -88.6125180611,
+        420.9238602590528,
+        287.93617998008386
+      ],
+      "west_flank_air_mm": 2.3374819388999954,
+      "wall_pocket_additional_depth_mm": 0
+    },
+    "water-5": {
+      "points_mm": [
+        [
+          68.4,
+          453.5,
+          342.0
+        ],
+        [
+          68.9,
+          453.5,
+          342.0
+        ],
+        [
+          72.64165738677394,
+          453.5,
+          342.509262436768
+        ],
+        [
+          76.11110255092798,
+          453.5,
+          344.0
+        ],
+        [
+          79.58054771508202,
+          453.5,
+          345.490737563232
+        ],
+        [
+          83.32220510185596,
+          453.5,
+          346.0
+        ],
+        [
+          86.325,
+          453.5,
+          346.0
+        ],
+        [
+          96.22449493661166,
+          449.3994949366117,
+          346.0
+        ],
+        [
+          100.325,
+          439.5,
+          346.0
+        ],
+        [
+          100.325,
+          318.6,
+          346.0
+        ],
+        [
+          100.325,
+          308.70050506338833,
+          341.8994949366117
+        ],
+        [
+          100.325,
+          304.6,
+          332.0
+        ],
+        [
+          100.325,
+          304.6,
+          279.5
+        ],
+        [
+          100.325,
+          300.4994949366117,
+          269.6005050633883
+        ],
+        [
+          100.325,
+          290.6,
+          265.5
+        ],
+        [
+          100.325,
+          280.0,
+          265.5
+        ],
+        [
+          100.325,
+          268.0,
+          265.5
+        ],
+        [
+          100.325,
+          258.1005050633883,
+          269.6005050633883
+        ],
+        [
+          100.325,
+          254.0,
+          279.5
+        ],
+        [
+          100.325,
+          249.89949493661166,
+          289.3994949366117
+        ],
+        [
+          100.325,
+          240.0,
+          293.5
+        ],
+        [
+          100.325,
+          234.80866105903303,
+          292.5019229347047
+        ],
+        [
+          100.325,
+          230.35751588023086,
+          289.65
+        ],
+        [
+          100.325,
+          225.9063707014287,
+          286.7980770652953
+        ],
+        [
+          100.325,
+          220.71503176046173,
+          285.79999999999995
+        ],
+        [
+          100.325,
+          209.5,
+          285.8
+        ],
+        [
+          96.22449493661166,
+          199.60050506338834,
+          285.8
+        ],
+        [
+          86.325,
+          195.5,
+          285.8
+        ],
+        [
+          -12.0,
+          195.5,
+          285.8
+        ],
+        [
+          -21.899494936611664,
+          191.39949493661166,
+          285.8
+        ],
+        [
+          -26.0,
+          181.5,
+          285.8
+        ],
+        [
+          -26.0,
+          174.9,
+          285.8
+        ],
+        [
+          -29.495425757346467,
+          165.00050506338835,
+          283.6561388688275
+        ],
+        [
+          -37.934130027000556,
+          160.9,
+          278.4804002501063
+        ],
+        [
+          -44.06586997299945,
+          160.9,
+          274.71959974989363
+        ],
+        [
+          -52.50457424265354,
+          165.00050506338835,
+          269.54386113117243
+        ],
+        [
+          -56.0,
+          174.9,
+          267.4
+        ],
+        [
+          -56.0,
+          184.79949493661167,
+          263.29949493661167
+        ],
+        [
+          -56.0,
+          188.9,
+          253.4
+        ]
+      ],
+      "diameter_mm": 6.35,
+      "radii_mm": [
+        14.0,
+        14.0,
+        14.0,
+        14.0,
+        14.0,
+        14.0,
+        14.0,
+        14.0,
+        14.0,
+        14.0,
+        14.0,
+        14.0,
+        14.0,
+        14.0
+      ],
+      "tightest_mm": 14.0,
+      "developed_length_mm": 579.171614404615,
+      "initial_s_leads_mm": [
+        0.5,
+        3.002794898144044
+      ],
+      "low_fore_lead_mm": 10.600000000000023,
+      "high_lane_x_mm": 100.325,
+      "fore_drop_y_mm": 304.6,
+      "high_fore_z_mm": 346.0,
+      "fore_cross_yz_mm": [
+        195.5,
+        285.8
+      ],
+      "east_wall": {
+        "tube_max_x_mm": 103.5,
+        "clearance_cutter_max_x_mm": 104.5,
+        "minimum_outer_x_for_3mm_stock_mm": 107.5,
+        "radial_air_mm": 1,
+        "minimum_stock_mm": 3
+      },
+      "from": "discharge-chain.tube-port",
+      "to": "foam-assembly.water-in",
+      "note": "Discharge check to fixed core mouth: source R14 S raises the east run to Z346, fore drop at X100.325/Y304.6 clears the compact +60 funnel and meter, low span below insulation, east rise/downward S to the Y195.5/Z285.8 fore crossing, diagonal return and cap-normal R14 entry.",
+      "curve": "tangent R14 circles and stock polyline"
+    },
+    "fluid-3": {
+      "from": "valve-v-a.outlet",
+      "to": "source-quarter-a.end",
+      "points_mm": [
+        [
+          49.05,
+          210.75,
+          270.15
+        ],
+        [
+          49.05,
+          201.25,
+          270.15
+        ],
+        [
+          22.35,
+          189.74000000000007,
+          276.6750001
+        ],
+        [
+          22.35,
+          180.24000000000007,
+          276.6750001
+        ]
+      ],
+      "diameter_mm": 6.35,
+      "radii_mm": {
+        "1": 14.0,
+        "2": 14.0
+      },
+      "tightest_mm": 14.0,
+      "developed_length_mm": 44.41539637753097,
+      "note": "Source A outlet to retained fore-manifold quarter, R14 formed LLDPE on both terminal axes."
+    },
+    "fluid-5": {
+      "from": "valve-v-b.outlet",
+      "to": "source-quarter-b.end",
+      "points_mm": [
+        [
+          -13.25,
+          271.05,
+          270.15
+        ],
+        [
+          -13.25,
+          285.05,
+          270.15
+        ],
+        [
+          27,
+          285.05,
+          293
+        ],
+        [
+          27,
+          210,
+          293
+        ],
+        [
+          -22.35,
+          210,
+          276.6750001
+        ],
+        [
+          -22.35,
+          180.24000000000007,
+          276.6750001
+        ]
+      ],
+      "diameter_mm": 6.35,
+      "radii_mm": {
+        "1": 14.0,
+        "2": 14.0,
+        "3": 14.0,
+        "4": 14.0
+      },
+      "tightest_mm": 14.0,
+      "developed_length_mm": 193.03841302310047,
+      "note": "Source B aft outlet returns through the supported suction-root passage, rises on X27 and runs fore to the retained Y-B quarter; exact R14."
+    },
+    "fluid-4": {
+      "from": "funnel-drain-union.outlet",
+      "to": "valve-v-b.inlet",
+      "points_mm": [
+        [
+          1.85,
+          185.11239,
+          280.41
+        ],
+        [
+          1.85,
+          194.81239,
+          280.41
+        ],
+        [
+          -13.25,
+          201.85000000000002,
+          270.15
+        ],
+        [
+          -13.25,
+          211.55,
+          270.15
+        ]
+      ],
+      "diameter_mm": 6.35,
+      "radii_mm": {
+        "1": 14.0,
+        "2": 14.0
+      },
+      "tightest_mm": 14.0,
+      "developed_length_mm": 34.21624115384712,
+      "note": "Gravity drain directly descends through two tangent R14 bends into V-B fore inlet; 10.26mm fall, no rising segment."
+    }
+  },
+  "observed_regions": {
+    "motor-lead-transition": {
+      "local_bounds_mm": [
+        [
+          75,
+          -8,
+          5
+        ],
+        [
+          85,
+          10,
+          21
+        ]
+      ],
+      "world_bounds_mm": [
+        [
+          56.75,
+          359.4,
+          258.4
+        ],
+        [
+          66.75,
+          377.4,
+          274.4
+        ]
+      ],
+      "nominal_up_approaches_mm": [
+        [
+          66.75,
+          363.4,
+          274.4
+        ],
+        [
+          66.75,
+          373.4,
+          274.4
+        ]
+      ],
+      "outward_axis": [
+        0,
+        0,
+        1
+      ],
+      "basis": "Observed motor lead-transition window in the scanned reference. Actual terminals and purchased strain relief are unlocated; these points reserve approaches at its upper boundary."
+    }
+  },
+  "clearance_cutters": {
+    "tube-water-6": {
+      "brep": ".cache/pump-first-layout/pump/tube-water-6-clearance-cutter.brep",
+      "sha256": "67c61416857fff4df41cabfb3634dc507fb2beac9adb246f03a7000d878b0f11",
+      "radial_air_mm": 1,
+      "bounds_mm": [
+        -97.16251816110001,
+        404.3254530255667,
+        263.48617988008385,
+        -14.999999899999967,
+        462.0500001,
+        350.5500001000001
+      ],
+      "scope": "Reorganized enclosure roof/flank only; preserve fixed core mouths and part interfaces."
+    },
+    "tube-water-5": {
+      "brep": ".cache/pump-first-layout/pump/tube-water-5-clearance-cutter.brep",
+      "sha256": "b97db4133dbafdbe0c841d7385c8ccfac1729635b4f8b8c007e77b5a7b2c0bac",
+      "radial_air_mm": 1,
+      "bounds_mm": [
+        -60.1750001,
+        156.7249999,
+        253.39999990000004,
+        104.50000010000001,
+        457.67500010000003,
+        350.17500010000003
+      ],
+      "scope": "Exact water5 relief through the back-top upper bay, Y>=200 and Z>=253.4; retain the three-mm exterior flank and unchanged lower interfaces. Recut after parent/host fusion.",
+      "print_owner": "enclosure-back-top",
+      "factory_upper_bay_channel": true,
+      "minimum_exterior_stock_mm": 3.0
+    }
+  },
+  "pilot_cutters": {
+    "suction-chain-gas-portal": {
+      "brep": ".cache/pump-first-layout/pump/suction-chain-gas-portal.brep",
+      "sha256": "bb79c85ee0dea7ce9e0f1cf08d3d2ffc970240e3dc9d0e97fef69da204d8c3ce",
+      "print_owner": "cold-core-lid",
+      "kind": "gas-service-portal",
+      "diameter_mm": 8.35,
+      "bounds_mm": [
+        0.9800000000000004,
+        271.1499999,
+        257.32385291927415,
+        9.020000100000003,
+        279.5075507066442,
+        265.67500009999986
+      ],
+      "axis": "Native gas cross",
+      "z_mm": 261.5,
+      "radial_air_mm": 1,
+      "native_source": {
+        "brep": ".cache/pump-first-layout/routing/co2/co2-0-clearance.brep",
+        "sha256": "efa03a820b89388ce1b52e3ad1c45e8916b3bde34b89dd9bba48377360d54876",
+        "manifest": "future/pump-first-layout-study/routing/co2-candidate.json",
+        "manifest_sha256": "cc12437cfefa96913a73fa23830f6ffb3adff69c543ce3d353641cc90ba283dd"
+      }
+    },
+    "source-b-suction-passage": {
+      "brep": ".cache/pump-first-layout/pump/source-b-suction-passage.brep",
+      "sha256": "2986c03576f2edef3943d1fdc9aed963dab772aeea3cad755ca7038884744f2c",
+      "print_owner": "cold-core-lid",
+      "kind": "source-jumper-clearance",
+      "radial_air_mm": 1
+    },
+    "source-b-barrel-clearance": {
+      "brep": ".cache/pump-first-layout/pump/source-b-barrel-clearance.brep",
+      "sha256": "29f70f6d3ece15b15d80475afde089dfda833d38ec6444447ebd594da4884ab7",
+      "print_owner": "cold-core-lid",
+      "kind": "purchased-collet-clearance",
+      "radial_air_mm": 1
+    },
+    "suction-chain-pilot-1": {
+      "brep": ".cache/pump-first-layout/pump/suction-chain-pilot-1.brep",
+      "sha256": "241032d9eef77be299e2a2969d031bf9adf0e8bfd96e1ed7b602625cb976d94b",
+      "print_owner": "cold-core-lid"
+    },
+    "suction-chain-pilot-2": {
+      "brep": ".cache/pump-first-layout/pump/suction-chain-pilot-2.brep",
+      "sha256": "a45b6d599e629b3380820ad32c4b35ea050e859e8099d0a5ed83b5f1dd9d4fc5",
+      "print_owner": "cold-core-lid"
+    }
+  },
+  "parts": {
+    "g-ganen-pump": {
+      "brep": ".cache/pump-first-layout/pump/g-ganen-pump.brep",
+      "sha256": "56b4615d8c12388600e822b05876ae3f0c177aa69ab5d6b7be5295136d9050d9",
+      "role": "pump",
+      "detail": "Measured native casing, upright rubber feet, motor along +X; suction fore and discharge aft.",
+      "bounds_mm": [
+        -96.14998374835923,
+        319.9,
+        253.4,
+        64.11454172387799,
+        414.9,
+        313.9339277961417
+      ]
+    },
+    "pump-washer-1": {
+      "brep": ".cache/pump-first-layout/pump/pump-washer-1.brep",
+      "sha256": "90b91ed6eec75c02fcc8a005170c4f04138c2e78a3e1c8f6e96f272b74703954",
+      "role": "structure",
+      "detail": "\u00d89 \u00d70.8 washer centered 1.5mm outward in the flexible-foot slot.",
+      "bounds_mm": [
+        7.25,
+        322.9,
+        260.4,
+        16.25,
+        331.9,
+        261.2
+      ]
+    },
+    "pump-screw-1": {
+      "brep": ".cache/pump-first-layout/pump/pump-screw-1.brep",
+      "sha256": "1fcf0978b48f5b188888fa35dcb3ab531ccc34736c5752f7855bb782f1d36795",
+      "role": "structure",
+      "detail": "M3 \u00d720 shoulder-head screw: nominal 7mm pad +0.8mm washer +5.4mm lid, 6.8mm below column mouth.",
+      "bounds_mm": [
+        9.0,
+        324.65,
+        241.2,
+        14.5,
+        330.15,
+        264.2
+      ]
+    },
+    "pump-washer-2": {
+      "brep": ".cache/pump-first-layout/pump/pump-washer-2.brep",
+      "sha256": "1fcf267dba4d52719f6c48eae57c4d2d26b321d0f84bbc709d6cc32f53a1d4c5",
+      "role": "structure",
+      "detail": "\u00d89 \u00d70.8 washer centered 1.5mm outward in the flexible-foot slot.",
+      "bounds_mm": [
+        7.25,
+        402.9,
+        260.4,
+        16.25,
+        411.9,
+        261.2
+      ]
+    },
+    "pump-screw-2": {
+      "brep": ".cache/pump-first-layout/pump/pump-screw-2.brep",
+      "sha256": "601fcf274a9acb3c82b2b9f9df529cbcdc6f8170d99174232f51fbd7edad20c2",
+      "role": "structure",
+      "detail": "M3 \u00d720 shoulder-head screw: nominal 7mm pad +0.8mm washer +5.4mm lid, 6.8mm below column mouth.",
+      "bounds_mm": [
+        9.0,
+        404.65,
+        241.2,
+        14.5,
+        410.15,
+        264.2
+      ]
+    },
+    "pump-washer-3": {
+      "brep": ".cache/pump-first-layout/pump/pump-washer-3.brep",
+      "sha256": "a37fe5ab1af2d41bedce312b32e6e02644b16a72ef775d974d0d9ccb87907ea1",
+      "role": "structure",
+      "detail": "\u00d89 \u00d70.8 washer centered 1.5mm outward in the flexible-foot slot.",
+      "bounds_mm": [
+        39.75,
+        322.9,
+        260.4,
+        48.75,
+        331.9,
+        261.2
+      ]
+    },
+    "pump-screw-3": {
+      "brep": ".cache/pump-first-layout/pump/pump-screw-3.brep",
+      "sha256": "32b6597df338d371a3f99b1a9f807115933fe14a673e3d13439b5440b6e573dd",
+      "role": "structure",
+      "detail": "M3 \u00d720 shoulder-head screw: nominal 7mm pad +0.8mm washer +5.4mm lid, 6.8mm below column mouth.",
+      "bounds_mm": [
+        41.5,
+        324.65,
+        241.2,
+        47.0,
+        330.15,
+        264.2
+      ]
+    },
+    "pump-washer-4": {
+      "brep": ".cache/pump-first-layout/pump/pump-washer-4.brep",
+      "sha256": "ad4068129d3a9d0e833b87a620120dedc125a42dfba17b7982e8da73d0b77a16",
+      "role": "structure",
+      "detail": "\u00d89 \u00d70.8 washer centered 1.5mm outward in the flexible-foot slot.",
+      "bounds_mm": [
+        39.75,
+        402.9,
+        260.4,
+        48.75,
+        411.9,
+        261.2
+      ]
+    },
+    "pump-screw-4": {
+      "brep": ".cache/pump-first-layout/pump/pump-screw-4.brep",
+      "sha256": "9904bc0519bc831a33b0e29de75e91f5aac89c91c392a20d363b71e678b4f41e",
+      "role": "structure",
+      "detail": "M3 \u00d720 shoulder-head screw: nominal 7mm pad +0.8mm washer +5.4mm lid, 6.8mm below column mouth.",
+      "bounds_mm": [
+        41.5,
+        404.65,
+        241.2,
+        47.0,
+        410.15,
+        264.2
+      ]
+    },
+    "cold-core/foam-cap-top": {
+      "brep": ".cache/pump-first-layout/pump/cold-core-foam-cap-top.brep",
+      "sha256": "6bc2137bcb2c0327400d196d96fd2369c25fa26bdd875fdc451f79c993ad340d",
+      "role": "structure",
+      "detail": "Native floor rooted \u00d88mm pump columns at transformed four-foot stations; original cold-core boundary and conduits retained.",
+      "bounds_mm": [
+        -90.49999999302005,
+        182.29999999999998,
+        233.4000002,
+        90.50000000697506,
+        465.30000000000007,
+        248.0000002
+      ]
+    },
+    "cold-core/foam-cap-lid-top": {
+      "brep": ".cache/pump-first-layout/pump/cold-core-foam-cap-lid-top.brep",
+      "sha256": "eddef42dd6efe21c5431452883fa578c4f1a4127dd150341ab7958275a50ebf5",
+      "role": "structure",
+      "detail": "Flat 5.4mm lid with relocated pump clearance holes; valve and chain support hosts are separate displayed structures.",
+      "bounds_mm": [
+        -90.49999999302005,
+        182.29999999999998,
+        248.0000002,
+        90.50000000697506,
+        465.30000000000007,
+        253.4000102
+      ]
+    },
+    "vk-solenoid": {
+      "brep": ".cache/pump-first-layout/pump/vk-solenoid.brep",
+      "sha256": "c51a3c525dc59b8303f7da4986eb5a0e2064b660004cc7504c7b832e5fd65f07",
+      "role": "water",
+      "detail": "Carb-feed valve on its side, coil east, horizontal \u2212Y flow; inlet aft, outlet fore, clear of western cap mouths.",
+      "bounds_mm": [
+        -86.60000009999999,
+        206.9999999,
+        271.75,
+        -29.299999899999992,
+        266.5,
+        305.25
+      ]
+    },
+    "vk-cradle": {
+      "brep": ".cache/pump-first-layout/pump/vk-cradle.brep",
+      "sha256": "3569dd50c6ab7580a13ce6fdd40fa5ffcdde4a30960fa746e9b774379f827e3b",
+      "role": "structure",
+      "detail": "V69 \u00d86.90mm sockets, four posts, 3mm wall and 1mm blind floor; continuous lid-supported side plinth.",
+      "bounds_mm": [
+        -90.6,
+        217.725,
+        253.3900002,
+        -81.39999999999999,
+        255.775,
+        307.3
+      ]
+    },
+    "suction-chain": {
+      "brep": ".cache/pump-first-layout/pump/suction-chain.brep",
+      "sha256": "bf19ae2a537cb4204c9b83d30ea965a885d27f5d6db70027536e7906c5d6e531",
+      "role": "water",
+      "detail": "MAACFLOW + PP450822E; fore-facing \u00bc-inch collet, aft-facing reinforced hose barb.",
+      "bounds_mm": [
+        -60.038434858577574,
+        261.70000000000005,
+        273.65,
+        -43.038434858577574,
+        316.1,
+        290.65
+      ]
+    },
+    "discharge-chain": {
+      "brep": ".cache/pump-first-layout/pump/discharge-chain.brep",
+      "sha256": "94b98748987a6130e76a4b6fda7cc3fbb3930a4fe0ebf88ba2ccb66924bf88eb",
+      "role": "water",
+      "detail": "MAACFLOW + GASHER check + PP450822E across the bay aft of the pump; check holds carbonator pressure off pump.",
+      "bounds_mm": [
+        -15.0,
+        445.0,
+        333.5,
+        68.4,
+        462.0,
+        350.5
+      ]
+    },
+    "tube-water-4": {
+      "brep": ".cache/pump-first-layout/pump/tube-water-4.brep",
+      "sha256": "3a8fba7ca0d5174d94ad11a55be323f36dca2cbcb8f209b29e6be0d30f25b721",
+      "role": "water",
+      "detail": "VK fore outlet returns through an exact diagonal R14 U, a corrective R14 S and a descending R14 S to the suction reducer, below the frame underside.",
+      "bounds_mm": [
+        -78.72500009999999,
+        189.82499990000002,
+        278.97499989999994,
+        -44.962999066241224,
+        261.70000000000005,
+        297.3830829909548
+      ]
+    },
+    "tube-water-7": {
+      "brep": ".cache/pump-first-layout/pump/tube-water-7.brep",
+      "sha256": "38e208073b991b9900b7af1bea8182dd26ec1e133cba847ad90159a1edcca815",
+      "role": "water",
+      "detail": "Measured pump suction to raised reducer: a short exact R15.9 heading correction and two R15.9 opposing arcs preserve both actual terminal axes.",
+      "bounds_mm": [
+        -59.08843495857756,
+        316.09999999999957,
+        272.574320578475,
+        -43.9789416645135,
+        330.17783215527726,
+        289.70000010000007
+      ]
+    },
+    "tube-water-6": {
+      "brep": ".cache/pump-first-layout/pump/tube-water-6.brep",
+      "sha256": "978fd66fd7e3409cbb03cadafd197063d9a9fdadace3ed63a8fd2addc979bc41",
+      "role": "water",
+      "detail": "Actual pump discharge axis: exact R15.9 west/down arcs, low span under PSU, west riser with gentle aft shift, then high return fore of C14 to the check-chain barb.",
+      "bounds_mm": [
+        -96.1625181611,
+        404.33620677460516,
+        264.48617988008385,
+        -14.99999989999997,
+        461.0500001,
+        349.5500001000001
+      ]
+    },
+    "tube-water-5": {
+      "brep": ".cache/pump-first-layout/pump/tube-water-5.brep",
+      "sha256": "de0700e5fb1a32ef5bbbddee9fc6ab38d57a534e83e715bcba556972b15a3147",
+      "role": "water",
+      "detail": "Discharge check to fixed core mouth: source R14 S raises the east run to Z346, fore drop at X100.325/Y304.6 clears the compact +60 funnel and meter, low span below insulation, east rise/downward S to the Y195.5/Z285.8 fore crossing, diagonal return and cap-normal R14 entry.",
+      "bounds_mm": [
+        -59.1750001,
+        157.7249999,
+        253.39999990000004,
+        103.50000010000001,
+        456.67500010000003,
+        349.17500010000003
+      ]
+    },
+    "valve-v-a": {
+      "brep": ".cache/pump-first-layout/pump/valve-v-a.brep",
+      "sha256": "6aed2b159f7308e51c1e24a078147a9ab6fe135c47baa927b93b336fdf7b155a",
+      "role": "water",
+      "detail": "Source valve with east-facing coil, horizontal flow on actual port axes, below enlarged funnel.",
+      "bounds_mm": [
+        37.99999999999999,
+        210.7499999,
+        253.39999999999998,
+        95.3000001,
+        270.25,
+        286.9
+      ]
+    },
+    "source-a-cradle": {
+      "brep": ".cache/pump-first-layout/pump/source-a-cradle.brep",
+      "sha256": "61689e44c217b30d1e9bcf3019b51069ff30ede8d8dd96432cea8abe9993e354",
+      "role": "structure",
+      "detail": "Four V69 sockets, 3mm surrounding wall, 1mm blind floor, lid-rooted vertical plinth.",
+      "bounds_mm": [
+        33.99999999999999,
+        221.475,
+        253.4,
+        43.2,
+        259.525,
+        288.95
+      ]
+    },
+    "tube-fluid-3": {
+      "brep": ".cache/pump-first-layout/pump/tube-fluid-3.brep",
+      "sha256": "3568eb7b8d95726ff9d8e4ee7ab16af2142661146305da74f1e857b233f4f85f",
+      "role": "water",
+      "detail": "Source A outlet to retained fore-manifold quarter, R14 formed LLDPE on both terminal axes.",
+      "bounds_mm": [
+        19.17499990000001,
+        180.24000000000007,
+        266.97499989999994,
+        52.2250001,
+        210.75,
+        279.85000019999995
+      ]
+    },
+    "valve-v-b": {
+      "brep": ".cache/pump-first-layout/pump/valve-v-b.brep",
+      "sha256": "f8957cbe243716d99338f484849f45c9a04b0b943339f1615a81986b35e5d482",
+      "role": "water",
+      "detail": "Source valve with east-facing coil, horizontal flow on actual port axes, below enlarged funnel.",
+      "bounds_mm": [
+        -24.3,
+        211.55,
+        253.39999989999998,
+        33.0000001,
+        271.05000010000003,
+        286.9
+      ]
+    },
+    "source-b-cradle": {
+      "brep": ".cache/pump-first-layout/pump/source-b-cradle.brep",
+      "sha256": "de7a798ecc9e14fa6cf1c612537971822fbe964652992b28ee42e1383c185bf7",
+      "role": "structure",
+      "detail": "Four V69 sockets, 3mm surrounding wall, 1mm blind floor, lid-rooted vertical plinth.",
+      "bounds_mm": [
+        -28.300000000000004,
+        222.27499999999998,
+        253.4,
+        -19.099999999999994,
+        260.325,
+        288.95
+      ]
+    },
+    "tube-fluid-5": {
+      "brep": ".cache/pump-first-layout/pump/tube-fluid-5.brep",
+      "sha256": "498bcaacbd8cbf8ec735e51d525706cc5b129a295a46069b91cb3507bc1ef319",
+      "role": "water",
+      "detail": "Source B aft outlet returns through the supported suction-root passage, rises on X27 and runs fore to the retained Y-B quarter; exact R14.",
+      "bounds_mm": [
+        -25.525000100000113,
+        180.24000000000007,
+        266.97499989999994,
+        30.175000099999963,
+        288.22500010000005,
+        296.17500010000026
+      ]
+    },
+    "tube-fluid-4": {
+      "brep": ".cache/pump-first-layout/pump/tube-fluid-4.brep",
+      "sha256": "3ab35940550e142c8b276083b7f0e09ec107b62cc12f3fe8de9a3ebba9fb2d22",
+      "role": "water",
+      "detail": "Gravity drain directly descends through two tangent R14 bends into V-B fore inlet; 10.26mm fall, no rising segment.",
+      "bounds_mm": [
+        -16.425000100000016,
+        185.11239,
+        266.9749999,
+        5.025000100000001,
+        211.55,
+        283.58500010000006
+      ]
+    },
+    "suction-chain-clip-screw-1": {
+      "brep": ".cache/pump-first-layout/pump/suction-chain-clip-screw-1.brep",
+      "sha256": "e0a377126f6f5487b6d798906361a3b8a5bf31098e30706bd4f07ebe2729773d",
+      "role": "structure",
+      "detail": "M3 \u00d710: 4mm retainer flange, 6mm insert engagement and 2.5mm blind tip reserve.",
+      "bounds_mm": [
+        2.25,
+        269.15000000000003,
+        276.15,
+        7.75,
+        274.65000000000003,
+        289.15
+      ]
+    },
+    "suction-chain-clip-screw-2": {
+      "brep": ".cache/pump-first-layout/pump/suction-chain-clip-screw-2.brep",
+      "sha256": "62a65fdd1266a69067ed4c334f55384a071ee11348f73736a1f97486b3429984",
+      "role": "structure",
+      "detail": "M3 \u00d710: 4mm retainer flange, 6mm insert engagement and 2.5mm blind tip reserve.",
+      "bounds_mm": [
+        2.25,
+        291.75,
+        276.15,
+        7.75,
+        297.25,
+        289.15
+      ]
+    },
+    "suction-chain-anchor": {
+      "brep": ".cache/pump-first-layout/pump/suction-chain-anchor.brep",
+      "sha256": "2fdc54bdce242b1afde1e9e2d7f533b40d121744ce720f3dc357840ba43831ea",
+      "role": "structure",
+      "detail": "3mm lower seat stock on a lid-rooted bridge above the pan, with a continuous3mm rear rail around the source-B barrel and jumper clearance; two blind M3 pockets retain the upper key.",
+      "bounds_mm": [
+        -63.188434958577574,
+        267.8999999,
+        253.3900001,
+        9.000000100000006,
+        298.5000001,
+        282.1500001000006
+      ]
+    },
+    "suction-chain-upper-key": {
+      "brep": ".cache/pump-first-layout/pump/suction-chain-upper-key.brep",
+      "sha256": "e93dac24cacd4e39558ad257c2ebe3fe9801e7f1d753d4de8bbc329368258224",
+      "role": "structure",
+      "detail": "Separate3mm crown with4mm bolted flanges closes the \u00d817.3 seat; two M3\u00d710 screws on the east lid root.",
+      "bounds_mm": [
+        -63.18843485857757,
+        267.90000000000003,
+        282.15,
+        9.000000000003688,
+        298.5,
+        293.79999999999995
+      ]
+    },
+    "discharge-chain-clip-screw-1": {
+      "brep": ".cache/pump-first-layout/pump/discharge-chain-clip-screw-1.brep",
+      "sha256": "93c39289654038aa9ca11489851f43334e81f8499797fcd689ff65902a175867",
+      "role": "structure",
+      "detail": "M3\u00d710 lower-key screw: 3mm clip, 7mm penetration, 5.7mm insert engagement and 1.5mm blind reserve.",
+      "bounds_mm": [
+        20.65,
+        435.6,
+        336.0,
+        26.15,
+        441.1,
+        349.0
+      ]
+    },
+    "discharge-chain-clip-screw-2": {
+      "brep": ".cache/pump-first-layout/pump/discharge-chain-clip-screw-2.brep",
+      "sha256": "6a7a2344606579b4db671fae678761724635e9c721a0e7449c228343935b7ee1",
+      "role": "structure",
+      "detail": "M3\u00d710 lower-key screw: 3mm clip, 7mm penetration, 5.7mm insert engagement and 1.5mm blind reserve.",
+      "bounds_mm": [
+        40.65,
+        435.6,
+        336.0,
+        46.15,
+        441.1,
+        349.0
+      ]
+    },
+    "discharge-chain-lower-key": {
+      "brep": ".cache/pump-first-layout/pump/discharge-chain-lower-key.brep",
+      "sha256": "2a55213576ddd7a1d11ee8b4822e4a4d097ce588d126c9d7d652b77fd9bed55d",
+      "role": "structure",
+      "detail": "3mm lower half-key on GASHER hex, two fore M3 stations and 0.15mm radial seat air; factory-installed with roof subassembly.",
+      "bounds_mm": [
+        19.4,
+        432.9,
+        330.35,
+        47.4,
+        465.15,
+        342.0
+      ]
+    },
+    "discharge-chain-anchor": {
+      "brep": ".cache/pump-first-layout/pump/discharge-chain-anchor.brep",
+      "sha256": "3ce40469e79bf0d272e63d93dff67775aab0a02e457ac9a455d4c5cf86bd72a4",
+      "role": "structure",
+      "detail": "Roof/rear-rooted 9.5mm hex key with two blind M3 columns and a separate 3mm bolted lower retainer.",
+      "bounds_mm": [
+        19.4,
+        434.35,
+        330.35,
+        47.4,
+        465.3,
+        355.0
+      ]
+    },
+    "hose-engagement-pump-suction": {
+      "brep": ".cache/pump-first-layout/pump/hose-engagement-pump-suction.brep",
+      "sha256": "833991f3ac9e95a79a6071c30896b484ad3c7c9693883565256d6d565360aa66",
+      "role": "water",
+      "detail": "Reinforced-PVC wall over barb; inserted length uses observed pump exterior or chain reference span.",
+      "bounds_mm": [
+        -59.15061732108445,
+        330.10009635954435,
+        272.544787650386,
+        -43.988516531813495,
+        343.56386789786643,
+        287.6742838295174
+      ]
+    },
+    "hose-clamp-pump-suction": {
+      "brep": ".cache/pump-first-layout/pump/hose-clamp-pump-suction.brep",
+      "sha256": "8b08a51eeccbbaf729160e1843f7ac91e73e4a15b405c2f78d76ef8207b2c8a6",
+      "role": "water",
+      "detail": "LOKMAN 10\u201316mm reference clamp at \u00d815.1mm; housing envelope seeded, not dimensionally ratified.",
+      "bounds_mm": [
+        -66.77292307508797,
+        331.8030343253156,
+        271.95115673108234,
+        -43.400151429768684,
+        341.366585174487,
+        291.1820226194287
+      ]
+    },
+    "hose-engagement-pump-discharge": {
+      "brep": ".cache/pump-first-layout/pump/hose-engagement-pump-discharge.brep",
+      "sha256": "86f559bb8040bb074cec8c45ab1762ba58cca83757902e0ed96144edcddcdafa",
+      "role": "water",
+      "detail": "Reinforced-PVC wall over barb; inserted length uses observed pump exterior or chain reference span.",
+      "bounds_mm": [
+        -59.09224558154791,
+        391.19380919475987,
+        272.48187521248394,
+        -43.95899403694074,
+        404.4985883850858,
+        287.7184099371626
+      ]
+    },
+    "hose-clamp-pump-discharge": {
+      "brep": ".cache/pump-first-layout/pump/hose-clamp-pump-discharge.brep",
+      "sha256": "3955db6cfc8bb12a7b3a222683e51bbdfe5efc8d2c64ceb378558d85c4e24bc2",
+      "role": "water",
+      "detail": "LOKMAN 10\u201316mm reference clamp at \u00d815.1mm; housing envelope seeded, not dimensionally ratified.",
+      "bounds_mm": [
+        -66.70492800895205,
+        393.11528088887115,
+        269.09340546894134,
+        -43.36533005910113,
+        402.77868579075823,
+        288.29224962211146
+      ]
+    },
+    "hose-engagement-chain-suction": {
+      "brep": ".cache/pump-first-layout/pump/hose-engagement-chain-suction.brep",
+      "sha256": "ec134c86f3afd2ae4104253415e5ca8dda613699c04b7352d1f9201573f3a0e3",
+      "role": "water",
+      "detail": "Reinforced-PVC wall over barb; inserted length uses observed pump exterior or chain reference span.",
+      "bounds_mm": [
+        -59.08843485857757,
+        294.1,
+        274.59999999999997,
+        -43.98843485857758,
+        316.1,
+        289.7
+      ]
+    },
+    "hose-clamp-chain-suction": {
+      "brep": ".cache/pump-first-layout/pump/hose-clamp-chain-suction.brep",
+      "sha256": "2cacf7ca78fcabe789d32f512788b6742d5b4e84acbf8930d4dce5d96815182c",
+      "role": "water",
+      "detail": "LOKMAN 10\u201316mm reference clamp at \u00d815.1mm; housing envelope seeded, not dimensionally ratified.",
+      "bounds_mm": [
+        -59.68843485857757,
+        304.85,
+        274.0,
+        -36.388434858577575,
+        314.35,
+        293.15
+      ]
+    },
+    "hose-engagement-chain-discharge": {
+      "brep": ".cache/pump-first-layout/pump/hose-engagement-chain-discharge.brep",
+      "sha256": "fe3ba8cdd9eec804d334517326c246313ab6121c07f7f067751040a672fdf81a",
+      "role": "water",
+      "detail": "Reinforced-PVC wall over barb; inserted length uses observed pump exterior or chain reference span.",
+      "bounds_mm": [
+        -15.0,
+        445.95,
+        334.45,
+        7.000000000000001,
+        461.05,
+        349.55
+      ]
+    },
+    "hose-clamp-chain-discharge": {
+      "brep": ".cache/pump-first-layout/pump/hose-clamp-chain-discharge.brep",
+      "sha256": "02e5c45e6919e65f71af6cd004a57337dbd5fc0db194826d5adc210b4e5d8ca3",
+      "role": "water",
+      "detail": "LOKMAN 10\u201316mm reference clamp at \u00d815.1mm; housing envelope seeded, not dimensionally ratified.",
+      "bounds_mm": [
+        -13.25,
+        438.35,
+        331.0,
+        -3.7499999999999982,
+        461.65,
+        350.15
+      ]
+    }
+  },
+  "printed_parts": {
+    "suction-chain-upper-key": {
+      "brep": ".cache/pump-first-layout/pump/suction-chain-upper-key.brep",
+      "sha256": "e93dac24cacd4e39558ad257c2ebe3fe9801e7f1d753d4de8bbc329368258224",
+      "role": "structure",
+      "detail": "Separate3mm crown with4mm bolted flanges closes the \u00d817.3 seat; two M3\u00d710 screws on the east lid root.",
+      "bounds_mm": [
+        -63.18843485857757,
+        267.90000000000003,
+        282.15,
+        9.000000000003688,
+        298.5,
+        293.79999999999995
+      ],
+      "separate": true,
+      "rotation_x_deg": 180,
+      "nominal_crown_stock_mm": 3,
+      "bolt_flange_stock_mm": 4,
+      "fasteners": "Two M3\u00d710 into5.7mm inserts in the lid-rooted lower bridge."
+    }
+  },
+  "electrical_interfaces": {
+    "basis": "Native Beduan terminal blade front face centre; local X\u22127.45/+7.45, Y27.1, Z52.2, outward+Y. The reference does not mark polarity, so terminal identities use the reference local X sign.",
+    "vk-solenoid": {
+      "-1": {
+        "point_mm": [
+          -34.39999999999999,
+          209.65,
+          281.05
+        ],
+        "outward_axis": [
+          0.0,
+          -1.0,
+          1.2246467991473532e-16
+        ]
+      },
+      "1": {
+        "point_mm": [
+          -34.39999999999999,
+          209.65,
+          295.95
+        ],
+        "outward_axis": [
+          0.0,
+          -1.0,
+          1.2246467991473532e-16
+        ]
+      }
+    },
+    "valve-v-a": {
+      "-1": {
+        "point_mm": [
+          90.2,
+          213.4,
+          262.7
+        ],
+        "outward_axis": [
+          0.0,
+          -1.0,
+          1.2246467991473532e-16
+        ]
+      },
+      "1": {
+        "point_mm": [
+          90.2,
+          213.4,
+          277.59999999999997
+        ],
+        "outward_axis": [
+          0.0,
+          -1.0,
+          1.2246467991473532e-16
+        ]
+      }
+    },
+    "valve-v-b": {
+      "-1": {
+        "point_mm": [
+          27.900000000000002,
+          268.40000000000003,
+          277.59999999999997
+        ],
+        "outward_axis": [
+          0.0,
+          1.0,
+          0.0
+        ]
+      },
+      "1": {
+        "point_mm": [
+          27.900000000000002,
+          268.40000000000003,
+          262.7
+        ],
+        "outward_axis": [
+          0.0,
+          1.0,
+          0.0
+        ]
+      }
+    }
+  },
+  "replacement_names": [
+    "valve-v-a",
+    "coil-v-a",
+    "valve-v-b",
+    "coil-v-b",
+    "step-fluid-3",
+    "step-fluid-5",
+    "tube-fluid-4",
+    "g-ganen-pump",
+    "vk-solenoid",
+    "suction-chain",
+    "discharge-chain",
+    "tube-water-4",
+    "tube-water-5",
+    "tube-water-6",
+    "tube-water-7",
+    "cold-core/foam-cap-top",
+    "cold-core/foam-cap-lid-top"
+  ],
+  "qualification_limits": [
+    "Scan shapes are occupied envelopes, not strength or mass inputs.",
+    "Pump rubber compression, actual slot passage, clamp hardware dimensions and retention remain separate physical qualifications.",
+    "V69 physical hand fit belongs to the accepted upright socket article; the side VK cradle is an explicit geometric candidate.",
+    "Valve lateral orientation operating authority is not present in the supplied reference; only the candidate geometry is established.",
+    "Discharge hose low span clears the PSU by10.164mm; its measured attachment remains closer to the PSU. Manufacturer airflow compliance and thermal output are not established by this geometry."
+  ],
+  "all_checks_pass": true,
+  "blocked_routes": {},
+  "baseline": "7a05166b89237af18e56e00c2216d654d33ae76c0caef22445dd1f8ac867aa91"
+}

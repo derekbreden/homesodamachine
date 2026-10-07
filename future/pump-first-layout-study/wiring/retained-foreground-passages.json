@@ -1,0 +1,17 @@
+{
+  "passages": {
+    "display": {
+      "point": [32.0, 95.20849207671873, 305.5045573971231],
+      "axis": [0, 1, 0],
+      "diameter_mm": 14.7,
+      "scope": "Existing display-backing loom bore; downstream display terminals and cable dressing remain retained interfaces."
+    },
+    "cartridge": {
+      "point": [0.0, 93.836, 276.4256262237512],
+      "axis": [0, 1, 0],
+      "diameter_mm": 11.0,
+      "scope": "Existing fixed pogo lead bore through the bay bulkhead; soldered tails and accepted mating pair remain retained interfaces."
+    }
+  },
+  "source": "Native _ridge_loom_station, roof_datums and pump_contact_lead_axis_z evaluated against hardware/manifold-layout/enclosure-box.json. These are retained forward passages; conductor order, formed bends and downstream mating interfaces remain separately scoped."
+}

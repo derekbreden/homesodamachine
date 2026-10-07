@@ -1,0 +1,17 @@
+{
+  "brep": ".cache/pump-first-layout/routing/flavor-a-psu-portal.brep",
+  "print_owner": "cold-core-lid",
+  "target_hosts": [
+    "supply-lid-web-1"
+  ],
+  "radial_air_mm": 1,
+  "bounds": [
+    -55.675000100000005,
+    401.0,
+    253.42499990000002,
+    -33.63499990000011,
+    446.51,
+    273.1990001000001
+  ],
+  "scope": "Final A rear return unchanged fromstation401 tofixedrearA446.51; truncatefore-leftbossabove tube andrecutthis portal in supporting ordinary3 mm web."
+}

@@ -1,0 +1,28 @@
+{
+  "rows": [
+    {
+      "aft_extension_mm": 0,
+      "samples": 6669,
+      "minimum_sampled_ramp_grade_deg": 9.358055042933765,
+      "minimum_sample_local_xyz_mm": [
+        -70.75041215716833,
+        43.92719800249159,
+        -18.195907944190573
+      ],
+      "method": "Native surface normal samples on the loft side faces at 39\u00d719 interior UV stations per face. Horizontal end caps excluded.",
+      "scope": "This is a sampled geometric slope, not a measured complete-draining result or minimum continuous surface proof."
+    },
+    {
+      "aft_extension_mm": 60,
+      "samples": 6669,
+      "minimum_sampled_ramp_grade_deg": 6.282891972238086,
+      "minimum_sample_local_xyz_mm": [
+        -10.568563685039663,
+        -11.455134339457487,
+        -29.555294395158555
+      ],
+      "method": "Native surface normal samples on the loft side faces at 39\u00d719 interior UV stations per face. Horizontal end caps excluded.",
+      "scope": "This is a sampled geometric slope, not a measured complete-draining result or minimum continuous surface proof."
+    }
+  ]
+}

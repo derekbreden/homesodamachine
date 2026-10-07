@@ -1,0 +1,136 @@
+{
+  "rigid_pose_and_y_slide_pass": true,
+  "temporary_pose": {
+    "brep": ".cache/pump-first-layout/structure/hose-closure/prv-factory-tucked.brep",
+    "sha256": "8b038d54ffdb945ebb70d40b1beaa0db8c7527288cea70446acebeaac7ae2730",
+    "clock_deg": -70,
+    "rotation_origin_mm": [
+      -77.50449999302,
+      323.8,
+      207.8500001
+    ],
+    "rotation_axis": [
+      0.0002812499888733622,
+      -3.1225021332276903e-20,
+      -0.9999999604492211
+    ],
+    "bounds_mm": [
+      -85.61382693446267,
+      308.61869696643186,
+      188.67759128452218,
+      -74.32893688149939,
+      326.9750001000009,
+      207.85089306871467
+    ],
+    "preserved_properties": "The unchanged native occupied tube is a rigid rotation about its measured incoming face. Length, circular sections and all local curvature are identical."
+  },
+  "temporary_native_neighbors": [
+    {
+      "other": "cold-core/foam-shell",
+      "gap_mm": 1.686173058557344,
+      "common_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "other": "cold-core/prv-shroud",
+      "gap_mm": 0.22450192557267348,
+      "common_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "other": "cold-core/line-water-in",
+      "gap_mm": 36.22956309982637,
+      "common_mm3": 0.0,
+      "pass": true
+    }
+  ],
+  "y_slide_checks": [
+    {
+      "back_top_offset_y_mm": 70,
+      "common_mm3": 0.0,
+      "gap_mm": 12.886173065537335,
+      "pass": true
+    },
+    {
+      "back_top_offset_y_mm": 40,
+      "common_mm3": 0.0,
+      "gap_mm": 12.886173065537335,
+      "pass": true
+    },
+    {
+      "back_top_offset_y_mm": 20,
+      "common_mm3": 0.0,
+      "gap_mm": 12.886173065537335,
+      "pass": true
+    },
+    {
+      "back_top_offset_y_mm": 10,
+      "common_mm3": 0.0,
+      "gap_mm": 9.381771898902532,
+      "pass": true
+    },
+    {
+      "back_top_offset_y_mm": 5,
+      "common_mm3": 0.0,
+      "gap_mm": 7.6725907195605485,
+      "pass": true
+    },
+    {
+      "back_top_offset_y_mm": 2,
+      "common_mm3": 0.0,
+      "gap_mm": 6.646777699229465,
+      "pass": true
+    },
+    {
+      "back_top_offset_y_mm": 1,
+      "common_mm3": 0.0,
+      "gap_mm": 6.304802790562466,
+      "pass": true
+    },
+    {
+      "back_top_offset_y_mm": 0.25,
+      "common_mm3": 0.0,
+      "gap_mm": 6.048310270043811,
+      "pass": true
+    },
+    {
+      "back_top_offset_y_mm": 0,
+      "common_mm3": 0.0,
+      "gap_mm": 5.962810642509782,
+      "pass": true
+    }
+  ],
+  "installed_pose": {
+    "source": "cold-core/line-prv-vent",
+    "bounds_mm": [
+      -92.49999999302,
+      320.6249999,
+      188.67500009999998,
+      -74.32893794673001,
+      326.97500010000005,
+      207.85089306871467
+    ],
+    "roof_common_mm3": 0.0,
+    "roof_gap_mm": 2.8249999999999886,
+    "final_exit_preserved": true
+  },
+  "rigid_untwist_counterexample": {
+    "clock_deg": -45,
+    "foam_shell_common_mm3": 43.57905584978946,
+    "pass": false
+  },
+  "factory_method": [
+    "Before enclosing the core, place a removable fine pull loop at the relief outlet and route its free ends down the existing west vent chase to the open external groove. The fixture must fit the accepted6.8mm core exit around the6.35mm tube; no below-cap stock is altered.",
+    "Temporarily park the outlet in the shown70\u00b0 inward clocking about the shroud inlet. Keep the native source attachment at its original position and hold the free outlet within the internal pocket while the back-top follows its retained Y slides.",
+    "After the back-top seats, use the free pull-loop ends at the outside groove to guide the compliant outlet through its accepted core exit to the exact flush west mouth. Remove the temporary loop and verify the clear vent/chase path before closing the appliance."
+  ],
+  "scope": "Native temporary occupancy and nine sampled roof Y poses are checked. The exact installed vent and every below-cap interface are preserved.",
+  "qualification_limits": [
+    "The flexible transition through the narrow exit, temporary pull-loop size/material, source retention and complete loop removal require physical factory assembly qualification.",
+    "Rigid rotation through the intermediate45\u00b0 pose hits the foam-shell exit. It is not the proposed physical reseat trajectory and is deliberately recorded; the selected tucked pose alone does not prove continuous flexible motion.",
+    "Inspect for an unpinched tube and an unobstructed relief chase after reseating. The installed relief capacity/backpressure qualification is unchanged."
+  ],
+  "native_source_sha256": "7a05166b89237af18e56e00c2216d654d33ae76c0caef22445dd1f8ac867aa91",
+  "roof_brep": ".cache/pump-first-layout/mounts/enclosure-back-top.brep",
+  "roof_sha256": "9886918b3e7da6f958bf720957e01e52a3f401f05f66fafd0637eafd6deb0a33"
+}

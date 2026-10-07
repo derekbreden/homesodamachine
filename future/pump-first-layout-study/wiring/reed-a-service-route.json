@@ -1,0 +1,528 @@
+{
+  "pass": true,
+  "scope": "Counted eight-wire R6 service trunk between the accepted bare exit and a named aft-entry dressing fork; actual constituent turns remain unlocated.",
+  "points_mm": [
+    [
+      -62.0,
+      458.0,
+      259.0
+    ],
+    [
+      -62.0,
+      458.0,
+      285.4
+    ],
+    [
+      -77.45,
+      458.0,
+      285.4
+    ],
+    [
+      -77.45,
+      442.2,
+      285.4
+    ],
+    [
+      -52.25,
+      442.2,
+      285.4
+    ],
+    [
+      -52.25,
+      442.2,
+      313.8
+    ],
+    [
+      -39.65,
+      442.2,
+      313.8
+    ],
+    [
+      -39.65,
+      424.3,
+      313.8
+    ],
+    [
+      -39.65,
+      424.3,
+      326.4
+    ],
+    [
+      -52.8,
+      424.3,
+      326.4
+    ],
+    [
+      -52.8,
+      407.5,
+      326.4
+    ]
+  ],
+  "radius_mm": 6.0,
+  "diameter_mm": 6.4,
+  "length_mm": 161.12300164692425,
+  "from": {
+    "owner": "control-reed-a-bare-exit",
+    "point": [
+      -62,
+      458,
+      259
+    ],
+    "axis": [
+      0,
+      0,
+      1
+    ],
+    "label": "Reed-A counted bare/round transition",
+    "basis": "Nominal terminal-face reservation",
+    "diameter_mm": 6.4,
+    "bend_radius_mm": 6.0,
+    "lead_paths": [
+      [
+        [
+          -62,
+          458,
+          259
+        ],
+        [
+          -62.0,
+          458.0,
+          267.4
+        ]
+      ],
+      [
+        [
+          -62,
+          458,
+          259
+        ],
+        [
+          -62.0,
+          458.0,
+          271.6
+        ]
+      ],
+      [
+        [
+          -62,
+          458,
+          259
+        ],
+        [
+          -62.0,
+          458.0,
+          275.8
+        ]
+      ],
+      [
+        [
+          -62,
+          458,
+          259
+        ],
+        [
+          -62,
+          458,
+          279
+        ]
+      ]
+    ]
+  },
+  "to": {
+    "owner": "control-service-fork-A",
+    "point": [
+      -52.8,
+      407.5,
+      326.4
+    ],
+    "axis": [
+      0,
+      1,
+      0
+    ],
+    "label": "Reed-A fork aft approach",
+    "basis": "Nominal terminal-face reservation",
+    "diameter_mm": 6.4,
+    "bend_radius_mm": 6.0,
+    "lead_paths": [
+      [
+        [
+          -52.8,
+          407.5,
+          326.4
+        ],
+        [
+          -52.8,
+          415.9,
+          326.4
+        ]
+      ],
+      [
+        [
+          -52.8,
+          407.5,
+          326.4
+        ],
+        [
+          -52.8,
+          420.1,
+          326.4
+        ]
+      ],
+      [
+        [
+          -52.8,
+          407.5,
+          326.4
+        ],
+        [
+          -52.8,
+          424.3,
+          326.4
+        ]
+      ],
+      [
+        [
+          -52.8,
+          407.5,
+          326.4
+        ],
+        [
+          -52.8,
+          427.5,
+          326.4
+        ]
+      ]
+    ]
+  },
+  "search_states": 24025,
+  "native_interferences": [],
+  "conductor_count": 8,
+  "actual_bore_mm": 6.8,
+  "packing_radius_mm": 2.35,
+  "minimum_nominal_round_trunk_wire_centre_radius_mm": 3.65,
+  "flat_exit_cross_section_mm": [
+    14.3,
+    1.7
+  ],
+  "flat_exit_z_mm": [
+    254.95,
+    256.65
+  ],
+  "fork_axis_mm": [
+    -52.8,
+    407.5,
+    326.4
+  ],
+  "fork_incoming_axis": [
+    0,
+    -1,
+    0
+  ],
+  "fork_interferences": [],
+  "fork_declared_continuity": [
+    {
+      "part": "control-ground-lower-fanout",
+      "common_mm3": 4.5499681800844956
+    }
+  ],
+  "input_geometry_sha256": {
+    "funnel": "e84ae6d8b8a5b2d8101b9ca5ab7ae1f368495e59982349c48a46f39483a23336",
+    "funnel-frame": "9cc51398fb08d706cb1a41269b11a0d583568d51143d3d59139da5c6073fbe12",
+    "funnel-cover": "478f6ff61287685df70c661a16445400cce563025e3e2d8341be7e264601c7b2",
+    "valve-v-a": "ef9cbea737f4336b96ce3a155fe4a59c58a5a434ad309412dad961e025f50cc7",
+    "valve-v-b": "2123f24d32172ee17b2d65515ee267a1ecc066c789ddfb6fdfd63847f15306b4",
+    "tube-fluid-4": "0eda1b04e29c1d74b589ca0c958a3e240038b1bed991e018d84692196d56b5e9",
+    "g-ganen-pump": "ef9698b6c36949d124b1a7e7ea1c8af2174e3260ab226fc9ec8412836765ee44",
+    "vk-solenoid": "60acf8c9bf4723157a61f8915cd6fe79ec8ee7f5734e6743dd1778dd825d0dd0",
+    "suction-chain": "c97120e315a04ac0f9f26d73257687ea0f3087843e85e63a8fea49a365fe91c2",
+    "discharge-chain": "a8ec3e1e620255658663254491c6a1d1ace00550b0d65c102c56ae95bc8e318d",
+    "tube-water-4": "c30e08cae3d01e80822f698dc7faeea5e84640e424a271c5a5b55c7973f78172",
+    "tube-water-5": "8dc6338a2b2a93c232f0ad04456183599a7fa545b0f628e0c76c5fedf63daf2f",
+    "tube-water-6": "17ef97e1ece18f0a3037eb59850a9bea565d72b36d730ddf7ce2d3668933cddb",
+    "tube-water-7": "b45f21784930d33a7cff288f220d1c185241b2044937913340ff6c903ef6c2e6",
+    "cold-core/foam-cap-top": "ae889d7b13bad428571f3f8ccf9401acb772e5930bde4728a670548636f697a9",
+    "cold-core/foam-cap-lid-top": "4dc3991a67e1b2a4fe3589b4754989e096d68004089b3ec0b0c9db9ee57c040f",
+    "pump-washer-1": "2f31cf738c9630ab6e9a2bd9c7bf46a21f0f6ad7d03a370ea7554b26adcdcba1",
+    "pump-screw-1": "835a7e9ab01ab7f881164f425e73125acde8ba4e3517841d34e30bebc83adff7",
+    "pump-washer-2": "9a439637ccea9c6f5fb4de838365008d7b4ed3923620a1726915153b1361ce45",
+    "pump-screw-2": "09a9a4b59a9e606d60b6e103a205a61b810d9d7d4bb40b46027fd6fcf3aad3a6",
+    "pump-washer-3": "725c262e4587fbf980152156f00aff3b99f5a16ec42ba1abd3d6dd6bb00d5583",
+    "pump-screw-3": "04618aca53c74ed26c46534594812e527671e0691fdee3e0db5cbcb54b7629fa",
+    "pump-washer-4": "d8e5b2f10091955ed9d40dabb10a824a45a46c1b950826461f8c2c40c7fcec12",
+    "pump-screw-4": "ed462b4e86d8251540b6ece583a94449806a6853e6d1825b54c5737bbeebc1c2",
+    "vk-cradle": "65b94726dca78349e9f0408b4b122b20ccbd425125b26c303558357d1b5f5d41",
+    "source-a-cradle": "fbc352a49c85028ed4f05179b72f3ca2247175d09c657d300efdde7d1e743ba9",
+    "tube-fluid-3": "0be90d88f47826eda149dd0a778c0bf3dd5ed1a50e8390f5cf4d495e259666e2",
+    "source-b-cradle": "44d3b7d669f2847ea5f711536c2af0f74c07ee7092fde022e30f74fbcd78031f",
+    "tube-fluid-5": "8e4e4299db320f6f9c6a0be85c94b1ae6a79a85c2b25490a87eb935199fcf679",
+    "suction-chain-clip-screw-1": "4b379c1ed89c28a4bdd79d4f8bb35f9baf83c3c572b5a68f4ff12a21aeda611c",
+    "suction-chain-clip-screw-2": "ada0c99cd8bf2570acd8fe1b8dbe1639bcc9d733b0a76dd7c3b66c57fa3b92eb",
+    "suction-chain-anchor": "ecc35175ca848210044db0ea1c84bc5b929a54c7e95df27f4c3ed157fe33e860",
+    "suction-chain-upper-key": "d48c184c28f6cbf7de9f5e1d600706008be250db410d1487805846debdba3d6f",
+    "discharge-chain-clip-screw-1": "53184975969d6aa52aa84564525a00cbb279d4fdac0374a959411dc948bbeb24",
+    "discharge-chain-clip-screw-2": "6fe8f74c6dfc7e6336315ac11498649a6cfbd94f0f321f181944cf517a7e2649",
+    "discharge-chain-lower-key": "403450997ee03b8a7781bbab7aaf89b8e184e35359e1f9611720638a0d5f0d36",
+    "discharge-chain-anchor": "7f99d1c4b460ef62848b8cbe2e7621d6ecb18e1d74e78d6bea5f753a18dbfb60",
+    "hose-engagement-pump-suction": "e1680fdb431214f02cd04c6792bc65d01658411e3c93f9d6a54dad6f587a4481",
+    "hose-clamp-pump-suction": "21283e2c8ebfdd5ab1e03c100b1db077e801f8202344e0c40af6db6c12256deb",
+    "hose-engagement-pump-discharge": "2ac08f55a449d4e3de827d5d7d587396ae61f474dc35d1846a7e453a1317b8c9",
+    "hose-clamp-pump-discharge": "97f08c775be6f10c7ad9ba0f38b9fb3e5a06d82d873d2b21cadf0a554a7fd109",
+    "hose-engagement-chain-suction": "9032a6d68db0f79d208cb2ebf7e14ad33692eb8ddf74b15ddc917155f07e8ef2",
+    "hose-clamp-chain-suction": "829f6295f316aadfaa5e17e25358364b9e3c7515208b470e7c4a8effffad2dee",
+    "hose-engagement-chain-discharge": "27ae1d88f4b6dcd143e80c8820355243b885b560819a8fc0aaef4d817a7b0faf",
+    "hose-clamp-chain-discharge": "a9f47d04afd465779a85a4d6ad572cecb85cc149a2bbaf0d820d2c3046b45025",
+    "tube-fluid-24": "0a421edf92caad3eb7a13c5fea7f95d8e2ffdebcce6a501a68e1688c76622b95",
+    "asse-drip-pan": "34ddda6dd95987895d076a982fa87429d3a00d718a903cd570baa97fd660acbe",
+    "asse1022-assembly": "5036cb0c7aae4e6921f3dbd03fa8618d630290ff5f87a9720e02ba5e5386cffa",
+    "bulkhead-carb": "d3d382ae066ea4626a78f00f17659a9563789f5b96dd53e7521e53369a4373ed",
+    "bulkhead-ring-carb": "1cc69943156047fdc13253aa9ba4a3c373b9fc56e9f8136f33c869545bcf7557",
+    "bulkhead-ring-carb-word": "c82f379d29935ae5354531e4f8c06b491102f087eb6106e8c51f2808bf32f14d",
+    "bulkhead-ring-co2": "e2e61cea43e94bb65bb75ac609e0e931d397386dcde6ff1da0d3bf2d7136d28a",
+    "bulkhead-ring-co2-word": "770812724df2f8c935783d922440475557cf124a4cc5bcdf49988054b492725f",
+    "bulkhead-ring-water": "2336dfe1a235d6b2c78e78b3821ebd190b7a8b222780a0a9eff59052bc1ada3c",
+    "bulkhead-ring-water-word": "de6c0e3e0f6e3b8179d9f0c7f7ecf40427fca0f839aa30b3c6a4de0285fe7a6c",
+    "bulkhead-water": "5c0c87271f6df2aa39a8fa67bc14da251ef57971234f53b8d80c224a851ccb4e",
+    "carb-foam-carb-1": "615a04e0cb7c0d5a7cee0555e085f46be2c14553c2f4cc7205b6beb82748c30b",
+    "carb-foam-carb-2": "76d96420f7825b23b52bfa9b445b0a2be7ef50ef31f393661262cf3be661dcfd",
+    "co2-adapter-check-in": "37d7ab4fa24507ceb2e4ed6e821e9bfb500c36f359f47fb51ba181060dea6455",
+    "co2-adapter-check-out": "7b98ca8cd2001df676e7fcf8a09953a75df07902f2d6b36194e052cd6bca2b8a",
+    "co2-adapter-regulator-in": "098a377e15659fe51dcfe6625da45e0f3542d5f9243ba563ab85054103dac7b7",
+    "co2-adapter-regulator-out": "2deffdbc036874e8163b83f1db40bf0be0acb0acdb0b0f67cbbbc4069c8eb522",
+    "co2-inlet": "98708fc70990be3324bdeceb1907665da4f33b014b3f08a26ad581befd2d988e",
+    "digiten-flow": "1dfaf9e150d7511f2148e481b655578f36cd24891bcb067907bdf64f9f924629",
+    "flow-regulator": "d103b810728b13a640134e519d7858dd91ec73e509beb55ab68eaff0a2fa5ba7",
+    "gasher-co2": "485492bfe962164b9eb3fac8b6490a9467db0a15c3d3f1bbe193d9a2c37f4c87",
+    "keystone-jack": "6da0fa8ba2fbae83fd528302e685b55573525310ea1fe049cf08acda8f462710",
+    "moisture-plate": "bc444fb949db08ffb7b37aa5da0433eafd94ad9c330bae530a80a17b68ef1626",
+    "nameplate": "c20bf324ba5c78332f2e68ac0c5402a61c04380601d6c7e5e018e283ab13d15a",
+    "nameplate-ink": "24b4668d985257e5d688c52c57766851d16d7b50c1980fff786a8f4d8d429ac3",
+    "relay-1": "5376ffba59d706d7dd55f662c5ab4548a637603c8ab257e4e74a7bf5cc6d6426",
+    "relay-2": "bc6b452a8edd5352752c067df230f773f5b4aa7f74cda1e870f515654857592c",
+    "tube-carb-1": "59822f83b4185154f6711531801711260d10d17663cdcf7d52147ec66d86e83c",
+    "tube-carb-2": "a6f8a4f3ec6b3185bcc77452c3613972f1adc4b263aaaa7b6016a11b6cc28d83",
+    "tube-co2-0": "a300b2d89920f130f37d471e55889eb105bbed9c5990477a197747e5596fd0d4",
+    "tube-co2-1": "00920621c4c3bc0f2a7a3c86173416b69d6a9453e831b81d8cb438ab7c863096",
+    "tube-co2-2": "fe94d51ec5e64761259016b0c5c0389bd3642c84f74579d8b84dd955d2699408",
+    "tube-fluid-1": "c63e3f28359bb0361ce5826d232f99b2afd11a73bd7ce68b8f74bda5c0b26666",
+    "tube-fluid-14": "13eb19d7f95a7ff79b6ef431e8ae776953c3627c0d5945acb2588d6ebf0df81b",
+    "tube-fluid-18": "3d269585081094d5c7d644a5c0bea4114e7c097f0b42cec7b945822f2922d7bd",
+    "tube-fluid-2": "1ab43e242efe4359f2ea7ebb763176934388d8da6f2d3cd2da09f72c980565ae",
+    "tube-fluid-28": "5de2e12cebe114820cbc2d1dfc6a04c27eef1b30f5edd8d0bf2541b40361f176",
+    "tube-water-2": "449226d34dc40ca5e55cbf4cdfc0635ba17c6d7376a696e4fd54118a99a66ab2",
+    "tube-water-3": "372d4ecfa1b6848746a5442024cc7d487315f8efa85216562ab610242f4c9bfd",
+    "tube-water-supply-link": "ad41aba76ea889d3abf474f8fa070b30775d0ae032e8bc0d1891200b02ab6447",
+    "wago-g": "0d7b91b811e399c9bb7ed9ce93600671efabc84bdf7cc117174ccbdb0ef3ecdd",
+    "wago-gnd": "05c96c4c046a7719bdac8021aeebba219b66091fb3b5978cb4b5713f5c8e172f",
+    "wago-h": "0792b1d162afe4b2848ea6b9681ff55cb7246034cb30023e186ca7f4bcad5bfe",
+    "wago-n": "ab96caf6297baeebbf54ac2aab638072bcca4d5b9e22cce99174062f701bcfe5",
+    "wago-reeds-a": "c0990ea8430afafc0e54508bf4b3a4ef55ae9b72bc9be1edc5a1363b8d577af0",
+    "wago-reeds-b": "ca05e68fe786017425f67e64598f86290b29a1c358b39e81ee097c3c2c02ef11",
+    "wago-sensors": "4bc6d99b3ff5cb8a59bda0e8b35ff27c81ccbae9272cfecbf84a0705b7e88f8d",
+    "wago-v12": "f4665500cd129db55a88a47c083beccb96aa177dad9264866de99ae319d7093f",
+    "water-split": "d2c68cc04071d03bf7cbef01fa45e7938652ab60b46d251d0ff46ba3aa5fb043",
+    "wr1110": "e82c9339462fa0d6e1781b7b14d86d03a429e557e4a212fcd993060121918b80",
+    "c14-inlet": "50dfba8df881454df58a61266f669958ad9b8f384cf78de5bac3b12b05dcb870",
+    "enclosure-back-top": "b5a86feca1cbf56b1c0464ea14d2a063af0c90b9b6c793d19485cb31997a344d",
+    "enclosure-front-top": "e908a8c101132f3601290c6b6065699bab6d5e655f13b85ddeda0fbf6fc5e616",
+    "ground-stack": "9a2d4447f4bb5dc546b9cc7abf7342812c515095cc91fef50f5649e4bc671cd0",
+    "pcba": "00ce0f86f4350fb0d06725c386512fe39a501e86eb7599dee2c6e41133ea8d32",
+    "psu": "d37ee8f33b4a0d8fe8631de02c0509b0145568967235d1c626e25786328037b1",
+    "controller-roof-boss-1": "432fcdeb818762c970c3fd807bcd7712d8a761dc253448091c7e5dfc84048d10",
+    "controller-screw-1": "bf158d5b16626666b14abec11b65cb9142ed2b62619bb45c684af05d176fb1a3",
+    "controller-roof-boss-2": "4cedc283e5ad16932a273955a972d54d91fa338ca966c222ec5086661e2754fe",
+    "controller-screw-2": "32f23b1a3a4cb80cb9540f94bedf0663deb190d4ea06c7a5e8b4e37e81860028",
+    "controller-roof-boss-3": "51ae89a818bc0d4e4d45856ca7551a05d397a415387d876be8077281476735ef",
+    "controller-screw-3": "06509c034c30323d826e7a5c5d5334c9429e81ca65e539de5f4905f691a29984",
+    "controller-roof-boss-4": "2a231db403c773144f590778af4be3c460dcb5c8e7e33cedf98cc9c80001de3f",
+    "controller-screw-4": "fd60cc57868ae04b25569a2d055797c5ffa2a82f421039471ad1713ff17545b8",
+    "supply-lid-boss-1": "8aadf49321065788bcc2d1954debc4799b5fb965b150c2328106747aedd7db70",
+    "supply-washer-1": "f564bc180019839288d1469ef0dc8d5eb12e1858b35f26f0b7a6c8f06e9add99",
+    "supply-screw-1": "7565799465fec6c22075a5805e574f46c62c926d5377a2da59078a7eb6a5b331",
+    "supply-lid-boss-2": "da64f37e6d1339837c5b73696a0933956b56e87c580c591ec20747e9b83e6787",
+    "supply-washer-2": "f0e5403c5d1b2f982acbeb9f931e9e3cb3272af13e438e6ae6b847dc1fd75c3d",
+    "supply-screw-2": "ca025ca6197fb6dd21eeab98a9850c1066c3bc5fb9a8f3bf41f5171c3db69688",
+    "supply-lid-boss-3": "51acf44f7d16dae25cc3fb54d505006df5c7707d0968ea502cb04b87bf346fc4",
+    "supply-washer-3": "10abf009190bb11d6d28abd3721a0c793041fbfe1bdb574e5fa98a8e76cb7fef",
+    "supply-screw-3": "792372da943048e61fa5b5d41db6b1adf9f8493e62a8a686d11405e14e3b3c53",
+    "supply-lid-boss-4": "6564826b7a3a74f6810bce8db4b6a1fd71510db26a85d0bdc530f2db772ba1f5",
+    "supply-washer-4": "f68003bd95ba60801d3357bd37e58610e81fc68512508600f85a1b765a1ebb57",
+    "supply-screw-4": "a7cf95dff2f0564d33248159ed8012d083137cd4da12bc1dfa8e0553931e5470",
+    "supply-lid-web-1": "3bfcebf44395428035332a27bf6e6571cd9897a7e902902ec6bb677257a406fa",
+    "supply-lid-web-2": "1df7c0cb4e5b702d6537ffab90855938fcc744daf35eb64483d71d4d41290906",
+    "ground-roof-boss": "ad895213d498301a44ce563ff4db7c09063ddbc11e8af19fb81e5da1a73a9e60",
+    "relay-1-mount-screw-1": "dba0a9751d8eb42c5624c47b632cfac0e120871ccdb4f0a76f20bcd1d2092e4b",
+    "relay-1-mount-screw-2": "f2cb31a776f616e6bd4fbe66d30edb22b10ac685550ab1ee3750b878f5adbda1",
+    "relay-1-mount-screw-3": "859850de459d22a63cbe54ddab9b4afb831522d505d1b5c1ba066be87a571549",
+    "relay-1-head-spacer-3": "577f771ee435391a95eebafbbb38c49cfdcbb620fb872fc3455a5b068050cb4b",
+    "relay-1-mount-screw-4": "d68d60b5b981680a09bf990b27de43ddaa8ec10713f2ad11e2fc76a066e55aa8",
+    "relay-1-head-spacer-4": "bcc9109bbe3e96ad93dc9aeffe96dc3f64146b780bcae3e06a6e8c6326389fa0",
+    "relay-2-mount-screw-1": "35e902faadb8209bbd7d40a0fb29864e77e2dc640dde750f6f2786f115737e18",
+    "relay-2-head-spacer-1": "fa50f4ea5b0d34284d66b781a12aa88abc1ebea71fcb5a893efd1ca434e9c837",
+    "relay-2-mount-screw-2": "6e0b47e4413c3cab0050f2cf25d68c9ec38c6f23efeafabb0b4e609ccbc8a17f",
+    "relay-2-head-spacer-2": "1ffafe19328a2666fb3a3b6c1207855d306a4d4eb85c5100a29da2b32cf68373",
+    "relay-2-mount-screw-3": "dc6984ede5db9f8c802cd9e5e91a7d52406ac5b770b71be4456b34e40bd0abe9",
+    "relay-2-mount-screw-4": "b7865c512b62e129ff9ea518533c416bdfe23f0d9987b90507ec625ae174d006",
+    "relay-lid-platform": "e55bf35b04cf68d9bb00750cea07bedbf777b04db664a368820320dfb9c537eb",
+    "west-junction-platform": "19db6d10faa84049499c7c76caf6019cd9ab8f79b34d9935d03166884cbe92c3",
+    "asse-roof-seat-1": "ddbfdb264be19c0b75f86899c69ccb127f84e2cb243be417146b5efde72f683b",
+    "asse-retention-tie-1": "b90b7f6f1a46df1167db02e5b615b9ed5e298e101415d8a9e1bad1bbec08b3c4",
+    "asse-roof-seat-2": "8d23ab7f25acccc0ebe5d7705430c93707ebd1c4229be106e0db8628f9f6c29a",
+    "asse-retention-tie-2": "44ffbf7cb1485a24d2b8e7cbdae57fc35af02dd84f8ecc5f79b562cdd1a06f76",
+    "meter-roof-seat-1": "6f3fd79d8aa654e2728fd58bd051c246c716dac36123467a0baeda2a5538bafc",
+    "meter-retention-tie-1": "48ca372966a5ea1cb1fda79889e8a68f322bb982423b297451fcd602d4253aac",
+    "meter-roof-seat-2": "ab96848201fb61467f727f440d20ba0daf4997e568a7e90c4aaf14bfe6e21c13",
+    "meter-retention-tie-2": "1a70b4b885fe80c33c066c4769d7d5111f04ae564d65d2953ad8636c94553ef6",
+    "needle-lid-seat": "33e8830cd2e54a9a692830d79315e7cbfaa915bcd8fa95ef447d412bbb8f2625",
+    "needle-retention-tie": "ab7522ab53617a7069d5462202085ba2239c1cbd80896dabf47a063c866f7ff2",
+    "wr-regulator-seat": "65941977ee8cba6539c005d04f06a834334901705b6ab4f957e619e643ad26a7",
+    "wr-regulator-retention-tie": "f37b594a1e59ba4d2ba7cafd0b787ee7e78ff00dca0b1daeb43e747ca5e747b3",
+    "check-lid-seat": "1081df0b093c3941db5555e55f703e3514d73716fa55018b85ed520de062f92b",
+    "check-retention-tie": "d2f6b3bc7d239c48e16aa32b1d52cd6cca5c752ec4792fda8b831aedee7bc78b",
+    "tee-lid-seat": "38d7deb8998adcfb44f314a132b56fc194b4542eacee274e9ff3ab8f92c572a2",
+    "tee-retention-tie": "d343b2394b4df02b38cad4175161c1b853e2a24b79c5deab4e098e1aa0bed34b",
+    "rear-roof-hatch": "4d35852f9dfc310fff209cad49a92e6d5ab0b8f83ce3aee4330f785b00c4975b",
+    "hatch-lap-ledge": "b64b29b210df6813dd4f7a0c1af041e28715502f3da669ece1bb8f290eabfb03",
+    "hatch-seam-silicone": "f4c46b7dc9983b2512459b6d2b3b4e2985daa6157af283489b84742d25c1f8cd",
+    "hatch-controller-rear-bridge": "094e5d4c09de5d979ce490954d10400ea7c073df6db5e0852cd3a7ec061a82c4",
+    "hatch-roof-boss-1": "1d17079f6ee5e03d288246adaec2aea5c894e0d7ebe063ebeac963ea7a512b9f",
+    "hatch-roof-beam-1": "aee50c53ce87ef822561c4676094e467096efc0674eecdff2c1c60dcb845ab98",
+    "hatch-roof-web-1": "8fdff3b7c40a69455f628061adfdec2e67ab0123792846dbe9e298528249cf89",
+    "hatch-roof-boss-2": "b6a60d4f823ecbeefeacabcbf4543e45985acf67691fbac441594e56c159e84a",
+    "hatch-roof-boss-3": "34223ebc4807053c8a7088770fabb0153649654325629b91795dd041fde72fb9",
+    "hatch-roof-beam-3": "766b7dbad42cdc0b299f1878f6aa0fc0855516ac3e148661c1cf415f7cf12b39",
+    "hatch-roof-web-3": "4f4994027a951f6d704b49e79752506287e48aca6b263252cd805d3e93bb583e",
+    "hatch-roof-boss-4": "2498905b7d749ba4bd149b356a15697da8b4183ac7421c274c16e030f4d11778",
+    "hatch-screw-1": "99211161c3771bdb24a8f94520c1e4de7303dfbabd9f03019b72927e6ad9f94d",
+    "hatch-screw-2": "40c705419ac0374b86aa96ad470baec1e1ec8fa725de75fcc3380da68b79c329",
+    "hatch-screw-3": "a9bcf53f29c4a30a3898304efa1e1274072dce3495f1c5c4b52fd79c9b044e0c",
+    "hatch-screw-4": "1dab2e986462fde226ba2abb2cfccaecb52f803a42015789c29e1806751e60a9",
+    "hatch-screw-silicone-cap-1": "379a9af9a872e199292214accf90e24ad669d99e4e93b18652635c8823c96e8f",
+    "hatch-screw-silicone-cap-2": "e43077e82649b64489e070e949c545173d1b574341a51335c027aea67b8c86f9",
+    "hatch-screw-silicone-cap-3": "23a2ba527d5b6c8c243a338a8fccf2d8e02fdd33e2b5fb0b426ae122ea080ac8",
+    "hatch-screw-silicone-cap-4": "55233fe733e7d4555a76680ec20d8b6d86ef592a2656c2920217b2e0dee9e20f",
+    "bulkhead-flavor-b": "43bf9eb933e8521e20830ee97f269869fd1ea7b14df8a363bf78e278f02f419b",
+    "bulkhead-flavor-a": "09ecff4f8304cdb479198e68842b5ce7a48c0d0086e4d552b5e329d352fd2a1a",
+    "bulkhead-ring-flavor-a": "1e68ac6287822332639bf6acdcd1cf275e1f6cc3401eece94a41ca9db56b13a6",
+    "bulkhead-ring-flavor-a-word": "7992e8ab87220ecb8c518b19da745e3f4e4bda86237f9425f3e61820807f0b48",
+    "bulkhead-ring-flavor-b": "1e5f239b55d6e1739a670782bbf8f79a65124c88d44f46241f2a02f82903cc6e",
+    "bulkhead-ring-flavor-b-word": "dd3bffb27c6a512419d25185cc597d0d4bca0f222b77d935c63f60dc63bd8dfa",
+    "tube-fluid-26": "a4b224516607870a14299ff3c128cfc22f6b36dc503519279bb6c6156fc81762",
+    "tube-fluid-16": "e79b1638fbabf3f5fe259824554fd63670569059b50d8bf90a2d81342685b033",
+    "elbow-cradle": "c4b85ce427f900bcb2bae5975fe4664bf9654f0473c9337403a10cfe708b4061",
+    "funnel-drain-union": "d07b75a16b3a84a9aa97936e57507f326ae8df9e27917353c05340e17f3399ce",
+    "compressor-jacket-reserve": "0ee6ee31ad43359d9c94b7d1f55e65a8279f503cbb3c8a4537cf72b43da3aaab",
+    "lower-carbonator-earth-reserve": "9215ae76b9c1991b66e110ef3f1f19889b9daa9b16d6948b77c9c0b5e3bb78cb",
+    "lower-under-counter-earth-reserve": "b3856550baec9d8a63aef2abf96219cbfcb0d683e01e561e6d35df66cabd4b5a",
+    "protected-nameplate-receiver": "b3bf8a2e716dcaafd2cad48b326b7254069e8baf1f9399322f0d933ca26ee2d0",
+    "protected-nameplate-backing": "6d3247685d2058848852e0081fae8eb1477a71c6a230a12bd431a2879fd5938e",
+    "tee-y-a": "fa6e1598061e067188680bb349bd9b2465650dd9f2738020504c0558186bfb2d",
+    "valve-v-e": "e04a100fcd41c185dc612b9fe100a0435d79c07a3c340403ea733f91b5903ecd",
+    "coil-v-e": "8d41c077fd910f3420fa60d4d0e9ee7e89f1458f8c72ddc6d39f3fe2ef67a822",
+    "valve-v-f": "f570f5f0c2c7789735215ac9851b6dd5b34df666d4bd5f51de9ffabc6cdad171",
+    "coil-v-f": "d5f5c305d2fc8ab2ebd6358f4c064d096fa679a33c804d7b5e7e31421e820e78",
+    "tee-y-b": "d063a54a8c5c3e7f0858196238057b158148c96e55fb97473d4a3d98b9047d71",
+    "valve-v-h": "9623b0f03b54040db26e671d7ad1fe8c0b8552d09abddd9a33561f75777ab94e",
+    "coil-v-h": "4dfdb0820a196b1c89dc90db23ef6639395fc99f6f99afa756e3e1e17a4b1181",
+    "valve-v-i": "c5b41f44f75e92d259743ec1c643ea20620f0463335473efe788dbd3ef46e1d1",
+    "coil-v-i": "e3571909037209845f7f05a48999ade443a68c010c77c5b6baac41970a61382f",
+    "turn-fluid-3": "d18e64ded419f3d78164ed764a26edf4ebae7a9e228d058c625df28d87751c0a",
+    "turn-fluid-5": "ec7d97ba5546ed84ba359b7971d82e8b092dd9fbf1763f010bbc9f8eb4e9b376",
+    "cold-core/line-carb-water-out": "4aece54d0f4ca86ae3d9b12f30f998db7fe31c759dac9c799b2eed8b36a2b95e",
+    "cold-core/line-co2-in": "f3c5c1b33ba67ca15ab7dec4f05d0dd2d5bb8e1973dad810261df8157177c87b",
+    "cold-core/line-reservoir-a": "10dd4a8bd5591a13c0e9f491e1b9980667316e111895745df30a45cb953f2977",
+    "cold-core/line-reservoir-a-fill": "a66ca16b6f5ecb73d5790b4794af53c6a2ba1f625af98e2ec73096c82fbd79f8",
+    "cold-core/line-reservoir-b": "7bfaf0a4b5b68a9228e63c4831b47e29864b60643ac81b6e4be0adfba9a68b64",
+    "cold-core/line-reservoir-b-fill": "6584117aae07b83f0c1e15f0d6f939e285904ccab2e8cc6c32155b883d4fe8a4",
+    "cold-core/line-water-in": "33c8e3a95b7bf105616ac3e0d307915802d784ecc4c281938867b2626e44ea94",
+    "wago-mana": "8ed44893675e4c31cf2a8eba3d30349586afbee9c2b6d7651db8916d82607547",
+    "wago-manb": "75f46f32bc3a03231ec70f20381c9a252f384ff6d6d3875664d1f1742d84b4d4",
+    "funnel-drain-stub": "24d8cc2aafab29aefae7686f6c135d4161533c21dc8f3cac51dd5289e4e75fc3",
+    "display": "27ddfa49a3e7cae11a3b557bf28261beb2f4483eaec92dc6ff0812e7dc6996c3",
+    "display-cover": "0885cd921a97ad750f6857db56dc2c87867283d259b79fa89f94e1254430a200",
+    "display-gasket": "ffef71964cb1b91b294099cfdd156fa07ceb5c2302b234ef4226440c8984ad5b",
+    "pump-contact-male": "d4cebbacab6d828bbb682f1a0fecf8e4ccb6ad148ad038b2891dde61a49cd1bf",
+    "wago-h-lever-working-space": "11c9e56a6c89e3e89ec648cd3e73ee8f9987596f8d92bd19c1f3ef1a49ec3e23",
+    "wago-n-lever-working-space": "0ac4f4d58f103b2a5a776239c2203dd9f612ceaf55ac82f9fb0d48c4155ec6be",
+    "wago-g-lever-working-space": "056fc85a6b0f1ebfe2aa877d127182f67440f6b39371fcf12d740d5ceeb31b3c",
+    "wago-v12-lever-working-space": "fa5c82bcf7c8a3ca3795b2f033edd99474b3eb80f44f9d46af82271852e76f68",
+    "wago-gnd-lever-working-space": "806bdbc2cf98c8ee4971ddb18295d80b7acd9853527eccca57aedf9acfb8bec9",
+    "wago-reeds-b-lever-working-space": "63e1c82afc86a1fc1818b3b056c5483103c349edf4eeae9e3ca057bbf3fcf745",
+    "wago-reeds-a-lever-working-space": "08702c4becb0dd443325e68f0879994f9f8d8a9f91749da6574cbd0dc8745b23",
+    "wago-sensors-lever-working-space": "0f66336cea09a9fa773127d309368df6e6d564b900b86071e4cc74e4510109d6",
+    "control-service-fork-A": "6c8460f4770fbd537538414ecd189f624220808b1e8ff86a053f0b068b1cb361",
+    "control-service-reeds-B": "14a7d1fa51fffb701a8c258ce4ba225e7308585c39dfc31ed4ac15a154a83fc2",
+    "control-service-fork-B": "4fe05f30c7dedae9bc71a64155de3c2b1446c1f5d6053befcd300656f6f9c7fe",
+    "control-ground-descent": "98065bf9aebaef91c63e2379fa0ea3b4e69f6478dac971a2fbc0b2ed302a10e4",
+    "control-ground-lower-fanout": "81c5eb66ce1497dacad7befb92dfd9d77da758a8508e215c3bd36c006b606258",
+    "control-ground-upper-A": "2a1055767cbb492080c1ae7c474bb7dfd039aba252dceca373c942f5d74896ae",
+    "control-ground-upper-B": "2ef875d074712757a8229a6b2a0fffe4250615a60c26e731fe8f93745a2d179f",
+    "control-ground-upper-merger": "a815c039d07c571ca8290040b588629c1d6d82986fe7acdf1d7b15b31e2179e5",
+    "control-fixed-manifold-ribbon": "92ea252ea08b8048fdc87dd405baec39a2d86a0ffebde6d51b2535536c14ecdf",
+    "control-manifold-aft-fanout": "d1c8b02768cf409690b00eb13e3cbc59e3671081b6bca80fbe7ade88f4375414",
+    "control-meter-pigtail": "9aed5dba2ab385fd50acd56c5c050e1d9325a4bbbcf9a85e04a899addd466d56",
+    "control-relay-logic-fork": "b3bc24f9500397bd62d3b48b8f6bbb218aff7b8319b08af3ee15b2ed63d2f213",
+    "control-reed-a-bare-exit": "269378e48f9522a54ffec5b8afc02f4e4105c2fabbe12e1a3d0d4ce47a566acd",
+    "control-loom-J1-coil-v-a-target": "9ce65dbe5374e3abe3bf7ec99e8980f8def5f5da48fccd6db79c98c8c929aca1",
+    "control-loom-J1-coil-v-b-target": "a524fd3d72bd44783e7fb2c27a0d05cab4dc386f6f21c0b5469f66dff1d1a1d9",
+    "control-loom-J2-vk-solenoid-target": "1e523e87e6581dab068e45ccbe064123889675182efb471e5b4156d09f8d94e7",
+    "control-loom-J3-keystone-jack-target": "3409895a61f7a9e1230a13140a4cb3477b11ef46940667887296b3230a2c73d6",
+    "control-loom-wago-mana-coil-v-a-source": "b98ee0d9f5d691c21234440eae446a0904e45ae2bcfea62300525413961d786f",
+    "control-loom-wago-mana-coil-v-a-target": "a08b93f62438144aa75e56729ed125df371d8196e34aa7fb7443506e2f74bca4",
+    "control-loom-wago-mana-coil-v-b-source": "62f4416e1954855cff6ddfca6c7e672b367ca851ce5f4c8bf42bfd806d85f5ae",
+    "control-loom-wago-mana-coil-v-b-target": "088bef773bba8def38b82a2656cc441f7ede62643f1b040517aa6d3e4da19a39",
+    "control-loom-wago-manb-vk-solenoid-source": "5605c6180b068f163e9826cd1b38a33d9aac861870cac872ef0309e61dcee6b1",
+    "control-loom-wago-manb-vk-solenoid-target": "ecf5cf4af23863b9fd370ca3789e1ba533bb2290135f2118ccf6677c82ac6033",
+    "control-loom-J6-wago-reeds-a-target": "614b9e25414d8bc5450e2e9efbe7831a61a1cffa2f458c7539b096cde0e4c499",
+    "control-loom-J7-wago-reeds-b-target": "8d3ea42d9f086914c7671bf4796cdb5c7c6d30f914a083d49c86b26cf1b40f28",
+    "control-loom-J4-wago-sensors-target": "b341da5dfbff2fb164bf5f8aa01430149404f2766cae97e1ba48477f9f90bed0",
+    "control-loom-J7-retained-cold-core-service-leads-target": "62bfb594d6d3b3536bb261744481f645976cb0c2fddf7c3adc029d3c72a7dc55",
+    "control-loom-J4-retained-cold-core-service-leads-target": "7cd178225a1fa12104649acf444e575f631f1528abb9e76c67212d787143e3b4",
+    "control-loom-wago-reeds-b-retained-cold-core-service-leads-source": "89e8e4a235171156454cd68b055419a0c2e9f694dacb52470b8ba84aaa004f89",
+    "control-loom-wago-reeds-b-retained-cold-core-service-leads-target": "69980a9ccc502549dc568d9deb6376157d343d7e79b03672f023bc91e991d14f",
+    "control-loom-wago-sensors-retained-cold-core-service-leads-source": "b83a66ad4f24ff68f0b8b0cf6bb48464a8a54b497a453e41d6f10b183712fecb",
+    "control-loom-wago-sensors-retained-cold-core-service-leads-target": "b5b4d03fb1835f92c0aabfecb00dee251deeaba79411e0965bf6a5cf762bef7f",
+    "control-loom-J4-moisture-comparator-reserve-target": "446489d09185bf58afbf68bfe2f6a89b835d0900ed165b3639d96936202b3e21",
+    "control-loom-wago-sensors-digiten-flow-source": "544f4dfdc193c5450afeaaa168e4c05cfc3da7196729e8ce6e6e30f166eb67bd",
+    "control-loom-wago-sensors-moisture-comparator-reserve-source": "090d26a263968a62a4a3ec0585888d9801f2f0ed3196759c4a06017f9af7fd94",
+    "control-loom-wago-sensors-moisture-comparator-reserve-target": "eaf5a6f53af7428322c6bb23f678094c2583348b7af0f8c7397eb1129680e9d9",
+    "control-loom-J9-retained-display-loom-target": "9a15cc9c639b1cf1fbcaf46293fd9ae76d2dfbb5461259104d97c59e5afe14db",
+    "control-loom-J13-retained-cartridge-loom-target": "2717950747a79e68edc85745f064575b40a75e8b6304562583f293023b33a869",
+    "control-loom-J11-retained-mq6-loom-target": "3413c1b975fd8de660bf9407b82e0724170206edcdb32728b6c12031f9894461",
+    "control-header-J1-fanout": "6b50f290ea8531382a0a0e851fd63a8527f04886241cb3a4cfdc9906ab4fe34e",
+    "control-header-J11-fanout": "49a66777ee504a7f73ace952e5526cf53b74528467c8c647180d0ce97ce963a7",
+    "control-header-J13-fanout": "787f95295e5d54c59361d308b9c535ba493eba0e4027cb78f4f16ad748c55119",
+    "control-header-J2-fanout": "5f86e88f44912f60f22f3f794b7cba7aa25efc23aec541a6a32d59b1358ed0d1",
+    "control-header-J3-fanout": "17501f871521dd1e31b9dbf1746df2f338ea1a09e228d1371b659fec89cf1847",
+    "control-header-J4-fanout": "0ccd8eee242fcf4c26bee46341435e169d60df4add89d821260a7048c68252b8",
+    "control-header-J5-fanout": "d113a1c140a5955e45319dc431949d3b66ee0f24e1f45932ecc55bcd531030fd",
+    "control-header-J6-fanout": "b38dbb3a5fdfa72fc4d5422c55e274a0b7ec55212f266a6196b9f6ea2ed45478",
+    "control-header-J7-fanout": "63d829aec5015594df1b63a6999d41df4627b1cf7cf3959d513bf9e114a6c216",
+    "control-header-J9-fanout": "51c90f50493901aaed03b8f0de4db76047840ef1faa39159748c8300a5116dd7"
+  },
+  "source_sha256": {
+    "future/pump-first-layout-study/wiring/reed_a_service.py": "96b0222889c71558fd216bc20ace967c0b0879cd9ce85e92589aaf1f9d2ea180"
+  },
+  "brep": ".cache/pump-first-layout/wiring/controls/reed-a-service-route.brep",
+  "sha256": "dc62678c411c8ce265f08db37cfed1b2a69af65031f2fedc37910d85114c61d4",
+  "bounds": [
+    -80.65000010000001,
+    407.5,
+    253.4,
+    -27.8,
+    465.15,
+    329.60000010000005
+  ],
+  "aft_fork": {
+    "brep": ".cache/pump-first-layout/wiring/controls/reed-a-service-fork.brep",
+    "sha256": "d01de803f2cda037476f40ba1af0fba045e92090ce4f5e8cf57a54d764fad737",
+    "bounds": [
+      -59.95,
+      401.05,
+      323.2,
+      -45.65,
+      407.5,
+      329.6
+    ]
+  }
+}

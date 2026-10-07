@@ -1,0 +1,44 @@
+{
+  "checks": [
+    {
+      "test": "subtracted native host valid and single solid",
+      "valid": true,
+      "solids": 1,
+      "pass_result": true
+    },
+    {
+      "test": "host remains subset of checked occupied geometry",
+      "added_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "complete3.5mm west root strip from Y343.7 aft retained",
+      "removed_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "blank-half grip stock fromY343.7 retained",
+      "removed_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "printed platform remains joined to actual wall",
+      "valid": true,
+      "solids": 1,
+      "root_common_mm3": 411.0069614994519,
+      "pass_result": true
+    }
+  ],
+  "pass_result": true,
+  "removed_stock_mm3": 0.0,
+  "continuous_band_mm": [
+    -99.5,
+    331.4,
+    333.25,
+    -29.9,
+    343.7,
+    336.25
+  ],
+  "input_sha256": "9a9273b09ef5998b2e28656548f619592950831daa4b93d4cf742efb5ed0d4e4",
+  "scope": "Native continuous wire-fanout clearance open through the west edge. The complete stock is a subset of the previous no-interference host; printed strength and formed wire/termination retention remain unqualified."
+}

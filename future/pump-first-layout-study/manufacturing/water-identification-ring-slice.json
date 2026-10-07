@@ -1,0 +1,207 @@
+{
+  "part": "water-identification-ring",
+  "brep": ".cache/pump-first-layout/structure/print-parts/water-identification-ring.brep",
+  "brep_sha256": "954aa9203c0177d2ed2a80757ffbc22d20402eed5207c2550dbf288adc38cae0",
+  "stl_sha256": "1550f5b0a9221d41a53c689f4c97c4339262042ac36568b7ef60658e78cf1799",
+  "project_sha256": "ea40a8515bc4d3469ebd0f92bd871962d937a79bb221ab9b8c1bdde6201003a3",
+  "archive_sha256": "6a0ef9ec4c9dca714c8786cc6ed3a9aadc04b69e0acb705fba8d7acf13acd0b9",
+  "gcode_sha256": "70c3c69876cee701fedd74d71a3464c63dc9b75201c8bf3f62cfe59125cd80a7",
+  "recipe": "hardware/printed-parts/petgf.3mf",
+  "recipe_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "rotation_x_deg": 90,
+  "slice_return_code": 0,
+  "review_source_sha256": "661ef477b6e7dfc95be35eb2bf945426b2b1fc9eacf6b7fef4af7a1e226d68ae",
+  "layer_ranges_mm": [],
+  "show_transition_blocked_triangles": 0,
+  "mesh_surface_review": {
+    "input_faces": 1962,
+    "output_faces": 1962,
+    "zero_area_facets_removed": 0,
+    "opposing_internal_facets_removed": 0,
+    "vertex_displacement_mm": 0.0,
+    "signed_volume_change_mm3": 0.0,
+    "closed_oriented_volume": true
+  },
+  "closed_cavity_validation": null,
+  "warnings": [],
+  "embedded_native_mesh": {
+    "name": "water-identification-ring",
+    "plate": 1,
+    "object_id": "2",
+    "part_id": "1",
+    "member": "3D/Objects/object_1.model",
+    "identify_id": 1901,
+    "source": ".cache/pump-first-layout/slices/water-identification-ring-954aa9203c01-661ef477/water-identification-ring.stl",
+    "stl_sha256": "1550f5b0a9221d41a53c689f4c97c4339262042ac36568b7ef60658e78cf1799",
+    "triangles": 1962,
+    "rotation_x_degrees": 90,
+    "source_center_mm": [
+      -89.7599983215332,
+      470.29998779296875,
+      313.6544952392578
+    ],
+    "build_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      6.123233995736766e-17,
+      1.0,
+      0.0,
+      -1.0,
+      6.123233995736766e-17,
+      162.5,
+      160.0,
+      1.000000000000001
+    ],
+    "plate_translation_mm": [
+      162.5,
+      160.0,
+      1.000000000000001
+    ],
+    "plate_origin_mm": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "plate_bounds_mm": [
+      [
+        144.7599983215332,
+        141.36549377441406,
+        0.0
+      ],
+      [
+        180.2400016784668,
+        178.63450622558594,
+        2.000000000000002
+      ]
+    ],
+    "watertight": true,
+    "body_count": 1,
+    "embedded_vertex_error_mm": 4.980478252036846e-10
+  },
+  "selected_recipe": {
+    "layer_height": "0.24",
+    "initial_layer_print_height": "0.2",
+    "wall_loops": "2",
+    "sparse_infill_pattern": "grid",
+    "sparse_infill_density": "15%",
+    "support_type": "tree(auto)",
+    "support_style": "default",
+    "support_top_z_distance": "0.45",
+    "support_bottom_z_distance": "0.3",
+    "support_object_xy_distance": "0.4"
+  },
+  "extrusion_segments_by_feature": {
+    "Custom": 1,
+    "Inner wall": 1036,
+    "Outer wall": 1216,
+    "Bottom surface": 277,
+    "Internal solid infill": 2191,
+    "Gap infill": 212,
+    "Top surface": 230
+  },
+  "deposited_bead_bounds_mm": {
+    "Custom": [
+      [
+        249.79,
+        -0.71,
+        0.8
+      ],
+      [
+        290.21,
+        -0.29000000000000004,
+        0.8
+      ]
+    ],
+    "Inner wall": [
+      [
+        145.12800000000001,
+        141.734,
+        0.2
+      ],
+      [
+        179.87199999999999,
+        178.266,
+        1.64
+      ]
+    ],
+    "Outer wall": [
+      [
+        144.76,
+        141.36499999999998,
+        0.2
+      ],
+      [
+        180.24,
+        178.63400000000001,
+        1.88
+      ]
+    ],
+    "Bottom surface": [
+      [
+        145.54823000000002,
+        142.35923,
+        0.2
+      ],
+      [
+        179.45176999999998,
+        177.63977,
+        0.2
+      ]
+    ],
+    "Internal solid infill": [
+      [
+        145.302988,
+        141.907658,
+        0.44
+      ],
+      [
+        179.698342,
+        177.924342,
+        1.64
+      ]
+    ],
+    "Gap infill": [
+      [
+        153.552363,
+        141.72466699999998,
+        0.92
+      ],
+      [
+        177.1975965,
+        176.3129765,
+        1.88
+      ]
+    ],
+    "Top surface": [
+      [
+        144.949,
+        141.555,
+        0.92
+      ],
+      [
+        180.051,
+        178.438,
+        1.88
+      ]
+    ]
+  },
+  "model_layer_count": 8,
+  "layer_heights_mm": [
+    0.2,
+    0.24
+  ],
+  "first_second_model_layer_overlap": {
+    "model_z_mm": [
+      0.2,
+      0.44
+    ],
+    "first_deposited_area_mm2": 926.7314547205987,
+    "second_deposited_area_mm2": 955.1235962701764,
+    "overlapping_deposited_area_mm2": 924.6991907305287,
+    "second_deposited_area_on_first_percent": 96.81461062647209,
+    "scope": "XY bead-width union of actual straight model extrusion paths. Does not qualify adhesion or supported higher layers."
+  },
+  "scope": "Native slice and emitted deposition. No printer submission. Physical fit, support-removal effort, load capacity and life remain unqualified."
+}

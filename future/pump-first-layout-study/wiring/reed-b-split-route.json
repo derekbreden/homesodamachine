@@ -1,0 +1,109 @@
+{
+  "pass": true,
+  "hardware_pass": true,
+  "all_current_native_pass": true,
+  "brep": ".cache/pump-first-layout/wiring/controls-looms/control-service-reeds-B-split-proved.brep",
+  "sha256": "e8afdf7f6dac0a4b6cb48461b2ac985b4dac9aeb3b272f6f09c9e2ed20ae8288",
+  "aft_fork": {
+    "brep": ".cache/pump-first-layout/wiring/controls-looms/control-service-fork-B-split.brep",
+    "sha256": "640f92a8f415266ea3e6b927d03db3f0cfd0c215d8435819d4cd372343169cb6"
+  },
+  "branches": [
+    {
+      "points_mm": [
+        [
+          -32.0,
+          205.0,
+          298.05
+        ],
+        [
+          30.5,
+          205.0,
+          298.05
+        ],
+        [
+          30.5,
+          284.6,
+          298.05
+        ],
+        [
+          30.5,
+          284.6,
+          325.2
+        ],
+        [
+          30.5,
+          429.6,
+          325.2
+        ],
+        [
+          -24,
+          429.6,
+          325.2
+        ],
+        [
+          -24,
+          404,
+          325.2
+        ]
+      ],
+      "width_mm": 14.3,
+      "height_mm": 1.7,
+      "radius_mm": 12.0,
+      "length_mm": 368.59777960769384,
+      "volume_mm3": 8960.612022263174,
+      "expected_volume_mm3": 8960.612022263038
+    }
+  ],
+  "method": "counted bare eight-wire ribbon",
+  "conductor_count": 8,
+  "actual_bore_mm": 6.8,
+  "normal_exit_from_lid_base_mm": 35,
+  "flat_section_mm": [
+    14.3,
+    1.7
+  ],
+  "bare_wire_diameter_mm": 1.7,
+  "wire_pitch_mm": 1.8,
+  "minimum_nominal_horizontal_wire_centre_radius_mm": 5.7,
+  "minimum_nominal_vertical_wire_centre_radius_mm": 11.15,
+  "native_checks": [
+    {
+      "fanout_ribbon_start_x_mm": -28.0,
+      "ribbon_x_mm": 30.5,
+      "hardware_hits": [],
+      "current_power_hits": [],
+      "fluid_air_failures": [
+        {
+          "section": "trunk",
+          "part": "tube-water-5",
+          "air_mm": 0.7383687262875196
+        }
+      ],
+      "hardware_pass": false
+    },
+    {
+      "fanout_ribbon_start_x_mm": -30.0,
+      "ribbon_x_mm": 30.5,
+      "hardware_hits": [],
+      "current_power_hits": [],
+      "fluid_air_failures": [
+        {
+          "section": "trunk",
+          "part": "tube-water-5",
+          "air_mm": 0.9117893180009962
+        }
+      ],
+      "hardware_pass": false
+    },
+    {
+      "fanout_ribbon_start_x_mm": -32.0,
+      "ribbon_x_mm": 30.5,
+      "hardware_hits": [],
+      "current_power_hits": [],
+      "fluid_air_failures": [],
+      "hardware_pass": true
+    }
+  ],
+  "scope": "Hardware-only native reservation: the accepted eight-wire bore and35mm normal exit feed a bare one-layer counted ribbon. The1.7mm section traverses the real controller/supply band with exactR12 bends; purchased service lead length and individual bare fork dressing remain unqualified. Current power intersections are explicit and require its reroute before complete wiring qualification."
+}

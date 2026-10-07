@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "piece": "water-identification-ring",
+  "inputs": {
+    "gcode": "water-identification-ring.gcode",
+    "gcode_sha256": "70c3c69876cee701fedd74d71a3464c63dc9b75201c8bf3f62cfe59125cd80a7",
+    "model": ".cache/pump-first-layout/slices/water-identification-ring-954aa9203c01-661ef477/water-identification-ring.stl",
+    "model_sha256": "1550f5b0a9221d41a53c689f4c97c4339262042ac36568b7ef60658e78cf1799",
+    "profile": ".cache/pump-first-layout/slices/water-identification-ring-954aa9203c01-661ef477/water-identification-ring-input.3mf",
+    "profile_sha256": "ea40a8515bc4d3469ebd0f92bd871962d937a79bb221ab9b8c1bdde6201003a3",
+    "brep_sha256": "954aa9203c0177d2ed2a80757ffbc22d20402eed5207c2550dbf288adc38cae0",
+    "archive_sha256": "6a0ef9ec4c9dca714c8786cc6ed3a9aadc04b69e0acb705fba8d7acf13acd0b9",
+    "reviewer_sha256": "9ac1cdbed1dadf2906b16fdb723ebfc1146b7260de79909789c40dd82e6a256d",
+    "topology_tool_sha256": "3dd14a091d92aabde9b20d65bbe84acb15262e2bdb3f615722b2623cabd396f1"
+  },
+  "slicer": "BambuStudio 02.08.02.61",
+  "first_layer_z_mm": 0.2,
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      -0.0,
+      0.0,
+      0.0,
+      0.0,
+      -1.0,
+      -0.0,
+      1.0,
+      0.0,
+      -252.259998322,
+      469.299987793,
+      473.654495239
+    ]
+  },
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.45",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "support_bodies": 0,
+    "interface_islands": 0,
+    "bed_rooted_bodies": 0,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 0,
+    "shortest_labelled_build_up_mm": null
+  },
+  "trees": [],
+  "interfaces": [],
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+  "scope": "Complete emitted support topology including unlabelled short bodies. Physical removal effort, trapped branches, contact finish and mechanical qualification remain unverified."
+}

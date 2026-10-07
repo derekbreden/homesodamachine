@@ -1,0 +1,40 @@
+{
+  "checks": [
+    {
+      "part": "closed_body",
+      "native_gap_mm": 1.63006579999999,
+      "common_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "part": "opened_levers",
+      "native_gap_mm": 1.63006579999999,
+      "common_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "part": "entry_wires",
+      "native_gap_mm": 1.2300000000000004,
+      "common_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "part": "platform",
+      "native_gap_mm": 6.6500003999999535,
+      "common_mm3": 0.0,
+      "pass": true
+    }
+  ],
+  "pass": true,
+  "input_geometry_sha256": {
+    "pcba": "10b3e0e15ff05d9abf7ef55453b82a5f0c615e6d72bbac317916e0a7b8fd02c1",
+    "closed_body": "41d2b3fd4d48969be90fd79fbf73bde63b43a8d3d18a5c09be9a727946a3fa61",
+    "opened_levers": "9ed119949443a1660fab6b53f6c2faf203fef8a5899cba570b910fccc0b0456c",
+    "entry_wires": "1d87c8614702704f9baae0fc6d55b2448b1e2af1a6ff2b0d0ba3cba97f8e0834",
+    "platform": "1c5c47089c028245bec376f227014fc7675e861ccd55ceb8460c9fec086f1e6b"
+  },
+  "source_sha256": {
+    "future/pump-first-layout-study/mounts/junction_controller_review.py": "3ab308cf17ffd05aa54922cfbf92c67a543b67d1464bea8e66c91d1fc9bf2c74"
+  },
+  "scope": "Exact native low420/controller clearance. Closed body, both lever fields and all entry turns preserve at least1mm air."
+}

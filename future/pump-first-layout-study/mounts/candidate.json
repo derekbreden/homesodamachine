@@ -1,0 +1,3055 @@
+{
+  "parts": {
+    "relay-1-mount-screw-1": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-1-mount-screw-1.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-1-mount-screw-1.json",
+      "sha256": "d1b66b7a9ee150066a84c702b6edf35ccedb5329f05da56e9952ff654581d3d9",
+      "bounds": [
+        -25.250543693132364,
+        422.7499998999999,
+        255.14970339465503,
+        -19.749456306867636,
+        428.2500001000001,
+        264.15054369313236
+      ],
+      "role": "structure",
+      "detail": "Standard M3\u00d76, full 4 mm short-insert engagement with 0.75 mm blind tip reserve.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-1-mount-screw-2": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-1-mount-screw-2.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-1-mount-screw-2.json",
+      "sha256": "bb803f28cdd45f94fedf29d009cf9f4ae0f9f601b83e4b9a4f83a15ef46449f3",
+      "bounds": [
+        -25.250543693132364,
+        435.7499998999999,
+        255.14970339465503,
+        -19.749456306867636,
+        441.2500001000001,
+        264.15054369313236
+      ],
+      "role": "structure",
+      "detail": "Standard M3\u00d76, full 4 mm short-insert engagement with 0.75 mm blind tip reserve.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-1-mount-screw-3": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-1-mount-screw-3.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-1-mount-screw-3.json",
+      "sha256": "6cd5ddc23507b5810d29f95c3cf199eab96e938cb7ed90dc2a26032f0e4ff4f0",
+      "bounds": [
+        40.749456306867636,
+        422.7499998999999,
+        253.14970339465503,
+        46.250543693132364,
+        428.2500001000001,
+        276.15054369313236
+      ],
+      "role": "structure",
+      "detail": "Standard M3\u00d720 above an actual 12 mm tube with full 5.7 mm insert engagement and 2 mm pilot tip reserve.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-1-head-spacer-3": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-1-head-spacer-3.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-1-head-spacer-3.json",
+      "sha256": "1ceb2c0600dd89b8e9a72d637216b0bf2cca6c3548e19687bee7200eefab7df0",
+      "bounds": [
+        41.2495551419826,
+        423.2499998999999,
+        261.14955514198255,
+        45.7504448580174,
+        427.7500001000001,
+        273.1504448580174
+      ],
+      "role": "structure",
+      "detail": "Actual \u00d84.5/ID3.2\u00d712 tube; head lower face is 2 mm above the representative contact block, with 0.25 mm lateral air.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-1-mount-screw-4": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-1-mount-screw-4.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-1-mount-screw-4.json",
+      "sha256": "321172194878ace7eb662dafcc0725a52e806c63f9d172ada125748ac5479ef3",
+      "bounds": [
+        40.749456306867636,
+        435.7499998999999,
+        253.14970339465503,
+        46.250543693132364,
+        441.2500001000001,
+        276.15054369313236
+      ],
+      "role": "structure",
+      "detail": "Standard M3\u00d720 above an actual 12 mm tube with full 5.7 mm insert engagement and 2 mm pilot tip reserve.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-1-head-spacer-4": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-1-head-spacer-4.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-1-head-spacer-4.json",
+      "sha256": "e60d9e3fc8a030aa6af17b52538468159b1e568591f3d1911ffbf3424e1f1074",
+      "bounds": [
+        41.2495551419826,
+        436.2499998999999,
+        261.14955514198255,
+        45.7504448580174,
+        440.7500001000001,
+        273.1504448580174
+      ],
+      "role": "structure",
+      "detail": "Actual \u00d84.5/ID3.2\u00d712 tube; head lower face is 2 mm above the representative contact block, with 0.25 mm lateral air.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-2-mount-screw-1": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-2-mount-screw-1.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-2-mount-screw-1.json",
+      "sha256": "6f8f6ff53a519f6be4545baee3baa3a7123fbc8e330ae0e09cbb44bdd3f9e9a6",
+      "bounds": [
+        -25.25054369313238,
+        443.04999989999993,
+        253.149703394655,
+        -19.74945630686762,
+        448.5500001000001,
+        276.15054369313236
+      ],
+      "role": "structure",
+      "detail": "Standard M3\u00d720 above an actual 12 mm tube with full 5.7 mm insert engagement and 2 mm pilot tip reserve.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-2-head-spacer-1": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-2-head-spacer-1.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-2-head-spacer-1.json",
+      "sha256": "3e8d8d4bcbbf15bd1bd84c577af2e9b1d1ef0f2c66c7088e3a5ca6584eca1b6c",
+      "bounds": [
+        -24.75044485801743,
+        443.54999989999993,
+        261.14955514198255,
+        -20.24955514198257,
+        448.0500001000001,
+        273.1504448580174
+      ],
+      "role": "structure",
+      "detail": "Actual \u00d84.5/ID3.2\u00d712 tube; head lower face is 2 mm above the representative contact block, with 0.25 mm lateral air.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-2-mount-screw-2": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-2-mount-screw-2.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-2-mount-screw-2.json",
+      "sha256": "18efa60dd6ae7f59015d584e6917e30efdf4d8cf808e61b3e10a2500ae7c1018",
+      "bounds": [
+        -25.25054369313238,
+        456.04999989999993,
+        253.149703394655,
+        -19.74945630686762,
+        461.5500001000001,
+        276.15054369313236
+      ],
+      "role": "structure",
+      "detail": "Standard M3\u00d720 above an actual 12 mm tube with full 5.7 mm insert engagement and 2 mm pilot tip reserve.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-2-head-spacer-2": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-2-head-spacer-2.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-2-head-spacer-2.json",
+      "sha256": "888a54a0dae90153e3a85c1e9c0712a99c257854e97ed2268fe33982aecba606",
+      "bounds": [
+        -24.75044485801743,
+        456.54999989999993,
+        261.14955514198255,
+        -20.24955514198257,
+        461.0500001000001,
+        273.1504448580174
+      ],
+      "role": "structure",
+      "detail": "Actual \u00d84.5/ID3.2\u00d712 tube; head lower face is 2 mm above the representative contact block, with 0.25 mm lateral air.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-2-mount-screw-3": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-2-mount-screw-3.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-2-mount-screw-3.json",
+      "sha256": "68c76792dd8d34123b42130005f23f97cb76caa7d76f17f762554968f8b2f13f",
+      "bounds": [
+        40.74945630686762,
+        443.04999989999993,
+        255.149703394655,
+        46.25054369313238,
+        448.5500001000001,
+        264.15054369313236
+      ],
+      "role": "structure",
+      "detail": "Standard M3\u00d76, full 4 mm short-insert engagement with 0.75 mm blind tip reserve.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-2-mount-screw-4": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-2-mount-screw-4.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-2-mount-screw-4.json",
+      "sha256": "d31c8adf031f1a13c1fe07c56e6e2c0413ed2a3d50e4743c1f7115ca0ef0243d",
+      "bounds": [
+        40.74945630686762,
+        456.04999989999993,
+        255.149703394655,
+        46.25054369313238,
+        461.5500001000001,
+        264.15054369313236
+      ],
+      "role": "structure",
+      "detail": "Standard M3\u00d76, full 4 mm short-insert engagement with 0.75 mm blind tip reserve.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-lid-platform": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-lid-platform.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-lid-platform.json",
+      "sha256": "2286f65da079ddefa1224a2635f7dcbb2f8a2d5900be96f7f37d389a0ffa61e7",
+      "bounds": [
+        -26.500793012928685,
+        420.49999989999986,
+        247.9992092190802,
+        49.50000010000014,
+        463.80000010000015,
+        278.00000010000133
+      ],
+      "role": "structure",
+      "detail": "One 3 mm lid-rooted platform, two horizontal relay seats and a 3 mm AC/DC divider; eight native PCB mounting holes with four long blind pilots rooted in the existing 5.4 mm lid.",
+      "valid": true,
+      "solids": 1
+    },
+    "west-junction-platform": {
+      "brep": ".cache/pump-first-layout/mounts/roof/west-junction-platform-power-channel.brep",
+      "mesh": ".cache/pump-first-layout/mounts/roof/west-junction-platform-power-channel.json",
+      "bounds": [
+        -99.50000010000018,
+        343.6999998999999,
+        319.59999989999994,
+        -14.949999899999886,
+        415.8000001000002,
+        355.0000001000001
+      ],
+      "role": "structure",
+      "detail": "One3mm west/roof-rooted host: four FORE-entry and one AFT-entry mains above the complete diagonal gas regulator, one UP-entry420 in the east native void, and FORE-entry reedsA/sensors. Entry-floor windows preserve actual wire quarter turns. Continuous H/N/G fore floor opening through the west edge permits full power-wire fanout at Z333.25 while retaining the west root from Y343.7 aft and all blank-half grips.",
+      "sha256": "b627c52fa64c00c28728b580e8e4dc12aadf3d4ef9ebd6c2f2e031d3ebbda893",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-1": {
+      "brep": ".cache/pump-first-layout/mounts/floor/expected-relay-1.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/expected-relay-1.json",
+      "sha256": "9902f9f49c0d436572586c415071a9948b28323f1c8ed92429df54b384718877",
+      "bounds": [
+        -24.500000100000115,
+        423.49999989999986,
+        257.64999989999995,
+        45.500000100000115,
+        440.50000010000014,
+        276.65000010000006
+      ],
+      "role": "electronics",
+      "detail": "Exact rotated installed reference relay; components and screw hole pattern retained.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-2": {
+      "brep": ".cache/pump-first-layout/mounts/floor/expected-relay-2.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/expected-relay-2.json",
+      "sha256": "e61498c96a9d787f2f83694c9f3dd6177977e9838e8b3f6883a5ab1614ec0755",
+      "bounds": [
+        -24.5000001000001,
+        443.7999998999999,
+        257.6499998999999,
+        45.50000010000013,
+        460.80000010000015,
+        276.65000010000006
+      ],
+      "role": "electronics",
+      "detail": "Exact rotated installed reference relay; components and screw hole pattern retained.",
+      "valid": true,
+      "solids": 1
+    },
+    "wago-h": {
+      "brep": ".cache/pump-first-layout/mounts/roof/expected-wago-h.brep",
+      "mesh": ".cache/pump-first-layout/mounts/roof/expected-wago-h.json",
+      "bounds": [
+        -96.3500001,
+        334.54999989999993,
+        336.2499998999999,
+        -77.54999989999992,
+        353.1500001000001,
+        344.65000010000006
+      ],
+      "role": "electronics",
+      "detail": "Exact rotated retained WAGO envelope including closed-lever grooves; working face is fully open.",
+      "sha256": "ee133a53866c40dcbc45a089073e076e995d0d96d53c64fb53b9dedf28d5f0e7",
+      "valid": true,
+      "solids": 1
+    },
+    "wago-n": {
+      "brep": ".cache/pump-first-layout/mounts/roof/expected-wago-n.brep",
+      "mesh": ".cache/pump-first-layout/mounts/roof/expected-wago-n.json",
+      "bounds": [
+        -74.25000010000001,
+        334.54999989999993,
+        336.2499998999999,
+        -55.44999989999993,
+        353.1500001000001,
+        344.65000010000006
+      ],
+      "role": "electronics",
+      "detail": "Exact rotated retained WAGO envelope including closed-lever grooves; working face is fully open.",
+      "sha256": "908ce59b24f95149e175962746dcfd0c4e7f5d8b2aff1b0e79a4d6d9ff551b9c",
+      "valid": true,
+      "solids": 1
+    },
+    "wago-g": {
+      "brep": ".cache/pump-first-layout/mounts/roof/expected-wago-g.brep",
+      "mesh": ".cache/pump-first-layout/mounts/roof/expected-wago-g.json",
+      "bounds": [
+        -52.15000009999998,
+        334.54999989999993,
+        336.2499998999999,
+        -33.34999989999991,
+        353.1500001000001,
+        344.65000010000006
+      ],
+      "role": "electronics",
+      "detail": "Exact rotated retained WAGO envelope including closed-lever grooves; working face is fully open.",
+      "sha256": "bd28f5481a3b07af6eccf173cf97ad2b288b57595fe422c43301dda2d54d3c6b",
+      "valid": true,
+      "solids": 1
+    },
+    "wago-v12": {
+      "brep": ".cache/pump-first-layout/mounts/roof/expected-wago-v12.brep",
+      "mesh": ".cache/pump-first-layout/mounts/roof/expected-wago-v12.json",
+      "bounds": [
+        -96.35000010000005,
+        356.44999989999985,
+        336.2499998999999,
+        -77.54999989999993,
+        375.05000010000003,
+        344.65000010000006
+      ],
+      "role": "electronics",
+      "detail": "Exact rotated retained WAGO envelope including closed-lever grooves; working face is fully open.",
+      "sha256": "3f50f754c47495b82a0c02c0c7a66263a1501bc3ee4ef80516ea7ccd294dcdb5",
+      "valid": true,
+      "solids": 1
+    },
+    "wago-gnd": {
+      "brep": ".cache/pump-first-layout/mounts/roof/expected-wago-gnd.brep",
+      "mesh": ".cache/pump-first-layout/mounts/roof/expected-wago-gnd.json",
+      "bounds": [
+        -74.25000010000001,
+        364.29999989999993,
+        336.2499998999999,
+        -55.44999989999993,
+        382.9000001000001,
+        344.65000010000006
+      ],
+      "role": "electronics",
+      "detail": "Exact rotated retained WAGO envelope including closed-lever grooves; working face is fully open.",
+      "sha256": "603c2c790c8d494853ce53cc0218fa902fb7e2cc914b82adb0baa5995b92b37d",
+      "valid": true,
+      "solids": 1
+    },
+    "wago-reeds-b": {
+      "brep": ".cache/pump-first-layout/mounts/roof/expected-wago-reeds-b.brep",
+      "mesh": ".cache/pump-first-layout/mounts/roof/expected-wago-reeds-b.json",
+      "bounds": [
+        -47.900000100000064,
+        364.14999989999995,
+        322.59999989999994,
+        -18.099999899999965,
+        379.95000010000007,
+        340.9000001000001
+      ],
+      "role": "electronics",
+      "detail": "Exact rotated retained WAGO envelope including closed-lever grooves; working face is fully open.",
+      "sha256": "41d2b3fd4d48969be90fd79fbf73bde63b43a8d3d18a5c09be9a727946a3fa61",
+      "valid": true,
+      "solids": 1
+    },
+    "wago-reeds-a": {
+      "brep": ".cache/pump-first-layout/mounts/roof/expected-wago-reeds-a.brep",
+      "mesh": ".cache/pump-first-layout/mounts/roof/expected-wago-reeds-a.json",
+      "bounds": [
+        -96.3500001000001,
+        394.04999989999993,
+        336.2499998999999,
+        -66.34999989999986,
+        412.65000010000017,
+        344.6500001000002
+      ],
+      "role": "electronics",
+      "detail": "Exact rotated retained WAGO envelope including closed-lever grooves; working face is fully open.",
+      "sha256": "eeccd329645591eff7a4ec9963446a9956b882771b1d040a3397a235448741f9",
+      "valid": true,
+      "solids": 1
+    },
+    "wago-sensors": {
+      "brep": ".cache/pump-first-layout/mounts/roof/expected-wago-sensors.brep",
+      "mesh": ".cache/pump-first-layout/mounts/roof/expected-wago-sensors.json",
+      "bounds": [
+        -63.05000010000004,
+        394.04999989999993,
+        336.2499999,
+        -33.0499998999999,
+        412.6500001000001,
+        344.65000010000017
+      ],
+      "role": "electronics",
+      "detail": "Exact rotated retained WAGO envelope including closed-lever grooves; working face is fully open.",
+      "sha256": "79023d8826934cd7a3a6e4aa574dab671fd0e883dae6d7475b9e7b491ca6e1d1",
+      "valid": true,
+      "solids": 1
+    }
+  },
+  "replacement_names": [
+    "relay-1",
+    "relay-2",
+    "wago-g",
+    "wago-gnd",
+    "wago-h",
+    "wago-n",
+    "wago-reeds-a",
+    "wago-reeds-b",
+    "wago-sensors",
+    "wago-v12"
+  ],
+  "expected_devices": {
+    "relay-1": {
+      "brep": ".cache/pump-first-layout/mounts/floor/expected-relay-1.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/expected-relay-1.json",
+      "sha256": "9902f9f49c0d436572586c415071a9948b28323f1c8ed92429df54b384718877",
+      "bounds": [
+        -24.500000100000115,
+        423.49999989999986,
+        257.64999989999995,
+        45.500000100000115,
+        440.50000010000014,
+        276.65000010000006
+      ],
+      "role": "electronics",
+      "detail": "Exact rotated installed reference relay; components and screw hole pattern retained.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-2": {
+      "brep": ".cache/pump-first-layout/mounts/floor/expected-relay-2.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/expected-relay-2.json",
+      "sha256": "e61498c96a9d787f2f83694c9f3dd6177977e9838e8b3f6883a5ab1614ec0755",
+      "bounds": [
+        -24.5000001000001,
+        443.7999998999999,
+        257.6499998999999,
+        45.50000010000013,
+        460.80000010000015,
+        276.65000010000006
+      ],
+      "role": "electronics",
+      "detail": "Exact rotated installed reference relay; components and screw hole pattern retained.",
+      "valid": true,
+      "solids": 1
+    },
+    "wago-h": {
+      "brep": ".cache/pump-first-layout/mounts/roof/expected-wago-h.brep",
+      "mesh": ".cache/pump-first-layout/mounts/roof/expected-wago-h.json",
+      "bounds": [
+        -96.3500001,
+        334.54999989999993,
+        336.2499998999999,
+        -77.54999989999992,
+        353.1500001000001,
+        344.65000010000006
+      ],
+      "role": "electronics",
+      "detail": "Exact rotated retained WAGO envelope including closed-lever grooves; working face is fully open.",
+      "sha256": "ee133a53866c40dcbc45a089073e076e995d0d96d53c64fb53b9dedf28d5f0e7",
+      "valid": true,
+      "solids": 1
+    },
+    "wago-n": {
+      "brep": ".cache/pump-first-layout/mounts/roof/expected-wago-n.brep",
+      "mesh": ".cache/pump-first-layout/mounts/roof/expected-wago-n.json",
+      "bounds": [
+        -74.25000010000001,
+        334.54999989999993,
+        336.2499998999999,
+        -55.44999989999993,
+        353.1500001000001,
+        344.65000010000006
+      ],
+      "role": "electronics",
+      "detail": "Exact rotated retained WAGO envelope including closed-lever grooves; working face is fully open.",
+      "sha256": "908ce59b24f95149e175962746dcfd0c4e7f5d8b2aff1b0e79a4d6d9ff551b9c",
+      "valid": true,
+      "solids": 1
+    },
+    "wago-g": {
+      "brep": ".cache/pump-first-layout/mounts/roof/expected-wago-g.brep",
+      "mesh": ".cache/pump-first-layout/mounts/roof/expected-wago-g.json",
+      "bounds": [
+        -52.15000009999998,
+        334.54999989999993,
+        336.2499998999999,
+        -33.34999989999991,
+        353.1500001000001,
+        344.65000010000006
+      ],
+      "role": "electronics",
+      "detail": "Exact rotated retained WAGO envelope including closed-lever grooves; working face is fully open.",
+      "sha256": "bd28f5481a3b07af6eccf173cf97ad2b288b57595fe422c43301dda2d54d3c6b",
+      "valid": true,
+      "solids": 1
+    },
+    "wago-v12": {
+      "brep": ".cache/pump-first-layout/mounts/roof/expected-wago-v12.brep",
+      "mesh": ".cache/pump-first-layout/mounts/roof/expected-wago-v12.json",
+      "bounds": [
+        -96.35000010000005,
+        356.44999989999985,
+        336.2499998999999,
+        -77.54999989999993,
+        375.05000010000003,
+        344.65000010000006
+      ],
+      "role": "electronics",
+      "detail": "Exact rotated retained WAGO envelope including closed-lever grooves; working face is fully open.",
+      "sha256": "3f50f754c47495b82a0c02c0c7a66263a1501bc3ee4ef80516ea7ccd294dcdb5",
+      "valid": true,
+      "solids": 1
+    },
+    "wago-gnd": {
+      "brep": ".cache/pump-first-layout/mounts/roof/expected-wago-gnd.brep",
+      "mesh": ".cache/pump-first-layout/mounts/roof/expected-wago-gnd.json",
+      "bounds": [
+        -74.25000010000001,
+        364.29999989999993,
+        336.2499998999999,
+        -55.44999989999993,
+        382.9000001000001,
+        344.65000010000006
+      ],
+      "role": "electronics",
+      "detail": "Exact rotated retained WAGO envelope including closed-lever grooves; working face is fully open.",
+      "sha256": "603c2c790c8d494853ce53cc0218fa902fb7e2cc914b82adb0baa5995b92b37d",
+      "valid": true,
+      "solids": 1
+    },
+    "wago-reeds-b": {
+      "brep": ".cache/pump-first-layout/mounts/roof/expected-wago-reeds-b.brep",
+      "mesh": ".cache/pump-first-layout/mounts/roof/expected-wago-reeds-b.json",
+      "bounds": [
+        -47.900000100000064,
+        364.14999989999995,
+        322.59999989999994,
+        -18.099999899999965,
+        379.95000010000007,
+        340.9000001000001
+      ],
+      "role": "electronics",
+      "detail": "Exact rotated retained WAGO envelope including closed-lever grooves; working face is fully open.",
+      "sha256": "41d2b3fd4d48969be90fd79fbf73bde63b43a8d3d18a5c09be9a727946a3fa61",
+      "valid": true,
+      "solids": 1
+    },
+    "wago-reeds-a": {
+      "brep": ".cache/pump-first-layout/mounts/roof/expected-wago-reeds-a.brep",
+      "mesh": ".cache/pump-first-layout/mounts/roof/expected-wago-reeds-a.json",
+      "bounds": [
+        -96.3500001000001,
+        394.04999989999993,
+        336.2499998999999,
+        -66.34999989999986,
+        412.65000010000017,
+        344.6500001000002
+      ],
+      "role": "electronics",
+      "detail": "Exact rotated retained WAGO envelope including closed-lever grooves; working face is fully open.",
+      "sha256": "eeccd329645591eff7a4ec9963446a9956b882771b1d040a3397a235448741f9",
+      "valid": true,
+      "solids": 1
+    },
+    "wago-sensors": {
+      "brep": ".cache/pump-first-layout/mounts/roof/expected-wago-sensors.brep",
+      "mesh": ".cache/pump-first-layout/mounts/roof/expected-wago-sensors.json",
+      "bounds": [
+        -63.05000010000004,
+        394.04999989999993,
+        336.2499999,
+        -33.0499998999999,
+        412.6500001000001,
+        344.65000010000017
+      ],
+      "role": "electronics",
+      "detail": "Exact rotated retained WAGO envelope including closed-lever grooves; working face is fully open.",
+      "sha256": "79023d8826934cd7a3a6e4aa574dab671fd0e883dae6d7475b9e7b491ca6e1d1",
+      "valid": true,
+      "solids": 1
+    }
+  },
+  "mounts": [
+    {
+      "owner": "relay-1",
+      "mouth": [
+        -22.5,
+        425.5,
+        259.65
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "boss_od_mm": 8,
+      "pilot_diameter_mm": 4,
+      "pilot_depth_mm": 5.25,
+      "insert_length_mm": 4,
+      "screw_length_mm": 6,
+      "tubular_head_spacer_length_mm": 0,
+      "tubular_head_spacer_od_mm": null,
+      "tubular_head_spacer_bore_mm": null,
+      "screw_penetration_mm": 4.5,
+      "full_insert_engagement_mm": 4,
+      "tip_reserve_mm": 0.75,
+      "blind_end_cover_mm": 0.9999999999999716,
+      "pin_clearance_mm": 1.25
+    },
+    {
+      "owner": "relay-1",
+      "mouth": [
+        -22.5,
+        438.5,
+        259.65
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "boss_od_mm": 8,
+      "pilot_diameter_mm": 4,
+      "pilot_depth_mm": 5.25,
+      "insert_length_mm": 4,
+      "screw_length_mm": 6,
+      "tubular_head_spacer_length_mm": 0,
+      "tubular_head_spacer_od_mm": null,
+      "tubular_head_spacer_bore_mm": null,
+      "screw_penetration_mm": 4.5,
+      "full_insert_engagement_mm": 4,
+      "tip_reserve_mm": 0.75,
+      "blind_end_cover_mm": 0.9999999999999716,
+      "pin_clearance_mm": 1.25
+    },
+    {
+      "owner": "relay-1",
+      "mouth": [
+        43.5,
+        425.5,
+        259.65
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "boss_od_mm": 8,
+      "pilot_diameter_mm": 4,
+      "pilot_depth_mm": 8.5,
+      "insert_length_mm": 5.7,
+      "screw_length_mm": 20,
+      "tubular_head_spacer_length_mm": 12,
+      "tubular_head_spacer_od_mm": 4.5,
+      "tubular_head_spacer_bore_mm": 3.2,
+      "screw_penetration_mm": 6.5,
+      "full_insert_engagement_mm": 5.7,
+      "tip_reserve_mm": 2.0,
+      "blind_end_cover_mm": 3.1499999999999773,
+      "pin_clearance_mm": 1.25
+    },
+    {
+      "owner": "relay-1",
+      "mouth": [
+        43.5,
+        438.5,
+        259.65
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "boss_od_mm": 8,
+      "pilot_diameter_mm": 4,
+      "pilot_depth_mm": 8.5,
+      "insert_length_mm": 5.7,
+      "screw_length_mm": 20,
+      "tubular_head_spacer_length_mm": 12,
+      "tubular_head_spacer_od_mm": 4.5,
+      "tubular_head_spacer_bore_mm": 3.2,
+      "screw_penetration_mm": 6.5,
+      "full_insert_engagement_mm": 5.7,
+      "tip_reserve_mm": 2.0,
+      "blind_end_cover_mm": 3.1499999999999773,
+      "pin_clearance_mm": 1.25
+    },
+    {
+      "owner": "relay-2",
+      "mouth": [
+        -22.5,
+        445.8,
+        259.65
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "boss_od_mm": 8,
+      "pilot_diameter_mm": 4,
+      "pilot_depth_mm": 8.5,
+      "insert_length_mm": 5.7,
+      "screw_length_mm": 20,
+      "tubular_head_spacer_length_mm": 12,
+      "tubular_head_spacer_od_mm": 4.5,
+      "tubular_head_spacer_bore_mm": 3.2,
+      "screw_penetration_mm": 6.5,
+      "full_insert_engagement_mm": 5.7,
+      "tip_reserve_mm": 2.0,
+      "blind_end_cover_mm": 3.1499999999999773,
+      "pin_clearance_mm": 1.25
+    },
+    {
+      "owner": "relay-2",
+      "mouth": [
+        -22.5,
+        458.8,
+        259.65
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "boss_od_mm": 8,
+      "pilot_diameter_mm": 4,
+      "pilot_depth_mm": 8.5,
+      "insert_length_mm": 5.7,
+      "screw_length_mm": 20,
+      "tubular_head_spacer_length_mm": 12,
+      "tubular_head_spacer_od_mm": 4.5,
+      "tubular_head_spacer_bore_mm": 3.2,
+      "screw_penetration_mm": 6.5,
+      "full_insert_engagement_mm": 5.7,
+      "tip_reserve_mm": 2.0,
+      "blind_end_cover_mm": 3.1499999999999773,
+      "pin_clearance_mm": 1.25
+    },
+    {
+      "owner": "relay-2",
+      "mouth": [
+        43.5,
+        445.8,
+        259.65
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "boss_od_mm": 8,
+      "pilot_diameter_mm": 4,
+      "pilot_depth_mm": 5.25,
+      "insert_length_mm": 4,
+      "screw_length_mm": 6,
+      "tubular_head_spacer_length_mm": 0,
+      "tubular_head_spacer_od_mm": null,
+      "tubular_head_spacer_bore_mm": null,
+      "screw_penetration_mm": 4.5,
+      "full_insert_engagement_mm": 4,
+      "tip_reserve_mm": 0.75,
+      "blind_end_cover_mm": 0.9999999999999716,
+      "pin_clearance_mm": 1.25
+    },
+    {
+      "owner": "relay-2",
+      "mouth": [
+        43.5,
+        458.8,
+        259.65
+      ],
+      "axis": [
+        0,
+        0,
+        -1
+      ],
+      "boss_od_mm": 8,
+      "pilot_diameter_mm": 4,
+      "pilot_depth_mm": 5.25,
+      "insert_length_mm": 4,
+      "screw_length_mm": 6,
+      "tubular_head_spacer_length_mm": 0,
+      "tubular_head_spacer_od_mm": null,
+      "tubular_head_spacer_bore_mm": null,
+      "screw_penetration_mm": 4.5,
+      "full_insert_engagement_mm": 4,
+      "tip_reserve_mm": 0.75,
+      "blind_end_cover_mm": 0.9999999999999716,
+      "pin_clearance_mm": 1.25
+    },
+    {
+      "owner": "wago-h",
+      "wire_entry": {
+        "point": [
+          -86.94999999999997,
+          334.55,
+          340.45
+        ],
+        "axis": [
+          0,
+          -1,
+          0
+        ]
+      },
+      "lever_axes": [
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "well_wall_mm": 3,
+      "well_floor_mm": 3,
+      "per_side_slip_mm": 0.15,
+      "rear_blank_half_grip_mm": 9.300000000000011,
+      "external_straight_wire_approach_mm": 2,
+      "geometric_wire_bend_radius_mm": 3.4,
+      "occupied_wire_diameter_mm": 3.2,
+      "reserved_port_points": [
+        [
+          -93.21666666666664,
+          334.55,
+          340.45
+        ],
+        [
+          -86.94999999999999,
+          334.55,
+          340.45
+        ],
+        [
+          -80.68333333333331,
+          334.55,
+          340.45
+        ]
+      ],
+      "port_point_scope": "Uniform source groove pitch; nominal terminal-face reservation, not measured metal-clamp locations.",
+      "retention": "Full 3 mm well around the blank rear half; the complete working wire-entry half is open."
+    },
+    {
+      "owner": "wago-n",
+      "wire_entry": {
+        "point": [
+          -64.84999999999998,
+          334.55,
+          340.45
+        ],
+        "axis": [
+          0,
+          -1,
+          0
+        ]
+      },
+      "lever_axes": [
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "well_wall_mm": 3,
+      "well_floor_mm": 3,
+      "per_side_slip_mm": 0.15,
+      "rear_blank_half_grip_mm": 9.300000000000011,
+      "external_straight_wire_approach_mm": 2,
+      "geometric_wire_bend_radius_mm": 3.4,
+      "occupied_wire_diameter_mm": 3.2,
+      "reserved_port_points": [
+        [
+          -71.11666666666665,
+          334.55,
+          340.45
+        ],
+        [
+          -64.85,
+          334.55,
+          340.45
+        ],
+        [
+          -58.58333333333332,
+          334.55,
+          340.45
+        ]
+      ],
+      "port_point_scope": "Uniform source groove pitch; nominal terminal-face reservation, not measured metal-clamp locations.",
+      "retention": "Full 3 mm well around the blank rear half; the complete working wire-entry half is open."
+    },
+    {
+      "owner": "wago-g",
+      "wire_entry": {
+        "point": [
+          -42.749999999999964,
+          334.55,
+          340.45
+        ],
+        "axis": [
+          0,
+          -1,
+          0
+        ]
+      },
+      "lever_axes": [
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "well_wall_mm": 3,
+      "well_floor_mm": 3,
+      "per_side_slip_mm": 0.15,
+      "rear_blank_half_grip_mm": 9.300000000000011,
+      "external_straight_wire_approach_mm": 2,
+      "geometric_wire_bend_radius_mm": 3.4,
+      "occupied_wire_diameter_mm": 3.2,
+      "reserved_port_points": [
+        [
+          -49.01666666666663,
+          334.55,
+          340.45
+        ],
+        [
+          -42.749999999999964,
+          334.55,
+          340.45
+        ],
+        [
+          -36.4833333333333,
+          334.55,
+          340.45
+        ]
+      ],
+      "port_point_scope": "Uniform source groove pitch; nominal terminal-face reservation, not measured metal-clamp locations.",
+      "retention": "Full 3 mm well around the blank rear half; the complete working wire-entry half is open."
+    },
+    {
+      "owner": "wago-v12",
+      "wire_entry": {
+        "point": [
+          -86.94999999999997,
+          375.04999999999995,
+          340.45
+        ],
+        "axis": [
+          0,
+          1,
+          0
+        ]
+      },
+      "lever_axes": [
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "well_wall_mm": 3,
+      "well_floor_mm": 3,
+      "per_side_slip_mm": 0.15,
+      "rear_blank_half_grip_mm": 9.300000000000011,
+      "external_straight_wire_approach_mm": 2,
+      "geometric_wire_bend_radius_mm": 3.4,
+      "occupied_wire_diameter_mm": 3.2,
+      "reserved_port_points": [
+        [
+          -93.21666666666664,
+          375.04999999999995,
+          340.45
+        ],
+        [
+          -86.94999999999996,
+          375.04999999999995,
+          340.45
+        ],
+        [
+          -80.68333333333331,
+          375.04999999999995,
+          340.45
+        ]
+      ],
+      "port_point_scope": "Uniform source groove pitch; nominal terminal-face reservation, not measured metal-clamp locations.",
+      "retention": "Full 3 mm well around the blank rear half; the complete working wire-entry half is open."
+    },
+    {
+      "owner": "wago-gnd",
+      "wire_entry": {
+        "point": [
+          -64.84999999999998,
+          364.3,
+          340.45
+        ],
+        "axis": [
+          0,
+          -1,
+          0
+        ]
+      },
+      "lever_axes": [
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "well_wall_mm": 3,
+      "well_floor_mm": 3,
+      "per_side_slip_mm": 0.15,
+      "rear_blank_half_grip_mm": 9.300000000000011,
+      "external_straight_wire_approach_mm": 2,
+      "geometric_wire_bend_radius_mm": 3.4,
+      "occupied_wire_diameter_mm": 3.2,
+      "reserved_port_points": [
+        [
+          -71.11666666666665,
+          364.3,
+          340.45
+        ],
+        [
+          -64.85,
+          364.3,
+          340.45
+        ],
+        [
+          -58.58333333333332,
+          364.3,
+          340.45
+        ]
+      ],
+      "port_point_scope": "Uniform source groove pitch; nominal terminal-face reservation, not measured metal-clamp locations.",
+      "retention": "Full 3 mm well around the blank rear half; the complete working wire-entry half is open."
+    },
+    {
+      "owner": "wago-reeds-b",
+      "wire_entry": {
+        "point": [
+          -33.00000000000001,
+          372.05,
+          340.90000000000003
+        ],
+        "axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "lever_axes": [
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ]
+      ],
+      "well_wall_mm": 3,
+      "well_floor_mm": 3,
+      "per_side_slip_mm": 0.15,
+      "rear_blank_half_grip_mm": 9.150000000000006,
+      "external_straight_wire_approach_mm": 4,
+      "geometric_wire_bend_radius_mm": 3.4,
+      "occupied_wire_diameter_mm": 1.7,
+      "reserved_port_points": [
+        [
+          -44.92000000000001,
+          368.09999999999997,
+          340.90000000000003
+        ],
+        [
+          -38.96000000000001,
+          368.09999999999997,
+          340.90000000000003
+        ],
+        [
+          -33.00000000000001,
+          368.09999999999997,
+          340.90000000000003
+        ],
+        [
+          -27.040000000000006,
+          368.09999999999997,
+          340.90000000000003
+        ],
+        [
+          -21.080000000000005,
+          368.09999999999997,
+          340.90000000000003
+        ],
+        [
+          -44.92000000000001,
+          376.0,
+          340.90000000000003
+        ],
+        [
+          -38.96000000000001,
+          376.0,
+          340.90000000000003
+        ],
+        [
+          -33.00000000000001,
+          376.0,
+          340.90000000000003
+        ],
+        [
+          -27.040000000000006,
+          376.0,
+          340.90000000000003
+        ],
+        [
+          -21.080000000000005,
+          376.0,
+          340.90000000000003
+        ]
+      ],
+      "port_point_scope": "Uniform source groove pitch; nominal terminal-face reservation, not measured metal-clamp locations.",
+      "retention": "Full 3 mm well around the blank rear half; the complete working wire-entry half is open."
+    },
+    {
+      "owner": "wago-reeds-a",
+      "wire_entry": {
+        "point": [
+          -81.34999999999998,
+          394.04999999999995,
+          340.45000000000005
+        ],
+        "axis": [
+          0,
+          -1,
+          0
+        ]
+      },
+      "lever_axes": [
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "well_wall_mm": 3,
+      "well_floor_mm": 3,
+      "per_side_slip_mm": 0.15,
+      "rear_blank_half_grip_mm": 9.30000000000004,
+      "external_straight_wire_approach_mm": 2,
+      "geometric_wire_bend_radius_mm": 3.4,
+      "occupied_wire_diameter_mm": 1.7,
+      "reserved_port_points": [
+        [
+          -93.35,
+          394.04999999999995,
+          340.45000000000005
+        ],
+        [
+          -87.35,
+          394.04999999999995,
+          340.45000000000005
+        ],
+        [
+          -81.34999999999998,
+          394.04999999999995,
+          340.45000000000005
+        ],
+        [
+          -75.34999999999998,
+          394.04999999999995,
+          340.45000000000005
+        ],
+        [
+          -69.34999999999997,
+          394.04999999999995,
+          340.45000000000005
+        ]
+      ],
+      "port_point_scope": "Uniform source groove pitch; nominal terminal-face reservation, not measured metal-clamp locations.",
+      "retention": "Full 3 mm well around the blank rear half; the complete working wire-entry half is open."
+    },
+    {
+      "owner": "wago-sensors",
+      "wire_entry": {
+        "point": [
+          -48.04999999999997,
+          394.05,
+          340.45000000000005
+        ],
+        "axis": [
+          0,
+          -1,
+          0
+        ]
+      },
+      "lever_axes": [
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "well_wall_mm": 3,
+      "well_floor_mm": 3,
+      "per_side_slip_mm": 0.15,
+      "rear_blank_half_grip_mm": 9.300000000000011,
+      "external_straight_wire_approach_mm": 2,
+      "geometric_wire_bend_radius_mm": 3.4,
+      "occupied_wire_diameter_mm": 1.7,
+      "reserved_port_points": [
+        [
+          -60.04999999999998,
+          394.05,
+          340.45000000000005
+        ],
+        [
+          -54.049999999999976,
+          394.05,
+          340.45000000000005
+        ],
+        [
+          -48.04999999999997,
+          394.05,
+          340.45000000000005
+        ],
+        [
+          -42.04999999999997,
+          394.05,
+          340.45000000000005
+        ],
+        [
+          -36.049999999999955,
+          394.05,
+          340.45000000000005
+        ]
+      ],
+      "port_point_scope": "Uniform source groove pitch; nominal terminal-face reservation, not measured metal-clamp locations.",
+      "retention": "Full 3 mm well around the blank rear half; the complete working wire-entry half is open."
+    }
+  ],
+  "pilot_cutters": {
+    "relay-1-pilot-1": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-1-pilot-1.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-1-pilot-1.json",
+      "sha256": "c84e1295667ce87eb081977e9d1bd4dd8be76d8ee82fb33eebb5bf473563df5f",
+      "bounds": [
+        -24.500395440459915,
+        423.4999999,
+        254.39960455954005,
+        -20.499604559540085,
+        427.5000001,
+        259.6503954404599
+      ],
+      "role": "structure",
+      "detail": "Exact blind pilot; recut after platform is fused to retained cold-core lid.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-1-pilot-2": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-1-pilot-2.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-1-pilot-2.json",
+      "sha256": "6f089542bceafef28d5544216110c3b9d03d36e0a4207c1631094fbe214c8501",
+      "bounds": [
+        -24.500395440459915,
+        436.4999999,
+        254.39960455954005,
+        -20.499604559540085,
+        440.5000001,
+        259.6503954404599
+      ],
+      "role": "structure",
+      "detail": "Exact blind pilot; recut after platform is fused to retained cold-core lid.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-1-pilot-3": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-1-pilot-3.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-1-pilot-3.json",
+      "sha256": "f6d6eaf5dba633bbd318fa8b40c66e58d44ffa722c767e706e913de154779dd7",
+      "bounds": [
+        41.49960455954008,
+        423.4999999,
+        251.14960455954005,
+        45.50039544045992,
+        427.5000001,
+        259.6503954404599
+      ],
+      "role": "structure",
+      "detail": "Exact blind pilot; recut after platform is fused to retained cold-core lid.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-1-pilot-4": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-1-pilot-4.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-1-pilot-4.json",
+      "sha256": "99fd4e44d78c2d67f7735d8f5a938be5a72725192eb8522b04c80012c245c9ca",
+      "bounds": [
+        41.49960455954008,
+        436.4999999,
+        251.14960455954005,
+        45.50039544045992,
+        440.5000001,
+        259.6503954404599
+      ],
+      "role": "structure",
+      "detail": "Exact blind pilot; recut after platform is fused to retained cold-core lid.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-2-pilot-1": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-2-pilot-1.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-2-pilot-1.json",
+      "sha256": "b8c67383d604ff50185db1ea32d405f5ec9d9797a4f5b61716e38deb86738dc5",
+      "bounds": [
+        -24.500395440459926,
+        443.7999999,
+        251.14960455954005,
+        -20.499604559540074,
+        447.80000010000003,
+        259.6503954404599
+      ],
+      "role": "structure",
+      "detail": "Exact blind pilot; recut after platform is fused to retained cold-core lid.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-2-pilot-2": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-2-pilot-2.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-2-pilot-2.json",
+      "sha256": "5602bceba646be42f5938e73cdb0a2f2317494aa38d8bbee6b2264a9e959f1cb",
+      "bounds": [
+        -24.500395440459926,
+        456.7999999,
+        251.14960455954005,
+        -20.499604559540074,
+        460.80000010000003,
+        259.6503954404599
+      ],
+      "role": "structure",
+      "detail": "Exact blind pilot; recut after platform is fused to retained cold-core lid.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-2-pilot-3": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-2-pilot-3.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-2-pilot-3.json",
+      "sha256": "e14330609d4df1329f254b2c3a07fdfb64722c66298ac2d06ca798a04ee12a9e",
+      "bounds": [
+        41.499604559540074,
+        443.7999999,
+        254.39960455954005,
+        45.500395440459926,
+        447.80000010000003,
+        259.6503954404599
+      ],
+      "role": "structure",
+      "detail": "Exact blind pilot; recut after platform is fused to retained cold-core lid.",
+      "valid": true,
+      "solids": 1
+    },
+    "relay-2-pilot-4": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-2-pilot-4.brep",
+      "mesh": ".cache/pump-first-layout/mounts/floor/relay-2-pilot-4.json",
+      "sha256": "18babe3a6f329de1218578544e5d56aa379f0919c2645b1ad280e503cc13e4f4",
+      "bounds": [
+        41.499604559540074,
+        456.7999999,
+        254.39960455954005,
+        45.500395440459926,
+        460.80000010000003,
+        259.6503954404599
+      ],
+      "role": "structure",
+      "detail": "Exact blind pilot; recut after platform is fused to retained cold-core lid.",
+      "valid": true,
+      "solids": 1
+    }
+  },
+  "working_envelopes": {
+    "wago-h": {
+      "levers": {
+        "brep": ".cache/pump-first-layout/mounts/roof/lever-envelope-wago-h.brep",
+        "mesh": ".cache/pump-first-layout/mounts/roof/lever-envelope-wago-h.json",
+        "bounds": [
+          -96.35000010000006,
+          334.54999989999993,
+          344.6499998999999,
+          -77.5499998999999,
+          343.8500001000001,
+          351.5000001000001
+        ],
+        "role": "motion",
+        "detail": "Measured6.85 mm lever reach; full working half is explicit.",
+        "sha256": "b1d7336ac30ff514ea58432e5681bd1202fc424d10159ab08cff2be731642662",
+        "valid": true,
+        "solids": 1
+      },
+      "entry_wire": {
+        "brep": ".cache/pump-first-layout/mounts/roof/entry-wire-wago-h.brep",
+        "mesh": ".cache/pump-first-layout/mounts/roof/entry-wire-wago-h.json",
+        "bounds": [
+          -94.81763045550876,
+          327.54871993879,
+          336.24968362763207,
+          -79.08236954449119,
+          334.55031637236794,
+          342.05128006121004
+        ],
+        "role": "wiring",
+        "detail": "All ports explicitly reserved:1.7 mm signal wires or conservative3.2 mm main-wire drafting envelopes; normal approach4/2 mm and R3.4 quarter arcs remain unqualified.",
+        "sha256": "c62cdac7e70a27586ab16d41446bd8ad3367ec47f807a35d4b4865f174344266",
+        "valid": true,
+        "solids": 3
+      },
+      "roof_cutter": {
+        "brep": ".cache/pump-first-layout/mounts/roof/roof-pocket-wago-h.brep",
+        "mesh": ".cache/pump-first-layout/mounts/roof/roof-pocket-wago-h.json",
+        "bounds": [
+          -97.35000009999999,
+          327.5499999,
+          342.9999999,
+          -76.54999989999997,
+          354.15000010000006,
+          352.0000001
+        ],
+        "role": "structure",
+        "detail": "Localized ceiling relief preserves at least3 mm exterior stock.",
+        "sha256": "90f0926115f75de2f7c917510d9aa45279b00210dd1b2c3443fc6bd0c08706b3",
+        "valid": true,
+        "solids": 1
+      }
+    },
+    "wago-n": {
+      "levers": {
+        "brep": ".cache/pump-first-layout/mounts/roof/lever-envelope-wago-n.brep",
+        "mesh": ".cache/pump-first-layout/mounts/roof/lever-envelope-wago-n.json",
+        "bounds": [
+          -74.25000010000007,
+          334.54999989999993,
+          344.6499998999999,
+          -55.44999989999991,
+          343.8500001000001,
+          351.5000001000001
+        ],
+        "role": "motion",
+        "detail": "Measured6.85 mm lever reach; full working half is explicit.",
+        "sha256": "589ce445515937ca281af603e18ffc2e667a9fee6e66c51a5fd61793a74e832f",
+        "valid": true,
+        "solids": 1
+      },
+      "entry_wire": {
+        "brep": ".cache/pump-first-layout/mounts/roof/entry-wire-wago-n.brep",
+        "mesh": ".cache/pump-first-layout/mounts/roof/entry-wire-wago-n.json",
+        "bounds": [
+          -72.71763045550877,
+          327.54871993879,
+          336.24968362763207,
+          -56.98236954449121,
+          334.55031637236794,
+          342.05128006121004
+        ],
+        "role": "wiring",
+        "detail": "All ports explicitly reserved:1.7 mm signal wires or conservative3.2 mm main-wire drafting envelopes; normal approach4/2 mm and R3.4 quarter arcs remain unqualified.",
+        "sha256": "fa8efc21f9f58b0e5c96047dd841ac68aacc300c0c96381f3d7a6ad2117f32ae",
+        "valid": true,
+        "solids": 3
+      },
+      "roof_cutter": {
+        "brep": ".cache/pump-first-layout/mounts/roof/roof-pocket-wago-n.brep",
+        "mesh": ".cache/pump-first-layout/mounts/roof/roof-pocket-wago-n.json",
+        "bounds": [
+          -75.2500001,
+          327.5499999,
+          342.9999999,
+          -54.44999989999997,
+          354.15000010000006,
+          352.0000001
+        ],
+        "role": "structure",
+        "detail": "Localized ceiling relief preserves at least3 mm exterior stock.",
+        "sha256": "e05ca669b6d79754fbdb786cd79cfa202247e45485409fd8743c9fc2dd68e7d9",
+        "valid": true,
+        "solids": 1
+      }
+    },
+    "wago-g": {
+      "levers": {
+        "brep": ".cache/pump-first-layout/mounts/roof/lever-envelope-wago-g.brep",
+        "mesh": ".cache/pump-first-layout/mounts/roof/lever-envelope-wago-g.json",
+        "bounds": [
+          -52.15000010000004,
+          334.54999989999993,
+          344.6499998999999,
+          -33.34999989999989,
+          343.8500001000001,
+          351.5000001000001
+        ],
+        "role": "motion",
+        "detail": "Measured6.85 mm lever reach; full working half is explicit.",
+        "sha256": "508c60fe52a8be69181f88991b1149d981efc4e9077fcede2a783141d5956af9",
+        "valid": true,
+        "solids": 1
+      },
+      "entry_wire": {
+        "brep": ".cache/pump-first-layout/mounts/roof/entry-wire-wago-g.brep",
+        "mesh": ".cache/pump-first-layout/mounts/roof/entry-wire-wago-g.json",
+        "bounds": [
+          -50.61763045550874,
+          327.54871993879,
+          336.24968362763207,
+          -34.88236954449119,
+          334.55031637236794,
+          342.05128006121004
+        ],
+        "role": "wiring",
+        "detail": "All ports explicitly reserved:1.7 mm signal wires or conservative3.2 mm main-wire drafting envelopes; normal approach4/2 mm and R3.4 quarter arcs remain unqualified.",
+        "sha256": "f0efc460e449237c21e0558916b8bd9d3565a9226ddb41d8e5af4da1b9cf7d9b",
+        "valid": true,
+        "solids": 3
+      },
+      "roof_cutter": {
+        "brep": ".cache/pump-first-layout/mounts/roof/roof-pocket-wago-g.brep",
+        "mesh": ".cache/pump-first-layout/mounts/roof/roof-pocket-wago-g.json",
+        "bounds": [
+          -53.15000009999997,
+          327.5499999,
+          342.9999999,
+          -32.349999899999965,
+          354.15000010000006,
+          352.0000001
+        ],
+        "role": "structure",
+        "detail": "Localized ceiling relief preserves at least3 mm exterior stock.",
+        "sha256": "4b2d209124aa254528ef7233651954a8c86f8d10f7fba3cd6a381c4906d554f1",
+        "valid": true,
+        "solids": 1
+      }
+    },
+    "wago-v12": {
+      "levers": {
+        "brep": ".cache/pump-first-layout/mounts/roof/lever-envelope-wago-v12.brep",
+        "mesh": ".cache/pump-first-layout/mounts/roof/lever-envelope-wago-v12.json",
+        "bounds": [
+          -96.35000010000005,
+          365.74999989999986,
+          344.6499998999999,
+          -77.54999989999989,
+          375.05000010000003,
+          351.5000001000001
+        ],
+        "role": "motion",
+        "detail": "Measured6.85 mm lever reach; full working half is explicit.",
+        "sha256": "28788f0224635bd7db5801b27e69a76515932cbec66923a3c1040c0bca6f7946",
+        "valid": true,
+        "solids": 1
+      },
+      "entry_wire": {
+        "brep": ".cache/pump-first-layout/mounts/roof/entry-wire-wago-v12.brep",
+        "mesh": ".cache/pump-first-layout/mounts/roof/entry-wire-wago-v12.json",
+        "bounds": [
+          -94.81763045550876,
+          375.049683627632,
+          336.249683627632,
+          -79.08236954449119,
+          382.05128006121,
+          342.05128006121004
+        ],
+        "role": "wiring",
+        "detail": "All ports explicitly reserved:1.7 mm signal wires or conservative3.2 mm main-wire drafting envelopes; normal approach4/2 mm and R3.4 quarter arcs remain unqualified.",
+        "sha256": "7e944ae51daea6f4ec126f2b044f0072ee4dfe1b0546284167f643dd87fdcc04",
+        "valid": true,
+        "solids": 3
+      },
+      "roof_cutter": {
+        "brep": ".cache/pump-first-layout/mounts/roof/roof-pocket-wago-v12.brep",
+        "mesh": ".cache/pump-first-layout/mounts/roof/roof-pocket-wago-v12.json",
+        "bounds": [
+          -97.35000010000003,
+          349.44999989999985,
+          342.9999998999999,
+          -76.5499998999999,
+          376.05000010000003,
+          352.0000001000001
+        ],
+        "role": "structure",
+        "detail": "Localized ceiling relief preserves at least3 mm exterior stock.",
+        "sha256": "abc14861fe488de42f8542c1277c2b01d5449cfd5426e166ce009a5c3c5aec27",
+        "valid": true,
+        "solids": 1
+      }
+    },
+    "wago-gnd": {
+      "levers": {
+        "brep": ".cache/pump-first-layout/mounts/roof/lever-envelope-wago-gnd.brep",
+        "mesh": ".cache/pump-first-layout/mounts/roof/lever-envelope-wago-gnd.json",
+        "bounds": [
+          -74.25000010000007,
+          364.29999989999993,
+          344.6499998999999,
+          -55.44999989999991,
+          373.6000001000001,
+          351.5000001000001
+        ],
+        "role": "motion",
+        "detail": "Measured6.85 mm lever reach; full working half is explicit.",
+        "sha256": "e8ad12188fb99b84fdb3259af149d2e9d7d30f3cca7cc3f2df38ff109d05f6d7",
+        "valid": true,
+        "solids": 1
+      },
+      "entry_wire": {
+        "brep": ".cache/pump-first-layout/mounts/roof/entry-wire-wago-gnd.brep",
+        "mesh": ".cache/pump-first-layout/mounts/roof/entry-wire-wago-gnd.json",
+        "bounds": [
+          -72.71763045550877,
+          357.29871993879,
+          336.24968362763207,
+          -56.98236954449121,
+          364.30031637236794,
+          342.05128006121004
+        ],
+        "role": "wiring",
+        "detail": "All ports explicitly reserved:1.7 mm signal wires or conservative3.2 mm main-wire drafting envelopes; normal approach4/2 mm and R3.4 quarter arcs remain unqualified.",
+        "sha256": "95600c962f5e69da1fecfc3694b5b891cc7528dbc615023e6607c9820594bc58",
+        "valid": true,
+        "solids": 3
+      },
+      "roof_cutter": {
+        "brep": ".cache/pump-first-layout/mounts/roof/roof-pocket-wago-gnd.brep",
+        "mesh": ".cache/pump-first-layout/mounts/roof/roof-pocket-wago-gnd.json",
+        "bounds": [
+          -75.2500001,
+          357.2999999,
+          342.9999999,
+          -54.44999989999997,
+          383.90000010000006,
+          352.0000001
+        ],
+        "role": "structure",
+        "detail": "Localized ceiling relief preserves at least3 mm exterior stock.",
+        "sha256": "1c9cf342896b0a5a24c2a47a85d25d77490f349ff750d36b6de5fe701745f802",
+        "valid": true,
+        "solids": 1
+      }
+    },
+    "wago-reeds-b": {
+      "levers": {
+        "brep": ".cache/pump-first-layout/mounts/roof/lever-envelope-wago-reeds-b.brep",
+        "mesh": ".cache/pump-first-layout/mounts/roof/lever-envelope-wago-reeds-b.json",
+        "bounds": [
+          -47.900000100000085,
+          357.2999998999999,
+          331.7499998999999,
+          -18.099999899999926,
+          386.8000001000001,
+          340.9000001000001
+        ],
+        "role": "motion",
+        "detail": "Measured6.85 mm lever reach; full working half is explicit.",
+        "sha256": "9ed119949443a1660fab6b53f6c2faf203fef8a5899cba570b910fccc0b0456c",
+        "valid": true,
+        "solids": 2
+      },
+      "entry_wire": {
+        "brep": ".cache/pump-first-layout/mounts/roof/entry-wire-wago-reeds-b.brep",
+        "mesh": ".cache/pump-first-layout/mounts/roof/entry-wire-wago-reeds-b.json",
+        "bounds": [
+          -45.77098731525937,
+          360.6998318803045,
+          340.89983188030453,
+          -20.22901268474065,
+          376.8508192955639,
+          349.1508192955639
+        ],
+        "role": "wiring",
+        "detail": "All ports explicitly reserved:1.7 mm signal wires or conservative3.2 mm main-wire drafting envelopes; normal approach4/2 mm and R3.4 quarter arcs remain unqualified.",
+        "sha256": "1d87c8614702704f9baae0fc6d55b2448b1e2af1a6ff2b0d0ba3cba97f8e0834",
+        "valid": true,
+        "solids": 10
+      },
+      "roof_cutter": {
+        "brep": ".cache/pump-first-layout/mounts/roof/roof-pocket-wago-reeds-b.brep",
+        "mesh": ".cache/pump-first-layout/mounts/roof/roof-pocket-wago-reeds-b.json",
+        "bounds": [
+          -47.900000100000085,
+          358.3499998999999,
+          342.9999998999999,
+          -18.099999899999926,
+          380.95000010000007,
+          350.15000010000006
+        ],
+        "role": "structure",
+        "detail": "Localized ceiling relief preserves at least3 mm exterior stock.",
+        "sha256": "7e5868ff5c8d61de38b1a72adc39e455ab487d2949aebf2aaf375bc758efa4d2",
+        "valid": true,
+        "solids": 1
+      }
+    },
+    "wago-reeds-a": {
+      "levers": {
+        "brep": ".cache/pump-first-layout/mounts/roof/lever-envelope-wago-reeds-a.brep",
+        "mesh": ".cache/pump-first-layout/mounts/roof/lever-envelope-wago-reeds-a.json",
+        "bounds": [
+          -96.35000010000007,
+          394.0499998999999,
+          344.6499999,
+          -66.34999989999989,
+          403.3500001000001,
+          351.5000001000002
+        ],
+        "role": "motion",
+        "detail": "Measured6.85 mm lever reach; full working half is explicit.",
+        "sha256": "71d48f4e1546aacafcc320370f28b9649acae418d6844d35380781b98f03845d",
+        "valid": true,
+        "solids": 1
+      },
+      "entry_wire": {
+        "brep": ".cache/pump-first-layout/mounts/roof/entry-wire-wago-reeds-a.brep",
+        "mesh": ".cache/pump-first-layout/mounts/roof/entry-wire-wago-reeds-a.json",
+        "bounds": [
+          -94.20081925766621,
+          387.7990127226383,
+          336.24983188030455,
+          -68.49918074233375,
+          394.05016811969546,
+          341.30098727736174
+        ],
+        "role": "wiring",
+        "detail": "All ports explicitly reserved:1.7 mm signal wires or conservative3.2 mm main-wire drafting envelopes; normal approach4/2 mm and R3.4 quarter arcs remain unqualified.",
+        "sha256": "79e5baddde779e4157b99ef40a86df20cc39d7d03518751ce3cc724eb61e89d0",
+        "valid": true,
+        "solids": 5
+      },
+      "roof_cutter": {
+        "brep": ".cache/pump-first-layout/mounts/roof/roof-pocket-wago-reeds-a.brep",
+        "mesh": ".cache/pump-first-layout/mounts/roof/roof-pocket-wago-reeds-a.json",
+        "bounds": [
+          -97.35000010000006,
+          387.0499998999999,
+          342.9999998999999,
+          -65.34999989999991,
+          413.6500001000001,
+          352.0000001000001
+        ],
+        "role": "structure",
+        "detail": "Localized ceiling relief preserves at least3 mm exterior stock.",
+        "sha256": "9de1adbae076746e9dbc1c4f76bd36f9d054bf7b0e2b5b2ccd3cd89e91b27c50",
+        "valid": true,
+        "solids": 1
+      }
+    },
+    "wago-sensors": {
+      "levers": {
+        "brep": ".cache/pump-first-layout/mounts/roof/lever-envelope-wago-sensors.brep",
+        "mesh": ".cache/pump-first-layout/mounts/roof/lever-envelope-wago-sensors.json",
+        "bounds": [
+          -63.05000010000006,
+          394.04999989999993,
+          344.6499999,
+          -33.049999899999875,
+          403.3500001000001,
+          351.5000001000002
+        ],
+        "role": "motion",
+        "detail": "Measured6.85 mm lever reach; full working half is explicit.",
+        "sha256": "7a82a0fd4b9fced787b88877e63fbcb8d8e1cb36d1c59ecb56231e31c9ac27c4",
+        "valid": true,
+        "solids": 1
+      },
+      "entry_wire": {
+        "brep": ".cache/pump-first-layout/mounts/roof/entry-wire-wago-sensors.brep",
+        "mesh": ".cache/pump-first-layout/mounts/roof/entry-wire-wago-sensors.json",
+        "bounds": [
+          -60.90081925766618,
+          387.7990127226384,
+          336.24983188030455,
+          -35.19918074233376,
+          394.0501681196955,
+          341.3009872773617
+        ],
+        "role": "wiring",
+        "detail": "All ports explicitly reserved:1.7 mm signal wires or conservative3.2 mm main-wire drafting envelopes; normal approach4/2 mm and R3.4 quarter arcs remain unqualified.",
+        "sha256": "66cb0d2397bcf6c359dd52b804b966b248bfa071d951bd54fe4006bd933d7dbc",
+        "valid": true,
+        "solids": 5
+      },
+      "roof_cutter": {
+        "brep": ".cache/pump-first-layout/mounts/roof/roof-pocket-wago-sensors.brep",
+        "mesh": ".cache/pump-first-layout/mounts/roof/roof-pocket-wago-sensors.json",
+        "bounds": [
+          -64.05000009999999,
+          387.0499999,
+          342.9999999,
+          -32.049999899999946,
+          413.65000010000006,
+          352.0000001
+        ],
+        "role": "structure",
+        "detail": "Localized ceiling relief preserves at least3 mm exterior stock.",
+        "sha256": "4a97babe0f049afeb84eeb2cd171849f67db6726a2e9ee9e8df8cac45560968d",
+        "valid": true,
+        "solids": 1
+      }
+    }
+  },
+  "checks": [
+    {
+      "test": "native printed host clears mounted relay",
+      "part": "relay-1",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-1-mount-screw-1",
+      "device": "relay-1",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-1-mount-screw-2",
+      "device": "relay-1",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-1-mount-screw-3",
+      "device": "relay-1",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-1-head-spacer-3",
+      "device": "relay-1",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-1-mount-screw-4",
+      "device": "relay-1",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-1-head-spacer-4",
+      "device": "relay-1",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-2-mount-screw-1",
+      "device": "relay-1",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-2-head-spacer-1",
+      "device": "relay-1",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-2-mount-screw-2",
+      "device": "relay-1",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-2-head-spacer-2",
+      "device": "relay-1",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-2-mount-screw-3",
+      "device": "relay-1",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-2-mount-screw-4",
+      "device": "relay-1",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native printed host clears mounted relay",
+      "part": "relay-2",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-1-mount-screw-1",
+      "device": "relay-2",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-1-mount-screw-2",
+      "device": "relay-2",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-1-mount-screw-3",
+      "device": "relay-2",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-1-head-spacer-3",
+      "device": "relay-2",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-1-mount-screw-4",
+      "device": "relay-2",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-1-head-spacer-4",
+      "device": "relay-2",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-2-mount-screw-1",
+      "device": "relay-2",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-2-head-spacer-1",
+      "device": "relay-2",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-2-mount-screw-2",
+      "device": "relay-2",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-2-head-spacer-2",
+      "device": "relay-2",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-2-mount-screw-3",
+      "device": "relay-2",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "actual fastener clears mounted relay",
+      "part": "relay-2-mount-screw-4",
+      "device": "relay-2",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "accepted6.8mm reed-A bore and normal cable exit remain clear",
+      "part": "relay-1-mount-screw-1",
+      "gap_mm": 27.733476799171566,
+      "pass_result": true
+    },
+    {
+      "test": "accepted6.8mm reed-A bore and normal cable exit remain clear",
+      "part": "relay-1-mount-screw-2",
+      "gap_mm": 15.397389633085474,
+      "pass_result": true
+    },
+    {
+      "test": "accepted6.8mm reed-A bore and normal cable exit remain clear",
+      "part": "relay-1-mount-screw-3",
+      "gap_mm": 75.25079852188185,
+      "pass_result": true
+    },
+    {
+      "test": "accepted6.8mm reed-A bore and normal cable exit remain clear",
+      "part": "relay-1-head-spacer-3",
+      "gap_mm": 75.75079852188182,
+      "pass_result": true
+    },
+    {
+      "test": "accepted6.8mm reed-A bore and normal cable exit remain clear",
+      "part": "relay-1-mount-screw-4",
+      "gap_mm": 70.9362503952553,
+      "pass_result": true
+    },
+    {
+      "test": "accepted6.8mm reed-A bore and normal cable exit remain clear",
+      "part": "relay-1-head-spacer-4",
+      "gap_mm": 71.43625039525531,
+      "pass_result": true
+    },
+    {
+      "test": "accepted6.8mm reed-A bore and normal cable exit remain clear",
+      "part": "relay-2-mount-screw-1",
+      "gap_mm": 8.966216457830951,
+      "pass_result": true
+    },
+    {
+      "test": "accepted6.8mm reed-A bore and normal cable exit remain clear",
+      "part": "relay-2-head-spacer-1",
+      "gap_mm": 9.466216457830958,
+      "pass_result": true
+    },
+    {
+      "test": "accepted6.8mm reed-A bore and normal cable exit remain clear",
+      "part": "relay-2-mount-screw-2",
+      "gap_mm": 2.3646931829631983,
+      "pass_result": true
+    },
+    {
+      "test": "accepted6.8mm reed-A bore and normal cable exit remain clear",
+      "part": "relay-2-head-spacer-2",
+      "gap_mm": 2.8646931829631974,
+      "pass_result": true
+    },
+    {
+      "test": "accepted6.8mm reed-A bore and normal cable exit remain clear",
+      "part": "relay-2-mount-screw-3",
+      "gap_mm": 69.39137938904743,
+      "pass_result": true
+    },
+    {
+      "test": "accepted6.8mm reed-A bore and normal cable exit remain clear",
+      "part": "relay-2-mount-screw-4",
+      "gap_mm": 68.35167783345553,
+      "pass_result": true
+    },
+    {
+      "test": "accepted6.8mm reed-A bore and normal cable exit remain clear",
+      "part": "relay-lid-platform",
+      "gap_mm": 1.1000000000000014,
+      "pass_result": true
+    },
+    {
+      "test": "accepted6.8mm reed-A bore and normal cable exit remain clear",
+      "part": "relay-1",
+      "gap_mm": 15.549670181826391,
+      "pass_result": true
+    },
+    {
+      "test": "accepted6.8mm reed-A bore and normal cable exit remain clear",
+      "part": "relay-2",
+      "gap_mm": 3.10000000000003,
+      "pass_result": true
+    },
+    {
+      "test": "mounted relay clears current adjacent body",
+      "part": "relay-1",
+      "neighbor": "tube-water-6",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "mounted relay clears current adjacent body",
+      "part": "relay-1",
+      "neighbor": "tube-water-5",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "mounted relay clears current adjacent body",
+      "part": "relay-1",
+      "neighbor": "tube-fluid-14",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "mounted relay clears current adjacent body",
+      "part": "relay-1",
+      "neighbor": "tube-fluid-18",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "mounted relay clears current adjacent body",
+      "part": "relay-1",
+      "neighbor": "tube-co2-1",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "mounted relay clears current adjacent body",
+      "part": "relay-1",
+      "neighbor": "tube-co2-0",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "mounted relay clears current adjacent body",
+      "part": "relay-2",
+      "neighbor": "tube-water-6",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "mounted relay clears current adjacent body",
+      "part": "relay-2",
+      "neighbor": "tube-water-5",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "mounted relay clears current adjacent body",
+      "part": "relay-2",
+      "neighbor": "tube-fluid-18",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "mounted relay clears current adjacent body",
+      "part": "relay-2",
+      "neighbor": "tube-co2-1",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "mounted relay clears current adjacent body",
+      "part": "relay-2",
+      "neighbor": "tube-co2-0",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "complete relay crown to supply underside",
+      "gap_mm": 12.100000000000023,
+      "pass_result": true
+    },
+    {
+      "test": "AC/DC divider crown to supply underside",
+      "gap_mm": 10.75,
+      "pass_result": true
+    },
+    {
+      "test": "PCB pin tips to printed deck",
+      "gap_mm": 1.25,
+      "pass_result": true
+    },
+    {
+      "test": "complete host single solid",
+      "valid": true,
+      "solids": 1,
+      "pass_result": true
+    },
+    {
+      "test": "native host clears closed connector",
+      "part": "wago-h",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native host clears closed connector",
+      "part": "wago-n",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native host clears closed connector",
+      "part": "wago-g",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native host clears closed connector",
+      "part": "wago-v12",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native host clears closed connector",
+      "part": "wago-gnd",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native host clears closed connector",
+      "part": "wago-reeds-b",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native host clears closed connector",
+      "part": "wago-reeds-a",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native host clears closed connector",
+      "part": "wago-sensors",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native occupied geometry clears adjacent body",
+      "part": "west-junction-platform",
+      "neighbor": "tube-water-6",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native occupied geometry clears adjacent body",
+      "part": "west-junction-platform",
+      "neighbor": "tube-water-5",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native occupied geometry clears adjacent body",
+      "part": "west-junction-platform",
+      "neighbor": "wr1110",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native occupied geometry clears adjacent body",
+      "part": "west-junction-platform",
+      "neighbor": "co2-adapter-regulator-out",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native occupied geometry clears adjacent body",
+      "part": "west-junction-platform",
+      "neighbor": "tube-fluid-1",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native occupied geometry clears adjacent body",
+      "part": "west-junction-platform",
+      "neighbor": "tube-water-3",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native occupied geometry clears adjacent body",
+      "part": "west-junction-platform",
+      "neighbor": "tube-water-supply-link",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native occupied geometry clears adjacent body",
+      "part": "west-junction-platform",
+      "neighbor": "tube-co2-0",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native occupied geometry clears adjacent body",
+      "part": "west-junction-platform",
+      "neighbor": "pcba",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native occupied geometry clears adjacent body",
+      "part": "west-junction-platform",
+      "neighbor": "controller-roof-boss-2",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native occupied geometry clears adjacent body",
+      "part": "west-junction-platform",
+      "neighbor": "controller-screw-2",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native occupied geometry clears adjacent body",
+      "part": "west-junction-platform",
+      "neighbor": "psu",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native occupied geometry clears adjacent body",
+      "part": "wago-h",
+      "neighbor": "tube-water-3",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native occupied geometry clears adjacent body",
+      "part": "wago-n",
+      "neighbor": "tube-water-5",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native occupied geometry clears adjacent body",
+      "part": "wago-n",
+      "neighbor": "tube-water-3",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native occupied geometry clears adjacent body",
+      "part": "wago-g",
+      "neighbor": "tube-water-5",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native occupied geometry clears adjacent body",
+      "part": "wago-g",
+      "neighbor": "tube-water-3",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native occupied geometry clears adjacent body",
+      "part": "wago-v12",
+      "neighbor": "tube-water-3",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native occupied geometry clears adjacent body",
+      "part": "wago-gnd",
+      "neighbor": "tube-water-5",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native occupied geometry clears adjacent body",
+      "part": "wago-gnd",
+      "neighbor": "tube-water-3",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native occupied geometry clears adjacent body",
+      "part": "wago-reeds-b",
+      "neighbor": "tube-water-5",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native occupied geometry clears adjacent body",
+      "part": "wago-reeds-b",
+      "neighbor": "tube-fluid-1",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native occupied geometry clears adjacent body",
+      "part": "wago-reeds-b",
+      "neighbor": "tube-water-3",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native occupied geometry clears adjacent body",
+      "part": "wago-reeds-b",
+      "neighbor": "tube-water-supply-link",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native occupied geometry clears adjacent body",
+      "part": "wago-reeds-b",
+      "neighbor": "tube-co2-0",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native occupied geometry clears adjacent body",
+      "part": "wago-reeds-b",
+      "neighbor": "pcba",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native occupied geometry clears adjacent body",
+      "part": "wago-reeds-a",
+      "neighbor": "tube-water-6",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native occupied geometry clears adjacent body",
+      "part": "wago-sensors",
+      "neighbor": "tube-water-6",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native occupied geometry clears adjacent body",
+      "part": "wago-sensors",
+      "neighbor": "tube-water-5",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "individual opened lever clears closed installed body",
+      "part": "wago-h",
+      "neighbor": "west-junction-platform",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "individual opened lever clears closed installed body",
+      "part": "wago-h",
+      "neighbor": "tube-water-3",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "individual opened lever clears closed installed body",
+      "part": "wago-n",
+      "neighbor": "west-junction-platform",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "individual opened lever clears closed installed body",
+      "part": "wago-n",
+      "neighbor": "tube-water-5",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "individual opened lever clears closed installed body",
+      "part": "wago-n",
+      "neighbor": "tube-water-3",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "individual opened lever clears closed installed body",
+      "part": "wago-g",
+      "neighbor": "west-junction-platform",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "individual opened lever clears closed installed body",
+      "part": "wago-g",
+      "neighbor": "tube-water-5",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "individual opened lever clears closed installed body",
+      "part": "wago-g",
+      "neighbor": "tube-water-3",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "individual opened lever clears closed installed body",
+      "part": "wago-v12",
+      "neighbor": "west-junction-platform",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "individual opened lever clears closed installed body",
+      "part": "wago-v12",
+      "neighbor": "tube-water-3",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "individual opened lever clears closed installed body",
+      "part": "wago-gnd",
+      "neighbor": "west-junction-platform",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "individual opened lever clears closed installed body",
+      "part": "wago-gnd",
+      "neighbor": "tube-water-5",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "individual opened lever clears closed installed body",
+      "part": "wago-gnd",
+      "neighbor": "tube-water-3",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "individual opened lever clears closed installed body",
+      "part": "wago-reeds-b",
+      "neighbor": "west-junction-platform",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "individual opened lever clears closed installed body",
+      "part": "wago-reeds-b",
+      "neighbor": "tube-water-5",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "individual opened lever clears closed installed body",
+      "part": "wago-reeds-b",
+      "neighbor": "tube-water-3",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "individual opened lever clears closed installed body",
+      "part": "wago-reeds-b",
+      "neighbor": "pcba",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "individual opened lever clears closed installed body",
+      "part": "wago-reeds-a",
+      "neighbor": "west-junction-platform",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "individual opened lever clears closed installed body",
+      "part": "wago-sensors",
+      "neighbor": "west-junction-platform",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "individual opened lever clears closed installed body",
+      "part": "wago-sensors",
+      "neighbor": "tube-water-5",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "explicit candidate entry wire clears native body",
+      "part": "wago-n",
+      "neighbor": "tube-water-5",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "explicit candidate entry wire clears native body",
+      "part": "wago-n",
+      "neighbor": "tube-water-3",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "explicit candidate entry wire clears native body",
+      "part": "wago-g",
+      "neighbor": "tube-water-5",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "explicit candidate entry wire clears native body",
+      "part": "wago-g",
+      "neighbor": "tube-water-3",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "explicit candidate entry wire clears native body",
+      "part": "wago-v12",
+      "neighbor": "west-junction-platform",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "explicit candidate entry wire clears native body",
+      "part": "wago-gnd",
+      "neighbor": "west-junction-platform",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "explicit candidate entry wire clears native body",
+      "part": "wago-gnd",
+      "neighbor": "tube-water-5",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "explicit candidate entry wire clears native body",
+      "part": "wago-gnd",
+      "neighbor": "tube-water-3",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "explicit candidate entry wire clears native body",
+      "part": "wago-reeds-b",
+      "neighbor": "west-junction-platform",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "explicit candidate entry wire clears native body",
+      "part": "wago-reeds-b",
+      "neighbor": "tube-water-5",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "explicit candidate entry wire clears native body",
+      "part": "wago-reeds-b",
+      "neighbor": "tube-water-3",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "explicit candidate entry wire clears native body",
+      "part": "wago-reeds-a",
+      "neighbor": "west-junction-platform",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "explicit candidate entry wire clears native body",
+      "part": "wago-sensors",
+      "neighbor": "west-junction-platform",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "explicit candidate entry wire clears native body",
+      "part": "wago-sensors",
+      "neighbor": "tube-water-5",
+      "common_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "native joined west-rooted host",
+      "valid": true,
+      "solids": 1,
+      "pass_result": true
+    },
+    {
+      "test": "shortest supply component air",
+      "part": "west-junction-platform",
+      "gap_mm": 10.0,
+      "pass_result": true
+    },
+    {
+      "test": "shortest supply component air",
+      "part": "wago-h",
+      "gap_mm": 75.00149998500034,
+      "pass_result": true
+    },
+    {
+      "test": "shortest supply component air",
+      "part": "wago-n",
+      "gap_mm": 64.03378014766895,
+      "pass_result": true
+    },
+    {
+      "test": "shortest supply component air",
+      "part": "wago-g",
+      "gap_mm": 59.600713082982466,
+      "pass_result": true
+    },
+    {
+      "test": "shortest supply component air",
+      "part": "wago-v12",
+      "gap_mm": 59.6478415368068,
+      "pass_result": true
+    },
+    {
+      "test": "shortest supply component air",
+      "part": "wago-gnd",
+      "gap_mm": 39.05716963631649,
+      "pass_result": true
+    },
+    {
+      "test": "shortest supply component air",
+      "part": "wago-reeds-b",
+      "gap_mm": 31.350000000000023,
+      "pass_result": true
+    },
+    {
+      "test": "shortest supply component air",
+      "part": "wago-reeds-a",
+      "gap_mm": 36.7276802970185,
+      "pass_result": true
+    },
+    {
+      "test": "shortest supply component air",
+      "part": "wago-sensors",
+      "gap_mm": 13.04233491365725,
+      "pass_result": true
+    },
+    {
+      "test": "opened lever stays below localized roof with full3mm outer skin",
+      "part": "wago-h",
+      "roof_pocket_end_z_mm": 352.0,
+      "lever_air_mm": 0.49999989999992067,
+      "pass_result": true
+    },
+    {
+      "test": "opened lever stays below localized roof with full3mm outer skin",
+      "part": "wago-n",
+      "roof_pocket_end_z_mm": 352.0,
+      "lever_air_mm": 0.49999989999992067,
+      "pass_result": true
+    },
+    {
+      "test": "opened lever stays below localized roof with full3mm outer skin",
+      "part": "wago-g",
+      "roof_pocket_end_z_mm": 352.0,
+      "lever_air_mm": 0.49999989999992067,
+      "pass_result": true
+    },
+    {
+      "test": "opened lever stays below localized roof with full3mm outer skin",
+      "part": "wago-v12",
+      "roof_pocket_end_z_mm": 352.0,
+      "lever_air_mm": 0.49999989999992067,
+      "pass_result": true
+    },
+    {
+      "test": "opened lever stays below localized roof with full3mm outer skin",
+      "part": "wago-gnd",
+      "roof_pocket_end_z_mm": 352.0,
+      "lever_air_mm": 0.49999989999992067,
+      "pass_result": true
+    },
+    {
+      "test": "opened lever stays below localized roof with full3mm outer skin",
+      "part": "wago-reeds-b",
+      "roof_pocket_end_z_mm": 350.15,
+      "lever_air_mm": 9.249999899999864,
+      "pass_result": true
+    },
+    {
+      "test": "opened lever stays below localized roof with full3mm outer skin",
+      "part": "wago-reeds-a",
+      "roof_pocket_end_z_mm": 352.0,
+      "lever_air_mm": 0.499999899999807,
+      "pass_result": true
+    },
+    {
+      "test": "opened lever stays below localized roof with full3mm outer skin",
+      "part": "wago-sensors",
+      "roof_pocket_end_z_mm": 352.0,
+      "lever_air_mm": 0.499999899999807,
+      "pass_result": true
+    },
+    {
+      "test": "subtracted native host valid and single solid",
+      "valid": true,
+      "solids": 1,
+      "pass_result": true
+    },
+    {
+      "test": "host remains subset of checked occupied geometry",
+      "added_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "complete3.5mm west root strip from Y343.7 aft retained",
+      "removed_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "blank-half grip stock fromY343.7 retained",
+      "removed_mm3": 0.0,
+      "pass_result": true
+    },
+    {
+      "test": "printed platform remains joined to actual wall",
+      "valid": true,
+      "solids": 1,
+      "root_common_mm3": 411.0069614994519,
+      "pass_result": true
+    }
+  ],
+  "shell_fuse_part_names": [
+    "west-junction-platform"
+  ],
+  "lid_fuse_part_names": [
+    "relay-lid-platform"
+  ],
+  "source_sha256": {
+    "future/pump-first-layout-study/mounts/floor_relays.py": "138ea4632ad897b1f6b7e130b42cb1981e19e976f8c60f14d11cc812f56ba9c5",
+    "future/pump-first-layout-study/mounts/roof_wagos.py": "5638c2c63da83ac9bad0a263fd96198df121aca4f1e21fcefb76a67842c43946",
+    "future/pump-first-layout-study/mounts/open_power_channel.py": "c8da5543012938e59ec5b348432cc4322966bc6fad4fad4da09c7809b806a9d5",
+    "future/pump-first-layout-study/mounts/build_candidate.py": "58b6d4a8cb7e9ff74106e28a79f22ee849ec7881421090819d403ef3cabfe2dd"
+  },
+  "qualification_limits": [
+    "Calipered relay body and hole pattern; contact blocks and 3.2 mm hole diameter remain representative reference geometry.",
+    "Factory prewire the upward contact/logic connectors before supply installation; vertical lead shaping and service sequencing need explicit wiring geometry.",
+    "Printed load capacity, insert retention, divider electrical property and lifetime are not established by this geometric study.",
+    "Lever reach envelope is measured on221-413; individual lever operation is screened with other junctions closed.",
+    "Normal lead reaches4/2 mm and R3.4 wire turns are explicit geometric candidates, not qualified terminal strain relief or bend radii.",
+    "All ten/three/five port reservations use source groove pitch; actual metal clamps and main-wire jacket diameter require their real purchased geometry. Main-wire OD3.2 mm is conservative drafting stock, not a measured wire specification.",
+    "Printed capacity, creep, heat, retention and native manufacturing slice remain distinct physical properties."
+  ],
+  "endpoints": {
+    "relay-1": {
+      "contacts": {
+        "point": [
+          -14.5,
+          432,
+          271.15
+        ],
+        "axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "logic": {
+        "point": [
+          36.5,
+          432,
+          271.15
+        ],
+        "axis": [
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "relay-2": {
+      "contacts": {
+        "point": [
+          -14.5,
+          452.3,
+          271.15
+        ],
+        "axis": [
+          0,
+          0,
+          1
+        ]
+      },
+      "logic": {
+        "point": [
+          36.5,
+          452.3,
+          271.15
+        ],
+        "axis": [
+          0,
+          0,
+          1
+        ]
+      }
+    }
+  },
+  "intended_contacts": [
+    [
+      "west-junction-platform",
+      "enclosure-back-top"
+    ],
+    [
+      "relay-lid-platform",
+      "cold-core/foam-cap-lid-top"
+    ],
+    [
+      "relay-lid-platform",
+      "relay-1"
+    ],
+    [
+      "relay-lid-platform",
+      "relay-2"
+    ],
+    [
+      "west-junction-platform",
+      "wago-h"
+    ],
+    [
+      "west-junction-platform",
+      "wago-n"
+    ],
+    [
+      "west-junction-platform",
+      "wago-g"
+    ],
+    [
+      "west-junction-platform",
+      "wago-v12"
+    ],
+    [
+      "west-junction-platform",
+      "wago-gnd"
+    ],
+    [
+      "west-junction-platform",
+      "wago-reeds-b"
+    ],
+    [
+      "west-junction-platform",
+      "wago-reeds-a"
+    ],
+    [
+      "west-junction-platform",
+      "wago-sensors"
+    ],
+    [
+      "relay-1-mount-screw-1",
+      "relay-1"
+    ],
+    [
+      "relay-1-mount-screw-1",
+      "relay-lid-platform"
+    ],
+    [
+      "relay-1-mount-screw-2",
+      "relay-1"
+    ],
+    [
+      "relay-1-mount-screw-2",
+      "relay-lid-platform"
+    ],
+    [
+      "relay-1-mount-screw-3",
+      "relay-1"
+    ],
+    [
+      "relay-1-mount-screw-3",
+      "relay-lid-platform"
+    ],
+    [
+      "relay-1-head-spacer-3",
+      "relay-1"
+    ],
+    [
+      "relay-1-head-spacer-3",
+      "relay-lid-platform"
+    ],
+    [
+      "relay-1-head-spacer-3",
+      "relay-1-mount-screw-3"
+    ],
+    [
+      "relay-1-mount-screw-4",
+      "relay-1"
+    ],
+    [
+      "relay-1-mount-screw-4",
+      "relay-lid-platform"
+    ],
+    [
+      "relay-1-head-spacer-4",
+      "relay-1"
+    ],
+    [
+      "relay-1-head-spacer-4",
+      "relay-lid-platform"
+    ],
+    [
+      "relay-1-head-spacer-4",
+      "relay-1-mount-screw-4"
+    ],
+    [
+      "relay-2-mount-screw-1",
+      "relay-2"
+    ],
+    [
+      "relay-2-mount-screw-1",
+      "relay-lid-platform"
+    ],
+    [
+      "relay-2-head-spacer-1",
+      "relay-2"
+    ],
+    [
+      "relay-2-head-spacer-1",
+      "relay-lid-platform"
+    ],
+    [
+      "relay-2-head-spacer-1",
+      "relay-2-mount-screw-1"
+    ],
+    [
+      "relay-2-mount-screw-2",
+      "relay-2"
+    ],
+    [
+      "relay-2-mount-screw-2",
+      "relay-lid-platform"
+    ],
+    [
+      "relay-2-head-spacer-2",
+      "relay-2"
+    ],
+    [
+      "relay-2-head-spacer-2",
+      "relay-lid-platform"
+    ],
+    [
+      "relay-2-head-spacer-2",
+      "relay-2-mount-screw-2"
+    ],
+    [
+      "relay-2-mount-screw-3",
+      "relay-2"
+    ],
+    [
+      "relay-2-mount-screw-3",
+      "relay-lid-platform"
+    ],
+    [
+      "relay-2-mount-screw-4",
+      "relay-2"
+    ],
+    [
+      "relay-2-mount-screw-4",
+      "relay-lid-platform"
+    ]
+  ],
+  "pass_result": true
+}

@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "piece": "asse-carrier-clamp-1",
+  "inputs": {
+    "gcode": "asse-carrier-clamp-1.gcode",
+    "gcode_sha256": "974e7c442f55504875f4820e90709fd9c70f49759298140b7acd7d4db4b53954",
+    "model": ".cache/pump-first-layout/slices/asse-carrier-clamp-1-e54b34784c68-661ef477/asse-carrier-clamp-1.stl",
+    "model_sha256": "186706a5c63fdb7cd230e4306763deceac55df789796d17773e6d811cadcdd11",
+    "profile": ".cache/pump-first-layout/slices/asse-carrier-clamp-1-e54b34784c68-661ef477/asse-carrier-clamp-1-input.3mf",
+    "profile_sha256": "cad72a4fd935e1de95664ca51af8a23b591886c4f29f4b249a1d59e7aae05b34",
+    "brep_sha256": "e54b34784c68700b356873c39f6479d7f0f88b2283ce2073a0ff664f56bd6c41",
+    "archive_sha256": "cf7b043a94b62e3a8abf709a53d42402f3d6787b1c71c109d886a3c66467e306",
+    "reviewer_sha256": "9ac1cdbed1dadf2906b16fdb723ebfc1146b7260de79909789c40dd82e6a256d",
+    "topology_tool_sha256": "3dd14a091d92aabde9b20d65bbe84acb15262e2bdb3f615722b2623cabd396f1"
+  },
+  "slicer": "BambuStudio 02.08.02.61",
+  "first_layer_z_mm": 0.2,
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      -0.0,
+      0.0,
+      0.0,
+      0.0,
+      -1.0,
+      -0.0,
+      1.0,
+      0.0,
+      -210.5,
+      306.350006104,
+      491.544708252
+    ]
+  },
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.45",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "support_bodies": 0,
+    "interface_islands": 0,
+    "bed_rooted_bodies": 0,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 0,
+    "shortest_labelled_build_up_mm": null
+  },
+  "trees": [],
+  "interfaces": [],
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+  "scope": "Complete emitted support topology including unlabelled short bodies. Physical removal effort, trapped branches, contact finish and mechanical qualification remain unverified."
+}

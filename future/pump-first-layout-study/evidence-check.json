@@ -1,0 +1,1261 @@
+{
+  "pass": true,
+  "checks": [
+    {
+      "check": "native-audit.json passes",
+      "pass": true
+    },
+    {
+      "check": "native-audit.json native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "native-audit.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "native-audit.json had stable manifests during execution",
+      "pass": true
+    },
+    {
+      "check": "native-audit.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "native-audit.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "pump/candidate.json passes",
+      "pass": true
+    },
+    {
+      "check": "pump/candidate.json source_sha256 remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "pump/fluid24-candidate.json passes",
+      "pass": true
+    },
+    {
+      "check": "pump/fluid24-candidate.json native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "pump/fluid24-candidate.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "pump/fluid24-candidate.json had stable manifests during execution",
+      "pass": true
+    },
+    {
+      "check": "pump/fluid24-candidate.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "pump/fluid24-candidate.json manifest_sha256 remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "pump/fluid24-candidate.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "pump/fluid24-candidate.json source_sha256 remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "pump/external-native-check.json passes",
+      "pass": true
+    },
+    {
+      "check": "pump/external-native-check.json native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "pump/external-native-check.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "pump/external-native-check.json had stable manifests during execution",
+      "pass": true
+    },
+    {
+      "check": "pump/external-native-check.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "pump/external-native-check.json manifest_sha256 remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "pump/external-native-check.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "funnel/motion-check.json passes",
+      "pass": true
+    },
+    {
+      "check": "funnel/motion-check.json source_sha256 remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "funnel/frame-continuous-closure-check.json passes",
+      "pass": true
+    },
+    {
+      "check": "funnel/frame-continuous-closure-check.json inputs_sha256 remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "funnel/frame-continuous-closure-check.json source_sha256 remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "funnel/mating-final-frame.json passes",
+      "pass": true
+    },
+    {
+      "check": "funnel/mating-final-frame.json interfaces_sha256 remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "mounts/candidate.json passes",
+      "pass": true
+    },
+    {
+      "check": "mounts/candidate.json source_sha256 remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "mounts/native-check.json passes",
+      "pass": true
+    },
+    {
+      "check": "mounts/native-check.json native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "mounts/native-check.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "mounts/native-check.json had stable manifests during execution",
+      "pass": true
+    },
+    {
+      "check": "mounts/native-check.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "mounts/native-check.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "mounts/floor-native-check.json passes",
+      "pass": true
+    },
+    {
+      "check": "mounts/floor-native-check.json native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "mounts/floor-native-check.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "mounts/floor-native-check.json had stable manifests during execution",
+      "pass": true
+    },
+    {
+      "check": "mounts/floor-native-check.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "mounts/floor-native-check.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "mounts/fluid-candidate.json passes",
+      "pass": true
+    },
+    {
+      "check": "mounts/fluid-candidate.json native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "mounts/fluid-candidate.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "mounts/fluid-candidate.json had stable manifests during execution",
+      "pass": true
+    },
+    {
+      "check": "mounts/fluid-candidate.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "mounts/fluid-candidate.json manifest_sha256 remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "mounts/fluid-candidate.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "mounts/body-candidate.json passes",
+      "pass": true
+    },
+    {
+      "check": "mounts/body-candidate.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "mounts/body-candidate.json had stable manifests during execution",
+      "pass": true
+    },
+    {
+      "check": "mounts/body-candidate.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "mounts/body-candidate.json inputs_sha256 remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "mounts/body-candidate.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "mounts/water5-hosts.json passes",
+      "pass": true
+    },
+    {
+      "check": "mounts/water5-hosts.json native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "mounts/water5-hosts.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "mounts/water5-hosts.json had stable manifests during execution",
+      "pass": true
+    },
+    {
+      "check": "mounts/water5-hosts.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "mounts/water5-hosts.json manifests_sha256 remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "mounts/water5-hosts.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "routing/co2-candidate.json passes",
+      "pass": true
+    },
+    {
+      "check": "routing/co2-candidate.json native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "routing/co2-candidate.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "routing/co2-candidate.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "routing/co2-candidate.json manifests_sha256 remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "routing/co2-candidate.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "routing/tube-hosts.json passes",
+      "pass": true
+    },
+    {
+      "check": "routing/tube-hosts.json native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "routing/tube-hosts.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "routing/tube-hosts.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "routing/tube-hosts.json manifests_sha256 remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "routing/tube-hosts.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "routing/strict-route-audit.json passes",
+      "pass": true
+    },
+    {
+      "check": "routing/strict-route-audit.json native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "routing/strict-route-audit.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "routing/strict-route-audit.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "routing/strict-route-audit.json manifests_sha256 remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "routing/strict-route-audit.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "routing/water-ring-finish.json passes",
+      "pass": true
+    },
+    {
+      "check": "routing/water-ring-finish.json native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "routing/water-ring-finish.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "routing/water-ring-finish.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "routing/water-ring-finish.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "routing/psu-surround-feasibility.json selected-scene bindings pass",
+      "pass": true
+    },
+    {
+      "check": "routing/psu-surround-feasibility.json native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "routing/psu-surround-feasibility.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "routing/psu-surround-feasibility.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "routing/psu-surround-feasibility.json manifests_sha256 remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "routing/psu-surround-feasibility.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "routing/psu-coupled-probe.json selected-scene bindings pass",
+      "pass": true
+    },
+    {
+      "check": "routing/psu-coupled-probe.json native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "routing/psu-coupled-probe.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "routing/psu-coupled-probe.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "routing/psu-coupled-probe.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/print-parts.json passes",
+      "pass": true
+    },
+    {
+      "check": "structure/print-parts.json native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/print-parts.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "structure/print-parts.json had stable manifests during execution",
+      "pass": true
+    },
+    {
+      "check": "structure/print-parts.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/print-parts.json inputs_sha256 remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/print-parts.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/print-material-union-check.json passes",
+      "pass": true
+    },
+    {
+      "check": "structure/print-material-union-check.json native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/print-material-union-check.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "structure/print-material-union-check.json had stable manifests during execution",
+      "pass": true
+    },
+    {
+      "check": "structure/print-material-union-check.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/print-material-union-check.json inputs_sha256 remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/print-material-union-check.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/candidate.json passes",
+      "pass": true
+    },
+    {
+      "check": "structure/candidate.json native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/candidate.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "structure/candidate.json had stable manifests during execution",
+      "pass": true
+    },
+    {
+      "check": "structure/candidate.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/candidate.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/pan-slot.json passes",
+      "pass": true
+    },
+    {
+      "check": "structure/pan-slot.json native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/pan-slot.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "structure/pan-slot.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/pan-slot.json manifest_sha256 remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/pan-slot.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/water5-key-pocket.json passes",
+      "pass": true
+    },
+    {
+      "check": "structure/water5-key-pocket.json native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/water5-key-pocket.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "structure/water5-key-pocket.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/water5-key-pocket.json manifest_sha256 remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/water5-key-pocket.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/roof-hatch.json passes",
+      "pass": true
+    },
+    {
+      "check": "structure/roof-hatch.json native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/roof-hatch.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "structure/roof-hatch.json had stable manifests during execution",
+      "pass": true
+    },
+    {
+      "check": "structure/roof-hatch.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/roof-hatch.json manifest_sha256 remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/roof-hatch.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/ground-make-up-check.json passes",
+      "pass": true
+    },
+    {
+      "check": "structure/ground-make-up-check.json native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/ground-make-up-check.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "structure/ground-make-up-check.json had stable manifests during execution",
+      "pass": true
+    },
+    {
+      "check": "structure/ground-make-up-check.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/ground-make-up-check.json manifest_sha256 remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/ground-make-up-check.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/g2-factory-tool-probe.json passes",
+      "pass": true
+    },
+    {
+      "check": "structure/g2-factory-tool-probe.json native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/g2-factory-tool-probe.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "structure/g2-factory-tool-probe.json had stable manifests during execution",
+      "pass": true
+    },
+    {
+      "check": "structure/g2-factory-tool-probe.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/g2-factory-tool-probe.json manifest_sha256 remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/g2-factory-tool-probe.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/scene-stock.json passes",
+      "pass": true
+    },
+    {
+      "check": "structure/scene-stock.json native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/scene-stock.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "structure/scene-stock.json had stable manifests during execution",
+      "pass": true
+    },
+    {
+      "check": "structure/scene-stock.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/scene-stock.json inputs_sha256 remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/scene-stock.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/hatch-hose-check.json passes",
+      "pass": true
+    },
+    {
+      "check": "structure/hatch-hose-check.json native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/hatch-hose-check.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "structure/hatch-hose-check.json had stable manifests during execution",
+      "pass": true
+    },
+    {
+      "check": "structure/hatch-hose-check.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/hatch-hose-check.json manifest_sha256 remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/hatch-hose-check.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/factory-slide-check.json passes",
+      "pass": true
+    },
+    {
+      "check": "structure/factory-slide-check.json native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/factory-slide-check.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "structure/factory-slide-check.json had stable manifests during execution",
+      "pass": true
+    },
+    {
+      "check": "structure/factory-slide-check.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/factory-slide-check.json manifest_sha256 remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/factory-slide-check.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/asse-factory-check.json passes",
+      "pass": true
+    },
+    {
+      "check": "structure/asse-factory-check.json native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/asse-factory-check.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "structure/asse-factory-check.json had stable manifests during execution",
+      "pass": true
+    },
+    {
+      "check": "structure/asse-factory-check.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/asse-factory-check.json manifest_sha256 remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/asse-factory-check.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/front-closure-check.json passes",
+      "pass": true
+    },
+    {
+      "check": "structure/front-closure-check.json native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/front-closure-check.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "structure/front-closure-check.json had stable manifests during execution",
+      "pass": true
+    },
+    {
+      "check": "structure/front-closure-check.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/front-closure-check.json manifests_sha256 remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/front-closure-check.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/fastener-native-check.json passes",
+      "pass": true
+    },
+    {
+      "check": "structure/fastener-native-check.json native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "structure/fastener-native-check.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "structure/fastener-native-check.json source_sha256 remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/power-candidate.json passes",
+      "pass": true
+    },
+    {
+      "check": "wiring/power-candidate.json native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/power-candidate.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "wiring/power-candidate.json had stable manifests during execution",
+      "pass": true
+    },
+    {
+      "check": "wiring/power-candidate.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/power-candidate.json inputs_sha256 remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/power-candidate.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/power-members-check.json passes",
+      "pass": true
+    },
+    {
+      "check": "wiring/power-members-check.json native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/power-members-check.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "wiring/power-members-check.json had stable manifests during execution",
+      "pass": true
+    },
+    {
+      "check": "wiring/power-members-check.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/power-members-check.json inputs_sha256 remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/power-members-check.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/join-check.json passes",
+      "pass": true
+    },
+    {
+      "check": "wiring/join-check.json native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/join-check.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "wiring/join-check.json had stable manifests during execution",
+      "pass": true
+    },
+    {
+      "check": "wiring/join-check.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/join-check.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/controls-candidate.json passes",
+      "pass": true
+    },
+    {
+      "check": "wiring/controls-candidate.json native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/controls-candidate.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "wiring/controls-candidate.json had stable manifests during execution",
+      "pass": true
+    },
+    {
+      "check": "wiring/controls-candidate.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/controls-candidate.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/controls-candidate.json source_sha256 remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/control-reserves.json passes",
+      "pass": true
+    },
+    {
+      "check": "wiring/control-reserves.json native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/control-reserves.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "wiring/control-reserves.json had stable manifests during execution",
+      "pass": true
+    },
+    {
+      "check": "wiring/control-reserves.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/control-reserves.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/control-reserves.json source_sha256 remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/control-fanouts-check.json passes",
+      "pass": true
+    },
+    {
+      "check": "wiring/control-fanouts-check.json native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/control-fanouts-check.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "wiring/control-fanouts-check.json had stable manifests during execution",
+      "pass": true
+    },
+    {
+      "check": "wiring/control-fanouts-check.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/control-fanouts-check.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/control-fanouts-check.json source_sha256 remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/static-controls-pair-check.json passes",
+      "pass": true
+    },
+    {
+      "check": "wiring/static-controls-pair-check.json native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/static-controls-pair-check.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "wiring/static-controls-pair-check.json had stable manifests during execution",
+      "pass": true
+    },
+    {
+      "check": "wiring/static-controls-pair-check.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/static-controls-pair-check.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/control-fluid-air-check.json passes",
+      "pass": true
+    },
+    {
+      "check": "wiring/control-fluid-air-check.json native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/control-fluid-air-check.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "wiring/control-fluid-air-check.json had stable manifests during execution",
+      "pass": true
+    },
+    {
+      "check": "wiring/control-fluid-air-check.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/control-fluid-air-check.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/control-terminal-owner-check.json passes",
+      "pass": true
+    },
+    {
+      "check": "wiring/control-terminal-owner-check.json native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/control-terminal-owner-check.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "wiring/control-terminal-owner-check.json had stable manifests during execution",
+      "pass": true
+    },
+    {
+      "check": "wiring/control-terminal-owner-check.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/control-terminal-owner-check.json inputs_sha256 remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/control-terminal-owner-check.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/front-loom-handling.json passes",
+      "pass": true
+    },
+    {
+      "check": "wiring/front-loom-handling.json native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/front-loom-handling.json had stable inputs during execution",
+      "pass": true
+    },
+    {
+      "check": "wiring/front-loom-handling.json had stable manifests during execution",
+      "pass": true
+    },
+    {
+      "check": "wiring/front-loom-handling.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/front-loom-handling.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/candidate.json passes",
+      "pass": true
+    },
+    {
+      "check": "wiring/candidate.json substantive manifest inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/candidate.json source_inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "wiring/candidate.json source_sha256 remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "nineteen power conductors occupied",
+      "pass": true
+    },
+    {
+      "check": "all canonical control nets represented",
+      "pass": true
+    },
+    {
+      "check": "merged scene includes every circuit solid",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "check": "integrated audit uses final manifests",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "integrated native inputs remain exact",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "original215mm width retained",
+      "pass": true
+    },
+    {
+      "check": "selected60mm funnel bound",
+      "pass": true
+    },
+    {
+      "check": "every final print retains its declared native material",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "retained funnel mating proof uses final frame",
+      "pass": true
+    },
+    {
+      "check": "complete lower lead exteriors included in power",
+      "pass": true
+    },
+    {
+      "check": "thirteen complete fluid and gas runs occupied",
+      "pass": true,
+      "unfinished": [],
+      "missing_parts": []
+    },
+    {
+      "check": "all joined articles and tooling have slices/supports",
+      "pass": true,
+      "missing": []
+    },
+    {
+      "check": "successful native slices match final articles",
+      "pass": true,
+      "stale": []
+    },
+    {
+      "check": "complete support topology matches final slices",
+      "pass": true,
+      "stale": []
+    }
+  ],
+  "source_sha256": "e677bea76c18b09660f2ce2265611eec975c3c2970585a16cdde77d561ee978d",
+  "scope": "Exact study-manifest/native-input/slice consistency. No physical load, fit, thermal, electrical, wet-flow or lifetime qualification is inferred."
+}

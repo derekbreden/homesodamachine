@@ -1,0 +1,2142 @@
+{
+  "pass": true,
+  "poses": [
+    {
+      "travel_fore_mm": 102.2,
+      "blockers": [],
+      "pass": true
+    },
+    {
+      "travel_fore_mm": 90,
+      "blockers": [],
+      "pass": true
+    },
+    {
+      "travel_fore_mm": 70,
+      "blockers": [],
+      "pass": true
+    },
+    {
+      "travel_fore_mm": 40,
+      "blockers": [],
+      "pass": true
+    },
+    {
+      "travel_fore_mm": 20,
+      "blockers": [],
+      "pass": true
+    },
+    {
+      "travel_fore_mm": 10,
+      "blockers": [],
+      "pass": true
+    },
+    {
+      "travel_fore_mm": 5,
+      "blockers": [],
+      "pass": true
+    },
+    {
+      "travel_fore_mm": 2,
+      "blockers": [],
+      "pass": true
+    },
+    {
+      "travel_fore_mm": 1,
+      "blockers": [],
+      "pass": true
+    },
+    {
+      "travel_fore_mm": 0.5,
+      "blockers": [],
+      "pass": true
+    },
+    {
+      "travel_fore_mm": 0.25,
+      "blockers": [],
+      "pass": true
+    },
+    {
+      "travel_fore_mm": 0,
+      "blockers": [],
+      "pass": true
+    }
+  ],
+  "blockers": [],
+  "close_pairs": [
+    {
+      "travel_fore_mm": 90,
+      "moving": "funnel-frame",
+      "fixed": "enclosure-back-top",
+      "gap_mm": 0.25,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 70,
+      "moving": "funnel-frame",
+      "fixed": "enclosure-back-top",
+      "gap_mm": 0.0,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 40,
+      "moving": "funnel-frame",
+      "fixed": "enclosure-back-top",
+      "gap_mm": 0.0,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 20,
+      "moving": "enclosure-front-top",
+      "fixed": "control-loom-J1-coil-v-a",
+      "gap_mm": 0.14666071865913796,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 20,
+      "moving": "funnel-frame",
+      "fixed": "enclosure-back-top",
+      "gap_mm": 0.0,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 10,
+      "moving": "enclosure-front-top",
+      "fixed": "enclosure-back-top",
+      "gap_mm": 0.0,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 10,
+      "moving": "enclosure-front-top",
+      "fixed": "control-loom-J1-coil-v-a",
+      "gap_mm": 0.14666071865913796,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 10,
+      "moving": "funnel-frame",
+      "fixed": "enclosure-back-top",
+      "gap_mm": 0.0,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 10,
+      "moving": "water5-front-seat",
+      "fixed": "tube-water-5",
+      "gap_mm": 0.49549043044660623,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 10,
+      "moving": "water5-front-seat",
+      "fixed": "control-loom-J1-coil-v-a",
+      "gap_mm": 0.8879229861404688,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 5,
+      "moving": "enclosure-front-top",
+      "fixed": "enclosure-back-top",
+      "gap_mm": 0.0,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 5,
+      "moving": "funnel-frame",
+      "fixed": "enclosure-back-top",
+      "gap_mm": 0.0,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 5,
+      "moving": "water5-front-seat",
+      "fixed": "tube-water-5",
+      "gap_mm": 0.14999999999997726,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 2,
+      "moving": "enclosure-front-top",
+      "fixed": "enclosure-back-top",
+      "gap_mm": 0.0,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 2,
+      "moving": "funnel-frame",
+      "fixed": "enclosure-back-top",
+      "gap_mm": 0.0,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 2,
+      "moving": "water5-front-seat",
+      "fixed": "tube-water-5",
+      "gap_mm": 0.14999999999997726,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 2,
+      "moving": "water5-front-seat",
+      "fixed": "enclosure-back-top",
+      "gap_mm": 0.0,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 1,
+      "moving": "enclosure-front-top",
+      "fixed": "enclosure-back-top",
+      "gap_mm": 0.0,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 1,
+      "moving": "funnel-frame",
+      "fixed": "enclosure-back-top",
+      "gap_mm": 0.0,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 1,
+      "moving": "water5-front-seat",
+      "fixed": "tube-water-5",
+      "gap_mm": 0.14999999999997726,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 1,
+      "moving": "water5-front-seat",
+      "fixed": "enclosure-back-top",
+      "gap_mm": 0.0,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 0.5,
+      "moving": "enclosure-front-top",
+      "fixed": "enclosure-back-top",
+      "gap_mm": 0.0,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 0.5,
+      "moving": "funnel-frame",
+      "fixed": "enclosure-back-top",
+      "gap_mm": 0.0,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 0.5,
+      "moving": "tube-fluid-4",
+      "fixed": "valve-v-b",
+      "gap_mm": 0.5006246098625184,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 0.5,
+      "moving": "turn-fluid-5",
+      "fixed": "tube-fluid-5",
+      "gap_mm": 0.5,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 0.5,
+      "moving": "water5-front-seat",
+      "fixed": "tube-water-5",
+      "gap_mm": 0.16488610744321874,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 0.5,
+      "moving": "water5-front-seat",
+      "fixed": "enclosure-back-top",
+      "gap_mm": 0.0,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 0.25,
+      "moving": "enclosure-front-top",
+      "fixed": "enclosure-back-top",
+      "gap_mm": 0.0,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 0.25,
+      "moving": "funnel-frame",
+      "fixed": "enclosure-back-top",
+      "gap_mm": 0.0,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 0.25,
+      "moving": "tube-fluid-4",
+      "fixed": "valve-v-b",
+      "gap_mm": 0.25124689052801735,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 0.25,
+      "moving": "tube-fluid-4",
+      "fixed": "tube-water-5",
+      "gap_mm": 0.9111026016634429,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 0.25,
+      "moving": "turn-fluid-5",
+      "fixed": "tube-fluid-5",
+      "gap_mm": 0.25,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 0.25,
+      "moving": "water5-front-seat",
+      "fixed": "tube-water-5",
+      "gap_mm": 0.17500000000001137,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 0.25,
+      "moving": "water5-front-seat",
+      "fixed": "enclosure-back-top",
+      "gap_mm": 0.0,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 0,
+      "moving": "enclosure-front-top",
+      "fixed": "enclosure-back-top",
+      "gap_mm": 0.0,
+      "common_mm3": 0.0,
+      "intended_at_seated": "retained enclosure joint"
+    },
+    {
+      "travel_fore_mm": 0,
+      "moving": "funnel-frame",
+      "fixed": "enclosure-back-top",
+      "gap_mm": 0.0,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 0,
+      "moving": "funnel-frame",
+      "fixed": "control-loom-J1-coil-v-a",
+      "gap_mm": 0.8976000718832505,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 0,
+      "moving": "tube-fluid-4",
+      "fixed": "valve-v-b",
+      "gap_mm": 0.024999999999977263,
+      "common_mm3": 0.0,
+      "intended_at_seated": "declared route endpoint"
+    },
+    {
+      "travel_fore_mm": 0,
+      "moving": "tube-fluid-4",
+      "fixed": "tube-water-5",
+      "gap_mm": 0.8221476439307668,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 0,
+      "moving": "turn-fluid-5",
+      "fixed": "tube-fluid-5",
+      "gap_mm": 2.4868995751603507e-14,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 0,
+      "moving": "water5-front-seat",
+      "fixed": "tube-water-5",
+      "gap_mm": 0.17500000000001137,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    },
+    {
+      "travel_fore_mm": 0,
+      "moving": "water5-front-seat",
+      "fixed": "enclosure-back-top",
+      "gap_mm": 0.0,
+      "common_mm3": 0.0,
+      "intended_at_seated": null
+    }
+  ],
+  "moving_names": [
+    "coil-v-c",
+    "coil-v-d",
+    "coil-v-e",
+    "coil-v-f",
+    "coil-v-g",
+    "coil-v-h",
+    "coil-v-i",
+    "coil-v-j",
+    "control-loom-J13-retained-cartridge-loom-target",
+    "elbow-cradle",
+    "enclosure-front-top",
+    "enclosure-tee-carrier-plate",
+    "enclosure-window-cover-east",
+    "enclosure-window-cover-west",
+    "funnel-drain-union",
+    "funnel-frame",
+    "gate-a-upper-tube-seat",
+    "j13-front-stowed",
+    "pump-contact-male",
+    "tee-carrier-spring-east-lower",
+    "tee-carrier-spring-east-upper",
+    "tee-carrier-spring-west-lower",
+    "tee-carrier-spring-west-upper",
+    "tee-y-a",
+    "tee-y-b",
+    "tee-y-c",
+    "tee-y-d",
+    "tee-y-f",
+    "tee-y-g",
+    "tube-fluid-10",
+    "tube-fluid-11",
+    "tube-fluid-12",
+    "tube-fluid-13",
+    "tube-fluid-17",
+    "tube-fluid-19",
+    "tube-fluid-20",
+    "tube-fluid-21",
+    "tube-fluid-22",
+    "tube-fluid-23",
+    "tube-fluid-27",
+    "tube-fluid-4",
+    "tube-fluid-9",
+    "turn-fluid-3",
+    "turn-fluid-5",
+    "valve-v-c",
+    "valve-v-d",
+    "valve-v-e",
+    "valve-v-f",
+    "valve-v-g",
+    "valve-v-h",
+    "valve-v-i",
+    "valve-v-j",
+    "wago-mana",
+    "wago-manb",
+    "water5-front-seat"
+  ],
+  "fixed_names": [
+    "asse-carrier-clamp-1",
+    "asse-carrier-clamp-2",
+    "asse-carrier-screw-1",
+    "asse-carrier-screw-2",
+    "asse-drip-pan",
+    "asse-removable-carrier",
+    "asse-retention-tie-1",
+    "asse-retention-tie-2",
+    "asse-roof-seat-1",
+    "asse-roof-seat-2",
+    "asse1022-assembly",
+    "bulkhead-carb",
+    "bulkhead-flavor-a",
+    "bulkhead-flavor-b",
+    "bulkhead-ring-carb",
+    "bulkhead-ring-carb-word",
+    "bulkhead-ring-co2",
+    "bulkhead-ring-co2-word",
+    "bulkhead-ring-flavor-a",
+    "bulkhead-ring-flavor-a-word",
+    "bulkhead-ring-flavor-b",
+    "bulkhead-ring-flavor-b-word",
+    "bulkhead-ring-water",
+    "bulkhead-ring-water-word",
+    "bulkhead-water",
+    "c14-inlet",
+    "carb-foam-carb-1",
+    "carb-foam-carb-2",
+    "check-lid-seat",
+    "check-retention-tie",
+    "co2-adapter-check-in",
+    "co2-adapter-check-out",
+    "co2-adapter-regulator-in",
+    "co2-adapter-regulator-out",
+    "co2-inlet",
+    "cold-core/foam-cap-lid-top",
+    "compressor-jacket-reserve",
+    "control-ground-descent",
+    "control-ground-lower-fanout",
+    "control-ground-upper-A",
+    "control-ground-upper-B",
+    "control-ground-upper-merger",
+    "control-header-J1-fanout",
+    "control-header-J11-fanout",
+    "control-header-J2-fanout",
+    "control-header-J3-fanout",
+    "control-header-J4-fanout",
+    "control-header-J5-fanout",
+    "control-header-J6-fanout",
+    "control-header-J7-fanout",
+    "control-loom-J1-coil-v-a",
+    "control-loom-J1-coil-v-b",
+    "control-loom-J1-coil-v-b-target",
+    "control-loom-J1-retained-manifold-loom",
+    "control-loom-J11-retained-mq6-loom",
+    "control-loom-J11-retained-mq6-loom-target",
+    "control-loom-J2-retained-manifold-loom",
+    "control-loom-J2-vk-solenoid",
+    "control-loom-J3-keystone-jack",
+    "control-loom-J3-keystone-jack-target",
+    "control-loom-J4-digiten-flow",
+    "control-loom-J4-moisture-comparator-reserve",
+    "control-loom-J4-moisture-comparator-reserve-target",
+    "control-loom-J4-retained-cold-core-service-leads",
+    "control-loom-J4-retained-cold-core-service-leads-target",
+    "control-loom-J4-wago-sensors",
+    "control-loom-J4-wago-sensors-target",
+    "control-loom-J5-relay-logic-cluster",
+    "control-loom-J6-reed-A",
+    "control-loom-J6-wago-reeds-a",
+    "control-loom-J6-wago-reeds-a-target",
+    "control-loom-J7-reed-B",
+    "control-loom-J7-retained-cold-core-service-leads",
+    "control-loom-J7-retained-cold-core-service-leads-target",
+    "control-loom-J7-wago-reeds-b",
+    "control-loom-J7-wago-reeds-b-target",
+    "control-loom-wago-mana-coil-v-b",
+    "control-loom-wago-mana-coil-v-b-target",
+    "control-loom-wago-reeds-b-retained-cold-core-service-leads",
+    "control-loom-wago-reeds-b-retained-cold-core-service-leads-source",
+    "control-loom-wago-reeds-b-retained-cold-core-service-leads-target",
+    "control-loom-wago-sensors-digiten-flow",
+    "control-loom-wago-sensors-digiten-flow-source",
+    "control-loom-wago-sensors-moisture-comparator-reserve",
+    "control-loom-wago-sensors-moisture-comparator-reserve-source",
+    "control-loom-wago-sensors-moisture-comparator-reserve-target",
+    "control-loom-wago-sensors-retained-cold-core-service-leads",
+    "control-loom-wago-sensors-retained-cold-core-service-leads-source",
+    "control-loom-wago-sensors-retained-cold-core-service-leads-target",
+    "control-manifold-aft-fanout",
+    "control-meter-pigtail",
+    "control-relay-logic-fork",
+    "control-service-fork-A",
+    "control-service-fork-B",
+    "control-service-reeds-A",
+    "control-service-reeds-B",
+    "controller-roof-boss-1",
+    "controller-roof-boss-2",
+    "controller-roof-boss-3",
+    "controller-roof-boss-4",
+    "controller-screw-1",
+    "controller-screw-2",
+    "controller-screw-3",
+    "controller-screw-4",
+    "digiten-flow",
+    "discharge-chain",
+    "discharge-chain-anchor",
+    "discharge-chain-clip-screw-1",
+    "discharge-chain-clip-screw-2",
+    "discharge-chain-lower-key",
+    "enclosure-back-top",
+    "flavor-pair-wall-seat",
+    "flow-regulator",
+    "g-ganen-pump",
+    "gas-inlet-east-tube-seat",
+    "gas-inlet-west-tube-seat",
+    "gas-outlet-tube-seat",
+    "gasher-co2",
+    "gate-a-east-tube-seat",
+    "ground-roof-boss",
+    "ground-stack",
+    "hatch-controller-rear-bridge",
+    "hatch-lap-ledge",
+    "hatch-roof-beam-1",
+    "hatch-roof-beam-3",
+    "hatch-roof-boss-1",
+    "hatch-roof-boss-2",
+    "hatch-roof-boss-3",
+    "hatch-roof-boss-4",
+    "hatch-roof-web-1",
+    "hatch-roof-web-3",
+    "hatch-screw-1",
+    "hatch-screw-2",
+    "hatch-screw-3",
+    "hatch-screw-4",
+    "hatch-screw-silicone-cap-1",
+    "hatch-screw-silicone-cap-2",
+    "hatch-screw-silicone-cap-3",
+    "hatch-screw-silicone-cap-4",
+    "hatch-seam-silicone",
+    "hose-clamp-chain-discharge",
+    "hose-clamp-chain-suction",
+    "hose-clamp-pump-discharge",
+    "hose-clamp-pump-suction",
+    "hose-engagement-chain-discharge",
+    "hose-engagement-chain-suction",
+    "hose-engagement-pump-discharge",
+    "hose-engagement-pump-suction",
+    "keystone-jack",
+    "lower-carbonator-earth-reserve",
+    "lower-under-counter-earth-reserve",
+    "meter-retention-tie-1",
+    "meter-retention-tie-2",
+    "meter-roof-seat-1",
+    "meter-roof-seat-2",
+    "moisture-plate",
+    "nameplate",
+    "nameplate-ink",
+    "needle-feed-tube-seat",
+    "needle-lid-seat",
+    "needle-retention-tie",
+    "pcba",
+    "psu",
+    "pump-screw-1",
+    "pump-screw-2",
+    "pump-screw-3",
+    "pump-screw-4",
+    "pump-washer-1",
+    "pump-washer-2",
+    "pump-washer-3",
+    "pump-washer-4",
+    "rear-roof-hatch",
+    "relay-1",
+    "relay-1-head-spacer-3",
+    "relay-1-head-spacer-4",
+    "relay-1-mount-screw-1",
+    "relay-1-mount-screw-2",
+    "relay-1-mount-screw-3",
+    "relay-1-mount-screw-4",
+    "relay-2",
+    "relay-2-head-spacer-1",
+    "relay-2-head-spacer-2",
+    "relay-2-mount-screw-1",
+    "relay-2-mount-screw-2",
+    "relay-2-mount-screw-3",
+    "relay-2-mount-screw-4",
+    "relay-lid-platform",
+    "source-a-cradle",
+    "source-b-cradle",
+    "suction-chain",
+    "suction-chain-anchor",
+    "suction-chain-clip-screw-1",
+    "suction-chain-clip-screw-2",
+    "suction-chain-upper-key",
+    "supply-lid-boss-1",
+    "supply-lid-boss-2",
+    "supply-lid-boss-3",
+    "supply-lid-boss-4",
+    "supply-lid-web-1",
+    "supply-lid-web-2",
+    "supply-screw-1",
+    "supply-screw-2",
+    "supply-screw-3",
+    "supply-screw-4",
+    "supply-tube-seat",
+    "supply-washer-1",
+    "supply-washer-2",
+    "supply-washer-3",
+    "supply-washer-4",
+    "tee-lid-seat",
+    "tee-retention-tie",
+    "tube-carb-1",
+    "tube-carb-2",
+    "tube-co2-0",
+    "tube-co2-1",
+    "tube-co2-2",
+    "tube-collar-co2",
+    "tube-collar-co2-word",
+    "tube-collar-water",
+    "tube-collar-water-word",
+    "tube-customer-co2",
+    "tube-customer-water",
+    "tube-fluid-1",
+    "tube-fluid-2",
+    "tube-fluid-5",
+    "tube-water-2",
+    "tube-water-3",
+    "tube-water-4",
+    "tube-water-5",
+    "tube-water-6",
+    "tube-water-7",
+    "tube-water-supply-link",
+    "valve-v-a",
+    "valve-v-b",
+    "vk-cradle",
+    "vk-solenoid",
+    "wago-g",
+    "wago-gnd",
+    "wago-h",
+    "wago-n",
+    "wago-reeds-a",
+    "wago-reeds-b",
+    "wago-sensors",
+    "wago-v12",
+    "water-split",
+    "water2-tube-seat",
+    "water3-east-tube-seat",
+    "water3-west-tube-seat",
+    "water5-east-drop-seat",
+    "west-junction-platform",
+    "wire-AC1-G",
+    "wire-AC1-H",
+    "wire-AC1-N",
+    "wire-AC2-H",
+    "wire-AC2-N",
+    "wire-AC3-H",
+    "wire-AC4-H",
+    "wire-AC5-N",
+    "wire-AC6-G",
+    "wire-DC1-GND",
+    "wire-DC1-V12",
+    "wire-DC2-V12",
+    "wire-DC3-GND",
+    "wire-DC3-V12",
+    "wire-DC4-GND",
+    "wire-DC4-V12",
+    "wire-PE-carbonator",
+    "wire-PE-feed",
+    "wire-PE-under-counter",
+    "wr-regulator-retention-tie",
+    "wr-regulator-seat",
+    "wr1110"
+  ],
+  "deferred_fore_link_names": [
+    "flavor-a-fore-key",
+    "flavor-a-fore-screw-1",
+    "flavor-a-fore-screw-2",
+    "flavor-pair-wall-key",
+    "flavor-pair-wall-screw-1",
+    "flavor-pair-wall-screw-2",
+    "gas-inlet-east-tube-tie",
+    "gas-inlet-west-tube-tie",
+    "gas-outlet-tube-tie",
+    "gate-a-east-tube-tie",
+    "gate-a-upper-tube-tie",
+    "needle-feed-tube-tie",
+    "supply-tube-tie",
+    "tube-fluid-14",
+    "tube-fluid-18",
+    "tube-fluid-24",
+    "tube-fluid-28",
+    "water2-tube-key",
+    "water2-tube-screw-1",
+    "water2-tube-screw-2",
+    "water3-east-tube-tie",
+    "water3-west-tube-tie",
+    "water5-east-drop-key",
+    "water5-east-drop-screw-1",
+    "water5-east-drop-screw-2",
+    "water5-front-retention-tie"
+  ],
+  "absent_during_closing": [
+    "control-header-J13-fanout",
+    "control-header-J9-fanout",
+    "control-loom-J13-retained-cartridge-loom",
+    "control-loom-J9-retained-display-loom",
+    "control-loom-J9-retained-display-loom-target",
+    "display",
+    "display-cover",
+    "display-gasket",
+    "funnel",
+    "funnel-cover"
+  ],
+  "parked_contact_lead_evidence": "wiring/front-loom-handling.json",
+  "manifests_sha256": {
+    "funnel": "adf0cacd1a96d32d0e39d281ae243087b6644656994b3452d39ecc4119b2b8a8",
+    "pump": "cda2f8b8c309e52c772f6f4006ba3a954b1438aba5672e7e896a11b60f2c5289",
+    "pump-fluid24": "e466eb2cd9e76967152c99bcbad2ca8d079e20ece94ccc431f40f441a8b257c7",
+    "routing": "988b4250b67d3d12ae91574b2507983bbbea55479de3eadf7e3e7cfdb02021bb",
+    "structure": "0138616b1826427b33923a80e9435fa134586331c5f99b085a836fd950b1ec13",
+    "mounts": "dfe2013efd38ca000143b6dbbf97881d3cf6f334baa57baab3e512340bac456c",
+    "wiring": "767a8f775c7c1455e5a8a5e232c94b3a9851335fe9ea04ae5eb048588e6ed615",
+    "fluid-mounts": "327de5f03cae94d69a931625761cefc5ccfcab0fd0d7e80d373493b90b791058",
+    "body-mounts": "f187292fbc42a3d9f0c8311fffd46ada3e817e41cd8c9338251524fda95a643e",
+    "water5-mounts": "aa66e1d98d7ea5ef72ac2bf36124b2da4bbbc1a9d145260b2395b927a7d7755b",
+    "tube-hosts": "c2d667182e5450300ea770bc86767852b3fe417d358ab62d5dff88e42c7e358f",
+    "roof-hatch": "cada8ce9fb097aaf3217ae8d5d8d69159ee654349d37f2b61d6091225e2b4807",
+    "scene-stock": "59cb9e0ab82aaf83b2f3e898c1aa488e9f75dd21517da2a4f41fa87fd8b607d0",
+    "future/pump-first-layout-study/wiring/front-loom-handling.json": "b38799e4de7cf8e902af84635dd42cd00dc1ddfd0681beaeffafa2de3c84daff",
+    "future/pump-first-layout-study/funnel/candidate.json": "adf0cacd1a96d32d0e39d281ae243087b6644656994b3452d39ecc4119b2b8a8",
+    "future/pump-first-layout-study/pump/candidate.json": "cda2f8b8c309e52c772f6f4006ba3a954b1438aba5672e7e896a11b60f2c5289",
+    "future/pump-first-layout-study/routing/candidate.json": "988b4250b67d3d12ae91574b2507983bbbea55479de3eadf7e3e7cfdb02021bb",
+    "future/pump-first-layout-study/structure/candidate.json": "0138616b1826427b33923a80e9435fa134586331c5f99b085a836fd950b1ec13",
+    "future/pump-first-layout-study/mounts/candidate.json": "dfe2013efd38ca000143b6dbbf97881d3cf6f334baa57baab3e512340bac456c",
+    "future/pump-first-layout-study/wiring/candidate.json": "767a8f775c7c1455e5a8a5e232c94b3a9851335fe9ea04ae5eb048588e6ed615",
+    "future/pump-first-layout-study/mounts/water5-hosts.json": "aa66e1d98d7ea5ef72ac2bf36124b2da4bbbc1a9d145260b2395b927a7d7755b",
+    "future/pump-first-layout-study/routing/tube-hosts.json": "c2d667182e5450300ea770bc86767852b3fe417d358ab62d5dff88e42c7e358f"
+  },
+  "native_inputs": {
+    "discharge-chain-lower-key": {
+      "brep": ".cache/pump-first-layout/pump/discharge-chain-lower-key.brep",
+      "sha256": "2a55213576ddd7a1d11ee8b4822e4a4d097ce588d126c9d7d652b77fd9bed55d"
+    },
+    "coil-v-d": {
+      "brep": ".cache/pump-first-layout/baseline/022.brep",
+      "sha256": "ee68bb932d61b7a898b36fe666ce91aa296451d5cd55c037366736997980131d"
+    },
+    "turn-fluid-5": {
+      "brep": ".cache/pump-first-layout/baseline/050.brep",
+      "sha256": "2d72b0093aa88b54433ad01221ae2f54bdd0a9ba278525939bc382d29cd1e981"
+    },
+    "supply-lid-boss-3": {
+      "brep": ".cache/pump-first-layout/structure/supply-lid-boss-3.brep",
+      "sha256": "77b5af6a1f4192deb54368ca5e4acfe762e3a2c81431ef024f44a881b373b701"
+    },
+    "tube-fluid-2": {
+      "brep": ".cache/pump-first-layout/routing/tube-fluid-2.brep",
+      "sha256": "6050b034745675a218c95a365e8aa6dee4b27ab8ecc141aa3aa0aea33d2fd6dc"
+    },
+    "control-loom-J4-moisture-comparator-reserve-target": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J4-moisture-comparator-reserve-target.brep",
+      "sha256": "a3ebe38c0771b5df2fc5194a910c31484177f56f285159021736d927c5f94f91"
+    },
+    "co2-inlet": {
+      "brep": ".cache/pump-first-layout/routing/co2-inlet.brep",
+      "sha256": "c8066d4e047fca654a9b34eba54c7fcc2e32e538215f6edcda95557f1a88bcf5"
+    },
+    "control-loom-J1-retained-manifold-loom": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J1-retained-manifold-loom.brep",
+      "sha256": "fca202d5be7f4ed58e90d579f7910c9cdbe7e83c2f199c45bcecfd35e4a95f17"
+    },
+    "valve-v-e": {
+      "brep": ".cache/pump-first-layout/baseline/011.brep",
+      "sha256": "ce53a23da2c0ea428ba17dba42dd78fa366bdb092dc44562e4d9ebbae7a32f1d"
+    },
+    "relay-1": {
+      "brep": ".cache/pump-first-layout/mounts/floor/expected-relay-1.brep",
+      "sha256": "9902f9f49c0d436572586c415071a9948b28323f1c8ed92429df54b384718877"
+    },
+    "asse-retention-tie-1": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-retention-tie-1.brep",
+      "sha256": "1e6f632a18a52f42612927d07febdcc8316f7e2d9dd88284e6a25655fdb42a5e"
+    },
+    "meter-roof-seat-2": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/meter-roof-seat-2.brep",
+      "sha256": "fc012600500eea14381a5e2f4bb1cf9ca1d2d8aa79d27612a9762044c96cd9ef"
+    },
+    "valve-v-b": {
+      "brep": ".cache/pump-first-layout/pump/valve-v-b.brep",
+      "sha256": "f8957cbe243716d99338f484849f45c9a04b0b943339f1615a81986b35e5d482"
+    },
+    "control-ground-upper-A": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-ground-upper-A.brep",
+      "sha256": "76711a427ea48d1b228bba68ca75ceafb590008055cdc4485de1c7ad46e652c7"
+    },
+    "water2-tube-seat": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/water2-tube-seat.brep",
+      "sha256": "eebb9acc62efeb49068f851f4d9ca21ad06369cfa8b4d10c573744c7c91b9a5f"
+    },
+    "tube-collar-water": {
+      "brep": ".cache/pump-first-layout/routing/tube-collar-water.brep",
+      "sha256": "402590ca245d97b876095ce2aea4738e0e0e21223fe8706a249c3e6c205d5206"
+    },
+    "discharge-chain-anchor": {
+      "brep": ".cache/pump-first-layout/pump/discharge-chain-anchor.brep",
+      "sha256": "3ce40469e79bf0d272e63d93dff67775aab0a02e457ac9a455d4c5cf86bd72a4"
+    },
+    "tube-fluid-11": {
+      "brep": ".cache/pump-first-layout/baseline/038.brep",
+      "sha256": "f1bd19dc9ed09f0e6694a4de34405401bcf92ed22f0d7865460a7a1696bbe445"
+    },
+    "supply-screw-3": {
+      "brep": ".cache/pump-first-layout/structure/supply-screw-3.brep",
+      "sha256": "25a74fab8691f5379b480e907bbeee086e428a2cf11ab9a0d9c0433f73624b81"
+    },
+    "tube-fluid-19": {
+      "brep": ".cache/pump-first-layout/baseline/047.brep",
+      "sha256": "67e7ad1dda01a4f515a3a496c70ddab014f79e0eacbb2153957ca222be601ebf"
+    },
+    "asse-retention-tie-2": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-retention-tie-2.brep",
+      "sha256": "caec1290b7d997f345a677a4f5b4514b87566a242068be75eb86fd5ab92c2766"
+    },
+    "control-ground-lower-fanout": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-ground-lower-fanout.brep",
+      "sha256": "c53499eb2a5a6fbe32a67d5704c9df1301fab6ffe087c485c013e04f8cc96db1"
+    },
+    "digiten-flow": {
+      "brep": ".cache/pump-first-layout/routing/digiten-flow.brep",
+      "sha256": "e1684c3c8825d41cf64617b2a954c22ee49c4cd3f0743565d55a63b27384416f"
+    },
+    "relay-2-mount-screw-2": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-2-mount-screw-2.brep",
+      "sha256": "18efa60dd6ae7f59015d584e6917e30efdf4d8cf808e61b3e10a2500ae7c1018"
+    },
+    "control-loom-wago-reeds-b-retained-cold-core-service-leads": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-reeds-b-retained-cold-core-service-leads.brep",
+      "sha256": "30cd7ad3af16cb405de7d17c6431dbd2c2048329dd6752ab0cd311e3ffa5d81c"
+    },
+    "valve-v-a": {
+      "brep": ".cache/pump-first-layout/pump/valve-v-a.brep",
+      "sha256": "6aed2b159f7308e51c1e24a078147a9ab6fe135c47baa927b93b336fdf7b155a"
+    },
+    "keystone-jack": {
+      "brep": ".cache/pump-first-layout/structure/keystone-jack.brep",
+      "sha256": "7412ab8359071f3108a1a8e4e606f67c07d48941610d154e0151cb8306d63104"
+    },
+    "tee-y-g": {
+      "brep": ".cache/pump-first-layout/baseline/028.brep",
+      "sha256": "c6310b6154897eb62fe9f441b39d150897bf94d451238a4d287a7e32204c44a4"
+    },
+    "tube-fluid-22": {
+      "brep": ".cache/pump-first-layout/baseline/043.brep",
+      "sha256": "54c1b737c1ee9f8f5697262854b5925ec9d82134ddb0fc6e5946e3843ce9f795"
+    },
+    "coil-v-i": {
+      "brep": ".cache/pump-first-layout/baseline/030.brep",
+      "sha256": "f58662c6f17227073dc4b4e3fb9f753eaa7c37f5ca3a09eeb230aa9b44d80f43"
+    },
+    "hatch-screw-3": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-screw-3.brep",
+      "sha256": "51cc444a9e7831b2394a136afc21feb7cedfd6fc7c672d6e8e332e0a579db9c8"
+    },
+    "control-header-J11-fanout": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-header-J11-fanout.brep",
+      "sha256": "bd23069c0513ed41ef60745ed9be9cae149bc4018aade23392ba49eadafb18ee"
+    },
+    "supply-washer-1": {
+      "brep": ".cache/pump-first-layout/structure/supply-washer-1.brep",
+      "sha256": "3e8ad309376c92ea7b95451265af69fa09c11de133eefa26bf6760bf2d90dcd3"
+    },
+    "wire-AC2-H": {
+      "brep": ".cache/pump-first-layout/wiring/power/wire-AC2-H.brep",
+      "sha256": "81246dbec85c2ff75a7daeddfcae43076f6f62d2f44bcee76e07c9dcaa18f600"
+    },
+    "control-service-reeds-B": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-service-reeds-B.brep",
+      "sha256": "00b43e3081f9b3192c982852a1aed8722e78f9f2a10c831404996a473b21389b"
+    },
+    "hose-engagement-pump-discharge": {
+      "brep": ".cache/pump-first-layout/pump/hose-engagement-pump-discharge.brep",
+      "sha256": "86f559bb8040bb074cec8c45ab1762ba58cca83757902e0ed96144edcddcdafa"
+    },
+    "hatch-roof-web-3": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-roof-web-3.brep",
+      "sha256": "b9a8d8d5b004014afbe4065aceba3b72a67a4b279c57588a3cef8e76121012b1"
+    },
+    "hatch-screw-1": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-screw-1.brep",
+      "sha256": "03ba7c8153ac862d92dadffe50df5ad344e928d9e3c36e62229ffca50d675647"
+    },
+    "wire-AC1-H": {
+      "brep": ".cache/pump-first-layout/wiring/power/wire-AC1-H.brep",
+      "sha256": "32729d5d286871f17febf980eb0eb048ad089ba21ef3e1b1af772d1dd4a846fc"
+    },
+    "pump-screw-1": {
+      "brep": ".cache/pump-first-layout/pump/pump-screw-1.brep",
+      "sha256": "1fcf0978b48f5b188888fa35dcb3ab531ccc34736c5752f7855bb782f1d36795"
+    },
+    "control-loom-J11-retained-mq6-loom-target": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J11-retained-mq6-loom-target.brep",
+      "sha256": "fa2c82b9391f66f6652fdee38ead3bbb719a056a86735a145772eb9e96b4b907"
+    },
+    "coil-v-h": {
+      "brep": ".cache/pump-first-layout/baseline/025.brep",
+      "sha256": "43dc60d4ce92f85f9af7abb44cd74594d10735553cbac54a77e1bc74f868d63f"
+    },
+    "enclosure-window-cover-west": {
+      "brep": ".cache/pump-first-layout/baseline/211.brep",
+      "sha256": "8a21240632234f73adde7bc22d20db268dcdf52d8886a6c8629818f5d9516b19"
+    },
+    "relay-2-mount-screw-1": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-2-mount-screw-1.brep",
+      "sha256": "6f8f6ff53a519f6be4545baee3baa3a7123fbc8e330ae0e09cbb44bdd3f9e9a6"
+    },
+    "hatch-seam-silicone": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-seam-silicone.brep",
+      "sha256": "6b632a3057830962454f27313b1236620642346ea1d32e08393723d6c78000fa"
+    },
+    "tube-co2-0": {
+      "brep": ".cache/pump-first-layout/routing/co2/co2-0.brep",
+      "sha256": "35939fdada6ee8363bfcf005b8c0c25ba3f18aee91b8160f3afd706ce0d1a2d2"
+    },
+    "wire-DC4-GND": {
+      "brep": ".cache/pump-first-layout/wiring/power/wire-DC4-GND.brep",
+      "sha256": "d13fe9cafd3bd0ad4a18f69ef847eb8b6d6541570fb491c67a8b0f3dab516cdd"
+    },
+    "supply-lid-boss-4": {
+      "brep": ".cache/pump-first-layout/structure/supply-lid-boss-4.brep",
+      "sha256": "d3a3b4e02c913a1bb109193607ace97788e4061f62fa04cb5fed64e3106d0e3a"
+    },
+    "tube-water-5": {
+      "brep": ".cache/pump-first-layout/pump/tube-water-5.brep",
+      "sha256": "de0700e5fb1a32ef5bbbddee9fc6ab38d57a534e83e715bcba556972b15a3147"
+    },
+    "hatch-screw-silicone-cap-1": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-screw-silicone-cap-1.brep",
+      "sha256": "8496c774b38dbe8126e963b238302a9ab4a64e10cfbf158d7793162ce245578b"
+    },
+    "supply-lid-web-1": {
+      "brep": ".cache/pump-first-layout/structure/supply-lid-web-1.brep",
+      "sha256": "0a2d1db70145724c36f54261088d784aade82fc63cacb727aee5af1ebdf6a630"
+    },
+    "rear-roof-hatch": {
+      "brep": ".cache/pump-first-layout/structure/scene-stock/rear-roof-hatch.brep",
+      "sha256": "b05de622d063e820df19d52980a77009b13ea6259ed166fff88437b99602efe9"
+    },
+    "control-header-J2-fanout": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-header-J2-fanout.brep",
+      "sha256": "157e87430e076fe0c84c5d9f6bf2afb56f8f7425ab3eb052d18375c7c3fa2c3d"
+    },
+    "relay-1-mount-screw-1": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-1-mount-screw-1.brep",
+      "sha256": "d1b66b7a9ee150066a84c702b6edf35ccedb5329f05da56e9952ff654581d3d9"
+    },
+    "control-loom-wago-reeds-b-retained-cold-core-service-leads-target": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-reeds-b-retained-cold-core-service-leads-target.brep",
+      "sha256": "434aae3386635336b6c913398887c08c6869d089e5f022360ca3a2545fa02e69"
+    },
+    "bulkhead-ring-flavor-a-word": {
+      "brep": ".cache/pump-first-layout/baseline/156.brep",
+      "sha256": "5f69b8cc4d6a7a246e595b7bd10a900619bee1ab8735e74e51d8c7f67ba88825"
+    },
+    "lower-carbonator-earth-reserve": {
+      "brep": ".cache/pump-first-layout/wiring/power/lower-carbonator-earth-reserve.brep",
+      "sha256": "4f26798fdea438dd5ccdd502c2017a3403c0ca1b80b653ea28afe4ce9c94cd5d"
+    },
+    "water-split": {
+      "brep": ".cache/pump-first-layout/mounts/tee-raised-direct/water-split.brep",
+      "sha256": "13451210753e21510c3550a0f8226d12a72c28b3e652823fce8789e2e7329b20"
+    },
+    "hose-engagement-pump-suction": {
+      "brep": ".cache/pump-first-layout/pump/hose-engagement-pump-suction.brep",
+      "sha256": "833991f3ac9e95a79a6071c30896b484ad3c7c9693883565256d6d565360aa66"
+    },
+    "cold-core/foam-cap-lid-top": {
+      "brep": ".cache/pump-first-layout/structure/scene-stock/cold-core-lid.brep",
+      "sha256": "338c6920b114b5b7c2278ff908ab545cbabcfa5bfa7a8d51874f1e3413126555"
+    },
+    "supply-tube-seat": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/supply-tube-seat.brep",
+      "sha256": "4667be93efcab0566f5f369974c8c53f33526993e5c442e13b7e5a069e4a530b"
+    },
+    "gas-outlet-tube-seat": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/gas-outlet-tube-seat.brep",
+      "sha256": "a2059de5c575f28e4a17c224ce4304cb7978027fba9492028bbb68af5a1744a5"
+    },
+    "nameplate": {
+      "brep": ".cache/pump-first-layout/routing/nameplate.brep",
+      "sha256": "65f6a7145edac25d3929e3506ccaffade66fa88e618472f6e8bd07bc056cfc6b"
+    },
+    "wire-DC3-GND": {
+      "brep": ".cache/pump-first-layout/wiring/power/wire-DC3-GND.brep",
+      "sha256": "782a758b0ff48ebe5fcdee90719fbb96bbbd6424f3654c562206f87a25e156e3"
+    },
+    "enclosure-window-cover-east": {
+      "brep": ".cache/pump-first-layout/baseline/212.brep",
+      "sha256": "f34462df8adb028d4e4a7448ece2fa191a33acd616e92fe1d6099325a3697724"
+    },
+    "pump-screw-2": {
+      "brep": ".cache/pump-first-layout/pump/pump-screw-2.brep",
+      "sha256": "601fcf274a9acb3c82b2b9f9df529cbcdc6f8170d99174232f51fbd7edad20c2"
+    },
+    "tee-y-c": {
+      "brep": ".cache/pump-first-layout/baseline/010.brep",
+      "sha256": "479a5b87df8561546613908ca33cbe583e92a8072a196a97be80830f3b36abea"
+    },
+    "control-loom-J3-keystone-jack": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J3-keystone-jack.brep",
+      "sha256": "e16f4f6a2fd4d260a42ecf2223a1a4660ca1719e4cc510ab5f509264e9cc03b8"
+    },
+    "relay-1-mount-screw-2": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-1-mount-screw-2.brep",
+      "sha256": "bb803f28cdd45f94fedf29d009cf9f4ae0f9f601b83e4b9a4f83a15ef46449f3"
+    },
+    "wago-h": {
+      "brep": ".cache/pump-first-layout/mounts/roof/expected-wago-h.brep",
+      "sha256": "ee133a53866c40dcbc45a089073e076e995d0d96d53c64fb53b9dedf28d5f0e7"
+    },
+    "hatch-screw-silicone-cap-3": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-screw-silicone-cap-3.brep",
+      "sha256": "ef532a10baa4e079dd1d5a7d9f16b055323e3f8b172c2249262c15405d7e3a25"
+    },
+    "control-loom-J4-wago-sensors": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J4-wago-sensors.brep",
+      "sha256": "e9b217a265c0351d8cdb4ca0f4d795cba17a9cb4b1717e4738318369ad18482a"
+    },
+    "meter-roof-seat-1": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/meter-roof-seat-1.brep",
+      "sha256": "d6a564dc97a8d8d05c5ba040fcd0c9c2c95d43a085c2187a0aef0a618b9b86c4"
+    },
+    "tube-fluid-17": {
+      "brep": ".cache/pump-first-layout/baseline/046.brep",
+      "sha256": "2aab44437d8b093da34ebf18255e8f568f6c193b5f2435fe144b1bfb359d5d1b"
+    },
+    "pump-washer-1": {
+      "brep": ".cache/pump-first-layout/pump/pump-washer-1.brep",
+      "sha256": "90b91ed6eec75c02fcc8a005170c4f04138c2e78a3e1c8f6e96f272b74703954"
+    },
+    "bulkhead-ring-carb-word": {
+      "brep": ".cache/pump-first-layout/routing/bulkhead-ring-carb-word.brep",
+      "sha256": "65f0369c3e0d6351dce5380704aedafcf4c9d8b978210b9baffb1ad7e8bd8444"
+    },
+    "lower-under-counter-earth-reserve": {
+      "brep": ".cache/pump-first-layout/wiring/power/lower-under-counter-earth-reserve.brep",
+      "sha256": "a96719a05a569553b65a84ae7ea0904b628fbc0b5a82027758452505b1c52ac3"
+    },
+    "controller-screw-2": {
+      "brep": ".cache/pump-first-layout/structure/controller-screw-2.brep",
+      "sha256": "f79430cb9dbdc6ab6c970fc9aec898eb9c9acdb4e99d2575522bc5307bf7d920"
+    },
+    "controller-roof-boss-3": {
+      "brep": ".cache/pump-first-layout/structure/controller-roof-boss-3.brep",
+      "sha256": "92e6c48c6d8e27f5fc9874897fbb50df3af6b69cdb485de2255d2c1842e6e396"
+    },
+    "tee-retention-tie": {
+      "brep": ".cache/pump-first-layout/mounts/check-tee/tee-retention-tie.brep",
+      "sha256": "f17e5773913ef622742f708b3ea807eab71392225680a28ef30444ac7235dca4"
+    },
+    "tee-y-f": {
+      "brep": ".cache/pump-first-layout/baseline/023.brep",
+      "sha256": "4f3885b8531a10e039c0f2dd2217ba977eb683d0070ddbe0ed1558493d9d30cd"
+    },
+    "tee-carrier-spring-east-lower": {
+      "brep": ".cache/pump-first-layout/baseline/215.brep",
+      "sha256": "b1dd789a3ec1eee3a5a4d7df16f9e9038938a357e28f7060b9b7148b5a2d80ff"
+    },
+    "control-relay-logic-fork": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-relay-logic-fork.brep",
+      "sha256": "2cee9032033cf82bc3402a28535e99f30f1bce2eac74b257d732b697c65d953e"
+    },
+    "tube-water-7": {
+      "brep": ".cache/pump-first-layout/pump/tube-water-7.brep",
+      "sha256": "38e208073b991b9900b7af1bea8182dd26ec1e133cba847ad90159a1edcca815"
+    },
+    "wago-manb": {
+      "brep": ".cache/pump-first-layout/baseline/127.brep",
+      "sha256": "516f1671faf7371e042db198caf10e9df1c43d203d06ec022a837f61b24920ae"
+    },
+    "valve-v-f": {
+      "brep": ".cache/pump-first-layout/baseline/016.brep",
+      "sha256": "55b1ab8f3432be9a0fe5115c3997d09841b9a6181c17d696211b8c416a003a62"
+    },
+    "coil-v-f": {
+      "brep": ".cache/pump-first-layout/baseline/017.brep",
+      "sha256": "318a4eafeb148c74f5157d2a43d45c6dbf5fd789cc2c57356f962231bd51cce6"
+    },
+    "relay-1-head-spacer-3": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-1-head-spacer-3.brep",
+      "sha256": "1ceb2c0600dd89b8e9a72d637216b0bf2cca6c3548e19687bee7200eefab7df0"
+    },
+    "wire-DC4-V12": {
+      "brep": ".cache/pump-first-layout/wiring/power/wire-DC4-V12.brep",
+      "sha256": "a74e10837784bfdf62738a1871c8afea57194f4b1494588771b00a85a57c17dc"
+    },
+    "control-service-fork-B": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-service-fork-B.brep",
+      "sha256": "59a7b013dd544165d81fd12d94b4843057be7e2a14d3e5f4d48b8a44db2f2574"
+    },
+    "discharge-chain-clip-screw-1": {
+      "brep": ".cache/pump-first-layout/pump/discharge-chain-clip-screw-1.brep",
+      "sha256": "93c39289654038aa9ca11489851f43334e81f8499797fcd689ff65902a175867"
+    },
+    "relay-1-mount-screw-4": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-1-mount-screw-4.brep",
+      "sha256": "321172194878ace7eb662dafcc0725a52e806c63f9d172ada125748ac5479ef3"
+    },
+    "c14-inlet": {
+      "brep": ".cache/pump-first-layout/structure/c14-inlet.brep",
+      "sha256": "8460923796e6f7b228b7ee5beb00bc70623f3d508c176b366d9e9c6c681768da"
+    },
+    "control-loom-J5-relay-logic-cluster": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J5-relay-logic-cluster.brep",
+      "sha256": "70dc2d5eb8c1335ccb36dabf75f7f9ebee254be53c8d79acae6403509c82a683"
+    },
+    "controller-screw-3": {
+      "brep": ".cache/pump-first-layout/structure/controller-screw-3.brep",
+      "sha256": "cf94215e1f1a0614ecdaf28ab778d441e1b5860fbfb22e33059593dd1368b29f"
+    },
+    "tee-y-a": {
+      "brep": ".cache/pump-first-layout/baseline/007.brep",
+      "sha256": "9e8116711c6dd77a053558be129a4417f94c3d6306b56d168d715d8ba7a93663"
+    },
+    "hatch-roof-boss-4": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-roof-boss-4.brep",
+      "sha256": "47fc08974251720345025fcc0fd90e00d4692abefdaa2825493d303fa620957b"
+    },
+    "control-loom-J7-reed-B": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J7-reed-B.brep",
+      "sha256": "e6485f6eb07ae140f15a1a800a87d98f0bc3f93c79eb55ec8312ef072838036c"
+    },
+    "hatch-lap-ledge": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-lap-ledge.brep",
+      "sha256": "5f38d98f29b8b80eb09b8fbcfb9490e4939af90f7c0531b764ed6136b25c89a6"
+    },
+    "hose-engagement-chain-discharge": {
+      "brep": ".cache/pump-first-layout/pump/hose-engagement-chain-discharge.brep",
+      "sha256": "fe3ba8cdd9eec804d334517326c246313ab6121c07f7f067751040a672fdf81a"
+    },
+    "suction-chain-upper-key": {
+      "brep": ".cache/pump-first-layout/pump/suction-chain-upper-key.brep",
+      "sha256": "e93dac24cacd4e39558ad257c2ebe3fe9801e7f1d753d4de8bbc329368258224"
+    },
+    "compressor-jacket-reserve": {
+      "brep": ".cache/pump-first-layout/wiring/power/compressor-jacket-reserve.brep",
+      "sha256": "d4ea15ac2c627ec973ed7d2afecbb78e2f5e821ee0604d1b3e47ee2af8a30663"
+    },
+    "wago-g": {
+      "brep": ".cache/pump-first-layout/mounts/roof/expected-wago-g.brep",
+      "sha256": "bd28f5481a3b07af6eccf173cf97ad2b288b57595fe422c43301dda2d54d3c6b"
+    },
+    "control-loom-J3-keystone-jack-target": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J3-keystone-jack-target.brep",
+      "sha256": "078b1e164f3adaef0e153ef725089d8271d1a989188338aaa9722ba3e8b9a7bc"
+    },
+    "control-loom-wago-sensors-moisture-comparator-reserve": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-sensors-moisture-comparator-reserve.brep",
+      "sha256": "62616bace2621d31f0ac6f661646f44080cbe475a8d9d6c4e6ddcc597baaaf23"
+    },
+    "control-loom-J11-retained-mq6-loom": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J11-retained-mq6-loom.brep",
+      "sha256": "7a53bdf15bdc2b03960dabe90febff17bef53f7ac3b132c9e7e37c84f6a89cdd"
+    },
+    "turn-fluid-3": {
+      "brep": ".cache/pump-first-layout/baseline/049.brep",
+      "sha256": "6f8d5a7a546fc9fd35bd6e7f56f93fdf8fbe299fa830d9581a0ee7ec4d8022c6"
+    },
+    "wire-AC4-H": {
+      "brep": ".cache/pump-first-layout/wiring/power/wire-AC4-H.brep",
+      "sha256": "b6a59ad72ae6d93afa013b9ba94b0c8426b953878acacadc9570194845fceecd"
+    },
+    "controller-screw-4": {
+      "brep": ".cache/pump-first-layout/structure/controller-screw-4.brep",
+      "sha256": "42138b3f2bf60c495d2d10413094bbf41818abc98b254e59cf9418a6b090cabf"
+    },
+    "wire-AC1-G": {
+      "brep": ".cache/pump-first-layout/wiring/power/wire-AC1-G.brep",
+      "sha256": "1374d3da1b2cd49cf5dc880211b4155beb5ab398127b87a550d92cd8dedb2952"
+    },
+    "valve-v-h": {
+      "brep": ".cache/pump-first-layout/baseline/024.brep",
+      "sha256": "845cb8a7998088e69b97541f82a0ab9635f211eec64f8be8fe66fea984715abe"
+    },
+    "bulkhead-ring-flavor-a": {
+      "brep": ".cache/pump-first-layout/baseline/155.brep",
+      "sha256": "c23edee61fbcd0a61066aa8cc0057684a746b179c2dc65ac3ca82f2c5441be9c"
+    },
+    "controller-roof-boss-2": {
+      "brep": ".cache/pump-first-layout/structure/controller-roof-boss-2.brep",
+      "sha256": "54fe0221d5d40ab540ea71077533dc31f644f5e66d9dadd0d5905ddb043ae1b5"
+    },
+    "coil-v-c": {
+      "brep": ".cache/pump-first-layout/baseline/009.brep",
+      "sha256": "f3d9c45c0b15d9e3227c69c4e77dd428ed91eedd91e66eafbe7128d962f8ae35"
+    },
+    "relay-2": {
+      "brep": ".cache/pump-first-layout/mounts/floor/expected-relay-2.brep",
+      "sha256": "e61498c96a9d787f2f83694c9f3dd6177977e9838e8b3f6883a5ab1614ec0755"
+    },
+    "valve-v-d": {
+      "brep": ".cache/pump-first-layout/baseline/021.brep",
+      "sha256": "23b0d12c4db4f2e9d29f6d4e2dde71e683d590458bbc65701d1c6350f8dd19bb"
+    },
+    "tube-fluid-10": {
+      "brep": ".cache/pump-first-layout/baseline/037.brep",
+      "sha256": "f4576cf83e6298b927913e3d4660badc86a89cdb2b545ecbef9f32afae089ec8"
+    },
+    "supply-washer-3": {
+      "brep": ".cache/pump-first-layout/structure/supply-washer-3.brep",
+      "sha256": "647d3969a3eca1674b7927586f9b35f0c3ef49c00c8b76f8801776f91c48a3e4"
+    },
+    "valve-v-j": {
+      "brep": ".cache/pump-first-layout/baseline/026.brep",
+      "sha256": "beecf7b7c353e280411d64c15b425138677fd204c289fe4e8ceaa26f93dbcbb3"
+    },
+    "control-service-reeds-A": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-service-reeds-A.brep",
+      "sha256": "8d709691273ee0cac84777dc3fc5e64d9ada1d586a02bdfddac4e374b21eaee3"
+    },
+    "control-loom-J2-retained-manifold-loom": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J2-retained-manifold-loom.brep",
+      "sha256": "3fc41c88df10cc1ef38e0aed398aaacacdefaef85627e35c105e531308f93424"
+    },
+    "relay-lid-platform": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-lid-platform.brep",
+      "sha256": "2286f65da079ddefa1224a2635f7dcbb2f8a2d5900be96f7f37d389a0ffa61e7"
+    },
+    "tee-lid-seat": {
+      "brep": ".cache/pump-first-layout/mounts/check-tee/tee-lid-seat.brep",
+      "sha256": "647af5d079d66c0459603dfed1959c978a5396da4691eefa8952e9834b79b46e"
+    },
+    "control-loom-wago-reeds-b-retained-cold-core-service-leads-source": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-reeds-b-retained-cold-core-service-leads-source.brep",
+      "sha256": "8cf30527d8c172cf1681e251aa8e85415f39f0b8526b32375e9b97cc24737321"
+    },
+    "control-header-J5-fanout": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-header-J5-fanout.brep",
+      "sha256": "593a0882384c065fdb7c62484eed8dee990e210506e48620ccbe9fec29551b70"
+    },
+    "control-loom-J1-coil-v-b": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J1-coil-v-b.brep",
+      "sha256": "7f483b7a326d242e69a7e7be314e156d0435cbd1ab4dbec132f15471ca2970ed"
+    },
+    "bulkhead-ring-co2": {
+      "brep": ".cache/pump-first-layout/routing/bulkhead-ring-co2.brep",
+      "sha256": "97e6d6c3592bcba17d41e5e7e58e7b2f5b9b314770f3a37f14e00a616e45b284"
+    },
+    "elbow-cradle": {
+      "brep": ".cache/pump-first-layout/baseline/193.brep",
+      "sha256": "14a6ea4becc2fea7139b5abfdacfbad6a1565281265298e736bdd26b3c390e1b"
+    },
+    "controller-roof-boss-1": {
+      "brep": ".cache/pump-first-layout/structure/controller-roof-boss-1.brep",
+      "sha256": "096d3adef06ec32a736ac6b3dcc81150ecfe1e11736800e852813c8a34deaeb9"
+    },
+    "control-header-J7-fanout": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-header-J7-fanout.brep",
+      "sha256": "8f3818040d08e51e966a1279de0ba8d0182235cc02561618520e5997629c9692"
+    },
+    "tube-water-3": {
+      "brep": ".cache/pump-first-layout/routing/tube-water-3.brep",
+      "sha256": "f0aebf0f0eb56d350b185b85e3cc319e4c12a8f0bb185895dd92d93b723f5d0e"
+    },
+    "control-loom-wago-sensors-moisture-comparator-reserve-source": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-sensors-moisture-comparator-reserve-source.brep",
+      "sha256": "206695f2bad7084887314e17ede94998bafa81be8e12c84283d35033ebcb3bb1"
+    },
+    "vk-solenoid": {
+      "brep": ".cache/pump-first-layout/pump/vk-solenoid.brep",
+      "sha256": "c51a3c525dc59b8303f7da4986eb5a0e2064b660004cc7504c7b832e5fd65f07"
+    },
+    "coil-v-e": {
+      "brep": ".cache/pump-first-layout/baseline/012.brep",
+      "sha256": "0a2e1017d342a48aa105a5bf0177a0e7771eb6eec504085a0890809b59758d81"
+    },
+    "control-loom-J6-reed-A": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J6-reed-A.brep",
+      "sha256": "494a8a0c957e19f3247379b5e02ea814f96f7e2fa6a765a2741ed39f8b218cbc"
+    },
+    "tube-carb-2": {
+      "brep": ".cache/pump-first-layout/routing/tube-carb-2.brep",
+      "sha256": "354a68df30a96f8ab889316ca61ac15886a977b2c3bedc974999125bad665913"
+    },
+    "tee-y-b": {
+      "brep": ".cache/pump-first-layout/baseline/020.brep",
+      "sha256": "cf88641c3fbac93d9b9f6742e985f704dbcf2d15e97ae80501fc76a8ea9016d7"
+    },
+    "wire-DC3-V12": {
+      "brep": ".cache/pump-first-layout/wiring/power/wire-DC3-V12.brep",
+      "sha256": "a570559dad0c966a28a78974d54b97a0f0a079242fcab4d00db4bf75d896a105"
+    },
+    "control-loom-J4-moisture-comparator-reserve": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J4-moisture-comparator-reserve.brep",
+      "sha256": "b3a3c8db08d4734633749d3ed6634674cdf8e3d94438bf874033c88c128cbc7c"
+    },
+    "moisture-plate": {
+      "brep": ".cache/pump-first-layout/routing/moisture-plate.brep",
+      "sha256": "5102f3b4150751093907a5be11024ae861c1c2ef04f928a5f879863fe61fd7b2"
+    },
+    "asse-carrier-clamp-2": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-carrier-clamp-2.brep",
+      "sha256": "5901e491a462e30e852ebe5cced3f3ec0ad49887bff208fe23f42f98a459d116"
+    },
+    "source-a-cradle": {
+      "brep": ".cache/pump-first-layout/pump/source-a-cradle.brep",
+      "sha256": "61689e44c217b30d1e9bcf3019b51069ff30ede8d8dd96432cea8abe9993e354"
+    },
+    "g-ganen-pump": {
+      "brep": ".cache/pump-first-layout/pump/g-ganen-pump.brep",
+      "sha256": "56b4615d8c12388600e822b05876ae3f0c177aa69ab5d6b7be5295136d9050d9"
+    },
+    "control-loom-J1-coil-v-a": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J1-coil-v-a.brep",
+      "sha256": "b859568eb81a990b02c725d6572b53dfa94d50f7aab6e86ab3fd07f1213f660b"
+    },
+    "co2-adapter-regulator-out": {
+      "brep": ".cache/pump-first-layout/routing/co2-adapter-regulator-out.brep",
+      "sha256": "27f7353d423d7a05e6b44f92a27a24b9d75ea4bd8d79bb5d4b7c75892762f1ba"
+    },
+    "gate-a-east-tube-seat": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/gate-a-east-tube-seat.brep",
+      "sha256": "8b37bf7b62b3ef27c1295455b2785a373179527eb4afe7d9b1855f4e2ab6a193"
+    },
+    "wago-n": {
+      "brep": ".cache/pump-first-layout/mounts/roof/expected-wago-n.brep",
+      "sha256": "908ce59b24f95149e175962746dcfd0c4e7f5d8b2aff1b0e79a4d6d9ff551b9c"
+    },
+    "bulkhead-ring-flavor-b-word": {
+      "brep": ".cache/pump-first-layout/baseline/158.brep",
+      "sha256": "1cb78f1a220e7f1519c70cc038b25c1afae6ea0debc0aa6ac42d69fc15280d7f"
+    },
+    "suction-chain-anchor": {
+      "brep": ".cache/pump-first-layout/pump/suction-chain-anchor.brep",
+      "sha256": "2fdc54bdce242b1afde1e9e2d7f533b40d121744ce720f3dc357840ba43831ea"
+    },
+    "hatch-roof-beam-3": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-roof-beam-3.brep",
+      "sha256": "1d5297efff60f1163a230f8ad8d8807753d9335bd8a88bd779c2ec25edc38f84"
+    },
+    "water5-east-drop-seat": {
+      "brep": ".cache/pump-first-layout/mounts/water5/water5-east-drop-seat.brep",
+      "sha256": "edf9efd9052b7632368308fee7ef8febe3f8da079d85d13c054ca51e24ef3d81"
+    },
+    "tube-fluid-9": {
+      "brep": ".cache/pump-first-layout/baseline/045.brep",
+      "sha256": "b58333597df537e1821647e4b9feae1dbe93bd02ad0d7864b9014f358da858e0"
+    },
+    "coil-v-g": {
+      "brep": ".cache/pump-first-layout/baseline/014.brep",
+      "sha256": "4ef25dda0d822d6afc9ebd95aa9c267bbe73fd8e384670006b9baa666999cb28"
+    },
+    "tube-fluid-27": {
+      "brep": ".cache/pump-first-layout/baseline/048.brep",
+      "sha256": "24362c2273fbee57a3edc6537e1bba2f63832516b60e2cac13a26f2915818c0c"
+    },
+    "gate-a-upper-tube-seat": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/gate-a-upper-tube-seat.brep",
+      "sha256": "77f06f0876d241e1a68459b18a036ddf7d1526cff447b62d0fec523fbf8e5e33"
+    },
+    "suction-chain-clip-screw-2": {
+      "brep": ".cache/pump-first-layout/pump/suction-chain-clip-screw-2.brep",
+      "sha256": "62a65fdd1266a69067ed4c334f55384a071ee11348f73736a1f97486b3429984"
+    },
+    "asse-carrier-clamp-1": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-carrier-clamp-1.brep",
+      "sha256": "e54b34784c68700b356873c39f6479d7f0f88b2283ce2073a0ff664f56bd6c41"
+    },
+    "coil-v-j": {
+      "brep": ".cache/pump-first-layout/baseline/027.brep",
+      "sha256": "cbf1bd465e6044901ab00a452de59dcd75eccbcb42e9769343f86ce06061280d"
+    },
+    "wr-regulator-seat": {
+      "brep": ".cache/pump-first-layout/mounts/wr/wr-regulator-seat.brep",
+      "sha256": "69b84f42f0f37fb7f612ab98d914abe27ae463665bc9e32212a5e2863c028c87"
+    },
+    "asse1022-assembly": {
+      "brep": ".cache/pump-first-layout/routing/asse1022-assembly.brep",
+      "sha256": "542c576961c830948ea295557e3d7a4108d6d3268b33f0f97096437067e44817"
+    },
+    "wire-PE-carbonator": {
+      "brep": ".cache/pump-first-layout/wiring/power/wire-PE-carbonator.brep",
+      "sha256": "6f509cf59573ad2f0c69ebb2cd5c1c4b2034ef8c32eebd814b5628f3b2618b0e"
+    },
+    "tee-carrier-spring-east-upper": {
+      "brep": ".cache/pump-first-layout/baseline/216.brep",
+      "sha256": "35db26a5888dea73677acf4e4226d14e411a44a98b138da9c55933b345bce89d"
+    },
+    "relay-2-head-spacer-2": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-2-head-spacer-2.brep",
+      "sha256": "888a54a0dae90153e3a85c1e9c0712a99c257854e97ed2268fe33982aecba606"
+    },
+    "control-loom-J6-wago-reeds-a": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J6-wago-reeds-a.brep",
+      "sha256": "6baf149d69713aaa402e51b14f380881be1f8789f944f3cc51ded1429e6bd7e2"
+    },
+    "control-loom-J7-retained-cold-core-service-leads": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J7-retained-cold-core-service-leads.brep",
+      "sha256": "cbbdec37a1558e444d5b57b37cd995e9517a983b49b2e5426834ea3b5e90b36e"
+    },
+    "co2-adapter-check-out": {
+      "brep": ".cache/pump-first-layout/routing/co2-adapter-check-out.brep",
+      "sha256": "5deaf45f270d89f200709ab8b504e49cd316751ca52a8c53e3a5682035a1582d"
+    },
+    "tube-fluid-12": {
+      "brep": ".cache/pump-first-layout/baseline/039.brep",
+      "sha256": "71c1a2daee37178fd317ef1c0f03b731841ec966b7981d3496833bc032de93ac"
+    },
+    "control-loom-J6-wago-reeds-a-target": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J6-wago-reeds-a-target.brep",
+      "sha256": "0b8c1b6c3b8309468b700fded5721509231d079bcd5a11f09a4088dd71151b0d"
+    },
+    "control-loom-wago-sensors-retained-cold-core-service-leads-target": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-sensors-retained-cold-core-service-leads-target.brep",
+      "sha256": "9135ed3580d4220c63d7c1cea114d6b819a559d971a13fc6366e5bb577d74a2c"
+    },
+    "hose-clamp-pump-discharge": {
+      "brep": ".cache/pump-first-layout/pump/hose-clamp-pump-discharge.brep",
+      "sha256": "3955db6cfc8bb12a7b3a222683e51bbdfe5efc8d2c64ceb378558d85c4e24bc2"
+    },
+    "west-junction-platform": {
+      "brep": ".cache/pump-first-layout/mounts/wr/west-junction-platform.brep",
+      "sha256": "1c5c47089c028245bec376f227014fc7675e861ccd55ceb8460c9fec086f1e6b"
+    },
+    "control-manifold-aft-fanout": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-manifold-aft-fanout.brep",
+      "sha256": "194f65324802947631f5b9807d9f424c9a2eec6c7395c52acb27e8e2f21a6aeb"
+    },
+    "wire-DC2-V12": {
+      "brep": ".cache/pump-first-layout/wiring/power/wire-DC2-V12.brep",
+      "sha256": "d1e5e3d2f3638ec5a52341047b8756dccaaebad6ae6a555b553d0ca6a619bbcd"
+    },
+    "pump-washer-3": {
+      "brep": ".cache/pump-first-layout/pump/pump-washer-3.brep",
+      "sha256": "a37fe5ab1af2d41bedce312b32e6e02644b16a72ef775d974d0d9ccb87907ea1"
+    },
+    "control-loom-wago-sensors-digiten-flow-source": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-sensors-digiten-flow-source.brep",
+      "sha256": "291b24b1978b6121a9c8ab8151df552b539e2e8cc9cc52b0f88d4efe27578174"
+    },
+    "valve-v-g": {
+      "brep": ".cache/pump-first-layout/baseline/013.brep",
+      "sha256": "7051cafd3720c13d4cb0635754d2a9388816e73ec9ac585c7adf0d73adce0d0e"
+    },
+    "relay-2-head-spacer-1": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-2-head-spacer-1.brep",
+      "sha256": "3e8d8d4bcbbf15bd1bd84c577af2e9b1d1ef0f2c66c7088e3a5ca6584eca1b6c"
+    },
+    "meter-retention-tie-1": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/meter-retention-tie-1.brep",
+      "sha256": "9c4f736df4961b7deee43411f8ea8cc763879f4290efa64a482149ecbbd3d39a"
+    },
+    "control-loom-wago-sensors-retained-cold-core-service-leads-source": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-sensors-retained-cold-core-service-leads-source.brep",
+      "sha256": "5ea9f7bab63c35061d388c535d2bdc25194717e936a0270f794f7dd0137451fc"
+    },
+    "hose-clamp-pump-suction": {
+      "brep": ".cache/pump-first-layout/pump/hose-clamp-pump-suction.brep",
+      "sha256": "8b08a51eeccbbaf729160e1843f7ac91e73e4a15b405c2f78d76ef8207b2c8a6"
+    },
+    "asse-roof-seat-2": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-roof-seat-2.brep",
+      "sha256": "13f5c5c3c793112134e5527286532f7a3ec165368c662421cdfea08ab0a8a5ab"
+    },
+    "tee-carrier-spring-west-upper": {
+      "brep": ".cache/pump-first-layout/baseline/214.brep",
+      "sha256": "fcc037e08901f1e71ff95a736b7dddf379110c9743109f24edebb0ec404fefe5"
+    },
+    "supply-washer-2": {
+      "brep": ".cache/pump-first-layout/structure/supply-washer-2.brep",
+      "sha256": "23ad11932889285b2d1f6b96fec222ed4ee59c2eaba81f1902de23869951cb1e"
+    },
+    "tube-co2-1": {
+      "brep": ".cache/pump-first-layout/routing/co2/co2-1.brep",
+      "sha256": "d6054ee007d3dcb15ff248619c15b44a8fc4c530c3e0db2d293e4c636e8e259c"
+    },
+    "wire-PE-under-counter": {
+      "brep": ".cache/pump-first-layout/wiring/power/wire-PE-under-counter.brep",
+      "sha256": "714d8f90a061c5b5ad1da153d0d0d2371f35a208641a43b86b1071986fb063a6"
+    },
+    "tube-water-supply-link": {
+      "brep": ".cache/pump-first-layout/routing/tube-water-supply-link.brep",
+      "sha256": "6f5c44c8583bdba2cf879f231e31a032f9ff42d2b6c1513b8a3ba0e1dd71a958"
+    },
+    "control-loom-J7-wago-reeds-b": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J7-wago-reeds-b.brep",
+      "sha256": "a8c11e7339236ec2c7a8a9dd694fc21ab8a97e01361f48d636978bd13f9836c8"
+    },
+    "gas-inlet-east-tube-seat": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/gas-inlet-east-tube-seat.brep",
+      "sha256": "33614c24e83f5c3399c59977b241fb710b94ae7b9fce64f6c005bbc19cf05a18"
+    },
+    "control-header-J1-fanout": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-header-J1-fanout.brep",
+      "sha256": "3ca7294765c5270e62efeb93cb03403f6b0c1bed96f493923d38951c447a8b86"
+    },
+    "control-header-J4-fanout": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-header-J4-fanout.brep",
+      "sha256": "69971268bae7dc29f5e61c7bc7a0e07414a3054fd8b020790050b3c7bffc2546"
+    },
+    "tee-carrier-spring-west-lower": {
+      "brep": ".cache/pump-first-layout/baseline/213.brep",
+      "sha256": "74e53e35206a57e4d9079cd867324c1a165fc33fdb48e07c8c8972ac1239ff2e"
+    },
+    "control-loom-J7-retained-cold-core-service-leads-target": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J7-retained-cold-core-service-leads-target.brep",
+      "sha256": "87709a6762d3710106e60ed3fe706eea4ed0245b54122a35c0f4c02d8e8b76ca"
+    },
+    "control-loom-J4-retained-cold-core-service-leads-target": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J4-retained-cold-core-service-leads-target.brep",
+      "sha256": "dbf1d38fd0081343fef18f0834a9ebfcdea81daf3afd10eb4c14678eb284f9a4"
+    },
+    "psu": {
+      "brep": ".cache/pump-first-layout/structure/psu.brep",
+      "sha256": "f10d251aa2ef52e00187c6d8e44163e57a5c8d07c9d23e907e848b160622a66f"
+    },
+    "wr1110": {
+      "brep": ".cache/pump-first-layout/routing/wr1110.brep",
+      "sha256": "6c9d377bdb7f72b89dc9c1a9c12032486b58afb6b04d7158bdaf31bb60f94f72"
+    },
+    "wire-DC1-V12": {
+      "brep": ".cache/pump-first-layout/wiring/power/wire-DC1-V12.brep",
+      "sha256": "eda2673d78241a40774b4429c2bf4ca0dc31c924cd428a7771ba4bfe5dcdb7f3"
+    },
+    "supply-lid-web-2": {
+      "brep": ".cache/pump-first-layout/structure/supply-lid-web-2.brep",
+      "sha256": "340c2600cafeb94dbbd310a63fbf9b6fe7051587bddfb8c94731017bb7ef69a1"
+    },
+    "control-service-fork-A": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-service-fork-A.brep",
+      "sha256": "e9add6bd9e7614e0760859c23fe4c801ba5e427a46e9fac23ea65d9a9f9ca533"
+    },
+    "tube-water-4": {
+      "brep": ".cache/pump-first-layout/pump/tube-water-4.brep",
+      "sha256": "3a8fba7ca0d5174d94ad11a55be323f36dca2cbcb8f209b29e6be0d30f25b721"
+    },
+    "control-loom-J1-coil-v-b-target": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J1-coil-v-b-target.brep",
+      "sha256": "8238eb2b0631cdfcd33b2323c0d9ffcad92b7a95a22d4dd4b0f9fcfbadb505d2"
+    },
+    "ground-stack": {
+      "brep": ".cache/pump-first-layout/structure/ground-stack.brep",
+      "sha256": "cab7e5272eae9849e2230d3cd71b28e6b1d44b8aaf3d1a693520fd448a96198c"
+    },
+    "tube-fluid-20": {
+      "brep": ".cache/pump-first-layout/baseline/041.brep",
+      "sha256": "cdf5281603a5f46b3a53a9866a9727ad412a63283260cdbf9c551fa69fd24c2e"
+    },
+    "funnel-drain-union": {
+      "brep": ".cache/pump-first-layout/baseline/194.brep",
+      "sha256": "82d4de2a76e377a801aebf79bf03ad5181ef8075810372e1586a09ee9258cb09"
+    },
+    "enclosure-front-top": {
+      "brep": ".cache/pump-first-layout/structure/scene-stock/enclosure-front-top.brep",
+      "sha256": "152c511e20a51c5fc90ae74b1670a74d58b9850805c9c7a2a678964f2b4d377b"
+    },
+    "pump-washer-2": {
+      "brep": ".cache/pump-first-layout/pump/pump-washer-2.brep",
+      "sha256": "1fcf267dba4d52719f6c48eae57c4d2d26b321d0f84bbc709d6cc32f53a1d4c5"
+    },
+    "carb-foam-carb-2": {
+      "brep": ".cache/pump-first-layout/routing/carb-foam-carb-2.brep",
+      "sha256": "ad0c26b3e1c0e847b80b24e31dede032e88d93b32a3c5ede521170c57aaafeed"
+    },
+    "asse-carrier-screw-1": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-carrier-screw-1.brep",
+      "sha256": "cd361faa30a107e5556692b6aaadefeedf921fc8a88c6269511b04fd2a717906"
+    },
+    "wire-AC1-N": {
+      "brep": ".cache/pump-first-layout/wiring/power/wire-AC1-N.brep",
+      "sha256": "aa8bc1cfe637367bcda47caf9c211fc8de21cb38703392b7a32a09e35a16a3b7"
+    },
+    "nameplate-ink": {
+      "brep": ".cache/pump-first-layout/routing/nameplate-ink.brep",
+      "sha256": "a7d7f65ac69786a44c7eda977676de0d94de7ab1db63ede08d1f78d488f10900"
+    },
+    "tube-carb-1": {
+      "brep": ".cache/pump-first-layout/routing/tube-carb-1.brep",
+      "sha256": "053c0568752880b196175b3f029f60ce0835a9d76e26fed390c98c4bcf55c77d"
+    },
+    "enclosure-tee-carrier-plate": {
+      "brep": ".cache/pump-first-layout/baseline/210.brep",
+      "sha256": "a82819b3bb006b2f616552f97a2abf18180b07f74bbdde0c768ef176bcf090da"
+    },
+    "hatch-roof-boss-1": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-roof-boss-1.brep",
+      "sha256": "13950ce96886eff584c2b5187b72d2f12ed1b2a60ee92c04510907885e6af073"
+    },
+    "control-ground-upper-B": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-ground-upper-B.brep",
+      "sha256": "3bd9c06e2503cf890cb3231188011dde588b0185f4ebe1dedd5c88ab24b84c4b"
+    },
+    "control-loom-wago-sensors-digiten-flow": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-sensors-digiten-flow.brep",
+      "sha256": "ca4aad1d394cd9d53d368e710646a3f10d37099554ed588bb06a409b1bd05873"
+    },
+    "pump-contact-male": {
+      "brep": ".cache/pump-first-layout/baseline/200.brep",
+      "sha256": "a34e883ccb4825b46e29e6626cde1e787a40e5106bed2afcc242a7fccd4f6d54"
+    },
+    "meter-retention-tie-2": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/meter-retention-tie-2.brep",
+      "sha256": "0fa1a11aca001590b8453ed4b440e7a11cb35ded22c85ec50d129e07a1ae2430"
+    },
+    "wago-mana": {
+      "brep": ".cache/pump-first-layout/baseline/126.brep",
+      "sha256": "d36b6423b3ec3cbfc60ee7d3cf0084875e19921e5165ed8cda7932eeedd50d04"
+    },
+    "needle-feed-tube-seat": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/needle-feed-tube-seat.brep",
+      "sha256": "fd5ab6fb132ec319150f3733cde0cf457756bb8fdbed2907532a750bae471404"
+    },
+    "hatch-screw-silicone-cap-2": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-screw-silicone-cap-2.brep",
+      "sha256": "25f22b48da8651dff1f2b178f439c9aca9b366d916866810e9b8cd6a4ced8c88"
+    },
+    "pump-screw-4": {
+      "brep": ".cache/pump-first-layout/pump/pump-screw-4.brep",
+      "sha256": "9904bc0519bc831a33b0e29de75e91f5aac89c91c392a20d363b71e678b4f41e"
+    },
+    "bulkhead-carb": {
+      "brep": ".cache/pump-first-layout/routing/bulkhead-carb.brep",
+      "sha256": "981f3ca040e8a2115bfc59a9ae62dd2051319094c378c97623e33cf536732605"
+    },
+    "control-loom-wago-mana-coil-v-b-target": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-mana-coil-v-b-target.brep",
+      "sha256": "b3d1eec781e0ff4f495485c35574b3c5820cd539318c03646530e5a7a7c05154"
+    },
+    "check-lid-seat": {
+      "brep": ".cache/pump-first-layout/mounts/check-tee/check-lid-seat.brep",
+      "sha256": "e0b430fbda1e1bf436bd980d18c778a1c23e6caaab836a2269827bd6ca7d48da"
+    },
+    "asse-roof-seat-1": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-roof-seat-1.brep",
+      "sha256": "85f187a5f0ac6290dc5a1ed87312dc71c6edf72c86a8a4a4c9902a7ff774c11c"
+    },
+    "hatch-roof-beam-1": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-roof-beam-1.brep",
+      "sha256": "698490b4b831bb71a04cfcee0c435f39b0a2cda1e87869ae6f9bae0dff428245"
+    },
+    "suction-chain": {
+      "brep": ".cache/pump-first-layout/pump/suction-chain.brep",
+      "sha256": "bf19ae2a537cb4204c9b83d30ea965a885d27f5d6db70027536e7906c5d6e531"
+    },
+    "flow-regulator": {
+      "brep": ".cache/pump-first-layout/routing/flow-regulator.brep",
+      "sha256": "b3fe324ebe4d9dae0d5dd83b463e3ad9d3783c20e52c1f548109c07ea464f15d"
+    },
+    "hatch-screw-silicone-cap-4": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-screw-silicone-cap-4.brep",
+      "sha256": "a511ef1cdb3fc60cc3848752e021bf36c0a431a4bed76290d58f33ba72e1b82f"
+    },
+    "tube-collar-water-word": {
+      "brep": ".cache/pump-first-layout/routing/tube-collar-water-word.brep",
+      "sha256": "e28aab09bee3a73482f817cd93a294995cc3eff316b4f6d9034059fde7d69eae"
+    },
+    "wire-DC1-GND": {
+      "brep": ".cache/pump-first-layout/wiring/power/wire-DC1-GND.brep",
+      "sha256": "b850de8a7af017ae3921ede2ebc7fb5cdfa55805a362c2c54f2e0420b327452e"
+    },
+    "tee-y-d": {
+      "brep": ".cache/pump-first-layout/baseline/015.brep",
+      "sha256": "0d0169ef6c776c7deabf3ff40fa3e0871af9afb4bd502f316d16b5884c45a92f"
+    },
+    "tube-fluid-1": {
+      "brep": ".cache/pump-first-layout/routing/tube-fluid-1.brep",
+      "sha256": "c21c1b3dc8ca4a6e3e0406352637e7e77ad7f5da13d3acda2f215defff81bdcd"
+    },
+    "discharge-chain-clip-screw-2": {
+      "brep": ".cache/pump-first-layout/pump/discharge-chain-clip-screw-2.brep",
+      "sha256": "6a7a2344606579b4db671fae678761724635e9c721a0e7449c228343935b7ee1"
+    },
+    "control-loom-J4-retained-cold-core-service-leads": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J4-retained-cold-core-service-leads.brep",
+      "sha256": "8a447c4bb3d5ae6eb9a1f696047ede10bf1a3c5944ad3a495349eb5c647ea32d"
+    },
+    "check-retention-tie": {
+      "brep": ".cache/pump-first-layout/mounts/check-tee/check-retention-tie.brep",
+      "sha256": "d628fffff283c5b476aae841a11da04e3db47866067b43340130cd561d6ae417"
+    },
+    "wago-reeds-a": {
+      "brep": ".cache/pump-first-layout/mounts/roof/expected-wago-reeds-a.brep",
+      "sha256": "eeccd329645591eff7a4ec9963446a9956b882771b1d040a3397a235448741f9"
+    },
+    "valve-v-i": {
+      "brep": ".cache/pump-first-layout/baseline/029.brep",
+      "sha256": "5d1391c843607f4934937de5146633fc73f18c756956749add9bd75a7fd25041"
+    },
+    "control-loom-J13-retained-cartridge-loom-target": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J13-retained-cartridge-loom-target.brep",
+      "sha256": "abec254c49675ba8909493e064878a86875ea2c7c860b18c8ffd1ada5f208887"
+    },
+    "bulkhead-flavor-a": {
+      "brep": ".cache/pump-first-layout/baseline/148.brep",
+      "sha256": "96667a2ca55a12cbd2f83664aa049375ee61ab94b6f2b48803d06647a16e8b8d"
+    },
+    "tube-fluid-4": {
+      "brep": ".cache/pump-first-layout/pump/tube-fluid-4.brep",
+      "sha256": "3ab35940550e142c8b276083b7f0e09ec107b62cc12f3fe8de9a3ebba9fb2d22"
+    },
+    "asse-carrier-screw-2": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-carrier-screw-2.brep",
+      "sha256": "db79da146585543f3b1fae9e9c475660d0c77ec95b1a971b7d2be51ace22c896"
+    },
+    "wago-reeds-b": {
+      "brep": ".cache/pump-first-layout/mounts/roof/expected-wago-reeds-b.brep",
+      "sha256": "41d2b3fd4d48969be90fd79fbf73bde63b43a8d3d18a5c09be9a727946a3fa61"
+    },
+    "co2-adapter-regulator-in": {
+      "brep": ".cache/pump-first-layout/routing/co2-adapter-regulator-in.brep",
+      "sha256": "358c354a55993b31d5886a68b971d3793e1f808e079b3379d4600963a81094f6"
+    },
+    "needle-retention-tie": {
+      "brep": ".cache/pump-first-layout/mounts/needle/needle-retention-tie.brep",
+      "sha256": "bde30ba8f3967679dda5db5132c6bc979263520435414026b2a41daf6c9b51b1"
+    },
+    "supply-screw-4": {
+      "brep": ".cache/pump-first-layout/structure/supply-screw-4.brep",
+      "sha256": "7b4ec15df7ec067f1fd1a0ba7d6d60ffa6a6a9e027b357adf44d7a9f75ce5fab"
+    },
+    "supply-lid-boss-2": {
+      "brep": ".cache/pump-first-layout/structure/supply-lid-boss-2.brep",
+      "sha256": "d28aac89f86e6fbac1c8129936f26faed28723d67f2e6bda3143be7fc67f36ff"
+    },
+    "gasher-co2": {
+      "brep": ".cache/pump-first-layout/routing/gasher-co2.brep",
+      "sha256": "38ac5aaf46d48568a29ecc97d314c96be8830d26a76e54c08180a97760e6d078"
+    },
+    "tube-collar-co2": {
+      "brep": ".cache/pump-first-layout/routing/tube-collar-co2.brep",
+      "sha256": "ed1543932b7d8dd3403df67b28a10008403021a98158bec986dbbcf7b335ebca"
+    },
+    "relay-2-mount-screw-3": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-2-mount-screw-3.brep",
+      "sha256": "68c76792dd8d34123b42130005f23f97cb76caa7d76f17f762554968f8b2f13f"
+    },
+    "relay-2-mount-screw-4": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-2-mount-screw-4.brep",
+      "sha256": "d31c8adf031f1a13c1fe07c56e6e2c0413ed2a3d50e4743c1f7115ca0ef0243d"
+    },
+    "co2-adapter-check-in": {
+      "brep": ".cache/pump-first-layout/routing/co2-adapter-check-in.brep",
+      "sha256": "e53cf8b9a62a127fa65870dc9ac0384e8582055b54ae927977bf80ec1c22b706"
+    },
+    "funnel-frame": {
+      "brep": ".cache/pump-first-layout/structure/scene-stock/funnel-frame.brep",
+      "sha256": "d1dc732bd052281be28702187747539e9d0b439d91e62e04717ba2505dcf87fb"
+    },
+    "pcba": {
+      "brep": ".cache/pump-first-layout/structure/pcba.brep",
+      "sha256": "10b3e0e15ff05d9abf7ef55453b82a5f0c615e6d72bbac317916e0a7b8fd02c1"
+    },
+    "wire-PE-feed": {
+      "brep": ".cache/pump-first-layout/wiring/power/wire-PE-feed.brep",
+      "sha256": "a2cc270e1819167e6f6397a8f01d37f942f1ca688d23983b4eab5f392cf3262b"
+    },
+    "vk-cradle": {
+      "brep": ".cache/pump-first-layout/pump/vk-cradle.brep",
+      "sha256": "3569dd50c6ab7580a13ce6fdd40fa5ffcdde4a30960fa746e9b774379f827e3b"
+    },
+    "wago-sensors": {
+      "brep": ".cache/pump-first-layout/mounts/roof/expected-wago-sensors.brep",
+      "sha256": "79023d8826934cd7a3a6e4aa574dab671fd0e883dae6d7475b9e7b491ca6e1d1"
+    },
+    "hatch-roof-boss-3": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-roof-boss-3.brep",
+      "sha256": "678769f18ea6f620c1de6100777a01218c1556943dbd8ba164251edd54c6cd59"
+    },
+    "tube-customer-co2": {
+      "brep": ".cache/pump-first-layout/routing/tube-customer-co2.brep",
+      "sha256": "5327101f9ecc2df518f2585b9fe3c26023086dc799a469cde819448f8606e508"
+    },
+    "tube-fluid-21": {
+      "brep": ".cache/pump-first-layout/baseline/042.brep",
+      "sha256": "1c36393bc159b0304993721ec7e513ed552ddab1795c0b72a5bbe3f584c01bd0"
+    },
+    "gas-inlet-west-tube-seat": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/gas-inlet-west-tube-seat.brep",
+      "sha256": "6d9e1d78b12d8b7aec8c17f0377af0c277c2071a24c0158f9e6c422ea604e43a"
+    },
+    "control-ground-descent": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-ground-descent.brep",
+      "sha256": "9ab1df71e987ea4bb11453efdd0e3595d7b58868db898005694158b48f35c0cc"
+    },
+    "control-loom-J2-vk-solenoid": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J2-vk-solenoid.brep",
+      "sha256": "4d2b89ffc367a437240c5f9cfd662908f44a1bc1ed611cc24e96e403d687713d"
+    },
+    "hatch-screw-4": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-screw-4.brep",
+      "sha256": "21858e84c1bcc68639cdfcb50892922f75da2dfa57e509438215385e6d59d808"
+    },
+    "tube-customer-water": {
+      "brep": ".cache/pump-first-layout/routing/tube-customer-water.brep",
+      "sha256": "202ef2d5d30d9f760acf813dd7e3aa2a347e9c2e6dcce7e127006f050e1cd214"
+    },
+    "asse-removable-carrier": {
+      "brep": ".cache/pump-first-layout/mounts/fluid/asse-removable-carrier.brep",
+      "sha256": "c742a637e4507bcad7bdd2ffdbe0ebf900b09b7bd9acb1db74dd0afe3a273d52"
+    },
+    "bulkhead-ring-water-word": {
+      "brep": ".cache/pump-first-layout/routing/bulkhead-ring-water-word.brep",
+      "sha256": "cb361a4d1830ac88d9cdd8f1490f74eed8b56783cf65c7c7d700788d3c3ff3ba"
+    },
+    "bulkhead-ring-flavor-b": {
+      "brep": ".cache/pump-first-layout/baseline/157.brep",
+      "sha256": "544a5c97e81c876b03be4e962fee5d3e1883897a536bb9b103c52b79dc928300"
+    },
+    "hatch-controller-rear-bridge": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-controller-rear-bridge.brep",
+      "sha256": "eb63494eb42ed6d31bb43941ae052113f7a20336ddc1250b479ede78d2b3900c"
+    },
+    "control-ground-upper-merger": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-ground-upper-merger.brep",
+      "sha256": "03c58f683defbbad6450e0987a5078bc6bf4c551c140b60c9399266a4e1c54bc"
+    },
+    "hatch-roof-boss-2": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-roof-boss-2.brep",
+      "sha256": "19c4e5c46147b0632ed466cbd98d0866fb1e56abe491c157d3826a0f1f43d8d3"
+    },
+    "hatch-screw-2": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-screw-2.brep",
+      "sha256": "a610d90080eee7e21d5eaa7227d3c7cf13936043930f57d4e86aa13ce74ead56"
+    },
+    "bulkhead-flavor-b": {
+      "brep": ".cache/pump-first-layout/baseline/147.brep",
+      "sha256": "70af4e2ba883ad7b21f9b51e08e12645fb98a9b010bff00c6f824b85ff50b3e1"
+    },
+    "control-meter-pigtail": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-meter-pigtail.brep",
+      "sha256": "b2351651a7d25f6c7d874002c2f314596e0ac530fe5f6d935f12189dbc4548cd"
+    },
+    "wago-gnd": {
+      "brep": ".cache/pump-first-layout/mounts/roof/expected-wago-gnd.brep",
+      "sha256": "603c2c790c8d494853ce53cc0218fa902fb7e2cc914b82adb0baa5995b92b37d"
+    },
+    "control-loom-wago-sensors-retained-cold-core-service-leads": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-sensors-retained-cold-core-service-leads.brep",
+      "sha256": "906b3d30f628012ac4dcf8314589e2233a0e1a14dd2788ee8d441134eecf0587"
+    },
+    "tube-fluid-23": {
+      "brep": ".cache/pump-first-layout/baseline/044.brep",
+      "sha256": "e2169c7a9fa65a9f3178fabb6c3273fc4a8c5b17f2c6d508576be0a065825139"
+    },
+    "control-loom-J4-digiten-flow": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J4-digiten-flow.brep",
+      "sha256": "d2c94ffb85d79401804bb02f941dcf4aade6ab539681fda36e3462358027ab95"
+    },
+    "enclosure-back-top": {
+      "brep": ".cache/pump-first-layout/structure/scene-stock/enclosure-back-top.brep",
+      "sha256": "125454d177c771d91884351eff4dcb5157e44b59557f0144926555c989adf330"
+    },
+    "hose-engagement-chain-suction": {
+      "brep": ".cache/pump-first-layout/pump/hose-engagement-chain-suction.brep",
+      "sha256": "ec134c86f3afd2ae4104253415e5ca8dda613699c04b7352d1f9201573f3a0e3"
+    },
+    "tube-water-2": {
+      "brep": ".cache/pump-first-layout/routing/tube-water-2.brep",
+      "sha256": "8728748b54b1be2ee1ae2c663b0ed8f7f46bdb7c273d2040e838470d7e0f6709"
+    },
+    "water5-front-seat": {
+      "brep": ".cache/pump-first-layout/mounts/water5/water5-front-seat.brep",
+      "sha256": "9e5d8737e5427995944c3a713dfe56025ed237f2d45d2c6f961d500f97faeb19"
+    },
+    "wire-AC2-N": {
+      "brep": ".cache/pump-first-layout/wiring/power/wire-AC2-N.brep",
+      "sha256": "a2bfe328ad84a96c59fa9fcfc29b7dc0ba70660a77bb19206dc4f5fc0a1e96ac"
+    },
+    "relay-1-head-spacer-4": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-1-head-spacer-4.brep",
+      "sha256": "e60d9e3fc8a030aa6af17b52538468159b1e568591f3d1911ffbf3424e1f1074"
+    },
+    "control-loom-wago-sensors-moisture-comparator-reserve-target": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-sensors-moisture-comparator-reserve-target.brep",
+      "sha256": "ed74aca1d4ddb773dc0a4ca1cd670b7b58c637b7efed7babfd056df692fb4cfb"
+    },
+    "bulkhead-ring-carb": {
+      "brep": ".cache/pump-first-layout/routing/bulkhead-ring-carb.brep",
+      "sha256": "6a03fa53e08a0967bf9e5e9a91475e76db441ea5e79777d62ee5dcf655ff81a3"
+    },
+    "relay-1-mount-screw-3": {
+      "brep": ".cache/pump-first-layout/mounts/floor/relay-1-mount-screw-3.brep",
+      "sha256": "6cd5ddc23507b5810d29f95c3cf199eab96e938cb7ed90dc2a26032f0e4ff4f0"
+    },
+    "water3-east-tube-seat": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/water3-east-tube-seat.brep",
+      "sha256": "275c9bfe8081b2e5b1732f4153e74bb0d056dc1cd2ea132bf6d365bf68111da2"
+    },
+    "tube-co2-2": {
+      "brep": ".cache/pump-first-layout/routing/tube-co2-2.brep",
+      "sha256": "2ae06752639d5f129b3f32c6b14e2648c3995edf44afbfb5fed2ebb478619410"
+    },
+    "wr-regulator-retention-tie": {
+      "brep": ".cache/pump-first-layout/mounts/wr/wr-regulator-retention-tie.brep",
+      "sha256": "b55c42753d3be48cc0831b48d3ce7f06da36f4d24bbb1934a6b8a229afab7de9"
+    },
+    "hatch-roof-web-1": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/hatch-roof-web-1.brep",
+      "sha256": "78c204bcdb89f7ab7564458235cfefbe4dc0bdbc65247008000184f23e3ebd66"
+    },
+    "valve-v-c": {
+      "brep": ".cache/pump-first-layout/baseline/008.brep",
+      "sha256": "42961b74109f8a0a81d7ed9d035e650d69e475f72b1d82dca6e2961350f5a692"
+    },
+    "suction-chain-clip-screw-1": {
+      "brep": ".cache/pump-first-layout/pump/suction-chain-clip-screw-1.brep",
+      "sha256": "e0a377126f6f5487b6d798906361a3b8a5bf31098e30706bd4f07ebe2729773d"
+    },
+    "hose-clamp-chain-discharge": {
+      "brep": ".cache/pump-first-layout/pump/hose-clamp-chain-discharge.brep",
+      "sha256": "02e5c45e6919e65f71af6cd004a57337dbd5fc0db194826d5adc210b4e5d8ca3"
+    },
+    "discharge-chain": {
+      "brep": ".cache/pump-first-layout/pump/discharge-chain.brep",
+      "sha256": "94b98748987a6130e76a4b6fda7cc3fbb3930a4fe0ebf88ba2ccb66924bf88eb"
+    },
+    "j13-front-stowed": {
+      "brep": ".cache/pump-first-layout/wiring/front-handling/j13-front-stowed.brep",
+      "sha256": "2b5d1c163247d82aa80b99a4217e60bd154a698a4f78ba634212d7a5d90cbdb8"
+    },
+    "controller-screw-1": {
+      "brep": ".cache/pump-first-layout/structure/controller-screw-1.brep",
+      "sha256": "7eed59f77969e13aedb72134233db26077f3d62d8bfdc0f24f95f988af8728bd"
+    },
+    "control-loom-J7-wago-reeds-b-target": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J7-wago-reeds-b-target.brep",
+      "sha256": "bbc3fd7edc2d8ff9086f9c0902e0f683526dbacd46e2227d9ae26f9e1aeba779"
+    },
+    "asse-drip-pan": {
+      "brep": ".cache/pump-first-layout/routing/asse-drip-pan.brep",
+      "sha256": "27eb0b1f49483bbd5ff5acd152afcf9fc3bebee52e6175362a59c966cea8ffda"
+    },
+    "tube-collar-co2-word": {
+      "brep": ".cache/pump-first-layout/routing/tube-collar-co2-word.brep",
+      "sha256": "c662051546f16769ddd76ff2a5f43ab684a1f599e46a91313b7c12c44a2d55c0"
+    },
+    "control-header-J3-fanout": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-header-J3-fanout.brep",
+      "sha256": "08afa1ac47a52a37a5354b4055c9c4a8749e714e952b1198b46bda77e2590c63"
+    },
+    "water3-west-tube-seat": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/water3-west-tube-seat.brep",
+      "sha256": "3b413cb91bcf334d1a86529ec6ca23ecfd83c0460bd2c34b63f87c45954f48c4"
+    },
+    "carb-foam-carb-1": {
+      "brep": ".cache/pump-first-layout/routing/carb-foam-carb-1.brep",
+      "sha256": "ec69e88040dfbb68aec5f4bdd3696562e3ac0df865565572f48c572dbde0b9bb"
+    },
+    "control-loom-wago-mana-coil-v-b": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-wago-mana-coil-v-b.brep",
+      "sha256": "67b2d1a7b649e4155516256e3344dff727c750f8f260c6e7a0662afc64914540"
+    },
+    "wire-AC5-N": {
+      "brep": ".cache/pump-first-layout/wiring/power/wire-AC5-N.brep",
+      "sha256": "42e85f5da3599bde8d98d2c61df8b58b472d45734ef750ee2b9f1f928348ab72"
+    },
+    "controller-roof-boss-4": {
+      "brep": ".cache/pump-first-layout/structure/roof-hatch/controller-roof-boss-4.brep",
+      "sha256": "d7a6865be6cf5741211b9f11628cc4610098bbf91025570004679b27fde78f4f"
+    },
+    "bulkhead-ring-water": {
+      "brep": ".cache/pump-first-layout/routing/bulkhead-ring-water.brep",
+      "sha256": "1e0650d0c7c08bdd26e119e9b70b179764063d7b0cdc3512d2689cade19e9645"
+    },
+    "bulkhead-ring-co2-word": {
+      "brep": ".cache/pump-first-layout/routing/bulkhead-ring-co2-word.brep",
+      "sha256": "91dc3acbc6b6031d1623db7762a004e870d8bf27900a920fc7eff7fdcf7069dd"
+    },
+    "tube-water-6": {
+      "brep": ".cache/pump-first-layout/pump/tube-water-6.brep",
+      "sha256": "978fd66fd7e3409cbb03cadafd197063d9a9fdadace3ed63a8fd2addc979bc41"
+    },
+    "needle-lid-seat": {
+      "brep": ".cache/pump-first-layout/mounts/needle/needle-lid-seat.brep",
+      "sha256": "e91b6064eaba42c037f803d60fd801cbf8f25d365bb3ca1241f6d74ab0834d64"
+    },
+    "flavor-pair-wall-seat": {
+      "brep": ".cache/pump-first-layout/routing/tube-hosts/flavor-pair-wall-seat.brep",
+      "sha256": "b54b122535541b6299765d98bed4798273822cc737cfc3bdc26ea198d705a1c5"
+    },
+    "bulkhead-water": {
+      "brep": ".cache/pump-first-layout/routing/bulkhead-water.brep",
+      "sha256": "7bd546ad20be262205f9f829723fdefd76882f13fc9e3d176c6f67712bb7c94f"
+    },
+    "pump-washer-4": {
+      "brep": ".cache/pump-first-layout/pump/pump-washer-4.brep",
+      "sha256": "ad4068129d3a9d0e833b87a620120dedc125a42dfba17b7982e8da73d0b77a16"
+    },
+    "control-loom-J4-wago-sensors-target": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-loom-J4-wago-sensors-target.brep",
+      "sha256": "d319fee323513e2dd02068efe1474a280fb5e7d22e55f45b158ba6e2a32e3d50"
+    },
+    "wire-AC6-G": {
+      "brep": ".cache/pump-first-layout/wiring/power/wire-AC6-G.brep",
+      "sha256": "e50d4ca0b5e8cf2143e5f1e95b03d760af2f14c86e5a51dc83b1da6f7df37c68"
+    },
+    "supply-screw-1": {
+      "brep": ".cache/pump-first-layout/structure/supply-screw-1.brep",
+      "sha256": "53621c15bdded41b7f9368a4265ea046369f2832f294188b2879e727f948f299"
+    },
+    "tube-fluid-13": {
+      "brep": ".cache/pump-first-layout/baseline/040.brep",
+      "sha256": "b7f4cbe21550486b7f4f0906b22a7f0c2e537f519b7e7a960e7a2e7542b53e72"
+    },
+    "tube-fluid-5": {
+      "brep": ".cache/pump-first-layout/pump/tube-fluid-5.brep",
+      "sha256": "498bcaacbd8cbf8ec735e51d525706cc5b129a295a46069b91cb3507bc1ef319"
+    },
+    "hose-clamp-chain-suction": {
+      "brep": ".cache/pump-first-layout/pump/hose-clamp-chain-suction.brep",
+      "sha256": "2cacf7ca78fcabe789d32f512788b6742d5b4e84acbf8930d4dce5d96815182c"
+    },
+    "control-header-J6-fanout": {
+      "brep": ".cache/pump-first-layout/wiring/controls-looms/control-header-J6-fanout.brep",
+      "sha256": "2b3f2d89eaa6b3593cd9fde4ace551ab9a7b1c33cb377f55382b0f17ea1eb3e8"
+    },
+    "pump-screw-3": {
+      "brep": ".cache/pump-first-layout/pump/pump-screw-3.brep",
+      "sha256": "32b6597df338d371a3f99b1a9f807115933fe14a673e3d13439b5440b6e573dd"
+    },
+    "source-b-cradle": {
+      "brep": ".cache/pump-first-layout/pump/source-b-cradle.brep",
+      "sha256": "de7a798ecc9e14fa6cf1c612537971822fbe964652992b28ee42e1383c185bf7"
+    },
+    "supply-washer-4": {
+      "brep": ".cache/pump-first-layout/structure/supply-washer-4.brep",
+      "sha256": "6ff8dd47fee307dac970e9d7d5d26f6f7b4dfe33ba1d330e841040893d75ddc6"
+    },
+    "ground-roof-boss": {
+      "brep": ".cache/pump-first-layout/structure/ground-roof-boss.brep",
+      "sha256": "c722c39c69edb24b0690bcf93f1f0c1c41ad105a764b4fd717e1dd7914f8cd72"
+    },
+    "supply-lid-boss-1": {
+      "brep": ".cache/pump-first-layout/structure/supply-lid-boss-1.brep",
+      "sha256": "c99dba8dcab5ef4588465fae278091290654ffb9b33831f98d64dd6c953c40b2"
+    },
+    "supply-screw-2": {
+      "brep": ".cache/pump-first-layout/structure/supply-screw-2.brep",
+      "sha256": "3567e4466ece62f75ad263e42d1ea6a5fd0ffd52e2333fa63ee8989071e154fc"
+    },
+    "wire-AC3-H": {
+      "brep": ".cache/pump-first-layout/wiring/power/wire-AC3-H.brep",
+      "sha256": "f7b44deeea68ad9e331da6cf4d76347c33efd32aa4e83416f194a4cd6ee47a70"
+    },
+    "wago-v12": {
+      "brep": ".cache/pump-first-layout/mounts/roof/expected-wago-v12.brep",
+      "sha256": "3f50f754c47495b82a0c02c0c7a66263a1501bc3ee4ef80516ea7ccd294dcdb5"
+    }
+  },
+  "source_drift": [],
+  "manifest_content_sha256": {
+    "future/pump-first-layout-study/funnel/candidate.json": "49165133fecf6ffce8c6b656dcd5abf5d603539761a6d59a1ac4ae4fc2a4fc04",
+    "future/pump-first-layout-study/pump/candidate.json": "35e4bac91e69452cebb7d342ab2dede9a3c99f6c912b79d9b345c22f4998be9c",
+    "future/pump-first-layout-study/pump/fluid24-candidate.json": "e1eb3570cb8d0bc3bfc1c2f9e46e2e69eaa56ed01bbca0a60933a19f568b17bc",
+    "future/pump-first-layout-study/routing/candidate.json": "37d687b395b044099646a1a6ac7e192289d22da60cc9040ed793e70450f9fc44",
+    "future/pump-first-layout-study/structure/candidate.json": "3688a79999b15bef7175c22fbdfcee0336b8ce89411e5eb02add4dc31fb0054b",
+    "future/pump-first-layout-study/mounts/candidate.json": "ae691025a8b410026d7044b6841774740fbf6f4fd0a14478e82521b59a5e176a",
+    "future/pump-first-layout-study/wiring/candidate.json": "da8fedffd82bc4619f0c3d2d34b3e9bee6367352c25586d32d57f1ea0ed5a87f",
+    "future/pump-first-layout-study/mounts/fluid-candidate.json": "18837365b51fa96347e53377d02fd6ef8b14096fa2cb1c282536ee2bafdc82b1",
+    "future/pump-first-layout-study/mounts/body-candidate.json": "91ed568d36fd97f61d3cde4dca9ca7b88c836af433c89906d3bcdb61fa61c001",
+    "future/pump-first-layout-study/mounts/water5-hosts.json": "9dbae53461e55e889eb83af8d1f2209a47890dfcacde6fefa9bfd43c0781bab6",
+    "future/pump-first-layout-study/routing/tube-hosts.json": "e218a7272e2d38b3d78c65aa74bcb8390880e47f932ecb7065fad51ebb479731",
+    "future/pump-first-layout-study/structure/roof-hatch.json": "db54c84f36d057641197c9f54773bcfaf37b757fdc63883d2b785172009d5368",
+    "future/pump-first-layout-study/structure/scene-stock.json": "a4c3496b5e89b6a7351c95b68466cfed50acb46261446944c6d852b24cf478ed",
+    "future/pump-first-layout-study/wiring/front-loom-handling.json": "c8313b9b6ad50ad023e97a543a88e48f63813553699ada8b2153938c18dd9ccb"
+  },
+  "source_inputs": {
+    "future/pump-first-layout-study/audit.py": "459ce8455ab46fb1475b9bd7bcc4b56f4830ab65e60adab9e436166ded360c6e",
+    "future/pump-first-layout-study/baseline.py": "af33e1a948eec0adc8f96daa8d6930f600112dfb404c2caf5d6f1bfbfa01e8c2",
+    "future/pump-first-layout-study/evidence_binding.py": "8e6a97ccdd429d031101aa34608e314e43f36b07948b818e3b4b22557c50bcc0",
+    "future/pump-first-layout-study/structure/check_front_closure.py": "b40f9a058cb0c5e838db96e7d77752eb7c2f4120c1a10092a51917a895e3debc",
+    "future/pump-first-layout-study/structure/proof_sources.py": "6ec264670856c41536e1b5afc6025a1739830c9d23c0931348affd2cb76c4296",
+    "future/pump-first-layout-study/wiring/front_loom_handling.py": "094f2133fa7ee1cfa4f99f13a44d92860df1b2e876167e4406c3dbb9c86ae14a"
+  },
+  "manifest_drift": [],
+  "required_rail_entry_travel_mm": 102.2,
+  "retained_assembly_source": "hardware/assembly/enclosure-mechanical.md section4",
+  "scope": "Twelve sampled fore-to-aft front-top/frame closure poses from the full102.2mm retained rail entry, with complete preassembled valve rows, local manifold tubes, tee carrier and constant-length parked contact lead. The independent parked-lead receipt proves continuous clearance against every fixed body using a swept containing prism and bounded native-distance intervals; the display and J9 loom are installed afterward. Other cabinet-spanning links remain free until final make-up; global audit owns installed routing.",
+  "limits": [
+    "Sampled native rigid clearance is not continuous flexible-wire/tube compliance, factory workholding, insertion effort or physical fit qualification."
+  ]
+}
